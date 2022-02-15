@@ -1,12 +1,13 @@
-import React from 'react';
-
-const Homepage = () => {
+function Homepage({content}) {
+  console.log(content)
 // serverside fetch props
 // homepage?toJSON
 // load content
   return (
-    <div>My homepage component</div>
+    <div>asdsad</div>
   );
 };
+
+
 
 export default Homepage;

@@ -18,3 +18,7 @@ npm run dev
 ## open browser to http://localhost:3000/
 
 ```
+
+## Quick Create Script
+
+Use a script to read the zesty instance headless map to create page files that map up to model setup in zesty (js files and the server side rendering script to preload the props).
