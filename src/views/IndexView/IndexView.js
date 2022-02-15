@@ -11,16 +11,14 @@ import {
   Benefits,
   Hero,
 } from './components';
+import Homepage from 'components/zesty-models/Homepage';
 
 const IndexView = () => {
   const theme = useTheme();
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Main bgcolor={'background.paper'}>
-        <Hero />
-        <Container>
-          <Services />
-        </Container>
+        <Homepage></Homepage>
         <Box
           sx={{
             backgroundImage: `linear-gradient(to bottom, ${alpha(
