@@ -13,4 +13,6 @@ cd nextjs-website
 
 npm install
 
+npm run dev
+
 ```
