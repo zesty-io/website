@@ -1,8 +1,16 @@
-import React from 'react';
-import IndexView from 'views/IndexView';
+import React, { lazy, useEffect, useState } from 'react';
+import * as Zesty from '../components/zesty-models'
+
+
 
 function IndexPage(content) {
-  return <div dangerouslySetInnerHTML={{__html:content.title}}></div>;
+ 
+  const Model = Zesty['Homepage']
+ 
+  return <>
+          
+          <Model content={content}></Model>
+          </>;
 };
 
 export default IndexPage;

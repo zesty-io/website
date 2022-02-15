@@ -1,13 +1,10 @@
 function Homepage({content}) {
-  console.log(content)
-// serverside fetch props
-// homepage?toJSON
-// load content
   return (
-    <div>asdsad</div>
+    <>
+      <h2 dangerouslySetInnerHTML={{__html:content.title}}></h2>
+      <div dangerouslySetInnerHTML={{__html:content.content}}></div>
+    </>
   );
 };
-
-
 
 export default Homepage;
