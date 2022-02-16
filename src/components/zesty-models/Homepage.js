@@ -7,7 +7,4 @@ function Homepage({content}) {
     <div>asdsad</div>
   );
 };
-
-
-
 export default Homepage;
