@@ -100,3 +100,7 @@ const Comment = () => {
 export default Comment
   * 
   */
+
+
+// 6 Create ZestyBrowser component which shows in dev instances the model and fields and lets you browse through other model/fields
+// this overlay exists on page
