@@ -1,16 +1,10 @@
 import React, { lazy, useEffect, useState } from 'react';
-import * as Zesty from '../components/zesty-models'
+import ZestyLoader from './[...slug]'
 
 
 
 function IndexPage(content) {
- 
-  const Model = Zesty['Homepage']
- 
-  return <>
-          
-          <Model content={content}></Model>
-          </>;
+  return <ZestyLoader {...content} />;
 };
 
 export default IndexPage;
