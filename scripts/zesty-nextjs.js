@@ -21,21 +21,35 @@
 // component file will now have passed object to call data within its file
 // 
 
-// 0
+// 0a
 // these env var values can be extracted from an initial login, but for now we will 
 // prepopulate to get started faster
 
 // set domain, consider that domains have password protection
-let domain_stage = `https://kfg6bckb-dev.webengine.zesty.io`
-let domain_published = `https://www.zesty.io`
-let password = `12345`
-let auth = `` // this can set APP_SID as cookie to get access, or a user login
-let src_dir = `src` // leave blank for src/ as default
+
+let zestyConfig = {
+    "domain_stage" : `https://kfg6bckb-dev.webengine.zesty.io`,
+    "domain_published" : `https://www.zesty.io`,
+    "password" : `12345`,
+    "auth" : ``, // this can set APP_SID as cookie to get access, or a user login
+    "src_dir" : `src` // leave blank for src/ as default
+}
+// 0b include needed packages
+const fs = require("fs") // need to check folder and write files
 
 // 1
 // spot check variables and 
-// verify https is or isnt there
-// verify the src_dir exists and is a folder
+
+function checkVariables(zestyConfig){
+    // verify https is or isnt there
+    // verify the src_dir exists and is a folder
+    // return true or err with message
+    console.log(`Working Project Directory: ${process.cwd()}`);
+    const workingDir = process.cwd();
+    const srcDir = workingDir + zestyConfig.src_dir
+}
+
+checkVariables(zestyConfig)
 
 // 2
 // make network request to ensure the headless or hybrid mode is turned on, return errors or docs otherwise
