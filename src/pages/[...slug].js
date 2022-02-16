@@ -10,7 +10,7 @@ const ZestyLoader = (content) => {
     if(content.hasOwnProperty('error') && content.error){
         return (<NotFoundCover/>)
     }
-
+    console.log(content)
     // get model name
     const modelName = prepareModelName(content.meta.model_name)
 
@@ -28,6 +28,8 @@ const ZestyLoader = (content) => {
 export default ZestyLoader
 
 // converts a model's name to match Zesty GQL name conversion
+// this a port of a function in Webengine to match the graphql naming convention
+// view files are automatically generated: they take the content model title, capitalize first letter, remove plural endings, and removing spaces and underscores
 function prepareModelName(name) {
 
     if(name.substring(-3,3) == 'ies') {
@@ -52,6 +54,8 @@ export async function getServerSideProps(context) {
     url = url.replace(/^\//, '');
 
     // build relative zesty toJSON url to fetch JSON 
+    // TODO: the domain will need to come from the config file
+    // TODO: this will need to account for additional query parameters and append it to ?toJSON
     const zestyURL = `https://www.zesty.io/${url}?toJSON`
     console.log('here',zestyURL)
 

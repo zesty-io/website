@@ -1,3 +1,4 @@
+// run script: node scripts/zesty-nextjs.js 
 // reach out to zesty's url map
 // create file structure that maps over the zesty instance
 // in each file, create the script to load props into the file
@@ -34,6 +35,9 @@ let zestyConfig = {
     "auth" : ``, // this can set APP_SID as cookie to get access, or a user login
     "src_dir" : `src` // leave blank for src/ as default
 }
+// lives as a script file (zesty-config.js ?)
+// for now: can use password param for preview url (readonly)
+// if it creates developer token, need to account for token expiration
 // 0b include needed packages
 const fs = require("fs") // need to check folder and write files
 
@@ -44,7 +48,8 @@ function checkVariables(zestyConfig){
     // verify https is or isnt there
     // verify the src_dir exists and is a folder
     // return true or err with message
-    console.log(`Working Project Directory: ${process.cwd()}`);
+    console.log(`Working Project
+     Directory: ${process.cwd()}`);
     const workingDir = process.cwd();
     const srcDir = workingDir + zestyConfig.src_dir
 }
@@ -53,7 +58,7 @@ checkVariables(zestyConfig)
 
 // 2
 // make network request to ensure the headless or hybrid mode is turned on, return errors or docs otherwise
-// note at this point, the CLI can verify, ask for sign in, and make the setting change via the api
+// note at this point, the CLI cannot verify, ask for sign in, and make the setting change via the api (TODO:but it will!)
 
 // once connection is verified
 
@@ -118,3 +123,8 @@ export default Comment
 
 // 6 Create ZestyBrowser component which shows in dev instances the model and fields and lets you browse through other model/fields
 // this overlay exists on page
+
+
+// FILTERING THROUGH DATA
+// TODO: filtering through zesty items (currently work in progress to be available in rest api)
+// for now: create custom endpoints in instance using parsley
