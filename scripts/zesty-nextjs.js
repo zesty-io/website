@@ -21,5 +21,82 @@
 // component file will now have passed object to call data within its file
 // 
 
+// 0
+// these env var values can be extracted from an initial login, but for now we will 
+// prepopulate to get started faster
 
+// set domain, consider that domains have password protection
+let domain_stage = `https://kfg6bckb-dev.webengine.zesty.io`
+let domain_published = `https://www.zesty.io`
+let password = `12345`
+let auth = `` // this can set APP_SID as cookie to get access, or a user login
+let src_dir = `src` // leave blank for src/ as default
 
+// 1
+// spot check variables and 
+// verify https is or isnt there
+// verify the src_dir exists and is a folder
+
+// 2
+// make network request to ensure the headless or hybrid mode is turned on, return errors or docs otherwise
+// note at this point, the CLI can verify, ask for sign in, and make the setting change via the api
+
+// once connection is verified
+
+// 3
+// hit gql end point ${domain_stage}/-/gql/ to access the models to create the base components and index.js list
+// mkdir ${src_dir}/components
+// iterate through each { models: [] } and create a file with the gqlModelName
+// use a javascript started template to start it
+// use the models fields maplist in a premade comment to help the developer
+// File Example Homepage.js
+    // a. comment saying this is a zesty component, link to docs, show fields and model info, also other info on relationships
+    // b. File, loop through 
+    /**
+     function Homepage({content}) {
+        return (
+            <>
+            <h2 dangerouslySetInnerHTML={{__html:content.title}}></h2>
+            <div dangerouslySetInnerHTML={{__html:content.content}}></div>
+            </>
+        );
+        };
+
+        export default Homepage;
+     */
+
+// 4 create components/index.js 
+// this file imports all the files we created, which is used a single import on the page files
+        /** File Example
+         *  index.js
+            
+            import Homepage from './Homepage'
+            
+            export {
+                Homepage
+            }
+         */
+
+// 5 create the catch all dynamic route
+// [[...slug]].js
+// https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes
+ /** File Example
+  * 
+  import { useRouter } from 'next/router'
+  import * as Zesty from '../components/zesty-models'
+
+const Comment = () => {
+  const router = useRouter()
+  const slug = router.query.slug || []
+
+  return (
+    <>
+      <Header />
+      <h1>Slug: {slug.join('/')}</h1>
+    </>
+  )
+}
+
+export default Comment
+  * 
+  */
