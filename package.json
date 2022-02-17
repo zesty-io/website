@@ -46,6 +46,7 @@
     "formik": "^2.2.6",
     "jarallax": "^1.12.8",
     "next": "^12.0.7",
+    "node-fetch": "^2.6.7",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-countup": "^6.1.0",

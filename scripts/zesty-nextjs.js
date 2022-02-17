@@ -28,7 +28,7 @@
 
 // set domain, consider that domains have password protection
 
-let zestyConfig = {
+const zestyConfig = {
     "stage" : `https://kfg6bckb-dev.webengine.zesty.io`,
     "production" : `https://www.zesty.io`,
     "stage_password" : ``,
@@ -39,6 +39,7 @@ let zestyConfig = {
 // for now: can use password param for preview url (readonly)
 // if it creates developer token, need to account for token expiration
 // 0b include needed packages
+const fetch = require('node-fetch');
 const fs = require("fs") // need to check folder and write files
 const chalk = require('chalk');
 const { promisify } = require('util');
@@ -48,23 +49,23 @@ const writeFileAsync = promisify(fs.writeFile)
 // access doesnt promisfy, needs a custom function
 const accessAsync = (s) => new Promise(r => fs.access(s, fs.F_OK, e => r(!e)))
 //console output shorthands
-const successMark = `      ${chalk.gray.bold('[')}${chalk.green.bold('V')}${chalk.gray.bold(']')}`
-const failMark = `      ${chalk.gray.bold('[')}${chalk.red.bold('X')}${chalk.gray.bold(']')}`
-const warningMark = `      ${chalk.gray.bold('[')}${chalk.yellow.bold('O')}${chalk.gray.bold(']')}`
-const stageMark = (num) => `   ${chalk.gray.bold('[')}${chalk.white.bold(num)}${chalk.gray.bold(']')}`
+const successMark =         `      ${chalk.gray.bold('[')}${chalk.green.bold('V')}${chalk.gray.bold(']')}`
+const failMark =            `      ${chalk.gray.bold('[')}${chalk.red.bold('X')}${chalk.gray.bold(']')}`
+const warningMark =         `      ${chalk.gray.bold('[')}${chalk.yellow.bold('O')}${chalk.gray.bold(']')}`
+const stageMark = (num) =>  `   ${chalk.gray.bold('[')}${chalk.white.bold(num)}${chalk.gray.bold(']')}`
 
 
 
 // 1
 // spot check variables and 
 
-async function checkVariables(zestyConfig){
+async function checkVariables(config){
     // verify https is or isnt there
     
     // output the working directory
     console.log(`${successMark} Working Project Directory: ${process.cwd()}`);
     const workingDir = process.cwd();
-    const srcDir = workingDir + zestyConfig.src_dir
+    const srcDir = workingDir + config.src_dir
     let success = true;
     // verify the src_dir exists and is a folder
     success = await accessAsync(srcDir)
@@ -76,23 +77,23 @@ async function checkVariables(zestyConfig){
     }
     // check the domain variables
     // stage check
-    if(zestyConfig.hasOwnProperty('stage') && zestyConfig.stage !== ''){
-        console.log(`${successMark} Stage value present: ${zestyConfig.stage} `);
+    if(config.hasOwnProperty('stage') && config.stage !== ''){
+        console.log(`${successMark} Stage value present: ${config.stage} `);
     } else {
         console.log(chalk.red.bold(`${failMark} stage value missing, set this value to your zesty stage domain e.g. https://xyz-dev.preview.zesty.io`));
         success = false
     }
     // production check
-    if(zestyConfig.hasOwnProperty('production') && zestyConfig.production !== ''){
-        console.log(`${successMark} Production value present: ${zestyConfig.production} `);
+    if(config.hasOwnProperty('production') && config.production !== ''){
+        console.log(`${successMark} Production value present: ${config.production} `);
     } else {
         console.log(chalk.red.bold(`${failMark} production value missing, set this value to your zesty production domain e.g. https://www.acme.com`));
         success = false
     }
 
     // stage password check
-    if(zestyConfig.hasOwnProperty('stage_password') && zestyConfig.stage_password !== ''){
-        console.log(`${successMark} Stage password present: ${zestyConfig.stage_password} `);
+    if(config.hasOwnProperty('stage_password') && config.stage_password !== ''){
+        console.log(`${successMark} Stage password present: ${config.stage_password} `);
     } else {
         console.log(`${warningMark} ${chalk.yellow.bold('Warning!')} No stage password present, this may cause issues if your zesty instance is password protected.`);
     }
@@ -101,7 +102,46 @@ async function checkVariables(zestyConfig){
 
 }
 
-async function run(){
+// 2
+
+
+// once connection is verified
+
+async function checkNetworkConnectionsAndModes(config){
+    let success = true;
+    // make network request to ensure the headless or hybrid mode is turned on, return errors or docs otherwise
+    // note at this point, the CLI cannot verify, ask for sign in, and make the setting change via the api (TODO:but it will!)
+    let stage200URL = formURLWithPassword(config.stage,'',config.stage_password)
+    let res = await fetch(stage200URL)
+    if(res.status == 200){
+        console.log(`${successMark} Stage URL accessible`);
+    } else {
+        console.log(`${failMark} Stage URL did not respond with a 200.`);
+        success = false;
+    }
+    // check if /-/headless/ is available
+
+    stageHeadlessURL = formURLWithPassword(config.stage,'/-/headless/',config.stage_password)
+    res = await fetch(stageHeadlessURL)
+    if(res.status == 200){
+        console.log(`${successMark} Hybrid/Headless Mode is accessible`);
+    } else {
+        console.log(`${failMark} Hybrid/Headless mode needs to be turned on in the instance's setting.`);
+        success = false;
+    }
+
+    return success;
+
+}
+
+function formURLWithPassword(domain,path,password=''){
+    let url = domain + path
+    return (password != '') ? url + '?_zpw=' + password : url
+}
+
+// Run Function connects all functions and outputs console logs 
+
+async function run(config){
     // terminal output of start
     console.log(`${chalk.gray.bold(' ')}`)
     console.log(`   ${chalk.gray.bold('-----------------------------------------------------------------------------')}`)
@@ -110,22 +150,26 @@ async function run(){
     console.log(`${chalk.gray.bold(' ')}`)
 
     // Step 1 config check
-    console.log(stageMark(1)+ ' config check')
-    const configCheckSuccess = await checkVariables(zestyConfig)
+    console.log(stageMark(1)+ ' Config Check')
+    const configCheckSuccess = await checkVariables(config)
 
     if (!configCheckSuccess){
         console.log(`${chalk.gray.bold('[')}${chalk.red.bold('X')}${chalk.gray.bold(']')} Config not setup Correctly`);
         exit()
     }
+
+    // Step 2 Network Check
+    console.log(stageMark(2)+ ' Network Check')
+    const networkCheckSuccess = await checkNetworkConnectionsAndModes(config)
+    if (!networkCheckSuccess){
+        console.log(`${chalk.gray.bold('[')}${chalk.red.bold('X')}${chalk.gray.bold(']')} Network Check Failed to Verified URLs are Zesty.io instance with Headless or Hybrid mode on`);
+        exit()
+    }
 }
 
-run();
+run(zestyConfig);
 
-// 2
-// make network request to ensure the headless or hybrid mode is turned on, return errors or docs otherwise
-// note at this point, the CLI cannot verify, ask for sign in, and make the setting change via the api (TODO:but it will!)
 
-// once connection is verified
 
 // 3
 // hit gql end point ${domain_stage}/-/gql/ to access the models to create the base components and index.js list
