@@ -56,7 +56,8 @@ export async function getServerSideProps(context) {
     // build relative zesty toJSON url to fetch JSON 
     // TODO: the domain will need to come from the config file
     // TODO: this will need to account for additional query parameters and append it to ?toJSON
-    const zestyURL = `https://www.zesty.io/${url}?toJSON`
+    let zestyURL = `${process.env.zesty.stage}`
+    zestyURL = zestyURL.replace(/\/$/,'') + url + '?toJSON'
     console.log('here',zestyURL)
 
     // Fetch data from Zesty.io toJSON API
