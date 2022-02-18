@@ -5,11 +5,11 @@
  * Label: Sales People 
  * Name: sales_people 
  * Model ZUID: 6-80f500-gqgvqb
- * File Created On: Thu Feb 17 2022 16:44:11 GMT-0800 (Pacific Standard Time)
+ * File Created On: Fri Feb 18 2022 07:04:43 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 
- * * title (text)
+  * title (text)
  * page_header_content (text)
  * embed_code (textarea)
 
@@ -29,8 +29,14 @@
 function SalesPeopleZestyModel({content}) {
     return (
         <>
+            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
             <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_description}}></div>
+            <div>{content.meta.web.seo_meta_description}</div>
+            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
+                <h2>Accessible Zesty.io JSON Object</h2>
+                <pre>{JSON.stringify(content, null, 2)}</pre>
+            </div>
+            {/* End of Zesty.io output example */}
         </>
     );
 };

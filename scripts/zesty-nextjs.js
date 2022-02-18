@@ -216,24 +216,6 @@ async function checkNetworkConnectionsAndModes(config){
 
 // 3
 // hit gql end point ${domain_stage}/-/gql/ to access the models to create the base components and index.js list
-
-// use a javascript started template to start it
-// use the models fields maplist in a premade comment to help the developer
-// File Example Homepage.js
-    // a. comment saying this is a zesty component, link to docs, show fields and model info, also other info on relationships
-    // b. File, loop through 
-    /**
-     function Homepage({content}) {
-        return (
-            <>
-            <h2 dangerouslySetInnerHTML={{__html:content.title}}></h2>
-            <div dangerouslySetInnerHTML={{__html:content.content}}></div>
-            </>
-        );
-        };
-
-        export default Homepage;
-     */
 async function createFiles(config){
     let success = true; // success until fail
     
@@ -400,8 +382,14 @@ async function createComponent(path,model,instanceZUID=''){
 function ${model.component_name}({content}) {
     return (
         <>
+            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
             <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_description}}></div>
+            <div>{content.meta.web.seo_meta_description}</div>
+            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
+                <h2>Accessible Zesty.io JSON Object</h2>
+                <pre>{JSON.stringify(content, null, 2)}</pre>
+            </div>
+            {/* End of Zesty.io output example */}
         </>
     );
 };
