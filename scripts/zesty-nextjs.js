@@ -22,6 +22,7 @@
 // component file will now have passed object to call data within its file
 // 
 
+// ! idea, have  get remote field of this js and one liner run and install, it asks to create npm script shortcut for next time
 
 // lives as a script file (zesty-config.js ?)
 // for now: can use password param for preview url (readonly)
@@ -62,6 +63,7 @@ async function accessNextConfig(){
 module.exports = {
     env: {
         zesty: {
+            "instance_zuid": "", // zesty unique id of content instance
             "stage" : "", // e.g. https://XYZ-dev.webengine.zesty.io
             "production" : "", // e.g. https://www.acme.com
             "stage_password" : "",
@@ -151,6 +153,14 @@ async function checkVariables(config){
         console.log(`${warningMark} ${chalk.yellow.bold('Warning!')} No stage password present, this may cause issues if your zesty instance is password protected.`);
     }
 
+    // stage password check
+    if(config.hasOwnProperty('instance_zuid') && config.instance_zuid !== ''){
+        console.log(`${successMark} Instance ZUID present: ${chalk.blue.bold(config.instance_zuid)} `);
+    } else {
+        console.log(`${failMark} ${chalk.yellow.bold('Warning!')} Instance ZUID missing, find it at https://accounts.zesty.io/instances`);
+        success = false
+    }
+
     return success;
 
 }
@@ -201,21 +211,11 @@ async function checkNetworkConnectionsAndModes(config){
     return success;
 
 }
-// helper functions
-function formURLWithPassword(domain,path,password=''){
-    let url = domain + path
-    return (password != '') ? url + '?_zpw=' + password : url
-}
 
-function finalErrorOutput(message){
-    console.log(`   ${chalk.red.bold('-----------------------------------------------------------------------------')}`)
-    console.log(`    ${chalk.red.bold(message)} `)
-    console.log(`   ${chalk.red.bold('-----------------------------------------------------------------------------')}`)
-}
 
 // 3
 // hit gql end point ${domain_stage}/-/gql/ to access the models to create the base components and index.js list
-// mkdir ${src_dir}/components
+
 // use a javascript started template to start it
 // use the models fields maplist in a premade comment to help the developer
 // File Example Homepage.js
@@ -239,11 +239,12 @@ async function createFiles(config){
     let componentDirectory = process.cwd() + config.src_dir + '/components'
     let zestyModelsDirectory = process.cwd() + config.src_dir + '/components/zesty-models'
     
+    // mkdir ${src_dir}/components
     // make zesty-models dir if missing
     success = await accessAsync(zestyModelsDirectory)
     if(!success){
         console.log(`${successMark} Creating Directory for Zesty Models: ${zestyModelsDirectory}`);
-        success = await mkdirSync(zestyModelsDirectory)
+        success = await fs.promises.mkdir(zestyModelsDirectory,  { recursive: true })
     } else {
         console.log(`${successMark} Zesty Models Exists: ${zestyModelsDirectory}`);
     }
@@ -258,8 +259,19 @@ async function createFiles(config){
     
     // iterate through each { models: [] } and create a file with the gqlModelName
     let componentAppendName = 'ZestyModel';
-    models.forEach(model, async function(model){
-        console.log(model)
+    models.forEach(async (model) =>  {
+        //console.log(model)
+        model.component_name = `${model.gqlModelName}${componentAppendName}`
+        let filePath = `${zestyModelsDirectory}/${model.component_name}.js`
+        
+        let exists = await accessAsync(filePath)
+        if(exists){
+            console.log(`   ${warningMark} Skipping ${chalk.yellow.bold(model.label)} already exists ${chalk.gray.bold(`components/zesty-models/${model.gqlModelName}${componentAppendName}.js`)}`);
+
+        } else {
+            console.log(`   ${successMark} Creating ${chalk.blue.bold(model.label)} to ${chalk.gray.bold(`components/zesty-models/${model.gqlModelName}${componentAppendName}.js`)}`);
+            await createComponent(filePath,model,config.instance_zuid)
+        }
     })
    
     //console.log(data.models)
@@ -311,11 +323,79 @@ async function run(){
     }
 }
 
+// run the script
+
 run();
 
 
 
+// helper functions
+function formURLWithPassword(domain,path,password=''){
+    let url = domain + path
+    return (password != '') ? url + '?_zpw=' + password : url
+}
 
+function finalErrorOutput(message){
+    console.log(`   ${chalk.red.bold('-----------------------------------------------------------------------------')}`)
+    console.log(`    ${chalk.red.bold(message)} `)
+    console.log(`   ${chalk.red.bold('-----------------------------------------------------------------------------')}`)
+}
+
+async function createComponent(path,model,instanceZUID=''){
+    console.log(model)
+    let fields = ''
+    let dt = new Date().toString()
+    Object.keys(model.fields).forEach(field => {
+        
+        fields += ` * ${field} (${model.fields[field]})\n`
+    })
+   
+    let fileContents = 
+`/**
+ * Zesty.io Content Model Component
+ * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
+ * 
+ * Label: ${model.label} 
+ * Name: ${model.name} 
+ * Model ZUID: ${model.zuid}
+ * File Created On: ${dt}
+ * 
+ * Model Fields:
+ * 
+ *${fields}
+ * 
+ * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
+ * images are objects {content.image_name.data[0].url}
+ * 
+ * This file is expected to be customized; because of that, it is not overwritten by the integration script.
+ * Model and field changes in Zesty.io will not be reflected in this comment.
+ * 
+ * View and Edit this model's current schema on Zesty.io at https://${instanceZUID}.manager.zesty.io/schema/${model.zuid}
+ * 
+ * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
+ * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
+ */
+
+function ${model.component_name}({content}) {
+    return (
+        <>
+            <h1 dangerouslySetInnerHTML={{__html:content.web.seo_meta_title}}></h1>
+            <div dangerouslySetInnerHTML={{__html:content.web.seo_meta_description}}></div>
+        </>
+    );
+};
+  
+export default ${model.component_name};
+`;
+
+    try{
+        await writeFileAsync(path, fileContents)
+    } catch(e) {
+        console.log(e)
+        exit();
+    }
+
+}
 
 // 4 create components/index.js 
 // this file imports all the files we created, which is used a single import on the page files
