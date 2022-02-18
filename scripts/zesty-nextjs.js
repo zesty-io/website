@@ -35,6 +35,7 @@ const { promisify } = require('util');
 const { exit } = require("process");
 const readFileAsync = promisify(fs.readFile)
 const writeFileAsync = promisify(fs.writeFile)
+const removeFileAsync = promisify(fs.unlink)
 const mkdirSync = promisify(fs.mkdir)
 // access doesnt promisfy, needs a custom function
 const accessAsync = (s) => new Promise(r => fs.access(s, fs.F_OK, e => r(!e)))
@@ -259,7 +260,9 @@ async function createFiles(config){
     
     // iterate through each { models: [] } and create a file with the gqlModelName
     let componentAppendName = 'ZestyModel';
-    models.forEach(async (model) =>  {
+    var importString = ''
+    var exportString = `\nexport {\n`
+    for (const model of models) {
         //console.log(model)
         model.component_name = `${model.gqlModelName}${componentAppendName}`
         let filePath = `${zestyModelsDirectory}/${model.component_name}.js`
@@ -272,7 +275,25 @@ async function createFiles(config){
             console.log(`   ${successMark} Creating ${chalk.blue.bold(model.label)} to ${chalk.gray.bold(`components/zesty-models/${model.gqlModelName}${componentAppendName}.js`)}`);
             await createComponent(filePath,model,config.instance_zuid)
         }
-    })
+
+        // build index.js strings
+        importString = importString+`import ${model.component_name} from './${model.component_name}'\n`
+        exportString = exportString+`\n    ${model.component_name},`
+    }
+    exportString = exportString.slice(0, -1) + `\n}`;
+
+    // make index.js for * importing
+    let indexJSPath = zestyModelsDirectory+'/index.js'
+
+
+    try{
+        await writeFileAsync(indexJSPath, importString+exportString)
+    } catch(e) {
+        console.log(e)
+        exit();
+    }
+    
+    
    
     //console.log(data.models)
     return success
@@ -340,6 +361,7 @@ function finalErrorOutput(message){
     console.log(`    ${chalk.red.bold(message)} `)
     console.log(`   ${chalk.red.bold('-----------------------------------------------------------------------------')}`)
 }
+
 
 async function createComponent(path,model,instanceZUID=''){
     let fields = ''
@@ -411,32 +433,10 @@ export default ${model.component_name};
 // 5 create the catch all dynamic route
 // [[...slug]].js
 // https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes
- /** File Example
-  * 
-  import { useRouter } from 'next/router'
-  import * as Zesty from '../components/zesty-models'
 
-const Comment = () => {
-  const router = useRouter()
-  const slug = router.query.slug || []
-
-  return (
-    <>
-      <Header />
-      <h1>Slug: {slug.join('/')}</h1>
-    </>
-  )
-}
-
-export default Comment
-  * 
-  */
 
 
 // 6 Create ZestyBrowser component which shows in dev instances the model and fields and lets you browse through other model/fields
 // this overlay exists on page
 
 
-// FILTERING THROUGH DATA
-// TODO: filtering through zesty items (currently work in progress to be available in rest api)
-// for now: create custom endpoints in instance using parsley

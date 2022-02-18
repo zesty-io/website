@@ -11,7 +11,7 @@ const ZestyLoader = (content) => {
     if(content.hasOwnProperty('error') && content.error){
         return (<NotFoundCover/>)
     }
-    console.log(content)
+    //console.log(content)
     // get model name
     const modelName = prepareModelName(content.meta.model_name)
 
