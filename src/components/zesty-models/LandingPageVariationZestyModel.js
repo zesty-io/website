@@ -5,7 +5,7 @@
  * Label: Landing Page Variations 
  * Name: landing_page_variations 
  * Model ZUID: 6-1ba0d4-m6p04m
- * File Created On: Thu Feb 17 2022 16:36:46 GMT-0800 (Pacific Standard Time)
+ * File Created On: Thu Feb 17 2022 16:44:11 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 
@@ -32,8 +32,8 @@
 function LandingPageVariationZestyModel({content}) {
     return (
         <>
-            <h1 dangerouslySetInnerHTML={{__html:content.web.seo_meta_title}}></h1>
-            <div dangerouslySetInnerHTML={{__html:content.web.seo_meta_description}}></div>
+            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
+            <div dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_description}}></div>
         </>
     );
 };

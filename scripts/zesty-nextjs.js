@@ -342,7 +342,6 @@ function finalErrorOutput(message){
 }
 
 async function createComponent(path,model,instanceZUID=''){
-    console.log(model)
     let fields = ''
     let dt = new Date().toString()
     Object.keys(model.fields).forEach(field => {
@@ -362,7 +361,7 @@ async function createComponent(path,model,instanceZUID=''){
  * 
  * Model Fields:
  * 
- *${fields}
+ ${fields}
  * 
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
  * images are objects {content.image_name.data[0].url}
@@ -379,8 +378,8 @@ async function createComponent(path,model,instanceZUID=''){
 function ${model.component_name}({content}) {
     return (
         <>
-            <h1 dangerouslySetInnerHTML={{__html:content.web.seo_meta_title}}></h1>
-            <div dangerouslySetInnerHTML={{__html:content.web.seo_meta_description}}></div>
+            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
+            <div dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_description}}></div>
         </>
     );
 };
