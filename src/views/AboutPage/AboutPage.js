@@ -14,13 +14,14 @@ import {
   WhoWeAre,
   Application,
 } from './components';
+import { Content } from 'views/BlogArticle/components';
 
-const About = () => {
+const AboutPage = (content) => {
   return (
     <Main colorInvert={true}>
-      <Hero />
+      <Hero title={content.title} subtitle ={content.hero_content} hero_image={content.hero_image.data[0].url} />
       <Container>
-        <Story />
+        <Story content={content.page_content} section_image={content.section_image.data[0].url}/>
       </Container>
       <Container paddingTop={'0 !important'}>
         <WhoWeAre />
@@ -47,4 +48,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutPage;
