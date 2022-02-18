@@ -14,14 +14,12 @@ import {
   WhoWeAre,
   Application,
 } from './components';
-import { Content } from 'views/BlogArticle/components';
-
 const AboutPage = (content) => {
   return (
     <Main colorInvert={true}>
-      <Hero title={content.title} subtitle ={content.hero_content} hero_image={content.hero_image.data[0].url} />
+      <Hero title={content.title} subtitle ={content.hero_content} hero_image={content.hero_image} />
       <Container>
-        <Story content={content.page_content} section_image={content.section_image.data[0].url}/>
+        <Story content={content.page_content} section_image={content.section_image}/>
       </Container>
       <Container paddingTop={'0 !important'}>
         <WhoWeAre />
