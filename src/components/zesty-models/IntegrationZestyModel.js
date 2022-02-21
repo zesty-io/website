@@ -5,7 +5,7 @@
  * Label: Integrations 
  * Name: integrations 
  * Model ZUID: 6-636018-lk6dwl
- * File Created On: Fri Feb 18 2022 07:04:43 GMT-0800 (Pacific Standard Time)
+ * File Created On: Mon Feb 21 2022 07:38:12 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 
@@ -24,6 +24,8 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+import React  from 'react';
+
 function IntegrationZestyModel({content}) {
     return (
         <>
@@ -37,6 +39,6 @@ function IntegrationZestyModel({content}) {
             {/* End of Zesty.io output example */}
         </>
     );
-};
+}
   
 export default IntegrationZestyModel;

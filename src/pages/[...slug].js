@@ -1,27 +1,32 @@
+import React from 'react'
 import * as ZestyModels from '../components/zesty-models'
-import { useRouter } from 'next/router'
-import NotFoundCover from 'views/NotFoundCover';
+//import { useRouter } from 'next/router'
+import NotFoundCover from 'views/NotFoundCover'
 import Head from 'next/head'
 
 const ZestyLoader = (content) => {
-    const router = useRouter()
-    const slug = router.query.slug || []
+    // const router = useRouter()
+    // const slug = router.query.slug || []
     
     // check for a 404 page, this response triggers if zesty failed to hydrate
-    if(content.hasOwnProperty('error') && content.error){
+    if(undefined !== content.error && content.error){
+        // returning 404, but alternatively you could load your default app component
         return (<NotFoundCover/>)
     }
-    //console.log(content)
+
+    // console.log(content) // uncomment to see content outpu
+    
     // get model name
     const modelName = prepareModelName(content.meta.model_name)
 
-    // dynamically set the model
+    // dynamically set the zesty model
     const ZestyModel = ZestyModels[modelName]
 
     // default render output dynamically resolves the model component from components/models
     // build your page body here, but keep <Model>
     return (
         <html>
+            {/* head may also be customizing in the zesty component */}
             <Head>
                 <title>{content.meta.web.seo_meta_title}</title>
                 <meta property="og:title" content={content.meta.web.seo_meta_title}/>            
@@ -55,7 +60,7 @@ export default ZestyLoader
 // this a port of a function in Webengine to match the graphql naming convention
 // view files are automatically generated: they take the content model title, capitalize first letter, remove plural endings, and removing spaces and underscores
 function prepareModelName(name) {
-    let zestyAppendName = 'ZestyModel'
+    let zestyAppendName = 'ZestyModel';
     if(name.substring(-3,3) == 'ies') {
         name = name.substring(0,-3) + 'y';
     }
@@ -69,10 +74,10 @@ function prepareModelName(name) {
 // This gets called on every request
 export async function getServerSideProps(context) {
 
-    let url = context.resolvedUrl
+    let url = context.resolvedUrl;
     // url is missing ending forward slash, add it (zesty expects one)
     if(url.substr(-1) !== '/') {
-        url = url + '/'
+        url = url + '/';
     }
     // remove first forward slash
     url = url.replace(/^\//, '');
@@ -82,7 +87,7 @@ export async function getServerSideProps(context) {
     // TODO: this will need to account for additional query parameters and append it to ?toJSON
     let zestyURL = `${process.env.zesty.stage}`
     zestyURL = zestyURL.replace(/\/$/,'') + '/' + url + '?toJSON'
-    console.log('here',zestyURL)
+    // console.log('here',zestyURL)
 
     // Fetch data from Zesty.io toJSON API
     const res = await fetch(zestyURL)
@@ -97,7 +102,6 @@ export async function getServerSideProps(context) {
 
     // Pass data to the page via props
     return { props: data }
-    
     
   }
   

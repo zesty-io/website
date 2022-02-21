@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 module.exports = {
   'env': {
+    "node": true,
     'browser': true,
     'es2021': true,
   },
@@ -24,11 +25,11 @@ module.exports = {
     'react',
   ],
   'rules': {
-    'indent': [
-      'error',
-      2,
-      { 'SwitchCase': 1 },
-    ],
+    // 'indent': [
+    //   'error',
+    //   2,
+    //   { 'SwitchCase': 1 },
+    // ],
     'linebreak-style': [
       'error',
       'unix',
@@ -37,13 +38,14 @@ module.exports = {
       'error',
       'single',
     ],
-    'semi': [
-      'error',
-      'always',
-    ],
+    // 'semi': [
+    //   'error',
+    //   'always',
+    // ],
     'comma-dangle': [
       'error',
       'only-multiline',
     ],
+    "react/prop-types": "off"
   },
 };

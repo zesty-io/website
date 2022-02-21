@@ -259,7 +259,7 @@ async function createFiles(config){
         }
 
         // build index.js strings
-        importString = importString+`import ${model.component_name} from './${model.component_name}'\n`
+        importString = importString+`import ${model.component_name} from './${model.component_name}';\n`
         exportString = exportString+`\n    ${model.component_name},`
     }
     exportString = exportString.slice(0, -1) + `\n}`;
@@ -379,6 +379,8 @@ async function createComponent(path,model,instanceZUID=''){
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+import React  from 'react';
+
 function ${model.component_name}({content}) {
     return (
         <>
@@ -392,7 +394,7 @@ function ${model.component_name}({content}) {
             {/* End of Zesty.io output example */}
         </>
     );
-};
+}
   
 export default ${model.component_name};
 `;
@@ -400,23 +402,16 @@ export default ${model.component_name};
     try{
         await writeFileAsync(path, fileContents)
     } catch(e) {
-        console.log(e)
+        console.log(e);
         exit();
     }
 
 }
 
-// 4 create components/index.js 
-// this file imports all the files we created, which is used a single import on the page files
-        /** File Example
-         *  index.js
-            
-            import Homepage from './Homepage'
-            
-            export {
-                Homepage
-            }
-         */
+
+async function nextPageSlug(path,model,instanceZUID=''){
+    return true;
+}
 
 // 5 create the catch all dynamic route
 // [[...slug]].js

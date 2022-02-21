@@ -7,9 +7,7 @@ import {
   GetStarted,
   Features,
   QuickStart,
-  Services,
   Benefits,
-  Hero,
 } from './components';
 import Homepage from 'components/zesty-models/Homepage';
 

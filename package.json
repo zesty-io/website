@@ -1,7 +1,7 @@
 {
-  "name": "thefront-js--nextjs",
-  "author": "maccarian",
-  "email": "hi@maccarianagency.com",
+  "name": "zesty-website",
+  "author": "Zesty.io Platform Inc.",
+  "email": "marketing@zesty.io",
   "version": "4.6.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,12 @@
     "prettier:fix": "prettier './src/**/*.js' --write",
     "eslint:fix": "eslint ./src --fix",
     "codeStyle:fix": "npm run prettier:fix && npm run eslint:fix",
-    "clear-all": "rimraf ./node_modules ./.next"
+    "clear-all": "rimraf ./node_modules ./.next",
+    "zestysync": "node scripts/zesty-nextjs.js",
+    "docker-build": "docker build .",
+    "gcloud-build": "gcloud builds submit --tag gcr.io/zesty-dev/zesty-website:1.0.0  --project zesty-dev",
+    "gcloud-deploy": "gcloud run deploy zesty-website --image=gcr.io/zesty-dev/zesty-website:1.0.0 --platform managed --port 3000 --project zesty-dev --allow-unauthenticated --min-instances 1 --region us-central1"
+
   },
   "eslintConfig": {
     "extends": [
