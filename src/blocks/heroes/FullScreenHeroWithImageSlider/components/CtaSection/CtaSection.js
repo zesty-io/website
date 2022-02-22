@@ -11,11 +11,10 @@ const CtaSection = (props) => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-  props.title = (undefined !== props.title) ? props.title : '';
-  props.content = (undefined !== props.content) ? props.content : '';  
 
-  let title = props.title.split('<br>')
-  let subtext = props.content.replace(/(<([^>]+)>)/gi, "");
+  let title = (undefined !== props.title) ? props.title.split('<br>') : ['title','sub'];
+  let subtext = (undefined !== props.title) ? props.content.replace(/(<([^>]+)>)/gi, "") : '';
+  
   return (
     <Box>
       <Typography
