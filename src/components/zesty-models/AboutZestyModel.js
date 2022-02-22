@@ -35,6 +35,8 @@ function AboutZestyModel({content}) {
     return (
         <>
             {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+            <br/><br/>
+            <h1 dangerouslySetInnerHTML={{__html:content.hero_content}}></h1>
             <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
             <div>{content.meta.web.seo_meta_description}</div>
             <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>

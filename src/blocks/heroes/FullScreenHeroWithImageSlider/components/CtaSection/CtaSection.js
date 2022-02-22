@@ -13,7 +13,7 @@ const CtaSection = (props) => {
   });
 
   let title = (undefined !== props.title) ? props.title.split('<br>') : ['title','sub'];
-  let subtext = (undefined !== props.title) ? props.content.replace(/(<([^>]+)>)/gi, "") : '';
+  let subtext = (undefined !== props.content) ? props.content.replace(/(<([^>]+)>)/gi, "") : '';
   
   return (
     <Box>
