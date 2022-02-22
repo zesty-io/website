@@ -7,6 +7,11 @@ module.exports = {
             "stage_password" : "",
             "auth" : "", // this can set APP_SID as cookie to get access, or a user login
             "src_dir" : "/src" // leave blank for /src as default
-        }
+        },
+        eslint: {
+            // Warning: This allows production builds to successfully complete even if
+            // your project has ESLint errors.
+            ignoreDuringBuilds: true,
+        },
     }
   }
