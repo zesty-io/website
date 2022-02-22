@@ -451,7 +451,7 @@ const Topbar = () => {
               </svg>
             }
           >
-            Conatct us
+            Explore
           </Button>
         </Box>
         <Box
