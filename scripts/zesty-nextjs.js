@@ -413,6 +413,9 @@ async function nextPageSlug(path,model,instanceZUID=''){
     return true;
 }
 
+// 5a
+// create Footer and Header in zesty models, rename zesty-models to Zesty, update slug, make content props on the model
+// make note of the issue of passing all props and eslint 
 // 5 create the catch all dynamic route
 // [[...slug]].js
 // https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes

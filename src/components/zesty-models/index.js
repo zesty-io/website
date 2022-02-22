@@ -33,6 +33,8 @@ import IntegrationZestyModel from './IntegrationZestyModel';
 import PricingZestyModel from './PricingZestyModel';
 import OurpartnerZestyModel from './OurpartnerZestyModel';
 import HeroHompageZestyModel from './HeroHompageZestyModel';
+import Header from './Header';
+import Footer from './Footer';
 
 export {
 
@@ -70,5 +72,7 @@ export {
     IntegrationZestyModel,
     PricingZestyModel,
     OurpartnerZestyModel,
-    HeroHompageZestyModel
+    HeroHompageZestyModel,
+    Header,
+    Footer
 }

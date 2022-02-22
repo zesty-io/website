@@ -1,5 +1,5 @@
 import React from 'react'
-import * as ZestyModels from '../components/zesty-models'
+import * as Zesty from '../components/zesty-models'
 //import { useRouter } from 'next/router'
 import NotFoundCover from 'views/NotFoundCover'
 import Head from 'next/head'
@@ -20,7 +20,7 @@ const ZestyLoader = (content) => {
     const modelName = prepareModelName(content.meta.model_name)
 
     // dynamically set the zesty model
-    const ZestyModel = ZestyModels[modelName]
+    const ZestyModel = Zesty[modelName]
 
     // default render output dynamically resolves the model component from components/models
     // build your page body here, but keep <Model>
@@ -46,7 +46,9 @@ const ZestyLoader = (content) => {
             </Head>
             <body>
                 {/* insert header or nav component here */}
+                <Zesty.Header/>
                 <ZestyModel content={content}></ZestyModel>
+                <Zesty.Footer/>
                 {/* insert footer component here */}
             </body>
         </html>
