@@ -5,12 +5,13 @@ import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { alpha, useTheme } from '@mui/material/styles';
 
-const CtaSection = () => {
+const CtaSection = (props) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-
+  let title = props.title.split('<br>')
+  let subtext = props.content.replace(/(<([^>]+)>)/gi, "");
   return (
     <Box>
       <Typography
@@ -21,7 +22,7 @@ const CtaSection = () => {
         gutterBottom
         color={'text.secondary'}
       >
-        Coworking spaces
+        {props.simple_intro_text}
       </Typography>
       <Box marginBottom={2}>
         <Typography
@@ -31,27 +32,23 @@ const CtaSection = () => {
             fontWeight: 700,
           }}
         >
-          Coworking{' '}
+          {/* <span dangerouslySetInnerHTML={{__html:props.title}}></span> */}
+          {title[0]}{' '}
           <Typography
             color={'primary'}
             component={'span'}
             variant={'inherit'}
             sx={{
-              background: `linear-gradient(180deg, transparent 82%, ${alpha(
-                theme.palette.secondary.main,
-                0.3,
-              )} 0%)`,
+             
             }}
           >
-            made simple
+            {title[1]}
           </Typography>
         </Typography>
       </Box>
       <Box marginBottom={3}>
-        <Typography variant="h6" component="p" color="text.secondary">
-          For entrepreneurs, startups and freelancers. Discover coworking spaces
-          designed to inspire and to connect you to a community of motivated
-          people.
+        <Typography variant="h6" component="p" color="text.secondary" dangerouslySetInnerHTML={{__html:subtext}}>
+         
         </Typography>
       </Box>
       <Box
@@ -65,7 +62,7 @@ const CtaSection = () => {
           size="large"
           fullWidth={isMd ? false : true}
         >
-          Book a space
+          {props.cta_hero_button_text}
         </Button>
         <Box
           component={Button}
@@ -76,7 +73,7 @@ const CtaSection = () => {
           marginLeft={{ sm: 2 }}
           fullWidth={isMd ? false : true}
         >
-          Browse spaces
+          Explore Now
         </Box>
       </Box>
     </Box>

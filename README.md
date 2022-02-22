@@ -1,4 +1,4 @@
-# nextjs-website
+# Zesty.io NextJS Marketing Website
 Marketing Website using NextJS and Zesty.io Headless CMS
 
 
@@ -18,6 +18,10 @@ npm run dev
 ## open browser to http://localhost:3000/
 
 ```
+
+## AutoDeploy
+
+Any push or merge to the `main` branch will kickoff an auto build script whcih will update the stage preview in Zesty.io manager and WebEngine preview. 
 
 ## Quick Create Script
 

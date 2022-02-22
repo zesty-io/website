@@ -6,7 +6,7 @@ import Container from 'components/Container';
 
 import { CtaSection, CoverSlider } from './components';
 
-const FullScreenHeroWithImageSlider = () => {
+const FullScreenHeroWithImageSlider = (props) => {
   return (
     <Box
       sx={{
@@ -29,7 +29,7 @@ const FullScreenHeroWithImageSlider = () => {
             alignItems={'center'}
           >
             <Container>
-              <CtaSection />
+              <CtaSection {...props} />
             </Container>
           </Box>
           <Box
