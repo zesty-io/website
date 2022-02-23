@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Zesty from '../components/zesty-models'
+import * as Zesty from '../components/zesty'
 //import { useRouter } from 'next/router'
 import NotFoundCover from 'views/NotFoundCover'
 import Head from 'next/head'

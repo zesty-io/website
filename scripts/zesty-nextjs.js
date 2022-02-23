@@ -221,7 +221,7 @@ async function createFiles(config){
     
     let componentDirectory = process.cwd() + config.src_dir + '/components'
     let pageDirectory = process.cwd() + config.src_dir + '/pages'
-    let zestyModelsDirectory = process.cwd() + config.src_dir + '/components/zesty-models'
+    let zestyModelsDirectory = process.cwd() + config.src_dir + '/components/zesty'
     
     // mkdir ${src_dir}/components
     // make zesty-models dir if missing
@@ -305,6 +305,7 @@ async function createFiles(config){
     let indexJSPath = zestyModelsDirectory+'/index.js'
     try {
         await writeFileAsync(indexJSPath, importString+exportString)
+        console.log(`   ${successMark} Creating index.js to ${chalk.gray.bold(indexJSPath)}`);
     } catch(e) {
         console.log(e)
         exit();
