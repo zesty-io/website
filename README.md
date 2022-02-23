@@ -21,6 +21,16 @@ npm run dev
 
 ```
 
+## Syncing Zesty.io Models to Next JS
+
+From the command line at the root of the project run:
+
+```
+node scripts/zesty-nextjs.js
+```
+
+This will create new files where needed, but will not overwrite existing files.
+
 ## AutoDeploy
 
 Any push or merge to the `main` branch will kickoff an auto build script whcih will update the stage preview in Zesty.io manager and WebEngine preview. 
