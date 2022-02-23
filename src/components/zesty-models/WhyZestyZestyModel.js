@@ -25,17 +25,36 @@
  */
 
 import React  from 'react';
+import SimpleHeroWithImageAndCtaButtonsPage from '../../blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+import FeaturesWithIllustration from '../../blocks/features/FeaturesWithIllustration';
+import FeaturesWithMobileScreenshot  from '../../blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
+import WithBorderedCardsAndBrandColor from '../../blocks/stats/WithBorderedCardsAndBrandColor/WithBorderedCardsAndBrandColor.js';
+import CtaWithCoverImage from '../../blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js';
+import CtaWithIllustration from '../../blocks/cta/CtaWithIllustration/CtaWithIllustration.js'
+import  VerticallyAlignedBlogCardsWithShapedImage from '../../blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
+import  CtaWithInputField from '../../blocks/cta/CtaWithInputField/CtaWithInputField.js';
 
 function WhyZestyZestyModel({content}) {
+    let overview_text = (undefined !== content.overview_of_process_text) ? content.overview_of_process_text : 'Failed to load content.'
+    let image_url = (undefined !== content.overview_of_process_image.data) ? content.overview_of_process_image.data[0].url : 'https://pzcvtc6b.media.zestyio.com/content-management.png'
     return (
         <>
             {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
+            <SimpleHeroWithImageAndCtaButtonsPage></SimpleHeroWithImageAndCtaButtonsPage>
+            <FeaturesWithIllustration rich_text={overview_text} image_url={image_url} />
+            <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
+            <FeaturesWithIllustration rich_text={overview_text} image_url={image_url} />
+            <WithBorderedCardsAndBrandColor></WithBorderedCardsAndBrandColor>
+            <CtaWithCoverImage></CtaWithCoverImage>
+            <CtaWithIllustration></CtaWithIllustration>
+            <VerticallyAlignedBlogCardsWithShapedImage></VerticallyAlignedBlogCardsWithShapedImage>
+            <CtaWithInputField></CtaWithInputField>
+            {/*
+            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
                 <h2>Accessible Zesty.io JSON Object</h2>
                 <pre>{JSON.stringify(content, null, 2)}</pre>
             </div>
+            */}
             {/* End of Zesty.io output example */}
         </>
     );
