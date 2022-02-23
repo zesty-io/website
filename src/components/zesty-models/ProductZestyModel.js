@@ -25,13 +25,17 @@
  */
 
 import React  from 'react';
-
+import FillerContent from './FillerContent.js'
+import SimpleHeroWithImageAndCtaButtons from '../../blocks/heroes/SimpleHeroWithImageAndCtaButtons';
+import FeaturesWithIllustration from '../../blocks/features/FeaturesWithIllustration/FeaturesWithIllustration.js'
 function ProductZestyModel({content}) {
-    return (
+    let overview_text = (undefined !== content.overview_of_process_text) ? content.overview_of_process_text : FillerContent.rich_text
+    let image_url = (undefined !== content.overview_of_process_image) ? content.overview_of_process_image.data[0].url : FillerContent.image
+   return (
         <>
             {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
+            <SimpleHeroWithImageAndCtaButtons></SimpleHeroWithImageAndCtaButtons>
+            <FeaturesWithIllustration rich_text={overview_text} image_url={image_url} />
             <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
                 <h2>Accessible Zesty.io JSON Object</h2>
                 <pre>{JSON.stringify(content, null, 2)}</pre>
@@ -42,3 +46,6 @@ function ProductZestyModel({content}) {
 }
   
 export default ProductZestyModel;
+
+
+ 

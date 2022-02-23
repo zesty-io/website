@@ -137,7 +137,7 @@ const FeaturesWithIllustration = (props) => {
               src={image_url}
               alt="Zesty Benefits Graphic"
               width={1}
-              height={1}
+              /*height={1}*/
               sx={{
                 filter:
                   theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
