@@ -17,7 +17,7 @@ const ZestyLoader = (content) => {
     // console.log(content) // uncomment to see content outpu
     
     // get model name
-    const modelName = prepareModelName(content.meta.model_name)
+    const modelName = prepareModelName(content.meta.model_alternate_name)
 
     // dynamically set the zesty model
     const ZestyModel = Zesty[modelName]
@@ -63,13 +63,7 @@ export default ZestyLoader
 // view files are automatically generated: they take the content model title, capitalize first letter, remove plural endings, and removing spaces and underscores
 function prepareModelName(name) {
     let zestyAppendName = 'ZestyModel';
-    if(name.substring(-3,3) == 'ies') {
-        name = name.substring(0,-3) + 'y';
-    }
-    name = name.replace('_',' ');
-    name = name.charAt(0).toUpperCase() + name.slice(1);
-    name = name.replace(' ','');
-    return name.replace(/s$/,'')+zestyAppendName; // removes plural and adds append name
+    return name + zestyAppendName; // removes plural and adds append name
 }
 
 

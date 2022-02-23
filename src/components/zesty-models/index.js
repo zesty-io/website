@@ -33,9 +33,9 @@ import IntegrationZestyModel from './IntegrationZestyModel';
 import PricingZestyModel from './PricingZestyModel';
 import OurpartnerZestyModel from './OurpartnerZestyModel';
 import HeroHompageZestyModel from './HeroHompageZestyModel';
+import WhyZestyZestyModel from './WhyZestyZestyModel';
 import Header from './Header';
 import Footer from './Footer';
-
 export {
 
     ClippingZestyModel,
@@ -73,6 +73,7 @@ export {
     PricingZestyModel,
     OurpartnerZestyModel,
     HeroHompageZestyModel,
-    Header,
-    Footer
+    WhyZestyZestyModel,
+    Footer,
+    Header
 }
