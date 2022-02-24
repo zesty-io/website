@@ -43,10 +43,11 @@ function WhyZestyZestyModel({content}) {
             <SimpleHeroWithImageAndCtaButtonsPage></SimpleHeroWithImageAndCtaButtonsPage>
             <FeaturesWithIllustration rich_text={overview_text} image_url={image_url} />
             <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
-            <FeaturesWithIllustration rich_text={overview_text} image_url={image_url} />
+            <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
+            <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
             <WithBorderedCardsAndBrandColor></WithBorderedCardsAndBrandColor>
+            <FeaturesWithIllustration rich_text={overview_text} image_url={image_url} />
             <CtaWithCoverImage></CtaWithCoverImage>
-            <CtaWithIllustration></CtaWithIllustration>
             <VerticallyAlignedBlogCardsWithShapedImage></VerticallyAlignedBlogCardsWithShapedImage>
             <CtaWithInputField></CtaWithInputField>
             {/*

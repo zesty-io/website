@@ -33,9 +33,11 @@ function ProductZestyModel({content}) {
     let image_url = (undefined !== content.overview_of_process_image) ? content.overview_of_process_image.data[0].url : FillerContent.image
    return (
         <>
+        <Container>
             {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
             <SimpleHeroWithImageAndCtaButtons></SimpleHeroWithImageAndCtaButtons>
             <FeaturesWithIllustration rich_text={overview_text} image_url={image_url} />
+            </Container>
             <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
                 <h2>Accessible Zesty.io JSON Object</h2>
                 <pre>{JSON.stringify(content, null, 2)}</pre>

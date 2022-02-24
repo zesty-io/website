@@ -96,7 +96,7 @@ const FeaturesWithIllustration = (props) => {
             <Box marginBottom={4} dangerouslySetInnerHTML={{__html:rich_text}}>
          
             </Box>
-            {/* <Box marginBottom={4}>
+             <Box marginBottom={4}>
               <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
                 <Typography color="primary" variant="inherit" component="span">
                   Develop anything
@@ -127,7 +127,7 @@ const FeaturesWithIllustration = (props) => {
                   />
                 </ListItem>
               ))}
-            </List> */}
+            </List>
           </Box>
         </Grid>
         <Grid item container justifyContent={'center'} xs={12} md={6}>
