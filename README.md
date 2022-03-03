@@ -33,7 +33,7 @@ This will create new files where needed, but will not overwrite existing files.
 
 ## AutoDeploy
 
-Any push or merge to the `main` branch will kickoff an auto build script whcih will update the stage preview in Zesty.io manager and WebEngine preview. 
+Any push or merge to the `main` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
 
 ## Quick Create Script
 
