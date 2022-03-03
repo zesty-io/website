@@ -37,6 +37,7 @@ import OurpartnerZestyModel from './OurpartnerZestyModel';
 import HeroHompageZestyModel from './HeroHompageZestyModel';
 import WhyZestyZestyModel from './WhyZestyZestyModel';
 import ProductOverviewZestyModel from './ProductOverviewZestyModel';
+import TechnologyOverviewZestyModel from './TechnologyOverviewZestyModel';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -79,6 +80,7 @@ export {
     HeroHompageZestyModel,
     WhyZestyZestyModel,
     ProductOverviewZestyModel,
+    TechnologyOverviewZestyModel,
     Footer,
     Header
 }
