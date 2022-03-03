@@ -38,6 +38,9 @@ import HeroHompageZestyModel from './HeroHompageZestyModel';
 import WhyZestyZestyModel from './WhyZestyZestyModel';
 import ProductOverviewZestyModel from './ProductOverviewZestyModel';
 import TechnologyOverviewZestyModel from './TechnologyOverviewZestyModel';
+import CaseStudyZestyModel from './CaseStudyZestyModel';
+import AgencyPartnerZestyModel from './AgencyPartnerZestyModel';
+import ClientZestyModel from './ClientZestyModel';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -81,6 +84,9 @@ export {
     WhyZestyZestyModel,
     ProductOverviewZestyModel,
     TechnologyOverviewZestyModel,
+    CaseStudyZestyModel,
+    AgencyPartnerZestyModel,
+    ClientZestyModel,
     Footer,
     Header
 }
