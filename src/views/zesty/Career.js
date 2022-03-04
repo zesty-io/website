@@ -35,7 +35,7 @@ import Grid from '@mui/material/Grid';
 // component imports
 import Container from 'components/Container';
 
-function CareerZestyModel({ content }) {
+function Career({ content }) {
   const theme = useTheme();
   return (
     <>
@@ -270,4 +270,4 @@ function CareerZestyModel({ content }) {
   );
 }
 
-export default CareerZestyModel;
+export default Career;
