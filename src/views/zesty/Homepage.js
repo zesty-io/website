@@ -40,14 +40,14 @@
  import CtaWithInputField from '../../blocks/cta/CtaWithInputField'
  
  function Homepage({content}) {
-     
-     let image_url = (undefined !== content.zesty_benefits_image.data) ? content.zesty_benefits_image.data[0].url : 'https://pzcvtc6b.media.zestyio.com/content-management.png'
+     console.log(content)
+     let image_url = (content?.zesty_benefits_image) ? content.zesty_benefits_image.data[0].url : 'https://pzcvtc6b.media.zestyio.com/content-management.png'
  
      return (
          <>
              {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
              <FullScreenHeroWithImageSlider {...content} />
-             <WithSwiperAndBrandBackgroundColor logos={content.homepage_logos.data}/>
+             <WithSwiperAndBrandBackgroundColor logos={content.homepage_logos?.data}/>
              <FeaturesWithIllustration rich_text={content.zesty_benefits} image_url={image_url} />
              <WithOverlappedCards/>
              <ReviewsWithSimpleBoxes/>
