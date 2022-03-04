@@ -245,6 +245,12 @@ function CareerZestyModel({ content }) {
             </Box>
           </Container>
         </Box>
+        {/* Hero - end */}
+        {/* CompanyValues - start */}
+        <Container>
+          
+        </Container>
+        {/* CompanyValues - end */}
 
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
         {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
