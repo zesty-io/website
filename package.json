@@ -10,7 +10,7 @@
     "start": "next start",
     "prettier:fix": "prettier './src/**/*.js' --write",
     "clear-all": "rimraf ./node_modules ./.next",
-    "zestysync": "node scripts/zesty-nextjs.js",
+    "sync": "node src/lib/sync.js",
     "docker-build": "docker build .",
     "gcloud-build": "gcloud builds submit --tag gcr.io/zesty-dev/zesty-website:1.0.0  --project zesty-dev",
     "gcloud-deploy": "gcloud run deploy zesty-website --image=gcr.io/zesty-dev/zesty-website:1.0.0 --platform managed --port 3000 --project zesty-dev --allow-unauthenticated --min-instances 1 --region us-central1"
