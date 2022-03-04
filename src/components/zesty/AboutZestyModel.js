@@ -48,6 +48,15 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Button from '@mui/material/Button';
 // Numbers imports
 import Grid from '@mui/material/Grid';
+// Team imports
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 // mock team - Kaite would like more than 4 team members
 // team component setup with map methods just need to add extra team members
@@ -132,7 +141,8 @@ function AboutZestyModel({ content }) {
 
   return (
     <>
-      <Box>
+    {/* Needs margin top so it is no hidden under navbar mt={} */}
+      <Box mt={10}>
         {/* Headline - start */}
         <Container>
           <Box
@@ -382,7 +392,73 @@ function AboutZestyModel({ content }) {
         </Container>
         {/* Team start */}
         <Container>
-        
+          <Box>
+            <Box marginBottom={4}>
+              <Typography
+                sx={{
+                  textTransform: 'uppercase',
+                  fontWeight: 'medium',
+                }}
+                gutterBottom
+                color={'text.secondary'}
+                align={'center'}
+              >
+                Our team
+              </Typography>
+              <Typography fontWeight={700} variant={'h4'} align={'center'}>
+                Trust the professionals
+              </Typography>
+            </Box>
+            <Grid container spacing={2}>
+              {mock.map((item, i) => (
+                <Grid item xs={12} sm={6} md={3} key={i}>
+                  <Box
+                    component={Card}
+                    boxShadow={2}
+                    sx={{
+                      textDecoration: 'none',
+                      transition: 'all .2s ease-in-out',
+                      '&:hover': {
+                        transform: `translateY(-${theme.spacing(1 / 2)})`,
+                      },
+                    }}
+                  >
+                    <CardContent>
+                      <Box
+                        component={Avatar}
+                        src={item.avatar}
+                        height={80}
+                        width={80}
+                      />
+                      <Box marginTop={4}>
+                        <ListItemText
+                          primary={item.name}
+                          secondary={item.title}
+                        />
+                        <Typography
+                          variant={'subtitle2'}
+                          color={'text.secondary'}
+                        >
+                          {item.about}
+                        </Typography>
+                        <Box marginTop={4}>
+                          <IconButton size={'small'} color={'primary'}>
+                            <FacebookIcon />
+                          </IconButton>
+                          <IconButton size={'small'} color={'primary'}>
+                            <GitHubIcon />
+                          </IconButton>
+                          <IconButton size={'small'} color={'primary'}>
+                            <TwitterIcon />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                    </CardContent>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </Container>
 
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
