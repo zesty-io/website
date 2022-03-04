@@ -5,7 +5,7 @@
  * Label: News 
  * Name: news 
  * Model ZUID: 6-d0a4e8e4e6-crnlmw
- * File Created On: Fri Mar 04 2022 11:27:23 GMT-0800 (Pacific Standard Time)
+ * File Created On: Fri Mar 04 2022 12:16:05 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 
@@ -26,7 +26,7 @@
 
 import React  from 'react';
 
-function NewZestyModel({content}) {
+function New({content}) {
     return (
         <>
             {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
@@ -41,4 +41,4 @@ function NewZestyModel({content}) {
     );
 }
   
-export default NewZestyModel;
+export default New;

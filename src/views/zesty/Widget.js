@@ -2,14 +2,20 @@
  * Zesty.io Content Model Component
  * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
  * 
- * Label: News 
- * Name: news 
- * Model ZUID: 6-d0a4e8e4e6-crnlmw
- * File Created On: Fri Mar 04 2022 11:27:23 GMT-0800 (Pacific Standard Time)
+ * Label: Dashboard Widgets 
+ * Name: widgets 
+ * Model ZUID: 6-00b07c-t0z2g3
+ * File Created On: Fri Mar 04 2022 12:16:05 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 
-  * title (text)
+  * type (text)
+ * set_zuid (text)
+ * direction (text)
+ * widget_size (text)
+ * position (number)
+ * header (text)
+ * data (textarea)
 
  * 
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
@@ -18,7 +24,7 @@
  * This file is expected to be customized; because of that, it is not overwritten by the integration script.
  * Model and field changes in Zesty.io will not be reflected in this comment.
  * 
- * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-d0a4e8e4e6-crnlmw
+ * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-00b07c-t0z2g3
  * 
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
@@ -26,7 +32,7 @@
 
 import React  from 'react';
 
-function NewZestyModel({content}) {
+function Widget({content}) {
     return (
         <>
             {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
@@ -41,4 +47,4 @@ function NewZestyModel({content}) {
     );
 }
   
-export default NewZestyModel;
+export default Widget;

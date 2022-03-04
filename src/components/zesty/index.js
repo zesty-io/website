@@ -42,8 +42,6 @@ import CaseStudyZestyModel from './CaseStudyZestyModel';
 import AgencyPartnerZestyModel from './AgencyPartnerZestyModel';
 import ClientZestyModel from './ClientZestyModel';
 import ContactZestyModel from './ContactZestyModel';
-import NewZestyModel from './NewZestyModel';
-import CareerZestyModel from './CareerZestyModel';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -91,8 +89,6 @@ export {
     AgencyPartnerZestyModel,
     ClientZestyModel,
     ContactZestyModel,
-    NewZestyModel,
-    CareerZestyModel,
     Footer,
     Header
 }
