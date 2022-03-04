@@ -26,15 +26,31 @@
 
 import React  from 'react';
 import HeroWithDashboardScreenshotAndCta from '../../blocks/heroes/HeroWithDashboardScreenshotAndCta/HeroWithDashboardScreenshotAndCta';
-
+import Container from '../Container'
+import FeatureListWithDesktopAppScreenshot from'../../blocks/features/FeatureListWithDesktopAppScreenshot/FeatureListWithDesktopAppScreenshot.js'
+import SimpleCentered from'blocks/features/SimpleCentered/SimpleCentered.js'
+import FeaturesWithCardRepresentation from '../../blocks/features/FeaturesWithCardRepresentation/FeaturesWithCardRepresentation.js'
+import FeaturesWithMobileScreenshot from '../../blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js'
+import WithCompanyLogo from '../..//blocks/testimonials/WithCompanyLogo/WithCompanyLogo.js'
+import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js'
+import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js'
 
 function TechnologyOverviewZestyModel({content}) {
 
     return (
       <>
+      <Container>
         <HeroWithDashboardScreenshotAndCta/>
+        </Container>
+        <FeatureListWithDesktopAppScreenshot></FeatureListWithDesktopAppScreenshot>
+        <SimpleCentered></SimpleCentered>
+        <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
+        <FeaturesWithCardRepresentation></FeaturesWithCardRepresentation>
+        <WithCompanyLogo></WithCompanyLogo>
+        <VerticallyAlignedBlogCardsWithShapedImage></VerticallyAlignedBlogCardsWithShapedImage>
+        <CtaWithInputField></CtaWithInputField>
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-
+      {/*
         <div
           style={{
             background: '#eee',
@@ -46,6 +62,7 @@ function TechnologyOverviewZestyModel({content}) {
           <h2>Accessible Zesty.io JSON Object</h2>
           <pre>{JSON.stringify(content, null, 2)}</pre>
         </div>
+        */}
       </>
     );
 }
