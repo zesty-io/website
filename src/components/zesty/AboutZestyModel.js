@@ -46,6 +46,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Button from '@mui/material/Button';
+// Numbers imports
+import Grid from '@mui/material/Grid';
 
 function AboutZestyModel({ content }) {
   const theme = useTheme();
@@ -93,12 +95,12 @@ function AboutZestyModel({ content }) {
     },
   ];
 
-//   Main is not needed in page builds as it will duplicate the header and footer
+  //   Main is not needed in page builds as it will duplicate the header and footer
 
   return (
     <>
-      {/* <Main /> */}
       <Box>
+        {/* Headline */}
         <Container>
           <Box
             sx={{
@@ -149,6 +151,7 @@ function AboutZestyModel({ content }) {
             </Box>
           </Box>
         </Container>
+        {/* Gallery */}
         <Container paddingY={'0 !important'}>
           <Box>
             <Box display={'flex'} justifyContent={'flex-end'} marginBottom={2}>
@@ -228,14 +231,50 @@ function AboutZestyModel({ content }) {
             )}
           </Box>
         </Container>
+        <Container maxWidth={'800px !important'}>
+          <Box>
+            <Grid container spacing={2}>
+              {[
+                {
+                  title: 12,
+                  subtitle: '12 years in business.',
+                },
+                {
+                  title: '5,2K',
+                  subtitle: '5.200 sold copies',
+                },
+                {
+                  title: '99%',
+                  subtitle: '99% customer statisfication.',
+                },
+              ].map((item, i) => (
+                <Grid key={i} item xs={12} sm={4}>
+                  <Typography
+                    variant="h3"
+                    align={'center'}
+                    gutterBottom
+                    sx={{
+                      fontWeight: 900,
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
+                  <Typography
+                    color="text.secondary"
+                    align={'center'}
+                    component="p"
+                  >
+                    {item.subtitle}
+                  </Typography>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </Container>
+
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
         <br />
         <br />
-        {/* <h1 dangerouslySetInnerHTML={{ __html: content.hero_content }}></h1>
-        <h1
-          dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-        ></h1>
-        <div>{content.meta.web.seo_meta_description}</div> */}
         <div
           style={{
             background: '#eee',
@@ -249,7 +288,6 @@ function AboutZestyModel({ content }) {
         </div>
         {/* End of Zesty.io output example */}
       </Box>
-      {/* <Main /> */}
     </>
   );
 }
