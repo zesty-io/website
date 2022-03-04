@@ -16,3 +16,4 @@ export { default as SimpleHeroWithBottomVideo } from './SimpleHeroWithBottomVide
 export { default as HeroWithPrimaryBackgroundAndDesktopScreenshot } from './HeroWithPrimaryBackgroundAndDesktopScreenshot';
 export { default as FullScreenHeroWithLogoGrid } from './FullScreenHeroWithLogoGrid';
 export { default as SimpleHeroWithImageAndCtaButtons } from './SimpleHeroWithImageAndCtaButtons';
+export { default as Hero } from './Hero';
