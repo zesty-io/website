@@ -1,18 +1,17 @@
 import React from 'react';
-import ZestyLoader from './[...slug]';
+import Slug from './[...slug]';
+import { fetchPage } from '../lib/api';
 
 function IndexPage(content) {
-  return <ZestyLoader {...content} />;
+  return <Slug {...content} />;
 }
 
 export default IndexPage;
 
 // This gets called on every request
-export async function getServerSideProps() {
-  // Fetch data from Zesty.io toJSON API
-  const res = await fetch(`${process.env.zesty.stage}/?toJSON`);
-  const data = await res.json();
+export async function getServerSideProps(ctx) {
+  const data = await fetchPage(ctx.resolvedUrl);
 
   // Pass data to the page via props
-  return { props:  data  }
+  return { props: data };
 }
