@@ -49,6 +49,39 @@ import Button from '@mui/material/Button';
 // Numbers imports
 import Grid from '@mui/material/Grid';
 
+// mock team - Kaite would like more than 4 team members
+// team component setup with map methods just need to add extra team members
+const mock = [
+  {
+    name: 'Chary Smith',
+    title: 'SEO at Comoti',
+    avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
+    about:
+      'I am an ambitious workaholic, but apart from that, pretty simple person.',
+  },
+  {
+    name: 'Clara Bertoletti',
+    title: 'Junior Designer',
+    avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+    about:
+      'I am an ambitious workaholic, but apart from that, pretty simple person.',
+  },
+  {
+    name: 'Jhon Anderson',
+    title: 'Senior Frontend Developer',
+    avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+    about:
+      'I am an ambitious workaholic, but apart from that, pretty simple person.',
+  },
+  {
+    name: 'Chary Smith',
+    title: 'SEO at Comoti',
+    avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    about:
+      'I am an ambitious workaholic, but apart from that, pretty simple person.',
+  },
+];
+
 function AboutZestyModel({ content }) {
   const theme = useTheme();
   const [currentImage, setCurrentImage] = useState(0);
@@ -100,7 +133,7 @@ function AboutZestyModel({ content }) {
   return (
     <>
       <Box>
-        {/* Headline */}
+        {/* Headline - start */}
         <Container>
           <Box
             sx={{
@@ -151,7 +184,8 @@ function AboutZestyModel({ content }) {
             </Box>
           </Box>
         </Container>
-        {/* Gallery */}
+        {/* Headline - end */}
+        {/* Gallery - start */}
         <Container paddingY={'0 !important'}>
           <Box>
             <Box display={'flex'} justifyContent={'flex-end'} marginBottom={2}>
@@ -231,6 +265,8 @@ function AboutZestyModel({ content }) {
             )}
           </Box>
         </Container>
+        {/* Gallery - end */}
+        {/* Numbers - start */}
         <Container maxWidth={'800px !important'}>
           <Box>
             <Grid container spacing={2}>
@@ -270,6 +306,83 @@ function AboutZestyModel({ content }) {
               ))}
             </Grid>
           </Box>
+        </Container>
+        {/* Number - end */}
+        {/* Divider */}
+        <Container maxWidth={'800px !important'}>
+          <Divider />
+        </Container>
+        {/* Story - start */}
+        <Container>
+          <Box>
+            <Grid container spacing={4}>
+              <Grid item xs={12} md={6}>
+                <Typography fontWeight={700} variant={'h5'}>
+                  We design and implement creative solutions to everyday
+                  business problems
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Typography
+                  component={'p'}
+                  color={'text.secondary'}
+                  fontWeight={400}
+                >
+                  We are a team of creative consultants who help bridge the
+                  digital gap between companies and their clients with websites
+                  that not only serve as marketing platforms but also provide
+                  solutions to online business problems and digital marketing
+                  strategies that connect you with the ideal client and help
+                  create a loyal customer.
+                  <br />
+                  <br />
+                  We are a team of creative consultants who help bridge the
+                  digital gap between companies and their clients with websites
+                  that not only serve as marketing platforms but also provide
+                  solutions to online business problems and digital marketing
+                  strategies that connect you with the ideal client and help
+                  create a loyal customer.
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
+                  {[
+                    'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
+                    'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
+                    'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
+                    'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
+                    'https://assets.maccarianagency.com/svg/logos/google-original.svg',
+                    'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
+                  ].map((item, i) => (
+                    <Box maxWidth={90} marginTop={2} marginRight={4} key={i}>
+                      <Box
+                        component="img"
+                        height={1}
+                        width={1}
+                        src={item}
+                        alt="..."
+                        sx={{
+                          filter:
+                            theme.palette.mode === 'dark'
+                              ? 'brightness(0) invert(0.7)'
+                              : 'none',
+                        }}
+                      />
+                    </Box>
+                  ))}
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+        {/* Story - end */}
+        {/* Divider */}
+        <Container maxWidth={'800px !important'}>
+          <Divider />
+        </Container>
+        {/* Team start */}
+        <Container>
+        
         </Container>
 
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
