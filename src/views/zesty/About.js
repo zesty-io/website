@@ -91,7 +91,7 @@ const mock = [
   },
 ];
 
-function AboutZestyModel({ content }) {
+function About({ content }) {
   const theme = useTheme();
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -481,4 +481,4 @@ function AboutZestyModel({ content }) {
   );
 }
 
-export default AboutZestyModel;
+export default About;
