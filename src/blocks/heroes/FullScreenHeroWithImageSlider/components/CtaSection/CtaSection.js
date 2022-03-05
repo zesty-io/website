@@ -20,8 +20,9 @@ const CtaSection = (props) => {
       <Typography
         sx={{
           textTransform: 'uppercase',
-          fontWeight: 'medium',
+          fontWeight: '200',
         }}
+        component="h1"
         gutterBottom
         color={'text.secondary'}
       >
@@ -29,10 +30,11 @@ const CtaSection = (props) => {
       </Typography>
       <Box marginBottom={2}>
         <Typography
+          component="h2"
           variant="h2"
           color="text.primary"
           sx={{
-            fontWeight: 700,
+            fontWeight: 300
           }}
         >
           {/* <span dangerouslySetInnerHTML={{__html:props.title}}></span> */}
@@ -42,7 +44,7 @@ const CtaSection = (props) => {
             component={'span'}
             variant={'inherit'}
             sx={{
-             
+              fontWeight: 400,
             }}
           >
             {title[1]}
@@ -61,7 +63,7 @@ const CtaSection = (props) => {
       >
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           size="large"
           fullWidth={isMd ? false : true}
         >
@@ -70,7 +72,7 @@ const CtaSection = (props) => {
         <Box
           component={Button}
           variant="outlined"
-          color="primary"
+          color="secondary"
           size="large"
           marginTop={{ xs: 2, sm: 0 }}
           marginLeft={{ sm: 2 }}

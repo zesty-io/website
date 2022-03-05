@@ -16,7 +16,7 @@ export function ZestyView(props) {
   return (
     <>
       <ZestyHead content={props.content} />
-      <Zesty.Header/>
+      
       <Component content={props.content} />
       <Zesty.Footer/>
     </>
