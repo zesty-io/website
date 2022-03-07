@@ -24,7 +24,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
@@ -36,21 +36,71 @@ import { Breadcrumb } from '../../blocks/progressSteps';
 import { Result } from '../../blocks/formLayouts';
 import { Newsletter } from '../../blocks/newsletters';
 
-
-function New({content}) {
-    return (
-        <>
-
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
+function New({ content }) {
+  const theme = useTheme();
+  return (
+    <>
+      <Box bgcolor={'alternate.main'} mt={9}>
+        <Container paddingY={2}>
+          <Breadcrumb />
+        </Container>
+      </Box>
+      <Container>
+        <SimpleHeroWithCta />
+      </Container>
+      <Container>
+        <Result />
+      </Container>
+      <Box
+        position={'relative'}
+        marginTop={{ xs: 4, md: 6 }}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <Box
+          component={'svg'}
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          viewBox="0 0 1920 100.1"
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            transform: 'translateY(-50%)',
+            zIndex: 2,
+            width: 1,
+          }}
+        >
+          <path
+            fill={theme.palette.alternate.main}
+            d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+          ></path>
+        </Box>
+        <Container>
+          <Newsletter />
+        </Container>
+      </Box>
+      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+      {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
             <div>{content.meta.web.seo_meta_description}</div> */}
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+      <div
+        style={{
+          background: '#eee',
+          border: '1px #000 solid',
+          margin: '10px',
+          padding: '20px',
+        }}
+      >
+        <h2>Accessible Zesty.io JSON Object</h2>
+        <pre>{JSON.stringify(content, null, 2)}</pre>
+      </div>
+      {/* End of Zesty.io output example */}
+    </>
+  );
 }
-  
+
 export default New;
