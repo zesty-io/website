@@ -45,7 +45,6 @@ import { Team } from 'blocks/team';
 
 
 function About({ content }) {
-
   //   Main is not needed in page builds as it will duplicate the header and footer
 
   return (

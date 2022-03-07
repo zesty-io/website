@@ -7,6 +7,7 @@ export default function ZestyHead(props) {
       
 
       <title>{props.content.meta.web.seo_meta_title}</title>
+      <link rel="icon" href="/favicon.png" type="image/png" />
       <meta
         property="og:title"
         content={props.content.meta.web.seo_meta_title}
