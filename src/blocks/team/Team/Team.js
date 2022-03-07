@@ -41,6 +41,34 @@ const mock = [
     about:
       'I am an ambitious workaholic, but apart from that, pretty simple person.',
   },
+  {
+    name: 'Chary Smith',
+    title: 'SEO at Comoti',
+    avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
+    about:
+      'I am an ambitious workaholic, but apart from that, pretty simple person.',
+  },
+  {
+    name: 'Clara Bertoletti',
+    title: 'Junior Designer',
+    avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+    about:
+      'I am an ambitious workaholic, but apart from that, pretty simple person.',
+  },
+  {
+    name: 'Jhon Anderson',
+    title: 'Senior Frontend Developer',
+    avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+    about:
+      'I am an ambitious workaholic, but apart from that, pretty simple person.',
+  },
+  {
+    name: 'Chary Smith',
+    title: 'SEO at Comoti',
+    avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    about:
+      'I am an ambitious workaholic, but apart from that, pretty simple person.',
+  },
 ];
 
 const Team = () => {
