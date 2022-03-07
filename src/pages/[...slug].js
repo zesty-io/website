@@ -2,9 +2,14 @@ import React from 'react';
 
 import { fetchPage } from '../lib/api';
 import { ZestyView } from '../lib/ZestyView';
+import Main from '../layouts/Main';
 
 export default function Slug(props) {
-  return <ZestyView content={props} />;
+  return (
+    <Main>
+        <ZestyView content={props} />
+    </Main>
+  );
 }
 
 // This gets called on every request

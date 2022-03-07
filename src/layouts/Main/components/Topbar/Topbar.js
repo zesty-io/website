@@ -30,15 +30,15 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         display={'flex'}
         component="a"
         href="/"
-        title="theFront"
-        width={{ xs: 100, md: 120 }}
+        title="Zesty.io Platform"
+        width={{ xs: 100, md: 150 }}
       >
         <Box
           component={'img'}
           src={
             mode === 'light' && !colorInvert
-              ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-              : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
+              ? '/assets/zesty-logo.png'
+              : '/assets/zesty-logo-inverted.png'
           }
           height={1}
           width={1}
@@ -99,10 +99,10 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
             color="primary"
             component="a"
             target="blank"
-            href="https://mui.com/store/items/the-front-landing-page/"
+            href="https://accounts.zesty.io/signup"
             size="large"
           >
-            Buy now
+            Try Now
           </Button>
         </Box>
       </Box>

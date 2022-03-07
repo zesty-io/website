@@ -1,4 +1,5 @@
 module.exports = {
+  trailingSlash: true,
   "env": {
     "zesty": {
       "instance_zuid": "8-aaeffee09b-7w6v22",
