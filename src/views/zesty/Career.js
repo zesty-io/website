@@ -42,10 +42,10 @@ function Career({ content }) {
   const theme = useTheme();
   return (
     <>
-     {/* Needs margin top so it is no hidden under navbar mt={} */}
+      {/* Needs margin top so it is no hidden under navbar mt={} */}
       {/* primary Box */}
       <Box mt={10}>
-      <Hero />
+        <Hero />
         <Container>
           <CompanyValues />
         </Container>
