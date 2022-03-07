@@ -40,6 +40,7 @@ function New({ content }) {
   const theme = useTheme();
   return (
     <>
+     {/* Needs margin top so it is no hidden under navbar mt={} */}
       <Box bgcolor={'alternate.main'} mt={9}>
         <Container paddingY={2}>
           <Breadcrumb />
