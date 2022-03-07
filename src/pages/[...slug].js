@@ -6,9 +6,9 @@ import Main from '../layouts/Main';
 
 export default function Slug(props) {
   return (
-      <Main>
-  <ZestyView content={props} />
-  </Main>
+    <Main>
+        <ZestyView content={props} />
+    </Main>
   );
 }
 

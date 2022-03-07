@@ -44,8 +44,6 @@ import Client from './Client';
 import Contact from './Contact';
 import New from './New';
 import Career from './Career';
-import Header from './Header';
-import Footer from './Footer';
 
 export {
 
@@ -92,7 +90,5 @@ export {
     Client,
     Contact,
     New,
-    Career,
-    Footer,
-    Header
+    Career
 }

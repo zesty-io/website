@@ -16,9 +16,7 @@ export function ZestyView(props) {
   return (
     <>
       <ZestyHead content={props.content} />
-      
       <Component content={props.content} />
-      <Zesty.Footer/>
     </>
   );
 }
