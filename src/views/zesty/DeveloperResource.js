@@ -34,6 +34,7 @@ import Container from 'components/Container';
 // blocks
 import { SimpleHeroWithCta } from 'blocks/heroes';
 import { VerticalMinimalDesignedBlogCardsNoFooter } from 'blocks/blog';
+import { ContactUs } from 'blocks/formLayouts';
 
 function DeveloperResource({ content }) {
   return (
@@ -42,6 +43,9 @@ function DeveloperResource({ content }) {
         <SimpleHeroWithCta />
         <Container>
           <VerticalMinimalDesignedBlogCardsNoFooter />
+        </Container>
+        <Container>
+            <ContactUs />
         </Container>
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
         {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
