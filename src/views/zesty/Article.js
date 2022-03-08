@@ -31,19 +31,12 @@
  */
 
 import React from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Typography from '@mui/material/Typography';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 
-import TextField from '@mui/material/TextField';
 
 import FillerContent from '../../../src/components/FillerContent';
 import BlogCTA from '../../components/cta/BlogCTA';
