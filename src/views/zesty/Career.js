@@ -100,7 +100,7 @@ function Career({ content }) {
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
         {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
              <div>{content.meta.web.seo_meta_description}</div> */}
-        <div
+        {/* <div
           style={{
             background: '#eee',
             border: '1px #000 solid',
@@ -110,7 +110,7 @@ function Career({ content }) {
         >
           <h2>Accessible Zesty.io JSON Object</h2>
           <pre>{JSON.stringify(content, null, 2)}</pre>
-        </div>
+        </div> */}
         {/* End of Zesty.io output example */}
       </Box>
     </>
