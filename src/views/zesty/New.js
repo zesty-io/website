@@ -31,7 +31,7 @@ import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 
 // blocks
-import { SimpleHeroWithCta } from '../../blocks/heroes';
+import { SimpleHeroWithCta, SimpleHeroWithSingleCta } from '../../blocks/heroes';
 import { Breadcrumb } from '../../blocks/progressSteps';
 import { Result } from '../../blocks/formLayouts';
 import { Newsletter } from '../../blocks/newsletters';
@@ -46,7 +46,7 @@ function New({ content }) {
         </Container>
       </Box>
       <Container>
-        <SimpleHeroWithCta />
+        <SimpleHeroWithSingleCta />
       </Container>
       <Container>
         <Result />
