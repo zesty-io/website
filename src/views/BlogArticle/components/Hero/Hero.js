@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
 
-const Hero = () => {
+const Hero = (props) => {
   useEffect(() => {
     const jarallaxInit = async () => {
       const jarallaxElems = document.querySelectorAll('.jarallax');
@@ -28,7 +28,7 @@ const Hero = () => {
       data-jarallax
       data-speed="0.2"
       position={'relative'}
-      minHeight={{ xs: 400, sm: 500, md: 600 }}
+      minHeight={{ xs: 400, sm: 500, md: 650, lg: 800 }}
       display={'flex'}
       marginTop={-13}
       paddingTop={13}
@@ -50,8 +50,7 @@ const Hero = () => {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
-          backgroundImage:
-            'url(https://assets.maccarianagency.com/backgrounds/img3.jpg)',
+          backgroundImage: `url(${props.image})`,
         }}
       />
       <Box
