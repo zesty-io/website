@@ -24,21 +24,43 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
+// mui
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import Divider from '@mui/material/Divider';
+// container component
+import Container from 'components/Container';
+// blocks
+import { SimpleHeroWithCta } from 'blocks/heroes';
+import { VerticalMinimalDesignedBlogCardsNoFooter } from 'blocks/blog';
 
-function DeveloperResource({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
+function DeveloperResource({ content }) {
+  return (
+    <>
+      <Box>
+        <SimpleHeroWithCta />
+        <Container>
+          <VerticalMinimalDesignedBlogCardsNoFooter />
+        </Container>
+        {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+        {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
             <div>{content.meta.web.seo_meta_description}</div> */}
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+        <div
+          style={{
+            background: '#eee',
+            border: '1px #000 solid',
+            margin: '10px',
+            padding: '20px',
+          }}
+        >
+          <h2>Accessible Zesty.io JSON Object</h2>
+          <pre>{JSON.stringify(content, null, 2)}</pre>
+        </div>
+        {/* End of Zesty.io output example */}
+      </Box>
+    </>
+  );
 }
-  
+
 export default DeveloperResource;
