@@ -17,6 +17,7 @@ import PricingTier from './PricingTier';
 import Partner from './Partner';
 import Hero from './Hero';
 import PlatformSection from './PlatformSection';
+import NewNavigation from './NewNavigation';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -44,6 +45,10 @@ import Client from './Client';
 import Contact from './Contact';
 import New from './New';
 import Career from './Career';
+import DeveloperResource from './DeveloperResource';
+import EventsAndWebinar from './EventsAndWebinar';
+import Header from './Header';
+import Footer from './Footer';
 
 export {
 
@@ -64,6 +69,7 @@ export {
     Partner,
     Hero,
     PlatformSection,
+    NewNavigation,
     Category,
     Article,
     Tag,
@@ -90,5 +96,9 @@ export {
     Client,
     Contact,
     New,
-    Career
+    Career,
+    DeveloperResource,
+    EventsAndWebinar,
+    Footer,
+    Header
 }
