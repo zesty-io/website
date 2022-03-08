@@ -71,7 +71,7 @@ const mock = [
   },
 ];
 
-const Team = () => {
+const TeamWithCards = () => {
   const theme = useTheme();
   return (
     <Box>
@@ -138,4 +138,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default TeamWithCards;
