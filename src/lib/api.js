@@ -39,14 +39,63 @@ export async function fetchPage(url,getNavigation=true) {
  
   // fetch the navigation and append the navigation to the data
   if(getNavigation == true){
-    data.navigationTree = await buildJSONTreeFromNavigation()
+    data.navigationTree = await buildJSONTreeFromNavigation(zestyURL)
+    // custom code
+    data.navigationCustom = await customNavigation(zestyURL)
   }
 
   return data;
 }
 
+async function customNavigation(zestyURL){
+ // !TODO build out navigation
+ let navJSON = zestyURL+'/-/gql/main_navigation.json';
+ console.log(navJSON)
+ try {
+   const routes = await fetch(navJSON);
+   let routeData = await routes.json();
+   let reducedData = []
+   routeData.forEach(async route => {
+     if(!route.uri.match(/mindshare/)){
+       let tempRoute = {
+         href: route.uri,
+         title: route.title
+       };
+       reducedData.push(tempRoute)
+     }
+   
+   }) 
+  return reducedData
+ } catch (err){
+   console.log(err)
+   return []
+ }
+} 
 
 async function buildJSONTreeFromNavigation(zestyURL){
-  //console.log(zestyURL)
-  return {}
+   // access the headless url map
+  // /-/headless/routing.json
+
+  // !TODO build out navigation
+  let navJSON = zestyURL+'/-/headless/routing.json';
+  console.log(navJSON)
+  try {
+    const routes = await fetch(navJSON);
+    let routeData = await routes.json();
+    let reducedData = []
+    routeData.forEach(async route => {
+      if(!route.uri.match(/mindshare/)){
+        let tempRoute = {
+          href: route.uri,
+          title: route.title
+        };
+        reducedData.push(tempRoute)
+      }
+    
+    }) 
+   return reducedData
+  } catch (err){
+    console.log(err)
+    return []
+  }
 }
