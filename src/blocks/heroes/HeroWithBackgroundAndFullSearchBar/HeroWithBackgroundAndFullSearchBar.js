@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
 
-const HeroWithBackgroundAndFullSearchBar = () => {
+const Hero = () => {
   const theme = useTheme();
   return (
     <Box
@@ -89,4 +89,4 @@ const HeroWithBackgroundAndFullSearchBar = () => {
   );
 };
 
-export default HeroWithBackgroundAndFullSearchBar;
+export default Hero;

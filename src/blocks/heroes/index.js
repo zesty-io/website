@@ -9,6 +9,8 @@ export { default as HeroWithMobileAppScreenshot } from './HeroWithMobileAppScree
 export { default as HeroWithDashboardScreenshotAndCta } from './HeroWithDashboardScreenshotAndCta';
 export { default as SimpleHeroWithSearchBox } from './SimpleHeroWithSearchBox';
 export { default as SimpleHeroWithCta } from './SimpleHeroWithCta';
+export { default as SimpleHeroWithSingleCta } from './SimpleHeroWithSingleCta';
+export { default as SimpleHero } from './SimpleHero';
 export { default as HeroWithIllustrationAndCta } from './HeroWithIllustrationAndCta';
 export { default as HeroWithLogoGridAndDesktopScreenshot } from './HeroWithLogoGridAndDesktopScreenshot';
 export { default as HeroWithBackgroundVideo } from './HeroWithBackgroundVideo';
@@ -16,4 +18,4 @@ export { default as SimpleHeroWithBottomVideo } from './SimpleHeroWithBottomVide
 export { default as HeroWithPrimaryBackgroundAndDesktopScreenshot } from './HeroWithPrimaryBackgroundAndDesktopScreenshot';
 export { default as FullScreenHeroWithLogoGrid } from './FullScreenHeroWithLogoGrid';
 export { default as SimpleHeroWithImageAndCtaButtons } from './SimpleHeroWithImageAndCtaButtons';
-export { default as Hero } from './Hero';
+export { default as HeroWithGeometricImages } from './HeroWithGeometricImages';

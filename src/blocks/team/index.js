@@ -5,4 +5,4 @@ export { default as WithLargeImagesAndSocialIcons } from './WithLargeImagesAndSo
 export { default as TeamWithSmallSquarePhotos } from './TeamWithSmallSquarePhotos';
 export { default as WithSimpleCards } from './WithSimpleCards';
 export { default as WithAlternateCards } from './WithAlternateCards';
-export { default as Team } from './Team';
+export { default as TeamWithCards } from './TeamWithCards';

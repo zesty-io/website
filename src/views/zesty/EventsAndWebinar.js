@@ -2,10 +2,14 @@
  * Zesty.io Content Model Component
  * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
  * 
- * Label: News 
- * Name: news 
- * Model ZUID: 6-d0a4e8e4e6-crnlmw
- * File Created On: Fri Mar 04 2022 12:16:05 GMT-0800 (Pacific Standard Time)
+ * Label: Events and Webinars 
+ * Name: events_and_webinars 
+ * Model ZUID: 6-fc94dbd586-7b7n30
+<<<<<<< HEAD
+ * File Created On: Mon Mar 07 2022 18:56:13 GMT-0800 (Pacific Standard Time)
+=======
+ * File Created On: Tue Mar 08 2022 08:39:44 GMT-0800 (Pacific Standard Time)
+>>>>>>> 90810f8e9b6e7fdfec6430ef7a0587ead9a0e41f
  * 
  * Model Fields:
  * 
@@ -18,36 +22,28 @@
  * This file is expected to be customized; because of that, it is not overwritten by the integration script.
  * Model and field changes in Zesty.io will not be reflected in this comment.
  * 
- * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-d0a4e8e4e6-crnlmw
+ * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-fc94dbd586-7b7n30
  * 
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
 import React from 'react';
+// mui
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-
+// container component
 import Container from 'components/Container';
-
 // blocks
-import { SimpleHeroWithCta, SimpleHeroWithSingleCta } from '../../blocks/heroes';
-import { Breadcrumb } from '../../blocks/progressSteps';
+import { SimpleHero } from 'blocks/heroes';
 import { Result } from '../../blocks/formLayouts';
 import { Newsletter } from '../../blocks/newsletters';
 
-function New({ content }) {
+function EventsAndWebinar({ content }) {
   const theme = useTheme();
   return (
     <>
-      <Box bgcolor={'alternate.main'}>
-        <Container paddingY={2}>
-          <Breadcrumb />
-        </Container>
-      </Box>
-      {/* <Container> */}
-        <SimpleHeroWithSingleCta />
-      {/* </Container> */}
+      <SimpleHero />
       <Container>
         <Result />
       </Container>
@@ -85,6 +81,7 @@ function New({ content }) {
         </Container>
       </Box>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+
       {/* <div
         style={{
           background: '#eee',
@@ -101,4 +98,4 @@ function New({ content }) {
   );
 }
 
-export default New;
+export default EventsAndWebinar;
