@@ -65,7 +65,7 @@ const Hero = () => {
           flexDirection={{ xs: 'column', sm: 'row' }}
           alignItems={{ xs: 'stretched', sm: 'center' }}
           justifyContent={'center'}
-          pt={2}
+          pt={3}
         >
           <Button
             component={'a'}

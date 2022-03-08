@@ -45,9 +45,9 @@ function New({ content }) {
           <Breadcrumb />
         </Container>
       </Box>
-      <Container>
+      {/* <Container> */}
         <SimpleHeroWithSingleCta />
-      </Container>
+      {/* </Container> */}
       <Container>
         <Result />
       </Container>
