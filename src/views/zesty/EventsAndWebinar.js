@@ -5,7 +5,11 @@
  * Label: Events and Webinars 
  * Name: events_and_webinars 
  * Model ZUID: 6-fc94dbd586-7b7n30
+<<<<<<< HEAD
  * File Created On: Mon Mar 07 2022 18:56:13 GMT-0800 (Pacific Standard Time)
+=======
+ * File Created On: Tue Mar 08 2022 08:39:44 GMT-0800 (Pacific Standard Time)
+>>>>>>> 90810f8e9b6e7fdfec6430ef7a0587ead9a0e41f
  * 
  * Model Fields:
  * 
