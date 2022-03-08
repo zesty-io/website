@@ -47,8 +47,6 @@ import New from './New';
 import Career from './Career';
 import DeveloperResource from './DeveloperResource';
 import EventsAndWebinar from './EventsAndWebinar';
-import Header from './Header';
-import Footer from './Footer';
 
 export {
 
@@ -99,6 +97,4 @@ export {
     Career,
     DeveloperResource,
     EventsAndWebinar,
-    Footer,
-    Header
 }
