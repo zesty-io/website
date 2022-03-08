@@ -29,13 +29,11 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
+
 import Stories from '../../blocks/portfolioGrid/Stories/Stories';
 import PartnersColor from '../../blocks/logoGrid/PartnersColor/PartnersColor';
-
 import ShowcaseBgImagePage from 'pages/blocks/category-showcases/showcase-bg-image';
 import CtaSimpleCenteredPage from 'pages/blocks/cta/cta-simple-centered';
 

@@ -72,7 +72,7 @@ const FullScreenHeroWithImageSlider = (props) => {
                     },
                   }}
                 >
-                  <CoverSlider />
+                  <CoverSlider {...props} />
                 </Box>
               </Box>
             </Box>

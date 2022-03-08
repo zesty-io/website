@@ -7,7 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { NavItem } from './components';
 
-const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
+const Topbar = ({ onSidebarOpen, pages, routing, colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const {
@@ -46,6 +46,14 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         <Box>
+          <NavItem
+            title={'Test Routes'}
+            id={'testing-routes'}
+            items={routing}
+            colorInvert={colorInvert}
+          />
+        </Box>
+        <Box  marginLeft={4}>
           <NavItem
             title={'Landings'}
             id={'landing-pages'}

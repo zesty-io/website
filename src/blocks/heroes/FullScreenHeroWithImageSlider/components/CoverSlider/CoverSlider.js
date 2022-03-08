@@ -1,7 +1,8 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 
-const CoverSlider = () => {
+const CoverSlider = (props) => {
+  let img = props?.main_image ? props.main_image.data[0].url : `https://assets.maccarianagency.com/backgrounds/img3.jpg`
   return (
     <Box
       sx={{
@@ -13,7 +14,7 @@ const CoverSlider = () => {
     >
       <Box
         component={'img'}
-        src={'https://assets.maccarianagency.com/backgrounds/img3.jpg'}
+        src={img}
         height={{ xs: 'auto', md: 1 }}
         maxHeight={{ xs: 300, md: 1 }}
         width={1}
