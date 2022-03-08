@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import LoginIcon from '@mui/icons-material/Login';
 import { NavItem } from './components';
 
 const Topbar = ({ onSidebarOpen, pages, routing, colorInvert = false }) => {
@@ -101,16 +101,29 @@ const Topbar = ({ onSidebarOpen, pages, routing, colorInvert = false }) => {
             colorInvert={colorInvert}
           />
         </Box>
-        <Box marginLeft={4}>
+        
+        <Box marginLeft={2}>
           <Button
             variant="contained"
             color="primary"
             component="a"
             target="blank"
             href="https://accounts.zesty.io/signup"
-            size="large"
+            size="medium"
           >
-            Try Now
+            Try Free
+          </Button>
+        </Box>
+        <Box marginLeft={2}>
+          <Button
+            size={'medium'}
+            variant="outlined"
+            endIcon={<LoginIcon />}
+            fullWidth
+            component="a"
+            href="https://accounts.zesty.io"
+          >
+            Login
           </Button>
         </Box>
       </Box>
