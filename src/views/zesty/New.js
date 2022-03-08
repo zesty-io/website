@@ -31,7 +31,7 @@ import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 
 // blocks
-import { SimpleHeroWithCta } from '../../blocks/heroes';
+import { SimpleHeroWithCta, SimpleHeroWithSingleCta } from '../../blocks/heroes';
 import { Breadcrumb } from '../../blocks/progressSteps';
 import { Result } from '../../blocks/formLayouts';
 import { Newsletter } from '../../blocks/newsletters';
@@ -40,15 +40,14 @@ function New({ content }) {
   const theme = useTheme();
   return (
     <>
-     {/* Needs margin top so it is no hidden under navbar mt={} */}
-      <Box bgcolor={'alternate.main'} mt={9}>
+      <Box bgcolor={'alternate.main'}>
         <Container paddingY={2}>
           <Breadcrumb />
         </Container>
       </Box>
-      <Container>
-        <SimpleHeroWithCta />
-      </Container>
+      {/* <Container> */}
+        <SimpleHeroWithSingleCta />
+      {/* </Container> */}
       <Container>
         <Result />
       </Container>

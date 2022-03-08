@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
 
-const Hero = () => {
+const HeroWithGeometricImages = () => {
   const theme = useTheme();
   return (
     <Box
@@ -201,4 +201,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default HeroWithGeometricImages;
