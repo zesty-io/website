@@ -47,22 +47,31 @@ export async function fetchPage(url,getNavigation=true) {
   return data;
 }
 
+// loops and builds tree
 async function customNavigation(zestyURL){
  // !TODO build out navigation
- let navJSON = zestyURL+'/-/gql/main_navigation.json';
+//  {
+//   lang_id: "1",
+//   title: "Why Zesty.io?",
+//   internal_link: "7-82efec8dc6-qrgszg",
+//   external_link: null,
+//   parent: [
+//   "7-d4dfcad2b7-b2z47h"
+//   ],
+//   sort_order: "1",
+//   meta_keywords: null,
+//   meta_description: "",
+//   meta_title: "Why Zesty.io?",
+//   uri: null
+//   },
+ let navJSON = zestyURL+'/-/gql/new_navigation.json';
  console.log(navJSON)
  try {
    const routes = await fetch(navJSON);
    let routeData = await routes.json();
    let reducedData = []
    routeData.forEach(async route => {
-     if(!route.uri.match(/mindshare/)){
-       let tempRoute = {
-         href: route.uri,
-         title: route.title
-       };
-       reducedData.push(tempRoute)
-     }
+    
    
    }) 
   return reducedData
