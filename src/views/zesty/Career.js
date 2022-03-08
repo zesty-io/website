@@ -33,7 +33,7 @@ import Divider from '@mui/material/Divider';
 import Container from 'components/Container';
 
 // blocks
-import { Hero } from 'blocks/heroes';
+import { HeroWithGeometricImages } from 'blocks/heroes';
 import { Jobs } from 'blocks/lists';
 import { Newsletter } from 'blocks/newsletters';
 import { About, CompanyValues } from 'blocks/contentBlocks';
@@ -44,7 +44,7 @@ function Career({ content }) {
     <>
       {/* primary Box */}
       <Box>
-        <Hero />
+        <HeroWithGeometricImages />
         <Container>
           <CompanyValues />
         </Container>
