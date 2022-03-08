@@ -33,8 +33,8 @@ const SidebarNav = ({ pages }) => {
             component={'img'}
             src={
               mode === 'light'
-                ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-                : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
+                ? '/assets/zesty-logo.png'
+                : '/assets/zesty-logo-inverted.png'
             }
             height={1}
             width={1}
@@ -66,9 +66,9 @@ const SidebarNav = ({ pages }) => {
             variant="outlined"
             fullWidth
             component="a"
-            href="/docs/introduction"
+            href="https://accounts.zesty.io"
           >
-            Documentation
+            Login
           </Button>
         </Box>
         <Box marginTop={1}>
@@ -79,9 +79,9 @@ const SidebarNav = ({ pages }) => {
             fullWidth
             component="a"
             target="blank"
-            href="https://mui.com/store/items/the-front-landing-page/"
+            href="https://accounts.zesty.io/signup"
           >
-            Purchase now
+            Try Free
           </Button>
         </Box>
       </Box>
