@@ -119,7 +119,7 @@ async function customNavigation(zestyURL){
         contructedNav.push(tempItem);
       }
    } 
-  console.log(contructedNav)
+   
   return contructedNav
 
 } 

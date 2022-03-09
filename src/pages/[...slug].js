@@ -14,7 +14,7 @@ export default function Slug(props) {
 
 // This gets called on every request
 export async function getServerSideProps(ctx) {
-  console.log(ctx.resolvedUrl)
+
   const data = await fetchPage(ctx.resolvedUrl);
 
   // Pass data to the page via props

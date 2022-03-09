@@ -16,10 +16,6 @@ import pages from '../navigation';
 
 const Main = ({ children, routing, customRouting, colorInvert = false, bgcolor = 'transparent' }) => {
   const hasRouting = routing !== undefined ? true : false;
-  if(hasRouting){
-    console.log('routing',routing[0])
-  }
-
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
