@@ -119,7 +119,7 @@ async function customNavigation(zestyURL){
         contructedNav.push(tempItem);
       }
    } 
-  
+  console.log(contructedNav)
   return contructedNav
 
 } 
@@ -134,7 +134,7 @@ async function buildJSONTreeFromNavigation(zestyURL){
     routeData.forEach(async route => {
       if(!route.uri.match(/mindshare/)){
         let tempRoute = {
-          href: route.uri,
+          url: route.uri,
           title: route.title
         };
         reducedData.push(tempRoute)

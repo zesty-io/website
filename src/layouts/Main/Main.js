@@ -14,7 +14,7 @@ import { Topbar, Sidebar, Footer } from './components';
 
 import pages from '../navigation';
 
-const Main = ({ children, routing, colorInvert = false, bgcolor = 'transparent' }) => {
+const Main = ({ children, routing, customRouting, colorInvert = false, bgcolor = 'transparent' }) => {
   const hasRouting = routing !== undefined ? true : false;
   if(hasRouting){
     console.log('routing',routing[0])
@@ -62,6 +62,7 @@ const Main = ({ children, routing, colorInvert = false, bgcolor = 'transparent' 
             onSidebarOpen={handleSidebarOpen}
             pages={pages}
             routing={hasRouting ? routing : []}
+            customRouting={hasRouting ? customRouting : []}
             colorInvert={trigger ? false : colorInvert}
           />
         </Container>
