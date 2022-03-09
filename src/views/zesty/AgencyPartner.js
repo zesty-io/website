@@ -43,6 +43,8 @@ import Container from 'components/Container';
 
 function AgencyPartner({ content }) {
   const theme = useTheme();
+
+
   return (
     <>
       <Container>
@@ -52,7 +54,7 @@ function AgencyPartner({ content }) {
         />
       </Container>
       <Container paddingY={'0 !important'}>
-        <Partners />
+        <Partners data={content.agency_partners_cards.data} />
       </Container>
 
       <CtaSimpleCentered
@@ -63,7 +65,7 @@ function AgencyPartner({ content }) {
       />
 
       <Container>
-        <Main />
+        <Main data={content.agency_partners_cards.data} />
       </Container>
       <Box
         position={'relative'}
