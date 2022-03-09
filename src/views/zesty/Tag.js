@@ -47,7 +47,7 @@ function Tag({ content }) {
         {...VerticalMinimalDesignedBlogCardsPageProps}
       />
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
+      {/* <h1
         dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
       ></h1>
       <div>{content.meta.web.seo_meta_description}</div>
@@ -61,7 +61,7 @@ function Tag({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );
