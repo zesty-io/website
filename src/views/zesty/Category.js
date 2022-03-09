@@ -26,21 +26,44 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import SimpleHeroWithSearchBox from '../../blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
+import VerticalMinimalDesignedBlogCardsPage from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
+import React from 'react';
 
-function Category({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+function Category({ content }) {
+  const SimpleHeroWithSearchBoxProps = {
+    hideForm: true,
+    title: content?.meta?.web?.seo_meta_title || '',
+    description: content?.meta?.web?.seo_meta_description || '',
+  };
+
+  const VerticalMinimalDesignedBlogCardsPageProps = {
+    hideLoadMore: true,
+    list: undefined,
+  };
+  return (
+    <>
+      <SimpleHeroWithSearchBox {...SimpleHeroWithSearchBoxProps} />
+      <VerticalMinimalDesignedBlogCardsPage
+        {...VerticalMinimalDesignedBlogCardsPageProps}
+      />
+      {/* <h1
+        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
+      ></h1>
+      <div>{content.meta.web.seo_meta_description}</div>
+      <div
+        style={{
+          background: '#eee',
+          border: '1px #000 solid',
+          margin: '10px',
+          padding: '20px',
+        }}
+      >
+        <h2>Accessible Zesty.io JSON Object</h2>
+        <pre>{JSON.stringify(content, null, 2)}</pre>
+      </div> */}
+    </>
+  );
 }
-  
+
 export default Category;
