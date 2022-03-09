@@ -37,19 +37,17 @@ import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-
 import FillerContent from '../../../src/components/FillerContent';
 import BlogCTA from '../../components/cta/BlogCTA';
 
+import HeroJarallax from '../../blocks/heroes/HeroJarallax';
+
+import SidebarArticles from '../../blocks/sidebars/SidebarArticles';
+import SidebarNewsletter from '../../blocks/sidebars/SidebarNewsletter';
+import SimpleVerticalBlogCards from '../../blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
+import CtaWithInputField from '../../blocks/cta/CtaWithInputField';
+
 import Container from '../../components/Container';
-import {
-  Content,
-  FooterNewsletter,
-  Hero,
-  SidebarArticles,
-  SidebarNewsletter,
-  SimilarStories,
-} from '../BlogArticle/components';
 
 function Article({ content }) {
   const theme = useTheme();
@@ -59,7 +57,7 @@ function Article({ content }) {
   return (
     <>
       <Box>
-        <Hero
+        <HeroJarallax
           image={
             content.hero_image?.data
               ? content.hero_image.data[0].url
@@ -75,7 +73,6 @@ function Article({ content }) {
                 }}
               ></Box>
               <BlogCTA />
-
             </Grid>
             <Grid item xs={12} md={4}>
               {isMd ? (
@@ -106,12 +103,10 @@ function Article({ content }) {
         </Box>
       </Box>
       <Box bgcolor={'alternate.main'}>
-        <Container>
-          <SimilarStories />
-        </Container>
-        <Container>
-          <FooterNewsletter />
-        </Container>
+        <SimpleVerticalBlogCards />
+
+        <CtaWithInputField />
+
         <Box
           component={'svg'}
           preserveAspectRatio="none"

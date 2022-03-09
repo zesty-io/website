@@ -3,11 +3,9 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-import Main from 'layouts/Main';
 import Container from 'components/Container';
 import {
   Faq,
-  Main as MainSection,
   Plans,
   Support,
   PricingCompareTable,
@@ -17,8 +15,7 @@ const Pricing = () => {
   const theme = useTheme();
 
   return (
-    <Main>
-      <MainSection />
+      <>
       <Box bgcolor={'alternate.main'}>
         <Container>
           <Support />
@@ -60,7 +57,7 @@ const Pricing = () => {
           ></path>
         </Box>
       </Box>
-    </Main>
+      </>
   );
 };
 
