@@ -83,7 +83,10 @@ const Topbar = ({ onSidebarOpen, pages, routing, customRouting, colorInvert = fa
         </Box>
         
         <Box marginLeft={2}>
-            <TryFreeButton />
+            <TryFreeButton 
+            variant="contained" 
+            component="a" 
+            />
         </Box>
         <Box marginLeft={2}>
           <Button

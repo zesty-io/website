@@ -5,20 +5,11 @@ import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 
 import NavItem from './components/NavItem';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
-const SidebarNav = ({ pages }) => {
+const SidebarNav = ({ customRouting }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
-
-  const {
-    landings: landingPages,
-    secondary: secondaryPages,
-    company: companyPages,
-    account: accountPages,
-    portfolio: portfolioPages,
-    blog: blogPages,
-  } = pages;
-
   return (
     <Box>
       <Box width={1} paddingX={2} paddingY={1}>
@@ -42,24 +33,30 @@ const SidebarNav = ({ pages }) => {
         </Box>
       </Box>
       <Box paddingX={2} paddingY={2}>
-        <Box>
-          <NavItem title={'Landings'} items={landingPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Company'} items={companyPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Pages'} items={secondaryPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Account'} items={accountPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Blog'} items={blogPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Portfolio'} items={portfolioPages} />
-        </Box>
+      {customRouting.map(route => (
+           <Box>
+            {route.parentZUID == null && route.children.length > 0 &&
+             
+                <NavItem
+                  title={route.title}
+                  id={route.zuid}
+                  items={route.children}
+                />
+            }
+            {/* {route.parentZUID == null && route.children.length == 0 &&
+             
+                <SingleNavItem
+                  title={route.title}
+                  id={route.zuid}
+                  url={route.url}
+                  colorInvert={colorInvert}
+                  />
+            } */}
+          </Box>
+        ))}
+
+       
+
         <Box marginTop={2}>
           <Button
             size={'large'}
@@ -72,17 +69,15 @@ const SidebarNav = ({ pages }) => {
           </Button>
         </Box>
         <Box marginTop={1}>
-          <Button
+          <TryFreeButton 
             size={'large'}
             variant="contained"
             color="primary"
-            fullWidth
+            fullWidth="true"
             component="a"
             target="blank"
-            href="https://accounts.zesty.io/signup"
-          >
-            Try Free
-          </Button>
+          />
+         
         </Box>
       </Box>
     </Box>
@@ -90,7 +85,7 @@ const SidebarNav = ({ pages }) => {
 };
 
 SidebarNav.propTypes = {
-  pages: PropTypes.object.isRequired,
+  customNavigation: PropTypes.array.isRequired,
 };
 
 export default SidebarNav;
