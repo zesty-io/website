@@ -1,3 +1,7 @@
+/**
+ * props
+ * hideLoadMore => Boolean  hide the loadmore button
+ */
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
@@ -9,8 +13,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
-
 import Container from 'components/Container';
+import { Pagination } from '@mui/material';
 
 const mock = [
   {
@@ -45,7 +49,7 @@ const mock = [
   },
 ];
 
-const VerticalMinimalDesignedBlogCards = () => {
+const VerticalMinimalDesignedBlogCards = ({ hideLoadMore }) => {
   const theme = useTheme();
   return (
     <Container>
@@ -122,6 +126,7 @@ const VerticalMinimalDesignedBlogCards = () => {
         <Grid item container justifyContent={'center'} xs={12}>
           <Button
             fullWidth
+            style={{ display: hideLoadMore ? 'none' : 'block' }}
             variant={'outlined'}
             size={'large'}
             sx={{ height: 54, maxWidth: 400, justifyContent: 'space-between' }}
@@ -147,6 +152,9 @@ const VerticalMinimalDesignedBlogCards = () => {
             Load More
           </Button>
         </Grid>
+      </Grid>
+      <Grid item container justifyContent={'center'} xs={12}>
+        <Pagination count={10} size={'large'} color="primary" />
       </Grid>
     </Container>
   );

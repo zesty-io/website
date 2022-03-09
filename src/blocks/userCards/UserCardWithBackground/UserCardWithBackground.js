@@ -9,19 +9,29 @@ import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
 
-const mock = {
-  avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-  name: 'Clara Bertoletti',
-  isVerified: true,
-  title: 'Paradigm Technician',
-  followers: 84,
-  href: '#',
-  location: 'Milan, Italy',
-  website: 'www.example.com',
-  email: 'clara.bertoletti@example.com',
-};
+// const mock = {
+//   avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+//   name: 'Clara Bertoletti',
+//   isVerified: true,
+//   title: 'Paradigm Technician',
+//   followers: 84,
+//   href: '#',
+//   location: 'Milan, Italy',
+//   website: 'www.example.com',
+//   email: 'clara.bertoletti@example.com',
+// };
 
-const UserCardWithBackground = () => {
+const UserCardWithBackground = ({
+  avatar,
+  name,
+  isVerified,
+  title,
+  followers,
+  href,
+  location,
+  website,
+  email,
+}) => {
   const theme = useTheme();
   return (
     <Box
@@ -33,7 +43,7 @@ const UserCardWithBackground = () => {
       <Container maxWidth={800}>
         <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
           <Avatar
-            src={mock.avatar}
+            src={avatar}
             variant={'circular'}
             sx={{
               width: { xs: theme.spacing(16), sm: theme.spacing(20) },
@@ -86,9 +96,9 @@ const UserCardWithBackground = () => {
                 marginTop={2}
               >
                 <Typography fontWeight={700} variant={'h4'}>
-                  {mock.name}
+                  {name}
                 </Typography>
-                {mock.isVerified ? (
+                {isVerified ? (
                   <Box
                     component={'svg'}
                     xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +124,7 @@ const UserCardWithBackground = () => {
                 variant={'h6'}
                 align={'center'}
               >
-                {mock.title}
+                {title}
               </Typography>
               <Stack spacing={2} marginTop={4} width={1} alignItems={'center'}>
                 <Stack
@@ -151,7 +161,7 @@ const UserCardWithBackground = () => {
                       />
                     </Box>
                     <Typography color={'primary'} variant={'subtitle2'}>
-                      {mock.location}
+                      {location}
                     </Typography>
                   </Box>
                   <Box
@@ -178,7 +188,7 @@ const UserCardWithBackground = () => {
                       />
                     </Box>
                     <Typography color={'primary'} variant={'subtitle2'}>
-                      {mock.website}
+                      {website}
                     </Typography>
                   </Box>
                   <Box
@@ -205,7 +215,7 @@ const UserCardWithBackground = () => {
                       />
                     </Box>
                     <Typography color={'primary'} variant={'subtitle2'}>
-                      {mock.email}
+                      {email}
                     </Typography>
                   </Box>
                 </Stack>
@@ -233,14 +243,14 @@ const UserCardWithBackground = () => {
                     />
                   </Box>
                   <Typography color={'text.secondary'} variant={'subtitle2'}>
-                    {mock.followers} followers
+                    {followers} followers
                   </Typography>
                 </Box>
                 <Button
                   component={'a'}
                   variant={'contained'}
                   color={'primary'}
-                  href={mock.href}
+                  href={href}
                 >
                   View profile
                 </Button>
