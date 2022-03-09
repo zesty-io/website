@@ -39,55 +39,94 @@ export async function fetchPage(url,getNavigation=true) {
  
   // fetch the navigation and append the navigation to the data
   if(getNavigation == true){
+
     data.navigationTree = await buildJSONTreeFromNavigation(zestyURL)
-    // custom code
+    // custom nav tree building
     data.navigationCustom = await customNavigation(zestyURL)
   }
 
   return data;
 }
 
+async function recursiveChildFinder(parent,routingArray){
+  
+  // return all the items that match the parent
+  let children = [];
+  for(var i=0; i < routingArray.length; i++){
+    let child = routingArray[i]
+    if(child.parentZUID == parent) {
+      child.children = await recursiveChildFinder(child.zuid, routingArray);
+      children.push(child);
+    }
+  }
+  return children
+}
+
+function findURLbyZUID(routingArray, zuid){
+  for(var i=0; i < routingArray.length; i++){
+    if(routingArray[i].zuid == zuid) return routingArray[i].uri;
+  }
+}
 // loops and builds tree
 async function customNavigation(zestyURL){
- // !TODO build out navigation
-//  {
-//   lang_id: "1",
-//   title: "Why Zesty.io?",
-//   internal_link: "7-82efec8dc6-qrgszg",
-//   external_link: null,
-//   parent: [
-//   "7-d4dfcad2b7-b2z47h"
-//   ],
-//   sort_order: "1",
-//   meta_keywords: null,
-//   meta_description: "",
-//   meta_title: "Why Zesty.io?",
-//   uri: null
-//   },
- let navJSON = zestyURL+'/-/gql/new_navigation.json';
- console.log(navJSON)
- try {
-   const routes = await fetch(navJSON);
-   let routeData = await routes.json();
-   let reducedData = []
-   routeData.forEach(async route => {
-    
-   
-   }) 
-  return reducedData
- } catch (err){
-   console.log(err)
-   return []
- }
+
+
+
+// hit the routes endpoint /-/headless/routing.json
+// hit the endpoint /-/instant/6-f8ddabc3e2-dv5rt8.json
+// we need both endpoint to product url paths and parenting, this is custom using a headless content model with parenting
+ let routingJSON = zestyURL+'/-/headless/routing.json';
+ let navInstantJSON = zestyURL+'/-/instant/6-f8ddabc3e2-dv5rt8.json';
+ let flattenedHydratedURLs = []
+  try {
+    // fetching data
+    let res = await fetch(routingJSON);
+    let routingData = await res.json();
+    res = await fetch(navInstantJSON);
+    let instantData = await res.json();
+    // looping through isntant api data to create an array of flattened objects
+    instantData.data.forEach(item => {
+      let parent = item.content.parent?.data ? item.content.parent.data[0].zuid : null
+      let itemToStore = {
+        external: false,
+        parentZUID: parent,
+        sort: item.content.sort_order
+      }
+      // determine url structure, could be internal (if so lookup by zuid), external (string), or # for placeholders
+      if(item.content.internal_link?.data){
+        itemToStore.url = findURLbyZUID(routingData, item.content.internal_link.data[0].zuid);
+      } else if (item.content.internal_link) {
+        itemToStore.url = item.content.internal_link;
+        itemToStore.external = true;
+      } else {
+        itemToStore.url = '#';
+      }
+      itemToStore.title = item.meta.title;
+      itemToStore.zuid = item.meta.zuid;
+      flattenedHydratedURLs.push(itemToStore)
+    })
+  } catch (err){
+    console.log(err)
+    return []
+  }
+  // use flattened array of object to build a navigation tree with recursion
+  var contructedNav = []
+  let tempItem = {}  
+  for(var i = 0; i < flattenedHydratedURLs.length; i++) {
+      tempItem = flattenedHydratedURLs[i]
+      if(tempItem.parent == null){
+        tempItem.children = await recursiveChildFinder(tempItem.zuid, flattenedHydratedURLs);
+        contructedNav.push(tempItem);
+      }
+   } 
+  
+  return contructedNav
+
 } 
 
 async function buildJSONTreeFromNavigation(zestyURL){
    // access the headless url map
-  // /-/headless/routing.json
-
-  // !TODO build out navigation
   let navJSON = zestyURL+'/-/headless/routing.json';
-  console.log(navJSON)
   try {
     const routes = await fetch(navJSON);
     let routeData = await routes.json();
