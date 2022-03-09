@@ -29,13 +29,14 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-
 import Container from 'components/Container';
 
 import Stories from '../../blocks/portfolioGrid/Stories/Stories';
 import PartnersColor from '../../blocks/logoGrid/PartnersColor/PartnersColor';
-import ShowcaseBgImagePage from 'pages/blocks/category-showcases/showcase-bg-image';
-import CtaSimpleCenteredPage from 'pages/blocks/cta/cta-simple-centered';
+import ShowcaseBgImagePage from '../..//blocks/heroes/ShowcaseBgImage/ShowcaseBgImage';
+import CtaSimpleCentered from '../../blocks/cta/CtaSimpleCentered/CtaSimpleCentered';
+import FillerContent from 'components/FillerContent';
+
 
 function Client({ content }) {
   const theme = useTheme()
@@ -56,10 +57,10 @@ function Client({ content }) {
               <Box>
                 <Box>
                   <Typography variant="h3" gutterBottom>
-                    You're in good company.
+                    {content.title || FillerContent.header}
                   </Typography>
                   <Typography variant="h3" color={'primary'} fontWeight={700}>
-                    Join millions of businesses today.
+                    {content.description || FillerContent.header}
                   </Typography>
                 </Box>
               </Box>
@@ -91,7 +92,11 @@ function Client({ content }) {
         <Container>
           <Box>
             <Box marginBottom={4}>
-              <ShowcaseBgImagePage />
+              <ShowcaseBgImagePage
+                image={content.showcase_background_image.data[0].url}
+                showCase={content.showcase}
+                description={content.showcase_description}
+              />
             </Box>
           </Box>
         </Container>
@@ -99,7 +104,7 @@ function Client({ content }) {
           <Stories />
         </Container>
         <Box bgcolor={theme.palette.alternate.main}>
-          <CtaSimpleCenteredPage />
+          <CtaSimpleCentered />
         </Box>
       </Box>
 
