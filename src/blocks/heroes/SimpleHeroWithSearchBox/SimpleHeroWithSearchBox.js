@@ -17,7 +17,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import Container from 'components/Container';
 
-const SimpleHeroWithSearchBox = ({ title, description, hideForm }) => {
+const SimpleHeroWithSearchBox = (props) => {
+  const { title, description, hideForm } = props;
   const theme = useTheme();
 
   return (

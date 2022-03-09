@@ -21,17 +21,19 @@ import Container from 'components/Container';
 //   email: 'clara.bertoletti@example.com',
 // };
 
-const UserCardWithBackground = ({
-  avatar,
-  name,
-  isVerified,
-  title,
-  followers,
-  href,
-  location,
-  website,
-  email,
-}) => {
+const UserCardWithBackground = (props) => {
+  const {
+    avatar,
+    name,
+    isVerified,
+    title,
+    followers,
+    href,
+    location,
+    website,
+    email,
+  } = props;
+
   const theme = useTheme();
   return (
     <Box
