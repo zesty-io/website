@@ -29,7 +29,7 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
 
-  const hasActiveLink = () => items.find((i) => i.href === activeLink);
+  const hasActiveLink = () => items.find((i) => i.url === activeLink);
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
   return (
@@ -89,19 +89,19 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
             <Grid item key={i} xs={items.length > 12 ? 6 : 12}>
               <Button
                 component={'a'}
-                href={p.href}
+                href={p.url}
                 fullWidth
                 sx={{
                   justifyContent: 'flex-start',
                   color:
-                    activeLink === p.href
+                    activeLink === p.url
                       ? theme.palette.primary.main
                       : theme.palette.text.primary,
                   backgroundColor:
-                    activeLink === p.href
+                    activeLink === p.url
                       ? alpha(theme.palette.primary.main, 0.1)
                       : 'transparent',
-                  fontWeight: activeLink === p.href ? 600 : 400,
+                  fontWeight: activeLink === p.url ? 600 : 400,
                 }}
               >
                 {p.title}

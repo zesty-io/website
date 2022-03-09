@@ -6,7 +6,7 @@ import Main from '../layouts/Main';
 
 export default function Slug(props) {
   return (
-    <Main routing={props.navigationTree}>
+    <Main routing={props.navigationTree} customRouting={props.navigationCustom}>
         <ZestyView content={props} />
     </Main>
   );
@@ -14,6 +14,7 @@ export default function Slug(props) {
 
 // This gets called on every request
 export async function getServerSideProps(ctx) {
+
   const data = await fetchPage(ctx.resolvedUrl);
 
   // Pass data to the page via props

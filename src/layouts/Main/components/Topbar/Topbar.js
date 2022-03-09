@@ -6,8 +6,8 @@ import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import LoginIcon from '@mui/icons-material/Login';
 import { NavItem } from './components';
-
-const Topbar = ({ onSidebarOpen, pages, routing, colorInvert = false }) => {
+import SingleNavItem from './components/NavItem/SingleNavItem.js'
+const Topbar = ({ onSidebarOpen, pages, routing, customRouting, colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const {
@@ -45,59 +45,36 @@ const Topbar = ({ onSidebarOpen, pages, routing, colorInvert = false }) => {
         />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-        <Box>
+        
+        {customRouting.map(route => (
+           <>
+            {route.parentZUID == null && route.children.length > 0 &&
+              <Box  marginLeft={4}>
+                <NavItem
+                  title={route.title}
+                  id={route.zuid}
+                  items={route.children}
+                  colorInvert={colorInvert}
+                />
+              </Box>
+            }
+            {route.parentZUID == null && route.children.length == 0 &&
+              <Box  marginLeft={4}>
+                <SingleNavItem
+                  title={route.title}
+                  id={route.zuid}
+                  url={route.url}
+                  colorInvert={colorInvert}
+                  />
+              </Box>
+            }
+          </>
+        ))}
+        <Box marginLeft={4}>
           <NavItem
             title={'Test Routes'}
             id={'testing-routes'}
             items={routing}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box  marginLeft={4}>
-          <NavItem
-            title={'Landings'}
-            id={'landing-pages'}
-            items={landingPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Company'}
-            id={'company-pages'}
-            items={companyPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Account'}
-            id={'account-pages'}
-            items={accountPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Pages'}
-            id={'secondary-pages'}
-            items={secondaryPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Blog'}
-            id={'blog-pages'}
-            items={blogPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Portfolio'}
-            id={'portfolio-pages'}
-            items={portfolioPages}
             colorInvert={colorInvert}
           />
         </Box>
