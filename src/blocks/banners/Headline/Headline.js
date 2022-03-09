@@ -3,7 +3,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const Headline = () => {
+const Headline = ({title, description}) => {
   const theme = useTheme();
 
   return (
@@ -34,7 +34,7 @@ const Headline = () => {
           gutterBottom
           align={'center'}
         >
-          About us
+          {title}
         </Typography>
         <Typography
           variant="h6"
@@ -45,9 +45,7 @@ const Headline = () => {
           We take you by hand on each step of the process
         </Typography>
         <Typography variant="h6" color={'text.secondary'} align={'center'}>
-          As experts in both design & development, we help you go through the
-          complete process. From your new website idea, to design, development,
-          launch and scale!
+          {description}
         </Typography>
       </Box>
     </Box>

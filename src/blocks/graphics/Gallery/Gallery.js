@@ -8,7 +8,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Button from '@mui/material/Button';
 
-const Gallery = () => {
+const Gallery = ({photos}) => {
   const theme = useTheme();
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -27,36 +27,36 @@ const Gallery = () => {
     defaultMatches: true,
   });
 
-  const photos = [
-    {
-      src: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-      rows: 1,
-      cols: 2,
-    },
-    {
-      src: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
-      rows: 1,
-      cols: 1,
-    },
-    {
-      src: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-      rows: 1,
-      cols: 1,
-    },
-    {
-      src: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
-      rows: 1,
-      cols: 2,
-    },
-  ];
+  // const photos = [
+  //   {
+  //     src: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
+  //     source: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
+  //     rows: 1,
+  //     cols: 2,
+  //   },
+  //   {
+  //     src: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
+  //     source: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
+  //     rows: 1,
+  //     cols: 1,
+  //   },
+  //   {
+  //     src: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
+  //     source: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
+  //     rows: 1,
+  //     cols: 1,
+  //   },
+  //   {
+  //     src: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
+  //     source: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
+  //     rows: 1,
+  //     cols: 2,
+  //   },
+  // ];
 
   return (
     <Box>
-      <Box display={'flex'} justifyContent={'flex-end'} marginBottom={2}>
+      {/* <Box display={'flex'} justifyContent={'flex-end'} marginBottom={2}>
         <Button
           color="primary"
           size="large"
@@ -81,7 +81,7 @@ const Gallery = () => {
         >
           Open the gallery
         </Button>
-      </Box>
+      </Box> */}
       <Box>
         <ImageList
           variant="quilted"
@@ -90,11 +90,11 @@ const Gallery = () => {
           gap={isMd ? 16 : 4}
         >
           {photos.map((item, i) => (
-            <ImageListItem key={i} cols={item.cols} rows={item.rows}>
+            <ImageListItem key={i} cols={i % 3 == 0 ? 1 : 2} rows={1}>
               <LazyLoadImage
                 height={'100%'}
                 width={'100%'}
-                src={item.src}
+                src={item.url}
                 alt="..."
                 effect="blur"
                 onClick={() => openLightbox(i)}

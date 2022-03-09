@@ -43,11 +43,12 @@ function DeveloperResource({ content }) {
       <Box>
         <SimpleHeroWithCta />
         <Container>
-          <VerticalMinimalDesignedBlogCardsNoFooter />
+          <VerticalMinimalDesignedBlogCardsNoFooter cards={content.developer_cards?.data || []} />
+          <ContactUs />
         </Container>
-        <Container>
+        {/* <Container>
             <ContactUs />
-        </Container>
+        </Container> */}
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
         {/* <div
           style={{

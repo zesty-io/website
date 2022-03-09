@@ -6,6 +6,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import LoginIcon from '@mui/icons-material/Login';
 import { NavItem } from './components';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Topbar = ({ onSidebarOpen, pages, routing, colorInvert = false }) => {
   const theme = useTheme();
@@ -103,16 +104,7 @@ const Topbar = ({ onSidebarOpen, pages, routing, colorInvert = false }) => {
         </Box>
         
         <Box marginLeft={2}>
-          <Button
-            variant="contained"
-            color="primary"
-            component="a"
-            target="blank"
-            href="https://accounts.zesty.io/signup"
-            size="medium"
-          >
-            Try Free
-          </Button>
+            <TryFreeButton />
         </Box>
         <Box marginLeft={2}>
           <Button

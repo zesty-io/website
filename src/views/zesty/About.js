@@ -42,6 +42,7 @@ import { Gallery } from 'blocks/graphics';
 import { Numbers } from 'blocks/stats';
 import { Story } from 'blocks/contentBlocks';
 import { TeamWithCards } from 'blocks/team';
+import FillerContent from 'components/FillerContent';
 
 function About({ content }) {
   //   Main is not needed in page builds as it will duplicate the header and footer
@@ -51,10 +52,12 @@ function About({ content }) {
       <Box>
         <Box>
           <Container>
-            <Headline />
+            <Headline title={content.title || FillerContent.header}
+            description={content.description || FillerContent.header}/>
           </Container>
           <Container paddingY={'0 !important'}>
-            <Gallery />
+            <Gallery
+            photos={content.team_photos?.data || FillerContent.photos} />
           </Container>
           <Container maxWidth={'800px !important'}>
             <Numbers />
@@ -74,7 +77,7 @@ function About({ content }) {
         </Box>
 
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-        {/* <br />
+        <br />
          <br />
          <div
            style={{
@@ -86,7 +89,7 @@ function About({ content }) {
          >
            <h2>Accessible Zesty.io JSON Object</h2>
            <pre>{JSON.stringify(content, null, 2)}</pre>
-         </div> */}
+         </div>
         {/* End of Zesty.io output example */}
       </Box>
     </>

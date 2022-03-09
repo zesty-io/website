@@ -45,16 +45,16 @@ const mock = [
   },
 ];
 
-const VerticalMinimalDesignedBlogCardsNoFooter = () => {
+const VerticalMinimalDesignedBlogCardsNoFooter = ({ cards }) => {
   const theme = useTheme();
   return (
     <Container>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {cards.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               component={'a'}
-              href={''}
+              href={`https://${item.link}`}
               display={'block'}
               width={1}
               height={1}
@@ -76,7 +76,7 @@ const VerticalMinimalDesignedBlogCardsNoFooter = () => {
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item.image}
+                  image={item.image.data[0].url}
                   title={item.title}
                   sx={{
                     height: { xs: 300, md: 360 },
@@ -92,61 +92,24 @@ const VerticalMinimalDesignedBlogCardsNoFooter = () => {
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
-                {/* <Box padding={2} display={'flex'} flexDirection={'column'}>
-                  <Box marginBottom={2}>
+                <Box padding={2} display={'flex'} flexDirection={'column'}>
+                <Box marginBottom={2}>
                     <Divider />
                   </Box>
                   <Box
                     display={'flex'}
-                    justifyContent={'space-between'}
+                    justifyContent={'end'}
                     alignItems={'center'}
                   >
-                    <Box display={'flex'} alignItems={'center'}>
-                      <Avatar
-                        src={item.author.avatar}
-                        sx={{ marginRight: 1 }}
-                      />
-                      <Typography color={'text.secondary'}>
-                        {item.author.name}
-                      </Typography>
-                    </Box>
-                    <Typography color={'text.secondary'}>
-                      {item.date}
+                    <Typography color={'primary'}>
+                      {item.link}
                     </Typography>
                   </Box>
-                </Box> */}
+                </Box>
               </Box>
             </Box>
           </Grid>
         ))}
-        {/* <Grid item container justifyContent={'center'} xs={12}>
-          <Button
-            fullWidth
-            variant={'outlined'}
-            size={'large'}
-            sx={{ height: 54, maxWidth: 400, justifyContent: 'space-between' }}
-            endIcon={
-              <Box
-                component={'svg'}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                width={24}
-                height={24}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </Box>
-            }
-          >
-            Load More
-          </Button>
-        </Grid> */}
       </Grid>
     </Container>
   );

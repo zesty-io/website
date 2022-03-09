@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
 
+import TryFreeButton from 'components/cta/TryFreeButton';
+
 const Hero = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -66,17 +68,7 @@ const Hero = () => {
           alignItems={{ xs: 'stretched', sm: 'center' }}
           justifyContent={'center'}
         >
-          <Button
-            component={'a'}
-            variant="contained"
-            color="primary"
-            size="large"
-            fullWidth={isMd ? false : true}
-            href={'https://mui.com/store/items/the-front-landing-page/'}
-            target={'_blank'}
-          >
-            Purchase now
-          </Button>
+          <TryFreeButton />
           <Box
             marginTop={{ xs: 2, sm: 0 }}
             marginLeft={{ sm: 2 }}
@@ -84,7 +76,7 @@ const Hero = () => {
           >
             <Button
               component={'a'}
-              href={'/docs/introduction'}
+              href={'https://www.zesty.org'}
               variant="outlined"
               color="primary"
               size="large"
