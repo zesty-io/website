@@ -20,6 +20,9 @@ import PlatformSection from './PlatformSection';
 import NewNavigation from './NewNavigation';
 import DeveloperResourceCard from './DeveloperResourceCard';
 import ClientCard from './ClientCard';
+import AgencyPartnerCard from './AgencyPartnerCard';
+import AboutStat from './AboutStat';
+import JobListing from './JobListing';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -73,6 +76,9 @@ export {
     NewNavigation,
     DeveloperResourceCard,
     ClientCard,
+    AgencyPartnerCard,
+    AboutStat,
+    JobListing,
     Category,
     Article,
     Tag,
