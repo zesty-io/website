@@ -67,6 +67,7 @@ const Main = ({ children, routing, customRouting, colorInvert = false, bgcolor =
         onClose={handleSidebarClose}
         open={open}
         variant="temporary"
+        customRouting={customRouting || []}
         pages={pages}
       />
       <main>

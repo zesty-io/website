@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { alpha, useTheme } from '@mui/material/styles';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const CtaSection = (props) => {
   const theme = useTheme();
@@ -61,14 +62,14 @@ const CtaSection = (props) => {
         flexDirection={{ xs: 'column', sm: 'row' }}
         alignItems={{ xs: 'stretched', sm: 'flex-start' }}
       >
-        <Button
-          variant="contained"
-          color="secondary"
-          size="large"
-          fullWidth={isMd ? false : true}
-        >
-          {props.cta_hero_button_text}
-        </Button>
+        <TryFreeButton 
+         variant="contained"
+         color="secondary"
+         size="large"
+         text={props.cta_hero_button_text}
+         fullWidth={isMd ? false : true}
+        />
+       
         <Box
           component={Button}
           variant="outlined"
