@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
 
-const Hero = (props) => {
+const HeroJarallax = (image) => {
   useEffect(() => {
     const jarallaxInit = async () => {
       const jarallaxElems = document.querySelectorAll('.jarallax');
@@ -50,7 +50,7 @@ const Hero = (props) => {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
-          backgroundImage: `url(${props.image})`,
+          backgroundImage: `url(${image.image})`,
         }}
       />
       <Box
@@ -102,4 +102,4 @@ const Hero = (props) => {
   );
 };
 
-export default Hero;
+export default HeroJarallax;

@@ -41,39 +41,37 @@ import { Headline } from 'blocks/banners';
 import { Gallery } from 'blocks/graphics';
 import { Numbers } from 'blocks/stats';
 import { Story } from 'blocks/contentBlocks';
-import { Team } from 'blocks/team';
-
+import { TeamWithCards } from 'blocks/team';
 
 function About({ content }) {
   //   Main is not needed in page builds as it will duplicate the header and footer
 
   return (
     <>
-      {/* Needs margin top so it is no hidden under navbar mt={} */}
-      <Box mt={10}>
       <Box>
-        <Container>
-          <Headline />
-        </Container>
-        <Container paddingY={'0 !important'}>
-          <Gallery />
-        </Container>
-        <Container maxWidth={'800px !important'}>
-          <Numbers />
-        </Container>
-        <Container maxWidth={'800px !important'}>
-          <Divider />
-        </Container>
-        <Container>
-          <Story />
-        </Container>
-        <Container maxWidth={'800px !important'}>
-          <Divider />
-        </Container>
-        <Container>
-          <Team />
-        </Container>
-      </Box>
+        <Box>
+          <Container>
+            <Headline />
+          </Container>
+          <Container paddingY={'0 !important'}>
+            <Gallery />
+          </Container>
+          <Container maxWidth={'800px !important'}>
+            <Numbers />
+          </Container>
+          <Container maxWidth={'800px !important'}>
+            <Divider />
+          </Container>
+          <Container>
+            <Story />
+          </Container>
+          <Container maxWidth={'800px !important'}>
+            <Divider />
+          </Container>
+          <Container>
+            <TeamWithCards />
+          </Container>
+        </Box>
 
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
         {/* <br />

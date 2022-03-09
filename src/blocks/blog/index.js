@@ -6,3 +6,4 @@ export { default as HorizontallyAlignedBlogCardWithShapedImage } from './Horizon
 export { default as VerticallyAlignedBlogCardsWithShapedImage } from './VerticallyAlignedBlogCardsWithShapedImage';
 export { default as BlogCardsWithFullBackgroundImage } from './BlogCardsWithFullBackgroundImage';
 export { default as VerticalMinimalDesignedBlogCards } from './VerticalMinimalDesignedBlogCards';
+export { default as VerticalMinimalDesignedBlogCardsNoFooter } from './VerticalMinimalDesignedBlogCardsNoFooter';

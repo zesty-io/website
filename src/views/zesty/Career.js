@@ -33,7 +33,7 @@ import Divider from '@mui/material/Divider';
 import Container from 'components/Container';
 
 // blocks
-import { Hero } from 'blocks/heroes';
+import { HeroWithGeometricImages } from 'blocks/heroes';
 import { Jobs } from 'blocks/lists';
 import { Newsletter } from 'blocks/newsletters';
 import { About, CompanyValues } from 'blocks/contentBlocks';
@@ -42,10 +42,9 @@ function Career({ content }) {
   const theme = useTheme();
   return (
     <>
-      {/* Needs margin top so it is no hidden under navbar mt={} */}
       {/* primary Box */}
-      <Box mt={10}>
-        <Hero />
+      <Box>
+        <HeroWithGeometricImages />
         <Container>
           <CompanyValues />
         </Container>
@@ -101,7 +100,7 @@ function Career({ content }) {
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
         {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
              <div>{content.meta.web.seo_meta_description}</div> */}
-        <div
+        {/* <div
           style={{
             background: '#eee',
             border: '1px #000 solid',
@@ -111,7 +110,7 @@ function Career({ content }) {
         >
           <h2>Accessible Zesty.io JSON Object</h2>
           <pre>{JSON.stringify(content, null, 2)}</pre>
-        </div>
+        </div> */}
         {/* End of Zesty.io output example */}
       </Box>
     </>
