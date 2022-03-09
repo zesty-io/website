@@ -30,21 +30,54 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
+import UserCard from '../../blocks/userCards/UserCardWithBackground/UserCardWithBackground';
+import VerticalMinimalDesignedBlogCards from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 
-function Author({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+const getCardData = async (authorZuid, setcardData) => {
+  const uri = `https://kfg6bckb-dev.webengine.zesty.io/author.json/?author=${authorZuid}`;
+  const res = await fetch(uri).then((response) => response.json());
+  res && (await setcardData(res));
+};
+
+function Author({ content }) {
+  const { name, title, headshot, meta, description } = content || '';
+  const [cardData, setcardData] = React.useState();
+
+  const author = {
+    name: name || '',
+    avatar: (headshot?.data && headshot?.data[0]?.url) || '',
+  };
+  const UserCardProps = {
+    title: title || '',
+    avatar: (headshot?.data && headshot?.data[0]?.url) || '',
+    name: name || '',
+    description: description || '',
+    twitter: meta?.web?.seo_link_text?.replace(/\s/g, '') || '',
+    isVerified: true,
+    website: 'www.example.com',
+    email: 'clara.bertoletti@example.com',
+  };
+
+  const VerticalMinimalDesignedBlogCardsPageProps = {
+    hideLoadMore: true,
+    list: cardData,
+    author,
+  };
+
+  // Get card data based on author guid  on page load
+  React.useEffect(() => {
+    getCardData(meta.zuid, setcardData);
+  }, []);
+
+  return (
+    <>
+      <UserCard {...UserCardProps} />
+      <VerticalMinimalDesignedBlogCards
+        {...VerticalMinimalDesignedBlogCardsPageProps}
+      />
+    </>
+  );
 }
-  
+
 export default Author;

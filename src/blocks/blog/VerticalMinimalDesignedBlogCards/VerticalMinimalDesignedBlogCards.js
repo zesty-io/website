@@ -1,3 +1,8 @@
+/**
+ * props
+ * list: any[]
+ * hideLoadMore: Boolean // hide the loadmore button
+ */
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
@@ -9,8 +14,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
-
 import Container from 'components/Container';
+import { Pagination } from '@mui/material';
 
 const mock = [
   {
@@ -45,12 +50,14 @@ const mock = [
   },
 ];
 
-const VerticalMinimalDesignedBlogCards = () => {
+const VerticalMinimalDesignedBlogCards = (props) => {
+  const { hideLoadMore, list, author } = props;
   const theme = useTheme();
+  const data = list || mock;
   return (
     <Container>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {data?.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               component={'a'}
@@ -76,8 +83,8 @@ const VerticalMinimalDesignedBlogCards = () => {
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item.image}
-                  title={item.title}
+                  image={item?.article?.image}
+                  title={item?.article?.title}
                   sx={{
                     height: { xs: 300, md: 360 },
                     position: 'relative',
@@ -85,10 +92,10 @@ const VerticalMinimalDesignedBlogCards = () => {
                 />
                 <Box component={CardContent} position={'relative'}>
                   <Typography variant={'h6'} gutterBottom>
-                    {item.title}
+                    {item?.article?.title}
                   </Typography>
                   <Typography color="text.secondary">
-                    {item.description}
+                    {item?.article?.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -102,16 +109,13 @@ const VerticalMinimalDesignedBlogCards = () => {
                     alignItems={'center'}
                   >
                     <Box display={'flex'} alignItems={'center'}>
-                      <Avatar
-                        src={item.author.avatar}
-                        sx={{ marginRight: 1 }}
-                      />
+                      <Avatar src={author?.avatar} sx={{ marginRight: 1 }} />
                       <Typography color={'text.secondary'}>
-                        {item.author.name}
+                        {author?.name}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item.date}
+                      {item?.article?.date}
                     </Typography>
                   </Box>
                 </Box>
@@ -122,6 +126,7 @@ const VerticalMinimalDesignedBlogCards = () => {
         <Grid item container justifyContent={'center'} xs={12}>
           <Button
             fullWidth
+            style={{ display: hideLoadMore ? 'none' : 'block' }}
             variant={'outlined'}
             size={'large'}
             sx={{ height: 54, maxWidth: 400, justifyContent: 'space-between' }}
@@ -147,6 +152,9 @@ const VerticalMinimalDesignedBlogCards = () => {
             Load More
           </Button>
         </Grid>
+      </Grid>
+      <Grid item container justifyContent={'center'} xs={12}>
+        <Pagination count={10} size={'large'} color="primary" />
       </Grid>
     </Container>
   );

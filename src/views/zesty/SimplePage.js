@@ -28,21 +28,14 @@
  */
 
 import React from 'react';
-// import CompanyTerms from '../../../src/views/CompanyTerms/CompanyTerms';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-
-import Main from 'layouts/Main';
 import Container from 'components/Container';
-// TODO: expand the ContactCard and Content components to be refrenced from the blocks directory
-import { Content } from '../CompanyTerms/components';
-// Note for Darwin: this is the new component to use
-import ContactCard from '../../blocks/contentBlocks/ContactCard/ContactCard.js'
+import ContactCard from '../../blocks/contentBlocks/ContactCard/ContactCard.js';
 
 function SimplePage({ content }) {
-  console.log(content);
   const theme = useTheme();
   return (
     <>
