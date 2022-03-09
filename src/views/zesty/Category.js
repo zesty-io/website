@@ -33,16 +33,14 @@ import React from 'react';
 function Category({ content }) {
   const SimpleHeroWithSearchBoxProps = {
     hideForm: true,
-    title: content?.meta?.web?.seo_meta_title || 'Missing Title',
-    description:
-      content?.meta?.web?.seo_meta_description || 'Missing Description',
+    title: content?.meta?.web?.seo_meta_title || '',
+    description: content?.meta?.web?.seo_meta_description || '',
   };
 
   const VerticalMinimalDesignedBlogCardsPageProps = {
     hideLoadMore: true,
     list: undefined,
   };
-  //   console.log(content, 'darwin');
   return (
     <>
       <SimpleHeroWithSearchBox {...SimpleHeroWithSearchBoxProps} />
