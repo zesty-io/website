@@ -1,4 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
+/**
+ * props
+ * title: string
+ * description: string
+ * hideForm: boolean // hide the form component
+ */
 import React from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -11,7 +17,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import Container from 'components/Container';
 
-const SimpleHeroWithSearchBox = () => {
+const SimpleHeroWithSearchBox = ({ title, description, hideForm }) => {
   const theme = useTheme();
 
   return (
@@ -50,7 +56,7 @@ const SimpleHeroWithSearchBox = () => {
                 color: 'common.white',
               }}
             >
-              Need help selecting a rental service provider?
+              {title}
             </Typography>
             <Typography
               variant="h6"
@@ -61,12 +67,11 @@ const SimpleHeroWithSearchBox = () => {
                 color: 'common.white',
               }}
             >
-              Let us guide you home.
-              <br />
-              Find the house of your dreams
+              {description}
             </Typography>
           </Box>
           <Box
+            hidden={hideForm}
             padding={{ xs: 3, sm: 6 }}
             width={1}
             component={Card}

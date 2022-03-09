@@ -49,15 +49,17 @@ function Author({ content }) {
     email: 'clara.bertoletti@example.com',
   };
 
-  const VerticalCardProps = {
+  const VerticalMinimalDesignedBlogCardsPageProps = {
     hideLoadMore: true,
+    list: undefined,
   };
-
   // console.log(content, 'darwin');
   return (
     <>
       <UserCard {...UserCardProps} />
-      <VerticalMinimalDesignedBlogCards {...VerticalCardProps} />
+      <VerticalMinimalDesignedBlogCards
+        {...VerticalMinimalDesignedBlogCardsPageProps}
+      />
 
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
       {/* <h1

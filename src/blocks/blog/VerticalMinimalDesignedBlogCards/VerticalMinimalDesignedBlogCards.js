@@ -1,6 +1,7 @@
 /**
  * props
- * hideLoadMore => Boolean  hide the loadmore button
+ * list: any[]
+ * hideLoadMore: Boolean // hide the loadmore button
  */
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -49,12 +50,13 @@ const mock = [
   },
 ];
 
-const VerticalMinimalDesignedBlogCards = ({ hideLoadMore }) => {
+const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, list }) => {
   const theme = useTheme();
+  const data = list || mock;
   return (
     <Container>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {data.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               component={'a'}
