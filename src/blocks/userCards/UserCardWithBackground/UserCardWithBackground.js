@@ -20,9 +20,15 @@ import Container from 'components/Container';
 //   email: 'clara.bertoletti@example.com',
 // };
 
-const UserCardWithBackground = (props) => {
-  const { avatar, name, description, title, twitter, website, email } = props;
-
+const UserCardWithBackground = ({
+  avatar,
+  name,
+  description,
+  title,
+  twitter,
+  website,
+  email,
+}) => {
   const theme = useTheme();
   return (
     <Box

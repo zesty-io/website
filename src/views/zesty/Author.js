@@ -33,6 +33,7 @@
 import React from 'react';
 import UserCard from '../../blocks/userCards/UserCardWithBackground/UserCardWithBackground';
 import VerticalMinimalDesignedBlogCards from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
+import FillerContent from 'components/FillerContent';
 
 const getCardData = async (authorZuid, setcardData) => {
   const uri = `https://kfg6bckb-dev.webengine.zesty.io/author.json/?author=${authorZuid}`;
@@ -41,40 +42,35 @@ const getCardData = async (authorZuid, setcardData) => {
 };
 
 function Author({ content }) {
-  const { name, title, headshot, meta, description } = content || '';
   const [cardData, setcardData] = React.useState();
 
   const author = {
-    name: name || '',
-    avatar: (headshot?.data && headshot?.data[0]?.url) || '',
+    name: content.name || '',
+    avatar: (content.headshot?.data && content.headshot?.data[0]?.url) || '',
   };
   const UserCardProps = {
-    title: title || '',
-    avatar: (headshot?.data && headshot?.data[0]?.url) || '',
-    name: name || '',
-    description: description || '',
-    twitter: meta?.web?.seo_link_text?.replace(/\s/g, '') || '',
+    title: content.title || 'title: ' + FillerContent.header,
+    avatar: (content.headshot?.data && content.headshot?.data[0]?.url) || '',
+    name: content.name || '',
+    description: content.description || '',
+    twitter: content.twitter_handle,
     isVerified: true,
     website: 'www.example.com',
     email: 'clara.bertoletti@example.com',
   };
 
-  const VerticalMinimalDesignedBlogCardsPageProps = {
-    hideLoadMore: true,
-    list: cardData,
-    author,
-  };
-
   // Get card data based on author guid  on page load
   React.useEffect(() => {
-    getCardData(meta.zuid, setcardData);
+    getCardData(content.meta.zuid, setcardData);
   }, []);
 
   return (
     <>
       <UserCard {...UserCardProps} />
       <VerticalMinimalDesignedBlogCards
-        {...VerticalMinimalDesignedBlogCardsPageProps}
+        hideLoadMore={true}
+        list={cardData || []}
+        author={author}
       />
     </>
   );

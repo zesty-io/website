@@ -50,8 +50,7 @@ const mock = [
   },
 ];
 
-const VerticalMinimalDesignedBlogCards = (props) => {
-  const { hideLoadMore, list, author } = props;
+const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, list, author }) => {
   const theme = useTheme();
   const data = list || mock;
   return (
