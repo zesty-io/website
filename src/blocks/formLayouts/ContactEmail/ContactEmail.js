@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import FillerContent from 'components/FillerContent';
 
 const Contact = ({ title, description, cta }) => {
   return (
@@ -14,7 +15,7 @@ const Contact = ({ title, description, cta }) => {
           align={'center'}
           gutterBottom
         >
-          {title}
+          {title || FillerContent.header}
         </Typography>
         <Typography
           variant={'h6'}
@@ -22,7 +23,7 @@ const Contact = ({ title, description, cta }) => {
           color={'text.secondary'}
           align={'center'}
         >
-          {description}
+          {description || FillerContent.header}
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
@@ -63,7 +64,7 @@ const Contact = ({ title, description, cta }) => {
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
             >
-              {cta}
+              {cta || FillerContent.cta}
             </Box>
           </Box>
         </Box>

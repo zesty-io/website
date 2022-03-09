@@ -34,7 +34,7 @@ import Partners from '../../blocks/logoGrid/Partners';
 import Main from '../../blocks/portfolioGrid/Main/Main';
 import ContactEmail from '../../blocks/formLayouts/ContactEmail';
 import CtaSimpleCentered from 'blocks/cta/CtaSimpleCentered/CtaSimpleCentered'
-
+import FillerContent from 'components/FillerContent';
 
 
 import Container from 'components/Container';
@@ -47,8 +47,8 @@ function AgencyPartner({ content }) {
     <>
       <Container>
         <HeroNotTyped
-          title={content.title}
-          description={content.header_description}
+          title={content.title || FillerContent.header}
+          description={content.header_description || FillerContent.description}
         />
       </Container>
       <Container paddingY={'0 !important'}>

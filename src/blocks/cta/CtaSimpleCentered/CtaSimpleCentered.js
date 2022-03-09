@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
@@ -30,7 +31,7 @@ const CtaSimpleCentered = ({
             fontWeight: 700,
           }}
         >
-          {title}
+          {title || FillerContent.header}
         </Typography>
         <Typography
           variant="h6"
@@ -39,7 +40,7 @@ const CtaSimpleCentered = ({
           sx={{ fontWeight: 400 }}
           align={'center'}
         >
-          {description}
+          {description || FillerContent.header}
         </Typography>
         <Box
           display="flex"
@@ -56,7 +57,7 @@ const CtaSimpleCentered = ({
             fullWidth={isMd ? false : true}
             href={'/home'}
           >
-            {ctaLeft}
+            {ctaLeft || FillerContent.cta}
           </Button>
           <Box
             marginTop={{ xs: 2, sm: 0 }}
@@ -71,7 +72,7 @@ const CtaSimpleCentered = ({
               size="large"
               fullWidth={isMd ? false : true}
             >
-              {ctaRight}
+              {ctaRight || FillerContent.cta}
             </Button>
           </Box>
         </Box>
