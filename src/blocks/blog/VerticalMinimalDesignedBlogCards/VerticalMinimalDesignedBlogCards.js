@@ -51,13 +51,13 @@ const mock = [
 ];
 
 const VerticalMinimalDesignedBlogCards = (props) => {
-  const { hideLoadMore, list } = props;
+  const { hideLoadMore, list, author } = props;
   const theme = useTheme();
   const data = list || mock;
   return (
     <Container>
       <Grid container spacing={4}>
-        {data.map((item, i) => (
+        {data?.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               component={'a'}
@@ -83,8 +83,8 @@ const VerticalMinimalDesignedBlogCards = (props) => {
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item.image}
-                  title={item.title}
+                  image={item?.article?.image}
+                  title={item?.article?.title}
                   sx={{
                     height: { xs: 300, md: 360 },
                     position: 'relative',
@@ -92,10 +92,10 @@ const VerticalMinimalDesignedBlogCards = (props) => {
                 />
                 <Box component={CardContent} position={'relative'}>
                   <Typography variant={'h6'} gutterBottom>
-                    {item.title}
+                    {item?.article?.title}
                   </Typography>
                   <Typography color="text.secondary">
-                    {item.description}
+                    {item?.article?.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -109,16 +109,13 @@ const VerticalMinimalDesignedBlogCards = (props) => {
                     alignItems={'center'}
                   >
                     <Box display={'flex'} alignItems={'center'}>
-                      <Avatar
-                        src={item.author.avatar}
-                        sx={{ marginRight: 1 }}
-                      />
+                      <Avatar src={author?.avatar} sx={{ marginRight: 1 }} />
                       <Typography color={'text.secondary'}>
-                        {item.author.name}
+                        {author?.name}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item.date}
+                      {item?.article?.date}
                     </Typography>
                   </Box>
                 </Box>
