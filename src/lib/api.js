@@ -59,6 +59,9 @@ async function recursiveChildFinder(parent,routingArray){
       children.push(child);
     }
   }
+  // sort the array byt sort order
+  children.sort((a, b) => parseFloat(a.sort) - parseFloat(b.sort));
+
   return children
 }
 
@@ -119,8 +122,8 @@ async function customNavigation(zestyURL){
         contructedNav.push(tempItem);
       }
    } 
-   
-  return contructedNav
+  contructedNav.sort((a, b) => parseFloat(a.sort) - parseFloat(b.sort));
+  return contructedNav;
 
 } 
 
