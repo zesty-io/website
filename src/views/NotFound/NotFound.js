@@ -7,7 +7,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-import Main from 'layouts/Main';
 import Container from 'components/Container';
 
 const NotFound = () => {
@@ -17,7 +16,7 @@ const NotFound = () => {
   });
 
   return (
-    <Main>
+    <>
       <Box
         bgcolor={theme.palette.alternate.main}
         position={'relative'}
@@ -99,7 +98,7 @@ const NotFound = () => {
           </Grid>
         </Container>
       </Box>
-    </Main>
+    </>
   );
 };
 
