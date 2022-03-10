@@ -3,7 +3,7 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const HeroNotTyped = () => {
+const HeroNotTyped = ({title, description}) => {
   return (
     <Box>
       <Box marginBottom={4}>
@@ -15,8 +15,7 @@ const HeroNotTyped = () => {
           gutterBottom
           sx={{ fontWeight: 400 }}
         >
-          theFront will make your product look modern and professional while
-          saving you precious time.
+          {title}
         </Typography>
         <Typography
           variant="h3"
@@ -26,7 +25,7 @@ const HeroNotTyped = () => {
             fontWeight: 700,
           }}
         >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+          {description}
         </Typography>
       </Box>
     </Box>

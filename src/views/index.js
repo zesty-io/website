@@ -24,7 +24,7 @@ export { default as CloudHosting } from './CloudHosting';
 export { default as Logistics } from './Logistics';
 export { default as Ecommerce } from './Ecommerce';
 export { default as Pricing } from './Pricing';
-export { default as About } from './About';
+export { default as About } from './AboutPage';
 export { default as HelpCenter } from './HelpCenter';
 export { default as HelpCenterArticle } from './HelpCenterArticle';
 export { default as PortfolioPage } from './PortfolioPage';

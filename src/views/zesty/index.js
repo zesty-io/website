@@ -18,6 +18,13 @@ import Partner from './Partner';
 import Hero from './Hero';
 import PlatformSection from './PlatformSection';
 import NewNavigation from './NewNavigation';
+import DeveloperResourceCard from './DeveloperResourceCard';
+import ClientCard from './ClientCard';
+import AgencyPartnerCard from './AgencyPartnerCard';
+import AboutStat from './AboutStat';
+import JobListing from './JobListing';
+import Event from './Event';
+import EventHost from './EventHost';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -25,6 +32,7 @@ import Author from './Author';
 import UseCase from './UseCase';
 import LandingPage from './LandingPage';
 import ProductExplainer from './ProductExplainer';
+import NewsArticle from './NewsArticle';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -47,6 +55,9 @@ import New from './New';
 import Career from './Career';
 import DeveloperResource from './DeveloperResource';
 import EventsAndWebinar from './EventsAndWebinar';
+import Demo from './Demo';
+
+
 
 export {
 
@@ -68,6 +79,13 @@ export {
     Hero,
     PlatformSection,
     NewNavigation,
+    DeveloperResourceCard,
+    ClientCard,
+    AgencyPartnerCard,
+    AboutStat,
+    JobListing,
+    Event,
+    EventHost,
     Category,
     Article,
     Tag,
@@ -75,6 +93,8 @@ export {
     UseCase,
     LandingPage,
     ProductExplainer,
+    NewsArticle,
+
     Homepage,
     SimplePage,
     Mindshare,

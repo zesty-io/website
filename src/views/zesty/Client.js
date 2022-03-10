@@ -29,16 +29,16 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-
 import Container from 'components/Container';
 
 import Stories from '../../blocks/portfolioGrid/Stories/Stories';
 import PartnersColor from '../../blocks/logoGrid/PartnersColor/PartnersColor';
-import ShowcaseBgImagePage from 'pages/blocks/category-showcases/showcase-bg-image';
-import CtaSimpleCenteredPage from 'pages/blocks/cta/cta-simple-centered';
+import ShowcaseBgImagePage from '../..//blocks/heroes/ShowcaseBgImage/ShowcaseBgImage';
+import CtaSimpleCentered from '../../blocks/cta/CtaSimpleCentered/CtaSimpleCentered';
+import FillerContent from 'components/FillerContent';
 
 function Client({ content }) {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <>
       <Box>
@@ -56,10 +56,10 @@ function Client({ content }) {
               <Box>
                 <Box>
                   <Typography variant="h3" gutterBottom>
-                    You're in good company.
+                    {content.title || FillerContent.header}
                   </Typography>
                   <Typography variant="h3" color={'primary'} fontWeight={700}>
-                    Join millions of businesses today.
+                    {content.description || FillerContent.header}
                   </Typography>
                 </Box>
               </Box>
@@ -91,19 +91,32 @@ function Client({ content }) {
         <Container>
           <Box>
             <Box marginBottom={4}>
-              <ShowcaseBgImagePage />
+              <ShowcaseBgImagePage
+                image={content.showcase_background_image.data[0].url}
+                showCase={content.showcase}
+                description={content.showcase_description}
+              />
             </Box>
           </Box>
         </Container>
         <Container>
-          <Stories />
+          <Stories
+            eyeBrow={content.client_eyebrow}
+            clientTitle={content.client_title}
+            cards={content.client_cards.data}
+          />
         </Container>
         <Box bgcolor={theme.palette.alternate.main}>
-          <CtaSimpleCenteredPage />
+          <CtaSimpleCentered
+            cta={content.cta_title}
+            description={content.cta_description}
+            ctaLeft={content.cta_left}
+            ctaRight={content.cta_right}
+          />
         </Box>
       </Box>
 
-      <div
+      {/* <div
         style={{
           background: '#eee',
           border: '1px #000 solid',
@@ -113,7 +126,7 @@ function Client({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );

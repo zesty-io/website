@@ -47,6 +47,7 @@ const mock = [
 
 const VerticalMinimalDesignedBlogCardsNoFooter = ({ cards }) => {
   const theme = useTheme();
+  
   return (
     <Container>
       <Grid container spacing={4}>

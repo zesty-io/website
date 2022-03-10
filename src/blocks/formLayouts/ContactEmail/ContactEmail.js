@@ -3,8 +3,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import FillerContent from 'components/FillerContent';
 
-const Contact = () => {
+const Contact = ({ title, description, cta }) => {
   return (
     <Box>
       <Box marginBottom={4}>
@@ -14,7 +15,7 @@ const Contact = () => {
           align={'center'}
           gutterBottom
         >
-          Ready to growth your business?
+          {title || FillerContent.header}
         </Typography>
         <Typography
           variant={'h6'}
@@ -22,8 +23,7 @@ const Contact = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Your website is fully responsive so visitors can view your content
-          from their choice of device.
+          {description || FillerContent.header}
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
@@ -64,7 +64,7 @@ const Contact = () => {
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
             >
-              Submit
+              {cta || FillerContent.cta}
             </Box>
           </Box>
         </Box>
