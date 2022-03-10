@@ -27,9 +27,9 @@ const About = () => {
         <Grid
           item
           container
-          justifyContent={{ xs: 'flex-start', md: 'flex-end' }}
+          justifyContent={{ xs: 'center', md: 'center' }}
           xs={12}
-          md={6}
+          md={12}
         >
           <Typography color={'text.secondary'}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -44,7 +44,7 @@ const About = () => {
             anim id est laborum.
           </Typography>
         </Grid>
-        <Grid item container xs={12} md={6}>
+        {/* <Grid item container xs={12} md={6}>
           <Typography color={'text.secondary'}>
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -63,7 +63,7 @@ const About = () => {
             nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
             voluptas nulla pariatur?
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid
           item
           container
