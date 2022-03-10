@@ -4,8 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
-
-const Hero = () => {
+const Hero = (props) => {
   useEffect(() => {
     const jarallaxInit = async () => {
       const jarallaxElems = document.querySelectorAll('.jarallax');
@@ -49,7 +48,7 @@ const Hero = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundImage:
-            'url(https://assets.maccarianagency.com/backgrounds/img52.jpg)',
+          "url(" + props.hero_image + ")",
         }}
       />
       <Box
@@ -76,7 +75,8 @@ const Hero = () => {
               textTransform: 'uppercase',
             }}
           >
-            About us
+            {props.title}
+            {props.image}
           </Typography>
           <Typography
             variant="h6"
@@ -86,8 +86,7 @@ const Hero = () => {
               color: 'common.white',
             }}
           >
-            We are founded by a leading academic and researcher in the field of
-            Industrial Systems Engineering.
+            <div dangerouslySetInnerHTML={{__html: props.subtitle }} />
           </Typography>
         </Box>
       </Container>

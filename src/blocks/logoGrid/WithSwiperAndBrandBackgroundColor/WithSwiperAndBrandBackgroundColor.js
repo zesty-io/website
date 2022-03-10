@@ -10,7 +10,8 @@ const WithSwiperAndBrandBackgroundColor = (props) => {
   let logos = (undefined !== props.logos) ? props.logos : [];
 
   return (
-    <Box bgcolor={'primary.main'}>
+    <Box >
+      {/* removed this attribute from above box: bgcolor={'alternate.main'}*/}
       {/* <pre>{JSON.stringify(logos, null, 2)}</pre> */}
       <Container maxWidth={1}>
         <Box display={'flex'} justifyContent={'center'} flexWrap={'wrap'}>
@@ -28,7 +29,7 @@ const WithSwiperAndBrandBackgroundColor = (props) => {
                 src={item.customer_logo.data[0].url}
                 alt={`${item.customer_name}, a Zesty.io Customer`}
                 sx={{
-                  filter: 'brightness(0) invert(1)',
+                  filter: 'grayscale(1) brightness(0.6)',
                 }}
               />
             </Box>

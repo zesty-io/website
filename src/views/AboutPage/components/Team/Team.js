@@ -112,5 +112,9 @@ const Team = () => {
     </Box>
   );
 };
-
+Team.getInitialProps = async (ctx) => {
+  const res = await fetch('https://www.zesty.io/-/gql/team_members.json')
+  const members = await res.json()
+  return { json }
+}
 export default Team;
