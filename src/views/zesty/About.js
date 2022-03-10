@@ -41,7 +41,8 @@ import { Headline } from 'blocks/banners';
 import { Gallery } from 'blocks/graphics';
 import { Numbers } from 'blocks/stats';
 import { Story } from 'blocks/contentBlocks';
-import { TeamWithCards } from 'blocks/team';
+import { TeamWithCards, TeamWithSmallSquarePhotos } from 'blocks/team';
+// filler content
 import FillerContent from 'components/FillerContent';
 
 function About({ content }) {
@@ -60,7 +61,8 @@ function About({ content }) {
             photos={content.team_photos?.data || FillerContent.photos} />
           </Container>
           <Container maxWidth={'800px !important'}>
-            <Numbers />
+            <Numbers
+            stats={content.stats.data} />
           </Container>
           <Container maxWidth={'800px !important'}>
             <Divider />
@@ -72,7 +74,11 @@ function About({ content }) {
             <Divider />
           </Container>
           <Container>
-            <TeamWithCards />
+            {/* <TeamWithCards /> */}
+            <TeamWithSmallSquarePhotos
+            eyebrow={content.team_eyebrow || FillerContent.header}
+            title={content.team_title || FillerContent.header}
+            team={content.team_members.data} />
           </Container>
         </Box>
 
