@@ -35,20 +35,23 @@ import Container from 'components/Container';
 import { SimpleHeroWithCta } from 'blocks/heroes';
 import { VerticalMinimalDesignedBlogCardsNoFooter } from 'blocks/blog';
 import { ContactUs } from 'blocks/formLayouts';
+// Filler content
+import FillerContent from 'components/FillerContent';
 
 function DeveloperResource({ content }) {
     const theme = useTheme();
   return (
     <>
       <Box>
-        <SimpleHeroWithCta />
+        <SimpleHeroWithCta secondaryCTA={content.header_cta_secondary || FillerContent.cta}
+        title={content.title || FillerContent.header}
+        description={content.header_description || FillerContent.description} />
         <Container>
           <VerticalMinimalDesignedBlogCardsNoFooter cards={content.developer_cards?.data || []} />
-          <ContactUs />
+          <ContactUs
+          title={content.contact_title || FillerContent.header}
+          description={content.contact_description || FillerContent.description} />
         </Container>
-        {/* <Container>
-            <ContactUs />
-        </Container> */}
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
         {/* <div
           style={{

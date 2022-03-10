@@ -12,6 +12,7 @@ import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
 
+// can be removed after approval
 const mock = [
   {
     image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
@@ -47,12 +48,11 @@ const mock = [
 
 const VerticalMinimalDesignedBlogCardsNoFooter = ({ cards }) => {
   const theme = useTheme();
-  // const [orderedCards, setOrderedCards] = useState([]);
 
   // order cards
   const order = () =>{
-    let newOrder = cards.sort((a, b)=> parseInt(a.sort_order) - parseInt(b.sort_order))
-    console.log(newOrder)
+    cards = cards.sort((a, b)=> parseInt(a.sort_order) - parseInt(b.sort_order))
+    console.log(cards)
   }
   order();
 
