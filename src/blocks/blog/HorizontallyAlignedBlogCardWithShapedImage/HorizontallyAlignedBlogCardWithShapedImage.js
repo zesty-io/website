@@ -12,6 +12,7 @@ import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
 const HorizontallyAlignedBlogCardWithShapedImage = ({ featured }) => {
+
   const theme = useTheme();
   return (
     <Container>
@@ -50,7 +51,7 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({ featured }) => {
               height={1}
               width={1}
               src={featured?.hero_image.data[0]?.url || FillerContent.image}
-              alt="..."
+              alt="Headshot"
               sx={{
                 objectFit: 'cover',
                 maxHeight: 360,
@@ -119,7 +120,7 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({ featured }) => {
               >
                 <Box display={'flex'} alignItems={'center'}>
                   <Avatar
-                    src={featured.thumbnail_image || FillerContent.image}
+                    src={featured?.author.data[0].headshot.data[0].url || FillerContent.image}
                     sx={{ marginRight: 1 }}
                   />
                   <Typography color={'text.secondary'}>

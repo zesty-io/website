@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
 const mock = [
   {
@@ -36,7 +37,8 @@ const mock = [
   },
 ];
 
-const BlogCardsWithFullBackgroundImage = () => {
+const BlogCardsWithFullBackgroundImage = ({caseStudy, title, description, cta}) => {
+
   const theme = useTheme();
   return (
     <Container>
@@ -49,10 +51,10 @@ const BlogCardsWithFullBackgroundImage = () => {
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            Case studies
+            {title || FillerContent.header}
           </Typography>
           <Typography color={'text.secondary'}>
-            In-depth looks at our work.
+            {description || FillerContent.description}
           </Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
@@ -63,12 +65,12 @@ const BlogCardsWithFullBackgroundImage = () => {
             size="large"
             marginLeft={2}
           >
-            View all
+            {cta || FillerContent.cta}
           </Box>
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {caseStudy.map((item, i) => (
           <Grid item xs={12} key={i}>
             <Box
               component={'a'}
@@ -96,7 +98,9 @@ const BlogCardsWithFullBackgroundImage = () => {
                 }}
                 sx={{
                   minHeight: 300,
-                  backgroundImage: `url("${item.image}")`,
+                  backgroundImage: item.Hero_image
+                    ? `url("${item?.hero_image?.data[0].url}")`
+                    : `url(${FillerContent.image})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -134,13 +138,13 @@ const BlogCardsWithFullBackgroundImage = () => {
                       gutterBottom
                       sx={{ color: 'common.white' }}
                     >
-                      {item.title}
+                      {item.title || FillerContent.header}
                     </Typography>
                     <Typography
                       color="text.secondary"
                       sx={{ color: 'common.white', opacity: 0.8 }}
                     >
-                      {item.description}
+                      {item.description || FillerContent.description}
                     </Typography>
                   </Box>
                   <Box>
@@ -158,21 +162,24 @@ const BlogCardsWithFullBackgroundImage = () => {
                     >
                       <Box display={'flex'} alignItems={'center'}>
                         <Avatar
-                          src={item.author.avatar}
+                          src={
+                            item?.author.data[0].headshot.data[0].url ||
+                            FillerContent.image
+                          }
                           sx={{ marginRight: 1 }}
                         />
                         <Typography
                           color={'text.secondary'}
                           sx={{ color: 'common.white', opacity: 0.8 }}
                         >
-                          {item.author.name}
+                          {item?.author?.data[0]?.name || FillerContent.header}
                         </Typography>
                       </Box>
                       <Typography
                         color={'text.secondary'}
                         sx={{ color: 'common.white', opacity: 0.8 }}
                       >
-                        {item.date}
+                        {item.date || FillerContent.header}
                       </Typography>
                     </Box>
                   </Box>

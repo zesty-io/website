@@ -53,6 +53,9 @@ function Mindshare({ content }) {
     : FillerContent.missingDataArray; ;
 
 
+    console.log(content.case_studies);
+
+
   return (
     <>
       <Box bgcolor={'alternate.main'} position={'relative'}>
@@ -79,11 +82,17 @@ function Mindshare({ content }) {
           />
         </Container>
         <Container paddingTop={'0 !important'}>
-        {/* Latest Stories */}
+          {/* Latest Stories */}
           <VerticallyAlignedBlogCardsWithShapedImage />
         </Container>
         <Container paddingTop={'0 !important'}>
-          <BlogCardsWithFullBackgroundImage />
+          {/* Case Studies */}
+          <BlogCardsWithFullBackgroundImage
+            title={content.case_studies_title}
+            description={content.case_studies_description}
+            cta={content.case_studies_cta}
+            caseStudy={content.case_studies.data}
+          />
         </Container>
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
