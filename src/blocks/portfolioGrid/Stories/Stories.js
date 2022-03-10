@@ -9,73 +9,9 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 
-const mock = [
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
-    companyLogo:
-      'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
-    description:
-      'Unforgettable trips start with Airbnb. Find adventures nearby or in faraway places and access unique homes, experiences, and places around the world.',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
-    companyLogo:
-      'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
-    description:
-      'Free delivery on millions of items with Prime. Low prices across earth\'s biggest selection of books, music, DVDs, electronics, computers, software',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-    companyLogo:
-      'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
-    description:
-      'Find your fit with Fitbit\'s family of fitness products that help you stay motivated and improve your health by tracking your activity, exercise, food, weight and sleep.',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-    companyLogo:
-      'https://assets.maccarianagency.com/svg/logos/google-original.svg',
-    description:
-      'Search the world\'s information, including webpages, images, videos and more. Google has many special features to help you find exactly what you\'re looking for.',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img1.jpg',
-    companyLogo:
-      'https://assets.maccarianagency.com/svg/logos/hubspot-original.svg',
-    description:
-      'HubSpot offers a full platform of marketing, sales, customer service, and CRM software — plus the methodology, resources, and support — to help businesses.',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    companyLogo:
-      'https://assets.maccarianagency.com/svg/logos/mapbox-original.svg',
-    description:
-      'Integrate custom live maps, location search, and turn-by-turn navigation into any mobile or web app with Mapbox APIs & SDKs. Get started for free.',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
-    companyLogo:
-      'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
-    description:
-      'Watch Netflix movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
-    companyLogo:
-      'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
-    description:
-      'PayPal is the faster, safer way to send money, make an online payment, receive money or set up a merchant account.',
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-    companyLogo:
-      'https://assets.maccarianagency.com/svg/logos/slack-original.svg',
-    description:
-      'Slack is a new way to communicate with your team. It\'s faster, better organized, and more secure than email.',
-  },
-];
+import FillerContent from 'components/FillerContent';
 
-const Stories = () => {
+const Stories = ({ cards, eyeBrow, clientTitle }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
 
@@ -91,7 +27,7 @@ const Stories = () => {
           color={'secondary'}
           align={'center'}
         >
-          Success stories
+          {eyeBrow || FillerContent.header}
         </Typography>
         <Box
           component={Typography}
@@ -99,17 +35,21 @@ const Stories = () => {
           variant={'h3'}
           align={'center'}
         >
-          See how we are helping teams
-          <br />
-          and businesses
+          {/* <br/> tag inject in field */}
+          <h3
+            dangerouslySetInnerHTML={{
+              __html: clientTitle || FillerContent.header,
+            }}
+          ></h3>
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {cards.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={''}
+              href={item.link || FillerContent.href}
+              target="_blank"
               display={'block'}
               width={1}
               height={1}
@@ -130,8 +70,8 @@ const Stories = () => {
                 flexDirection={'column'}
               >
                 <CardMedia
-                  image={item.media}
-                  title={item.title}
+                  image={item.image || FillerContent.image}
+                  title={item.title || FillerContent.header}
                   sx={{
                     height: 240,
                   }}
@@ -142,7 +82,7 @@ const Stories = () => {
                       component="img"
                       height={1}
                       width={1}
-                      src={item.companyLogo}
+                      src={item.logo || FillerContent.image}
                       alt="..."
                       sx={{
                         filter: mode === 'dark' ? 'contrast(0)' : 'none',
@@ -154,7 +94,7 @@ const Stories = () => {
                     variant={'body2'}
                     color="textSecondary"
                   >
-                    {item.description}
+                    {item.summary || FillerContent.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -179,7 +119,7 @@ const Stories = () => {
                       </svg>
                     }
                   >
-                    Learn more
+                    {item.cta || FillerContent.cta}
                   </Button>
                 </Box>
               </Box>
