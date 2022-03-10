@@ -1,17 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 
-const mock = [
-  'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/google-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/hubspot-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/mapbox-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
-  'https://assets.maccarianagency.com/svg/logos/slack-original.svg',
-];
+
 
 const Partners = ({data}) => {
 
