@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -6,7 +7,7 @@ import Container from 'components/Container';
 
 import { CtaSection, CoverSlider } from './components';
 
-const FullScreenHeroWithImageSlider = () => {
+const FullScreenHeroWithImageSlider = (props) => {
   return (
     <Box
       sx={{
@@ -29,7 +30,7 @@ const FullScreenHeroWithImageSlider = () => {
             alignItems={'center'}
           >
             <Container>
-              <CtaSection />
+              <CtaSection {...props} />
             </Container>
           </Box>
           <Box
@@ -71,7 +72,7 @@ const FullScreenHeroWithImageSlider = () => {
                     },
                   }}
                 >
-                  <CoverSlider />
+                  <CoverSlider {...props} />
                 </Box>
               </Box>
             </Box>

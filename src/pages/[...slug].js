@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as Zesty from '../components/zesty-models'
 import { useRouter } from 'next/router'
 import NotFoundCover from 'views/NotFoundCover';
@@ -76,3 +77,27 @@ export async function getServerSideProps(context) {
     
   }
   
+=======
+import React from 'react';
+
+import { fetchPage } from '../lib/api';
+import { ZestyView } from '../lib/ZestyView';
+import Main from '../layouts/Main';
+
+export default function Slug(props) {
+  return (
+    <Main routing={props.navigationTree} customRouting={props.navigationCustom}>
+        <ZestyView content={props} />
+    </Main>
+  );
+}
+
+// This gets called on every request
+export async function getServerSideProps(ctx) {
+
+  const data = await fetchPage(ctx.resolvedUrl);
+
+  // Pass data to the page via props
+  return { props: data };
+}
+>>>>>>> 5fe74f7c10eed789039eaf73ec31aa60c72cf7de

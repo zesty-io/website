@@ -1,7 +1,7 @@
 {
-  "name": "thefront-js--nextjs",
-  "author": "maccarian",
-  "email": "hi@maccarianagency.com",
+  "name": "zesty-website",
+  "author": "Zesty.io Platform Inc.",
+  "email": "marketing@zesty.io",
   "version": "4.6.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,11 @@
     "build": "next build",
     "start": "next start",
     "prettier:fix": "prettier './src/**/*.js' --write",
-    "eslint:fix": "eslint ./src --fix",
-    "codeStyle:fix": "npm run prettier:fix && npm run eslint:fix",
-    "clear-all": "rimraf ./node_modules ./.next"
+    "clear-all": "rimraf ./node_modules ./.next",
+    "sync": "node src/lib/sync.js",
+    "docker-build": "docker build .",
+    "gcloud-build": "gcloud builds submit --tag gcr.io/zesty-dev/zesty-website:1.0.0  --project zesty-dev",
+    "gcloud-deploy": "gcloud run deploy zesty-website --image=gcr.io/zesty-dev/zesty-website:1.0.0 --platform managed --port 3000 --project zesty-dev --allow-unauthenticated --min-instances 1 --region us-central1"
   },
   "eslintConfig": {
     "extends": [
@@ -42,9 +44,11 @@
     "@mui/material": "^5.2.4",
     "aos": "^2.3.4",
     "card-validator": "^8.1.1",
+    "chalk": "^4.1.2",
     "formik": "^2.2.6",
     "jarallax": "^1.12.8",
     "next": "^12.0.7",
+    "node-fetch": "^2.6.7",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-countup": "^6.1.0",
@@ -55,6 +59,7 @@
     "react-syntax-highlighter": "^15.4.5",
     "react-typed": "^1.2.0",
     "react-visibility-sensor": "^5.1.1",
+    "shortid": "^2.2.16",
     "slick-carousel": "^1.8.1",
     "yup": "^0.32.11"
   },
@@ -64,14 +69,6 @@
     "babel-eslint": "^10.1.0",
     "babel-plugin-styled-components": "^2.0.2",
     "cross-env": "^7.0.2",
-    "eslint": "^8.4.1",
-    "eslint-config-react-app": "^7.0.0",
-    "eslint-plugin-flowtype": "^8.0.3",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.27.1",
-    "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.5.1",
     "prettier-eslint": "^13.0.0",
     "prettier-eslint-cli": "^5.0.0",

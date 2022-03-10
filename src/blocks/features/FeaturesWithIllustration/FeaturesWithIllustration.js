@@ -81,18 +81,22 @@ const mock = [
   },
 ];
 
-const FeaturesWithIllustration = () => {
+const FeaturesWithIllustration = (props) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-
+  let rich_text = (undefined !== props.rich_text) ? props.rich_text : ''
+  let image_url = (undefined !== props.image_url) ? props.image_url : ''
   return (
     <Container>
       <Grid container spacing={4} direction={isMd ? 'row' : 'column-reverse'}>
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box>
-            <Box marginBottom={4}>
+            <Box marginBottom={4} dangerouslySetInnerHTML={{__html:rich_text}}>
+         
+            </Box>
+             <Box marginBottom={4}>
               <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
                 <Typography color="primary" variant="inherit" component="span">
                   Develop anything
@@ -130,11 +134,10 @@ const FeaturesWithIllustration = () => {
           <Box height={1} width={1} maxWidth={500}>
             <Box
               component={'img'}
-              src={
-                'https://assets.maccarianagency.com/svg/illustrations/drawkit-illustration1.svg'
-              }
+              src={image_url}
+              alt="Zesty Benefits Graphic"
               width={1}
-              height={1}
+              /*height={1}*/
               sx={{
                 filter:
                   theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',

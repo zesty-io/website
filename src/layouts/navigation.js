@@ -1,8 +1,8 @@
 const pages = {
   landings: [
     {
-      title: 'Mobile App',
-      href: '/mobile-app',
+      title: 'About',
+      href: '/about',
     },
     {
       title: 'Desktop App',

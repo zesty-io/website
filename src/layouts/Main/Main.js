@@ -14,7 +14,8 @@ import { Topbar, Sidebar, Footer } from './components';
 
 import pages from '../navigation';
 
-const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
+const Main = ({ children, routing, customRouting, colorInvert = false, bgcolor = 'transparent' }) => {
+  const hasRouting = routing !== undefined ? true : false;
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -56,6 +57,8 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             pages={pages}
+            routing={hasRouting ? routing : []}
+            customRouting={hasRouting ? customRouting : []}
             colorInvert={trigger ? false : colorInvert}
           />
         </Container>
@@ -64,8 +67,7 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
         onClose={handleSidebarClose}
         open={open}
         variant="temporary"
-        pages={pages}
-      />
+        customRouting={hasRouting ? customRouting : []}      />
       <main>
         {children}
         <Divider />
@@ -79,6 +81,7 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
 
 Main.propTypes = {
   children: PropTypes.node,
+  routing: PropTypes.array,
   colorInvert: PropTypes.bool,
   bgcolor: PropTypes.string,
 };

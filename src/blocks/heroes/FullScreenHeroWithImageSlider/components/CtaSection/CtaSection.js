@@ -1,57 +1,60 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { alpha, useTheme } from '@mui/material/styles';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
-const CtaSection = () => {
+const CtaSection = (props) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
+  let title = (undefined !== props.title) ? props.title.split('<br>') : ['title','sub'];
+  let subtext = (undefined !== props.content) ? props.content.replace(/(<([^>]+)>)/gi, "") : '';
+  
   return (
     <Box>
       <Typography
         sx={{
           textTransform: 'uppercase',
-          fontWeight: 'medium',
+          fontWeight: '200',
         }}
+        component="h1"
         gutterBottom
         color={'text.secondary'}
       >
-        Coworking spaces
+        {props.simple_intro_text}
       </Typography>
       <Box marginBottom={2}>
         <Typography
+          component="h2"
           variant="h2"
           color="text.primary"
           sx={{
-            fontWeight: 700,
+            fontWeight: 300
           }}
         >
-          Coworking{' '}
+          {/* <span dangerouslySetInnerHTML={{__html:props.title}}></span> */}
+          {title[0]}{' '}
           <Typography
             color={'primary'}
             component={'span'}
             variant={'inherit'}
             sx={{
-              background: `linear-gradient(180deg, transparent 82%, ${alpha(
-                theme.palette.secondary.main,
-                0.3,
-              )} 0%)`,
+              fontWeight: 400,
             }}
           >
-            made simple
+            {title[1]}
           </Typography>
         </Typography>
       </Box>
       <Box marginBottom={3}>
-        <Typography variant="h6" component="p" color="text.secondary">
-          For entrepreneurs, startups and freelancers. Discover coworking spaces
-          designed to inspire and to connect you to a community of motivated
-          people.
+        <Typography variant="h6" component="p" color="text.secondary" dangerouslySetInnerHTML={{__html:subtext}}>
+         
         </Typography>
       </Box>
       <Box
@@ -59,24 +62,24 @@ const CtaSection = () => {
         flexDirection={{ xs: 'column', sm: 'row' }}
         alignItems={{ xs: 'stretched', sm: 'flex-start' }}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          fullWidth={isMd ? false : true}
-        >
-          Book a space
-        </Button>
+        <TryFreeButton 
+         variant="contained"
+         color="secondary"
+         size="large"
+         text={props.cta_hero_button_text}
+         fullWidth={isMd ? false : true}
+        />
+       
         <Box
           component={Button}
           variant="outlined"
-          color="primary"
+          color="secondary"
           size="large"
           marginTop={{ xs: 2, sm: 0 }}
           marginLeft={{ sm: 2 }}
           fullWidth={isMd ? false : true}
         >
-          Browse spaces
+          Explore Now
         </Box>
       </Box>
     </Box>

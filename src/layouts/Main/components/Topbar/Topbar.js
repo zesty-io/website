@@ -4,10 +4,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import LoginIcon from '@mui/icons-material/Login';
 import { NavItem } from './components';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
-const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
+// const Topbar = ({ onSidebarOpen, pages, routing, colorInvert = false }) => {
+import SingleNavItem from './components/NavItem/SingleNavItem.js'
+const Topbar = ({ onSidebarOpen, pages, routing, customRouting, colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const {
@@ -30,79 +33,71 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         display={'flex'}
         component="a"
         href="/"
-        title="theFront"
-        width={{ xs: 100, md: 120 }}
+        title="Zesty.io Platform"
+        width={{ xs: 100, md: 150 }}
       >
         <Box
           component={'img'}
           src={
             mode === 'light' && !colorInvert
-              ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-              : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
+              ? '/assets/zesty-logo.png'
+              : '/assets/zesty-logo-inverted.png'
           }
           height={1}
           width={1}
         />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-        <Box>
+        
+        {customRouting.map(route => (
+           <>
+            {route.parentZUID == null && route.children.length > 0 &&
+              <Box  marginLeft={4}>
+                <NavItem
+                  title={route.title}
+                  id={route.zuid}
+                  items={route.children}
+                  colorInvert={colorInvert}
+                />
+              </Box>
+            }
+            {route.parentZUID == null && route.children.length == 0 &&
+              <Box  marginLeft={4}>
+                <SingleNavItem
+                  title={route.title}
+                  id={route.zuid}
+                  url={route.url}
+                  colorInvert={colorInvert}
+                  />
+              </Box>
+            }
+          </>
+        ))}
+        <Box marginLeft={4}>
           <NavItem
-            title={'Landings'}
-            id={'landing-pages'}
-            items={landingPages}
+            title={'Test Routes'}
+            id={'testing-routes'}
+            items={routing}
             colorInvert={colorInvert}
           />
         </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Company'}
-            id={'company-pages'}
-            items={companyPages}
-            colorInvert={colorInvert}
-          />
+        
+        <Box marginLeft={2}>
+            <TryFreeButton 
+            variant="contained" 
+            component="a" 
+            />
         </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Account'}
-            id={'account-pages'}
-            items={accountPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Pages'}
-            id={'secondary-pages'}
-            items={secondaryPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Blog'}
-            id={'blog-pages'}
-            items={blogPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Portfolio'}
-            id={'portfolio-pages'}
-            items={portfolioPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
+        <Box marginLeft={2}>
           <Button
-            variant="contained"
-            color="primary"
+            size={'medium'}
+            variant="outlined"
+            endIcon={<LoginIcon />}
+            fullWidth
             component="a"
-            target="blank"
-            href="https://mui.com/store/items/the-front-landing-page/"
-            size="large"
+            href="https://accounts.zesty.io"
           >
-            Buy now
+            Login
           </Button>
         </Box>
       </Box>
