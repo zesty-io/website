@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
 const mock = {
   image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
@@ -23,7 +24,9 @@ const mock = {
   date: '22 Nov',
 };
 
-const HorizontallyAlignedBlogCardWithShapedImage = () => {
+const HorizontallyAlignedBlogCardWithShapedImage = ({featured}) => {
+console.log("🚀 ~ file: ~ featured", featured)
+
   const theme = useTheme();
   return (
     <Container>
@@ -61,7 +64,7 @@ const HorizontallyAlignedBlogCardWithShapedImage = () => {
               component={'img'}
               height={1}
               width={1}
-              src={mock.image}
+              src={featured?.hero_image.data[0]?.url || FillerContent.image}
               alt="..."
               sx={{
                 objectFit: 'cover',
@@ -116,9 +119,9 @@ const HorizontallyAlignedBlogCardWithShapedImage = () => {
           >
             <Box>
               <Typography variant={'h5'} gutterBottom>
-                {mock.title}
+                {featured.title || FillerContent.header}
               </Typography>
-              <Typography color="text.secondary">{mock.description}</Typography>
+              <Typography color="text.secondary">{featured.description || FillerContent.description}</Typography>
             </Box>
             <Box>
               <Divider sx={{ marginY: 2 }} />
@@ -128,12 +131,12 @@ const HorizontallyAlignedBlogCardWithShapedImage = () => {
                 alignItems={'center'}
               >
                 <Box display={'flex'} alignItems={'center'}>
-                  <Avatar src={mock.author.avatar} sx={{ marginRight: 1 }} />
+                  <Avatar src={featured.thumbnail_image || FillerContent.image} sx={{ marginRight: 1 }} />
                   <Typography color={'text.secondary'}>
-                    {mock.author.name}
+                    {featured?.author?.data[0]?.name || FillerContent.header}
                   </Typography>
                 </Box>
-                <Typography color={'text.secondary'}>{mock.date}</Typography>
+                <Typography color={'text.secondary'}>{featured.date || FillerContent.header}</Typography>
               </Box>
             </Box>
           </CardContent>
