@@ -73,11 +73,13 @@ function Mindshare({ content }) {
           <SearchBox chipsTitle={chipsTitle} />
         </Container>
         <Container paddingTop={'0 !important'}>
+          {/* Featured Articles */}
           <HorizontallyAlignedBlogCardWithShapedImage
             featured={content.featured_article.data[0]}
           />
         </Container>
         <Container paddingTop={'0 !important'}>
+        {/* Latest Stories */}
           <VerticallyAlignedBlogCardsWithShapedImage />
         </Container>
         <Container paddingTop={'0 !important'}>

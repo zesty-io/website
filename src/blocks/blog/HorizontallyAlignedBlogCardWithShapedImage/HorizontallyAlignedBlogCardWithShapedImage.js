@@ -11,22 +11,7 @@ import Chip from '@mui/material/Chip';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-const mock = {
-  image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  title:
-    'Labore et dolore magna aliqua. Eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  author: {
-    name: 'Chary Smith',
-    avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
-  },
-  date: '22 Nov',
-};
-
-const HorizontallyAlignedBlogCardWithShapedImage = ({featured}) => {
-console.log("🚀 ~ file: ~ featured", featured)
-
+const HorizontallyAlignedBlogCardWithShapedImage = ({ featured }) => {
   const theme = useTheme();
   return (
     <Container>
@@ -121,7 +106,9 @@ console.log("🚀 ~ file: ~ featured", featured)
               <Typography variant={'h5'} gutterBottom>
                 {featured.title || FillerContent.header}
               </Typography>
-              <Typography color="text.secondary">{featured.description || FillerContent.description}</Typography>
+              <Typography color="text.secondary">
+                {featured.description || FillerContent.description}
+              </Typography>
             </Box>
             <Box>
               <Divider sx={{ marginY: 2 }} />
@@ -131,12 +118,17 @@ console.log("🚀 ~ file: ~ featured", featured)
                 alignItems={'center'}
               >
                 <Box display={'flex'} alignItems={'center'}>
-                  <Avatar src={featured.thumbnail_image || FillerContent.image} sx={{ marginRight: 1 }} />
+                  <Avatar
+                    src={featured.thumbnail_image || FillerContent.image}
+                    sx={{ marginRight: 1 }}
+                  />
                   <Typography color={'text.secondary'}>
                     {featured?.author?.data[0]?.name || FillerContent.header}
                   </Typography>
                 </Box>
-                <Typography color={'text.secondary'}>{featured.date || FillerContent.header}</Typography>
+                <Typography color={'text.secondary'}>
+                  {featured.date || FillerContent.header}
+                </Typography>
               </Box>
             </Box>
           </CardContent>
