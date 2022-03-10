@@ -15,7 +15,7 @@ const mock = [
   'Stories',
 ];
 
-const SearchBox = () => {
+const SearchBox = ({ chipsTitle }) => {
   return (
     <Box>
       <Box
@@ -80,7 +80,7 @@ const SearchBox = () => {
         </form>
       </Box>
       <Box>
-        {mock.map((item) => (
+        {chipsTitle.map((item) => (
           <Chip
             key={item}
             label={item}
