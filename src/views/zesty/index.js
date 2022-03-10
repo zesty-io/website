@@ -23,6 +23,8 @@ import ClientCard from './ClientCard';
 import AgencyPartnerCard from './AgencyPartnerCard';
 import AboutStat from './AboutStat';
 import JobListing from './JobListing';
+import Event from './Event';
+import EventHost from './EventHost';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -79,6 +81,8 @@ export {
     AgencyPartnerCard,
     AboutStat,
     JobListing,
+    Event,
+    EventHost,
     Category,
     Article,
     Tag,
