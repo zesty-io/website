@@ -34,7 +34,7 @@ const validationSchema = yup.object({
     .required('Please specify your message'),
 });
 
-const ContactUs = () => {
+const ContactUs = ({title, description}) => {
   const theme = useTheme();
 
   const initialValues = {
@@ -63,12 +63,10 @@ const ContactUs = () => {
           align={'center'}
           gutterBottom
         >
-          Contact us
+          {title}
         </Typography>
         <Typography color="text.secondary" align={'center'}>
-          Rather than worrying about switching offices every couple years, you
-          can instead stay in the same location and grow-up from your shared
-          coworking space to an office that takes up an entire floor.
+          {description}
         </Typography>
       </Box>
       <Box>

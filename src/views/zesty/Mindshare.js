@@ -28,6 +28,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
@@ -45,10 +46,21 @@ import Newsletter from '../../blocks/newsletters/Newsletter'
 function Mindshare({ content }) {
   const theme = useTheme();
 
+  const chipsTitle = content.popular_categories
+    ? Object.keys(content.popular_categories.data).map(
+        (item) => content.popular_categories.data[item]?.category,
+      )
+    : FillerContent.missingDataArray; ;
+
+
   return (
     <>
       <Box bgcolor={'alternate.main'} position={'relative'}>
-        <HeroWithBackgroundAndFullSearchBar />
+        <HeroWithBackgroundAndFullSearchBar
+          image={content.hero_image.data[0].url}
+          title={content.title}
+          subTitle={content.subtitle}
+        />
 
         <Container
           sx={{
@@ -58,7 +70,7 @@ function Mindshare({ content }) {
             paddingY: '0 !important',
           }}
         >
-          <SearchBox />
+          <SearchBox chipsTitle={chipsTitle} />
         </Container>
         <Container paddingTop={'0 !important'}>
           <HorizontallyAlignedBlogCardWithShapedImage />
