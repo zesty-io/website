@@ -2,17 +2,17 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
-const Hero = () => {
+const Hero = ({title, subTitle, image}) => {
   const theme = useTheme();
   return (
     <Box
       position={'relative'}
       sx={{
-        backgroundImage:
-          'url("https://assets.maccarianagency.com/backgrounds/img1.jpg")',
+        backgroundImage: image ? `url(${image})` :  `url(${FillerContent.image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         marginTop: -13,
@@ -51,7 +51,7 @@ const Hero = () => {
                 color: theme.palette.common.white,
               }}
             >
-              Newsroom
+              {title || FillerContent.header}
             </Typography>
           </Box>
           <Box>
@@ -62,7 +62,7 @@ const Hero = () => {
                 color: theme.palette.common.white,
               }}
             >
-              Latest updates and Hand-picked resources.
+              {subTitle || FillerContent.header}
             </Typography>
           </Box>
         </Box>
