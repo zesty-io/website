@@ -47,13 +47,13 @@ function Mindshare({ content }) {
   const theme = useTheme();
 
   const chipsTitle = content.popular_categories
-    ? Object.keys(content.popular_categories.data).map(
-        (item) => content.popular_categories.data[item]?.category,
-      )
+  ? Object.keys(content.popular_categories.data).map(
+    (item) => content.popular_categories.data[item]?.category,
+    )
     : FillerContent.missingDataArray; ;
 
 
-    console.log(content.case_studies);
+
 
 
   return (
@@ -78,7 +78,9 @@ function Mindshare({ content }) {
         <Container paddingTop={'0 !important'}>
           {/* Featured Articles */}
           <HorizontallyAlignedBlogCardWithShapedImage
-            featured={content.featured_article.data[0]}
+            featured={
+              content.featured_article.data[0]
+            }
           />
         </Container>
         <Container paddingTop={'0 !important'}>
@@ -96,7 +98,11 @@ function Mindshare({ content }) {
         </Container>
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
-            <PopularArticles />
+            <PopularArticles
+              data={
+                content.popular_articles.data || FillerContent.missingDataArray
+              }
+            />
           </Container>
         </Box>
         <Box
@@ -123,8 +129,12 @@ function Mindshare({ content }) {
         </Box>
       </Box>
       <Container>
-          {/* CTA */}
-        <Newsletter title={content.cta_title} description={content.cta_description} ctaBtn={content.cta_link} />
+        {/* CTA */}
+        <Newsletter
+          title={content.cta_title}
+          description={content.cta_description}
+          ctaBtn={content.cta_link}
+        />
       </Container>
 
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}

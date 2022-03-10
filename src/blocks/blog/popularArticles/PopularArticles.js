@@ -11,62 +11,13 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Pagination from '@mui/material/Pagination';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img16.jpg',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    title: 'Lorem ipsum dolor sit amet,',
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
-    },
-    date: '04 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img18.jpg',
-    description: 'Excepteur sint occaecat cupidatat non proident',
-    title: 'Consectetur adipiscing elit',
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-    },
-    date: '12 Sep',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img17.jpg',
-    description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem',
-    title: 'Eiusmod tempor incididunt',
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-    },
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img13.jpg',
-    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus',
-    title: 'Sed ut perspiciatis',
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
-    },
-    date: '02 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img14.jpg',
-    description:
-      'Qui blanditiis praesentium voluptatum deleniti atque corrupti',
-    title: 'Unde omnis iste natus',
-    author: {
-      name: 'Chary Smith',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '05 Mar',
-  },
-];
+import FillerContent from 'components/FillerContent';
 
-const PopularArticles = () => {
+
+
+const PopularArticles = ({data}) => {
   const theme = useTheme();
+
   return (
     <Box>
       <Box
@@ -97,7 +48,7 @@ const PopularArticles = () => {
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {data.map((item, i) => (
           <Grid item xs={12} sm={i === 0 ? 12 : 6} md={i < 2 ? 6 : 4} key={i}>
             <Box
               component={'a'}
@@ -123,8 +74,8 @@ const PopularArticles = () => {
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item.image}
-                  title={item.title}
+                  image={item?.hero_image?.data[0]?.url || FillerContent.image}
+                  title={item.title || FillerContent.header}
                   sx={{
                     height: { xs: 300, md: 360 },
                     position: 'relative',
@@ -155,10 +106,10 @@ const PopularArticles = () => {
                 </CardMedia>
                 <Box component={CardContent} position={'relative'}>
                   <Typography variant={'h6'} gutterBottom>
-                    {item.title}
+                    {item.title || FillerContent.header}
                   </Typography>
                   <Typography color="text.secondary">
-                    {item.description}
+                    {item.description || FillerContent.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -173,15 +124,18 @@ const PopularArticles = () => {
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item.author.avatar}
+                        src={
+                          item?.author?.data[0].headshot.data[0].url ||
+                          FillerContent.image
+                        }
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author.name}
+                        {item?.author?.data[0]?.name || FillerContent.header}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item.date}
+                      {item.date || FillerContent.header}
                     </Typography>
                   </Box>
                 </Box>
