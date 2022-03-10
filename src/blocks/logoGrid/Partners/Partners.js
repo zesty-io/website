@@ -13,10 +13,11 @@ const mock = [
   'https://assets.maccarianagency.com/svg/logos/slack-original.svg',
 ];
 
-const Partners = () => {
+const Partners = ({data}) => {
+
   return (
     <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
-      {mock.map((item, i) => (
+      {data.map((item, i) => (
         <Box
           maxWidth={{ xs: 80, sm: 90 }}
           marginTop={{ xs: 1 }}
@@ -27,7 +28,7 @@ const Partners = () => {
             component="img"
             height={1}
             width={1}
-            src={item}
+            src={item?.url}
             alt="..."
             sx={{
               filter: 'contrast(0)',
