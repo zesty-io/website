@@ -50,7 +50,7 @@ const Topbar = ({ onSidebarOpen, pages, routing, customRouting, colorInvert = fa
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         
         {customRouting.map(route => (
-           <>
+           <Box key={route.zuid}>
             {route.parentZUID == null && route.children.length > 0 &&
               <Box  marginLeft={4}>
                 <NavItem
@@ -62,7 +62,7 @@ const Topbar = ({ onSidebarOpen, pages, routing, customRouting, colorInvert = fa
               </Box>
             }
             {route.parentZUID == null && route.children.length == 0 &&
-              <Box  marginLeft={4}>
+              <Box marginLeft={4}>
                 <SingleNavItem
                   title={route.title}
                   id={route.zuid}
@@ -71,7 +71,7 @@ const Topbar = ({ onSidebarOpen, pages, routing, customRouting, colorInvert = fa
                   />
               </Box>
             }
-          </>
+          </Box>
         ))}
         <Box marginLeft={4}>
           <NavItem

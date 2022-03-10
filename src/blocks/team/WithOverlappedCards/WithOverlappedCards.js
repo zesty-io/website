@@ -33,9 +33,8 @@ const mock = [
   },
 ];
 
-const WithOverlappedCards = ({list}) => {
+const WithOverlappedCards = ({list=[]}) => {
   const theme = useTheme();
-  const data = list;
   return (
     <Container>
       <Box>
@@ -56,7 +55,7 @@ const WithOverlappedCards = ({list}) => {
           </Typography>
         </Box>
         <Grid container spacing={2}>
-          {data.map((item, i) => (
+          {list.map((item, i) => (
             <Grid item xs={12} sm={6} md={3} key={i}>
               <Card
                 sx={{
