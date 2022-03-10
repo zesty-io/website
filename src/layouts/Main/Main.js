@@ -67,8 +67,7 @@ const Main = ({ children, routing, customRouting, colorInvert = false, bgcolor =
         onClose={handleSidebarClose}
         open={open}
         variant="temporary"
-        pages={pages}
-      />
+        customRouting={hasRouting ? customRouting : []}      />
       <main>
         {children}
         <Divider />

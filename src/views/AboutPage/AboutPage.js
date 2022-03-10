@@ -14,13 +14,12 @@ import {
   WhoWeAre,
   Application,
 } from './components';
-
-const About = () => {
+const AboutPage = (content) => {
   return (
     <Main colorInvert={true}>
-      <Hero />
+      <Hero title={content.title} subtitle ={content.hero_content} hero_image={content.hero_image} />
       <Container>
-        <Story />
+        <Story content={content.page_content} section_image={content.section_image}/>
       </Container>
       <Container paddingTop={'0 !important'}>
         <WhoWeAre />
@@ -47,4 +46,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutPage;

@@ -31,6 +31,7 @@
  */
 
  import React  from 'react';
+ import HeroWithIllustrationAndCta from '../../blocks/heroes/HeroWithIllustrationAndCta/HeroWithIllustrationAndCta'
  import FullScreenHeroWithImageSlider from '../../blocks/heroes/FullScreenHeroWithImageSlider'
  import WithSwiperAndBrandBackgroundColor from '../../blocks/logoGrid/WithSwiperAndBrandBackgroundColor'
  import FeaturesWithIllustration from '../../blocks/features/FeaturesWithIllustration'
@@ -47,16 +48,14 @@
          <>
             
              {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-             <FullScreenHeroWithImageSlider {...content} />
-             
+             <HeroWithIllustrationAndCta {...content} />
              <WithSwiperAndBrandBackgroundColor logos={content.homepage_logos?.data}/>
              <FeaturesWithIllustration rich_text={content.zesty_benefits} image_url={image_url} />
              <WithOverlappedCards/>
              <ReviewsWithSimpleBoxes/>
              <VerticallyAlignedBlogCardsWithShapedImage/>
              <CtaWithInputField/>
-             <hr />
-             <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
+             {/*<div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
                  <h2>Accessible Zesty.io JSON Object</h2>
                  <pre>{JSON.stringify(content, null, 2)}</pre>
              </div>

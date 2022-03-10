@@ -3,17 +3,18 @@ import { Button } from "@mui/material";
 
 
 
-export default function TryFreeButton({size='medium'}) {
+export default function TryFreeButton({text="Try Free",target='blank',fullWidth=false, component='button',color="primary",size='medium', variant='contained'}) {
  return(
     <Button
-    variant="contained"
-    color="primary"
-    component="a"
-    target="blank"
-    href="https://accounts.zesty.io/signup"
-    size={size}
-  >
-    Try Free
+      variant={variant}
+      color={color}
+      component={component}
+      target={target}
+      fullWidth={fullWidth}
+      href="https://accounts.zesty.io/signup"
+      size={size}
+    >
+    {text}
   </Button>
  )
 };
