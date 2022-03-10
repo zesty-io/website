@@ -37,9 +37,8 @@ import ShowcaseBgImagePage from '../..//blocks/heroes/ShowcaseBgImage/ShowcaseBg
 import CtaSimpleCentered from '../../blocks/cta/CtaSimpleCentered/CtaSimpleCentered';
 import FillerContent from 'components/FillerContent';
 
-
 function Client({ content }) {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <>
       <Box>
@@ -101,14 +100,23 @@ function Client({ content }) {
           </Box>
         </Container>
         <Container>
-          <Stories />
+          <Stories
+            eyeBrow={content.client_eyebrow}
+            clientTitle={content.client_title}
+            cards={content.client_cards.data}
+          />
         </Container>
         <Box bgcolor={theme.palette.alternate.main}>
-          <CtaSimpleCentered />
+          <CtaSimpleCentered
+            cta={content.cta_title}
+            description={content.cta_description}
+            ctaLeft={content.cta_left}
+            ctaRight={content.cta_right}
+          />
         </Box>
       </Box>
 
-      <div
+      {/* <div
         style={{
           background: '#eee',
           border: '1px #000 solid',
@@ -118,7 +126,7 @@ function Client({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );
