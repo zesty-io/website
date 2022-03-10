@@ -23,8 +23,8 @@ import ClientCard from './ClientCard';
 import AgencyPartnerCard from './AgencyPartnerCard';
 import AboutStat from './AboutStat';
 import JobListing from './JobListing';
+import Event from './Event';
 import EventHost from './EventHost';
-import NewsArticleAuthor from './NewsArticleAuthor';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -60,6 +60,7 @@ import Demo from './Demo';
 import Header from './Header';
 import Footer from './Footer';
 
+
 export {
 
     Clipping,
@@ -85,8 +86,8 @@ export {
     AgencyPartnerCard,
     AboutStat,
     JobListing,
+    Event,
     EventHost,
-    NewsArticleAuthor,
     Category,
     Article,
     Tag,
@@ -118,7 +119,4 @@ export {
     Career,
     DeveloperResource,
     EventsAndWebinar,
-    Demo,
-    Footer,
-    Header
 }

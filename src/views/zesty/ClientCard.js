@@ -5,16 +5,14 @@
  * Label: Client Cards 
  * Name: client_cards 
  * Model ZUID: 6-8c9897f7dd-383w9n
- * File Created On: Thu Mar 10 2022 10:14:31 GMT-0800 (Pacific Standard Time)
+ * File Created On: Wed Mar 09 2022 11:10:00 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 
   * title (text)
- * summary (text)
+ * description (text)
  * image (images)
  * link (link)
- * cta (text)
- * logo (images)
 
  * 
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,

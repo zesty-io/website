@@ -4,15 +4,15 @@
  * 
  * Label: Events 
  * Name: events 
- * Model ZUID: 6-e281f486d0-stdst9
- * File Created On: Thu Mar 10 2022 10:14:31 GMT-0800 (Pacific Standard Time)
+ * Model ZUID: 6-c4bebbdccb-d9lqb7
+ * File Created On: Wed Mar 09 2022 15:40:08 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 
   * title (text)
  * description (textarea)
- * card_image (images)
  * date (date)
+ * image (images)
  * host (one_to_one)
 
  * 
@@ -22,7 +22,7 @@
  * This file is expected to be customized; because of that, it is not overwritten by the integration script.
  * Model and field changes in Zesty.io will not be reflected in this comment.
  * 
- * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-e281f486d0-stdst9
+ * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-c4bebbdccb-d9lqb7
  * 
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation

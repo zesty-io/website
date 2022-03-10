@@ -9,83 +9,21 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img8.jpg',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    title: 'Lorem ipsum dolor sit amet,',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img9.jpg',
-    description: 'Excepteur sint occaecat cupidatat non proident',
-    title: 'Consectetur adipiscing elit',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img12.jpg',
-    description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-    title: 'Labore et dolore magna aliqua',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img11.jpg',
-    description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem',
-    title: 'Eiusmod tempor incididunt',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img11.jpg',
-    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus',
-    title: 'Sed ut perspiciatis',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img12.jpg',
-    description:
-      'Qui blanditiis praesentium voluptatum deleniti atque corrupti',
-    title: 'Unde omnis iste natus',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img9.jpg',
-    description:
-      'On the other hand, we denounce with righteous indignation and dislike',
-    title: 'Sit voluptatem',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img8.jpg',
-    description: 'Quos dolores et quas molestias excepturi',
-    title: 'Accusantium doloremque',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img12.jpg',
-    description: 'Et harum quidem rerum facilis est et expedita distinctio',
-    title: 'Totam rem aperiam',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img11.jpg',
-    description: 'Nam libero tempore, cum soluta nobis est eligendi optio',
-    title: 'Uae ab illo inventore',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img8.jpg',
-    description: 'Itaque earum rerum hic tenetur a sapiente delectus',
-    title: 'Beatae vitae dicta',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img9.jpg',
-    description:
-      'On the other hand, we denounce with righteous indignation and dislike',
-    title: 'Nemo enim ipsam',
-  },
-];
+import FillerContent from 'components/FillerContent';
 
-const Main = () => {
+const Main = ({ data }) => {
   const theme = useTheme();
+  console.log(data);
+
   return (
     <Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {data.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={''}
+              href={item.link || FillerContent.href}
+              target="_blank"
               display={'block'}
               width={1}
               height={1}
@@ -105,8 +43,8 @@ const Main = () => {
                 flexDirection={'column'}
               >
                 <CardMedia
-                  image={item.image}
-                  title={item.title}
+                  image={item.image || FillerContent.image}
+                  title={item.title || FillerContent.header}
                   sx={{
                     height: { xs: 340, md: 400 },
                     filter:
@@ -117,10 +55,10 @@ const Main = () => {
                 />
                 <Box component={CardContent}>
                   <Typography variant={'h6'} fontWeight={700} gutterBottom>
-                    {item.title}
+                    {item.title || FillerContent.header}
                   </Typography>
                   <Typography variant={'body2'} color="text.secondary">
-                    {item.description}
+                    {item.description || FillerContent.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -145,7 +83,7 @@ const Main = () => {
                       </svg>
                     }
                   >
-                    Learn more
+                    {item.cta || FillerContent.cta}
                   </Button>
                 </Box>
               </Box>

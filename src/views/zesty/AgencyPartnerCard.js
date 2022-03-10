@@ -5,7 +5,7 @@
  * Label: Agency Partner Cards 
  * Name: agency_partner_cards 
  * Model ZUID: 6-dc9a98a2c5-ws073l
- * File Created On: Thu Mar 10 2022 10:14:31 GMT-0800 (Pacific Standard Time)
+ * File Created On: Wed Mar 09 2022 14:57:20 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 

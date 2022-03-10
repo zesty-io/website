@@ -5,7 +5,7 @@
  * Label: Job Listings 
  * Name: job_listings 
  * Model ZUID: 6-f4a9ea88ab-mdb2f6
- * File Created On: Thu Mar 10 2022 10:14:31 GMT-0800 (Pacific Standard Time)
+ * File Created On: Wed Mar 09 2022 14:57:20 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 

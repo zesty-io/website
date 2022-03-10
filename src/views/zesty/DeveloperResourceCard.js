@@ -5,7 +5,7 @@
  * Label: Developer Resource Cards 
  * Name: developer_resource_cards 
  * Model ZUID: 6-d0d996bff3-ld93dp
- * File Created On: Thu Mar 10 2022 10:14:31 GMT-0800 (Pacific Standard Time)
+ * File Created On: Wed Mar 09 2022 11:10:00 GMT-0800 (Pacific Standard Time)
  * 
  * Model Fields:
  * 
