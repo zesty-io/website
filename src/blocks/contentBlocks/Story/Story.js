@@ -4,31 +4,19 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-const Story = () => {
+const Story = ({title, description, logos}) => {
   const theme = useTheme();
   return (
     <Box>
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
           <Typography fontWeight={700} variant={'h5'}>
-            We design and implement creative solutions to everyday business
-            problems
+            {title}
           </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography component={'p'} color={'text.secondary'} fontWeight={400}>
-            We are a team of creative consultants who help bridge the digital
-            gap between companies and their clients with websites that not only
-            serve as marketing platforms but also provide solutions to online
-            business problems and digital marketing strategies that connect you
-            with the ideal client and help create a loyal customer.
-            <br />
-            <br />
-            We are a team of creative consultants who help bridge the digital
-            gap between companies and their clients with websites that not only
-            serve as marketing platforms but also provide solutions to online
-            business problems and digital marketing strategies that connect you
-            with the ideal client and help create a loyal customer.
+           {description}
           </Typography>
         </Grid>
         <Grid item xs={12}>
