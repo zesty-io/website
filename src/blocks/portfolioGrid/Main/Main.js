@@ -13,12 +13,13 @@ import FillerContent from 'components/FillerContent';
 
 const Main = ({ data }) => {
   const theme = useTheme();
-  console.log(data);
+
 
   return (
     <Box>
       <Grid container spacing={4}>
         {data.map((item, i) => (
+
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
@@ -43,7 +44,7 @@ const Main = ({ data }) => {
                 flexDirection={'column'}
               >
                 <CardMedia
-                  image={item.image || FillerContent.image}
+                  image={item?.image?.data[0].url || FillerContent.image}
                   title={item.title || FillerContent.header}
                   sx={{
                     height: { xs: 340, md: 400 },
