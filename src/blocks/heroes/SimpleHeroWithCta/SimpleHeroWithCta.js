@@ -10,7 +10,7 @@ import Container from 'components/Container';
 
 import TryFreeButton from 'components/cta/TryFreeButton';
 
-const Hero = () => {
+const Hero = ({title, subtitle, description, secondaryCTA}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -47,9 +47,9 @@ const Hero = () => {
               fontWeight: 700,
             }}
           >
-            Welcome to theFront.
+            {title}
             <br />
-            Develop anything your business needs.
+            {subtitle}
           </Typography>
           <Typography
             variant="h6"
@@ -58,8 +58,7 @@ const Hero = () => {
             sx={{ fontWeight: 400 }}
             align={'center'}
           >
-            Build a beautiful, modern website with flexible, fully customizable,
-            atomic MUI components.
+            {description}
           </Typography>
         </Box>
         <Box
@@ -82,7 +81,7 @@ const Hero = () => {
               size="large"
               fullWidth={isMd ? false : true}
             >
-              View documentation
+              {secondaryCTA}
             </Button>
           </Box>
         </Box>
