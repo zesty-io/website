@@ -33,7 +33,8 @@ import HeroNotTyped from '../../blocks/heroes/HeroNotTyped';
 import Partners from '../../blocks/logoGrid/Partners';
 import Main from '../../blocks/portfolioGrid/Main/Main';
 import ContactEmail from '../../blocks/formLayouts/ContactEmail';
-
+import CtaSimpleCentered from 'blocks/cta/CtaSimpleCentered/CtaSimpleCentered'
+import FillerContent from 'components/FillerContent';
 
 
 import Container from 'components/Container';
@@ -42,16 +43,29 @@ import Container from 'components/Container';
 
 function AgencyPartner({ content }) {
   const theme = useTheme();
+
+
   return (
     <>
       <Container>
-        <HeroNotTyped />
+        <HeroNotTyped
+          title={content.title || FillerContent.header}
+          description={content.header_description || FillerContent.description}
+        />
       </Container>
       <Container paddingY={'0 !important'}>
-        <Partners />
+        <Partners data={content.agency_partners_cards.data} />
       </Container>
+
+      <CtaSimpleCentered
+        title={content.cta_header_title}
+        description={content.cta_header_description}
+        ctaLeft={content.cta_header_left}
+        ctaRight={content.cta_header_right}
+      />
+
       <Container>
-      <Main/>
+        <Main data={content.agency_partners_cards.data} />
       </Container>
       <Box
         position={'relative'}
@@ -83,7 +97,11 @@ function AgencyPartner({ content }) {
           ></path>
         </Box>
         <Container>
-          <ContactEmail/>
+          <ContactEmail
+            title={content.cta_footer_title}
+            description={content.cta_footer_description}
+            cta={content.cta_footer_cta}
+          />
         </Container>
       </Box>
 

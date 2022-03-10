@@ -4,16 +4,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
-const CtaSimpleCentered = ({
-  title,
-  description,
-  ctaLeft,
-  ctaRight,
-}) => {
+const CtaSimpleCentered = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -31,7 +25,7 @@ const CtaSimpleCentered = ({
             fontWeight: 700,
           }}
         >
-          {title || FillerContent.header}
+          Get started with theFront today
         </Typography>
         <Typography
           variant="h6"
@@ -40,7 +34,8 @@ const CtaSimpleCentered = ({
           sx={{ fontWeight: 400 }}
           align={'center'}
         >
-          {description || FillerContent.header}
+          Build a beautiful, modern website with flexible, fully customizable,
+          atomic MUI components.
         </Typography>
         <Box
           display="flex"
@@ -57,7 +52,7 @@ const CtaSimpleCentered = ({
             fullWidth={isMd ? false : true}
             href={'/home'}
           >
-            {ctaLeft || FillerContent.cta}
+            View pages
           </Button>
           <Box
             marginTop={{ xs: 2, sm: 0 }}
@@ -72,7 +67,7 @@ const CtaSimpleCentered = ({
               size="large"
               fullWidth={isMd ? false : true}
             >
-              {ctaRight || FillerContent.cta}
+              Documentation
             </Button>
           </Box>
         </Box>
