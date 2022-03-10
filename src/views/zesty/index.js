@@ -32,7 +32,6 @@ import UseCase from './UseCase';
 import LandingPage from './LandingPage';
 import ProductExplainer from './ProductExplainer';
 import NewsArticle from './NewsArticle';
-import Event from './Event';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -93,7 +92,7 @@ export {
     LandingPage,
     ProductExplainer,
     NewsArticle,
-    Event,
+
     Homepage,
     SimplePage,
     Mindshare,
