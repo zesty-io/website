@@ -40,7 +40,6 @@ import FillerContent from 'components/FillerContent';
 import Container from 'components/Container';
 
 
-
 function AgencyPartner({ content }) {
   const theme = useTheme();
 
