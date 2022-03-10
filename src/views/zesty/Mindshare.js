@@ -123,7 +123,8 @@ function Mindshare({ content }) {
         </Box>
       </Box>
       <Container>
-        <Newsletter />
+          {/* CTA */}
+        <Newsletter title={content.cta_title} description={content.cta_description} ctaBtn={content.cta_link} />
       </Container>
 
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
