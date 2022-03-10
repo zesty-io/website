@@ -32,26 +32,44 @@
 
  import React  from 'react';
  import HeroWithIllustrationAndCta from '../../blocks/heroes/HeroWithIllustrationAndCta/HeroWithIllustrationAndCta'
- import FullScreenHeroWithImageSlider from '../../blocks/heroes/FullScreenHeroWithImageSlider'
  import WithSwiperAndBrandBackgroundColor from '../../blocks/logoGrid/WithSwiperAndBrandBackgroundColor'
  import FeaturesWithIllustration from '../../blocks/features/FeaturesWithIllustration'
  import WithOverlappedCards from '../../blocks/team/WithOverlappedCards'
  import ReviewsWithSimpleBoxes from '../../blocks/testimonials/ReviewsWithSimpleBoxes'
  import VerticallyAlignedBlogCardsWithShapedImage from '../../blocks/blog/VerticallyAlignedBlogCardsWithShapedImage'
  import CtaWithInputField from '../../blocks/cta/CtaWithInputField'
+ import FillerContent from 'components/FillerContent';
  
+ let zestyURL =
+ undefined === process.env.PRODUCTION == 'true' || process.env.PRODUCTION
+   ? process.env.zesty.production
+   : process.env.zesty.stage;
+
+   const getCardData = async (setcardData) => {
+    const uri = `${zestyURL}/?toJSON`;
+    const res = await fetch(uri).then((response) => response.json());
+    res && (await setcardData(res.featured_case_studies.data));
+  };
  function Homepage({content}) {
+    const [cardData, setcardData] = React.useState();
+    React.useEffect(() => {
+        getCardData(setcardData);
+    }, []);
 
      let image_url = (content?.zesty_benefits_image) ? content.zesty_benefits_image.data[0].url : 'https://pzcvtc6b.media.zestyio.com/content-management.png'
- 
+     const heroProps = {
+        title: content.title,
+        subtitle: content.simple_intro_text,
+        image: content.main_image.data[0].url || FillerContent.image
+      };
      return (
          <>
             
              {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-             <HeroWithIllustrationAndCta {...content} />
+             <HeroWithIllustrationAndCta {...heroProps} />
              <WithSwiperAndBrandBackgroundColor logos={content.homepage_logos?.data}/>
              <FeaturesWithIllustration rich_text={content.zesty_benefits} image_url={image_url} />
-             <WithOverlappedCards/>
+             <WithOverlappedCards list={cardData || []}/>
              <ReviewsWithSimpleBoxes/>
              <VerticallyAlignedBlogCardsWithShapedImage/>
              <CtaWithInputField/>
