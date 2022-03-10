@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import Card from '@mui/material/Card';
@@ -47,7 +47,15 @@ const mock = [
 
 const VerticalMinimalDesignedBlogCardsNoFooter = ({ cards }) => {
   const theme = useTheme();
-  
+  // const [orderedCards, setOrderedCards] = useState([]);
+
+  // order cards
+  const order = () =>{
+    let newOrder = cards.sort((a, b)=> parseInt(a.sort_order) - parseInt(b.sort_order))
+    console.log(newOrder)
+  }
+  order();
+
   return (
     <Container>
       <Grid container spacing={4}>
