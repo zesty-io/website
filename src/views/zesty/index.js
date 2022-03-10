@@ -33,7 +33,6 @@ import UseCase from './UseCase';
 import LandingPage from './LandingPage';
 import ProductExplainer from './ProductExplainer';
 import NewsArticle from './NewsArticle';
-import Event from './Event';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -57,8 +56,7 @@ import Career from './Career';
 import DeveloperResource from './DeveloperResource';
 import EventsAndWebinar from './EventsAndWebinar';
 import Demo from './Demo';
-import Header from './Header';
-import Footer from './Footer';
+
 
 
 export {
@@ -96,7 +94,7 @@ export {
     LandingPage,
     ProductExplainer,
     NewsArticle,
-    Event,
+
     Homepage,
     SimplePage,
     Mindshare,
