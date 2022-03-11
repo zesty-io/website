@@ -170,15 +170,17 @@ const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, cards, author }) => {
           </Button>
         </Grid>
       </Grid>
-      <Grid item container justifyContent={'center'} xs={12}>
-        <Pagination
-          count={pageNum.length}
-          size={'large'}
-          color="primary"
-          page={currentPage}
-          onChange={handleChange}
-        />
-      </Grid>
+      {cards?.length >= 9 && (
+        <Grid item container justifyContent={'center'} xs={12}>
+          <Pagination
+            count={pageNum?.length}
+            size={'large'}
+            color="primary"
+            page={currentPage}
+            onChange={handleChange}
+          />
+        </Grid>
+      )}
     </Container>
   );
 };

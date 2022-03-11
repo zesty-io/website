@@ -52,6 +52,7 @@ const WithAlternateCards = ({ authors, title, description }) => {
             <Grid item xs={12} md={4} key={i}>
               <Link href={item?.author?.url}>
                 <Box
+                  style={{ cursor: 'pointer' }}
                   width={1}
                   height={1}
                   component={Card}
