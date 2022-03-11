@@ -32,12 +32,10 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-
-// import Main from '../../layouts/Main';
 import Container from 'components/Container';
 
 // blocks
-import { Headline } from 'blocks/banners';
+import Headline from 'blocks/banners/Headline';
 import { Gallery } from 'blocks/graphics';
 import { Numbers } from 'blocks/stats';
 import { Story } from 'blocks/contentBlocks';

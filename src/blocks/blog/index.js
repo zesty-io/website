@@ -1,4 +1,3 @@
-export { default as IndexView } from './IndexView';
 export { default as BlogWithLargeImage } from './BlogWithLargeImage';
 export { default as VerticallyAlignedBlogCardOverlappedWithDescriptionBox } from './VerticallyAlignedBlogCardOverlappedWithDescriptionBox';
 export { default as SimpleVerticalBlogCards } from './SimpleVerticalBlogCards';

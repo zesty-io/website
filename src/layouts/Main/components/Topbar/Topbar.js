@@ -8,19 +8,11 @@ import LoginIcon from '@mui/icons-material/Login';
 import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
 
-// const Topbar = ({ onSidebarOpen, pages, routing, colorInvert = false }) => {
 import SingleNavItem from './components/NavItem/SingleNavItem.js'
-const Topbar = ({ onSidebarOpen, pages, routing, customRouting, colorInvert = false }) => {
+const Topbar = ({ onSidebarOpen,  routing, customRouting, colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
-  const {
-    landings: landingPages,
-    secondary: secondaryPages,
-    company: companyPages,
-    account: accountPages,
-    portfolio: portfolioPages,
-    blog: blogPages,
-  } = pages;
+  
 
   return (
     <Box
@@ -122,7 +114,6 @@ const Topbar = ({ onSidebarOpen, pages, routing, customRouting, colorInvert = fa
 
 Topbar.propTypes = {
   onSidebarOpen: PropTypes.func,
-  pages: PropTypes.object,
   colorInvert: PropTypes.bool,
 };
 
