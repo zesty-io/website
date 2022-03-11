@@ -8,4 +8,5 @@ export { default as CtaWithCoverImage } from './CtaWithCoverImage';
 export { default as CtaWithRightDownloadButton } from './CtaWithRightDownloadButton';
 export { default as CtaWithAppStoreButtons } from './CtaWithAppStoreButtons';
 export { default as CtaWithIllustration } from './CtaWithIllustration';
+export { default as CtaWithIllustrationSingleCta } from './CtaWithIllustrationSingleCta';
 export { default as CtaWithRightAppStoreButtons } from './CtaWithRightAppStoreButtons';
