@@ -52,7 +52,6 @@ import Contact from './Contact';
 import Career from './Career';
 import DeveloperResource from './DeveloperResource';
 import EventsAndWebinar from './EventsAndWebinar';
-import Event from './Event';
 import Demo from './Demo';
 
 
@@ -90,7 +89,6 @@ export {
     UseCase,
     LandingPage,
     ProductExplainer,
-    Event,
     Homepage,
     SimplePage,
     Mindshare,
