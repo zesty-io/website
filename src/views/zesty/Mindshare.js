@@ -53,9 +53,6 @@ function Mindshare({ content }) {
     : FillerContent.missingDataArray; ;
 
 
-
-
-
   return (
     <>
       <Box bgcolor={'alternate.main'} position={'relative'}>
@@ -78,30 +75,36 @@ function Mindshare({ content }) {
         <Container paddingTop={'0 !important'}>
           {/* Featured Articles */}
           <HorizontallyAlignedBlogCardWithShapedImage
-            featured={
-              content.featured_article.data[0]
-            }
+            featured={content.featured_article.data[0]}
           />
         </Container>
         <Container paddingTop={'0 !important'}>
-          {/* Latest Stories */}
-          <VerticallyAlignedBlogCardsWithShapedImage />
+          {/* Latest Stories Fetch Request coming soon */}
+          <VerticallyAlignedBlogCardsWithShapedImage
+            title={content.top_articles_title}
+            description={content.top_articles_description}
+            ctaBtn={content.top_article_cta}
+          />
         </Container>
         <Container paddingTop={'0 !important'}>
           {/* Case Studies */}
           <BlogCardsWithFullBackgroundImage
             title={content.case_studies_title}
             description={content.case_studies_description}
-            cta={content.case_studies_cta}
+            ctaBtn={content.case_studies_cta}
             caseStudy={content.case_studies.data}
           />
         </Container>
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
+            {/*  Additional Insights*/}
             <PopularArticles
               data={
                 content.popular_articles.data || FillerContent.missingDataArray
               }
+              title={content.additional_insights_title}
+              description={content.additional_insights_description}
+              ctaBtn={content.additional_insights_cta}
             />
           </Container>
         </Box>

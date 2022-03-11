@@ -15,7 +15,7 @@ import FillerContent from 'components/FillerContent';
 
 
 
-const PopularArticles = ({data}) => {
+const PopularArticles = ({data, title, description, ctaBtn}) => {
   const theme = useTheme();
 
   return (
@@ -29,10 +29,10 @@ const PopularArticles = ({data}) => {
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            Popular articles
+            {title || FillerContent.header}
           </Typography>
           <Typography color={'text.secondary'}>
-            Here’s what we’ve been up to recently.
+            {description || FillerContent.description}
           </Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
@@ -43,7 +43,7 @@ const PopularArticles = ({data}) => {
             size="large"
             marginLeft={2}
           >
-            View all
+            {ctaBtn || FillerContent.cta}
           </Box>
         </Box>
       </Box>

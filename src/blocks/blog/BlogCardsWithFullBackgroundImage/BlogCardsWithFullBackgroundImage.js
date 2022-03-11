@@ -37,8 +37,12 @@ const mock = [
   },
 ];
 
-const BlogCardsWithFullBackgroundImage = ({caseStudy, title, description, cta}) => {
-
+const BlogCardsWithFullBackgroundImage = ({
+  caseStudy,
+  title,
+  description,
+  ctaBtn,
+}) => {
   const theme = useTheme();
   return (
     <Container>
@@ -65,7 +69,7 @@ const BlogCardsWithFullBackgroundImage = ({caseStudy, title, description, cta}) 
             size="large"
             marginLeft={2}
           >
-            {cta || FillerContent.cta}
+            {ctaBtn || FillerContent.cta}
           </Box>
         </Box>
       </Box>

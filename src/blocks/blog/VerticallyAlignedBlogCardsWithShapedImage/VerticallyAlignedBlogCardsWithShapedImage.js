@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
 const mock = [
   {
@@ -46,7 +47,11 @@ const mock = [
   },
 ];
 
-const VerticallyAlignedBlogCardsWithShapedImage = () => {
+const VerticallyAlignedBlogCardsWithShapedImage = ({
+  title,
+  description,
+  ctaBtn,
+}) => {
   const theme = useTheme();
   return (
     <Container>
@@ -59,10 +64,10 @@ const VerticallyAlignedBlogCardsWithShapedImage = () => {
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            Latest stories
+            {title || FillerContent.header}
           </Typography>
           <Typography color={'text.secondary'}>
-            Here’s what we’ve been up to recently.
+            {description || FillerContent.description}
           </Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
@@ -73,7 +78,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = () => {
             size="large"
             marginLeft={2}
           >
-            View all
+            {ctaBtn || FillerContent.cta}
           </Box>
         </Box>
       </Box>
