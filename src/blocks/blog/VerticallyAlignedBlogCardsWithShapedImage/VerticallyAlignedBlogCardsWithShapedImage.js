@@ -51,6 +51,8 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   title,
   description,
   ctaBtn,
+  data,
+  searchQuery,
 }) => {
   const theme = useTheme();
   return (
@@ -83,11 +85,20 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {data.filter((post) =>{
+          if (searchQuery === ""){
+            return post
+          } else if (
+            post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            post.description.toLowerCase().includes(searchQuery.toLowerCase())
+          ) {
+            return post;
+          }
+        }).map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={''}
+              href={item?.uri || FillerContent.href}
               display={'block'}
               width={1}
               height={1}
@@ -109,8 +120,8 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item.image}
-                  title={item.title}
+                  image={item?.hero_image || FillerContent.image}
+                  title={item?.meta_title || 'Card Image'}
                   sx={{
                     height: { xs: 300, md: 360 },
                     position: 'relative',
@@ -141,10 +152,10 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                 </CardMedia>
                 <Box component={CardContent} position={'relative'}>
                   <Typography variant={'h6'} gutterBottom>
-                    {item.title}
+                    {item.title || FillerContent.header}
                   </Typography>
                   <Typography color="text.secondary">
-                    {item.description}
+                    {item.description || FillerContent.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -159,15 +170,15 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item.author.avatar}
+                        src={item?.thumbnail_image || FillerContent.image}
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author.name}
+                        {item?.interviewee_name || FillerContent.header}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item.date}
+                      {item?.date || FillerContent.header}
                     </Typography>
                   </Box>
                 </Box>

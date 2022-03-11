@@ -25,23 +25,20 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
-
 import HeroWithBackgroundAndFullSearchBar from '../../blocks/heroes/HeroWithBackgroundAndFullSearchBar/';
-import SearchBox from '../../blocks/searchBox/SearchBox'
-import HorizontallyAlignedBlogCardWithShapedImage from '../../blocks/blog/HorizontallyAlignedBlogCardWithShapedImage'
+import SearchBox from '../../blocks/searchBox/SearchBox';
+import HorizontallyAlignedBlogCardWithShapedImage from '../../blocks/blog/HorizontallyAlignedBlogCardWithShapedImage';
 import VerticallyAlignedBlogCardsWithShapedImage from '../../blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
 import BlogCardsWithFullBackgroundImage from '../../blocks/blog/BlogCardsWithFullBackgroundImage';
-import PopularArticles from '../../blocks/blog/popularArticles/PopularArticles'
-import Newsletter from '../../blocks/newsletters/Newsletter'
-
-
+import PopularArticles from '../../blocks/blog/popularArticles/PopularArticles';
+import Newsletter from '../../blocks/newsletters/Newsletter';
 
 function Mindshare({ content }) {
   const theme = useTheme();
@@ -50,35 +47,42 @@ function Mindshare({ content }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
-useEffect(() => {
-  try{
-    const fetchData = async () => {
-      const uri = `${zestyURL}/-/gql/articles.json`;
-      const response = await fetch(uri);
-      if(!response.ok){
-        throw new Error(`HTTP error: ${response.status}`)
-      }
-      const json = await response.json();
-      console.log('JSON:', json.slice(0, 10));
-             setIsLoaded(true);
-             setItems(json);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const uri = `${zestyURL}/-/gql/articles.json`;
+        const response = await fetch(uri);
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log('JSON:', json.slice(0, 10));
+        setIsLoaded(true);
+        setItems(json.slice(0, 10));
+      };
+      fetchData();
+    } catch (error) {
+      console.error(`Could Not Find Results: ${error}`);
     }
-    fetchData();
-  } catch (error) {
-     console.error(`Could Not Find Results: ${error}`);
-  }
-}, [])
+  }, []);
 
   const chipsTitle = content.popular_categories
-  ? Object.keys(content.popular_categories.data).map(
-    (item) => content.popular_categories.data[item]?.category,
-    )
-    : FillerContent.missingDataArray; ;
+    ? Object.keys(content.popular_categories.data).map(
+        (item) => content.popular_categories.data[item]?.category,
+      )
+    : FillerContent.missingDataArray;
 
-   let zestyURL =
-     undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
-       ? process.env.zesty.production
-       : process.env.zesty.stage;
+  let zestyURL =
+    undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
+
+  const onSearchHandler = (evt) => {
+    console.log(evt.target.value);
+    setSearchQuery(evt.target.value);
+  };
 
   return (
     <>
@@ -97,31 +101,35 @@ useEffect(() => {
             paddingY: '0 !important',
           }}
         >
-          <SearchBox chipsTitle={chipsTitle} />
-        </Container>
-        <Container paddingTop={'0 !important'}>
-          {/* Featured Articles */}
-          <HorizontallyAlignedBlogCardWithShapedImage
-            featured={content.featured_article.data[0]}
+          <SearchBox
+            onSearchHandler={onSearchHandler}
+            chipsTitle={chipsTitle}
+            searchQuery={searchQuery}
           />
         </Container>
-        <Container paddingTop={'0 !important'}>
-          {/* Latest Stories Fetch Request coming soon */}
-          <VerticallyAlignedBlogCardsWithShapedImage
-            title={content.top_articles_title}
-            description={content.top_articles_description}
-            ctaBtn={content.top_article_cta}
-          />
-        </Container>
-        <Container paddingTop={'0 !important'}>
-          {/* Case Studies */}
-          <BlogCardsWithFullBackgroundImage
-            title={content.case_studies_title}
-            description={content.case_studies_description}
-            ctaBtn={content.case_studies_cta}
-            caseStudy={content.case_studies.data}
-          />
-        </Container>
+
+        {/* Featured Articles */}
+        <HorizontallyAlignedBlogCardWithShapedImage
+          featured={content.featured_article.data[0]}
+        />
+
+        {/* Top insights Fetch Request coming soon */}
+        <VerticallyAlignedBlogCardsWithShapedImage
+          title={content.top_articles_title}
+          description={content.top_articles_description}
+          ctaBtn={content.top_article_cta}
+          data={items || FillerContent.missingDataArray}
+          searchQuery={searchQuery}
+        />
+
+        {/* Case Studies */}
+        <BlogCardsWithFullBackgroundImage
+          title={content.case_studies_title}
+          description={content.case_studies_description}
+          ctaBtn={content.case_studies_cta}
+          caseStudy={content.case_studies.data}
+        />
+
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
             {/*  Additional Insights*/}
