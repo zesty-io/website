@@ -40,4 +40,12 @@ export default {
       cols: 2,
     },
   ],
+  logos:[
+    {url: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/netflix-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/google-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/paypal-original.svg'},
+  ]
 };

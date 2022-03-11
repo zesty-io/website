@@ -52,7 +52,6 @@ const VerticalMinimalDesignedBlogCardsNoFooter = ({ cards }) => {
   // order cards
   const order = () =>{
     cards = cards.sort((a, b)=> parseInt(a.sort_order) - parseInt(b.sort_order))
-    console.log(cards)
   }
   order();
 
