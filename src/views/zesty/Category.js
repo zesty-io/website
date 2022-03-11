@@ -27,16 +27,16 @@
  */
  import React from 'react';
 
-import SimpleHeroWithSearchBox from '../../blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
-import VerticalMinimalDesignedBlogCardsPage from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
-import { Breadcrumb } from '../../blocks/progressSteps';
-import { Result } from '../../blocks/formLayouts';
-import { Newsletter } from '../../blocks/newsletters';
+import SimpleHeroWithSearchBox from 'blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
+import VerticalMinimalDesignedBlogCardsPage from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
+import { Breadcrumb } from 'blocks/progressSteps';
+import { Result } from 'blocks/formLayouts';
+import { Newsletter } from 'blocks/newsletters';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
-import { SimpleHeroWithCta, SimpleHeroWithSingleCta } from 'blocks/heroes';
+
 
 function Category({ content }) {
   const theme = useTheme();

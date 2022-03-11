@@ -32,8 +32,8 @@ import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 // blocks
 import { SimpleHero } from 'blocks/heroes';
-import { Result } from '../../blocks/formLayouts';
-import { Newsletter } from '../../blocks/newsletters';
+import { Result } from 'blocks/formLayouts';
+import { Newsletter } from 'blocks/newsletters';
 
 function EventsAndWebinar({ content }) {
   const theme = useTheme();

@@ -32,13 +32,16 @@ import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
-import HeroWithBackgroundAndFullSearchBar from '../../blocks/heroes/HeroWithBackgroundAndFullSearchBar/';
-import SearchBox from '../../blocks/searchBox/SearchBox';
-import HorizontallyAlignedBlogCardWithShapedImage from '../../blocks/blog/HorizontallyAlignedBlogCardWithShapedImage';
-import VerticallyAlignedBlogCardsWithShapedImage from '../../blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
-import BlogCardsWithFullBackgroundImage from '../../blocks/blog/BlogCardsWithFullBackgroundImage';
-import PopularArticles from '../../blocks/blog/popularArticles/PopularArticles';
-import Newsletter from '../../blocks/newsletters/Newsletter';
+
+import HeroWithBackgroundAndFullSearchBar from 'blocks/heroes/HeroWithBackgroundAndFullSearchBar/';
+import SearchBox from 'blocks/searchBox/SearchBox'
+import HorizontallyAlignedBlogCardWithShapedImage from 'blocks/blog/HorizontallyAlignedBlogCardWithShapedImage'
+import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
+import BlogCardsWithFullBackgroundImage from 'blocks/blog/BlogCardsWithFullBackgroundImage';
+import PopularArticles from 'blocks/blog/popularArticles/PopularArticles'
+import Newsletter from 'blocks/newsletters/Newsletter'
+
+
 
 function Mindshare({ content }) {
   const theme = useTheme();

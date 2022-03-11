@@ -135,13 +135,11 @@ async function buildJSONTreeFromNavigation(zestyURL){
     let routeData = await routes.json();
     let reducedData = []
     routeData.forEach(async route => {
-      if(!route.uri.match(/mindshare/)){
         let tempRoute = {
           url: route.uri,
           title: route.title
         };
         reducedData.push(tempRoute)
-      }
     
     }) 
    return reducedData
