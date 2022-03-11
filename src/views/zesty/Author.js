@@ -35,37 +35,36 @@ import UserCard from '../../blocks/userCards/UserCardWithBackground/UserCardWith
 import VerticalMinimalDesignedBlogCards from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 import FillerContent from 'components/FillerContent';
 let zestyURL =
-  undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
-    ? process.env.zesty.production
-    : process.env.zesty.stage;
+undefined === process.env.PRODUCTION == 'true' || process.env.PRODUCTION
+  ? process.env.zesty.production
+  : process.env.zesty.stage;
 
-const getCardData = async (authorZuid, setcardData) => {
-  const uri = `${zestyURL}/author.json/?author=${authorZuid}`;
+
+const fetchCardsData = async (uri, setFunc) => {
   const res = await fetch(uri).then((response) => response.json());
-  res && (await setcardData(res));
+  res && (await setFunc(res));
 };
 
 function Author({ content }) {
+  const uri = `${zestyURL}/author.json/?author=${content.meta.zuid}`;
   const [cardData, setcardData] = React.useState();
 
   const author = {
     name: content.name || '',
     avatar: (content.headshot?.data && content.headshot?.data[0]?.url) || '',
   };
+
   const UserCardProps = {
     title: content.title || 'title: ' + FillerContent.header,
     avatar: (content.headshot?.data && content.headshot?.data[0]?.url) || '',
     name: content.name || '',
     description: content.description || '',
     twitter: content.twitter_handle,
-    isVerified: true,
-    website: 'www.example.com',
-    email: 'clara.bertoletti@example.com',
   };
 
-  // Get card data based on author guid  on page load
+  // Get card data based on author zuid  on page load
   React.useEffect(() => {
-    getCardData(content.meta.zuid, setcardData);
+    fetchCardsData(uri, setcardData);
   }, []);
 
   return (
@@ -73,7 +72,7 @@ function Author({ content }) {
       <UserCard {...UserCardProps} />
       <VerticalMinimalDesignedBlogCards
         hideLoadMore={true}
-        list={cardData || []}
+        cards={cardData}
         author={author}
       />
     </>

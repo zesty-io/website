@@ -35,6 +35,9 @@ This will create new files where needed, but will not overwrite existing files.
 
 Any push or merge to the `main` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
 
-## Quick Create Script
+## Contribution
 
-Use a script to read the zesty instance headless map to create page files that map up to model setup in zesty (js files and the server side rendering script to preload the props).
+1. Create a branch
+2. Make change locally commit
+3. Test your changes with `npm run build` 
+4. If build succeeds, create pull request against `main`

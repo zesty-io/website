@@ -28,22 +28,34 @@ import React from 'react';
 import SimpleHeroWithSearchBox from '../../blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
 import VerticalMinimalDesignedBlogCardsPage from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 
-function Tag({ content }) {
-  const SimpleHeroWithSearchBoxProps = {
-    hideForm: true,
-    title: content?.meta?.web?.seo_meta_title || '',
-    description: content?.meta?.web?.seo_meta_description || '',
-  };
+let zestyURL =
+undefined === process.env.PRODUCTION == 'true' || process.env.PRODUCTION
+  ? process.env.zesty.production
+  : process.env.zesty.stage;
 
-  const VerticalMinimalDesignedBlogCardsPageProps = {
-    hideLoadMore: true,
-    list: undefined,
-  };
+const fetchCardsData = async (uri, setFunc) => {
+  const res = await fetch(uri).then((response) => response.json());
+  res && (await setFunc(res));
+};
+function Tag({ content }) {
+  const uri = `${zestyURL}/-/tag.json?tag=${content.meta.zuid}`;
+  const [cardsData, setcardData] = React.useState();
+
+  // Get card data based on author zuid  on page load
+  React.useEffect(() => {
+    fetchCardsData(uri, setcardData);
+  }, []);
   return (
     <>
-      <SimpleHeroWithSearchBox {...SimpleHeroWithSearchBoxProps} />
+      <SimpleHeroWithSearchBox
+        hideForm={true}
+        title={content?.meta?.web?.seo_meta_title || ''}
+        description={content?.meta?.web?.seo_meta_description || ''}
+      />
       <VerticalMinimalDesignedBlogCardsPage
-        {...VerticalMinimalDesignedBlogCardsPageProps}
+        hideLoadMore={true}
+        cards={cardsData}
+        author={undefined}
       />
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
       {/* <h1

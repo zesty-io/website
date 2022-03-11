@@ -26,7 +26,7 @@
  */
 
 import React  from 'react';
-
+/*endpoint: https://kfg6bckb-dev.webengine.zesty.io/-/authors.json*/
 function MindshareAuthor({content}) {
     return (
         <>

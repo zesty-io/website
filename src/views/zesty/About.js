@@ -41,7 +41,8 @@ import { Headline } from 'blocks/banners';
 import { Gallery } from 'blocks/graphics';
 import { Numbers } from 'blocks/stats';
 import { Story } from 'blocks/contentBlocks';
-import { TeamWithCards } from 'blocks/team';
+import { TeamWithSmallSquarePhotos } from 'blocks/team';
+// filler content
 import FillerContent from 'components/FillerContent';
 
 function About({ content }) {
@@ -60,24 +61,31 @@ function About({ content }) {
             photos={content.team_photos?.data || FillerContent.photos} />
           </Container>
           <Container maxWidth={'800px !important'}>
-            <Numbers />
+            <Numbers
+            stats={content.stats.data} />
           </Container>
           <Container maxWidth={'800px !important'}>
             <Divider />
           </Container>
           <Container>
-            <Story />
+            <Story
+            title={content.hero_content || FillerContent.header}
+            description={content.page_content || FillerContent.rich_text}
+            logos={content.story_logos?.data || FillerContent.logos} />
           </Container>
           <Container maxWidth={'800px !important'}>
             <Divider />
           </Container>
           <Container>
-            <TeamWithCards />
+            <TeamWithSmallSquarePhotos
+            eyebrow={content.team_eyebrow || FillerContent.header}
+            title={content.team_title || FillerContent.header}
+            team={content.team_members.data} />
           </Container>
         </Box>
 
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-        <br />
+        {/* <br />
          <br />
          <div
            style={{
@@ -89,7 +97,7 @@ function About({ content }) {
          >
            <h2>Accessible Zesty.io JSON Object</h2>
            <pre>{JSON.stringify(content, null, 2)}</pre>
-         </div>
+         </div> */}
         {/* End of Zesty.io output example */}
       </Box>
     </>

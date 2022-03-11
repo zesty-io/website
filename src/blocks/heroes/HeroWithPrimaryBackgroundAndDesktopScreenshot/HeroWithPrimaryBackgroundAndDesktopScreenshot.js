@@ -8,7 +8,10 @@ import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
 
 import Container from 'components/Container';
 
-const HeroWithPrimaryBackgroundAndDesktopScreenshot = () => {
+const HeroWithPrimaryBackgroundAndDesktopScreenshot = ({
+  title,
+  description,
+}) => {
   const theme = useTheme();
   return (
     <Box
@@ -30,7 +33,7 @@ const HeroWithPrimaryBackgroundAndDesktopScreenshot = () => {
                   variant="h3"
                   sx={{ fontWeight: 700, color: 'common.white' }}
                 >
-                  Designed secure. Built for anything
+                  {title}
                 </Typography>
               </Box>
               <Typography
@@ -38,8 +41,7 @@ const HeroWithPrimaryBackgroundAndDesktopScreenshot = () => {
                 component="p"
                 sx={{ color: 'common.white' }}
               >
-                Forward thinking businesses use our cloud backup service to
-                ensure data reliability and safety.
+                {description}
               </Typography>
               <Box
                 display="flex"

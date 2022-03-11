@@ -36,8 +36,11 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
+import { SimpleHeroWithCta, SimpleHeroWithSingleCta } from 'blocks/heroes';
 
 function Category({ content }) {
+  const theme = useTheme();
+  
   const SimpleHeroWithSearchBoxProps = {
     hideForm: true,
     title: content?.meta?.web?.seo_meta_title || '',
@@ -50,17 +53,7 @@ function Category({ content }) {
   };
   return (
     <>
- <Box bgcolor={'alternate.main'}>
-        <Container paddingY={2}>
-          <Breadcrumb />
-        </Container>
-      </Box>
-      {/* <Container> */}
-        <SimpleHeroWithSingleCta />
-      {/* </Container> */}
-      <Container>
-        <Result />
-      </Container>
+
       <Box
         position={'relative'}
         marginTop={{ xs: 4, md: 6 }}
@@ -93,9 +86,13 @@ function Category({ content }) {
         <Container>
           <Newsletter />
         </Container>
+        
       </Box>
 
       <SimpleHeroWithSearchBox {...SimpleHeroWithSearchBoxProps} />
+      <Container paddingY={2}>
+          <Breadcrumb />
+        </Container>
       <VerticalMinimalDesignedBlogCardsPage
         {...VerticalMinimalDesignedBlogCardsPageProps}
       />

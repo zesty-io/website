@@ -44,7 +44,7 @@ const mock = [
   },
 ];
 
-const TeamWithSmallSquarePhotos = () => {
+const TeamWithSmallSquarePhotos = ({eyebrow, title, team}) => {
   const theme = useTheme();
 
   return (
@@ -60,7 +60,7 @@ const TeamWithSmallSquarePhotos = () => {
             align={'center'}
             fontWeight={700}
           >
-            Team
+            {eyebrow}
           </Typography>
           <Typography
             variant="h4"
@@ -71,9 +71,9 @@ const TeamWithSmallSquarePhotos = () => {
               marginTop: theme.spacing(1),
             }}
           >
-            Why work with us
+            {title}
           </Typography>
-          <Typography variant="h6" align={'center'} color={'text.secondary'}>
+          {/* <Typography variant="h6" align={'center'} color={'text.secondary'}>
             We are a small agency of talented designers & developers.
           </Typography>
           <Box marginTop={2} display={'flex'} justifyContent={'center'}>
@@ -96,16 +96,16 @@ const TeamWithSmallSquarePhotos = () => {
             >
               Contact us
             </Button>
-          </Box>
+          </Box> */}
         </Box>
         <Grid container spacing={2}>
-          {mock.map((item, i) => (
+          {team.map((item, i) => (
             <Grid item xs={12} sm={6} md={4} key={i}>
               <Box sx={{ paddingBottom: 2 }}>
                 <ListItem component="div" disableGutters sx={{ padding: 0 }}>
                   <ListItemAvatar sx={{ marginRight: 3 }}>
                     <Avatar
-                      src={item.avatar}
+                      src={item.headshot.data[0].url}
                       variant={'rounded'}
                       sx={{ width: 100, height: 100, borderRadius: 2 }}
                     />
