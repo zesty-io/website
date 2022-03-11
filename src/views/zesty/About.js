@@ -70,7 +70,8 @@ function About({ content }) {
           <Container>
             <Story
             title={content.hero_content || FillerContent.header}
-            description={content.page_content || FillerContent.rich_text} />
+            description={content.page_content || FillerContent.rich_text}
+            logos={content.story_logos?.data || FillerContent.logos} />
           </Container>
           <Container maxWidth={'800px !important'}>
             <Divider />
