@@ -6,14 +6,7 @@ export default {
   cta: 'Missing CTA Info',
   description: 'Missing Description info',
   href: 'https://www.zesty.io/',
-  missingDataArray: [
-    'Missing',
-    'Data',
-    'In',
-    'The',
-    'Manager',
-    'UI',
-  ],
+  missingDataArray: ['Missing', 'Data', 'In', 'The', 'Manager', 'UI'],
   photos: [
     {
       src: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
@@ -40,12 +33,47 @@ export default {
       cols: 2,
     },
   ],
-  logos:[
-    {url: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg'},
-    {url: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg'},
-    {url: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg'},
-    {url: 'https://assets.maccarianagency.com/svg/logos/netflix-original.svg'},
-    {url: 'https://assets.maccarianagency.com/svg/logos/google-original.svg'},
-    {url: 'https://assets.maccarianagency.com/svg/logos/paypal-original.svg'},
-  ]
+  logos: [
+    { url: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg' },
+    { url: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg' },
+    { url: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg' },
+    {
+      url: 'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
+    },
+    { url: 'https://assets.maccarianagency.com/svg/logos/google-original.svg' },
+    { url: 'https://assets.maccarianagency.com/svg/logos/paypal-original.svg' },
+  ],
+
+  authors: [
+    {
+      name: 'Clara Bertoletti',
+      title: 'MUI lover',
+      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+    },
+    {
+      name: 'Jhon Anderson',
+      title: 'Senior Frontend Developer',
+      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+    },
+    {
+      name: 'Chary Smith',
+      title: 'SEO at Comoti',
+      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    },
+    {
+      name: 'Clara Bertoletti',
+      title: 'MUI lover',
+      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
+    },
+    {
+      name: 'Jhon Anderson',
+      title: 'Senior Frontend Developer',
+      avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
+    },
+    {
+      name: 'Chary Smith',
+      title: 'SEO at Comoti',
+      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
+    },
+  ],
 };
