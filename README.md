@@ -1,10 +1,10 @@
 <img src="https://user-images.githubusercontent.com/729972/155242158-157ca88c-9047-4671-bd09-2bbef7035022.png" width="130">
 
 # Zesty.io NextJS Marketing Website
+
 Marketing Website using NextJS and Zesty.io Headless CMS
 
-
-## Getting Started   
+## Getting Started
 
 Node and NPM need to be installed. From your command line.
 
@@ -39,5 +39,6 @@ Any push or merge to the `main` branch will kickoff an auto build script which w
 
 1. Create a branch
 2. Make change locally commit
-3. Test your changes with `npm run build` 
+3. Test your changes with `npm run build`
 4. If build succeeds, create pull request against `main`
+   .
