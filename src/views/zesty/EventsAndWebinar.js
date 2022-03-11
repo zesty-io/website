@@ -62,7 +62,7 @@ function EventsAndWebinar({ content }) {
       subtitle={content.subtitle || ''}
       description={content.header_description || FillerContent.description} />
       <Container>
-        {content.events?.data ? <Result /> : <ComingSoon />}
+        {content.events?.data ? <Result events={content.events.data || []} /> : <ComingSoon />}
       </Container>
       <Box
         position={'relative'}
@@ -101,8 +101,7 @@ function EventsAndWebinar({ content }) {
         </Container>
       </Box>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-
-      <div
+      {/* <div
         style={{
           background: '#eee',
           border: '1px #000 solid',
@@ -112,7 +111,7 @@ function EventsAndWebinar({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );

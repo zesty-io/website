@@ -76,7 +76,7 @@ const mock = [
   },
 ];
 
-const Result = () => {
+const Result = ({events}) => {
   const theme = useTheme();
   return (
     <Box>
@@ -133,7 +133,7 @@ const Result = () => {
                 variant={'subtitle2'}
                 sx={{ whiteSpace: 'nowrap' }}
               >
-                123 Results
+                {events.length} Results
               </Typography>
             </Box>
             <Box>
@@ -151,11 +151,11 @@ const Result = () => {
         </form>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {events.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={''}
+              href={item.link}
               display={'block'}
               width={1}
               height={1}
@@ -177,7 +177,7 @@ const Result = () => {
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item.image}
+                  image={item.card_image.data[0].url}
                   title={item.title}
                   sx={{
                     height: { xs: 300, md: 360 },
@@ -227,11 +227,11 @@ const Result = () => {
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item.author.avatar}
+                        src={item.host.data[0].image.data[0].url}
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author.name}
+                        {item.host.data[0].name}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
