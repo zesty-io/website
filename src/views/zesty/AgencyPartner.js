@@ -40,7 +40,6 @@ import FillerContent from 'components/FillerContent';
 import Container from 'components/Container';
 
 
-
 function AgencyPartner({ content }) {
   const theme = useTheme();
 
@@ -54,7 +53,7 @@ function AgencyPartner({ content }) {
         />
       </Container>
       <Container paddingY={'0 !important'}>
-        <Partners data={content.agency_partners_cards.data} />
+        <Partners data={content.header_logos.data} />
       </Container>
 
       <CtaSimpleCentered
@@ -105,9 +104,7 @@ function AgencyPartner({ content }) {
         </Container>
       </Box>
 
-
-
-      {/* <h1
+      <h1
         dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
       ></h1>
 
@@ -121,7 +118,7 @@ function AgencyPartner({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div> */}
+      </div>
       {/* End of Zesty.io output example */}
     </>
   );

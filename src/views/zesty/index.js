@@ -23,7 +23,6 @@ import ClientCard from './ClientCard';
 import AgencyPartnerCard from './AgencyPartnerCard';
 import AboutStat from './AboutStat';
 import JobListing from './JobListing';
-import Event from './Event';
 import EventHost from './EventHost';
 import Category from './Category';
 import Article from './Article';
@@ -32,7 +31,6 @@ import Author from './Author';
 import UseCase from './UseCase';
 import LandingPage from './LandingPage';
 import ProductExplainer from './ProductExplainer';
-import NewsArticle from './NewsArticle';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -51,7 +49,6 @@ import CaseStudy from './CaseStudy';
 import AgencyPartner from './AgencyPartner';
 import Client from './Client';
 import Contact from './Contact';
-import New from './New';
 import Career from './Career';
 import DeveloperResource from './DeveloperResource';
 import EventsAndWebinar from './EventsAndWebinar';
@@ -81,7 +78,6 @@ export {
   AgencyPartnerCard,
   AboutStat,
   JobListing,
-  Event,
   EventHost,
   Category,
   Article,
@@ -90,8 +86,6 @@ export {
   UseCase,
   LandingPage,
   ProductExplainer,
-  NewsArticle,
-  Demo,
   Homepage,
   SimplePage,
   Mindshare,
@@ -110,7 +104,7 @@ export {
   AgencyPartner,
   Client,
   Contact,
-  New,
+  Demo,
   Career,
   DeveloperResource,
   EventsAndWebinar,

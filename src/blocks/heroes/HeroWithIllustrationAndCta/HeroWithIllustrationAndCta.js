@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
 
-const HeroWithIllustrationAndCta = () => {
+const HeroWithIllustrationAndCta = ({title,subtitle,image}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -27,27 +27,13 @@ const HeroWithIllustrationAndCta = () => {
           <Grid item container alignItems={'center'} xs={12} md={6}>
             <Box>
               <Box marginBottom={2}>
-                <Typography
+                <Typography 
                   variant="h2"
                   color="text.primary"
                   sx={{
                     fontWeight: 700,
                   }}
-                >
-                  Develop anything your{' '}
-                  <Typography
-                    component={'span'}
-                    variant={'inherit'}
-                    color={'primary'}
-                    sx={{
-                      background: `linear-gradient(180deg, transparent 82%, ${alpha(
-                        theme.palette.secondary.main,
-                        0.3,
-                      )} 0%)`,
-                    }}
-                  >
-                    business needs.
-                  </Typography>
+                  dangerouslySetInnerHTML={{__html:title}}>
                 </Typography>
               </Box>
               <Box marginBottom={3}>
@@ -56,9 +42,7 @@ const HeroWithIllustrationAndCta = () => {
                   component="p"
                   color="text.secondary"
                   sx={{ fontWeight: 400 }}
-                >
-                  theFront will make your product look modern and professional
-                  while saving you precious time.
+                  dangerouslySetInnerHTML={{__html:subtitle}}>
                 </Typography>
               </Box>
               <Box
@@ -107,9 +91,7 @@ const HeroWithIllustrationAndCta = () => {
               <Box height={1} width={1} maxWidth={500}>
                 <Box
                   component={'img'}
-                  src={
-                    'https://assets.maccarianagency.com/svg/illustrations/drawkit-illustration4.svg'
-                  }
+                  src={image}
                   width={1}
                   height={1}
                   sx={{
