@@ -41,13 +41,13 @@ import FillerContent from 'components/FillerContent';
 
 const zestyURL = 'https://kfg6bckb-dev.webengine.zesty.io';
 
-const getCardsData = async (authorZuid, setcardData) => {
-  const uri = `${zestyURL}/author.json/?author=${authorZuid}`;
+const fetchCardsData = async (uri, setFunc) => {
   const res = await fetch(uri).then((response) => response.json());
-  res && (await setcardData(res));
+  res && (await setFunc(res));
 };
 
 function Author({ content }) {
+  const uri = `${zestyURL}/author.json/?author=${content.meta.zuid}`;
   const [cardData, setcardData] = React.useState();
 
   const author = {
@@ -61,12 +61,11 @@ function Author({ content }) {
     name: content.name || '',
     description: content.description || '',
     twitter: content.twitter_handle,
-    isVerified: true,
   };
 
   // Get card data based on author zuid  on page load
   React.useEffect(() => {
-    getCardsData(content.meta.zuid, setcardData);
+    fetchCardsData(uri, setcardData);
   }, []);
 
   return (
