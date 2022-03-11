@@ -4,7 +4,7 @@
 Marketing Website using NextJS and Zesty.io Headless CMS
 
 
-## Getting Started
+## Getting Started   
 
 Node and NPM need to be installed. From your command line.
 
