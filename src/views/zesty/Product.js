@@ -25,9 +25,9 @@
  */
 
 import React from 'react';
-import FillerContent from '../../components/FillerContent';
-import SimpleHeroWithImageAndCtaButtons from '../../blocks/heroes/SimpleHeroWithImageAndCtaButtons';
-import FeaturesWithIllustration from '../../blocks/features/FeaturesWithIllustration/FeaturesWithIllustration.js';
+import FillerContent from 'components/FillerContent';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons';
+import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration/FeaturesWithIllustration.js';
 import Container from 'components/Container';
 function Product({ content }) {
   let overview_text =

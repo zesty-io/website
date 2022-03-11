@@ -25,8 +25,8 @@
  */
 
 import React from 'react';
-import SimpleHeroWithSearchBox from '../../blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
-import VerticalMinimalDesignedBlogCardsPage from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
+import SimpleHeroWithSearchBox from 'blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
+import VerticalMinimalDesignedBlogCardsPage from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 
 function Tag({ content }) {
   const SimpleHeroWithSearchBoxProps = {

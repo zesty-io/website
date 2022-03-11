@@ -25,13 +25,13 @@
  */
 
 import React from 'react';
-import SimpleHeroWithImageAndCtaButtonsPage from '../../blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
-import FeaturesWithIllustration from '../../blocks/features/FeaturesWithIllustration';
-import FeaturesWithMobileScreenshot from '../../blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
-import WithBorderedCardsAndBrandColor from '../../blocks/stats/WithBorderedCardsAndBrandColor/WithBorderedCardsAndBrandColor.js';
-import CtaWithCoverImage from '../../blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js';
-import VerticallyAlignedBlogCardsWithShapedImage from '../../blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
-import CtaWithInputField from '../../blocks/cta/CtaWithInputField/CtaWithInputField.js';
+import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
+import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
+import WithBorderedCardsAndBrandColor from 'blocks/stats/WithBorderedCardsAndBrandColor/WithBorderedCardsAndBrandColor.js';
+import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js';
+import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
+import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 
 function WhyZesty({ content }) {
   let overview_text =

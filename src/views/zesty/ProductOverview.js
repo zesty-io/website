@@ -31,11 +31,11 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
-import FullScreenHeroWithPromoImagesAndTypedText from '../../blocks/heroes/FullScreenHeroWithPromoImagesAndTypedText/FullScreenHeroWithPromoImagesAndTypedText.js';
-import FeaturesWithCardRepresentation from '../../blocks/features/FeaturesWithCardRepresentation/FeaturesWithCardRepresentation.js';
-import SimpleVerticalBlogCards from '../../blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
-import VerticallyAlignedBlogCardsWithShapedImage from '../../blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage';
-import CtaWithInputField from '../../blocks/cta/CtaWithInputField/CtaWithInputField';
+import FullScreenHeroWithPromoImagesAndTypedText from 'blocks/heroes/FullScreenHeroWithPromoImagesAndTypedText/FullScreenHeroWithPromoImagesAndTypedText.js';
+import FeaturesWithCardRepresentation from 'blocks/features/FeaturesWithCardRepresentation/FeaturesWithCardRepresentation.js';
+import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
+import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage';
+import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField';
 const mock = [
   {
     title: 'Your brand platform',

@@ -37,17 +37,17 @@ import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import FillerContent from '../../../src/components/FillerContent';
-import BlogCTA from '../../components/cta/BlogCTA';
+import FillerContent from 'components/FillerContent';
+import BlogCTA from 'components/cta/BlogCTA';
 
-import HeroJarallax from '../../blocks/heroes/HeroJarallax';
+import HeroJarallax from 'blocks/heroes/HeroJarallax';
 
-import SidebarArticles from '../../blocks/sidebars/SidebarArticles';
-import SidebarNewsletter from '../../blocks/sidebars/SidebarNewsletter';
-import SimpleVerticalBlogCards from '../../blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
-import CtaWithInputField from '../../blocks/cta/CtaWithInputField';
+import SidebarArticles from 'blocks/sidebars/SidebarArticles';
+import SidebarNewsletter from 'blocks/sidebars/SidebarNewsletter';
+import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
+import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 
-import Container from '../../components/Container';
+import Container from 'components/Container';
 
 function Article({ content }) {
   const theme = useTheme();
