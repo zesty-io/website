@@ -25,7 +25,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/FillerContent';
@@ -46,12 +46,39 @@ import Newsletter from '../../blocks/newsletters/Newsletter'
 function Mindshare({ content }) {
   const theme = useTheme();
 
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+
+useEffect(() => {
+  try{
+    const fetchData = async () => {
+      const uri = `${zestyURL}/-/gql/articles.json`;
+      const response = await fetch(uri);
+      if(!response.ok){
+        throw new Error(`HTTP error: ${response.status}`)
+      }
+      const json = await response.json();
+      console.log('JSON:', json.slice(0, 10));
+             setIsLoaded(true);
+             setItems(json);
+    }
+    fetchData();
+  } catch (error) {
+     console.error(`Could Not Find Results: ${error}`);
+  }
+}, [])
+
   const chipsTitle = content.popular_categories
   ? Object.keys(content.popular_categories.data).map(
     (item) => content.popular_categories.data[item]?.category,
     )
     : FillerContent.missingDataArray; ;
 
+   let zestyURL =
+     undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
+       ? process.env.zesty.production
+       : process.env.zesty.stage;
 
   return (
     <>
