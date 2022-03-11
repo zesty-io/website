@@ -106,7 +106,7 @@ function Demo({ content }) {
       <BlogWithLargeImage DemoData={MockDemos1} />
       <BlogWithLargeImage DemoData={MockDemos2} />
       <CtaSimpleCentered
-        cta={MockCta.title}
+        title={MockCta.title}
         description={MockCta.description}
         ctaLeft={MockCta.CTA_left}
         ctaRight={MockCta.CTA_right}
