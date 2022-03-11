@@ -26,8 +26,6 @@ const UserCardWithBackground = ({
   description,
   title,
   twitter,
-  website,
-  email,
 }) => {
   const theme = useTheme();
   return (
@@ -96,10 +94,10 @@ const UserCardWithBackground = ({
                     alignItems={'center'}
                   >
                     <Typography color={'primary'} variant={'subtitle2'}>
-                      @{twitter}
+                      {twitter && `@${twitter}`}
                     </Typography>
                   </Box>
-                  <Box
+                  {/* <Box
                     display={'flex'}
                     justifyContent={'center'}
                     alignItems={'center'}
@@ -125,8 +123,8 @@ const UserCardWithBackground = ({
                     <Typography color={'primary'} variant={'subtitle2'}>
                       {website}
                     </Typography>
-                  </Box>
-                  <Box
+                  </Box> */}
+                  {/* <Box
                     display={'flex'}
                     justifyContent={'center'}
                     alignItems={'center'}
@@ -152,7 +150,7 @@ const UserCardWithBackground = ({
                     <Typography color={'primary'} variant={'subtitle2'}>
                       {email}
                     </Typography>
-                  </Box>
+                  </Box> */}
                 </Stack>
               </Stack>
             </Box>

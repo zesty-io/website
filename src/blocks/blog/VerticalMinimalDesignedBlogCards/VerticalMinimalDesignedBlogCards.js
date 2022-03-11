@@ -48,15 +48,200 @@ const mock = [
     },
     date: '22 Nov',
   },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    title: 'Lorem ipsum dolor sit amet,',
+    author: {
+      name: 'Clara Bertoletti',
+      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+    },
+    date: '04 Aug',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
+    description: 'Excepteur sint occaecat cupidatat non proident',
+    title: 'Consectetur adipiscing elit',
+    author: {
+      name: 'Jhon Anderson',
+      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+    },
+    date: '12 Sep',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
+    description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+    title: 'Labore et dolore magna aliqua',
+    author: {
+      name: 'Chary Smith',
+      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    },
+    date: '22 Nov',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    title: 'Lorem ipsum dolor sit amet,',
+    author: {
+      name: 'Clara Bertoletti',
+      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+    },
+    date: '04 Aug',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
+    description: 'Excepteur sint occaecat cupidatat non proident',
+    title: 'Consectetur adipiscing elit',
+    author: {
+      name: 'Jhon Anderson',
+      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+    },
+    date: '12 Sep',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
+    description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+    title: 'Labore et dolore magna aliqua',
+    author: {
+      name: 'Chary Smith',
+      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    },
+    date: '22 Nov',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    title: 'Lorem ipsum dolor sit amet,',
+    author: {
+      name: 'Clara Bertoletti',
+      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+    },
+    date: '04 Aug',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
+    description: 'Excepteur sint occaecat cupidatat non proident',
+    title: 'Consectetur adipiscing elit',
+    author: {
+      name: 'Jhon Anderson',
+      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+    },
+    date: '12 Sep',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
+    description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+    title: 'Labore et dolore magna aliqua',
+    author: {
+      name: 'Chary Smith',
+      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    },
+    date: '22 Nov',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    title: 'Lorem ipsum dolor sit amet,',
+    author: {
+      name: 'Clara Bertoletti',
+      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+    },
+    date: '04 Aug',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
+    description: 'Excepteur sint occaecat cupidatat non proident',
+    title: 'Consectetur adipiscing elit',
+    author: {
+      name: 'Jhon Anderson',
+      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+    },
+    date: '12 Sep',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
+    description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+    title: 'Labore et dolore magna aliqua',
+    author: {
+      name: 'Chary Smith',
+      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    },
+    date: '22 Nov',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    title: 'Lorem ipsum dolor sit amet,',
+    author: {
+      name: 'Clara Bertoletti',
+      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+    },
+    date: '04 Aug',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
+    description: 'Excepteur sint occaecat cupidatat non proident',
+    title: 'Consectetur adipiscing elit',
+    author: {
+      name: 'Jhon Anderson',
+      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+    },
+    date: '12 Sep',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
+    description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+    title: 'Labore et dolore magna aliqua',
+    author: {
+      name: 'Chary Smith',
+      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    },
+    date: '22 Nov',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
+    description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+    title: 'Labore et dolore magna aliqua',
+    author: {
+      name: 'Chary Smith',
+      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    },
+    date: '22 Nov',
+  },
+  {
+    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
+    description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+    title: 'Labore et dolore magna aliqua',
+    author: {
+      name: 'Chary Smith',
+      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+    },
+    date: '22 Nov',
+  },
 ];
 
-const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, list, author }) => {
+const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, cards, author }) => {
   const theme = useTheme();
-  const data = list || mock;
+  const cardsData = cards || mock;
+
+  // Pagination
+  const [currentPage, setcurrentPage] = React.useState(1);
+  const [postperPage, _setpostperPage] = React.useState(9);
+  const indexoflast = currentPage * postperPage;
+  const indexoffirst = indexoflast - postperPage;
+  const pageNum = [];
+  const cardsList = cardsData.slice(indexoffirst, indexoflast);
+  for (let i = 1; i <= Math.ceil(cardsData.length / postperPage); i++) {
+    pageNum.push(i);
+  }
+  const handleChange = (_event, value) => {
+    setcurrentPage(value);
+  };
+
   return (
     <Container>
       <Grid container spacing={4}>
-        {data?.map((item, i) => (
+        {cardsList?.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
             <Box
               component={'a'}
@@ -153,7 +338,13 @@ const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, list, author }) => {
         </Grid>
       </Grid>
       <Grid item container justifyContent={'center'} xs={12}>
-        <Pagination count={10} size={'large'} color="primary" />
+        <Pagination
+          count={pageNum.length}
+          size={'large'}
+          color="primary"
+          page={currentPage}
+          onChange={handleChange}
+        />
       </Grid>
     </Container>
   );
