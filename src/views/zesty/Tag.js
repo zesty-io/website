@@ -28,7 +28,10 @@ import React from 'react';
 import SimpleHeroWithSearchBox from '../../blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
 import VerticalMinimalDesignedBlogCardsPage from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 
-const zestyURL = 'https://kfg6bckb-dev.webengine.zesty.io';
+let zestyURL =
+undefined === process.env.PRODUCTION == 'true' || process.env.PRODUCTION
+  ? process.env.zesty.production
+  : process.env.zesty.stage;
 
 const fetchCardsData = async (uri, setFunc) => {
   const res = await fetch(uri).then((response) => response.json());

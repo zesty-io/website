@@ -34,12 +34,11 @@ import React from 'react';
 import UserCard from '../../blocks/userCards/UserCardWithBackground/UserCardWithBackground';
 import VerticalMinimalDesignedBlogCards from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 import FillerContent from 'components/FillerContent';
-// let zestyURL =
-//   undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
-//     ? process.env.zesty.production
-//     : process.env.zesty.stage;
+let zestyURL =
+undefined === process.env.PRODUCTION == 'true' || process.env.PRODUCTION
+  ? process.env.zesty.production
+  : process.env.zesty.stage;
 
-const zestyURL = 'https://kfg6bckb-dev.webengine.zesty.io';
 
 const fetchCardsData = async (uri, setFunc) => {
   const res = await fetch(uri).then((response) => response.json());
