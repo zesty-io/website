@@ -9,21 +9,10 @@ import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
-const mock = {
-  image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  title:
-    'Labore et dolore magna aliqua. Eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  author: {
-    name: 'Chary Smith',
-    avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
-  },
-  date: '22 Nov',
-};
+const HorizontallyAlignedBlogCardWithShapedImage = ({ featured }) => {
 
-const HorizontallyAlignedBlogCardWithShapedImage = () => {
   const theme = useTheme();
   return (
     <Container>
@@ -61,8 +50,8 @@ const HorizontallyAlignedBlogCardWithShapedImage = () => {
               component={'img'}
               height={1}
               width={1}
-              src={mock.image}
-              alt="..."
+              src={featured?.hero_image.data[0]?.url || FillerContent.image}
+              alt="Headshot"
               sx={{
                 objectFit: 'cover',
                 maxHeight: 360,
@@ -116,9 +105,11 @@ const HorizontallyAlignedBlogCardWithShapedImage = () => {
           >
             <Box>
               <Typography variant={'h5'} gutterBottom>
-                {mock.title}
+                {featured.title || FillerContent.header}
               </Typography>
-              <Typography color="text.secondary">{mock.description}</Typography>
+              <Typography color="text.secondary">
+                {featured.description || FillerContent.description}
+              </Typography>
             </Box>
             <Box>
               <Divider sx={{ marginY: 2 }} />
@@ -128,12 +119,17 @@ const HorizontallyAlignedBlogCardWithShapedImage = () => {
                 alignItems={'center'}
               >
                 <Box display={'flex'} alignItems={'center'}>
-                  <Avatar src={mock.author.avatar} sx={{ marginRight: 1 }} />
+                  <Avatar
+                    src={featured?.author.data[0].headshot.data[0].url || FillerContent.image}
+                    sx={{ marginRight: 1 }}
+                  />
                   <Typography color={'text.secondary'}>
-                    {mock.author.name}
+                    {featured?.author?.data[0]?.name || FillerContent.header}
                   </Typography>
                 </Box>
-                <Typography color={'text.secondary'}>{mock.date}</Typography>
+                <Typography color={'text.secondary'}>
+                  {featured.date || FillerContent.header}
+                </Typography>
               </Box>
             </Box>
           </CardContent>

@@ -25,7 +25,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/FillerContent';
@@ -46,12 +46,46 @@ import Newsletter from 'blocks/newsletters/Newsletter'
 function Mindshare({ content }) {
   const theme = useTheme();
 
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const uri = `${zestyURL}/-/gql/articles.json`;
+        const response = await fetch(uri);
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const json = await response.json();
+        console.log('JSON:', json.slice(0, 10));
+        setIsLoaded(true);
+        setItems(json.slice(0, 10));
+      };
+      fetchData();
+    } catch (error) {
+      console.error(`Could Not Find Results: ${error}`);
+    }
+  }, []);
+
   const chipsTitle = content.popular_categories
     ? Object.keys(content.popular_categories.data).map(
         (item) => content.popular_categories.data[item]?.category,
       )
-    : FillerContent.missingDataArray; ;
+    : FillerContent.missingDataArray;
 
+  let zestyURL =
+    undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
+
+  const onSearchHandler = (evt) => {
+    console.log(evt.target.value);
+    setSearchQuery(evt.target.value);
+  };
 
   return (
     <>
@@ -70,20 +104,46 @@ function Mindshare({ content }) {
             paddingY: '0 !important',
           }}
         >
-          <SearchBox chipsTitle={chipsTitle} />
+          <SearchBox
+            onSearchHandler={onSearchHandler}
+            chipsTitle={chipsTitle}
+            searchQuery={searchQuery}
+          />
         </Container>
-        <Container paddingTop={'0 !important'}>
-          <HorizontallyAlignedBlogCardWithShapedImage />
-        </Container>
-        <Container paddingTop={'0 !important'}>
-          <VerticallyAlignedBlogCardsWithShapedImage />
-        </Container>
-        <Container paddingTop={'0 !important'}>
-          <BlogCardsWithFullBackgroundImage />
-        </Container>
+
+        {/* Featured Articles */}
+        <HorizontallyAlignedBlogCardWithShapedImage
+          featured={content.featured_article.data[0]}
+        />
+
+        {/* Top insights Fetch Request coming soon */}
+        <VerticallyAlignedBlogCardsWithShapedImage
+          title={content.top_articles_title}
+          description={content.top_articles_description}
+          ctaBtn={content.top_article_cta}
+          data={items || FillerContent.missingDataArray}
+          searchQuery={searchQuery}
+        />
+
+        {/* Case Studies */}
+        <BlogCardsWithFullBackgroundImage
+          title={content.case_studies_title}
+          description={content.case_studies_description}
+          ctaBtn={content.case_studies_cta}
+          caseStudy={content.case_studies.data}
+        />
+
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
-            <PopularArticles />
+            {/*  Additional Insights*/}
+            <PopularArticles
+              data={
+                content.popular_articles.data || FillerContent.missingDataArray
+              }
+              title={content.additional_insights_title}
+              description={content.additional_insights_description}
+              ctaBtn={content.additional_insights_cta}
+            />
           </Container>
         </Box>
         <Box
@@ -110,7 +170,12 @@ function Mindshare({ content }) {
         </Box>
       </Box>
       <Container>
-        <Newsletter />
+        {/* CTA */}
+        <Newsletter
+          title={content.cta_title}
+          description={content.cta_description}
+          ctaBtn={content.cta_link}
+        />
       </Container>
 
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}

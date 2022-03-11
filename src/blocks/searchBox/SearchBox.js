@@ -15,7 +15,7 @@ const mock = [
   'Stories',
 ];
 
-const SearchBox = ({ chipsTitle }) => {
+const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery }) => {
   return (
     <Box>
       <Box
@@ -29,6 +29,8 @@ const SearchBox = ({ chipsTitle }) => {
           <Box display="flex" alignItems={'center'}>
             <Box width={1} marginRight={1}>
               <TextField
+                onChange={onSearchHandler}
+                value={searchQuery}
                 sx={{
                   height: 54,
                   '& .MuiOutlinedInput-notchedOutline': {

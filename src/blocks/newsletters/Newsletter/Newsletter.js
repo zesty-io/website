@@ -3,8 +3,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import FillerContent from 'components/FillerContent';
 
-const Newsletter = () => {
+const Newsletter = ({title, description, ctaBtn}) => {
   return (
     <Box>
       <Box marginBottom={4}>
@@ -14,7 +15,7 @@ const Newsletter = () => {
           align={'center'}
           gutterBottom
         >
-          Get our stories delivered
+          {title || FillerContent.header}
         </Typography>
         <Typography
           variant={'h6'}
@@ -22,7 +23,7 @@ const Newsletter = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          From us to your inbox weekly.
+          {description || FillerContent.description}
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
@@ -63,7 +64,7 @@ const Newsletter = () => {
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
             >
-              Subscribe
+              {ctaBtn || FillerContent.cta}
             </Box>
           </Box>
         </Box>
