@@ -51,7 +51,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   title,
   description,
   ctaBtn,
-  data,
+  data=[],
   searchQuery,
 }) => {
   const theme = useTheme();
