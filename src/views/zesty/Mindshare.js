@@ -49,6 +49,7 @@ function Mindshare({ content }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [authors, setAuthors] = useState("");
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -56,14 +57,24 @@ function Mindshare({ content }) {
     try {
       const fetchData = async () => {
         const uri = `${zestyURL}/-/gql/articles.json`;
+        // const uri = `${zestyURL}/-/articlesearch.json`;
+
         const response = await fetch(uri);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         const json = await response.json();
-        console.log('JSON:', json.slice(0, 10));
+        console.log(
+          'JSON:',
+          json.filter((val, index, arr) => index > arr.length - 10 ),
+        ); //get last 9
+        // console.log('JSON:', json);
+        // fetch another request for authors
+        // https://kfg6bckb-dev.webengine.zesty.io/-/instant/7-38ed98-hmvkjg.json
+        // setAuthors(name image info)
+        //pass author to props
         setIsLoaded(true);
-        setItems(json.slice(0, 10));
+        setItems(json.slice(0, 9));
       };
       fetchData();
     } catch (error) {
