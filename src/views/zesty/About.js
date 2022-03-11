@@ -41,7 +41,7 @@ import { Headline } from 'blocks/banners';
 import { Gallery } from 'blocks/graphics';
 import { Numbers } from 'blocks/stats';
 import { Story } from 'blocks/contentBlocks';
-import { TeamWithCards, TeamWithSmallSquarePhotos } from 'blocks/team';
+import { TeamWithSmallSquarePhotos } from 'blocks/team';
 // filler content
 import FillerContent from 'components/FillerContent';
 
@@ -76,7 +76,6 @@ function About({ content }) {
             <Divider />
           </Container>
           <Container>
-            {/* <TeamWithCards /> */}
             <TeamWithSmallSquarePhotos
             eyebrow={content.team_eyebrow || FillerContent.header}
             title={content.team_title || FillerContent.header}
