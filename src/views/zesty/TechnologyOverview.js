@@ -25,12 +25,12 @@
  */
 
 import React  from 'react';
-import HeroWithDashboardScreenshotAndCta from '../../blocks/heroes/HeroWithDashboardScreenshotAndCta/HeroWithDashboardScreenshotAndCta';
-import FeatureListWithDesktopAppScreenshot from '../../blocks/features/FeatureListWithDesktopAppScreenshot/FeatureListWithDesktopAppScreenshot.js';
+import HeroWithDashboardScreenshotAndCta from 'blocks/heroes/HeroWithDashboardScreenshotAndCta/HeroWithDashboardScreenshotAndCta';
+import FeatureListWithDesktopAppScreenshot from 'blocks/features/FeatureListWithDesktopAppScreenshot/FeatureListWithDesktopAppScreenshot.js';
 import SimpleCentered from 'blocks/features/SimpleCentered/SimpleCentered.js';
-import FeaturesWithCardRepresentation from '../../blocks/features/FeaturesWithCardRepresentation/FeaturesWithCardRepresentation.js';
-import FeaturesWithMobileScreenshot from '../../blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
-import WithCompanyLogo from '../..//blocks/testimonials/WithCompanyLogo/WithCompanyLogo.js';
+import FeaturesWithCardRepresentation from 'blocks/features/FeaturesWithCardRepresentation/FeaturesWithCardRepresentation.js';
+import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
+import WithCompanyLogo from 'blocks/testimonials/WithCompanyLogo/WithCompanyLogo.js';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 import Container from 'components/Container';

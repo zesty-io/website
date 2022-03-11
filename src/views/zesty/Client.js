@@ -31,10 +31,10 @@ import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
 
-import Stories from '../../blocks/portfolioGrid/Stories/Stories';
-import PartnersColor from '../../blocks/logoGrid/PartnersColor/PartnersColor';
-import ShowcaseBgImagePage from '../..//blocks/heroes/ShowcaseBgImage/ShowcaseBgImage';
-import CtaSimpleCentered from '../../blocks/cta/CtaSimpleCentered/CtaSimpleCentered';
+import Stories from 'blocks/portfolioGrid/Stories/Stories';
+import PartnersColor from 'blocks/logoGrid/PartnersColor/PartnersColor';
+import ShowcaseBgImagePage from 'blocks/heroes/ShowcaseBgImage/ShowcaseBgImage';
+import CtaSimpleCentered from 'blocks/cta/CtaSimpleCentered/CtaSimpleCentered';
 import FillerContent from 'components/FillerContent';
 
 function Client({ content }) {

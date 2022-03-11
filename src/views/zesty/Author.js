@@ -31,8 +31,8 @@
  */
 
 import React from 'react';
-import UserCard from '../../blocks/userCards/UserCardWithBackground/UserCardWithBackground';
-import VerticalMinimalDesignedBlogCards from '../../blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
+import UserCard from 'blocks/userCards/UserCardWithBackground/UserCardWithBackground';
+import VerticalMinimalDesignedBlogCards from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 import FillerContent from 'components/FillerContent';
 let zestyURL =
 undefined === process.env.PRODUCTION == 'true' || process.env.PRODUCTION
