@@ -46,8 +46,6 @@ const CtaWithIllustration = ({title, description, cta, ctaHref, image}) => {
                 color="primary"
                 size="large"
                 fullWidth={!isMd}
-                // marginTop={{ xs: 1, sm: 0 }}
-                // marginLeft={{ sm: 2 }}
                 href={ctaHref}
               >
                 {cta}
@@ -58,7 +56,15 @@ const CtaWithIllustration = ({title, description, cta, ctaHref, image}) => {
         <Grid item xs={12} md={6}>
           <Box height={1} width={1} display={'flex'} justifyContent={'center'}>
             <Box height={1} width={1} maxWidth={450}>
-              <CreditCardsIllustration width={'100%'} height={'100%'} />
+              {/* <CreditCardsIllustration width={'100%'} height={'100%'} /> */}
+              <Box
+                component={'img'}
+                src={image}
+                height={{ xs: 'auto', md: 1 }}
+                maxHeight={{ xs: 300, md: 1 }}
+                width={1}
+                maxWidth={1}
+              />
             </Box>
           </Box>
         </Grid>

@@ -49,10 +49,12 @@ function EventsAndWebinar({ content }) {
         title={'Coming Soon!'}
         description={'Check back again for new Events and Webinars!'}
         cta={'Home'}
-        ctaHref={'/'} />
+        ctaHref={'/'}
+        image={content.coming_soon_image?.data[0].url || FillerContent.image} />
       </>
     )
   }
+
   return (
     <>
       <SimpleHero
@@ -61,7 +63,6 @@ function EventsAndWebinar({ content }) {
       description={content.header_description || FillerContent.description} />
       <Container>
         {content.events?.data ? <Result /> : <ComingSoon />}
-        {/* <Result /> */}
       </Container>
       <Box
         position={'relative'}
