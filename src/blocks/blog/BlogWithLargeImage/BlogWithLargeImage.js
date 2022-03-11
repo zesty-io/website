@@ -38,12 +38,13 @@ const mock = [
   },
 ];
 
-const BlogWithLargeImage = () => {
+const BlogWithLargeImage = ({ DemoData }) => {
   const theme = useTheme();
+  const data = DemoData || mock;
   return (
     <Container>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {data.map((item, i) => (
           <Grid key={i} item xs={12}>
             <Box
               component={Card}
@@ -143,7 +144,7 @@ const BlogWithLargeImage = () => {
                       </Box>
                     }
                   >
-                    Read More
+                    {item.cta}
                   </Button>
                 </Box>
               </CardContent>
