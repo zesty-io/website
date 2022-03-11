@@ -76,19 +76,19 @@ const MockDemos2 = [
     },
     date: '04 Aug',
   },
-  {
-    title: 'How to manage omnichannel content with Zesty.io',
-    description:
-      'Place your content across websites, digital signage, IoT devices, apps and more with Zesty.io – see how in this quick tutorial.',
-    cta: 'Learn more about omnichannel experiences ',
-    image: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-    },
-    date: '12 Sep',
-  },
+  // {
+  //   title: 'How to manage omnichannel content with Zesty.io',
+  //   description:
+  //     'Place your content across websites, digital signage, IoT devices, apps and more with Zesty.io – see how in this quick tutorial.',
+  //   cta: 'Learn more about omnichannel experiences ',
+  //   image: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
+  //   tags: ['UX', 'Design', 'Themes', 'Photography'],
+  //   author: {
+  //     name: 'Jhon Anderson',
+  //     avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+  //   },
+  //   date: '12 Sep',
+  // },
 ];
 const MockCta = {
   title: 'Ready to get started with Zesty.io?',
