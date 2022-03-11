@@ -11,12 +11,10 @@ const Story = ({title, description, logos}) => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
           <Typography fontWeight={700} variant={'h5'} dangerouslySetInnerHTML={{__html:title}}>
-            {/* {title}   */}
           </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography color={'text.secondary'} fontWeight={400} variant={'body1'} >
-           {/* {description} */}
            <Box dangerouslySetInnerHTML={{__html:description}} />
           </Typography>
         </Grid>
