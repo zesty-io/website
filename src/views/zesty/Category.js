@@ -36,7 +36,7 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
-import { SimpleHeroWithCta, SimpleHeroWithSingleCta } from 'blocks/heroes';
+
 
 function Category({ content }) {
   const theme = useTheme();

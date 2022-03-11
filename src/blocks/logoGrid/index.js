@@ -1,4 +1,4 @@
-export { default as IndexView } from './IndexView';
+
 export { default as LogoGridSimpleCentered } from './LogoGridSimpleCentered';
 export { default as WithBoxedLogos } from './WithBoxedLogos';
 export { default as WithLeftAlignedDescriptionBox } from './WithLeftAlignedDescriptionBox';
