@@ -24,6 +24,8 @@ import AgencyPartnerCard from './AgencyPartnerCard';
 import AboutStat from './AboutStat';
 import JobListing from './JobListing';
 import EventHost from './EventHost';
+import NewsArticleAuthor from './NewsArticleAuthor';
+import DemoPageItem from './DemoPageItem';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -31,6 +33,7 @@ import Author from './Author';
 import UseCase from './UseCase';
 import LandingPage from './LandingPage';
 import ProductExplainer from './ProductExplainer';
+import Event from './Event';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -52,60 +55,63 @@ import Contact from './Contact';
 import Career from './Career';
 import DeveloperResource from './DeveloperResource';
 import EventsAndWebinar from './EventsAndWebinar';
-import Demo from './Demo';
-
+import DemosPage from './DemosPage';
 export {
-  Clipping,
-  Widget,
-  MarketingAnnoucement,
-  Review,
-  MainNavigation,
-  PersonaContent,
-  CustomerBrand,
-  CustomerHighlight,
-  LandingPageVariation,
-  TeamMember,
-  Feature,
-  IntegrationPartner,
-  IntegrationType,
-  PricingTier,
-  Partner,
-  Hero,
-  PlatformSection,
-  NewNavigation,
-  DeveloperResourceCard,
-  ClientCard,
-  AgencyPartnerCard,
-  AboutStat,
-  JobListing,
-  EventHost,
-  Category,
-  Article,
-  Tag,
-  Author,
-  UseCase,
-  LandingPage,
-  ProductExplainer,
-  Homepage,
-  SimplePage,
-  Mindshare,
-  MindshareAuthor,
-  About,
-  SalesPeople,
-  Product,
-  Integration,
-  Pricing,
-  Ourpartner,
-  HeroHompage,
-  WhyZesty,
-  ProductOverview,
-  TechnologyOverview,
-  CaseStudy,
-  AgencyPartner,
-  Client,
-  Contact,
-  Demo,
-  Career,
-  DeveloperResource,
-  EventsAndWebinar,
-};
+
+    Clipping,
+    Widget,
+    MarketingAnnoucement,
+    Review,
+    MainNavigation,
+    PersonaContent,
+    CustomerBrand,
+    CustomerHighlight,
+    LandingPageVariation,
+    TeamMember,
+    Feature,
+    IntegrationPartner,
+    IntegrationType,
+    PricingTier,
+    Partner,
+    Hero,
+    PlatformSection,
+    NewNavigation,
+    DeveloperResourceCard,
+    ClientCard,
+    AgencyPartnerCard,
+    AboutStat,
+    JobListing,
+    EventHost,
+    NewsArticleAuthor,
+    DemoPageItem,
+    Category,
+    Article,
+    Tag,
+    Author,
+    UseCase,
+    LandingPage,
+    ProductExplainer,
+    Event,
+    Homepage,
+    SimplePage,
+    Mindshare,
+    MindshareAuthor,
+    About,
+    SalesPeople,
+    Product,
+    Integration,
+    Pricing,
+    Ourpartner,
+    HeroHompage,
+    WhyZesty,
+    ProductOverview,
+    TechnologyOverview,
+    CaseStudy,
+    AgencyPartner,
+    Client,
+    Contact,
+    Career,
+    DeveloperResource,
+    EventsAndWebinar,
+    DemosPage
+}
