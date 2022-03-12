@@ -11,14 +11,14 @@ import CardMedia from '@mui/material/CardMedia';
 
 import FillerContent from 'components/FillerContent';
 
-const Main = ({ data }) => {
+const Main = ({ partnerCards }) => {
   const theme = useTheme();
 
 
   return (
     <Box>
       <Grid container spacing={4}>
-        {data.map((item, i) => (
+        {partnerCards.map((item, i) => (
 
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box

@@ -48,8 +48,9 @@ function Mindshare({ content }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [authors, setAuthors] = useState([]);
-
   const [searchQuery, setSearchQuery] = useState('');
+
+
 
   useEffect(() => {
     try {
@@ -171,7 +172,7 @@ function Mindshare({ content }) {
           <Container paddingTop={'0 !important'}>
             {/*  Additional Insights*/}
             <PopularArticles
-              data={
+              latestArticles={
                 content.popular_articles.data || FillerContent.missingDataArray
               }
               title={content.additional_insights_title}

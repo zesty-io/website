@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FillerContent from 'components/FillerContent';
 
-const Contact = ({ title, description, cta }) => {
+const Contact = ({ title, description, ctaBtn }) => {
   return (
     <Box>
       <Box marginBottom={4}>
@@ -64,7 +64,7 @@ const Contact = ({ title, description, cta }) => {
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
             >
-              {cta || FillerContent.cta}
+              {ctaBtn || FillerContent.cta}
             </Box>
           </Box>
         </Box>

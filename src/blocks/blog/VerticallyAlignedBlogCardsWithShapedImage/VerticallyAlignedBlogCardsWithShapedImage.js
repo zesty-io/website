@@ -21,16 +21,8 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   searchQuery,
   authors = [],
 }) => {
-  console.log(
-    '🚀 ~ file: VerticallyAlignedBlogCardsWithShapedImage.js ~ line 58 ~ articles',
-    articles,
-  );
-  console.log(
-    '🚀 ~ file: VerticallyAlignedBlogCardsWithShapedImage.js ~ line 58 ~ authors',
-    authors,
-  );
-  const theme = useTheme();
 
+  const theme = useTheme();
 
   return (
     <Container>
@@ -62,6 +54,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
         </Box>
       </Box>
       <Grid container spacing={4}>
+
         {articles
           .filter((post) => {
             if (searchQuery === '') {
