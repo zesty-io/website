@@ -32,16 +32,14 @@ import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
-
 import HeroWithBackgroundAndFullSearchBar from 'blocks/heroes/HeroWithBackgroundAndFullSearchBar/';
-import SearchBox from 'blocks/searchBox/SearchBox'
-import HorizontallyAlignedBlogCardWithShapedImage from 'blocks/blog/HorizontallyAlignedBlogCardWithShapedImage'
+import SearchBox from 'blocks/searchBox/SearchBox';
+import HorizontallyAlignedBlogCardWithShapedImage from 'blocks/blog/HorizontallyAlignedBlogCardWithShapedImage';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
 import BlogCardsWithFullBackgroundImage from 'blocks/blog/BlogCardsWithFullBackgroundImage';
-import PopularArticles from 'blocks/blog/popularArticles/PopularArticles'
-import Newsletter from 'blocks/newsletters/Newsletter'
-
-
+import PopularArticles from 'blocks/blog/popularArticles/PopularArticles';
+import Newsletter from 'blocks/newsletters/Newsletter';
+import { ContactlessOutlined } from '@mui/icons-material';
 
 function Mindshare({ content }) {
   const theme = useTheme();
@@ -49,7 +47,7 @@ function Mindshare({ content }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  const [authors, setAuthors] = useState("");
+  const [authors, setAuthors] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -57,30 +55,54 @@ function Mindshare({ content }) {
     try {
       const fetchData = async () => {
         const uri = `${zestyURL}/-/gql/articles.json`;
-        // const uri = `${zestyURL}/-/articlesearch.json`;
 
         const response = await fetch(uri);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
-        const json = await response.json();
-        console.log(
-          'JSON:',
-          json.filter((val, index, arr) => index > arr.length - 10 ),
-        ); //get last 9
-        // console.log('JSON:', json);
-        // fetch another request for authors
-        // https://kfg6bckb-dev.webengine.zesty.io/-/instant/7-38ed98-hmvkjg.json
-        // setAuthors(name image info)
-        //pass author to props
+
+        const articles = await response.json();
+
+        const authorZUID = articles.map((article) => article.author);
+
+        const dedupeAuthorZUID = [...new Set(authorZUID)];
+
+
+        const getAuthors =  dedupeAuthorZUID.map(async (getaAuthor) => {
+          const authorResponse = await fetch(
+            `${zestyURL}/-/instant/${getaAuthor}.json`,
+          );
+
+          const authorsInfo = await authorResponse.json();
+
+          let authorData = {
+            authorImage: authorsInfo.data[0].content.headshot.data[0].url,
+            authorName: authorsInfo.data[0].content.name,
+            authorZUID: authorsInfo.data[0].content.zuid.data[0].zuid,
+          };
+
+          return authorData;
+        });
+
+        const latestArticles = articles.filter(
+          (val, index, arr) => index > arr.length - 10,
+          );
+
         setIsLoaded(true);
-        setItems(json.slice(0, 9));
+        setItems(latestArticles);
+       Promise.all(getAuthors).then(author => setAuthors(author) );
+
+
       };
+
       fetchData();
+
     } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
     }
   }, []);
+
+
 
   const chipsTitle = content.popular_categories
     ? Object.keys(content.popular_categories.data).map(
@@ -94,7 +116,7 @@ function Mindshare({ content }) {
       : process.env.zesty.stage;
 
   const onSearchHandler = (evt) => {
-    console.log(evt.target.value);
+
     setSearchQuery(evt.target.value);
   };
 
@@ -132,7 +154,8 @@ function Mindshare({ content }) {
           title={content.top_articles_title}
           description={content.top_articles_description}
           ctaBtn={content.top_article_cta}
-          data={items || FillerContent.missingDataArray}
+          articles={items }
+          authors={authors}
           searchQuery={searchQuery}
         />
 
