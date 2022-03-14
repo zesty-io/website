@@ -50,7 +50,7 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({ featured }) => {
               component={'img'}
               height={1}
               width={1}
-              src={featured?.hero_image.data[0]?.url || FillerContent.image}
+              src={featured?.hero_image?.data[0]?.url || FillerContent.image}
               alt="Headshot"
               sx={{
                 objectFit: 'cover',
