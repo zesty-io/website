@@ -53,7 +53,7 @@ function Mindshare({ content }) {
   //Search Filter
   const [value, setValue] = useState(null);
 
-  console.log('🚀 ~ file: Mindshare.js ~ line 56 ~ Mindshare ~ value', value);
+
 
   useEffect(() => {
     try {
@@ -120,7 +120,7 @@ function Mindshare({ content }) {
     <>
       <Box bgcolor={'alternate.main'} position={'relative'}>
         <HeroWithBackgroundAndFullSearchBar
-          image={content.hero_image.data[0].url}
+          image={content.hero_image?.data[0].url}
           title={content.title}
           subTitle={content.subtitle}
         />
