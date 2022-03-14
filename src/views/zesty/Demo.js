@@ -24,9 +24,6 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import React from 'react';
-import HeroWithPrimaryBackgroundAndDesktopScreenshot from '../../blocks/heroes/HeroWithPrimaryBackgroundAndDesktopScreenshot';
-import BlogWithLargeImage from '../../blocks/blog/BlogWithLargeImage';
-import CtaSimpleCentered from '../../blocks/cta/CtaSimpleCentered';
 
 import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -36,75 +33,6 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import { colors, Container } from '@mui/material';
-
-const MockHeader = {
-  title: 'Learn how to leverage Zesty.io',
-  description:
-    'From developing your first site to creating omnichannel content, these videos will show you how to succeed with Zesty.io.',
-};
-
-const MockDemos1 = [
-  {
-    title: 'How to get started on Zesty.io in 5 easy steps',
-    description:
-      'From setting up your first instance to creating scalable pages, here are the five steps you need to take to start building with Zesty.io.',
-    cta: 'Try Zesty.io now',
-    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '04 Aug',
-  },
-  {
-    title: 'How to manage omnichannel content with Zesty.io',
-    description:
-      'Place your content across websites, digital signage, IoT devices, apps and more with Zesty.io – see how in this quick tutorial.',
-    cta: 'Learn more about omnichannel experiences ',
-    image: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-    },
-    date: '12 Sep',
-  },
-];
-const MockDemos2 = [
-  {
-    title: 'How to use hybrid headless CMS technology to your advantage',
-    description:
-      'Learn how Zesty.io’s hybrid headless offering provides you with limitless control over your content.',
-    cta: 'Learn the difference between headless and hybrid CMS  ',
-    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '04 Aug',
-  },
-  // {
-  //   title: 'How to manage omnichannel content with Zesty.io',
-  //   description:
-  //     'Place your content across websites, digital signage, IoT devices, apps and more with Zesty.io – see how in this quick tutorial.',
-  //   cta: 'Learn more about omnichannel experiences ',
-  //   image: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-  //   tags: ['UX', 'Design', 'Themes', 'Photography'],
-  //   author: {
-  //     name: 'Jhon Anderson',
-  //     avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-  //   },
-  //   date: '12 Sep',
-  // },
-];
-const MockCta = {
-  title: 'Ready to get started with Zesty.io?',
-  description: 'Sign up free and discover more of what Zesty.io has to offer.',
-  CTA_left: 'Try Zesty free',
-  CTA_right: 'Contact Us',
-};
 
 const mock = [
   {
@@ -339,7 +267,7 @@ const DocumentationComp = () => {
 };
 
 function Demo({ content }) {
-  console.log(content);
+  // console.log(content);
   return (
     <>
       <Container>
@@ -355,18 +283,6 @@ function Demo({ content }) {
           <DocumentationComp />
         </Box>
       </Container>
-      {/* <HeroWithPrimaryBackgroundAndDesktopScreenshot
-        title={MockHeader.title}
-        description={MockHeader.description}
-      />
-      <BlogWithLargeImage DemoData={MockDemos1} />
-      <BlogWithLargeImage DemoData={MockDemos2} />
-      <CtaSimpleCentered
-        title={MockCta.title}
-        description={MockCta.description}
-        ctaLeft={MockCta.CTA_left}
-        ctaRight={MockCta.CTA_right}
-      /> */}
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
       {/* <h1
         dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}

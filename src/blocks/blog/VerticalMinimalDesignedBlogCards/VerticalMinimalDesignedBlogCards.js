@@ -170,7 +170,7 @@ const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, cards, author }) => {
           </Button>
         </Grid>
       </Grid>
-      {cards?.length >= 9 && (
+      {cards?.length >= 10 && (
         <Grid item container justifyContent={'center'} xs={12}>
           <Pagination
             count={pageNum?.length}
