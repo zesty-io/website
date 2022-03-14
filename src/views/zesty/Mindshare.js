@@ -150,7 +150,7 @@ function Mindshare({ content }) {
             chipsTitle={chipsTitle}
           />
           {/* Popular_categories */}
-          <Box paddingTop={4}>
+          <Box paddingTop={{ xs: 6, md: 8 }}>
             {chipsTitle.map((item) => (
               <Chip
                 key={item}
