@@ -27,6 +27,9 @@
 
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import Chip from '@mui/material/Chip';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/FillerContent';
 
@@ -39,7 +42,6 @@ import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAli
 import BlogCardsWithFullBackgroundImage from 'blocks/blog/BlogCardsWithFullBackgroundImage';
 import PopularArticles from 'blocks/blog/popularArticles/PopularArticles';
 import Newsletter from 'blocks/newsletters/Newsletter';
-import { ContactlessOutlined } from '@mui/icons-material';
 
 function Mindshare({ content }) {
   const theme = useTheme();
@@ -48,9 +50,11 @@ function Mindshare({ content }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [allArticles, setAllArticles] = useState([]);
   const [authors, setAuthors] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
 
+  //Search Filter
+  const [value, setValue] = useState(null);
 
+  console.log('🚀 ~ file: Mindshare.js ~ line 56 ~ Mindshare ~ value', value);
 
   useEffect(() => {
     try {
@@ -68,8 +72,7 @@ function Mindshare({ content }) {
 
         const dedupeAuthorZUID = [...new Set(authorZUID)];
 
-
-        const getAuthors =  dedupeAuthorZUID.map(async (getaAuthor) => {
+        const getAuthors = dedupeAuthorZUID.map(async (getaAuthor) => {
           const authorResponse = await fetch(
             `${zestyURL}/-/instant/${getaAuthor}.json`,
           );
@@ -89,19 +92,14 @@ function Mindshare({ content }) {
 
         setIsLoaded(true);
         setAllArticles(latestArticles);
-       Promise.all(getAuthors).then(author => setAuthors(author) );
-
-
+        Promise.all(getAuthors).then((author) => setAuthors(author));
       };
 
       fetchData();
-
     } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
     }
   }, []);
-
-
 
   const chipsTitle = content.popular_categories
     ? Object.keys(content.popular_categories.data).map(
@@ -114,8 +112,9 @@ function Mindshare({ content }) {
       ? process.env.zesty.production
       : process.env.zesty.stage;
 
-  const onSearchHandler = (evt) => {
-    setSearchQuery(evt.target.value);
+  const onSearchHandler = (evt, value) => {
+    if (!value) return;
+    window.open(value.uri);
   };
 
   return (
@@ -127,21 +126,44 @@ function Mindshare({ content }) {
           subTitle={content.subtitle}
         />
 
-        <Container
-          sx={{
-            marginTop: '-5rem',
-            position: 'relative',
-            zIndex: 3,
-            paddingY: '0 !important',
-          }}
-        >
-          <SearchBox
-            onSearchHandler={onSearchHandler}
+        <Container>
+          {/* Search Filter */}
+          <Autocomplete
+            sx={{
+              borderRadius: 1,
+              marginTop: '-9rem',
+              position: 'relative',
+              zIndex: 3,
+              paddingY: '0 !important',
+              backgroundColor: theme.palette.background.paper,
+            }}
+            onChange={onSearchHandler}
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
+            options={allArticles}
+            getOptionLabel={(option) => {
+              return option.title;
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Search Articles" />
+            )}
             chipsTitle={chipsTitle}
-            searchQuery={searchQuery}
           />
+          {/* Popular_categories */}
+          <Box paddingTop={4}>
+            {chipsTitle.map((item) => (
+              <Chip
+                key={item}
+                label={item}
+                component="a"
+                href=""
+                clickable
+                sx={{ margin: 0.5 }}
+              />
+            ))}
+          </Box>
         </Container>
-
         {/* Featured Articles */}
         <HorizontallyAlignedBlogCardWithShapedImage
           featured={content.featured_article.data[0]}

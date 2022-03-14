@@ -18,7 +18,6 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   description,
   ctaBtn,
   popularArticles = [],
-  authors = [],
 }) => {
 
   const theme = useTheme();
