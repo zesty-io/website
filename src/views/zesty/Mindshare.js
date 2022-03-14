@@ -117,7 +117,6 @@ function Mindshare({ content }) {
       : process.env.zesty.stage;
 
   const onSearchHandler = (evt) => {
-
     setSearchQuery(evt.target.value);
   };
 
@@ -155,7 +154,7 @@ function Mindshare({ content }) {
           title={content.top_articles_title}
           description={content.top_articles_description}
           ctaBtn={content.top_article_cta}
-          articles={items }
+          articles={items}
           authors={authors}
           searchQuery={searchQuery}
         />
@@ -170,7 +169,7 @@ function Mindshare({ content }) {
 
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
-            {/*  Additional Insights*/}
+            {/*  ALL ARTICLES W/PAGINATIONS*/}
             <PopularArticles
               latestArticles={
                 content.popular_articles.data || FillerContent.missingDataArray
@@ -178,6 +177,8 @@ function Mindshare({ content }) {
               title={content.additional_insights_title}
               description={content.additional_insights_description}
               ctaBtn={content.additional_insights_cta}
+              articles={items}
+              authors={authors}
             />
           </Container>
         </Box>
