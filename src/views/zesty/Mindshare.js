@@ -46,7 +46,7 @@ function Mindshare({ content }) {
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
+  const [allArticles, setAllArticles] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -85,12 +85,10 @@ function Mindshare({ content }) {
           return authorData;
         });
 
-        const latestArticles = articles.filter(
-          (val, index, arr) => index > arr.length - 10,
-          );
+        const latestArticles = articles;
 
         setIsLoaded(true);
-        setItems(latestArticles);
+        setAllArticles(latestArticles);
        Promise.all(getAuthors).then(author => setAuthors(author) );
 
 
@@ -149,14 +147,14 @@ function Mindshare({ content }) {
           featured={content.featured_article.data[0]}
         />
 
-        {/* Top insights Fetch Request coming soon */}
+        {/* Popular Articles */}
         <VerticallyAlignedBlogCardsWithShapedImage
           title={content.top_articles_title}
           description={content.top_articles_description}
           ctaBtn={content.top_article_cta}
-          articles={items}
-          authors={authors}
-          searchQuery={searchQuery}
+          popularArticles={
+            content.popular_articles.data || FillerContent.missingDataArray
+          }
         />
 
         {/* Case Studies */}
@@ -169,15 +167,12 @@ function Mindshare({ content }) {
 
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
-            {/*  ALL ARTICLES W/PAGINATIONS*/}
+            {/*  Fetch ALL ARTICLES W/PAGINATIONS */}
             <PopularArticles
-              latestArticles={
-                content.popular_articles.data || FillerContent.missingDataArray
-              }
               title={content.additional_insights_title}
               description={content.additional_insights_description}
               ctaBtn={content.additional_insights_cta}
-              articles={items}
+              articles={allArticles}
               authors={authors}
             />
           </Container>
