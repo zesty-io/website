@@ -45,7 +45,7 @@ const BlogCardsWithFullBackgroundImage = ({
 }) => {
   const theme = useTheme();
   return (
-    <Container>
+    <Container paddingTop={'0 !important'}>
       <Box
         display={'flex'}
         justifyContent={'space-between'}
