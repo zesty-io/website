@@ -25,7 +25,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   const theme = useTheme();
 
   return (
-    <Container>
+    <Container paddingTop={'0 !important'}>
       <Box
         display={'flex'}
         justifyContent={'space-between'}
@@ -54,7 +54,6 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
         </Box>
       </Box>
       <Grid container spacing={4}>
-
         {articles
           .filter((post) => {
             if (searchQuery === '') {
