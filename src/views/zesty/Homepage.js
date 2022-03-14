@@ -31,6 +31,8 @@
  */
 
  import React  from 'react';
+ import Box from '@mui/material/Box';
+ import { useTheme } from '@mui/material/styles';
  import HeroWithIllustrationAndCta from 'blocks/heroes/HeroWithIllustrationAndCta/HeroWithIllustrationAndCta'
  import WithSwiperAndBrandBackgroundColor from 'blocks/logoGrid/WithSwiperAndBrandBackgroundColor'
  import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration'
@@ -39,6 +41,7 @@
  import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage'
  import CtaWithInputField from 'blocks/cta/CtaWithInputField'
  import FillerContent from 'components/FillerContent';
+
  
  let zestyURL =
  undefined === process.env.PRODUCTION == 'true' || process.env.PRODUCTION
@@ -50,17 +53,30 @@
     const res = await fetch(uri).then((response) => response.json());
     res && (await setcardData(res.featured_case_studies.data));
   };
+  const getReviewsData = async (setReviewsData) => {
+    const uri = `${zestyURL}/-/reviews.json`;
+    const res = await fetch(uri).then((response) => response.json());
+    res && (await setReviewsData(res));
+  };
  function Homepage({content}) {
+    const theme = useTheme();
     const [cardData, setcardData] = React.useState();
+    const [reviewsData, setReviewsData] = React.useState();
     React.useEffect(() => {
         getCardData(setcardData);
+        getReviewsData(setReviewsData);
     }, []);
 
      let image_url = (content?.zesty_benefits_image) ? content.zesty_benefits_image.data[0].url : 'https://pzcvtc6b.media.zestyio.com/content-management.png'
      const heroProps = {
         title: content.title,
         subtitle: content.simple_intro_text,
-        image: content.main_image.data[0].url || FillerContent.image
+        image: content.main_image.data[0].url || FillerContent.image,
+        button_left_text: content.hero_button_left || FillerContent.header,
+        
+        button_left_link: content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
+        button_right_text: content.hero_button_left || FillerContent.header,
+        button_right_link: content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header
       };
      return (
          <>
@@ -69,8 +85,10 @@
              <HeroWithIllustrationAndCta {...heroProps} />
              <WithSwiperAndBrandBackgroundColor logos={content.homepage_logos?.data}/>
              <FeaturesWithIllustration rich_text={content.zesty_benefits} image_url={image_url} />
+             <Box bgcolor={'alternate.main'}>
              <WithOverlappedCards list={cardData || []}/>
-             <ReviewsWithSimpleBoxes/>
+             <ReviewsWithSimpleBoxes header ={content.testimonials_content} list ={content.testimonials.data || []}/>
+             </Box>
              <VerticallyAlignedBlogCardsWithShapedImage/>
              <CtaWithInputField/>
              {/*<div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
