@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 
 
 
-const Partners = ({data}) => {
+const Partners = ({logoPartners}) => {
 
   return (
     <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
-      {data.map((item, i) => (
+      {logoPartners.map((item, i) => (
         <Box
           maxWidth={{ xs: 80, sm: 90 }}
           marginTop={{ xs: 1 }}

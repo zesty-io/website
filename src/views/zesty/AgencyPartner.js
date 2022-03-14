@@ -53,7 +53,7 @@ function AgencyPartner({ content }) {
         />
       </Container>
       <Container paddingY={'0 !important'}>
-        <Partners data={content.header_logos.data} />
+        <Partners logoPartners={content.header_logos.data} />
       </Container>
 
       <CtaSimpleCentered
@@ -64,7 +64,7 @@ function AgencyPartner({ content }) {
       />
 
       <Container>
-        <Main data={content.agency_partners_cards.data} />
+        <Main partnerCards={content.agency_partners_cards.data} />
       </Container>
       <Box
         position={'relative'}
@@ -99,7 +99,7 @@ function AgencyPartner({ content }) {
           <ContactEmail
             title={content.cta_footer_title}
             description={content.cta_footer_description}
-            cta={content.cta_footer_cta}
+            ctaBtn={content.cta_footer_cta}
           />
         </Container>
       </Box>
