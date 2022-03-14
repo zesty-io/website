@@ -76,4 +76,32 @@ export default {
       avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
     },
   ],
+  demos: [
+    {
+      title: 'Main Demo',
+      description:
+        'Main demo comes with 18 landing pages, including over 35 commonly used pages that can be combined with demos.',
+      illustration:
+        'https://assets.maccarianagency.com/screenshots/the-front-main-demo.png',
+      illustrationDark:
+        'https://assets.maccarianagency.com/screenshots/the-front-main-demo--dark.png',
+      href: '/home',
+      pages: 53,
+      btnText: 'Preview Main Demo',
+      bgcolor: 'blue',
+    },
+    {
+      title: 'E-Commerce Demo',
+      description:
+        'Everything you need to build beautiful, responsive, fully coded e-commerce websites and shop applications.',
+      illustration:
+        'https://assets.maccarianagency.com/screenshots/the-front-ecommerce-demo.png',
+      illustrationDark:
+        'https://assets.maccarianagency.com/screenshots/the-front-ecommerce-demo--dark.png',
+      href: '/demos/ecommerce',
+      pages: 9,
+      btnText: 'Preview E-commerce Demo',
+      bgcolor: 'pink',
+    },
+  ],
 };
