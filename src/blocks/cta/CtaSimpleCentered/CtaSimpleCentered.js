@@ -9,7 +9,7 @@ import FillerContent from 'components/FillerContent';
 import Container from 'components/Container';
 
 const CtaSimpleCentered = ({
-  title,
+  ctaTitle,
   description,
   ctaLeft,
   ctaRight,
@@ -31,7 +31,7 @@ const CtaSimpleCentered = ({
             fontWeight: 700,
           }}
         >
-          {title || FillerContent.header}
+          {ctaTitle || FillerContent.header}
         </Typography>
         <Typography
           variant="h6"

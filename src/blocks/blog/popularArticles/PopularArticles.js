@@ -15,7 +15,7 @@ import FillerContent from 'components/FillerContent';
 
 
 
-const PopularArticles = ({data, title, description, ctaBtn}) => {
+const PopularArticles = ({ latestArticles, title, description, ctaBtn}) => {
   const theme = useTheme();
 
   return (
@@ -48,7 +48,7 @@ const PopularArticles = ({data, title, description, ctaBtn}) => {
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {data.map((item, i) => (
+        {latestArticles.map((item, i) => (
           <Grid item xs={12} sm={i === 0 ? 12 : 6} md={i < 2 ? 6 : 4} key={i}>
             <Box
               component={'a'}
