@@ -83,7 +83,6 @@ const mock = [
 ];
 
 const FeaturesWithIllustration = (props) => {
-  console.log(props.image_url, '123123');
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,

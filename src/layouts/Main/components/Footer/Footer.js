@@ -10,7 +10,6 @@ import { useTheme } from '@mui/material/styles';
 const Footer = ({customRouting,colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
-  console.log(customRouting)
   return (
     <Grid container marginTop={3} spacing={2} >
       <Grid item xs={2}>
