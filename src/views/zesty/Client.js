@@ -38,7 +38,7 @@ import CtaSimpleCentered from 'blocks/cta/CtaSimpleCentered/CtaSimpleCentered';
 import FillerContent from 'components/FillerContent';
 
 function Client({ content }) {
-console.log(content.client_cards.data);
+
   const theme = useTheme();
   return (
     <>
@@ -111,7 +111,7 @@ console.log(content.client_cards.data);
           <Stories
             eyeBrow={content.client_eyebrow || FillerContent.header}
             clientTitle={content.client_title || FillerContent.header}
-            cards={content.client_cards.data}
+            clientInfo={content.client_cards.data}
           />
         </Container>
         <Box bgcolor={theme.palette.alternate.main}>
@@ -124,7 +124,7 @@ console.log(content.client_cards.data);
         </Box>
       </Box>
 
-      <div
+      {/* <div
         style={{
           background: '#eee',
           border: '1px #000 solid',
@@ -134,7 +134,7 @@ console.log(content.client_cards.data);
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );

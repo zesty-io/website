@@ -11,8 +11,8 @@ import CardMedia from '@mui/material/CardMedia';
 
 import FillerContent from 'components/FillerContent';
 
-const Stories = ({ cards, eyeBrow, clientTitle }) => {
-console.log("🚀 ~ file: Stories.js ~ line 15 ~ Stories ~ cards", cards)
+const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
+
   const theme = useTheme();
   const { mode } = theme.palette;
 
@@ -45,7 +45,7 @@ console.log("🚀 ~ file: Stories.js ~ line 15 ~ Stories ~ cards", cards)
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {cards.map((item, i) => (
+        {clientInfo.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
@@ -120,7 +120,7 @@ console.log("🚀 ~ file: Stories.js ~ line 15 ~ Stories ~ cards", cards)
                       </svg>
                     }
                   >
-                    {item.cta || FillerContent.cta}
+                  {item.cta ? item?.cta : ""}
                   </Button>
                 </Box>
               </Box>
