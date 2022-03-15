@@ -30,6 +30,7 @@ import Box from '@mui/material/Box';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
+import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/FillerContent';
 
@@ -46,18 +47,17 @@ function Mindshare({ content }) {
   const theme = useTheme();
 
   const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
   const [authors, setAuthors] = useState([]);
 
   //Search Filter
   const [value, setValue] = useState(null);
 
-
-
   useEffect(() => {
     try {
       const fetchData = async () => {
+        setIsLoaded(true);
         const uri = `${zestyURL}/-/gql/articles.json`;
 
         const response = await fetch(uri);
@@ -89,9 +89,9 @@ function Mindshare({ content }) {
 
         const latestArticles = articles;
 
-        setIsLoaded(true);
         setAllArticles(latestArticles);
         Promise.all(getAuthors).then((author) => setAuthors(author));
+        setIsLoaded(false);
       };
 
       fetchData();
@@ -189,13 +189,23 @@ function Mindshare({ content }) {
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
             {/*  Fetch ALL ARTICLES W/PAGINATIONS */}
-            <PopularArticles
-              title={content.additional_insights_title}
-              description={content.additional_insights_description}
-              ctaBtn={content.additional_insights_cta}
-              articles={allArticles}
-              authors={authors}
-            />
+            {isLoaded ? (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <CircularProgressWithLabel />
+              </Box>
+            ) : (
+              <PopularArticles
+                title={content.additional_insights_title}
+                description={content.additional_insights_description}
+                ctaBtn={content.additional_insights_cta}
+                articles={allArticles}
+                authors={authors}
+              />
+            )}
           </Container>
         </Box>
         <Box
