@@ -215,7 +215,6 @@ const ProductOverviewComp = ({ title, description, cards }) => {
 };
 
 function PlatformOverview({ content }) {
-  console.log(content, '123123');
 
   const headerProps = {
     title: content?.title,
