@@ -68,6 +68,7 @@ const mock = [
 ];
 
 function ProductOverview({ content }) {
+  console.log(content, '123123');
   const theme = useTheme();
   return (
     <>

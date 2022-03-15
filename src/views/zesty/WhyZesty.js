@@ -45,7 +45,7 @@ function WhyZesty({ content }) {
       ? content.hybrid_vs_headless_image
       : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
 
-  const SimpleHeroWithImageAndCtaButtonsPageProps = {
+  const headerProps = {
     title: content?.header_title,
     description: content?.header_description,
     cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
@@ -62,9 +62,7 @@ function WhyZesty({ content }) {
   return (
     <>
       {/* Header */}
-      <SimpleHeroWithImageAndCtaButtonsPage
-        {...SimpleHeroWithImageAndCtaButtonsPageProps}
-      />
+      <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
 
       {/* Benefits */}
       {content?.benefits?.data?.map((e) => {

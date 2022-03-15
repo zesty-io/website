@@ -143,13 +143,14 @@ const mock = [
   },
 ];
 
-const FeaturesWithCardRepresentation = () => {
+const FeaturesWithCardRepresentation = ({ cards }) => {
   const theme = useTheme();
+  const cardList = cards || mock;
   return (
     <Box bgcolor={'alternate.main'}>
       <Container>
         <Grid container spacing={4}>
-          {mock.map((item, i) => (
+          {cardList?.map((item, i) => (
             <Grid item xs={12} sm={6} md={4} key={i}>
               <Box component={Card} padding={4} width={1} height={1}>
                 <Box display={'flex'} flexDirection={'column'}>
@@ -168,10 +169,10 @@ const FeaturesWithCardRepresentation = () => {
                     gutterBottom
                     sx={{ fontWeight: 500 }}
                   >
-                    {item.title}
+                    {item.feature_name || item.title}
                   </Typography>
                   <Typography color="text.secondary">
-                    {item.subtitle}
+                    {item.content || item.subtitle}
                   </Typography>
                 </Box>
               </Box>

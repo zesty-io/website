@@ -10,9 +10,9 @@ import Container from 'components/Container';
 
 const mock = [
   {
-    title: 'Built for developers',
+    title: '99.99% uptime',
     subtitle:
-      'theFront is built to make your life easier. Variables, build tooling, documentation, and reusable components.',
+      'Zesty.io builds, renders, and delivers web pages at 99.99% uptime.',
     icon: (
       <svg
         height={24}
@@ -32,9 +32,9 @@ const mock = [
     ),
   },
   {
-    title: 'Designed to be modern',
+    title: 'Minimize IT costs',
     subtitle:
-      'Designed with the latest design trends in mind. theFront feels modern, minimal, and beautiful.',
+      'Save up to 70% and reallocate your resources toward initiatives that drive your business forward.',
     icon: (
       <svg
         height={24}
@@ -54,9 +54,9 @@ const mock = [
     ),
   },
   {
-    title: 'Documentation for everything',
+    title: 'Sub second page load times',
     subtitle:
-      'We\'ve written extensive documentation for components and tools, so you never have to reverse engineer anything.',
+      'Zesty.io sites are automatically cached and served globally, so your pages will load faster without any additional optimization on your end.',
     icon: (
       <svg
         height={24}
@@ -77,14 +77,20 @@ const mock = [
   },
 ];
 
-const SimpleCentered = () => {
+const SimpleCentered = ({ header, description, cards }) => {
   const theme = useTheme();
+  const data = cards || mock;
   return (
     <Container>
       <Box>
         <Box marginBottom={4}>
           <Box marginBottom={2}>
-            <Typography
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: header || 'Build accessible React apps with speed',
+              }}
+            ></Box>
+            {/* <Typography
               variant="h4"
               color="text.primary"
               align={'center'}
@@ -93,8 +99,8 @@ const SimpleCentered = () => {
                 fontWeight: 700,
               }}
             >
-              Build accessible React apps with speed
-            </Typography>
+              {header || 'Build accessible React apps with speed'}
+            </Typography> */}
             <Typography
               variant="h6"
               component="p"
@@ -102,13 +108,16 @@ const SimpleCentered = () => {
               sx={{ fontWeight: 400 }}
               align={'center'}
             >
+              {description ||
+                `
               Build a beautiful, modern website with flexible, fully
               customizable, atomic MUI components.
+              `}
             </Typography>
           </Box>
         </Box>
         <Grid container spacing={2}>
-          {mock.map((item, i) => (
+          {data?.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box width={1} height={1}>
                 <Box

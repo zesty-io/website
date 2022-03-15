@@ -24,7 +24,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
 import HeroWithDashboardScreenshotAndCta from 'blocks/heroes/HeroWithDashboardScreenshotAndCta/HeroWithDashboardScreenshotAndCta';
 import FeatureListWithDesktopAppScreenshot from 'blocks/features/FeatureListWithDesktopAppScreenshot/FeatureListWithDesktopAppScreenshot.js';
 import SimpleCentered from 'blocks/features/SimpleCentered/SimpleCentered.js';
@@ -35,38 +35,94 @@ import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAli
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 import Container from 'components/Container';
 
-function TechnologyOverview({content}) {
-    return (
-      <>
-        <Container>
-          <HeroWithDashboardScreenshotAndCta />
-        </Container>
-        <FeatureListWithDesktopAppScreenshot></FeatureListWithDesktopAppScreenshot>
-        <SimpleCentered></SimpleCentered>
-        <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
-        <FeaturesWithCardRepresentation></FeaturesWithCardRepresentation>
-        <WithCompanyLogo></WithCompanyLogo>
-        <VerticallyAlignedBlogCardsWithShapedImage></VerticallyAlignedBlogCardsWithShapedImage>
-        <CtaWithInputField></CtaWithInputField>
-        {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-        <h1
-          dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-        ></h1>
-        <div>{content.meta.web.seo_meta_description}</div>
-        <div
-          style={{
-            background: '#eee',
-            border: '1px #000 solid',
-            margin: '10px',
-            padding: '20px',
-          }}
-        >
-          <h2>Accessible Zesty.io JSON Object</h2>
-          <pre>{JSON.stringify(content, null, 2)}</pre>
-        </div>
-        {/* End of Zesty.io output example */}
-      </>
-    );
+function TechnologyOverview({ content }) {
+  console.log(content, '123123123');
+
+  const headerProps = {
+    title: content?.title,
+    description: content?.header_description,
+    image: content?.header_image,
+    cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
+    cta_right:
+      content?.cta_right.data && content?.cta_right?.data[0]?.button_text,
+    cta_left_url:
+      content?.cta_left.data &&
+      content?.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+    cta_right_url:
+      content?.cta_right.data &&
+      content?.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+  };
+  return (
+    <>
+      {/* Headers */}
+      <Container>
+        <HeroWithDashboardScreenshotAndCta {...headerProps} />
+      </Container>
+
+      {/* Key Features  */}
+      <FeatureListWithDesktopAppScreenshot
+        header={content?.key_features_header}
+        image={content?.key_features_image}
+        content={content?.key_features_content}
+      />
+
+      {/* Benefits  */}
+      <SimpleCentered
+        header={content?.benefits_header}
+        cards={null}
+        description={''}
+      />
+      {/* Feature List  */}
+      <FeaturesWithMobileScreenshot
+        header={''}
+        content={content?.feature_list_content}
+        image={content?.featured_image}
+      />
+
+      {/* Tech Icons */}
+      <FeaturesWithCardRepresentation
+        cards={content?.tech_features_tiles?.data}
+      />
+
+      {/* Social Proof */}
+      <WithCompanyLogo content={content.social_proof} />
+
+      {/* LINK TO BLOG */}
+      <VerticallyAlignedBlogCardsWithShapedImage
+        title={'Industry Insights'}
+        description={
+          ' Stay up-to-date with the latest in digital experience, content management, and more.'
+        }
+      />
+
+      {/* Final Cta  */}
+      <CtaWithInputField
+        title={'Subscribe to the zestiest newsletter in the industry'}
+        description={
+          'Get the latest from the Zesty team, from whitepapers to product updates.'
+        }
+        cta={'Subscribe'}
+      />
+
+      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+      {/* <h1
+        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
+      ></h1>
+      <div>{content.meta.web.seo_meta_description}</div>
+      <div
+        style={{
+          background: '#eee',
+          border: '1px #000 solid',
+          margin: '10px',
+          padding: '20px',
+        }}
+      >
+        <h2>Accessible Zesty.io JSON Object</h2>
+        <pre>{JSON.stringify(content, null, 2)}</pre>
+      </div> */}
+      {/* End of Zesty.io output example */}
+    </>
+  );
 }
 
 export default TechnologyOverview;
