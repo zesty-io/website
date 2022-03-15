@@ -85,7 +85,7 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
         }}
       >
         <Grid container spacing={0.5}>
-          {items.map((p, i) => (
+          {items.sort((a, b) => parseFloat(a.sort) - parseFloat(b.sort)).map((p, i) => (
             <Grid item key={i} xs={items.length > 12 ? 6 : 12}>
               <Button
                 component={'a'}
