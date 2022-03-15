@@ -8,7 +8,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-const images = [
+const mockimages = [
   {
     group: [
       {
@@ -84,12 +84,14 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
   cta_right,
   cta_left_url,
   cta_right_url,
+  images,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
+  const imageList = images || mockimages;
   return (
     <Box sx={{ overflow: 'hidden' }}>
       <Box
@@ -113,7 +115,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                   fontWeight: 700,
                 }}
               >
-                {title || 'Turn your ideas into success into success'}
+                {title || FillerContent.header}
                 {/* <br />
                 into */}
                 {/* <Typography
@@ -136,12 +138,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 color="text.secondary"
                 sx={{ fontWeight: 400 }}
               >
-                {description ||
-                  `
-                
-                theFront will make your product look modern and professional
-                while saving you precious time.
-                `}
+                {description || FillerContent.description}
               </Typography>
               <Box
                 display="flex"
@@ -192,7 +189,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               position={'absolute'}
               sx={{ transform: 'translate3d(20%, -50%, 0)' }}
             >
-              {images.map((item, i) => (
+              {imageList.map((item, i) => (
                 <Box key={i} marginTop={{ sm: -(i * 16) }} marginX={1}>
                   {item.group.map((g, j) => (
                     <Box

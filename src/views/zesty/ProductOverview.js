@@ -68,7 +68,6 @@ const mock = [
 ];
 
 const ProductOverviewComp = ({ title, description, cards }) => {
-  const theme = useTheme();
   const cardsList = cards || mock;
   return (
     <Container>
@@ -86,17 +85,11 @@ const ProductOverviewComp = ({ title, description, cards }) => {
             Our work
           </Typography>
           <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
-            {title || 'We are a small agency of talented designers & developer'}
+            {title || FillerContent.title}
           </Typography>
           <Box
             dangerouslySetInnerHTML={{
-              __html:
-                description ||
-                `
-            Unlike teams from big agencies, we will treat your project as ours.
-            We will walk you through our smooth and simple process.
-          
-          `,
+              __html: description || FillerContent.description,
             }}
           ></Box>
 
@@ -207,7 +200,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
                   //     ? item.illustration
                   //     : item.illustrationDark
                   // }`}
-                  src={item.image || FillerContent.mobileImage.dark}
+                  src={item.image || FillerContent.illustration_image}
                   alt={item.header || item.title}
                   width={1}
                   maxWidth={'80%'}
@@ -227,15 +220,17 @@ function ProductOverview({ content }) {
   const headerProps = {
     title: content?.title,
     description: content?.header_description,
-    cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
+    images: content?.header_image,
+    cta_left:
+      content?.cta_left?.data && content?.cta_left?.data[0]?.button_text,
     cta_right:
-      content?.cta_right.data && content?.cta_right?.data[0]?.button_text,
+      content?.cta_right?.data && content?.cta_right?.data[0]?.button_text,
     cta_left_url:
-      content?.cta_left.data &&
-      content?.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+      content?.cta_left?.data &&
+      content?.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url,
     cta_right_url:
-      content?.cta_right.data &&
-      content?.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+      content?.cta_right?.data &&
+      content?.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url,
   };
   return (
     <>
@@ -256,7 +251,10 @@ Yeah, it’s possible. And we’re excited too. Here’s how it works >
       />
 
       {/* Features */}
-      <FeaturesWithCardRepresentation cards={content?.features_tiles?.data} />
+      <FeaturesWithCardRepresentation
+        description={''}
+        cards={content?.features_tiles?.data}
+      />
 
       {/* Case Study  */}
       <SimpleVerticalBlogCards

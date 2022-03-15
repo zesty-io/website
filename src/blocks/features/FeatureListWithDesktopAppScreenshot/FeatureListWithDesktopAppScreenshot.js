@@ -12,6 +12,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
 import Container from 'components/Container';
 import { Typography } from '@mui/material';
+import FillerContent from 'components/FillerContent';
 
 const mock = [
   {
@@ -84,7 +85,9 @@ const mock = [
 
 const LeftSide = ({ content }) => (
   <List disablePadding>
-    <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
+    <Box
+      dangerouslySetInnerHTML={{ __html: content || FillerContent.description }}
+    ></Box>
     {/* {mock.map((item, index) => (
         <ListItem key={index} disableGutters>
           <ListItemAvatar>
@@ -140,10 +143,7 @@ const RightSide = ({ image }) => {
             >
               <Box
                 component={'img'}
-                src={
-                  image ||
-                  'https://assets.maccarianagency.com/screenshots/dashboard.png'
-                }
+                src={image || FillerContent.dashboard_image}
                 alt="Image Description"
                 width={1}
                 height={1}
@@ -172,7 +172,7 @@ const FeatureListWithDesktopAppScreenshot = ({ header, content, image }) => {
           fontWeight: 700,
         }}
       >
-        {header || 'Build accessible React apps with speed'}
+        {header || FillerContent.header}
       </Typography>
       <Grid container spacing={4}>
         <Grid item container alignItems={'center'} xs={12} md={6}>

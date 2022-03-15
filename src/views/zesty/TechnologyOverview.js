@@ -55,9 +55,7 @@ function TechnologyOverview({ content }) {
   return (
     <>
       {/* Headers */}
-      <Container>
-        <HeroWithDashboardScreenshotAndCta {...headerProps} />
-      </Container>
+      <HeroWithDashboardScreenshotAndCta {...headerProps} />
 
       {/* Key Features  */}
       <FeatureListWithDesktopAppScreenshot

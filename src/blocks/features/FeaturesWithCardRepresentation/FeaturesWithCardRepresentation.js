@@ -8,6 +8,8 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
+import { Button, useMediaQuery } from '@mui/material';
+import FillerContent from 'components/FillerContent';
 
 const mock = [
   {
@@ -143,11 +145,26 @@ const mock = [
   },
 ];
 
-const FeaturesWithCardRepresentation = ({ cards }) => {
+const FeaturesWithCardRepresentation = ({
+  description,
+  cards,
+  cta,
+  cta_url,
+}) => {
   const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
   const cardList = cards || mock;
   return (
     <Box bgcolor={'alternate.main'}>
+      <Grid container justifyContent="center" paddingTop={4}>
+        <Box
+          dangerouslySetInnerHTML={{
+            __html: description || FillerContent.description,
+          }}
+        ></Box>
+      </Grid>
       <Container>
         <Grid container spacing={4}>
           {cardList?.map((item, i) => (
@@ -178,6 +195,18 @@ const FeaturesWithCardRepresentation = ({ cards }) => {
               </Box>
             </Grid>
           ))}
+        </Grid>
+        <Grid container justifyContent="center" marginTop={4}>
+          <Button
+            alignItems={'center'}
+            href={cta_url || FillerContent.href}
+            variant="contained"
+            color="primary"
+            size="large"
+            fullWidth={isMd ? false : true}
+          >
+            {cta || FillerContent.cta}
+          </Button>
         </Grid>
       </Container>
     </Box>

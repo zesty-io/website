@@ -7,6 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
 const mock = [
   {
@@ -87,7 +88,7 @@ const SimpleCentered = ({ header, description, cards }) => {
           <Box marginBottom={2}>
             <Box
               dangerouslySetInnerHTML={{
-                __html: header || 'Build accessible React apps with speed',
+                __html: header || FillerContent.header,
               }}
             ></Box>
             {/* <Typography
@@ -101,7 +102,7 @@ const SimpleCentered = ({ header, description, cards }) => {
             >
               {header || 'Build accessible React apps with speed'}
             </Typography> */}
-            <Typography
+            {/* <Typography
               variant="h6"
               component="p"
               color="text.secondary"
@@ -113,7 +114,7 @@ const SimpleCentered = ({ header, description, cards }) => {
               Build a beautiful, modern website with flexible, fully
               customizable, atomic MUI components.
               `}
-            </Typography>
+            </Typography> */}
           </Box>
         </Box>
         <Grid container spacing={2}>

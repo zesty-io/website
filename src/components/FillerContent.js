@@ -108,4 +108,8 @@ export default {
     light: 'https://assets.maccarianagency.com/screenshots/crypto-mobile.png',
     dark: 'https://assets.maccarianagency.com/screenshots/crypto-mobile--dark.png',
   },
+  illustration_image:
+    'https://pzcvtc6b.media.zestyio.com/content-management.png',
+  dashboard_image:
+    'https://assets.maccarianagency.com/screenshots/dashboard.png',
 };

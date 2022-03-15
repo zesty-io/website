@@ -166,11 +166,16 @@ const SimpleVerticalBlogCards = ({ header, cards, cta, cta_url }) => {
               Here’s what we’ve been up to recently.
             </Typography>
           </Box> */}
-        <Box display="flex" marginTop={{ xs: 2, md: 4 }}>
+        <Box
+          display="flex"
+          width={1}
+          justifyContent={'center'}
+          marginTop={{ xs: 2, md: 4 }}
+        >
           <Box
             href={cta_url || FillerContent.href}
             component={Button}
-            variant="outlined"
+            variant="contained"
             color="primary"
             size="large"
             marginLeft={2}

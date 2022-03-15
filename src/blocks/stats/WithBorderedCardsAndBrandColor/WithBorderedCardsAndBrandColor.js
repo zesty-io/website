@@ -171,7 +171,7 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
           </Box>
         </Box> */}
         <Box>
-          <Grid container spacing={4}>
+          <Grid container spacing={6} justifyContent="center">
             {cardsList?.map((item, i) => (
               <Grid item xs={12} sm={6} md={3} key={i}>
                 <Box

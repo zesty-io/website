@@ -35,7 +35,7 @@ const HeroWithDashboardScreenshotAndCta = ({
                 color="text.primary"
                 sx={{ fontWeight: 700 }}
               >
-                {title || 'Beautiful data representation'}
+                {title || FillerContent.header}
                 {/* <Typography color={'primary'}
                   component={'span'}
                   variant={'inherit'}
@@ -52,12 +52,7 @@ const HeroWithDashboardScreenshotAndCta = ({
             </Box>
             <Box marginBottom={3}>
               <Typography variant="h6" component="p" color="text.secondary">
-                {description ||
-                  `
-                World developers use our theFront theme to build their internal
-                tools and client admin applications.
-                Save yourself time and money.
-                `}
+                {description || FillerContent.description}
               </Typography>
             </Box>
             <Box
@@ -72,7 +67,7 @@ const HeroWithDashboardScreenshotAndCta = ({
                 size="large"
                 fullWidth={isMd ? false : true}
               >
-                {cta_left || 'Start Now'}
+                {cta_left || FillerContent.cta}
               </Button>
               <Box
                 href={cta_right_url || FillerContent.href}
@@ -84,7 +79,7 @@ const HeroWithDashboardScreenshotAndCta = ({
                 marginLeft={{ sm: 2 }}
                 fullWidth={isMd ? false : true}
               >
-                {cta_right || 'Learn More'}
+                {cta_right || FillerContent.cta}
               </Box>
             </Box>
           </Box>
@@ -101,10 +96,7 @@ const HeroWithDashboardScreenshotAndCta = ({
             component={'img'}
             height={1}
             width={1}
-            src={
-              image ||
-              'https://assets.maccarianagency.com/screenshots/dashboard.png'
-            }
+            src={image || FillerContent.dashboard_image}
             alt="..."
             boxShadow={3}
             borderRadius={2}
