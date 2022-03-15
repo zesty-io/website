@@ -104,4 +104,8 @@ export default {
       bgcolor: 'pink',
     },
   ],
+  mobileImage: {
+    light: 'https://assets.maccarianagency.com/screenshots/crypto-mobile.png',
+    dark: 'https://assets.maccarianagency.com/screenshots/crypto-mobile--dark.png',
+  },
 };

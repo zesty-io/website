@@ -104,16 +104,17 @@ const mock = [
   },
 ];
 
-const WithBorderedCardsAndBrandColor = () => {
+const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-
+  const cardsList = cards || mock;
   return (
     <Container>
       <Box>
-        <Box marginBottom={4}>
+        <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
+        {/* <Box marginBottom={4}>
           <Typography
             sx={{
               textTransform: 'uppercase',
@@ -168,10 +169,10 @@ const WithBorderedCardsAndBrandColor = () => {
               Explore more
             </Box>
           </Box>
-        </Box>
+        </Box> */}
         <Box>
           <Grid container spacing={4}>
-            {mock.map((item, i) => (
+            {cardsList?.map((item, i) => (
               <Grid item xs={12} sm={6} md={3} key={i}>
                 <Box
                   component={Card}
@@ -197,17 +198,17 @@ const WithBorderedCardsAndBrandColor = () => {
                       gutterBottom
                       sx={{ fontWeight: 700 }}
                     >
-                      {item.number}
+                      {item.blue_content || item.number}
                     </Typography>
                     <Typography
                       variant={'h6'}
                       gutterBottom
                       sx={{ fontWeight: 500 }}
                     >
-                      {item.title}
+                      {item.text || item.title}
                     </Typography>
                     <Typography color="text.secondary">
-                      {item.subtitle}
+                      {item.additional_content || item.subtitle}
                     </Typography>
                   </Box>
                 </Box>
