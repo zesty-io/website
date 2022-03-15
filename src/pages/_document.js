@@ -28,6 +28,7 @@ export default class MyDocument extends Document {
           </noscript>
           <Main />
           <NextScript />
+          <div id="modal-root"></div>
         </body>
       </Html>
     );

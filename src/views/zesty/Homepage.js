@@ -41,6 +41,7 @@ import ReviewsWithSimpleBoxes from 'blocks/testimonials/ReviewsWithSimpleBoxes';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 import FillerContent from 'components/FillerContent';
+import ZestyExplorer from 'lib/ZestyExplorer';
 
 let zestyURL =
   (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
@@ -100,6 +101,7 @@ function Homepage({ content }) {
       </Box>
       <VerticallyAlignedBlogCardsWithShapedImage />
       <CtaWithInputField />
+      {/* <ZestyExplorer content={content} /> */}
       {/* <Grid container marginBottom={4} justifyContent="center">
         <Button
           onClick={() => {

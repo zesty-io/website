@@ -130,12 +130,22 @@ const ZestyExplorerComp = ({ content }) => {
 
 export default React.memo(ZestyExplorerComp);
 
+function canUseDOM() {
+  return !!(
+    typeof window !== 'undefined' &&
+    window.document &&
+    window.document.createElement
+  );
+}
 export const ZestyExplorer = ({ content, onClose }) => {
   const handleClose = (e) => {
     e.stopPropagation();
     onClose();
   };
 
+  if (!canUseDOM()) {
+    return null;
+  }
   return ReactDOM.createPortal(
     <div
       style={{
