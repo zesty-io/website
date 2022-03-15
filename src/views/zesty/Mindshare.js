@@ -101,10 +101,11 @@ function Mindshare({ content }) {
   }, []);
 
   const chipsTitle = content.popular_categories
-    ? Object.keys(content.popular_categories.data).map(
-        (item) => content?.popular_categories?.data[item]?.category,
-      )
+  ? Object.keys(content.popular_categories.data).map(
+    (item) => content?.popular_categories?.data[item]?.category,
+    )
     : FillerContent.missingDataArray;
+
 
   let zestyURL =
     undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
@@ -155,7 +156,7 @@ function Mindshare({ content }) {
                 key={item}
                 label={item}
                 component="a"
-                href=""
+                href={`/mindshare/${item.toLowerCase().replace(/\s/g, '-')}`}
                 clickable
                 sx={{ margin: 0.5 }}
               />
@@ -203,9 +204,13 @@ function Mindshare({ content }) {
         {/* Case Studies */}
         <BlogCardsWithFullBackgroundImage
           title={content.case_studies_title || FillerContent.header}
-          description={content.case_studies_description || FillerContent.description}
+          description={
+            content.case_studies_description || FillerContent.description
+          }
           ctaBtn={content.case_studies_cta || FillerContent.cta}
-          caseStudy={content?.case_studies?.data || FillerContent.missingDataArray}
+          caseStudy={
+            content?.case_studies?.data || FillerContent.missingDataArray
+          }
         />
 
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
@@ -217,8 +222,13 @@ function Mindshare({ content }) {
               </Box>
             ) : (
               <PopularArticles
-                title={content.additional_insights_title || FillerContent.header}
-                description={content.additional_insights_description || FillerContent.description}
+                title={
+                  content.additional_insights_title || FillerContent.header
+                }
+                description={
+                  content.additional_insights_description ||
+                  FillerContent.description
+                }
                 ctaBtn={content.additional_insights_cta || FillerContent.cta}
                 articles={allArticles}
                 authors={authors}
