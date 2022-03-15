@@ -87,7 +87,7 @@ function Mindshare({ content }) {
           return authorData;
         });
 
-        const latestArticles = articles;
+        const latestArticles = articles.reverse();
 
         setAllArticles(latestArticles);
         Promise.all(getAuthors).then((author) => setAuthors(author));
