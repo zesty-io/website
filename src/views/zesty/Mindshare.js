@@ -189,13 +189,13 @@ function Mindshare({ content }) {
           }
         />
 
-        {/* Popular Articles / Top Insights */}
+        {/*  Top Insights */}
         <VerticallyAlignedBlogCardsWithShapedImage
           title={content.top_articles_title || FillerContent.header}
           description={
             content.top_articles_description || FillerContent.description
           }
-          ctaBtn={content.top_article_cta || FillerContent.cta}
+
           popularArticles={
             content.popular_articles.data || FillerContent.missingDataArray
           }
