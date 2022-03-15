@@ -23,7 +23,7 @@ const ShowcaseBgImage = ({ image, showCase, description }) => {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
-        backgroundImage: `url(${image || FillerContent.image})`,
+        backgroundImage: `url(${image})`,
         bgcolor: 'alternate.main',
         display: 'flex',
         alignItems: 'flex-end',
@@ -44,10 +44,10 @@ const ShowcaseBgImage = ({ image, showCase, description }) => {
           }}
         >
           <Typography color={'text.secondary'} fontWeight={700} variant={'h4'}>
-            {showCase || FillerContent.header}
+            {showCase }
           </Typography>
           <Typography variant={'h4'}>
-            {description || FillerContent.header}
+            {description }
           </Typography>
           <Link
             target="_blank"

@@ -1,11 +1,12 @@
 /**
- * Component which dynamically selects view
+ * Component which dynamically selects a views/zesty component based on the URL
  */
 import React from 'react';
 import * as Zesty from '../views/zesty';
 import ZestyHead from '../components/ZestyHead';
 
 import Custom404 from '../pages/404';
+import { ZestyExplorer } from './ZestyExplorer';
 
 export function ZestyView(props) {
   if (props.content.error) {
@@ -17,6 +18,8 @@ export function ZestyView(props) {
     <>
       <ZestyHead content={props.content} />
       <Component content={props.content} />
+
+      {true && <ZestyExplorer content={props.content} />}
     </>
   );
 }

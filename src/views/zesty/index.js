@@ -24,6 +24,14 @@ import AgencyPartnerCard from './AgencyPartnerCard';
 import AboutStat from './AboutStat';
 import JobListing from './JobListing';
 import EventHost from './EventHost';
+import NewsArticleAuthor from './NewsArticleAuthor';
+import DemoPageItem from './DemoPageItem';
+import Cta from './Cta';
+import Benefit from './Benefit';
+import ProofPoint from './ProofPoint';
+import PlatformOverviewCard from './PlatformOverviewCard';
+import FeaturesTile from './FeaturesTile';
+import TechnologyBenefit from './TechnologyBenefit';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -31,6 +39,7 @@ import Author from './Author';
 import UseCase from './UseCase';
 import LandingPage from './LandingPage';
 import ProductExplainer from './ProductExplainer';
+import Event from './Event';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -43,7 +52,7 @@ import Pricing from './Pricing';
 import Ourpartner from './Ourpartner';
 import HeroHompage from './HeroHompage';
 import WhyZesty from './WhyZesty';
-import ProductOverview from './ProductOverview';
+import PlatformOverview from './PlatformOverview';
 import TechnologyOverview from './TechnologyOverview';
 import CaseStudy from './CaseStudy';
 import AgencyPartner from './AgencyPartner';
@@ -53,6 +62,8 @@ import Career from './Career';
 import DeveloperResource from './DeveloperResource';
 import EventsAndWebinar from './EventsAndWebinar';
 import Demo from './Demo';
+import Header from './Header';
+import Footer from './Footer';
 
 export {
   Clipping,
@@ -79,6 +90,14 @@ export {
   AboutStat,
   JobListing,
   EventHost,
+  NewsArticleAuthor,
+  DemoPageItem,
+  Cta,
+  Benefit,
+  ProofPoint,
+  PlatformOverviewCard,
+  FeaturesTile,
+  TechnologyBenefit,
   Category,
   Article,
   Tag,
@@ -86,6 +105,7 @@ export {
   UseCase,
   LandingPage,
   ProductExplainer,
+  Event,
   Homepage,
   SimplePage,
   Mindshare,
@@ -98,14 +118,16 @@ export {
   Ourpartner,
   HeroHompage,
   WhyZesty,
-  ProductOverview,
+  PlatformOverview,
   TechnologyOverview,
   CaseStudy,
   AgencyPartner,
   Client,
   Contact,
-  Demo,
   Career,
   DeveloperResource,
   EventsAndWebinar,
+  Demo,
+  Footer,
+  Header,
 };

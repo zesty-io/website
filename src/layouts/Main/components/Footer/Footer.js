@@ -12,7 +12,7 @@ const Footer = ({customRouting,colorInvert = false }) => {
   const { mode } = theme.palette;
   console.log(customRouting)
   return (
-    <Grid container spacing={2} >
+    <Grid container marginTop={3} spacing={2} >
       <Grid item xs={2}>
         <Box
           display={'flex'}
@@ -53,7 +53,7 @@ const Footer = ({customRouting,colorInvert = false }) => {
                 <Typography marginBottom={1} variant={'h6'} text-transform='capitalize' colorInvert={colorInvert}>
                   {route.title}
                 </Typography>
-                {route.children.sort((a, b) => b.title.length - a.title.length).map(childLink => (
+                {route.children.sort((a, b) => a.sort - b.sort).map(childLink => (
                   <Box marginBottom={1}>
                     <Link 
                       title={childLink.title} 
@@ -74,7 +74,7 @@ const Footer = ({customRouting,colorInvert = false }) => {
         </Box>
       </Grid>
      
-      <Grid item xs={12}>
+      <Grid item marginTop={4} paddingBottom={10} xs={12}>
         <Typography
           align={'center'}
           variant={'subtitle2'}

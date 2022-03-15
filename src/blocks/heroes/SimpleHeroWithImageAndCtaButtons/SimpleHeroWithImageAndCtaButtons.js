@@ -7,8 +7,16 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
-const SimpleHeroWithImageAndCtaButtons = () => {
+const SimpleHeroWithImageAndCtaButtons = ({
+  title,
+  description,
+  cta_left,
+  cta_right,
+  cta_left_url,
+  cta_right_url,
+}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -25,9 +33,9 @@ const SimpleHeroWithImageAndCtaButtons = () => {
                 color="text.primary"
                 sx={{ fontWeight: 700 }}
               >
-                Design agency that
+                {title || FillerContent.header}
                 <br />
-                <Typography
+                {/* <Typography
                   color={'primary'}
                   component={'span'}
                   variant={'inherit'}
@@ -39,15 +47,12 @@ const SimpleHeroWithImageAndCtaButtons = () => {
                   }}
                 >
                   inspires
-                </Typography>
+                </Typography> */}
               </Typography>
             </Box>
             <Box marginBottom={3}>
               <Typography variant="h6" component="p" color="text.secondary">
-                World developers use our theFront theme to build their web
-                applications.
-                <br />
-                Save yourself time and money.
+                {description || FillerContent.description}
               </Typography>
             </Box>
             <Box
@@ -56,14 +61,16 @@ const SimpleHeroWithImageAndCtaButtons = () => {
               alignItems={{ xs: 'stretched', sm: 'flex-start' }}
             >
               <Button
+                href={cta_left_url || FillerContent.href}
                 variant="contained"
                 color="primary"
                 size="large"
                 fullWidth={isMd ? false : true}
               >
-                Case studies
+                {cta_left || FillerContent.cta}
               </Button>
               <Box
+                href={cta_right_url || FillerContent.href}
                 component={Button}
                 color="primary"
                 size="large"
@@ -87,7 +94,7 @@ const SimpleHeroWithImageAndCtaButtons = () => {
                   </Box>
                 }
               >
-                Learn more
+                {cta_right || FillerContent.cta}
               </Box>
             </Box>
           </Box>

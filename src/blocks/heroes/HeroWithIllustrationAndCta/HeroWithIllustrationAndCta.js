@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const HeroWithIllustrationAndCta = ({
   title,subtitle,
@@ -56,17 +57,16 @@ const HeroWithIllustrationAndCta = ({
                 flexDirection={{ xs: 'column', sm: 'row' }}
                 alignItems={{ xs: 'stretched', sm: 'flex-start' }}
               >
-                <Button
-                  component={'a'}
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  fullWidth={isMd ? false : true}
-                  href={button_left_link}
-                  
+                <TryFreeButton
+                 component={'a'}
+                 variant="contained"
+                 color="primary"
+                 size="large"
+                 fullWidth={isMd ? false : true}
+                 text={button_left_text}
                 >
-                  {button_left_text}
-                </Button>
+                </TryFreeButton>
+                
                 <Box
                   marginTop={{ xs: 2, sm: 0 }}
                   marginLeft={{ sm: 2 }}
