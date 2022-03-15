@@ -102,7 +102,7 @@ function Mindshare({ content }) {
 
   const chipsTitle = content.popular_categories
     ? Object.keys(content.popular_categories.data).map(
-        (item) => content.popular_categories.data[item]?.category,
+        (item) => content?.popular_categories?.data[item]?.category,
       )
     : FillerContent.missingDataArray;
 
@@ -120,9 +120,9 @@ function Mindshare({ content }) {
     <>
       <Box bgcolor={'alternate.main'} position={'relative'}>
         <HeroWithBackgroundAndFullSearchBar
-          image={content.hero_image?.data[0].url}
-          title={content.title}
-          subTitle={content.subtitle}
+          image={content.hero_image?.data[0]?.url || FillerContent.image}
+          title={content.title || FillerContent.header}
+          subTitle={content.subtitle || FillerContent.description}
         />
 
         <Container>
@@ -147,7 +147,6 @@ function Mindshare({ content }) {
             renderInput={(params) => (
               <TextField {...params} label="Search Articles" />
             )}
-            chipsTitle={chipsTitle}
           />
           {/* Popular_categories */}
           <Box paddingTop={{ xs: 6, md: 8 }}>
@@ -165,14 +164,37 @@ function Mindshare({ content }) {
         </Container>
         {/* Featured Articles */}
         <HorizontallyAlignedBlogCardWithShapedImage
-          featured={content.featured_article.data[0]}
+          featuredImage={
+            content.featured_article.data[0]?.hero_image?.data[0]?.url ||
+            FillerContent.image
+          }
+          featuredTitle={
+            content.featured_article?.data[0]?.title || FillerContent.header
+          }
+          featuredDescription={
+            content.featured_article?.data[0]?.description ||
+            FillerContent.description
+          }
+          featureAvatar={
+            content.featured_article?.data[0]?.author?.data[0].headshot?.data[0]
+              .url || FillerContent.image
+          }
+          featureName={
+            content.featured_article?.data[0]?.author?.data[0]?.name ||
+            FillerContent.image
+          }
+          featuredDate={
+            content?.featured_article?.data[0]?.date || FillerContent.date
+          }
         />
 
-        {/* Popular Articles */}
+        {/* Popular Articles / Top Insights */}
         <VerticallyAlignedBlogCardsWithShapedImage
-          title={content.top_articles_title}
-          description={content.top_articles_description}
-          ctaBtn={content.top_article_cta}
+          title={content.top_articles_title || FillerContent.header}
+          description={
+            content.top_articles_description || FillerContent.description
+          }
+          ctaBtn={content.top_article_cta || FillerContent.cta}
           popularArticles={
             content.popular_articles.data || FillerContent.missingDataArray
           }
@@ -180,28 +202,24 @@ function Mindshare({ content }) {
 
         {/* Case Studies */}
         <BlogCardsWithFullBackgroundImage
-          title={content.case_studies_title}
-          description={content.case_studies_description}
-          ctaBtn={content.case_studies_cta}
-          caseStudy={content.case_studies.data}
+          title={content.case_studies_title || FillerContent.header}
+          description={content.case_studies_description || FillerContent.description}
+          ctaBtn={content.case_studies_cta || FillerContent.cta}
+          caseStudy={content?.case_studies?.data || FillerContent.missingDataArray}
         />
 
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
-            {/*  Fetch ALL ARTICLES W/PAGINATIONS */}
+            {/*  Fetch ALL ARTICLES W/PAGINATION */}
             {isLoaded ? (
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-              >
+              <Box display="flex" justifyContent="center" alignItems="center">
                 <CircularProgressWithLabel />
               </Box>
             ) : (
               <PopularArticles
-                title={content.additional_insights_title}
-                description={content.additional_insights_description}
-                ctaBtn={content.additional_insights_cta}
+                title={content.additional_insights_title || FillerContent.header}
+                description={content.additional_insights_description || FillerContent.description}
+                ctaBtn={content.additional_insights_cta || FillerContent.cta}
                 articles={allArticles}
                 authors={authors}
               />
