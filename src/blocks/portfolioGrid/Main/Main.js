@@ -23,7 +23,7 @@ const Main = ({ partnerCards }) => {
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item.link || FillerContent.href}
+              href={item?.link || FillerContent.href}
               target="_blank"
               display={'block'}
               width={1}
@@ -45,7 +45,7 @@ const Main = ({ partnerCards }) => {
               >
                 <CardMedia
                   image={item?.image?.data[0].url || FillerContent.image}
-                  title={item.title || FillerContent.header}
+                  title={item?.title || FillerContent.header}
                   sx={{
                     height: { xs: 340, md: 400 },
                     filter:
@@ -56,10 +56,10 @@ const Main = ({ partnerCards }) => {
                 />
                 <Box component={CardContent}>
                   <Typography variant={'h6'} fontWeight={700} gutterBottom>
-                    {item.title || FillerContent.header}
+                    {item?.title || FillerContent.header}
                   </Typography>
                   <Typography variant={'body2'} color="text.secondary">
-                    {item.description || FillerContent.description}
+                    {item?.description || FillerContent.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -84,7 +84,7 @@ const Main = ({ partnerCards }) => {
                       </svg>
                     }
                   >
-                    {item.cta || FillerContent.cta}
+                    {item?.cta || FillerContent.cta}
                   </Button>
                 </Box>
               </Box>
