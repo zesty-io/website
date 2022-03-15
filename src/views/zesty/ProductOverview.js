@@ -29,13 +29,13 @@ import Container from 'components/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import FullScreenHeroWithPromoImagesAndTypedText from 'blocks/heroes/FullScreenHeroWithPromoImagesAndTypedText/FullScreenHeroWithPromoImagesAndTypedText.js';
 import FeaturesWithCardRepresentation from 'blocks/features/FeaturesWithCardRepresentation/FeaturesWithCardRepresentation.js';
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField';
+import FillerContent from 'components/FillerContent';
 const mock = [
   {
     title: 'Your brand platform',
@@ -67,154 +67,229 @@ const mock = [
   },
 ];
 
-function ProductOverview({ content }) {
-  console.log(content, '123123');
+const ProductOverviewComp = ({ title, description, cards }) => {
   const theme = useTheme();
+  const cardsList = cards || mock;
   return (
-    <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <FullScreenHeroWithPromoImagesAndTypedText></FullScreenHeroWithPromoImagesAndTypedText>
-      <Container>
-        <Box>
-          <Box marginBottom={4}>
-            <Typography
-              sx={{
-                textTransform: 'uppercase',
-                fontWeight: 'medium',
-              }}
-              gutterBottom
-              color={'secondary'}
-              align={'center'}
+    <Container>
+      <Box>
+        <Box marginBottom={4}>
+          <Typography
+            sx={{
+              textTransform: 'uppercase',
+              fontWeight: 'medium',
+            }}
+            gutterBottom
+            color={'secondary'}
+            align={'center'}
+          >
+            Our work
+          </Typography>
+          <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
+            {title || 'We are a small agency of talented designers & developer'}
+          </Typography>
+          <Box
+            dangerouslySetInnerHTML={{
+              __html:
+                description ||
+                `
+            Unlike teams from big agencies, we will treat your project as ours.
+            We will walk you through our smooth and simple process.
+          
+          `,
+            }}
+          ></Box>
+
+          {/* <Typography
+            variant="h6"
+            component="p"
+            color="text.secondary"
+            align={'center'}
+          >
+            Unlike teams from big agencies, we will treat your project as ours.
+            We will walk you through our smooth and simple process.
+          </Typography> */}
+          <Box marginTop={2} display={'flex'} justifyContent={'center'}>
+            {/* <Button
+              color={'primary'}
+              variant={'contained'}
+              size={'large'}
+              startIcon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  width={20}
+                  height={20}
+                >
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+              }
             >
-              Our work
-            </Typography>
-            <Typography
-              variant={'h4'}
-              sx={{ fontWeight: 700 }}
-              align={'center'}
-            >
-              We are a small agency of talented designers & developers
-            </Typography>
-            <Typography
-              variant="h6"
-              component="p"
-              color="text.secondary"
-              align={'center'}
-            >
-              Unlike teams from big agencies, we will treat your project as
-              ours. We will walk you through our smooth and simple process.
-            </Typography>
-            <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-              <Button
-                color={'primary'}
-                variant={'contained'}
-                size={'large'}
-                startIcon={
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    width={20}
-                    height={20}
-                  >
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                }
-              >
-                Contact us
-              </Button>
-            </Box>
+              Contact us
+            </Button> */}
           </Box>
-          <Grid container spacing={4}>
-            {mock.map((item, i) => (
+        </Box>
+        <Grid container spacing={4}>
+          {cardsList?.map((item, i) => (
+            <Grid
+              data-aos="fade-up"
+              data-aos-delay={i * 100}
+              data-aos-offset={100}
+              data-aos-duration={600}
+              key={i}
+              item
+              container
+              xs={12}
+              spacing={4}
+              direction={i % 2 === 1 ? 'row-reverse' : 'row'}
+            >
+              <Grid item container alignItems={'center'} xs={12} sm={6}>
+                <Box>
+                  <Typography
+                    variant={'h6'}
+                    gutterBottom
+                    sx={{ fontWeight: 700 }}
+                  >
+                    {item.header || item.title}
+                  </Typography>
+                  <Typography
+                    color={'text.secondary'}
+                    fontWeight={400}
+                    variant={'body1'}
+                  ></Typography>
+                  <Typography color="text.secondary">
+                    <Box
+                      dangerouslySetInnerHTML={{
+                        __html: item.content || item.description,
+                      }}
+                    />
+                  </Typography>
+                  {/* <Button
+                    size={'large'}
+                    sx={{ marginTop: 2 }}
+                    endIcon={
+                      <Box
+                        component={'svg'}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        width={24}
+                        height={24}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </Box>
+                    }
+                  >
+                    Learn more
+                  </Button> */}
+                </Box>
+              </Grid>
               <Grid
-                data-aos="fade-up"
-                data-aos-delay={i * 100}
-                data-aos-offset={100}
-                data-aos-duration={600}
-                key={i}
                 item
                 container
+                justifyContent={'center'}
+                alignItems={'center'}
                 xs={12}
-                spacing={4}
-                direction={i % 2 === 1 ? 'row-reverse' : 'row'}
+                sm={6}
               >
-                <Grid item container alignItems={'center'} xs={12} sm={6}>
-                  <Box>
-                    <Typography
-                      variant={'h6'}
-                      gutterBottom
-                      sx={{ fontWeight: 700 }}
-                    >
-                      {item.title}
-                    </Typography>
-                    <Typography color="text.secondary">
-                      {item.description}
-                    </Typography>
-                    <Button
-                      size={'large'}
-                      sx={{ marginTop: 2 }}
-                      endIcon={
-                        <Box
-                          component={'svg'}
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          width={24}
-                          height={24}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </Box>
-                      }
-                    >
-                      Learn more
-                    </Button>
-                  </Box>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  xs={12}
-                  sm={6}
-                >
-                  <Box
-                    component={'img'}
-                    src={`${
-                      theme.palette.mode === 'light'
-                        ? item.illustration
-                        : item.illustrationDark
-                    }`}
-                    alt={item.title}
-                    width={1}
-                    maxWidth={'80%'}
-                  />
-                </Grid>
+                <Box
+                  component={'img'}
+                  // src={`${
+                  //   theme.palette.mode === 'light'
+                  //     ? item.illustration
+                  //     : item.illustrationDark
+                  // }`}
+                  src={item.image || FillerContent.mobileImage.dark}
+                  alt={item.header || item.title}
+                  width={1}
+                  maxWidth={'80%'}
+                />
               </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Container>
-      <FeaturesWithCardRepresentation></FeaturesWithCardRepresentation>
-      <SimpleVerticalBlogCards></SimpleVerticalBlogCards>
-      <VerticallyAlignedBlogCardsWithShapedImage></VerticallyAlignedBlogCardsWithShapedImage>
-      <Container>
-        <CtaWithInputField></CtaWithInputField>
-      </Container>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Container>
+  );
+};
+
+function ProductOverview({ content }) {
+  console.log(content, '123123');
+
+  const headerProps = {
+    title: content?.title,
+    description: content?.header_description,
+    cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
+    cta_right:
+      content?.cta_right.data && content?.cta_right?.data[0]?.button_text,
+    cta_left_url:
+      content?.cta_left.data &&
+      content?.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+    cta_right_url:
+      content?.cta_right.data &&
+      content?.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+  };
+  return (
+    <>
+      {/* Header */}
+      <FullScreenHeroWithPromoImagesAndTypedText {...headerProps} />
+
+      {/* Product Overview  */}
+      <ProductOverviewComp
+        title={`“CMS is boring” - but does it have to be?`}
+        description={`
+What if your CMS freed you from spending so much time building and iterating and pulling your hair out? 
+<br />
+What if you could get your message out the door without the endless processes you expect with your current CMS?
+<br />
+Yeah, it’s possible. And we’re excited too. Here’s how it works >
+        `}
+        cards={content?.platform_overview_cards?.data}
+      />
+
+      {/* Features */}
+      <FeaturesWithCardRepresentation cards={content?.features_tiles?.data} />
+
+      {/* Case Study  */}
+      <SimpleVerticalBlogCards
+        header={content?.case_studies_header}
+        cards={content?.case_studies?.data}
+        cta={content?.cta.data && content?.cta?.data[0].button_text}
+        cta_url={
+          content?.cta.data &&
+          content?.cta?.data[0].internal_link.data[0].meta.web.url
+        }
+      />
+
+      {/* Link To Blog */}
+      <VerticallyAlignedBlogCardsWithShapedImage
+        title={'Industry insights'}
+        description={
+          'Stay up-to-date with the latest in digital experience, content management, and more.'
+        }
+      />
+
+      {/* Final Cta  */}
+      <CtaWithInputField
+        title={'Subscribe to the zestiest newsletter in the industry'}
+        description={
+          'Get the latest from the Zesty team, from whitepapers to product updates.'
+        }
+        cta={'Subscribe'}
+      />
       {/*<div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
                  <h2>Accessible Zesty.io JSON Object</h2>
                  <pre>{JSON.stringify(content, null, 2)}</pre>
              </div>
                      */}
-      {/* End of Zesty.io output example */}
     </>
   );
 }

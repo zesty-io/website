@@ -6,6 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
 const images = [
   {
@@ -76,7 +77,14 @@ const images = [
   },
 ];
 
-const FullScreenHeroWithPromoImagesAndTypedText = () => {
+const FullScreenHeroWithPromoImagesAndTypedText = ({
+  title,
+  description,
+  cta_left,
+  cta_right,
+  cta_left_url,
+  cta_right_url,
+}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -105,10 +113,10 @@ const FullScreenHeroWithPromoImagesAndTypedText = () => {
                   fontWeight: 700,
                 }}
               >
-                Turn your ideas
-                <br />
-                into{' '}
-                <Typography
+                {title || 'Turn your ideas into success into success'}
+                {/* <br />
+                into */}
+                {/* <Typography
                   color={'primary'}
                   component={'span'}
                   variant={'inherit'}
@@ -120,7 +128,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = () => {
                   }}
                 >
                   success
-                </Typography>
+                </Typography> */}
               </Typography>
               <Typography
                 variant="h6"
@@ -128,8 +136,12 @@ const FullScreenHeroWithPromoImagesAndTypedText = () => {
                 color="text.secondary"
                 sx={{ fontWeight: 400 }}
               >
+                {description ||
+                  `
+                
                 theFront will make your product look modern and professional
                 while saving you precious time.
+                `}
               </Typography>
               <Box
                 display="flex"
@@ -138,14 +150,14 @@ const FullScreenHeroWithPromoImagesAndTypedText = () => {
                 marginTop={4}
               >
                 <Button
+                  href={cta_left_url || FillerContent.href}
                   component={'a'}
                   variant="contained"
                   color="primary"
                   size="large"
                   fullWidth={isMd ? false : true}
-                  href={'/home'}
                 >
-                  View pages
+                  {cta_left || 'View pages'}
                 </Button>
                 <Box
                   marginTop={{ xs: 2, sm: 0 }}
@@ -154,13 +166,13 @@ const FullScreenHeroWithPromoImagesAndTypedText = () => {
                 >
                   <Button
                     component={'a'}
-                    href={'/docs/introduction'}
+                    href={cta_right_url || FillerContent.href}
                     variant="outlined"
                     color="primary"
                     size="large"
                     fullWidth={isMd ? false : true}
                   >
-                    Documentation
+                    {cta_right || 'Documentation'}
                   </Button>
                 </Box>
               </Box>

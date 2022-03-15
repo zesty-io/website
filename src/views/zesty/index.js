@@ -43,7 +43,7 @@ import Pricing from './Pricing';
 import Ourpartner from './Ourpartner';
 import HeroHompage from './HeroHompage';
 import WhyZesty from './WhyZesty';
-import ProductOverview from './ProductOverview';
+import PlatformOverview from './ProductOverview';
 import TechnologyOverview from './TechnologyOverview';
 import CaseStudy from './CaseStudy';
 import AgencyPartner from './AgencyPartner';
@@ -98,7 +98,7 @@ export {
   Ourpartner,
   HeroHompage,
   WhyZesty,
-  ProductOverview,
+  PlatformOverview,
   TechnologyOverview,
   CaseStudy,
   AgencyPartner,
