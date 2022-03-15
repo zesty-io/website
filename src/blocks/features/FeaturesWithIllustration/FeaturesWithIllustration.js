@@ -93,41 +93,10 @@ const FeaturesWithIllustration = (props) => {
       <Grid container spacing={4} direction={isMd ? 'row' : 'column-reverse'}>
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box>
-            <Box marginBottom={4} dangerouslySetInnerHTML={{__html:rich_text}}>
+            <Box className="wysiwyg" marginBottom={4} dangerouslySetInnerHTML={{__html:rich_text}}>
          
             </Box>
-             <Box marginBottom={4}>
-              <Typography variant={'h4'} gutterBottom sx={{ fontWeight: 700 }}>
-                <Typography color="primary" variant="inherit" component="span">
-                  Develop anything
-                </Typography>{' '}
-                your business needs.
-              </Typography>
-              <Typography component={'p'} color={'text.secondary'}>
-                Build a beautiful, modern website with flexible, fully
-                customizable, atomic MUI components.
-              </Typography>
-            </Box>
-            <List disablePadding>
-              {mock.map((item, index) => (
-                <ListItem key={index} disableGutters>
-                  <ListItemAvatar>
-                    <Box
-                      component={Avatar}
-                      variant={'rounded'}
-                      color={theme.palette.primary.dark}
-                      bgcolor={`${theme.palette.primary.light}22`}
-                    >
-                      {item.icon}
-                    </Box>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={item.title}
-                    secondary={item.subtitle}
-                  />
-                </ListItem>
-              ))}
-            </List>
+             
           </Box>
         </Grid>
         <Grid item container justifyContent={'center'} xs={12} md={6}>

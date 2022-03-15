@@ -9,7 +9,13 @@ import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
 
-const HeroWithIllustrationAndCta = ({title,subtitle,image}) => {
+const HeroWithIllustrationAndCta = ({
+  title,subtitle,
+  image,
+  button_left_text,
+  button_left_link,
+  button_right_text,
+  button_right_link}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -56,10 +62,10 @@ const HeroWithIllustrationAndCta = ({title,subtitle,image}) => {
                   color="primary"
                   size="large"
                   fullWidth={isMd ? false : true}
-                  href={'https://mui.com/store/items/the-front-landing-page/'}
-                  target={'_blank'}
+                  href={button_left_link}
+                  
                 >
-                  Purchase now
+                  {button_left_text}
                 </Button>
                 <Box
                   marginTop={{ xs: 2, sm: 0 }}
@@ -68,13 +74,13 @@ const HeroWithIllustrationAndCta = ({title,subtitle,image}) => {
                 >
                   <Button
                     component={'a'}
-                    href={'/docs/introduction'}
+                    href={button_right_text}
                     variant="outlined"
                     color="primary"
                     size="large"
                     fullWidth={isMd ? false : true}
                   >
-                    View documentation
+                    {button_right_link}
                   </Button>
                 </Box>
               </Box>

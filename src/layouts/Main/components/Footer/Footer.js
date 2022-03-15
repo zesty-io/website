@@ -2,17 +2,18 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import {Twitter} from '@mui/material/Icon';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 
-const Footer = () => {
+const Footer = ({customRouting,colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
-
+  console.log(customRouting)
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
+    <Grid container spacing={2} >
+      <Grid item xs={2}>
         <Box
           display={'flex'}
           justifyContent={'space-between'}
@@ -21,61 +22,58 @@ const Footer = () => {
           flexDirection={{ xs: 'column', sm: 'row' }}
         >
           <Box
-            display={'flex'}
-            component="a"
-            href="/"
-            title="theFront"
-            width={80}
-          >
-            <Box
-              component={'img'}
-              src={
-                mode === 'light'
-                  ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-                  : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-              }
-              height={1}
-              width={1}
-            />
-          </Box>
-          <Box display="flex" flexWrap={'wrap'} alignItems={'center'}>
-            <Box marginTop={1} marginRight={2}>
-              <Link
-                underline="none"
-                component="a"
-                href="/"
-                color="text.primary"
-                variant={'subtitle2'}
-              >
-                Home
-              </Link>
-            </Box>
-            <Box marginTop={1} marginRight={2}>
-              <Link
-                underline="none"
-                component="a"
-                href="/docs/introduction"
-                color="text.primary"
-                variant={'subtitle2'}
-              >
-                Documentation
-              </Link>
-            </Box>
-            <Box marginTop={1}>
-              <Button
-                variant="outlined"
-                color="primary"
-                component="a"
-                target="blank"
-                href="https://mui.com/store/items/the-front-landing-page/"
-                size="small"
-              >
-                Purchase now
-              </Button>
-            </Box>
-          </Box>
+          component={'img'}
+          src={
+            mode === 'light' && !colorInvert
+              ? '/assets/zesty-logo.png'
+              : '/assets/zesty-logo-inverted.png'
+          }
+          height={1}
+          width={1}
+        />
+        </Box>
+        <Grid >
+          <Grid item xs={3}>
+
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={8}>
+        <Box
+          display={'flex'}
+          justifyContent={'space-evenly'}
+          alignItems={'top'}
+          width={1}
+          flexDirection={{ xs: 'column', sm: 'row' }}
+        >
+          {customRouting.map(route => (
+           <Grid key={route.zuid}>
+            {route.parentZUID == null && route.children.length > 0 &&
+              <Grid item marginLeft={4}>
+                <Typography marginBottom={1} variant={'h6'} text-transform='capitalize' colorInvert={colorInvert}>
+                  {route.title}
+                </Typography>
+                {route.children.sort((a, b) => b.title.length - a.title.length).map(childLink => (
+                  <Box marginBottom={1}>
+                    <Link 
+                      title={childLink.title} 
+                      href={childLink.url}
+                      component="a"
+                      underline="hover"
+                      color="text.primary"
+                      >{childLink.title} </Link>
+                    </Box>
+                ))}
+
+              </Grid>
+            }
+          </Grid>
+        ))}
+         
+          
         </Box>
       </Grid>
+     
       <Grid item xs={12}>
         <Typography
           align={'center'}
@@ -83,7 +81,11 @@ const Footer = () => {
           color="text.secondary"
           gutterBottom
         >
-          &copy; theFront. 2021, Maccarian. All rights reserved
+          &copy; Zesty.io Platform, Inc. All Rights Reserved. 
+          <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography> 
+          <Link underline="none" href="/legal/privacy-policy/">Privacy</Link> 
+          <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography> 
+          <Link underline="none" href="/legal/end-user-license-agreement/">Terms</Link>
         </Typography>
         <Typography
           align={'center'}
@@ -91,10 +93,9 @@ const Footer = () => {
           color="text.secondary"
           component={'p'}
         >
-          When you visit or interact with our sites, services or tools, we or
-          our authorised service providers may use cookies for storing
-          information to help provide you with a better, faster and safer
-          experience and for marketing purposes.
+          This website and application uses cookies, and also collects some information using Google Analytics. Please review our <Link underline="none"
+                      color="text.primary" href="/legal/privacy-policy/">Privacy Policy</Link> and <Link underline="none"
+                      color="text.primary" href="/legal/end-user-license-agreement/">Terms of Use agreements</Link>.
         </Typography>
       </Grid>
     </Grid>

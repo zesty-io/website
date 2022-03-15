@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {  useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,10 +13,25 @@ import Pagination from '@mui/material/Pagination';
 
 import FillerContent from 'components/FillerContent';
 
-
-
-const PopularArticles = ({ latestArticles, title, description, ctaBtn}) => {
+const PopularArticles = ({ articles=[], authors, title, description, ctaBtn }) => {
   const theme = useTheme();
+
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, _setPostPerPage] = useState(9);
+  const indexOfLast = currentPage * postPerPage;
+  const indexOfFirst = indexOfLast - postPerPage;
+  const pageNum = [];
+  const articlesList = articles.slice(indexOfFirst, indexOfLast);
+  for (let i = 1; i <= Math.ceil(articles.length / postPerPage); i++) {
+    pageNum.push(i);
+  }
+  const handlePageChange = (_event, value) => {
+    setCurrentPage(value);
+  };
+
+
 
   return (
     <Box>
@@ -48,7 +63,7 @@ const PopularArticles = ({ latestArticles, title, description, ctaBtn}) => {
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {latestArticles.map((item, i) => (
+        {articlesList?.map((item, i) => (
           <Grid item xs={12} sm={i === 0 ? 12 : 6} md={i < 2 ? 6 : 4} key={i}>
             <Box
               component={'a'}
@@ -74,7 +89,7 @@ const PopularArticles = ({ latestArticles, title, description, ctaBtn}) => {
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item?.hero_image?.data[0]?.url || FillerContent.image}
+                  image={item?.hero_image || FillerContent.image}
                   title={item.title || FillerContent.header}
                   sx={{
                     height: { xs: 300, md: 360 },
@@ -125,17 +140,18 @@ const PopularArticles = ({ latestArticles, title, description, ctaBtn}) => {
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
                         src={
-                          item?.author?.data[0].headshot.data[0].url ||
-                          FillerContent.image
+                          authors.find((el) => el.authorZUID === item.author)
+                            ?.authorImage || FillerContent.image
                         }
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item?.author?.data[0]?.name || FillerContent.header}
+                        {authors.find((el) => el.authorZUID === item.author)
+                          ?.authorName || FillerContent.image}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item.date || FillerContent.header}
+                      {item?.date || FillerContent.header}
                     </Typography>
                   </Box>
                 </Box>
@@ -143,9 +159,17 @@ const PopularArticles = ({ latestArticles, title, description, ctaBtn}) => {
             </Box>
           </Grid>
         ))}
-        <Grid item container justifyContent={'center'} xs={12}>
-          <Pagination count={10} size={'large'} color="primary" />
-        </Grid>
+        {articles?.length >= 10 && (
+          <Grid item container justifyContent={'center'} xs={12}>
+            <Pagination
+              count={pageNum?.length}
+              page={currentPage}
+              onChange={handlePageChange}
+              size={'large'}
+              color="primary"
+            />
+          </Grid>
+        )}
       </Grid>
     </Box>
   );
