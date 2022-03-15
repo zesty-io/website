@@ -1,5 +1,5 @@
 /**
- * Component which dynamically selects view
+ * Component which dynamically selects a views/zesty component based on the URL
  */
 import React from 'react';
 import * as Zesty from '../views/zesty';
@@ -9,13 +9,11 @@ import Custom404 from '../pages/404';
 import { ZestyExplorer } from './ZestyExplorer';
 
 export function ZestyView(props) {
-  // const [modal, setModal] = React.useState(true);
   if (props.content.error) {
     return <Custom404 error={props.content} />;
   }
 
   const Component = Zesty[props.content.meta.model_alternate_name];
-  console.log(process.env, 'env');
   return (
     <>
       <ZestyHead content={props.content} />
