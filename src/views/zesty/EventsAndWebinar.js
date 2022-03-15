@@ -62,7 +62,7 @@ function EventsAndWebinar({ content }) {
       subtitle={content.subtitle || ''}
       description={content.header_description || FillerContent.description} />
       <Container>
-        {content.events?.data ? <Result events={content.events.data || []} /> : <ComingSoon />}
+        {content.events?.data ? <Result array={content.events.data || []} /> : <ComingSoon />}
       </Container>
       <Box
         position={'relative'}

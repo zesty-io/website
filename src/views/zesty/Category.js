@@ -42,6 +42,10 @@ import Container from 'components/Container';
 function Category({ content }) {
   const theme = useTheme();
 
+  // news array state
+  const [newsArr, setNewsArr] = useState([]);
+
+
   // const SimpleHeroWithSearchBoxProps = {
   //   hideForm: true,
   //   title: content?.meta?.web?.seo_meta_title || '',
@@ -57,13 +61,14 @@ function Category({ content }) {
   useEffect(() => {
     try {
       const fetchNews = async () =>{
-        // const url = `${zestyURL}/-/allnewsarticles.json`;
-        const url = `${zestyURL}/-/allarticles.json`;
-        console.log(url);
+        const url = `${zestyURL}/-/allnewsarticles.json`;
         const response = await fetch(url);
-        console.log(response);
+        if(!response.ok){
+          throw new Error(`HTTP error: ${response.status}`);
+        }
         const news = await response.json();
-        await console.log(news);
+        console.log(news);
+        setNewsArr(news);
       }
 
       fetchNews();
@@ -71,7 +76,7 @@ function Category({ content }) {
     } catch(err){
       console.error(`Could Not Find Results: ${error}`);
     }
-  })
+  }, []);
 
   
   let zestyURL =
@@ -95,7 +100,7 @@ function Category({ content }) {
         />
       </Container>
       <Container>
-        <Result events={[]} />
+        <Result array={newsArr} />
       </Container>
       <Box
         position={'relative'}
