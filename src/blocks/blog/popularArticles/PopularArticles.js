@@ -19,7 +19,7 @@ const PopularArticles = ({ articles=[], authors=[], title, description, ctaBtn }
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, _setPostPerPage] = useState(9);
+  const [postPerPage, _setPostPerPage] = useState(5);
   const indexOfLast = currentPage * postPerPage;
   const indexOfFirst = indexOfLast - postPerPage;
   const pageNum = [];
@@ -31,6 +31,7 @@ const PopularArticles = ({ articles=[], authors=[], title, description, ctaBtn }
     setCurrentPage(value);
   };
 
+  console.log("🚀 ~ file: PopularArticles.js ~ line 27 ~ PopularArticles ~ articlesList", articlesList)
 
 
   return (
@@ -67,7 +68,7 @@ const PopularArticles = ({ articles=[], authors=[], title, description, ctaBtn }
           <Grid item xs={12} sm={i === 0 ? 12 : 6} md={i < 2 ? 6 : 4} key={i}>
             <Box
               component={'a'}
-              href={''}
+              href={item?.uri}
               display={'block'}
               width={1}
               height={1}

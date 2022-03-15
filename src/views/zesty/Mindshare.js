@@ -27,7 +27,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
