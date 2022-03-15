@@ -107,6 +107,7 @@ function Mindshare({ content }) {
     : FillerContent.missingDataArray;
 
 
+
   let zestyURL =
     undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
       ? process.env.zesty.production
@@ -165,6 +166,7 @@ function Mindshare({ content }) {
         </Container>
         {/* Featured Articles */}
         <HorizontallyAlignedBlogCardWithShapedImage
+          featuredLink={content.featured_article.data[0]?.meta?.web?.uri}
           featuredImage={
             content.featured_article.data[0]?.hero_image?.data[0]?.url ||
             FillerContent.image

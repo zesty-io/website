@@ -18,6 +18,7 @@ const BlogCardsWithFullBackgroundImage = ({
   description,
   ctaBtn,
 }) => {
+
   const theme = useTheme();
   return (
     <Container paddingTop={'0 !important'}>
@@ -51,7 +52,7 @@ const BlogCardsWithFullBackgroundImage = ({
           <Grid item xs={12} key={i}>
             <Box
               component={'a'}
-              href={''}
+              href={item?.meta?.web?.uri}
               display={'block'}
               width={1}
               height={1}
