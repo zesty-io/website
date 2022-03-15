@@ -12,31 +12,6 @@ import Avatar from '@mui/material/Avatar';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Lorem ipsum dolor sit amet,',
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
-    },
-    date: '04 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Consectetur adipiscing elit',
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-    },
-    date: '12 Sep',
-  },
-];
-
 const BlogCardsWithFullBackgroundImage = ({
   caseStudy,
   title,
@@ -55,11 +30,9 @@ const BlogCardsWithFullBackgroundImage = ({
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            {title || FillerContent.header}
+            {title}
           </Typography>
-          <Typography color={'text.secondary'}>
-            {description || FillerContent.description}
-          </Typography>
+          <Typography color={'text.secondary'}>{description}</Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
           <Box
@@ -69,7 +42,7 @@ const BlogCardsWithFullBackgroundImage = ({
             size="large"
             marginLeft={2}
           >
-            {ctaBtn || FillerContent.cta}
+            {ctaBtn}
           </Box>
         </Box>
       </Box>
@@ -102,9 +75,7 @@ const BlogCardsWithFullBackgroundImage = ({
                 }}
                 sx={{
                   minHeight: 300,
-                  backgroundImage: item.Hero_image
-                    ? `url("${item?.hero_image?.data[0].url}")`
-                    : `url(${FillerContent.image})`,
+                  backgroundImage: `url("${item?.hero_image?.data[0]?.url}")`,
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -142,13 +113,13 @@ const BlogCardsWithFullBackgroundImage = ({
                       gutterBottom
                       sx={{ color: 'common.white' }}
                     >
-                      {item.title || FillerContent.header}
+                      {item?.title }
                     </Typography>
                     <Typography
                       color="text.secondary"
                       sx={{ color: 'common.white', opacity: 0.8 }}
                     >
-                      {item.description || FillerContent.description}
+                      {item?.description }
                     </Typography>
                   </Box>
                   <Box>
@@ -167,8 +138,7 @@ const BlogCardsWithFullBackgroundImage = ({
                       <Box display={'flex'} alignItems={'center'}>
                         <Avatar
                           src={
-                            item?.author.data[0].headshot.data[0].url ||
-                            FillerContent.image
+                            item?.author?.data[0]?.headshot?.data[0]?.url
                           }
                           sx={{ marginRight: 1 }}
                         />
@@ -176,14 +146,14 @@ const BlogCardsWithFullBackgroundImage = ({
                           color={'text.secondary'}
                           sx={{ color: 'common.white', opacity: 0.8 }}
                         >
-                          {item?.author?.data[0]?.name || FillerContent.header}
+                          {item?.author?.data[0]?.name }
                         </Typography>
                       </Box>
                       <Typography
                         color={'text.secondary'}
                         sx={{ color: 'common.white', opacity: 0.8 }}
                       >
-                        {item.date || FillerContent.header}
+                        {item?.date }
                       </Typography>
                     </Box>
                   </Box>

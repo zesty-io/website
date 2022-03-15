@@ -13,7 +13,7 @@ import Pagination from '@mui/material/Pagination';
 
 import FillerContent from 'components/FillerContent';
 
-const PopularArticles = ({ articles=[], authors, title, description, ctaBtn }) => {
+const PopularArticles = ({ articles=[], authors=[], title, description, ctaBtn }) => {
   const theme = useTheme();
 
 
@@ -44,10 +44,10 @@ const PopularArticles = ({ articles=[], authors, title, description, ctaBtn }) =
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            {title || FillerContent.header}
+            {title }
           </Typography>
           <Typography color={'text.secondary'}>
-            {description || FillerContent.description}
+            {description }
           </Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
@@ -58,7 +58,7 @@ const PopularArticles = ({ articles=[], authors, title, description, ctaBtn }) =
             size="large"
             marginLeft={2}
           >
-            {ctaBtn || FillerContent.cta}
+            {ctaBtn }
           </Box>
         </Box>
       </Box>
@@ -90,7 +90,7 @@ const PopularArticles = ({ articles=[], authors, title, description, ctaBtn }) =
               >
                 <CardMedia
                   image={item?.hero_image || FillerContent.image}
-                  title={item.title || FillerContent.header}
+                  title={item?.title || FillerContent.header}
                   sx={{
                     height: { xs: 300, md: 360 },
                     position: 'relative',
@@ -121,10 +121,10 @@ const PopularArticles = ({ articles=[], authors, title, description, ctaBtn }) =
                 </CardMedia>
                 <Box component={CardContent} position={'relative'}>
                   <Typography variant={'h6'} gutterBottom>
-                    {item.title || FillerContent.header}
+                    {item?.title || FillerContent.header}
                   </Typography>
                   <Typography color="text.secondary">
-                    {item.description || FillerContent.description}
+                    {item?.description || FillerContent.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
