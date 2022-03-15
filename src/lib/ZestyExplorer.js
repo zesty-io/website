@@ -2,7 +2,7 @@ import React from 'react';
 import ReactJson from 'react-json-view-ssr';
 import ReactDOM from 'react-dom';
 import Fuse from 'fuse.js';
-import { Button, TextField } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 
 // convert the obj to array of objectsj
 const convertToArray = (content) =>
@@ -45,7 +45,7 @@ function deepen(obj) {
 }
 
 const ZestyExplorerComp = ({ content }) => {
-  const [modal, setModal] = React.useState(false);
+  // const [modal, setModal] = React.useState(false);
   const [search, setSearch] = React.useState();
   // convert obj to dot
   const flaten1 = flattenObj(content);
@@ -92,14 +92,14 @@ const ZestyExplorerComp = ({ content }) => {
   return (
     <div>
       <Grid container marginBottom={4} justifyContent="center">
-        <Button
+        {/* <Button
           onClick={() => {
-            setModal(!modal);
+            setModal(false);
           }}
           variant="outlined"
         >
           View Page Data
-        </Button>
+        </Button> */}
       </Grid>
       <div style={{ width: '80vw', margin: '0 auto' }}>
         <TextField
@@ -146,7 +146,7 @@ export const ZestyExplorer = ({ content, onClose }) => {
   if (!canUseDOM()) {
     return null;
   }
-  return ReactDOM.createPortal(
+  return (
     <div
       style={{
         height: '100vh',
@@ -163,8 +163,7 @@ export const ZestyExplorer = ({ content, onClose }) => {
       <Button onClick={handleClose} variant="outlined" color="error">
         X
       </Button>
-      <ZestyExplorer content={content} />
-    </div>,
-    document.getElementById('modal-root'),
+      <ZestyExplorerComp content={content} />
+    </div>
   );
 };

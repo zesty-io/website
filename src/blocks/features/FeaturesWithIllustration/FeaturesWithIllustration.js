@@ -11,6 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
 const mock = [
   {
@@ -60,7 +61,7 @@ const mock = [
   {
     title: 'Documentation for everything',
     subtitle:
-      'We\'ve written extensive documentation for components and tools, so you never have to reverse engineer anything.',
+      "We've written extensive documentation for components and tools, so you never have to reverse engineer anything.",
     icon: (
       <svg
         height={24}
@@ -82,28 +83,33 @@ const mock = [
 ];
 
 const FeaturesWithIllustration = (props) => {
+  console.log(props.image_url, '123123');
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-  let rich_text = (undefined !== props.rich_text) ? props.rich_text : ''
-  let image_url = (undefined !== props.image_url) ? props.image_url : ''
+  let rich_text = undefined !== props.rich_text ? props.rich_text : '';
+  let image_url =
+    undefined !== props.image_url
+      ? props.image_url
+      : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
   return (
     <Container>
       <Grid container spacing={4} direction={isMd ? 'row' : 'column-reverse'}>
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box>
-            <Box className="wysiwyg" marginBottom={4} dangerouslySetInnerHTML={{__html:rich_text}}>
-         
-            </Box>
-             
+            <Box
+              className="wysiwyg"
+              marginBottom={4}
+              dangerouslySetInnerHTML={{ __html: rich_text }}
+            ></Box>
           </Box>
         </Grid>
         <Grid item container justifyContent={'center'} xs={12} md={6}>
           <Box height={1} width={1} maxWidth={500}>
             <Box
               component={'img'}
-              src={image_url}
+              src={image_url || FillerContent.illustration_image}
               alt="Zesty Benefits Graphic"
               width={1}
               /*height={1}*/

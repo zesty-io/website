@@ -10,7 +10,7 @@ import { useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
 
-const CtaWithInputField = () => {
+const CtaWithInputField = ({ title, description, cta }) => {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
@@ -25,11 +25,14 @@ const CtaWithInputField = () => {
           gutterBottom
           sx={{ fontWeight: 700 }}
         >
-          Subscribe to our newsletter
+          {title || 'Subscribe to our newsletter'}
         </Typography>
         <Typography variant="h6" align={'center'} color={'text.secondary'}>
+          {description ||
+            `
           Don't lose a chance to be among the firsts to know about our upcoming
           news and updates.
+          `}
         </Typography>
       </Box>
       <Box
@@ -73,7 +76,7 @@ const CtaWithInputField = () => {
             </svg>
           }
         >
-          Subscribe
+          {cta || 'Subscribe'}
         </Box>
       </Box>
     </Container>

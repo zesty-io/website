@@ -7,8 +7,17 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
-const HeroWithDashboardScreenshotAndCta = () => {
+const HeroWithDashboardScreenshotAndCta = ({
+  title,
+  description,
+  image,
+  cta_left,
+  cta_right,
+  cta_left_url,
+  cta_right_url,
+}) => {
   const theme = useTheme();
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -26,9 +35,8 @@ const HeroWithDashboardScreenshotAndCta = () => {
                 color="text.primary"
                 sx={{ fontWeight: 700 }}
               >
-                Beautiful data representation{' '}
-                <Typography
-                  color={'primary'}
+                {title || FillerContent.header}
+                {/* <Typography color={'primary'}
                   component={'span'}
                   variant={'inherit'}
                   sx={{
@@ -39,15 +47,12 @@ const HeroWithDashboardScreenshotAndCta = () => {
                   }}
                 >
                   built with theFront
-                </Typography>
+                </Typography> */}
               </Typography>
             </Box>
             <Box marginBottom={3}>
               <Typography variant="h6" component="p" color="text.secondary">
-                World developers use our theFront theme to build their internal
-                tools and client admin applications.
-                <br />
-                Save yourself time and money.
+                {description || FillerContent.description}
               </Typography>
             </Box>
             <Box
@@ -56,14 +61,16 @@ const HeroWithDashboardScreenshotAndCta = () => {
               alignItems={{ xs: 'stretched', sm: 'flex-start' }}
             >
               <Button
+                href={cta_left_url || FillerContent.href}
                 variant="contained"
                 color="primary"
                 size="large"
                 fullWidth={isMd ? false : true}
               >
-                Start now
+                {cta_left || FillerContent.cta}
               </Button>
               <Box
+                href={cta_right_url || FillerContent.href}
                 component={Button}
                 variant="outlined"
                 color="primary"
@@ -72,7 +79,7 @@ const HeroWithDashboardScreenshotAndCta = () => {
                 marginLeft={{ sm: 2 }}
                 fullWidth={isMd ? false : true}
               >
-                Learn more
+                {cta_right || FillerContent.cta}
               </Box>
             </Box>
           </Box>
@@ -89,7 +96,7 @@ const HeroWithDashboardScreenshotAndCta = () => {
             component={'img'}
             height={1}
             width={1}
-            src={'https://assets.maccarianagency.com/screenshots/dashboard.png'}
+            src={image || FillerContent.dashboard_image}
             alt="..."
             boxShadow={3}
             borderRadius={2}
