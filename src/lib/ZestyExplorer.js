@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import ReactJson from 'react-json-view-ssr';
 import ReactDOM from 'react-dom';
 import Fuse from 'fuse.js';
@@ -44,7 +44,7 @@ function deepen(obj) {
   return result;
 }
 
-const ZestyExplorerComp = ({ content }) => {
+const ZestyExplorerBrowser = ({ content, children }) => {
   // const [modal, setModal] = React.useState(false);
   const [search, setSearch] = React.useState();
   // convert obj to dot
@@ -90,7 +90,8 @@ const ZestyExplorerComp = ({ content }) => {
   const data = search ? result2 : { content };
 
   return (
-    <div>
+    <div style={{ background: '#ddd', boxShadow: '0,0,5px,#333' }}>
+      {children}
       <Grid container marginBottom={4} justifyContent="center">
         {/* <Button
           onClick={() => {
@@ -128,7 +129,7 @@ const ZestyExplorerComp = ({ content }) => {
   );
 };
 
-export default React.memo(ZestyExplorerComp);
+export default React.memo(ZestyExplorerBrowser);
 
 function canUseDOM() {
   return !!(
@@ -138,10 +139,11 @@ function canUseDOM() {
   );
 }
 export const ZestyExplorer = ({ content, onClose }) => {
-  const handleClose = (e) => {
-    e.stopPropagation();
-    onClose();
-  };
+  const [togglem, settoggle] = React.useState(false);
+  // const handleClose = (e) => {
+  //   e.stopPropagation();
+  //   // onClose();
+  // };
 
   if (!canUseDOM()) {
     return null;
@@ -149,21 +151,34 @@ export const ZestyExplorer = ({ content, onClose }) => {
   return (
     <div
       style={{
-        height: '100vh',
         overflow: 'hidden',
-        width: '100%',
-        background: 'white',
+        width: 'auto',
+        background: 'transparent',
         position: 'fixed',
         bottom: '20px',
-        left: '20px',
+        right: '20px',
         zIndex: '9999999999999999',
         padding: '2rem',
       }}
     >
-      <Button onClick={handleClose} variant="outlined" color="error">
-        X
-      </Button>
-      <ZestyExplorerComp content={content} />
+      {!togglem && (
+        <Button onClick={() => settoggle(true)} variant="outlined" color="info">
+          Open Zesty Explorer
+        </Button>
+      )}
+      {togglem && (
+        <div>
+          <ZestyExplorerBrowser content={content}>
+            <Button
+              onClick={() => settoggle(false)}
+              variant="outlined"
+              color="error"
+            >
+              X
+            </Button>
+          </ZestyExplorerBrowser>
+        </div>
+      )}
     </div>
   );
 };
