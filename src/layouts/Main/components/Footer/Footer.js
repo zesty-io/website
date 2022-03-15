@@ -10,7 +10,7 @@ import { useTheme } from '@mui/material/styles';
 const Footer = ({customRouting,colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
-  console.log(customRouting)
+  // console.log(customRouting)
   return (
     <Grid container marginTop={3} spacing={2} >
       <Grid item xs={2}>
@@ -55,8 +55,8 @@ const Footer = ({customRouting,colorInvert = false }) => {
                 </Typography>
                 {route.children.sort((a, b) => a.sort - b.sort).map(childLink => (
                   <Box marginBottom={1}>
-                    <Link 
-                      title={childLink.title} 
+                    <Link
+                      title={childLink.title}
                       href={childLink.url}
                       component="a"
                       underline="hover"
@@ -69,11 +69,11 @@ const Footer = ({customRouting,colorInvert = false }) => {
             }
           </Grid>
         ))}
-         
-          
+
+
         </Box>
       </Grid>
-     
+
       <Grid item marginTop={4} paddingBottom={10} xs={12}>
         <Typography
           align={'center'}
@@ -81,10 +81,10 @@ const Footer = ({customRouting,colorInvert = false }) => {
           color="text.secondary"
           gutterBottom
         >
-          &copy; Zesty.io Platform, Inc. All Rights Reserved. 
-          <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography> 
-          <Link underline="none" href="/legal/privacy-policy/">Privacy</Link> 
-          <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography> 
+          &copy; Zesty.io Platform, Inc. All Rights Reserved.
+          <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography>
+          <Link underline="none" href="/legal/privacy-policy/">Privacy</Link>
+          <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography>
           <Link underline="none" href="/legal/end-user-license-agreement/">Terms</Link>
         </Typography>
         <Typography

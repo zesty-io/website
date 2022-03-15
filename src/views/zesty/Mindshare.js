@@ -166,7 +166,7 @@ function Mindshare({ content }) {
         </Container>
         {/* Featured Articles */}
         <HorizontallyAlignedBlogCardWithShapedImage
-          featuredLink={content.featured_article.data[0]?.meta?.web?.uri}
+          featuredLink={content.featured_article.data[0]?.meta?.web?.uri || FillerContent.href}
           featuredImage={
             content.featured_article.data[0]?.hero_image?.data[0]?.url ||
             FillerContent.image
@@ -209,7 +209,7 @@ function Mindshare({ content }) {
           description={
             content.case_studies_description || FillerContent.description
           }
-          ctaBtn={content.case_studies_cta || FillerContent.cta}
+
           caseStudy={
             content?.case_studies?.data || FillerContent.missingDataArray
           }
