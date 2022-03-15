@@ -25,36 +25,113 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
- import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import SimpleHeroWithSearchBox from 'blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
+import { SimpleHeroWithSingleCta } from 'blocks/heroes';
 import VerticalMinimalDesignedBlogCardsPage from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 import { Breadcrumb } from 'blocks/progressSteps';
 import { Result } from 'blocks/formLayouts';
 import { Newsletter } from 'blocks/newsletters';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+// filler content
+import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
-
 function Category({ content }) {
   const theme = useTheme();
-  
-  const SimpleHeroWithSearchBoxProps = {
-    hideForm: true,
-    title: content?.meta?.web?.seo_meta_title || '',
-    description: content?.meta?.web?.seo_meta_description || '',
-  };
 
-  const VerticalMinimalDesignedBlogCardsPageProps = {
-    hideLoadMore: true,
-    list: undefined,
-  };
+  // const SimpleHeroWithSearchBoxProps = {
+  //   hideForm: true,
+  //   title: content?.meta?.web?.seo_meta_title || '',
+  //   description: content?.meta?.web?.seo_meta_description || '',
+  // };
+
+  // const VerticalMinimalDesignedBlogCardsPageProps = {
+  //   hideLoadMore: true,
+  //   list: undefined,
+  // };
+
+  // use effect pull in news articles
+  useEffect(() => {
+    try {
+      const fetchNews = async () =>{
+        // const url = `${zestyURL}/-/allnewsarticles.json`;
+        const url = `${zestyURL}/-/allarticles.json`;
+        console.log(url);
+        const response = await fetch(url);
+        console.log(response);
+        const news = await response.json();
+        await console.log(news);
+      }
+
+      fetchNews();
+
+    } catch(err){
+      console.error(`Could Not Find Results: ${error}`);
+    }
+  })
+
+  
+  let zestyURL =
+    undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
+
   return (
     <>
-
+      <Box bgcolor={'alternate.main'}>
+        <Container paddingY={2}>
+          <Breadcrumb />
+        </Container>
+      </Box>
+      <Container>
+        <SimpleHeroWithSingleCta
+          title={content.category || FillerContent.header}
+          description={content.description || FillerContent.description}
+          cta={content.cta_button || FillerContent.cta}
+          ctaHref={content.cta_href.data[0]?.meta.web.uri || FillerContent.href}
+        />
+      </Container>
+      <Container>
+        <Result events={[]} />
+      </Container>
       <Box
+        position={'relative'}
+        marginTop={{ xs: 4, md: 6 }}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <Box
+          component={'svg'}
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          viewBox="0 0 1920 100.1"
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            transform: 'translateY(-50%)',
+            zIndex: 2,
+            width: 1,
+          }}
+        >
+          <path
+            fill={theme.palette.alternate.main}
+            d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+          ></path>
+        </Box>
+        <Container>
+          <Newsletter />
+        </Container>
+      </Box>
+
+      {/* <Box
         position={'relative'}
         marginTop={{ xs: 4, md: 6 }}
         sx={{
@@ -95,11 +172,11 @@ function Category({ content }) {
         </Container>
       <VerticalMinimalDesignedBlogCardsPage
         {...VerticalMinimalDesignedBlogCardsPageProps}
-      />
+      /> */}
       {/* <h1
         dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
       ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
+      <div>{content.meta.web.seo_meta_description}</div> */}
       <div
         style={{
           background: '#eee',
@@ -110,7 +187,7 @@ function Category({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div> */}
+      </div>
     </>
   );
 }
