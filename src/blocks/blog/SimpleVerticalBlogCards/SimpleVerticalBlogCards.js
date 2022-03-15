@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
 const mock = [
   {
@@ -61,8 +62,9 @@ const mock = [
   },
 ];
 
-const SimpleVerticalBlogCards = () => {
+const SimpleVerticalBlogCards = ({ header, cards, cta, cta_url }) => {
   const theme = useTheme();
+  const cardList = cards || mock;
   return (
     <Container>
       <Box>
@@ -73,28 +75,12 @@ const SimpleVerticalBlogCards = () => {
           flexDirection={{ xs: 'column', sm: 'row' }}
           marginBottom={4}
         >
-          <Box>
-            <Typography fontWeight={700} variant={'h6'} gutterBottom>
-              Latest stories
-            </Typography>
-            <Typography color={'text.secondary'}>
-              Here’s what we’ve been up to recently.
-            </Typography>
-          </Box>
-          <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
-            <Box
-              component={Button}
-              variant="outlined"
-              color="primary"
-              size="large"
-              marginLeft={2}
-            >
-              View all
-            </Box>
-          </Box>
+          <Box
+            dangerouslySetInnerHTML={{ __html: header || FillerContent.header }}
+          ></Box>
         </Box>
         <Grid container spacing={4}>
-          {mock.map((item, i) => (
+          {cardList?.map((item, i) => (
             <Grid item xs={12} md={6} key={i}>
               <Box
                 component={'a'}
@@ -112,7 +98,7 @@ const SimpleVerticalBlogCards = () => {
               >
                 <Box component={Card} width={1} height={1} borderRadius={2}>
                   <CardMedia
-                    image={item.image}
+                    image={item?.image?.data && item?.image?.data[0]?.url}
                     title={item.title}
                     sx={{
                       height: { xs: 300, md: 360 },
@@ -131,12 +117,12 @@ const SimpleVerticalBlogCards = () => {
                       alignItems: 'center',
                     }}
                   >
-                    <Box
+                    {/* <Box
                       display={'flex'}
                       justifyContent={'center'}
                       flexWrap={'wrap'}
                     >
-                      {item.tags.map((item) => (
+                      {item?.tags?.map((item) => (
                         <Chip
                           key={item}
                           label={item}
@@ -144,7 +130,7 @@ const SimpleVerticalBlogCards = () => {
                           sx={{ marginBottom: 1, marginRight: 1 }}
                         />
                       ))}
-                    </Box>
+                    </Box> */}
                     <Typography
                       variant={'h6'}
                       fontWeight={700}
@@ -160,11 +146,11 @@ const SimpleVerticalBlogCards = () => {
                         color={'text.secondary'}
                         component={'i'}
                       >
-                        {item.author.name} - {item.date}
+                        {item?.author?.name}
                       </Typography>
                     </Box>
                     <Typography color="text.secondary" align={'center'}>
-                      {item.description}
+                      {item.summary || item.description}
                     </Typography>
                   </CardContent>
                 </Box>
@@ -172,6 +158,31 @@ const SimpleVerticalBlogCards = () => {
             </Grid>
           ))}
         </Grid>
+        {/* <Box>
+            <Typography fontWeight={700} variant={'h6'} gutterBottom>
+              Latest stories
+            </Typography>
+            <Typography color={'text.secondary'}>
+              Here’s what we’ve been up to recently.
+            </Typography>
+          </Box> */}
+        <Box
+          display="flex"
+          width={1}
+          justifyContent={'center'}
+          marginTop={{ xs: 2, md: 4 }}
+        >
+          <Box
+            href={cta_url || FillerContent.href}
+            component={Button}
+            variant="contained"
+            color="primary"
+            size="large"
+            marginLeft={2}
+          >
+            {cta || FillerContent.cta}
+          </Box>
+        </Box>
       </Box>
     </Container>
   );

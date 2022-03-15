@@ -7,8 +7,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
-const CtaWithCoverImage = () => {
+const CtaWithCoverImage = ({ title, cta, image, summary, cta_url }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -18,18 +19,19 @@ const CtaWithCoverImage = () => {
     <Box>
       <Box marginBottom={2}>
         <Typography variant="h4" color="text.primary" sx={{ fontWeight: 700 }}>
-          The new era of tech companies
+          {title || 'The new era of tech companies'}
         </Typography>
       </Box>
       <Box marginBottom={4}>
-        <Typography variant="h6" color="text.secondary" gutterBottom>
+        {/* <Typography variant="h6" color="text.secondary" gutterBottom>
           Drawing thousands of the world's technology leaders together to learn
           and do business
-        </Typography>
+        </Typography> */}
         <Typography component="p">
-          Meh synth Schlitz, tempor duis single-origin coffee ea next level
-          ethnic fingerstache fanny pack nostrud. Photo booth anim 8-bit hella,
-          PBR 3 wolf moon beard Helvetica.
+          {summary ||
+            `Meh synth Schlitz, tempor duis single-origin coffee ea next level
+          ethnic fingerstache fanny pack nostrud. Photo booth anim 7-bit hella,
+          PBR 2 wolf moon beard Helvetica`}
         </Typography>
       </Box>
       <Box
@@ -38,14 +40,15 @@ const CtaWithCoverImage = () => {
         alignItems={{ xs: 'stretched', sm: 'flex-start' }}
       >
         <Button
+          href={cta_url || FillerContent.href}
           variant="contained"
           color="primary"
           size="large"
           fullWidth={isMd ? false : true}
         >
-          Apply to exhibit
+          {cta || 'Apply to exhibit'}
         </Button>
-        <Box
+        {/* <Box
           component={Button}
           variant="outlined"
           color="primary"
@@ -55,7 +58,7 @@ const CtaWithCoverImage = () => {
           fullWidth={isMd ? false : true}
         >
           Apply to attend
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
@@ -120,7 +123,11 @@ const CtaWithCoverImage = () => {
                   >
                     <Box
                       component={'img'}
+                      // src={
+                      //   'https://assets.maccarianagency.com/backgrounds/img19.jpg'
+                      // }
                       src={
+                        image ||
                         'https://assets.maccarianagency.com/backgrounds/img19.jpg'
                       }
                       height={{ xs: 'auto', md: 1 }}

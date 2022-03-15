@@ -11,6 +11,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
 import Container from 'components/Container';
+import { Typography } from '@mui/material';
+import FillerContent from 'components/FillerContent';
 
 const mock = [
   {
@@ -60,7 +62,7 @@ const mock = [
   {
     title: 'Documentation for everything',
     subtitle:
-      'We\'ve written extensive documentation for components and tools, so you never have to reverse engineer anything.',
+      "We've written extensive documentation for components and tools, so you never have to reverse engineer anything.",
     icon: (
       <svg
         height={24}
@@ -81,12 +83,12 @@ const mock = [
   },
 ];
 
-const FeatureListWithDesktopAppScreenshot = () => {
-  const theme = useTheme();
-
-  const LeftSide = () => (
-    <List disablePadding>
-      {mock.map((item, index) => (
+const LeftSide = ({ content }) => (
+  <List disablePadding>
+    <Box
+      dangerouslySetInnerHTML={{ __html: content || FillerContent.description }}
+    ></Box>
+    {/* {mock.map((item, index) => (
         <ListItem key={index} disableGutters>
           <ListItemAvatar>
             <Box
@@ -100,11 +102,13 @@ const FeatureListWithDesktopAppScreenshot = () => {
           </ListItemAvatar>
           <ListItemText primary={item.title} secondary={item.subtitle} />
         </ListItem>
-      ))}
-    </List>
-  );
+      ))} */}
+  </List>
+);
 
-  const RightSide = () => (
+const RightSide = ({ image }) => {
+  const theme = useTheme();
+  return (
     <Box width={1}>
       <Box
         sx={{
@@ -139,7 +143,7 @@ const FeatureListWithDesktopAppScreenshot = () => {
             >
               <Box
                 component={'img'}
-                src="https://assets.maccarianagency.com/screenshots/dashboard.png"
+                src={image || FillerContent.dashboard_image}
                 alt="Image Description"
                 width={1}
                 height={1}
@@ -155,17 +159,29 @@ const FeatureListWithDesktopAppScreenshot = () => {
       </Box>
     </Box>
   );
-
+};
+const FeatureListWithDesktopAppScreenshot = ({ header, content, image }) => {
   return (
     <Container>
+      <Typography
+        variant="h4"
+        color="text.primary"
+        align={'center'}
+        gutterBottom
+        sx={{
+          fontWeight: 700,
+        }}
+      >
+        {header || FillerContent.header}
+      </Typography>
       <Grid container spacing={4}>
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box>
-            <LeftSide />
+            <LeftSide content={content} />
           </Box>
         </Grid>
         <Grid item container alignItems={'center'} xs={12} md={6}>
-          <RightSide />
+          <RightSide image={image} />
         </Grid>
       </Grid>
     </Container>
