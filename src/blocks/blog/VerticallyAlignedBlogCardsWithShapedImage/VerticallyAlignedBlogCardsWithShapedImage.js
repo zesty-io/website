@@ -19,7 +19,6 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   ctaBtn,
   popularArticles = [],
 }) => {
-
   const theme = useTheme();
 
   return (
@@ -42,7 +41,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
           <Box
             component={Button}
-            variant="outlined"
+            variant="contained"
             color="primary"
             size="large"
             marginLeft={2}

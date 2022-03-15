@@ -33,39 +33,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import { colors, Container } from '@mui/material';
+import FillerContent from 'components/FillerContent';
 
-const mock = [
-  {
-    title: 'Main Demo',
-    description:
-      'Main demo comes with 18 landing pages, including over 35 commonly used pages that can be combined with demos.',
-    illustration:
-      'https://assets.maccarianagency.com/screenshots/the-front-main-demo.png',
-    illustrationDark:
-      'https://assets.maccarianagency.com/screenshots/the-front-main-demo--dark.png',
-    href: '/home',
-    pages: 53,
-    btnText: 'Preview Main Demo',
-    bgcolor: 'blue',
-  },
-  {
-    title: 'E-Commerce Demo',
-    description:
-      'Everything you need to build beautiful, responsive, fully coded e-commerce websites and shop applications.',
-    illustration:
-      'https://assets.maccarianagency.com/screenshots/the-front-ecommerce-demo.png',
-    illustrationDark:
-      'https://assets.maccarianagency.com/screenshots/the-front-ecommerce-demo--dark.png',
-    href: '/demos/ecommerce',
-    pages: 9,
-    btnText: 'Preview E-commerce Demo',
-    bgcolor: 'pink',
-  },
-];
-
-const DemoComp = () => {
+const DemoComp = ({ demos }) => {
   const theme = useTheme();
-
+  const data = demos || FillerContent.demos;
   return (
     <Box>
       <Box>
@@ -87,7 +59,7 @@ const DemoComp = () => {
         </Typography>
       </Box>
       <Box>
-        {mock.map((item, i) => (
+        {data.map((item, i) => (
           <Grid
             key={i}
             container

@@ -8,8 +8,9 @@ import Grid from '@mui/material/Grid';
 import CreditCardsIllustration from 'svg/illustrations/CreditCards';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
-const CtaWithIllustration = () => {
+const CtaWithIllustration = ({ title, description, cta, cta_url, image }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -27,14 +28,17 @@ const CtaWithIllustration = () => {
                   fontWeight: 700,
                 }}
               >
-                The pro account for entrepreneurs.
+                {title || 'The pro account for entrepreneurs.'}
               </Typography>
             </Box>
             <Box marginBottom={3}>
               <Typography variant="h6" component="p" color="text.secondary">
+                {description ||
+                  `
                 Much more than a bank, it is the ideal, fastest and most
                 convenient financial and administrative co-driver to work with
                 peace of mind.
+                `}
               </Typography>
             </Box>
             <Box
@@ -48,10 +52,11 @@ const CtaWithIllustration = () => {
                 color="primary"
                 size="large"
                 fullWidth={!isMd}
+                href={cta_url || FillerContent.href}
               >
-                Contact sales
+                {cta || 'Contact sales'}
               </Box>
-              <Box
+              {/* <Box
                 component={Button}
                 variant="contained"
                 color="primary"
@@ -61,7 +66,7 @@ const CtaWithIllustration = () => {
                 marginLeft={{ sm: 2 }}
               >
                 Subscribe
-              </Box>
+              </Box> */}
             </Box>
           </Box>
         </Grid>

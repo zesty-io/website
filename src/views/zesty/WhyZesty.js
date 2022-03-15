@@ -32,42 +32,103 @@ import WithBorderedCardsAndBrandColor from 'blocks/stats/WithBorderedCardsAndBra
 import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
+import CtaWithIllustration from 'blocks/cta/CtaWithIllustration';
 
 function WhyZesty({ content }) {
+  console.log(content, '123123');
   let overview_text =
-    undefined !== content.overview_of_process_text
-      ? content.overview_of_process_text
+    undefined !== content.hybrid_vs_headless_content
+      ? content.hybrid_vs_headless_content
       : 'Failed to load content.';
   let image_url =
-    undefined !== content.overview_of_process_image.data
-      ? content.overview_of_process_image.data[0].url
+    undefined !== content.hybrid_vs_headless_image
+      ? content.hybrid_vs_headless_image
       : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
+
+  const headerProps = {
+    title: content?.header_title,
+    description: content?.header_description,
+    cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
+    cta_right:
+      content?.cta_right.data && content?.cta_right?.data[0]?.button_text,
+    cta_left_url:
+      content?.cta_left.data &&
+      content?.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+    cta_right_url:
+      content?.cta_right.data &&
+      content?.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <SimpleHeroWithImageAndCtaButtonsPage></SimpleHeroWithImageAndCtaButtonsPage>
+      {/* Header */}
+      <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+
+      {/* Benefits */}
+      {content?.benefits?.data?.map((e) => {
+        return (
+          <FeaturesWithMobileScreenshot
+            content={e.benefit_content}
+            header={e.header}
+            image={e.benefit_image}
+          />
+        );
+      })}
+
+      {/* HYBRID VS HEADLESS */}
       <FeaturesWithIllustration
         rich_text={overview_text}
         image_url={image_url}
       />
-      <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
-      <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
-      <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
-      <WithBorderedCardsAndBrandColor></WithBorderedCardsAndBrandColor>
-      <FeaturesWithIllustration
-        rich_text={overview_text}
-        image_url={image_url}
+
+      {/* PROOF POINTS */}
+      <WithBorderedCardsAndBrandColor
+        cards={content.proof_points.data}
+        content={content.proof_points_content}
       />
-      <CtaWithCoverImage></CtaWithCoverImage>
-      <VerticallyAlignedBlogCardsWithShapedImage></VerticallyAlignedBlogCardsWithShapedImage>
-      <CtaWithInputField></CtaWithInputField>
+
+      {/* CASE STUDY */}
+      {content?.case_study?.data?.map((e) => (
+        <CtaWithCoverImage
+          title={e.title}
+          summary={e.summary}
+          cta={e.cta}
+          cta_url={e.link}
+          image={e.image.data[0].url}
+        />
+      ))}
+
+      {/* LINK TO PRODUCT PAGE */}
+      <CtaWithIllustration
+        title={'See how Zesty.io does CMS better'}
+        description={'All the features and functions without the headache.'}
+        cta={'Learn More'}
+        cta_url={''}
+        image={''}
+      />
+
+      {/* LINK TO BLOG */}
+      <VerticallyAlignedBlogCardsWithShapedImage
+        title={'Industry Insights'}
+        description={
+          'Stay up-to-date with the latest in digital experience, content management and more.'
+        }
+      />
+
+      {/* FINAL CTA */}
+      <CtaWithInputField
+        title={'Subscribe to the zestiest newsletter in the industry'}
+        description={
+          'Get the latest from the Zesty team, from whitepapers to product updates.'
+        }
+        cta={'Subscribe'}
+      />
       {/*
             <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
                 <h2>Accessible Zesty.io JSON Object</h2>
                 <pre>{JSON.stringify(content, null, 2)}</pre>
             </div>
             */}
-      {/* End of Zesty.io output example */}
     </>
   );
 }

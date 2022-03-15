@@ -3,10 +3,9 @@ import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
 import Container from 'components/Container';
 
-const WithCompanyLogo = () => {
+const WithCompanyLogo = ({ content }) => {
   const theme = useTheme();
 
   return (
@@ -30,7 +29,8 @@ const WithCompanyLogo = () => {
                   : 'none',
             }}
           />
-          <Typography variant={'h6'} component={'p'} align={'center'}>
+          <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
+          {/* <Typography variant={'h6'} component={'p'} align={'center'}>
             First class templates.
             <br />
             These guys know what they're doing: great code quality, clear naming
@@ -49,7 +49,7 @@ const WithCompanyLogo = () => {
             <Typography color="text.secondary" align={'center'}>
               MUI lover
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       </Container>
     </Box>
