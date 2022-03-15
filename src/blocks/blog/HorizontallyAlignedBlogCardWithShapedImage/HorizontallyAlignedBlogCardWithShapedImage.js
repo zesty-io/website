@@ -15,7 +15,7 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({ featured }) => {
 
   const theme = useTheme();
   return (
-    <Container>
+    <Container paddingTop={'0 !important'}>
       <Box
         component={'a'}
         href={''}
@@ -50,7 +50,7 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({ featured }) => {
               component={'img'}
               height={1}
               width={1}
-              src={featured?.hero_image.data[0]?.url || FillerContent.image}
+              src={featured?.hero_image?.data[0]?.url || FillerContent.image}
               alt="Headshot"
               sx={{
                 objectFit: 'cover',
@@ -120,7 +120,10 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({ featured }) => {
               >
                 <Box display={'flex'} alignItems={'center'}>
                   <Avatar
-                    src={featured?.author.data[0].headshot.data[0].url || FillerContent.image}
+                    src={
+                      featured?.author.data[0].headshot.data[0].url ||
+                      FillerContent.image
+                    }
                     sx={{ marginRight: 1 }}
                   />
                   <Typography color={'text.secondary'}>
