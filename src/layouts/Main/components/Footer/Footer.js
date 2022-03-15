@@ -13,7 +13,9 @@ const Footer = ({customRouting,colorInvert = false }) => {
   console.log(customRouting)
   return (
     <Grid container spacing={2} >
-      <Grid item xs={2}>
+      <Grid 
+      item xs={2}
+      justifyContent={'space-around'}>
         <Box
           display={'flex'}
           justifyContent={'space-between'}
