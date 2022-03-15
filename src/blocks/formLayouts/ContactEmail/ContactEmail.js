@@ -15,7 +15,7 @@ const Contact = ({ title, description, ctaBtn }) => {
           align={'center'}
           gutterBottom
         >
-          {title || FillerContent.header}
+          {title }
         </Typography>
         <Typography
           variant={'h6'}
@@ -23,7 +23,7 @@ const Contact = ({ title, description, ctaBtn }) => {
           color={'text.secondary'}
           align={'center'}
         >
-          {description || FillerContent.header}
+          {description }
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
@@ -64,7 +64,7 @@ const Contact = ({ title, description, ctaBtn }) => {
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
             >
-              {ctaBtn || FillerContent.cta}
+              {ctaBtn }
             </Box>
           </Box>
         </Box>
