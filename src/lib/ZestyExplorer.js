@@ -44,7 +44,8 @@ function deepen(obj) {
   return result;
 }
 
-const ZestyExplorer = ({ content }) => {
+const ZestyExplorerComp = ({ content }) => {
+  const [modal, setModal] = React.useState(false);
   const [search, setSearch] = React.useState();
   // convert obj to dot
   const flaten1 = flattenObj(content);
@@ -90,6 +91,16 @@ const ZestyExplorer = ({ content }) => {
 
   return (
     <div>
+      <Grid container marginBottom={4} justifyContent="center">
+        <Button
+          onClick={() => {
+            setModal(!modal);
+          }}
+          variant="outlined"
+        >
+          View Page Data
+        </Button>
+      </Grid>
       <div style={{ width: '80vw', margin: '0 auto' }}>
         <TextField
           value={search}
@@ -117,9 +128,9 @@ const ZestyExplorer = ({ content }) => {
   );
 };
 
-export default React.memo(ZestyExplorer);
+export default React.memo(ZestyExplorerComp);
 
-export const BasicModal = ({ content, onClose }) => {
+export const ZestyExplorer = ({ content, onClose }) => {
   const handleClose = (e) => {
     e.stopPropagation();
     onClose();
@@ -133,9 +144,9 @@ export const BasicModal = ({ content, onClose }) => {
         width: '100%',
         background: 'white',
         position: 'fixed',
-        top: '0',
-        left: '0',
-        zIndex: '999999',
+        bottom: '20px',
+        left: '20px',
+        zIndex: '9999999999999999',
         padding: '2rem',
       }}
     >

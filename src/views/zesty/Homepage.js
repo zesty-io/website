@@ -41,8 +41,6 @@ import ReviewsWithSimpleBoxes from 'blocks/testimonials/ReviewsWithSimpleBoxes';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 import FillerContent from 'components/FillerContent';
-import { Button, Grid } from '@mui/material';
-import { BasicModal } from 'components/ZestyExplorer';
 
 let zestyURL =
   (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
@@ -61,7 +59,7 @@ const getReviewsData = async (setReviewsData) => {
 };
 function Homepage({ content }) {
   const theme = useTheme();
-  const [modal, setModal] = React.useState(false);
+  // const [modal, setModal] = React.useState(false);
   const [cardData, setcardData] = React.useState();
   const [reviewsData, setReviewsData] = React.useState();
   React.useEffect(() => {
@@ -86,9 +84,6 @@ function Homepage({ content }) {
   };
   return (
     <>
-      {modal && (
-        <BasicModal content={content} onClose={() => setModal(false)} />
-      )}
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
       <HeroWithIllustrationAndCta {...heroProps} />
       <WithSwiperAndBrandBackgroundColor logos={content.homepage_logos?.data} />
@@ -105,7 +100,7 @@ function Homepage({ content }) {
       </Box>
       <VerticallyAlignedBlogCardsWithShapedImage />
       <CtaWithInputField />
-      <Grid container marginBottom={4} justifyContent="center">
+      {/* <Grid container marginBottom={4} justifyContent="center">
         <Button
           onClick={() => {
             setModal(!modal);
@@ -114,7 +109,7 @@ function Homepage({ content }) {
         >
           View Page Data
         </Button>
-      </Grid>
+      </Grid> */}
       {/*<div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
                  <h2>Accessible Zesty.io JSON Object</h2>
                  <pre>{JSON.stringify(content, null, 2)}</pre>
