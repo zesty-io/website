@@ -51,8 +51,6 @@ function Mindshare({ content }) {
   const [allArticles, setAllArticles] = useState([]);
   const [authors, setAuthors] = useState([]);
 
-  //Search Filter
-  const [value, setValue] = useState(null);
 
   useEffect(() => {
     try {
