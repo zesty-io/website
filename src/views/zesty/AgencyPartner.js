@@ -57,14 +57,16 @@ function AgencyPartner({ content }) {
       </Container>
 
       <CtaSimpleCentered
-        title={content.cta_header_title}
-        description={content.cta_header_description}
-        ctaLeft={content.cta_header_left}
-        ctaRight={content.cta_header_right}
+        ctaTitle={content.cta_header_title || FillerContent.header}
+        description={
+          content.cta_header_description || FillerContent.description
+        }
+        ctaLeft={content.cta_header_left || FillerContent.cta}
+        ctaRight={content.cta_header_right || FillerContent.cta}
       />
 
       <Container>
-        <Main partnerCards={content.agency_partners_cards.data} />
+        <Main partnerCards={content.agency_partners_cards.data || FillerContent.missingDataArray} />
       </Container>
       <Box
         position={'relative'}
@@ -97,9 +99,9 @@ function AgencyPartner({ content }) {
         </Box>
         <Container>
           <ContactEmail
-            title={content.cta_footer_title}
-            description={content.cta_footer_description}
-            ctaBtn={content.cta_footer_cta}
+            title={content.cta_footer_title || FillerContent.title}
+            description={content.cta_footer_description || FillerContent.description}
+            ctaBtn={content.cta_footer_cta ||  FillerContent.cta}
           />
         </Container>
       </Box>
