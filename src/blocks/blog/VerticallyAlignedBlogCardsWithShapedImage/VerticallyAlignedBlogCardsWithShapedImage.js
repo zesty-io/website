@@ -13,50 +13,17 @@ import Avatar from '@mui/material/Avatar';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img23.jpg',
-    description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem',
-    title: 'Eiusmod tempor incididunt',
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-    },
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus',
-    title: 'Sed ut perspiciatis',
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
-    },
-    date: '02 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-    description:
-      'Qui blanditiis praesentium voluptatum deleniti atque corrupti',
-    title: 'Unde omnis iste natus',
-    author: {
-      name: 'Chary Smith',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '05 Mar',
-  },
-];
-
 const VerticallyAlignedBlogCardsWithShapedImage = ({
   title,
   description,
   ctaBtn,
-  data=[],
-  searchQuery,
+  popularArticles = [],
 }) => {
+
   const theme = useTheme();
+
   return (
-    <Container>
+    <Container paddingTop={'0 !important'}>
       <Box
         display={'flex'}
         justifyContent={'space-between'}
@@ -85,20 +52,11 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {data.filter((post) =>{
-          if (searchQuery === ""){
-            return post
-          } else if (
-            post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            post.description.toLowerCase().includes(searchQuery.toLowerCase())
-          ) {
-            return post;
-          }
-        }).map((item, i) => (
+        {popularArticles.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item?.uri || FillerContent.href}
+              href={item?.meta?.uri || FillerContent.href}
               display={'block'}
               width={1}
               height={1}
@@ -120,8 +78,8 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item?.hero_image || FillerContent.image}
-                  title={item?.meta_title || 'Card Image'}
+                  image={item?.hero_image?.data[0]?.url || FillerContent.image}
+                  title={item?.title || 'Card Image'}
                   sx={{
                     height: { xs: 300, md: 360 },
                     position: 'relative',
@@ -170,11 +128,14 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item?.thumbnail_image || FillerContent.image}
+                        src={
+                          item?.author?.data[0].headshot.data[0].url ||
+                          FillerContent.image
+                        }
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item?.interviewee_name || FillerContent.header}
+                        {item?.author?.data[0]?.name || FillerContent.header}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>

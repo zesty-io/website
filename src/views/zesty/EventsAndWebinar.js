@@ -34,14 +34,35 @@ import Container from 'components/Container';
 import { SimpleHero } from 'blocks/heroes';
 import { Result } from 'blocks/formLayouts';
 import { Newsletter } from 'blocks/newsletters';
+import { CtaWithIllustrationSingleCta } from 'blocks/cta';
+// filler content
+import FillerContent from 'components/FillerContent';
 
 function EventsAndWebinar({ content }) {
   const theme = useTheme();
+
+  // conditional rendering
+  const ComingSoon = () => {
+    return(
+      <>
+        <CtaWithIllustrationSingleCta
+        title={'Coming Soon!'}
+        description={'Check back again for new Events and Webinars!'}
+        cta={'Home'}
+        ctaHref={'/'}
+        image={content.coming_soon_image?.data[0].url || FillerContent.image} />
+      </>
+    )
+  }
+
   return (
     <>
-      <SimpleHero />
+      <SimpleHero
+      title={content.title || FillerContent.header}
+      subtitle={content.subtitle || ''}
+      description={content.header_description || FillerContent.description} />
       <Container>
-        <Result />
+        {content.events?.data ? <Result events={content.events.data || []} /> : <ComingSoon />}
       </Container>
       <Box
         position={'relative'}
@@ -73,11 +94,13 @@ function EventsAndWebinar({ content }) {
           ></path>
         </Box>
         <Container>
-          <Newsletter />
+          <Newsletter
+          title={content.cta_title || FillerContent.header}
+          description={content.cta_description || FillerContent.description}
+          ctaBtn={content.cta_button || FillerContent.cta} />
         </Container>
       </Box>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-
       {/* <div
         style={{
           background: '#eee',

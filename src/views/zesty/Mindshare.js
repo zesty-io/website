@@ -27,44 +27,73 @@
 
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import Chip from '@mui/material/Chip';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
-
 import HeroWithBackgroundAndFullSearchBar from 'blocks/heroes/HeroWithBackgroundAndFullSearchBar/';
-import SearchBox from 'blocks/searchBox/SearchBox'
-import HorizontallyAlignedBlogCardWithShapedImage from 'blocks/blog/HorizontallyAlignedBlogCardWithShapedImage'
+import HorizontallyAlignedBlogCardWithShapedImage from 'blocks/blog/HorizontallyAlignedBlogCardWithShapedImage';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
 import BlogCardsWithFullBackgroundImage from 'blocks/blog/BlogCardsWithFullBackgroundImage';
-import PopularArticles from 'blocks/blog/popularArticles/PopularArticles'
-import Newsletter from 'blocks/newsletters/Newsletter'
-
-
+import PopularArticles from 'blocks/blog/popularArticles/PopularArticles';
+import Newsletter from 'blocks/newsletters/Newsletter';
 
 function Mindshare({ content }) {
   const theme = useTheme();
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
+  const [allArticles, setAllArticles] = useState([]);
+  const [authors, setAuthors] = useState([]);
 
-  const [searchQuery, setSearchQuery] = useState('');
+  //Search Filter
+  const [value, setValue] = useState(null);
+
+
 
   useEffect(() => {
     try {
       const fetchData = async () => {
         const uri = `${zestyURL}/-/gql/articles.json`;
+
         const response = await fetch(uri);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
-        const json = await response.json();
-        console.log('JSON:', json.slice(0, 10));
+
+        const articles = await response.json();
+
+        const authorZUID = articles.map((article) => article.author);
+
+        const dedupeAuthorZUID = [...new Set(authorZUID)];
+
+        const getAuthors = dedupeAuthorZUID.map(async (getaAuthor) => {
+          const authorResponse = await fetch(
+            `${zestyURL}/-/instant/${getaAuthor}.json`,
+          );
+
+          const authorsInfo = await authorResponse.json();
+
+          let authorData = {
+            authorImage: authorsInfo.data[0].content.headshot.data[0].url,
+            authorName: authorsInfo.data[0].content.name,
+            authorZUID: authorsInfo.data[0].content.zuid.data[0].zuid,
+          };
+
+          return authorData;
+        });
+
+        const latestArticles = articles;
+
         setIsLoaded(true);
-        setItems(json.slice(0, 10));
+        setAllArticles(latestArticles);
+        Promise.all(getAuthors).then((author) => setAuthors(author));
       };
+
       fetchData();
     } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
@@ -82,47 +111,71 @@ function Mindshare({ content }) {
       ? process.env.zesty.production
       : process.env.zesty.stage;
 
-  const onSearchHandler = (evt) => {
-    console.log(evt.target.value);
-    setSearchQuery(evt.target.value);
+  const onSearchHandler = (evt, value) => {
+    if (!value) return;
+    window.open(value.uri);
   };
 
   return (
     <>
       <Box bgcolor={'alternate.main'} position={'relative'}>
         <HeroWithBackgroundAndFullSearchBar
-          image={content.hero_image.data[0].url}
+          image={content.hero_image?.data[0].url}
           title={content.title}
           subTitle={content.subtitle}
         />
 
-        <Container
-          sx={{
-            marginTop: '-5rem',
-            position: 'relative',
-            zIndex: 3,
-            paddingY: '0 !important',
-          }}
-        >
-          <SearchBox
-            onSearchHandler={onSearchHandler}
+        <Container>
+          {/* Search Filter */}
+          <Autocomplete
+            sx={{
+              borderRadius: 1,
+              marginTop: '-9rem',
+              position: 'relative',
+              zIndex: 3,
+              paddingY: '0 !important',
+              backgroundColor: theme.palette.background.paper,
+            }}
+            onChange={onSearchHandler}
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
+            options={allArticles}
+            getOptionLabel={(option) => {
+              return option.title;
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Search Articles" />
+            )}
             chipsTitle={chipsTitle}
-            searchQuery={searchQuery}
           />
+          {/* Popular_categories */}
+          <Box paddingTop={{ xs: 6, md: 8 }}>
+            {chipsTitle.map((item) => (
+              <Chip
+                key={item}
+                label={item}
+                component="a"
+                href=""
+                clickable
+                sx={{ margin: 0.5 }}
+              />
+            ))}
+          </Box>
         </Container>
-
         {/* Featured Articles */}
         <HorizontallyAlignedBlogCardWithShapedImage
           featured={content.featured_article.data[0]}
         />
 
-        {/* Top insights Fetch Request coming soon */}
+        {/* Popular Articles */}
         <VerticallyAlignedBlogCardsWithShapedImage
           title={content.top_articles_title}
           description={content.top_articles_description}
           ctaBtn={content.top_article_cta}
-          data={items || FillerContent.missingDataArray}
-          searchQuery={searchQuery}
+          popularArticles={
+            content.popular_articles.data || FillerContent.missingDataArray
+          }
         />
 
         {/* Case Studies */}
@@ -135,14 +188,13 @@ function Mindshare({ content }) {
 
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
-            {/*  Additional Insights*/}
+            {/*  Fetch ALL ARTICLES W/PAGINATIONS */}
             <PopularArticles
-              data={
-                content.popular_articles.data || FillerContent.missingDataArray
-              }
               title={content.additional_insights_title}
               description={content.additional_insights_description}
               ctaBtn={content.additional_insights_cta}
+              articles={allArticles}
+              authors={authors}
             />
           </Container>
         </Box>
@@ -179,7 +231,7 @@ function Mindshare({ content }) {
       </Container>
 
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
+      {/* <h1
         dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
       ></h1>
       <div>{content.meta.web.seo_meta_description}</div>
@@ -193,7 +245,7 @@ function Mindshare({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );

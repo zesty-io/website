@@ -108,7 +108,7 @@ function Client({ content }) {
         </Container>
         <Box bgcolor={theme.palette.alternate.main}>
           <CtaSimpleCentered
-            cta={content.cta_title}
+            ctaTitle={content.cta_title}
             description={content.cta_description}
             ctaLeft={content.cta_left}
             ctaRight={content.cta_right}
