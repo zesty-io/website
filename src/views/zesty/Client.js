@@ -38,7 +38,7 @@ import CtaSimpleCentered from 'blocks/cta/CtaSimpleCentered/CtaSimpleCentered';
 import FillerContent from 'components/FillerContent';
 
 function Client({ content }) {
-
+console.log(content.client_cards.data);
   const theme = useTheme();
   return (
     <>
@@ -87,7 +87,7 @@ function Client({ content }) {
         <Box position={'relative'} zIndex={3} marginTop={{ xs: 0, md: -22 }}>
           <Container>
             <PartnersColor
-              partnerLogos={content?.logos?.data || FillerContent.photos  }
+              partnerLogos={content?.logos?.data || FillerContent.photos}
             />
           </Container>
         </Box>
@@ -109,8 +109,8 @@ function Client({ content }) {
         </Container>
         <Container>
           <Stories
-            eyeBrow={content.client_eyebrow}
-            clientTitle={content.client_title}
+            eyeBrow={content.client_eyebrow || FillerContent.header}
+            clientTitle={content.client_title || FillerContent.header}
             cards={content.client_cards.data}
           />
         </Container>

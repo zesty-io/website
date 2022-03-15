@@ -12,6 +12,7 @@ import CardMedia from '@mui/material/CardMedia';
 import FillerContent from 'components/FillerContent';
 
 const Stories = ({ cards, eyeBrow, clientTitle }) => {
+console.log("🚀 ~ file: Stories.js ~ line 15 ~ Stories ~ cards", cards)
   const theme = useTheme();
   const { mode } = theme.palette;
 
@@ -27,7 +28,7 @@ const Stories = ({ cards, eyeBrow, clientTitle }) => {
           color={'secondary'}
           align={'center'}
         >
-          {eyeBrow || FillerContent.header}
+          {eyeBrow}
         </Typography>
         <Box
           component={Typography}
@@ -38,7 +39,7 @@ const Stories = ({ cards, eyeBrow, clientTitle }) => {
           {/* <br/> tag inject in field */}
           <h3
             dangerouslySetInnerHTML={{
-              __html: clientTitle || FillerContent.header,
+              __html: clientTitle,
             }}
           ></h3>
         </Box>
@@ -48,7 +49,7 @@ const Stories = ({ cards, eyeBrow, clientTitle }) => {
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item.link || FillerContent.href}
+              href={item?.link}
               target="_blank"
               display={'block'}
               width={1}
@@ -70,8 +71,8 @@ const Stories = ({ cards, eyeBrow, clientTitle }) => {
                 flexDirection={'column'}
               >
                 <CardMedia
-                  image={item.image || FillerContent.image}
-                  title={item.title || FillerContent.header}
+                  image={item?.image?.data[0]?.url || FillerContent.image}
+                  title={item.title}
                   sx={{
                     height: 240,
                   }}
@@ -82,8 +83,8 @@ const Stories = ({ cards, eyeBrow, clientTitle }) => {
                       component="img"
                       height={1}
                       width={1}
-                      src={item.logo || FillerContent.image}
-                      alt="..."
+                      src={item?.logo?.data[0]?.url || FillerContent.image}
+                      alt={item?.title}
                       sx={{
                         filter: mode === 'dark' ? 'contrast(0)' : 'none',
                       }}
