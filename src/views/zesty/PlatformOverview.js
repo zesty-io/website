@@ -85,11 +85,15 @@ const ProductOverviewComp = ({ title, description, cards }) => {
             Our work
           </Typography>
           <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
-            {title || FillerContent.title}
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: title || FillerContent.header,
+              }}
+            ></Box>
           </Typography>
           <Box
             dangerouslySetInnerHTML={{
-              __html: description || FillerContent.description,
+              __html: description,
             }}
           ></Box>
 
@@ -239,14 +243,7 @@ function PlatformOverview({ content }) {
 
       {/* Product Overview  */}
       <ProductOverviewComp
-        title={`“CMS is boring” - but does it have to be?`}
-        description={`
-What if your CMS freed you from spending so much time building and iterating and pulling your hair out? 
-<br />
-What if you could get your message out the door without the endless processes you expect with your current CMS?
-<br />
-Yeah, it’s possible. And we’re excited too. Here’s how it works >
-        `}
+        title={content?.benefits_header}
         cards={content?.platform_overview_cards?.data}
       />
 

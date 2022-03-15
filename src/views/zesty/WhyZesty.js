@@ -98,15 +98,6 @@ function WhyZesty({ content }) {
         />
       ))}
 
-      {/* LINK TO PRODUCT PAGE */}
-      <CtaWithIllustration
-        title={'See how Zesty.io does CMS better'}
-        description={'All the features and functions without the headache.'}
-        cta={'Learn More'}
-        cta_url={''}
-        image={''}
-      />
-
       {/* LINK TO BLOG */}
       <VerticallyAlignedBlogCardsWithShapedImage
         title={'Industry Insights'}

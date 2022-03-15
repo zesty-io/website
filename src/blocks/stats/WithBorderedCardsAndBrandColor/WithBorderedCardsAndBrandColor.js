@@ -19,9 +19,8 @@ const switchIcon = (icon) => {
       return <Bolt />;
     case 'attach_money':
       return <AttachMoney />;
-
     default:
-      break;
+      return <AttachMoney />;
   }
 };
 const mock = [
