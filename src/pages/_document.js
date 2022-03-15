@@ -16,18 +16,19 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          
-        </Head>
+        <Head></Head>
         <body>
           <noscript>
-            <iframe 
-            src="https://www.googletagmanager.com/ns.html?id=GTM-MSPH3C8" 
-            height="0" width="0" 
-            style={{display: 'none',visibility:'hidden'}}></iframe>
+            <iframe
+              src="https://www.googletagmanager.com/ns.html?id=GTM-MSPH3C8"
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            ></iframe>
           </noscript>
           <Main />
           <NextScript />
+          <div id="modal-root"></div>
         </body>
       </Html>
     );
@@ -68,11 +69,12 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // Take precedence over the CacheProvider in our custom _app.js
-      enhanceComponent: (Component) => (props) => (
-        <CacheProvider value={cache}>
-          <Component {...props} />
-        </CacheProvider>
-      ),
+      enhanceComponent: (Component) => (props) =>
+        (
+          <CacheProvider value={cache}>
+            <Component {...props} />
+          </CacheProvider>
+        ),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
