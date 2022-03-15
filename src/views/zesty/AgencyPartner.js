@@ -57,7 +57,7 @@ function AgencyPartner({ content }) {
       </Container>
 
       <CtaSimpleCentered
-        title={content.cta_header_title}
+        ctaTitle={content.cta_header_title}
         description={content.cta_header_description}
         ctaLeft={content.cta_header_left}
         ctaRight={content.cta_header_right}
