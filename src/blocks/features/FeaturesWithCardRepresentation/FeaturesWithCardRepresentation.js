@@ -13,6 +13,11 @@ import {
   Schema,
   Build,
   FindInPage,
+  Storage,
+  AutoGraph,
+  Construction,
+  DashboardCustomize,
+  Api,
 } from '@mui/icons-material';
 import Icons from '@mui/icons-material';
 import Container from 'components/Container';
@@ -33,6 +38,16 @@ const switchIcon = (icon) => {
       return <Schema />;
     case 'build':
       return <Build />;
+    case 'storage':
+      return <Storage />;
+    case 'auto_graph':
+      return <AutoGraph />;
+    case 'dashbaord_customize':
+      return <DashboardCustomize />;
+    case 'api':
+      return <Api />;
+    case 'construction':
+      return <Construction />;
     default:
       return <People />;
   }
@@ -190,7 +205,7 @@ const FeaturesWithCardRepresentation = ({
           <Box
             sx={{ textAlign: 'center' }}
             dangerouslySetInnerHTML={{
-              __html: description || FillerContent.description,
+              __html: description,
             }}
           ></Box>
         </Typography>
@@ -226,18 +241,25 @@ const FeaturesWithCardRepresentation = ({
             </Grid>
           ))}
         </Grid>
-        {/* <Grid container justifyContent="center" marginTop={4}>
-          <Button
-            alignItems={'center'}
-            href={cta_url || FillerContent.href}
-            variant="contained"
-            color="primary"
-            size="large"
-            fullWidth={isMd ? false : true}
-          >
-            {cta || FillerContent.cta}
-          </Button>
-        </Grid> */}
+        {cta && (
+          <Grid container justifyContent="center" marginTop={4}>
+            <Button
+              alignItems={'center'}
+              href={
+                (cta?.data &&
+                  cta?.data[0]?.internal_link?.data &&
+                  cta?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+                FillerContent.href
+              }
+              variant="contained"
+              color="primary"
+              size="large"
+              fullWidth={isMd ? false : true}
+            >
+              {(cta.data && cta.data[0].button_text) || FillerContent.cta}
+            </Button>
+          </Grid>
+        )}
       </Container>
     </Box>
   );

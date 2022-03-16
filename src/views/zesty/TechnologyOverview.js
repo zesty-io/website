@@ -88,6 +88,7 @@ function TechnologyOverview({ content }) {
 
       {/* Tech Icons */}
       <FeaturesWithCardRepresentation
+        cta={content?.cta}
         cards={content?.tech_features_tiles?.data}
       />
 
