@@ -131,62 +131,7 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
             dangerouslySetInnerHTML={{ __html: content }}
           ></Box>
         </Typography>
-        {/* <Box marginBottom={4}>
-          <Typography
-            sx={{
-              textTransform: 'uppercase',
-              fontWeight: 'medium',
-            }}
-            gutterBottom
-            color={'secondary'}
-            align={'center'}
-          >
-            Numbers
-          </Typography>
-          <Typography
-            variant="h4"
-            align={'center'}
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-            }}
-          >
-            Our global class is open for all
-          </Typography>
-          <Typography variant="h6" align={'center'} color={'text.secondary'}>
-            The best way to learn is by using skills.
-            <br />
-            That's why every class has a project that lets you practice and get
-            feedback.
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection={{ xs: 'column', sm: 'row' }}
-            alignItems={{ xs: 'stretched', sm: 'flex-start' }}
-            justifyContent={'center'}
-            marginTop={2}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              fullWidth={isMd ? false : true}
-            >
-              Book a tutor
-            </Button>
-            <Box
-              component={Button}
-              variant="outlined"
-              color="primary"
-              size="large"
-              marginTop={{ xs: 2, sm: 0 }}
-              marginLeft={{ sm: 2 }}
-              fullWidth={isMd ? false : true}
-            >
-              Explore more
-            </Box>
-          </Box>
-        </Box> */}
+       
         <Box
           sx={{
             display: 'flex',
