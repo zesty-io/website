@@ -204,7 +204,10 @@ const ProductOverviewComp = ({ title, description, cards }) => {
                   //     ? item.illustration
                   //     : item.illustrationDark
                   // }`}
-                  src={item.image || FillerContent.illustration_image}
+                  src={
+                    (item?.image?.data && item.image.data[0].url) ||
+                    FillerContent.illustration_image
+                  }
                   alt={item.header || item.title}
                   width={1}
                   maxWidth={'80%'}
