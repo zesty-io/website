@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
 
-const HeroJarallax = (image) => {
+const HeroJarallax = ({ image, authorImage, authorName, authorDate }) => {
   useEffect(() => {
     const jarallaxInit = async () => {
       const jarallaxElems = document.querySelectorAll('.jarallax');
@@ -50,7 +50,7 @@ const HeroJarallax = (image) => {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
-          backgroundImage: `url(${image.image})`,
+          backgroundImage: `url(${image})`,
         }}
       />
       <Box
@@ -81,12 +81,12 @@ const HeroJarallax = (image) => {
           <Box display={'flex'} alignItems={'center'}>
             <Avatar
               sx={{ width: 60, height: 60, marginRight: 2 }}
-              src={'https://assets.maccarianagency.com/avatars/img3.jpg'}
+              src={authorImage}
             />
             <ListItemText
               sx={{ margin: 0 }}
-              primary={'Jhon Anderson'}
-              secondary={'May 19, 2021'}
+              primary={authorName}
+              secondary={authorDate}
               primaryTypographyProps={{
                 variant: 'h6',
                 sx: { color: 'common.white' },

@@ -87,7 +87,7 @@ function Client({ content }) {
         <Box position={'relative'} zIndex={3} marginTop={{ xs: 0, md: -22 }}>
           <Container>
             <PartnersColor
-              partnerLogos={content?.logos?.data || FillerContent.photos  }
+              partnerLogos={content?.logos?.data || FillerContent.photos}
             />
           </Container>
         </Box>
@@ -109,9 +109,9 @@ function Client({ content }) {
         </Container>
         <Container>
           <Stories
-            eyeBrow={content.client_eyebrow}
-            clientTitle={content.client_title}
-            cards={content.client_cards.data}
+            eyeBrow={content.client_eyebrow || FillerContent.header}
+            clientTitle={content.client_title || FillerContent.header}
+            clientInfo={content.client_cards.data}
           />
         </Container>
         <Box bgcolor={theme.palette.alternate.main}>
@@ -124,7 +124,7 @@ function Client({ content }) {
         </Box>
       </Box>
 
-      <div
+      {/* <div
         style={{
           background: '#eee',
           border: '1px #000 solid',
@@ -134,7 +134,7 @@ function Client({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );

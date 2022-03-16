@@ -8,51 +8,13 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import FillerContent from 'components/FillerContent';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img13.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Lorem ipsum dolor sit amet',
-    author: {
-      name: 'Clara Bertoletti',
-    },
-    date: '04 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img14.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Consectetur adipiscing elit',
-    author: {
-      name: 'Jhon Anderson',
-    },
-    date: '12 Sep',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img15.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Lorem ipsum dolor sit amet',
-    author: {
-      name: 'Clara Bertoletti',
-    },
-    date: '04 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img16.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Consectetur adipiscing elit',
-    author: {
-      name: 'Jhon Anderson',
-    },
-    date: '12 Sep',
-  },
-];
 
-const SidebarArticles = () => {
+const SidebarArticles = ({latestArticles}) => {
+
+
+
   const theme = useTheme();
   return (
     <Box component={Card} variant={'outlined'} padding={2}>
@@ -64,10 +26,10 @@ const SidebarArticles = () => {
           marginBottom: 2,
         }}
       >
-        Upcoming updates
+        Latest Articles
       </Typography>
       <Grid container spacing={2}>
-        {mock.map((item, i) => (
+        {latestArticles.map((item, i) => (
           <Grid key={i} item xs={12}>
             <Box
               component={Card}
@@ -92,8 +54,8 @@ const SidebarArticles = () => {
                   component={LazyLoadImage}
                   height={1}
                   width={1}
-                  src={item.image}
-                  alt="..."
+                  src={item?.hero_image?.data[0]?.url || FillerContent.image}
+                  alt={item.title}
                   effect="blur"
                   sx={{
                     objectFit: 'cover',
@@ -109,17 +71,17 @@ const SidebarArticles = () => {
               <CardContent
                 sx={{ padding: 1, '&:last-child': { paddingBottom: 1 } }}
               >
-                <Typography fontWeight={700}>{item.title}</Typography>
+                <Typography fontWeight={700}>{item.title || FillerContent.header}</Typography>
                 <Box marginY={1 / 4}>
                   <Typography
                     variant={'caption'}
                     color={'text.secondary'}
                     component={'i'}
                   >
-                    {item.author.name} - {item.date}
+                    {item.author?.data[0]?.name || FillerContent.header} - {item.date}
                   </Typography>
                 </Box>
-                <Button size={'small'}>Read More</Button>
+                <Button href={item?.meta?.web?.uri || FillerContent.href} size={'small'}>Read More</Button>
               </CardContent>
             </Box>
           </Grid>
