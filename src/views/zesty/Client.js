@@ -39,6 +39,8 @@ import FillerContent from 'components/FillerContent';
 
 function Client({ content }) {
 
+  console.log(content)
+
   const theme = useTheme();
   return (
     <>
@@ -103,6 +105,13 @@ function Client({ content }) {
                 description={
                   content.showcase_description || FillerContent.description
                 }
+                showCaseCTA={
+                  content.showcase_cta_link_title || FillerContent.header
+                }
+                showCaseLink={
+                  content.showcase_cta_link?.data[0]?.meta?.web?.uri ||
+                  FillerContent.href
+                }
               />
             </Box>
           </Box>
@@ -111,7 +120,9 @@ function Client({ content }) {
           <Stories
             eyeBrow={content.client_eyebrow || FillerContent.header}
             clientTitle={content.client_title || FillerContent.header}
-            clientInfo={content.client_cards.data}
+            clientInfo={
+              content.client_cards.data || FillerContent.missingDataArray
+            }
           />
         </Container>
         <Box bgcolor={theme.palette.alternate.main}>

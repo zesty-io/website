@@ -15,7 +15,13 @@ import Container from 'components/Container';
 //   href: '#',
 // };
 
-const ShowcaseBgImage = ({ image, showCase, description }) => {
+const ShowcaseBgImage = ({
+  image,
+  showCase,
+  description,
+  showCaseCTA,
+  showCaseLink,
+}) => {
   const theme = useTheme();
   return (
     <Box
@@ -44,20 +50,17 @@ const ShowcaseBgImage = ({ image, showCase, description }) => {
           }}
         >
           <Typography color={'text.secondary'} fontWeight={700} variant={'h4'}>
-            {showCase }
+            {showCase}
           </Typography>
-          <Typography variant={'h4'}>
-            {description }
-          </Typography>
+          <Typography variant={'h4'}>{description}</Typography>
           <Link
-            target="_blank"
-            href={FillerContent.href}
+            href={showCaseLink || FillerContent.href}
             color={'text.primary'}
             variant={'h5'}
             fontWeight={700}
             sx={{ marginTop: 4, display: 'block' }}
           >
-            Discover more
+            {showCaseCTA}
             {}
           </Link>
         </Card>

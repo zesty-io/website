@@ -109,7 +109,7 @@ function Article({ content }) {
       <Box>
         <HeroJarallax
           articleDate={content.date || FillerContent.date}
-          title={content?.author?.data[0]?.name || FillerContent.header}
+          title={content?.title || FillerContent.header}
           articleAvatar={
             content?.author?.data[0]?.headshot?.data[0]?.url ||
             FillerContent.image
@@ -125,6 +125,9 @@ function Article({ content }) {
           }
           authorName={content.author?.data[0]?.name || FillerContent.header}
           authorDate={content.date || FillerContent.date}
+          featuredAuthorLink={
+            content.author?.data[0]?.meta?.web?.uri || FillerContent.href
+          }
         />
         <Container>
           <Grid container spacing={4}>
