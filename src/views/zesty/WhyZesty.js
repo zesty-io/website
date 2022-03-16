@@ -75,7 +75,6 @@ const OverviewProcessComp = ({ content, image }) => {
   );
 };
 function WhyZesty({ content }) {
-  console.log(content, 'CONTENT PROPS');
   const theme = useTheme();
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
