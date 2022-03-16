@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,9 +13,14 @@ import Pagination from '@mui/material/Pagination';
 
 import FillerContent from 'components/FillerContent';
 
-const PopularArticles = ({ articles=[], authors=[], title, description, ctaBtn }) => {
+const PopularArticles = ({
+  articles = [],
+  authors = [],
+  title,
+  description,
+  ctaBtn,
+}) => {
   const theme = useTheme();
-
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,9 +36,6 @@ const PopularArticles = ({ articles=[], authors=[], title, description, ctaBtn }
     setCurrentPage(value);
   };
 
-  console.log("🚀 ~ file: PopularArticles.js ~ line 27 ~ PopularArticles ~ articlesList", articlesList)
-
-
   return (
     <Box>
       <Box
@@ -45,11 +47,9 @@ const PopularArticles = ({ articles=[], authors=[], title, description, ctaBtn }
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            {title }
+            {title}
           </Typography>
-          <Typography color={'text.secondary'}>
-            {description }
-          </Typography>
+          <Typography color={'text.secondary'}>{description}</Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
           <Box
@@ -59,7 +59,7 @@ const PopularArticles = ({ articles=[], authors=[], title, description, ctaBtn }
             size="large"
             marginLeft={2}
           >
-            {ctaBtn }
+            {ctaBtn}
           </Box>
         </Box>
       </Box>
