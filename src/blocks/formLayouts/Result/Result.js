@@ -12,81 +12,17 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import InputAdornment from '@mui/material/InputAdornment';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    title: 'Lorem ipsum dolor sit amet,',
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
-    },
-    date: '04 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    description: 'Excepteur sint occaecat cupidatat non proident',
-    title: 'Consectetur adipiscing elit',
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-    },
-    date: '12 Sep',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
-    description: 'Eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-    title: 'Labore et dolore magna aliqua',
-    author: {
-      name: 'Chary Smith',
-      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
-    },
-    date: '22 Nov',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img23.jpg',
-    description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem',
-    title: 'Eiusmod tempor incididunt',
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-    },
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus',
-    title: 'Sed ut perspiciatis',
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
-    },
-    date: '02 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-    description:
-      'Qui blanditiis praesentium voluptatum deleniti atque corrupti',
-    title: 'Unde omnis iste natus',
-    author: {
-      name: 'Chary Smith',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '05 Mar',
-  },
-];
 
 
-
-const Result = ({array, value, onChange, onSubmit, notFound}) => {
+const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hideLoad}) => {
   const theme = useTheme();
   // conditional rendering
   const NoArticles = () =>{
     return (
-      <Grid item sm={12} md={8}>
+      <Grid item sm={12} md={8} sx={{ justifyContent: 'center' }}>
       <Box component='span' mt={5} >
-        <Typography variant='h2' color='primary'>
-          No Articles found matching {value}
+        <Typography variant='h4' color='primary'>
+          No Articles found matching "{term}"
         </Typography>
       </Box>
       </Grid>
@@ -173,7 +109,7 @@ const Result = ({array, value, onChange, onSubmit, notFound}) => {
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item.link}
+              href={item.path}
               display={'block'}
               width={1}
               height={1}
@@ -195,7 +131,7 @@ const Result = ({array, value, onChange, onSubmit, notFound}) => {
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item.thumbnail_image.data[0].url}
+                  image={item.image}
                   title={item.title}
                   sx={{
                     height: { xs: 300, md: 360 },
@@ -245,11 +181,11 @@ const Result = ({array, value, onChange, onSubmit, notFound}) => {
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item.author.data[0].headshot.data[0].url}
+                        src={item.author.image}
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author.data[0].name}
+                        {item.author.name}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
@@ -262,6 +198,9 @@ const Result = ({array, value, onChange, onSubmit, notFound}) => {
           </Grid>
         ))}
         <Grid item container justifyContent={'center'} xs={12}>
+          {/* add See All news Articles conditional here */}
+          {notFound ? '' :
+          (hideLoad ? '' :
           <Button
             fullWidth
             variant={'outlined'}
@@ -285,9 +224,10 @@ const Result = ({array, value, onChange, onSubmit, notFound}) => {
                 />
               </Box>
             }
+            onClick={onClick}
           >
             Load more
-          </Button>
+          </Button>) }
         </Grid>
       </Grid>
     </Box>

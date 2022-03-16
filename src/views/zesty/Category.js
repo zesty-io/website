@@ -27,13 +27,13 @@
  */
 import React, { useEffect, useState } from 'react';
 
-import { SimpleHeroWithSingleCta } from 'blocks/heroes';
+import { SimpleHeroWithSingleCta, SlashImageHero } from 'blocks/heroes';
 import VerticalMinimalDesignedBlogCardsPage from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 import { Breadcrumb } from 'blocks/progressSteps';
 import { Result } from 'blocks/formLayouts';
 import { Newsletter } from 'blocks/newsletters';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, alpha } from '@mui/material/styles';
 // filler content
 import FillerContent from 'components/FillerContent';
 
@@ -44,19 +44,24 @@ function Category({ content }) {
   const theme = useTheme();
 
   // news array state
-  const [newsArr, setNewsArr] = useState([]);
+  const [categoryArr, setCategoryArr] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
-  const [searchedArticles, setSearchedArticles] = useState([])
+  // search states
+  const [searchedArticles, setSearchedArticles] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
+  const [term, setTerm] = useState('');
   const [notFound, setNotFound] = useState(false);
+  const [hideLoad, setHideLoad] = useState(false);
+  // current page for pagination
+  const [page, setPage] = useState(0);
   const [breadcrumb, setBreadcrumb] = useState([
     {
-      href: '/news',
-      title: 'News',
+      href: `${content.path}`,
+      title: `${content.category}`,
       isActive: false,
     },
     {
-      href: '/news',
+      href: `${content.path}`,
       title: 'Search Results',
       isActive: true,
     },
@@ -66,14 +71,16 @@ function Category({ content }) {
   useEffect(() => {
     try {
       const fetchNews = async () =>{
-        const url = `${zestyURL}/-/allnewsarticles.json`;
+        const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=3`;
+        console.log(url);
         const response = await fetch(url);
         if(!response.ok){
           throw new Error(`HTTP error: ${response.status}`);
         }
         const news = await response.json();
         console.log(news);
-        setNewsArr(news);
+        setHideLoad(false);
+        setCategoryArr(news);
         setAllArticles(news);
       }
 
@@ -91,43 +98,65 @@ function Category({ content }) {
       : process.env.zesty.stage;
   // search value 
   const handleOnChange = (evt) => {
-    console.log(evt.target.value);
+    // handle empty search value
+    if(evt.target.value === null || evt.target.value === ''){
+      setCategoryArr(allArticles);
+      setPage(0)
+      setNotFound(false);
+      setHideLoad(false);
+    }
     setSearchValue(evt.target.value);
   }
   // form submission
   const handleOnSubmit = (evt) =>{
     evt.preventDefault();
-    console.log(evt);
     try{
       const searchArticles = async () => {
-        console.log(searchValue);
-        const url = `${zestyURL}/-/searchnewsarticles.json?q=${searchValue}`;
+        const url = `${zestyURL}/-/searchnewsarticles.json?q=${searchValue}&category=${content.meta.zuid}&page=${page}&limit=12`;
         console.log(url);
         const response = await fetch(url);
-        console.log(response);
         if(!response.ok){
           throw new Error(`HTTP error: ${response.status}`);
         }
         const searchData = await response.json();
-        console.log(searchData);
         if(!searchData.length){
-          console.log('need conditional rendering');
           setNotFound(true);
+          setCategoryArr([]);
+          setTerm(searchValue);
           return;
         }
-        // set news articles
-        setNewsArr(searchData);
-        // empty input
-        setSearchValue('');
-
+        setHideLoad(true);
+        setNotFound(false);
+        setCategoryArr(searchData);
       }
       searchArticles();
     } catch (error){
       console.error(`Could Not Find Results: ${error}`);
     }
   };
-
-
+  // load more on click 
+  const handleOnClick = async () =>{
+    try{
+      setPage(page+=3);
+      const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=3`;
+      console.log(url);
+      const response = await fetch(url);
+      if(!response.ok){
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+      if(!data.length){
+        // add conditional rendering to hide the load more button
+        console.log('no more pages')
+        setHideLoad(true);
+      }
+      console.log(categoryArr.concat(data));
+      setCategoryArr([...categoryArr, ...data])
+    } catch(error){
+      console.error(`Could Not Find Results: ${error}`);
+    }
+  }
 
   return (
     <>
@@ -137,20 +166,48 @@ function Category({ content }) {
           array={breadcrumb || FillerContent.breadcrumb} />
         </Container>
       </Box>
+      <Box
+        bgcolor={'alternate.main'}
+        sx={{
+          position: 'relative',
+          '&::after': {
+            position: 'absolute',
+            content: '""',
+            width: '30%',
+            zIndex: 1,
+            top: 0,
+            left: '5%',
+            height: '100%',
+            backgroundSize: '18px 18px',
+            backgroundImage: `radial-gradient(${alpha(
+              theme.palette.primary.dark,
+              0.4,
+            )} 20%, transparent 20%)`,
+            opacity: 0.2,
+          },
+        }}
+      >
+        <Box position={'relative'} zIndex={3}>
+        <SlashImageHero />
+        </Box>
+      </Box>
       <Container>
-        <SimpleHeroWithSingleCta
+        {/* <SimpleHeroWithSingleCta
           title={content.category || FillerContent.header}
           description={content.description || FillerContent.description}
           cta={content.cta_button || FillerContent.cta}
           ctaHref={content.cta_href.data[0]?.meta.web.uri || FillerContent.href}
-        />
+        /> */}
       {/* </Container>
       <Container> */}
-        <Result array={newsArr}
+        <Result array={categoryArr}
         onChange={handleOnChange}
         value={searchValue}
+        term={term}
         onSubmit={handleOnSubmit}
-        notFound={notFound} /> 
+        notFound={notFound}
+        onClick={handleOnClick}
+        hideLoad={hideLoad} /> 
       </Container>
       <Box
         position={'relative'}
@@ -190,7 +247,7 @@ function Category({ content }) {
         dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
       ></h1>
       <div>{content.meta.web.seo_meta_description}</div> */}
-      <div
+      {/* <div
         style={{
           background: '#eee',
           border: '1px #000 solid',
@@ -200,7 +257,7 @@ function Category({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
     </>
   );
 }
