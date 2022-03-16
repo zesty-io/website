@@ -138,7 +138,12 @@ function Article({ content }) {
                   __html: content.article,
                 }}
               ></Box>
-              <BlogCTA />
+
+              <BlogCTA
+                title={'Insights in your inbox'}
+                description={'Subscribe to the Zesty newsletter'}
+                ctaBtn={'Subscribe'}
+              />
             </Grid>
             <Grid item xs={12} md={4}>
               {isMd ? (
@@ -146,7 +151,11 @@ function Article({ content }) {
                   {isLoaded ? (
                     <CircularProgressWithLabel />
                   ) : (
-                    <SidebarArticles latestArticles={latestArticles} />
+                    <SidebarArticles
+                      latestArticles={
+                        latestArticles || FillerContent.missingDataArray
+                      }
+                    />
                   )}
                 </Box>
               ) : null}
@@ -179,7 +188,10 @@ function Article({ content }) {
           title={
             tagArticles.length !== 0 ? 'Similar stories' : 'Latest articles'
           }
-          cta_url={content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url || FillerContent.href}
+          cta_url={
+            content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url ||
+            FillerContent.href
+          }
         />
         <CtaWithInputField />
         <Box

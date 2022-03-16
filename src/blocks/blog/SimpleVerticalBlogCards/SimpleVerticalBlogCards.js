@@ -72,7 +72,7 @@ const SimpleVerticalBlogCards = ({
 }) => {
   const theme = useTheme();
   const cardList = cards || mock;
-  console.log("🚀 ~ file: SimpleVerticalBlogCards.js ~ line 75 ~ cardList", cardList)
+
 
   return (
     <Container>
