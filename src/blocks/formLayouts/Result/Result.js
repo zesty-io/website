@@ -76,8 +76,23 @@ const mock = [
   },
 ];
 
-const Result = ({array}) => {
+
+
+const Result = ({array, value, onChange, onSubmit, notFound}) => {
   const theme = useTheme();
+  // conditional rendering
+  const NoArticles = () =>{
+    return (
+      <Grid item sm={12} md={8}>
+      <Box component='span' mt={5} >
+        <Typography variant='h2' color='primary'>
+          No Articles found matching {value}
+        </Typography>
+      </Box>
+      </Grid>
+    )
+  }
+
   return (
     <Box>
       <Box
@@ -87,7 +102,7 @@ const Result = ({array}) => {
         boxShadow={4}
         marginBottom={4}
       >
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" type='submit' onSubmit={onSubmit}>
           <Box display="flex" alignItems={'center'}>
             <Box width={1} marginRight={1}>
               <TextField
@@ -97,6 +112,8 @@ const Result = ({array}) => {
                     border: '0 !important',
                   },
                 }}
+                value={value}
+                onChange={onChange}
                 variant="outlined"
                 color="primary"
                 size="medium"
@@ -150,8 +167,9 @@ const Result = ({array}) => {
           </Box>
         </form>
       </Box>
-      <Grid container spacing={4}>
-        {array.map((item, i) => (
+      <Grid container spacing={4}>        
+        { notFound ? <NoArticles /> :
+        array.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}

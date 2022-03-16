@@ -38,13 +38,17 @@ import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
+import { Typography } from '@mui/material';
 
 function Category({ content }) {
   const theme = useTheme();
 
   // news array state
   const [newsArr, setNewsArr] = useState([]);
+  const [allArticles, setAllArticles] = useState([]);
+  const [searchedArticles, setSearchedArticles] = useState([])
   const [searchValue, setSearchValue] = useState(null);
+  const [notFound, setNotFound] = useState(false);
   const [breadcrumb, setBreadcrumb] = useState([
     {
       href: '/news',
@@ -70,6 +74,7 @@ function Category({ content }) {
         const news = await response.json();
         console.log(news);
         setNewsArr(news);
+        setAllArticles(news);
       }
 
       fetchNews();
@@ -84,10 +89,45 @@ function Category({ content }) {
     undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
       ? process.env.zesty.production
       : process.env.zesty.stage;
-
-  const handleOnChange = () => {
-
+  // search value 
+  const handleOnChange = (evt) => {
+    console.log(evt.target.value);
+    setSearchValue(evt.target.value);
   }
+  // form submission
+  const handleOnSubmit = (evt) =>{
+    evt.preventDefault();
+    console.log(evt);
+    try{
+      const searchArticles = async () => {
+        console.log(searchValue);
+        const url = `${zestyURL}/-/searchnewsarticles.json?q=${searchValue}`;
+        console.log(url);
+        const response = await fetch(url);
+        console.log(response);
+        if(!response.ok){
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const searchData = await response.json();
+        console.log(searchData);
+        if(!searchData.length){
+          console.log('need conditional rendering');
+          setNotFound(true);
+          return;
+        }
+        // set news articles
+        setNewsArr(searchData);
+        // empty input
+        setSearchValue('');
+
+      }
+      searchArticles();
+    } catch (error){
+      console.error(`Could Not Find Results: ${error}`);
+    }
+  };
+
+
 
   return (
     <>
@@ -107,7 +147,10 @@ function Category({ content }) {
       {/* </Container>
       <Container> */}
         <Result array={newsArr}
-        onChange={handleOnChange} />
+        onChange={handleOnChange}
+        value={searchValue}
+        onSubmit={handleOnSubmit}
+        notFound={notFound} /> 
       </Container>
       <Box
         position={'relative'}
