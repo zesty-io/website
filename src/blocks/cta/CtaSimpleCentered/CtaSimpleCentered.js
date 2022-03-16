@@ -4,16 +4,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import FillerContent from 'components/FillerContent';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 import Container from 'components/Container';
 
-const CtaSimpleCentered = ({
-  ctaTitle,
-  description,
-  ctaLeft,
-  ctaRight,
-}) => {
+const CtaSimpleCentered = ({ ctaTitle, description, ctaLeft, ctaRight }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -31,7 +26,7 @@ const CtaSimpleCentered = ({
             fontWeight: 700,
           }}
         >
-          {ctaTitle || FillerContent.header}
+          {ctaTitle}
         </Typography>
         <Typography
           variant="h6"
@@ -40,7 +35,7 @@ const CtaSimpleCentered = ({
           sx={{ fontWeight: 400 }}
           align={'center'}
         >
-          {description || FillerContent.header}
+          {description}
         </Typography>
         <Box
           display="flex"
@@ -49,16 +44,13 @@ const CtaSimpleCentered = ({
           justifyContent={'center'}
           marginTop={4}
         >
-          <Button
-            component={'a'}
+          <TryFreeButton
             variant="contained"
             color="primary"
             size="large"
+            text={ctaLeft}
             fullWidth={isMd ? false : true}
-            href={'/home'}
-          >
-            {ctaLeft || FillerContent.cta}
-          </Button>
+          />
           <Box
             marginTop={{ xs: 2, sm: 0 }}
             marginLeft={{ sm: 2 }}
@@ -72,7 +64,7 @@ const CtaSimpleCentered = ({
               size="large"
               fullWidth={isMd ? false : true}
             >
-              {ctaRight || FillerContent.cta}
+              {ctaRight}
             </Button>
           </Box>
         </Box>
