@@ -14,6 +14,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 import Container from 'components/Container';
+import BasicForm from './BasicForm';
 
 const mock = [
   {
@@ -115,36 +116,15 @@ export default function TryFreeButton({text="Try Free",target='blank',fullWidth=
           <Stack spacing={2} maxWidth={900}>
             <Box padding={2}>
               <Grid container spacing={2}>
-                {mock.map((item, i) => (
-                  <Grid key={i} item xs={12} sm={6}>
-                    <ListItem
-                      component={Link}
-                      href={'#'}
-                      alignItems={'flex-start'}
-                    >
-                      <ListItemIcon sx={{ minWidth: 'auto', marginRight: 2 }}>
-                        <Box
-                          component={Avatar}
-                          width={40}
-                          height={40}
-                          bgcolor={theme.palette.primary.main}
-                          color={theme.palette.background.paper}
-                          variant={'rounded'}
-                        >
-                          {item.icon}
-                        </Box>
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={item.title}
-                        secondary={item.subtitle}
-                        primaryTypographyProps={{
-                          fontWeight: 700,
-                          color: 'text.primary',
-                        }}
-                      />
-                    </ListItem>
+            
+                  <Grid item xs={12} sm={6}>
+                    <Typography>Marketers</Typography>
+                    <BasicForm></BasicForm>
                   </Grid>
-                ))}
+                  <Grid item xs={12} sm={6}>
+                    <Typography>Developers</Typography>
+                    <BasicForm></BasicForm>
+                  </Grid>
               </Grid>
             </Box>
             <Stack

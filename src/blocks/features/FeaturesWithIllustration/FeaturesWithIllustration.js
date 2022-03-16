@@ -12,6 +12,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
+import WYSIWYGRender from 'components/WYSIWYGRender';
 
 const mock = [
   {
@@ -96,12 +97,8 @@ const FeaturesWithIllustration = (props) => {
     <Container>
       <Grid container spacing={4} direction={isMd ? 'row' : 'column-reverse'}>
         <Grid item container alignItems={'center'} xs={12} md={6}>
-          <Box>
-            <Box
-              className="wysiwyg"
-              marginBottom={4}
-              dangerouslySetInnerHTML={{ __html: rich_text }}
-            ></Box>
+          <Box marginBottom={4}>
+            <WYSIWYGRender rich_text={rich_text} customClass='gisele'></WYSIWYGRender>
           </Box>
         </Grid>
         <Grid item container justifyContent={'center'} xs={12} md={6}>
