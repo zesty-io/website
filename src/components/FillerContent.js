@@ -113,4 +113,16 @@ export default {
     'https://pzcvtc6b.media.zestyio.com/content-management.png',
   dashboard_image:
     'https://assets.maccarianagency.com/screenshots/dashboard.png',
+  breadcrumb: [
+    {
+      href: '#',
+      title: 'Blog',
+      isActive: false,
+    },
+    {
+      href: '#',
+      title: 'Search Results',
+      isActive: true,
+    },
+  ],
 };

@@ -44,18 +44,19 @@ function Category({ content }) {
 
   // news array state
   const [newsArr, setNewsArr] = useState([]);
-
-
-  // const SimpleHeroWithSearchBoxProps = {
-  //   hideForm: true,
-  //   title: content?.meta?.web?.seo_meta_title || '',
-  //   description: content?.meta?.web?.seo_meta_description || '',
-  // };
-
-  // const VerticalMinimalDesignedBlogCardsPageProps = {
-  //   hideLoadMore: true,
-  //   list: undefined,
-  // };
+  const [searchValue, setSearchValue] = useState(null);
+  const [breadcrumb, setBreadcrumb] = useState([
+    {
+      href: '/news',
+      title: 'News',
+      isActive: false,
+    },
+    {
+      href: '/news',
+      title: 'Search Results',
+      isActive: true,
+    },
+  ]);
 
   // use effect pull in news articles
   useEffect(() => {
@@ -84,11 +85,16 @@ function Category({ content }) {
       ? process.env.zesty.production
       : process.env.zesty.stage;
 
+  const handleOnChange = () => {
+
+  }
+
   return (
     <>
       <Box bgcolor={'alternate.main'}>
         <Container paddingY={2}>
-          <Breadcrumb />
+          <Breadcrumb
+          array={breadcrumb || FillerContent.breadcrumb} />
         </Container>
       </Box>
       <Container>
@@ -98,9 +104,10 @@ function Category({ content }) {
           cta={content.cta_button || FillerContent.cta}
           ctaHref={content.cta_href.data[0]?.meta.web.uri || FillerContent.href}
         />
-      </Container>
-      <Container>
-        <Result array={newsArr} />
+      {/* </Container>
+      <Container> */}
+        <Result array={newsArr}
+        onChange={handleOnChange} />
       </Container>
       <Box
         position={'relative'}
@@ -136,48 +143,6 @@ function Category({ content }) {
         </Container>
       </Box>
 
-      {/* <Box
-        position={'relative'}
-        marginTop={{ xs: 4, md: 6 }}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-        }}
-      >
-        <Box
-          component={'svg'}
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1920 100.1"
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            transform: 'translateY(-50%)',
-            zIndex: 2,
-            width: 1,
-          }}
-        >
-          <path
-            fill={theme.palette.alternate.main}
-            d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
-          ></path>
-        </Box>
-        <Container>
-          <Newsletter />
-        </Container>
-        
-      </Box>
-
-      <SimpleHeroWithSearchBox {...SimpleHeroWithSearchBoxProps} />
-      <Container paddingY={2}>
-          <Breadcrumb />
-        </Container>
-      <VerticalMinimalDesignedBlogCardsPage
-        {...VerticalMinimalDesignedBlogCardsPageProps}
-      /> */}
       {/* <h1
         dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
       ></h1>
