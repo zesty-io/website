@@ -98,7 +98,6 @@ const HeroWithDashboardScreenshotAndCta = ({
             width={1}
             src={image || FillerContent.dashboard_image}
             alt="..."
-            boxShadow={3}
             borderRadius={2}
             maxWidth={600}
             sx={{
