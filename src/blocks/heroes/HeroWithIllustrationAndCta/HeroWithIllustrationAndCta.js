@@ -94,7 +94,7 @@ const HeroWithIllustrationAndCta = ({
               justifyContent={'center'}
               alignItems={'center'}
             >
-              <Box height={1} width={1} maxWidth={500}>
+              <Box height={1} width={1} maxWidth='100%'>
                 <Box
                   component={'img'}
                   src={image}
