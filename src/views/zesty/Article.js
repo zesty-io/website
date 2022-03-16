@@ -119,6 +119,12 @@ function Article({ content }) {
               ? content.hero_image.data[0].url
               : FillerContent.image
           }
+          authorImage={
+            content.author?.data[0]?.headshot?.data[0]?.url ||
+            FillerContent.image
+          }
+          authorName={content.author?.data[0]?.name || FillerContent.header}
+          authorDate={content.date || FillerContent.date}
         />
         <Container>
           <Grid container spacing={4}>
