@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 
 
 const Partners = ({logoPartners}) => {
-console.log("🚀 ~ file: Partners.js ~ line 7 ~ Partners ~ logoPartners", logoPartners)
+
 
   return (
     <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
@@ -20,7 +20,7 @@ console.log("🚀 ~ file: Partners.js ~ line 7 ~ Partners ~ logoPartners", logoP
             height={1}
             width={1}
             src={item?.url}
-            alt={item.zuid}
+            alt={item?.zuid}
 
           />
         </Box>

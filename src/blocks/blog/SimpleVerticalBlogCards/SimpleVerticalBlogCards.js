@@ -72,6 +72,7 @@ const SimpleVerticalBlogCards = ({
 }) => {
   const theme = useTheme();
   const cardList = cards || mock;
+  console.log("🚀 ~ file: SimpleVerticalBlogCards.js ~ line 75 ~ cardList", cardList)
 
   return (
     <Container>
@@ -133,7 +134,7 @@ const SimpleVerticalBlogCards = ({
                   <CardMedia
                     image={
                       item?.image?.data[0]?.url ||
-                      item?.hero_image?.data[0]?.url || FillerContent.image
+                      item?.hero_image?.data[0]?.url
                     }
                     title={item.title}
                     sx={{
@@ -171,7 +172,7 @@ const SimpleVerticalBlogCards = ({
                       variant={'h6'}
                       fontWeight={700}
                       align={'center'}
-                      sx={{ textTransform: 'uppercase' }}
+
                     >
                       {item.title}
                     </Typography>
