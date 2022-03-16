@@ -46,6 +46,7 @@ export const light = {
     zestyLightGrey:		'#A7AFBF',
     navBorderColor: 		'#3c465e',
     yellowHighlight:		'#FFFDE2',
+    zestyYellow:		'rgb(249, 185, 52)',
     white:					'#ffffff',
     black:					'#000000',
     zestyWhiteBlue:		'#f2f4fb',
@@ -96,7 +97,7 @@ export const dark = {
   zesty: {
     zestyDarkBlue: 		'#1b202c',
     zestyTabBlue:		'#697A91',
-    zestyOrange: 			'#F17829',
+    zestyOrange: 			'#FF5D0A',
     zestyRed: 			'rgb(230,74,23)',
     devTheme: 			'#77b250',
     zestyGreen: 			 '#75BF43',
