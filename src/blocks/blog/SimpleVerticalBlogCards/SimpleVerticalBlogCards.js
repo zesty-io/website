@@ -117,7 +117,7 @@ const SimpleVerticalBlogCards = ({
             <Grid item xs={12} md={6} key={i}>
               <Box
                 component={'a'}
-                href={''}
+                href={item?.link || '#'}
                 display={'block'}
                 width={1}
                 height={1}

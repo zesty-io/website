@@ -205,7 +205,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
                   //     : item.illustrationDark
                   // }`}
                   src={
-                    (item?.image?.data && item.image.data[0].url) ||
+                    (item?.image?.data && item?.image?.data[0]?.url) ||
                     FillerContent.illustration_image
                   }
                   alt={item.header || item.title}
