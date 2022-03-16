@@ -115,7 +115,7 @@ function WhyZesty({ content }) {
           <FeaturesWithMobileScreenshot
             content={e.benefit_content}
             header={e.header}
-            image={e.benefit_image}
+            image={e?.benefit_image?.data && e?.benefit_image?.data[0]?.url}
           />
         );
       })}
