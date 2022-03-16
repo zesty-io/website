@@ -53,9 +53,10 @@ const Footer = ({customRouting,colorInvert = false }) => {
                   {route.title}
                 </Typography>
                 {route.children.sort((a, b) => a.sort - b.sort).map(childLink => (
-                  <Box marginBottom={1}>
-                    <Link
-                      title={childLink.title}
+
+                  <Box key={route.zuid} marginBottom={1}>
+                    <Link 
+                      title={childLink.title} 
                       href={childLink.url}
                       component="a"
                       underline="hover"

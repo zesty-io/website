@@ -68,7 +68,7 @@ const ZestyExplorerBrowser = ({ content, children }) => {
     findAllMatches: true,
     threshold: 0,
     isCaseSensitive: false,
-    minMatchCharLength: 3,
+    minMatchCharLength: 1,
     keys: columns,
   };
 
