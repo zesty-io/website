@@ -40,17 +40,16 @@ h2 span{
     background-color: #467de322;
     margin-right: 10px
 }
-.MuiList-root {
-    list-style: none;
-}
-.MuiList-root li {
-    margin-right: 10px;
-    display: inline-flex;
-    
+
+.wysiwyg ul {
+    padding-left: 0px;
+    margin-left: 0px;
 }
 .wysiwyg li {
     list-style: none;
     margin-bottom: 16px;
+    margin-left: 0px;
+    padding-left: 0px;
 }
 .wysiwyg .icon-box {
     float:left;
@@ -62,6 +61,11 @@ h2 span{
     margin-top: 5px;
 }
 
-.wysiwyg .icon-box .matierial-icon {
-    font-size: 22px;
+.wysiwyg .circle-icon-list li {
+
+}
+
+.wysiwyg .icon-box .matierial-icon .icon-box{
+    background-color: #FF5D0A;
+    border-radius: 50%;
 }

@@ -96,7 +96,7 @@ export const dark = {
   zesty: {
     zestyDarkBlue: 		'#1b202c',
     zestyTabBlue:		'#697A91',
-    zestyOrange: 			'#F17829',
+    zestyOrange: 			'#FF5D0A',
     zestyRed: 			'rgb(230,74,23)',
     devTheme: 			'#77b250',
     zestyGreen: 			 '#75BF43',
