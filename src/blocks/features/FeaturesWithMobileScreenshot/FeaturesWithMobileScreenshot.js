@@ -13,6 +13,7 @@ import PhoneSkeletonIllustration from 'svg/illustrations/PhoneSkeleton';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import WYSIWYGRender from 'components/WYSIWYGRender';
 
 const FeaturesWithMobileScreenshot = ({ header, content, image }) => {
   const theme = useTheme();
@@ -38,55 +39,11 @@ const FeaturesWithMobileScreenshot = ({ header, content, image }) => {
                 Create better stories.
               </Typography> */}
             </Box>
-            <Grid container spacing={1}>
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: content || FillerContent.rich_text,
-                }}
-              ></Box>
-              {/* {[
-                'Lifetime Updates & Introduction and Working',
-                'Tech support & Mutual Funds',
-                'Tons of assets & Lifetime Updates',
-                'Integration ready & Tech support',
-              ].map((item, i) => (
-                <Grid item xs={12} key={i}>
-                  <Box
-                    component={ListItem}
-                    disableGutters
-                    width={'auto'}
-                    padding={0}
-                  >
-                    <Box
-                      component={ListItemAvatar}
-                      minWidth={'auto !important'}
-                      marginRight={2}
-                    >
-                      <Box
-                        component={Avatar}
-                        bgcolor={theme.palette.secondary.main}
-                        width={20}
-                        height={20}
-                      >
-                        <svg
-                          width={12}
-                          height={12}
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </Box>
-                    </Box>
-                    <ListItemText primary={item} />
-                  </Box>
-                </Grid>
-              ))} */}
+            <Grid container >
+              <WYSIWYGRender customClass="circle-icons"
+                rich_text={content || FillerContent.rich_text}
+              ></WYSIWYGRender>
+            
             </Grid>
           </Box>
         </Grid>

@@ -21,6 +21,7 @@ const HeroWithIllustrationAndCta = ({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  let titleSplits = title.split('<br>');
 
   return (
     <Box
@@ -33,20 +34,30 @@ const HeroWithIllustrationAndCta = ({
         <Grid container spacing={4}>
           <Grid item container alignItems={'center'} xs={12} md={6}>
             <Box>
-              <Box marginBottom={2}>
+              <Box>
                 <Typography 
-                  variant="h2"
+                  variant="h3"
                   color="text.primary"
                   sx={{
                     fontWeight: 700,
                   }}
-                  dangerouslySetInnerHTML={{__html:title}}>
+                 >{titleSplits[0]}
                 </Typography>
               </Box>
-              <Box marginBottom={3}>
+              <Box marginBottom={2}>
+                <Typography 
+                  variant="h3"
+                  color={theme.palette.zesty.zestyOrange}
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                 >{titleSplits[1]}
+                </Typography>
+              </Box>
+              <Box marginBottom={6}>
                 <Typography
                   variant="h6"
-                  component="p"
+                  component="h1"
                   color="text.secondary"
                   sx={{ fontWeight: 400 }}
                   dangerouslySetInnerHTML={{__html:subtitle}}>
@@ -60,7 +71,7 @@ const HeroWithIllustrationAndCta = ({
                 <TryFreeButton
                  component={'a'}
                  variant="contained"
-                 color="primary"
+                 color="secondary"
                  size="large"
                  fullWidth={isMd ? false : true}
                  text={button_left_text}
@@ -76,7 +87,7 @@ const HeroWithIllustrationAndCta = ({
                     component={'a'}
                     href={button_right_text}
                     variant="outlined"
-                    color="primary"
+                    color="secondary"
                     size="large"
                     fullWidth={isMd ? false : true}
                   >

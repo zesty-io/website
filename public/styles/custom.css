@@ -40,34 +40,3 @@ h2 span{
     background-color: #467de322;
     margin-right: 10px
 }
-.wysiwyg ul {
-    padding-left: 0;
-}
-.wysiwyg p{
-    margin-top: 0
-}
-.MuiList-root {
-    list-style: none;
-}
-.MuiList-root li {
-    margin-right: 10px;
-    display: inline-flex;
-    
-}
-.wysiwyg li {
-    list-style: none;
-    margin-bottom: 16px;
-}
-.wysiwyg .icon-box {
-    float:left;
-    padding: 10px 15px;
-    background: #467de322;
-    border-radius: 5px;
-    margin-right: 16px;
-    margin-bottom: 20px;
-    margin-top: 5px;
-}
-
-.wysiwyg .icon-box .matierial-icon {
-    font-size: 22px;
-}
