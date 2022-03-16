@@ -39,7 +39,7 @@ const FeaturesWithMobileScreenshot = ({ header, content, image }) => {
                 Create better stories.
               </Typography> */}
             </Box>
-            <Grid container spacing={1}>
+            <Grid container >
               <WYSIWYGRender customClass="circle-icons"
                 rich_text={content || FillerContent.rich_text}
               ></WYSIWYGRender>
