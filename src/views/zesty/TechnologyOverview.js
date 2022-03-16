@@ -74,11 +74,7 @@ function TechnologyOverview({ content }) {
       />
 
       {/* Benefits  */}
-      <SimpleCentered
-        header={content?.benefits_header}
-        cards={null}
-        description={''}
-      />
+      <SimpleCentered header={null} cards={null} description={null} />
       {/* Feature List  */}
       <FeaturesWithMobileScreenshot
         header={''}
