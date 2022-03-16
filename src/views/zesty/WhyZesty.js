@@ -101,7 +101,14 @@ function WhyZesty({ content }) {
   return (
     <>
       {/* Header */}
-      <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+      </Box>
 
       {/* Overview of process */}
       <OverviewProcessComp
