@@ -71,17 +71,25 @@ const SidebarArticles = ({latestArticles}) => {
               <CardContent
                 sx={{ padding: 1, '&:last-child': { paddingBottom: 1 } }}
               >
-                <Typography fontWeight={700}>{item.title || FillerContent.header}</Typography>
+                <Typography fontWeight={700}>
+                  {item.title || FillerContent.header}
+                </Typography>
                 <Box marginY={1 / 4}>
                   <Typography
                     variant={'caption'}
                     color={'text.secondary'}
                     component={'i'}
                   >
-                    {item.author?.data[0]?.name || FillerContent.header} - {item.date}
+                    {item.author?.data[0]?.name || FillerContent.header} -{' '}
+                    {item.date.split('Error hydrating ')}
                   </Typography>
                 </Box>
-                <Button href={item?.meta?.web?.uri || FillerContent.href} size={'small'}>Read More</Button>
+                <Button
+                  href={item?.meta?.web?.uri || FillerContent.href}
+                  size={'small'}
+                >
+                  Read More
+                </Button>
               </CardContent>
             </Box>
           </Grid>

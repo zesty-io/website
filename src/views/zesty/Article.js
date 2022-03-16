@@ -72,12 +72,13 @@ function Article({ content }) {
     try {
       const fetchData = async () => {
         setIsLoaded(true);
-        const uri = `${zestyURL}/-/allarticles.json?limit=4`;
+        const uri = `${zestyURL}/-/allarticles.json?limit=3`;
         const response = await fetch(uri);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         const articles = await response.json();
+        console.log("🚀 ~ file: Article.js ~ line 81 ~ fetchData ~ articles", articles)
         setLatestArticles(articles);
         setIsLoaded(false);
       };
