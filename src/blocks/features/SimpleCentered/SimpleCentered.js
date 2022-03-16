@@ -86,11 +86,13 @@ const SimpleCentered = ({ header, description, cards }) => {
       <Box>
         <Box marginBottom={4}>
           <Box marginBottom={2}>
-            <Box
-              dangerouslySetInnerHTML={{
-                __html: header || FillerContent.header,
-              }}
-            ></Box>
+            {header && (
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: header || FillerContent.header,
+                }}
+              ></Box>
+            )}
             {/* <Typography
               variant="h4"
               color="text.primary"

@@ -12,13 +12,19 @@ import PhoneSkeletonIllustration from 'svg/illustrations/PhoneSkeleton';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const FeaturesWithMobileScreenshot = ({ header, content, image }) => {
   const theme = useTheme();
-
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
-      <Grid container spacing={4}>
+      <Grid
+        display={'flex'}
+        flexDirection={isMobile ? 'row' : 'row-reverse'}
+        container
+        spacing={4}
+      >
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box>
             <Box marginBottom={2}>

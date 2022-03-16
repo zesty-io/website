@@ -7,6 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
+import { useMediaQuery } from '@mui/material';
 
 // const mock = {
 //   avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
@@ -28,6 +29,7 @@ const UserCardWithBackground = ({
   twitter,
 }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
       sx={{
@@ -57,7 +59,7 @@ const UserCardWithBackground = ({
               height: 1,
             }}
           >
-            <Box marginTop={2}>
+            <Box marginTop={isMobile ? 5 : 2}>
               <Box
                 display={'flex'}
                 justifyContent={'center'}
