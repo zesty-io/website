@@ -138,12 +138,13 @@ function canUseDOM() {
     window.document.createElement
   );
 }
-export const ZestyExplorer = ({ content, onClose }) => {
+export const ZestyExplorer = ({ content }) => {
   const [togglem, settoggle] = React.useState(false);
-  // const handleClose = (e) => {
-  //   e.stopPropagation();
-  //   // onClose();
-  // };
+  let searchObject = {...content};
+  // unset navigations for faster search
+  delete searchObject.navigationTree;
+  // custom nav tree building
+  delete searchObject.navigationCustom;
 
   if (!canUseDOM()) {
     return null;
@@ -168,7 +169,7 @@ export const ZestyExplorer = ({ content, onClose }) => {
       )}
       {togglem && (
         <div>
-          <ZestyExplorerBrowser content={content}>
+          <ZestyExplorerBrowser content={searchObject}>
             <Button
               onClick={() => settoggle(false)}
               variant="outlined"
