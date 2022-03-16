@@ -139,7 +139,7 @@ function WhyZesty({ content }) {
           summary={e.summary}
           cta={e.cta}
           cta_url={e.link}
-          image={e.image.data[0].url}
+          image={e?.image?.data && e?.image?.data[0].url}
         />
       ))}
 
