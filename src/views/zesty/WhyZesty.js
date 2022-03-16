@@ -122,9 +122,10 @@ function WhyZesty({ content }) {
       />
 
       {/* Benefits */}
-      {content?.benefits?.data?.map((e) => {
+      {content?.benefits?.data?.map((e, i) => {
         return (
           <FeaturesWithMobileScreenshot
+            index={i}
             content={e.benefit_content}
             header={e.header}
             image={e?.benefit_image?.data && e?.benefit_image?.data[0]?.url}

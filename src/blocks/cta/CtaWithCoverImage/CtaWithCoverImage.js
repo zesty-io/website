@@ -66,7 +66,6 @@ const CtaWithCoverImage = ({ title, cta, image, summary, cta_url }) => {
         width: 1,
         height: 1,
         overflow: 'hidden',
-        padding: '4rem 0',
       }}
     >
       <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>

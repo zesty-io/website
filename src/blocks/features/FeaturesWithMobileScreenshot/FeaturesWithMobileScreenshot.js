@@ -12,17 +12,15 @@ import PhoneSkeletonIllustration from 'svg/illustrations/PhoneSkeleton';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import WYSIWYGRender from 'components/WYSIWYGRender';
 
-const FeaturesWithMobileScreenshot = ({ header, content, image }) => {
+const FeaturesWithMobileScreenshot = ({ header, content, image, index }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
       <Grid
         display={'flex'}
-        flexDirection={isMobile ? 'row' : 'row-reverse'}
+        flexDirection={index !== 1 ? 'row' : 'row-reverse'}
         container
         spacing={4}
       >
@@ -39,11 +37,11 @@ const FeaturesWithMobileScreenshot = ({ header, content, image }) => {
                 Create better stories.
               </Typography> */}
             </Box>
-            <Grid container >
-              <WYSIWYGRender customClass="circle-icons"
+            <Grid container>
+              <WYSIWYGRender
+                customClass="circle-icons"
                 rich_text={content || FillerContent.rich_text}
               ></WYSIWYGRender>
-            
             </Grid>
           </Box>
         </Grid>
