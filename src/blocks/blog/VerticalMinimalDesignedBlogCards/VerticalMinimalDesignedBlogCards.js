@@ -70,6 +70,19 @@ const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, cards, author }) => {
 
   return (
     <Container>
+      <Box marginBottom={4}>
+      {cards?.length >= 10 && (
+        <Grid item container justifyContent={'center'} xs={12}>
+          <Pagination
+            count={pageNum?.length}
+            size={'large'}
+            color="primary"
+            page={currentPage}
+            onChange={handleChange}
+          />
+        </Grid>
+      )}
+      </Box>
       <Grid container spacing={4}>
         {cardsList?.map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
