@@ -125,10 +125,12 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
   return (
     <Container>
       <Box>
-        <Box
-          style={{ textAlign: 'center' }}
-          dangerouslySetInnerHTML={{ __html: content }}
-        ></Box>
+        <Typography variant="h5">
+          <Box
+            style={{ textAlign: 'center' }}
+            dangerouslySetInnerHTML={{ __html: content }}
+          ></Box>
+        </Typography>
         {/* <Box marginBottom={4}>
           <Typography
             sx={{
@@ -185,54 +187,59 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
             </Box>
           </Box>
         </Box> */}
-        <Box>
-          <Grid container spacing={6} justifyContent="center">
-            {cardsList?.map((item, i) => {
-              console.log(item.icon_name);
-              return (
-                <Grid item xs={12} sm={6} md={3} key={i}>
-                  <Box
-                    component={Card}
-                    padding={4}
-                    width={1}
-                    height={1}
-                    variant={'outlined'}
-                  >
-                    <Box display={'flex'} flexDirection={'column'}>
-                      <Box
-                        component={Avatar}
-                        width={50}
-                        height={50}
-                        marginBottom={2}
-                        bgcolor={theme.palette.primary.main}
-                        color={theme.palette.background.paper}
-                      >
-                        {switchIcon(item.icon_name)}
-                      </Box>
-                      <Typography
-                        variant={'h4'}
-                        color={'primary'}
-                        gutterBottom
-                        sx={{ fontWeight: 700 }}
-                      >
-                        {item.blue_content || item.number}
-                      </Typography>
-                      <Typography
-                        variant={'h6'}
-                        gutterBottom
-                        sx={{ fontWeight: 500 }}
-                      >
-                        {item.text || item.title}
-                      </Typography>
-                      <Typography color="text.secondary">
-                        {item.additional_content || item.subtitle}
-                      </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-between',
+            marginTop: '2rem',
+          }}
+        >
+          {cardsList?.map((item, i) => {
+            return (
+              <Grid item xs={12} sm={6} md={3} key={i}>
+                <Box
+                  component={Card}
+                  padding={4}
+                  width={1}
+                  height={1}
+                  variant={'outlined'}
+                  sx={{ border: 'none' }}
+                >
+                  <Box display={'flex'} flexDirection={'column'}>
+                    <Box
+                      component={Avatar}
+                      width={50}
+                      height={50}
+                      marginBottom={2}
+                      bgcolor={theme.palette.primary.main}
+                      color={theme.palette.background.paper}
+                    >
+                      {switchIcon(item.icon_name)}
                     </Box>
+                    <Typography
+                      variant={'h4'}
+                      color={'primary'}
+                      gutterBottom
+                      sx={{ fontWeight: 700 }}
+                    >
+                      {item.blue_content || item.number}
+                    </Typography>
+                    <Typography
+                      variant={'h6'}
+                      gutterBottom
+                      sx={{ fontWeight: 500 }}
+                    >
+                      {item.text || item.title}
+                    </Typography>
+                    <Typography color="text.secondary">
+                      {item.additional_content || item.subtitle}
+                    </Typography>
                   </Box>
-                </Grid>
-              );
-            })}
-          </Grid>
+                </Box>
+              </Grid>
+            );
+          })}
         </Box>
       </Box>
     </Container>
