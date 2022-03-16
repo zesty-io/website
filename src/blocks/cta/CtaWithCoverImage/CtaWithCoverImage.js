@@ -22,7 +22,7 @@ const CtaWithCoverImage = ({ title, cta, image, summary, cta_url }) => {
           {title || FillerContent.header}
         </Typography>
       </Box>
-      <Box marginBottom={4}>
+      <Box marginBottom={4} paddingRight={4}>
         {/* <Typography variant="h6" color="text.secondary" gutterBottom>
           Drawing thousands of the world's technology leaders together to learn
           and do business
@@ -61,87 +61,85 @@ const CtaWithCoverImage = ({ title, cta, image, summary, cta_url }) => {
   );
 
   return (
-    <Container>
-      <Box
-        sx={{
-          width: 1,
-          height: 1,
-          overflow: 'hidden',
-        }}
-      >
-        <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
+    <Box
+      sx={{
+        width: 1,
+        height: 1,
+        overflow: 'hidden',
+      }}
+    >
+      <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
+        <Box
+          display={'flex'}
+          flexDirection={{ xs: 'column', md: 'row' }}
+          position={'relative'}
+        >
+          <Box width={1} order={{ xs: 2, md: 1 }}>
+            <Container>
+              <HeadlineCta />
+            </Container>
+          </Box>
           <Box
-            display={'flex'}
-            flexDirection={{ xs: 'column', md: 'row' }}
-            position={'relative'}
+            sx={{
+              flex: { xs: '0 0 100%', md: '0 0 50%' },
+              position: 'relative',
+              maxWidth: { xs: '100%', md: '50%' },
+              order: { xs: 1, md: 2 },
+            }}
           >
-            <Box width={1} order={{ xs: 2, md: 1 }}>
-              <Container>
-                <HeadlineCta />
-              </Container>
-            </Box>
             <Box
               sx={{
-                flex: { xs: '0 0 100%', md: '0 0 50%' },
+                width: { xs: 1, md: '50vw' },
+                height: '100%',
                 position: 'relative',
-                maxWidth: { xs: '100%', md: '50%' },
-                order: { xs: 1, md: 2 },
               }}
             >
               <Box
                 sx={{
-                  width: { xs: 1, md: '50vw' },
+                  width: '100%',
                   height: '100%',
-                  position: 'relative',
+                  overflow: 'hidden',
                 }}
               >
                 <Box
                   sx={{
-                    width: '100%',
-                    height: '100%',
                     overflow: 'hidden',
+                    left: '0%',
+                    width: 1,
+                    height: 1,
+                    position: { xs: 'relative', md: 'absolute' },
                   }}
                 >
                   <Box
                     sx={{
-                      overflow: 'hidden',
-                      left: '0%',
-                      width: 1,
-                      height: 1,
-                      position: { xs: 'relative', md: 'absolute' },
+                      height: { xs: 'auto', md: 1 },
+                      '& img': {
+                        objectFit: 'cover',
+                      },
                     }}
                   >
                     <Box
-                      sx={{
-                        height: { xs: 'auto', md: 1 },
-                        '& img': {
-                          objectFit: 'cover',
-                        },
-                      }}
-                    >
-                      <Box
-                        component={'img'}
-                        // src={
-                        //   'https://assets.maccarianagency.com/backgrounds/img19.jpg'
-                        // }
-                        src={
-                          image ||
-                          'https://assets.maccarianagency.com/backgrounds/img19.jpg'
-                        }
-                        height={{ xs: 'auto', md: 1 }}
-                        maxHeight={{ xs: 300, md: 1 }}
-                        width={1}
-                        maxWidth={1}
-                      />
-                    </Box>
+                      component={'img'}
+                      // src={
+                      //   'https://assets.maccarianagency.com/backgrounds/img19.jpg'
+                      // }
+                      src={
+                        image ||
+                        'https://assets.maccarianagency.com/backgrounds/img19.jpg'
+                      }
+                      height={{ xs: 'auto', md: 1 }}
+                      maxHeight={{ xs: 300, md: 1 }}
+                      width={1}
+                      maxWidth={1}
+                    />
                   </Box>
                 </Box>
               </Box>
             </Box>
           </Box>
-        </Container>
-      </Box>
-    </Container>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

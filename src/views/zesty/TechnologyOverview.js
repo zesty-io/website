@@ -76,11 +76,18 @@ function TechnologyOverview({ content }) {
       {/* Benefits  */}
       <SimpleCentered header={null} cards={null} description={null} />
       {/* Feature List  */}
-      <FeaturesWithMobileScreenshot
-        header={''}
-        content={content?.feature_list_content}
-        image={content?.featured_image}
-      />
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <FeaturesWithMobileScreenshot
+          header={''}
+          content={content?.feature_list_content}
+          image={content?.featured_image}
+        />
+      </Box>
 
       {/* Tech Icons */}
       <FeaturesWithCardRepresentation
