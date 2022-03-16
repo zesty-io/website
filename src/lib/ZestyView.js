@@ -5,12 +5,12 @@ import React from 'react';
 import * as Zesty from '../views/zesty';
 import ZestyHead from '../components/ZestyHead';
 
-import Custom404 from '../pages/404';
+import ErrorPage from '../pages/_error';
 import { ZestyExplorer } from './ZestyExplorer';
 
 export function ZestyView(props) {
   if (props.content.error) {
-    return <Custom404 error={props.content} />;
+    return <ErrorPage statusCode={404} />;
   }
 
   const Component = Zesty[props.content.meta.model_alternate_name];
