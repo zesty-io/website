@@ -61,6 +61,7 @@ function Pricing({content}) {
     const [pricingData, setPricingData] = React.useState([]);
     const [isLoaded, setIsLoaded] = React.useState(false);
     const [categories, setCategories] = React.useState([]);
+
     React.useEffect(() => {
     // pricing levers
     try {
@@ -97,7 +98,7 @@ function Pricing({content}) {
           </Container>
         </Box>
       <Container>
-        {categories.map(cat => <PricingCompareTable category={cat} pricingData={pricingData}/>)}
+        {categories.map(cat => <PricingCompareTable tiers={content.tiers.data} category={cat} pricingLevers={pricingData}/>)}
       </Container>
       <Container maxWidth={400} paddingY={'0 !important'}>
         <Divider />
