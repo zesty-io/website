@@ -36,13 +36,15 @@ import CtaWithIllustration from 'blocks/cta/CtaWithIllustration';
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import FillerContent from 'components/FillerContent';
+import { useTheme } from '@emotion/react';
 
 const OverviewProcessComp = ({ content, image }) => {
   return (
-    <Container sx={{ marginBottom: '5rem', padding: '4rem' }}>
+    <Container sx={{ marginBottom: '7rem', padding: '4rem' }}>
       <Grid container justify="center">
         <Box justifyContent="center" alignItems="center">
           <Typography
+            variant="h5"
             alignItems={'center'}
             sx={{ textAlign: 'center' }}
             gutterBottom
@@ -72,6 +74,7 @@ const OverviewProcessComp = ({ content, image }) => {
 };
 function WhyZesty({ content }) {
   console.log(content, 'CONTENT PROPS');
+  const theme = useTheme();
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
       ? content.hybrid_vs_headless_content
@@ -121,10 +124,17 @@ function WhyZesty({ content }) {
       })}
 
       {/* HYBRID VS HEADLESS */}
-      <FeaturesWithIllustration
-        rich_text={overview_text}
-        image_url={image_url}
-      />
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <FeaturesWithIllustration
+          rich_text={overview_text}
+          image_url={image_url}
+        />
+      </Box>
 
       {/* PROOF POINTS */}
       <WithBorderedCardsAndBrandColor
