@@ -29,6 +29,7 @@ import React from 'react';
 import SimpleVerticalBlogCardsPage from 'blocks/blog/SimpleVerticalBlogCards';
 import { VerticallyAlignedBlogCardsWithShapedImage } from 'blocks/blog';
 import { CtaWithInputField } from 'blocks/cta';
+import FillerContent from 'components/FillerContent';
 
 
 import Container from 'components/Container';
@@ -37,7 +38,7 @@ function CaseStudy({ content }) {
   return (
     <>
       <Container>
-        <SimpleVerticalBlogCardsPage />
+        {/* <SimpleVerticalBlogCardsPage header={FillerContent.header}/> */}
         <VerticallyAlignedBlogCardsWithShapedImage />
         <CtaWithInputField />
       </Container>
@@ -46,7 +47,7 @@ function CaseStudy({ content }) {
         dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
       ></h1>
       <div>{content.meta.web.seo_meta_description}</div>
-      <div
+      {/* <div
         style={{
           background: '#eee',
           border: '1px #000 solid',
@@ -56,7 +57,7 @@ function CaseStudy({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );

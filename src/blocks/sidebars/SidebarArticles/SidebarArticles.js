@@ -60,6 +60,7 @@ const SidebarArticles = ({latestArticles}) => {
                   sx={{
                     objectFit: 'cover',
                     maxHeight: 120,
+                    width: 150,
                     borderRadius: 2,
                     filter:
                       theme.palette.mode === 'dark'

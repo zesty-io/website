@@ -78,7 +78,7 @@ function Article({ content }) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         const articles = await response.json();
-        console.log("🚀 ~ file: Article.js ~ line 81 ~ fetchData ~ articles", articles)
+
         setLatestArticles(articles);
         setIsLoaded(false);
       };
@@ -179,7 +179,7 @@ function Article({ content }) {
           title={
             tagArticles.length !== 0 ? 'Similar stories' : 'Latest articles'
           }
-          cta_url={content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url}
+          cta_url={content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url || FillerContent.href}
         />
         <CtaWithInputField />
         <Box

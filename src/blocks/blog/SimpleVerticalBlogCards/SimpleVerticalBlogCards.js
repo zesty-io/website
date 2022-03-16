@@ -133,7 +133,7 @@ const SimpleVerticalBlogCards = ({
                   <CardMedia
                     image={
                       item?.image?.data[0]?.url ||
-                      item?.hero_image?.data[0]?.url
+                      item?.hero_image?.data[0]?.url || FillerContent.image
                     }
                     title={item.title}
                     sx={{
