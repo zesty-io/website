@@ -143,15 +143,23 @@ function WhyZesty({ content }) {
       />
 
       {/* CASE STUDY */}
-      {content?.case_study?.data?.map((e) => (
-        <CtaWithCoverImage
-          title={e.title}
-          summary={e.summary}
-          cta={e.cta}
-          cta_url={e.link}
-          image={e?.image?.data && e?.image?.data[0].url}
-        />
-      ))}
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+          marginBottom: '4rem',
+        }}
+      >
+        {content?.case_study?.data?.map((e) => (
+          <CtaWithCoverImage
+            title={e.title}
+            summary={e.summary}
+            cta={e.cta}
+            cta_url={e.link}
+            image={e?.image?.data && e?.image?.data[0].url}
+          />
+        ))}
+      </Box>
 
       {/* LINK TO BLOG */}
       <VerticallyAlignedBlogCardsWithShapedImage
