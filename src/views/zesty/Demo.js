@@ -239,7 +239,6 @@ const DocumentationComp = () => {
 };
 
 function Demo({ content }) {
-  // console.log(content);
   return (
     <>
       <Container>

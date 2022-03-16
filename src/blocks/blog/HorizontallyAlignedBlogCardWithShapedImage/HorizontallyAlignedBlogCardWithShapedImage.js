@@ -12,6 +12,7 @@ import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
 const HorizontallyAlignedBlogCardWithShapedImage = ({
+  featuredLink,
   featuredImage,
   featuredTitle,
   featuredDescription,
@@ -24,7 +25,7 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({
     <Container paddingTop={'0 !important'}>
       <Box
         component={'a'}
-        href={''}
+        href={featuredLink}
         display={'block'}
         width={1}
         height={1}

@@ -17,10 +17,11 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   title,
   description,
   ctaBtn,
+  ctaUrl,
   popularArticles = [],
 }) => {
   const theme = useTheme();
-  console.log(popularArticles)
+
   return (
     <Container paddingTop={'0 !important'}>
       <Box
@@ -34,29 +35,29 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
             {title}
           </Typography>
-          <Typography color={'text.secondary'}>
-            {description}
-          </Typography>
+          <Typography color={'text.secondary'}>{description}</Typography>
         </Box>
-        <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
-          <Box
-            component={Button}
-            variant="contained"
-            color="primary"
-            size="large"
-            marginLeft={2}
-            href="/mindshare/"
-          >
-            {ctaBtn}
+        {ctaBtn && (
+          <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
+            <Box
+              component={Button}
+              href={ctaUrl}
+              variant="contained"
+              color="primary"
+              size="large"
+              marginLeft={2}
+            >
+              {ctaBtn}
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
       <Grid container spacing={4}>
         {popularArticles.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item?.meta?.uri || item.meta.web?.uri || FillerContent.href}
+              href={item?.meta?.uri ||item?.meta?.web?.uri || FillerContent.href}
               display={'block'}
               width={1}
               height={1}
@@ -78,8 +79,8 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item?.hero_image?.data[0]?.url || FillerContent.image}
-                  title={item?.title || 'Card Image'}
+                  image={item?.hero_image?.data[0]?.url}
+                  title={item?.title}
                   sx={{
                     height: { xs: 300, md: 360 },
                     position: 'relative',
@@ -110,10 +111,10 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                 </CardMedia>
                 <Box component={CardContent} position={'relative'}>
                   <Typography variant={'h6'} gutterBottom>
-                    {item.title || FillerContent.header}
+                    {item?.title}
                   </Typography>
                   <Typography color="text.secondary">
-                    {item.description || FillerContent.description}
+                    {item?.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -128,18 +129,15 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={
-                          item?.author?.data[0].headshot.data[0].url ||
-                          FillerContent.image
-                        }
+                        src={item?.author?.data[0].headshot?.data[0]?.url}
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item?.author?.data[0]?.name || FillerContent.header}
+                        {item?.author?.data[0]?.name}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item?.date || FillerContent.header}
+                      {item?.date}
                     </Typography>
                   </Box>
                 </Box>
