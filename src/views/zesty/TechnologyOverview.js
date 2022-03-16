@@ -36,7 +36,6 @@ import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js
 import Container from 'components/Container';
 
 function TechnologyOverview({ content }) {
-  console.log(content, '123123123');
 
   const headerProps = {
     title: content?.title,
