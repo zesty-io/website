@@ -44,7 +44,7 @@ const BlogCardsWithFullBackgroundImage = ({
             marginLeft={2}
             href={'customer-stories/'}
           >
-            All Articles
+            View all
           </Box>
         </Box>
       </Box>
