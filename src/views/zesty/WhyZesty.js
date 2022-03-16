@@ -35,7 +35,6 @@ import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js
 import CtaWithIllustration from 'blocks/cta/CtaWithIllustration';
 
 function WhyZesty({ content }) {
-  console.log(content, '123123');
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
       ? content.hybrid_vs_headless_content

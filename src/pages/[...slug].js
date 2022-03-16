@@ -16,6 +16,9 @@ export default function Slug(props) {
 export async function getServerSideProps(ctx) {
 
   const data = await fetchPage(ctx.resolvedUrl);
+  
+  // generate a status 404 page
+  if (data.error) return { notFound: true }
 
   // Pass data to the page via props
   return { props: data };

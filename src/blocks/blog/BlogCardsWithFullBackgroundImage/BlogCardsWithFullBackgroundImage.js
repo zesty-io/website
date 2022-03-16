@@ -16,8 +16,9 @@ const BlogCardsWithFullBackgroundImage = ({
   caseStudy,
   title,
   description,
-  ctaBtn,
+
 }) => {
+
   const theme = useTheme();
   return (
     <Container paddingTop={'0 !important'}>
@@ -34,24 +35,14 @@ const BlogCardsWithFullBackgroundImage = ({
           </Typography>
           <Typography color={'text.secondary'}>{description}</Typography>
         </Box>
-        <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
-          <Box
-            component={Button}
-            variant="outlined"
-            color="primary"
-            size="large"
-            marginLeft={2}
-          >
-            {ctaBtn}
-          </Box>
-        </Box>
+
       </Box>
       <Grid container spacing={4}>
         {caseStudy.map((item, i) => (
           <Grid item xs={12} key={i}>
             <Box
               component={'a'}
-              href={''}
+              href={item?.meta?.web?.uri}
               display={'block'}
               width={1}
               height={1}

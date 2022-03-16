@@ -27,7 +27,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
@@ -51,8 +51,6 @@ function Mindshare({ content }) {
   const [allArticles, setAllArticles] = useState([]);
   const [authors, setAuthors] = useState([]);
 
-  //Search Filter
-  const [value, setValue] = useState(null);
 
   useEffect(() => {
     try {
@@ -87,7 +85,7 @@ function Mindshare({ content }) {
           return authorData;
         });
 
-        const latestArticles = articles;
+        const latestArticles = articles.reverse();
 
         setAllArticles(latestArticles);
         Promise.all(getAuthors).then((author) => setAuthors(author));
@@ -101,10 +99,12 @@ function Mindshare({ content }) {
   }, []);
 
   const chipsTitle = content.popular_categories
-    ? Object.keys(content.popular_categories.data).map(
-        (item) => content?.popular_categories?.data[item]?.category,
-      )
+  ? Object.keys(content.popular_categories.data).map(
+    (item) => content?.popular_categories?.data[item]?.category,
+    )
     : FillerContent.missingDataArray;
+
+
 
   let zestyURL =
     undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
@@ -155,7 +155,7 @@ function Mindshare({ content }) {
                 key={item}
                 label={item}
                 component="a"
-                href=""
+                href={`/mindshare/${item.toLowerCase().replace(/\s/g, '-')}`}
                 clickable
                 sx={{ margin: 0.5 }}
               />
@@ -164,6 +164,7 @@ function Mindshare({ content }) {
         </Container>
         {/* Featured Articles */}
         <HorizontallyAlignedBlogCardWithShapedImage
+          featuredLink={content.featured_article.data[0]?.meta?.web?.uri || FillerContent.href}
           featuredImage={
             content.featured_article.data[0]?.hero_image?.data[0]?.url ||
             FillerContent.image
@@ -188,13 +189,13 @@ function Mindshare({ content }) {
           }
         />
 
-        {/* Popular Articles / Top Insights */}
+        {/*  Top Insights */}
         <VerticallyAlignedBlogCardsWithShapedImage
           title={content.top_articles_title || FillerContent.header}
           description={
             content.top_articles_description || FillerContent.description
           }
-          ctaBtn={content.top_article_cta || FillerContent.cta}
+
           popularArticles={
             content.popular_articles.data || FillerContent.missingDataArray
           }
@@ -203,9 +204,13 @@ function Mindshare({ content }) {
         {/* Case Studies */}
         <BlogCardsWithFullBackgroundImage
           title={content.case_studies_title || FillerContent.header}
-          description={content.case_studies_description || FillerContent.description}
-          ctaBtn={content.case_studies_cta || FillerContent.cta}
-          caseStudy={content?.case_studies?.data || FillerContent.missingDataArray}
+          description={
+            content.case_studies_description || FillerContent.description
+          }
+
+          caseStudy={
+            content?.case_studies?.data || FillerContent.missingDataArray
+          }
         />
 
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
@@ -217,8 +222,13 @@ function Mindshare({ content }) {
               </Box>
             ) : (
               <PopularArticles
-                title={content.additional_insights_title || FillerContent.header}
-                description={content.additional_insights_description || FillerContent.description}
+                title={
+                  content.additional_insights_title || FillerContent.header
+                }
+                description={
+                  content.additional_insights_description ||
+                  FillerContent.description
+                }
                 ctaBtn={content.additional_insights_cta || FillerContent.cta}
                 articles={allArticles}
                 authors={authors}
