@@ -76,13 +76,13 @@ const pricing = [
   },
 ];
 
-const PricingCompareTable = () => {
+const PricingCompareTable = ({category,pricingData}) => {
   const theme = useTheme();
   return (
     <Box>
       <Box marginBottom={4}>
         <Typography fontWeight={700} variant={'h4'}>
-          Compare the options
+         {category}
         </Typography>
       </Box>
       <Box>
