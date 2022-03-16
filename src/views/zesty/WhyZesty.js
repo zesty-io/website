@@ -39,7 +39,7 @@ import FillerContent from 'components/FillerContent';
 
 const OverviewProcessComp = ({ content, image }) => {
   return (
-    <Container sx={{ marginBottom: '6rem' }}>
+    <Container sx={{ marginBottom: '5rem', padding: '4rem' }}>
       <Grid container justify="center">
         <Box justifyContent="center" alignItems="center">
           <Typography
