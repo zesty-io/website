@@ -132,6 +132,7 @@ function Homepage({ content }) {
       </Box>
       {/* Latest Articles */}
       <VerticallyAlignedBlogCardsWithShapedImage
+      ctaBtn={'View More' || FillerContent.cta}
         popularArticles={allArticles || FillerContent.missingDataArray}
         />
       <CtaWithInputField />
