@@ -40,7 +40,7 @@ import { useTheme } from '@emotion/react';
 
 const OverviewProcessComp = ({ content, image }) => {
   return (
-    <Container sx={{ marginBottom: '7rem', padding: '4rem' }}>
+    <Container sx={{ marginBottom: '1rem', padding: '2rem' }}>
       <Grid container justify="center">
         <Box justifyContent="center" alignItems="center">
           <Typography
@@ -55,18 +55,20 @@ const OverviewProcessComp = ({ content, image }) => {
               }}
             ></Box>
           </Typography>
-          <Box
-            component={'img'}
-            src={image}
-            alt={FillerContent.header}
-            width={1}
-            height={1}
-            sx={{
-              objectFit: 'cover',
-              borderRadius: '1rem',
-              justifyContent: 'center',
-            }}
-          />
+          <Container>
+            <Box
+              component={'img'}
+              src={image}
+              alt={FillerContent.header}
+              width={1}
+              height={1}
+              sx={{
+                objectFit: 'cover',
+                borderRadius: '1rem',
+                justifyContent: 'center',
+              }}
+            />
+          </Container>
         </Box>
       </Grid>
     </Container>
