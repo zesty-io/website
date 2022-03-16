@@ -37,28 +37,60 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
 import Container from 'components/Container';
-import {
-    Main,
-  Faq,
-  Plans,
-  Support,
-  PricingCompareTable,
-} from '../Pricing/components';
+import PricingHero from '../../blocks/pricing/PricingHero/PricingHero'
+import SupportBanner from '../../blocks/pricing/SupportBanner/SupportBanner'
+import PricingCompareTable from '../../blocks/pricing/PricingCompareTable/PricingCompareTable'
+import Faq from '../../blocks/pricing/Faq/Faq'
+import Plans from '../../blocks/pricing/Plans/Plans'
+
+let zestyURL =
+(undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+  ? process.env.zesty.production
+  : process.env.zesty.stage;
 
  
 
 function Pricing({content}) {
     const theme = useTheme();
+    const heroProps = { 
+      title: content.title,
+      subtitle: content.subtitle,
+      tiers: content.tiers.data
+    };
+    const [pricingData, setPricingData] = React.useState();
+    const [isLoaded, setIsLoaded] = React.useState(false);
+    React.useEffect(() => {
+    // pricing levers
+   try {
+    const fetchData = async () => {
+      const uri = `${zestyURL}/-/pricing-levers.json`;
+
+      const response = await fetch(uri);
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const pricingLevers = await response.json();
+      setIsLoaded(true);
+      setPricingData(pricingData);
+    };
+
+    fetchData();
+  } catch (error) {
+    console.error(`Could Not Find Results: ${error}`);
+  }
+}, []);
+console.log(pricingData)
     return (
         <>
-        <Main/>
+        <PricingHero {...heroProps}/>
          <Box bgcolor={'alternate.main'}>
-        <Container>
-          <Support />
-        </Container>
-      </Box>
+          <Container>
+            <SupportBanner text_content={content.banner_content} />
+          </Container>
+        </Box>
       <Container>
-        <PricingCompareTable />
+        <PricingCompareTable pricing_data={pricingData}/>
       </Container>
       <Container maxWidth={400} paddingY={'0 !important'}>
         <Divider />
@@ -72,9 +104,7 @@ function Pricing({content}) {
           backgroundColor: theme.palette.alternate.main,
         }}
       >
-        <Container>
-          <Plans />
-        </Container>
+        
         <Box
           component={'svg'}
           preserveAspectRatio="none"
