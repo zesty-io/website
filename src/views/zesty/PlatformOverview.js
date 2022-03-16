@@ -84,7 +84,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
           >
             Our work
           </Typography>
-          <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
+          <Typography variant={'h6'} sx={{ fontWeight: 700 }} align={'center'}>
             <Box
               dangerouslySetInnerHTML={{
                 __html: title || FillerContent.header,
@@ -219,6 +219,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
 };
 
 function PlatformOverview({ content }) {
+  console.log(content, 'props');
   const headerProps = {
     title: content?.title,
     description: content?.header_description,
@@ -247,7 +248,7 @@ function PlatformOverview({ content }) {
 
       {/* Features */}
       <FeaturesWithCardRepresentation
-        description={''}
+        description={content?.features_header}
         cards={content?.features_tiles?.data}
       />
 
