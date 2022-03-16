@@ -33,8 +33,45 @@ import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 import CtaWithIllustration from 'blocks/cta/CtaWithIllustration';
+import { Container, Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import FillerContent from 'components/FillerContent';
 
+const OverviewProcessComp = ({ content, image }) => {
+  return (
+    <Container sx={{ marginBottom: '6rem' }}>
+      <Grid container justify="center">
+        <Box justifyContent="center" alignItems="center">
+          <Typography
+            alignItems={'center'}
+            sx={{ textAlign: 'center' }}
+            gutterBottom
+          >
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: content || FillerContent.header,
+              }}
+            ></Box>
+          </Typography>
+          <Box
+            component={'img'}
+            src={image}
+            alt={FillerContent.header}
+            width={1}
+            height={1}
+            sx={{
+              objectFit: 'cover',
+              borderRadius: '1rem',
+              justifyContent: 'center',
+            }}
+          />
+        </Box>
+      </Grid>
+    </Container>
+  );
+};
 function WhyZesty({ content }) {
+  console.log(content, 'CONTENT PROPS');
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
       ? content.hybrid_vs_headless_content
@@ -62,6 +99,15 @@ function WhyZesty({ content }) {
     <>
       {/* Header */}
       <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+
+      {/* Overview of process */}
+      <OverviewProcessComp
+        image={
+          content?.overview_of_process_image.data &&
+          content?.overview_of_process_image.data[0].url
+        }
+        content={content?.overview_of_process_text}
+      />
 
       {/* Benefits */}
       {content?.benefits?.data?.map((e) => {
