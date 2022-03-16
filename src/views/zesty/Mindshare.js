@@ -116,6 +116,8 @@ function Mindshare({ content }) {
     window.open(value.uri);
   };
 
+  console.log(content.featured_article.data[0].author.data[0].meta.web.uri);
+
   return (
     <>
       <Box bgcolor={'alternate.main'} position={'relative'}>
@@ -164,7 +166,10 @@ function Mindshare({ content }) {
         </Container>
         {/* Featured Articles */}
         <HorizontallyAlignedBlogCardWithShapedImage
-          featuredLink={content.featured_article.data[0]?.meta?.web?.uri || FillerContent.href}
+          featuredLink={
+            content.featured_article.data[0]?.meta?.web?.uri ||
+            FillerContent.href
+          }
           featuredImage={
             content.featured_article.data[0]?.hero_image?.data[0]?.url ||
             FillerContent.image
@@ -184,6 +189,9 @@ function Mindshare({ content }) {
             content.featured_article?.data[0]?.author?.data[0]?.name ||
             FillerContent.image
           }
+          featuredAuthorLink={
+            content.featured_article?.data[0].author?.data[0].meta.web.uri
+           || FillerContent.href}
           featuredDate={
             content?.featured_article?.data[0]?.date || FillerContent.date
           }
@@ -195,7 +203,6 @@ function Mindshare({ content }) {
           description={
             content.top_articles_description || FillerContent.description
           }
-
           popularArticles={
             content.popular_articles.data || FillerContent.missingDataArray
           }
@@ -207,7 +214,6 @@ function Mindshare({ content }) {
           description={
             content.case_studies_description || FillerContent.description
           }
-
           caseStudy={
             content?.case_studies?.data || FillerContent.missingDataArray
           }
