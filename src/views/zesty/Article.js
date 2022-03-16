@@ -30,11 +30,12 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
+import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import FillerContent from 'components/FillerContent';
@@ -43,26 +44,87 @@ import BlogCTA from 'components/cta/BlogCTA';
 import HeroJarallax from 'blocks/heroes/HeroJarallax';
 
 import SidebarArticles from 'blocks/sidebars/SidebarArticles';
-import SidebarNewsletter from 'blocks/sidebars/SidebarNewsletter';
+
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 
 import Container from 'components/Container';
+import SideBarCTA from 'components/cta/SideBarCTA';
 
 function Article({ content }) {
+  let zestyURL =
+    undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
+
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [latestArticles, setLatestArticles] = useState([]);
+  const [tagArticles, setTagArticles] = useState([]);
+
+  const simliarTags = content.tags?.data[0]?.meta?.zuid;
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        setIsLoaded(true);
+        const uri = `${zestyURL}/-/allarticles.json?limit=4`;
+        const response = await fetch(uri);
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const articles = await response.json();
+        setLatestArticles(articles);
+        setIsLoaded(false);
+      };
+
+      const fetchSimiliarTags = async () => {
+        setIsLoaded(true);
+        const url = `${zestyURL}/-/similar-articles.json?limit=3&tag=${simliarTags}`;
+
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const tagArticles = await response.json();
+
+        setTagArticles(tagArticles);
+        setIsLoaded(false);
+      };
+
+      fetchData();
+      fetchSimiliarTags();
+    } catch (error) {
+      console.error(`Could Not Find Results: ${error}`);
+    }
+  }, []);
+
+
   return (
     <>
       <Box>
         <HeroJarallax
+          articleDate={content.date || FillerContent.date}
+          title={content?.author?.data[0]?.name || FillerContent.header}
+          articleAvatar={
+            content?.author?.data[0]?.headshot?.data[0]?.url ||
+            FillerContent.image
+          }
           image={
             content.hero_image?.data
               ? content.hero_image.data[0].url
               : FillerContent.image
           }
+          authorImage={
+            content.author?.data[0]?.headshot?.data[0]?.url ||
+            FillerContent.image
+          }
+          authorName={content.author?.data[0]?.name || FillerContent.header}
+          authorDate={content.date || FillerContent.date}
         />
         <Container>
           <Grid container spacing={4}>
@@ -77,10 +139,15 @@ function Article({ content }) {
             <Grid item xs={12} md={4}>
               {isMd ? (
                 <Box marginBottom={4}>
-                  <SidebarArticles />
+                  {isLoaded ? (
+                    <CircularProgressWithLabel />
+                  ) : (
+                    <SidebarArticles latestArticles={latestArticles} />
+                  )}
                 </Box>
               ) : null}
-              <SidebarNewsletter />
+
+              <SideBarCTA />
             </Grid>
           </Grid>
         </Container>
@@ -103,10 +170,14 @@ function Article({ content }) {
         </Box>
       </Box>
       <Box bgcolor={'alternate.main'}>
-        <SimpleVerticalBlogCards />
-
+        <SimpleVerticalBlogCards
+          cards={tagArticles.length !== 0 ? tagArticles : latestArticles}
+          title={
+            tagArticles.length !== 0 ? 'Similar stories' : 'Latest articles'
+          }
+          cta_url={content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url}
+        />
         <CtaWithInputField />
-
         <Box
           component={'svg'}
           preserveAspectRatio="none"

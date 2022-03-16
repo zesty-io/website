@@ -6,7 +6,7 @@ import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import Error from 'next/error'
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
@@ -17,7 +17,7 @@ const NotFoundCover = () => {
   });
 
   return (
-    <>
+    <Main>
       <Box
         sx={{
           width: 1,
@@ -134,7 +134,7 @@ const NotFoundCover = () => {
                         component={LazyLoadImage}
                         effect="blur"
                         src={
-                          'https://assets.maccarianagency.com/backgrounds/img23.jpg'
+                          'https://kfg6bckb.media.zestyio.com/The-Architect-Zesty-io-Hero-Campaign.png'
                         }
                         height={{ xs: 'auto', md: 1 }}
                         maxHeight={{ xs: 300, md: 1 }}
@@ -155,7 +155,7 @@ const NotFoundCover = () => {
           </Box>
         </Container>
       </Box>
-    </>
+    </Main>
   );
 };
 

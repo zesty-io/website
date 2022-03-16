@@ -62,9 +62,18 @@ const mock = [
   },
 ];
 
-const SimpleVerticalBlogCards = ({ header, cards, cta, cta_url }) => {
+const SimpleVerticalBlogCards = ({
+  header,
+  cards,
+  cta,
+  cta_url,
+  title,
+  description,
+}) => {
   const theme = useTheme();
   const cardList = cards || mock;
+
+
   return (
     <Container>
       <Box>
@@ -75,9 +84,28 @@ const SimpleVerticalBlogCards = ({ header, cards, cta, cta_url }) => {
           flexDirection={{ xs: 'column', sm: 'row' }}
           marginBottom={4}
         >
-          <Box
-            dangerouslySetInnerHTML={{ __html: header || FillerContent.header }}
-          ></Box>
+          {header && (
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: header || FillerContent.header,
+              }}
+            ></Box>
+          )}
+
+          <Box>
+            {title && (
+              <Typography fontWeight={700} variant={'h6'} gutterBottom>
+                {title || FillerContent.header}
+              </Typography>
+            )}
+
+            {description && (
+              <Typography color={'text.secondary'}>
+                {description || FillerContent.description}
+              </Typography>
+            )}
+          </Box>
+
         </Box>
         <Grid container spacing={4}>
           {cardList?.map((item, i) => (
@@ -98,7 +126,10 @@ const SimpleVerticalBlogCards = ({ header, cards, cta, cta_url }) => {
               >
                 <Box component={Card} width={1} height={1} borderRadius={2}>
                   <CardMedia
-                    image={item?.image?.data && item?.image?.data[0]?.url}
+                    image={
+                      item?.image?.data[0]?.url ||
+                      item?.hero_image?.data[0]?.url
+                    }
                     title={item.title}
                     sx={{
                       height: { xs: 300, md: 360 },
