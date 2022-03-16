@@ -85,26 +85,24 @@ function Article({ content }) {
       const fetchSimiliarTags = async () => {
         setIsLoaded(true);
         const url = `${zestyURL}/-/similar-articles.json?limit=3&tag=${simliarTags}`;
-        const response = await fetch(uri);
+
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         const tagArticles = await response.json();
-        console.log(
-          '🚀 ~ file: Article.js ~ line 94 ~ fetchSimiliarTags ~ tagArticles',
-          tagArticles,
-        );
+
         setTagArticles(tagArticles);
         setIsLoaded(false);
       };
 
       fetchData();
+      fetchSimiliarTags();
     } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
     }
   }, []);
 
-  console.log(content);
 
   return (
     <>
@@ -142,7 +140,7 @@ function Article({ content }) {
                   )}
                 </Box>
               ) : null}
-              {/* <SidebarNewsletter /> */}
+
               <SideBarCTA />
             </Grid>
           </Grid>
@@ -166,10 +164,14 @@ function Article({ content }) {
         </Box>
       </Box>
       <Box bgcolor={'alternate.main'}>
-        <SimpleVerticalBlogCards />
-
+        <SimpleVerticalBlogCards
+          cards={tagArticles.length !== 0 ? tagArticles : latestArticles}
+          title={
+            tagArticles.length !== 0 ? 'Similar stories' : 'Latest articles'
+          }
+          cta_url={content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url}
+        />
         <CtaWithInputField />
-
         <Box
           component={'svg'}
           preserveAspectRatio="none"
