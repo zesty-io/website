@@ -116,7 +116,7 @@ function Mindshare({ content }) {
     window.open(value.uri);
   };
 
-  console.log(content.featured_article.data[0].author.data[0].meta.web.uri);
+
 
   return (
     <>

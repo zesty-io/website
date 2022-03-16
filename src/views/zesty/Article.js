@@ -103,6 +103,7 @@ function Article({ content }) {
     }
   }, []);
 
+
   return (
     <>
       <Box>
@@ -124,6 +125,9 @@ function Article({ content }) {
           }
           authorName={content.author?.data[0]?.name || FillerContent.header}
           authorDate={content.date || FillerContent.date}
+          featuredAuthorLink={
+            content.author?.data[0]?.meta?.web?.uri || FillerContent.href
+          }
         />
         <Container>
           <Grid container spacing={4}>

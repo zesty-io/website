@@ -7,7 +7,14 @@ import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
 
-const HeroJarallax = ({ title, image, authorImage, authorName, authorDate }) => {
+const HeroJarallax = ({
+  title,
+  image,
+  authorImage,
+  authorName,
+  authorDate,
+  featuredAuthorLink,
+}) => {
   useEffect(() => {
     const jarallaxInit = async () => {
       const jarallaxElems = document.querySelectorAll('.jarallax');
@@ -78,7 +85,15 @@ const HeroJarallax = ({ title, image, authorImage, authorName, authorDate }) => 
           >
             {title}
           </Typography>
-          <Box display={'flex'} alignItems={'center'}>
+          <Box
+            display={'flex'}
+            alignItems={'center'}
+            component={'a'}
+            href={featuredAuthorLink}
+            sx={{
+              textDecoration: 'none',
+            }}
+          >
             <Avatar
               sx={{ width: 60, height: 60, marginRight: 2 }}
               src={authorImage}

@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+
 
 const HorizontallyAlignedBlogCardWithShapedImage = ({
   featuredLink,
