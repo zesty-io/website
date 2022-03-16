@@ -29,7 +29,14 @@ const WithCompanyLogo = ({ content }) => {
                   : 'none',
             }}
           />
-          <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
+          <Typography
+            variant="h5"
+            fontWeight={400}
+            alignItems={'center'}
+            textAlign={'center'}
+          >
+            <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
+          </Typography>
           {/* <Typography variant={'h6'} component={'p'} align={'center'}>
             First class templates.
             <br />

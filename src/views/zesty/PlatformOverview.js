@@ -85,11 +85,15 @@ const ProductOverviewComp = ({ title, description, cards }) => {
             Our work
           </Typography>
           <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
-            {title || FillerContent.title}
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: title || FillerContent.header,
+              }}
+            ></Box>
           </Typography>
           <Box
             dangerouslySetInnerHTML={{
-              __html: description || FillerContent.description,
+              __html: description,
             }}
           ></Box>
 
@@ -200,7 +204,10 @@ const ProductOverviewComp = ({ title, description, cards }) => {
                   //     ? item.illustration
                   //     : item.illustrationDark
                   // }`}
-                  src={item.image || FillerContent.illustration_image}
+                  src={
+                    (item?.image?.data && item?.image?.data[0]?.url) ||
+                    FillerContent.illustration_image
+                  }
                   alt={item.header || item.title}
                   width={1}
                   maxWidth={'80%'}
@@ -215,6 +222,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
 };
 
 function PlatformOverview({ content }) {
+  console.log(content, 'props');
   const headerProps = {
     title: content?.title,
     description: content?.header_description,
@@ -237,20 +245,13 @@ function PlatformOverview({ content }) {
 
       {/* Product Overview  */}
       <ProductOverviewComp
-        title={`“CMS is boring” - but does it have to be?`}
-        description={`
-What if your CMS freed you from spending so much time building and iterating and pulling your hair out?
-<br />
-What if you could get your message out the door without the endless processes you expect with your current CMS?
-<br />
-Yeah, it’s possible. And we’re excited too. Here’s how it works >
-        `}
+        title={content?.benefits_header}
         cards={content?.platform_overview_cards?.data}
       />
 
       {/* Features */}
       <FeaturesWithCardRepresentation
-        description={''}
+        description={content?.features_header}
         cards={content?.features_tiles?.data}
       />
 

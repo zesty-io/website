@@ -46,6 +46,7 @@ export const light = {
     zestyLightGrey:		'#A7AFBF',
     navBorderColor: 		'#3c465e',
     yellowHighlight:		'#FFFDE2',
+    zestyYellow:		'rgb(249, 185, 52)',
     white:					'#ffffff',
     black:					'#000000',
     zestyWhiteBlue:		'#f2f4fb',

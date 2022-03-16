@@ -40,32 +40,3 @@ h2 span{
     background-color: #467de322;
     margin-right: 10px
 }
-
-.wysiwyg ul {
-    padding-left: 0px;
-    margin-left: 0px;
-}
-.wysiwyg li {
-    list-style: none;
-    margin-bottom: 16px;
-    margin-left: 0px;
-    padding-left: 0px;
-}
-.wysiwyg .icon-box {
-    float:left;
-    padding: 10px 15px;
-    background: #467de322;
-    border-radius: 5px;
-    margin-right: 16px;
-    margin-bottom: 20px;
-    margin-top: 5px;
-}
-
-.wysiwyg .circle-icon-list li {
-
-}
-
-.wysiwyg .icon-box .matierial-icon .icon-box{
-    background-color: #FF5D0A;
-    border-radius: 50%;
-}

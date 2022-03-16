@@ -34,18 +34,21 @@ import WithCompanyLogo from 'blocks/testimonials/WithCompanyLogo/WithCompanyLogo
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 import Container from 'components/Container';
+import { Box } from '@mui/material';
+import { useTheme } from '@mui/system';
 
 function TechnologyOverview({ content }) {
-
+  console.log(content, 'props');
+  const theme = useTheme();
   const headerProps = {
     title: content?.title,
     description: content?.header_description,
-    image: content?.header_image,
+    image: content?.header_image?.data && content?.header_image?.data[0]?.url,
     cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
     cta_right:
-      content?.cta_right.data && content?.cta_right?.data[0]?.button_text,
+      content?.cta_right?.data && content?.cta_right?.data[0]?.button_text,
     cta_left_url:
-      content?.cta_left.data &&
+      content?.cta_left?.data &&
       content?.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url,
     cta_right_url:
       content?.cta_right.data &&
@@ -54,7 +57,14 @@ function TechnologyOverview({ content }) {
   return (
     <>
       {/* Headers */}
-      <HeroWithDashboardScreenshotAndCta {...headerProps} />
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <HeroWithDashboardScreenshotAndCta {...headerProps} />
+      </Box>
 
       {/* Key Features  */}
       <FeatureListWithDesktopAppScreenshot
@@ -64,11 +74,7 @@ function TechnologyOverview({ content }) {
       />
 
       {/* Benefits  */}
-      <SimpleCentered
-        header={content?.benefits_header}
-        cards={null}
-        description={''}
-      />
+      <SimpleCentered header={null} cards={null} description={null} />
       {/* Feature List  */}
       <FeaturesWithMobileScreenshot
         header={''}
@@ -78,11 +84,12 @@ function TechnologyOverview({ content }) {
 
       {/* Tech Icons */}
       <FeaturesWithCardRepresentation
+        cta={content?.cta}
         cards={content?.tech_features_tiles?.data}
       />
 
       {/* Social Proof */}
-      <WithCompanyLogo content={content.social_proof} />
+      <WithCompanyLogo content={content?.social_proof} />
 
       {/* LINK TO BLOG */}
       <VerticallyAlignedBlogCardsWithShapedImage

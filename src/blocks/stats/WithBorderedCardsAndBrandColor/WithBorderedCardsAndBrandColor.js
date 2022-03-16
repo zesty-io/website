@@ -8,9 +8,21 @@ import Card from '@mui/material/Card';
 import Avatar from '@mui/material/Avatar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-
+import { Speed, Bolt, AttachMoney } from '@mui/icons-material';
 import Container from 'components/Container';
 
+const switchIcon = (icon) => {
+  switch (icon) {
+    case 'speed':
+      return <Speed />;
+    case 'bolt':
+      return <Bolt />;
+    case 'attach_money':
+      return <AttachMoney />;
+    default:
+      return <AttachMoney />;
+  }
+};
 const mock = [
   {
     number: '1000+',
@@ -113,7 +125,12 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
   return (
     <Container>
       <Box>
-        <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
+        <Typography variant="h5">
+          <Box
+            style={{ textAlign: 'center' }}
+            dangerouslySetInnerHTML={{ __html: content }}
+          ></Box>
+        </Typography>
         {/* <Box marginBottom={4}>
           <Typography
             sx={{
@@ -170,9 +187,16 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
             </Box>
           </Box>
         </Box> */}
-        <Box>
-          <Grid container spacing={6} justifyContent="center">
-            {cardsList?.map((item, i) => (
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-between',
+            marginTop: '2rem',
+          }}
+        >
+          {cardsList?.map((item, i) => {
+            return (
               <Grid item xs={12} sm={6} md={3} key={i}>
                 <Box
                   component={Card}
@@ -180,6 +204,7 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
                   width={1}
                   height={1}
                   variant={'outlined'}
+                  sx={{ border: 'none' }}
                 >
                   <Box display={'flex'} flexDirection={'column'}>
                     <Box
@@ -190,7 +215,7 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
                       bgcolor={theme.palette.primary.main}
                       color={theme.palette.background.paper}
                     >
-                      {item.icon}
+                      {switchIcon(item.icon_name)}
                     </Box>
                     <Typography
                       variant={'h4'}
@@ -213,8 +238,8 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
                   </Box>
                 </Box>
               </Grid>
-            ))}
-          </Grid>
+            );
+          })}
         </Box>
       </Box>
     </Container>
