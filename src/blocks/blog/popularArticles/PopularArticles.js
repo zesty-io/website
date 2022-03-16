@@ -63,6 +63,19 @@ const PopularArticles = ({
           </Box>
         </Box>
       </Box>
+      <Box marginBottom={4}>
+        {articles?.length >= 10 && (
+          <Grid item container justifyContent={'center'} xs={12}>
+            <Pagination
+              count={pageNum?.length}
+              page={currentPage}
+              onChange={handlePageChange}
+              size={'large'}
+              color="primary"
+            />
+          </Grid>
+        )}
+      </Box>
       <Grid container spacing={4}>
         {articlesList?.map((item, i) => (
           <Grid item xs={12} sm={i === 0 ? 12 : 6} md={i < 2 ? 6 : 4} key={i}>
@@ -160,17 +173,6 @@ const PopularArticles = ({
             </Box>
           </Grid>
         ))}
-        {articles?.length >= 10 && (
-          <Grid item container justifyContent={'center'} xs={12}>
-            <Pagination
-              count={pageNum?.length}
-              page={currentPage}
-              onChange={handlePageChange}
-              size={'large'}
-              color="primary"
-            />
-          </Grid>
-        )}
       </Grid>
     </Box>
   );
