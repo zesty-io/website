@@ -103,13 +103,12 @@ function Article({ content }) {
     }
   }, []);
 
-
   return (
     <>
       <Box>
         <HeroJarallax
           articleDate={content.date || FillerContent.date}
-          title={content?.author?.data[0]?.name || FillerContent.header}
+          title={content?.title || FillerContent.header}
           articleAvatar={
             content?.author?.data[0]?.headshot?.data[0]?.url ||
             FillerContent.image

@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
 
-const HeroJarallax = ({ image, authorImage, authorName, authorDate }) => {
+const HeroJarallax = ({ title, image, authorImage, authorName, authorDate }) => {
   useEffect(() => {
     const jarallaxInit = async () => {
       const jarallaxElems = document.querySelectorAll('.jarallax');
@@ -76,7 +76,7 @@ const HeroJarallax = ({ image, authorImage, authorName, authorDate }) => {
               marginBottom: 2,
             }}
           >
-            Remote work is the future, but should you go remote?
+            {title}
           </Typography>
           <Box display={'flex'} alignItems={'center'}>
             <Avatar
