@@ -73,7 +73,6 @@ const SimpleVerticalBlogCards = ({
   const theme = useTheme();
   const cardList = cards || mock;
 
-
   return (
     <Container>
       <Box>
@@ -85,11 +84,18 @@ const SimpleVerticalBlogCards = ({
           marginBottom={4}
         >
           {header && (
-            <Box
-              dangerouslySetInnerHTML={{
-                __html: header || FillerContent.header,
-              }}
-            ></Box>
+            <Typography
+              textAlign={'center'}
+              fontWeight={700}
+              variant={'h2'}
+              gutterBottom
+            >
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: header || FillerContent.header,
+                }}
+              ></Box>
+            </Typography>
           )}
 
           <Box>
@@ -105,7 +111,6 @@ const SimpleVerticalBlogCards = ({
               </Typography>
             )}
           </Box>
-
         </Box>
         <Grid container spacing={4}>
           {cardList?.map((item, i) => (

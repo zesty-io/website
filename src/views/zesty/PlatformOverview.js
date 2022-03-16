@@ -84,7 +84,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
           >
             Our work
           </Typography>
-          <Typography variant={'h6'} sx={{ fontWeight: 700 }} align={'center'}>
+          <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
             <Box
               dangerouslySetInnerHTML={{
                 __html: title || FillerContent.header,

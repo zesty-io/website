@@ -186,7 +186,7 @@ const FeaturesWithCardRepresentation = ({
   return (
     <Box bgcolor={'alternate.main'}>
       <Grid container justifyContent="center" paddingTop={4}>
-        <Typography variant="h6">
+        <Typography variant="h4">
           <Box
             sx={{ textAlign: 'center' }}
             dangerouslySetInnerHTML={{
