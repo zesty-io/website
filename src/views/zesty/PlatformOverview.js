@@ -153,7 +153,6 @@ const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
 };
 
 function PlatformOverview({ content }) {
-  console.log(content, '123123');
   const theme = useTheme();
   const headerProps = {
     title: content?.title,
