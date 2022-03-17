@@ -19,3 +19,4 @@ export { default as HeroWithPrimaryBackgroundAndDesktopScreenshot } from './Hero
 export { default as FullScreenHeroWithLogoGrid } from './FullScreenHeroWithLogoGrid';
 export { default as SimpleHeroWithImageAndCtaButtons } from './SimpleHeroWithImageAndCtaButtons';
 export { default as HeroWithGeometricImages } from './HeroWithGeometricImages';
+export { default as SlashImageHero } from './SlashImageHero';
