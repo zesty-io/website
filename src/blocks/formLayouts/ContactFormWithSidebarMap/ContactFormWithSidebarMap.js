@@ -14,6 +14,7 @@ import { useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
 
+
 /* validation for form component */
 
 const validationSchema = yup.object({
@@ -212,23 +213,20 @@ function ContactFormWithSidebarMap({title, description, image}) {
 
   const RightSide = () => {
     return (
-      <img
-        width="100%"
-        height="100%"
-        frameBorder="0"
-        title="image"
-        marginHeight={0}
-        marginWidth={0}
-        scrolling="no"
-        src={image}
-        style={{
-          minHeight: 300,
-          filter:
-            theme.palette.mode === 'dark'
-              ? 'grayscale(0.5) opacity(0.7)'
-              : 'none',
-        }}
-      />
+      <img src={image} alt="Zesty Image" />
+      // <img
+      //   alt='Zesty: Contact Us'
+      //   width="100%"
+      //   height="100%"
+      //   src={image}
+      //   style={{
+      //     minHeight: 300,
+      //     filter:
+      //       theme.palette.mode === 'dark'
+      //         ? 'grayscale(0.5) opacity(0.7)'
+      //         : 'none',
+      //   }}
+      // />
     );
   };
 
