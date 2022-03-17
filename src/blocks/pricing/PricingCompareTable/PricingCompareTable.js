@@ -11,11 +11,35 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+const capitalize = (str, lower = false) =>
+  (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+;
 
 const PricingCompareTable = ({tiers,category,pricingLevers}) => {
   const theme = useTheme();
+  const [expanded, setExpanded] = React.useState('panel1');
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
   return (
     <Box>
+        <Accordion expanded={expanded === 'panel1'}>
+          {/* Removed expandIcon from AccordionSummary */}
+           {/*expandIcon={<ExpandMoreIcon />}*/}
+        <AccordionSummary
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+          sx={{bgcolor: 'background.level2'}}
+        >
+          <Typography >{capitalize(category.replace('_',' '))}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
         <TableContainer component={Paper} elevation={0}>
           <Table aria-label="caption table" sx={{ minWidth: 600 }}>
             <caption style={{display: 'none'}}>
@@ -23,13 +47,12 @@ const PricingCompareTable = ({tiers,category,pricingLevers}) => {
             </caption>
             <TableHead>
               <TableRow>
-                <TableCell colSpan={4} sx={{bgcolor: 'background.level2'}}>
-                  <Typography fontWeight={700} variant={'p'}>{category.replace('_',' ')}</Typography>
-                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Features</TableCell>
-                {tiers.map((item, i) => (
+
+                  {/* Do not include Sandbox tier in table */}
+                {tiers.filter(tier => tier.meta.zuid !='7-e0e8cadec0-7crggz').map((item, i) => (
                   <TableCell align="center" key={i}>
                     <Typography
                       sx={{ textTransform: 'uppercase', fontWeight: 'medium' }}
@@ -46,7 +69,9 @@ const PricingCompareTable = ({tiers,category,pricingLevers}) => {
                   <TableCell component="th" scope="row">
                     {lever.title}
                   </TableCell>
-                  {tiers.map(tier => 
+
+                  {/* Do not include Sandbox tier in table */}
+                  {tiers.filter(tier => tier.meta.zuid != '7-e0e8cadec0-7crggz').map(tier => 
                     <TableCell align="center">
                       {lever.included_pricing_tier.find(zuid => zuid == tier.meta.zuid) ? 
                       <Box display={'flex'} justifyContent={'center'}>
@@ -81,6 +106,8 @@ const PricingCompareTable = ({tiers,category,pricingLevers}) => {
             </TableBody>
           </Table>
         </TableContainer>
+        </AccordionDetails>
+      </Accordion>
     </Box>
   
   );
