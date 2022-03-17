@@ -35,7 +35,18 @@ const BlogCardsWithFullBackgroundImage = ({
           </Typography>
           <Typography color={'text.secondary'}>{description}</Typography>
         </Box>
-
+        <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
+          <Box
+            component={Button}
+            variant="outlined"
+            color="primary"
+            size="large"
+            marginLeft={2}
+            href={'customer-stories/'}
+          >
+            View all
+          </Box>
+        </Box>
       </Box>
       <Grid container spacing={4}>
         {caseStudy.map((item, i) => (
@@ -104,13 +115,13 @@ const BlogCardsWithFullBackgroundImage = ({
                       gutterBottom
                       sx={{ color: 'common.white' }}
                     >
-                      {item?.title }
+                      {item?.title}
                     </Typography>
                     <Typography
                       color="text.secondary"
                       sx={{ color: 'common.white', opacity: 0.8 }}
                     >
-                      {item?.description }
+                      {item?.description}
                     </Typography>
                   </Box>
                   <Box>
@@ -128,23 +139,21 @@ const BlogCardsWithFullBackgroundImage = ({
                     >
                       <Box display={'flex'} alignItems={'center'}>
                         <Avatar
-                          src={
-                            item?.author?.data[0]?.headshot?.data[0]?.url
-                          }
+                          src={item?.author?.data[0]?.headshot?.data[0]?.url}
                           sx={{ marginRight: 1 }}
                         />
                         <Typography
                           color={'text.secondary'}
                           sx={{ color: 'common.white', opacity: 0.8 }}
                         >
-                          {item?.author?.data[0]?.name }
+                          {item?.author?.data[0]?.name}
                         </Typography>
                       </Box>
                       <Typography
                         color={'text.secondary'}
                         sx={{ color: 'common.white', opacity: 0.8 }}
                       >
-                        {item?.date }
+                        {item?.date}
                       </Typography>
                     </Box>
                   </Box>

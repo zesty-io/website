@@ -42,20 +42,20 @@ import FillerContent from 'components/FillerContent';
 import BlogCTA from 'components/cta/BlogCTA';
 
 import HeroJarallax from 'blocks/heroes/HeroJarallax';
-
 import SidebarArticles from 'blocks/sidebars/SidebarArticles';
-
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
+
 
 import Container from 'components/Container';
 import SideBarCTA from 'components/cta/SideBarCTA';
 
 function Article({ content }) {
-  let zestyURL =
-    undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
-      ? process.env.zesty.production
-      : process.env.zesty.stage;
+let zestyURL =
+  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
+
 
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -68,16 +68,19 @@ function Article({ content }) {
 
   const simliarTags = content.tags?.data[0]?.meta?.zuid;
 
+
   useEffect(() => {
     try {
       const fetchData = async () => {
         setIsLoaded(true);
-        const uri = `${zestyURL}/-/allarticles.json?limit=4`;
+        const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=5`;
         const response = await fetch(uri);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         const articles = await response.json();
+
+
         setLatestArticles(articles);
         setIsLoaded(false);
       };
@@ -137,7 +140,12 @@ function Article({ content }) {
                   __html: content.article,
                 }}
               ></Box>
-              <BlogCTA />
+
+              <BlogCTA
+                title={'Insights in your inbox'}
+                description={'Subscribe to the Zesty newsletter'}
+                ctaBtn={'Subscribe'}
+              />
             </Grid>
             <Grid item xs={12} md={4}>
               {isMd ? (
@@ -145,12 +153,16 @@ function Article({ content }) {
                   {isLoaded ? (
                     <CircularProgressWithLabel />
                   ) : (
-                    <SidebarArticles latestArticles={latestArticles} />
+                    <SidebarArticles
+                      latestArticles={
+                        latestArticles || FillerContent.missingDataArray
+                      }
+                    />
                   )}
                 </Box>
               ) : null}
 
-              <SideBarCTA />
+              {/* <SideBarCTA /> */}
             </Grid>
           </Grid>
         </Container>
@@ -178,9 +190,18 @@ function Article({ content }) {
           title={
             tagArticles.length !== 0 ? 'Similar stories' : 'Latest articles'
           }
-          cta_url={content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url}
+          cta_url={
+            content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url ||
+            FillerContent.href
+          }
         />
-        <CtaWithInputField />
+        <CtaWithInputField
+          title={'Subscribe to the zestiest newsletter in the industry'}
+          description={
+            'Get the latest from the Zesty team, from whitepapers to product updates.'
+          }
+          cta={'Subscribe'}
+        />
         <Box
           component={'svg'}
           preserveAspectRatio="none"
@@ -201,7 +222,7 @@ function Article({ content }) {
       </Box>
 
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
+      {/* <h1
         dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
       ></h1>
       <div>{content.meta.web.seo_meta_description}</div>
@@ -215,7 +236,7 @@ function Article({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );

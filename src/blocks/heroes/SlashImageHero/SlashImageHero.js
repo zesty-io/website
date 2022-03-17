@@ -8,6 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
+import SubscribeCTA from 'components/cta/SubscribeCTA';
 
 const Hero = ({title, subtitle, description, image, cta, ctaHref}) => {
   const theme = useTheme();
@@ -42,9 +43,10 @@ const Hero = ({title, subtitle, description, image, cta, ctaHref}) => {
           {description}
         </Typography>
       </Box>
-      <Button variant="contained" component={'a'} color="primary" size="large" href={ctaHref}>
+      <SubscribeCTA></SubscribeCTA>
+      {/* <Button variant="contained" component={'a'} color="primary" size="large" href={ctaHref}>
         {cta}
-      </Button>
+      </Button> */}
     </Box>
   );
 

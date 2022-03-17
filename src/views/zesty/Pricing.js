@@ -106,38 +106,14 @@ function Pricing({content}) {
       <Container>
         <Faq />
       </Container>
-      <Box
-        position={'relative'}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-        }}
-      >
-        
-        <Box
-          component={'svg'}
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1920 100.1"
-          sx={{
-            width: '100%',
-            marginBottom: theme.spacing(-1),
-          }}
-        >
-          <path
-            fill={theme.palette.background.paper}
-            d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
-          ></path>
-        </Box>
-      </Box>
+
             {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
+            {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
             <div>{content.meta.web.seo_meta_description}</div>
             <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
                 <h2>Accessible Zesty.io JSON Object</h2>
                 <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
+            </div>*/}
             {/* End of Zesty.io output example */}
         </>
     );

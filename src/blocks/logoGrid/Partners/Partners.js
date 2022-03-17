@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 
 const Partners = ({logoPartners}) => {
 
+
   return (
     <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
       {logoPartners.map((item, i) => (
@@ -19,10 +20,8 @@ const Partners = ({logoPartners}) => {
             height={1}
             width={1}
             src={item?.url}
-            alt="..."
-            sx={{
-              filter: 'contrast(0)',
-            }}
+            alt={item?.zuid}
+
           />
         </Box>
       ))}

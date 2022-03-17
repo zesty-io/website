@@ -14,7 +14,6 @@ import FillerContent from 'components/FillerContent';
 const SidebarArticles = ({latestArticles}) => {
 
 
-
   const theme = useTheme();
   return (
     <Box component={Card} variant={'outlined'} padding={2}>
@@ -54,12 +53,13 @@ const SidebarArticles = ({latestArticles}) => {
                   component={LazyLoadImage}
                   height={1}
                   width={1}
-                  src={item?.hero_image?.data[0]?.url || FillerContent.image}
+                  src={item?.image || FillerContent.image}
                   alt={item.title}
                   effect="blur"
                   sx={{
                     objectFit: 'cover',
                     maxHeight: 120,
+                    width: 150,
                     borderRadius: 2,
                     filter:
                       theme.palette.mode === 'dark'
@@ -71,17 +71,25 @@ const SidebarArticles = ({latestArticles}) => {
               <CardContent
                 sx={{ padding: 1, '&:last-child': { paddingBottom: 1 } }}
               >
-                <Typography fontWeight={700}>{item.title || FillerContent.header}</Typography>
+                <Typography fontWeight={700}>
+                  {item.title || FillerContent.header}
+                </Typography>
                 <Box marginY={1 / 4}>
                   <Typography
                     variant={'caption'}
                     color={'text.secondary'}
                     component={'i'}
                   >
-                    {item.author?.data[0]?.name || FillerContent.header} - {item.date}
+                    {item.author?.name || FillerContent.header} -{' '}
+                    {item.date.split('Error hydrating ')}
                   </Typography>
                 </Box>
-                <Button href={item?.meta?.web?.uri || FillerContent.href} size={'small'}>Read More</Button>
+                <Button
+                  href={item?.meta?.web?.uri || FillerContent.href}
+                  size={'small'}
+                >
+                  Read More
+                </Button>
               </CardContent>
             </Box>
           </Grid>

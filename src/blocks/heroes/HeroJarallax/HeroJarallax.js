@@ -29,6 +29,14 @@ const HeroJarallax = ({
     jarallaxInit();
   });
 
+    const makeDate = (date) => {
+      let d = new Date(date);
+      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+      let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+
+      return `${mo} ${ye}`;
+    };
+
   return (
     <Box
       className={'jarallax'}
@@ -101,7 +109,7 @@ const HeroJarallax = ({
             <ListItemText
               sx={{ margin: 0 }}
               primary={authorName}
-              secondary={authorDate}
+              secondary={makeDate(authorDate)}
               primaryTypographyProps={{
                 variant: 'h6',
                 sx: { color: 'common.white' },
