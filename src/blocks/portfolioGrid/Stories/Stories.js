@@ -51,7 +51,6 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
             <Box
               component={'a'}
               href={item?.link}
-              target="_blank"
               display={'block'}
               width={1}
               height={1}

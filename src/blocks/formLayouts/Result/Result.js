@@ -96,6 +96,7 @@ const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hide
                 color="primary"
                 size="medium"
                 fullWidth
+                type='submit'
               >
                 Search
               </Button>

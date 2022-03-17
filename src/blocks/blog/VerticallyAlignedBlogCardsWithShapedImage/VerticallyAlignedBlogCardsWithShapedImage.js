@@ -22,6 +22,15 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
 }) => {
   const theme = useTheme();
 
+  const makeDate = (date) => {
+    let d = new Date(date);
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+
+    return `${mo} ${ye}`;
+  };
+
+
   return (
     <Container paddingTop={'0 !important'}>
       <Box
@@ -57,7 +66,9 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item?.meta?.uri ||item?.meta?.web?.uri || FillerContent.href}
+              href={
+                item?.meta?.uri || item?.meta?.web?.uri || FillerContent.href
+              }
               display={'block'}
               width={1}
               height={1}
@@ -137,7 +148,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item?.date}
+                      {makeDate(item?.date.split('Error hydrating'))}
                     </Typography>
                   </Box>
                 </Box>

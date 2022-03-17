@@ -13,14 +13,9 @@ import Pagination from '@mui/material/Pagination';
 
 import FillerContent from 'components/FillerContent';
 
-const PopularArticles = ({
-  articles = [],
-  authors = [],
-  title,
-  description,
-  ctaBtn,
-}) => {
+const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
   const theme = useTheme();
+
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,6 +30,16 @@ const PopularArticles = ({
   const handlePageChange = (_event, value) => {
     setCurrentPage(value);
   };
+
+
+  const makeDate = (date) => {
+    let d = new Date(date);
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+
+    return `${mo} ${ye}`;
+  };
+
 
   return (
     <Box>
@@ -68,7 +73,7 @@ const PopularArticles = ({
           <Grid item xs={12} sm={i === 0 ? 12 : 6} md={i < 2 ? 6 : 4} key={i}>
             <Box
               component={'a'}
-              href={item?.uri}
+              href={item?.path}
               display={'block'}
               width={1}
               height={1}
@@ -90,7 +95,7 @@ const PopularArticles = ({
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item?.hero_image || FillerContent.image}
+                  image={item?.image || FillerContent.image}
                   title={item?.title || FillerContent.header}
                   sx={{
                     height: { xs: 300, md: 360 },
@@ -139,20 +144,13 @@ const PopularArticles = ({
                     alignItems={'center'}
                   >
                     <Box display={'flex'} alignItems={'center'}>
-                      <Avatar
-                        src={
-                          authors.find((el) => el.authorZUID === item.author)
-                            ?.authorImage || FillerContent.image
-                        }
-                        sx={{ marginRight: 1 }}
-                      />
+                      <Avatar src={item.author.image} sx={{ marginRight: 1 }} />
                       <Typography color={'text.secondary'}>
-                        {authors.find((el) => el.authorZUID === item.author)
-                          ?.authorName || FillerContent.image}
+                        {item.author.name}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item?.date || FillerContent.header}
+                      {makeDate(item?.date) || FillerContent.header}
                     </Typography>
                   </Box>
                 </Box>

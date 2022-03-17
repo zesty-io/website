@@ -73,6 +73,7 @@ const SimpleVerticalBlogCards = ({
   const theme = useTheme();
   const cardList = cards || mock;
 
+
   return (
     <Container>
       <Box>
@@ -171,7 +172,7 @@ const SimpleVerticalBlogCards = ({
                       variant={'h6'}
                       fontWeight={700}
                       align={'center'}
-                      sx={{ textTransform: 'uppercase' }}
+
                     >
                       {item.title}
                     </Typography>

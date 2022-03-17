@@ -46,17 +46,16 @@ import Newsletter from 'blocks/newsletters/Newsletter';
 function Mindshare({ content }) {
   const theme = useTheme();
 
-  const [error, setError] = useState(null);
+
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
-  const [authors, setAuthors] = useState([]);
 
 
   useEffect(() => {
     try {
       const fetchData = async () => {
         setIsLoaded(true);
-        const uri = `${zestyURL}/-/gql/articles.json`;
+        const uri = `${zestyURL}/-/articlesbycategory.json?category=%&limit=100`;
 
         const response = await fetch(uri);
         if (!response.ok) {
@@ -65,46 +64,23 @@ function Mindshare({ content }) {
 
         const articles = await response.json();
 
-        const authorZUID = articles.map((article) => article.author);
 
-        const dedupeAuthorZUID = [...new Set(authorZUID)];
-
-        const getAuthors = dedupeAuthorZUID.map(async (getaAuthor) => {
-          const authorResponse = await fetch(
-            `${zestyURL}/-/instant/${getaAuthor}.json`,
-          );
-
-          const authorsInfo = await authorResponse.json();
-
-          let authorData = {
-            authorImage: authorsInfo.data[0].content.headshot.data[0].url,
-            authorName: authorsInfo.data[0].content.name,
-            authorZUID: authorsInfo.data[0].content.zuid.data[0].zuid,
-          };
-
-          return authorData;
-        });
-
-        const latestArticles = articles.reverse();
-
-        setAllArticles(latestArticles);
-        Promise.all(getAuthors).then((author) => setAuthors(author));
-        setIsLoaded(false);
+        setAllArticles(articles);
       };
 
       fetchData();
     } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
+    } finally {
+      setIsLoaded(false);
     }
   }, []);
 
   const chipsTitle = content.popular_categories
-  ? Object.keys(content.popular_categories.data).map(
-    (item) => content?.popular_categories?.data[item]?.category,
-    )
+    ? Object.keys(content.popular_categories.data).map(
+        (item) => content?.popular_categories?.data[item]?.category,
+      )
     : FillerContent.missingDataArray;
-
-
 
   let zestyURL =
     undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
@@ -115,8 +91,6 @@ function Mindshare({ content }) {
     if (!value) return;
     window.open(value.uri);
   };
-
-
 
   return (
     <>
@@ -190,8 +164,9 @@ function Mindshare({ content }) {
             FillerContent.image
           }
           featuredAuthorLink={
-            content.featured_article?.data[0].author?.data[0].meta.web.uri
-           || FillerContent.href}
+            content.featured_article?.data[0].author?.data[0].meta.web.uri ||
+            FillerContent.href
+          }
           featuredDate={
             content?.featured_article?.data[0]?.date || FillerContent.date
           }
@@ -221,7 +196,7 @@ function Mindshare({ content }) {
 
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
-            {/*  Fetch ALL ARTICLES W/PAGINATION */}
+            {/*  Latest Articles W/PAGINATION */}
             {isLoaded ? (
               <Box display="flex" justifyContent="center" alignItems="center">
                 <CircularProgressWithLabel />
@@ -237,7 +212,6 @@ function Mindshare({ content }) {
                 }
                 ctaBtn={content.additional_insights_cta || FillerContent.cta}
                 articles={allArticles}
-                authors={authors}
               />
             )}
           </Container>

@@ -12,7 +12,13 @@ import FillerContent from 'components/FillerContent';
 
 
 const SidebarArticles = ({latestArticles}) => {
+  const makeDate = (date) => {
+    let d = new Date(date);
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
 
+    return `${mo} ${ye}`;
+  };
 
 
   const theme = useTheme();
@@ -60,6 +66,7 @@ const SidebarArticles = ({latestArticles}) => {
                   sx={{
                     objectFit: 'cover',
                     maxHeight: 120,
+                    width: 150,
                     borderRadius: 2,
                     filter:
                       theme.palette.mode === 'dark'
@@ -71,17 +78,25 @@ const SidebarArticles = ({latestArticles}) => {
               <CardContent
                 sx={{ padding: 1, '&:last-child': { paddingBottom: 1 } }}
               >
-                <Typography fontWeight={700}>{item.title || FillerContent.header}</Typography>
+                <Typography fontWeight={700}>
+                  {item.title || FillerContent.header}
+                </Typography>
                 <Box marginY={1 / 4}>
                   <Typography
                     variant={'caption'}
                     color={'text.secondary'}
                     component={'i'}
                   >
-                    {item.author?.data[0]?.name || FillerContent.header} - {item.date}
+                    {item.author?.data[0]?.name || FillerContent.header} -{' '}
+                    {makeDate(item.date.split('Error hydrating '))}
                   </Typography>
                 </Box>
-                <Button href={item?.meta?.web?.uri || FillerContent.href} size={'small'}>Read More</Button>
+                <Button
+                  href={item?.meta?.web?.uri || FillerContent.href}
+                  size={'small'}
+                >
+                  Read More
+                </Button>
               </CardContent>
             </Box>
           </Grid>
