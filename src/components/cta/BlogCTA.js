@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 
-function BlogCTA() {
+function BlogCTA({ title , description, ctaBtn}) {
   const theme = useTheme();
   return (
     <Box
@@ -79,15 +79,15 @@ function BlogCTA() {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant={'h6'} gutterBottom>
-                Download our sturtup giude
+                {title}
               </Typography>
               <Typography color={'text.secondary'}>
-                Small heading for a smaller transition
+                {description}
               </Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Name *"
+                label="Name "
                 variant="outlined"
                 name={'name'}
                 fullWidth
@@ -95,7 +95,7 @@ function BlogCTA() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Email *"
+                label="Email "
                 variant="outlined"
                 name={'email'}
                 fullWidth
@@ -109,7 +109,7 @@ function BlogCTA() {
                 type={'submit'}
                 sx={{ height: 54 }}
               >
-                Download
+                {ctaBtn}
               </Button>
             </Grid>
           </Grid>

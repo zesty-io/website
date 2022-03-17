@@ -22,6 +22,13 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({
   featuredAuthorLink,
 }) => {
   const theme = useTheme();
+    const makeDate = (date) => {
+      let d = new Date(date);
+      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+      let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+
+      return `${mo} ${ye}`;
+    };
   return (
     <Container paddingTop={'0 !important'}>
       <Box
@@ -140,7 +147,7 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({
                     {featureName}
                   </Typography>
                 </Box>
-                <Typography color={'text.secondary'}>{featuredDate}</Typography>
+                <Typography color={'text.secondary'}>{makeDate(featuredDate)}</Typography>
               </Box>
             </Box>
           </CardContent>

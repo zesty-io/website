@@ -8,12 +8,6 @@ import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
-// const mock = {
-//   bgImage: 'https://assets.maccarianagency.com/backgrounds/img62.jpg',
-//   title: 'Denim essentials',
-//   subtitle: 'Buy now, wear forever',
-//   href: '#',
-// };
 
 const ShowcaseBgImage = ({
   image,
