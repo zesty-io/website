@@ -45,7 +45,7 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
-          <TopNav colorInvert={ url.match(pageNavColorRegex) !== null ? true  : colorInvert  } />
+          <TopNav colorInvert={ url?.match(pageNavColorRegex) !== null ? true  : colorInvert  } />
         </Container>
       </Box>
       <AppBar
