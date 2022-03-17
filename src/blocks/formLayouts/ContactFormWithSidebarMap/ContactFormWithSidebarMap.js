@@ -42,7 +42,7 @@ const validationSchema = yup.object({
 
 /* Begin Left Side Component */
 
-function ContactFormWithSidebarMap() {
+function ContactFormWithSidebarMap({title, description, image}) {
 
   const theme = useTheme();
 
@@ -68,12 +68,10 @@ function ContactFormWithSidebarMap() {
       <Box>
         <Box marginBottom={4}>
           <Typography variant={'h3'} sx={{ fontWeight: 700 }} gutterBottom>
-            Contact us
+            {title}
           </Typography>
           <Typography color="text.secondary">
-            Rather than worrying about switching offices every couple years, you
-            can instead stay in the same location and grow-up from your shared
-            coworking space to an office that takes up an entire floor.
+            {description}
           </Typography>
         </Box>
         <Box>
@@ -214,15 +212,15 @@ function ContactFormWithSidebarMap() {
 
   const RightSide = () => {
     return (
-      <iframe
+      <img
         width="100%"
         height="100%"
         frameBorder="0"
-        title="map"
+        title="image"
         marginHeight={0}
         marginWidth={0}
         scrolling="no"
-        src="https://maps.google.com/maps?width=100%&height=100%&hl=en&q=Milan&ie=UTF8&t=&z=14&iwloc=B&output=embed"
+        src={image}
         style={{
           minHeight: 300,
           filter:
