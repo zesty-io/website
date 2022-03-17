@@ -79,7 +79,7 @@ let zestyURL =
           throw new Error(`HTTP error: ${response.status}`);
         }
         const articles = await response.json();
-        console.log("🚀 ~ file: Article.js ~ line 83 ~ fetchData ~ articles", articles)
+
 
         setLatestArticles(articles);
         setIsLoaded(false);

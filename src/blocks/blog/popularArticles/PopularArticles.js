@@ -14,7 +14,7 @@ import Pagination from '@mui/material/Pagination';
 import FillerContent from 'components/FillerContent';
 
 const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
-console.log("🚀 ~ file: PopularArticles.js ~ line 17 ~ PopularArticles ~ articles", articles)
+
   const theme = useTheme();
 
 
