@@ -70,11 +70,7 @@ const Main = ({ children, routing, customRouting, colorInvert = false, bgcolor =
         {children}
         <Divider />
       </main>
-      <Box sx={{background: theme.palette.zesty.zestyWhiteBlue}}>
-        <Container paddingY={4} >
-          <Footer customRouting={hasRouting ? customRouting : []} />
-        </Container>
-      </Box>
+      <Footer  colorInvert={colorInvert} customRouting={hasRouting ? customRouting : []} />  
     </Box>
   );
 };

@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {Twitter} from '@mui/material/Icon';
+import Container from '@mui/material/Container'
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
@@ -10,8 +11,11 @@ import { useTheme } from '@mui/material/styles';
 const Footer = ({customRouting,colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
+  const backgroundColor = colorInvert ? theme.palette.zesty.zestyWhiteBlue : theme.palette.zesty.zestyDarkBlue;
   return (
-    <Grid container marginTop={3} spacing={2} >
+    <Box sx={{background: backgroundColor}}>
+        <Container paddingY={4} >
+        <Grid container marginTop={3} spacing={2} >
       <Grid item xs={2}>
         <Box
           display={'flex'}
@@ -49,7 +53,7 @@ const Footer = ({customRouting,colorInvert = false }) => {
            <Grid key={route.zuid}>
             {route.parentZUID == null && route.children.length > 0 &&
               <Grid item marginLeft={4}>
-                <Typography marginBottom={1} variant={'h6'} text-transform='capitalize' colorInvert={colorInvert}>
+                <Typography marginBottom={1} variant={'h6'} text-transform='capitalize'>
                   {route.title}
                 </Typography>
                 {route.children.sort((a, b) => a.sort - b.sort).map(childLink => (
@@ -98,7 +102,9 @@ const Footer = ({customRouting,colorInvert = false }) => {
                       color="text.primary" href="/legal/end-user-license-agreement/">Terms of Use agreements</Link>.
         </Typography>
       </Grid>
-    </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 
