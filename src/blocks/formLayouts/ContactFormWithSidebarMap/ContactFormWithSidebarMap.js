@@ -214,7 +214,23 @@ function ContactFormWithSidebarMap({title, description, image}) {
   const RightSide = () => {
     return (
       <Box>
-        <img src={image} />
+        <img 
+          src={image}
+          alt="Zesty Office"
+          width="100%"
+          height="100%"
+          frameBorder="0"
+          marginHeight={0}
+          marginWidth={0}
+          style={{
+            minHeight: 300,
+            // maxWidth: 600,
+            paddingTop: 135,
+            filter:
+              theme.palette.mode === 'dark'
+                ? 'grayscale(0.5) opacity(0.7)'
+                : 'none',
+            }} />
       </Box>
     );
   };
