@@ -24,9 +24,14 @@ const HeroWithDashboardScreenshotAndCta = ({
     defaultMatches: true,
   });
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
-      <Grid container spacing={4}>
+      <Grid
+        container
+        spacing={4}
+        flexDirection={isMobile ? 'column-reverse' : 'row'}
+      >
         <Grid item container xs={12} md={6} alignItems={'center'}>
           <Box>
             <Box marginBottom={2}>
@@ -98,7 +103,6 @@ const HeroWithDashboardScreenshotAndCta = ({
             width={1}
             src={image || FillerContent.dashboard_image}
             alt="..."
-            boxShadow={3}
             borderRadius={2}
             maxWidth={600}
             sx={{

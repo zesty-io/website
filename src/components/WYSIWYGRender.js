@@ -1,15 +1,17 @@
 import React from 'react';
-import {Box} from '@mui/material';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-export default function WYSIWYGRender({rich_text, customClass=''}) {
-    
-    const theme = useTheme();
-    // this dyanmically replaces text for icons like ICON_check with the material markup 
-    if(rich_text.match('ICON_')){
-        rich_text = rich_text.replace(/ICON_([a-z_]+)( |&nbsp;)/gsi, '<div class="icon-box"><span class="material-icons">$1</span></div>')
-    }
-    let inlineStyles = `
+export default function WYSIWYGRender({ rich_text, customClass = '' }) {
+  const theme = useTheme();
+  // this dyanmically replaces text for icons like ICON_check with the material markup
+  if (rich_text.match('ICON_')) {
+    rich_text = rich_text.replace(
+      /ICON_([a-z_]+)( |&nbsp;)/gis,
+      '<div class="icon-box"><span class="material-icons">$1</span></div>',
+    );
+  }
+  let inlineStyles = `
         .wysiwyg ul {
             padding-left: 0px;
             margin-left: 0px;
@@ -35,22 +37,24 @@ export default function WYSIWYGRender({rich_text, customClass=''}) {
         .wysiwyg.circle-icons li .icon-box {
             background-color: ${theme.palette.zesty.zestyYellow};
             border-radius: 50%;
-            padding: 4px 6px 1px 6px;
+            padding: 5px 5px 5px 5px;
             margin-top: 0;
+            display:flex;
+            align-items:center;
         }
         .wysiwyg.circle-icons li .icon-box span.material-icons{
             font-weight: bold;
             color: white ;
             font-size: 16px;
         }
-        `
+        `;
   return (
-      <>
-        <style>{inlineStyles}</style>
-        <Box
-            className={`wysiwyg ${customClass}`}
-            dangerouslySetInnerHTML={{ __html: rich_text }}
-        ></Box>
+    <>
+      <style>{inlineStyles}</style>
+      <Box
+        className={`wysiwyg ${customClass}`}
+        dangerouslySetInnerHTML={{ __html: rich_text }}
+      ></Box>
     </>
   );
 }

@@ -25,35 +25,183 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
- import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import SimpleHeroWithSearchBox from 'blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
-import VerticalMinimalDesignedBlogCardsPage from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
+import { FullScreenHeroWithImageSlider, SlashImageHero } from 'blocks/heroes';
 import { Breadcrumb } from 'blocks/progressSteps';
 import { Result } from 'blocks/formLayouts';
 import { Newsletter } from 'blocks/newsletters';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, alpha } from '@mui/material/styles';
+// filler content
+import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
-
+import { Typography } from '@mui/material';
 
 function Category({ content }) {
   const theme = useTheme();
-  
-  const SimpleHeroWithSearchBoxProps = {
-    hideForm: true,
-    title: content?.meta?.web?.seo_meta_title || '',
-    description: content?.meta?.web?.seo_meta_description || '',
-  };
 
-  const VerticalMinimalDesignedBlogCardsPageProps = {
-    hideLoadMore: true,
-    list: undefined,
+  // news array state
+  const [categoryArr, setCategoryArr] = useState([]);
+  const [allArticles, setAllArticles] = useState([]);
+  // search states
+  const [searchedArticles, setSearchedArticles] = useState([]);
+  const [searchValue, setSearchValue] = useState(null);
+  const [term, setTerm] = useState('');
+  const [notFound, setNotFound] = useState(false);
+  const [hideLoad, setHideLoad] = useState(false);
+  // current page for pagination
+  const [page, setPage] = useState(0);
+  const [breadcrumb, setBreadcrumb] = useState([
+    {
+      href: `/mindshare/`,
+      title: `Blog`,
+      isActive: false,
+    },
+    {
+      href: `${content.path}`,
+      title: content.category,
+      isActive: true,
+    },
+  ]);
+
+  // use effect pull in news articles
+  useEffect(() => {
+    try {
+      const fetchNews = async () =>{
+        const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=6`;
+        const response = await fetch(url);
+        if(!response.ok){
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const news = await response.json();
+        setHideLoad(false);
+        setCategoryArr(news);
+        setAllArticles(news);
+      }
+
+      fetchNews();
+
+    } catch(err){
+      console.error(`Could Not Find Results: ${error}`);
+    }
+  }, []);
+
+  
+  let zestyURL =
+    undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
+  // search value 
+  const handleOnChange = (evt) => {
+    evt.preventDefault();
+    // handle empty search value
+    if(evt.target.value === null || evt.target.value === ''){
+      setCategoryArr(allArticles);
+      setPage(0)
+      setNotFound(false);
+      setHideLoad(false);
+    }
+    setSearchValue(evt.target.value);
+  }
+  // form submission
+  const handleOnSubmit = (evt) =>{
+    evt.preventDefault();
+    try{
+      const searchArticles = async () => {
+        const url = `${zestyURL}/-/searchnewsarticles.json?q=${searchValue}&category=${content.meta.zuid}&page=${page}&limit=6`;
+        const response = await fetch(url);
+        if(!response.ok){
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const searchData = await response.json();
+        if(!searchData.length){
+          setNotFound(true);
+          setCategoryArr([]);
+          setTerm(searchValue);
+          return;
+        }
+        setHideLoad(true);
+        setNotFound(false);
+        setCategoryArr(searchData);
+      }
+      searchArticles();
+    } catch (error){
+      console.error(`Could Not Find Results: ${error}`);
+    }
   };
+  // load more on click 
+  const handleOnClick = async () =>{
+    try{
+      setPage(page+=6);
+      const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=6`;
+      const response = await fetch(url);
+      if(!response.ok){
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      const data = await response.json();
+      if(!data.length){
+        // add conditional rendering to hide the load more button
+        setHideLoad(true);
+      }
+      setCategoryArr([...categoryArr, ...data])
+    } catch(error){
+      console.error(`Could Not Find Results: ${error}`);
+    }
+  }
+
   return (
     <>
-
+   
+      {/* hero */}
+      <Box
+        bgcolor={'alternate.main'}
+        sx={{
+          position: 'relative',
+          '&::after': {
+            position: 'absolute',
+            content: '""',
+            width: '30%',
+            zIndex: 1,
+            top: 0,
+            left: '5%',
+            height: '100%',
+            backgroundSize: '18px 18px',
+            backgroundImage: `radial-gradient(${alpha(
+              theme.palette.primary.dark,
+              0.4,
+            )} 20%, transparent 20%)`,
+            opacity: 0.2,
+          },
+        }}
+      >
+        <Box position={'relative'} zIndex={3}>
+        <SlashImageHero
+          title={content.category || FillerContent.header}
+          description={content.description || FillerContent.description}
+          cta={content.cta_button || FillerContent.cta}
+          ctaHref={content.cta_href.data[0]?.meta.web.uri || FillerContent.href}
+          image={content.header_image.data[0]?.url || FillerContent.dashboard_image} />
+        </Box>
+      </Box>
+      {/* can be swapped */}
+      {/* <FullScreenHeroWithImageSlider /> */}
+      {/* search and articles */}
+      <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
+        <Box sx={{marginBottom: '16px'}}>
+          <Breadcrumb array={breadcrumb || FillerContent.breadcrumb}  />
+        </Box>
+        <Result array={categoryArr}
+          onChange={handleOnChange}
+          value={searchValue}
+          term={term}
+          onSubmit={handleOnSubmit}
+          notFound={notFound}
+          onClick={handleOnClick}
+          hideLoad={hideLoad} /> 
+      </Container>
+      {/* cta */}
       <Box
         position={'relative'}
         marginTop={{ xs: 4, md: 6 }}
@@ -86,31 +234,8 @@ function Category({ content }) {
         <Container>
           <Newsletter />
         </Container>
-        
       </Box>
 
-      <SimpleHeroWithSearchBox {...SimpleHeroWithSearchBoxProps} />
-      <Container paddingY={2}>
-          <Breadcrumb />
-        </Container>
-      <VerticalMinimalDesignedBlogCardsPage
-        {...VerticalMinimalDesignedBlogCardsPageProps}
-      />
-      {/* <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div> */}
     </>
   );
 }

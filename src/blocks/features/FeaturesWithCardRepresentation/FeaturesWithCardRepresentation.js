@@ -199,7 +199,7 @@ const FeaturesWithCardRepresentation = ({
   });
   const cardList = cards || mock;
   return (
-    <Box bgcolor={'alternate.main'}>
+    <Box bgcolor={'alternate.secondary'}>
       <Grid container justifyContent="center" paddingTop={4}>
         <Typography variant="h4">
           <Box

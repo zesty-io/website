@@ -6,22 +6,21 @@ import Link from '@mui/material/Link';
 
 const mock = [
   {
-    href: '#',
+    href: '/mindshare/',
     title: 'Blog',
     isActive: false,
   },
   {
-    href: '#',
-    title: 'Search Results',
+    href: '/news/',
+    title: 'News',
     isActive: true,
   },
 ];
 
-const Breadcrumb = () => {
+const Breadcrumb = ({array}) => {
   return (
-    <Box>
       <Breadcrumbs aria-label="breadcrumb">
-        {mock.map((item, index) => (
+        {array.map((item, index) => (
           <span key={index}>
             {item.isActive ? (
               <Typography color="text.primary">{item.title}</Typography>
@@ -39,7 +38,6 @@ const Breadcrumb = () => {
           </span>
         ))}
       </Breadcrumbs>
-    </Box>
   );
 };
 

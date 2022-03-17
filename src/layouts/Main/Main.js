@@ -13,8 +13,8 @@ import TopNav from 'components/TopNav';
 import { Topbar, Sidebar, Footer } from './components';
 
 
-const Main = ({ children, routing, customRouting, colorInvert = false, bgcolor = 'transparent' }) => {
-  const hasRouting = routing !== undefined ? true : false;
+const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transparent' }) => {
+  const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -55,7 +55,6 @@ const Main = ({ children, routing, customRouting, colorInvert = false, bgcolor =
         <Container paddingY={1}>
           <Topbar
             onSidebarOpen={handleSidebarOpen}
-            routing={hasRouting ? routing : []}
             customRouting={hasRouting ? customRouting : []}
             colorInvert={trigger ? false : colorInvert}
           />
@@ -70,11 +69,7 @@ const Main = ({ children, routing, customRouting, colorInvert = false, bgcolor =
         {children}
         <Divider />
       </main>
-      <Box sx={{background: theme.palette.zesty.zestyWhiteBlue}}>
-        <Container paddingY={4} >
-          <Footer customRouting={hasRouting ? customRouting : []} />
-        </Container>
-      </Box>
+      <Footer  colorInvert={colorInvert} customRouting={hasRouting ? customRouting : []} />  
     </Box>
   );
 };

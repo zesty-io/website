@@ -75,7 +75,6 @@ const OverviewProcessComp = ({ content, image }) => {
   );
 };
 function WhyZesty({ content }) {
-  console.log(content, 'CONTENT PROPS');
   const theme = useTheme();
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
@@ -122,9 +121,10 @@ function WhyZesty({ content }) {
       />
 
       {/* Benefits */}
-      {content?.benefits?.data?.map((e) => {
+      {content?.benefits?.data?.map((e, i) => {
         return (
           <FeaturesWithMobileScreenshot
+            index={i}
             content={e.benefit_content}
             header={e.header}
             image={e?.benefit_image?.data && e?.benefit_image?.data[0]?.url}

@@ -14,7 +14,6 @@ import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 import WYSIWYGRender from 'components/WYSIWYGRender';
 
-
 const FeaturesWithIllustration = (props) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -30,7 +29,10 @@ const FeaturesWithIllustration = (props) => {
       <Grid container spacing={4} direction={isMd ? 'row' : 'column-reverse'}>
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box marginBottom={4}>
-            <WYSIWYGRender rich_text={rich_text} customClass='circle-icons'></WYSIWYGRender>
+            <WYSIWYGRender
+              rich_text={rich_text}
+              customClass="circle-icons"
+            ></WYSIWYGRender>
           </Box>
         </Grid>
         <Grid item container justifyContent={'center'} xs={12} md={6}>
