@@ -26,7 +26,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // mui imports
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -41,9 +41,16 @@ import FillerContent from 'components/FillerContent';
 
 function SalesPeople({ content }) {
     const theme = useTheme();
-    const [clientCards, setClientCards] = useState([]);
+    const [clientCards, setClientCards] = useState([...FillerContent.clientCards]);
 
     // clients cards fetch
+    useEffect(() => {
+        try {
+            
+        } catch (error) {
+            console.error(`Could Not Find Results: ${error}`);
+        }
+    }, [])
 
   return (
     <>
@@ -70,7 +77,10 @@ function SalesPeople({ content }) {
           <Divider />
         </Container>
         <Container paddingTop={'0 !important'}>
-          <CardsInSlider />
+          <CardsInSlider
+          title={content.client_title || FillerContent.header}
+          eyebrow={content.client_eyebrow || FillerContent.header}
+          array={clientCards} />
         </Container>
       </Box>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
