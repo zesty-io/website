@@ -39,8 +39,8 @@ export async function fetchPage(url,getNavigation=true) {
  
   // fetch the navigation and append the navigation to the data
   if(getNavigation == true){
-
-    data.navigationTree = await buildJSONTreeFromNavigation(zestyURL)
+    // not using this tree
+    // data.navigationTree = await buildJSONTreeFromNavigation(zestyURL)
     // custom nav tree building
     data.navigationCustom = await customNavigation(zestyURL)
   }

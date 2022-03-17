@@ -70,7 +70,7 @@ function Category({ content }) {
   useEffect(() => {
     try {
       const fetchNews = async () =>{
-        const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=3`;
+        const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=6`;
         const response = await fetch(url);
         if(!response.ok){
           throw new Error(`HTTP error: ${response.status}`);
@@ -178,11 +178,11 @@ function Category({ content }) {
       >
         <Box position={'relative'} zIndex={3}>
         <SlashImageHero
-        title={content.category || FillerContent.header}
-        description={content.description || FillerContent.description}
-        cta={content.cta_button || FillerContent.cta}
-        ctaHref={content.cta_href.data[0]?.meta.web.uri || FillerContent.href}
-        image={content.header_image.data[0]?.url || FillerContent.dashboard_image} />
+          title={content.category || FillerContent.header}
+          description={content.description || FillerContent.description}
+          cta={content.cta_button || FillerContent.cta}
+          ctaHref={content.cta_href.data[0]?.meta.web.uri || FillerContent.href}
+          image={content.header_image.data[0]?.url || FillerContent.dashboard_image} />
         </Box>
       </Box>
       {/* can be swapped */}
@@ -193,13 +193,13 @@ function Category({ content }) {
           <Breadcrumb array={breadcrumb || FillerContent.breadcrumb}  />
         </Box>
         <Result array={categoryArr}
-        onChange={handleOnChange}
-        value={searchValue}
-        term={term}
-        onSubmit={handleOnSubmit}
-        notFound={notFound}
-        onClick={handleOnClick}
-        hideLoad={hideLoad} /> 
+          onChange={handleOnChange}
+          value={searchValue}
+          term={term}
+          onSubmit={handleOnSubmit}
+          notFound={notFound}
+          onClick={handleOnClick}
+          hideLoad={hideLoad} /> 
       </Container>
       {/* cta */}
       <Box
