@@ -38,6 +38,7 @@ import { Box } from '@mui/material';
 import { useTheme } from '@mui/system';
 
 function TechnologyOverview({ content }) {
+  console.log(content, '123');
   const theme = useTheme();
   const headerProps = {
     title: content?.title,
@@ -68,7 +69,10 @@ function TechnologyOverview({ content }) {
       {/* Key Features  */}
       <FeatureListWithDesktopAppScreenshot
         header={content?.key_features_header}
-        image={content?.key_features_image}
+        image={
+          content?.key_features_image?.data &&
+          content?.key_features_image?.data[0]?.url
+        }
         content={content?.key_features_content}
       />
 
