@@ -9,17 +9,18 @@ import { alpha, useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
 
-const Hero = () => {
+const Hero = ({title, subtitle, description, image, cta, ctaHref}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
   const LeftSide = () => (
-    <Box data-aos={isMd ? 'fade-right' : 'fade-up'}>
+    // transition removed: data-aos={isMd ? 'fade-right' : 'fade-up'}
+    <Box >
       <Box marginBottom={2}>
         <Typography variant="h2" color="text.primary" sx={{ fontWeight: 700 }}>
-          We make trucking{' '}
+          {title}
         </Typography>
         <Typography
           color={'primary'}
@@ -33,17 +34,16 @@ const Hero = () => {
             )} 0%)`,
           }}
         >
-          efficient
+          {subtitle}
         </Typography>
       </Box>
       <Box marginBottom={3}>
         <Typography variant="h6" component="p" color="text.secondary">
-          Forward thinking businesses use our cloud backup service to ensure
-          data reliability and safety.
+          {description}
         </Typography>
       </Box>
-      <Button variant="contained" color="primary" size="large">
-        Get started
+      <Button variant="contained" component={'a'} color="primary" size="large" href={ctaHref}>
+        {cta}
       </Button>
     </Box>
   );
@@ -65,7 +65,7 @@ const Hero = () => {
         <Box
           component={LazyLoadImage}
           effect="blur"
-          src={'https://assets.maccarianagency.com/backgrounds/img50.jpg'}
+          src={image}
           height={{ xs: 'auto', md: 1 }}
           maxHeight={{ xs: 300, md: 1 }}
           width={1}

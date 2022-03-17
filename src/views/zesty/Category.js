@@ -27,8 +27,7 @@
  */
 import React, { useEffect, useState } from 'react';
 
-import { SimpleHeroWithSingleCta, SlashImageHero } from 'blocks/heroes';
-import VerticalMinimalDesignedBlogCardsPage from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
+import { FullScreenHeroWithImageSlider, SlashImageHero } from 'blocks/heroes';
 import { Breadcrumb } from 'blocks/progressSteps';
 import { Result } from 'blocks/formLayouts';
 import { Newsletter } from 'blocks/newsletters';
@@ -72,13 +71,11 @@ function Category({ content }) {
     try {
       const fetchNews = async () =>{
         const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=3`;
-        console.log(url);
         const response = await fetch(url);
         if(!response.ok){
           throw new Error(`HTTP error: ${response.status}`);
         }
         const news = await response.json();
-        console.log(news);
         setHideLoad(false);
         setCategoryArr(news);
         setAllArticles(news);
@@ -98,6 +95,7 @@ function Category({ content }) {
       : process.env.zesty.stage;
   // search value 
   const handleOnChange = (evt) => {
+    evt.preventDefault();
     // handle empty search value
     if(evt.target.value === null || evt.target.value === ''){
       setCategoryArr(allArticles);
@@ -113,7 +111,6 @@ function Category({ content }) {
     try{
       const searchArticles = async () => {
         const url = `${zestyURL}/-/searchnewsarticles.json?q=${searchValue}&category=${content.meta.zuid}&page=${page}&limit=12`;
-        console.log(url);
         const response = await fetch(url);
         if(!response.ok){
           throw new Error(`HTTP error: ${response.status}`);
@@ -139,19 +136,15 @@ function Category({ content }) {
     try{
       setPage(page+=3);
       const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=3`;
-      console.log(url);
       const response = await fetch(url);
       if(!response.ok){
         throw new Error(`HTTP error: ${response.status}`);
       }
       const data = await response.json();
-      console.log(data);
       if(!data.length){
         // add conditional rendering to hide the load more button
-        console.log('no more pages')
         setHideLoad(true);
       }
-      console.log(categoryArr.concat(data));
       setCategoryArr([...categoryArr, ...data])
     } catch(error){
       console.error(`Could Not Find Results: ${error}`);
@@ -160,12 +153,14 @@ function Category({ content }) {
 
   return (
     <>
+    {/* breadcrumb */}
       <Box bgcolor={'alternate.main'}>
         <Container paddingY={2}>
           <Breadcrumb
           array={breadcrumb || FillerContent.breadcrumb} />
         </Container>
       </Box>
+      {/* hero */}
       <Box
         bgcolor={'alternate.main'}
         sx={{
@@ -188,18 +183,18 @@ function Category({ content }) {
         }}
       >
         <Box position={'relative'} zIndex={3}>
-        <SlashImageHero />
+        <SlashImageHero
+        title={content.category || FillerContent.header}
+        description={content.description || FillerContent.description}
+        cta={content.cta_button || FillerContent.cta}
+        ctaHref={content.cta_href.data[0]?.meta.web.uri || FillerContent.href}
+        image={content.header_image.data[0]?.url || FillerContent.dashboard_image} />
         </Box>
       </Box>
+      {/* can be swapped */}
+      {/* <FullScreenHeroWithImageSlider /> */}
+      {/* search and articles */}
       <Container>
-        {/* <SimpleHeroWithSingleCta
-          title={content.category || FillerContent.header}
-          description={content.description || FillerContent.description}
-          cta={content.cta_button || FillerContent.cta}
-          ctaHref={content.cta_href.data[0]?.meta.web.uri || FillerContent.href}
-        /> */}
-      {/* </Container>
-      <Container> */}
         <Result array={categoryArr}
         onChange={handleOnChange}
         value={searchValue}
@@ -209,6 +204,7 @@ function Category({ content }) {
         onClick={handleOnClick}
         hideLoad={hideLoad} /> 
       </Container>
+      {/* cta */}
       <Box
         position={'relative'}
         marginTop={{ xs: 4, md: 6 }}
@@ -243,10 +239,6 @@ function Category({ content }) {
         </Container>
       </Box>
 
-      {/* <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div> */}
       {/* <div
         style={{
           background: '#eee',
