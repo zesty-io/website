@@ -51,10 +51,11 @@ import Container from 'components/Container';
 import SideBarCTA from 'components/cta/SideBarCTA';
 
 function Article({ content }) {
-  let zestyURL =
-    undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
-      ? process.env.zesty.production
-      : process.env.zesty.stage;
+let zestyURL =
+  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
+
 
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -67,24 +68,18 @@ function Article({ content }) {
 
   const simliarTags = content.tags?.data[0]?.meta?.zuid;
 
-    const makeDate = (date) => {
-      let d = new Date(date);
-      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-      let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
-
-      return `${mo} ${ye}`;
-    };
 
   useEffect(() => {
     try {
       const fetchData = async () => {
         setIsLoaded(true);
-        const uri = `${zestyURL}/-/allarticles.json?limit=3`;
+        const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=5`;
         const response = await fetch(uri);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         const articles = await response.json();
+        console.log("🚀 ~ file: Article.js ~ line 83 ~ fetchData ~ articles", articles)
 
         setLatestArticles(articles);
         setIsLoaded(false);
