@@ -162,7 +162,7 @@ let zestyURL =
                 </Box>
               ) : null}
 
-              <SideBarCTA />
+              {/* <SideBarCTA /> */}
             </Grid>
           </Grid>
         </Container>
