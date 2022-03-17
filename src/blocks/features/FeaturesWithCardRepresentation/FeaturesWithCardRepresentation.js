@@ -6,10 +6,52 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-
+import {
+  People,
+  Public,
+  Security,
+  Schema,
+  Build,
+  FindInPage,
+  Storage,
+  AutoGraph,
+  Construction,
+  DashboardCustomize,
+  Api,
+} from '@mui/icons-material';
+import Icons from '@mui/icons-material';
 import Container from 'components/Container';
 import { Button, useMediaQuery } from '@mui/material';
 import FillerContent from 'components/FillerContent';
+
+const switchIcon = (icon) => {
+  switch (icon) {
+    case 'people':
+      return <People />;
+    case 'find_in_page':
+      return <FindInPage />;
+    case 'security':
+      return <Security />;
+    case 'public':
+      return <Public />;
+    case 'schema':
+      return <Schema />;
+    case 'build':
+      return <Build />;
+    case 'storage':
+      return <Storage />;
+    case 'auto_graph':
+      return <AutoGraph />;
+    case 'dashbaord_customize':
+      return <DashboardCustomize />;
+    case 'api':
+      return <Api />;
+    case 'construction':
+      return <Construction />;
+    default:
+      return <People />;
+  }
+};
 
 const mock = [
   {
@@ -157,13 +199,16 @@ const FeaturesWithCardRepresentation = ({
   });
   const cardList = cards || mock;
   return (
-    <Box bgcolor={'alternate.main'}>
+    <Box bgcolor={'alternate.secondary'}>
       <Grid container justifyContent="center" paddingTop={4}>
-        <Box
-          dangerouslySetInnerHTML={{
-            __html: description || FillerContent.description,
-          }}
-        ></Box>
+        <Typography variant="h4">
+          <Box
+            sx={{ textAlign: 'center' }}
+            dangerouslySetInnerHTML={{
+              __html: description,
+            }}
+          ></Box>
+        </Typography>
       </Grid>
       <Container>
         <Grid container spacing={4}>
@@ -179,7 +224,7 @@ const FeaturesWithCardRepresentation = ({
                     bgcolor={theme.palette.primary.main}
                     color={theme.palette.background.paper}
                   >
-                    {item.icon}
+                    {switchIcon(item.icon_name)}
                   </Box>
                   <Typography
                     variant={'h6'}
@@ -196,18 +241,25 @@ const FeaturesWithCardRepresentation = ({
             </Grid>
           ))}
         </Grid>
-        <Grid container justifyContent="center" marginTop={4}>
-          <Button
-            alignItems={'center'}
-            href={cta_url || FillerContent.href}
-            variant="contained"
-            color="primary"
-            size="large"
-            fullWidth={isMd ? false : true}
-          >
-            {cta || FillerContent.cta}
-          </Button>
-        </Grid>
+        {cta && (
+          <Grid container justifyContent="center" marginTop={4}>
+            <Button
+              alignItems={'center'}
+              href={
+                (cta?.data &&
+                  cta?.data[0]?.internal_link?.data &&
+                  cta?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+                FillerContent.href
+              }
+              variant="contained"
+              color="primary"
+              size="large"
+              fullWidth={isMd ? false : true}
+            >
+              {(cta.data && cta.data[0].button_text) || FillerContent.cta}
+            </Button>
+          </Grid>
+        )}
       </Container>
     </Box>
   );

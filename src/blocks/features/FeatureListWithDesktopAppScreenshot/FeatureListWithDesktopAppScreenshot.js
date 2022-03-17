@@ -11,7 +11,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
 import Container from 'components/Container';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import FillerContent from 'components/FillerContent';
 
 const mock = [
@@ -161,6 +161,8 @@ const RightSide = ({ image }) => {
   );
 };
 const FeatureListWithDesktopAppScreenshot = ({ header, content, image }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
       <Typography
@@ -174,7 +176,11 @@ const FeatureListWithDesktopAppScreenshot = ({ header, content, image }) => {
       >
         {header || FillerContent.header}
       </Typography>
-      <Grid container spacing={4}>
+      <Grid
+        container
+        spacing={4}
+        flexDirection={isMobile ? 'column-reverse' : 'row'}
+      >
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box>
             <LeftSide content={content} />

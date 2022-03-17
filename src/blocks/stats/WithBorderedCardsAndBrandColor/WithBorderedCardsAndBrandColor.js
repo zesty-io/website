@@ -8,9 +8,21 @@ import Card from '@mui/material/Card';
 import Avatar from '@mui/material/Avatar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-
+import { Speed, Bolt, AttachMoney } from '@mui/icons-material';
 import Container from 'components/Container';
 
+const switchIcon = (icon) => {
+  switch (icon) {
+    case 'speed':
+      return <Speed />;
+    case 'bolt':
+      return <Bolt />;
+    case 'attach_money':
+      return <AttachMoney />;
+    default:
+      return <AttachMoney />;
+  }
+};
 const mock = [
   {
     number: '1000+',
@@ -113,66 +125,23 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
   return (
     <Container>
       <Box>
-        <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
-        {/* <Box marginBottom={4}>
-          <Typography
-            sx={{
-              textTransform: 'uppercase',
-              fontWeight: 'medium',
-            }}
-            gutterBottom
-            color={'secondary'}
-            align={'center'}
-          >
-            Numbers
-          </Typography>
-          <Typography
-            variant="h4"
-            align={'center'}
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-            }}
-          >
-            Our global class is open for all
-          </Typography>
-          <Typography variant="h6" align={'center'} color={'text.secondary'}>
-            The best way to learn is by using skills.
-            <br />
-            That's why every class has a project that lets you practice and get
-            feedback.
-          </Typography>
+        <Typography variant="h5">
           <Box
-            display="flex"
-            flexDirection={{ xs: 'column', sm: 'row' }}
-            alignItems={{ xs: 'stretched', sm: 'flex-start' }}
-            justifyContent={'center'}
-            marginTop={2}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              fullWidth={isMd ? false : true}
-            >
-              Book a tutor
-            </Button>
-            <Box
-              component={Button}
-              variant="outlined"
-              color="primary"
-              size="large"
-              marginTop={{ xs: 2, sm: 0 }}
-              marginLeft={{ sm: 2 }}
-              fullWidth={isMd ? false : true}
-            >
-              Explore more
-            </Box>
-          </Box>
-        </Box> */}
-        <Box>
-          <Grid container spacing={6} justifyContent="center">
-            {cardsList?.map((item, i) => (
+            style={{ textAlign: 'center' }}
+            dangerouslySetInnerHTML={{ __html: content }}
+          ></Box>
+        </Typography>
+       
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-between',
+            marginTop: '2rem',
+          }}
+        >
+          {cardsList?.map((item, i) => {
+            return (
               <Grid item xs={12} sm={6} md={3} key={i}>
                 <Box
                   component={Card}
@@ -180,6 +149,7 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
                   width={1}
                   height={1}
                   variant={'outlined'}
+                  sx={{ border: 'none' }}
                 >
                   <Box display={'flex'} flexDirection={'column'}>
                     <Box
@@ -190,7 +160,7 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
                       bgcolor={theme.palette.primary.main}
                       color={theme.palette.background.paper}
                     >
-                      {item.icon}
+                      {switchIcon(item.icon_name)}
                     </Box>
                     <Typography
                       variant={'h4'}
@@ -213,8 +183,8 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
                   </Box>
                 </Box>
               </Grid>
-            ))}
-          </Grid>
+            );
+          })}
         </Box>
       </Box>
     </Container>

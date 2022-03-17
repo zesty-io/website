@@ -40,11 +40,3 @@ h2 span{
     background-color: #467de322;
     margin-right: 10px
 }
-.MuiList-root {
-    list-style: none;
-}
-.MuiList-root li {
-    margin-right: 10px;
-    display: inline-flex;
-
-}

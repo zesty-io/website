@@ -17,6 +17,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   title,
   description,
   ctaBtn,
+  ctaUrl,
   popularArticles = [],
 }) => {
   const theme = useTheme();
@@ -40,6 +41,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
           <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
             <Box
               component={Button}
+              href={ctaUrl}
               variant="contained"
               color="primary"
               size="large"
@@ -55,7 +57,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item?.meta?.uri || FillerContent.href}
+              href={item?.meta?.uri ||item?.meta?.web?.uri || FillerContent.href}
               display={'block'}
               width={1}
               height={1}

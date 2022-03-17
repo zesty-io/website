@@ -19,19 +19,16 @@ const CtaWithCoverImage = ({ title, cta, image, summary, cta_url }) => {
     <Box>
       <Box marginBottom={2}>
         <Typography variant="h4" color="text.primary" sx={{ fontWeight: 700 }}>
-          {title || 'The new era of tech companies'}
+          {title || FillerContent.header}
         </Typography>
       </Box>
-      <Box marginBottom={4}>
+      <Box marginBottom={4} paddingRight={4}>
         {/* <Typography variant="h6" color="text.secondary" gutterBottom>
           Drawing thousands of the world's technology leaders together to learn
           and do business
         </Typography> */}
         <Typography component="p">
-          {summary ||
-            `Meh synth Schlitz, tempor duis single-origin coffee ea next level
-          ethnic fingerstache fanny pack nostrud. Photo booth anim 7-bit hella,
-          PBR 2 wolf moon beard Helvetica`}
+          {summary || FillerContent.description}
         </Typography>
       </Box>
       <Box
@@ -46,7 +43,7 @@ const CtaWithCoverImage = ({ title, cta, image, summary, cta_url }) => {
           size="large"
           fullWidth={isMd ? false : true}
         >
-          {cta || 'Apply to exhibit'}
+          {cta || FillerContent.cta}
         </Button>
         {/* <Box
           component={Button}

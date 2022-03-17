@@ -33,8 +33,49 @@ import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 import CtaWithIllustration from 'blocks/cta/CtaWithIllustration';
+import { Container, Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import FillerContent from 'components/FillerContent';
+import { useTheme } from '@emotion/react';
 
+const OverviewProcessComp = ({ content, image }) => {
+  return (
+    <Container sx={{ marginBottom: '1rem', padding: '2rem' }}>
+      <Grid container justify="center">
+        <Box justifyContent="center" alignItems="center">
+          <Typography
+            variant="h5"
+            alignItems={'center'}
+            sx={{ textAlign: 'center' }}
+            gutterBottom
+          >
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: content || FillerContent.header,
+              }}
+            ></Box>
+          </Typography>
+          <Container>
+            <Box
+              component={'img'}
+              src={image}
+              alt={FillerContent.header}
+              width={1}
+              height={1}
+              sx={{
+                objectFit: 'cover',
+                borderRadius: '1rem',
+                justifyContent: 'center',
+              }}
+            />
+          </Container>
+        </Box>
+      </Grid>
+    </Container>
+  );
+};
 function WhyZesty({ content }) {
+  const theme = useTheme();
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
       ? content.hybrid_vs_headless_content
@@ -61,24 +102,48 @@ function WhyZesty({ content }) {
   return (
     <>
       {/* Header */}
-      <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+      </Box>
+
+      {/* Overview of process */}
+      <OverviewProcessComp
+        image={
+          content?.overview_of_process_image.data &&
+          content?.overview_of_process_image.data[0].url
+        }
+        content={content?.overview_of_process_text}
+      />
 
       {/* Benefits */}
-      {content?.benefits?.data?.map((e) => {
+      {content?.benefits?.data?.map((e, i) => {
         return (
           <FeaturesWithMobileScreenshot
+            index={i}
             content={e.benefit_content}
             header={e.header}
-            image={e.benefit_image}
+            image={e?.benefit_image?.data && e?.benefit_image?.data[0]?.url}
           />
         );
       })}
 
       {/* HYBRID VS HEADLESS */}
-      <FeaturesWithIllustration
-        rich_text={overview_text}
-        image_url={image_url}
-      />
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <FeaturesWithIllustration
+          rich_text={overview_text}
+          image_url={image_url}
+        />
+      </Box>
 
       {/* PROOF POINTS */}
       <WithBorderedCardsAndBrandColor
@@ -87,24 +152,23 @@ function WhyZesty({ content }) {
       />
 
       {/* CASE STUDY */}
-      {content?.case_study?.data?.map((e) => (
-        <CtaWithCoverImage
-          title={e.title}
-          summary={e.summary}
-          cta={e.cta}
-          cta_url={e.link}
-          image={e.image.data[0].url}
-        />
-      ))}
-
-      {/* LINK TO PRODUCT PAGE */}
-      <CtaWithIllustration
-        title={'See how Zesty.io does CMS better'}
-        description={'All the features and functions without the headache.'}
-        cta={'Learn More'}
-        cta_url={''}
-        image={''}
-      />
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+          marginBottom: '4rem',
+        }}
+      >
+        {content?.case_study?.data?.map((e) => (
+          <CtaWithCoverImage
+            title={e.title}
+            summary={e.summary}
+            cta={e.cta}
+            cta_url={e.link}
+            image={e?.image?.data && e?.image?.data[0].url}
+          />
+        ))}
+      </Box>
 
       {/* LINK TO BLOG */}
       <VerticallyAlignedBlogCardsWithShapedImage
@@ -122,12 +186,6 @@ function WhyZesty({ content }) {
         }
         cta={'Subscribe'}
       />
-      {/*
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            */}
     </>
   );
 }

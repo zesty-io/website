@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+
 
 const HorizontallyAlignedBlogCardWithShapedImage = ({
   featuredLink,
@@ -19,6 +19,7 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({
   featureAvatar,
   featureName,
   featuredDate,
+  featuredAuthorLink,
 }) => {
   const theme = useTheme();
   return (
@@ -125,7 +126,15 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({
                 justifyContent={'space-between'}
                 alignItems={'center'}
               >
-                <Box display={'flex'} alignItems={'center'}>
+                <Box
+                  display={'flex'}
+                  alignItems={'center'}
+                  component={'a'}
+                  href={featuredAuthorLink}
+                  sx={{
+                    textDecoration: 'none',
+                  }}
+                >
                   <Avatar src={featureAvatar} sx={{ marginRight: 1 }} />
                   <Typography color={'text.secondary'}>
                     {featureName}

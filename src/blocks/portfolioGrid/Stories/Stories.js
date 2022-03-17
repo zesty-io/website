@@ -13,6 +13,7 @@ import FillerContent from 'components/FillerContent';
 
 const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
 
+
   const theme = useTheme();
   const { mode } = theme.palette;
 
@@ -83,7 +84,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
                       component="img"
                       height={1}
                       width={1}
-                      src={item?.logo?.data[0]?.url || FillerContent.image}
+                      src={ item.logo !== "" ? item?.logo?.data[0]?.url : FillerContent.image}
                       alt={item?.title}
                       sx={{
                         filter: mode === 'dark' ? 'contrast(0)' : 'none',
