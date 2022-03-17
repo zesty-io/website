@@ -39,7 +39,6 @@ import FillerContent from 'components/FillerContent';
 
 function Client({ content }) {
 
-  console.log(content)
 
   const theme = useTheme();
   return (
