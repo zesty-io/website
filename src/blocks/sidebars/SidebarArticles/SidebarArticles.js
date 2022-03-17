@@ -14,8 +14,6 @@ import FillerContent from 'components/FillerContent';
 const SidebarArticles = ({latestArticles}) => {
 
 
-  console.log("🚀 ~ file: SidebarArticles.js ~ line 15 ~ SidebarArticles ~ latestArticles", latestArticles)
-
   const theme = useTheme();
   return (
     <Box component={Card} variant={'outlined'} padding={2}>
