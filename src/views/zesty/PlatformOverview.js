@@ -73,18 +73,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
     <Container>
       <Box>
         <Box marginBottom={4}>
-          <Typography
-            sx={{
-              textTransform: 'uppercase',
-              fontWeight: 'medium',
-            }}
-            gutterBottom
-            color={'secondary'}
-            align={'center'}
-          >
-            Our work
-          </Typography>
-          <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
+          <Typography variant="h4" sx={{}} align={'center'}>
             <Box
               dangerouslySetInnerHTML={{
                 __html: title || FillerContent.header,
@@ -97,36 +86,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
             }}
           ></Box>
 
-          {/* <Typography
-            variant="h6"
-            component="p"
-            color="text.secondary"
-            align={'center'}
-          >
-            Unlike teams from big agencies, we will treat your project as ours.
-            We will walk you through our smooth and simple process.
-          </Typography> */}
-          <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-            {/* <Button
-              color={'primary'}
-              variant={'contained'}
-              size={'large'}
-              startIcon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  width={20}
-                  height={20}
-                >
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-              }
-            >
-              Contact us
-            </Button> */}
-          </Box>
+          <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
         </Box>
         <Grid container spacing={4}>
           {cardsList?.map((item, i) => (
@@ -163,30 +123,6 @@ const ProductOverviewComp = ({ title, description, cards }) => {
                       }}
                     />
                   </Typography>
-                  {/* <Button
-                    size={'large'}
-                    sx={{ marginTop: 2 }}
-                    endIcon={
-                      <Box
-                        component={'svg'}
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        width={24}
-                        height={24}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </Box>
-                    }
-                  >
-                    Learn more
-                  </Button> */}
                 </Box>
               </Grid>
               <Grid
@@ -199,11 +135,6 @@ const ProductOverviewComp = ({ title, description, cards }) => {
               >
                 <Box
                   component={'img'}
-                  // src={`${
-                  //   theme.palette.mode === 'light'
-                  //     ? item.illustration
-                  //     : item.illustrationDark
-                  // }`}
                   src={
                     (item?.image?.data && item?.image?.data[0]?.url) ||
                     FillerContent.illustration_image
