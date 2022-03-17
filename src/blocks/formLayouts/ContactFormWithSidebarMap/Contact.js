@@ -1,8 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import Box from '@mui/material/Box';
+
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import Box from '@mui/material/Box';
+
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -11,6 +13,8 @@ import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
+
+/* validation for form component */
 
 const validationSchema = yup.object({
   firstName: yup
@@ -36,7 +40,10 @@ const validationSchema = yup.object({
     .required('Please specify your message'),
 });
 
-const Contact = () => {
+/* Begin Left Side Component */
+
+function Contact({ content }) {
+
   const theme = useTheme();
 
   const LeftSide = () => {
@@ -202,6 +209,9 @@ const Contact = () => {
     );
   };
 
+  /* End Left Side Component*/
+  /* Begin Right Side Component */
+
   const RightSide = () => {
     return (
       <iframe
@@ -224,6 +234,8 @@ const Contact = () => {
     );
   };
 
+/* End Right Side Component */
+/* Begin Form Component */
   return (
     <Box
       sx={{
