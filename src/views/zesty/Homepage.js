@@ -94,7 +94,7 @@
    const heroProps = {
      title: content.title,
      subtitle: content.simple_intro_text,
-     image: content.main_image.data[0].url || FillerContent.image,
+     image: content.main_image?.data[0].url || FillerContent.image,
      button_left_text: content.hero_button_left || FillerContent.header,
  
      button_left_link:
@@ -116,7 +116,7 @@
          <WithOverlappedCards list={cardData || []} />
          <ReviewsWithSimpleBoxes
            header={content.testimonials_content}
-           list={content.testimonials.data || []}
+           list={content.testimonials?.data || []}
          />
        </Box >
        {/* Latest Articles */}
