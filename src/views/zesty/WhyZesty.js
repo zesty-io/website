@@ -24,7 +24,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
 import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
 import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
@@ -32,13 +32,15 @@ import WithBorderedCardsAndBrandColor from 'blocks/stats/WithBorderedCardsAndBra
 import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
-import CtaWithIllustration from 'blocks/cta/CtaWithIllustration';
+
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import FillerContent from 'components/FillerContent';
 import { useTheme } from '@emotion/react';
 
+import FillerContent from 'components/FillerContent';
+
 const OverviewProcessComp = ({ content, image }) => {
+
   return (
     <Container sx={{ marginBottom: '1rem', padding: '2rem' }}>
       <Grid container justify="center">
@@ -74,7 +76,42 @@ const OverviewProcessComp = ({ content, image }) => {
     </Container>
   );
 };
+
+/* ------------------------------------------------------------------- */
+
 function WhyZesty({ content }) {
+    const [isLoaded, setIsLoaded] = useState(true);
+    const [allArticles, setAllArticles] = useState([]);
+
+    let zestyURL =
+      (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+        ? process.env.zesty.production
+        : process.env.zesty.stage;
+
+    useEffect(() => {
+      try {
+        const fetchData = async () => {
+          setIsLoaded(true);
+          const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=3`;
+
+          const response = await fetch(uri);
+
+          if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+          }
+
+          const articles = await response.json();
+
+          setAllArticles(articles);
+        };
+
+        fetchData();
+      } catch (error) {
+        console.error(`Could Not Find Results: ${error}`);
+      } finally {
+        setIsLoaded(false);
+      }
+    }, []);
   const theme = useTheme();
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
@@ -170,12 +207,13 @@ function WhyZesty({ content }) {
         ))}
       </Box>
 
-      {/* LINK TO BLOG */}
+      {/* LINK TO BLOG FETCH */}
       <VerticallyAlignedBlogCardsWithShapedImage
         title={'Industry Insights'}
         description={
           'Stay up-to-date with the latest in digital experience, content management and more.'
         }
+        popularArticles={allArticles}
       />
 
       {/* FINAL CTA */}
