@@ -179,24 +179,6 @@ function ContactFormWithSidebarMap({title, description, image}) {
                     >
                       Privacy Policy
                     </Box>
-                    ,{' '}
-                    <Box
-                      component="a"
-                      href=""
-                      color={theme.palette.text.primary}
-                      fontWeight={'700'}
-                    >
-                      Data Policy
-                    </Box>{' '}
-                    and{' '}
-                    <Box
-                      component="a"
-                      href=""
-                      color={theme.palette.text.primary}
-                      fontWeight={'700'}
-                    >
-                      Cookie Policy
-                    </Box>
                     .
                   </Typography>
                 </Box>
