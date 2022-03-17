@@ -46,7 +46,7 @@ import Newsletter from 'blocks/newsletters/Newsletter';
 function Mindshare({ content }) {
   const theme = useTheme();
 
-  const [error, setError] = useState(null);
+
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
 
@@ -63,10 +63,7 @@ function Mindshare({ content }) {
         }
 
         const articles = await response.json();
-        console.log(
-          '🚀 ~ file: Mindshare.js ~ line 67 ~ fetchData ~ articles',
-          articles,
-        );
+
 
         setAllArticles(articles);
       };
