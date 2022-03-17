@@ -57,7 +57,10 @@ function SalesPeople({ content }) {
           }}
         >
           <Container>
-            <SimpleHeader />
+            <SimpleHeader
+            eyebrow={content.eyebrow || FillerContent.header}
+            title={content.title || FillerContent.header}
+            description={content.page_header_content || FillerContent.description} />
           </Container>
         </Box>
         <Container  paddingBottom={'0 !important'}>

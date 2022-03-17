@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const Headline = () => {
+const Headline = ({eyebrow, title, description, }) => {
   return (
     <Box>
       <Typography
@@ -14,7 +14,7 @@ const Headline = () => {
         color={'textSecondary'}
         align={'center'}
       >
-        Hire us
+        {eyebrow}
       </Typography>
       <Box marginBottom={2}>
         <Typography
@@ -25,13 +25,12 @@ const Headline = () => {
             fontWeight: 700,
           }}
         >
-          Got a project for us?
+          {title}
         </Typography>
       </Box>
       <Box>
         <Typography variant="h6" align={'center'} color={'textSecondary'}>
-          We help brands and platforms turn big ideas into beautiful digital
-          products and experiences.
+          {description}
         </Typography>
       </Box>
     </Box>
