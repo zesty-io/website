@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -13,9 +14,10 @@ import TopNav from 'components/TopNav';
 import { Topbar, Sidebar, Footer } from './components';
 
 
-const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transparent' }) => {
+const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transparent', url }) => {
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
+
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -37,11 +39,13 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
     threshold: 38,
   });
 
+  let pageNavColorRegex = new RegExp(/mindshare|authors|blog/gi);
+
   return (
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
-          <TopNav colorInvert={colorInvert} />
+          <TopNav colorInvert={ url.match(pageNavColorRegex) !== null ? true  : colorInvert  } />
         </Container>
       </Box>
       <AppBar
@@ -56,7 +60,7 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
-            colorInvert={trigger ? false : colorInvert}
+            colorInvert={url.match(pageNavColorRegex) !== null && !trigger ? true : colorInvert}
           />
         </Container>
       </AppBar>
@@ -64,12 +68,16 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
         onClose={handleSidebarClose}
         open={open}
         variant="temporary"
-        customRouting={hasRouting ? customRouting : []}      />
+        customRouting={hasRouting ? customRouting : []}
+      />
       <main>
         {children}
         <Divider />
       </main>
-      <Footer  colorInvert={colorInvert} customRouting={hasRouting ? customRouting : []} />  
+      <Footer
+        colorInvert={colorInvert}
+        customRouting={hasRouting ? customRouting : []}
+      />
     </Box>
   );
 };
