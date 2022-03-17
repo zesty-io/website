@@ -64,7 +64,6 @@ function Mindshare({ content }) {
 
         const articles = await response.json();
 
-
         setAllArticles(articles);
       };
 
