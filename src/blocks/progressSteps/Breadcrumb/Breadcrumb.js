@@ -17,11 +17,11 @@ const mock = [
   },
 ];
 
-const Breadcrumb = () => {
+const Breadcrumb = ({array}) => {
   return (
     <Box>
       <Breadcrumbs aria-label="breadcrumb">
-        {mock.map((item, index) => (
+        {array.map((item, index) => (
           <span key={index}>
             {item.isActive ? (
               <Typography color="text.primary">{item.title}</Typography>
