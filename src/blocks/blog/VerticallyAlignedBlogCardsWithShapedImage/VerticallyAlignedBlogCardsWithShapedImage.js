@@ -22,6 +22,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
 }) => {
   const theme = useTheme();
 
+
   const makeDate = (date) => {
     let d = new Date(date);
     let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
@@ -29,7 +30,6 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
 
     return `${mo} ${ye}`;
   };
-
 
   return (
     <Container paddingTop={'0 !important'}>
@@ -90,7 +90,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item?.hero_image?.data[0]?.url}
+                  image={item?.hero_image?.data[0]?.url || item.image}
                   title={item?.title}
                   sx={{
                     height: { xs: 300, md: 360 },
@@ -140,11 +140,17 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item?.author?.data[0].headshot?.data[0]?.url}
+                        src={
+                          item.author.image
+                            ? item.author.image
+                            : item?.author?.data[0]?.headshot?.data[0]?.url
+                        }
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item?.author?.data[0]?.name}
+                        {item.author.name
+                          ? item.author.name
+                          : item?.author?.data[0]?.name}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
