@@ -134,7 +134,7 @@ function Category({ content }) {
   // load more on click 
   const handleOnClick = async () =>{
     try{
-      setPage(page+=1);
+      setPage(page+=6);
       const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=6`;
       const response = await fetch(url);
       if(!response.ok){
