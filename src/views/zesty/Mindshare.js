@@ -49,7 +49,7 @@ function Mindshare({ content }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
-  const [authors, setAuthors] = useState([]);
+
 
   useEffect(() => {
     try {
@@ -199,7 +199,7 @@ function Mindshare({ content }) {
 
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
-            {/*  Fetch ALL ARTICLES W/PAGINATION */}
+            {/*  Latest Articles W/PAGINATION */}
             {isLoaded ? (
               <Box display="flex" justifyContent="center" alignItems="center">
                 <CircularProgressWithLabel />

@@ -16,7 +16,6 @@ import FillerContent from 'components/FillerContent';
 const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
   const theme = useTheme();
 
-  console.log(articles);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,6 +30,16 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
   const handlePageChange = (_event, value) => {
     setCurrentPage(value);
   };
+
+
+  const makeDate = (date) => {
+    let d = new Date(date);
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+
+    return `${mo} ${ye}`;
+  };
+
 
   return (
     <Box>
@@ -141,7 +150,7 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item?.date || FillerContent.header}
+                      {makeDate(item?.date) || FillerContent.header}
                     </Typography>
                   </Box>
                 </Box>

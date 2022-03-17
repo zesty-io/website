@@ -42,11 +42,10 @@ import FillerContent from 'components/FillerContent';
 import BlogCTA from 'components/cta/BlogCTA';
 
 import HeroJarallax from 'blocks/heroes/HeroJarallax';
-
 import SidebarArticles from 'blocks/sidebars/SidebarArticles';
-
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
+
 
 import Container from 'components/Container';
 import SideBarCTA from 'components/cta/SideBarCTA';
@@ -67,6 +66,14 @@ function Article({ content }) {
   const [tagArticles, setTagArticles] = useState([]);
 
   const simliarTags = content.tags?.data[0]?.meta?.zuid;
+
+    const makeDate = (date) => {
+      let d = new Date(date);
+      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+      let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+
+      return `${mo} ${ye}`;
+    };
 
   useEffect(() => {
     try {
@@ -160,7 +167,8 @@ function Article({ content }) {
                 </Box>
               ) : null}
 
-              <SideBarCTA />
+                <SideBarCTA />
+
             </Grid>
           </Grid>
         </Container>

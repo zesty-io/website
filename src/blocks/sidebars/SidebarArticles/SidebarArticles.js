@@ -12,7 +12,13 @@ import FillerContent from 'components/FillerContent';
 
 
 const SidebarArticles = ({latestArticles}) => {
+  const makeDate = (date) => {
+    let d = new Date(date);
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
 
+    return `${mo} ${ye}`;
+  };
 
 
   const theme = useTheme();
@@ -82,7 +88,7 @@ const SidebarArticles = ({latestArticles}) => {
                     component={'i'}
                   >
                     {item.author?.data[0]?.name || FillerContent.header} -{' '}
-                    {item.date.split('Error hydrating ')}
+                    {makeDate(item.date.split('Error hydrating '))}
                   </Typography>
                 </Box>
                 <Button
