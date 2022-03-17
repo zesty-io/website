@@ -167,8 +167,7 @@ function Article({ content }) {
                 </Box>
               ) : null}
 
-                <SideBarCTA />
-
+              <SideBarCTA />
             </Grid>
           </Grid>
         </Container>
@@ -201,7 +200,13 @@ function Article({ content }) {
             FillerContent.href
           }
         />
-        <CtaWithInputField />
+        <CtaWithInputField
+          title={'Subscribe to the zestiest newsletter in the industry'}
+          description={
+            'Get the latest from the Zesty team, from whitepapers to product updates.'
+          }
+          cta={'Subscribe'}
+        />
         <Box
           component={'svg'}
           preserveAspectRatio="none"
