@@ -11,11 +11,25 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const PricingCompareTable = ({tiers,category,pricingLevers}) => {
+const PricingCompareTable = ({tiers,category,pricingLevers,idx}) => {
   const theme = useTheme();
   return (
     <Box>
+        <Accordion className={`accordionItem ${idx == 0? "active" : ""}`}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+          sx={{bgcolor: 'background.level2'}}
+        >
+          <Typography >{category.replace('_',' ')}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
         <TableContainer component={Paper} elevation={0}>
           <Table aria-label="caption table" sx={{ minWidth: 600 }}>
             <caption style={{display: 'none'}}>
@@ -23,9 +37,6 @@ const PricingCompareTable = ({tiers,category,pricingLevers}) => {
             </caption>
             <TableHead>
               <TableRow>
-                <TableCell colSpan={4} sx={{bgcolor: 'background.level2'}}>
-                  <Typography fontWeight={700} variant={'p'}>{category.replace('_',' ')}</Typography>
-                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Features</TableCell>
@@ -81,6 +92,8 @@ const PricingCompareTable = ({tiers,category,pricingLevers}) => {
             </TableBody>
           </Table>
         </TableContainer>
+        </AccordionDetails>
+      </Accordion>
     </Box>
   
   );
