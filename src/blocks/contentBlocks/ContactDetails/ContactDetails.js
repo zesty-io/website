@@ -8,12 +8,10 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 
-/* mock content for contact component */
-
-const mock = [
+const ContactInformation = [
   {
     label: 'Phone',
-    value: '+39 659-657-0133',
+    value: "",
     icon: (
       <svg
         width={20}
@@ -28,7 +26,7 @@ const mock = [
   },
   {
     label: 'Email',
-    value: 'hi@maccarianagency.com',
+    value: "",
     icon: (
       <svg
         width={20}
@@ -44,7 +42,7 @@ const mock = [
   },
   {
     label: 'Address',
-    value: 'Via Venini 33, 20147',
+    value: "",
     icon: (
       <svg
         width={20}
@@ -61,10 +59,12 @@ const mock = [
       </svg>
     ),
   },
-];
+]
 
-const ContactDetails = () => {
+
+const ContactDetails = ({ title, subtitle, }) => {
   const theme = useTheme();
+  
 
   return (
     <Box>
@@ -75,12 +75,10 @@ const ContactDetails = () => {
           gutterBottom
           align={'center'}
         >
-          Contact details
+        {title}
         </Typography>
         <Typography color="text.secondary" align={'center'}>
-          Keep track of what's happening with your data, change permissions, and
-          run reports against your data anywhere in the world. Keep track of
-          what's happening with your data, change permissions.
+        {subtitle}
         </Typography>
       </Box>
       <Box
@@ -88,10 +86,10 @@ const ContactDetails = () => {
         flexDirection={{ xs: 'column', md: 'row' }}
         justifyContent={'space-between'}
         marginBottom={4}
+        
       >
-        {mock.map((item, i) => (
+        {ContactInformation.map((item, i) => (
           <Box
-            key={i}
             component={ListItem}
             disableGutters
             width={'auto'}
