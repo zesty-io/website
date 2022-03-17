@@ -38,7 +38,6 @@ import { Box } from '@mui/material';
 import { useTheme } from '@mui/system';
 
 function TechnologyOverview({ content }) {
-  console.log(content, '123');
   const theme = useTheme();
   const headerProps = {
     title: content?.title,
