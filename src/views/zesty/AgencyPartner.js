@@ -41,7 +41,6 @@ import Container from 'components/Container';
 
 
 function AgencyPartner({ content }) {
-  console.log("🚀 ~ file: AgencyPartner.js ~ line 44 ~ AgencyPartner ~ content", content)
   const theme = useTheme();
 
 
