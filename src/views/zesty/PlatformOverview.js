@@ -67,66 +67,26 @@ const mock = [
   },
 ];
 
-const ProductOverviewComp = ({ title, description, cards }) => {
+const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
+  const theme = useTheme();
   const cardsList = cards || mock;
   return (
     <Container>
       <Box>
-        <Box marginBottom={4}>
+        <Box
+          marginBottom={6}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Typography
-            sx={{
-              textTransform: 'uppercase',
-              fontWeight: 'medium',
-            }}
+            variant={'h2'}
             gutterBottom
-            color={'secondary'}
+            sx={{ fontWeight: 700 }}
             align={'center'}
           >
-            Our work
+            {benefits_title_h2}
           </Typography>
-          <Typography variant={'h4'} sx={{ fontWeight: 700 }} align={'center'}>
-            <Box
-              dangerouslySetInnerHTML={{
-                __html: title || FillerContent.header,
-              }}
-            ></Box>
-          </Typography>
-          <Box
-            dangerouslySetInnerHTML={{
-              __html: description,
-            }}
-          ></Box>
-
-          {/* <Typography
-            variant="h6"
-            component="p"
-            color="text.secondary"
-            align={'center'}
-          >
-            Unlike teams from big agencies, we will treat your project as ours.
-            We will walk you through our smooth and simple process.
-          </Typography> */}
-          <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-            {/* <Button
-              color={'primary'}
-              variant={'contained'}
-              size={'large'}
-              startIcon={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  width={20}
-                  height={20}
-                >
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-              }
-            >
-              Contact us
-            </Button> */}
-          </Box>
         </Box>
         <Grid container spacing={4}>
           {cardsList?.map((item, i) => (
@@ -145,7 +105,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
               <Grid item container alignItems={'center'} xs={12} sm={6}>
                 <Box>
                   <Typography
-                    variant={'h6'}
+                    variant={'h3'}
                     gutterBottom
                     sx={{ fontWeight: 700 }}
                   >
@@ -163,30 +123,6 @@ const ProductOverviewComp = ({ title, description, cards }) => {
                       }}
                     />
                   </Typography>
-                  {/* <Button
-                    size={'large'}
-                    sx={{ marginTop: 2 }}
-                    endIcon={
-                      <Box
-                        component={'svg'}
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        width={24}
-                        height={24}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </Box>
-                    }
-                  >
-                    Learn more
-                  </Button> */}
                 </Box>
               </Grid>
               <Grid
@@ -199,11 +135,6 @@ const ProductOverviewComp = ({ title, description, cards }) => {
               >
                 <Box
                   component={'img'}
-                  // src={`${
-                  //   theme.palette.mode === 'light'
-                  //     ? item.illustration
-                  //     : item.illustrationDark
-                  // }`}
                   src={
                     (item?.image?.data && item?.image?.data[0]?.url) ||
                     FillerContent.illustration_image
@@ -222,10 +153,11 @@ const ProductOverviewComp = ({ title, description, cards }) => {
 };
 
 function PlatformOverview({ content }) {
-  console.log(content, 'props');
+  const theme = useTheme();
   const headerProps = {
     title: content?.title,
     description: content?.header_description,
+    h1_title: content?.h1_title,
     images: content?.header_image,
     cta_left:
       content?.cta_left?.data && content?.cta_left?.data[0]?.button_text,
@@ -244,10 +176,32 @@ function PlatformOverview({ content }) {
       <FullScreenHeroWithPromoImagesAndTypedText {...headerProps} />
 
       {/* Product Overview  */}
-      <ProductOverviewComp
-        title={content?.benefits_header}
-        cards={content?.platform_overview_cards?.data}
-      />
+      <>
+        <Container>
+          <Box marginBottom={4}>
+            <Typography variant="h4" sx={{}} align={'center'}>
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: content?.benefits_header || FillerContent.header,
+                }}
+              ></Box>
+            </Typography>
+
+            <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
+          </Box>
+        </Container>
+        <Box
+          sx={{
+            backgroundColor: theme.palette.alternate.main,
+          }}
+        >
+          <ProductOverviewComp
+            benefits_title_h2={content?.benefits_title_h2}
+            title={''}
+            cards={content?.platform_overview_cards?.data}
+          />
+        </Box>
+      </>
 
       {/* Features */}
       <FeaturesWithCardRepresentation

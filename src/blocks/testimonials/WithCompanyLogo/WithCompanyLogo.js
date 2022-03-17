@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
 
-const WithCompanyLogo = ({ content }) => {
+const WithCompanyLogo = ({ content, logo }) => {
   const theme = useTheme();
 
   return (
@@ -17,6 +17,7 @@ const WithCompanyLogo = ({ content }) => {
             height={1}
             width={1}
             src={
+              logo ||
               'https://assets.maccarianagency.com/svg/logos/google-original.svg'
             }
             alt="..."
