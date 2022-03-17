@@ -34,16 +34,23 @@ import Container from 'components/Container';
 // blocks
 import { ContactFormWithSidebarMap } from 'blocks/formLayouts';
 import { ContactDetails } from 'blocks/contentBlocks';
+import FillerContent from 'components/FillerContent';
 
-const Contact = () => {
+function Contact({ content }) {
 
   const theme = useTheme();
   return (
     <Box>
-      <ContactFormWithSidebarMap />
+      <ContactFormWithSidebarMap title={content.header_title || FillerContent.header}
+      description={content.description || FillerContent.description}
+      image={content.image || FillerContent.image} />
       <Container>
         <Box position={'relative'} bgcolor={'alternate.main'}>
-          <ContactDetails />
+          <ContactDetails title={content.details_title || FillerContent.header}
+          subtitle={content.details_subtitle || FillerContent.description} 
+          phone={content.phone || FillerContent.missingDataArray[0]}
+          email={content.email || FillerContent.missingDataArray[1]}
+          address={content.address || FillerContent.missingDataArray[2]} />
         </Box>
       </Container>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
