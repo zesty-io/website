@@ -16,18 +16,28 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const PricingCompareTable = ({tiers,category,pricingLevers,idx}) => {
+const capitalize = (str, lower = false) =>
+  (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+;
+
+const PricingCompareTable = ({tiers,category,pricingLevers}) => {
   const theme = useTheme();
+  const [expanded, setExpanded] = React.useState('panel1');
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
   return (
     <Box>
-        <Accordion className={`accordionItem ${idx == 0? "active" : ""}`}>
+        <Accordion expanded={expanded === 'panel1'}>
+          {/* Removed expandIcon from AccordionSummary */}
+           {/*expandIcon={<ExpandMoreIcon />}*/}
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
           sx={{bgcolor: 'background.level2'}}
         >
-          <Typography >{category.replace('_',' ')}</Typography>
+          <Typography >{capitalize(category.replace('_',' '))}</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <TableContainer component={Paper} elevation={0}>
@@ -40,7 +50,9 @@ const PricingCompareTable = ({tiers,category,pricingLevers,idx}) => {
               </TableRow>
               <TableRow>
                 <TableCell>Features</TableCell>
-                {tiers.map((item, i) => (
+
+                  {/* Do not include Sandbox tier in table */}
+                {tiers.filter(tier => tier.meta.zuid !='7-e0e8cadec0-7crggz').map((item, i) => (
                   <TableCell align="center" key={i}>
                     <Typography
                       sx={{ textTransform: 'uppercase', fontWeight: 'medium' }}
@@ -57,7 +69,9 @@ const PricingCompareTable = ({tiers,category,pricingLevers,idx}) => {
                   <TableCell component="th" scope="row">
                     {lever.title}
                   </TableCell>
-                  {tiers.map(tier => 
+
+                  {/* Do not include Sandbox tier in table */}
+                  {tiers.filter(tier => tier.meta.zuid != '7-e0e8cadec0-7crggz').map(tier => 
                     <TableCell align="center">
                       {lever.included_pricing_tier.find(zuid => zuid == tier.meta.zuid) ? 
                       <Box display={'flex'} justifyContent={'center'}>

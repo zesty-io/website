@@ -98,7 +98,7 @@ function Pricing({content}) {
           </Container>
         </Box>
       <Container>
-        {categories.map((cat,index) => <PricingCompareTable idx ={cat.index} tiers={content.tiers.data} category={cat} pricingLevers={pricingData}/>)}
+        {categories.map(cat => <PricingCompareTable tiers={content.tiers.data} category={cat} pricingLevers={pricingData}/>)}
       </Container>
       <Container maxWidth={400} paddingY={'0 !important'}>
         <Divider />
