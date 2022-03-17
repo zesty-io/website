@@ -6,20 +6,19 @@ import Link from '@mui/material/Link';
 
 const mock = [
   {
-    href: '#',
+    href: '/mindshare/',
     title: 'Blog',
     isActive: false,
   },
   {
-    href: '#',
-    title: 'Search Results',
+    href: '/news/',
+    title: 'News',
     isActive: true,
   },
 ];
 
 const Breadcrumb = ({array}) => {
   return (
-    <Box>
       <Breadcrumbs aria-label="breadcrumb">
         {array.map((item, index) => (
           <span key={index}>
@@ -39,7 +38,6 @@ const Breadcrumb = ({array}) => {
           </span>
         ))}
       </Breadcrumbs>
-    </Box>
   );
 };
 

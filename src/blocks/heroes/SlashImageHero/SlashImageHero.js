@@ -83,12 +83,12 @@ const Hero = ({title, subtitle, description, image, cta, ctaHref}) => {
         overflow: 'hidden',
       }}
     >
-      <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
+      <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 936 }}>
         <Box
           display={'flex'}
           flexDirection={{ xs: 'column', md: 'row' }}
           position={'relative'}
-          minHeight={{ md: 600 }}
+          minHeight={{ md: 400 }}
         >
           <Box
             width={1}
