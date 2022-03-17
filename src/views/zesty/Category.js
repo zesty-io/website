@@ -55,13 +55,13 @@ function Category({ content }) {
   const [page, setPage] = useState(0);
   const [breadcrumb, setBreadcrumb] = useState([
     {
-      href: `${content.path}`,
-      title: `${content.category}`,
+      href: `/mindshare/`,
+      title: `Blog`,
       isActive: false,
     },
     {
       href: `${content.path}`,
-      title: 'Search Results',
+      title: content.category,
       isActive: true,
     },
   ]);
@@ -110,7 +110,7 @@ function Category({ content }) {
     evt.preventDefault();
     try{
       const searchArticles = async () => {
-        const url = `${zestyURL}/-/searchnewsarticles.json?q=${searchValue}&category=${content.meta.zuid}&page=${page}&limit=12`;
+        const url = `${zestyURL}/-/searchnewsarticles.json?q=${searchValue}&category=${content.meta.zuid}&page=${page}&limit=6`;
         const response = await fetch(url);
         if(!response.ok){
           throw new Error(`HTTP error: ${response.status}`);
@@ -134,8 +134,9 @@ function Category({ content }) {
   // load more on click 
   const handleOnClick = async () =>{
     try{
-      setPage(page+=3);
-      const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=3`;
+      (page === 0) ? setPage(page+=3) : setPage(page+=6)
+      // setPage(page+=3);
+      const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=6`;
       const response = await fetch(url);
       if(!response.ok){
         throw new Error(`HTTP error: ${response.status}`);
@@ -153,13 +154,7 @@ function Category({ content }) {
 
   return (
     <>
-    {/* breadcrumb */}
-      <Box bgcolor={'alternate.main'}>
-        <Container paddingY={2}>
-          <Breadcrumb
-          array={breadcrumb || FillerContent.breadcrumb} />
-        </Container>
-      </Box>
+   
       {/* hero */}
       <Box
         bgcolor={'alternate.main'}
@@ -194,7 +189,10 @@ function Category({ content }) {
       {/* can be swapped */}
       {/* <FullScreenHeroWithImageSlider /> */}
       {/* search and articles */}
-      <Container>
+      <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
+        <Box sx={{marginBottom: '16px'}}>
+          <Breadcrumb array={breadcrumb || FillerContent.breadcrumb}  />
+        </Box>
         <Result array={categoryArr}
         onChange={handleOnChange}
         value={searchValue}
@@ -239,17 +237,6 @@ function Category({ content }) {
         </Container>
       </Box>
 
-      {/* <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div> */}
     </>
   );
 }
