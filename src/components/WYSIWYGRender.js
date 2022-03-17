@@ -33,7 +33,7 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
             margin-bottom: 20px;
             margin-top: 5px;
             align-items:center;
-            padding:.3rem;
+            padding:.7rem;
             color: ${theme.palette.zesty.zestyBlue};
         }
 

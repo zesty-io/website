@@ -161,6 +161,7 @@ const FeatureListWithDesktopAppScreenshot = ({ header, content, image }) => {
         align={'center'}
         gutterBottom
         sx={{
+          marginBottom: '4rem',
           fontWeight: 700,
         }}
       >
