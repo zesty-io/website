@@ -58,18 +58,20 @@ const OverviewProcessComp = ({ content, image }) => {
             ></Box>
           </Typography>
           <Container>
-            <Box
-              component={'img'}
-              src={image}
-              alt={FillerContent.header}
-              width={1}
-              height={1}
-              sx={{
-                objectFit: 'cover',
-                borderRadius: '1rem',
-                justifyContent: 'center',
-              }}
-            />
+            {image && (
+              <Box
+                component={'img'}
+                src={image}
+                alt={FillerContent.header}
+                width={1}
+                height={1}
+                sx={{
+                  objectFit: 'cover',
+                  borderRadius: '1rem',
+                  justifyContent: 'center',
+                }}
+              />
+            )}
           </Container>
         </Box>
       </Grid>
@@ -124,6 +126,7 @@ function WhyZesty({ content }) {
 
   const headerProps = {
     title: content?.header_title,
+    image: content?.header_image?.data && content?.header_image?.data[0]?.url,
     description: content?.header_description,
     cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
     cta_right:

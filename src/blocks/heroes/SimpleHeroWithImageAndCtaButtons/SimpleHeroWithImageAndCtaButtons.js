@@ -16,6 +16,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
   cta_right,
   cta_left_url,
   cta_right_url,
+  image,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -111,14 +112,14 @@ const SimpleHeroWithImageAndCtaButtons = ({
             component={'img'}
             height={1}
             width={1}
-            src={'https://assets.maccarianagency.com/backgrounds/img8.jpg'}
+            src={
+              image || 'https://assets.maccarianagency.com/backgrounds/img8.jpg'
+            }
             alt="..."
-            borderRadius={2}
             maxWidth={600}
             maxHeight={500}
             sx={{
               objectFit: 'cover',
-              boxShadow: '19px 20px 0px 0 rgb(140 152 164 / 13%)',
               filter:
                 theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
             }}
