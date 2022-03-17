@@ -90,9 +90,9 @@ function Category({ content }) {
 
   
   let zestyURL =
-    undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
-      ? process.env.zesty.production
-      : process.env.zesty.stage;
+  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
   // search value 
   const handleOnChange = (evt) => {
     evt.preventDefault();
