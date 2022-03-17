@@ -107,7 +107,7 @@ let zestyURL =
 
         <Container>
           {/* Search Filter */}
-          <Autocomplete
+          {/* <Autocomplete
             sx={{
               borderRadius: 1,
               marginTop: '-9rem',
@@ -127,9 +127,9 @@ let zestyURL =
             renderInput={(params) => (
               <TextField {...params} label="Search Articles" />
             )}
-          />
+          /> */}
           {/* Popular_categories */}
-          <Box paddingTop={{ xs: 6, md: 8 }}>
+          <Box >
             {chipsTitle.map((item) => (
               <Chip
                 key={item}
