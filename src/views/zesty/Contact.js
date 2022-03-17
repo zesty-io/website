@@ -32,14 +32,15 @@ import Box from '@mui/material/Box';
 import Container from 'components/Container';
 
 // blocks
-import { ContactFormWithSideBarMap } from 'blocks/formLayouts';
+import { ContactFormWithSidebarMap } from 'blocks/formLayouts';
 import { ContactDetails } from 'blocks/contentBlocks';
 
-function Contact({ content }) {
+const Contact = () => {
+
   const theme = useTheme();
   return (
     <Box>
-      <ContactFormWithSideBarMap />
+      <ContactFormWithSidebarMap />
       <Container>
         <Box position={'relative'} bgcolor={'alternate.main'}>
           <ContactDetails />

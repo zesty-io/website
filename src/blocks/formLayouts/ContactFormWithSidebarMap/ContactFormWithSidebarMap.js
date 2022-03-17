@@ -42,7 +42,7 @@ const validationSchema = yup.object({
 
 /* Begin Left Side Component */
 
-function Contact({ content }) {
+function ContactFormWithSidebarMap() {
 
   const theme = useTheme();
 
@@ -304,4 +304,4 @@ function Contact({ content }) {
   );
 };
 
-export default Contact;
+export default ContactFormWithSidebarMap;
