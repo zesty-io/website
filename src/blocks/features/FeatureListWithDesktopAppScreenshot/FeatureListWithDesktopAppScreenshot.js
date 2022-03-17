@@ -13,6 +13,7 @@ import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
 import Container from 'components/Container';
 import { Typography, useMediaQuery } from '@mui/material';
 import FillerContent from 'components/FillerContent';
+import WYSIWYGRender from 'components/WYSIWYGRender';
 
 const mock = [
   {
@@ -85,24 +86,13 @@ const mock = [
 
 const LeftSide = ({ content }) => (
   <List disablePadding>
-    <Box
+    <WYSIWYGRender
+      customClass="icon-box"
+      rich_text={content || FillerContent.rich_text}
+    ></WYSIWYGRender>
+    {/* <Box
       dangerouslySetInnerHTML={{ __html: content || FillerContent.description }}
-    ></Box>
-    {/* {mock.map((item, index) => (
-        <ListItem key={index} disableGutters>
-          <ListItemAvatar>
-            <Box
-              component={Avatar}
-              variant={'rounded'}
-              color={theme.palette.primary.dark}
-              bgcolor={`${theme.palette.primary.light}22`}
-            >
-              {item.icon}
-            </Box>
-          </ListItemAvatar>
-          <ListItemText primary={item.title} secondary={item.subtitle} />
-        </ListItem>
-      ))} */}
+    ></Box> */}
   </List>
 );
 
