@@ -168,7 +168,6 @@ const ProductOverviewComp = ({
 };
 
 function PlatformOverview({ content }) {
-  console.log(content, 'props');
   const headerProps = {
     title: content?.title,
     description: content?.header_description,
