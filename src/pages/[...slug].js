@@ -6,7 +6,7 @@ import Main from '../layouts/Main';
 
 export default function Slug(props) {
   return (
-    <Main routing={props.navigationTree} customRouting={props.navigationCustom}>
+    <Main customRouting={props.navigationCustom}>
         <ZestyView content={props} />
     </Main>
   );

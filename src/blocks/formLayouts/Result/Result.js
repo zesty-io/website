@@ -107,7 +107,7 @@ const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hide
       <Grid container spacing={4}>        
         { notFound ? <NoArticles /> :
         array.map((item, i) => (
-          <Grid item xs={12} sm={6} md={4} key={i}>
+          <Grid item xs={12} sm={6} md={4} key={item.zuid}>
             <Box
               component={'a'}
               href={item.path}

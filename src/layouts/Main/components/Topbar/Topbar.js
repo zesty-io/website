@@ -9,7 +9,7 @@ import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
 
 import SingleNavItem from './components/NavItem/SingleNavItem.js'
-const Topbar = ({ onSidebarOpen,  routing, customRouting, colorInvert = false }) => {
+const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
   
@@ -65,16 +65,8 @@ const Topbar = ({ onSidebarOpen,  routing, customRouting, colorInvert = false })
             }
           </Box>
         ))}
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Test Routes'}
-            id={'testing-routes'}
-            items={routing}
-            colorInvert={colorInvert}
-          />
-        </Box>
         
-        <Box marginLeft={2}>
+        <Box marginLeft={4}>
             <TryFreeButton 
             variant="contained" 
             component="a" 
