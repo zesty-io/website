@@ -67,33 +67,18 @@ const mock = [
   },
 ];
 
-const ProductOverviewComp = ({
-  title,
-  description,
-  cards,
-  benefits_title_h2,
-}) => {
+const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
+  const theme = useTheme();
   const cardsList = cards || mock;
   return (
     <Container>
       <Box>
-        <Box marginBottom={4}>
-          <Typography variant="h4" sx={{}} align={'center'}>
-            <Box
-              dangerouslySetInnerHTML={{
-                __html: title || FillerContent.header,
-              }}
-            ></Box>
-          </Typography>
-          <Box
-            dangerouslySetInnerHTML={{
-              __html: description,
-            }}
-          ></Box>
-
-          <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
-        </Box>
-        <Box display="flex" justifyContent="center" alignItems="center">
+        <Box
+          marginBottom={6}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Typography
             variant={'h2'}
             gutterBottom
@@ -168,6 +153,7 @@ const ProductOverviewComp = ({
 };
 
 function PlatformOverview({ content }) {
+  const theme = useTheme();
   const headerProps = {
     title: content?.title,
     description: content?.header_description,
@@ -190,11 +176,32 @@ function PlatformOverview({ content }) {
       <FullScreenHeroWithPromoImagesAndTypedText {...headerProps} />
 
       {/* Product Overview  */}
-      <ProductOverviewComp
-        benefits_title_h2={content?.benefits_title_h2}
-        title={content?.benefits_header}
-        cards={content?.platform_overview_cards?.data}
-      />
+      <>
+        <Container>
+          <Box marginBottom={4}>
+            <Typography variant="h4" sx={{}} align={'center'}>
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: content?.benefits_header || FillerContent.header,
+                }}
+              ></Box>
+            </Typography>
+
+            <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
+          </Box>
+        </Container>
+        <Box
+          sx={{
+            backgroundColor: theme.palette.alternate.main,
+          }}
+        >
+          <ProductOverviewComp
+            benefits_title_h2={content?.benefits_title_h2}
+            title={''}
+            cards={content?.platform_overview_cards?.data}
+          />
+        </Box>
+      </>
 
       {/* Features */}
       <FeaturesWithCardRepresentation
