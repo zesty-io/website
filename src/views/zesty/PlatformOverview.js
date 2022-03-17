@@ -67,7 +67,12 @@ const mock = [
   },
 ];
 
-const ProductOverviewComp = ({ title, description, cards }) => {
+const ProductOverviewComp = ({
+  title,
+  description,
+  cards,
+  benefits_title_h2,
+}) => {
   const cardsList = cards || mock;
   return (
     <Container>
@@ -88,6 +93,16 @@ const ProductOverviewComp = ({ title, description, cards }) => {
 
           <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
         </Box>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Typography
+            variant={'h2'}
+            gutterBottom
+            sx={{ fontWeight: 700 }}
+            align={'center'}
+          >
+            {benefits_title_h2}
+          </Typography>
+        </Box>
         <Grid container spacing={4}>
           {cardsList?.map((item, i) => (
             <Grid
@@ -105,7 +120,7 @@ const ProductOverviewComp = ({ title, description, cards }) => {
               <Grid item container alignItems={'center'} xs={12} sm={6}>
                 <Box>
                   <Typography
-                    variant={'h6'}
+                    variant={'h3'}
                     gutterBottom
                     sx={{ fontWeight: 700 }}
                   >
@@ -157,6 +172,7 @@ function PlatformOverview({ content }) {
   const headerProps = {
     title: content?.title,
     description: content?.header_description,
+    h1_title: content?.h1_title,
     images: content?.header_image,
     cta_left:
       content?.cta_left?.data && content?.cta_left?.data[0]?.button_text,
@@ -176,6 +192,7 @@ function PlatformOverview({ content }) {
 
       {/* Product Overview  */}
       <ProductOverviewComp
+        benefits_title_h2={content?.benefits_title_h2}
         title={content?.benefits_header}
         cards={content?.platform_overview_cards?.data}
       />

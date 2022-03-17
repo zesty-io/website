@@ -80,6 +80,7 @@ const mockimages = [
 const FullScreenHeroWithPromoImagesAndTypedText = ({
   title,
   description,
+  h1_title,
   cta_left,
   cta_right,
   cta_left_url,

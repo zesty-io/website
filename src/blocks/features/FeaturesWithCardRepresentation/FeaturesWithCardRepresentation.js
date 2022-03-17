@@ -227,7 +227,7 @@ const FeaturesWithCardRepresentation = ({
                     {switchIcon(item.icon_name)}
                   </Box>
                   <Typography
-                    variant={'h6'}
+                    variant={'h4'}
                     gutterBottom
                     sx={{ fontWeight: 500 }}
                   >
