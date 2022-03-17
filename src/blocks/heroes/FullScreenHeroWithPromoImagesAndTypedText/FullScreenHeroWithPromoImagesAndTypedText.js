@@ -96,6 +96,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
   const title0 = newTitle[0] || '';
   const title1 = newTitle[1] || '';
   const title2 = newTitle[2] || '';
+
   return (
     <Box sx={{ overflow: 'hidden' }}>
       <Box

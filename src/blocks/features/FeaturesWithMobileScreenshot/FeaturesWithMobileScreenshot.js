@@ -30,12 +30,6 @@ const FeaturesWithMobileScreenshot = ({ header, content, image, index }) => {
               <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
                 {header}
               </Typography>
-              {/* <Typography color="text.secondary" variant={'h6'}>
-                Send one-off and automated email, push, and in-app messages to
-                people.
-                <br />
-                Create better stories.
-              </Typography> */}
             </Box>
             <Grid container>
               <WYSIWYGRender

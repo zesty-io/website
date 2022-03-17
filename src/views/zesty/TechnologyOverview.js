@@ -85,7 +85,10 @@ function TechnologyOverview({ content }) {
         <FeaturesWithMobileScreenshot
           header={''}
           content={content?.feature_list_content}
-          image={content?.featured_image}
+          image={
+            content?.featured_image?.data &&
+            content?.featured_image?.data[0]?.url
+          }
         />
       </Box>
 
