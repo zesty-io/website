@@ -41,16 +41,30 @@ import FillerContent from 'components/FillerContent';
 
 function SalesPeople({ content }) {
     const theme = useTheme();
-    const [clientCards, setClientCards] = useState([...FillerContent.clientCards]);
+    const [clientCards, setClientCards] = useState([]);
 
     // clients cards fetch
     useEffect(() => {
         try {
-            
+            const fetchClients = async () => {
+                const url = `${zestyURL}/-/clientcards.json`
+                const response = await fetch(url);
+                const data = await response.json();
+                console.log(data);
+                setClientCards(data);
+            };
+
+            fetchClients();
         } catch (error) {
             console.error(`Could Not Find Results: ${error}`);
         }
-    }, [])
+    }, []);
+
+    // zesty url
+    let zestyURL =
+    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
 
   return (
     <>
@@ -84,11 +98,7 @@ function SalesPeople({ content }) {
         </Container>
       </Box>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      {/* <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div> */}
-      <div
+      {/* <div
         style={{
           background: '#eee',
           border: '1px #000 solid',
@@ -98,7 +108,7 @@ function SalesPeople({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
+      </div> */}
       {/* End of Zesty.io output example */}
     </>
   );
