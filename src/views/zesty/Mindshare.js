@@ -50,19 +50,28 @@ function Mindshare({ content }) {
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
 
+let zestyURL =
+  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
+
 
   useEffect(() => {
     try {
       const fetchData = async () => {
         setIsLoaded(true);
-        const uri = `${zestyURL}/-/articlesbycategory.json?category=%&limit=100`;
+        const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=140`;
+
 
         const response = await fetch(uri);
+
+
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
 
         const articles = await response.json();
+
 
 
         setAllArticles(articles);
@@ -82,10 +91,7 @@ function Mindshare({ content }) {
       )
     : FillerContent.missingDataArray;
 
-  let zestyURL =
-    undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true'
-      ? process.env.zesty.production
-      : process.env.zesty.stage;
+
 
   const onSearchHandler = (evt, value) => {
     if (!value) return;

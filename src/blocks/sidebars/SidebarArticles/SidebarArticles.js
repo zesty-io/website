@@ -12,13 +12,6 @@ import FillerContent from 'components/FillerContent';
 
 
 const SidebarArticles = ({latestArticles}) => {
-  const makeDate = (date) => {
-    let d = new Date(date);
-    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-    let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
-
-    return `${mo} ${ye}`;
-  };
 
 
   const theme = useTheme();
@@ -60,7 +53,7 @@ const SidebarArticles = ({latestArticles}) => {
                   component={LazyLoadImage}
                   height={1}
                   width={1}
-                  src={item?.hero_image?.data[0]?.url || FillerContent.image}
+                  src={item?.image || FillerContent.image}
                   alt={item.title}
                   effect="blur"
                   sx={{
@@ -87,8 +80,8 @@ const SidebarArticles = ({latestArticles}) => {
                     color={'text.secondary'}
                     component={'i'}
                   >
-                    {item.author?.data[0]?.name || FillerContent.header} -{' '}
-                    {makeDate(item.date.split('Error hydrating '))}
+                    {item.author?.name || FillerContent.header} -{' '}
+                    {item.date.split('Error hydrating ')}
                   </Typography>
                 </Box>
                 <Button
