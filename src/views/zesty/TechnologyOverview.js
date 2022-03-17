@@ -98,7 +98,13 @@ function TechnologyOverview({ content }) {
       />
 
       {/* Social Proof */}
-      <WithCompanyLogo content={content?.social_proof} />
+      <WithCompanyLogo
+        logo={
+          content?.testimonials_logo?.data &&
+          content?.testimonials_logo?.data[0]?.url
+        }
+        content={content?.social_proof}
+      />
 
       {/* LINK TO BLOG */}
       <VerticallyAlignedBlogCardsWithShapedImage
