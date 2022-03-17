@@ -72,8 +72,6 @@ let zestyURL =
 
         const articles = await response.json();
 
-
-
         setAllArticles(articles);
       };
 

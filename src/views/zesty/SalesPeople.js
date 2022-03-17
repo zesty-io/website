@@ -26,21 +26,92 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React, { useEffect, useState } from 'react';
+// mui imports
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+// container
+import Container from 'components/Container';
+// page specific
+import { CardsInSlider } from 'blocks/cards';
+import { SimpleHeader } from 'blocks/banners';
+// Filler content
+import FillerContent from 'components/FillerContent';
 
-function SalesPeople({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+function SalesPeople({ content }) {
+    const theme = useTheme();
+    const [clientCards, setClientCards] = useState([]);
+
+    // clients cards fetch
+    useEffect(() => {
+        try {
+            const fetchClients = async () => {
+                const url = `${zestyURL}/-/clientcards.json`
+                const response = await fetch(url);
+                const data = await response.json();
+                console.log(data);
+                setClientCards(data);
+            };
+
+            fetchClients();
+        } catch (error) {
+            console.error(`Could Not Find Results: ${error}`);
+        }
+    }, []);
+
+    // zesty url
+    let zestyURL =
+    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
+
+  return (
+    <>
+      <Box>
+        <Box
+          sx={{
+            backgroundColor: theme.palette.alternate.main,
+            backgroundImage: `linear-gradient(120deg, ${theme.palette.background.paper} 0%, ${theme.palette.alternate.main} 100%)`,
+            marginTop: -13,
+            paddingTop: 13,
+          }}
+        >
+          <Container>
+            <SimpleHeader
+            eyebrow={content.eyebrow || FillerContent.header}
+            title={content.title || FillerContent.header}
+            description={content.page_header_content || FillerContent.description} />
+          </Container>
+        </Box>
+        <Container  paddingBottom={'0 !important'}>
+          <Box dangerouslySetInnerHTML={{__html: content.embed_code}} />
+        </Container>
+        <Container>
+          <Divider />
+        </Container>
+        <Container paddingTop={'0 !important'}>
+          <CardsInSlider
+          title={content.client_title || FillerContent.header}
+          eyebrow={content.client_eyebrow || FillerContent.header}
+          array={clientCards} />
+        </Container>
+      </Box>
+      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+      {/* <div
+        style={{
+          background: '#eee',
+          border: '1px #000 solid',
+          margin: '10px',
+          padding: '20px',
+        }}
+      >
+        <h2>Accessible Zesty.io JSON Object</h2>
+        <pre>{JSON.stringify(content, null, 2)}</pre>
+      </div> */}
+      {/* End of Zesty.io output example */}
+    </>
+  );
 }
-  
+
 export default SalesPeople;

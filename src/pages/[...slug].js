@@ -6,7 +6,7 @@ import Main from '../layouts/Main';
 
 export default function Slug(props) {
   return (
-    <Main customRouting={props.navigationCustom}>
+    <Main customRouting={props.navigationCustom } url={props.meta.web.uri}>
         <ZestyView content={props} />
     </Main>
   );
@@ -16,7 +16,7 @@ export default function Slug(props) {
 export async function getServerSideProps(ctx) {
 
   const data = await fetchPage(ctx.resolvedUrl);
-  
+
   // generate a status 404 page
   if (data.error) return { notFound: true }
 
