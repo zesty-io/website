@@ -33,7 +33,9 @@ const mock = [
   },
 ];
 
-const WithOverlappedCards = ({list=[]}) => {
+const WithOverlappedCards = ({ list = [], eyebrow, case_studies_header }) => {
+
+
   const theme = useTheme();
   return (
     <Container>
@@ -48,10 +50,10 @@ const WithOverlappedCards = ({list=[]}) => {
             align={'center'}
             fontWeight={700}
           >
-            Case Studies
+            {eyebrow}
           </Typography>
           <Typography fontWeight={700} variant={'h4'} align={'center'}>
-            Trust the professionals
+            {case_studies_header}
           </Typography>
         </Box>
         <Grid container spacing={2}>
@@ -64,43 +66,43 @@ const WithOverlappedCards = ({list=[]}) => {
                   backgroundImage: 'none',
                 }}
               >
-              <Box 
-                component={'a'}
-                href={item.meta.web.url}
-                display={'block'}
-                width={1}
-                height={1}
-                sx={{
-                  textDecoration: 'none',
-                  transition: 'all .2s ease-in-out',
-                  '&:hover': {
-                    transform: `translateY(-${theme.spacing(1 / 2)})`,
-                  },
-                }}
-                >
                 <Box
-                  component={CardMedia}
-                  borderRadius={2}
+                  component={'a'}
+                  href={item.meta.web.url}
+                  display={'block'}
                   width={1}
                   height={1}
-                  minHeight={320}
-                  image={item.hero_image.data[0].url}
-                />
-                <Box
-                  component={CardContent}
-                  bgcolor={'transparent'}
-                  marginTop={-5}
+                  sx={{
+                    textDecoration: 'none',
+                    transition: 'all .2s ease-in-out',
+                    '&:hover': {
+                      transform: `translateY(-${theme.spacing(1 / 2)})`,
+                    },
+                  }}
                 >
-                  <Box component={Card}>
-                    <CardContent>
-                      <ListItemText
-                        primary={item.title}
-                        //*secondary={item.description}
-                      />
-                    </CardContent>
+                  <Box
+                    component={CardMedia}
+                    borderRadius={2}
+                    width={1}
+                    height={1}
+                    minHeight={320}
+                    image={item.hero_image.data[0].url}
+                  />
+                  <Box
+                    component={CardContent}
+                    bgcolor={'transparent'}
+                    marginTop={-5}
+                  >
+                    <Box component={Card}>
+                      <CardContent>
+                        <ListItemText
+                          primary={item.title}
+                          //*secondary={item.description}
+                        />
+                      </CardContent>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
               </Card>
             </Grid>
           ))}

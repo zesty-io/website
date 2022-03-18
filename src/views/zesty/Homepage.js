@@ -33,7 +33,6 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import HeroWithIllustrationAndCta from 'blocks/heroes/HeroWithIllustrationAndCta/HeroWithIllustrationAndCta';
 import WithSwiperAndBrandBackgroundColor from 'blocks/logoGrid/WithSwiperAndBrandBackgroundColor';
 import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
@@ -58,13 +57,12 @@ const getReviewsData = async (setReviewsData) => {
   const res = await fetch(uri).then((response) => response.json());
   res && (await setReviewsData(res));
 };
-
 function Homepage({ content }) {
   const theme = useTheme();
   const [cardData, setcardData] = useState();
   const [reviewsData, setReviewsData] = useState();
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(true);
+
+  const [isLoaded, setIsLoaded] = useState(false);
   const [allArticles, setAllArticles] = useState([]);
 
   useEffect(() => {
@@ -81,22 +79,19 @@ function Homepage({ content }) {
         }
 
         const articles = await response.json();
+        setIsLoaded(true);
         setAllArticles(articles);
       };
 
       fetchData();
-
     } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
-    } finally {
-      setIsLoaded(false);
     }
   }, []);
 
   let image_url = content?.zesty_benefits_image
     ? content.zesty_benefits_image.data[0].url
-    : FillerContent.image;
-
+    : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
   const heroProps = {
     title: content.title,
     description: content.content || '',
@@ -122,7 +117,13 @@ function Homepage({ content }) {
         wysiwyig_type=""
       />
       <Box bgcolor={'alternate.main'}>
-        <WithOverlappedCards list={cardData || []} />
+        <WithOverlappedCards
+          list={cardData || []}
+          eyebrow={content.case_studies_eyebrow || FillerContent.header}
+          case_studies_header={
+            content.case_studies_header || FillerContent.header
+          }
+        />
         <ReviewsWithSimpleBoxes
           header={content.testimonials_content}
           list={content.testimonials?.data || []}
@@ -130,17 +131,13 @@ function Homepage({ content }) {
       </Box>
       {/* Latest Articles */}
       <Box sx={{ pt: 4 }}>
-        {isLoaded ? (
-          <CircularProgressWithLabel />
-        ) : (
-          <VerticallyAlignedBlogCardsWithShapedImage
-            title="Latest Articles"
-            description="View the latest in industry news, guides, and more!"
-            ctaBtn={'View More' || FillerContent.cta}
-            ctaUrl="/mindshare/"
-            popularArticles={allArticles || FillerContent.missingDataArray}
-          />
-        )}
+        <VerticallyAlignedBlogCardsWithShapedImage
+          title="Latest Articles"
+          description="View the latest in industry news, guides, and more!"
+          ctaBtn={'View More' || FillerContent.cta}
+          ctaUrl="/mindshare/"
+          popularArticles={allArticles || FillerContent.missingDataArray}
+        />
       </Box>
       <CtaWithInputField />
       {/*<div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
