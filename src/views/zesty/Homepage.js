@@ -139,7 +139,13 @@ function Homepage({ content }) {
           popularArticles={allArticles || FillerContent.missingDataArray}
         />
       </Box>
-      <CtaWithInputField />
+      <CtaWithInputField
+        title={'Subscribe to the zestiest newsletter in the industry'}
+        description={
+          'Get the latest from the Zesty team, from whitepapers to product updates.'
+        }
+        cta={'Subscribe'}
+      />
       {/*<div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
                   <h2>Accessible Zesty.io JSON Object</h2>
                   <pre>{JSON.stringify(content, null, 2)}</pre>
