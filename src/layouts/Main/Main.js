@@ -47,19 +47,17 @@ const Main = ({
     threshold: 38,
   });
 
-  // let pageNavColorRegex = new RegExp(/mindshare|authors|blog/gi);
-
-  // Special Pages that need header color inverted
-  const specialPageColorInvert =
-    (router.asPath === '/mindshare/' && router.asPath === '/blog/') ||
-    (!router.asPath.includes('/mindshare/authors') &&
-      !router.asPath.includes('/mindshare/developer-how-tos/'));
+  let pageNavColorRegex = new RegExp(/mindshare|authors|blog/gi);
 
   return (
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
-          <TopNav colorInvert={specialPageColorInvert ? true : colorInvert} />
+          <TopNav
+            colorInvert={
+              url?.match(pageNavColorRegex) !== null ? true : colorInvert
+            }
+          />
         </Container>
       </Box>
       <AppBar
@@ -75,7 +73,9 @@ const Main = ({
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
             colorInvert={
-              specialPageColorInvert && !trigger ? true : colorInvert
+              url.match(pageNavColorRegex) !== null && !trigger
+                ? true
+                : colorInvert
             }
           />
         </Container>
