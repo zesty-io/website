@@ -117,7 +117,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 component={'h1'}
                 variant="p"
                 color={theme.palette.zesty.zestyOrange}
-                sx={{ fontWeight: 400 }}
+                sx={{ fontWeight: 400, fontSize: '20px' }}
                 gutterBottom
               >
                 {h1_title}
