@@ -10,28 +10,7 @@ import CardMedia from '@mui/material/CardMedia';
 
 import Container from 'components/Container';
 
-const mock = [
-  {
-    name: 'Chary Smith',
-    title: 'SEO at Comoti',
-    avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-  },
-  {
-    name: 'Clara Bertoletti',
-    title: 'Junior Designer',
-    avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
-  },
-  {
-    name: 'Jhon Anderson',
-    title: 'Senior Frontend Developer',
-    avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-  },
-  {
-    name: 'Chary Smith',
-    title: 'SEO at Comoti',
-    avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
-  },
-];
+
 
 const WithOverlappedCards = ({ list = [], eyebrow, case_studies_header }) => {
 
@@ -49,10 +28,16 @@ const WithOverlappedCards = ({ list = [], eyebrow, case_studies_header }) => {
             color={'text.secondary'}
             align={'center'}
             fontWeight={700}
+            component={'p'}
           >
             {eyebrow}
           </Typography>
-          <Typography fontWeight={700} variant={'h4'} align={'center'}>
+          <Typography
+            fontWeight={700}
+            variant={'h4'}
+            component={'p'}
+            align={'center'}
+          >
             {case_studies_header}
           </Typography>
         </Box>
