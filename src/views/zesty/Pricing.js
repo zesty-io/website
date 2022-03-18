@@ -55,7 +55,7 @@ function Pricing({content}) {
     const theme = useTheme();
     const heroProps = { 
       title: content.title,
-      subtitle: content.subtitle,
+      subtitle: content.instance_definition,
       tiers: content.tiers.data
     };
     const [pricingData, setPricingData] = React.useState([]);
@@ -66,7 +66,7 @@ function Pricing({content}) {
     // pricing levers
     try {
       const fetchData = async () => {
-        const uri = `${zestyURL}/-/gql/pricing_levers.json`;
+        const uri = `${zestyURL}/-/pricing-levers.json`;
         const response = await fetch(uri);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
