@@ -19,6 +19,7 @@ const iconMap = {
 };
 
 const SimpleCentered = ({ header, description, cards = [] }) => {
+
   const theme = useTheme();
 
   return (

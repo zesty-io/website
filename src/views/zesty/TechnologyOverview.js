@@ -111,8 +111,8 @@ function TechnologyOverview({ content }) {
       {/* Benefits  */}
       <SimpleCentered
         header={content.benefits_header}
-        cards={content.technology_benefits.data}
         description={null}
+        cards={content.technology_benefits.data}
       />
 
       {/* Feature List  */}
