@@ -55,7 +55,7 @@ function Pricing({content}) {
     const theme = useTheme();
     const heroProps = { 
       title: content.title,
-      subtitle: content.subtitle,
+      subtitle: content.instance_definition,
       tiers: content.tiers.data
     };
     const [pricingData, setPricingData] = React.useState([]);
