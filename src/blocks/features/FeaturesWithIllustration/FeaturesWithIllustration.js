@@ -14,24 +14,20 @@ import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 import WYSIWYGRender from 'components/WYSIWYGRender';
 
-const FeaturesWithIllustration = (props) => {
+const FeaturesWithIllustration = ({wysiwyig_type='',rich_text='',image_url='https://pzcvtc6b.media.zestyio.com/content-management.png'}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-  let rich_text = undefined !== props.rich_text ? props.rich_text : '';
-  let image_url =
-    undefined !== props.image_url
-      ? props.image_url
-      : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
+
   return (
-    <Container>
+    <Container paddingY={2}>
       <Grid container spacing={4} direction={isMd ? 'row' : 'column-reverse'}>
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box marginBottom={4}>
             <WYSIWYGRender
               rich_text={rich_text}
-              customClass="circle-icons"
+              customClass={wysiwyig_type}
             ></WYSIWYGRender>
           </Box>
         </Grid>

@@ -30,7 +30,7 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
             display: flex;
             border-radius: 5px;
             margin-right: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 28px;
             margin-top: 5px;
             align-items:center;
             padding:.7rem;

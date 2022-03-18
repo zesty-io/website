@@ -113,12 +113,22 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
         <Box paddingY={{ xs: 0, sm: '4rem', md: '8rem' }}>
           <Container>
             <Box maxWidth={{ xs: 1, sm: '50%' }}>
-              <Box display={'flex'} gap={2}>
+              <Typography
+                component={'h1'}
+                variant="p"
+                color={theme.palette.zesty.zestyOrange}
+                sx={{ fontWeight: 400, fontSize: '20px' }}
+                gutterBottom
+              >
+                {h1_title}
+              </Typography>
+              <Box display={'flex'} gap={2} sx={{ margin: 0 }}>
                 <Typography
                   variant="h2"
                   color="text.primary"
                   gutterBottom
                   sx={{
+                    margin: 0,
                     fontWeight: 700,
                   }}
                 >
@@ -129,6 +139,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                   color={theme.palette.zesty.zestyOrange}
                   gutterBottom
                   sx={{
+                    margin: 0,
                     fontWeight: 700,
                   }}
                 >
@@ -142,6 +153,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 gutterBottom
                 sx={{
                   fontWeight: 700,
+                  lineHeight: '3.5rem',
                 }}
               >
                 {title2}

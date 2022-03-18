@@ -87,7 +87,7 @@ let zestyURL =
 
       const fetchSimiliarTags = async () => {
         setIsLoaded(true);
-        const url = `${zestyURL}/-/similar-articles.json?limit=3&tag=${simliarTags}`;
+        const url = `${zestyURL}/-/similar-articles.json?limit=4&tag=${simliarTags}`;
 
         const response = await fetch(url);
         if (!response.ok) {
