@@ -20,7 +20,7 @@ const capitalize = (str, lower = false) =>
   (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
 ;
 
-const PricingCompareTable = ({tiers,category,pricingLevers}) => {
+const PricingCompareTable = ({tiers,category="",pricingLevers}) => {
   const theme = useTheme();
   const [expanded, setExpanded] = React.useState('panel1');
 
