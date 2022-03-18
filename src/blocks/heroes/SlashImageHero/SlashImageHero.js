@@ -10,7 +10,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import SubscribeCTA from 'components/cta/SubscribeCTA';
 
-const Hero = ({title, subtitle, description, image, cta, ctaHref}) => {
+const Hero = ({title, subtitle, description, image}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
