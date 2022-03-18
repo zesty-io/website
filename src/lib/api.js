@@ -1,6 +1,7 @@
 export async function fetchPage(url,getNavigation=true) {
   let data = {
     error: true,
+    production: true,
   };
   // grab the path without a query string
   url = url.split('?')[0]
@@ -23,10 +24,11 @@ export async function fetchPage(url,getNavigation=true) {
   url = url.replace(/^\//, '');
 
   // build relative zesty toJSON url to fetch JSON
-  // uses .env and .env local values to determine stage or production 
-  let zestyURL = (undefined === process.env.PRODUCTION || process.env.PRODUCTION == 'true') ? process.env.zesty.production : process.env.zesty.stage;
+  // uses .env and .env local values to determine stage or production
+  let productionMode = (undefined === process.env.PRODUCTION || process.env.PRODUCTION === 'true') ? true : false;
+  let zestyURL = productionMode ? process.env.zesty.production : process.env.zesty.stage;
   let zestyJSONURL = zestyURL.replace(/\/$/, '') + '/' + url + '?toJSON&' + queryString ;
-
+  
   // Fetch data from Zesty.io toJSON API
   const res = await fetch(zestyJSONURL);
 
@@ -36,7 +38,10 @@ export async function fetchPage(url,getNavigation=true) {
   } else {
     data.status = res.status;
   }
- 
+  data.zestyProductionMode = productionMode;
+  data.zestyInstanceZUID = process.env.zesty.instance_zuid;
+  data.zestyBaseURL = zestyURL;
+
   // fetch the navigation and append the navigation to the data
   if(getNavigation == true){
     // not using this tree

@@ -1,8 +1,6 @@
-import React, { Children } from 'react';
+import React from 'react';
 import ReactJson from 'react-json-view-ssr';
-import ReactDOM from 'react-dom';
 import Fuse from 'fuse.js';
-import { Button, Grid, TextField } from '@mui/material';
 
 // convert the obj to array of objectsj
 const convertToArray = (content) =>
@@ -88,27 +86,22 @@ const ZestyExplorerBrowser = ({ content, children }) => {
 
   // display the result of search
   const data = search ? result2 : { content };
-
+      let divStyles = {
+        marginBottom: '4em',
+        justifyContent: 'center'
+      }
   return (
     <div style={{ background: '#ddd', boxShadow: '0,0,5px,#333' }}>
       {children}
-      <Grid container marginBottom={4} justifyContent="center">
-        {/* <Button
-          onClick={() => {
-            setModal(false);
-          }}
-          variant="outlined"
-        >
-          View Page Data
-        </Button> */}
-      </Grid>
+      <div container style={divStyles} >
+       
+      </div>
       <div style={{ width: '80vw', margin: '0 auto' }}>
-        <TextField
+        <input
+          type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          id="outlined-basic"
-          label="Search"
-          variant="outlined"
+         
           autoFocus
         />
         {/* {JSON.stringify(result2)} */}
@@ -146,6 +139,28 @@ export const ZestyExplorer = ({ content }) => {
   // custom nav tree building
   delete searchObject.navigationCustom;
 
+  let buttonStyles = {
+    borderRadius: '5px',
+    padding: '12px 24px 12px 16px',
+    background: '#1b202c',
+    color: 'white',
+    border: '1px #5B667D solid',
+    boxShadow: '3px 3px 8px rgba(0,0,0,.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer'
+  }
+  let zestyStyles =  {
+    flex: '1',
+    display: 'inline-block',
+    alignSelf: 'center',
+    marginLeft: '12px',
+    fontSize: '18px',
+    color: '#C7D4EA',
+    letterSpacing: '1px',
+    fontFamily: "'Arial Rounded MT Bold','Helvetica Rounded',Arial,sans-serif"
+  }
   if (!canUseDOM()) {
     return null;
   }
@@ -163,20 +178,24 @@ export const ZestyExplorer = ({ content }) => {
       }}
     >
       {!togglem && (
-        <Button onClick={() => settoggle(true)} variant="outlined" color="info">
-          Open Zesty Explorer
-        </Button>
+        <button type="button" onClick={() => settoggle(true)} style={buttonStyles} variant="outlined" color="info" >
+           <img 
+            src="https://storage.googleapis.com/brand-assets.zesty.io/zesty-io-app-icon-transparent.png"
+            width="32px"
+            height="32px"
+            alt="Zesty.io Logo"
+            />
+            <span style={zestyStyles}>Explorer</span>
+        </button>
       )}
       {togglem && (
         <div>
           <ZestyExplorerBrowser content={searchObject}>
-            <Button
+            <button
               onClick={() => settoggle(false)}
-              variant="outlined"
-              color="error"
             >
               X
-            </Button>
+            </button>
           </ZestyExplorerBrowser>
         </div>
       )}
