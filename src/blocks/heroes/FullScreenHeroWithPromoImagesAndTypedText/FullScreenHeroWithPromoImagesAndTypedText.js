@@ -114,13 +114,11 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
           <Container>
             <Box maxWidth={{ xs: 1, sm: '50%' }}>
               <Typography
-                style={{ fontSize: '20px' }}
+                component={'h1'}
+                variant="p"
                 color={theme.palette.zesty.zestyOrange}
-                variant="h1"
+                sx={{ fontWeight: 400 }}
                 gutterBottom
-                sx={{
-                  fontWeight: 400,
-                }}
               >
                 {h1_title}
               </Typography>
