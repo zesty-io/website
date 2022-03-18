@@ -92,14 +92,48 @@ const ZestyExplorerBrowser = ({ content, children }) => {
   };
   return (
     <div style={{ background: '#ddd', boxShadow: '0,0,5px,#333' }}>
-      <div style={divStyles}>{children}</div>
       <div style={{ width: '80vw', margin: '0 auto' }}>
+        <img
+          src="https://storage.googleapis.com/brand-assets.zesty.io/zesty-io-app-icon-transparent.png"
+          width="22px"
+          height="22px"
+          alt="Zesty.io Logo"
+        />
         <input
           type="text"
+          placeholder="Search Content Values"
           value={search}
+          style={{ padding: '5px', margin: '10px' }}
           onChange={(e) => setSearch(e.target.value)}
           autoFocus
         />
+        <span>
+          Browsing item <strong> {content.meta.web.seo_link_text} </strong>from
+          the <strong>{content.meta.model_alternate_name} </strong>Content Model
+        </span>
+        <a
+          style={{ padding: '5px' }}
+          target="_blank"
+          href={`https://accounts.zesty.io/instances/${content.zestyInstanceZUID}`}
+        >
+          Open Zesty Account
+        </a>
+        <a
+          style={{ padding: '5px' }}
+          target="_blank"
+          href={`https://${content.zestyInstanceZUID}.manager.zesty.io/content/${content.meta.model.zuid}/${content.meta.zuid}`}
+        >
+          Open Zesty Manager
+        </a>
+
+        <a
+          style={{ padding: '5px' }}
+          target="_blank"
+          href={`https://${content.zestyInstanceZUID}.manager.zesty.io/schema/${content.meta.model.zuid}`}
+        >
+          Open Schema
+        </a>
+        {children}
         {/* {JSON.stringify(result2)} */}
         <ReactJson
           style={{ height: '80vh', overflowY: 'scroll' }}
