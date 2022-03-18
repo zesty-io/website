@@ -9,6 +9,8 @@ import Grid from '@mui/material/Grid';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
+
+
 const mock = [
   {
     title: '99.99% uptime',
@@ -78,9 +80,10 @@ const mock = [
   },
 ];
 
-const SimpleCentered = ({ header, description, cards }) => {
+const SimpleCentered = ({ header, description, cards=[] }) => {
+
   const theme = useTheme();
-  const data = cards || mock;
+
   return (
     <Container>
       <Box>
@@ -120,7 +123,7 @@ const SimpleCentered = ({ header, description, cards }) => {
           </Box>
         </Box>
         <Grid container spacing={2}>
-          {data?.map((item, i) => (
+          {cards.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box width={1} height={1}>
                 <Box
@@ -136,7 +139,7 @@ const SimpleCentered = ({ header, description, cards }) => {
                     bgcolor={alpha(theme.palette.primary.main, 0.1)}
                     color={theme.palette.primary.main}
                   >
-                    {item.icon}
+                    {item.icon_name}
                   </Box>
                   <Typography
                     variant={'h6'}
@@ -144,10 +147,10 @@ const SimpleCentered = ({ header, description, cards }) => {
                     sx={{ fontWeight: 500 }}
                     align={'center'}
                   >
-                    {item.title}
+                    {item.benefit_title}
                   </Typography>
                   <Typography align={'center'} color="text.secondary">
-                    {item.subtitle}
+                    {item.benefit_content}
                   </Typography>
                 </Box>
               </Box>
