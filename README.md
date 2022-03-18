@@ -41,4 +41,9 @@ Any push or merge to the `main` branch will kickoff an auto build script which w
 2. Make change locally commit
 3. Test your changes with `npm run build`
 4. If build succeeds, create pull request against `main`
-   .
+
+## Icons in the WYSIWYG
+
+The icons set we use is Google Material Icons https://fonts.google.com/icons
+
+To use the icons in a WHYSIWYG editor, type in plain text `ICON_icon_name` e.g `ICON_check` use the link to the icons font aboe to learn icon names.

@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const SimpleHeroWithImageAndCtaButtons = ({
   mainTitle,
@@ -71,15 +72,13 @@ const SimpleHeroWithImageAndCtaButtons = ({
               flexDirection={{ xs: 'column', sm: 'row' }}
               alignItems={{ xs: 'stretched', sm: 'flex-start' }}
             >
-              <Button
-                href={cta_left_url || FillerContent.href}
+              <TryFreeButton
+                text={cta_left || FillerContent.cta}
                 variant="contained"
                 color="primary"
                 size="large"
-                fullWidth={isMd ? false : true}
-              >
-                {cta_left || FillerContent.cta}
-              </Button>
+              ></TryFreeButton>
+             
               <Box
                 href={cta_right_url || FillerContent.href}
                 component={Button}
