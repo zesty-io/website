@@ -14,7 +14,7 @@ import TopNav from 'components/TopNav';
 import { Topbar, Sidebar, Footer } from './components';
 
 
-const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transparent', url }) => {
+const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transparent', url='' }) => {
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
