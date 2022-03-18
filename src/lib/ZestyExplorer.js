@@ -86,23 +86,54 @@ const ZestyExplorerBrowser = ({ content, children }) => {
 
   // display the result of search
   const data = search ? result2 : { content };
-      let divStyles = {
-        marginBottom: '4em',
-        justifyContent: 'center'
-      }
+  let divStyles = {
+    marginBottom: '4em',
+    justifyContent: 'center',
+  };
   return (
     <div style={{ background: '#ddd', boxShadow: '0,0,5px,#333' }}>
-      
-      <div style={divStyles} >
-      {children}
-      </div>
       <div style={{ width: '80vw', margin: '0 auto' }}>
+        <img
+          src="https://storage.googleapis.com/brand-assets.zesty.io/zesty-io-app-icon-transparent.png"
+          width="22px"
+          height="22px"
+          alt="Zesty.io Logo"
+        />
         <input
           type="text"
+          placeholder="Search Content Values"
           value={search}
+          style={{ padding: '5px', margin: '10px' }}
           onChange={(e) => setSearch(e.target.value)}
           autoFocus
         />
+        <span>
+          Browsing item <strong> {content.meta.web.seo_link_text} </strong>from
+          the <strong>{content.meta.model_alternate_name} </strong>Content Model
+        </span>
+        <a
+          style={{ padding: '5px' }}
+          target="_blank"
+          href={`https://accounts.zesty.io/instances/${content.zestyInstanceZUID}`}
+        >
+          Open Zesty Account
+        </a>
+        <a
+          style={{ padding: '5px' }}
+          target="_blank"
+          href={`https://${content.zestyInstanceZUID}.manager.zesty.io/content/${content.meta.model.zuid}/${content.meta.zuid}`}
+        >
+          Open Zesty Manager
+        </a>
+
+        <a
+          style={{ padding: '5px' }}
+          target="_blank"
+          href={`https://${content.zestyInstanceZUID}.manager.zesty.io/schema/${content.meta.model.zuid}`}
+        >
+          Open Schema
+        </a>
+        {children}
         {/* {JSON.stringify(result2)} */}
         <ReactJson
           style={{ height: '80vh', overflowY: 'scroll' }}
@@ -121,8 +152,6 @@ const ZestyExplorerBrowser = ({ content, children }) => {
   );
 };
 
-export default React.memo(ZestyExplorerBrowser);
-
 function canUseDOM() {
   return !!(
     typeof window !== 'undefined' &&
@@ -132,7 +161,7 @@ function canUseDOM() {
 }
 export const ZestyExplorer = ({ content }) => {
   const [open, setOpen] = React.useState(false);
-  let searchObject = {...content};
+  let searchObject = { ...content };
   // unset navigations for faster search
   delete searchObject.navigationTree;
   // custom nav tree building
@@ -148,9 +177,9 @@ export const ZestyExplorer = ({ content }) => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    cursor: 'pointer'
-  }
-  let zestyStyles =  {
+    cursor: 'pointer',
+  };
+  let zestyStyles = {
     flex: '1',
     display: 'inline-block',
     alignSelf: 'center',
@@ -158,10 +187,10 @@ export const ZestyExplorer = ({ content }) => {
     fontSize: '18px',
     color: '#C7D4EA',
     letterSpacing: '1px',
-    fontFamily: "'Arial Rounded MT Bold','Helvetica Rounded',Arial,sans-serif"
-  }
+    fontFamily: "'Arial Rounded MT Bold','Helvetica Rounded',Arial,sans-serif",
+  };
 
-  console.log('open state',open)
+  console.log('open state', open);
   if (!canUseDOM()) {
     return null;
   }
@@ -179,23 +208,29 @@ export const ZestyExplorer = ({ content }) => {
       }}
     >
       {!open && (
-        <button type="button" onClick={() => setOpen(true)} style={buttonStyles} >
-           <img 
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          style={buttonStyles}
+        >
+          <img
             src="https://storage.googleapis.com/brand-assets.zesty.io/zesty-io-app-icon-transparent.png"
             width="32px"
             height="32px"
             alt="Zesty.io Logo"
-            />
-            <span style={zestyStyles}>Explorer</span>
+          />
+          <span style={zestyStyles}>Explorer</span>
         </button>
       )}
       {open && (
         <div>
           <ZestyExplorerBrowser content={searchObject}>
-            <button onClick={() => setOpen(false)}>X</button>
+            <button onClick={() => setOpen(false)}>Close</button>
           </ZestyExplorerBrowser>
         </div>
       )}
     </div>
   );
 };
+
+export default React.memo(ZestyExplorer);
