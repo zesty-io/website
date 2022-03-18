@@ -211,14 +211,14 @@ const SimpleVerticalBlogCards = ({
           marginTop={{ xs: 2, md: 4 }}
         >
           <Box
-            href={cta_url || FillerContent.href}
+            href="/mindshare"
             component={Button}
             variant="contained"
             color="primary"
             size="large"
             marginLeft={2}
           >
-            {cta || FillerContent.cta}
+            read more
           </Box>
         </Box>
       </Box>
