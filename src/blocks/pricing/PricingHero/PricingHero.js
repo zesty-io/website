@@ -108,12 +108,19 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
                       {pricingOption === 'annual' ? '/' : '/mo'}
                     </Typography>*/}
                   </Box>
-                  <FeatureItem text={item.content_records}/>
-                  <FeatureItem text={item.users}/>
-                  <FeatureItem text={item.features}/>
-                  <FeatureItem text={item.domain}/>
-                  <FeatureItem text={item.data_plan}/>
-                  <FeatureItem text={item.support}/>
+                  {item.content_records? <FeatureItem text={item.content_records}/>:null}
+                  {item.content_records?<FeatureItem text={item.content_records}/>:null}
+                  {item.users?<FeatureItem text={item.users}/>:null}
+                  {item.features?<FeatureItem text={item.features}/>:null}
+                  {item.domain?<FeatureItem text={item.domain}/>:null}
+                  {item.data_plan?<FeatureItem text={item.data_plan}/>:null}
+                  {item.support?<FeatureItem text={item.support}/>:null}
+                  {item.feature1?<FeatureItem text={item.feature1}/>:null}
+                  {item.feature2?<FeatureItem text={item.feature2}/>:null}
+                  {item.feature3?<FeatureItem text={item.feature3}/>:null}
+                  {item.feature4?<FeatureItem text={item.feature4}/>:null}
+                  {item.feature5?<FeatureItem text={item.feature5}/>:null}
+
                 </CardContent>
                 <Box flexGrow={1} />
                 <CardActions sx={{ justifyContent: 'flex-end', padding: 4 }}>
