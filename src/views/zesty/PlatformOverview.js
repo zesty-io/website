@@ -24,7 +24,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'components/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -36,6 +36,7 @@ import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleV
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField';
 import FillerContent from 'components/FillerContent';
+import CircularProgressWithLabel from '@mui/material/CircularProgress';
 const mock = [
   {
     title: 'Your brand platform',
@@ -153,6 +154,38 @@ const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
 };
 
 function PlatformOverview({ content }) {
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [allArticles, setAllArticles] = useState([]);
+
+  let zestyURL =
+    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        setIsLoaded(true);
+        const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=3`;
+
+        const response = await fetch(uri);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+
+        const articles = await response.json();
+
+        setAllArticles(articles);
+      };
+
+      fetchData();
+    } catch (error) {
+      console.error(`Could Not Find Results: ${error}`);
+    } finally {
+      setIsLoaded(false);
+    }
+  }, []);
   const theme = useTheme();
   const headerProps = {
     title: content?.title,
@@ -221,12 +254,28 @@ function PlatformOverview({ content }) {
       />
 
       {/* Link To Blog */}
-      <VerticallyAlignedBlogCardsWithShapedImage
+      {/* <VerticallyAlignedBlogCardsWithShapedImage
         title={'Industry insights'}
         description={
           'Stay up-to-date with the latest in digital experience, content management, and more.'
         }
-      />
+      /> */}
+
+      {/* Industry Insights > Latest Blogs articles */}
+
+      {isLoaded ? (
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <CircularProgressWithLabel />
+        </Box>
+      ) : (
+        <VerticallyAlignedBlogCardsWithShapedImage
+          title={'Industry Insights'}
+          description={
+            'Stay up-to-date with the latest in digital experience, content management and more.'
+          }
+          popularArticles={allArticles}
+        />
+      )}
 
       {/* Final Cta  */}
       <CtaWithInputField
