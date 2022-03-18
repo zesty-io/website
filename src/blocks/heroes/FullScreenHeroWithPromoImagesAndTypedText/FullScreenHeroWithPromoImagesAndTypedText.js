@@ -80,6 +80,7 @@ const mockimages = [
 const FullScreenHeroWithPromoImagesAndTypedText = ({
   title,
   description,
+  h1_title,
   cta_left,
   cta_right,
   cta_left_url,
@@ -92,6 +93,11 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
   });
 
   const imageList = images || mockimages;
+  const newTitle = title.split('<br/>');
+  const title0 = newTitle[0] || '';
+  const title1 = newTitle[1] || '';
+  const title2 = newTitle[2] || '';
+
   return (
     <Box sx={{ overflow: 'hidden' }}>
       <Box
@@ -107,6 +113,29 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
         <Box paddingY={{ xs: 0, sm: '4rem', md: '8rem' }}>
           <Container>
             <Box maxWidth={{ xs: 1, sm: '50%' }}>
+              <Box display={'flex'} gap={2}>
+                <Typography
+                  variant="h2"
+                  color="text.primary"
+                  gutterBottom
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                >
+                  {title0}
+                </Typography>
+                <Typography
+                  variant="h2"
+                  color={theme.palette.zesty.zestyOrange}
+                  gutterBottom
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                >
+                  {title1}
+                </Typography>
+              </Box>
+
               <Typography
                 variant="h2"
                 color="text.primary"
@@ -115,22 +144,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                   fontWeight: 700,
                 }}
               >
-                {title || FillerContent.header}
-                {/* <br />
-                into */}
-                {/* <Typography
-                  color={'primary'}
-                  component={'span'}
-                  variant={'inherit'}
-                  sx={{
-                    background: `linear-gradient(180deg, transparent 82%, ${alpha(
-                      theme.palette.secondary.main,
-                      0.3,
-                    )} 0%)`,
-                  }}
-                >
-                  success
-                </Typography> */}
+                {title2}
               </Typography>
               <Typography
                 variant="h6"

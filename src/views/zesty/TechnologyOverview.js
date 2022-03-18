@@ -38,7 +38,6 @@ import { Box } from '@mui/material';
 import { useTheme } from '@mui/system';
 
 function TechnologyOverview({ content }) {
-
   const theme = useTheme();
   const headerProps = {
     title: content?.title,
@@ -69,7 +68,10 @@ function TechnologyOverview({ content }) {
       {/* Key Features  */}
       <FeatureListWithDesktopAppScreenshot
         header={content?.key_features_header}
-        image={content?.key_features_image}
+        image={
+          content?.key_features_image?.data &&
+          content?.key_features_image?.data[0]?.url
+        }
         content={content?.key_features_content}
       />
 
@@ -85,7 +87,10 @@ function TechnologyOverview({ content }) {
         <FeaturesWithMobileScreenshot
           header={''}
           content={content?.feature_list_content}
-          image={content?.featured_image}
+          image={
+            content?.featured_image?.data &&
+            content?.featured_image?.data[0]?.url
+          }
         />
       </Box>
 
@@ -96,7 +101,13 @@ function TechnologyOverview({ content }) {
       />
 
       {/* Social Proof */}
-      <WithCompanyLogo content={content?.social_proof} />
+      <WithCompanyLogo
+        logo={
+          content?.testimonials_logo?.data &&
+          content?.testimonials_logo?.data[0]?.url
+        }
+        content={content?.social_proof}
+      />
 
       {/* LINK TO BLOG */}
       <VerticallyAlignedBlogCardsWithShapedImage

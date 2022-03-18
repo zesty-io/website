@@ -26,12 +26,15 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
         .wysiwyg .icon-box {
             float:left;
-            padding: 10px 15px;
             background: ${theme.palette.zesty.zestyWhiteBlue};
+            display: flex;
             border-radius: 5px;
             margin-right: 16px;
             margin-bottom: 20px;
             margin-top: 5px;
+            align-items:center;
+            padding:.7rem;
+            color: ${theme.palette.zesty.zestyBlue};
         }
 
         .wysiwyg.circle-icons li .icon-box {

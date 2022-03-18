@@ -125,4 +125,24 @@ export default {
       isActive: true,
     },
   ],
+  clientCards: [
+    {
+      logo:
+        'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
+      summary:
+        'Find adventures nearby or in faraway places and access unique homes, experiences, and places around the world.',
+    },
+    {
+      logo:
+        'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
+      summary:
+        'Free delivery on millions of items with Prime. Low prices across earth\'s biggest selection of books, music, DVDs, electronics, computers, software',
+    },
+    {
+      logo:
+        'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
+      summary:
+        'Find your fit with Fitbit\'s family of fitness products that help you stay motivated and improve your health by tracking your activity, exercise.',
+    },
+  ]
 };

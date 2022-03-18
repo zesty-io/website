@@ -14,6 +14,7 @@ import Pagination from '@mui/material/Pagination';
 import FillerContent from 'components/FillerContent';
 
 const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
+
   const theme = useTheme();
 
 
@@ -29,15 +30,6 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
   }
   const handlePageChange = (_event, value) => {
     setCurrentPage(value);
-  };
-
-
-  const makeDate = (date) => {
-    let d = new Date(date);
-    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-    let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
-
-    return `${mo} ${ye}`;
   };
 
 
@@ -150,7 +142,7 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {makeDate(item?.date) || FillerContent.header}
+                      {item?.date || FillerContent.header}
                     </Typography>
                   </Box>
                 </Box>

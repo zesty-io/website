@@ -25,6 +25,9 @@ const HeroWithDashboardScreenshotAndCta = ({
   });
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const newTitle = title?.split('<br/>');
+  const title0 = newTitle[0] || '';
+  const title1 = newTitle[1] || '';
   return (
     <Container>
       <Grid
@@ -40,19 +43,14 @@ const HeroWithDashboardScreenshotAndCta = ({
                 color="text.primary"
                 sx={{ fontWeight: 700 }}
               >
-                {title || FillerContent.header}
-                {/* <Typography color={'primary'}
-                  component={'span'}
-                  variant={'inherit'}
-                  sx={{
-                    background: `linear-gradient(180deg, transparent 82%, ${alpha(
-                      theme.palette.secondary.main,
-                      0.3,
-                    )} 0%)`,
-                  }}
-                >
-                  built with theFront
-                </Typography> */}
+                {title0}
+              </Typography>
+              <Typography
+                variant="h3"
+                color={theme.palette.zesty.zestyOrange}
+                sx={{ fontWeight: 700 }}
+              >
+                {title1}
               </Typography>
             </Box>
             <Box marginBottom={3}>
