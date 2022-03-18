@@ -30,7 +30,7 @@ import React, { useEffect, useState } from 'react';
 import { FullScreenHeroWithImageSlider, SlashImageHero } from 'blocks/heroes';
 import { Breadcrumb } from 'blocks/progressSteps';
 import { Result } from 'blocks/formLayouts';
-import { Newsletter } from 'blocks/newsletters';
+import { CtaWithInputField } from 'blocks/cta';
 import Box from '@mui/material/Box';
 import { useTheme, alpha } from '@mui/material/styles';
 // filler content
@@ -180,13 +180,9 @@ function Category({ content }) {
         <SlashImageHero
           title={content.category || FillerContent.header}
           description={content.description || FillerContent.description}
-          cta={content.cta_button || FillerContent.cta}
-          ctaHref={content.cta_href.data[0]?.meta.web.uri || FillerContent.href}
-          image={content.header_image.data[0]?.url || FillerContent.dashboard_image} />
+          image={content.header_image?.data[0]?.url || FillerContent.category_fallback_image} />
         </Box>
       </Box>
-      {/* can be swapped */}
-      {/* <FullScreenHeroWithImageSlider /> */}
       {/* search and articles */}
       <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
         <Box sx={{marginBottom: '16px'}}>
@@ -232,7 +228,10 @@ function Category({ content }) {
           ></path>
         </Box>
         <Container>
-          <Newsletter />
+          <CtaWithInputField
+          title={'Subscribe to the zestiest newsletter in the industry'}
+          description={'Get the latest from the Zesty team, from whitepapers to product updates.'}
+          cta={'Subscribe'} />
         </Container>
       </Box>
 

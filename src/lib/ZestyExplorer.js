@@ -190,7 +190,6 @@ export const ZestyExplorer = ({ content }) => {
     fontFamily: "'Arial Rounded MT Bold','Helvetica Rounded',Arial,sans-serif",
   };
 
-  console.log('open state', open);
   if (!canUseDOM()) {
     return null;
   }
