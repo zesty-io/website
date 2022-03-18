@@ -9,4 +9,5 @@ export { default as CtaWithRightDownloadButton } from './CtaWithRightDownloadBut
 export { default as CtaWithAppStoreButtons } from './CtaWithAppStoreButtons';
 export { default as CtaWithIllustration } from './CtaWithIllustration';
 export { default as CtaWithIllustrationSingleCta } from './CtaWithIllustrationSingleCta';
+export { default as CtaWithIllustrationNoCta } from './CtaWithIllustrationNoCta';
 export { default as CtaWithRightAppStoreButtons } from './CtaWithRightAppStoreButtons';
