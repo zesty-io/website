@@ -183,8 +183,6 @@ function Category({ content }) {
           image={content.header_image?.data[0]?.url || FillerContent.category_fallback_image} />
         </Box>
       </Box>
-      {/* can be swapped */}
-      {/* <FullScreenHeroWithImageSlider /> */}
       {/* search and articles */}
       <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
         <Box sx={{marginBottom: '16px'}}>
