@@ -10,6 +10,7 @@ import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
 const SimpleHeroWithImageAndCtaButtons = ({
+  mainTitle,
   title,
   description,
   cta_left,
@@ -29,6 +30,15 @@ const SimpleHeroWithImageAndCtaButtons = ({
         <Grid item container xs={12} md={6} alignItems={'center'}>
           <Box>
             <Box marginBottom={2}>
+              <Typography
+                component={'h1'}
+                variant="p"
+                color={theme.palette.zesty.zestyOrange}
+                gutterBottom
+                sx={{ fontWeight: 400 }}
+              >
+                {mainTitle}
+              </Typography>
               <Typography
                 variant="h2"
                 color="text.primary"

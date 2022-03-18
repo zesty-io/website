@@ -27,8 +27,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
+
 import Chip from '@mui/material/Chip';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
@@ -46,15 +45,13 @@ import Newsletter from 'blocks/newsletters/Newsletter';
 function Mindshare({ content }) {
   const theme = useTheme();
 
-
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
 
-let zestyURL =
-  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-    ? process.env.zesty.production
-    : process.env.zesty.stage;
-
+  let zestyURL =
+    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
 
   useEffect(() => {
     try {
@@ -62,9 +59,7 @@ let zestyURL =
         setIsLoaded(true);
         const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=140`;
 
-
         const response = await fetch(uri);
-
 
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
@@ -89,8 +84,6 @@ let zestyURL =
       )
     : FillerContent.missingDataArray;
 
-
-
   const onSearchHandler = (evt, value) => {
     if (!value) return;
     window.open(value.uri);
@@ -107,7 +100,7 @@ let zestyURL =
 
         <Container>
           {/* Search Filter */}
-          <Autocomplete
+          {/* <Autocomplete
             sx={{
               borderRadius: 1,
               marginTop: '-9rem',
@@ -127,9 +120,9 @@ let zestyURL =
             renderInput={(params) => (
               <TextField {...params} label="Search Articles" />
             )}
-          />
+          /> */}
           {/* Popular_categories */}
-          <Box paddingTop={{ xs: 6, md: 8 }}>
+          <Box>
             {chipsTitle.map((item) => (
               <Chip
                 key={item}
