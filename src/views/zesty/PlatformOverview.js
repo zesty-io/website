@@ -212,7 +212,7 @@ function PlatformOverview({ content }) {
       <>
         <Container>
           <Box marginBottom={4}>
-            <Typography variant="h4" sx={{}} align={'center'}>
+            <Typography variant="p" sx={{ fontWeight: 400 }} align={'center'}>
               <Box
                 dangerouslySetInnerHTML={{
                   __html: content?.benefits_header || FillerContent.header,

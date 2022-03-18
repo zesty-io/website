@@ -165,10 +165,10 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 {title2}
               </Typography>
               <Typography
-                variant="h6"
-                component="p"
+                component={'h2'}
+                variant="p"
                 color="text.secondary"
-                sx={{ fontWeight: 400 }}
+                sx={{ fontWeight: 400, fontSize: '20px' }}
               >
                 {description || FillerContent.description}
               </Typography>
