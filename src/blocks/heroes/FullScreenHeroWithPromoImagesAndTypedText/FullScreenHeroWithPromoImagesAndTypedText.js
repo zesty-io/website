@@ -124,12 +124,13 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               >
                 {h1_title}
               </Typography>
-              <Box display={'flex'} gap={2}>
+              <Box display={'flex'} gap={2} sx={{ margin: 0 }}>
                 <Typography
                   variant="h2"
                   color="text.primary"
                   gutterBottom
                   sx={{
+                    margin: 0,
                     fontWeight: 700,
                   }}
                 >
@@ -140,6 +141,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                   color={theme.palette.zesty.zestyOrange}
                   gutterBottom
                   sx={{
+                    margin: 0,
                     fontWeight: 700,
                   }}
                 >
@@ -153,6 +155,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 gutterBottom
                 sx={{
                   fontWeight: 700,
+                  lineHeight: '3.5rem',
                 }}
               >
                 {title2}
