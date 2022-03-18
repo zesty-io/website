@@ -34,7 +34,7 @@ import Container from 'components/Container';
 import { SimpleHero } from 'blocks/heroes';
 import { Result } from 'blocks/formLayouts';
 import { Newsletter } from 'blocks/newsletters';
-import { CtaWithIllustrationSingleCta } from 'blocks/cta';
+import { CtaWithIllustrationNoCta } from 'blocks/cta';
 // filler content
 import FillerContent from 'components/FillerContent';
 
@@ -45,11 +45,9 @@ function EventsAndWebinar({ content }) {
   const ComingSoon = () => {
     return(
       <>
-        <CtaWithIllustrationSingleCta
-        title={'Coming Soon!'}
+        <CtaWithIllustrationNoCta
+        title={'Coming Soon'}
         description={'Check back again for new Events and Webinars!'}
-        cta={'Home'}
-        ctaHref={'/'}
         image={content.coming_soon_image?.data[0].url || FillerContent.image} />
       </>
     )
