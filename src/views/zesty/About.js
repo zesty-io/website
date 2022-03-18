@@ -52,7 +52,7 @@ function About({ content }) {
         <Box>
           <Container>
             <Headline title={content.title || FillerContent.header}
-            description={content.description || FillerContent.header}/>
+            description={content.header_description || FillerContent.header}/>
           </Container>
           <Container paddingY={'0 !important'}>
             <Gallery

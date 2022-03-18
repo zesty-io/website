@@ -63,6 +63,7 @@ const VerticalMinimalDesignedBlogCardsNoFooter = ({ cards }) => {
             <Box
               component={'a'}
               href={`https://${item.link}`}
+              target={'_blank'}
               display={'block'}
               width={1}
               height={1}
@@ -110,7 +111,7 @@ const VerticalMinimalDesignedBlogCardsNoFooter = ({ cards }) => {
                     alignItems={'center'}
                   >
                     <Typography color={'primary'}>
-                      {item.link}
+                      Access Now &#10230;
                     </Typography>
                   </Box>
                 </Box>
