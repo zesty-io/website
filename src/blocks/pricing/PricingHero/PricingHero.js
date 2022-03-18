@@ -32,17 +32,16 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
       <Box
         sx={{
           position: 'relative',
-          backgroundColor: theme.palette.alternate.main,
-          backgroundImage: `linear-gradient(120deg, ${theme.palette.background.paper} 0%, ${theme.palette.alternate.main} 100%)`,
-          marginTop: -13,
+            marginTop: -13,
           paddingTop: 13,
         }}
       >
-        <Container position={'relative'} zIndex={3}>
-          <Box>
+        <Container position={'relative'} zIndex={3} paddingY={1}>
+          <Box marginTop={10}>
             <Box marginBottom={4}>
               <Typography
                 variant="h3"
+                component="h1"
                 gutterBottom
                 align={'center'}
                 sx={{
@@ -63,10 +62,10 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
           </Box>
         </Container>
       </Box>
-      <Container>
+      <Container paddingY={1}>
         <Grid container spacing={4}>
           {tiers.map((item, i) => (
-            <Grid item xs={12} md={4} key={i}>
+            <Grid item xs={12} md={i == 0 ? 12 :4} key={i}>
               <Box
                 component={Card}
                 height={1}
@@ -80,9 +79,20 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
                   }}
                 >
                   <Box marginBottom={2}>
-                    <Typography variant={'h4'} fontWeight={600} gutterBottom>
-                      {item.name}
-                    </Typography>
+                  
+                    <Box display={'flex'}>
+                      <Typography variant={'h4'} fontWeight={600} gutterBottom>{item.name}</Typography>
+                      {i == 0 &&
+                      <TryFreeButton
+                        component={'a'}
+                        variant="contained"
+                        size="large"
+                        fullWidth={isMd ? false : true}
+                        text='Get Started'
+                        sx={{marginLeft: 'auto'}}
+                        />
+                      }
+                    </Box>
                     <Typography color={'text.secondary'}>
                       {item.description}
                     </Typography>
@@ -92,6 +102,7 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
                     alignItems={'baseline'}
                     marginBottom={2}
                   >
+                     {i != 0 &&
                     <Typography variant={'h3'} fontWeight={700}>
                       {/*
                       {pricingOption === 'annual'
@@ -100,6 +111,7 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
                     */}
                       {item.price}
                     </Typography>
+                    }
                     {/*<Typography
                       variant={'subtitle1'}
                       color={'text.secondary'}
@@ -108,34 +120,58 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
                       {pricingOption === 'annual' ? '/' : '/mo'}
                     </Typography>*/}
                   </Box>
-                  {item.content_records? <FeatureItem text={item.content_records}/>:null}
-                  {item.content_records?<FeatureItem text={item.content_records}/>:null}
-                  {item.users?<FeatureItem text={item.users}/>:null}
-                  {item.features?<FeatureItem text={item.features}/>:null}
-                  {item.domain?<FeatureItem text={item.domain}/>:null}
-                  {item.data_plan?<FeatureItem text={item.data_plan}/>:null}
-                  {item.support?<FeatureItem text={item.support}/>:null}
-                  {item.feature1?<FeatureItem text={item.feature1}/>:null}
-                  {item.feature2?<FeatureItem text={item.feature2}/>:null}
-                  {item.feature3?<FeatureItem text={item.feature3}/>:null}
-                  {item.feature4?<FeatureItem text={item.feature4}/>:null}
-                  {item.feature5?<FeatureItem text={item.feature5}/>:null}
+                  {i == 0 && 
+                    <>
+                    <Grid container>
+                      <Grid item md={6} xs={12}>
+                        {item.content_records? <FeatureItem text={item.content_records}/>:null}
+                        {item.content_records?<FeatureItem text={item.content_records}/>:null}
+                        {item.users?<FeatureItem text={item.users}/>:null}
+                      </Grid>
+                      <Grid item md={6} xs={12}>
+                        {item.features?<FeatureItem text={item.features}/>:null}
+                        {item.domain?<FeatureItem text={item.domain}/>:null}
+                        {item.data_plan?<FeatureItem text={item.data_plan}/>:null}
+                      </Grid>
+                    </Grid>
+                    </>
+                  }
+                  {i != 0 && 
+                    <>
+                    {item.content_records? <FeatureItem text={item.content_records}/>:null}
+                    {item.content_records?<FeatureItem text={item.content_records}/>:null}
+                    {item.users?<FeatureItem text={item.users}/>:null}
+                    {item.features?<FeatureItem text={item.features}/>:null}
+                    {item.domain?<FeatureItem text={item.domain}/>:null}
+                    {item.data_plan?<FeatureItem text={item.data_plan}/>:null}
+                    {item.support?<FeatureItem text={item.support}/>:null}
+                    {item.feature1?<FeatureItem text={item.feature1}/>:null}
+                    {item.feature2?<FeatureItem text={item.feature2}/>:null}
+                    {item.feature3?<FeatureItem text={item.feature3}/>:null}
+                    {item.feature4?<FeatureItem text={item.feature4}/>:null}
+                    {item.feature5?<FeatureItem text={item.feature5}/>:null}
+                    </>
+                  }
 
                 </CardContent>
-                <Box flexGrow={1} />
-                <CardActions sx={{ justifyContent: 'flex-end', padding: 4 }}>
-                <TryFreeButton
-                 component={'a'}
-                 variant="contained"
-                 color="primary"
-                 size="large"
-                 fullWidth={isMd ? false : true}
-                 text='Get Started'
-                >
-                </TryFreeButton>
+                {i != 0 &&
+                  <>
+                    <Box flexGrow={1} />
+                    <CardActions sx={{ justifyContent: 'flex-end', padding: 4 }}>
+                    <TryFreeButton
+                    component={'a'}
+                    variant="contained"
+                    size="large"
+                    fullWidth={isMd ? false : true}
+                    text='Get Started'
+                    >
+                    </TryFreeButton>
+                    
+                    </CardActions>
+                  </>
+                  }
+                </Box>
                 
-                </CardActions>
-              </Box>
             </Grid>
           ))}
         </Grid>

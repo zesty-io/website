@@ -66,7 +66,16 @@ const mock = [
 ];
 
 
-export default function TryFreeButton({text="Try Free",target='blank',fullWidth=false, component='button',color="primary",size='medium', variant='contained'}) {
+export default function TryFreeButton({
+  text="Try Free",
+  target='blank',
+  fullWidth=false, 
+  component='button',
+  color="secondary",
+  size='medium', 
+  variant='secondary', 
+  sx={}
+}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -81,7 +90,7 @@ export default function TryFreeButton({text="Try Free",target='blank',fullWidth=
   };
  
   return(
-   <Box>
+   <Box sx={sx}>
     <Button
       variant={variant}
       color={color}
