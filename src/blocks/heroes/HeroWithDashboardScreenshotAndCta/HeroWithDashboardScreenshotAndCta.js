@@ -8,9 +8,11 @@ import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const HeroWithDashboardScreenshotAndCta = ({
   title,
+  subtitle,
   description,
   image,
   cta_left,
@@ -25,9 +27,7 @@ const HeroWithDashboardScreenshotAndCta = ({
   });
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const newTitle = title?.split('<br/>');
-  const title0 = newTitle[0] || '';
-  const title1 = newTitle[1] || '';
+
   return (
     <Container>
       <Grid
@@ -40,17 +40,19 @@ const HeroWithDashboardScreenshotAndCta = ({
             <Box marginBottom={2}>
               <Typography
                 variant="h3"
+                component="h1"
                 color="text.primary"
                 sx={{ fontWeight: 700 }}
               >
-                {title0}
+                {title}
               </Typography>
               <Typography
                 variant="h3"
+                component="p"
                 color={theme.palette.zesty.zestyOrange}
                 sx={{ fontWeight: 700 }}
               >
-                {title1}
+                {subtitle}
               </Typography>
             </Box>
             <Box marginBottom={3}>
@@ -63,15 +65,14 @@ const HeroWithDashboardScreenshotAndCta = ({
               flexDirection={{ xs: 'column', sm: 'row' }}
               alignItems={{ xs: 'stretched', sm: 'flex-start' }}
             >
-              <Button
-                href={cta_left_url || FillerContent.href}
+              <TryFreeButton
                 variant="contained"
                 color="primary"
                 size="large"
                 fullWidth={isMd ? false : true}
+                text={cta_left || FillerContent.href}
               >
-                {cta_left || FillerContent.cta}
-              </Button>
+              </TryFreeButton>
               <Box
                 href={cta_right_url || FillerContent.href}
                 component={Button}

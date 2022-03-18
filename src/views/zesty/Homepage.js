@@ -93,13 +93,14 @@
      : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
    const heroProps = {
      title: content.title,
+     description: content.content || '',
      subtitle: content.simple_intro_text,
      image: content.main_image?.data[0].url || FillerContent.image,
      button_left_text: content.hero_button_left || FillerContent.header,
  
      button_left_link:
        content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
-     button_right_text: content.hero_button_left || FillerContent.header,
+     hero_button_right: content.hero_button_right || FillerContent.header,
      button_right_link:
        content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
    };
@@ -111,6 +112,7 @@
        <FeaturesWithIllustration
          rich_text={content.zesty_benefits}
          image_url={image_url}
+         wysiwyig_type=''
        />
        <Box bgcolor={'alternate.main'}>
          <WithOverlappedCards list={cardData || []} />
