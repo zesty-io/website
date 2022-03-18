@@ -66,7 +66,7 @@ function Pricing({content}) {
     // pricing levers
     try {
       const fetchData = async () => {
-        const uri = `${zestyURL}/-/gql/pricing_levers.json`;
+        const uri = `${zestyURL}/-/pricing-levers.json`;
         const response = await fetch(uri);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);

@@ -37,7 +37,7 @@ const PricingCompareTable = ({tiers,category,pricingLevers}) => {
           id="panel1a-header"
           sx={{bgcolor: 'background.level2'}}
         >
-          <Typography >{capitalize(category.replace('_',' '))}</Typography>
+          <Typography >{capitalize(category.replaceAll('_',' '))}</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <TableContainer component={Paper} elevation={0}>
@@ -55,7 +55,7 @@ const PricingCompareTable = ({tiers,category,pricingLevers}) => {
                 {tiers.filter(tier => tier.meta.zuid !='7-e0e8cadec0-7crggz').map((item, i) => (
                   <TableCell align="center" key={i}>
                     <Typography
-                      sx={{ textTransform: 'uppercase', fontWeight: 'medium' }}
+                      sx={{fontWeight: 'bold' }}
                     >
                       {item.name}
                     </Typography>
@@ -66,7 +66,7 @@ const PricingCompareTable = ({tiers,category,pricingLevers}) => {
             <TableBody> 
               {pricingLevers.filter(lever => lever.classification == category).map(lever => (
                 <TableRow key={`${category}${lever.zuid}`}>
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" width="300">
                     {lever.title}
                   </TableCell>
 
