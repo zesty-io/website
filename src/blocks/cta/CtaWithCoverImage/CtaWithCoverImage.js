@@ -23,10 +23,6 @@ const CtaWithCoverImage = ({ title, cta, image, summary, cta_url }) => {
         </Typography>
       </Box>
       <Box marginBottom={4} paddingRight={4}>
-        {/* <Typography variant="h6" color="text.secondary" gutterBottom>
-          Drawing thousands of the world's technology leaders together to learn
-          and do business
-        </Typography> */}
         <Typography component="p">
           {summary || FillerContent.description}
         </Typography>
@@ -120,9 +116,6 @@ const CtaWithCoverImage = ({ title, cta, image, summary, cta_url }) => {
                   >
                     <Box
                       component={'img'}
-                      // src={
-                      //   'https://assets.maccarianagency.com/backgrounds/img19.jpg'
-                      // }
                       src={
                         image ||
                         'https://assets.maccarianagency.com/backgrounds/img19.jpg'

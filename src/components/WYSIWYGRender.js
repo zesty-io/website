@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 export default function WYSIWYGRender({ rich_text, customClass = '' }) {
   const theme = useTheme();
   // this dyanmically replaces text for icons like ICON_check with the material markup
-  if (rich_text.match('ICON_')) {
+  if (rich_text !== null && rich_text.match('ICON_')) {
     rich_text = rich_text.replace(
       /ICON_([a-z_]+)( |&nbsp;)/gis,
       '<div class="icon-box"><span class="material-icons">$1</span></div>',

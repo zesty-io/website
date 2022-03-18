@@ -32,7 +32,7 @@ import WithBorderedCardsAndBrandColor from 'blocks/stats/WithBorderedCardsAndBra
 import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
-
+import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useTheme } from '@emotion/react';
@@ -40,7 +40,6 @@ import { useTheme } from '@emotion/react';
 import FillerContent from 'components/FillerContent';
 
 const OverviewProcessComp = ({ content, image }) => {
-
   return (
     <Container sx={{ marginBottom: '1rem', padding: '2rem' }}>
       <Grid container justify="center">
@@ -82,38 +81,38 @@ const OverviewProcessComp = ({ content, image }) => {
 /* ------------------------------------------------------------------- */
 
 function WhyZesty({ content }) {
-    const [isLoaded, setIsLoaded] = useState(true);
-    const [allArticles, setAllArticles] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [allArticles, setAllArticles] = useState([]);
 
-    let zestyURL =
-      (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-        ? process.env.zesty.production
-        : process.env.zesty.stage;
+  let zestyURL =
+    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
 
-    useEffect(() => {
-      try {
-        const fetchData = async () => {
-          setIsLoaded(true);
-          const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=3`;
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        setIsLoaded(true);
+        const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=3`;
 
-          const response = await fetch(uri);
+        const response = await fetch(uri);
 
-          if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-          }
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
 
-          const articles = await response.json();
+        const articles = await response.json();
 
-          setAllArticles(articles);
-        };
+        setAllArticles(articles);
+      };
 
-        fetchData();
-      } catch (error) {
-        console.error(`Could Not Find Results: ${error}`);
-      } finally {
-        setIsLoaded(false);
-      }
-    }, []);
+      fetchData();
+    } catch (error) {
+      console.error(`Could Not Find Results: ${error}`);
+    } finally {
+      setIsLoaded(false);
+    }
+  }, []);
   const theme = useTheme();
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
@@ -125,6 +124,7 @@ function WhyZesty({ content }) {
       : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
 
   const headerProps = {
+    mainTitle: content?.header_title_main || FillerContent.header,
     title: content?.header_title,
     image: content?.header_image?.data && content?.header_image?.data[0]?.url,
     description: content?.header_description,
@@ -210,14 +210,21 @@ function WhyZesty({ content }) {
         ))}
       </Box>
 
-      {/* LINK TO BLOG FETCH */}
-      <VerticallyAlignedBlogCardsWithShapedImage
-        title={'Industry Insights'}
-        description={
-          'Stay up-to-date with the latest in digital experience, content management and more.'
-        }
-        popularArticles={allArticles}
-      />
+      {/* Industry Insights > Latest Blogs articles */}
+
+      {isLoaded ? (
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <CircularProgressWithLabel />
+        </Box>
+      ) : (
+        <VerticallyAlignedBlogCardsWithShapedImage
+          title={'Industry Insights'}
+          description={
+            'Stay up-to-date with the latest in digital experience, content management and more.'
+          }
+          popularArticles={allArticles}
+        />
+      )}
 
       {/* FINAL CTA */}
       <CtaWithInputField
