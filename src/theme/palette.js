@@ -5,19 +5,13 @@ export const light = {
   },
   cardShadow: 'rgba(23, 70, 161, .11)',
   mode: 'light',
-  secondary: {
+  primary: {
     main: '#497edf',
     light: '#467de3',
     dark: '#1a202c',
     contrastText: '#fff',
   },
-  primary: {
-    light: '#FF9400',
-    main: '#FF5D0A',
-    dark: '#FF3E12',
-    contrastText: 'rgba(0, 0, 0, 0.87)',
-  },
-  tertiary: {
+  secondary: {
     light: '#FF9400',
     main: '#FF5D0A',
     dark: '#FF3E12',
