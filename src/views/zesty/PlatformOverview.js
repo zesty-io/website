@@ -191,7 +191,7 @@ function PlatformOverview({ content }) {
     title: content?.title,
     description: content?.header_description,
     h1_title: content?.h1_title,
-    images: content?.header_image,
+    images: content?.header_image?.data,
     cta_left:
       content?.cta_left?.data && content?.cta_left?.data[0]?.button_text,
     cta_right:
@@ -203,6 +203,7 @@ function PlatformOverview({ content }) {
       content?.cta_right?.data &&
       content?.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url,
   };
+
   return (
     <>
       {/* Header */}
