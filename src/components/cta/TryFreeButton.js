@@ -15,6 +15,7 @@ import Button from '@mui/material/Button';
 
 import Container from 'components/Container';
 import BasicForm from './BasicForm';
+import CodeBlock from './CodeBlock';
 
 const mock = [
   {
@@ -117,13 +118,17 @@ export default function TryFreeButton({text="Try Free",target='blank',fullWidth=
             <Box padding={2}>
               <Grid container spacing={2}>
             
-                  <Grid item xs={12} sm={6}>
-                    <Typography>Marketers</Typography>
-                    <BasicForm></BasicForm>
+                  <Grid item xs={12} sm={12}>
+                  <Typography><Typography variant="span" fontWeight="800">Marketers</Typography>, watch videos or organize a guided demo:</Typography>
+                    <Box sx={{display: 'flex',marginTop: '16px'}}>
+                    <Button sx={{marginRight: '16px'}} variant="contained" size="large">Organize a Guided Demo</Button>
+                    <Button variant="outlined" size="large">Watch Product Videos</Button>
+                    </Box>
+                    {/* <BasicForm></BasicForm> */}
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography>Developers</Typography>
-                    <BasicForm></BasicForm>
+                  <Grid item xs={12} sm={12}>
+                    <Typography><Typography variant="span" fontWeight="800">Developers</Typography>, launch into a NextJS app powered by Zesty.io from your console:</Typography>
+                    <CodeBlock></CodeBlock>
                   </Grid>
               </Grid>
             </Box>
