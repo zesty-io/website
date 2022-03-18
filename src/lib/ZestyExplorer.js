@@ -93,7 +93,7 @@ const ZestyExplorerBrowser = ({ content, children }) => {
   return (
     <div style={{ background: '#ddd', boxShadow: '0,0,5px,#333' }}>
       {children}
-      <div container style={divStyles} >
+      <div style={divStyles} >
        
       </div>
       <div style={{ width: '80vw', margin: '0 auto' }}>

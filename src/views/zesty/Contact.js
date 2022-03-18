@@ -43,7 +43,7 @@ function Contact({ content }) {
       <ContactFormWithSidebarMap
         title={content.header_title || FillerContent.header}
         description={content.description || FillerContent.description}
-        image={content.image.data[0].url || FillerContent.image}
+        image={content.image?.data[0].url || FillerContent.image}
       />
       <Box position={'relative'} bgcolor={'alternate.main'}>
         <Container>
