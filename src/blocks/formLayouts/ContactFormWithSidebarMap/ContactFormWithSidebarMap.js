@@ -173,29 +173,11 @@ function ContactFormWithSidebarMap({title, description, image}) {
                     By clicking on "submit" you agree to our{' '}
                     <Box
                       component="a"
-                      href=""
+                      href="/legal/privacy-policy/"
                       color={theme.palette.text.primary}
                       fontWeight={'700'}
                     >
                       Privacy Policy
-                    </Box>
-                    ,{' '}
-                    <Box
-                      component="a"
-                      href=""
-                      color={theme.palette.text.primary}
-                      fontWeight={'700'}
-                    >
-                      Data Policy
-                    </Box>{' '}
-                    and{' '}
-                    <Box
-                      component="a"
-                      href=""
-                      color={theme.palette.text.primary}
-                      fontWeight={'700'}
-                    >
-                      Cookie Policy
                     </Box>
                     .
                   </Typography>
@@ -214,7 +196,23 @@ function ContactFormWithSidebarMap({title, description, image}) {
   const RightSide = () => {
     return (
       <Box>
-        <img src={image} />
+        <img 
+          src={image}
+          alt="Zesty Office"
+          width="100%"
+          height="100%"
+          frameBorder="0"
+          marginHeight={0}
+          marginWidth={0}
+          style={{
+            minHeight: 300,
+            // maxWidth: 600,
+            paddingTop: 135,
+            filter:
+              theme.palette.mode === 'dark'
+                ? 'grayscale(0.5) opacity(0.7)'
+                : 'none',
+            }} />
       </Box>
     );
   };
