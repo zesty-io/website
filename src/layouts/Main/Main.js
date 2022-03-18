@@ -14,7 +14,7 @@ import TopNav from 'components/TopNav';
 import { Topbar, Sidebar, Footer } from './components';
 
 
-const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transparent', url }) => {
+const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transparent', url='' }) => {
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
@@ -45,7 +45,7 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
-          <TopNav colorInvert={ url.match(pageNavColorRegex) !== null ? true  : colorInvert  } />
+          <TopNav colorInvert={ url?.match(pageNavColorRegex) !== null ? true  : colorInvert  } />
         </Container>
       </Box>
       <AppBar

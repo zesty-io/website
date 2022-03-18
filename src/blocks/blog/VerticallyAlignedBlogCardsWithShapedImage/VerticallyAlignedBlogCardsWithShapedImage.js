@@ -63,7 +63,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
       </Box>
       <Grid container spacing={4}>
         {popularArticles.map((item, i) => (
-          <Grid item xs={12} sm={6} md={4} key={i}>
+          <Grid item xs={12} sm={6} md={4} key={`${item.zuid}-VABC`}>
             <Box
               component={'a'}
               href={
