@@ -86,7 +86,6 @@ const IconComponent = ({ name, ...props }) => {
   return <SvgIcon {...props} />;
 };
 const SimpleCentered = ({ header, description, cards = [] }) => {
-console.log("🚀 ~ file: SimpleCentered.js ~ line 89 ~ SimpleCentered ~ cards", cards)
   const theme = useTheme();
 
   return (
