@@ -10,30 +10,11 @@ import CardMedia from '@mui/material/CardMedia';
 
 import Container from 'components/Container';
 
-const mock = [
-  {
-    name: 'Chary Smith',
-    title: 'SEO at Comoti',
-    avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-  },
-  {
-    name: 'Clara Bertoletti',
-    title: 'Junior Designer',
-    avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
-  },
-  {
-    name: 'Jhon Anderson',
-    title: 'Senior Frontend Developer',
-    avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-  },
-  {
-    name: 'Chary Smith',
-    title: 'SEO at Comoti',
-    avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
-  },
-];
 
-const WithOverlappedCards = ({list=[]}) => {
+
+const WithOverlappedCards = ({ list = [], eyebrow, case_studies_header }) => {
+
+
   const theme = useTheme();
   return (
     <Container>
@@ -47,11 +28,17 @@ const WithOverlappedCards = ({list=[]}) => {
             color={'text.secondary'}
             align={'center'}
             fontWeight={700}
+            component={'p'}
           >
-            Case Studies
+            {eyebrow}
           </Typography>
-          <Typography fontWeight={700} variant={'h4'} align={'center'}>
-            Trust the professionals
+          <Typography
+            fontWeight={700}
+            variant={'h4'}
+            component={'p'}
+            align={'center'}
+          >
+            {case_studies_header}
           </Typography>
         </Box>
         <Grid container spacing={2}>
@@ -64,43 +51,43 @@ const WithOverlappedCards = ({list=[]}) => {
                   backgroundImage: 'none',
                 }}
               >
-              <Box 
-                component={'a'}
-                href={item.meta.web.url}
-                display={'block'}
-                width={1}
-                height={1}
-                sx={{
-                  textDecoration: 'none',
-                  transition: 'all .2s ease-in-out',
-                  '&:hover': {
-                    transform: `translateY(-${theme.spacing(1 / 2)})`,
-                  },
-                }}
-                >
                 <Box
-                  component={CardMedia}
-                  borderRadius={2}
+                  component={'a'}
+                  href={item.meta.web.url}
+                  display={'block'}
                   width={1}
                   height={1}
-                  minHeight={320}
-                  image={item.hero_image.data[0].url}
-                />
-                <Box
-                  component={CardContent}
-                  bgcolor={'transparent'}
-                  marginTop={-5}
+                  sx={{
+                    textDecoration: 'none',
+                    transition: 'all .2s ease-in-out',
+                    '&:hover': {
+                      transform: `translateY(-${theme.spacing(1 / 2)})`,
+                    },
+                  }}
                 >
-                  <Box component={Card}>
-                    <CardContent>
-                      <ListItemText
-                        primary={item.title}
-                        //*secondary={item.description}
-                      />
-                    </CardContent>
+                  <Box
+                    component={CardMedia}
+                    borderRadius={2}
+                    width={1}
+                    height={1}
+                    minHeight={320}
+                    image={item.hero_image.data[0].url}
+                  />
+                  <Box
+                    component={CardContent}
+                    bgcolor={'transparent'}
+                    marginTop={-5}
+                  >
+                    <Box component={Card}>
+                      <CardContent>
+                        <ListItemText
+                          primary={item.title}
+                          //*secondary={item.description}
+                        />
+                      </CardContent>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
               </Card>
             </Grid>
           ))}
