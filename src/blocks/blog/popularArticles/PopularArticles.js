@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -16,6 +18,26 @@ import FillerContent from 'components/FillerContent';
 const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
 
   const theme = useTheme();
+
+    const trigger = useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 100,
+    });
+
+    const scrollTo = (id) => {
+      setTimeout(() => {
+        const element = document.querySelector(`#${id}`);
+        if (!element) {
+          return;
+        }
+
+        window.scrollTo({
+          left: 0,
+          top: element.offsetTop,
+          behavior: 'smooth',
+        });
+      });
+    };
 
 
   // Pagination
@@ -42,7 +64,7 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
         flexDirection={{ xs: 'column', sm: 'row' }}
         marginBottom={4}
       >
-        <Box>
+        <Box id="scrollTop">
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
             {title}
           </Typography>
@@ -153,6 +175,7 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
         {articles?.length >= 10 && (
           <Grid item container justifyContent={'center'} xs={12}>
             <Pagination
+              onClick={() => scrollTo('scrollTop')}
               count={pageNum?.length}
               page={currentPage}
               onChange={handlePageChange}
