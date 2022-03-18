@@ -11,9 +11,9 @@ import { useTheme } from '@mui/material/styles';
 const Footer = ({customRouting,colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
-  const backgroundColor = colorInvert ? theme.palette.zesty.zestyWhiteBlue : theme.palette.zesty.zestyDarkBlue;
+  const backgroundColor = colorInvert ? theme.palette.zesty.zestyDarkBlue : theme.palette.zesty.zestyWhiteBlue;
   return (
-    <Box sx={{background: backgroundColor}}>
+    <Box sx={{background: backgroundColor, paddingTop: '10px'}}>
         <Container paddingY={4} >
         <Grid container marginTop={3} spacing={2} >
       <Grid item xs={2}>
@@ -79,6 +79,17 @@ const Footer = ({customRouting,colorInvert = false }) => {
       </Grid>
 
       <Grid item marginTop={4} paddingBottom={10} xs={12}>
+      <Typography
+          align={'center'}
+          variant={'caption'}
+          color="text.secondary"
+          component={'p'}
+          paddingBottom={'16px'}
+        >
+          This website and application uses cookies, and also collects some information using Google Analytics. Please review our <Link underline="none"
+                      color="text.primary" href="/legal/privacy-policy/">Privacy Policy</Link> and <Link underline="none"
+                      color="text.primary" href="/legal/end-user-license-agreement/">Terms of Use agreements</Link>.
+        </Typography>
         <Typography
           align={'center'}
           variant={'subtitle2'}
@@ -91,16 +102,7 @@ const Footer = ({customRouting,colorInvert = false }) => {
           <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography>
           <Link underline="none" href="/legal/end-user-license-agreement/">Terms</Link>
         </Typography>
-        <Typography
-          align={'center'}
-          variant={'caption'}
-          color="text.secondary"
-          component={'p'}
-        >
-          This website and application uses cookies, and also collects some information using Google Analytics. Please review our <Link underline="none"
-                      color="text.primary" href="/legal/privacy-policy/">Privacy Policy</Link> and <Link underline="none"
-                      color="text.primary" href="/legal/end-user-license-agreement/">Terms of Use agreements</Link>.
-        </Typography>
+      
       </Grid>
         </Grid>
       </Container>

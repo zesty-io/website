@@ -92,16 +92,15 @@ const ZestyExplorerBrowser = ({ content, children }) => {
       }
   return (
     <div style={{ background: '#ddd', boxShadow: '0,0,5px,#333' }}>
+      
+      <div style={divStyles} >
       {children}
-      <div container style={divStyles} >
-       
       </div>
       <div style={{ width: '80vw', margin: '0 auto' }}>
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-         
           autoFocus
         />
         {/* {JSON.stringify(result2)} */}
@@ -132,7 +131,7 @@ function canUseDOM() {
   );
 }
 export const ZestyExplorer = ({ content }) => {
-  const [togglem, settoggle] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   let searchObject = {...content};
   // unset navigations for faster search
   delete searchObject.navigationTree;
@@ -161,6 +160,8 @@ export const ZestyExplorer = ({ content }) => {
     letterSpacing: '1px',
     fontFamily: "'Arial Rounded MT Bold','Helvetica Rounded',Arial,sans-serif"
   }
+
+  console.log('open state',open)
   if (!canUseDOM()) {
     return null;
   }
@@ -177,8 +178,8 @@ export const ZestyExplorer = ({ content }) => {
         padding: '2rem',
       }}
     >
-      {!togglem && (
-        <button type="button" onClick={() => settoggle(true)} style={buttonStyles} variant="outlined" color="info" >
+      {!open && (
+        <button type="button" onClick={() => setOpen(true)} style={buttonStyles} >
            <img 
             src="https://storage.googleapis.com/brand-assets.zesty.io/zesty-io-app-icon-transparent.png"
             width="32px"
@@ -188,14 +189,10 @@ export const ZestyExplorer = ({ content }) => {
             <span style={zestyStyles}>Explorer</span>
         </button>
       )}
-      {togglem && (
+      {open && (
         <div>
           <ZestyExplorerBrowser content={searchObject}>
-            <button
-              onClick={() => settoggle(false)}
-            >
-              X
-            </button>
+            <button onClick={() => setOpen(false)}>X</button>
           </ZestyExplorerBrowser>
         </div>
       )}

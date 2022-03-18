@@ -24,7 +24,7 @@ export function ZestyView(props) {
 
       <ZestyHead content={props.content} />
       <Component content={props.content} />
-      {props.content.zestyProductionMode === false && <ZestyExplorer content={props.content} />}
+      
     </>
   );
 }
