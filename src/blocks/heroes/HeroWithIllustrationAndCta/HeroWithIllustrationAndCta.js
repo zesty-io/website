@@ -12,10 +12,11 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 
 const HeroWithIllustrationAndCta = ({
   title,subtitle,
+  description='',
   image,
   button_left_text,
   button_left_link,
-  button_right_text,
+  hero_button_right,
   button_right_link}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -34,6 +35,15 @@ const HeroWithIllustrationAndCta = ({
         <Grid container spacing={4}>
           <Grid item container alignItems={'center'} xs={12} md={6}>
             <Box>
+            <Box >
+                <Typography
+                  variant="h6"
+                  component="h1"
+                  color="text.secondary"
+                  sx={{ fontWeight: 400 }}
+                  dangerouslySetInnerHTML={{__html:subtitle}}>
+                </Typography>
+              </Box>
               <Box>
                 <Typography 
                   variant="h3"
@@ -54,15 +64,17 @@ const HeroWithIllustrationAndCta = ({
                  >{titleSplits[1]}
                 </Typography>
               </Box>
-              <Box marginBottom={6}>
+              <Box >
                 <Typography
-                  variant="h6"
-                  component="h1"
+                  variant="body1"
+                  component="h2"
                   color="text.secondary"
                   sx={{ fontWeight: 400 }}
-                  dangerouslySetInnerHTML={{__html:subtitle}}>
+                  marginBottom={6}
+                  dangerouslySetInnerHTML={{__html:description}}>
                 </Typography>
               </Box>
+              
               <Box
                 display="flex"
                 flexDirection={{ xs: 'column', sm: 'row' }}
@@ -85,13 +97,13 @@ const HeroWithIllustrationAndCta = ({
                 >
                   <Button
                     component={'a'}
-                    href={button_right_text}
+                    href={button_right_link}
                     variant="outlined"
                     color="secondary"
                     size="large"
                     fullWidth={isMd ? false : true}
                   >
-                    {button_right_link}
+                    {hero_button_right}
                   </Button>
                 </Box>
               </Box>

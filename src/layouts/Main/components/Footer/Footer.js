@@ -98,6 +98,8 @@ const Footer = ({customRouting,colorInvert = false }) => {
         >
           &copy; Zesty.io Platform, Inc. All Rights Reserved.
           <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography>
+          <Link underline="none" href="/sitemap.xml">Sitemap</Link>
+          <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography>
           <Link underline="none" href="/legal/privacy-policy/">Privacy</Link>
           <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography>
           <Link underline="none" href="/legal/end-user-license-agreement/">Terms</Link>

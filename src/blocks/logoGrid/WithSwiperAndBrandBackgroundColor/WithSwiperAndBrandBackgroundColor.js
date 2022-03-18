@@ -13,7 +13,7 @@ const WithSwiperAndBrandBackgroundColor = (props) => {
     <Box >
       {/* removed this attribute from above box: bgcolor={'alternate.main'}*/}
       {/* <pre>{JSON.stringify(logos, null, 2)}</pre> */}
-      <Container maxWidth={1}>
+      <Container maxWidth={1}  paddingY={2}>
         <Box display={'flex'} justifyContent={'center'} flexWrap={'wrap'}>
           {logos.map((item, i) => (
             <Box
