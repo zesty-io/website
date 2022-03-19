@@ -86,6 +86,7 @@ function TechnologyOverview({ content }) {
       content?.cta_right.data &&
       content?.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url,
   };
+
   return (
     <>
       {/* Headers */}

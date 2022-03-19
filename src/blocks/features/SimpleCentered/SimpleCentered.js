@@ -18,6 +18,8 @@ const iconMap = {
   domain_verification: domainIcon,
 };
 
+<span class="material-icons-outlined">speed</span>;
+
 const SimpleCentered = ({ header, description, cards = [] }) => {
 
   const theme = useTheme();
@@ -57,6 +59,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                     {iconMap[item.icon_name]
                       ? iconMap[item.icon_name]
                       : domainIcon}
+
                   </Box>
                   <Typography
                     variant={'h6'}
