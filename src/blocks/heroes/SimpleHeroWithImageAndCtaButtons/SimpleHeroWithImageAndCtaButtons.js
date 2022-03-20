@@ -128,7 +128,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
             maxWidth={600}
             maxHeight={500}
             sx={{
-              objectFit: 'cover',
+              objectFit: 'contain',
               filter:
                 theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
             }}

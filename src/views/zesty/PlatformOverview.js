@@ -191,7 +191,7 @@ function PlatformOverview({ content }) {
     title: content?.title || FillerContent.header,
     description: content?.header_description || FillerContent.description,
     h1_title: content?.h1_title || FillerContent.header,
-    images: content?.header_image || FillerContent.image,
+    images: content?.header_image?.data || FillerContent.image,
     cta_left:
       (content?.cta_left?.data && content?.cta_left?.data[0]?.button_text) ||
       FillerContent.header,
@@ -217,7 +217,7 @@ function PlatformOverview({ content }) {
       <>
         <Container>
           <Box marginBottom={4}>
-            <Typography variant="h4" sx={{}} align={'center'}>
+            <Typography variant="p" sx={{ fontWeight: 400 }} align={'center'}>
               <Box
                 dangerouslySetInnerHTML={{
                   __html: content?.benefits_header || FillerContent.header,
