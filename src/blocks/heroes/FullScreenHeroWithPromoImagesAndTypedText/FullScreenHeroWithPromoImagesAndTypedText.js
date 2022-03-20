@@ -93,6 +93,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
   });
 
   const imageList = images || mockimages;
+
   const newTitle = title.split('<br/>');
   const title0 = newTitle[0] || '';
   const title1 = newTitle[1] || '';
@@ -116,7 +117,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               <Typography
                 component={'h1'}
                 variant="p"
-                color={theme.palette.zesty.zestyOrange}
+                color={theme.palette.zesty.zestyGrey}
                 sx={{ fontWeight: 400, fontSize: '20px' }}
                 gutterBottom
               >
@@ -221,7 +222,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               position={'absolute'}
               sx={{ transform: 'translate3d(20%, -50%, 0)' }}
             >
-              {imageList.map((item, i) => (
+              {mockimages.map((item, i) => (
                 <Box key={i} marginTop={{ sm: -(i * 16) }} marginX={1}>
                   {item.group.map((g, j) => (
                     <Box

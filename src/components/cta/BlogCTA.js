@@ -33,8 +33,10 @@ function BlogCTA({ title , description, ctaBtn}) {
           component={LazyLoadImage}
           height={1}
           width={1}
-          src={'https://assets.maccarianagency.com/backgrounds/img1.jpg'}
-          alt="..."
+          src={
+            'https://kfg6bckb.media.zestyio.com/Subscribe-newsletter.jpg?width=3864&height=2577'
+          }
+          alt="Subscribe"
           effect="blur"
           sx={{
             objectFit: 'cover',
@@ -81,9 +83,7 @@ function BlogCTA({ title , description, ctaBtn}) {
               <Typography variant={'h6'} gutterBottom>
                 {title}
               </Typography>
-              <Typography color={'text.secondary'}>
-                {description}
-              </Typography>
+              <Typography color={'text.secondary'}>{description}</Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
