@@ -47,3 +47,23 @@ Any push or merge to the `main` branch will kickoff an auto build script which w
 The icons set we use is Google Material Icons https://fonts.google.com/icons
 
 To use the icons in a WHYSIWYG editor, type in plain text `ICON_icon_name` e.g `ICON_check` use the link to the icons font aboe to learn icon names.
+
+### Using icons in React
+
+**For static icons main in the design **
+
+```
+import LoginIcon from '@mui/icons-material/Login';
+
+<LoginIcon>
+``
+
+Replace Login with the icon name.
+
+**For dynamic icons that come from the content editor**
+
+```
+import Icon from '@mui/material/Icon';
+
+<Icon>{icon_name}</Icon>
+```

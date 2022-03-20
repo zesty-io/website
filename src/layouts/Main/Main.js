@@ -47,17 +47,21 @@ const Main = ({
     disableHysteresis: true,
     threshold: 38,
   });
-
+  
+  // override over invert based on pages that we know have a dark image heading
+  let headerColorInvert = colorInvert
   let pageNavColorRegex = new RegExp(/mindshare|article/gi);
+  if(model?.match(pageNavColorRegex) !== null) {
+    headerColorInvert = true
+  }
+
 
   return (
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
           <TopNav
-            colorInvert={
-              model?.match(pageNavColorRegex) !== null ? true : colorInvert
-            }
+            colorInvert={headerColorInvert}
           />
         </Container>
       </Box>
@@ -73,11 +77,7 @@ const Main = ({
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
-            colorInvert={
-              model?.match(pageNavColorRegex) !== null && !trigger
-                ? true
-                : colorInvert
-            }
+            colorInvert={headerColorInvert}
           />
         </Container>
       </AppBar>
@@ -92,7 +92,7 @@ const Main = ({
         <Divider />
       </main>
       <Footer
-        colorInvert={colorInvert}
+        colorInvert={colorInvert && !trigger}
         customRouting={hasRouting ? customRouting : []}
       />
     </Box>
