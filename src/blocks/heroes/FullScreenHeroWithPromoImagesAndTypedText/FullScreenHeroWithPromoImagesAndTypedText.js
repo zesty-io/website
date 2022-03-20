@@ -92,11 +92,54 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
     defaultMatches: true,
   });
 
-  const imageList = images || mockimages;
   const newTitle = title.split('<br/>');
   const title0 = newTitle[0] || '';
   const title1 = newTitle[1] || '';
   const title2 = newTitle[2] || '';
+
+  const mockimages1 = [
+    {
+      group: [
+        {
+          cover: images && images[0]?.url,
+        },
+        {
+          cover: images && images[1]?.url,
+        },
+      ],
+    },
+    {
+      group: [
+        {
+          cover: images && images[2]?.url,
+        },
+        {
+          cover: images && images[3]?.url,
+        },
+        {
+          cover: images && images[4]?.url,
+        },
+      ],
+    },
+    {
+      group: [
+        {
+          cover: images && images[5]?.url,
+        },
+        {
+          cover: images && images[6]?.url,
+        },
+        {
+          cover: images && images[7]?.url,
+        },
+        {
+          cover: images && images[1]?.url,
+        },
+      ],
+    },
+  ];
+
+  const imageList = mockimages1 || mockimages;
 
   return (
     <Box sx={{ overflow: 'hidden' }}>
@@ -116,7 +159,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               <Typography
                 component={'h1'}
                 variant="p"
-                color={theme.palette.zesty.zestyOrange}
+                color={theme.palette.zesty.zestyGrey}
                 sx={{ fontWeight: 400, fontSize: '20px' }}
                 gutterBottom
               >
@@ -165,10 +208,10 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 {title2}
               </Typography>
               <Typography
-                variant="h6"
-                component="p"
+                component={'h2'}
+                variant="p"
                 color="text.secondary"
-                sx={{ fontWeight: 400 }}
+                sx={{ fontWeight: 400, fontSize: '20px' }}
               >
                 {description || FillerContent.description}
               </Typography>
@@ -221,7 +264,8 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               position={'absolute'}
               sx={{ transform: 'translate3d(20%, -50%, 0)' }}
             >
-              {imageList.map((item, i) => (
+              {imageList?.map((item, i) => (
+
                 <Box key={i} marginTop={{ sm: -(i * 16) }} marginX={1}>
                   {item.group.map((g, j) => (
                     <Box

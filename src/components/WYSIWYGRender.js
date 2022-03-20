@@ -45,7 +45,7 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
 
         .wysiwyg.circle-icons li .icon-box {
-            background-color: ${theme.palette.zesty.zestyYellow};
+            background-color: ${theme.palette.zesty.zestyOrange};
             border-radius: 50%;
             padding: 5px 5px 5px 5px;
             margin-top: 0;

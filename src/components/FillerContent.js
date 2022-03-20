@@ -144,5 +144,6 @@ export default {
       summary:
         'Find your fit with Fitbit\'s family of fitness products that help you stay motivated and improve your health by tracking your activity, exercise.',
     },
-  ]
+  ],
+  category_fallback_image: 'https://kfg6bckb.media.zestyio.com/newsroom.jpg'
 };

@@ -188,31 +188,36 @@ function PlatformOverview({ content }) {
   }, []);
   const theme = useTheme();
   const headerProps = {
-    title: content?.title,
-    description: content?.header_description,
-    h1_title: content?.h1_title,
-    images: content?.header_image,
+    title: content?.title || FillerContent.header,
+    description: content?.header_description || FillerContent.description,
+    h1_title: content?.h1_title || FillerContent.header,
+    images: content?.header_image?.data || FillerContent.image,
     cta_left:
-      content?.cta_left?.data && content?.cta_left?.data[0]?.button_text,
+      (content?.cta_left?.data && content?.cta_left?.data[0]?.button_text) ||
+      FillerContent.header,
     cta_right:
-      content?.cta_right?.data && content?.cta_right?.data[0]?.button_text,
+      (content?.cta_right?.data && content?.cta_right?.data[0]?.button_text) ||
+      FillerContent.header,
     cta_left_url:
-      content?.cta_left?.data &&
-      content?.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url,
+      (content?.cta_left?.data &&
+        content?.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      FillerContent.header,
     cta_right_url:
-      content?.cta_right?.data &&
-      content?.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url,
+      (content?.cta_right?.data &&
+        content?.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      FillerContent.header,
   };
+
   return (
     <>
       {/* Header */}
-      <FullScreenHeroWithPromoImagesAndTypedText {...headerProps} />
+      <FullScreenHeroWithPromoImagesAndTypedText {...headerProps}  />
 
       {/* Product Overview  */}
       <>
         <Container>
           <Box marginBottom={4}>
-            <Typography variant="h4" sx={{}} align={'center'}>
+            <Typography variant="p" sx={{ fontWeight: 400 }} align={'center'}>
               <Box
                 dangerouslySetInnerHTML={{
                   __html: content?.benefits_header || FillerContent.header,
