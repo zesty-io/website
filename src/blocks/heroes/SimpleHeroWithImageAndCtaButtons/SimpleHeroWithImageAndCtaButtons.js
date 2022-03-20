@@ -36,7 +36,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                 variant="p"
                 color={theme.palette.zesty.zestyOrange}
                 gutterBottom
-                sx={{ fontWeight: 400 }}
+                sx={{ fontWeight: 400, fontSize: '20px' }}
               >
                 {mainTitle}
               </Typography>

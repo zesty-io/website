@@ -110,7 +110,11 @@ function TechnologyOverview({ content }) {
       />
 
       {/* Benefits  */}
-      <SimpleCentered header={null} cards={null} description={null} />
+      <SimpleCentered
+        header={content.benefits_header}
+        description={null}
+        cards={content.technology_benefits.data}
+      />
 
       {/* Feature List  */}
       <Box

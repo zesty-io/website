@@ -159,7 +159,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               <Typography
                 component={'h1'}
                 variant="p"
-                color={theme.palette.zesty.zestyOrange}
+                color={theme.palette.zesty.zestyGrey}
                 sx={{ fontWeight: 400, fontSize: '20px' }}
                 gutterBottom
               >
@@ -265,6 +265,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               sx={{ transform: 'translate3d(20%, -50%, 0)' }}
             >
               {imageList?.map((item, i) => (
+
                 <Box key={i} marginTop={{ sm: -(i * 16) }} marginX={1}>
                   {item.group.map((g, j) => (
                     <Box

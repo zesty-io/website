@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
@@ -13,8 +14,15 @@ import TopNav from 'components/TopNav';
 
 import { Topbar, Sidebar, Footer } from './components';
 
+const Main = ({
+  children,
+  customRouting,
+  colorInvert = false,
+  bgcolor = 'transparent',
+  url = '',
+}) => {
+  const router = useRouter();
 
-const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transparent', url='' }) => {
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
@@ -45,7 +53,11 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
-          <TopNav colorInvert={ url?.match(pageNavColorRegex) !== null ? true  : colorInvert  } />
+          <TopNav
+            colorInvert={
+              url?.match(pageNavColorRegex) !== null ? true : colorInvert
+            }
+          />
         </Container>
       </Box>
       <AppBar
@@ -60,7 +72,11 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
-            colorInvert={url.match(pageNavColorRegex) !== null && !trigger ? true : colorInvert}
+            colorInvert={
+              url.match(pageNavColorRegex) !== null && !trigger
+                ? true
+                : colorInvert
+            }
           />
         </Container>
       </AppBar>
