@@ -5,17 +5,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
+import Icon from '@mui/material/Icon';
 
-import { speedIcon, moneyIcon, domainIcon } from './CustomIcons';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-const iconMap = {
-  speed: speedIcon,
-  attach_money: moneyIcon,
-  domain_verification: domainIcon,
-};
+
 
 <span class="material-icons-outlined">speed</span>;
 
@@ -54,11 +50,8 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                     bgcolor={alpha(theme.palette.primary.main, 0.1)}
                     color={theme.palette.primary.main}
                   >
-                    {/* Icon loop */}
-                    {iconMap[item.icon_name]
-                      ? iconMap[item.icon_name]
-                      : domainIcon}
 
+                    <Icon>{item.icon_name}</Icon>
                   </Box>
                   <Typography
                     variant={'h6'}
