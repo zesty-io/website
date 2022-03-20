@@ -76,7 +76,8 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
           <Button
             size={'medium'}
             variant="text"
-            //sx={{background: theme.palette.zesty.zestyWhite}}
+            color="primary"
+            sx={{fontWeight: 'bold'}}
             endIcon={<LoginIcon />}
             fullWidth
             component="a"
