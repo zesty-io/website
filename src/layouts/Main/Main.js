@@ -20,6 +20,7 @@ const Main = ({
   colorInvert = false,
   bgcolor = 'transparent',
   url = '',
+  model=''
 }) => {
   const router = useRouter();
 
@@ -47,7 +48,7 @@ const Main = ({
     threshold: 38,
   });
 
-  let pageNavColorRegex = new RegExp(/mindshare|authors|blog/gi);
+  let pageNavColorRegex = new RegExp(/mindshare|article/gi);
 
   return (
     <Box>
@@ -55,7 +56,7 @@ const Main = ({
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
           <TopNav
             colorInvert={
-              url?.match(pageNavColorRegex) !== null ? true : colorInvert
+              model?.match(pageNavColorRegex) !== null ? true : colorInvert
             }
           />
         </Container>
@@ -73,7 +74,7 @@ const Main = ({
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
             colorInvert={
-              url.match(pageNavColorRegex) !== null && !trigger
+              model?.match(pageNavColorRegex) !== null && !trigger
                 ? true
                 : colorInvert
             }
