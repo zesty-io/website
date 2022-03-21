@@ -4,20 +4,35 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import PhoneSkeletonIllustration from 'svg/illustrations/PhoneSkeleton';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 import WYSIWYGRender from 'components/WYSIWYGRender';
 
-const FeaturesWithMobileScreenshot = ({ header, content, image, index }) => {
+const FeaturesWithMobileScreenshot = ({
+  header,
+  content,
+  image,
+  index,
+  feature_list_h1,
+}) => {
   const theme = useTheme();
   return (
     <Container>
+      {feature_list_h1 && (
+        <Typography
+          variant="p"
+          component="h2"
+          color="text.primary"
+          sx={{
+            fontWeight: '700',
+            textAlign: 'center',
+            fontSize: '32px',
+          }}
+        >
+          {feature_list_h1 || FillerContent.header}
+        </Typography>
+      )}
       <Grid
         display={'flex'}
         flexDirection={index !== 1 ? 'row' : 'row-reverse'}

@@ -56,7 +56,15 @@ const HeroWithDashboardScreenshotAndCta = ({
               </Typography>
             </Box>
             <Box marginBottom={3}>
-              <Typography variant="h6" component="p" color="text.secondary">
+              <Typography
+                variant="p"
+                component="h1"
+                color="text.secondary"
+                sx={{
+                  fontSize: '20px',
+                  fontWeight: '500',
+                }}
+              >
                 {description || FillerContent.description}
               </Typography>
             </Box>
@@ -71,8 +79,7 @@ const HeroWithDashboardScreenshotAndCta = ({
                 size="large"
                 fullWidth={isMd ? false : true}
                 text={cta_left || FillerContent.href}
-              >
-              </TryFreeButton>
+              ></TryFreeButton>
               <Box
                 href={cta_right_url || FillerContent.href}
                 component={Button}
