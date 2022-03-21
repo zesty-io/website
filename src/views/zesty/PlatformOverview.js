@@ -37,6 +37,7 @@ import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAli
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField';
 import FillerContent from 'components/FillerContent';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
+import { useMediaQuery } from '@mui/material';
 const mock = [
   {
     title: 'Your brand platform',
@@ -71,6 +72,10 @@ const mock = [
 const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
   const theme = useTheme();
   const cardsList = cards || mock;
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
       <Box>
@@ -103,6 +108,29 @@ const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
               spacing={4}
               direction={i % 2 === 1 ? 'row-reverse' : 'row'}
             >
+              {/* show only if mobile image on top of text */}
+              {isMobile && (
+                <Grid
+                  item
+                  container
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  xs={12}
+                  sm={6}
+                >
+                  <Box
+                    component={'img'}
+                    src={
+                      (item?.image?.data && item?.image?.data[0]?.url) ||
+                      FillerContent.illustration_image
+                    }
+                    alt={item.header || item.title}
+                    width={1}
+                    maxWidth={'80%'}
+                  />
+                </Grid>
+              )}
+
               <Grid item container alignItems={'center'} xs={12} sm={6}>
                 <Box>
                   <Typography
@@ -126,25 +154,29 @@ const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid
-                item
-                container
-                justifyContent={'center'}
-                alignItems={'center'}
-                xs={12}
-                sm={6}
-              >
-                <Box
-                  component={'img'}
-                  src={
-                    (item?.image?.data && item?.image?.data[0]?.url) ||
-                    FillerContent.illustration_image
-                  }
-                  alt={item.header || item.title}
-                  width={1}
-                  maxWidth={'80%'}
-                />
-              </Grid>
+
+              {/* show only in Desktop alternate image and text left right arrangement  */}
+              {!isMobile && (
+                <Grid
+                  item
+                  container
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  xs={12}
+                  sm={6}
+                >
+                  <Box
+                    component={'img'}
+                    src={
+                      (item?.image?.data && item?.image?.data[0]?.url) ||
+                      FillerContent.illustration_image
+                    }
+                    alt={item.header || item.title}
+                    width={1}
+                    maxWidth={'80%'}
+                  />
+                </Grid>
+              )}
             </Grid>
           ))}
         </Grid>
