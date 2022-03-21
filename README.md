@@ -67,3 +67,11 @@ import Icon from '@mui/material/Icon';
 
 <Icon>{icon_name}</Icon>
 ```
+**For SEO renaming of component**
+
+```
+variant="h4" // Inherit Styles
+component="h2" // DOM Element
+
+
+```
