@@ -56,7 +56,7 @@ To use the icons in a WHYSIWYG editor, type in plain text `ICON_icon_name` e.g `
 import LoginIcon from '@mui/icons-material/Login';
 
 <LoginIcon>
-``
+```
 
 Replace Login with the icon name.
 
