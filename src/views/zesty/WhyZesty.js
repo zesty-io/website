@@ -201,6 +201,7 @@ function WhyZesty({ content }) {
       >
         {content?.case_study?.data?.map((e) => (
           <CtaWithCoverImage
+            key={e.title}
             title={e.title}
             summary={e.summary}
             cta={e.cta}
