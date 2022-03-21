@@ -203,7 +203,7 @@ const FeaturesWithCardRepresentation = ({
       <Grid container justifyContent="center" paddingTop={4}>
         <Typography variant="h4">
           <Box
-            sx={{ textAlign: 'center' }}
+            sx={{ textAlign: 'center', padding: isMd ? '0 .5rem' : '0 0' }}
             dangerouslySetInnerHTML={{
               __html: description,
             }}
