@@ -82,10 +82,10 @@ const FeaturesWithMobileScreenshot = ({
             width={1}
             height={1}
             sx={{
-              marginBottom: '2.5rem',
+              marginBottom: isMobile ? '3rem' : '1rem',
               objectFit: 'contain',
               borderRadius: '2.5rem',
-              transform: isMobile ? 'scale(.60)' : 'scale(.85)',
+              transform: isMobile ? 'scale(.80)' : 'scale(.70)',
               filter:
                 theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
             }}
