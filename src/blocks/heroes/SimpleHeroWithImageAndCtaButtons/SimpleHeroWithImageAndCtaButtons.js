@@ -89,8 +89,6 @@ const SimpleHeroWithImageAndCtaButtons = ({
                 size="large"
                 marginTop={{ xs: 2, sm: 0 }}
                 marginLeft={{ sm: 2 }}
-                fullWidth={ isXs ? false : true}
-                alignSelf={{  xs: 'flex-start' }}
                 endIcon={
                   <Box
                     component={'svg'}
