@@ -157,6 +157,7 @@ const FeatureListWithDesktopAppScreenshot = ({ header, content, image }) => {
     <Container>
       <Typography
         variant="h4"
+        component="h2"
         color="text.primary"
         align={'center'}
         gutterBottom
