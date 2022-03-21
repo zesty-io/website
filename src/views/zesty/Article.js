@@ -107,6 +107,11 @@ let zestyURL =
   }, []);
 
 
+  const removeErrorHandlingString = /Error hydrating/gi;
+
+
+
+
   return (
     <>
       <Box>
@@ -137,7 +142,10 @@ let zestyURL =
             <Grid item xs={12} md={8}>
               <Box
                 dangerouslySetInnerHTML={{
-                  __html: content.article,
+                  __html: content.article.replaceAll(
+                    removeErrorHandlingString,
+                    '',
+                  ),
                 }}
               ></Box>
 

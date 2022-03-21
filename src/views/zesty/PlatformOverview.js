@@ -211,7 +211,7 @@ function PlatformOverview({ content }) {
   return (
     <>
       {/* Header */}
-      <FullScreenHeroWithPromoImagesAndTypedText {...headerProps}  />
+      <FullScreenHeroWithPromoImagesAndTypedText {...headerProps} />
 
       {/* Product Overview  */}
       <>
@@ -258,13 +258,6 @@ function PlatformOverview({ content }) {
         }
       />
 
-      {/* Link To Blog */}
-      {/* <VerticallyAlignedBlogCardsWithShapedImage
-        title={'Industry insights'}
-        description={
-          'Stay up-to-date with the latest in digital experience, content management, and more.'
-        }
-      /> */}
 
       {/* Industry Insights > Latest Blogs articles */}
 
@@ -279,6 +272,8 @@ function PlatformOverview({ content }) {
             'Stay up-to-date with the latest in digital experience, content management and more.'
           }
           popularArticles={allArticles}
+          ctaBtn="Read more"
+          ctaUrl={/mindshare/}
         />
       )}
 

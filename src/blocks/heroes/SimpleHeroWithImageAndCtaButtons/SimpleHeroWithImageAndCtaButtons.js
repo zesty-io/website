@@ -21,12 +21,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
   image,
 }) => {
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-  const isXs = useMediaQuery(theme.breakpoints.up('xs'), {
-    defaultMatches: true,
-  });
+
 
   return (
     <Container>
@@ -37,7 +32,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
               <Typography
                 component={'h1'}
                 variant="p"
-                color={theme.palette.zesty.zestyOrange}
+                color={theme.palette.zesty.zestyGrey}
                 gutterBottom
                 sx={{ fontWeight: 400, fontSize: '20px' }}
               >
