@@ -46,12 +46,13 @@
    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
      ? process.env.zesty.production
      : process.env.zesty.stage;
- 
+ /* passed as server side content now
  const getCardData = async (setcardData) => {
    const uri = `${zestyURL}/?toJSON`;
    const res = await fetch(uri).then((response) => response.json());
    res && (await setcardData(res.featured_case_studies.data));
  };
+ */
  const getReviewsData = async (setReviewsData) => {
    const uri = `${zestyURL}/-/reviews.json`;
    const res = await fetch(uri).then((response) => response.json());
@@ -59,14 +60,14 @@
  };
  function Homepage({ content }) {
    const theme = useTheme();
-   const [cardData, setcardData] = useState();
+   //const [cardData, setcardData] = useState();
    const [reviewsData, setReviewsData] = useState();
  
    const [isLoaded, setIsLoaded] = useState(false);
    const [allArticles, setAllArticles] = useState([]);
  
    useEffect(() => {
-     getCardData(setcardData);
+    // getCardData(setcardData);
      getReviewsData(setReviewsData);
      // latest articles
      try {
@@ -118,7 +119,7 @@
        />
        <Box bgcolor={'alternate.main'}>
          <WithOverlappedCards
-           list={cardData || []}
+           list={content.case_study_cards.data || []}
            eyebrow={content.case_studies_eyebrow || FillerContent.header}
            case_studies_header={
              content.case_studies_header || FillerContent.header

@@ -50,13 +50,13 @@ To use the icons in a WHYSIWYG editor, type in plain text `ICON_icon_name` e.g `
 
 ### Using icons in React
 
-**For static icons main in the design **
+**For static icons main in the design**
 
 ```
 import LoginIcon from '@mui/icons-material/Login';
 
 <LoginIcon>
-``
+```
 
 Replace Login with the icon name.
 
@@ -66,4 +66,12 @@ Replace Login with the icon name.
 import Icon from '@mui/material/Icon';
 
 <Icon>{icon_name}</Icon>
+```
+**For SEO renaming of component**
+
+```
+variant="h4" // Inherit Styles
+component="h2" // DOM Element
+
+
 ```
