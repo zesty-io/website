@@ -58,7 +58,7 @@ const HeroWithDashboardScreenshotAndCta = ({
             <Box marginBottom={3}>
               <Typography
                 variant="p"
-                component="h1"
+                component="h3"
                 color="text.secondary"
                 sx={{
                   fontSize: '20px',
