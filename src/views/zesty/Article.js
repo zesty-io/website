@@ -46,16 +46,14 @@ import SidebarArticles from 'blocks/sidebars/SidebarArticles';
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 
-
 import Container from 'components/Container';
 import SideBarCTA from 'components/cta/SideBarCTA';
 
 function Article({ content }) {
-let zestyURL =
-  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-    ? process.env.zesty.production
-    : process.env.zesty.stage;
-
+  let zestyURL =
+    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+      ? process.env.zesty.production
+      : process.env.zesty.stage;
 
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -68,7 +66,6 @@ let zestyURL =
 
   const simliarTags = content.tags?.data[0]?.meta?.zuid;
 
-
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -79,7 +76,6 @@ let zestyURL =
           throw new Error(`HTTP error: ${response.status}`);
         }
         const articles = await response.json();
-
 
         setLatestArticles(articles);
         setIsLoaded(false);
@@ -106,11 +102,21 @@ let zestyURL =
     }
   }, []);
 
-
   const removeErrorHandlingString = /Error hydrating/gi;
+  let cleanOutErrorHydrating;
 
 
-
+  const validateWysiwyg = () => {
+    if (content.article.includes('Error hydrating')) {
+      cleanOutErrorHydrating = content?.article.replaceAll(
+        removeErrorHandlingString,
+        '',
+      );
+      return cleanOutErrorHydrating;
+    } else {
+      return content.article;
+    }
+  };
 
   return (
     <>
@@ -142,10 +148,7 @@ let zestyURL =
             <Grid item xs={12} md={8}>
               <Box
                 dangerouslySetInnerHTML={{
-                  __html: content.article.replaceAll(
-                    removeErrorHandlingString,
-                    '',
-                  ),
+                  __html: validateWysiwyg(),
                 }}
               ></Box>
 
