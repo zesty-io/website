@@ -24,6 +24,9 @@ const SimpleHeroWithImageAndCtaButtons = ({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  const isXs = useMediaQuery(theme.breakpoints.up('xs'), {
+    defaultMatches: true,
+  });
 
   return (
     <Container>
@@ -75,18 +78,19 @@ const SimpleHeroWithImageAndCtaButtons = ({
               <TryFreeButton
                 text={cta_left || FillerContent.cta}
                 variant="contained"
-                color="primary"
+                color="secondary"
                 size="large"
               ></TryFreeButton>
 
               <Box
                 href={cta_right_url || FillerContent.href}
                 component={Button}
-                color="primary"
+                color={theme.palette.zesty.zestyOrange}
                 size="large"
                 marginTop={{ xs: 2, sm: 0 }}
                 marginLeft={{ sm: 2 }}
-                fullWidth={isMd ? false : true}
+                fullWidth={ isXs ? false : true}
+                alignSelf={{  xs: 'flex-start' }}
                 endIcon={
                   <Box
                     component={'svg'}
