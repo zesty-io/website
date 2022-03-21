@@ -31,13 +31,23 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         .wysiwyg strong, .wysiwyg h1, .wysiwyg h2, .wysiwyg h3,.wysiwyg h4,.wysiwyg h5,.wysiwyg h6 { 
           color: ${theme.palette.text.primary} !important;
         }
+
+        @media only screen and (max-width: 600px) {
+          .wysiwyg .icon-box {
+            margin-bottom: 5rem;
+          }
+        }
+        @media (min-width:601px) and (max-width: 4096px) {
+          .wysiwyg .icon-box {
+            margin-bottom: 28px;
+          }
+        }
         .wysiwyg .icon-box {
             float:left;
             background: ${theme.palette.zesty.zestyWhiteBlue};
             display: flex;
             border-radius: 5px;
             margin-right: 16px;
-            margin-bottom: 28px;
             margin-top: 5px;
             align-items:center;
             padding:.7rem;
