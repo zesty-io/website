@@ -32,7 +32,8 @@ const HeroWithIllustrationAndCta = ({
       }}
     >
       <Container>
-        <Grid container spacing={4}>
+        <Grid container spacing={4} 
+              flexDirection={{ xs: 'column-reverse', md: 'row' }} >
           <Grid item container alignItems={'center'} xs={12} md={6}>
             <Box>
             <Box >
