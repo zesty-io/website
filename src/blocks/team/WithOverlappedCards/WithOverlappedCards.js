@@ -53,7 +53,7 @@ const WithOverlappedCards = ({ list = [], eyebrow, case_studies_header }) => {
               >
                 <Box
                   component={'a'}
-                  href={item.meta.web.url}
+                  href={item.card_link?.data[0].meta.web.uri}
                   display={'block'}
                   width={1}
                   height={1}
@@ -71,7 +71,7 @@ const WithOverlappedCards = ({ list = [], eyebrow, case_studies_header }) => {
                     width={1}
                     height={1}
                     minHeight={320}
-                    image={item.hero_image.data[0].url}
+                    image={item.image.data[0].url}
                   />
                   <Box
                     component={CardContent}
@@ -81,7 +81,7 @@ const WithOverlappedCards = ({ list = [], eyebrow, case_studies_header }) => {
                     <Box component={Card}>
                       <CardContent>
                         <ListItemText
-                          primary={item.title}
+                          primary={item.summary}
                           //*secondary={item.description}
                         />
                       </CardContent>
