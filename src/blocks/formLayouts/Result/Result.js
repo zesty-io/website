@@ -182,11 +182,11 @@ const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hide
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item.author.image}
+                        src={item.author?.image}
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author.name}
+                        {item.author?.name}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
