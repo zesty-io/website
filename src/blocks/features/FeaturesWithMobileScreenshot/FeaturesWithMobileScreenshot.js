@@ -85,7 +85,7 @@ const FeaturesWithMobileScreenshot = ({
               marginBottom: '2.5rem',
               objectFit: 'contain',
               borderRadius: '2.5rem',
-              transform: isMobile ? 'scale(.75)' : 'scale(1)',
+              transform: isMobile ? 'scale(.60)' : 'scale(.85)',
               filter:
                 theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
             }}
