@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-
+import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 
 
@@ -8,7 +8,7 @@ import Container from 'components/Container';
 const WithSwiperAndBrandBackgroundColor = (props) => {
   // logos is an array of content items
   let logos = (undefined !== props.logos) ? props.logos : [];
-
+  const theme = useTheme();
   return (
     <Box >
       {/* removed this attribute from above box: bgcolor={'alternate.main'}*/}
@@ -28,6 +28,9 @@ const WithSwiperAndBrandBackgroundColor = (props) => {
                 height="auto"
                 src={item.customer_logo.data[0].url}
                 alt={`${item.customer_name}, a Zesty.io Customer`}
+                sx={{
+                  filter: theme.palette.mode === 'dark' ?  'grayscale(100%) brightness(1) invert(1)' : 'grayscale(100%)',
+                }}
              
               />
             </Box>
