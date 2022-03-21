@@ -23,6 +23,13 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
             padding-left: 0px;
             display:block;
             clear:both;
+            color: ${theme.palette.text.secondary};
+        }
+        .wysiwyg , .wysiwyg  p { 
+          color: ${theme.palette.text.secondary};
+        }
+        .wysiwyg strong, .wysiwyg h1, .wysiwyg h2, .wysiwyg h3,.wysiwyg h4,.wysiwyg h5,.wysiwyg h6 { 
+          color: ${theme.palette.text.primary} !important;
         }
         .wysiwyg .icon-box {
             float:left;
@@ -38,7 +45,7 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
 
         .wysiwyg.circle-icons li .icon-box {
-            background-color: ${theme.palette.zesty.zestyYellow};
+            background-color: ${theme.palette.zesty.zestyOrange};
             border-radius: 50%;
             padding: 5px 5px 5px 5px;
             margin-top: 0;

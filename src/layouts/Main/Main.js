@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
@@ -13,8 +14,16 @@ import TopNav from 'components/TopNav';
 
 import { Topbar, Sidebar, Footer } from './components';
 
+const Main = ({
+  children,
+  customRouting,
+  colorInvert = false,
+  bgcolor = 'transparent',
+  url = '',
+  model=''
+}) => {
+  const router = useRouter();
 
-const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transparent', url='' }) => {
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
@@ -38,14 +47,22 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
     disableHysteresis: true,
     threshold: 38,
   });
+  
+  // override over invert based on pages that we know have a dark image heading
+  let headerColorInvert = colorInvert
+  let pageNavColorRegex = new RegExp(/mindshare|article/gi);
+  if(model?.match(pageNavColorRegex) !== null) {
+    headerColorInvert = true
+  }
 
-  let pageNavColorRegex = new RegExp(/mindshare|authors|blog/gi);
 
   return (
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
-          <TopNav colorInvert={ url?.match(pageNavColorRegex) !== null ? true  : colorInvert  } />
+          <TopNav
+            colorInvert={headerColorInvert}
+          />
         </Container>
       </Box>
       <AppBar
@@ -60,7 +77,7 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
-            colorInvert={url.match(pageNavColorRegex) !== null && !trigger ? true : colorInvert}
+            colorInvert={headerColorInvert}
           />
         </Container>
       </AppBar>
@@ -75,7 +92,7 @@ const Main = ({ children, customRouting, colorInvert = false, bgcolor = 'transpa
         <Divider />
       </main>
       <Footer
-        colorInvert={colorInvert}
+        colorInvert={colorInvert && !trigger}
         customRouting={hasRouting ? customRouting : []}
       />
     </Box>

@@ -50,7 +50,7 @@ const FeaturesWithMobileScreenshot = ({ header, content, image, index }) => {
             backgroundRepeat: 'no-repeat',
           }}
         >
-          <Box
+          {/* <Box
             sx={{
               maxWidth: 450,
               position: 'relative',
@@ -82,29 +82,7 @@ const FeaturesWithMobileScreenshot = ({ header, content, image, index }) => {
                   left={'4%'}
                   width={'92.4%'}
                   height={'96%'}
-                >
-                  <Box
-                    component={'img'}
-                    src={
-                      image
-                        ? image
-                        : theme.palette.mode === 'light'
-                        ? FillerContent.mobileImage.light
-                        : FillerContent.mobileImage.dark
-                    }
-                    alt={header || FillerContent.header}
-                    width={1}
-                    height={1}
-                    sx={{
-                      objectFit: 'cover',
-                      borderRadius: '2.5rem',
-                      filter:
-                        theme.palette.mode === 'dark'
-                          ? 'brightness(0.7)'
-                          : 'none',
-                    }}
-                  />
-                </Box>
+                ></Box>
               </Box>
             </Box>
             <Box
@@ -118,7 +96,26 @@ const FeaturesWithMobileScreenshot = ({ header, content, image, index }) => {
                 height: 1,
               }}
             />
-          </Box>
+          </Box> */}
+          <Box
+            component={'img'}
+            src={
+              image
+                ? image
+                : theme.palette.mode === 'light'
+                ? FillerContent.mobileImage.light
+                : FillerContent.mobileImage.dark
+            }
+            alt={header || FillerContent.header}
+            width={1}
+            height={1}
+            sx={{
+              objectFit: 'contain',
+              borderRadius: '2.5rem',
+              filter:
+                theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
+            }}
+          />
         </Grid>
       </Grid>
     </Container>
