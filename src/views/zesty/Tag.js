@@ -25,7 +25,7 @@
  */
 
 import React from 'react';
-import SimpleHeroWithSearchBox from 'blocks/heroes/SimpleHeroWithSearchBox/SimpleHeroWithSearchBox';
+import { SimpleHeroWithSearchBox, SimpleHeroSolidBg } from 'blocks/heroes';
 import VerticalMinimalDesignedBlogCardsPage from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 
 let zestyURL =
@@ -35,6 +35,7 @@ undefined === process.env.PRODUCTION == 'true' || process.env.PRODUCTION
 
 const fetchCardsData = async (uri, setFunc) => {
   const res = await fetch(uri).then((response) => response.json());
+  console.log(res);
   res && (await setFunc(res));
 };
 function Tag({ content }) {
@@ -47,11 +48,15 @@ function Tag({ content }) {
   }, []);
   return (
     <>
-      <SimpleHeroWithSearchBox
+      {/* <SimpleHeroWithSearchBox
         hideForm={true}
         title={content?.meta?.web?.seo_meta_title || ''}
         description={content?.meta?.web?.seo_meta_description || ''}
-      />
+      /> */}
+      <SimpleHeroSolidBg
+        title={content?.meta?.web?.seo_meta_title || ''}
+        description={content?.meta?.web?.seo_meta_description || ''}
+       />
       <VerticalMinimalDesignedBlogCardsPage
         hideLoadMore={true}
         cards={cardsData}
