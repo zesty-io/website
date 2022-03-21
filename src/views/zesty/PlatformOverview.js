@@ -211,7 +211,7 @@ function PlatformOverview({ content }) {
   return (
     <>
       {/* Header */}
-      <FullScreenHeroWithPromoImagesAndTypedText {...headerProps}  />
+      <FullScreenHeroWithPromoImagesAndTypedText {...headerProps} />
 
       {/* Product Overview  */}
       <>
