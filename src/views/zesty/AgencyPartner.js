@@ -107,9 +107,6 @@ function AgencyPartner({ content }) {
         </Container>
       </Box>
 
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
 
     </>
   );
