@@ -38,44 +38,46 @@ import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField';
 import FillerContent from 'components/FillerContent';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
-const mock = [
-  {
-    title: 'Your brand platform',
-    description:
-      'Monetize your website and manage all guest interactions with your own brand, logo and domains.',
-    illustration:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration4.svg',
-    illustrationDark:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration4--dark.svg',
-  },
-  {
-    title: 'Mobile compatible platform',
-    description:
-      'Introduce your brand-new mobile friendly website to your customers. Seamlessly integrates with WiFi hardware and marketing automation software.',
-    illustration:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration1.svg',
-    illustrationDark:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration1--dark.svg',
-  },
-  {
-    label: 'Client portal access',
-    title: 'Simple customer dashboards',
-    description:
-      'Give sub-users access to a simplified dashboard with limited permission levels to offer remote management and real-time analytics.',
-    illustration:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration2.svg',
-    illustrationDark:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration2--dark.svg',
-  },
-];
+
+const PlatformOverviewHeaderComp = ({ header, isMobile }) => {
+  const headerMain = header?.split('<p><brake></brake></p>');
+  return (
+    <Container>
+      <Box marginBottom={4}>
+        <Typography
+          variant="p"
+          sx={{ fontWeight: 700, fontSize: isMobile ? '40px' : '49px' }}
+          align={'center'}
+        >
+          <Box
+            dangerouslySetInnerHTML={{
+              __html: headerMain && headerMain[0],
+            }}
+          ></Box>
+        </Typography>
+        <Typography
+          variant="p"
+          sx={{ fontWeight: 400, fontSize: isMobile ? '20px' : '32px' }}
+          align={'center'}
+        >
+          <Box
+            dangerouslySetInnerHTML={{
+              __html: headerMain && headerMain[1],
+            }}
+          ></Box>
+        </Typography>
+
+        <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
+      </Box>
+    </Container>
+  );
+};
 
 const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
   const theme = useTheme();
-  const cardsList = cards || mock;
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
+  const cardsList = cards || FillerContent.platformCard;
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Container>
       <Box>
@@ -186,8 +188,10 @@ const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
 };
 
 function PlatformOverview({ content }) {
+  const theme = useTheme();
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   let zestyURL =
     (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
@@ -218,7 +222,6 @@ function PlatformOverview({ content }) {
       setIsLoaded(false);
     }
   }, []);
-  const theme = useTheme();
   const headerProps = {
     title: content?.title || FillerContent.header,
     description: content?.header_description || FillerContent.description,
@@ -247,19 +250,10 @@ function PlatformOverview({ content }) {
 
       {/* Product Overview  */}
       <>
-        <Container>
-          <Box marginBottom={4}>
-            <Typography variant="p" sx={{ fontWeight: 400 }} align={'center'}>
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: content?.benefits_header || FillerContent.header,
-                }}
-              ></Box>
-            </Typography>
-
-            <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
-          </Box>
-        </Container>
+        <PlatformOverviewHeaderComp
+          header={content?.benefits_header}
+          isMobile={isMobile}
+        />
         <Box
           sx={{
             backgroundColor: theme.palette.alternate.main,

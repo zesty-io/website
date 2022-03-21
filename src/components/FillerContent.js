@@ -211,4 +211,35 @@ export default {
       ],
     },
   ],
+
+  platformCard: [
+    {
+      title: 'Your brand platform',
+      description:
+        'Monetize your website and manage all guest interactions with your own brand, logo and domains.',
+      illustration:
+        'https://assets.maccarianagency.com/svg/illustrations/illustration4.svg',
+      illustrationDark:
+        'https://assets.maccarianagency.com/svg/illustrations/illustration4--dark.svg',
+    },
+    {
+      title: 'Mobile compatible platform',
+      description:
+        'Introduce your brand-new mobile friendly website to your customers. Seamlessly integrates with WiFi hardware and marketing automation software.',
+      illustration:
+        'https://assets.maccarianagency.com/svg/illustrations/illustration1.svg',
+      illustrationDark:
+        'https://assets.maccarianagency.com/svg/illustrations/illustration1--dark.svg',
+    },
+    {
+      label: 'Client portal access',
+      title: 'Simple customer dashboards',
+      description:
+        'Give sub-users access to a simplified dashboard with limited permission levels to offer remote management and real-time analytics.',
+      illustration:
+        'https://assets.maccarianagency.com/svg/illustrations/illustration2.svg',
+      illustrationDark:
+        'https://assets.maccarianagency.com/svg/illustrations/illustration2--dark.svg',
+    },
+  ],
 };
