@@ -59,12 +59,14 @@ function EventsAndWebinar({ content }) {
       title={content.title || FillerContent.header}
       subtitle={content.subtitle || ''}
       description={content.header_description || FillerContent.description} />
-      <Container>
-        {content.events?.data ? <Result array={content.events.data || []} /> : <ComingSoon />}
-      </Container>
+      {content.events?.data ? 
+      (<Container py={1}>
+        <Result array={content.events.data || []} /> :
+      </Container>) :
+      <ComingSoon />}
       <Box
         position={'relative'}
-        marginTop={{ xs: 4, md: 6 }}
+        marginTop={{ xs: 4, md: 4 }}
         sx={{
           backgroundColor: theme.palette.alternate.main,
         }}
@@ -91,7 +93,7 @@ function EventsAndWebinar({ content }) {
             d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
           ></path>
         </Box>
-        <Container>
+        <Container py={1}>
           <Newsletter
           title={content.cta_title || FillerContent.header}
           description={content.cta_description || FillerContent.description}
