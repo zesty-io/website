@@ -127,23 +127,88 @@ export default {
   ],
   clientCards: [
     {
-      logo:
-        'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
+      logo: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
       summary:
         'Find adventures nearby or in faraway places and access unique homes, experiences, and places around the world.',
     },
     {
-      logo:
-        'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
+      logo: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
       summary:
-        'Free delivery on millions of items with Prime. Low prices across earth\'s biggest selection of books, music, DVDs, electronics, computers, software',
+        "Free delivery on millions of items with Prime. Low prices across earth's biggest selection of books, music, DVDs, electronics, computers, software",
     },
     {
-      logo:
-        'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
+      logo: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
       summary:
-        'Find your fit with Fitbit\'s family of fitness products that help you stay motivated and improve your health by tracking your activity, exercise.',
+        "Find your fit with Fitbit's family of fitness products that help you stay motivated and improve your health by tracking your activity, exercise.",
     },
   ],
-  category_fallback_image: 'https://kfg6bckb.media.zestyio.com/newsroom.jpg'
+  category_fallback_image: 'https://kfg6bckb.media.zestyio.com/newsroom.jpg',
+  slantedImagesList_for_header: [
+    {
+      group: [
+        {
+          cover:
+            'https://assets.maccarianagency.com/screenshots/the-front/img1.png',
+          coverDark:
+            'https://assets.maccarianagency.com/screenshots/the-front/img1--dark.png',
+        },
+        {
+          cover:
+            'https://assets.maccarianagency.com/screenshots/the-front/img4.png',
+          coverDark:
+            'https://assets.maccarianagency.com/screenshots/the-front/img4--dark.png',
+        },
+      ],
+    },
+    {
+      group: [
+        {
+          cover:
+            'https://assets.maccarianagency.com/screenshots/the-front/img13.png',
+          coverDark:
+            'https://assets.maccarianagency.com/screenshots/the-front/img13--dark.png',
+        },
+        {
+          cover:
+            'https://assets.maccarianagency.com/screenshots/the-front/img10.png',
+          coverDark:
+            'https://assets.maccarianagency.com/screenshots/the-front/img10--dark.png',
+        },
+        {
+          cover:
+            'https://assets.maccarianagency.com/screenshots/the-front/img7.png',
+          coverDark:
+            'https://assets.maccarianagency.com/screenshots/the-front/img7--dark.png',
+        },
+      ],
+    },
+    {
+      group: [
+        {
+          cover:
+            'https://assets.maccarianagency.com/screenshots/the-front/img6.png',
+          coverDark:
+            'https://assets.maccarianagency.com/screenshots/the-front/img6--dark.png',
+        },
+        {
+          cover:
+            'https://assets.maccarianagency.com/screenshots/the-front/img24.png',
+          coverDark:
+            'https://assets.maccarianagency.com/screenshots/the-front/img24--dark.png',
+        },
+        {
+          cover:
+            'https://assets.maccarianagency.com/screenshots/the-front/img17.png',
+          coverDark:
+            'https://assets.maccarianagency.com/screenshots/the-front/img17--dark.png',
+        },
+        {
+          cover:
+            'https://assets.maccarianagency.com/screenshots/the-front/img12.png',
+          coverDark:
+            'https://assets.maccarianagency.com/screenshots/the-front/img12--dark.png',
+        },
+      ],
+    },
+  ],
 };
