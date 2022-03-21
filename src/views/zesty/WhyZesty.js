@@ -223,6 +223,8 @@ function WhyZesty({ content }) {
             'Stay up-to-date with the latest in digital experience, content management and more.'
           }
           popularArticles={allArticles}
+          ctaBtn="Read more"
+          ctaUrl={/mindshare/}
         />
       )}
 
