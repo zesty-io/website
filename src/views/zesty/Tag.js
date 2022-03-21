@@ -38,11 +38,8 @@ let zestyURL =
 
 function Tag({ content }) {
   const [cardsData, setCardData] = useState([]);
-  // news array state
-  // const [categoryArr, setCategoryArr] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
   // search states
-  // const [searchedArticles, setSearchedArticles] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
   const [term, setTerm] = useState('');
   const [notFound, setNotFound] = useState(false);
@@ -121,24 +118,11 @@ function Tag({ content }) {
   }
   return (
     <>
-      {/* <SimpleHeroWithSearchBox
-        hideForm={true}
-        title={content?.meta?.web?.seo_meta_title || ''}
-        description={content?.meta?.web?.seo_meta_description || ''}
-      /> */}
       <SimpleHeroSolidBg
         title={content?.meta?.web?.seo_meta_title || ''}
         description={content?.meta?.web?.seo_meta_description || ''}
        />
-      {/* <VerticalMinimalDesignedBlogCardsPage
-        hideLoadMore={true}
-        cards={cardsData}
-        author={undefined}
-      /> */}
       <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
-        {/* <Box sx={{marginBottom: '16px'}}>
-          <Breadcrumb array={breadcrumb || FillerContent.breadcrumb}  />
-        </Box> */}
         <Result array={cardsData}
           onChange={handleOnChange}
           value={searchValue}
