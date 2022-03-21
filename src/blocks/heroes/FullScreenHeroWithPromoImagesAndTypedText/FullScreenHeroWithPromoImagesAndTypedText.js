@@ -8,96 +8,8 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-const mockimages = [
-  {
-    group: [
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img1.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img1--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img4.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img4--dark.png',
-      },
-    ],
-  },
-  {
-    group: [
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img13.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img13--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img10.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img10--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img7.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img7--dark.png',
-      },
-    ],
-  },
-  {
-    group: [
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img6.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img6--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img24.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img24--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img17.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img17--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img12.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img12--dark.png',
-      },
-    ],
-  },
-];
-
-const FullScreenHeroWithPromoImagesAndTypedText = ({
-  title,
-  description,
-  h1_title,
-  cta_left,
-  cta_right,
-  cta_left_url,
-  cta_right_url,
-  images,
-}) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-
-  const newTitle = title.split('<br/>');
-  const title0 = newTitle[0] || '';
-  const title1 = newTitle[1] || '';
-  const title2 = newTitle[2] || '';
-
-  const mockimages1 = [
+const slantedImages = (images = []) => {
+  return [
     {
       group: [
         {
@@ -138,8 +50,32 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
       ],
     },
   ];
+};
 
-  const imageList = mockimages1 || mockimages;
+const FullScreenHeroWithPromoImagesAndTypedText = ({
+  title,
+  description,
+  h1_title,
+  cta_left,
+  cta_right,
+  cta_left_url,
+  cta_right_url,
+  images,
+}) => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+
+  // split the title from api by br tag for styling purposes
+  const newTitle = title.split('<br/>');
+  const title0 = newTitle && newTitle[0];
+  const title1 = newTitle && newTitle[1];
+  const title2 = newTitle && newTitle[2];
+
+  // images to be map
+  const imageList =
+    slantedImages(images) || FillerContent.slantedImagesList_for_header;
 
   return (
     <Box sx={{ overflow: 'hidden' }}>
@@ -265,7 +201,6 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               sx={{ transform: 'translate3d(20%, -50%, 0)' }}
             >
               {imageList?.map((item, i) => (
-
                 <Box key={i} marginTop={{ sm: -(i * 16) }} marginX={1}>
                   {item.group.map((g, j) => (
                     <Box

@@ -5,12 +5,27 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
 
-const WithCompanyLogo = ({ content, logo }) => {
+const WithCompanyLogo = ({ header, content, logo }) => {
   const theme = useTheme();
 
   return (
-    <Box bgcolor={'alternate.main'}>
+    <Box bgcolor={'alternate.main'} sx={{ marginBottom: '2rem' }}>
       <Container>
+        {header && (
+          <Typography
+            variant="p"
+            component="h2"
+            color="text.primary"
+            sx={{
+              fontWeight: '700',
+              textAlign: 'center',
+              fontSize: '32px',
+              marginBottom: '2rem',
+            }}
+          >
+            {header || FillerContent.header}
+          </Typography>
+        )}
         <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
           <Box
             component="img"

@@ -33,7 +33,6 @@ import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScre
 import WithCompanyLogo from 'blocks/testimonials/WithCompanyLogo/WithCompanyLogo.js';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
-import Container from 'components/Container';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/system';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
@@ -70,7 +69,9 @@ function TechnologyOverview({ content }) {
       setIsLoaded(false);
     }
   }, []);
+
   const theme = useTheme();
+
   const headerProps = {
     title: content?.title,
     subtitle: content?.sub_title,
@@ -130,6 +131,7 @@ function TechnologyOverview({ content }) {
             content?.featured_image?.data &&
             content?.featured_image?.data[0]?.url
           }
+          feature_list_h1={content?.feature_list_h1}
         />
       </Box>
 
@@ -141,6 +143,7 @@ function TechnologyOverview({ content }) {
 
       {/* Social Proof */}
       <WithCompanyLogo
+        header={content?.testimonials_h1}
         logo={
           content?.testimonials_logo?.data &&
           content?.testimonials_logo?.data[0]?.url
@@ -171,24 +174,6 @@ function TechnologyOverview({ content }) {
         }
         cta={'Subscribe'}
       />
-
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      {/* <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div> */}
-      {/* End of Zesty.io output example */}
     </>
   );
 }
