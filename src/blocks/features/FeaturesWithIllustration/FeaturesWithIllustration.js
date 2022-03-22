@@ -31,7 +31,7 @@ const FeaturesWithIllustration = ({
           <Box marginBottom={4}>
             <WYSIWYGRender
               rich_text={rich_text}
-              customClass={'icon-box'}
+              customClass={wysiwyig_type}
             ></WYSIWYGRender>
           </Box>
         </Grid>

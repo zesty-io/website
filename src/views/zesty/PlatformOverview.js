@@ -252,7 +252,7 @@ function PlatformOverview({ content }) {
       {/* Product Overview  */}
       <>
         <PlatformOverviewHeaderComp
-          header={content?.benefits_header}
+          header={content?.benefits_header || FillerContent.rich_text}
           isMobile={isMobile}
         />
         <Box

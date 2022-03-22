@@ -47,41 +47,40 @@ export default {
 
   authors: [
     {
-      name: 'Clara Bertoletti',
-      title: 'MUI lover',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
       avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
     },
     {
-      name: 'Jhon Anderson',
-      title: 'Senior Frontend Developer',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
       avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
     },
     {
-      name: 'Chary Smith',
-      title: 'SEO at Comoti',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
       avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
     },
     {
-      name: 'Clara Bertoletti',
-      title: 'MUI lover',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
       avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
     },
     {
-      name: 'Jhon Anderson',
-      title: 'Senior Frontend Developer',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
       avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
     },
     {
-      name: 'Chary Smith',
-      title: 'SEO at Comoti',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
       avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
     },
   ],
   demos: [
     {
-      title: 'Main Demo',
-      description:
-        'Main demo comes with 18 landing pages, including over 35 commonly used pages that can be combined with demos.',
+      title: 'Missing title, Edit in CMS',
+      description: 'Missing description, Edit in CMS',
       illustration:
         'https://assets.maccarianagency.com/screenshots/the-front-main-demo.png',
       illustrationDark:
@@ -92,9 +91,8 @@ export default {
       bgcolor: 'blue',
     },
     {
-      title: 'E-Commerce Demo',
-      description:
-        'Everything you need to build beautiful, responsive, fully coded e-commerce websites and shop applications.',
+      title: 'Missing title, Edit in CMS',
+      description: 'Missing description, Edit in CMS',
       illustration:
         'https://assets.maccarianagency.com/screenshots/the-front-ecommerce-demo.png',
       illustrationDark:
@@ -128,18 +126,15 @@ export default {
   clientCards: [
     {
       logo: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
-      summary:
-        'Find adventures nearby or in faraway places and access unique homes, experiences, and places around the world.',
+      summary: 'Missing summary, Edit in CMS',
     },
     {
       logo: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
-      summary:
-        "Free delivery on millions of items with Prime. Low prices across earth's biggest selection of books, music, DVDs, electronics, computers, software",
+      summary: 'Missing summary, Edit in CMS',
     },
     {
       logo: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
-      summary:
-        "Find your fit with Fitbit's family of fitness products that help you stay motivated and improve your health by tracking your activity, exercise.",
+      summary: 'Missing summary, Edit in CMS',
     },
   ],
   category_fallback_image: 'https://kfg6bckb.media.zestyio.com/newsroom.jpg',
@@ -214,28 +209,25 @@ export default {
 
   platformCard: [
     {
-      title: 'Your brand platform',
-      description:
-        'Monetize your website and manage all guest interactions with your own brand, logo and domains.',
+      title: 'Missing Content, Edit in CMS',
+      description: 'Missing Content, Edit in CMS',
       illustration:
         'https://assets.maccarianagency.com/svg/illustrations/illustration4.svg',
       illustrationDark:
         'https://assets.maccarianagency.com/svg/illustrations/illustration4--dark.svg',
     },
     {
-      title: 'Mobile compatible platform',
-      description:
-        'Introduce your brand-new mobile friendly website to your customers. Seamlessly integrates with WiFi hardware and marketing automation software.',
+      title: 'Missing Content, Edit in CMS',
+      description: 'Missing Content, Edit in CMS',
       illustration:
         'https://assets.maccarianagency.com/svg/illustrations/illustration1.svg',
       illustrationDark:
         'https://assets.maccarianagency.com/svg/illustrations/illustration1--dark.svg',
     },
     {
-      label: 'Client portal access',
-      title: 'Simple customer dashboards',
-      description:
-        'Give sub-users access to a simplified dashboard with limited permission levels to offer remote management and real-time analytics.',
+      title: 'Missing Content, Edit in CMS',
+      description: 'Missing Content, Edit in CMS',
+      label: 'Missing Content, Edit in CMS',
       illustration:
         'https://assets.maccarianagency.com/svg/illustrations/illustration2.svg',
       illustrationDark:

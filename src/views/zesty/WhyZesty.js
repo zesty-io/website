@@ -181,6 +181,7 @@ function WhyZesty({ content }) {
         }}
       >
         <FeaturesWithIllustration
+          wysiwyig_type="icon-box"
           rich_text={overview_text}
           image_url={image_url}
         />
