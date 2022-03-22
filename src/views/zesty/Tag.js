@@ -29,6 +29,7 @@ import { SimpleHeroWithSearchBox, SimpleHeroSolidBg } from 'blocks/heroes';
 import VerticalMinimalDesignedBlogCardsPage from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
 import { Result } from 'blocks/formLayouts';
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
 let zestyURL =
 (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
@@ -119,8 +120,7 @@ function Tag({ content }) {
   return (
     <>
       <SimpleHeroSolidBg
-        title={content?.meta?.web?.seo_meta_title || ''}
-        description={content?.meta?.web?.seo_meta_description || ''}
+        title={content?.meta?.web?.seo_meta_title || FillerContent.header}
        />
       <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
         <Result array={cardsData}

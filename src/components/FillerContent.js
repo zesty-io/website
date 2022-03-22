@@ -217,7 +217,7 @@ export default {
       ],
     },
   ],
-
+  
   platformCard: [
     {
       title: 'Missing Content, Edit in CMS',
