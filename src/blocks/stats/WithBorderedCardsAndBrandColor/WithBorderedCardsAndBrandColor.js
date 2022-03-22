@@ -121,6 +121,7 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const cardsList = cards || mock;
   return (
     <Container>
@@ -131,13 +132,14 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
             dangerouslySetInnerHTML={{ __html: content }}
           ></Box>
         </Typography>
-       
+
         <Box
           sx={{
             display: 'flex',
             width: '100%',
             justifyContent: 'space-between',
             marginTop: '2rem',
+            flexDirection: isMobile ? "column" : "row",
           }}
         >
           {cardsList?.map((item, i) => {
