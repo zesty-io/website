@@ -222,6 +222,7 @@ function PlatformOverview({ content }) {
       setIsLoaded(false);
     }
   }, []);
+
   const headerProps = {
     title: content?.title || FillerContent.header,
     description: content?.header_description || FillerContent.description,
@@ -284,16 +285,7 @@ function PlatformOverview({ content }) {
         }
       />
 
-      {/* Link To Blog */}
-      {/* <VerticallyAlignedBlogCardsWithShapedImage
-        title={'Industry insights'}
-        description={
-          'Stay up-to-date with the latest in digital experience, content management, and more.'
-        }
-      /> */}
-
       {/* Industry Insights > Latest Blogs articles */}
-
       {isLoaded ? (
         <Box display="flex" justifyContent="center" alignItems="center">
           <CircularProgressWithLabel />
@@ -316,11 +308,6 @@ function PlatformOverview({ content }) {
         }
         cta={'Subscribe'}
       />
-      {/*<div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                 <h2>Accessible Zesty.io JSON Object</h2>
-                 <pre>{JSON.stringify(content, null, 2)}</pre>
-             </div>
-                     */}
     </>
   );
 }

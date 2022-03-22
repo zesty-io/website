@@ -81,6 +81,7 @@ const OverviewProcessComp = ({ content, image }) => {
 /* ------------------------------------------------------------------- */
 
 function WhyZesty({ content }) {
+  const theme = useTheme();
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
 
@@ -113,7 +114,7 @@ function WhyZesty({ content }) {
       setIsLoaded(false);
     }
   }, []);
-  const theme = useTheme();
+
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
       ? content.hybrid_vs_headless_content
@@ -130,9 +131,9 @@ function WhyZesty({ content }) {
     description: content?.header_description,
     cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
     cta_right:
-      content?.cta_right.data && content?.cta_right?.data[0]?.button_text,
+      content?.cta_right?.data && content?.cta_right?.data[0]?.button_text,
     cta_left_url:
-      content?.cta_left.data &&
+      content?.cta_left?.data &&
       content?.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url,
     cta_right_url:
       content?.cta_right.data &&
@@ -165,8 +166,8 @@ function WhyZesty({ content }) {
         return (
           <FeaturesWithMobileScreenshot
             index={i}
-            content={e.benefit_content}
-            header={e.header}
+            content={e?.benefit_content}
+            header={e?.header}
             image={e?.benefit_image?.data && e?.benefit_image?.data[0]?.url}
           />
         );
@@ -187,8 +188,8 @@ function WhyZesty({ content }) {
 
       {/* PROOF POINTS */}
       <WithBorderedCardsAndBrandColor
-        cards={content.proof_points.data}
-        content={content.proof_points_content}
+        cards={content?.proof_points.data}
+        content={content?.proof_points_content}
       />
 
       {/* CASE STUDY */}
@@ -201,17 +202,16 @@ function WhyZesty({ content }) {
       >
         {content?.case_study?.data?.map((e) => (
           <CtaWithCoverImage
-            title={e.title}
-            summary={e.summary}
-            cta={e.cta}
-            cta_url={e.link}
+            title={e?.title}
+            summary={e?.summary}
+            cta={e?.cta}
+            cta_url={e?.link}
             image={e?.image?.data && e?.image?.data[0].url}
           />
         ))}
       </Box>
 
       {/* Industry Insights > Latest Blogs articles */}
-
       {isLoaded ? (
         <Box display="flex" justifyContent="center" alignItems="center">
           <CircularProgressWithLabel />

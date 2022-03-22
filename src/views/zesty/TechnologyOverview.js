@@ -38,6 +38,7 @@ import { useTheme } from '@mui/system';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 
 function TechnologyOverview({ content }) {
+  const theme = useTheme();
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
   let zestyURL =
@@ -70,14 +71,13 @@ function TechnologyOverview({ content }) {
     }
   }, []);
 
-  const theme = useTheme();
-
   const headerProps = {
     title: content?.title,
     subtitle: content?.sub_title,
     description: content?.header_description,
     image: content?.header_image?.data && content?.header_image?.data[0]?.url,
-    cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
+    cta_left:
+      content?.cta_left?.data && content?.cta_left?.data[0]?.button_text,
     cta_right:
       content?.cta_right?.data && content?.cta_right?.data[0]?.button_text,
     cta_left_url:
@@ -112,9 +112,9 @@ function TechnologyOverview({ content }) {
 
       {/* Benefits  */}
       <SimpleCentered
-        header={content.benefits_header}
+        header={content?.benefits_header}
         description={null}
-        cards={content.technology_benefits.data}
+        cards={content?.technology_benefits.data}
       />
 
       {/* Feature List  */}
