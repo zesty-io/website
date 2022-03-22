@@ -39,7 +39,7 @@ import FillerContent from 'components/FillerContent';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
 
-const PlatformOverviewHeaderComp = ({ header, isMobile }) => {
+const ProductOverviewHeaderComp = ({ header, isMobile }) => {
   const headerMain = header?.split('<p><brake></brake></p>');
   return (
     <Container>
@@ -73,117 +73,123 @@ const PlatformOverviewHeaderComp = ({ header, isMobile }) => {
   );
 };
 
-const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
+const ProductOverviewBodyComp = ({ cards, benefits_title_h2 }) => {
   const theme = useTheme();
   const cardsList = cards || FillerContent.platformCard;
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Container>
-      <Box>
-        <Box
-          marginBottom={6}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography
-            variant={'h2'}
-            gutterBottom
-            sx={{ fontWeight: 700 }}
-            align={'center'}
+    <Box
+      sx={{
+        backgroundColor: theme.palette.alternate.main,
+      }}
+    >
+      <Container>
+        <Box>
+          <Box
+            marginBottom={6}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
           >
-            {benefits_title_h2}
-          </Typography>
-        </Box>
-        <Grid container spacing={4}>
-          {cardsList?.map((item, i) => (
-            <Grid
-              data-aos="fade-up"
-              data-aos-delay={i * 100}
-              data-aos-offset={100}
-              data-aos-duration={600}
-              key={i}
-              item
-              container
-              xs={12}
-              spacing={4}
-              direction={i % 2 === 1 ? 'row-reverse' : 'row'}
+            <Typography
+              variant={'h2'}
+              gutterBottom
+              sx={{ fontWeight: 700 }}
+              align={'center'}
             >
-              {/* show only if mobile image on top of text */}
-              {isMobile && (
-                <Grid
-                  item
-                  container
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  xs={12}
-                  sm={6}
-                >
-                  <Box
-                    component={'img'}
-                    src={
-                      (item?.image?.data && item?.image?.data[0]?.url) ||
-                      FillerContent.illustration_image
-                    }
-                    alt={item.header || item.title}
-                    width={1}
-                    maxWidth={'80%'}
-                  />
-                </Grid>
-              )}
-
-              <Grid item container alignItems={'center'} xs={12} sm={6}>
-                <Box>
-                  <Typography
-                    variant={'h3'}
-                    gutterBottom
-                    sx={{ fontWeight: 700 }}
+              {benefits_title_h2}
+            </Typography>
+          </Box>
+          <Grid container spacing={4}>
+            {cardsList?.map((item, i) => (
+              <Grid
+                data-aos="fade-up"
+                data-aos-delay={i * 100}
+                data-aos-offset={100}
+                data-aos-duration={600}
+                key={i}
+                item
+                container
+                xs={12}
+                spacing={4}
+                direction={i % 2 === 1 ? 'row-reverse' : 'row'}
+              >
+                {/* show only if mobile image on top of text */}
+                {isMobile && (
+                  <Grid
+                    item
+                    container
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    xs={12}
+                    sm={6}
                   >
-                    {item.header || item.title}
-                  </Typography>
-                  <Typography
-                    color={'text.secondary'}
-                    fontWeight={400}
-                    variant={'body1'}
-                  ></Typography>
-                  <Typography color="text.secondary">
                     <Box
-                      dangerouslySetInnerHTML={{
-                        __html: item.content || item.description,
-                      }}
+                      component={'img'}
+                      src={
+                        (item?.image?.data && item?.image?.data[0]?.url) ||
+                        FillerContent.illustration_image
+                      }
+                      alt={item.header || item.title}
+                      width={1}
+                      maxWidth={'80%'}
                     />
-                  </Typography>
-                </Box>
-              </Grid>
+                  </Grid>
+                )}
 
-              {/* show only in Desktop alternate image and text left right arrangement  */}
-              {!isMobile && (
-                <Grid
-                  item
-                  container
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  xs={12}
-                  sm={6}
-                >
-                  <Box
-                    component={'img'}
-                    src={
-                      (item?.image?.data && item?.image?.data[0]?.url) ||
-                      FillerContent.illustration_image
-                    }
-                    alt={item.header || item.title}
-                    width={1}
-                    maxWidth={'80%'}
-                  />
+                <Grid item container alignItems={'center'} xs={12} sm={6}>
+                  <Box>
+                    <Typography
+                      variant={'h3'}
+                      gutterBottom
+                      sx={{ fontWeight: 700 }}
+                    >
+                      {item.header || item.title}
+                    </Typography>
+                    <Typography
+                      color={'text.secondary'}
+                      fontWeight={400}
+                      variant={'body1'}
+                    ></Typography>
+                    <Typography color="text.secondary">
+                      <Box
+                        dangerouslySetInnerHTML={{
+                          __html: item.content || item.description,
+                        }}
+                      />
+                    </Typography>
+                  </Box>
                 </Grid>
-              )}
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </Container>
+
+                {/* show only in Desktop alternate image and text left right arrangement  */}
+                {!isMobile && (
+                  <Grid
+                    item
+                    container
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    xs={12}
+                    sm={6}
+                  >
+                    <Box
+                      component={'img'}
+                      src={
+                        (item?.image?.data && item?.image?.data[0]?.url) ||
+                        FillerContent.illustration_image
+                      }
+                      alt={item.header || item.title}
+                      width={1}
+                      maxWidth={'80%'}
+                    />
+                  </Grid>
+                )}
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
@@ -251,22 +257,14 @@ function PlatformOverview({ content }) {
 
       {/* Product Overview  */}
       <>
-        <PlatformOverviewHeaderComp
+        <ProductOverviewHeaderComp
           header={content?.benefits_header || FillerContent.rich_text}
           isMobile={isMobile}
         />
-        <Box
-          sx={{
-            backgroundColor: theme.palette.alternate.main,
-          }}
-        >
-          <ProductOverviewComp
-            benefits_title_h2={
-              content?.benefits_title_h2 || FillerContent.header
-            }
-            cards={content?.platform_overview_cards?.data}
-          />
-        </Box>
+        <ProductOverviewBodyComp
+          benefits_title_h2={content?.benefits_title_h2 || FillerContent.header}
+          cards={content?.platform_overview_cards?.data}
+        />
       </>
 
       {/* Features */}
