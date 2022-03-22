@@ -12,56 +12,6 @@ import Chip from '@mui/material/Chip';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img1.jpg',
-    description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem',
-    title: 'Eiusmod tempor incididunt',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-    },
-    date: '10 Sep',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
-    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus',
-    title: 'Sed ut perspiciatis',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
-    },
-    date: '02 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
-    description:
-      'Qui blanditiis praesentium voluptatum deleniti atque corrupti',
-    title: 'Unde omnis iste natus',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Chary Smith',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '05 Mar',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem',
-    title: 'Eiusmod tempor incididunt',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-    },
-    date: '10 Sep',
-  },
-];
-
 const SimpleVerticalBlogCards = ({
   header,
   cards,
@@ -71,7 +21,7 @@ const SimpleVerticalBlogCards = ({
   description,
 }) => {
   const theme = useTheme();
-  const cardList = cards || mock;
+  const cardList = cards || FillerContent.simpleCards;
 
   return (
     <Container>

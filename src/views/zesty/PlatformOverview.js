@@ -214,23 +214,23 @@ function PlatformOverview({ content }) {
   }, []);
 
   const headerProps = {
-    title: content?.title || FillerContent.header,
-    description: content?.header_description || FillerContent.description,
-    h1_title: content?.h1_title || FillerContent.header,
-    images: content?.header_image?.data || FillerContent.image,
+    title: content.title || FillerContent.header,
+    description: content.header_description || FillerContent.description,
+    h1_title: content.h1_title || FillerContent.header,
+    images: content.header_image?.data || FillerContent.image,
     cta_left:
-      (content?.cta_left?.data && content?.cta_left?.data[0]?.button_text) ||
+      (content.cta_left?.data && content.cta_left?.data[0]?.button_text) ||
       FillerContent.header,
     cta_right:
-      (content?.cta_right?.data && content?.cta_right?.data[0]?.button_text) ||
+      (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
       FillerContent.header,
     cta_left_url:
-      (content?.cta_left?.data &&
-        content?.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      (content.cta_left?.data &&
+        content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
       FillerContent.header,
     cta_right_url:
-      (content?.cta_right?.data &&
-        content?.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      (content.cta_right?.data &&
+        content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
       FillerContent.header,
   };
 
@@ -242,28 +242,34 @@ function PlatformOverview({ content }) {
       {/* Product Overview  */}
       <>
         <ProductOverviewHeader
-          header={content?.benefits_header || FillerContent.rich_text}
+          header={content.benefits_header || FillerContent.rich_text}
         />
         <ProductOverviewBody
-          header={content?.benefits_title_h2 || FillerContent.header}
-          cards={content?.platform_overview_cards?.data}
+          header={content.benefits_title_h2 || FillerContent.header}
+          cards={
+            content.platform_overview_cards?.data || FillerContent.platformCard
+          }
         />
       </>
 
       {/* Features */}
       <FeaturesWithCardRepresentation
-        description={content?.features_header || FillerContent.rich_text}
-        cards={content?.features_tiles?.data}
+        description={content.features_header || FillerContent.rich_text}
+        cards={content.features_tiles?.data || FillerContent.featuresCards}
       />
 
       {/* Case Study  */}
       <SimpleVerticalBlogCards
-        header={content?.case_studies_header}
-        cards={content?.case_studies?.data}
-        cta={content?.cta.data && content?.cta?.data[0].button_text}
+        header={content.case_studies_header || FillerContent.header}
+        cards={content.case_studies?.data || FillerContent.simpleCards}
+        cta={
+          (content.cta?.data && content.cta?.data[0]?.button_text) ||
+          FillerContent.cta
+        }
         cta_url={
-          content?.cta.data &&
-          content?.cta?.data[0].internal_link.data[0].meta.web.url
+          (content.cta?.data &&
+            content.cta?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+          FillerContent.href
         }
       />
 
