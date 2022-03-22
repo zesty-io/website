@@ -12,56 +12,6 @@ import Chip from '@mui/material/Chip';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img1.jpg',
-    description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem',
-    title: 'Eiusmod tempor incididunt',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-    },
-    date: '10 Sep',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
-    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus',
-    title: 'Sed ut perspiciatis',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
-    },
-    date: '02 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
-    description:
-      'Qui blanditiis praesentium voluptatum deleniti atque corrupti',
-    title: 'Unde omnis iste natus',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Chary Smith',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '05 Mar',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem',
-    title: 'Eiusmod tempor incididunt',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-    },
-    date: '10 Sep',
-  },
-];
-
 const SimpleVerticalBlogCards = ({
   header,
   cards,
@@ -71,7 +21,7 @@ const SimpleVerticalBlogCards = ({
   description,
 }) => {
   const theme = useTheme();
-  const cardList = cards || mock;
+  const cardList = cards || FillerContent.simpleCards;
 
   return (
     <Container>
@@ -153,20 +103,6 @@ const SimpleVerticalBlogCards = ({
                       alignItems: 'center',
                     }}
                   >
-                    {/* <Box
-                      display={'flex'}
-                      justifyContent={'center'}
-                      flexWrap={'wrap'}
-                    >
-                      {item?.tags?.map((item) => (
-                        <Chip
-                          key={item}
-                          label={item}
-                          size={'small'}
-                          sx={{ marginBottom: 1, marginRight: 1 }}
-                        />
-                      ))}
-                    </Box> */}
                     <Typography
                       variant={'h6'}
                       fontWeight={700}
@@ -193,14 +129,6 @@ const SimpleVerticalBlogCards = ({
             </Grid>
           ))}
         </Grid>
-        {/* <Box>
-            <Typography fontWeight={700} variant={'h6'} gutterBottom>
-              Latest stories
-            </Typography>
-            <Typography color={'text.secondary'}>
-              Here’s what we’ve been up to recently.
-            </Typography>
-          </Box> */}
         <Box
           display="flex"
           width={1}
@@ -208,14 +136,14 @@ const SimpleVerticalBlogCards = ({
           marginTop={{ xs: 2, md: 4 }}
         >
           <Box
-            href="/mindshare"
+            href={cta_url || '/mindshare'}
             component={Button}
             variant="contained"
             color="primary"
             size="large"
             marginLeft={2}
           >
-            read more
+            {cta || 'Read More'}
           </Box>
         </Box>
       </Box>

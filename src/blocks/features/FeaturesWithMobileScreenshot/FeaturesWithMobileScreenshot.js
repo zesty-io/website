@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 import WYSIWYGRender from 'components/WYSIWYGRender';
+import { useMediaQuery } from '@mui/material';
 
 const FeaturesWithMobileScreenshot = ({
   header,
@@ -17,6 +18,7 @@ const FeaturesWithMobileScreenshot = ({
   feature_list_h1,
 }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
       {feature_list_h1 && (
@@ -35,7 +37,9 @@ const FeaturesWithMobileScreenshot = ({
       )}
       <Grid
         display={'flex'}
-        flexDirection={index !== 1 ? 'row' : 'row-reverse'}
+        flexDirection={
+          isMobile ? 'column' : index !== 1 ? 'row' : 'row-reverse'
+        }
         container
         spacing={4}
       >
@@ -47,7 +51,6 @@ const FeaturesWithMobileScreenshot = ({
           md={6}
           order={{ xs: 3, sm: 2 }}
         >
-
           <Box>
             <Box marginBottom={2}>
               <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
@@ -87,8 +90,10 @@ const FeaturesWithMobileScreenshot = ({
             width={1}
             height={1}
             sx={{
+              marginBottom: isMobile ? '3rem' : '1rem',
               objectFit: 'contain',
               borderRadius: '2.5rem',
+              transform: isMobile ? 'scale(.80)' : 'scale(.70)',
               filter:
                 theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
             }}

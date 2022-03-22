@@ -33,7 +33,7 @@ import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, filledInputClasses, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useTheme } from '@emotion/react';
 
@@ -81,6 +81,7 @@ const OverviewProcessComp = ({ content, image }) => {
 /* ------------------------------------------------------------------- */
 
 function WhyZesty({ content }) {
+  const theme = useTheme();
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
 
@@ -113,7 +114,7 @@ function WhyZesty({ content }) {
       setIsLoaded(false);
     }
   }, []);
-  const theme = useTheme();
+
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
       ? content.hybrid_vs_headless_content
@@ -124,19 +125,26 @@ function WhyZesty({ content }) {
       : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
 
   const headerProps = {
-    mainTitle: content?.header_title_main || FillerContent.header,
-    title: content?.header_title,
-    image: content?.header_image?.data && content?.header_image?.data[0]?.url,
-    description: content?.header_description,
-    cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
+    mainTitle: content.header_title_main || FillerContent.header,
+    title: content.header_title || FillerContent.header,
+    image:
+      (content.header_image?.data && content.header_image?.data[0]?.url) ||
+      FillerContent.image,
+    description: content.header_description || FillerContent.description,
+    cta_left:
+      (content.cta_left.data && content.cta_left?.data[0]?.button_text) ||
+      FillerContent.cta,
     cta_right:
-      content?.cta_right.data && content?.cta_right?.data[0]?.button_text,
+      (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
+      FillerContent.cta,
     cta_left_url:
-      content?.cta_left.data &&
-      content?.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+      (content.cta_left?.data &&
+        content.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url) ||
+      FillerContent.href,
     cta_right_url:
-      content?.cta_right.data &&
-      content?.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+      (content.cta_right.data &&
+        content.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url) ||
+      FillerContent.href,
   };
 
   return (
@@ -154,20 +162,24 @@ function WhyZesty({ content }) {
       {/* Overview of process */}
       <OverviewProcessComp
         image={
-          content?.overview_of_process_image.data &&
-          content?.overview_of_process_image.data[0].url
+          (content.overview_of_process_image.data &&
+            content.overview_of_process_image.data[0].url) ||
+          ''
         }
-        content={content?.overview_of_process_text}
+        content={content.overview_of_process_text || FillerContent.rich_text}
       />
 
       {/* Benefits */}
-      {content?.benefits?.data?.map((e, i) => {
+      {content.benefits?.data?.map((e, i) => {
         return (
           <FeaturesWithMobileScreenshot
             index={i}
-            content={e.benefit_content}
-            header={e.header}
-            image={e?.benefit_image?.data && e?.benefit_image?.data[0]?.url}
+            content={e.benefit_content || FillerContent.rich_text}
+            header={e.header || FillerContent.header}
+            image={
+              (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
+              FillerContent.image
+            }
           />
         );
       })}
@@ -180,6 +192,7 @@ function WhyZesty({ content }) {
         }}
       >
         <FeaturesWithIllustration
+          wysiwyig_type="icon-box"
           rich_text={overview_text}
           image_url={image_url}
         />
@@ -187,8 +200,8 @@ function WhyZesty({ content }) {
 
       {/* PROOF POINTS */}
       <WithBorderedCardsAndBrandColor
-        cards={content.proof_points.data}
-        content={content.proof_points_content}
+        cards={content.proof_points.data || FillerContent.emptyList}
+        content={content.proof_points_content || FillerContent.rich_text}
       />
 
       {/* CASE STUDY */}
@@ -199,20 +212,21 @@ function WhyZesty({ content }) {
           marginBottom: '4rem',
         }}
       >
-        {content?.case_study?.data?.map((e) => (
+        {content.case_study?.data?.map((e) => (
           <CtaWithCoverImage
-            key={e.title}
-            title={e.title}
-            summary={e.summary}
-            cta={e.cta}
-            cta_url={e.link}
-            image={e?.image?.data && e?.image?.data[0].url}
+            key={e.title || FillerContent.header}
+            title={e.title || FillerContent.header}
+            summary={e.summary || FillerContent.description}
+            cta={e.cta || FillerContent.cta}
+            cta_url={e.link || FillerContent.href}
+            image={
+              (e.image?.data && e.image?.data[0].url) || FillerContent.image
+            }
           />
         ))}
       </Box>
 
       {/* Industry Insights > Latest Blogs articles */}
-
       {isLoaded ? (
         <Box display="flex" justifyContent="center" alignItems="center">
           <CircularProgressWithLabel />

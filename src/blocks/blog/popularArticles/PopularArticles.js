@@ -74,9 +74,21 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
           <Box
             component={Button}
             variant="outlined"
-            color="primary"
+
             size="large"
             marginLeft={2}
+            color={theme.palette.zesty.zestyOrange}
+            borderColor={theme.palette.zesty.zestyOrange}
+            size="large"
+            marginLeft={2}
+            href={'customer-stories/'}
+            sx={{
+              '&:hover': {
+                borderColor: '#FF5D0A',
+                backgroundColor: '#FF5D0A',
+                color: 'white',
+              },
+            }}
           >
             {ctaBtn}
           </Box>

@@ -66,7 +66,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   // split the title from api by br tag for styling purposes
   const newTitle = title.split('<br/>');
   const title0 = newTitle && newTitle[0];
@@ -110,7 +110,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                   sx={{
                     margin: 0,
                     fontWeight: 700,
-                    fontSize: '60px',
+                    fontSize: isMobile ? '45px' : '60px',
                   }}
                 >
                   {title0}
@@ -123,7 +123,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                   sx={{
                     margin: 0,
                     fontWeight: 700,
-                    fontSize: '60px',
+                    fontSize: isMobile ? '45px' : '60px',
                   }}
                 >
                   {title1}
@@ -138,7 +138,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 sx={{
                   fontWeight: 700,
                   lineHeight: '3.5rem',
-                  fontSize: '60px',
+                  fontSize: isMobile ? '45px' : '60px',
                 }}
               >
                 {title2}

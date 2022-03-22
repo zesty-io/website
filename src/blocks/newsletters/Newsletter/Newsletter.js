@@ -1,10 +1,11 @@
 import React from 'react';
+import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FillerContent from 'components/FillerContent';
-import { useTheme } from '@mui/material/styles';
+
 
 const Newsletter = ({title, description, ctaBtn}) => {
   const theme = useTheme();
@@ -61,6 +62,7 @@ const Newsletter = ({title, description, ctaBtn}) => {
               component={Button}
               variant="contained"
               color="primary"
+              backgroundColor={theme.palette.zesty.zestyOrange}
               size="large"
               height={54}
               marginTop={{ xs: 2, md: 0 }}

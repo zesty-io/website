@@ -36,8 +36,10 @@ import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/system';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
+import FillerContent from 'components/FillerContent';
 
 function TechnologyOverview({ content }) {
+  const theme = useTheme();
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
   let zestyURL =
@@ -70,22 +72,27 @@ function TechnologyOverview({ content }) {
     }
   }, []);
 
-  const theme = useTheme();
-
   const headerProps = {
-    title: content?.title,
-    subtitle: content?.sub_title,
-    description: content?.header_description,
-    image: content?.header_image?.data && content?.header_image?.data[0]?.url,
-    cta_left: content?.cta_left.data && content?.cta_left?.data[0]?.button_text,
+    title: content.title || FillerContent.header,
+    subtitle: content.sub_title || FillerContent.description,
+    description: content.header_description || FillerContent.description,
+    image:
+      (content.header_image?.data && content.header_image?.data[0]?.url) ||
+      FillerContent.image,
+    cta_left:
+      (content.cta_left?.data && content.cta_left?.data[0]?.button_text) ||
+      FillerContent.cta,
     cta_right:
-      content?.cta_right?.data && content?.cta_right?.data[0]?.button_text,
+      (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
+      FillerContent.cta,
     cta_left_url:
-      content?.cta_left?.data &&
-      content?.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+      (content.cta_left?.data &&
+        content.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url) ||
+      FillerContent.cta,
     cta_right_url:
-      content?.cta_right.data &&
-      content?.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url,
+      (content.cta_right.data &&
+        content.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url) ||
+      FillerContent.cta,
   };
 
   return (
@@ -102,12 +109,13 @@ function TechnologyOverview({ content }) {
 
       {/* Key Features  */}
       <FeatureListWithDesktopAppScreenshot
-        header={content?.key_features_header}
+        header={content.key_features_header || FillerContent.header}
         image={
-          content?.key_features_image?.data &&
-          content?.key_features_image?.data[0]?.url
+          (content.key_features_image?.data &&
+            content.key_features_image?.data[0]?.url) ||
+          FillerContent.image
         }
-        content={content?.key_features_content}
+        content={content.key_features_content || FillerContent.rich_text}
       />
 
       {/* Benefits  */}
@@ -126,29 +134,31 @@ function TechnologyOverview({ content }) {
       >
         <FeaturesWithMobileScreenshot
           header={''}
-          content={content?.feature_list_content}
+          content={content.feature_list_content || FillerContent.rich_text}
           image={
-            content?.featured_image?.data &&
-            content?.featured_image?.data[0]?.url
+            (content.featured_image?.data &&
+              content.featured_image?.data[0]?.url) ||
+            FillerContent.image
           }
-          feature_list_h1={content?.feature_list_h1}
+          feature_list_h1={content.feature_list_h1 || FillerContent.header}
         />
       </Box>
 
       {/* Tech Icons */}
       <FeaturesWithCardRepresentation
-        cta={content?.cta}
-        cards={content?.tech_features_tiles?.data}
+        cta={content.cta || FillerContent.cta}
+        cards={content.tech_features_tiles?.data || FillerContent.featuresCards}
       />
 
       {/* Social Proof */}
       <WithCompanyLogo
-        header={content?.testimonials_h1}
+        header={content.testimonials_h1 || FillerContent.header}
         logo={
-          content?.testimonials_logo?.data &&
-          content?.testimonials_logo?.data[0]?.url
+          (content.testimonials_logo?.data &&
+            content.testimonials_logo?.data[0]?.url) ||
+          FillerContent.image
         }
-        content={content?.social_proof}
+        content={content?.social_proof || FillerContent.rich_text}
       />
 
       {/* Industry Insights > Latest Blogs articles */}
