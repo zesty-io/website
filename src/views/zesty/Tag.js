@@ -52,7 +52,6 @@ function Tag({ content }) {
   // Get card data based on author zuid  on page load
   useEffect(() => {
     fetchCardsData(uri, setCardData);
-    console.log(content);
   }, []);
 
   // fetch tagged articles
@@ -122,7 +121,6 @@ function Tag({ content }) {
     <>
       <SimpleHeroSolidBg
         title={content?.meta?.web?.seo_meta_title || FillerContent.header}
-        // description={content?.meta?.web?.seo_meta_description || '' }
        />
       <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
         <Result array={cardsData}
