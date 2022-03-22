@@ -158,7 +158,7 @@ const ContactUs = ({title, description}) => {
                   By clicking on "submit" you agree to our{' '}
                   <Box
                     component="a"
-                    href=""
+                    href="/legal/privacy-policy/"
                     color={theme.palette.text.primary}
                     fontWeight={'700'}
                   >
