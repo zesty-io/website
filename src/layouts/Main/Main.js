@@ -19,7 +19,6 @@ const Main = ({
   customRouting,
   colorInvert = false,
   bgcolor = 'transparent',
-  url = '',
   model=''
 }) => {
   const router = useRouter();
@@ -47,7 +46,7 @@ const Main = ({
     disableHysteresis: true,
     threshold: 38,
   });
-  
+
   // override over invert based on pages that we know have a dark image heading
   let headerColorInvert = colorInvert
   let pageNavColorRegex = new RegExp(/mindshare|article/gi);
@@ -60,9 +59,7 @@ const Main = ({
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
-          <TopNav
-            colorInvert={headerColorInvert}
-          />
+          <TopNav colorInvert={headerColorInvert} />
         </Container>
       </Box>
       <AppBar
@@ -77,7 +74,7 @@ const Main = ({
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
-            colorInvert={headerColorInvert}
+            colorInvert={headerColorInvert && !trigger}
           />
         </Container>
       </AppBar>

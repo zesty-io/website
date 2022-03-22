@@ -4,22 +4,11 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
 import { useMediaQuery } from '@mui/material';
 
-// const mock = {
-//   avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-//   name: 'Clara Bertoletti',
-//   isVerified: true,
-//   title: 'Paradigm Technician',
-//   followers: 84,
-//   href: '#',
-//   location: 'Milan, Italy',
-//   website: 'www.example.com',
-//   email: 'clara.bertoletti@example.com',
-// };
+
 
 const UserCardWithBackground = ({
   avatar,

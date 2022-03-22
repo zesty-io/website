@@ -25,10 +25,10 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
             clear:both;
             color: ${theme.palette.text.secondary};
         }
-        .wysiwyg , .wysiwyg  p { 
+        .wysiwyg , .wysiwyg  p {
           color: ${theme.palette.text.secondary};
         }
-        .wysiwyg strong, .wysiwyg h1, .wysiwyg h2, .wysiwyg h3,.wysiwyg h4,.wysiwyg h5,.wysiwyg h6 { 
+        .wysiwyg strong, .wysiwyg h1, .wysiwyg h2, .wysiwyg h3,.wysiwyg h4,.wysiwyg h5,.wysiwyg h6 {
           color: ${theme.palette.text.primary} !important;
         }
 
@@ -68,6 +68,7 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
             display: flex;
             border-radius: 5px;
             margin-right: 16px;
+            margin-bottom: 56px;
             margin-top: 5px;
             align-items:center;
             padding:.7rem;

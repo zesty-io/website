@@ -1,16 +1,11 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 
-
-
-const Partners = ({logoPartners}) => {
-
-
+const Partners = ({ logoPartners }) => {
   return (
     <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
       {logoPartners.map((item, i) => (
         <Box
-          maxWidth={{ xs: 80, sm: 90 }}
           marginTop={{ xs: 1 }}
           marginRight={{ xs: 3, sm: 6, md: 12 }}
           key={i}
@@ -21,7 +16,6 @@ const Partners = ({logoPartners}) => {
             width={1}
             src={item?.url}
             alt={item?.zuid}
-
           />
         </Box>
       ))}

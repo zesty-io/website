@@ -203,10 +203,11 @@ function WhyZesty({ content }) {
       >
         {content?.case_study?.data?.map((e) => (
           <CtaWithCoverImage
-            title={e?.title}
-            summary={e?.summary}
-            cta={e?.cta}
-            cta_url={e?.link}
+            key={e.title}
+            title={e.title}
+            summary={e.summary}
+            cta={e.cta}
+            cta_url={e.link}
             image={e?.image?.data && e?.image?.data[0].url}
           />
         ))}
@@ -224,6 +225,8 @@ function WhyZesty({ content }) {
             'Stay up-to-date with the latest in digital experience, content management and more.'
           }
           popularArticles={allArticles}
+          ctaBtn="Read more"
+          ctaUrl={/mindshare/}
         />
       )}
 
