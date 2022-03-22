@@ -43,6 +43,9 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
            .hybridList > span {
              margin-bottom: 0;
            }
+          .keyFeatures_list > div {
+             margin-bottom: 5rem !important;
+           }
          }
         @media (min-width:601px) and (max-width: 4096px) {
           .wysiwyg .icon-box {
@@ -54,6 +57,9 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
            }
            .hybridList > span {
              margin-bottom: 1.5rem;
+           }
+          .keyFeatures_list > div {
+             margin-bottom: 0rem;
            }
         }
         .wysiwyg .icon-box {
