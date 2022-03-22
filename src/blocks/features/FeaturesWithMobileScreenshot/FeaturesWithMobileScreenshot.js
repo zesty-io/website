@@ -38,7 +38,7 @@ const FeaturesWithMobileScreenshot = ({
       <Grid
         display={'flex'}
         flexDirection={
-          isMobile ? 'column-reverse' : index !== 1 ? 'row' : 'row-reverse'
+          isMobile ? 'column' : index !== 1 ? 'row' : 'row-reverse'
         }
         container
         spacing={4}
@@ -51,7 +51,6 @@ const FeaturesWithMobileScreenshot = ({
           md={6}
           order={{ xs: 3, sm: 2 }}
         >
-
           <Box>
             <Box marginBottom={2}>
               <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>

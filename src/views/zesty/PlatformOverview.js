@@ -261,8 +261,9 @@ function PlatformOverview({ content }) {
           }}
         >
           <ProductOverviewComp
-            benefits_title_h2={content?.benefits_title_h2}
-            title={''}
+            benefits_title_h2={
+              content?.benefits_title_h2 || FillerContent.header
+            }
             cards={content?.platform_overview_cards?.data}
           />
         </Box>
