@@ -10,7 +10,7 @@ import Container from 'components/Container';
 
 import TryFreeButton from 'components/cta/TryFreeButton';
 
-const Hero = ({title, subtitle, description, secondaryCTA}) => {
+const Hero = ({title, subtitle, description, secondaryCTA, secondaryCtaLink}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -67,7 +67,13 @@ const Hero = ({title, subtitle, description, secondaryCTA}) => {
           alignItems={{ xs: 'stretched', sm: 'center' }}
           justifyContent={'center'}
         >
-          <TryFreeButton />
+          <TryFreeButton
+            component={'a'}
+            variant="contained"
+            color="secondary"
+            size="large"
+            fullWidth={isMd ? false : true}
+             />
           <Box
             marginTop={{ xs: 2, sm: 0 }}
             marginLeft={{ sm: 2 }}
@@ -75,9 +81,9 @@ const Hero = ({title, subtitle, description, secondaryCTA}) => {
           >
             <Button
               component={'a'}
-              href={'https://www.zesty.org'}
+              href={secondaryCtaLink}
               variant="outlined"
-              color="primary"
+              color="secondary"
               size="large"
               fullWidth={isMd ? false : true}
             >

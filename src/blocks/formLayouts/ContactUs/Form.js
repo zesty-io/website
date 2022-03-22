@@ -149,11 +149,6 @@ const ContactUs = ({title, description}) => {
                 Submit
               </Button>
             </Grid>
-            <Grid item container justifyContent={'center'} xs={12}>
-              <Typography color="text.secondary">
-                We'll get back to you in 1-2 business days.
-              </Typography>
-            </Grid>
             <Grid item xs={12}>
               <Divider />
             </Grid>
@@ -168,24 +163,6 @@ const ContactUs = ({title, description}) => {
                     fontWeight={'700'}
                   >
                     Privacy Policy
-                  </Box>
-                  ,{' '}
-                  <Box
-                    component="a"
-                    href=""
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}
-                  >
-                    Data Policy
-                  </Box>{' '}
-                  and{' '}
-                  <Box
-                    component="a"
-                    href=""
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}
-                  >
-                    Cookie Policy
                   </Box>
                   .
                 </Typography>
