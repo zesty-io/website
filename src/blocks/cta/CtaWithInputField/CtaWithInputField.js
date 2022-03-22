@@ -53,6 +53,7 @@ const CtaWithInputField = ({ title, description, cta }) => {
           component={Button}
           variant="contained"
           color="primary"
+          backgroundColor={theme.palette.secondary.main}
           size="large"
           fullWidth={isSm ? false : true}
           marginTop={{ xs: 2, sm: 0 }}

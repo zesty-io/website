@@ -66,7 +66,7 @@ const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hide
                         stroke="currentColor"
                         width={24}
                         height={24}
-                        color={'primary.main'}
+                        color={'secondary.main'}
                       >
                         <path
                           strokeLinecap="round"
@@ -93,7 +93,8 @@ const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hide
               <Button
                 sx={{ height: 54, minWidth: 100, whiteSpace: 'nowrap' }}
                 variant="contained"
-                color="primary"
+                color="secondary"
+                backgroundColor={theme.palette.secondary.main}
                 size="medium"
                 fullWidth
                 type='submit'
