@@ -56,7 +56,7 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
              align-items: center !important;
            }
            .hybridList > span {
-             margin-bottom: 1.5rem;
+             margin-bottom: 3rem;
            }
           .keyFeatures_list > div {
              margin-bottom: 0rem;
