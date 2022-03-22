@@ -211,4 +211,5 @@ export default {
       ],
     },
   ],
+  team_member: 'https://www.clipartmax.com/png/small/303-3035057_customer-service-executive-team-placeholder.png'
 };

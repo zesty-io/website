@@ -10,6 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import Container from 'components/Container';
+import FillerContent from 'components/FillerContent';
 
 const mock = [
   {
@@ -105,7 +106,7 @@ const TeamWithSmallSquarePhotos = ({eyebrow, title, team}) => {
                 <ListItem component="div" disableGutters sx={{ padding: 0 }}>
                   <ListItemAvatar sx={{ marginRight: 3 }}>
                     <Avatar
-                      src={item.headshot.data[0].url}
+                      src={item.headshot?.data[0]?.url || FillerContent.team_member}
                       variant={'rounded'}
                       sx={{ width: 100, height: 100, borderRadius: 2 }}
                     />
