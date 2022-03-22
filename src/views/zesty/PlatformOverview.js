@@ -252,7 +252,7 @@ function PlatformOverview({ content }) {
 
       {/* Features */}
       <FeaturesWithCardRepresentation
-        description={content?.features_header}
+        description={content?.features_header || FillerContent.rich_text}
         cards={content?.features_tiles?.data}
       />
 

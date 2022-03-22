@@ -10,81 +10,93 @@ export default {
   missingDataArray: ['Missing', 'Data', 'In', 'The', 'Manager', 'UI'],
   photos: [
     {
-      src: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
+      src: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+      source:
+        'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
       rows: 1,
       cols: 2,
     },
     {
-      src: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
+      src: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+      source:
+        'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
       rows: 1,
       cols: 1,
     },
     {
-      src: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
+      src: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+      source:
+        'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
       rows: 1,
       cols: 1,
     },
     {
-      src: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
+      src: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+      source:
+        'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
       rows: 1,
       cols: 2,
     },
   ],
   logos: [
-    { url: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg' },
-    { url: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg' },
-    { url: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg' },
     {
-      url: 'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
     },
-    { url: 'https://assets.maccarianagency.com/svg/logos/google-original.svg' },
-    { url: 'https://assets.maccarianagency.com/svg/logos/paypal-original.svg' },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
   ],
 
   authors: [
     {
       name: 'Missing name, Edit in CMS ',
       title: 'Missing title, Edit in CMS',
-      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
       name: 'Missing name, Edit in CMS ',
       title: 'Missing title, Edit in CMS',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
       name: 'Missing name, Edit in CMS ',
       title: 'Missing title, Edit in CMS',
-      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
       name: 'Missing name, Edit in CMS ',
       title: 'Missing title, Edit in CMS',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
       name: 'Missing name, Edit in CMS ',
       title: 'Missing title, Edit in CMS',
-      avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
       name: 'Missing name, Edit in CMS ',
       title: 'Missing title, Edit in CMS',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
   ],
   demos: [
     {
       title: 'Missing title, Edit in CMS',
       description: 'Missing description, Edit in CMS',
-      illustration:
-        'https://assets.maccarianagency.com/screenshots/the-front-main-demo.png',
-      illustrationDark:
-        'https://assets.maccarianagency.com/screenshots/the-front-main-demo--dark.png',
+      illustration: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
+      illustrationDark: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
       href: '/home',
       pages: 53,
       btnText: 'Preview Main Demo',
@@ -93,10 +105,8 @@ export default {
     {
       title: 'Missing title, Edit in CMS',
       description: 'Missing description, Edit in CMS',
-      illustration:
-        'https://assets.maccarianagency.com/screenshots/the-front-ecommerce-demo.png',
-      illustrationDark:
-        'https://assets.maccarianagency.com/screenshots/the-front-ecommerce-demo--dark.png',
+      illustration: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
+      illustrationDark: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
       href: '/demos/ecommerce',
       pages: 9,
       btnText: 'Preview E-commerce Demo',
@@ -104,13 +114,13 @@ export default {
     },
   ],
   mobileImage: {
-    light: 'https://assets.maccarianagency.com/screenshots/crypto-mobile.png',
-    dark: 'https://assets.maccarianagency.com/screenshots/crypto-mobile--dark.png',
+    light: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+    dark: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
   },
   illustration_image:
-    'https://pzcvtc6b.media.zestyio.com/content-management.png',
+    'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
   dashboard_image:
-    'https://assets.maccarianagency.com/screenshots/dashboard.png',
+    'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
   breadcrumb: [
     {
       href: '#',
@@ -125,55 +135,34 @@ export default {
   ],
   clientCards: [
     {
-      logo: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
+      logo: 'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
       summary: 'Missing summary, Edit in CMS',
     },
     {
-      logo: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
+      logo: 'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
       summary: 'Missing summary, Edit in CMS',
     },
     {
-      logo: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
+      logo: 'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
       summary: 'Missing summary, Edit in CMS',
     },
   ],
-  category_fallback_image: 'https://kfg6bckb.media.zestyio.com/newsroom.jpg',
+  category_fallback_image:
+    'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
   slantedImagesList_for_header: [
     {
       group: [
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img1.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img1--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img4.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img4--dark.png',
-        },
-      ],
-    },
-    {
-      group: [
-        {
-          cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img13.png',
-          coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img13--dark.png',
-        },
-        {
-          cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img10.png',
-          coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img10--dark.png',
-        },
-        {
-          cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img7.png',
-          coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img7--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
       ],
     },
@@ -181,27 +170,49 @@ export default {
       group: [
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img6.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img6--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img24.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img24--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img17.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img17--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
+        },
+      ],
+    },
+    {
+      group: [
+        {
+          cover:
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
+          coverDark:
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img12.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img12--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
+        },
+        {
+          cover:
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
+          coverDark:
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
+        },
+        {
+          cover:
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
+          coverDark:
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
       ],
     },
@@ -212,26 +223,26 @@ export default {
       title: 'Missing Content, Edit in CMS',
       description: 'Missing Content, Edit in CMS',
       illustration:
-        'https://assets.maccarianagency.com/svg/illustrations/illustration4.svg',
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
       illustrationDark:
-        'https://assets.maccarianagency.com/svg/illustrations/illustration4--dark.svg',
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
     },
     {
       title: 'Missing Content, Edit in CMS',
       description: 'Missing Content, Edit in CMS',
       illustration:
-        'https://assets.maccarianagency.com/svg/illustrations/illustration1.svg',
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
       illustrationDark:
-        'https://assets.maccarianagency.com/svg/illustrations/illustration1--dark.svg',
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
     },
     {
       title: 'Missing Content, Edit in CMS',
       description: 'Missing Content, Edit in CMS',
       label: 'Missing Content, Edit in CMS',
       illustration:
-        'https://assets.maccarianagency.com/svg/illustrations/illustration2.svg',
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
       illustrationDark:
-        'https://assets.maccarianagency.com/svg/illustrations/illustration2--dark.svg',
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
     },
   ],
 };
