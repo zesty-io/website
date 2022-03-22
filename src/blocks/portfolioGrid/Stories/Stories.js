@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
+import { useRouter } from 'next/router';
 
 import FillerContent from 'components/FillerContent';
 
@@ -16,7 +17,8 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
 
   const theme = useTheme();
   const { mode } = theme.palette;
-
+const router = useRouter();
+console.log(router.asPath)
   return (
     <Box>
       <Box marginBottom={4}>
@@ -26,7 +28,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
             fontWeight: 'medium',
           }}
           gutterBottom
-          color={'secondary'}
+          color={router.asPath === '/' ? theme.palette.zesty.zestyGrey : 'secondary'}
           align={'center'}
         >
           {eyeBrow}
@@ -34,7 +36,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
         <Box
           component={Typography}
           fontWeight={700}
-          variant={'h3'}
+          variant={ router.asPath === '/' ? 'h4' : 'h3'}
           align={'center'}
         >
           {/* <br/> tag inject in field */}
@@ -83,7 +85,11 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
                       component="img"
                       height={1}
                       width={1}
-                      src={ item.logo !== "" ? item?.logo?.data[0]?.url : FillerContent.image}
+                      src={
+                        item.logo !== ''
+                          ? item?.logo?.data[0]?.url
+                          : FillerContent.image
+                      }
                       alt={item?.title}
                       sx={{
                         filter: mode === 'dark' ? 'contrast(0)' : 'none',
@@ -120,7 +126,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
                       </svg>
                     }
                   >
-                  {item.cta ? item?.cta : ""}
+                    {item.cta ? item?.cta : ''}
                   </Button>
                 </Box>
               </Box>
