@@ -103,20 +103,6 @@ const SimpleVerticalBlogCards = ({
                       alignItems: 'center',
                     }}
                   >
-                    {/* <Box
-                      display={'flex'}
-                      justifyContent={'center'}
-                      flexWrap={'wrap'}
-                    >
-                      {item?.tags?.map((item) => (
-                        <Chip
-                          key={item}
-                          label={item}
-                          size={'small'}
-                          sx={{ marginBottom: 1, marginRight: 1 }}
-                        />
-                      ))}
-                    </Box> */}
                     <Typography
                       variant={'h6'}
                       fontWeight={700}
@@ -143,14 +129,6 @@ const SimpleVerticalBlogCards = ({
             </Grid>
           ))}
         </Grid>
-        {/* <Box>
-            <Typography fontWeight={700} variant={'h6'} gutterBottom>
-              Latest stories
-            </Typography>
-            <Typography color={'text.secondary'}>
-              Here’s what we’ve been up to recently.
-            </Typography>
-          </Box> */}
         <Box
           display="flex"
           width={1}
@@ -158,14 +136,14 @@ const SimpleVerticalBlogCards = ({
           marginTop={{ xs: 2, md: 4 }}
         >
           <Box
-            href="/mindshare"
+            href={cta_url || '/mindshare'}
             component={Button}
             variant="contained"
             color="primary"
             size="large"
             marginLeft={2}
           >
-            read more
+            {cta || 'Read More'}
           </Box>
         </Box>
       </Box>
