@@ -59,8 +59,8 @@ const Footer = ({customRouting,colorInvert = false }) => {
                 {route.children.sort((a, b) => a.sort - b.sort).map(childLink => (
 
                   <Box key={route.zuid} marginBottom={1}>
-                    <Link 
-                      title={childLink.title} 
+                    <Link
+                      title={childLink.title}
                       href={childLink.url}
                       component="a"
                       underline="hover"
@@ -104,7 +104,7 @@ const Footer = ({customRouting,colorInvert = false }) => {
           <Typography marginLeft={1} variant="string" marginRight={1}>|</Typography>
           <Link underline="none" href="/legal/end-user-license-agreement/">Terms</Link>
         </Typography>
-      
+
       </Grid>
         </Grid>
       </Container>
