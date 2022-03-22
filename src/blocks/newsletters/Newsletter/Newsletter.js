@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FillerContent from 'components/FillerContent';
-import { useTheme } from '@mui/material/styles';
+
 
 const Newsletter = ({title, description, ctaBtn}) => {
   const theme = useTheme();
