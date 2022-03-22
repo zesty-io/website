@@ -37,125 +37,151 @@ import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAli
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField';
 import FillerContent from 'components/FillerContent';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
-const mock = [
-  {
-    title: 'Your brand platform',
-    description:
-      'Monetize your website and manage all guest interactions with your own brand, logo and domains.',
-    illustration:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration4.svg',
-    illustrationDark:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration4--dark.svg',
-  },
-  {
-    title: 'Mobile compatible platform',
-    description:
-      'Introduce your brand-new mobile friendly website to your customers. Seamlessly integrates with WiFi hardware and marketing automation software.',
-    illustration:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration1.svg',
-    illustrationDark:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration1--dark.svg',
-  },
-  {
-    label: 'Client portal access',
-    title: 'Simple customer dashboards',
-    description:
-      'Give sub-users access to a simplified dashboard with limited permission levels to offer remote management and real-time analytics.',
-    illustration:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration2.svg',
-    illustrationDark:
-      'https://assets.maccarianagency.com/svg/illustrations/illustration2--dark.svg',
-  },
-];
+import { useMediaQuery } from '@mui/material';
+import WYSIWYGRender from 'components/WYSIWYGRender';
 
-const ProductOverviewComp = ({ cards, benefits_title_h2 }) => {
-  const theme = useTheme();
-  const cardsList = cards || mock;
+const ProductOverviewHeader = ({ header }) => {
   return (
     <Container>
-      <Box>
-        <Box
-          marginBottom={6}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography
-            variant={'h2'}
-            gutterBottom
-            sx={{ fontWeight: 700 }}
-            align={'center'}
-          >
-            {benefits_title_h2}
-          </Typography>
-        </Box>
-        <Grid container spacing={4}>
-          {cardsList?.map((item, i) => (
-            <Grid
-              data-aos="fade-up"
-              data-aos-delay={i * 100}
-              data-aos-offset={100}
-              data-aos-duration={600}
-              key={i}
-              item
-              container
-              xs={12}
-              spacing={4}
-              direction={i % 2 === 1 ? 'row-reverse' : 'row'}
-            >
-              <Grid item container alignItems={'center'} xs={12} sm={6}>
-                <Box>
-                  <Typography
-                    variant={'h3'}
-                    gutterBottom
-                    sx={{ fontWeight: 700 }}
-                  >
-                    {item.header || item.title}
-                  </Typography>
-                  <Typography
-                    color={'text.secondary'}
-                    fontWeight={400}
-                    variant={'body1'}
-                  ></Typography>
-                  <Typography color="text.secondary">
-                    <Box
-                      dangerouslySetInnerHTML={{
-                        __html: item.content || item.description,
-                      }}
-                    />
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid
-                item
-                container
-                justifyContent={'center'}
-                alignItems={'center'}
-                xs={12}
-                sm={6}
-              >
-                <Box
-                  component={'img'}
-                  src={
-                    (item?.image?.data && item?.image?.data[0]?.url) ||
-                    FillerContent.illustration_image
-                  }
-                  alt={item.header || item.title}
-                  width={1}
-                  maxWidth={'80%'}
-                />
-              </Grid>
-            </Grid>
-          ))}
-        </Grid>
+      <Box marginBottom={4}>
+        <Typography variant="p" align={'center'}>
+          <WYSIWYGRender
+            rich_text={header}
+            customClass="solutionBox"
+          ></WYSIWYGRender>
+        </Typography>
+
+        <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
       </Box>
     </Container>
   );
 };
 
+const ProductOverviewBody = ({ cards, header }) => {
+  const theme = useTheme();
+  const cardsList = cards || FillerContent.platformCard;
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  return (
+    <Box
+      sx={{
+        backgroundColor: theme.palette.alternate.main,
+      }}
+    >
+      <Container>
+        <Box>
+          <Box
+            marginBottom={6}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Typography
+              variant={'h2'}
+              gutterBottom
+              sx={{ fontWeight: 700 }}
+              align={'center'}
+            >
+              {header}
+            </Typography>
+          </Box>
+          <Grid container spacing={4}>
+            {cardsList?.map((item, i) => (
+              <Grid
+                data-aos="fade-up"
+                data-aos-delay={i * 100}
+                data-aos-offset={100}
+                data-aos-duration={600}
+                key={i}
+                item
+                container
+                xs={12}
+                spacing={4}
+                direction={i % 2 === 1 ? 'row-reverse' : 'row'}
+              >
+                {/* show only if mobile image on top of text */}
+                {isMobile && (
+                  <Grid
+                    item
+                    container
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    xs={12}
+                    sm={6}
+                  >
+                    <Box
+                      component={'img'}
+                      src={
+                        (item?.image?.data && item?.image?.data[0]?.url) ||
+                        FillerContent.illustration_image
+                      }
+                      alt={item.header || item.title}
+                      width={1}
+                      maxWidth={'80%'}
+                    />
+                  </Grid>
+                )}
+
+                <Grid item container alignItems={'center'} xs={12} sm={6}>
+                  <Box>
+                    <Typography
+                      variant={'h3'}
+                      gutterBottom
+                      sx={{ fontWeight: 700 }}
+                    >
+                      {item.header || item.title}
+                    </Typography>
+                    <Typography
+                      color={'text.secondary'}
+                      fontWeight={400}
+                      variant={'body1'}
+                    ></Typography>
+                    <Typography color="text.secondary">
+                      <Box
+                        dangerouslySetInnerHTML={{
+                          __html: item.content || item.description,
+                        }}
+                      />
+                    </Typography>
+                  </Box>
+                </Grid>
+
+                {/* show only in Desktop alternate image and text left right arrangement  */}
+                {!isMobile && (
+                  <Grid
+                    item
+                    container
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    xs={12}
+                    sm={6}
+                  >
+                    <Box
+                      component={'img'}
+                      src={
+                        (item?.image?.data && item?.image?.data[0]?.url) ||
+                        FillerContent.illustration_image
+                      }
+                      alt={item.header || item.title}
+                      width={1}
+                      maxWidth={'80%'}
+                    />
+                  </Grid>
+                )}
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
 function PlatformOverview({ content }) {
+  const theme = useTheme();
   const [isLoaded, setIsLoaded] = useState(true);
   const [allArticles, setAllArticles] = useState([]);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   let zestyURL =
     (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
@@ -186,25 +212,25 @@ function PlatformOverview({ content }) {
       setIsLoaded(false);
     }
   }, []);
-  const theme = useTheme();
+
   const headerProps = {
-    title: content?.title || FillerContent.header,
-    description: content?.header_description || FillerContent.description,
-    h1_title: content?.h1_title || FillerContent.header,
-    images: content?.header_image?.data || FillerContent.image,
+    title: content.title || FillerContent.header,
+    description: content.header_description || FillerContent.description,
+    h1_title: content.h1_title || FillerContent.header,
+    images: content.header_image?.data || FillerContent.image,
     cta_left:
-      (content?.cta_left?.data && content?.cta_left?.data[0]?.button_text) ||
+      (content.cta_left?.data && content.cta_left?.data[0]?.button_text) ||
       FillerContent.header,
     cta_right:
-      (content?.cta_right?.data && content?.cta_right?.data[0]?.button_text) ||
+      (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
       FillerContent.header,
     cta_left_url:
-      (content?.cta_left?.data &&
-        content?.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      (content.cta_left?.data &&
+        content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
       FillerContent.header,
     cta_right_url:
-      (content?.cta_right?.data &&
-        content?.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      (content.cta_right?.data &&
+        content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
       FillerContent.header,
   };
 
@@ -215,52 +241,39 @@ function PlatformOverview({ content }) {
 
       {/* Product Overview  */}
       <>
-        <Container>
-          <Box marginBottom={4}>
-            <Typography variant="p" sx={{ fontWeight: 400 }} align={'center'}>
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: content?.benefits_header || FillerContent.header,
-                }}
-              ></Box>
-            </Typography>
-
-            <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
-          </Box>
-        </Container>
-        <Box
-          sx={{
-            backgroundColor: theme.palette.alternate.main,
-          }}
-        >
-          <ProductOverviewComp
-            benefits_title_h2={content?.benefits_title_h2}
-            title={''}
-            cards={content?.platform_overview_cards?.data}
-          />
-        </Box>
+        <ProductOverviewHeader
+          header={content.benefits_header || FillerContent.rich_text}
+        />
+        <ProductOverviewBody
+          header={content.benefits_title_h2 || FillerContent.header}
+          cards={
+            content.platform_overview_cards?.data || FillerContent.platformCard
+          }
+        />
       </>
 
       {/* Features */}
       <FeaturesWithCardRepresentation
-        description={content?.features_header}
-        cards={content?.features_tiles?.data}
+        description={content.features_header || FillerContent.rich_text}
+        cards={content.features_tiles?.data || FillerContent.featuresCards}
       />
 
       {/* Case Study  */}
       <SimpleVerticalBlogCards
-        header={content?.case_studies_header}
-        cards={content?.case_studies?.data}
-        cta={content?.cta.data && content?.cta?.data[0].button_text}
+        header={content.case_studies_header || FillerContent.header}
+        cards={content.case_studies?.data || FillerContent.simpleCards}
+        cta={
+          (content.cta?.data && content.cta?.data[0]?.button_text) ||
+          FillerContent.cta
+        }
         cta_url={
-          content?.cta.data &&
-          content?.cta?.data[0].internal_link.data[0].meta.web.url
+          (content.cta?.data &&
+            content.cta?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+          FillerContent.href
         }
       />
 
-
       {/* Industry Insights > Latest Blogs articles */}
-
       {isLoaded ? (
         <Box display="flex" justifyContent="center" alignItems="center">
           <CircularProgressWithLabel />
@@ -285,11 +298,6 @@ function PlatformOverview({ content }) {
         }
         cta={'Subscribe'}
       />
-      {/*<div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                 <h2>Accessible Zesty.io JSON Object</h2>
-                 <pre>{JSON.stringify(content, null, 2)}</pre>
-             </div>
-                     */}
     </>
   );
 }

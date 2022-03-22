@@ -10,95 +10,103 @@ export default {
   missingDataArray: ['Missing', 'Data', 'In', 'The', 'Manager', 'UI'],
   photos: [
     {
-      src: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
+      src: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+      source:
+        'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
       rows: 1,
       cols: 2,
     },
     {
-      src: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img22.jpg',
+      src: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+      source:
+        'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
       rows: 1,
       cols: 1,
     },
     {
-      src: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
+      src: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+      source:
+        'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
       rows: 1,
       cols: 1,
     },
     {
-      src: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
-      source: 'https://assets.maccarianagency.com/backgrounds/img21.jpg',
+      src: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+      source:
+        'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
       rows: 1,
       cols: 2,
     },
   ],
   logos: [
-    { url: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg' },
-    { url: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg' },
-    { url: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg' },
     {
-      url: 'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
     },
-    { url: 'https://assets.maccarianagency.com/svg/logos/google-original.svg' },
-    { url: 'https://assets.maccarianagency.com/svg/logos/paypal-original.svg' },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
+    {
+      url: 'https://zestyio.media.zestyio.com/zesty-io-horizontal-logo.HJGR96BA3e.png',
+    },
   ],
 
   authors: [
     {
-      name: 'Clara Bertoletti',
-      title: 'MUI lover',
-      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
-      name: 'Jhon Anderson',
-      title: 'Senior Frontend Developer',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
-      name: 'Chary Smith',
-      title: 'SEO at Comoti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
-      name: 'Clara Bertoletti',
-      title: 'MUI lover',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
-      name: 'Jhon Anderson',
-      title: 'Senior Frontend Developer',
-      avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
     {
-      name: 'Chary Smith',
-      title: 'SEO at Comoti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
+      name: 'Missing name, Edit in CMS ',
+      title: 'Missing title, Edit in CMS',
+      avatar: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
     },
   ],
   demos: [
     {
-      title: 'Main Demo',
-      description:
-        'Main demo comes with 18 landing pages, including over 35 commonly used pages that can be combined with demos.',
-      illustration:
-        'https://assets.maccarianagency.com/screenshots/the-front-main-demo.png',
-      illustrationDark:
-        'https://assets.maccarianagency.com/screenshots/the-front-main-demo--dark.png',
+      title: 'Missing title, Edit in CMS',
+      description: 'Missing description, Edit in CMS',
+      illustration: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
+      illustrationDark: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
       href: '/home',
       pages: 53,
       btnText: 'Preview Main Demo',
       bgcolor: 'blue',
     },
     {
-      title: 'E-Commerce Demo',
-      description:
-        'Everything you need to build beautiful, responsive, fully coded e-commerce websites and shop applications.',
-      illustration:
-        'https://assets.maccarianagency.com/screenshots/the-front-ecommerce-demo.png',
-      illustrationDark:
-        'https://assets.maccarianagency.com/screenshots/the-front-ecommerce-demo--dark.png',
+      title: 'Missing title, Edit in CMS',
+      description: 'Missing description, Edit in CMS',
+      illustration: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
+      illustrationDark: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
       href: '/demos/ecommerce',
       pages: 9,
       btnText: 'Preview E-commerce Demo',
@@ -106,13 +114,13 @@ export default {
     },
   ],
   mobileImage: {
-    light: 'https://assets.maccarianagency.com/screenshots/crypto-mobile.png',
-    dark: 'https://assets.maccarianagency.com/screenshots/crypto-mobile--dark.png',
+    light: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+    dark: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
   },
   illustration_image:
-    'https://pzcvtc6b.media.zestyio.com/content-management.png',
+    'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
   dashboard_image:
-    'https://assets.maccarianagency.com/screenshots/dashboard.png',
+    'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
   breadcrumb: [
     {
       href: '#',
@@ -127,36 +135,34 @@ export default {
   ],
   clientCards: [
     {
-      logo: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
-      summary:
-        'Find adventures nearby or in faraway places and access unique homes, experiences, and places around the world.',
+      logo: 'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
+      summary: 'Missing summary, Edit in CMS',
     },
     {
-      logo: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
-      summary:
-        "Free delivery on millions of items with Prime. Low prices across earth's biggest selection of books, music, DVDs, electronics, computers, software",
+      logo: 'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
+      summary: 'Missing summary, Edit in CMS',
     },
     {
-      logo: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
-      summary:
-        "Find your fit with Fitbit's family of fitness products that help you stay motivated and improve your health by tracking your activity, exercise.",
+      logo: 'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
+      summary: 'Missing summary, Edit in CMS',
     },
   ],
-  category_fallback_image: 'https://kfg6bckb.media.zestyio.com/newsroom.jpg',
+  category_fallback_image:
+    'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
   slantedImagesList_for_header: [
     {
       group: [
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img1.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img1--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img4.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img4--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
       ],
     },
@@ -164,21 +170,21 @@ export default {
       group: [
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img13.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img13--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img10.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img10--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img7.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img7--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
       ],
     },
@@ -186,29 +192,212 @@ export default {
       group: [
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img6.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img6--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img24.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img24--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img17.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img17--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
         {
           cover:
-            'https://assets.maccarianagency.com/screenshots/the-front/img12.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
           coverDark:
-            'https://assets.maccarianagency.com/screenshots/the-front/img12--dark.png',
+            'https://zestyio.media.zestyio.com/content-dashboard.SkMBeAH0hx.png',
         },
       ],
+    },
+  ],
+
+  platformCard: [
+    {
+      title: 'Missing Content, Edit in CMS',
+      description: 'Missing Content, Edit in CMS',
+      illustration:
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+      illustrationDark:
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+    },
+    {
+      title: 'Missing Content, Edit in CMS',
+      description: 'Missing Content, Edit in CMS',
+      illustration:
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+      illustrationDark:
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+    },
+    {
+      title: 'Missing Content, Edit in CMS',
+      description: 'Missing Content, Edit in CMS',
+      label: 'Missing Content, Edit in CMS',
+      illustration:
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+      illustrationDark:
+        'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+    },
+  ],
+  emptyList: [],
+
+  simpleCards: [
+    {
+      image: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+      title: 'Missing Content, Edit in CMS',
+      description: 'Missing Content, Edit in CMS',
+      tags: ['Missing Tags Edit in CMS'],
+      author: {
+        name: 'Missing Content , Edit in Cms ',
+        avatar: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+      },
+      date: 'Missing Date Edit in Cms ',
+    },
+    {
+      image: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+      title: 'Missing Content, Edit in CMS',
+      description: 'Missing Content, Edit in CMS',
+      tags: ['Missing Tags Edit in CMS'],
+      author: {
+        name: 'Missing Content , Edit in Cms ',
+        avatar: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
+      },
+      date: 'Missing Date Edit in Cms ',
+    },
+  ],
+
+  featuresCards: [
+    {
+      title: 'Missing Content Edit in CMS ',
+      subtitle: 'Missong Content Edit in CMS',
+      icon: (
+        <svg
+          height={24}
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'Missing Content Edit in CMS ',
+      subtitle: 'Missong Content Edit in CMS',
+      icon: (
+        <svg
+          height={24}
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'Missing Content Edit in CMS ',
+      subtitle: 'Missong Content Edit in CMS',
+      icon: (
+        <svg
+          height={24}
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'Missing Content Edit in CMS ',
+      subtitle: 'Missong Content Edit in CMS',
+      icon: (
+        <svg
+          height={24}
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'Missing Content Edit in CMS ',
+      subtitle: 'Missong Content Edit in CMS',
+      icon: (
+        <svg
+          height={24}
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'Missing Content Edit in CMS ',
+      subtitle: 'Missong Content Edit in CMS',
+      icon: (
+        <svg
+          height={24}
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+          />
+        </svg>
+      ),
     },
   ],
 };
