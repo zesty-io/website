@@ -5,12 +5,13 @@ import { useTheme } from '@mui/material/styles';
 export default function WYSIWYGRender({ rich_text, customClass = '' }) {
   const theme = useTheme();
   // this dyanmically replaces text for icons like ICON_check with the material markup
-  if (rich_text !== null && rich_text.match('ICON_')) {
+  if (rich_text !== null && String(rich_text).match('ICON_')) {
     rich_text = rich_text.replace(
       /ICON_([a-z_]+)( |&nbsp;)/gis,
       '<div class="icon-box"><span class="material-icons">$1</span></div>',
     );
   }
+
   let inlineStyles = `
         .wysiwyg ul {
             padding-left: 0px;
@@ -46,6 +47,18 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           .keyFeatures_list > div {
              margin-bottom: 5rem !important;
            }
+          .wysiwyg.solutionBox > p:first-child {
+             color: black;
+            font-weight: 700;
+            font-size: 40px;
+          }
+          .wysiwyg.solutionBox > p:nth-child(3),
+          .wysiwyg.solutionBox > p:nth-child(4),
+          .wysiwyg.solutionBox > p:nth-child(5) {
+            font-weight: 400;
+            font-size: 20px;
+           }
+
          }
         @media (min-width:601px) and (max-width: 4096px) {
           .wysiwyg .icon-box {
@@ -61,7 +74,20 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           .keyFeatures_list > div {
              margin-bottom: 0rem;
            }
-        }
+          .wysiwyg.solutionBox > p:first-child {
+             color: black;
+            font-weight: 700;
+            font-size: 49px;
+          }
+          .wysiwyg.solutionBox > p:nth-child(3),
+          .wysiwyg.solutionBox > p:nth-child(4),
+          .wysiwyg.solutionBox > p:nth-child(5) {
+            font-weight: 400;
+            font-size: 32px;
+           }
+
+          }
+
         .wysiwyg .icon-box {
             float:left;
             background: ${theme.palette.zesty.zestyWhiteBlue};

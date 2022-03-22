@@ -38,33 +38,17 @@ import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField';
 import FillerContent from 'components/FillerContent';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
+import WYSIWYGRender from 'components/WYSIWYGRender';
 
-const ProductOverviewHeader = ({ header, isMobile }) => {
-  const headerMain = header?.split('<p><brake></brake></p>');
+const ProductOverviewHeader = ({ header }) => {
   return (
     <Container>
       <Box marginBottom={4}>
-        <Typography
-          variant="p"
-          sx={{ fontWeight: 700, fontSize: isMobile ? '40px' : '49px' }}
-          align={'center'}
-        >
-          <Box
-            dangerouslySetInnerHTML={{
-              __html: headerMain && headerMain[0],
-            }}
-          ></Box>
-        </Typography>
-        <Typography
-          variant="p"
-          sx={{ fontWeight: 400, fontSize: isMobile ? '20px' : '32px' }}
-          align={'center'}
-        >
-          <Box
-            dangerouslySetInnerHTML={{
-              __html: headerMain && headerMain[1],
-            }}
-          ></Box>
+        <Typography variant="p" align={'center'}>
+          <WYSIWYGRender
+            rich_text={header}
+            customClass="solutionBox"
+          ></WYSIWYGRender>
         </Typography>
 
         <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
@@ -259,7 +243,6 @@ function PlatformOverview({ content }) {
       <>
         <ProductOverviewHeader
           header={content?.benefits_header || FillerContent.rich_text}
-          isMobile={isMobile}
         />
         <ProductOverviewBody
           header={content?.benefits_title_h2 || FillerContent.header}
