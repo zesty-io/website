@@ -164,7 +164,7 @@ function WhyZesty({ content }) {
         image={
           (content.overview_of_process_image.data &&
             content.overview_of_process_image.data[0].url) ||
-          FillerContent.image
+          ''
         }
         content={content.overview_of_process_text || FillerContent.rich_text}
       />
