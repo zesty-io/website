@@ -227,13 +227,19 @@ const FeaturesWithCardRepresentation = ({
                     {switchIcon(item.icon_name)}
                   </Box>
                   <Typography
-                    variant={'h4'}
+                    variant={'p'}
+                    component="h4"
                     gutterBottom
-                    sx={{ fontWeight: 500 }}
+                    sx={{ fontWeight: 500, fontSize: '20px' }}
                   >
                     {item.feature_name || item.title}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography
+                    variant={'p'}
+                    component="p"
+                    color="text.secondary"
+                    sx={{ fontSize: '16px' }}
+                  >
                     {item.content || item.subtitle}
                   </Typography>
                 </Box>
