@@ -66,7 +66,7 @@ const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hide
                         stroke="currentColor"
                         width={24}
                         height={24}
-                        color={'primary.main'}
+                        color={'secondary.main'}
                       >
                         <path
                           strokeLinecap="round"
@@ -91,9 +91,9 @@ const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hide
             </Box>
             <Box>
               <Button
-                sx={{ height: 54, minWidth: 100, whiteSpace: 'nowrap' }}
+                sx={{ height: 54, minWidth: 100, whiteSpace: 'nowrap', backgroundColor: `${theme.palette.secondary.main}` }}
                 variant="contained"
-                color="primary"
+                color="secondary"
                 size="medium"
                 fullWidth
                 type='submit'
@@ -182,11 +182,11 @@ const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hide
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item.author.image}
+                        src={item.author?.image}
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author.name}
+                        {item.author?.name}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>

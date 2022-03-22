@@ -43,6 +43,7 @@ export default function SubscribeCTA({text='Join thousands of others for our new
               component={Button}
               variant="contained"
               color="primary"
+              backgroundColor={theme.palette.secondary.main}
               size="large"
               height={54}
               marginTop={{ xs: 2, sm: 0 }}

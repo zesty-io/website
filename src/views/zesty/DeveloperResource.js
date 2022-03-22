@@ -44,6 +44,7 @@ function DeveloperResource({ content }) {
     <>
       <Box>
         <SimpleHeroWithCta secondaryCTA={content.header_cta_secondary || FillerContent.cta}
+        secondaryCtaLink={content.header_cta_secondary_link?.data[0]?.meta?.web?.uri || FillerContent.cta}
         title={content.title || FillerContent.header}
         description={content.header_description || FillerContent.description} />
         <Container>
