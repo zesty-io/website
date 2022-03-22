@@ -39,7 +39,7 @@ import FillerContent from 'components/FillerContent';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
 
-const ProductOverviewHeaderComp = ({ header, isMobile }) => {
+const ProductOverviewHeader = ({ header, isMobile }) => {
   const headerMain = header?.split('<p><brake></brake></p>');
   return (
     <Container>
@@ -73,7 +73,7 @@ const ProductOverviewHeaderComp = ({ header, isMobile }) => {
   );
 };
 
-const ProductOverviewBodyComp = ({ cards, benefits_title_h2 }) => {
+const ProductOverviewBody = ({ cards, header }) => {
   const theme = useTheme();
   const cardsList = cards || FillerContent.platformCard;
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -98,7 +98,7 @@ const ProductOverviewBodyComp = ({ cards, benefits_title_h2 }) => {
               sx={{ fontWeight: 700 }}
               align={'center'}
             >
-              {benefits_title_h2}
+              {header}
             </Typography>
           </Box>
           <Grid container spacing={4}>
@@ -257,12 +257,12 @@ function PlatformOverview({ content }) {
 
       {/* Product Overview  */}
       <>
-        <ProductOverviewHeaderComp
+        <ProductOverviewHeader
           header={content?.benefits_header || FillerContent.rich_text}
           isMobile={isMobile}
         />
-        <ProductOverviewBodyComp
-          benefits_title_h2={content?.benefits_title_h2 || FillerContent.header}
+        <ProductOverviewBody
+          header={content?.benefits_title_h2 || FillerContent.header}
           cards={content?.platform_overview_cards?.data}
         />
       </>
