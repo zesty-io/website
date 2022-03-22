@@ -91,10 +91,9 @@ const Result = ({array, value, term, onChange, onSubmit, notFound, onClick, hide
             </Box>
             <Box>
               <Button
-                sx={{ height: 54, minWidth: 100, whiteSpace: 'nowrap' }}
+                sx={{ height: 54, minWidth: 100, whiteSpace: 'nowrap', backgroundColor: `${theme.palette.secondary.main}` }}
                 variant="contained"
                 color="secondary"
-                backgroundColor={theme.palette.secondary.main}
                 size="medium"
                 fullWidth
                 type='submit'

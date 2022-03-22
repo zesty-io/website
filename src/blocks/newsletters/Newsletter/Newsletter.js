@@ -61,11 +61,11 @@ const Newsletter = ({title, description, ctaBtn}) => {
               component={Button}
               variant="contained"
               color="primary"
-              backgroundColor={theme.palette.secondary.main}
               size="large"
               height={54}
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
+              sx={{backgroundColor: `${theme.palette.secondary.main}`}}
             >
               {ctaBtn || FillerContent.cta}
             </Box>

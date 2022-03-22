@@ -53,12 +53,12 @@ const CtaWithInputField = ({ title, description, cta }) => {
           component={Button}
           variant="contained"
           color="primary"
-          backgroundColor={theme.palette.secondary.main}
           size="large"
           fullWidth={isSm ? false : true}
           marginTop={{ xs: 2, sm: 0 }}
           marginLeft={{ sm: 2 }}
           height={54}
+          sx={{backgroundColor: `${theme.palette.secondary.main}`}}
           endIcon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
