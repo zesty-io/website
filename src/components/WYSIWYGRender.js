@@ -57,6 +57,10 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
             color: white ;
             font-size: 16px;
         }
+        .wysiwyg img{
+          max-width: 100%;
+          height: 100%;
+        }
         `;
   return (
     <>

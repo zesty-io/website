@@ -48,6 +48,7 @@ import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 
 import Container from 'components/Container';
 import SideBarCTA from 'components/cta/SideBarCTA';
+import WYSIWYGRender from 'components/WYSIWYGRender';
 
 function Article({ content }) {
   let zestyURL =
@@ -146,11 +147,11 @@ function Article({ content }) {
         <Container>
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: validateWysiwyg(),
-                }}
-              ></Box>
+
+              <WYSIWYGRender
+                customClass="icon-box"
+                rich_text={validateWysiwyg() || FillerContent.rich_text}
+              ></WYSIWYGRender>
 
               <BlogCTA
                 title={'Insights in your inbox'}
