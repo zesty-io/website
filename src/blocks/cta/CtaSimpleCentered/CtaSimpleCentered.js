@@ -46,7 +46,7 @@ const CtaSimpleCentered = ({ ctaTitle, description, ctaLeft, ctaRight }) => {
         >
           <TryFreeButton
             variant="contained"
-            color="primary"
+            color="secondary"
             size="large"
             text={ctaLeft}
             fullWidth={isMd ? false : true}
@@ -60,7 +60,7 @@ const CtaSimpleCentered = ({ ctaTitle, description, ctaLeft, ctaRight }) => {
               component={'a'}
               href={'/docs/introduction'}
               variant="outlined"
-              color="primary"
+              color="secondary"
               size="large"
               fullWidth={isMd ? false : true}
             >

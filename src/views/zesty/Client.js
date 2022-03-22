@@ -134,18 +134,7 @@ function Client({ content }) {
         </Box>
       </Box>
 
-      {/* <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div> */}
-      {/* End of Zesty.io output example */}
+
     </>
   );
 }
