@@ -34,13 +34,27 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
 
         @media only screen and (max-width: 600px) {
           .wysiwyg .icon-box {
-            margin-bottom: 5rem;
+            margin-bottom: 1rem;
           }
-        }
+           .hybridList {
+             display: block !important;
+             align-items: center !important;
+           }
+           .hybridList > span {
+             margin-bottom: 0;
+           }
+         }
         @media (min-width:601px) and (max-width: 4096px) {
           .wysiwyg .icon-box {
             margin-bottom: 28px;
           }
+           .hybridList {
+             display: flex !important;
+             align-items: center !important;
+           }
+           .hybridList > span {
+             margin-bottom: 1.5rem;
+           }
         }
         .wysiwyg .icon-box {
             float:left;

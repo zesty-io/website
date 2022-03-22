@@ -14,7 +14,11 @@ import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 import WYSIWYGRender from 'components/WYSIWYGRender';
 
-const FeaturesWithIllustration = ({wysiwyig_type='',rich_text='',image_url='https://pzcvtc6b.media.zestyio.com/content-management.png'}) => {
+const FeaturesWithIllustration = ({
+  wysiwyig_type = '',
+  rich_text = '',
+  image_url = 'https://pzcvtc6b.media.zestyio.com/content-management.png',
+}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -27,7 +31,7 @@ const FeaturesWithIllustration = ({wysiwyig_type='',rich_text='',image_url='http
           <Box marginBottom={4}>
             <WYSIWYGRender
               rich_text={rich_text}
-              customClass={wysiwyig_type}
+              customClass={'icon-box'}
             ></WYSIWYGRender>
           </Box>
         </Grid>
