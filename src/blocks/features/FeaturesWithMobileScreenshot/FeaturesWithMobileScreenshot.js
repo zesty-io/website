@@ -39,14 +39,22 @@ const FeaturesWithMobileScreenshot = ({
         container
         spacing={4}
       >
-        <Grid item container alignItems={'center'} xs={12} md={6}>
+        <Grid
+          item
+          container
+          alignItems={'center'}
+          xs={12}
+          md={6}
+          order={{ xs: 3, sm: 2 }}
+        >
+
           <Box>
             <Box marginBottom={2}>
               <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
                 {header}
               </Typography>
             </Box>
-            <Grid container>
+            <Grid container order={{ sm: 2, md: 1 }}>
               <WYSIWYGRender
                 customClass="circle-icons"
                 rich_text={content || FillerContent.rich_text}
@@ -64,6 +72,7 @@ const FeaturesWithMobileScreenshot = ({
             backgroundSize: '100% 100%',
             backgroundRepeat: 'no-repeat',
           }}
+          order={{ sm: 1, md: 2 }}
         >
           <Box
             component={'img'}
