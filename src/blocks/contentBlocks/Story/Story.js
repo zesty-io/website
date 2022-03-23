@@ -21,7 +21,7 @@ const Story = ({title, description, logos}) => {
         <Grid item xs={12}>
           <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
             {logos.map((item, i) => (
-              <Box maxWidth={90} marginTop={2} marginRight={4} key={i}>
+              <Box maxWidth={86} marginTop={2} marginRight={4} key={i}>
                 <Box
                   component="img"
                   height={1}
