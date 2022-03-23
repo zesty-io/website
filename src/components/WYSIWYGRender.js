@@ -88,14 +88,14 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
                  : theme.palette.common.black
              };
             font-weight: 700;
-            font-size: 49px;
+            font-size: 40px;
           }
           .wysiwyg.solutionBox > p:nth-child(3),
           .wysiwyg.solutionBox > p:nth-child(4),
           .wysiwyg.solutionBox > p:nth-child(5) {
             color: ${theme.palette.text.secondary};
             font-weight: 400;
-            font-size: 32px;
+            font-size: 28px;
            }
 
           }

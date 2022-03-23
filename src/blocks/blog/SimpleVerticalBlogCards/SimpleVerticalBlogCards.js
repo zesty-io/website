@@ -37,7 +37,7 @@ const SimpleVerticalBlogCards = ({
             <Typography
               textAlign={'center'}
               fontWeight={700}
-              variant={'h2'}
+              variant={'h4'}
               gutterBottom
             >
               <Box
