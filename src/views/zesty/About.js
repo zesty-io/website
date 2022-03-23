@@ -33,7 +33,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Container from 'components/Container';
-
+import { useTheme } from '@mui/material/styles';
 // blocks
 import Headline from 'blocks/banners/Headline';
 import { Gallery } from 'blocks/graphics';
@@ -44,8 +44,7 @@ import { TeamWithSmallSquarePhotos } from 'blocks/team';
 import FillerContent from 'components/FillerContent';
 
 function About({ content }) {
-  //   Main is not needed in page builds as it will duplicate the header and footer
-
+  const theme = useTheme();
   return (
     <>
       <Box>
@@ -69,7 +68,8 @@ function About({ content }) {
             <Story
             title={content.hero_content || FillerContent.header}
             description={content.page_content || FillerContent.rich_text}
-            logos={content.story_logos?.data || FillerContent.logos} />
+            logos={theme.palette.mode === 'dark' ? (content.white_story_logos?.data || FillerContent.logos) 
+            : (content.story_logos?.data || FillerContent.logos)} />
           </Container>
           <Container maxWidth={'800px !important'}>
             <Divider />

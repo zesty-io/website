@@ -21,19 +21,19 @@ const Story = ({title, description, logos}) => {
         <Grid item xs={12}>
           <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
             {logos.map((item, i) => (
-              <Box maxWidth={90} marginTop={2} marginRight={4} key={i}>
+              <Box maxWidth={86} marginTop={2} marginRight={4} key={i}>
                 <Box
                   component="img"
                   height={1}
                   width={1}
                   src={item.url}
                   alt="..."
-                  sx={{
-                    filter:
-                      theme.palette.mode === 'dark'
-                        ? 'brightness(0) invert(0.7)'
-                        : 'none',
-                  }}
+                  // sx={{
+                  //   filter:
+                  //     theme.palette.mode === 'dark'
+                  //       ? 'brightness(0) invert(0.7)'
+                  //       : 'none',
+                  // }}
                 />
               </Box>
             ))}

@@ -31,38 +31,38 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
 import Container from 'components/Container';
-import PricingHero from '../../blocks/pricing/PricingHero/PricingHero'
-import SupportBanner from '../../blocks/pricing/SupportBanner/SupportBanner'
-import PricingCompareTable from '../../blocks/pricing/PricingCompareTable/PricingCompareTable'
-import Faq from '../../blocks/pricing/Faq/Faq'
-import Plans from '../../blocks/pricing/Plans/Plans'
+import PricingHero from '../../blocks/pricing/PricingHero/PricingHero';
+import SupportBanner from '../../blocks/pricing/SupportBanner/SupportBanner';
+import PricingCompareTable from '../../blocks/pricing/PricingCompareTable/PricingCompareTable';
+import Faq from '../../blocks/pricing/Faq/Faq';
+import Plans from '../../blocks/pricing/Plans/Plans';
 
 let zestyURL =
-(undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-  ? process.env.zesty.production
-  : process.env.zesty.stage;
+  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
 
-  function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-  }
-function Pricing({content}) {
-    const theme = useTheme();
-    const heroProps = { 
-      title: content.title,
-      subtitle: content.instance_definition,
-      tiers: content.tiers.data
-    };
-    const [pricingData, setPricingData] = React.useState([]);
-    const [isLoaded, setIsLoaded] = React.useState(false);
-    const [categories, setCategories] = React.useState([]);
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+function Pricing({ content }) {
+  const theme = useTheme();
+  const heroProps = {
+    title: content.title,
+    subtitle: content.instance_definition,
+    tiers: content.tiers.data,
+  };
+  const [pricingData, setPricingData] = React.useState([]);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [categories, setCategories] = React.useState([]);
 
-    React.useEffect(() => {
+  React.useEffect(() => {
     // pricing levers
     try {
       const fetchData = async () => {
@@ -74,31 +74,35 @@ function Pricing({content}) {
         const pricingLevers = await response.json();
         setIsLoaded(true);
         setPricingData(pricingLevers);
-        let leverCategories = []
-        pricingLevers.forEach(item => {
-        leverCategories.push(item.classification)
-        })
-        leverCategories.filter(onlyUnique)
-        let cats = [...new Set(leverCategories)]
-        setCategories(cats)
+        let leverCategories = [];
+        pricingLevers.forEach((item) => {
+          leverCategories.push(item.classification);
+        });
+        leverCategories.filter(onlyUnique);
+        let cats = [...new Set(leverCategories)];
+        setCategories(cats);
       };
       fetchData();
     } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
     }
-
-   
   }, []);
-    return (
-        <>
-        <PricingHero {...heroProps}/>
-         <Box bgcolor={'alternate.main'}>
-          <Container>
-            <SupportBanner text_content={content.banner_content} />
-          </Container>
-        </Box>
+  return (
+    <>
+      <PricingHero {...heroProps} />
+      <Box bgcolor={'alternate.main'}>
+        <Container>
+          <SupportBanner text_content={content.banner_content} />
+        </Container>
+      </Box>
       <Container>
-        {categories.map(cat => <PricingCompareTable tiers={content.tiers.data} category={cat} pricingLevers={pricingData}/>)}
+        {categories.map((cat) => (
+          <PricingCompareTable
+            tiers={content.tiers.data}
+            category={cat}
+            pricingLevers={pricingData}
+          />
+        ))}
       </Container>
       <Container maxWidth={400} paddingY={'0 !important'}>
         <Divider />
@@ -107,16 +111,16 @@ function Pricing({content}) {
         <Faq />
       </Container>
 
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
+      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+      {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
             <div>{content.meta.web.seo_meta_description}</div>
             <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
                 <h2>Accessible Zesty.io JSON Object</h2>
                 <pre>{JSON.stringify(content, null, 2)}</pre>
             </div>*/}
-            {/* End of Zesty.io output example */}
-        </>
-    );
+      {/* End of Zesty.io output example */}
+    </>
+  );
 }
-  
+
 export default Pricing;
