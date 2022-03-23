@@ -111,21 +111,9 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                   >
                     {i != 0 && (
                       <Typography variant={'h3'} fontWeight={700}>
-                        {/*
-                      {pricingOption === 'annual'
-                        ? item.price.annual
-                        : item.price.monthly}
-                    */}
                         {item.price}
                       </Typography>
                     )}
-                    {/*<Typography
-                      variant={'subtitle1'}
-                      color={'text.secondary'}
-                      fontWeight={700}
-                    >
-                      {pricingOption === 'annual' ? '/' : '/mo'}
-                    </Typography>*/}
                   </Box>
 
                   {/* SandBox Section  */}
