@@ -20,6 +20,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   ctaUrl,
   popularArticles = [],
 }) => {
+  console.log("🚀 ~ file: VerticallyAlignedBlogCardsWithShapedImage.js ~ line 23 ~ popularArticles", popularArticles)
   const theme = useTheme();
 
   const formatDate = (date) => {
@@ -72,7 +73,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
             <Box
               component={'a'}
               href={
-                item?.meta?.uri || item?.meta?.web?.uri || FillerContent.href
+                item?.meta?.uri || item?.meta?.web?.uri ||item?.path || FillerContent.href
               }
               display={'block'}
               width={1}
