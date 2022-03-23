@@ -22,6 +22,7 @@
  *
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
+ * View  /solutions/headless-cms
  */
 
 import React, { useEffect, useState } from 'react';

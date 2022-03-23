@@ -40,6 +40,8 @@
  import ReviewsWithSimpleBoxes from 'blocks/testimonials/ReviewsWithSimpleBoxes';
  import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
  import CtaWithInputField from 'blocks/cta/CtaWithInputField';
+ import Stories from 'blocks/portfolioGrid/Stories/Stories';
+ import Container from 'components/Container';
  import FillerContent from 'components/FillerContent';
 
  let zestyURL =
@@ -120,13 +122,14 @@
          wysiwyig_type=""
        />
        <Box bgcolor={'alternate.main'}>
-         <WithOverlappedCards
-           list={content.case_study_cards.data || []}
-           eyebrow={content.case_studies_eyebrow || FillerContent.header}
-           case_studies_header={
-             content.case_studies_header || FillerContent.header
-           }
-         />
+
+         <Container>
+           <Stories
+             eyeBrow={content.case_studies_eyebrow || FillerContent.header}
+             clientTitle={content.case_studies_header || FillerContent.header}
+             clientInfo={content.case_study_cards.data || []}
+           />
+         </Container>
          <ReviewsWithSimpleBoxes
            header={content.testimonials_content}
            list={content.testimonials?.data || []}
@@ -151,7 +154,6 @@
          }
          cta={'Subscribe'}
        />
-
      </>
    );
  }
