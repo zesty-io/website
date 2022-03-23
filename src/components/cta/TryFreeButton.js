@@ -12,7 +12,7 @@ import Link from '@mui/material/Link';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-
+import Icon from '@mui/material/Icon';
 import Container from 'components/Container';
 import BasicForm from './BasicForm';
 import CodeBlock from './CodeBlock';
@@ -128,10 +128,10 @@ export default function TryFreeButton({
               <Grid container spacing={2}>
             
                   <Grid item xs={12} sm={12}>
-                  <Typography><Typography variant="span" fontWeight="800">Marketers</Typography>, watch videos or organize a guided demo:</Typography>
+                  <Typography><Typography variant="span" fontWeight="800">Marketers</Typography>, organize a guided demo:</Typography>
                     <Box sx={{display: 'flex',marginTop: '16px'}}>
-                    <Button sx={{marginRight: '16px'}} variant="contained" size="large">Organize a Guided Demo</Button>
-                    <Button variant="outlined" size="large">Watch Product Videos</Button>
+                    <Button component={'a'} href={'/demos/'} sx={{marginRight: '16px'}} color="secondary" variant="contained" size="large">Organize a Guided Demo</Button>
+                    {/* <Button variant="outlined" size="large">Watch Product Videos</Button> */}
                     </Box>
                     {/* <BasicForm></BasicForm> */}
                   </Grid>
@@ -147,7 +147,8 @@ export default function TryFreeButton({
               padding={2}
               bgcolor={'alternate.main'}
             >
-              <Button
+
+              {/* <Button
                 size={'large'}
                 sx={{
                   fontWeight: 700,
@@ -170,9 +171,22 @@ export default function TryFreeButton({
                 }
               >
                 Watch demo
+              </Button> */}
+              <Button
+                size={'large'}
+                onClick={() => { $zoho.salesiq.floatwindow.visible("show"); }}
+                sx={{
+                  fontWeight: 700,
+                  color: 'text.secondary',
+                }}
+                startIcon={<Icon>chat</Icon>}
+              >
+                Chat With Us
               </Button>
               <Button
                 size={'large'}
+                component={'a'}
+                href="/contact-new/"
                 sx={{
                   fontWeight: 700,
                   color: 'text.secondary',
@@ -193,6 +207,8 @@ export default function TryFreeButton({
               </Button>
               <Button
                 size={'large'}
+                component={'a'}
+                href={'mailto:sales@zesty.io'}
                 sx={{
                   fontWeight: 700,
                   color: 'text.secondary',
