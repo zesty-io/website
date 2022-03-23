@@ -11,7 +11,10 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import Container from 'components/Container';
 
 
@@ -43,7 +46,22 @@ const validationSchema = yup.object({
 
 /* Begin Left Side Component */
 
-function ContactFormWithSidebarMap({title, description, image}) {
+function ContactFormWithSidebarMap({title, description, image,selectedValue=0}) {
+ 
+  let inquiryReasons = [
+    'General',
+    'Agency Signup',
+    'Request a Demo',
+    'Support',
+    'Billing',
+    'Press Relations',
+    
+  ]
+  const [selectValue, setSelectValue] = React.useState(inquiryReasons[selectedValue]);
+
+  const handleChange = (event) => {
+    setSelectValue(event.target.value);
+  };
 
   const theme = useTheme();
 
@@ -130,6 +148,20 @@ function ContactFormWithSidebarMap({title, description, image}) {
                   helperText={formik.touched.email && formik.errors.email}
                 />
               </Grid>
+              <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Inquiry Reason</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={selectValue}
+                  label="select"
+                  onChange={handleChange}
+                >
+                  {inquiryReasons.map(value => <MenuItem value={value}>{value}</MenuItem>)}
+                </Select>
+              </FormControl>
+            </Box>
               <Grid item xs={12}>
                 <TextField
                   label="Message"

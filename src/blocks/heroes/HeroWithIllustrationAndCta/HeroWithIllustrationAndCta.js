@@ -111,7 +111,7 @@ const HeroWithIllustrationAndCta = ({
                 >
                   <Button
                     component={'a'}
-                    href={button_right_link}
+                    href={'/demos/'}
                     variant="outlined"
                     color="secondary"
                     size="large"
