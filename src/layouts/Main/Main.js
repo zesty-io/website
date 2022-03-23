@@ -89,7 +89,7 @@ const Main = ({
         <Divider />
       </main>
       <Footer
-        colorInvert={colorInvert && !trigger}
+        colorInvert={colorInvert}
         customRouting={hasRouting ? customRouting : []}
       />
     </Box>
