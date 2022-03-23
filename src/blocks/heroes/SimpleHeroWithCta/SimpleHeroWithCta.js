@@ -70,20 +70,20 @@ const Hero = ({title, subtitle, description, secondaryCTA, secondaryCtaLink}) =>
           <TryFreeButton
             component={'a'}
             variant="contained"
-            color="secondary"
+            color={theme.palette.mode === 'dark' ? "primary" : "secondary"}
             size="large"
             fullWidth={isMd ? false : true}
              />
           <Box
             marginTop={{ xs: 2, sm: 0 }}
             marginLeft={{ sm: 2 }}
-            width={{ xs: '100%', md: 'auto' }}
+            width={{ xs: '100%', sm: 'auto', md: 'auto' }}
           >
             <Button
               component={'a'}
               href={secondaryCtaLink}
               variant="outlined"
-              color="secondary"
+              color={theme.palette.mode === 'dark' ? "primary" : "secondary"}
               size="large"
               fullWidth={isMd ? false : true}
             >
