@@ -91,7 +91,7 @@ const SimpleVerticalBlogCards = ({
                       position: 'relative',
                       filter:
                         theme.palette.mode === 'dark'
-                          ? 'brightness(0.7)'
+                          ? 'brightness(1)'
                           : 'none',
                     }}
                   />

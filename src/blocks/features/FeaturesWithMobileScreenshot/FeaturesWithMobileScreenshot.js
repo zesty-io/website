@@ -94,8 +94,7 @@ const FeaturesWithMobileScreenshot = ({
               objectFit: 'contain',
               borderRadius: '2.5rem',
               transform: isMobile ? 'scale(.80)' : 'scale(.70)',
-              filter:
-                theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
+              filter: theme.palette.mode === 'dark' ? 'brightness(1)' : 'none',
             }}
           />
         </Grid>
