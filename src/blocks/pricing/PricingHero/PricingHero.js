@@ -26,6 +26,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
   const handleClick = (event, newPricingOption) => {
     setPricingOption(newPricingOption);
   };
+
   return (
     <Box>
       <Box
@@ -82,6 +83,8 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                       <Typography variant={'h4'} fontWeight={600} gutterBottom>
                         {item.name}
                       </Typography>
+
+                      {/* Sandbox Button  */}
                       {i == 0 && (
                         <TryFreeButton
                           component={'a'}
@@ -187,7 +190,9 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                     </>
                   )}
                 </CardContent>
-                {i != 0 && (
+
+                {/* Standard and Business Buttons  */}
+                {i != 0 && i != 3 && (
                   <>
                     <Box flexGrow={1} />
                     <CardActions
@@ -207,6 +212,35 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                       ></TryFreeButton>
                     </CardActions>
                   </>
+                )}
+
+                {/* Show this button in Enterprise table only  */}
+                {i == 3 && (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      padding: 4,
+                    }}
+                  >
+                    <Button
+                      href={
+                        (item.button_cta?.data &&
+                          item.button_cta?.data[0]?.internal_link?.data &&
+                          item.button_cta?.data[0]?.internal_link?.data[0]?.meta
+                            ?.web?.url) ||
+                        FillerContent.href
+                      }
+                      variant="contained"
+                      color="secondary"
+                      size="large"
+                      fullWidth={isMd ? false : true}
+                    >
+                      {(item.button_cta?.data &&
+                        item?.button_cta?.data[0]?.button_text) ||
+                        FillerContent.cta}
+                    </Button>
+                  </Box>
                 )}
               </Box>
             </Grid>
