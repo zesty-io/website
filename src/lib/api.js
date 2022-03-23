@@ -103,8 +103,8 @@ async function customNavigation(zestyURL){
       // determine url structure, could be internal (if so lookup by zuid), external (string), or # for placeholders
       if(item.content.internal_link?.data){
         itemToStore.url = findURLbyZUID(routingData, item.content.internal_link.data[0].zuid);
-      } else if (item.content.internal_link) {
-        itemToStore.url = item.content.internal_link;
+      } else if (item.content.external_link) {
+        itemToStore.url = item.content.external_link;
         itemToStore.external = true;
       } else {
         itemToStore.url = '#';

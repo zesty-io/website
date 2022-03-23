@@ -15,7 +15,7 @@ const Footer = ({customRouting,colorInvert = false }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { mode } = theme.palette;
-  const backgroundColor = colorInvert ? theme.palette.zesty.zestyDarkBlue : theme.palette.zesty.zestyWhiteBlue;
+  const backgroundColor = !colorInvert ? theme.palette.zesty.zestyDarkBlue : theme.palette.zesty.zestyWhiteBlue;
   return (
     <Box sx={{ background: backgroundColor, paddingTop: '10px' }}>
       <Container paddingY={4}>
@@ -46,6 +46,37 @@ const Footer = ({customRouting,colorInvert = false }) => {
                 sx={{ transform: isMobile ? 'scale(1.8)' : 'scale(1)' }}
               />
             </Box>
+            <Grid item marginTop={3} paddingBottom={2} xs={12} align={'center'}>
+            <Container>
+                
+              <Box
+                component="a"
+                href="https://www.facebook.com/zestyio"
+                color="#4267B2"
+                marginRight={2}
+                target="_blank"
+              >
+                <FacebookIcon />
+              </Box>
+              <Box
+                component="a"
+                href="https://www.linkedin.com/company/zesty-io/mycompany/"
+                color="#0e76a8"
+                marginRight={2}
+                target="_blank"
+              >
+                <LinkedInIcon />
+              </Box>
+              <Box
+                component="a"
+                href="https://twitter.com/zestyio"
+                color="#1DA1F2"
+                target="_blank"
+              >
+                <TwitterIcon />
+              </Box>
+            </Container>
+          </Grid>
             <Grid>
               <Grid item xs={3}></Grid>
             </Grid>
@@ -91,41 +122,7 @@ const Footer = ({customRouting,colorInvert = false }) => {
             </Box>
           </Grid>
 
-          <Grid item marginTop={2} paddingBottom={2} xs={12} align={'center'}>
-            <Container>
-              <Typography
-                marginBottom={1}
-                variant={'h6'}
-                text-transform="capitalize"
-              >
-                Connect with us
-              </Typography>
-              <Box
-                component="a"
-                href="https://www.facebook.com/zestyio"
-                color="text.primary"
-                marginRight={2}
-              >
-                <FacebookIcon />
-              </Box>
-              <Box
-                component="a"
-                href="https://www.linkedin.com/company/zesty-io/mycompany/"
-                color="text.primary"
-                marginRight={2}
-              >
-                <LinkedInIcon />
-              </Box>
-              <Box
-                component="a"
-                href="https://twitter.com/zestyio"
-                color="text.primary"
-
-              >
-                <TwitterIcon />
-              </Box>
-            </Container>
-          </Grid>
+        
           <Grid item marginTop={4} paddingBottom={10} xs={12}>
             <Typography
               align={'center'}
