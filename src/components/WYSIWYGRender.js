@@ -4,6 +4,8 @@ import { useTheme } from '@mui/material/styles';
 
 export default function WYSIWYGRender({ rich_text, customClass = '' }) {
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+
   // this dyanmically replaces text for icons like ICON_check with the material markup
   if (rich_text !== null && String(rich_text).match('ICON_')) {
     rich_text = rich_text.replace(
@@ -102,7 +104,11 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
 
         .wysiwyg.circle-icons li .icon-box {
-            background-color: ${theme.palette.zesty.zestyOrange};
+            background-color: ${
+              isDarkMode
+                ? theme.palette.zesty.zestyBlue
+                : theme.palette.zesty.zestyOrange
+            };
             border-radius: 50%;
             padding: 5px 5px 5px 5px;
             margin-top: 0;
