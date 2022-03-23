@@ -22,6 +22,8 @@
  *
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
+ *
+ * View /solutions/
  */
 
 import React, { useState, useEffect } from 'react';
@@ -44,7 +46,7 @@ const ProductOverviewHeader = ({ header }) => {
   return (
     <Container>
       <Box marginBottom={4}>
-        <Typography variant="p" align={'center'}>
+        <Typography variant="h4" component="p" align={'center'} sx={{}}>
           <WYSIWYGRender
             rich_text={header}
             customClass="solutionBox"
@@ -77,7 +79,8 @@ const ProductOverviewBody = ({ cards, header }) => {
             alignItems="center"
           >
             <Typography
-              variant={'h2'}
+              variant={'h4'}
+              component={'h2'}
               gutterBottom
               sx={{ fontWeight: 700 }}
               align={'center'}
@@ -125,7 +128,8 @@ const ProductOverviewBody = ({ cards, header }) => {
                 <Grid item container alignItems={'center'} xs={12} sm={6}>
                   <Box>
                     <Typography
-                      variant={'h3'}
+                      variant={'h4'}
+                      component={'h3'}
                       gutterBottom
                       sx={{ fontWeight: 700 }}
                     >

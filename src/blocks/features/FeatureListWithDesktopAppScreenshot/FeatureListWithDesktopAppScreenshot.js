@@ -140,7 +140,7 @@ const RightSide = ({ image }) => {
                 sx={{
                   objectFit: 'cover',
                   filter:
-                    theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
+                    theme.palette.mode === 'dark' ? 'brightness(1)' : 'none',
                 }}
               />
             </Box>

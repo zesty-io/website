@@ -37,7 +37,7 @@ const SimpleVerticalBlogCards = ({
             <Typography
               textAlign={'center'}
               fontWeight={700}
-              variant={'h2'}
+              variant={'h4'}
               gutterBottom
             >
               <Box
@@ -91,7 +91,7 @@ const SimpleVerticalBlogCards = ({
                       position: 'relative',
                       filter:
                         theme.palette.mode === 'dark'
-                          ? 'brightness(0.7)'
+                          ? 'brightness(1)'
                           : 'none',
                     }}
                   />
