@@ -20,7 +20,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   ctaUrl,
   popularArticles = [],
 }) => {
-  console.log("🚀 ~ file: VerticallyAlignedBlogCardsWithShapedImage.js ~ line 23 ~ popularArticles", popularArticles)
+
   const theme = useTheme();
 
   const formatDate = (date) => {
