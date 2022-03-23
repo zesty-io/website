@@ -8,53 +8,62 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-const slantedImages = (images = []) => {
+const reconstructImages = (images = []) => {
   return [
     {
       group: [
         {
-          cover: images && images[0]?.url,
-          coverDark: images && images[0]?.url,
+          cover: (images && images[0]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[0]?.url) || FillerContent.dashboard_image,
         },
         {
-          cover: images && images[1]?.url,
-          coverDark: images && images[1]?.url,
-        },
-      ],
-    },
-    {
-      group: [
-        {
-          cover: images && images[2]?.url,
-          coverDark: images && images[2]?.url,
-        },
-        {
-          cover: images && images[3]?.url,
-          coverDark: images && images[3]?.url,
-        },
-        {
-          cover: images && images[4]?.url,
-          coverDark: images && images[4]?.url,
+          cover: (images && images[1]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[1]?.url) || FillerContent.dashboard_image,
         },
       ],
     },
     {
       group: [
         {
-          cover: images && images[5]?.url,
-          coverDark: images && images[5]?.url,
+          cover: (images && images[2]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[2]?.url) || FillerContent.dashboard_image,
         },
         {
-          cover: images && images[6]?.url,
-          coverDark: images && images[6]?.url,
+          cover: (images && images[3]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[3]?.url) || FillerContent.dashboard_image,
         },
         {
-          cover: images && images[2]?.url,
-          coverDark: images && images[2]?.url,
+          cover: (images && images[4]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[4]?.url) || FillerContent.dashboard_image,
+        },
+      ],
+    },
+    {
+      group: [
+        {
+          cover: (images && images[5]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[5]?.url) || FillerContent.dashboard_image,
         },
         {
-          cover: images && images[1]?.url,
-          coverDark: images && images[1]?.url,
+          cover: (images && images[6]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[6]?.url) || FillerContent.dashboard_image,
+        },
+        {
+          cover: (images && images[2]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[2]?.url) || FillerContent.dashboard_image,
+        },
+        {
+          cover: (images && images[1]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[1]?.url) || FillerContent.dashboard_image,
         },
       ],
     },
@@ -84,8 +93,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
   const title2 = newTitle && newTitle[2];
 
   // images to be map
-  const imageList =
-    slantedImages(images) || FillerContent.slantedImagesList_for_header;
+  const imageList = reconstructImages(images);
 
   return (
     <Box sx={{ overflow: 'hidden' }}>
