@@ -39,10 +39,18 @@ const BlogCardsWithFullBackgroundImage = ({
           <Box
             component={Button}
             variant="outlined"
-            color="primary"
+            color={theme.palette.zesty.zestyOrange}
+            borderColor={theme.palette.zesty.zestyOrange}
             size="large"
             marginLeft={2}
             href={'customer-stories/'}
+            sx={{
+              '&:hover': {
+                'borderColor': '#FF5D0A',
+                "backgroundColor" : '#FF5D0A',
+                'color' : 'white'
+              },
+            }}
           >
             View all
           </Box>

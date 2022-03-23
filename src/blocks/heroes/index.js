@@ -11,6 +11,7 @@ export { default as SimpleHeroWithSearchBox } from './SimpleHeroWithSearchBox';
 export { default as SimpleHeroWithCta } from './SimpleHeroWithCta';
 export { default as SimpleHeroWithSingleCta } from './SimpleHeroWithSingleCta';
 export { default as SimpleHero } from './SimpleHero';
+export { default as SimpleHeroSolidBg } from './SimpleHeroSolidBg';
 export { default as HeroWithIllustrationAndCta } from './HeroWithIllustrationAndCta';
 export { default as HeroWithLogoGridAndDesktopScreenshot } from './HeroWithLogoGridAndDesktopScreenshot';
 export { default as HeroWithBackgroundVideo } from './HeroWithBackgroundVideo';
