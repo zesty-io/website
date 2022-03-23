@@ -112,8 +112,7 @@ const HeroWithDashboardScreenshotAndCta = ({
             borderRadius={2}
             maxWidth={600}
             sx={{
-              filter:
-                theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
+              filter: theme.palette.mode === 'dark' ? 'brightness(1)' : 'none',
             }}
           />
         </Grid>

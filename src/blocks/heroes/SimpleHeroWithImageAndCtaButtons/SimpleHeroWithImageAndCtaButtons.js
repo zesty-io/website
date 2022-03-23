@@ -21,7 +21,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
   image,
 }) => {
   const theme = useTheme();
-
+  const isDarkMode = theme.palette.mode === 'dark';
 
   return (
     <Container>
@@ -32,7 +32,11 @@ const SimpleHeroWithImageAndCtaButtons = ({
               <Typography
                 component={'h1'}
                 variant="p"
-                color={theme.palette.zesty.zestyGrey}
+                color={
+                  isDarkMode
+                    ? theme.palette.zesty.zestyWhite
+                    : theme.palette.zesty.zestyGrey
+                }
                 gutterBottom
                 sx={{ fontWeight: 400, fontSize: '20px' }}
               >
@@ -45,19 +49,6 @@ const SimpleHeroWithImageAndCtaButtons = ({
               >
                 {title || FillerContent.header}
                 <br />
-                {/* <Typography
-                  color={'primary'}
-                  component={'span'}
-                  variant={'inherit'}
-                  sx={{
-                    background: `linear-gradient(180deg, transparent 82%, ${alpha(
-                      theme.palette.secondary.main,
-                      0.3,
-                    )} 0%)`,
-                  }}
-                >
-                  inspires
-                </Typography> */}
               </Typography>
             </Box>
             <Box marginBottom={3}>
@@ -73,14 +64,18 @@ const SimpleHeroWithImageAndCtaButtons = ({
               <TryFreeButton
                 text={cta_left || FillerContent.cta}
                 variant="contained"
-                color="secondary"
+                color={isDarkMode ? 'primary' : 'secondary'}
                 size="large"
               ></TryFreeButton>
 
               <Box
                 href={cta_right_url || FillerContent.href}
                 component={Button}
-                color={theme.palette.zesty.zestyOrange}
+                color={
+                  isDarkMode
+                    ? theme.palette.zesty.zestyBlue
+                    : theme.palette.zesty.zestyOrange
+                }
                 size="large"
                 marginTop={{ xs: 2, sm: 0 }}
                 marginLeft={{ sm: 2 }}

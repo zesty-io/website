@@ -46,13 +46,11 @@ const ProductOverviewHeader = ({ header }) => {
   return (
     <Container>
       <Box marginBottom={4}>
-        <Typography variant="h4" component='p' align={'center'} sx={{
-        }}>
+        <Typography variant="h4" component="p" align={'center'} sx={{}}>
           <WYSIWYGRender
             rich_text={header}
             customClass="solutionBox"
           ></WYSIWYGRender>
-
         </Typography>
 
         <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>

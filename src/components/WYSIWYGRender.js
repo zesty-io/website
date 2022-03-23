@@ -4,6 +4,8 @@ import { useTheme } from '@mui/material/styles';
 
 export default function WYSIWYGRender({ rich_text, customClass = '' }) {
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+
   // this dyanmically replaces text for icons like ICON_check with the material markup
   if (rich_text !== null && String(rich_text).match('ICON_')) {
     rich_text = rich_text.replace(
@@ -48,13 +50,18 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
              margin-bottom: 5rem !important;
            }
           .wysiwyg.solutionBox > p:first-child {
-             color: black;
+             color: ${
+               isDarkMode
+                 ? theme.palette.zesty.zestyWhite
+                 : theme.palette.common.black
+             };
             font-weight: 700;
             font-size: 40px;
           }
           .wysiwyg.solutionBox > p:nth-child(3),
           .wysiwyg.solutionBox > p:nth-child(4),
           .wysiwyg.solutionBox > p:nth-child(5) {
+            color: ${theme.palette.text.secondary};
             font-weight: 400;
             font-size: 20px;
            }
@@ -75,13 +82,18 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
              margin-bottom: 0rem;
            }
           .wysiwyg.solutionBox > p:first-child {
-             color: black;
+             color: ${
+               isDarkMode
+                 ? theme.palette.zesty.zestyWhite
+                 : theme.palette.common.black
+             };
             font-weight: 700;
             font-size: 40px;
           }
           .wysiwyg.solutionBox > p:nth-child(3),
           .wysiwyg.solutionBox > p:nth-child(4),
           .wysiwyg.solutionBox > p:nth-child(5) {
+            color: ${theme.palette.text.secondary};
             font-weight: 400;
             font-size: 28px;
            }
@@ -102,7 +114,11 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
 
         .wysiwyg.circle-icons li .icon-box {
-            background-color: ${theme.palette.zesty.zestyOrange};
+            background-color: ${
+              isDarkMode
+                ? theme.palette.zesty.zestyBlue
+                : theme.palette.zesty.zestyOrange
+            };
             border-radius: 50%;
             padding: 5px 5px 5px 5px;
             margin-top: 0;
