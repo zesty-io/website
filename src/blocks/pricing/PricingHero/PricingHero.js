@@ -13,10 +13,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import FeatureItem from '../FeatureItem/FeatureItem';
 import Container from 'components/Container';
 import TryFreeButton from 'components/cta/TryFreeButton';
+import FillerContent from 'components/FillerContent';
 
-
-
-const pricingHero = ({title, subtitle, tiers=[]}) => {
+const pricingHero = ({ title, subtitle, tiers = [] }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -27,12 +26,13 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
   const handleClick = (event, newPricingOption) => {
     setPricingOption(newPricingOption);
   };
+
   return (
     <Box>
       <Box
         sx={{
           position: 'relative',
-            marginTop: -13,
+          marginTop: -13,
           paddingTop: 13,
         }}
       >
@@ -56,7 +56,7 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
                 color="text.primary"
                 align={'center'}
                 sx={{ px: 6 }}
-                dangerouslySetInnerHTML={{__html: subtitle}}
+                dangerouslySetInnerHTML={{ __html: subtitle }}
               />
             </Box>
           </Box>
@@ -65,7 +65,7 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
       <Container paddingY={1}>
         <Grid container spacing={4}>
           {tiers.map((item, i) => (
-            <Grid item xs={12} md={i == 0 ? 12 :4} key={i}>
+            <Grid item xs={12} md={i == 0 ? 12 : 4} key={i}>
               <Box
                 component={Card}
                 height={1}
@@ -79,19 +79,26 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
                   }}
                 >
                   <Box marginBottom={2}>
-                  
                     <Box display={'flex'}>
-                      <Typography variant={'h4'} fontWeight={600} gutterBottom>{item.name}</Typography>
-                      {i == 0 &&
-                      <TryFreeButton
-                        component={'a'}
-                        variant="contained"
-                        size="large"
-                        fullWidth={isMd ? false : true}
-                        text='Get Started'
-                        sx={{marginLeft: 'auto'}}
+                      <Typography variant={'h4'} fontWeight={600} gutterBottom>
+                        {item.name}
+                      </Typography>
+
+                      {/* Sandbox Button  */}
+                      {i == 0 && (
+                        <TryFreeButton
+                          component={'a'}
+                          variant="contained"
+                          size="large"
+                          fullWidth={isMd ? false : true}
+                          text={
+                            (item.button_cta?.data &&
+                              item?.button_cta?.data[0]?.button_text) ||
+                            FillerContent.cta
+                          }
+                          sx={{ marginLeft: 'auto' }}
                         />
-                      }
+                      )}
                     </Box>
                     <Typography color={'text.secondary'}>
                       {item.description}
@@ -102,76 +109,128 @@ const pricingHero = ({title, subtitle, tiers=[]}) => {
                     alignItems={'baseline'}
                     marginBottom={2}
                   >
-                     {i != 0 &&
-                    <Typography variant={'h3'} fontWeight={700}>
-                      {/*
-                      {pricingOption === 'annual'
-                        ? item.price.annual
-                        : item.price.monthly}
-                    */}
-                      {item.price}
-                    </Typography>
-                    }
-                    {/*<Typography
-                      variant={'subtitle1'}
-                      color={'text.secondary'}
-                      fontWeight={700}
-                    >
-                      {pricingOption === 'annual' ? '/' : '/mo'}
-                    </Typography>*/}
+                    {i != 0 && (
+                      <Typography variant={'h3'} fontWeight={700}>
+                        {item.price}
+                      </Typography>
+                    )}
                   </Box>
-                  {i == 0 && 
-                    <>
-                    <Grid container>
-                      <Grid item md={6} xs={12}>
-                        {item.content_records? <FeatureItem text={item.content_records}/>:null}
-                        {item.content_records?<FeatureItem text={item.content_records}/>:null}
-                        {item.users?<FeatureItem text={item.users}/>:null}
-                      </Grid>
-                      <Grid item md={6} xs={12}>
-                        {item.features?<FeatureItem text={item.features}/>:null}
-                        {item.domain?<FeatureItem text={item.domain}/>:null}
-                        {item.data_plan?<FeatureItem text={item.data_plan}/>:null}
-                      </Grid>
-                    </Grid>
-                    </>
-                  }
-                  {i != 0 && 
-                    <>
-                    {item.content_records? <FeatureItem text={item.content_records}/>:null}
-                    {item.content_records?<FeatureItem text={item.content_records}/>:null}
-                    {item.users?<FeatureItem text={item.users}/>:null}
-                    {item.features?<FeatureItem text={item.features}/>:null}
-                    {item.domain?<FeatureItem text={item.domain}/>:null}
-                    {item.data_plan?<FeatureItem text={item.data_plan}/>:null}
-                    {item.support?<FeatureItem text={item.support}/>:null}
-                    {item.feature1?<FeatureItem text={item.feature1}/>:null}
-                    {item.feature2?<FeatureItem text={item.feature2}/>:null}
-                    {item.feature3?<FeatureItem text={item.feature3}/>:null}
-                    {item.feature4?<FeatureItem text={item.feature4}/>:null}
-                    {item.feature5?<FeatureItem text={item.feature5}/>:null}
-                    </>
-                  }
 
+                  {/* SandBox Section  */}
+                  {i == 0 && (
+                    <>
+                      <Grid container>
+                        <Grid item md={6} xs={12}>
+                          {item.content_records ? (
+                            <FeatureItem text={item.content_records} />
+                          ) : null}
+                          {item.users ? (
+                            <FeatureItem text={item.users} />
+                          ) : null}
+                          {item.features ? (
+                            <FeatureItem text={item.features} />
+                          ) : null}
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                          {item.domain ? (
+                            <FeatureItem text={item.domain} />
+                          ) : null}
+                          {item.data_plan ? (
+                            <FeatureItem text={item.data_plan} />
+                          ) : null}
+                        </Grid>
+                      </Grid>
+                    </>
+                  )}
+
+                  {/* Standard  Business Enterprise Section */}
+                  {i != 0 && (
+                    <>
+                      {item.content_records ? (
+                        <FeatureItem text={item.content_records} />
+                      ) : null}
+                      {item.users ? <FeatureItem text={item.users} /> : null}
+                      {item.features ? (
+                        <FeatureItem text={item.features} />
+                      ) : null}
+                      {item.domain ? <FeatureItem text={item.domain} /> : null}
+                      {item.data_plan ? (
+                        <FeatureItem text={item.data_plan} />
+                      ) : null}
+                      {item.support ? (
+                        <FeatureItem text={item.support} />
+                      ) : null}
+                      {item.feature1 ? (
+                        <FeatureItem text={item.feature1} />
+                      ) : null}
+                      {item.feature2 ? (
+                        <FeatureItem text={item.feature2} />
+                      ) : null}
+                      {item.feature3 ? (
+                        <FeatureItem text={item.feature3} />
+                      ) : null}
+                      {item.feature4 ? (
+                        <FeatureItem text={item.feature4} />
+                      ) : null}
+                      {item.feature5 ? (
+                        <FeatureItem text={item.feature5} />
+                      ) : null}
+                    </>
+                  )}
                 </CardContent>
-                {i != 0 &&
+
+                {/* Standard and Business Buttons  */}
+                {i != 0 && i != 3 && (
                   <>
                     <Box flexGrow={1} />
-                    <CardActions sx={{ justifyContent: 'flex-end', padding: 4 }}>
-                    <TryFreeButton
-                    component={'a'}
-                    variant="contained"
-                    size="large"
-                    fullWidth={isMd ? false : true}
-                    text='Get Started'
+                    <CardActions
+                      sx={{ justifyContent: 'flex-end', padding: 4 }}
                     >
-                    </TryFreeButton>
-                    
+                      <TryFreeButton
+                        target={FillerContent.href}
+                        component={'a'}
+                        variant="contained"
+                        size="large"
+                        fullWidth={isMd ? false : true}
+                        text={
+                          (item.button_cta?.data &&
+                            item?.button_cta?.data[0]?.button_text) ||
+                          FillerContent.cta
+                        }
+                      ></TryFreeButton>
                     </CardActions>
                   </>
-                  }
-                </Box>
-                
+                )}
+
+                {/* Show this button in Enterprise table only  */}
+                {i == 3 && (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      padding: 4,
+                    }}
+                  >
+                    <Button
+                      href={
+                        (item.button_cta?.data &&
+                          item.button_cta?.data[0]?.internal_link?.data &&
+                          item.button_cta?.data[0]?.internal_link?.data[0]?.meta
+                            ?.web?.url) ||
+                        FillerContent.href
+                      }
+                      variant="contained"
+                      color="secondary"
+                      size="large"
+                      fullWidth={isMd ? false : true}
+                    >
+                      {(item.button_cta?.data &&
+                        item?.button_cta?.data[0]?.button_text) ||
+                        FillerContent.cta}
+                    </Button>
+                  </Box>
+                )}
+              </Box>
             </Grid>
           ))}
         </Grid>
