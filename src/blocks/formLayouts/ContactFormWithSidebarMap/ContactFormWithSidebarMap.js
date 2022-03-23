@@ -152,7 +152,7 @@ function ContactFormWithSidebarMap({title, description, image}) {
                 <Button
                   sx={{ height: 54, minWidth: 150 }}
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   size="medium"
                   type="submit"
                 >
@@ -196,7 +196,7 @@ function ContactFormWithSidebarMap({title, description, image}) {
   const RightSide = () => {
     return (
       <Box>
-        <img 
+        <img
           src={image}
           alt="Zesty Office"
           width="100%"

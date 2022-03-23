@@ -1,5 +1,5 @@
 import React from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
+import {  useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -75,7 +75,7 @@ const HeroWithDashboardScreenshotAndCta = ({
             >
               <TryFreeButton
                 variant="contained"
-                color="primary"
+                color="secondary"
                 size="large"
                 fullWidth={isMd ? false : true}
                 text={cta_left || FillerContent.href}
@@ -84,11 +84,20 @@ const HeroWithDashboardScreenshotAndCta = ({
                 href={cta_right_url || FillerContent.href}
                 component={Button}
                 variant="outlined"
-                color="primary"
+                color={theme.palette.zestyOrange}
                 size="large"
                 marginTop={{ xs: 2, sm: 0 }}
-                marginLeft={{ sm: 2 }}
+                marginLeft={{ xs: 2 }}
                 fullWidth={isMd ? false : true}
+                sx={{
+                  color: '#FF5D0A',
+                  borderColor: '#FF5D0A',
+                  '&:hover': {
+                    borderColor: '#FF5D0A',
+                    backgroundColor: '#FF5D0A',
+                    color: 'white',
+                  },
+                }}
               >
                 {cta_right || FillerContent.cta}
               </Box>
@@ -108,7 +117,7 @@ const HeroWithDashboardScreenshotAndCta = ({
             height={1}
             width={1}
             src={image || FillerContent.dashboard_image}
-            alt="..."
+            alt="headless cms image"
             borderRadius={2}
             maxWidth={600}
             sx={{

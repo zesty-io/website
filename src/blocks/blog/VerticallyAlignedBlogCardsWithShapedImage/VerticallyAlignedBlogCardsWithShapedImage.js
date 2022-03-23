@@ -50,20 +50,21 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
           </Typography>
           <Typography color={'text.secondary'}>{description}</Typography>
         </Box>
-        {ctaBtn && (
-          <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
-            <Box
+
+        <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
+          {ctaBtn && (
+            <Button
               component={Button}
               href={ctaUrl}
-              variant="contained"
-              color="primary"
+              variant="outlined"
+              color="secondary"
               size="large"
               marginLeft={2}
             >
               {ctaBtn}
-            </Box>
-          </Box>
-        )}
+            </Button>
+          )}
+        </Box>
       </Box>
       <Grid container spacing={4}>
         {popularArticles.map((item, i) => (

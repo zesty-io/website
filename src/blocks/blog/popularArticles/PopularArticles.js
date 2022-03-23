@@ -79,8 +79,6 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
               marginLeft={2}
               color={theme.palette.zesty.zestyOrange}
               borderColor={theme.palette.zesty.zestyOrange}
-              size="large"
-              marginLeft={2}
               href={'customer-stories/'}
               sx={{
                 '&:hover': {
