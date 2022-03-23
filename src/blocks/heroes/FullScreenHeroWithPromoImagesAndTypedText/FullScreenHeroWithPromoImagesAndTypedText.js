@@ -14,9 +14,11 @@ const slantedImages = (images = []) => {
       group: [
         {
           cover: images && images[0]?.url,
+          coverDark: images && images[0]?.url,
         },
         {
           cover: images && images[1]?.url,
+          coverDark: images && images[1]?.url,
         },
       ],
     },
@@ -24,12 +26,15 @@ const slantedImages = (images = []) => {
       group: [
         {
           cover: images && images[2]?.url,
+          coverDark: images && images[2]?.url,
         },
         {
           cover: images && images[3]?.url,
+          coverDark: images && images[3]?.url,
         },
         {
           cover: images && images[4]?.url,
+          coverDark: images && images[4]?.url,
         },
       ],
     },
@@ -37,15 +42,19 @@ const slantedImages = (images = []) => {
       group: [
         {
           cover: images && images[5]?.url,
+          coverDark: images && images[5]?.url,
         },
         {
           cover: images && images[6]?.url,
+          coverDark: images && images[6]?.url,
         },
         {
-          cover: images && images[7]?.url,
+          cover: images && images[2]?.url,
+          coverDark: images && images[2]?.url,
         },
         {
           cover: images && images[1]?.url,
+          coverDark: images && images[1]?.url,
         },
       ],
     },
@@ -67,6 +76,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
     defaultMatches: true,
   });
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isDarkMode = theme.palette.mode === 'dark';
   // split the title from api by br tag for styling purposes
   const newTitle = title.split('<br/>');
   const title0 = newTitle && newTitle[0];
@@ -95,7 +105,11 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
               <Typography
                 component={'h1'}
                 variant="p"
-                color={theme.palette.zesty.zestyGrey}
+                color={
+                  isDarkMode
+                    ? theme.palette.zesty.zestyWhite
+                    : theme.palette.zesty.zestyGrey
+                }
                 sx={{ fontWeight: 400, fontSize: '20px' }}
                 gutterBottom
               >
