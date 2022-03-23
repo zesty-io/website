@@ -27,6 +27,7 @@ const WithSwiperAndBrandBackgroundColor = (props) => {
                 width={1}
                 height="auto"
                 src={item.customer_logo.data[0].url}
+                // src={theme.palette.mode === 'dark' ? item.white_logo.data[0].url : item.grey_logo.data[0].url}
                 alt={`${item.customer_name}, a Zesty.io Customer`}
                 sx={{
                   filter: theme.palette.mode === 'dark' ?  'grayscale(100%) brightness(0%) invert(1)' : 'grayscale(40%) brightness(0%)',
