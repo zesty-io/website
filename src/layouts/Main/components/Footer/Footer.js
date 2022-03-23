@@ -7,6 +7,10 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
 
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+
 const Footer = ({customRouting,colorInvert = false }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -87,6 +91,41 @@ const Footer = ({customRouting,colorInvert = false }) => {
             </Box>
           </Grid>
 
+          <Grid item marginTop={2} paddingBottom={2} xs={12} align={'center'}>
+            <Container>
+              <Typography
+                marginBottom={1}
+                variant={'h6'}
+                text-transform="capitalize"
+              >
+                Connect with us
+              </Typography>
+              <Box
+                component="a"
+                href="https://www.facebook.com/zestyio"
+                color="text.primary"
+                marginRight={2}
+              >
+                <FacebookIcon />
+              </Box>
+              <Box
+                component="a"
+                href="https://www.linkedin.com/company/zesty-io/mycompany/"
+                color="text.primary"
+                marginRight={2}
+              >
+                <LinkedInIcon />
+              </Box>
+              <Box
+                component="a"
+                href="https://twitter.com/zestyio"
+                color="text.primary"
+
+              >
+                <TwitterIcon />
+              </Box>
+            </Container>
+          </Grid>
           <Grid item marginTop={4} paddingBottom={10} xs={12}>
             <Typography
               align={'center'}
