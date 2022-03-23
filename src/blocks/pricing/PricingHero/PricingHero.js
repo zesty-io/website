@@ -13,6 +13,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import FeatureItem from '../FeatureItem/FeatureItem';
 import Container from 'components/Container';
 import TryFreeButton from 'components/cta/TryFreeButton';
+import FillerContent from 'components/FillerContent';
 
 const pricingHero = ({ title, subtitle, tiers = [] }) => {
   const theme = useTheme();
@@ -87,7 +88,11 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                           variant="contained"
                           size="large"
                           fullWidth={isMd ? false : true}
-                          text="Get Started"
+                          text={
+                            (item.button_cta?.data &&
+                              item?.button_cta?.data[0]?.button_text) ||
+                            FillerContent.cta
+                          }
                           sx={{ marginLeft: 'auto' }}
                         />
                       )}
@@ -189,11 +194,16 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                       sx={{ justifyContent: 'flex-end', padding: 4 }}
                     >
                       <TryFreeButton
+                        target={FillerContent.href}
                         component={'a'}
                         variant="contained"
                         size="large"
                         fullWidth={isMd ? false : true}
-                        text="Get Started"
+                        text={
+                          (item.button_cta?.data &&
+                            item?.button_cta?.data[0]?.button_text) ||
+                          FillerContent.cta
+                        }
                       ></TryFreeButton>
                     </CardActions>
                   </>
@@ -207,4 +217,4 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
   );
 };
 
-export default React.memo(pricingHero);
+export default pricingHero;
