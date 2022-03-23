@@ -19,6 +19,14 @@ const BlogCardsWithFullBackgroundImage = ({
 
 }) => {
 
+    const formatDate = (date) => {
+      let d = new Date(date);
+      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+      let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+
+      return `${mo} ${ye}`;
+    };
+
   const theme = useTheme();
   return (
     <Container paddingTop={'0 !important'}>
@@ -46,9 +54,9 @@ const BlogCardsWithFullBackgroundImage = ({
             href={'customer-stories/'}
             sx={{
               '&:hover': {
-                'borderColor': '#FF5D0A',
-                "backgroundColor" : '#FF5D0A',
-                'color' : 'white'
+                borderColor: '#FF5D0A',
+                backgroundColor: '#FF5D0A',
+                color: 'white',
               },
             }}
           >
@@ -161,7 +169,7 @@ const BlogCardsWithFullBackgroundImage = ({
                         color={'text.secondary'}
                         sx={{ color: 'common.white', opacity: 0.8 }}
                       >
-                        {item?.date}
+                        {formatDate(item?.date) || FillerContent.date}
                       </Typography>
                     </Box>
                   </Box>

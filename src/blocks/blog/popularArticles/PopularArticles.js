@@ -71,27 +71,28 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
           <Typography color={'text.secondary'}>{description}</Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
-          <Box
-            component={Button}
-            variant="outlined"
-
-            size="large"
-            marginLeft={2}
-            color={theme.palette.zesty.zestyOrange}
-            borderColor={theme.palette.zesty.zestyOrange}
-            size="large"
-            marginLeft={2}
-            href={'customer-stories/'}
-            sx={{
-              '&:hover': {
-                borderColor: '#FF5D0A',
-                backgroundColor: '#FF5D0A',
-                color: 'white',
-              },
-            }}
-          >
-            {ctaBtn}
-          </Box>
+          {ctaBtn && (
+            <Box
+              component={Button}
+              variant="outlined"
+              size="large"
+              marginLeft={2}
+              color={theme.palette.zesty.zestyOrange}
+              borderColor={theme.palette.zesty.zestyOrange}
+              size="large"
+              marginLeft={2}
+              href={'customer-stories/'}
+              sx={{
+                '&:hover': {
+                  borderColor: '#FF5D0A',
+                  backgroundColor: '#FF5D0A',
+                  color: 'white',
+                },
+              }}
+            >
+              {ctaBtn}
+            </Box>
+          )}
         </Box>
       </Box>
       <Grid container spacing={4}>

@@ -207,7 +207,7 @@ function Mindshare({ content }) {
                   content.additional_insights_description ||
                   FillerContent.description
                 }
-                ctaBtn={content.additional_insights_cta || FillerContent.cta}
+
                 articles={allArticles}
               />
             )}
