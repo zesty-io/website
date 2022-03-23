@@ -22,7 +22,13 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
 }) => {
   const theme = useTheme();
 
+  const formatDate = (date) => {
+    let d = new Date(date);
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
 
+    return `${mo} ${ye}`;
+  };
 
   return (
     <Container paddingTop={'0 !important'}>
@@ -152,7 +158,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item?.date || FillerContent.href}
+                      {formatDate(item?.date) || FillerContent.date}
                     </Typography>
                   </Box>
                 </Box>
