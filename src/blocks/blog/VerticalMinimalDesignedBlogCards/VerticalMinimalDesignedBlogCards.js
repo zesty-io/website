@@ -53,6 +53,20 @@ const mock = [
 const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, cards, author }) => {
   const theme = useTheme();
   const cardsData = cards || mock;
+      const scrollTo = (id) => {
+        setTimeout(() => {
+          const element = document.querySelector(`#${id}`);
+          if (!element) {
+            return;
+          }
+
+          window.scrollTo({
+            left: 0,
+            top: element.offsetTop,
+            behavior: 'smooth',
+          });
+        });
+      };
 
   // Pagination
   const [currentPage, setcurrentPage] = React.useState(1);
@@ -66,22 +80,23 @@ const VerticalMinimalDesignedBlogCards = ({ hideLoadMore, cards, author }) => {
   }
   const handleChange = (_event, value) => {
     setcurrentPage(value);
+    scrollTo('scrollTop');
   };
 
   return (
-    <Container>
+    <Container id="scrollTop">
       <Box marginBottom={4}>
-      {cards?.length >= 10 && (
-        <Grid item container justifyContent={'center'} xs={12}>
-          <Pagination
-            count={pageNum?.length}
-            size={'large'}
-            color="primary"
-            page={currentPage}
-            onChange={handleChange}
-          />
-        </Grid>
-      )}
+        {cards?.length >= 10 && (
+          <Grid item container justifyContent={'center'} xs={12}>
+            <Pagination
+              count={pageNum?.length}
+              size={'large'}
+              color="primary"
+              page={currentPage}
+              onChange={handleChange}
+            />
+          </Grid>
+        )}
       </Box>
       <Grid container spacing={4}>
         {cardsList?.map((item, i) => (
