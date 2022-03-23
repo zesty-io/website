@@ -28,12 +28,12 @@ const Story = ({title, description, logos}) => {
                   width={1}
                   src={item.url}
                   alt="..."
-                  sx={{
-                    filter:
-                      theme.palette.mode === 'dark'
-                        ? 'brightness(0) invert(0.7)'
-                        : 'none',
-                  }}
+                  // sx={{
+                  //   filter:
+                  //     theme.palette.mode === 'dark'
+                  //       ? 'brightness(0) invert(0.7)'
+                  //       : 'none',
+                  // }}
                 />
               </Box>
             ))}

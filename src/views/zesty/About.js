@@ -44,7 +44,6 @@ import { TeamWithSmallSquarePhotos } from 'blocks/team';
 import FillerContent from 'components/FillerContent';
 
 function About({ content }) {
-  //   Main is not needed in page builds as it will duplicate the header and footer
 
   return (
     <>
