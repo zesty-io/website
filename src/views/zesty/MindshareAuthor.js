@@ -46,7 +46,7 @@ function MindshareAuthor({ content }) {
   React.useEffect(() => {
     fetchCardsData(uri, setauthors);
   }, []);
-  console.log(authors);
+
   return (
     <>
       <WithAlternateCards

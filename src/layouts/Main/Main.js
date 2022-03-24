@@ -49,9 +49,9 @@ const Main = ({
 
   // override over invert based on pages that we know have a dark image heading
 
-  let pageNavColorRegex = new RegExp(/mindshare|article/gi);
+  let pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
   const headerColorInvert = model?.match(pageNavColorRegex) !== null ? true : false
-  
+
   return (
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
