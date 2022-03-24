@@ -38,40 +38,17 @@ import { Box } from '@mui/material';
 import { useTheme } from '@mui/system';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import FillerContent from 'components/FillerContent';
+import useFetch from 'components/hooks/useFetch';
 
 function TechnologyOverview({ content }) {
   const theme = useTheme();
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [allArticles, setAllArticles] = useState([]);
-  let zestyURL =
-    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-      ? process.env.zesty.production
-      : process.env.zesty.stage;
 
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        setIsLoaded(true);
-        const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=3`;
+  const {
+    data: allArticles,
+    isPending,
+    error,
+  } = useFetch(`/-/all-articles-hydrated.json?limit=3`);
 
-        const response = await fetch(uri);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
-        }
-
-        const articles = await response.json();
-
-        setAllArticles(articles);
-      };
-
-      fetchData();
-    } catch (error) {
-      console.error(`Could Not Find Results: ${error}`);
-    } finally {
-      setIsLoaded(false);
-    }
-  }, []);
 
   const headerProps = {
     title: content.title || FillerContent.header,
@@ -163,7 +140,7 @@ function TechnologyOverview({ content }) {
       />
 
       {/* Industry Insights > Latest Blogs articles */}
-      {isLoaded ? (
+      {isPending ? (
         <Box display="flex" justifyContent="center" alignItems="center">
           <CircularProgressWithLabel />
         </Box>
