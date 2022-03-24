@@ -58,6 +58,7 @@ function AgencyPartner({ content }) {
       </Container>
 
       <CtaSimpleCentered
+        nav={content.navigationTree}
         ctaTitle={content.cta_header_title || FillerContent.header}
         description={
           content.cta_header_description || FillerContent.description

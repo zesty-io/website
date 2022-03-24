@@ -5,10 +5,10 @@ import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import TryFreeButton from 'components/cta/TryFreeButton';
-
+import { zestyLink } from 'lib/zestyLink'
 import Container from 'components/Container';
 
-const CtaSimpleCentered = ({ ctaTitle, description, ctaLeft, ctaRight }) => {
+const CtaSimpleCentered = ({ nav=[], ctaTitle, description, ctaLeft, ctaRight }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -58,7 +58,7 @@ const CtaSimpleCentered = ({ ctaTitle, description, ctaLeft, ctaRight }) => {
           >
             <Button
               component={'a'}
-              href={'/docs/introduction'}
+              href={zestyLink(nav,'7-cec987fcf5-9bht2z')}
               variant="outlined"
               color="secondary"
               size="large"
