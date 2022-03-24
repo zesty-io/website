@@ -41,42 +41,12 @@ import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAli
 import BlogCardsWithFullBackgroundImage from 'blocks/blog/BlogCardsWithFullBackgroundImage';
 import PopularArticles from 'blocks/blog/popularArticles/PopularArticles';
 import Newsletter from 'blocks/newsletters/Newsletter';
+import useFetch from 'components/hooks/useFetch';
 
 function Mindshare({ content }) {
   const theme = useTheme();
+  const {data: allArticles, isPending, error} = useFetch('/-/all-articles-hydrated.json?limit=140')
 
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [allArticles, setAllArticles] = useState([]);
-
-  let zestyURL =
-    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-      ? process.env.zesty.production
-      : process.env.zesty.stage;
-
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        setIsLoaded(true);
-        const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=140`;
-
-        const response = await fetch(uri);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
-        }
-
-        const articles = await response.json();
-
-        setAllArticles(articles);
-      };
-
-      fetchData();
-    } catch (error) {
-      console.error(`Could Not Find Results: ${error}`);
-    } finally {
-      setIsLoaded(false);
-    }
-  }, []);
 
   const chipsTitle = content.popular_categories
     ? Object.keys(content.popular_categories.data).map(
@@ -191,10 +161,10 @@ function Mindshare({ content }) {
           }
         />
 
-        <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }} >
-          <Container paddingTop={'0 !important'} >
+        <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
+          <Container paddingTop={'0 !important'}>
             {/*  Latest Articles W/PAGINATION */}
-            {isLoaded ? (
+            {isPending ? (
               <Box display="flex" justifyContent="center" alignItems="center">
                 <CircularProgressWithLabel />
               </Box>
@@ -207,7 +177,6 @@ function Mindshare({ content }) {
                   content.additional_insights_description ||
                   FillerContent.description
                 }
-
                 articles={allArticles}
               />
             )}
@@ -244,8 +213,6 @@ function Mindshare({ content }) {
           ctaBtn={content.cta_link}
         />
       </Container>
-
-
     </>
   );
 }
