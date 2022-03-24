@@ -20,6 +20,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   ctaUrl,
   popularArticles = [],
 }) => {
+
   const theme = useTheme();
 
   const formatDate = (date) => {
@@ -50,20 +51,21 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
           </Typography>
           <Typography color={'text.secondary'}>{description}</Typography>
         </Box>
-        {ctaBtn && (
-          <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
-            <Box
+
+        <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
+          {ctaBtn && (
+            <Button
               component={Button}
               href={ctaUrl}
-              variant="contained"
-              color="primary"
+              variant="outlined"
+              color="secondary"
               size="large"
               marginLeft={2}
             >
               {ctaBtn}
-            </Box>
-          </Box>
-        )}
+            </Button>
+          )}
+        </Box>
       </Box>
       <Grid container spacing={4}>
         {popularArticles.map((item, i) => (
@@ -71,7 +73,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
             <Box
               component={'a'}
               href={
-                item?.meta?.uri || item?.meta?.web?.uri || FillerContent.href
+                item?.meta?.uri || item?.meta?.web?.uri ||item?.path || FillerContent.href
               }
               display={'block'}
               width={1}

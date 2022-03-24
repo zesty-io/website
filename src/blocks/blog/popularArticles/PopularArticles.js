@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
+
 
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -19,10 +19,6 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
 
   const theme = useTheme();
 
-    const trigger = useScrollTrigger({
-      disableHysteresis: true,
-      threshold: 100,
-    });
 
     const scrollTo = (id) => {
       setTimeout(() => {
@@ -56,7 +52,7 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
 
 
   return (
-    <Box>
+    <Box id="scrollTop">
       <Box
         display={'flex'}
         justifyContent={'space-between'}
@@ -64,7 +60,7 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
         flexDirection={{ xs: 'column', sm: 'row' }}
         marginBottom={4}
       >
-        <Box id="scrollTop">
+        <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
             {title}
           </Typography>
@@ -79,8 +75,6 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
               marginLeft={2}
               color={theme.palette.zesty.zestyOrange}
               borderColor={theme.palette.zesty.zestyOrange}
-              size="large"
-              marginLeft={2}
               href={'customer-stories/'}
               sx={{
                 '&:hover': {

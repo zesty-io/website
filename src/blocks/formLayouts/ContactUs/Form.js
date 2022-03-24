@@ -142,7 +142,7 @@ const ContactUs = ({title, description}) => {
               <Button
                 sx={{ height: 54, minWidth: 150 }}
                 variant="contained"
-                color="primary"
+                color="secondary"
                 size="medium"
                 type="submit"
               >

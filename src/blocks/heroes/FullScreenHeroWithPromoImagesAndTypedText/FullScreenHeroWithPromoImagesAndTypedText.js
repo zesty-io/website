@@ -183,7 +183,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                   href={cta_left_url || FillerContent.href}
                   component={'a'}
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   size="large"
                   fullWidth={isMd ? false : true}
                 >
@@ -198,7 +198,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                     component={'a'}
                     href={cta_right_url || FillerContent.href}
                     variant="outlined"
-                    color="primary"
+                    color="secondary"
                     size="large"
                     fullWidth={isMd ? false : true}
                   >

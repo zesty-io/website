@@ -18,7 +18,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
 const router = useRouter();
-console.log(router.asPath)
+
   return (
     <Box>
       <Box marginBottom={4}>

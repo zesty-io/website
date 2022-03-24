@@ -35,7 +35,7 @@ const CtaWithCoverImage = ({ title, cta, image, summary, cta_url }) => {
         <Button
           href={cta_url || FillerContent.href}
           variant="contained"
-          color="primary"
+          color="secondary"
           size="large"
           fullWidth={isMd ? false : true}
         >

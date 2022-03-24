@@ -135,16 +135,16 @@ const SimpleVerticalBlogCards = ({
           justifyContent={'center'}
           marginTop={{ xs: 2, md: 4 }}
         >
-          <Box
+          <Button
             href={cta_url || '/mindshare'}
             component={Button}
             variant="contained"
-            color="primary"
+            color="secondary"
             size="large"
             marginLeft={2}
           >
             {cta || 'Read More'}
-          </Box>
+          </Button>
         </Box>
       </Box>
     </Container>
