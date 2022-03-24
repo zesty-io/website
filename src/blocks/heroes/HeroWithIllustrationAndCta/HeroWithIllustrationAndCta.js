@@ -108,7 +108,7 @@ const HeroWithIllustrationAndCta = ({
                   marginTop={{ xs: 2, sm: 0 }}
                   marginLeft={{ sm: 2 }}
                   width={{ xs: '100%', md: 'auto' }}
-                >
+              >
                   <Button
                     component={'a'}
                     href={'/demos/'}
