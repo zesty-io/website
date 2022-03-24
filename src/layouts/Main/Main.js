@@ -17,6 +17,7 @@ import { Topbar, Sidebar, Footer } from './components';
 const Main = ({
   children,
   customRouting,
+  nav=[],
   colorInvert = false,
   bgcolor = 'transparent',
   model=''
@@ -56,7 +57,7 @@ const Main = ({
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
-          <TopNav colorInvert={headerColorInvert} />
+          <TopNav nav={nav} colorInvert={headerColorInvert} />
         </Container>
       </Box>
       <AppBar
