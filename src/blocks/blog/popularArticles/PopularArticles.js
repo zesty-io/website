@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -16,25 +15,22 @@ import Pagination from '@mui/material/Pagination';
 import FillerContent from 'components/FillerContent';
 
 const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
-
   const theme = useTheme();
 
+  const scrollTo = (id) => {
+    setTimeout(() => {
+      const element = document.querySelector(`#${id}`);
+      if (!element) {
+        return;
+      }
 
-    const scrollTo = (id) => {
-      setTimeout(() => {
-        const element = document.querySelector(`#${id}`);
-        if (!element) {
-          return;
-        }
-
-        window.scrollTo({
-          left: 0,
-          top: element.offsetTop,
-          behavior: 'smooth',
-        });
+      window.scrollTo({
+        left: 0,
+        top: element.offsetTop,
+        behavior: 'smooth',
       });
-    };
-
+    });
+  };
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,7 +45,6 @@ const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
   const handlePageChange = (_event, value) => {
     setCurrentPage(value);
   };
-
 
   return (
     <Box id="scrollTop">

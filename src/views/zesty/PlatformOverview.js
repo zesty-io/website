@@ -41,6 +41,7 @@ import FillerContent from 'components/FillerContent';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
 import WYSIWYGRender from 'components/WYSIWYGRender';
+import useFetch from 'components/hooks/useFetch';
 
 const ProductOverviewHeader = ({ header }) => {
   return (
@@ -183,39 +184,17 @@ const ProductOverviewBody = ({ cards, header }) => {
 
 function PlatformOverview({ content }) {
   const theme = useTheme();
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [allArticles, setAllArticles] = useState([]);
+
+
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  let zestyURL =
-    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-      ? process.env.zesty.production
-      : process.env.zesty.stage;
+  const {
+    data: allArticles,
+    isPending,
+    error,
+  } = useFetch(`/-/all-articles-hydrated.json?limit=3`);
 
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        setIsLoaded(true);
-        const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=3`;
 
-        const response = await fetch(uri);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
-        }
-
-        const articles = await response.json();
-
-        setAllArticles(articles);
-      };
-
-      fetchData();
-    } catch (error) {
-      console.error(`Could Not Find Results: ${error}`);
-    } finally {
-      setIsLoaded(false);
-    }
-  }, []);
 
   const headerProps = {
     title: content.title || FillerContent.header,
@@ -274,7 +253,7 @@ function PlatformOverview({ content }) {
       />
 
       {/* Industry Insights > Latest Blogs articles */}
-      {isLoaded ? (
+      {isPending ? (
         <Box display="flex" justifyContent="center" alignItems="center">
           <CircularProgressWithLabel />
         </Box>

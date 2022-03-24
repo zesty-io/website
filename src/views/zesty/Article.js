@@ -49,64 +49,29 @@ import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 import Container from 'components/Container';
 import SideBarCTA from 'components/cta/SideBarCTA';
 import WYSIWYGRender from 'components/WYSIWYGRender';
+import useFetch from 'components/hooks/useFetch';
 
 function Article({ content }) {
-  let zestyURL =
-    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-      ? process.env.zesty.production
-      : process.env.zesty.stage;
-
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [latestArticles, setLatestArticles] = useState([]);
-  const [tagArticles, setTagArticles] = useState([]);
-
   const simliarTags = content.tags?.data[0]?.meta?.zuid;
 
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        setIsLoaded(true);
-        const uri = `${zestyURL}/-/all-articles-hydrated.json?limit=5`;
-        const response = await fetch(uri);
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
-        }
-        const articles = await response.json();
+  const { data: latestArticles, isPending: latestPending } = useFetch(
+    '/-/all-articles-hydrated.json?limit=5',
+  );
 
-        setLatestArticles(articles);
-        setIsLoaded(false);
-      };
 
-      const fetchSimiliarTags = async () => {
-        setIsLoaded(true);
-        const url = `${zestyURL}/-/similar-articles.json?limit=4&tag=${simliarTags}`;
-
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
-        }
-        const tagArticles = await response.json();
-
-        setTagArticles(tagArticles);
-        setIsLoaded(false);
-      };
-
-      fetchData();
-      fetchSimiliarTags();
-    } catch (error) {
-      console.error(`Could Not Find Results: ${error}`);
-    }
-  }, []);
+  const { data: tagArticles, isPending: tagsPending } = useFetch(
+    `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
+  );
 
   const removeErrorHandlingString = /Error hydrating/gi;
   let cleanOutErrorHydrating;
 
-
+  // Check if "Error hydrating" is being injected and clean out
   const validateWysiwyg = () => {
     if (content.article.includes('Error hydrating')) {
       cleanOutErrorHydrating = content?.article.replaceAll(
@@ -147,7 +112,6 @@ function Article({ content }) {
         <Container>
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
-
               <WYSIWYGRender
                 customClass="icon-box"
                 rich_text={validateWysiwyg() || FillerContent.rich_text}
@@ -162,7 +126,7 @@ function Article({ content }) {
             <Grid item xs={12} md={4}>
               {isMd ? (
                 <Box marginBottom={4}>
-                  {isLoaded ? (
+                  {latestPending ? (
                     <CircularProgressWithLabel />
                   ) : (
                     <SidebarArticles
@@ -232,24 +196,6 @@ function Article({ content }) {
           ></path>
         </Box>
       </Box>
-
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      {/* <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div> */}
-      {/* End of Zesty.io output example */}
     </>
   );
 }
