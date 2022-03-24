@@ -45,7 +45,7 @@ export async function fetchPage(url,getNavigation=true) {
   // fetch the navigation and append the navigation to the data
   if(getNavigation == true){
     // not using this tree
-    // data.navigationTree = await buildJSONTreeFromNavigation(zestyURL)
+    data.navigationTree = await buildJSONTreeFromNavigation(zestyURL)
     // custom nav tree building
     data.navigationCustom = await customNavigation(zestyURL)
   }
@@ -142,7 +142,8 @@ async function buildJSONTreeFromNavigation(zestyURL){
     routeData.forEach(async route => {
         let tempRoute = {
           url: route.uri,
-          title: route.title
+          title: route.title,
+          zuid: route.zuid
         };
         reducedData.push(tempRoute)
     

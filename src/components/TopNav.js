@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
+import { zestyLink } from 'lib/zestyLink';
 
 import ThemeModeToggler from 'components/ThemeModeToggler';
 
-const TopNav = ({ colorInvert = false }) => {
+const TopNav = ({ nav, colorInvert = false }) => {
   return (
     <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'}>
       <Box marginRight={{ xs: 1, sm: 2 }}>
@@ -35,7 +35,7 @@ const TopNav = ({ colorInvert = false }) => {
         <Link
           underline="none"
           component="a"
-          href="/contact-new/"
+          href={zestyLink(nav,'7-cec987fcf5-9bht2z')}
           color={colorInvert ? 'common.white' : 'text.primary'}
           sx={{ display: 'flex', alignItems: 'center' }}
         >
