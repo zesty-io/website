@@ -85,7 +85,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                       </Typography>
 
                       {/* Sandbox Button  */}
-                      {i == 0 && (
+                      {i == 0 && isMd && (
                         <TryFreeButton
                           component={'a'}
                           variant="contained"
@@ -140,6 +140,24 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                           ) : null}
                         </Grid>
                       </Grid>
+                      {!isMd && (
+                        <CardActions
+                          sx={{ justifyContent: 'flex-end' }}
+                        >
+                          <TryFreeButton
+                            component={'a'}
+                            variant="contained"
+                            size="large"
+                            fullWidth={isMd ? false : true}
+                            text={
+                              (item.button_cta?.data &&
+                                item?.button_cta?.data[0]?.button_text) ||
+                              FillerContent.cta
+                            }
+
+                          />
+                        </CardActions>
+                      )}
                     </>
                   )}
 
