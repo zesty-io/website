@@ -270,11 +270,7 @@ function PlatformOverview({ content }) {
           (content.cta?.data && content.cta?.data[0]?.button_text) ||
           FillerContent.cta
         }
-        cta_url={
-          (content.cta?.data &&
-            content.cta?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
-          FillerContent.href
-        }
+        cta_url={null}
       />
 
       {/* Industry Insights > Latest Blogs articles */}

@@ -7,6 +7,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const reconstructImages = (images = []) => {
   return [
@@ -179,16 +180,13 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 alignItems={{ xs: 'stretched', sm: 'flex-start' }}
                 marginTop={4}
               >
-                <Button
-                  href={cta_left_url || FillerContent.href}
+                <TryFreeButton
                   component={'a'}
                   variant="contained"
-                  color="secondary"
                   size="large"
                   fullWidth={isMd ? false : true}
-                >
-                  {cta_left || 'View pages'}
-                </Button>
+                  text={cta_left || 'View pages'}
+                />
                 <Box
                   marginTop={{ xs: 2, sm: 0 }}
                   marginLeft={{ sm: 2 }}
