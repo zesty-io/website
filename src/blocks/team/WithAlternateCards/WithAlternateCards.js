@@ -48,47 +48,49 @@ const WithAlternateCards = ({ authors, title, description }) => {
           </Typography>
         </Box>
         <Grid container spacing={2}>
-          {cardList.map((item, i) => (
-            <Grid item xs={12} md={4} key={i}>
-              <Link href={item?.author?.url}>
-                <Box
-                  style={{ cursor: 'pointer' }}
-                  width={1}
-                  height={1}
-                  component={Card}
-                  boxShadow={0}
-                  variant={'outlined'}
-                  bgcolor={'alternate.main'}
-                >
-                  <CardContent sx={{ padding: 3 }}>
-                    <ListItem
-                      component="div"
-                      disableGutters
-                      sx={{ padding: 0 }}
-                    >
-                      <ListItemAvatar sx={{ marginRight: 3 }}>
-                        <Avatar
-                          src={item?.author?.avatar || item?.avatar}
-                          variant={'rounded'}
-                          sx={{ width: 100, height: 100, borderRadius: 2 }}
+          {cardList
+            .sort((a, b) => a.sort - b.sort)
+            .map((item, i) => (
+              <Grid item xs={12} md={4} key={i}>
+                <Link href={item?.url}>
+                  <Box
+                    style={{ cursor: 'pointer' }}
+                    width={1}
+                    height={1}
+                    component={Card}
+                    boxShadow={0}
+                    variant={'outlined'}
+                    bgcolor={'alternate.main'}
+                  >
+                    <CardContent sx={{ padding: 3 }}>
+                      <ListItem
+                        component="div"
+                        disableGutters
+                        sx={{ padding: 0 }}
+                      >
+                        <ListItemAvatar sx={{ marginRight: 3 }}>
+                          <Avatar
+                            src={item?.avatar || item?.avatar}
+                            variant={'rounded'}
+                            sx={{ width: 100, height: 100, borderRadius: 2 }}
+                          />
+                        </ListItemAvatar>
+                        <ListItemText
+                          sx={{ margin: 0 }}
+                          primary={item?.name || item?.name}
+                          secondary={item?.title || item?.title}
+                          primaryTypographyProps={{
+                            variant: 'h6',
+                            fontWeight: 700,
+                          }}
+                          secondaryTypographyProps={{ variant: 'subtitle1' }}
                         />
-                      </ListItemAvatar>
-                      <ListItemText
-                        sx={{ margin: 0 }}
-                        primary={item?.author?.name || item?.name}
-                        secondary={item?.author?.title || item?.title}
-                        primaryTypographyProps={{
-                          variant: 'h6',
-                          fontWeight: 700,
-                        }}
-                        secondaryTypographyProps={{ variant: 'subtitle1' }}
-                      />
-                    </ListItem>
-                  </CardContent>
-                </Box>
-              </Link>
-            </Grid>
-          ))}
+                      </ListItem>
+                    </CardContent>
+                  </Box>
+                </Link>
+              </Grid>
+            ))}
         </Grid>
       </Box>
     </Container>

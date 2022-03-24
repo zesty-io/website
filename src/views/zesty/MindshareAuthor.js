@@ -1,26 +1,26 @@
 /**
  * Zesty.io Content Model Component
  * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
- * 
- * Label: Mindshare Authors 
- * Name: mindshare_authors 
+ *
+ * Label: Mindshare Authors
+ * Name: mindshare_authors
  * Model ZUID: 6-60e084-x4fskm
  * File Created On: Fri Mar 04 2022 12:16:05 GMT-0800 (Pacific Standard Time)
- * 
+ *
  * Model Fields:
- * 
+ *
   * title (text)
  * description (textarea)
 
- * 
+ *
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
  * images are objects {content.image_name.data[0].url}
- * 
+ *
  * This file is expected to be customized; because of that, it is not overwritten by the integration script.
  * Model and field changes in Zesty.io will not be reflected in this comment.
- * 
+ *
  * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-60e084-x4fskm
- * 
+ *
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
@@ -38,6 +38,7 @@ const fetchCardsData = async (uri, setFunc) => {
   res && (await setFunc(res));
 };
 function MindshareAuthor({ content }) {
+
   const uri = `${zestyURL}/-/authors.json`;
   const [authors, setauthors] = React.useState([]);
 
@@ -45,6 +46,7 @@ function MindshareAuthor({ content }) {
   React.useEffect(() => {
     fetchCardsData(uri, setauthors);
   }, []);
+  console.log(authors);
   return (
     <>
       <WithAlternateCards
