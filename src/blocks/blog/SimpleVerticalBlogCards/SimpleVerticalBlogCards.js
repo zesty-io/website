@@ -11,6 +11,8 @@ import Chip from '@mui/material/Chip';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
+import TryFreeButton from 'components/cta/TryFreeButton';
+import { useMediaQuery } from '@mui/material';
 
 const SimpleVerticalBlogCards = ({
   header,
@@ -23,6 +25,9 @@ const SimpleVerticalBlogCards = ({
   const theme = useTheme();
   const cardList = cards || FillerContent.simpleCards;
 
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
   return (
     <Container>
       <Box>
@@ -135,16 +140,26 @@ const SimpleVerticalBlogCards = ({
           justifyContent={'center'}
           marginTop={{ xs: 2, md: 4 }}
         >
-          <Button
-            href={cta_url || '/mindshare'}
-            component={Button}
-            variant="contained"
-            color="secondary"
-            size="large"
-            marginLeft={2}
-          >
-            {cta || 'Read More'}
-          </Button>
+          {cta_url ? (
+            <Button
+              href={cta_url || '/mindshare'}
+              component={Button}
+              variant="contained"
+              color="secondary"
+              size="large"
+              marginLeft={2}
+            >
+              {cta || 'Read More'}
+            </Button>
+          ) : (
+            <TryFreeButton
+              component={'a'}
+              variant="contained"
+              size="large"
+              fullWidth={isMd ? false : true}
+              text={cta || 'View pages'}
+            />
+          )}
         </Box>
       </Box>
     </Container>
