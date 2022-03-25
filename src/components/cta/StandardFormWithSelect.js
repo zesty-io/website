@@ -157,6 +157,7 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
     };
 
     const onSubmit = (values) => {
+      console.log(values, selectValue)
         alert(JSON.stringify(values))
         //  1. validate value
             // return errors if 
@@ -168,9 +169,9 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
     };
 
     const formik = useFormik({
-        initialValues,
-        validationSchema: validationSchema,
-        onSubmit,
+      initialValues,
+      validationSchema: validationSchema,
+      onSubmit,
     });
 
     return (
@@ -231,24 +232,27 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
                 />
             </Grid>
             {/* logic to hide the select */}
-           {hideSelect && <input value={selectValue}  name="inquiryReason" type="hidden" />}
+           {hideSelect && <Grid item xs={12}><input value={selectValue}  name="inquiryReason" type="hidden" /></Grid>}
            {/* logic to hide the select */}
            {!hideSelect && 
-            <Box sx={{ minWidth: 120 }}>
+            <Grid item xs={12}>
+              <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Inquiry Reason</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={selectValue}
-                            label="select"
-                            onChange={handleChange}
-                            name="inquiryReason"
-                            >
-                        {inquiryReasons.map(value => <MenuItem value={value}>{value}</MenuItem>)}
-                        </Select>
-                    </FormControl>
-                </Box>
+                  <InputLabel id="demo-simple-select-label">Inquiry Reason</InputLabel>
+                  <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={selectValue}
+                  label="Inquiry Reason"
+                  onChange={handleChange}
+                  name="inquiryReason"
+                  >
+                    <MenuItem value=''><em>None</em></MenuItem>
+                    {inquiryReasons.map(value => <MenuItem value={value}>{value}</MenuItem>)}
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
            }
             <Grid item xs={12}>
                 <TextField
