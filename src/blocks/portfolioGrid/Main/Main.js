@@ -14,12 +14,10 @@ import FillerContent from 'components/FillerContent';
 const Main = ({ partnerCards }) => {
   const theme = useTheme();
 
-
   return (
     <Box>
       <Grid container spacing={4}>
         {partnerCards.map((item, i) => (
-
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
@@ -48,10 +46,6 @@ const Main = ({ partnerCards }) => {
                   title={item?.title || FillerContent.header}
                   sx={{
                     height: { xs: 340, md: 400 },
-                    filter:
-                      theme.palette.mode === 'dark'
-                        ? 'brightness(0.7)'
-                        : 'none',
                   }}
                 />
                 <Box component={CardContent}>
