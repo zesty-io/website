@@ -124,7 +124,7 @@ const FeaturesWithCardRepresentation = ({
                 FillerContent.href
               }
               variant="contained"
-              color="primary"
+              color="secondary"
               size="large"
               fullWidth={isMd ? false : true}
             >
