@@ -9,18 +9,62 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 
+
+import Backdrop from '@mui/material/Backdrop';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+function TransitionsModal({title, message, open, setOpen}) {
+   const handleOpen = () => setOpen(true);
+   const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+            <Typography id="transition-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
+  );
+}
+
 export default function SubscribeCTA({
   text = 'Join thousands of others for our newsletter',
 }) {
   const theme = useTheme();
+    const [open, setOpen] = useState(false);
 
-  // const onSubmit = () => {
-  //   let email = emailInput.current.children[1].children[0].value
-  //   if(validateEmail(email)){
-  //     alert('good submit to capture '+email)
-  //   }
-  //   alert('Bad Email: '+email)
-  // }
 
   const validationSchema = yup.object({
     email: yup
@@ -37,17 +81,20 @@ export default function SubscribeCTA({
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
-  });
 
+  });
 
 
   return (
     <Box display="flex" flexDirection={'column'} justifyContent={'center'}>
+    <TransitionsModal open={open} setOpen={setOpen} />
       <Box marginBottom={2}>
         <Typography variant="body1" component="p">
           {text}
         </Typography>
       </Box>
+
+
       <Box
         component={'form'}
         onSubmit={formik.handleSubmit}
@@ -84,6 +131,7 @@ export default function SubscribeCTA({
             marginTop={{ xs: 2, sm: 0 }}
             marginLeft={{ sm: 2 }}
             type="submit"
+            onClick={() => setOpen(!open)}
           >
             Subscribe
           </Box>
