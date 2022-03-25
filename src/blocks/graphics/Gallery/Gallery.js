@@ -28,30 +28,30 @@ const Gallery = ({photos}) => {
   });
 
 
-
   return (
     <Box>
       <Box>
         <ImageList
           variant="quilted"
-          cols={3}
+          cols={ 3}
           rowHeight={isMd ? 300 : 200}
           gap={isMd ? 16 : 4}
         >
           {photos.map((item, i) => (
-            <ImageListItem key={i} cols={i % 3 == 0 ? 1 : 2} rows={1}>
+            <ImageListItem key={i} cols={ i % 3 == 0 ? 1 : 2} rows={1}>
               <LazyLoadImage
                 height={'100%'}
                 width={'100%'}
                 src={item.url}
-                alt="..."
+                alt="About Zesty"
                 effect="blur"
                 onClick={() => openLightbox(i)}
                 style={{
                   objectFit: 'cover',
+                  objectPosition: i == 0 ? 'left center' : 'center center',
                   filter:
                     theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
-                  cursor: 'poiner',
+                  cursor: 'pointer',
                   borderRadius: 8,
                 }}
               />
