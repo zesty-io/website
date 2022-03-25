@@ -39,6 +39,7 @@ import { useTheme } from '@mui/system';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import FillerContent from 'components/FillerContent';
 import useFetch from 'components/hooks/useFetch';
+import { zestyLink } from 'lib/zestyLink';
 
 function TechnologyOverview({ content }) {
   const theme = useTheme();
@@ -57,20 +58,9 @@ function TechnologyOverview({ content }) {
     image:
       (content.header_image?.data && content.header_image?.data[0]?.url) ||
       FillerContent.image,
-    cta_left:
-      (content.cta_left?.data && content.cta_left?.data[0]?.button_text) ||
-      FillerContent.cta,
-    cta_right:
-      (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
-      FillerContent.cta,
-    cta_left_url:
-      (content.cta_left?.data &&
-        content.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url) ||
-      FillerContent.cta,
-    cta_right_url:
-      (content.cta_right.data &&
-        content.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url) ||
-      FillerContent.cta,
+    cta_left_text: content.cta_left_text || FillerContent.cta,
+    cta_right_text: content.cta_right_text || FillerContent.cta,
+    cta_right_url: content.cta_right_url && zestyLink(content.navigationTree, content.cta_right_url) || zestyLink(content.navigationTree, FillerContent.contact_zuid)
   };
 
   return (

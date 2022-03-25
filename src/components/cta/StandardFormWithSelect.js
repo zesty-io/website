@@ -44,7 +44,7 @@ const validationSchema = yup.object({
     .required('Please specify your message'),
 });
 
-function StandardFormWithSelect({selectedValue=0}) {
+function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=true, defaultMessage=''}) {
  
     let inquiryReasons = [
         'General',
@@ -137,20 +137,26 @@ function StandardFormWithSelect({selectedValue=0}) {
                 helperText={formik.touched.email && formik.errors.email}
                 />
             </Grid>
+            {/* logic to hide the select */}
+           {hideSelect && <input value={selectValue}  name="inquiryReason" type="hidden" />}
+           {/* logic to hide the select */}
+           {!hideSelect && 
             <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Inquiry Reason</InputLabel>
-                <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectValue}
-                label="select"
-                onChange={handleChange}
-                >
-                {inquiryReasons.map(value => <MenuItem value={value}>{value}</MenuItem>)}
-                </Select>
-            </FormControl>
-            </Box>
+                <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Inquiry Reason</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={selectValue}
+                            label="select"
+                            onChange={handleChange}
+                            name="inquiryReason"
+                            >
+                        {inquiryReasons.map(value => <MenuItem value={value}>{value}</MenuItem>)}
+                        </Select>
+                    </FormControl>
+                </Box>
+           }
             <Grid item xs={12}>
                 <TextField
                 label="Message"

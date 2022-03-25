@@ -173,7 +173,7 @@ function AgencyPartner({ content }) {
               </Typography>
             </Box>
 
-            <StandardFormWithSelect selectedValue={0}  hideSelect={false} ctaText={content.cta_footer_cta ||  FillerContent.cta} />
+            <StandardFormWithSelect selectedValue={0}  hideSelect={true} hideMessage={true} ctaText={content.cta_footer_cta ||  FillerContent.cta} />
           </Box>
         </Container>
       </Box>

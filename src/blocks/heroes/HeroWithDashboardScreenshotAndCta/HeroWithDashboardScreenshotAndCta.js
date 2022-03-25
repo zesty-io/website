@@ -15,10 +15,9 @@ const HeroWithDashboardScreenshotAndCta = ({
   subtitle,
   description,
   image,
-  cta_left,
-  cta_right,
-  cta_left_url,
-  cta_right_url,
+  cta_left_text,
+  cta_right_text,
+  cta_right_url
 }) => {
   const theme = useTheme();
 
@@ -27,7 +26,7 @@ const HeroWithDashboardScreenshotAndCta = ({
   });
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+  
   return (
     <Container>
       <Grid
@@ -78,7 +77,7 @@ const HeroWithDashboardScreenshotAndCta = ({
                 color="secondary"
                 size="large"
                 fullWidth={isMd ? false : true}
-                text={cta_left || FillerContent.href}
+                text={cta_left_text || FillerContent.cta}
               ></TryFreeButton>
               <Box
                 href={cta_right_url || FillerContent.href}
@@ -99,7 +98,7 @@ const HeroWithDashboardScreenshotAndCta = ({
                   },
                 }}
               >
-                {cta_right || FillerContent.cta}
+                {  cta_right_text|| FillerContent.cta}
               </Box>
             </Box>
           </Box>
