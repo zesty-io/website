@@ -15,10 +15,96 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Container from 'components/Container';
+import Backdrop from '@mui/material/Backdrop';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+function TransitionsModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+            <Typography id="transition-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
+  );
+}
 
 /* validation for form component */
+
+const getLeadObjectZOHO = () => {
+
+    let country = document.querySelector('#ac-country');
+
+    return {
+        
+        "First_Name": document.querySelector('#ac-firstname input').value,
+        "Last_Name": document.querySelector('#ac-lastname input').value,
+        "Email": document.querySelector('#ac-email input').value,
+        "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
+        "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
+        "Current_CMS": acCMS,
+        "How_Using_Zesty_io": acHow,
+        "Website": document.querySelector('#ac-url').value,
+        "Lead_Source": "Website",
+        "Description": document.querySelector('#ac-description').value,
+        "Role": acRole,
+        'Project_Timeline' : document.querySelector('#ac-timeline').value,
+        "Lead_Source_Detail": acLeadtype,
+        "Business_Type": "Direct",
+        "Lead_Status": "Not Contacted"
+    }
+
+}
+
+const postToZOHO = (payloadJSON) => {
+ 
+    fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho',{
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res = res.json())
+    .then(data => {
+        acSENT = true;
+    })
+}
 
 const validationSchema = yup.object({
   firstName: yup
@@ -72,6 +158,12 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
 
     const onSubmit = (values) => {
         alert(JSON.stringify(values))
+        //  1. validate value
+            // return errors if 
+        // 2. shape data to match zoho object
+        // 3. post to zoho
+        // 4. POP modal thanking them
+        TransitionsModal()
         return values;
     };
 
