@@ -64,8 +64,8 @@ const SimpleHeroWithImageAndCtaButtons = ({
               <TryFreeButton
                 text={cta_left || FillerContent.cta}
                 variant="contained"
-                color={isDarkMode ? 'primary' : 'secondary'}
                 size="large"
+                color="secondary"
               ></TryFreeButton>
 
               <Box

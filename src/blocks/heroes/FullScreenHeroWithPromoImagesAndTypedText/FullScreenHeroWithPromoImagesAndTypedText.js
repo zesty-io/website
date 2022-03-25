@@ -189,13 +189,13 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 <Box
                   marginTop={{ xs: 2, sm: 0 }}
                   marginLeft={{ sm: 2 }}
-                  width={{ xs: '100%', md: 'auto' }}
+                  width={{ xs: '100%', md: 'auto', sm:'auto' }}
                 >
                   <Button
                     component={'a'}
                     href={cta_right_url || FillerContent.href}
-                    variant="outlined"
-                    color="secondary"
+                    variant="text"
+                    color="primary"
                     size="large"
                     fullWidth={isMd ? false : true}
                   >

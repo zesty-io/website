@@ -43,7 +43,7 @@ const Hero = ({title, subtitle, description, image}) => {
           {description}
         </Typography>
       </Box>
-      <SubscribeCTA></SubscribeCTA>
+      <SubscribeCTA/>
       {/* <Button variant="contained" component={'a'} color="primary" size="large" href={ctaHref}>
         {cta}
       </Button> */}

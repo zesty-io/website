@@ -71,13 +71,14 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
     };
 
     const onSubmit = (values) => {
-    return values;
+        alert(JSON.stringify(values))
+        return values;
     };
 
     const formik = useFormik({
-    initialValues,
-    validationSchema: validationSchema,
-    onSubmit,
+        initialValues,
+        validationSchema: validationSchema,
+        onSubmit,
     });
 
     return (

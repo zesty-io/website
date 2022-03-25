@@ -58,7 +58,7 @@ function TechnologyOverview({ content }) {
     image:
       (content.header_image?.data && content.header_image?.data[0]?.url) ||
       FillerContent.image,
-    cta_left_text: content.cta_left_text || FillerContent.cta,
+    cta_left_text: content.cta_left_text || 'Try Free',
     cta_right_text: content.cta_right_text || FillerContent.cta,
     cta_right_url: content.cta_right_url && zestyLink(content.navigationTree, content.cta_right_url) || zestyLink(content.navigationTree, FillerContent.contact_zuid)
   };
