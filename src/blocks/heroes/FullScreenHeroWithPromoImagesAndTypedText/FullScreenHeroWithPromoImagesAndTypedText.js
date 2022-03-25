@@ -75,10 +75,9 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
   title,
   description,
   h1_title,
-  cta_left,
-  cta_right,
-  cta_left_url,
-  cta_right_url,
+  cta_left_text='',
+  cta_right_text,
+  cta_right_url='',
   images,
 }) => {
   const theme = useTheme();
@@ -185,22 +184,22 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                   variant="contained"
                   size="large"
                   fullWidth={isMd ? false : true}
-                  text={cta_left || 'View pages'}
+                  text={cta_left_text || 'Try Free'}
                 />
                 <Box
                   marginTop={{ xs: 2, sm: 0 }}
                   marginLeft={{ sm: 2 }}
-                  width={{ xs: '100%', md: 'auto' }}
+                  width={{ xs: '100%', md: 'auto', sm:'auto' }}
                 >
                   <Button
                     component={'a'}
                     href={cta_right_url || FillerContent.href}
-                    variant="outlined"
-                    color="secondary"
+                    variant="text"
+                    color="primary"
                     size="large"
                     fullWidth={isMd ? false : true}
                   >
-                    {cta_right || 'Documentation'}
+                    {cta_right_text || 'Contact Us'}
                   </Button>
                 </Box>
               </Box>

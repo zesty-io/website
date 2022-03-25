@@ -8,6 +8,7 @@ export default {
   description: 'Missing Description info',
   href: 'https://www.zesty.io/',
   missingDataArray: ['Missing', 'Data', 'In', 'The', 'Manager', 'UI'],
+  contact_zuid: '7-cec987fcf5-9bht2z',
   photos: [
     {
       src: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',

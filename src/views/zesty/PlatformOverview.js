@@ -42,6 +42,7 @@ import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
 import WYSIWYGRender from 'components/WYSIWYGRender';
 import useFetch from 'components/hooks/useFetch';
+import { zestyLink } from 'lib/zestyLink';
 
 const ProductOverviewHeader = ({ header }) => {
   return (
@@ -201,20 +202,8 @@ function PlatformOverview({ content }) {
     description: content.header_description || FillerContent.description,
     h1_title: content.h1_title || FillerContent.header,
     images: content.header_image?.data || FillerContent.image,
-    cta_left:
-      (content.cta_left?.data && content.cta_left?.data[0]?.button_text) ||
-      FillerContent.header,
-    cta_right:
-      (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
-      FillerContent.header,
-    cta_left_url:
-      (content.cta_left?.data &&
-        content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
-      FillerContent.header,
-    cta_right_url:
-      (content.cta_right?.data &&
-        content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
-      FillerContent.header,
+    cta_right_text: content.cta_right_text || FillerContent.header,
+    cta_right_url: content.cta_right_url && zestyLink(content.navigationTree, content.cta_right_url) || zestyLink(content.navigationTree,FillerContent.contact_zuid),
   };
 
   return (
