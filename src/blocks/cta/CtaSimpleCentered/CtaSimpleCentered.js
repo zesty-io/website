@@ -2,10 +2,11 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { zestyLink } from 'lib/zestyLink';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import TryFreeButton from 'components/cta/TryFreeButton';
-import { zestyLink } from 'lib/zestyLink'
+
 import Container from 'components/Container';
 
 const CtaSimpleCentered = ({ nav=[], ctaTitle, description, ctaLeft, ctaRight }) => {
