@@ -89,6 +89,7 @@ export default function SubscribeCTA({
 
 
 
+
   return (
     <Box display="flex" flexDirection={'column'} justifyContent={'center'}>
     <TransitionsModal open={open} setOpen={setOpen} />

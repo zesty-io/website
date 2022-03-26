@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FillerContent from 'components/FillerContent';
+import SubscribeCTA from 'components/cta/SubscribeCTA';
 
 
 const Newsletter = ({title, description, ctaBtn}) => {
@@ -46,31 +47,7 @@ const Newsletter = ({title, description, ctaBtn}) => {
             alignItems={{ xs: 'center', md: 'flex-start' }}
             justifyContent={{ xs: 'center' }}
           >
-            <Box
-              flex={'1 1 auto'}
-              component={TextField}
-              label="Enter your email"
-              variant="outlined"
-              color="primary"
-              fullWidth
-              height={54}
-              sx={{
-                maxWidth: 422,
-              }}
-            />
-            <Box
-              component={Button}
-              variant="contained"
-              color="primary"
-              backgroundColor={theme.palette.zesty.zestyOrange}
-              size="large"
-              height={54}
-              marginTop={{ xs: 2, md: 0 }}
-              marginLeft={{ md: 2 }}
-              sx={{backgroundColor: `${theme.palette.secondary.main}`}}
-            >
-              {ctaBtn || FillerContent.cta}
-            </Box>
+            <SubscribeCTA />
           </Box>
         </Box>
       </Box>
