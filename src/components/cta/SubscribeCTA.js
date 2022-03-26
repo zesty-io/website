@@ -24,6 +24,7 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  fontFamily: "Mulish",
 };
 
 function TransitionsModal({title, message, open, setOpen}) {
@@ -47,10 +48,10 @@ function TransitionsModal({title, message, open, setOpen}) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              Text in a modal
+              Thank you
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              Have a great day!
             </Typography>
           </Box>
         </Fade>
@@ -79,10 +80,13 @@ export default function SubscribeCTA({
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
+      // alert(JSON.stringify(values, null, 2));
 
+    const email = JSON.stringify(values)
+     return email;
+    },
   });
+
 
 
   return (
