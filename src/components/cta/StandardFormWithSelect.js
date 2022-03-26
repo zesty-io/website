@@ -38,7 +38,6 @@ function TransitionsModal({open, handleOpen, handleClose}) {
 
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -161,15 +160,11 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   };
 
   const onSubmit = (values) => {
-    console.log(values, selectValue);
-    //  1. validate value XX
-        // return errors if XX
-    // 2. shape data to match zoho object
-    console.log(getLeadObjectZOHO(values, selectValue));
+    // console.log(values, selectValue);
+    // console.log(getLeadObjectZOHO(values, selectValue));
     // 3. post to zoho
     // not sure all of what info needs to go into object - test before running
     // postToZOHO(getLeadObjectZOHO(values, selectValue));
-    // 4. POP modal thanking them
     handleOpen();
     return values;
   };
