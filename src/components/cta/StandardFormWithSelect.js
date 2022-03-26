@@ -167,7 +167,7 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
     // 2. shape data to match zoho object
     console.log(getLeadObjectZOHO(values, selectValue));
     // 3. post to zoho
-    // not sure all of what inof needs to go into object - test before running
+    // not sure all of what info needs to go into object - test before running
     // postToZOHO(getLeadObjectZOHO(values, selectValue));
     // 4. POP modal thanking them
     handleOpen();
