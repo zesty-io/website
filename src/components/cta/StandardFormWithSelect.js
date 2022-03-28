@@ -52,10 +52,10 @@ function TransitionsModal({open, handleOpen, handleClose}) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              Thank You for Your Inquiry
+            Thank you for contacting Zesty.io
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              We look forward to assisting you.
+            Our team will be in touch soon regarding your request.
             </Typography>
           </Box>
         </Fade>
@@ -74,6 +74,8 @@ const getLeadObjectZOHO = (obj, select) => {
     "First_Name": obj.firstName,
     "Last_Name": obj.lastName,
     "Email": obj.email,
+    "Inquiry_Reason": select,
+    "Message": obj.message,
     // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
     // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
     // "Current_CMS": acCMS,
@@ -81,10 +83,10 @@ const getLeadObjectZOHO = (obj, select) => {
     // "Website": document.querySelector('#ac-url').value,
     "Lead_Source": "Website",
     // "Description": document.querySelector('#ac-description').value,
-    "Role": acRole,
+    // "Role": acRole,
     // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
-    "Lead_Source_Detail": acLeadtype,
-    "Business_Type": "Direct",
+    "Lead_Source_Detail": 'Contact Us',
+    // "Business_Type": "Direct",
     "Lead_Status": "Not Contacted"
   }
 
@@ -93,14 +95,16 @@ const getLeadObjectZOHO = (obj, select) => {
 const postToZOHO = async (payloadJSON) => {
  
     fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho',{
-        method: 'POST',
-        body: JSON.stringify(payloadJSON),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(res = res.json())
+      method: 'POST',
+      body: JSON.stringify(payloadJSON),
+      headers: {
+          "Content-Type": "application/json"
+      }
+    }).then(res => res.json())
     .then(data => {
-        acSENT = true;
+      // acSENT = true;
+    }).catch((error)=>{
+      throw new Error(`HTTP error: ${error}`);
     })
 }
 
@@ -138,7 +142,7 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   
   let inquiryReasons = [
     'General',
-    'Agency Signup',
+    'Agency Sign Up',
     'Request a Demo',
     'Support',
     'Billing',
@@ -147,6 +151,7 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   const [selectValue, setSelectValue] = useState(inquiryReasons[selectedValue]);
   
   const handleChange = (event) => {
+    console.log(event.target.value);
     setSelectValue(event.target.value);
   };
 
@@ -159,12 +164,8 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   };
 
   const onSubmit = async (values) => {
-    // console.log(values, selectValue);
-    // console.log(getLeadObjectZOHO(values, selectValue));
-    // 3. post to zoho
-    // not sure all of what info needs to go into object - test before running
-    // postToZOHO(getLeadObjectZOHO(values, selectValue));
     let payload = getLeadObjectZOHO(values);
+    console.log(payload);
     await postToZOHO(payload);
     handleOpen();
     return values;
