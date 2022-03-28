@@ -59,7 +59,7 @@ function About({ content }) {
           </Container>
           <Container maxWidth={'800px !important'}>
             <Numbers
-            stats={content.stats.data} />
+            stats={content.stats?.data || []} />
           </Container>
           <Container maxWidth={'800px !important'}>
             <Divider />
@@ -78,7 +78,7 @@ function About({ content }) {
             <TeamWithSmallSquarePhotos
             eyebrow={content.team_eyebrow || FillerContent.header}
             title={content.team_title || FillerContent.header}
-            team={content.team_members.data} />
+            team={content.team_members?.data || []} />
           </Container>
         </Box>
 
