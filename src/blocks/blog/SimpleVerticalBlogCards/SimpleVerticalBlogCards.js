@@ -22,8 +22,10 @@ const SimpleVerticalBlogCards = ({
   title,
   description,
 }) => {
+
   const theme = useTheme();
   const cardList = cards || FillerContent.simpleCards;
+
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -88,7 +90,7 @@ const SimpleVerticalBlogCards = ({
                   <CardMedia
                     image={
                       (item?.image?.data && item?.image?.data[0]?.url) ||
-                      (item?.hero_image?.data && item?.hero_image?.data[0]?.url)
+                      (item?.hero_image?.data && item?.hero_image?.data[0]?.url ||item.image)
                     }
                     title={item?.title}
                     sx={{

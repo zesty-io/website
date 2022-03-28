@@ -30,7 +30,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
@@ -166,10 +166,7 @@ function Article({ content }) {
           title={
             tagArticles.length !== 0 ? 'Similar stories' : 'Latest articles'
           }
-          cta_url={
-            content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url ||
-            FillerContent.href
-          }
+          cta_url={'/mindshare'}
         />
         <CtaWithInputField
           title={'Subscribe to the zestiest newsletter in the industry'}
