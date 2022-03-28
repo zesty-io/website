@@ -43,12 +43,7 @@ const CtaWithInputField = ({ title, description, cta }) => {
         alignItems={{ xs: 'stretched', sm: 'flex-start' }}
         justifyContent={'center'}
       >
-<<<<<<< HEAD
-        <SubscribeCTA
-        text=''/>
-=======
         <SubscribeCTA text=""/>
->>>>>>> 81b85f47291c1087e2aefb011ea9d8dbbd7150a9
       </Box>
     </Container>
   );
