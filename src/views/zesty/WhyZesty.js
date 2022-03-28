@@ -114,11 +114,11 @@ function WhyZesty({ content }) {
       FillerContent.cta,
     cta_left_url:
       (content.cta_left?.data &&
-        content.cta_left?.data[0]?.internal_link.data[0]?.meta?.web?.url) ||
+        content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
       FillerContent.href,
     cta_right_url:
       (content.cta_right.data &&
-        content.cta_right?.data[0]?.internal_link.data[0]?.meta?.web?.url) ||
+        content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
       FillerContent.href,
   };
 

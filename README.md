@@ -8,6 +8,8 @@ Marketing Website using NextJS and Zesty.io Headless CMS
 
 Node and NPM need to be installed. From your command line.
 
+Create a file at the root `.env.local` with `PRODUCTION=false` as the file contents
+
 ```
 git clone git@github.com:zesty-io/nextjs-website.git
 

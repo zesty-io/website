@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import { EventNote } from '@mui/icons-material';
 
 export default function ZestyHead(props) {
 
@@ -10,9 +9,9 @@ export default function ZestyHead(props) {
   if(props.content?.og_image){
     ogimage = props.content.og_image.data[0].url + '?width=1200'
   // if custom og not set, find the first fiedl with image in the name and set that
-  } else if (Object.keys(props.content).find(name => name.contains('image'))){
-    let imageKey = Object.keys(props.content).find(name => name.contains('image'))
-    ogimage = props.content[imageKey].data[0].url + '?width=1200'
+  } else if (Object.keys(props.content).find(name => name.includes('image'))){
+    let imageKey = Object.keys(props.content).find(name => name.includes('image'))
+    ogimage = props.content[imageKey]?.data ? props.content[imageKey].data[0].url + '?width=1200' : ogimage
   }
   return (
     <Head>
@@ -32,7 +31,6 @@ export default function ZestyHead(props) {
         property="og:description"
         content={props.content.meta.web.seo_meta_description}
       />
-      {}
       <meta 
         property="og:image"
         content={ogimage}
