@@ -37,7 +37,7 @@ const Newsletter = ({ title, description, ctaBtn }) => {
             alignItems={{ xs: 'center', md: 'flex-start' }}
             justifyContent={{ xs: 'center' }}
           >
-            <SubscribeCTA />
+            <SubscribeCTA text=""/>
           </Box>
         </Box>
       </Box>
