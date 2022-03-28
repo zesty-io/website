@@ -18,51 +18,52 @@ import Select from '@mui/material/Select';
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+import TransitionsModal from './TransitionModal';
 
 
 
-function TransitionsModal({open, handleOpen, handleClose}) {
+// function TransitionsModal({open, handleOpen, handleClose}) {
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: '#fff',
-    border: '2px solid #FF5D0A',
-    borderRadius: 3,
-    boxShadow: 24,
-    p: 4,
-  };
+//   const style = {
+//     position: 'absolute',
+//     top: '50%',
+//     left: '50%',
+//     transform: 'translate(-50%, -50%)',
+//     width: 400,
+//     bgcolor: '#fff',
+//     border: '2px solid #FF5D0A',
+//     borderRadius: 3,
+//     boxShadow: 24,
+//     p: 4,
+//   };
 
-  return (
-    <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-            Thank you for contacting Zesty.io
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-            Our team will be in touch soon regarding your request.
-            </Typography>
-          </Box>
-        </Fade>
-      </Modal>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <Modal
+//         aria-labelledby="transition-modal-title"
+//         aria-describedby="transition-modal-description"
+//         open={open}
+//         onClose={handleClose}
+//         closeAfterTransition
+//         BackdropComponent={Backdrop}
+//         BackdropProps={{
+//           timeout: 500,
+//         }}
+//       >
+//         <Fade in={open}>
+//           <Box sx={style}>
+//             <Typography id="transition-modal-title" variant="h6" component="h2">
+//             Thank you for contacting Zesty.io
+//             </Typography>
+//             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+//             Our team will be in touch soon regarding your request.
+//             </Typography>
+//           </Box>
+//         </Fade>
+//       </Modal>
+//     </div>
+//   );
+// }
 
 /* validation for form component */
 
@@ -137,8 +138,8 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   
   let inquiryReasons = [
     'General',
@@ -164,10 +165,10 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   };
 
   const onSubmit = async (values) => {
-    let payload = hideMessage ? getLeadObjectZOHO(values, select, 'Contact Us', '') : getLeadObjectZOHO(values, select, 'Agency Partner Sign Up', 'Partner');
+    let payload = hideSelect ? getLeadObjectZOHO(values, selectValue, 'Agency Partner Sign Up', 'Partner') : getLeadObjectZOHO(values, selectValue, 'Contact Us', '');
     console.log(payload);
     await postToZOHO(payload);
-    handleOpen();
+    setOpen(!open);
     return values;
   };
 
@@ -312,10 +313,18 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
           </Grid>
           </Grid>
       </form>
-      <TransitionsModal
+      {hideSelect ? 
+      (<TransitionsModal
+      title='Thank you for submitting your agency information.'
+      message='Our team will be in touch soon to discuss next steps.'
       open={open}
-      handleClose={handleClose}
-      handleOpen={handleOpen} />
+      setOpen={setOpen} />)
+        :
+      (<TransitionsModal
+        title='Thank you for contacting Zesty.io'
+        message='Our team will be in touch soon regarding your request.'
+        open={open}
+        setOpen={setOpen} />)}
   </Box>
 
   );
