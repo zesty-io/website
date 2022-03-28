@@ -89,7 +89,7 @@ const validationSchema = yup.object({
     .required('Please specify your message'),
 });
 
-function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=true, defaultMessage=''}) {
+function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=true, defaultMessage='', leadDetail='Contact Us', businessType='Direct'}) {
   
   const theme = useTheme();
 
@@ -121,7 +121,7 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   };
 
   const onSubmit = async (values) => {
-    let payload = hideSelect ? getLeadObjectZOHO(values, selectValue, 'Agency Partner Sign Up', 'Partner') : getLeadObjectZOHO(values, selectValue, 'Contact Us', '');
+    let payload = getLeadObjectZOHO(values, selectValue, leadDetail, businessType);
     console.log(payload);
     await postToZOHO(payload);
     setOpen(!open);

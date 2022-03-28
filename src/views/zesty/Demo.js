@@ -85,7 +85,7 @@ const Demo = ({ content }) => {
                 subtitle={content.header_description}
                 ctaButtonText={content.callout_button_text}
               /> */}
-              <StandardFormWithSelect selectedValue={2} hideSelect={true} />
+              <StandardFormWithSelect leadDetail='Demo Sign Up' selectedValue={2} hideSelect={true} />
             </Container>
           </Box>
           <Box
