@@ -40,6 +40,7 @@ substitutions:
   _DEPLOY_REGION: us-central1
   _LABELS: gcb-trigger-id=aa91a017-11e8-4aae-a638-30343ab17f7a
   _TRIGGER_ID: aa91a017-11e8-4aae-a638-30343ab17f7a
+  _PRODUCTION: 'false'
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
