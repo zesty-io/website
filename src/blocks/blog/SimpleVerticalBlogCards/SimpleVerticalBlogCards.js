@@ -27,6 +27,7 @@ const SimpleVerticalBlogCards = ({
   const cardList = cards || FillerContent.simpleCards;
 
 
+
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -74,7 +75,7 @@ const SimpleVerticalBlogCards = ({
             <Grid item xs={12} md={6} key={i}>
               <Box
                 component={'a'}
-                href={item?.link || '#'}
+                href={item?.link || item?.path}
                 display={'block'}
                 width={1}
                 height={1}
