@@ -37,6 +37,7 @@ import Link from '@mui/material/Link';
 import Form from 'components/cta/DemoForm'
 import FillerContent from 'components/FillerContent';
 import Container from 'components/FullWidthContainer'
+import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 
 const Demo = ({ content }) => {
   const theme = useTheme();
@@ -55,12 +56,36 @@ const Demo = ({ content }) => {
             alignItems={'center'}
           >
             <Container>
-              <Form
+            <Box marginBottom={4}>
+        <Typography
+          sx={{
+            textTransform: 'uppercase',
+            fontWeight: 'medium',
+          }}
+          gutterBottom
+          color={'text.secondary'}
+        >
+          {content.header_title}
+        </Typography>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 700,
+          }}
+        >
+          {content.callout_title}
+        </Typography>
+        <Typography color="text.secondary">
+          {content.header_description}
+        </Typography>
+      </Box>
+              {/* <Form
               eyebrow={content.header_title}
                 title={content.callout_title}
                 subtitle={content.header_description}
                 ctaButtonText={content.callout_button_text}
-              />
+              /> */}
+              <StandardFormWithSelect selectedValue={2} hideSelect={true} />
             </Container>
           </Box>
           <Box
