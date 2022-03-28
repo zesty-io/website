@@ -28,7 +28,7 @@ function ContactFormWithSidebarMap({title, description, image,selectedValue=0, h
               {description}
           </Typography>
         </Box>
-        <StandardFormWithSelect selectedValue={selectedValue}  hideSelect={false} />
+        <StandardFormWithSelect leadDetail='Contact Us' selectedValue={selectedValue}  hideSelect={false} />
       </Box>
     );
   };

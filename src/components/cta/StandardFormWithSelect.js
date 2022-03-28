@@ -21,50 +21,6 @@ import Fade from '@mui/material/Fade';
 import TransitionsModal from './TransitionModal';
 
 
-
-// function TransitionsModal({open, handleOpen, handleClose}) {
-
-//   const style = {
-//     position: 'absolute',
-//     top: '50%',
-//     left: '50%',
-//     transform: 'translate(-50%, -50%)',
-//     width: 400,
-//     bgcolor: '#fff',
-//     border: '2px solid #FF5D0A',
-//     borderRadius: 3,
-//     boxShadow: 24,
-//     p: 4,
-//   };
-
-//   return (
-//     <div>
-//       <Modal
-//         aria-labelledby="transition-modal-title"
-//         aria-describedby="transition-modal-description"
-//         open={open}
-//         onClose={handleClose}
-//         closeAfterTransition
-//         BackdropComponent={Backdrop}
-//         BackdropProps={{
-//           timeout: 500,
-//         }}
-//       >
-//         <Fade in={open}>
-//           <Box sx={style}>
-//             <Typography id="transition-modal-title" variant="h6" component="h2">
-//             Thank you for contacting Zesty.io
-//             </Typography>
-//             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-//             Our team will be in touch soon regarding your request.
-//             </Typography>
-//           </Box>
-//         </Fade>
-//       </Modal>
-//     </div>
-//   );
-// }
-
 /* validation for form component */
 
 const getLeadObjectZOHO = (obj, select, leadDetail, businessType) => {
@@ -133,7 +89,7 @@ const validationSchema = yup.object({
     .required('Please specify your message'),
 });
 
-function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=true, defaultMessage=''}) {
+function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=true, defaultMessage='', leadDetail='Contact Us', businessType='Direct'}) {
   
   const theme = useTheme();
 
@@ -165,7 +121,7 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   };
 
   const onSubmit = async (values) => {
-    let payload = hideSelect ? getLeadObjectZOHO(values, selectValue, 'Agency Partner Sign Up', 'Partner') : getLeadObjectZOHO(values, selectValue, 'Contact Us', '');
+    let payload = getLeadObjectZOHO(values, selectValue, leadDetail, businessType);
     console.log(payload);
     await postToZOHO(payload);
     setOpen(!open);

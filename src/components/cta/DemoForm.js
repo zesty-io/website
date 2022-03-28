@@ -105,29 +105,7 @@ const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Tex
 
   return (
     <Box>
-      <Box marginBottom={4}>
-        <Typography
-          sx={{
-            textTransform: 'uppercase',
-            fontWeight: 'medium',
-          }}
-          gutterBottom
-          color={'text.secondary'}
-        >
-          {eyebrow}
-        </Typography>
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 700,
-          }}
-        >
-          {title}
-        </Typography>
-        <Typography color="text.secondary">
-          {subtitle}
-        </Typography>
-      </Box>
+     
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
