@@ -40,7 +40,11 @@ Any push or merge to the `main` branch will kickoff an auto build script which w
 1. Create a branch
 2. Make change locally commit
 3. Test your changes with `npm run build`
-4. If build succeeds, create pull request against `main`
+4. If build succeeds, create pull request against `main` (our stage)
+
+## Deploymen to Production
+
+After a successfull deploy to `main` create PR from `main` to `production`, upon merge a production build will trigger.
 
 ## Icons in the WYSIWYG
 
