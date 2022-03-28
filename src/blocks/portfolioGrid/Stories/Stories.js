@@ -15,6 +15,7 @@ import FillerContent from 'components/FillerContent';
 const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
 
 
+
   const theme = useTheme();
   const { mode } = theme.palette;
 const router = useRouter();
@@ -52,7 +53,7 @@ const router = useRouter();
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item?.link}
+              href={item?.card_link?.data[0]?.meta?.web?.uri || FillerContent.href}
               display={'block'}
               width={1}
               height={1}
