@@ -66,7 +66,7 @@ function TransitionsModal({open, handleOpen, handleClose}) {
 
 /* validation for form component */
 
-const getLeadObjectZOHO = (obj, select) => {
+const getLeadObjectZOHO = (obj, select, leadDetail, businessType) => {
   let acLeadtype = 'Marketing Website';
   let acRole ='Marketer';
   return {
@@ -85,8 +85,8 @@ const getLeadObjectZOHO = (obj, select) => {
     // "Description": document.querySelector('#ac-description').value,
     // "Role": acRole,
     // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
-    "Lead_Source_Detail": 'Contact Us',
-    // "Business_Type": "Direct",
+    "Lead_Source_Detail": leadDetail,
+    "Business_Type": businessType,
     "Lead_Status": "Not Contacted"
   }
 
@@ -164,7 +164,7 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   };
 
   const onSubmit = async (values) => {
-    let payload = getLeadObjectZOHO(values);
+    let payload = hideMessage ? getLeadObjectZOHO(values, select, 'Contact Us', '') : getLeadObjectZOHO(values, select, 'Agency Partner Sign Up', 'Partner');
     console.log(payload);
     await postToZOHO(payload);
     handleOpen();
