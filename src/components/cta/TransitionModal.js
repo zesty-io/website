@@ -21,7 +21,7 @@ const style = {
   fontFamily: 'Mulish',
 };
 
-export default function TransitionsModal({ title, message, open, setOpen }) {
+export default function TransitionsModal({ title='Thank you', message='Have a great day', open, setOpen }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -41,10 +41,10 @@ export default function TransitionsModal({ title, message, open, setOpen }) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              Thank you
+              {title}
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Have a great day!
+              {message}
             </Typography>
           </Box>
         </Fade>
