@@ -29,7 +29,8 @@ export default function SubscribeCTA({
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+     // handleModal();
+     // alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -37,15 +38,11 @@ export default function SubscribeCTA({
     if (formik.values.email !== '' && formik.isValid) {
 
         if (formik.values.email !== '' && formik.isValid) {
-          fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
-            method: 'POST',
-            body: JSON.stringify(formik.values.email),
-            headers: {
-              'Content-Type': 'application/json',
-            },
+          fetch('https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe?email='+formik.values.email, {
+            method: 'GET'
           })
-            .then((res = res.json()))
-            .then((data) => {
+            .then(res => res.json())
+            .then(data => {
               acSENT = true;
             });
         }
@@ -56,7 +53,9 @@ export default function SubscribeCTA({
 
   return (
     <Box display="flex" flexDirection={'column'} justifyContent={'center'}>
-      <TransitionsModal open={open} setOpen={setOpen} />
+      <TransitionsModal open={open} setOpen={setOpen} 
+      title="Thank you for subscribing!" 
+      message="Check your email to confirm."/>
       <Box marginBottom={2}>
         <Typography variant="body1" component="p">
           {text}
