@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import { EventNote } from '@mui/icons-material';
 
 export default function ZestyHead(props) {
 
@@ -32,7 +31,6 @@ export default function ZestyHead(props) {
         property="og:description"
         content={props.content.meta.web.seo_meta_description}
       />
-      {}
       <meta 
         property="og:image"
         content={ogimage}
