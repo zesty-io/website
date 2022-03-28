@@ -8,6 +8,8 @@ Marketing Website using NextJS and Zesty.io Headless CMS
 
 Node and NPM need to be installed. From your command line.
 
+Create a file at the root `.env.local` with `PRODUCTION=false` as the file contents
+
 ```
 git clone git@github.com:zesty-io/nextjs-website.git
 
@@ -40,7 +42,11 @@ Any push or merge to the `main` branch will kickoff an auto build script which w
 1. Create a branch
 2. Make change locally commit
 3. Test your changes with `npm run build`
-4. If build succeeds, create pull request against `main`
+4. If build succeeds, create pull request against `main` (our stage)
+
+## Deploymen to Production
+
+After a successfull deploy to `main` create PR from `main` to `production`, upon merge a production build will trigger.
 
 ## Icons in the WYSIWYG
 

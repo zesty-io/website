@@ -87,7 +87,7 @@ function Homepage({ content }) {
           <Stories
             eyeBrow={content.case_studies_eyebrow || FillerContent.header}
             clientTitle={content.case_studies_header || FillerContent.header}
-            clientInfo={content.case_study_cards.data || []}
+            clientInfo={content.case_study_cards?.data || []}
           />
         </Container>
         <ReviewsWithSimpleBoxes

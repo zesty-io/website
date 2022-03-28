@@ -53,8 +53,8 @@ export default function SubscribeCTA({
 
   return (
     <Box display="flex" flexDirection={'column'} justifyContent={'center'}>
-      <TransitionsModal open={open} setOpen={setOpen} 
-      title="Thank you for subscribing!" 
+      <TransitionsModal open={open} setOpen={setOpen}
+      title="Thank you for subscribing!"
       message="Check your email to confirm."/>
       <Box marginBottom={2}>
         <Typography variant="body1" component="p">
