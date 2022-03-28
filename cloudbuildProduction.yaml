@@ -36,7 +36,7 @@ options:
 substitutions:
   _GCR_HOSTNAME: us.gcr.io
   _PLATFORM: managed
-  _SERVICE_NAME: zesty-website
+  _SERVICE_NAME: zesty-website-production
   _DEPLOY_REGION: us-central1
   _LABELS: gcb-trigger-id=80d264d0-bb60-4fd4-9ad1-c9f1456fc7ad
   _TRIGGER_ID: 80d264d0-bb60-4fd4-9ad1-c9f1456fc7ad
