@@ -212,8 +212,8 @@ function StandardFormWithSelect({
                     name="inquiryReason"
                   >
                     {/* <MenuItem value=''><em>None</em></MenuItem> */}
-                    {inquiryReasons.map((value) => (
-                      <MenuItem value={value}>{value}</MenuItem>
+                    {inquiryReasons.map((value, i) => (
+                      <MenuItem key={i} value={value}>{value}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
