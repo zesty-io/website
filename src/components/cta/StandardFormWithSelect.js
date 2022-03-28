@@ -67,9 +67,8 @@ function TransitionsModal({open, handleOpen, handleClose}) {
 /* validation for form component */
 
 const getLeadObjectZOHO = (obj, select) => {
-
-  let country = document.querySelector('#ac-country');
-
+  let acLeadtype = 'Marketing Website';
+  let acRole ='Marketer';
   return {
     
     "First_Name": obj.firstName,
@@ -82,16 +81,16 @@ const getLeadObjectZOHO = (obj, select) => {
     // "Website": document.querySelector('#ac-url').value,
     "Lead_Source": "Website",
     // "Description": document.querySelector('#ac-description').value,
-    // "Role": acRole,
+    "Role": acRole,
     // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
-    // "Lead_Source_Detail": acLeadtype,
+    "Lead_Source_Detail": acLeadtype,
     "Business_Type": "Direct",
     "Lead_Status": "Not Contacted"
   }
 
 }
 
-const postToZOHO = (payloadJSON) => {
+const postToZOHO = async (payloadJSON) => {
  
     fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho',{
         method: 'POST',
@@ -159,12 +158,14 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   message: '',
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     // console.log(values, selectValue);
     // console.log(getLeadObjectZOHO(values, selectValue));
     // 3. post to zoho
     // not sure all of what info needs to go into object - test before running
     // postToZOHO(getLeadObjectZOHO(values, selectValue));
+    let payload = getLeadObjectZOHO(values);
+    await postToZOHO(payload);
     handleOpen();
     return values;
   };
