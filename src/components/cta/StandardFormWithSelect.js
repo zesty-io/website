@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 
 import { useFormik } from 'formik';
@@ -20,19 +20,17 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import TransitionsModal from './TransitionModal';
 
-
 /* validation for form component */
 
 const getLeadObjectZOHO = (obj, select, leadDetail, businessType) => {
   let acLeadtype = 'Marketing Website';
-  let acRole ='Marketer';
+  let acRole = 'Marketer';
   return {
-    
     "First_Name": obj.firstName,
     "Last_Name": obj.lastName,
     "Email": obj.email,
     "Inquiry_Reason": select,
-    "Message": obj.message,
+    "Description": obj.message,
     // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
     // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
     // "Current_CMS": acCMS,
@@ -45,25 +43,25 @@ const getLeadObjectZOHO = (obj, select, leadDetail, businessType) => {
     "Lead_Source_Detail": leadDetail,
     "Business_Type": businessType,
     "Lead_Status": "Not Contacted"
-  }
-
-}
+  };
+};
 
 const postToZOHO = async (payloadJSON) => {
- 
-    fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho',{
-      method: 'POST',
-      body: JSON.stringify(payloadJSON),
-      headers: {
-          "Content-Type": "application/json"
-      }
-    }).then(res => res.json())
-    .then(data => {
+  fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
+    method: 'POST',
+    body: JSON.stringify(payloadJSON),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
       // acSENT = true;
-    }).catch((error)=>{
-      throw new Error(`HTTP error: ${error}`);
     })
-}
+    .catch((error) => {
+      throw new Error(`HTTP error: ${error}`);
+    });
+};
 
 const validationSchema = yup.object({
   firstName: yup
@@ -83,20 +81,23 @@ const validationSchema = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required('Email is required.'),
-  message: yup
-    .string()
-    .trim()
-    .required('Please specify your message'),
+  message: yup.string().trim().required('Please specify your message'),
 });
 
-function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=true, defaultMessage='', leadDetail='Contact Us', businessType='Direct'}) {
-  
+function StandardFormWithSelect({
+  selectedValue = 0,
+  hideSelect = false,
+  hideMessage = true,
+  defaultMessage = '',
+  leadDetail = 'Contact Us',
+  businessType = 'Direct',
+  modalTitle = 'Thank you',
+  modalMessage = 'Have a great day.',
+}) {
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
-  
+
   let inquiryReasons = [
     'General',
     'Agency Sign Up',
@@ -104,25 +105,27 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
     'Support',
     'Billing',
     'Press Relations',
-  ]
+  ];
   const [selectValue, setSelectValue] = useState(inquiryReasons[selectedValue]);
-  
+
   const handleChange = (event) => {
-    console.log(event.target.value);
     setSelectValue(event.target.value);
   };
 
-
   const initialValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  message: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    message: '',
   };
 
   const onSubmit = async (values) => {
-    let payload = getLeadObjectZOHO(values, selectValue, leadDetail, businessType);
-    console.log(payload);
+    let payload = getLeadObjectZOHO(
+      values,
+      selectValue,
+      leadDetail,
+      businessType,
+    );
     await postToZOHO(payload);
     setOpen(!open);
     return values;
@@ -135,12 +138,11 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   });
 
   return (
-  
-  <Box>
+    <Box>
       <form noValidate onSubmit={formik.handleSubmit}>
-          <Grid container spacing={4}>
+        <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
-              <TextField
+            <TextField
               sx={{ height: 54 }}
               label="First name"
               variant="outlined"
@@ -151,15 +153,13 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
               value={formik.values.firstName}
               onChange={formik.handleChange}
               error={
-                  formik.touched.firstName && Boolean(formik.errors.firstName)
+                formik.touched.firstName && Boolean(formik.errors.firstName)
               }
-              helperText={
-                  formik.touched.firstName && formik.errors.firstName
-              }
-              />
+              helperText={formik.touched.firstName && formik.errors.firstName}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-              <TextField
+            <TextField
               sx={{ height: 54 }}
               label="Last name"
               variant="outlined"
@@ -169,14 +169,12 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
               fullWidth
               value={formik.values.lastName}
               onChange={formik.handleChange}
-              error={
-                  formik.touched.lastName && Boolean(formik.errors.lastName)
-              }
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
               helperText={formik.touched.lastName && formik.errors.lastName}
-              />
+            />
           </Grid>
           <Grid item xs={12}>
-              <TextField
+            <TextField
               sx={{ height: 54 }}
               label="Email"
               type="email"
@@ -189,33 +187,41 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
               onChange={formik.handleChange}
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
-              />
+            />
           </Grid>
           {/* logic to hide the select */}
-          {hideSelect && <Grid item xs={12}><input value={selectValue}  name="inquiryReason" type="hidden" /></Grid>}
+          {hideSelect && (
+            <Grid item xs={12}>
+              <input value={selectValue} name="inquiryReason" type="hidden" />
+            </Grid>
+          )}
           {/* logic to hide the select */}
-          {!hideSelect && 
+          {!hideSelect && (
+            <Grid item xs={12}>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Inquiry Reason
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectValue}
+                    label="Inquiry Reason"
+                    onChange={handleChange}
+                    name="inquiryReason"
+                  >
+                    {/* <MenuItem value=''><em>None</em></MenuItem> */}
+                    {inquiryReasons.map((value) => (
+                      <MenuItem value={value}>{value}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+          )}
           <Grid item xs={12}>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Inquiry Reason</InputLabel>
-                <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectValue}
-                label="Inquiry Reason"
-                onChange={handleChange}
-                name="inquiryReason"
-                >
-                  {/* <MenuItem value=''><em>None</em></MenuItem> */}
-                  {inquiryReasons.map(value => <MenuItem value={value}>{value}</MenuItem>)}
-                </Select>
-              </FormControl>
-            </Box>
-          </Grid>
-          }
-          <Grid item xs={12}>
-              <TextField
+            <TextField
               label="Message"
               multiline
               rows={6}
@@ -226,65 +232,55 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
               fullWidth
               value={formik.values.message}
               onChange={formik.handleChange}
-              error={
-                  formik.touched.message && Boolean(formik.errors.message)
-              }
+              error={formik.touched.message && Boolean(formik.errors.message)}
               helperText={formik.touched.message && formik.errors.message}
-              />
+            />
           </Grid>
           <Grid item xs={12}>
-              <Button
+            <Button
               sx={{ height: 54, minWidth: 150 }}
               variant="contained"
               color="secondary"
               size="medium"
               type="submit"
-              >
+            >
               Submit
-              </Button>
+            </Button>
           </Grid>
           <Grid item xs={12}>
-              <Typography color="text.secondary">
+            <Typography color="text.secondary">
               We'll get back to you in 1-2 business days.
-              </Typography>
+            </Typography>
           </Grid>
           <Grid item xs={12}>
-              <Divider />
+            <Divider />
           </Grid>
           <Grid item xs={12}>
-              <Box>
+            <Box>
               <Typography component="p" variant="body2" align="left">
-                  By clicking on "submit" you agree to our{' '}
-                  <Box
+                By clicking on "submit" you agree to our{' '}
+                <Box
                   component="a"
                   href="/legal/privacy-policy/"
                   color={theme.palette.text.primary}
                   fontWeight={'700'}
-                  >
+                >
                   Privacy Policy
-                  </Box>
-                  .
+                </Box>
+                .
               </Typography>
-              </Box>
+            </Box>
           </Grid>
-          </Grid>
+        </Grid>
       </form>
-      {hideSelect ? 
-      (<TransitionsModal
-      title='Thank you for submitting your agency information.'
-      message='Our team will be in touch soon to discuss next steps.'
-      open={open}
-      setOpen={setOpen} />)
-        :
-      (<TransitionsModal
-        title='Thank you for contacting Zesty.io'
-        message='Our team will be in touch soon regarding your request.'
+      <TransitionsModal
+        title={modalTitle}
+        message={modalMessage}
         open={open}
-        setOpen={setOpen} />)}
-  </Box>
-
+        setOpen={setOpen}
+      />
+    </Box>
   );
-
 }
 
 export default StandardFormWithSelect;

@@ -28,7 +28,12 @@ function ContactFormWithSidebarMap({title, description, image,selectedValue=0, h
               {description}
           </Typography>
         </Box>
-        <StandardFormWithSelect leadDetail='Contact Us' selectedValue={selectedValue}  hideSelect={false} />
+        <StandardFormWithSelect 
+        leadDetail='Contact Us' 
+        selectedValue={selectedValue}  
+        hideSelect={false}
+        modalTitle='Thank you for contacting Zesty.io'
+        modalMessage='Our team will be in touch soon regarding your request.' />
       </Box>
     );
   };
