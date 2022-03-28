@@ -85,7 +85,7 @@ const SidebarArticles = ({latestArticles}) => {
                   </Typography>
                 </Box>
                 <Button
-                  href={item?.meta?.web?.uri || FillerContent.href}
+                  href={item?.meta?.web?.uri || item.path || FillerContent.href}
                   size={'small'}
                 >
                   Read More
