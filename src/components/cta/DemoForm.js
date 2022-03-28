@@ -40,12 +40,39 @@ const validationSchema = yup.object({
     .min(8, 'The password should have at minimum length of 8'),
 });
 
+// zoho lead object
+const getLeadObjectZOHO = (obj, roles) => {
+  let acLeadtype = 'Marketing Website';
+  let acRole ='Marketer';
+  return {
+    
+    "First_Name": obj.firstName,
+    "Last_Name": obj.lastName,
+    "Email": obj.email,
+    "Inquiry_Reason": select,
+    "Message": obj.message,
+    // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
+    // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
+    // "Current_CMS": acCMS,
+    // "How_Using_Zesty_io": acHow,
+    // "Website": document.querySelector('#ac-url').value,
+    "Lead_Source": "Website",
+    // "Description": document.querySelector('#ac-description').value,
+    "Role": roles,
+    // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
+    "Lead_Source_Detail": 'Demo Sign Up',
+    "Business_Type": "Direct",
+    "Lead_Status": "Not Contacted"
+  }
+
+}
+
 const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Text',ctaButtonText='Missing Text'}) => {
   const initialValues = {
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
+    website: '',
   };
   const [state, setState] = React.useState({
     gilad: true,
@@ -63,6 +90,10 @@ const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Tex
   const { marketers, developers, managers } = state;
   const error = [marketers, developers, managers].filter((v) => v).length !== 2;
   const onSubmit = (values) => {
+
+    console.log(values);
+    console.log([marketers, developers, managers]);
+
     return values;
   };
 
@@ -153,12 +184,12 @@ const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Tex
             <TextField
               label="yourwebsite.com *"
               variant="outlined"
-              name={'email'}
+              name={'website'}
               fullWidth
-              value={formik.values.email}
+              value={formik.values.website}
               onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
+              error={formik.touched.website && Boolean(formik.errors.website)}
+              helperText={formik.touched.website && formik.errors.website}
             />
           </Grid>
           <Grid item xs={12}>
@@ -184,8 +215,7 @@ const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Tex
                 label="Managers"
             />
             </FormGroup>
-            <FormHelperText>Be careful</FormHelperText>
-        </FormControl>
+          </FormControl>
           </Grid>
           <Grid item container xs={12}>
             <Box
@@ -210,7 +240,7 @@ const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Tex
                   </TryFreeButton>
                 </Typography>
               </Box> */}
-              <Button size={'large'} variant={'contained'} type={'submit'}>
+              <Button size={'large'} variant={'contained'} type={'submit'} color='secondary'>
                 {ctaButtonText}
               </Button>
             </Box>

@@ -49,9 +49,9 @@ function DeveloperResource({ content }) {
         description={content.header_description || FillerContent.description} />
         <Container>
           <VerticalMinimalDesignedBlogCardsNoFooter cards={content.developer_cards?.data || []} />
-          <ContactUs
+          {/* <ContactUs
           title={content.contact_title || FillerContent.header}
-          description={content.contact_description || FillerContent.description} />
+          description={content.contact_description || FillerContent.description} /> */}
         </Container>
         {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
         {/* <div

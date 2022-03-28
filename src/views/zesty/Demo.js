@@ -118,9 +118,7 @@ const Demo = ({ content }) => {
                     <Box
                       component={LazyLoadImage}
                       effect="blur"
-                      src={
-                        'https://assets.maccarianagency.com/backgrounds/img4.jpg'
-                      }
+                      src={content.callout_image.data[0]?.url || FillerContent.image}
                       height={{ xs: 'auto', md: 1 }}
                       maxHeight={{ xs: 300, md: 1 }}
                       width={1}

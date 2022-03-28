@@ -1,4 +1,9 @@
-import React from 'react';
+import { React, useEffect, useState } from 'react';
+
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import TransitionsModal from './TransitionModal';
+
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -11,6 +16,52 @@ import Button from '@mui/material/Button'
 
 function BlogCTA({ title , description, ctaBtn}) {
   const theme = useTheme();
+  const [open, setOpen] = useState(false);
+
+  const validationSchema = yup.object({
+    email: yup
+      .string('Enter your email')
+      .email('Enter a valid email')
+      .required('Email is required'),
+    firstName: yup
+      .string('Enter your first name')
+     // .firstName('Enter your first name')
+      .required('First name is required'),
+    lastName: yup
+      .string('Enter your last name')
+    //  .lastName('Enter your last name')
+      .required('Last name is required'),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      firstName: '',
+      lastName: ''
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+     // handleModal();
+     // alert(JSON.stringify(values, null, 2));
+    },
+  });
+  const handleModal = () => {
+    if (formik.values.email !== '' && formik.isValid) {
+
+        if (formik.values.email !== '' && formik.isValid) {
+          fetch('https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe?email='+formik.values.email+'&first_name='+formik.values.firstName+'&last_name='+formik.values.lastName, {
+            method: 'GET'
+          })
+            .then(res => res.json())
+            .then(data => {
+              acSENT = true;
+            });
+        }
+
+      setOpen(!open);
+    }
+  };
+
   return (
     <Box
       component={Card}
@@ -19,6 +70,9 @@ function BlogCTA({ title , description, ctaBtn}) {
       flexDirection={{ xs: 'column', md: 'row-reverse' }}
       sx={{ backgroundImage: 'none' }}
     >
+      <TransitionsModal open={open} setOpen={setOpen} 
+      title="Thank you for subscribing!" 
+      message="Check your email to confirm."/>
       <Box
         sx={{
           width: { xs: 1, md: '50%' },
@@ -77,7 +131,17 @@ function BlogCTA({ title , description, ctaBtn}) {
           alignItems: 'center',
         }}
       >
-        <form>
+        <Box
+          onSubmit={formik.handleSubmit}
+          component={'form'}
+          noValidate
+          autoComplete="off"
+          sx={{
+            '& .MuiInputBase-input.MuiOutlinedInput-input': {
+              bgcolor: 'background.paper',
+            },
+          }}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant={'h6'} gutterBottom>
@@ -87,11 +151,27 @@ function BlogCTA({ title , description, ctaBtn}) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Name "
+                label="First Name "
                 variant="outlined"
-                name={'name'}
+                name={'firstName'}
                 fullWidth
+                value={formik.values.firstName}
+                onChange={formik.handleChange}
+                error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+                helperText={formik.touched.firstName && formik.errors.firstName}
               />
+            </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Last Name "
+                  variant="outlined"
+                  name={'lastName'}
+                  fullWidth
+                  value={formik.values.lastName}
+                  onChange={formik.handleChange}
+                  error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+                  helperText={formik.touched.lastName && formik.errors.lastName}
+                />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -99,21 +179,27 @@ function BlogCTA({ title , description, ctaBtn}) {
                 variant="outlined"
                 name={'email'}
                 fullWidth
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
               />
             </Grid>
             <Grid item xs={12}>
+              
               <Button
                 size={'large'}
                 fullWidth
                 variant={'contained'}
                 type={'submit'}
                 sx={{ height: 54 }}
+                onClick={handleModal}
               >
                 {ctaBtn}
               </Button>
             </Grid>
           </Grid>
-        </form>
+        </Box>
       </CardContent>
     </Box>
   );
