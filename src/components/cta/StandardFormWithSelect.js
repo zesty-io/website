@@ -18,55 +18,56 @@ import Select from '@mui/material/Select';
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+import TransitionsModal from './TransitionModal';
 
 
 
-function TransitionsModal({open, handleOpen, handleClose}) {
+// function TransitionsModal({open, handleOpen, handleClose}) {
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: '#fff',
-    border: '2px solid #FF5D0A',
-    borderRadius: 3,
-    boxShadow: 24,
-    p: 4,
-  };
+//   const style = {
+//     position: 'absolute',
+//     top: '50%',
+//     left: '50%',
+//     transform: 'translate(-50%, -50%)',
+//     width: 400,
+//     bgcolor: '#fff',
+//     border: '2px solid #FF5D0A',
+//     borderRadius: 3,
+//     boxShadow: 24,
+//     p: 4,
+//   };
 
-  return (
-    <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              Thank You for Your Inquiry
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              We look forward to assisting you.
-            </Typography>
-          </Box>
-        </Fade>
-      </Modal>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <Modal
+//         aria-labelledby="transition-modal-title"
+//         aria-describedby="transition-modal-description"
+//         open={open}
+//         onClose={handleClose}
+//         closeAfterTransition
+//         BackdropComponent={Backdrop}
+//         BackdropProps={{
+//           timeout: 500,
+//         }}
+//       >
+//         <Fade in={open}>
+//           <Box sx={style}>
+//             <Typography id="transition-modal-title" variant="h6" component="h2">
+//             Thank you for contacting Zesty.io
+//             </Typography>
+//             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+//             Our team will be in touch soon regarding your request.
+//             </Typography>
+//           </Box>
+//         </Fade>
+//       </Modal>
+//     </div>
+//   );
+// }
 
 /* validation for form component */
 
-const getLeadObjectZOHO = (obj, select) => {
+const getLeadObjectZOHO = (obj, select, leadDetail, businessType) => {
   let acLeadtype = 'Marketing Website';
   let acRole ='Marketer';
   return {
@@ -74,6 +75,8 @@ const getLeadObjectZOHO = (obj, select) => {
     "First_Name": obj.firstName,
     "Last_Name": obj.lastName,
     "Email": obj.email,
+    "Inquiry_Reason": select,
+    "Message": obj.message,
     // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
     // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
     // "Current_CMS": acCMS,
@@ -81,10 +84,10 @@ const getLeadObjectZOHO = (obj, select) => {
     // "Website": document.querySelector('#ac-url').value,
     "Lead_Source": "Website",
     // "Description": document.querySelector('#ac-description').value,
-    "Role": acRole,
+    // "Role": acRole,
     // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
-    "Lead_Source_Detail": acLeadtype,
-    "Business_Type": "Direct",
+    "Lead_Source_Detail": leadDetail,
+    "Business_Type": businessType,
     "Lead_Status": "Not Contacted"
   }
 
@@ -93,14 +96,16 @@ const getLeadObjectZOHO = (obj, select) => {
 const postToZOHO = async (payloadJSON) => {
  
     fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho',{
-        method: 'POST',
-        body: JSON.stringify(payloadJSON),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(res = res.json())
+      method: 'POST',
+      body: JSON.stringify(payloadJSON),
+      headers: {
+          "Content-Type": "application/json"
+      }
+    }).then(res => res.json())
     .then(data => {
-        acSENT = true;
+      // acSENT = true;
+    }).catch((error)=>{
+      throw new Error(`HTTP error: ${error}`);
     })
 }
 
@@ -133,12 +138,12 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   
   let inquiryReasons = [
     'General',
-    'Agency Signup',
+    'Agency Sign Up',
     'Request a Demo',
     'Support',
     'Billing',
@@ -147,6 +152,7 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   const [selectValue, setSelectValue] = useState(inquiryReasons[selectedValue]);
   
   const handleChange = (event) => {
+    console.log(event.target.value);
     setSelectValue(event.target.value);
   };
 
@@ -159,14 +165,10 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
   };
 
   const onSubmit = async (values) => {
-    // console.log(values, selectValue);
-    // console.log(getLeadObjectZOHO(values, selectValue));
-    // 3. post to zoho
-    // not sure all of what info needs to go into object - test before running
-    // postToZOHO(getLeadObjectZOHO(values, selectValue));
-    let payload = getLeadObjectZOHO(values);
+    let payload = hideSelect ? getLeadObjectZOHO(values, selectValue, 'Agency Partner Sign Up', 'Partner') : getLeadObjectZOHO(values, selectValue, 'Contact Us', '');
+    console.log(payload);
     await postToZOHO(payload);
-    handleOpen();
+    setOpen(!open);
     return values;
   };
 
@@ -311,10 +313,18 @@ function StandardFormWithSelect({selectedValue=0, hideSelect=false, hideMessage=
           </Grid>
           </Grid>
       </form>
-      <TransitionsModal
+      {hideSelect ? 
+      (<TransitionsModal
+      title='Thank you for submitting your agency information.'
+      message='Our team will be in touch soon to discuss next steps.'
       open={open}
-      handleClose={handleClose}
-      handleOpen={handleOpen} />
+      setOpen={setOpen} />)
+        :
+      (<TransitionsModal
+        title='Thank you for contacting Zesty.io'
+        message='Our team will be in touch soon regarding your request.'
+        open={open}
+        setOpen={setOpen} />)}
   </Box>
 
   );
