@@ -47,36 +47,35 @@ const Footer = ({customRouting,colorInvert = false }) => {
               />
             </Box>
             <Grid item marginTop={3} paddingBottom={2} xs={12} align={'center'}>
-            <Container>
-                
-              <Box
-                component="a"
-                href="https://www.facebook.com/zestyio"
-                color="#4267B2"
-                marginRight={2}
-                target="_blank"
-              >
-                <FacebookIcon />
-              </Box>
-              <Box
-                component="a"
-                href="https://www.linkedin.com/company/zesty-io/mycompany/"
-                color="#0e76a8"
-                marginRight={2}
-                target="_blank"
-              >
-                <LinkedInIcon />
-              </Box>
-              <Box
-                component="a"
-                href="https://twitter.com/zestyio"
-                color="#1DA1F2"
-                target="_blank"
-              >
-                <TwitterIcon />
-              </Box>
-            </Container>
-          </Grid>
+              <Container>
+                <Box
+                  component="a"
+                  href="https://www.facebook.com/zestyio"
+                  color="#4267B2"
+                  marginRight={2}
+                  target="_blank"
+                >
+                  <FacebookIcon />
+                </Box>
+                <Box
+                  component="a"
+                  href="https://www.linkedin.com/company/zesty-io/"
+                  color="#0e76a8"
+                  marginRight={2}
+                  target="_blank"
+                >
+                  <LinkedInIcon />
+                </Box>
+                <Box
+                  component="a"
+                  href="https://twitter.com/zestyio"
+                  color="#1DA1F2"
+                  target="_blank"
+                >
+                  <TwitterIcon />
+                </Box>
+              </Container>
+            </Grid>
             <Grid>
               <Grid item xs={3}></Grid>
             </Grid>
@@ -122,7 +121,6 @@ const Footer = ({customRouting,colorInvert = false }) => {
             </Box>
           </Grid>
 
-        
           <Grid item marginTop={4} paddingBottom={10} xs={12}>
             <Typography
               align={'center'}
