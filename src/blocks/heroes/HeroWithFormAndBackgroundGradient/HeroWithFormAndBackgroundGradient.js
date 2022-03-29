@@ -106,7 +106,7 @@ const FormCustom = () => {
               By creating you account you agree to our{' '}
               <Box
                 component="a"
-                href=""
+                href="/legal/privacy-policy"
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
@@ -115,7 +115,7 @@ const FormCustom = () => {
               ,{' '}
               <Box
                 component="a"
-                href=""
+                href="/legal/end-user-license-agreement"
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
@@ -124,7 +124,7 @@ const FormCustom = () => {
               and{' '}
               <Box
                 component="a"
-                href=""
+                href="/legal/privacy-policy"
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
