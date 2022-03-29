@@ -154,13 +154,22 @@ const ContactUs = ({ title, description }) => {
     },
   });
   return (
-    <Box maxWidth={600} margin={'0 auto'}>
+    <Box
+      sx={{
+        background: theme.palette.common.white,
+        paddingTop: '3rem',
+        paddingBottom: '1rem',
+        borderRadius: '15px',
+      }}
+      maxWidth={600}
+      margin={'0 auto'}
+    >
       <Box marginBottom={4}>
         <Typography
           variant={'h3'}
           sx={{
             fontWeight: 700,
-            color: theme.palette.common.white,
+            color: theme.palette.common.black,
           }}
           align={'center'}
           gutterBottom
@@ -169,7 +178,7 @@ const ContactUs = ({ title, description }) => {
         </Typography>
         <Typography
           sx={{
-            color: theme.palette.common.white,
+            color: theme.palette.common.black,
           }}
           align={'center'}
         >
@@ -178,14 +187,14 @@ const ContactUs = ({ title, description }) => {
       </Box>
       <Box paddingBottom={6}>
         <form onSubmit={formik.handleSubmit}>
-          <Grid container spacing={4}>
+          <Grid sx={{ padding: '0 3rem' }} container spacing={4}>
             <Grid item xs={12} sm={6}>
-              <StyledTextField
+              <TextField
                 sx={{
                   height: 54,
                 }}
                 inputProps={{ style: { color: theme.palette.common.white } }}
-                color="warning"
+                color="primary"
                 label="First name"
                 variant="outlined"
                 size="medium"
@@ -200,11 +209,11 @@ const ContactUs = ({ title, description }) => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <StyledTextField
+              <TextField
                 sx={{ height: 54 }}
                 label="Last name"
                 variant="outlined"
-                color="warning"
+                color="primary"
                 size="medium"
                 name="lastName"
                 fullWidth
@@ -217,7 +226,7 @@ const ContactUs = ({ title, description }) => {
               />
             </Grid>
             <Grid item xs={12}>
-              <StyledTextField
+              <TextField
                 sx={{ height: 54 }}
                 label="Email"
                 type="email"
@@ -233,7 +242,7 @@ const ContactUs = ({ title, description }) => {
               />
             </Grid>
             <Grid item xs={12}>
-              <StyledTextField
+              <TextField
                 label="Message"
                 multiline
                 rows={6}
@@ -259,27 +268,27 @@ const ContactUs = ({ title, description }) => {
                 Submit
               </Button>
             </Grid>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-            <Grid item container justifyContent={'center'} xs={12}>
-              <Box>
-                <Typography component="p" variant="body2" align="left">
-                  By clicking on "submit" you agree to our{' '}
-                  <Box
-                    component="a"
-                    href="/legal/privacy-policy/"
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}
-                  >
-                    Privacy Policy
-                  </Box>
-                  .
-                </Typography>
-              </Box>
-            </Grid>
           </Grid>
         </form>
+        <Grid sx={{ margin: '2rem 0' }} item xs={12}>
+          <Divider />
+        </Grid>
+        <Grid item container justifyContent={'center'} xs={12}>
+          <Box>
+            <Typography component="p" variant="body2" align="left">
+              By clicking on "submit" you agree to our{' '}
+              <Box
+                component="a"
+                href="/legal/privacy-policy/"
+                color={theme.palette.text.primary}
+                fontWeight={'700'}
+              >
+                Privacy Policy
+              </Box>
+              .
+            </Typography>
+          </Box>
+        </Grid>
       </Box>
     </Box>
   );
