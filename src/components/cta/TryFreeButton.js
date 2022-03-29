@@ -81,6 +81,11 @@ export default function TryFreeButton({
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.target);
+    gtag('event', 'Click', {
+      'event_category': 'Try Button',
+      'event_label': window.location.pathname,
+      'value': 1
+    });
     setOpen(true);
   };
 
