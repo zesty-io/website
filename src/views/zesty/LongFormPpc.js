@@ -42,21 +42,260 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
+import SimpleHeroWithCta from 'blocks/heroes/SimpleHeroWithCta';
+import SimpleCentered from 'blocks/features/SimpleCentered';
+import LogoGridSimpleCentered from 'blocks/logoGrid/LogoGridSimpleCentered';
+import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustrationAndSearchBar';
+import FeatureGridWithBackgrounds from 'blocks/features/FeatureGridWithBackgrounds';
+import Container from 'components/Container';
+import { alpha, useTheme } from '@mui/material/styles';
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
+import TryFreeButton from 'components/cta/TryFreeButton';
+import FillerContent from 'components/FillerContent';
+import HeroWithIllustrationAndCta from 'blocks/heroes/HeroWithIllustrationAndCta';
+import { ContactUs } from 'blocks/formLayouts';
 
-function LongFormPpc({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+const NewsletterWithImage = ({ image, header, testimonial }) => {
+  const theme = useTheme();
+
+  const testimonials = testimonial || FillerContent.testimonialCard;
+
+  return (
+    <Container>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={6}>
+          <Box>
+            <Box marginBottom={3}>
+              <Grid item xs={12} md={9}>
+                <Box
+                  dangerouslySetInnerHTML={{
+                    __html: header || FillerContent.rich_text,
+                  }}
+                ></Box>
+              </Grid>
+            </Box>
+            <Box marginTop={{ xs: 4, sm: 6, md: 8 }} textAlign={'left'}>
+              <Grid container spacing={4}>
+                {testimonials.map((item, i) => (
+                  <Grid item xs={12} md={12} key={i}>
+                    <Box
+                      width={1}
+                      height={1}
+                      component={Card}
+                      display={'flex'}
+                      flexDirection={'column'}
+                      boxShadow={1}
+                      bgcolor={i === 1 ? 'primary.main' : 'none'}
+                    >
+                      <CardContent
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                        }}
+                      >
+                        <Box marginBottom={1}>
+                          <Box display={'flex'} justifyContent={'flex-start'}>
+                            {[1, 2, 3, 4, 5].map((item) => (
+                              <Box
+                                key={item}
+                                color={theme.palette.secondary.main}
+                              >
+                                <svg
+                                  width={18}
+                                  height={18}
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                >
+                                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                              </Box>
+                            ))}
+                          </Box>
+                        </Box>
+                        <Typography
+                          color={
+                            i === 1
+                              ? theme.palette.common.white
+                              : 'text.secondary'
+                          }
+                        >
+                          {item.feedback}
+                        </Typography>
+                      </CardContent>
+                      <Box flexGrow={1} />
+                      <CardActions sx={{ paddingBottom: 2 }}>
+                        <ListItem
+                          component="div"
+                          disableGutters
+                          sx={{ padding: 0 }}
+                        >
+                          <ListItemAvatar>
+                            <Avatar src={item.avatar} />
+                          </ListItemAvatar>
+                          <ListItemText
+                            sx={{ margin: 0 }}
+                            primary={item.name}
+                            secondary={item.title}
+                            primaryTypographyProps={{
+                              color:
+                                i === 1
+                                  ? theme.palette.common.white
+                                  : 'text.primary',
+                            }}
+                            secondaryTypographyProps={{
+                              color:
+                                i === 1
+                                  ? theme.palette.common.white
+                                  : 'text.secondary',
+                            }}
+                          />
+                        </ListItem>
+                      </CardActions>
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid
+          item
+          container
+          justifyContent="center"
+          alignItems="center"
+          xs={12}
+          md={6}
+        >
+          <Box component={Card} boxShadow={3} height={1} width={1}>
+            <Box
+              component={CardMedia}
+              height={1}
+              width={1}
+              minHeight={300}
+              image={
+                image ||
+                'https://assets.maccarianagency.com/backgrounds/img4.jpg'
+              }
+            />
+          </Box>
+        </Grid>
+      </Grid>
+    </Container>
+  );
+};
+
+const HowItWorks = ({
+  // header is dangerouse title and description
+  header,
+  images,
+}) => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+  const styleSx = {
+    position: 'relative',
+    '&::after': {
+      position: 'absolute',
+      content: '""',
+      width: '20%',
+      zIndex: 1,
+      top: 0,
+      left: 0,
+      height: '100%',
+    },
+  };
+
+  return (
+    <>
+      <Container sx={styleSx}>
+        <Box position={'relative'} zIndex={2}>
+          <Grid item xs={12} md={9}>
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: header || FillerContent.rich_text,
+              }}
+            ></Box>
+          </Grid>
+        </Box>
+      </Container>
+      <FeatureGridWithBackgrounds images={FillerContent.demos} />
+    </>
+  );
+};
+
+function LongFormPpc({ content }) {
+  console.log(content, 'CONTENT');
+  return (
+    <>
+      {/* HERO */}
+      <SimpleHeroWithCta
+        title={content.hero_h1}
+        description={content.hero_h2}
+        primaryCta={content.hero_cta_primary_text}
+        secondaryCTA={content.hero_cta_secondary_text}
+        secondaryCtaLink={content.hero_cta_secondary_link}
+      />
+
+      {/* Who Zesty is */}
+      {/* header should be html
+      where is cards  */}
+      <SimpleCentered
+        header={content.who_is_zesty_h2}
+        description={content.zesty_benefits}
+        cards={[]}
+      />
+
+      {/* Who Zesty works with */}
+      <LogoGridSimpleCentered
+        title={content.logos_h3}
+        description={null}
+        imageCollection={content.logos?.data}
+      />
+
+      {/* What is a DXP? */}
+      <HeroWithIllustrationAndSearchBar
+        titleAndDescription={content._what_is_title_and_description}
+        image={content._what_is_image}
+      />
+
+      {/* How it works */}
+      <HowItWorks
+        header={content.how_it_works}
+        images={content.how_it_works_image}
+      />
+
+      {/* Benefits */}
+      <NewsletterWithImage
+        header={content.outline_of_benefits}
+        image={content.benefits_image}
+        testimonial={null}
+      />
+
+      {/* Form */}
+      <ContactUs
+        title={content.contact_form_h3}
+        description={content.contact_form_description}
+      />
+    </>
+  );
 }
-  
+
 export default LongFormPpc;
