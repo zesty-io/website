@@ -24,14 +24,16 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
 
   return (
     <Container>
-      <Box>
+      <Box sx={{ padding: '5rem 0' }}>
         <Box marginBottom={4}>
           {title && (
             <Typography
               gutterBottom
               align={'center'}
-              variant={'h3'}
+              variant={'p'}
+              component={'h3'}
               fontWeight={700}
+              fontSize={'24px'}
             >
               {title}
             </Typography>

@@ -43,7 +43,6 @@
  */
 
 import React from 'react';
-import SimpleHeroWithCta from 'blocks/heroes/SimpleHeroWithCta';
 import LogoGridSimpleCentered from 'blocks/logoGrid/LogoGridSimpleCentered';
 import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustrationAndSearchBar';
 import FeatureGridWithBackgrounds from 'blocks/features/FeatureGridWithBackgrounds';
@@ -57,6 +56,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Divider,
   Grid,
   ListItem,
   ListItemAvatar,
@@ -67,8 +67,223 @@ import {
 } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/FillerContent';
-import HeroWithIllustrationAndCta from 'blocks/heroes/HeroWithIllustrationAndCta';
-import { ContactUs } from 'blocks/formLayouts';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { outlinedInputClasses } from '@mui/material/OutlinedInput';
+import { inputLabelClasses } from '@mui/material/InputLabel';
+import { styled } from '@mui/material/styles';
+
+const StyledTextField = styled(TextField)({
+  [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
+    borderColor: '#fff',
+  },
+
+  [`&:hover .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]:
+    {
+      borderColor: '#FF5D0A',
+    },
+  [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]:
+    {
+      borderColor: '#FF5D0A',
+    },
+  [`& .${outlinedInputClasses.input}`]: {
+    color: '#fff',
+  },
+  [`&:hover .${outlinedInputClasses.input}`]: {
+    color: '#FF5D0A',
+  },
+  [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.input}`]:
+    {
+      color: '#FF5D0A',
+    },
+  [`& .${inputLabelClasses.outlined}`]: {
+    color: '#fff',
+  },
+  [`&:hover .${inputLabelClasses.outlined}`]: {
+    color: '#FF5D0A',
+  },
+  [`& .${inputLabelClasses.outlined}.${inputLabelClasses.focused}`]: {
+    color: '#FF5D0A',
+  },
+});
+
+const validationSchema = yup.object({
+  firstName: yup
+    .string()
+    .trim()
+    .min(2, 'Please enter a valid name')
+    .max(50, 'Please enter a valid name')
+    .required('Please specify your first name'),
+  lastName: yup
+    .string()
+    .trim()
+    .min(2, 'Please enter a valid name')
+    .max(50, 'Please enter a valid name')
+    .required('Please specify your last name'),
+  email: yup
+    .string()
+    .trim()
+    .email('Please enter a valid email address')
+    .required('Email is required.'),
+  message: yup.string().trim().required('Please specify your message'),
+});
+
+const ContactUs = ({ title, description }) => {
+  const theme = useTheme();
+
+  const initialValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    message: '',
+  };
+
+  const onSubmit = (values) => {
+    return values;
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: validationSchema,
+    onSubmit,
+  });
+
+  const styles = (theme) => ({
+    multilineColor: {
+      color: 'red',
+    },
+  });
+  return (
+    <Box maxWidth={600} margin={'0 auto'}>
+      <Box marginBottom={4}>
+        <Typography
+          variant={'h3'}
+          sx={{
+            fontWeight: 700,
+            color: theme.palette.common.white,
+          }}
+          align={'center'}
+          gutterBottom
+        >
+          {title}
+        </Typography>
+        <Typography
+          sx={{
+            color: theme.palette.common.white,
+          }}
+          align={'center'}
+        >
+          {description}
+        </Typography>
+      </Box>
+      <Box paddingBottom={6}>
+        <form onSubmit={formik.handleSubmit}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} sm={6}>
+              <StyledTextField
+                sx={{
+                  height: 54,
+                }}
+                inputProps={{ style: { color: theme.palette.common.white } }}
+                color="warning"
+                label="First name"
+                variant="outlined"
+                size="medium"
+                name="firstName"
+                fullWidth
+                value={formik.values.firstName}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.firstName && Boolean(formik.errors.firstName)
+                }
+                helperText={formik.touched.firstName && formik.errors.firstName}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <StyledTextField
+                sx={{ height: 54 }}
+                label="Last name"
+                variant="outlined"
+                color="warning"
+                size="medium"
+                name="lastName"
+                fullWidth
+                value={formik.values.lastName}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.lastName && Boolean(formik.errors.lastName)
+                }
+                helperText={formik.touched.lastName && formik.errors.lastName}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <StyledTextField
+                sx={{ height: 54 }}
+                label="Email"
+                type="email"
+                variant="outlined"
+                color="primary"
+                size="medium"
+                name="email"
+                fullWidth
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <StyledTextField
+                label="Message"
+                multiline
+                rows={6}
+                variant="outlined"
+                color="primary"
+                size="medium"
+                name="message"
+                fullWidth
+                value={formik.values.message}
+                onChange={formik.handleChange}
+                error={formik.touched.message && Boolean(formik.errors.message)}
+                helperText={formik.touched.message && formik.errors.message}
+              />
+            </Grid>
+            <Grid item container justifyContent={'center'} xs={12}>
+              <Button
+                sx={{ height: 54, minWidth: 150 }}
+                variant="contained"
+                color="secondary"
+                size="medium"
+                type="submit"
+              >
+                Submit
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+            <Grid item container justifyContent={'center'} xs={12}>
+              <Box>
+                <Typography component="p" variant="body2" align="left">
+                  By clicking on "submit" you agree to our{' '}
+                  <Box
+                    component="a"
+                    href="/legal/privacy-policy/"
+                    color={theme.palette.text.primary}
+                    fontWeight={'700'}
+                  >
+                    Privacy Policy
+                  </Box>
+                  .
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </form>
+      </Box>
+    </Box>
+  );
+};
 
 const NewsletterWithImage = ({ image, header, testimonial }) => {
   const theme = useTheme();
@@ -213,8 +428,8 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
               component="h2"
               sx={{
                 fontWeight: 700,
-                fontSize: '40px',
-                color: theme.palette.common.black,
+                fontSize: '35px',
+                color: theme.palette.common.white,
                 textAlign: 'center',
               }}
             >
@@ -302,8 +517,103 @@ const HowItWorks = ({
   );
 };
 
+const SimpleHeroWithCta = ({
+  title,
+  subtitle,
+  description,
+  primaryCta,
+  secondaryCTA,
+  secondaryCtaLink,
+}) => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+
+  return (
+    <Container
+      sx={{
+        position: 'relative',
+        '&::after': {
+          position: 'absolute',
+          content: '""',
+          width: '20%',
+          zIndex: 1,
+          top: 0,
+          left: 0,
+          height: '100%',
+          backgroundSize: '18px 18px',
+          backgroundImage: `radial-gradient(${alpha(
+            theme.palette.primary.dark,
+            0.4,
+          )} 20%, transparent 20%)`,
+          opacity: 0.2,
+        },
+      }}
+    >
+      <Box paddingTop={6} position={'relative'} zIndex={2}>
+        <Box marginBottom={4}>
+          <Typography
+            variant="h3"
+            color="text.primary"
+            align={'center'}
+            sx={{
+              fontWeight: 700,
+              marginBottom: '2rem',
+            }}
+          >
+            {title}
+            <br />
+            {subtitle}
+          </Typography>
+          <Typography
+            variant="h6"
+            component="p"
+            color="text.secondary"
+            sx={{ fontWeight: 400, whiteSpace: 'nowrap' }}
+            align={'center'}
+          >
+            {description}
+          </Typography>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection={{ xs: 'column', sm: 'row' }}
+          alignItems={{ xs: 'stretched', sm: 'center' }}
+          justifyContent={'center'}
+        >
+          <TryFreeButton
+            component={'a'}
+            variant="contained"
+            color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
+            size="large"
+            fullWidth={isMd ? false : true}
+            text={primaryCta}
+          />
+          <Box
+            marginTop={{ xs: 2, sm: 0 }}
+            marginLeft={{ sm: 2 }}
+            width={{ xs: '100%', sm: 'auto', md: 'auto' }}
+          >
+            <Button
+              component={'a'}
+              href={secondaryCtaLink}
+              variant="outlined"
+              color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
+              size="large"
+              fullWidth={isMd ? false : true}
+            >
+              {secondaryCTA}
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+    </Container>
+  );
+};
 function LongFormPpc({ content }) {
   console.log(content, 'CONTENT');
+  const theme = useTheme();
   return (
     <>
       {/* HERO */}
@@ -317,10 +627,17 @@ function LongFormPpc({ content }) {
 
       {/* Who Zesty is */}
       {/* header should be html*/}
-      <SimpleCentered
-        header={content.who_is_zesty_h2 || FillerContent.header}
-        cards={content.zesty_benefits || []}
-      />
+      <Box
+        sx={{
+          background: theme.palette.zesty.zestyDarkBlue,
+          padding: '10rem 0',
+        }}
+      >
+        <SimpleCentered
+          header={content.who_is_zesty_h2 || FillerContent.header}
+          cards={content.zesty_benefits || []}
+        />
+      </Box>
 
       {/* Who Zesty works with */}
       <LogoGridSimpleCentered
@@ -329,12 +646,14 @@ function LongFormPpc({ content }) {
       />
 
       {/* What is a DXP? */}
-      <HeroWithIllustrationAndSearchBar
-        titleAndDescription={
-          content._what_is_title_and_description || FillerContent.rich_text
-        }
-        image={content._what_is_image || FillerContent.image}
-      />
+      <Box bgcolor={'alternate.main'}>
+        <HeroWithIllustrationAndSearchBar
+          titleAndDescription={
+            content._what_is_title_and_description || FillerContent.rich_text
+          }
+          image={content._what_is_image || FillerContent.image}
+        />
+      </Box>
 
       {/* How it works */}
       {/* ******************************j */}
@@ -344,19 +663,28 @@ function LongFormPpc({ content }) {
       />
 
       {/* Benefits */}
-      <NewsletterWithImage
-        header={content.outline_of_benefits || FillerContent.header}
-        image={content.benefits_image || FillerContent.image}
-        testimonial={null}
-      />
+      <Box marginTop={6} marginBottom={6} bgcolor={'alternate.main'}>
+        <NewsletterWithImage
+          header={content.outline_of_benefits || FillerContent.header}
+          image={content.benefits_image || FillerContent.image}
+          testimonial={null}
+        />
+      </Box>
 
       {/* Form */}
-      <ContactUs
-        title={content.contact_form_h3 || FillerContent.header}
-        description={
-          content.contact_form_description || FillerContent.description
-        }
-      />
+      <Box
+        sx={{
+          background: theme.palette.zesty.zestyDarkBlue,
+          padding: '10rem 0',
+        }}
+      >
+        <ContactUs
+          title={content.contact_form_h3 || FillerContent.header}
+          description={
+            content.contact_form_description || FillerContent.description
+          }
+        />
+      </Box>
     </>
   );
 }
