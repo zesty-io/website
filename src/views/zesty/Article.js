@@ -64,6 +64,7 @@ function Article({ content }) {
   );
 
 
+
   const { data: tagArticles, isPending: tagsPending } = useFetch(
     `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
   );
@@ -125,7 +126,7 @@ function Article({ content }) {
             </Grid>
             <Grid item xs={12} md={4}>
               {isMd ? (
-                <Box marginBottom={4}>
+                <Box marginBottom={4}  sx={{ minHeight: 700 }}>
                   {latestPending ? (
                     <CircularProgressWithLabel />
                   ) : (
