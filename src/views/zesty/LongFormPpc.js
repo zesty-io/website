@@ -44,7 +44,6 @@
 
 import React from 'react';
 import SimpleHeroWithCta from 'blocks/heroes/SimpleHeroWithCta';
-import SimpleCentered from 'blocks/features/SimpleCentered';
 import LogoGridSimpleCentered from 'blocks/logoGrid/LogoGridSimpleCentered';
 import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustrationAndSearchBar';
 import FeatureGridWithBackgrounds from 'blocks/features/FeatureGridWithBackgrounds';
@@ -197,6 +196,68 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
           </Box>
         </Grid>
       </Grid>
+    </Container>
+  );
+};
+
+const SimpleCentered = ({ header, description, cards = [] }) => {
+  const theme = useTheme();
+
+  return (
+    <Container>
+      <Box>
+        <Box marginBottom={4}>
+          <Box marginBottom={2}>
+            <Typography
+              variant={'p'}
+              component="h2"
+              sx={{
+                fontWeight: 700,
+                fontSize: '40px',
+                color: theme.palette.common.black,
+                textAlign: 'center',
+              }}
+            >
+              {header || FillerContent.header}
+            </Typography>
+          </Box>
+        </Box>
+        <Grid container spacing={2}>
+          {cards.map((item, i) => (
+            <Grid item xs={12} md={4} key={i}>
+              <Box width={1} height={1}>
+                <Box
+                  display={'flex'}
+                  flexDirection={'column'}
+                  alignItems={'center'}
+                >
+                  <Box
+                    component={Avatar}
+                    width={60}
+                    height={60}
+                    marginBottom={2}
+                    bgcolor={alpha(theme.palette.primary.main, 0.1)}
+                    color={theme.palette.primary.main}
+                  >
+                    <Icon>{item.icon_name}</Icon>
+                  </Box>
+                  <Typography
+                    variant={'h6'}
+                    gutterBottom
+                    sx={{ fontWeight: 500 }}
+                    align={'center'}
+                  >
+                    {item.benefit_title}
+                  </Typography>
+                  <Typography align={'center'} color="text.secondary">
+                    {item.benefit_content}
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </Container>
   );
 };
