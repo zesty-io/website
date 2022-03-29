@@ -46,9 +46,9 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
             </Typography>
           )}
         </Box>
-        <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
+        <Box display="flex" gap={4} flexWrap="wrap" justifyContent={'center'}>
           {images.map((item, i) => (
-            <Box marginTop={2} marginRight={4} key={i}>
+            <Box marginTop={2} key={i}>
               <Box
                 component="img"
                 height={1}

@@ -2,8 +2,10 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import FillerContent from 'components/FillerContent';
+import { Grid } from '@mui/material';
 
-const Headline = () => {
+const Headline = ({ title, description }) => {
   return (
     <Box>
       <Typography
@@ -14,9 +16,21 @@ const Headline = () => {
           color: 'common.white',
         }}
       >
-        Join the world's leading companies at TheFront 2021
+        {title || FillerContent.header}
       </Typography>
-      <Typography
+
+      <Grid item xs={12} md={9}>
+        <Box
+          sx={{
+            fontWeight: 400,
+            color: 'common.white',
+          }}
+          dangerouslySetInnerHTML={{
+            __html: description || FillerContent.description,
+          }}
+        ></Box>
+      </Grid>
+      {/* <Typography
         variant="h6"
         component="p"
         color="text.primary"
@@ -31,7 +45,7 @@ const Headline = () => {
         Want more information? Download our overview and a member of our
         specialist team will be in touch to talk about your goals for TheFront
         2021.
-      </Typography>
+      </Typography> */}
     </Box>
   );
 };

@@ -236,7 +236,7 @@ const HowItWorks = ({
           </Grid>
         </Box>
       </Container>
-      <FeatureGridWithBackgrounds images={FillerContent.demos} />
+      <FeatureGridWithBackgrounds images={images || FillerContent.demos} />
     </>
   );
 };
@@ -247,52 +247,54 @@ function LongFormPpc({ content }) {
     <>
       {/* HERO */}
       <SimpleHeroWithCta
-        title={content.hero_h1}
-        description={content.hero_h2}
-        primaryCta={content.hero_cta_primary_text}
-        secondaryCTA={content.hero_cta_secondary_text}
-        secondaryCtaLink={content.hero_cta_secondary_link}
+        title={content.hero_h1 || FillerContent.header}
+        description={content.hero_h2 || FillerContent.description}
+        primaryCta={content.hero_cta_primary_text || FillerContent.cta}
+        secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
+        secondaryCtaLink={content.hero_cta_secondary_link || FillerContent.href}
       />
 
       {/* Who Zesty is */}
-      {/* header should be html
-      where is cards  */}
+      {/* header should be html*/}
       <SimpleCentered
-        header={content.who_is_zesty_h2}
-        description={content.zesty_benefits}
-        cards={[]}
+        header={content.who_is_zesty_h2 || FillerContent.header}
+        cards={content.zesty_benefits || []}
       />
 
       {/* Who Zesty works with */}
       <LogoGridSimpleCentered
-        title={content.logos_h3}
-        description={null}
-        imageCollection={content.logos?.data}
+        title={content.logos_h3 || FillerContent.header}
+        imageCollection={content.logos?.data || [FillerContent.image]}
       />
 
       {/* What is a DXP? */}
       <HeroWithIllustrationAndSearchBar
-        titleAndDescription={content._what_is_title_and_description}
-        image={content._what_is_image}
+        titleAndDescription={
+          content._what_is_title_and_description || FillerContent.rich_text
+        }
+        image={content._what_is_image || FillerContent.image}
       />
 
       {/* How it works */}
+      {/* ******************************j */}
       <HowItWorks
-        header={content.how_it_works}
+        header={content.how_it_works || FillerContent.header}
         images={content.how_it_works_image}
       />
 
       {/* Benefits */}
       <NewsletterWithImage
-        header={content.outline_of_benefits}
-        image={content.benefits_image}
+        header={content.outline_of_benefits || FillerContent.header}
+        image={content.benefits_image || FillerContent.image}
         testimonial={null}
       />
 
       {/* Form */}
       <ContactUs
-        title={content.contact_form_h3}
-        description={content.contact_form_description}
+        title={content.contact_form_h3 || FillerContent.header}
+        description={
+          content.contact_form_description || FillerContent.description
+        }
       />
     </>
   );
