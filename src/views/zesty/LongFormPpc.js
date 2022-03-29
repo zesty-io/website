@@ -532,6 +532,7 @@ const SimpleHeroWithCta = ({
 
   return (
     <Container
+      style={{ marginTop: '2rem', marginBottom: '5rem' }}
       sx={{
         position: 'relative',
         '&::after': {
