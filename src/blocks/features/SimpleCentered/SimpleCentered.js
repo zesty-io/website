@@ -7,16 +7,12 @@ import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import Icon from '@mui/material/Icon';
 
-
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
-
-
 
 <span class="material-icons-outlined">speed</span>;
 
 const SimpleCentered = ({ header, description, cards = [] }) => {
-
   const theme = useTheme();
 
   return (
@@ -50,7 +46,6 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                     bgcolor={alpha(theme.palette.primary.main, 0.1)}
                     color={theme.palette.primary.main}
                   >
-
                     <Icon>{item.icon_name}</Icon>
                   </Box>
                   <Typography
