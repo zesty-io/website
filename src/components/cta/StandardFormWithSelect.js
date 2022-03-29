@@ -120,12 +120,7 @@ function StandardFormWithSelect({
   };
 
   const onSubmit = async (values) => {
-    gtag('event', 'Submit', {
-      'event_category': businessType,
-      'event_label': leadDetail + ' form',
-      'value': 1
-    });
-    
+
     let payload = getLeadObjectZOHO(
       values,
       selectValue,
@@ -247,6 +242,7 @@ function StandardFormWithSelect({
               sx={{ height: 54, minWidth: 150 }}
               variant="contained"
               color="secondary"
+              className="contactButton"
               size="medium"
               type="submit"
             >
