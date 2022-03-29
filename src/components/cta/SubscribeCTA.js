@@ -31,6 +31,7 @@ export default function SubscribeCTA({
     onSubmit: (values) => {
      // handleModal();
      // alert(JSON.stringify(values, null, 2));
+    
     },
   });
 
@@ -94,6 +95,7 @@ export default function SubscribeCTA({
             backgroundColor={theme.palette.secondary.main}
             size="large"
             height={54}
+            className="subscribeButton"
             marginTop={{ xs: 2, sm: 0 }}
             marginLeft={{ sm: 2 }}
             type="submit"

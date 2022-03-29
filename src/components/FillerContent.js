@@ -218,7 +218,7 @@ export default {
       ],
     },
   ],
-  
+
   platformCard: [
     {
       title: 'Missing Content, Edit in CMS',
@@ -399,6 +399,14 @@ export default {
           />
         </svg>
       ),
+    },
+  ],
+  testimonialCard: [
+    {
+      feedback: 'Missing Content',
+      name: 'Missing Content',
+      title: 'Missing Content',
+      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
     },
   ],
 };

@@ -81,6 +81,7 @@ export default function TryFreeButton({
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.target);
+   
     setOpen(true);
   };
 
@@ -96,6 +97,7 @@ export default function TryFreeButton({
       color={color}
       component={component}
       target={target}
+      className="tryButton"
       fullWidth={fullWidth}
       //href="https://accounts.zesty.io/signup"
       size={size}
