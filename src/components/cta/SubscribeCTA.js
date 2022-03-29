@@ -31,6 +31,11 @@ export default function SubscribeCTA({
     onSubmit: (values) => {
      // handleModal();
      // alert(JSON.stringify(values, null, 2));
+     gtag('event', 'Subscribe', {
+        'event_category': 'Email Signup',
+        'event_label': window.location.pathname,
+        'value': 1
+      });
     },
   });
 
