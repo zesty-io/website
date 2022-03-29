@@ -139,9 +139,12 @@ const FormCustom = () => {
   );
 };
 
-const Hero = ({ title, description }) => {
+const Hero = ({ title, description, imageCollection }) => {
   const theme = useTheme();
 
+  const images = imageCollection?.map(
+    (e) => e.customer_logo?.data && e.customer_logo?.data[0]?.url,
+  );
   return (
     <Box
       minHeight={300}
@@ -173,7 +176,11 @@ const Hero = ({ title, description }) => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <Box width={1} height="100%" display="flex" alignItems="center">
-              <Headline title={title} description={description} />
+              <Headline
+                title={title}
+                description={description}
+                images={images}
+              />
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>

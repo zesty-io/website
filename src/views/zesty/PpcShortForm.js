@@ -36,6 +36,7 @@ function PpcShortForm({ content }) {
       <HeroWithFormAndBackgroundGradient
         title={content.hero_h1 || FillerContent.header}
         description={content.zesty_overview || FillerContent.description}
+        imageCollection={content.client_logos.data || [FillerContent.image]}
       />
     </>
   );
