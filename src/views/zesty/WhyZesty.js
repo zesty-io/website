@@ -24,7 +24,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
 import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
 import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
@@ -36,13 +36,14 @@ import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { Container, filledInputClasses, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useTheme } from '@emotion/react';
+import WYSIWYGRender from 'components/WYSIWYGRender';
 
 import FillerContent from 'components/FillerContent';
 import useFetch from 'components/hooks/useFetch';
 
 const OverviewProcessComp = ({ content, image }) => {
   return (
-    <Container sx={{ marginBottom: '1rem', padding: '2rem' }}>
+    <Container sx={{ padding: '2rem' }}>
       <Grid container justify="center">
         <Box justifyContent="center" alignItems="center">
           <Typography
@@ -51,11 +52,9 @@ const OverviewProcessComp = ({ content, image }) => {
             sx={{ textAlign: 'center' }}
             gutterBottom
           >
-            <Box
-              dangerouslySetInnerHTML={{
-                __html: content || FillerContent.header,
-              }}
-            ></Box>
+            <WYSIWYGRender
+              rich_text={content || FillerContent.rich_text}
+            ></WYSIWYGRender>
           </Typography>
           <Container>
             {image && (
