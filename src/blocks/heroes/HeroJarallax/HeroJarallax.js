@@ -29,13 +29,17 @@ const HeroJarallax = ({
     jarallaxInit();
   });
 
-    const makeDate = (date) => {
-      let d = new Date(date);
-      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-      let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
-
-      return `${mo} ${ye}`;
+  function makeDate(date) {
+    var d = new Date(date);
+    var options = {
+      year: 'numeric',
+      month: 'long',
     };
+    var n = d.toLocaleDateString('en-US', options);
+
+    var replace = n.replace(new RegExp(',', 'g'), ' ');
+    return replace;
+  }
 
   return (
     <Box

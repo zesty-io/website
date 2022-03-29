@@ -19,13 +19,17 @@ const BlogCardsWithFullBackgroundImage = ({
 
 }) => {
 
-    const formatDate = (date) => {
-      let d = new Date(date);
-      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-      let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
+         function makeDate(date) {
+           var d = new Date(date);
+           var options = {
+             year: 'numeric',
+             month: 'long',
+           };
+           var n = d.toLocaleDateString('en-US', options);
 
-      return `${mo} ${ye}`;
-    };
+           var replace = n.replace(new RegExp(',', 'g'), ' ');
+           return replace;
+         }
 
   const theme = useTheme();
   return (
@@ -169,7 +173,7 @@ const BlogCardsWithFullBackgroundImage = ({
                         color={'text.secondary'}
                         sx={{ color: 'common.white', opacity: 0.8 }}
                       >
-                        {formatDate(item?.date) || FillerContent.date}
+                        {makeDate(item?.date) || FillerContent.date}
                       </Typography>
                     </Box>
                   </Box>
