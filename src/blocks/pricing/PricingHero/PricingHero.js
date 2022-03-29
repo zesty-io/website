@@ -41,7 +41,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
             <Box marginBottom={4}>
               <Typography
                 variant="h3"
-                component="h1"
+                component="h3"
                 gutterBottom
                 align={'center'}
                 sx={{
@@ -52,7 +52,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
               </Typography>
               <Typography
                 variant="h6"
-                component="p"
+                component="h1"
                 color="text.primary"
                 align={'center'}
                 sx={{ px: 6 }}
