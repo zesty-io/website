@@ -28,13 +28,14 @@
 
 import React from 'react';
 import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBackgroundGradient';
+import FillerContent from 'components/FillerContent';
 
 function PpcShortForm({ content }) {
   return (
     <>
       <HeroWithFormAndBackgroundGradient
-        title={content.hero_h1}
-        description={content.zesty_overview}
+        title={content.hero_h1 || FillerContent.header}
+        description={content.zesty_overview || FillerContent.description}
       />
     </>
   );
