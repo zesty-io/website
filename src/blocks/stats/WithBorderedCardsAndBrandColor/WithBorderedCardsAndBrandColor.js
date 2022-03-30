@@ -10,6 +10,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { Speed, Bolt, AttachMoney } from '@mui/icons-material';
 import Container from 'components/Container';
+import WYSIWYGRender from 'components/WYSIWYGRender';
 
 const switchIcon = (icon) => {
   switch (icon) {
@@ -126,11 +127,10 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
   return (
     <Container>
       <Box>
-        <Typography variant="h5">
-          <Box
-            style={{ textAlign: 'center' }}
-            dangerouslySetInnerHTML={{ __html: content }}
-          ></Box>
+        <Typography variant="h5" style={{ textAlign: 'center' }}>
+          <WYSIWYGRender
+            rich_text={content || FillerContent.rich_text}
+          ></WYSIWYGRender>
         </Typography>
 
         <Box
@@ -139,7 +139,7 @@ const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
             width: '100%',
             justifyContent: 'space-between',
             marginTop: '2rem',
-            flexDirection: isMobile ? "column" : "row",
+            flexDirection: isMobile ? 'column' : 'row',
           }}
         >
           {cardsList?.map((item, i) => {

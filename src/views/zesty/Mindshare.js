@@ -74,7 +74,6 @@ function Mindshare({ content }) {
     setSearchQuery(evt.target.value);
   };
 
-  console.log(searchQuery.length)
   return (
     <>
       <Box bgcolor={'alternate.main'} position={'relative'}>
@@ -101,7 +100,7 @@ function Mindshare({ content }) {
           </Container>
           {/* Search Result section */}
           {searchQuery.length !== 0 && (
-            <Grid container spacing={4}>
+            <Grid container spacing={4} marginBottom={4}>
               {allArticles
                 .filter((post) => {
                   if (searchQuery === '') {

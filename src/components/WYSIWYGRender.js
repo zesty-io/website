@@ -138,6 +138,17 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           color: ${theme.palette.zesty.zestyBlue};
           font-weight: 700;
         }
+
+
+        @media only screen and (max-width: 600px) {
+          .wysiwyg table tr{
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+          }
+        }
+
+
         `;
   return (
     <>

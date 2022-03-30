@@ -26,7 +26,7 @@
  * View /solutions/
  */
 
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
 import Container from 'components/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
