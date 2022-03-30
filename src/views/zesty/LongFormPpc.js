@@ -626,7 +626,6 @@ const SimpleHeroWithCta = ({
   );
 };
 function LongFormPpc({ content }) {
-  console.log(content, 'CONTENT');
   const theme = useTheme();
   return (
     <>

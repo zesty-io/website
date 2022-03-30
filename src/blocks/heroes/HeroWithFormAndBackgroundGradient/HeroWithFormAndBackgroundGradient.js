@@ -15,7 +15,6 @@ const FormCustom = ({ content }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  console.log(content, '2222');
   return (
     <Box padding={{ xs: 3, sm: 6 }} width={1} component={Card} boxShadow={1}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
