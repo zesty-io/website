@@ -7,12 +7,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LoginIcon from '@mui/icons-material/Login';
 import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
+import { useRouter } from 'next/router';
 
-import SingleNavItem from './components/NavItem/SingleNavItem.js'
+import SingleNavItem from './components/NavItem/SingleNavItem.js';
 const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
-  
+  const router = useRouter();
+
+  //check if page is from ppc
+  const isPpcPage = router.asPath === '/ppc/digital-experience-platform/';
 
   return (
     <Box
@@ -39,12 +43,14 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
           width={1}
         />
       </Box>
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-        
-        {customRouting.map(route => (
-           <Box key={route.zuid}>
-            {route.parentZUID == null && route.children.length > 0 &&
-              <Box  marginLeft={4}>
+      <Box
+        sx={{ display: { xs: 'none', md: isPpcPage ? 'none' : 'flex' } }}
+        alignItems={'center'}
+      >
+        {customRouting.map((route) => (
+          <Box key={route.zuid}>
+            {route.parentZUID == null && route.children.length > 0 && (
+              <Box marginLeft={4}>
                 <NavItem
                   title={route.title}
                   id={route.zuid}
@@ -52,32 +58,29 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
                   colorInvert={colorInvert}
                 />
               </Box>
-            }
-            {route.parentZUID == null && route.children.length == 0 &&
+            )}
+            {route.parentZUID == null && route.children.length == 0 && (
               <Box marginLeft={4}>
                 <SingleNavItem
                   title={route.title}
                   id={route.zuid}
                   url={route.url}
                   colorInvert={colorInvert}
-                  />
+                />
               </Box>
-            }
+            )}
           </Box>
         ))}
-        
+
         <Box marginLeft={4}>
-            <TryFreeButton 
-            variant="contained" 
-            component="a" 
-            />
+          <TryFreeButton variant="contained" component="a" />
         </Box>
         <Box marginLeft={2}>
           <Button
             size={'medium'}
             variant="text"
             color="primary"
-            sx={{fontWeight: 'bold'}}
+            sx={{ fontWeight: 'bold' }}
             endIcon={<LoginIcon />}
             fullWidth
             component="a"
