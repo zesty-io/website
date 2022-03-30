@@ -6,14 +6,6 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Chip from '@mui/material/Chip';
 
-const mock = [
-  'Business',
-  'Strategy',
-  'Health',
-  'Creative',
-  'Environment',
-  'Stories',
-];
 
 const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery }) => {
   return (
@@ -81,7 +73,7 @@ const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery }) => {
           </Box>
         </form>
       </Box>
-      <Box>
+      {/* <Box>
         {chipsTitle.map((item) => (
           <Chip
             key={item}
@@ -92,7 +84,7 @@ const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery }) => {
             sx={{ margin: 0.5 }}
           />
         ))}
-      </Box>
+      </Box> */}
     </Box>
   );
 };
