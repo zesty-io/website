@@ -7,8 +7,10 @@ import Container from 'components/Container';
 
 import { Headline } from './components';
 import { Button, Card, Divider, TextField, Typography } from '@mui/material';
+import { zestyLink } from 'lib/zestyLink';
+import FillerContent from 'components/FillerContent';
 
-const FormCustom = () => {
+const FormCustom = ({ content }) => {
   const theme = useTheme();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -106,7 +108,10 @@ const FormCustom = () => {
               By creating you account you agree to our{' '}
               <Box
                 component="a"
-                href="/legal/privacy-policy"
+                href={
+                  zestyLink(content.navigationTree, content.meta?.zuid) ||
+                  FillerContent.href
+                }
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
@@ -115,7 +120,10 @@ const FormCustom = () => {
               ,{' '}
               <Box
                 component="a"
-                href="/legal/end-user-license-agreement"
+                href={
+                  zestyLink(content.navigationTree, content.meta?.zuid) ||
+                  FillerContent.href
+                }
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
@@ -124,7 +132,10 @@ const FormCustom = () => {
               and{' '}
               <Box
                 component="a"
-                href="/legal/privacy-policy"
+                href={
+                  zestyLink(content.navigationTree, content.meta?.zuid) ||
+                  FillerContent.href
+                }
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
@@ -139,12 +150,13 @@ const FormCustom = () => {
   );
 };
 
-const Hero = ({ title, description, imageCollection }) => {
+const Hero = ({ title, description, imageCollection, content }) => {
   const theme = useTheme();
 
   const images = imageCollection?.map(
     (e) => e.customer_logo?.data && e.customer_logo?.data[0]?.url,
   );
+
   return (
     <Box
       minHeight={300}
@@ -185,7 +197,7 @@ const Hero = ({ title, description, imageCollection }) => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Box width={1} height="100%" display="flex" alignItems="center">
-              <FormCustom />
+              <FormCustom content={content} />
             </Box>
           </Grid>
         </Grid>

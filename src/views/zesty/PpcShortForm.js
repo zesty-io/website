@@ -39,6 +39,7 @@ function PpcShortForm({ content }) {
         imageCollection={
           content.client_logos?.data?.slice(0, 3) || [FillerContent.image]
         }
+        content={content}
       />
     </>
   );

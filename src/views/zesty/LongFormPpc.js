@@ -72,6 +72,7 @@ import { useFormik } from 'formik';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
+import { zestyLink } from 'lib/zestyLink';
 
 const StyledTextField = styled(TextField)({
   [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
@@ -128,7 +129,7 @@ const validationSchema = yup.object({
   message: yup.string().trim().required('Please specify your message'),
 });
 
-const ContactUs = ({ title, description }) => {
+const ContactUs = ({ title, description, content }) => {
   const theme = useTheme();
 
   const initialValues = {
@@ -279,7 +280,10 @@ const ContactUs = ({ title, description }) => {
               By clicking on "submit" you agree to our{' '}
               <Box
                 component="a"
-                href="/legal/privacy-policy/"
+                href={
+                  zestyLink(content.navigationTree, content.meta?.zuid) ||
+                  FillerContent.href
+                }
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
@@ -693,6 +697,7 @@ function LongFormPpc({ content }) {
           description={
             content.contact_form_description || FillerContent.description
           }
+          content={content}
         />
       </Box>
     </>
