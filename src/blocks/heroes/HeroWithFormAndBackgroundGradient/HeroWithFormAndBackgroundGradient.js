@@ -7,8 +7,10 @@ import Container from 'components/Container';
 
 import { Headline } from './components';
 import { Button, Card, Divider, TextField, Typography } from '@mui/material';
+import { zestyLink } from 'lib/zestyLink';
+import FillerContent from 'components/FillerContent';
 
-const FormCustom = () => {
+const FormCustom = ({ content }) => {
   const theme = useTheme();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -106,7 +108,10 @@ const FormCustom = () => {
               By creating you account you agree to our{' '}
               <Box
                 component="a"
-                href=""
+                href={
+                  zestyLink(content.navigationTree, '7-713ae23-wg19b5') ||
+                  FillerContent.href
+                }
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
@@ -115,7 +120,10 @@ const FormCustom = () => {
               ,{' '}
               <Box
                 component="a"
-                href=""
+                href={
+                  zestyLink(content.navigationTree, '7-713b244-30r3bw') ||
+                  FillerContent.href
+                }
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
@@ -124,7 +132,10 @@ const FormCustom = () => {
               and{' '}
               <Box
                 component="a"
-                href=""
+                href={
+                  zestyLink(content.navigationTree, '7-713ae23-wg19b5') ||
+                  FillerContent.href
+                }
                 color={theme.palette.text.primary}
                 fontWeight={'700'}
               >
@@ -139,8 +150,12 @@ const FormCustom = () => {
   );
 };
 
-const Hero = ({ title, description }) => {
+const Hero = ({ title, description, imageCollection, content }) => {
   const theme = useTheme();
+
+  const images = imageCollection?.map(
+    (e) => e.customer_logo?.data && e.customer_logo?.data[0]?.url,
+  );
 
   return (
     <Box
@@ -173,12 +188,16 @@ const Hero = ({ title, description }) => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <Box width={1} height="100%" display="flex" alignItems="center">
-              <Headline title={title} description={description} />
+              <Headline
+                title={title}
+                description={description}
+                images={images}
+              />
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>
             <Box width={1} height="100%" display="flex" alignItems="center">
-              <FormCustom />
+              <FormCustom content={content} />
             </Box>
           </Grid>
         </Grid>

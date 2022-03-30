@@ -4,8 +4,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import FillerContent from 'components/FillerContent';
 import { Grid } from '@mui/material';
+import { useTheme } from '@emotion/react';
 
-const Headline = ({ title, description }) => {
+const Headline = ({ title, description, images = [] }) => {
+  const theme = useTheme();
   return (
     <Box>
       <Typography
@@ -30,6 +32,31 @@ const Headline = ({ title, description }) => {
           }}
         ></Box>
       </Grid>
+      <Box
+        display="flex"
+        gap={4}
+        flexWrap="wrap"
+        marginTop={4}
+        justifyContent={'center'}
+      >
+        {images?.map((item, i) => (
+          <Box marginTop={2} key={i}>
+            <Box
+              component="img"
+              height={1}
+              width={1}
+              src={item}
+              alt="..."
+              sx={{
+                filter:
+                  theme.palette.mode === 'dark'
+                    ? 'brightness(0) invert(0.7)'
+                    : 'none',
+              }}
+            />
+          </Box>
+        ))}
+      </Box>
       {/* <Typography
         variant="h6"
         component="p"

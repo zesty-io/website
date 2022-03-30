@@ -20,7 +20,7 @@ const FeaturesWithMobileScreenshot = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Container>
+    <Container paddingY={0}>
       {feature_list_h1 && (
         <Typography
           variant="p"

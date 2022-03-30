@@ -83,7 +83,7 @@ const FeatureGridWithBackgrounds = ({ images }) => {
                   <Typography color="text.secondary">
                     {item.description}
                   </Typography>
-                  <Button
+                  {/* <Button
                     size={'large'}
                     sx={{ marginTop: 2 }}
                     endIcon={
@@ -106,7 +106,7 @@ const FeatureGridWithBackgrounds = ({ images }) => {
                     }
                   >
                     Learn More
-                  </Button>
+                  </Button> */}
                 </Box>
               </CardContent>
             </Box>
