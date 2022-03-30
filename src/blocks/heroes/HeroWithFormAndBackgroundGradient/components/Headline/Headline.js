@@ -37,17 +37,17 @@ const Headline = ({ title, description, images = [] }) => {
         gap={4}
         flexWrap="wrap"
         marginTop={4}
-        justifyContent={'center'}
+        justifyContent={'start'}
       >
         {images?.map((item, i) => (
           <Box marginTop={2} key={i}>
             <Box
               component="img"
-              height={1}
               width={1}
               src={item}
               alt="..."
               sx={{
+                height: i === 1 ? '2.5rem' : '3rem',
                 filter:
                   theme.palette.mode === 'dark'
                     ? 'brightness(0) invert(0.7)'
@@ -57,22 +57,6 @@ const Headline = ({ title, description, images = [] }) => {
           </Box>
         ))}
       </Box>
-      {/* <Typography
-        variant="h6"
-        component="p"
-        color="text.primary"
-        sx={{
-          fontWeight: 500,
-          color: 'common.white',
-        }}
-      >
-        Whether it’s Porsche, Stripe, Intercom, Amazon, or Google, something
-        about TheFront works for our global partners.
-        <br />
-        Want more information? Download our overview and a member of our
-        specialist team will be in touch to talk about your goals for TheFront
-        2021.
-      </Typography> */}
     </Box>
   );
 };
