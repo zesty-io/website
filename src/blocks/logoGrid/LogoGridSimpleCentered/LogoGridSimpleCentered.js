@@ -49,7 +49,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
           )}
         </Box>
         <Box display="flex" gap={4} flexWrap="wrap" justifyContent={'center'}>
-          {images.map((item, i) => (
+          {images?.map((item, i) => (
             <Box marginTop={2} key={i}>
               <Box
                 component="img"
@@ -61,7 +61,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
                   filter:
                     theme.palette.mode === 'dark'
                       ? 'brightness(0) invert(0.7)'
-                      : 'none',
+                      : 'brightness(0) invert(0.7)',
                 }}
               />
             </Box>

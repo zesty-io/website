@@ -466,7 +466,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                     width={60}
                     height={60}
                     marginBottom={2}
-                    bgcolor={alpha(theme.palette.primary.main, 0.1)}
+                    bgcolor={alpha(theme.palette.primary.main, 0.4)}
                     color={theme.palette.primary.main}
                   >
                     <Icon>{item.icon_name}</Icon>
@@ -480,7 +480,10 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                   >
                     {item.key_attribute_title || FillerContent.header}
                   </Typography>
-                  <Typography align={'center'} color="text.secondary">
+                  <Typography
+                    align={'center'}
+                    color={theme.palette.zesty.white}
+                  >
                     {item.key_attribute_description ||
                       FillerContent.description}
                   </Typography>
@@ -625,6 +628,23 @@ const SimpleHeroWithCta = ({
           </Box>
         </Box>
       </Box>
+      <Box
+        component={'svg'}
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 1920 100.1"
+        sx={{
+          width: '100%',
+          marginBottom: theme.spacing(-1),
+        }}
+      >
+        <path
+          fill={theme.palette.background.paper}
+          d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+        ></path>
+      </Box>
     </Container>
   );
 };
@@ -653,7 +673,7 @@ function LongFormPpc({ content }) {
       <Box
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
-          padding: '10rem 0',
+          padding: '5rem 0',
         }}
       >
         <SimpleCentered
@@ -680,6 +700,23 @@ function LongFormPpc({ content }) {
             FillerContent.image
           }
         />
+        <Box
+          component={'svg'}
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          viewBox="0 0 1920 100.1"
+          sx={{
+            width: '100%',
+            marginBottom: theme.spacing(-1),
+          }}
+        >
+          <path
+            fill={theme.palette.background.paper}
+            d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+          ></path>
+        </Box>
       </Box>
 
       {/* How it works */}
@@ -690,7 +727,7 @@ function LongFormPpc({ content }) {
       />
 
       {/* Benefits */}
-      <Box marginTop={6} marginBottom={6} bgcolor={'alternate.main'}>
+      <Box marginTop={6} padding={8} bgcolor={'alternate.main'}>
         <NewsletterWithImage
           header={content.outline_of_benefits || FillerContent.header}
           image={
@@ -703,20 +740,50 @@ function LongFormPpc({ content }) {
       </Box>
 
       {/* Form */}
+
       <Box
-        id="contact-us"
+        // minHeight={300}
+        height={'auto'}
+        position={'relative'}
         sx={{
-          background: theme.palette.zesty.zestyDarkBlue,
-          padding: '10rem 0',
+          backgroundColor: theme.palette.alternate.main,
+          background:
+            'url(https://assets.maccarianagency.com/backgrounds/img19.jpg) no-repeat center',
+          backgroundSize: 'cover',
         }}
       >
-        <ContactUs
-          title={content.contact_form_h3 || FillerContent.header}
-          description={
-            content.contact_form_description || FillerContent.description
-          }
-          content={content}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: 1,
+            height: 1,
+            backgroundColor: theme.palette.primary.main,
+            backgroundImage: `linear-gradient(315deg, ${theme.palette.primary.main} 0%, #000000 74%)`,
+            opacity: '0.8',
+            zIndex: 1,
+          }}
         />
+
+        <Box
+          id="contact-us"
+          sx={{
+            position: 'relative',
+            padding: '12rem 0',
+            zIndex: 2,
+          }}
+        >
+          <ContactUs
+            title={content.contact_form_h3 || FillerContent.header}
+            description={
+              content.contact_form_description || FillerContent.description
+            }
+            content={content}
+          />
+        </Box>
       </Box>
     </>
   );
