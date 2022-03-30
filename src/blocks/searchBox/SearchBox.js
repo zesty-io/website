@@ -7,7 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Chip from '@mui/material/Chip';
 
 
-const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery }) => {
+const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery, onSubmit }) => {
   return (
     <Box>
       <Box
@@ -17,7 +17,7 @@ const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery }) => {
         boxShadow={4}
         marginBottom={4}
       >
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" onSubmit={onSubmit}>
           <Box display="flex" alignItems={'center'}>
             <Box width={1} marginRight={1}>
               <TextField
@@ -66,6 +66,7 @@ const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery }) => {
                 color="secondary"
                 size="medium"
                 fullWidth
+                type="button"
               >
                 Search
               </Button>

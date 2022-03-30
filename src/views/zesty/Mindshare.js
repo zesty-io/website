@@ -71,7 +71,12 @@ function Mindshare({ content }) {
     : FillerContent.missingDataArray;
 
   const onSearchHandler = (evt, value) => {
+    evt.preventDefault();
     setSearchQuery(evt.target.value);
+  };
+  const onSubmit = (evt, value) => {
+    evt.preventDefault();
+
   };
 
   return (
@@ -96,6 +101,7 @@ function Mindshare({ content }) {
             <SearchBox
               onSearchHandler={onSearchHandler}
               searchQuery={searchQuery}
+              onSubmit={onSubmit}
             />
           </Container>
           {/* Search Result section */}
