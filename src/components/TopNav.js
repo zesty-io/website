@@ -10,7 +10,9 @@ import ThemeModeToggler from 'components/ThemeModeToggler';
 const TopNav = ({ nav, colorInvert = false }) => {
   const router = useRouter();
   //check if page is from ppc
-  const isPpcPage = router.asPath === '/ppc/digital-experience-platform/';
+  const isPpcPage =
+    router.asPath === '/ppc/digital-experience-platform/' ||
+    '/ppc/digital-experience-platform-demo/';
 
   return (
     <Box
