@@ -48,6 +48,7 @@ import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustration
 import FeatureGridWithBackgrounds from 'blocks/features/FeatureGridWithBackgrounds';
 import Container from 'components/Container';
 import { alpha, useTheme } from '@mui/material/styles';
+import Icon from '@mui/material/Icon';
 import {
   Avatar,
   Box,
@@ -451,13 +452,14 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
           </Box>
         </Box>
         <Grid container spacing={2}>
-          {cards.map((item, i) => (
+          {cards?.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box width={1} height={1}>
                 <Box
                   display={'flex'}
                   flexDirection={'column'}
                   alignItems={'center'}
+                  marginTop={4}
                 >
                   <Box
                     component={Avatar}
@@ -472,13 +474,15 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                   <Typography
                     variant={'h6'}
                     gutterBottom
-                    sx={{ fontWeight: 500 }}
+                    sx={{ fontWeight: 500, marginTop: '1rem' }}
                     align={'center'}
+                    color={theme.palette.zesty.white}
                   >
-                    {item.benefit_title}
+                    {item.key_attribute_title || FillerContent.header}
                   </Typography>
                   <Typography align={'center'} color="text.secondary">
-                    {item.benefit_content}
+                    {item.key_attribute_description ||
+                      FillerContent.description}
                   </Typography>
                 </Box>
               </Box>
@@ -627,6 +631,7 @@ const SimpleHeroWithCta = ({
 };
 function LongFormPpc({ content }) {
   const theme = useTheme();
+
   return (
     <>
       {/* HERO */}
@@ -648,7 +653,7 @@ function LongFormPpc({ content }) {
       >
         <SimpleCentered
           header={content.who_is_zesty_h2 || FillerContent.header}
-          cards={content.zesty_benefits || []}
+          cards={content.zesty_benefits?.data || []}
         />
       </Box>
 
