@@ -529,7 +529,7 @@ const HowItWorks = ({
           </Grid>
         </Box>
       </Container>
-      <FeatureGridWithBackgrounds images={images || FillerContent.demos} />
+      <FeatureGridWithBackgrounds images={FillerContent.demos} />
     </>
   );
 };
@@ -632,6 +632,7 @@ const SimpleHeroWithCta = ({
 function LongFormPpc({ content }) {
   const theme = useTheme();
 
+  console.log(content, '123123');
   return (
     <>
       {/* HERO */}
@@ -669,7 +670,11 @@ function LongFormPpc({ content }) {
           titleAndDescription={
             content._what_is_title_and_description || FillerContent.rich_text
           }
-          image={content._what_is_image || FillerContent.image}
+          image={
+            (content._what_is_image?.data &&
+              content._what_is_image?.data[0].url) ||
+            FillerContent.image
+          }
         />
       </Box>
 
@@ -684,7 +689,11 @@ function LongFormPpc({ content }) {
       <Box marginTop={6} marginBottom={6} bgcolor={'alternate.main'}>
         <NewsletterWithImage
           header={content.outline_of_benefits || FillerContent.header}
-          image={content.benefits_image || FillerContent.image}
+          image={
+            (content.benefits_image?.data &&
+              content.benefits_image?.data[0]?.url) ||
+            FillerContent.image
+          }
           testimonial={null}
         />
       </Box>
