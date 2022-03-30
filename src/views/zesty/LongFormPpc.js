@@ -540,7 +540,7 @@ const SimpleHeroWithCta = ({
   description,
   primaryCta,
   secondaryCTA,
-  secondaryCtaLink,
+  onClick,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -615,8 +615,7 @@ const SimpleHeroWithCta = ({
           >
             <Button
               component={'a'}
-              href={secondaryCtaLink}
-              variant="outlined"
+              onClick={onClick}
               color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
               size="large"
               fullWidth={isMd ? false : true}
@@ -633,6 +632,11 @@ function LongFormPpc({ content }) {
   const theme = useTheme();
 
   console.log(content, '123123');
+  const scrollToContactUs = () => {
+    document
+      .getElementById('contact-us')
+      .scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <>
       {/* HERO */}
@@ -641,7 +645,7 @@ function LongFormPpc({ content }) {
         description={content.hero_h2 || FillerContent.description}
         primaryCta={content.hero_cta_primary_text || FillerContent.cta}
         secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
-        secondaryCtaLink={content.hero_cta_secondary_link || FillerContent.href}
+        onClick={scrollToContactUs}
       />
 
       {/* Who Zesty is */}
@@ -700,6 +704,7 @@ function LongFormPpc({ content }) {
 
       {/* Form */}
       <Box
+        id="contact-us"
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
           padding: '10rem 0',
