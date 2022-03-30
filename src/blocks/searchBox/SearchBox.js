@@ -63,7 +63,7 @@ const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery }) => {
               <Button
                 sx={{ height: 54, minWidth: 100, whiteSpace: 'nowrap' }}
                 variant="contained"
-                color="primary"
+                color="secondary"
                 size="medium"
                 fullWidth
               >
