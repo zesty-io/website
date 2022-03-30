@@ -651,7 +651,6 @@ const SimpleHeroWithCta = ({
 function LongFormPpc({ content }) {
   const theme = useTheme();
 
-  console.log(content, '123123');
   const scrollToContactUs = () => {
     document
       .getElementById('contact-us')

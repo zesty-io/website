@@ -17,8 +17,20 @@ const FormCustom = ({ content }) => {
   };
   return (
     <Box padding={{ xs: 3, sm: 6 }} width={1} component={Card} boxShadow={1}>
+      <Typography
+        variant={'p'}
+        component={'h2'}
+        textAlign={'center'}
+        gutterBottom
+        sx={{
+          fontWeight: 700,
+          color: theme.palette.common.black,
+        }}
+      >
+        {content.title || FillerContent.header}
+      </Typography>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <Box display="flex" flexDirection={'column'}>
+        <Box display="flex" flexDirection={'column'} paddingTop={6}>
           <Box display={'flex'} gap={4} marginBottom={4}>
             <TextField
               sx={{ height: 54 }}
@@ -66,7 +78,7 @@ const FormCustom = ({ content }) => {
           <Box marginBottom={4}>
             <TextField
               sx={{ height: 54 }}
-              label="Area of interest or job role"
+              label="Job Title"
               type="text"
               variant="outlined"
               color="primary"
@@ -92,18 +104,18 @@ const FormCustom = ({ content }) => {
             <Button
               sx={{ height: 54 }}
               variant="contained"
-              color="primary"
+              color="secondary"
               size="medium"
               fullWidth
               type="submit"
             >
-              Create an account
+              Request Now
             </Button>
           </Box>
-          <Box marginY={4} marginX={{ xs: -3, sm: -6 }}>
+          {/* <Box marginY={4} marginX={{ xs: -3, sm: -6 }}>
             <Divider />
-          </Box>
-          <Box>
+          </Box> */}
+          {/* <Box>
             <Typography component="p" variant="body2" align="left">
               By creating you account you agree to our{' '}
               <Box
@@ -143,7 +155,7 @@ const FormCustom = ({ content }) => {
               </Box>
               .
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       </form>
     </Box>
@@ -185,7 +197,7 @@ const Hero = ({ title, description, imageCollection, content }) => {
         }}
       />
       <Container position={'relative'} zIndex={2}>
-        <Grid container spacing={4}>
+        <Grid paddingY={6} container spacing={4}>
           <Grid item xs={12} md={6}>
             <Box width={1} height="100%" display="flex" alignItems="center">
               <Headline
