@@ -31,6 +31,7 @@ import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBack
 import FillerContent from 'components/FillerContent';
 
 function PpcShortForm({ content }) {
+  console.log(content, '123');
   return (
     <>
       <HeroWithFormAndBackgroundGradient
