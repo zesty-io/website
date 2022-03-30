@@ -23,6 +23,8 @@ import Icons from '@mui/icons-material';
 import Container from 'components/Container';
 import { Button, useMediaQuery } from '@mui/material';
 import FillerContent from 'components/FillerContent';
+import WYSIWYGRender from 'components/WYSIWYGRender';
+
 
 const switchIcon = (icon) => {
   switch (icon) {
@@ -67,13 +69,11 @@ const FeaturesWithCardRepresentation = ({
   return (
     <Box bgcolor={'alternate.secondary'}>
       <Grid container justifyContent="center" paddingTop={4}>
-        <Typography variant="h4">
-          <Box
-            sx={{ textAlign: 'center', padding: isMd ? '0 .5rem' : '0 0' }}
-            dangerouslySetInnerHTML={{
-              __html: description,
-            }}
-          ></Box>
+        <Typography variant="h4" component="h2" align={'center'} sx={{}}>
+          <WYSIWYGRender
+            rich_text={description}
+            customClass="solutionBox"
+          ></WYSIWYGRender>
         </Typography>
       </Grid>
       <Container>

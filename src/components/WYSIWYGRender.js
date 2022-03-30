@@ -134,6 +134,17 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           max-width: 100%;
           height: 100%;
         }
+
+
+        @media only screen and (max-width: 600px) {
+          .wysiwyg table tr{
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+          }
+        }
+
+
         `;
   return (
     <>
