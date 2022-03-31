@@ -5,7 +5,13 @@ import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import * as yup from 'yup';
 import { Headline } from './components';
-import { Button, Card, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import FillerContent from 'components/FillerContent';
 import { useFormik } from 'formik';
 
@@ -69,7 +75,7 @@ const FormCustom = ({ title }) => {
         {title || FillerContent.header}
       </Typography>
       <form noValidate autoComplete="off" onSubmit={formik.handleSubmit}>
-        <Box display="flex" flexDirection={'column'} paddingTop={6}>
+        <Box display="flex" flexDirection={'column'} paddingTop={2}>
           <Box display={'flex'} gap={4} marginBottom={4}>
             <TextField
               sx={{ height: 54 }}
@@ -191,6 +197,7 @@ const Hero = ({
   form_title,
 }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const images = imageCollection?.map(
     (e) => e.customer_logo?.data && e.customer_logo?.data[0]?.url,
@@ -228,7 +235,12 @@ const Hero = ({
         }}
       />
       <Container position={'relative'} zIndex={2}>
-        <Grid paddingY={6} container spacing={4}>
+        <Grid
+          flexDirection={isMobile ? 'column-reverse' : 'initial'}
+          paddingY={6}
+          container
+          spacing={4}
+        >
           <Grid item xs={12} md={6}>
             <Box width={1} height="100%" display="flex" alignItems="center">
               <Headline

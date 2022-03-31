@@ -18,9 +18,6 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
   //check if page is from ppc for hiding of footer and nav
   const isPpcPage = router.asPath.includes('/ppc');
 
-  const isPpcShortPage =
-    router.asPath === '/ppc/digital-experience-platform-demo/';
-
   return (
     <Box
       display={'flex'}
