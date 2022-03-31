@@ -1,23 +1,36 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container'
+import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
+import { useRouter } from 'next/router';
 
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
-const Footer = ({customRouting,colorInvert = false }) => {
+const Footer = ({ customRouting, colorInvert = false }) => {
+  const router = useRouter();
+
+  //check if page is from ppc for hiding of footer and nav
+  const isPpcPage = router.asPath.includes('/ppc');
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { mode } = theme.palette;
-  const backgroundColor = mode === 'light' && !colorInvert ?  theme.palette.zesty.zestyWhiteBlue : theme.palette.zesty.zestyDarkBlue;
+  const backgroundColor =
+    mode === 'light' && !colorInvert
+      ? theme.palette.zesty.zestyWhiteBlue
+      : theme.palette.zesty.zestyDarkBlue;
+
   return (
-    <Box sx={{ background: backgroundColor, paddingTop: '10px' }}>
+    <Box
+      display={isPpcPage ? 'none' : 'flex'}
+      sx={{ background: backgroundColor, paddingTop: '10px' }}
+    >
       <Container paddingY={4}>
         <Grid
           container

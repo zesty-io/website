@@ -75,40 +75,6 @@ import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
 import { zestyLink } from 'lib/zestyLink';
 
-const StyledTextField = styled(TextField)({
-  [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
-    borderColor: '#fff',
-  },
-
-  [`&:hover .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]:
-    {
-      borderColor: '#FF5D0A',
-    },
-  [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]:
-    {
-      borderColor: '#FF5D0A',
-    },
-  [`& .${outlinedInputClasses.input}`]: {
-    color: '#fff',
-  },
-  [`&:hover .${outlinedInputClasses.input}`]: {
-    color: '#FF5D0A',
-  },
-  [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.input}`]:
-    {
-      color: '#FF5D0A',
-    },
-  [`& .${inputLabelClasses.outlined}`]: {
-    color: '#fff',
-  },
-  [`&:hover .${inputLabelClasses.outlined}`]: {
-    color: '#FF5D0A',
-  },
-  [`& .${inputLabelClasses.outlined}.${inputLabelClasses.focused}`]: {
-    color: '#FF5D0A',
-  },
-});
-
 const validationSchema = yup.object({
   firstName: yup
     .string()
@@ -466,7 +432,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                     width={60}
                     height={60}
                     marginBottom={2}
-                    bgcolor={alpha(theme.palette.primary.main, 0.1)}
+                    bgcolor={alpha(theme.palette.primary.main, 0.4)}
                     color={theme.palette.primary.main}
                   >
                     <Icon>{item.icon_name}</Icon>
@@ -480,7 +446,10 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                   >
                     {item.key_attribute_title || FillerContent.header}
                   </Typography>
-                  <Typography align={'center'} color="text.secondary">
+                  <Typography
+                    align={'center'}
+                    color={theme.palette.zesty.white}
+                  >
                     {item.key_attribute_description ||
                       FillerContent.description}
                   </Typography>
@@ -529,7 +498,7 @@ const HowItWorks = ({
           </Grid>
         </Box>
       </Container>
-      <FeatureGridWithBackgrounds images={images || FillerContent.demos} />
+      <FeatureGridWithBackgrounds images={FillerContent.demos} />
     </>
   );
 };
@@ -540,12 +509,13 @@ const SimpleHeroWithCta = ({
   description,
   primaryCta,
   secondaryCTA,
-  secondaryCtaLink,
+  onClick,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Container
@@ -572,10 +542,12 @@ const SimpleHeroWithCta = ({
       <Box paddingTop={6} position={'relative'} zIndex={2}>
         <Box marginBottom={4}>
           <Typography
-            variant="h3"
+            variant="p"
+            component={'h1'}
             color="text.primary"
             align={'center'}
             sx={{
+              fontSize: '48px',
               fontWeight: 700,
               marginBottom: '2rem',
             }}
@@ -585,10 +557,14 @@ const SimpleHeroWithCta = ({
             {subtitle}
           </Typography>
           <Typography
-            variant="h6"
-            component="p"
+            variant="p"
+            component="h2"
             color="text.secondary"
-            sx={{ fontWeight: 400, whiteSpace: 'nowrap' }}
+            sx={{
+              fontSize: '20px',
+              fontWeight: 400,
+              whiteSpace: isMobile ? 'normal' : 'nowrap',
+            }}
             align={'center'}
           >
             {description}
@@ -615,8 +591,7 @@ const SimpleHeroWithCta = ({
           >
             <Button
               component={'a'}
-              href={secondaryCtaLink}
-              variant="outlined"
+              onClick={onClick}
               color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
               size="large"
               fullWidth={isMd ? false : true}
@@ -626,11 +601,106 @@ const SimpleHeroWithCta = ({
           </Box>
         </Box>
       </Box>
+      <Box
+        component={'svg'}
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 1920 100.1"
+        sx={{
+          width: '100%',
+          marginBottom: theme.spacing(-1),
+        }}
+      >
+        <path
+          fill={theme.palette.background.paper}
+          d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+        ></path>
+      </Box>
     </Container>
   );
 };
+
+const BgDecorations = ({ theme }) => {
+  return (
+    <Box
+      component={'svg'}
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      viewBox="0 0 1920 100.1"
+      sx={{
+        width: '100%',
+        marginBottom: theme.spacing(-1),
+      }}
+    >
+      <path
+        fill={theme.palette.background.paper}
+        d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+      ></path>
+    </Box>
+  );
+};
+
+const ContactUsForm = ({ theme, content }) => {
+  return (
+    <Box
+      // minHeight={300}
+      height={'auto'}
+      position={'relative'}
+      sx={{
+        backgroundColor: theme.palette.alternate.main,
+        background:
+          'url(https://assets.maccarianagency.com/backgrounds/img19.jpg) no-repeat center',
+        backgroundSize: 'cover',
+      }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: 1,
+          height: 1,
+          backgroundColor: theme.palette.primary.main,
+          backgroundImage: `linear-gradient(315deg, ${theme.palette.primary.main} 0%, #000000 74%)`,
+          opacity: '0.8',
+          zIndex: 1,
+        }}
+      />
+
+      <Box
+        id="contact-us"
+        sx={{
+          position: 'relative',
+          padding: '12rem 0',
+          zIndex: 2,
+        }}
+      >
+        <ContactUs
+          title={content.contact_form_h3 || FillerContent.header}
+          description={
+            content.contact_form_description || FillerContent.description
+          }
+          content={content}
+        />
+      </Box>
+    </Box>
+  );
+};
+
 function LongFormPpc({ content }) {
   const theme = useTheme();
+
+  const scrollToContactUs = () => {
+    document
+      .getElementById('contact-us')
+      .scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -640,15 +710,14 @@ function LongFormPpc({ content }) {
         description={content.hero_h2 || FillerContent.description}
         primaryCta={content.hero_cta_primary_text || FillerContent.cta}
         secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
-        secondaryCtaLink={content.hero_cta_secondary_link || FillerContent.href}
+        onClick={scrollToContactUs}
       />
 
       {/* Who Zesty is */}
-      {/* header should be html*/}
       <Box
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
-          padding: '10rem 0',
+          padding: '5rem 0',
         }}
       >
         <SimpleCentered
@@ -669,41 +738,36 @@ function LongFormPpc({ content }) {
           titleAndDescription={
             content._what_is_title_and_description || FillerContent.rich_text
           }
-          image={content._what_is_image || FillerContent.image}
+          image={
+            (content._what_is_image?.data &&
+              content._what_is_image?.data[0].url) ||
+            FillerContent.image
+          }
         />
+        <BgDecorations theme={theme} />
       </Box>
 
       {/* How it works */}
-      {/* ******************************j */}
       <HowItWorks
         header={content.how_it_works || FillerContent.header}
         images={content.how_it_works_image}
       />
 
       {/* Benefits */}
-      <Box marginTop={6} marginBottom={6} bgcolor={'alternate.main'}>
+      <Box marginTop={6} padding={8} bgcolor={'alternate.main'}>
         <NewsletterWithImage
           header={content.outline_of_benefits || FillerContent.header}
-          image={content.benefits_image || FillerContent.image}
+          image={
+            (content.benefits_image?.data &&
+              content.benefits_image?.data[0]?.url) ||
+            FillerContent.image
+          }
           testimonial={null}
         />
       </Box>
 
       {/* Form */}
-      <Box
-        sx={{
-          background: theme.palette.zesty.zestyDarkBlue,
-          padding: '10rem 0',
-        }}
-      >
-        <ContactUs
-          title={content.contact_form_h3 || FillerContent.header}
-          description={
-            content.contact_form_description || FillerContent.description
-          }
-          content={content}
-        />
-      </Box>
+      <ContactUsForm theme={theme} content={content} />
     </>
   );
 }
