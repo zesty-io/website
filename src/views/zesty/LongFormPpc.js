@@ -75,40 +75,6 @@ import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
 import { zestyLink } from 'lib/zestyLink';
 
-const StyledTextField = styled(TextField)({
-  [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
-    borderColor: '#fff',
-  },
-
-  [`&:hover .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]:
-    {
-      borderColor: '#FF5D0A',
-    },
-  [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]:
-    {
-      borderColor: '#FF5D0A',
-    },
-  [`& .${outlinedInputClasses.input}`]: {
-    color: '#fff',
-  },
-  [`&:hover .${outlinedInputClasses.input}`]: {
-    color: '#FF5D0A',
-  },
-  [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.input}`]:
-    {
-      color: '#FF5D0A',
-    },
-  [`& .${inputLabelClasses.outlined}`]: {
-    color: '#fff',
-  },
-  [`&:hover .${inputLabelClasses.outlined}`]: {
-    color: '#FF5D0A',
-  },
-  [`& .${inputLabelClasses.outlined}.${inputLabelClasses.focused}`]: {
-    color: '#FF5D0A',
-  },
-});
-
 const validationSchema = yup.object({
   firstName: yup
     .string()
