@@ -14,10 +14,9 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Footer = ({ customRouting, colorInvert = false }) => {
   const router = useRouter();
-  //check if page is from ppc
-  const isPpcPage =
-    router.asPath === '/ppc/digital-experience-platform/' ||
-    '/ppc/digital-experience-platform-demo/';
+
+  //check if page is from ppc for hiding of footer and nav
+  const isPpcPage = router.asPath.includes('/ppc');
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
