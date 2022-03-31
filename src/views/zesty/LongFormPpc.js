@@ -542,10 +542,12 @@ const SimpleHeroWithCta = ({
       <Box paddingTop={6} position={'relative'} zIndex={2}>
         <Box marginBottom={4}>
           <Typography
-            variant="h3"
+            variant="p"
+            component={'h1'}
             color="text.primary"
             align={'center'}
             sx={{
+              fontSize: '48px',
               fontWeight: 700,
               marginBottom: '2rem',
             }}
@@ -555,10 +557,14 @@ const SimpleHeroWithCta = ({
             {subtitle}
           </Typography>
           <Typography
-            variant="h6"
-            component="p"
+            variant="p"
+            component="h2"
             color="text.secondary"
-            sx={{ fontWeight: 400, whiteSpace: isMobile ? 'normal' : 'nowrap' }}
+            sx={{
+              fontSize: '20px',
+              fontWeight: 400,
+              whiteSpace: isMobile ? 'normal' : 'nowrap',
+            }}
             align={'center'}
           >
             {description}
@@ -615,6 +621,78 @@ const SimpleHeroWithCta = ({
     </Container>
   );
 };
+
+const BgDecorations = ({ theme }) => {
+  return (
+    <Box
+      component={'svg'}
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      viewBox="0 0 1920 100.1"
+      sx={{
+        width: '100%',
+        marginBottom: theme.spacing(-1),
+      }}
+    >
+      <path
+        fill={theme.palette.background.paper}
+        d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+      ></path>
+    </Box>
+  );
+};
+
+const ContactUsForm = ({ theme, content }) => {
+  return (
+    <Box
+      // minHeight={300}
+      height={'auto'}
+      position={'relative'}
+      sx={{
+        backgroundColor: theme.palette.alternate.main,
+        background:
+          'url(https://assets.maccarianagency.com/backgrounds/img19.jpg) no-repeat center',
+        backgroundSize: 'cover',
+      }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: 1,
+          height: 1,
+          backgroundColor: theme.palette.primary.main,
+          backgroundImage: `linear-gradient(315deg, ${theme.palette.primary.main} 0%, #000000 74%)`,
+          opacity: '0.8',
+          zIndex: 1,
+        }}
+      />
+
+      <Box
+        id="contact-us"
+        sx={{
+          position: 'relative',
+          padding: '12rem 0',
+          zIndex: 2,
+        }}
+      >
+        <ContactUs
+          title={content.contact_form_h3 || FillerContent.header}
+          description={
+            content.contact_form_description || FillerContent.description
+          }
+          content={content}
+        />
+      </Box>
+    </Box>
+  );
+};
+
 function LongFormPpc({ content }) {
   const theme = useTheme();
 
@@ -623,6 +701,7 @@ function LongFormPpc({ content }) {
       .getElementById('contact-us')
       .scrollIntoView({ behavior: 'smooth' });
   };
+
   return (
     <>
       {/* HERO */}
@@ -635,7 +714,6 @@ function LongFormPpc({ content }) {
       />
 
       {/* Who Zesty is */}
-      {/* header should be html*/}
       <Box
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
@@ -666,27 +744,10 @@ function LongFormPpc({ content }) {
             FillerContent.image
           }
         />
-        <Box
-          component={'svg'}
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1920 100.1"
-          sx={{
-            width: '100%',
-            marginBottom: theme.spacing(-1),
-          }}
-        >
-          <path
-            fill={theme.palette.background.paper}
-            d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
-          ></path>
-        </Box>
+        <BgDecorations theme={theme} />
       </Box>
 
       {/* How it works */}
-      {/* ******************************j */}
       <HowItWorks
         header={content.how_it_works || FillerContent.header}
         images={content.how_it_works_image}
@@ -706,51 +767,7 @@ function LongFormPpc({ content }) {
       </Box>
 
       {/* Form */}
-
-      <Box
-        // minHeight={300}
-        height={'auto'}
-        position={'relative'}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-          background:
-            'url(https://assets.maccarianagency.com/backgrounds/img19.jpg) no-repeat center',
-          backgroundSize: 'cover',
-        }}
-      >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            width: 1,
-            height: 1,
-            backgroundColor: theme.palette.primary.main,
-            backgroundImage: `linear-gradient(315deg, ${theme.palette.primary.main} 0%, #000000 74%)`,
-            opacity: '0.8',
-            zIndex: 1,
-          }}
-        />
-
-        <Box
-          id="contact-us"
-          sx={{
-            position: 'relative',
-            padding: '12rem 0',
-            zIndex: 2,
-          }}
-        >
-          <ContactUs
-            title={content.contact_form_h3 || FillerContent.header}
-            description={
-              content.contact_form_description || FillerContent.description
-            }
-            content={content}
-          />
-        </Box>
-      </Box>
+      <ContactUsForm theme={theme} content={content} />
     </>
   );
 }

@@ -195,7 +195,10 @@ const Hero = ({
   const images = imageCollection?.map(
     (e) => e.customer_logo?.data && e.customer_logo?.data[0]?.url,
   );
+
+  // old hero bg
   // https://assets.maccarianagency.com/backgrounds/img19.jpg
+
   return (
     <Box
       minHeight={300}
