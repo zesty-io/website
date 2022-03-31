@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/729972/155242158-157ca88c-9047-4671-bd09-2bbef7035022.png" width="130">
+<img src="https://brand.zesty.io/zesty-io-logo.svg" width="150">
 
 # Zesty.io NextJS Marketing Website 
 
@@ -68,7 +68,7 @@ A Form that posts to our CRM and has many option to controls inputs
 ###  Subscribe Form
 
 A simple form that asks for user email
-
+ 
 `<SubscribeCTA>` [View Subscribe Component](src/components/cta/SubscribeCTA.js)
 
 ### Developer Codeblock Starter
