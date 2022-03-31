@@ -31,16 +31,19 @@ import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBack
 import FillerContent from 'components/FillerContent';
 
 function PpcShortForm({ content }) {
-  console.log(content, '123');
   return (
     <>
       <HeroWithFormAndBackgroundGradient
-        title={content.hero_h1 || FillerContent.header}
+        headelineTitle={content.hero_h1 || FillerContent.header}
         description={content.zesty_overview || FillerContent.description}
         imageCollection={
           content.client_logos?.data?.slice(0, 3) || [FillerContent.image]
         }
-        content={content}
+        backgroundImage={
+          content.background_image.data &&
+          content.background_image?.data[0]?.url
+        }
+        form_title={content.form_title || FillerContent.header}
       />
     </>
   );
