@@ -13,6 +13,7 @@ import Container from 'components/Container';
 import TopNav from 'components/TopNav';
 
 import { Topbar, Sidebar, Footer } from './components';
+import { zestyLink } from 'lib/zestyLink';
 
 const Main = ({
   children,
@@ -50,7 +51,7 @@ const Main = ({
 
   // check if from ppc short form page then change color of logo and nav
   const isPpcShortPage =
-    router.asPath === '/ppc/digital-experience-platform-demo/';
+    router.asPath === zestyLink(nav, '7-f8d2b2fb82-vgg2t4');
 
   // override over invert based on pages that we know have a dark image heading
 
