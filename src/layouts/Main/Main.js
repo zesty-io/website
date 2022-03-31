@@ -17,10 +17,10 @@ import { Topbar, Sidebar, Footer } from './components';
 const Main = ({
   children,
   customRouting,
-  nav=[],
+  nav = [],
   colorInvert = false,
   bgcolor = 'transparent',
-  model=''
+  model = '',
 }) => {
   const router = useRouter();
 
@@ -48,23 +48,38 @@ const Main = ({
     threshold: 38,
   });
 
+  // check if from ppc short form page then change color of logo and nav
+  const isPpcShortPage =
+    router.asPath === '/ppc/digital-experience-platform-demo/';
+
   // override over invert based on pages that we know have a dark image heading
 
   let pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
-  const headerColorInvert = model?.match(pageNavColorRegex) !== null ? true : false
+  const headerColorInvert =
+    model?.match(pageNavColorRegex) !== null ? true : false;
 
   return (
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
-        <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
+        <Container
+          paddingTop={isPpcShortPage ? '0px !important' : '8px !important'}
+          paddingBottom={'0 !important'}
+        >
           <TopNav nav={nav} colorInvert={headerColorInvert} />
         </Container>
       </Box>
       <AppBar
-        position={'sticky'}
+        position={isPpcShortPage ? 'fixed' : 'sticky'}
         sx={{
+          outline: 'none',
+          border: 'none',
+          boxShadow: isPpcShortPage ? 'none' : '',
           top: 0,
-          backgroundColor: trigger ? theme.palette.background.paper : bgcolor,
+          backgroundColor: isPpcShortPage
+            ? 'transparent'
+            : trigger
+            ? theme.palette.background.paper
+            : bgcolor,
         }}
         elevation={trigger ? 1 : 0}
       >
@@ -72,7 +87,7 @@ const Main = ({
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
-            colorInvert={headerColorInvert && !trigger}
+            colorInvert={(headerColorInvert && !trigger) || isPpcShortPage}
           />
         </Container>
       </AppBar>

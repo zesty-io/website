@@ -515,6 +515,7 @@ const SimpleHeroWithCta = ({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Container
@@ -557,7 +558,7 @@ const SimpleHeroWithCta = ({
             variant="h6"
             component="p"
             color="text.secondary"
-            sx={{ fontWeight: 400, whiteSpace: 'nowrap' }}
+            sx={{ fontWeight: 400, whiteSpace: isMobile ? 'normal' : 'nowrap' }}
             align={'center'}
           >
             {description}
