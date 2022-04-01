@@ -49,6 +49,7 @@ import FeatureGridWithBackgrounds from 'blocks/features/FeatureGridWithBackgroun
 import Container from 'components/Container';
 import { alpha, useTheme } from '@mui/material/styles';
 import Icon from '@mui/material/Icon';
+import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import {
   Avatar,
   Box,
@@ -128,6 +129,7 @@ const ContactUs = ({ title, description, content }) => {
         paddingTop: '3rem',
         paddingBottom: '1rem',
         borderRadius: '15px',
+        paddingX: '3rem',
       }}
       maxWidth={600}
       margin={'0 auto'}
@@ -153,113 +155,18 @@ const ContactUs = ({ title, description, content }) => {
           {description}
         </Typography>
       </Box>
-      <Box paddingBottom={6}>
-        <form onSubmit={formik.handleSubmit}>
-          <Grid sx={{ padding: '0 3rem' }} container spacing={4}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                sx={{
-                  height: 54,
-                }}
-                inputProps={{ style: { color: theme.palette.common.white } }}
-                color="primary"
-                label="First name"
-                variant="outlined"
-                size="medium"
-                name="firstName"
-                fullWidth
-                value={formik.values.firstName}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.firstName && Boolean(formik.errors.firstName)
-                }
-                helperText={formik.touched.firstName && formik.errors.firstName}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                sx={{ height: 54 }}
-                label="Last name"
-                variant="outlined"
-                color="primary"
-                size="medium"
-                name="lastName"
-                fullWidth
-                value={formik.values.lastName}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.lastName && Boolean(formik.errors.lastName)
-                }
-                helperText={formik.touched.lastName && formik.errors.lastName}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                sx={{ height: 54 }}
-                label="Email"
-                type="email"
-                variant="outlined"
-                color="primary"
-                size="medium"
-                name="email"
-                fullWidth
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Message"
-                multiline
-                rows={6}
-                variant="outlined"
-                color="primary"
-                size="medium"
-                name="message"
-                fullWidth
-                value={formik.values.message}
-                onChange={formik.handleChange}
-                error={formik.touched.message && Boolean(formik.errors.message)}
-                helperText={formik.touched.message && formik.errors.message}
-              />
-            </Grid>
-            <Grid item container justifyContent={'center'} xs={12}>
-              <Button
-                sx={{ height: 54, minWidth: 150 }}
-                variant="contained"
-                color="secondary"
-                size="medium"
-                type="submit"
-              >
-                Submit
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-        <Grid sx={{ margin: '2rem 0' }} item xs={12}>
-          <Divider />
-        </Grid>
-        <Grid item container justifyContent={'center'} xs={12}>
-          <Box>
-            <Typography component="p" variant="body2" align="left">
-              By clicking on "submit" you agree to our{' '}
-              <Box
-                component="a"
-                href={
-                  zestyLink(content.navigationTree, '7-713ae23-wg19b5') ||
-                  FillerContent.href
-                }
-                color={theme.palette.text.primary}
-                fontWeight={'700'}
-              >
-                Privacy Policy
-              </Box>
-              .
-            </Typography>
-          </Box>
-        </Grid>
+      <Box paddingBottom={6} textAlign="center">
+        <StandardFormWithSelect
+          leadDetail="Agency Partner Sign Up"
+          businessType="Partner"
+          selectedValue={1}
+          hideSelect={true}
+          hideMessage={true}
+          ctaText={content.cta_footer_cta || FillerContent.cta}
+          modalTitle="Thank you for submitting your agency information."
+          modalMessage="Our team will be in touch soon to discuss next steps."
+          displayMsgUnderButton=" "
+        />
       </Box>
     </Box>
   );
@@ -647,7 +554,6 @@ const BgDecorations = ({ theme }) => {
 const ContactUsForm = ({ theme, content }) => {
   return (
     <Box
-      // minHeight={300}
       height={'auto'}
       position={'relative'}
       sx={{
