@@ -35,7 +35,6 @@ const StyledTextField = styled(TextField)({
 const getLeadObjectZOHO = (obj, select, leadDetail, businessType) => {
   let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
-  console.log(obj, 123123);
   return {
     First_Name: obj.firstName,
     Last_Name: obj.lastName,

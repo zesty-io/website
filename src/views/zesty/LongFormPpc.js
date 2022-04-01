@@ -581,7 +581,6 @@ function LongFormPpc({ content }) {
       .scrollIntoView({ behavior: 'smooth' });
   };
 
-  console.log(content, '123123');
   return (
     <>
       {/* HERO */}
