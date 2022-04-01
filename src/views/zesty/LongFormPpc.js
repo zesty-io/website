@@ -324,7 +324,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
             </Typography>
           </Box>
         </Box>
-        <Grid container spacing={2}>
+        <Grid container spacing={8}>
           {cards?.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box width={1} height={1}>
@@ -426,7 +426,7 @@ const SimpleHeroWithCta = ({
 
   return (
     <Container
-      style={{ marginTop: '2rem', marginBottom: '5rem' }}
+      style={{ marginTop: '2rem', marginBottom: '1rem' }}
       sx={{
         position: 'relative',
         '&::after': {
@@ -446,7 +446,7 @@ const SimpleHeroWithCta = ({
         },
       }}
     >
-      <Box paddingTop={6} position={'relative'} zIndex={2}>
+      <Box paddingTop={3} position={'relative'} zIndex={2}>
         <Box marginBottom={4}>
           <Typography
             variant="p"
@@ -499,6 +499,7 @@ const SimpleHeroWithCta = ({
             <Button
               component={'a'}
               onClick={onClick}
+              variant="outlined"
               color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
               size="large"
               fullWidth={isMd ? false : true}
@@ -608,6 +609,7 @@ function LongFormPpc({ content }) {
       .scrollIntoView({ behavior: 'smooth' });
   };
 
+  console.log(content, '123123');
   return (
     <>
       {/* HERO */}
