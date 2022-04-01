@@ -134,6 +134,7 @@ function StandardFormWithSelect({
   buttonFullWidth = false,
   hidePrivacySection = false,
   messageLabel = 'Message',
+  customButtonStyle = { display: 'flex', justifyContent: 'initial' },
 }) {
   const theme = useTheme();
 
@@ -343,7 +344,7 @@ function StandardFormWithSelect({
             <Divider />
           </Grid>
           <Grid display={hidePrivacySection ? 'none' : 'block'} item xs={12}>
-            <Box>
+            <Box style={customButtonStyle}>
               <Typography component="p" variant="body2" align="left">
                 By clicking on "submit" you agree to our{' '}
                 <Box

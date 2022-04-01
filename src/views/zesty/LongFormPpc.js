@@ -123,6 +123,7 @@ const ContactUs = ({ title, description, content }) => {
           modalMessage="Our team will be in touch soon to discuss next steps."
           displayMsgUnderButton=" "
           additionalTextfield={{ company: true, jobTitle: true }}
+          customButtonStyle={{ display: 'flex', justifyContent: 'center' }}
         />
       </Box>
     </Box>
@@ -393,7 +394,7 @@ const SimpleHeroWithCta = ({
 
   return (
     <Container
-      style={{ marginTop: isMobile ? '0rem' : '2rem', marginBottom: '1rem' }}
+      style={{ marginTop: isMobile ? '0rem' : '1rem', marginBottom: '1rem' }}
       sx={{
         position: 'relative',
         '&::after': {
@@ -413,7 +414,7 @@ const SimpleHeroWithCta = ({
         },
       }}
     >
-      <Box paddingTop={isMobile ? 0 : 2} position={'relative'} zIndex={2}>
+      <Box paddingTop={isMobile ? 0 : 1} position={'relative'} zIndex={2}>
         <Box marginBottom={4}>
           <Typography
             variant="p"

@@ -68,7 +68,7 @@ const FeatureGridWithBackgrounds = ({ images }) => {
                     //     ? item.illustration
                     //     : item.illustrationDark
                     // }
-                    src={item.url}
+                    src={item.url || item.illustration}
                     width={1}
                     maxWidth={{ xs: '80%', md: '70%' }}
                   />
