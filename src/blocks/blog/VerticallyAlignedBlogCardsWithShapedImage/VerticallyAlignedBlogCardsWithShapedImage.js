@@ -154,11 +154,11 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item.author?.image || FillerContent.image}
+                        src={item?.author?.image || FillerContent.image}
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author?.name || FillerContent.header}
+                        {item?.author?.name || FillerContent.header}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
