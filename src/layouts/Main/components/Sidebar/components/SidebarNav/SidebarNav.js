@@ -27,8 +27,8 @@ const SidebarNav = ({ customRouting }) => {
             component={'img'}
             src={
               mode === 'light'
-                ? '/assets/zesty-logo.png'
-                : '/assets/zesty-logo-inverted.png'
+              ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+              : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
             }
             height={1}
             width={1}

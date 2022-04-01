@@ -55,7 +55,7 @@ Please use these core CTA components through your views. These forms already hav
 
 ###  Try Button
 
-A button that trigger a dropdown gicing both a developer and marketers option
+A button that trigger a dropdown guiding both a developer and marketers option
 
 `<TryFreeButton>` [View Try Free Button Component](src/components/cta/TryFreeButton.js)
 
