@@ -19,6 +19,16 @@ import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import TransitionsModal from './TransitionModal';
+import { outlinedInputClasses } from '@mui/material/OutlinedInput';
+import { inputLabelClasses } from '@mui/material/InputLabel';
+import { styled } from '@mui/material/styles';
+
+// for hiding of ellipis in message in mobile
+const StyledTextField = styled(TextField)({
+  [`& .${inputLabelClasses.outlined}`]: {
+    whiteSpace: 'normal',
+  },
+});
 
 /* validation for form component */
 
@@ -293,7 +303,7 @@ function StandardFormWithSelect({
             </Grid>
           )}
           <Grid item xs={12}>
-            <TextField
+            <StyledTextField
               label={messageLabel}
               multiline
               rows={6}
