@@ -47,16 +47,14 @@ function Brand({content}){
         >
             <Container paddingTop={0}>
                 <Grid container spacing={4}>
-                    
-                    
                     <Grid item container alignItems={'center'} xs={12} md={8}>
                       <Box data-aos={isMd ? 'fade-right' : 'fade-up'}>
-                          <LeftSide />
+                        <LeftSide />
                       </Box>
                     </Grid>
                     <Hidden mdDown>
                       <Grid item container alignItems={'center'} xs={12} md={4}>
-                        <img src="https://brand.zesty.io/zesty-io-logo-vertical-light.svg" width="80%" />
+                        <img src="https://brand.zesty.io/zesty-io-logo-vertical-light-color.svg" alt="Zesty.io Vertical Logo" width="80%" />
                       </Grid>
                     </Hidden>
                 </Grid>
@@ -84,8 +82,8 @@ function Brand({content}){
                 </Box>
             </Container>
         </Box>
-        <Container paddingY={0}>
-            <BrandHighlights/>
+        <Container paddingY={0} marginBottom={16}>
+            <BrandHighlights title={content.brand_name} rich_text={content.brand_name_content} />
         </Container>
     </>
     );
