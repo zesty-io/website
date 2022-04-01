@@ -166,6 +166,7 @@ const ContactUs = ({ title, description, content }) => {
           modalTitle="Thank you for submitting your agency information."
           modalMessage="Our team will be in touch soon to discuss next steps."
           displayMsgUnderButton=" "
+          additionalTextfield={{ company: true, jobTitle: true }}
         />
       </Box>
     </Box>
