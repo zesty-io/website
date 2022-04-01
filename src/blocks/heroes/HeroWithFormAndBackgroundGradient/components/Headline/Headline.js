@@ -3,11 +3,13 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import FillerContent from 'components/FillerContent';
-import { Grid } from '@mui/material';
+import { Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
 const Headline = ({ title, description, images = [] }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box>
       <Typography
@@ -46,8 +48,16 @@ const Headline = ({ title, description, images = [] }) => {
               width={1}
               src={item}
               alt="..."
+              // Scale the height of images specially the rocket leage mobile and desktop
               sx={{
-                height: i === 1 ? '2.5rem' : '3rem',
+                height:
+                  i === 1 && isMobile
+                    ? '2.3rem'
+                    : i === 1 && !isMobile
+                    ? '2.5rem'
+                    : !isMobile
+                    ? '3rem'
+                    : '2.4rem',
                 filter:
                   theme.palette.mode === 'dark'
                     ? 'brightness(0) invert(0.7)'

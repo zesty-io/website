@@ -55,7 +55,7 @@ const FeatureGridWithBackgrounds = ({ images }) => {
                 transform: i % 2 === 1 ? { md: 'translateY(80px)' } : 'none',
               }}
             >
-              <CardContent sx={{ padding: 4 }}>
+              <CardContent sx={{ padding: 0 }}>
                 <Box
                   display={'flex'}
                   justifyContent={'center'}
@@ -63,11 +63,12 @@ const FeatureGridWithBackgrounds = ({ images }) => {
                 >
                   <Box
                     component={'img'}
-                    src={
-                      theme.palette.mode === 'light'
-                        ? item.illustration
-                        : item.illustrationDark
-                    }
+                    // src={
+                    //   theme.palette.mode === 'light'
+                    //     ? item.illustration
+                    //     : item.illustrationDark
+                    // }
+                    src={item.url || item.illustration}
                     width={1}
                     maxWidth={{ xs: '80%', md: '70%' }}
                   />

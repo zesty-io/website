@@ -26,6 +26,7 @@ const HeroWithIllustrationAndSearchBar = ({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Container>
@@ -34,7 +35,11 @@ const HeroWithIllustrationAndSearchBar = ({
         padding={{ xs: 2, md: 4 }}
         borderRadius={2}
       >
-        <Grid container spacing={4}>
+        <Grid
+          flexDirection={isMobile ? 'column-reverse' : 'initial'}
+          container
+          spacing={4}
+        >
           <Grid
             item
             container

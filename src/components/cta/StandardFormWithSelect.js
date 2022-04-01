@@ -19,6 +19,16 @@ import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import TransitionsModal from './TransitionModal';
+import { outlinedInputClasses } from '@mui/material/OutlinedInput';
+import { inputLabelClasses } from '@mui/material/InputLabel';
+import { styled } from '@mui/material/styles';
+
+// for hiding of ellipis in message in mobile
+const StyledTextField = styled(TextField)({
+  [`& .${inputLabelClasses.outlined}`]: {
+    whiteSpace: 'normal',
+  },
+});
 
 /* validation for form component */
 
@@ -26,23 +36,25 @@ const getLeadObjectZOHO = (obj, select, leadDetail, businessType) => {
   let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
   return {
-    "First_Name": obj.firstName,
-    "Last_Name": obj.lastName,
-    "Email": obj.email,
-    "Inquiry_Reason": select,
-    "Description": obj.message,
+    First_Name: obj.firstName,
+    Last_Name: obj.lastName,
+    Email: obj.email,
+    Inquiry_Reason: select,
+    Description: obj.message,
     // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
     // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
     // "Current_CMS": acCMS,
     // "How_Using_Zesty_io": acHow,
     // "Website": document.querySelector('#ac-url').value,
-    "Lead_Source": "Website",
+    Lead_Source: 'Website',
     // "Description": document.querySelector('#ac-description').value,
     // "Role": acRole,
     // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
-    "Lead_Source_Detail": leadDetail,
-    "Business_Type": businessType,
-    "Lead_Status": "Not Contacted"
+    Lead_Source_Detail: leadDetail,
+    Business_Type: businessType,
+    Lead_Status: 'Not Contacted',
+    Job_Title: obj.jobTitle,
+    Company: obj.company,
   };
 };
 
@@ -84,6 +96,29 @@ const validationSchema = yup.object({
   message: yup.string().trim().required('Please specify your message'),
 });
 
+const validationSchemaForPpc = yup.object({
+  firstName: yup
+    .string()
+    .trim()
+    .min(2, 'Please enter a valid name')
+    .max(50, 'Please enter a valid name')
+    .required('Please specify your first name'),
+  lastName: yup
+    .string()
+    .trim()
+    .min(2, 'Please enter a valid name')
+    .max(50, 'Please enter a valid name')
+    .required('Please specify your last name'),
+  email: yup
+    .string()
+    .trim()
+    .email('Please enter a valid email address')
+    .required('Email is required.'),
+  message: yup.string().trim().required('Please specify your message'),
+  company: yup.string().trim().required('Please specify your company'),
+  jobTitle: yup.string().trim().required('Please specify your job title'),
+});
+
 function StandardFormWithSelect({
   selectedValue = 0,
   hideSelect = false,
@@ -93,6 +128,12 @@ function StandardFormWithSelect({
   businessType = 'Direct',
   modalTitle = 'Thank you',
   modalMessage = 'Have a great day.',
+  displayMsgUnderButton = `We'll get back to you in 1-2 business days.`,
+  additionalTextfield = {},
+  buttonFullWidth = false,
+  hidePrivacySection = false,
+  messageLabel = 'Message',
+  customButtonStyle = { display: 'flex', justifyContent: 'initial' },
 }) {
   const theme = useTheme();
 
@@ -117,10 +158,11 @@ function StandardFormWithSelect({
     lastName: '',
     email: '',
     message: '',
+    company: '',
+    jobTitle: '',
   };
 
   const onSubmit = async (values) => {
-
     let payload = getLeadObjectZOHO(
       values,
       selectValue,
@@ -134,7 +176,9 @@ function StandardFormWithSelect({
 
   const formik = useFormik({
     initialValues,
-    validationSchema: validationSchema,
+    validationSchema: additionalTextfield.company
+      ? validationSchemaForPpc
+      : validationSchema,
     onSubmit,
   });
 
@@ -174,6 +218,24 @@ function StandardFormWithSelect({
               helperText={formik.touched.lastName && formik.errors.lastName}
             />
           </Grid>
+          {additionalTextfield.company && (
+            <Grid item xs={12}>
+              <TextField
+                sx={{ height: 54 }}
+                label="Company"
+                type="text"
+                variant="outlined"
+                color="primary"
+                size="medium"
+                name="company"
+                fullWidth
+                value={formik.values.company}
+                onChange={formik.handleChange}
+                error={formik.touched.company && Boolean(formik.errors.company)}
+                helperText={formik.touched.company && formik.errors.company}
+              />
+            </Grid>
+          )}
           <Grid item xs={12}>
             <TextField
               sx={{ height: 54 }}
@@ -190,9 +252,29 @@ function StandardFormWithSelect({
               helperText={formik.touched.email && formik.errors.email}
             />
           </Grid>
+          {additionalTextfield.jobTitle && (
+            <Grid item xs={12}>
+              <TextField
+                sx={{ height: 54 }}
+                label="Job Title"
+                type="test"
+                variant="outlined"
+                color="primary"
+                size="medium"
+                name="jobTitle"
+                fullWidth
+                value={formik.values.jobTitle}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.jobTitle && Boolean(formik.errors.jobTitle)
+                }
+                helperText={formik.touched.jobTitle && formik.errors.jobTitle}
+              />
+            </Grid>
+          )}
           {/* logic to hide the select */}
           {hideSelect && (
-            <Grid item xs={12}>
+            <Grid display={hideSelect ? 'none' : 'block'} item xs={12}>
               <input value={selectValue} name="inquiryReason" type="hidden" />
             </Grid>
           )}
@@ -214,7 +296,9 @@ function StandardFormWithSelect({
                   >
                     {/* <MenuItem value=''><em>None</em></MenuItem> */}
                     {inquiryReasons.map((value, i) => (
-                      <MenuItem key={i} value={value}>{value}</MenuItem>
+                      <MenuItem key={i} value={value}>
+                        {value}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -222,8 +306,8 @@ function StandardFormWithSelect({
             </Grid>
           )}
           <Grid item xs={12}>
-            <TextField
-              label="Message"
+            <StyledTextField
+              label={messageLabel}
               multiline
               rows={6}
               variant="outlined"
@@ -239,6 +323,7 @@ function StandardFormWithSelect({
           </Grid>
           <Grid item xs={12}>
             <Button
+              fullWidth={buttonFullWidth}
               sx={{ height: 54, minWidth: 150 }}
               variant="contained"
               color="secondary"
@@ -251,14 +336,14 @@ function StandardFormWithSelect({
           </Grid>
           <Grid item xs={12}>
             <Typography color="text.secondary">
-              We'll get back to you in 1-2 business days.
+              {displayMsgUnderButton}
             </Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid display={hidePrivacySection ? 'none' : 'block'} item xs={12}>
             <Divider />
           </Grid>
-          <Grid item xs={12}>
-            <Box>
+          <Grid display={hidePrivacySection ? 'none' : 'block'} item xs={12}>
+            <Box style={customButtonStyle}>
               <Typography component="p" variant="body2" align="left">
                 By clicking on "submit" you agree to our{' '}
                 <Box

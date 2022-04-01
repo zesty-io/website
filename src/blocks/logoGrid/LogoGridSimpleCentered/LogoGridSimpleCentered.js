@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
+import { useMediaQuery } from '@mui/material';
 
 const mock = [
   'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
@@ -17,6 +18,7 @@ const mock = [
 
 const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const images =
     imageCollection?.map(
       (e) => e.customer_logo?.data && e.customer_logo?.data[0]?.url,
@@ -24,7 +26,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
 
   return (
     <Container>
-      <Box sx={{ padding: '5rem 0' }}>
+      <Box sx={{ padding: isMobile ? '1rem 0' : '5rem 0' }}>
         <Box marginBottom={4}>
           {title && (
             <Typography
@@ -48,7 +50,12 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
             </Typography>
           )}
         </Box>
-        <Box display="flex" gap={4} flexWrap="wrap" justifyContent={'center'}>
+        <Box
+          display="flex"
+          gap={isMobile ? 2 : 4}
+          flexWrap="wrap"
+          justifyContent={'center'}
+        >
           {images?.map((item, i) => (
             <Box marginTop={2} key={i}>
               <Box
