@@ -93,12 +93,7 @@ const Hero = ({
         }}
       />
       <Container position={'relative'} zIndex={2}>
-        <Grid
-          flexDirection={isMobile ? 'column-reverse' : 'initial'}
-          paddingY={6}
-          container
-          spacing={4}
-        >
+        <Grid paddingY={6} container spacing={4}>
           <Grid item xs={12} md={6}>
             <Box width={1} height="100%" display="flex" alignItems="center">
               <Headline
