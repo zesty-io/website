@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/729972/155242158-157ca88c-9047-4671-bd09-2bbef7035022.png" width="130">
+<img src="https://brand.zesty.io/zesty-io-logo.svg" width="150">
 
 # Zesty.io NextJS Marketing Website 
 
@@ -44,11 +44,42 @@ Any push or merge to the `main` branch will kickoff an auto build script which w
 3. Test your changes with `npm run build`
 4. If build succeeds, create pull request against `main` (our stage)
 
-## Deploymen to Production
+## Deployment to Production
 
 After a successfull deploy to `main` create PR from `main` to `production`, upon merge a production build will trigger.
 
-## Icons in the WYSIWYG
+
+## CTA and Forms
+
+Please use these core CTA components through your views. These forms already have validation setup and connect to our remote services.
+
+###  Try Button
+
+A button that trigger a dropdown guiding both a developer and marketers option
+
+`<TryFreeButton>` [View Try Free Button Component](src/components/cta/TryFreeButton.js)
+
+###  Standard Form
+
+A Form that posts to our CRM and has many option to controls inputs
+
+`<StandardFormWithSelect>` [View Standard Form Component](src/components/cta/StandardFormWithSelect.js)
+
+###  Subscribe Form
+
+A simple form that asks for user email
+ 
+`<SubscribeCTA>` [View Subscribe Component](src/components/cta/SubscribeCTA.js)
+
+### Developer Codeblock Starter
+
+A one-line code block that shows developer how to start from the command line
+
+`<CodeBlock>` [View Code Block Component](src/components/cta/CodeBlock.js)
+
+## Material Icons
+
+### Using Icons in the WYSIWYG
 
 The icons set we use is Google Material Icons https://fonts.google.com/icons
 
