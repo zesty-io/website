@@ -65,9 +65,10 @@ import Demo from './Demo';
 import Ppc from './Ppc';
 import Header from './Header';
 import Footer from './Footer';
+import Brand from './Brand'
 
 export {
-
+    Brand,
     Clipping,
     Widget,
     MarketingAnnoucement,
