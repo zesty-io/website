@@ -254,11 +254,10 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
           md={6}
         >
           <Box
-            component={CardMedia}
+            component="img"
             height={1}
             width={1}
-            minHeight={300}
-            image={
+            src={
               image || 'https://assets.maccarianagency.com/backgrounds/img4.jpg'
             }
           />
@@ -529,8 +528,9 @@ const ContactUsForm = ({ theme, content }) => {
       sx={{
         backgroundColor: theme.palette.alternate.main,
         background: `url(${
-          content.form_background_image.data &&
-          content.form_background_image?.data[0]?.url
+          (content.form_background_image?.data &&
+            content.form_background_image?.data[0]?.url) ||
+          FillerContent.image
         }) no-repeat center`,
         backgroundSize: 'cover',
       }}
