@@ -36,8 +36,8 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
           component={'img'}
           src={
             mode === 'light' && !colorInvert
-            ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
-            : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+              ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+              : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
           }
           height={1}
           width={1}
@@ -90,21 +90,26 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
           </Button>
         </Box>
       </Box>
-      <Box sx={{ display: { xs: 'block', md: 'none' } }} alignItems={'center'}>
-        <Button
-          onClick={() => onSidebarOpen()}
-          aria-label="Menu"
-          variant={'outlined'}
-          sx={{
-            borderRadius: 2,
-            minWidth: 'auto',
-            padding: 1,
-            borderColor: alpha(theme.palette.divider, 0.2),
-          }}
+      {!isPpcPage && (
+        <Box
+          sx={{ display: { xs: 'block', md: 'none' } }}
+          alignItems={'center'}
         >
-          <MenuIcon />
-        </Button>
-      </Box>
+          <Button
+            onClick={() => onSidebarOpen()}
+            aria-label="Menu"
+            variant={'outlined'}
+            sx={{
+              borderRadius: 2,
+              minWidth: 'auto',
+              padding: 1,
+              borderColor: alpha(theme.palette.divider, 0.2),
+            }}
+          >
+            <MenuIcon />
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };
