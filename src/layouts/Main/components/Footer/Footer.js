@@ -38,8 +38,8 @@ const Footer = ({customRouting,colorInvert = false }) => {
                 component={'img'}
                 src={
                   mode === 'light' && !colorInvert
-                    ? '/assets/zesty-logo.png'
-                    : '/assets/zesty-logo-inverted.png'
+                    ? 'https://brand.zesty.io/zesty-io-logo-vertical.svg'
+                    : 'https://brand.zesty.io/zesty-io-logo-vertical-light-color.svg'
                 }
                 height={1}
                 width={1}
