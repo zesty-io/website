@@ -69,53 +69,9 @@ import {
 } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/FillerContent';
-import * as yup from 'yup';
-import { useFormik } from 'formik';
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
-import { inputLabelClasses } from '@mui/material/InputLabel';
-import { styled } from '@mui/material/styles';
-import { zestyLink } from 'lib/zestyLink';
-
-const validationSchema = yup.object({
-  firstName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  lastName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your last name'),
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
-  message: yup.string().trim().required('Please specify your message'),
-});
 
 const ContactUs = ({ title, description, content }) => {
   const theme = useTheme();
-
-  const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    message: '',
-  };
-
-  const onSubmit = (values) => {
-    return values;
-  };
-
-  const formik = useFormik({
-    initialValues,
-    validationSchema: validationSchema,
-    onSubmit,
-  });
 
   const styles = (theme) => ({
     multilineColor: {
@@ -166,6 +122,7 @@ const ContactUs = ({ title, description, content }) => {
           modalTitle="Thank you for submitting your agency information."
           modalMessage="Our team will be in touch soon to discuss next steps."
           displayMsgUnderButton=" "
+          additionalTextfield={{ company: true, jobTitle: true }}
         />
       </Box>
     </Box>
@@ -175,6 +132,7 @@ const ContactUs = ({ title, description, content }) => {
 const NewsletterWithImage = ({ image, header, testimonial }) => {
   const theme = useTheme();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const testimonials = testimonial || FillerContent.testimonialCard;
 
   return (
@@ -185,6 +143,10 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
             <Box marginBottom={3}>
               <Grid item xs={12} md={9}>
                 <Box
+                  sx={{
+                    fontSize: isMobile ? '.8rem' : '1rem',
+                    whiteSpace: 'normal',
+                  }}
                   dangerouslySetInnerHTML={{
                     __html: header || FillerContent.rich_text,
                   }}
@@ -237,7 +199,7 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
                               : 'text.secondary'
                           }
                         >
-                          {item.feedback}
+                          {item.review || item.feedback}
                         </Typography>
                       </CardContent>
                       <Box flexGrow={1} />
@@ -248,12 +210,18 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
                           sx={{ padding: 0 }}
                         >
                           <ListItemAvatar>
-                            <Avatar src={item.avatar} />
+                            <Avatar
+                              src={
+                                (item.reviewer_headshot?.data &&
+                                  item.reviewer_headshot?.data[0]?.url) ||
+                                item.avatar
+                              }
+                            />
                           </ListItemAvatar>
                           <ListItemText
                             sx={{ margin: 0 }}
-                            primary={item.name}
-                            secondary={item.title}
+                            primary={item.reviewer_title || item.name}
+                            secondary={item.company || item.title}
                             primaryTypographyProps={{
                               color:
                                 i === 1
@@ -284,18 +252,16 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
           xs={12}
           md={6}
         >
-          <Box component={Card} boxShadow={3} height={1} width={1}>
-            <Box
-              component={CardMedia}
-              height={1}
-              width={1}
-              minHeight={300}
-              image={
-                image ||
-                'https://assets.maccarianagency.com/backgrounds/img4.jpg'
-              }
-            />
-          </Box>
+          <Box
+            component={CardMedia}
+            height={1}
+            width={1}
+            minHeight={300}
+            image={
+              image || 'https://assets.maccarianagency.com/backgrounds/img4.jpg'
+            }
+          />
+          {/* <Box component={Card} boxShadow={3} height={1} width={1}></Box> */}
         </Grid>
       </Grid>
     </Container>
@@ -305,6 +271,7 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
 const SimpleCentered = ({ header, description, cards = [] }) => {
   const theme = useTheme();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
       <Box>
@@ -315,7 +282,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
               component="h2"
               sx={{
                 fontWeight: 700,
-                fontSize: '35px',
+                fontSize: isMobile ? '24px' : '35px',
                 color: theme.palette.common.white,
                 textAlign: 'center',
               }}
@@ -324,7 +291,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
             </Typography>
           </Box>
         </Box>
-        <Grid container spacing={8}>
+        <Grid container spacing={isMobile ? 4 : 8}>
           {cards?.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box width={1} height={1}>
@@ -405,7 +372,7 @@ const HowItWorks = ({
           </Grid>
         </Box>
       </Container>
-      <FeatureGridWithBackgrounds images={FillerContent.demos} />
+      <FeatureGridWithBackgrounds images={images || FillerContent.demos} />
     </>
   );
 };
@@ -426,7 +393,7 @@ const SimpleHeroWithCta = ({
 
   return (
     <Container
-      style={{ marginTop: '2rem', marginBottom: '1rem' }}
+      style={{ marginTop: isMobile ? '0rem' : '2rem', marginBottom: '1rem' }}
       sx={{
         position: 'relative',
         '&::after': {
@@ -446,7 +413,7 @@ const SimpleHeroWithCta = ({
         },
       }}
     >
-      <Box paddingTop={3} position={'relative'} zIndex={2}>
+      <Box paddingTop={isMobile ? 0 : 2} position={'relative'} zIndex={2}>
         <Box marginBottom={4}>
           <Typography
             variant="p"
@@ -454,7 +421,7 @@ const SimpleHeroWithCta = ({
             color="text.primary"
             align={'center'}
             sx={{
-              fontSize: '48px',
+              fontSize: isMobile ? '35px' : '48px',
               fontWeight: 700,
               marginBottom: '2rem',
             }}
@@ -553,14 +520,17 @@ const BgDecorations = ({ theme }) => {
 };
 
 const ContactUsForm = ({ theme, content }) => {
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
       height={'auto'}
       position={'relative'}
       sx={{
         backgroundColor: theme.palette.alternate.main,
-        background:
-          'url(https://assets.maccarianagency.com/backgrounds/img19.jpg) no-repeat center',
+        background: `url(${
+          content.form_background_image.data &&
+          content.form_background_image?.data[0]?.url
+        }) no-repeat center`,
         backgroundSize: 'cover',
       }}
     >
@@ -584,7 +554,7 @@ const ContactUsForm = ({ theme, content }) => {
         id="contact-us"
         sx={{
           position: 'relative',
-          padding: '12rem 0',
+          padding: isMobile ? '5rem 0' : '10rem 0',
           zIndex: 2,
         }}
       >
@@ -603,6 +573,7 @@ const ContactUsForm = ({ theme, content }) => {
 function LongFormPpc({ content }) {
   const theme = useTheme();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const scrollToContactUs = () => {
     document
       .getElementById('contact-us')
@@ -625,7 +596,7 @@ function LongFormPpc({ content }) {
       <Box
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
-          padding: '5rem 0',
+          padding: isMobile ? '1rem 0' : '5rem 0',
         }}
       >
         <SimpleCentered
@@ -658,11 +629,11 @@ function LongFormPpc({ content }) {
       {/* How it works */}
       <HowItWorks
         header={content.how_it_works || FillerContent.header}
-        images={content.how_it_works_image}
+        images={content.how_it_works_image?.data}
       />
 
       {/* Benefits */}
-      <Box marginTop={6} padding={8} bgcolor={'alternate.main'}>
+      <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
         <NewsletterWithImage
           header={content.outline_of_benefits || FillerContent.header}
           image={
@@ -670,7 +641,7 @@ function LongFormPpc({ content }) {
               content.benefits_image?.data[0]?.url) ||
             FillerContent.image
           }
-          testimonial={null}
+          testimonial={content.testimonial?.data}
         />
       </Box>
 
