@@ -21,21 +21,20 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   popularArticles = [],
 }) => {
 
-          function makeDate(date) {
-            var d = new Date(date);
-            var options = {
-              year: 'numeric',
-              month: 'long',
-            };
-            var n = d.toLocaleDateString('en-US', options);
 
-            var replace = n.replace(new RegExp(',', 'g'), ' ');
-            return replace;
-          }
+  function makeDate(date) {
+    var d = new Date(date);
+    var options = {
+      year: 'numeric',
+      month: 'long',
+    };
+    var n = d.toLocaleDateString('en-US', options);
 
+    var replace = n.replace(new RegExp(',', 'g'), ' ');
+    return replace;
+  }
 
   const theme = useTheme();
-
 
   return (
     <Container paddingTop={'0 !important'}>
@@ -79,7 +78,10 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
             <Box
               component={'a'}
               href={
-                item?.meta?.uri || item?.meta?.web?.uri ||item?.path || FillerContent.href
+                item?.meta?.uri ||
+                item?.meta?.web?.uri ||
+                item?.path ||
+                FillerContent.href
               }
               display={'block'}
               width={1}
@@ -152,17 +154,11 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={
-                          item.author.image
-                            ? item.author.image
-                            : item?.author?.data[0]?.headshot?.data[0]?.url
-                        }
+                        src={item?.author?.image || FillerContent.image}
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author.name
-                          ? item.author.name
-                          : item?.author?.data[0]?.name}
+                        {item?.author?.name || FillerContent.header}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>

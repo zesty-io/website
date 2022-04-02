@@ -43,7 +43,7 @@ import useFetch from 'components/hooks/useFetch';
 function SalesPeople({ content }) {
   const theme = useTheme();
 
-  const { data: clientCards } = useFetch(`/-/clientcards.json`);
+  const { data: clientCards } = useFetch(`/-/clientcards.json`, content.zestyProductionMode);
 
   return (
     <>

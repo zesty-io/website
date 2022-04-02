@@ -28,16 +28,17 @@
 import React from 'react';
 import WithAlternateCards from '../../blocks/team/WithAlternateCards';
 
-let zestyURL =
-  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-    ? process.env.zesty.production
-    : process.env.zesty.stage;
+
 
 const fetchCardsData = async (uri, setFunc) => {
   const res = await fetch(uri).then((response) => response.json());
   res && (await setFunc(res));
 };
 function MindshareAuthor({ content }) {
+  
+  let zestyURL = content.zestyProductionMode
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
 
   const uri = `${zestyURL}/-/authors.json`;
   const [authors, setauthors] = React.useState([]);
