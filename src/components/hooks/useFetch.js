@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 
-const useFetch = (url) => {
+const useFetch = (url,production=true) => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
 
-  let zestyURL =
-    (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
+  let zestyURL = production
       ? process.env.zesty.production
       : process.env.zesty.stage;
 

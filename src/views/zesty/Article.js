@@ -60,13 +60,12 @@ function Article({ content }) {
   const simliarTags = content.tags?.data[0]?.meta?.zuid;
 
   const { data: latestArticles, isPending: latestPending } = useFetch(
-    '/-/all-articles-hydrated.json?limit=5',
+    '/-/all-articles-hydrated.json?limit=5', content.zestyProductionMode
   );
 
 
-
   const { data: tagArticles, isPending: tagsPending } = useFetch(
-    `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
+    `/-/similar-articles.json?limit=4&tag=${simliarTags}`, content.zestyProductionMode
   );
 
   const removeErrorHandlingString = /Error hydrating/gi;

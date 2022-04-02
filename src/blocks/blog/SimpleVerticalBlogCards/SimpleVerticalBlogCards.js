@@ -25,13 +25,10 @@ const SimpleVerticalBlogCards = ({
 
   const theme = useTheme();
   const cardList = cards || FillerContent.simpleCards;
-
-
-
-
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  
   return (
     <Container>
       <Box>

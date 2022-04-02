@@ -193,7 +193,7 @@ function PlatformOverview({ content }) {
     data: allArticles,
     isPending,
     error,
-  } = useFetch(`/-/all-articles-hydrated.json?limit=3`);
+  } = useFetch(`/-/all-articles-hydrated.json?limit=3`, content.zestyProductionMode);
 
 
 
