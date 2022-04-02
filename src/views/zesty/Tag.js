@@ -30,13 +30,14 @@ import { Result } from 'blocks/formLayouts';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-let zestyURL =
-(undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-  ? process.env.zesty.production
-  : process.env.zesty.stage;
+
 
 
 function Tag({ content }) {
+  let zestyURL = content.zestyProductionMode
+  ? process.env.zesty.production
+  : process.env.zesty.stage;
+  
   const [cardsData, setCardData] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
   // search states

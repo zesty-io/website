@@ -41,7 +41,10 @@ import { Typography } from '@mui/material';
 
 function Category({ content }) {
   const theme = useTheme();
-
+  let zestyURL = content.zestyProductionMode
+  ? process.env.zesty.production
+  : process.env.zesty.stage;
+  
   // news array state
   const [categoryArr, setCategoryArr] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
@@ -89,10 +92,7 @@ function Category({ content }) {
   }, []);
 
 
-  let zestyURL =
-  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-    ? process.env.zesty.production
-    : process.env.zesty.stage;
+  
   // search value
   const handleOnChange = (evt) => {
     evt.preventDefault();

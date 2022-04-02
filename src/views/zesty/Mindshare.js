@@ -60,7 +60,7 @@ function Mindshare({ content }) {
     data: allArticles,
     isPending,
     error,
-  } = useFetch('/-/all-articles-hydrated.json?limit=140');
+  } = useFetch('/-/all-articles-hydrated.json?limit=140', content.zestyProductionMode);
 
   const [searchQuery, setSearchQuery] = useState('');
 

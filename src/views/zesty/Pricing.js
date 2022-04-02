@@ -64,7 +64,7 @@ function Pricing({ content }) {
     data: pricingData,
     isPending,
     error,
-  } = useFetch(`/-/pricing-levers.json`);
+  } = useFetch(`/-/pricing-levers.json`, content.zestyProductionMode);
 
   useEffect(() => {
     let leverCategories = [];
