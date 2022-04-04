@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 
-const useFetch = (url,production=true) => {
+const useFetch = (url, production = true) => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
 
   let zestyURL = production
-      ? process.env.zesty.production
-      : process.env.zesty.stage;
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
 
   useEffect(() => {
     const fetchData = async () => {

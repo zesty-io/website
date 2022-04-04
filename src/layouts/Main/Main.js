@@ -53,7 +53,7 @@ const Main = ({
   // const isPpcShortPage =
   //   router.asPath === zestyLink(nav, '7-f8d2b2fb82-vgg2t4');
 
-  const isPpcShortPage = router.asPath.includes('ppc' && 'demo');
+  const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
   // override over invert based on pages that we know have a dark image heading
 
   let pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
