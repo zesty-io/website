@@ -25,7 +25,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -35,7 +35,7 @@ import FillerContent from 'components/FillerContent';
 
 import SearchBox from 'blocks/searchBox/SearchBox';
 
-import Button from '@mui/material/Button';
+
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Card from '@mui/material/Card';
