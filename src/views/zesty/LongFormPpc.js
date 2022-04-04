@@ -73,11 +73,6 @@ import FillerContent from 'components/FillerContent';
 const ContactUs = ({ title, description, content }) => {
   const theme = useTheme();
 
-  const styles = (theme) => ({
-    multilineColor: {
-      color: 'red',
-    },
-  });
   return (
     <Box
       sx={{
@@ -113,9 +108,10 @@ const ContactUs = ({ title, description, content }) => {
       </Box>
       <Box paddingBottom={6} textAlign="center">
         <StandardFormWithSelect
-          leadDetail="Agency Partner Sign Up"
-          businessType="Partner"
-          selectedValue={1}
+          leadDetail="Adwords"
+          businessType="Direct"
+          leadSource="Advertisement"
+          selectedValue={2}
           hideSelect={true}
           hideMessage={true}
           ctaText={content.cta_footer_cta || FillerContent.cta}

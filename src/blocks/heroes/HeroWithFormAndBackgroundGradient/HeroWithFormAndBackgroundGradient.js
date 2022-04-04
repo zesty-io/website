@@ -3,14 +3,20 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
-import * as yup from 'yup';
 import { Headline } from './components';
 import { Card, Typography, useMediaQuery } from '@mui/material';
 import FillerContent from 'components/FillerContent';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 
+// Wrapper for the standardformwithselect component
 const FormCustom = ({ title }) => {
   const theme = useTheme();
+  const titleStyle = {
+    fontWeight: 700,
+    fontSize: '1.7rem',
+    color: theme.palette.common.black,
+    paddingBottom: '1.5rem',
+  };
 
   return (
     <Box padding={{ xs: 3, sm: 6 }} width={1} component={Card} boxShadow={1}>
@@ -19,19 +25,15 @@ const FormCustom = ({ title }) => {
         component={'h2'}
         textAlign={'center'}
         gutterBottom
-        sx={{
-          fontWeight: 700,
-          fontSize: '1.7rem',
-          color: theme.palette.common.black,
-          paddingBottom: '1.5rem',
-        }}
+        sx={titleStyle}
       >
         {title || FillerContent.header}
       </Typography>
       <StandardFormWithSelect
-        leadDetail="Agency Partner Sign Up"
-        businessType="Partner"
-        selectedValue={1}
+        leadDetail="Adwords"
+        businessType="Direct"
+        leadSource="Advertisement"
+        selectedValue={2}
         hideSelect={true}
         hideMessage={true}
         ctaText={FillerContent.cta}
