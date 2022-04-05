@@ -121,7 +121,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
               {customRouting.map((route) => (
                 <>
                   {route.parentZUID == null && route.children.length > 0 && (
-                    <Grid  item key={route.zuid} marginBottom={1} md={4} xs={12} sm={12}>
+                    <Grid  item key={`${route.zuid}-footer`} marginBottom={1} md={4} xs={12} sm={12}>
                       <Typography
                         marginBottom={1}
                         variant={'h6'}
@@ -134,12 +134,12 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                       {route.children
                         .sort((a, b) => a.sort - b.sort)
                         .map((childLink) => (
-                          <Box key={route.zuid} marginBottom={1} sx={{
+                          <Box key={`${childLink.zuid}-footer`} marginBottom={1} sx={{
                             textAlign: isMobile ? 'center' : 'left' 
                           }}>
                             <Link
                               title={childLink.title}
-                              href={childLink.url}
+                              href={childLink.url} 
                               component="a"
                               underline="hover"
                               color="text.primary"
