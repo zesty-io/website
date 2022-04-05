@@ -56,7 +56,7 @@ const getLeadObjectZOHO = (
     Description: obj.message,
     Role: acRole,
     Captured_URL: window.location.href.match(/localhost/ig) == null ? window.location.href : 'https://www.testcapurl.com',
-    Referring_URL: Document.referrer,
+    Referring_URL: document.referrer,
     // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
     Lead_Source_Detail: leadDetail,
     Business_Type: businessType,
