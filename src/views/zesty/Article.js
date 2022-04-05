@@ -63,7 +63,6 @@ function Article({ content }) {
     '/-/all-articles-hydrated.json?limit=5', content.zestyProductionMode
   );
 
-
   const { data: tagArticles, isPending: tagsPending } = useFetch(
     `/-/similar-articles.json?limit=4&tag=${simliarTags}`, content.zestyProductionMode
   );
