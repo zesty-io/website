@@ -148,7 +148,7 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           }
         }
 
-        .cmsMigration ul li{
+       .wysiwyg.normal-bullets ul li{
             list-style-type: disc;
             list-style-position: outside;
             display: list-item !important;

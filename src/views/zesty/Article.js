@@ -114,7 +114,7 @@ function Article({ content }) {
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
               <WYSIWYGRender
-                customClass="cmsMigration"
+                customClass="normal-bullets"
                 rich_text={validateWysiwyg() || FillerContent.rich_text}
               ></WYSIWYGRender>
 
