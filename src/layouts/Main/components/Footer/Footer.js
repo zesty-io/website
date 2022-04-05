@@ -10,6 +10,8 @@ import { useRouter } from 'next/router';
 
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
+
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Footer = ({ customRouting, colorInvert = false }) => {
@@ -29,9 +31,9 @@ const Footer = ({ customRouting, colorInvert = false }) => {
   return (
     <Box
       display={isPpcPage ? 'none' : 'flex'}
-      sx={{ background: backgroundColor, paddingTop: '10px' }}
+      sx={{ background: backgroundColor }}
     >
-      <Container paddingY={4}>
+      <Container paddingY={2}>
         <Grid
           container
           marginTop={3}
@@ -54,18 +56,39 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                     ? 'https://brand.zesty.io/zesty-io-logo-vertical.svg'
                     : 'https://brand.zesty.io/zesty-io-logo-vertical-light-color.svg'
                 }
-                height={1}
-                width={1}
-                sx={{ transform: isMobile ? 'scale(1.8)' : 'scale(1)' }}
+                
+                sx={{ 
+                  marginLeft: isMobile ? 2 : 0 
+                  
+                }}
               />
             </Box>
             <Grid item marginTop={3} paddingBottom={2} xs={12} align={'center'}>
               <Container>
+              <Box
+                  component="a"
+                  href="https://twitter.com/zestyio"
+                  color="#1DA1F2"
+                  target="_blank"
+                  marginRight={1}
+                >
+                  <TwitterIcon />
+                </Box>
+                <Box
+                  component="a"
+                  href="https://www.youtube.com/c/Zestyio"
+                  color="#FF0000"
+                  target="_blank"
+                  
+                  marginRight={1}
+                >
+                  <YouTubeIcon/>
+                </Box>
                 <Box
                   component="a"
                   href="https://www.facebook.com/zestyio"
                   color="#4267B2"
-                  marginRight={2}
+                  marginRight={1}
                   target="_blank"
                 >
                   <FacebookIcon />
@@ -74,48 +97,48 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                   component="a"
                   href="https://www.linkedin.com/company/zesty-io/"
                   color="#0e76a8"
-                  marginRight={2}
                   target="_blank"
                 >
                   <LinkedInIcon />
                 </Box>
-                <Box
-                  component="a"
-                  href="https://twitter.com/zestyio"
-                  color="#1DA1F2"
-                  target="_blank"
-                >
-                  <TwitterIcon />
-                </Box>
+               
               </Container>
             </Grid>
             <Grid>
               <Grid item xs={3}></Grid>
             </Grid>
           </Grid>
-          <Grid item xs={8} paddingLeft= {'0px !important'}>
-            <Box
+          <Grid item xs={8} >
+            <Grid
               display={'flex'}
-              justifyContent={'space-evenly'}
               alignItems={'top'}
-              width={1}
-              flexDirection={{ xs: 'row', sm: 'row' }}
+              marginTop={4}
+              container
+              sx={{
+                marginLeft: isMobile ? 0 : 4 
+              }}
             >
               {customRouting.map((route) => (
-                <Grid key={route.zuid}>
+                <>
                   {route.parentZUID == null && route.children.length > 0 && (
-                    <Grid item marginLeft={4}>
+                    <Grid  item key={route.zuid} marginBottom={1} md={4} xs={12} sm={12}>
                       <Typography
                         marginBottom={1}
                         variant={'h6'}
                         text-transform="capitalize"
+                        sx={{
+                          textAlign: isMobile ? 'center' : 'left' 
+                        }}
+                        
                       >
                         {route.title}
                       </Typography>
                       {route.children
                         .sort((a, b) => a.sort - b.sort)
                         .map((childLink) => (
-                          <Box key={route.zuid} marginBottom={1}>
+                          <Box key={route.zuid} marginBottom={1} sx={{
+                            textAlign: isMobile ? 'center' : 'left' 
+                          }}>
                             <Link
                               title={childLink.title}
                               href={childLink.url}
@@ -129,9 +152,9 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                         ))}
                     </Grid>
                   )}
-                </Grid>
+                </>
               ))}
-            </Box>
+            </Grid>
           </Grid>
 
           <Grid item marginTop={4} paddingBottom={10} xs={12}>

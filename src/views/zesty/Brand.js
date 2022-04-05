@@ -133,7 +133,7 @@ function Brand({content}){
           <>
             <Typography variant="h5" component="h2" marginBottom={2} >Color System</Typography>
             <Grid container spacing={2}>
-              {BrandData.colors.map(color => <Grid item spacing={3} sm={6} md={3}>
+              {BrandData.colors.map(color => <Grid item spacing={3} xs={6} sm={6} md={3}>
                 <ColorBlock
                   name={color.name}
                   hex={color.hex}
@@ -146,12 +146,12 @@ function Brand({content}){
           <Container>
           <Typography variant="h4" component="h5" marginBottom={5}>Alternate Logo Options</Typography>
             <Grid container spacing={2}>
-            {BrandData.alternateLogos.map(logo => <Grid item spacing={3} sm={12} md={4}><AlternateLogo {...logo}></AlternateLogo></Grid>)}
+            {BrandData.alternateLogos.map(logo => <Grid item spacing={3} xs={12} sm={12} md={4}><AlternateLogo {...logo}></AlternateLogo></Grid>)}
             </Grid>
           </Container>
         </Box>      
 
-        <Container   marginBottom={16}>
+        <Container marginBottom={16}>
           <BrandHistory/>
         </Container>
     </>
