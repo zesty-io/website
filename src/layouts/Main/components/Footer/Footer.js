@@ -56,7 +56,10 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                 }
                 height={1}
                 width={1}
-                sx={{ transform: isMobile ? 'scale(1.8)' : 'scale(1)' }}
+                sx={{
+                  transform: isMobile ? 'scale(1.8)' : 'scale(1)',
+                  padding: isMobile ? '4rem 0' : '0',
+                }}
               />
             </Box>
             <Grid item marginTop={3} paddingBottom={2} xs={12} align={'center'}>
@@ -93,7 +96,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
               <Grid item xs={3}></Grid>
             </Grid>
           </Grid>
-          <Grid item xs={8} paddingLeft= {'0px !important'}>
+          <Grid item xs={8} paddingLeft={'0px !important'}>
             <Box
               display={'flex'}
               justifyContent={'space-evenly'}
