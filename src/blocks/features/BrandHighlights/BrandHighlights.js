@@ -96,26 +96,26 @@ const BrandHighlights = ({eyebrowText='The Zesty.io Brand', title='Main Title', 
                 </Typography>
                 <Typography color="text.secondary" dangerouslyI>{item.subtitle}</Typography>
                 <Box sx={{ flexGrow: 1 }} />
-                <Box marginTop={2} display={'flex'} justifyContent={'flex-end'}>
-                  {/* <Typography>Download</Typography> */}
-                  <Button
-                    endIcon={<Icon>download</Icon>}
-                    component={'a'}
-                    href={item.assetUrl}
-                    target={'_blank'}
-                  >
-                    SVG
-                  </Button>
-                  <Button
-                    endIcon={<Icon>download</Icon>}
-                    component={'a'}
-                    href={item.assetUrlPng}
-                    target={'_blank'}
-                  >
-                    PNG
-                  </Button>
+                  <Box marginTop={2} display={'flex'} justifyContent={'flex-end'}>
+                    {/* <Typography>Download</Typography> */}
+                    <Button
+                      endIcon={<Icon>download</Icon>}
+                      component={'a'}
+                      href={item.assetUrl}
+                      target={'_blank'}
+                    >
+                      SVG
+                    </Button>
+                    <Button
+                      endIcon={<Icon>download</Icon>}
+                      component={'a'}
+                      href={item.assetUrlPng}
+                      target={'_blank'}
+                    >
+                      PNG
+                    </Button>
+                  </Box>
                 </Box>
-              </Box>
             </Box>
           </Box>
         </Grid>
