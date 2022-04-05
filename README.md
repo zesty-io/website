@@ -49,7 +49,7 @@ Any push or merge to the `main` branch will kickoff an auto build script which w
 After a successfull deploy to `main` create PR from `main` to `production`, upon merge a production build will trigger.
 
 
-## CTA and Forms
+## CTA Components and Forms
 
 Please use these core CTA components through your views. These forms already have validation setup and connect to our remote services.
 
@@ -76,6 +76,13 @@ A simple form that asks for user email
 A one-line code block that shows developer how to start from the command line
 
 `<CodeBlock>` [View Code Block Component](src/components/cta/CodeBlock.js)
+
+## Lead Capture
+
+All lead capture funnels from the above components into one of two cloud functions which connect to ZOHO CRM.
+
+1. Marketing Subscribe: [GCP Link](https://console.cloud.google.com/functions/details/us-central1/zohoEmailSubscribe?env=gen1&project=zesty-dev) [Github Link](https://github.com/zesty-io/gcp-cf/blob/940b2d71144feb66dffe3b405137c334c595f869/zoho/index.js#L65) [Trigger](https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe) Both Gisele and Randy have access to deploy this.
+2. Lead Capture: [GCP Link](https://console.cloud.google.com/functions/details/us-central1/zoho?env=gen1&project=zesty-prod) [Github Link](https://github.com/zesty-io/gcp-cf/blob/master/zoho/index.js) [Trigger](https://us-central1-zesty-prod.cloudfunctions.net/zoho) Only Randy or the egneinerr team has access to deploy this.
 
 ## Material Icons
 
