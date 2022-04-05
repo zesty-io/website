@@ -39,7 +39,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
           alignItems={{ xs: 'center', sm: 'center', md: 'initial' }}
           flexDirection={{ xs: 'column', sm: 'column', md: 'row' }}
         >
-          <Grid item xs={2}>
+          <Grid item xs={6} md={2}>
             <Box
               display={'flex'}
               justifyContent={'space-between'}
@@ -93,13 +93,13 @@ const Footer = ({ customRouting, colorInvert = false }) => {
               <Grid item xs={3}></Grid>
             </Grid>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={8} paddingLeft= {'0px !important'}>
             <Box
               display={'flex'}
               justifyContent={'space-evenly'}
               alignItems={'top'}
               width={1}
-              flexDirection={{ xs: 'column', sm: 'row' }}
+              flexDirection={{ xs: 'row', sm: 'row' }}
             >
               {customRouting.map((route) => (
                 <Grid key={route.zuid}>
