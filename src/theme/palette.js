@@ -29,8 +29,8 @@ export const light = {
   background: {
     paper: '#ffffff',
     default: '#ffffff',
-    level2: '#f5f5f5',
-    level1: '#ffffff',
+    level2: '#f2f4fb',
+    level1: '#f5f5f5',
   },
   zesty: {
     zestyDarkBlue: 		'#1b202c',
@@ -95,7 +95,7 @@ export const dark = {
   background: {
     paper: '#1a202c',
     default: '#1a202c',
-    level2: '#333',
+    level2: '#3c465e',
     level1: '#2D3748',
   },
   zesty: {

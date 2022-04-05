@@ -93,7 +93,7 @@ function Brand({content}){
         <Container paddingY={0} marginBottom={16}>
             <BrandHighlights title={content.brand_name} rich_text={content.brand_name_content} />
         </Container>
-        <Box sx={{backgroundColor:theme.palette.zesty.zestyWhiteBlue }}>
+        <Box sx={{backgroundColor:theme.palette.background.level2 }}>
           <Container paddingY={5} maxWidth={900}>
             <Grid container spacing={5}>
               <Grid item  alignItems={'center'} xs={12} md={2}>
@@ -133,7 +133,7 @@ function Brand({content}){
           <>
             <Typography variant="h5" component="h2" marginBottom={2} >Color System</Typography>
             <Grid container spacing={2}>
-              {BrandData.colors.map(color => <Grid item spacing={3} sm={4} md={3}>
+              {BrandData.colors.map(color => <Grid item spacing={3} xs={6} sm={6} md={3}>
                 <ColorBlock
                   name={color.name}
                   hex={color.hex}
@@ -142,16 +142,16 @@ function Brand({content}){
             </Grid>
           </>
         </ColorSection>
-        <Box sx={{backgroundColor:theme.palette.zesty.zestyLightGrey }}>
+        <Box sx={{backgroundColor:theme.palette.background.level2 }}>
           <Container>
           <Typography variant="h4" component="h5" marginBottom={5}>Alternate Logo Options</Typography>
             <Grid container spacing={2}>
-            {BrandData.alternateLogos.map(logo => <Grid item spacing={3} sm={2} md={4}><AlternateLogo {...logo}></AlternateLogo></Grid>)}
+            {BrandData.alternateLogos.map(logo => <Grid item spacing={3} xs={12} sm={12} md={4}><AlternateLogo {...logo}></AlternateLogo></Grid>)}
             </Grid>
           </Container>
         </Box>      
 
-        <Container   marginBottom={16}>
+        <Container marginBottom={16}>
           <BrandHistory/>
         </Container>
     </>
