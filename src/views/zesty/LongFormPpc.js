@@ -115,7 +115,7 @@ const ContactUs = ({ title, description, content }) => {
           hideSelect={true}
           hideMessage={true}
           ctaText={content.cta_footer_cta || FillerContent.cta}
-          modalTitle="Thank you for submitting your agency information."
+          modalTitle="Thank you for submitting your information."
           modalMessage="Our team will be in touch soon to discuss next steps."
           displayMsgUnderButton=" "
           additionalTextfield={{ company: true, jobTitle: true }}
