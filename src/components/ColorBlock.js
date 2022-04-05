@@ -46,8 +46,8 @@ export default function ColorBlock({hex="#000000",name="Black"}) {
                 backgroundColor: 'grey',
                 position: 'relative'}}>
                 <Paper 
-                    onMouseOver={() => setShowCopy(true)}
-                    onMouseOut={() => {
+                    onMouseEnter={() => setShowCopy(true)}
+                    onMouseLeave={() => {
                         setShowCopy(false)
                         setIcon('content_copy')
                     }}
@@ -55,19 +55,18 @@ export default function ColorBlock({hex="#000000",name="Black"}) {
                         navigator.clipboard.writeText(hex);
                         setIcon('check_circle')
                     }}
-                    
                     sx={{
-                    textAlign: 'center',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    elevation: 2,
-                    bgcolor: hex,
-                    borderRadius: 0,
-                    cursor: 'pointer',
-                    color: theme.palette.zesty.zestyWhite
+                        textAlign: 'center',
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        elevation: 2,
+                        bgcolor: hex,
+                        borderRadius: 0,
+                        cursor: 'pointer',
+                        color: theme.palette.zesty.zestyWhite
                     }}>
                     <Typography variant="p" sx={{position: 'absolute', color: LightenDarkenColor(hex,100), bottom: '10px', right: '10px'}} textAlign="right">{name}</Typography> 
                     <Typography variant="p" sx={{color: LightenDarkenColor(hex,100), position: 'absolute', top: '5px', left: '15px'}}>{hex}</Typography>    

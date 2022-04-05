@@ -112,10 +112,10 @@ const Footer = ({ customRouting, colorInvert = false }) => {
             <Grid
               display={'flex'}
               alignItems={'top'}
-              marginTop={4}
               container
               sx={{
-                marginLeft: isMobile ? 0 : 4 
+                marginLeft: isMobile ? 0 : 4,
+                marginTop: isMobile ? 0 : 4 
               }}
             >
               {customRouting.map((route) => (
@@ -125,11 +125,9 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                       <Typography
                         marginBottom={1}
                         variant={'h6'}
-                        text-transform="capitalize"
                         sx={{
-                          textAlign: isMobile ? 'center' : 'left' 
+                          textAlign: isMobile ? 'center' : 'left'
                         }}
-                        
                       >
                         {route.title}
                       </Typography>
