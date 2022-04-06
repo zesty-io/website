@@ -20,8 +20,6 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   ctaUrl,
   popularArticles = [],
 }) => {
-
-
   function makeDate(date) {
     var d = new Date(date);
     var options = {
@@ -154,11 +152,19 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item?.author?.image || FillerContent.image}
+                        src={
+                          (item?.author.data &&
+                            item?.author?.data[0]?.headshot.data &&
+                            item?.author?.data[0]?.headshot?.data[0]?.url) ||
+                          item?.author?.image ||
+                          FillerContent.image
+                        }
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item?.author?.name || FillerContent.header}
+                        {(item?.author?.data && item?.author?.data[0]?.name) ||
+                          item?.author?.name ||
+                          FillerContent.header}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
