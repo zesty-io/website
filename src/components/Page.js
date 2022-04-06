@@ -6,8 +6,25 @@ import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from 'theme';
 import AOS from 'aos';
 
+function canUseDOM() {
+  return !!(
+    typeof window !== 'undefined' &&
+    window.document &&
+    window.document.createElement
+  );
+}
+
 export const useDarkMode = () => {
-  const [themeMode, setTheme] = useState('light');
+  //check if client can access the DOM
+  if (!canUseDOM()) {
+    return [];
+  }
+
+  // set the initial theme from localstorage or 'light'
+  const [themeMode, setTheme] = useState(
+    window.localStorage.getItem('themeMode') || 'light',
+  );
+
   const [mountedComponent, setMountedComponent] = useState(false);
 
   const setMode = (mode) => {
