@@ -22,6 +22,7 @@ import TransitionsModal from './TransitionModal';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
+import { getCookie, setCookies } from 'cookies-next';
 
 // for hiding of ellipis in message in mobile
 const StyledTextField = styled(TextField)({
@@ -53,10 +54,9 @@ const getLeadObjectZOHO = (
     // "How_Using_Zesty_io": acHow,
     // "Website": document.querySelector('#ac-url').value,
     Lead_Source: leadSource,
-    Description: obj.message,
     Role: acRole,
     Captured_URL: window.location.href.match(/localhost/ig) == null ? window.location.href : 'https://www.testcapurl.com',
-    Referring_URL: Document.referrer,
+    Referring_URL: getCookie('referrer'),
     // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
     Lead_Source_Detail: leadDetail,
     Business_Type: businessType,
