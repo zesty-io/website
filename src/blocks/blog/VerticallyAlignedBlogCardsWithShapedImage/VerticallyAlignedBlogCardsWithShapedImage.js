@@ -153,8 +153,8 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
                         src={
-                          (item?.author.data &&
-                            item?.author?.data[0]?.headshot.data &&
+                          (item?.author?.data &&
+                            item?.author?.data[0]?.headshot?.data &&
                             item?.author?.data[0]?.headshot?.data[0]?.url) ||
                           item?.author?.image ||
                           FillerContent.image
