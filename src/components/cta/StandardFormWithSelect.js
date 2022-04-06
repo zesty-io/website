@@ -53,7 +53,6 @@ const getLeadObjectZOHO = (
     // "How_Using_Zesty_io": acHow,
     // "Website": document.querySelector('#ac-url').value,
     Lead_Source: leadSource,
-    Description: obj.message,
     Role: acRole,
     Captured_URL: window.location.href.match(/localhost/ig) == null ? window.location.href : 'https://www.testcapurl.com',
     Referring_URL: document.referrer,
