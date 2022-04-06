@@ -6,8 +6,20 @@ import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from 'theme';
 import AOS from 'aos';
 
+function canUseDOM() {
+  return !!(
+    typeof window !== 'undefined' &&
+    window.document &&
+    window.document.createElement
+  );
+}
+
 export const useDarkMode = () => {
-  const [themeMode, setTheme] = useState('light');
+  // set the initial theme from localstorage or 'light'
+  const [themeMode, setTheme] = useState(
+    window.localStorage.getItem('themeMode') || 'light',
+  );
+
   const [mountedComponent, setMountedComponent] = useState(false);
 
   const setMode = (mode) => {
@@ -39,6 +51,11 @@ export const useDarkMode = () => {
 };
 
 export default function Page({ children }) {
+  //check if client can access the DOM
+  if (!canUseDOM()) {
+    return null;
+  }
+
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
