@@ -45,7 +45,7 @@
     "aos": "^2.3.4",
     "card-validator": "^8.1.1",
     "chalk": "^4.1.2",
-    "cookie-cutter": "^0.2.0",
+    "cookies-next": "^2.0.4",
     "formik": "^2.2.6",
     "fuse.js": "^6.5.3",
     "jarallax": "^1.12.8",
