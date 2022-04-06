@@ -58,6 +58,7 @@
     "react-image-lightbox": "^5.1.4",
     "react-json-view-ssr": "^1.19.1",
     "react-lazy-load-image-component": "^1.5.1",
+    "react-player": "^2.10.0",
     "react-slick": "^0.28.1",
     "react-syntax-highlighter": "^15.4.5",
     "react-typed": "^1.2.0",
