@@ -15,11 +15,6 @@ function canUseDOM() {
 }
 
 export const useDarkMode = () => {
-  //check if client can access the DOM
-  if (!canUseDOM()) {
-    return [];
-  }
-
   // set the initial theme from localstorage or 'light'
   const [themeMode, setTheme] = useState(
     window.localStorage.getItem('themeMode') || 'light',
@@ -56,6 +51,11 @@ export const useDarkMode = () => {
 };
 
 export default function Page({ children }) {
+  //check if client can access the DOM
+  if (!canUseDOM()) {
+    return null;
+  }
+
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
