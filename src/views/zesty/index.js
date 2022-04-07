@@ -33,6 +33,7 @@ import TechnologyBenefit from './TechnologyBenefit';
 import Faq from './Faq';
 import PricingLever from './PricingLever';
 import PpcZestyKeyAttribute from './PpcZestyKeyAttribute';
+import BrandAsset from './BrandAsset';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -42,6 +43,7 @@ import ProductExplainer from './ProductExplainer';
 import Event from './Event';
 import LongFormPpc from './LongFormPpc';
 import PpcShortForm from './PpcShortForm';
+import IntegrationsIndividualPage from './IntegrationsIndividualPage';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -63,12 +65,13 @@ import DeveloperResource from './DeveloperResource';
 import EventsAndWebinar from './EventsAndWebinar';
 import Demo from './Demo';
 import Ppc from './Ppc';
+import Brand from './Brand';
+import Integration from './Integration';
 import Header from './Header';
 import Footer from './Footer';
-import Brand from './Brand'
 
 export {
-    Brand,
+
     Clipping,
     Widget,
     MarketingAnnoucement,
@@ -102,6 +105,7 @@ export {
     Faq,
     PricingLever,
     PpcZestyKeyAttribute,
+    BrandAsset,
     Category,
     Article,
     Tag,
@@ -111,6 +115,7 @@ export {
     Event,
     LongFormPpc,
     PpcShortForm,
+    IntegrationsIndividualPage,
     Homepage,
     SimplePage,
     Mindshare,
@@ -132,6 +137,8 @@ export {
     EventsAndWebinar,
     Demo,
     Ppc,
+    Brand,
+    Integration,
     Footer,
     Header
 }
