@@ -42,22 +42,27 @@ const getLeadObjectZOHO = (
 ) => {
   let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
+  // possible values
+  // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
+    // "Current_CMS": acCMS,
+    // "How_Using_Zesty_io": acHow,
+    // "Website": document.querySelector('#ac-url').value,
+    // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
   return {
     First_Name: obj.firstName,
     Last_Name: obj.lastName,
     Email: obj.email,
     Inquiry_Reason: select,
     Description: obj.message,
-    // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
-    // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
-    // "Current_CMS": acCMS,
-    // "How_Using_Zesty_io": acHow,
-    // "Website": document.querySelector('#ac-url').value,
+     
     Lead_Source: leadSource,
-    Role: acRole,
+    Role: getCookie('persona') ? getCookie('persona') : acRole,
     Captured_URL: window.location.href.match(/localhost/ig) == null ? window.location.href : 'https://www.testcapurl.com',
-    Referring_URL: getCookie('referrer'),
-    // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
+    UTM_Campaign: getCookie('utm_campaign') ? getCookie('utm_campaign') : 'unknown',
+    UTM_Source: getCookie('utm_source')  ? getCookie('utm_source') : 'unknown',
+    UTM_Term: getCookie('utm_term') ? getCookie('utm_term') : 'unknown',
+    UTM_Medium: getCookie('utm_medium') ? getCookie('utm_medium') : 'unknown',
+    
     Lead_Source_Detail: leadDetail,
     Business_Type: businessType,
     Lead_Status: 'Not Contacted',
