@@ -7,9 +7,24 @@ import { getCookie, setCookies } from 'cookies-next';
 
 
 export default function Slug(props) {
+  // capture information about the url and request
   useEffect(() => {
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop),
+    });
+    // referrer, stored in a cookie so its not lost as a user browses
     let refCookie = getCookie('referrer');
     if(undefined == refCookie) setCookies('referrer', document.referrer);
+
+    // utm query params
+    if(params.utm_campaign) setCookies('utm_campaign', params.utm_campaign);
+    if(params.utm_term) setCookies('utm_term', params.utm_term);
+    if(params.utm_source) setCookies('utm_source', params.utm_source);
+    if(params.utm_medium) setCookies('utm_medium', params.utm_medium);
+    
+    // persona
+    if(params.persona) setCookies('persona', params.persona);
+
   }, [])
   
   return (
