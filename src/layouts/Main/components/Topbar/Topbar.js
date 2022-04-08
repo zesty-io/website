@@ -16,7 +16,7 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
   const router = useRouter();
 
   //check if page is from ppc for hiding of footer and nav
-  const isPpcPage = router.asPath.includes('/ppc');
+  const isPpcPage = router.asPath.includes('/ppc' && '/integrations');
 
   return (
     <Box
