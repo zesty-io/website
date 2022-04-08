@@ -445,7 +445,10 @@ const SimpleHeroWithCta = ({
           sx={{ width: isMobile ? 'auto' : '25vw' }}
           marginX={'auto'}
         >
-          <CodeBlock bgcolor={theme.palette.zesty.zestyBlue} fontSize="14px" />
+          <CodeBlock
+            bgcolor={theme.palette.zesty.zestyDarkBlue}
+            fontSize="14px"
+          />
         </Box>
       </Box>
       <Box
