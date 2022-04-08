@@ -7,6 +7,7 @@ import Icon from '@mui/material/Icon';
 export default function CodeBlock({
   text = 'npx create-next-app --example https://github.com/zesty-io/nextjs-starter',
   fontSize = '16px',
+  bgcolor = 'black',
 }) {
   const [showCopy, setShowCopy] = React.useState(false);
   const [copyWords, setCopyWords] = React.useState('Click to Copy');
@@ -15,8 +16,8 @@ export default function CodeBlock({
   const theme = useTheme('dark');
   return (
     <Paper
-      onMouseOver={() => setShowCopy(true)}
-      onMouseOut={() => {
+      onMouseEnter={() => setShowCopy(true)}
+      onMouseLeave={() => {
         setShowCopy(false);
         setCopyWords('Click to Copy');
         setIcon('content_copy');
@@ -31,7 +32,7 @@ export default function CodeBlock({
         height: 60,
         lineHeight: '60px',
         elevation: 2,
-        bgcolor: 'black',
+        bgcolor,
         cursor: 'pointer',
         position: 'relative',
         color: theme.palette.zesty.zestyWhite,
@@ -50,7 +51,7 @@ export default function CodeBlock({
             zIndex: '10',
             display: 'flex',
             alignItems: 'center',
-            background: 'rgba(0,0,0,.95)',
+            background: bgcolor,
             overflow: 'hidden',
             color: theme.palette.zesty.zestyLightGrey,
           }}
