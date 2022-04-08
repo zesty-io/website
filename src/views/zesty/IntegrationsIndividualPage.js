@@ -65,7 +65,7 @@ import FillerContent from 'components/FillerContent';
 import CodeBlock from 'components/cta/CodeBlock';
 import ReactPlayer from 'react-player';
 
-const ContactUs = ({ title, description, content }) => {
+const ContactUs = ({ title, description, content, isMobile }) => {
   const theme = useTheme();
 
   return (
@@ -75,7 +75,7 @@ const ContactUs = ({ title, description, content }) => {
         paddingTop: '3rem',
         paddingBottom: '1rem',
         borderRadius: '15px',
-        paddingX: '3rem',
+        paddingX: isMobile ? '1rem' : '3rem',
       }}
       maxWidth={600}
       margin={'0 auto'}
@@ -265,7 +265,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
-      <Box paddingTop={40}>
+      <Box paddingTop={isMobile ? 25 : 40}>
         <Box marginBottom={4}>
           <Box marginBottom={2}>
             <Typography
@@ -442,37 +442,10 @@ const SimpleHeroWithCta = ({
         </Box>
         <Box
           display="block"
-          sx={{ width: '40vw' }}
+          sx={{ width: isMobile ? 'auto' : '37vw' }}
           marginX={'auto'}
-          // flexDirection={{ xs: 'column', sm: 'row' }}
-          // alignItems={{ xs: 'stretched', sm: 'center' }}
-          // justifyContent={'center'}
         >
-          {/* <TryFreeButton
-            component={'a'}
-            variant="contained"
-            color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
-            size="large"
-            fullWidth={isMd ? false : true}
-            text={primaryCta}
-          /> */}
-          <CodeBlock />
-          {/* <Box
-            marginTop={{ xs: 2, sm: 0 }}
-            marginLeft={{ sm: 2 }}
-            width={{ xs: '100%', sm: 'auto', md: 'auto' }}
-          >
-            <Button
-              component={'a'}
-              onClick={onClick}
-              variant="outlined"
-              color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
-              size="large"
-              fullWidth={isMd ? false : true}
-            >
-              {secondaryCTA}
-            </Button>
-          </Box> */}
+          <CodeBlock fontSize="14px" />
         </Box>
       </Box>
       <Box
@@ -554,7 +527,7 @@ const ContactUsForm = ({ theme, content }) => {
         id="contact-us"
         sx={{
           position: 'relative',
-          padding: isMobile ? '5rem 0' : '10rem 0',
+          padding: isMobile ? '5rem 1rem' : '10rem 0',
           zIndex: 2,
         }}
       >
@@ -564,6 +537,7 @@ const ContactUsForm = ({ theme, content }) => {
             content.contact_form_description || FillerContent.description
           }
           content={content}
+          isMobile={isMobile}
         />
       </Box>
     </Box>
@@ -575,14 +549,9 @@ const VideoPlayer = ({ videoUrl, theme, isMobile }) => {
     <div
       style={{
         position: 'absolute',
-        bottom: '-38rem',
+        bottom: isMobile ? '-40vh' : '-55vh',
         left: '50%',
         transform: 'translate(-50%,0)',
-        // height: '40rem',
-        // width: '100%',
-        // background: theme.palette.zesty.zestyOrange,
-        border: '7px solid rgba(255, 93, 10, .7)',
-        // padding: '.4rem',
         borderRadius: '7px',
         boxShadow: '-3px 2px 37px -1px rgba(0,0,0,0.30)',
         backgroundClip: 'padding-box ',
@@ -590,12 +559,13 @@ const VideoPlayer = ({ videoUrl, theme, isMobile }) => {
     >
       <ReactPlayer
         width={isMobile ? '90vw' : '50vw'}
-        height={isMobile ? '100%' : '60vh'}
+        height={isMobile ? '33vh' : '60vh'}
         url={videoUrl}
-        muted={true}
-        playing={true}
+        muted={false}
+        playing={false}
         loop={true}
         controls={true}
+        // light
       />
     </div>
   );
@@ -610,11 +580,11 @@ function IntegrationsIndividualPage({ content }) {
       .scrollIntoView({ behavior: 'smooth' });
   };
 
-  console.log(content, 123123);
+  console.log(content, 'CONTENT');
   return (
     <>
       {/* HERO */}
-      <Box paddingBottom={15}>
+      <Box paddingBottom={1}>
         <SimpleHeroWithCta
           title={content.hero_h1 || FillerContent.header}
           description={content.hero_description || FillerContent.description}
@@ -623,13 +593,12 @@ function IntegrationsIndividualPage({ content }) {
           onClick={scrollToContactUs}
         />
       </Box>
-
       {/* Developer Benefits */}
       <Box
-        marginTop={25}
+        marginTop={isMobile ? 20 : 25}
+        paddingBottom={10}
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
-          padding: isMobile ? '1rem 0' : '5rem 0',
         }}
       >
         <SimpleCentered
@@ -643,6 +612,7 @@ function IntegrationsIndividualPage({ content }) {
           }
         />
       </Box>
+
       {/* Marketer Benefits*/}
       <Box bgcolor={'alternate.main'}>
         <HeroWithIllustrationAndSearchBar
@@ -655,8 +625,10 @@ function IntegrationsIndividualPage({ content }) {
             FillerContent.image
           }
         />
-        {/* <BgDecorations theme={theme} /> */}
+        <BgDecorations theme={theme} />
       </Box>
+
+      {/* Marketer Benefits*/}
       <Box bgcolor={'alternate.secondary'}>
         <HeroWithIllustrationAndSearchBar
           titleAndDescription={
@@ -670,8 +642,10 @@ function IntegrationsIndividualPage({ content }) {
           bgColor={'alternate.secondary'}
           rowReverse={true}
         />
-        {/* <BgDecorations theme={theme} /> */}
+        <BgDecorations theme={theme} />
       </Box>
+
+      {/* Marketer Benefits*/}
       <Box bgcolor={'alternate.main'}>
         <HeroWithIllustrationAndSearchBar
           titleAndDescription={
@@ -683,17 +657,15 @@ function IntegrationsIndividualPage({ content }) {
             FillerContent.image
           }
         />
-        {/* <BgDecorations theme={theme} /> */}
+        <BgDecorations theme={theme} />
       </Box>
 
-      {/* How it works */}
-      {/* <HowItWorks
-        header={content.how_it_works || FillerContent.header}
-        images={content.how_it_works_image?.data}
-      /> */}
-
-      {/* Benefits */}
-      <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
+      {/* Easy to Get Started + Social Proof */}
+      <Box
+        marginTop={6}
+        padding={isMobile ? 0 : 8}
+        bgcolor={'alternate.secondary'}
+      >
         <NewsletterWithImage
           header={content.outline_of_benefits || FillerContent.header}
           image={
@@ -710,6 +682,7 @@ function IntegrationsIndividualPage({ content }) {
         title={content.logos_title || FillerContent.header}
         imageCollection={content.logos?.data || [FillerContent.image]}
       />
+
       {/* Form */}
       <ContactUsForm theme={theme} content={content} />
     </>

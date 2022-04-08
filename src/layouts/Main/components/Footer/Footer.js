@@ -18,7 +18,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
   const router = useRouter();
 
   //check if page is from ppc for hiding of footer and nav
-  const isPpcPage = router.asPath.includes('/ppc');
+  const isPpcPage = router.asPath.includes('/ppc' && '/integrations');
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -56,16 +56,14 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                     ? 'https://brand.zesty.io/zesty-io-logo-vertical.svg'
                     : 'https://brand.zesty.io/zesty-io-logo-vertical-light-color.svg'
                 }
-                
-                sx={{ 
-                  marginLeft: isMobile ? 2 : 0 
-                  
+                sx={{
+                  marginLeft: isMobile ? 2 : 0,
                 }}
               />
             </Box>
             <Grid item marginTop={3} paddingBottom={2} xs={12} align={'center'}>
               <Container>
-              <Box
+                <Box
                   component="a"
                   href="https://twitter.com/zestyio"
                   color="#1DA1F2"
@@ -79,10 +77,9 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                   href="https://www.youtube.com/c/Zestyio"
                   color="#FF0000"
                   target="_blank"
-                  
                   marginRight={1}
                 >
-                  <YouTubeIcon/>
+                  <YouTubeIcon />
                 </Box>
                 <Box
                   component="a"
@@ -101,32 +98,38 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                 >
                   <LinkedInIcon />
                 </Box>
-               
               </Container>
             </Grid>
             <Grid>
               <Grid item xs={3}></Grid>
             </Grid>
           </Grid>
-          <Grid item xs={8} >
+          <Grid item xs={8}>
             <Grid
               display={'flex'}
               alignItems={'top'}
               container
               sx={{
                 marginLeft: isMobile ? 0 : 4,
-                marginTop: isMobile ? 0 : 4 
+                marginTop: isMobile ? 0 : 4,
               }}
             >
               {customRouting.map((route) => (
                 <>
                   {route.parentZUID == null && route.children.length > 0 && (
-                    <Grid  item key={`${route.zuid}-footer`} marginBottom={1} md={4} xs={12} sm={12}>
+                    <Grid
+                      item
+                      key={`${route.zuid}-footer`}
+                      marginBottom={1}
+                      md={4}
+                      xs={12}
+                      sm={12}
+                    >
                       <Typography
                         marginBottom={1}
                         variant={'h6'}
                         sx={{
-                          textAlign: isMobile ? 'center' : 'left'
+                          textAlign: isMobile ? 'center' : 'left',
                         }}
                       >
                         {route.title}
@@ -134,12 +137,16 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                       {route.children
                         .sort((a, b) => a.sort - b.sort)
                         .map((childLink) => (
-                          <Box key={`${childLink.zuid}-footer`} marginBottom={1} sx={{
-                            textAlign: isMobile ? 'center' : 'left' 
-                          }}>
+                          <Box
+                            key={`${childLink.zuid}-footer`}
+                            marginBottom={1}
+                            sx={{
+                              textAlign: isMobile ? 'center' : 'left',
+                            }}
+                          >
                             <Link
                               title={childLink.title}
-                              href={childLink.url} 
+                              href={childLink.url}
                               component="a"
                               underline="hover"
                               color="text.primary"
