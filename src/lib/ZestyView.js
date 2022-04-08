@@ -6,7 +6,7 @@ import * as Zesty from '../views/zesty';
 import ZestyHead from '../components/ZestyHead';
 
 import ErrorPage from '../pages/_error';
-import ZestyExplorer from './ZestyExplorer';
+import { ZestyExplorer } from '@zesty-io/explorer';
 
 export function ZestyView(props) {
   if (props.content.error) {
