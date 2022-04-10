@@ -103,6 +103,7 @@ Append to the end of a URL after a `?` like `?utm_campaign=promocodeX`
 Not parameters must be all lowercase, one or more or none can be used. `persona` will always default to "marketer"
 
 * https://www.zesty.io/?utm_campaign=NextJSWordpress&persona=developer&utm_source=nextjswebsite&utm_medium=paid%20advertising
+* https://www.zesty.io/?utm_campaign=NextJSWordpress&persona=developer&utm_source=adwords&utm_medium=ppc&utm_term=nextjs
 * https://www.zesty.io/?persona=developer
 * https://www.zesty.io/?utm_term=jquery&persona=developer
 
