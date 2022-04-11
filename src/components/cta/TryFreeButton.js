@@ -188,7 +188,7 @@ export default function TryFreeButton({
               <Button
                 size={'large'}
                 component={'a'}
-                href="/contact-new/"
+                href="/contact/"
                 sx={{
                   fontWeight: 700,
                   color: 'text.secondary',
