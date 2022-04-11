@@ -41,7 +41,7 @@ const BrandHistory = () => {
             fontWeight: 'medium',
           }}
           gutterBottom
-          color={'secondary'}
+          color={'text.secondary'}
         >
           Brandmark History
         </Typography>
