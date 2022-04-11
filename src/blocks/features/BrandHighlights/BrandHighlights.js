@@ -50,7 +50,7 @@ const brandHighlights = [
   },
 ];
 
-const BrandHighlights = ({eyebrowText='The Zesty.io Brand', title='Main Title', rich_text='<p>Rich Text</p>'}) => {
+const BrandHighlights = ({eyebrowText='The Zesty.io Brand', title='Main Title', rich_text='<p>Rich Text</p>', brandPackageURL='https://kfg6bckb.media.zestyio.com/ZestyBrandPackage.zip'}) => {
   const theme = useTheme();
 
   const LeftSide = () => (
@@ -149,6 +149,7 @@ const BrandHighlights = ({eyebrowText='The Zesty.io Brand', title='Main Title', 
           variant={'contained'}
           size={'large'}
           endIcon={<Icon>download</Icon>}
+          href={brandPackageURL}
         >
           Download Brand Package
         </Button>
