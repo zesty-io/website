@@ -108,7 +108,10 @@ function Brand({content}){
             </Container>
         </Box>
         <Container paddingY={0} marginBottom={16}>
-            <BrandHighlights title={content.brand_name} rich_text={content.brand_name_content} />
+            <BrandHighlights 
+              title={content.brand_name} 
+              rich_text={content.brand_name_content} 
+              brandPackageURL={content.brand_package_zip?.data ? content.brand_package_zip?.data[0].url : 'https://kfg6bckb.media.zestyio.com/ZestyBrandPackage.zip'} />
         </Container>
         <Box sx={{backgroundColor:theme.palette.background.level2 }}>
           <Container paddingY={5} maxWidth={900}>
