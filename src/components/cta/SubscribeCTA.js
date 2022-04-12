@@ -29,9 +29,7 @@ export default function SubscribeCTA({
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-     // handleModal();
-     // alert(JSON.stringify(values, null, 2));
-    
+     
     },
   });
 
@@ -44,6 +42,7 @@ export default function SubscribeCTA({
           })
             .then(res => res.json())
             .then(data => {
+              dataLayer.push({'event': 'emailSubscribeSubmitted', value: "1"});
               acSENT = true;
             });
         }
