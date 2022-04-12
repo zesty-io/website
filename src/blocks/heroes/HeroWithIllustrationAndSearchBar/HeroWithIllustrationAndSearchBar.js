@@ -54,22 +54,6 @@ const HeroWithIllustrationAndSearchBar = ({
                   dangerouslySetInnerHTML={{ __html: titleAndDescription }}
                 ></Box>
               </Grid>
-              {/* <Box marginBottom={2}>
-                <Typography
-                  variant="h3"
-                  component={'h3'}
-                  sx={{
-                    fontWeight: 700,
-                  }}
-                >
-                  {title}
-                </Typography>
-              </Box>
-              <Box marginBottom={3}>
-                <Typography variant="h6" component="p" color="text.secondary">
-                  {description}
-                </Typography>
-              </Box> */}
               <Box
                 display="flex"
                 flexDirection={{ xs: 'column', sm: 'row' }}
