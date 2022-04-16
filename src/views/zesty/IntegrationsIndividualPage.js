@@ -84,48 +84,12 @@ const ContactUs = ({ title, description, content, isMobile }) => {
     >
       <CtaSimpleCentered
         headerColor={theme.palette.common.white}
-        ctaTitle={content.cta_title || FillerContent.header}
-        description={content.cta_description || FillerContent.description}
-        ctaLeft={content.cta_left || FillerContent.cta}
-        ctaRight={content.cta_right || FillerContent.cta}
+        ctaTitle={title || FillerContent.header}
+        description={description || FillerContent.description}
+        ctaLeft={'Try Free'}
+        ctaRight={'Arrange a guided demo'}
+        ctaRightHref="/demos"
       />
-      {/* <Box marginBottom={4}>
-        <Typography
-          variant={'h3'}
-          sx={{
-            fontWeight: 700,
-            color: theme.palette.common.black,
-          }}
-          align={'center'}
-          gutterBottom
-        >
-          {title}
-        </Typography>
-        <Typography
-          sx={{
-            color: theme.palette.common.black,
-          }}
-          align={'center'}
-        >
-          {description}
-        </Typography>
-      </Box>
-      <Box paddingBottom={6} textAlign="center">
-        <StandardFormWithSelect
-          leadDetail="Adwords"
-          businessType="Direct"
-          leadSource="Advertisement"
-          selectedValue={2}
-          hideSelect={true}
-          hideMessage={true}
-          ctaText={content.cta_footer_cta || FillerContent.cta}
-          modalTitle="Thank you for submitting your information."
-          modalMessage="Our team will be in touch soon to discuss next steps."
-          displayMsgUnderButton=" "
-          additionalTextfield={{ company: true, jobTitle: true }}
-          customButtonStyle={{ display: 'flex', justifyContent: 'center' }}
-        />
-      </Box> */}
     </Box>
   );
 };
@@ -451,10 +415,10 @@ const SimpleHeroWithCta = ({
           marginX={'auto'}
         >
           <CodeBlock
-            bgcolor={theme.palette.common.white}
+            bgcolor={theme.palette.zesty.zestyDarkBlue}
             border={`1px solid ${theme.palette.zesty.zestyOrange}`}
             fontSize="14px"
-            color={theme.palette.zesty.zestyOrange}
+            color={theme.palette.common.white}
           />
         </Box>
       </Box>
@@ -542,10 +506,8 @@ const ContactUsForm = ({ theme, content }) => {
         }}
       >
         <ContactUs
-          title={content.contact_form_h3 || FillerContent.header}
-          description={
-            content.contact_form_description || FillerContent.description
-          }
+          title={content.form_title || FillerContent.header}
+          description={content.form_description || FillerContent.description}
           content={content}
           isMobile={isMobile}
         />

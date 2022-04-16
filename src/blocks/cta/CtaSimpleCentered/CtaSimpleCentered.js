@@ -16,6 +16,7 @@ const CtaSimpleCentered = ({
   ctaLeft,
   ctaRight,
   headerColor = 'text.primary',
+  ctaRightHref,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -66,7 +67,7 @@ const CtaSimpleCentered = ({
           >
             <Button
               component={'a'}
-              href={zestyLink(nav, '7-cec987fcf5-9bht2z')}
+              href={ctaRightHref || zestyLink(nav, '7-cec987fcf5-9bht2z')}
               variant="outlined"
               color="secondary"
               size="large"
