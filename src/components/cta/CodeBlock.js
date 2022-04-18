@@ -41,6 +41,7 @@ export default function CodeBlock({
         color,
         fontSize,
         border,
+        overflow: 'hidden',
       }}
     >
       {text}

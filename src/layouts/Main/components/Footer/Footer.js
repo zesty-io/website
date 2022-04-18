@@ -18,7 +18,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
   const router = useRouter();
 
   //check if page is from ppc for hiding of footer and nav
-  const isPpcPage = router.asPath.includes('/ppc' && '/integrations');
+  const isPpcPage = router.asPath.includes('/ppc');
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

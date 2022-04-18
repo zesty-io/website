@@ -82,50 +82,46 @@ const ContactUs = ({ title, description, content, isMobile }) => {
       maxWidth={600}
       margin={'0 auto'}
     >
-      <CtaSimpleCentered
-        headerColor={theme.palette.common.white}
-        ctaTitle={content.cta_title || FillerContent.header}
-        description={content.cta_description || FillerContent.description}
-        ctaLeft={content.cta_left || FillerContent.cta}
-        ctaRight={content.cta_right || FillerContent.cta}
-      />
-      {/* <Box marginBottom={4}>
+      <Box
+        display="block"
+        sx={{ width: isMobile ? 'auto' : '33vw' }}
+        marginX={'auto'}
+      >
         <Typography
-          variant={'h3'}
+          variant="h4"
+          color={theme.palette.common.white}
+          textAlign="center"
+          gutterBottom
           sx={{
             fontWeight: 700,
-            color: theme.palette.common.black,
           }}
-          align={'center'}
-          gutterBottom
         >
           {title}
         </Typography>
         <Typography
-          sx={{
-            color: theme.palette.common.black,
-          }}
+          variant="h6"
+          component="p"
+          paddingY={4}
+          color={theme.palette.common.white}
+          sx={{ fontWeight: 400 }}
           align={'center'}
         >
           {description}
         </Typography>
-      </Box>
-      <Box paddingBottom={6} textAlign="center">
-        <StandardFormWithSelect
-          leadDetail="Adwords"
-          businessType="Direct"
-          leadSource="Advertisement"
-          selectedValue={2}
-          hideSelect={true}
-          hideMessage={true}
-          ctaText={content.cta_footer_cta || FillerContent.cta}
-          modalTitle="Thank you for submitting your information."
-          modalMessage="Our team will be in touch soon to discuss next steps."
-          displayMsgUnderButton=" "
-          additionalTextfield={{ company: true, jobTitle: true }}
-          customButtonStyle={{ display: 'flex', justifyContent: 'center' }}
+        <CodeBlock
+          bgcolor={theme.palette.zesty.zestyOrange}
+          fontSize="14px"
+          color={theme.palette.common.white}
         />
-      </Box> */}
+      </Box>
+      {/* <CtaSimpleCentered
+        headerColor={theme.palette.common.white}
+        ctaTitle={title || FillerContent.header}
+        description={description || FillerContent.description}
+        ctaLeft={'Try Free'}
+        ctaRight={'Arrange a guided demo'}
+        ctaRightHref="/demos"
+      /> */}
     </Box>
   );
 };
@@ -451,10 +447,9 @@ const SimpleHeroWithCta = ({
           marginX={'auto'}
         >
           <CodeBlock
-            bgcolor={theme.palette.common.white}
-            border={`1px solid ${theme.palette.zesty.zestyOrange}`}
+            bgcolor={theme.palette.zesty.zestyDarkBlue}
             fontSize="14px"
-            color={theme.palette.zesty.zestyOrange}
+            color={theme.palette.common.white}
           />
         </Box>
       </Box>
@@ -542,10 +537,8 @@ const ContactUsForm = ({ theme, content }) => {
         }}
       >
         <ContactUs
-          title={content.contact_form_h3 || FillerContent.header}
-          description={
-            content.contact_form_description || FillerContent.description
-          }
+          title={content.form_title || FillerContent.header}
+          description={content.form_description || FillerContent.description}
           content={content}
           isMobile={isMobile}
         />
