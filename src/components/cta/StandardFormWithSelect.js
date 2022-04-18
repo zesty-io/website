@@ -87,7 +87,8 @@ const postToZOHO = async (payloadJSON) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      // acSENT = true;
+      // google data
+      dataLayer.push({'event': 'formCaptureSuccess', value: "1"});
     })
     .catch((error) => {
       throw new Error(`HTTP error: ${error}`);
