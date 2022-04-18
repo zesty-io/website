@@ -44,25 +44,31 @@ const getLeadObjectZOHO = (
   let acRole = 'Marketer';
   // possible values
   // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
-    // "Current_CMS": acCMS,
-    // "How_Using_Zesty_io": acHow,
-    // "Website": document.querySelector('#ac-url').value,
-    // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
+  // "Current_CMS": acCMS,
+  // "How_Using_Zesty_io": acHow,
+  // "Website": document.querySelector('#ac-url').value,
+  // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
   return {
     First_Name: obj.firstName,
     Last_Name: obj.lastName,
     Email: obj.email,
+    Phone_Number: obj.phoneNumber,
     Inquiry_Reason: select,
     Description: obj.message,
-     
+
     Lead_Source: leadSource,
     Role: getCookie('persona') ? getCookie('persona') : acRole,
-    Captured_URL: window.location.href.match(/localhost/ig) == null ? window.location.href : 'https://www.testcapurl.com',
-    UTM_Campaign: getCookie('utm_campaign') ? getCookie('utm_campaign') : 'unknown',
-    UTM_Source: getCookie('utm_source')  ? getCookie('utm_source') : 'unknown',
+    Captured_URL:
+      window.location.href.match(/localhost/gi) == null
+        ? window.location.href
+        : 'https://www.testcapurl.com',
+    UTM_Campaign: getCookie('utm_campaign')
+      ? getCookie('utm_campaign')
+      : 'unknown',
+    UTM_Source: getCookie('utm_source') ? getCookie('utm_source') : 'unknown',
     UTM_Term: getCookie('utm_term') ? getCookie('utm_term') : 'unknown',
     UTM_Medium: getCookie('utm_medium') ? getCookie('utm_medium') : 'unknown',
-    
+
     Lead_Source_Detail: leadDetail,
     Business_Type: businessType,
     Lead_Status: 'Not Contacted',
@@ -88,6 +94,8 @@ const postToZOHO = async (payloadJSON) => {
       throw new Error(`HTTP error: ${error}`);
     });
 };
+const phoneRegExp =
+  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
 const validationSchema = yup.object({
   firstName: yup
@@ -107,6 +115,7 @@ const validationSchema = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required('Email is required.'),
+  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
   message: yup.string().trim().required('Please specify your message'),
 });
 
@@ -175,6 +184,7 @@ function StandardFormWithSelect({
     message: '',
     company: '',
     jobTitle: '',
+    phoneNumber: '',
   };
 
   const onSubmit = async (values) => {
@@ -268,6 +278,29 @@ function StandardFormWithSelect({
               helperText={formik.touched.email && formik.errors.email}
             />
           </Grid>
+          {additionalTextfield.phoneNumber && (
+            <Grid item xs={12}>
+              <TextField
+                sx={{ height: 54 }}
+                label="Phone Number"
+                type="tel"
+                variant="outlined"
+                color="primary"
+                size="medium"
+                name="phoneNumber"
+                fullWidth
+                value={formik.values.phoneNumber}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.phoneNumber &&
+                  Boolean(formik.errors.phoneNumber)
+                }
+                helperText={
+                  formik.touched.phoneNumber && formik.errors.phoneNumber
+                }
+              />
+            </Grid>
+          )}
           {additionalTextfield.jobTitle && (
             <Grid item xs={12}>
               <TextField

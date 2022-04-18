@@ -64,6 +64,8 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/FillerContent';
 import CodeBlock from 'components/cta/CodeBlock';
 import ReactPlayer from 'react-player';
+import { textAlign } from '@mui/system';
+import { CtaSimpleCentered } from 'blocks/cta';
 
 const ContactUs = ({ title, description, content, isMobile }) => {
   const theme = useTheme();
@@ -71,7 +73,7 @@ const ContactUs = ({ title, description, content, isMobile }) => {
   return (
     <Box
       sx={{
-        background: theme.palette.common.white,
+        // background: theme.palette.common.white,
         paddingTop: '3rem',
         paddingBottom: '1rem',
         borderRadius: '15px',
@@ -80,43 +82,46 @@ const ContactUs = ({ title, description, content, isMobile }) => {
       maxWidth={600}
       margin={'0 auto'}
     >
-      <Box marginBottom={4}>
+      <Box
+        display="block"
+        sx={{ width: isMobile ? 'auto' : '33vw' }}
+        marginX={'auto'}
+      >
         <Typography
-          variant={'h3'}
+          variant="h4"
+          color={theme.palette.common.white}
+          textAlign="center"
+          gutterBottom
           sx={{
             fontWeight: 700,
-            color: theme.palette.common.black,
           }}
-          align={'center'}
-          gutterBottom
         >
           {title}
         </Typography>
         <Typography
-          sx={{
-            color: theme.palette.common.black,
-          }}
+          variant="h6"
+          component="p"
+          paddingY={4}
+          color={theme.palette.common.white}
+          sx={{ fontWeight: 400 }}
           align={'center'}
         >
           {description}
         </Typography>
-      </Box>
-      <Box paddingBottom={6} textAlign="center">
-        <StandardFormWithSelect
-          leadDetail="Adwords"
-          businessType="Direct"
-          leadSource="Advertisement"
-          selectedValue={2}
-          hideSelect={true}
-          hideMessage={true}
-          ctaText={content.cta_footer_cta || FillerContent.cta}
-          modalTitle="Thank you for submitting your information."
-          modalMessage="Our team will be in touch soon to discuss next steps."
-          displayMsgUnderButton=" "
-          additionalTextfield={{ company: true, jobTitle: true }}
-          customButtonStyle={{ display: 'flex', justifyContent: 'center' }}
+        <CodeBlock
+          bgcolor={theme.palette.zesty.zestyOrange}
+          fontSize="14px"
+          color={theme.palette.common.white}
         />
       </Box>
+      {/* <CtaSimpleCentered
+        headerColor={theme.palette.common.white}
+        ctaTitle={title || FillerContent.header}
+        description={description || FillerContent.description}
+        ctaLeft={'Try Free'}
+        ctaRight={'Arrange a guided demo'}
+        ctaRightHref="/demos"
+      /> */}
     </Box>
   );
 };
@@ -309,14 +314,13 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                     align={'center'}
                     color={theme.palette.zesty.white}
                   >
-                    {item.key_attribute_title || FillerContent.header}
+                    {item.title || FillerContent.header}
                   </Typography>
                   <Typography
                     align={'center'}
                     color={theme.palette.zesty.white}
                   >
-                    {item.key_attribute_description ||
-                      FillerContent.description}
+                    {item.description || FillerContent.description}
                   </Typography>
                 </Box>
               </Box>
@@ -375,6 +379,7 @@ const SimpleHeroWithCta = ({
   primaryCta,
   secondaryCTA,
   onClick,
+  videoUrl,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -404,11 +409,7 @@ const SimpleHeroWithCta = ({
         },
       }}
     >
-      <VideoPlayer
-        videoUrl={FillerContent.videoUrl}
-        isMobile={isMobile}
-        theme={theme}
-      />
+      <VideoPlayer videoUrl={videoUrl} isMobile={isMobile} theme={theme} />
       <Box paddingTop={isMobile ? 0 : 1} position={'relative'} zIndex={2}>
         <Box marginBottom={4}>
           <Typography
@@ -442,12 +443,13 @@ const SimpleHeroWithCta = ({
         </Box>
         <Box
           display="block"
-          sx={{ width: isMobile ? 'auto' : '25vw' }}
+          sx={{ width: isMobile ? 'auto' : '33vw' }}
           marginX={'auto'}
         >
           <CodeBlock
             bgcolor={theme.palette.zesty.zestyDarkBlue}
             fontSize="14px"
+            color={theme.palette.common.white}
           />
         </Box>
       </Box>
@@ -535,10 +537,8 @@ const ContactUsForm = ({ theme, content }) => {
         }}
       >
         <ContactUs
-          title={content.contact_form_h3 || FillerContent.header}
-          description={
-            content.contact_form_description || FillerContent.description
-          }
+          title={content.form_title || FillerContent.header}
+          description={content.form_description || FillerContent.description}
           content={content}
           isMobile={isMobile}
         />
@@ -594,8 +594,10 @@ function IntegrationsIndividualPage({ content }) {
           primaryCta={content.hero_cta_primary_text || FillerContent.cta}
           secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
           onClick={scrollToContactUs}
+          videoUrl={content.video_link || FillerContent.videoUrl}
         />
       </Box>
+
       {/* Developer Benefits */}
       <Box
         marginTop={isMobile ? 20 : 25}
@@ -616,64 +618,73 @@ function IntegrationsIndividualPage({ content }) {
         />
       </Box>
 
-      {/* Marketer Benefits*/}
-      <Box bgcolor={'alternate.main'}>
-        <HeroWithIllustrationAndSearchBar
-          titleAndDescription={
-            content.feature_description_1 || FillerContent.rich_text
-          }
-          image={
-            (content._what_is_image?.data &&
-              content._what_is_image?.data[0].url) ||
-            FillerContent.image
-          }
-        />
-        <BgDecorations theme={theme} />
+      {/* Platform Description */}
+      <Box paddingY={isMobile ? 4 : 10} bgcolor={'alternate.main'}>
+        <Container>
+          <Box
+            textAlign={'center'}
+            dangerouslySetInnerHTML={{
+              __html: content.integration_platform_description,
+            }}
+          ></Box>
+        </Container>
       </Box>
 
       {/* Marketer Benefits*/}
       <Box bgcolor={'alternate.secondary'}>
         <HeroWithIllustrationAndSearchBar
+          bgColor={theme.palette.common.white}
           titleAndDescription={
-            content.feature_description_2 || FillerContent.rich_text
+            content.feature_description_1 || FillerContent.rich_text
           }
           image={
-            (content._what_is_image?.data &&
-              content._what_is_image?.data[0].url) ||
+            (content.feature_1_image?.data &&
+              content.feature_1_image?.data[0].url) ||
             FillerContent.image
           }
-          bgColor={'alternate.secondary'}
-          rowReverse={true}
         />
-        <BgDecorations theme={theme} />
       </Box>
 
       {/* Marketer Benefits*/}
       <Box bgcolor={'alternate.main'}>
         <HeroWithIllustrationAndSearchBar
           titleAndDescription={
+            content.feature_description_2 || FillerContent.rich_text
+          }
+          image={
+            (content.feature_2_image?.data &&
+              content.feature_2_image?.data[0].url) ||
+            FillerContent.image
+          }
+          bgColor={'alternate.secondary'}
+          rowReverse={true}
+        />
+        {/* <BgDecorations theme={theme} /> */}
+      </Box>
+
+      {/* Marketer Benefits*/}
+      <Box bgcolor={'alternate.secondary'}>
+        <HeroWithIllustrationAndSearchBar
+          bgColor={theme.palette.common.white}
+          titleAndDescription={
             content.feature_description_3 || FillerContent.rich_text
           }
           image={
-            (content._what_is_image?.data &&
-              content._what_is_image?.data[0].url) ||
+            (content.feature_3_image?.data &&
+              content.feature_3_image?.data[0].url) ||
             FillerContent.image
           }
         />
-        <BgDecorations theme={theme} />
+        {/* <BgDecorations theme={theme} /> */}
       </Box>
 
       {/* Easy to Get Started + Social Proof */}
-      <Box
-        marginTop={6}
-        padding={isMobile ? 0 : 8}
-        bgcolor={'alternate.secondary'}
-      >
+      <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
         <NewsletterWithImage
           header={content.outline_of_benefits || FillerContent.header}
           image={
-            (content.benefits_image?.data &&
-              content.benefits_image?.data[0]?.url) ||
+            (content.testimonial?.data &&
+              content.testimonial?.data[0]?.reviewer_headshot) ||
             FillerContent.image
           }
           testimonial={content.testimonial?.data}
@@ -688,6 +699,15 @@ function IntegrationsIndividualPage({ content }) {
 
       {/* Form */}
       <ContactUsForm theme={theme} content={content} />
+      {/* <Box bgcolor={theme.palette.alternate.main}>
+        <CtaSimpleCentered
+          ctaTitle={content.cta_title || FillerContent.header}
+          description={content.cta_description || FillerContent.description}
+          ctaLeft={content.cta_left || FillerContent.cta}
+          ctaRight={content.cta_right || FillerContent.cta}
+        />
+      </Box> */}
+      {/* <CtaSimpleCentered /> */}
     </>
   );
 }
