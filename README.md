@@ -49,7 +49,7 @@ Any push or merge to the `main` branch will kickoff an auto build script which w
 After a successfull deploy to `main` create PR from `main` to `production`, upon merge a production build will trigger.
 
 
-## CTA and Forms
+## CTA Components and Forms
 
 Please use these core CTA components through your views. These forms already have validation setup and connect to our remote services.
 
@@ -76,6 +76,36 @@ A simple form that asks for user email
 A one-line code block that shows developer how to start from the command line
 
 `<CodeBlock>` [View Code Block Component](src/components/cta/CodeBlock.js)
+
+## Lead Capture
+
+All lead capture funnels from the above components into one of two cloud functions which connect to ZOHO CRM.
+
+1. Marketing Subscribe: [GCP Link](https://console.cloud.google.com/functions/details/us-central1/zohoEmailSubscribe?env=gen1&project=zesty-dev) [Github Link](https://github.com/zesty-io/gcp-cf/blob/940b2d71144feb66dffe3b405137c334c595f869/zoho/index.js#L65) [Trigger](https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe) Both Gisele and Randy have access to deploy this.
+2. Lead Capture: [GCP Link](https://console.cloud.google.com/functions/details/us-central1/zoho?env=gen1&project=zesty-prod) [Github Link](https://github.com/zesty-io/gcp-cf/blob/master/zoho/index.js) [Trigger](https://us-central1-zesty-prod.cloudfunctions.net/zoho) Only Randy or the egneinerr team has access to deploy this.
+
+## Marketing URL Parameters
+
+Marketers may collect campaign data through the website by using `UTM` values as outlined [in this document](https://support.google.com/analytics/answer/1033863?hl=en#zippy=%2Cin-this-article)
+
+**URL Query Parameter Options**
+
+Append to the end of a URL after a `?` like `?utm_campaign=promocodeX` 
+
+* `utm_campaign` (explicit name of the campaign e.g. NextJSWordpress, promocodeX)
+* `utm_medium` (e.g.  cpc, banner, email newsletter)
+* `utm_source` (e.g. google, newsletter17, billboard)
+* `utm_term` (keywords used in paid search)
+* `persona` (e.g. Developer, Marketer)
+
+**Usage**
+
+Not parameters must be all lowercase, one or more or none can be used. `persona` will always default to "marketer"
+
+* https://www.zesty.io/?utm_campaign=NextJSWordpress&persona=developer&utm_source=nextjswebsite&utm_medium=paid%20advertising
+* https://www.zesty.io/?utm_campaign=NextJSWordpress&persona=developer&utm_source=adwords&utm_medium=ppc&utm_term=nextjs
+* https://www.zesty.io/?persona=developer
+* https://www.zesty.io/?utm_term=jquery&persona=developer
 
 ## Material Icons
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/system';
 
 const Partners = ({ logoPartners }) => {
+  const theme = useTheme();
   return (
     <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
       {logoPartners.map((item, i) => (
@@ -16,6 +18,12 @@ const Partners = ({ logoPartners }) => {
             width={1}
             src={item?.url}
             alt={item?.zuid}
+            sx={{
+              filter:
+                theme.palette.mode === 'dark'
+                  ? 'brightness(0) invert(1)'
+                  : 'none',
+            }}
           />
         </Box>
       ))}

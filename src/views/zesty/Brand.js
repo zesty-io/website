@@ -16,6 +16,23 @@ import ColorBlock from 'components/ColorBlock';
 import ColorSection from 'components/ColorSection';
 import BrandData from '../Brand/data';
 import AlternateLogo from 'views/Brand/AlternateLogo';
+import CodeBlock from 'components/cta/CodeBlock'
+const TypeBox = ({text='Move Your Message',v='h1', isParagraph=false}) => 
+  <Box marginBottom={0} sx={{borderTop: '1px solid', borderTopColor: 'background.level2'}}>
+      <Typography
+        sx={{
+          textTransform: 'uppercase',
+          fontWeight: 'medium',
+          fontSize: '10px'
+        }}
+        marginTop={1}
+        marginBottom={0}
+        color={'text.secondary'}
+      >
+        {v.toUpperCase()}
+      </Typography>
+      <Typography paddingY={0} marginBottom={1} variant={v} paragraph={isParagraph} dangerouslySetInnerHTML={{__html:text}}></Typography>
+    </Box>
 
 
 function Brand({content}){
@@ -91,9 +108,12 @@ function Brand({content}){
             </Container>
         </Box>
         <Container paddingY={0} marginBottom={16}>
-            <BrandHighlights title={content.brand_name} rich_text={content.brand_name_content} />
+            <BrandHighlights 
+              title={content.brand_name} 
+              rich_text={content.brand_name_content} 
+              brandPackageURL={content.brand_package_zip?.data ? content.brand_package_zip?.data[0].url : 'https://kfg6bckb.media.zestyio.com/ZestyBrandPackage.zip'} />
         </Container>
-        <Box sx={{backgroundColor:theme.palette.zesty.zestyWhiteBlue }}>
+        <Box sx={{backgroundColor:theme.palette.background.level2 }}>
           <Container paddingY={5} maxWidth={900}>
             <Grid container spacing={5}>
               <Grid item  alignItems={'center'} xs={12} md={2}>
@@ -133,7 +153,7 @@ function Brand({content}){
           <>
             <Typography variant="h5" component="h2" marginBottom={2} >Color System</Typography>
             <Grid container spacing={2}>
-              {BrandData.colors.map(color => <Grid item spacing={3} sm={4} md={3}>
+              {BrandData.colors.map(color => <Grid item spacing={3} xs={6} sm={6} md={3}>
                 <ColorBlock
                   name={color.name}
                   hex={color.hex}
@@ -142,16 +162,74 @@ function Brand({content}){
             </Grid>
           </>
         </ColorSection>
-        <Box sx={{backgroundColor:theme.palette.zesty.zestyLightGrey }}>
+        <Box sx={{backgroundColor:theme.palette.background.level2 }}>
           <Container>
           <Typography variant="h4" component="h5" marginBottom={5}>Alternate Logo Options</Typography>
             <Grid container spacing={2}>
-            {BrandData.alternateLogos.map(logo => <Grid item spacing={3} sm={2} md={4}><AlternateLogo {...logo}></AlternateLogo></Grid>)}
+            {BrandData.alternateLogos.map(logo => <Grid item spacing={3} xs={12} sm={12} md={4}><AlternateLogo {...logo}></AlternateLogo></Grid>)}
             </Grid>
           </Container>
         </Box>      
-
-        <Container   marginBottom={16}>
+        <Container >
+          <Box marginBottom={4}>
+            <Typography
+              sx={{
+                textTransform: 'uppercase',
+                fontWeight: 'medium',
+              }}
+              gutterBottom
+              color={'secondary'}
+            >
+              Typography
+            </Typography>
+            <Typography fontWeight={700} variant={'h4'}>
+              Mulish
+            </Typography>
+          </Box>
+          <Grid container spacing={5} marginBottom={2}>
+            <Grid item sm={12} xs={12} md={5}>
+              <Typography paragraph={true}>Mulish is used as the typeface for Zesty.io marketing materials and application user interfaces. Mulish is easy to access and free to use from <a href="https://fonts.google.com/specimen/Mulish" target="_blank">Google Fonts</a>. Mulish is designed by Vernon Adams, Cyreal, Jacques Le Bailly.</Typography>
+              <Button variant="contained" href="https://fonts.google.com/specimen/Mulish">Download from Google Fonts</Button>
+            </Grid>
+            <Grid item sm={12} xs={12} md={7}>
+            <Typography
+              sx={{
+                textTransform: 'uppercase',
+                fontWeight: 'medium',
+                fontSize: '10px'
+              }}
+              marginTop={1}
+              marginBottom={0}
+              color={'text.secondary'}
+            >
+              To use on the web, copy this line into your &lt;head&gt;
+            </Typography>
+              <CodeBlock text={`<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish" />`} />
+              <Typography
+              sx={{
+                textTransform: 'uppercase',
+                fontWeight: 'medium',
+                fontSize: '10px'
+              }}
+              marginTop={1}
+              marginBottom={0}
+              color={'text.secondary'}
+            >
+              Followed by this &lt;style&gt; also in the head.
+            </Typography>
+              <CodeBlock text={`<style> body { font-family: 'Mulish', Arial, sans-serif; }</style>`} />
+            </Grid>
+          </Grid>
+          <TypeBox v='h1'></TypeBox>
+              <TypeBox v='h2'></TypeBox>
+              <TypeBox v='h3'></TypeBox>
+              <TypeBox v='h4'></TypeBox>
+              <TypeBox v='h5'></TypeBox>
+              <TypeBox v='h6'></TypeBox>
+              <TypeBox v='paragraph' isParagraph={true} text='Full of energy and enthusiasm. Having a strong, pleasant, and somewhat spicy flavor.  Lively and pleasing : full of zest.'></TypeBox>
+            
+        </Container>          
+        <Container marginBottom={16}>
           <BrandHistory/>
         </Container>
     </>

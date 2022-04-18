@@ -2,32 +2,25 @@
  * Zesty.io Content Model Component
  * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
  * 
- * Label: PPC-Long Form 
- * Name: long_form_ppc 
- * Model ZUID: 6-94f2effbd8-835mzf
- * File Created On: Tue Mar 29 2022 12:52:58 GMT+0800 (Philippine Standard Time)
+ * Label: Integrations-Individual Pages 
+ * Name: integrations_individual_pages 
+ * Model ZUID: 6-88e5918e85-tmg13p
+ * File Created On: Thu Apr 07 2022 01:46:58 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 
   * hero_h1 (text)
- * hero_h2 (text)
- * hero_cta_primary_text (text)
- * hero_cta_primary_link (link)
- * hero_cta_secondary_text (text)
- * hero_cta_secondary_link (link)
- * who_is_zesty_h2 (text)
- * zesty_benefits (one_to_many)
- * logos_h3 (text)
- * logos (one_to_many)
- * _what_is_image (images)
- * _what_is_title_and_description (wysiwyg_basic)
- * outline_of_benefits (wysiwyg_basic)
- * benefits_image (images)
- * how_it_works (wysiwyg_basic)
- * how_it_works_image (images)
+ * hero_description (text)
+ * cta_primary_text (text)
+ * cta_secondary_text (text)
+ * integration_benefits_h2 (text)
+ * integration_benefits (one_to_many)
+ * feature_description_1 (wysiwyg_basic)
+ * feature_description_2 (wysiwyg_basic)
+ * feature_description_3 (wysiwyg_basic)
  * testimonial (one_to_one)
- * contact_form_h3 (text)
- * contact_form_description (text)
+ * logos_title (text)
+ * logos (one_to_many)
 
  * 
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
@@ -36,7 +29,7 @@
  * This file is expected to be customized; because of that, it is not overwritten by the integration script.
  * Model and field changes in Zesty.io will not be reflected in this comment.
  * 
- * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-94f2effbd8-835mzf
+ * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-88e5918e85-tmg13p
  * 
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
@@ -69,23 +62,34 @@ import {
 } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/FillerContent';
+import CodeBlock from 'components/cta/CodeBlock';
+import ReactPlayer from 'react-player';
+import { textAlign } from '@mui/system';
+import { CtaSimpleCentered } from 'blocks/cta';
 
-const ContactUs = ({ title, description, content }) => {
+const ContactUs = ({ title, description, content, isMobile }) => {
   const theme = useTheme();
 
   return (
     <Box
       sx={{
-        background: theme.palette.common.white,
+        // background: theme.palette.common.white,
         paddingTop: '3rem',
         paddingBottom: '1rem',
         borderRadius: '15px',
-        paddingX: '3rem',
+        paddingX: isMobile ? '1rem' : '3rem',
       }}
       maxWidth={600}
       margin={'0 auto'}
     >
-      <Box marginBottom={4}>
+      <CtaSimpleCentered
+        headerColor={theme.palette.common.white}
+        ctaTitle={content.cta_title || FillerContent.header}
+        description={content.cta_description || FillerContent.description}
+        ctaLeft={content.cta_left || FillerContent.cta}
+        ctaRight={content.cta_right || FillerContent.cta}
+      />
+      {/* <Box marginBottom={4}>
         <Typography
           variant={'h3'}
           sx={{
@@ -121,7 +125,7 @@ const ContactUs = ({ title, description, content }) => {
           additionalTextfield={{ company: true, jobTitle: true }}
           customButtonStyle={{ display: 'flex', justifyContent: 'center' }}
         />
-      </Box>
+      </Box> */}
     </Box>
   );
 };
@@ -270,7 +274,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
-      <Box>
+      <Box paddingTop={isMobile ? 25 : 40}>
         <Box marginBottom={4}>
           <Box marginBottom={2}>
             <Typography
@@ -314,14 +318,13 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
                     align={'center'}
                     color={theme.palette.zesty.white}
                   >
-                    {item.key_attribute_title || FillerContent.header}
+                    {item.title || FillerContent.header}
                   </Typography>
                   <Typography
                     align={'center'}
                     color={theme.palette.zesty.white}
                   >
-                    {item.key_attribute_description ||
-                      FillerContent.description}
+                    {item.description || FillerContent.description}
                   </Typography>
                 </Box>
               </Box>
@@ -380,6 +383,7 @@ const SimpleHeroWithCta = ({
   primaryCta,
   secondaryCTA,
   onClick,
+  videoUrl,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -409,6 +413,7 @@ const SimpleHeroWithCta = ({
         },
       }}
     >
+      <VideoPlayer videoUrl={videoUrl} isMobile={isMobile} theme={theme} />
       <Box paddingTop={isMobile ? 0 : 1} position={'relative'} zIndex={2}>
         <Box marginBottom={4}>
           <Typography
@@ -441,35 +446,16 @@ const SimpleHeroWithCta = ({
           </Typography>
         </Box>
         <Box
-          display="flex"
-          flexDirection={{ xs: 'column', sm: 'row' }}
-          alignItems={{ xs: 'stretched', sm: 'center' }}
-          justifyContent={'center'}
+          display="block"
+          sx={{ width: isMobile ? 'auto' : '33vw' }}
+          marginX={'auto'}
         >
-          <TryFreeButton
-            component={'a'}
-            variant="contained"
-            color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
-            size="large"
-            fullWidth={isMd ? false : true}
-            text={primaryCta}
+          <CodeBlock
+            bgcolor={theme.palette.common.white}
+            border={`1px solid ${theme.palette.zesty.zestyOrange}`}
+            fontSize="14px"
+            color={theme.palette.zesty.zestyOrange}
           />
-          <Box
-            marginTop={{ xs: 2, sm: 0 }}
-            marginLeft={{ sm: 2 }}
-            width={{ xs: '100%', sm: 'auto', md: 'auto' }}
-          >
-            <Button
-              component={'a'}
-              onClick={onClick}
-              variant="outlined"
-              color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
-              size="large"
-              fullWidth={isMd ? false : true}
-            >
-              {secondaryCTA}
-            </Button>
-          </Box>
         </Box>
       </Box>
       <Box
@@ -551,7 +537,7 @@ const ContactUsForm = ({ theme, content }) => {
         id="contact-us"
         sx={{
           position: 'relative',
-          padding: isMobile ? '5rem 0' : '10rem 0',
+          padding: isMobile ? '5rem 1rem' : '10rem 0',
           zIndex: 2,
         }}
       >
@@ -561,13 +547,40 @@ const ContactUsForm = ({ theme, content }) => {
             content.contact_form_description || FillerContent.description
           }
           content={content}
+          isMobile={isMobile}
         />
       </Box>
     </Box>
   );
 };
 
-function LongFormPpc({ content }) {
+const VideoPlayer = ({ videoUrl, theme, isMobile }) => {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        bottom: isMobile ? '-40vh' : '-55vh',
+        left: '50%',
+        transform: 'translate(-50%,0)',
+        borderRadius: '7px',
+        boxShadow: '-3px 2px 37px -1px rgba(0,0,0,0.30)',
+        backgroundClip: 'padding-box ',
+      }}
+    >
+      <ReactPlayer
+        width={isMobile ? '90vw' : '50vw'}
+        height={isMobile ? '33vh' : '60vh'}
+        url={videoUrl}
+        muted={false}
+        playing={false}
+        loop={true}
+        controls={true}
+        // light
+      />
+    </div>
+  );
+};
+function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -577,74 +590,133 @@ function LongFormPpc({ content }) {
       .scrollIntoView({ behavior: 'smooth' });
   };
 
+  console.log(content, 'CONTENT');
   return (
     <>
       {/* HERO */}
-      <SimpleHeroWithCta
-        title={content.hero_h1 || FillerContent.header}
-        description={content.hero_h2 || FillerContent.description}
-        primaryCta={content.hero_cta_primary_text || FillerContent.cta}
-        secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
-        onClick={scrollToContactUs}
-      />
+      <Box paddingBottom={1}>
+        <SimpleHeroWithCta
+          title={content.hero_h1 || FillerContent.header}
+          description={content.hero_description || FillerContent.description}
+          primaryCta={content.hero_cta_primary_text || FillerContent.cta}
+          secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
+          onClick={scrollToContactUs}
+          videoUrl={content.video_link || FillerContent.videoUrl}
+        />
+      </Box>
 
-      {/* Who Zesty is */}
+      {/* Developer Benefits */}
       <Box
+        marginTop={isMobile ? 20 : 25}
+        paddingBottom={10}
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
-          padding: isMobile ? '1rem 0' : '5rem 0',
         }}
       >
         <SimpleCentered
-          header={content.who_is_zesty_h2 || FillerContent.header}
-          cards={content.zesty_benefits?.data || []}
+          header={content.integration_benefits_h2 || FillerContent.header}
+          cards={
+            content.integration_benefits?.data || [
+              FillerContent.header,
+              FillerContent.header,
+              FillerContent.header,
+            ]
+          }
         />
       </Box>
 
-      {/* Who Zesty works with */}
-      <LogoGridSimpleCentered
-        title={content.logos_h3 || FillerContent.header}
-        imageCollection={content.logos?.data || [FillerContent.image]}
-      />
+      {/* Platform Description */}
+      <Box paddingY={isMobile ? 4 : 10} bgcolor={'alternate.main'}>
+        <Container>
+          <Box
+            textAlign={'center'}
+            dangerouslySetInnerHTML={{
+              __html: content.integration_platform_description,
+            }}
+          ></Box>
+        </Container>
+      </Box>
 
-      {/* What is a DXP? */}
-      <Box bgcolor={'alternate.main'}>
+      {/* Marketer Benefits*/}
+      <Box bgcolor={'alternate.secondary'}>
         <HeroWithIllustrationAndSearchBar
+          bgColor={theme.palette.common.white}
           titleAndDescription={
-            content._what_is_title_and_description || FillerContent.rich_text
+            content.feature_description_1 || FillerContent.rich_text
           }
           image={
-            (content._what_is_image?.data &&
-              content._what_is_image?.data[0].url) ||
+            (content.feature_1_image?.data &&
+              content.feature_1_image?.data[0].url) ||
             FillerContent.image
           }
         />
-        <BgDecorations theme={theme} />
       </Box>
 
-      {/* How it works */}
-      <HowItWorks
-        header={content.how_it_works || FillerContent.header}
-        images={content.how_it_works_image?.data}
-      />
+      {/* Marketer Benefits*/}
+      <Box bgcolor={'alternate.main'}>
+        <HeroWithIllustrationAndSearchBar
+          titleAndDescription={
+            content.feature_description_2 || FillerContent.rich_text
+          }
+          image={
+            (content.feature_2_image?.data &&
+              content.feature_2_image?.data[0].url) ||
+            FillerContent.image
+          }
+          bgColor={'alternate.secondary'}
+          rowReverse={true}
+        />
+        {/* <BgDecorations theme={theme} /> */}
+      </Box>
 
-      {/* Benefits */}
+      {/* Marketer Benefits*/}
+      <Box bgcolor={'alternate.secondary'}>
+        <HeroWithIllustrationAndSearchBar
+          bgColor={theme.palette.common.white}
+          titleAndDescription={
+            content.feature_description_3 || FillerContent.rich_text
+          }
+          image={
+            (content.feature_3_image?.data &&
+              content.feature_3_image?.data[0].url) ||
+            FillerContent.image
+          }
+        />
+        {/* <BgDecorations theme={theme} /> */}
+      </Box>
+
+      {/* Easy to Get Started + Social Proof */}
       <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
         <NewsletterWithImage
           header={content.outline_of_benefits || FillerContent.header}
           image={
-            (content.benefits_image?.data &&
-              content.benefits_image?.data[0]?.url) ||
+            (content.testimonial?.data &&
+              content.testimonial?.data[0]?.reviewer_headshot) ||
             FillerContent.image
           }
           testimonial={content.testimonial?.data}
         />
       </Box>
 
+      {/* Logos */}
+      <LogoGridSimpleCentered
+        title={content.logos_title || FillerContent.header}
+        imageCollection={content.logos?.data || [FillerContent.image]}
+      />
+
       {/* Form */}
       <ContactUsForm theme={theme} content={content} />
+      {/* <Box bgcolor={theme.palette.alternate.main}>
+        <CtaSimpleCentered
+          ctaTitle={content.cta_title || FillerContent.header}
+          description={content.cta_description || FillerContent.description}
+          ctaLeft={content.cta_left || FillerContent.cta}
+          ctaRight={content.cta_right || FillerContent.cta}
+        />
+      </Box> */}
+      {/* <CtaSimpleCentered /> */}
     </>
   );
 }
 
-export default LongFormPpc;
+export default IntegrationsIndividualPage;

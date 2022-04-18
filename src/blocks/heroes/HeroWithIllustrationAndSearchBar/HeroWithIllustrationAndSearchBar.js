@@ -12,6 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Container from 'components/Container';
 
 const HeroWithIllustrationAndSearchBar = ({
+  bgColor = 'alternate.main',
   titleAndDescription,
   description,
   image,
@@ -21,6 +22,7 @@ const HeroWithIllustrationAndSearchBar = ({
   secondaryCtaLink,
   search,
   onChange,
+  rowReverse = false,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -30,13 +32,11 @@ const HeroWithIllustrationAndSearchBar = ({
 
   return (
     <Container>
-      <Box
-        bgcolor={'alternate.main'}
-        padding={{ xs: 2, md: 4 }}
-        borderRadius={2}
-      >
+      <Box bgcolor={bgColor} padding={{ xs: 2, md: 4 }} borderRadius={2}>
         <Grid
-          flexDirection={isMobile ? 'column-reverse' : 'initial'}
+          flexDirection={
+            rowReverse ? 'row-reverse' : isMobile ? 'column-reverse' : 'initial'
+          }
           container
           spacing={4}
         >
@@ -49,27 +49,11 @@ const HeroWithIllustrationAndSearchBar = ({
             sx={{ position: 'relative' }}
           >
             <Box marginBottom={4}>
-              <Grid item xs={12} md={9}>
+              <Grid paddingLeft={rowReverse ? 10 : 0} item xs={12} md={9}>
                 <Box
                   dangerouslySetInnerHTML={{ __html: titleAndDescription }}
                 ></Box>
               </Grid>
-              {/* <Box marginBottom={2}>
-                <Typography
-                  variant="h3"
-                  component={'h3'}
-                  sx={{
-                    fontWeight: 700,
-                  }}
-                >
-                  {title}
-                </Typography>
-              </Box>
-              <Box marginBottom={3}>
-                <Typography variant="h6" component="p" color="text.secondary">
-                  {description}
-                </Typography>
-              </Box> */}
               <Box
                 display="flex"
                 flexDirection={{ xs: 'column', sm: 'row' }}

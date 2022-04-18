@@ -67,6 +67,7 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
           vertical: 'bottom',
           horizontal: 'center',
         }}
+        disableScrollLock={true}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',

@@ -148,6 +148,11 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           }
         }
 
+       .wysiwyg.normal-bullets ul li{
+            list-style-type: disc;
+            list-style-position: outside;
+            display: list-item !important;
+            margin-left: 2rem;
 
         `;
   return (

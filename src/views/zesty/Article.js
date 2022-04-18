@@ -60,11 +60,13 @@ function Article({ content }) {
   const simliarTags = content.tags?.data[0]?.meta?.zuid;
 
   const { data: latestArticles, isPending: latestPending } = useFetch(
-    '/-/all-articles-hydrated.json?limit=5', content.zestyProductionMode
+    '/-/all-articles-hydrated.json?limit=5',
+    content.zestyProductionMode,
   );
 
   const { data: tagArticles, isPending: tagsPending } = useFetch(
-    `/-/similar-articles.json?limit=4&tag=${simliarTags}`, content.zestyProductionMode
+    `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
+    content.zestyProductionMode,
   );
 
   const removeErrorHandlingString = /Error hydrating/gi;
@@ -112,7 +114,7 @@ function Article({ content }) {
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
               <WYSIWYGRender
-                customClass="icon-box"
+                customClass="normal-bullets"
                 rich_text={validateWysiwyg() || FillerContent.rich_text}
               ></WYSIWYGRender>
 
@@ -124,7 +126,7 @@ function Article({ content }) {
             </Grid>
             <Grid item xs={12} md={4}>
               {isMd ? (
-                <Box marginBottom={4}  sx={{ minHeight: 700 }}>
+                <Box marginBottom={4} sx={{ minHeight: 700 }}>
                   {latestPending ? (
                     <CircularProgressWithLabel />
                   ) : (

@@ -15,13 +15,13 @@ export default function AlternateLogo({png,svg,dark=false,name='',description=''
 
     return (
     <Card sx={{
-        backgroundColor: dark ? theme.palette.background.paper : theme.palette.zesty.zestyWhiteBlue,
+        backgroundColor: dark ? theme.palette.background.paper : theme.palette.background.paper,
     }}>
         <Box  sx={{
             height: '200px',
             width: '100%',
             textAlign: 'center',
-            backgroundColor: dark ? theme.palette.primary.dark : theme.palette.background.paper,
+            backgroundColor: dark ? theme.palette.zesty.zestyDarkBlue : theme.palette.zesty.zestyWhiteBlue,
             display: 'flex'
         }}>
         <CardMedia
