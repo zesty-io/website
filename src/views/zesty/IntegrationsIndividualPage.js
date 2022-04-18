@@ -82,14 +82,46 @@ const ContactUs = ({ title, description, content, isMobile }) => {
       maxWidth={600}
       margin={'0 auto'}
     >
-      <CtaSimpleCentered
+      <Box
+        display="block"
+        sx={{ width: isMobile ? 'auto' : '33vw' }}
+        marginX={'auto'}
+      >
+        <Typography
+          variant="h4"
+          color={theme.palette.common.white}
+          textAlign="center"
+          gutterBottom
+          sx={{
+            fontWeight: 700,
+          }}
+        >
+          {title}
+        </Typography>
+        <Typography
+          variant="h6"
+          component="p"
+          paddingY={4}
+          color={theme.palette.common.white}
+          sx={{ fontWeight: 400 }}
+          align={'center'}
+        >
+          {description}
+        </Typography>
+        <CodeBlock
+          bgcolor={theme.palette.zesty.zestyOrange}
+          fontSize="14px"
+          color={theme.palette.common.white}
+        />
+      </Box>
+      {/* <CtaSimpleCentered
         headerColor={theme.palette.common.white}
         ctaTitle={title || FillerContent.header}
         description={description || FillerContent.description}
         ctaLeft={'Try Free'}
         ctaRight={'Arrange a guided demo'}
         ctaRightHref="/demos"
-      />
+      /> */}
     </Box>
   );
 };
@@ -416,7 +448,6 @@ const SimpleHeroWithCta = ({
         >
           <CodeBlock
             bgcolor={theme.palette.zesty.zestyDarkBlue}
-            border={`1px solid ${theme.palette.zesty.zestyOrange}`}
             fontSize="14px"
             color={theme.palette.common.white}
           />
