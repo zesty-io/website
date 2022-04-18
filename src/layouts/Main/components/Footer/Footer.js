@@ -18,7 +18,8 @@ const Footer = ({ customRouting, colorInvert = false }) => {
   const router = useRouter();
 
   //check if page is from ppc for hiding of footer and nav
-  const isPpcPage = router.asPath.includes('/ppc' && '/integrations');
+  const isPpcPage = router.asPath.includes('/ppc');
+  const isIntegrationPage = router.asPath.includes('/integrations');
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -30,7 +31,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
 
   return (
     <Box
-      display={isPpcPage ? 'none' : 'flex'}
+      display={isPpcPage || isIntegrationPage ? 'none' : 'flex'}
       sx={{ background: backgroundColor }}
     >
       <Container paddingY={2}>
