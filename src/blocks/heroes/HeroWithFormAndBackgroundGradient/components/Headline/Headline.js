@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import FillerContent from 'components/FillerContent';
 import { Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
+import { useRouter } from 'next/router';
 
 const Headline = ({
   title,
@@ -12,8 +13,10 @@ const Headline = ({
   images = [],
   justifyImage = 'start',
 }) => {
+  const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isCapterraPage = router.asPath.includes('capterra');
 
   return (
     <Box>
@@ -47,7 +50,11 @@ const Headline = ({
         justifyContent={justifyImage}
       >
         {images?.map((item, i) => (
-          <Box marginTop={2} key={i}>
+          <Box
+            marginTop={2}
+            key={i}
+            sx={{ display: 'flex', alignItems: 'center' }}
+          >
             <Box
               component="img"
               width={1}
@@ -58,6 +65,8 @@ const Headline = ({
                 height:
                   i === 1 && isMobile
                     ? '2.3rem'
+                    : isCapterraPage
+                    ? 'auto'
                     : i === 1 && !isMobile
                     ? '2.5rem'
                     : !isMobile
