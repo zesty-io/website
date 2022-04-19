@@ -34,6 +34,7 @@ import Faq from './Faq';
 import PricingLever from './PricingLever';
 import PpcZestyKeyAttribute from './PpcZestyKeyAttribute';
 import BrandAsset from './BrandAsset';
+import IntegrationsBenefit from './IntegrationsBenefit';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -67,6 +68,7 @@ import Demo from './Demo';
 import Ppc from './Ppc';
 import Brand from './Brand';
 import Integration from './Integration';
+import CapterraLandingPage from './CapterraLandingPage';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -106,6 +108,7 @@ export {
     PricingLever,
     PpcZestyKeyAttribute,
     BrandAsset,
+    IntegrationsBenefit,
     Category,
     Article,
     Tag,
@@ -139,6 +142,7 @@ export {
     Ppc,
     Brand,
     Integration,
+    CapterraLandingPage,
     Footer,
     Header
 }
