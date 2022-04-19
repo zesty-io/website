@@ -31,6 +31,22 @@ import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBack
 import FillerContent from 'components/FillerContent';
 
 function PpcShortForm({ content }) {
+  const formContent = {
+    leadDetail: 'Adwords',
+    businessType: 'Direct',
+    leadSource: 'Advertisement',
+    selectedValue: 2,
+    hideSelect: true,
+    hideMessage: true,
+    ctaText: FillerContent.cta,
+    modalTitle: 'Thank you for submitting your information.',
+    modalMessage: 'Our team will be in touch soon to discuss next steps.',
+    displayMsgUnderButton: ' ',
+    additionalTextfield: { company: true, jobTitle: true },
+    buttonFullWidth: true,
+    hidePrivacySection: true,
+    messageLabel: 'Is there anything you would like to cover in the demo?',
+  };
   return (
     <>
       <HeroWithFormAndBackgroundGradient
@@ -44,6 +60,7 @@ function PpcShortForm({ content }) {
           content.background_image?.data[0]?.url
         }
         form_title={content.form_title || FillerContent.header}
+        fotmContent={formContent}
       />
     </>
   );

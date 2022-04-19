@@ -10,12 +10,16 @@ import ThemeModeToggler from 'components/ThemeModeToggler';
 const TopNav = ({ nav, colorInvert = false }) => {
   const router = useRouter();
 
-  //check if page is from ppc for hiding of footer and nav
-  const isPpcPage = router.asPath.includes('/ppc');
+  //check if page is from ppc or capterra for hiding of footer and nav
+  const isPpcShortPage = router.asPath.includes('ppc');
+  const isCapterraPage = router.asPath.includes('/capterra');
+  // override over invert based on pages that we know have a dark image heading
+
+  const hideNav = isPpcShortPage || isCapterraPage;
 
   return (
     <Box
-      display={isPpcPage ? 'none' : 'flex'}
+      display={hideNav ? 'none' : 'flex'}
       justifyContent={'flex-end'}
       alignItems={'center'}
     >

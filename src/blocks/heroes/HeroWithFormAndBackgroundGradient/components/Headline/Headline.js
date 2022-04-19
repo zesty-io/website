@@ -6,7 +6,12 @@ import FillerContent from 'components/FillerContent';
 import { Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
-const Headline = ({ title, description, images = [] }) => {
+const Headline = ({
+  title,
+  description,
+  images = [],
+  justifyImage = 'start',
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -39,7 +44,7 @@ const Headline = ({ title, description, images = [] }) => {
         gap={4}
         flexWrap="wrap"
         marginTop={4}
-        justifyContent={'start'}
+        justifyContent={justifyImage}
       >
         {images?.map((item, i) => (
           <Box marginTop={2} key={i}>
