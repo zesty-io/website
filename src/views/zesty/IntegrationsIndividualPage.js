@@ -6,8 +6,7 @@
  * Name: integrations_individual_pages 
  * Model ZUID: 6-88e5918e85-tmg13p
  * File Created On: Thu Apr 07 2022 01:46:58 GMT+0800 (Philippine Standard Time)
- * 
- * Model Fields:
+ * * Model Fields:
  * 
   * hero_h1 (text)
  * hero_description (text)
@@ -583,7 +582,6 @@ function IntegrationsIndividualPage({ content }) {
       .scrollIntoView({ behavior: 'smooth' });
   };
 
-  console.log(content, 'CONTENT');
   return (
     <>
       {/* HERO */}

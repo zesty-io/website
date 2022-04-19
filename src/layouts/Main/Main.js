@@ -54,7 +54,10 @@ const Main = ({
   //   router.asPath === zestyLink(nav, '7-f8d2b2fb82-vgg2t4');
 
   const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
+  const isCapterraPage = router.asPath.includes('/capterra');
   // override over invert based on pages that we know have a dark image heading
+
+  const hideNav = isPpcShortPage || isCapterraPage;
 
   let pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
   const headerColorInvert =
@@ -64,20 +67,20 @@ const Main = ({
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container
-          paddingTop={isPpcShortPage ? '0px !important' : '8px !important'}
+          paddingTop={hideNav ? '0px !important' : '8px !important'}
           paddingBottom={'0 !important'}
         >
           <TopNav nav={nav} colorInvert={headerColorInvert} />
         </Container>
       </Box>
       <AppBar
-        position={isPpcShortPage ? 'fixed' : 'sticky'}
+        position={hideNav ? 'fixed' : 'sticky'}
         sx={{
           outline: 'none',
           border: 'none',
-          boxShadow: isPpcShortPage ? 'none' : '',
+          boxShadow: hideNav ? 'none' : '',
           top: 0,
-          backgroundColor: isPpcShortPage
+          backgroundColor: hideNav
             ? 'transparent'
             : trigger
             ? theme.palette.background.paper
@@ -89,7 +92,7 @@ const Main = ({
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
-            colorInvert={(headerColorInvert && !trigger) || isPpcShortPage}
+            colorInvert={(headerColorInvert && !trigger) || hideNav}
           />
         </Container>
       </AppBar>
