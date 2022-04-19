@@ -39,33 +39,259 @@
  */
 
 import React from 'react';
-import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBackgroundGradient';
 import FillerContent from 'components/FillerContent';
+import { useTheme } from '@mui/material/styles';
+import { LogoGridSimpleCentered } from 'blocks/logoGrid';
+import {
+  alpha,
+  Avatar,
+  Box,
+  Card,
+  Container,
+  Grid,
+  Icon,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
+import { ReviewsWithSimpleBoxes } from 'blocks/testimonials';
+import { Headline } from 'blocks/banners';
+import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
+import { HeroWithFormAndBackgroundGradient } from 'blocks/heroes';
+
+const ContactUsForm = ({ theme, content, formContent }) => {
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  return (
+    <Box
+      height={'auto'}
+      position={'relative'}
+      sx={{
+        backgroundColor: theme.palette.alternate.main,
+        background: `url(${
+          (content.bottom_background_image?.data &&
+            content.bottom_background_image?.data[0]?.url) ||
+          FillerContent.image
+        }) no-repeat center`,
+        backgroundSize: 'cover',
+      }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: 1,
+          height: 1,
+          backgroundColor: theme.palette.primary.main,
+          backgroundImage: `linear-gradient(315deg, ${theme.palette.primary.main} 0%, #000000 74%)`,
+          opacity: '0.8',
+          zIndex: 1,
+        }}
+      />
+
+      <Box
+        id="contact-us"
+        sx={{
+          position: 'relative',
+          padding: isMobile ? '5rem 0' : '10rem 0',
+          zIndex: 2,
+        }}
+      >
+        <ContactUs
+          title={content.bottom_form_title || FillerContent.header}
+          description={
+            content.bottom_form_description || FillerContent.description
+          }
+          content={content}
+          formContent={formContent}
+        />
+      </Box>
+    </Box>
+  );
+};
+
+const ContactUs = ({ title, description, content, formContent }) => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      sx={{
+        background: theme.palette.common.white,
+        paddingTop: '3rem',
+        paddingBottom: '1rem',
+        borderRadius: '15px',
+        paddingX: '3rem',
+      }}
+      maxWidth={600}
+      margin={'0 auto'}
+    >
+      <Box marginBottom={4}>
+        <Typography
+          variant={'h3'}
+          sx={{
+            fontWeight: 700,
+            color: theme.palette.common.black,
+          }}
+          align={'center'}
+          gutterBottom
+        >
+          {title}
+        </Typography>
+        <Typography
+          sx={{
+            color: theme.palette.common.black,
+          }}
+          align={'center'}
+        >
+          {description}
+        </Typography>
+      </Box>
+      <Box paddingBottom={6} textAlign="center">
+        <StandardFormWithSelect {...formContent} />
+      </Box>
+    </Box>
+  );
+};
+const SimpleCentered = ({ header, description, cards = [] }) => {
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  return (
+    <Container>
+      <Box>
+        <Box marginBottom={4}>
+          <Box marginBottom={2}>
+            <Typography
+              variant={'p'}
+              component="h2"
+              sx={{
+                fontWeight: 700,
+                fontSize: isMobile ? '24px' : '35px',
+                color: theme.palette.common.white,
+                textAlign: 'center',
+              }}
+            >
+              {header || FillerContent.header}
+            </Typography>
+          </Box>
+        </Box>
+        <Grid container spacing={isMobile ? 4 : 8}>
+          {cards?.map((item, i) => (
+            <Grid item xs={12} md={4} key={i}>
+              <Box width={1} height={1}>
+                <Box
+                  display={'flex'}
+                  flexDirection={'column'}
+                  alignItems={'center'}
+                  marginTop={4}
+                >
+                  <Box
+                    component={Avatar}
+                    width={60}
+                    height={60}
+                    marginBottom={2}
+                    bgcolor={alpha(theme.palette.primary.main, 0.4)}
+                    color={theme.palette.primary.main}
+                  >
+                    <Icon>{item.icon_name}</Icon>
+                  </Box>
+                  <Typography
+                    variant={'h6'}
+                    gutterBottom
+                    sx={{ fontWeight: 500, marginTop: '1rem' }}
+                    align={'center'}
+                    color={theme.palette.zesty.white}
+                  >
+                    {item.benefit_title || FillerContent.header}
+                  </Typography>
+                  <Typography
+                    align={'center'}
+                    color={theme.palette.zesty.white}
+                  >
+                    {item.benefit_content || FillerContent.description}
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Container>
+  );
+};
 
 function CapterraLandingPage({ content }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   console.log(content, 1111111111111111111111111111);
+  const formContent = {
+    leadDetail: 'Capterra',
+    businessType: 'Direct',
+    leadSource: 'Website',
+    selectedValue: 2,
+    hideSelect: true,
+    hideMessage: true,
+    ctaText: FillerContent.cta,
+    modalTitle: 'Thank you for submitting your information.',
+    modalMessage: 'Our team will be in touch soon to discuss next steps.',
+    displayMsgUnderButton: ' ',
+    additionalTextfield: { company: true, jobTitle: true },
+    buttonFullWidth: true,
+    hidePrivacySection: true,
+    messageLabel: 'Is there anything you would like to cover in the demo?',
+  };
+  const reviesHeader = `<h1 dir="ltr" style="text-align: center;">${content.reviews_title}</h1> <p style="text-align: center;">${content.reviews_description}</p>`;
   return (
     <>
+      {/* Hero with form  */}
       <HeroWithFormAndBackgroundGradient
         headelineTitle={content.hero_h1 || FillerContent.header}
-        description={content.zesty_overview || FillerContent.description}
+        description={content.hero_description || FillerContent.description}
         imageCollection={
-          content.client_logos?.data?.slice(0, 3) || [FillerContent.image]
+          content.hero_logo_images?.data?.slice(0, 2) || [FillerContent.image]
         }
         backgroundImage={
-          content?.background_image?.data &&
-          content?.background_image?.data[0]?.url
+          content?.hero_background_image?.data &&
+          content?.hero_background_image?.data[0]?.url
         }
         form_title={content.form_title || FillerContent.header}
+        formContent={formContent}
       />
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div> */}
-      {/* End of Zesty.io output example */}
+
+      {/* Logo section  */}
+      <LogoGridSimpleCentered
+        title={content.companies_title || FillerContent.header}
+        imageCollection={content.company_logos?.data || [FillerContent.image]}
+      />
+
+      {/* Benefits section */}
+      <Box
+        sx={{
+          background: theme.palette.zesty.zestyDarkBlue,
+          padding: isMobile ? '1rem 0' : '5rem 0',
+        }}
+      >
+        <SimpleCentered
+          header={content.benefits_title || FillerContent.header}
+          cards={content.benefits_cards?.data || []}
+        />
+      </Box>
+
+      {/* Testimonial section */}
+      <Box bgcolor={'alternate.main'}>
+        <ReviewsWithSimpleBoxes
+          header={reviesHeader || FillerContent.header}
+          list={content.reviews?.data || []}
+        />
+      </Box>
+
+      {/* Form */}
+      <ContactUsForm
+        theme={theme}
+        content={content}
+        formContent={formContent}
+      />
     </>
   );
 }
