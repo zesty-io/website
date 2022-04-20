@@ -85,7 +85,6 @@ const Hero = ({
                 title={headelineTitle}
                 description={description}
                 images={images}
-                justifyImage={images.length < 3 ? 'center' : 'start'}
               />
             </Box>
           </Grid>
