@@ -111,16 +111,18 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                   >
                     {i != 0 && (
                       <Typography variant={'h3'} fontWeight={700}>
-                        {item.price !== 'Custom' && (
-                          <Typography
-                            variant="p"
-                            component={'p'}
-                            fontSize={20}
-                            paddingBottom={1}
-                          >
-                            Starts at
-                          </Typography>
-                        )}
+                        <Typography
+                          sx={{
+                            visibility:
+                              item.price === 'Custom' ? 'hidden' : 'visible',
+                          }}
+                          variant="p"
+                          component={'p'}
+                          fontSize={20}
+                          paddingBottom={1}
+                        >
+                          Starts at
+                        </Typography>
                         {item.price}
                       </Typography>
                     )}
