@@ -111,6 +111,16 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                   >
                     {i != 0 && (
                       <Typography variant={'h3'} fontWeight={700}>
+                        {item.price !== 'Custom' && (
+                          <Typography
+                            variant="p"
+                            component={'p'}
+                            fontSize={20}
+                            paddingBottom={1}
+                          >
+                            Starts at
+                          </Typography>
+                        )}
                         {item.price}
                       </Typography>
                     )}
@@ -141,9 +151,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                         </Grid>
                       </Grid>
                       {!isMd && (
-                        <CardActions
-                          sx={{ justifyContent: 'flex-end' }}
-                        >
+                        <CardActions sx={{ justifyContent: 'flex-end' }}>
                           <TryFreeButton
                             component={'a'}
                             variant="contained"
@@ -154,7 +162,6 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                                 item?.button_cta?.data[0]?.button_text) ||
                               FillerContent.cta
                             }
-
                           />
                         </CardActions>
                       )}

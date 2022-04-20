@@ -44,8 +44,6 @@ import Faq from '../../blocks/pricing/Faq/Faq';
 import Plans from '../../blocks/pricing/Plans/Plans';
 import useFetch from 'components/hooks/useFetch';
 
-
-
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
@@ -56,7 +54,6 @@ function Pricing({ content }) {
     subtitle: content.instance_definition,
     tiers: content.tiers.data,
   };
-
 
   const [categories, setCategories] = useState([]);
 
