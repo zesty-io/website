@@ -25,7 +25,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -34,7 +34,6 @@ import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/FillerContent';
 
 import SearchBox from 'blocks/searchBox/SearchBox';
-
 
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -60,7 +59,10 @@ function Mindshare({ content }) {
     data: allArticles,
     isPending,
     error,
-  } = useFetch('/-/all-articles-hydrated.json?limit=140', content.zestyProductionMode);
+  } = useFetch(
+    '/-/all-articles-hydrated.json?limit=140',
+    content.zestyProductionMode,
+  );
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -76,7 +78,6 @@ function Mindshare({ content }) {
   };
   const onSubmit = (evt, value) => {
     evt.preventDefault();
-
   };
 
   return (
@@ -126,7 +127,7 @@ function Mindshare({ content }) {
                   <Grid item xs={12} sm={6} md={4} key={i}>
                     <Box
                       component={'a'}
-                      href={item?.uri || FillerContent.href}
+                      href={item?.path || item?.uri || FillerContent.href}
                       display={'block'}
                       width={1}
                       height={1}
