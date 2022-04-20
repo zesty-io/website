@@ -269,7 +269,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
-      <Box paddingTop={isMobile ? 25 : 40}>
+      <Box>
         <Box marginBottom={4}>
           <Box marginBottom={2}>
             <Typography
@@ -379,6 +379,7 @@ const SimpleHeroWithCta = ({
   secondaryCTA,
   onClick,
   videoUrl,
+  videoHeader,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -408,7 +409,12 @@ const SimpleHeroWithCta = ({
         },
       }}
     >
-      <VideoPlayer videoUrl={videoUrl} isMobile={isMobile} theme={theme} />
+      <VideoPlayer
+        videoHeader={videoHeader}
+        videoUrl={videoUrl}
+        isMobile={isMobile}
+        theme={theme}
+      />
       <Box paddingTop={isMobile ? 0 : 1} position={'relative'} zIndex={2}>
         <Box marginBottom={4}>
           <Typography
@@ -504,8 +510,8 @@ const ContactUsForm = ({ theme, content }) => {
       sx={{
         backgroundColor: theme.palette.alternate.main,
         background: `url(${
-          (content.form_background_image?.data &&
-            content.form_background_image?.data[0]?.url) ||
+          (content.background_image_footer?.data &&
+            content.background_image_footer?.data[0]?.url) ||
           FillerContent.image
         }) no-repeat center`,
         backgroundSize: 'cover',
@@ -546,19 +552,32 @@ const ContactUsForm = ({ theme, content }) => {
   );
 };
 
-const VideoPlayer = ({ videoUrl, theme, isMobile }) => {
+const VideoPlayer = ({ videoUrl, theme, isMobile, videoHeader }) => {
   return (
     <div
       style={{
         position: 'absolute',
-        bottom: isMobile ? '-40vh' : '-55vh',
+        bottom: isMobile ? '-50vh' : '-70vh',
         left: '50%',
         transform: 'translate(-50%,0)',
         borderRadius: '7px',
-        boxShadow: '-3px 2px 37px -1px rgba(0,0,0,0.30)',
+        // boxShadow: '-3px 2px 37px -1px rgba(0,0,0,0.30)',
         backgroundClip: 'padding-box ',
       }}
     >
+      <Typography
+        variant="p"
+        component={'h2'}
+        color="text.primary"
+        align={'center'}
+        sx={{
+          fontSize: isMobile ? '25px' : '35px',
+          fontWeight: 700,
+          marginBottom: '2rem',
+        }}
+      >
+        {videoHeader}
+      </Typography>
       <ReactPlayer
         width={isMobile ? '90vw' : '50vw'}
         height={isMobile ? '33vh' : '60vh'}
@@ -593,34 +612,22 @@ function IntegrationsIndividualPage({ content }) {
           secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
           onClick={scrollToContactUs}
           videoUrl={content.video_link || FillerContent.videoUrl}
-        />
-      </Box>
-
-      {/* Developer Benefits */}
-      <Box
-        marginTop={isMobile ? 20 : 25}
-        paddingBottom={10}
-        sx={{
-          background: theme.palette.zesty.zestyDarkBlue,
-        }}
-      >
-        <SimpleCentered
-          header={content.integration_benefits_h2 || FillerContent.header}
-          cards={
-            content.integration_benefits?.data || [
-              FillerContent.header,
-              FillerContent.header,
-              FillerContent.header,
-            ]
-          }
+          videoHeader={content.video_header}
         />
       </Box>
 
       {/* Platform Description */}
-      <Box paddingY={isMobile ? 4 : 10} bgcolor={'alternate.main'}>
+      <Box
+        marginTop={isMobile ? 20 : 45}
+        paddingTop={isMobile ? 20 : 40}
+        paddingBottom={isMobile ? 10 : 20}
+        bgcolor={theme.palette.zesty.zestyDarkBlue}
+      >
         <Container>
           <Box
+            fontSize={isMobile ? 18 : 23}
             textAlign={'center'}
+            color={'#fff'}
             dangerouslySetInnerHTML={{
               __html: content.integration_platform_description,
             }}
@@ -630,6 +637,19 @@ function IntegrationsIndividualPage({ content }) {
 
       {/* Marketer Benefits*/}
       <Box bgcolor={'alternate.secondary'}>
+        <Typography
+          variant="p"
+          component={'h2'}
+          color="text.primary"
+          align={'center'}
+          sx={{
+            fontSize: isMobile ? '25px' : '35px',
+            fontWeight: 700,
+            paddingTop: '5rem',
+          }}
+        >
+          {content.feature_h2}
+        </Typography>
         <HeroWithIllustrationAndSearchBar
           bgColor={theme.palette.common.white}
           titleAndDescription={
@@ -676,10 +696,31 @@ function IntegrationsIndividualPage({ content }) {
         {/* <BgDecorations theme={theme} /> */}
       </Box>
 
+      {/* Developer Benefits */}
+      <Box
+        // marginTop={isMobile ? 20 : 25}
+        // paddingBottom={10}
+        paddingY={15}
+        sx={{
+          background: theme.palette.zesty.zestyDarkBlue,
+        }}
+      >
+        <SimpleCentered
+          header={content.integration_benefits_h2 || FillerContent.header}
+          cards={
+            content.integration_benefits?.data || [
+              FillerContent.header,
+              FillerContent.header,
+              FillerContent.header,
+            ]
+          }
+        />
+      </Box>
+
       {/* Easy to Get Started + Social Proof */}
       <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
         <NewsletterWithImage
-          header={content.outline_of_benefits || FillerContent.header}
+          header={content.benefit_above_testimonial || FillerContent.header}
           image={
             (content.testimonial?.data &&
               content.testimonial?.data[0]?.reviewer_headshot) ||
@@ -697,15 +738,6 @@ function IntegrationsIndividualPage({ content }) {
 
       {/* Form */}
       <ContactUsForm theme={theme} content={content} />
-      {/* <Box bgcolor={theme.palette.alternate.main}>
-        <CtaSimpleCentered
-          ctaTitle={content.cta_title || FillerContent.header}
-          description={content.cta_description || FillerContent.description}
-          ctaLeft={content.cta_left || FillerContent.cta}
-          ctaRight={content.cta_right || FillerContent.cta}
-        />
-      </Box> */}
-      {/* <CtaSimpleCentered /> */}
     </>
   );
 }
