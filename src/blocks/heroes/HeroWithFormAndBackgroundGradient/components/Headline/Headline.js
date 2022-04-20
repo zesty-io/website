@@ -53,7 +53,12 @@ const Headline = ({
           <Box
             marginTop={2}
             key={i}
-            sx={{ display: 'flex', alignItems: 'center' }}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              // prevent squish in ppc demo pages and align captera logos
+              flex: isCapterraPage ? '1' : '0 1 auto',
+            }}
           >
             <Box
               component="img"

@@ -46,7 +46,6 @@ import {
   alpha,
   Avatar,
   Box,
-  Card,
   Container,
   Grid,
   Icon,
@@ -54,12 +53,12 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { ReviewsWithSimpleBoxes } from 'blocks/testimonials';
-import { Headline } from 'blocks/banners';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import { HeroWithFormAndBackgroundGradient } from 'blocks/heroes';
 
 const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box
       height={'auto'}
@@ -67,8 +66,8 @@ const ContactUsForm = ({ theme, content, formContent }) => {
       sx={{
         backgroundColor: theme.palette.alternate.main,
         background: `url(${
-          (content.bottom_background_image?.data &&
-            content.bottom_background_image?.data[0]?.url) ||
+          (content.background_image_bottom?.data &&
+            content.background_image_bottom?.data[0]?.url) ||
           FillerContent.image
         }) no-repeat center`,
         backgroundSize: 'cover',
@@ -224,7 +223,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
 function CapterraLandingPage({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  console.log(content, 1111111111111111111111111111);
+
   const formContent = {
     leadDetail: 'Capterra',
     businessType: 'Direct',
@@ -241,7 +240,9 @@ function CapterraLandingPage({ content }) {
     hidePrivacySection: true,
     messageLabel: 'Is there anything you would like to cover in the demo?',
   };
+
   const reviesHeader = `<h1 dir="ltr" style="text-align: center;">${content.reviews_title}</h1> <p style="text-align: center;">${content.reviews_description}</p>`;
+
   return (
     <>
       {/* Hero with form  */}
@@ -249,7 +250,7 @@ function CapterraLandingPage({ content }) {
         headelineTitle={content.hero_h1 || FillerContent.header}
         description={content.hero_description || FillerContent.description}
         imageCollection={
-          content.hero_logo_images?.data?.slice(0, 2) || [FillerContent.image]
+          content.hero_logo_images?.data || [FillerContent.image]
         }
         backgroundImage={
           content?.hero_background_image?.data &&
@@ -260,16 +261,18 @@ function CapterraLandingPage({ content }) {
       />
 
       {/* Logo section  */}
-      <LogoGridSimpleCentered
-        title={content.companies_title || FillerContent.header}
-        imageCollection={content.company_logos?.data || [FillerContent.image]}
-      />
+      <Box paddingY={4}>
+        <LogoGridSimpleCentered
+          title={content.companies_title || FillerContent.header}
+          imageCollection={content.company_logos?.data || [FillerContent.image]}
+        />
+      </Box>
 
       {/* Benefits section */}
       <Box
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
-          padding: isMobile ? '1rem 0' : '5rem 0',
+          padding: isMobile ? '7rem 0' : '5rem 0',
         }}
       >
         <SimpleCentered
@@ -279,7 +282,7 @@ function CapterraLandingPage({ content }) {
       </Box>
 
       {/* Testimonial section */}
-      <Box bgcolor={'alternate.main'}>
+      <Box bgcolor={'alternate.main'} paddingY={8}>
         <ReviewsWithSimpleBoxes
           header={reviesHeader || FillerContent.header}
           list={content.reviews?.data || []}

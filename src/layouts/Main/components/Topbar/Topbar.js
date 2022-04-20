@@ -93,7 +93,7 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
           </Button>
         </Box>
       </Box>
-      {!isPpcPage && (
+      {!hideNav && (
         <Box
           sx={{ display: { xs: 'block', md: 'none' } }}
           alignItems={'center'}
