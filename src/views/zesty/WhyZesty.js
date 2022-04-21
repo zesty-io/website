@@ -83,8 +83,14 @@ const OverviewProcessComp = ({ content, image }) => {
 function WhyZesty({ content }) {
   const theme = useTheme();
 
-
-  const {data: allArticles, isPending, error}= useFetch(`/-/all-articles-hydrated.json?limit=3`, content.zestyProductionMode)
+  const {
+    data: allArticles,
+    isPending,
+    error,
+  } = useFetch(
+    `/-/all-articles-hydrated.json?limit=3`,
+    content.zestyProductionMode,
+  );
 
   let overview_text =
     undefined !== content.hybrid_vs_headless_content
