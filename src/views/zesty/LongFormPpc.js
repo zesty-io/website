@@ -69,6 +69,8 @@ import {
 } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/FillerContent';
+import { useRouter } from 'next/router';
+import ExploreZesty from './ExploreZestyPage';
 
 const ContactUs = ({ title, description, content, formContent }) => {
   const theme = useTheme();
@@ -556,6 +558,11 @@ const ContactUsForm = ({ theme, content, formContent }) => {
 };
 
 function LongFormPpc({ content }) {
+  const router = useRouter();
+
+  if (router.asPath === '/ppc/explore/') {
+    return <ExploreZesty />;
+  }
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -579,6 +586,7 @@ function LongFormPpc({ content }) {
     additionalTextfield: { company: true, jobTitle: true },
     customButtonStyle: { display: 'flex', justifyContent: 'center' },
   };
+
   return (
     <>
       {/* HERO */}
