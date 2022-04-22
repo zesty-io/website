@@ -36,7 +36,6 @@
 
 import React from 'react';
 import LogoGridSimpleCentered from 'blocks/logoGrid/LogoGridSimpleCentered';
-import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustrationAndSearchBar';
 import FeatureGridWithBackgrounds from 'blocks/features/FeatureGridWithBackgrounds';
 import Container from 'components/Container';
 import { alpha, useTheme } from '@mui/material/styles';
@@ -66,6 +65,254 @@ import ReactPlayer from 'react-player';
 import { textAlign } from '@mui/system';
 import { CtaSimpleCentered } from 'blocks/cta';
 
+const WithCompanyLogo = ({ title, header, content, logo }) => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      textAlign={'center'}
+      bgcolor={'alternate.main'}
+      sx={{ marginBottom: '2rem' }}
+    >
+      <Container>
+        <Grid item xs={12} md={9}>
+          <Box
+            sx={{ fontSize: '1.6rem' }}
+            dangerouslySetInnerHTML={{ __html: title || FillerContent.header }}
+          ></Box>
+        </Grid>
+        <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+          {logo && (
+            <Box
+              component="img"
+              height={1}
+              width={1}
+              src={
+                logo ||
+                'https://assets.maccarianagency.com/svg/logos/google-original.svg'
+              }
+              alt="..."
+              maxWidth={{ xs: 80, sm: 100, md: 120 }}
+              marginBottom={2}
+              sx={{
+                filter:
+                  theme.palette.mode === 'dark'
+                    ? 'brightness(0) invert(0.7)'
+                    : 'none',
+              }}
+            />
+          )}
+          <Typography
+            variant="h5"
+            fontWeight={400}
+            alignItems={'center'}
+            textAlign={'center'}
+          >
+            <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
+          </Typography>
+        </Box>
+        {header && (
+          <Typography
+            variant="p"
+            component="h2"
+            color="text.primary"
+            sx={{
+              fontWeight: '700',
+              textAlign: 'center',
+              fontSize: '22px',
+              marginTop: '2rem',
+              marginBottom: '2rem',
+            }}
+          >
+            {header || FillerContent.header}
+          </Typography>
+        )}
+      </Container>
+    </Box>
+  );
+};
+
+const HeroWithIllustrationAndSearchBar = ({
+  bgColor = 'alternate.main',
+  titleAndDescription,
+  description,
+  image,
+  primaryCta,
+  primaryCtaLink,
+  secondaryCta,
+  secondaryCtaLink,
+  search,
+  onChange,
+  rowReverse = false,
+}) => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  return (
+    <Container>
+      <Box bgcolor={bgColor} padding={{ xs: 2, md: 4 }} borderRadius={2}>
+        <Grid
+          flexDirection={
+            rowReverse ? 'row-reverse' : isMobile ? 'column-reverse' : 'initial'
+          }
+          container
+          spacing={4}
+        >
+          <Grid
+            item
+            container
+            xs={12}
+            md={6}
+            alignItems={'center'}
+            sx={{ position: 'relative' }}
+          >
+            <Box marginBottom={4}>
+              <Grid paddingLeft={rowReverse ? 0 : 0} item xs={12} md={9}>
+                <Box
+                  dangerouslySetInnerHTML={{ __html: titleAndDescription }}
+                ></Box>
+              </Grid>
+              <Box
+                display="flex"
+                flexDirection={{ xs: 'column', sm: 'row' }}
+                alignItems={{ xs: 'stretched', sm: 'flex-start' }}
+              >
+                {primaryCta && (
+                  <Box
+                    component={Button}
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    fullWidth={!isMd}
+                  >
+                    {primaryCta}
+                  </Box>
+                )}
+
+                {secondaryCta && (
+                  <Box
+                    component={Button}
+                    color="primary"
+                    size="large"
+                    fullWidth={!isMd}
+                    marginTop={{ xs: 1, sm: 0 }}
+                    marginLeft={{ sm: 2 }}
+                    startIcon={
+                      <Box
+                        component={'svg'}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        width={24}
+                        height={24}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </Box>
+                    }
+                  >
+                    {secondaryCta}
+                  </Box>
+                )}
+              </Box>
+            </Box>
+            {search && (
+              <Box
+                sx={{
+                  width: '100%',
+                  background: theme.palette.background.paper,
+                  [theme.breakpoints.up('md')]: {
+                    position: 'absolute',
+                    bottom: 0,
+                    transform: 'translateY(100%)',
+                  },
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    border: '0 !important',
+                  },
+                }}
+              >
+                <FormControl fullWidth variant="outlined">
+                  <OutlinedInput
+                    sx={{
+                      background: theme.palette.background.paper,
+                      boxShadow: 4,
+                    }}
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <Box
+                          component={'svg'}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          width={24}
+                          height={24}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                          />
+                        </Box>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+              </Box>
+            )}
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box
+              height={1}
+              width={1}
+              display={'flex'}
+              justifyContent={'center'}
+            >
+              <Box
+                height={1}
+                width={1}
+                maxWidth={{ xs: 600, md: '100%' }}
+                maxHeight={500}
+              >
+                <Box
+                  component={'img'}
+                  src={
+                    image ||
+                    'https://assets.maccarianagency.com/svg/illustrations/drawkit-illustration1.svg'
+                  }
+                  width={1}
+                  height={1}
+                  sx={{
+                    objectFit: 'contain',
+                    filter:
+                      theme.palette.mode === 'dark'
+                        ? 'brightness(0.8)'
+                        : 'none',
+                  }}
+                />
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
+  );
+};
 const ContactUs = ({ title, description, content, isMobile }) => {
   const theme = useTheme();
 
@@ -527,7 +774,7 @@ const ContactUsForm = ({ theme, content }) => {
           width: 1,
           height: 1,
           backgroundColor: theme.palette.primary.main,
-          backgroundImage: `linear-gradient(315deg, ${theme.palette.primary.main} 0%, #000000 74%)`,
+          backgroundImage: `linear-gradient(315deg, ${theme.palette.primary.main} -80%, #000000 74%)`,
           opacity: '0.8',
           zIndex: 1,
         }}
@@ -619,8 +866,8 @@ function IntegrationsIndividualPage({ content }) {
       {/* Platform Description */}
       <Box
         marginTop={isMobile ? 20 : 45}
-        paddingTop={isMobile ? 20 : 40}
-        paddingBottom={isMobile ? 10 : 20}
+        paddingTop={isMobile ? 30 : 35}
+        paddingBottom={isMobile ? 10 : 10}
         bgcolor={theme.palette.zesty.zestyDarkBlue}
       >
         <Container>
@@ -693,13 +940,10 @@ function IntegrationsIndividualPage({ content }) {
             FillerContent.image
           }
         />
-        {/* <BgDecorations theme={theme} /> */}
       </Box>
 
       {/* Developer Benefits */}
       <Box
-        // marginTop={isMobile ? 20 : 25}
-        // paddingBottom={10}
         paddingY={15}
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
@@ -718,7 +962,17 @@ function IntegrationsIndividualPage({ content }) {
       </Box>
 
       {/* Easy to Get Started + Social Proof */}
-      <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
+      <WithCompanyLogo
+        title={content.benefit_above_testimonial || FillerContent.header}
+        header={
+          content?.testimonial?.data[0].reviewer_title || FillerContent.header
+        }
+        logo={''}
+        content={
+          content?.testimonial?.data[0].review || FillerContent.rich_text
+        }
+      />
+      {/* <Box padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
         <NewsletterWithImage
           header={content.benefit_above_testimonial || FillerContent.header}
           image={
@@ -728,13 +982,15 @@ function IntegrationsIndividualPage({ content }) {
           }
           testimonial={content.testimonial?.data}
         />
-      </Box>
+      </Box> */}
 
       {/* Logos */}
-      <LogoGridSimpleCentered
-        title={content.logos_title || FillerContent.header}
-        imageCollection={content.logos?.data || [FillerContent.image]}
-      />
+      <Box paddingBottom={4}>
+        <LogoGridSimpleCentered
+          title={content.logos_title || FillerContent.header}
+          imageCollection={content.logos?.data || [FillerContent.image]}
+        />
+      </Box>
 
       {/* Form */}
       <ContactUsForm theme={theme} content={content} />

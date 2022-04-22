@@ -40,15 +40,258 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { HeroWithIllustrationAndCta } from 'blocks/heroes';
 import { WithSwiperAndBrandBackgroundColor } from 'blocks/logoGrid';
 import { ReviewsWithSimpleBoxes } from 'blocks/testimonials';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
+import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/FillerContent';
 import WYSIWYGRender from 'components/WYSIWYGRender';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+const mock = [
+  'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/google-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
+];
+
+const HeroWithIllustrationAndCta = ({
+  title,
+  subtitle,
+  description = '',
+  image,
+  button_left_text,
+  button_left_link,
+  hero_button_right,
+  button_right_link,
+  content,
+}) => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  let titleSplits = title?.split('<br>');
+  return (
+    <Box
+      position={'relative'}
+      sx={{ backgroundColor: theme.palette.alternate.main }}
+    >
+      {' '}
+      <Container>
+        {' '}
+        <Grid
+          container
+          spacing={4}
+          flexDirection={{ xs: 'column-reverse', md: 'row' }}
+        >
+          {' '}
+          <Grid item container alignItems={'center'} xs={12} md={6}>
+            {' '}
+            <Box>
+              {' '}
+              <Box>
+                {' '}
+                <Typography
+                  variant="h6"
+                  component="h1"
+                  color="text.secondary"
+                  sx={{ fontWeight: 400 }}
+                  dangerouslySetInnerHTML={{ __html: subtitle }}
+                ></Typography>
+              </Box>
+              <Box>
+                <Typography
+                  variant="p"
+                  component={'h3'}
+                  color="text.primary"
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: isMobile ? '38px' : '60px',
+                    margin: '0',
+                    lineHeight: isMobile ? '46px' : '65px',
+                  }}
+                >
+                  {titleSplits && titleSplits[0]}
+                </Typography>
+              </Box>
+              <Box marginBottom={2}>
+                <Typography
+                  variant="p"
+                  component={'h3'}
+                  color={theme.palette.zesty.zestyOrange}
+                  sx={{
+                    fontWeight: 700,
+                    margin: 0,
+                  }}
+                >
+                  {titleSplits && titleSplits[1]}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  variant="body1"
+                  component="h2"
+                  color="text.secondary"
+                  sx={{ fontWeight: 400, fontSize: isMobile ? '18px' : '20px' }}
+                  marginBottom={6}
+                  dangerouslySetInnerHTML={{ __html: description }}
+                ></Typography>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection={{ xs: 'column', sm: 'row' }}
+                alignItems={{ xs: 'stretched', sm: 'flex-start' }}
+              >
+                <TryFreeButton
+                  component={'a'}
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  fullWidth={isMd ? false : true}
+                  text={button_left_text}
+                ></TryFreeButton>
+
+                {hero_button_right && (
+                  <Box
+                    marginTop={{ xs: 2, sm: 0 }}
+                    marginLeft={{ sm: 2 }}
+                    width={{ xs: '100%', md: 'auto' }}
+                  >
+                    <Button
+                      component={'a'}
+                      href={'/demos/'}
+                      variant="outlined"
+                      color="secondary"
+                      size="large"
+                      fullWidth={isMd ? false : true}
+                    >
+                      {hero_button_right}
+                    </Button>
+                  </Box>
+                )}
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box
+              height={1}
+              width={1}
+              display={'flex'}
+              justifyContent={'center'}
+              alignItems={'center'}
+            >
+              <Box height={1} width={1} maxWidth="100%">
+                <Box
+                  component={'img'}
+                  src={image}
+                  width={1}
+                  height={1}
+                  sx={{
+                    filter:
+                      theme.palette.mode === 'dark'
+                        ? 'brightness(0.8)'
+                        : 'none',
+                  }}
+                />
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+      <Container>
+        <LogoGridSimpleCentered
+          title={'          '}
+          imageCollection={content.logos?.data || [FillerContent.image]}
+        />
+      </Container>
+      <Box
+        component={'svg'}
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 1920 100.1"
+        sx={{
+          width: '100%',
+          marginBottom: theme.spacing(-1),
+        }}
+      >
+        <path
+          fill={theme.palette.background.paper}
+          d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+        ></path>
+      </Box>
+    </Box>
+  );
+};
+const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const images =
+    imageCollection?.map(
+      (e) => e.customer_logo?.data && e.customer_logo?.data[0]?.url,
+    ) || mock;
+
+  return (
+    <Container>
+      <Box paddingY={8}>
+        <Box marginBottom={4}>
+          {title && (
+            <Typography
+              gutterBottom
+              align={'center'}
+              variant={'p'}
+              component={'h3'}
+              fontWeight={700}
+              fontSize={'24px'}
+            >
+              {title}
+            </Typography>
+          )}
+          {description && (
+            <Typography
+              color={'text.secondary'}
+              align={'center'}
+              variant={'h6'}
+            >
+              {description}
+            </Typography>
+          )}
+        </Box>
+        <Box
+          display="flex"
+          gap={isMobile ? 2 : 4}
+          flexWrap="wrap"
+          justifyContent={'center'}
+        >
+          {images?.map((item, i) => (
+            <Box marginTop={2} key={i}>
+              <Box
+                component="img"
+                // height={2}
+                // width={2}
+                src={item}
+                alt="..."
+                sx={{
+                  height: 'auto',
+                  width: '12rem',
+                  filter:
+                    theme.palette.mode === 'dark'
+                      ? 'brightness(0) invert(0.7)'
+                      : 'brightness(0) invert(0.7)',
+                }}
+              />
+            </Box>
+          ))}
+        </Box>
+      </Box>
+    </Container>
+  );
+};
 const FeaturesWithMobileScreenshot = ({
   header,
   content,
@@ -168,11 +411,15 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
           align={'center'}
         >
           {/* <br/> tag inject in field */}
-          <h3
+          <Typography
+            variant="p"
+            component={'h3'}
+            fontSize={35}
+            color={theme.palette.common.white}
             dangerouslySetInnerHTML={{
               __html: clientTitle,
             }}
-          ></h3>
+          ></Typography>
         </Box>
       </Box>
       <Grid container spacing={4}>
@@ -212,7 +459,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
                     justifyContent: 'center',
                   }}
                 >
-                  <img src={item.img} alt="" />
+                  <img src={case_study_cards[i].img} alt="" />
                 </Box>
                 <Box sx={{}} component={CardContent}>
                   <Typography
@@ -223,14 +470,14 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
                     paddingBottom={4}
                     whiteSpace={'nowrap'}
                   >
-                    {item.title || FillerContent.description}
+                    {item.feature_name || FillerContent.description}
                   </Typography>
                   <Typography
                     align={'left'}
                     variant={'body2'}
                     color="textSecondary"
                   >
-                    {item.description || FillerContent.description}
+                    {item.content || FillerContent.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -380,49 +627,60 @@ function ExploreZesty() {
     button_left_text: content.hero_cta_primary_text || FillerContent.header,
 
     button_left_link: content.hero_cta_primary_link || FillerContent.header,
-    hero_button_right: '',
+    hero_button_right: content.hero_cta_secondary_text,
     button_right_link:
       content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
+    content,
   };
 
-  console.log(content.logos, 1111111111111111);
   return (
     <>
       {/* Hero section */}
       <HeroWithIllustrationAndCta {...heroProps} />
 
       {/* Logo section  */}
-      <Container>
-        <WithSwiperAndBrandBackgroundColor
-          logos={content?.logos?.data || FillerContent.logos}
-        />
-      </Container>
+
       {/* Stories section */}
-      <Box bgcolor={'alternate.main'}>
+      <Box bgcolor={theme.palette.zesty.zestyBlue}>
         <Container>
           <Stories
-            eyeBrow={'EVERYTHING YOU NEED' || FillerContent.header}
-            clientTitle={'ALL IN ONE PLACE.' || FillerContent.header}
-            clientInfo={case_study_cards1 || []}
+            eyeBrow={'   ' || FillerContent.header}
+            clientTitle={
+              content._what_is_title_and_description || FillerContent.header
+            }
+            clientInfo={content.key_features?.data || []}
           />
         </Container>
       </Box>
 
       <FeaturesWithMobileScreenshot
         index={0}
-        header={content.header || FillerContent.header}
+        header={'   ' || FillerContent.header}
         content={content.how_it_works || FillerContent.rich_text}
         image={
-          'https://hkrhwx6h.media.zestyio.com/screen-analytics.png' ||
+          (content?.how_it_works_image?.data &&
+            content?.how_it_works_image?.data[0]?.url) ||
           FillerContent.image
         }
       />
       <FeaturesWithMobileScreenshot
         index={1}
-        header={content.header || FillerContent.header}
+        header={'  ' || FillerContent.header}
         content={content.outline_of_benefits || FillerContent.rich_text}
         image={
-          'https://hkrhwx6h.media.zestyio.com/screen.png' || FillerContent.image
+          (content.benefits_image?.data &&
+            content.benefits_image?.data[0]?.url) ||
+          FillerContent.image
+        }
+      />
+      <FeaturesWithMobileScreenshot
+        index={2}
+        header={'  ' || FillerContent.header}
+        content={content.additional_benefit || FillerContent.rich_text}
+        image={
+          (content.additional_benefit_image?.data &&
+            content.additional_benefit_image?.data[0]?.url) ||
+          FillerContent.image
         }
       />
       {/* form */}
@@ -437,7 +695,7 @@ function ExploreZesty() {
 
 export default ExploreZesty;
 
-const case_study_cards1 = [
+const case_study_cards = [
   {
     img: 'https://hkrhwx6h.media.zestyio.com/content-management.f1cb27a519bdb5b6ed34049a5b86e317.png',
     title: 'Content Management',

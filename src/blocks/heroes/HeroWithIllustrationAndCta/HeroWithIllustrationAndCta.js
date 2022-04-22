@@ -26,23 +26,26 @@ const HeroWithIllustrationAndCta = ({
   });
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let titleSplits = title?.split('<br>');
-
   return (
     <Box
       position={'relative'}
-      sx={{
-        backgroundColor: theme.palette.alternate.main,
-      }}
+      sx={{ backgroundColor: theme.palette.alternate.main }}
     >
+      {' '}
       <Container>
+        {' '}
         <Grid
           container
           spacing={4}
           flexDirection={{ xs: 'column-reverse', md: 'row' }}
         >
+          {' '}
           <Grid item container alignItems={'center'} xs={12} md={6}>
+            {' '}
             <Box>
+              {' '}
               <Box>
+                {' '}
                 <Typography
                   variant="h6"
                   component="h1"
@@ -89,7 +92,6 @@ const HeroWithIllustrationAndCta = ({
                   dangerouslySetInnerHTML={{ __html: description }}
                 ></Typography>
               </Box>
-
               <Box
                 display="flex"
                 flexDirection={{ xs: 'column', sm: 'row' }}

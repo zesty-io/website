@@ -55,6 +55,7 @@ const Main = ({
 
   const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
   const isCapterraPage = router.asPath.includes('/capterra');
+  const isExplorePage = router.asPath === '/ppc/explore/';
   // override over invert based on pages that we know have a dark image heading
 
   const hideNav = isPpcShortPage || isCapterraPage;
@@ -67,7 +68,9 @@ const Main = ({
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container
-          paddingTop={hideNav ? '0px !important' : '8px !important'}
+          paddingTop={
+            hideNav || isExplorePage ? '0px !important' : '8px !important'
+          }
           paddingBottom={'0 !important'}
         >
           <TopNav nav={nav} colorInvert={headerColorInvert} />
@@ -80,7 +83,9 @@ const Main = ({
           border: 'none',
           boxShadow: hideNav ? 'none' : '',
           top: 0,
-          backgroundColor: hideNav
+          backgroundColor: isExplorePage
+            ? theme.palette.alternate.main
+            : hideNav
             ? 'transparent'
             : trigger
             ? theme.palette.background.paper
