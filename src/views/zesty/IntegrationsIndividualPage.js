@@ -801,7 +801,7 @@ function IntegrationsIndividualPage({ content }) {
       <Box
         marginTop={isMobile ? 20 : 45}
         paddingTop={isMobile ? 30 : 35}
-        paddingBottom={isMobile ? 10 : 20}
+        paddingBottom={isMobile ? 10 : 10}
         bgcolor={theme.palette.zesty.zestyDarkBlue}
       >
         <Container>
