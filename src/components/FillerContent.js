@@ -247,7 +247,7 @@ export default {
     },
   ],
   emptyList: [],
-  videoUrl: 'https://www.youtube.com/watch?v=tFdWIyMTyPY',
+  videoUrl: 'https://www.youtube.com/watch?v=h9WMdlQyFgU',
   simpleCards: [
     {
       image: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
