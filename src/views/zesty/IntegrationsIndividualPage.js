@@ -37,7 +37,6 @@
 import React from 'react';
 import LogoGridSimpleCentered from 'blocks/logoGrid/LogoGridSimpleCentered';
 import FeatureGridWithBackgrounds from 'blocks/features/FeatureGridWithBackgrounds';
-import WithCompanyLogo from 'blocks/testimonials/WithCompanyLogo';
 import Container from 'components/Container';
 import { alpha, useTheme } from '@mui/material/styles';
 import Icon from '@mui/material/Icon';
@@ -65,6 +64,73 @@ import CodeBlock from 'components/cta/CodeBlock';
 import ReactPlayer from 'react-player';
 import { textAlign } from '@mui/system';
 import { CtaSimpleCentered } from 'blocks/cta';
+
+const WithCompanyLogo = ({ title, header, content, logo }) => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      textAlign={'center'}
+      bgcolor={'alternate.main'}
+      sx={{ marginBottom: '2rem' }}
+    >
+      <Container>
+        <Grid item xs={12} md={9}>
+          <Box
+            sx={{ fontSize: '1.6rem' }}
+            dangerouslySetInnerHTML={{ __html: title || FillerContent.header }}
+          ></Box>
+        </Grid>
+        <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+          {logo && (
+            <Box
+              component="img"
+              height={1}
+              width={1}
+              src={
+                logo ||
+                'https://assets.maccarianagency.com/svg/logos/google-original.svg'
+              }
+              alt="..."
+              maxWidth={{ xs: 80, sm: 100, md: 120 }}
+              marginBottom={2}
+              sx={{
+                filter:
+                  theme.palette.mode === 'dark'
+                    ? 'brightness(0) invert(0.7)'
+                    : 'none',
+              }}
+            />
+          )}
+          <Typography
+            variant="h5"
+            fontWeight={400}
+            alignItems={'center'}
+            textAlign={'center'}
+          >
+            <Box dangerouslySetInnerHTML={{ __html: content }}></Box>
+          </Typography>
+        </Box>
+        {header && (
+          <Typography
+            variant="p"
+            component="h2"
+            color="text.primary"
+            sx={{
+              fontWeight: '700',
+              textAlign: 'center',
+              fontSize: '22px',
+              marginTop: '2rem',
+              marginBottom: '2rem',
+            }}
+          >
+            {header || FillerContent.header}
+          </Typography>
+        )}
+      </Container>
+    </Box>
+  );
+};
 
 const HeroWithIllustrationAndSearchBar = ({
   bgColor = 'alternate.main',
@@ -897,6 +963,7 @@ function IntegrationsIndividualPage({ content }) {
 
       {/* Easy to Get Started + Social Proof */}
       <WithCompanyLogo
+        title={content.benefit_above_testimonial || FillerContent.header}
         header={
           content?.testimonial?.data[0].reviewer_title || FillerContent.header
         }

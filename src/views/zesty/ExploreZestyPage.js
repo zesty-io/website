@@ -204,7 +204,7 @@ const HeroWithIllustrationAndCta = ({
       </Container>
       <Container>
         <LogoGridSimpleCentered
-          title={content.logos_h3}
+          title={'          '}
           imageCollection={content.logos?.data || [FillerContent.image]}
         />
       </Container>
