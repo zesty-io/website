@@ -163,7 +163,7 @@ const HeroWithIllustrationAndCta = ({
                   >
                     <Button
                       component={'a'}
-                      href={'/demos/'}
+                      href={button_right_link || '#'}
                       variant="outlined"
                       color="secondary"
                       size="large"
@@ -221,7 +221,7 @@ const HeroWithIllustrationAndCta = ({
         }}
       >
         <path
-          fill={theme.palette.background.paper}
+          fill={theme.palette.zesty.zestyBlue}
           d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
         ></path>
       </Box>
@@ -282,7 +282,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
                   filter:
                     theme.palette.mode === 'dark'
                       ? 'brightness(0) invert(0.7)'
-                      : 'brightness(0) invert(0.7)',
+                      : 'grayscale(100%) brightness(0) invert(0) ',
                 }}
               />
             </Box>
@@ -352,15 +352,19 @@ const FeaturesWithMobileScreenshot = ({
           xs={12}
           md={6}
           sx={{
-            backgroundColor: 'transparent',
+            backgroundColor: 'none',
             backgroundImage: '',
             backgroundSize: '100% 100%',
             backgroundRepeat: 'no-repeat',
+            display: 'flex',
+            // alignItems: 'center',
+            justifyContent: isMobile ? 'center' : 'start',
+            marginTop: '4rem',
           }}
           order={{ sm: 1, md: 2 }}
         >
-          <Box
-            component={'img'}
+          <img
+            height={isMobile ? 200 : 320}
             src={
               image
                 ? image
@@ -369,12 +373,10 @@ const FeaturesWithMobileScreenshot = ({
                 : FillerContent.mobileImage.dark
             }
             alt={header || FillerContent.header}
-            width={1}
-            height={1}
             sx={{
               marginBottom: isMobile ? '3rem' : '1rem',
               objectFit: 'contain',
-              borderRadius: '2.5rem',
+              borderRadius: '2rem',
               transform: isMobile ? 'scale(.80)' : 'scale(.70)',
               filter: theme.palette.mode === 'dark' ? 'brightness(1)' : 'none',
             }}
@@ -494,7 +496,7 @@ const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
-      marginTop={10}
+      marginTop={16}
       height={'auto'}
       position={'relative'}
       sx={{
@@ -527,7 +529,7 @@ const ContactUsForm = ({ theme, content, formContent }) => {
         id="contact-us"
         sx={{
           position: 'relative',
-          padding: isMobile ? '5rem 0' : '10rem 0',
+          padding: isMobile ? '5rem 0' : '12rem 0',
           zIndex: 2,
         }}
       >
@@ -628,8 +630,7 @@ function ExploreZesty() {
 
     button_left_link: content.hero_cta_primary_link || FillerContent.header,
     hero_button_right: content.hero_cta_secondary_text,
-    button_right_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
+    button_right_link: '#contact-us' || FillerContent.header,
     content,
   };
 
@@ -641,7 +642,11 @@ function ExploreZesty() {
       {/* Logo section  */}
 
       {/* Stories section */}
-      <Box bgcolor={theme.palette.zesty.zestyBlue}>
+      <Box
+        marginBottom={12}
+        paddingBottom={12}
+        bgcolor={theme.palette.zesty.zestyBlue}
+      >
         <Container>
           <Stories
             eyeBrow={'   ' || FillerContent.header}
@@ -663,16 +668,18 @@ function ExploreZesty() {
           FillerContent.image
         }
       />
-      <FeaturesWithMobileScreenshot
-        index={1}
-        header={'  ' || FillerContent.header}
-        content={content.outline_of_benefits || FillerContent.rich_text}
-        image={
-          (content.benefits_image?.data &&
-            content.benefits_image?.data[0]?.url) ||
-          FillerContent.image
-        }
-      />
+      <Box paddingY={12}>
+        <FeaturesWithMobileScreenshot
+          index={1}
+          header={'  ' || FillerContent.header}
+          content={content.outline_of_benefits || FillerContent.rich_text}
+          image={
+            (content.benefits_image?.data &&
+              content.benefits_image?.data[0]?.url) ||
+            FillerContent.image
+          }
+        />
+      </Box>
       <FeaturesWithMobileScreenshot
         index={2}
         header={'  ' || FillerContent.header}
