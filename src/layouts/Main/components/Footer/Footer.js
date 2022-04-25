@@ -18,7 +18,11 @@ const Footer = ({ customRouting, colorInvert = false }) => {
   const router = useRouter();
 
   //check if page is from ppc for hiding of footer and nav
-  const isPpcPage = router.asPath.includes('/ppc' && '/integrations');
+  const isPpcShortPage = router.asPath.includes('ppc');
+  const isCapterraPage = router.asPath.includes('/capterra');
+  // override over invert based on pages that we know have a dark image heading
+
+  const hideNav = isPpcShortPage || isCapterraPage;
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -30,7 +34,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
 
   return (
     <Box
-      display={isPpcPage ? 'none' : 'flex'}
+      display={hideNav ? 'none' : 'flex'}
       sx={{ background: backgroundColor }}
     >
       <Container paddingY={2}>

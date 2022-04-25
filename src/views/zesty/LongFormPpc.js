@@ -69,8 +69,10 @@ import {
 } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/FillerContent';
+import { useRouter } from 'next/router';
+import ExploreZesty from './ExploreZestyPage';
 
-const ContactUs = ({ title, description, content }) => {
+const ContactUs = ({ title, description, content, formContent }) => {
   const theme = useTheme();
 
   return (
@@ -107,20 +109,7 @@ const ContactUs = ({ title, description, content }) => {
         </Typography>
       </Box>
       <Box paddingBottom={6} textAlign="center">
-        <StandardFormWithSelect
-          leadDetail="Adwords"
-          businessType="Direct"
-          leadSource="Advertisement"
-          selectedValue={2}
-          hideSelect={true}
-          hideMessage={true}
-          ctaText={content.cta_footer_cta || FillerContent.cta}
-          modalTitle="Thank you for submitting your information."
-          modalMessage="Our team will be in touch soon to discuss next steps."
-          displayMsgUnderButton=" "
-          additionalTextfield={{ company: true, jobTitle: true }}
-          customButtonStyle={{ display: 'flex', justifyContent: 'center' }}
-        />
+        <StandardFormWithSelect {...formContent} />
       </Box>
     </Box>
   );
@@ -515,7 +504,7 @@ const BgDecorations = ({ theme }) => {
   );
 };
 
-const ContactUsForm = ({ theme, content }) => {
+const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
@@ -561,6 +550,7 @@ const ContactUsForm = ({ theme, content }) => {
             content.contact_form_description || FillerContent.description
           }
           content={content}
+          formContent={formContent}
         />
       </Box>
     </Box>
@@ -568,6 +558,11 @@ const ContactUsForm = ({ theme, content }) => {
 };
 
 function LongFormPpc({ content }) {
+  const router = useRouter();
+
+  if (router.asPath === '/ppc/explore/') {
+    return <ExploreZesty />;
+  }
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -575,6 +570,21 @@ function LongFormPpc({ content }) {
     document
       .getElementById('contact-us')
       .scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const formContent = {
+    leadDetail: 'Adwords',
+    businessType: 'Direct',
+    leadSource: 'Advertisement',
+    selectedValue: 2,
+    hideSelect: true,
+    hideMessage: true,
+    ctaText: content.cta_footer_cta || FillerContent.cta,
+    modalTitle: 'Thank you for submitting your information.',
+    modalMessage: 'Our team will be in touch soon to discuss next steps.',
+    displayMsgUnderButton: ' ',
+    additionalTextfield: { company: true, jobTitle: true },
+    customButtonStyle: { display: 'flex', justifyContent: 'center' },
   };
 
   return (
@@ -642,7 +652,11 @@ function LongFormPpc({ content }) {
       </Box>
 
       {/* Form */}
-      <ContactUsForm theme={theme} content={content} />
+      <ContactUsForm
+        theme={theme}
+        content={content}
+        formContent={formContent}
+      />
     </>
   );
 }

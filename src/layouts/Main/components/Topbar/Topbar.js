@@ -17,6 +17,9 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
 
   //check if page is from ppc for hiding of footer and nav
   const isPpcPage = router.asPath.includes('/ppc');
+  const isCapterraPage = router.asPath.includes('/capterra');
+
+  const hideNav = isPpcPage || isCapterraPage;
 
   return (
     <Box
@@ -44,7 +47,7 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
         />
       </Box>
       <Box
-        sx={{ display: { xs: 'none', md: isPpcPage ? 'none' : 'flex' } }}
+        sx={{ display: { xs: 'none', md: hideNav ? 'none' : 'flex' } }}
         alignItems={'center'}
       >
         {customRouting.map((route) => (
@@ -90,7 +93,7 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
           </Button>
         </Box>
       </Box>
-      {!isPpcPage && (
+      {!hideNav && (
         <Box
           sx={{ display: { xs: 'block', md: 'none' } }}
           alignItems={'center'}

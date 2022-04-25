@@ -36,7 +36,7 @@ const FeaturesWithIllustration = ({
           </Box>
         </Grid>
         <Grid item container justifyContent={'center'} xs={12} md={6}>
-          <Box height={1} width={1} maxWidth={500}>
+          <Box paddingTop={4} height={1} width={1} maxWidth={500}>
             <Box
               component={'img'}
               src={image_url || FillerContent.illustration_image}

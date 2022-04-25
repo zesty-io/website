@@ -13,31 +13,29 @@ import { useRouter } from 'next/router';
 import FillerContent from 'components/FillerContent';
 
 const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
-
-
-
   const theme = useTheme();
   const { mode } = theme.palette;
-const router = useRouter();
-
+  const router = useRouter();
   return (
     <Box>
+      {' '}
       <Box marginBottom={4}>
+        {' '}
         <Typography
-          sx={{
-            textTransform: 'uppercase',
-            fontWeight: 'medium',
-          }}
+          sx={{ textTransform: 'uppercase', fontWeight: 'medium' }}
           gutterBottom
-          color={router.asPath === '/' ? theme.palette.zesty.zestyGrey : 'secondary'}
+          color={
+            router.asPath === '/' ? theme.palette.zesty.zestyGrey : 'secondary'
+          }
           align={'center'}
         >
-          {eyeBrow}
+          {' '}
+          {eyeBrow}{' '}
         </Typography>
         <Box
           component={Typography}
           fontWeight={700}
-          variant={ router.asPath === '/' ? 'h4' : 'h3'}
+          variant={router.asPath === '/' ? 'h4' : 'h3'}
           align={'center'}
         >
           {/* <br/> tag inject in field */}
@@ -53,7 +51,9 @@ const router = useRouter();
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item?.card_link?.data[0]?.meta?.web?.uri || FillerContent.href}
+              href={
+                item?.card_link?.data[0]?.meta?.web?.uri || FillerContent.href
+              }
               display={'block'}
               width={1}
               height={1}

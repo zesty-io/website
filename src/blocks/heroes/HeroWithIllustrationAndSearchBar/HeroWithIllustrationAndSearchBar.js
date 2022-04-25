@@ -49,7 +49,7 @@ const HeroWithIllustrationAndSearchBar = ({
             sx={{ position: 'relative' }}
           >
             <Box marginBottom={4}>
-              <Grid paddingLeft={rowReverse ? 10 : 0} item xs={12} md={9}>
+              <Grid paddingLeft={rowReverse ? 0 : 0} item xs={12} md={9}>
                 <Box
                   dangerouslySetInnerHTML={{ __html: titleAndDescription }}
                 ></Box>
