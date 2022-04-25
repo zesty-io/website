@@ -75,6 +75,11 @@ const HeroWithIllustrationAndCta = ({
   });
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let titleSplits = title?.split('<br>');
+  const scrollToContactUs = () => {
+    document
+      .getElementById('contact-us')
+      .scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <Box
       position={'relative'}
@@ -163,7 +168,8 @@ const HeroWithIllustrationAndCta = ({
                   >
                     <Button
                       component={'a'}
-                      href={button_right_link || '#'}
+                      onClick={scrollToContactUs}
+                      // href={button_right_link || '#'}
                       variant="outlined"
                       color="secondary"
                       size="large"
