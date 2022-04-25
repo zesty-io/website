@@ -5,10 +5,18 @@ import Typography from '@mui/material/Typography';
 import FillerContent from 'components/FillerContent';
 import { Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
+import { useRouter } from 'next/router';
 
-const Headline = ({ title, description, images = [] }) => {
+const Headline = ({
+  title,
+  description,
+  images = [],
+  justifyImage = 'start',
+}) => {
+  const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isCapterraPage = router.asPath.includes('capterra');
 
   return (
     <Box>
@@ -39,10 +47,19 @@ const Headline = ({ title, description, images = [] }) => {
         gap={4}
         flexWrap="wrap"
         marginTop={4}
-        justifyContent={'start'}
+        justifyContent={justifyImage}
       >
         {images?.map((item, i) => (
-          <Box marginTop={2} key={i}>
+          <Box
+            marginTop={2}
+            key={i}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              // prevent squish in ppc demo pages and align captera logos
+              flex: isCapterraPage ? '1' : '0 1 auto',
+            }}
+          >
             <Box
               component="img"
               width={1}
@@ -53,6 +70,8 @@ const Headline = ({ title, description, images = [] }) => {
                 height:
                   i === 1 && isMobile
                     ? '2.3rem'
+                    : isCapterraPage
+                    ? 'auto'
                     : i === 1 && !isMobile
                     ? '2.5rem'
                     : !isMobile

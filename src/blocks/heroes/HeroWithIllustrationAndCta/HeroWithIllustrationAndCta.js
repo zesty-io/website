@@ -25,24 +25,27 @@ const HeroWithIllustrationAndCta = ({
     defaultMatches: true,
   });
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  let titleSplits = title.split('<br>');
-
+  let titleSplits = title?.split('<br>');
   return (
     <Box
       position={'relative'}
-      sx={{
-        backgroundColor: theme.palette.alternate.main,
-      }}
+      sx={{ backgroundColor: theme.palette.alternate.main }}
     >
+      {' '}
       <Container>
+        {' '}
         <Grid
           container
           spacing={4}
           flexDirection={{ xs: 'column-reverse', md: 'row' }}
         >
+          {' '}
           <Grid item container alignItems={'center'} xs={12} md={6}>
+            {' '}
             <Box>
+              {' '}
               <Box>
+                {' '}
                 <Typography
                   variant="h6"
                   component="h1"
@@ -63,7 +66,7 @@ const HeroWithIllustrationAndCta = ({
                     lineHeight: isMobile ? '46px' : '65px',
                   }}
                 >
-                  {titleSplits[0]}
+                  {titleSplits && titleSplits[0]}
                 </Typography>
               </Box>
               <Box marginBottom={2}>
@@ -76,7 +79,7 @@ const HeroWithIllustrationAndCta = ({
                     margin: 0,
                   }}
                 >
-                  {titleSplits[1]}
+                  {titleSplits && titleSplits[1]}
                 </Typography>
               </Box>
               <Box>
@@ -89,7 +92,6 @@ const HeroWithIllustrationAndCta = ({
                   dangerouslySetInnerHTML={{ __html: description }}
                 ></Typography>
               </Box>
-
               <Box
                 display="flex"
                 flexDirection={{ xs: 'column', sm: 'row' }}
@@ -104,22 +106,24 @@ const HeroWithIllustrationAndCta = ({
                   text={button_left_text}
                 ></TryFreeButton>
 
-                <Box
-                  marginTop={{ xs: 2, sm: 0 }}
-                  marginLeft={{ sm: 2 }}
-                  width={{ xs: '100%', md: 'auto' }}
-              >
-                  <Button
-                    component={'a'}
-                    href={'/demos/'}
-                    variant="outlined"
-                    color="secondary"
-                    size="large"
-                    fullWidth={isMd ? false : true}
+                {hero_button_right && (
+                  <Box
+                    marginTop={{ xs: 2, sm: 0 }}
+                    marginLeft={{ sm: 2 }}
+                    width={{ xs: '100%', md: 'auto' }}
                   >
-                    {hero_button_right}
-                  </Button>
-                </Box>
+                    <Button
+                      component={'a'}
+                      href={'/demos/'}
+                      variant="outlined"
+                      color="secondary"
+                      size="large"
+                      fullWidth={isMd ? false : true}
+                    >
+                      {hero_button_right}
+                    </Button>
+                  </Box>
+                )}
               </Box>
             </Box>
           </Grid>

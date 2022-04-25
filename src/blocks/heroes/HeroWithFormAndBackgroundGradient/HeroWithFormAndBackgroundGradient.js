@@ -9,7 +9,7 @@ import FillerContent from 'components/FillerContent';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 
 // Wrapper for the standardformwithselect component
-const FormCustom = ({ title }) => {
+const FormCustom = ({ title, content }) => {
   const theme = useTheme();
   const titleStyle = {
     fontWeight: 700,
@@ -17,9 +17,9 @@ const FormCustom = ({ title }) => {
     color: theme.palette.common.black,
     paddingBottom: '1.5rem',
   };
-
   return (
     <Box padding={{ xs: 3, sm: 6 }} width={1} component={Card} boxShadow={1}>
+      {' '}
       <Typography
         variant={'p'}
         component={'h2'}
@@ -29,22 +29,7 @@ const FormCustom = ({ title }) => {
       >
         {title || FillerContent.header}
       </Typography>
-      <StandardFormWithSelect
-        leadDetail="Adwords"
-        businessType="Direct"
-        leadSource="Advertisement"
-        selectedValue={2}
-        hideSelect={true}
-        hideMessage={true}
-        ctaText={FillerContent.cta}
-        modalTitle="Thank you for submitting your information."
-        modalMessage="Our team will be in touch soon to discuss next steps."
-        displayMsgUnderButton=" "
-        additionalTextfield={{ company: true, jobTitle: true }}
-        buttonFullWidth={true}
-        hidePrivacySection={true}
-        messageLabel="Is there anything you would like to cover in the demo?"
-      />
+      <StandardFormWithSelect {...content} />
     </Box>
   );
 };
@@ -55,16 +40,14 @@ const Hero = ({
   imageCollection,
   backgroundImage,
   form_title,
+  formContent,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const images = imageCollection?.map(
-    (e) => e.customer_logo?.data && e.customer_logo?.data[0]?.url,
+    (e) => e?.url || (e.customer_logo?.data && e.customer_logo?.data[0]?.url),
   );
-
-  // old hero bg
-  // https://assets.maccarianagency.com/backgrounds/img19.jpg
 
   return (
     <Box
@@ -107,7 +90,7 @@ const Hero = ({
           </Grid>
           <Grid item xs={12} md={6}>
             <Box width={1} height="100%" display="flex" alignItems="center">
-              <FormCustom title={form_title} />
+              <FormCustom title={form_title} content={formContent} />
             </Box>
           </Grid>
         </Grid>
