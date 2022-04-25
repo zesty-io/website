@@ -88,11 +88,7 @@ const HeroWithIllustrationAndCta = ({
       {' '}
       <Container>
         {' '}
-        <Grid
-          container
-          spacing={4}
-          flexDirection={{ xs: 'column-reverse', md: 'row' }}
-        >
+        <Grid container spacing={4} flexDirection={{ xs: 'column', md: 'row' }}>
           {' '}
           <Grid item container alignItems={'center'} xs={12} md={6}>
             {' '}
@@ -329,7 +325,7 @@ const FeaturesWithMobileScreenshot = ({
           isMobile ? 'column' : index !== 1 ? 'row' : 'row-reverse'
         }
         container
-        spacing={4}
+        spacing={isMobile ? 0 : 4}
       >
         <Grid
           item
@@ -365,7 +361,7 @@ const FeaturesWithMobileScreenshot = ({
             display: 'flex',
             // alignItems: 'center',
             justifyContent: isMobile ? 'center' : 'start',
-            marginTop: '4rem',
+            marginTop: isMobile ? '1rem' : '4rem',
           }}
           order={{ sm: 1, md: 2 }}
         >
@@ -392,10 +388,29 @@ const FeaturesWithMobileScreenshot = ({
     </Container>
   );
 };
+const switchName = (id) => {
+  switch (id) {
+    case 0:
+      return 'content-management';
+    case 1:
+      return 'digital-asset-management';
+    case 2:
+      return 'webengine';
+    default:
+      return 'content-management';
+  }
+};
 const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const router = useRouter();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const handleClick = (id) => {
+    document
+      .getElementById(switchName(id))
+      .scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <Box paddingY={8}>
       {' '}
@@ -435,9 +450,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={
-                item?.card_link?.data[0]?.meta?.web?.uri || FillerContent.href
-              }
+              onClick={() => handleClick(i)}
               display={'block'}
               width={1}
               height={1}
@@ -476,7 +489,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
                     component={'h3'}
                     color="textSecondary"
                     paddingBottom={4}
-                    whiteSpace={'nowrap'}
+                    whiteSpace={isMobile ? 'normal' : 'nowrap'}
                   >
                     {item.feature_name || FillerContent.description}
                   </Typography>
@@ -502,7 +515,7 @@ const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
-      marginTop={16}
+      marginTop={isMobile ? 4 : 16}
       height={'auto'}
       position={'relative'}
       sx={{
@@ -611,6 +624,7 @@ function ExploreZesty() {
 
   const theme = useTheme();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const formContent = {
     leadDetail: 'Adwords',
     businessType: 'Direct',
@@ -649,8 +663,8 @@ function ExploreZesty() {
 
       {/* Stories section */}
       <Box
-        marginBottom={12}
-        paddingBottom={12}
+        marginBottom={isMobile ? 11 : 12}
+        paddingBottom={isMobile ? 6 : 12}
         bgcolor={theme.palette.zesty.zestyBlue}
       >
         <Container>
@@ -664,17 +678,19 @@ function ExploreZesty() {
         </Container>
       </Box>
 
-      <FeaturesWithMobileScreenshot
-        index={0}
-        header={'   ' || FillerContent.header}
-        content={content.how_it_works || FillerContent.rich_text}
-        image={
-          (content?.how_it_works_image?.data &&
-            content?.how_it_works_image?.data[0]?.url) ||
-          FillerContent.image
-        }
-      />
-      <Box paddingY={12}>
+      <Box id="content-management">
+        <FeaturesWithMobileScreenshot
+          index={0}
+          header={'   ' || FillerContent.header}
+          content={content.how_it_works || FillerContent.rich_text}
+          image={
+            (content?.how_it_works_image?.data &&
+              content?.how_it_works_image?.data[0]?.url) ||
+            FillerContent.image
+          }
+        />
+      </Box>
+      <Box id="digital-asset-management" paddingY={isMobile ? 6 : 12}>
         <FeaturesWithMobileScreenshot
           index={1}
           header={'  ' || FillerContent.header}
@@ -686,16 +702,18 @@ function ExploreZesty() {
           }
         />
       </Box>
-      <FeaturesWithMobileScreenshot
-        index={2}
-        header={'  ' || FillerContent.header}
-        content={content.additional_benefit || FillerContent.rich_text}
-        image={
-          (content.additional_benefit_image?.data &&
-            content.additional_benefit_image?.data[0]?.url) ||
-          FillerContent.image
-        }
-      />
+      <Box id="webengine">
+        <FeaturesWithMobileScreenshot
+          index={2}
+          header={'  ' || FillerContent.header}
+          content={content.additional_benefit || FillerContent.rich_text}
+          image={
+            (content.additional_benefit_image?.data &&
+              content.additional_benefit_image?.data[0]?.url) ||
+            FillerContent.image
+          }
+        />
+      </Box>
       {/* form */}
       <ContactUsForm
         theme={theme}
