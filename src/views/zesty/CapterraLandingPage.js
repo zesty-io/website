@@ -227,7 +227,7 @@ function CapterraLandingPage({ content }) {
   const formContent = {
     leadDetail: 'Capterra',
     businessType: 'Direct',
-    leadSource: 'Website',
+    leadSource: 'Advertisement',
     selectedValue: 2,
     hideSelect: true,
     hideMessage: true,
