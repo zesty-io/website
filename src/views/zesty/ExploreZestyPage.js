@@ -638,6 +638,7 @@ function ExploreZesty() {
     displayMsgUnderButton: ' ',
     additionalTextfield: { company: true, jobTitle: true },
     customButtonStyle: { display: 'flex', justifyContent: 'center' },
+    additionalTextfield: { phoneNumber: true },
   };
 
   const hero_image = 'https://hkrhwx6h.media.zestyio.com/Group-19.png';
