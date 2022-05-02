@@ -60,7 +60,7 @@ function PpcShortForm({ content }) {
           content.background_image?.data[0]?.url
         }
         form_title={content.form_title || FillerContent.header}
-        fotmContent={formContent}
+        formContent={formContent}
       />
     </>
   );

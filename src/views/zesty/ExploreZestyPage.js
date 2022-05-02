@@ -75,6 +75,11 @@ const HeroWithIllustrationAndCta = ({
   });
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let titleSplits = title?.split('<br>');
+  const scrollToContactUs = () => {
+    document
+      .getElementById('contact-us')
+      .scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <Box
       position={'relative'}
@@ -83,11 +88,7 @@ const HeroWithIllustrationAndCta = ({
       {' '}
       <Container>
         {' '}
-        <Grid
-          container
-          spacing={4}
-          flexDirection={{ xs: 'column-reverse', md: 'row' }}
-        >
+        <Grid container spacing={4} flexDirection={{ xs: 'column', md: 'row' }}>
           {' '}
           <Grid item container alignItems={'center'} xs={12} md={6}>
             {' '}
@@ -163,7 +164,8 @@ const HeroWithIllustrationAndCta = ({
                   >
                     <Button
                       component={'a'}
-                      href={'/demos/'}
+                      onClick={scrollToContactUs}
+                      // href={button_right_link || '#'}
                       variant="outlined"
                       color="secondary"
                       size="large"
@@ -221,7 +223,7 @@ const HeroWithIllustrationAndCta = ({
         }}
       >
         <path
-          fill={theme.palette.background.paper}
+          fill={theme.palette.zesty.zestyBlue}
           d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
         ></path>
       </Box>
@@ -282,7 +284,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
                   filter:
                     theme.palette.mode === 'dark'
                       ? 'brightness(0) invert(0.7)'
-                      : 'brightness(0) invert(0.7)',
+                      : 'grayscale(100%) brightness(0) invert(0) ',
                 }}
               />
             </Box>
@@ -323,7 +325,7 @@ const FeaturesWithMobileScreenshot = ({
           isMobile ? 'column' : index !== 1 ? 'row' : 'row-reverse'
         }
         container
-        spacing={4}
+        spacing={isMobile ? 0 : 4}
       >
         <Grid
           item
@@ -352,15 +354,19 @@ const FeaturesWithMobileScreenshot = ({
           xs={12}
           md={6}
           sx={{
-            backgroundColor: 'transparent',
+            backgroundColor: 'none',
             backgroundImage: '',
             backgroundSize: '100% 100%',
             backgroundRepeat: 'no-repeat',
+            display: 'flex',
+            // alignItems: 'center',
+            justifyContent: isMobile ? 'center' : 'start',
+            marginTop: isMobile ? '1rem' : '4rem',
           }}
           order={{ sm: 1, md: 2 }}
         >
-          <Box
-            component={'img'}
+          <img
+            height={isMobile ? 200 : 320}
             src={
               image
                 ? image
@@ -369,12 +375,10 @@ const FeaturesWithMobileScreenshot = ({
                 : FillerContent.mobileImage.dark
             }
             alt={header || FillerContent.header}
-            width={1}
-            height={1}
             sx={{
               marginBottom: isMobile ? '3rem' : '1rem',
               objectFit: 'contain',
-              borderRadius: '2.5rem',
+              borderRadius: '2rem',
               transform: isMobile ? 'scale(.80)' : 'scale(.70)',
               filter: theme.palette.mode === 'dark' ? 'brightness(1)' : 'none',
             }}
@@ -384,10 +388,29 @@ const FeaturesWithMobileScreenshot = ({
     </Container>
   );
 };
+const switchName = (id) => {
+  switch (id) {
+    case 0:
+      return 'content-management';
+    case 1:
+      return 'digital-asset-management';
+    case 2:
+      return 'webengine';
+    default:
+      return 'content-management';
+  }
+};
 const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const router = useRouter();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const handleClick = (id) => {
+    document
+      .getElementById(switchName(id))
+      .scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <Box paddingY={8}>
       {' '}
@@ -427,9 +450,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={
-                item?.card_link?.data[0]?.meta?.web?.uri || FillerContent.href
-              }
+              onClick={() => handleClick(i)}
               display={'block'}
               width={1}
               height={1}
@@ -468,7 +489,7 @@ const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
                     component={'h3'}
                     color="textSecondary"
                     paddingBottom={4}
-                    whiteSpace={'nowrap'}
+                    whiteSpace={isMobile ? 'normal' : 'nowrap'}
                   >
                     {item.feature_name || FillerContent.description}
                   </Typography>
@@ -494,7 +515,7 @@ const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
-      marginTop={10}
+      marginTop={isMobile ? 4 : 16}
       height={'auto'}
       position={'relative'}
       sx={{
@@ -527,7 +548,7 @@ const ContactUsForm = ({ theme, content, formContent }) => {
         id="contact-us"
         sx={{
           position: 'relative',
-          padding: isMobile ? '5rem 0' : '10rem 0',
+          padding: isMobile ? '5rem 0' : '12rem 0',
           zIndex: 2,
         }}
       >
@@ -603,6 +624,7 @@ function ExploreZesty() {
 
   const theme = useTheme();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const formContent = {
     leadDetail: 'Adwords',
     businessType: 'Direct',
@@ -628,8 +650,7 @@ function ExploreZesty() {
 
     button_left_link: content.hero_cta_primary_link || FillerContent.header,
     hero_button_right: content.hero_cta_secondary_text,
-    button_right_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
+    button_right_link: '#contact-us' || FillerContent.header,
     content,
   };
 
@@ -641,7 +662,11 @@ function ExploreZesty() {
       {/* Logo section  */}
 
       {/* Stories section */}
-      <Box bgcolor={theme.palette.zesty.zestyBlue}>
+      <Box
+        marginBottom={isMobile ? 11 : 12}
+        paddingBottom={isMobile ? 6 : 12}
+        bgcolor={theme.palette.zesty.zestyBlue}
+      >
         <Container>
           <Stories
             eyeBrow={'   ' || FillerContent.header}
@@ -653,36 +678,42 @@ function ExploreZesty() {
         </Container>
       </Box>
 
-      <FeaturesWithMobileScreenshot
-        index={0}
-        header={'   ' || FillerContent.header}
-        content={content.how_it_works || FillerContent.rich_text}
-        image={
-          (content?.how_it_works_image?.data &&
-            content?.how_it_works_image?.data[0]?.url) ||
-          FillerContent.image
-        }
-      />
-      <FeaturesWithMobileScreenshot
-        index={1}
-        header={'  ' || FillerContent.header}
-        content={content.outline_of_benefits || FillerContent.rich_text}
-        image={
-          (content.benefits_image?.data &&
-            content.benefits_image?.data[0]?.url) ||
-          FillerContent.image
-        }
-      />
-      <FeaturesWithMobileScreenshot
-        index={2}
-        header={'  ' || FillerContent.header}
-        content={content.additional_benefit || FillerContent.rich_text}
-        image={
-          (content.additional_benefit_image?.data &&
-            content.additional_benefit_image?.data[0]?.url) ||
-          FillerContent.image
-        }
-      />
+      <Box id="content-management">
+        <FeaturesWithMobileScreenshot
+          index={0}
+          header={'   ' || FillerContent.header}
+          content={content.how_it_works || FillerContent.rich_text}
+          image={
+            (content?.how_it_works_image?.data &&
+              content?.how_it_works_image?.data[0]?.url) ||
+            FillerContent.image
+          }
+        />
+      </Box>
+      <Box id="digital-asset-management" paddingY={isMobile ? 6 : 12}>
+        <FeaturesWithMobileScreenshot
+          index={1}
+          header={'  ' || FillerContent.header}
+          content={content.outline_of_benefits || FillerContent.rich_text}
+          image={
+            (content.benefits_image?.data &&
+              content.benefits_image?.data[0]?.url) ||
+            FillerContent.image
+          }
+        />
+      </Box>
+      <Box id="webengine">
+        <FeaturesWithMobileScreenshot
+          index={2}
+          header={'  ' || FillerContent.header}
+          content={content.additional_benefit || FillerContent.rich_text}
+          image={
+            (content.additional_benefit_image?.data &&
+              content.additional_benefit_image?.data[0]?.url) ||
+            FillerContent.image
+          }
+        />
+      </Box>
       {/* form */}
       <ContactUsForm
         theme={theme}
