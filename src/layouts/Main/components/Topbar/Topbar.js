@@ -18,8 +18,9 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
   //check if page is from ppc for hiding of footer and nav
   const isPpcPage = router.asPath.includes('/ppc');
   const isCapterraPage = router.asPath.includes('/capterra');
+  const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
 
-  const hideNav = isPpcPage || isCapterraPage;
+  const hideNav = isPpcPage || isCapterraPage || isDxpTemplatePage;
 
   return (
     <Box

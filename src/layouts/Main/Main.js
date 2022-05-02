@@ -55,10 +55,11 @@ const Main = ({
 
   const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
   const isCapterraPage = router.asPath.includes('/capterra');
+  const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isExplorePage = router.asPath === '/ppc/explore/';
   // override over invert based on pages that we know have a dark image heading
 
-  const hideNav = isPpcShortPage || isCapterraPage;
+  const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
 
   let pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
   const headerColorInvert =
