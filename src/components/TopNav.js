@@ -13,9 +13,10 @@ const TopNav = ({ nav, colorInvert = false }) => {
   //check if page is from ppc or capterra for hiding of footer and nav
   const isPpcShortPage = router.asPath.includes('ppc');
   const isCapterraPage = router.asPath.includes('/capterra');
+  const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   // override over invert based on pages that we know have a dark image heading
 
-  const hideNav = isPpcShortPage || isCapterraPage;
+  const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
 
   return (
     <Box
