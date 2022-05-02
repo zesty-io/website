@@ -155,7 +155,7 @@ const ContactUsForm = ({ theme, content, formContent }) => {
     'Complete the form below with any questions and a team member will be in touch soon.';
   return (
     <Box
-      marginTop={isMobile ? 4 : 16}
+      marginTop={isMobile ? 4 : 14}
       height={'auto'}
       position={'relative'}
       sx={{
@@ -246,15 +246,6 @@ const ContactUs = ({ title, description, content, formContent }) => {
   );
 };
 function GatedContentPage({ content }) {
-  const {
-    data: allArticles,
-    isPending,
-    error,
-  } = useFetch(
-    `/-/all-articles-hydrated.json?limit=3`,
-    content.zestyProductionMode,
-  );
-
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -272,14 +263,19 @@ function GatedContentPage({ content }) {
     additionalTextfield: { company: true, jobTitle: true },
     buttonFullWidth: true,
     hidePrivacySection: true,
-    messageLabel: 'Is there anything you would like to cover in the demo?',
+    messageLabel: '',
+    validationType: 'dxp',
+    bottomCheckbox: true,
+    bottomCheckboxLabel: 'Sign me up for Zesty newsletters insights',
+    ctaButton: 'Download Now',
   };
 
   return (
     <>
+      {/* Hero section */}
       <HeroWithFormAndBackgroundGradient
         headelineTitle={content.hero_h1 || FillerContent.header}
-        description={content.hero_description || FillerContent.description}
+        description={content.hero_description_box || FillerContent.description}
         imageCollection={[]}
         backgroundImage={
           content?.hero_background_image?.data &&
@@ -288,7 +284,9 @@ function GatedContentPage({ content }) {
         form_title={content.form_title || FillerContent.header}
         formContent={formContent}
       />
-      <Box id="content-management">
+
+      {/* section */}
+      <Box id="content-management" paddingTop={6}>
         <FeaturesWithMobileScreenshot
           index={0}
           header={'   ' || FillerContent.header}
@@ -300,7 +298,9 @@ function GatedContentPage({ content }) {
           }
         />
       </Box>
-      <Box id="digital-asset-management" paddingY={isMobile ? 6 : 12}>
+
+      {/* section */}
+      <Box id="digital-asset-management" paddingTop={6}>
         <FeaturesWithMobileScreenshot
           index={1}
           header={'  ' || FillerContent.header}
@@ -312,6 +312,7 @@ function GatedContentPage({ content }) {
           }
         />
       </Box>
+
       {/* form */}
       <ContactUsForm
         theme={theme}
@@ -321,21 +322,15 @@ function GatedContentPage({ content }) {
 
       {/* Industry Insights > Latest Blogs articles */}
       <Box paddingY={8}>
-        {isPending ? (
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <CircularProgressWithLabel />
-          </Box>
-        ) : (
-          <VerticallyAlignedBlogCardsWithShapedImage
-            title={'Industry Insights'}
-            description={undefined}
-            popularArticles={allArticles}
-            ctaBtn={undefined}
-            ctaUrl={/mindshare/}
-            titlePosition="center"
-            titleVariant="h4"
-          />
-        )}
+        <VerticallyAlignedBlogCardsWithShapedImage
+          title={content.additional_resources_header || FillerContent.header}
+          description={undefined}
+          popularArticles={content.additional_resources_boxes.data}
+          ctaBtn={undefined}
+          ctaUrl={/mindshare/}
+          titlePosition="center"
+          titleVariant="h4"
+        />
       </Box>
     </>
   );
