@@ -19,6 +19,8 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   ctaBtn,
   ctaUrl,
   popularArticles = [],
+  titlePosition = 'space-between',
+  titleVariant = 'h6',
 }) => {
   function makeDate(date) {
     var d = new Date(date);
@@ -38,7 +40,7 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
     <Container paddingTop={'0 !important'}>
       <Box
         display={'flex'}
-        justifyContent={'space-between'}
+        justifyContent={titlePosition}
         alignItems={{ xs: 'flex-start', sm: 'center' }}
         flexDirection={{ xs: 'column', sm: 'row' }}
         marginBottom={4}
@@ -47,12 +49,14 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
           <Typography
             paddingTop={1}
             fontWeight={700}
-            variant={'h6'}
+            variant={titleVariant}
             gutterBottom
           >
             {title}
           </Typography>
-          <Typography color={'text.secondary'}>{description}</Typography>
+          {description && (
+            <Typography color={'text.secondary'}>{description}</Typography>
+          )}
         </Box>
 
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
