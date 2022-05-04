@@ -151,8 +151,7 @@ const FeaturesWithMobileScreenshot = ({
 
 const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const form_description =
-    'Complete the form below with any questions and a team member will be in touch soon.';
+  const form_description = '   ';
   return (
     <Box
       marginTop={isMobile ? 4 : 14}
@@ -220,8 +219,10 @@ const ContactUs = ({ title, description, content, formContent }) => {
     >
       <Box marginBottom={4}>
         <Typography
-          variant={'h3'}
+          variant={'p'}
+          component="h2"
           sx={{
+            fontSize: '1.7rem',
             fontWeight: 700,
             color: theme.palette.common.black,
           }}
@@ -239,7 +240,7 @@ const ContactUs = ({ title, description, content, formContent }) => {
           {description}
         </Typography>
       </Box>
-      <Box paddingBottom={6} textAlign="center">
+      <Box paddingBottom={6} textAlign="left">
         <StandardFormWithSelect {...formContent} />
       </Box>
     </Box>
