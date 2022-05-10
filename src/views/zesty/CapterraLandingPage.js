@@ -225,9 +225,9 @@ function CapterraLandingPage({ content }) {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const formContent = {
-    leadDetail: 'Capterra',
+    leadDetail: 'CMSW-email',
     businessType: 'Direct',
-    leadSource: 'Advertisement',
+    leadSource: 'CMS Wire',
     selectedValue: 2,
     hideSelect: true,
     hideMessage: true,
