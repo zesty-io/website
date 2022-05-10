@@ -65,6 +65,18 @@ const Main = ({
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;
 
+  const bgColorSwitch = () => {
+    if (isExplorePage) {
+      return theme.palette.alternate.main;
+    } else if (trigger) {
+      return theme.palette.background.paper;
+    } else if (hideNav) {
+      return 'transparent';
+    } else {
+      return bgcolor;
+    }
+  };
+
   return (
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
@@ -82,15 +94,9 @@ const Main = ({
         sx={{
           outline: 'none',
           border: 'none',
-          boxShadow: hideNav ? 'none' : '',
+          boxShadow: hideNav ? '' : '',
           top: 0,
-          backgroundColor: isExplorePage
-            ? theme.palette.alternate.main
-            : hideNav
-            ? 'transparent'
-            : trigger
-            ? theme.palette.background.paper
-            : bgcolor,
+          backgroundColor: bgColorSwitch(),
         }}
         elevation={trigger ? 1 : 0}
       >
@@ -98,7 +104,8 @@ const Main = ({
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
-            colorInvert={(headerColorInvert && !trigger) || hideNav}
+            colorInvert={headerColorInvert && !trigger}
+            trigger={trigger}
           />
         </Container>
       </AppBar>
