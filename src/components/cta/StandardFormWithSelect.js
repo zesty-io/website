@@ -186,6 +186,7 @@ function StandardFormWithSelect({
   bottomCheckboxLabel = '',
   validationType = '',
   ctaButton = 'Submit',
+  downloadLink = '',
 }) {
   const theme = useTheme();
 
@@ -217,6 +218,9 @@ function StandardFormWithSelect({
   };
 
   const onSubmit = async (values) => {
+    // download link
+    downloadLink && window.open(downloadLink, '_blank');
+
     let payload = getLeadObjectZOHO(
       values,
       selectValue,

@@ -251,15 +251,17 @@ function GatedContentPage({ content }) {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const formContent = {
-    leadDetail: 'Capterra',
+    leadDetail: 'CMSW-email',
     businessType: 'Direct',
-    leadSource: 'Advertisement',
+    leadSource: 'CMS Wire',
     selectedValue: 2,
     hideSelect: true,
     hideMessage: true,
     ctaText: FillerContent.cta,
-    modalTitle: 'Thank you for submitting your information.',
-    modalMessage: 'Our team will be in touch soon to discuss next steps.',
+
+    modalTitle: `Thank you for downloading the DXP buyer's guide and RFP template. `,
+    modalMessage:
+      'Find more information about digital experiences at Zesty.io/mindshare.',
     displayMsgUnderButton: ' ',
     additionalTextfield: { company: true, jobTitle: true },
     buttonFullWidth: true,
@@ -269,6 +271,8 @@ function GatedContentPage({ content }) {
     bottomCheckbox: true,
     bottomCheckboxLabel: 'Sign me up for Zesty newsletters insights',
     ctaButton: 'Download Now',
+    downloadLink:
+      'https://github.com/zesty-io/nextjs-website/files/8653256/Zesty.Scorecard.-TEST.pdf',
   };
 
   return (
