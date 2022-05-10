@@ -53,6 +53,7 @@ import useFetch from 'components/hooks/useFetch';
 import WYSIWYGRender from 'components/WYSIWYGRender';
 import React from 'react';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
+import { useRouter } from 'next/router';
 
 const FeaturesWithMobileScreenshot = ({
   header,
@@ -248,10 +249,11 @@ const ContactUs = ({ title, description, content, formContent }) => {
 };
 function GatedContentPage({ content }) {
   const theme = useTheme();
+  const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const formContent = {
-    leadDetail: 'CMSW-email',
+    leadDetail: router?.query?.source,
     businessType: 'Direct',
     leadSource: 'CMS Wire',
     selectedValue: 2,
