@@ -274,7 +274,7 @@ function GatedContentPage({ content }) {
     bottomCheckboxLabel: 'Sign me up for Zesty newsletters insights',
     ctaButton: 'Download Now',
     downloadLink:
-      'https://github.com/zesty-io/nextjs-website/files/8653256/Zesty.Scorecard.-TEST.pdf',
+      content.contentdownload?.data && content.contentdownload?.data[0]?.url,
   };
 
   return (
