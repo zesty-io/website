@@ -14,11 +14,6 @@ import '../../public/styles/custom.css';
 export default function App({ Component, pageProps }) {
   return (
     <React.Fragment>
-      <Script
-        type="text/javascript"
-        strategy="beforeInteractive"
-        src="https://cdn.jsdelivr.net/gh/darwin808/comp-library-ts-react-webpack@latest/build/bundle.js"
-      />
       <Head>
         <meta
           name="viewport"
