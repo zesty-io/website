@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }) {
       <Script
         type="text/javascript"
         strategy="beforeInteractive"
-        src="https://cdn.jsdelivr.net/gh/darwin808/comp-library-ts-react-webpack@0.0.3/build/bundle.js"
+        src="https://cdn.jsdelivr.net/gh/darwin808/comp-library-ts-react-webpack@latest/build/bundle.js"
       />
       <Head>
         <meta
