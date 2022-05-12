@@ -409,4 +409,12 @@ export default {
       avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
     },
   ],
+  logos: [
+    {url: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/netflix-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/google-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/paypal-original.svg'},
+  ]
 };

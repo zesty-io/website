@@ -10,7 +10,13 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 import { useRouter } from 'next/router';
 
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
-const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
+
+const Topbar = ({
+  onSidebarOpen,
+  customRouting,
+  colorInvert = false,
+  trigger,
+}) => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const router = useRouter();
@@ -18,8 +24,19 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
   //check if page is from ppc for hiding of footer and nav
   const isPpcPage = router.asPath.includes('/ppc');
   const isCapterraPage = router.asPath.includes('/capterra');
+  const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
+  const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
 
-  const hideNav = isPpcPage || isCapterraPage;
+  const hideNav = isPpcPage || isCapterraPage || isDxpTemplatePage;
+
+  // for changing the logo color base on pages
+  // affected pages dxp, capterra, ppc, ppc long , ppc short ,ppc explore
+  const changeLogoColor = () => {
+    if (isDxpTemplatePage || isCapterraPage || isPpcShortPage) {
+      return trigger;
+    }
+    return mode === 'light' && !colorInvert;
+  };
 
   return (
     <Box
@@ -34,11 +51,12 @@ const Topbar = ({ onSidebarOpen, customRouting, colorInvert = false }) => {
         href="/"
         title="Zesty.io Platform"
         width={{ xs: 100, md: 150 }}
+        paddingTop={isDxpTemplatePage ? 4 : 0}
       >
         <Box
           component={'img'}
           src={
-            mode === 'light' && !colorInvert
+            changeLogoColor()
               ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
               : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
           }
@@ -122,4 +140,4 @@ Topbar.propTypes = {
   colorInvert: PropTypes.bool,
 };
 
-export default Topbar;
+export default React.memo(Topbar);

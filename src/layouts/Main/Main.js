@@ -55,14 +55,27 @@ const Main = ({
 
   const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
   const isCapterraPage = router.asPath.includes('/capterra');
+  const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isExplorePage = router.asPath === '/ppc/explore/';
   // override over invert based on pages that we know have a dark image heading
 
-  const hideNav = isPpcShortPage || isCapterraPage;
+  const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
 
   let pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;
+
+  const bgColorSwitch = () => {
+    if (isExplorePage) {
+      return theme.palette.alternate.main;
+    } else if (trigger) {
+      return theme.palette.background.paper;
+    } else if (hideNav) {
+      return 'transparent';
+    } else {
+      return bgcolor;
+    }
+  };
 
   return (
     <Box>
@@ -81,15 +94,9 @@ const Main = ({
         sx={{
           outline: 'none',
           border: 'none',
-          boxShadow: hideNav ? 'none' : '',
+          boxShadow: hideNav ? '' : '',
           top: 0,
-          backgroundColor: isExplorePage
-            ? theme.palette.alternate.main
-            : hideNav
-            ? 'transparent'
-            : trigger
-            ? theme.palette.background.paper
-            : bgcolor,
+          backgroundColor: bgColorSwitch(),
         }}
         elevation={trigger ? 1 : 0}
       >
@@ -97,7 +104,8 @@ const Main = ({
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
-            colorInvert={(headerColorInvert && !trigger) || hideNav}
+            colorInvert={headerColorInvert && !trigger}
+            trigger={trigger}
           />
         </Container>
       </AppBar>

@@ -45,6 +45,7 @@ import Event from './Event';
 import LongFormPpc from './LongFormPpc';
 import PpcShortForm from './PpcShortForm';
 import IntegrationsIndividualPage from './IntegrationsIndividualPage';
+import GatedContentPage from './GatedContentPage';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -119,6 +120,7 @@ export {
     LongFormPpc,
     PpcShortForm,
     IntegrationsIndividualPage,
+    GatedContentPage,
     Homepage,
     SimplePage,
     Mindshare,
