@@ -801,6 +801,8 @@ const ContactUsForm = ({ theme, content }) => {
 };
 
 const VideoPlayer = ({ videoUrl, theme, isMobile, videoHeader }) => {
+  const isIpad = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <div
       style={{
@@ -827,7 +829,7 @@ const VideoPlayer = ({ videoUrl, theme, isMobile, videoHeader }) => {
         {videoHeader}
       </Typography>
       <ReactPlayer
-        width={isMobile ? '90vw' : '50vw'}
+        width={isMobile ? '90vw' : isIpad ? '70vw' : '50vw'}
         height={isMobile ? '33vh' : '50vh'}
         url={videoUrl}
         muted={false}
