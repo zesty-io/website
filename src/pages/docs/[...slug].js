@@ -6,9 +6,9 @@ import Grid from '@mui/material/Grid'
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import { docsLookup } from 'components/docs/docsLookup';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
-import { alpha, useTheme } from '@mui/material/styles';
+
+import { useTheme } from '@mui/material/styles';
+import AppBar from 'components/console/AppBar';
 
 // design changes for the main body of content
 const muiContentOverrides = {
@@ -95,31 +95,7 @@ export default function Docs(props) {
 
     return (
         <Main>
-            <Box sx={{backgroundColor: theme.palette.background.level2, padding: '12px 0', marginTop: '10px'}}>
-                <Container>
-                    <Breadcrumbs aria-label="breadcrumb">
-                        <Link underline="hover" color="inherit" href="/docs/">
-                            Docs
-                        </Link>
-                        <Link
-                            underline="hover"
-                            color="inherit"
-                            href="/material-ui/getting-started/installation/"
-                            >
-                            Core
-                        </Link>
-                        <Link
-                            underline="hover"
-                            color="text.primary"
-                            href="/material-ui/react-breadcrumbs/"
-                            aria-current="page"
-                            >
-                            Breadcrumbs
-                        </Link>
-                    </Breadcrumbs>
-
-                </Container>
-            </Box>
+            <AppBar></AppBar>
             <Container>
                 <Box sx={{ display: 'flex' }}>
                     <Box

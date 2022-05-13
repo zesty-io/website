@@ -166,6 +166,22 @@ const validationSchemaForDxp = yup.object({
   company: yup.string().trim().required('Please specify your company'),
   jobTitle: yup.string().trim().required('Please specify your job title'),
 });
+
+const subscribeToZoho = async (payload) => {
+  const { Email, First_Name, Last_Name } = payload;
+  await fetch(
+    `https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe?email=${Email}&name=${First_Name}_${Last_Name}`,
+    {
+      method: 'GET',
+    },
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      dataLayer.push({ event: 'emailSubscribeSubmitted', value: '1' });
+      acSENT = true;
+    });
+};
+
 function StandardFormWithSelect({
   selectedValue = 0,
   hideSelect = false,
@@ -186,6 +202,7 @@ function StandardFormWithSelect({
   bottomCheckboxLabel = '',
   validationType = '',
   ctaButton = 'Submit',
+  downloadLink = '',
 }) {
   const theme = useTheme();
 
@@ -217,6 +234,9 @@ function StandardFormWithSelect({
   };
 
   const onSubmit = async (values) => {
+    // download link
+    downloadLink && window.open(downloadLink, '_blank');
+
     let payload = getLeadObjectZOHO(
       values,
       selectValue,
@@ -224,7 +244,8 @@ function StandardFormWithSelect({
       businessType,
       leadSource,
     );
-    await postToZOHO(payload);
+    console.log(payload.newsletter_signup, 1111111);
+    payload.newsletter_signup ? subscribeToZoho(payload) : postToZOHO(payload);
     setOpen(!open);
     return values;
   };

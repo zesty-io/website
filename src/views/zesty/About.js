@@ -40,11 +40,17 @@ import { Gallery } from 'blocks/graphics';
 import { Numbers } from 'blocks/stats';
 import { Story } from 'blocks/contentBlocks';
 import { TeamWithSmallSquarePhotos } from 'blocks/team';
+import { LogoGridSimpleCentered, Partners } from 'blocks/logoGrid';
 // filler content
 import FillerContent from 'components/FillerContent';
 
 function About({ content }) {
   const theme = useTheme();
+
+  const logos = theme.palette.mode === 'dark' 
+  ? (content.board_member_logos_white?.data || FillerContent.logos) 
+  : (content.board_member_logos?.data || FillerContent.logos)
+
   return (
     <>
       <Box>
@@ -78,7 +84,29 @@ function About({ content }) {
             <TeamWithSmallSquarePhotos
             eyebrow={content.team_eyebrow || FillerContent.header}
             title={content.team_title || FillerContent.header}
-            team={content.team_members?.data || []} />
+            team={content.team_members?.data || []}
+            grid={4} />
+
+            <TeamWithSmallSquarePhotos
+            eyebrow={content.board_members_title || FillerContent.header}
+            title={content.board_members_description || FillerContent.header}
+            team={content.board_members?.data || []}
+            grid={6} />
+
+            <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
+              {logos.map((item, i) => (
+                <Box maxWidth={90} marginTop={2} marginRight={12} key={i}>
+                  <Box
+                    component="img"
+                    height={1}
+                    // width={(i === 0) ? 135 : 1}
+                    width={1}
+                    src={item.url}
+                    alt="..."
+                  />
+                </Box>
+              ))}
+            </Box>
           </Container>
         </Box>
 
