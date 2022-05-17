@@ -37,6 +37,9 @@ This will create new files where needed, but will not overwrite existing files.
 
 Any push or merge to the `main` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
 
+stage: https://zesty-website-m3rbwjxm5q-uc.a.run.app/
+prod: https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
+
 ## Contribution
 
 1. Create a branch
