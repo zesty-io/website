@@ -29,7 +29,6 @@ export default function AppBar({ url = '' }) {
   const { loading, verifyFailed, verifySuccess, instances, views, models } =
     useFetchWrapper(userAppSID, instanceZUID);
 
-  console.log(instanceZUID, 22222222222222222222222);
   React.useEffect(() => {
     console.log(
       instances,
@@ -55,6 +54,7 @@ export default function AppBar({ url = '' }) {
         marginTop: '10px',
         display: 'flex',
         justifyContent: 'space-between',
+        alignItems: 'center',
       }}
     >
       <Container>
