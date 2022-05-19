@@ -253,7 +253,7 @@ function GatedContentPage({ content }) {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const formContent = {
-    leadDetail: router?.query?.source,
+    leadDetail: 'CMSW - Media',
     businessType: 'Direct',
     leadSource: 'CMS Wire',
     selectedValue: 2,
