@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          
+        <script src="https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.min.js" />
         </Head>
         <body>
           <noscript>
