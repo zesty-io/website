@@ -1,57 +1,107 @@
 import React from 'react';
-import Container from '@mui/material/Container'
+import Container from '@mui/material/Container';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+import { useFetchWrapper } from '../../hooks/useFetchWrapper';
+import * as helper from 'utils';
+import { ComboBox } from 'components/AutoComplete';
+import { Button } from '@mui/material';
 
-export default function AppBar({url=''}){
+export default function AppBar({ url = '' }) {
+  const theme = useTheme();
+  const instanceZUID = helper.getCookie('ZESTY_WORKING_INSTANCE');
+  const userAppSID = helper.getCookie('APP_SID');
 
-    const theme = useTheme();
-    const instanceZUID = '8-xyzxyz-xyz'
-    const userAppSID = 'xxxxxxxxxx'
-    let splitURL = url.split('/')
-    let ZestyAPI = new Zesty.FetchWrapper(instanceZUID,userAppSID)
+  let splitURL = url.split('/');
+  let ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
 
-    console.log(ZestyAPI.getModels())
-    function generateURLFromSplit(depth,urlSplit){
-        let url = `/`
-        for (i=0;i<=depth;i++){
-            url = url + `${urlSplit[i]}/`
-        }
-        return url
+  console.log(ZestyAPI.getModels());
+  function generateURLFromSplit(depth, urlSplit) {
+    let url = `/`;
+    for (i = 0; i <= depth; i++) {
+      url = url + `${urlSplit[i]}/`;
     }
-    return (
-        <Box sx={{backgroundColor: theme.palette.background.level2, padding: '12px 0', marginTop: '10px'}}>
-                <Container>
-                    <Breadcrumbs aria-label="breadcrumb">
-                        {splitURL.map((url,index) =>
-                         <Link 
-                            underline="hover" 
-                            color="inherit" 
-                            href="/docs/">
-                            Docs
-                        </Link>
-                        )}
-                       
-                        <Link
-                            underline="hover"
-                            color="inherit"
-                            href="/material-ui/getting-started/installation/"
-                            >
-                            Core
-                        </Link>
-                        <Link
-                            underline="hover"
-                            color="text.primary"
-                            href="/material-ui/react-breadcrumbs/"
-                            aria-current="page"
-                            >
-                            Breadcrumbs
-                        </Link>
-                    </Breadcrumbs>
+    return url;
+  }
 
-                </Container>
-            </Box>
-    )
+  const { loading, verifyFailed, verifySuccess, instances, views, models } =
+    useFetchWrapper(userAppSID, instanceZUID);
+
+  console.log(instanceZUID, 22222222222222222222222);
+  React.useEffect(() => {
+    console.log(
+      instances,
+      'instance',
+      views,
+      'views',
+      models,
+      'models',
+      loading,
+      'loading',
+      verifyFailed,
+      'verifFailkd',
+      verifySuccess,
+      'verifSUcess',
+      'datas',
+    );
+  }, [instances, models, views]);
+  return (
+    <Box
+      sx={{
+        backgroundColor: theme.palette.background.level2,
+        padding: '12px 0',
+        marginTop: '10px',
+        display: 'flex',
+        justifyContent: 'space-between',
+      }}
+    >
+      <Container>
+        <Breadcrumbs aria-label="breadcrumb">
+          {splitURL.map((url, index) => (
+            <Link underline="hover" color="inherit" href="/docs/">
+              Docs
+            </Link>
+          ))}
+
+          <Link
+            underline="hover"
+            color="inherit"
+            href="/material-ui/getting-started/installation/"
+          >
+            Core
+          </Link>
+          <Link
+            underline="hover"
+            color="text.primary"
+            href="/material-ui/react-breadcrumbs/"
+            aria-current="page"
+          >
+            Breadcrumbs
+          </Link>
+        </Breadcrumbs>
+      </Container>
+      <Box>
+        {!verifySuccess ? (
+          <Button
+            href={`https://accounts.zesty.io/login`}
+            variant="contained"
+            color="secondary"
+            size="small"
+          >
+            Sign in to Zesty.io
+          </Button>
+        ) : (
+          <Box>
+            <ComboBox
+              instances={instances?.data}
+              helper={helper}
+              instanceZUID={instanceZUID}
+            />
+          </Box>
+        )}
+      </Box>
+    </Box>
+  );
 }
