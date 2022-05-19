@@ -50,7 +50,7 @@ export default function AppBar({ url = '' }) {
     <Box
       sx={{
         backgroundColor: theme.palette.background.level2,
-        padding: '12px 0',
+        padding: '12px 18rem',
         marginTop: '10px',
         display: 'flex',
         justifyContent: 'space-between',
@@ -89,6 +89,7 @@ export default function AppBar({ url = '' }) {
             variant="contained"
             color="secondary"
             size="small"
+            sx={{ whiteSpace: 'nowrap' }}
           >
             Sign in to Zesty.io
           </Button>
