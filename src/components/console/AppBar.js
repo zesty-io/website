@@ -4,7 +4,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import { useFetchWrapper } from '../../hooks/useFetchWrapper';
+import { useFetchWrapper } from '../hooks/useFetchWrapper';
 import * as helper from 'utils';
 import { ComboBox } from 'components/AutoComplete';
 import { Button } from '@mui/material';
