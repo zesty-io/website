@@ -18,15 +18,10 @@ export const ComboBox = ({ instances, setCookies, instanceZUID }) => {
   });
 
   const handleChange = (e, newValue) => {
-    console.log(newValue, '4444');
     setCookies('ZESTY_WORKING_INSTANCE', newValue?.value);
     setlabel(newValue?.label);
   };
   const currentVal = newInstances?.find((e) => e.ZUID === instanceZUID);
-
-  React.useEffect(() => {
-    console.log(label, 'label', newInstances, 'new', instanceZUID, 'ZUI');
-  }, []);
 
   React.useEffect(() => {
     instances && setlabel(currentVal?.name);

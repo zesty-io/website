@@ -18,7 +18,8 @@ export default function AppBar({ url = '' }) {
   let splitURL = url.split('/');
   let ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
 
-  console.log(ZestyAPI.getModels());
+  // console.log(ZestyAPI.getModels());
+
   function generateURLFromSplit(depth, urlSplit) {
     let url = `/`;
     for (i = 0; i <= depth; i++) {
@@ -27,40 +28,13 @@ export default function AppBar({ url = '' }) {
     return url;
   }
 
-  const {
-    loading,
-    verifyFailed,
-    verifySuccess,
-    instances,
-    views,
-    models,
-    userInfo,
-  } = useFetchWrapper(userAppSID, instanceZUID);
+  const { verifySuccess, instances, userInfo } = useFetchWrapper(
+    userAppSID,
+    instanceZUID,
+  );
 
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.data?.email);
-
-  console.log(profileUrl, 111);
-  // Reference
-  React.useEffect(() => {
-    console.log(
-      instances,
-      'instance',
-      views,
-      'views',
-      models,
-      'models',
-      loading,
-      'loading',
-      verifyFailed,
-      'verifFailkd',
-      verifySuccess,
-      'verifSUcess',
-      userInfo,
-      'userInfor',
-      'datas',
-    );
-  }, [instances, models, views]);
 
   return (
     <Box
@@ -123,8 +97,6 @@ export default function AppBar({ url = '' }) {
                   boxShadow={2}
                   sx={{
                     backgroundColor: theme.palette.common.white,
-                    // borderRadius: '50%',
-                    // padding: '.5rem',
                     display: 'flex',
                     justifyContent: 'center',
                   }}
