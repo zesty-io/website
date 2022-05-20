@@ -2,6 +2,9 @@ import { getMarketplaceData } from './[...slug]';
 import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
 import MarketplaceEntities from 'components/marketplace/MarketplaceEntities';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
+import Main from '../../layouts/Main';
+import AppBar from 'components/console/AppBar';
+import { useRouter } from 'next/router';
 
 const Marketplace = ({
   marketEntities,
@@ -9,17 +12,29 @@ const Marketplace = ({
   marketTags,
   ...props
 }) => {
+  const router = useRouter();
+
   return (
-    <MarketplaceProvider inititalEntities={marketEntities}>
-      <MarketplaceContainer
-        marketEntities={marketEntities}
-        marketEntityTypes={marketEntityTypes}
-        marketTags={marketTags}
-        {...props}
+    <>
+      <Main
+        model={props.meta.model_alternate_name}
+        nav={props.navigationTree}
+        customRouting={props.navigationCustom}
+        url={props.meta.web.uri}
       >
-        <MarketplaceEntities entities={marketEntities} />
-      </MarketplaceContainer>
-    </MarketplaceProvider>
+        <AppBar url={router.asPath} />
+        <MarketplaceProvider inititalEntities={marketEntities}>
+          <MarketplaceContainer
+            marketEntities={marketEntities}
+            marketEntityTypes={marketEntityTypes}
+            marketTags={marketTags}
+            {...props}
+          >
+            <MarketplaceEntities entities={marketEntities} />
+          </MarketplaceContainer>
+        </MarketplaceProvider>
+      </Main>
+    </>
   );
 };
 

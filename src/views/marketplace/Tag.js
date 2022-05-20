@@ -8,9 +8,6 @@ const Tag = () => {
 
   return (
     <>
-      <Typography variant="h4" mt={2}>
-        Tag
-      </Typography>
       <MarketplaceEntities entities={entities} isIndex={false} />
     </>
   );

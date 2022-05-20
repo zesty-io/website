@@ -6,7 +6,7 @@ const MarketplaceProvider = ({ inititalEntities, children }) => {
   const [entities, setEntities] = useState([]);
 
   useEffect(() => {
-    setEntities(inititalEntities);
+    setEntities(inititalEntities || []);
   }, []);
 
   return (

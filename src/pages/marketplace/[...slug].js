@@ -1,48 +1,76 @@
 import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
+import Main from 'layouts/Main/Main';
 import { fetchPage } from 'lib/api';
 import EntityType from 'views/marketplace/EntityType';
 import Extension from 'views/marketplace/Extension';
 import Tag from 'views/marketplace/Tag';
+import CustomContainer from 'components/Container';
+import AppBar from 'components/console/AppBar';
+import { useRouter } from 'next/router';
 
 const ALTNAME = {
   TAG: 'Tag',
   ENTITY_TYPE: 'EntityType',
   EXTENSION: 'Extension',
-  INDIVIDUAL: 'Individual',
 };
 
-const renderMarketplaceViewByAltName = (altName, entities) => {
+const renderMarketplaceViewByAltName = (altName) => {
   console.log(altName);
   if (altName === ALTNAME.TAG) {
     return <Tag />;
   } else if (altName === ALTNAME.ENTITY_TYPE) {
     return <EntityType />;
-  } else if (altName === ALTNAME.ENTITY_TYPE) {
-    return <Extension />;
-  } else if (altName === ALTNAME.INDIVIDUAL) {
-    return <h1>INDIVIDUAL</h1>;
   }
 };
 
 const slug = ({ marketEntityTypes, marketTags, ...props }) => {
-  console.log('slug oiii', props.categoryEntities, props.typesEntities);
-  return (
-    <MarketplaceProvider
-      inititalEntities={props.categoryEntities || props.typesEntities}
-    >
-      <MarketplaceContainer
-        marketEntities={props.categoryEntities || props.typesEntities}
-        marketEntityTypes={marketEntityTypes}
-        marketTags={marketTags}
-        {...props}
+  console.log('props', props);
+  const router = useRouter();
+
+  if (props.marketplaceAltName === ALTNAME.EXTENSION) {
+    return (
+      <Main
+        model={props.meta.model_alternate_name}
+        nav={props.navigationTree}
+        customRouting={props.navigationCustom}
+        url={props.meta.web.uri}
       >
-        {renderMarketplaceViewByAltName(
-          props.marketplaceAltName,
-          props.categoryEntities || props.typesEntities,
-        )}
-      </MarketplaceContainer>
-    </MarketplaceProvider>
+        <AppBar url={router.asPath} />
+        <CustomContainer>
+          <Extension {...props} />
+        </CustomContainer>
+      </Main>
+    );
+  }
+
+  return (
+    <>
+      <Main
+        model={props.meta.model_alternate_name}
+        nav={props.navigationTree}
+        customRouting={props.navigationCustom}
+        url={props.meta.web.uri}
+      >
+        <AppBar url={router.asPath} />
+
+        <MarketplaceProvider
+          inititalEntities={props.categoryEntities || props.typesEntities}
+        >
+          <MarketplaceContainer
+            marketEntities={props.categoryEntities || props.typesEntities}
+            marketEntityTypes={marketEntityTypes}
+            marketTags={marketTags}
+            {...props}
+          >
+            {renderMarketplaceViewByAltName(
+              props.marketplaceAltName,
+              props.categoryEntities || props.typesEntities,
+            )}
+          </MarketplaceContainer>
+        </MarketplaceProvider>
+      </Main>
+    </>
   );
 };
 
@@ -67,7 +95,7 @@ export const getMarketplaceData = async (ctx) => {
     data.typesEntities = await newData.json();
     data.marketplaceAltName = ALTNAME.ENTITY_TYPE;
   } else {
-    data.marketplaceAltName = ALTNAME.INDIVIDUAL;
+    data.marketplaceAltName = ALTNAME.EXTENSION;
   }
 
   return data;

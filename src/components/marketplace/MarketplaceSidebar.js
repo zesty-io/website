@@ -17,7 +17,6 @@ const CustomLink = styled(Link)`
 
 const MarketplaceSidebar = ({ marketEntityTypes, marketTags }) => {
   const router = useRouter();
-  console.log(router.asPath.includes());
   return (
     <Container>
       <List

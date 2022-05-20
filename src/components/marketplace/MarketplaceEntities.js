@@ -18,10 +18,7 @@ const MarketplaceEntities = ({ isIndex = true }) => {
                 />
               </Stack>
               <Stack ml={2} justifyContent="center" direction="column">
-                <Link
-                  target="_blank"
-                  href={isIndex ? entity.uri : entity?.meta?.web?.uri}
-                >
+                <Link href={isIndex ? entity.uri : entity?.meta?.web?.uri}>
                   <Typography variant="h6" color="primary">
                     {entity?.name}
                   </Typography>
