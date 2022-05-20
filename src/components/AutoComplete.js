@@ -22,7 +22,7 @@ export const ComboBox = ({ instances, helper, instanceZUID }) => {
     helper.setCookie('ZESTY_WORKING_INSTANCE', newValue?.value, 1);
     setlabel(newValue?.label);
   };
-  const currentVal = instances?.find((e) => e.ZUID === instanceZUID);
+  const currentVal = newInstances?.find((e) => e.ZUID === instanceZUID);
 
   React.useEffect(() => {
     console.log(label, 'label', newInstances, 'new', instanceZUID, 'ZUI');
@@ -40,7 +40,7 @@ export const ComboBox = ({ instances, helper, instanceZUID }) => {
       disablePortal
       id="combo-box-demo"
       options={newInstances}
-      sx={{ width: 300 }}
+      sx={{ width: 250 }}
       renderInput={(params) => (
         <TextField {...params} label={label || 'Select an instance'} />
       )}

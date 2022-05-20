@@ -4,7 +4,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import { useFetchWrapper } from '../hooks/useFetchWrapper';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import * as helper from 'utils';
 import { ComboBox } from 'components/AutoComplete';
 import { Button } from '@mui/material';
@@ -29,6 +29,9 @@ export default function AppBar({ url = '' }) {
   const { loading, verifyFailed, verifySuccess, instances, views, models } =
     useFetchWrapper(userAppSID, instanceZUID);
 
+  const profileUrl = `https://avatars.dicebear.com/api/male/${userAppSID}.svg`;
+
+  // Reference
   React.useEffect(() => {
     console.log(
       instances,
@@ -46,6 +49,7 @@ export default function AppBar({ url = '' }) {
       'datas',
     );
   }, [instances, models, views]);
+
   return (
     <Box
       sx={{
@@ -94,12 +98,24 @@ export default function AppBar({ url = '' }) {
             Sign in to Zesty.io
           </Button>
         ) : (
-          <Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <ComboBox
               instances={instances?.data}
               helper={helper}
               instanceZUID={instanceZUID}
             />
+            <Box
+              boxShadow={2}
+              sx={{
+                backgroundColor: theme.palette.common.white,
+                borderRadius: '50%',
+                padding: '.5rem',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <img src={profileUrl} alt="" height={40} width={40} />
+            </Box>
           </Box>
         )}
       </Box>

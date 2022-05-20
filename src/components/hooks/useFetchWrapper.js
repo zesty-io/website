@@ -6,17 +6,8 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const [instances, setinstances] = React.useState([]);
   const [models, setmodels] = React.useState('');
   const [views, setviews] = React.useState('');
-  // for verify user loading
   const [loading, setloading] = React.useState(false);
 
-  // FetchWrapper Section
-  // const instanceZUID = helper.getCookie("INSTANCE_ZUID") || "8-c4eec0b7d4-8lx0ch"
-  // const userAppSID =
-  //    helper.getCookie("APP_SID") || "f3555fb52bdd3c6e3b3ff5421b74b740bf41f4e5"
-  // const instanceZUID = ""
-  // const userAppSID = ""
-
-  // @ts-ignore
   const ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
 
   const verifyUser = async () => {
@@ -49,10 +40,6 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
     getModels();
     getViews();
   }, []);
-
-  //    React.useEffect(() => {
-  //       console.log(instances, views, models, "datas")
-  //    }, [instances, models, views])
 
   return {
     loading,
