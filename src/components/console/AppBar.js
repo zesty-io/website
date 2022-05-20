@@ -8,6 +8,7 @@ import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import * as helper from 'utils';
 import { ComboBox } from 'components/AutoComplete';
 import { Button } from '@mui/material';
+import { hashMD5 } from 'utils/Md5Hash';
 
 export default function AppBar({ url = '' }) {
   const theme = useTheme();
@@ -26,11 +27,20 @@ export default function AppBar({ url = '' }) {
     return url;
   }
 
-  const { loading, verifyFailed, verifySuccess, instances, views, models } =
-    useFetchWrapper(userAppSID, instanceZUID);
+  const {
+    loading,
+    verifyFailed,
+    verifySuccess,
+    instances,
+    views,
+    models,
+    userInfo,
+  } = useFetchWrapper(userAppSID, instanceZUID);
 
-  const profileUrl = `https://avatars.dicebear.com/api/male/${userAppSID}.svg`;
+  const profileUrl =
+    'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.data?.email);
 
+  console.log(profileUrl, 111);
   // Reference
   React.useEffect(() => {
     console.log(
@@ -46,6 +56,8 @@ export default function AppBar({ url = '' }) {
       'verifFailkd',
       verifySuccess,
       'verifSUcess',
+      userInfo,
+      'userInfor',
       'datas',
     );
   }, [instances, models, views]);
@@ -111,8 +123,8 @@ export default function AppBar({ url = '' }) {
                   boxShadow={2}
                   sx={{
                     backgroundColor: theme.palette.common.white,
-                    borderRadius: '50%',
-                    padding: '.5rem',
+                    // borderRadius: '50%',
+                    // padding: '.5rem',
                     display: 'flex',
                     justifyContent: 'center',
                   }}
