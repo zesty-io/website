@@ -39,11 +39,12 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
     const res = await ZestyAPI.getUser(verifySuccess?.userZuid);
     !res.error && setuserInfo(res);
   };
+
   React.useEffect(() => {
     verifyUser();
     getInstances();
     getModels();
-    getViews();
+    // getViews();
   }, []);
 
   React.useEffect(() => {
