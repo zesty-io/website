@@ -54,71 +54,76 @@ export default function AppBar({ url = '' }) {
     <Box
       sx={{
         backgroundColor: theme.palette.background.level2,
-        padding: '12px 18rem',
+        padding: '12px 0rem',
         marginTop: '10px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
       }}
     >
       <Container>
-        <Breadcrumbs aria-label="breadcrumb">
-          {splitURL.map((url, index) => (
-            <Link underline="hover" color="inherit" href="/docs/">
-              Docs
-            </Link>
-          ))}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Breadcrumbs aria-label="breadcrumb">
+            {splitURL.map((url, index) => (
+              <Link underline="hover" color="inherit" href="/docs/">
+                Docs
+              </Link>
+            ))}
 
-          <Link
-            underline="hover"
-            color="inherit"
-            href="/material-ui/getting-started/installation/"
-          >
-            Core
-          </Link>
-          <Link
-            underline="hover"
-            color="text.primary"
-            href="/material-ui/react-breadcrumbs/"
-            aria-current="page"
-          >
-            Breadcrumbs
-          </Link>
-        </Breadcrumbs>
-      </Container>
-      <Box>
-        {!verifySuccess ? (
-          <Button
-            href={`https://accounts.zesty.io/login`}
-            variant="contained"
-            color="secondary"
-            size="small"
-            sx={{ whiteSpace: 'nowrap' }}
-          >
-            Sign in to Zesty.io
-          </Button>
-        ) : (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <ComboBox
-              instances={instances?.data}
-              helper={helper}
-              instanceZUID={instanceZUID}
-            />
-            <Box
-              boxShadow={2}
-              sx={{
-                backgroundColor: theme.palette.common.white,
-                borderRadius: '50%',
-                padding: '.5rem',
-                display: 'flex',
-                justifyContent: 'center',
-              }}
+            <Link
+              underline="hover"
+              color="inherit"
+              href="/material-ui/getting-started/installation/"
             >
-              <img src={profileUrl} alt="" height={40} width={40} />
-            </Box>
+              Core
+            </Link>
+            <Link
+              underline="hover"
+              color="text.primary"
+              href="/material-ui/react-breadcrumbs/"
+              aria-current="page"
+            >
+              Breadcrumbs
+            </Link>
+          </Breadcrumbs>
+          <Box>
+            {!verifySuccess ? (
+              <Button
+                href={`https://accounts.zesty.io/login`}
+                variant="contained"
+                color="secondary"
+                size="small"
+                sx={{ whiteSpace: 'nowrap' }}
+              >
+                Sign in to Zesty.io
+              </Button>
+            ) : (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <ComboBox
+                  instances={instances?.data}
+                  helper={helper}
+                  instanceZUID={instanceZUID}
+                />
+                <Box
+                  boxShadow={2}
+                  sx={{
+                    backgroundColor: theme.palette.common.white,
+                    borderRadius: '50%',
+                    padding: '.5rem',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <img src={profileUrl} alt="" height={40} width={40} />
+                </Box>
+              </Box>
+            )}
           </Box>
-        )}
-      </Box>
+        </Box>
+      </Container>
     </Box>
   );
 }
