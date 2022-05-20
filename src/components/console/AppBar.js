@@ -5,15 +5,15 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import * as helper from 'utils';
 import { ComboBox } from 'components/AutoComplete';
 import { Button } from '@mui/material';
 import { hashMD5 } from 'utils/Md5Hash';
+import { getCookie, setCookies } from 'cookies-next';
 
 export default function AppBar({ url = '' }) {
   const theme = useTheme();
-  const instanceZUID = helper.getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = helper.getCookie('APP_SID');
+  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const userAppSID = getCookie('APP_SID');
 
   let splitURL = url.split('/');
   let ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
@@ -116,7 +116,7 @@ export default function AppBar({ url = '' }) {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <ComboBox
                   instances={instances?.data}
-                  helper={helper}
+                  setCookies={setCookies}
                   instanceZUID={instanceZUID}
                 />
                 <Box

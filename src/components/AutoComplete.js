@@ -2,7 +2,7 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
-export const ComboBox = ({ instances, helper, instanceZUID }) => {
+export const ComboBox = ({ instances, setCookies, instanceZUID }) => {
   const [label, setlabel] = React.useState('');
   const newInstances = instances?.map((e) => {
     return {
@@ -19,7 +19,7 @@ export const ComboBox = ({ instances, helper, instanceZUID }) => {
 
   const handleChange = (e, newValue) => {
     console.log(newValue, '4444');
-    helper.setCookie('ZESTY_WORKING_INSTANCE', newValue?.value, 1);
+    setCookies('ZESTY_WORKING_INSTANCE', newValue?.value);
     setlabel(newValue?.label);
   };
   const currentVal = newInstances?.find((e) => e.ZUID === instanceZUID);
