@@ -6,6 +6,8 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/FillerContent';
 import styled from '@emotion/styled';
+import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
+import { getCookie } from 'cookies-next';
 
 function showTitle(isSM, props) {
   return (
@@ -97,14 +99,15 @@ const Extension = (props) => {
             width="220px"
           />
           {showTitle(isSM, props)}
-          <Button
+          <ExtensionsIntaller
             variant="contained"
             color="secondary"
             sx={{ mt: 2 }}
             fullWidth
-          >
-            Add to Instance
-          </Button>
+            extensionName={props?.name}
+            githubUrl={props?.github_url}
+            instance={getCookie('ZESTY_WORKING_INSTANCE')}
+          />
           {!isSM && (
             <>
               <Stack my={2} gap={1} alignSelf="start">

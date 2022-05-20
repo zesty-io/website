@@ -109,6 +109,7 @@ export async function getServerSideProps(ctx) {
 
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
   const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
+  const navigationCustom = (await fetchPage('/')).navigationCustom;
 
   // generate a status 404 page
   if (data?.error) return { notFound: true };
@@ -119,6 +120,7 @@ export async function getServerSideProps(ctx) {
       ...data,
       marketEntityTypes: await entityTypes.json(),
       marketTags: await tags.json(),
+      navigationCustom: navigationCustom,
     },
   };
 }

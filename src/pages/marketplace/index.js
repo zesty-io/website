@@ -5,6 +5,7 @@ import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
 import AppBar from 'components/console/AppBar';
 import { useRouter } from 'next/router';
+import { fetchPage } from 'lib/api';
 
 const Marketplace = ({
   marketEntities,
@@ -47,12 +48,15 @@ export async function getServerSideProps(ctx) {
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
   const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
   const data = await getMarketplaceData(ctx);
+  const navigationCustom = (await fetchPage('/')).navigationCustom;
+
   return {
     props: {
       marketEntities: await entities.json(),
       marketEntityTypes: await entityTypes.json(),
       marketTags: await tags.json(),
       ...data,
+      navigationCustom: navigationCustom,
     },
   };
 }
