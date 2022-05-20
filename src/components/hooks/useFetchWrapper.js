@@ -43,7 +43,7 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   React.useEffect(() => {
     verifyUser();
     getInstances();
-    getModels();
+    // getModels();
     // getViews();
   }, []);
 
