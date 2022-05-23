@@ -11,6 +11,8 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from 'components/console/AppBar';
 import Head from 'next/head';
 
+const zestyImage =
+  'https://kfg6bckb.media.zestyio.com/zesty-share-image-generic.png?width=1200';
 // design changes for the main body of content
 const muiContentOverrides = {
   h1: {
@@ -90,14 +92,17 @@ export default function Docs(props) {
   // get meta
   let meta = extractMetaFromMarkdown(props.markdown);
 
-  // getting the title and description
+  // getting the title ,image and  description
   const titleRegexMeta = /(?<=title: ).+?(\n)/;
   const titleRegexMd = /(?<=# ).+/;
   const titleMeta = meta?.match(titleRegexMeta);
   const titleMd = props.markdown.match(titleRegexMd);
   const title = (titleMeta || titleMd)[0];
   const descRegex = /(?<=description: >-).+/is;
-  const description = meta.match(descRegex)[0];
+  const description = (meta.match(descRegex) || [])[0];
+  const imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/;
+  const image = replaceImages(props.markdown)?.match(imageRegex);
+  const ogimage = image ? image[0] : zestyImage;
 
   // replace image references to work without gitbook
   let markdown = replaceImages(props.markdown);
@@ -120,6 +125,7 @@ export default function Docs(props) {
         <meta property="og:title" content={title} />
         <meta name="description" value={description} />
         <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogimage} />
       </Head>
       <AppBar></AppBar>
       <Container>
