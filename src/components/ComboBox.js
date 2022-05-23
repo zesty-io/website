@@ -169,7 +169,6 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
   const currentVal = memoizedInstances?.find((e) => e.ZUID === instanceZUID);
 
   const handleChange = (e, newValue) => {
-    console.log(e, newValue, 'handleChange');
     setCookies('ZESTY_WORKING_INSTANCE', newValue?.value);
     setlabel(newValue?.name);
   };
@@ -177,10 +176,6 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
   React.useEffect(() => {
     instances && setlabel(currentVal?.name);
   }, [instances]);
-
-  React.useEffect(() => {
-    console.log(label, 'label');
-  }, [label]);
 
   return (
     <Autocomplete
