@@ -17,7 +17,6 @@ const ALTNAME = {
 };
 
 const renderMarketplaceViewByAltName = (altName) => {
-  console.log(altName);
   if (altName === ALTNAME.TAG) {
     return <Tag />;
   } else if (altName === ALTNAME.ENTITY_TYPE) {
@@ -27,20 +26,18 @@ const renderMarketplaceViewByAltName = (altName) => {
 
 const slug = ({ marketEntityTypes, marketTags, ...props }) => {
   const router = useRouter();
+  const seoTitle = props.meta.web.seo_meta_title,
+    seoDescription = props.meta.web.seo_meta_description;
 
   if (props.marketplaceAltName === ALTNAME.EXTENSION) {
     return (
       <>
         <Head>
-          <title>{props.name}</title>
-          <meta property="og:title" content={props.name} />
+          <title>{seoTitle}</title>
+          <meta property="og:title" content={seoTitle} />
+          <meta property="og:description" content={seoDescription} />
         </Head>
-        <Main
-          model={props.meta.model_alternate_name}
-          nav={props.navigationTree}
-          customRouting={props.navigationCustom}
-          url={props.meta.web.uri}
-        >
+        <Main customRouting={props.navigationCustom}>
           <AppBar url={router.asPath} />
           <CustomContainer>
             <Extension {...props} />
@@ -53,15 +50,11 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
   return (
     <>
       <Head>
-        <title>{props.name}</title>
-        <meta property="og:title" content={props.name} />
+        <title>{seoTitle}</title>
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
       </Head>
-      <Main
-        model={props.meta.model_alternate_name}
-        nav={props.navigationTree}
-        customRouting={props.navigationCustom}
-        url={props.meta.web.uri}
-      >
+      <Main customRouting={props.navigationCustom}>
         <AppBar url={router.asPath} />
 
         <MarketplaceProvider

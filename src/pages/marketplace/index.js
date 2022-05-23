@@ -15,19 +15,16 @@ const Marketplace = ({
   ...props
 }) => {
   const router = useRouter();
+  const seoTitle = props.meta.web.seo_meta_title,
+    seoDescription = props.meta.web.seo_meta_description;
   return (
     <>
       <Head>
-        <title>{props.title}</title>
-        <meta property="og:title" content={props.title} />
-        <meta property="og:description" content={props.description} />
+        <title>{seoTitle}</title>
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
       </Head>
-      <Main
-        model={props.meta.model_alternate_name}
-        nav={props.navigationTree}
-        customRouting={props.navigationCustom}
-        url={props.meta.web.uri}
-      >
+      <Main customRouting={props.navigationCustom}>
         <AppBar url={router.asPath} />
         <MarketplaceProvider inititalEntities={marketEntities}>
           <MarketplaceContainer
