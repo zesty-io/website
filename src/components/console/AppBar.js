@@ -10,6 +10,7 @@ import { Button } from '@mui/material';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookies } from 'cookies-next';
 import Typography from '@mui/material/Typography';
+import HomeIcon from '@mui/icons-material/Home';
 
 export default function AppBar({ url = window.location.pathname }) {
   const theme = useTheme();
@@ -55,16 +56,17 @@ export default function AppBar({ url = window.location.pathname }) {
         >
           <Breadcrumbs aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href={'/'}>
-              Home
+              <HomeIcon />
             </Link>
             {pathnames?.map((url, index) => {
               const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
               const isLastItem = index === pathnames.length - 1;
+              const name = url.replaceAll('-', ' ');
               return isLastItem ? (
-                <Typography color={'text.secondary'}>{url}</Typography>
+                <Typography color={'text.secondary'}>{name}</Typography>
               ) : (
                 <Link underline="hover" color="inherit" href={routeTo}>
-                  {url}
+                  {name}
                 </Link>
               );
             })}
