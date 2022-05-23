@@ -10,5 +10,5 @@ export default DocsIndex;
 
 // This gets called on every request
 export async function getServerSideProps(ctx) {
-  return docsLookup(ctx) 
+  return docsLookup(ctx);
 }
