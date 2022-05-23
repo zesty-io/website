@@ -8,6 +8,7 @@ import Tag from 'views/marketplace/Tag';
 import CustomContainer from 'components/Container';
 import AppBar from 'components/console/AppBar';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -25,27 +26,36 @@ const renderMarketplaceViewByAltName = (altName) => {
 };
 
 const slug = ({ marketEntityTypes, marketTags, ...props }) => {
-  console.log('props', props);
   const router = useRouter();
 
   if (props.marketplaceAltName === ALTNAME.EXTENSION) {
     return (
-      <Main
-        model={props.meta.model_alternate_name}
-        nav={props.navigationTree}
-        customRouting={props.navigationCustom}
-        url={props.meta.web.uri}
-      >
-        <AppBar url={router.asPath} />
-        <CustomContainer>
-          <Extension {...props} />
-        </CustomContainer>
-      </Main>
+      <>
+        <Head>
+          <title>{props.name}</title>
+          <meta property="og:title" content={props.name} />
+        </Head>
+        <Main
+          model={props.meta.model_alternate_name}
+          nav={props.navigationTree}
+          customRouting={props.navigationCustom}
+          url={props.meta.web.uri}
+        >
+          <AppBar url={router.asPath} />
+          <CustomContainer>
+            <Extension {...props} />
+          </CustomContainer>
+        </Main>
+      </>
     );
   }
 
   return (
     <>
+      <Head>
+        <title>{props.name}</title>
+        <meta property="og:title" content={props.name} />
+      </Head>
       <Main
         model={props.meta.model_alternate_name}
         nav={props.navigationTree}

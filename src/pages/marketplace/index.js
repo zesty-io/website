@@ -6,6 +6,7 @@ import Main from '../../layouts/Main';
 import AppBar from 'components/console/AppBar';
 import { useRouter } from 'next/router';
 import { fetchPage } from 'lib/api';
+import Head from 'next/head';
 
 const Marketplace = ({
   marketEntities,
@@ -14,9 +15,13 @@ const Marketplace = ({
   ...props
 }) => {
   const router = useRouter();
-
   return (
     <>
+      <Head>
+        <title>{props.title}</title>
+        <meta property="og:title" content={props.title} />
+        <meta property="og:description" content={props.description} />
+      </Head>
       <Main
         model={props.meta.model_alternate_name}
         nav={props.navigationTree}
