@@ -9,6 +9,7 @@ import { docsLookup } from 'components/docs/docsLookup';
 
 import { useTheme } from '@mui/material/styles';
 import AppBar from 'components/console/AppBar';
+import Head from 'next/head';
 
 // design changes for the main body of content
 const muiContentOverrides = {
@@ -88,6 +89,16 @@ export default function Docs(props) {
   let toc = props.toc;
   // get meta
   let meta = extractMetaFromMarkdown(props.markdown);
+
+  // getting the title and description
+  const titleRegexMeta = /(?<=title: ).+?(\n)/;
+  const titleRegexMd = /(?<=# ).+/;
+  const titleMeta = meta?.match(titleRegexMeta);
+  const titleMd = props.markdown.match(titleRegexMd);
+  const title = (titleMeta || titleMd)[0];
+  const descRegex = /(?<=description: >-).+/is;
+  const description = meta.match(descRegex)[0];
+
   // replace image references to work without gitbook
   let markdown = replaceImages(props.markdown);
   // string gitbook meta
@@ -104,6 +115,12 @@ export default function Docs(props) {
 
   return (
     <Main customRouting={props.navigationCustom}>
+      <Head>
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
+        <meta name="description" value={description} />
+        <meta property="og:description" content={description} />
+      </Head>
       <AppBar></AppBar>
       <Container>
         <Box sx={{ display: 'flex' }}>
