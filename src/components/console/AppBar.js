@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import { ComboBox } from 'components/AutoComplete';
+import { ComboBox } from 'components/ComboBox';
 import { Button } from '@mui/material';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookies } from 'cookies-next';
