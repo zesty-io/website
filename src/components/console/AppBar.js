@@ -54,18 +54,53 @@ export default function AppBar({ url = window.location.pathname }) {
             alignItems: 'center',
           }}
         >
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href={'/'}>
-              <HomeIcon />
+          <Breadcrumbs
+            aria-label="breadcrumb"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <Link
+              underline="hover"
+              color="inherit"
+              href={'/'}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <HomeIcon sx={{ mr: 0.5 }} />
             </Link>
             {pathnames?.map((url, index) => {
               const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
               const isLastItem = index === pathnames.length - 1;
               const name = url.replaceAll('-', ' ');
               return isLastItem ? (
-                <Typography color={'text.secondary'}>{name}</Typography>
+                <Link
+                  sx={{
+                    textTransform: 'capitalize',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                  underline="hover"
+                  color="text.primary"
+                  href={routeTo}
+                  aria-current="page"
+                >
+                  {name}
+                </Link>
               ) : (
-                <Link underline="hover" color="inherit" href={routeTo}>
+                <Link
+                  underline="hover"
+                  color="inherit"
+                  href={routeTo}
+                  sx={{
+                    textTransform: 'capitalize',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
                   {name}
                 </Link>
               );
