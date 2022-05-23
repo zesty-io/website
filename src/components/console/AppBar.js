@@ -9,24 +9,26 @@ import { ComboBox } from 'components/ComboBox';
 import { Button } from '@mui/material';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookies } from 'cookies-next';
+import Typography from '@mui/material/Typography';
+import HomeIcon from '@mui/icons-material/Home';
 
-export default function AppBar({ url = '' }) {
+export default function AppBar({ url = window.location.pathname }) {
   const theme = useTheme();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getCookie('APP_SID');
 
-  let splitURL = url.split('/');
-  let ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
+  let pathnames = url.split('/').filter((e) => e);
+  // let ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
 
   // console.log(ZestyAPI.getModels());
 
-  function generateURLFromSplit(depth, urlSplit) {
-    let url = `/`;
-    for (i = 0; i <= depth; i++) {
-      url = url + `${urlSplit[i]}/`;
-    }
-    return url;
-  }
+  // function generateURLFromSplit(depth, urlSplit) {
+  //   let url = `/`;
+  //   for (i = 0; i <= depth; i++) {
+  //     url = url + `${urlSplit[i]}/`;
+  //   }
+  //   return url;
+  // }
 
   const { verifySuccess, instances, userInfo } = useFetchWrapper(
     userAppSID,
@@ -52,28 +54,57 @@ export default function AppBar({ url = '' }) {
             alignItems: 'center',
           }}
         >
-          <Breadcrumbs aria-label="breadcrumb">
-            {splitURL.map((url, index) => (
-              <Link underline="hover" color="inherit" href="/docs/">
-                Docs
-              </Link>
-            ))}
-
+          <Breadcrumbs
+            aria-label="breadcrumb"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
             <Link
               underline="hover"
               color="inherit"
-              href="/material-ui/getting-started/installation/"
+              href={'/'}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
             >
-              Core
+              <HomeIcon sx={{ mr: 0.5 }} />
             </Link>
-            <Link
-              underline="hover"
-              color="text.primary"
-              href="/material-ui/react-breadcrumbs/"
-              aria-current="page"
-            >
-              Breadcrumbs
-            </Link>
+            {pathnames?.map((url, index) => {
+              const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
+              const isLastItem = index === pathnames.length - 1;
+              const name = url.replaceAll('-', ' ');
+              return isLastItem ? (
+                <Link
+                  sx={{
+                    textTransform: 'capitalize',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                  underline="hover"
+                  color="text.primary"
+                  href={routeTo}
+                  aria-current="page"
+                >
+                  {name}
+                </Link>
+              ) : (
+                <Link
+                  underline="hover"
+                  color="inherit"
+                  href={routeTo}
+                  sx={{
+                    textTransform: 'capitalize',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  {name}
+                </Link>
+              );
+            })}
           </Breadcrumbs>
           <Box>
             {!verifySuccess ? (
