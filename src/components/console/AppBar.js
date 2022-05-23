@@ -73,7 +73,7 @@ export default function AppBar({ url = window.location.pathname }) {
               <HomeIcon sx={{ mr: 0.5 }} />
             </Link>
             {pathnames?.map((url, index) => {
-              const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
+              const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
               const isLastItem = index === pathnames.length - 1;
               const name = url.replaceAll('-', ' ');
               return isLastItem ? (
