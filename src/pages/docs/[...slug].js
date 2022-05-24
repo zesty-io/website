@@ -176,6 +176,52 @@ export default function Docs(props) {
   }
   const jsonNav = removeWhitespace(parse(htmlNav));
   console.log(jsonNav, 77777);
+
+  const newArr1 = (arr) => {
+    const result = arr.children.map((item) => {
+      const title = item.children[0].children[0].content;
+      const titleHref = item.children[0].attributes[0].value;
+      const test1 = item.children
+        .filter((e) => e.tagName === 'ul')
+        .map((e) => e.children);
+      const children =
+        test1 &&
+        test1[0] &&
+        test1[0]
+          .map((r) => r.children)
+          .map((x) => {
+            console.log(x, 4444);
+            return x;
+          })
+          .map((e) => {
+            console.log(
+              e
+                ?.find((e) => e.tagName === 'ul')
+                ?.children.map((e) => e.children)
+                .map((e) => e && e[0])
+                ?.map((e) => e.children[0].content),
+              55555,
+            );
+            const href = e?.find((e) => e.tagName === 'a').attributes[0]?.value;
+            const name = e?.find((e) => e.tagName === 'a').children[0]?.content;
+            const children = e
+              ?.find((e) => e.tagName === 'ul')
+              ?.children.map((e) => e.children)
+              .map((e) => e && e[0])
+              ?.map((e) => {
+                const href = e.attributes[0].value;
+                const name = e.children[0].content;
+                return { name, href };
+              });
+
+            return { name, href, children };
+          });
+      return { title, titleHref, children };
+    });
+    return result;
+  };
+
+  console.log(newArr1(jsonNav[1]), 123123);
   return (
     <Main customRouting={props.navigationCustom}>
       <Head>
@@ -193,7 +239,7 @@ export default function Docs(props) {
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
             aria-label="mailbox folders"
           >
-            <Accordion allowZeroExpanded>
+            {/* <Accordion allowZeroExpanded>
               {jsonNav[1]?.children?.map((item) => {
                 const test1 = item.children
                   .filter((e) => e.tagName === 'ul')
@@ -202,6 +248,31 @@ export default function Docs(props) {
                   test1 &&
                   test1[0] &&
                   test1[0].map((e) => e.children[0].children[0].content);
+                const bodynew1 =
+                  test1 &&
+                  test1[0] &&
+                  test1[0]
+                    .map((e) => e.children)
+                    .filter((e) => e.length === 1)
+                    .map((e) => e[0])
+                    .map((e) => e.children[0].content);
+                const bodynew2 =
+                  test1 &&
+                  test1[0] &&
+                  test1[0]
+                    .map((e) => e.children)
+                    .filter((e) => e.length > 1)
+                    .map((e) => e[0])
+                    .map((e) => e.children[0].content)[0];
+                const bodynew3 =
+                  test1 &&
+                  test1[0] &&
+                  test1[0]
+                    ?.map((e) => e.children)
+                    ?.filter((e) => e.length > 1)[0]
+                    ?.filter((e) => e.tagName === 'ul')[0].children[0]
+                    ?.children[0].children[0].content;
+                console.log(bodynew2, 2999);
                 const title = item.children[0].children[0].content;
                 const titleHref = item.children[0].attributes[0].value;
 
@@ -215,15 +286,88 @@ export default function Docs(props) {
 
                     {body && body[0] && (
                       <AccordionItemPanel>
-                        {body?.map((e) => (
-                          <div>{e}</div>
-                        ))}
-                        <AccordionItem>
-                          <AccordionItemHeading>
-                            <AccordionItemButton>darwin</AccordionItemButton>
-                          </AccordionItemHeading>
-                          <AccordionItemPanel>test</AccordionItemPanel>
-                        </AccordionItem>
+                        {bodynew1?.map((e) => {
+                          return <div href="#">{e}</div>;
+                        })}
+
+                        {bodynew3 && (
+                          <details>
+                            <summary>{bodynew2}</summary>
+                            <p>{bodynew3}</p>
+                          </details>
+                        )}
+                      </AccordionItemPanel>
+                    )}
+                  </AccordionItem>
+                );
+              })}
+            </Accordion> */}
+            <Accordion allowZeroExpanded>
+              {jsonNav[3]?.children?.map((item) => {
+                const test1 = item.children
+                  .filter((e) => e.tagName === 'ul')
+                  .map((e) => e.children);
+                const body =
+                  test1 &&
+                  test1[0] &&
+                  test1[0].map((e) => e.children[0].children[0].content);
+                const bodynew1 =
+                  test1 &&
+                  test1[0] &&
+                  test1[0]
+                    .map((e) => e.children)
+                    .filter((e) => e.length === 1)
+                    .map((e) => e[0])
+                    .map((e) => e.children[0].content);
+                const bodynew2 =
+                  test1 &&
+                  test1[0] &&
+                  test1[0]
+                    .map((e) => e.children)
+                    .filter((e) => e.length > 1)
+                    .map((e) => e[0])
+                    .map((e) => e.children[0].content)[0];
+                const bodynew3 =
+                  test1 &&
+                  test1[0] &&
+                  test1[0]
+                    ?.map((e) => e.children)
+                    ?.filter((e) => e.length > 1)[0]
+                    ?.filter((e) => e.tagName === 'ul')[0].children[0]
+                    ?.children[0].children;
+                const bodynew4 =
+                  test1 &&
+                  test1[0] &&
+                  test1[0]
+                    ?.map((e) => e.children)
+                    ?.filter((e) => e.length > 1)
+                    ?.map((e) => e[1])
+                    ?.map((e) => e.children)
+                    ?.map((e) => e);
+                console.log(bodynew4, 2999);
+                const title = item.children[0].children[0].content;
+                const titleHref = item.children[0].attributes[0].value;
+
+                return (
+                  <AccordionItem>
+                    <AccordionItemHeading>
+                      <AccordionItemButton>
+                        <a href={titleHref}>{title}</a>
+                      </AccordionItemButton>
+                    </AccordionItemHeading>
+
+                    {body && body[0] && (
+                      <AccordionItemPanel>
+                        {bodynew1?.map((e) => {
+                          return <div href="#">{e}</div>;
+                        })}
+
+                        {bodynew3 && (
+                          <details>
+                            <summary>{bodynew2}</summary>
+                            {/* <p>{bodynew3}</p> */}
+                          </details>
+                        )}
                       </AccordionItemPanel>
                     )}
                   </AccordionItem>
