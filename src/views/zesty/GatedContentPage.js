@@ -275,6 +275,7 @@ function GatedContentPage({ content }) {
     ctaButton: 'Download Now',
     downloadLink:
       content.contentdownload?.data && content.contentdownload?.data[0]?.url,
+    phoneNumber: true,
   };
 
   return (
