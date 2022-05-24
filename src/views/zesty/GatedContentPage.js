@@ -265,7 +265,7 @@ function GatedContentPage({ content }) {
     modalMessage:
       'Find more information about digital experiences at Zesty.io/mindshare.',
     displayMsgUnderButton: ' ',
-    additionalTextfield: { company: true, jobTitle: true, phoneNumber: true },
+    additionalTextfield: { company: true, jobTitle: true },
     buttonFullWidth: true,
     hidePrivacySection: true,
     messageLabel: '',
@@ -275,6 +275,7 @@ function GatedContentPage({ content }) {
     ctaButton: 'Download Now',
     downloadLink:
       content.contentdownload?.data && content.contentdownload?.data[0]?.url,
+    phoneNumber: true,
   };
 
   return (

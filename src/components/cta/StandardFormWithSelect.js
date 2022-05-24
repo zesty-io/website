@@ -205,6 +205,8 @@ function StandardFormWithSelect({
   ctaButton = 'Submit',
   downloadLink = '',
   onClickBtn = null,
+  phoneNumber = false,
+  capterraTracking = null,
 }) {
   const theme = useTheme();
 
@@ -238,7 +240,7 @@ function StandardFormWithSelect({
   const onSubmit = async (values) => {
     // download link
     downloadLink && window.open(downloadLink, '_blank');
-    onClickBtn && onClickBtn();
+    capterraTracking && capterraTracking();
 
     let payload = getLeadObjectZOHO(
       values,
@@ -334,7 +336,7 @@ function StandardFormWithSelect({
               helperText={formik.touched.email && formik.errors.email}
             />
           </Grid>
-          {additionalTextfield.phoneNumber && (
+          {phoneNumber && (
             <Grid item xs={12}>
               <TextField
                 sx={{ height: 54 }}

@@ -222,7 +222,7 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
 };
 
 const trackingListener = () => {
-  console.log('tracking listener');
+  // to be replace
   const capterra_vkey = '9c3e8a4d5e28260dc3e97c7cf95f8124';
   const capterra_vid = '2101737';
   const ct = document.createElement('img');
@@ -252,7 +252,7 @@ function CapterraLandingPage({ content }) {
     buttonFullWidth: true,
     hidePrivacySection: true,
     messageLabel: 'Is there anything you would like to cover in the demo?',
-    onClickBtn: trackingListener,
+    capterraTracking: trackingListener,
   };
 
   const reviesHeader = `<h1 dir="ltr" style="text-align: center;">${content.reviews_title}</h1> <p style="text-align: center;">${content.reviews_description}</p>`;
