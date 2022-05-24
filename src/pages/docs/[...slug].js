@@ -176,17 +176,6 @@ export default function Docs(props) {
   }
   const jsonNav = removeWhitespace(parse(htmlNav));
   console.log(jsonNav, 77777);
-  const inlineStyles = `
-
-  .newNavigation > h2{
-    background: red
-  }
- li:first-child > a  {
-  color: aqua;
-}
-  
-  
-  `;
   return (
     <Main customRouting={props.navigationCustom}>
       <Head>
@@ -204,54 +193,43 @@ export default function Docs(props) {
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
             aria-label="mailbox folders"
           >
-            {/* <Accordion allowZeroExpanded>
-              {jsonNav.map((item) => {
-                if (item.tagName === 'h1' || item.tagName === 'h2') {
-                  return <h1>{item.children[0].content}</h1>;
-                }
-                if (item.tagName === 'ul') {
-                  return item.children.map((child) => {
-                    return child.children.map((li) =>
-                      li.children.map((e) => {
-                        return (
-                          <div>
-                            {li.tagName === 'a' && (
-                              <h2 style={{ background: 'green' }}>
-                                {e?.content}
-                              </h2>
-                            )}
-                            {li.tagName === 'ul' && (
-                              <div style={{ background: 'pink' }}>
-                                {e?.children?.map((y) =>
-                                  y.children.map((u) => (
-                                    <a href={y?.attributes[0]?.value}>
-                                      {u.content}
-                                    </a>
-                                  )),
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      }),
-                    );
-                  });
-                  console.log(name, 2222);
-                  // return (
-                  //   <AccordionItem>
-                  //     <AccordionItemHeading>
-                  //       <AccordionItemButton>
-                  //         {item.heading}
-                  //       </AccordionItemButton>
-                  //     </AccordionItemHeading>
-                  //     <AccordionItemPanel>{item.content}</AccordionItemPanel>
-                  //   </AccordionItem>
-                  // );
-                }
-              })}
-            </Accordion> */}
+            <Accordion allowZeroExpanded>
+              {jsonNav[1]?.children?.map((item) => {
+                const test1 = item.children
+                  .filter((e) => e.tagName === 'ul')
+                  .map((e) => e.children);
+                const body =
+                  test1 &&
+                  test1[0] &&
+                  test1[0].map((e) => e.children[0].children[0].content);
+                const title = item.children[0].children[0].content;
+                const titleHref = item.children[0].attributes[0].value;
 
-            <style>{inlineStyles}</style>
+                return (
+                  <AccordionItem>
+                    <AccordionItemHeading>
+                      <AccordionItemButton>
+                        <a href={titleHref}>{title}</a>
+                      </AccordionItemButton>
+                    </AccordionItemHeading>
+
+                    {body && body[0] && (
+                      <AccordionItemPanel>
+                        {body?.map((e) => (
+                          <div>{e}</div>
+                        ))}
+                        <AccordionItem>
+                          <AccordionItemHeading>
+                            <AccordionItemButton>darwin</AccordionItemButton>
+                          </AccordionItemHeading>
+                          <AccordionItemPanel>test</AccordionItemPanel>
+                        </AccordionItem>
+                      </AccordionItemPanel>
+                    )}
+                  </AccordionItem>
+                );
+              })}
+            </Accordion>
             <Box
               className={`newNavigation `}
               dangerouslySetInnerHTML={{ __html: htmlNav }}
