@@ -239,140 +239,33 @@ export default function Docs(props) {
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
             aria-label="mailbox folders"
           >
-            {/* <Accordion allowZeroExpanded>
-              {jsonNav[1]?.children?.map((item) => {
-                const test1 = item.children
-                  .filter((e) => e.tagName === 'ul')
-                  .map((e) => e.children);
-                const body =
-                  test1 &&
-                  test1[0] &&
-                  test1[0].map((e) => e.children[0].children[0].content);
-                const bodynew1 =
-                  test1 &&
-                  test1[0] &&
-                  test1[0]
-                    .map((e) => e.children)
-                    .filter((e) => e.length === 1)
-                    .map((e) => e[0])
-                    .map((e) => e.children[0].content);
-                const bodynew2 =
-                  test1 &&
-                  test1[0] &&
-                  test1[0]
-                    .map((e) => e.children)
-                    .filter((e) => e.length > 1)
-                    .map((e) => e[0])
-                    .map((e) => e.children[0].content)[0];
-                const bodynew3 =
-                  test1 &&
-                  test1[0] &&
-                  test1[0]
-                    ?.map((e) => e.children)
-                    ?.filter((e) => e.length > 1)[0]
-                    ?.filter((e) => e.tagName === 'ul')[0].children[0]
-                    ?.children[0].children[0].content;
-                console.log(bodynew2, 2999);
-                const title = item.children[0].children[0].content;
-                const titleHref = item.children[0].attributes[0].value;
-
-                return (
-                  <AccordionItem>
-                    <AccordionItemHeading>
-                      <AccordionItemButton>
-                        <a href={titleHref}>{title}</a>
-                      </AccordionItemButton>
-                    </AccordionItemHeading>
-
-                    {body && body[0] && (
-                      <AccordionItemPanel>
-                        {bodynew1?.map((e) => {
-                          return <div href="#">{e}</div>;
-                        })}
-
-                        {bodynew3 && (
-                          <details>
-                            <summary>{bodynew2}</summary>
-                            <p>{bodynew3}</p>
-                          </details>
-                        )}
-                      </AccordionItemPanel>
-                    )}
-                  </AccordionItem>
-                );
-              })}
-            </Accordion> */}
             <Accordion allowZeroExpanded>
-              {jsonNav[3]?.children?.map((item) => {
-                const test1 = item.children
-                  .filter((e) => e.tagName === 'ul')
-                  .map((e) => e.children);
-                const body =
-                  test1 &&
-                  test1[0] &&
-                  test1[0].map((e) => e.children[0].children[0].content);
-                const bodynew1 =
-                  test1 &&
-                  test1[0] &&
-                  test1[0]
-                    .map((e) => e.children)
-                    .filter((e) => e.length === 1)
-                    .map((e) => e[0])
-                    .map((e) => e.children[0].content);
-                const bodynew2 =
-                  test1 &&
-                  test1[0] &&
-                  test1[0]
-                    .map((e) => e.children)
-                    .filter((e) => e.length > 1)
-                    .map((e) => e[0])
-                    .map((e) => e.children[0].content)[0];
-                const bodynew3 =
-                  test1 &&
-                  test1[0] &&
-                  test1[0]
-                    ?.map((e) => e.children)
-                    ?.filter((e) => e.length > 1)[0]
-                    ?.filter((e) => e.tagName === 'ul')[0].children[0]
-                    ?.children[0].children;
-                const bodynew4 =
-                  test1 &&
-                  test1[0] &&
-                  test1[0]
-                    ?.map((e) => e.children)
-                    ?.filter((e) => e.length > 1)
-                    ?.map((e) => e[1])
-                    ?.map((e) => e.children)
-                    ?.map((e) => e);
-                console.log(bodynew4, 2999);
-                const title = item.children[0].children[0].content;
-                const titleHref = item.children[0].attributes[0].value;
-
-                return (
-                  <AccordionItem>
-                    <AccordionItemHeading>
-                      <AccordionItemButton>
-                        <a href={titleHref}>{title}</a>
-                      </AccordionItemButton>
-                    </AccordionItemHeading>
-
-                    {body && body[0] && (
-                      <AccordionItemPanel>
-                        {bodynew1?.map((e) => {
-                          return <div href="#">{e}</div>;
-                        })}
-
-                        {bodynew3 && (
-                          <details>
-                            <summary>{bodynew2}</summary>
-                            {/* <p>{bodynew3}</p> */}
-                          </details>
-                        )}
-                      </AccordionItemPanel>
-                    )}
-                  </AccordionItem>
-                );
-              })}
+              {newArr1(jsonNav[1]).map((item) => (
+                <AccordionItem>
+                  <AccordionItemHeading>
+                    <AccordionItemButton>{item.title}</AccordionItemButton>
+                  </AccordionItemHeading>
+                  {item.children && (
+                    <AccordionItemPanel>
+                      {item?.children?.map((e) => (
+                        <div>
+                          <div>
+                            {!e.children && <a href={e.href}>{e.name}</a>}
+                            {e.children && (
+                              <details>
+                                <summary>{e.name}</summary>
+                                {e?.children?.map((x) => (
+                                  <a href={x.href}>{x?.name}</a>
+                                ))}
+                              </details>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </AccordionItemPanel>
+                  )}
+                </AccordionItem>
+              ))}
             </Accordion>
             <Box
               className={`newNavigation `}
