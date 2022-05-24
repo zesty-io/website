@@ -204,6 +204,7 @@ function StandardFormWithSelect({
   validationType = '',
   ctaButton = 'Submit',
   downloadLink = '',
+  onClickBtn = null,
 }) {
   const theme = useTheme();
 
@@ -237,6 +238,7 @@ function StandardFormWithSelect({
   const onSubmit = async (values) => {
     // download link
     downloadLink && window.open(downloadLink, '_blank');
+    onClickBtn && onClickBtn();
 
     let payload = getLeadObjectZOHO(
       values,

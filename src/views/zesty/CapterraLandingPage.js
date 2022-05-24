@@ -55,6 +55,7 @@ import {
 import { ReviewsWithSimpleBoxes } from 'blocks/testimonials';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import { HeroWithFormAndBackgroundGradient } from 'blocks/heroes';
+import Head from 'next/head';
 
 const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -220,6 +221,18 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
   );
 };
 
+const trackingListener = () => {
+  console.log('tracking listener');
+  const capterra_vkey = '9c3e8a4d5e28260dc3e97c7cf95f8124';
+  const capterra_vid = '2101737';
+  const ct = document.createElement('img');
+  ct.src =
+    'https://ct.capterra.com/capterra_tracker.gif?vid=' +
+    capterra_vid +
+    '&vkey=' +
+    capterra_vkey;
+  document.body.appendChild(ct);
+};
 function CapterraLandingPage({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -239,6 +252,7 @@ function CapterraLandingPage({ content }) {
     buttonFullWidth: true,
     hidePrivacySection: true,
     messageLabel: 'Is there anything you would like to cover in the demo?',
+    onClickBtn: trackingListener,
   };
 
   const reviesHeader = `<h1 dir="ltr" style="text-align: center;">${content.reviews_title}</h1> <p style="text-align: center;">${content.reviews_description}</p>`;
