@@ -4,15 +4,27 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
-
 import Container from 'components/Container';
+
+// old images
+// 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
+// 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
+// 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
+// 'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
+// 'https://assets.maccarianagency.com/svg/logos/google-original.svg',
+// 'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
 
 const HeroWithPrimaryBackgroundAndDesktopScreenshot = ({
   title,
   description,
+  screenshot,
+  //logos props > image , url
+  logos = [],
 }) => {
   const theme = useTheme();
+
   return (
     <Box
       position={'relative'}
@@ -46,28 +58,35 @@ const HeroWithPrimaryBackgroundAndDesktopScreenshot = ({
               <Box
                 display="flex"
                 flexWrap="wrap"
-                justifyContent={'flex-start'}
+                //adjust to make it center on smaller sizes
+                justifyContent={{ xs: 'center', md: 'flex-start' }}
                 marginTop={2}
               >
-                {[
-                  'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
-                  'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
-                  'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
-                  'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
-                  'https://assets.maccarianagency.com/svg/logos/google-original.svg',
-                  'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
-                ].map((item, i) => (
-                  <Box maxWidth={90} marginTop={2} marginRight={4} key={i}>
-                    <Box
-                      component="img"
-                      height={1}
-                      width={1}
-                      src={item}
-                      alt="..."
-                      sx={{
-                        filter: 'brightness(0) invert(1)',
-                      }}
-                    />
+                {logos.map((item, i) => (
+                  <Box
+                    maxWidth={90}
+                    marginTop={2}
+                    marginRight={4}
+                    key={i}
+                    display="flex"
+                    alignItems="center"
+                    //adjusting zIndex because the two logos will be on the bottom of some container created by this component
+                    zIndex={2}
+                  >
+                    <Link href={item.url}>
+                      <Box
+                        component="img"
+                        //commenting height because it makes the img blurry
+                        height={1}
+                        width={1}
+                        src={item.image}
+                        alt="..."
+                        //commeting this out, because it makes the logos all white
+                        //   sx={{
+                        //     filter: 'brightness(0) invert(1)',
+                        //   }}
+                      />
+                    </Link>
                   </Box>
                 ))}
               </Box>
@@ -107,7 +126,11 @@ const HeroWithPrimaryBackgroundAndDesktopScreenshot = ({
                   >
                     <Box
                       component={'img'}
-                      src="https://assets.maccarianagency.com/screenshots/dashboard.png"
+                      src={
+                        screenshot
+                          ? screenshot
+                          : 'https://assets.maccarianagency.com/screenshots/dashboard.png'
+                      }
                       alt="Image Description"
                       width={1}
                       height={1}

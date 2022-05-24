@@ -4,7 +4,6 @@ import {
   Grid,
   Stack,
   TextField,
-  Typography,
   useMediaQuery,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -13,7 +12,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { MarketplaceContext } from './MarketplaceContext';
 import MarketplaceSidebar from './MarketplaceSidebar';
 import CustomContainer from 'components/Container';
-import { useRouter } from 'next/router';
 
 const MarketplaceContainer = ({
   children,
