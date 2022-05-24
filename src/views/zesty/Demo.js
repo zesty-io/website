@@ -87,7 +87,7 @@ const Demo = ({ content }) => {
               hideSelect={true}
               modalTitle="Thank you for submitting your request."
               modalMessage="Our team will be in touch soon to schedule a demo with you."
-              additionalTextfield={{ phoneNumber: true }}
+              phoneNumber={true}
             />
           </Container>
         </Box>

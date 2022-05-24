@@ -34,7 +34,7 @@ function ContactFormWithSidebarMap({
           hideSelect={false}
           modalTitle="Thank you for contacting Zesty.io"
           modalMessage="Our team will be in touch soon regarding your request."
-          additionalTextfield={{ phoneNumber: true }}
+          phoneNumber={true}
         />
       </Box>
     );
