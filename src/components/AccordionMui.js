@@ -18,7 +18,7 @@ export const AccordionMui = ({ header, data }) => {
   };
   const arr = helper.transformJson(data);
   const handleClick = (item) => {
-    // window.open(item.titleHref, '_self');
+    window.open(item.titleHref, '_self');
   };
   return (
     <div>
