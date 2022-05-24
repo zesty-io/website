@@ -50,7 +50,10 @@ export const AccordionMui = ({ header, data }) => {
                 return (
                   <Box>
                     <Link href={e.href} sx={{ fontSize: '14px' }}>
-                      {e.name}
+                      <Box
+                        paddingY={0.5}
+                        dangerouslySetInnerHTML={{ __html: e.name }}
+                      ></Box>
                     </Link>
                   </Box>
                 );
