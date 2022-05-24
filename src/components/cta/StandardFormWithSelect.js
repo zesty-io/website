@@ -240,7 +240,7 @@ function StandardFormWithSelect({
   const onSubmit = async (values) => {
     // download link
     downloadLink && window.open(downloadLink, '_blank');
-    onClickBtn && onClickBtn();
+    capterraTracking && capterraTracking();
 
     let payload = getLeadObjectZOHO(
       values,
