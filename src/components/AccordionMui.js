@@ -9,15 +9,27 @@ import { Box, Link } from '@mui/material';
 
 export const AccordionMui = ({ header, data }) => {
   const title = helper.generateHeader(header);
+  const generateTitle = (title) => {
+    if (title?.includes('Tool')) {
+      return 'Tools and Resources';
+    }
+    return title;
+  };
   const arr = helper.transformJson(data);
   const handleClick = (item) => {
     window.open(item.titleHref, '_self');
   };
   return (
     <div>
-      <Typography variant="p" component="h1" sx={{}} paddingY={2} paddingX={2}>
-        <Box dangerouslySetInnerHTML={{ __html: title }}></Box>
-        {/* {title} */}
+      <Typography
+        variant="p"
+        component="h1"
+        sx={{ whiteSpace: 'nowrap', fontSize: '18px' }}
+        paddingY={2}
+        paddingX={2}
+      >
+        {/* <Box dangerouslySetInnerHTML={{ __html: title }}></Box> */}
+        {generateTitle(title)}
       </Typography>
       {arr.map((item) => {
         return (
