@@ -265,7 +265,7 @@ function GatedContentPage({ content }) {
     modalMessage:
       'Find more information about digital experiences at Zesty.io/mindshare.',
     displayMsgUnderButton: ' ',
-    additionalTextfield: { company: true, jobTitle: true },
+    additionalTextfield: { company: true, jobTitle: true, phoneNumber: true },
     buttonFullWidth: true,
     hidePrivacySection: true,
     messageLabel: '',

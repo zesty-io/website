@@ -165,6 +165,7 @@ const validationSchemaForDxp = yup.object({
   newsletter_signup: yup.boolean(),
   company: yup.string().trim().required('Please specify your company'),
   jobTitle: yup.string().trim().required('Please specify your job title'),
+  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
 
 const subscribeToZoho = async (payload) => {
