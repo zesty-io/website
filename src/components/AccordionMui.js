@@ -5,9 +5,10 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import * as helper from 'utils';
-import { Box, Link } from '@mui/material';
+import { Box, Link, useTheme } from '@mui/material';
 
 export const AccordionMui = ({ header, data }) => {
+  const theme = useTheme();
   const title = helper.generateHeader(header);
   const generateTitle = (title) => {
     if (title?.includes('Tool')) {
@@ -17,7 +18,7 @@ export const AccordionMui = ({ header, data }) => {
   };
   const arr = helper.transformJson(data);
   const handleClick = (item) => {
-    window.open(item.titleHref, '_self');
+    // window.open(item.titleHref, '_self');
   };
   return (
     <div>
@@ -41,7 +42,7 @@ export const AccordionMui = ({ header, data }) => {
               id="panel1a-header"
               onClick={() => handleClick(item)}
             >
-              <Link href={item.href} underline="none">
+              <Link href={item.href} underline="none" sx={{ fontWeight: 600 }}>
                 {item.title}
               </Link>
             </AccordionSummary>
@@ -55,6 +56,35 @@ export const AccordionMui = ({ header, data }) => {
                         dangerouslySetInnerHTML={{ __html: e.name }}
                       ></Box>
                     </Link>
+                    {e.children && (
+                      <details
+                        style={{ cursor: 'pointer', padding: '.5rem 0' }}
+                      >
+                        <summary
+                          style={{
+                            fontWeight: 600,
+                            color: theme.palette.primary.main,
+                          }}
+                        >
+                          {e.name}
+                        </summary>
+                        {e?.children?.map((x) => (
+                          <Link
+                            paddingLeft={2}
+                            sx={{
+                              cursor: 'pointer',
+                              fontSize: '14px',
+                              display: 'flex',
+                              flexDirection: 'column',
+                            }}
+                            underline="none"
+                            href={x.href}
+                          >
+                            {x?.name}
+                          </Link>
+                        ))}
+                      </details>
+                    )}
                   </Box>
                 );
               })}
