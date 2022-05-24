@@ -165,6 +165,7 @@ const validationSchemaForDxp = yup.object({
   newsletter_signup: yup.boolean(),
   company: yup.string().trim().required('Please specify your company'),
   jobTitle: yup.string().trim().required('Please specify your job title'),
+  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
 
 const subscribeToZoho = async (payload) => {
@@ -203,6 +204,9 @@ function StandardFormWithSelect({
   validationType = '',
   ctaButton = 'Submit',
   downloadLink = '',
+  onClickBtn = null,
+  phoneNumber = false,
+  capterraTracking = null,
 }) {
   const theme = useTheme();
 
@@ -236,6 +240,7 @@ function StandardFormWithSelect({
   const onSubmit = async (values) => {
     // download link
     downloadLink && window.open(downloadLink, '_blank');
+    capterraTracking && capterraTracking();
 
     let payload = getLeadObjectZOHO(
       values,
@@ -331,7 +336,7 @@ function StandardFormWithSelect({
               helperText={formik.touched.email && formik.errors.email}
             />
           </Grid>
-          {additionalTextfield.phoneNumber && (
+          {phoneNumber && (
             <Grid item xs={12}>
               <TextField
                 sx={{ height: 54 }}
