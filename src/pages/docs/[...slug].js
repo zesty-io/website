@@ -6,27 +6,13 @@ import Grid from '@mui/material/Grid';
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import { docsLookup } from 'components/docs/docsLookup';
-import md2json from 'md-2-json';
 import MarkdownIt from 'markdown-it';
-import jsonmark from 'jsonmark';
-import { jsonFromHTML } from 'jsonfromhtml';
-import { parse } from 'himalaya';
-import Markdown from 'markdown-to-jsx';
-
 import { useTheme } from '@mui/material/styles';
 import AppBar from 'components/console/AppBar';
 import Head from 'next/head';
-import { JSONFromTable } from 'jsonfromtable';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionItemHeading,
-  AccordionItemButton,
-  AccordionItemPanel,
-} from 'react-accessible-accordion';
-
-// Demo styles, see 'Styles' section below for some notes on use.
-import 'react-accessible-accordion/dist/fancy-example.css';
+import { parse } from 'himalaya';
+import * as helper from 'utils';
+import { AccordionMui } from 'components/AccordionMui';
 
 const zestyImage =
   'https://kfg6bckb.media.zestyio.com/zesty-share-image-generic.png?width=1200';
@@ -135,93 +121,11 @@ export default function Docs(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  // conversion of md to html to json
   const md = new MarkdownIt();
   const htmlNav = md.render(cleanMarkdownURLS(toc));
+  const jsonNav = helper.removeWhitespace(parse(htmlNav));
 
-  // const test = md2json.parse(props.toc);
-  // const test = jsonmark.parse(cleanMarkdownURLS(toc));
-  // const test2 =
-  //   test?.content['Table of contents'] &&
-  //   test?.content['Table of contents']?.body;
-  // const serv = test?.content && test?.content?.Services?.body;
-  // const body = jsonFromHTML(test3); // returns object
-  // const json = JSON.stringify(body);
-  // console.log(test2.split(/\r\n|\r|\n/), 1111);
-  // console.log(test, 2222);
-  // console.log(cleanMarkdownURLS(toc), 333);
-
-  function removeEmptyNodes(nodes) {
-    return nodes.filter((node) => {
-      if (node.type === 'element') {
-        node.children = removeEmptyNodes(node.children);
-        return true;
-      }
-      return node.content.length;
-    });
-  }
-
-  function stripWhitespace(nodes) {
-    return nodes.map((node) => {
-      if (node.type === 'element') {
-        node.children = stripWhitespace(node.children);
-      } else {
-        node.content = node.content.trim();
-      }
-      return node;
-    });
-  }
-
-  function removeWhitespace(nodes) {
-    return removeEmptyNodes(stripWhitespace(nodes));
-  }
-  const jsonNav = removeWhitespace(parse(htmlNav));
-  console.log(jsonNav, 77777);
-
-  const newArr1 = (arr) => {
-    const result = arr.children.map((item) => {
-      const title = item.children[0].children[0].content;
-      const titleHref = item.children[0].attributes[0].value;
-      const test1 = item.children
-        .filter((e) => e.tagName === 'ul')
-        .map((e) => e.children);
-      const children =
-        test1 &&
-        test1[0] &&
-        test1[0]
-          .map((r) => r.children)
-          .map((x) => {
-            console.log(x, 4444);
-            return x;
-          })
-          .map((e) => {
-            console.log(
-              e
-                ?.find((e) => e.tagName === 'ul')
-                ?.children.map((e) => e.children)
-                .map((e) => e && e[0])
-                ?.map((e) => e.children[0].content),
-              55555,
-            );
-            const href = e?.find((e) => e.tagName === 'a').attributes[0]?.value;
-            const name = e?.find((e) => e.tagName === 'a').children[0]?.content;
-            const children = e
-              ?.find((e) => e.tagName === 'ul')
-              ?.children.map((e) => e.children)
-              .map((e) => e && e[0])
-              ?.map((e) => {
-                const href = e.attributes[0].value;
-                const name = e.children[0].content;
-                return { name, href };
-              });
-
-            return { name, href, children };
-          });
-      return { title, titleHref, children };
-    });
-    return result;
-  };
-
-  console.log(newArr1(jsonNav[1]), 123123);
   return (
     <Main customRouting={props.navigationCustom}>
       <Head>
@@ -239,39 +143,12 @@ export default function Docs(props) {
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
             aria-label="mailbox folders"
           >
-            <Accordion allowZeroExpanded>
-              {newArr1(jsonNav[1]).map((item) => (
-                <AccordionItem>
-                  <AccordionItemHeading>
-                    <AccordionItemButton>{item.title}</AccordionItemButton>
-                  </AccordionItemHeading>
-                  {item.children && (
-                    <AccordionItemPanel>
-                      {item?.children?.map((e) => (
-                        <div>
-                          <div>
-                            {!e.children && <a href={e.href}>{e.name}</a>}
-                            {e.children && (
-                              <details>
-                                <summary>{e.name}</summary>
-                                {e?.children?.map((x) => (
-                                  <a href={x.href}>{x?.name}</a>
-                                ))}
-                              </details>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </AccordionItemPanel>
-                  )}
-                </AccordionItem>
-              ))}
-            </Accordion>
-            <Box
-              className={`newNavigation `}
-              dangerouslySetInnerHTML={{ __html: htmlNav }}
-            ></Box>
-            {/* <Box dangerouslySetInnerHTML={{ __html: htmlNav }}></Box> */}
+            <AccordionMui header={jsonNav[0]} data={jsonNav[1]} />
+            <AccordionMui header={jsonNav[2]} data={jsonNav[3]} />
+            <AccordionMui header={jsonNav[4]} data={jsonNav[5]} />
+            <AccordionMui header={jsonNav[6]} data={jsonNav[7]} />
+            <AccordionMui header={jsonNav[8]} data={jsonNav[9]} />
+
             {/* <MuiMarkdown overrides={muiTOCOverrides}>
               {cleanMarkdownURLS(toc)}
             </MuiMarkdown> */}
