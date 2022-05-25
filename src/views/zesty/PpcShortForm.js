@@ -46,6 +46,7 @@ function PpcShortForm({ content }) {
     buttonFullWidth: true,
     hidePrivacySection: true,
     messageLabel: 'Is there anything you would like to cover in the demo?',
+    phoneNumber: true,
   };
   return (
     <>
