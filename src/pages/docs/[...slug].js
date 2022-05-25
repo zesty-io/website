@@ -127,6 +127,8 @@ export default function Docs(props) {
   const jsonNav = helper.removeWhitespace(parse(htmlNav));
   const accordionLists = helper.mainJson(jsonNav);
 
+  // const test = accordionLists.filter(e=> )
+  // console.log(accordionLists, 111111);
   return (
     <Main customRouting={props.navigationCustom}>
       <Head>

@@ -5,10 +5,12 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import * as helper from 'utils';
-import { Box, Link, useTheme } from '@mui/material';
+import { Box, Button, Link, useTheme } from '@mui/material';
+import { useRouter } from 'next/router';
 
 export const AccordionMui = ({ header, data }) => {
   const theme = useTheme();
+  const router = useRouter();
   const title = header && helper.generateHeader(header);
   const generateTitle = (title) => {
     if (title?.includes('Tool')) {
@@ -17,8 +19,24 @@ export const AccordionMui = ({ header, data }) => {
     return title;
   };
   const arr = data && helper.transformJson(data);
-  const handleClick = (item) => {
-    window.open(item.titleHref, '_self');
+  const handleClick = (path) => {
+    console.log(path, 11111111);
+    router.push({ pathname: path });
+    // window.open(item.titleHref, '_self');
+  };
+  const customStyle = {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+  };
+
+  const BtnStyle = {
+    fontWeight: 600,
+    display: 'flex',
+    textAlign: 'left',
+    justifyItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: '100%',
+    whiteSpace: 'nowrap',
   };
   return (
     <div>
@@ -26,7 +44,7 @@ export const AccordionMui = ({ header, data }) => {
         <Typography
           variant="p"
           component="h1"
-          sx={{ whiteSpace: 'nowrap', fontSize: '18px' }}
+          sx={{ whiteSpace: 'nowrap', fontSize: '18px', ...customStyle }}
           paddingY={2}
           paddingX={2}
         >
@@ -36,33 +54,54 @@ export const AccordionMui = ({ header, data }) => {
       )}
       {arr &&
         arr?.map((item) => {
+          // if (!item.children) {
+          //   return (
+          //     <Box
+          //       boxShadow={1}
+          //       padding={2}
+          //       sx={{
+          //         width: '100%',
+          //         textAlign: 'left',
+          //         fontWeight: 600,
+
+          //         ...customStyle,
+          //       }}
+          //     >
+          //       {item.title}
+          //     </Box>
+          //   );
+          // }
           return (
-            <Accordion>
+            <Accordion disableGutters elevation={1}>
               <AccordionSummary
                 expanded={!item.children}
                 expandIcon={item?.children ? <ExpandMoreIcon /> : false}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                onClick={() => handleClick(item)}
+                onClick={() => handleClick(item.titleHref)}
               >
-                <Link
-                  href={item.href}
+                <Box
+                  onClick={() => handleClick(item.titleHref)}
                   underline="none"
-                  sx={{ fontWeight: 600 }}
+                  sx={{ fontWeight: 600, ...customStyle }}
                 >
                   {item.title}
-                </Link>
+                </Box>
               </AccordionSummary>
               <AccordionDetails>
                 {item?.children?.map((e) => {
                   return (
                     <Box>
-                      <Link href={e.href} sx={{ fontSize: '14px' }}>
+                      <Box
+                        href={e.href}
+                        sx={{ fontSize: '14px', ...customStyle }}
+                      >
                         <Box
+                          onClick={() => handleClick(e.href)}
                           paddingY={0.5}
                           dangerouslySetInnerHTML={{ __html: e.name }}
                         ></Box>
-                      </Link>
+                      </Box>
                       {e.children && (
                         <details
                           style={{ cursor: 'pointer', padding: '.5rem 0' }}
@@ -70,25 +109,25 @@ export const AccordionMui = ({ header, data }) => {
                           <summary
                             style={{
                               fontWeight: 600,
-                              color: theme.palette.primary.main,
+                              ...customStyle,
                             }}
                           >
                             {e.name}
                           </summary>
                           {e?.children?.map((x) => (
-                            <Link
+                            <Box
+                              onClick={() => handleClick(x.href)}
                               paddingLeft={2}
                               sx={{
-                                cursor: 'pointer',
                                 fontSize: '14px',
                                 display: 'flex',
                                 flexDirection: 'column',
+                                ...customStyle,
                               }}
                               underline="none"
-                              href={x.href}
                             >
                               {x?.name}
-                            </Link>
+                            </Box>
                           ))}
                         </details>
                       )}
