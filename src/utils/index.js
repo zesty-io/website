@@ -62,3 +62,12 @@ export const transformJson = (arr) => {
   });
   return result;
 };
+
+export const mainJson = (arr) => {
+  const result = arr.map((_e, index, arr) => {
+    const header = index % 2 === 0 ? index : null;
+    const data = index % 2 !== 0 ? index : null;
+    return { header: arr[header], data: data && arr[data] };
+  });
+  return result;
+};

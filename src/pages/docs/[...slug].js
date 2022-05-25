@@ -95,7 +95,7 @@ export default function Docs(props) {
   // get meta
   let meta = extractMetaFromMarkdown(props.markdown);
 
-  // getting the title ,image and  description
+  // getting the title ,image and  description for head meta tags
   const titleRegexMeta = /(?<=title: ).+?(\n)/;
   const titleRegexMd = /(?<=# ).+/;
   const titleMeta = meta?.match(titleRegexMeta);
@@ -121,10 +121,11 @@ export default function Docs(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  // conversion of md to html to json
+  // conversion of md to html to json in accordion
   const md = new MarkdownIt();
   const htmlNav = md.render(cleanMarkdownURLS(toc));
   const jsonNav = helper.removeWhitespace(parse(htmlNav));
+  const accordionLists = helper.mainJson(jsonNav);
 
   return (
     <Main customRouting={props.navigationCustom}>
@@ -137,17 +138,15 @@ export default function Docs(props) {
       </Head>
       <AppBar></AppBar>
       <Container>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex' }} paddingBottom={4}>
           <Box
             component="nav"
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
             aria-label="mailbox folders"
           >
-            <AccordionMui header={jsonNav[0]} data={jsonNav[1]} />
-            <AccordionMui header={jsonNav[2]} data={jsonNav[3]} />
-            <AccordionMui header={jsonNav[4]} data={jsonNav[5]} />
-            <AccordionMui header={jsonNav[6]} data={jsonNav[7]} />
-            <AccordionMui header={jsonNav[8]} data={jsonNav[9]} />
+            {accordionLists.map((e) => {
+              return <AccordionMui header={e.header} data={e.data} />;
+            })}
 
             {/* <MuiMarkdown overrides={muiTOCOverrides}>
               {cleanMarkdownURLS(toc)}
