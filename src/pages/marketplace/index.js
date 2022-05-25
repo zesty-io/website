@@ -7,6 +7,7 @@ import AppBar from 'components/console/AppBar';
 import { useRouter } from 'next/router';
 import { fetchPage } from 'lib/api';
 import Head from 'next/head';
+import { HeroWithPrimaryBackgroundAndDesktopScreenshot } from 'blocks/heroes';
 
 const Marketplace = ({
   marketEntities,
@@ -26,6 +27,18 @@ const Marketplace = ({
       </Head>
       <Main customRouting={props.navigationCustom}>
         <AppBar url={router.asPath} />
+        <HeroWithPrimaryBackgroundAndDesktopScreenshot
+          title={props.title}
+          description={
+            <div dangerouslySetInnerHTML={{ __html: props.description }} />
+          }
+          screenshot={props.screenshot?.data[0]?.url}
+          //making an array of object > url , image
+          logos={props.features_logos.data.map((x) => ({
+            image: x.image?.data[0]?.url,
+            url: x.meta?.web?.uri,
+          }))}
+        />
         <MarketplaceProvider inititalEntities={marketEntities}>
           <MarketplaceContainer
             marketEntities={marketEntities}
