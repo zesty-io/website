@@ -42,6 +42,9 @@ export const CustomButton = styled.button`
   background: #fff;
   padding:.8rem .5rem;
   display: flex;
+  justify-content:flex-start;
+  justify-items:flex-start;
+  text-align: left;
   outline: none;
   font-size:14px;
     font-weight: 100;

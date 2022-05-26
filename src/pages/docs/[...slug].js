@@ -99,8 +99,8 @@ export default function Docs(props) {
   // getting the title ,image and  description for head meta tags
   const titleRegexMeta = /(?<=title: ).+?(\n)/;
   const titleRegexMd = /(?<=# ).+/;
-  const titleMeta = meta?.match(titleRegexMeta);
-  const titleMd = props.markdown.match(titleRegexMd);
+  const titleMeta = meta?.match(titleRegexMeta) || '';
+  const titleMd = props.markdown.match(titleRegexMd) || '';
   const title = (titleMeta || titleMd)[0];
   const descRegex = /(?<=description: >-).+/is;
   const description = (meta.match(descRegex) || [])[0];

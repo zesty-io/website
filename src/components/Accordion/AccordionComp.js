@@ -25,17 +25,24 @@ export const AccordionComp = ({ header, data }) => {
     router.push({ pathname });
   };
   const customStyle = {
-    color: theme.palette.primary.main,
+    color: '#333333',
     cursor: 'pointer',
+    textAlign: 'left',
+    display: 'flex',
   };
 
   return (
-    <div>
+    <Box>
       {header && (
         <Typography
           variant="p"
           component="h1"
-          sx={{ whiteSpace: 'nowrap', fontSize: '18px', ...customStyle }}
+          sx={{
+            fontWeight: 'bold',
+            whiteSpace: 'nowrap',
+            fontSize: '20px',
+            ...customStyle,
+          }}
           paddingY={2}
           paddingX={2}
         >
@@ -53,6 +60,7 @@ export const AccordionComp = ({ header, data }) => {
                 boxShadow: 'none',
                 backgroundColor: 'transparent',
                 border: 0,
+                overflowX: 'hidden',
               }}
             >
               <AccordionSummary
@@ -76,7 +84,7 @@ export const AccordionComp = ({ header, data }) => {
                   return (
                     <Box>
                       {!e.children && (
-                        <Box
+                        <Style.CustomButton
                           href={e.href}
                           sx={{ fontSize: '14px', ...customStyle }}
                         >
@@ -85,7 +93,7 @@ export const AccordionComp = ({ header, data }) => {
                             paddingY={0.5}
                             dangerouslySetInnerHTML={{ __html: e.name }}
                           ></Box>
-                        </Box>
+                        </Style.CustomButton>
                       )}
                       {e.children && (
                         <details
@@ -101,7 +109,7 @@ export const AccordionComp = ({ header, data }) => {
                             {e.name}
                           </summary>
                           {e?.children?.map((x) => (
-                            <Box
+                            <Style.CustomButton
                               onClick={() => handleClick(x.href)}
                               paddingLeft={2}
                               sx={{
@@ -116,7 +124,7 @@ export const AccordionComp = ({ header, data }) => {
                                 paddingY={0.5}
                                 dangerouslySetInnerHTML={{ __html: x?.name }}
                               ></Box>
-                            </Box>
+                            </Style.CustomButton>
                           ))}
                         </details>
                       )}
@@ -127,6 +135,6 @@ export const AccordionComp = ({ header, data }) => {
             </Accordion>
           );
         })}
-    </div>
+    </Box>
   );
 };
