@@ -12,7 +12,8 @@ import AppBar from 'components/console/AppBar';
 import Head from 'next/head';
 import { parse } from 'himalaya';
 import * as helper from 'utils';
-import { AccordionMui } from 'components/AccordionMui';
+import { AccordionMui } from 'components/Accordion';
+import { SimpleHeroWithSearchBox } from 'blocks/heroes';
 
 const zestyImage =
   'https://kfg6bckb.media.zestyio.com/zesty-share-image-generic.png?width=1200';
@@ -124,11 +125,8 @@ export default function Docs(props) {
   // conversion of md to html to json in accordion
   const md = new MarkdownIt();
   const htmlNav = md.render(cleanMarkdownURLS(toc));
-  const jsonNav = helper.removeWhitespace(parse(htmlNav));
-  const accordionLists = helper.mainJson(jsonNav);
+  const accordionData = helper.removeWhitespace(parse(htmlNav));
 
-  // const test = accordionLists.filter(e=> )
-  // console.log(accordionLists, 111111);
   return (
     <Main customRouting={props.navigationCustom}>
       <Head>
@@ -146,10 +144,7 @@ export default function Docs(props) {
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
             aria-label="mailbox folders"
           >
-            {accordionLists.map((e) => {
-              return <AccordionMui header={e.header} data={e.data} />;
-            })}
-
+            <AccordionMui data={accordionData} />
             {/* <MuiMarkdown overrides={muiTOCOverrides}>
               {cleanMarkdownURLS(toc)}
             </MuiMarkdown> */}

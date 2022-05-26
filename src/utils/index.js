@@ -71,3 +71,37 @@ export const mainJson = (arr) => {
   });
   return result;
 };
+
+function flatten(arr) {
+  return arr.reduce(function (ret, item) {
+    return ret?.concat(item?.constructor === Array ? flatten(item) : [item]);
+  }, []);
+}
+export const transformSearch = (arr) => {
+  const tier1 = arr.map((e) => {
+    return e.children;
+  });
+  const tier2 = tier1.map((e) => {
+    return e.map((x) => x.children);
+  });
+  const tier3 = tier2?.map((e) => {
+    return e?.map((x) => {
+      return x?.map((y) => {
+        return y.children.map((u) => {
+          const name = u.content;
+          const href = y?.attributes[0]?.value;
+          if (u.type === 'text') {
+            return { name, href };
+          }
+          return u.children.map((q) => {
+            const name = q.children[0].content;
+            const href = u.children[0].attributes[0].value;
+            return { name, href };
+          });
+        });
+      });
+    });
+  });
+  const result = flatten(tier3);
+  return result;
+};
