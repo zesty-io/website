@@ -60,6 +60,7 @@ export const CustomButton = styled.button`
     background: #fafafa;
     border: 1px solid #f1f1f1;
     font-weight: 600;
+    color: #497edf;
   }
   &:active {
     background: #fafafa;

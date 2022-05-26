@@ -8,8 +8,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import { AccordionComp } from './AccordionComp';
 
 const DropDownComponent = ({ data, search, onClick }) => {
-  const filterObj = data.filter((e) =>
-    e?.name?.toLowerCase().includes(search.toLowerCase()),
+  const filterObj = data.filter(
+    (e) =>
+      e?.name?.toLowerCase().includes(search.toLowerCase()) ||
+      e?.href?.toLowerCase().includes(search.toLowerCase()),
   );
   if (search.length > 0 && filterObj.length === 0) {
     return (

@@ -46,13 +46,22 @@ export const AccordionComp = ({ header, data }) => {
       {arr &&
         arr?.map((item) => {
           return (
-            <Accordion disableGutters elevation={1}>
+            <Accordion
+              disableGutters
+              elevation={1}
+              sx={{
+                boxShadow: 'none',
+                backgroundColor: 'transparent',
+                border: 0,
+              }}
+            >
               <AccordionSummary
                 expanded={!item.children}
                 expandIcon={item?.children ? <ExpandMoreIcon /> : false}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
                 onClick={() => handleClick(item.href)}
+                sx={{ boxShadow: 'none', border: 0 }}
               >
                 <Box
                   onClick={() => handleClick(item.href)}
@@ -62,25 +71,28 @@ export const AccordionComp = ({ header, data }) => {
                   {item.title}
                 </Box>
               </AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails sx={{ boxShadow: 'none', border: 0 }}>
                 {item?.children?.map((e) => {
                   return (
                     <Box>
-                      <Box
-                        href={e.href}
-                        sx={{ fontSize: '14px', ...customStyle }}
-                      >
+                      {!e.children && (
                         <Box
-                          onClick={() => handleClick(e.href)}
-                          paddingY={0.5}
-                          dangerouslySetInnerHTML={{ __html: e.name }}
-                        ></Box>
-                      </Box>
+                          href={e.href}
+                          sx={{ fontSize: '14px', ...customStyle }}
+                        >
+                          <Box
+                            onClick={() => handleClick(e.href)}
+                            paddingY={0.5}
+                            dangerouslySetInnerHTML={{ __html: e.name }}
+                          ></Box>
+                        </Box>
+                      )}
                       {e.children && (
                         <details
                           style={{ cursor: 'pointer', padding: '.5rem 0' }}
                         >
                           <summary
+                            onClick={() => handleClick(e.href)}
                             style={{
                               fontWeight: 600,
                               ...customStyle,
@@ -100,7 +112,10 @@ export const AccordionComp = ({ header, data }) => {
                               }}
                               underline="none"
                             >
-                              {x?.name}
+                              <Box
+                                paddingY={0.5}
+                                dangerouslySetInnerHTML={{ __html: x?.name }}
+                              ></Box>
                             </Box>
                           ))}
                         </details>

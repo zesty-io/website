@@ -72,21 +72,49 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import { Box, useTheme } from '@mui/material';
+import React from 'react';
+import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+import FillerContent from 'components/FillerContent';
 
-function DigitalExperiencePlatform({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+function DigitalExperiencePlatform({ content }) {
+  console.log(content);
+  const theme = useTheme();
+  //   const headerProps = {
+  //     mainTitle: content.header_title_main || FillerContent.header,
+  //     title: content.header_title || FillerContent.header,
+  //     image:
+  //       (content.header_image?.data && content.header_image?.data[0]?.url) ||
+  //       FillerContent.image,
+  //     description: content.header_description || FillerContent.description,
+  //     cta_left:
+  //       (content.cta_left.data && content.cta_left?.data[0]?.button_text) ||
+  //       FillerContent.cta,
+  //     cta_right:
+  //       (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
+  //       FillerContent.cta,
+  //     cta_left_url:
+  //       (content.cta_left?.data &&
+  //         content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+  //       FillerContent.href,
+  //     cta_right_url:
+  //       (content.cta_right.data &&
+  //         content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+  //       FillerContent.href,
+  //   };
+
+  return (
+    <>
+      {/* <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <SimpleHeroWithImageAndCtaButtonsPage />
+      </Box> */}
+    </>
+  );
 }
-  
+
 export default DigitalExperiencePlatform;
