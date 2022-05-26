@@ -77,6 +77,7 @@ function flatten(arr) {
     return ret?.concat(item?.constructor === Array ? flatten(item) : [item]);
   }, []);
 }
+
 export const transformSearch = (arr) => {
   const tier1 = arr.map((e) => {
     return e.children;
@@ -96,7 +97,15 @@ export const transformSearch = (arr) => {
           return u.children.map((q) => {
             const name = q.children[0].content;
             const href = u.children[0].attributes[0].value;
-            return { name, href };
+            const name1 = q;
+            if (q.tagName === 'a') {
+              return { name, href };
+            }
+            return q.children.map((h) => {
+              const name = h.children[0].children[0].content;
+              const href = h.children[0].attributes[0].value;
+              return { name, href };
+            });
           });
         });
       });
@@ -104,4 +113,13 @@ export const transformSearch = (arr) => {
   });
   const result = flatten(tier3);
   return result;
+};
+export const test = (arr) => {
+  let numbers = [1, 2, 3];
+  console.log(arr);
+  let sum = arr.reduce((previousValue, currentValue) => {
+    // console.log(previousValue, currentValue, 4444);
+    return { ...previousValue, test: currentValue.children };
+  }, []);
+  return sum;
 };

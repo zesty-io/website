@@ -146,7 +146,6 @@ const AccordionComp = ({ header, data }) => {
 };
 
 const DropDownComponent = ({ data, search, onClick }) => {
-  console.log(search.length, data.length, 11111);
   const filterObj = data.filter((e) =>
     e?.name?.toLowerCase().includes(search.toLowerCase()),
   );
@@ -154,16 +153,14 @@ const DropDownComponent = ({ data, search, onClick }) => {
     return (
       <Style.CustomDropdown>
         <Box>
-          <Button
-            sx={{
-              display: 'flex',
+          <Style.CustomButton
+            style={{
               textAlign: 'center',
             }}
             fullWidth
-            onClick={() => onClick(e.href)}
           >
             No items Found
-          </Button>
+          </Style.CustomButton>
         </Box>
       </Style.CustomDropdown>
     );
@@ -173,17 +170,15 @@ const DropDownComponent = ({ data, search, onClick }) => {
       {filterObj.map((e) => {
         return (
           <Box>
-            <Button
-              sx={{
-                display: 'flex',
+            <Style.CustomButton
+              style={{
                 justifyContent: 'flex-start',
                 textAlign: 'left',
               }}
-              fullWidth
               onClick={() => onClick(e.href)}
             >
               <Box dangerouslySetInnerHTML={{ __html: e?.name }}></Box>
-            </Button>
+            </Style.CustomButton>
           </Box>
         );
       })}
@@ -194,9 +189,9 @@ const DropDownComponent = ({ data, search, onClick }) => {
 const Index = ({ data }) => {
   const router = useRouter();
   const [search, setsearch] = React.useState('');
-  const accordionLists = helper.mainJson(data);
   const [IsSelected, setIsSelected] = React.useState(false);
-  const searchArr = helper.transformSearch(data);
+  const searchList = helper.transformSearch(data);
+  const accordionLists = helper.mainJson(data);
 
   const handleClick = (pathname) => {
     router.push({ pathname });
@@ -205,20 +200,22 @@ const Index = ({ data }) => {
     <Box paddingY={2}>
       <Box sx={{ position: 'relative' }}>
         <Style.CustomInput
+          autoFocus
           onFocus={() => setIsSelected(true)}
           onBlur={() => setIsSelected(false)}
           value={search}
           onChange={(e) => setsearch(e.target.value)}
+          placeholder="Search..."
         />
         <Box
           sx={{
             position: 'absolute',
             left: '.5rem',
-            top: '.5rem',
+            top: '.6rem',
             color: IsSelected ? '#497edf' : 'gray',
           }}
         >
-          <SearchIcon />
+          <SearchIcon fontSize="small" />
         </Box>
         {search.length > 0 && (
           <Box
@@ -237,7 +234,7 @@ const Index = ({ data }) => {
       </Box>
       {search.length !== 0 && (
         <DropDownComponent
-          data={searchArr}
+          data={searchList}
           search={search}
           onClick={handleClick}
         />
