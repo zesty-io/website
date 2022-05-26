@@ -6,27 +6,18 @@ export const AppInstallerComp = ({ data, theme }) => {
   const [response, setresponse] = React.useState('');
   const [error, seterror] = React.useState('');
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const userAppSID = getCookie('APP_SID');
   const appZUID = data?.app_zuid;
-  const headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
-  const url = `https://accounts.api.zesty.io/v1/instances/${instanceZUID}/app-installs`;
+  const ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
 
   const InstallApp = async () => {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ appZUID }),
-    })
-      .then((e) => e.json())
-      .catch((e) => {
-        console.log(e);
-        seterror(e);
-      });
+    const res = await ZestyAPI.installApp(instanceZUID, appZUID);
     res.status === 201 && setresponse(res);
     res.status !== 201 && seterror(res.error);
   };
+
+  const handleSuccess = () => {};
+  const handleError = () => {};
 
   return (
     <Button
