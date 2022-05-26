@@ -70,6 +70,9 @@ import Ppc from './Ppc';
 import Brand from './Brand';
 import Integration from './Integration';
 import CapterraLandingPage from './CapterraLandingPage';
+import ScaleToNewHeightsLp from './ScaleToNewHeightsLp';
+import HybridCm from './HybridCm';
+import DigitalExperiencePlatform from './DigitalExperiencePlatform';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -145,6 +148,9 @@ export {
     Brand,
     Integration,
     CapterraLandingPage,
+    ScaleToNewHeightsLp,
+    HybridCm,
+    DigitalExperiencePlatform,
     Footer,
     Header
 }
