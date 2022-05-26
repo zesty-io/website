@@ -31,7 +31,7 @@ export const generateHeader = (obj) => {
 export const transformJson = (arr) => {
   const result = arr.children.map((item) => {
     const title = item.children[0].children[0].content;
-    const titleHref = item.children[0].attributes[0].value;
+    const href = item.children[0].attributes[0].value;
     const test1 = item.children
       .filter((e) => e.tagName === 'ul')
       .map((e) => e.children);
@@ -58,7 +58,7 @@ export const transformJson = (arr) => {
 
           return { name, href, children };
         });
-    return { title, titleHref, children };
+    return { title, href, children };
   });
   return result;
 };
