@@ -4,6 +4,7 @@ export const CustomInput = styled.input`
   padding: 0.6rem 2rem 0.6rem 2.3rem;
   overflow: hidden;
   width: 100%;
+  margin-bottom: 0.5rem;
   border-radius: 5px;
   border: 1px solid #f1f1f1;
   outline: none;

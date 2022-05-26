@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { AccordionComp } from './AccordionComp';
-import { AccordionCompv2 } from './AccordionCompv2';
 
 const DropDownComponent = ({ data, search, onClick }) => {
   const filterObj = data.filter((e) =>
@@ -103,9 +102,9 @@ const Index = ({ data }) => {
         />
       )}
       {!search.length && (
-        <Box>
+        <Box sx={{ maxHeight: '70vh', overflowY: 'auto' }}>
           {accordionLists.map((e) => {
-            return <AccordionCompv2 header={e.header} data={e.data} />;
+            return <AccordionComp header={e.header} data={e.data} />;
           })}
         </Box>
       )}
