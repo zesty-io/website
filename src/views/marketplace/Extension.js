@@ -8,6 +8,11 @@ import FillerContent from 'components/FillerContent';
 import styled from '@emotion/styled';
 import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
 import { getCookie } from 'cookies-next';
+import { AppInstallerComp } from 'components/marketplace/AppInstallerComp';
+import {
+  ModuleInstaller,
+  ResourceLinkComp,
+} from 'components/marketplace/ResourceLinkComp';
 
 function showTitle(isSM, props) {
   return (
@@ -80,9 +85,46 @@ const YoutubeEmbed = ({ youtubeHash }) => {
   );
 };
 
+const InstallButton = ({ data, theme }) => {
+  if (data.app_zuid) {
+    return <AppInstallerComp data={data} />;
+  }
+  if (data.github_url && !data.app_zuid && !data.resource_link) {
+    return (
+      <ExtensionsIntaller
+        variant="contained"
+        color="secondary"
+        sx={{ mt: 2 }}
+        fullWidth
+        extensionName={data?.name}
+        githubUrl={data?.github_url}
+        instance={getCookie('ZESTY_WORKING_INSTANCE')}
+      />
+    );
+  }
+  if (data.resource_link) {
+    return <ResourceLinkComp data={data} />;
+  }
+  return (
+    <Button
+      href="#"
+      variant="contained"
+      sx={{
+        mt: 2,
+        backgroundColor: theme.palette.zesty.zestyLightGrey,
+        color: theme.palette.common.white,
+      }}
+      disabled
+      fullWidth
+    >
+      Coming Soon
+    </Button>
+  );
+};
 const Extension = (props) => {
   const theme = useTheme();
   const isSM = useMediaQuery(theme.breakpoints.down('md'));
+  console.log(props, '11111');
   return (
     <>
       <Grid container spacing={4} mt={2}>
@@ -99,15 +141,7 @@ const Extension = (props) => {
             width="220px"
           />
           {showTitle(isSM, props)}
-          <ExtensionsIntaller
-            variant="contained"
-            color="secondary"
-            sx={{ mt: 2 }}
-            fullWidth
-            extensionName={props?.name}
-            githubUrl={props?.github_url}
-            instance={getCookie('ZESTY_WORKING_INSTANCE')}
-          />
+          <InstallButton data={props} theme={theme} />
           {!isSM && (
             <>
               <Stack my={2} gap={1} alignSelf="start">
