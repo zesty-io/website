@@ -88,8 +88,7 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 const InstallButton = ({ data, theme }) => {
   if (data.app_zuid) {
     return <AppInstallerComp data={data} />;
-  }
-  if (data.github_url && !data.app_zuid && !data.resource_link) {
+  } else if (data.github_url && !data.app_zuid && !data.resource_link) {
     return (
       <ExtensionsIntaller
         variant="contained"
@@ -101,26 +100,27 @@ const InstallButton = ({ data, theme }) => {
         instance={getCookie('ZESTY_WORKING_INSTANCE')}
       />
     );
-  }
-  if (data.resource_link) {
+  } else if (data.resource_link) {
     return <ResourceLinkComp data={data} />;
+  } else {
+    return (
+      <Button
+        href="#"
+        variant="contained"
+        sx={{
+          mt: 2,
+          backgroundColor: theme.palette.zesty.zestyLightGrey,
+          color: theme.palette.common.white,
+        }}
+        disabled
+        fullWidth
+      >
+        Coming Soon
+      </Button>
+    );
   }
-  return (
-    <Button
-      href="#"
-      variant="contained"
-      sx={{
-        mt: 2,
-        backgroundColor: theme.palette.zesty.zestyLightGrey,
-        color: theme.palette.common.white,
-      }}
-      disabled
-      fullWidth
-    >
-      Coming Soon
-    </Button>
-  );
 };
+
 const Extension = (props) => {
   const theme = useTheme();
   const isSM = useMediaQuery(theme.breakpoints.down('md'));

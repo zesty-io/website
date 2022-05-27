@@ -9,11 +9,6 @@ import * as Style from './styles';
 import { Box, Button, Link, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
 
-const customStyle = {
-  color: '#333333',
-  textAlign: 'left',
-  display: 'flex',
-};
 export const AccordionComp = ({ header, data }) => {
   const theme = useTheme();
   const router = useRouter();
@@ -33,8 +28,12 @@ export const AccordionComp = ({ header, data }) => {
   const isCurrentUrl = (name) => {
     const newName = name.replaceAll(' ', '-').toLowerCase();
     const res = window.location.pathname.includes(newName);
-    console.log(newName, 2222);
     return res;
+  };
+  const customStyle = {
+    color: theme.palette.secondary.darkCharcoal,
+    textAlign: 'left',
+    display: 'flex',
   };
   return (
     <Box sx={{ overflowX: 'hidden' }}>
@@ -46,7 +45,7 @@ export const AccordionComp = ({ header, data }) => {
             fontWeight: 'bolder',
             whiteSpace: 'nowrap',
             fontSize: '19px',
-            background: '#f1f1f1',
+            background: theme.palette.secondary.whiteSmoke,
             marginTop: '1rem',
             ...customStyle,
           }}
@@ -63,6 +62,7 @@ export const AccordionComp = ({ header, data }) => {
           if (!item.children) {
             return (
               <Style.AccordionBtnHead
+                theme={theme}
                 active={active}
                 onClick={() => handleClick(item.href)}
                 underline="none"
@@ -86,7 +86,7 @@ export const AccordionComp = ({ header, data }) => {
                 expanded={!item.children}
                 expandIcon={
                   item?.children ? (
-                    <Style.IconContainer>
+                    <Style.IconContainer theme={theme}>
                       <ExpandMoreIcon />
                     </Style.IconContainer>
                   ) : (
@@ -106,6 +106,7 @@ export const AccordionComp = ({ header, data }) => {
                 }}
               >
                 <Style.AccordionBtnHead
+                  theme={theme}
                   active={active}
                   onClick={() => handleClick(item.href)}
                   underline="none"
@@ -124,11 +125,12 @@ export const AccordionComp = ({ header, data }) => {
                   return (
                     <Box
                       sx={{
-                        borderLeft: '1px solid #e1e1e1',
+                        borderLeft: `1px solid ${theme.palette.secondary.lightSilver}`,
                       }}
                     >
                       {!e.children && (
                         <Style.AccordionBtn
+                          theme={theme}
                           onClick={() => handleClick(e.href)}
                           dangerouslySetInnerHTML={{ __html: e.name }}
                         ></Style.AccordionBtn>
@@ -149,6 +151,7 @@ export const AccordionComp = ({ header, data }) => {
                             sx={{ fontWeight: 600, ...customStyle }}
                           >
                             <Style.AccordionBtnHead
+                              theme={theme}
                               active={active}
                               onClick={() => handleClick(e?.href)}
                               underline="none"
@@ -160,10 +163,11 @@ export const AccordionComp = ({ header, data }) => {
                               return (
                                 <Box
                                   sx={{
-                                    borderLeft: '1px solid #e1e1e1',
+                                    borderLeft: `1px solid ${theme.palette.secondary.lightSilver}`,
                                   }}
                                 >
                                   <Style.AccordionBtn
+                                    theme={theme}
                                     onClick={() => handleClick(x.href)}
                                     dangerouslySetInnerHTML={{
                                       __html: x?.name,
