@@ -20,22 +20,35 @@ export const AccordionComp = ({ header, data }) => {
     return title;
   };
   const arr = data && helper.transformJson(data);
-  console.log(arr, 111111);
+
   const handleClick = (pathname) => {
     router.push({ pathname });
   };
-  const customStyle = {
-    color: theme.palette.primary.main,
-    cursor: 'pointer',
-  };
 
+  const isCurrentUrl = (name) => {
+    const newName = name.replaceAll(' ', '-').toLowerCase();
+    const res = window.location.pathname.includes(newName);
+    return res;
+  };
+  const customStyle = {
+    color: theme.palette.secondary.darkCharcoal,
+    textAlign: 'left',
+    display: 'flex',
+  };
   return (
-    <div>
+    <Box sx={{ overflowX: 'hidden' }}>
       {header && (
         <Typography
           variant="p"
           component="h1"
-          sx={{ whiteSpace: 'nowrap', fontSize: '18px', ...customStyle }}
+          sx={{
+            fontWeight: 'bolder',
+            whiteSpace: 'nowrap',
+            fontSize: '19px',
+            background: theme.palette.secondary.whiteSmoke,
+            marginTop: '1rem',
+            ...customStyle,
+          }}
           paddingY={2}
           paddingX={2}
         >
@@ -45,6 +58,18 @@ export const AccordionComp = ({ header, data }) => {
       )}
       {arr &&
         arr?.map((item) => {
+          const active = isCurrentUrl(item?.title);
+          if (!item.children) {
+            return (
+              <Style.AccordionBtnHead
+                theme={theme}
+                active={active}
+                onClick={() => handleClick(item.href)}
+                underline="none"
+                dangerouslySetInnerHTML={{ __html: item.title }}
+              ></Style.AccordionBtnHead>
+            );
+          }
           return (
             <Accordion
               disableGutters
@@ -53,72 +78,106 @@ export const AccordionComp = ({ header, data }) => {
                 boxShadow: 'none',
                 backgroundColor: 'transparent',
                 border: 0,
+                overflowX: 'hidden',
+                margin: 0,
               }}
             >
               <AccordionSummary
                 expanded={!item.children}
-                expandIcon={item?.children ? <ExpandMoreIcon /> : false}
+                expandIcon={
+                  item?.children ? (
+                    <Style.IconContainer theme={theme}>
+                      <ExpandMoreIcon />
+                    </Style.IconContainer>
+                  ) : (
+                    false
+                  )
+                }
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                onClick={() => handleClick(item.href)}
-                sx={{ boxShadow: 'none', border: 0 }}
+                sx={{
+                  boxShadow: 'none',
+                  border: 0,
+                  margin: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+
+                  padding: 0,
+                }}
               >
-                <Box
+                <Style.AccordionBtnHead
+                  theme={theme}
+                  active={active}
                   onClick={() => handleClick(item.href)}
                   underline="none"
-                  sx={{ fontWeight: 600, ...customStyle }}
-                >
-                  {item.title}
-                </Box>
+                  dangerouslySetInnerHTML={{ __html: item.title }}
+                ></Style.AccordionBtnHead>
               </AccordionSummary>
-              <AccordionDetails sx={{ boxShadow: 'none', border: 0 }}>
+              <AccordionDetails
+                sx={{
+                  boxShadow: 'none',
+                  border: 0,
+                  padding: 1,
+                }}
+              >
                 {item?.children?.map((e) => {
+                  const active = isCurrentUrl(e?.name);
                   return (
-                    <Box>
+                    <Box
+                      sx={{
+                        borderLeft: `1px solid ${theme.palette.secondary.lightSilver}`,
+                      }}
+                    >
                       {!e.children && (
-                        <Box
-                          href={e.href}
-                          sx={{ fontSize: '14px', ...customStyle }}
-                        >
-                          <Box
-                            onClick={() => handleClick(e.href)}
-                            paddingY={0.5}
-                            dangerouslySetInnerHTML={{ __html: e.name }}
-                          ></Box>
-                        </Box>
+                        <Style.AccordionBtn
+                          theme={theme}
+                          onClick={() => handleClick(e.href)}
+                          dangerouslySetInnerHTML={{ __html: e.name }}
+                        ></Style.AccordionBtn>
                       )}
                       {e.children && (
-                        <details
-                          style={{ cursor: 'pointer', padding: '.5rem 0' }}
+                        <Accordion
+                          sx={{
+                            boxShadow: 'none',
+                            backgroundColor: 'transparent',
+                            border: 0,
+                            overflowX: 'hidden',
+                          }}
                         >
-                          <summary
-                            onClick={() => handleClick(e.href)}
-                            style={{
-                              fontWeight: 600,
-                              ...customStyle,
-                            }}
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            sx={{ fontWeight: 600, ...customStyle }}
                           >
-                            {e.name}
-                          </summary>
-                          {e?.children?.map((x) => (
-                            <Box
-                              onClick={() => handleClick(x.href)}
-                              paddingLeft={2}
-                              sx={{
-                                fontSize: '14px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                ...customStyle,
-                              }}
+                            <Style.AccordionBtnHead
+                              theme={theme}
+                              active={active}
+                              onClick={() => handleClick(e?.href)}
                               underline="none"
-                            >
-                              <Box
-                                paddingY={0.5}
-                                dangerouslySetInnerHTML={{ __html: x?.name }}
-                              ></Box>
-                            </Box>
-                          ))}
-                        </details>
+                              dangerouslySetInnerHTML={{ __html: e?.name }}
+                            ></Style.AccordionBtnHead>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            {e?.children.map((x) => {
+                              return (
+                                <Box
+                                  sx={{
+                                    borderLeft: `1px solid ${theme.palette.secondary.lightSilver}`,
+                                  }}
+                                >
+                                  <Style.AccordionBtn
+                                    theme={theme}
+                                    onClick={() => handleClick(x.href)}
+                                    dangerouslySetInnerHTML={{
+                                      __html: x?.name,
+                                    }}
+                                  ></Style.AccordionBtn>
+                                </Box>
+                              );
+                            })}
+                          </AccordionDetails>
+                        </Accordion>
                       )}
                     </Box>
                   );
@@ -127,6 +186,6 @@ export const AccordionComp = ({ header, data }) => {
             </Accordion>
           );
         })}
-    </div>
+    </Box>
   );
 };

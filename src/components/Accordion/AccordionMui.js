@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { AccordionComp } from './AccordionComp';
 
 const DropDownComponent = ({ data, search, onClick }) => {
+  const theme = useTheme();
   const filterObj = data.filter(
     (e) =>
       e?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -15,9 +16,15 @@ const DropDownComponent = ({ data, search, onClick }) => {
   );
   if (search.length > 0 && filterObj.length === 0) {
     return (
-      <Style.CustomDropdown>
+      <Style.CustomDropdown
+        theme={{
+          white: theme.palette.common.white,
+          border: theme.palette.secondary.whiteSmoke,
+        }}
+      >
         <Box>
           <Style.CustomButton
+            theme={theme}
             style={{
               textAlign: 'center',
             }}
@@ -30,11 +37,17 @@ const DropDownComponent = ({ data, search, onClick }) => {
     );
   }
   return (
-    <Style.CustomDropdown>
+    <Style.CustomDropdown
+      theme={{
+        white: theme.palette.common.white,
+        border: theme.palette.secondary.whiteSmoke,
+      }}
+    >
       {filterObj.map((e) => {
         return (
           <Box>
             <Style.CustomButton
+              theme={theme}
               style={{
                 justifyContent: 'flex-start',
                 textAlign: 'left',
@@ -51,6 +64,7 @@ const DropDownComponent = ({ data, search, onClick }) => {
 };
 
 const Index = ({ data }) => {
+  const theme = useTheme();
   const router = useRouter();
   const [search, setsearch] = React.useState('');
   const [IsSelected, setIsSelected] = React.useState(false);
@@ -64,6 +78,12 @@ const Index = ({ data }) => {
     <Box paddingY={2}>
       <Box sx={{ position: 'relative' }}>
         <Style.CustomInput
+          theme={{
+            main: theme.palette.primary.main,
+            white: theme.palette.common.white,
+            boxShadow: theme.palette.secondary.blueShadow,
+            border: theme.palette.secondary.whiteSmoke,
+          }}
           autoFocus
           onFocus={() => setIsSelected(true)}
           onBlur={() => setIsSelected(false)}
@@ -76,7 +96,9 @@ const Index = ({ data }) => {
             position: 'absolute',
             left: '.5rem',
             top: '.6rem',
-            color: IsSelected ? '#497edf' : 'gray',
+            color: IsSelected
+              ? theme.palette.primary.main
+              : theme.palette.text.secondary,
           }}
         >
           <SearchIcon fontSize="small" />
@@ -87,7 +109,9 @@ const Index = ({ data }) => {
               position: 'absolute',
               right: '.5rem',
               top: '.6rem',
-              color: IsSelected ? '#497edf' : 'gray',
+              color: IsSelected
+                ? theme.palette.primary.main
+                : theme.palette.text.secondary,
               cursor: 'pointer',
             }}
             onClick={() => setsearch('')}
@@ -104,7 +128,12 @@ const Index = ({ data }) => {
         />
       )}
       {!search.length && (
-        <Box sx={{ maxHeight: '70vh', overflowY: 'auto' }}>
+        <Box
+          sx={{
+            maxHeight: '70vh',
+            overflowY: 'auto',
+          }}
+        >
           {accordionLists.map((e) => {
             return <AccordionComp header={e.header} data={e.data} />;
           })}
