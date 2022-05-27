@@ -89,7 +89,7 @@ export const AccordionBtn = styled.button`
   // border-radius:5px;
   transition: all 0.1s ease-in-out;
   color: ${(props) => (props.active ? '#497edf' : '#333333')};
-  border-left: 1px solid #333333;
+  // border-left: 1px solid #333333;
 
 
   &:hover {

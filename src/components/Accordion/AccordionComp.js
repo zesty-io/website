@@ -113,12 +113,20 @@ export const AccordionComp = ({ header, data }) => {
                 ></Style.AccordionBtnHead>
               </AccordionSummary>
               <AccordionDetails
-                sx={{ boxShadow: 'none', border: 0, padding: 1 }}
+                sx={{
+                  boxShadow: 'none',
+                  border: 0,
+                  padding: 1,
+                }}
               >
                 {item?.children?.map((e) => {
                   const active = isCurrentUrl(e?.name);
                   return (
-                    <Box>
+                    <Box
+                      sx={{
+                        borderLeft: '1px solid #e1e1e1',
+                      }}
+                    >
                       {!e.children && (
                         <Style.AccordionBtn
                           onClick={() => handleClick(e.href)}
@@ -150,10 +158,18 @@ export const AccordionComp = ({ header, data }) => {
                           <AccordionDetails>
                             {e?.children.map((x) => {
                               return (
-                                <Style.AccordionBtn
-                                  onClick={() => handleClick(x.href)}
-                                  dangerouslySetInnerHTML={{ __html: x?.name }}
-                                ></Style.AccordionBtn>
+                                <Box
+                                  sx={{
+                                    borderLeft: '1px solid #e1e1e1',
+                                  }}
+                                >
+                                  <Style.AccordionBtn
+                                    onClick={() => handleClick(x.href)}
+                                    dangerouslySetInnerHTML={{
+                                      __html: x?.name,
+                                    }}
+                                  ></Style.AccordionBtn>
+                                </Box>
                               );
                             })}
                           </AccordionDetails>
