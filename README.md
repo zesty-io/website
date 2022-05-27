@@ -1,6 +1,6 @@
 <img src="https://brand.zesty.io/zesty-io-logo.svg" width="150">
 
-# Zesty.io NextJS Marketing Website 
+# Zesty.io NextJS Marketing Website
 
 Marketing Website using NextJS and Zesty.io Headless CMS
 
@@ -10,7 +10,7 @@ Node and NPM need to be installed. From your command line.
 
 Create a file at the root `.env.local` with `PRODUCTION=false` as the file contents
 
-```
+```js
 git clone git@github.com:zesty-io/nextjs-website.git
 
 cd nextjs-website
@@ -27,7 +27,7 @@ npm run dev
 
 From the command line at the root of the project run:
 
-```
+```jsx
 node scripts/zesty-nextjs.js
 ```
 
@@ -51,27 +51,26 @@ prod: https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
 
 After a successfull deploy to `main` create PR from `main` to `production`, upon merge a production build will trigger.
 
-
 ## CTA Components and Forms
 
 Please use these core CTA components through your views. These forms already have validation setup and connect to our remote services.
 
-###  Try Button
+### Try Button
 
 A button that trigger a dropdown guiding both a developer and marketers option
 
 `<TryFreeButton>` [View Try Free Button Component](src/components/cta/TryFreeButton.js)
 
-###  Standard Form
+### Standard Form
 
 A Form that posts to our CRM and has many option to controls inputs
 
 `<StandardFormWithSelect>` [View Standard Form Component](src/components/cta/StandardFormWithSelect.js)
 
-###  Subscribe Form
+### Subscribe Form
 
 A simple form that asks for user email
- 
+
 `<SubscribeCTA>` [View Subscribe Component](src/components/cta/SubscribeCTA.js)
 
 ### Developer Codeblock Starter
@@ -93,22 +92,22 @@ Marketers may collect campaign data through the website by using `UTM` values as
 
 **URL Query Parameter Options**
 
-Append to the end of a URL after a `?` like `?utm_campaign=promocodeX` 
+Append to the end of a URL after a `?` like `?utm_campaign=promocodeX`
 
-* `utm_campaign` (explicit name of the campaign e.g. NextJSWordpress, promocodeX)
-* `utm_medium` (e.g.  cpc, banner, email newsletter)
-* `utm_source` (e.g. google, newsletter17, billboard)
-* `utm_term` (keywords used in paid search)
-* `persona` (e.g. Developer, Marketer)
+- `utm_campaign` (explicit name of the campaign e.g. NextJSWordpress, promocodeX)
+- `utm_medium` (e.g. cpc, banner, email newsletter)
+- `utm_source` (e.g. google, newsletter17, billboard)
+- `utm_term` (keywords used in paid search)
+- `persona` (e.g. Developer, Marketer)
 
 **Usage**
 
 Not parameters must be all lowercase, one or more or none can be used. `persona` will always default to "marketer"
 
-* https://www.zesty.io/?utm_campaign=NextJSWordpress&persona=developer&utm_source=nextjswebsite&utm_medium=paid%20advertising
-* https://www.zesty.io/?utm_campaign=NextJSWordpress&persona=developer&utm_source=adwords&utm_medium=ppc&utm_term=nextjs
-* https://www.zesty.io/?persona=developer
-* https://www.zesty.io/?utm_term=jquery&persona=developer
+- https://www.zesty.io/?utm_campaign=NextJSWordpress&persona=developer&utm_source=nextjswebsite&utm_medium=paid%20advertising
+- https://www.zesty.io/?utm_campaign=NextJSWordpress&persona=developer&utm_source=adwords&utm_medium=ppc&utm_term=nextjs
+- https://www.zesty.io/?persona=developer
+- https://www.zesty.io/?utm_term=jquery&persona=developer
 
 ## Material Icons
 
@@ -122,7 +121,7 @@ To use the icons in a WHYSIWYG editor, type in plain text `ICON_icon_name` e.g `
 
 **For static icons main in the design**
 
-```
+```jsx
 import LoginIcon from '@mui/icons-material/Login';
 
 <LoginIcon>
@@ -132,16 +131,16 @@ Replace Login with the icon name.
 
 **For dynamic icons that come from the content editor**
 
-```
+```jsx
 import Icon from '@mui/material/Icon';
 
-<Icon>{icon_name}</Icon>
+<Icon>{icon_name}</Icon>;
 ```
+
 **For SEO renaming of component**
 
-```
-variant="h4" // Inherit Styles
-component="h2" // DOM Element
+```jsx
+variant = 'h4'; // Inherit Styles component = 'h2'; // DOM Element
 ```
 
 ## Production VS Stage Logic
@@ -150,29 +149,84 @@ The `content` object has access to `content.zestyProductionMode`, a boolean valu
 
 ### Examples
 
-Determining our bases domain for fetch 
+Determining our bases domain for fetch
 
-```
-  let zestyURL = content.zestyProductionMode
+```jsx
+let zestyURL = content.zestyProductionMode
   ? process.env.zesty.production
   : process.env.zesty.stage;
-``` 
+```
 
 Using our zesty custom useFetch command
 
-```  
+```jsx
 const { data: latestArticles, isPending: latestPending } = useFetch(
-    '/-/all-articles-hydrated.json?limit=5', content.zestyProductionMode
+  '/-/all-articles-hydrated.json?limit=5',
+  content.zestyProductionMode,
 );
 ```
 
 Making template level decision (to show things like GTM or scripts)
 
-```
- {props.content.zestyProduction !== false &&
-      <script dangerouslySetInnerHTML={{__html:`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+```jsx
+{
+  props.content.zestyProduction !== false && (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
       var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MSPH3C8');`}}/>}
+})(window,document,'script','dataLayer','GTM-MSPH3C8');`,
+      }}
+    />
+  );
+}
+```
+
+# Using theme colors for custom styles
+
+## Example usage
+
+```jsx
+import { useTheme } from '@mui/material';
+
+const App = () => {
+  const theme = useTheme();
+
+  return <div style={{ color: theme.palette.primary.main }}>Hello World</div>;
+};
+```
+
+using Styled Components or Emotion js
+
+```jsx
+import styled from '@emotion/styled';
+import { useTheme } from '@mui/material';
+
+const CustomButton = styled.button`
+  width: 100%;
+  border-radius: 5px;
+  background: ${(props) => props.theme.palette.primary.main};
+  border: 1px solid ${(props) => props.theme.palette.zesty.zestyOrange};
+`;
+
+const App = () => {
+  const theme = useTheme();
+
+  return <CustomButton theme={theme}>Hello World</CustomButton>;
+};
+```
+
+For more details you can browse to `src/theme` directory for complete list of themes.
+
+```
+│       └── PhoneSkeleton.js
+├── theme
+│   ├── index.js
+│   ├── palette.js
+│   └── shadows.js
+├── utils
+│   ├── index.js
+
 ```
