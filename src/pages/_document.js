@@ -14,10 +14,13 @@ const getCache = () => {
 
 export default class MyDocument extends Document {
   render() {
+    const fetchUrl =
+      process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
+      'https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js';
     return (
       <Html lang="en">
         <Head>
-          <script src="https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js" />
+          <script src={fetchUrl} />
         </Head>
         <body>
           <noscript>

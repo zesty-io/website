@@ -86,7 +86,7 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 };
 
 const InstallButton = ({ data, theme }) => {
-  if (data.app_zuid) {
+  if (data.resource_link) {
     return <AppInstallerComp data={data} />;
   }
   if (data.github_url && !data.app_zuid && !data.resource_link) {
