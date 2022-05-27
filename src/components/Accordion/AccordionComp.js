@@ -9,6 +9,11 @@ import * as Style from './styles';
 import { Box, Button, Link, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
 
+const customStyle = {
+  color: '#333333',
+  textAlign: 'left',
+  display: 'flex',
+};
 export const AccordionComp = ({ header, data }) => {
   const theme = useTheme();
   const router = useRouter();
@@ -20,27 +25,29 @@ export const AccordionComp = ({ header, data }) => {
     return title;
   };
   const arr = data && helper.transformJson(data);
-  console.log(arr, 111111);
+
   const handleClick = (pathname) => {
     router.push({ pathname });
   };
-  const customStyle = {
-    color: '#333333',
-    cursor: 'pointer',
-    textAlign: 'left',
-    display: 'flex',
-  };
 
+  const isCurrentUrl = (name) => {
+    const newName = name.replaceAll(' ', '-').toLowerCase();
+    const res = window.location.pathname.includes(newName);
+    console.log(newName, 2222);
+    return res;
+  };
   return (
-    <Box>
+    <Box sx={{ overflowX: 'hidden' }}>
       {header && (
         <Typography
           variant="p"
           component="h1"
           sx={{
-            fontWeight: 'bold',
+            fontWeight: 'bolder',
             whiteSpace: 'nowrap',
-            fontSize: '20px',
+            fontSize: '19px',
+            background: '#f1f1f1',
+            marginTop: '1rem',
             ...customStyle,
           }}
           paddingY={2}
@@ -52,6 +59,17 @@ export const AccordionComp = ({ header, data }) => {
       )}
       {arr &&
         arr?.map((item) => {
+          const active = isCurrentUrl(item?.title);
+          if (!item.children) {
+            return (
+              <Style.AccordionBtnHead
+                active={active}
+                onClick={() => handleClick(item.href)}
+                underline="none"
+                dangerouslySetInnerHTML={{ __html: item.title }}
+              ></Style.AccordionBtnHead>
+            );
+          }
           return (
             <Accordion
               disableGutters
@@ -61,72 +79,85 @@ export const AccordionComp = ({ header, data }) => {
                 backgroundColor: 'transparent',
                 border: 0,
                 overflowX: 'hidden',
+                margin: 0,
               }}
             >
               <AccordionSummary
                 expanded={!item.children}
-                expandIcon={item?.children ? <ExpandMoreIcon /> : false}
+                expandIcon={
+                  item?.children ? (
+                    <Style.IconContainer>
+                      <ExpandMoreIcon />
+                    </Style.IconContainer>
+                  ) : (
+                    false
+                  )
+                }
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                onClick={() => handleClick(item.href)}
-                sx={{ boxShadow: 'none', border: 0 }}
+                sx={{
+                  boxShadow: 'none',
+                  border: 0,
+                  margin: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+
+                  padding: 0,
+                }}
               >
-                <Box
+                <Style.AccordionBtnHead
+                  active={active}
                   onClick={() => handleClick(item.href)}
                   underline="none"
-                  sx={{ fontWeight: 600, ...customStyle }}
-                >
-                  {item.title}
-                </Box>
+                  dangerouslySetInnerHTML={{ __html: item.title }}
+                ></Style.AccordionBtnHead>
               </AccordionSummary>
-              <AccordionDetails sx={{ boxShadow: 'none', border: 0 }}>
+              <AccordionDetails
+                sx={{ boxShadow: 'none', border: 0, padding: 1 }}
+              >
                 {item?.children?.map((e) => {
+                  const active = isCurrentUrl(e?.name);
                   return (
                     <Box>
                       {!e.children && (
-                        <Style.CustomButton
-                          href={e.href}
-                          sx={{ fontSize: '14px', ...customStyle }}
-                        >
-                          <Box
-                            onClick={() => handleClick(e.href)}
-                            paddingY={0.5}
-                            dangerouslySetInnerHTML={{ __html: e.name }}
-                          ></Box>
-                        </Style.CustomButton>
+                        <Style.AccordionBtn
+                          onClick={() => handleClick(e.href)}
+                          dangerouslySetInnerHTML={{ __html: e.name }}
+                        ></Style.AccordionBtn>
                       )}
                       {e.children && (
-                        <details
-                          style={{ cursor: 'pointer', padding: '.5rem 0' }}
+                        <Accordion
+                          sx={{
+                            boxShadow: 'none',
+                            backgroundColor: 'transparent',
+                            border: 0,
+                            overflowX: 'hidden',
+                          }}
                         >
-                          <summary
-                            onClick={() => handleClick(e.href)}
-                            style={{
-                              fontWeight: 600,
-                              ...customStyle,
-                            }}
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            sx={{ fontWeight: 600, ...customStyle }}
                           >
-                            {e.name}
-                          </summary>
-                          {e?.children?.map((x) => (
-                            <Style.CustomButton
-                              onClick={() => handleClick(x.href)}
-                              paddingLeft={2}
-                              sx={{
-                                fontSize: '14px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                ...customStyle,
-                              }}
+                            <Style.AccordionBtnHead
+                              active={active}
+                              onClick={() => handleClick(e?.href)}
                               underline="none"
-                            >
-                              <Box
-                                paddingY={0.5}
-                                dangerouslySetInnerHTML={{ __html: x?.name }}
-                              ></Box>
-                            </Style.CustomButton>
-                          ))}
-                        </details>
+                              dangerouslySetInnerHTML={{ __html: e?.name }}
+                            ></Style.AccordionBtnHead>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            {e?.children.map((x) => {
+                              return (
+                                <Style.AccordionBtn
+                                  onClick={() => handleClick(x.href)}
+                                  dangerouslySetInnerHTML={{ __html: x?.name }}
+                                ></Style.AccordionBtn>
+                              );
+                            })}
+                          </AccordionDetails>
+                        </Accordion>
                       )}
                     </Box>
                   );

@@ -154,6 +154,7 @@ const filterOptions = createFilterOptions({
 });
 
 const Index = ({ instances, setCookies, instanceZUID }) => {
+  const theme = useTheme();
   const [label, setlabel] = React.useState('');
   const memoizedInstances = React.useMemo(() => {
     return instances;
@@ -182,7 +183,7 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
       filterOptions={filterOptions}
       id="virtualize-demo"
       onChange={handleChange}
-      sx={{ width: 300 }}
+      sx={{ width: 300, backgroundColor: theme.palette.common.white }}
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}

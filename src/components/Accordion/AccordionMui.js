@@ -104,7 +104,12 @@ const Index = ({ data }) => {
         />
       )}
       {!search.length && (
-        <Box sx={{ maxHeight: '70vh', overflowY: 'auto' }}>
+        <Box
+          sx={{
+            maxHeight: '70vh',
+            overflowY: 'auto',
+          }}
+        >
           {accordionLists.map((e) => {
             return <AccordionComp header={e.header} data={e.data} />;
           })}
