@@ -86,7 +86,7 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 };
 
 const InstallButton = ({ data, theme }) => {
-  if (data.resource_link) {
+  if (data.app_zuid) {
     return <AppInstallerComp data={data} />;
   }
   if (data.github_url && !data.app_zuid && !data.resource_link) {
@@ -124,7 +124,6 @@ const InstallButton = ({ data, theme }) => {
 const Extension = (props) => {
   const theme = useTheme();
   const isSM = useMediaQuery(theme.breakpoints.down('md'));
-  console.log(props, '11111');
   return (
     <>
       <Grid container spacing={4} mt={2}>
