@@ -15,6 +15,7 @@ import TopNav from 'components/TopNav';
 
 import { Topbar, Sidebar, Footer } from './components';
 import { zestyLink } from 'lib/zestyLink';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 
 const Main = ({
   children,
@@ -25,6 +26,15 @@ const Main = ({
   model = '',
 }) => {
   const router = useRouter();
+
+  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const userAppSID = getCookie('APP_SID');
+
+  const { verifyFailed, verifySuccess, loading } = useFetchWrapper(
+    userAppSID,
+    instanceZUID,
+  );
+  const isLogin = verifySuccess.userZuid;
 
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
@@ -50,7 +60,6 @@ const Main = ({
     threshold: 38,
   });
 
-  const isLogin = getCookie('APP_SID');
   // check if from ppc short form page then change color of logo and nav
   // const isPpcShortPage =
   //   router.asPath === zestyLink(nav, '7-f8d2b2fb82-vgg2t4');
