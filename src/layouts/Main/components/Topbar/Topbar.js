@@ -16,6 +16,7 @@ const Topbar = ({
   customRouting,
   colorInvert = false,
   trigger,
+  isLogin,
 }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -93,23 +94,27 @@ const Topbar = ({
           </Box>
         ))}
 
-        <Box marginLeft={4}>
-          <TryFreeButton variant="contained" component="a" />
-        </Box>
-        <Box marginLeft={2}>
-          <Button
-            size={'medium'}
-            variant="text"
-            color="primary"
-            sx={{ fontWeight: 'bold' }}
-            endIcon={<LoginIcon />}
-            fullWidth
-            component="a"
-            href="https://accounts.zesty.io"
-          >
-            Login
-          </Button>
-        </Box>
+        {!isLogin && (
+          <Box display={'flex'}>
+            <Box marginLeft={4}>
+              <TryFreeButton variant="contained" component="a" />
+            </Box>
+            <Box marginLeft={2}>
+              <Button
+                size={'medium'}
+                variant="text"
+                color="primary"
+                sx={{ fontWeight: 'bold' }}
+                endIcon={<LoginIcon />}
+                fullWidth
+                component="a"
+                href="https://accounts.zesty.io"
+              >
+                Login
+              </Button>
+            </Box>
+          </Box>
+        )}
       </Box>
       {!hideNav && (
         <Box

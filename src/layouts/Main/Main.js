@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import { getCookie } from 'cookies-next';
 
 import Container from 'components/Container';
 import TopNav from 'components/TopNav';
@@ -49,6 +50,7 @@ const Main = ({
     threshold: 38,
   });
 
+  const isLogin = getCookie('APP_SID');
   // check if from ppc short form page then change color of logo and nav
   // const isPpcShortPage =
   //   router.asPath === zestyLink(nav, '7-f8d2b2fb82-vgg2t4');
@@ -106,6 +108,7 @@ const Main = ({
             customRouting={hasRouting ? customRouting : []}
             colorInvert={headerColorInvert && !trigger}
             trigger={trigger}
+            isLogin={isLogin}
           />
         </Container>
       </AppBar>
