@@ -79,7 +79,10 @@ const FormComp = React.memo(({}) => {
   const userAppSID = getCookie('APP_SID');
   const ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
 
-  const { verifySuccess } = useFetchWrapper(userAppSID, instanceZUID);
+  const { verifySuccess, loading: verifyLoading } = useFetchWrapper(
+    userAppSID,
+    instanceZUID,
+  );
   const isLogin = verifySuccess.userZuid ? true : false;
 
   const handleRegisterSuccess = (data) => {
@@ -118,14 +121,6 @@ const FormComp = React.memo(({}) => {
     setloading(false);
     setsucces('');
   };
-  React.useEffect(() => {
-    if (isLogin) {
-      setmodal(false);
-    }
-    if (!isLogin) {
-      setmodal(true);
-    }
-  }, [isLogin]);
 
   return (
     <Box>
@@ -149,14 +144,16 @@ const FormComp = React.memo(({}) => {
               size="medium"
               type="submit"
             >
-              {loading ? (
+              {loading || verifyLoading ? (
                 <Box
                   sx={{ color: '#fff', display: 'flex', alignItems: 'center' }}
                 >
                   <CircularProgress color="inherit" />
                 </Box>
               ) : (
-                <>{!isLogin ? 'Please Login to Zesty.io' : 'Submit'}</>
+                <>
+                  {!isLogin ? 'Please Login to Zesty.io to continue' : 'Submit'}
+                </>
               )}
             </Button>
           </Grid>
@@ -194,7 +191,7 @@ const RegisterPage = ({}) => {
           variant={'h3'}
           sx={{
             fontWeight: 700,
-            color: theme.palette.common.black,
+            color: theme.palette.secondary.darkCharcoal,
           }}
           align={'center'}
           gutterBottom

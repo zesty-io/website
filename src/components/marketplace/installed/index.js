@@ -110,7 +110,6 @@ const index = () => {
         open={modal}
         setOpen={setmodal}
         clear={clear}
-        isLogin={true}
       />
     </Box>
   );

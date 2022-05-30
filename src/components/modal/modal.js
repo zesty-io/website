@@ -3,27 +3,13 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import CircularProgress from '@mui/material/CircularProgress';
 import LoginIcon from '@mui/icons-material/Login';
-
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { Grid } from '@mui/material';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #FF5D0A',
-  borderRadius: 3,
-  boxShadow: 24,
-  p: 4,
-  fontFamily: 'Mulish',
-};
 
 export default function TransitionsModal({
   title = 'Thank you',
@@ -31,11 +17,24 @@ export default function TransitionsModal({
   open,
   setOpen,
   clear,
-  isLogin,
 }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen();
+  const theme = useTheme();
+  const isSuccess = title.toLowerCase() === 'success';
 
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    borderRadius: 3,
+    boxShadow: 24,
+    p: 4,
+    fontFamily: 'Mulish',
+  };
   React.useEffect(() => {
     return () => {
       clear();
@@ -58,49 +57,46 @@ export default function TransitionsModal({
         <Fade in={open}>
           <Box sx={style}>
             <Box>
+              <Box sx={{ fontSize: '5rem', textAlign: 'center' }}>
+                {isSuccess ? (
+                  <CheckCircleOutlineIcon color="success" fontSize="inherit" />
+                ) : (
+                  <ErrorOutlineIcon color="error" fontSize="inherit" />
+                )}
+              </Box>
               <Typography
                 id="transition-modal-title"
-                variant="h3"
+                variant="h4"
                 component="h2"
-                sx={{ textAlign: 'center' }}
+                sx={{
+                  textAlign: 'center',
+                  color: isSuccess
+                    ? theme.palette.zesty.zestyGreen
+                    : theme.palette.zesty.zestyRose,
+                }}
               >
-                {!isLogin ? 'Please Login to Zesty' : title}
+                {title}
               </Typography>
               <Typography
                 id="transition-modal-description"
-                sx={{ mt: 2 }}
-                paddingY={4}
+                sx={{ mt: 2, textAlign: 'center' }}
+                paddingY={2}
               >
                 {message}
               </Typography>
               <Grid item xs={12}>
-                {!isLogin ? (
-                  <Button
-                    size={'medium'}
-                    variant="contained"
-                    color="secondary"
-                    sx={{ fontWeight: 'bold' }}
-                    endIcon={<LoginIcon />}
-                    fullWidth
-                    component="a"
-                    href="https://accounts.zesty.io"
-                  >
-                    Login
-                  </Button>
-                ) : (
-                  <Button
-                    fullWidth
-                    sx={{ height: 54, minWidth: 150 }}
-                    variant="contained"
-                    color="secondary"
-                    className="contactButton"
-                    size="medium"
-                    type="button"
-                    onClick={handleClose}
-                  >
-                    ok
-                  </Button>
-                )}
+                <Button
+                  fullWidth
+                  sx={{ height: 54, minWidth: 150 }}
+                  variant="contained"
+                  color="secondary"
+                  className="contactButton"
+                  size="medium"
+                  type="button"
+                  onClick={handleClose}
+                >
+                  OK
+                </Button>
               </Grid>
             </Box>
           </Box>
