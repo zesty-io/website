@@ -9,15 +9,24 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 
 export default function BasicTable({ data = [], deleteData }) {
+  const customStyle = {
+    fontWeight: 'bold',
+  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>ZUID</TableCell>
-            <TableCell align="left">Instance ZUID</TableCell>
-            <TableCell align="left">App ZUID</TableCell>
-            <TableCell align="right">Uninstall </TableCell>
+            <TableCell sx={customStyle}>ZUID</TableCell>
+            <TableCell sx={customStyle} align="center">
+              Instance ZUID
+            </TableCell>
+            <TableCell sx={customStyle} align="center">
+              App ZUID
+            </TableCell>
+            <TableCell sx={customStyle} align="center">
+              Action
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -28,9 +37,9 @@ export default function BasicTable({ data = [], deleteData }) {
               <TableCell component="th" scope="row">
                 {row.ZUID}
               </TableCell>
-              <TableCell align="left">{row.instanceZUID}</TableCell>
-              <TableCell align="left">{row.appZUID}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{row.instanceZUID}</TableCell>
+              <TableCell align="center">{row.appZUID}</TableCell>
+              <TableCell align="center">
                 <Button
                   sx={{ height: 30, width: 10 }}
                   variant="contained"
