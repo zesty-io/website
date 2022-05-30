@@ -44,6 +44,7 @@ export const light = {
     zestyOrange: '#FF5D0A',
     zestyRed: 'rgb(230,74,23)',
     devTheme: '#77b250',
+    zestyRose: '#F27474',
     zestyGreen: '#75BF43',
     zestyBlue: '#497edf',
     zestyTeal: '#6a9293',
