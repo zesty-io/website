@@ -60,8 +60,9 @@ export default function TransitionsModal({
             <Box>
               <Typography
                 id="transition-modal-title"
-                variant="h6"
+                variant="h3"
                 component="h2"
+                sx={{ textAlign: 'center' }}
               >
                 {!isLogin ? 'Please Login to Zesty' : title}
               </Typography>
