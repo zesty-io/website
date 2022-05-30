@@ -1,22 +1,28 @@
 import { Button } from '@mui/material';
 import React from 'react';
 import { getCookie } from 'cookies-next';
+import { CircularProgress } from '@mui/material';
 
 export const AppInstallerComp = ({ data, theme }) => {
   const [installedApps, setinstalledApps] = React.useState([]);
+  const [loading, setloading] = React.useState(false);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getCookie('APP_SID');
   const appZUID = data?.app_zuid;
   const ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
 
-  const installAppSuccess = (res) => {
+  const installAppSuccess = async (res) => {
+    setloading(false);
+    await getAllInstalledApps();
     console.log(res);
   };
-  const installAppError = (error) => {
+  const installAppError = async (error) => {
+    setloading(false);
+    await getAllInstalledApps();
     console.log(error);
   };
   const getInstalledAppSuccess = (res) => {
-    console.log(typeof res, 'succcccc');
+    setloading(false);
     if (res && Object.keys(res).length !== 0) {
       setinstalledApps(res);
     }
@@ -26,19 +32,21 @@ export const AppInstallerComp = ({ data, theme }) => {
   };
 
   const getAllInstalledApps = async () => {
+    setloading(true);
     const res = await ZestyAPI.getAllInstalledApps(instanceZUID);
     !res.message && getInstalledAppSuccess(res.data);
     res.message && getInstalledAppError(res);
   };
 
   const InstallApp = async () => {
+    setloading(true);
     const res = await ZestyAPI.installApp(instanceZUID, appZUID);
     res.status === 201 && installAppSuccess(res);
     !res.status !== 201 && installAppError(res.error);
   };
 
   const isInstalled = installedApps?.find((e) => e?.appZUID === appZUID)?.ZUID;
-  const disabledBtn = instanceZUID && !isInstalled ? false : true;
+  const disabledBtn = (instanceZUID && !isInstalled) || loading ? false : true;
 
   React.useEffect(() => {
     getAllInstalledApps();
@@ -53,11 +61,15 @@ export const AppInstallerComp = ({ data, theme }) => {
       onClick={InstallApp}
       disabled={disabledBtn}
     >
-      {!instanceZUID
-        ? 'Please Select an Instance to continue'
-        : isInstalled
-        ? 'App Already Installed '
-        : data?.name}
+      {loading ? (
+        <CircularProgress color="inherit" size={28} thickness={5} />
+      ) : !instanceZUID ? (
+        'Please Select an Instance to continue'
+      ) : isInstalled ? (
+        'App Already Installed '
+      ) : (
+        data?.name
+      )}
     </Button>
   );
 };

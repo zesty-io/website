@@ -163,7 +163,6 @@ const FormComp = React.memo(({}) => {
         open={modal}
         setOpen={setmodal}
         clear={clear}
-        isLogin={isLogin}
       />
     </Box>
   );

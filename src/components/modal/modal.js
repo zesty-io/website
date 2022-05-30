@@ -29,9 +29,13 @@ export default function TransitionsModal({
   open,
   setOpen,
   clear,
+  handleOk = () => {},
 }) {
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen();
+  const handleClose = () => {
+    setOpen();
+    handleOk();
+  };
   const theme = useTheme();
   const isSuccess = title.toLowerCase() === 'success';
 

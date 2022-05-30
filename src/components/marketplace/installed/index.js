@@ -25,24 +25,19 @@ const index = () => {
   const ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
   const getInstalledAppSuccess = (res) => {
     setloading(false);
-    if (res && Object.keys(res).length !== 0) {
-      setinstalledApps(res);
-    }
+    setinstalledApps(res);
   };
   const getInstalledAppError = (error) => {
     setloading(false);
-    console.log(error, 'error');
   };
 
   const deleteAppSucc = (data) => {
     setloading(false);
-    console.log(data);
     setmodal(true);
     setsucces('App Successfully Deleted');
   };
   const deleteAppErorr = (error) => {
     setloading(false);
-    console.log(error);
     setmodal(true);
     seterror(error);
   };
@@ -68,10 +63,7 @@ const index = () => {
 
   const handleDelete = async (data) => {
     setloading(true);
-    const res = await ZestyAPI.deleteInstalledApp(
-      data.instanceZUID,
-      data.appZUID,
-    );
+    const res = await ZestyAPI.deleteInstalledApp(data.instanceZUID, data.ZUID);
     !res.message && deleteAppSucc(res.data);
     res.message && deleteAppErorr(res.message);
   };
@@ -110,6 +102,7 @@ const index = () => {
         open={modal}
         setOpen={setmodal}
         clear={clear}
+        handleOk={getAllInstalledApps}
       />
     </Box>
   );

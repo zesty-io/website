@@ -30,7 +30,7 @@ export default function BasicTable({ data = [], deleteData }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {data?.map((row) => (
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
