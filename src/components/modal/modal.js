@@ -11,6 +11,18 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { Grid } from '@mui/material';
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  borderRadius: 3,
+  boxShadow: 24,
+  p: 4,
+  fontFamily: 'Mulish',
+};
 export default function TransitionsModal({
   title = 'Thank you',
   message = 'Have a great day',
@@ -23,18 +35,6 @@ export default function TransitionsModal({
   const theme = useTheme();
   const isSuccess = title.toLowerCase() === 'success';
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    borderRadius: 3,
-    boxShadow: 24,
-    p: 4,
-    fontFamily: 'Mulish',
-  };
   React.useEffect(() => {
     return () => {
       clear();

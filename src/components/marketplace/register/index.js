@@ -22,7 +22,7 @@ const validations = yup.object({
     .trim()
     .min(2, 'Please enter a valid name')
     .max(50, 'Please enter a valid name')
-    .required('Please specify your name name'),
+    .required('Please specify your name'),
   label: yup
     .string()
     .trim()
@@ -33,7 +33,7 @@ const validations = yup.object({
     .string()
     .matches(URL, 'url is not valid')
     .trim()
-    .required('url is required.'),
+    .required('Please enter a valid Url'),
   publisher: yup
     .string()
     .trim()
@@ -86,13 +86,11 @@ const FormComp = React.memo(({}) => {
   const isLogin = verifySuccess.userZuid ? true : false;
 
   const handleRegisterSuccess = (data) => {
-    console.log(data, 'succ');
     setmodal(true);
     setsucces('App successfully registered');
     setloading(false);
   };
   const handleRegisterError = (error) => {
-    console.log(error, 'error');
     setmodal(true);
     seterror(error);
     setloading(false);
