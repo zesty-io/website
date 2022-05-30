@@ -16,8 +16,10 @@ export const AppInstallerComp = ({ data, theme }) => {
     console.log(error);
   };
   const getInstalledAppSuccess = (res) => {
-    console.log(res, 'succcccc');
-    setinstalledApps(res);
+    console.log(typeof res, 'succcccc');
+    if (res && Object.keys(res).length !== 0) {
+      setinstalledApps(res);
+    }
   };
   const getInstalledAppError = (error) => {
     console.log(error, 'error');
@@ -35,7 +37,7 @@ export const AppInstallerComp = ({ data, theme }) => {
     !res.status !== 201 && installAppError(res.error);
   };
 
-  const isInstalled = installedApps?.find((e) => e.appZUID === appZUID)?.ZUID;
+  const isInstalled = installedApps?.find((e) => e?.appZUID === appZUID)?.ZUID;
   const disabledBtn = instanceZUID && !isInstalled ? false : true;
 
   React.useEffect(() => {
