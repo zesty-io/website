@@ -14,12 +14,10 @@ export const AppInstallerComp = ({ data, theme }) => {
   const installAppSuccess = async (res) => {
     setloading(false);
     await getAllInstalledApps();
-    console.log(res);
   };
   const installAppError = async (error) => {
     setloading(false);
     await getAllInstalledApps();
-    console.log(error);
   };
   const getInstalledAppSuccess = (res) => {
     setloading(false);
@@ -27,9 +25,7 @@ export const AppInstallerComp = ({ data, theme }) => {
       setinstalledApps(res);
     }
   };
-  const getInstalledAppError = (error) => {
-    console.log(error, 'error');
-  };
+  const getInstalledAppError = (error) => {};
 
   const getAllInstalledApps = async () => {
     setloading(true);
@@ -68,7 +64,7 @@ export const AppInstallerComp = ({ data, theme }) => {
       ) : isInstalled ? (
         'App Already Installed '
       ) : (
-        data?.name
+        'Install ' + data?.name
       )}
     </Button>
   );
