@@ -8,8 +8,10 @@ import LoginIcon from '@mui/icons-material/Login';
 import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import { useRouter } from 'next/router';
+import { Skeleton } from '@mui/material';
 
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
+import { Typography } from '@mui/material';
 
 const Topbar = ({
   onSidebarOpen,
@@ -17,6 +19,8 @@ const Topbar = ({
   colorInvert = false,
   trigger,
   isLogin,
+  userInfo = {},
+  loading = false,
 }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -39,6 +43,7 @@ const Topbar = ({
     return mode === 'light' && !colorInvert;
   };
 
+  const firstName = userInfo?.firstName;
   return (
     <Box
       display={'flex'}
@@ -93,26 +98,39 @@ const Topbar = ({
             )}
           </Box>
         ))}
-
-        {!isLogin && (
-          <Box display={'flex'}>
-            <Box marginLeft={4}>
-              <TryFreeButton variant="contained" component="a" />
-            </Box>
-            <Box marginLeft={2}>
-              <Button
-                size={'medium'}
-                variant="text"
-                color="primary"
-                sx={{ fontWeight: 'bold' }}
-                endIcon={<LoginIcon />}
-                fullWidth
-                component="a"
-                href="https://accounts.zesty.io"
-              >
-                Login
-              </Button>
-            </Box>
+        {loading && <Skeleton variant="text" width={170} height={30} />}
+        {!loading && (
+          <Box>
+            {!isLogin ? (
+              <Box display={'flex'}>
+                <Box marginLeft={4}>
+                  <TryFreeButton variant="contained" component="a" />
+                </Box>
+                <Box marginLeft={2}>
+                  <Button
+                    size={'medium'}
+                    variant="text"
+                    color="primary"
+                    sx={{ fontWeight: 'bold' }}
+                    endIcon={<LoginIcon />}
+                    fullWidth
+                    component="a"
+                    href="https://accounts.zesty.io"
+                  >
+                    Login
+                  </Button>
+                </Box>
+              </Box>
+            ) : (
+              <Box paddingLeft={4}>
+                <Typography
+                  color={theme.palette.primary.dark}
+                  fontWeight={'bold'}
+                >
+                  Welcome back, {firstName}!
+                </Typography>
+              </Box>
+            )}
           </Box>
         )}
       </Box>

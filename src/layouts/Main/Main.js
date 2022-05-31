@@ -30,10 +30,11 @@ const Main = ({
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getCookie('APP_SID');
 
-  const { verifyFailed, verifySuccess, loading } = useFetchWrapper(
+  const { verifySuccess, loading, userInfo } = useFetchWrapper(
     userAppSID,
     instanceZUID,
   );
+
   const isLogin = verifySuccess.userZuid;
 
   const hasRouting = customRouting !== undefined ? true : false;
@@ -118,6 +119,8 @@ const Main = ({
             colorInvert={headerColorInvert && !trigger}
             trigger={trigger}
             isLogin={isLogin}
+            userInfo={userInfo?.data}
+            loading={loading}
           />
         </Container>
       </AppBar>
