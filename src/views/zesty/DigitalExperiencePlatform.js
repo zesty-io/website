@@ -72,47 +72,75 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import { Box, useTheme } from '@mui/material';
+import { Box, Button, Container, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
 import FillerContent from 'components/FillerContent';
 
 function DigitalExperiencePlatform({ content }) {
-  console.log(content);
+  console.log(content, 12222);
   const theme = useTheme();
-  //   const headerProps = {
-  //     mainTitle: content.header_title_main || FillerContent.header,
-  //     title: content.header_title || FillerContent.header,
-  //     image:
-  //       (content.header_image?.data && content.header_image?.data[0]?.url) ||
-  //       FillerContent.image,
-  //     description: content.header_description || FillerContent.description,
-  //     cta_left:
-  //       (content.cta_left.data && content.cta_left?.data[0]?.button_text) ||
-  //       FillerContent.cta,
-  //     cta_right:
-  //       (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
-  //       FillerContent.cta,
-  //     cta_left_url:
-  //       (content.cta_left?.data &&
-  //         content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
-  //       FillerContent.href,
-  //     cta_right_url:
-  //       (content.cta_right.data &&
-  //         content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
-  //       FillerContent.href,
-  //   };
 
   return (
     <>
-      {/* <Box
-        position={'relative'}
+      <Box
+        paddingTop={15}
+        paddingBottom={25}
         sx={{
-          backgroundColor: theme.palette.alternate.main,
+          background:
+            'linear-gradient(180deg, rgba(31,93,192,1) 0%, rgba(112,152,224,1) 85%, rgba(255,255,255,1) 100%);',
         }}
       >
-        <SimpleHeroWithImageAndCtaButtonsPage />
-      </Box> */}
+        <Container sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+          <Box
+            sx={{
+              background: '',
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography
+              component={'h2'}
+              variant={'p'}
+              fontWeight={600}
+              sx={{
+                color: theme.palette.common.white,
+                fontSize: '32px',
+                opacity: '0.8',
+              }}
+            >
+              {'DXP'}
+            </Typography>
+            <Typography
+              component={'h1'}
+              variant={'p'}
+              sx={{
+                color: theme.palette.common.white,
+                fontWeight: 700,
+                fontSize: '48px',
+              }}
+            >
+              {content.header_eyebrow}
+            </Typography>
+            <Typography
+              component={'h3'}
+              variant={'p'}
+              sx={{
+                color: theme.palette.common.white,
+                fontWeight: 500,
+                fontSize: '20px',
+              }}
+            >
+              {content.header_h1}
+            </Typography>
+            <Button>Try Free</Button>
+          </Box>
+          <Box sx={{}}>
+            <img src={content.header_graphic.data[0].url} width={700} />
+          </Box>
+        </Container>
+      </Box>
     </>
   );
 }
