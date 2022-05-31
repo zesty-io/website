@@ -24,9 +24,11 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   };
 
   const getInstances = async () => {
+    setloading(true);
     const res = await ZestyAPI.getInstances();
     !res.error && setinstances(res);
     res.error && console.log(res, 'instance failed');
+    setloading(false);
   };
   const getModels = async () => {
     const res = await ZestyAPI.getModels();
@@ -40,8 +42,10 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   };
 
   const getUserInfo = async () => {
+    setloading(true);
     const res = await ZestyAPI.getUser(verifySuccess?.userZuid);
     !res.error && setuserInfo(res);
+    setloading(false);
   };
 
   React.useEffect(() => {
