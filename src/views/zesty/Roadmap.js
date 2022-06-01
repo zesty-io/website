@@ -1,0 +1,399 @@
+/**
+ * Zesty.io Content Model Component
+ * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
+ * 
+ * Label: roadmap 
+ * Name: roadmap 
+ * Model ZUID: 6-c4e2bb9798-4twn5z
+ * File Created On: Tue May 31 2022 23:39:21 GMT+0800 (Philippine Standard Time)
+ * 
+ * Model Fields:
+ * 
+  * roadmap (link)
+ * test (text)
+
+ * 
+ * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
+ * images are objects {content.image_name.data[0].url}
+ * 
+ * This file is expected to be customized; because of that, it is not overwritten by the integration script.
+ * Model and field changes in Zesty.io will not be reflected in this comment.
+ * 
+ * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-c4e2bb9798-4twn5z
+ * 
+ * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
+ * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
+ */
+
+import React, { useEffect, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import CardContent from '@mui/material/CardContent';
+import CircleIcon from '@mui/icons-material/Circle';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Link from '@mui/material/Link';
+import CircularProgress from '@mui/material/CircularProgress';
+
+function Roadmap({ content }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const iconColor = ['action', 'info', 'success'];
+
+  const [projectData, setProjectData] = useState();
+  const TOKEN =
+    'ADD GITHUB PERSONAL AUTH TOKEN -> https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token ';
+  const ENDPOINT = 'https://api.github.com/graphql';
+
+  const HEADERS = {
+    'Content-Type': 'application/json',
+    Authorization: 'bearer ' + TOKEN,
+  };
+
+  /* GraphQL query to request project cards and details. */
+
+  const settings = {
+    organization: `"Zesty-io"`,
+    projectNumber: 37,
+    columns: 3,
+    cards: 10,
+  };
+
+  const body = {
+    query: `
+    {
+      organization(login: ${settings.organization}) {
+        project(number: ${settings.projectNumber}) {
+          name
+          columns(last: ${settings.columns}) {
+            nodes {
+              name,
+              cards(last: ${settings.cards} ) {
+                totalCount
+                nodes {
+                  id,
+                  note,
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }    
+    `,
+  };
+
+  /**
+   * @description - Custom function to fetch data from Github Endpoints
+   * @returns - Returns data that will hold all the project card details
+   */
+  const getApiData = async () => {
+    const { data } = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: HEADERS,
+      body: JSON.stringify(body),
+    })
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((error) => console.log(error));
+
+    setProjectData(data.organization.project.columns);
+  };
+
+  console.log('projectData', projectData);
+
+  /* Using the useEffect hook to call the getApiData function when the component mounts. */
+  useEffect(() => {
+    getApiData();
+  }, []);
+
+  return (
+    <>
+      <Container sx={{ py: 10 }}>
+        {/* Roadmap Header Title */}
+
+        <Box
+          sx={{
+            display: isMobile ? 'block' : 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h5" component="h1">
+            Zesty.io Roadmap
+          </Typography>
+          <Button
+            sx={{ mt: isMobile ? 2 : 0 }}
+            component={'a'}
+            href={'https://www.github.com'}
+            variant="contained"
+            color="success"
+            size="large"
+          >
+            Give Feedback
+          </Button>
+        </Box>
+
+        {/* Kanban Cards */}
+
+        {projectData ? (
+          <Grid sx={{ mt: 6 }} container spacing={2}>
+            {projectData?.nodes.map((board, idx) => (
+              <Grid item xs={12} md={4}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CircleIcon color={iconColor[idx]} />
+                  <Typography variant="h6" component="h2">
+                    {board.name}
+                  </Typography>
+                </Box>
+                <CardContent
+                  sx={{
+                    borderRadius: 1,
+                    background: theme.palette.background.level2,
+                    mt: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                  }}
+                  variant="outlined"
+                >
+                  {board.cards.nodes.map((item) => (
+                    <Box>
+                      <Link
+                        underline="hover"
+                        color="inherit"
+                        target="_blank"
+                        href={item.url}
+                      >
+                        {item.note}
+                      </Link>
+                    </Box>
+                  ))}
+                </CardContent>
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <Box sx={{ display: 'flex', mt: 6 }}>
+            <CircularProgress color="success" />
+          </Box>
+        )}
+
+        {/* Discussion Header Title */}
+
+        <Box
+          sx={{
+            mt: 6,
+            display: isMobile ? 'block' : 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h5" component="h1">
+            Top Discussion
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1,
+            }}
+          >
+            <Button
+              sx={{ mt: isMobile ? 2 : 0 }}
+              component={'a'}
+              href={'https://www.github.com'}
+              variant="contained"
+              color="success"
+              size="large"
+            >
+              Give Feedback
+            </Button>
+
+            <Button
+              sx={{ mt: isMobile ? 2 : 0 }}
+              component={'a'}
+              href={'https://www.github.com'}
+              variant="outline"
+              size="large"
+            >
+              Open Discussion Board
+            </Button>
+          </Box>
+        </Box>
+
+        {/* Discussion Cards */}
+
+        <Grid sx={{ mt: 6 }} container spacing={2}>
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" component="h2">
+              Feature Request
+            </Typography>
+            <CardContent
+              sx={{
+                background: theme.palette.background.level2,
+                mt: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+              }}
+              variant="outlined"
+            >
+              {[1, 2, 3, 4, 5, 6, 7].map(() => (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    gap: 1,
+                    alignItems: 'center',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      p: 4,
+                      maxWidth: 25,
+                      height: 50,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      background: theme.palette.common.white,
+                    }}
+                  >
+                    <ArrowDropUpIcon
+                      sx={{ color: theme.palette.common.black }}
+                      fontSize="large"
+                    />
+                    <Typography
+                      sx={{ color: theme.palette.common.black }}
+                      component="p"
+                    >
+                      23
+                    </Typography>
+                  </Box>
+                  <Link underline="hover" color="inherit" href="#">
+                    Discussion Topic Title
+                  </Link>
+                </Box>
+              ))}
+            </CardContent>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" component="h2">
+              User Experience
+            </Typography>
+
+            <CardContent
+              sx={{
+                background: theme.palette.background.level2,
+                mt: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+              }}
+              variant="outlined"
+            >
+              {[1, 2, 3, 4, 5, 6, 7].map(() => (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    gap: 1,
+                    alignItems: 'center',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      p: 4,
+                      maxWidth: 25,
+                      height: 50,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      background: theme.palette.common.white,
+                    }}
+                  >
+                    <ArrowDropUpIcon
+                      sx={{ color: theme.palette.common.black }}
+                      fontSize="large"
+                    />
+                    <Typography
+                      sx={{ color: theme.palette.common.black }}
+                      component="p"
+                    >
+                      23
+                    </Typography>
+                  </Box>
+                  <Link underline="hover" color="inherit" href="#">
+                    Discussion Topic Title
+                  </Link>
+                </Box>
+              ))}
+            </CardContent>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" component="h2">
+              Product Improvements
+            </Typography>
+
+            <CardContent
+              sx={{
+                background: theme.palette.background.level2,
+                mt: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+              }}
+              variant="outlined"
+            >
+              {[1, 2, 3, 4, 5, 6, 7].map(() => (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    gap: 1,
+                    alignItems: 'center',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      p: 4,
+                      maxWidth: 25,
+                      height: 50,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      background: theme.palette.common.white,
+                    }}
+                  >
+                    <ArrowDropUpIcon
+                      sx={{ color: theme.palette.common.black }}
+                      fontSize="large"
+                    />
+                    <Typography
+                      sx={{ color: theme.palette.common.black }}
+                      component="p"
+                    >
+                      23
+                    </Typography>
+                  </Box>
+                  <Link underline="hover" color="inherit" href="#">
+                    Discussion Topic Title
+                  </Link>
+                </Box>
+              ))}
+            </CardContent>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
+}
+
+export default Roadmap;
