@@ -49,12 +49,14 @@ export const light = {
     zestyBlue: '#497edf',
     zestyTeal: '#6a9293',
     zestyTealDark: '#06BBCF',
+    zestyTealWhite: '#1AE8FF',
     zestyWhite: '#eff5ff',
     bulmaBlue: '#336fdb',
     zestyLightBlue: '#C3CDDF',
     zestyFieldBlue: '#C7D4EA',
     zestyBackgroundBlue: '#D6E8F5',
     zestyGrey: '#5B667D',
+    zestySeaShell: '#FFFCFB',
     zestyLightGrey: '#A7AFBF',
     navBorderColor: '#3c465e',
     yellowHighlight: '#FFFDE2',
@@ -69,6 +71,7 @@ export const light = {
     white: '#E5EAF9',
     pureWhite: '#ffffff',
     lightBlue: '#D9E2F4',
+    zestyGray99: '#FCFCFC',
   },
 };
 
