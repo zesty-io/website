@@ -80,6 +80,7 @@ import {
   Grid,
   Link,
   Typography,
+  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import React from 'react';
@@ -97,19 +98,29 @@ import featuresBg1 from '../../../public/assets/images/dxp_features_bg1.svg';
 import featuresBg2 from '../../../public/assets/images/dxp_features_bg2.svg';
 import headlessCmsBg from '../../../public/assets/images/dxp_headless_bg.svg';
 import bottomBg from '../../../public/assets/images/dxp_bottom_bg.svg';
+import dxpCurve from '../../../public/assets/images/dxp_curve.svg';
+import dxpLine from '../../../public/assets/images/dxp_line.svg';
+import Rotate from 'react-reveal/Rotate';
 
-const Section1Hero = ({ content, theme }) => {
+const Section1Hero = ({ content, theme, isMobile }) => {
   return (
     <Box
-      paddingTop={15}
-      paddingBottom={25}
+      paddingTop={isMobile ? 4 : 15}
+      paddingBottom={isMobile ? 4 : 25}
       sx={{
         position: 'relative',
         background:
           'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%);',
       }}
     >
-      <Container sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+      <Container
+        sx={{
+          display: 'flex',
+
+          gap: '1rem',
+          flexDirection: isMobile ? 'column' : 'row',
+        }}
+      >
         <Box
           sx={{
             background: '',
@@ -118,7 +129,13 @@ const Section1Hero = ({ content, theme }) => {
             flexDirection: 'column',
           }}
         >
-          <Box sx={{ position: 'absolute', left: '15rem' }}>
+          <Box
+            sx={{
+              position: 'absolute',
+              left: '15rem',
+              display: isMobile ? 'none' : 'flex',
+            }}
+          >
             <img src={ZestySvg.src} alt="" />
           </Box>
           <Typography
@@ -138,7 +155,7 @@ const Section1Hero = ({ content, theme }) => {
             sx={{
               color: theme.palette.common.white,
               fontWeight: 'bold',
-              fontSize: '48px',
+              fontSize: isMobile ? '38px' : '48px',
             }}
           >
             {content.header_eyebrow}
@@ -160,6 +177,7 @@ const Section1Hero = ({ content, theme }) => {
               href={''}
               component={Button}
               variant="contained"
+              fullWidth={isMobile ? true : false}
               sx={{
                 backgroundColor: theme.palette.common.white,
                 color: theme.palette.zesty.zestyOrange,
@@ -172,8 +190,17 @@ const Section1Hero = ({ content, theme }) => {
           </Box>
         </Box>
 
-        <Box sx={{}}>
-          <img src={content.header_graphic.data[0].url} width={700} />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            justifyItems: 'center',
+          }}
+        >
+          <img
+            src={content.header_graphic.data[0].url}
+            width={isMobile ? 350 : 700}
+          />
         </Box>
       </Container>
     </Box>
@@ -185,15 +212,14 @@ const CustomCard = ({ data, theme }) => {
     <Card
       sx={{
         marginTop: '1rem',
-        padding: '2rem 3rem',
-
+        padding: '3rem 1rem',
         display: 'flex',
         alignItems: 'flex-start',
         borderTop: `6px solid ${theme.palette.zesty.zestyTealWhite}`,
       }}
     >
-      <Box>
-        <ArrowRightAltIcon />
+      <Box paddingX={2} paddingTop={2}>
+        <img src={data.icon} alt="" width={50} />
       </Box>
       <Box>
         <Typography
@@ -214,11 +240,13 @@ const CustomCard = ({ data, theme }) => {
         <Link
           href="#"
           underline="always"
+          paddingTop={4}
           sx={{
             display: 'flex',
             alignItems: 'center',
             gap: '.5rem',
             color: theme.palette.zesty.zestyTealDark,
+            fontWeight: 'bold',
           }}
         >
           {data.ctaName} <ArrowRightAltIcon />
@@ -227,14 +255,14 @@ const CustomCard = ({ data, theme }) => {
     </Card>
   );
 };
-const SecondSection = ({ content, theme }) => {
+const SecondSection = ({ content, theme, isMobile }) => {
   const [active, setactive] = React.useState(0);
   const headerRegex = /\>(.*?)\</;
   const cardData = [
     {
       id: 0,
       name: 'personalize',
-      icon: '',
+      icon: content.solutions_icon_1.data[0].url,
       text: content.solution_1_description,
       subText: content.solution_1_description?.match(headerRegex)[1],
       img: content.solution_1_graphic.data[0].url,
@@ -244,7 +272,7 @@ const SecondSection = ({ content, theme }) => {
     {
       id: 1,
       name: 'ecom',
-      icon: '',
+      icon: content.solutions_icon_2.data[0].url,
       text: content.solution_2_description,
       subText: content.solution_2_description?.match(headerRegex)[1],
       img: content.solution_2_graphic.data[0].url,
@@ -254,7 +282,7 @@ const SecondSection = ({ content, theme }) => {
     {
       id: 2,
       name: 'distribution',
-      icon: '',
+      icon: content.solutions_icon_3.data[0].url,
       text: content.solution_3_description,
       subText: content.solution_3_description?.match(headerRegex)[1],
       img: content.solution_3_graphic.data[0].url,
@@ -264,7 +292,7 @@ const SecondSection = ({ content, theme }) => {
     {
       id: 3,
       name: 'innovate',
-      icon: '',
+      icon: content.solutions_icon_4.data[0].url,
       text: content.solution_4_description,
       subText: content.solution_4_description?.match(headerRegex)[1],
       img: content.solution_4_graphic.data[0].url,
@@ -273,18 +301,19 @@ const SecondSection = ({ content, theme }) => {
     },
   ];
 
+  const imgWidth = isMobile ? 300 : 500;
   return (
     <Box paddingY={1}>
       <Container>
-        <Box sx={{}}>
+        <Box paddingBottom={isMobile ? 10 : 10} sx={{}}>
           <Typography
             component={'h2'}
             variant={'p'}
-            paddingTop={10}
+            paddingTop={isMobile ? 0 : 10}
             sx={{
               color: theme.palette.secondary.darkCharcoal,
               fontWeight: 800,
-              fontSize: '32px',
+              fontSize: isMobile ? '20px' : '32px',
               textAlign: 'center',
             }}
             dangerouslySetInnerHTML={{
@@ -299,11 +328,12 @@ const SecondSection = ({ content, theme }) => {
         <Box
           sx={{
             display: 'flex',
-            gap: '4rem',
-            height: '50vh',
+            gap: isMobile ? '1rem' : '4rem',
+            height: isMobile ? '100vh' : '50vh',
             justifyContent: 'center',
             justifyItems: 'center',
             alignItems: 'center',
+            flexDirection: isMobile ? 'column' : 'row',
           }}
         >
           <Zoom>
@@ -315,16 +345,15 @@ const SecondSection = ({ content, theme }) => {
                 <img
                   src={content[`solution_1_graphic`].data[0].url}
                   alt=""
-                  width={500}
+                  width={imgWidth}
                 />
               </ZoomMui>
               <ZoomMui
                 in={active === 1}
                 style={{ display: active === 1 ? 'block' : 'none' }}
-                width={500}
               >
                 <img
-                  width={500}
+                  width={imgWidth}
                   src={content[`solution_2_graphic`].data[0].url}
                   alt=""
                 />
@@ -334,7 +363,7 @@ const SecondSection = ({ content, theme }) => {
                 style={{ display: active === 2 ? 'block' : 'none' }}
               >
                 <img
-                  width={500}
+                  width={imgWidth}
                   src={content[`solution_3_graphic`].data[0].url}
                   alt=""
                 />
@@ -344,7 +373,7 @@ const SecondSection = ({ content, theme }) => {
                 style={{ display: active === 3 ? 'block' : 'none' }}
               >
                 <img
-                  width={500}
+                  width={imgWidth}
                   src={content[`solution_4_graphic`].data[0].url}
                   alt=""
                 />
@@ -360,6 +389,7 @@ const SecondSection = ({ content, theme }) => {
                   <Box
                     onClick={() => setactive(i)}
                     paddingY={2}
+                    paddingLeft={4}
                     sx={{
                       borderBottom: `1px solid ${theme.palette.secondary.whiteSmoke}`,
                       display: 'flex',
@@ -368,8 +398,7 @@ const SecondSection = ({ content, theme }) => {
                       cursor: 'pointer',
                     }}
                   >
-                    {/* <img src="" alt="" /> */}
-                    <ArrowRightAltIcon />
+                    <img src={e.icon} alt="" width={50} />
                     <Typography
                       component={'p'}
                       variant={'p'}
@@ -391,12 +420,12 @@ const SecondSection = ({ content, theme }) => {
         <Zoom>
           <Grid item xs={12} md={9}>
             <Box
-              paddingTop={10}
+              paddingTop={isMobile ? 10 : 10}
               paddingBottom={10}
               sx={{
                 textAlign: 'center',
                 color: theme.palette.secondary.darkCharcoal,
-                fontSize: '1.5rem',
+                fontSize: isMobile ? '1rem' : '1.5rem',
               }}
               dangerouslySetInnerHTML={{
                 __html: helper.strColorChanger(
@@ -413,23 +442,23 @@ const SecondSection = ({ content, theme }) => {
   );
 };
 
-const ThirdSection = ({ content, theme }) => {
+const ThirdSection = ({ content, theme, isMobile }) => {
   return (
     <Box
       sx={{
         background: theme.palette.zesty.zestySeaShell,
       }}
-      paddingBottom={20}
-      paddingTop={10}
+      paddingBottom={isMobile ? 1 : 20}
+      paddingTop={isMobile ? 1 : 10}
     >
       <Container>
         <Box>
           <Typography
             component={'p'}
             variant={'p'}
-            paddingBottom={10}
+            paddingBottom={isMobile ? 2 : 10}
             sx={{
-              fontSize: '1.4rem',
+              fontSize: isMobile ? '1rem' : '1.4rem',
               color: theme.palette.secondary.darkCharcoal,
               textAlign: 'center',
             }}
@@ -453,7 +482,11 @@ const ThirdSection = ({ content, theme }) => {
           }}
         >
           <Zoom>
-            <img src={content.about_dxp_graphic.data[0].url} alt="" />
+            <img
+              src={content.about_dxp_graphic.data[0].url}
+              alt=""
+              width={isMobile ? 300 : 700}
+            />
           </Zoom>
         </Box>
       </Container>
@@ -470,13 +503,14 @@ const RevealComponent = ({
   strColor = theme.palette.zesty.zestyOrange,
   data,
   index,
+  isMobile,
 }) => {
   return (
     <Box
-      paddingY={2}
+      paddingY={1}
       sx={{
         display: 'flex',
-        flexDirection: reverse ? 'row-reverse' : 'row',
+        flexDirection: isMobile ? 'column' : reverse ? 'row-reverse' : 'row',
         position: 'relative',
         zIndex: '1000',
       }}
@@ -486,12 +520,12 @@ const RevealComponent = ({
           sx={{
             zIndex: '10',
             background: theme.palette.zesty.zestyBackgroundBlue,
-            height: '20px',
-            width: '20px',
+            height: isMobile ? '15px' : '20px',
+            width: isMobile ? '15px' : '20px',
             borderRadius: '50%',
             position: 'absolute',
-            left: '50.2%',
-            bottom: '0',
+            left: isMobile ? '1.8%' : '50.2%',
+            bottom: isMobile ? '45%' : '0',
             transform: 'translate(-50%,-50%)',
           }}
         />
@@ -502,12 +536,13 @@ const RevealComponent = ({
           <Typography
             component={'h3'}
             variant={'p'}
-            paddingTop={10}
-            paddingBottom={10}
+            paddingLeft={isMobile ? 2 : 0}
+            paddingTop={isMobile ? 2 : 10}
+            paddingBottom={isMobile ? 6 : 10}
             sx={{
               color: theme.palette.common.white,
               textAlign: 'left',
-              fontSize: '1.5rem',
+              fontSize: isMobile ? '1rem' : '1.5rem',
             }}
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(text, strToChange, strColor),
@@ -516,9 +551,10 @@ const RevealComponent = ({
           <Link
             href="#"
             underline="always"
+            paddingLeft={isMobile ? 2 : 0}
             sx={{
               position: 'absolute',
-              top: '22rem',
+              top: isMobile ? '11rem' : '22rem',
               display: 'flex',
               alignItems: 'center',
               gap: '.5rem',
@@ -531,13 +567,13 @@ const RevealComponent = ({
         </Box>
       </Fade>
       <Fade right>
-        <img src={img} width={700} />
+        <img src={img} width={isMobile ? 350 : 700} />
       </Fade>
     </Box>
   );
 };
 
-const FourthSection = ({ content, theme }) => {
+const FourthSection = ({ content, theme, isMobile }) => {
   const FillerImage =
     content.middle_solution_1_graphic.data[0].url ||
     FillerContent.dashboard_image;
@@ -584,7 +620,7 @@ const FourthSection = ({ content, theme }) => {
   ];
   return (
     <Box
-      paddingY={10}
+      paddingY={isMobile ? 2 : 10}
       sx={{
         backgroundColor: theme.palette.zesty.zestyDarkBlue,
         position: 'relative',
@@ -594,8 +630,31 @@ const FourthSection = ({ content, theme }) => {
         sx={{
           zIndex: '10',
           position: 'absolute',
+          left: '5%',
+          top: 0,
+          display: !isMobile ? 'none' : 'flex',
+        }}
+      >
+        <img src={dxpCurve.src} alt="bg" />
+      </Box>
+      <Box
+        sx={{
+          zIndex: '10',
+          position: 'absolute',
+          left: '5%',
+          bottom: 0,
+          display: !isMobile ? 'none' : 'flex',
+        }}
+      >
+        <img src={dxpLine.src} alt="bg" />
+      </Box>
+      <Box
+        sx={{
+          zIndex: '10',
+          position: 'absolute',
           left: 0,
           bottom: 0,
+          display: isMobile ? 'none' : 'flex',
         }}
       >
         <img src={featuresBg1.src} alt="bg" />
@@ -606,6 +665,7 @@ const FourthSection = ({ content, theme }) => {
           position: 'absolute',
           right: 0,
           top: 0,
+          display: isMobile ? 'none' : 'flex',
         }}
       >
         <img src={featuresBg2.src} alt="bg" />
@@ -614,10 +674,10 @@ const FourthSection = ({ content, theme }) => {
         sx={{
           zIndex: '10',
           background: theme.palette.zesty.zestyBackgroundBlue,
-          height: '290vh',
-          width: '3px',
+          height: isMobile ? '0' : '260vh',
+          width: '2px',
           position: 'absolute',
-          left: '50%',
+          left: isMobile ? '5%' : '50%',
           bottom: '0',
         }}
       />
@@ -626,12 +686,12 @@ const FourthSection = ({ content, theme }) => {
           <Typography
             component={'h2'}
             variant={'p'}
-            paddingTop={10}
-            paddingBottom={10}
+            paddingTop={isMobile ? 8 : 10}
+            paddingBottom={isMobile ? 0 : 10}
             sx={{
               color: theme.palette.common.white,
               textAlign: 'center',
-              fontSize: '48px',
+              fontSize: isMobile ? '28px' : '48px',
               position: 'relative',
               zIndex: '1000',
               textTransform: 'capitalize',
@@ -643,6 +703,7 @@ const FourthSection = ({ content, theme }) => {
         {arr.map((e, i) => {
           return (
             <RevealComponent
+              isMobile={isMobile}
               data={e}
               index={i}
               text={e.text}
@@ -657,7 +718,7 @@ const FourthSection = ({ content, theme }) => {
     </Box>
   );
 };
-const FifthSection = ({ content, theme }) => {
+const FifthSection = ({ content, theme, isMobile }) => {
   const arr = content.features.data;
   return (
     <Box paddingBottom={20} sx={{ position: 'relative' }}>
@@ -667,6 +728,7 @@ const FifthSection = ({ content, theme }) => {
           position: 'absolute',
           left: 0,
           bottom: 0,
+          display: isMobile ? 'none' : 'flex',
         }}
       >
         <img src={featuresBg1.src} alt="bg" />
@@ -676,12 +738,12 @@ const FifthSection = ({ content, theme }) => {
           <Typography
             component={'h2'}
             variant={'p'}
-            paddingTop={10}
-            paddingBottom={10}
+            paddingTop={isMobile ? 4 : 10}
+            paddingBottom={isMobile ? 4 : 10}
             sx={{
               color: theme.palette.secondary.darkCharcoal,
               textAlign: 'center',
-              fontSize: '48px',
+              fontSize: isMobile ? '24px' : '48px',
             }}
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(
@@ -751,49 +813,52 @@ const FifthSection = ({ content, theme }) => {
   );
 };
 
-const SixtheSection = ({ content, theme }) => {
+const SixtheSection = ({ content, theme, isMobile }) => {
   return (
     <Box
-      paddingY={30}
+      paddingY={2}
       sx={{
         background: theme.palette.zesty.zestyGray99,
-        // background: 'aqua',
       }}
     >
       <Container
         sx={{
           display: 'flex',
           alignItems: 'center',
-          flexDirection: 'row',
+          flexDirection: isMobile ? 'column-reverse' : 'row',
           gap: '4rem',
         }}
       >
-        <Fade left>
+        <Zoom>
           <Box sx={{}}>
-            <img src={content.integrations_graphic.data[0].url} />
+            <img
+              src={content.integrations_graphic.data[0].url}
+              width={isMobile ? 400 : 700}
+            />
           </Box>
-        </Fade>
-        <Fade right>
-          <Box
-            sx={{
-              background: '',
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              position: 'relative',
-            }}
-          >
+        </Zoom>
+        <Box
+          sx={{
+            background: '',
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            position: 'relative',
+          }}
+        >
+          <Rotate right>
             <Box sx={{ position: 'absolute', top: '-5rem' }}>
               <img
                 src={content.integrations_airplane_graphic.data[0].url}
                 alt=""
               />
             </Box>
+          </Rotate>
+          <Fade right>
             <Typography
               component={'p'}
               variant={'p'}
-              paddingTop={10}
-              paddingBottom={10}
+              paddingY={isMobile ? 6 : 10}
               sx={{
                 color: theme.palette.secondary.darkCharcoal,
                 textAlign: 'left',
@@ -810,6 +875,7 @@ const SixtheSection = ({ content, theme }) => {
               <Button
                 variant="contained"
                 size="large"
+                fullWidth={isMobile}
                 href={
                   content.integrations_button_link.data[0].meta.web.uri || ''
                 }
@@ -823,19 +889,19 @@ const SixtheSection = ({ content, theme }) => {
                 {content.integrations_button_text}
               </Button>
             </Box>
-          </Box>
-        </Fade>
+          </Fade>
+        </Box>
       </Container>
     </Box>
   );
 };
 
-const Section7 = ({ content, theme }) => {
+const Section7 = ({ content, theme, isMobile }) => {
   const [headless, setheadless] = React.useState(true);
   const [hybrid, sethybrid] = React.useState(false);
   return (
     <Box
-      paddingY={15}
+      paddingY={isMobile ? 4 : 15}
       sx={{
         background: theme.palette.common.white,
         position: 'relative',
@@ -847,6 +913,7 @@ const Section7 = ({ content, theme }) => {
           position: 'absolute',
           right: 0,
           top: 0,
+          display: isMobile ? 'none' : 'flex',
         }}
       >
         <img src={headlessCmsBg.src} alt="bg" />
@@ -869,7 +936,7 @@ const Section7 = ({ content, theme }) => {
             variant={'p'}
             paddingBottom={8}
             sx={{
-              fontSize: '32px',
+              fontSize: isMobile ? '22px' : '32px',
               color: theme.palette.secondary.darkCharcoal,
               textAlign: 'center',
             }}
@@ -899,10 +966,10 @@ const Section7 = ({ content, theme }) => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                padding: '1rem 5rem',
+                padding: isMobile ? '1rem 1rem' : '1rem 5rem',
                 gap: '1rem',
                 position: 'relative',
-                zIndex: '2000',
+                zIndex: '1000',
                 cursor: 'pointer',
                 color: headless
                   ? theme.palette.zesty.zestyTealDark
@@ -938,9 +1005,9 @@ const Section7 = ({ content, theme }) => {
                 display: 'flex',
                 cursor: 'pointer',
                 alignItems: 'center',
-                padding: '1rem 5rem',
+                padding: isMobile ? '1rem 1rem' : '1rem 5rem',
                 position: 'relative',
-                zIndex: '2000',
+                zIndex: '1000',
                 gap: '1rem',
                 borderBottom: `4px solid ${
                   hybrid ? theme.palette.zesty.zestyTealDark : 'transparent'
@@ -964,24 +1031,50 @@ const Section7 = ({ content, theme }) => {
           </Card>{' '}
         </Box>
         <Box
-          paddingTop={15}
+          paddingTop={isMobile ? 4 : 15}
           sx={{
             display: 'flex',
             position: 'relative',
             zIndex: '1000',
+            flexDirection: isMobile ? 'column' : 'row',
+            justifyContent: 'center',
+            justifyItems: 'center',
           }}
         >
           <Zoom>
             <ZoomMui
               in={headless}
-              style={{ display: headless ? 'block' : 'none' }}
+              style={{
+                display: headless ? 'flex' : 'none',
+                justifyContent: 'center',
+                justifyItems: 'center',
+                alignItems: 'center',
+                margin: '0 auto',
+              }}
             >
-              <img src={content.headless_cms_graphic.data[0].url} />
+              <img
+                src={content.headless_cms_graphic.data[0].url}
+                width={isMobile ? 350 : 600}
+              />
             </ZoomMui>
-            <ZoomMui in={hybrid} style={{ display: hybrid ? 'block' : 'none' }}>
-              <img src={content.headless_cms_graphic.data[0].url} />
+            <ZoomMui
+              in={hybrid}
+              style={{
+                display: hybrid ? 'flex' : 'none',
+                justifyContent: 'center',
+                justifyItems: 'center',
+                alignItems: 'center',
+
+                margin: '0 auto',
+              }}
+            >
+              <img
+                width={isMobile ? 350 : 600}
+                src={content.headless_cms_graphic.data[0].url}
+              />
             </ZoomMui>
           </Zoom>
+
           <Zoom>
             <ZoomMui
               in={headless}
@@ -998,8 +1091,7 @@ const Section7 = ({ content, theme }) => {
                 <Typography
                   component={'p'}
                   variant={'p'}
-                  paddingTop={10}
-                  paddingBottom={10}
+                  paddingY={isMobile ? 4 : 10}
                   sx={{
                     color: theme.palette.secondary.darkCharcoal,
                     textAlign: 'left',
@@ -1018,7 +1110,7 @@ const Section7 = ({ content, theme }) => {
                   underline="always"
                   sx={{
                     position: 'absolute',
-                    top: '25vh',
+                    top: isMobile ? '10rem' : '10rem',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '.5rem',
@@ -1041,8 +1133,7 @@ const Section7 = ({ content, theme }) => {
                 <Typography
                   component={'p'}
                   variant={'p'}
-                  paddingTop={10}
-                  paddingBottom={10}
+                  paddingY={isMobile ? 4 : 10}
                   sx={{
                     color: theme.palette.secondary.darkCharcoal,
                     textAlign: 'left',
@@ -1079,7 +1170,7 @@ const Section7 = ({ content, theme }) => {
   );
 };
 
-const Section9CaseStudies = ({ content, theme }) => {
+const Section8CaseStudies = ({ content, theme }) => {
   return (
     <Box>
       <Container>
@@ -1100,10 +1191,23 @@ const Section9CaseStudies = ({ content, theme }) => {
             ),
           }}
         />
-        <Box>
-          <img src="" />
-        </Box>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+      </Container>
+      <Box
+        sx={{ height: '30rem', background: theme.palette.zesty.zestyDarkBlue }}
+      >
+        <img src="" />
+      </Box>
+      <Container>
+        <Box
+          paddingY={4}
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            justifyItems: 'center',
+            gap: '3rem',
+          }}
+        >
           {content.case_studies.data.map((e) => {
             return <img src={e.logo.data[0].url} />;
           })}
@@ -1112,26 +1216,27 @@ const Section9CaseStudies = ({ content, theme }) => {
     </Box>
   );
 };
-const Section10Bottom = ({ content, theme }) => {
+const Section9Bottom = ({ content, theme, isMobile }) => {
   return (
-    <Box paddingY={20} sx={{ position: 'relative' }}>
+    <Box paddingY={isMobile ? 0 : 20} sx={{ position: 'relative' }}>
       <Box
         sx={{
           zIndex: '10',
           position: 'absolute',
           right: 0,
           bottom: 0,
+          display: isMobile ? 'none' : 'flex',
         }}
       >
         <img src={bottomBg.src} alt="bg" />
       </Box>
       <Container>
         <Box
-          paddingY={8}
+          paddingY={isMobile ? 2 : 8}
           sx={{
             display: 'flex',
-            flexDirection: 'row-reverse',
-            gap: '2rem',
+            flexDirection: isMobile ? 'column' : 'row-reverse',
+            gap: isMobile ? '1rem' : '4rem',
           }}
         >
           <Fade left>
@@ -1140,8 +1245,9 @@ const Section10Bottom = ({ content, theme }) => {
                 component={'h2'}
                 variant={'p'}
                 sx={{
+                  fontSize: isMobile ? '.9rem' : '1.3rem',
                   color: theme.palette.secondary.darkCharcoal,
-                  textAlign: 'left',
+                  textAlign: isMobile ? 'center' : 'left',
                 }}
                 dangerouslySetInnerHTML={{
                   __html: helper.strColorChanger(
@@ -1154,23 +1260,27 @@ const Section10Bottom = ({ content, theme }) => {
               <Box
                 sx={{
                   position: 'absolute',
-                  top: '10rem',
+                  top: isMobile ? '6rem' : '10rem',
                   display: 'flex',
+                  flexDirection: isMobile ? 'column' : 'row',
                   alignItems: 'center',
                   gap: '.5rem',
                   color: theme.palette.zesty.zestyTealDark,
+                  width: '100%',
                 }}
               >
                 <Button
                   sx={{ padding: '.5rem 4rem' }}
                   variant="contained"
                   color="secondary"
+                  fullWidth={isMobile}
                 >
                   {content.bottom_cta_button_primary}
                 </Button>
                 <Button
                   variant="text"
                   color="secondary"
+                  fullWidth={isMobile}
                   sx={{ textDecoration: 'underline' }}
                 >
                   {content.bottom_cta_button_secondary}
@@ -1180,29 +1290,40 @@ const Section10Bottom = ({ content, theme }) => {
             </Box>
           </Fade>
           <Fade right>
-            <img src={content.bottom_cta_graphic.data[0].url} />
+            <Box paddingY={isMobile ? 15 : 0}>
+              <img
+                src={content.bottom_cta_graphic.data[0].url}
+                width={isMobile ? 350 : 600}
+              />
+            </Box>
           </Fade>
         </Box>
       </Container>
     </Box>
   );
 };
+
 function DigitalExperiencePlatform({ content }) {
   console.log(content, 12222);
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <>
-      <Section1Hero content={content} theme={theme} />
-      <SecondSection content={content} theme={theme} />
-      <ThirdSection content={content} theme={theme} />
-      <FourthSection content={content} theme={theme} />
-      <FifthSection content={content} theme={theme} />
-      <SixtheSection content={content} theme={theme} />
-      <Section7 content={content} theme={theme} />
-      <Section9CaseStudies content={content} theme={theme} />
-      <Section10Bottom content={content} theme={theme} />
-    </>
+    <Box sx={{ overflowX: 'hidden' }}>
+      <Section1Hero content={content} theme={theme} isMobile={isMobile} />
+      <SecondSection content={content} theme={theme} isMobile={isMobile} />
+      <ThirdSection content={content} theme={theme} isMobile={isMobile} />
+      <FourthSection content={content} theme={theme} isMobile={isMobile} />
+      <FifthSection content={content} theme={theme} isMobile={isMobile} />
+      <SixtheSection content={content} theme={theme} isMobile={isMobile} />
+      <Section7 content={content} theme={theme} isMobile={isMobile} />
+      <Section8CaseStudies
+        content={content}
+        theme={theme}
+        isMobile={isMobile}
+      />
+      <Section9Bottom content={content} theme={theme} isMobile={isMobile} />
+    </Box>
   );
 }
 
