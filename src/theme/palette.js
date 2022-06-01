@@ -48,6 +48,7 @@ export const light = {
     zestyGreen: '#75BF43',
     zestyBlue: '#497edf',
     zestyTeal: '#6a9293',
+    zestyTealDark: '#06BBCF',
     zestyWhite: '#eff5ff',
     bulmaBlue: '#336fdb',
     zestyLightBlue: '#C3CDDF',
