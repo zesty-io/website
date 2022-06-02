@@ -64,6 +64,7 @@ function Roadmap({ content }) {
     projectNumber: content.project_number,
     columns: content.max_column,
     cards: content.max_card,
+    discussions: content.max_discussion,
   };
 
   const body = {
@@ -71,7 +72,7 @@ function Roadmap({ content }) {
     {
       organization(login: ${settings.organization}) {
         repository(name: "manager-ui") {
-          discussions(last: 10) {
+          discussions(last: ${settings.discussions}) {
             edges {
               node {
                 category {
@@ -161,11 +162,6 @@ function Roadmap({ content }) {
     /* Setting the state of the projectData variable to the data returned from the API call. */
     setProjectData(data.organization.project.columns);
   };
-
-  console.log('projectData', projectData);
-  console.log('discussion', discussions);
-  console.log('categories', categories);
-  console.log('icons', categoryIcons);
 
   /* Using the useEffect hook to call the getApiData function when the component mounts. */
   useEffect(() => {
