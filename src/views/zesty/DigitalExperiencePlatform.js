@@ -88,12 +88,6 @@ import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithIm
 import FillerContent from 'components/FillerContent';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import * as helper from 'utils';
-<<<<<<< HEAD
-import Fade from 'react-reveal/Fade';
-import Zoom from 'react-reveal/Zoom';
-import Slide from '@mui/material/Slide';
-=======
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ZoomMui from '@mui/material/Zoom';
 import ZestySvg from '../../../public/assets/images/zesty Logo.png';
@@ -103,11 +97,6 @@ import headlessCmsBg from '../../../public/assets/images/dxp_headless_bg.svg';
 import bottomBg from '../../../public/assets/images/dxp_bottom_bg.svg';
 import dxpCurve from '../../../public/assets/images/dxp_curve.svg';
 import dxpLine from '../../../public/assets/images/dxp_line.svg';
-<<<<<<< HEAD
-import Rotate from 'react-reveal/Rotate';
-
-const Section1Hero = ({ content, theme, isMobile }) => {
-=======
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -123,19 +112,13 @@ const Section1Hero = ({
   isMobile,
   theme,
 }) => {
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
   return (
     <Box
       paddingTop={isMobile ? 4 : 15}
       paddingBottom={isMobile ? 4 : 25}
       sx={{
         position: 'relative',
-<<<<<<< HEAD
-        background:
-          'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%);',
-=======
         background: gradientBg,
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
       }}
     >
       <Container
@@ -161,11 +144,7 @@ const Section1Hero = ({
               display: isMobile ? 'none' : 'flex',
             }}
           >
-<<<<<<< HEAD
-            <img src={ZestySvg.src} alt="" />
-=======
             <img src={bgImage} alt="" />
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
           </Box>
           <Typography
             component={'h2'}
@@ -176,11 +155,7 @@ const Section1Hero = ({
               fontWeight: 500,
             }}
           >
-<<<<<<< HEAD
-            {'DXP'}
-=======
             {eyebrow}
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
           </Typography>
           <Typography
             component={'h1'}
@@ -191,11 +166,7 @@ const Section1Hero = ({
               fontSize: isMobile ? '38px' : '48px',
             }}
           >
-<<<<<<< HEAD
-            {content.header_eyebrow}
-=======
             {header}
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
           </Typography>
           <Typography
             paddingY={2}
@@ -207,15 +178,9 @@ const Section1Hero = ({
               fontSize: '20px',
             }}
           >
-<<<<<<< HEAD
-            {content.header_h1}
-          </Typography>
-          <Box>
-=======
             {subHeader}
           </Typography>
           <Box sx={{ display: isMobile ? 'block' : 'flex' }}>
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <Button
               href={''}
               component={Button}
@@ -225,12 +190,6 @@ const Section1Hero = ({
                 backgroundColor: theme.palette.common.white,
                 color: theme.palette.zesty.zestyOrange,
                 padding: '.6rem 4rem',
-<<<<<<< HEAD
-                fontSize: '16px',
-              }}
-            >
-              {content.header_cta_primary}
-=======
                 whiteSpace: 'nowrap',
                 fontSize: '16px',
               }}
@@ -251,7 +210,6 @@ const Section1Hero = ({
               }}
             >
               {secondaryCta}
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             </Button>
           </Box>
         </Box>
@@ -263,14 +221,7 @@ const Section1Hero = ({
             justifyItems: 'center',
           }}
         >
-<<<<<<< HEAD
-          <img
-            src={content.header_graphic.data[0].url}
-            width={isMobile ? 350 : 700}
-          />
-=======
           <img src={mainImage} width={isMobile ? 350 : 700} />
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
         </Box>
       </Container>
     </Box>
@@ -406,11 +357,7 @@ const SecondSection = ({ content, theme, isMobile }) => {
             flexDirection: isMobile ? 'column' : 'row',
           }}
         >
-<<<<<<< HEAD
-          <Zoom>
-=======
           <div data-aos="fade-right">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <Box sx={{}}>
               <ZoomMui
                 in={active === 0}
@@ -453,13 +400,8 @@ const SecondSection = ({ content, theme, isMobile }) => {
                 />
               </ZoomMui>
             </Box>
-<<<<<<< HEAD
-          </Zoom>
-          <Zoom>
-=======
           </div>
           <div data-aos="fade-left">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <Box sx={{ background: '' }}>
               {cardData.map((e, i) => {
                 return i === active ? (
@@ -494,15 +436,9 @@ const SecondSection = ({ content, theme, isMobile }) => {
                 );
               })}
             </Box>
-<<<<<<< HEAD
-          </Zoom>
-        </Box>
-        <Zoom>
-=======
           </div>
         </Box>
         <div data-aos="zoom-in">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
           <Grid item xs={12} md={9}>
             <Box
               paddingTop={isMobile ? 10 : 10}
@@ -521,11 +457,7 @@ const SecondSection = ({ content, theme, isMobile }) => {
               }}
             ></Box>
           </Grid>
-<<<<<<< HEAD
-        </Zoom>
-=======
         </div>
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
       </Container>
     </Box>
   );
@@ -570,21 +502,13 @@ const ThirdSection = ({ content, theme, isMobile }) => {
             zIndex: '1000',
           }}
         >
-<<<<<<< HEAD
-          <Zoom>
-=======
           <div data-aos="zoom-in">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <img
               src={content.about_dxp_graphic.data[0].url}
               alt=""
               width={isMobile ? 300 : 700}
             />
-<<<<<<< HEAD
-          </Zoom>
-=======
           </div>
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
         </Box>
       </Container>
     </Box>
@@ -610,10 +534,7 @@ const RevealComponent = ({
         flexDirection: isMobile ? 'column' : reverse ? 'row-reverse' : 'row',
         position: 'relative',
         zIndex: '1000',
-<<<<<<< HEAD
-=======
         gap: isMobile ? '4rem' : '0',
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
       }}
     >
       {index !== 3 && (
@@ -625,22 +546,14 @@ const RevealComponent = ({
             width: isMobile ? '15px' : '20px',
             borderRadius: '50%',
             position: 'absolute',
-<<<<<<< HEAD
-            left: isMobile ? '1.8%' : '50.2%',
-=======
             left: isMobile ? '1.8%' : '50.1%',
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             bottom: isMobile ? '45%' : '0',
             transform: 'translate(-50%,-50%)',
           }}
         />
       )}
 
-<<<<<<< HEAD
-      <Fade left>
-=======
       <div data-aos="zoom-out-left">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
         <Box sx={{ position: 'relative' }}>
           <Typography
             component={'h3'}
@@ -674,17 +587,10 @@ const RevealComponent = ({
             Learn More <ArrowRightAltIcon />
           </Link>
         </Box>
-<<<<<<< HEAD
-      </Fade>
-      <Fade right>
-        <img src={img} width={isMobile ? 350 : 700} />
-      </Fade>
-=======
       </div>
       <div data-aos="zoom-out-right">
         <img src={img} width={isMobile ? 350 : 700} />
       </div>
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
     </Box>
   );
 };
@@ -744,8 +650,6 @@ const FourthSection = ({ content, theme, isMobile }) => {
     >
       <Box
         sx={{
-<<<<<<< HEAD
-=======
           zIndex: '100',
           position: 'absolute',
           left: '15%',
@@ -775,7 +679,6 @@ const FourthSection = ({ content, theme, isMobile }) => {
       ></Box>
       {/* <Box
         sx={{
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
           zIndex: '10',
           position: 'absolute',
           left: '5%',
@@ -784,13 +687,8 @@ const FourthSection = ({ content, theme, isMobile }) => {
         }}
       >
         <img src={dxpCurve.src} alt="bg" />
-<<<<<<< HEAD
-      </Box>
-      <Box
-=======
       </Box> */}
       {/* <Box
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
         sx={{
           zIndex: '10',
           position: 'absolute',
@@ -800,11 +698,7 @@ const FourthSection = ({ content, theme, isMobile }) => {
         }}
       >
         <img src={dxpLine.src} alt="bg" />
-<<<<<<< HEAD
-      </Box>
-=======
       </Box> */}
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
       <Box
         sx={{
           zIndex: '10',
@@ -878,9 +772,6 @@ const FourthSection = ({ content, theme, isMobile }) => {
 const FifthSection = ({ content, theme, isMobile }) => {
   const arr = content.features.data;
   return (
-<<<<<<< HEAD
-    <Box paddingBottom={20} sx={{ position: 'relative' }}>
-=======
     <Box
       paddingBottom={isMobile ? 20 : 20}
       sx={{
@@ -889,7 +780,6 @@ const FifthSection = ({ content, theme, isMobile }) => {
         background: theme.palette.common.white,
       }}
     >
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
       <Box
         sx={{
           zIndex: '10',
@@ -933,15 +823,9 @@ const FifthSection = ({ content, theme, isMobile }) => {
             zIndex: '1000',
           }}
         >
-<<<<<<< HEAD
-          {arr.map((e) => {
-            return (
-              <Zoom>
-=======
           {arr?.map((e) => {
             return (
               <div data-aos="zoom-in-down">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
                 <Card
                   sx={{
                     width: '20rem',
@@ -978,11 +862,7 @@ const FifthSection = ({ content, theme, isMobile }) => {
                     {e?.content}
                   </Typography>
                 </Card>
-<<<<<<< HEAD
-              </Zoom>
-=======
               </div>
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             );
           })}
         </Box>
@@ -1007,22 +887,14 @@ const SixtheSection = ({ content, theme, isMobile }) => {
           gap: '4rem',
         }}
       >
-<<<<<<< HEAD
-        <Zoom>
-=======
         <div data-aos="fade-right">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
           <Box sx={{}}>
             <img
               src={content.integrations_graphic.data[0].url}
               width={isMobile ? 400 : 700}
             />
           </Box>
-<<<<<<< HEAD
-        </Zoom>
-=======
         </div>
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
         <Box
           sx={{
             background: '',
@@ -1032,24 +904,15 @@ const SixtheSection = ({ content, theme, isMobile }) => {
             position: 'relative',
           }}
         >
-<<<<<<< HEAD
-          <Rotate right>
-=======
           <div data-aos="flip-right">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <Box sx={{ position: 'absolute', top: '-5rem' }}>
               <img
                 src={content.integrations_airplane_graphic.data[0].url}
                 alt=""
               />
             </Box>
-<<<<<<< HEAD
-          </Rotate>
-          <Fade right>
-=======
           </div>
           <div data-aos="fade-left">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <Typography
               component={'p'}
               variant={'p'}
@@ -1071,16 +934,10 @@ const SixtheSection = ({ content, theme, isMobile }) => {
                 variant="contained"
                 size="large"
                 fullWidth={isMobile}
-<<<<<<< HEAD
-                href={
-                  content.integrations_button_link.data[0].meta.web.uri || ''
-                }
-=======
                 // href={
                 //   content.integrations_button_link?.data[0]?.meta?.web?.uri ||
                 //   ''
                 // }
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
                 sx={{
                   backgroundColor: theme.palette.zesty.zestyOrange,
                   color: theme.palette.common.white,
@@ -1091,11 +948,7 @@ const SixtheSection = ({ content, theme, isMobile }) => {
                 {content.integrations_button_text}
               </Button>
             </Box>
-<<<<<<< HEAD
-          </Fade>
-=======
           </div>
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
         </Box>
       </Container>
     </Box>
@@ -1247,11 +1100,7 @@ const Section7 = ({ content, theme, isMobile }) => {
             justifyItems: 'center',
           }}
         >
-<<<<<<< HEAD
-          <Zoom>
-=======
           <div data-aos="zoom-in">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <ZoomMui
               in={headless}
               style={{
@@ -1283,15 +1132,9 @@ const Section7 = ({ content, theme, isMobile }) => {
                 src={content.headless_cms_graphic.data[0].url}
               />
             </ZoomMui>
-<<<<<<< HEAD
-          </Zoom>
-
-          <Zoom>
-=======
           </div>
 
           <div data-aos="zoom-in">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <ZoomMui
               in={headless}
               style={{ display: headless ? 'block' : 'none' }}
@@ -1379,11 +1222,7 @@ const Section7 = ({ content, theme, isMobile }) => {
                 </Link>
               </Box>
             </ZoomMui>
-<<<<<<< HEAD
-          </Zoom>
-=======
           </div>
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
         </Box>
       </Container>
     </Box>
@@ -1428,11 +1267,7 @@ const Section8CaseStudies = ({ content, theme }) => {
             gap: '3rem',
           }}
         >
-<<<<<<< HEAD
-          {content.case_studies.data.map((e) => {
-=======
           {content.case_studies?.data?.map((e) => {
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             return <img src={e.logo.data[0].url} />;
           })}
         </Box>
@@ -1463,11 +1298,7 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
             gap: isMobile ? '1rem' : '4rem',
           }}
         >
-<<<<<<< HEAD
-          <Fade left>
-=======
           <div data-aos="fade-left">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <Box sx={{ position: 'relative' }}>
               <Typography
                 component={'h2'}
@@ -1516,24 +1347,15 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
                 </Button>
               </Box>
             </Box>
-<<<<<<< HEAD
-          </Fade>
-          <Fade right>
-=======
           </div>
           <div data-aos="fade-right">
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
             <Box paddingY={isMobile ? 15 : 0}>
               <img
                 src={content.bottom_cta_graphic.data[0].url}
                 width={isMobile ? 350 : 600}
               />
             </Box>
-<<<<<<< HEAD
-          </Fade>
-=======
           </div>
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
         </Box>
       </Container>
     </Box>
@@ -1541,15 +1363,6 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
 };
 
 function DigitalExperiencePlatform({ content }) {
-<<<<<<< HEAD
-  console.log(content, 12222);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  return (
-    <Box sx={{ overflowX: 'hidden' }}>
-      <Section1Hero content={content} theme={theme} isMobile={isMobile} />
-=======
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -1573,7 +1386,6 @@ function DigitalExperiencePlatform({ content }) {
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Section1Hero {...Section1Props} />
->>>>>>> 9f437df6100720856e3be22354803b4a7846c004
       <SecondSection content={content} theme={theme} isMobile={isMobile} />
       <ThirdSection content={content} theme={theme} isMobile={isMobile} />
       <FourthSection content={content} theme={theme} isMobile={isMobile} />
