@@ -3,7 +3,7 @@ export const light = {
     main: '#f7faff',
     dark: '#edf1f7',
   },
-  cardShadow: 'rgba(23, 70, 161, .11)',
+  cardShado: 'rgba(23, 70, 161, .11)',
   mode: 'light',
   common: {
     black: '#000',
@@ -44,15 +44,19 @@ export const light = {
     zestyOrange: '#FF5D0A',
     zestyRed: 'rgb(230,74,23)',
     devTheme: '#77b250',
+    zestyRose: '#F27474',
     zestyGreen: '#75BF43',
     zestyBlue: '#497edf',
     zestyTeal: '#6a9293',
+    zestyTealDark: '#06BBCF',
+    zestyTealWhite: '#1AE8FF',
     zestyWhite: '#eff5ff',
     bulmaBlue: '#336fdb',
     zestyLightBlue: '#C3CDDF',
     zestyFieldBlue: '#C7D4EA',
     zestyBackgroundBlue: '#D6E8F5',
     zestyGrey: '#5B667D',
+    zestySeaShell: '#FFFCFB',
     zestyLightGrey: '#A7AFBF',
     navBorderColor: '#3c465e',
     yellowHighlight: '#FFFDE2',
@@ -67,6 +71,11 @@ export const light = {
     white: '#E5EAF9',
     pureWhite: '#ffffff',
     lightBlue: '#D9E2F4',
+    zestyGray99: '#FCFCFC',
+    zestyTealGradient:
+      'linear-gradient(180deg, rgba(15,172,185,1) 45%, rgba(255,255,255,1) 100%)',
+    zestyBlueGradient:
+      'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%)',
   },
 };
 
