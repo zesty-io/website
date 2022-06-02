@@ -34,7 +34,7 @@ const Marketplace = ({
           }
           screenshot={props.screenshot?.data[0]?.url}
           //making an array of object > url , image
-          logos={props.features_logos.data.map((x) => ({
+          logos={props.features_logos?.data?.map((x) => ({
             image: x.image?.data[0]?.url,
             url: x.meta?.web?.uri,
           }))}

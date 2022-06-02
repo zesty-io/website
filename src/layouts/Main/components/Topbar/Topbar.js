@@ -127,7 +127,10 @@ const Topbar = ({
                   color={theme.palette.primary.dark}
                   fontWeight={'bold'}
                 >
-                  Welcome back, {firstName}!
+                  Welcome back,{' '}
+                  <span style={{ color: theme.palette.zesty.zestyOrange }}>
+                    {firstName}!
+                  </span>
                 </Typography>
               </Box>
             )}
