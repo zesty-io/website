@@ -88,8 +88,6 @@ import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithIm
 import FillerContent from 'components/FillerContent';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import * as helper from 'utils';
-import Fade from 'react-reveal/Fade';
-import Zoom from 'react-reveal/Zoom';
 import Slide from '@mui/material/Slide';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ZoomMui from '@mui/material/Zoom';
@@ -100,7 +98,6 @@ import headlessCmsBg from '../../../public/assets/images/dxp_headless_bg.svg';
 import bottomBg from '../../../public/assets/images/dxp_bottom_bg.svg';
 import dxpCurve from '../../../public/assets/images/dxp_curve.svg';
 import dxpLine from '../../../public/assets/images/dxp_line.svg';
-import Rotate from 'react-reveal/Rotate';
 
 function DxpEcommerce({ content }) {
   console.log(content, 12222);

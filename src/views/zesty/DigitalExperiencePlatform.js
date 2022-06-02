@@ -88,9 +88,6 @@ import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithIm
 import FillerContent from 'components/FillerContent';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import * as helper from 'utils';
-import Fade from 'react-reveal/Fade';
-import Zoom from 'react-reveal/Zoom';
-import Slide from '@mui/material/Slide';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ZoomMui from '@mui/material/Zoom';
 import ZestySvg from '../../../public/assets/images/zesty Logo.png';
@@ -100,8 +97,8 @@ import headlessCmsBg from '../../../public/assets/images/dxp_headless_bg.svg';
 import bottomBg from '../../../public/assets/images/dxp_bottom_bg.svg';
 import dxpCurve from '../../../public/assets/images/dxp_curve.svg';
 import dxpLine from '../../../public/assets/images/dxp_line.svg';
-import Rotate from 'react-reveal/Rotate';
-import { borderRadius } from '@mui/system';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Section1Hero = ({
   eyebrow = FillerContent.header,
@@ -360,7 +357,7 @@ const SecondSection = ({ content, theme, isMobile }) => {
             flexDirection: isMobile ? 'column' : 'row',
           }}
         >
-          <Zoom>
+          <div data-aos="fade-right">
             <Box sx={{}}>
               <ZoomMui
                 in={active === 0}
@@ -403,8 +400,8 @@ const SecondSection = ({ content, theme, isMobile }) => {
                 />
               </ZoomMui>
             </Box>
-          </Zoom>
-          <Zoom>
+          </div>
+          <div data-aos="fade-left">
             <Box sx={{ background: '' }}>
               {cardData.map((e, i) => {
                 return i === active ? (
@@ -439,9 +436,9 @@ const SecondSection = ({ content, theme, isMobile }) => {
                 );
               })}
             </Box>
-          </Zoom>
+          </div>
         </Box>
-        <Zoom>
+        <div data-aos="zoom-in">
           <Grid item xs={12} md={9}>
             <Box
               paddingTop={isMobile ? 10 : 10}
@@ -460,7 +457,7 @@ const SecondSection = ({ content, theme, isMobile }) => {
               }}
             ></Box>
           </Grid>
-        </Zoom>
+        </div>
       </Container>
     </Box>
   );
@@ -505,13 +502,13 @@ const ThirdSection = ({ content, theme, isMobile }) => {
             zIndex: '1000',
           }}
         >
-          <Zoom>
+          <div data-aos="zoom-in">
             <img
               src={content.about_dxp_graphic.data[0].url}
               alt=""
               width={isMobile ? 300 : 700}
             />
-          </Zoom>
+          </div>
         </Box>
       </Container>
     </Box>
@@ -556,7 +553,7 @@ const RevealComponent = ({
         />
       )}
 
-      <Fade left>
+      <div data-aos="zoom-out-left">
         <Box sx={{ position: 'relative' }}>
           <Typography
             component={'h3'}
@@ -590,10 +587,10 @@ const RevealComponent = ({
             Learn More <ArrowRightAltIcon />
           </Link>
         </Box>
-      </Fade>
-      <Fade right>
+      </div>
+      <div data-aos="zoom-out-right">
         <img src={img} width={isMobile ? 350 : 700} />
-      </Fade>
+      </div>
     </Box>
   );
 };
@@ -828,7 +825,7 @@ const FifthSection = ({ content, theme, isMobile }) => {
         >
           {arr?.map((e) => {
             return (
-              <Zoom>
+              <div data-aos="zoom-in-down">
                 <Card
                   sx={{
                     width: '20rem',
@@ -865,7 +862,7 @@ const FifthSection = ({ content, theme, isMobile }) => {
                     {e?.content}
                   </Typography>
                 </Card>
-              </Zoom>
+              </div>
             );
           })}
         </Box>
@@ -890,14 +887,14 @@ const SixtheSection = ({ content, theme, isMobile }) => {
           gap: '4rem',
         }}
       >
-        <Zoom>
+        <div data-aos="fade-right">
           <Box sx={{}}>
             <img
               src={content.integrations_graphic.data[0].url}
               width={isMobile ? 400 : 700}
             />
           </Box>
-        </Zoom>
+        </div>
         <Box
           sx={{
             background: '',
@@ -907,15 +904,15 @@ const SixtheSection = ({ content, theme, isMobile }) => {
             position: 'relative',
           }}
         >
-          <Rotate right>
+          <div data-aos="flip-right">
             <Box sx={{ position: 'absolute', top: '-5rem' }}>
               <img
                 src={content.integrations_airplane_graphic.data[0].url}
                 alt=""
               />
             </Box>
-          </Rotate>
-          <Fade right>
+          </div>
+          <div data-aos="fade-left">
             <Typography
               component={'p'}
               variant={'p'}
@@ -951,7 +948,7 @@ const SixtheSection = ({ content, theme, isMobile }) => {
                 {content.integrations_button_text}
               </Button>
             </Box>
-          </Fade>
+          </div>
         </Box>
       </Container>
     </Box>
@@ -1103,7 +1100,7 @@ const Section7 = ({ content, theme, isMobile }) => {
             justifyItems: 'center',
           }}
         >
-          <Zoom>
+          <div data-aos="zoom-in">
             <ZoomMui
               in={headless}
               style={{
@@ -1135,9 +1132,9 @@ const Section7 = ({ content, theme, isMobile }) => {
                 src={content.headless_cms_graphic.data[0].url}
               />
             </ZoomMui>
-          </Zoom>
+          </div>
 
-          <Zoom>
+          <div data-aos="zoom-in">
             <ZoomMui
               in={headless}
               style={{ display: headless ? 'block' : 'none' }}
@@ -1225,7 +1222,7 @@ const Section7 = ({ content, theme, isMobile }) => {
                 </Link>
               </Box>
             </ZoomMui>
-          </Zoom>
+          </div>
         </Box>
       </Container>
     </Box>
@@ -1301,7 +1298,7 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
             gap: isMobile ? '1rem' : '4rem',
           }}
         >
-          <Fade left>
+          <div data-aos="fade-left">
             <Box sx={{ position: 'relative' }}>
               <Typography
                 component={'h2'}
@@ -1350,15 +1347,15 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
                 </Button>
               </Box>
             </Box>
-          </Fade>
-          <Fade right>
+          </div>
+          <div data-aos="fade-right">
             <Box paddingY={isMobile ? 15 : 0}>
               <img
                 src={content.bottom_cta_graphic.data[0].url}
                 width={isMobile ? 350 : 600}
               />
             </Box>
-          </Fade>
+          </div>
         </Box>
       </Container>
     </Box>
@@ -1381,6 +1378,11 @@ function DigitalExperiencePlatform({ content }) {
     theme,
   };
 
+  React.useEffect(() => {
+    AOS.init({
+      duration: 300,
+    });
+  }, []);
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Section1Hero {...Section1Props} />
