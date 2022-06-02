@@ -83,6 +83,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import styled from '@emotion/styled';
 import React from 'react';
 import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
 import FillerContent from 'components/FillerContent';
@@ -1234,7 +1235,27 @@ const Section7Implementing = ({ content, theme, isMobile }) => {
   );
 };
 
+const CustomButton = styled.button`
+  background: ${(props) => props.theme.palette.common.white};
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  user-select: none;
+  opacity: ${(props) => (props.active ? 1 : 0.3)};
+  &:active {
+    transform: scale(0.9);
+  }
+  &:focus {
+  }
+  &:hover {
+    opacity: 1;
+  }
+`;
+
 const Section8CaseStudies = ({ content, theme }) => {
+  const [active, setactive] = React.useState(content?.case_studies?.data[0]);
+
   return (
     <Box>
       <Container>
@@ -1257,9 +1278,34 @@ const Section8CaseStudies = ({ content, theme }) => {
         />
       </Container>
       <Box
-        sx={{ height: '30rem', background: theme.palette.zesty.zestyDarkBlue }}
+        paddingX={8}
+        paddingY={2}
+        sx={{
+          height: '20rem',
+          background: theme.palette.zesty.zestyDarkBlue,
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          alignItems: 'center',
+        }}
       >
-        <img src="" />
+        <Typography
+          sx={{
+            color: theme.palette.common.white,
+            fontWeight: 500,
+            fontSize: '20px',
+          }}
+        >
+          {active.summary}
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <img src={active.logo.data[0].url} />
+        </Box>
       </Box>
       <Container>
         <Box
@@ -1267,13 +1313,22 @@ const Section8CaseStudies = ({ content, theme }) => {
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
+            flexDirection: 'row',
             justifyContent: 'center',
             justifyItems: 'center',
             gap: '3rem',
           }}
         >
-          {content.case_studies?.data?.map((e) => {
-            return <img src={e.logo.data[0].url} />;
+          {content.case_studies?.data?.map((e, i) => {
+            return (
+              <CustomButton
+                active={active?.title === e?.title ? true : false}
+                theme={theme}
+                onClick={() => setactive(e)}
+              >
+                <img src={e.logo.data[0].url} />
+              </CustomButton>
+            );
           })}
         </Box>
       </Container>
