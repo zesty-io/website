@@ -121,8 +121,6 @@ const Section1Hero = ({
       paddingBottom={isMobile ? 4 : 25}
       sx={{
         position: 'relative',
-        // background:
-        //   'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%);',
         background: gradientBg,
       }}
     >
@@ -1368,14 +1366,13 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
 };
 
 function DigitalExperiencePlatform({ content }) {
-  console.log(content, 12222);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const Section1Props = {
     eyebrow: 'DXP',
     header: content.header_eyebrow,
     subHeader: content.header_h1,
-    mainImage: content.header_graphic.data[0].url,
+    mainImage: content.header_graphic?.data[0]?.url,
     bgImage: ZestySvg.src,
     primaryCta: content.header_cta_primary,
     secondaryCta: content.header_cta_secondary,
