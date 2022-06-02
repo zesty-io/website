@@ -60,18 +60,17 @@ export const light = {
     zestyLightGrey: '#A7AFBF',
     navBorderColor: '#3c465e',
     yellowHighlight: '#FFFDE2',
-    zestyYellow: 'rgb(249, 185, 52)',
-    white: '#ffffff',
-    black: '#000000',
-    zestyWhiteBlue: '#f2f4fb',
-    zestyPink: '#EA398C',
-    darkBlue: '#1B1F2C',
-    parsleyGreen: '#96C45B',
-    headerColor: '#CFDCFF',
     white: '#E5EAF9',
     pureWhite: '#ffffff',
     lightBlue: '#D9E2F4',
     zestyGray99: '#FCFCFC',
+<<<<<<< HEAD
+=======
+    zestyTealGradient:
+      'linear-gradient(180deg, rgba(15,172,185,1) 45%, rgba(255,255,255,1) 100%)',
+    zestyBlueGradient:
+      'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%)',
+>>>>>>> 9f437df6100720856e3be22354803b4a7846c004
   },
 };
 
