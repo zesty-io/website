@@ -40,14 +40,17 @@ import Link from '@mui/material/Link';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function Roadmap({ content }) {
+  const TOKEN = process.env.NEXT_PUBLIC_GITHUB_AUTH;
+  const ENDPOINT = 'https://api.github.com/graphql';
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const iconColor = ['action', 'info', 'success'];
 
+  const [discussions, setDiscussions] = useState();
+  const [categoryIcons, setCategoryIcons] = useState();
+  const [categories, setCategories] = useState();
   const [projectData, setProjectData] = useState();
-  const TOKEN =
-    'ADD GITHUB PERSONAL AUTH TOKEN -> https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token ';
-  const ENDPOINT = 'https://api.github.com/graphql';
 
   const HEADERS = {
     'Content-Type': 'application/json',
@@ -58,15 +61,43 @@ function Roadmap({ content }) {
 
   const settings = {
     organization: `"Zesty-io"`,
-    projectNumber: 37,
-    columns: 3,
-    cards: 10,
+    projectNumber: content.project_number,
+    columns: content.max_column,
+    cards: content.max_card,
   };
 
   const body = {
     query: `
     {
       organization(login: ${settings.organization}) {
+        repository(name: "manager-ui") {
+          discussions(last: 10) {
+            edges {
+              node {
+                category {
+                  name,
+                  emojiHTML
+                }
+              }
+            }
+            nodes {
+              category {
+                name
+                emojiHTML
+              }
+              labels(last:10) {
+                nodes {
+                  name
+                  color
+                  url
+                }
+              }
+              upvoteCount
+              title
+              url
+            }
+          }
+        }
         project(number: ${settings.projectNumber}) {
           name
           columns(last: ${settings.columns}) {
@@ -89,8 +120,9 @@ function Roadmap({ content }) {
   };
 
   /**
-   * @description - Custom function to fetch data from Github Endpoints
-   * @returns - Returns data that will hold all the project card details
+   * @description  Custom function to fetch data from Github Endpoints
+   * @Set  Sets returns data to specified state
+   * @states [Category, ProjectData, Discussion]
    */
   const getApiData = async () => {
     const { data } = await fetch(ENDPOINT, {
@@ -102,10 +134,38 @@ function Roadmap({ content }) {
       .then((data) => data)
       .catch((error) => console.log(error));
 
+    /* Setting the state of the discussions variable to the data returned from the API call. */
+    setDiscussions(data.organization.repository.discussions.nodes);
+
+    /* A custom function that is used to remove duplicate categories from the data returned from
+    the API call. */
+    setCategories(
+      Array.from(
+        new Set(
+          data.organization.repository.discussions.edges.map(
+            (category) => category.node.category.name,
+          ),
+        ),
+      ),
+    );
+    setCategoryIcons(
+      Array.from(
+        new Set(
+          data.organization.repository.discussions.edges.map(
+            (category) => category.node.category.emojiHTML,
+          ),
+        ),
+      ),
+    );
+
+    /* Setting the state of the projectData variable to the data returned from the API call. */
     setProjectData(data.organization.project.columns);
   };
 
   console.log('projectData', projectData);
+  console.log('discussion', discussions);
+  console.log('categories', categories);
+  console.log('icons', categoryIcons);
 
   /* Using the useEffect hook to call the getApiData function when the component mounts. */
   useEffect(() => {
@@ -119,24 +179,18 @@ function Roadmap({ content }) {
 
         <Box
           sx={{
-            display: isMobile ? 'block' : 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            display: 'block',
           }}
         >
           <Typography variant="h5" component="h1">
-            Zesty.io Roadmap
+            {content.roadmap_title}
           </Typography>
-          <Button
-            sx={{ mt: isMobile ? 2 : 0 }}
-            component={'a'}
-            href={'https://www.github.com'}
-            variant="contained"
-            color="success"
-            size="large"
-          >
-            Give Feedback
-          </Button>
+
+          <div
+            dangerouslySetInnerHTML={{
+              __html: content.roadmap_description,
+            }}
+          />
         </Box>
 
         {/* Kanban Cards */}
@@ -153,6 +207,7 @@ function Roadmap({ content }) {
                 </Box>
                 <CardContent
                   sx={{
+                    minHeight: 500,
                     borderRadius: 1,
                     background: theme.palette.background.level2,
                     mt: 2,
@@ -180,7 +235,7 @@ function Roadmap({ content }) {
           </Grid>
         ) : (
           <Box sx={{ display: 'flex', mt: 6 }}>
-            <CircularProgress color="success" />
+            <CircularProgress color="action" />
           </Box>
         )}
 
@@ -195,7 +250,7 @@ function Roadmap({ content }) {
           }}
         >
           <Typography variant="h5" component="h1">
-            Top Discussion
+            {content.discussion_title}
           </Typography>
           <Box
             sx={{
@@ -207,7 +262,8 @@ function Roadmap({ content }) {
             <Button
               sx={{ mt: isMobile ? 2 : 0 }}
               component={'a'}
-              href={'https://www.github.com'}
+              target="_blank"
+              href={content.feedback_link}
               variant="contained"
               color="success"
               size="large"
@@ -216,9 +272,10 @@ function Roadmap({ content }) {
             </Button>
 
             <Button
+              target="_blank"
               sx={{ mt: isMobile ? 2 : 0 }}
               component={'a'}
-              href={'https://www.github.com'}
+              href={content.open_discussion_link}
               variant="outline"
               size="large"
             >
@@ -227,169 +284,119 @@ function Roadmap({ content }) {
           </Box>
         </Box>
 
+        <div
+          dangerouslySetInnerHTML={{
+            __html: content.discussion_description,
+          }}
+        />
+
         {/* Discussion Cards */}
 
         <Grid sx={{ mt: 6 }} container spacing={2}>
-          <Grid item xs={12} md={4}>
-            <Typography variant="h6" component="h2">
-              Feature Request
-            </Typography>
-            <CardContent
-              sx={{
-                background: theme.palette.background.level2,
-                mt: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-              }}
-              variant="outlined"
-            >
-              {[1, 2, 3, 4, 5, 6, 7].map(() => (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    gap: 1,
-                    alignItems: 'center',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      p: 4,
-                      maxWidth: 25,
-                      height: 50,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      background: theme.palette.common.white,
+          {categories?.map((category, idx) => (
+            <Grid item xs={12} md={4}>
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                {categoryIcons && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: categoryIcons[idx],
                     }}
-                  >
-                    <ArrowDropUpIcon
-                      sx={{ color: theme.palette.common.black }}
-                      fontSize="large"
-                    />
-                    <Typography
-                      sx={{ color: theme.palette.common.black }}
-                      component="p"
-                    >
-                      23
-                    </Typography>
-                  </Box>
-                  <Link underline="hover" color="inherit" href="#">
-                    Discussion Topic Title
-                  </Link>
-                </Box>
-              ))}
-            </CardContent>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Typography variant="h6" component="h2">
-              User Experience
-            </Typography>
-
-            <CardContent
-              sx={{
-                background: theme.palette.background.level2,
-                mt: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-              }}
-              variant="outlined"
-            >
-              {[1, 2, 3, 4, 5, 6, 7].map(() => (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    gap: 1,
-                    alignItems: 'center',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      p: 4,
-                      maxWidth: 25,
-                      height: 50,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      background: theme.palette.common.white,
-                    }}
-                  >
-                    <ArrowDropUpIcon
-                      sx={{ color: theme.palette.common.black }}
-                      fontSize="large"
-                    />
-                    <Typography
-                      sx={{ color: theme.palette.common.black }}
-                      component="p"
-                    >
-                      23
-                    </Typography>
-                  </Box>
-                  <Link underline="hover" color="inherit" href="#">
-                    Discussion Topic Title
-                  </Link>
-                </Box>
-              ))}
-            </CardContent>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Typography variant="h6" component="h2">
-              Product Improvements
-            </Typography>
-
-            <CardContent
-              sx={{
-                background: theme.palette.background.level2,
-                mt: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-              }}
-              variant="outlined"
-            >
-              {[1, 2, 3, 4, 5, 6, 7].map(() => (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    gap: 1,
-                    alignItems: 'center',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      p: 4,
-                      maxWidth: 25,
-                      height: 50,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      background: theme.palette.common.white,
-                    }}
-                  >
-                    <ArrowDropUpIcon
-                      sx={{ color: theme.palette.common.black }}
-                      fontSize="large"
-                    />
-                    <Typography
-                      sx={{ color: theme.palette.common.black }}
-                      component="p"
-                    >
-                      23
-                    </Typography>
-                  </Box>
-                  <Link underline="hover" color="inherit" href="#">
-                    Discussion Topic Title
-                  </Link>
-                </Box>
-              ))}
-            </CardContent>
-          </Grid>
+                  />
+                )}
+                <Typography variant="h6" component="h2">
+                  {category}
+                </Typography>
+              </Box>
+              <CardContent
+                sx={{
+                  minHeight: 500,
+                  borderRadius: 1,
+                  background: theme.palette.background.level2,
+                  mt: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                }}
+                variant="outlined"
+              >
+                {discussions.map((discussion) => {
+                  if (discussion.category.name === category) {
+                    return (
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          gap: 1,
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            p: 4,
+                            maxWidth: 25,
+                            height: 50,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            background: theme.palette.common.white,
+                          }}
+                        >
+                          <ArrowDropUpIcon
+                            sx={{ color: theme.palette.common.black }}
+                            fontSize="large"
+                          />
+                          <Typography
+                            sx={{ color: theme.palette.common.black }}
+                            component="p"
+                          >
+                            {discussion.upvoteCount}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Link
+                            underline="hover"
+                            color="inherit"
+                            target="_blank"
+                            href={discussion.url}
+                          >
+                            {discussion.title}
+                          </Link>
+                          <Box
+                            sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}
+                          >
+                            {discussion.labels.nodes.map((label) => (
+                              <Box
+                                sx={{
+                                  borderRadius: 50,
+                                  px: 1,
+                                  color: `#${label.color}`,
+                                  fontSize: 10,
+                                  border: `1px solid #${label.color}`,
+                                  display: 'block',
+                                  width: 'max-content',
+                                }}
+                                component="span"
+                              >
+                                <Link
+                                  sx={{ fontWeight: 'bold' }}
+                                  underline="none"
+                                  color="inherit"
+                                  target="_blank"
+                                  href={label.url}
+                                >
+                                  {label.name}
+                                </Link>
+                              </Box>
+                            ))}
+                          </Box>
+                        </Box>
+                      </Box>
+                    );
+                  }
+                })}
+              </CardContent>
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </>
