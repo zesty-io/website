@@ -72,7 +72,17 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import { Box, useTheme } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Grid,
+  Link,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import React from 'react';
 import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
 import FillerContent from 'components/FillerContent';
@@ -1353,47 +1363,42 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
 };
 
 function DigitalExperiencePlatform({ content }) {
-  console.log(content);
   const theme = useTheme();
-  //   const headerProps = {
-  //     mainTitle: content.header_title_main || FillerContent.header,
-  //     title: content.header_title || FillerContent.header,
-  //     image:
-  //       (content.header_image?.data && content.header_image?.data[0]?.url) ||
-  //       FillerContent.image,
-  //     description: content.header_description || FillerContent.description,
-  //     cta_left:
-  //       (content.cta_left.data && content.cta_left?.data[0]?.button_text) ||
-  //       FillerContent.cta,
-  //     cta_right:
-  //       (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
-  //       FillerContent.cta,
-  //     cta_left_url:
-  //       (content.cta_left?.data &&
-  //         content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
-  //       FillerContent.href,
-  //     cta_right_url:
-  //       (content.cta_right.data &&
-  //         content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
-  //       FillerContent.href,
-  //   };
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const Section1Props = {
+    eyebrow: 'DXP',
+    header: content.header_eyebrow,
+    subHeader: content.header_h1,
+    mainImage: content.header_graphic?.data[0]?.url,
+    bgImage: ZestySvg.src,
+    primaryCta: content.header_cta_primary,
+    secondaryCta: content.header_cta_secondary,
+    gradientBg: theme.palette.zesty.zestyBlueGradient,
+    isMobile,
+    theme,
+  };
   React.useEffect(() => {
     AOS.init({
       duration: 300,
     });
   }, []);
   return (
-    <>
-      {/* <Box
-        position={'relative'}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-        }}
-      >
-        <SimpleHeroWithImageAndCtaButtonsPage />
-      </Box> */}
-    </>
+    <Box sx={{ overflowX: 'hidden' }}>
+      <Section1Hero {...Section1Props} />
+      <SecondSection content={content} theme={theme} isMobile={isMobile} />
+      <ThirdSection content={content} theme={theme} isMobile={isMobile} />
+      <FourthSection content={content} theme={theme} isMobile={isMobile} />
+      <FifthSection content={content} theme={theme} isMobile={isMobile} />
+      <SixtheSection content={content} theme={theme} isMobile={isMobile} />
+      <Section7 content={content} theme={theme} isMobile={isMobile} />
+      <Section8CaseStudies
+        content={content}
+        theme={theme}
+        isMobile={isMobile}
+      />
+      <Section9Bottom content={content} theme={theme} isMobile={isMobile} />
+    </Box>
   );
 }
 

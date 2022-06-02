@@ -123,3 +123,11 @@ export const test = (arr) => {
   }, []);
   return sum;
 };
+
+export const strColorChanger = (str, word, color) => {
+  const res = str.replaceAll(
+    word,
+    `<span style="color:${color};">${word}</span>`,
+  );
+  return res;
+};
