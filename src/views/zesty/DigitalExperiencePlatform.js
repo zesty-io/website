@@ -101,6 +101,7 @@ import bottomBg from '../../../public/assets/images/dxp_bottom_bg.svg';
 import dxpCurve from '../../../public/assets/images/dxp_curve.svg';
 import dxpLine from '../../../public/assets/images/dxp_line.svg';
 import Rotate from 'react-reveal/Rotate';
+import { borderRadius } from '@mui/system';
 
 const Section1Hero = ({
   eyebrow = FillerContent.header,
@@ -538,6 +539,7 @@ const RevealComponent = ({
         flexDirection: isMobile ? 'column' : reverse ? 'row-reverse' : 'row',
         position: 'relative',
         zIndex: '1000',
+        gap: isMobile ? '4rem' : '0',
       }}
     >
       {index !== 3 && (
@@ -653,6 +655,35 @@ const FourthSection = ({ content, theme, isMobile }) => {
     >
       <Box
         sx={{
+          zIndex: '100',
+          position: 'absolute',
+          left: '15%',
+          top: 0,
+          display: isMobile ? 'flex' : 'none',
+          width: 'calc(50vw - 15%)',
+          height: '50px',
+          position: 'absolute',
+          borderRight: `2px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
+          borderRadius: '0 0 45px 0',
+        }}
+      ></Box>
+      <Box
+        sx={{
+          zIndex: '10',
+          position: 'absolute',
+          left: '5%',
+          top: '50px',
+          display: isMobile ? 'flex' : 'none',
+          width: 'calc(50vw - 15%)',
+          height: '100%',
+          position: 'absolute',
+          border: `1px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
+          borderRight: 0,
+          borderRadius: '50px 0 0 0',
+        }}
+      ></Box>
+      {/* <Box
+        sx={{
           zIndex: '10',
           position: 'absolute',
           left: '5%',
@@ -661,8 +692,8 @@ const FourthSection = ({ content, theme, isMobile }) => {
         }}
       >
         <img src={dxpCurve.src} alt="bg" />
-      </Box>
-      <Box
+      </Box> */}
+      {/* <Box
         sx={{
           zIndex: '10',
           position: 'absolute',
@@ -672,7 +703,7 @@ const FourthSection = ({ content, theme, isMobile }) => {
         }}
       >
         <img src={dxpLine.src} alt="bg" />
-      </Box>
+      </Box> */}
       <Box
         sx={{
           zIndex: '10',
@@ -746,7 +777,14 @@ const FourthSection = ({ content, theme, isMobile }) => {
 const FifthSection = ({ content, theme, isMobile }) => {
   const arr = content.features.data;
   return (
-    <Box paddingBottom={20} sx={{ position: 'relative' }}>
+    <Box
+      paddingBottom={isMobile ? 20 : 20}
+      sx={{
+        position: 'relative',
+        zIndex: '1000',
+        background: theme.palette.common.white,
+      }}
+    >
       <Box
         sx={{
           zIndex: '10',
