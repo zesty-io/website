@@ -125,8 +125,10 @@ const Section1Hero = ({
         sx={{
           display: 'flex',
 
+          width: '100%',
           gap: '1rem',
           flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: 'space-between',
         }}
       >
         <Box
@@ -140,7 +142,7 @@ const Section1Hero = ({
           <Box
             sx={{
               position: 'absolute',
-              left: '15rem',
+              left: '20rem',
               display: isMobile ? 'none' : 'flex',
             }}
           >
@@ -199,17 +201,17 @@ const Section1Hero = ({
             <Button
               href={''}
               variant="text"
-              color="inherit"
+              color="secondary"
               fullWidth={isMobile ? true : false}
               sx={{
-                display: secondaryCta ? 'block' : 'none',
-                color: theme.palette.common.white,
+                display: secondaryCta ? 'flex' : 'none',
                 padding: '.6rem 4rem',
                 fontSize: '16px',
                 whiteSpace: 'nowrap',
+                gap: '.5rem',
               }}
             >
-              {secondaryCta}
+              {secondaryCta} <ArrowRightAltIcon />
             </Button>
           </Box>
         </Box>
@@ -217,11 +219,14 @@ const Section1Hero = ({
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'center',
-            justifyItems: 'center',
+            flexDirection: 'row',
+            alignContent: 'end',
+            justifyContent: 'flex-end',
+            justifyItems: 'flex-end',
+            width: '100%',
           }}
         >
-          <img src={mainImage} width={isMobile ? 350 : 700} />
+          <img src={mainImage} width={isMobile ? 350 : 650} />
         </Box>
       </Container>
     </Box>
@@ -276,7 +281,7 @@ const CustomCard = ({ data, theme }) => {
     </Card>
   );
 };
-const SecondSection = ({ content, theme, isMobile }) => {
+const Section2Solution = ({ content, theme, isMobile }) => {
   const [active, setactive] = React.useState(0);
   const headerRegex = /\>(.*?)\</;
   const cardData = [
@@ -463,7 +468,7 @@ const SecondSection = ({ content, theme, isMobile }) => {
   );
 };
 
-const ThirdSection = ({ content, theme, isMobile }) => {
+const Section3About = ({ content, theme, isMobile }) => {
   return (
     <Box
       sx={{
@@ -595,7 +600,7 @@ const RevealComponent = ({
   );
 };
 
-const FourthSection = ({ content, theme, isMobile }) => {
+const Section4Middle = ({ content, theme, isMobile }) => {
   const FillerImage =
     content.middle_solution_1_graphic.data[0].url ||
     FillerContent.dashboard_image;
@@ -769,7 +774,7 @@ const FourthSection = ({ content, theme, isMobile }) => {
     </Box>
   );
 };
-const FifthSection = ({ content, theme, isMobile }) => {
+const Section5Features = ({ content, theme, isMobile }) => {
   const arr = content.features.data;
   return (
     <Box
@@ -871,7 +876,7 @@ const FifthSection = ({ content, theme, isMobile }) => {
   );
 };
 
-const SixtheSection = ({ content, theme, isMobile }) => {
+const Section6Integrations = ({ content, theme, isMobile }) => {
   return (
     <Box
       paddingY={2}
@@ -955,7 +960,7 @@ const SixtheSection = ({ content, theme, isMobile }) => {
   );
 };
 
-const Section7 = ({ content, theme, isMobile }) => {
+const Section7Implementing = ({ content, theme, isMobile }) => {
   const [headless, setheadless] = React.useState(true);
   const [hybrid, sethybrid] = React.useState(false);
   return (
@@ -1287,7 +1292,7 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={bottomBg.src} alt="bg" />
+        <img src={content.bottom_page_background_image.data[0].url} alt="bg" />
       </Box>
       <Container>
         <Box
@@ -1366,15 +1371,16 @@ function DigitalExperiencePlatform({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  console.log(content, 122);
   const Section1Props = {
-    eyebrow: 'DXP',
-    header: content.header_eyebrow,
-    subHeader: content.header_h1,
+    eyebrow: content.header_eyebrow,
+    header: content.header_h1,
+    subHeader: content.header_description,
     mainImage: content.header_graphic?.data[0]?.url,
-    bgImage: ZestySvg.src,
     primaryCta: content.header_cta_primary,
     secondaryCta: content.header_cta_secondary,
     gradientBg: theme.palette.zesty.zestyBlueGradient,
+    bgImage: content.header_background_image.data[1].url,
     isMobile,
     theme,
   };
@@ -1386,12 +1392,20 @@ function DigitalExperiencePlatform({ content }) {
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Section1Hero {...Section1Props} />
-      <SecondSection content={content} theme={theme} isMobile={isMobile} />
-      <ThirdSection content={content} theme={theme} isMobile={isMobile} />
-      <FourthSection content={content} theme={theme} isMobile={isMobile} />
-      <FifthSection content={content} theme={theme} isMobile={isMobile} />
-      <SixtheSection content={content} theme={theme} isMobile={isMobile} />
-      <Section7 content={content} theme={theme} isMobile={isMobile} />
+      <Section2Solution content={content} theme={theme} isMobile={isMobile} />
+      <Section3About content={content} theme={theme} isMobile={isMobile} />
+      <Section4Middle content={content} theme={theme} isMobile={isMobile} />
+      <Section5Features content={content} theme={theme} isMobile={isMobile} />
+      <Section6Integrations
+        content={content}
+        theme={theme}
+        isMobile={isMobile}
+      />
+      <Section7Implementing
+        content={content}
+        theme={theme}
+        isMobile={isMobile}
+      />
       <Section8CaseStudies
         content={content}
         theme={theme}
