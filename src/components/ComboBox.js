@@ -172,6 +172,7 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
   const handleChange = (e, newValue) => {
     setCookies('ZESTY_WORKING_INSTANCE', newValue?.value);
     setlabel(newValue?.name);
+    window.location.reload();
   };
 
   React.useEffect(() => {

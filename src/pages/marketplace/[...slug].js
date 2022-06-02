@@ -9,6 +9,8 @@ import CustomContainer from 'components/Container';
 import AppBar from 'components/console/AppBar';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import RegisterPage from 'components/marketplace/register';
+import InstalledPage from 'components/marketplace/installed';
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -26,8 +28,44 @@ const renderMarketplaceViewByAltName = (altName) => {
 
 const slug = ({ marketEntityTypes, marketTags, ...props }) => {
   const router = useRouter();
-  const seoTitle = props.meta.web.seo_meta_title,
-    seoDescription = props.meta.web.seo_meta_description;
+  const seoTitle = props?.meta?.web?.seo_meta_title,
+    seoDescription = props?.meta?.web?.seo_meta_description;
+
+  if (window.location.pathname === '/marketplace/register/') {
+    return (
+      <>
+        <Head>
+          <title>{'Register an App'}</title>
+          <meta property="og:title" content={seoTitle} />
+          <meta property="og:description" content={seoDescription} />
+        </Head>
+        <Main customRouting={props.navigationCustom}>
+          <AppBar url={router.asPath} />
+          <CustomContainer>
+            <RegisterPage />
+          </CustomContainer>
+        </Main>
+      </>
+    );
+  }
+
+  if (window.location.pathname === '/marketplace/installed/') {
+    return (
+      <>
+        <Head>
+          <title>{'Installed Apps'}</title>
+          <meta property="og:title" content={seoTitle} />
+          <meta property="og:description" content={seoDescription} />
+        </Head>
+        <Main customRouting={props.navigationCustom}>
+          <AppBar url={router.asPath} />
+          <CustomContainer>
+            <InstalledPage />
+          </CustomContainer>
+        </Main>
+      </>
+    );
+  }
 
   if (props.marketplaceAltName === ALTNAME.EXTENSION) {
     return (
@@ -83,14 +121,14 @@ export const getMarketplaceData = async (ctx) => {
     : 'https://39ntbr6g-dev.webengine.zesty.io';
   let data = await fetchPage(ctx.resolvedUrl, true, extensionsURL);
 
-  if (data.meta.model_alternate_name === ALTNAME.TAG) {
+  if (data?.meta?.model_alternate_name === ALTNAME.TAG) {
     const newData = await fetch(
       `https://39ntbr6g-dev.webengine.zesty.io/data/entites-by-category.json?category=${data.meta.zuid}`,
     );
 
     data.categoryEntities = await newData.json();
     data.marketplaceAltName = ALTNAME.TAG;
-  } else if (data.meta.model_alternate_name === ALTNAME.ENTITY_TYPE) {
+  } else if (data?.meta?.model_alternate_name === ALTNAME.ENTITY_TYPE) {
     const newData = await fetch(
       `https://39ntbr6g-dev.webengine.zesty.io/data/entities-by-type.json?type=${data.meta.zuid}`,
     );
@@ -114,8 +152,12 @@ export async function getServerSideProps(ctx) {
   const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
   const navigationCustom = (await fetchPage('/')).navigationCustom;
 
+  // partial fix for register page not rendering
+  const isRegisterPage = ctx.req.url === '/marketplace/register/';
+  const isInstalledPage = ctx.req.url === '/marketplace/installed/';
+  const extendedPages = isRegisterPage || isInstalledPage;
   // generate a status 404 page
-  if (data?.error) return { notFound: true };
+  if (data?.error && !extendedPages) return { notFound: true };
 
   // Pass data to the page via props
   return {

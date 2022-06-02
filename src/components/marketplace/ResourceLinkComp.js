@@ -2,9 +2,12 @@ import { Button } from '@mui/material';
 import React from 'react';
 
 export const ResourceLinkComp = ({ data, theme }) => {
+  const openInNewTab = () => {
+    window.open(data?.resource_link, '_blank').focus();
+  };
   return (
     <Button
-      href={data?.resource_link}
+      onClick={openInNewTab}
       variant="contained"
       color="secondary"
       sx={{ mt: 2 }}

@@ -1,5 +1,9 @@
 import React from 'react';
 
+const getStatus = (status) => {
+  if (status / 100 === 2) return true;
+  return false;
+};
 export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const [verifySuccess, setverifySuccess] = React.useState('');
   const [verifyFailed, setverifyFailed] = React.useState('');
@@ -14,15 +18,17 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const verifyUser = async () => {
     setloading(true);
     const res = await ZestyAPI.verify();
-    res.code === 200 && setverifySuccess(res.meta);
-    res.code !== 200 && setverifyFailed(res.error);
+    getStatus(res.code) && setverifySuccess(res.meta);
+    !getStatus(res.code) && setverifyFailed(res);
     setloading(false);
   };
 
   const getInstances = async () => {
+    setloading(true);
     const res = await ZestyAPI.getInstances();
     !res.error && setinstances(res);
     res.error && console.log(res, 'instance failed');
+    setloading(false);
   };
   const getModels = async () => {
     const res = await ZestyAPI.getModels();
@@ -36,8 +42,10 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   };
 
   const getUserInfo = async () => {
+    setloading(true);
     const res = await ZestyAPI.getUser(verifySuccess?.userZuid);
     !res.error && setuserInfo(res);
+    setloading(false);
   };
 
   React.useEffect(() => {
