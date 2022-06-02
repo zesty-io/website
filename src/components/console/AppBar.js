@@ -11,6 +11,7 @@ import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookies } from 'cookies-next';
 import Typography from '@mui/material/Typography';
 import HomeIcon from '@mui/icons-material/Home';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function AppBar({ url = window.location.pathname }) {
   const theme = useTheme();
@@ -30,7 +31,7 @@ export default function AppBar({ url = window.location.pathname }) {
   //   return url;
   // }
 
-  const { verifySuccess, instances, userInfo } = useFetchWrapper(
+  const { verifySuccess, instances, userInfo, loading } = useFetchWrapper(
     userAppSID,
     instanceZUID,
   );
@@ -106,37 +107,47 @@ export default function AppBar({ url = window.location.pathname }) {
               );
             })}
           </Breadcrumbs>
-          <Box>
-            {!verifySuccess ? (
-              <Button
-                href={`https://accounts.zesty.io/login`}
-                variant="contained"
-                color="secondary"
-                size="small"
-                sx={{ whiteSpace: 'nowrap' }}
-              >
-                Sign in to Zesty.io
-              </Button>
-            ) : (
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <ComboBox
-                  instances={instances?.data}
-                  setCookies={setCookies}
-                  instanceZUID={instanceZUID}
-                />
-                <Box
-                  boxShadow={2}
-                  sx={{
-                    backgroundColor: theme.palette.common.white,
-                    display: 'flex',
-                    justifyContent: 'center',
-                  }}
+          {loading && (
+            <Box sx={{ display: 'flex', gap: '1rem' }}>
+              <Skeleton variant="rectangular" width={270} height={50} />
+              <Skeleton variant="rectangular" width={50} height={50} />
+            </Box>
+          )}
+          {!loading && (
+            <Box>
+              {!verifySuccess ? (
+                <Button
+                  href={`https://accounts.zesty.io/login`}
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  sx={{ whiteSpace: 'nowrap' }}
                 >
-                  <img src={profileUrl} alt="" height={40} width={40} />
+                  Sign in to Zesty.io
+                </Button>
+              ) : (
+                <Box
+                  sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
+                >
+                  <ComboBox
+                    instances={instances?.data}
+                    setCookies={setCookies}
+                    instanceZUID={instanceZUID}
+                  />
+                  <Box
+                    boxShadow={2}
+                    sx={{
+                      backgroundColor: theme.palette.common.white,
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={profileUrl} alt="" height={40} width={40} />
+                  </Box>
                 </Box>
-              </Box>
-            )}
-          </Box>
+              )}
+            </Box>
+          )}
         </Box>
       </Container>
     </Box>
