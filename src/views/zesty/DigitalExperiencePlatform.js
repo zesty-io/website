@@ -102,15 +102,27 @@ import dxpCurve from '../../../public/assets/images/dxp_curve.svg';
 import dxpLine from '../../../public/assets/images/dxp_line.svg';
 import Rotate from 'react-reveal/Rotate';
 
-const Section1Hero = ({ content, theme, isMobile }) => {
+const Section1Hero = ({
+  eyebrow = FillerContent.header,
+  header = FillerContent.header,
+  subHeader = FillerContent.header,
+  mainImage = FillerContent.dashboard_image,
+  bgImage = FillerContent.dashboard_image,
+  primaryCta = 'Try Free',
+  secondaryCta = 'Try Free',
+  gradientBg,
+  isMobile,
+  theme,
+}) => {
   return (
     <Box
       paddingTop={isMobile ? 4 : 15}
       paddingBottom={isMobile ? 4 : 25}
       sx={{
         position: 'relative',
-        background:
-          'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%);',
+        // background:
+        //   'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%);',
+        background: gradientBg,
       }}
     >
       <Container
@@ -136,7 +148,7 @@ const Section1Hero = ({ content, theme, isMobile }) => {
               display: isMobile ? 'none' : 'flex',
             }}
           >
-            <img src={ZestySvg.src} alt="" />
+            <img src={bgImage} alt="" />
           </Box>
           <Typography
             component={'h2'}
@@ -147,7 +159,7 @@ const Section1Hero = ({ content, theme, isMobile }) => {
               fontWeight: 500,
             }}
           >
-            {'DXP'}
+            {eyebrow}
           </Typography>
           <Typography
             component={'h1'}
@@ -158,7 +170,7 @@ const Section1Hero = ({ content, theme, isMobile }) => {
               fontSize: isMobile ? '38px' : '48px',
             }}
           >
-            {content.header_eyebrow}
+            {header}
           </Typography>
           <Typography
             paddingY={2}
@@ -170,9 +182,9 @@ const Section1Hero = ({ content, theme, isMobile }) => {
               fontSize: '20px',
             }}
           >
-            {content.header_h1}
+            {subHeader}
           </Typography>
-          <Box>
+          <Box sx={{ display: isMobile ? 'block' : 'flex' }}>
             <Button
               href={''}
               component={Button}
@@ -182,10 +194,26 @@ const Section1Hero = ({ content, theme, isMobile }) => {
                 backgroundColor: theme.palette.common.white,
                 color: theme.palette.zesty.zestyOrange,
                 padding: '.6rem 4rem',
+                whiteSpace: 'nowrap',
                 fontSize: '16px',
               }}
             >
-              {content.header_cta_primary}
+              {primaryCta}
+            </Button>
+            <Button
+              href={''}
+              variant="text"
+              color="inherit"
+              fullWidth={isMobile ? true : false}
+              sx={{
+                display: secondaryCta ? 'block' : 'none',
+                color: theme.palette.common.white,
+                padding: '.6rem 4rem',
+                fontSize: '16px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {secondaryCta}
             </Button>
           </Box>
         </Box>
@@ -197,10 +225,7 @@ const Section1Hero = ({ content, theme, isMobile }) => {
             justifyItems: 'center',
           }}
         >
-          <img
-            src={content.header_graphic.data[0].url}
-            width={isMobile ? 350 : 700}
-          />
+          <img src={mainImage} width={isMobile ? 350 : 700} />
         </Box>
       </Container>
     </Box>
@@ -524,7 +549,7 @@ const RevealComponent = ({
             width: isMobile ? '15px' : '20px',
             borderRadius: '50%',
             position: 'absolute',
-            left: isMobile ? '1.8%' : '50.2%',
+            left: isMobile ? '1.8%' : '50.1%',
             bottom: isMobile ? '45%' : '0',
             transform: 'translate(-50%,-50%)',
           }}
@@ -1308,10 +1333,22 @@ function DigitalExperiencePlatform({ content }) {
   console.log(content, 12222);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const Section1Props = {
+    eyebrow: 'DXP',
+    header: content.header_eyebrow,
+    subHeader: content.header_h1,
+    mainImage: content.header_graphic.data[0].url,
+    bgImage: ZestySvg.src,
+    primaryCta: content.header_cta_primary,
+    secondaryCta: content.header_cta_secondary,
+    gradientBg: theme.palette.zesty.zestyBlueGradient,
+    isMobile,
+    theme,
+  };
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
-      <Section1Hero content={content} theme={theme} isMobile={isMobile} />
+      <Section1Hero {...Section1Props} />
       <SecondSection content={content} theme={theme} isMobile={isMobile} />
       <ThirdSection content={content} theme={theme} isMobile={isMobile} />
       <FourthSection content={content} theme={theme} isMobile={isMobile} />

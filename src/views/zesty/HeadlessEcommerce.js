@@ -55,21 +55,167 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import {
+  Box,
+  Button,
+  Container,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
+import FillerContent from 'components/FillerContent';
+import React from 'react';
+import ZestySvg from '../../../public/assets/images/zesty Logo.png';
 
-function HeadlessEcommerce({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+const Section1Hero = ({
+  eyebrow = FillerContent.header,
+  header = FillerContent.header,
+  subHeader = FillerContent.header,
+  mainImage = FillerContent.dashboard_image,
+  bgImage = FillerContent.dashboard_image,
+  primaryCta = 'Try Free',
+  secondaryCta = 'Try Free',
+  gradientBg,
+  isMobile,
+  theme,
+}) => {
+  return (
+    <Box
+      paddingTop={isMobile ? 4 : 15}
+      paddingBottom={isMobile ? 4 : 25}
+      sx={{
+        position: 'relative',
+        background: gradientBg,
+      }}
+    >
+      <Container
+        sx={{
+          display: 'flex',
+
+          gap: '1rem',
+          flexDirection: isMobile ? 'column' : 'row',
+        }}
+      >
+        <Box
+          sx={{
+            background: '',
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <Box
+            sx={{
+              position: 'absolute',
+              left: '15rem',
+              display: isMobile ? 'none' : 'flex',
+            }}
+          >
+            <img src={bgImage} alt="" />
+          </Box>
+          <Typography
+            component={'h2'}
+            variant={'p'}
+            fontWeight={600}
+            sx={{
+              color: theme.palette.common.white,
+              fontWeight: 500,
+            }}
+          >
+            {eyebrow}
+          </Typography>
+          <Typography
+            component={'h1'}
+            variant={'p'}
+            sx={{
+              color: theme.palette.common.white,
+              fontWeight: 'bold',
+              fontSize: isMobile ? '38px' : '48px',
+            }}
+          >
+            {header}
+          </Typography>
+          <Typography
+            paddingY={2}
+            component={'h3'}
+            variant={'p'}
+            sx={{
+              color: theme.palette.common.white,
+              fontWeight: 500,
+              fontSize: '20px',
+            }}
+          >
+            {subHeader}
+          </Typography>
+          <Box sx={{ display: isMobile ? 'block' : 'flex' }}>
+            <Button
+              href={''}
+              component={Button}
+              variant="contained"
+              fullWidth={isMobile ? true : false}
+              sx={{
+                backgroundColor: theme.palette.common.white,
+                color: theme.palette.zesty.zestyOrange,
+                padding: '.6rem 4rem',
+                fontSize: '16px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {primaryCta}
+            </Button>
+            <Button
+              href={''}
+              variant="text"
+              color="inherit"
+              fullWidth={isMobile ? true : false}
+              sx={{
+                display: secondaryCta ? 'block' : 'none',
+                color: theme.palette.common.white,
+                padding: '.6rem 4rem',
+                fontSize: '16px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {secondaryCta}
+            </Button>
+          </Box>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            justifyItems: 'center',
+          }}
+        >
+          <img src={mainImage} width={isMobile ? 350 : 700} />
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
+function HeadlessEcommerce({ content }) {
+  console.log(content, 33333);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const Section1Props = {
+    eyebrow: 'Headless CMS',
+    header: content.header_eyebrow,
+    subHeader: content.header_h1,
+    mainImage: content.header_graphic?.data[0]?.url,
+    bgImage: ZestySvg.src,
+    primaryCta: content.header_cta_button_primary,
+    secondaryCta: content.header_cta_button_secondary,
+    gradientBg: theme.palette.zesty.zestyTealGradient,
+    isMobile,
+    theme,
+  };
+  return (
+    <Box sx={{ overflowX: 'hidden' }}>
+      <Section1Hero {...Section1Props} />
+    </Box>
+  );
 }
-  
+
 export default HeadlessEcommerce;
