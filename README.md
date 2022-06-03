@@ -235,7 +235,7 @@ For more details you can browse to `src/theme` directory for complete list of th
 
 ## Requirements
 
-Must create `env` file and add `NEXT_PUBLIC_GITHUB_AUTH`
+Must create `.env` file and add `NEXT_PUBLIC_GITHUB_AUTH`
 
 ```
 NEXT_PUBLIC_GITHUB_AUTH="Personal Auth Token"
@@ -247,6 +247,8 @@ Github `Personal Auth Token` can be generated from https://github.com/settings/t
 - Set Token scope to `public_repo` `read:org` `read:discussion`
 
 ### Settings
+
+settings can be found on `pages/[...slug]`
 
 ```jsx
 const settings = {
@@ -264,4 +266,4 @@ const settings = {
 `cards`: Number of cards that can be shown to the columns
 `discussion`: Number of discussion can be shown to the discussion columns
 
-These data can be set from the CMS `roadmap` model
+These data can be updated or set from the CMS `roadmap` model

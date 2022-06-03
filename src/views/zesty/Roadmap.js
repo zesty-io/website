@@ -37,7 +37,6 @@ import CircleIcon from '@mui/icons-material/Circle';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Link from '@mui/material/Link';
-import CircularProgress from '@mui/material/CircularProgress';
 
 function Roadmap({ content }) {
   const theme = useTheme();
