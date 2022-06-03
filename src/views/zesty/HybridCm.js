@@ -575,11 +575,11 @@ const Section5CaseStudies = ({ content, theme }) => {
   const [active, setactive] = React.useState(content?.case_studies?.data[0]);
 
   return (
-    <Box sx={{ position: 'relative', zIndex: '999999999999' }}>
+    <Box sx={{ position: 'relative', zIndex: '1001' }}>
       <Container
         sx={{
           position: 'relative',
-          zIndex: '999999999999',
+          zIndex: '1001',
         }}
       >
         <Typography
