@@ -63,6 +63,7 @@ import {
   Button,
   Card,
   Container,
+  Divider,
   Grid,
   Link,
   Typography,
@@ -83,6 +84,17 @@ import { fontSize } from '@mui/system';
 import * as helper from 'utils';
 import styled from '@emotion/styled';
 
+function makeDate(date) {
+  var d = new Date(date);
+  var options = {
+    year: 'numeric',
+    month: 'long',
+  };
+  var n = d.toLocaleDateString('en-US', options);
+
+  var replace = n.replace(new RegExp(',', 'g'), ' ');
+  return replace;
+}
 const Section1Hero = ({
   eyebrow = FillerContent.header,
   header = FillerContent.header,
@@ -731,17 +743,90 @@ const Section6Bottom = ({ content, theme, isMobile }) => {
     </Box>
   );
 };
-const ArticleCard = ({ data }) => {
+const ArticleCard = ({ data, isMobile, theme }) => {
   return (
     <Box
       sx={{
         backgroundImage: `url("${data.hero_image.data[0].url}")`,
-        objectFit: 'fill',
-        height: '20rem',
-        width: '20rem',
-        gap: '2rem',
+        backgroundSize: 'cover',
+        backgroundColor: 'pink',
+        backgroundRepeat: 'no-repeat',
+        height: '30rem',
+        width: '22rem',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'end',
       }}
-    ></Box>
+    >
+      <Box sx={{ background: '' }}>
+        <Typography
+          sx={{
+            fontSize: isMobile ? '.9rem' : '1.2rem',
+            color: theme.palette.common.white,
+            textAlign: isMobile ? 'center' : 'left',
+            fontWeight: 'bold',
+          }}
+        >
+          {data.title}
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: isMobile ? '.9rem' : '.9rem',
+            color: theme.palette.common.white,
+            textAlign: isMobile ? 'center' : 'left',
+            // fontWeight: 'medium',
+          }}
+        >
+          {data.description}
+        </Typography>
+        <Link
+          href="#"
+          underline="always"
+          sx={{
+            top: isMobile ? '10rem' : '10rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '.5rem',
+            color: theme.palette.zesty.zestyTealDark,
+          }}
+        >
+          Learn More <ArrowRightAltIcon />
+        </Link>
+      </Box>
+      <Divider />
+      <Box sx={{ background: 'red', display: 'flex', alignItems: 'center' }}>
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', flex: 1, gap: '.5rem' }}
+        >
+          <Box
+            sx={{
+              height: '50px',
+              width: '50px',
+              borderRadius: '50%',
+              overflow: 'hidden',
+            }}
+          >
+            <img
+              src={data.author.data[0].headshot.data[0].url}
+              alt="author"
+              height={50}
+              width={50}
+            />
+          </Box>
+          <Typography
+            sx={{
+              fontSize: isMobile ? '.9rem' : '.9rem',
+              color: theme.palette.common.white,
+              textAlign: isMobile ? 'center' : 'left',
+              fontWeight: 500,
+            }}
+          >
+            {data.author.data[0].name}
+          </Typography>
+        </Box>
+        <Box>{makeDate(data.date)}</Box>
+      </Box>
+    </Box>
   );
 };
 const Section7Related = ({ content, theme, isMobile }) => {
@@ -771,12 +856,11 @@ const Section7Related = ({ content, theme, isMobile }) => {
             display: 'flex',
             flexWrap: 'wrap',
             width: '100%',
-            background: 'aqua',
             justifyContent: 'space-between',
           }}
         >
           {arr.map((e) => {
-            return <ArticleCard data={e} />;
+            return <ArticleCard data={e} isMobile={isMobile} theme={theme} />;
           })}
         </Box>
       </Container>
