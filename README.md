@@ -260,10 +260,10 @@ const settings = {
 };
 ```
 
-`organization`: Organization where the data should be pulled
-`ProjectNumber`: Github Project ID
-`columns`: Number of columns that can be shown to the page
-`cards`: Number of cards that can be shown to the columns
-`discussion`: Number of discussion can be shown to the discussion columns
+- `organization`: Organization where the data should be pulled
+- `ProjectNumber`: Github Project ID
+- `columns`: Number of columns that can be shown to the page
+- `cards`: Number of cards that can be shown to the columns
+- `discussion`: Number of discussion can be shown to the discussion columns
 
 These data can be updated or set from the CMS `roadmap` model
