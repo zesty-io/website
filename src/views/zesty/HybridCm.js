@@ -575,8 +575,13 @@ const Section5CaseStudies = ({ content, theme }) => {
   const [active, setactive] = React.useState(content?.case_studies?.data[0]);
 
   return (
-    <Box>
-      <Container>
+    <Box sx={{ position: 'relative', zIndex: '999999999999' }}>
+      <Container
+        sx={{
+          position: 'relative',
+          zIndex: '999999999999',
+        }}
+      >
         <Typography
           component={'h2'}
           variant={'p'}
@@ -749,7 +754,6 @@ const ArticleCard = ({ data, isMobile, theme }) => {
       sx={{
         backgroundImage: `url("${data.hero_image.data[0].url}")`,
         backgroundSize: 'cover',
-        backgroundColor: 'pink',
         backgroundRepeat: 'no-repeat',
         height: '30rem',
         width: '22rem',
@@ -758,50 +762,80 @@ const ArticleCard = ({ data, isMobile, theme }) => {
         justifyContent: 'end',
       }}
     >
-      <Box sx={{ background: '' }}>
-        <Typography
+      <Box
+        paddingBottom={4}
+        paddingX={2}
+        sx={{
+          borderBottom: `1px solid ${theme.palette.common.white}`,
+          display: 'flex',
+          background: ' rgba(0, 0, 0, 0.2)',
+          height: '100%',
+          flexDirection: 'column',
+          justifyContent: 'end',
+        }}
+      >
+        <Box
           sx={{
-            fontSize: isMobile ? '.9rem' : '1.2rem',
-            color: theme.palette.common.white,
-            textAlign: isMobile ? 'center' : 'left',
-            fontWeight: 'bold',
-          }}
-        >
-          {data.title}
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: isMobile ? '.9rem' : '.9rem',
-            color: theme.palette.common.white,
-            textAlign: isMobile ? 'center' : 'left',
-            // fontWeight: 'medium',
-          }}
-        >
-          {data.description}
-        </Typography>
-        <Link
-          href="#"
-          underline="always"
-          sx={{
-            top: isMobile ? '10rem' : '10rem',
             display: 'flex',
-            alignItems: 'center',
+            flexDirection: 'column',
             gap: '.5rem',
-            color: theme.palette.zesty.zestyTealDark,
           }}
         >
-          Learn More <ArrowRightAltIcon />
-        </Link>
+          <Typography
+            sx={{
+              fontSize: isMobile ? '.9rem' : '1.2rem',
+              color: theme.palette.common.white,
+              textAlign: isMobile ? 'center' : 'left',
+              fontWeight: 'bold',
+            }}
+          >
+            {data.title}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: isMobile ? '.9rem' : '.9rem',
+              color: theme.palette.common.white,
+              textAlign: isMobile ? 'center' : 'left',
+              height: '6rem',
+              // fontWeight: 'medium',
+            }}
+          >
+            {data.description}
+          </Typography>
+          <Link
+            href="#"
+            underline="always"
+            sx={{
+              top: isMobile ? '10rem' : '10rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '.5rem',
+              color: theme.palette.zesty.zestyTealDark,
+              fontSize: '.8rem',
+              fontWeight: 'bold',
+            }}
+          >
+            Learn More <ArrowRightAltIcon />
+          </Link>
+        </Box>
       </Box>
       <Divider />
-      <Box sx={{ background: 'red', display: 'flex', alignItems: 'center' }}>
+      <Box
+        sx={{
+          background: ' rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+        paddingX={2}
+        paddingY={1}
+      >
         <Box
           sx={{ display: 'flex', alignItems: 'center', flex: 1, gap: '.5rem' }}
         >
           <Box
             sx={{
-              height: '50px',
-              width: '50px',
+              height: '40px',
+              width: '40px',
               borderRadius: '50%',
               overflow: 'hidden',
             }}
@@ -824,7 +858,18 @@ const ArticleCard = ({ data, isMobile, theme }) => {
             {data.author.data[0].name}
           </Typography>
         </Box>
-        <Box>{makeDate(data.date)}</Box>
+        <Box>
+          <Typography
+            sx={{
+              fontSize: isMobile ? '.9rem' : '.9rem',
+              color: theme.palette.common.white,
+              textAlign: isMobile ? 'center' : 'left',
+              fontWeight: 500,
+            }}
+          >
+            {makeDate(data.date)}
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
@@ -833,12 +878,33 @@ const Section7Related = ({ content, theme, isMobile }) => {
   const arr = content?.related_content_articles?.data;
   return (
     <Box>
-      <Container>
-        <Box>
+      <Container
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2rem',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '2rem',
+            alignItems: 'center',
+            justifyContent: 'center',
+            justifyItems: 'center',
+          }}
+        >
+          <Box
+            sx={{
+              width: '15rem',
+              height: '1px',
+              background: theme.palette.zesty.zestyOrange,
+            }}
+          ></Box>
           <Typography
             sx={{
               fontSize: isMobile ? '.9rem' : '1.6rem',
-              color: theme.palette.secondary.darkCharcoal,
+              color: theme.palette.zesty.zestyZambezi,
               textAlign: isMobile ? 'center' : 'center',
               fontWeight: 'bold',
             }}
@@ -850,6 +916,13 @@ const Section7Related = ({ content, theme, isMobile }) => {
               ),
             }}
           />
+          <Box
+            sx={{
+              width: '15rem',
+              height: '1px',
+              background: theme.palette.zesty.zestyOrange,
+            }}
+          ></Box>
         </Box>
         <Box
           sx={{
@@ -862,6 +935,22 @@ const Section7Related = ({ content, theme, isMobile }) => {
           {arr.map((e) => {
             return <ArticleCard data={e} isMobile={isMobile} theme={theme} />;
           })}
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+          }}
+        >
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{ padding: '.6rem 4rem' }}
+          >
+            {content.related_content_cta_button}
+          </Button>
         </Box>
       </Container>
     </Box>
