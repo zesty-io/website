@@ -295,15 +295,4 @@ function Roadmap({ content }) {
   );
 }
 
-export async function getServerSideProps(context, content) {
-  console.log('content', content);
-  const data = 'Test';
-
-  return {
-    props: {
-      data: data,
-    }, // will be passed to the page component as props
-  };
-}
-
 export default Roadmap;
