@@ -25,7 +25,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -40,133 +40,34 @@ import Link from '@mui/material/Link';
 import CircularProgress from '@mui/material/CircularProgress';
 
 function Roadmap({ content }) {
-  const TOKEN = process.env.NEXT_PUBLIC_GITHUB_AUTH;
-  const ENDPOINT = 'https://api.github.com/graphql';
-
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const iconColor = ['action', 'info', 'success'];
 
-  const [discussions, setDiscussions] = useState();
-  const [categoryIcons, setCategoryIcons] = useState();
-  const [categories, setCategories] = useState();
-  const [projectData, setProjectData] = useState();
+  // Hold Discussions data
+  const discussions =
+    content.github_data.data.organization.repository.discussions.nodes;
 
-  const HEADERS = {
-    'Content-Type': 'application/json',
-    Authorization: 'bearer ' + TOKEN,
-  };
-
-  /* GraphQL query to request project cards and details. */
-
-  const settings = {
-    organization: `"Zesty-io"`,
-    projectNumber: content.project_number,
-    columns: content.max_column,
-    cards: content.max_card,
-    discussions: content.max_discussion,
-  };
-
-  const body = {
-    query: `
-    {
-      organization(login: ${settings.organization}) {
-        repository(name: "manager-ui") {
-          discussions(last: ${settings.discussions}) {
-            edges {
-              node {
-                category {
-                  name,
-                  emojiHTML
-                }
-              }
-            }
-            nodes {
-              category {
-                name
-                emojiHTML
-              }
-              labels(last:10) {
-                nodes {
-                  name
-                  color
-                  url
-                }
-              }
-              upvoteCount
-              title
-              url
-            }
-          }
-        }
-        project(number: ${settings.projectNumber}) {
-          name
-          columns(last: ${settings.columns}) {
-            nodes {
-              name,
-              cards(last: ${settings.cards} ) {
-                totalCount
-                nodes {
-                  id,
-                  note,
-                  url
-                }
-              }
-            }
-          }
-        }
-      }
-    }    
-    `,
-  };
-
-  /**
-   * @description  Custom function to fetch data from Github Endpoints
-   * @Set  Sets returns data to specified state
-   * @states [Category, ProjectData, Discussion]
-   */
-  const getApiData = async () => {
-    const { data } = await fetch(ENDPOINT, {
-      method: 'POST',
-      headers: HEADERS,
-      body: JSON.stringify(body),
-    })
-      .then((response) => response.json())
-      .then((data) => data)
-      .catch((error) => console.log(error));
-
-    /* Setting the state of the discussions variable to the data returned from the API call. */
-    setDiscussions(data.organization.repository.discussions.nodes);
-
-    /* A custom function that is used to remove duplicate categories from the data returned from
-    the API call. */
-    setCategories(
-      Array.from(
-        new Set(
-          data.organization.repository.discussions.edges.map(
-            (category) => category.node.category.name,
-          ),
-        ),
+  // Hold Categories pulled from github active discussions
+  const categories = Array.from(
+    new Set(
+      content.github_data.data.organization.repository.discussions.edges.map(
+        (category) => category.node.category.name,
       ),
-    );
-    setCategoryIcons(
-      Array.from(
-        new Set(
-          data.organization.repository.discussions.edges.map(
-            (category) => category.node.category.emojiHTML,
-          ),
-        ),
+    ),
+  );
+
+  // Hold category icons from github categories
+  const categoryIcons = Array.from(
+    new Set(
+      content.github_data.data.organization.repository.discussions.edges.map(
+        (category) => category.node.category.emojiHTML,
       ),
-    );
+    ),
+  );
 
-    /* Setting the state of the projectData variable to the data returned from the API call. */
-    setProjectData(data.organization.project.columns);
-  };
-
-  /* Using the useEffect hook to call the getApiData function when the component mounts. */
-  useEffect(() => {
-    getApiData();
-  }, []);
+  // Hold content for projects cards
+  const projectData = content.github_data.data.organization.project.columns;
 
   return (
     <>
@@ -191,49 +92,43 @@ function Roadmap({ content }) {
 
         {/* Kanban Cards */}
 
-        {projectData ? (
-          <Grid sx={{ mt: 6 }} container spacing={2}>
-            {projectData?.nodes.map((board, idx) => (
-              <Grid item xs={12} md={4}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <CircleIcon color={iconColor[idx]} />
-                  <Typography variant="h6" component="h2">
-                    {board.name}
-                  </Typography>
-                </Box>
-                <CardContent
-                  sx={{
-                    minHeight: 500,
-                    borderRadius: 1,
-                    background: theme.palette.background.level2,
-                    mt: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 2,
-                  }}
-                  variant="outlined"
-                >
-                  {board.cards.nodes.map((item) => (
-                    <Box>
-                      <Link
-                        underline="hover"
-                        color="inherit"
-                        target="_blank"
-                        href={item.url}
-                      >
-                        {item.note}
-                      </Link>
-                    </Box>
-                  ))}
-                </CardContent>
-              </Grid>
-            ))}
-          </Grid>
-        ) : (
-          <Box sx={{ display: 'flex', mt: 6 }}>
-            <CircularProgress color="action" />
-          </Box>
-        )}
+        <Grid sx={{ mt: 6 }} container spacing={2}>
+          {projectData.nodes.map((board, idx) => (
+            <Grid key={idx} item xs={12} md={4}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <CircleIcon color={iconColor[idx]} />
+                <Typography variant="h6" component="h2">
+                  {board.name}
+                </Typography>
+              </Box>
+              <CardContent
+                sx={{
+                  minHeight: 500,
+                  borderRadius: 1,
+                  background: theme.palette.background.level2,
+                  mt: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                }}
+                variant="outlined"
+              >
+                {board.cards.nodes.map((item, idx) => (
+                  <Box key={idx}>
+                    <Link
+                      underline="hover"
+                      color="inherit"
+                      target="_blank"
+                      href={item.url}
+                    >
+                      {item.note}
+                    </Link>
+                  </Box>
+                ))}
+              </CardContent>
+            </Grid>
+          ))}
+        </Grid>
 
         {/* Discussion Header Title */}
 
@@ -289,8 +184,8 @@ function Roadmap({ content }) {
         {/* Discussion Cards */}
 
         <Grid sx={{ mt: 6 }} container spacing={2}>
-          {categories?.map((category, idx) => (
-            <Grid item xs={12} md={4}>
+          {categories.map((category, idx) => (
+            <Grid key={idx} item xs={12} md={4}>
               <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                 {categoryIcons && (
                   <div
@@ -315,10 +210,11 @@ function Roadmap({ content }) {
                 }}
                 variant="outlined"
               >
-                {discussions.map((discussion) => {
+                {discussions.map((discussion, idx) => {
                   if (discussion.category.name === category) {
                     return (
                       <Box
+                        key={idx}
                         sx={{
                           display: 'flex',
                           gap: 1,
@@ -360,8 +256,9 @@ function Roadmap({ content }) {
                           <Box
                             sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}
                           >
-                            {discussion.labels.nodes.map((label) => (
+                            {discussion.labels.nodes.map((label, idx) => (
                               <Box
+                                key={idx}
                                 sx={{
                                   borderRadius: 50,
                                   px: 1,
@@ -397,6 +294,17 @@ function Roadmap({ content }) {
       </Container>
     </>
   );
+}
+
+export async function getServerSideProps(context, content) {
+  console.log('content', content);
+  const data = 'Test';
+
+  return {
+    props: {
+      data: data,
+    }, // will be passed to the page component as props
+  };
 }
 
 export default Roadmap;

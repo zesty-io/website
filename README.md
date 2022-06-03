@@ -230,3 +230,38 @@ For more details you can browse to `src/theme` directory for complete list of th
 │   ├── index.js
 
 ```
+
+# Github Data Fetching For Roadmap
+
+## Requirements
+
+Must create `env` file and add `NEXT_PUBLIC_GITHUB_AUTH`
+
+```
+NEXT_PUBLIC_GITHUB_AUTH="Personal Auth Token"
+```
+
+Github `Personal Auth Token` can be generated from https://github.com/settings/tokens
+
+- Make sure to set token to no expiration
+- Set Token scope to `public_repo` `read:org` `read:discussion`
+
+### Settings
+
+```jsx
+const settings = {
+  organization: `"Zesty-io"`,
+  projectNumber: data.project_number,
+  columns: data.max_column,
+  cards: data.max_card,
+  discussions: data.max_discussion,
+};
+```
+
+`organization`: Organization where the data should be pulled
+`ProjectNumber`: Github Project ID
+`columns`: Number of columns that can be shown to the page
+`cards`: Number of cards that can be shown to the columns
+`discussion`: Number of discussion can be shown to the discussion columns
+
+These data can be set from the CMS `roadmap` model
