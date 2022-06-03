@@ -81,6 +81,7 @@ import dxpCurve from '../../../public/assets/images/dxp_curve.svg';
 import dxpLine from '../../../public/assets/images/dxp_line.svg';
 import { fontSize } from '@mui/system';
 import * as helper from 'utils';
+import styled from '@emotion/styled';
 
 const Section1Hero = ({
   eyebrow = FillerContent.header,
@@ -246,8 +247,6 @@ const Section2About = ({ text, img, isMobile, theme }) => {
           <div data-aos="fade-left">
             <Box sx={{ position: 'relative' }}>
               <Typography
-                component={'h2'}
-                variant={'p'}
                 sx={{
                   fontSize: isMobile ? '.9rem' : '1.3rem',
                   color: theme.palette.secondary.darkCharcoal,
@@ -268,6 +267,517 @@ const Section2About = ({ text, img, isMobile, theme }) => {
               <img src={img} width={isMobile ? 350 : 600} />
             </Box>
           </div>
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
+const Section3Hybrid = ({ text, img, theme, isMobile }) => {
+  return (
+    <Box>
+      <Container
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <div data-aos="zoom-in">
+          <Typography
+            sx={{
+              fontSize: isMobile ? '.9rem' : '1.3rem',
+              color: theme.palette.secondary.darkCharcoal,
+              textAlign: isMobile ? 'center' : 'center',
+            }}
+            dangerouslySetInnerHTML={{
+              __html: helper.strColorChanger(
+                text,
+                'A Quick Look Into Zesty&rsquo;s Hybrid CMS Interface',
+                theme.palette.zesty.zestyOrange,
+              ),
+            }}
+          />
+        </div>
+        <div data-aos="fade-right">
+          <Box
+            paddingY={isMobile ? 15 : 0}
+            sx={{
+              display: 'flex',
+              justifyItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <img src={img} width={isMobile ? 350 : 600} />
+          </Box>
+        </div>
+      </Container>
+    </Box>
+  );
+};
+
+const MiniDot = ({ theme, isMobile }) => {
+  return (
+    <Box
+      sx={{
+        zIndex: '10',
+        background: theme.palette.zesty.zestyBackgroundBlue,
+        height: isMobile ? '15px' : '15px',
+        width: isMobile ? '15px' : '15px',
+        borderRadius: '50%',
+        position: 'absolute',
+        left: isMobile ? '1.8%' : '-7.8%',
+        top: isMobile ? '45%' : '38%',
+        transform: 'translate(-50%,-50%)',
+      }}
+    />
+  );
+};
+const RevealComponent = ({
+  text = '',
+  img = FillerContent.dashboard_image,
+  strToChange = '',
+  reverse = false,
+  theme,
+  strColor = theme.palette.zesty.zestyOrange,
+  data,
+  index,
+  isMobile,
+}) => {
+  return (
+    <Box
+      paddingY={1}
+      sx={{
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : reverse ? 'row-reverse' : 'row',
+        position: 'relative',
+        zIndex: '1000',
+        gap: isMobile ? '4rem' : '0',
+      }}
+    >
+      <MiniDot theme={theme} isMobile={isMobile} />
+      <div data-aos="zoom-out-left">
+        <Box sx={{ position: 'relative' }}>
+          <Typography
+            paddingLeft={isMobile ? 2 : 0}
+            paddingTop={isMobile ? 2 : 10}
+            paddingBottom={isMobile ? 6 : 10}
+            sx={{
+              color: theme.palette.common.white,
+              textAlign: 'left',
+              fontSize: isMobile ? '1rem' : '1.5rem',
+            }}
+            dangerouslySetInnerHTML={{
+              __html: helper.strColorChanger(text, strToChange, strColor),
+            }}
+          />
+        </Box>
+      </div>
+      <div data-aos="zoom-out-right">
+        <img src={img} width={isMobile ? 350 : 700} />
+      </div>
+    </Box>
+  );
+};
+
+const Section4HybridCMS = ({ content, theme, isMobile }) => {
+  // const FillerImage =
+  //   content.middle_solution_1_graphic.data[0].url ||
+  //   FillerContent.dashboard_image;
+  const arr = [
+    {
+      text: content.hybrid_cms_feature_1,
+      img:
+        content.hybrid_cms_feature_1_image &&
+        content.hybrid_cms_feature_1_image.data[0].url,
+      strToChange: 'Multi-Channel Content Management',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_2,
+      img:
+        content.hybrid_cms_feature_2_image &&
+        content.hybrid_cms_feature_2_image.data[0].url,
+      strToChange: 'Visual Publishing',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_3,
+      img:
+        content.hybrid_cms_feature_3_image &&
+        content.hybrid_cms_feature_3_image.data[0].url,
+      strToChange: 'LowCode Interface',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_4,
+      img:
+        content.hybrid_cms_feature_4_image &&
+        content.hybrid_cms_feature_4_image.data[0].url,
+      strToChange: 'Easy Tech Stack Integration',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_5,
+      img:
+        content.hybrid_cms_feature_5_image &&
+        content.hybrid_cms_feature_5_image.data[0].url,
+      strToChange: 'Organized Workflows &amp; Team Management',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_6,
+      img:
+        content.hybrid_cms_feature_6_image &&
+        content.hybrid_cms_feature_6_image.data[0].url,
+      strToChange: 'Strong Security',
+      reverse: false,
+      theme: theme,
+    },
+  ];
+  return (
+    <Box
+      paddingY={isMobile ? 2 : 10}
+      sx={{
+        backgroundColor: theme.palette.zesty.zestyDarkBlue,
+        position: 'relative',
+      }}
+    >
+      <Box
+        sx={{
+          zIndex: '100',
+          position: 'absolute',
+          left: '20%',
+          top: 0,
+          display: isMobile ? 'flex' : 'flex',
+          width: 'calc(50vw - 15%)',
+          height: '100px',
+          position: 'absolute',
+          borderRight: `2px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
+          borderRadius: '0 0 100px 0',
+        }}
+      ></Box>
+      <Box
+        sx={{
+          zIndex: '10',
+          position: 'absolute',
+          left: '15%',
+          top: '100px',
+          display: isMobile ? 'flex' : 'flex',
+          width: 'calc(50vw - 15%)',
+          height: '100%',
+          position: 'absolute',
+          border: `1px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
+          borderRight: 0,
+          borderRadius: '150px 0 0 0',
+        }}
+      ></Box>
+      <Box
+        sx={{
+          zIndex: '10',
+          position: 'absolute',
+          left: 0,
+          bottom: 0,
+          display: isMobile ? 'none' : 'flex',
+        }}
+      >
+        <img src={featuresBg1.src} alt="bg" />
+      </Box>
+      <Box
+        sx={{
+          zIndex: '10',
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          display: isMobile ? 'none' : 'flex',
+        }}
+      >
+        <img src={featuresBg2.src} alt="bg" />
+      </Box>
+      <Container>
+        <Box sx={{ position: 'relative' }}>
+          <Typography
+            paddingTop={isMobile ? 8 : 10}
+            paddingBottom={isMobile ? 0 : 10}
+            paddingRight={40}
+            sx={{
+              color: theme.palette.common.white,
+              textAlign: 'left',
+              fontSize: isMobile ? '28px' : '1.5rem',
+              position: 'relative',
+              zIndex: '1000',
+              textTransform: 'capitalize',
+            }}
+            dangerouslySetInnerHTML={{
+              __html: helper.strColorChanger(
+                content.hybrid_cms_features_header,
+                'Hybrid CMS Features',
+                theme.palette.zesty.zestyOrange,
+              ),
+            }}
+          ></Typography>
+          <MiniDot theme={theme} isMobile={isMobile} />
+        </Box>
+        {arr.map((e, i) => {
+          return (
+            <RevealComponent
+              isMobile={isMobile}
+              data={e}
+              index={i}
+              text={e.text}
+              img={e.img}
+              strToChange={e.strToChange}
+              reverse={e.reverse}
+              theme={e.theme}
+            />
+          );
+        })}
+      </Container>
+    </Box>
+  );
+};
+
+const CustomButton = styled.button`
+  background: ${(props) => props.theme.palette.common.white};
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  user-select: none;
+  opacity: ${(props) => (props.active ? 1 : 0.3)};
+  &:active {
+    transform: scale(0.9);
+  }
+  &:focus {
+  }
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const Section5CaseStudies = ({ content, theme }) => {
+  const [active, setactive] = React.useState(content?.case_studies?.data[0]);
+
+  return (
+    <Box>
+      <Container>
+        <Typography
+          component={'h2'}
+          variant={'p'}
+          paddingBottom={10}
+          sx={{
+            fontSize: '32px',
+            color: theme.palette.secondary.darkCharcoal,
+            textAlign: 'center',
+          }}
+          dangerouslySetInnerHTML={{
+            __html: helper.strColorChanger(
+              content.case_study_title,
+              'none',
+              theme.palette.zesty.zestyOrange,
+            ),
+          }}
+        />
+      </Container>
+      <Box
+        paddingX={8}
+        paddingY={2}
+        sx={{
+          height: '20rem',
+          background: theme.palette.zesty.zestyDarkBlue,
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          alignItems: 'center',
+        }}
+      >
+        <Typography
+          sx={{
+            color: theme.palette.common.white,
+            fontWeight: 500,
+            fontSize: '20px',
+          }}
+        >
+          {active.summary}
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <img src={active.logo.data[0].url} />
+        </Box>
+      </Box>
+      <Container>
+        <Box
+          paddingY={4}
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            justifyItems: 'center',
+            gap: '3rem',
+          }}
+        >
+          {content.case_studies?.data?.map((e, i) => {
+            return (
+              <CustomButton
+                active={active?.title === e?.title ? true : false}
+                theme={theme}
+                onClick={() => setactive(e)}
+              >
+                <img src={e.logo.data[0].url} />
+              </CustomButton>
+            );
+          })}
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
+const Section6Bottom = ({ content, theme, isMobile }) => {
+  return (
+    <Box paddingY={isMobile ? 0 : 20} sx={{ position: 'relative' }}>
+      {/* <Box
+        sx={{
+          zIndex: '10',
+          position: 'absolute',
+          right: 0,
+          bottom: 0,
+          display: isMobile ? 'none' : 'flex',
+        }}
+      >
+        <img
+          src={content.bottom_page_background_image?.data[0]?.url}
+          alt="bg"
+        />
+      </Box> */}
+      <Container>
+        <Box
+          paddingY={isMobile ? 2 : 8}
+          sx={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row-reverse',
+            gap: isMobile ? '1rem' : '4rem',
+          }}
+        >
+          <div data-aos="fade-left">
+            <Box sx={{ position: 'relative' }}>
+              <Typography
+                component={'h2'}
+                variant={'p'}
+                sx={{
+                  fontSize: isMobile ? '.9rem' : '1.6rem',
+                  color: theme.palette.secondary.darkCharcoal,
+                  textAlign: isMobile ? 'center' : 'left',
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: helper.strColorChanger(
+                    content.bottom_cta_header,
+                    'Hybrid CMS',
+                    theme.palette.zesty.zestyOrange,
+                  ),
+                }}
+              />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: isMobile ? '6rem' : '10rem',
+                  display: 'flex',
+                  flexDirection: isMobile ? 'column' : 'row',
+                  alignItems: 'center',
+                  gap: '.5rem',
+                  color: theme.palette.zesty.zestyTealDark,
+                  width: '100%',
+                }}
+              >
+                <Button
+                  sx={{ padding: '.5rem 4rem' }}
+                  variant="contained"
+                  color="secondary"
+                  fullWidth={isMobile}
+                >
+                  {content.bottom_cta_primary}
+                </Button>
+                <Button
+                  variant="text"
+                  color="secondary"
+                  fullWidth={isMobile}
+                  sx={{ textDecoration: 'underline' }}
+                >
+                  {content.bottom_cta_secondary}
+                  <ArrowRightAltIcon />
+                </Button>
+              </Box>
+            </Box>
+          </div>
+          <div data-aos="fade-right">
+            <Box paddingY={isMobile ? 15 : 0}>
+              <img
+                src={content.bottom_cta_graphic.data[0].url}
+                width={isMobile ? 350 : 600}
+              />
+            </Box>
+          </div>
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+const ArticleCard = ({ data }) => {
+  return (
+    <Box
+      sx={{
+        backgroundImage: `url("${data.hero_image.data[0].url}")`,
+        objectFit: 'fill',
+        height: '20rem',
+        width: '20rem',
+        gap: '2rem',
+      }}
+    ></Box>
+  );
+};
+const Section7Related = ({ content, theme, isMobile }) => {
+  const arr = content?.related_content_articles?.data;
+  return (
+    <Box>
+      <Container>
+        <Box>
+          <Typography
+            sx={{
+              fontSize: isMobile ? '.9rem' : '1.6rem',
+              color: theme.palette.secondary.darkCharcoal,
+              textAlign: isMobile ? 'center' : 'center',
+              fontWeight: 'bold',
+            }}
+            dangerouslySetInnerHTML={{
+              __html: helper.strColorChanger(
+                content.related_content_header,
+                'Hybrid CMS',
+                theme.palette.zesty.zestyOrange,
+              ),
+            }}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            width: '100%',
+            background: 'aqua',
+            justifyContent: 'space-between',
+          }}
+        >
+          {arr.map((e) => {
+            return <ArticleCard data={e} />;
+          })}
         </Box>
       </Container>
     </Box>
@@ -295,15 +805,49 @@ function HybridCm({ content }) {
     isMobile,
     theme,
   };
+  const Section3Props = {
+    text: content.hybrid_interface,
+    img: content.hybrid_interface_graphic?.data[0]?.url,
+    isMobile,
+    theme,
+  };
+
+  const Section4Props = {
+    content,
+    isMobile,
+    theme,
+  };
+
+  const Section5Props = {
+    content,
+    isMobile,
+    theme,
+  };
+  const Section6Props = {
+    content,
+    isMobile,
+    theme,
+  };
+  const Section7Props = {
+    content,
+    isMobile,
+    theme,
+  };
   React.useEffect(() => {
     AOS.init({
-      duration: 300,
+      duration: 1000,
     });
   }, []);
+
   return (
     <>
       <Section1Hero {...Section1Props} />
       <Section2About {...Section2Props} />
+      <Section3Hybrid {...Section3Props} />
+      <Section4HybridCMS {...Section4Props} />
+      <Section5CaseStudies {...Section5Props} />
+      <Section6Bottom {...Section6Props} />
+      <Section7Related {...Section7Props} />
     </>
   );
 }

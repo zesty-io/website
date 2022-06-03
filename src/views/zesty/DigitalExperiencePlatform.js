@@ -132,8 +132,9 @@ const Section1Hero = ({
           justifyContent: 'space-between',
         }}
       >
-        <Box
-          sx={{
+        <div
+          data-aos="zoom-in"
+          style={{
             background: '',
             display: 'flex',
             justifyContent: 'center',
@@ -215,10 +216,11 @@ const Section1Hero = ({
               {secondaryCta} <ArrowRightAltIcon />
             </Button>
           </Box>
-        </Box>
+        </div>
 
-        <Box
-          sx={{
+        <div
+          data-aos="zoom-in"
+          style={{
             display: 'flex',
             flexDirection: 'row',
             alignContent: 'end',
@@ -228,7 +230,7 @@ const Section1Hero = ({
           }}
         >
           <img src={mainImage} width={isMobile ? 350 : 650} />
-        </Box>
+        </div>
       </Container>
     </Box>
   );
@@ -289,40 +291,40 @@ const Section2Solution = ({ content, theme, isMobile }) => {
     {
       id: 0,
       name: 'personalize',
-      icon: content.solutions_icon_1.data[0].url,
+      icon: content.solutions_icon_1?.data[0]?.url,
       text: content.solution_1_description,
       subText: content.solution_1_description?.match(headerRegex)[1],
-      img: content.solution_1_graphic.data[0].url,
+      img: content.solution_1_graphic.data[0]?.url,
       ctaName: 'Learn More',
       href: '#',
     },
     {
       id: 1,
       name: 'ecom',
-      icon: content.solutions_icon_2.data[0].url,
+      icon: content.solutions_icon_2?.data[0]?.url,
       text: content.solution_2_description,
       subText: content.solution_2_description?.match(headerRegex)[1],
-      img: content.solution_2_graphic.data[0].url,
+      img: content.solution_2_graphic?.data[0]?.url,
       ctaName: 'Learn More',
       href: '#',
     },
     {
       id: 2,
       name: 'distribution',
-      icon: content.solutions_icon_3.data[0].url,
+      icon: content.solutions_icon_3?.data[0]?.url,
       text: content.solution_3_description,
       subText: content.solution_3_description?.match(headerRegex)[1],
-      img: content.solution_3_graphic.data[0].url,
+      img: content.solution_3_graphic.data[0]?.url,
       ctaName: 'Learn More',
       href: '#',
     },
     {
       id: 3,
       name: 'innovate',
-      icon: content.solutions_icon_4.data[0].url,
+      icon: content.solutions_icon_4.data[0]?.url,
       text: content.solution_4_description,
       subText: content.solution_4_description?.match(headerRegex)[1],
-      img: content.solution_4_graphic.data[0].url,
+      img: content.solution_4_graphic.data[0]?.url,
       ctaName: 'Learn More',
       href: '#',
     },
@@ -1435,13 +1437,13 @@ function DigitalExperiencePlatform({ content }) {
     primaryCta: content.header_cta_primary,
     secondaryCta: content.header_cta_secondary,
     gradientBg: theme.palette.zesty.zestyBlueGradient,
-    bgImage: content.header_background_image.data[1].url,
+    bgImage: content.header_background_image?.data[1]?.url,
     isMobile,
     theme,
   };
   React.useEffect(() => {
     AOS.init({
-      duration: 300,
+      duration: 1000,
     });
   }, []);
   return (
