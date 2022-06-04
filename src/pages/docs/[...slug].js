@@ -6,10 +6,14 @@ import Grid from '@mui/material/Grid';
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import { docsLookup } from 'components/docs/docsLookup';
-
+import MarkdownIt from 'markdown-it';
 import { useTheme } from '@mui/material/styles';
 import AppBar from 'components/console/AppBar';
 import Head from 'next/head';
+import { parse } from 'himalaya';
+import * as helper from 'utils';
+import { AccordionMui } from 'components/Accordion';
+import { SimpleHeroWithSearchBox } from 'blocks/heroes';
 
 const zestyImage =
   'https://kfg6bckb.media.zestyio.com/zesty-share-image-generic.png?width=1200';
@@ -92,11 +96,11 @@ export default function Docs(props) {
   // get meta
   let meta = extractMetaFromMarkdown(props.markdown);
 
-  // getting the title ,image and  description
+  // getting the title ,image and  description for head meta tags
   const titleRegexMeta = /(?<=title: ).+?(\n)/;
   const titleRegexMd = /(?<=# ).+/;
-  const titleMeta = meta?.match(titleRegexMeta);
-  const titleMd = props.markdown.match(titleRegexMd);
+  const titleMeta = meta?.match(titleRegexMeta) || '';
+  const titleMd = props.markdown.match(titleRegexMd) || '';
   const title = (titleMeta || titleMd)[0];
   const descRegex = /(?<=description: >-).+/is;
   const description = (meta.match(descRegex) || [])[0];
@@ -118,6 +122,11 @@ export default function Docs(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  // conversion of md to html to json in accordion
+  const md = new MarkdownIt();
+  const htmlNav = md.render(cleanMarkdownURLS(toc));
+  const accordionData = helper.removeWhitespace(parse(htmlNav));
+
   return (
     <Main customRouting={props.navigationCustom}>
       <Head>
@@ -129,15 +138,16 @@ export default function Docs(props) {
       </Head>
       <AppBar></AppBar>
       <Container>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex' }} paddingBottom={4}>
           <Box
             component="nav"
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
             aria-label="mailbox folders"
           >
-            <MuiMarkdown overrides={muiTOCOverrides}>
+            <AccordionMui data={accordionData} />
+            {/* <MuiMarkdown overrides={muiTOCOverrides}>
               {cleanMarkdownURLS(toc)}
-            </MuiMarkdown>
+            </MuiMarkdown> */}
           </Box>
           <Box
             component="main"
