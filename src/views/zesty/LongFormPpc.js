@@ -585,6 +585,7 @@ function LongFormPpc({ content }) {
     displayMsgUnderButton: ' ',
     additionalTextfield: { company: true, jobTitle: true },
     customButtonStyle: { display: 'flex', justifyContent: 'center' },
+    phoneNumber: true,
   };
 
   return (

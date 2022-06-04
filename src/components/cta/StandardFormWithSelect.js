@@ -142,6 +142,7 @@ const validationSchemaForPpc = yup.object({
   message: yup.string().trim().required('Please specify your message'),
   company: yup.string().trim().required('Please specify your company'),
   jobTitle: yup.string().trim().required('Please specify your job title'),
+  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
 
 const validationSchemaForDxp = yup.object({
@@ -165,6 +166,7 @@ const validationSchemaForDxp = yup.object({
   newsletter_signup: yup.boolean(),
   company: yup.string().trim().required('Please specify your company'),
   jobTitle: yup.string().trim().required('Please specify your job title'),
+  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
 });
 
 const subscribeToZoho = async (payload) => {
@@ -203,6 +205,9 @@ function StandardFormWithSelect({
   validationType = '',
   ctaButton = 'Submit',
   downloadLink = '',
+  onClickBtn = null,
+  phoneNumber = false,
+  capterraTracking = null,
 }) {
   const theme = useTheme();
 
@@ -236,6 +241,7 @@ function StandardFormWithSelect({
   const onSubmit = async (values) => {
     // download link
     downloadLink && window.open(downloadLink, '_blank');
+    capterraTracking && capterraTracking();
 
     let payload = getLeadObjectZOHO(
       values,
@@ -244,7 +250,6 @@ function StandardFormWithSelect({
       businessType,
       leadSource,
     );
-    console.log(payload.newsletter_signup, 1111111);
     payload.newsletter_signup ? subscribeToZoho(payload) : postToZOHO(payload);
     setOpen(!open);
     return values;
@@ -331,7 +336,7 @@ function StandardFormWithSelect({
               helperText={formik.touched.email && formik.errors.email}
             />
           </Grid>
-          {additionalTextfield.phoneNumber && (
+          {phoneNumber && (
             <Grid item xs={12}>
               <TextField
                 sx={{ height: 54 }}
