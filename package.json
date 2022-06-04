@@ -48,7 +48,6 @@
     "chalk": "^4.1.2",
     "cookies-next": "^2.0.4",
     "formik": "^2.2.6",
-    "fuse.js": "^6.5.3",
     "jarallax": "^1.12.8",
     "mui-markdown": "^0.5.3",
     "next": "^12.1.4",

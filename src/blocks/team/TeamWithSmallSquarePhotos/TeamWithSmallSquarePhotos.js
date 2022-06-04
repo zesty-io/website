@@ -45,7 +45,7 @@ const mock = [
   },
 ];
 
-const TeamWithSmallSquarePhotos = ({eyebrow, title, team}) => {
+const TeamWithSmallSquarePhotos = ({eyebrow, title, team, grid=4}) => {
   const theme = useTheme();
 
   return (
@@ -101,7 +101,7 @@ const TeamWithSmallSquarePhotos = ({eyebrow, title, team}) => {
         </Box>
         <Grid container spacing={2}>
           {team.sort((a, b) => a.sort_order - b.sort_order).map((item, i) => (
-            <Grid item xs={12} sm={6} md={4} key={i}>
+            <Grid item xs={12} sm={6} md={grid} key={i}>
               <Box sx={{ paddingBottom: 2 }}> 
                 <ListItem component="div" disableGutters sx={{ padding: 0 }}>
                   <ListItemAvatar sx={{ marginRight: 3 }}>

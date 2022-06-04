@@ -23,6 +23,7 @@ import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
 import { getCookie, setCookies } from 'cookies-next';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 // for hiding of ellipis in message in mobile
 const StyledTextField = styled(TextField)({
@@ -55,6 +56,7 @@ const getLeadObjectZOHO = (
     Phone_Number: obj.phoneNumber,
     Inquiry_Reason: select,
     Description: obj.message,
+    newsletter_signup: obj.newsletter_signup,
 
     Lead_Source: leadSource,
     Role: getCookie('persona') ? getCookie('persona') : acRole,
@@ -88,7 +90,7 @@ const postToZOHO = async (payloadJSON) => {
     .then((res) => res.json())
     .then((data) => {
       // google data
-      dataLayer.push({'event': 'formCaptureSuccess', value: "1"});
+      dataLayer.push({ event: 'formCaptureSuccess', value: '1' });
     })
     .catch((error) => {
       throw new Error(`HTTP error: ${error}`);
@@ -142,6 +144,44 @@ const validationSchemaForPpc = yup.object({
   jobTitle: yup.string().trim().required('Please specify your job title'),
 });
 
+const validationSchemaForDxp = yup.object({
+  firstName: yup
+    .string()
+    .trim()
+    .min(2, 'Please enter a valid name')
+    .max(50, 'Please enter a valid name')
+    .required('Please specify your first name'),
+  lastName: yup
+    .string()
+    .trim()
+    .min(2, 'Please enter a valid name')
+    .max(50, 'Please enter a valid name')
+    .required('Please specify your last name'),
+  email: yup
+    .string()
+    .trim()
+    .email('Please enter a valid email address')
+    .required('Email is required.'),
+  newsletter_signup: yup.boolean(),
+  company: yup.string().trim().required('Please specify your company'),
+  jobTitle: yup.string().trim().required('Please specify your job title'),
+});
+
+const subscribeToZoho = async (payload) => {
+  const { Email, First_Name, Last_Name } = payload;
+  await fetch(
+    `https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe?email=${Email}&name=${First_Name}_${Last_Name}`,
+    {
+      method: 'GET',
+    },
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      dataLayer.push({ event: 'emailSubscribeSubmitted', value: '1' });
+      acSENT = true;
+    });
+};
+
 function StandardFormWithSelect({
   selectedValue = 0,
   hideSelect = false,
@@ -158,6 +198,11 @@ function StandardFormWithSelect({
   hidePrivacySection = false,
   messageLabel = 'Message',
   customButtonStyle = { display: 'flex', justifyContent: 'initial' },
+  bottomCheckbox = false,
+  bottomCheckboxLabel = '',
+  validationType = '',
+  ctaButton = 'Submit',
+  downloadLink = '',
 }) {
   const theme = useTheme();
 
@@ -185,9 +230,13 @@ function StandardFormWithSelect({
     company: '',
     jobTitle: '',
     phoneNumber: '',
+    newsletter_signup: false,
   };
 
   const onSubmit = async (values) => {
+    // download link
+    downloadLink && window.open(downloadLink, '_blank');
+
     let payload = getLeadObjectZOHO(
       values,
       selectValue,
@@ -195,16 +244,20 @@ function StandardFormWithSelect({
       businessType,
       leadSource,
     );
-    await postToZOHO(payload);
+    console.log(payload.newsletter_signup, 1111111);
+    payload.newsletter_signup ? subscribeToZoho(payload) : postToZOHO(payload);
     setOpen(!open);
     return values;
   };
 
   const formik = useFormik({
     initialValues,
-    validationSchema: additionalTextfield.company
-      ? validationSchemaForPpc
-      : validationSchema,
+    validationSchema:
+      validationType === 'dxp'
+        ? validationSchemaForDxp
+        : additionalTextfield.company
+        ? validationSchemaForPpc
+        : validationSchema,
     onSubmit,
   });
 
@@ -355,20 +408,46 @@ function StandardFormWithSelect({
             </Grid>
           )}
           <Grid item xs={12}>
-            <StyledTextField
-              label={messageLabel}
-              multiline
-              rows={6}
-              variant="outlined"
-              color="primary"
-              size="medium"
-              name="message"
-              fullWidth
-              value={formik.values.message}
-              onChange={formik.handleChange}
-              error={formik.touched.message && Boolean(formik.errors.message)}
-              helperText={formik.touched.message && formik.errors.message}
-            />
+            {messageLabel && (
+              <StyledTextField
+                label={messageLabel}
+                multiline
+                rows={6}
+                variant="outlined"
+                color="primary"
+                size="medium"
+                name="message"
+                fullWidth
+                value={formik.values.message}
+                onChange={formik.handleChange}
+                error={formik.touched.message && Boolean(formik.errors.message)}
+                helperText={formik.touched.message && formik.errors.message}
+              />
+            )}
+            {bottomCheckbox && (
+              <Box>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="primary"
+                      name="newsletter_signup"
+                      value={formik.values.newsletter_signup}
+                      defaultChecked={false}
+                      onChange={formik.handleChange}
+                      onError={
+                        formik.touched.newsletter_signup &&
+                        Boolean(formik.errors.newsletter_signup)
+                      }
+                      helperText={
+                        formik.touched.newsletter_signup &&
+                        formik.errors.newsletter_signup
+                      }
+                    />
+                  }
+                  label={bottomCheckboxLabel}
+                />
+              </Box>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Button
@@ -380,7 +459,7 @@ function StandardFormWithSelect({
               size="medium"
               type="submit"
             >
-              Submit
+              {ctaButton}
             </Button>
           </Grid>
           <Grid item xs={12}>

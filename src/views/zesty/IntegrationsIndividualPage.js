@@ -673,6 +673,7 @@ const SimpleHeroWithCta = ({
               fontSize: isMobile ? '35px' : '48px',
               fontWeight: 700,
               marginBottom: '2rem',
+              wordBreak: 'break-word',
             }}
           >
             {title}
@@ -686,7 +687,7 @@ const SimpleHeroWithCta = ({
             sx={{
               fontSize: '20px',
               fontWeight: 400,
-              whiteSpace: isMobile ? 'normal' : 'nowrap',
+              whiteSpace: isMobile ? 'normal' : 'normal',
             }}
             align={'center'}
           >
@@ -800,6 +801,8 @@ const ContactUsForm = ({ theme, content }) => {
 };
 
 const VideoPlayer = ({ videoUrl, theme, isMobile, videoHeader }) => {
+  const isIpad = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <div
       style={{
@@ -826,8 +829,8 @@ const VideoPlayer = ({ videoUrl, theme, isMobile, videoHeader }) => {
         {videoHeader}
       </Typography>
       <ReactPlayer
-        width={isMobile ? '90vw' : '50vw'}
-        height={isMobile ? '33vh' : '60vh'}
+        width={isMobile ? '90vw' : isIpad ? '70vw' : '50vw'}
+        height={isMobile ? '33vh' : '50vh'}
         url={videoUrl}
         muted={false}
         playing={false}
