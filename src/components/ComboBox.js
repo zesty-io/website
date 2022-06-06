@@ -138,19 +138,9 @@ const StyledPopper = styled(Popper)({
   },
 });
 
-// const OPTIONS1 = Array.from(new Array(1000))
-//   .map(() => random(10 + Math.ceil(Math.random() * 20)))
-//   .map((e, i) => {
-//     return {
-//       label: e,
-//       name: e,
-//       value: i,
-//     };
-//   });
-
 const filterOptions = createFilterOptions({
   matchFrom: 'any',
-  stringify: (option) => option.label + option.value,
+  stringify: (option) => option.name + option.value,
 });
 
 const Index = ({ instances, setCookies, instanceZUID }) => {
@@ -172,6 +162,7 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
   const handleChange = (e, newValue) => {
     setCookies('ZESTY_WORKING_INSTANCE', newValue?.value);
     setlabel(newValue?.name);
+    window.location.reload();
   };
 
   React.useEffect(() => {

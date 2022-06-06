@@ -48,6 +48,86 @@ export async function getServerSideProps(ctx) {
 
   const data = await fetchPage(ctx.resolvedUrl);
 
+  /**
+   * This section holds data settings for fetching Github Data
+   */
+  const TOKEN = process.env.NEXT_PUBLIC_GITHUB_AUTH;
+  const ENDPOINT = 'https://api.github.com/graphql';
+
+  const HEADERS = {
+    'Content-Type': 'application/json',
+    Authorization: 'bearer ' + TOKEN,
+  };
+
+  const settings = {
+    organization: `"Zesty-io"`,
+    projectNumber: data.project_number,
+    columns: data.max_column,
+    cards: data.max_card,
+    discussions: data.max_discussion,
+  };
+
+  const body = {
+    query: `
+    {
+      organization(login: ${settings.organization}) {
+        repository(name: "manager-ui") {
+          discussions(last: ${settings.discussions}) {
+            edges {
+              node {
+                category {
+                  name,
+                  emojiHTML
+                }
+              }
+            }
+            nodes {
+              category {
+                name
+                emojiHTML
+              }
+              labels(last:10) {
+                nodes {
+                  name
+                  color
+                  url
+                }
+              }
+              upvoteCount
+              title
+              url
+            }
+          }
+        }
+        project(number: ${settings.projectNumber}) {
+          name
+          columns(last: ${settings.columns}) {
+            nodes {
+              name,
+              cards(last: ${settings.cards} ) {
+                totalCount
+                nodes {
+                  id,
+                  note,
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }    
+    `,
+  };
+
+  const res = await fetch(ENDPOINT, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify(body),
+  });
+  const gitHubData = await res.json();
+  data.github_data = gitHubData;
+
   // generate a status 404 page
   if (data.error) return { notFound: true };
 

@@ -8,22 +8,33 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import { getCookie } from 'cookies-next';
 
 import Container from 'components/Container';
 import TopNav from 'components/TopNav';
 
 import { Topbar, Sidebar, Footer } from './components';
 import { zestyLink } from 'lib/zestyLink';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 
 const Main = ({
   children,
   customRouting,
   nav = [],
   colorInvert = false,
-  bgcolor = 'transparent',
   model = '',
 }) => {
   const router = useRouter();
+
+  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const userAppSID = getCookie('APP_SID');
+
+  const { verifySuccess, loading, userInfo } = useFetchWrapper(
+    userAppSID,
+    instanceZUID,
+  );
+
+  const isLogin = verifySuccess.userZuid;
 
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
@@ -31,6 +42,9 @@ const Main = ({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  const isDarkMode = theme.palette.mode === 'dark';
+  const bgcolor = isDarkMode ? 'transparent' : theme.palette.common.white;
 
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -106,6 +120,9 @@ const Main = ({
             customRouting={hasRouting ? customRouting : []}
             colorInvert={headerColorInvert && !trigger}
             trigger={trigger}
+            isLogin={isLogin}
+            userInfo={userInfo?.data}
+            loading={loading}
           />
         </Container>
       </AppBar>
