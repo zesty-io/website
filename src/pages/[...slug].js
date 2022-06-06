@@ -40,10 +40,21 @@ export default function Slug(props) {
 
 // This gets called on every request
 export async function getServerSideProps(ctx) {
+  
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+
   const data = await fetchPage(ctx.resolvedUrl);
 
   // generate a status 404 page
   if (data.error) return { notFound: true };
+
+  res.setHeader(
+    'edge-cache-tag',
+    `${process.env.zesty.instance_zuid}, ${data.meta.zuid}`
+  )
 
   // Pass data to the page via props
   return { props: data };
