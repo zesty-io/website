@@ -22,7 +22,6 @@ const Main = ({
   customRouting,
   nav = [],
   colorInvert = false,
-  bgcolor = 'transparent',
   model = '',
 }) => {
   const router = useRouter();
@@ -43,6 +42,9 @@ const Main = ({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  const isDarkMode = theme.palette.mode === 'dark';
+  const bgcolor = isDarkMode ? 'transparent' : theme.palette.common.white;
 
   const [openSidebar, setOpenSidebar] = useState(false);
 

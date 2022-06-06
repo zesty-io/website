@@ -98,7 +98,7 @@ const Topbar = ({
             )}
           </Box>
         ))}
-        {loading && <Skeleton variant="text" width={170} height={30} />}
+        {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
           <Box>
             {!isLogin ? (
@@ -127,7 +127,10 @@ const Topbar = ({
                   color={theme.palette.primary.dark}
                   fontWeight={'bold'}
                 >
-                  Welcome back, {firstName}!
+                  Welcome back,{' '}
+                  <span style={{ color: theme.palette.zesty.zestyOrange }}>
+                    {firstName}!
+                  </span>
                 </Typography>
               </Box>
             )}
