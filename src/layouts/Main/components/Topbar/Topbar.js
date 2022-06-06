@@ -98,7 +98,7 @@ const Topbar = ({
             )}
           </Box>
         ))}
-        {loading && <Skeleton variant="text" width={170} height={30} />}
+        {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
           <Box>
             {!isLogin ? (
