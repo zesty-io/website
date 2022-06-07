@@ -55,7 +55,7 @@ function TechnologyOverview({ content }) {
 
   const headerProps = {
     title: content.title || FillerContent.header,
-    subtitle: content.sub_title || FillerContent.description,
+    subtitle: content.sub_title,
     description: content.header_description || FillerContent.description,
     image:
       (content.header_image?.data && content.header_image?.data[0]?.url) ||
