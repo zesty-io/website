@@ -8,21 +8,33 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import { getCookie } from 'cookies-next';
 
 import Container from 'components/Container';
 import TopNav from 'components/TopNav';
 
 import { Topbar, Sidebar, Footer } from './components';
+import { zestyLink } from 'lib/zestyLink';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 
 const Main = ({
   children,
   customRouting,
-  nav=[],
+  nav = [],
   colorInvert = false,
-  bgcolor = 'transparent',
-  model=''
+  model = '',
 }) => {
   const router = useRouter();
+
+  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const userAppSID = getCookie('APP_SID');
+
+  const { verifySuccess, loading, userInfo } = useFetchWrapper(
+    userAppSID,
+    instanceZUID,
+  );
+
+  const isLogin = verifySuccess.userZuid;
 
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
@@ -30,6 +42,9 @@ const Main = ({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  const isDarkMode = theme.palette.mode === 'dark';
+  const bgcolor = isDarkMode ? 'transparent' : theme.palette.common.white;
 
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -48,31 +63,66 @@ const Main = ({
     threshold: 38,
   });
 
+  // check if from ppc short form page then change color of logo and nav
+  // const isPpcShortPage =
+  //   router.asPath === zestyLink(nav, '7-f8d2b2fb82-vgg2t4');
+
+  const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
+  const isCapterraPage = router.asPath.includes('/capterra');
+  const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
+  const isExplorePage = router.asPath === '/ppc/explore/';
   // override over invert based on pages that we know have a dark image heading
 
+  const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
+
   let pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
-  const headerColorInvert = model?.match(pageNavColorRegex) !== null ? true : false
+  const headerColorInvert =
+    model?.match(pageNavColorRegex) !== null ? true : false;
+
+  const bgColorSwitch = () => {
+    if (isExplorePage) {
+      return theme.palette.alternate.main;
+    } else if (trigger) {
+      return theme.palette.background.paper;
+    } else if (hideNav) {
+      return 'transparent';
+    } else {
+      return bgcolor;
+    }
+  };
 
   return (
     <Box>
       <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
-        <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
+        <Container
+          paddingTop={
+            hideNav || isExplorePage ? '0px !important' : '8px !important'
+          }
+          paddingBottom={'0 !important'}
+        >
           <TopNav nav={nav} colorInvert={headerColorInvert} />
         </Container>
       </Box>
       <AppBar
-        position={'sticky'}
+        position={hideNav ? 'fixed' : 'sticky'}
         sx={{
+          outline: 'none',
+          border: 'none',
+          boxShadow: hideNav ? '' : '',
           top: 0,
-          backgroundColor: trigger ? theme.palette.background.paper : bgcolor,
+          backgroundColor: bgColorSwitch(),
         }}
         elevation={trigger ? 1 : 0}
       >
-        <Container paddingY={1}>
+        <Container paddingY={isExplorePage ? 2 : 1}>
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
             colorInvert={headerColorInvert && !trigger}
+            trigger={trigger}
+            isLogin={isLogin}
+            userInfo={userInfo?.data}
+            loading={loading}
           />
         </Container>
       </AppBar>

@@ -5,15 +5,13 @@
  * Label: PPC-Short Form 
  * Name: ppc_short_form 
  * Model ZUID: 6-9efacf9c98-wbtkns
- * File Created On: Tue Jun 07 2022 18:38:44 GMT+0200 (Central European Summer Time)
+ * File Created On: Tue Mar 29 2022 12:52:58 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 
   * hero_h1 (text)
  * zesty_overview (wysiwyg_basic)
  * client_logos (one_to_many)
- * background_image (images)
- * form_title (text)
 
  * 
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
@@ -28,21 +26,45 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
+import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBackgroundGradient';
+import FillerContent from 'components/FillerContent';
 
-function PpcShortForm({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+function PpcShortForm({ content }) {
+  const formContent = {
+    leadDetail: 'Adwords',
+    businessType: 'Direct',
+    leadSource: 'Advertisement',
+    selectedValue: 2,
+    hideSelect: true,
+    hideMessage: true,
+    ctaText: FillerContent.cta,
+    modalTitle: 'Thank you for submitting your information.',
+    modalMessage: 'Our team will be in touch soon to discuss next steps.',
+    displayMsgUnderButton: ' ',
+    additionalTextfield: { company: true, jobTitle: true },
+    buttonFullWidth: true,
+    hidePrivacySection: true,
+    messageLabel: 'Is there anything you would like to cover in the demo?',
+    phoneNumber: true,
+  };
+  return (
+    <>
+      <HeroWithFormAndBackgroundGradient
+        headelineTitle={content.hero_h1 || FillerContent.header}
+        description={content.zesty_overview || FillerContent.description}
+        imageCollection={
+          content.client_logos?.data?.slice(0, 3) || [FillerContent.image]
+        }
+        backgroundImage={
+          content.background_image.data &&
+          content.background_image?.data[0]?.url
+        }
+        form_title={content.form_title || FillerContent.header}
+        formContent={formContent}
+      />
+    </>
+  );
 }
-  
+
 export default PpcShortForm;

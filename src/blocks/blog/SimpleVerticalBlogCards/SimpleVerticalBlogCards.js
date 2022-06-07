@@ -22,12 +22,13 @@ const SimpleVerticalBlogCards = ({
   title,
   description,
 }) => {
+
   const theme = useTheme();
   const cardList = cards || FillerContent.simpleCards;
-
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  
   return (
     <Container>
       <Box>
@@ -72,7 +73,7 @@ const SimpleVerticalBlogCards = ({
             <Grid item xs={12} md={6} key={i}>
               <Box
                 component={'a'}
-                href={item?.link || '#'}
+                href={item?.link || item?.path || item.card_link?.data[0]?.meta?.web?.uri || FillerContent.href}
                 display={'block'}
                 width={1}
                 height={1}
@@ -88,7 +89,7 @@ const SimpleVerticalBlogCards = ({
                   <CardMedia
                     image={
                       (item?.image?.data && item?.image?.data[0]?.url) ||
-                      (item?.hero_image?.data && item?.hero_image?.data[0]?.url)
+                      (item?.hero_image?.data && item?.hero_image?.data[0]?.url ||item.image)
                     }
                     title={item?.title}
                     sx={{

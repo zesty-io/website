@@ -27,24 +27,26 @@ const WithCompanyLogo = ({ header, content, logo }) => {
           </Typography>
         )}
         <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
-          <Box
-            component="img"
-            height={1}
-            width={1}
-            src={
-              logo ||
-              'https://assets.maccarianagency.com/svg/logos/google-original.svg'
-            }
-            alt="..."
-            maxWidth={{ xs: 80, sm: 100, md: 120 }}
-            marginBottom={2}
-            sx={{
-              filter:
-                theme.palette.mode === 'dark'
-                  ? 'brightness(0) invert(0.7)'
-                  : 'none',
-            }}
-          />
+          {logo && (
+            <Box
+              component="img"
+              height={1}
+              width={1}
+              src={
+                logo ||
+                'https://assets.maccarianagency.com/svg/logos/google-original.svg'
+              }
+              alt="..."
+              maxWidth={{ xs: 80, sm: 100, md: 120 }}
+              marginBottom={2}
+              sx={{
+                filter:
+                  theme.palette.mode === 'dark'
+                    ? 'brightness(0) invert(0.7)'
+                    : 'none',
+              }}
+            />
+          )}
           <Typography
             variant="h5"
             fontWeight={400}

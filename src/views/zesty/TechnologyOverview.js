@@ -48,8 +48,10 @@ function TechnologyOverview({ content }) {
     data: allArticles,
     isPending,
     error,
-  } = useFetch(`/-/all-articles-hydrated.json?limit=3`);
-
+  } = useFetch(
+    `/-/all-articles-hydrated.json?limit=3`,
+    content.zestyProductionMode,
+  );
 
   const headerProps = {
     title: content.title || FillerContent.header,
@@ -60,7 +62,10 @@ function TechnologyOverview({ content }) {
       FillerContent.image,
     cta_left_text: content.cta_left_text || 'Try Free',
     cta_right_text: content.cta_right_text || FillerContent.cta,
-    cta_right_url: content.cta_right_url && zestyLink(content.navigationTree, content.cta_right_url) || zestyLink(content.navigationTree, FillerContent.contact_zuid)
+    cta_right_url:
+      (content.cta_right_url &&
+        zestyLink(content.navigationTree, content.cta_right_url)) ||
+      zestyLink(content.navigationTree, FillerContent.contact_zuid),
   };
 
   return (
@@ -96,6 +101,7 @@ function TechnologyOverview({ content }) {
       {/* Feature List  */}
       <Box
         position={'relative'}
+        paddingY={8}
         sx={{
           backgroundColor: theme.palette.alternate.main,
         }}

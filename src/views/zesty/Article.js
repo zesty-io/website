@@ -30,7 +30,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
@@ -61,11 +61,12 @@ function Article({ content }) {
 
   const { data: latestArticles, isPending: latestPending } = useFetch(
     '/-/all-articles-hydrated.json?limit=5',
+    content.zestyProductionMode,
   );
-
 
   const { data: tagArticles, isPending: tagsPending } = useFetch(
     `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
+    content.zestyProductionMode,
   );
 
   const removeErrorHandlingString = /Error hydrating/gi;
@@ -113,7 +114,7 @@ function Article({ content }) {
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
               <WYSIWYGRender
-                customClass="icon-box"
+                customClass="normal-bullets"
                 rich_text={validateWysiwyg() || FillerContent.rich_text}
               ></WYSIWYGRender>
 
@@ -125,7 +126,7 @@ function Article({ content }) {
             </Grid>
             <Grid item xs={12} md={4}>
               {isMd ? (
-                <Box marginBottom={4}>
+                <Box marginBottom={4} sx={{ minHeight: 700 }}>
                   {latestPending ? (
                     <CircularProgressWithLabel />
                   ) : (
@@ -166,10 +167,7 @@ function Article({ content }) {
           title={
             tagArticles.length !== 0 ? 'Similar stories' : 'Latest articles'
           }
-          cta_url={
-            content?.cta?.data[0]?.internal_link.data[0]?.meta?.web?.url ||
-            FillerContent.href
-          }
+          cta_url={'/mindshare'}
         />
         <CtaWithInputField
           title={'Subscribe to the zestiest newsletter in the industry'}

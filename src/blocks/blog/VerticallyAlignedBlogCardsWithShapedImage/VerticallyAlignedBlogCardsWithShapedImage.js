@@ -19,23 +19,28 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
   ctaBtn,
   ctaUrl,
   popularArticles = [],
+  titlePosition = 'space-between',
+  titleVariant = 'h6',
 }) => {
+  function makeDate(date) {
+    var d = new Date(date);
+    var options = {
+      year: 'numeric',
+      month: 'long',
+    };
+    var n = d.toLocaleDateString('en-US', options);
+
+    var replace = n.replace(new RegExp(',', 'g'), ' ');
+    return replace;
+  }
 
   const theme = useTheme();
-
-  const formatDate = (date) => {
-    let d = new Date(date);
-    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-    let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
-
-    return `${mo} ${ye}`;
-  };
 
   return (
     <Container paddingTop={'0 !important'}>
       <Box
         display={'flex'}
-        justifyContent={'space-between'}
+        justifyContent={titlePosition}
         alignItems={{ xs: 'flex-start', sm: 'center' }}
         flexDirection={{ xs: 'column', sm: 'row' }}
         marginBottom={4}
@@ -44,12 +49,14 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
           <Typography
             paddingTop={1}
             fontWeight={700}
-            variant={'h6'}
+            variant={titleVariant}
             gutterBottom
           >
             {title}
           </Typography>
-          <Typography color={'text.secondary'}>{description}</Typography>
+          {description && (
+            <Typography color={'text.secondary'}>{description}</Typography>
+          )}
         </Box>
 
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
@@ -73,7 +80,10 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
             <Box
               component={'a'}
               href={
-                item?.meta?.uri || item?.meta?.web?.uri ||item?.path || FillerContent.href
+                item?.meta?.uri ||
+                item?.meta?.web?.uri ||
+                item?.path ||
+                FillerContent.href
               }
               display={'block'}
               width={1}
@@ -147,20 +157,22 @@ const VerticallyAlignedBlogCardsWithShapedImage = ({
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
                         src={
-                          item.author.image
-                            ? item.author.image
-                            : item?.author?.data[0]?.headshot?.data[0]?.url
+                          (item?.author?.data &&
+                            item?.author?.data[0]?.headshot?.data &&
+                            item?.author?.data[0]?.headshot?.data[0]?.url) ||
+                          item?.author?.image ||
+                          FillerContent.image
                         }
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author.name
-                          ? item.author.name
-                          : item?.author?.data[0]?.name}
+                        {(item?.author?.data && item?.author?.data[0]?.name) ||
+                          item?.author?.name ||
+                          FillerContent.header}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {formatDate(item?.date) || FillerContent.date}
+                      {makeDate(item?.date) || FillerContent.date}
                     </Typography>
                   </Box>
                 </Box>

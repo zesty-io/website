@@ -1,43 +1,43 @@
 /**
  * Zesty.io Content Model Component
  * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
- * 
- * Label: Tags 
- * Name: tags 
+ *
+ * Label: Tags
+ * Name: tags
  * Model ZUID: 6-5d9734-r0hk9m
  * File Created On: Fri Mar 04 2022 12:16:05 GMT-0800 (Pacific Standard Time)
- * 
+ *
  * Model Fields:
- * 
+ *
   * tag (text)
 
- * 
+ *
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
  * images are objects {content.image_name.data[0].url}
- * 
+ *
  * This file is expected to be customized; because of that, it is not overwritten by the integration script.
  * Model and field changes in Zesty.io will not be reflected in this comment.
- * 
+ *
  * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-5d9734-r0hk9m
- * 
+ *
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
 import React, { useEffect, useState } from 'react';
-import { SimpleHeroWithSearchBox, SimpleHeroSolidBg } from 'blocks/heroes';
-import VerticalMinimalDesignedBlogCardsPage from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
+import { SimpleHeroSolidBg } from 'blocks/heroes';
 import { Result } from 'blocks/formLayouts';
 import Container from 'components/Container';
 import FillerContent from 'components/FillerContent';
 
-let zestyURL =
-(undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-  ? process.env.zesty.production
-  : process.env.zesty.stage;
+
 
 
 function Tag({ content }) {
+  let zestyURL = content.zestyProductionMode
+  ? process.env.zesty.production
+  : process.env.zesty.stage;
+  
   const [cardsData, setCardData] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
   // search states
@@ -47,7 +47,7 @@ function Tag({ content }) {
   const [hideLoad, setHideLoad] = useState(false);
   // current page for pagination
   const [page, setPage] = useState(0);
-  
+
   const uri = `${zestyURL}/-/tag.json?tag=${content.meta.zuid}&page=${page}&limit=6`;
   // Get card data based on author zuid  on page load
   useEffect(() => {
@@ -98,7 +98,7 @@ function Tag({ content }) {
       console.error(`Could Not Find Results: ${error}`);
     }
   };
-  // load more on click 
+  // load more on click
   const handleOnClick = async () =>{
     try{
       setPage(page+=6);
@@ -130,7 +130,7 @@ function Tag({ content }) {
           onSubmit={handleOnSubmit}
           notFound={notFound}
           onClick={handleOnClick}
-          hideLoad={hideLoad} /> 
+          hideLoad={hideLoad} />
       </Container>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
       {/* <h1

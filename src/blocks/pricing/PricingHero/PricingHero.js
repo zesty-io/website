@@ -41,7 +41,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
             <Box marginBottom={4}>
               <Typography
                 variant="h3"
-                component="h1"
+                component="h3"
                 gutterBottom
                 align={'center'}
                 sx={{
@@ -52,7 +52,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
               </Typography>
               <Typography
                 variant="h6"
-                component="p"
+                component="h1"
                 color="text.primary"
                 align={'center'}
                 sx={{ px: 6 }}
@@ -111,6 +111,18 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                   >
                     {i != 0 && (
                       <Typography variant={'h3'} fontWeight={700}>
+                        <Typography
+                          sx={{
+                            visibility:
+                              item.price === 'Custom' ? 'hidden' : 'visible',
+                          }}
+                          variant="p"
+                          component={'p'}
+                          fontSize={20}
+                          paddingBottom={1}
+                        >
+                          Starts at
+                        </Typography>
                         {item.price}
                       </Typography>
                     )}
@@ -141,9 +153,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                         </Grid>
                       </Grid>
                       {!isMd && (
-                        <CardActions
-                          sx={{ justifyContent: 'flex-end' }}
-                        >
+                        <CardActions sx={{ justifyContent: 'flex-end' }}>
                           <TryFreeButton
                             component={'a'}
                             variant="contained"
@@ -154,7 +164,6 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                                 item?.button_cta?.data[0]?.button_text) ||
                               FillerContent.cta
                             }
-
                           />
                         </CardActions>
                       )}

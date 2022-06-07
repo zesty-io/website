@@ -18,7 +18,7 @@ export default function ZestyHead(props) {
       
 
       <title>{props.content.meta.web.seo_meta_title}</title>
-      <link rel="icon" href="/favicon.png" type="image/png" />
+      <link rel="icon" href="https://brand.zesty.io/favicon.png" type="image/png" />
       <meta
         property="og:title"
         content={props.content.meta.web.seo_meta_title}
@@ -37,8 +37,9 @@ export default function ZestyHead(props) {
         />
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"></link>
-      {props.content.zestyProduction &&
+      rel="stylesheet"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish" />
+      {props.content.zestyProduction !== false &&
       <script dangerouslySetInnerHTML={{__html:`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
       var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=

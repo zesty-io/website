@@ -44,8 +44,6 @@ import Faq from '../../blocks/pricing/Faq/Faq';
 import Plans from '../../blocks/pricing/Plans/Plans';
 import useFetch from 'components/hooks/useFetch';
 
-
-
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
@@ -57,14 +55,13 @@ function Pricing({ content }) {
     tiers: content.tiers.data,
   };
 
-
   const [categories, setCategories] = useState([]);
 
   const {
     data: pricingData,
     isPending,
     error,
-  } = useFetch(`/-/pricing-levers.json`);
+  } = useFetch(`/-/pricing-levers.json`, content.zestyProductionMode);
 
   useEffect(() => {
     let leverCategories = [];

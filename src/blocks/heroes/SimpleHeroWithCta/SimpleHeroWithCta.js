@@ -10,7 +10,14 @@ import Container from 'components/Container';
 
 import TryFreeButton from 'components/cta/TryFreeButton';
 
-const Hero = ({title, subtitle, description, secondaryCTA, secondaryCtaLink}) => {
+const Hero = ({
+  title,
+  subtitle,
+  description,
+  primaryCta,
+  secondaryCTA,
+  secondaryCtaLink,
+}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -70,10 +77,11 @@ const Hero = ({title, subtitle, description, secondaryCTA, secondaryCtaLink}) =>
           <TryFreeButton
             component={'a'}
             variant="contained"
-            color={theme.palette.mode === 'dark' ? "primary" : "secondary"}
+            color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
             size="large"
             fullWidth={isMd ? false : true}
-             />
+            text={primaryCta}
+          />
           <Box
             marginTop={{ xs: 2, sm: 0 }}
             marginLeft={{ sm: 2 }}
@@ -83,7 +91,7 @@ const Hero = ({title, subtitle, description, secondaryCTA, secondaryCtaLink}) =>
               component={'a'}
               href={secondaryCtaLink}
               variant="outlined"
-              color={theme.palette.mode === 'dark' ? "primary" : "secondary"}
+              color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
               size="large"
               fullWidth={isMd ? false : true}
             >

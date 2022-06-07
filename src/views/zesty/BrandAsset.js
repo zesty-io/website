@@ -5,7 +5,7 @@
  * Label: Brand Assets 
  * Name: brand_assets 
  * Model ZUID: 6-c2d69bd69e-32b3ld
- * File Created On: Tue Jun 07 2022 18:38:44 GMT+0200 (Central European Summer Time)
+ * File Created On: Thu Apr 07 2022 01:46:58 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 

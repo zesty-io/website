@@ -53,7 +53,10 @@ function Homepage({ content }) {
     data: allArticles,
     isPending: articlesPending,
     error,
-  } = useFetch(`/-/all-articles-hydrated.json?limit=3`);
+  } = useFetch(
+    `/-/all-articles-hydrated.json?limit=3`,
+    content.zestyProductionMode,
+  );
 
   let image_url = content?.zesty_benefits_image
     ? content.zesty_benefits_image.data[0].url

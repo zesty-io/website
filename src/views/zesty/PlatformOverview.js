@@ -26,7 +26,7 @@
  * View /solutions/
  */
 
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
 import Container from 'components/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -193,7 +193,7 @@ function PlatformOverview({ content }) {
     data: allArticles,
     isPending,
     error,
-  } = useFetch(`/-/all-articles-hydrated.json?limit=3`);
+  } = useFetch(`/-/all-articles-hydrated.json?limit=3`, content.zestyProductionMode);
 
 
 

@@ -1,27 +1,27 @@
 /**
  * Zesty.io Content Model Component
  * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
- * 
- * Label: Category 
- * Name: category 
+ *
+ * Label: Category
+ * Name: category
  * Model ZUID: 6-2ab5d0-tmzw9s
  * File Created On: Fri Mar 04 2022 12:16:05 GMT-0800 (Pacific Standard Time)
- * 
+ *
  * Model Fields:
- * 
+ *
   * category (text)
  * sort_order (sort)
  * description (textarea)
 
- * 
+ *
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
  * images are objects {content.image_name.data[0].url}
- * 
+ *
  * This file is expected to be customized; because of that, it is not overwritten by the integration script.
  * Model and field changes in Zesty.io will not be reflected in this comment.
- * 
+ *
  * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-2ab5d0-tmzw9s
- * 
+ *
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
@@ -41,7 +41,10 @@ import { Typography } from '@mui/material';
 
 function Category({ content }) {
   const theme = useTheme();
-
+  let zestyURL = content.zestyProductionMode
+  ? process.env.zesty.production
+  : process.env.zesty.stage;
+  
   // news array state
   const [categoryArr, setCategoryArr] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
@@ -88,12 +91,9 @@ function Category({ content }) {
     }
   }, []);
 
+
   
-  let zestyURL =
-  (undefined === process.env.PRODUCTION) == 'true' || process.env.PRODUCTION
-    ? process.env.zesty.production
-    : process.env.zesty.stage;
-  // search value 
+  // search value
   const handleOnChange = (evt) => {
     evt.preventDefault();
     // handle empty search value
@@ -131,7 +131,7 @@ function Category({ content }) {
       console.error(`Could Not Find Results: ${error}`);
     }
   };
-  // load more on click 
+  // load more on click
   const handleOnClick = async () =>{
     try{
       setPage(page+=6);
@@ -153,7 +153,7 @@ function Category({ content }) {
 
   return (
     <>
-   
+
       {/* hero */}
       <Box
         bgcolor={'alternate.main'}
@@ -195,7 +195,7 @@ function Category({ content }) {
           onSubmit={handleOnSubmit}
           notFound={notFound}
           onClick={handleOnClick}
-          hideLoad={hideLoad} /> 
+          hideLoad={hideLoad} />
       </Container>
       {/* cta */}
       <Box

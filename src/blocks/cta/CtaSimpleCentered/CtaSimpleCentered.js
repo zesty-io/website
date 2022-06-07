@@ -9,7 +9,15 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 
 import Container from 'components/Container';
 
-const CtaSimpleCentered = ({ nav=[], ctaTitle, description, ctaLeft, ctaRight }) => {
+const CtaSimpleCentered = ({
+  nav = [],
+  ctaTitle,
+  description,
+  ctaLeft,
+  ctaRight,
+  headerColor = 'text.primary',
+  ctaRightHref,
+}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -20,7 +28,7 @@ const CtaSimpleCentered = ({ nav=[], ctaTitle, description, ctaLeft, ctaRight })
       <Box>
         <Typography
           variant="h4"
-          color="text.primary"
+          color={headerColor}
           align={'center'}
           gutterBottom
           sx={{
@@ -59,7 +67,7 @@ const CtaSimpleCentered = ({ nav=[], ctaTitle, description, ctaLeft, ctaRight })
           >
             <Button
               component={'a'}
-              href={zestyLink(nav,'7-cec987fcf5-9bht2z')}
+              href={ctaRightHref || zestyLink(nav, '7-cec987fcf5-9bht2z')}
               variant="outlined"
               color="secondary"
               size="large"

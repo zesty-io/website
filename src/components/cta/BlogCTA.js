@@ -70,8 +70,8 @@ function BlogCTA({ title , description, ctaBtn}) {
       flexDirection={{ xs: 'column', md: 'row-reverse' }}
       sx={{ backgroundImage: 'none' }}
     >
-      <TransitionsModal open={open} setOpen={setOpen} 
-      title="Thank you for subscribing!" 
+      <TransitionsModal open={open} setOpen={setOpen}
+      title="Thank you for subscribing!"
       message="Check your email to confirm."/>
       <Box
         sx={{
@@ -186,9 +186,10 @@ function BlogCTA({ title , description, ctaBtn}) {
               />
             </Grid>
             <Grid item xs={12}>
-              
+
               <Button
                 size={'large'}
+                color="secondary"
                 fullWidth
                 variant={'contained'}
                 type={'submit'}

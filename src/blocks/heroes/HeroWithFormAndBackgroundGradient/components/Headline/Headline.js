@@ -2,8 +2,22 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import FillerContent from 'components/FillerContent';
+import { Grid, useMediaQuery } from '@mui/material';
+import { useTheme } from '@emotion/react';
+import { useRouter } from 'next/router';
 
-const Headline = () => {
+const Headline = ({
+  title,
+  description,
+  images = [],
+  justifyImage = 'start',
+}) => {
+  const router = useRouter();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isCapterraPage = router.asPath.includes('capterra');
+
   return (
     <Box>
       <Typography
@@ -14,24 +28,64 @@ const Headline = () => {
           color: 'common.white',
         }}
       >
-        Join the world's leading companies at TheFront 2021
+        {title || FillerContent.header}
       </Typography>
-      <Typography
-        variant="h6"
-        component="p"
-        color="text.primary"
-        sx={{
-          fontWeight: 500,
-          color: 'common.white',
-        }}
+
+      <Grid item xs={12} md={9}>
+        <Box
+          sx={{
+            fontWeight: 400,
+            color: 'common.white',
+          }}
+          dangerouslySetInnerHTML={{
+            __html: description || FillerContent.description,
+          }}
+        ></Box>
+      </Grid>
+      <Box
+        display="flex"
+        gap={4}
+        flexWrap="wrap"
+        marginTop={4}
+        justifyContent={justifyImage}
       >
-        Whether it’s Porsche, Stripe, Intercom, Amazon, or Google, something
-        about TheFront works for our global partners.
-        <br />
-        Want more information? Download our overview and a member of our
-        specialist team will be in touch to talk about your goals for TheFront
-        2021.
-      </Typography>
+        {images?.map((item, i) => (
+          <Box
+            marginTop={2}
+            key={i}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              // prevent squish in ppc demo pages and align captera logos
+              flex: isCapterraPage ? '1' : '0 1 auto',
+            }}
+          >
+            <Box
+              component="img"
+              width={1}
+              src={item}
+              alt="..."
+              // Scale the height of images specially the rocket leage mobile and desktop
+              sx={{
+                height:
+                  i === 1 && isMobile
+                    ? '2.3rem'
+                    : isCapterraPage
+                    ? 'auto'
+                    : i === 1 && !isMobile
+                    ? '2.5rem'
+                    : !isMobile
+                    ? '3rem'
+                    : '2.4rem',
+                filter:
+                  theme.palette.mode === 'dark'
+                    ? 'brightness(0) invert(0.7)'
+                    : 'none',
+              }}
+            />
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 };

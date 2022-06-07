@@ -94,23 +94,23 @@ export default {
   ],
   demos: [
     {
-      title: 'Missing title, Edit in CMS',
-      description: 'Missing description, Edit in CMS',
+      title: '',
+      description: '',
       illustration: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
       illustrationDark: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
-      href: '/home',
+      href: '',
       pages: 53,
-      btnText: 'Preview Main Demo',
+      btnText: '',
       bgcolor: 'blue',
     },
     {
-      title: 'Missing title, Edit in CMS',
-      description: 'Missing description, Edit in CMS',
+      title: '',
+      description: '',
       illustration: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
       illustrationDark: 'https://kfg6bckb.media.zestyio.com/default-avatar.png',
-      href: '/demos/ecommerce',
+      href: '',
       pages: 9,
-      btnText: 'Preview E-commerce Demo',
+      btnText: '',
       bgcolor: 'pink',
     },
   ],
@@ -218,7 +218,7 @@ export default {
       ],
     },
   ],
-  
+
   platformCard: [
     {
       title: 'Missing Content, Edit in CMS',
@@ -247,7 +247,7 @@ export default {
     },
   ],
   emptyList: [],
-
+  videoUrl: 'https://www.youtube.com/watch?v=h9WMdlQyFgU',
   simpleCards: [
     {
       image: 'https://kfg6bckb.media.zestyio.com/mobile-app-cms-content.png',
@@ -401,4 +401,20 @@ export default {
       ),
     },
   ],
+  testimonialCard: [
+    {
+      feedback: 'Missing Content',
+      name: 'Missing Content',
+      title: 'Missing Content',
+      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
+    },
+  ],
+  logos: [
+    {url: 'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/amazon-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/netflix-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/google-original.svg'},
+    {url: 'https://assets.maccarianagency.com/svg/logos/paypal-original.svg'},
+  ]
 };

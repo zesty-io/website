@@ -14,6 +14,7 @@ import FillerContent from 'components/FillerContent';
 const SidebarArticles = ({latestArticles}) => {
 
 
+
   const theme = useTheme();
   return (
     <Box component={Card} variant={'outlined'} padding={2}>
@@ -85,7 +86,7 @@ const SidebarArticles = ({latestArticles}) => {
                   </Typography>
                 </Box>
                 <Button
-                  href={item?.meta?.web?.uri || FillerContent.href}
+                  href={item?.meta?.web?.uri || item.path || FillerContent.href}
                   size={'small'}
                 >
                   Read More

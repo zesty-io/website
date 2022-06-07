@@ -134,6 +134,26 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           max-width: 100%;
           height: 100%;
         }
+        .wysiwyg  a{
+          color: ${theme.palette.zesty.zestyBlue};
+          font-weight: 700;
+        }
+
+
+        @media only screen and (max-width: 600px) {
+          .wysiwyg table tr{
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+          }
+        }
+
+       .wysiwyg.normal-bullets ul li{
+            list-style-type: disc;
+            list-style-position: outside;
+            display: list-item !important;
+            margin-left: 2rem;
+
         `;
   return (
     <>

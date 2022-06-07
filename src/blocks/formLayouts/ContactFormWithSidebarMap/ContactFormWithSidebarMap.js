@@ -8,27 +8,34 @@ import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 
-
 /* Begin Left Side Component */
 
-function ContactFormWithSidebarMap({title, description, image,selectedValue=0, hideSelect=false}) {
- 
+function ContactFormWithSidebarMap({
+  title,
+  description,
+  image,
+  selectedValue = 0,
+  hideSelect = false,
+}) {
   const theme = useTheme();
 
   const LeftSide = () => {
-  
-
     return (
       <Box>
         <Box marginBottom={4}>
           <Typography variant={'h3'} sx={{ fontWeight: 700 }} gutterBottom>
-              {title}
+            {title}
           </Typography>
-          <Typography color="text.secondary">
-              {description}
-          </Typography>
+          <Typography color="text.secondary">{description}</Typography>
         </Box>
-        <StandardFormWithSelect selectedValue={selectedValue}  hideSelect={false} />
+        <StandardFormWithSelect
+          leadDetail="Contact Us"
+          selectedValue={selectedValue}
+          hideSelect={false}
+          modalTitle="Thank you for contacting Zesty.io"
+          modalMessage="Our team will be in touch soon regarding your request."
+          phoneNumber={true}
+        />
       </Box>
     );
   };
@@ -55,13 +62,14 @@ function ContactFormWithSidebarMap({title, description, image,selectedValue=0, h
               theme.palette.mode === 'dark'
                 ? 'grayscale(0.5) opacity(0.7)'
                 : 'none',
-            }} />
+          }}
+        />
       </Box>
     );
   };
 
-/* End Right Side Component */
-/* Begin Form Component */
+  /* End Right Side Component */
+  /* Begin Form Component */
   return (
     <Box
       sx={{
@@ -128,6 +136,6 @@ function ContactFormWithSidebarMap({title, description, image,selectedValue=0, h
       <Divider />
     </Box>
   );
-};
+}
 
 export default ContactFormWithSidebarMap;

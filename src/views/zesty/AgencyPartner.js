@@ -173,7 +173,15 @@ function AgencyPartner({ content }) {
               </Typography>
             </Box>
 
-            <StandardFormWithSelect selectedValue={0}  hideSelect={true} hideMessage={true} ctaText={content.cta_footer_cta ||  FillerContent.cta} />
+            <StandardFormWithSelect 
+            leadDetail='Agency Partner Sign Up' 
+            businessType='Partner' 
+            selectedValue={1}  
+            hideSelect={true} 
+            hideMessage={true} 
+            ctaText={content.cta_footer_cta ||  FillerContent.cta}
+            modalTitle='Thank you for submitting your agency information.'
+            modalMessage='Our team will be in touch soon to discuss next steps.' />
           </Box>
         </Container>
       </Box>

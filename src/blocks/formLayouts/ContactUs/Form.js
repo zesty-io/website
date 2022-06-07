@@ -28,13 +28,10 @@ const validationSchema = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required('Email is required.'),
-  message: yup
-    .string()
-    .trim()
-    .required('Please specify your message'),
+  message: yup.string().trim().required('Please specify your message'),
 });
 
-const ContactUs = ({title, description}) => {
+const ContactUs = ({ title, description }) => {
   const theme = useTheme();
 
   const initialValues = {
@@ -69,7 +66,7 @@ const ContactUs = ({title, description}) => {
           {description}
         </Typography>
       </Box>
-      <Box>
+      <Box paddingBottom={6}>
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={4}>
             <Grid item xs={12} sm={6}>
