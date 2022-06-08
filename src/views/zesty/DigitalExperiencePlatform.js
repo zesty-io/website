@@ -1238,7 +1238,7 @@ const Section7Implementing = ({ content, theme, isMobile }) => {
 };
 
 const CustomButton = styled.button`
-  background: ${(props) => props.theme.palette.common.white};
+  background: transparent;
   outline: none;
   border: none;
   cursor: pointer;
@@ -1259,15 +1259,15 @@ const Section8CaseStudies = ({ content, theme }) => {
   const [active, setactive] = React.useState(content?.case_studies?.data[0]);
 
   return (
-    <Box>
-      <Container>
+    <Box sx={{}}>
+      <Container sx={{}}>
         <Typography
           component={'h2'}
           variant={'p'}
-          paddingBottom={10}
+          paddingBottom={4}
           sx={{
             fontSize: '32px',
-            color: theme.palette.secondary.darkCharcoal,
+            color: theme.palette.zesty.zestyZambezi,
             textAlign: 'center',
           }}
           dangerouslySetInnerHTML={{
@@ -1280,60 +1280,91 @@ const Section8CaseStudies = ({ content, theme }) => {
         />
       </Container>
       <Box
-        paddingX={8}
-        paddingY={2}
+        paddingY={8}
         sx={{
-          height: '20rem',
-          background: theme.palette.zesty.zestyDarkBlue,
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          alignItems: 'center',
+          background: theme.palette.zesty.zestyLightRedOrange,
         }}
       >
-        <Typography
+        <Container
           sx={{
-            color: theme.palette.common.white,
-            fontWeight: 500,
-            fontSize: '20px',
-          }}
-        >
-          {active.summary}
-        </Typography>
-        <Box
-          sx={{
+            height: '20rem',
+            background: theme.palette.zesty.zestyLightRedOrange,
             display: 'flex',
-            justifyItems: 'center',
-            justifyContent: 'center',
+            flexDirection: 'row-reverse',
+            alignItems: 'center',
           }}
         >
-          <img src={active.logo.data[0].url} />
-        </Box>
-      </Box>
-      <Container>
-        <Box
-          paddingY={4}
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            justifyItems: 'center',
-            gap: '3rem',
-          }}
-        >
-          {content.case_studies?.data?.map((e, i) => {
-            return (
-              <CustomButton
-                active={active?.title === e?.title ? true : false}
-                theme={theme}
-                onClick={() => setactive(e)}
+          <Box
+            paddingX={8}
+            paddingY={8}
+            boxShadow={2}
+            marginLeft={2}
+            borderRadius={2}
+            sx={{
+              width: '100%',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '5rem',
+              background: theme.palette.common.white,
+            }}
+          >
+            <Box borderRadius={2} overflow={'hidden'} bgcolor="red" sx={{}}>
+              <img
+                src={
+                  active?.image?.data[0]?.url || FillerContent.dashboard_image
+                }
+                style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+              />
+            </Box>
+            <Box sx={{ background: '' }}>
+              <Box
+                paddingBottom={2}
+                sx={{
+                  display: 'flex',
+                  justifyItems: 'flex-start',
+                  justifyContent: 'start',
+                }}
               >
-                <img src={e.logo.data[0].url} />
-              </CustomButton>
-            );
-          })}
-        </Box>
-      </Container>
+                <img src={active.logo.data[0].url} />
+              </Box>
+              <Typography
+                sx={{
+                  color: theme.palette.zesty.zestyGray,
+                  fontWeight: 500,
+                  fontSize: '20px',
+                  textAlign: 'left',
+                }}
+              >
+                {active?.summary}
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            paddingY={4}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              justifyItems: 'center',
+              gap: '3rem',
+              width: '10rem',
+              background: 'transparent',
+            }}
+          >
+            {content.case_studies?.data?.map((e, i) => {
+              return (
+                <CustomButton
+                  active={active?.title === e?.title ? true : false}
+                  theme={theme}
+                  onClick={() => setactive(e)}
+                >
+                  <img src={e.logo.data[0].url} />
+                </CustomButton>
+              );
+            })}
+          </Box>
+        </Container>
+      </Box>
     </Box>
   );
 };
