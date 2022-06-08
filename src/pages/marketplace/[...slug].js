@@ -116,9 +116,11 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
 };
 
 export const getMarketplaceData = async (ctx) => {
+  
   let extensionsURL = process.env.PRODUCTION
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
+  
   let data = await fetchPage(ctx.resolvedUrl, true, extensionsURL);
 
   if (data?.meta?.model_alternate_name === ALTNAME.TAG) {
@@ -143,6 +145,11 @@ export const getMarketplaceData = async (ctx) => {
 };
 
 export async function getServerSideProps(ctx) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+
   const data = await getMarketplaceData(ctx);
   let extensionsURL = process.env.PRODUCTION
     ? 'https://extensions.zesty.io'
