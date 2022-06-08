@@ -44,6 +44,9 @@ const Topbar = ({
   };
 
   const firstName = userInfo?.firstName;
+  const openAccountInstances = () => {
+    window.open('https://accounts.zesty.io/instances', '_blank').focus();
+  };
   return (
     <Box
       display={'flex'}
@@ -128,7 +131,13 @@ const Topbar = ({
                   fontWeight={'bold'}
                 >
                   Welcome back,{' '}
-                  <span style={{ color: theme.palette.zesty.zestyOrange }}>
+                  <span
+                    style={{
+                      color: theme.palette.zesty.zestyOrange,
+                      cursor: 'pointer',
+                    }}
+                    onClick={openAccountInstances}
+                  >
                     {firstName}!
                   </span>
                 </Typography>

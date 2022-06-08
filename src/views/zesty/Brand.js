@@ -66,7 +66,7 @@ function Brand({content}){
             sx={{
             backgroundColor:
                 theme.palette.mode === 'light'
-                ? theme.palette.zesty.darkBlue
+                ? theme.palette.zesty.zestyDarkBlue
                 : theme.palette.zesty.darkBlue,
             }}
         >
