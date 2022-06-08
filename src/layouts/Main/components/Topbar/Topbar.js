@@ -44,6 +44,9 @@ const Topbar = ({
   };
 
   const firstName = userInfo?.firstName;
+  const openAccountInstances = () => {
+    window.open('https://accounts.zesty.io/instances', '_blank').focus();
+  };
   return (
     <Box
       display={'flex'}
@@ -98,7 +101,7 @@ const Topbar = ({
             )}
           </Box>
         ))}
-        {loading && <Skeleton variant="text" width={170} height={30} />}
+        {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
           <Box>
             {!isLogin ? (
@@ -127,7 +130,16 @@ const Topbar = ({
                   color={theme.palette.primary.dark}
                   fontWeight={'bold'}
                 >
-                  Welcome back, {firstName}!
+                  Welcome back,{' '}
+                  <span
+                    style={{
+                      color: theme.palette.zesty.zestyOrange,
+                      cursor: 'pointer',
+                    }}
+                    onClick={openAccountInstances}
+                  >
+                    {firstName}!
+                  </span>
                 </Typography>
               </Box>
             )}
