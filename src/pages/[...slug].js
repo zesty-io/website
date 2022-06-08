@@ -1,6 +1,8 @@
 import { React, useEffect } from 'react';
 
 import { fetchPage } from 'lib/api';
+import { githubFetch } from 'lib/githubFetch';
+
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
 import { getCookie, setCookies } from 'cookies-next';
@@ -38,103 +40,31 @@ export default function Slug(props) {
   );
 }
 
+
 // This gets called on every request
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps({ req, res }) {
   
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
+  // cache controls for production
+  if(process.env.PRODUCTION !== 'false'){
+    res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
+  }
 
-  const data = await fetchPage(ctx.resolvedUrl);
+  // attempt to get page data relative to zesty
+  const data = await fetchPage(req.url);
 
-  /**
-   * This section holds data settings for fetching Github Data
-   */
-  const TOKEN = process.env.NEXT_PUBLIC_GITHUB_AUTH;
-  const ENDPOINT = 'https://api.github.com/graphql';
-
-  const HEADERS = {
-    'Content-Type': 'application/json',
-    Authorization: 'bearer ' + TOKEN,
-  };
-
-  const settings = {
-    organization: `"Zesty-io"`,
-    projectNumber: data.project_number,
-    columns: data.max_column,
-    cards: data.max_card,
-    discussions: data.max_discussion,
-  };
-
-  const body = {
-    query: `
-    {
-      organization(login: ${settings.organization}) {
-        repository(name: "manager-ui") {
-          discussions(last: ${settings.discussions}) {
-            edges {
-              node {
-                category {
-                  name,
-                  emojiHTML
-                }
-              }
-            }
-            nodes {
-              category {
-                name
-                emojiHTML
-              }
-              labels(last:10) {
-                nodes {
-                  name
-                  color
-                  url
-                }
-              }
-              upvoteCount
-              title
-              url
-            }
-          }
-        }
-        project(number: ${settings.projectNumber}) {
-          name
-          columns(last: ${settings.columns}) {
-            nodes {
-              name,
-              cards(last: ${settings.cards} ) {
-                totalCount
-                nodes {
-                  id,
-                  note,
-                  url
-                }
-              }
-            }
-          }
-        }
-      }
-    }    
-    `,
-  };
-
-  const res = await fetch(ENDPOINT, {
-    method: 'POST',
-    headers: HEADERS,
-    body: JSON.stringify(body),
-  });
-  const gitHubData = await res.json();
-  data.github_data = gitHubData;
+  // This section holds data settings for fetching Github Data
+  if(req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
+    data.github_data = await githubFetch({
+      organization: `"Zesty-io"`,
+      projectNumber: data.project_number,
+      columns: data.max_column,
+      cards: data.max_card,
+      discussions: data.max_discussion,
+    });
+  }
 
   // generate a status 404 page
   if (data.error) return { notFound: true };
-
-  res.setHeader(
-    'edge-cache-tag',
-    `${process.env.zesty.instance_zuid}, ${data.meta.zuid}`
-  )
 
   // Pass data to the page via props
   return { props: data };
