@@ -70,6 +70,7 @@ export const light = {
       'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%)',
     zestyZambezi: '#5b5b5b',
     zestyLightRedOrange: '#FFFCFB',
+    zestyAzure: '#faffff',
   },
 };
 
