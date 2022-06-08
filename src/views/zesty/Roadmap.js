@@ -102,7 +102,6 @@ function Roadmap({ content }) {
               </Box>
               <CardContent
                 sx={{
-                  minHeight: 500,
                   borderRadius: 1,
                   background: theme.palette.background.level2,
                   mt: 2,
@@ -199,7 +198,6 @@ function Roadmap({ content }) {
               </Box>
               <CardContent
                 sx={{
-                  minHeight: 500,
                   borderRadius: 1,
                   background: theme.palette.background.level2,
                   mt: 2,
