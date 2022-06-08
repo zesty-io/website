@@ -81,16 +81,28 @@ import connectionMobile from '../../../public/assets/images/headless-cms/connect
 import connectionSmall from '../../../public/assets/images/headless-cms/connection-small.svg';
 import image_one from '../../../public/assets/images/headless-cms/image-one.png';
 import image_two from '../../../public/assets/images/headless-cms/image-two.png';
+import image_three from '../../../public/assets/images/headless-cms/image-three.png';
+import image_four from '../../../public/assets/images/headless-cms/image-four.png';
+import image_five from '../../../public/assets/images/headless-cms/image-five.png';
+import image_six from '../../../public/assets/images/headless-cms/image-six.png';
+import image_seven from '../../../public/assets/images/headless-cms/image-seven.png';
+import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
+import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
+import curve from '../../../public/assets/images/headless-cms/curve.svg';
+import curve_dark from '../../../public/assets/images/headless-cms/curve-dark.svg';
+import curve_mobile from '../../../public/assets/images/headless-cms/curve-mobile.svg';
+import s_curve from '../../../public/assets/images/headless-cms/sCurve.svg';
 
 function HeadlessEcommerce({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  console.log(theme);
+  const isDarkMode = theme.palette.mode === 'dark';
   return (
     <Box>
       <Hero theme={theme} isMobile={isMobile} />
-      <SectionOne theme={theme} isMobile={isMobile} />
+      <SectionOne isDarkMode={isDarkMode} theme={theme} isMobile={isMobile} />
       <SectionTwo theme={theme} isMobile={isMobile} />
+      <SectionThree isDarkMode={isDarkMode} theme={theme} isMobile={isMobile} />
     </Box>
   );
 }
@@ -244,7 +256,7 @@ const Hero = ({ theme, isMobile }) => (
 );
 
 // Section One
-const SectionOne = ({ theme, isMobile }) => {
+const SectionOne = ({ theme, isMobile, isDarkMode }) => {
   const card_icons = [
     headless_digital,
     headless_commerce,
@@ -262,8 +274,8 @@ const SectionOne = ({ theme, isMobile }) => {
                 sx={{
                   borderRadius: 3,
                   width: '100%',
-                  maxWidth: useMediaQuery(theme.breakpoints.between('xs', 550))
-                    ? 163
+                  maxWidth: useMediaQuery(theme.breakpoints.between('xs', 545))
+                    ? 155
                     : 233,
                   minHeight: 190,
                   margin: 'auto',
@@ -390,6 +402,22 @@ const SectionOne = ({ theme, isMobile }) => {
             src={image_two.src}
           />
         </Box>
+
+        <Box
+          sx={{
+            position: 'absolute',
+            zIndex: 1,
+            ml: isMobile ? 4.9 : 4.2,
+          }}
+          component="img"
+          src={
+            isMobile
+              ? curve_mobile.src
+              : isDarkMode
+              ? curve_dark.src
+              : curve.src
+          }
+        />
       </Container>
     </Box>
   );
@@ -401,78 +429,502 @@ const SectionTwo = ({ theme, isMobile }) => {
     <Box
       sx={{
         background: theme.palette.zesty.zestyDarkBlue,
-        minHeight: 2279,
-        mt: 10,
+        mt: 14,
+        position: 'relative',
+        borderRadius: 5,
+        overflow: 'hidden',
       }}
       component="section"
     >
+      <Box
+        sx={{
+          position: 'absolute',
+          right: 0,
+          top: '5%',
+          width: isMobile ? 264 : 'auto',
+        }}
+        component="img"
+        src={chevron_right.src}
+      />
+
+      <Box
+        sx={{
+          position: 'absolute',
+          left: 0,
+          bottom: '5%',
+          width: isMobile ? 264 : 'auto',
+        }}
+        component="img"
+        src={chevron_left.src}
+      />
       <Container>
         <Box sx={{ color: 'white' }}>
           <Box sx={{ position: 'relative' }} component="ul">
+            {/* Content One */}
             <Box
               sx={{
-                minHeight: 354,
+                py: isMobile ? 3 : 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                minHeight: 400,
                 listStyleType: 'none',
-                borderLeft: '1px solid white',
+                borderTopLeftRadius: 155,
+
+                // borderLeft: '1px solid white',
                 position: 'relative',
-                '&:before': {
-                  content: '""',
-                  width: 15,
-                  height: 15,
-                  background: 'white',
-                  border: '1px solid white',
-                  borderRadius: '50%',
-                  position: 'absolute',
-                  left: -7,
-                  top: '50%',
-                },
+                // '&:before': {
+                //   content: '""',
+                //   width: 15,
+                //   height: 15,
+                //   background: '#F4F6FB',
+                //   border: '1px solid #F4F6FB',
+                //   borderRadius: '50%',
+                //   position: 'absolute',
+                //   left: -7,
+                //   top: '35%',
+                // },
               }}
               component="li"
             >
-              <Typography
-                sx={{
-                  fontWeight: 'bold',
-                  background: theme.palette.zesty.zestyOrangeLinear,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  color: 'transparent',
-                }}
-                variant="h3"
-                component="h2"
-              >
-                How our headless CMS works
-              </Typography>
-              <Typography variant="h4" component="p">
-                Create content across devices in minutes. Leverage any endpoint
-                and customize your API using our robust platform.
-              </Typography>
+              <Box sx={{ ml: 4, mt: isMobile ? 0 : 15 }}>
+                <Typography
+                  sx={{
+                    textAlign: isMobile ? 'center' : 'left',
+                    fontWeight: 'bold',
+                    background: theme.palette.zesty.zestyOrangeLinear,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                  variant="h3"
+                  component="h2"
+                >
+                  How our headless CMS works
+                </Typography>
+                <Typography
+                  sx={{ mt: 2, textAlign: isMobile ? 'center' : 'left' }}
+                  variant="h4"
+                  component="p"
+                >
+                  Create content across devices in minutes. Leverage any
+                  endpoint and customize your API using our robust platform.
+                </Typography>
+              </Box>
             </Box>
+            {/* Content Two */}
             <Box
               sx={{
-                minHeight: 354,
+                py: isMobile ? 3 : 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                minHeight: 400,
                 listStyleType: 'none',
-                borderLeft: '1px solid white',
+                borderLeft: `2px solid ${
+                  isMobile
+                    ? theme.palette.zesty.zestyBlue2
+                    : theme.palette.common.white
+                }`,
                 position: 'relative',
                 '&:before': {
                   content: '""',
                   width: 15,
                   height: 15,
-                  background: 'white',
-                  border: '1px solid white',
+                  background: theme.palette.zesty.whiteGray,
+                  border: `2px solid ${
+                    isMobile
+                      ? theme.palette.zesty.zestyBlue2
+                      : theme.palette.common.white
+                  }`,
+                  zIndex: 2,
                   borderRadius: '50%',
                   position: 'absolute',
-                  left: -7,
-                  top: '50%',
+                  left: -8,
+                  top: isMobile ? '32%' : '22%',
                 },
               }}
               component="li"
             >
-              Test
+              <Grid container spacing={2}>
+                <Grid
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                  }}
+                  item
+                  sm={12}
+                  md={6}
+                >
+                  <Box sx={{ ml: 4 }}>
+                    <Typography
+                      sx={{
+                        fontWeight: 'bold',
+                        background: theme.palette.zesty.zestyOrangeLinear,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                      }}
+                      variant="h4"
+                      component="h2"
+                    >
+                      Design your content architecture easily
+                    </Typography>
+                    <Typography sx={{ mt: 2 }} variant="h4" component="p">
+                      Select your model type, define your content models, and
+                      relate your content fields, all in one easy-to-use schema
+                      editor
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item sm={12} md={6}>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      maxWidth: isMobile ? '100%' : 501,
+                      height: isMobile ? '100%' : 356,
+                    }}
+                    src={image_three.src}
+                    component="img"
+                  />
+                </Grid>
+              </Grid>
+            </Box>
+            {/* Content Three */}
+            <Box
+              sx={{
+                py: isMobile ? 3 : 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                minHeight: 400,
+                listStyleType: 'none',
+                borderLeft: `2px solid ${
+                  isMobile
+                    ? theme.palette.zesty.zestyBlue2
+                    : theme.palette.common.white
+                }`,
+                position: 'relative',
+                '&:before': {
+                  content: '""',
+                  width: 15,
+                  height: 15,
+                  background: theme.palette.zesty.whiteGray,
+                  border: `2px solid ${
+                    isMobile
+                      ? theme.palette.zesty.zestyBlue2
+                      : theme.palette.common.white
+                  }`,
+                  borderRadius: '50%',
+                  position: 'absolute',
+                  left: -8,
+                  top: isMobile ? '32%' : '22%',
+                },
+              }}
+              component="li"
+            >
+              <Grid container spacing={2}>
+                <Grid
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                  }}
+                  item
+                  sm={12}
+                  md={6}
+                >
+                  <Box sx={{ ml: 4 }}>
+                    <Typography
+                      sx={{
+                        fontWeight: 'bold',
+                        background: theme.palette.zesty.zestyOrangeLinear,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                      }}
+                      variant="h4"
+                      component="h2"
+                    >
+                      Quickly create and edit your headless content
+                    </Typography>
+                    <Typography sx={{ mt: 2 }} variant="h4" component="p">
+                      With your architecture defined, adding headless content is
+                      a breeze with Zesty’s intuitive content manager.
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item sm={12} md={6}>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      maxWidth: isMobile ? '100%' : 501,
+                      height: isMobile ? '100%' : 356,
+                    }}
+                    src={image_four.src}
+                    component="img"
+                  />
+                </Grid>
+              </Grid>
+            </Box>
+            {/* Content Four */}
+            <Box
+              sx={{
+                py: isMobile ? 3 : 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                minHeight: 400,
+                listStyleType: 'none',
+                borderLeft: `2px solid ${
+                  isMobile
+                    ? theme.palette.zesty.zestyBlue2
+                    : theme.palette.common.white
+                }`,
+                position: 'relative',
+                '&:before': {
+                  content: '""',
+                  width: 15,
+                  height: 15,
+                  background: theme.palette.zesty.whiteGray,
+                  border: `2px solid ${
+                    isMobile
+                      ? theme.palette.zesty.zestyBlue2
+                      : theme.palette.common.white
+                  }`,
+                  borderRadius: '50%',
+                  position: 'absolute',
+                  left: -8,
+                  top: isMobile ? '32%' : '22%',
+                },
+              }}
+              component="li"
+            >
+              <Grid container spacing={2}>
+                <Grid
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                  }}
+                  item
+                  sm={12}
+                  md={6}
+                >
+                  <Box sx={{ ml: 4 }}>
+                    <Typography
+                      sx={{
+                        fontWeight: 'bold',
+                        background: theme.palette.zesty.zestyOrangeLinear,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                      }}
+                      variant="h4"
+                      component="h2"
+                    >
+                      Develop any application, website, or digital experience
+                    </Typography>
+                    <Typography sx={{ mt: 2 }} variant="h4" component="p">
+                      Push your content live via Zesty or choose to integrate
+                      with any technology stack you choose to optimize your
+                      digital experiences
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item sm={12} md={6}>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      maxWidth: isMobile ? '100%' : 501,
+                      height: isMobile ? '100%' : 356,
+                    }}
+                    src={image_five.src}
+                    component="img"
+                  />
+                </Grid>
+              </Grid>
+            </Box>
+            {/* Content Five */}
+            <Box
+              sx={{
+                py: isMobile ? 3 : 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                minHeight: 400,
+                listStyleType: 'none',
+                borderLeft: `2px solid ${
+                  isMobile
+                    ? theme.palette.zesty.zestyBlue2
+                    : theme.palette.common.white
+                }`,
+                position: 'relative',
+                '&:before': {
+                  content: '""',
+                  width: 15,
+                  height: 15,
+                  background: theme.palette.zesty.whiteGray,
+                  border: `2px solid ${
+                    isMobile
+                      ? theme.palette.zesty.zestyBlue2
+                      : theme.palette.common.white
+                  }`,
+                  borderRadius: '50%',
+                  position: 'absolute',
+                  left: -8,
+                  top: isMobile ? '32%' : '32%',
+                },
+              }}
+              component="li"
+            >
+              <Grid container spacing={2}>
+                <Grid
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                  }}
+                  item
+                  sm={12}
+                  md={6}
+                >
+                  <Box sx={{ ml: 4 }}>
+                    <Typography
+                      sx={{
+                        fontWeight: 'bold',
+                        background: theme.palette.zesty.zestyOrangeLinear,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                      }}
+                      variant="h4"
+                      component="h2"
+                    >
+                      Deploy on a cloud-native
+                    </Typography>
+                    <Typography sx={{ mt: 2 }} variant="h4" component="p">
+                      Automated SEO means that your page rank and performance
+                      never degrade
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item sm={12} md={6}>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      maxWidth: isMobile ? '100%' : 501,
+                      height: isMobile ? '100%' : 356,
+                    }}
+                    src={image_six.src}
+                    component="img"
+                  />
+                </Grid>
+              </Grid>
             </Box>
           </Box>
         </Box>
       </Container>
+    </Box>
+  );
+};
+
+// Section Three
+const SectionThree = ({ isDarkMode, theme, isMobile }) => {
+  return (
+    <Box
+      component="section"
+      sx={{ position: 'relative', mt: 15, minHeight: 610 }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          margin: 'auto',
+          display: 'block',
+          width: '100%',
+        }}
+        component="img"
+        src={s_curve.src}
+      />
+      <Grid container spacing={2}>
+        <Grid order={{ sm: 2, md: 1 }} item sm={12} md={6}>
+          <Box
+            sx={{
+              display: 'block',
+              margin: 'auto',
+              width: '100%',
+              maxWidth: 579,
+            }}
+            component="img"
+            src={image_seven.src}
+          />
+        </Grid>
+
+        <Grid
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: isMobile ? 'center' : 'flex-start',
+            flexDirection: 'column',
+          }}
+          item
+          sm={12}
+          md={6}
+          order={{ sm: 1, md: 2 }}
+        >
+          <Box>
+            <Typography
+              sx={{
+                textAlign: isMobile ? 'center' : 'left',
+                letterSpacing: 1,
+                background: theme.palette.zesty.zestyOrangeLinear,
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                fontWeight: 'bold',
+              }}
+              variant="h4"
+              component="h2"
+            >
+              Ready to transform your digital experiences?
+              <Typography
+                variant="h4"
+                sx={{
+                  ml: 1,
+                  fontWeight: 'bold',
+                  color: isDarkMode
+                    ? theme.palette.common.white
+                    : theme.palette.zesty.zestyDarkGray,
+                }}
+                component="span"
+              >
+                Get started with Zesty Headless CMS
+              </Typography>
+            </Typography>
+          </Box>
+          <Box sx={{ width: '100%', px: isMobile ? 4 : 0, mt: 4 }}>
+            <Button
+              component={'a'}
+              target="_blank"
+              fullWidth={isMobile}
+              variant="contained"
+              sx={{
+                background: theme.palette.zesty.zestyOrange,
+                color: theme.palette.common.white,
+                px: 6,
+              }}
+              size="large"
+            >
+              Try Free
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
