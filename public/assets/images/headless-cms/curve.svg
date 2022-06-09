@@ -1,0 +1,16 @@
+<svg
+  width="581"
+  height="609"
+  viewBox="0 0 581 609"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+<path d="M7.5 334V609" stroke="white" stroke-width="2" />
+<circle cx="7.5" cy="329.5" r="7.5" fill="#F4F6FB" />
+<path
+    d="M580 45V115.004C580 153.006 551.428 199.409 474.543 201.009C397.658 202.609 224.186 201.676 123.578 201.009C92.0617 199.843 8.66238 199.593 7 322"
+    stroke="white"
+    stroke-width="2"
+  />
+<path d="M580.001 116.5V115.005V45.0007V0" stroke="#5B667D" stroke-width="2" />
+</svg>
