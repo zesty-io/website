@@ -15,21 +15,21 @@ import Skeleton from '@mui/material/Skeleton';
 
 export default function AppBar({ url = window.location.pathname }) {
   const theme = useTheme();
-  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getCookie('APP_SID');
 
-  let pathnames = url.split('/').filter((e) => e);
-  // let ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
+  // get param from url to look for instance
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
 
-  // console.log(ZestyAPI.getModels());
+  if(params.instanceZUID){
+    setCookies('ZESTY_WORKING_INSTANCE',params.instanceZUID)
+    instanceZUID = params.instanceZUID
+  }
 
-  // function generateURLFromSplit(depth, urlSplit) {
-  //   let url = `/`;
-  //   for (i = 0; i <= depth; i++) {
-  //     url = url + `${urlSplit[i]}/`;
-  //   }
-  //   return url;
-  // }
+  // remove query param and splits the url
+  let pathnames = url.split("?")[0].split('/').filter((e) => e);
 
   const { verifySuccess, instances, userInfo, loading } = useFetchWrapper(
     userAppSID,
