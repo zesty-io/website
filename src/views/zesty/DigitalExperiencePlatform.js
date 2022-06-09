@@ -144,11 +144,19 @@ const Section1Hero = ({
           <Box
             sx={{
               position: 'absolute',
-              left: '20rem',
+              left: '-10vw',
+              top: '-5vh',
               display: isMobile ? 'none' : 'flex',
+              // background: 'red',
+              // height: '600px',
+              width: '630px',
             }}
           >
-            <img src={bgImage} alt="" />
+            <img
+              src={bgImage}
+              alt=""
+              style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+            />
           </Box>
           <Typography
             component={'h2'}
@@ -605,7 +613,10 @@ const RevealComponent = ({
 
 const Section4Middle = ({ content, theme, isMobile }) => {
   const FillerImage =
-    content.middle_solution_1_graphic.data[0].url ||
+    content.middle_solution_1_graphic?.data[0]?.url ||
+    FillerContent.dashboard_image;
+  const bracketImg =
+    content.dxp_background_images?.data[0]?.url ||
     FillerContent.dashboard_image;
   const arr = [
     {
@@ -685,28 +696,6 @@ const Section4Middle = ({ content, theme, isMobile }) => {
           borderRadius: '50px 0 0 0',
         }}
       ></Box>
-      {/* <Box
-        sx={{
-          zIndex: '10',
-          position: 'absolute',
-          left: '5%',
-          top: 0,
-          display: !isMobile ? 'none' : 'flex',
-        }}
-      >
-        <img src={dxpCurve.src} alt="bg" />
-      </Box> */}
-      {/* <Box
-        sx={{
-          zIndex: '10',
-          position: 'absolute',
-          left: '5%',
-          bottom: 0,
-          display: !isMobile ? 'none' : 'flex',
-        }}
-      >
-        <img src={dxpLine.src} alt="bg" />
-      </Box> */}
       <Box
         sx={{
           zIndex: '10',
@@ -716,7 +705,7 @@ const Section4Middle = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={featuresBg1.src} alt="bg" />
+        <img src={bracketImg} alt="bg" />
       </Box>
       <Box
         sx={{
@@ -725,9 +714,10 @@ const Section4Middle = ({ content, theme, isMobile }) => {
           right: 0,
           top: 0,
           display: isMobile ? 'none' : 'flex',
+          transform: 'rotate(180deg)',
         }}
       >
-        <img src={featuresBg2.src} alt="bg" />
+        <img src={bracketImg} alt="bg" />
       </Box>
       <Box
         sx={{
@@ -759,7 +749,7 @@ const Section4Middle = ({ content, theme, isMobile }) => {
             {content.middle_solutions_header}
           </Typography>
         </Box>
-        {arr.map((e, i) => {
+        {arr?.map((e, i) => {
           return (
             <RevealComponent
               isMobile={isMobile}
@@ -777,8 +767,12 @@ const Section4Middle = ({ content, theme, isMobile }) => {
     </Box>
   );
 };
+
 const Section5Features = ({ content, theme, isMobile }) => {
   const arr = content.features.data;
+  const bracketImg =
+    content.dxp_background_images?.data[0]?.url ||
+    FillerContent.dashboard_image;
   return (
     <Box
       paddingBottom={isMobile ? 20 : 20}
@@ -797,7 +791,7 @@ const Section5Features = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={featuresBg1.src} alt="bg" />
+        <img src={bracketImg} alt="bg" />
       </Box>
       <Container>
         <Box>
@@ -966,6 +960,9 @@ const Section6Integrations = ({ content, theme, isMobile }) => {
 const Section7Implementing = ({ content, theme, isMobile }) => {
   const [headless, setheadless] = React.useState(true);
   const [hybrid, sethybrid] = React.useState(false);
+  const swooshBg =
+    content.headless_background_image?.data[0]?.url ||
+    FillerContent.dashboard_image;
   return (
     <Box
       paddingY={isMobile ? 4 : 15}
@@ -983,7 +980,7 @@ const Section7Implementing = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={headlessCmsBg.src} alt="bg" />
+        <img src={swooshBg} alt="bg" />
       </Box>
       <Container
         sx={{
@@ -1369,6 +1366,10 @@ const Section8CaseStudies = ({ content, theme }) => {
   );
 };
 const Section9Bottom = ({ content, theme, isMobile }) => {
+  const bgImgage =
+    content.bottom_page_background_image?.data[0]?.url ||
+    FillerContent.dashboard_image;
+
   return (
     <Box paddingY={isMobile ? 0 : 20} sx={{ position: 'relative' }}>
       <Box
@@ -1380,7 +1381,7 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={content.bottom_page_background_image.data[0].url} alt="bg" />
+        <img src={bgImgage} alt="bg" />
       </Box>
       <Container>
         <Box
@@ -1444,7 +1445,10 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
           <div data-aos="fade-right">
             <Box paddingY={isMobile ? 15 : 0}>
               <img
-                src={content.bottom_cta_graphic.data[0].url}
+                src={
+                  content.bottom_cta_graphic?.data[0]?.url ||
+                  FillerContent.dashboard_image
+                }
                 width={isMobile ? 350 : 600}
               />
             </Box>
