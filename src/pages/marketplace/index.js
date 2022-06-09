@@ -65,7 +65,7 @@ export async function getServerSideProps({res, req}) {
   const entities = await fetch(`${extensionsURL}/-/gql/extensions.json`);
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
   const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
-  const data = await getMarketplaceData(ctx);
+  const data = await getMarketplaceData(req.url);
   const navigationCustom = (await fetchPage('/')).navigationCustom;
 
   return {
