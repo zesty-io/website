@@ -41,6 +41,7 @@ export const light = {
   zesty: {
     zestyDarkBlue: '#1b202c',
     zestyTabBlue: '#697A91',
+    zestyBlue2: '#2196F3',
     zestyOrange: '#FF5D0A',
     zestyRed: 'rgb(230,74,23)',
     devTheme: '#77b250',
@@ -62,13 +63,18 @@ export const light = {
     yellowHighlight: '#FFFDE2',
     white: '#E5EAF9',
     pureWhite: '#ffffff',
+    whiteGray: '#F4F6FB',
     lightBlue: '#D9E2F4',
     zestyGray99: '#FCFCFC',
+    zestyDarkGray: '#5B5B5B',
     zestyTealGradient:
       'linear-gradient(180deg, rgba(15,172,185,1) 45%, rgba(255,255,255,1) 100%)',
     zestyBlueGradient:
       'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%)',
+    zestyOrangeLinear: 'linear-gradient(90deg, #FF5D0A 8.16%, #F7951D 91.84%)',
     zestyZambezi: '#5b5b5b',
+    zestyLightRedOrange: '#FFFCFB',
+    zestyAzure: '#faffff',
   },
 };
 
@@ -134,5 +140,8 @@ export const dark = {
     white: '#E5EAF9',
     pureWhite: '#ffffff',
     lightBlue: '#D9E2F4',
+    zestyOrangeLinear: 'linear-gradient(90deg, #FF5D0A 8.16%, #F7951D 91.84%)',
+    zestyBlue2: '#2196F3',
+    whiteGray: '#F4F6FB',
   },
 };
