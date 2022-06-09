@@ -209,6 +209,9 @@ const RevealCompo = ({
 };
 
 const Section4HybridCMS = ({ content, theme, isMobile, isDarkMode }) => {
+  const bgTriangleLeft = chevron_left.src;
+  const bgTriangleRight = chevron_right.src;
+
   const arr = [
     {
       text: content.hybrid_cms_feature_1,
@@ -284,7 +287,7 @@ const Section4HybridCMS = ({ content, theme, isMobile, isDarkMode }) => {
           width: isMobile ? 264 : 'auto',
         }}
         component="img"
-        src={chevron_right.src}
+        src={bgTriangleRight}
       />
 
       <Box
@@ -295,7 +298,7 @@ const Section4HybridCMS = ({ content, theme, isMobile, isDarkMode }) => {
           width: isMobile ? 264 : 'auto',
         }}
         component="img"
-        src={chevron_left.src}
+        src={bgTriangleLeft}
       />
       <Container>
         <Box
@@ -813,14 +816,22 @@ const Section6Bottom = ({ content, theme, isMobile }) => {
                   width: '100%',
                 }}
               >
-                <Button
+                <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
+                  <TryFreeButton
+                    fullWidth={true}
+                    text={content.bottom_cta_primary}
+                    variant="contained"
+                    component="a"
+                  />
+                </Box>
+                {/* <Button
                   sx={{ padding: '.5rem 4rem' }}
                   variant="contained"
                   color="secondary"
                   fullWidth={isMobile}
                 >
                   {content.bottom_cta_primary}
-                </Button>
+                </Button> */}
                 <Button
                   variant="text"
                   color="secondary"

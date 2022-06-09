@@ -1424,14 +1424,22 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
                   width: '100%',
                 }}
               >
-                <Button
+                <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
+                  <TryFreeButton
+                    fullWidth={true}
+                    text={content.bottom_cta_button_primary}
+                    variant="contained"
+                    component="a"
+                  />
+                </Box>
+                {/* <Button
                   sx={{ padding: '.5rem 4rem' }}
                   variant="contained"
                   color="secondary"
                   fullWidth={isMobile}
                 >
                   {content.bottom_cta_button_primary}
-                </Button>
+                </Button> */}
                 <Button
                   variant="text"
                   color="secondary"
