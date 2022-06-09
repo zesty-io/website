@@ -193,21 +193,14 @@ const Section1Hero = ({
             {subHeader}
           </Typography>
           <Box sx={{ display: isMobile ? 'block' : 'flex' }}>
-            <Button
-              href={''}
-              component={Button}
-              variant="contained"
-              fullWidth={isMobile ? true : false}
-              sx={{
-                backgroundColor: theme.palette.common.white,
-                color: theme.palette.zesty.zestyOrange,
-                padding: '.6rem 4rem',
-                whiteSpace: 'nowrap',
-                fontSize: '16px',
-              }}
-            >
-              {primaryCta}
-            </Button>
+            <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
+              <TryFreeButton
+                fullWidth={true}
+                text={primaryCta}
+                variant="contained"
+                component="a"
+              />
+            </Box>
             <Button
               href={''}
               variant="text"

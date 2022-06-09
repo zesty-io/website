@@ -55,9 +55,31 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
+import bgImage from '../../../public/assets/images/headless-cms/bgImage.png';
+import header_image from '../../../public/assets/images/headless-cms/header_image.png';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import headless_digital from '../../../public/assets/images/headless-cms/headless-digital.svg';
+import headless_commerce from '../../../public/assets/images/headless-cms/headless-commerce.svg';
+import headless_enterprise from '../../../public/assets/images/headless-cms/headless-enterprise.svg';
+import headless_blog_editorial from '../../../public/assets/images/headless-cms/headless-blogs-editorial.svg';
+import connection from '../../../public/assets/images/headless-cms/connection.svg';
+import connectionMobile from '../../../public/assets/images/headless-cms/connection-mobile.svg';
+import connectionSmall from '../../../public/assets/images/headless-cms/connection-small.svg';
+import image_one from '../../../public/assets/images/headless-cms/image-one.png';
+import image_two from '../../../public/assets/images/headless-cms/image-two.png';
+import image_three from '../../../public/assets/images/headless-cms/image-three.png';
+import image_four from '../../../public/assets/images/headless-cms/image-four.png';
+import image_five from '../../../public/assets/images/headless-cms/image-five.png';
+import image_six from '../../../public/assets/images/headless-cms/image-six.png';
+import image_seven from '../../../public/assets/images/headless-cms/image-seven.png';
+import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
+import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
+import curve from '../../../public/assets/images/headless-cms/curve.svg';
+import curve_dark from '../../../public/assets/images/headless-cms/curve-dark.svg';
+import curve_mobile from '../../../public/assets/images/headless-cms/curve-mobile.svg';
+import s_curve from '../../../public/assets/images/headless-cms/sCurve.svg';
 
 import React from 'react';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import {
   Box,
   Button,
@@ -86,6 +108,7 @@ import * as helper from 'utils';
 import styled from '@emotion/styled';
 import curvePc from '../../../public/assets/images/hybrid_curve_pc.svg';
 import curveMobile from '../../../public/assets/images/hybrid_curve_mobile.png';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 function makeDate(date) {
   var d = new Date(date);
@@ -98,6 +121,259 @@ function makeDate(date) {
   var replace = n.replace(new RegExp(',', 'g'), ' ');
   return replace;
 }
+
+const RevealCompo = ({
+  text = '',
+  img = FillerContent.dashboard_image,
+  strToChange = '',
+  reverse = false,
+  theme,
+  strColor = theme.palette.zesty.zestyOrange,
+  data,
+  index,
+  isMobile,
+}) => {
+  return (
+    <Box
+      sx={{
+        py: isMobile ? 3 : 0,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        minHeight: 400,
+        listStyleType: 'none',
+        borderLeft: `2px solid ${
+          isMobile ? theme.palette.zesty.zestyBlue2 : theme.palette.common.white
+        }`,
+        position: 'relative',
+        '&:before': {
+          content: '""',
+          width: 15,
+          height: 15,
+          background: theme.palette.zesty.whiteGray,
+          border: `2px solid ${
+            isMobile
+              ? theme.palette.zesty.zestyBlue2
+              : theme.palette.common.white
+          }`,
+          zIndex: 2,
+          borderRadius: '50%',
+          position: 'absolute',
+          left: -8,
+          top: isMobile ? '32%' : '22%',
+        },
+      }}
+      component="li"
+    >
+      <Grid container spacing={2}>
+        <Grid
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}
+          item
+          sm={12}
+          md={6}
+        >
+          <Box sx={{ ml: 4 }}>
+            <Typography
+              paddingLeft={isMobile ? 2 : 0}
+              paddingTop={isMobile ? 2 : 10}
+              paddingBottom={isMobile ? 6 : 10}
+              sx={{
+                color: theme.palette.common.white,
+                textAlign: 'left',
+                fontSize: isMobile ? '1rem' : '1.5rem',
+              }}
+              dangerouslySetInnerHTML={{
+                __html: helper.strColorChanger(text, strToChange, strColor),
+              }}
+            />
+          </Box>
+        </Grid>
+        <Grid item sm={12} md={6}>
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: isMobile ? '100%' : 501,
+              height: isMobile ? '100%' : 356,
+            }}
+            src={img}
+            component="img"
+          />
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
+
+const Section4HybridCMS = ({ content, theme, isMobile, isDarkMode }) => {
+  const arr = [
+    {
+      text: content.hybrid_cms_feature_1,
+      img:
+        content.hybrid_cms_feature_1_image &&
+        content.hybrid_cms_feature_1_image.data[0].url,
+      strToChange: 'Multi-Channel Content Management',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_2,
+      img:
+        content.hybrid_cms_feature_2_image &&
+        content.hybrid_cms_feature_2_image.data[0].url,
+      strToChange: 'Visual Publishing',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_3,
+      img:
+        content.hybrid_cms_feature_3_image &&
+        content.hybrid_cms_feature_3_image.data[0].url,
+      strToChange: 'LowCode Interface',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_4,
+      img:
+        content.hybrid_cms_feature_4_image &&
+        content.hybrid_cms_feature_4_image.data[0].url,
+      strToChange: 'Easy Tech Stack Integration',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_5,
+      img:
+        content.hybrid_cms_feature_5_image &&
+        content.hybrid_cms_feature_5_image.data[0].url,
+      strToChange: 'Organized Workflows &amp; Team Management',
+      reverse: false,
+      theme: theme,
+    },
+    {
+      text: content.hybrid_cms_feature_6,
+      img:
+        content.hybrid_cms_feature_6_image &&
+        content.hybrid_cms_feature_6_image.data[0].url,
+      strToChange: 'Strong Security',
+      reverse: false,
+      theme: theme,
+    },
+  ];
+  return (
+    <Box
+      sx={{
+        background: theme.palette.zesty.zestyDarkBlue,
+        mt: 14,
+        position: 'relative',
+        borderRadius: 5,
+        overflow: 'hidden',
+      }}
+      component="section"
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          right: 0,
+          top: '5%',
+          width: isMobile ? 264 : 'auto',
+        }}
+        component="img"
+        src={chevron_right.src}
+      />
+
+      <Box
+        sx={{
+          position: 'absolute',
+          left: 0,
+          bottom: '5%',
+          width: isMobile ? 264 : 'auto',
+        }}
+        component="img"
+        src={chevron_left.src}
+      />
+      <Container>
+        <Box
+          sx={{
+            position: 'absolute',
+            zIndex: 1,
+            ml: isMobile ? 4.9 : 4.2,
+          }}
+          component="img"
+          src={
+            isMobile
+              ? curve_mobile.src
+              : isDarkMode
+              ? curve_dark.src
+              : curve.src
+          }
+        />
+        <Box sx={{ color: 'white' }}>
+          <Box sx={{ position: 'relative' }} component="ul">
+            {/* Content One */}
+            <Box
+              sx={{
+                py: isMobile ? 3 : 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                minHeight: 400,
+                listStyleType: 'none',
+                borderTopLeftRadius: 155,
+                position: 'relative',
+              }}
+              component="li"
+            >
+              <Box sx={{ ml: 4, mt: isMobile ? 0 : 15 }}>
+                <Typography
+                  paddingTop={isMobile ? 2 : 10}
+                  paddingBottom={isMobile ? 0 : 10}
+                  paddingRight={isMobile ? 0 : 40}
+                  paddingLeft={isMobile ? 0 : 6}
+                  sx={{
+                    color: theme.palette.common.white,
+                    textAlign: isMobile ? 'center' : 'left',
+                    fontSize: isMobile ? '1rem' : '1.5rem',
+                    position: 'relative',
+                    zIndex: '1000',
+                    textTransform: 'capitalize',
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: helper.strColorChanger(
+                      content.hybrid_cms_features_header,
+                      'Hybrid CMS Features',
+                      theme.palette.zesty.zestyOrange,
+                    ),
+                  }}
+                ></Typography>
+              </Box>
+            </Box>
+            {arr.map((e, i) => {
+              return (
+                <RevealCompo
+                  isMobile={isMobile}
+                  data={e}
+                  index={i}
+                  text={e.text}
+                  img={e.img}
+                  strToChange={e.strToChange}
+                  reverse={e.reverse}
+                  theme={e.theme}
+                />
+              );
+            })}
+          </Box>
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
 const Section1Hero = ({
   eyebrow = FillerContent.header,
   header = FillerContent.header,
@@ -186,20 +462,14 @@ const Section1Hero = ({
               justifyItems: 'center',
             }}
           >
-            <Button
-              href={''}
-              component={Button}
-              variant="contained"
-              color="secondary"
-              fullWidth={isMobile ? true : false}
-              sx={{
-                padding: '.6rem 4rem',
-                whiteSpace: 'nowrap',
-                fontSize: '16px',
-              }}
-            >
-              {primaryCta}
-            </Button>
+            <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
+              <TryFreeButton
+                fullWidth={true}
+                text={primaryCta}
+                variant="contained"
+                component="a"
+              />
+            </Box>
             <Button
               href={''}
               variant="text"
@@ -292,9 +562,9 @@ const Section2About = ({ text, img, isMobile, theme }) => {
   );
 };
 
-const Section3Hybrid = ({ text, img, theme, isMobile }) => {
+const Section3Hybrid = ({ text, img, theme, isMobile, isDarkMode }) => {
   return (
-    <Box paddingY={isMobile ? 4 : 0}>
+    <Box paddingY={isMobile ? 4 : 0} sx={{ position: 'relative' }}>
       <Container
         sx={{
           display: 'flex',
@@ -353,330 +623,6 @@ const MiniDot = ({ theme, isMobile }) => {
     />
   );
 };
-const RevealComponent = ({
-  text = '',
-  img = FillerContent.dashboard_image,
-  strToChange = '',
-  reverse = false,
-  theme,
-  strColor = theme.palette.zesty.zestyOrange,
-  data,
-  index,
-  isMobile,
-}) => {
-  return (
-    <Box
-      paddingY={1}
-      paddingLeft={isMobile ? 0 : 6}
-      sx={{
-        display: 'flex',
-        flexDirection: isMobile ? 'column' : reverse ? 'row-reverse' : 'row',
-        position: 'relative',
-        zIndex: '1000',
-        gap: isMobile ? '4rem' : '0',
-      }}
-    >
-      <Box
-        sx={{
-          zIndex: '10',
-          background: theme.palette.zesty.zestyBackgroundBlue,
-          height: isMobile ? '100%' : '100%',
-          width: '2px',
-          position: 'absolute',
-          left: isMobile ? '2%' : '0',
-          bottom: '0',
-        }}
-      />
-      <MiniDot theme={theme} isMobile={isMobile} />
-      <div data-aos="zoom-out-left">
-        <Box sx={{ position: 'relative' }}>
-          <Typography
-            paddingLeft={isMobile ? 2 : 0}
-            paddingTop={isMobile ? 2 : 10}
-            paddingBottom={isMobile ? 6 : 10}
-            sx={{
-              color: theme.palette.common.white,
-              textAlign: 'left',
-              fontSize: isMobile ? '1rem' : '1.5rem',
-            }}
-            dangerouslySetInnerHTML={{
-              __html: helper.strColorChanger(text, strToChange, strColor),
-            }}
-          />
-        </Box>
-      </div>
-      <div data-aos="zoom-out-right">
-        <img src={img} width={isMobile ? 350 : 700} />
-      </div>
-    </Box>
-  );
-};
-
-const Section4HybridCMS = ({ content, theme, isMobile }) => {
-  // const FillerImage =
-  //   content.middle_solution_1_graphic.data[0].url ||
-  //   FillerContent.dashboard_image;
-  const sCurvePc = curveMobile.src;
-  const arr = [
-    {
-      text: content.hybrid_cms_feature_1,
-      img:
-        content.hybrid_cms_feature_1_image &&
-        content.hybrid_cms_feature_1_image.data[0].url,
-      strToChange: 'Multi-Channel Content Management',
-      reverse: false,
-      theme: theme,
-    },
-    {
-      text: content.hybrid_cms_feature_2,
-      img:
-        content.hybrid_cms_feature_2_image &&
-        content.hybrid_cms_feature_2_image.data[0].url,
-      strToChange: 'Visual Publishing',
-      reverse: false,
-      theme: theme,
-    },
-    {
-      text: content.hybrid_cms_feature_3,
-      img:
-        content.hybrid_cms_feature_3_image &&
-        content.hybrid_cms_feature_3_image.data[0].url,
-      strToChange: 'LowCode Interface',
-      reverse: false,
-      theme: theme,
-    },
-    {
-      text: content.hybrid_cms_feature_4,
-      img:
-        content.hybrid_cms_feature_4_image &&
-        content.hybrid_cms_feature_4_image.data[0].url,
-      strToChange: 'Easy Tech Stack Integration',
-      reverse: false,
-      theme: theme,
-    },
-    {
-      text: content.hybrid_cms_feature_5,
-      img:
-        content.hybrid_cms_feature_5_image &&
-        content.hybrid_cms_feature_5_image.data[0].url,
-      strToChange: 'Organized Workflows &amp; Team Management',
-      reverse: false,
-      theme: theme,
-    },
-    {
-      text: content.hybrid_cms_feature_6,
-      img:
-        content.hybrid_cms_feature_6_image &&
-        content.hybrid_cms_feature_6_image.data[0].url,
-      strToChange: 'Strong Security',
-      reverse: false,
-      theme: theme,
-    },
-  ];
-  return (
-    <Box
-      paddingY={isMobile ? 2 : 0}
-      sx={{
-        backgroundColor: theme.palette.zesty.zestyDarkBlue,
-        position: 'relative',
-      }}
-    >
-      {/* <Box
-        sx={{
-          position: 'absolute',
-          background: 'red',
-          top: '0',
-          left: '19vw',
-          transform: 'translate(0,0)',
-          width: '30vw',
-          height: 'auto',
-        }}
-      >
-        <img src={sCurvePc} alt="s" style={{ height: '100%', width: '100%' }} />
-        <Box
-          sx={{
-            zIndex: '10',
-            background: theme.palette.zesty.zestyBackgroundBlue,
-            height: isMobile ? '0' : '100%',
-            width: '2px',
-            position: 'absolute',
-            left: isMobile ? '5%' : '0',
-            bottom: '-30vh',
-          }}
-        />
-      </Box> */}
-      {/* <Box
-        sx={{
-          zIndex: '100',
-          position: 'absolute',
-          left: '20%',
-          top: 0,
-          display: isMobile ? 'flex' : 'flex',
-          width: 'calc(50vw - 15%)',
-          height: '100px',
-          position: 'absolute',
-          borderRight: `2px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
-          borderRadius: '0 0 100px 0',
-        }}
-      ></Box>
-      <Box
-        sx={{
-          zIndex: '10',
-          position: 'absolute',
-          left: '19%',
-          top: '100px',
-          display: isMobile ? 'flex' : 'flex',
-          width: 'calc(50vw - 19%)',
-          height: '100%',
-          position: 'absolute',
-          border: `1px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
-          borderRight: 0,
-          borderRadius: '150px 0 0 0',
-        }}
-      ></Box> */}
-      <Box
-        sx={{
-          zIndex: '10',
-          position: 'absolute',
-          left: 0,
-          bottom: 0,
-          display: isMobile ? 'none' : 'flex',
-        }}
-      >
-        <img src={featuresBg1.src} alt="bg" />
-      </Box>
-      <Box
-        sx={{
-          zIndex: '10',
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          display: isMobile ? 'none' : 'flex',
-        }}
-      >
-        <img src={featuresBg2.src} alt="bg" />
-      </Box>
-      <Container>
-        <Box
-          sx={{
-            display: 'flex',
-            border: '1px solid transparent',
-            width: '100%',
-            height: '10rem',
-            position: 'relative',
-          }}
-        >
-          <Box
-            sx={{
-              borderRadius: isMobile ? '0 0 50px 0' : '0 0 100px 0',
-              border: `2px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
-              // background: theme.palette.zesty.zestyBackgroundBlue,
-              width: '100%',
-              height: '10rem',
-              borderLeft: 0,
-              borderTop: 0,
-              zIndex: '50',
-            }}
-          ></Box>
-
-          <Box
-            sx={{
-              border: `2px solid ${'#1B202C'}`,
-              // border: `1px solid blue`,
-              width: '100px',
-              height: '10rem',
-              position: 'absolute',
-              zIndex: '100',
-              top: '0',
-              left: '0',
-            }}
-          ></Box>
-          <Box
-            sx={{
-              border: `2px solid ${'#1B202C'}`,
-              // border: `1px solid aqua`,
-              width: '50vw',
-              height: '10rem',
-              position: 'absolute',
-              zIndex: '100',
-              top: '0',
-              left: 'calc(50% - 85px)',
-              zIndex: '100',
-            }}
-          ></Box>
-          <Box
-            sx={{
-              border: '1px solid transparent',
-              width: '100%',
-              height: '10rem',
-            }}
-          ></Box>
-        </Box>
-        <Box
-          sx={{
-            position: 'absolute',
-            border: `3px solid ${'#1B202C'}`,
-            // border: '3px solid pink',
-            width: '50vw',
-            height: '10rem',
-            top: 'calc(10rem - 1px)',
-            left: 'calc(50% - 85px)',
-            borderBottom: 0,
-            borderRight: 0,
-            zIndex: '100',
-          }}
-        ></Box>
-        <Box
-          sx={{
-            borderRadius: '100px 0 0 0',
-            position: 'relative',
-            // border: '1px solid green',
-            border: `2px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
-            borderBottom: 0,
-            borderRight: 0,
-            zIndex: '10',
-          }}
-        >
-          <Typography
-            paddingTop={isMobile ? 2 : 10}
-            paddingBottom={isMobile ? 0 : 10}
-            paddingRight={isMobile ? 0 : 40}
-            paddingLeft={isMobile ? 0 : 6}
-            sx={{
-              color: theme.palette.common.white,
-              textAlign: isMobile ? 'center' : 'left',
-              fontSize: isMobile ? '1rem' : '1.5rem',
-              position: 'relative',
-              zIndex: '1000',
-              textTransform: 'capitalize',
-            }}
-            dangerouslySetInnerHTML={{
-              __html: helper.strColorChanger(
-                content.hybrid_cms_features_header,
-                'Hybrid CMS Features',
-                theme.palette.zesty.zestyOrange,
-              ),
-            }}
-          ></Typography>
-        </Box>
-        {arr.map((e, i) => {
-          return (
-            <RevealComponent
-              isMobile={isMobile}
-              data={e}
-              index={i}
-              text={e.text}
-              img={e.img}
-              strToChange={e.strToChange}
-              reverse={e.reverse}
-              theme={e.theme}
-            />
-          );
-        })}
-      </Container>
-    </Box>
-  );
-};
 
 const CustomButton = styled.button`
   background: transparent;
@@ -696,99 +642,11 @@ const CustomButton = styled.button`
   }
 `;
 
-const Section51CaseStudies = ({ content, theme }) => {
-  const [active, setactive] = React.useState(content?.case_studies?.data[0]);
-
-  return (
-    <Box sx={{ position: 'relative', zIndex: '1001' }}>
-      <Container
-        sx={{
-          position: 'relative',
-          zIndex: '1001',
-        }}
-      >
-        <Typography
-          component={'h2'}
-          variant={'p'}
-          paddingBottom={10}
-          sx={{
-            fontSize: '32px',
-            color: theme.palette.secondary.darkCharcoal,
-            textAlign: 'center',
-          }}
-          dangerouslySetInnerHTML={{
-            __html: helper.strColorChanger(
-              content.case_study_title,
-              'none',
-              theme.palette.zesty.zestyOrange,
-            ),
-          }}
-        />
-      </Container>
-      <Box
-        paddingX={8}
-        paddingY={2}
-        sx={{
-          height: '20rem',
-          background: theme.palette.zesty.zestyDarkBlue,
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          alignItems: 'center',
-        }}
-      >
-        <Typography
-          sx={{
-            color: theme.palette.common.white,
-            fontWeight: 500,
-            fontSize: '20px',
-          }}
-        >
-          {active.summary}
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <img src={active.logo.data[0].url} />
-        </Box>
-      </Box>
-      <Container>
-        <Box
-          paddingY={4}
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            justifyItems: 'center',
-            gap: '3rem',
-          }}
-        >
-          {content.case_studies?.data?.map((e, i) => {
-            return (
-              <CustomButton
-                active={active?.title === e?.title ? true : false}
-                theme={theme}
-                onClick={() => setactive(e)}
-              >
-                <img src={e.logo.data[0].url} />
-              </CustomButton>
-            );
-          })}
-        </Box>
-      </Container>
-    </Box>
-  );
-};
-
 const Section5CaseStudies = ({ content, theme, isMobile }) => {
   const [active, setactive] = React.useState(content?.case_studies?.data[0]);
 
   return (
-    <Box paddingY={isMobile ? 8 : 0} sx={{}}>
+    <Box paddingY={isMobile ? 8 : 8} sx={{}}>
       <Container sx={{}}>
         <Typography
           component={'h2'}
@@ -1116,6 +974,7 @@ const ArticleCard = ({ data, isMobile, theme }) => {
     </Box>
   );
 };
+
 const Section7Related = ({ content, theme, isMobile }) => {
   const arr = content?.related_content_articles?.data;
   const bgImage = bottomBg.src;
@@ -1217,9 +1076,11 @@ const Section7Related = ({ content, theme, isMobile }) => {
     </Box>
   );
 };
+
 function HybridCm({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isDarkMode = theme.palette.mode === 'dark';
   console.log(content, 1111);
   const Section1Props = {
     eyebrow: content.hero_eyebrow,
@@ -1244,12 +1105,14 @@ function HybridCm({ content }) {
     img: content.hybrid_interface_graphic?.data[0]?.url,
     isMobile,
     theme,
+    isDarkMode,
   };
 
   const Section4Props = {
     content,
     isMobile,
     theme,
+    isDarkMode,
   };
 
   const Section5Props = {
