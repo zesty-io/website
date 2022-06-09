@@ -102,16 +102,21 @@ import url_routing_management from '../../../public/assets/images/headless-cms/u
 import redirects from '../../../public/assets/images/headless-cms/301-redirects.svg';
 import easy_editing_experience from '../../../public/assets/images/headless-cms/easy-editing-experience.svg';
 import image_eight from '../../../public/assets/images/headless-cms/image_eight.png';
+import sing_life from '../../../public/assets/images/headless-cms/singlife.svg';
+import amazon from '../../../public/assets/images/headless-cms/amazon.svg';
+import fitbit from '../../../public/assets/images/headless-cms/fitbit.svg';
 
 function HeadlessEcommerce({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
+
   const themeSettings = {
     theme,
     isMobile,
     isDarkMode,
   };
-  const isDarkMode = theme.palette.mode === 'dark';
+
   const card_icons = [
     headless_digital,
     headless_commerce,
@@ -181,6 +186,7 @@ function HeadlessEcommerce({ content }) {
       <SectionThree {...themeSettings} />
       <SectionFour features={features} {...themeSettings} />
       <SectionFive {...themeSettings} />
+      <SectionSix {...themeSettings} />
     </Box>
   );
 }
@@ -1119,7 +1125,7 @@ const SectionFour = ({ theme, isMobile, features }) => {
 // Section Five
 const SectionFive = ({ theme, isMobile }) => {
   return (
-    <Box component="section" sx={{ px: 4, mt: 5 }}>
+    <Box component="section" sx={{ px: 4, mt: 10 }}>
       <Box
         sx={{
           background: theme.palette.zesty.zestySeaShell,
@@ -1169,6 +1175,71 @@ const SectionFive = ({ theme, isMobile }) => {
           />
         </Container>
       </Box>
+    </Box>
+  );
+};
+
+// SectionSix
+const SectionSix = ({ theme, isMobile }) => {
+  return (
+    <Box component="section" sx={{ mt: 10 }}>
+      <Box>
+        <Typography
+          variant="h4"
+          component="h2"
+          sx={{
+            color: theme.palette.zesty.zestyDarkGray,
+            textAlign: 'center',
+            fontWeight: 'bold',
+            px: 4,
+          }}
+        >
+          See why top brands trust Zesty headless CMS
+        </Typography>
+      </Box>
+      <Container>
+        <Box
+          sx={{
+            px: 5,
+            mt: 5,
+            minHeight: 294,
+            background: theme.palette.zesty.zestyDarkBlue,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Grid container spacing={2}>
+            <Grid sx={{ background: 'red' }} item sm={12} md={6}>
+              <Box>
+                <Typography
+                  variant="h6"
+                  component="p"
+                  sx={{
+                    color: theme.palette.common.white,
+                    letterSpacing: 0,
+                    lineHeight: '25px',
+                  }}
+                >
+                  Personalized, omnichannel, multi-language commerce
+                  experiences: whatever you need, Zesty can help you get there.
+                  Personalized, omnichannel, multi-language commerce
+                  experiences: whatever you need, Zesty can help you get there.
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid sx={{ background: 'red', width: '100%' }} item sm={12} md={6}>
+              <Box>
+                <Box
+                  sx={{ display: 'block', margin: 'auto' }}
+                  component="img"
+                  src={sing_life.src}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
     </Box>
   );
 };
