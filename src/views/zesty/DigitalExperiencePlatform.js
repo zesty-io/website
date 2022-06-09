@@ -83,6 +83,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import styled from '@emotion/styled';
 import React from 'react';
 import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
 import FillerContent from 'components/FillerContent';
@@ -125,12 +126,15 @@ const Section1Hero = ({
         sx={{
           display: 'flex',
 
+          width: '100%',
           gap: '1rem',
           flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: 'space-between',
         }}
       >
-        <Box
-          sx={{
+        <div
+          data-aos="zoom-in"
+          style={{
             background: '',
             display: 'flex',
             justifyContent: 'center',
@@ -140,7 +144,7 @@ const Section1Hero = ({
           <Box
             sx={{
               position: 'absolute',
-              left: '15rem',
+              left: '20rem',
               display: isMobile ? 'none' : 'flex',
             }}
           >
@@ -199,30 +203,34 @@ const Section1Hero = ({
             <Button
               href={''}
               variant="text"
-              color="inherit"
+              color="secondary"
               fullWidth={isMobile ? true : false}
               sx={{
-                display: secondaryCta ? 'block' : 'none',
-                color: theme.palette.common.white,
+                display: secondaryCta ? 'flex' : 'none',
                 padding: '.6rem 4rem',
                 fontSize: '16px',
                 whiteSpace: 'nowrap',
+                gap: '.5rem',
               }}
             >
-              {secondaryCta}
+              {secondaryCta} <ArrowRightAltIcon />
             </Button>
           </Box>
-        </Box>
+        </div>
 
-        <Box
-          sx={{
+        <div
+          data-aos="zoom-in"
+          style={{
             display: 'flex',
-            justifyContent: 'center',
-            justifyItems: 'center',
+            flexDirection: 'row',
+            alignContent: 'end',
+            justifyContent: 'flex-end',
+            justifyItems: 'flex-end',
+            width: '100%',
           }}
         >
-          <img src={mainImage} width={isMobile ? 350 : 700} />
-        </Box>
+          <img src={mainImage} width={isMobile ? 350 : 650} />
+        </div>
       </Container>
     </Box>
   );
@@ -276,47 +284,47 @@ const CustomCard = ({ data, theme }) => {
     </Card>
   );
 };
-const SecondSection = ({ content, theme, isMobile }) => {
+const Section2Solution = ({ content, theme, isMobile }) => {
   const [active, setactive] = React.useState(0);
   const headerRegex = /\>(.*?)\</;
   const cardData = [
     {
       id: 0,
       name: 'personalize',
-      icon: content.solutions_icon_1.data[0].url,
+      icon: content.solutions_icon_1?.data[0]?.url,
       text: content.solution_1_description,
       subText: content.solution_1_description?.match(headerRegex)[1],
-      img: content.solution_1_graphic.data[0].url,
+      img: content.solution_1_graphic.data[0]?.url,
       ctaName: 'Learn More',
       href: '#',
     },
     {
       id: 1,
       name: 'ecom',
-      icon: content.solutions_icon_2.data[0].url,
+      icon: content.solutions_icon_2?.data[0]?.url,
       text: content.solution_2_description,
       subText: content.solution_2_description?.match(headerRegex)[1],
-      img: content.solution_2_graphic.data[0].url,
+      img: content.solution_2_graphic?.data[0]?.url,
       ctaName: 'Learn More',
       href: '#',
     },
     {
       id: 2,
       name: 'distribution',
-      icon: content.solutions_icon_3.data[0].url,
+      icon: content.solutions_icon_3?.data[0]?.url,
       text: content.solution_3_description,
       subText: content.solution_3_description?.match(headerRegex)[1],
-      img: content.solution_3_graphic.data[0].url,
+      img: content.solution_3_graphic.data[0]?.url,
       ctaName: 'Learn More',
       href: '#',
     },
     {
       id: 3,
       name: 'innovate',
-      icon: content.solutions_icon_4.data[0].url,
+      icon: content.solutions_icon_4.data[0]?.url,
       text: content.solution_4_description,
       subText: content.solution_4_description?.match(headerRegex)[1],
-      img: content.solution_4_graphic.data[0].url,
+      img: content.solution_4_graphic.data[0]?.url,
       ctaName: 'Learn More',
       href: '#',
     },
@@ -463,7 +471,7 @@ const SecondSection = ({ content, theme, isMobile }) => {
   );
 };
 
-const ThirdSection = ({ content, theme, isMobile }) => {
+const Section3About = ({ content, theme, isMobile }) => {
   return (
     <Box
       sx={{
@@ -595,7 +603,7 @@ const RevealComponent = ({
   );
 };
 
-const FourthSection = ({ content, theme, isMobile }) => {
+const Section4Middle = ({ content, theme, isMobile }) => {
   const FillerImage =
     content.middle_solution_1_graphic.data[0].url ||
     FillerContent.dashboard_image;
@@ -769,7 +777,7 @@ const FourthSection = ({ content, theme, isMobile }) => {
     </Box>
   );
 };
-const FifthSection = ({ content, theme, isMobile }) => {
+const Section5Features = ({ content, theme, isMobile }) => {
   const arr = content.features.data;
   return (
     <Box
@@ -871,7 +879,7 @@ const FifthSection = ({ content, theme, isMobile }) => {
   );
 };
 
-const SixtheSection = ({ content, theme, isMobile }) => {
+const Section6Integrations = ({ content, theme, isMobile }) => {
   return (
     <Box
       paddingY={2}
@@ -955,7 +963,7 @@ const SixtheSection = ({ content, theme, isMobile }) => {
   );
 };
 
-const Section7 = ({ content, theme, isMobile }) => {
+const Section7Implementing = ({ content, theme, isMobile }) => {
   const [headless, setheadless] = React.useState(true);
   const [hybrid, sethybrid] = React.useState(false);
   return (
@@ -1229,7 +1237,27 @@ const Section7 = ({ content, theme, isMobile }) => {
   );
 };
 
+const CustomButton = styled.button`
+  background: ${(props) => props.theme.palette.common.white};
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  user-select: none;
+  opacity: ${(props) => (props.active ? 1 : 0.3)};
+  &:active {
+    transform: scale(0.9);
+  }
+  &:focus {
+  }
+  &:hover {
+    opacity: 1;
+  }
+`;
+
 const Section8CaseStudies = ({ content, theme }) => {
+  const [active, setactive] = React.useState(content?.case_studies?.data[0]);
+
   return (
     <Box>
       <Container>
@@ -1252,9 +1280,34 @@ const Section8CaseStudies = ({ content, theme }) => {
         />
       </Container>
       <Box
-        sx={{ height: '30rem', background: theme.palette.zesty.zestyDarkBlue }}
+        paddingX={8}
+        paddingY={2}
+        sx={{
+          height: '20rem',
+          background: theme.palette.zesty.zestyDarkBlue,
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          alignItems: 'center',
+        }}
       >
-        <img src="" />
+        <Typography
+          sx={{
+            color: theme.palette.common.white,
+            fontWeight: 500,
+            fontSize: '20px',
+          }}
+        >
+          {active.summary}
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <img src={active.logo.data[0].url} />
+        </Box>
       </Box>
       <Container>
         <Box
@@ -1262,13 +1315,22 @@ const Section8CaseStudies = ({ content, theme }) => {
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
+            flexDirection: 'row',
             justifyContent: 'center',
             justifyItems: 'center',
             gap: '3rem',
           }}
         >
-          {content.case_studies?.data?.map((e) => {
-            return <img src={e.logo.data[0].url} />;
+          {content.case_studies?.data?.map((e, i) => {
+            return (
+              <CustomButton
+                active={active?.title === e?.title ? true : false}
+                theme={theme}
+                onClick={() => setactive(e)}
+              >
+                <img src={e.logo.data[0].url} />
+              </CustomButton>
+            );
           })}
         </Box>
       </Container>
@@ -1287,7 +1349,7 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={bottomBg.src} alt="bg" />
+        <img src={content.bottom_page_background_image.data[0].url} alt="bg" />
       </Box>
       <Container>
         <Box
@@ -1366,32 +1428,41 @@ function DigitalExperiencePlatform({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  console.log(content, 122);
   const Section1Props = {
-    eyebrow: 'DXP',
-    header: content.header_eyebrow,
-    subHeader: content.header_h1,
+    eyebrow: content.header_eyebrow,
+    header: content.header_h1,
+    subHeader: content.header_description,
     mainImage: content.header_graphic?.data[0]?.url,
-    bgImage: ZestySvg.src,
     primaryCta: content.header_cta_primary,
     secondaryCta: content.header_cta_secondary,
     gradientBg: theme.palette.zesty.zestyBlueGradient,
+    bgImage: content.header_background_image?.data[1]?.url,
     isMobile,
     theme,
   };
   React.useEffect(() => {
     AOS.init({
-      duration: 300,
+      duration: 1000,
     });
   }, []);
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Section1Hero {...Section1Props} />
-      <SecondSection content={content} theme={theme} isMobile={isMobile} />
-      <ThirdSection content={content} theme={theme} isMobile={isMobile} />
-      <FourthSection content={content} theme={theme} isMobile={isMobile} />
-      <FifthSection content={content} theme={theme} isMobile={isMobile} />
-      <SixtheSection content={content} theme={theme} isMobile={isMobile} />
-      <Section7 content={content} theme={theme} isMobile={isMobile} />
+      <Section2Solution content={content} theme={theme} isMobile={isMobile} />
+      <Section3About content={content} theme={theme} isMobile={isMobile} />
+      <Section4Middle content={content} theme={theme} isMobile={isMobile} />
+      <Section5Features content={content} theme={theme} isMobile={isMobile} />
+      <Section6Integrations
+        content={content}
+        theme={theme}
+        isMobile={isMobile}
+      />
+      <Section7Implementing
+        content={content}
+        theme={theme}
+        isMobile={isMobile}
+      />
       <Section8CaseStudies
         content={content}
         theme={theme}
