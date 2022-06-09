@@ -18,18 +18,8 @@ export default function AppBar({ url = window.location.pathname }) {
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getCookie('APP_SID');
 
-  let pathnames = url.split('/').filter((e) => e);
-  // let ZestyAPI = new Zesty.FetchWrapper(instanceZUID, userAppSID);
-
-  // console.log(ZestyAPI.getModels());
-
-  // function generateURLFromSplit(depth, urlSplit) {
-  //   let url = `/`;
-  //   for (i = 0; i <= depth; i++) {
-  //     url = url + `${urlSplit[i]}/`;
-  //   }
-  //   return url;
-  // }
+  // remove query param and splits the url
+  let pathnames = url.split("?")[0].split('/').filter((e) => e);
 
   const { verifySuccess, instances, userInfo, loading } = useFetchWrapper(
     userAppSID,
