@@ -23,9 +23,9 @@ export default function AppBar({ url = window.location.pathname }) {
     get: (searchParams, prop) => searchParams.get(prop),
   });
 
-  if(params.instance){
-    setCookies('ZESTY_WORKING_INSTANCE',params.instance)
-    instanceZUID = params.instance
+  if(params.instanceZUID){
+    setCookies('ZESTY_WORKING_INSTANCE',params.instanceZUID)
+    instanceZUID = params.instanceZUID
   }
 
   // remove query param and splits the url
