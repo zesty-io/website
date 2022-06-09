@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { fetchPage } from 'lib/api';
 import Head from 'next/head';
 import { HeroWithPrimaryBackgroundAndDesktopScreenshot } from 'blocks/heroes';
+import { setCookies } from 'cookies-next';
 
 const Marketplace = ({
   marketEntities,
@@ -57,6 +58,11 @@ const Marketplace = ({
 export async function getServerSideProps({res, req}) {
   
   res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
+
+  // set instance zuid cookie
+  if(req.query?.instance) {  
+    setCookies('ZESTY_WORKING_INSTANCE', req.query.instance);
+  }
 
   let extensionsURL = process.env.PRODUCTION
     ? 'https://extensions.zesty.io'

@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
+import { setCookies } from 'cookies-next';
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -117,7 +118,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
 
 export const getMarketplaceData = async (url) => {
   
-  let extensionsURL = process.env.PRODUCTION
+  let extensionsURL = process.env.PRODUCTION === 'true'
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
   
@@ -125,14 +126,14 @@ export const getMarketplaceData = async (url) => {
 
   if (data?.meta?.model_alternate_name === ALTNAME.TAG) {
     const newData = await fetch(
-      `https://39ntbr6g-dev.webengine.zesty.io/data/entites-by-category.json?category=${data.meta.zuid}`,
+      `${extensionsURL}/data/entites-by-category.json?category=${data.meta.zuid}`,
     );
 
     data.categoryEntities = await newData.json();
     data.marketplaceAltName = ALTNAME.TAG;
   } else if (data?.meta?.model_alternate_name === ALTNAME.ENTITY_TYPE) {
     const newData = await fetch(
-      `https://39ntbr6g-dev.webengine.zesty.io/data/entities-by-type.json?type=${data.meta.zuid}`,
+      `${extensionsURL}/data/entities-by-type.json?type=${data.meta.zuid}`,
     );
 
     data.typesEntities = await newData.json();
@@ -147,6 +148,11 @@ export const getMarketplaceData = async (url) => {
 export async function getServerSideProps({req, res}) {
   
   res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
+
+  // set instance zuid cookie
+  if(req.query?.instance) {  
+    setCookies('ZESTY_WORKING_INSTANCE', req.query.instance);
+  }
 
   const data = await getMarketplaceData(req.url);
   let extensionsURL = process.env.PRODUCTION
