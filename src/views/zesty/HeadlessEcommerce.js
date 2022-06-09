@@ -178,6 +178,8 @@ function HeadlessEcommerce({ content }) {
       description: 'Non-developers don’t have to be afraid',
     },
   ];
+
+  const trustIcons = [sing_life, amazon, fitbit];
   return (
     <Box>
       <Hero {...themeSettings} />
@@ -186,7 +188,7 @@ function HeadlessEcommerce({ content }) {
       <SectionThree {...themeSettings} />
       <SectionFour features={features} {...themeSettings} />
       <SectionFive {...themeSettings} />
-      <SectionSix {...themeSettings} />
+      <SectionSix trustIcons={trustIcons} {...themeSettings} />
     </Box>
   );
 }
@@ -324,7 +326,7 @@ const Hero = ({ theme, isMobile }) => (
             pt: isMobile ? 10 : 0,
             px: isMobile ? 1 : 2,
             bottom: 0,
-            color: theme.palette.zesty.zestyDarkGray,
+            color: theme.palette.zesty.zestyZambezi,
           }}
           variant={'h6'}
           component={'p'}
@@ -373,7 +375,7 @@ const SectionOne = ({ theme, isMobile, isDarkMode, cardIcons }) => {
                       fontWeight: 'bold',
                       textAlign: 'center',
                       mt: 2,
-                      color: theme.palette.zesty.zestyDarkGray,
+                      color: theme.palette.zesty.zestyZambezi,
                     }}
                   >
                     Headless digital asset management
@@ -445,7 +447,7 @@ const SectionOne = ({ theme, isMobile, isDarkMode, cardIcons }) => {
           }}
         >
           <Typography
-            sx={{ color: theme.palette.zesty.zestyDarkGray }}
+            sx={{ color: theme.palette.zesty.zestyZambezi }}
             variant="h4"
             component="h2"
           >
@@ -453,7 +455,7 @@ const SectionOne = ({ theme, isMobile, isDarkMode, cardIcons }) => {
           </Typography>
           <Typography
             sx={{
-              color: theme.palette.zesty.zestyDarkGray,
+              color: theme.palette.zesty.zestyZambezi,
               textAlign: 'center',
               mt: 4,
             }}
@@ -977,7 +979,7 @@ const SectionThree = ({ isDarkMode, theme, isMobile }) => {
                   fontWeight: 'bold',
                   color: isDarkMode
                     ? theme.palette.common.white
-                    : theme.palette.zesty.zestyDarkGray,
+                    : theme.palette.zesty.zestyZambezi,
                 }}
                 component={isMobile ? 'span' : 'p'}
               >
@@ -1008,7 +1010,7 @@ const SectionThree = ({ isDarkMode, theme, isMobile }) => {
 };
 
 // Section Four
-const SectionFour = ({ theme, isMobile, features }) => {
+const SectionFour = ({ theme, isMobile, features, isDarkMode }) => {
   return (
     <Box component="section" sx={{ position: 'relative' }}>
       <Box
@@ -1040,7 +1042,7 @@ const SectionFour = ({ theme, isMobile, features }) => {
             sx={{
               mt: 2,
               textAlign: 'center',
-              color: theme.palette.zesty.zestyDarkGray,
+              color: theme.palette.zesty.zestyZambezi,
               letterSpacing: 0.2,
             }}
             variant="h4"
@@ -1102,7 +1104,9 @@ const SectionFour = ({ theme, isMobile, features }) => {
                     <Typography
                       sx={{
                         mt: 1,
-                        color: theme.palette.zesty.zestyDarkGray,
+                        color: isDarkMode
+                          ? theme.palette.zesty.zestyGrey
+                          : theme.palette.zesty.zestyZambezi,
                         letterSpacing: 0.2,
                         fontSize: isMobile ? 12 : 16,
                       }}
@@ -1152,7 +1156,7 @@ const SectionFive = ({ theme, isMobile }) => {
               sx={{
                 mt: 2,
                 textAlign: 'center',
-                color: theme.palette.zesty.zestyDarkGray,
+                color: theme.palette.zesty.zestyZambezi,
                 letterSpacing: 0.2,
               }}
               variant="h4"
@@ -1180,7 +1184,7 @@ const SectionFive = ({ theme, isMobile }) => {
 };
 
 // SectionSix
-const SectionSix = ({ theme, isMobile }) => {
+const SectionSix = ({ theme, isMobile, trustIcons }) => {
   return (
     <Box component="section" sx={{ mt: 10 }}>
       <Box>
@@ -1188,7 +1192,7 @@ const SectionSix = ({ theme, isMobile }) => {
           variant="h4"
           component="h2"
           sx={{
-            color: theme.palette.zesty.zestyDarkGray,
+            color: theme.palette.zesty.zestyZambezi,
             textAlign: 'center',
             fontWeight: 'bold',
             px: 4,
@@ -1200,7 +1204,7 @@ const SectionSix = ({ theme, isMobile }) => {
       <Container>
         <Box
           sx={{
-            px: 5,
+            p: 5,
             mt: 5,
             minHeight: 294,
             background: theme.palette.zesty.zestyDarkBlue,
@@ -1210,7 +1214,7 @@ const SectionSix = ({ theme, isMobile }) => {
           }}
         >
           <Grid container spacing={2}>
-            <Grid sx={{ background: 'red' }} item sm={12} md={6}>
+            <Grid item sm={12} md={6}>
               <Box>
                 <Typography
                   variant="h6"
@@ -1228,10 +1232,10 @@ const SectionSix = ({ theme, isMobile }) => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid sx={{ background: 'red', width: '100%' }} item sm={12} md={6}>
+            <Grid sx={{ width: '100%' }} item sm={12} md={6}>
               <Box>
                 <Box
-                  sx={{ display: 'block', margin: 'auto' }}
+                  sx={{ display: 'block', margin: 'auto', mt: 4 }}
                   component="img"
                   src={sing_life.src}
                 />
@@ -1240,6 +1244,20 @@ const SectionSix = ({ theme, isMobile }) => {
           </Grid>
         </Box>
       </Container>
+
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 4,
+          mt: 4,
+        }}
+      >
+        <Box src={sing_life.src} component="img" />
+        <Box src={sing_life.src} component="img" />
+        <Box src={sing_life.src} component="img" />
+      </Box>
     </Box>
   );
 };
