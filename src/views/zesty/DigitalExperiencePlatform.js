@@ -144,11 +144,19 @@ const Section1Hero = ({
           <Box
             sx={{
               position: 'absolute',
-              left: '20rem',
+              left: '-10vw',
+              top: '-5vh',
               display: isMobile ? 'none' : 'flex',
+              // background: 'red',
+              // height: '600px',
+              width: '630px',
             }}
           >
-            <img src={bgImage} alt="" />
+            <img
+              src={bgImage}
+              alt=""
+              style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+            />
           </Box>
           <Typography
             component={'h2'}
@@ -185,21 +193,14 @@ const Section1Hero = ({
             {subHeader}
           </Typography>
           <Box sx={{ display: isMobile ? 'block' : 'flex' }}>
-            <Button
-              href={''}
-              component={Button}
-              variant="contained"
-              fullWidth={isMobile ? true : false}
-              sx={{
-                backgroundColor: theme.palette.common.white,
-                color: theme.palette.zesty.zestyOrange,
-                padding: '.6rem 4rem',
-                whiteSpace: 'nowrap',
-                fontSize: '16px',
-              }}
-            >
-              {primaryCta}
-            </Button>
+            <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
+              <TryFreeButton
+                fullWidth={true}
+                text={primaryCta}
+                variant="contained"
+                component="a"
+              />
+            </Box>
             <Button
               href={''}
               variant="text"
@@ -605,7 +606,10 @@ const RevealComponent = ({
 
 const Section4Middle = ({ content, theme, isMobile }) => {
   const FillerImage =
-    content.middle_solution_1_graphic.data[0].url ||
+    content.middle_solution_1_graphic?.data[0]?.url ||
+    FillerContent.dashboard_image;
+  const bracketImg =
+    content.dxp_background_images?.data[0]?.url ||
     FillerContent.dashboard_image;
   const arr = [
     {
@@ -685,28 +689,6 @@ const Section4Middle = ({ content, theme, isMobile }) => {
           borderRadius: '50px 0 0 0',
         }}
       ></Box>
-      {/* <Box
-        sx={{
-          zIndex: '10',
-          position: 'absolute',
-          left: '5%',
-          top: 0,
-          display: !isMobile ? 'none' : 'flex',
-        }}
-      >
-        <img src={dxpCurve.src} alt="bg" />
-      </Box> */}
-      {/* <Box
-        sx={{
-          zIndex: '10',
-          position: 'absolute',
-          left: '5%',
-          bottom: 0,
-          display: !isMobile ? 'none' : 'flex',
-        }}
-      >
-        <img src={dxpLine.src} alt="bg" />
-      </Box> */}
       <Box
         sx={{
           zIndex: '10',
@@ -716,7 +698,7 @@ const Section4Middle = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={featuresBg1.src} alt="bg" />
+        <img src={bracketImg} alt="bg" />
       </Box>
       <Box
         sx={{
@@ -725,9 +707,10 @@ const Section4Middle = ({ content, theme, isMobile }) => {
           right: 0,
           top: 0,
           display: isMobile ? 'none' : 'flex',
+          transform: 'rotate(180deg)',
         }}
       >
-        <img src={featuresBg2.src} alt="bg" />
+        <img src={bracketImg} alt="bg" />
       </Box>
       <Box
         sx={{
@@ -759,7 +742,7 @@ const Section4Middle = ({ content, theme, isMobile }) => {
             {content.middle_solutions_header}
           </Typography>
         </Box>
-        {arr.map((e, i) => {
+        {arr?.map((e, i) => {
           return (
             <RevealComponent
               isMobile={isMobile}
@@ -777,14 +760,18 @@ const Section4Middle = ({ content, theme, isMobile }) => {
     </Box>
   );
 };
+
 const Section5Features = ({ content, theme, isMobile }) => {
   const arr = content.features.data;
+  const bracketImg =
+    content.dxp_background_images?.data[0]?.url ||
+    FillerContent.dashboard_image;
   return (
     <Box
       paddingBottom={isMobile ? 20 : 20}
       sx={{
         position: 'relative',
-        zIndex: '1000',
+        zIndex: '500',
         background: theme.palette.common.white,
       }}
     >
@@ -797,7 +784,7 @@ const Section5Features = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={featuresBg1.src} alt="bg" />
+        <img src={bracketImg} alt="bg" />
       </Box>
       <Container>
         <Box>
@@ -910,12 +897,13 @@ const Section6Integrations = ({ content, theme, isMobile }) => {
             justifyContent: 'center',
             flexDirection: 'column',
             position: 'relative',
+            zIndex: '1000',
           }}
         >
           <div data-aos="flip-right">
-            <Box sx={{ position: 'absolute', top: '-5rem' }}>
+            <Box sx={{ position: 'absolute', top: '-5rem', zIndex: '2000' }}>
               <img
-                src={content.integrations_airplane_graphic.data[0].url}
+                src={content.integrations_airplane_graphic?.data[0]?.url}
                 alt=""
               />
             </Box>
@@ -966,6 +954,9 @@ const Section6Integrations = ({ content, theme, isMobile }) => {
 const Section7Implementing = ({ content, theme, isMobile }) => {
   const [headless, setheadless] = React.useState(true);
   const [hybrid, sethybrid] = React.useState(false);
+  const swooshBg =
+    content.headless_background_image?.data[0]?.url ||
+    FillerContent.dashboard_image;
   return (
     <Box
       paddingY={isMobile ? 4 : 15}
@@ -983,7 +974,7 @@ const Section7Implementing = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={headlessCmsBg.src} alt="bg" />
+        <img src={swooshBg} alt="bg" />
       </Box>
       <Container
         sx={{
@@ -1238,7 +1229,7 @@ const Section7Implementing = ({ content, theme, isMobile }) => {
 };
 
 const CustomButton = styled.button`
-  background: ${(props) => props.theme.palette.common.white};
+  background: transparent;
   outline: none;
   border: none;
   cursor: pointer;
@@ -1255,19 +1246,19 @@ const CustomButton = styled.button`
   }
 `;
 
-const Section8CaseStudies = ({ content, theme }) => {
+const Section8CaseStudies = ({ content, theme, isMobile }) => {
   const [active, setactive] = React.useState(content?.case_studies?.data[0]);
 
   return (
-    <Box>
-      <Container>
+    <Box paddingY={isMobile ? 8 : 0} sx={{}}>
+      <Container sx={{}}>
         <Typography
           component={'h2'}
           variant={'p'}
-          paddingBottom={10}
+          paddingBottom={4}
           sx={{
-            fontSize: '32px',
-            color: theme.palette.secondary.darkCharcoal,
+            fontSize: isMobile ? '20px' : '32px',
+            color: theme.palette.zesty.zestyZambezi,
             textAlign: 'center',
           }}
           dangerouslySetInnerHTML={{
@@ -1280,64 +1271,107 @@ const Section8CaseStudies = ({ content, theme }) => {
         />
       </Container>
       <Box
-        paddingX={8}
-        paddingY={2}
+        paddingY={isMobile ? 4 : 8}
         sx={{
-          height: '20rem',
-          background: theme.palette.zesty.zestyDarkBlue,
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          alignItems: 'center',
+          background: theme.palette.zesty.zestyLightRedOrange,
+          height: isMobile ? '60vh' : 'auto',
         }}
       >
-        <Typography
+        <Container
           sx={{
-            color: theme.palette.common.white,
-            fontWeight: 500,
-            fontSize: '20px',
-          }}
-        >
-          {active.summary}
-        </Typography>
-        <Box
-          sx={{
+            height: '20rem',
+            background: theme.palette.zesty.zestyLightRedOrange,
             display: 'flex',
-            justifyItems: 'center',
-            justifyContent: 'center',
+            flexDirection: isMobile ? 'column' : 'row-reverse',
+            alignItems: 'center',
           }}
         >
-          <img src={active.logo.data[0].url} />
-        </Box>
-      </Box>
-      <Container>
-        <Box
-          paddingY={4}
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            justifyItems: 'center',
-            gap: '3rem',
-          }}
-        >
-          {content.case_studies?.data?.map((e, i) => {
-            return (
-              <CustomButton
-                active={active?.title === e?.title ? true : false}
-                theme={theme}
-                onClick={() => setactive(e)}
+          <Box
+            paddingX={isMobile ? 2 : 8}
+            paddingY={isMobile ? 8 : 8}
+            boxShadow={2}
+            marginLeft={2}
+            borderRadius={2}
+            sx={{
+              width: '100%',
+              display: isMobile ? 'flex' : 'grid',
+              flexDirection: 'column',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '5rem',
+              background: theme.palette.common.white,
+            }}
+          >
+            <Box
+              borderRadius={2}
+              overflow={'hidden'}
+              bgcolor="red"
+              sx={{ display: isMobile ? 'none' : 'block' }}
+            >
+              <img
+                src={
+                  active?.image?.data[0]?.url || FillerContent.dashboard_image
+                }
+                style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+              />
+            </Box>
+            <Box sx={{ background: '' }}>
+              <Box
+                paddingBottom={2}
+                sx={{
+                  display: 'flex',
+                  justifyItems: 'flex-start',
+                  justifyContent: isMobile ? 'center' : 'start',
+                }}
               >
-                <img src={e.logo.data[0].url} />
-              </CustomButton>
-            );
-          })}
-        </Box>
-      </Container>
+                <img src={active.logo.data[0].url} />
+              </Box>
+              <Typography
+                sx={{
+                  color: theme.palette.zesty.zestyGray,
+                  fontWeight: 500,
+                  fontSize: isMobile ? '14px' : '20px',
+                  textAlign: 'left',
+                }}
+              >
+                {active?.summary}
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            paddingY={4}
+            sx={{
+              display: 'flex',
+              flexDirection: isMobile ? 'row' : 'column',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              justifyItems: 'center',
+              gap: '3rem',
+              width: isMobile ? '100%' : '10rem',
+              background: 'transparent',
+            }}
+          >
+            {content.case_studies?.data?.map((e, i) => {
+              return (
+                <CustomButton
+                  active={active?.title === e?.title ? true : false}
+                  theme={theme}
+                  onClick={() => setactive(e)}
+                >
+                  <img src={e.logo.data[0].url} />
+                </CustomButton>
+              );
+            })}
+          </Box>
+        </Container>
+      </Box>
     </Box>
   );
 };
 const Section9Bottom = ({ content, theme, isMobile }) => {
+  const bgImgage =
+    content.bottom_page_background_image?.data[0]?.url ||
+    FillerContent.dashboard_image;
+
   return (
     <Box paddingY={isMobile ? 0 : 20} sx={{ position: 'relative' }}>
       <Box
@@ -1349,7 +1383,7 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={content.bottom_page_background_image.data[0].url} alt="bg" />
+        <img src={bgImgage} alt="bg" />
       </Box>
       <Container>
         <Box
@@ -1390,14 +1424,22 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
                   width: '100%',
                 }}
               >
-                <Button
+                <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
+                  <TryFreeButton
+                    fullWidth={true}
+                    text={content.bottom_cta_button_primary}
+                    variant="contained"
+                    component="a"
+                  />
+                </Box>
+                {/* <Button
                   sx={{ padding: '.5rem 4rem' }}
                   variant="contained"
                   color="secondary"
                   fullWidth={isMobile}
                 >
                   {content.bottom_cta_button_primary}
-                </Button>
+                </Button> */}
                 <Button
                   variant="text"
                   color="secondary"
@@ -1413,7 +1455,10 @@ const Section9Bottom = ({ content, theme, isMobile }) => {
           <div data-aos="fade-right">
             <Box paddingY={isMobile ? 15 : 0}>
               <img
-                src={content.bottom_cta_graphic.data[0].url}
+                src={
+                  content.bottom_cta_graphic?.data[0]?.url ||
+                  FillerContent.dashboard_image
+                }
                 width={isMobile ? 350 : 600}
               />
             </Box>
