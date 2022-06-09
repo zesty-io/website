@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { fetchPage } from 'lib/api';
 import Head from 'next/head';
 import { HeroWithPrimaryBackgroundAndDesktopScreenshot } from 'blocks/heroes';
+import { setCookies } from 'cookies-next';
 
 const Marketplace = ({
   marketEntities,
@@ -54,7 +55,15 @@ const Marketplace = ({
   );
 };
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps({res, req}) {
+  
+  res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
+
+  // set instance zuid cookie
+  if(req.query?.instanceZUID) {  
+    setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
+  }
+
   let extensionsURL = process.env.PRODUCTION
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
@@ -62,7 +71,7 @@ export async function getServerSideProps(ctx) {
   const entities = await fetch(`${extensionsURL}/-/gql/extensions.json`);
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
   const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
-  const data = await getMarketplaceData(ctx);
+  const data = await getMarketplaceData(req.url);
   const navigationCustom = (await fetchPage('/')).navigationCustom;
 
   return {
