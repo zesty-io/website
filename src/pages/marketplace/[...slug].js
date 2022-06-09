@@ -150,8 +150,8 @@ export async function getServerSideProps({req, res}) {
   res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
 
   // set instance zuid cookie
-  if(req.query?.instance) {  
-    setCookies('ZESTY_WORKING_INSTANCE', req.query.instance);
+  if(req.query?.instanceZUID) {  
+    setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
   const data = await getMarketplaceData(req.url);

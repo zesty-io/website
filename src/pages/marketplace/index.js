@@ -60,8 +60,8 @@ export async function getServerSideProps({res, req}) {
   res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
 
   // set instance zuid cookie
-  if(req.query?.instance) {  
-    setCookies('ZESTY_WORKING_INSTANCE', req.query.instance);
+  if(req.query?.instanceZUID) {  
+    setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
   let extensionsURL = process.env.PRODUCTION
