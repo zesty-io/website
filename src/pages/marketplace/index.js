@@ -54,7 +54,10 @@ const Marketplace = ({
   );
 };
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps({res, req}) {
+  
+  res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
+
   let extensionsURL = process.env.PRODUCTION
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';

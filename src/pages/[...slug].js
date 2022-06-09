@@ -44,10 +44,8 @@ export default function Slug(props) {
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   
-  // cache controls for production
-  if(process.env.PRODUCTION !== 'false'){
-    res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
-  }
+  // does not display with npm run dev
+  res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
 
   // attempt to get page data relative to zesty
   const data = await fetchPage(req.url);
