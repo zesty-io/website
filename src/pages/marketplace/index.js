@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { fetchPage } from 'lib/api';
 import Head from 'next/head';
 import { HeroWithPrimaryBackgroundAndDesktopScreenshot } from 'blocks/heroes';
+import { setCookies } from 'cookies-next';
 
 const Marketplace = ({
   marketEntities,

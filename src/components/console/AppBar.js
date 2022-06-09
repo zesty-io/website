@@ -15,8 +15,18 @@ import Skeleton from '@mui/material/Skeleton';
 
 export default function AppBar({ url = window.location.pathname }) {
   const theme = useTheme();
-  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getCookie('APP_SID');
+
+  // get param from url to look for instance
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+
+  if(params.instance){
+    setCookies('ZESTY_WORKING_INSTANCE',params.instance)
+    instanceZUID = params.instance
+  }
 
   // remove query param and splits the url
   let pathnames = url.split("?")[0].split('/').filter((e) => e);
