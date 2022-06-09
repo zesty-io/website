@@ -92,17 +92,95 @@ import curve from '../../../public/assets/images/headless-cms/curve.svg';
 import curve_dark from '../../../public/assets/images/headless-cms/curve-dark.svg';
 import curve_mobile from '../../../public/assets/images/headless-cms/curve-mobile.svg';
 import s_curve from '../../../public/assets/images/headless-cms/sCurve.svg';
+import localize_content from '../../../public/assets/images/headless-cms/localize-content.svg';
+import mobile_made_easy from '../../../public/assets/images/headless-cms/mobile-made-easy.svg';
+import automated_seo from '../../../public/assets/images/headless-cms/automated-seo.svg';
+import faster_page_load_time from '../../../public/assets/images/headless-cms/faster-page-load-time.svg';
+import flexible_asset_management from '../../../public/assets/images/headless-cms/flexible-asset-management.svg';
+import custom_endpoints from '../../../public/assets/images/headless-cms/custom-endpoints.svg';
+import url_routing_management from '../../../public/assets/images/headless-cms/url-routing-management.svg';
+import redirects from '../../../public/assets/images/headless-cms/301-redirects.svg';
+import easy_editing_experience from '../../../public/assets/images/headless-cms/easy-editing-experience.svg';
+import image_eight from '../../../public/assets/images/headless-cms/image_eight.png';
 
 function HeadlessEcommerce({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const themeSettings = {
+    theme,
+    isMobile,
+    isDarkMode,
+  };
   const isDarkMode = theme.palette.mode === 'dark';
+  const card_icons = [
+    headless_digital,
+    headless_commerce,
+    headless_enterprise,
+    headless_blog_editorial,
+  ];
+  const features = [
+    {
+      icon: localize_content,
+      title: 'Localized Content',
+      description:
+        'Go global with multi-language and localized content capabilities.',
+    },
+    {
+      icon: mobile_made_easy,
+      title: 'Mobile Made Easy',
+      description:
+        'Quickly adapt your content to mobile and tablet devices without having to redesign everything.',
+    },
+    {
+      icon: automated_seo,
+      title: 'Automated SEO',
+      description:
+        'From meta tags to optimized page speed, let Zesty do the work to keep your SEO running smoothly.',
+    },
+    {
+      icon: faster_page_load_time,
+      title: 'Faster Page Load Times',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed ',
+    },
+    {
+      icon: flexible_asset_management,
+      title: 'Flexible Digital Asset Management',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed ',
+    },
+    {
+      icon: custom_endpoints,
+      title: 'Custom Endpoints',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed ',
+    },
+    {
+      icon: url_routing_management,
+      title: 'URL routing management',
+      description:
+        'You can define URLs without the need for a developer & create new pages without needing to create with a developer',
+    },
+    {
+      icon: redirects,
+      title: ' 301 Redirects',
+      description:
+        'Manage redirects in the platform without the need for a developer',
+    },
+    {
+      icon: easy_editing_experience,
+      title: ' Easy editing experience',
+      description: 'Non-developers don’t have to be afraid',
+    },
+  ];
   return (
     <Box>
-      <Hero theme={theme} isMobile={isMobile} />
-      <SectionOne isDarkMode={isDarkMode} theme={theme} isMobile={isMobile} />
-      <SectionTwo theme={theme} isMobile={isMobile} />
-      <SectionThree isDarkMode={isDarkMode} theme={theme} isMobile={isMobile} />
+      <Hero {...themeSettings} />
+      <SectionOne cardIcons={card_icons} {...themeSettings} />
+      <SectionTwo {...themeSettings} />
+      <SectionThree {...themeSettings} />
+      <SectionFour features={features} {...themeSettings} />
+      <SectionFive {...themeSettings} />
     </Box>
   );
 }
@@ -256,19 +334,13 @@ const Hero = ({ theme, isMobile }) => (
 );
 
 // Section One
-const SectionOne = ({ theme, isMobile, isDarkMode }) => {
-  const card_icons = [
-    headless_digital,
-    headless_commerce,
-    headless_enterprise,
-    headless_blog_editorial,
-  ];
+const SectionOne = ({ theme, isMobile, isDarkMode, cardIcons }) => {
   return (
     <Box sx={{ pt: 10 }} component="section">
       <Container>
         {/* Features Cards Start */}
         <Grid sx={{ justifyContent: 'center' }} container spacing={2}>
-          {card_icons.map((image, idx) => (
+          {cardIcons.map((image, idx) => (
             <Grid item sm={6} md={3}>
               <Card
                 sx={{
@@ -925,6 +997,178 @@ const SectionThree = ({ isDarkMode, theme, isMobile }) => {
           </Box>
         </Grid>
       </Grid>
+    </Box>
+  );
+};
+
+// Section Four
+const SectionFour = ({ theme, isMobile, features }) => {
+  return (
+    <Box component="section" sx={{ position: 'relative' }}>
+      <Box
+        sx={{
+          position: 'absolute',
+          right: 0,
+          top: '15%',
+          width: isMobile ? 264 : 'auto',
+        }}
+        component="img"
+        src={chevron_right.src}
+      />
+      <Container sx={{ position: 'relative', zIndex: 10 }}>
+        <Box>
+          <Typography
+            sx={{
+              mt: isMobile ? 5 : 0,
+              color: theme.palette.zesty.zestyOrange,
+              fontWeight: 'bold',
+              letterSpacing: 0.2,
+              textAlign: 'center',
+            }}
+            variant="h3"
+            component="h2"
+          >
+            How our headless CMS works
+          </Typography>
+          <Typography
+            sx={{
+              mt: 2,
+              textAlign: 'center',
+              color: theme.palette.zesty.zestyDarkGray,
+              letterSpacing: 0.2,
+            }}
+            variant="h4"
+            component="h3"
+          >
+            Create content across devices in minutes. Leverage any endpoint and
+            customize your API using our robust platform.
+          </Typography>
+        </Box>
+
+        <Grid
+          sx={{ mt: 5, justifyContent: 'center', alignItems: 'center' }}
+          container
+          spacing={useMediaQuery(theme.breakpoints.between('xs', 600)) ? 2 : 5}
+        >
+          {features.map((item) => (
+            <Grid item sm={6} md={4}>
+              <Card
+                sx={{
+                  width: '100%',
+                  maxWidth: useMediaQuery(theme.breakpoints.between('xs', 600))
+                    ? 155
+                    : 355,
+                  minHeight: 329,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  background: 'white',
+                }}
+              >
+                <CardContent>
+                  <Box>
+                    <Box
+                      sx={{
+                        width: useMediaQuery(
+                          theme.breakpoints.between('xs', 600),
+                        )
+                          ? 39
+                          : 'auto',
+                      }}
+                      component="img"
+                      src={item.icon.src}
+                    />
+                  </Box>
+                  <Box>
+                    <Typography
+                      sx={{
+                        mt: 3,
+                        fontWeight: 'bold',
+                        color: theme.palette.zesty.zestyOrange,
+                        letterSpacing: 0.2,
+                        fontSize: isMobile ? 15 : 20,
+                      }}
+                      variant="h6"
+                      component="h4"
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        mt: 1,
+                        color: theme.palette.zesty.zestyDarkGray,
+                        letterSpacing: 0.2,
+                        fontSize: isMobile ? 12 : 16,
+                      }}
+                      variant="body1"
+                      component="p"
+                    >
+                      {item.description}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </Box>
+  );
+};
+
+// Section Five
+const SectionFive = ({ theme, isMobile }) => {
+  return (
+    <Box component="section" sx={{ px: 4, mt: 5 }}>
+      <Box
+        sx={{
+          background: theme.palette.zesty.zestySeaShell,
+          borderRadius: 10,
+          py: 10,
+        }}
+      >
+        <Container>
+          <Box>
+            <Typography
+              sx={{
+                mt: isMobile ? 5 : 0,
+                color: theme.palette.zesty.zestyOrange,
+                fontWeight: 'bold',
+                letterSpacing: 0.2,
+                textAlign: 'center',
+              }}
+              variant="h3"
+              component="h2"
+            >
+              Design Headless APIs
+            </Typography>
+            <Typography
+              sx={{
+                mt: 2,
+                textAlign: 'center',
+                color: theme.palette.zesty.zestyDarkGray,
+                letterSpacing: 0.2,
+              }}
+              variant="h4"
+              component="h3"
+            >
+              Create content across devices in minutes. Leverage any endpoint
+              and customize your API using our robust platform.
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              display: 'inline-block',
+              margin: 'auto',
+              mt: 5,
+              width: '100%',
+            }}
+            src={image_eight.src}
+            component="img"
+          />
+        </Container>
+      </Box>
     </Box>
   );
 };
