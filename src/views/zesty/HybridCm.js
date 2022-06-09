@@ -108,6 +108,7 @@ import * as helper from 'utils';
 import styled from '@emotion/styled';
 import curvePc from '../../../public/assets/images/hybrid_curve_pc.svg';
 import curveMobile from '../../../public/assets/images/hybrid_curve_mobile.png';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 function makeDate(date) {
   var d = new Date(date);
@@ -461,20 +462,14 @@ const Section1Hero = ({
               justifyItems: 'center',
             }}
           >
-            <Button
-              href={''}
-              component={Button}
-              variant="contained"
-              color="secondary"
-              fullWidth={isMobile ? true : false}
-              sx={{
-                padding: '.6rem 4rem',
-                whiteSpace: 'nowrap',
-                fontSize: '16px',
-              }}
-            >
-              {primaryCta}
-            </Button>
+            <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
+              <TryFreeButton
+                fullWidth={true}
+                text={primaryCta}
+                variant="contained"
+                component="a"
+              />
+            </Box>
             <Button
               href={''}
               variant="text"
