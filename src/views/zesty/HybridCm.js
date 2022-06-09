@@ -62,6 +62,7 @@ import {
   Box,
   Button,
   Card,
+  cardClasses,
   Container,
   Divider,
   Grid,
@@ -83,6 +84,8 @@ import dxpLine from '../../../public/assets/images/dxp_line.svg';
 import { fontSize } from '@mui/system';
 import * as helper from 'utils';
 import styled from '@emotion/styled';
+import curvePc from '../../../public/assets/images/hybrid_curve_pc.svg';
+import curveMobile from '../../../public/assets/images/hybrid_curve_mobile.png';
 
 function makeDate(date) {
   var d = new Date(date);
@@ -147,7 +150,7 @@ const Section1Hero = ({
             sx={{
               color: theme.palette.zesty.zestyOrange,
               fontWeight: 'bold',
-              fontSize: '32px',
+              fontSize: isMobile ? '24px' : '32px',
             }}
           >
             {eyebrow}
@@ -158,7 +161,7 @@ const Section1Hero = ({
             sx={{
               color: theme.palette.zesty.zestyZambezi,
               fontWeight: 'bold',
-              fontSize: isMobile ? '38px' : '48px',
+              fontSize: isMobile ? '24px' : '48px',
             }}
           >
             {header}
@@ -234,22 +237,23 @@ const Section1Hero = ({
   );
 };
 const Section2About = ({ text, img, isMobile, theme }) => {
+  const swooshBg = headlessCmsBg.src;
   return (
     <Box
       paddingY={isMobile ? 0 : 0}
       sx={{ position: 'relative', background: theme.palette.zesty.zestyAzure }}
     >
-      {/* <Box
+      <Box
         sx={{
           zIndex: '10',
           position: 'absolute',
           right: 0,
-          bottom: 0,
+          bottom: '-30vw',
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={bottomBg.src} alt="bg" />
-      </Box> */}
+        <img src={swooshBg || FillerContent.dashboard_image} alt="bg" />
+      </Box>
       <Container>
         <Box
           paddingY={isMobile ? 2 : 8}
@@ -265,7 +269,7 @@ const Section2About = ({ text, img, isMobile, theme }) => {
                 sx={{
                   fontSize: isMobile ? '.9rem' : '1.3rem',
                   color: theme.palette.secondary.darkCharcoal,
-                  textAlign: isMobile ? 'center' : 'left',
+                  textAlign: isMobile ? 'left' : 'left',
                 }}
                 dangerouslySetInnerHTML={{
                   __html: helper.strColorChanger(
@@ -278,7 +282,7 @@ const Section2About = ({ text, img, isMobile, theme }) => {
             </Box>
           </div>
           <div data-aos="fade-right">
-            <Box paddingY={isMobile ? 15 : 0}>
+            <Box paddingY={isMobile ? 1 : 0}>
               <img src={img} width={isMobile ? 350 : 600} />
             </Box>
           </div>
@@ -290,7 +294,7 @@ const Section2About = ({ text, img, isMobile, theme }) => {
 
 const Section3Hybrid = ({ text, img, theme, isMobile }) => {
   return (
-    <Box>
+    <Box paddingY={isMobile ? 4 : 0}>
       <Container
         sx={{
           display: 'flex',
@@ -315,11 +319,13 @@ const Section3Hybrid = ({ text, img, theme, isMobile }) => {
         </div>
         <div data-aos="fade-right">
           <Box
-            paddingY={isMobile ? 15 : 0}
+            paddingY={isMobile ? 1 : 0}
             sx={{
               display: 'flex',
               justifyItems: 'center',
               justifyContent: 'center',
+              position: 'relative',
+              zIndex: '100',
             }}
           >
             <img src={img} width={isMobile ? 350 : 600} />
@@ -340,7 +346,7 @@ const MiniDot = ({ theme, isMobile }) => {
         width: isMobile ? '15px' : '15px',
         borderRadius: '50%',
         position: 'absolute',
-        left: isMobile ? '1.8%' : '-7.8%',
+        left: isMobile ? '1.8%' : '0',
         top: isMobile ? '45%' : '38%',
         transform: 'translate(-50%,-50%)',
       }}
@@ -361,6 +367,7 @@ const RevealComponent = ({
   return (
     <Box
       paddingY={1}
+      paddingLeft={isMobile ? 0 : 6}
       sx={{
         display: 'flex',
         flexDirection: isMobile ? 'column' : reverse ? 'row-reverse' : 'row',
@@ -369,6 +376,17 @@ const RevealComponent = ({
         gap: isMobile ? '4rem' : '0',
       }}
     >
+      <Box
+        sx={{
+          zIndex: '10',
+          background: theme.palette.zesty.zestyBackgroundBlue,
+          height: isMobile ? '100%' : '100%',
+          width: '2px',
+          position: 'absolute',
+          left: isMobile ? '2%' : '0',
+          bottom: '0',
+        }}
+      />
       <MiniDot theme={theme} isMobile={isMobile} />
       <div data-aos="zoom-out-left">
         <Box sx={{ position: 'relative' }}>
@@ -398,6 +416,7 @@ const Section4HybridCMS = ({ content, theme, isMobile }) => {
   // const FillerImage =
   //   content.middle_solution_1_graphic.data[0].url ||
   //   FillerContent.dashboard_image;
+  const sCurvePc = curveMobile.src;
   const arr = [
     {
       text: content.hybrid_cms_feature_1,
@@ -456,13 +475,37 @@ const Section4HybridCMS = ({ content, theme, isMobile }) => {
   ];
   return (
     <Box
-      paddingY={isMobile ? 2 : 10}
+      paddingY={isMobile ? 2 : 0}
       sx={{
         backgroundColor: theme.palette.zesty.zestyDarkBlue,
         position: 'relative',
       }}
     >
-      <Box
+      {/* <Box
+        sx={{
+          position: 'absolute',
+          background: 'red',
+          top: '0',
+          left: '19vw',
+          transform: 'translate(0,0)',
+          width: '30vw',
+          height: 'auto',
+        }}
+      >
+        <img src={sCurvePc} alt="s" style={{ height: '100%', width: '100%' }} />
+        <Box
+          sx={{
+            zIndex: '10',
+            background: theme.palette.zesty.zestyBackgroundBlue,
+            height: isMobile ? '0' : '100%',
+            width: '2px',
+            position: 'absolute',
+            left: isMobile ? '5%' : '0',
+            bottom: '-30vh',
+          }}
+        />
+      </Box> */}
+      {/* <Box
         sx={{
           zIndex: '100',
           position: 'absolute',
@@ -480,17 +523,17 @@ const Section4HybridCMS = ({ content, theme, isMobile }) => {
         sx={{
           zIndex: '10',
           position: 'absolute',
-          left: '15%',
+          left: '19%',
           top: '100px',
           display: isMobile ? 'flex' : 'flex',
-          width: 'calc(50vw - 15%)',
+          width: 'calc(50vw - 19%)',
           height: '100%',
           position: 'absolute',
           border: `1px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
           borderRight: 0,
           borderRadius: '150px 0 0 0',
         }}
-      ></Box>
+      ></Box> */}
       <Box
         sx={{
           zIndex: '10',
@@ -514,15 +557,95 @@ const Section4HybridCMS = ({ content, theme, isMobile }) => {
         <img src={featuresBg2.src} alt="bg" />
       </Box>
       <Container>
-        <Box sx={{ position: 'relative' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            border: '1px solid transparent',
+            width: '100%',
+            height: '10rem',
+            position: 'relative',
+          }}
+        >
+          <Box
+            sx={{
+              borderRadius: isMobile ? '0 0 50px 0' : '0 0 100px 0',
+              border: `2px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
+              // background: theme.palette.zesty.zestyBackgroundBlue,
+              width: '100%',
+              height: '10rem',
+              borderLeft: 0,
+              borderTop: 0,
+              zIndex: '50',
+            }}
+          ></Box>
+
+          <Box
+            sx={{
+              border: `2px solid ${'#1B202C'}`,
+              // border: `1px solid blue`,
+              width: '100px',
+              height: '10rem',
+              position: 'absolute',
+              zIndex: '100',
+              top: '0',
+              left: '0',
+            }}
+          ></Box>
+          <Box
+            sx={{
+              border: `2px solid ${'#1B202C'}`,
+              // border: `1px solid aqua`,
+              width: '50vw',
+              height: '10rem',
+              position: 'absolute',
+              zIndex: '100',
+              top: '0',
+              left: 'calc(50% - 85px)',
+              zIndex: '100',
+            }}
+          ></Box>
+          <Box
+            sx={{
+              border: '1px solid transparent',
+              width: '100%',
+              height: '10rem',
+            }}
+          ></Box>
+        </Box>
+        <Box
+          sx={{
+            position: 'absolute',
+            border: `3px solid ${'#1B202C'}`,
+            // border: '3px solid pink',
+            width: '50vw',
+            height: '10rem',
+            top: 'calc(10rem - 1px)',
+            left: 'calc(50% - 85px)',
+            borderBottom: 0,
+            borderRight: 0,
+            zIndex: '100',
+          }}
+        ></Box>
+        <Box
+          sx={{
+            borderRadius: '100px 0 0 0',
+            position: 'relative',
+            // border: '1px solid green',
+            border: `2px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
+            borderBottom: 0,
+            borderRight: 0,
+            zIndex: '10',
+          }}
+        >
           <Typography
-            paddingTop={isMobile ? 8 : 10}
+            paddingTop={isMobile ? 2 : 10}
             paddingBottom={isMobile ? 0 : 10}
-            paddingRight={40}
+            paddingRight={isMobile ? 0 : 40}
+            paddingLeft={isMobile ? 0 : 6}
             sx={{
               color: theme.palette.common.white,
-              textAlign: 'left',
-              fontSize: isMobile ? '28px' : '1.5rem',
+              textAlign: isMobile ? 'center' : 'left',
+              fontSize: isMobile ? '1rem' : '1.5rem',
               position: 'relative',
               zIndex: '1000',
               textTransform: 'capitalize',
@@ -535,7 +658,6 @@ const Section4HybridCMS = ({ content, theme, isMobile }) => {
               ),
             }}
           ></Typography>
-          <MiniDot theme={theme} isMobile={isMobile} />
         </Box>
         {arr.map((e, i) => {
           return (
@@ -662,25 +784,18 @@ const Section51CaseStudies = ({ content, theme }) => {
   );
 };
 
-const Section5CaseStudies = ({ content, theme }) => {
+const Section5CaseStudies = ({ content, theme, isMobile }) => {
   const [active, setactive] = React.useState(content?.case_studies?.data[0]);
 
   return (
-    <Box
-      sx={{
-        background: theme.palette.common.white,
-        position: 'relative',
-        zIndex: '200',
-      }}
-      paddingY={10}
-    >
+    <Box paddingY={isMobile ? 8 : 0} sx={{}}>
       <Container sx={{}}>
         <Typography
           component={'h2'}
           variant={'p'}
           paddingBottom={4}
           sx={{
-            fontSize: '32px',
+            fontSize: isMobile ? '20px' : '32px',
             color: theme.palette.zesty.zestyZambezi,
             textAlign: 'center',
           }}
@@ -694,9 +809,10 @@ const Section5CaseStudies = ({ content, theme }) => {
         />
       </Container>
       <Box
-        paddingY={8}
+        paddingY={isMobile ? 4 : 8}
         sx={{
           background: theme.palette.zesty.zestyLightRedOrange,
+          height: isMobile ? '60vh' : 'auto',
         }}
       >
         <Container
@@ -704,25 +820,31 @@ const Section5CaseStudies = ({ content, theme }) => {
             height: '20rem',
             background: theme.palette.zesty.zestyLightRedOrange,
             display: 'flex',
-            flexDirection: 'row-reverse',
+            flexDirection: isMobile ? 'column' : 'row-reverse',
             alignItems: 'center',
           }}
         >
           <Box
-            paddingX={8}
-            paddingY={8}
+            paddingX={isMobile ? 2 : 8}
+            paddingY={isMobile ? 8 : 8}
             boxShadow={2}
             marginLeft={2}
             borderRadius={2}
             sx={{
               width: '100%',
-              display: 'grid',
+              display: isMobile ? 'flex' : 'grid',
+              flexDirection: 'column',
               gridTemplateColumns: '1fr 1fr',
               gap: '5rem',
               background: theme.palette.common.white,
             }}
           >
-            <Box borderRadius={2} overflow={'hidden'} bgcolor="red" sx={{}}>
+            <Box
+              borderRadius={2}
+              overflow={'hidden'}
+              bgcolor="red"
+              sx={{ display: isMobile ? 'none' : 'block' }}
+            >
               <img
                 src={
                   active?.image?.data[0]?.url || FillerContent.dashboard_image
@@ -736,7 +858,7 @@ const Section5CaseStudies = ({ content, theme }) => {
                 sx={{
                   display: 'flex',
                   justifyItems: 'flex-start',
-                  justifyContent: 'start',
+                  justifyContent: isMobile ? 'center' : 'start',
                 }}
               >
                 <img src={active.logo.data[0].url} />
@@ -745,7 +867,7 @@ const Section5CaseStudies = ({ content, theme }) => {
                 sx={{
                   color: theme.palette.zesty.zestyGray,
                   fontWeight: 500,
-                  fontSize: '20px',
+                  fontSize: isMobile ? '14px' : '20px',
                   textAlign: 'left',
                 }}
               >
@@ -757,11 +879,12 @@ const Section5CaseStudies = ({ content, theme }) => {
             paddingY={4}
             sx={{
               display: 'flex',
-              flexDirection: 'column',
+              flexDirection: isMobile ? 'row' : 'column',
+              flexWrap: 'wrap',
               justifyContent: 'center',
               justifyItems: 'center',
               gap: '3rem',
-              width: '10rem',
+              width: isMobile ? '100%' : '10rem',
               background: 'transparent',
             }}
           >
@@ -793,20 +916,6 @@ const Section6Bottom = ({ content, theme, isMobile }) => {
         background: theme.palette.zesty.zestyLightRedOrange,
       }}
     >
-      {/* <Box
-        sx={{
-          zIndex: '10',
-          position: 'absolute',
-          right: 0,
-          bottom: 0,
-          display: isMobile ? 'none' : 'flex',
-        }}
-      >
-        <img
-          src={content.bottom_page_background_image?.data[0]?.url}
-          alt="bg"
-        />
-      </Box> */}
       <Container>
         <Box
           paddingY={isMobile ? 2 : 8}
@@ -883,6 +992,8 @@ const ArticleCard = ({ data, isMobile, theme }) => {
   return (
     <Box
       sx={{
+        position: 'relative',
+        zIndex: '50',
         backgroundImage: `url("${data.hero_image.data[0].url}")`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -916,7 +1027,7 @@ const ArticleCard = ({ data, isMobile, theme }) => {
             sx={{
               fontSize: isMobile ? '.9rem' : '1.2rem',
               color: theme.palette.common.white,
-              textAlign: isMobile ? 'center' : 'left',
+              textAlign: isMobile ? 'left' : 'left',
               fontWeight: 'bold',
             }}
           >
@@ -926,7 +1037,7 @@ const ArticleCard = ({ data, isMobile, theme }) => {
             sx={{
               fontSize: isMobile ? '.9rem' : '.9rem',
               color: theme.palette.common.white,
-              textAlign: isMobile ? 'center' : 'left',
+              textAlign: isMobile ? 'left' : 'left',
               height: '6rem',
               // fontWeight: 'medium',
             }}
@@ -1007,8 +1118,24 @@ const ArticleCard = ({ data, isMobile, theme }) => {
 };
 const Section7Related = ({ content, theme, isMobile }) => {
   const arr = content?.related_content_articles?.data;
+  const bgImage = bottomBg.src;
   return (
-    <Box paddingBottom={10}>
+    <Box paddingBottom={10} sx={{ position: 'relative' }}>
+      <Box
+        sx={{
+          position: 'absolute',
+          zIndex: '10',
+          right: 0,
+          bottom: 0,
+          width: isMobile ? '200px' : '400px',
+        }}
+      >
+        <img
+          src={bgImage}
+          alt="image"
+          style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+        />
+      </Box>
       <Container
         sx={{
           display: 'flex',
@@ -1019,7 +1146,7 @@ const Section7Related = ({ content, theme, isMobile }) => {
         <Box
           sx={{
             display: 'flex',
-            gap: '2rem',
+            gap: isMobile ? '1rem' : '2rem',
             alignItems: 'center',
             justifyContent: 'center',
             justifyItems: 'center',
@@ -1034,10 +1161,11 @@ const Section7Related = ({ content, theme, isMobile }) => {
           ></Box>
           <Typography
             sx={{
-              fontSize: isMobile ? '.9rem' : '1.6rem',
+              fontSize: isMobile ? '1.2rem' : '1.6rem',
               color: theme.palette.zesty.zestyZambezi,
               textAlign: isMobile ? 'center' : 'center',
               fontWeight: 'bold',
+              whiteSpace: 'nowrap',
             }}
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(
@@ -1061,6 +1189,8 @@ const Section7Related = ({ content, theme, isMobile }) => {
             flexWrap: 'wrap',
             width: '100%',
             justifyContent: 'space-between',
+            gap: '1rem',
+            padding: '0 1rem',
           }}
         >
           {arr.map((e) => {

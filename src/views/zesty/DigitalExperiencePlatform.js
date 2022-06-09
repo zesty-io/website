@@ -778,7 +778,7 @@ const Section5Features = ({ content, theme, isMobile }) => {
       paddingBottom={isMobile ? 20 : 20}
       sx={{
         position: 'relative',
-        zIndex: '1000',
+        zIndex: '500',
         background: theme.palette.common.white,
       }}
     >
@@ -904,12 +904,13 @@ const Section6Integrations = ({ content, theme, isMobile }) => {
             justifyContent: 'center',
             flexDirection: 'column',
             position: 'relative',
+            zIndex: '1000',
           }}
         >
           <div data-aos="flip-right">
-            <Box sx={{ position: 'absolute', top: '-5rem' }}>
+            <Box sx={{ position: 'absolute', top: '-5rem', zIndex: '2000' }}>
               <img
-                src={content.integrations_airplane_graphic.data[0].url}
+                src={content.integrations_airplane_graphic?.data[0]?.url}
                 alt=""
               />
             </Box>
@@ -1252,18 +1253,18 @@ const CustomButton = styled.button`
   }
 `;
 
-const Section8CaseStudies = ({ content, theme }) => {
+const Section8CaseStudies = ({ content, theme, isMobile }) => {
   const [active, setactive] = React.useState(content?.case_studies?.data[0]);
 
   return (
-    <Box sx={{}}>
+    <Box paddingY={isMobile ? 8 : 0} sx={{}}>
       <Container sx={{}}>
         <Typography
           component={'h2'}
           variant={'p'}
           paddingBottom={4}
           sx={{
-            fontSize: '32px',
+            fontSize: isMobile ? '20px' : '32px',
             color: theme.palette.zesty.zestyZambezi,
             textAlign: 'center',
           }}
@@ -1277,9 +1278,10 @@ const Section8CaseStudies = ({ content, theme }) => {
         />
       </Container>
       <Box
-        paddingY={8}
+        paddingY={isMobile ? 4 : 8}
         sx={{
           background: theme.palette.zesty.zestyLightRedOrange,
+          height: isMobile ? '60vh' : 'auto',
         }}
       >
         <Container
@@ -1287,25 +1289,31 @@ const Section8CaseStudies = ({ content, theme }) => {
             height: '20rem',
             background: theme.palette.zesty.zestyLightRedOrange,
             display: 'flex',
-            flexDirection: 'row-reverse',
+            flexDirection: isMobile ? 'column' : 'row-reverse',
             alignItems: 'center',
           }}
         >
           <Box
-            paddingX={8}
-            paddingY={8}
+            paddingX={isMobile ? 2 : 8}
+            paddingY={isMobile ? 8 : 8}
             boxShadow={2}
             marginLeft={2}
             borderRadius={2}
             sx={{
               width: '100%',
-              display: 'grid',
+              display: isMobile ? 'flex' : 'grid',
+              flexDirection: 'column',
               gridTemplateColumns: '1fr 1fr',
               gap: '5rem',
               background: theme.palette.common.white,
             }}
           >
-            <Box borderRadius={2} overflow={'hidden'} bgcolor="red" sx={{}}>
+            <Box
+              borderRadius={2}
+              overflow={'hidden'}
+              bgcolor="red"
+              sx={{ display: isMobile ? 'none' : 'block' }}
+            >
               <img
                 src={
                   active?.image?.data[0]?.url || FillerContent.dashboard_image
@@ -1319,7 +1327,7 @@ const Section8CaseStudies = ({ content, theme }) => {
                 sx={{
                   display: 'flex',
                   justifyItems: 'flex-start',
-                  justifyContent: 'start',
+                  justifyContent: isMobile ? 'center' : 'start',
                 }}
               >
                 <img src={active.logo.data[0].url} />
@@ -1328,7 +1336,7 @@ const Section8CaseStudies = ({ content, theme }) => {
                 sx={{
                   color: theme.palette.zesty.zestyGray,
                   fontWeight: 500,
-                  fontSize: '20px',
+                  fontSize: isMobile ? '14px' : '20px',
                   textAlign: 'left',
                 }}
               >
@@ -1340,11 +1348,12 @@ const Section8CaseStudies = ({ content, theme }) => {
             paddingY={4}
             sx={{
               display: 'flex',
-              flexDirection: 'column',
+              flexDirection: isMobile ? 'row' : 'column',
+              flexWrap: 'wrap',
               justifyContent: 'center',
               justifyItems: 'center',
               gap: '3rem',
-              width: '10rem',
+              width: isMobile ? '100%' : '10rem',
               background: 'transparent',
             }}
           >
