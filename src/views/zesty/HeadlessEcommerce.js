@@ -895,13 +895,13 @@ const SectionThree = ({ isDarkMode, theme, isMobile }) => {
               <Typography
                 variant="h4"
                 sx={{
-                  ml: 1,
+                  ml: isMobile ? 1 : 0,
                   fontWeight: 'bold',
                   color: isDarkMode
                     ? theme.palette.common.white
                     : theme.palette.zesty.zestyDarkGray,
                 }}
-                component="span"
+                component={isMobile ? 'span' : 'p'}
               >
                 Get started with Zesty Headless CMS
               </Typography>
