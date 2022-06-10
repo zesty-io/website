@@ -30,11 +30,11 @@ export default function Slug(props) {
   }, []);
 
   // for homepage navigation
-  const isDarkMode = theme.palette.mode === 'dark';
+  // const isDarkMode = theme.palette.mode === 'dark';
   let bgcolor = 'transparent';
-  if (props?.meta?.web?.uri === '/') {
-    bgcolor = isDarkMode ? 'transparent' : theme.palette.common.white;
-  }
+  // if (props?.meta?.web?.uri === '/') {
+  //   bgcolor = isDarkMode ? 'transparent' : theme.palette.common.white;
+  // }
 
   return (
     <Main
