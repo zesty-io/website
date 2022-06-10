@@ -13,12 +13,25 @@ import { MarketplaceContext } from './MarketplaceContext';
 import MarketplaceSidebar from './MarketplaceSidebar';
 import CustomContainer from 'components/Container';
 
+//for refactor
+const marketManage = [
+  {
+    lang_id: '1',
+    name: 'myapps',
+    description: '<p>myapps</p>',
+    header_image: null,
+    meta_keywords: null,
+    meta_description: '',
+    meta_title: 'myapps',
+    uri: '/marketplace/installed/',
+  },
+];
+
 const MarketplaceContainer = ({
   children,
   marketEntities,
   marketTags,
   marketEntityTypes,
-  marketManage,
   ...props
 }) => {
   const { entities, setEntities } = useContext(MarketplaceContext);

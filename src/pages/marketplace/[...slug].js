@@ -15,20 +15,6 @@ import { setCookies } from 'cookies-next';
 import { useTheme } from '@emotion/react';
 import { TitleBar } from 'components/marketplace/TitleBar';
 
-//for refactor
-const marketManage = [
-  {
-    lang_id: '1',
-    name: 'My Apps',
-    description: 'myapps',
-    header_image: null,
-    meta_keywords: null,
-    meta_description: '',
-    meta_title: 'myapps',
-    uri: '/marketplace/installed/',
-  },
-];
-
 const ALTNAME = {
   TAG: 'Tag',
   ENTITY_TYPE: 'EntityType',
@@ -123,7 +109,6 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
             marketEntities={props.categoryEntities || props.typesEntities}
             marketEntityTypes={marketEntityTypes}
             marketTags={marketTags}
-            marketManage={marketManage}
             {...props}
           >
             {renderMarketplaceViewByAltName(
