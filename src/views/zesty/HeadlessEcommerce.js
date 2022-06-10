@@ -105,6 +105,7 @@ import image_eight from '../../../public/assets/images/headless-cms/image_eight.
 import sing_life from '../../../public/assets/images/headless-cms/singlife.svg';
 import amazon from '../../../public/assets/images/headless-cms/amazon.svg';
 import fitbit from '../../../public/assets/images/headless-cms/fitbit.svg';
+import tech_stack from '../../../public/assets/images/headless-cms/tech-stack.png';
 
 function HeadlessEcommerce({ content }) {
   const theme = useTheme();
@@ -189,6 +190,7 @@ function HeadlessEcommerce({ content }) {
       <SectionFour features={features} {...themeSettings} />
       <SectionFive {...themeSettings} />
       <SectionSix trustIcons={trustIcons} {...themeSettings} />
+      <TechStack {...themeSettings} />
     </Box>
   );
 }
@@ -1250,13 +1252,103 @@ const SectionSix = ({ theme, isMobile, trustIcons }) => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: 4,
+          gap: 10,
           mt: 4,
+          flexWrap: 'wrap',
         }}
       >
-        <Box src={sing_life.src} component="img" />
-        <Box src={sing_life.src} component="img" />
-        <Box src={sing_life.src} component="img" />
+        <Box
+          sx={{ width: 126, height: 43 }}
+          src={sing_life.src}
+          component="img"
+        />
+        <Box sx={{ width: 126, height: 43 }} src={amazon.src} component="img" />
+        <Box sx={{ width: 126, height: 43 }} src={fitbit.src} component="img" />
+      </Box>
+    </Box>
+  );
+};
+
+// Section Tech Stack
+const TechStack = ({ theme, isMobile }) => {
+  return (
+    <Box component="section" sx={{ px: 4, mt: 10 }}>
+      <Box
+        sx={{
+          background: theme.palette.zesty.zestySeaShell,
+          borderRadius: 10,
+          py: 10,
+        }}
+      >
+        <Container>
+          <Grid container spacing={2}>
+            <Grid item sm={12} md={6}>
+              <Typography
+                sx={{ color: theme.palette.zesty.zestyZambezi }}
+                variant="h4"
+                component="h3"
+              >
+                Integrations
+              </Typography>
+              <Typography
+                sx={{
+                  mt: 2,
+                  fontWeight: 'bold',
+                  color: theme.palette.zesty.zestyZambezi,
+                }}
+                variant="h3"
+                component="h2"
+              >
+                A{' '}
+                <Box
+                  component="span"
+                  sx={{ color: theme.palette.zesty.zestyOrange }}
+                >
+                  Headless CMS
+                </Box>{' '}
+                That Plays Well with Your Tech Stack
+              </Typography>
+
+              <Typography
+                sx={{
+                  mt: 2,
+
+                  color: theme.palette.zesty.zestyZambezi,
+                }}
+                variant="h5"
+                component="p"
+              >
+                Sub content introducing integrations
+              </Typography>
+
+              <Box sx={{ width: '100%', mt: 4 }}>
+                <Button
+                  component={'a'}
+                  target="_blank"
+                  fullWidth={isMobile}
+                  variant="contained"
+                  sx={{
+                    background: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.common.white,
+                    px: 6,
+                  }}
+                  size="large"
+                >
+                  See All
+                </Button>
+              </Box>
+            </Grid>
+            <Grid item sm={12} md={6}>
+              <Box sx={{ mt: isMobile ? 4 : 0 }}>
+                <Box
+                  sx={{ width: '100%' }}
+                  component="img"
+                  src={tech_stack.src}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
       </Box>
     </Box>
   );
