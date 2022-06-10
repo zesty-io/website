@@ -6,7 +6,6 @@ import * as Zesty from '../views/zesty';
 import ZestyHead from '../components/ZestyHead';
 
 import ErrorPage from '../pages/_error';
-// import { ZestyExplorer } from '@zesty-io/explorer';
 
 export function ZestyView(props) {
   if (props.content.error) {
@@ -20,9 +19,6 @@ export function ZestyView(props) {
     <>
       <ZestyHead content={props.content} />
       <Component content={props.content} />
-      {/* {props.content.zestyProductionMode === false && (
-        <ZestyExplorer content={props.content} />
-      )} */}
     </>
   );
 }
