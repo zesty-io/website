@@ -1,5 +1,5 @@
 import React from 'react';
-import {  useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -17,7 +17,7 @@ const HeroWithDashboardScreenshotAndCta = ({
   image,
   cta_left_text,
   cta_right_text,
-  cta_right_url
+  cta_right_url,
 }) => {
   const theme = useTheme();
 
@@ -26,7 +26,7 @@ const HeroWithDashboardScreenshotAndCta = ({
   });
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
+
   return (
     <Container>
       <Grid
@@ -98,7 +98,7 @@ const HeroWithDashboardScreenshotAndCta = ({
                   },
                 }}
               >
-                {  cta_right_text|| FillerContent.cta}
+                {cta_right_text || FillerContent.cta}
               </Box>
             </Box>
           </Box>

@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
+import MuiMarkdown from 'mui-markdown';
 
 import Container from 'components/Container';
 
@@ -50,9 +51,24 @@ const HeroWithIllustrationAndSearchBar = ({
           >
             <Box marginBottom={4}>
               <Grid paddingLeft={rowReverse ? 0 : 0} item xs={12} md={9}>
-                <Box
-                  dangerouslySetInnerHTML={{ __html: titleAndDescription }}
-                ></Box>
+                <MuiMarkdown
+                  overrides={{
+                    h2: {
+                      component: 'h2',
+                      props: {
+                        style: { fontSize: 32, lineHeight: 1.2 },
+                      },
+                    },
+                    p: {
+                      component: 'p',
+                      props: {
+                        style: { fontSize: 20 },
+                      },
+                    },
+                  }}
+                >
+                  {titleAndDescription}
+                </MuiMarkdown>
               </Grid>
               <Box
                 display="flex"

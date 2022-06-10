@@ -44,11 +44,7 @@ import { zestyLink } from 'lib/zestyLink';
 function TechnologyOverview({ content }) {
   const theme = useTheme();
 
-  const {
-    data: allArticles,
-    isPending,
-    error,
-  } = useFetch(
+  const { data: allArticles, isPending, error } = useFetch(
     `/-/all-articles-hydrated.json?limit=3`,
     content.zestyProductionMode,
   );
