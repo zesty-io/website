@@ -40,18 +40,19 @@ export default function Slug(props) {
   );
 }
 
-
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
-  
   // does not display with npm run dev
-  res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=600, stale-while-revalidate=3600',
+  );
 
   // attempt to get page data relative to zesty
   const data = await fetchPage(req.url);
 
   // This section holds data settings for fetching Github Data
-  if(req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
+  if (req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
     data.github_data = await githubFetch({
       organization: `"Zesty-io"`,
       projectNumber: data.project_number,
