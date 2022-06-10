@@ -74,6 +74,7 @@ import ExploreZesty from './ExploreZestyPage';
 import { zestyLink } from 'lib/zestyLink';
 import MuiMarkdown from 'mui-markdown';
 import * as helper from 'utils';
+import tech_stack from '../../../public/assets/images/headless-cms/tech-stack.png';
 
 const ContactUs = ({ title, description, content, formContent }) => {
   const theme = useTheme();
@@ -340,179 +341,6 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
   );
 };
 
-const HowItWorks = ({
-  // header is dangerouse title and description
-  header,
-  images,
-}) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-  const styleSx = {
-    position: 'relative',
-    '&::after': {
-      position: 'absolute',
-      content: '""',
-      width: '20%',
-      zIndex: 1,
-      top: 0,
-      left: 0,
-      height: '100%',
-    },
-  };
-
-  return (
-    <>
-      <Container sx={styleSx}>
-        <Box position={'relative'} zIndex={2}>
-          <Grid item xs={12} md={9}>
-            <MuiMarkdown
-              overrides={{
-                h2: {
-                  component: 'h2',
-                  props: {
-                    style: { fontSize: 32, lineHeight: 1.2 },
-                  },
-                },
-                p: {
-                  component: 'p',
-                  props: {
-                    style: { fontSize: 20 },
-                  },
-                },
-              }}
-            >
-              {header}
-            </MuiMarkdown>
-          </Grid>
-        </Box>
-      </Container>
-      <FeatureGridWithBackgrounds images={images || FillerContent.demos} />
-    </>
-  );
-};
-
-const SimpleHeroWithCta = ({
-  title,
-  subtitle,
-  description,
-  primaryCta,
-  secondaryCTA,
-  onClick,
-}) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  return (
-    <Container
-      style={{ marginTop: isMobile ? '0rem' : '1rem', marginBottom: '1rem' }}
-      sx={{
-        position: 'relative',
-        '&::after': {
-          position: 'absolute',
-          content: '""',
-          width: '20%',
-          zIndex: 1,
-          top: 0,
-          left: 0,
-          height: '100%',
-          backgroundSize: '18px 18px',
-          backgroundImage: `radial-gradient(${alpha(
-            theme.palette.primary.dark,
-            0.4,
-          )} 20%, transparent 20%)`,
-          opacity: 0.2,
-        },
-      }}
-    >
-      <Box paddingTop={isMobile ? 0 : 1} position={'relative'} zIndex={2}>
-        <Box marginBottom={4}>
-          <Typography
-            variant="p"
-            component={'h1'}
-            color="text.primary"
-            align={'center'}
-            sx={{
-              fontSize: isMobile ? '35px' : '48px',
-              fontWeight: 700,
-              marginBottom: '2rem',
-            }}
-          >
-            {title}
-            <br />
-            {subtitle}
-          </Typography>
-          <Typography
-            variant="p"
-            component="h2"
-            color="text.secondary"
-            sx={{
-              fontSize: '20px',
-              fontWeight: 400,
-              whiteSpace: isMobile ? 'normal' : 'nowrap',
-            }}
-            align={'center'}
-          >
-            {description}
-          </Typography>
-        </Box>
-        <Box
-          display="flex"
-          flexDirection={{ xs: 'column', sm: 'row' }}
-          alignItems={{ xs: 'stretched', sm: 'center' }}
-          justifyContent={'center'}
-        >
-          <TryFreeButton
-            component={'a'}
-            variant="contained"
-            color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
-            size="large"
-            fullWidth={isMd ? false : true}
-            text={primaryCta}
-          />
-          <Box
-            marginTop={{ xs: 2, sm: 0 }}
-            marginLeft={{ sm: 2 }}
-            width={{ xs: '100%', sm: 'auto', md: 'auto' }}
-          >
-            <Button
-              component={'a'}
-              onClick={onClick}
-              variant="outlined"
-              color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
-              size="large"
-              fullWidth={isMd ? false : true}
-            >
-              {secondaryCTA}
-            </Button>
-          </Box>
-        </Box>
-      </Box>
-      <Box
-        component={'svg'}
-        preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-        x="0px"
-        y="0px"
-        viewBox="0 0 1920 100.1"
-        sx={{
-          width: '100%',
-          marginBottom: theme.spacing(-1),
-        }}
-      >
-        <path
-          fill={theme.palette.background.paper}
-          d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
-        ></path>
-      </Box>
-    </Container>
-  );
-};
-
 const BgDecorations = ({ theme }) => {
   return (
     <Box
@@ -531,6 +359,95 @@ const BgDecorations = ({ theme }) => {
         fill={theme.palette.background.paper}
         d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
       ></path>
+    </Box>
+  );
+};
+
+const TechStack = ({ theme, isMobile, content }) => {
+  return (
+    <Box component="section" sx={{ px: 4, my: 10 }}>
+      <Box
+        sx={{
+          background: theme.palette.zesty.zestySeaShell,
+          borderRadius: 10,
+          py: 10,
+        }}
+      >
+        <Container>
+          <Grid container spacing={2}>
+            <Grid item sm={12} md={6}>
+              <Typography
+                sx={{ color: theme.palette.zesty.zestyZambezi }}
+                variant="h4"
+                component="h3"
+              >
+                {content.tech_stack_integration}
+              </Typography>
+
+              <MuiMarkdown
+                overrides={{
+                  h2: {
+                    component: 'h2',
+                    props: {
+                      style: {
+                        fontSize: isMobile ? 30 : 48,
+                        lineHeight: 1.2,
+                        fontWeight: 'bold',
+                      },
+                    },
+                  },
+                  span: {
+                    component: 'span',
+                    props: {
+                      style: { color: theme.palette.zesty.zestyOrange },
+                    },
+                  },
+                }}
+              >
+                {content.tech_stack_header}
+              </MuiMarkdown>
+
+              <Typography
+                sx={{
+                  mt: 2,
+
+                  color: theme.palette.zesty.zestyZambezi,
+                }}
+                variant="h5"
+                component="p"
+              >
+                {content.tech_stack_description}
+              </Typography>
+
+              <Box sx={{ width: '100%', mt: 4 }}>
+                <Button
+                  component={'a'}
+                  target="_blank"
+                  fullWidth={isMobile}
+                  variant="contained"
+                  sx={{
+                    background: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.common.white,
+                    px: 6,
+                  }}
+                  size="large"
+                >
+                  See All
+                </Button>
+              </Box>
+            </Grid>
+            <Grid item sm={12} md={6}>
+              <Box sx={{ mt: isMobile ? 4 : 0 }}>
+                <Box
+                  sx={{ width: '100%' }}
+                  component="img"
+                  src={tech_stack.src}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
     </Box>
   );
 };
@@ -698,7 +615,7 @@ const Hero = ({
   );
 };
 
-const Section5Features = ({ content, theme, isMobile }) => {
+const Section5Features = ({ content, theme, isMobile, isDarkMode }) => {
   const arr = content.features.data;
   console.log(arr);
   const bracketImg =
@@ -732,7 +649,9 @@ const Section5Features = ({ content, theme, isMobile }) => {
             paddingTop={isMobile ? 4 : 10}
             paddingBottom={isMobile ? 4 : 10}
             sx={{
-              color: theme.palette.secondary.darkCharcoal,
+              color: isDarkMode
+                ? theme.palette.zesty.zestyGrey
+                : theme.palette.zesty.zestyZambezi,
               textAlign: 'center',
               fontSize: isMobile ? '24px' : '48px',
             }}
@@ -758,7 +677,7 @@ const Section5Features = ({ content, theme, isMobile }) => {
         >
           {arr?.map((e) => {
             return (
-              <div data-aos="zoom-in-down">
+              <div>
                 <Card
                   sx={{
                     width: '20rem',
@@ -786,7 +705,9 @@ const Section5Features = ({ content, theme, isMobile }) => {
                     component={'h2'}
                     variant={'p'}
                     sx={{
-                      color: theme.palette.common.dark,
+                      color: isDarkMode
+                        ? theme.palette.zesty.zestyGrey
+                        : theme.palette.zesty.zestyZambezi,
                       textAlign: 'left',
                       fontSize: '16px',
                       fontWeight: 'light',
@@ -811,6 +732,7 @@ function LongFormPpc({ content }) {
     return <ExploreZesty />;
   }
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const scrollToContactUs = () => {
@@ -852,14 +774,6 @@ function LongFormPpc({ content }) {
   return (
     <>
       {/* HERO */}
-      {/* <SimpleHeroWithCta
-        title={content.hero_h1 || FillerContent.header}
-        description={content.hero_h2 || FillerContent.description}
-        primaryCta={content.hero_cta_primary_text || FillerContent.cta}
-        secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
-        onClick={scrollToContactUs}
-      /> */}
-
       <Box
         position={'relative'}
         sx={{
@@ -904,11 +818,13 @@ function LongFormPpc({ content }) {
       </Box>
 
       {/* How it works */}
-      {/* <HowItWorks
-        header={content.how_it_works || FillerContent.header}
-        images={content.how_it_works_image?.data}
-      /> */}
-      <Section5Features content={content} theme={theme} isMobile={isMobile} />
+
+      <Section5Features
+        isDarkMode={isDarkMode}
+        content={content}
+        theme={theme}
+        isMobile={isMobile}
+      />
 
       {/* Benefits */}
       <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
@@ -922,6 +838,8 @@ function LongFormPpc({ content }) {
           testimonial={content.testimonial?.data}
         />
       </Box>
+
+      <TechStack content={content} theme={theme} isMobile={isMobile} />
 
       {/* Form */}
       <ContactUsForm
