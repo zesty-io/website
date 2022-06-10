@@ -18,6 +18,7 @@ const MarketplaceContainer = ({
   marketEntities,
   marketTags,
   marketEntityTypes,
+  marketManage,
   ...props
 }) => {
   const { entities, setEntities } = useContext(MarketplaceContext);
@@ -64,12 +65,14 @@ const MarketplaceContainer = ({
               <MarketplaceSidebar
                 marketEntityTypes={marketEntityTypes}
                 marketTags={marketTags}
+                marketManage={marketManage}
               />
             </Drawer>
           ) : (
             <MarketplaceSidebar
               marketEntityTypes={marketEntityTypes}
               marketTags={marketTags}
+              marketManage={marketManage}
             />
           )}
         </Grid>
