@@ -17,7 +17,7 @@ import CustomContainer from 'components/Container';
 const marketManage = [
   {
     lang_id: '1',
-    name: 'myapps',
+    name: 'My Apps',
     description: '<p>myapps</p>',
     header_image: null,
     meta_keywords: null,
