@@ -100,7 +100,6 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
       </Head>
       <Main customRouting={props.navigationCustom}>
         <AppBar url={router.asPath} />
-        <TitleBar name={props?.name} description={props?.description} />
 
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}

@@ -12,6 +12,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { MarketplaceContext } from './MarketplaceContext';
 import MarketplaceSidebar from './MarketplaceSidebar';
 import CustomContainer from 'components/Container';
+import { TitleBar } from './TitleBar';
 
 //for refactor
 const marketManage = [
@@ -90,6 +91,9 @@ const MarketplaceContainer = ({
           )}
         </Grid>
         <Grid item xs={12} md={9}>
+          {window.location.pathname !== '/marketplace/' && (
+            <TitleBar name={props?.name} description={props?.description} />
+          )}
           <Stack
             mt={2}
             direction={{ xs: 'column', md: 'row' }}

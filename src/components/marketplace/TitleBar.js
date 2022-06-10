@@ -1,4 +1,10 @@
-import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  Container,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import FillerContent from 'components/FillerContent';
 import React from 'react';
 
@@ -6,32 +12,36 @@ export const TitleBar = ({ name, description }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Box
-      sx={{
-        display: 'block',
-        width: '100%',
-        textAlign: 'center',
-      }}
-      paddingTop={4}
-    >
-      <Typography
-        variant="p"
-        component={'h1'}
-        sx={{ color: theme.palette.primary.main }}
-      >
-        {name || FillerContent.name}
-      </Typography>
-      <Typography
-        variant="p"
-        component={'h3'}
+    <Container>
+      <Box
         sx={{
-          color: theme.palette.zesty.zestyLightGrey,
-          fontWeight: '400',
+          display: 'block',
+          width: '100%',
         }}
-        dangerouslySetInnerHTML={{
-          __html: description || FillerContent.description,
-        }}
-      ></Typography>
-    </Box>
+        paddingTop={4}
+      >
+        <Typography
+          variant="p"
+          component={'h1'}
+          sx={{
+            color: theme.palette.common.black,
+            textAlign: 'left',
+          }}
+        >
+          {name || FillerContent.name}
+        </Typography>
+        <Typography
+          variant="p"
+          component={'h3'}
+          sx={{
+            color: theme.palette.zesty.zestyLightGrey,
+            fontWeight: '400',
+          }}
+          dangerouslySetInnerHTML={{
+            __html: description || FillerContent.description,
+          }}
+        ></Typography>
+      </Box>
+    </Container>
   );
 };
