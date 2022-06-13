@@ -57,7 +57,6 @@
  */
 
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-
 import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
 import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
 import curve from '../../../public/assets/images/headless-cms/curve.svg';
