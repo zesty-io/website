@@ -33,11 +33,11 @@ import {
   Button,
   Card,
   CardContent,
+  Link,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
+import React, { useState } from 'react';
 import bgImage from '../../../public/assets/images/headless-cms/bgImage.png';
-import header_image from '../../../public/assets/images/headless-cms/header_image.png';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import headless_digital from '../../../public/assets/images/headless-cms/headless-digital.svg';
@@ -47,32 +47,12 @@ import headless_blog_editorial from '../../../public/assets/images/headless-cms/
 import connection from '../../../public/assets/images/headless-cms/connection.svg';
 import connectionMobile from '../../../public/assets/images/headless-cms/connection-mobile.svg';
 import connectionSmall from '../../../public/assets/images/headless-cms/connection-small.svg';
-import image_one from '../../../public/assets/images/headless-cms/image-one.png';
-import image_two from '../../../public/assets/images/headless-cms/image-two.png';
-import image_three from '../../../public/assets/images/headless-cms/image-three.png';
-import image_four from '../../../public/assets/images/headless-cms/image-four.png';
-import image_five from '../../../public/assets/images/headless-cms/image-five.png';
-import image_six from '../../../public/assets/images/headless-cms/image-six.png';
-import image_seven from '../../../public/assets/images/headless-cms/image-seven.png';
 import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
 import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
 import curve from '../../../public/assets/images/headless-cms/curve.svg';
 import curve_dark from '../../../public/assets/images/headless-cms/curve-dark.svg';
 import curve_mobile from '../../../public/assets/images/headless-cms/curve-mobile.svg';
 import s_curve from '../../../public/assets/images/headless-cms/sCurve.svg';
-import localize_content from '../../../public/assets/images/headless-cms/localize-content.svg';
-import mobile_made_easy from '../../../public/assets/images/headless-cms/mobile-made-easy.svg';
-import automated_seo from '../../../public/assets/images/headless-cms/automated-seo.svg';
-import faster_page_load_time from '../../../public/assets/images/headless-cms/faster-page-load-time.svg';
-import flexible_asset_management from '../../../public/assets/images/headless-cms/flexible-asset-management.svg';
-import custom_endpoints from '../../../public/assets/images/headless-cms/custom-endpoints.svg';
-import url_routing_management from '../../../public/assets/images/headless-cms/url-routing-management.svg';
-import redirects from '../../../public/assets/images/headless-cms/301-redirects.svg';
-import easy_editing_experience from '../../../public/assets/images/headless-cms/easy-editing-experience.svg';
-import image_eight from '../../../public/assets/images/headless-cms/image_eight.png';
-import sing_life from '../../../public/assets/images/headless-cms/singlife.svg';
-import amazon from '../../../public/assets/images/headless-cms/amazon.svg';
-import fitbit from '../../../public/assets/images/headless-cms/fitbit.svg';
 import tech_stack from '../../../public/assets/images/headless-cms/tech-stack.png';
 import TryFreeButton from '../../components/cta/TryFreeButton';
 import MuiMarkdown from 'mui-markdown';
@@ -89,78 +69,35 @@ function TechnologyOverview({ content }) {
     content,
   };
 
-  const card_icons = [
-    headless_digital,
-    headless_commerce,
-    headless_enterprise,
-    headless_blog_editorial,
-  ];
-  const features = [
+  const useCase = [
     {
-      icon: localize_content,
-      title: 'Localized Content',
-      description:
-        'Go global with multi-language and localized content capabilities.',
+      logo: headless_digital,
+      description: 'Headless digital asset management',
     },
     {
-      icon: mobile_made_easy,
-      title: 'Mobile Made Easy',
-      description:
-        'Quickly adapt your content to mobile and tablet devices without having to redesign everything.',
+      logo: headless_commerce,
+      description: 'Headless commerce',
     },
     {
-      icon: automated_seo,
-      title: 'Automated SEO',
-      description:
-        'From meta tags to optimized page speed, let Zesty do the work to keep your SEO running smoothly.',
+      logo: headless_enterprise,
+      description: 'Headless enterprise',
     },
     {
-      icon: faster_page_load_time,
-      title: 'Faster Page Load Times',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed ',
-    },
-    {
-      icon: flexible_asset_management,
-      title: 'Flexible Digital Asset Management',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed ',
-    },
-    {
-      icon: custom_endpoints,
-      title: 'Custom Endpoints',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed ',
-    },
-    {
-      icon: url_routing_management,
-      title: 'URL routing management',
-      description:
-        'You can define URLs without the need for a developer & create new pages without needing to create with a developer',
-    },
-    {
-      icon: redirects,
-      title: ' 301 Redirects',
-      description:
-        'Manage redirects in the platform without the need for a developer',
-    },
-    {
-      icon: easy_editing_experience,
-      title: ' Easy editing experience',
-      description: 'Non-developers don’t have to be afraid',
+      logo: headless_blog_editorial,
+      description: 'Blogs & editorial',
     },
   ];
 
-  const trustIcons = [sing_life, amazon, fitbit];
   return (
     <Box>
       <Hero {...pageData} />
-      <UseCase cardIcons={card_icons} {...pageData} />
+      <UseCase useCaseData={useCase} {...pageData} />
       <TimeLine {...pageData} />
       <GetStarted {...pageData} />
-      <Features features={features} {...pageData} />
+      <Features {...pageData} />
       <HeadlessApi {...pageData} />
-      <TopBrands trustIcons={trustIcons} {...pageData} />
+      <TopBrands {...pageData} />
+      <Articles {...pageData} />
       <TechStack {...pageData} />
     </Box>
   );
@@ -303,14 +240,14 @@ const Hero = ({ theme, isMobile, content }) => (
   </Box>
 );
 
-// Section One
-const UseCase = ({ theme, isMobile, isDarkMode, cardIcons, content }) => {
+// Use case Section
+const UseCase = ({ theme, isMobile, isDarkMode, useCaseData, content }) => {
   return (
     <Box sx={{ pt: 10 }} component="section">
       <Container>
         {/* Features Cards Start */}
         <Grid sx={{ justifyContent: 'center' }} container spacing={2}>
-          {cardIcons.map((image, idx) => (
+          {useCaseData.map((item, idx) => (
             <Grid item sm={6} md={3}>
               <Card
                 sx={{
@@ -327,7 +264,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, cardIcons, content }) => {
                   <Box
                     component={'img'}
                     style={{ display: 'block', margin: 'auto' }}
-                    src={image.src}
+                    src={item.logo.src}
                   />
                   <Typography
                     variant="h6"
@@ -340,7 +277,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, cardIcons, content }) => {
                       color: theme.palette.zesty.zestyZambezi,
                     }}
                   >
-                    Headless digital asset management
+                    {item.description}
                   </Typography>
                 </CardContent>
               </Card>
@@ -471,7 +408,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, cardIcons, content }) => {
   );
 };
 
-// Section Two
+// Timline Section
 const TimeLine = ({ theme, isMobile, content }) => {
   const timeline = [
     {
@@ -679,7 +616,7 @@ const TimeLine = ({ theme, isMobile, content }) => {
   );
 };
 
-// Section Three
+// Get Started Section
 const GetStarted = ({ isDarkMode, theme, isMobile, content }) => {
   return (
     <Box
@@ -772,8 +709,8 @@ const GetStarted = ({ isDarkMode, theme, isMobile, content }) => {
   );
 };
 
-// Section Four
-const Features = ({ theme, isMobile, features, isDarkMode, content }) => {
+// Features Section
+const Features = ({ theme, isMobile, isDarkMode, content }) => {
   return (
     <Box component="section" sx={{ position: 'relative' }}>
       <Box
@@ -896,7 +833,7 @@ const Features = ({ theme, isMobile, features, isDarkMode, content }) => {
   );
 };
 
-// Section Five
+// Headless Api Section
 const HeadlessApi = ({ theme, isMobile, content }) => {
   return (
     <Box component="section" sx={{ px: 4, mt: 10 }}>
@@ -960,15 +897,26 @@ const HeadlessApi = ({ theme, isMobile, content }) => {
   );
 };
 
-// SectionSix
-const TopBrands = ({ theme, isMobile, trustIcons, content }) => {
+// Top Brands Section
+const TopBrands = ({ theme, content, isMobile, isDarkMode }) => {
+  const caseStudies = [...content.case_studies.data];
+  const [active, setActive] = useState(caseStudies[0]);
+  /**
+   * set the current active case study
+   * @param idx - the index of the case study that was clicked
+   */
+  const caseStudyActiveHandler = (idx) => {
+    setActive(caseStudies[idx]);
+  };
+
   return (
-    <Box component="section" sx={{ mt: 10 }}>
+    <Box component="section">
       <Box>
         <Typography
           variant="h4"
           component="h2"
           sx={{
+            mt: 5,
             color: theme.palette.zesty.zestyZambezi,
             textAlign: 'center',
             fontWeight: 'bold',
@@ -978,74 +926,310 @@ const TopBrands = ({ theme, isMobile, trustIcons, content }) => {
           {content.case_study_header}
         </Typography>
       </Box>
-      <Container>
-        <Box
-          sx={{
-            p: 5,
-            mt: 5,
-            minHeight: 294,
-            background: theme.palette.zesty.zestyDarkBlue,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Grid container spacing={2}>
-            <Grid item sm={12} md={6}>
-              <Box>
-                <Typography
-                  variant="h6"
-                  component="p"
-                  sx={{
-                    color: theme.palette.common.white,
-                    letterSpacing: 0,
-                    lineHeight: '25px',
-                  }}
-                >
-                  Personalized, omnichannel, multi-language commerce
-                  experiences: whatever you need, Zesty can help you get there.
-                  Personalized, omnichannel, multi-language commerce
-                  experiences: whatever you need, Zesty can help you get there.
-                </Typography>
+      <Box
+        component="section"
+        sx={{ background: theme.palette.zesty.zestySeaShell, py: 5, mt: 5 }}
+      >
+        <Container>
+          <Grid container>
+            <Grid
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              item
+              order={{ xs: 2, md: 1 }}
+              sm={12}
+              md={3}
+            >
+              <Box
+                sx={{
+                  flexDirection: isMobile ? 'row' : 'column',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 4,
+                  mt: 4,
+                  flexWrap: 'wrap',
+                }}
+              >
+                {caseStudies.map((item, idx) => (
+                  <Button
+                    onClick={() => caseStudyActiveHandler(idx)}
+                    sx={{ opacity: item.title === active.title ? 1 : 0.3 }}
+                  >
+                    <Box
+                      sx={{
+                        width: 126,
+                        height: 43,
+                        filter: isDarkMode ? 'invert(100%)' : 'inherit',
+                      }}
+                      src={item.logo.data[0].url}
+                      component="img"
+                    />
+                  </Button>
+                ))}
               </Box>
             </Grid>
-            <Grid sx={{ width: '100%' }} item sm={12} md={6}>
-              <Box>
-                <Box
-                  sx={{ display: 'block', margin: 'auto', mt: 4 }}
-                  component="img"
-                  src={sing_life.src}
-                />
-              </Box>
+            <Grid order={{ xs: 1, md: 2 }} item sm={12} md={9}>
+              <Card
+                sx={{
+                  p: 5,
+                  mt: 5,
+                  minHeight: 294,
+                  background: isDarkMode
+                    ? 'transparent'
+                    : theme.palette.common.white,
+
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Grid container spacing={2}>
+                  <Grid sx={{ width: '100%' }} item sm={12} lg={6}>
+                    <Box>
+                      <Box
+                        sx={{
+                          borderRadius: 5,
+                          display: 'block',
+                          width: '100%',
+                          maxWidth: 341,
+                          minHeight: 218,
+                        }}
+                        component="img"
+                        src={active.image.data[0].url}
+                      />
+                    </Box>
+                  </Grid>
+                  <Grid
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
+                    item
+                    sm={12}
+                    lg={6}
+                  >
+                    <Box>
+                      <Box>
+                        <Box
+                          sx={{
+                            my: 2,
+                            width: 143,
+                            filter: isDarkMode ? 'invert(100%)' : 'inherit',
+                          }}
+                          component="img"
+                          src={active.logo.data[0].url}
+                        />
+                      </Box>
+
+                      <MuiMarkdown
+                        overrides={{
+                          p: {
+                            component: Typography,
+                            props: {
+                              variant: 'h6',
+                              component: 'p',
+                              sx: {
+                                color: theme.palette.zesty.zestyZambezi,
+                                letterSpacing: 0,
+                                lineHeight: '25px',
+                              },
+                            },
+                          },
+                        }}
+                      >
+                        {active.summary}
+                      </MuiMarkdown>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Card>
             </Grid>
           </Grid>
-        </Box>
-      </Container>
-
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 10,
-          mt: 4,
-          flexWrap: 'wrap',
-        }}
-      >
-        <Box
-          sx={{ width: 126, height: 43 }}
-          src={sing_life.src}
-          component="img"
-        />
-        <Box sx={{ width: 126, height: 43 }} src={amazon.src} component="img" />
-        <Box sx={{ width: 126, height: 43 }} src={fitbit.src} component="img" />
+        </Container>
       </Box>
     </Box>
   );
 };
 
-// Section Tech Stack
-const TechStack = ({ theme, isMobile }) => {
+// Industry Insightss
+const Articles = ({ theme, isMobile, content, isDarkMode }) => {
+  const articles = [...content.articles.data];
+
+  return (
+    <Box sx={{ pt: 10 }} component="section">
+      <Container>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 5,
+            alignItems: 'center',
+            mt: 5,
+          }}
+        >
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: 216,
+              height: 2,
+              background: theme.palette.zesty.zestyOrange,
+            }}
+          />
+          <Typography
+            sx={{ fontWeight: 'bold', color: theme.palette.zesty.zestyZambezi }}
+            variant="h3"
+            component="h2"
+          >
+            Industry Insights
+          </Typography>
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: 216,
+              height: 2,
+              background: theme.palette.zesty.zestyOrange,
+            }}
+          />
+        </Box>
+        <Grid container spacing={4} sx={{ mt: 4 }}>
+          {articles.map((item) => (
+            <Grid item xs={12} sm={6} lg={4}>
+              <Box
+                sx={{
+                  backgroundImage: `url(${item.hero_image.data[0].url})`,
+                  position: 'relative',
+                  height: '100%',
+                  minHeight: 475,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'top',
+                  backgroundSize: 'cover',
+                }}
+              >
+                <Box
+                  sx={{
+                    justifyContent: 'flex-end',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    background: 'rgba(109, 46, 0, 0.44)',
+                    height: '100%',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 2,
+                      p: 4,
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        lineHeight: 1.2,
+                        color: theme.palette.common.white,
+                        fontWeight: 'bold',
+                      }}
+                      variant="h5"
+                      component="h3"
+                    >
+                      {item.title}
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        lineHeight: 1.2,
+                        color: theme.palette.common.white,
+                        fontWeight: 'medium',
+                      }}
+                      variant="Subtitle1"
+                      component="p"
+                    >
+                      {item.description}
+                    </Typography>
+
+                    <Link
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        color: theme.palette.zesty.zestyTealWhite,
+                        fontWeight: 'bold',
+                      }}
+                      href={item.meta.web.uri}
+                    >
+                      Learn More <ArrowRightAltIcon />
+                    </Link>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      py: 1,
+                      px: 4,
+                      borderTop: `2px solid ${theme.palette.common.white}`,
+                      background: 'rgba(0, 0, 0, 0.35)',
+                      position: 'relative',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Box
+                        component="a"
+                        sx={{ textDecoration: 'none' }}
+                        href={item.author.data[0].meta.web.uri}
+                      >
+                        <Box
+                          sx={{ display: 'flex', gap: 1, alignItems: 'center' }}
+                        >
+                          <Box
+                            component="img"
+                            sx={{ width: 40, height: 40, borderRadius: '50%' }}
+                            src={item.author.data[0].headshot.data[0].url}
+                          />
+                          <Typography
+                            variant="subtitle1"
+                            component="span"
+                            sx={{
+                              color: theme.palette.common.white,
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            {item.author.data[0].name}
+                          </Typography>
+                        </Box>
+                      </Box>
+                      <Box>
+                        <Typography
+                          sx={{
+                            color: theme.palette.common.white,
+                            fontWeight: 'bold',
+                          }}
+                        >
+                          {item.date}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </Box>
+  );
+};
+
+// Section Tech Stack Section
+const TechStack = ({ theme, isMobile, content }) => {
   return (
     <Box component="section" sx={{ px: 4, mt: 10 }}>
       <Box
@@ -1058,43 +1242,58 @@ const TechStack = ({ theme, isMobile }) => {
         <Container>
           <Grid container spacing={2}>
             <Grid item sm={12} md={6}>
-              <Typography
-                sx={{ color: theme.palette.zesty.zestyZambezi }}
-                variant="h4"
-                component="h3"
-              >
-                Integrations
-              </Typography>
-              <Typography
-                sx={{
-                  mt: 2,
-                  fontWeight: 'bold',
-                  color: theme.palette.zesty.zestyZambezi,
-                }}
-                variant="h3"
-                component="h2"
-              >
-                A{' '}
-                <Box
-                  component="span"
-                  sx={{ color: theme.palette.zesty.zestyOrange }}
-                >
-                  Headless CMS
-                </Box>{' '}
-                That Plays Well with Your Tech Stack
-              </Typography>
+              <MuiMarkdown
+                overrides={{
+                  span: {
+                    component: Typography,
+                    props: {
+                      variant: 'h3',
+                      component: 'span',
+                      sx: {
+                        fontWeight: 'bold',
+                        fontWeight: 'regular',
+                        color: theme.palette.zesty.zestyOrange,
+                      },
+                    },
+                  },
+                  h2: {
+                    component: Typography,
+                    props: {
+                      variant: 'h4',
+                      component: 'h3',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
+                    },
+                  },
+                  h3: {
+                    component: Typography,
+                    props: {
+                      variant: 'h3',
+                      component: 'h2',
+                      sx: {
+                        mt: 2,
+                        fontWeight: 'bold',
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
+                    },
+                  },
 
-              <Typography
-                sx={{
-                  mt: 2,
-
-                  color: theme.palette.zesty.zestyZambezi,
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h5',
+                      component: 'p',
+                      sx: {
+                        mt: 2,
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
+                    },
+                  },
                 }}
-                variant="h5"
-                component="p"
               >
-                Sub content introducing integrations
-              </Typography>
+                {content.integrations_description}
+              </MuiMarkdown>
 
               <Box sx={{ width: '100%', mt: 4 }}>
                 <Button
@@ -1102,6 +1301,7 @@ const TechStack = ({ theme, isMobile }) => {
                   target="_blank"
                   fullWidth={isMobile}
                   variant="contained"
+                  href={content.integration_link.data[0].meta.web.uri}
                   sx={{
                     background: theme.palette.zesty.zestyOrange,
                     color: theme.palette.common.white,
@@ -1109,7 +1309,7 @@ const TechStack = ({ theme, isMobile }) => {
                   }}
                   size="large"
                 >
-                  See All
+                  {content.integrations_button}
                 </Button>
               </Box>
             </Grid>

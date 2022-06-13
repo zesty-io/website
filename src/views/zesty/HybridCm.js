@@ -55,23 +55,9 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-import bgImage from '../../../public/assets/images/headless-cms/bgImage.png';
-import header_image from '../../../public/assets/images/headless-cms/header_image.png';
+
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import headless_digital from '../../../public/assets/images/headless-cms/headless-digital.svg';
-import headless_commerce from '../../../public/assets/images/headless-cms/headless-commerce.svg';
-import headless_enterprise from '../../../public/assets/images/headless-cms/headless-enterprise.svg';
-import headless_blog_editorial from '../../../public/assets/images/headless-cms/headless-blogs-editorial.svg';
-import connection from '../../../public/assets/images/headless-cms/connection.svg';
-import connectionMobile from '../../../public/assets/images/headless-cms/connection-mobile.svg';
-import connectionSmall from '../../../public/assets/images/headless-cms/connection-small.svg';
-import image_one from '../../../public/assets/images/headless-cms/image-one.png';
-import image_two from '../../../public/assets/images/headless-cms/image-two.png';
-import image_three from '../../../public/assets/images/headless-cms/image-three.png';
-import image_four from '../../../public/assets/images/headless-cms/image-four.png';
-import image_five from '../../../public/assets/images/headless-cms/image-five.png';
-import image_six from '../../../public/assets/images/headless-cms/image-six.png';
-import image_seven from '../../../public/assets/images/headless-cms/image-seven.png';
+
 import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
 import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
 import curve from '../../../public/assets/images/headless-cms/curve.svg';
