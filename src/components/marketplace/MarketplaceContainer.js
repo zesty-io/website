@@ -12,6 +12,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import { MarketplaceContext } from './MarketplaceContext';
 import MarketplaceSidebar from './MarketplaceSidebar';
 import CustomContainer from 'components/Container';
+import { TitleBar } from './TitleBar';
+
+//for refactor
+const marketManage = [
+  {
+    lang_id: '1',
+    name: 'My Apps',
+    description: '<p>myapps</p>',
+    header_image: null,
+    meta_keywords: null,
+    meta_description: '',
+    meta_title: 'myapps',
+    uri: '/marketplace/installed/',
+  },
+];
 
 const MarketplaceContainer = ({
   children,
@@ -64,16 +79,21 @@ const MarketplaceContainer = ({
               <MarketplaceSidebar
                 marketEntityTypes={marketEntityTypes}
                 marketTags={marketTags}
+                marketManage={marketManage}
               />
             </Drawer>
           ) : (
             <MarketplaceSidebar
               marketEntityTypes={marketEntityTypes}
               marketTags={marketTags}
+              marketManage={marketManage}
             />
           )}
         </Grid>
         <Grid item xs={12} md={9}>
+          {window.location.pathname !== '/marketplace/' && (
+            <TitleBar name={props?.name} description={props?.description} />
+          )}
           <Stack
             mt={2}
             direction={{ xs: 'column', md: 'row' }}
