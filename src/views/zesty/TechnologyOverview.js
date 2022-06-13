@@ -82,10 +82,11 @@ function TechnologyOverview({ content }) {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
-  const themeSettings = {
+  const pageData = {
     theme,
     isMobile,
     isDarkMode,
+    content,
   };
 
   const card_icons = [
@@ -153,18 +154,14 @@ function TechnologyOverview({ content }) {
   const trustIcons = [sing_life, amazon, fitbit];
   return (
     <Box>
-      <Hero content={content} {...themeSettings} />
-      <UseCase content={content} cardIcons={card_icons} {...themeSettings} />
-      <SectionTwo content={content} {...themeSettings} />
-      <SectionThree content={content} {...themeSettings} />
-      <SectionFour content={content} features={features} {...themeSettings} />
-      <SectionFive content={content} {...themeSettings} />
-      <SectionSix
-        content={content}
-        trustIcons={trustIcons}
-        {...themeSettings}
-      />
-      <TechStack content={content} {...themeSettings} />
+      <Hero {...pageData} />
+      <UseCase cardIcons={card_icons} {...pageData} />
+      <TimeLine {...pageData} />
+      <GetStarted {...pageData} />
+      <Features features={features} {...pageData} />
+      <HeadlessApi {...pageData} />
+      <TopBrands trustIcons={trustIcons} {...pageData} />
+      <TechStack {...pageData} />
     </Box>
   );
 }
@@ -241,20 +238,6 @@ const Hero = ({ theme, isMobile, content }) => (
               </Typography>
             </Box>
             <Box>
-              {/* <Button
-                component={'a'}
-                target="_blank"
-                fullWidth={isMobile}
-                variant="contained"
-                sx={{
-                  background: theme.palette.common.white,
-                  color: theme.palette.zesty.zestyOrange,
-                  px: 6,
-                }}
-                size="large"
-              >
-                Try Free
-              </Button> */}
               <Box sx={{ display: isMobile ? 'block' : 'flex' }}>
                 <TryFreeButton
                   fullWidth={isMobile}
@@ -489,7 +472,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, cardIcons, content }) => {
 };
 
 // Section Two
-const SectionTwo = ({ theme, isMobile, content }) => {
+const TimeLine = ({ theme, isMobile, content }) => {
   const timeline = [
     {
       description: content.step_1_description,
@@ -697,7 +680,7 @@ const SectionTwo = ({ theme, isMobile, content }) => {
 };
 
 // Section Three
-const SectionThree = ({ isDarkMode, theme, isMobile }) => {
+const GetStarted = ({ isDarkMode, theme, isMobile, content }) => {
   return (
     <Box
       component="section"
@@ -723,7 +706,7 @@ const SectionThree = ({ isDarkMode, theme, isMobile }) => {
               maxWidth: 579,
             }}
             component="img"
-            src={image_seven.src}
+            src={content.get_started_graphic.data[0].url}
           />
         </Grid>
 
@@ -740,49 +723,48 @@ const SectionThree = ({ isDarkMode, theme, isMobile }) => {
           order={{ sm: 1, md: 2 }}
         >
           <Box>
-            <Typography
-              sx={{
-                textAlign: isMobile ? 'center' : 'left',
-                letterSpacing: 1,
-                background: theme.palette.zesty.zestyOrangeLinear,
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                fontWeight: 'bold',
+            <MuiMarkdown
+              overrides={{
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      textAlign: isMobile ? 'center' : 'left',
+                      letterSpacing: 1,
+                      background: theme.palette.zesty.zestyOrangeLinear,
+                      WebkitBackgroundClip: 'text',
+                      color: 'transparent',
+                      fontWeight: 'bold',
+                    },
+                  },
+                },
+                span: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h4',
+                    sx: {
+                      ml: isMobile ? 1 : 0,
+                      fontWeight: 'bold',
+                      color: isDarkMode
+                        ? theme.palette.common.white
+                        : theme.palette.zesty.zestyZambezi,
+                    },
+                  },
+                },
               }}
-              variant="h4"
-              component="h2"
             >
-              Ready to transform your digital experiences?
-              <Typography
-                variant="h4"
-                sx={{
-                  ml: isMobile ? 1 : 0,
-                  fontWeight: 'bold',
-                  color: isDarkMode
-                    ? theme.palette.common.white
-                    : theme.palette.zesty.zestyZambezi,
-                }}
-                component={isMobile ? 'span' : 'p'}
-              >
-                Get started with Zesty Headless CMS
-              </Typography>
-            </Typography>
+              {content.get_started_header}
+            </MuiMarkdown>
           </Box>
           <Box sx={{ width: '100%', px: isMobile ? 4 : 0, mt: 4 }}>
-            <Button
-              component={'a'}
-              target="_blank"
+            <TryFreeButton
               fullWidth={isMobile}
               variant="contained"
-              sx={{
-                background: theme.palette.zesty.zestyOrange,
-                color: theme.palette.common.white,
-                px: 6,
-              }}
               size="large"
-            >
-              Try Free
-            </Button>
+            />
           </Box>
         </Grid>
       </Grid>
@@ -791,7 +773,7 @@ const SectionThree = ({ isDarkMode, theme, isMobile }) => {
 };
 
 // Section Four
-const SectionFour = ({ theme, isMobile, features, isDarkMode }) => {
+const Features = ({ theme, isMobile, features, isDarkMode, content }) => {
   return (
     <Box component="section" sx={{ position: 'relative' }}>
       <Box
@@ -806,32 +788,39 @@ const SectionFour = ({ theme, isMobile, features, isDarkMode }) => {
       />
       <Container sx={{ position: 'relative', zIndex: 10 }}>
         <Box>
-          <Typography
-            sx={{
-              mt: isMobile ? 5 : 0,
-              color: theme.palette.zesty.zestyOrange,
-              fontWeight: 'bold',
-              letterSpacing: 0.2,
-              textAlign: 'center',
+          <MuiMarkdown
+            overrides={{
+              h2: {
+                component: Typography,
+                props: {
+                  variant: 'h3',
+                  component: 'h2',
+                  sx: {
+                    mt: isMobile ? 5 : 0,
+                    color: theme.palette.zesty.zestyOrange,
+                    fontWeight: 'bold',
+                    letterSpacing: 0.2,
+                    textAlign: 'center',
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h4',
+                  component: 'h3',
+                  sx: {
+                    mt: 2,
+                    textAlign: 'center',
+                    color: theme.palette.zesty.zestyZambezi,
+                    letterSpacing: 0.2,
+                  },
+                },
+              },
             }}
-            variant="h3"
-            component="h2"
           >
-            How our headless CMS works
-          </Typography>
-          <Typography
-            sx={{
-              mt: 2,
-              textAlign: 'center',
-              color: theme.palette.zesty.zestyZambezi,
-              letterSpacing: 0.2,
-            }}
-            variant="h4"
-            component="h3"
-          >
-            Create content across devices in minutes. Leverage any endpoint and
-            customize your API using our robust platform.
-          </Typography>
+            {content.how_it_works_header}
+          </MuiMarkdown>
         </Box>
 
         <Grid
@@ -839,7 +828,7 @@ const SectionFour = ({ theme, isMobile, features, isDarkMode }) => {
           container
           spacing={useMediaQuery(theme.breakpoints.between('xs', 600)) ? 2 : 5}
         >
-          {features.map((item) => (
+          {content.features_tiles.data.map((item) => (
             <Grid item sm={6} md={4}>
               <Card
                 sx={{
@@ -865,7 +854,7 @@ const SectionFour = ({ theme, isMobile, features, isDarkMode }) => {
                           : 'auto',
                       }}
                       component="img"
-                      src={item.icon.src}
+                      src={item.icon_image.data[0].url}
                     />
                   </Box>
                   <Box>
@@ -880,7 +869,7 @@ const SectionFour = ({ theme, isMobile, features, isDarkMode }) => {
                       variant="h6"
                       component="h4"
                     >
-                      {item.title}
+                      {item.feature_name}
                     </Typography>
                     <Typography
                       sx={{
@@ -894,7 +883,7 @@ const SectionFour = ({ theme, isMobile, features, isDarkMode }) => {
                       variant="body1"
                       component="p"
                     >
-                      {item.description}
+                      {item.content}
                     </Typography>
                   </Box>
                 </CardContent>
@@ -908,7 +897,7 @@ const SectionFour = ({ theme, isMobile, features, isDarkMode }) => {
 };
 
 // Section Five
-const SectionFive = ({ theme, isMobile }) => {
+const HeadlessApi = ({ theme, isMobile, content }) => {
   return (
     <Box component="section" sx={{ px: 4, mt: 10 }}>
       <Box
@@ -920,32 +909,39 @@ const SectionFive = ({ theme, isMobile }) => {
       >
         <Container>
           <Box>
-            <Typography
-              sx={{
-                mt: isMobile ? 5 : 0,
-                color: theme.palette.zesty.zestyOrange,
-                fontWeight: 'bold',
-                letterSpacing: 0.2,
-                textAlign: 'center',
+            <MuiMarkdown
+              overrides={{
+                h2: {
+                  component: Typography,
+                  props: {
+                    sx: {
+                      mt: isMobile ? 5 : 0,
+                      color: theme.palette.zesty.zestyOrange,
+                      fontWeight: 'bold',
+                      letterSpacing: 0.2,
+                      textAlign: 'center',
+                    },
+                    variant: 'h3',
+                    component: 'h2',
+                  },
+                },
+                p: {
+                  component: Typography,
+                  props: {
+                    sx: {
+                      mt: 2,
+                      textAlign: 'center',
+                      color: theme.palette.zesty.zestyZambezi,
+                      letterSpacing: 0.2,
+                    },
+                    variant: 'h4',
+                    component: 'h3',
+                  },
+                },
               }}
-              variant="h3"
-              component="h2"
             >
-              Design Headless APIs
-            </Typography>
-            <Typography
-              sx={{
-                mt: 2,
-                textAlign: 'center',
-                color: theme.palette.zesty.zestyZambezi,
-                letterSpacing: 0.2,
-              }}
-              variant="h4"
-              component="h3"
-            >
-              Create content across devices in minutes. Leverage any endpoint
-              and customize your API using our robust platform.
-            </Typography>
+              {content.headless_apis}
+            </MuiMarkdown>
           </Box>
 
           <Box
@@ -955,7 +951,7 @@ const SectionFive = ({ theme, isMobile }) => {
               mt: 5,
               width: '100%',
             }}
-            src={image_eight.src}
+            src={content.headless_apis_graphic.data[0].url}
             component="img"
           />
         </Container>
@@ -965,7 +961,7 @@ const SectionFive = ({ theme, isMobile }) => {
 };
 
 // SectionSix
-const SectionSix = ({ theme, isMobile, trustIcons }) => {
+const TopBrands = ({ theme, isMobile, trustIcons, content }) => {
   return (
     <Box component="section" sx={{ mt: 10 }}>
       <Box>
@@ -979,7 +975,7 @@ const SectionSix = ({ theme, isMobile, trustIcons }) => {
             px: 4,
           }}
         >
-          See why top brands trust Zesty headless CMS
+          {content.case_study_header}
         </Typography>
       </Box>
       <Container>
