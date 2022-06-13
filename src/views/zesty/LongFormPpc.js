@@ -71,6 +71,10 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/FillerContent';
 import { useRouter } from 'next/router';
 import ExploreZesty from './ExploreZestyPage';
+import { zestyLink } from 'lib/zestyLink';
+import MuiMarkdown from 'mui-markdown';
+import * as helper from 'utils';
+import tech_stack from '../../../public/assets/images/headless-cms/tech-stack.png';
 
 const ContactUs = ({ title, description, content, formContent }) => {
   const theme = useTheme();
@@ -128,15 +132,30 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
           <Box>
             <Box marginBottom={3}>
               <Grid item xs={12} md={9}>
-                <Box
-                  sx={{
-                    fontSize: isMobile ? '.8rem' : '1rem',
-                    whiteSpace: 'normal',
+                <MuiMarkdown
+                  overrides={{
+                    h2: {
+                      component: 'h2',
+                      props: {
+                        style: { fontSize: 32, lineHeight: 1.2 },
+                      },
+                    },
+                    p: {
+                      component: 'p',
+                      props: {
+                        style: { fontSize: 20 },
+                      },
+                    },
+                    ul: {
+                      component: 'ul',
+                      props: {
+                        style: { paddingLeft: 12 },
+                      },
+                    },
                   }}
-                  dangerouslySetInnerHTML={{
-                    __html: header || FillerContent.rich_text,
-                  }}
-                ></Box>
+                >
+                  {header}
+                </MuiMarkdown>
               </Grid>
             </Box>
             <Box marginTop={{ xs: 4, sm: 6, md: 8 }} textAlign={'left'}>
@@ -322,166 +341,6 @@ const SimpleCentered = ({ header, description, cards = [] }) => {
   );
 };
 
-const HowItWorks = ({
-  // header is dangerouse title and description
-  header,
-  images,
-}) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-  const styleSx = {
-    position: 'relative',
-    '&::after': {
-      position: 'absolute',
-      content: '""',
-      width: '20%',
-      zIndex: 1,
-      top: 0,
-      left: 0,
-      height: '100%',
-    },
-  };
-
-  return (
-    <>
-      <Container sx={styleSx}>
-        <Box position={'relative'} zIndex={2}>
-          <Grid item xs={12} md={9}>
-            <Box
-              dangerouslySetInnerHTML={{
-                __html: header || FillerContent.rich_text,
-              }}
-            ></Box>
-          </Grid>
-        </Box>
-      </Container>
-      <FeatureGridWithBackgrounds images={images || FillerContent.demos} />
-    </>
-  );
-};
-
-const SimpleHeroWithCta = ({
-  title,
-  subtitle,
-  description,
-  primaryCta,
-  secondaryCTA,
-  onClick,
-}) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  return (
-    <Container
-      style={{ marginTop: isMobile ? '0rem' : '1rem', marginBottom: '1rem' }}
-      sx={{
-        position: 'relative',
-        '&::after': {
-          position: 'absolute',
-          content: '""',
-          width: '20%',
-          zIndex: 1,
-          top: 0,
-          left: 0,
-          height: '100%',
-          backgroundSize: '18px 18px',
-          backgroundImage: `radial-gradient(${alpha(
-            theme.palette.primary.dark,
-            0.4,
-          )} 20%, transparent 20%)`,
-          opacity: 0.2,
-        },
-      }}
-    >
-      <Box paddingTop={isMobile ? 0 : 1} position={'relative'} zIndex={2}>
-        <Box marginBottom={4}>
-          <Typography
-            variant="p"
-            component={'h1'}
-            color="text.primary"
-            align={'center'}
-            sx={{
-              fontSize: isMobile ? '35px' : '48px',
-              fontWeight: 700,
-              marginBottom: '2rem',
-            }}
-          >
-            {title}
-            <br />
-            {subtitle}
-          </Typography>
-          <Typography
-            variant="p"
-            component="h2"
-            color="text.secondary"
-            sx={{
-              fontSize: '20px',
-              fontWeight: 400,
-              whiteSpace: isMobile ? 'normal' : 'nowrap',
-            }}
-            align={'center'}
-          >
-            {description}
-          </Typography>
-        </Box>
-        <Box
-          display="flex"
-          flexDirection={{ xs: 'column', sm: 'row' }}
-          alignItems={{ xs: 'stretched', sm: 'center' }}
-          justifyContent={'center'}
-        >
-          <TryFreeButton
-            component={'a'}
-            variant="contained"
-            color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
-            size="large"
-            fullWidth={isMd ? false : true}
-            text={primaryCta}
-          />
-          <Box
-            marginTop={{ xs: 2, sm: 0 }}
-            marginLeft={{ sm: 2 }}
-            width={{ xs: '100%', sm: 'auto', md: 'auto' }}
-          >
-            <Button
-              component={'a'}
-              onClick={onClick}
-              variant="outlined"
-              color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
-              size="large"
-              fullWidth={isMd ? false : true}
-            >
-              {secondaryCTA}
-            </Button>
-          </Box>
-        </Box>
-      </Box>
-      <Box
-        component={'svg'}
-        preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-        x="0px"
-        y="0px"
-        viewBox="0 0 1920 100.1"
-        sx={{
-          width: '100%',
-          marginBottom: theme.spacing(-1),
-        }}
-      >
-        <path
-          fill={theme.palette.background.paper}
-          d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
-        ></path>
-      </Box>
-    </Container>
-  );
-};
-
 const BgDecorations = ({ theme }) => {
   return (
     <Box
@@ -500,6 +359,95 @@ const BgDecorations = ({ theme }) => {
         fill={theme.palette.background.paper}
         d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
       ></path>
+    </Box>
+  );
+};
+
+const TechStack = ({ theme, isMobile, content }) => {
+  return (
+    <Box component="section" sx={{ px: 4, my: 10 }}>
+      <Box
+        sx={{
+          background: theme.palette.zesty.zestySeaShell,
+          borderRadius: 10,
+          py: 10,
+        }}
+      >
+        <Container>
+          <Grid container spacing={2}>
+            <Grid item sm={12} md={6}>
+              <Typography
+                sx={{ color: theme.palette.zesty.zestyZambezi }}
+                variant="h4"
+                component="h3"
+              >
+                {content.tech_stack_integration}
+              </Typography>
+
+              <MuiMarkdown
+                overrides={{
+                  h2: {
+                    component: 'h2',
+                    props: {
+                      style: {
+                        fontSize: isMobile ? 30 : 48,
+                        lineHeight: 1.2,
+                        fontWeight: 'bold',
+                      },
+                    },
+                  },
+                  span: {
+                    component: 'span',
+                    props: {
+                      style: { color: theme.palette.zesty.zestyOrange },
+                    },
+                  },
+                }}
+              >
+                {content.tech_stack_header}
+              </MuiMarkdown>
+
+              <Typography
+                sx={{
+                  mt: 2,
+
+                  color: theme.palette.zesty.zestyZambezi,
+                }}
+                variant="h5"
+                component="p"
+              >
+                {content.tech_stack_description}
+              </Typography>
+
+              <Box sx={{ width: '100%', mt: 4 }}>
+                <Button
+                  component={'a'}
+                  target="_blank"
+                  fullWidth={isMobile}
+                  variant="contained"
+                  sx={{
+                    background: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.common.white,
+                    px: 6,
+                  }}
+                  size="large"
+                >
+                  See All
+                </Button>
+              </Box>
+            </Grid>
+            <Grid item sm={12} md={6}>
+              <Box sx={{ mt: isMobile ? 4 : 0 }}>
+                <Box
+                  sx={{ width: '100%' }}
+                  component="img"
+                  src={tech_stack.src}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
     </Box>
   );
 };
@@ -557,6 +505,226 @@ const ContactUsForm = ({ theme, content, formContent }) => {
   );
 };
 
+const Hero = ({
+  title,
+  subtitle,
+  description,
+  image,
+  cta_right_text,
+  cta_right_url,
+}) => {
+  const theme = useTheme();
+
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  return (
+    <Container>
+      <Grid
+        container
+        spacing={4}
+        flexDirection={isMobile ? 'column-reverse' : 'row'}
+      >
+        <Grid item container xs={12} md={6} alignItems={'center'}>
+          <Box>
+            <Box marginBottom={2}>
+              <Typography
+                variant="h3"
+                component="h1"
+                color="text.primary"
+                sx={{ fontWeight: 700 }}
+              >
+                {title}
+              </Typography>
+              <Typography
+                variant="h3"
+                component="p"
+                color={theme.palette.zesty.zestyOrange}
+                sx={{ fontWeight: 700 }}
+              >
+                {subtitle}
+              </Typography>
+            </Box>
+            <Box marginBottom={3}>
+              <Typography
+                variant="p"
+                component="h3"
+                color="text.secondary"
+                sx={{
+                  fontSize: '20px',
+                  fontWeight: '500',
+                }}
+              >
+                {description || FillerContent.description}
+              </Typography>
+            </Box>
+            <Box
+              display="flex"
+              flexDirection={{ xs: 'column', sm: 'row' }}
+              alignItems={{ xs: 'stretched', sm: 'flex-start' }}
+            >
+              <Box
+                href={cta_right_url || FillerContent.href}
+                component={Button}
+                variant="outlined"
+                color={theme.palette.zestyOrange}
+                size="large"
+                marginTop={{ xs: 2, sm: 0 }}
+                fullWidth={isMd ? false : true}
+                sx={{
+                  color: '#FF5D0A',
+                  borderColor: '#FF5D0A',
+                  '&:hover': {
+                    borderColor: '#FF5D0A',
+                    backgroundColor: '#FF5D0A',
+                    color: 'white',
+                  },
+                }}
+              >
+                {cta_right_text || FillerContent.cta}
+              </Box>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid
+          item
+          container
+          alignItems={'center'}
+          justifyContent={'center'}
+          xs={12}
+          md={6}
+        >
+          <Box
+            component={'img'}
+            height={1}
+            width={1}
+            src={image || FillerContent.dashboard_image}
+            alt="headless cms image"
+            borderRadius={2}
+            maxWidth={600}
+            sx={{
+              filter: theme.palette.mode === 'dark' ? 'brightness(1)' : 'none',
+            }}
+          />
+        </Grid>
+      </Grid>
+    </Container>
+  );
+};
+
+const Section5Features = ({ content, theme, isMobile, isDarkMode }) => {
+  const arr = content.features.data;
+  console.log(arr);
+  const bracketImg =
+    content.dxp_background_images?.data[0]?.url ||
+    FillerContent.dashboard_image;
+  return (
+    <Box
+      paddingBottom={isMobile ? 20 : 20}
+      sx={{
+        position: 'relative',
+        zIndex: '500',
+        background: theme.palette.common.white,
+      }}
+    >
+      <Box
+        sx={{
+          zIndex: '10',
+          position: 'absolute',
+          left: 0,
+          bottom: 0,
+          display: isMobile ? 'none' : 'flex',
+        }}
+      >
+        {/* <img src={bracketImg} alt="bg" /> */}
+      </Box>
+      <Container>
+        <Box>
+          <Typography
+            component={'h2'}
+            variant={'p'}
+            paddingTop={isMobile ? 4 : 10}
+            paddingBottom={isMobile ? 4 : 10}
+            sx={{
+              color: isDarkMode
+                ? theme.palette.zesty.zestyGrey
+                : theme.palette.zesty.zestyZambezi,
+              textAlign: 'center',
+              fontSize: isMobile ? '24px' : '48px',
+            }}
+            dangerouslySetInnerHTML={{
+              __html: helper.strColorChanger(
+                content.features_header,
+                'Zesty',
+                theme.palette.zesty.zestyOrange,
+              ),
+            }}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyItems: 'center',
+            justifyContent: 'center',
+            gap: '4rem',
+            position: 'relative',
+            zIndex: '1000',
+          }}
+        >
+          {arr?.map((e) => {
+            return (
+              <div>
+                <Card
+                  sx={{
+                    width: '20rem',
+                    height: '22rem',
+                    padding: '3rem 2rem',
+                    background: theme.palette.common.white,
+                  }}
+                >
+                  <img src={e.icon_image.data[0].url} alt="" />
+
+                  <Typography
+                    component={'p'}
+                    variant={'p'}
+                    paddingTop={4}
+                    paddingBottom={2}
+                    sx={{
+                      color: theme.palette.zesty.zestyOrange,
+                      textAlign: 'left',
+                      fontSize: '20px',
+                    }}
+                  >
+                    {e?.feature_name}
+                  </Typography>
+                  <Typography
+                    component={'h2'}
+                    variant={'p'}
+                    sx={{
+                      color: isDarkMode
+                        ? theme.palette.zesty.zestyGrey
+                        : theme.palette.zesty.zestyZambezi,
+                      textAlign: 'left',
+                      fontSize: '16px',
+                      fontWeight: 'light',
+                    }}
+                  >
+                    {e?.content}
+                  </Typography>
+                </Card>
+              </div>
+            );
+          })}
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
 function LongFormPpc({ content }) {
   const router = useRouter();
 
@@ -564,6 +732,7 @@ function LongFormPpc({ content }) {
     return <ExploreZesty />;
   }
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const scrollToContactUs = () => {
@@ -588,16 +757,31 @@ function LongFormPpc({ content }) {
     phoneNumber: true,
   };
 
+  const headerProps = {
+    title: content.title || FillerContent.header,
+    subtitle: content.sub_title || FillerContent.description,
+    description: content.header_description || FillerContent.description,
+    image:
+      (content.header_image?.data && content.header_image?.data[0]?.url) ||
+      FillerContent.image,
+    cta_right_text: content.cta_right_text || FillerContent.cta,
+    cta_right_url:
+      (content.cta_right_url &&
+        zestyLink(content.navigationTree, content.cta_right_url)) ||
+      zestyLink(content.navigationTree, FillerContent.contact_zuid),
+  };
+
   return (
     <>
       {/* HERO */}
-      <SimpleHeroWithCta
-        title={content.hero_h1 || FillerContent.header}
-        description={content.hero_h2 || FillerContent.description}
-        primaryCta={content.hero_cta_primary_text || FillerContent.cta}
-        secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
-        onClick={scrollToContactUs}
-      />
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <Hero {...headerProps} />
+      </Box>
 
       {/* Who Zesty is */}
       <Box
@@ -634,9 +818,12 @@ function LongFormPpc({ content }) {
       </Box>
 
       {/* How it works */}
-      <HowItWorks
-        header={content.how_it_works || FillerContent.header}
-        images={content.how_it_works_image?.data}
+
+      <Section5Features
+        isDarkMode={isDarkMode}
+        content={content}
+        theme={theme}
+        isMobile={isMobile}
       />
 
       {/* Benefits */}
@@ -651,6 +838,8 @@ function LongFormPpc({ content }) {
           testimonial={content.testimonial?.data}
         />
       </Box>
+
+      <TechStack content={content} theme={theme} isMobile={isMobile} />
 
       {/* Form */}
       <ContactUsForm
