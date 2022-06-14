@@ -76,6 +76,151 @@ import MuiMarkdown from 'mui-markdown';
 import * as helper from 'utils';
 import tech_stack from '../../../public/assets/images/headless-cms/tech-stack.png';
 
+function LongFormPpc({ content }) {
+  const router = useRouter();
+
+  if (router.asPath === '/ppc/explore/') {
+    return <ExploreZesty />;
+  }
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const scrollToContactUs = () => {
+    document
+      .getElementById('contact-us')
+      .scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const formContent = {
+    leadDetail: 'Adwords',
+    businessType: 'Direct',
+    leadSource: 'Advertisement',
+    selectedValue: 2,
+    hideSelect: true,
+    hideMessage: true,
+    ctaText: content.cta_footer_cta || FillerContent.cta,
+    modalTitle: 'Thank you for submitting your information.',
+    modalMessage: 'Our team will be in touch soon to discuss next steps.',
+    displayMsgUnderButton: ' ',
+    additionalTextfield: { company: true, jobTitle: true },
+    customButtonStyle: { display: 'flex', justifyContent: 'center' },
+    phoneNumber: true,
+  };
+
+  const headerProps = {
+    title: content.title || FillerContent.header,
+    subtitle: content.sub_title || FillerContent.description,
+    description: content.header_description || FillerContent.description,
+    image:
+      (content.header_image?.data && content.header_image?.data[0]?.url) ||
+      FillerContent.image,
+    cta_right_text: content.cta_right_text || FillerContent.cta,
+    cta_right_url:
+      (content.cta_right_url &&
+        zestyLink(content.navigationTree, content.cta_right_url)) ||
+      zestyLink(content.navigationTree, FillerContent.contact_zuid),
+  };
+
+  return (
+    <>
+      {/* HERO */}
+      {router.asPath === '/ppc/headless-cms/' ? (
+        <SimpleHeroWithCta
+          title={content.hero_h1 || FillerContent.header}
+          description={content.hero_h2 || FillerContent.description}
+          primaryCta={content.hero_cta_primary_text || FillerContent.cta}
+          secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
+          onClick={scrollToContactUs}
+        />
+      ) : (
+        <Box
+          position={'relative'}
+          sx={{
+            backgroundColor: theme.palette.alternate.main,
+          }}
+        >
+          <Hero scrollToContactUs={scrollToContactUs} {...headerProps} />
+        </Box>
+      )}
+
+      {/* Who Zesty is */}
+      <Box
+        sx={{
+          background: theme.palette.zesty.zestyDarkBlue,
+          padding: isMobile ? '1rem 0' : '5rem 0',
+        }}
+      >
+        <SimpleCentered
+          header={content.who_is_zesty_h2 || FillerContent.header}
+          cards={content.zesty_benefits?.data || []}
+        />
+      </Box>
+
+      {/* Who Zesty works with */}
+      <LogoGridSimpleCentered
+        title={content.logos_h3 || FillerContent.header}
+        imageCollection={content.logos?.data || [FillerContent.image]}
+      />
+
+      {/* What is a DXP? */}
+      <Box bgcolor={'alternate.main'}>
+        <HeroWithIllustrationAndSearchBar
+          titleAndDescription={
+            content._what_is_title_and_description || FillerContent.rich_text
+          }
+          image={
+            (content._what_is_image?.data &&
+              content._what_is_image?.data[0].url) ||
+            FillerContent.image
+          }
+        />
+        <BgDecorations theme={theme} />
+      </Box>
+
+      {/* How it works */}
+
+      {router.asPath === '/ppc/headless-cms/' ? (
+        <HowItWorks
+          header={content.how_it_works || FillerContent.header}
+          images={content.how_it_works_image?.data}
+        />
+      ) : (
+        <Section5Features
+          isDarkMode={isDarkMode}
+          content={content}
+          theme={theme}
+          isMobile={isMobile}
+        />
+      )}
+
+      {/* Benefits */}
+      <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
+        <NewsletterWithImage
+          header={content.outline_of_benefits || FillerContent.header}
+          image={
+            (content.benefits_image?.data &&
+              content.benefits_image?.data[0]?.url) ||
+            FillerContent.image
+          }
+          testimonial={content.testimonial?.data}
+        />
+      </Box>
+
+      {router.asPath === '/ppc/headless-cms/' ? null : (
+        <TechStack content={content} theme={theme} isMobile={isMobile} />
+      )}
+
+      {/* Form */}
+      <ContactUsForm
+        theme={theme}
+        content={content}
+        formContent={formContent}
+      />
+    </>
+  );
+}
+
 const ContactUs = ({ title, description, content, formContent }) => {
   const theme = useTheme();
 
@@ -421,6 +566,9 @@ const TechStack = ({ theme, isMobile, content }) => {
 
               <Box sx={{ width: '100%', mt: 4 }}>
                 <Button
+                  href={
+                    content.tech_stack_integration_link.data[0].meta.web.uri
+                  }
                   component={'a'}
                   target="_blank"
                   fullWidth={isMobile}
@@ -512,6 +660,7 @@ const Hero = ({
   image,
   cta_right_text,
   cta_right_url,
+  scrollToContactUs,
 }) => {
   const theme = useTheme();
 
@@ -567,7 +716,8 @@ const Hero = ({
               alignItems={{ xs: 'stretched', sm: 'flex-start' }}
             >
               <Box
-                href={cta_right_url || FillerContent.href}
+                onClick={() => scrollToContactUs()}
+                // href={cta_right_url || FillerContent.href}
                 component={Button}
                 variant="outlined"
                 color={theme.palette.zestyOrange}
@@ -725,130 +875,188 @@ const Section5Features = ({ content, theme, isMobile, isDarkMode }) => {
   );
 };
 
-function LongFormPpc({ content }) {
-  const router = useRouter();
-
-  if (router.asPath === '/ppc/explore/') {
-    return <ExploreZesty />;
-  }
+const SimpleHeroWithCta = ({
+  title,
+  subtitle,
+  description,
+  primaryCta,
+  secondaryCTA,
+  onClick,
+}) => {
   const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
-
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const scrollToContactUs = () => {
-    document
-      .getElementById('contact-us')
-      .scrollIntoView({ behavior: 'smooth' });
-  };
 
-  const formContent = {
-    leadDetail: 'Adwords',
-    businessType: 'Direct',
-    leadSource: 'Advertisement',
-    selectedValue: 2,
-    hideSelect: true,
-    hideMessage: true,
-    ctaText: content.cta_footer_cta || FillerContent.cta,
-    modalTitle: 'Thank you for submitting your information.',
-    modalMessage: 'Our team will be in touch soon to discuss next steps.',
-    displayMsgUnderButton: ' ',
-    additionalTextfield: { company: true, jobTitle: true },
-    customButtonStyle: { display: 'flex', justifyContent: 'center' },
-    phoneNumber: true,
-  };
+  return (
+    <Container
+      style={{ marginTop: isMobile ? '0rem' : '1rem', marginBottom: '1rem' }}
+      sx={{
+        position: 'relative',
+        '&::after': {
+          position: 'absolute',
+          content: '""',
+          width: '20%',
+          zIndex: 1,
+          top: 0,
+          left: 0,
+          height: '100%',
+          backgroundSize: '18px 18px',
+          backgroundImage: `radial-gradient(${alpha(
+            theme.palette.primary.dark,
+            0.4,
+          )} 20%, transparent 20%)`,
+          opacity: 0.2,
+        },
+      }}
+    >
+      <Box paddingTop={isMobile ? 0 : 1} position={'relative'} zIndex={2}>
+        <Box marginBottom={4}>
+          <Typography
+            variant="p"
+            component={'h1'}
+            color="text.primary"
+            align={'center'}
+            sx={{
+              fontSize: isMobile ? '35px' : '48px',
+              fontWeight: 700,
+              marginBottom: '2rem',
+            }}
+          >
+            {title}
+            <br />
+            {subtitle}
+          </Typography>
+          <Typography
+            variant="p"
+            component="h2"
+            color="text.secondary"
+            sx={{
+              fontSize: '20px',
+              fontWeight: 400,
+              whiteSpace: isMobile ? 'normal' : 'nowrap',
+            }}
+            align={'center'}
+          >
+            {description}
+          </Typography>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection={{ xs: 'column', sm: 'row' }}
+          alignItems={{ xs: 'stretched', sm: 'center' }}
+          justifyContent={'center'}
+        >
+          <TryFreeButton
+            component={'a'}
+            variant="contained"
+            color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
+            size="large"
+            fullWidth={isMd ? false : true}
+            text={primaryCta}
+          />
+          <Box
+            marginTop={{ xs: 2, sm: 0 }}
+            marginLeft={{ sm: 2 }}
+            width={{ xs: '100%', sm: 'auto', md: 'auto' }}
+          >
+            <Button
+              component={'a'}
+              onClick={onClick}
+              variant="outlined"
+              color={theme.palette.mode === 'dark' ? 'primary' : 'secondary'}
+              size="large"
+              fullWidth={isMd ? false : true}
+            >
+              {secondaryCTA}
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        component={'svg'}
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 1920 100.1"
+        sx={{
+          width: '100%',
+          marginBottom: theme.spacing(-1),
+        }}
+      >
+        <path
+          fill={theme.palette.background.paper}
+          d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+        ></path>
+      </Box>
+    </Container>
+  );
+};
 
-  const headerProps = {
-    title: content.title || FillerContent.header,
-    subtitle: content.sub_title || FillerContent.description,
-    description: content.header_description || FillerContent.description,
-    image:
-      (content.header_image?.data && content.header_image?.data[0]?.url) ||
-      FillerContent.image,
-    cta_right_text: content.cta_right_text || FillerContent.cta,
-    cta_right_url:
-      (content.cta_right_url &&
-        zestyLink(content.navigationTree, content.cta_right_url)) ||
-      zestyLink(content.navigationTree, FillerContent.contact_zuid),
+const HowItWorks = ({
+  // header is dangerouse title and description
+  header,
+  images,
+}) => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+  const styleSx = {
+    position: 'relative',
+    '&::after': {
+      position: 'absolute',
+      content: '""',
+      width: '20%',
+      zIndex: 1,
+      top: 0,
+      left: 0,
+      height: '100%',
+    },
   };
 
   return (
     <>
-      {/* HERO */}
-      <Box
-        position={'relative'}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-        }}
-      >
-        <Hero {...headerProps} />
-      </Box>
-
-      {/* Who Zesty is */}
-      <Box
-        sx={{
-          background: theme.palette.zesty.zestyDarkBlue,
-          padding: isMobile ? '1rem 0' : '5rem 0',
-        }}
-      >
-        <SimpleCentered
-          header={content.who_is_zesty_h2 || FillerContent.header}
-          cards={content.zesty_benefits?.data || []}
-        />
-      </Box>
-
-      {/* Who Zesty works with */}
-      <LogoGridSimpleCentered
-        title={content.logos_h3 || FillerContent.header}
-        imageCollection={content.logos?.data || [FillerContent.image]}
-      />
-
-      {/* What is a DXP? */}
-      <Box bgcolor={'alternate.main'}>
-        <HeroWithIllustrationAndSearchBar
-          titleAndDescription={
-            content._what_is_title_and_description || FillerContent.rich_text
-          }
-          image={
-            (content._what_is_image?.data &&
-              content._what_is_image?.data[0].url) ||
-            FillerContent.image
-          }
-        />
-        <BgDecorations theme={theme} />
-      </Box>
-
-      {/* How it works */}
-
-      <Section5Features
-        isDarkMode={isDarkMode}
-        content={content}
-        theme={theme}
-        isMobile={isMobile}
-      />
-
-      {/* Benefits */}
-      <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
-        <NewsletterWithImage
-          header={content.outline_of_benefits || FillerContent.header}
-          image={
-            (content.benefits_image?.data &&
-              content.benefits_image?.data[0]?.url) ||
-            FillerContent.image
-          }
-          testimonial={content.testimonial?.data}
-        />
-      </Box>
-
-      <TechStack content={content} theme={theme} isMobile={isMobile} />
-
-      {/* Form */}
-      <ContactUsForm
-        theme={theme}
-        content={content}
-        formContent={formContent}
-      />
+      <Container sx={styleSx}>
+        <Box position={'relative'} zIndex={2}>
+          <Grid item xs={12} md={9}>
+            {/* <Box
+              dangerouslySetInnerHTML={{
+                __html: header || FillerContent.rich_text,
+              }}
+            ></Box> */}
+            <MuiMarkdown
+              overrides={{
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      fontWeight: 'bold',
+                    },
+                  },
+                },
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: { lineHeight: 1.5, mt: 2 },
+                  },
+                },
+              }}
+            >
+              {header || FillerContent.rich_text}
+            </MuiMarkdown>
+          </Grid>
+        </Box>
+      </Container>
+      <FeatureGridWithBackgrounds images={images || FillerContent.demos} />
     </>
   );
-}
+};
 
 export default LongFormPpc;
