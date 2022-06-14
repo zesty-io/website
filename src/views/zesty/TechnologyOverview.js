@@ -756,7 +756,7 @@ const Features = ({ theme, isMobile, isDarkMode, content }) => {
               },
             }}
           >
-            {content.how_it_works_header}
+            {content.custom_headless_description}
           </MuiMarkdown>
         </Box>
 
