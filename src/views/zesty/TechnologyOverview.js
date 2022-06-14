@@ -110,16 +110,14 @@ const Hero = ({ theme, isMobile, content }) => (
       overflow: 'hidden',
       position: 'relative',
       mt: 2,
-      pt: 25,
+      pt: isMobile ? 10 : 25,
       minHeight: 900,
       display: 'flex',
       justifyContent: 'center',
     }}
     component={'section'}
     style={{
-      background: isMobile
-        ? theme.palette.zesty.zestyBlueGradient
-        : theme.palette.zesty.zestyTealGradient,
+      background: theme.palette.zesty.zestyTealGradient,
     }}
   >
     <Box
