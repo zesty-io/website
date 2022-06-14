@@ -213,12 +213,15 @@ function LongFormPpc({ content }) {
       )}
 
       {/* Form */}
-      <PpcShortForm theme={theme} content={content} />
-      {/* <ContactUsForm
-        theme={theme}
-        content={content}
-        formContent={formContent}
-      /> */}
+      {router.asPath === '/ppc/content-management-system/' ? (
+        <PpcShortForm theme={theme} content={content} />
+      ) : (
+        <ContactUsForm
+          theme={theme}
+          content={content}
+          formContent={formContent}
+        />
+      )}
     </>
   );
 }
