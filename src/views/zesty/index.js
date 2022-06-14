@@ -46,6 +46,7 @@ import LongFormPpc from './LongFormPpc';
 import PpcShortForm from './PpcShortForm';
 import IntegrationsIndividualPage from './IntegrationsIndividualPage';
 import GatedContentPage from './GatedContentPage';
+import ThankYouPage from './ThankYouPage';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -76,6 +77,11 @@ import DigitalExperiencePlatform from './DigitalExperiencePlatform';
 import HeadlessEcommerce from './HeadlessEcommerce';
 import DxpEcommerce from './DxpEcommerce';
 import Roadmap from './Roadmap';
+import HeadlessCmsEnterprise from './HeadlessCmsEnterprise';
+import DxpEnterprise from './DxpEnterprise';
+import DxpBenefit from './DxpBenefit';
+import DxpFeature from './DxpFeature';
+import HeadlessCmsFeature from './HeadlessCmsFeature';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -127,6 +133,7 @@ export {
     PpcShortForm,
     IntegrationsIndividualPage,
     GatedContentPage,
+    ThankYouPage,
     Homepage,
     SimplePage,
     Mindshare,
@@ -157,6 +164,11 @@ export {
     HeadlessEcommerce,
     DxpEcommerce,
     Roadmap,
+    HeadlessCmsEnterprise,
+    DxpEnterprise,
+    DxpBenefit,
+    DxpFeature,
+    HeadlessCmsFeature,
     Footer,
     Header
 }
