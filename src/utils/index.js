@@ -131,3 +131,21 @@ export const strColorChanger = (str, word, color) => {
   );
   return res;
 };
+
+export const fetchWrapperOptions = () => {
+  const devMode = {
+    sitesServiceURL: 'https://svc.dev.zesty.io/sites-service/',
+    instancesAPIURL: '.api.dev.zesty.io/v1',
+    authAPIURL: 'https://auth.api.dev.zesty.io',
+    accountsAPIURL: 'https://accounts.api.dev.zesty.io/v1',
+    mediaAPIURL: 'https://svc.dev.zesty.io',
+  };
+
+  const prodMode = {};
+
+  if (process.env.PRODUCTION !== 'true') {
+    return devMode;
+  } else {
+    return prodMode;
+  }
+};
