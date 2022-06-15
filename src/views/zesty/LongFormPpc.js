@@ -571,6 +571,9 @@ const TechStack = ({ theme, isMobile, content }) => {
                   }
                   component={'a'}
                   target="_blank"
+                  href={
+                    content.tech_stack_integration_link.data[0].meta.web.uri
+                  }
                   fullWidth={isMobile}
                   variant="contained"
                   sx={{
