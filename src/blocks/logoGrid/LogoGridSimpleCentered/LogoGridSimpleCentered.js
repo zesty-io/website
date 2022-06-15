@@ -58,17 +58,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
         >
           {images?.map((item, i) => (
             <Box marginTop={2} key={i}>
-              <Box
-                component="img"
-                src={item}
-                alt="..."
-                sx={{
-                  filter:
-                    theme.palette.mode === 'dark'
-                      ? 'brightness(0) invert(0.7)'
-                      : 'brightness(0) invert(0.7)',
-                }}
-              />
+              <Box component="img" src={item} alt="..." />
             </Box>
           ))}
         </Box>
