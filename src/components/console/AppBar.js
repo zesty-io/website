@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { ComboBox } from 'components/ComboBox';
-import { Button } from '@mui/material';
+import { Button, useMediaQuery } from '@mui/material';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookies } from 'cookies-next';
 import Typography from '@mui/material/Typography';
@@ -15,6 +15,7 @@ import Skeleton from '@mui/material/Skeleton';
 
 export default function AppBar({ url = window.location.pathname }) {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getCookie('APP_SID');
 
@@ -23,13 +24,16 @@ export default function AppBar({ url = window.location.pathname }) {
     get: (searchParams, prop) => searchParams.get(prop),
   });
 
-  if(params.instanceZUID){
-    setCookies('ZESTY_WORKING_INSTANCE',params.instanceZUID)
-    instanceZUID = params.instanceZUID
+  if (params.instanceZUID) {
+    setCookies('ZESTY_WORKING_INSTANCE', params.instanceZUID);
+    instanceZUID = params.instanceZUID;
   }
 
   // remove query param and splits the url
-  let pathnames = url.split("?")[0].split('/').filter((e) => e);
+  let pathnames = url
+    .split('?')[0]
+    .split('/')
+    .filter((e) => e);
 
   const { verifySuccess, instances, userInfo, loading } = useFetchWrapper(
     userAppSID,
@@ -52,7 +56,9 @@ export default function AppBar({ url = window.location.pathname }) {
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center',
+            alignItems: isMobile ? 'left' : 'center',
+            flexDirection: isMobile ? 'column' : 'flex',
+            gap: isMobile ? '1rem' : '0',
           }}
         >
           <Breadcrumbs

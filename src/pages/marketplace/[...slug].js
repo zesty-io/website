@@ -12,6 +12,8 @@ import Head from 'next/head';
 import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
 import { setCookies } from 'cookies-next';
+import { useTheme } from '@emotion/react';
+import { TitleBar } from 'components/marketplace/TitleBar';
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -28,6 +30,7 @@ const renderMarketplaceViewByAltName = (altName) => {
 };
 
 const slug = ({ marketEntityTypes, marketTags, ...props }) => {
+  const theme = useTheme();
   const router = useRouter();
   const seoTitle = props?.meta?.web?.seo_meta_title,
     seoDescription = props?.meta?.web?.seo_meta_description;
@@ -42,6 +45,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
         </Head>
         <Main customRouting={props.navigationCustom}>
           <AppBar url={router.asPath} />
+
           <CustomContainer>
             <RegisterPage />
           </CustomContainer>
@@ -68,6 +72,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
     );
   }
 
+  console.log(props, 123444);
   if (props.marketplaceAltName === ALTNAME.EXTENSION) {
     return (
       <>
@@ -117,11 +122,11 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
 };
 
 export const getMarketplaceData = async (url) => {
-  
-  let extensionsURL = process.env.PRODUCTION === 'true'
-    ? 'https://extensions.zesty.io'
-    : 'https://39ntbr6g-dev.webengine.zesty.io';
-  
+  let extensionsURL =
+    process.env.PRODUCTION === 'true'
+      ? 'https://extensions.zesty.io'
+      : 'https://39ntbr6g-dev.webengine.zesty.io';
+
   let data = await fetchPage(url, true, extensionsURL);
 
   if (data?.meta?.model_alternate_name === ALTNAME.TAG) {
@@ -145,12 +150,14 @@ export const getMarketplaceData = async (url) => {
   return data;
 };
 
-export async function getServerSideProps({req, res}) {
-  
-  res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
+export async function getServerSideProps({ req, res }) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=600, stale-while-revalidate=3600',
+  );
 
   // set instance zuid cookie
-  if(req.query?.instanceZUID) {  
+  if (req.query?.instanceZUID) {
     setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
