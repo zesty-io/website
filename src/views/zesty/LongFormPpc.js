@@ -582,8 +582,6 @@ const TechStack = ({ theme, isMobile, content }) => {
               >
                 {content.tech_stack_description}
               </Typography>
-<<<<<<< HEAD
-=======
 
               <Box sx={{ width: '100%', mt: 4 }}>
                 <Button
@@ -592,9 +590,6 @@ const TechStack = ({ theme, isMobile, content }) => {
                   }
                   component={'a'}
                   target="_blank"
-                  href={
-                    content.tech_stack_integration_link.data[0].meta.web.uri
-                  }
                   fullWidth={isMobile}
                   variant="contained"
                   sx={{
@@ -607,7 +602,6 @@ const TechStack = ({ theme, isMobile, content }) => {
                   See All
                 </Button>
               </Box>
->>>>>>> main
             </Grid>
             <Grid item sm={12} md={6}>
               <Box sx={{ mt: isMobile ? 4 : 0 }}>
