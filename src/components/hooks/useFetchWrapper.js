@@ -17,7 +17,7 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const ZestyAPI = new Zesty.FetchWrapper(
     instanceZUID,
     userAppSID,
-    fetchWrapperOptions,
+    fetchWrapperOptions(),
   );
 
   const verifyUser = async () => {

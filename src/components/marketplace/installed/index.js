@@ -3,7 +3,7 @@ import { getCookie } from 'cookies-next';
 import BasicTable from './table';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import TransitionsModal from 'components/modal/modal';
-import { fetchWrapperOptions } from 'utils';
+import { fetchWrapperOptions, getUserAppSID } from 'utils';
 
 const customContainer = {
   display: 'flex',
@@ -21,12 +21,12 @@ const index = () => {
   const [loading, setloading] = React.useState(false);
   const [installedApps, setinstalledApps] = React.useState([]);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = getCookie('APP_SID');
+  const userAppSID = getUserAppSID();
 
   const ZestyAPI = new Zesty.FetchWrapper(
     instanceZUID,
     userAppSID,
-    fetchWrapperOptions,
+    fetchWrapperOptions(),
   );
   const getInstalledAppSuccess = (res) => {
     setloading(false);

@@ -1,3 +1,5 @@
+import { getCookie } from 'cookies-next';
+
 const removeEmptyNodes = (nodes) => {
   return nodes.filter((node) => {
     if (node.type === 'element') {
@@ -133,7 +135,7 @@ export const strColorChanger = (str, word, color) => {
 };
 
 export const fetchWrapperOptions = () => {
-  const devMode = {
+  const dev = {
     sitesServiceURL: 'https://svc.dev.zesty.io/sites-service/',
     instancesAPIURL: '.api.dev.zesty.io/v1',
     authAPIURL: 'https://auth.api.dev.zesty.io',
@@ -141,11 +143,24 @@ export const fetchWrapperOptions = () => {
     mediaAPIURL: 'https://svc.dev.zesty.io',
   };
 
-  const prodMode = {};
+  const prod = {};
 
+  // process.env.NEXT_PUBLIC_PRODUCTION
   if (process.env.PRODUCTION !== 'true') {
-    return devMode;
+    return dev;
   } else {
-    return prodMode;
+    return prod;
+  }
+};
+
+export const getUserAppSID = () => {
+  const prod = getCookie('APP_SID');
+  const dev = getCookie('DEV_APP_SID');
+
+  // process.env.NEXT_PUBLIC_PRODUCTION
+  if (process.env.PRODUCTION !== 'true') {
+    return dev;
+  } else {
+    return prod;
   }
 };

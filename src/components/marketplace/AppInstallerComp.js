@@ -2,18 +2,18 @@ import { Button } from '@mui/material';
 import React from 'react';
 import { getCookie } from 'cookies-next';
 import { CircularProgress } from '@mui/material';
-import { fetchWrapperOptions } from 'utils';
+import { fetchWrapperOptions, getUserAppSID } from 'utils';
 
 export const AppInstallerComp = ({ data, theme }) => {
   const [installedApps, setinstalledApps] = React.useState([]);
   const [loading, setloading] = React.useState(false);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = getCookie('APP_SID');
+  const userAppSID = getUserAppSID();
   const appZUID = data?.app_zuid;
   const ZestyAPI = new Zesty.FetchWrapper(
     instanceZUID,
     userAppSID,
-    fetchWrapperOptions,
+    fetchWrapperOptions(),
   );
 
   const installAppSuccess = async (res) => {
