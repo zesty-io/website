@@ -6,9 +6,10 @@ import { githubFetch } from 'lib/githubFetch';
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
 import { getCookie, setCookies } from 'cookies-next';
+import { useTheme } from '@emotion/react';
 
 export default function Slug(props) {
-  console.log(props);
+  const theme = useTheme();
   // capture information about the url and request
   useEffect(() => {
     const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -28,12 +29,20 @@ export default function Slug(props) {
     if (params.persona) setCookies('persona', params.persona);
   }, []);
 
+  // for homepage navigation
+  // const isDarkMode = theme.palette.mode === 'dark';
+  let bgcolor = 'transparent';
+  // if (props?.meta?.web?.uri === '/') {
+  //   bgcolor = isDarkMode ? 'transparent' : theme.palette.common.white;
+  // }
+
   return (
     <Main
       model={props.meta.model_alternate_name}
       nav={props.navigationTree}
       customRouting={props.navigationCustom}
       url={props.meta.web.uri}
+      bgcolor={bgcolor}
     >
       <ZestyView content={props} />
     </Main>

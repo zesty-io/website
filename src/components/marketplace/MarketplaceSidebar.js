@@ -15,7 +15,11 @@ const CustomLink = styled(Link)`
   width: 100%;
 `;
 
-const MarketplaceSidebar = ({ marketEntityTypes, marketTags }) => {
+const MarketplaceSidebar = ({
+  marketEntityTypes,
+  marketTags,
+  marketManage,
+}) => {
   const router = useRouter();
   return (
     <Container>
@@ -47,6 +51,28 @@ const MarketplaceSidebar = ({ marketEntityTypes, marketTags }) => {
         subheader={<ListSubheader component="div">Tags</ListSubheader>}
       >
         {marketTags?.map((list, index) => (
+          <ListItem
+            key={index}
+            sx={{
+              bgcolor: router.asPath.includes(list.uri) ? 'primary.main' : '',
+            }}
+          >
+            <CustomLink underline="none" href={list.uri}>
+              <ListItemText
+                primary={list.name}
+                sx={{
+                  color: router.asPath.includes(list.uri) ? 'white' : '',
+                }}
+              />
+            </CustomLink>
+          </ListItem>
+        ))}
+      </List>
+      <List
+        sx={{ my: 3, px: 2 }}
+        subheader={<ListSubheader component="div">Manage</ListSubheader>}
+      >
+        {marketManage?.map((list, index) => (
           <ListItem
             key={index}
             sx={{

@@ -55,12 +55,14 @@ const Marketplace = ({
   );
 };
 
-export async function getServerSideProps({res, req}) {
-  
-  res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600')
+export async function getServerSideProps({ res, req }) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=600, stale-while-revalidate=3600',
+  );
 
   // set instance zuid cookie
-  if(req.query?.instanceZUID) {  
+  if (req.query?.instanceZUID) {
     setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
