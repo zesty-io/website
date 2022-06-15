@@ -136,7 +136,7 @@ function LongFormPpc({ content }) {
           onClick={scrollToContactUs}
         />
       ) : (
-        <Box sx={{ position: 'relative', pb: 5 }}>
+        <Box sx={{ position: 'relative', py: 10 }}>
           <Hero scrollToContactUs={scrollToContactUs} {...headerProps} />
         </Box>
       )}
@@ -145,7 +145,7 @@ function LongFormPpc({ content }) {
       <Box
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
-          py: isMobile ? 5 : 2,
+          py: 5,
         }}
       >
         <SimpleCentered
@@ -155,7 +155,7 @@ function LongFormPpc({ content }) {
       </Box>
 
       {/* Who Zesty works with */}
-      <Box sx={{ py: isMobile ? 5 : 0 }}>
+      <Box sx={{ py: 5 }}>
         <LogoGridSimpleCentered
           title={content.logos_h3 || FillerContent.header}
           imageCollection={content.logos?.data || [FillerContent.image]}
@@ -163,7 +163,7 @@ function LongFormPpc({ content }) {
       </Box>
 
       {/* What is a DXP? */}
-      <Box sx={{ pt: isMobile ? 5 : 0 }} bgcolor={'alternate.main'}>
+      <Box sx={{ pt: 5 }} bgcolor={'alternate.main'}>
         <HeroWithIllustrationAndSearchBar
           titleAndDescription={
             content._what_is_title_and_description || FillerContent.rich_text
@@ -195,7 +195,7 @@ function LongFormPpc({ content }) {
 
       {/* Benefits */}
       <Box
-        sx={{ py: isMobile ? 10 : 8 }}
+        sx={{ py: isMobile ? 10 : 20 }}
         bgcolor={theme.palette.zesty.zestyDarkBlue}
       >
         <NewsletterWithImage
@@ -312,6 +312,7 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
                         component: 'ul',
                         sx: {
                           paddingLeft: 2,
+                          mt: 3,
                           color: theme.palette.common.white,
                         },
                       },
@@ -535,7 +536,7 @@ const TechStack = ({ theme, isMobile, content }) => {
     >
       <Box
         sx={{
-          py: 10,
+          py: 15,
         }}
       >
         <Container>
@@ -555,6 +556,7 @@ const TechStack = ({ theme, isMobile, content }) => {
                     component: 'h2',
                     props: {
                       style: {
+                        color: theme.palette.zesty.zestyZambezi,
                         fontSize: isMobile ? 30 : 48,
                         lineHeight: 1.2,
                         fontWeight: 'bold',
@@ -591,9 +593,6 @@ const TechStack = ({ theme, isMobile, content }) => {
                   }
                   component={'a'}
                   target="_blank"
-                  href={
-                    content.tech_stack_integration_link.data[0].meta.web.uri
-                  }
                   fullWidth={isMobile}
                   variant="contained"
                   sx={{
@@ -713,14 +712,6 @@ const Hero = ({
                 }}
               >
                 {title}
-              </Typography>
-              <Typography
-                variant="h3"
-                component="p"
-                color={theme.palette.zesty.zestyOrange}
-                sx={{ fontWeight: 700 }}
-              >
-                {subtitle}
               </Typography>
             </Box>
             <Box marginBottom={3}>
