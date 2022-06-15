@@ -583,6 +583,29 @@ const TechStack = ({ theme, isMobile, content }) => {
               >
                 {content.tech_stack_description}
               </Typography>
+
+              <Box sx={{ width: '100%', mt: 4 }}>
+                <Button
+                  href={
+                    content.tech_stack_integration_link.data[0].meta.web.uri
+                  }
+                  component={'a'}
+                  target="_blank"
+                  href={
+                    content.tech_stack_integration_link.data[0].meta.web.uri
+                  }
+                  fullWidth={isMobile}
+                  variant="contained"
+                  sx={{
+                    background: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.common.white,
+                    px: 6,
+                  }}
+                  size="large"
+                >
+                  See All
+                </Button>
+              </Box>
             </Grid>
             <Grid item sm={12} md={6}>
               <Box sx={{ mt: isMobile ? 4 : 0 }}>

@@ -142,5 +142,6 @@ export const dark = {
     zestyOrangeLinear: 'linear-gradient(90deg, #FF5D0A 8.16%, #F7951D 91.84%)',
     zestyBlue2: '#2196F3',
     whiteGray: '#F4F6FB',
+    zestyTealWhite: '#1AE8FF',
   },
 };
