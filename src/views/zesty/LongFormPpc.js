@@ -145,7 +145,7 @@ function LongFormPpc({ content }) {
       <Box
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
-          padding: isMobile ? '1rem 0' : '5rem 0',
+          py: isMobile ? 5 : 2,
         }}
       >
         <SimpleCentered
@@ -155,13 +155,15 @@ function LongFormPpc({ content }) {
       </Box>
 
       {/* Who Zesty works with */}
-      <LogoGridSimpleCentered
-        title={content.logos_h3 || FillerContent.header}
-        imageCollection={content.logos?.data || [FillerContent.image]}
-      />
+      <Box sx={{ py: isMobile ? 5 : 0 }}>
+        <LogoGridSimpleCentered
+          title={content.logos_h3 || FillerContent.header}
+          imageCollection={content.logos?.data || [FillerContent.image]}
+        />
+      </Box>
 
       {/* What is a DXP? */}
-      <Box bgcolor={'alternate.main'}>
+      <Box sx={{ pt: isMobile ? 5 : 0 }} bgcolor={'alternate.main'}>
         <HeroWithIllustrationAndSearchBar
           titleAndDescription={
             content._what_is_title_and_description || FillerContent.rich_text
@@ -193,8 +195,7 @@ function LongFormPpc({ content }) {
 
       {/* Benefits */}
       <Box
-        marginTop={6}
-        padding={isMobile ? 0 : 8}
+        sx={{ py: isMobile ? 10 : 8 }}
         bgcolor={theme.palette.zesty.zestyDarkBlue}
       >
         <NewsletterWithImage
@@ -672,6 +673,7 @@ const Hero = ({
   return (
     <Container>
       <Grid
+        sx={{ py: isMobile ? 5 : 0 }}
         container
         spacing={4}
         flexDirection={isMobile ? 'column-reverse' : 'row'}
@@ -830,7 +832,9 @@ const Section5Features = ({ content, theme, isMobile, isDarkMode }) => {
                     background: theme.palette.common.white,
                   }}
                 >
-                  <img src={e.icon_image.data[0].url} alt="" />
+                  {e.icon_image && (
+                    <img src={e.icon_image?.data[0].url} alt="" />
+                  )}
 
                   <Typography
                     component={'p'}
@@ -1074,7 +1078,7 @@ const PpcShortForm = ({ content }) => {
     phoneNumber: true,
   };
   return (
-    <>
+    <Box id="contact-us">
       <HeroWithFormAndBackgroundGradient
         headelineTitle={content.contact_form_h3 || FillerContent.header}
         description={
@@ -1087,7 +1091,7 @@ const PpcShortForm = ({ content }) => {
         form_title={content.form_title || FillerContent.header}
         formContent={formContent}
       />
-    </>
+    </Box>
   );
 };
 
