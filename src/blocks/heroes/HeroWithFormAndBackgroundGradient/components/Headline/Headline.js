@@ -19,7 +19,7 @@ const Headline = ({
   const isCapterraPage = router.asPath.includes('capterra');
 
   return (
-    <Box>
+    <Box sx={{ margin: 'auto', py: 5 }}>
       <Typography
         variant="h3"
         gutterBottom
@@ -31,7 +31,7 @@ const Headline = ({
         {title || FillerContent.header}
       </Typography>
 
-      <Grid item xs={12} md={9}>
+      <Grid item xs={12} md={isMobile ? 12 : 9}>
         <Box
           sx={{
             fontWeight: 400,

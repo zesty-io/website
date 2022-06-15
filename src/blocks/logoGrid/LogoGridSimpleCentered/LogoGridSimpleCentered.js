@@ -60,8 +60,6 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
             <Box marginTop={2} key={i}>
               <Box
                 component="img"
-                height={1}
-                width={1}
                 src={item}
                 alt="..."
                 sx={{
