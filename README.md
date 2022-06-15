@@ -267,3 +267,15 @@ const settings = {
 - `discussion`: Number of discussion can be shown to the discussion columns
 
 These data can be updated or set from the CMS `roadmap` model
+
+
+# Updating Email Signature
+
+To update the image and link of the email signature:
+
+1. Update the image in this repository located at [public/assets/images/email-banner.png](https://github.com/zesty-io/nextjs-website/blob/main/public/assets/images/email-banner.png) and push that through main (stage) and production branches
+2. Update the link in zesty manager under globals https://8-aaeffee09b-7w6v22.manager.zesty.io/content/6-984410-xnfd99/7-d60cd0-64nw39 there is a field named `Email Announcement URL link: email_announcement_url` save and publish the change
+
+How it works is the image in the signature is pointed to a static image url reference which on zesty.io next site, which is https://www.zesty.io/assets/images/email-banner.png and the URL in the points to a custom parsley file that setups up a 301 redirect to the link edited in globals, this is the file https://8-aaeffee09b-7w6v22.manager.zesty.io/code/file/views/11-f49eb1abdb-h0nt9b https://www.zesty.io/email/annoucement-link.html
+
+
