@@ -76,7 +76,6 @@ import MuiMarkdown from 'mui-markdown';
 import * as helper from 'utils';
 import tech_stack from '../../../public/assets/images/headless-cms/tech-stack.png';
 import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBackgroundGradient';
-import { color } from '@mui/system';
 
 function LongFormPpc({ content }) {
   const router = useRouter();
@@ -933,7 +932,6 @@ const SimpleHeroWithCta = ({
             sx={{
               fontSize: '20px',
               fontWeight: 400,
-              whiteSpace: isMobile ? 'normal' : 'nowrap',
             }}
             align={'center'}
           >
