@@ -146,7 +146,7 @@ export const fetchWrapperOptions = () => {
   const prod = {};
 
   // process.env.NEXT_PUBLIC_PRODUCTION
-  if (process.env.PRODUCTION !== 'true') {
+  if (process.env.NEXT_PUBLIC_PRODUCTION === 'false') {
     return dev;
   } else {
     return prod;
@@ -158,7 +158,7 @@ export const getUserAppSID = () => {
   const dev = getCookie('DEV_APP_SID');
 
   // process.env.NEXT_PUBLIC_PRODUCTION
-  if (process.env.PRODUCTION !== 'true') {
+  if (process.env.NEXT_PUBLIC_PRODUCTION === 'false') {
     return dev;
   } else {
     return prod;

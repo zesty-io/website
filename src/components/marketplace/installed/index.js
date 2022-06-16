@@ -4,6 +4,7 @@ import BasicTable from './table';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import TransitionsModal from 'components/modal/modal';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
+import { useZestyStore } from 'store';
 
 const customContainer = {
   display: 'flex',
@@ -23,11 +24,7 @@ const index = () => {
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getUserAppSID();
 
-  const ZestyAPI = new Zesty.FetchWrapper(
-    instanceZUID,
-    userAppSID,
-    fetchWrapperOptions(),
-  );
+  const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
   const getInstalledAppSuccess = (res) => {
     setloading(false);
     setinstalledApps(res);
@@ -60,11 +57,12 @@ const index = () => {
     setsucces('');
   };
 
+  // handling the ZESTYAPI null value
   React.useEffect(() => {
-    if (instanceZUID) {
+    if (instanceZUID && ZestyAPI) {
       getAllInstalledApps(instanceZUID);
     }
-  }, [instanceZUID]);
+  }, [instanceZUID, ZestyAPI]);
 
   const handleDelete = async (data) => {
     setloading(true);
@@ -88,7 +86,7 @@ const index = () => {
       </Box>
     );
   }
-  if (installedApps.length === 0) {
+  if (installedApps?.length === 0 || Object.keys(installedApps).length === 0) {
     return (
       <Box sx={customContainer}>
         <Typography sx={{ fontSize: '2rem' }}>No Data</Typography>

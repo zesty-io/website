@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
@@ -16,7 +16,7 @@ import TopNav from 'components/TopNav';
 import { Topbar, Sidebar, Footer } from './components';
 import { zestyLink } from 'lib/zestyLink';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import { getUserAppSID } from 'utils';
+import { fetchWrapperOptions, getUserAppSID } from 'utils';
 
 const Main = ({
   children,
