@@ -96,8 +96,7 @@ const postToZOHO = async (payloadJSON) => {
       throw new Error(`HTTP error: ${error}`);
     });
 };
-const phoneRegExp =
-  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+const phoneRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
 const validationSchema = yup.object({
   firstName: yup
@@ -139,7 +138,6 @@ const validationSchemaForPpc = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required('Email is required.'),
-  message: yup.string().trim().required('Please specify your message'),
   company: yup.string().trim().required('Please specify your company'),
   jobTitle: yup.string().trim().required('Please specify your job title'),
   phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
