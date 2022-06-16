@@ -279,7 +279,7 @@ How it works is the image in the signature is pointed to a static image url refe
 
 # Using the ZestyAPI or fetchwrapper
 
-### ZestyAPI is global and can be access using the example below
+[ZestyAPI](https://github.com/zesty-io/fetch-wrapper) is global and can be access using the example below
 
 ```jsx
 import { useZestyStore } from 'store';
@@ -287,4 +287,12 @@ import { useZestyStore } from 'store';
 const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
 
 console.log(ZestyAPI.verify(token));
+```
+
+ZestyAPI has two modes (development and production) which can be access using the .env file
+
+Example for dev
+
+```jsx
+NEXT_PUBLIC_PRODUCTION = false;
 ```
