@@ -656,12 +656,6 @@ const SimpleHeroWithCta = ({
         },
       }}
     >
-      <VideoPlayer
-        videoHeader={videoHeader}
-        videoUrl={videoUrl}
-        isMobile={isMobile}
-        theme={theme}
-      />
       <Box paddingTop={isMobile ? 0 : 1} position={'relative'} zIndex={2}>
         <Box marginBottom={4}>
           <Typography
@@ -804,15 +798,13 @@ const VideoPlayer = ({ videoUrl, theme, isMobile, videoHeader }) => {
   const isIpad = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        bottom: isMobile ? '-50vh' : '-70vh',
-        left: '50%',
-        transform: 'translate(-50%,0)',
-        borderRadius: '7px',
-        // boxShadow: '-3px 2px 37px -1px rgba(0,0,0,0.30)',
-        backgroundClip: 'padding-box ',
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginX: 'auto',
       }}
     >
       <Typography
@@ -821,6 +813,7 @@ const VideoPlayer = ({ videoUrl, theme, isMobile, videoHeader }) => {
         color="text.primary"
         align={'center'}
         sx={{
+          mt: -40,
           fontSize: isMobile ? '25px' : '35px',
           fontWeight: 700,
           marginBottom: '2rem',
@@ -838,9 +831,10 @@ const VideoPlayer = ({ videoUrl, theme, isMobile, videoHeader }) => {
         controls={true}
         // light
       />
-    </div>
+    </Box>
   );
 };
+
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
 
@@ -869,10 +863,14 @@ function IntegrationsIndividualPage({ content }) {
       {/* Platform Description */}
       <Box
         marginTop={isMobile ? 20 : 45}
-        paddingTop={isMobile ? 30 : 35}
-        paddingBottom={isMobile ? 10 : 10}
         bgcolor={theme.palette.zesty.zestyDarkBlue}
       >
+        <VideoPlayer
+          videoHeader={content.video_header}
+          videoUrl={content.video_link || FillerContent.videoUrl}
+          isMobile={isMobile}
+          theme={theme}
+        />
         <Container>
           <Box
             fontSize={isMobile ? 18 : 23}
