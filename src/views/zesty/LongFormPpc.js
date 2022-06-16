@@ -1094,7 +1094,7 @@ const PpcShortForm = ({ content }) => {
       <HeroWithFormAndBackgroundGradient
         headelineTitle={content.contact_form_h3 || FillerContent.header}
         description={
-          content.contact_form_description || FillerContent.description
+          content.request_demo_description || FillerContent.description
         }
         imageCollection={
           content.logos?.data?.slice(0, 3) || [FillerContent.image]

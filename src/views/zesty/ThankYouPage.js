@@ -106,6 +106,7 @@ const SimpleHeroWithCta = ({ title, subtitle, description }) => {
             color="text.primary"
             align={'center'}
             sx={{
+              color: theme.palette.zesty.zestyZambezi,
               fontSize: isMobile ? '35px' : '48px',
               fontWeight: 700,
               marginBottom: '2rem',
@@ -150,11 +151,11 @@ const SimpleHeroWithCta = ({ title, subtitle, description }) => {
   );
 };
 
-const Articles = ({ content, theme, isMobile, isDarkMode }) => {
+const Articles = ({ content, theme }) => {
   const articles = [...content.related_articles.data];
 
   return (
-    <Box sx={{ pt: 10 }} component="section">
+    <Box sx={{ pt: 5 }} component="section">
       <Container>
         <Box
           sx={{
