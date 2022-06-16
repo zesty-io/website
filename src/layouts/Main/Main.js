@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
@@ -16,6 +16,7 @@ import TopNav from 'components/TopNav';
 import { Topbar, Sidebar, Footer } from './components';
 import { zestyLink } from 'lib/zestyLink';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
+import { fetchWrapperOptions, getUserAppSID } from 'utils';
 
 const Main = ({
   children,
@@ -28,7 +29,7 @@ const Main = ({
   const router = useRouter();
 
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = getCookie('APP_SID');
+  const userAppSID = getUserAppSID();
 
   const { verifySuccess, loading, userInfo } = useFetchWrapper(
     userAppSID,

@@ -76,7 +76,6 @@ import MuiMarkdown from 'mui-markdown';
 import * as helper from 'utils';
 import tech_stack from '../../../public/assets/images/headless-cms/tech-stack.png';
 import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBackgroundGradient';
-import { color } from '@mui/system';
 
 function LongFormPpc({ content }) {
   const router = useRouter();
@@ -585,6 +584,26 @@ const TechStack = ({ theme, isMobile, content }) => {
               >
                 {content.tech_stack_description}
               </Typography>
+
+              <Box sx={{ width: '100%', mt: 4 }}>
+                <Button
+                  href={
+                    content.tech_stack_integration_link.data[0].meta.web.uri
+                  }
+                  component={'a'}
+                  target="_blank"
+                  fullWidth={isMobile}
+                  variant="contained"
+                  sx={{
+                    background: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.common.white,
+                    px: 6,
+                  }}
+                  size="large"
+                >
+                  See All
+                </Button>
+              </Box>
             </Grid>
             <Grid item sm={12} md={6}>
               <Box sx={{ mt: isMobile ? 4 : 0 }}>
@@ -927,7 +946,6 @@ const SimpleHeroWithCta = ({
             sx={{
               fontSize: '20px',
               fontWeight: 400,
-              whiteSpace: isMobile ? 'normal' : 'nowrap',
             }}
             align={'center'}
           >
@@ -1076,7 +1094,7 @@ const PpcShortForm = ({ content }) => {
       <HeroWithFormAndBackgroundGradient
         headelineTitle={content.contact_form_h3 || FillerContent.header}
         description={
-          content.contact_form_description || FillerContent.description
+          content.request_demo_description || FillerContent.description
         }
         imageCollection={
           content.logos?.data?.slice(0, 3) || [FillerContent.image]

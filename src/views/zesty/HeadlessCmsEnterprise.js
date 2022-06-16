@@ -5,7 +5,7 @@
  * Label: Headless CMS Enterprise 
  * Name: headless_cms_enterprise 
  * Model ZUID: 6-e6b7919994-n8p7t0
- * File Created On: Tue Jun 14 2022 20:20:46 GMT+0800 (Philippine Standard Time)
+ * File Created On: Wed Jun 15 2022 00:51:14 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 
@@ -53,21 +53,30 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
 
-function HeadlessCmsEnterprise({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+function HeadlessCmsEnterprise({ content }) {
+  return (
+    <>
+      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+      <h1
+        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
+      ></h1>
+      <div>{content.meta.web.seo_meta_description}</div>
+      <div
+        style={{
+          background: '#eee',
+          border: '1px #000 solid',
+          margin: '10px',
+          padding: '20px',
+        }}
+      >
+        <h2>Accessible Zesty.io JSON Object</h2>
+        <pre>{JSON.stringify(content, null, 2)}</pre>
+      </div>
+      {/* End of Zesty.io output example */}
+    </>
+  );
 }
-  
+
 export default HeadlessCmsEnterprise;
