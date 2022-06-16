@@ -7,12 +7,8 @@ import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
 import { getCookie, setCookies } from 'cookies-next';
 import { useTheme } from '@emotion/react';
-import { useZestyStore } from 'store';
 
 export default function Slug(props) {
-  const setZestyProductionMode = useZestyStore(
-    (state) => state.setZestyProductionMode,
-  );
   const theme = useTheme();
   // capture information about the url and request
   useEffect(() => {
@@ -39,12 +35,6 @@ export default function Slug(props) {
   // if (props?.meta?.web?.uri === '/') {
   //   bgcolor = isDarkMode ? 'transparent' : theme.palette.common.white;
   // }
-
-  useEffect(() => {
-    if (props) {
-      setZestyProductionMode(props.zestyProductionMode);
-    }
-  }, [props]);
 
   return (
     <Main

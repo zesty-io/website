@@ -134,7 +134,7 @@ export const strColorChanger = (str, word, color) => {
   return res;
 };
 
-export const fetchWrapperOptions = (isProd) => {
+export const fetchWrapperOptions = () => {
   const dev = {
     sitesServiceURL: 'https://svc.dev.zesty.io/sites-service/',
     instancesAPIURL: '.api.dev.zesty.io/v1',
@@ -145,18 +145,20 @@ export const fetchWrapperOptions = (isProd) => {
 
   const prod = {};
 
-  if (!isProd) {
+  // process.env.NEXT_PUBLIC_PRODUCTION
+  if (process.env.NEXT_PUBLIC_PRODUCTION === 'false') {
     return dev;
   } else {
     return prod;
   }
 };
 
-export const getUserAppSID = (isProd) => {
+export const getUserAppSID = () => {
   const prod = getCookie('APP_SID');
   const dev = getCookie('DEV_APP_SID');
 
-  if (!isProd) {
+  // process.env.NEXT_PUBLIC_PRODUCTION
+  if (process.env.NEXT_PUBLIC_PRODUCTION === 'false') {
     return dev;
   } else {
     return prod;
