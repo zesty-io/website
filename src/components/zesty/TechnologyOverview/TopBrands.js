@@ -63,6 +63,7 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode }) => {
               >
                 {caseStudies.map((item, idx) => (
                   <Button
+                    key={idx}
                     onClick={() => caseStudyActiveHandler(idx)}
                     sx={{ opacity: item.title === active.title ? 1 : 0.3 }}
                   >
