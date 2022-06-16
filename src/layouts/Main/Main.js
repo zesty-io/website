@@ -17,6 +17,7 @@ import { Topbar, Sidebar, Footer } from './components';
 import { zestyLink } from 'lib/zestyLink';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
+import { useZestyStore } from 'store';
 
 const Main = ({
   children,
@@ -27,15 +28,22 @@ const Main = ({
   model = '',
 }) => {
   const router = useRouter();
+  const zestyProductionMode = useZestyStore((e) => e.zestyProductionMode);
+  const setZestyAPI = useZestyStore((e) => e.setZestyAPI);
 
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = getUserAppSID();
+  const userAppSID = getUserAppSID(zestyProductionMode);
 
   const { verifySuccess, loading, userInfo } = useFetchWrapper(
     userAppSID,
     instanceZUID,
   );
 
+  const ZestyAPI = new Zesty.FetchWrapper(
+    instanceZUID,
+    userAppSID,
+    fetchWrapperOptions(zestyProductionMode),
+  );
   const isLogin = verifySuccess.userZuid;
 
   const hasRouting = customRouting !== undefined ? true : false;
@@ -89,6 +97,10 @@ const Main = ({
       return bgcolor;
     }
   };
+
+  React.useEffect(() => {
+    setZestyAPI(ZestyAPI);
+  }, [ZestyAPI]);
 
   return (
     <Box>
