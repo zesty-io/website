@@ -17,7 +17,6 @@ import { Topbar, Sidebar, Footer } from './components';
 import { zestyLink } from 'lib/zestyLink';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
-import { useStore } from 'store';
 
 const Main = ({
   children,

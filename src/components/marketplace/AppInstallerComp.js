@@ -3,7 +3,7 @@ import React from 'react';
 import { getCookie } from 'cookies-next';
 import { CircularProgress } from '@mui/material';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
-import { useStore } from 'store';
+import { useZestyStore } from 'store';
 
 export const AppInstallerComp = ({ data, theme }) => {
   const [installedApps, setinstalledApps] = React.useState([]);
@@ -12,7 +12,7 @@ export const AppInstallerComp = ({ data, theme }) => {
   const userAppSID = getUserAppSID();
   const appZUID = data?.app_zuid;
 
-  let ZestyAPI = useStore((state) => state.zestyApi);
+  let ZestyAPI = useZestyStore((state) => state.ZestyAPI);
   const installAppSuccess = async (res) => {
     setloading(false);
     await getAllInstalledApps();
