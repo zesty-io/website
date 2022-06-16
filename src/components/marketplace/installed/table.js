@@ -12,7 +12,6 @@ export default function BasicTable({ data = [], deleteData }) {
   const customStyle = {
     fontWeight: 'bold',
   };
-  console.log(data, 222);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
