@@ -157,6 +157,11 @@ let zestyURL = content.zestyProductionMode
   : process.env.zesty.stage;
 ```
 
+Defaulting missing to content
+
+See this example for loading dyanmic content and not breaking
+https://github.com/zesty-io/nextjs-website/blob/869acdd08836c74fd9f6a602eddd01a9073dcc11/src/views/zesty/About.js#L51
+
 Using our zesty custom useFetch command
 
 ```jsx
