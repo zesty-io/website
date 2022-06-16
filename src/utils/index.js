@@ -134,7 +134,20 @@ export const strColorChanger = (str, word, color) => {
   return res;
 };
 
+const isProd =
+  process.env.NEXT_PUBLIC_PRODUCTION &&
+  (process.env.NEXT_PUBLIC_PRODUCTION === false ||
+    process.env.NEXT_PUBLIC_PRODUCTION === 'false')
+    ? false
+    : true;
+
 export const fetchWrapperOptions = () => {
+  console.log(process.env.NEXT_PUBLIC_PRODUCTION, 'NEXT PUBLIC PROD ENV ');
+  console.log(
+    typeof process.env.NEXT_PUBLIC_PRODUCTION,
+    'NEXT PUBLIC PROD  ENV ',
+  );
+
   const dev = {
     sitesServiceURL: 'https://svc.dev.zesty.io/sites-service/',
     instancesAPIURL: '.api.dev.zesty.io/v1',
@@ -145,8 +158,7 @@ export const fetchWrapperOptions = () => {
 
   const prod = {};
 
-  // process.env.NEXT_PUBLIC_PRODUCTION
-  if (process.env.NEXT_PUBLIC_PRODUCTION === 'false') {
+  if (!isProd) {
     return dev;
   } else {
     return prod;
@@ -157,8 +169,7 @@ export const getUserAppSID = () => {
   const prod = getCookie('APP_SID');
   const dev = getCookie('DEV_APP_SID');
 
-  // process.env.NEXT_PUBLIC_PRODUCTION
-  if (process.env.NEXT_PUBLIC_PRODUCTION === 'false') {
+  if (!isProd) {
     return dev;
   } else {
     return prod;
