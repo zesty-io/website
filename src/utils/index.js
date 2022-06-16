@@ -135,8 +135,9 @@ export const strColorChanger = (str, word, color) => {
 };
 
 const isProd =
-  process.env.NEXT_PUBLIC_PRODUCTION === false ||
-  process.env.NEXT_PUBLIC_PRODUCTION === 'false'
+  process.env.NEXT_PUBLIC_PRODUCTION &&
+  (process.env.NEXT_PUBLIC_PRODUCTION === false ||
+    process.env.NEXT_PUBLIC_PRODUCTION === 'false')
     ? false
     : true;
 
