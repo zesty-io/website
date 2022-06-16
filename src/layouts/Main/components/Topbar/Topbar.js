@@ -9,7 +9,7 @@ import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import { useRouter } from 'next/router';
 import { Skeleton } from '@mui/material';
-
+import { setCookies } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
 import { Typography } from '@mui/material';
 
@@ -47,6 +47,16 @@ const Topbar = ({
   const openAccountInstances = () => {
     window.open('https://accounts.zesty.io/instances', '_blank').focus();
   };
+
+  React.useEffect(() => {
+    if (userInfo) {
+      setCookies('user_ZUID', userInfo.ZUID);
+      setCookies('user_email', userInfo.email);
+      setCookies('user_firstName', userInfo.firstName);
+      setCookies('user_lastName', userInfo.lastName);
+    }
+  }, [userInfo]);
+
   return (
     <Box
       display={'flex'}
