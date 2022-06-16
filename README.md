@@ -143,13 +143,13 @@ import Icon from '@mui/material/Icon';
 variant = 'h4'; // Inherit Styles component = 'h2'; // DOM Element
 ```
 
-## Production VS Stage Logic
+# Production VS Stage Logic
 
 The `content` object has access to `content.zestyProductionMode`, a boolean value, true for prod, false for stage/dev.
 
-### Examples
+## Examples
 
-Determining our bases domain for fetch
+### Determining our bases domain for fetch
 
 ```jsx
 let zestyURL = content.zestyProductionMode
@@ -157,7 +157,8 @@ let zestyURL = content.zestyProductionMode
   : process.env.zesty.stage;
 ```
 
-Using our zesty custom useFetch command
+
+### Using our zesty custom useFetch command
 
 ```jsx
 const { data: latestArticles, isPending: latestPending } = useFetch(
@@ -166,7 +167,7 @@ const { data: latestArticles, isPending: latestPending } = useFetch(
 );
 ```
 
-Making template level decision (to show things like GTM or scripts)
+### Making template level decision (to show things like GTM or scripts)
 
 ```jsx
 {
@@ -183,6 +184,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   );
 }
 ```
+
+# Working with Content from Zesty
+
+## Defaulting missing to content
+
+See this example for loading dyanmic content and not breaking
+https://github.com/zesty-io/nextjs-website/blob/869acdd08836c74fd9f6a602eddd01a9073dcc11/src/views/zesty/About.js#L51
 
 # Using theme colors for custom styles
 
@@ -231,6 +239,16 @@ For more details you can browse to `src/theme` directory for complete list of th
 
 ```
 
+# Marketplace
+
+To auto set the instance zuid, you can pass the query param `?instanceZUID=8-xyz-xyz` to any page in the zesty.io website. This will auto set `ZESTY_WORKING_INSTANCE` and overwrite.
+
+*Available cookies*
+
+*   ZESTY_WORKING_INSTANCE - instance zuid for checking support, marketplace, docs, etc.
+*   APP_SID - auth token
+
+
 # Github Data Fetching For Roadmap
 
 ## Requirements
@@ -268,7 +286,6 @@ const settings = {
 
 These data can be updated or set from the CMS `roadmap` model
 
-
 # Updating Email Signature
 
 To update the image and link of the email signature:
@@ -278,4 +295,22 @@ To update the image and link of the email signature:
 
 How it works is the image in the signature is pointed to a static image url reference which on zesty.io next site, which is https://www.zesty.io/assets/images/email-banner.png and the URL in the points to a custom parsley file that setups up a 301 redirect to the link edited in globals, this is the file https://8-aaeffee09b-7w6v22.manager.zesty.io/code/file/views/11-f49eb1abdb-h0nt9b https://www.zesty.io/email/annoucement-link.html
 
+# Using the ZestyAPI or fetchwrapper
 
+[ZestyAPI](https://github.com/zesty-io/fetch-wrapper) is global and can be access using the example below
+
+```jsx
+import { useZestyStore } from 'store';
+
+const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
+
+console.log(ZestyAPI.verify(token));
+```
+
+ZestyAPI has two modes (development and production) which can be access using the .env file
+
+Example for dev
+
+```jsx
+NEXT_PUBLIC_PRODUCTION = false;
+```

@@ -136,7 +136,7 @@ export default function Docs(props) {
         <meta property="og:description" content={description} />
         <meta property="og:image" content={ogimage} />
       </Head>
-      <AppBar></AppBar>
+      <AppBar/>
       <Container>
         <Box sx={{ display: 'flex' }} paddingBottom={4}>
           <Box

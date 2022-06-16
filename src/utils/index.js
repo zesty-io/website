@@ -1,3 +1,5 @@
+import { getCookie } from 'cookies-next';
+
 const removeEmptyNodes = (nodes) => {
   return nodes.filter((node) => {
     if (node.type === 'element') {
@@ -130,4 +132,47 @@ export const strColorChanger = (str, word, color) => {
     `<span style="color:${color};">${word}</span>`,
   );
   return res;
+};
+
+const isProd =
+  process.env.NEXT_PUBLIC_PRODUCTION &&
+  (process.env.NEXT_PUBLIC_PRODUCTION === false ||
+    process.env.NEXT_PUBLIC_PRODUCTION === 'false')
+    ? false
+    : true;
+
+export const fetchWrapperOptions = () => {
+  console.log(process.env.NEXT_PUBLIC_PRODUCTION, 'NEXT PUBLIC PROD ENV ');
+  console.log(process.env.zesty, 'NEXT PUBLIC PROD ENV ');
+  console.log(
+    typeof process.env.NEXT_PUBLIC_PRODUCTION,
+    'NEXT PUBLIC PROD  ENV ',
+  );
+
+  const dev = {
+    sitesServiceURL: 'https://svc.dev.zesty.io/sites-service/',
+    instancesAPIURL: '.api.dev.zesty.io/v1',
+    authAPIURL: 'https://auth.api.dev.zesty.io',
+    accountsAPIURL: 'https://accounts.api.dev.zesty.io/v1',
+    mediaAPIURL: 'https://svc.dev.zesty.io',
+  };
+
+  const prod = {};
+
+  if (!isProd) {
+    return dev;
+  } else {
+    return prod;
+  }
+};
+
+export const getUserAppSID = () => {
+  const prod = getCookie('APP_SID');
+  const dev = getCookie('DEV_APP_SID');
+
+  if (!isProd) {
+    return dev;
+  } else {
+    return prod;
+  }
 };

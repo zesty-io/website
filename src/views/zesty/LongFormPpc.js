@@ -75,6 +75,7 @@ import { zestyLink } from 'lib/zestyLink';
 import MuiMarkdown from 'mui-markdown';
 import * as helper from 'utils';
 import tech_stack from '../../../public/assets/images/headless-cms/tech-stack.png';
+import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBackgroundGradient';
 
 function LongFormPpc({ content }) {
   const router = useRouter();
@@ -134,12 +135,7 @@ function LongFormPpc({ content }) {
           onClick={scrollToContactUs}
         />
       ) : (
-        <Box
-          position={'relative'}
-          sx={{
-            backgroundColor: theme.palette.alternate.main,
-          }}
-        >
+        <Box sx={{ position: 'relative', py: 10 }}>
           <Hero scrollToContactUs={scrollToContactUs} {...headerProps} />
         </Box>
       )}
@@ -148,7 +144,7 @@ function LongFormPpc({ content }) {
       <Box
         sx={{
           background: theme.palette.zesty.zestyDarkBlue,
-          padding: isMobile ? '1rem 0' : '5rem 0',
+          py: 15,
         }}
       >
         <SimpleCentered
@@ -158,13 +154,15 @@ function LongFormPpc({ content }) {
       </Box>
 
       {/* Who Zesty works with */}
-      <LogoGridSimpleCentered
-        title={content.logos_h3 || FillerContent.header}
-        imageCollection={content.logos?.data || [FillerContent.image]}
-      />
+      <Box sx={{ py: 10 }}>
+        <LogoGridSimpleCentered
+          title={content.logos_h3 || FillerContent.header}
+          imageCollection={content.logos?.data || [FillerContent.image]}
+        />
+      </Box>
 
       {/* What is a DXP? */}
-      <Box bgcolor={'alternate.main'}>
+      <Box sx={{ pt: 10 }} bgcolor={'alternate.main'}>
         <HeroWithIllustrationAndSearchBar
           titleAndDescription={
             content._what_is_title_and_description || FillerContent.rich_text
@@ -195,7 +193,10 @@ function LongFormPpc({ content }) {
       )}
 
       {/* Benefits */}
-      <Box marginTop={6} padding={isMobile ? 0 : 8} bgcolor={'alternate.main'}>
+      <Box
+        sx={{ py: isMobile ? 10 : 20 }}
+        bgcolor={theme.palette.zesty.zestyDarkBlue}
+      >
         <NewsletterWithImage
           header={content.outline_of_benefits || FillerContent.header}
           image={
@@ -212,11 +213,15 @@ function LongFormPpc({ content }) {
       )}
 
       {/* Form */}
-      <ContactUsForm
-        theme={theme}
-        content={content}
-        formContent={formContent}
-      />
+      {router.asPath === '/ppc/content-management-system/' ? (
+        <PpcShortForm theme={theme} content={content} />
+      ) : (
+        <ContactUsForm
+          theme={theme}
+          content={content}
+          formContent={formContent}
+        />
+      )}
     </>
   );
 }
@@ -276,25 +281,39 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
         <Grid item xs={12} md={6}>
           <Box>
             <Box marginBottom={3}>
-              <Grid item xs={12} md={9}>
+              <Grid item xs={12}>
                 <MuiMarkdown
+                  style={{ width: '100%' }}
                   overrides={{
                     h2: {
-                      component: 'h2',
+                      component: Typography,
                       props: {
-                        style: { fontSize: 32, lineHeight: 1.2 },
+                        variant: 'h4',
+                        component: 'h2',
+                        sx: {
+                          color: theme.palette.common.white,
+                          fontWeight: 'bold',
+                          lineHeight: 1.2,
+                        },
                       },
                     },
                     p: {
-                      component: 'p',
+                      component: Typography,
                       props: {
-                        style: { fontSize: 20 },
+                        variant: 'h6',
+                        component: 'p',
+                        sx: { color: theme.palette.common.white },
                       },
                     },
                     ul: {
-                      component: 'ul',
+                      component: Typography,
                       props: {
-                        style: { paddingLeft: 12 },
+                        component: 'ul',
+                        sx: {
+                          paddingLeft: 2,
+                          mt: 3,
+                          color: theme.palette.common.white,
+                        },
                       },
                     },
                   }}
@@ -306,7 +325,7 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
             <Box marginTop={{ xs: 4, sm: 6, md: 8 }} textAlign={'left'}>
               <Grid container spacing={4}>
                 {testimonials.map((item, i) => (
-                  <Grid item xs={12} md={12} key={i}>
+                  <Grid item xs={12} key={i}>
                     <Box
                       width={1}
                       height={1}
@@ -510,12 +529,13 @@ const BgDecorations = ({ theme }) => {
 
 const TechStack = ({ theme, isMobile, content }) => {
   return (
-    <Box component="section" sx={{ px: 4, my: 10 }}>
+    <Box
+      component="section"
+      sx={{ px: 4, background: theme.palette.zesty.zestySeaShell }}
+    >
       <Box
         sx={{
-          background: theme.palette.zesty.zestySeaShell,
-          borderRadius: 10,
-          py: 10,
+          py: 15,
         }}
       >
         <Container>
@@ -535,6 +555,7 @@ const TechStack = ({ theme, isMobile, content }) => {
                     component: 'h2',
                     props: {
                       style: {
+                        color: theme.palette.zesty.zestyZambezi,
                         fontSize: isMobile ? 30 : 48,
                         lineHeight: 1.2,
                         fontWeight: 'bold',
@@ -673,6 +694,7 @@ const Hero = ({
   return (
     <Container>
       <Grid
+        sx={{ py: isMobile ? 5 : 0 }}
         container
         spacing={4}
         flexDirection={isMobile ? 'column-reverse' : 'row'}
@@ -683,18 +705,12 @@ const Hero = ({
               <Typography
                 variant="h3"
                 component="h1"
-                color="text.primary"
-                sx={{ fontWeight: 700 }}
+                sx={{
+                  fontWeight: 700,
+                  color: theme.palette.zesty.zestyZambezi,
+                }}
               >
                 {title}
-              </Typography>
-              <Typography
-                variant="h3"
-                component="p"
-                color={theme.palette.zesty.zestyOrange}
-                sx={{ fontWeight: 700 }}
-              >
-                {subtitle}
               </Typography>
             </Box>
             <Box marginBottom={3}>
@@ -717,21 +733,14 @@ const Hero = ({
             >
               <Box
                 onClick={() => scrollToContactUs()}
-                // href={cta_right_url || FillerContent.href}
                 component={Button}
-                variant="outlined"
-                color={theme.palette.zestyOrange}
+                variant="contained"
                 size="large"
                 marginTop={{ xs: 2, sm: 0 }}
                 fullWidth={isMd ? false : true}
                 sx={{
-                  color: '#FF5D0A',
-                  borderColor: '#FF5D0A',
-                  '&:hover': {
-                    borderColor: '#FF5D0A',
-                    backgroundColor: '#FF5D0A',
-                    color: 'white',
-                  },
+                  color: theme.palette.common.white,
+                  backgroundColor: theme.palette.zesty.zestyOrange,
                 }}
               >
                 {cta_right_text || FillerContent.cta}
@@ -836,7 +845,9 @@ const Section5Features = ({ content, theme, isMobile, isDarkMode }) => {
                     background: theme.palette.common.white,
                   }}
                 >
-                  <img src={e.icon_image.data[0].url} alt="" />
+                  {e.icon_image && (
+                    <img src={e.icon_image?.data[0].url} alt="" />
+                  )}
 
                   <Typography
                     component={'p'}
@@ -935,7 +946,6 @@ const SimpleHeroWithCta = ({
             sx={{
               fontSize: '20px',
               fontWeight: 400,
-              whiteSpace: isMobile ? 'normal' : 'nowrap',
             }}
             align={'center'}
           >
@@ -1056,6 +1066,44 @@ const HowItWorks = ({
       </Container>
       <FeatureGridWithBackgrounds images={images || FillerContent.demos} />
     </>
+  );
+};
+
+const PpcShortForm = ({ content }) => {
+  const theme = useTheme();
+
+  const formContent = {
+    leadDetail: 'Adwords',
+    businessType: 'Direct',
+    leadSource: 'Advertisement',
+    selectedValue: 2,
+    hideSelect: true,
+    hideMessage: true,
+    ctaText: FillerContent.cta,
+    modalTitle: 'Thank you for submitting your information.',
+    modalMessage: 'Our team will be in touch soon to discuss next steps.',
+    displayMsgUnderButton: ' ',
+    additionalTextfield: { company: true, jobTitle: true },
+    buttonFullWidth: true,
+    hidePrivacySection: true,
+    messageLabel: 'Is there anything you would like to cover in the demo?',
+    phoneNumber: true,
+  };
+  return (
+    <Box id="contact-us">
+      <HeroWithFormAndBackgroundGradient
+        headelineTitle={content.contact_form_h3 || FillerContent.header}
+        description={
+          content.request_demo_description || FillerContent.description
+        }
+        imageCollection={
+          content.logos?.data?.slice(0, 3) || [FillerContent.image]
+        }
+        backgroundImage={content.form_background_image.data[0].url}
+        form_title={content.form_title || FillerContent.header}
+        formContent={formContent}
+      />
+    </Box>
   );
 };
 
