@@ -143,6 +143,7 @@ const isProd =
 
 export const fetchWrapperOptions = () => {
   console.log(process.env.NEXT_PUBLIC_PRODUCTION, 'NEXT PUBLIC PROD ENV ');
+  console.log(process.env.zesty, 'NEXT PUBLIC PROD ENV ');
   console.log(
     typeof process.env.NEXT_PUBLIC_PRODUCTION,
     'NEXT PUBLIC PROD  ENV ',
