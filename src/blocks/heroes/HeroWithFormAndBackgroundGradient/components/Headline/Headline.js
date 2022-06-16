@@ -6,6 +6,7 @@ import FillerContent from 'components/FillerContent';
 import { Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { useRouter } from 'next/router';
+import MuiMarkdown from 'mui-markdown';
 
 const Headline = ({
   title,
@@ -32,15 +33,31 @@ const Headline = ({
       </Typography>
 
       <Grid item xs={12} md={isMobile ? 12 : 9}>
-        <Box
-          sx={{
-            fontWeight: 400,
-            color: 'common.white',
+        <MuiMarkdown
+          overrides={{
+            li: {
+              component: Typography,
+              props: {
+                component: 'li',
+                sx: {
+                  color: 'white',
+                  ml: -2.5,
+                },
+              },
+            },
+            p: {
+              component: Typography,
+              props: {
+                component: 'p',
+                sx: {
+                  color: 'white',
+                },
+              },
+            },
           }}
-          dangerouslySetInnerHTML={{
-            __html: description || FillerContent.description,
-          }}
-        ></Box>
+        >
+          {description}
+        </MuiMarkdown>
       </Grid>
       {!(router.asPath === '/ppc/content-management-system/') ? (
         <Box
