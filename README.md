@@ -231,6 +231,16 @@ For more details you can browse to `src/theme` directory for complete list of th
 
 ```
 
+# Marketplace
+
+To auto set the instance zuid, you can pass the query param `?instanceZUID=8-xyz-xyz` to any page in the zesty.io website. This will auto set `ZESTY_WORKING_INSTANCE` and overwrite.
+
+*Available cookies*
+
+*   ZESTY_WORKING_INSTANCE - instance zuid for checking support, marketplace, docs, etc.
+*   APP_SID - auth token
+
+
 # Github Data Fetching For Roadmap
 
 ## Requirements
