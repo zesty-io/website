@@ -29,12 +29,6 @@ import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-// Local Assets Imports
-import headless_digital from '../../../public/assets/images/headless-cms/headless-digital.svg';
-import headless_commerce from '../../../public/assets/images/headless-cms/headless-commerce.svg';
-import headless_enterprise from '../../../public/assets/images/headless-cms/headless-enterprise.svg';
-import headless_blog_editorial from '../../../public/assets/images/headless-cms/headless-blogs-editorial.svg';
-
 // Components Imports
 import Hero from '../../components/zesty/TechnologyOverview/Hero';
 import UseCase from '../../components/zesty/TechnologyOverview/UseCase';
@@ -46,6 +40,9 @@ import TopBrands from '../../components/zesty/TechnologyOverview/TopBrands';
 import Articles from '../../components/zesty/TechnologyOverview/Articles';
 import TechStack from '../../components/zesty/TechnologyOverview/TechStack';
 
+// Helpers Imports
+import FillerContent from 'components/FillerContent';
+
 function TechnologyOverview({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -56,31 +53,14 @@ function TechnologyOverview({ content }) {
     isMobile,
     isDarkMode,
     content,
+    FillerContent,
   };
-
-  const useCase = [
-    {
-      logo: headless_digital,
-      description: 'Headless digital asset management',
-    },
-    {
-      logo: headless_commerce,
-      description: 'Headless commerce',
-    },
-    {
-      logo: headless_enterprise,
-      description: 'Headless enterprise',
-    },
-    {
-      logo: headless_blog_editorial,
-      description: 'Blogs & editorial',
-    },
-  ];
+  console.log(FillerContent);
 
   return (
     <Box>
       <Hero {...pageData} />
-      <UseCase useCaseData={useCase} {...pageData} />
+      <UseCase {...pageData} />
       <TimeLine {...pageData} />
       <GetStarted {...pageData} />
       <Features {...pageData} />

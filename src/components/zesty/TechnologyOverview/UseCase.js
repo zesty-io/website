@@ -18,13 +18,13 @@ import curve from '../../../../public/assets/images/headless-cms/curve.svg';
 import curve_dark from '../../../../public/assets/images/headless-cms/curve-dark.svg';
 import curve_mobile from '../../../../public/assets/images/headless-cms/curve-mobile.svg';
 
-const UseCase = ({ theme, isMobile, isDarkMode, useCaseData, content }) => {
+const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (
     <Box sx={{ pt: 10 }} component="section">
       <Container>
         {/* Features Cards Start */}
         <Grid sx={{ justifyContent: 'center' }} container spacing={2}>
-          {useCaseData.map((item, idx) => (
+          {content.use_cases_tiles.data.map((item, idx) => (
             <Grid item sm={6} md={3}>
               <Card
                 sx={{
@@ -41,7 +41,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, useCaseData, content }) => {
                   <Box
                     component={'img'}
                     style={{ display: 'block', margin: 'auto' }}
-                    src={item.logo.src}
+                    src={item.use_case_icon?.data[0].url}
                   />
                   <Typography
                     variant="h6"
@@ -54,7 +54,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, useCaseData, content }) => {
                       color: theme.palette.zesty.zestyZambezi,
                     }}
                   >
-                    {item.description}
+                    {item.use_case_title || FillerContent.description}
                   </Typography>
                 </CardContent>
               </Card>
@@ -147,7 +147,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, useCaseData, content }) => {
               },
             }}
           >
-            {content.headless_cms_explained}
+            {content.headless_cms_explained || FillerContent.description}
           </MuiMarkdown>
         </Box>
 

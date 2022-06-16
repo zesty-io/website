@@ -2,13 +2,10 @@
 import { Box, Container, Grid, Typography, Button } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
-// Local  Assets Imports
-import bgImage from '../../../../public/assets/images/headless-cms/bgImage.png';
-
 // Components Imports
 import TryFreeButton from '../../../components/cta/TryFreeButton';
 
-const Hero = ({ theme, isMobile, content }) => (
+const Hero = ({ theme, isMobile, content, FillerContent }) => (
   <Box
     sx={{
       overflow: 'hidden',
@@ -29,9 +26,12 @@ const Hero = ({ theme, isMobile, content }) => (
       style={{
         position: 'absolute',
         left: isMobile ? '' : '10%',
-        top: 0,
+        top: 100,
+        width: 594,
+        height: 603,
+        opacity: 0.1,
       }}
-      src={bgImage.src}
+      src={'https://brand.zesty.io/zesty-io-logo-light.png'}
     />
     <Container sx={{ position: 'relative' }}>
       <Grid container spacing={2}>
@@ -73,7 +73,7 @@ const Hero = ({ theme, isMobile, content }) => (
                 variant="h6"
                 component={'h3'}
               >
-                {content.header_description}
+                {content.header_description || FillerContent.description}
               </Typography>
             </Box>
             <Box>
@@ -99,7 +99,7 @@ const Hero = ({ theme, isMobile, content }) => (
                   }}
                   size="large"
                 >
-                  {content.cta_right_text}
+                  {content.cta_right_text || FillerContent.cta}
                 </Button>
               </Box>
             </Box>
@@ -135,7 +135,7 @@ const Hero = ({ theme, isMobile, content }) => (
           variant={'h6'}
           component={'p'}
         >
-          {content.use_cases_text}
+          {content.use_cases_text || FillerContent.description}
         </Typography>
       </Grid>
     </Container>
