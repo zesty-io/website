@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import { useMediaQuery } from '@mui/material';
 
@@ -22,13 +22,12 @@ const SimpleVerticalBlogCards = ({
   title,
   description,
 }) => {
-
   const theme = useTheme();
   const cardList = cards || FillerContent.simpleCards;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-  
+
   return (
     <Container>
       <Box>
@@ -73,7 +72,12 @@ const SimpleVerticalBlogCards = ({
             <Grid item xs={12} md={6} key={i}>
               <Box
                 component={'a'}
-                href={item?.link || item?.path || item.card_link?.data[0]?.meta?.web?.uri || FillerContent.href}
+                href={
+                  item?.link ||
+                  item?.path ||
+                  item.card_link?.data[0]?.meta?.web?.uri ||
+                  FillerContent.href
+                }
                 display={'block'}
                 width={1}
                 height={1}
@@ -89,7 +93,9 @@ const SimpleVerticalBlogCards = ({
                   <CardMedia
                     image={
                       (item?.image?.data && item?.image?.data[0]?.url) ||
-                      (item?.hero_image?.data && item?.hero_image?.data[0]?.url ||item.image)
+                      (item?.hero_image?.data &&
+                        item?.hero_image?.data[0]?.url) ||
+                      item.image
                     }
                     title={item?.title}
                     sx={{

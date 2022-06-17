@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Icon from '@mui/material/Icon';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 <span class="material-icons-outlined">speed</span>;
 

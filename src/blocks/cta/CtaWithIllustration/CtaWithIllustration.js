@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import CreditCardsIllustration from 'svg/illustrations/CreditCards';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 const CtaWithIllustration = ({ title, description, cta, cta_url, image }) => {
   const theme = useTheme();

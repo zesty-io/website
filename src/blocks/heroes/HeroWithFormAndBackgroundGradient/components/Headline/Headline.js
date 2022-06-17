@@ -2,7 +2,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import { Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { useRouter } from 'next/router';

@@ -22,9 +22,8 @@ import {
 import Icons from '@mui/icons-material';
 import Container from 'components/Container';
 import { Button, useMediaQuery } from '@mui/material';
-import FillerContent from 'components/FillerContent';
-import WYSIWYGRender from 'components/WYSIWYGRender';
-
+import FillerContent from 'components/globals/FillerContent';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
 const switchIcon = (icon) => {
   switch (icon) {

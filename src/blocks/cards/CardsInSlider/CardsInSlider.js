@@ -8,11 +8,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
-
-
-const CardsInSlider = ({array, eyebrow, title}) => {
+const CardsInSlider = ({ array, eyebrow, title }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const isXs = useMediaQuery(theme.breakpoints.up('xs'), {
@@ -102,8 +100,11 @@ const CardsInSlider = ({array, eyebrow, title}) => {
                       component="img"
                       height={1}
                       width={1}
-                      src={theme.palette.mode === 'dark' ? (item.white_logo || FillerContent.clientCards[0].logo) 
-                      : (item.logo || FillerContent.clientCards[0].logo)}
+                      src={
+                        theme.palette.mode === 'dark'
+                          ? item.white_logo || FillerContent.clientCards[0].logo
+                          : item.logo || FillerContent.clientCards[0].logo
+                      }
                       alt={item.title}
                       // sx={{
                       //   filter: mode === 'dark' ? 'contrast(0)' : 'none',

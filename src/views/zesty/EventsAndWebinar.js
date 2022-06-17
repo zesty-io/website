@@ -36,34 +36,38 @@ import { Result } from 'blocks/formLayouts';
 import { Newsletter } from 'blocks/newsletters';
 import { CtaWithIllustrationNoCta } from 'blocks/cta';
 // filler content
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 function EventsAndWebinar({ content }) {
   const theme = useTheme();
 
   // conditional rendering
   const ComingSoon = () => {
-    return(
+    return (
       <>
         <CtaWithIllustrationNoCta
-        title={'Coming Soon'}
-        description={'Check back again for new Events and Webinars!'}
-        image={content.coming_soon_image?.data[0].url || FillerContent.image} />
+          title={'Coming Soon'}
+          description={'Check back again for new Events and Webinars!'}
+          image={content.coming_soon_image?.data[0].url || FillerContent.image}
+        />
       </>
-    )
-  }
+    );
+  };
 
   return (
     <>
       <SimpleHero
-      title={content.title || FillerContent.header}
-      subtitle={content.subtitle || ''}
-      description={content.header_description || FillerContent.description} />
-      {content.events?.data ? 
-      (<Container py={1}>
-        <Result array={content.events.data || []} /> :
-      </Container>) :
-      <ComingSoon />}
+        title={content.title || FillerContent.header}
+        subtitle={content.subtitle || ''}
+        description={content.header_description || FillerContent.description}
+      />
+      {content.events?.data ? (
+        <Container py={1}>
+          <Result array={content.events.data || []} /> :
+        </Container>
+      ) : (
+        <ComingSoon />
+      )}
       <Box
         position={'relative'}
         marginTop={{ xs: 4, md: 4 }}
@@ -95,9 +99,10 @@ function EventsAndWebinar({ content }) {
         </Box>
         <Container py={1}>
           <Newsletter
-          title={content.cta_title || FillerContent.header}
-          description={content.cta_description || FillerContent.description}
-          ctaBtn={content.cta_button || FillerContent.cta} />
+            title={content.cta_title || FillerContent.header}
+            description={content.cta_description || FillerContent.description}
+            ctaBtn={content.cta_button || FillerContent.cta}
+          />
         </Container>
       </Box>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}

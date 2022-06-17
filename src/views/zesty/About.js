@@ -42,56 +42,65 @@ import { Story } from 'blocks/contentBlocks';
 import { TeamWithSmallSquarePhotos } from 'blocks/team';
 import { LogoGridSimpleCentered, Partners } from 'blocks/logoGrid';
 // filler content
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 function About({ content }) {
   const theme = useTheme();
 
-  const logos = theme.palette.mode === 'dark' 
-  ? (content.board_member_logos_white?.data || FillerContent.logos) 
-  : (content.board_member_logos?.data || FillerContent.logos)
+  const logos =
+    theme.palette.mode === 'dark'
+      ? content.board_member_logos_white?.data || FillerContent.logos
+      : content.board_member_logos?.data || FillerContent.logos;
 
   return (
     <>
       <Box>
         <Box>
           <Container>
-            <Headline title={content.title || FillerContent.header}
-            description={content.header_description || FillerContent.header}/>
+            <Headline
+              title={content.title || FillerContent.header}
+              description={content.header_description || FillerContent.header}
+            />
           </Container>
           <Container paddingY={'0 !important'}>
             <Gallery
-            photos={content.team_photos?.data || FillerContent.photos} />
+              photos={content.team_photos?.data || FillerContent.photos}
+            />
           </Container>
           <Container maxWidth={'800px !important'}>
-            <Numbers
-            stats={content.stats?.data || []} />
+            <Numbers stats={content.stats?.data || []} />
           </Container>
           <Container maxWidth={'800px !important'}>
             <Divider />
           </Container>
           <Container>
             <Story
-            title={content.hero_content || FillerContent.header}
-            description={content.page_content || FillerContent.rich_text}
-            logos={theme.palette.mode === 'dark' ? (content.white_story_logos?.data || FillerContent.logos) 
-            : (content.story_logos?.data || FillerContent.logos)} />
+              title={content.hero_content || FillerContent.header}
+              description={content.page_content || FillerContent.rich_text}
+              logos={
+                theme.palette.mode === 'dark'
+                  ? content.white_story_logos?.data || FillerContent.logos
+                  : content.story_logos?.data || FillerContent.logos
+              }
+            />
           </Container>
           <Container maxWidth={'800px !important'}>
             <Divider />
           </Container>
           <Container>
             <TeamWithSmallSquarePhotos
-            eyebrow={content.team_eyebrow || FillerContent.header}
-            title={content.team_title || FillerContent.header}
-            team={content.team_members?.data || []}
-            grid={4} />
+              eyebrow={content.team_eyebrow || FillerContent.header}
+              title={content.team_title || FillerContent.header}
+              team={content.team_members?.data || []}
+              grid={4}
+            />
 
             <TeamWithSmallSquarePhotos
-            eyebrow={content.board_members_title || FillerContent.header}
-            title={content.board_members_description || FillerContent.header}
-            team={content.board_members?.data || []}
-            grid={6} />
+              eyebrow={content.board_members_title || FillerContent.header}
+              title={content.board_members_description || FillerContent.header}
+              team={content.board_members?.data || []}
+              grid={6}
+            />
 
             <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
               {logos.map((item, i) => (

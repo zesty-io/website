@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Pagination from '@mui/material/Pagination';
 
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 const PopularArticles = ({ articles = [], title, description, ctaBtn }) => {
   const theme = useTheme();

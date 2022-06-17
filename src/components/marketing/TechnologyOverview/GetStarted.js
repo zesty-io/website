@@ -6,7 +6,7 @@ import MuiMarkdown from 'mui-markdown';
 import s_curve from '../../../../public/assets/images/headless-cms/sCurve.svg';
 
 // Components Imports
-import TryFreeButton from '../../../components/cta/TryFreeButton';
+import TryFreeButton from '../../cta/TryFreeButton';
 
 const GetStarted = ({
   isDarkMode,

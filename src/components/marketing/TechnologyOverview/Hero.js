@@ -3,7 +3,7 @@ import { Box, Container, Grid, Typography, Button } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 // Components Imports
-import TryFreeButton from '../../../components/cta/TryFreeButton';
+import TryFreeButton from '../../cta/TryFreeButton';
 
 const Hero = ({ theme, isMobile, content, FillerContent }) => (
   <Box

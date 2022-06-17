@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import SubscribeCTA from 'components/cta/SubscribeCTA';
 
 const Newsletter = ({ title, description, ctaBtn }) => {
@@ -30,18 +30,16 @@ const Newsletter = ({ title, description, ctaBtn }) => {
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
-
-          <Box
-            display="flex"
-            flexDirection={{ xs: 'column', md: 'row' }}
-            alignItems={{ xs: 'center', md: 'flex-start' }}
-            justifyContent={{ xs: 'center' }}
-          >
-            <SubscribeCTA text=""/>
-          </Box>
+        <Box
+          display="flex"
+          flexDirection={{ xs: 'column', md: 'row' }}
+          alignItems={{ xs: 'center', md: 'flex-start' }}
+          justifyContent={{ xs: 'center' }}
+        >
+          <SubscribeCTA text="" />
         </Box>
       </Box>
-
+    </Box>
   );
 };
 

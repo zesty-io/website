@@ -6,7 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import TryFreeButton from 'components/cta/TryFreeButton';
 
 const reconstructImages = (images = []) => {
@@ -75,9 +75,9 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
   title,
   description,
   h1_title,
-  cta_left_text='',
+  cta_left_text = '',
   cta_right_text,
-  cta_right_url='',
+  cta_right_url = '',
   images,
 }) => {
   const theme = useTheme();
@@ -189,7 +189,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = ({
                 <Box
                   marginTop={{ xs: 2, sm: 0 }}
                   marginLeft={{ sm: 2 }}
-                  width={{ xs: '100%', md: 'auto', sm:'auto' }}
+                  width={{ xs: '100%', md: 'auto', sm: 'auto' }}
                 >
                   <Button
                     component={'a'}

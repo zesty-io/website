@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 const VerticallyAlignedBlogCardsWithShapedImage = ({
   title,

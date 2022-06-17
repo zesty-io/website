@@ -11,8 +11,8 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
-import WYSIWYGRender from 'components/WYSIWYGRender';
+import FillerContent from 'components/globals/FillerContent';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
 const FeaturesWithIllustration = ({
   wysiwyig_type = '',

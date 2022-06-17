@@ -36,9 +36,9 @@ import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { Container, filledInputClasses, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useTheme } from '@emotion/react';
-import WYSIWYGRender from 'components/WYSIWYGRender';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
 
 const OverviewProcessComp = ({ content, image }) => {
@@ -83,11 +83,7 @@ const OverviewProcessComp = ({ content, image }) => {
 function WhyZesty({ content }) {
   const theme = useTheme();
 
-  const {
-    data: allArticles,
-    isPending,
-    error,
-  } = useFetch(
+  const { data: allArticles, isPending, error } = useFetch(
     `/-/all-articles-hydrated.json?limit=3`,
     content.zestyProductionMode,
   );

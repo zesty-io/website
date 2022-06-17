@@ -1,23 +1,24 @@
-import React from 'react';
+// MUI Imports
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 
-import Container from 'components/Container';
-import FillerContent from 'components/globals/FillerContent';
-import TryFreeButton from 'components/cta/TryFreeButton';
+import {
+  Box,
+  Button,
+  Card,
+  Grid,
+  Typography,
+  useMediaQuery,
+  Container,
+} from '@mui/material';
 
-const HeroWithDashboardScreenshotAndCta = ({
+const Hero = ({
   title,
   subtitle,
   description,
   image,
-  cta_left_text,
   cta_right_text,
   cta_right_url,
+  scrollToContactUs,
 }) => {
   const theme = useTheme();
 
@@ -30,6 +31,7 @@ const HeroWithDashboardScreenshotAndCta = ({
   return (
     <Container>
       <Grid
+        sx={{ py: isMobile ? 5 : 0 }}
         container
         spacing={4}
         flexDirection={isMobile ? 'column-reverse' : 'row'}
@@ -40,18 +42,12 @@ const HeroWithDashboardScreenshotAndCta = ({
               <Typography
                 variant="h3"
                 component="h1"
-                color="text.primary"
-                sx={{ fontWeight: 700 }}
+                sx={{
+                  fontWeight: 700,
+                  color: theme.palette.zesty.zestyZambezi,
+                }}
               >
                 {title}
-              </Typography>
-              <Typography
-                variant="h3"
-                component="p"
-                color={theme.palette.zesty.zestyOrange}
-                sx={{ fontWeight: 700 }}
-              >
-                {subtitle}
               </Typography>
             </Box>
             <Box marginBottom={3}>
@@ -72,30 +68,16 @@ const HeroWithDashboardScreenshotAndCta = ({
               flexDirection={{ xs: 'column', sm: 'row' }}
               alignItems={{ xs: 'stretched', sm: 'flex-start' }}
             >
-              <TryFreeButton
-                variant="contained"
-                color="secondary"
-                size="large"
-                fullWidth={isMd ? false : true}
-                text={cta_left_text || FillerContent.cta}
-              ></TryFreeButton>
               <Box
-                href={cta_right_url || FillerContent.href}
+                onClick={() => scrollToContactUs()}
                 component={Button}
-                variant="outlined"
-                color={theme.palette.zestyOrange}
+                variant="contained"
                 size="large"
                 marginTop={{ xs: 2, sm: 0 }}
-                marginLeft={{ xs: 2 }}
                 fullWidth={isMd ? false : true}
                 sx={{
-                  color: '#FF5D0A',
-                  borderColor: '#FF5D0A',
-                  '&:hover': {
-                    borderColor: '#FF5D0A',
-                    backgroundColor: '#FF5D0A',
-                    color: 'white',
-                  },
+                  color: theme.palette.common.white,
+                  backgroundColor: theme.palette.zesty.zestyOrange,
                 }}
               >
                 {cta_right_text || FillerContent.cta}
@@ -129,4 +111,4 @@ const HeroWithDashboardScreenshotAndCta = ({
   );
 };
 
-export default HeroWithDashboardScreenshotAndCta;
+export default Hero;

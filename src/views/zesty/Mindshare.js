@@ -31,7 +31,7 @@ import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 import SearchBox from 'blocks/searchBox/SearchBox';
 
@@ -55,11 +55,7 @@ import useFetch from 'components/hooks/useFetch';
 
 function Mindshare({ content }) {
   const theme = useTheme();
-  const {
-    data: allArticles,
-    isPending,
-    error,
-  } = useFetch(
+  const { data: allArticles, isPending, error } = useFetch(
     '/-/all-articles-hydrated.json?limit=140',
     content.zestyProductionMode,
   );

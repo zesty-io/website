@@ -3,7 +3,6 @@ import { Box, Container, Typography, Grid, Button } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 // Local Assets Imports
-import tech_stack from '../../../../public/assets/images/headless-cms/tech-stack.png';
 
 const TechStack = ({ theme, isMobile, content, FillerContent }) => {
   console.log(content.integrations_logos);
@@ -73,7 +72,7 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
               </MuiMarkdown>
 
               <Box sx={{ width: '100%', mt: 4 }}>
-                {content.integration_link.data && (
+                {content.integration_link?.data && (
                   <Button
                     component={'a'}
                     target="_blank"

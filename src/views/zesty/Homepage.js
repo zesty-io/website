@@ -42,18 +42,14 @@ import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAli
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 import Stories from 'blocks/portfolioGrid/Stories/Stories';
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
 
 function Homepage({ content }) {
   const theme = useTheme();
 
   //  const { data: reviewsData, isPending: reviewPending  } = useFetch(`/-/reviews.json`);
-  const {
-    data: allArticles,
-    isPending: articlesPending,
-    error,
-  } = useFetch(
+  const { data: allArticles, isPending: articlesPending, error } = useFetch(
     `/-/all-articles-hydrated.json?limit=3`,
     content.zestyProductionMode,
   );

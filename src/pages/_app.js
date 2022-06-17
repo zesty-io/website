@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import Page from '../components/Page';
+import Page from '../components/wrappers/Page';
 import Script from 'next/script';
 
 import 'react-lazy-load-image-component/src/effects/blur.css';

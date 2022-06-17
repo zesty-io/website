@@ -30,18 +30,18 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Components Imports
-import Hero from '../../components/zesty/TechnologyOverview/Hero';
-import UseCase from '../../components/zesty/TechnologyOverview/UseCase';
-import TimeLine from '../../components/zesty/TechnologyOverview/TimeLine';
-import GetStarted from '../../components/zesty/TechnologyOverview/GetStarted';
-import Features from '../../components/zesty/TechnologyOverview/Features';
-import HeadlessApi from '../../components/zesty/TechnologyOverview/HeadlessApi';
-import TopBrands from '../../components/zesty/TechnologyOverview/TopBrands';
-import Articles from '../../components/zesty/TechnologyOverview/Articles';
-import TechStack from '../../components/zesty/TechnologyOverview/TechStack';
+import Hero from '../../components/marketing/TechnologyOverview/Hero';
+import UseCase from '../../components/marketing/TechnologyOverview/UseCase';
+import TimeLine from '../../components/marketing/TechnologyOverview/TimeLine';
+import GetStarted from '../../components/marketing/TechnologyOverview/GetStarted';
+import Features from '../../components/marketing/TechnologyOverview/Features';
+import HeadlessApi from '../../components/marketing/TechnologyOverview/HeadlessApi';
+import TopBrands from '../../components/marketing/TechnologyOverview/TopBrands';
+import Articles from '../../components/marketing/TechnologyOverview/Articles';
+import TechStack from '../../blocks/integrations/TechStack';
 
 // Helpers Imports
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 function TechnologyOverview({ content }) {
   const theme = useTheme();

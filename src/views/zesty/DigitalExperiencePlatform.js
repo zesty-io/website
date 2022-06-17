@@ -86,7 +86,7 @@ import {
 import styled from '@emotion/styled';
 import React from 'react';
 import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import * as helper from 'utils';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
