@@ -9,16 +9,22 @@ import { fetchPage } from 'lib/api';
 import Head from 'next/head';
 import { HeroWithPrimaryBackgroundAndDesktopScreenshot } from 'blocks/heroes';
 import { setCookies } from 'cookies-next';
+import React, { useEffect } from 'react';
 
 const Marketplace = ({
   marketEntities,
   marketEntityTypes,
   marketTags,
+  env,
   ...props
 }) => {
   const router = useRouter();
   const seoTitle = props.meta.web.seo_meta_title,
     seoDescription = props.meta.web.seo_meta_description;
+
+  useEffect(() => {
+    setCookies('PRODUCTION', props.zestyProductionMode);
+  }, [props]);
   return (
     <>
       <Head>
