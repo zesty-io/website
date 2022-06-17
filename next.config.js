@@ -1,5 +1,3 @@
-const env = process.env.PRODUCTION;
-
 module.exports = {
   trailingSlash: true,
   env: {
@@ -10,7 +8,6 @@ module.exports = {
       stage_password: '',
       auth: '',
       src_dir: '/src',
-      prod: env,
     },
     eslint: {
       ignoreDuringBuilds: true,
