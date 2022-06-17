@@ -2,7 +2,7 @@
 import { Box, Container, Typography, Grid, Link } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
-const Articles = ({ theme, isMobile, content, isDarkMode }) => {
+const Articles = ({ theme, isMobile, content, isDarkMode, FillerContent }) => {
   const articles = [...content.articles.data];
 
   return (
@@ -46,7 +46,7 @@ const Articles = ({ theme, isMobile, content, isDarkMode }) => {
             <Grid item xs={12} sm={6} lg={4}>
               <Box
                 sx={{
-                  backgroundImage: `url(${item.hero_image.data[0].url})`,
+                  backgroundImage: `url(${item.hero_image?.data[0].url})`,
                   position: 'relative',
                   height: '100%',
                   minHeight: 475,
@@ -81,7 +81,7 @@ const Articles = ({ theme, isMobile, content, isDarkMode }) => {
                       variant="h5"
                       component="h3"
                     >
-                      {item.title}
+                      {item.title || FillerContent.description}
                     </Typography>
 
                     <Typography
@@ -93,7 +93,7 @@ const Articles = ({ theme, isMobile, content, isDarkMode }) => {
                       variant="Subtitle1"
                       component="p"
                     >
-                      {item.description}
+                      {item.description || FillerContent.description}
                     </Typography>
 
                     <Link
@@ -104,7 +104,7 @@ const Articles = ({ theme, isMobile, content, isDarkMode }) => {
                         color: theme.palette.zesty.zestyTealWhite,
                         fontWeight: 'bold',
                       }}
-                      href={item.meta.web.uri}
+                      href={item.meta.web.uri || FillerContent.href}
                     >
                       Learn More <ArrowRightAltIcon />
                     </Link>
@@ -129,7 +129,9 @@ const Articles = ({ theme, isMobile, content, isDarkMode }) => {
                       <Box
                         component="a"
                         sx={{ textDecoration: 'none' }}
-                        href={item.author.data[0].meta.web.uri}
+                        href={
+                          item.author.data[0].meta.web.uri || FillerContent.href
+                        }
                       >
                         <Box
                           sx={{ display: 'flex', gap: 1, alignItems: 'center' }}
@@ -137,7 +139,10 @@ const Articles = ({ theme, isMobile, content, isDarkMode }) => {
                           <Box
                             component="img"
                             sx={{ width: 40, height: 40, borderRadius: '50%' }}
-                            src={item.author.data[0].headshot.data[0].url}
+                            src={
+                              item.author.data[0].headshot.data[0].url ||
+                              FillerContent.logos[0].url
+                            }
                           />
                           <Typography
                             variant="subtitle1"
@@ -147,7 +152,8 @@ const Articles = ({ theme, isMobile, content, isDarkMode }) => {
                               fontWeight: 'bold',
                             }}
                           >
-                            {item.author.data[0].name}
+                            {item.author.data[0].name ||
+                              FillerContent.authors[0].name}
                           </Typography>
                         </Box>
                       </Box>
@@ -158,7 +164,7 @@ const Articles = ({ theme, isMobile, content, isDarkMode }) => {
                             fontWeight: 'bold',
                           }}
                         >
-                          {item.date}
+                          {item.date || FillerContent.date}
                         </Typography>
                       </Box>
                     </Box>

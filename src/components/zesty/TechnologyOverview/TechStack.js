@@ -5,7 +5,8 @@ import MuiMarkdown from 'mui-markdown';
 // Local Assets Imports
 import tech_stack from '../../../../public/assets/images/headless-cms/tech-stack.png';
 
-const TechStack = ({ theme, isMobile, content }) => {
+const TechStack = ({ theme, isMobile, content, FillerContent }) => {
+  console.log(content.integrations_logos);
   return (
     <Box component="section" sx={{ px: 4, mt: 10 }}>
       <Box
@@ -68,34 +69,68 @@ const TechStack = ({ theme, isMobile, content }) => {
                   },
                 }}
               >
-                {content.integrations_description}
+                {content.integrations_description || FillerContent.description}
               </MuiMarkdown>
 
               <Box sx={{ width: '100%', mt: 4 }}>
-                <Button
-                  component={'a'}
-                  target="_blank"
-                  fullWidth={isMobile}
-                  variant="contained"
-                  href={content.integration_link.data[0].meta.web.uri}
-                  sx={{
-                    background: theme.palette.zesty.zestyOrange,
-                    color: theme.palette.common.white,
-                    px: 6,
-                  }}
-                  size="large"
-                >
-                  {content.integrations_button}
-                </Button>
+                {content.integration_link.data && (
+                  <Button
+                    component={'a'}
+                    target="_blank"
+                    fullWidth={isMobile}
+                    variant="contained"
+                    href={content.integration_link.data[0].meta.web.uri}
+                    sx={{
+                      background: theme.palette.zesty.zestyOrange,
+                      color: theme.palette.common.white,
+                      px: 6,
+                    }}
+                    size="large"
+                  >
+                    {content.integrations_button || FillerContent.description}
+                  </Button>
+                )}
               </Box>
             </Grid>
-            <Grid item sm={12} md={6}>
-              <Box sx={{ mt: isMobile ? 4 : 0 }}>
+            <Grid
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+              }}
+              item
+              sm={12}
+              md={6}
+            >
+              <Box
+                sx={{
+                  mt: isMobile ? 4 : 0,
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 1.0,
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
+                }}
+              >
                 <Box
-                  sx={{ width: '100%' }}
-                  component="img"
-                  src={tech_stack.src}
+                  sx={{
+                    height: 88,
+                    width: 230,
+                    display: isMobile ? 'none' : 'block',
+                  }}
                 />
+                {content.integrations_logos?.data.map((item, idx) => {
+                  return (
+                    <>
+                      <Box
+                        key={idx}
+                        sx={{ height: 88, width: 'auto' }}
+                        component="img"
+                        src={item.logo.data[0].url}
+                      />
+                    </>
+                  );
+                })}
               </Box>
             </Grid>
           </Grid>

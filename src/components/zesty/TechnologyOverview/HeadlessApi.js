@@ -2,7 +2,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
-const HeadlessApi = ({ theme, isMobile, content }) => {
+const HeadlessApi = ({ theme, isMobile, content, FillerContent }) => {
   return (
     <Box component="section" sx={{ px: 4, mt: 10 }}>
       <Box
@@ -45,7 +45,7 @@ const HeadlessApi = ({ theme, isMobile, content }) => {
                 },
               }}
             >
-              {content.headless_apis}
+              {content.headless_apis || FillerContent.description}
             </MuiMarkdown>
           </Box>
 
@@ -56,7 +56,10 @@ const HeadlessApi = ({ theme, isMobile, content }) => {
               mt: 5,
               width: '100%',
             }}
-            src={content.headless_apis_graphic.data[0].url}
+            src={
+              content.headless_apis_graphic.data[0].url ||
+              FillerContent.logos[0].url
+            }
             component="img"
           />
         </Container>

@@ -13,7 +13,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 // Local Assets Imports
 import chevron_right from '../../../../public/assets/images/headless-cms/chevron-right.svg';
 
-const Features = ({ theme, isMobile, isDarkMode, content }) => {
+const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (
     <Box component="section" sx={{ position: 'relative' }}>
       <Box
@@ -59,7 +59,7 @@ const Features = ({ theme, isMobile, isDarkMode, content }) => {
               },
             }}
           >
-            {content.custom_headless_description}
+            {content.custom_headless_description || FillerContent.description}
           </MuiMarkdown>
         </Box>
 
@@ -68,8 +68,8 @@ const Features = ({ theme, isMobile, isDarkMode, content }) => {
           container
           spacing={useMediaQuery(theme.breakpoints.between('xs', 600)) ? 2 : 5}
         >
-          {content.features_tiles.data.map((item) => (
-            <Grid item sm={6} md={4}>
+          {content.features_tiles.data.map((item, idx) => (
+            <Grid key={idx} item sm={6} md={4}>
               <Card
                 sx={{
                   width: '100%',
@@ -94,7 +94,10 @@ const Features = ({ theme, isMobile, isDarkMode, content }) => {
                           : 'auto',
                       }}
                       component="img"
-                      src={item.icon_image.data[0].url}
+                      src={
+                        item.icon_image.data[0].url ||
+                        FillerContent.logos[0].url
+                      }
                     />
                   </Box>
                   <Box>
@@ -109,7 +112,7 @@ const Features = ({ theme, isMobile, isDarkMode, content }) => {
                       variant="h6"
                       component="h4"
                     >
-                      {item.feature_name}
+                      {item.feature_name || FillerContent.description}
                     </Typography>
                     <Typography
                       sx={{
@@ -123,7 +126,7 @@ const Features = ({ theme, isMobile, isDarkMode, content }) => {
                       variant="body1"
                       component="p"
                     >
-                      {item.content}
+                      {item.content || FillerContent.description}
                     </Typography>
                   </Box>
                 </CardContent>

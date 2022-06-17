@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Box, Container, Typography, Grid, Button, Card } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
-const TopBrands = ({ theme, content, isMobile, isDarkMode }) => {
+const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
   const caseStudies = [...content.case_studies.data];
   const [active, setActive] = useState(caseStudies[0]);
   /**
@@ -30,7 +30,7 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode }) => {
             px: 4,
           }}
         >
-          {content.case_study_header}
+          {content.case_study_header || FillerContent.header}
         </Typography>
       </Box>
       <Box
@@ -73,7 +73,7 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode }) => {
                         height: 43,
                         filter: isDarkMode ? 'invert(100%)' : 'inherit',
                       }}
-                      src={item.logo.data[0].url}
+                      src={item.logo.data[0].url || FillerContent.logos[0].url}
                       component="img"
                     />
                   </Button>
@@ -107,7 +107,9 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode }) => {
                           minHeight: 218,
                         }}
                         component="img"
-                        src={active.image.data[0].url}
+                        src={
+                          active.image.data[0].url || FillerContent.logos[0].url
+                        }
                       />
                     </Box>
                   </Grid>
@@ -130,7 +132,10 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode }) => {
                             filter: isDarkMode ? 'invert(100%)' : 'inherit',
                           }}
                           component="img"
-                          src={active.logo.data[0].url}
+                          src={
+                            active.logo.data[0].url ||
+                            FillerContent.logos[0].url
+                          }
                         />
                       </Box>
 
@@ -150,7 +155,7 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode }) => {
                           },
                         }}
                       >
-                        {active.summary}
+                        {active.summary || FillerContent.description}
                       </MuiMarkdown>
                     </Box>
                   </Grid>

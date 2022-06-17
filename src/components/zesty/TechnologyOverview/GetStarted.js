@@ -8,7 +8,13 @@ import s_curve from '../../../../public/assets/images/headless-cms/sCurve.svg';
 // Components Imports
 import TryFreeButton from '../../../components/cta/TryFreeButton';
 
-const GetStarted = ({ isDarkMode, theme, isMobile, content }) => {
+const GetStarted = ({
+  isDarkMode,
+  theme,
+  isMobile,
+  content,
+  FillerContent,
+}) => {
   return (
     <Box
       component="section"
@@ -48,6 +54,7 @@ const GetStarted = ({ isDarkMode, theme, isMobile, content }) => {
           item
           sm={12}
           md={6}
+          my={isMobile ? 10 : 0}
           order={{ sm: 1, md: 2 }}
         >
           <Box>
@@ -84,7 +91,7 @@ const GetStarted = ({ isDarkMode, theme, isMobile, content }) => {
                 },
               }}
             >
-              {content.get_started_header}
+              {content.get_started_header || FillerContent.header}
             </MuiMarkdown>
           </Box>
           <Box sx={{ width: '100%', px: isMobile ? 4 : 0, mt: 4 }}>

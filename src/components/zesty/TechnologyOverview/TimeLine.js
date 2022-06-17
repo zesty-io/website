@@ -6,7 +6,7 @@ import MuiMarkdown from 'mui-markdown';
 import chevron_right from '../../../../public/assets/images/headless-cms/chevron-right.svg';
 import chevron_left from '../../../../public/assets/images/headless-cms/chevron-left.svg';
 
-const TimeLine = ({ theme, isMobile, content }) => {
+const TimeLine = ({ theme, isMobile, content, FillerContent }) => {
   const timeline = [
     {
       description: content.step_1_description,
@@ -107,7 +107,7 @@ const TimeLine = ({ theme, isMobile, content }) => {
                     },
                   }}
                 >
-                  {content.how_it_works_header}
+                  {content.how_it_works_header || FillerContent.description}
                 </MuiMarkdown>
               </Box>
             </Box>
@@ -188,7 +188,7 @@ const TimeLine = ({ theme, isMobile, content }) => {
                           },
                         }}
                       >
-                        {item.description}
+                        {item.description || FillerContent.description}
                       </MuiMarkdown>
                     </Box>
                   </Grid>
@@ -199,7 +199,7 @@ const TimeLine = ({ theme, isMobile, content }) => {
                         maxWidth: isMobile ? '100%' : 501,
                         height: isMobile ? '100%' : 356,
                       }}
-                      src={item.image}
+                      src={item?.image || FillerContent.logos[0].url}
                       component="img"
                     />
                   </Grid>
