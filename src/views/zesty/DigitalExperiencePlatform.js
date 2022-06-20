@@ -133,6 +133,7 @@ function DigitalExperiencePlatform({ content }) {
     content,
     theme,
     isMobile,
+    isTablet,
     FillerContent,
   };
 

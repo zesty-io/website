@@ -6,7 +6,7 @@ import { Box, Container, Link, Typography, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import MuiMarkdown from 'mui-markdown';
 
-const Middle = ({ content, theme, isMobile }) => {
+const Middle = ({ content, theme, isMobile, isTablet }) => {
   const FillerImage =
     content.middle_solution_1_graphic?.data[0]?.url ||
     FillerContent.dashboard_image;
@@ -72,8 +72,8 @@ const Middle = ({ content, theme, isMobile }) => {
           width: 'calc(50vw - 15%)',
           height: '50px',
           position: 'absolute',
-          borderRight: `2px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
-          borderRadius: '0 0 45px 0',
+          borderRight: `1px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
+          borderRadius: '0 0 0px 0',
         }}
       />
       <Box
@@ -83,7 +83,7 @@ const Middle = ({ content, theme, isMobile }) => {
           left: '5%',
           top: '50px',
           display: isMobile ? 'flex' : 'none',
-          width: 'calc(50vw - 15%)',
+          width: 'calc(50vw - 5%)',
           height: '100%',
           position: 'absolute',
           border: `1px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
@@ -116,9 +116,9 @@ const Middle = ({ content, theme, isMobile }) => {
       </Box>
       <Box
         sx={{
-          zIndex: '10',
           background: theme.palette.zesty.zestyBackgroundBlue,
-          height: isMobile ? '0' : '260vh',
+          height: isTablet ? 3000 : 2300,
+          display: isMobile ? 'none' : 'block',
           width: '2px',
           position: 'absolute',
           left: isMobile ? '5%' : '50%',
@@ -133,6 +133,7 @@ const Middle = ({ content, theme, isMobile }) => {
             paddingTop={isMobile ? 8 : 10}
             paddingBottom={isMobile ? 0 : 10}
             sx={{
+              zIndex: 1,
               color: theme.palette.common.white,
               textAlign: 'center',
               fontSize: isMobile ? '28px' : '48px',
@@ -181,7 +182,13 @@ const RevealComponent = ({
       }}
     >
       <Grid container spacing={4}>
-        <Grid item sm={12} md={6}>
+        <Grid
+          sx={{ display: 'flex' }}
+          order={{ md: index === 1 || index === 3 ? 2 : 1 }}
+          item
+          sm={12}
+          md={6}
+        >
           {index !== 3 && (
             <Box
               sx={{
@@ -219,6 +226,7 @@ const RevealComponent = ({
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
                         color: 'transparent',
+                        ml: isMobile ? 5 : 0,
                       },
                     },
                   },
@@ -228,10 +236,11 @@ const RevealComponent = ({
                       variant: 'h4',
                       component: 'p',
                       sx: {
+                        ml: isMobile ? 5 : 0,
                         color: theme.palette.common.white,
                         lineHeight: 1,
                         marginTop: 2,
-                        textAlign: isMobile ? 'center' : 'left',
+                        textAlign: 'left',
                         fontSize: isMobile ? 25 : 32,
                       },
                     },
@@ -240,21 +249,7 @@ const RevealComponent = ({
               >
                 {text}
               </MuiMarkdown>
-              {/* <Typography
-            component={'h3'}
-            variant={'p'}
-            paddingLeft={isMobile ? 2 : 0}
-            paddingTop={isMobile ? 2 : 10}
-            paddingBottom={isMobile ? 6 : 10}
-            sx={{
-              color: theme.palette.common.white,
-              textAlign: 'left',
-              fontSize: isMobile ? '1rem' : '1.5rem',
-            }}
-            dangerouslySetInnerHTML={{
-              __html: helper.strColorChanger(text, strToChange, strColor),
-            }}
-          /> */}
+
               {/* <Link
             href="#"
             underline="always"
@@ -274,7 +269,12 @@ const RevealComponent = ({
             </Box>
           </Box>
         </Grid>
-        <Grid item sm={12} md={6}>
+        <Grid
+          order={{ md: index === 1 || index === 3 ? 1 : 2 }}
+          item
+          sm={12}
+          md={6}
+        >
           <Box data-aos="zoom-out-right">
             <Box
               component="img"
