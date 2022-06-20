@@ -38,7 +38,7 @@ import Grid from '@mui/material/Grid';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import BlogCTA from 'components/cta/BlogCTA';
 
 import HeroJarallax from 'blocks/heroes/HeroJarallax';
@@ -48,7 +48,7 @@ import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 
 import Container from 'components/Container';
 import SideBarCTA from 'components/cta/SideBarCTA';
-import WYSIWYGRender from 'components/WYSIWYGRender';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import useFetch from 'components/hooks/useFetch';
 
 function Article({ content }) {

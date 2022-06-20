@@ -3,14 +3,14 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
-const SupportBanner = ({text_content}) => {
+const SupportBanner = ({ text_content }) => {
   const theme = useTheme();
   return (
     <Box>
       <Grid container spacing={4}>
-        <Grid item xs={12} >
+        <Grid item xs={12}>
           <Box>
             <Box
               justifyContent={'center'}
@@ -47,7 +47,6 @@ const SupportBanner = ({text_content}) => {
             </Box>
           </Box>
         </Grid>
-        
       </Grid>
     </Box>
   );

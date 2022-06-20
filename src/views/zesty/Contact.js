@@ -34,7 +34,7 @@ import Container from 'components/Container';
 // blocks
 import { ContactFormWithSidebarMap } from 'blocks/formLayouts';
 import { ContactDetails } from 'blocks/contentBlocks';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 function Contact({ content }) {
   const theme = useTheme();

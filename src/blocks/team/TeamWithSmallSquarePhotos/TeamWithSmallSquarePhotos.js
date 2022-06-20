@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 const mock = [
   {
@@ -45,7 +45,7 @@ const mock = [
   },
 ];
 
-const TeamWithSmallSquarePhotos = ({eyebrow, title, team, grid=4}) => {
+const TeamWithSmallSquarePhotos = ({ eyebrow, title, team, grid = 4 }) => {
   const theme = useTheme();
 
   return (
@@ -100,26 +100,28 @@ const TeamWithSmallSquarePhotos = ({eyebrow, title, team, grid=4}) => {
           </Box> */}
         </Box>
         <Grid container spacing={2}>
-          {team.sort((a, b) => a.sort_order - b.sort_order).map((item, i) => (
-            <Grid item xs={12} sm={6} md={grid} key={i}>
-              <Box sx={{ paddingBottom: 2 }}> 
-                <ListItem component="div" disableGutters sx={{ padding: 0 }}>
-                  <ListItemAvatar sx={{ marginRight: 3 }}>
-                    <Avatar
-                      src={item.headshot?.data[0]?.url || FillerContent.image}
-                      variant={'rounded'}
-                      sx={{ width: 100, height: 100, borderRadius: 2 }}
+          {team
+            .sort((a, b) => a.sort_order - b.sort_order)
+            .map((item, i) => (
+              <Grid item xs={12} sm={6} md={grid} key={i}>
+                <Box sx={{ paddingBottom: 2 }}>
+                  <ListItem component="div" disableGutters sx={{ padding: 0 }}>
+                    <ListItemAvatar sx={{ marginRight: 3 }}>
+                      <Avatar
+                        src={item.headshot?.data[0]?.url || FillerContent.image}
+                        variant={'rounded'}
+                        sx={{ width: 100, height: 100, borderRadius: 2 }}
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      sx={{ margin: 0 }}
+                      primary={item.name}
+                      secondary={item.title}
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    sx={{ margin: 0 }}
-                    primary={item.name}
-                    secondary={item.title}
-                  />
-                </ListItem>
-              </Box>
-            </Grid>
-          ))}
+                  </ListItem>
+                </Box>
+              </Grid>
+            ))}
         </Grid>
       </Box>
     </Container>

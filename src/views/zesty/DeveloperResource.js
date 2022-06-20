@@ -36,19 +36,26 @@ import { SimpleHeroWithCta } from 'blocks/heroes';
 import { VerticalMinimalDesignedBlogCardsNoFooter } from 'blocks/blog';
 import { ContactUs } from 'blocks/formLayouts';
 // Filler content
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 function DeveloperResource({ content }) {
-    const theme = useTheme();
+  const theme = useTheme();
   return (
     <>
       <Box>
-        <SimpleHeroWithCta secondaryCTA={content.header_cta_secondary || FillerContent.cta}
-        secondaryCtaLink={content.header_cta_secondary_link?.data[0]?.meta?.web?.uri || FillerContent.cta}
-        title={content.title || FillerContent.header}
-        description={content.header_description || FillerContent.description} />
+        <SimpleHeroWithCta
+          secondaryCTA={content.header_cta_secondary || FillerContent.cta}
+          secondaryCtaLink={
+            content.header_cta_secondary_link?.data[0]?.meta?.web?.uri ||
+            FillerContent.cta
+          }
+          title={content.title || FillerContent.header}
+          description={content.header_description || FillerContent.description}
+        />
         <Container>
-          <VerticalMinimalDesignedBlogCardsNoFooter cards={content.developer_cards?.data || []} />
+          <VerticalMinimalDesignedBlogCardsNoFooter
+            cards={content.developer_cards?.data || []}
+          />
           {/* <ContactUs
           title={content.contact_title || FillerContent.header}
           description={content.contact_description || FillerContent.description} /> */}

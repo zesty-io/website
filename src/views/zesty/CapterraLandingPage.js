@@ -39,7 +39,7 @@
  */
 
 import React from 'react';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import { useTheme } from '@mui/material/styles';
 import { LogoGridSimpleCentered } from 'blocks/logoGrid';
 import {

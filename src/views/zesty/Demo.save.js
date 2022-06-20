@@ -33,7 +33,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import { colors, Container } from '@mui/material';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 const DemoComp = ({ demos }) => {
   const theme = useTheme();

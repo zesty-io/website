@@ -10,26 +10,24 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 const BlogCardsWithFullBackgroundImage = ({
   caseStudy,
   title,
   description,
-
 }) => {
+  function makeDate(date) {
+    var d = new Date(date);
+    var options = {
+      year: 'numeric',
+      month: 'long',
+    };
+    var n = d.toLocaleDateString('en-US', options);
 
-         function makeDate(date) {
-           var d = new Date(date);
-           var options = {
-             year: 'numeric',
-             month: 'long',
-           };
-           var n = d.toLocaleDateString('en-US', options);
-
-           var replace = n.replace(new RegExp(',', 'g'), ' ');
-           return replace;
-         }
+    var replace = n.replace(new RegExp(',', 'g'), ' ');
+    return replace;
+  }
 
   const theme = useTheme();
   return (

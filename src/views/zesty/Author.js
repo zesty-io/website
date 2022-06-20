@@ -33,9 +33,7 @@
 import React from 'react';
 import UserCard from 'blocks/userCards/UserCardWithBackground/UserCardWithBackground';
 import VerticalMinimalDesignedBlogCards from 'blocks/blog/VerticalMinimalDesignedBlogCards/VerticalMinimalDesignedBlogCards';
-import FillerContent from 'components/FillerContent';
-
-
+import FillerContent from 'components/globals/FillerContent';
 
 const fetchCardsData = async (uri, setFunc) => {
   const res = await fetch(uri).then((response) => response.json());
@@ -44,8 +42,8 @@ const fetchCardsData = async (uri, setFunc) => {
 
 function Author({ content }) {
   let zestyURL = content.zestyProductionMode
-  ? process.env.zesty.production
-  : process.env.zesty.stage;
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
 
   const uri = `${zestyURL}/author.json/?author=${content.meta.zuid}`;
   const [cardData, setcardData] = React.useState();

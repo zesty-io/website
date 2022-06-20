@@ -28,16 +28,13 @@ import React, { useEffect, useState } from 'react';
 import { SimpleHeroSolidBg } from 'blocks/heroes';
 import { Result } from 'blocks/formLayouts';
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
-
-
-
+import FillerContent from 'components/globals/FillerContent';
 
 function Tag({ content }) {
   let zestyURL = content.zestyProductionMode
-  ? process.env.zesty.production
-  : process.env.zesty.stage;
-  
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
+
   const [cardsData, setCardData] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
   // search states
@@ -64,26 +61,26 @@ function Tag({ content }) {
   const handleOnChange = (evt) => {
     evt.preventDefault();
     // handle empty search value
-    if(evt.target.value === null || evt.target.value === ''){
+    if (evt.target.value === null || evt.target.value === '') {
       setCardData(allArticles);
-      setPage(0)
+      setPage(0);
       setNotFound(false);
       setHideLoad(false);
     }
     setSearchValue(evt.target.value);
-  }
+  };
   // form submission
-  const handleOnSubmit = (evt) =>{
+  const handleOnSubmit = (evt) => {
     evt.preventDefault();
-    try{
+    try {
       const searchArticles = async () => {
         const url = `${zestyURL}/-/searchtaggedarticles.json?q=${searchValue}&tag=${content.meta.zuid}&page=${page}&limit=6`;
         const response = await fetch(url);
-        if(!response.ok){
+        if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         const searchData = await response.json();
-        if(!searchData.length){
+        if (!searchData.length) {
           setNotFound(true);
           setCardData([]);
           setTerm(searchValue);
@@ -92,45 +89,47 @@ function Tag({ content }) {
         setHideLoad(true);
         setNotFound(false);
         setCardData(searchData);
-      }
+      };
       searchArticles();
-    } catch (error){
+    } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
     }
   };
   // load more on click
-  const handleOnClick = async () =>{
-    try{
-      setPage(page+=6);
+  const handleOnClick = async () => {
+    try {
+      setPage((page += 6));
       const url = `${zestyURL}/-/tag.json?tag=${content.meta.zuid}&page=${page}&limit=6`;
       const response = await fetch(url);
-      if(!response.ok){
+      if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
       const data = await response.json();
-      if(!data.length){
+      if (!data.length) {
         // add conditional rendering to hide the load more button
         setHideLoad(true);
       }
-      setCardData([...cardsData, ...data])
-    } catch(error){
+      setCardData([...cardsData, ...data]);
+    } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
     }
-  }
+  };
   return (
     <>
       <SimpleHeroSolidBg
         title={content?.meta?.web?.seo_meta_title || FillerContent.header}
-       />
+      />
       <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
-        <Result array={cardsData}
+        <Result
+          array={cardsData}
           onChange={handleOnChange}
           value={searchValue}
           term={term}
           onSubmit={handleOnSubmit}
           notFound={notFound}
           onClick={handleOnClick}
-          hideLoad={hideLoad} />
+          hideLoad={hideLoad}
+        />
       </Container>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
       {/* <h1

@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import { Headline } from './components';
 import { Card, Typography, useMediaQuery } from '@mui/material';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import { useRouter } from 'next/router';
 

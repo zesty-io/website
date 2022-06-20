@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import TryFreeButton from 'components/cta/TryFreeButton';
 
 const HeroWithDashboardScreenshotAndCta = ({

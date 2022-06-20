@@ -37,7 +37,6 @@ const mock = [
   },
 ];
 
-
 const Faq = () => {
   const { data: faqsData } = useFetch(`/-/gql/faqs.json`);
 

@@ -37,13 +37,16 @@ import Container from 'components/Container';
 import { CardsInSlider } from 'blocks/cards';
 import { SimpleHeader } from 'blocks/banners';
 // Filler content
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
 
 function SalesPeople({ content }) {
   const theme = useTheme();
 
-  const { data: clientCards } = useFetch(`/-/clientcards.json`, content.zestyProductionMode);
+  const { data: clientCards } = useFetch(
+    `/-/clientcards.json`,
+    content.zestyProductionMode,
+  );
 
   return (
     <>

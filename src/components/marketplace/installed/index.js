@@ -2,7 +2,7 @@ import React from 'react';
 import { getCookie } from 'cookies-next';
 import BasicTable from './table';
 import { Box, CircularProgress, Typography } from '@mui/material';
-import TransitionsModal from 'components/modal/modal';
+import TransitionsModal from 'blocks/modal/modal';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
 import { useZestyStore } from 'store';
 

@@ -32,8 +32,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Typography from '@mui/material/Typography';
 
-import FillerContent from 'components/FillerContent';
-import Container from 'components/FullWidthContainer';
+import FillerContent from 'components/globals/FillerContent';
+import Container from 'components/wrappers/FullWidthContainer';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 
 const Demo = ({ content }) => {

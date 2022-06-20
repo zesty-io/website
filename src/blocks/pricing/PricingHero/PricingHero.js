@@ -13,7 +13,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import FeatureItem from '../FeatureItem/FeatureItem';
 import Container from 'components/Container';
 import TryFreeButton from 'components/cta/TryFreeButton';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 const pricingHero = ({ title, subtitle, tiers = [] }) => {
   const theme = useTheme();

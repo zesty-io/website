@@ -28,7 +28,7 @@
 
 import React from 'react';
 import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBackgroundGradient';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 function PpcShortForm({ content }) {
   const formContent = {

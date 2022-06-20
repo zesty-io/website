@@ -59,7 +59,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import CodeBlock from 'components/cta/CodeBlock';
 import ReactPlayer from 'react-player';
 import { textAlign } from '@mui/system';
