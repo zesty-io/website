@@ -86,6 +86,7 @@ const Solution = ({ content, theme, isMobile }) => {
                   variant: 'h4',
                   component: 'h2',
                   sx: {
+                    color: theme.palette.zesty.zestyZambezi,
                     textAlign: 'center',
                     fontWeight: 'bold',
                   },
@@ -98,7 +99,7 @@ const Solution = ({ content, theme, isMobile }) => {
         </Box>
 
         <Box>
-          <Grid container>
+          <Grid container spacing={5}>
             <Grid item sm={12} md={6}>
               <Box data-aos="fade-right">
                 <Box>
@@ -111,40 +112,52 @@ const Solution = ({ content, theme, isMobile }) => {
                       alt=""
                       component="img"
                       sx={{
-                        width: isMobile ? 500 : '100%',
+                        width: '100%',
                       }}
                     />
                   </ZoomMui>
-                  {/* <ZoomMui
+                  <ZoomMui
                     in={active === 1}
                     style={{ display: active === 1 ? 'block' : 'none' }}
                   >
-                    <img
+                    <Box
                       width={imgWidth}
                       src={content[`solution_2_graphic`].data[0].url}
                       alt=""
+                      component="img"
+                      sx={{
+                        width: '100%',
+                      }}
                     />
                   </ZoomMui>
                   <ZoomMui
                     in={active === 2}
                     style={{ display: active === 2 ? 'block' : 'none' }}
                   >
-                    <img
+                    <Box
                       width={imgWidth}
                       src={content[`solution_3_graphic`].data[0].url}
                       alt=""
+                      component="img"
+                      sx={{
+                        width: '100%',
+                      }}
                     />
                   </ZoomMui>
                   <ZoomMui
                     in={active === 3}
                     style={{ display: active === 3 ? 'block' : 'none' }}
                   >
-                    <img
+                    <Box
                       width={imgWidth}
                       src={content[`solution_4_graphic`].data[0].url}
                       alt=""
+                      component="img"
+                      sx={{
+                        width: '100%',
+                      }}
                     />
-                  </ZoomMui> */}
+                  </ZoomMui>
                 </Box>
               </Box>
             </Grid>
@@ -157,6 +170,7 @@ const Solution = ({ content, theme, isMobile }) => {
                       <CustomCard data={e} theme={theme} />
                     ) : (
                       <Box
+                        key={i}
                         onClick={() => setactive(i)}
                         paddingY={2}
                         paddingLeft={4}
@@ -197,7 +211,7 @@ const Solution = ({ content, theme, isMobile }) => {
               paddingBottom={10}
               sx={{
                 textAlign: 'center',
-                color: theme.palette.secondary.darkCharcoal,
+                color: theme.palette.zesty.zestyZambezi,
                 fontSize: isMobile ? '1rem' : '1.5rem',
               }}
               dangerouslySetInnerHTML={{

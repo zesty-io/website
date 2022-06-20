@@ -2,13 +2,9 @@
  * MUI Imports
  */
 
-import { Box, Container, Link, Typography } from '@mui/material';
+import { Box, Container, Link, Typography, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-
-/**
- * Helpers Imports
- */
-import * as helper from 'utils';
+import MuiMarkdown from 'mui-markdown';
 
 const Middle = ({ content, theme, isMobile }) => {
   const FillerImage =
@@ -79,7 +75,7 @@ const Middle = ({ content, theme, isMobile }) => {
           borderRight: `2px solid ${theme.palette.zesty.zestyBackgroundBlue}`,
           borderRadius: '0 0 45px 0',
         }}
-      ></Box>
+      />
       <Box
         sx={{
           zIndex: '10',
@@ -94,7 +90,7 @@ const Middle = ({ content, theme, isMobile }) => {
           borderRight: 0,
           borderRadius: '50px 0 0 0',
         }}
-      ></Box>
+      />
       <Box
         sx={{
           zIndex: '10',
@@ -152,11 +148,9 @@ const Middle = ({ content, theme, isMobile }) => {
           return (
             <RevealComponent
               isMobile={isMobile}
-              data={e}
               index={i}
               text={e.text}
               img={e.img}
-              strToChange={e.strToChange}
               reverse={e.reverse}
               theme={e.theme}
             />
@@ -170,11 +164,8 @@ const Middle = ({ content, theme, isMobile }) => {
 const RevealComponent = ({
   text = '',
   img = FillerContent.dashboard_image,
-  strToChange = '',
   reverse = false,
   theme,
-  strColor = theme.palette.zesty.zestyOrange,
-  data,
   index,
   isMobile,
 }) => {
@@ -189,25 +180,67 @@ const RevealComponent = ({
         gap: isMobile ? '4rem' : '0',
       }}
     >
-      {index !== 3 && (
-        <Box
-          sx={{
-            zIndex: '10',
-            background: theme.palette.zesty.zestyBackgroundBlue,
-            height: isMobile ? '15px' : '20px',
-            width: isMobile ? '15px' : '20px',
-            borderRadius: '50%',
-            position: 'absolute',
-            left: isMobile ? '1.8%' : '50.1%',
-            bottom: isMobile ? '45%' : '0',
-            transform: 'translate(-50%,-50%)',
-          }}
-        />
-      )}
+      <Grid container spacing={4}>
+        <Grid item sm={12} md={6}>
+          {index !== 3 && (
+            <Box
+              sx={{
+                background: theme.palette.zesty.zestyBackgroundBlue,
+                height: isMobile ? '15px' : '20px',
+                width: isMobile ? '15px' : '20px',
+                borderRadius: '50%',
+                position: 'absolute',
+                left: isMobile ? '1.8%' : '50.1%',
+                bottom: isMobile ? '45%' : '0',
+                transform: 'translate(-50%,-50%)',
+              }}
+            />
+          )}
 
-      <div data-aos="zoom-out-left">
-        <Box sx={{ position: 'relative' }}>
-          <Typography
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+            data-aos="zoom-out-left"
+          >
+            <Box>
+              <MuiMarkdown
+                overrides={{
+                  h3: {
+                    component: Typography,
+                    props: {
+                      variant: 'h4',
+                      component: 'h3',
+                      sx: {
+                        background: theme.palette.zesty.zestyOrangeLinear,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h4',
+                      component: 'p',
+                      sx: {
+                        color: theme.palette.common.white,
+                        lineHeight: 1,
+                        marginTop: 2,
+                        textAlign: isMobile ? 'center' : 'left',
+                        fontSize: isMobile ? 25 : 32,
+                      },
+                    },
+                  },
+                }}
+              >
+                {text}
+              </MuiMarkdown>
+              {/* <Typography
             component={'h3'}
             variant={'p'}
             paddingLeft={isMobile ? 2 : 0}
@@ -221,8 +254,8 @@ const RevealComponent = ({
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(text, strToChange, strColor),
             }}
-          />
-          <Link
+          /> */}
+              {/* <Link
             href="#"
             underline="always"
             paddingLeft={isMobile ? 2 : 0}
@@ -237,12 +270,23 @@ const RevealComponent = ({
             }}
           >
             Learn More <ArrowRightAltIcon />
-          </Link>
-        </Box>
-      </div>
-      <div data-aos="zoom-out-right">
-        <img src={img} width={isMobile ? 350 : 700} />
-      </div>
+          </Link> */}
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item sm={12} md={6}>
+          <Box data-aos="zoom-out-right">
+            <Box
+              component="img"
+              src={img}
+              sx={{
+                maxWidth: isMobile ? 350 : 700,
+                width: '100%',
+              }}
+            />
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

@@ -2,11 +2,7 @@
  * MUI Imports
  */
 import { Box, Container, Typography } from '@mui/material';
-
-/**
- * Helper Imports
- */
-import * as helper from 'utils';
+import MuiMarkdown from 'mui-markdown';
 
 const About = ({ content, theme, isMobile }) => {
   return (
@@ -18,24 +14,48 @@ const About = ({ content, theme, isMobile }) => {
       paddingTop={isMobile ? 1 : 10}
     >
       <Container>
-        <Box>
-          <Typography
-            component={'p'}
-            variant={'p'}
-            paddingBottom={isMobile ? 2 : 10}
-            sx={{
-              fontSize: isMobile ? '1rem' : '1.4rem',
-              color: theme.palette.secondary.darkCharcoal,
-              textAlign: 'center',
+        <Box sx={{ pb: 10 }}>
+          <MuiMarkdown
+            overrides={{
+              span: {
+                component: Typography,
+                props: {
+                  component: 'span',
+                  sx: {
+                    fontSize: 'inherit',
+                    fontWeight: 'inherit',
+                    color: theme.palette.zesty.zestyOrange,
+                  },
+                },
+              },
+              h2: {
+                component: Typography,
+                props: {
+                  variant: 'h4',
+                  component: 'h2',
+                  sx: {
+                    color: theme.palette.zesty.zestyZambezi,
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h6',
+                  component: 'p',
+                  sx: {
+                    color: theme.palette.zesty.zestyZambezi,
+                    textAlign: 'center',
+                    mt: 2,
+                  },
+                },
+              },
             }}
-            dangerouslySetInnerHTML={{
-              __html: helper.strColorChanger(
-                content.about_dxp,
-                'Digital Experience Platform?',
-                theme.palette.zesty.zestyOrange,
-              ),
-            }}
-          />
+          >
+            {content.about_dxp}
+          </MuiMarkdown>
         </Box>
 
         <Box
@@ -47,13 +67,17 @@ const About = ({ content, theme, isMobile }) => {
             zIndex: '1000',
           }}
         >
-          <div data-aos="zoom-in">
-            <img
+          <Box data-aos="zoom-in">
+            <Box
+              component="img"
               src={content.about_dxp_graphic.data[0].url}
               alt=""
-              width={isMobile ? 300 : 700}
+              sx={{
+                width: '100%',
+                maxWidth: isMobile ? 300 : 700,
+              }}
             />
-          </div>
+          </Box>
         </Box>
       </Container>
     </Box>
