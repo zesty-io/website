@@ -67,27 +67,19 @@ const Solution = ({ content, theme, isMobile }) => {
     <Box paddingY={1}>
       <Container>
         <Box paddingBottom={isMobile ? 10 : 10} sx={{}}>
-          {/* <Typography
-            component={'h2'}
-            variant={'p'}
-            paddingTop={isMobile ? 0 : 10}
-            sx={{
-              color: theme.palette.secondary.darkCharcoal,
-              fontWeight: 800,
-              fontSize: isMobile ? '20px' : '32px',
-              textAlign: 'center',
-            }}
-            dangerouslySetInnerHTML={{
-              __html: helper.strColorChanger(
-                content.solutions_h2,
-                'digital experience',
-                theme.palette.zesty.zestyOrange,
-              ),
-            }}
-          /> */}
-
           <MuiMarkdown
             overrides={{
+              span: {
+                component: Typography,
+                props: {
+                  component: 'span',
+                  sx: {
+                    fontSize: 'inherit',
+                    fontWeight: 'inherit',
+                    color: theme.palette.zesty.zestyOrange,
+                  },
+                },
+              },
               h2: {
                 component: Typography,
                 props: {
@@ -104,98 +96,100 @@ const Solution = ({ content, theme, isMobile }) => {
             {content.solutions_h2}
           </MuiMarkdown>
         </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: isMobile ? '1rem' : '4rem',
-            height: isMobile ? '100vh' : '50vh',
-            justifyContent: 'center',
-            justifyItems: 'center',
-            alignItems: 'center',
-            flexDirection: isMobile ? 'column' : 'row',
-          }}
-        >
-          <div data-aos="fade-right">
-            <Box sx={{}}>
-              <ZoomMui
-                in={active === 0}
-                style={{ display: active === 0 ? 'block' : 'none' }}
-              >
-                <img
-                  src={content[`solution_1_graphic`].data[0].url}
-                  alt=""
-                  width={imgWidth}
-                />
-              </ZoomMui>
-              <ZoomMui
-                in={active === 1}
-                style={{ display: active === 1 ? 'block' : 'none' }}
-              >
-                <img
-                  width={imgWidth}
-                  src={content[`solution_2_graphic`].data[0].url}
-                  alt=""
-                />
-              </ZoomMui>
-              <ZoomMui
-                in={active === 2}
-                style={{ display: active === 2 ? 'block' : 'none' }}
-              >
-                <img
-                  width={imgWidth}
-                  src={content[`solution_3_graphic`].data[0].url}
-                  alt=""
-                />
-              </ZoomMui>
-              <ZoomMui
-                in={active === 3}
-                style={{ display: active === 3 ? 'block' : 'none' }}
-              >
-                <img
-                  width={imgWidth}
-                  src={content[`solution_4_graphic`].data[0].url}
-                  alt=""
-                />
-              </ZoomMui>
-            </Box>
-          </div>
-          <div data-aos="fade-left">
-            <Box sx={{ background: '' }}>
-              {cardData.map((e, i) => {
-                return i === active ? (
-                  <CustomCard data={e} theme={theme} />
-                ) : (
-                  <Box
-                    onClick={() => setactive(i)}
-                    paddingY={2}
-                    paddingLeft={4}
-                    sx={{
-                      borderBottom: `1px solid ${theme.palette.secondary.whiteSmoke}`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '1rem',
-                      cursor: 'pointer',
-                    }}
+
+        <Box>
+          <Grid container>
+            <Grid item sm={12} md={6}>
+              <Box data-aos="fade-right">
+                <Box>
+                  <ZoomMui
+                    in={active === 0}
+                    style={{ display: active === 0 ? 'block' : 'none' }}
                   >
-                    <img src={e.icon} alt="" width={50} />
-                    <Typography
-                      component={'p'}
-                      variant={'p'}
+                    <Box
+                      src={content[`solution_1_graphic`].data[0].url}
+                      alt=""
+                      component="img"
                       sx={{
-                        color: theme.palette.secondary.darkCharcoal,
-                        fontWeight: 'light',
-                        textAlign: 'left',
-                      }}
-                      dangerouslySetInnerHTML={{
-                        __html: e.subText,
+                        width: isMobile ? 500 : '100%',
                       }}
                     />
-                  </Box>
-                );
-              })}
-            </Box>
-          </div>
+                  </ZoomMui>
+                  {/* <ZoomMui
+                    in={active === 1}
+                    style={{ display: active === 1 ? 'block' : 'none' }}
+                  >
+                    <img
+                      width={imgWidth}
+                      src={content[`solution_2_graphic`].data[0].url}
+                      alt=""
+                    />
+                  </ZoomMui>
+                  <ZoomMui
+                    in={active === 2}
+                    style={{ display: active === 2 ? 'block' : 'none' }}
+                  >
+                    <img
+                      width={imgWidth}
+                      src={content[`solution_3_graphic`].data[0].url}
+                      alt=""
+                    />
+                  </ZoomMui>
+                  <ZoomMui
+                    in={active === 3}
+                    style={{ display: active === 3 ? 'block' : 'none' }}
+                  >
+                    <img
+                      width={imgWidth}
+                      src={content[`solution_4_graphic`].data[0].url}
+                      alt=""
+                    />
+                  </ZoomMui> */}
+                </Box>
+              </Box>
+            </Grid>
+
+            <Grid item sm={12} md={6}>
+              <Box data-aos="fade-left">
+                <Box>
+                  {cardData.map((e, i) => {
+                    return i === active ? (
+                      <CustomCard data={e} theme={theme} />
+                    ) : (
+                      <Box
+                        onClick={() => setactive(i)}
+                        paddingY={2}
+                        paddingLeft={4}
+                        sx={{
+                          borderBottom: `1px solid ${theme.palette.secondary.whiteSmoke}`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '1rem',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <img src={e.icon} alt="" width={50} />
+                        <Typography
+                          component={'p'}
+                          variant={'p'}
+                          sx={{
+                            color: theme.palette.secondary.darkCharcoal,
+                            fontWeight: 'light',
+                            textAlign: 'left',
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: e.subText,
+                          }}
+                        />
+                      </Box>
+                    );
+                  })}
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
         </Box>
+
         <div data-aos="zoom-in">
           <Grid item xs={12} md={9}>
             <Box
