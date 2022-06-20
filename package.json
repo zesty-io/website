@@ -13,7 +13,8 @@
     "sync": "node src/lib/sync.js",
     "docker-build": "docker build .",
     "gcloud-build": "gcloud builds submit --tag gcr.io/zesty-dev/zesty-website:1.0.0  --project zesty-dev",
-    "gcloud-deploy": "gcloud run deploy zesty-website --image=gcr.io/zesty-dev/zesty-website:1.0.0 --platform managed --port 3000 --project zesty-dev --allow-unauthenticated --min-instances 1 --region us-central1"
+    "gcloud-deploy": "gcloud run deploy zesty-website --image=gcr.io/zesty-dev/zesty-website:1.0.0 --platform managed --port 3000 --project zesty-dev --allow-unauthenticated --min-instances 1 --region us-central1",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -76,6 +77,7 @@
     "babel-eslint": "^10.1.0",
     "babel-plugin-styled-components": "^2.0.7",
     "cross-env": "^7.0.2",
+    "husky": "^8.0.1",
     "prettier": "^2.6.2",
     "prettier-eslint": "^13.0.0",
     "prettier-eslint-cli": "^5.0.0",
