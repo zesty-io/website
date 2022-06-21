@@ -1,15 +1,26 @@
+/**
+ * Helpers Imports
+ */
 import { getMarketplaceData } from './[...slug]';
+import { fetchPage } from 'lib/api';
+
+/**
+ * React Imports
+ */
+import { setCookies } from 'cookies-next';
+import React, { useEffect } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+
+/**
+ * Components Imports
+ */
+
 import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
 import MarketplaceEntities from 'components/marketplace/MarketplaceEntities';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
-import AppBar from 'components/console/AppBar';
-import { useRouter } from 'next/router';
-import { fetchPage } from 'lib/api';
-import Head from 'next/head';
-import { HeroWithPrimaryBackgroundAndDesktopScreenshot } from 'blocks/heroes';
-import { setCookies } from 'cookies-next';
-import React, { useEffect } from 'react';
+import Hero from 'components/marketplace/landing/Hero';
 
 const Marketplace = ({
   marketEntities,
@@ -25,6 +36,7 @@ const Marketplace = ({
   useEffect(() => {
     setCookies('PRODUCTION', props.zestyProductionMode);
   }, [props]);
+
   return (
     <>
       <Head>
@@ -33,20 +45,8 @@ const Marketplace = ({
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        <AppBar url={router.asPath} />
-        <HeroWithPrimaryBackgroundAndDesktopScreenshot
-          title={props.title}
-          description={
-            <div dangerouslySetInnerHTML={{ __html: props.description }} />
-          }
-          screenshot={props.screenshot?.data[0]?.url}
-          //making an array of object > url , image
-          logos={props.features_logos?.data?.map((x) => ({
-            image: x.image?.data[0]?.url,
-            url: x.meta?.web?.uri,
-          }))}
-        />
         <MarketplaceProvider inititalEntities={marketEntities}>
+          <Hero {...props} />
           <MarketplaceContainer
             marketEntities={marketEntities}
             marketEntityTypes={marketEntityTypes}
