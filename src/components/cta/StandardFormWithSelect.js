@@ -54,7 +54,7 @@ const getLeadObjectZOHO = (
     First_Name: obj.firstName,
     Last_Name: obj.lastName,
     Email: obj.email,
-    Phone_Number: obj.phoneNumber,
+    Phone: obj.phoneNumber,
     Inquiry_Reason: select,
     Description: obj.message,
     newsletter_signup: obj.newsletter_signup,
@@ -75,7 +75,7 @@ const getLeadObjectZOHO = (
     Lead_Source_Detail: leadDetail,
     Business_Type: businessType,
     Lead_Status: 'Not Contacted',
-    Job_Title: obj.jobTitle,
+    Title: obj.jobTitle,
     Company: obj.company,
   };
 };
