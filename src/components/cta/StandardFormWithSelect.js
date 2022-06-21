@@ -24,6 +24,7 @@ import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
 import { getCookie, setCookies } from 'cookies-next';
 import { Checkbox, FormControlLabel } from '@mui/material';
+import { useRouter } from 'next/router';
 
 // for hiding of ellipis in message in mobile
 const StyledTextField = styled(TextField)({
@@ -209,7 +210,7 @@ function StandardFormWithSelect({
 }) {
   const theme = useTheme();
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   let inquiryReasons = [
     'General',
@@ -249,7 +250,7 @@ function StandardFormWithSelect({
       leadSource,
     );
     payload.newsletter_signup ? subscribeToZoho(payload) : postToZOHO(payload);
-    setOpen(!open);
+    window.location = '/ppc/thank-you';
     return values;
   };
 
@@ -491,12 +492,12 @@ function StandardFormWithSelect({
           </Grid>
         </Grid>
       </form>
-      <TransitionsModal
+      {/* <TransitionsModal
         title={modalTitle}
         message={modalMessage}
         open={open}
         setOpen={setOpen}
-      />
+      /> */}
     </Box>
   );
 }
