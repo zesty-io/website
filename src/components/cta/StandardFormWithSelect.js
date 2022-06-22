@@ -26,6 +26,12 @@ import { getCookie, setCookies } from 'cookies-next';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { useRouter } from 'next/router';
 
+/**
+ * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
+ * Note, if a custom field need to be added speak to todd.sabo@zesty.io 
+ * For testing new changes, please work with katie.moser@zesty.io
+ */
+
 // for hiding of ellipis in message in mobile
 const StyledTextField = styled(TextField)({
   [`& .${inputLabelClasses.outlined}`]: {
