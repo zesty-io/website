@@ -177,6 +177,8 @@ export async function getServerSideProps({ req, res }) {
   // generate a status 404 page
   if (data?.error && !extendedPages) return { notFound: true };
 
+  res.setHeader('set-cookie', `PRODUCTION=${process.env.PRODUCTION}`);
+
   // Pass data to the page via props
   return {
     props: {

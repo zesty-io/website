@@ -61,6 +61,7 @@ const HeadlessApi = ({ theme, isMobile, content, FillerContent }) => {
               FillerContent.logos[0].url
             }
             component="img"
+            alt="logo"
           />
         </Container>
       </Box>

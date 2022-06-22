@@ -44,6 +44,7 @@ const TimeLine = ({ theme, isMobile, content, FillerContent }) => {
           width: isMobile ? 264 : 'auto',
         }}
         component="img"
+        alt=""
         src={chevron_right.src}
       />
 
@@ -55,6 +56,7 @@ const TimeLine = ({ theme, isMobile, content, FillerContent }) => {
           width: isMobile ? 264 : 'auto',
         }}
         component="img"
+        alt=""
         src={chevron_left.src}
       />
       <Container>
@@ -201,6 +203,7 @@ const TimeLine = ({ theme, isMobile, content, FillerContent }) => {
                       }}
                       src={item?.image || FillerContent.logos[0].url}
                       component="img"
+                      alt=""
                     />
                   </Grid>
                 </Grid>

@@ -28,6 +28,7 @@ const GetStarted = ({
           width: '100%',
         }}
         component="img"
+        alt=""
         src={s_curve.src}
       />
       <Grid container spacing={2}>
@@ -40,6 +41,7 @@ const GetStarted = ({
               maxWidth: 579,
             }}
             component="img"
+            alt="get started graphic"
             src={content.get_started_graphic.data[0].url}
           />
         </Grid>

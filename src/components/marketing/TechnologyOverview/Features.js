@@ -24,6 +24,7 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
           width: isMobile ? 264 : 'auto',
         }}
         component="img"
+        alt=""
         src={chevron_right.src}
       />
       <Container sx={{ position: 'relative', zIndex: 10 }}>
@@ -94,6 +95,7 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
                           : 'auto',
                       }}
                       component="img"
+                      alt=""
                       src={
                         item.icon_image.data[0].url ||
                         FillerContent.logos[0].url
