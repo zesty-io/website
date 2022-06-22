@@ -28,7 +28,7 @@
  */
 
 import React from 'react';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import {

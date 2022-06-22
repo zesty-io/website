@@ -11,7 +11,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { getCookie } from 'cookies-next';
 
 import Container from 'components/Container';
-import TopNav from 'components/TopNav';
+import TopNav from 'components/globals/TopNav';
 
 import { Topbar, Sidebar, Footer } from './components';
 import { zestyLink } from 'lib/zestyLink';

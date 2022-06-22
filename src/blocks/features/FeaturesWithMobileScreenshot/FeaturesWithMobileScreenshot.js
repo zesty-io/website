@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
-import FillerContent from 'components/FillerContent';
-import WYSIWYGRender from 'components/WYSIWYGRender';
+import FillerContent from 'components/globals/FillerContent';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import { useMediaQuery } from '@mui/material';
 
 const FeaturesWithMobileScreenshot = ({

@@ -35,11 +35,9 @@ import Stories from 'blocks/portfolioGrid/Stories/Stories';
 import PartnersColor from 'blocks/logoGrid/PartnersColor/PartnersColor';
 import ShowcaseBgImagePage from 'blocks/heroes/ShowcaseBgImage/ShowcaseBgImage';
 import CtaSimpleCentered from 'blocks/cta/CtaSimpleCentered/CtaSimpleCentered';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 function Client({ content }) {
-
-
   const theme = useTheme();
   return (
     <>
@@ -133,8 +131,6 @@ function Client({ content }) {
           />
         </Box>
       </Box>
-
-
     </>
   );
 }

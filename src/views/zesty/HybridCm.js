@@ -80,7 +80,7 @@ import {
 } from '@mui/material';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import ZestySvg from '../../../public/assets/images/zesty Logo.png';
 import featuresBg1 from '../../../public/assets/images/dxp_features_bg1.svg';
 import featuresBg2 from '../../../public/assets/images/dxp_features_bg2.svg';

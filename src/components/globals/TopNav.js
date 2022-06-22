@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import { zestyLink } from 'lib/zestyLink';
 import { useRouter } from 'next/router';
 
-import ThemeModeToggler from 'components/ThemeModeToggler';
+import ThemeModeToggler from './ThemeModeToggler';
 
 const TopNav = ({ nav, colorInvert = false }) => {
   const router = useRouter();

@@ -4,7 +4,7 @@ import { Accordion, AccordionDetails,AccordionSummary,Box,Button,
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import styled from '@emotion/styled';
 import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
 import { getCookie } from 'cookies-next';

@@ -4,10 +4,9 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 import Container from 'components/Container';
-
 
 const ShowcaseBgImage = ({
   image,

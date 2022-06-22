@@ -5,7 +5,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import React from 'react';
 
 export const TitleBar = ({ name, description }) => {

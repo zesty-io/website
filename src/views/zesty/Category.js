@@ -34,7 +34,7 @@ import { CtaWithInputField } from 'blocks/cta';
 import Box from '@mui/material/Box';
 import { useTheme, alpha } from '@mui/material/styles';
 // filler content
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 import Container from 'components/Container';
 import { Typography } from '@mui/material';
@@ -42,9 +42,9 @@ import { Typography } from '@mui/material';
 function Category({ content }) {
   const theme = useTheme();
   let zestyURL = content.zestyProductionMode
-  ? process.env.zesty.production
-  : process.env.zesty.stage;
-  
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
+
   // news array state
   const [categoryArr, setCategoryArr] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
@@ -72,51 +72,48 @@ function Category({ content }) {
   // use effect pull in news articles
   useEffect(() => {
     try {
-      const fetchNews = async () =>{
+      const fetchNews = async () => {
         const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=6`;
         const response = await fetch(url);
-        if(!response.ok){
+        if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         const news = await response.json();
         setHideLoad(false);
         setCategoryArr(news);
         setAllArticles(news);
-      }
+      };
 
       fetchNews();
-
-    } catch(err){
+    } catch (err) {
       console.error(`Could Not Find Results: ${error}`);
     }
   }, []);
 
-
-  
   // search value
   const handleOnChange = (evt) => {
     evt.preventDefault();
     // handle empty search value
-    if(evt.target.value === null || evt.target.value === ''){
+    if (evt.target.value === null || evt.target.value === '') {
       setCategoryArr(allArticles);
-      setPage(0)
+      setPage(0);
       setNotFound(false);
       setHideLoad(false);
     }
     setSearchValue(evt.target.value);
-  }
+  };
   // form submission
-  const handleOnSubmit = (evt) =>{
+  const handleOnSubmit = (evt) => {
     evt.preventDefault();
-    try{
+    try {
       const searchArticles = async () => {
         const url = `${zestyURL}/-/searchnewsarticles.json?q=${searchValue}&category=${content.meta.zuid}&page=${page}&limit=6`;
         const response = await fetch(url);
-        if(!response.ok){
+        if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         const searchData = await response.json();
-        if(!searchData.length){
+        if (!searchData.length) {
           setNotFound(true);
           setCategoryArr([]);
           setTerm(searchValue);
@@ -125,35 +122,34 @@ function Category({ content }) {
         setHideLoad(true);
         setNotFound(false);
         setCategoryArr(searchData);
-      }
+      };
       searchArticles();
-    } catch (error){
+    } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
     }
   };
   // load more on click
-  const handleOnClick = async () =>{
-    try{
-      setPage(page+=6);
+  const handleOnClick = async () => {
+    try {
+      setPage((page += 6));
       const url = `${zestyURL}/-/articlesbycategory.json?category=${content.meta.zuid}&page=${page}&limit=6`;
       const response = await fetch(url);
-      if(!response.ok){
+      if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
       const data = await response.json();
-      if(!data.length){
+      if (!data.length) {
         // add conditional rendering to hide the load more button
         setHideLoad(true);
       }
-      setCategoryArr([...categoryArr, ...data])
-    } catch(error){
+      setCategoryArr([...categoryArr, ...data]);
+    } catch (error) {
       console.error(`Could Not Find Results: ${error}`);
     }
-  }
+  };
 
   return (
     <>
-
       {/* hero */}
       <Box
         bgcolor={'alternate.main'}
@@ -177,25 +173,31 @@ function Category({ content }) {
         }}
       >
         <Box position={'relative'} zIndex={3}>
-        <SlashImageHero
-          title={content.category || FillerContent.header}
-          description={content.description || FillerContent.description}
-          image={content.header_image?.data[0]?.url || FillerContent.category_fallback_image} />
+          <SlashImageHero
+            title={content.category || FillerContent.header}
+            description={content.description || FillerContent.description}
+            image={
+              content.header_image?.data[0]?.url ||
+              FillerContent.category_fallback_image
+            }
+          />
         </Box>
       </Box>
       {/* search and articles */}
       <Container paddingY={{ xs: 1, sm: 2, md: 4 }}>
-        <Box sx={{marginBottom: '16px'}}>
-          <Breadcrumb array={breadcrumb || FillerContent.breadcrumb}  />
+        <Box sx={{ marginBottom: '16px' }}>
+          <Breadcrumb array={breadcrumb || FillerContent.breadcrumb} />
         </Box>
-        <Result array={categoryArr}
+        <Result
+          array={categoryArr}
           onChange={handleOnChange}
           value={searchValue}
           term={term}
           onSubmit={handleOnSubmit}
           notFound={notFound}
           onClick={handleOnClick}
-          hideLoad={hideLoad} />
+          hideLoad={hideLoad}
+        />
       </Container>
       {/* cta */}
       <Box
@@ -229,12 +231,14 @@ function Category({ content }) {
         </Box>
         <Container>
           <CtaWithInputField
-          title={'Subscribe to the zestiest newsletter in the industry'}
-          description={'Get the latest from the Zesty team, from whitepapers to product updates.'}
-          cta={'Subscribe'} />
+            title={'Subscribe to the zestiest newsletter in the industry'}
+            description={
+              'Get the latest from the Zesty team, from whitepapers to product updates.'
+            }
+            cta={'Subscribe'}
+          />
         </Container>
       </Box>
-
     </>
   );
 }

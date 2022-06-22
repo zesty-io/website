@@ -26,7 +26,7 @@
  * View /solutions/
  */
 
-import React  from 'react';
+import React from 'react';
 import Container from 'components/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -37,10 +37,10 @@ import FeaturesWithCardRepresentation from 'blocks/features/FeaturesWithCardRepr
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useMediaQuery } from '@mui/material';
-import WYSIWYGRender from 'components/WYSIWYGRender';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import useFetch from 'components/hooks/useFetch';
 import { zestyLink } from 'lib/zestyLink';
 
@@ -186,16 +186,12 @@ const ProductOverviewBody = ({ cards, header }) => {
 function PlatformOverview({ content }) {
   const theme = useTheme();
 
-
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const {
-    data: allArticles,
-    isPending,
-    error,
-  } = useFetch(`/-/all-articles-hydrated.json?limit=3`, content.zestyProductionMode);
-
-
+  const { data: allArticles, isPending, error } = useFetch(
+    `/-/all-articles-hydrated.json?limit=3`,
+    content.zestyProductionMode,
+  );
 
   const headerProps = {
     title: content.title || FillerContent.header,
@@ -203,7 +199,10 @@ function PlatformOverview({ content }) {
     h1_title: content.h1_title || FillerContent.header,
     images: content.header_image?.data || FillerContent.image,
     cta_right_text: content.cta_right_text || FillerContent.header,
-    cta_right_url: content.cta_right_url && zestyLink(content.navigationTree, content.cta_right_url) || zestyLink(content.navigationTree,FillerContent.contact_zuid),
+    cta_right_url:
+      (content.cta_right_url &&
+        zestyLink(content.navigationTree, content.cta_right_url)) ||
+      zestyLink(content.navigationTree, FillerContent.contact_zuid),
   };
 
   return (

@@ -12,8 +12,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
 import Container from 'components/Container';
 import { Typography, useMediaQuery } from '@mui/material';
-import FillerContent from 'components/FillerContent';
-import WYSIWYGRender from 'components/WYSIWYGRender';
+import FillerContent from 'components/globals/FillerContent';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
 const mock = [
   {

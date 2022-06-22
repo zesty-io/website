@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import { useRouter } from 'next/router';
 
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
   const theme = useTheme();

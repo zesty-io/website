@@ -59,8 +59,6 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-
-
 import {
   Box,
   Button,
@@ -74,7 +72,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import * as helper from 'utils';
 import Slide from '@mui/material/Slide';

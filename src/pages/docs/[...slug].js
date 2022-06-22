@@ -12,7 +12,7 @@ import AppBar from 'components/console/AppBar';
 import Head from 'next/head';
 import { parse } from 'himalaya';
 import * as helper from 'utils';
-import { AccordionMui } from 'components/Accordion';
+import { AccordionMui } from 'components/marketing/Accordion';
 import { SimpleHeroWithSearchBox } from 'blocks/heroes';
 
 const zestyImage =
@@ -136,7 +136,7 @@ export default function Docs(props) {
         <meta property="og:description" content={description} />
         <meta property="og:image" content={ogimage} />
       </Head>
-      <AppBar/>
+      <AppBar />
       <Container>
         <Box sx={{ display: 'flex' }} paddingBottom={4}>
           <Box

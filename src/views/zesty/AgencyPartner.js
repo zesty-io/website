@@ -32,8 +32,8 @@ import Box from '@mui/material/Box';
 import HeroNotTyped from '../../blocks/heroes/HeroNotTyped';
 import Partners from '../../blocks/logoGrid/Partners';
 import Main from '../../blocks/portfolioGrid/Main/Main';
-import Typography from '@mui/material/Typography'
-import FillerContent from 'components/FillerContent';
+import Typography from '@mui/material/Typography';
+import FillerContent from 'components/globals/FillerContent';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import Button from '@mui/material/Button';
 import { zestyLink } from 'lib/zestyLink';
@@ -42,7 +42,6 @@ import Container from 'components/Container';
 import { useMediaQuery } from '@mui/material';
 
 function AgencyPartner({ content }) {
-
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -90,16 +89,16 @@ function AgencyPartner({ content }) {
             marginTop={4}
           >
             <Button
-                component={'a'}
-                href={'#signup'}
-                variant="contained"
-                color="secondary"
-                size="large"
-                fullWidth={isMd ? false : true}
-              >
-                {content.cta_header_left || FillerContent.cta}
-              </Button>
-          
+              component={'a'}
+              href={'#signup'}
+              variant="contained"
+              color="secondary"
+              size="large"
+              fullWidth={isMd ? false : true}
+            >
+              {content.cta_header_left || FillerContent.cta}
+            </Button>
+
             <Box
               marginTop={{ xs: 2, sm: 0 }}
               marginLeft={{ sm: 2 }}
@@ -107,7 +106,7 @@ function AgencyPartner({ content }) {
             >
               <Button
                 component={'a'}
-                href={zestyLink(content.navigationTree,'7-cec987fcf5-9bht2z')}
+                href={zestyLink(content.navigationTree, '7-cec987fcf5-9bht2z')}
                 variant="outlined"
                 color="secondary"
                 size="large"
@@ -119,9 +118,13 @@ function AgencyPartner({ content }) {
           </Box>
         </Box>
       </Container>
-      
+
       <Container>
-        <Main partnerCards={content.agency_partners_cards.data || FillerContent.missingDataArray} />
+        <Main
+          partnerCards={
+            content.agency_partners_cards.data || FillerContent.missingDataArray
+          }
+        />
       </Container>
       <Box
         position={'relative'}
@@ -161,7 +164,7 @@ function AgencyPartner({ content }) {
                 align={'center'}
                 gutterBottom
               >
-              {content.cta_footer_title || FillerContent.title}
+                {content.cta_footer_title || FillerContent.title}
               </Typography>
               <Typography
                 variant={'h6'}
@@ -169,23 +172,23 @@ function AgencyPartner({ content }) {
                 color={'text.secondary'}
                 align={'center'}
               >
-              {content.cta_footer_description || FillerContent.description}
+                {content.cta_footer_description || FillerContent.description}
               </Typography>
             </Box>
 
-            <StandardFormWithSelect 
-            leadDetail='Agency Partner Sign Up' 
-            businessType='Partner' 
-            selectedValue={1}  
-            hideSelect={true} 
-            hideMessage={true} 
-            ctaText={content.cta_footer_cta ||  FillerContent.cta}
-            modalTitle='Thank you for submitting your agency information.'
-            modalMessage='Our team will be in touch soon to discuss next steps.' />
+            <StandardFormWithSelect
+              leadDetail="Agency Partner Sign Up"
+              businessType="Partner"
+              selectedValue={1}
+              hideSelect={true}
+              hideMessage={true}
+              ctaText={content.cta_footer_cta || FillerContent.cta}
+              modalTitle="Thank you for submitting your agency information."
+              modalMessage="Our team will be in touch soon to discuss next steps."
+            />
           </Box>
         </Container>
       </Box>
-
     </>
   );
 }

@@ -10,7 +10,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { Speed, Bolt, AttachMoney } from '@mui/icons-material';
 import Container from 'components/Container';
-import WYSIWYGRender from 'components/WYSIWYGRender';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
 const switchIcon = (icon) => {
   switch (icon) {

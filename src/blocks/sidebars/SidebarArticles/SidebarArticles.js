@@ -8,13 +8,9 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
-
-const SidebarArticles = ({latestArticles}) => {
-
-
-
+const SidebarArticles = ({ latestArticles }) => {
   const theme = useTheme();
   return (
     <Box component={Card} variant={'outlined'} padding={2}>
