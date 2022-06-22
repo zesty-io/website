@@ -4,16 +4,31 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MuiMarkdown from 'mui-markdown';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 /**
  * Helpers Imports
  */
 import FillerContent from 'components/globals/FillerContent';
 
-const Hero = ({ title, description, features_logos, hero_image }) => {
+/**
+ * Components Imports
+ */
+import Filters from 'components/marketplace/landing/Filters';
+
+const Hero = ({
+  title,
+  description,
+  features_logos,
+  hero_image,
+  hero_image_mobile,
+}) => {
   const theme = useTheme();
 
-  console.log(features_logos);
+  const isMedium = useMediaQuery(theme.breakpoints.down('lg'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 500));
 
   return (
     <>
@@ -21,22 +36,37 @@ const Hero = ({ title, description, features_logos, hero_image }) => {
         sx={{
           position: 'relative',
           minHeight: 560,
+          pb: 5,
           display: 'flex',
           flexDirection: 'column',
+          background: theme.palette.background.level3,
         }}
         component="header"
       >
         <Box
           sx={{
             flexShrink: 0,
-            minHeight: 560,
+            minHeight: isMedium ? 460 : 560,
+            display: isTablet ? 'none' : 'block',
           }}
           component="img"
-          src={hero_image.data[0].url}
+          src={hero_image?.data[0].url || FillerContent.logos[0].url}
         />
+
+        <Box>
+          <Box
+            sx={{
+              width: '100%',
+              display: isTablet ? 'block' : 'none',
+            }}
+            component="img"
+            src={hero_image_mobile?.data[0].url || FillerContent.logos[0].url}
+          />
+        </Box>
+
         <Box
           sx={{
-            top: '20%',
+            top: isExtraSmall ? '8%' : '10%',
             position: 'absolute',
             width: '100%',
             zIndex: 1,
@@ -44,8 +74,14 @@ const Hero = ({ title, description, features_logos, hero_image }) => {
         >
           <Container>
             <Grid container>
-              <Grid item sm={12} md={6}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              <Grid item sm={12} md={7} lg={6}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: isMobile ? 1 : isTablet ? 2 : isMedium ? 1 : 3,
+                  }}
+                >
                   <Typography
                     component="h1"
                     variant="h3"
@@ -77,19 +113,39 @@ const Hero = ({ title, description, features_logos, hero_image }) => {
                   <Box
                     sx={{
                       display: 'flex',
+
                       gap: 1,
                     }}
                   >
-                    {features_logos.data.map((item, index) => (
+                    {features_logos.data.map((item, idx) => (
                       <Box
+                        component="a"
+                        href={item.meta.web.uri}
+                        key={idx}
                         sx={{
                           borderRadius: 1,
                           display: 'flex',
                           gap: 1,
                           justifyContent: 'center',
                           alignItems: 'center',
-                          width: 90,
-                          height: 90,
+                          width: isExtraSmall
+                            ? 50
+                            : isMobile
+                            ? 70
+                            : isTablet
+                            ? 90
+                            : isMedium
+                            ? 65
+                            : 90,
+                          height: isExtraSmall
+                            ? 50
+                            : isMobile
+                            ? 70
+                            : isTablet
+                            ? 90
+                            : isMedium
+                            ? 65
+                            : 90,
                           background: theme.palette.common.white,
                         }}
                       >
@@ -97,7 +153,10 @@ const Hero = ({ title, description, features_logos, hero_image }) => {
                           <Box
                             sx={{ width: '100%', height: '100%' }}
                             component="img"
-                            src={item.image.data[0].url}
+                            src={
+                              item.image?.data[0].url ||
+                              FillterContent.logos[0].url
+                            }
                           />
                         </Box>
                       </Box>
@@ -105,10 +164,12 @@ const Hero = ({ title, description, features_logos, hero_image }) => {
                   </Box>
                 </Box>
               </Grid>
-              <Grid item sm={12} md={6}></Grid>
+              <Grid item sm={12} md={5} lg={6}></Grid>
             </Grid>
           </Container>
         </Box>
+
+        <Filters />
       </Box>
     </>
   );
