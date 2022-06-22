@@ -50,10 +50,10 @@ const Topbar = ({
 
   React.useEffect(() => {
     if (userInfo) {
-      setCookies('user_ZUID', userInfo.ZUID);
-      setCookies('user_email', userInfo.email);
-      setCookies('user_firstName', userInfo.firstName);
-      setCookies('user_lastName', userInfo.lastName);
+      setCookies('APP_USER_ZUID', userInfo?.ZUID);
+      setCookies('APP_USER_EMAIL', userInfo?.email);
+      setCookies('APP_USER_FIRST_NAME', userInfo?.firstName);
+      setCookies('APP_USER_LAST_NAME', userInfo?.lastName);
     }
   }, [userInfo]);
 
