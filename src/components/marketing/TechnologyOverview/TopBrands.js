@@ -75,6 +75,7 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
                       }}
                       src={item.logo.data[0].url || FillerContent.logos[0].url}
                       component="img"
+                      alt="case studies logo"
                     />
                   </Button>
                 ))}
@@ -107,6 +108,7 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
                           minHeight: 218,
                         }}
                         component="img"
+                        alt="company image showcase"
                         src={
                           active.image.data[0].url || FillerContent.logos[0].url
                         }
@@ -132,6 +134,7 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
                             filter: isDarkMode ? 'invert(100%)' : 'inherit',
                           }}
                           component="img"
+                          alt="logo"
                           src={
                             active.logo.data[0].url ||
                             FillerContent.logos[0].url

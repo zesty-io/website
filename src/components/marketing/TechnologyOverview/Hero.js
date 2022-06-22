@@ -23,6 +23,7 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
   >
     <Box
       component="img"
+      alt="zesty.io logo"
       style={{
         position: 'absolute',
         left: isMobile ? '' : '10%',
@@ -55,7 +56,7 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
               <Typography
                 color={theme.palette.common.white}
                 variant="h4"
-                component={'p'}
+                component={'h1'}
                 sx={{ fontWeight: 'bold' }}
               >
                 {content.header_eyebrow}
@@ -64,7 +65,7 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
                 color={theme.palette.common.white}
                 sx={{ fontWeight: 'bold' }}
                 variant="h3"
-                component={'h1'}
+                component={'h2'}
               >
                 {content.title}
               </Typography>
@@ -118,6 +119,7 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
           <Box sx={{ display: 'flex' }}>
             <Box
               component="img"
+              alt="header image"
               style={{ width: '100%' }}
               src={content.header_image.data[0].url}
             />
