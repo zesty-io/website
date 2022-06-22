@@ -22,9 +22,6 @@ const Marketplace = ({
   const seoTitle = props.meta.web.seo_meta_title,
     seoDescription = props.meta.web.seo_meta_description;
 
-  useEffect(() => {
-    setCookies('PRODUCTION', props.zestyProductionMode);
-  }, [props]);
   return (
     <>
       <Head>

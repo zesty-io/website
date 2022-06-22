@@ -36,10 +36,6 @@ export default function Slug(props) {
   //   bgcolor = isDarkMode ? 'transparent' : theme.palette.common.white;
   // }
 
-  useEffect(() => {
-    setCookies('PRODUCTION', props.zestyProductionMode);
-  }, [props]);
-
   return (
     <Main
       model={props.meta.model_alternate_name}
