@@ -75,7 +75,7 @@ const getLeadObjectZOHO = (
     Lead_Source_Detail: leadDetail,
     Business_Type: businessType,
     Lead_Status: 'Not Contacted',
-    Title: obj.jobTitle,
+    Designation: obj.jobTitle,
     Company: obj.company,
   };
 };
