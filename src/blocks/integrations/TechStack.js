@@ -7,7 +7,7 @@ import MuiMarkdown from 'mui-markdown';
 const TechStack = ({ theme, isMobile, content, FillerContent }) => {
   console.log(content.integrations_logos);
   return (
-    <Box component="section" sx={{ px: 4, mt: 10 }}>
+    <Box component="section" sx={{ px: 4 }}>
       <Box
         sx={{
           background: theme.palette.zesty.zestySeaShell,
@@ -125,6 +125,7 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                         key={idx}
                         sx={{ height: 88, width: 'auto' }}
                         component="img"
+                        alt="integration logo's"
                         src={item.logo.data[0].url}
                       />
                     </>

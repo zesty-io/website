@@ -65,9 +65,9 @@ function TechnologyOverview({ content }) {
       <GetStarted {...pageData} />
       <Features {...pageData} />
       <HeadlessApi {...pageData} />
+      <TechStack {...pageData} />
       <TopBrands {...pageData} />
       <Articles {...pageData} />
-      <TechStack {...pageData} />
     </Box>
   );
 }

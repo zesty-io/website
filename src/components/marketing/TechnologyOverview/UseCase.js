@@ -40,6 +40,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
                 <CardContent>
                   <Box
                     component={'img'}
+                    alt="usecase icons"
                     style={{ display: 'block', margin: 'auto' }}
                     src={item.use_case_icon?.data[0].url}
                   />
@@ -71,6 +72,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
               >
                 <Box
                   component="img"
+                  alt=""
                   style={{
                     display: 'block',
                     margin: 'auto',
@@ -88,6 +90,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
         <Box sx={{ pt: 2 }}>
           <Box
             component="img"
+            alt=""
             style={{
               display: 'block',
               margin: 'auto',
@@ -100,7 +103,9 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
 
         {/* Image One */}
         <Box>
-          <img
+          <Box
+            component="img"
+            alt="use case graphic"
             style={{
               display: 'block',
               margin: 'auto',
@@ -155,6 +160,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
         <Box sx={{ mt: 4 }}>
           <Box
             component="img"
+            alt="headless cms explained"
             style={{
               display: 'block',
               margin: 'auto',
@@ -172,6 +178,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
             ml: isMobile ? 4.9 : 4.2,
           }}
           component="img"
+          alt=""
           src={
             isMobile
               ? curve_mobile.src

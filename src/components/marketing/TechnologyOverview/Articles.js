@@ -6,7 +6,7 @@ const Articles = ({ theme, isMobile, content, isDarkMode, FillerContent }) => {
   const articles = [...content.articles.data];
 
   return (
-    <Box sx={{ pt: 10 }} component="section">
+    <Box sx={{ py: 10 }} component="section">
       <Container>
         <Box
           sx={{
@@ -79,7 +79,7 @@ const Articles = ({ theme, isMobile, content, isDarkMode, FillerContent }) => {
                         fontWeight: 'bold',
                       }}
                       variant="h5"
-                      component="h3"
+                      component="h4"
                     >
                       {item.title || FillerContent.description}
                     </Typography>
@@ -138,6 +138,7 @@ const Articles = ({ theme, isMobile, content, isDarkMode, FillerContent }) => {
                         >
                           <Box
                             component="img"
+                            alt="author image"
                             sx={{ width: 40, height: 40, borderRadius: '50%' }}
                             src={
                               item.author.data[0].headshot.data[0].url ||
