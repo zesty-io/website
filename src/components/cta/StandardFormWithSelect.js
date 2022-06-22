@@ -248,14 +248,14 @@ function StandardFormWithSelect({
     downloadLink && window.open(downloadLink, '_blank');
     capterraTracking && capterraTracking();
 
-    let payload = getLeadObjectZOHO(
+    let payload = await getLeadObjectZOHO(
       values,
       selectValue,
       leadDetail,
       businessType,
       leadSource,
     );
-    payload.newsletter_signup ? subscribeToZoho(payload) : postToZOHO(payload);
+    payload.newsletter_signup ? await subscribeToZoho(payload) : await postToZOHO(payload);
     window.location = '/ppc/thank-you';
     return values;
   };
