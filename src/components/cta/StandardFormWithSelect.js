@@ -64,8 +64,9 @@ const getLeadObjectZOHO = (
     Inquiry_Reason: select,
     Description: obj.message,
     newsletter_signup: obj.newsletter_signup,
-
-    Lead_Source: leadSource,
+    Lead_Source: getCookie('utm_source')
+    ? getCookie('utm_source')
+    : leadSource,
     Role: getCookie('persona') ? getCookie('persona') : acRole,
     Captured_URL:
       window.location.href.match(/localhost/gi) == null
