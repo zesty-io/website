@@ -64,9 +64,7 @@ const getLeadObjectZOHO = (
     Inquiry_Reason: select,
     Description: obj.message,
     newsletter_signup: obj.newsletter_signup,
-    Lead_Source: getCookie('utm_source')
-    ? getCookie('utm_source')
-    : leadSource,
+    Lead_Source: leadSource,
     Role: getCookie('persona') ? getCookie('persona') : acRole,
     Captured_URL:
       window.location.href.match(/localhost/gi) == null
@@ -79,7 +77,9 @@ const getLeadObjectZOHO = (
     UTM_Term: getCookie('utm_term') ? getCookie('utm_term') : 'unknown',
     UTM_Medium: getCookie('utm_medium') ? getCookie('utm_medium') : 'unknown',
 
-    Lead_Source_Detail: leadDetail,
+    Lead_Source_Detail: getCookie('utm_source')
+    ? getCookie('utm_source')
+    : leadDetail,
     Business_Type: businessType,
     Lead_Status: 'Not Contacted',
     Designation: obj.jobTitle,
