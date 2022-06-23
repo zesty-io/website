@@ -56,6 +56,7 @@ const getLeadObjectZOHO = (
   // "How_Using_Zesty_io": acHow,
   // "Website": document.querySelector('#ac-url').value,
   // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
+  // zoho and google click id https://help.zoho.com/portal/en/kb/crm/integrations/google/google-ads/articles/configure-google-ads-crm-integration#Step_2_Add_hidden_element_in_your_web_forms
   return {
     First_Name: obj.firstName,
     Last_Name: obj.lastName,
@@ -70,16 +71,12 @@ const getLeadObjectZOHO = (
       window.location.href.match(/localhost/gi) == null
         ? window.location.href
         : 'https://www.testcapurl.com',
-    UTM_Campaign: getCookie('utm_campaign')
-      ? getCookie('utm_campaign')
-      : 'unknown',
+    UTM_Campaign: getCookie('utm_campaign') ? getCookie('utm_campaign') : 'unknown',
     UTM_Source: getCookie('utm_source') ? getCookie('utm_source') : 'unknown',
     UTM_Term: getCookie('utm_term') ? getCookie('utm_term') : 'unknown',
     UTM_Medium: getCookie('utm_medium') ? getCookie('utm_medium') : 'unknown',
-
-    Lead_Source_Detail: getCookie('utm_source')
-    ? getCookie('utm_source')
-    : leadDetail,
+    "$gclid": getCookie('gclid') ? getCookie('gclid') : '',
+    Lead_Source_Detail: getCookie('utm_source') ? getCookie('utm_source') : leadDetail,
     Business_Type: businessType,
     Lead_Status: 'Not Contacted',
     Designation: obj.jobTitle,
