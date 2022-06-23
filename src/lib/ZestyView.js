@@ -3,8 +3,6 @@
  */
 import React, { useState } from 'react';
 import * as Zesty from '../views/zesty';
-import ZestyHead from '../components/globals/ZestyHead';
-
 import ErrorPage from '../pages/_error';
 
 export function ZestyView(props) {
@@ -17,7 +15,6 @@ export function ZestyView(props) {
 
   return (
     <>
-      <ZestyHead content={props.content} />
       <Component content={props.content} />
     </>
   );
