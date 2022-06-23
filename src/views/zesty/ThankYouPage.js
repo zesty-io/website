@@ -195,7 +195,7 @@ const Articles = ({ content, theme }) => {
             <Grid item xs={12} sm={6} lg={4}>
               <Box
                 sx={{
-                  backgroundImage: `url(${item.hero_image.data[0].url})`,
+                  backgroundImage: `url(${item.hero_image?.data[0].url})`,
                   position: 'relative',
                   height: '100%',
                   minHeight: 475,

@@ -24,6 +24,13 @@ import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
 import { getCookie, setCookies } from 'cookies-next';
 import { Checkbox, FormControlLabel } from '@mui/material';
+import { useRouter } from 'next/router';
+
+/**
+ * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
+ * Note, if a custom field need to be added speak to todd.sabo@zesty.io 
+ * For testing new changes, please work with katie.moser@zesty.io
+ */
 
 // for hiding of ellipis in message in mobile
 const StyledTextField = styled(TextField)({
@@ -49,32 +56,30 @@ const getLeadObjectZOHO = (
   // "How_Using_Zesty_io": acHow,
   // "Website": document.querySelector('#ac-url').value,
   // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
+  // zoho and google click id https://help.zoho.com/portal/en/kb/crm/integrations/google/google-ads/articles/configure-google-ads-crm-integration#Step_2_Add_hidden_element_in_your_web_forms
   return {
     First_Name: obj.firstName,
     Last_Name: obj.lastName,
     Email: obj.email,
-    Phone_Number: obj.phoneNumber,
+    Phone: obj.phoneNumber,
     Inquiry_Reason: select,
     Description: obj.message,
     newsletter_signup: obj.newsletter_signup,
-
     Lead_Source: leadSource,
     Role: getCookie('persona') ? getCookie('persona') : acRole,
     Captured_URL:
       window.location.href.match(/localhost/gi) == null
         ? window.location.href
         : 'https://www.testcapurl.com',
-    UTM_Campaign: getCookie('utm_campaign')
-      ? getCookie('utm_campaign')
-      : 'unknown',
+    UTM_Campaign: getCookie('utm_campaign') ? getCookie('utm_campaign') : 'unknown',
     UTM_Source: getCookie('utm_source') ? getCookie('utm_source') : 'unknown',
     UTM_Term: getCookie('utm_term') ? getCookie('utm_term') : 'unknown',
     UTM_Medium: getCookie('utm_medium') ? getCookie('utm_medium') : 'unknown',
-
-    Lead_Source_Detail: leadDetail,
+    "$gclid": getCookie('gclid') ? getCookie('gclid') : '',
+    Lead_Source_Detail: getCookie('utm_source') ? getCookie('utm_source') : leadDetail,
     Business_Type: businessType,
     Lead_Status: 'Not Contacted',
-    Job_Title: obj.jobTitle,
+    Designation: obj.jobTitle,
     Company: obj.company,
   };
 };
@@ -209,7 +214,7 @@ function StandardFormWithSelect({
 }) {
   const theme = useTheme();
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   let inquiryReasons = [
     'General',
@@ -241,15 +246,15 @@ function StandardFormWithSelect({
     downloadLink && window.open(downloadLink, '_blank');
     capterraTracking && capterraTracking();
 
-    let payload = getLeadObjectZOHO(
+    let payload = await getLeadObjectZOHO(
       values,
       selectValue,
       leadDetail,
       businessType,
       leadSource,
     );
-    payload.newsletter_signup ? subscribeToZoho(payload) : postToZOHO(payload);
-    setOpen(!open);
+    payload.newsletter_signup ? await subscribeToZoho(payload) : await postToZOHO(payload);
+    window.location = '/ppc/thank-you';
     return values;
   };
 
@@ -491,12 +496,12 @@ function StandardFormWithSelect({
           </Grid>
         </Grid>
       </form>
-      <TransitionsModal
+      {/* <TransitionsModal
         title={modalTitle}
         message={modalMessage}
         open={open}
         setOpen={setOpen}
-      />
+      /> */}
     </Box>
   );
 }
