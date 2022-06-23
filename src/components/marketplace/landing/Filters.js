@@ -25,7 +25,7 @@ const Filters = () => {
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const onHoverHandler = () => {
     setOpen(true);
@@ -231,6 +231,7 @@ const Filters = () => {
         />
 
         <Button
+          onMouseDown={onMouseLeave}
           onMouseEnter={onHoverHandler}
           sx={{
             ml: { xs: 0, md: 2 },

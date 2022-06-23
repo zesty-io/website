@@ -66,13 +66,20 @@ const Hero = ({
 
         <Box
           sx={{
-            top: isExtraSmall ? '8%' : '10%',
+            top: isExtraSmall ? '8%' : isTablet ? '8%' : '10%',
             position: 'absolute',
             width: '100%',
             zIndex: 1,
           }}
         >
-          <Container>
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: 1600,
+              margin: 'auto',
+              px: isTablet ? 2 : 4,
+            }}
+          >
             <Grid container>
               <Grid item sm={12} md={7} lg={6}>
                 <Box
@@ -166,7 +173,7 @@ const Hero = ({
               </Grid>
               <Grid item sm={12} md={5} lg={6}></Grid>
             </Grid>
-          </Container>
+          </Box>
         </Box>
 
         <Filters />
