@@ -77,6 +77,7 @@ const getLeadObjectZOHO = (
     UTM_Medium: getCookie('utm_medium') ? getCookie('utm_medium') : 'unknown',
     "$gclid": getCookie('gclid') ? getCookie('gclid') : '',
     Lead_Source_Detail: getCookie('utm_source') ? getCookie('utm_source') : leadDetail,
+    Lead_Source_Topic: getCookie('utm_campaign') ? getCookie('utm_campaign') : 'none',
     Business_Type: businessType,
     Lead_Status: 'Not Contacted',
     Designation: obj.jobTitle,
