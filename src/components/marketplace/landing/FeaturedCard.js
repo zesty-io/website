@@ -10,13 +10,13 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
  */
 import FillerContent from 'components/globals/FillerContent';
 
-const AppCard = () => {
+const AppCard = ({ name, image, uri, meta_description }) => {
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 500));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Box component={'a'} href="#" sx={{ textDecoration: 'none' }}>
+    <Box component={'a'} href={uri} sx={{ textDecoration: 'none' }}>
       <Card
         sx={{
           '&:hover': {
@@ -34,20 +34,27 @@ const AppCard = () => {
         <CardContent sx={{ px: 4 }}>
           <Box
             sx={{
-              display: 'flex',
+              display: isExtraSmall ? 'block' : 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               gap: 2,
             }}
           >
             <Box
-              sx={{ width: 142, my: isExtraSmall ? 1 : 0, p: isTablet ? 2 : 0 }}
+              sx={{
+                width: 142,
+                minHeight: isExtraSmall ? 0 : 200,
+                display: 'flex',
+                alignItems: 'center',
+                my: isExtraSmall ? 1 : 0,
+                p: isTablet ? 2 : 0,
+              }}
             >
               <Box
-                sx={{ width: '100%' }}
+                sx={{ width: 100 }}
                 component="img"
                 alt=""
-                src={FillerContent.logos[0].url}
+                src={image || FillerContent.logos[0].url}
               />
             </Box>
 
@@ -60,7 +67,7 @@ const AppCard = () => {
                 variant="h5"
                 component="h2"
               >
-                Bootstrap
+                {name}
                 <Box sx={{ display: 'flex', gap: 1 }}>
                   <Typography
                     sx={{
@@ -69,7 +76,7 @@ const AppCard = () => {
                     variant="caption"
                     component="p"
                   >
-                    By bootstrap{' '}
+                    By zesty.io{' '}
                   </Typography>
                   <CheckCircleIcon
                     color="primary"
@@ -84,7 +91,7 @@ const AppCard = () => {
                   variant="body1"
                   component="p"
                 >
-                  Quick Install FontAwesome 4
+                  {meta_description}
                 </Typography>
 
                 <Box

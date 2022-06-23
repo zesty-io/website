@@ -14,79 +14,106 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import MuiMardown from 'mui-markdown';
 
 /**
  * React Imports
  */
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { MarketplaceContext } from '../MarketplaceContext';
+import useDebounce from 'components/hooks/useDebounce';
 
-const Filters = () => {
+const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
+  const { setEntities, setIsSearching } = useContext(MarketplaceContext);
+
+  /************************************************
+   * Theme Settings
+   */
+
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
+  /************************************************
+   * Filter  Handlers
+   */
   const [open, setOpen] = useState(false);
+  const onHoverHandler = () => setOpen(true);
+  const onMouseLeave = () => setOpen(false);
 
-  const onHoverHandler = () => {
-    setOpen(true);
+  /************************************************
+   * Search  Handlers
+   */
+
+  const [search, setSearch] = useState('');
+  const value = useDebounce(search, () =>
+    setEntities(
+      marketEntities?.filter((ext) => {
+        return ext.name.toLowerCase().includes(value.toLowerCase());
+      }),
+    ),
+  );
+  // Check if search is active
+  useEffect(() => {
+    search ? setIsSearching(true) : setIsSearching(false);
+  }, [search]);
+
+  /************************************************
+   * Tags  Handlers
+   */
+
+  /* Creating a new array of objects from the marketTags array. */
+  const [tags, setTags] = useState(
+    marketTags.map((item, idx) => {
+      return {
+        isActive: idx === 0 ? true : false,
+        tag: item.name,
+      };
+    }),
+  );
+
+  /**
+   * It loops through the tags array and sets the isActive property of the tag at the index passed in to
+   * true, and sets the isActive property of all other tags to false
+   * @param idx - the index of the tag that was clicked
+   */
+  const tagsHandler = (idx) => {
+    tags.forEach((item, i) =>
+      idx === i ? (item.isActive = true) : (item.isActive = false),
+    );
+    setEntityTypes([...entityTypes]);
   };
 
-  const onMouseLeave = () => {
-    setOpen(false);
+  /************************************************
+   * Entity types Handlers
+   */
+
+  /* Creating a new array of objects from the marketEntityTypes array. */
+  const [entityTypes, setEntityTypes] = useState(
+    marketEntityTypes.map((item, idx) => {
+      return {
+        isActive: idx === 0 ? true : false,
+        name: item.name,
+        description: item.description,
+      };
+    }),
+  );
+
+  /**
+   * It loops through the entityTypes array and sets the isActive property to true for the item at the
+   * index passed in as an argument, and false for all other items
+   * @param idx - the index of the entity type that was clicked
+   */
+  const activeEntityHandler = (idx) => {
+    entityTypes.forEach((item, i) =>
+      idx === i ? (item.isActive = true) : (item.isActive = false),
+    );
+    setEntityTypes([...entityTypes]);
   };
-
-  const entityTypes = [
-    {
-      isActive: true,
-      header: 'Extensions',
-      description:
-        'Lorem ipsum lorem ipsum lorem ipsum loren ipsum lorem ipsum',
-    },
-    {
-      isActive: false,
-      header: 'Modules',
-      description:
-        'Lorem ipsum lorem ipsum lorem ipsum loren ipsum lorem ipsum',
-    },
-    {
-      isActive: false,
-      header: 'Apps',
-      description:
-        'Lorem ipsum lorem ipsum lorem ipsum loren ipsum lorem ipsum',
-    },
-  ];
-
-  const tags = [
-    {
-      isActive: true,
-      tag: 'Schema',
-    },
-    {
-      isActive: false,
-      tag: 'Seo',
-    },
-    {
-      isActive: false,
-      tag: 'Commerce',
-    },
-    {
-      isActive: false,
-      tag: 'Analytics',
-    },
-    {
-      isActive: false,
-      tag: 'Security',
-    },
-    {
-      isActive: false,
-      tag: 'Frameworks',
-    },
-  ];
 
   return (
     <Container>
       {/* Entity Types Component  */}
-
       <Typography
         variant="h6"
         component="h3"
@@ -102,10 +129,12 @@ const Filters = () => {
         {entityTypes.map((item, idx) => (
           <Grid key={idx} item sm={12} md={4}>
             <Button
+              onClick={() => activeEntityHandler(idx)}
               fullWidth={true}
               color="secondary"
               variant={item.isActive ? 'contained' : 'outlined'}
               sx={{
+                minHeight: 118,
                 border: item.isActive
                   ? ''
                   : `1px solid ${theme.palette.common.grey}`,
@@ -131,20 +160,27 @@ const Filters = () => {
                 variant="h5"
                 component="h2"
               >
-                {item.header}
+                {item.name}
               </Typography>
-              <Typography
-                sx={{
-                  px: 4,
-                  color: item.isActive
-                    ? ''
-                    : theme.palette.zesty.zestyLightText,
+              <MuiMardown
+                overrides={{
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'subtitle2',
+                      component: 'p',
+                      sx: {
+                        px: 4,
+                        color: item.isActive
+                          ? ''
+                          : theme.palette.zesty.zestyLightText,
+                      },
+                    },
+                  },
                 }}
-                variant="subtitle2"
-                component="p"
               >
-                Lorem ipsum lorem ipsum lorem ipsum loren ipsum lorem ipsum
-              </Typography>
+                {item.description}
+              </MuiMardown>
             </Button>
           </Grid>
         ))}
@@ -169,6 +205,7 @@ const Filters = () => {
         {tags.map((item, idx) => (
           <Grid key={idx} item sm={6} md={4} lg={2}>
             <Button
+              onClick={() => tagsHandler(idx)}
               fullWidth={true}
               color="secondary"
               variant={item.isActive ? 'contained' : 'outlined'}
@@ -219,6 +256,7 @@ const Filters = () => {
           variant="outlined"
           color="secondary"
           fullWidth
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Search for apps"
           InputProps={{
             startAdornment: (
@@ -227,7 +265,6 @@ const Filters = () => {
               </InputAdornment>
             ),
           }}
-          // onChange={(e) => setSearch(e.target.value)}
         />
 
         <Button

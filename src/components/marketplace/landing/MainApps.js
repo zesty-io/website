@@ -9,12 +9,20 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  */
 import MainCard from './MainCard';
 
+/**
+ * React Imports
+ */
+import { useContext } from 'react';
+import { MarketplaceContext } from '../MarketplaceContext';
+
 const MainApps = () => {
+  const { entities, isSearching } = useContext(MarketplaceContext);
+
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
   return (
     <>
-      <Box sx={{ pb: 10 }} component="section">
+      <Box sx={{ py: 10 }} component="section">
         <Box sx={{ width: '100%', maxWidth: 1600, margin: 'auto', px: 4 }}>
           <Typography
             variant="h6"
@@ -25,11 +33,12 @@ const MainApps = () => {
               textAlign: isExtraSmall ? 'center' : 'text-left',
             }}
           >
-            Featured Apps
+            {isSearching ? 'Results' : 'Apps'}
           </Typography>
           <Grid container spacing={isExtraSmall ? 1 : 2}>
-            {[1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => (
+            {entities.map((item, idx) => (
               <Grid
+                key={idx}
                 sx={{ margin: isExtraSmall ? 'auto' : 0 }}
                 item
                 xs={12}
@@ -38,7 +47,7 @@ const MainApps = () => {
                 xl={3}
               >
                 <Box component={'a'} href="#" sx={{ textDecoration: 'none' }}>
-                  <MainCard />
+                  <MainCard {...item} />
                 </Box>
               </Grid>
             ))}

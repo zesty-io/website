@@ -16,6 +16,7 @@ import { useRouter } from 'next/router';
  * Components Imports
  */
 
+// import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
 import MarketplaceContainer from 'components/marketplace/landing/MarketplaceContainer';
 import MarketplaceEntities from 'components/marketplace/MarketplaceEntities';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
@@ -46,16 +47,13 @@ const Marketplace = ({
       </Head>
       <Main customRouting={props.navigationCustom}>
         <MarketplaceProvider inititalEntities={marketEntities}>
-          <Hero {...props} />
-          <MarketplaceContainer />
-          {/* <MarketplaceContainer
-            marketEntities={marketEntities}
-            marketEntityTypes={marketEntityTypes}
-            marketTags={marketTags}
+          <Hero
             {...props}
-          >
-            <MarketplaceEntities entities={marketEntities} />
-          </MarketplaceContainer> */}
+            marketEntities={marketEntities}
+            marketTags={marketTags}
+            marketEntityTypes={marketEntityTypes}
+          />
+          <MarketplaceContainer />
         </MarketplaceProvider>
       </Main>
     </>

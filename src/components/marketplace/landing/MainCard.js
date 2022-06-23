@@ -10,7 +10,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
  */
 import FillerContent from 'components/globals/FillerContent';
 
-const MainCard = () => {
+const MainCard = ({ name, image, uri, meta_description }) => {
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 500));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -18,7 +18,7 @@ const MainCard = () => {
   return (
     <Box
       component={'a'}
-      href="#"
+      href={uri || FillerContent.href}
       sx={{
         textDecoration: 'none',
         background: 'red',
@@ -30,36 +30,34 @@ const MainCard = () => {
             border: `1px solid ${theme.palette.zesty.zestyOrange}`,
           },
           width: '100%',
-          maxWidth: 560,
           margin: 'auto',
-          minHeight: 160,
+          minHeight: 260,
           display: 'flex',
-          justifyContent: 'center',
+
           alignItems: 'center',
         }}
       >
-        <CardContent>
+        <CardContent sx={{ width: '100%' }}>
           <Box>
             <Box
               sx={{
                 display: 'flex',
                 gap: 1,
-                justifyContent: 'center',
+
                 alignItems: 'center',
               }}
             >
               <Box
                 sx={{
-                  width: 142,
-                  my: isExtraSmall ? 1 : 0,
-                  p: isTablet ? 2 : 0,
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
               >
                 <Box
-                  sx={{ width: '100%' }}
+                  sx={{ width: 50 }}
                   component="img"
                   alt=""
-                  src={FillerContent.logos[0].url}
+                  src={image || FillerContent.logos[0].url}
                 />
               </Box>
 
@@ -71,7 +69,7 @@ const MainCard = () => {
                 variant="h5"
                 component="h2"
               >
-                Bootstrap
+                {name}
                 <Box sx={{ display: 'flex', gap: 1 }}>
                   <Typography
                     sx={{
@@ -80,7 +78,7 @@ const MainCard = () => {
                     variant="caption"
                     component="p"
                   >
-                    By bootstrap{' '}
+                    By zesty.io
                   </Typography>
                   <CheckCircleIcon
                     color="primary"
@@ -97,7 +95,7 @@ const MainCard = () => {
                   variant="body1"
                   component="p"
                 >
-                  Quick Install FontAwesome 4
+                  {meta_description || FillerContent.description}
                 </Typography>
 
                 <Box

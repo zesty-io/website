@@ -22,6 +22,9 @@ const Hero = ({
   features_logos,
   hero_image,
   hero_image_mobile,
+  marketEntityTypes,
+  marketTags,
+  marketEntities,
 }) => {
   const theme = useTheme();
 
@@ -176,7 +179,12 @@ const Hero = ({
           </Box>
         </Box>
 
-        <Filters />
+        {/* Filters Component Entry */}
+        <Filters
+          marketEntities={marketEntities}
+          marketTags={marketTags}
+          marketEntityTypes={marketEntityTypes}
+        />
       </Box>
     </>
   );
