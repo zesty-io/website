@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Page from '../components/wrappers/Page';
 import Script from 'next/script';
+import ZestyHead from 'components/globals/ZestyHead';
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'slick-carousel/slick/slick.css';
@@ -10,6 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'react-image-lightbox/style.css';
 import 'aos/dist/aos.css';
 import '../../public/styles/custom.css';
+
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -20,6 +22,9 @@ if (process.env.NODE_ENV === 'production') {
 export default function App({ Component, pageProps }) {
   return (
     <React.Fragment>
+      {pageProps?.content ||
+        <ZestyHead content={pageProps.content} />
+      }
       <Head>
         <meta
           name="viewport"

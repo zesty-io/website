@@ -7,7 +7,6 @@ import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
 import { getCookie, setCookies } from 'cookies-next';
 import { useTheme } from '@emotion/react';
-import ZestyHead from 'components/globals/ZestyHead';
 
 export default function Slug(props) {
   const theme = useTheme();
@@ -41,7 +40,7 @@ export default function Slug(props) {
 
   return (
     <>
-      <ZestyHead content={props.content} />
+      
       <Main
         model={props.meta.model_alternate_name}
         nav={props.navigationTree}
