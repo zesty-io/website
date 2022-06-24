@@ -3,7 +3,7 @@
 
 
 
-npm run  build1 ||
+npm run  build ||
 (
     echo '
     
