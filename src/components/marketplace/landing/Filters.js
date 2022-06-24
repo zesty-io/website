@@ -28,17 +28,6 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
   const { setEntities, setIsSearching } = useContext(MarketplaceContext);
   const router = useRouter();
 
-  // function handleSort() {
-  //   const list = [...marketEntities].sort((a, b) => {
-  //     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-  //     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-  //     return 0;
-  //   });
-
-  //   setEntities(isAsc ? list : list.reverse());
-  //   setIsAsc(!isAsc);
-  // }
-
   /************************************************
    * Theme Settings
    */
@@ -46,6 +35,25 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
+
+  /************************************************
+   * Sorting Handlers
+   */
+
+  const [isAsc, setIsAsc] = useState(false);
+  /**
+   * It sorts the list of entities by name, and then reverses the list if it's already sorted
+   */
+  const handleSort = () => {
+    const list = [...marketEntities].sort((a, b) => {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+      if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+      return 0;
+    });
+
+    setEntities(isAsc ? list : list.reverse());
+    setIsAsc(!isAsc);
+  };
 
   /************************************************
    * Filter  Handlers
@@ -114,18 +122,6 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
     }),
   );
 
-  /**
-   * It loops through the entityTypes array and sets the isActive property to true for the item at the
-   * index passed in as an argument, and false for all other items
-   * @param idx - the index of the entity type that was clicked
-   */
-  const activeEntityHandler = (idx) => {
-    entityTypes.forEach((item, i) =>
-      idx === i ? (item.isActive = true) : (item.isActive = false),
-    );
-    setEntityTypes([...entityTypes]);
-  };
-
   return (
     <Container>
       {/* Entity Types Component  */}
@@ -171,6 +167,9 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                   : '',
                 '&:hover': {
                   border: `1px solid ${theme.palette.zesty.zestyOrange}`,
+                  background: item.isActive
+                    ? ''
+                    : theme.palette.zesty.zestyLightOrange,
                 },
               }}
             >
@@ -287,6 +286,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
         />
 
         <Button
+          onClick={() => handleSort()}
           onMouseDown={onMouseLeave}
           onMouseEnter={onHoverHandler}
           sx={{
