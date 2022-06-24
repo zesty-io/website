@@ -87,7 +87,6 @@ import dxpCurve from '../../../public/assets/images/dxp_curve.svg';
 import dxpLine from '../../../public/assets/images/dxp_line.svg';
 
 function DxpEcommerce({ content }) {
-  console.log(content, 12222);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 

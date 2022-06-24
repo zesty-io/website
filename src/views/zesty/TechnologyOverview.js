@@ -55,7 +55,6 @@ function TechnologyOverview({ content }) {
     content,
     FillerContent,
   };
-  console.log(FillerContent);
 
   return (
     <Box>
