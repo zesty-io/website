@@ -3,17 +3,24 @@
  */
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 /**
  * Helpers Imports
  */
 import FillerContent from 'components/globals/FillerContent';
 
+/**
+ * React Imports
+ */
+import { useRouter } from 'next/router';
+
 const MainCard = ({ name, image, uri, meta_description }) => {
+  console.log(image);
+  /**
+   * Theme Settings
+   */
   const theme = useTheme();
-  const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 500));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const router = useRouter();
 
   return (
     <Box
@@ -57,7 +64,11 @@ const MainCard = ({ name, image, uri, meta_description }) => {
                   sx={{ width: 50 }}
                   component="img"
                   alt=""
-                  src={image || FillerContent.logos[0].url}
+                  src={
+                    router.asPath !== '/marketplace/'
+                      ? image.data[0].url
+                      : image || FillerContent.logos[0].url
+                  }
                 />
               </Box>
 

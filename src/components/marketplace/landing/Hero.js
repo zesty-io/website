@@ -127,7 +127,7 @@ const Hero = ({
                       gap: 1,
                     }}
                   >
-                    {features_logos.data.map((item, idx) => (
+                    {features_logos?.data.map((item, idx) => (
                       <Box
                         component="a"
                         href={item.meta.web.uri}

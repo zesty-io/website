@@ -20,11 +20,24 @@ import MuiMardown from 'mui-markdown';
  * React Imports
  */
 import { useState, useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { MarketplaceContext } from '../MarketplaceContext';
 import useDebounce from 'components/hooks/useDebounce';
 
 const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
   const { setEntities, setIsSearching } = useContext(MarketplaceContext);
+  const router = useRouter();
+
+  // function handleSort() {
+  //   const list = [...marketEntities].sort((a, b) => {
+  //     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+  //     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+  //     return 0;
+  //   });
+
+  //   setEntities(isAsc ? list : list.reverse());
+  //   setIsAsc(!isAsc);
+  // }
 
   /************************************************
    * Theme Settings
@@ -89,12 +102,14 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
    */
 
   /* Creating a new array of objects from the marketEntityTypes array. */
+
   const [entityTypes, setEntityTypes] = useState(
     marketEntityTypes.map((item, idx) => {
       return {
-        isActive: idx === 0 ? true : false,
+        isActive: router.asPath === item.uri ? true : false,
         name: item.name,
         description: item.description,
+        uri: item.uri,
       };
     }),
   );
@@ -126,14 +141,17 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
         Entity Types
       </Typography>
       <Grid container spacing={2}>
-        {entityTypes.map((item, idx) => (
-          <Grid key={idx} item sm={12} md={4}>
-            <Button
-              onClick={() => activeEntityHandler(idx)}
+        {entityTypes?.map((item, idx) => (
+          <Grid sx={{ width: '100%' }} key={idx} item sm={12} md={4}>
+            <Box
+              href={item.uri}
+              component="a"
               fullWidth={true}
               color="secondary"
-              variant={item.isActive ? 'contained' : 'outlined'}
               sx={{
+                textDecoration: 'none',
+                width: '100%',
+                maxWidth: 550,
                 minHeight: 118,
                 border: item.isActive
                   ? ''
@@ -148,10 +166,11 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                   ? theme.palette.common.white
                   : theme.palette.zesty.zestyZambezi,
                 borderRadius: 2,
+                background: item.isActive
+                  ? theme.palette.zesty.zestyOrange
+                  : '',
                 '&:hover': {
-                  background: item.isActive
-                    ? theme.palette.zesty.zestyRedHover
-                    : '',
+                  border: `1px solid ${theme.palette.zesty.zestyOrange}`,
                 },
               }}
             >
@@ -181,7 +200,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
               >
                 {item.description}
               </MuiMardown>
-            </Button>
+            </Box>
           </Grid>
         ))}
       </Grid>

@@ -38,6 +38,8 @@ const Marketplace = ({
     setCookies('PRODUCTION', props.zestyProductionMode);
   }, [props]);
 
+  console.log(props);
+
   return (
     <>
       <Head>
@@ -61,6 +63,7 @@ const Marketplace = ({
 };
 
 export async function getServerSideProps({ res, req }) {
+  console.log(req.url);
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=600, stale-while-revalidate=3600',

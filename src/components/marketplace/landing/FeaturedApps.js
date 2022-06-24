@@ -14,17 +14,23 @@ import AppCard from './FeaturedCard';
  */
 import { useContext } from 'react';
 import { MarketplaceContext } from '../MarketplaceContext';
+import { useRouter } from 'next/router';
 
 const FeaturedApps = () => {
   const { entities, isSearching } = useContext(MarketplaceContext);
+  const router = useRouter();
 
-  // console.log(entities);
+  /************************************************
+   * Theme Settings
+   */
+
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
+
   return (
     <>
       <Box
-        hidden={isSearching}
+        hidden={isSearching || router.asPath !== '/marketplace/'}
         sx={{
           pt: 10,
         }}
