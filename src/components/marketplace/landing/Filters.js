@@ -122,6 +122,14 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
     }),
   );
 
+  /**
+   * Hide Search if market items are less than 9
+   */
+  const [hideSearch, setHideSearch] = useState(false);
+  useEffect(() => {
+    marketEntities.length < 9 ? setHideSearch(true) : setHideSearch(false);
+  }, [marketEntities]);
+
   return (
     <Container>
       {/* Entity Types Component  */}
@@ -265,7 +273,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
       <Box
         sx={{
           position: 'relative',
-          display: 'flex',
+          display: hideSearch ? 'none' : 'flex',
           flexWrap: isTablet ? 'wrap' : 'no-wrap',
           mt: 4,
         }}
@@ -299,7 +307,6 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
           }}
           variant="outlined"
           color={isDarkMode ? 'secondary' : 'inherit'}
-          // onClick={() => handleSort()}
         >
           Sort:
           <Typography
