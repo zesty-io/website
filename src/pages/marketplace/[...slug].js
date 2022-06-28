@@ -1,4 +1,4 @@
-import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
+import MarketplaceContainer from 'components/marketplace/landing/MarketplaceContainer';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from 'layouts/Main/Main';
 import { fetchPage } from 'lib/api';
@@ -14,6 +14,7 @@ import InstalledPage from 'components/marketplace/installed';
 import { setCookies } from 'cookies-next';
 import { useTheme } from '@emotion/react';
 import { TitleBar } from 'components/marketplace/TitleBar';
+import Hero from 'components/marketplace/landing/Hero';
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -29,7 +30,8 @@ const renderMarketplaceViewByAltName = (altName) => {
   }
 };
 
-const slug = ({ marketEntityTypes, marketTags, ...props }) => {
+const slug = ({ marketplace, marketEntityTypes, marketTags, ...props }) => {
+  0;
   const theme = useTheme();
   const router = useRouter();
   const seoTitle = props?.meta?.web?.seo_meta_title,
@@ -72,7 +74,6 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
     );
   }
 
-  console.log(props, 123444);
   if (props.marketplaceAltName === ALTNAME.EXTENSION) {
     return (
       <>
@@ -99,12 +100,22 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        <AppBar url={router.asPath} />
-
+        {/* <AppBar url={router.asPath} /> */}
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}
         >
-          <MarketplaceContainer
+          {/**
+           * Category Entities - Marketplace Items by tags
+           * TypeEntities - Marketplace Items by Entity type
+           */}
+          <Hero
+            {...marketplace}
+            marketEntities={props.categoryEntities || props.typesEntities}
+            marketTags={marketTags}
+            marketEntityTypes={marketEntityTypes}
+          />
+          <MarketplaceContainer />
+          {/* <MarketplaceContainer
             marketEntities={props.categoryEntities || props.typesEntities}
             marketEntityTypes={marketEntityTypes}
             marketTags={marketTags}
@@ -114,7 +125,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
               props.marketplaceAltName,
               props.categoryEntities || props.typesEntities,
             )}
-          </MarketplaceContainer>
+          </MarketplaceContainer> */}
         </MarketplaceProvider>
       </Main>
     </>
@@ -162,11 +173,13 @@ export async function getServerSideProps({ req, res }) {
   }
 
   const data = await getMarketplaceData(req.url);
+  const marketplace = await getMarketplaceData('/marketplace/');
   let extensionsURL = process.env.PRODUCTION
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
+  /* This is fetching the tags from the extensions site. */
   const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
   const navigationCustom = (await fetchPage('/')).navigationCustom;
 
@@ -183,6 +196,7 @@ export async function getServerSideProps({ req, res }) {
   return {
     props: {
       ...data,
+      marketplace: marketplace,
       marketEntityTypes: await entityTypes.json(),
       marketTags: await tags.json(),
       navigationCustom: navigationCustom,

@@ -1,26 +1,36 @@
+/**
+ * Helpers Imports
+ */
 import { getMarketplaceData } from './[...slug]';
-import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
+import { fetchPage } from 'lib/api';
+
+/**
+ * React Imports
+ */
+import { setCookies } from 'cookies-next';
+import React, { useEffect } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+
+/**
+ * Components Imports
+ */
+
+// import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
+import MarketplaceContainer from 'components/marketplace/landing/MarketplaceContainer';
 import MarketplaceEntities from 'components/marketplace/MarketplaceEntities';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
-import AppBar from 'components/console/AppBar';
-import { useRouter } from 'next/router';
-import { fetchPage } from 'lib/api';
-import Head from 'next/head';
-import { HeroWithPrimaryBackgroundAndDesktopScreenshot } from 'blocks/heroes';
-import { setCookies } from 'cookies-next';
-import React, { useEffect } from 'react';
+import Hero from 'components/marketplace/landing/Hero';
 
-const Marketplace = ({
-  marketEntities,
-  marketEntityTypes,
-  marketTags,
-  env,
-  ...props
-}) => {
+const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
   const router = useRouter();
   const seoTitle = props.meta.web.seo_meta_title,
     seoDescription = props.meta.web.seo_meta_description;
+
+  useEffect(() => {
+    setCookies('PRODUCTION', props.zestyProductionMode);
+  }, [props]);
 
   return (
     <>
@@ -30,28 +40,15 @@ const Marketplace = ({
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        <AppBar url={router.asPath} />
-        <HeroWithPrimaryBackgroundAndDesktopScreenshot
-          title={props.title}
-          description={
-            <div dangerouslySetInnerHTML={{ __html: props.description }} />
-          }
-          screenshot={props.screenshot?.data[0]?.url}
-          //making an array of object > url , image
-          logos={props.features_logos?.data?.map((x) => ({
-            image: x.image?.data[0]?.url,
-            url: x.meta?.web?.uri,
-          }))}
-        />
+        {/* <AppBar url={router.asPath} /> */}
         <MarketplaceProvider inititalEntities={marketEntities}>
-          <MarketplaceContainer
-            marketEntities={marketEntities}
-            marketEntityTypes={marketEntityTypes}
-            marketTags={marketTags}
+          <Hero
             {...props}
-          >
-            <MarketplaceEntities entities={marketEntities} />
-          </MarketplaceContainer>
+            marketEntities={marketEntities}
+            marketTags={props.featured_tags.data}
+            marketEntityTypes={marketEntityTypes}
+          />
+          <MarketplaceContainer />
         </MarketplaceProvider>
       </Main>
     </>
@@ -75,7 +72,6 @@ export async function getServerSideProps({ res, req }) {
 
   const entities = await fetch(`${extensionsURL}/-/gql/extensions.json`);
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
-  const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
   const data = await getMarketplaceData(req.url);
   const navigationCustom = (await fetchPage('/')).navigationCustom;
 
@@ -83,7 +79,6 @@ export async function getServerSideProps({ res, req }) {
     props: {
       marketEntities: await entities.json(),
       marketEntityTypes: await entityTypes.json(),
-      marketTags: await tags.json(),
       ...data,
       navigationCustom: navigationCustom,
     },
