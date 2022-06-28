@@ -34,6 +34,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
 
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   /************************************************
@@ -87,23 +88,15 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
   const [tags, setTags] = useState(
     marketTags.map((item, idx) => {
       return {
-        isActive: idx === 0 ? true : false,
+        uri: item.uri || item.meta.web.uri,
+        isActive: router.asPath === item.uri ? true : false,
         tag: item.name,
       };
     }),
   );
 
-  /**
-   * It loops through the tags array and sets the isActive property of the tag at the index passed in to
-   * true, and sets the isActive property of all other tags to false
-   * @param idx - the index of the tag that was clicked
-   */
-  const tagsHandler = (idx) => {
-    tags.forEach((item, i) =>
-      idx === i ? (item.isActive = true) : (item.isActive = false),
-    );
-    setEntityTypes([...entityTypes]);
-  };
+  console.log(router.asPath);
+  console.log(marketTags);
 
   /************************************************
    * Entity types Handlers
@@ -133,32 +126,29 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
   return (
     <Container>
       {/* Entity Types Component  */}
-      <Typography
-        variant="h6"
-        component="h3"
+
+      <Grid
         sx={{
-          color: theme.palette.zesty.zestyLightText,
-          fontWeight: '500',
-          mb: 2,
+          mt: isTablet ? -5 : -13,
         }}
+        container
+        spacing={2}
       >
-        Entity Types
-      </Typography>
-      <Grid container spacing={2}>
         {entityTypes?.map((item, idx) => (
           <Grid sx={{ width: '100%' }} key={idx} item sm={12} md={4}>
             <Box
               href={item.uri}
               component="a"
               fullWidth={true}
-              color="secondary"
               sx={{
                 textDecoration: 'none',
                 width: '100%',
-                maxWidth: 550,
+                maxWidth: isTablet ? 'auto' : 550,
                 minHeight: 118,
                 border: item.isActive
                   ? ''
+                  : isDarkMode
+                  ? `1px solid ${theme.palette.zesty.zestyOrange}`
                   : `1px solid ${theme.palette.common.grey}`,
                 display: 'flex',
                 flexDirection: 'column',
@@ -171,18 +161,22 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                   : theme.palette.zesty.zestyZambezi,
                 borderRadius: 2,
                 background: item.isActive
-                  ? theme.palette.zesty.zestyOrange
-                  : '',
+                  ? theme.palette.zesty.zestyBlue
+                  : theme.palette.background.paper,
                 '&:hover': {
-                  border: `1px solid ${theme.palette.zesty.zestyOrange}`,
-                  background: item.isActive
-                    ? ''
-                    : theme.palette.zesty.zestyLightOrange,
+                  border: `1px solid ${theme.palette.zesty.zestyBlue}`,
                 },
               }}
             >
               <Typography
-                sx={{ fontWeight: 'bold' }}
+                sx={{
+                  fontWeight: 'bold',
+                  color: item.isActive
+                    ? theme.palette.common.white
+                    : isDarkMode
+                    ? theme.palette.zesty.zestyOrange
+                    : '',
+                }}
                 variant="h5"
                 component="h2"
               >
@@ -220,8 +214,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
         sx={{
           color: theme.palette.zesty.zestyLightText,
           fontWeight: '500',
-          mt: 4,
-          mb: 2,
+          my: 2,
         }}
       >
         Tags
@@ -230,14 +223,16 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
       <Grid container spacing={2}>
         {tags.map((item, idx) => (
           <Grid key={idx} item sm={6} md={4} lg={2}>
-            <Button
-              onClick={() => tagsHandler(idx)}
+            <Box
+              component="a"
+              href={item.uri}
               fullWidth={true}
-              color="secondary"
-              variant={item.isActive ? 'contained' : 'outlined'}
               sx={{
+                textDecoration: 'none',
                 border: item.isActive
                   ? ''
+                  : isDarkMode
+                  ? `1px solid ${theme.palette.zesty.zestyOrange}`
                   : `1px solid ${theme.palette.common.grey}`,
                 display: 'flex',
                 flexDirection: 'column',
@@ -248,11 +243,12 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                 color: item.isActive
                   ? theme.palette.common.white
                   : theme.palette.zesty.zestyZambezi,
+                background: item.isActive
+                  ? theme.palette.zesty.zestyBlue
+                  : theme.palette.background.paper,
                 borderRadius: 2,
                 '&:hover': {
-                  background: item.isActive
-                    ? theme.palette.zesty.zestyRedHover
-                    : '',
+                  border: `1px solid ${theme.palette.zesty.zestyBlue}`,
                 },
               }}
             >
@@ -263,7 +259,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
               >
                 {item.tag}
               </Typography>
-            </Button>
+            </Box>
           </Grid>
         ))}
       </Grid>
@@ -279,6 +275,9 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
         }}
       >
         <TextField
+          sx={{
+            background: theme.palette.background.paper,
+          }}
           variant="outlined"
           color="secondary"
           fullWidth
@@ -293,7 +292,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
           }}
         />
 
-        <Button
+        {/* <Button
           onClick={() => handleSort()}
           onMouseDown={onMouseLeave}
           onMouseEnter={onHoverHandler}
@@ -380,7 +379,7 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
               Most Installed
             </Button>
           </Card>
-        ) : null}
+        ) : null} */}
       </Box>
     </Container>
   );

@@ -74,7 +74,7 @@ const slug = ({ marketplace, marketEntityTypes, marketTags, ...props }) => {
     );
   }
 
-  console.log(marketplace, 123444);
+  console.log(props, 123444);
   if (props.marketplaceAltName === ALTNAME.EXTENSION) {
     return (
       <>
@@ -105,14 +105,16 @@ const slug = ({ marketplace, marketEntityTypes, marketTags, ...props }) => {
       </Head>
       <Main customRouting={props.navigationCustom}>
         {/* <AppBar url={router.asPath} /> */}
-
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}
         >
-          {console.log('props', props)}
+          {/**
+           * Category Entities - Marketplace Items by tags
+           * TypeEntities - Marketplace Items by Entity type
+           */}
           <Hero
             {...marketplace}
-            marketEntities={props.typesEntities}
+            marketEntities={props.categoryEntities || props.typesEntities}
             marketTags={marketTags}
             marketEntityTypes={marketEntityTypes}
           />
@@ -181,6 +183,7 @@ export async function getServerSideProps({ req, res }) {
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
+  /* This is fetching the tags from the extensions site. */
   const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
   const navigationCustom = (await fetchPage('/')).navigationCustom;
 

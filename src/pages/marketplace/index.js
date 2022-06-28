@@ -23,13 +23,7 @@ import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
 import Hero from 'components/marketplace/landing/Hero';
 
-const Marketplace = ({
-  marketEntities,
-  marketEntityTypes,
-  marketTags,
-  env,
-  ...props
-}) => {
+const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
   const router = useRouter();
   const seoTitle = props.meta.web.seo_meta_title,
     seoDescription = props.meta.web.seo_meta_description;
@@ -38,7 +32,7 @@ const Marketplace = ({
     setCookies('PRODUCTION', props.zestyProductionMode);
   }, [props]);
 
-  console.log(props);
+  console.log(props.featured_tags);
 
   return (
     <>
@@ -48,11 +42,12 @@ const Marketplace = ({
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
+        {/* <AppBar url={router.asPath} /> */}
         <MarketplaceProvider inititalEntities={marketEntities}>
           <Hero
             {...props}
             marketEntities={marketEntities}
-            marketTags={marketTags}
+            marketTags={props.featured_tags.data}
             marketEntityTypes={marketEntityTypes}
           />
           <MarketplaceContainer />
@@ -80,7 +75,6 @@ export async function getServerSideProps({ res, req }) {
 
   const entities = await fetch(`${extensionsURL}/-/gql/extensions.json`);
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
-  const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
   const data = await getMarketplaceData(req.url);
   const navigationCustom = (await fetchPage('/')).navigationCustom;
 
@@ -88,7 +82,6 @@ export async function getServerSideProps({ res, req }) {
     props: {
       marketEntities: await entities.json(),
       marketEntityTypes: await entityTypes.json(),
-      marketTags: await tags.json(),
       ...data,
       navigationCustom: navigationCustom,
     },

@@ -15,7 +15,6 @@ import FillerContent from 'components/globals/FillerContent';
 import { useRouter } from 'next/router';
 
 const MainCard = ({ name, image, uri, meta_description }) => {
-  console.log(image);
   /**
    * Theme Settings
    */

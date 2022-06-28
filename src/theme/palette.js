@@ -150,5 +150,7 @@ export const dark = {
     zestyBlue2: '#2196F3',
     whiteGray: '#F4F6FB',
     zestyTealWhite: '#1AE8FF',
+    zestyLightText: '#a1a1a1',
+    zestyLightOrange: '#2B252A',
   },
 };
