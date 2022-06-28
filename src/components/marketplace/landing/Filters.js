@@ -95,9 +95,6 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
     }),
   );
 
-  console.log(router.asPath);
-  console.log(marketTags);
-
   /************************************************
    * Entity types Handlers
    */

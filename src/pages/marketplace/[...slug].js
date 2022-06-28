@@ -74,7 +74,6 @@ const slug = ({ marketplace, marketEntityTypes, marketTags, ...props }) => {
     );
   }
 
-  console.log(props, 123444);
   if (props.marketplaceAltName === ALTNAME.EXTENSION) {
     return (
       <>
@@ -92,9 +91,6 @@ const slug = ({ marketplace, marketEntityTypes, marketTags, ...props }) => {
       </>
     );
   }
-
-  console.log('props.categoryEntities', props.categoryEntities);
-  console.log('props.Entities', props.typesEntities);
 
   return (
     <>

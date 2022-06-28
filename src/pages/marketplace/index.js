@@ -32,8 +32,6 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
     setCookies('PRODUCTION', props.zestyProductionMode);
   }, [props]);
 
-  console.log(props.featured_tags);
-
   return (
     <>
       <Head>
@@ -58,7 +56,6 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
 };
 
 export async function getServerSideProps({ res, req }) {
-  console.log(req.url);
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=600, stale-while-revalidate=3600',
