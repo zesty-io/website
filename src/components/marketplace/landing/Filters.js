@@ -1,15 +1,7 @@
 /**
  * MUI Imports
  */
-import {
-  Box,
-  TextField,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Card,
-} from '@mui/material';
+import { Box, TextField, Container, Typography, Grid } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';

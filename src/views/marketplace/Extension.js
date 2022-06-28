@@ -1,6 +1,6 @@
 // prettier-ignore
 import { Accordion, AccordionDetails,AccordionSummary,Box,Button,
-  Chip,Divider,Grid,Link,Stack,Typography } from '@mui/material';
+  Chip,Divider,Grid,Link,Stack,Typography, Card, CardContent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -13,21 +13,6 @@ import {
   ModuleInstaller,
   ResourceLinkComp,
 } from 'components/marketplace/ResourceLinkComp';
-
-function showTitle(isSM, props) {
-  return (
-    isSM && (
-      <>
-        <Typography variant="h4" fontWeight="bold" mt={{ xs: 2, md: 0 }}>
-          {props.name}
-        </Typography>
-        <Typography color="text.secondary" mb={1}>
-          {props.subtitle}
-        </Typography>
-      </>
-    )
-  );
-}
 
 function showDetails(props) {
   return (
@@ -126,7 +111,119 @@ const Extension = (props) => {
   const isSM = useMediaQuery(theme.breakpoints.down('md'));
   return (
     <>
-      <Grid container spacing={4} mt={2}>
+      <Box sx={{ mt: 10 }}>
+        <Grid container>
+          <Grid item sm={12} md={8}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              <Card
+                sx={{
+                  width: 170,
+
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <CardContent>
+                  <Box
+                    sx={{
+                      width: '100%',
+                    }}
+                    component="img"
+                    src={props?.image?.data[0]?.url || FillerContent.image}
+                  />
+                </CardContent>
+              </Card>
+              <Box sx={{ width: '70%' }}>
+                <Typography
+                  variant="h3"
+                  component="h1"
+                  fontWeight="bold"
+                  sx={{
+                    color: theme.palette.zesty.zestyOrange,
+                  }}
+                  mt={{ xs: 2, md: 0 }}
+                >
+                  {props.name}
+                </Typography>
+                <Typography color="text.secondary" mb={1}>
+                  {props.subtitle}
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item sm={12} md={4}>
+            <Box>
+              <InstallButton data={props} theme={theme} />
+              <Box
+                sx={{
+                  p: 5,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 4,
+                  border: `1px solid ${theme.palette.common.grey}`,
+                  borderRadius: 2,
+                  background: theme.palette.background.paper,
+                  mt: 2,
+                }}
+              >
+                <Typography
+                  variant="Subtitle2"
+                  sx={{
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Type
+                  <Typography>
+                    <Link
+                      href={props?.meta?.web?.uri?.replace(
+                        props?.meta?.web?.fragment,
+                        '',
+                      )}
+                    >
+                      Entity Type
+                    </Link>
+                  </Typography>
+                </Typography>
+
+                <Typography
+                  variant="Subtitle2"
+                  sx={{
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Published
+                  <Typography>
+                    {new Date(`${props?.meta?.createdAt}`).toLocaleDateString()}
+                  </Typography>
+                </Typography>
+
+                <Typography
+                  variant="Subtitle2"
+                  sx={{
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Author
+                  <Typography>{props?.author?.data?.[0]?.name}</Typography>
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+
+      {/* Old */}
+      <Grid container spacing={4} mt={200}>
         <Grid
           item
           xs={12}
@@ -139,7 +236,7 @@ const Extension = (props) => {
             src={props?.image?.data[0]?.url || FillerContent.image}
             width="220px"
           />
-          {showTitle(isSM, props)}
+          {/* {showTitle(isSM, props)} */}
           <InstallButton data={props} theme={theme} />
           {!isSM && (
             <>
@@ -173,7 +270,7 @@ const Extension = (props) => {
               flexDirection: 'column',
             }}
           >
-            {showTitle(!isSM, props)}
+            {/* {showTitle(!isSM, props)} */}
 
             <img
               alt="placard image"
