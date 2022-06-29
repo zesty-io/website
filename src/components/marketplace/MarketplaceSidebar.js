@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useTheme } from '@mui/material/styles';
 
 const CustomLink = styled(Link)`
   display: inline-block;
@@ -20,17 +21,29 @@ const MarketplaceSidebar = ({
   marketTags,
   marketManage,
 }) => {
+  const theme = useTheme();
+
   const router = useRouter();
   return (
     <Container>
       <List
         sx={{ my: 3, px: 2 }}
-        subheader={<ListSubheader component="div">Entity Types</ListSubheader>}
+        subheader={
+          <ListSubheader
+            sx={{
+              color: theme.palette.zesty.zestyZambezi,
+            }}
+            component="p"
+          >
+            Entity Types
+          </ListSubheader>
+        }
       >
         {marketEntityTypes?.map((list, index) => (
           <ListItem
             key={index}
             sx={{
+              borderRadius: 1,
               bgcolor: router.asPath.includes(list.uri) ? 'primary.main' : '',
             }}
           >

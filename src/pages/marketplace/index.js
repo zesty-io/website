@@ -23,6 +23,7 @@ import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
 import Hero from 'components/marketplace/landing/Hero';
 import AppBar from 'components/console/AppBar';
+import { TryRounded } from '@mui/icons-material';
 
 const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
   const router = useRouter();
