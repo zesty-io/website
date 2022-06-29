@@ -1,15 +1,7 @@
 /**
  * MUI Imports
  */
-import {
-  Box,
-  TextField,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Card,
-} from '@mui/material';
+import { Box, TextField, Container, Typography, Grid } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
@@ -247,10 +239,18 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                 '&:hover': {
                   border: `1px solid ${theme.palette.zesty.zestyBlue}`,
                 },
+                p: 1,
               }}
             >
               <Typography
-                sx={{ fontWeight: 'bold' }}
+                sx={{
+                  fontWeight: 'bold',
+                  color: item.isActive
+                    ? theme.palette.common.white
+                    : isDarkMode
+                    ? theme.palette.zesty.zestyOrange
+                    : '',
+                }}
                 variant="h6"
                 component="h2"
               >

@@ -54,6 +54,7 @@ import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import React from 'react';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useRouter } from 'next/router';
+import MuiMarkdown from 'mui-markdown';
 
 const FeaturesWithMobileScreenshot = ({
   header,
@@ -252,6 +253,8 @@ function GatedContentPage({ content }) {
   const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  console.log(content);
+
   const formContent = {
     leadDetail: 'CMSW - Media',
     businessType: 'Direct',
@@ -260,10 +263,32 @@ function GatedContentPage({ content }) {
     hideSelect: true,
     hideMessage: true,
     ctaText: FillerContent.cta,
-
-    modalTitle: `Thank you for downloading the DXP buyer's guide and RFP template. `,
-    modalMessage:
-      'Find more information about digital experiences at Zesty.io/mindshare.',
+    modalTitle: (
+      <MuiMarkdown
+        overrides={{
+          h2: {
+            component: Typography,
+            props: {
+              variant: 'h6',
+              component: 'h2',
+            },
+          },
+          p: {
+            component: Typography,
+            props: {
+              variant: 'subtitle1',
+              component: 'p',
+              sx: {
+                mt: 2,
+              },
+            },
+          },
+        }}
+      >
+        {content.thank_you_pop_up || FillerContent.description}
+      </MuiMarkdown>
+    ),
+    modalMessage: '',
     displayMsgUnderButton: ' ',
     additionalTextfield: { company: true, jobTitle: true },
     buttonFullWidth: true,
@@ -276,6 +301,7 @@ function GatedContentPage({ content }) {
     downloadLink:
       content.contentdownload?.data && content.contentdownload?.data[0]?.url,
     phoneNumber: true,
+    cmsModel: 'Gated Content Page',
   };
 
   return (
