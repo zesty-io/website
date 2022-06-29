@@ -1,6 +1,6 @@
 // prettier-ignore
 import { Accordion, AccordionDetails,AccordionSummary,Box,Button,
-  Chip,Divider,Grid,Link,Stack,Typography } from '@mui/material';
+  Chip,Divider,Grid,Link,Stack,Typography, Card, CardContent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -13,21 +13,8 @@ import {
   ModuleInstaller,
   ResourceLinkComp,
 } from 'components/marketplace/ResourceLinkComp';
-
-function showTitle(isSM, props) {
-  return (
-    isSM && (
-      <>
-        <Typography variant="h4" fontWeight="bold" mt={{ xs: 2, md: 0 }}>
-          {props.name}
-        </Typography>
-        <Typography color="text.secondary" mb={1}>
-          {props.subtitle}
-        </Typography>
-      </>
-    )
-  );
-}
+import LaunchIcon from '@mui/icons-material/Launch';
+import MuiMarkdown from 'mui-markdown';
 
 function showDetails(props) {
   return (
@@ -124,109 +111,277 @@ const InstallButton = ({ data, theme }) => {
 const Extension = (props) => {
   const theme = useTheme();
   const isSM = useMediaQuery(theme.breakpoints.down('md'));
+
+  const links = [
+    {
+      name: 'Github',
+      link: props.github_url,
+    },
+    {
+      name: 'Youtube',
+      link: props.youtube_video_hash,
+    },
+    {
+      name: 'Resource Link',
+      link: props.resource_link,
+    },
+  ];
+
+  console.log(props);
   return (
     <>
-      <Grid container spacing={4} mt={2}>
-        <Grid
-          item
-          xs={12}
-          md={4}
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-        >
-          <img
-            src={props?.image?.data[0]?.url || FillerContent.image}
-            width="220px"
-          />
-          {showTitle(isSM, props)}
-          <InstallButton data={props} theme={theme} />
-          {!isSM && (
-            <>
-              <Stack my={2} gap={1} alignSelf="start">
-                {showDetails(props)}
-              </Stack>
-              <Divider flexItem orientation="horizontal" />
+      <Box sx={{ py: 10 }}>
+        <Grid container>
+          <Grid sx={{ pr: 4 }} item sm={12} md={8}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              <Card
+                sx={{
+                  width: 170,
 
-              <Stack alignSelf="start">
-                <Typography variant="h6" mt={2} textAlign="left">
-                  Categories
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <CardContent>
+                  <Box
+                    sx={{
+                      width: '100%',
+                    }}
+                    component="img"
+                    src={props?.image?.data[0]?.url || FillerContent.image}
+                  />
+                </CardContent>
+              </Card>
+              <Box sx={{ width: '70%' }}>
+                <Typography
+                  variant="h3"
+                  component="h1"
+                  fontWeight="bold"
+                  sx={{
+                    color: theme.palette.zesty.zestyOrange,
+                  }}
+                  mt={{ xs: 2, md: 0 }}
+                >
+                  {props.name}
                 </Typography>
-                <Box display="flex" gap={2} flexWrap="wrap" my={2}>
-                  {props?.tags?.data?.map((tag, index) => (
-                    <Chip
-                      key={index}
-                      variant="outlined"
-                      color="secondary"
-                      label={tag?.model_alternate_name || 'Missing tag name'}
-                    />
+              </Box>
+            </Box>
+
+            <Box sx={{ mt: 5 }}>
+              <Typography
+                variant="h5"
+                component="p"
+                color="text.secondary"
+                mb={1}
+              >
+                {props.subtitle}
+              </Typography>
+
+              <Box sx={{ mt: 5 }}>
+                <Box
+                  sx={{ width: '100%' }}
+                  component="img"
+                  src={
+                    props.placard_image.data[0].url ||
+                    FillerContent.logos[0].url
+                  }
+                />
+              </Box>
+
+              <Box
+                sx={{
+                  mt: 2,
+                }}
+              >
+                <MuiMarkdown
+                  overrides={{
+                    p: {
+                      component: Typography,
+                      props: {
+                        sx: {
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
+                        variant: 'h5',
+                        component: 'p',
+                      },
+                    },
+                  }}
+                >
+                  {props.info || FillerContent.description}
+                </MuiMarkdown>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item sm={12} md={4}>
+            <Box>
+              <InstallButton data={props} theme={theme} />
+              <Box
+                sx={{
+                  p: 5,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 4,
+                  border: `1px solid ${theme.palette.common.grey}`,
+                  borderRadius: 2,
+                  background: theme.palette.background.paper,
+                  mt: 2,
+                }}
+              >
+                <Typography
+                  variant="Subtitle2"
+                  sx={{
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Type
+                  <Typography>
+                    <Link
+                      sx={{
+                        color: 'inherit',
+                        textDecoration: 'none',
+                      }}
+                      href={`/marketplace/${props.meta.model_name.toLowerCase()}`}
+                    >
+                      {props.meta.model_name}
+                    </Link>
+                  </Typography>
+                </Typography>
+
+                <Typography
+                  variant="Subtitle2"
+                  sx={{
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Published
+                  <Typography>
+                    {new Date(`${props?.meta?.createdAt}`).toLocaleDateString()}
+                  </Typography>
+                </Typography>
+
+                <Typography
+                  variant="Subtitle2"
+                  sx={{
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Author
+                  <Typography>{props?.author?.data?.[0]?.name}</Typography>
+                </Typography>
+              </Box>
+            </Box>
+
+            <Box>
+              <Box
+                sx={{
+                  p: 5,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  border: `1px solid ${theme.palette.common.grey}`,
+                  borderRadius: 2,
+                  background: theme.palette.background.paper,
+                  mt: 2,
+                }}
+              >
+                <Typography
+                  variant="Subtitle2"
+                  sx={{
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                    mb: 2,
+                  }}
+                >
+                  Links
+                </Typography>
+
+                {links.map((item) => (
+                  <Typography
+                    sx={{
+                      color: theme.palette.zesty.zestyOrange,
+                      fontWeight: 'bold',
+                      display: item.link ? 'flex' : 'none',
+                      alignItems: 'center',
+                      gap: 0.5,
+                    }}
+                  >
+                    <Link
+                      href={item.link}
+                      sx={{
+                        color: theme.palette.zesty.zestyOrange,
+                        textDecoration: 'none',
+                      }}
+                    >
+                      {item.name}
+                    </Link>
+                    <LaunchIcon sx={{ width: 14, height: 14 }} />
+                  </Typography>
+                ))}
+              </Box>
+            </Box>
+            {/* Tags */}
+
+            <Box>
+              <Box
+                sx={{
+                  p: 5,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  border: `1px solid ${theme.palette.common.grey}`,
+                  borderRadius: 2,
+                  background: theme.palette.background.paper,
+                  mt: 2,
+                }}
+              >
+                <Typography
+                  variant="Subtitle2"
+                  sx={{
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Tags
+                </Typography>
+
+                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mt: 2 }}>
+                  {props?.tags?.data.map((item) => (
+                    <Typography
+                      sx={{
+                        width: '100%',
+                        maxWidth: 90,
+                        border: `1px solid ${theme.palette.zesty.zestyOrange}`,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: 2,
+                      }}
+                    >
+                      <Link
+                        href={item.meta.web.uri}
+                        sx={{
+                          color: theme.palette.zesty.zestyOrange,
+                          textDecoration: 'none',
+                        }}
+                      >
+                        {item.name}
+                      </Link>
+                    </Typography>
                   ))}
                 </Box>
-              </Stack>
-            </>
-          )}
+              </Box>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={8}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            {showTitle(!isSM, props)}
-
-            <img
-              alt="placard image"
-              src={props?.placard_image?.data[0]?.url || FillerContent.image}
-              width="100%"
-            />
-
-            <YoutubeEmbed youtubeHash={props?.youtube_video_hash} />
-            <div
-              dangerouslySetInnerHTML={{
-                __html: props?.info || FillerContent.description,
-              }}
-            />
-
-            {isSM && (
-              <>
-                <Typography fontWeight="bold" variant="h4" my={2}>
-                  Additonal Information
-                </Typography>
-                <Accordion disableGutters>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography fontWeight="bold">Details</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Box display="flex" gap={2} flexDirection="column">
-                      {showDetails(props)}
-                    </Box>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion disableGutters>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography fontWeight="bold">Categories</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Box display="flex" gap={2} flexWrap="wrap">
-                      {props?.tags?.data?.map((tag, index) => (
-                        <Chip
-                          key={index}
-                          variant="outlined"
-                          color="secondary"
-                          label={
-                            tag?.model_alternate_name || 'Missing tag name'
-                          }
-                        />
-                      ))}
-                    </Box>
-                  </AccordionDetails>
-                </Accordion>
-              </>
-            )}
-          </Box>
-        </Grid>
-      </Grid>
+      </Box>
     </>
   );
 };

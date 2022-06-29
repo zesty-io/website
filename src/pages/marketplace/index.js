@@ -22,6 +22,7 @@ import MarketplaceEntities from 'components/marketplace/MarketplaceEntities';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
 import Hero from 'components/marketplace/landing/Hero';
+import AppBar from 'components/console/AppBar';
 
 const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
   const router = useRouter();
@@ -40,7 +41,7 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        {/* <AppBar url={router.asPath} /> */}
+        <AppBar url={router.asPath} />
         <MarketplaceProvider inititalEntities={marketEntities}>
           <Hero
             {...props}

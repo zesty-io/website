@@ -100,7 +100,7 @@ const slug = ({ marketplace, marketEntityTypes, marketTags, ...props }) => {
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        {/* <AppBar url={router.asPath} /> */}
+        <AppBar url={router.asPath} />
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}
         >
