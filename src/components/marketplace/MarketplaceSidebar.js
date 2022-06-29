@@ -67,6 +67,7 @@ const MarketplaceSidebar = ({
           <ListItem
             key={index}
             sx={{
+              borderRadius: 1,
               bgcolor: router.asPath.includes(list.uri) ? 'primary.main' : '',
             }}
           >
