@@ -108,13 +108,18 @@ const slug = ({ marketplace, marketEntityTypes, marketTags, ...props }) => {
            * Category Entities - Marketplace Items by tags
            * TypeEntities - Marketplace Items by Entity type
            */}
-          <Hero
+          {/* <Hero
+            {...marketplace}
+            marketEntities={props.categoryEntities || props.typesEntities}
+            marketTags={marketTags}
+            marketEntityTypes={marketEntityTypes}
+          /> */}
+          <MarketplaceContainer
             {...marketplace}
             marketEntities={props.categoryEntities || props.typesEntities}
             marketTags={marketTags}
             marketEntityTypes={marketEntityTypes}
           />
-          <MarketplaceContainer />
           {/* <MarketplaceContainer
             marketEntities={props.categoryEntities || props.typesEntities}
             marketEntityTypes={marketEntityTypes}
