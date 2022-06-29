@@ -239,10 +239,18 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                 '&:hover': {
                   border: `1px solid ${theme.palette.zesty.zestyBlue}`,
                 },
+                p: 1,
               }}
             >
               <Typography
-                sx={{ fontWeight: 'bold' }}
+                sx={{
+                  fontWeight: 'bold',
+                  color: item.isActive
+                    ? theme.palette.common.white
+                    : isDarkMode
+                    ? theme.palette.zesty.zestyOrange
+                    : '',
+                }}
                 variant="h6"
                 component="h2"
               >
