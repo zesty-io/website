@@ -39,7 +39,7 @@ const Features = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
             }}
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(
-                content.features_header,
+                content?.features_header ? content.features_header : '',
                 'Zesty',
                 theme.palette.zesty.zestyOrange,
               ),
