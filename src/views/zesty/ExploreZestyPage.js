@@ -608,20 +608,10 @@ const ContactUs = ({ title, description, content, formContent }) => {
   );
 };
 
-const url = 'https://www.zesty.io/ppc/explore?toJSON';
 
-const fetchCardsData = async (uri, setFunc) => {
-  const res = await fetch(uri).then((response) => response.json());
-  res && (await setFunc(res));
-};
 
-function ExploreZesty() {
-  const [content, setcontent] = React.useState([]);
-
-  React.useEffect(() => {
-    fetchCardsData(url, setcontent);
-  }, []);
-
+function ExploreZesty({content}) {
+  console.log('explore content', content)
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
