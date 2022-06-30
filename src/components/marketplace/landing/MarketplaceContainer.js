@@ -4,7 +4,7 @@
 import FeaturedApps from './FeaturedApps';
 import MainApps from './MainApps';
 
-const MarketplaceContainer = () => {
+const MarketplaceContainer = ({}) => {
   return (
     <>
       <FeaturedApps />
