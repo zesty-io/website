@@ -67,7 +67,7 @@ export const AppInstallerComp = ({ data, theme }) => {
       ) : !instanceZUID ? (
         'Please Select an Instance to continue'
       ) : isInstalled ? (
-        'App Already Installed '
+        'App Installed '
       ) : (
         'Install ' + data?.name
       )}

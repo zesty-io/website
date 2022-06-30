@@ -8,6 +8,7 @@ export const light = {
   common: {
     black: '#000',
     white: '#fff',
+    grey: '#DADADA',
   },
   primary: {
     main: '#497edf',
@@ -37,6 +38,7 @@ export const light = {
     default: '#ffffff',
     level2: '#f2f4fb',
     level1: '#f5f5f5',
+    level3: '#F5F7FB',
   },
   zesty: {
     zestyDarkBlue: '#1b202c',
@@ -74,6 +76,11 @@ export const light = {
     zestyZambezi: '#5b5b5b',
     zestyLightRedOrange: '#FFFCFB',
     zestyAzure: '#faffff',
+    zestyRedHover: '#FF3E13',
+    zestyLightText: '#a1a1a1',
+    zestyLightText2: '#CBCBCB',
+    zestyLightText3: '#E2E2E2',
+    zestyLightOrange: '#F5F1F1',
   },
 };
 
@@ -143,5 +150,7 @@ export const dark = {
     zestyBlue2: '#2196F3',
     whiteGray: '#F4F6FB',
     zestyTealWhite: '#1AE8FF',
+    zestyLightText: '#a1a1a1',
+    zestyLightOrange: '#2B252A',
   },
 };

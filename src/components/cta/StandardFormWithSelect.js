@@ -28,7 +28,7 @@ import { useRouter } from 'next/router';
 
 /**
  * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
- * Note, if a custom field need to be added speak to todd.sabo@zesty.io 
+ * Note, if a custom field need to be added speak to todd.sabo@zesty.io
  * For testing new changes, please work with katie.moser@zesty.io
  */
 
@@ -65,19 +65,27 @@ const getLeadObjectZOHO = (
     Inquiry_Reason: select,
     Description: obj.message,
     newsletter_signup: obj.newsletter_signup,
-    Lead_Source: leadSource,
+    Lead_Source: getCookie('utm_source')
+    ? getCookie('utm_source')
+    : leadSource,
     Role: getCookie('persona') ? getCookie('persona') : acRole,
     Captured_URL:
       window.location.href.match(/localhost/gi) == null
         ? window.location.href
         : 'https://www.testcapurl.com',
-    UTM_Campaign: getCookie('utm_campaign') ? getCookie('utm_campaign') : 'unknown',
+    UTM_Campaign: getCookie('utm_campaign')
+      ? getCookie('utm_campaign')
+      : 'unknown',
     UTM_Source: getCookie('utm_source') ? getCookie('utm_source') : 'unknown',
     UTM_Term: getCookie('utm_term') ? getCookie('utm_term') : 'unknown',
     UTM_Medium: getCookie('utm_medium') ? getCookie('utm_medium') : 'unknown',
-    "$gclid": getCookie('gclid') ? getCookie('gclid') : '',
-    Lead_Source_Detail: getCookie('utm_source') ? getCookie('utm_source') : leadDetail,
-    Lead_Source_Topic: getCookie('utm_campaign') ? getCookie('utm_campaign') : 'none',
+    $gclid: getCookie('gclid') ? getCookie('gclid') : '',
+    Lead_Source_Detail: getCookie('utm_medium')
+      ? getCookie('utm_medium')
+      : leadDetail,
+    Lead_Source_Topic: getCookie('utm_campaign')
+      ? getCookie('utm_campaign')
+      : 'none',
     Business_Type: businessType,
     Lead_Status: 'Not Contacted',
     Designation: obj.jobTitle,
@@ -212,10 +220,11 @@ function StandardFormWithSelect({
   onClickBtn = null,
   phoneNumber = false,
   capterraTracking = null,
+  cmsModel,
 }) {
   const theme = useTheme();
 
-  // const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   let inquiryReasons = [
     'General',
@@ -254,8 +263,14 @@ function StandardFormWithSelect({
       businessType,
       leadSource,
     );
-    payload.newsletter_signup ? await subscribeToZoho(payload) : await postToZOHO(payload);
-    window.location = '/ppc/thank-you';
+    payload.newsletter_signup
+      ? await subscribeToZoho(payload)
+      : await postToZOHO(payload);
+
+    cmsModel === 'Gated Content Page'
+      ? setOpen(true)
+      : (window.location = '/ppc/thank-you');
+
     return values;
   };
 
@@ -497,12 +512,12 @@ function StandardFormWithSelect({
           </Grid>
         </Grid>
       </form>
-      {/* <TransitionsModal
+      <TransitionsModal
         title={modalTitle}
         message={modalMessage}
         open={open}
         setOpen={setOpen}
-      /> */}
+      />
     </Box>
   );
 }
