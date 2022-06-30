@@ -105,7 +105,7 @@ const Bottom = ({ content, theme, isMobile, isTablet }) => {
                     width: '100%',
                   }}
                 >
-                  <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
+                  <Box sx={{ width: isTablet ? '100%' : '10rem' }}>
                     <TryFreeButton
                       fullWidth={true}
                       text={content.bottom_cta_button_primary}
@@ -116,7 +116,7 @@ const Bottom = ({ content, theme, isMobile, isTablet }) => {
                   <Button
                     variant="text"
                     color="secondary"
-                    fullWidth={isTablet}
+                    fullWidth={isMobile}
                     sx={{ textDecoration: 'underline' }}
                   >
                     {content.bottom_cta_button_secondary}
