@@ -73,7 +73,6 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
     );
   }
 
-  console.log(props, 123444);
   if (props.marketplaceAltName === ALTNAME.EXTENSION) {
     return (
       <>
