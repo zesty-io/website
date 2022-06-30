@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Card, Container, Link, Typography } from '@mui/material';
+import { Box, Card, Container, Link, Typography, Grid } from '@mui/material';
 import ZoomMui from '@mui/material/Zoom';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
@@ -14,6 +14,7 @@ import { useState } from 'react';
  * Helpers Imports
  */
 import * as helper from 'utils';
+import FillerContent from 'components/globals/FillerContent';
 
 const Implementation = ({ content, theme, isMobile }) => {
   const [headless, setheadless] = useState(true);
@@ -152,140 +153,73 @@ const Implementation = ({ content, theme, isMobile }) => {
             </Box>
           </Card>{' '}
         </Box>
-        <Box
-          paddingTop={isMobile ? 4 : 15}
-          sx={{
-            display: 'flex',
-            position: 'relative',
-            zIndex: '1000',
-            flexDirection: isMobile ? 'column' : 'row',
-            justifyContent: 'center',
-            justifyItems: 'center',
-          }}
-        >
-          <div data-aos="zoom-in">
-            <ZoomMui
-              in={headless}
-              style={{
-                display: headless ? 'flex' : 'none',
-                justifyContent: 'center',
-                justifyItems: 'center',
-                alignItems: 'center',
-                margin: '0 auto',
-              }}
-            >
-              <img
-                src={content.headless_cms_graphic.data[0].url}
-                width={isMobile ? 350 : 600}
-              />
-            </ZoomMui>
-            <ZoomMui
-              in={hybrid}
-              style={{
-                display: hybrid ? 'flex' : 'none',
-                justifyContent: 'center',
-                justifyItems: 'center',
-                alignItems: 'center',
-
-                margin: '0 auto',
-              }}
-            >
-              <img
-                width={isMobile ? 350 : 600}
-                src={content.headless_cms_graphic.data[0].url}
-              />
-            </ZoomMui>
-          </div>
-
-          <div data-aos="zoom-in">
-            <ZoomMui
-              in={headless}
-              style={{ display: headless ? 'block' : 'none' }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  position: 'relative',
-                }}
-              >
-                <Typography
-                  component={'p'}
-                  variant={'p'}
-                  paddingY={isMobile ? 4 : 10}
+        <Box>
+          <Grid sx={{ mt: 4 }} container spacing={2}>
+            <Grid item sm={12} md={6}>
+              <ZoomMui in={headless ? headless : hybrid}>
+                <Box
+                  component="img"
+                  src={
+                    headless
+                      ? content.headless_cms_graphic?.data[0].url
+                      : content.hybrid_cms_graphic?.data[0].url
+                  }
                   sx={{
-                    color: theme.palette.secondary.darkCharcoal,
-                    textAlign: 'left',
-                    fontSize: '1.2rem',
-                  }}
-                  dangerouslySetInnerHTML={{
-                    __html: helper.strColorChanger(
-                      content.headless_cms_description,
-                      'Personalize at scale with Data',
-                      theme.palette.zesty.zestyOrange,
-                    ),
+                    width: '100%',
                   }}
                 />
-                <Link
-                  href="#"
-                  underline="always"
-                  sx={{
-                    position: 'absolute',
-                    top: isMobile ? '10rem' : '10rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '.5rem',
-                    color: theme.palette.zesty.zestyTealDark,
-                  }}
-                >
-                  Learn More <ArrowRightAltIcon />
-                </Link>
-              </Box>
-            </ZoomMui>
-            <ZoomMui in={hybrid} style={{ display: hybrid ? 'block' : 'none' }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  position: 'relative',
-                }}
-              >
-                <Typography
-                  component={'p'}
-                  variant={'p'}
-                  paddingY={isMobile ? 4 : 10}
-                  sx={{
-                    color: theme.palette.secondary.darkCharcoal,
-                    textAlign: 'left',
-                    fontSize: '1.2rem',
-                  }}
-                  dangerouslySetInnerHTML={{
-                    __html: helper.strColorChanger(
-                      content.hybrid_cms_description,
-                      'Personalize at scale with Data',
-                      theme.palette.zesty.zestyOrange,
-                    ),
-                  }}
-                />
-                <Link
-                  href="#"
-                  underline="always"
-                  sx={{
-                    position: 'absolute',
-                    top: '25vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '.5rem',
-                    color: theme.palette.zesty.zestyTealDark,
-                  }}
-                >
-                  Learn More <ArrowRightAltIcon />
-                </Link>
-              </Box>
-            </ZoomMui>
-          </div>
+              </ZoomMui>
+            </Grid>
+            <Grid
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              item
+              sm={12}
+              md={6}
+            >
+              <div data-aos="zoom-in">
+                <ZoomMui in={headless ? headless : hybrid}>
+                  <Box>
+                    <Typography
+                      component={'p'}
+                      variant={'p'}
+                      sx={{
+                        color: theme.palette.secondary.darkCharcoal,
+                        textAlign: 'left',
+                        fontSize: '1.2rem',
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: helper.strColorChanger(
+                          headless
+                            ? content.headless_cms_description
+                            : content.hybrid_cms_description,
+                          'Personalize at scale with Data',
+                          theme.palette.zesty.zestyOrange,
+                        ),
+                      }}
+                    />
+                    <Box>
+                      <Link
+                        href="#"
+                        underline="always"
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '.5rem',
+                          color: theme.palette.zesty.zestyTealDark,
+                        }}
+                      >
+                        Learn More <ArrowRightAltIcon />
+                      </Link>
+                    </Box>
+                  </Box>
+                </ZoomMui>
+              </div>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     </Box>

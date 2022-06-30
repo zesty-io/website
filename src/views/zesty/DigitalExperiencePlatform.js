@@ -103,6 +103,7 @@ import Integrations from 'components/marketing/DigitalExperiencePlatform/Integra
 import Implementation from 'components/marketing/DigitalExperiencePlatform/Implementation';
 import CaseStudies from 'components/marketing/DigitalExperiencePlatform/CaseStudies';
 import Bottom from 'components/marketing/DigitalExperiencePlatform/Bottom';
+import TopBrands from '../../blocks/caseStudies/TopBrands';
 
 function DigitalExperiencePlatform({ content }) {
   const theme = useTheme();
@@ -146,7 +147,7 @@ function DigitalExperiencePlatform({ content }) {
       <Features {...PageData} />
       <Integrations {...PageData} />
       <Implementation {...PageData} />
-      <CaseStudies {...PageData} />
+      <TopBrands {...PageData} />
       <Bottom {...PageData} />
     </Box>
   );
