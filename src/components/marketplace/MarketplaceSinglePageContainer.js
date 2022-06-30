@@ -101,7 +101,6 @@ const MarketplaceSinglePageContainer = ({
             direction={{ xs: 'column', md: 'row' }}
             alignItems="center"
           >
-            {console.log(marketEntities)}
             <TextField
               sx={{
                 background: theme.palette.background.paper,
