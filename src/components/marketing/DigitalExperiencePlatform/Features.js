@@ -1,24 +1,14 @@
 /**
  * MUI Imports
  */
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  Link,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Card, Container, Typography } from '@mui/material';
 
 /**
  * Helpers Imports
  */
 import * as helper from 'utils';
 
-const Features = ({ content, theme, isMobile }) => {
+const Features = ({ content, theme, isMobile, isDarkMode }) => {
   const arr = content.features.data;
   const bracketImg =
     content.dxp_background_images?.data[0]?.url ||
@@ -51,7 +41,9 @@ const Features = ({ content, theme, isMobile }) => {
             paddingTop={isMobile ? 4 : 10}
             paddingBottom={isMobile ? 4 : 10}
             sx={{
-              color: theme.palette.secondary.darkCharcoal,
+              color: isDarkMode
+                ? theme.palette.zesty.zestyDarkBlue
+                : theme.palette.secondary.darkCharcoal,
               textAlign: 'center',
               fontSize: isMobile ? '24px' : '48px',
             }}
@@ -105,7 +97,9 @@ const Features = ({ content, theme, isMobile }) => {
                     component={'h2'}
                     variant={'p'}
                     sx={{
-                      color: theme.palette.common.dark,
+                      color: isDarkMode
+                        ? theme.palette.zesty.zestyDarkBlue
+                        : theme.palette.secondary.darkCharcoal,
                       textAlign: 'left',
                       fontSize: '16px',
                       fontWeight: 'light',

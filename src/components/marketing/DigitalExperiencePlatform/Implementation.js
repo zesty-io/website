@@ -16,7 +16,7 @@ import { useState } from 'react';
 import * as helper from 'utils';
 import FillerContent from 'components/globals/FillerContent';
 
-const Implementation = ({ content, theme, isMobile }) => {
+const Implementation = ({ content, theme, isMobile, isDarkMode }) => {
   const [headless, setheadless] = useState(true);
   const [hybrid, sethybrid] = useState(false);
   const swooshBg =
@@ -59,8 +59,11 @@ const Implementation = ({ content, theme, isMobile }) => {
             variant={'p'}
             paddingBottom={8}
             sx={{
+              color: isDarkMode
+                ? theme.palette.zesty.zestyDarkBlue
+                : theme.palette.secondary.darkCharcoal,
               fontSize: isMobile ? '22px' : '32px',
-              color: theme.palette.secondary.darkCharcoal,
+              py: 10,
               textAlign: 'center',
             }}
             dangerouslySetInnerHTML={{
@@ -187,7 +190,9 @@ const Implementation = ({ content, theme, isMobile }) => {
                       component={'p'}
                       variant={'p'}
                       sx={{
-                        color: theme.palette.secondary.darkCharcoal,
+                        color: isDarkMode
+                          ? theme.palette.zesty.zestyDarkBlue
+                          : theme.palette.secondary.darkCharcoal,
                         textAlign: 'left',
                         fontSize: '1.2rem',
                       }}

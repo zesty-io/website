@@ -22,7 +22,7 @@ import * as helper from 'utils';
 const Integrations = ({ content, theme, isMobile, isTablet }) => {
   return (
     <Box
-      paddingY={2}
+      paddingY={8}
       sx={{
         background: theme.palette.zesty.zestyGray99,
       }}

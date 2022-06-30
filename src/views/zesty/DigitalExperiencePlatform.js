@@ -109,6 +109,7 @@ function DigitalExperiencePlatform({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const HeroProps = {
     eyebrow: content.header_eyebrow,
@@ -136,6 +137,7 @@ function DigitalExperiencePlatform({ content }) {
     isMobile,
     isTablet,
     FillerContent,
+    isDarkMode,
   };
 
   return (
