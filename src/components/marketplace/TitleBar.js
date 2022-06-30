@@ -12,7 +12,7 @@ export const TitleBar = ({ name, description }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Container>
+    <Container disableGutters>
       <Box
         sx={{
           display: 'block',
@@ -24,7 +24,7 @@ export const TitleBar = ({ name, description }) => {
           variant="p"
           component={'h1'}
           sx={{
-            color: theme.palette.common.black,
+            color: theme.palette.zesty.zestyZambezi,
             textAlign: 'left',
           }}
         >
@@ -34,6 +34,7 @@ export const TitleBar = ({ name, description }) => {
           variant="p"
           component={'h3'}
           sx={{
+            mt: -1,
             color: theme.palette.zesty.zestyLightGrey,
             fontWeight: '400',
           }}

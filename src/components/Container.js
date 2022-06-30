@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 
 const Container = ({ children, ...rest }) => (
   <Box
-    maxWidth={{ sm: 720, md: 1236 }}
+    maxWidth={{ md: 1600 }}
     width={1}
     margin={'0 auto'}
     paddingX={2}

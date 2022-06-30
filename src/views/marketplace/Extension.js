@@ -130,7 +130,7 @@ const Extension = (props) => {
   console.log(props);
   return (
     <>
-      <Box sx={{ py: 10 }}>
+      <Box sx={{ py: 5 }}>
         <Grid container>
           <Grid sx={{ pr: 4 }} item sm={12} md={8}>
             <Box
