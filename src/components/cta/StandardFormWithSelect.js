@@ -448,7 +448,7 @@ function StandardFormWithSelect({
                 helperText={formik.touched.message && formik.errors.message}
               />
             )}
-            {bottomCheckbox && (
+            {/* {bottomCheckbox && (
               <Box>
                 <FormControlLabel
                   control={
@@ -471,7 +471,7 @@ function StandardFormWithSelect({
                   label={bottomCheckboxLabel}
                 />
               </Box>
-            )}
+            )} */}
           </Grid>
           <Grid item xs={12}>
             <Button
