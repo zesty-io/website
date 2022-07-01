@@ -26,7 +26,6 @@ const MainApps = () => {
       : setIsLanding(true);
   });
 
-  console.log(isLanding);
   const { entities, isSearching } = useContext(MarketplaceContext);
 
   const theme = useTheme();
