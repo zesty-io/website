@@ -16,49 +16,50 @@ import { useState } from 'react';
  */
 import * as helper from 'utils';
 
-const Solution = ({ content, theme, isMobile }) => {
+const Solution = ({ content, theme, isMobile, FillerContent }) => {
   const [active, setactive] = useState(0);
   const headerRegex = /\>(.*?)\</;
+
   const cardData = [
     {
       id: 0,
       name: 'personalize',
-      icon: content.solutions_icon_1?.data[0]?.url,
-      text: content.solution_1_description,
-      subText: content.solution_1_description?.match(headerRegex)[1],
-      img: content.solution_1_graphic.data[0]?.url,
+      icon: content.solutions_icon_1?.data[0]?.url || FillerContent.logos[0].url,
+      text: content.solution_1_description || FillerContent.description,
+      subText: content.solution_1_description?.match(headerRegex)[1] || FillerContent.description,
+      img: content.solution_1_graphic.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
-      href: '#',
+      href: '',
     },
     {
       id: 1,
       name: 'ecom',
-      icon: content.solutions_icon_2?.data[0]?.url,
-      text: content.solution_2_description,
-      subText: content.solution_2_description?.match(headerRegex)[1],
-      img: content.solution_2_graphic?.data[0]?.url,
+      icon: content.solutions_icon_2?.data[0]?.url || FillerContent.logos[0].url,
+      text: content.solution_2_description || FillerContent.description,
+      subText: content.solution_2_description?.match(headerRegex)[1]  || FillerContent.description,
+      img: content.solution_2_graphic?.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
-      href: '#',
+      href: '',
     },
     {
       id: 2,
       name: 'distribution',
-      icon: content.solutions_icon_3?.data[0]?.url,
-      text: content.solution_3_description,
-      subText: content.solution_3_description?.match(headerRegex)[1],
-      img: content.solution_3_graphic.data[0]?.url,
+      icon: content.solutions_icon_3?.data[0]?.url || FillerContent.logos[0].url,
+      text: content.solution_3_description || FillerContent.description,
+      subText: content.solution_3_description?.match(headerRegex)[1] || FillerContent.description,
+      img: content.solution_3_graphic.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
-      href: '#',
+      href: '',
     },
     {
       id: 3,
       name: 'innovate',
-      icon: content.solutions_icon_4.data[0]?.url,
-      text: content.solution_4_description,
-      subText: content.solution_4_description?.match(headerRegex)[1],
-      img: content.solution_4_graphic.data[0]?.url,
+      icon: content.solutions_icon_4.data[0]?.url || FillerContent.logos[0].url,
+      text: content.solution_4_description || FillerContent.description,
+      subText: content.solution_4_description?.match(headerRegex)[1] || FillerContent.description,
+      img: content.solution_4_graphic.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
-      href: '#',
+      href: '',
     },
   ];
 
@@ -94,7 +95,7 @@ const Solution = ({ content, theme, isMobile }) => {
               },
             }}
           >
-            {content.solutions_h2}
+            {content.solutions_h2|| FillerContent.description}
           </MuiMarkdown>
         </Box>
 
@@ -108,7 +109,7 @@ const Solution = ({ content, theme, isMobile }) => {
                     style={{ display: active === 0 ? 'block' : 'none' }}
                   >
                     <Box
-                      src={content[`solution_1_graphic`].data[0].url}
+                      src={content[`solution_1_graphic`].data[0].url || FillerContent.logos[0].url}
                       alt=""
                       component="img"
                       sx={{
@@ -122,7 +123,7 @@ const Solution = ({ content, theme, isMobile }) => {
                   >
                     <Box
                       width={imgWidth}
-                      src={content[`solution_2_graphic`].data[0].url}
+                      src={content[`solution_2_graphic`].data[0].url || FillerContent.logos[0].url}
                       alt=""
                       component="img"
                       sx={{
@@ -136,7 +137,7 @@ const Solution = ({ content, theme, isMobile }) => {
                   >
                     <Box
                       width={imgWidth}
-                      src={content[`solution_3_graphic`].data[0].url}
+                      src={content[`solution_3_graphic`].data[0].url || FillerContent.logos[0].url}
                       alt=""
                       component="img"
                       sx={{
@@ -150,7 +151,7 @@ const Solution = ({ content, theme, isMobile }) => {
                   >
                     <Box
                       width={imgWidth}
-                      src={content[`solution_4_graphic`].data[0].url}
+                      src={content[`solution_4_graphic`].data[0].url || FillerContent.logos[0].url}
                       alt=""
                       component="img"
                       sx={{
@@ -259,20 +260,24 @@ const CustomCard = ({ data, theme }) => {
             ),
           }}
         />
-        <Link
-          href="#"
-          underline="always"
-          paddingTop={4}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '.5rem',
-            color: theme.palette.zesty.zestyTealDark,
-            fontWeight: 'bold',
-          }}
-        >
-          {data.ctaName} <ArrowRightAltIcon />
-        </Link>
+        {
+          data.href && (
+            <Link
+            href={data.href}
+            underline="always"
+            paddingTop={4}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '.5rem',
+              color: theme.palette.zesty.zestyTealDark,
+              fontWeight: 'bold',
+            }}
+          >
+            {data.ctaName} <ArrowRightAltIcon />
+          </Link>
+          )
+        }
       </Box>
     </Card>
   );
