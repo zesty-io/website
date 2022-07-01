@@ -4,7 +4,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
-const About = ({ content, theme, isMobile }) => {
+const About = ({ content, theme, isMobile, FillerContent }) => {
   return (
     <Box
       sx={{
@@ -54,7 +54,7 @@ const About = ({ content, theme, isMobile }) => {
               },
             }}
           >
-            {content.about_dxp}
+            {content.about_dxp || FillerContent.description}
           </MuiMarkdown>
         </Box>
 
@@ -70,7 +70,10 @@ const About = ({ content, theme, isMobile }) => {
           <Box data-aos="zoom-in">
             <Box
               component="img"
-              src={content.about_dxp_graphic.data[0].url}
+              src={
+                content.about_dxp_graphic.data[0].url ||
+                FillerContent.logos[0].url
+              }
               alt=""
               sx={{
                 width: '100%',

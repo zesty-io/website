@@ -41,7 +41,6 @@ export async function fetchPage(
 
   let zestyJSONURL =
     zestyURL.replace(/\/$/, '') + '/' + url + '?toJSON&' + queryString;
-
   // Fetch data from Zesty.io toJSON API
   const res = await fetch(zestyJSONURL);
 
@@ -62,7 +61,6 @@ export async function fetchPage(
     // custom nav tree building
     data.navigationCustom = await customNavigation(zestyURL);
   }
-
   return data;
 }
 

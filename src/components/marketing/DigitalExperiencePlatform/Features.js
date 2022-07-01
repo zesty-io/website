@@ -8,8 +8,9 @@ import { Box, Card, Container, Typography } from '@mui/material';
  */
 import * as helper from 'utils';
 
-const Features = ({ content, theme, isMobile, isDarkMode }) => {
-  const arr = content.features.data;
+const Features = ({ content, theme, isMobile }) => {
+  const arr = content?.features?.data ? content.features.data : [];
+
   const bracketImg =
     content.dxp_background_images?.data[0]?.url ||
     FillerContent.dashboard_image;
@@ -67,7 +68,7 @@ const Features = ({ content, theme, isMobile, isDarkMode }) => {
             zIndex: '1000',
           }}
         >
-          {arr?.map((e) => {
+          {arr.map((e) => {
             return (
               <div data-aos="zoom-in-down">
                 <Card

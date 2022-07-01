@@ -71,8 +71,8 @@ import PpcShortForm from 'components/marketing/LongFormPpc/PpcShortForm';
 function LongFormPpc({ content }) {
   const router = useRouter();
 
-  if (router.asPath === '/ppc/explore/') {
-    return <ExploreZesty />;
+  if (router.asPath.includes('/ppc/explore/')) {
+    return <ExploreZesty content={content} />;
   }
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
