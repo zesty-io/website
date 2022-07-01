@@ -1,4 +1,4 @@
-import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
+import MarketplaceSinglePageContainer from 'components/marketplace/MarketplaceSinglePageContainer';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from 'layouts/Main/Main';
 import { fetchPage } from 'lib/api';
@@ -14,6 +14,7 @@ import InstalledPage from 'components/marketplace/installed';
 import { setCookies } from 'cookies-next';
 import { useTheme } from '@emotion/react';
 import { TitleBar } from 'components/marketplace/TitleBar';
+import MainApps from 'components/marketplace/landing/MainApps';
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -103,17 +104,18 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}
         >
-          <MarketplaceContainer
+          <MarketplaceSinglePageContainer
             marketEntities={props.categoryEntities || props.typesEntities}
             marketEntityTypes={marketEntityTypes}
             marketTags={marketTags}
             {...props}
           >
-            {renderMarketplaceViewByAltName(
+            <MainApps />
+            {/* {renderMarketplaceViewByAltName(
               props.marketplaceAltName,
               props.categoryEntities || props.typesEntities,
-            )}
-          </MarketplaceContainer>
+            )} */}
+          </MarketplaceSinglePageContainer>
         </MarketplaceProvider>
       </Main>
     </>

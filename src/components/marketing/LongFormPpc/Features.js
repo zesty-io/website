@@ -3,7 +3,7 @@ import { Box, Card, Typography, Container } from '@mui/material';
 import * as helper from 'utils';
 
 const Features = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
-  const arr = content.features.data;
+  const arr = content?.features?.data ? content.features.data : [];
 
   return (
     <Box
@@ -39,7 +39,7 @@ const Features = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
             }}
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(
-                content.features_header,
+                content?.features_header ? content.features_header : '',
                 'Zesty',
                 theme.palette.zesty.zestyOrange,
               ),
@@ -57,7 +57,7 @@ const Features = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
             zIndex: '1000',
           }}
         >
-          {arr?.map((e) => {
+          {arr.map((e) => {
             return (
               <div>
                 <Card

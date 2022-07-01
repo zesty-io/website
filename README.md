@@ -312,3 +312,23 @@ Example for dev
 ```jsx
 PRODUCTION = false;
 ```
+
+# Working in this repo
+
+## Folder and file structure
+
+- Components should live in their specifics application folders
+- Shared or common component should live in the blocks folders
+- All images should be uploaded to the CDN with the exception of `image-banner.png`. SVG's may be committed to the repository, but it's suggested to upload them into CDN
+
+## Branch Deployment Flow
+
+- Any merge to `main` will auto deploy to stage (webengine)
+- Any merge to `production` will deploy to `production` (zesty.io)
+- Only the `main` branch when approved should be merge to `production`
+
+## Auto Deployment
+
+- Build time takes about 5 minutes
+- Auto deployment run through cloud run and cloud build integration with github
+- This occurs in the zesty-dev google cloud project

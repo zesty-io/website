@@ -14,10 +14,10 @@ import {
 } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import { useTheme } from '@mui/material/styles';
+import FillerContent from 'components/globals/FillerContent';
 
 const NewsletterWithImage = ({ image, header, testimonial }) => {
   const theme = useTheme();
-
   const testimonials = testimonial || FillerContent.testimonialCard;
 
   return (

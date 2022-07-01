@@ -6,6 +6,8 @@ import {
   TextField,
   useMediaQuery,
 } from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 import { useTheme } from '@mui/material/styles';
 import useDebounce from 'components/hooks/useDebounce';
 import React, { useState, useEffect, useContext } from 'react';
@@ -28,7 +30,7 @@ const marketManage = [
   },
 ];
 
-const MarketplaceContainer = ({
+const MarketplaceSinglePageContainer = ({
   children,
   marketEntities,
   marketTags,
@@ -100,24 +102,24 @@ const MarketplaceContainer = ({
             alignItems="center"
           >
             <TextField
-              variant="outlined"
-              label="Search"
-              fullWidth
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <Button
               sx={{
-                ml: { xs: 0, md: 2 },
-                mt: { xs: 2, md: 0 },
-                width: { xs: 'auto', md: '20%' },
-                alignSelf: 'stretch',
+                background: theme.palette.background.paper,
+                display: marketEntities.length < 9 ? 'none' : '',
               }}
               variant="outlined"
-              onClick={() => handleSort()}
-            >
-              Sort
-            </Button>
+              color="secondary"
+              fullWidth
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search for apps"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="end">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+
             {isSm && (
               <Button
                 sx={{
@@ -138,4 +140,4 @@ const MarketplaceContainer = ({
   );
 };
 
-export default MarketplaceContainer;
+export default MarketplaceSinglePageContainer;
