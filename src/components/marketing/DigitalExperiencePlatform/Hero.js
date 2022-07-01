@@ -20,7 +20,7 @@ const Hero = ({
   gradientBg,
   isTablet,
   theme,
-  FillerContent,
+  secondaryCtaLink
 }) => {
   return (
     <Box
@@ -69,7 +69,7 @@ const Hero = ({
                   fontWeight: 500,
                 }}
               >
-                {eyebrow || FillerContent.header}
+                {eyebrow}
               </Typography>
               <Typography
                 component={'h1'}
@@ -90,7 +90,7 @@ const Hero = ({
                   fontWeight: 500,
                 }}
               >
-                {subHeader || FillerContent.description}
+                {subHeader}
               </Typography>
               <Box sx={{ display: isTablet ? 'block' : 'flex' }}>
                 <Box sx={{ width: isTablet ? '100%' : '10rem' }}>
@@ -103,7 +103,7 @@ const Hero = ({
                 </Box>
 
                 <Button
-                  href={''}
+                  href={secondaryCtaLink}
                   variant="text"
                   fullWidth={isTablet ? true : false}
                   sx={{
@@ -115,7 +115,7 @@ const Hero = ({
                     color: theme.palette.common.white,
                   }}
                 >
-                  {secondaryCta || FillerContent.cta} <ArrowRightAltIcon />
+                  {secondaryCta} <ArrowRightAltIcon />
                 </Button>
               </Box>
             </Box>

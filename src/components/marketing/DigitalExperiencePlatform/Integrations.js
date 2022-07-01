@@ -12,14 +12,12 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import FillerContent from 'components/globals/FillerContent';
-
 /**
  * Helpers Imports
  */
 import * as helper from 'utils';
 
-const Integrations = ({ content, theme, isMobile, isTablet }) => {
+const Integrations = ({ content, theme, isMobile, isTablet, FillerContent }) => {
   return (
     <Box
       paddingY={8}
@@ -71,7 +69,7 @@ const Integrations = ({ content, theme, isMobile, isTablet }) => {
                 >
                   <Box
                     component="img"
-                    src={content.integrations_airplane_graphic?.data[0]?.url}
+                    src={content.integrations_airplane_graphic?.data[0]?.url || FillerContent.logos[0].url}
                     alt=""
                   />
                 </Box>
@@ -86,7 +84,7 @@ const Integrations = ({ content, theme, isMobile, isTablet }) => {
                   }}
                   dangerouslySetInnerHTML={{
                     __html: helper.strColorChanger(
-                      content.integrations_description,
+                      content.integrations_description || FillerContent.description,
                       'Limitless Integrations for Limitless Reach',
                       theme.palette.zesty.zestyOrange,
                     ),
@@ -108,7 +106,7 @@ const Integrations = ({ content, theme, isMobile, isTablet }) => {
                       fontSize: '16px',
                     }}
                   >
-                    {content.integrations_button_text}
+                    {content.integrations_button_text || FillerContent.cta}
                   </Button>
                 </Box>
               </div>

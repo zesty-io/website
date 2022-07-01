@@ -8,7 +8,7 @@ import { Box, Card, Container, Typography } from '@mui/material';
  */
 import * as helper from 'utils';
 
-const Features = ({ content, theme, isMobile }) => {
+const Features = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
   const arr = content?.features?.data ? content.features.data : [];
 
   const bracketImg =
@@ -50,7 +50,7 @@ const Features = ({ content, theme, isMobile }) => {
             }}
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(
-                content.features_header,
+                content.features_header || FillerContent.header,
                 'Zesty',
                 theme.palette.zesty.zestyOrange,
               ),
