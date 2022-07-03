@@ -36,7 +36,7 @@ import TimeLine from '../../components/marketing/TechnologyOverview/TimeLine';
 import GetStarted from '../../components/marketing/TechnologyOverview/GetStarted';
 import Features from '../../components/marketing/TechnologyOverview/Features';
 import HeadlessApi from '../../components/marketing/TechnologyOverview/HeadlessApi';
-import TopBrands from '../../components/marketing/TechnologyOverview/TopBrands';
+import TopBrands from '../../blocks/caseStudies/TopBrands';
 import Articles from '../../components/marketing/TechnologyOverview/Articles';
 import TechStack from '../../blocks/integrations/TechStack';
 

@@ -327,6 +327,14 @@ PRODUCTION = false;
 - Any merge to `production` will deploy to `production` (zesty.io)
 - Only the `main` branch when approved should be merge to `production`
 
+### Tests
+
+Tests are located `/tests/`, tests use the tape package. We use the async version of tape. Tests are run like
+
+```
+npx tape tests/*.js
+```
+
 ## Auto Deployment
 
 - Build time takes about 5 minutes
