@@ -12,7 +12,7 @@ export default function Slug(props) {
   const theme = useTheme();
   // capture information about the url and request
   useEffect(() => {
-    const params = new Proxy(new URLSearchParams(window.location.search), {
+    const params = new Proxy(new URLSearchParams(window.location.search.toLowerCase()), {
       get: (searchParams, prop) => searchParams.get(prop),
     });
     // referrer, stored in a cookie so its not lost as a user browses
