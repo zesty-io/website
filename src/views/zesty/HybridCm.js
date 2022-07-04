@@ -78,7 +78,7 @@ function HybridCm({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isDarkMode = theme.palette.mode === 'dark';
-  console.log(content, 1111);
+
   const HeroProps = {
     eyebrow: content.hero_eyebrow || FillerContent.header,
     header: content.hero_title || FillerContent.description,
