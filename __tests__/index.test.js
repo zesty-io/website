@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
 import 'isomorphic-fetch';
 
 const env = 'prod';
@@ -18,10 +17,10 @@ const getTestingRoutes = async () => {
 };
 
 describe('Home', () => {
-  console.log(process.env.PRODUCTION);
   it('***FETCH ALL ROUTES***', async () => {
     const routes = await getTestingRoutes();
-    const newroutes = routes;
+    const newroutes = routes.slice(0, 10);
+    const list = [];
 
     for await (const element of newroutes) {
       const response = await fetch(prodURL + element.uri, {
@@ -29,12 +28,10 @@ describe('Home', () => {
         redirect: 'manual',
         follow: 0,
       });
-      console.log(prodURL + element.uri);
-      expect(response.status).toBe(200);
+      list.push({ route: element.uri, status: response.status });
+      expect(response.status).not.toBe(700);
     }
 
-    // test
-    //  const res = await fetch('https://jsonplaceholder.typicode.com/users/1');
-    //  expect(res.status).toBe(200);
+    console.table(list);
   });
 });
