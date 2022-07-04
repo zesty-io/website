@@ -263,13 +263,17 @@ function StandardFormWithSelect({
       businessType,
       leadSource,
     );
-    payload.newsletter_signup
-      ? await subscribeToZoho(payload)
-      : await postToZOHO(payload);
+    // post to leads section
+    await postToZOHO(payload);
+
+    //post to email marketing signup
+    if(payload.newsletter_signup){
+      await subscribeToZoho(payload)
+    }
 
     cmsModel === 'Gated Content Page'
       ? setOpen(true)
-      : (window.location = '/ppc/thank-you');
+      : (window.location = '/ppc/thank-you/');
 
     return values;
   };
@@ -448,7 +452,7 @@ function StandardFormWithSelect({
                 helperText={formik.touched.message && formik.errors.message}
               />
             )}
-            {/* {bottomCheckbox && (
+            {bottomCheckbox && (
               <Box>
                 <FormControlLabel
                   control={
@@ -471,7 +475,7 @@ function StandardFormWithSelect({
                   label={bottomCheckboxLabel}
                 />
               </Box>
-            )} */}
+            )}
           </Grid>
           <Grid item xs={12}>
             <Button
