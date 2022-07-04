@@ -4,12 +4,7 @@
 
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
-
-/**
- * Helper Imports
- */
-
-import * as helper from 'utils';
+import MuiMarkdown from 'mui-markdown';
 
 const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
   return (
@@ -20,23 +15,39 @@ const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
           flexDirection: 'column',
         }}
       >
-        <div data-aos="zoom-in">
-          <Typography
-            sx={{
-              fontSize: isMobile ? '.9rem' : '1.3rem',
-              color: theme.palette.secondary.darkCharcoal,
-              textAlign: isMobile ? 'center' : 'center',
+        <Box sx={{ mt: 10 }} data-aos="zoom-in">
+          <MuiMarkdown
+            overrides={{
+              h2: {
+                component: Typography,
+                props: {
+                  component: 'h2',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'center',
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  variant: 'h6',
+                  sx: {
+                    textAlign: 'center',
+                    mt: 2,
+                    color: theme.palette.zesty.zestyZambezi,
+                  },
+                },
+              },
             }}
-            dangerouslySetInnerHTML={{
-              __html: helper.strColorChanger(
-                content.hybrid_interface || FillerContent.description,
-                'A Quick Look Into Zesty&rsquo;s Hybrid CMS Interface',
-                theme.palette.zesty.zestyOrange,
-              ),
-            }}
-          />
-        </div>
-        <div data-aos="fade-right">
+          >
+            {content.hybrid_interface || FillerContent.header}
+          </MuiMarkdown>
+        </Box>
+        <Box data-aos="fade-right">
           <Box
             paddingY={isMobile ? 1 : 0}
             sx={{
@@ -47,15 +58,20 @@ const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
               zIndex: '100',
             }}
           >
-            <img
+            <Box
+              component="img"
               src={
                 content.hybrid_interface_graphic?.data[0]?.url ||
                 FillerContent.photos[0].src
               }
-              width={isMobile ? 350 : 600}
+              sx={{
+                mt: 4,
+                width: '100%',
+                maxWidth: 600,
+              }}
             />
           </Box>
-        </div>
+        </Box>
       </Container>
     </Box>
   );

@@ -61,7 +61,6 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import FillerContent from 'components/globals/FillerContent';
-import ZestySvg from '../../../public/assets/images/zesty Logo.png';
 
 /*
  * Components Imports
@@ -69,14 +68,14 @@ import ZestySvg from '../../../public/assets/images/zesty Logo.png';
 import Hero from 'components/marketing/HybridCms/Hero';
 import About from 'components/marketing/HybridCms/About';
 import Hybrid from 'components/marketing/HybridCms/Hybrid';
-import Timeline from 'components/marketing/HybridCms/Timeline';
-import CaseStudies from 'components/marketing/HybridCms/CaseStudies';
+import TimeLine from '../../blocks/Timeline/TimeLine';
 import Bottom from 'components/marketing/HybridCms/Bottom';
-import Related from 'components/marketing/HybridCms/Related';
+import TopBrands from '../../blocks/caseStudies/TopBrands';
+import Articles from '../../blocks/blog/Articles/Articles';
 
 function HybridCm({ content }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const HeroProps = {
@@ -85,15 +84,18 @@ function HybridCm({ content }) {
     subHeader: content.hero_description || FillerContent.description,
     mainImage:
       content.hero_graphic?.data[0]?.url || FillerContent.photos[0].src,
-    bgImage: ZestySvg.src,
+    bgImage: isDarkMode
+      ? 'https://brand.zesty.io/zesty-io-logo-light.png' ||
+        FillerContent.photos[0].src
+      : 'https://brand.zesty.io/zesty-io-logo.svg' ||
+        FillerContent.photos[0].src,
     primaryCta: content.hero_cta_primary,
     secondaryCta: content.hero_cta_secondary,
-    gradientBg: theme.palette.common.white,
     isMobile,
     theme,
   };
 
-  const PageData = {
+  const pageData = {
     isMobile,
     theme,
     isDarkMode,
@@ -107,15 +109,49 @@ function HybridCm({ content }) {
     });
   }, []);
 
+  const timelineData = {
+    header: content.hybrid_cms_features_header,
+    data: [
+      {
+        description: content.hybrid_cms_feature_1 || FillerContent.description,
+        image:
+          content.hybrid_cms_feature_1_image?.data[0].url ||
+          FillerContent.photos[0].src,
+      },
+      {
+        description: content.hybrid_cms_feature_2 || FillerContent.description,
+        image:
+          content.hybrid_cms_feature_2_image?.data[0].url ||
+          FillerContent.photos[0].src,
+      },
+      {
+        description: content.hybrid_cms_feature_3 || FillerContent.description,
+        image:
+          content.hybrid_cms_feature_3_image?.data[0].url ||
+          FillerContent.photos[0].src,
+      },
+      {
+        description: content.hybrid_cms_feature_4 || FillerContent.description,
+        image:
+          content.hybrid_cms_feature_4_image?.data[0].url ||
+          FillerContent.photos[0].src,
+      },
+    ],
+  };
+
   return (
     <>
       <Hero {...HeroProps} />
-      <About {...PageData} />
-      <Hybrid {...PageData} />
-      <Timeline {...PageData} />
-      <CaseStudies {...PageData} />
-      <Bottom {...PageData} />
-      <Related {...PageData} />
+      <About {...pageData} />
+      <Hybrid {...pageData} />
+      <TimeLine timelineData={timelineData} {...pageData} />
+      <TopBrands {...pageData} />
+      <Bottom {...pageData} />
+      <Articles
+        title={content.related_content_header}
+        articles={content.related_content_articles?.data}
+        {...pageData}
+      />
     </>
   );
 }

@@ -3,19 +3,7 @@
  * */
 
 import React from 'react';
-import {
-  Box,
-  Button,
-  Card,
-  cardClasses,
-  Container,
-  Divider,
-  Grid,
-  Link,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 
 /**
  *  Components Imports
@@ -31,7 +19,7 @@ const Hero = ({
   bgImage = FillerContent.dashboard_image,
   primaryCta = 'Try Free',
   secondaryCta = 'Try Free',
-  gradientBg,
+
   isMobile,
   theme,
 }) => {
@@ -41,7 +29,6 @@ const Hero = ({
       paddingBottom={isMobile ? 4 : 25}
       sx={{
         position: 'relative',
-        background: gradientBg,
         textAlign: 'center',
       }}
     >
@@ -64,29 +51,33 @@ const Hero = ({
             sx={{
               position: 'absolute',
               left: '15rem',
+              top: '2rem',
               display: isMobile ? 'none' : 'flex',
             }}
           >
-            <img src={bgImage} alt="" />
+            <Box
+              component="img"
+              sx={{ width: 797, opacity: 0.03, zIndex: 0 }}
+              src={bgImage}
+              alt=""
+            />
           </Box>
           <Typography
             component={'h2'}
-            variant={'p'}
+            variant={'h4'}
             sx={{
               color: theme.palette.zesty.zestyOrange,
               fontWeight: 'bold',
-              fontSize: isMobile ? '24px' : '32px',
             }}
           >
             {eyebrow}
           </Typography>
           <Typography
             component={'h1'}
-            variant={'p'}
+            variant={'h3'}
             sx={{
               color: theme.palette.zesty.zestyZambezi,
               fontWeight: 'bold',
-              fontSize: isMobile ? '24px' : '48px',
             }}
           >
             {header}
@@ -148,7 +139,11 @@ const Hero = ({
               justifyItems: 'center',
             }}
           >
-            <img src={mainImage} width={isMobile ? 350 : 900} />
+            <Box
+              component="img"
+              src={mainImage}
+              sx={{ maxWidth: 928, width: '100%' }}
+            />
           </Box>
         )}
       </Container>

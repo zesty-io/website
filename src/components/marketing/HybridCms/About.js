@@ -2,6 +2,7 @@
  * MUI Imports
  * */
 import React from 'react';
+import { Grid } from '@mui/material';
 
 /**
  * Static Imports
@@ -9,10 +10,9 @@ import React from 'react';
 import headlessCmsBg from '../../../../public/assets/images/dxp_headless_bg.svg';
 
 /**
- * Helper Imports
+ * Components Imports
  */
-
-import * as helper from 'utils';
+import MuiMarkdown from 'mui-markdown';
 
 import { Box, Container, Typography } from '@mui/material';
 
@@ -35,45 +35,89 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
         <img src={swooshBg || FillerContent.dashboard_image} alt="bg" />
       </Box>
       <Container>
-        <Box
-          paddingY={isMobile ? 2 : 8}
-          sx={{
-            display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            gap: isMobile ? '1rem' : '4rem',
-          }}
-        >
-          <div data-aos="fade-left">
-            <Box sx={{ position: 'relative' }}>
-              <Typography
-                sx={{
-                  fontSize: isMobile ? '.9rem' : '1.3rem',
-                  color: theme.palette.secondary.darkCharcoal,
-                  textAlign: isMobile ? 'left' : 'left',
-                }}
-                dangerouslySetInnerHTML={{
-                  __html: helper.strColorChanger(
-                    content.about_hybrid_cms || FillerContent.header,
-                    'Hybrid CMS',
-                    theme.palette.zesty.zestyOrange,
-                  ),
-                }}
-              />
-              {/* {about_hybrid_cms} */}
+        <Grid container spacing={2}>
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            item
+            sm={12}
+            md={6}
+          >
+            <Box data-aos="fade-left">
+              <Box sx={{ position: 'relative' }}>
+                <MuiMarkdown
+                  overrides={{
+                    span: {
+                      component: Typography,
+                      props: {
+                        component: 'span',
+                        variant: 'h6',
+                        sx: {
+                          color: theme.palette.zesty.zestyOrange,
+                        },
+                      },
+                    },
+                    h2: {
+                      component: Typography,
+                      props: {
+                        component: 'h2',
+                        variant: 'h4',
+                        sx: {
+                          textAlign: isMobile ? 'center' : 'left',
+                          color: theme.palette.zesty.zestyOrange,
+                          fontWeight: 'bold',
+                        },
+                      },
+                    },
+                    p: {
+                      component: Typography,
+                      props: {
+                        component: 'p',
+                        variant: 'h6',
+                        sx: {
+                          textAlign: isMobile ? 'center' : 'left',
+                          mt: 2,
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
+                      },
+                    },
+                  }}
+                >
+                  {content.about_hybrid_cms || FillerContent.header}
+                </MuiMarkdown>
+              </Box>
             </Box>
-          </div>
-          <div data-aos="fade-right">
-            <Box paddingY={isMobile ? 1 : 0}>
-              <img
-                src={
-                  content.about_hybrid_cms_graphic.data[0].url ||
-                  FillerContent.photos[0].src
-                }
-                width={isMobile ? 350 : 600}
-              />
+          </Grid>
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            item
+            sm={12}
+            md={6}
+          >
+            <Box data-aos="fade-right">
+              <Box>
+                <Box
+                  component="img"
+                  src={
+                    content.about_hybrid_cms_graphic.data[0].url ||
+                    FillerContent.photos[0].src
+                  }
+                  sx={{
+                    width: '100%',
+                    maxWidth: 600,
+                  }}
+                />
+              </Box>
             </Box>
-          </div>
-        </Box>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );
