@@ -329,7 +329,7 @@ PRODUCTION = false;
 
 ### Tests
 
-Tests are located `__tests__`, tests use the jest package. Tests are run like
+Tests are located `test`, tests use the jest package. Tests are run like
 
 ```
 npm run test
