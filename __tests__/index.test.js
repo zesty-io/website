@@ -37,5 +37,5 @@ describe('ZESTY WEBSITE', () => {
     }
 
     console.table(list);
-  }, 30000);
+  }, 300000);
 });
