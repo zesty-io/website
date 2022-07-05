@@ -77,14 +77,6 @@ function HybridCm({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
-<<<<<<< HEAD
-  const Section1Props = {
-    eyebrow: content.hero_eyebrow,
-    header: content.hero_title,
-    subHeader: content.hero_description,
-    mainImage: content.hero_graphic?.data[0]?.url,
-    bgImage: ZestySvg.src,
-=======
 
   const HeroProps = {
     eyebrow: content.hero_eyebrow || FillerContent.header,
@@ -97,7 +89,6 @@ function HybridCm({ content }) {
         FillerContent.photos[0].src
       : 'https://brand.zesty.io/zesty-io-logo.svg' ||
         FillerContent.photos[0].src,
->>>>>>> e80d1f4e4bf71d6fe73fe41ee41aa13eb8a6c37c
     primaryCta: content.hero_cta_primary,
     secondaryCta: content.hero_cta_secondary,
     isMobile,
