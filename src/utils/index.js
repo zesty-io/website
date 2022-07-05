@@ -118,7 +118,6 @@ export const transformSearch = (arr) => {
 };
 export const test = (arr) => {
   let numbers = [1, 2, 3];
-  console.log(arr);
   let sum = arr.reduce((previousValue, currentValue) => {
     // console.log(previousValue, currentValue, 4444);
     return { ...previousValue, test: currentValue.children };
