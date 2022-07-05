@@ -1,4 +1,4 @@
-name: CI dev
+name: Zesty Website CI Dev
 on:
   push:
     branches: [main]

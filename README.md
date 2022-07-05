@@ -329,10 +329,10 @@ PRODUCTION = false;
 
 ### Tests
 
-Tests are located `/tests/`, tests use the tape package. We use the async version of tape. Tests are run like
+Tests are located `__tests__`, tests use the jest package. Tests are run like
 
 ```
-npx tape tests/*.js
+npm run test
 ```
 
 ## Auto Deployment
