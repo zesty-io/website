@@ -2,9 +2,7 @@
 import { Box, Container, Typography, Grid, Link } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
-const Articles = ({ theme, isMobile, content, isDarkMode, FillerContent }) => {
-  const articles = [...content.articles.data];
-
+const Articles = ({ theme, articles, FillerContent, title }) => {
   return (
     <Box sx={{ py: 10 }} component="section">
       <Container>
@@ -30,7 +28,7 @@ const Articles = ({ theme, isMobile, content, isDarkMode, FillerContent }) => {
             variant="h3"
             component="h2"
           >
-            Industry Insights
+            {title || FillerContent.header}
           </Typography>
           <Box
             sx={{
@@ -46,7 +44,9 @@ const Articles = ({ theme, isMobile, content, isDarkMode, FillerContent }) => {
             <Grid item xs={12} sm={6} lg={4}>
               <Box
                 sx={{
-                  backgroundImage: `url(${item.hero_image?.data[0].url})`,
+                  backgroundImage: `url(${
+                    item.hero_image?.data[0].url || FillerContent.photos[0].url
+                  })`,
                   position: 'relative',
                   height: '100%',
                   minHeight: 475,

@@ -14,9 +14,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import connectionSmall from '../../../../public/assets/images/headless-cms/connection-small.svg';
 import connection from '../../../../public/assets/images/headless-cms/connection.svg';
 import connectionMobile from '../../../../public/assets/images/headless-cms/connection-mobile.svg';
-import curve from '../../../../public/assets/images/headless-cms/curve.svg';
-import curve_dark from '../../../../public/assets/images/headless-cms/curve-dark.svg';
-import curve_mobile from '../../../../public/assets/images/headless-cms/curve-mobile.svg';
 
 const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (
@@ -170,23 +167,6 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
             src={content.headless_cms_explained_image.data[0].url}
           />
         </Box>
-
-        <Box
-          sx={{
-            position: 'absolute',
-            zIndex: 1,
-            ml: isMobile ? 4.9 : 4.2,
-          }}
-          component="img"
-          alt=""
-          src={
-            isMobile
-              ? curve_mobile.src
-              : isDarkMode
-              ? curve_dark.src
-              : curve.src
-          }
-        />
       </Container>
     </Box>
   );
