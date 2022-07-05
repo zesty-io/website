@@ -55,8 +55,6 @@ function TechnologyOverview({ content }) {
     content,
     FillerContent,
   };
-<<<<<<< HEAD
-=======
 
   const timelineData = {
     header: content.how_it_works_header,
@@ -79,7 +77,6 @@ function TechnologyOverview({ content }) {
       },
     ],
   };
->>>>>>> e80d1f4e4bf71d6fe73fe41ee41aa13eb8a6c37c
 
   return (
     <Box>
