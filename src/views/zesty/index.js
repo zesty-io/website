@@ -35,6 +35,11 @@ import PricingLever from './PricingLever';
 import PpcZestyKeyAttribute from './PpcZestyKeyAttribute';
 import BrandAsset from './BrandAsset';
 import IntegrationsBenefit from './IntegrationsBenefit';
+import UseCase from './UseCase';
+import IntegrationsLogo from './IntegrationsLogo';
+import EcommCorePillar from './EcommCorePillar';
+import DxSolutionsCard from './DxSolutionsCard';
+import ZestyProduct from './ZestyProduct';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -82,6 +87,15 @@ import DxpEnterprise from './DxpEnterprise';
 import DxpBenefit from './DxpBenefit';
 import DxpFeature from './DxpFeature';
 import HeadlessCmsFeature from './HeadlessCmsFeature';
+import HeadlessCmsMultiLang from './HeadlessCmsMultiLang';
+import HeadlessDam from './HeadlessDam';
+import ComposableDxp from './ComposableDxp';
+import ScalableCm from './ScalableCm';
+import HeadlessSeo from './HeadlessSeo';
+import HeadlessMultiSite from './HeadlessMultiSite';
+import HeadlessBlogProductPage from './HeadlessBlogProductPage';
+import HeadlessLocalization from './HeadlessLocalization';
+import RoiCalculator from './RoiCalculator';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -122,6 +136,11 @@ export {
     PpcZestyKeyAttribute,
     BrandAsset,
     IntegrationsBenefit,
+    UseCase,
+    IntegrationsLogo,
+    EcommCorePillar,
+    DxSolutionsCard,
+    ZestyProduct,
     Category,
     Article,
     Tag,
@@ -169,6 +188,15 @@ export {
     DxpBenefit,
     DxpFeature,
     HeadlessCmsFeature,
+    HeadlessCmsMultiLang,
+    HeadlessDam,
+    ComposableDxp,
+    ScalableCm,
+    HeadlessSeo,
+    HeadlessMultiSite,
+    HeadlessBlogProductPage,
+    HeadlessLocalization,
+    RoiCalculator,
     Footer,
     Header
 }

@@ -39,6 +39,8 @@ export const light = {
     level2: '#f2f4fb',
     level1: '#f5f5f5',
     level3: '#F5F7FB',
+    lightGrey: '#F8F9FC',
+    grey: '#EBEBEB',
   },
   zesty: {
     zestyDarkBlue: '#1b202c',
