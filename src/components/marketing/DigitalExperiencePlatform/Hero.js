@@ -20,7 +20,7 @@ const Hero = ({
   gradientBg,
   isTablet,
   theme,
-  secondaryCtaLink
+  secondaryCtaLink,
 }) => {
   return (
     <Box

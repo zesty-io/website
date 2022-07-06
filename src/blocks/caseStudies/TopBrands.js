@@ -2,11 +2,19 @@
 import { useState } from 'react';
 
 // MUI Imports
-import { Box, Container, Typography, Grid, Button, Card } from '@mui/material';
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Button,
+  Card,
+  Link,
+} from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
-  const caseStudies = [...content.case_studies.data];
+  const caseStudies = [...(content.case_studies.data || [])];
   const [active, setActive] = useState(caseStudies[0]);
   /**
    * set the current active case study
@@ -15,6 +23,8 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
   const caseStudyActiveHandler = (idx) => {
     setActive(caseStudies[idx]);
   };
+
+  console.log(caseStudies);
 
   return (
     <Box component="section">
@@ -61,7 +71,7 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
                   flexWrap: 'wrap',
                 }}
               >
-                {caseStudies.map((item, idx) => (
+                {caseStudies?.map((item, idx) => (
                   <Button
                     key={idx}
                     onClick={() => caseStudyActiveHandler(idx)}
@@ -160,6 +170,11 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
                       >
                         {active.summary || FillerContent.description}
                       </MuiMarkdown>
+                      <Box sx={{ pt: 2 }}>
+                        <Link href={active.link || FillerContent.href}>
+                          Learn More
+                        </Link>
+                      </Box>
                     </Box>
                   </Grid>
                 </Grid>
