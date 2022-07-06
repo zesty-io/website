@@ -117,7 +117,7 @@ function LongFormPpc({ content }) {
   return (
     <>
       {/* HERO */}
-      {router.asPath === '/ppc/headless-cms/' ? (
+      {router.asPath.includes('/ppc/headless-cms/') || true ? (
         <SimpleHeroWithCta
           title={content.hero_h1 || FillerContent.header}
           description={content.hero_h2 || FillerContent.description}
@@ -169,7 +169,7 @@ function LongFormPpc({ content }) {
 
       {/* How it works */}
 
-      {router.asPath === '/ppc/headless-cms/' ? (
+      {router.asPath.includes('/ppc/headless-cms/') || true ? (
         <HowItWorks
           header={content.how_it_works || FillerContent.header}
           images={content.how_it_works_image?.data}
@@ -200,7 +200,7 @@ function LongFormPpc({ content }) {
         />
       </Box>
 
-      {router.asPath === '/ppc/headless-cms/' ? null : (
+      {router.asPath.includes('/ppc/headless-cms/') ? null : (
         <TechStack
           FillerContent={FillerContent}
           content={content}
@@ -210,7 +210,7 @@ function LongFormPpc({ content }) {
       )}
 
       {/* Form */}
-      {router.asPath === '/ppc/content-management-system/' ? (
+      {router.asPath.includes('/ppc/content-management-system/') ? (
         <PpcShortForm theme={theme} content={content} />
       ) : (
         <ContactUsForm
