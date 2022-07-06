@@ -32,7 +32,7 @@ function Calculator({ content, FillerContent, theme }) {
   const [intangibles, setIntangibles] = useState(0);
   const [standardCharges, setStandardCharges] = useState(0);
 
-  const infraSettings = [
+  const sliderOptions = [
     {
       max: 100000,
       step: 5000,
@@ -123,8 +123,8 @@ function Calculator({ content, FillerContent, theme }) {
             <Card sx={{ mt: 2, py: 2, px: 4, overflow: 'inherit' }}>
               <CardContent>
                 {/* Slider Start */}
-                {infraSettings.map((settings, index) => (
-                  <CustomSlider key={index} {...settings} />
+                {sliderOptions.map((options, index) => (
+                  <CustomSlider key={index} {...options} />
                 ))}
               </CardContent>
             </Card>
