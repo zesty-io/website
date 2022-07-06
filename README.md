@@ -329,11 +329,13 @@ PRODUCTION = false;
 
 ### Tests
 
-Tests are located `/tests/`, tests use the tape package. We use the async version of tape. Tests are run like
+Tests are located `test`, tests use the jest package. Tests are run like
 
 ```
-npx tape tests/*.js
+npm run test
 ```
+
+[Jest](https://github.com/facebook/jest) is recommended testing tool for unit / integration testing by facebook , support async out of the box , has snapshot testing / coverage report , detect file with `*.test.js`/ `*.spec.js` and great community. Jest is implemented by installing the npm packages jest and react testing library then Jest has two file configuration which are `jest.config.js` and `jest.setup.js`. To begin testing with jest just run `npm run test` and it will find all files inside this directory that has filename matching this `*.test.js`/ `*.spec.js` and it will start the tests and after each test it will provide a summary in the console log whether the test is passed or failed.
 
 ## Auto Deployment
 

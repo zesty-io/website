@@ -1,11 +1,15 @@
 /**
  * MUI Imports
- */
+ * */
+
+import React from 'react';
 import {
   Box,
   Button,
   Card,
+  cardClasses,
   Container,
+  Divider,
   Grid,
   Link,
   Typography,
@@ -14,21 +18,16 @@ import {
 } from '@mui/material';
 
 /**
- * React Imports
+ * Helper Imports
  */
-import { useState } from 'react';
-
-/**
- * Helpers Imports
- */
-import * as helper from 'utils';
 import styled from '@emotion/styled';
+import * as helper from 'utils';
 
-const CaseStudies = ({ content, theme, isMobile }) => {
-  const [active, setactive] = useState(content?.case_studies?.data[0]);
+const CaseStudies = ({ content, theme, isMobile, FillerContent }) => {
+  const [active, setactive] = React.useState(content?.case_studies?.data[0]);
 
   return (
-    <Box paddingY={isMobile ? 8 : 0} sx={{}}>
+    <Box paddingY={isMobile ? 8 : 8} sx={{}}>
       <Container sx={{}}>
         <Typography
           component={'h2'}
@@ -41,8 +40,8 @@ const CaseStudies = ({ content, theme, isMobile }) => {
           }}
           dangerouslySetInnerHTML={{
             __html: helper.strColorChanger(
-              content.case_study_header,
-              '',
+              content.case_study_title || FillerContent.header,
+              'none',
               theme.palette.zesty.zestyOrange,
             ),
           }}
@@ -101,7 +100,7 @@ const CaseStudies = ({ content, theme, isMobile }) => {
                   justifyContent: isMobile ? 'center' : 'start',
                 }}
               >
-                <img src={active.logo.data[0].url} />
+                <img src={active.logo.data[0].url || FillerContent.href} />
               </Box>
               <Typography
                 sx={{
@@ -111,7 +110,7 @@ const CaseStudies = ({ content, theme, isMobile }) => {
                   textAlign: 'left',
                 }}
               >
-                {active?.summary}
+                {active?.summary || FillerContent.description}
               </Typography>
             </Box>
           </Box>
@@ -135,7 +134,7 @@ const CaseStudies = ({ content, theme, isMobile }) => {
                   theme={theme}
                   onClick={() => setactive(e)}
                 >
-                  <img src={e.logo.data[0].url} />
+                  <img src={e.logo.data[0].url || FillerContent.logos[0].url} />
                 </CustomButton>
               );
             })}
@@ -145,6 +144,8 @@ const CaseStudies = ({ content, theme, isMobile }) => {
     </Box>
   );
 };
+
+export default CaseStudies;
 
 const CustomButton = styled.button`
   background: transparent;
@@ -163,5 +164,3 @@ const CustomButton = styled.button`
     opacity: 1;
   }
 `;
-
-export default CaseStudies;
