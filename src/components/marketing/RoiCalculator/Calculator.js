@@ -18,6 +18,7 @@ import { useState } from 'react';
  *  Components Imports
  */
 import CustomSlider from './CustomSlider';
+import CustomDoubleSlider from './CustomDoubleSlider';
 
 function Calculator({ content, FillerContent, theme }) {
   /**
@@ -28,9 +29,20 @@ function Calculator({ content, FillerContent, theme }) {
   const [cmsSetup, setCmsSetup] = useState(0);
   const [ongoingSupport, setOngoingSupport] = useState(0);
   const [additionalSoftware, setAdditionalSoftware] = useState(0);
-  const [qaTesting, setQaTesting] = useState(0);
   const [intangibles, setIntangibles] = useState(0);
   const [standardCharges, setStandardCharges] = useState(0);
+  /**
+   * Sets Double Slider Initial Values and State
+   */
+  const [qaTestingMarketer, setQaTestingMarketer] = useState({
+    value: 5000,
+    isActive: true,
+  });
+
+  const [qaTestingDeveloper, setQaTestingDeveloper] = useState({
+    value: 5000,
+    isActive: false,
+  });
 
   const sliderOptions = [
     {
@@ -76,14 +88,6 @@ function Calculator({ content, FillerContent, theme }) {
     {
       max: 100000,
       step: 5000,
-      setter: setQaTesting,
-      value: qaTesting,
-      title: 'QA testing',
-      info: 'tooltip information',
-    },
-    {
-      max: 100000,
-      step: 5000,
       setter: setIntangibles,
       value: intangibles,
       title: 'intangibles',
@@ -96,6 +100,23 @@ function Calculator({ content, FillerContent, theme }) {
       value: standardCharges,
       title: 'standard charges',
       info: 'tooltip information',
+    },
+  ];
+
+  const doubleSliderOptions = [
+    {
+      max: 100000,
+      step: 5000,
+      setter: setQaTestingMarketer,
+      data: qaTestingMarketer,
+      isActive: true,
+    },
+    {
+      max: 100000,
+      step: 5000,
+      setter: setQaTestingDeveloper,
+      data: qaTestingDeveloper,
+      isActive: false,
     },
   ];
 
@@ -126,6 +147,7 @@ function Calculator({ content, FillerContent, theme }) {
                 {sliderOptions.map((options, index) => (
                   <CustomSlider key={index} {...options} />
                 ))}
+                <CustomDoubleSlider doubleSliderOptions={doubleSliderOptions} />
               </CardContent>
             </Card>
           </Grid>

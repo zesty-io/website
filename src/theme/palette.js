@@ -82,6 +82,7 @@ export const light = {
     zestyLightText: '#a1a1a1',
     zestyLightText2: '#CBCBCB',
     zestyLightText3: '#E2E2E2',
+    zestyLightText4: '#909090',
     zestyLightOrange: '#F5F1F1',
   },
 };
