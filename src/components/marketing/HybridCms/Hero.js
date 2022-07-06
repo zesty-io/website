@@ -111,7 +111,7 @@ const Hero = ({
               />
             </Box>
             <Button
-              href={''}
+              href={'/demos'}
               variant="text"
               color="secondary"
               fullWidth={isMobile ? true : false}
@@ -142,7 +142,12 @@ const Hero = ({
             <Box
               component="img"
               src={mainImage}
-              sx={{ maxWidth: 928, width: '100%' }}
+              sx={{
+                maxWidth: 928,
+                width: '100%',
+                position: 'relative',
+                zIndex: 1,
+              }}
             />
           </Box>
         )}

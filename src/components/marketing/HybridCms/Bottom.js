@@ -119,7 +119,7 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
 
                   <Button
                     component="a"
-                    href="/contact"
+                    href="/demos"
                     variant="text"
                     color="secondary"
                     fullWidth={isMobile}
