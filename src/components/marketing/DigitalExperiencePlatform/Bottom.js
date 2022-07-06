@@ -89,7 +89,8 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
                   }}
                   dangerouslySetInnerHTML={{
                     __html: helper.strColorChanger(
-                      content.bottom_cta_description || FillerContent.description,
+                      content.bottom_cta_description ||
+                        FillerContent.description,
                       'Digital Experiences',
                       theme.palette.zesty.zestyOrange,
                     ),
@@ -108,14 +109,16 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
                   <Box sx={{ width: isTablet ? '100%' : '10rem' }}>
                     <TryFreeButton
                       fullWidth={true}
-                      text={content.bottom_cta_button_primary || FillerContent.cta}
+                      text={
+                        content.bottom_cta_button_primary || FillerContent.cta
+                      }
                       variant="contained"
                       component="a"
                     />
                   </Box>
                   <Button
-                  component="a"
-                  href="/contact"
+                    component="a"
+                    href="/demos"
                     variant="text"
                     color="secondary"
                     fullWidth={isMobile}
