@@ -33,11 +33,6 @@ const HowItWorks = ({
       <Container sx={styleSx}>
         <Box position={'relative'} zIndex={2}>
           <Grid item xs={12} md={9}>
-            {/* <Box
-                dangerouslySetInnerHTML={{
-                  __html: header || FillerContent.rich_text,
-                }}
-              ></Box> */}
             <MuiMarkdown
               overrides={{
                 h2: {
@@ -60,12 +55,12 @@ const HowItWorks = ({
                 },
               }}
             >
-              {header || FillerContent.rich_text}
+              {header}
             </MuiMarkdown>
           </Grid>
         </Box>
       </Container>
-      <FeatureGridWithBackgrounds images={images || FillerContent.demos} />
+      <FeatureGridWithBackgrounds images={images} />
     </>
   );
 };

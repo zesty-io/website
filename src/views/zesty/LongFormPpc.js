@@ -117,7 +117,8 @@ function LongFormPpc({ content }) {
   return (
     <>
       {/* HERO */}
-      {router.asPath.includes('/ppc/headless-cms/') || true ? (
+      {router.asPath.includes('/ppc/headless-cms/') ||
+      router.asPath.includes('/ppc/digital-experience-platform/') ? (
         <SimpleHeroWithCta
           title={content.hero_h1 || FillerContent.header}
           description={content.hero_h2 || FillerContent.description}
@@ -169,10 +170,13 @@ function LongFormPpc({ content }) {
 
       {/* How it works */}
 
-      {router.asPath.includes('/ppc/headless-cms/') || true ? (
+      {router.asPath.includes('/ppc/headless-cms/') ||
+      router.asPath.includes('/ppc/digital-experience-platform/') ? (
         <HowItWorks
           header={content.how_it_works || FillerContent.header}
-          images={content.how_it_works_image?.data}
+          images={
+            content.how_it_works_image?.data || FillerContent.photos[0].src
+          }
         />
       ) : (
         <Features
