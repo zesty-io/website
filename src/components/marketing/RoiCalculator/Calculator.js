@@ -35,12 +35,12 @@ function Calculator({ content, FillerContent, theme }) {
    * Sets Double Slider Initial Values and State
    */
   const [qaTestingMarketer, setQaTestingMarketer] = useState({
-    value: 5000,
+    value: 30000,
     isActive: true,
   });
 
   const [qaTestingDeveloper, setQaTestingDeveloper] = useState({
-    value: 5000,
+    value: 75000,
     isActive: false,
   });
 

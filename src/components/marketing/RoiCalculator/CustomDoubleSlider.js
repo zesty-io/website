@@ -20,7 +20,14 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
    * currency.
    */
   const generateFormat = (value) => {
-    return `$ ${value.toLocaleString()}`;
+    return (
+      <Typography component="span">
+        <Typography sx={{ fontSize: 12, textAlign: 'center' }} component="span">
+          Marketer
+        </Typography>{' '}
+        <br /> ${value.toLocaleString()}
+      </Typography>
+    );
   };
 
   /**
@@ -100,7 +107,7 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
                 border: '3px solid white',
               },
               '& .MuiSlider-valueLabel': {
-                background: theme.palette.primary.main,
+                background: !item.isActive ? '' : theme.palette.primary.main,
                 borderRadius: 1,
                 fontWeight: 'bold',
                 right:
@@ -108,11 +115,26 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
                     ? null
                     : item.value === 0
                     ? '-60px'
+                    : !item.isActive
+                    ? '-30px'
                     : '-90px',
-                top: item.value >= item.max ? '-15px' : '20px',
+                top:
+                  item.value >= item.max
+                    ? '-15px'
+                    : !item.isActive
+                    ? '-15px'
+                    : '20px',
                 '&::before': {
-                  left: item.value >= item.max ? '50%' : 0,
-                  top: item.value >= item.max ? null : '15%',
+                  left: !item.isActive
+                    ? ''
+                    : item.value >= item.max
+                    ? '50%'
+                    : 0,
+                  top: !item.isActive
+                    ? ''
+                    : item.value >= item.max
+                    ? null
+                    : '15%',
                 },
               },
             }}

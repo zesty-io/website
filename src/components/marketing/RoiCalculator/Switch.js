@@ -15,6 +15,24 @@ const Switch = ({ theme, onClick, marketer, developer }) => {
         onClick={onClick}
         sx={{
           fontSize: 12,
+          background: developer ? theme.palette.zesty.zestyOrange : 'inherit',
+          color: developer
+            ? theme.palette.common.white
+            : theme.palette.zesty.zestyLightText4,
+          borderRadius: 10,
+          width: '100%',
+          '&:hover': {
+            background: developer ? theme.palette.zesty.zestyOrange : 'inherit',
+          },
+        }}
+      >
+        Developer
+      </Button>
+
+      <Button
+        onClick={onClick}
+        sx={{
+          fontSize: 12,
           background: marketer ? theme.palette.zesty.zestyOrange : 'inherit',
           color: marketer
             ? theme.palette.common.white
@@ -28,23 +46,6 @@ const Switch = ({ theme, onClick, marketer, developer }) => {
         }}
       >
         Marketer
-      </Button>
-      <Button
-        onClick={onClick}
-        sx={{
-          fontSize: 12,
-          background: developer ? theme.palette.zesty.zestyOrange : 'inherit',
-          color: developer
-            ? theme.palette.common.white
-            : theme.palette.zesty.zestyLightText4,
-          borderRadius: 10,
-          width: '100%',
-          '&:hover': {
-            background: developer ? theme.palette.zesty.zestyOrange : 'inherit',
-          },
-        }}
-      >
-        Developer
       </Button>
     </Box>
   );
