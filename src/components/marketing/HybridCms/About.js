@@ -19,20 +19,25 @@ import { Box, Container, Typography } from '@mui/material';
 const About = ({ content, isMobile, theme, FillerContent }) => {
   const swooshBg = headlessCmsBg.src;
   return (
-    <Box
-      paddingY={isMobile ? 0 : 0}
-      sx={{ position: 'relative', background: theme.palette.zesty.zestyAzure }}
-    >
+    <Box sx={{ position: 'relative', pb: 4 }}>
       <Box
         sx={{
-          zIndex: '10',
+          zIndex: '0',
           position: 'absolute',
           right: 0,
           bottom: '-30vw',
           display: isMobile ? 'none' : 'flex',
+
+          width: '100%',
         }}
       >
-        <img src={swooshBg || FillerContent.dashboard_image} alt="bg" />
+        <Box
+          component="img"
+          zIndex={0}
+          sx={{ width: '100%' }}
+          src={swooshBg || FillerContent.dashboard_image}
+          alt="bg"
+        />
       </Box>
       <Container>
         <Grid container spacing={2}>
@@ -110,6 +115,8 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
                     FillerContent.photos[0].src
                   }
                   sx={{
+                    position: 'relative',
+                    zIndex: 5,
                     width: '100%',
                     maxWidth: 600,
                   }}

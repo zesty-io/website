@@ -157,7 +157,11 @@ function DigitalExperiencePlatform({ content }) {
       <Features {...PageData} />
       <Integrations {...PageData} />
       <Implementation {...PageData} />
-      <TopBrands {...PageData} />
+      <TopBrands
+        sx={{ pt: 4 }}
+        title={content.case_study_header}
+        {...PageData}
+      />
       <Bottom {...PageData} />
     </Box>
   );

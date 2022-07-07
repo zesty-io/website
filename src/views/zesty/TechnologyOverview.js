@@ -87,7 +87,7 @@ function TechnologyOverview({ content }) {
       <Features {...pageData} />
       <HeadlessApi {...pageData} />
       <TechStack {...pageData} />
-      <TopBrands {...pageData} />
+      <TopBrands title={content.case_study_header} {...pageData} />
       <Articles
         title={content.articles_header}
         articles={content.articles?.data}
