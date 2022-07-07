@@ -145,7 +145,11 @@ function HybridCm({ content }) {
       <About {...pageData} />
       <Hybrid {...pageData} />
       <TimeLine timelineData={timelineData} {...pageData} />
-      <TopBrands {...pageData} />
+      <TopBrands
+        sx={{ pt: 5 }}
+        title={content.case_study_title}
+        {...pageData}
+      />
       <Bottom {...pageData} />
       <Articles
         title={content.related_content_header}
