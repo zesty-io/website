@@ -43,9 +43,10 @@ const Implementation = ({
           top: 0,
           zIndex: 0,
           display: isMobile ? 'none' : 'flex',
+          width: '100%',
         }}
       >
-        <img src={swooshBg} alt="bg" />
+        <Box sx={{ width: '100%' }} component="img" src={swooshBg} alt="bg" />
       </Box>
       <Container
         sx={{

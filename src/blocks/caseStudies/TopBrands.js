@@ -13,7 +13,16 @@ import {
 } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
-const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
+const TopBrands = ({
+  theme,
+  title,
+  content,
+  isMobile,
+  isDarkMode,
+  FillerContent,
+  sx,
+}) => {
+  console.log(sx);
   const caseStudies = [...(content.case_studies.data || [])];
   const [active, setActive] = useState(caseStudies[0]);
   /**
@@ -24,10 +33,8 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
     setActive(caseStudies[idx]);
   };
 
-  console.log(caseStudies);
-
   return (
-    <Box component="section">
+    <Box sx={sx} component="section">
       <Box>
         <Typography
           variant="h4"
@@ -40,7 +47,7 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
             px: 4,
           }}
         >
-          {content.case_study_header || FillerContent.header}
+          {title || FillerContent.header}
         </Typography>
       </Box>
       <Box
@@ -171,7 +178,12 @@ const TopBrands = ({ theme, content, isMobile, isDarkMode, FillerContent }) => {
                         {active.summary || FillerContent.description}
                       </MuiMarkdown>
                       <Box sx={{ pt: 2 }}>
-                        <Link href={active.link || FillerContent.href}>
+                        <Link
+                          href={
+                            active.card_link.data[0].meta.web.uri ||
+                            FillerContent.href
+                          }
+                        >
                           Learn More
                         </Link>
                       </Box>
