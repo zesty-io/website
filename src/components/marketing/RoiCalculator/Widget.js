@@ -26,7 +26,7 @@ function Widget({ content, FillerContent, theme }) {
                 sx: {
                   textAlign: 'center',
                   fontWeight: 'bold',
-                  color: theme.palette.zesty.zestyZambezi,
+                  color: theme.palette.zesty.zestyOrange,
                 },
               },
             },

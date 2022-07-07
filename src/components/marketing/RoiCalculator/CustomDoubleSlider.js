@@ -58,7 +58,7 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
     <Box sx={{ py: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <Typography
-          variant="h5"
+          variant="h6"
           component="h3"
           sx={{
             fontWeight: 'bold',

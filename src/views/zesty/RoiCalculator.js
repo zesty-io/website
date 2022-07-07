@@ -50,11 +50,15 @@ import Calculator from 'components/marketing/RoiCalculator/Calculator';
 
 function RoiCalculator({ content }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
 
   const pageData = {
     theme,
     isMobile,
+    isLarge,
+    isExtraLarge,
     FillerContent,
     content,
   };

@@ -8,6 +8,7 @@ import {
   Container,
   Card,
   CardContent,
+  Button,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
@@ -120,6 +121,30 @@ function Calculator({ content, FillerContent, theme }) {
     },
   ];
 
+  const currentCMSdata = [
+    {
+      name: 'Tradional',
+      isActive: true,
+    },
+    {
+      name: 'Headless',
+      isActive: false,
+    },
+    {
+      name: 'Custom/Home grown',
+      isActive: false,
+    },
+    {
+      name: 'DXP Suite',
+      isActive: false,
+    },
+    {
+      name: 'Others',
+      isActive: false,
+    },
+  ];
+  const [currentCMS, setCurrentCMS] = useState(currentCMSdata);
+
   return (
     <Box
       sx={{
@@ -135,7 +160,7 @@ function Calculator({ content, FillerContent, theme }) {
               variant="h4"
               component="h2"
               sx={{
-                color: theme.palette.zesty.zestyZambezi,
+                color: theme.palette.zesty.zestyOrange,
                 fontWeight: 'bold',
               }}
             >
@@ -144,6 +169,38 @@ function Calculator({ content, FillerContent, theme }) {
             <Card sx={{ mt: 2, py: 2, px: 4, overflow: 'inherit' }}>
               <CardContent>
                 {/* Slider Start */}
+                <Box>
+                  <Typography
+                    variant="h6"
+                    component="h2"
+                    sx={{
+                      color: theme.palette.zesty.zestyZambezi,
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    WHAT CMS ARE YOU CURRENTLY USING?
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                    {currentCMS.map((item, index) => (
+                      <Button
+                        sx={{
+                          background: item.isActive
+                            ? theme.palette.zesty.zestyOrange
+                            : theme.palette.secondary.whiteSmoke,
+                          color: item.isActive
+                            ? theme.palette.common.white
+                            : theme.palette.zesty.zestyZambezi,
+                          '&:hover': {
+                            color: theme.palette.common.white,
+                          },
+                        }}
+                        variant="contained"
+                      >
+                        {item.name}
+                      </Button>
+                    ))}
+                  </Box>
+                </Box>
                 {sliderOptions.map((options, index) => (
                   <CustomSlider key={index} {...options} />
                 ))}
@@ -157,7 +214,7 @@ function Calculator({ content, FillerContent, theme }) {
               variant="h4"
               component="h2"
               sx={{
-                color: theme.palette.zesty.zestyZambezi,
+                color: theme.palette.zesty.zestyOrange,
                 fontWeight: 'bold',
               }}
             >
