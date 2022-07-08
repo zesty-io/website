@@ -20,7 +20,7 @@ async function fetchZestyRedirects() {
    let redirectsAPIURL = zestyURL+'/-/headless/redirects.json?zpw=' + process.env.zesty.stage_password;
    try {
      const req = await fetch(redirectsAPIURL);
-     let redirects = req.json();
+     let redirects = await req.json();
      let redirectsForNext = []
      redirects.forEach(r => {
       redirectsForNext.push({
