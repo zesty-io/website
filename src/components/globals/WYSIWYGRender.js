@@ -130,10 +130,13 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
             color: white ;
             font-size: 16px;
         }
-        .wysiwyg img{
-          max-width: 100%;
-          height: 100%;
-        }
+        
+        @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+          .wysiwyg img{
+            max-width: 100%;
+            height: 100%;
+          }
+      }
         .wysiwyg  a{
           color: ${theme.palette.zesty.zestyBlue};
           font-weight: 700;
