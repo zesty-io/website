@@ -131,6 +131,9 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
             font-size: 16px;
         }
         
+        /*
+        * Ignore style on safari
+        */ 
         @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
           .wysiwyg img{
             max-width: 100%;
