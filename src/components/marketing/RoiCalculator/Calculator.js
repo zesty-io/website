@@ -10,9 +10,7 @@ import {
   CardContent,
   Button,
 } from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
+
 import { useState } from 'react';
 
 /**
@@ -20,6 +18,7 @@ import { useState } from 'react';
  */
 import CustomSlider from './CustomSlider';
 import CustomDoubleSlider from './CustomDoubleSlider';
+import Results from './Results';
 
 function Calculator({ content, FillerContent, theme }) {
   /**
@@ -251,16 +250,12 @@ function Calculator({ content, FillerContent, theme }) {
             <Card
               sx={{
                 mt: 2,
+                px: 2,
                 borderTop: `20px solid ${theme.palette.zesty.zestyOrange}`,
               }}
             >
               <CardContent>
-                <Typography>INFRASTRUCTURE</Typography>
-                <Tooltip title="Delete">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+                <Results theme={theme} />
               </CardContent>
             </Card>
           </Grid>

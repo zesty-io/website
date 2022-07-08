@@ -26,6 +26,7 @@ export const light = {
     blueShadow: 'rgba(145, 177, 235, 0.3)',
     whiteSmoke: '#f1f1f1',
     snow: '#fafafa',
+    black: '#273240',
   },
 
   text: {
