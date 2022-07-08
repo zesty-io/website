@@ -7,9 +7,11 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
-const CustomSlider = ({ max, step, value, setter, title, info }) => {
+const CustomSlider = ({ max, step, value, setter, title, info, type }) => {
   const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
 
   /**
    * @param value - The value of the slider.
@@ -17,7 +19,7 @@ const CustomSlider = ({ max, step, value, setter, title, info }) => {
    * currency.
    */
   const generateFormat = (value) => {
-    return `$ ${value.toLocaleString()}`;
+    return type === 'percent' ? `${value} %` : `$ ${value.toLocaleString()}`;
   };
 
   const handleChange = (e) => {
@@ -37,12 +39,42 @@ const CustomSlider = ({ max, step, value, setter, title, info }) => {
         >
           {title.toUpperCase()}
         </Typography>
+
         <Tooltip
+          PopperProps={{
+            sx: {
+              '& .MuiTooltip-tooltip': {
+                maxWidth: 500,
+                backgroundColor: theme.palette.zesty.zestyWhite,
+
+                '& p': {
+                  color: theme.palette.zesty.zestyZambezi,
+                },
+              },
+              '& .MuiTooltip-arrow': {
+                color: theme.palette.zesty.zestyWhite,
+              },
+            },
+          }}
+          arrow={true}
           sx={{
             color: theme.palette.zesty.zestyLightText,
           }}
-          placement="top"
-          title={info}
+          placement={isMedium ? 'top' : 'right'}
+          title={
+            <Box sx={{ p: 2 }}>
+              <Typography sx={{ fontWeight: 'bold', mb: 1.5 }} variant="body1">
+                {info.header}
+              </Typography>
+              <Typography
+                sx={{ lineHeight: 1.2 }}
+                component="p"
+                variant="body1"
+              >
+                {info.description}
+              </Typography>
+            </Box>
+          }
         >
           <IconButton>
             <InfoIcon />
@@ -71,7 +103,14 @@ const CustomSlider = ({ max, step, value, setter, title, info }) => {
             background: theme.palette.primary.main,
             borderRadius: 1,
             fontWeight: 'bold',
-            right: value >= max ? null : value === 0 ? '-60px' : '-90px',
+            right:
+              value >= max
+                ? null
+                : value === 0
+                ? '-60px'
+                : type === 'percentage'
+                ? '-70px'
+                : '-90px',
             top: value >= max ? '-15px' : '20px',
             '&::before': {
               left: value >= max ? '50%' : 0,
@@ -85,7 +124,16 @@ const CustomSlider = ({ max, step, value, setter, title, info }) => {
         variant="Subtitle1"
         component={'p'}
       >
-        {`$${value.toLocaleString()}/month`}
+        {(() => {
+          switch (type) {
+            case 'percent':
+              return `${value.toLocaleString()} percent`;
+            case 'monthly':
+              return `$${value.toLocaleString()}/month`;
+            case 'one time':
+              return `$${value.toLocaleString()} one time fee`;
+          }
+        })()}
       </Typography>
     </Box>
   );

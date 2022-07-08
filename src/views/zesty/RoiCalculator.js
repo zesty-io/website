@@ -64,11 +64,11 @@ function RoiCalculator({ content }) {
   };
 
   return (
-    <>
+    <div className="roi-calculator">
       <Hero {...pageData} />
       <Widget {...pageData} />
       <Calculator {...pageData} />
-    </>
+    </div>
   );
 }
 

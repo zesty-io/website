@@ -26,12 +26,11 @@ function Calculator({ content, FillerContent, theme }) {
    * Sets Slider Initial Values and State
    */
   const [infrastructureValue, setInfrastructureValue] = useState(0);
-  const [licensing, setLicensing] = useState(0);
   const [cmsSetup, setCmsSetup] = useState(0);
   const [ongoingSupport, setOngoingSupport] = useState(0);
   const [additionalSoftware, setAdditionalSoftware] = useState(0);
-  const [intangibles, setIntangibles] = useState(0);
-  const [standardCharges, setStandardCharges] = useState(0);
+  const [percentage, setPercentage] = useState(0);
+
   /**
    * Sets Double Slider Initial Values and State
    */
@@ -47,20 +46,30 @@ function Calculator({ content, FillerContent, theme }) {
 
   const sliderOptions = [
     {
+      max: 100,
+      step: 1,
+      setter: setPercentage,
+      value: percentage,
+      title: 'what PERCENT you could add in of revenue?',
+      info: {
+        header: 'Percentage',
+        description:
+          'Lorem ipsum dolor amet iset to mecarto Lorem ipsum dolor amet iset to mecarto',
+      },
+      type: 'percent',
+    },
+    {
       max: 100000,
       step: 5000,
       setter: setInfrastructureValue,
       value: infrastructureValue,
       title: 'infrastructure',
-      info: 'tooltip information',
-    },
-    {
-      max: 10000,
-      step: 5000,
-      setter: setLicensing,
-      value: licensing,
-      title: 'licensing',
-      info: 'tooltip information',
+      info: {
+        header: 'Infrastructure Cost',
+        description:
+          'Infrastructure costs include all potential costs, including but not limited to: CMS/Software Hosting (Server Costs), Website Hosting (Server Costs), Endpoint Hosting (Server Costs), High Availability/Disaster Recovery, Content Delivery Network, Web Application Firewall, Stage Environments, and any other costs associated with infrastructure to create, deliver, and maintain your project.',
+      },
+      type: 'monthly',
     },
     {
       max: 100000,
@@ -68,7 +77,12 @@ function Calculator({ content, FillerContent, theme }) {
       setter: setCmsSetup,
       value: cmsSetup,
       title: 'Cms setup',
-      info: 'tooltip information',
+      info: {
+        header: 'Cms Setup',
+        description:
+          'Lorem ipsum dolor amet iset to mecarto Lorem ipsum dolor amet iset to mecarto',
+      },
+      type: 'one time',
     },
     {
       max: 100000,
@@ -76,7 +90,12 @@ function Calculator({ content, FillerContent, theme }) {
       setter: setOngoingSupport,
       value: ongoingSupport,
       title: 'ongoing support',
-      info: 'tooltip information',
+      info: {
+        header: 'Ongoing Support',
+        description:
+          'Lorem ipsum dolor amet iset to mecarto Lorem ipsum dolor amet iset to mecarto',
+      },
+      type: 'monthly',
     },
     {
       max: 100000,
@@ -84,23 +103,12 @@ function Calculator({ content, FillerContent, theme }) {
       setter: setAdditionalSoftware,
       value: additionalSoftware,
       title: 'additional software',
-      info: 'tooltip information',
-    },
-    {
-      max: 100000,
-      step: 5000,
-      setter: setIntangibles,
-      value: intangibles,
-      title: 'intangibles',
-      info: 'tooltip information',
-    },
-    {
-      max: 100000,
-      step: 5000,
-      setter: setStandardCharges,
-      value: standardCharges,
-      title: 'standard charges',
-      info: 'tooltip information',
+      info: {
+        header: 'Additional Software',
+        description:
+          'Lorem ipsum dolor amet iset to mecarto Lorem ipsum dolor amet iset to mecarto',
+      },
+      type: 'monthly',
     },
   ];
 
@@ -144,6 +152,22 @@ function Calculator({ content, FillerContent, theme }) {
     },
   ];
   const [currentCMS, setCurrentCMS] = useState(currentCMSdata);
+  /**
+   * It takes in a string, and then it maps over the currentCMS state, and if the name of the object
+   * matches the string, it sets the isActive property to true, otherwise it sets it to false
+   * @param currentCMS - The name of the CMS that was clicked on.
+   */
+  const currentCMSHandler = (currentCMS) => {
+    setCurrentCMS((current) =>
+      current.map((obj) => {
+        if (obj.name === currentCMS) {
+          return { ...obj, isActive: true };
+        } else {
+          return { ...obj, isActive: false };
+        }
+      }),
+    );
+  };
 
   return (
     <Box
@@ -155,7 +179,7 @@ function Calculator({ content, FillerContent, theme }) {
     >
       <Container>
         <Grid container spacing={2}>
-          <Grid item sm={12} md={8}>
+          <Grid item xs={12} md={8}>
             <Typography
               variant="h4"
               component="h2"
@@ -180,9 +204,13 @@ function Calculator({ content, FillerContent, theme }) {
                   >
                     WHAT CMS ARE YOU CURRENTLY USING?
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                  <Box
+                    sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 2 }}
+                  >
                     {currentCMS.map((item, index) => (
                       <Button
+                        key={index}
+                        onClick={() => currentCMSHandler(item.name)}
                         sx={{
                           background: item.isActive
                             ? theme.palette.zesty.zestyOrange
@@ -209,7 +237,7 @@ function Calculator({ content, FillerContent, theme }) {
             </Card>
           </Grid>
 
-          <Grid item sm={12} md={4}>
+          <Grid item xs={12} md={4}>
             <Typography
               variant="h4"
               component="h2"
@@ -220,7 +248,12 @@ function Calculator({ content, FillerContent, theme }) {
             >
               {content.results_title || FillerContent.header}
             </Typography>
-            <Card sx={{ mt: 2 }}>
+            <Card
+              sx={{
+                mt: 2,
+                borderTop: `20px solid ${theme.palette.zesty.zestyOrange}`,
+              }}
+            >
               <CardContent>
                 <Typography>INFRASTRUCTURE</Typography>
                 <Tooltip title="Delete">
