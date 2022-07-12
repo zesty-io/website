@@ -23,11 +23,11 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-import React from 'react';
+import { React, useEffect, useState } from 'react';
 
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-
+import { getCookie, setCookies } from 'cookies-next';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Typography from '@mui/material/Typography';
@@ -37,10 +37,41 @@ import Container from 'components/wrappers/FullWidthContainer';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 
 const Demo = ({ content }) => {
-  
+  let demoFormEmbedLink = `https://forms.zohopublic.com/zestyio/form/SalesSignupform/formperma/634ov0T9TZdP8vJsI1KBz8WyPgltGy_IJ5xGiMKdH5Q?a=b`;
+
+  const [formURL, setFormURL] = useState(demoFormEmbedLink);
 
 // code to adjust the iframe embed of the zoho form
-  React.useEffect(() => {
+  useEffect(() => {
+    let gclid = getCookie('gclid');
+    let utm_campaign = getCookie('utm_campaign');
+    let utm_term = getCookie('utm_term');
+    let utm_medium = getCookie('utm_medium');
+    let utm_source = getCookie('utm_source');
+
+    if(gclid){
+      demoFormEmbedLink += '&gclid=' + gclid;
+    }
+    if(utm_campaign){
+      demoFormEmbedLink += '&utm_campaign=' + utm_campaign;
+    }
+    if(utm_source){
+      demoFormEmbedLink += '&utm_source=' + utm_source;
+    }
+    if(utm_source){
+      demoFormEmbedLink += '&referrername=' + utm_source;
+    }
+    if(utm_medium){
+      demoFormEmbedLink += '&utm_medium=' + utm_medium;
+    }
+    if(utm_term){
+      demoFormEmbedLink += '&utm_term=' + utm_term;
+    }
+
+
+     
+    setFormURL(demoFormEmbedLink )
+
     function resizeIFrameToFitContent( iFrame ) {
         iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
         iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
@@ -57,6 +88,7 @@ const Demo = ({ content }) => {
         }
     } );
   })
+  
   const theme = useTheme();
   return (
     <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
@@ -116,7 +148,7 @@ const Demo = ({ content }) => {
              width="100%" 
              border="0"
              id="leadframe"
-             src="https://forms.zohopublic.com/zestyio/form/SalesSignupform/formperma/634ov0T9TZdP8vJsI1KBz8WyPgltGy_IJ5xGiMKdH5Q"
+             src={formURL}
              style={{border: 0, height: '600px'}}
              >
 
