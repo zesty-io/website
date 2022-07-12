@@ -37,6 +37,26 @@ import Container from 'components/wrappers/FullWidthContainer';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 
 const Demo = ({ content }) => {
+  
+
+// code to adjust the iframe embed of the zoho form
+  React.useEffect(() => {
+    function resizeIFrameToFitContent( iFrame ) {
+        iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+        iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+    }
+    window.addEventListener('DOMContentLoaded', function(e) {
+
+        var iFrame = document.getElementById( 'leadframe' );
+        resizeIFrameToFitContent( iFrame );
+
+        // or, to resize all iframes:
+        var iframes = document.querySelectorAll("iframe");
+        for( var i = 0; i < iframes.length; i++) {
+            resizeIFrameToFitContent( iframes[i] );
+        }
+    } );
+  })
   const theme = useTheme();
   return (
     <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
@@ -81,6 +101,9 @@ const Demo = ({ content }) => {
                 subtitle={content.header_description}
                 ctaButtonText={content.callout_button_text}
               /> */}
+            {/* 
+            removed in place to 
+            
             <StandardFormWithSelect
               leadDetail="Demo Sign Up"
               selectedValue={2}
@@ -88,7 +111,16 @@ const Demo = ({ content }) => {
               modalTitle="Thank you for submitting your request."
               modalMessage="Our team will be in touch soon to schedule a demo with you."
               phoneNumber={true}
-            />
+            /> */}
+            <iframe
+             width="100%" 
+             border="0"
+             id="leadframe"
+             src="https://forms.zohopublic.com/zestyio/form/SalesSignupform/formperma/634ov0T9TZdP8vJsI1KBz8WyPgltGy_IJ5xGiMKdH5Q"
+             style={{border: 0, height: '600px'}}
+             >
+
+             </iframe>
           </Container>
         </Box>
         <Box
