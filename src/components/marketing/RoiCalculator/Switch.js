@@ -1,6 +1,6 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
-const Switch = ({ theme, onClick, marketer, developer }) => {
+const Switch = ({ theme, switchHandler, marketer, developer }) => {
   return (
     <Box
       sx={{
@@ -12,7 +12,7 @@ const Switch = ({ theme, onClick, marketer, developer }) => {
       }}
     >
       <Button
-        onClick={onClick}
+        onClick={(e) => switchHandler(e)}
         sx={{
           fontSize: 12,
           background: developer ? theme.palette.zesty.zestyOrange : 'inherit',
@@ -30,7 +30,7 @@ const Switch = ({ theme, onClick, marketer, developer }) => {
       </Button>
 
       <Button
-        onClick={onClick}
+        onClick={(e) => switchHandler(e)}
         sx={{
           fontSize: 12,
           background: marketer ? theme.palette.zesty.zestyOrange : 'inherit',

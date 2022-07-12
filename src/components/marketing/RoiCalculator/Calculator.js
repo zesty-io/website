@@ -33,14 +33,17 @@ function Calculator({ content, FillerContent, theme }) {
   /**
    * Sets Double Slider Initial Values and State
    */
-  const [qaTestingMarketer, setQaTestingMarketer] = useState({
-    value: 30000,
-    isActive: true,
-  });
 
   const [qaTestingDeveloper, setQaTestingDeveloper] = useState({
-    value: 75000,
+    value: 50,
+    isActive: true,
+    name: ' Developer',
+  });
+
+  const [qaTestingMarketer, setQaTestingMarketer] = useState({
+    value: 30,
     isActive: false,
+    name: ' Marketer',
   });
 
   const sliderOptions = [
@@ -113,18 +116,23 @@ function Calculator({ content, FillerContent, theme }) {
 
   const doubleSliderOptions = [
     {
-      max: 100000,
-      step: 5000,
-      setter: setQaTestingMarketer,
-      data: qaTestingMarketer,
-      isActive: true,
-    },
-    {
-      max: 100000,
-      step: 5000,
-      setter: setQaTestingDeveloper,
-      data: qaTestingDeveloper,
-      isActive: false,
+      title: 'qa testing',
+      options: [
+        {
+          max: 100,
+          step: 1,
+          setter: setQaTestingDeveloper,
+          data: qaTestingDeveloper,
+          isActive: true,
+        },
+        {
+          max: 100,
+          step: 1,
+          setter: setQaTestingMarketer,
+          data: qaTestingMarketer,
+          isActive: false,
+        },
+      ],
     },
   ];
 
@@ -231,7 +239,10 @@ function Calculator({ content, FillerContent, theme }) {
                 {sliderOptions.map((options, index) => (
                   <CustomSlider key={index} {...options} />
                 ))}
-                <CustomDoubleSlider doubleSliderOptions={doubleSliderOptions} />
+
+                {doubleSliderOptions.map((options, index) => (
+                  <CustomDoubleSlider key={index} {...options} />
+                ))}
               </CardContent>
             </Card>
           </Grid>

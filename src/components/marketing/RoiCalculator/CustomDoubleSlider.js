@@ -7,11 +7,10 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import { useTheme } from '@mui/material/styles';
-import { FamilyRestroom } from '@mui/icons-material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Switch from './Switch';
 
-const CustomDoubleSlider = ({ doubleSliderOptions }) => {
+const CustomDoubleSlider = ({ title, options }) => {
   const theme = useTheme();
 
   /**
@@ -19,13 +18,25 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
    * @returns A function that takes in a value and returns a string with the value formatted as a
    * currency.
    */
-  const generateFormat = (value) => {
+  const generateFormat = (value, name) => {
     return (
-      <Typography component="span">
-        <Typography sx={{ fontSize: 12, textAlign: 'center' }} component="span">
-          Marketer
+      <Typography
+        sx={{ fontWeight: ' bold', fontSize: 14, textAlign: 'center' }}
+        component="span"
+      >
+        {value.toLocaleString()} hours <br />
+        <Typography
+          sx={{
+            fontSize: 12,
+            textAlign: 'center',
+            margin: 'auto',
+            display: 'block',
+            mt: -0.8,
+          }}
+          component="span"
+        >
+          {name}
         </Typography>{' '}
-        <br /> ${value.toLocaleString()}
       </Typography>
     );
   };
@@ -42,17 +53,33 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
   /**
    * sets inital values for switch
    */
-  const [marketer, setMarketer] = useState(false);
-  const [developer, setDeveloper] = useState(true);
+  const [developer, setDeveloper] = useState(false);
+  const [marketer, setMarketer] = useState(true);
 
   /**
    * `switchHandler` is a function that sets the state of `marketer` and  `developer` to the opposite of its current state
    * maintaining one active state between two
    */
-  const switchHandler = () => {
+  const switchHandler = (e) => {
     setMarketer(!marketer);
     setDeveloper(!developer);
+
+    /* Setting the state of the slider to active or inactive depending on the state of the switch. */
+    if (marketer) {
+      options[0].setter((prev) => ({ ...prev, isActive: true }));
+      options[1].setter((prev) => ({ ...prev, isActive: false }));
+    }
+
+    if (developer) {
+      options[0].setter((prev) => ({ ...prev, isActive: false }));
+      options[1].setter((prev) => ({ ...prev, isActive: true }));
+    }
   };
+
+  /* Calling the switchHandler function when the component mounts. */
+  useEffect(() => {
+    switchHandler();
+  }, []);
 
   return (
     <Box sx={{ py: 2 }}>
@@ -65,7 +92,7 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
             color: theme.palette.zesty.zestyZambezi,
           }}
         >
-          {/* {title.toUpperCase()} */} Test
+          {title.toUpperCase()}
         </Typography>
         <Tooltip
           sx={{
@@ -80,9 +107,10 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
         </Tooltip>
       </Box>
       <Box sx={{ position: 'relative' }}>
-        {doubleSliderOptions.map((item) => (
+        {options.map((item, index) => (
           <Slider
-            disabled={!item.isActive}
+            key={index}
+            disabled={!item.data.isActive}
             max={item.max}
             step={item.step}
             value={item.data.value}
@@ -90,15 +118,17 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
             valueLabelDisplay="on"
             onChange={(e) => handleChange(e, item.setter)}
             color="secondary"
-            valueLabelFormat={() => generateFormat(item.data.value)}
+            valueLabelFormat={() =>
+              generateFormat(item.data.value, item.data.name)
+            }
             sx={{
-              position: item.isActive ? 'absolute' : '',
-              left: item.isActive ? 0 : '',
-              top: item.isActive ? 8 : '',
-              mt: item.isActive ? 0 : 1,
-              zIndex: item.isActive ? 1 : 0,
+              position: item.data.isActive ? 'absolute' : '',
+              left: item.data.isActive ? 0 : '',
+              top: item.data.isActive ? 8 : '',
+              mt: item.data.isActive ? 0 : 1,
+              zIndex: item.data.isActive ? 1 : 0,
               '& .MuiSlider-rail': {
-                background: item.isActive
+                background: item.data.isActive
                   ? 'transparent'
                   : theme.palette.background.grey,
                 height: 8,
@@ -107,7 +137,9 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
                 border: '3px solid white',
               },
               '& .MuiSlider-valueLabel': {
-                background: !item.isActive ? '' : theme.palette.primary.main,
+                background: !item.data.isActive
+                  ? ''
+                  : theme.palette.primary.main,
                 borderRadius: 1,
                 fontWeight: 'bold',
                 right:
@@ -115,64 +147,31 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
                     ? null
                     : item.value === 0
                     ? '-60px'
-                    : !item.isActive
+                    : !item.data.isActive
                     ? '-30px'
                     : '-90px',
                 top:
                   item.value >= item.max
                     ? '-15px'
-                    : !item.isActive
-                    ? '-15px'
+                    : !item.data.isActive
+                    ? '-22px'
                     : '20px',
                 '&::before': {
-                  left: !item.isActive
+                  left: !item.data.isActive
                     ? ''
                     : item.value >= item.max
                     ? '50%'
                     : 0,
-                  top: !item.isActive
+                  top: !item.data.isActive
                     ? ''
                     : item.value >= item.max
                     ? null
-                    : '15%',
+                    : '40%',
                 },
               },
             }}
           />
         ))}
-        {/* <Slider
-          max={max}
-          step={step}
-          value={value}
-          aria-label="Default"
-          valueLabelDisplay="on"
-          onChange={handleChange}
-          color="secondary"
-          valueLabelFormat={() => generateFormat(value)}
-          sx={{
-            position: 'absolute',
-            left: 0,
-            top: 7,
-            '& .MuiSlider-rail': {
-              background: theme.palette.background.grey,
-              height: 8,
-            },
-            '& .MuiSlider-thumb': {
-              border: '3px solid white',
-            },
-            '& .MuiSlider-valueLabel': {
-              background: theme.palette.primary.main,
-              borderRadius: 1,
-              fontWeight: 'bold',
-              right: value >= max ? null : value === 0 ? '-60px' : '-90px',
-              top: value >= max ? '-15px' : '20px',
-              '&::before': {
-                left: value >= max ? '50%' : 0,
-                top: value >= max ? null : '15%',
-              },
-            },
-          }}
-        /> */}
       </Box>
       <Box
         sx={{
@@ -193,7 +192,7 @@ const CustomDoubleSlider = ({ doubleSliderOptions }) => {
         <Box>
           <Switch
             {...{ marketer, developer }}
-            onClick={switchHandler}
+            switchHandler={switchHandler}
             theme={theme}
           />
         </Box>
