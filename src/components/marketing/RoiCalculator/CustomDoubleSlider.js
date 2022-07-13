@@ -7,11 +7,22 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+/**
+ *  React Imports
+ */
+
 import { useEffect, useState } from 'react';
+
+/**
+ *  Components Imports
+ */
 import Switch from './Switch';
 
-const CustomDoubleSlider = ({ title, options }) => {
+const CustomDoubleSlider = ({ title, info, options }) => {
   const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
 
   /**
    * @param value - The value of the slider.
@@ -95,11 +106,40 @@ const CustomDoubleSlider = ({ title, options }) => {
           {title.toUpperCase()}
         </Typography>
         <Tooltip
+          PopperProps={{
+            sx: {
+              '& .MuiTooltip-tooltip': {
+                maxWidth: 500,
+                backgroundColor: theme.palette.zesty.zestyWhite,
+
+                '& p': {
+                  color: theme.palette.zesty.zestyZambezi,
+                },
+              },
+              '& .MuiTooltip-arrow': {
+                color: theme.palette.zesty.zestyWhite,
+              },
+            },
+          }}
+          placement={isMedium ? 'top' : 'right'}
+          arrow={true}
           sx={{
             color: theme.palette.zesty.zestyLightText,
           }}
-          placement="top"
-          title={'info'}
+          title={
+            <Box sx={{ p: 2 }}>
+              <Typography sx={{ fontWeight: 'bold', mb: 1.5 }} variant="body1">
+                {info.header}
+              </Typography>
+              <Typography
+                sx={{ lineHeight: 1.2 }}
+                component="p"
+                variant="body1"
+              >
+                {info.description}
+              </Typography>
+            </Box>
+          }
         >
           <IconButton>
             <InfoIcon />
@@ -134,7 +174,8 @@ const CustomDoubleSlider = ({ title, options }) => {
                 height: 8,
               },
               '& .MuiSlider-thumb': {
-                border: '3px solid white',
+                border: item.data.isActive ? '3px solid white' : '',
+                background: item.data.isActive ? '' : 'transparent',
               },
               '& .MuiSlider-valueLabel': {
                 background: !item.data.isActive

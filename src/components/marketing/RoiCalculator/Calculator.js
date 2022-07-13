@@ -46,6 +46,29 @@ function Calculator({ content, FillerContent, theme }) {
     name: ' Marketer',
   });
 
+  const [intangiblesDeveloper, setIntangiblesDeveloper] = useState({
+    value: 50,
+    isActive: true,
+    name: ' Developer',
+  });
+
+  const [intangiblesMarketer, setIntangiblesMarketer] = useState({
+    value: 30,
+    isActive: false,
+    name: ' Marketer',
+  });
+  const [standardChangesDeveloper, setStandardChangesDeveloper] = useState({
+    value: 50,
+    isActive: true,
+    name: ' Developer',
+  });
+
+  const [standardChangesMarketer, setStandardChangesMarketer] = useState({
+    value: 30,
+    isActive: false,
+    name: ' Marketer',
+  });
+
   const sliderOptions = [
     {
       max: 100,
@@ -117,20 +140,70 @@ function Calculator({ content, FillerContent, theme }) {
   const doubleSliderOptions = [
     {
       title: 'qa testing',
+      info: {
+        header: 'qa testing',
+        description:
+          'Lorem ipsum dolor amet iset to mecarto Lorem ipsum dolor amet iset to mecarto',
+      },
+      type: 'percent',
       options: [
         {
           max: 100,
           step: 1,
           setter: setQaTestingDeveloper,
           data: qaTestingDeveloper,
-          isActive: true,
         },
         {
           max: 100,
           step: 1,
           setter: setQaTestingMarketer,
           data: qaTestingMarketer,
-          isActive: false,
+        },
+      ],
+    },
+    {
+      title: 'intangibles',
+      info: {
+        header: 'intangibles',
+        description:
+          'Lorem ipsum dolor amet iset to mecarto Lorem ipsum dolor amet iset to mecarto',
+      },
+      type: 'percent',
+      options: [
+        {
+          max: 100,
+          step: 1,
+          setter: setIntangiblesDeveloper,
+          data: intangiblesDeveloper,
+        },
+        {
+          max: 100,
+          step: 1,
+          setter: setIntangiblesMarketer,
+          data: intangiblesMarketer,
+        },
+      ],
+    },
+    {
+      title: 'standard changes',
+      info: {
+        header: 'standard changes',
+        description:
+          'Lorem ipsum dolor amet iset to mecarto Lorem ipsum dolor amet iset to mecarto',
+      },
+      type: 'percent',
+      options: [
+        {
+          max: 100,
+          step: 1,
+          setter: setStandardChangesDeveloper,
+          data: standardChangesDeveloper,
+        },
+        {
+          max: 100,
+          step: 1,
+          setter: setStandardChangesMarketer,
+          data: standardChangesMarketer,
         },
       ],
     },
@@ -260,8 +333,12 @@ function Calculator({ content, FillerContent, theme }) {
             </Typography>
             <Card
               sx={{
+                height: '95.9%',
                 mt: 2,
                 px: 2,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
                 borderTop: `20px solid ${theme.palette.zesty.zestyOrange}`,
               }}
             >
