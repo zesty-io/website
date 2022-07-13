@@ -14,6 +14,7 @@
     "docker-build": "docker build .",
     "gcloud-build": "gcloud builds submit --tag gcr.io/zesty-dev/zesty-website:1.0.0  --project zesty-dev",
     "gcloud-deploy": "gcloud run deploy zesty-website --image=gcr.io/zesty-dev/zesty-website:1.0.0 --platform managed --port 3000 --project zesty-dev --allow-unauthenticated --min-instances 1 --region us-central1",
+    "deploy-stage": "npm run gcloud-build && npm run gcloud-deploy",
     "prepare:dev": "chmod ug+x .husky/*",
     "prepare": "husky install && npm run prepare:dev",
     "test": "jest --forceExit",
