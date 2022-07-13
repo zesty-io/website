@@ -24,6 +24,8 @@ const CustomDoubleSlider = ({ title, info, options }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
 
+  console.log(options);
+
   /**
    * @param value - The value of the slider.
    * @returns A function that takes in a value and returns a string with the value formatted as a
@@ -184,28 +186,28 @@ const CustomDoubleSlider = ({ title, info, options }) => {
                 borderRadius: 1,
                 fontWeight: 'bold',
                 right:
-                  item.value >= item.max
+                  item.data.value >= item.max
                     ? null
-                    : item.value === 0
+                    : item.data.value === 0
                     ? '-60px'
                     : !item.data.isActive
                     ? '-30px'
                     : '-90px',
                 top:
-                  item.value >= item.max
+                  item.data.value >= item.max
                     ? '-15px'
                     : !item.data.isActive
-                    ? '-22px'
+                    ? '-20px'
                     : '20px',
                 '&::before': {
                   left: !item.data.isActive
                     ? ''
-                    : item.value >= item.max
+                    : item.data.value >= item.max
                     ? '50%'
                     : 0,
                   top: !item.data.isActive
                     ? ''
-                    : item.value >= item.max
+                    : item.data.value >= item.max
                     ? null
                     : '40%',
                 },
