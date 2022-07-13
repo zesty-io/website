@@ -89,7 +89,6 @@ function Mindshare({ content }) {
           {/* Search Filter */}
           <Container
             sx={{
-              marginTop: '-5rem',
               position: 'relative',
               zIndex: 3,
               paddingY: '0 !important',
