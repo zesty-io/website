@@ -19,7 +19,7 @@ const Results = ({
   const developerAnnualSalary = 200000;
   const marketerAnnualSalary = 125000;
 
-  // 2080 - Total works hours per year assuming the calculations of 40 works hours per week
+  // 2080 - Total work hours per year assuming the calculations of 40 work hours per week
   const developerHourlySalary = Math.floor(developerAnnualSalary / 2080);
   const marketerHourlySalary = Math.floor(marketerAnnualSalary / 2080);
 
