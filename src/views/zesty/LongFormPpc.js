@@ -68,7 +68,7 @@ import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCt
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
 import PpcShortForm from 'components/marketing/LongFormPpc/PpcShortForm';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
-import { Container, Grid, Paper } from '@mui/material'
+import { Container, Grid, Paper, Divider } from '@mui/material'
 
 function LongFormPpc({ content }) {
   const router = useRouter();
@@ -220,12 +220,17 @@ function LongFormPpc({ content }) {
         <Grid container>
             <Grid item md={5} xs={12}>
               <Typography id="contact-us" variant="h4" style={{marginTop: '30px'}}>Arrange a Demo</Typography>
+              <br />
+              <Divider />
+             
               <Typography variant="body1">
+                <p>Send us your info and we will reach out to arrange a personlized demo with you and your team.</p>
                 <ul>
                   <li>Tell us about your project</li>
                   <li>Gain industry insights</li>
-                  <li>Work with a soluttions engginer</li>
+                  <li>Speak to a Solution Engineer</li>
                   <li>See how to implement</li>
+                  <li>Explore data transer options</li>
                 </ul>
               </Typography>
             </Grid>
