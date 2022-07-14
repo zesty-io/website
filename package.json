@@ -14,8 +14,11 @@
     "docker-build": "docker build .",
     "gcloud-build": "gcloud builds submit --tag gcr.io/zesty-dev/zesty-website:1.0.0  --project zesty-dev",
     "gcloud-deploy": "gcloud run deploy zesty-website --image=gcr.io/zesty-dev/zesty-website:1.0.0 --platform managed --port 3000 --project zesty-dev --allow-unauthenticated --min-instances 1 --region us-central1",
+    "deploy-stage": "npm run gcloud-build && npm run gcloud-deploy",
     "prepare:dev": "chmod ug+x .husky/*",
-    "prepare": "husky install && npm run prepare:dev"
+    "prepare": "husky install && npm run prepare:dev",
+    "test": "jest --forceExit",
+    "dev-test": "jest --watch --silent"
   },
   "eslintConfig": {
     "extends": [
@@ -74,6 +77,8 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.5",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "babel-eslint": "^10.1.0",
@@ -81,6 +86,9 @@
     "colortape": "^0.1.2",
     "cross-env": "^7.0.2",
     "husky": "^8.0.1",
+    "isomorphic-fetch": "^3.0.0",
+    "jest": "^28.1.2",
+    "jest-environment-jsdom": "^28.1.2",
     "prettier": "^2.6.2",
     "prettier-eslint": "^13.0.0",
     "prettier-eslint-cli": "^5.0.0",

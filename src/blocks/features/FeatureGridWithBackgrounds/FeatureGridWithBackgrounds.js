@@ -51,9 +51,11 @@ const FeatureGridWithBackgrounds = ({ images }) => {
               height={1}
               // bgcolor={alpha(item?.color, 0.2)}
               boxShadow={0}
-              sx={{
-                transform: i % 2 === 1 ? { md: 'translateY(80px)' } : 'none',
-              }}
+              sx={
+                {
+                  // transform: i % 2 === 1 ? { md: 'translateY(80px)' } : 'none',
+                }
+              }
             >
               <CardContent sx={{ padding: 0 }}>
                 <Box

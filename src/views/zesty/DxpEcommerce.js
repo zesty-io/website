@@ -59,35 +59,9 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  Link,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
 import React from 'react';
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
-import FillerContent from 'components/globals/FillerContent';
-import TryFreeButton from 'components/cta/TryFreeButton';
-import * as helper from 'utils';
-import Slide from '@mui/material/Slide';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import ZoomMui from '@mui/material/Zoom';
-import ZestySvg from '../../../public/assets/images/zesty Logo.png';
-import featuresBg1 from '../../../public/assets/images/dxp_features_bg1.svg';
-import featuresBg2 from '../../../public/assets/images/dxp_features_bg2.svg';
-import headlessCmsBg from '../../../public/assets/images/dxp_headless_bg.svg';
-import bottomBg from '../../../public/assets/images/dxp_bottom_bg.svg';
-import dxpCurve from '../../../public/assets/images/dxp_curve.svg';
-import dxpLine from '../../../public/assets/images/dxp_line.svg';
 
 function DxpEcommerce({ content }) {
-  console.log(content, 12222);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 

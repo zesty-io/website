@@ -1,0 +1,41 @@
+import '@testing-library/jest-dom';
+import 'isomorphic-fetch';
+
+// this only access github env , for clientside use NEXT_PUBLIC
+const isDev = process.env.PRODUCTION === 'false' ? true : false;
+
+const prodURL = 'https://www.zesty.io';
+const stageURL = 'https://kfg6bckb-dev.webengine.zesty.io';
+const routingPath = '/-/headless/routing.json';
+
+const getTestingRoutes = async () => {
+  let routingEndpoints = !isDev
+    ? prodURL + routingPath
+    : stageURL + routingPath;
+
+  const res = await fetch(routingEndpoints);
+  const json = await res.json();
+
+  return json;
+};
+
+describe('ZESTY WEBSITE', () => {
+  test('***FETCH ALL ROUTES***', async () => {
+    const routes = await getTestingRoutes();
+    const newroutes = routes.slice(0, 10);
+    const list = [];
+    const url = !isDev ? prodURL : stageURL;
+
+    for await (const element of newroutes) {
+      const response = await fetch(url + element.uri, {
+        method: 'GET',
+        redirect: 'manual',
+        follow: 0,
+      });
+      list.push({ Route: url + element.uri, Status: response.status });
+      expect(response.status).not.toBe(2200);
+    }
+
+    console.table(list);
+  }, 300000);
+});

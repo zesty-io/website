@@ -15,8 +15,13 @@ import { useState } from 'react';
  */
 import * as helper from 'utils';
 
-
-const Implementation = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
+const Implementation = ({
+  content,
+  theme,
+  isMobile,
+  isDarkMode,
+  FillerContent,
+}) => {
   const [headless, setheadless] = useState(true);
   const [hybrid, sethybrid] = useState(false);
   const swooshBg =
@@ -36,10 +41,12 @@ const Implementation = ({ content, theme, isMobile, isDarkMode, FillerContent })
           position: 'absolute',
           right: 0,
           top: 0,
+          zIndex: 0,
           display: isMobile ? 'none' : 'flex',
+          width: '100%',
         }}
       >
-        <img src={swooshBg} alt="bg" />
+        <Box sx={{ width: '100%' }} component="img" src={swooshBg} alt="bg" />
       </Box>
       <Container
         sx={{
@@ -106,7 +113,10 @@ const Implementation = ({ content, theme, isMobile, isDarkMode, FillerContent })
               }}
             >
               <img
-                src={content.headless_cms_toggle_graphic.data[0].url || FillerContent.logos[0].url}
+                src={
+                  content.headless_cms_toggle_graphic?.data[0].url ||
+                  FillerContent.logos[0].url
+                }
                 alt=""
               />
               <Typography
@@ -140,7 +150,13 @@ const Implementation = ({ content, theme, isMobile, isDarkMode, FillerContent })
                 }`,
               }}
             >
-              <img alt="" src={content.hybrid_cms_toggle_graphic.data[0].url} />
+              <img
+                alt=""
+                src={
+                  content.hybrid_cms_toggle_graphic?.data[0].url ||
+                  FillerContent.logos[0].url
+                }
+              />
               <Typography
                 component={'p'}
                 variant={'p'}
@@ -164,10 +180,14 @@ const Implementation = ({ content, theme, isMobile, isDarkMode, FillerContent })
                   component="img"
                   src={
                     headless
-                      ? content.headless_cms_graphic?.data[0].url || FillerContent.logos[0].url
-                      : content.hybrid_cms_graphic?.data[0].url || FillerContent.logos[0].url
+                      ? content.headless_cms_graphic?.data[0].url ||
+                        FillerContent.logos[0].url
+                      : content.hybrid_cms_graphic?.data[0].url ||
+                        FillerContent.logos[0].url
                   }
                   sx={{
+                    position: 'relative',
+                    zIndex: 1,
                     width: '100%',
                   }}
                 />
@@ -199,8 +219,10 @@ const Implementation = ({ content, theme, isMobile, isDarkMode, FillerContent })
                       dangerouslySetInnerHTML={{
                         __html: helper.strColorChanger(
                           headless
-                            ? content.headless_cms_description || FillerContent.description
-                            : content.hybrid_cms_description ||  FillerContent.description,
+                            ? content.headless_cms_description ||
+                                FillerContent.description
+                            : content.hybrid_cms_description ||
+                                FillerContent.description,
                           'Personalize at scale with Data',
                           theme.palette.zesty.zestyOrange,
                         ),

@@ -32,12 +32,12 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 // Components Imports
 import Hero from '../../components/marketing/TechnologyOverview/Hero';
 import UseCase from '../../components/marketing/TechnologyOverview/UseCase';
-import TimeLine from '../../components/marketing/TechnologyOverview/TimeLine';
+import TimeLine from '../../blocks/Timeline/TimeLine';
 import GetStarted from '../../components/marketing/TechnologyOverview/GetStarted';
 import Features from '../../components/marketing/TechnologyOverview/Features';
 import HeadlessApi from '../../components/marketing/TechnologyOverview/HeadlessApi';
 import TopBrands from '../../blocks/caseStudies/TopBrands';
-import Articles from '../../components/marketing/TechnologyOverview/Articles';
+import Articles from '../../blocks/blog/Articles/Articles';
 import TechStack from '../../blocks/integrations/TechStack';
 
 // Helpers Imports
@@ -56,17 +56,43 @@ function TechnologyOverview({ content }) {
     FillerContent,
   };
 
+  const timelineData = {
+    header: content.how_it_works_header,
+    data: [
+      {
+        description: content.step_1_description || FillerContent.description,
+        image: content.step_1_image?.data[0].url || FillerContent.photos[0].src,
+      },
+      {
+        description: content.step_2_description || FillerContent.description,
+        image: content.step_2_image?.data[0].url || FillerContent.photos[0].src,
+      },
+      {
+        description: content.step_3_description || FillerContent.description,
+        image: content.step_3_image?.data[0].url || FillerContent.photos[0].src,
+      },
+      {
+        description: content.step_4_description || FillerContent.description,
+        image: content.step_4_image?.data[0].url || FillerContent.photos[0].src,
+      },
+    ],
+  };
+
   return (
     <Box>
       <Hero {...pageData} />
       <UseCase {...pageData} />
-      <TimeLine {...pageData} />
+      <TimeLine timelineData={timelineData} {...pageData} />
       <GetStarted {...pageData} />
       <Features {...pageData} />
       <HeadlessApi {...pageData} />
       <TechStack {...pageData} />
-      <TopBrands {...pageData} />
-      <Articles {...pageData} />
+      <TopBrands title={content.case_study_header} {...pageData} />
+      <Articles
+        title={content.articles_header}
+        articles={content.articles?.data}
+        {...pageData}
+      />
     </Box>
   );
 }

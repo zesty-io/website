@@ -108,23 +108,30 @@ function DigitalExperiencePlatform({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const HeroProps = {
     eyebrow: content.header_eyebrow || FillerContent.header,
     header: content.header_h1 || FillerContent.header,
     subHeader: content.header_description || FillerContent.description,
-    mainImage: content.header_graphic?.data[0]?.url || FillerContent.logos[0].url,
+    mainImage:
+      content.header_graphic?.data[0]?.url || FillerContent.logos[0].url,
     primaryCta: content.header_cta_primary || FillerContent.cta,
-    secondaryCta: content.header_cta_secondary || FillerContent.cta ,
-    secondaryCtaLink: content.header_cta_secondary_link || FillerContent.href,
+    secondaryCta: content.header_cta_secondary || FillerContent.cta,
+    secondaryCtaLink:
+      content.header_cta_secondary_link.data[0].meta.web.uri ||
+      FillerContent.href,
     gradientBg: theme.palette.zesty.zestyBlueGradient,
-    bgImage: content.header_background_image?.data[1]?.url || FillerContent.logos[0].url,
+    bgImage:
+      content.header_background_image?.data[1]?.url ||
+      FillerContent.logos[0].url,
     isMobile,
     theme,
     FillerContent,
     isTablet,
   };
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -138,6 +145,7 @@ function DigitalExperiencePlatform({ content }) {
     isTablet,
     FillerContent,
     isDarkMode,
+    isLarge,
   };
 
   return (
@@ -149,7 +157,11 @@ function DigitalExperiencePlatform({ content }) {
       <Features {...PageData} />
       <Integrations {...PageData} />
       <Implementation {...PageData} />
-      <TopBrands {...PageData} />
+      <TopBrands
+        sx={{ pt: 4 }}
+        title={content.case_study_header}
+        {...PageData}
+      />
       <Bottom {...PageData} />
     </Box>
   );

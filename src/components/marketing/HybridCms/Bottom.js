@@ -1,47 +1,45 @@
 /**
  * MUI Imports
- */
+ * */
+
+import React from 'react';
 import {
   Box,
   Button,
   Card,
+  cardClasses,
   Container,
+  Divider,
   Grid,
   Link,
   Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 /**
- * Helpers Imports
+ * Helper Imports
  */
+
 import * as helper from 'utils';
 
 /**
  * Components Imports
  */
 import TryFreeButton from 'components/cta/TryFreeButton';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
-const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
-  const bgImgage =
-    content.bottom_page_background_image?.data[0]?.url ||
-    FillerContent.dashboard_image;
-
+const Bottom = ({ content, theme, isMobile, FillerContent }) => {
   return (
-    <Box paddingY={isMobile ? 0 : 20} sx={{ position: 'relative' }}>
-      <Box
-        sx={{
-          zIndex: '10',
-          position: 'absolute',
-          right: 0,
-          bottom: 0,
-          display: isMobile ? 'none' : 'flex',
-        }}
-      >
-        <img src={bgImgage} alt="bg" />
-      </Box>
+    <Box
+      mb={10}
+      paddingY={isMobile ? 5 : 10}
+      sx={{
+        position: 'relative',
+
+        background: theme.palette.zesty.zestyLightRedOrange,
+      }}
+    >
       <Container>
         <Grid container spacing={2}>
           <Grid
@@ -55,20 +53,25 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
             md={6}
           >
             <Box data-aos="fade-right">
-              <Box
-                component="img"
-                src={
-                  content.bottom_cta_graphic?.data[0]?.url ||
-                  FillerContent.dashboard_image
-                }
-                sx={{
-                  width: '100%',
-                }}
-              />
+              <Box>
+                <Box
+                  component="img"
+                  src={
+                    content.bottom_cta_graphic.data[0].url ||
+                    FillerContent.photos[0].src
+                  }
+                  sx={{
+                    width: '100%',
+                    maxWidth: 579,
+                  }}
+                />
+              </Box>
             </Box>
           </Grid>
+
           <Grid
             sx={{
+              mt: isMobile ? 4 : 0,
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -78,44 +81,42 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
             md={6}
           >
             <Box data-aos="fade-left">
-              <Box sx={{ position: 'relative' }}>
+              <Box>
                 <Typography
                   component={'h2'}
                   variant={'p'}
                   sx={{
-                    fontSize: isMobile ? '.9rem' : '1.3rem',
-                    color: theme.palette.secondary.darkCharcoal,
+                    fontSize: isMobile ? '1.5rem' : '2.1rem',
+                    color: theme.palette.zesty.zestyZambezi,
                     textAlign: isMobile ? 'center' : 'left',
                   }}
                   dangerouslySetInnerHTML={{
                     __html: helper.strColorChanger(
-                      content.bottom_cta_description ||
-                        FillerContent.description,
-                      'Digital Experiences',
+                      content.bottom_cta_header || FillerContent.header,
+                      'Hybrid CMS',
                       theme.palette.zesty.zestyOrange,
                     ),
                   }}
                 />
                 <Box
                   sx={{
+                    mt: 2,
                     display: 'flex',
-                    flexDirection: isTablet ? 'column' : 'row',
+                    flexDirection: isMobile ? 'column' : 'row',
                     alignItems: 'center',
-                    gap: '.5rem',
-                    color: theme.palette.zesty.zestyTealDark,
+                    gap: 1,
                     width: '100%',
                   }}
                 >
-                  <Box sx={{ width: isTablet ? '100%' : '10rem' }}>
+                  <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
                     <TryFreeButton
                       fullWidth={true}
-                      text={
-                        content.bottom_cta_button_primary || FillerContent.cta
-                      }
+                      text={content.bottom_cta_primary}
                       variant="contained"
                       component="a"
                     />
                   </Box>
+
                   <Button
                     component="a"
                     href="/demos"
@@ -124,7 +125,7 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
                     fullWidth={isMobile}
                     sx={{ textDecoration: 'underline' }}
                   >
-                    {content.bottom_cta_button_secondary || FillerContent.cta}
+                    {content.bottom_cta_secondary}
                     <ArrowRightAltIcon />
                   </Button>
                 </Box>

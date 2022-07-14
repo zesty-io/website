@@ -3,51 +3,29 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 // Local Assets Imports
-import chevron_right from '../../../../public/assets/images/headless-cms/chevron-right.svg';
-import chevron_left from '../../../../public/assets/images/headless-cms/chevron-left.svg';
+import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
+import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
+import curve from '../../../public/assets/images/headless-cms/curve.svg';
+import curve_dark from '../../../public/assets/images/headless-cms/curve-dark.svg';
+import curve_mobile from '../../../public/assets/images/headless-cms/curve-mobile.svg';
 
-const TimeLine = ({ theme, isMobile, content, FillerContent }) => {
-  const timeline = [
-    {
-      description: content.step_1_description,
-      image: content.step_1_image.data[0].url,
-    },
-    {
-      description: content.step_2_description,
-      image: content.step_2_image.data[0].url,
-    },
-    {
-      description: content.step_3_description,
-      image: content.step_3_image.data[0].url,
-    },
-    {
-      description: content.step_4_description,
-      image: content.step_4_image.data[0].url,
-    },
-  ];
+const TimeLine = ({
+  theme,
+  isMobile,
+  FillerContent,
+  timelineData,
+  isDarkMode,
+}) => {
   return (
     <Box
       sx={{
         background: theme.palette.zesty.zestyDarkBlue,
-        mt: 14,
+        mt: 25,
         position: 'relative',
         borderRadius: 5,
-        overflow: 'hidden',
       }}
       component="section"
     >
-      <Box
-        sx={{
-          position: 'absolute',
-          right: 0,
-          top: '5%',
-          width: isMobile ? 264 : 'auto',
-        }}
-        component="img"
-        alt=""
-        src={chevron_right.src}
-      />
-
       <Box
         sx={{
           position: 'absolute',
@@ -60,7 +38,36 @@ const TimeLine = ({ theme, isMobile, content, FillerContent }) => {
         src={chevron_left.src}
       />
       <Container>
-        <Box sx={{ color: 'white' }}>
+        <Box
+          sx={{
+            position: 'absolute',
+
+            ml: isMobile ? 5 : 4.2,
+            mt: -14.4,
+          }}
+          component="img"
+          alt=""
+          src={
+            isMobile
+              ? curve_mobile.src
+              : isDarkMode
+              ? curve_dark.src
+              : curve.src
+          }
+        />
+
+        <Box
+          sx={{
+            position: 'absolute',
+            right: 0,
+            top: '5%',
+            width: isMobile ? 264 : 'auto',
+          }}
+          component="img"
+          alt=""
+          src={chevron_right.src}
+        />
+        <Box sx={{ color: 'white', mt: -5 }}>
           <Box sx={{ position: 'relative' }} component="ul">
             {/* Content One */}
             <Box
@@ -109,12 +116,12 @@ const TimeLine = ({ theme, isMobile, content, FillerContent }) => {
                     },
                   }}
                 >
-                  {content.how_it_works_header || FillerContent.description}
+                  {timelineData.header || FillerContent.description}
                 </MuiMarkdown>
               </Box>
             </Box>
             {/* Content Loop */}
-            {timeline.map((item) => (
+            {timelineData.data.map((item) => (
               <Box
                 sx={{
                   py: isMobile ? 3 : 0,
@@ -201,7 +208,7 @@ const TimeLine = ({ theme, isMobile, content, FillerContent }) => {
                         maxWidth: isMobile ? '100%' : 501,
                         height: isMobile ? '100%' : 356,
                       }}
-                      src={item?.image || FillerContent.logos[0].url}
+                      src={item?.image || FillerContent.photos[0].src}
                       component="img"
                       alt=""
                     />

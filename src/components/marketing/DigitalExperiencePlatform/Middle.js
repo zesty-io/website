@@ -117,11 +117,11 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
       <Box
         sx={{
           background: theme.palette.zesty.zestyBackgroundBlue,
-          height: isTablet ? 3000 : 2300,
+          height: isTablet ? 0 : 1600,
           display: isMobile ? 'none' : 'block',
           width: '2px',
           position: 'absolute',
-          left: isMobile ? '5%' : '50%',
+          left: isTablet ? '5%' : '50%',
           bottom: '0',
         }}
       />
@@ -154,6 +154,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
               img={e.img}
               reverse={e.reverse}
               theme={e.theme}
+              isTablet={isTablet}
             />
           );
         })}
@@ -169,6 +170,7 @@ const RevealComponent = ({
   theme,
   index,
   isMobile,
+  isTablet,
 }) => {
   return (
     <Box
@@ -200,6 +202,7 @@ const RevealComponent = ({
                 left: isMobile ? '1.8%' : '50.1%',
                 bottom: isMobile ? '45%' : '0',
                 transform: 'translate(-50%,-50%)',
+                display: isMobile ? '' : isTablet ? 'none' : '',
               }}
             />
           )}
