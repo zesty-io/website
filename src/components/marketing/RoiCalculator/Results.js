@@ -4,24 +4,80 @@
 import { Box, Typography, Button } from '@mui/material';
 import { useState } from 'react';
 
-const Results = ({ theme, resultValues }) => {
+const Results = ({
+  theme,
+  doubleSliderValue,
+  percentage,
+  infrastructureValue,
+  cmsSetup,
+  ongoingSupport,
+  additionalSoftware,
+}) => {
+  /**
+   * Sets Marketer & Developer Base Salary
+   */
+  const developerAnnualSalary = 200000;
+  const marketerAnnualSalary = 125000;
+
+  // 2080 - Total works hours per year assuming the calculations of 40 works hours per week
+  const developerHourlySalary = Math.floor(developerAnnualSalary / 2080);
+  const marketerHourlySalary = Math.floor(marketerAnnualSalary / 2080);
+
+  /**
+   * Calculations for double slider
+   */
+
   let qaTesting;
   let intangibles;
   let standardChanges;
+  let doubleSliderTotal = 0;
 
-  Object.values(resultValues.qaTesting).map((item) =>
-    item.isActive ? (qaTesting = item.value) : null,
+  const calc = (item, slider) => {
+    if (item.isActive) {
+      if (item.name === 'Developer') {
+        doubleSliderTotal += item.value * developerHourlySalary;
+      }
+      if (item.name === 'Marketer') {
+        doubleSliderTotal += item.value * marketerHourlySalary;
+      }
+
+      switch (slider) {
+        case 'qaTesting': {
+          qaTesting = item.value;
+        }
+        case 'inTangibles': {
+          intangibles = item.value;
+        }
+        case 'standardChanges': {
+          standardChanges = item.value;
+        }
+      }
+    }
+  };
+
+  Object.values(doubleSliderValue.qaTesting).map((item) =>
+    calc(item, 'qaTesting'),
   );
 
-  Object.values(resultValues.inTangibles).map((item) =>
-    item.isActive ? (intangibles = item.value) : null,
+  Object.values(doubleSliderValue.inTangibles).map((item) =>
+    calc(item, 'inTangibles'),
   );
 
-  Object.values(resultValues.standardChanges).map((item) =>
-    item.isActive ? (standardChanges = item.value) : null,
+  Object.values(doubleSliderValue.standardChanges).map((item) =>
+    calc(item, 'standardChanges'),
   );
 
+  // Total Time Saved
   let TotalTimeSaved = qaTesting + intangibles + standardChanges;
+  // Total Money Saved
+  let MoneySaved =
+    infrastructureValue +
+    cmsSetup +
+    ongoingSupport +
+    additionalSoftware +
+    doubleSliderTotal;
+
+  console.log(doubleSliderTotal);
 
   const results = [
     {
@@ -31,8 +87,8 @@ const Results = ({ theme, resultValues }) => {
     },
     {
       name: 'Money Saved',
-      value: 40,
-      type: 'percentage',
+      value: MoneySaved,
+      type: 'usd',
     },
     {
       name: 'Revenue Gained',
@@ -123,7 +179,7 @@ const Results = ({ theme, resultValues }) => {
                         <Typography
                           sx={{ color: theme.palette.zesty.zestyZambezi }}
                         >
-                          ${item.value}
+                          $ {item.value.toLocaleString()}
                         </Typography>
                       );
                   }
