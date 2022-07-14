@@ -46,7 +46,7 @@ import { useRouter } from 'next/router';
 
 // MUI Imports
 import { useTheme } from '@mui/material/styles';
-import { Box, useMediaQuery } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 
 // Globals Imports
 import ExploreZesty from './ExploreZestyPage';
@@ -67,6 +67,8 @@ import Features from 'components/marketing/LongFormPpc/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
 import PpcShortForm from 'components/marketing/LongFormPpc/PpcShortForm';
+import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
+import { Container, Grid, Paper } from '@mui/material'
 
 function LongFormPpc({ content }) {
   const router = useRouter();
@@ -214,6 +216,31 @@ function LongFormPpc({ content }) {
       )}
 
       {/* Form */}
+      <Container>
+        <Grid container>
+            <Grid item md={5} xs={12}>
+              <Typography id="contact-us" variant="h4" style={{marginTop: '30px'}}>Arrange a Demo</Typography>
+              <Typography variant="body1">
+                <ul>
+                  <li>Tell us about your project</li>
+                  <li>Gain industry insights</li>
+                  <li>Work with a soluttions engginer</li>
+                  <li>See how to implement</li>
+                </ul>
+              </Typography>
+            </Grid>
+            <Grid item md={7} xs={12}>
+              <Paper elevation={2}>
+                <ZohoFormEmbed 
+                  url='https://forms.zohopublic.com/zestyio/form/SalessignupformPPCCRM/formperma/G9oQMOrpqmdcg7rMbZ3tqucS8d9-92oA5HYh6fO96fM'
+                  height="600px"
+                  />
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+        {/*
+        // the original form was commented out to use the zoho embed form url above
       {router.asPath.includes('/ppc/content-management-system/') ? (
         <PpcShortForm theme={theme} content={content} />
       ) : (
@@ -223,6 +250,7 @@ function LongFormPpc({ content }) {
           formContent={formContent}
         />
       )}
+      */}
     </>
   );
 }
