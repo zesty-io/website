@@ -35,39 +35,54 @@ function Calculator({ content, FillerContent, theme }) {
    */
 
   const [qaTestingDeveloper, setQaTestingDeveloper] = useState({
-    value: 50,
+    value: 0,
     isActive: true,
     name: ' Developer',
   });
 
   const [qaTestingMarketer, setQaTestingMarketer] = useState({
-    value: 30,
+    value: 0,
     isActive: false,
     name: ' Marketer',
   });
 
   const [intangiblesDeveloper, setIntangiblesDeveloper] = useState({
-    value: 50,
+    value: 0,
     isActive: true,
     name: ' Developer',
   });
 
   const [intangiblesMarketer, setIntangiblesMarketer] = useState({
-    value: 30,
+    value: 0,
     isActive: false,
     name: ' Marketer',
   });
   const [standardChangesDeveloper, setStandardChangesDeveloper] = useState({
-    value: 50,
+    value: 0,
     isActive: true,
     name: ' Developer',
   });
 
   const [standardChangesMarketer, setStandardChangesMarketer] = useState({
-    value: 30,
+    value: 0,
     isActive: false,
     name: ' Marketer',
   });
+
+  const resultValues = {
+    qaTesting: {
+      qaTestingDeveloper,
+      qaTestingMarketer,
+    },
+    inTangibles: {
+      intangiblesDeveloper,
+      intangiblesMarketer,
+    },
+    standardChanges: {
+      standardChangesDeveloper,
+      standardChangesMarketer,
+    },
+  };
 
   const sliderOptions = [
     {
@@ -343,7 +358,7 @@ function Calculator({ content, FillerContent, theme }) {
               }}
             >
               <CardContent>
-                <Results theme={theme} />
+                <Results resultValues={resultValues} theme={theme} />
               </CardContent>
             </Card>
           </Grid>

@@ -2,8 +2,55 @@
  *  MUI Imports
  */
 import { Box, Typography, Button } from '@mui/material';
+import { useState } from 'react';
 
-const Results = ({ theme }) => {
+const Results = ({ theme, resultValues }) => {
+  let qaTesting;
+  let intangibles;
+  let standardChanges;
+
+  Object.values(resultValues.qaTesting).map((item) =>
+    item.isActive ? (qaTesting = item.value) : null,
+  );
+
+  Object.values(resultValues.inTangibles).map((item) =>
+    item.isActive ? (intangibles = item.value) : null,
+  );
+
+  Object.values(resultValues.standardChanges).map((item) =>
+    item.isActive ? (standardChanges = item.value) : null,
+  );
+
+  let TotalTimeSaved = qaTesting + intangibles + standardChanges;
+
+  const results = [
+    {
+      name: 'Time Saved',
+      value: TotalTimeSaved,
+      type: 'hour',
+    },
+    {
+      name: 'Money Saved',
+      value: 40,
+      type: 'percentage',
+    },
+    {
+      name: 'Revenue Gained',
+      value: 40,
+      type: 'usd',
+    },
+    {
+      name: 'Resources',
+      value: 40,
+      type: 'percentage',
+    },
+    {
+      name: 'ROI Plan',
+      value: 40,
+      type: 'percentage',
+    },
+  ];
+
   return (
     <>
       <Box sx={{ mt: 10, display: 'flex', flexDirection: 'column', gap: 5 }}>
@@ -42,15 +89,45 @@ const Results = ({ theme }) => {
         </Box>
 
         <Box>
-          {[1, 2, 3, 4].map(() => (
-            <Box sx={{ py: 1 }}>
+          {results.map((item, index) => (
+            <Box key={index} sx={{ py: 1 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography sx={{ color: theme.palette.secondary.black }}>
-                  Time Saved
+                  {item.name}
                 </Typography>
-                <Typography sx={{ color: theme.palette.zesty.zestyZambezi }}>
-                  40%
-                </Typography>
+
+                {(() => {
+                  switch (item.type) {
+                    case 'hour':
+                      return (
+                        <Typography
+                          sx={{ color: theme.palette.zesty.zestyZambezi }}
+                        >
+                          {item.value} Hours
+                        </Typography>
+                      );
+                    case 'percentage':
+                      return (
+                        <Typography
+                          sx={{ color: theme.palette.zesty.zestyZambezi }}
+                        >
+                          {item.value} %
+                          {item.name.toLowerCase() === 'resources' ||
+                          item.name.toLowerCase() === 'roi plan'
+                            ? '/year'
+                            : ''}
+                        </Typography>
+                      );
+                    case 'usd':
+                      return (
+                        <Typography
+                          sx={{ color: theme.palette.zesty.zestyZambezi }}
+                        >
+                          ${item.value}
+                        </Typography>
+                      );
+                  }
+                })()}
               </Box>
               <Box
                 component="hr"
