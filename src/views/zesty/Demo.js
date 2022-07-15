@@ -35,70 +35,9 @@ import Typography from '@mui/material/Typography';
 import FillerContent from 'components/globals/FillerContent';
 import Container from 'components/wrappers/FullWidthContainer';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
+import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
 const Demo = ({ content }) => {
-  let demoFormEmbedLink = `https://forms.zohopublic.com/zestyio/form/SalesSignupform/formperma/634ov0T9TZdP8vJsI1KBz8WyPgltGy_IJ5xGiMKdH5Q?a=b`;
-
-  const [formURL, setFormURL] = useState(demoFormEmbedLink);
-
-// code to adjust the iframe embed of the zoho form
-  useEffect(() => {
-    let gclid = getCookie('gclid');
-    let utm_campaign = getCookie('utm_campaign');
-    let utm_term = getCookie('utm_term');
-    let utm_medium = getCookie('utm_medium');
-    let utm_source = getCookie('utm_source');
-    window.onload = function() {
-      var x = document.getElementById("leadframe");
-      var y = (x.contentWindow || x.contentDocument);
-      var y = (x.contentWindow || x.contentDocument);
-      if (y.document)y = y.document;
-      y.body.style.backgroundColor = "red";
-
-   } 
-
-    if(gclid){
-      demoFormEmbedLink += '&gclid=' + gclid;
-    }
-    if(utm_campaign){
-      demoFormEmbedLink += '&utm_campaign=' + utm_campaign;
-    }
-    if(utm_source){
-      demoFormEmbedLink += '&utm_source=' + utm_source;
-    }
-    if(utm_source){
-      demoFormEmbedLink += '&referrername=' + utm_source;
-    }
-    if(utm_medium){
-      demoFormEmbedLink += '&utm_medium=' + utm_medium;
-    }
-    if(utm_term){
-      demoFormEmbedLink += '&utm_term=' + utm_term;
-    }
-
-
-     
-    // setFormURL(demoFormEmbedLink )
-
-    // function resizeIFrameToFitContent( iFrame ) {
-    //     iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
-    //     iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
-    // }
-    // window.addEventListener('DOMContentLoaded', function(e) {
-
-    //     var iFrame = document.getElementById( 'leadframe' );
-    //     resizeIFrameToFitContent( iFrame );
-
-    //     // or, to resize all iframes:
-    //     var iframes = document.querySelectorAll("iframe");
-    //     for( var i = 0; i < iframes.length; i++) {
-    //         resizeIFrameToFitContent( iframes[i] );
-    //     }
-    // } );
-
-   
-
-  })
   
   const theme = useTheme();
   return (
@@ -155,15 +94,7 @@ const Demo = ({ content }) => {
               modalMessage="Our team will be in touch soon to schedule a demo with you."
               phoneNumber={true}
             /> */}
-            <iframe
-             width="100%" 
-             border="0"
-             id="leadframe"
-             src={formURL}
-             style={{border: 0, height: '600px'}}
-             >
-
-             </iframe>
+           <ZohoFormEmbed height="600px" formURL="" />
           </Container>
         </Box>
         <Box
