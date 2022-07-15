@@ -35,7 +35,7 @@ This will create new files where needed, but will not overwrite existing files.
 
 ## AutoDeploy
 
-Any push or merge to the `main` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
+Any push or merge to the `stage` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
 
 stage: https://zesty-website-m3rbwjxm5q-uc.a.run.app/
 prod: https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
@@ -45,11 +45,11 @@ prod: https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
 1. Create a branch
 2. Make change locally commit
 3. Test your changes with `npm run build`
-4. If build succeeds, create pull request against `main` (our stage)
+4. If build succeeds, create pull request against `stage` (our stage)
 
 ## Deployment to Production
 
-After a successfull deploy to `main` create PR from `main` to `production`, upon merge a production build will trigger.
+After a successfull deploy to `stage` create PR from `stage` to `production`, upon merge a production build will trigger.
 
 ## CTA Components and Forms
 
