@@ -37,6 +37,17 @@ export default class MyDocument extends Document {
               style={{ display: 'none', visibility: 'hidden' }}
             ></iframe>
           </noscript>
+
+          {/* Zoominfo */}
+          <noscript>
+            <img
+              src="https://ws.zoominfo.com/pixel/62cc55bc7b3465008f482d68"
+              width="1"
+              height="1"
+              style={{ display: 'none' }}
+              alt="websights"
+            />
+          </noscript>
           <Main />
           <NextScript />
         </body>
@@ -79,12 +90,11 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // Take precedence over the CacheProvider in our custom _app.js
-      enhanceComponent: (Component) => (props) =>
-        (
-          <CacheProvider value={cache}>
-            <Component {...props} />
-          </CacheProvider>
-        ),
+      enhanceComponent: (Component) => (props) => (
+        <CacheProvider value={cache}>
+          <Component {...props} />
+        </CacheProvider>
+      ),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
