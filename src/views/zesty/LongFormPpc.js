@@ -224,14 +224,15 @@ function LongFormPpc({ content }) {
               <Divider />
              
               <Typography variant="body1">
-                <p>Send us your info and we will reach out to arrange a personlized demo with you and your team.</p>
+                <p>Input your info and we will reach out immediately to arrange a personalized demo with you and your team.</p>
                 <ul>
                   <li>Tell us about your project</li>
-                  <li>Gain industry insights</li>
-                  <li>Speak to a Solution Engineer</li>
-                  <li>See how to implement</li>
-                  <li>Explore data transer options</li>
+                  <li>Learn industry best practices</li>
+                  <li>Speak with a Solutions Engineer</li>
+                  <li>Explore the ease of data transfer</li>
+                  <li>Walk away with tailored Zesty platform</li>
                 </ul>
+                
               </Typography>
             </Grid>
             <Grid item md={7} xs={12}>
