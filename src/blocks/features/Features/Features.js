@@ -50,6 +50,7 @@ const Features = ({
             component={'h2'}
             variant={'p'}
             sx={{
+              lineHeight: 1,
               color: isDarkMode
                 ? theme.palette.zesty.zestyDarkBlue
                 : theme.palette.zesty.zestyZambezi,
@@ -68,13 +69,14 @@ const Features = ({
             variant="h6"
             component="h2"
             sx={{
+              mt: 2,
               textAlign: 'center',
               color: isDarkMode
                 ? theme.palette.zesty.zestyDarkBlue
                 : theme.palette.zesty.zestyZambezi,
             }}
           >
-            {content.feature_description || ''}
+            {content.feature_description || FillerContent.description}
           </Typography>
         </Box>
         <Box

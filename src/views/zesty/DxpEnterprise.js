@@ -57,6 +57,8 @@ import FillerContent from 'components/globals/FillerContent';
  */
 import Hero from 'components/marketing/DxpEnterprise/Hero';
 import Features from 'blocks/features/Features/Features';
+import WhyZesty from 'components/marketing/DxpEnterprise/WhyZesty';
+import Integration from 'components/marketing/DxpEnterprise/Integration';
 
 function DxpEnterprise({ content }) {
   const theme = useTheme();
@@ -79,6 +81,8 @@ function DxpEnterprise({ content }) {
     <>
       <Hero {...pageData} />
       <Features textHighlight={'Zesty’s enterprise'} {...pageData} />
+      <WhyZesty {...pageData} />
+      <Integration {...pageData} />
     </>
   );
 }
