@@ -25,6 +25,7 @@ const Main = ({
   colorInvert = false,
   bgcolor = 'transparent',
   model = '',
+  userVerified=false
 }) => {
   const router = useRouter();
 
@@ -92,7 +93,7 @@ const Main = ({
 
   return (
     <Box>
-      <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
+      {userVerified == false && <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container
           paddingTop={
             hideNav || isExplorePage ? '0px !important' : '8px !important'
@@ -101,7 +102,7 @@ const Main = ({
         >
           <TopNav nav={nav} colorInvert={headerColorInvert} />
         </Container>
-      </Box>
+      </Box>}
       <AppBar
         position={hideNav ? 'fixed' : 'sticky'}
         sx={{
@@ -135,10 +136,11 @@ const Main = ({
         {children}
         <Divider />
       </main>
-      <Footer
-        colorInvert={colorInvert}
-        customRouting={hasRouting ? customRouting : []}
-      />
+      {userVerified == false &&
+        <Footer
+          colorInvert={colorInvert}
+          customRouting={hasRouting ? customRouting : []}
+        />}
     </Box>
   );
 };

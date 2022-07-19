@@ -72,7 +72,8 @@ const Topbar = ({
         width={{ xs: 100, md: 150 }}
         paddingTop={isDxpTemplatePage ? 4 : 0}
       >
-        <Box
+        {/* if user not logged in show full logo  */}
+        {!firstName && <Box
           component={'img'}
           src={
             changeLogoColor()
@@ -81,7 +82,14 @@ const Topbar = ({
           }
           height={1}
           width={1}
-        />
+        />}
+        {firstName && <Box
+          component={'img'}
+          src="https://brand.zesty.io/zesty-io-logo.svg"
+          height={41}
+          width={41}
+        />}
+
       </Box>
       <Box
         sx={{ display: { xs: 'none', md: hideNav ? 'none' : 'flex' } }}
