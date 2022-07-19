@@ -10,7 +10,7 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 const Integration = ({ content, FillerContent, theme, isMedium, isLarge }) => {
   return (
     <>
-      <Box sx={{ my: 5 }} component="section">
+      <Box sx={{ mt: 5 }} component="section">
         <Box
           sx={{
             background: theme.palette.background.lightPeach,

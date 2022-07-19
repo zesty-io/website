@@ -59,6 +59,7 @@ import Hero from 'components/marketing/DxpEnterprise/Hero';
 import Features from 'blocks/features/Features/Features';
 import WhyZesty from 'components/marketing/DxpEnterprise/WhyZesty';
 import Integration from 'components/marketing/DxpEnterprise/Integration';
+import TopBrands from 'blocks/caseStudies/TopBrands';
 
 function DxpEnterprise({ content }) {
   const theme = useTheme();
@@ -82,6 +83,12 @@ function DxpEnterprise({ content }) {
       <Hero {...pageData} />
       <Features textHighlight={'Zesty’s enterprise'} {...pageData} />
       <WhyZesty {...pageData} />
+      <TopBrands
+        textHighlight={'our customers'}
+        backgroundColor={theme.palette.common.white}
+        title={content.case_studies_title || FillerContent.description}
+        {...pageData}
+      />
       <Integration {...pageData} />
     </>
   );
