@@ -2,14 +2,14 @@
  * Mui Imports
  */
 
-import { Box, Grid, Typography, Container, Button } from '@mui/material';
+import { Box, Grid, Typography, Container } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 /**
  * Local Assets Imports
  */
 import MiddelBackground from '../../../../public/assets/images/dxp-enterprise/middle-background.svg';
-const WhyZesty = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
   const whyZestyData = [
     {
       text: content.why_zesty_1 || FillerContent.description,
