@@ -76,8 +76,6 @@ function DxpEnterprise({ content }) {
     isDarkMode,
   };
 
-  console.log(content);
-
   return (
     <>
       <Hero {...pageData} />
