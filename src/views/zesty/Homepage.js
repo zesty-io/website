@@ -44,12 +44,23 @@ import Stories from 'blocks/portfolioGrid/Stories/Stories';
 import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
+import Dashboard from 'components/accounts/dashboard';
 
 function Homepage({ content }) {
   const theme = useTheme();
 
+  console.log(content, '2:::');
+  // dashboard need to verify the session
+  if (content.zestyUser) {
+    return <Dashboard />;
+  }
+
   //  const { data: reviewsData, isPending: reviewPending  } = useFetch(`/-/reviews.json`);
-  const { data: allArticles, isPending: articlesPending, error } = useFetch(
+  const {
+    data: allArticles,
+    isPending: articlesPending,
+    error,
+  } = useFetch(
     `/-/all-articles-hydrated.json?limit=3`,
     content.zestyProductionMode,
   );
