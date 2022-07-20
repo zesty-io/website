@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import { getCookie } from 'cookies-next';
 
 import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
@@ -18,6 +17,8 @@ import { zestyLink } from 'lib/zestyLink';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
 
+import { getCookie, setCookies } from 'cookies-next';
+
 const Main = ({
   children,
   customRouting,
@@ -25,8 +26,9 @@ const Main = ({
   colorInvert = false,
   bgcolor = 'transparent',
   model = '',
-  userVerified=false
 }) => {
+  let isUser = false;
+  // main should verify the user as boolean
   const router = useRouter();
 
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
@@ -42,6 +44,9 @@ const Main = ({
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
+  if (getCookie('APP_SID')) {
+    isUser = true;
+  }
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -93,16 +98,22 @@ const Main = ({
 
   return (
     <Box>
-      {userVerified == false && <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
-        <Container
-          paddingTop={
-            hideNav || isExplorePage ? '0px !important' : '8px !important'
-          }
-          paddingBottom={'0 !important'}
+      {isUser == false && (
+        <Box
+          bgcolor={bgcolor}
+          position={'relative'}
+          zIndex={theme.zIndex.appBar}
         >
-          <TopNav nav={nav} colorInvert={headerColorInvert} />
-        </Container>
-      </Box>}
+          <Container
+            paddingTop={
+              hideNav || isExplorePage ? '0px !important' : '8px !important'
+            }
+            paddingBottom={'0 !important'}
+          >
+            <TopNav nav={nav} colorInvert={headerColorInvert} />
+          </Container>
+        </Box>
+      )}
       <AppBar
         position={hideNav ? 'fixed' : 'sticky'}
         sx={{
@@ -136,11 +147,12 @@ const Main = ({
         {children}
         <Divider />
       </main>
-      {userVerified == false &&
+      {isUser == false && (
         <Footer
           colorInvert={colorInvert}
           customRouting={hasRouting ? customRouting : []}
-        />}
+        />
+      )}
     </Box>
   );
 };

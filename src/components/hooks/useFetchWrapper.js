@@ -14,7 +14,7 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const [userInfo, setuserInfo] = React.useState('');
   const [loading, setloading] = React.useState(false);
 
-  const ZestyAPI = new Zesty.FetchWrapper(
+  const ZestyAPI = new window.Zesty.FetchWrapper(
     instanceZUID,
     userAppSID,
     fetchWrapperOptions(),

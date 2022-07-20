@@ -25,6 +25,7 @@ export function ZestyView(props) {
       initLiveEditor(props.content)
     }
   }, [])
+  
   return (
     <>
       <Component content={props.content} />

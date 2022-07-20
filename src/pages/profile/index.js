@@ -4,14 +4,11 @@ import AppBar from 'components/console/AppBar';
 import { Container } from '@mui/system';
 import Main from 'layouts/Main';
 
-export default function Accounts(){
-    return (
-    <Main userVerified={true}>
-        <AppBar/>
-        <Container>
-            Ship it!
-        </Container>
-        
+export default function Profile() {
+  return (
+    <Main>
+      <AppBar />
+      <Container>Ship it!</Container>
     </Main>
-    );
+  );
 }
