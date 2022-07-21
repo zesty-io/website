@@ -369,3 +369,13 @@ npm run test
 - Build time takes about 5 minutes
 - Auto deployment run through cloud run and cloud build integration with github
 - This occurs in the zesty-dev google cloud project
+
+
+# Accounts
+
+Accounts is instances, profile, teams, dashboard. To working on the accounts apps locally, follow these steps. 
+
+1. You need to edit your ETC hosts files to use a domain like `test.zesty.io` to avoid CORS errors. To access your `localhost` see this thread for windows users https://github.com/zesty-io/manager-ui/discussions/1240
+2. Run `npm run dev` check your `test.zesty.io` domain, if that resolves to your next.js page, great, if not, googlefu
+3. Log into accounts.dev.zesty.io, refresh your localhost or test.zesty.io site
+
