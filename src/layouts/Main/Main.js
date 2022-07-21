@@ -7,12 +7,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
+
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
 
-import { Topbar, Sidebar, Footer } from './components';
+import { Topbar, Sidebar, Footer, AppNavigation } from './components';
 import { zestyLink } from 'lib/zestyLink';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
@@ -135,7 +136,7 @@ const Main = ({
         elevation={trigger ? 1 : 0}
       >
         <Container paddingY={isExplorePage ? 2 : 1}>
-          <Topbar
+          {!isUser && <Topbar
             onSidebarOpen={handleSidebarOpen}
             customRouting={hasRouting ? customRouting : []}
             colorInvert={headerColorInvert && !trigger}
@@ -143,7 +144,14 @@ const Main = ({
             isAuthenticated={isAuthenticated}
             userInfo={userInfo?.data}
             loading={loading}
-          />
+          />}
+          {isUser && <AppNavigation 
+           onSidebarOpen={handleSidebarOpen}
+           colorInvert={headerColorInvert && !trigger}
+           trigger={trigger}
+           userInfo={userInfo?.data}
+           loading={loading}
+           />}
         </Container>
       </AppBar>
       <Sidebar
