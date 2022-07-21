@@ -13,8 +13,10 @@ import Typography from '@mui/material/Typography';
 import HomeIcon from '@mui/icons-material/Home';
 import Skeleton from '@mui/material/Skeleton';
 import { getUserAppSID } from 'utils';
+import { useZestyStore } from 'store';
 
 export default function AppBar({ url = window.location.pathname }) {
+  const { setworkingInstance } = useZestyStore((state) => state);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
@@ -43,6 +45,10 @@ export default function AppBar({ url = window.location.pathname }) {
 
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.data?.email);
+
+  React.useEffect(() => {
+    setworkingInstance(params?.instanceZUID);
+  }, [params]);
 
   return (
     <Box

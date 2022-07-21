@@ -45,15 +45,13 @@ import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
 import Dashboard from 'components/accounts/dashboard';
+import { useZestyStore } from 'store';
 
 function Homepage({ content }) {
+  const { isAuthenticated, isUser } = useZestyStore((state) => state);
   const theme = useTheme();
 
-  console.log(content, '2:::');
   // dashboard need to verify the session
-  if (content.zestyUser) {
-    return <Dashboard />;
-  }
 
   //  const { data: reviewsData, isPending: reviewPending  } = useFetch(`/-/reviews.json`);
   const {
@@ -82,6 +80,11 @@ function Homepage({ content }) {
       content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
   };
 
+  // if the visitor is zesty user we output homepage
+  if (isUser) {
+    return <Dashboard />;
+  }
+  // marketing homepage
   return (
     <>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}

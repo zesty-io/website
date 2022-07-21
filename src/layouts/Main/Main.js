@@ -18,6 +18,7 @@ import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
 
 import { getCookie, setCookies } from 'cookies-next';
+import { useZestyStore } from 'store';
 
 const Main = ({
   children,
@@ -27,7 +28,8 @@ const Main = ({
   bgcolor = 'transparent',
   model = '',
 }) => {
-  let isUser = false;
+  const { setisAuthenticated, setisUser } = useZestyStore((state) => state);
+
   // main should verify the user as boolean
   const router = useRouter();
 
@@ -39,7 +41,8 @@ const Main = ({
     instanceZUID,
   );
 
-  const isLogin = verifySuccess.userZuid;
+  const isAuthenticated = verifySuccess.userZuid ? true : false;
+  let isUser = false;
 
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
@@ -96,6 +99,12 @@ const Main = ({
     }
   };
 
+  // store isUser isAuthenticated  in global state
+  React.useEffect(() => {
+    setisAuthenticated(isAuthenticated);
+    setisUser(isUser);
+  }, [isAuthenticated, isUser]);
+
   return (
     <Box>
       {isUser == false && (
@@ -131,7 +140,7 @@ const Main = ({
             customRouting={hasRouting ? customRouting : []}
             colorInvert={headerColorInvert && !trigger}
             trigger={trigger}
-            isLogin={isLogin}
+            isAuthenticated={isAuthenticated}
             userInfo={userInfo?.data}
             loading={loading}
           />

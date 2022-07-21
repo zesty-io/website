@@ -242,12 +242,12 @@ For more details you can browse to `src/theme` directory for complete list of th
 
 To auto set the instance zuid, you can pass the query param `?instanceZUID=8-xyz-xyz` to any page in the zesty.io website. This will auto set `ZESTY_WORKING_INSTANCE` and overwrite.
 
-_Available cookies_ 
- 
-- ZESTY_WORKING_INSTANCE - instance zuid for checking support, marketplace, docs, etc. 
+_Available cookies_
+
+- ZESTY_WORKING_INSTANCE - instance zuid for checking support, marketplace, docs, etc.
 - APP_SID - auth token
 
-# Github Data Fetching For Roadmap 
+# Github Data Fetching For Roadmap
 
 ## Requirements
 
@@ -293,9 +293,36 @@ To update the image and link of the email signature:
 
 How it works is the image in the signature is pointed to a static image url reference which on zesty.io next site, which is https://www.zesty.io/assets/images/email-banner.png and the URL in the points to a custom parsley file that setups up a 301 redirect to the link edited in globals, this is the file https://8-aaeffee09b-7w6v22.manager.zesty.io/code/file/views/11-f49eb1abdb-h0nt9b https://www.zesty.io/email/annoucement-link.html
 
-# Using the ZestyAPI or fetchwrapper
+# State Management
 
-[ZestyAPI](https://github.com/zesty-io/fetch-wrapper) is global and can be access using the example below
+We use [Zustand](https://github.com/pmndrs/zustand) as state management. We wrap this in [/src/store/index.js](/src/store/index.js) in function called `useZestyStore`. This is accessed by importing to the component, here is the example of the import:
+
+```jsx
+import { useZestyStore } from 'store';
+```
+
+Currently, we store constants that allow us to engage in API and make decisions in the interface based upon user status. This includes user Auth state and user preferences.
+
+- `isUser`(boolean) checks if the visitor is the zesty user
+- `isAuthenticated` (boolean) check if the user has an active verified session
+- `ZestyAPI`(Object) is a global window object
+
+## Example of how we access the `isUser` in store
+
+```jsx
+// isUser use to determined if the visitor is zesty user
+
+import { useZestyStore } from 'store';
+
+// this is how isUser is set
+  setisUser: (data) => set((state) => ({ isUser: data })),
+// how isUser is access
+   const {  isUser } = useZestyStore((state) => state);
+```
+
+## Using the ZestyAPI, a global Object that instantiates fetchwrapper
+
+[ZestyAPI](https://github.com/zesty-io/fetch-wrapper) is global and can be accesed through global state management, here is the example :
 
 ```jsx
 import { useZestyStore } from 'store';

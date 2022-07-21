@@ -4,18 +4,19 @@ import AppBar from 'components/console/AppBar';
 import { Container } from '@mui/system';
 import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import { ProfileApp } from 'views/ProfileApp/ProfileApp';
 import Login from 'components/console/Login';
+import { DashboardApp } from 'views/DashboardApp/DashboardApp';
 
-export default function Profile() {
+export default function Dashboard() {
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
+
   return (
     <Main>
       <AppBar />
-      <Container>
-        {!isAuthenticated && <Login />}
-        {isAuthenticated && <ProfileApp />}
-      </Container>
+      {!isAuthenticated && <Login />}
+      {isAuthenticated && <DashboardApp />}
+
+      <Container>Ship it!</Container>
     </Main>
   );
 }
