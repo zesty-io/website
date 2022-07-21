@@ -5,15 +5,20 @@ import Container from 'components/Container';
 import React from 'react';
 import { useZestyStore } from 'store';
 
+const UserDashboard = () => {
+  return <Box>user Dashboard</Box>;
+};
+
 const Dashboard = () => {
-  const { isLogin, isUser } = useZestyStore((state) => state);
+  const { isAuthenticated, ZestyAPI } = useZestyStore((state) => state);
   return (
     <Box>
       <AppBar />
-      <Container>Dashboard</Container>
+      <Container>
+        {!isAuthenticated && <Login />}
+        {isAuthenticated && <UserDashboard />}
+      </Container>
       {/* if user is not verified load the login output the login component */}
-
-      <Login />
     </Box>
   );
 };

@@ -28,8 +28,7 @@ const Main = ({
   bgcolor = 'transparent',
   model = '',
 }) => {
-  const { setisLogin, setisUser } = useZestyStore((state) => state);
-  let isUser = false;
+  const { setisAuthenticated, setisUser } = useZestyStore((state) => state);
 
   // main should verify the user as boolean
   const router = useRouter();
@@ -42,7 +41,8 @@ const Main = ({
     instanceZUID,
   );
 
-  const isLogin = verifySuccess.userZuid;
+  const isAuthenticated = verifySuccess.userZuid ? true : false;
+  let isUser = false;
 
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
@@ -99,11 +99,11 @@ const Main = ({
     }
   };
 
-  // store isUser isLogin  in global state
+  // store isUser isAuthenticated  in global state
   React.useEffect(() => {
-    setisLogin(isLogin);
+    setisAuthenticated(isAuthenticated);
     setisUser(isUser);
-  }, [isLogin, isUser]);
+  }, [isAuthenticated, isUser]);
 
   return (
     <Box>
@@ -140,7 +140,7 @@ const Main = ({
             customRouting={hasRouting ? customRouting : []}
             colorInvert={headerColorInvert && !trigger}
             trigger={trigger}
-            isLogin={isLogin}
+            isAuthenticated={isAuthenticated}
             userInfo={userInfo?.data}
             loading={loading}
           />

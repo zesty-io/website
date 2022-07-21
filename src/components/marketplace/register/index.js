@@ -86,7 +86,7 @@ const FormComp = React.memo(
     const [success, setsucces] = React.useState('');
     const [loading, setloading] = React.useState(false);
 
-    const isLogin = verifySuccess?.userZuid ? true : false;
+    const isAuthenticated = verifySuccess?.userZuid ? true : false;
 
     const handleRegisterSuccess = (data) => {
       setmodal(true);
@@ -136,7 +136,7 @@ const FormComp = React.memo(
 
             <Grid item xs={12}>
               <Button
-                disabled={!isLogin}
+                disabled={!isAuthenticated}
                 fullWidth
                 sx={{ height: 54, minWidth: 150 }}
                 variant="contained"
@@ -157,7 +157,7 @@ const FormComp = React.memo(
                   </Box>
                 ) : (
                   <>
-                    {!isLogin
+                    {!isAuthenticated
                       ? 'Please Login to Zesty.io to continue'
                       : 'Submit'}
                   </>

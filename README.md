@@ -304,7 +304,7 @@ import { useZestyStore } from 'store';
 Currently, we store constants that allow us to engage in API and make decisions in the interface based upon user status. This includes user Auth state and user preferences.
 
 - `isUser`(boolean) checks if the visitor is the zesty user
-- `isLogin` (boolean) check if the user has an active verified session
+- `isAuthenticated` (boolean) check if the user has an active verified session
 - `ZestyAPI`(Object) is a global window object
 
 ## Example of how we access the `isUser` in store

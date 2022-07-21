@@ -18,7 +18,7 @@ const Topbar = ({
   customRouting,
   colorInvert = false,
   trigger,
-  isLogin,
+  isAuthenticated,
   userInfo = {},
   loading = false,
 }) => {
@@ -73,23 +73,26 @@ const Topbar = ({
         paddingTop={isDxpTemplatePage ? 4 : 0}
       >
         {/* if user not logged in show full logo  */}
-        {!firstName && <Box
-          component={'img'}
-          src={
-            changeLogoColor()
-              ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
-              : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
-          }
-          height={1}
-          width={1}
-        />}
-        {firstName && <Box
-          component={'img'}
-          src="https://brand.zesty.io/zesty-io-logo.svg"
-          height={41}
-          width={41}
-        />}
-
+        {!firstName && (
+          <Box
+            component={'img'}
+            src={
+              changeLogoColor()
+                ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+            }
+            height={1}
+            width={1}
+          />
+        )}
+        {firstName && (
+          <Box
+            component={'img'}
+            src="https://brand.zesty.io/zesty-io-logo.svg"
+            height={41}
+            width={41}
+          />
+        )}
       </Box>
       <Box
         sx={{ display: { xs: 'none', md: hideNav ? 'none' : 'flex' } }}
@@ -122,7 +125,7 @@ const Topbar = ({
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
           <Box>
-            {!isLogin ? (
+            {!isAuthenticated ? (
               <Box display={'flex'}>
                 <Box marginLeft={4}>
                   <TryFreeButton variant="contained" component="a" />
