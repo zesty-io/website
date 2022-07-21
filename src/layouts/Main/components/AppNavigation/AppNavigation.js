@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
-import { Skeleton } from '@mui/material';
-import { setCookies } from 'cookies-next';
-import { Typography } from '@mui/material';
+import SingleNavItem from '../Topbar/components/NavItem/SingleNavItem';
 
 const AppNavigation = ({
   onSidebarOpen,
@@ -26,7 +22,7 @@ const AppNavigation = ({
   return (
     <Box
       display={'flex'}
-      justifyContent={'space-between'}
+      justifyContent={'flex-start'}
       alignItems={'center'}
       width={1}
     >
@@ -35,7 +31,7 @@ const AppNavigation = ({
         component="a"
         href="/"
         title="Zesty.io Dashboard"
-        width={{ xs: 100, md: 150 }}
+        width={{ xs: 50, md: 50 }}
       >
         {/* if user not logged in show full logo  */}
        
@@ -49,8 +45,18 @@ const AppNavigation = ({
       <Box
         sx={{ display: { xs: 'none', md: 'flex' } }}
         alignItems={'center'}
+        justifyContent="flex-start"
       >
-        test
+        <Box>
+        <Box marginLeft={4}>
+            <SingleNavItem                
+              title="instances"
+              id="sdsadf"
+              url="/instances"
+              colorInvert={colorInvert}
+            />
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
