@@ -11,4 +11,8 @@ export const useZestyStore = create((set) => ({
       ? null
       : new Zesty.FetchWrapper(instanceZUID, userAppSID, fetchWrapperOptions()),
   setZestyAPI: (data) => set((state) => ({ ZestyAPI: data })),
+  isLogin: '',
+  setisLogin: (data) => set((state) => ({ isLogin: data })),
+  isUser: false,
+  setisUser: (data) => set((state) => ({ isUser: data })),
 }));

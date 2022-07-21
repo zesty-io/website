@@ -18,6 +18,7 @@ import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
 
 import { getCookie, setCookies } from 'cookies-next';
+import { useZestyStore } from 'store';
 
 const Main = ({
   children,
@@ -27,7 +28,9 @@ const Main = ({
   bgcolor = 'transparent',
   model = '',
 }) => {
+  const { setisLogin, setisUser } = useZestyStore((state) => state);
   let isUser = false;
+
   // main should verify the user as boolean
   const router = useRouter();
 
@@ -95,6 +98,12 @@ const Main = ({
       return bgcolor;
     }
   };
+
+  // store isUser isLogin  in global state
+  React.useEffect(() => {
+    setisLogin(isLogin);
+    setisUser(isUser);
+  }, [isLogin, isUser]);
 
   return (
     <Box>

@@ -45,11 +45,14 @@ import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
 import Dashboard from 'components/accounts/dashboard';
+import { useZestyStore } from 'store';
 
 function Homepage({ content }) {
+  const { isLogin, isUser } = useZestyStore((state) => state);
   const theme = useTheme();
 
   console.log(content, '2:::');
+  console.log(isLogin, isUser, '3:::::::::::::');
   // dashboard need to verify the session
   if (content.zestyUser) {
     return <Dashboard />;
