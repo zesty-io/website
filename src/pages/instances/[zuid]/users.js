@@ -7,7 +7,7 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesApp } from 'views/InstancesApp/InstancesApp';
 
-export default function Intances() {
+export default function Users() {
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
 
   return (
@@ -15,8 +15,12 @@ export default function Intances() {
       <AppBar />
 
       <Container>
-        {isAuthenticated && <InstancesApp />}
-        {!isAuthenticated && <Login />}
+      {isAuthenticated && 
+        <InstancesApp>
+          Manager users on instance
+          </InstancesApp>
+          || <Login />
+          }
       </Container>
     </Main>
   );

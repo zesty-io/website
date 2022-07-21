@@ -15,9 +15,8 @@ export default function Intances() {
       <AppBar />
 
       <Container>
-        instanceView
-        {!isAuthenticated && <Login />}
-        {isAuthenticated && <InstancesApp />}
+        {isAuthenticated && <InstancesApp /> || <Login />}
+        
       </Container>
     </Main>
   );

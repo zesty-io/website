@@ -7,7 +7,7 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesApp } from 'views/InstancesApp/InstancesApp';
 
-export default function Intances() {
+export default function Webhooks() {
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
 
   return (
@@ -15,9 +15,14 @@ export default function Intances() {
       <AppBar />
 
       <Container>
-        instanceView webhooks
-        {!isAuthenticated && <Login />}
-        {isAuthenticated && <InstancesApp />}
+        
+        
+        {isAuthenticated && 
+        <InstancesApp>
+          Manager Webhooks
+          </InstancesApp>}
+
+          {!isAuthenticated && <Login />}
       </Container>
     </Main>
   );
