@@ -47,7 +47,7 @@ const Main = ({
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
-  if (getCookie('APP_SID')) {
+  if (getCookie('APP_SID') || getCookie('DEV_APP_SID')) {
     isUser = true;
   }
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
