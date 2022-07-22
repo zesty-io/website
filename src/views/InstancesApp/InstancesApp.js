@@ -11,14 +11,14 @@ import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
 
 export const InstancesApp = ({children}) => {
-  const [value, setValue] = React.useState('');
+  const [tabValue, setTabValue] = React.useState('');
   const router = useRouter();
   const { workingInstance } = useZestyStore((state) => state);
   const { zuid } = router.query
 
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setTabValue(newValue);
     router.push(
       {
         pathname: `/instances/[zuid]/${newValue}/`,
@@ -31,7 +31,7 @@ export const InstancesApp = ({children}) => {
   <Box>
     <InstanceHeader/>
     <Tabs
-      value={value}
+      value={tabValue}
       onChange={handleChange}
       aria-label="icon position tabs example"
     >
@@ -40,7 +40,7 @@ export const InstancesApp = ({children}) => {
       <Tab icon={<GroupAddIcon />} value={'users'} iconPosition="start" label="User" />
       <Tab icon={<PhishingIcon />} value={'webhooks'} iconPosition="start" label="Webhooks" />
     </Tabs>
-    {value == '' && <InstanceOverview /> || children}
+    {tabValue == '' && <InstanceOverview /> || children}
     
 
   </Box>);

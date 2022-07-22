@@ -153,7 +153,7 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
   const OPTIONS = memoizedInstances?.map((e) => {
     return {
       name: e.name,
-      value: e.ZUID,
+      value: e.ZUID
     };
   });
 
