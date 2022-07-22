@@ -5,18 +5,19 @@ import { Container } from '@mui/system';
 import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
-import { InstancesApp } from 'views/InstancesApp/InstancesApp';
+import { InstancesDashboard } from 'views/InstancesApp/InstancesDashboard';
+import { useRouter } from 'next/router';
 
 export default function Intances() {
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
+  const { isAuthenticated } = useZestyStore((state) => state);
 
+  const router = useRouter();
   return (
     <Main>
       <AppBar />
 
       <Container>
-        {isAuthenticated && <InstancesApp />}
-        {!isAuthenticated && <Login />}
+        {isAuthenticated ? <InstancesDashboard /> : <Login />}
       </Container>
     </Main>
   );

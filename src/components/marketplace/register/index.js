@@ -188,9 +188,10 @@ const customContainer = {
   minHeight: '50vh',
 };
 const RegisterPage = ({}) => {
+  const { workingInstance } = useZestyStore((state) => state);
   const theme = useTheme();
 
-  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const instanceZUID = workingInstance;
   const userAppSID = getUserAppSID();
 
   const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
