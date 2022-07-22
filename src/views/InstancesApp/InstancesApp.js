@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
+import { DataObject } from '@mui/icons-material';
 
 export const InstancesApp = ({ children }) => {
   const [tabValue, setTabValue] = React.useState('');
@@ -44,6 +45,12 @@ export const InstancesApp = ({ children }) => {
           value={'users'}
           iconPosition="start"
           label="User"
+        />
+        <Tab
+          icon={<DataObject />}
+          value={'apis'}
+          iconPosition="start"
+          label="APIs"
         />
         <Tab
           icon={<PhishingIcon />}
