@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -57,12 +57,37 @@ const Topbar = ({
     }
   }, [userInfo]);
 
+  /**
+   * Navigation Handler
+   */
+  const [activeNav, setActiveNav] = useState(
+    customRouting
+      .filter((route) => route.children.length > 0)
+      .map((url) => {
+        return { id: url.zuid, isActive: false };
+      }),
+  );
+
+  const navHandler = (e, id) => {
+    setActiveNav((current) =>
+      current.map((obj) => {
+        if (obj.id === id) {
+          return { ...obj, isActive: !obj.isActive };
+        }
+        return { ...obj, isActive: false };
+      }),
+    );
+  };
+
   return (
     <Box
       display={'flex'}
       justifyContent={'space-between'}
       alignItems={'center'}
       width={1}
+      sx={{
+        position: 'relative',
+      }}
     >
       <Box
         display={'flex'}
@@ -92,6 +117,10 @@ const Topbar = ({
             {route.parentZUID == null && route.children.length > 0 && (
               <Box marginLeft={4}>
                 <NavItem
+                  activeNav={
+                    activeNav.filter((item) => item.isActive === true)[0]
+                  }
+                  navHandler={navHandler}
                   title={route.title}
                   id={route.zuid}
                   items={route.children}
