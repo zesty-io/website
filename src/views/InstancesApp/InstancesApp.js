@@ -9,12 +9,13 @@ import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
-import { DataObject } from '@mui/icons-material';
+import { DataObject, FolderShared, Public } from '@mui/icons-material';
 
 export const InstancesApp = ({ children }) => {
   const [tabValue, setTabValue] = React.useState('');
+  const [instance, setinstance] = React.useState();
   const router = useRouter();
-  const { workingInstance } = useZestyStore((state) => state);
+  const { workingInstance, ZestyAPI } = useZestyStore((state) => state);
   const { zuid, data } = router.query;
 
   const handleChange = (event, newValue) => {
@@ -25,9 +26,21 @@ export const InstancesApp = ({ children }) => {
     });
   };
 
+  const getinstance = async () => {
+    const res = await ZestyAPI.getInstance(zuid);
+    console.log(res.data);
+    setinstance(res.data);
+  };
+  React.useEffect(() => {
+    getinstance();
+  }, []);
+
+  React.useEffect(() => {
+    console.log(instance, 2222);
+  }, [instance]);
   return (
     <Box>
-      <InstanceHeader />
+      <InstanceHeader instance={instance} />
       <Tabs
         value={tabValue}
         onChange={handleChange}
@@ -44,7 +57,19 @@ export const InstancesApp = ({ children }) => {
           icon={<GroupAddIcon />}
           value={'users'}
           iconPosition="start"
-          label="User"
+          label="Users"
+        />
+        <Tab
+          icon={<FolderShared />}
+          value={'teams'}
+          iconPosition="start"
+          label="Teams"
+        />
+        <Tab
+          icon={<Public />}
+          value={'domains'}
+          iconPosition="start"
+          label="Domains"
         />
         <Tab
           icon={<DataObject />}

@@ -23,7 +23,6 @@ export const InstancesDashboard = () => {
   const handleChange = (data, newValue) => {
     router.push({
       pathname: `/instances/${newValue}/`,
-      query: { data: JSON.stringify(data) },
     });
   };
 
