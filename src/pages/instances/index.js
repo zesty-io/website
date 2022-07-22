@@ -6,16 +6,18 @@ import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesDashboard } from 'views/InstancesApp/InstancesDashboard';
+import { useRouter } from 'next/router';
 
 export default function Intances() {
   const { isAuthenticated } = useZestyStore((state) => state);
 
+  const router = useRouter();
   return (
     <Main>
       <AppBar />
 
       <Container>
-        {isAuthenticated && <InstancesDashboard /> || <Login />}
+        {isAuthenticated ? <InstancesDashboard /> : <Login />}
       </Container>
     </Main>
   );

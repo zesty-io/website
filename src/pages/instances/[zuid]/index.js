@@ -14,10 +14,7 @@ export default function Intances() {
     <Main>
       <AppBar />
 
-      <Container>
-        {isAuthenticated && <InstancesApp /> || <Login />}
-        
-      </Container>
+      <Container>{isAuthenticated ? <InstancesApp /> : <Login />}</Container>
     </Main>
   );
 }

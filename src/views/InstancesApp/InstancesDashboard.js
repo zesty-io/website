@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
-import { Box } from '@mui/material'
+import { Box } from '@mui/material';
+import Link from 'next/link';
 
 export const InstancesDashboard = () => {
   const router = useRouter();
@@ -10,30 +11,30 @@ export const InstancesDashboard = () => {
 
   const [instances, setInstances] = React.useState([]);
 
+  async function getInstances() {
+    let instances = await ZestyAPI.getInstances();
+    setInstances(instances.data);
+  }
+
   React.useEffect(() => {
-    async function getInstances(){
-        let instances = await ZestyAPI.getInstances();
-        console.log(instances)
-        setInstances(instances.data);
-    }
-    getInstances();
-  })
+    instances.length === 0 && getInstances();
+  }, [instances]);
 
-
-
-  const handleChange = (event, newValue) => {
-
-    router.push(
-      {
-        pathname: `/instances/${newValue}/`
-      }
-    );
+  const handleChange = (data, newValue) => {
+    router.push({
+      pathname: `/instances/${newValue}/`,
+      query: { data: JSON.stringify(data) },
+    });
   };
 
   return (
-  <Box>
-    Instances
-    {instances.map(instance => <Box>{instance.zuid}</Box>)}
-
-  </Box>);
+    <Box>
+      Instances
+      {instances.map((instance) => (
+        <Box onClick={() => handleChange(instances, instance.ZUID)}>
+          {instance.ZUID}
+        </Box>
+      ))}
+    </Box>
+  );
 };

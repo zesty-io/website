@@ -15,14 +15,9 @@ export default function Webhooks() {
       <AppBar />
 
       <Container>
-        
-        
-        {isAuthenticated && 
-        <InstancesApp>
-          Manager Webhooks
-          </InstancesApp>}
+        {isAuthenticated && <InstancesApp>Manager Webhooks</InstancesApp>}
 
-          {!isAuthenticated && <Login />}
+        {!isAuthenticated && <Login />}
       </Container>
     </Main>
   );
