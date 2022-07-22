@@ -1,9 +1,9 @@
 name: Zesty Website CI Dev
 on:
   push:
-    branches: [main]
+    branches: [stage]
   pull_request:
-    branches: [main]
+    branches: [stage]
   workflow_dispatch:
 jobs:
   build:
