@@ -153,16 +153,16 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
   const OPTIONS = memoizedInstances?.map((e) => {
     return {
       name: e.name,
-      value: e.ZUID
+      value: e.ZUID,
     };
   });
 
   const currentVal = memoizedInstances?.find((e) => e.ZUID === instanceZUID);
 
   const handleChange = (e, newValue) => {
-    setCookies('ZESTY_WORKING_INSTANCE', newValue?.value);
+    setCookies(newValue?.value);
     setlabel(newValue?.name);
-    window.location.reload();
+    // window.location.reload();
   };
 
   React.useEffect(() => {
