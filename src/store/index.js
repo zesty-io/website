@@ -15,6 +15,6 @@ export const useZestyStore = create((set) => ({
   setisAuthenticated: (data) => set((state) => ({ isAuthenticated: data })),
   isUser: false,
   setisUser: (data) => set((state) => ({ isUser: data })),
-  workingInstance: '',
+  workingInstance: instanceZUID,
   setworkingInstance: (data) => set((state) => ({ workingInstance: data })),
 }));

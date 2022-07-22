@@ -16,7 +16,9 @@ import { getUserAppSID } from 'utils';
 import { useZestyStore } from 'store';
 
 export default function AppBar({ url = window.location.pathname }) {
-  const { setworkingInstance } = useZestyStore((state) => state);
+  const { setworkingInstance, workingInstance } = useZestyStore(
+    (state) => state,
+  );
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
@@ -46,8 +48,9 @@ export default function AppBar({ url = window.location.pathname }) {
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.data?.email);
 
+  React.useEffect(() => {
     setworkingInstance(instanceZUID);
-
+  }, [instanceZUID]);
 
   return (
     <Box
@@ -144,7 +147,7 @@ export default function AppBar({ url = window.location.pathname }) {
                 >
                   <ComboBox
                     instances={instances?.data}
-                    setCookies={setCookies}
+                    setCookies={setworkingInstance}
                     instanceZUID={instanceZUID}
                   />
                   <Box
