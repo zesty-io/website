@@ -46,8 +46,9 @@ export default function AppBar({ url = window.location.pathname }) {
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.data?.email);
 
+  React.useEffect(() => {
     setworkingInstance(instanceZUID);
-
+  }, [instanceZUID]);
 
   return (
     <Box
