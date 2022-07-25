@@ -125,8 +125,8 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function CollapsibleTable({ users=[], roles }) {
-  const rows = undefined !== users ? users : [];
+export default function CollapsibleTable({ users = [], roles }) {
+  const rows = users;
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -139,9 +139,8 @@ export default function CollapsibleTable({ users=[], roles }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={`${row.ZUID}-users`} row={row} />
-          ))}
+          {Array.isArray(rows) &&
+            rows?.map((row) => <Row key={`${row.ZUID}-users`} row={row} />)}
         </TableBody>
       </Table>
     </TableContainer>

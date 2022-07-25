@@ -5,10 +5,16 @@ import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesDashboard } from 'views/InstancesApp/InstancesDashboard';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 
+export default function Intances() {
+  const { instances } = useFetchWrapper();
+  const { isAuthenticated, setInstances } = useZestyStore((state) => state);
 
-export default function Instances() {
-  const { isAuthenticated } = useZestyStore((state) => state);
+  React.useEffect(() => {
+    setInstances(instances);
+  }, [instances]);
+
   return (
     <Main>
       <AppBar />

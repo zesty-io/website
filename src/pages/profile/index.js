@@ -6,15 +6,21 @@ import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
 import { ProfileApp } from 'views/ProfileApp/ProfileApp';
 import Login from 'components/console/Login';
+import { getUserAppSID } from 'utils';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 
 export default function Profile() {
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
+  const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
+  const { userInfo } = useFetchWrapper();
+
+  React.useEffect(() => {
+    setuserInfo(userInfo.data);
+  }, [userInfo]);
+
   return (
     <Main>
       <AppBar />
-      <Container>
-        {isAuthenticated ? <ProfileApp /> : <Login />}
-      </Container>
+      <Container>{isAuthenticated ? <ProfileApp /> : <Login />}</Container>
     </Main>
   );
 }
