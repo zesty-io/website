@@ -6,7 +6,7 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesApp } from 'views/InstancesApp/InstancesApp';
 
-export default function Intances() {
+export default function Instance() {
   const { isAuthenticated } = useZestyStore((state) => state);
   return (
     <Main>

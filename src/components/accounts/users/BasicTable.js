@@ -126,7 +126,7 @@ const rows = [
 ];
 
 export default function CollapsibleTable({ users=[], roles }) {
-  const rows = users;
+  const rows = undefined !== users ? users : [];
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
