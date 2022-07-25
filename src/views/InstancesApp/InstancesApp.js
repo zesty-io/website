@@ -9,17 +9,37 @@ import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
-import { DataObject, FolderShared, Public, Settings } from '@mui/icons-material';
+import {
+  DataObject,
+  FolderShared,
+  Public,
+  Settings,
+} from '@mui/icons-material';
 
-export const InstancesApp = ({ children }) => {
+const switchTabs = (setTabValue) => {
+  if (location.pathname.includes('users')) {
+    setTabValue('users');
+  } else if (location.pathname.includes('teams')) {
+    setTabValue('teams');
+  } else if (location.pathname.includes('domains')) {
+    setTabValue('domains');
+  } else if (location.pathname.includes('apis')) {
+    setTabValue('apis');
+  } else if (location.pathname.includes('webhooks')) {
+    setTabValue('webhooks');
+  } else {
+    setTabValue('');
+  }
+};
+
+const Index = ({ children }) => {
   const [tabValue, setTabValue] = React.useState('');
   const [instance, setInstance] = React.useState();
   const router = useRouter();
-  const { workingInstance, ZestyAPI } = useZestyStore((state) => state);
-  const { zuid, data } = router.query;
+  const { ZestyAPI, instance, setinstance } = useZestyStore((state) => state);
+  const { zuid } = router.query;
 
   const handleChange = (event, newValue) => {
-    setTabValue(newValue);
     router.push({
       pathname: `/instances/[zuid]/${newValue}/`,
       query: { zuid },
@@ -34,7 +54,13 @@ export const InstancesApp = ({ children }) => {
     getInstance();
   }, []);
 
+  React.useEffect(() => {
+    Object.keys(instance)?.length === 0 && getinstance();
+  }, [instance]);
 
+  React.useEffect(() => {
+    switchTabs(setTabValue);
+  }, [location.pathname]);
   return (
     <Box>
       <InstanceHeader instance={instance} />
@@ -97,3 +123,4 @@ export const InstancesApp = ({ children }) => {
     </Box>
   );
 };
+export const InstancesApp = React.memo(Index);

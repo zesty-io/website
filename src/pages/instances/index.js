@@ -10,8 +10,6 @@ import { useRouter } from 'next/router';
 
 export default function Intances() {
   const { isAuthenticated } = useZestyStore((state) => state);
-
-  const router = useRouter();
   return (
     <Main>
       <AppBar />
