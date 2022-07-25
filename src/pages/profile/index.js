@@ -14,7 +14,7 @@ export default function Profile() {
   const { userInfo } = useFetchWrapper();
 
   React.useEffect(() => {
-    setuserInfo(userInfo);
+    setuserInfo(userInfo.data);
   }, [userInfo]);
 
   return (
