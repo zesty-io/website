@@ -1,4 +1,5 @@
 import React from 'react';
+import { useZestyStore } from 'store';
 import { fetchWrapperOptions } from 'utils';
 
 const getStatus = (status) => {
@@ -13,12 +14,7 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const [views, setviews] = React.useState('');
   const [userInfo, setuserInfo] = React.useState('');
   const [loading, setloading] = React.useState(false);
-
-  const ZestyAPI = new window.Zesty.FetchWrapper(
-    instanceZUID,
-    userAppSID,
-    fetchWrapperOptions(),
-  );
+  const { ZestyAPI } = useZestyStore((state) => state);
 
   const verifyUser = async () => {
     setloading(true);

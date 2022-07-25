@@ -4,7 +4,6 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { ComboBox } from 'components/globals/ComboBox';
 import { Button, useMediaQuery } from '@mui/material';
 import { hashMD5 } from 'utils/Md5Hash';
@@ -44,11 +43,6 @@ export default function AppBar({ url = window.location.pathname }) {
     .split('?')[0]
     .split('/')
     .filter((e) => e);
-
-  // const {} = useFetchWrapper(
-  //   userAppSID,
-  //   instanceZUID,
-  // );
 
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.data?.email);

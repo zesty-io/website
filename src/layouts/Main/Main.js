@@ -15,8 +15,7 @@ import TopNav from 'components/globals/TopNav';
 
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
 import { zestyLink } from 'lib/zestyLink';
-import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import { fetchWrapperOptions, getUserAppSID } from 'utils';
+import { getUserAppSID } from 'utils';
 
 import { getCookie, setCookies } from 'cookies-next';
 import { useZestyStore } from 'store';
