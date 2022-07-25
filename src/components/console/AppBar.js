@@ -4,7 +4,6 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { ComboBox } from 'components/globals/ComboBox';
 import { Button, useMediaQuery } from '@mui/material';
 import { hashMD5 } from 'utils/Md5Hash';
@@ -16,9 +15,14 @@ import { getUserAppSID } from 'utils';
 import { useZestyStore } from 'store';
 
 export default function AppBar({ url = window.location.pathname }) {
-  const { setworkingInstance, workingInstance } = useZestyStore(
-    (state) => state,
-  );
+  const {
+    verifySuccess,
+    instances,
+    userInfo,
+    loading,
+    setworkingInstance,
+    workingInstance,
+  } = useZestyStore((state) => state);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
@@ -39,11 +43,6 @@ export default function AppBar({ url = window.location.pathname }) {
     .split('?')[0]
     .split('/')
     .filter((e) => e);
-
-  const { verifySuccess, instances, userInfo, loading } = useFetchWrapper(
-    userAppSID,
-    instanceZUID,
-  );
 
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.data?.email);

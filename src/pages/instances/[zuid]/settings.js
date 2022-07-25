@@ -1,14 +1,16 @@
 import React from 'react';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import AppBar from 'components/console/AppBar';
+import { Container } from '@mui/system';
 import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesApp } from 'views/InstancesApp/InstancesApp';
 import { useRouter } from 'next/router';
+import { getCookie } from 'cookies-next';
 import BasicTable from 'components/accounts/users/BasicTable';
 
-export default function Users() {
+export default function Settings() {
   const [users, setusers] = React.useState([]);
   const [roles, setroles] = React.useState([]);
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
@@ -26,7 +28,6 @@ export default function Users() {
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
     setroles(res.data);
-    console.log(res);
   };
   React.useEffect(() => {
     getUsers();
@@ -41,7 +42,7 @@ export default function Users() {
       <Container>
         {isAuthenticated ? (
           <InstancesApp>
-            Manager users on instance <BasicTable users={users ? users : []} roles={roles} />
+            Manager users on instance <BasicTable users={users} roles={roles} />
           </InstancesApp>
         ) : (
           <Login />

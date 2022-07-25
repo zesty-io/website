@@ -1,4 +1,5 @@
 import React from 'react';
+import { useZestyStore } from 'store';
 import { fetchWrapperOptions } from 'utils';
 
 const getStatus = (status) => {
@@ -8,17 +9,12 @@ const getStatus = (status) => {
 export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const [verifySuccess, setverifySuccess] = React.useState('');
   const [verifyFailed, setverifyFailed] = React.useState('');
-  const [instances, setinstances] = React.useState([]);
+  const [instances, setInstances] = React.useState([]);
   const [models, setmodels] = React.useState('');
   const [views, setviews] = React.useState('');
   const [userInfo, setuserInfo] = React.useState('');
   const [loading, setloading] = React.useState(false);
-
-  const ZestyAPI = new window.Zesty.FetchWrapper(
-    instanceZUID,
-    userAppSID,
-    fetchWrapperOptions(),
-  );
+  const { ZestyAPI } = useZestyStore((state) => state);
 
   const verifyUser = async () => {
     setloading(true);
@@ -31,7 +27,7 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const getInstances = async () => {
     setloading(true);
     const res = await ZestyAPI.getInstances();
-    !res.error && setinstances(res);
+    !res.error && setInstances(res);
     res.error && console.log(res, 'instance failed');
     setloading(false);
   };
