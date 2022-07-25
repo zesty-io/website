@@ -1,13 +1,20 @@
 import React from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
 import PhishingIcon from '@mui/icons-material/Phishing';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import InfoIcon from '@mui/icons-material/Info';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
-import { DataObject, FolderShared, Public } from '@mui/icons-material';
+import {
+  DataObject,
+  FolderShared,
+  Public,
+  Settings,
+} from '@mui/icons-material';
 
 const switchTabs = (setTabValue) => {
   if (location.pathname.includes('users')) {
@@ -59,7 +66,7 @@ const Index = ({ children }) => {
         aria-label="icon position tabs example"
       >
         <Tab
-          icon={<InfoIcon />}
+          icon={<InfoOutlinedIcon />}
           value={''}
           iconPosition="start"
           label="Overview"
@@ -87,13 +94,25 @@ const Index = ({ children }) => {
           icon={<DataObject />}
           value={'apis'}
           iconPosition="start"
-          label="APIs"
+          label="API &amp; Tokens"
         />
         <Tab
           icon={<PhishingIcon />}
           value={'webhooks'}
           iconPosition="start"
           label="Webhooks"
+        />
+        <Tab
+          icon={<CreditCardOutlinedIcon />}
+          value={'billing'}
+          iconPosition="start"
+          label="Billing &amp; Plan"
+        />
+        <Tab
+          icon={<SettingsIcon />}
+          value={'settings'}
+          iconPosition="start"
+          label="Settings"
         />
       </Tabs>
       {tabValue == '' ? <InstanceOverview /> : children}
