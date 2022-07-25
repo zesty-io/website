@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }) {
   React.useEffect(() => {
     setverifySuccess(verifySuccess);
     setInstances(instances);
-    setuserInfo(userInfo);
+    setuserInfo(userInfo.data);
     setloading(loading);
   }, [verifySuccess, instances, userInfo, loading]);
 
