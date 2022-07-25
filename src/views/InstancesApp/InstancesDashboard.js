@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
-import { Box } from '@mui/material';
-import Link from 'next/link';
+import { Box, Button } from '@mui/material';
+import { HorizontalRule  } from '@mui/icons-material';
 
 export const InstancesDashboard = () => {
   const router = useRouter();
@@ -13,25 +13,27 @@ export const InstancesDashboard = () => {
 
   async function getInstances() {
     let instances = await ZestyAPI.getInstances();
-    setInstances(instances.data);
+    setInstances(instances?.data ? instances.data : []);
   }
 
   React.useEffect(() => {
     instances.length === 0 && getInstances();
   }, [instances]);
 
-  const handleChange = (data, newValue) => {
+  const handleChange = (zuid) => {
     router.push({
-      pathname: `/instances/${newValue}/`,
+      pathname: `/instances/${zuid}/`,
     });
   };
 
   return (
     <Box>
-      Instances
+      <HorizontalRule />
       {instances.map((instance) => (
-        <Box onClick={() => handleChange(instances, instance.ZUID)}>
-          {instance.ZUID}
+        <Box key={`${instance.ZUID}-instancelist`} >
+          {instance.ZUID} {instance.name}
+          <Button onClick={() => handleChange(instance.ZUID)}>View</Button>
+
         </Box>
       ))}
     </Box>

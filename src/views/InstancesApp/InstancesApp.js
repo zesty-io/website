@@ -1,15 +1,15 @@
 import React from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
-import PhoneMissedIcon from '@mui/icons-material/PhoneMissed';
+import SettingsIcon from '@mui/icons-material/Settings';
 import PhishingIcon from '@mui/icons-material/Phishing';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import InfoIcon from '@mui/icons-material/Info';
-
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
-import { DataObject, FolderShared, Public } from '@mui/icons-material';
+import { DataObject, FolderShared, Public, Settings } from '@mui/icons-material';
 
 export const InstancesApp = ({ children }) => {
   const [tabValue, setTabValue] = React.useState('');
@@ -28,16 +28,13 @@ export const InstancesApp = ({ children }) => {
 
   const getinstance = async () => {
     const res = await ZestyAPI.getInstance(zuid);
-    console.log(res.data);
     setinstance(res.data);
   };
   React.useEffect(() => {
     getinstance();
   }, []);
 
-  React.useEffect(() => {
-    console.log(instance, 2222);
-  }, [instance]);
+
   return (
     <Box>
       <InstanceHeader instance={instance} />
@@ -47,7 +44,7 @@ export const InstancesApp = ({ children }) => {
         aria-label="icon position tabs example"
       >
         <Tab
-          icon={<InfoIcon />}
+          icon={<InfoOutlinedIcon />}
           value={''}
           iconPosition="start"
           label="Overview"
@@ -75,13 +72,25 @@ export const InstancesApp = ({ children }) => {
           icon={<DataObject />}
           value={'apis'}
           iconPosition="start"
-          label="APIs"
+          label="API &amp; Tokens"
         />
         <Tab
           icon={<PhishingIcon />}
           value={'webhooks'}
           iconPosition="start"
           label="Webhooks"
+        />
+        <Tab
+          icon={<CreditCardOutlinedIcon />}
+          value={'billing'}
+          iconPosition="start"
+          label="Billing &amp; Plan"
+        />
+        <Tab
+          icon={<SettingsIcon />}
+          value={'settings'}
+          iconPosition="start"
+          label="Settings"
         />
       </Tabs>
       {tabValue == '' ? <InstanceOverview /> : children}
