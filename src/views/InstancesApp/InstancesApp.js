@@ -4,23 +4,24 @@ import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
-import { instanceTabs }  from 'components/accounts/instances/tabs'
+import { instanceTabs } from 'components/accounts/instances/tabs';
 
 const Index = ({ children }) => {
-
-  const currentPage = location.pathname.split('/').length > 2 ? location.pathname.split('/')[3] : '';
+  const currentPage =
+    location.pathname.split('/').length > 2
+      ? location.pathname.split('/')[3]
+      : '';
   const [tabValue, setTabValue] = React.useState(currentPage);
   const router = useRouter();
   const { ZestyAPI, instance, setInstance } = useZestyStore((state) => state);
   const { zuid } = router.query;
 
   const handleChange = (event, newValue) => {
-    setTabValue(newValue)
+    setTabValue(newValue);
     router.push({
       pathname: `/instances/[zuid]/${newValue}/`,
       query: { zuid },
     });
-    
   };
 
   const getInstance = async () => {
@@ -44,16 +45,16 @@ const Index = ({ children }) => {
         onChange={handleChange}
         aria-label="icon position tabs example"
       >
-        
-        {instanceTabs.sort((a,b) => a.sort - b.sort).map(tab => 
+        {instanceTabs
+          .sort((a, b) => a.sort - b.sort)
+          .map((tab) => (
             <Tab
-            icon={tab.icon}
-            value={tab.filename}
-            iconPosition="start"
-            label={tab.label}
-          />
-        )}
-        
+              icon={tab.icon}
+              value={tab.filename}
+              iconPosition="start"
+              label={tab.label}
+            />
+          ))}
       </Tabs>
       {tabValue == '' ? <InstanceOverview /> : children}
     </Box>

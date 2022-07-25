@@ -6,7 +6,6 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesDashboard } from 'views/InstancesApp/InstancesDashboard';
 
-
 export default function Intances() {
   const { isAuthenticated } = useZestyStore((state) => state);
   return (
@@ -14,7 +13,8 @@ export default function Intances() {
       <AppBar />
 
       <Container>
-        </Container>
+        {isAuthenticated ? <InstancesDashboard /> : <Login />}
+      </Container>
     </Main>
   );
 }
