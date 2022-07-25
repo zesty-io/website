@@ -13,7 +13,7 @@ import { DataObject, FolderShared, Public, Settings } from '@mui/icons-material'
 
 export const InstancesApp = ({ children }) => {
   const [tabValue, setTabValue] = React.useState('');
-  const [instance, setinstance] = React.useState();
+  const [instance, setInstance] = React.useState();
   const router = useRouter();
   const { workingInstance, ZestyAPI } = useZestyStore((state) => state);
   const { zuid, data } = router.query;
@@ -26,12 +26,12 @@ export const InstancesApp = ({ children }) => {
     });
   };
 
-  const getinstance = async () => {
+  const getInstance = async () => {
     const res = await ZestyAPI.getInstance(zuid);
-    setinstance(res.data);
+    setInstance(res.data);
   };
   React.useEffect(() => {
-    getinstance();
+    getInstance();
   }, []);
 
 
