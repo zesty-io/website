@@ -4,10 +4,10 @@
 import FeaturedApps from './FeaturedApps';
 import MainApps from './MainApps';
 
-const MarketplaceContainer = ({}) => {
+const MarketplaceContainer = ({ featured_entities }) => {
   return (
     <>
-      <FeaturedApps />
+      <FeaturedApps featuredApps={featured_entities} />
       <MainApps />
     </>
   );

@@ -7,6 +7,7 @@ export const ResourceLinkComp = ({ data, theme }) => {
   };
   return (
     <Button
+      disabled={data.available != 1}
       onClick={openInNewTab}
       variant="contained"
       color="secondary"

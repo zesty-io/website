@@ -15,6 +15,8 @@ const AppCard = ({ name, image, uri, meta_description }) => {
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 500));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
+  console.log(image);
+
   return (
     <Box component={'a'} href={uri} sx={{ textDecoration: 'none' }}>
       <Card
@@ -54,7 +56,7 @@ const AppCard = ({ name, image, uri, meta_description }) => {
                 sx={{ width: 100 }}
                 component="img"
                 alt=""
-                src={image || FillerContent.logos[0].url}
+                src={image?.data[0].url || FillerContent.logos[0].url}
               />
             </Box>
 

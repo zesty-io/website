@@ -47,6 +47,7 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.1",
     "@mui/material": "^5.6.1",
+    "@zesty-io/live-editor": "^2.0.22",
     "aos": "^2.3.4",
     "card-validator": "^8.1.1",
     "cookies-next": "^2.0.4",
