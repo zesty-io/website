@@ -15,8 +15,7 @@ import TopNav from 'components/globals/TopNav';
 
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
 import { zestyLink } from 'lib/zestyLink';
-import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import { fetchWrapperOptions, getUserAppSID } from 'utils';
+import { getUserAppSID } from 'utils';
 
 import { getCookie, setCookies } from 'cookies-next';
 import { useZestyStore } from 'store';
@@ -36,11 +35,7 @@ const Main = ({
 
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getUserAppSID();
-
-  const { verifySuccess, loading, userInfo } = useFetchWrapper(
-    userAppSID,
-    instanceZUID,
-  );
+  const { verifySuccess, loading, userInfo } = useZestyStore((state) => state);
 
   const isAuthenticated = verifySuccess.userZuid ? true : false;
   let isUser = false;
@@ -136,22 +131,26 @@ const Main = ({
         elevation={trigger ? 1 : 0}
       >
         <Container paddingY={isExplorePage ? 2 : 1}>
-          {!isUser && <Topbar
-            onSidebarOpen={handleSidebarOpen}
-            customRouting={hasRouting ? customRouting : []}
-            colorInvert={headerColorInvert && !trigger}
-            trigger={trigger}
-            isAuthenticated={isAuthenticated}
-            userInfo={userInfo?.data}
-            loading={loading}
-          />}
-          {isUser && <AppNavigation 
-           onSidebarOpen={handleSidebarOpen}
-           colorInvert={headerColorInvert && !trigger}
-           trigger={trigger}
-           userInfo={userInfo?.data}
-           loading={loading}
-           />}
+          {!isUser && (
+            <Topbar
+              onSidebarOpen={handleSidebarOpen}
+              customRouting={hasRouting ? customRouting : []}
+              colorInvert={headerColorInvert && !trigger}
+              trigger={trigger}
+              isAuthenticated={isAuthenticated}
+              userInfo={userInfo?.data}
+              loading={loading}
+            />
+          )}
+          {isUser && (
+            <AppNavigation
+              onSidebarOpen={handleSidebarOpen}
+              colorInvert={headerColorInvert && !trigger}
+              trigger={trigger}
+              userInfo={userInfo?.data}
+              loading={loading}
+            />
+          )}
         </Container>
       </AppBar>
       <Sidebar
