@@ -4,23 +4,15 @@ import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
-<<<<<<< HEAD
 import { instanceTabs } from 'components/accounts/instances/tabs';
+import { lang } from 'components/accounts/instances/lang';
 
 const Index = ({ children }) => {
+  const langcode = 'en';
   const currentPage =
     location.pathname.split('/').length > 2
       ? location.pathname.split('/')[3]
       : '';
-=======
-import { instanceTabs }  from 'components/accounts/instances/tabs'
-import { lang }  from 'components/accounts/instances/lang'
-
-
-const Index = ({ children }) => {
-  const langcode = 'en';
-  const currentPage = location.pathname.split('/').length > 2 ? location.pathname.split('/')[3] : '';
->>>>>>> 384beb6efd7e63e355a161ff7b453e8373030bc3
   const [tabValue, setTabValue] = React.useState(currentPage);
   const router = useRouter();
   const { ZestyAPI, instance, setInstance } = useZestyStore((state) => state);
@@ -40,7 +32,8 @@ const Index = ({ children }) => {
   };
   React.useEffect(() => {
     getInstance();
-    document.title = instance.name + ` Instance - ${currentPage} - Zesty.io Console`;
+    document.title =
+      instance.name + ` Instance - ${currentPage} - Zesty.io Console`;
   }, [instance, currentPage]);
 
   React.useEffect(() => {
@@ -60,22 +53,12 @@ const Index = ({ children }) => {
           .sort((a, b) => a.sort - b.sort)
           .map((tab) => (
             <Tab
-<<<<<<< HEAD
               icon={tab.icon}
               value={tab.filename}
               iconPosition="start"
-              label={tab.label}
+              label={lang[langcode].tabs[tab.filename]}
             />
           ))}
-=======
-            icon={tab.icon}
-            value={tab.filename}
-            iconPosition="start"
-            label={lang[langcode].tabs[tab.filename]}
-          />
-        )}
-        
->>>>>>> 384beb6efd7e63e355a161ff7b453e8373030bc3
       </Tabs>
       {tabValue == '' ? <InstanceOverview /> : children}
     </Box>
