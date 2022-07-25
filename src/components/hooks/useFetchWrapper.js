@@ -9,7 +9,7 @@ const getStatus = (status) => {
 export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const [verifySuccess, setverifySuccess] = React.useState('');
   const [verifyFailed, setverifyFailed] = React.useState('');
-  const [instances, setinstances] = React.useState([]);
+  const [instances, setInstances] = React.useState([]);
   const [models, setmodels] = React.useState('');
   const [views, setviews] = React.useState('');
   const [userInfo, setuserInfo] = React.useState('');
@@ -27,7 +27,7 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const getInstances = async () => {
     setloading(true);
     const res = await ZestyAPI.getInstances();
-    !res.error && setinstances(res);
+    !res.error && setInstances(res);
     res.error && console.log(res, 'instance failed');
     setloading(false);
   };

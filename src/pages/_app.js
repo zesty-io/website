@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 export default function App({ Component, pageProps }) {
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getUserAppSID();
-  const { setverifySuccess, setinstances, setuserInfo, setloading } =
+  const { setverifySuccess, setInstances, setuserInfo, setloading } =
     useZestyStore((state) => state);
 
   const { verifySuccess, instances, userInfo, loading } = useFetchWrapper(
@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
 
   React.useEffect(() => {
     setverifySuccess(verifySuccess);
-    setinstances(instances);
+    setInstances(instances);
     setuserInfo(userInfo);
     setloading(loading);
   }, [verifySuccess, instances, userInfo, loading]);

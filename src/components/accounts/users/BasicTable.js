@@ -125,7 +125,7 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function CollapsibleTable({ users, roles }) {
+export default function CollapsibleTable({ users=[], roles }) {
   const rows = users;
   return (
     <TableContainer component={Paper}>

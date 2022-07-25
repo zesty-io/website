@@ -9,8 +9,6 @@ import { InstancesApp } from 'views/InstancesApp/InstancesApp';
 
 export default function Intances() {
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
-  const [instance, setinstance] = React.useState({});
-
   return (
     <Main>
       <AppBar />
