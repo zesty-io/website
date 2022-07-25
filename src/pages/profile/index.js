@@ -13,8 +13,7 @@ export default function Profile() {
     <Main>
       <AppBar />
       <Container>
-        {!isAuthenticated && <Login />}
-        {isAuthenticated && <ProfileApp />}
+        {isAuthenticated ? <ProfileApp /> : <Login />}
       </Container>
     </Main>
   );
