@@ -10,7 +10,7 @@ import { getUserAppSID } from 'utils';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { Email } from 'components/accounts/profile/Email';
 
-export default function Profile() {
+export default function EmailPage() {
   const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
   const { userInfo } = useFetchWrapper();
 

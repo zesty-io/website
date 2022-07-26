@@ -1,21 +1,39 @@
 import React from 'react';
-import { Tabs, Tab, Box } from '@mui/material';
+import { Tabs, Tab, Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
-import InstanceOverview from 'components/accounts/instances/InstanceOverview';
-import InstanceHeader from 'components/accounts/instances/InstanceHeader';
-import { lang } from 'components/accounts/instances/lang';
 import { profileTabs } from 'components/accounts/profile/tabs';
-import { YourProfile } from 'components/accounts/profile/YourProfile';
+import { hashMD5 } from 'utils/Md5Hash';
 
+const ProfileHeader = ({ userInfo }) => {
+  const { email, firstName, lastName } = userInfo || '';
+  const profileUrl =
+    'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
+  const name = `${firstName || ''} ${lastName || ''}` || '';
+  return (
+    <Box
+      sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
+      paddingX={4}
+      paddingY={4}
+    >
+      <Box>
+        <img src={profileUrl} alt="" width={100} height={100} />
+      </Box>
+      <Box>
+        <Typography variant="h3">{name}</Typography>
+        <Typography variant="p">{email}</Typography>
+      </Box>
+    </Box>
+  );
+};
 const Index = ({ children }) => {
+  const { userInfo } = useZestyStore((state) => state);
   const currentPage =
     location.pathname.split('/').length > 2
       ? location.pathname.split('/')[2]
       : '';
   const [tabValue, setTabValue] = React.useState(currentPage);
   const router = useRouter();
-  const { instance } = useZestyStore((state) => state);
 
   const handleChange = (event, newValue) => {
     setTabValue(newValue);
@@ -24,10 +42,9 @@ const Index = ({ children }) => {
     });
   };
 
-  console.log(instance, 123);
   return (
     <Box>
-      <InstanceHeader instance={instance} />
+      <ProfileHeader userInfo={userInfo} />
       <Tabs
         value={tabValue}
         onChange={handleChange}

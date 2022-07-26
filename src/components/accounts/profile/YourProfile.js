@@ -1,15 +1,11 @@
 import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 import { useZestyStore } from 'store';
-import { hashMD5 } from 'utils/Md5Hash';
 
 export const YourProfile = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
-  const [firstName, setfirstName] = React.useState(userInfo?.firstName);
-  const [lastName, setlastName] = React.useState(userInfo?.lastName);
-
-  const profileUrl =
-    'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
+  const [firstName, setfirstName] = React.useState('');
+  const [lastName, setlastName] = React.useState('');
 
   const handleSuccess = (data) => {
     console.log(data, 'success');
@@ -28,25 +24,27 @@ export const YourProfile = () => {
   };
   return (
     <Box>
-      <img src={profileUrl} alt="profile" height={40} width={40} />
       <form action="submit" onSubmit={handleSubmit}>
-        <TextField
-          onChange={(event) => setfirstName(event.target.value)}
-          label="First Name"
-          value={firstName}
-          defaultValue={userInfo?.firstName}
-          variant="standard"
-        />
-        <TextField
-          onChange={(event) => setlastName(event.target.value)}
-          label="Last Name"
-          defaultValue={lastName}
-          variant="standard"
-        />
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <TextField
+            onChange={(event) => setfirstName(event.target.value)}
+            label={firstName || userInfo?.firstName}
+            value={firstName}
+            variant="standard"
+            fullWidth
+          />
+          <TextField
+            fullWidth
+            onChange={(event) => setlastName(event.target.value)}
+            label={lastName || userInfo?.lastName}
+            value={lastName}
+            variant="standard"
+          />
 
-        <Button type="submit" variant="contained">
-          Update Username
-        </Button>
+          <Button fullWidth type="submit" variant="contained">
+            Update Username
+          </Button>
+        </Box>
       </form>
     </Box>
   );

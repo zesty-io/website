@@ -1,10 +1,20 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from '@mui/material';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
 import { accountsValidations } from '../validations';
 
 export const Password = () => {
+  const [showOldpass, setshowOldpass] = React.useState(false);
+  const [showNewpass, setshowNewpass] = React.useState(false);
+  const [showCNewpass, setshowCNewpass] = React.useState(false);
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
 
   const handleSuccess = (data) => {
@@ -16,7 +26,6 @@ export const Password = () => {
   };
 
   const handleSubmit = async ({ oldPassword, newPassword }) => {
-    console.log(oldPassword, newPassword);
     const userZUID = userInfo.ZUID;
     const body = { oldPassword, password: newPassword };
     const params = '?action=updatePassword';
@@ -62,6 +71,19 @@ export const Password = () => {
                   }
                   error={touched.oldPassword && Boolean(errors.oldPassword)}
                   helperText={touched.oldPassword && errors.oldPassword}
+                  type={showOldpass ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setshowOldpass(!showOldpass)}
+                        >
+                          {!showOldpass ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   fullWidth
@@ -73,6 +95,19 @@ export const Password = () => {
                   }
                   error={touched.newPassword && Boolean(errors.newPassword)}
                   helperText={touched.newPassword && errors.newPassword}
+                  type={showNewpass ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setshowNewpass(!showNewpass)}
+                        >
+                          {!showNewpass ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   fullWidth
@@ -89,6 +124,19 @@ export const Password = () => {
                   helperText={
                     touched.confirmNewPassword && errors.confirmNewPassword
                   }
+                  type={showCNewpass ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setshowCNewpass(!showCNewpass)}
+                        >
+                          {!showCNewpass ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <Button
                   color="primary"

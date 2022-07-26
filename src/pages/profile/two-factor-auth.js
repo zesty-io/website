@@ -10,7 +10,7 @@ import { getUserAppSID } from 'utils';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { TwoFactorAuth } from 'components/accounts/profile/Two-factor-auth';
 
-export default function Profile() {
+export default function TwoFactorPage() {
   const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
   const { userInfo } = useFetchWrapper();
 

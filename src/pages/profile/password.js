@@ -10,7 +10,7 @@ import { getUserAppSID } from 'utils';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { Password } from 'components/accounts/profile/Password';
 
-export default function Profile() {
+export default function PasswordPage() {
   const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
   const { userInfo } = useFetchWrapper();
 
