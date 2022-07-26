@@ -48,7 +48,7 @@ export const Email = () => {
     res.error && handleGetEmailsErr(res);
   };
 
-  const handleAddEmail = async ({ name, email }) => {
+  const addEmail = async ({ name, email }) => {
     console.log(email, name);
     const res = await ZestyAPI.addUnverifiedEmail(name, email);
     !res.error && handleAddEmailSuccess(res);
@@ -85,7 +85,7 @@ export const Email = () => {
           email: '',
         }}
         validationSchema={validation}
-        onSubmit={handleAddEmail}
+        onSubmit={addEmail}
       >
         {({
           values,
