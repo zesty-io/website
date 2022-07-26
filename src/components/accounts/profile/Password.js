@@ -1,30 +1,8 @@
 import { Box, Button, TextField } from '@mui/material';
-import { Field, Form, Formik, useFormik } from 'formik';
+import { Form, Formik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
-import * as yup from 'yup';
-
-const lowercaseRegex = /(?=.*[a-z])/;
-const uppercaseRegex = /(?=.*[A-Z])/;
-const numericRegex = /(?=.*[0-9])/;
-
-export const validation = yup.object().shape({
-  oldPassword: yup
-    .string()
-    // .min(8, 'Must be atleast 8 Characters')
-    .required('Password is required'),
-  newPassword: yup
-    .string()
-    .matches(lowercaseRegex, 'One lowercase required!')
-    .matches(uppercaseRegex, 'One uppercase required!')
-    .matches(numericRegex, 'One number required!')
-    .min(8, 'Must be atleast 8 Characters')
-    .required('Password is required'),
-  confirmNewPassword: yup
-    .string()
-    .required('Password is required')
-    .oneOf([yup.ref('newPassword')], 'Password does not match'),
-});
+import { accountsValidations } from '../validations';
 
 export const Password = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
@@ -55,7 +33,7 @@ export const Password = () => {
           newPassword: '',
           confirmNewPassword: '',
         }}
-        validationSchema={validation}
+        validationSchema={accountsValidations.password}
         onSubmit={handleSubmit}
       >
         {({
@@ -71,53 +49,56 @@ export const Password = () => {
         }) => {
           return (
             <Form onSubmit={handleSubmit}>
-              <TextField
-                fullWidth
-                id="oldPassword"
-                name="oldPassword"
-                label="Old Password"
-                onChange={(event) =>
-                  setFieldValue('oldPassword', event.target.value)
-                }
-                error={touched.oldPassword && Boolean(errors.oldPassword)}
-                helperText={touched.oldPassword && errors.oldPassword}
-              />
-              <TextField
-                fullWidth
-                id="newPassword"
-                name="newPassword"
-                label="New Password"
-                onChange={(event) =>
-                  setFieldValue('newPassword', event.target.value)
-                }
-                error={touched.newPassword && Boolean(errors.newPassword)}
-                helperText={touched.newPassword && errors.newPassword}
-              />
-              <TextField
-                fullWidth
-                id="confirmNewPassword"
-                name="confirmNewPassword"
-                label="Confirm New Password"
-                onChange={(event) =>
-                  setFieldValue('confirmNewPassword', event.target.value)
-                }
-                error={
-                  touched.confirmNewPassword &&
-                  Boolean(errors.confirmNewPassword)
-                }
-                helperText={
-                  touched.confirmNewPassword && errors.confirmNewPassword
-                }
-              />
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth
-                type="submit"
-                disabled={!dirty || !isValid}
+              <Box
+                sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
               >
-                Submit
-              </Button>
+                <TextField
+                  fullWidth
+                  id="oldPassword"
+                  name="oldPassword"
+                  label="Old Password"
+                  onChange={(event) =>
+                    setFieldValue('oldPassword', event.target.value)
+                  }
+                  error={touched.oldPassword && Boolean(errors.oldPassword)}
+                  helperText={touched.oldPassword && errors.oldPassword}
+                />
+                <TextField
+                  fullWidth
+                  id="newPassword"
+                  name="newPassword"
+                  label="New Password"
+                  onChange={(event) =>
+                    setFieldValue('newPassword', event.target.value)
+                  }
+                  error={touched.newPassword && Boolean(errors.newPassword)}
+                  helperText={touched.newPassword && errors.newPassword}
+                />
+                <TextField
+                  fullWidth
+                  id="confirmNewPassword"
+                  name="confirmNewPassword"
+                  label="Confirm New Password"
+                  onChange={(event) =>
+                    setFieldValue('confirmNewPassword', event.target.value)
+                  }
+                  error={
+                    touched.confirmNewPassword &&
+                    Boolean(errors.confirmNewPassword)
+                  }
+                  helperText={
+                    touched.confirmNewPassword && errors.confirmNewPassword
+                  }
+                />
+                <Button
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  type="submit"
+                >
+                  Submit
+                </Button>
+              </Box>
             </Form>
           );
         }}

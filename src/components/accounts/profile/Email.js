@@ -1,22 +1,8 @@
 import { Box, Button, TextField } from '@mui/material';
 import { Form, Formik } from 'formik';
-import * as yup from 'yup';
 import React from 'react';
 import { useZestyStore } from 'store';
-
-const emailRegex =
-  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-const validation = yup.object().shape({
-  name: yup
-    .string()
-    .min(2, 'Must be atleast 2 Characters')
-    .required('Name is required'),
-  email: yup
-    .string()
-    .required('Email address is required*')
-    .matches(emailRegex, 'Must be a valid email address*'),
-});
+import { accountsValidations } from '../validations';
 
 export const Email = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
@@ -84,7 +70,7 @@ export const Email = () => {
           name: '',
           email: '',
         }}
-        validationSchema={validation}
+        validationSchema={accountsValidations.email}
         onSubmit={addEmail}
       >
         {({
@@ -123,7 +109,6 @@ export const Email = () => {
                 variant="contained"
                 fullWidth
                 type="submit"
-                disabled={!dirty || !isValid}
               >
                 Submit
               </Button>
