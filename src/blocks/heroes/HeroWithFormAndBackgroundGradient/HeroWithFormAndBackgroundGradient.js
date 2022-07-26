@@ -21,7 +21,6 @@ const FormCustom = ({ title, content }) => {
   };
   return (
     <Box padding={{ xs: 3, sm: 6 }} width={1} component={Card} boxShadow={1}>
-      {' '}
       <Typography
         variant={'p'}
         component={'h2'}
@@ -51,21 +50,6 @@ const Hero = ({
   const images = imageCollection?.map(
     (e) => e?.url || (e.customer_logo?.data && e.customer_logo?.data[0]?.url),
   );
-
-  /**
-   * Checks to avoid issues when passing query to url's
-   */
-  const determineUrl = (url) => {
-    if (url.includes('/headless-cms-buyers-guide-and-rfp-template/')) {
-      return '/headless-cms-buyers-guide-and-rfp-template/';
-    }
-    if (url.includes('/dxp-rfp-template/')) {
-      return '/dxp-rfp-template/';
-    }
-    if (url.includes('/whitepaper-scale/')) {
-      return '/whitepaper-scale/';
-    }
-  };
 
   return (
     <Box
@@ -116,40 +100,11 @@ const Hero = ({
           </Grid>
           <Grid item xs={12} md={6}>
             <Box width={1} height="100%" display="flex" alignItems="center">
-              {/* Check path
-               * /headless-cms-buyers-guide-and-rfp-template/
-               * /dxp-rfp-template/
-               * /whitepaper-scale/
-               * if returns an item render custom zoho form else render old form
-               */}
-              {determineUrl(router.asPath) ? (
-                <>
-                  {(() => {
-                    switch (determineUrl(router.asPath)) {
-                      case '/headless-cms-buyers-guide-and-rfp-template/':
-                        return (
-                          <ZohoFormEmbed
-                            formURL="https://forms.zohopublic.com/zestyio/form/MACDFHeadlessCMSBuyerGuide/formperma/85G2GzuN9JB6x7vw_n_Q_YX6CNn5W3fg7KBOY0aH6wI"
-                            height="400px"
-                          />
-                        );
-                      case '/dxp-rfp-template/':
-                        return (
-                          <ZohoFormEmbed
-                            formURL="https://forms.zohopublic.com/zestyio/form/MACDFDXPbuyerguide/formperma/yoMgskMjct8uSU8QZnC1j0YJ_G77DCZN9bhE39k6Hts"
-                            height="400px"
-                          />
-                        );
-                      case '/whitepaper-scale/':
-                        return (
-                          <ZohoFormEmbed
-                            formURL="https://forms.zohopublic.com/zestyio/form/MACDFScalewhitepaper/formperma/hUyiU657xyWRXSXcHgnkj-PWK-hzstCWFhtST0TCx4o"
-                            height="400px"
-                          />
-                        );
-                    }
-                  })()}
-                </>
+              {formContent.zohoFormLink ? (
+                <ZohoFormEmbed
+                  formURL={formContent.zohoFormLink}
+                  height="400px"
+                />
               ) : (
                 <FormCustom title={form_title} content={formContent} />
               )}

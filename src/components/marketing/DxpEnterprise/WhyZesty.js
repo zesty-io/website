@@ -38,7 +38,8 @@ const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
       sx={{
         backgroundImage: `url(${MiddelBackground.src})`,
         backgroundRepeat: 'no-repeat',
-        py: 10,
+
+        py: 15,
       }}
       component="section"
     >
