@@ -15,13 +15,15 @@ export const validation = yup.object().shape({
     .required('Password is required'),
   newPassword: yup
     .string()
-    // .matches(lowercaseRegex, 'One lowercase required!')
-    // .matches(uppercaseRegex, 'One uppercase required!')
-    // .matches(numericRegex, 'One number required!')
-    // .min(8, 'Must be atleast 8 Characters')
+    .matches(lowercaseRegex, 'One lowercase required!')
+    .matches(uppercaseRegex, 'One uppercase required!')
+    .matches(numericRegex, 'One number required!')
+    .min(8, 'Must be atleast 8 Characters')
     .required('Password is required'),
-  confirmNewPassword: yup.string().required('Password is required'),
-  // .oneOf([yup.ref('newPassword')], 'Password does not match'),
+  confirmNewPassword: yup
+    .string()
+    .required('Password is required')
+    .oneOf([yup.ref('newPassword')], 'Password does not match'),
 });
 
 export const Password = () => {
@@ -61,9 +63,11 @@ export const Password = () => {
           errors,
           handleSubmit,
           dirty,
+          isValid,
           handleChange,
           handleBlur,
           setFieldValue,
+          touched,
         }) => {
           return (
             <Form onSubmit={handleSubmit}>
@@ -75,6 +79,8 @@ export const Password = () => {
                 onChange={(event) =>
                   setFieldValue('oldPassword', event.target.value)
                 }
+                error={touched.oldPassword && Boolean(errors.oldPassword)}
+                helperText={touched.oldPassword && errors.oldPassword}
               />
               <TextField
                 fullWidth
@@ -84,6 +90,8 @@ export const Password = () => {
                 onChange={(event) =>
                   setFieldValue('newPassword', event.target.value)
                 }
+                error={touched.newPassword && Boolean(errors.newPassword)}
+                helperText={touched.newPassword && errors.newPassword}
               />
               <TextField
                 fullWidth
@@ -93,12 +101,20 @@ export const Password = () => {
                 onChange={(event) =>
                   setFieldValue('confirmNewPassword', event.target.value)
                 }
+                error={
+                  touched.confirmNewPassword &&
+                  Boolean(errors.confirmNewPassword)
+                }
+                helperText={
+                  touched.confirmNewPassword && errors.confirmNewPassword
+                }
               />
               <Button
                 color="primary"
                 variant="contained"
                 fullWidth
                 type="submit"
+                disabled={!dirty || !isValid}
               >
                 Submit
               </Button>

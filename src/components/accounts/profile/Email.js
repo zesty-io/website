@@ -90,11 +90,13 @@ export const Email = () => {
         {({
           values,
           errors,
+          isValid,
           handleSubmit,
           dirty,
           handleChange,
           handleBlur,
           setFieldValue,
+          touched,
         }) => {
           return (
             <Form onSubmit={handleSubmit}>
@@ -104,6 +106,8 @@ export const Email = () => {
                 name="email"
                 label="Email"
                 onChange={(event) => setFieldValue('email', event.target.value)}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
               />
               <TextField
                 fullWidth
@@ -111,12 +115,15 @@ export const Email = () => {
                 name="name"
                 label="Name"
                 onChange={(event) => setFieldValue('name', event.target.value)}
+                error={touched.name && Boolean(errors.name)}
+                helperText={touched.name && errors.name}
               />
               <Button
                 color="primary"
                 variant="contained"
                 fullWidth
                 type="submit"
+                disabled={!dirty || !isValid}
               >
                 Submit
               </Button>
