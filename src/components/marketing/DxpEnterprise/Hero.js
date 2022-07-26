@@ -65,8 +65,8 @@ const Hero = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                   }}
                 >
                   {content.h1_title?.replaceAll(
-                    'Digital experience',
-                    `<strong>Digital experience</strong>`,
+                    'enterprise solution',
+                    `<strong>enterprise solution</strong>`,
                   ) || FillerContent.header}
                 </MuiMarkdown>
               </Typography>
