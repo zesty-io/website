@@ -8,7 +8,7 @@ import { ProfileApp } from 'views/ProfileApp/ProfileApp';
 import Login from 'components/console/Login';
 import { getUserAppSID } from 'utils';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import { YourProfile } from 'components/accounts/profile/YourProfile';
+import { Preference } from 'components/accounts/profile/Preference';
 
 export default function Profile() {
   const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
@@ -25,7 +25,7 @@ export default function Profile() {
         {isAuthenticated ? (
           <>
             <ProfileApp />
-            <YourProfile />
+            <Preference />
           </>
         ) : (
           <Login />
