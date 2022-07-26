@@ -149,16 +149,17 @@ export default function AppBar({ url = window.location.pathname }) {
                     setCookies={setworkingInstance}
                     instanceZUID={instanceZUID}
                   />
-                  <Box
+                  <Link
                     boxShadow={2}
                     sx={{
                       backgroundColor: theme.palette.common.white,
                       display: 'flex',
                       justifyContent: 'center',
                     }}
+                    href="/profile"
                   >
                     <img src={profileUrl} alt="" height={40} width={40} />
-                  </Box>
+                  </Link>
                 </Box>
               )}
             </Box>
