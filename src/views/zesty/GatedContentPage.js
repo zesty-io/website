@@ -67,6 +67,7 @@ const FeaturesWithMobileScreenshot = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Container>
       {feature_list_h1 && (
@@ -156,19 +157,6 @@ const FeaturesWithMobileScreenshot = ({
 const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const form_description = '   ';
-  const router = useRouter();
-
-  const determineUrl = (url) => {
-    if (url.includes('/headless-cms-buyers-guide-and-rfp-template/')) {
-      return '/headless-cms-buyers-guide-and-rfp-template/';
-    }
-    if (url.includes('/dxp-rfp-template/')) {
-      return '/dxp-rfp-template/';
-    }
-    if (url.includes('/whitepaper-scale/')) {
-      return '/whitepaper-scale/';
-    }
-  };
 
   return (
     <Box
@@ -209,94 +197,73 @@ const ContactUsForm = ({ theme, content, formContent }) => {
           zIndex: 2,
         }}
       >
-        {(() => {
-          switch (determineUrl(router.asPath)) {
-            case '/headless-cms-buyers-guide-and-rfp-template/':
-              return (
-                <ZohoFormEmbed
-                  formURL="https://forms.zohopublic.com/zestyio/form/MACDFHeadlessCMSBuyerGuide/formperma/85G2GzuN9JB6x7vw_n_Q_YX6CNn5W3fg7KBOY0aH6wI"
-                  height="400px"
-                />
-              );
-            case '/dxp-rfp-template/':
-              return (
-                <ZohoFormEmbed
-                  formURL="https://forms.zohopublic.com/zestyio/form/MACDFDXPbuyerguide/formperma/yoMgskMjct8uSU8QZnC1j0YJ_G77DCZN9bhE39k6Hts"
-                  height="400px"
-                />
-              );
-            case '/whitepaper-scale/':
-              return (
-                <ZohoFormEmbed
-                  formURL="https://forms.zohopublic.com/zestyio/form/MACDFScalewhitepaper/formperma/hUyiU657xyWRXSXcHgnkj-PWK-hzstCWFhtST0TCx4o"
-                  height="400px"
-                />
-              );
-          }
-        })()}
-
-        {/* <ContactUs
-          title={content.bottom_form_title || FillerContent.header}
-          description={form_description || FillerContent.description}
-          content={content}
-          formContent={formContent}
-        /> */}
+        {content.zoho_form_link ? (
+          <ZohoFormEmbed
+            formURL={content.zoho_form_link || ''}
+            height="400px"
+          />
+        ) : (
+          <ContactUs
+            title={content.bottom_form_title || FillerContent.header}
+            description={form_description || FillerContent.description}
+            content={content}
+            formContent={formContent}
+          />
+        )}
       </Box>
     </Box>
   );
 };
 
-// const ContactUs = ({ title, description, content, formContent }) => {
-//   const theme = useTheme();
+const ContactUs = ({ title, description, content, formContent }) => {
+  const theme = useTheme();
 
-//   return (
-//     <Box
-//       sx={{
-//         background: theme.palette.common.white,
-//         paddingTop: '3rem',
-//         paddingBottom: '1rem',
-//         borderRadius: '15px',
-//         paddingX: '3rem',
-//       }}
-//       maxWidth={600}
-//       margin={'0 auto'}
-//     >
-//       <Box marginBottom={4}>
-//         <Typography
-//           variant={'p'}
-//           component="h2"
-//           sx={{
-//             fontSize: '1.7rem',
-//             fontWeight: 700,
-//             color: theme.palette.common.black,
-//           }}
-//           align={'center'}
-//           gutterBottom
-//         >
-//           {title}
-//         </Typography>
-//         <Typography
-//           sx={{
-//             color: theme.palette.common.black,
-//           }}
-//           align={'center'}
-//         >
-//           {description}
-//         </Typography>
-//       </Box>
-//       <Box paddingBottom={6} textAlign="left">
-//         <StandardFormWithSelect {...formContent} />
-//       </Box>
-//     </Box>
-//   );
-// };
+  return (
+    <Box
+      sx={{
+        background: theme.palette.common.white,
+        paddingTop: '3rem',
+        paddingBottom: '1rem',
+        borderRadius: '15px',
+        paddingX: '3rem',
+      }}
+      maxWidth={600}
+      margin={'0 auto'}
+    >
+      <Box marginBottom={4}>
+        <Typography
+          variant={'p'}
+          component="h2"
+          sx={{
+            fontSize: '1.7rem',
+            fontWeight: 700,
+            color: theme.palette.common.black,
+          }}
+          align={'center'}
+          gutterBottom
+        >
+          {title}
+        </Typography>
+        <Typography
+          sx={{
+            color: theme.palette.common.black,
+          }}
+          align={'center'}
+        >
+          {description}
+        </Typography>
+      </Box>
+      <Box paddingBottom={6} textAlign="left">
+        <StandardFormWithSelect {...formContent} />
+      </Box>
+    </Box>
+  );
+};
 
 function GatedContentPage({ content }) {
   const theme = useTheme();
   const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  console.log(content);
 
   const formContent = {
     leadDetail: 'CMSW - Media',
@@ -345,6 +312,7 @@ function GatedContentPage({ content }) {
       content.contentdownload?.data && content.contentdownload?.data[0]?.url,
     phoneNumber: true,
     cmsModel: 'Gated Content Page',
+    zohoFormLink: content.zoho_form_link || '',
   };
 
   return (

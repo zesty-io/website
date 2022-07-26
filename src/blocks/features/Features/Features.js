@@ -76,7 +76,7 @@ const Features = ({
                 : theme.palette.zesty.zestyZambezi,
             }}
           >
-            {content.feature_description || FillerContent.description}
+            {content?.feature_description || ''}
           </Typography>
         </Box>
         <Box
