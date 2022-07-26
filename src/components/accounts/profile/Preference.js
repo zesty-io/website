@@ -58,7 +58,6 @@ export const Preference = () => {
         </ToggleButtonGroup>
       </Box>
 
-      {JSON.stringify(instance_layout)}
       <Box>
         Instance Grid View:
         <ToggleButtonGroup
