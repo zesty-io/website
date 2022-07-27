@@ -42,6 +42,7 @@ import {
   Container,
   Grid,
   Typography,
+  Card,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -55,6 +56,7 @@ import React from 'react';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useRouter } from 'next/router';
 import MuiMarkdown from 'mui-markdown';
+import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
 const FeaturesWithMobileScreenshot = ({
   header,
@@ -65,6 +67,7 @@ const FeaturesWithMobileScreenshot = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Container>
       {feature_list_h1 && (
@@ -154,6 +157,7 @@ const FeaturesWithMobileScreenshot = ({
 const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const form_description = '   ';
+
   return (
     <Box
       marginTop={isMobile ? 4 : 14}
@@ -193,12 +197,19 @@ const ContactUsForm = ({ theme, content, formContent }) => {
           zIndex: 2,
         }}
       >
-        <ContactUs
-          title={content.bottom_form_title || FillerContent.header}
-          description={form_description || FillerContent.description}
-          content={content}
-          formContent={formContent}
-        />
+        {content.zoho_form_link ? (
+          <ZohoFormEmbed
+            formURL={content.zoho_form_link || ''}
+            height="400px"
+          />
+        ) : (
+          <ContactUs
+            title={content.bottom_form_title || FillerContent.header}
+            description={form_description || FillerContent.description}
+            content={content}
+            formContent={formContent}
+          />
+        )}
       </Box>
     </Box>
   );
@@ -248,12 +259,11 @@ const ContactUs = ({ title, description, content, formContent }) => {
     </Box>
   );
 };
+
 function GatedContentPage({ content }) {
   const theme = useTheme();
   const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  console.log(content);
 
   const formContent = {
     leadDetail: 'CMSW - Media',
@@ -302,6 +312,7 @@ function GatedContentPage({ content }) {
       content.contentdownload?.data && content.contentdownload?.data[0]?.url,
     phoneNumber: true,
     cmsModel: 'Gated Content Page',
+    zohoFormLink: content.zoho_form_link || '',
   };
 
   return (

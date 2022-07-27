@@ -177,6 +177,23 @@ const Extension = (props) => {
             </Box>
 
             <Box sx={{ mt: 5 }}>
+              {props.available != 1 && (
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    color: theme.palette.common.white,
+                    py: 2,
+                    my: 4,
+                    background: theme.palette.zesty.zestyGray99,
+                    border: `1px solid ${theme.palette.common.grey}`,
+                    borderRadius: 2,
+                  }}
+                >
+                  <Typography sx={{ color: theme.palette.zesty.zestyOrange }}>
+                    Coming Soon!
+                  </Typography>
+                </Box>
+              )}
               <Typography
                 variant="h5"
                 component="p"
