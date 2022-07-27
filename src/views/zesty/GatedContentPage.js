@@ -200,7 +200,7 @@ const ContactUsForm = ({ theme, content, formContent }) => {
         {content.zoho_form_link ? (
           <ZohoFormEmbed
             formURL={content.zoho_form_link || ''}
-            height="400px"
+            height="455px"
           />
         ) : (
           <ContactUs
