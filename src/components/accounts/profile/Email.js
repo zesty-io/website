@@ -2,6 +2,7 @@ import { Box, Button, TextField } from '@mui/material';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
+import { ErrorMsg, SuccessMsg } from '../Ui';
 import { accountsValidations } from '../validations';
 
 export const Email = () => {
@@ -10,9 +11,11 @@ export const Email = () => {
 
   const handleAddEmailSuccess = (data) => {
     console.log(data, 'succ');
+    SuccessMsg({ title: 'Success' });
   };
   const handleAddEmailErr = (err) => {
     console.log(err, 'err');
+    ErrorMsg({ text: err.error });
   };
   const handleGetEmailsSuccess = (data) => {
     console.log(data, 'succ');
@@ -20,12 +23,15 @@ export const Email = () => {
   };
   const handleGetEmailsErr = (err) => {
     console.log(err, 'err');
+    ErrorMsg({ text: err.error });
   };
   const handleDeleteEmailSuccess = (data) => {
     console.log(data, 'succ');
+    SuccessMsg({ title: 'Success' });
   };
   const handleDeleteEmailErr = (err) => {
     console.log(err, 'err');
+    ErrorMsg({ text: err.error });
   };
 
   const getUserEmails = async () => {

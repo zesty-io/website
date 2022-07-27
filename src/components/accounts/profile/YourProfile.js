@@ -1,6 +1,7 @@
 import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 import { useZestyStore } from 'store';
+import { ErrorMsg, SuccessMsg } from '../Ui';
 
 export const YourProfile = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
@@ -9,10 +10,12 @@ export const YourProfile = () => {
 
   const handleSuccess = (data) => {
     console.log(data, 'success');
+    SuccessMsg({ title: 'Update Success' });
   };
 
   const handleError = (err) => {
     console.log(err, 'err');
+    ErrorMsg({ text: err?.error });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();

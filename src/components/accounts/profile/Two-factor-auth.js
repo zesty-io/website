@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import { Box, Button, TextField } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useZestyStore } from 'store';
+import { ErrorMsg, SuccessMsg } from '../Ui';
 
 const validation = yup.object().shape({
   areaCode: yup.string().required('This is required'),
@@ -14,9 +15,11 @@ export const TwoFactorAuth = () => {
 
   const handleTwoFactorSuccess = (data) => {
     console.log(data, 'succ');
+    SuccessMsg({ title: 'Success' });
   };
   const handleTwoFactorErr = (err) => {
     console.log(err, 'err');
+    ErrorMsg({ text: err.error });
   };
 
   const authTwoFactor = async ({ areaCode, phoneNumber }) => {

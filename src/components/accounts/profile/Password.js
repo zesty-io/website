@@ -9,6 +9,7 @@ import {
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
+import { ErrorMsg, SuccessMsg } from '../Ui';
 import { accountsValidations } from '../validations';
 
 export const Password = () => {
@@ -19,10 +20,12 @@ export const Password = () => {
 
   const handleSuccess = (data) => {
     console.log(data, 'success');
+    SuccessMsg({ title: 'Success' });
   };
 
   const handleError = (err) => {
     console.log(err, 'err');
+    ErrorMsg({ text: err.error });
   };
 
   const handleSubmit = async ({ oldPassword, newPassword }) => {
