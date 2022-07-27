@@ -1,10 +1,26 @@
-import { Box, Button, TextField } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Box, Button } from '@mui/material';
+import { useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
 import { ErrorMsg, SuccessMsg } from '../Ui';
+import { FormInput } from '../Ui/Input';
+import { StickyTable } from '../Ui/Table';
 import { accountsValidations } from '../validations';
 
+const COLUMNS = [
+  {
+    id: 'name',
+    label: 'Name',
+  },
+  {
+    id: 'address',
+    label: 'Email',
+  },
+  {
+    id: 'action',
+    label: 'Action',
+  },
+];
 export const Email = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
   const [emails, setemails] = React.useState([]);
@@ -54,74 +70,49 @@ export const Email = () => {
     res.error && handleDeleteEmailErr(res);
     await getUserEmails();
   };
+
+  const ROWS = emails
+    ?.filter((e) => e.name)
+    ?.map((e) => {
+      return {
+        name: e.name,
+        address: e.address,
+        action: <Button onClick={() => deleteEmail(e.address)}>X</Button>,
+      };
+    });
+
   React.useEffect(() => {
     getUserEmails();
   }, []);
 
+  const formik = useFormik({
+    validationSchema: accountsValidations.email,
+    initialValues: {
+      name: '',
+      email: '',
+    },
+    onSubmit: async (values) => {
+      await addEmail(values);
+      formik.resetForm();
+    },
+  });
+
+  const memoizeRows = React.useMemo(() => ROWS, [emails]);
+  const memoizeColumns = React.useMemo(() => COLUMNS, []);
+
   return (
     <Box>
       <Box>Primary Email : {userInfo?.email}</Box>
-      <Box>
-        {emails?.map((e) => {
-          return (
-            <Box>
-              email:{e.address} - name: {e.name}{' '}
-              <button onClick={() => deleteEmail(e.address)}>x</button>
-            </Box>
-          );
-        })}
+      <StickyTable rows={memoizeRows} columns={memoizeColumns} />
+      <Box paddingY={4}>
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <FormInput name={'email'} formik={formik} />
+          <FormInput name={'name'} formik={formik} />
+          <Button color="primary" variant="contained" fullWidth type="submit">
+            Submit
+          </Button>
+        </form>
       </Box>
-      <Formik
-        initialValues={{
-          name: '',
-          email: '',
-        }}
-        validationSchema={accountsValidations.email}
-        onSubmit={addEmail}
-      >
-        {({
-          values,
-          errors,
-          isValid,
-          handleSubmit,
-          dirty,
-          handleChange,
-          handleBlur,
-          setFieldValue,
-          touched,
-        }) => {
-          return (
-            <Form onSubmit={handleSubmit}>
-              <TextField
-                fullWidth
-                id="email"
-                name="email"
-                label="Email"
-                onChange={(event) => setFieldValue('email', event.target.value)}
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
-              />
-              <TextField
-                fullWidth
-                id="name"
-                name="name"
-                label="Name"
-                onChange={(event) => setFieldValue('name', event.target.value)}
-                error={touched.name && Boolean(errors.name)}
-                helperText={touched.name && errors.name}
-              />
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth
-                type="submit"
-              >
-                Submit
-              </Button>
-            </Form>
-          );
-        }}
-      </Formik>
     </Box>
   );
 };
