@@ -38,7 +38,6 @@ import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
 const Demo = ({ content }) => {
-  
   const theme = useTheme();
   return (
     <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
@@ -94,7 +93,7 @@ const Demo = ({ content }) => {
               modalMessage="Our team will be in touch soon to schedule a demo with you."
               phoneNumber={true}
             /> */}
-           <ZohoFormEmbed height="600px" formURL="" />
+            <ZohoFormEmbed height="600px" formURL="" />
           </Container>
         </Box>
         <Box
