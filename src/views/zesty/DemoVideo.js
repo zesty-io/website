@@ -40,11 +40,11 @@ function DemoVideo({ content }) {
   return (
     <>
       <HeroWithLogoGridAndDesktopScreenshot {...content} />
+      <CtaWithIllustration isDemoPage={true} {...content} />
       <LogoGridSimpleCentered
         title={content.logos_title || FillerContent.header}
         imageCollection={content.client_logos?.data || [FillerContent.image]}
       />
-      <CtaWithIllustration isDemoPage={true} {...content} />
     </>
   );
 }
