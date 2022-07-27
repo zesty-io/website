@@ -1,13 +1,14 @@
 const { Box, TextField } = require('@mui/material');
 import React from 'react';
 
-const Index = React.memo(({ name, formik }) => {
-  const label = (name && name[0].toUpperCase() + name.slice(1)) || '';
+const Index = React.memo(({ name, formik, label }) => {
+  const newLabel =
+    label || (name && name[0].toUpperCase() + name.slice(1)) || '';
   return (
     <Box sx={{ marginBottom: '2rem' }}>
       <TextField
         sx={{ height: 54 }}
-        label={label}
+        label={newLabel}
         variant="outlined"
         color="primary"
         size="medium"

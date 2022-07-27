@@ -1,9 +1,10 @@
 import React from 'react';
-import { Tabs, Tab, Box, Typography } from '@mui/material';
+import { Tabs, Tab, Box, Typography, Button, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import { profileTabs } from 'components/accounts/profile/tabs';
 import { hashMD5 } from 'utils/Md5Hash';
+import { StickyTable } from 'components/accounts/ui';
 
 const ProfileHeader = ({ userInfo }) => {
   const { email, firstName, lastName } = userInfo || '';
@@ -11,19 +12,15 @@ const ProfileHeader = ({ userInfo }) => {
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
   const name = `${firstName || ''} ${lastName || ''}` || '';
   return (
-    <Box
-      sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
-      paddingX={4}
-      paddingY={4}
-    >
-      <Box>
+    <Grid container gap={3} paddingY={2}>
+      <Grid item>
         <img src={profileUrl} alt="" width={100} height={100} />
-      </Box>
-      <Box>
-        <Typography variant="h3">{name}</Typography>
+      </Grid>
+      <Grid item>
+        <Typography variant="h4">{name}</Typography>
         <Typography variant="p">{email}</Typography>
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 };
 const Index = ({ children }) => {

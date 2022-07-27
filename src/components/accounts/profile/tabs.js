@@ -7,6 +7,7 @@ import DataObject from '@mui/icons-material/DataObject';
 import FolderShared from '@mui/icons-material/FolderShared';
 import SupportIcon from '@mui/icons-material/Support';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import LockIcon from '@mui/icons-material/Lock';
 
 export const profileTabs = [
   {
@@ -16,27 +17,15 @@ export const profileTabs = [
     sort: 0,
   },
   {
-    icon: <GroupAddIcon />,
-    filename: 'email',
-    label: 'Email',
-    sort: 1,
-  },
-  {
-    icon: <FolderShared />,
-    filename: 'password',
-    label: 'Password',
+    icon: <LockIcon />,
+    filename: 'security',
+    label: 'Security',
     sort: 2,
-  },
-  {
-    icon: <Public />,
-    filename: 'two-factor-auth',
-    label: 'Two-Factor Auth',
-    sort: 3,
   },
   {
     icon: <DataObject />,
     filename: 'preference',
-    label: 'Preference',
+    label: 'Preferences',
     sort: 4,
   },
 ];

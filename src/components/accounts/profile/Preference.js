@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useZestyStore } from 'store';
-import { StickyTable } from '../Ui/Table';
-import { AccountsSelect } from '../Ui/Select';
-import { ErrorMsg, SuccessMsg } from '../Ui';
+import { StickyTable } from '../ui/Table';
+import { AccountsSelect } from '../ui/Select';
+import { ErrorMsg, SuccessMsg } from '../ui';
 
 const teamOption = [
   { value: 0, label: 'Hide' },
@@ -40,7 +40,7 @@ export const Preference = () => {
       lastName: userInfo?.lastName,
       prefs: JSON.stringify({ ...prefs, teamOptions, instance_layout }),
     };
-    const res = await ZestyAPI.updateUser(userZUID + 123, body);
+    const res = await ZestyAPI.updateUser(userZUID, body);
     !res.error && handleSaveSuccess(res);
     res.error && handleSaveErr(res);
     setdirty(false);

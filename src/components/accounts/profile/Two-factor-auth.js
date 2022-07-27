@@ -2,9 +2,9 @@ import React from 'react';
 import { Box, Button } from '@mui/material';
 import { useFormik } from 'formik';
 import { useZestyStore } from 'store';
-import { ErrorMsg, SuccessMsg } from '../Ui';
+import { ErrorMsg, SuccessMsg } from '../ui';
 import { accountsValidations } from '../validations';
-import { FormInput } from '../Ui/Input';
+import { FormInput } from '../ui/Input';
 
 export const TwoFactorAuth = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
