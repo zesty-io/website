@@ -20,7 +20,12 @@ export const Password = () => {
 
   const handleSuccess = (data) => {
     console.log(data, 'success');
-    SuccessMsg({ title: 'Success' });
+    SuccessMsg({
+      title: 'Success',
+      action: () => {
+        window.location.reload();
+      },
+    });
   };
 
   const handleError = (err) => {

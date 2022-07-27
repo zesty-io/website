@@ -1,13 +1,13 @@
 import Swal from 'sweetalert2';
 
-export const SuccessMsg = ({ title = 'Success' }) => {
+export const SuccessMsg = ({ title = 'Success', action = () => {} }) => {
   Swal.fire({
     position: 'center',
     icon: 'success',
     title,
     showConfirmButton: true,
     timer: 2500,
-  });
+  }).then((e) => action());
 };
 
 export const ErrorMsg = ({ text = 'Something went wrong' }) => {
