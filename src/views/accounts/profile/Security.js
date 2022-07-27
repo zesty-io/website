@@ -11,10 +11,14 @@ import {
 import { Form, Formik, useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
-import { ErrorMsg, FormInput, SuccessMsg } from '../ui';
-import { accountsValidations } from '../validations';
+import {
+  ErrorMsg,
+  FormInput,
+  SuccessMsg,
+} from '../../../components/accounts/ui';
+import { accountsValidations } from '../../../components/accounts/validations';
 
-export const Password = () => {
+export const Security = () => {
   const [showOldpass, setshowOldpass] = React.useState(false);
   const [showNewpass, setshowNewpass] = React.useState(false);
   const [showCNewpass, setshowCNewpass] = React.useState(false);

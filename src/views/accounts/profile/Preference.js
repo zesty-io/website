@@ -1,9 +1,12 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useZestyStore } from 'store';
-import { StickyTable } from '../ui/table';
-import { AccountsSelect } from '../ui/select';
-import { ErrorMsg, SuccessMsg } from '../ui';
+import {
+  AccountsSelect,
+  ErrorMsg,
+  StickyTable,
+  SuccessMsg,
+} from 'components/accounts';
 
 const teamOption = [
   { value: 0, label: 'Hide' },

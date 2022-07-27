@@ -3,10 +3,14 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import Swal from 'sweetalert2';
 import { hashMD5 } from 'utils/Md5Hash';
-import { ErrorMsg, StickyTable, SuccessMsg } from '../ui';
 import withReactContent from 'sweetalert2-react-content';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { EmailForm } from '../ui/forms';
+import {
+  EmailForm,
+  ErrorMsg,
+  StickyTable,
+  SuccessMsg,
+} from 'components/accounts/ui';
 
 const MySwal = withReactContent(Swal);
 
@@ -44,7 +48,7 @@ const CustomTable = ({ emails, userInfo, deleteEmail }) => {
       action: <Button onClick={() => deleteEmail(e.address)}>X</Button>,
     };
   });
-  const memoizeRows = React.useMemo(() => ROWS, [emails]);
+  const memoizeRows = React.useMemo(() => ROWS, [emails, userInfo]);
   const memoizeColumns = React.useMemo(() => COLUMNS, []);
 
   return (

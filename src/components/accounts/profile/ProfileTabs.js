@@ -1,10 +1,32 @@
 import React from 'react';
-import { Tabs, Tab, Box, Typography, Button, Grid } from '@mui/material';
+import { Tabs, Tab, Box, Typography, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
-import { profileTabs } from 'components/accounts/profile/tabs';
 import { hashMD5 } from 'utils/Md5Hash';
-import { StickyTable } from 'components/accounts/ui';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import DataObject from '@mui/icons-material/DataObject';
+import LockIcon from '@mui/icons-material/Lock';
+
+const profileTabs = [
+  {
+    icon: <InfoOutlinedIcon />,
+    filename: '',
+    label: 'Your Profile',
+    sort: 0,
+  },
+  {
+    icon: <LockIcon />,
+    filename: 'security',
+    label: 'Security',
+    sort: 2,
+  },
+  {
+    icon: <DataObject />,
+    filename: 'preference',
+    label: 'Preferences',
+    sort: 4,
+  },
+];
 
 const ProfileHeader = ({ userInfo }) => {
   const { email, firstName, lastName } = userInfo || '';
@@ -62,4 +84,4 @@ const Index = ({ children }) => {
     </Box>
   );
 };
-export const ProfileApp = React.memo(Index);
+export const ProfileTabs = React.memo(Index);
