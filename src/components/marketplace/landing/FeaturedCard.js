@@ -10,15 +10,13 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
  */
 import FillerContent from 'components/globals/FillerContent';
 
-const AppCard = ({ name, image, uri, meta_description }) => {
+const AppCard = ({ name, image, meta, meta_description }) => {
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 500));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
-  console.log(image);
-
   return (
-    <Box component={'a'} href={uri} sx={{ textDecoration: 'none' }}>
+    <Box component={'a'} href={meta.web.uri} sx={{ textDecoration: 'none' }}>
       <Card
         sx={{
           '&:hover': {
