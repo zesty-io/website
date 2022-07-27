@@ -2,9 +2,8 @@ import { Box, Button } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
-import { ErrorMsg, SuccessMsg } from '../Ui';
+import { ErrorMsg, StickyTable, SuccessMsg } from '../Ui';
 import { FormInput } from '../Ui/Input';
-import { StickyTable } from '../Ui/Table';
 import { accountsValidations } from '../validations';
 
 const COLUMNS = [

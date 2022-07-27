@@ -1,40 +1,102 @@
 import React from 'react';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { Box } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useZestyStore } from 'store';
+import { StickyTable } from '../Ui/Table';
+import { AccountsSelect } from '../Ui/Select';
+import { SuccessMsg } from '../Ui';
+
+const teamOption = [
+  { value: 0, label: 'Hide' },
+  { value: 1, label: 'Show' },
+];
+const instanceOptions = [
+  { value: 'List', label: 'List' },
+  { value: 'Grid', label: 'Grid' },
+];
+
+function capitalize(s) {
+  return s && s[0]?.toUpperCase() + s?.slice(1);
+}
 
 export const Preference = () => {
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const prefs = userInfo?.prefs && JSON.parse(userInfo?.prefs);
-  const [teamOptions, setTeamOptions] = React.useState(prefs?.teamOptions || 0);
-  const [instance_layout, setInstance_layout] = React.useState(
-    prefs?.instance_layout || 'list',
+  const [teamOptions, setTeamOptions] = React.useState();
+  const [instance_layout, setInstance_layout] = React.useState();
+
+  const handleSaveSuccess = (data) => {
+    console.log(data, 'succ');
+    SuccessMsg({ title: 'Success' });
+  };
+  const handleSaveErr = (err) => {
+    console.log(err, 'err');
+    ErrorMsg({ text: err.error });
+  };
+  const handleSave = async (userInfo) => {
+    const userZUID = userInfo?.ZUID;
+    const body = {
+      firstName: userInfo?.firstName,
+      lastName: userInfo?.lastName,
+      prefs: JSON.stringify({ ...prefs, teamOptions, instance_layout }),
+    };
+    const res = await ZestyAPI.updateUser(userZUID, body);
+    !res.error && handleSaveSuccess(res);
+    res.error && handleSaveErr(res);
+  };
+
+  const COLUMNS = [
+    {
+      id: 'name',
+      label: 'Preference Name',
+    },
+    {
+      id: 'description',
+      label: 'Description',
+    },
+    {
+      id: 'action',
+      label: (
+        <Button
+          fullWidth
+          variant="contained"
+          onClick={() => handleSave(userInfo)}
+        >
+          Save
+        </Button>
+      ),
+    },
+  ];
+
+  const ROWS = [
+    {
+      name: 'Manage Teams',
+      description: 'Show or Hide Teams',
+      action: (
+        <AccountsSelect
+          list={teamOption}
+          setterFn={setTeamOptions}
+          value={teamOptions}
+        />
+      ),
+    },
+    {
+      name: 'Instance View',
+      description: 'Grid or List View',
+      action: (
+        <AccountsSelect
+          list={instanceOptions}
+          setterFn={setInstance_layout}
+          value={capitalize(instance_layout)}
+        />
+      ),
+    },
+  ];
+
+  const memoizeRows = React.useMemo(() => ROWS, [instance_layout, teamOptions]);
+  const memoizeColumns = React.useMemo(
+    () => COLUMNS,
+    [userInfo, teamOptions, instance_layout],
   );
-
-  const handleManageTeams = async (event, data) => {
-    await setTeamOptions(data);
-    const userZUID = userInfo.ZUID;
-    const body = {
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      prefs: JSON.stringify({ ...prefs, teamOptions: data, instance_layout }),
-    };
-    const res = await ZestyAPI.updateUser(userZUID, body);
-    console.log(res, event, 'response');
-  };
-
-  const handleInstanceLayout = async (event, data) => {
-    await setInstance_layout(data);
-    const userZUID = userInfo.ZUID;
-    const body = {
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      prefs: JSON.stringify({ ...prefs, instance_layout: data, teamOptions }),
-    };
-    const res = await ZestyAPI.updateUser(userZUID, body);
-    console.log(res, event, 'response');
-  };
 
   React.useEffect(() => {
     setTeamOptions(prefs?.teamOptions);
@@ -43,33 +105,8 @@ export const Preference = () => {
 
   return (
     <Box>
-      <Box>Preference</Box>
-
-      <Box>
-        Manage Teams:
-        <ToggleButtonGroup
-          color="primary"
-          value={teamOptions}
-          exclusive
-          onChange={handleManageTeams}
-        >
-          <ToggleButton value={0}>No</ToggleButton>
-          <ToggleButton value={1}>Yes</ToggleButton>
-        </ToggleButtonGroup>
-      </Box>
-
-      <Box>
-        Instance Grid View:
-        <ToggleButtonGroup
-          color="primary"
-          value={instance_layout}
-          exclusive
-          onChange={handleInstanceLayout}
-        >
-          <ToggleButton value={'list'}>No</ToggleButton>
-          <ToggleButton value={'grid'}>Yes</ToggleButton>
-        </ToggleButtonGroup>
-      </Box>
+      <Typography variant="h4">Preference</Typography>
+      <StickyTable rows={memoizeRows} columns={memoizeColumns} />
     </Box>
   );
 };
