@@ -1,14 +1,10 @@
 import React from 'react';
-import * as yup from 'yup';
-import { Box, Button, TextField } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Box, Button } from '@mui/material';
+import { useFormik } from 'formik';
 import { useZestyStore } from 'store';
 import { ErrorMsg, SuccessMsg } from '../Ui';
-
-const validation = yup.object().shape({
-  areaCode: yup.string().required('This is required'),
-  phoneNumber: yup.string().required('Email address is required*'),
-});
+import { accountsValidations } from '../validations';
+import { FormInput } from '../Ui/Input';
 
 export const TwoFactorAuth = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
@@ -35,59 +31,31 @@ export const TwoFactorAuth = () => {
     !res.error && handleTwoFactorSuccess(res);
     res.error && handleTwoFactorErr(res);
   };
+
+  const formik = useFormik({
+    validationSchema: accountsValidations.twoFactorAuth,
+    initialValues: {
+      areaCode: '',
+      phoneNumber: '',
+    },
+    onSubmit: async (values) => {
+      await authTwoFactor(values);
+      formik.resetForm();
+    },
+  });
+
   return (
     <Box>
       <Box> Two Factor Auth</Box>
-
-      <Formik
-        initialValues={{
-          areaCode: '',
-          phoneNumber: '',
-        }}
-        validationSchema={validation}
-        onSubmit={authTwoFactor}
-      >
-        {({
-          values,
-          errors,
-          handleSubmit,
-          dirty,
-          handleChange,
-          handleBlur,
-          setFieldValue,
-        }) => {
-          return (
-            <Form onSubmit={handleSubmit}>
-              <TextField
-                fullWidth
-                id="areaCode"
-                name="areaCode"
-                label="Area Code"
-                onChange={(event) =>
-                  setFieldValue('areaCode', event.target.value)
-                }
-              />
-              <TextField
-                fullWidth
-                id="phoneNumber"
-                name="phoneNumber"
-                label="Phone Number"
-                onChange={(event) =>
-                  setFieldValue('phoneNumber', event.target.value)
-                }
-              />
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth
-                type="submit"
-              >
-                Submit
-              </Button>
-            </Form>
-          );
-        }}
-      </Formik>
+      <Box paddingY={4}>
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <FormInput name={'areaCode'} formik={formik} />
+          <FormInput name={'phoneNumber'} formik={formik} />
+          <Button color="primary" variant="contained" fullWidth type="submit">
+            Submit
+          </Button>
+        </form>
+      </Box>
     </Box>
   );
 };

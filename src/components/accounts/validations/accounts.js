@@ -35,7 +35,12 @@ const password = yup.object().shape({
     .oneOf([yup.ref('newPassword')], 'Password does not match'),
 });
 
+const twoFactorAuth = yup.object().shape({
+  areaCode: yup.string().required('This is required'),
+  phoneNumber: yup.string().required('Email address is required*'),
+});
 export const accountsValidations = {
   email,
   password,
+  twoFactorAuth,
 };
