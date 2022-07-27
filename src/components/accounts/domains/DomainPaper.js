@@ -13,7 +13,7 @@ export default function DomainPaper({data}) {
     <Paper elevation={5} key={`${data.ZUID}-domain`} pr={0}>
         <Grid container justifyContent='space-between' alignItems="center" pr={0}>
             <Grid item xs={6} pl={3}>
-                <Link variant='body2' href={data.domain} underline="hover" target="_blank" rel="noreferrer">
+                <Link variant='body2' href={`https://${data.domain}`} underline="hover" target="_blank" rel="noreferrer">
                     {data.domain}
                 </Link>
             </Grid>
