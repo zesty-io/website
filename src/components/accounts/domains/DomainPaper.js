@@ -1,13 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography, IconButton } from '@mui/material';
 import Link from '@mui/material/Link';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 // zesty red #FF2A08
 
-export default function DomainPaper({data}) {
+export default function DomainPaper({data, onclick}) {
+    // should the protocol be http and allow for the https redirect setting to kick in?
         
   return (
     <Paper elevation={5} key={`${data.ZUID}-domain`} pr={0}>
@@ -24,7 +25,7 @@ export default function DomainPaper({data}) {
                 <Typography variant='body2'>{new Date(data.createdAt).toLocaleDateString()}</Typography>
             </Grid>
             <Grid item xs={1} >
-                <Button variant='text' color='error' ><DeleteRoundedIcon /></Button>
+                <IconButton variant='text' color='error' onClick={() => onclick(data.ZUID)} value={data.ZUID}><DeleteRoundedIcon /></IconButton>
             </Grid>
         </Grid>
     </Paper>
