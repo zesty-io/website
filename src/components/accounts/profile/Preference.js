@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useZestyStore } from 'store';
-import { StickyTable } from '../ui/Table';
-import { AccountsSelect } from '../ui/Select';
+import { StickyTable } from '../ui/table';
+import { AccountsSelect } from '../ui/select';
 import { ErrorMsg, SuccessMsg } from '../ui';
 
 const teamOption = [

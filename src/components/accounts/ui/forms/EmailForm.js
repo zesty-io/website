@@ -1,10 +1,10 @@
 import { Box, Button } from '@mui/material';
+import { accountsValidations } from 'components/accounts/validations';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
-import { ErrorMsg, StickyTable, SuccessMsg } from '../ui';
-import { FormInput } from '../ui/Input';
-import { accountsValidations } from '../validations';
+import { ErrorMsg, SuccessMsg } from '../dialogs';
+import { FormInput } from '../input';
 
 const CustomEmailForm = ({ formik }) => {
   return (
@@ -20,7 +20,7 @@ const CustomEmailForm = ({ formik }) => {
   );
 };
 
-export const Email = ({ getUserEmails }) => {
+export const EmailForm = ({ getUserEmails }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
 
   const handleAddEmailSuccess = (data) => {

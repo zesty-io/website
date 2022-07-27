@@ -4,9 +4,9 @@ import { useZestyStore } from 'store';
 import Swal from 'sweetalert2';
 import { hashMD5 } from 'utils/Md5Hash';
 import { ErrorMsg, StickyTable, SuccessMsg } from '../ui';
-import { Email } from './Email';
 import withReactContent from 'sweetalert2-react-content';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { EmailForm } from '../ui/forms';
 
 const MySwal = withReactContent(Swal);
 
@@ -176,7 +176,7 @@ export const YourProfile = () => {
           onClick={() => {
             MySwal.fire({
               title: 'Add Email Address',
-              html: <Email getUserEmails={getUserEmails} />,
+              html: <EmailForm getUserEmails={getUserEmails} />,
               showConfirmButton: false,
             });
           }}

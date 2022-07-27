@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useZestyStore } from 'store';
 import { ErrorMsg, SuccessMsg } from '../ui';
 import { accountsValidations } from '../validations';
-import { FormInput } from '../ui/Input';
+import { FormInput } from '../ui/input';
 
 export const TwoFactorAuth = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
