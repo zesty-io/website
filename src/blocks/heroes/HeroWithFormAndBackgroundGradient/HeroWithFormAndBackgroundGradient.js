@@ -103,7 +103,7 @@ const Hero = ({
               {formContent.zohoFormLink ? (
                 <ZohoFormEmbed
                   formURL={formContent.zohoFormLink}
-                  height="400px"
+                  height="455px"
                 />
               ) : (
                 <FormCustom title={form_title} content={formContent} />
