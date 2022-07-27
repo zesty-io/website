@@ -8,14 +8,14 @@ import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
 import MuiMarkdown from 'mui-markdown';
 
 import Container from 'components/Container';
-import { CardMedia } from '@mui/material';
+import FillerContent from 'components/globals/FillerContent';
 
-const Hero = ({ header_title_and_description, video_link }) => {
+const Hero = ({ header_title_and_description, video_link = '' }) => {
   const theme = useTheme();
 
   const link =
     video_link === ''
-      ? 'https://www.youtube.com/embed/0vPVZn9VdWs'
+      ? 'https://www.youtube.com/embed/ScMzIvxBSi4'
       : video_link;
 
   return (
@@ -58,7 +58,7 @@ const Hero = ({ header_title_and_description, video_link }) => {
                     },
                   }}
                 >
-                  {header_title_and_description}
+                  {header_title_and_description || FillerContent.description}
                 </MuiMarkdown>
               </Box>
             </Grid>
