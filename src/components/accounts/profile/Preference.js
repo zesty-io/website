@@ -3,7 +3,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useZestyStore } from 'store';
 import { StickyTable } from '../Ui/Table';
 import { AccountsSelect } from '../Ui/Select';
-import { SuccessMsg } from '../Ui';
+import { ErrorMsg, SuccessMsg } from '../Ui';
 
 const teamOption = [
   { value: 0, label: 'Hide' },
@@ -20,6 +20,7 @@ function capitalize(s) {
 
 export const Preference = () => {
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
+  const [dirty, setdirty] = React.useState(false);
   const prefs = userInfo?.prefs && JSON.parse(userInfo?.prefs);
   const [teamOptions, setTeamOptions] = React.useState();
   const [instance_layout, setInstance_layout] = React.useState();
@@ -39,9 +40,10 @@ export const Preference = () => {
       lastName: userInfo?.lastName,
       prefs: JSON.stringify({ ...prefs, teamOptions, instance_layout }),
     };
-    const res = await ZestyAPI.updateUser(userZUID, body);
+    const res = await ZestyAPI.updateUser(userZUID + 123, body);
     !res.error && handleSaveSuccess(res);
     res.error && handleSaveErr(res);
+    setdirty(false);
   };
 
   const COLUMNS = [
@@ -59,7 +61,9 @@ export const Preference = () => {
         <Button
           fullWidth
           variant="contained"
+          disabled={!dirty}
           onClick={() => handleSave(userInfo)}
+          color="success"
         >
           Save
         </Button>
@@ -76,6 +80,7 @@ export const Preference = () => {
           list={teamOption}
           setterFn={setTeamOptions}
           value={teamOptions}
+          setdirty={setdirty}
         />
       ),
     },
@@ -87,6 +92,7 @@ export const Preference = () => {
           list={instanceOptions}
           setterFn={setInstance_layout}
           value={capitalize(instance_layout)}
+          setdirty={setdirty}
         />
       ),
     },
@@ -95,7 +101,7 @@ export const Preference = () => {
   const memoizeRows = React.useMemo(() => ROWS, [instance_layout, teamOptions]);
   const memoizeColumns = React.useMemo(
     () => COLUMNS,
-    [userInfo, teamOptions, instance_layout],
+    [userInfo, teamOptions, instance_layout, dirty],
   );
 
   React.useEffect(() => {
