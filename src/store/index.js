@@ -6,25 +6,27 @@ const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
 const userAppSID = getUserAppSID();
 
 export const useZestyStore = create((set) => ({
+  instanceZUID,
+  userAppSID,
   ZestyAPI:
     typeof window === 'undefined'
       ? null
       : new Zesty.FetchWrapper(instanceZUID, userAppSID, fetchWrapperOptions()),
-  setZestyAPI: (data) => set((state) => ({ ZestyAPI: data })),
+  setZestyAPI: (data) => set(() => ({ ZestyAPI: data })),
   isAuthenticated: false,
-  setisAuthenticated: (data) => set((state) => ({ isAuthenticated: data })),
+  setisAuthenticated: (data) => set(() => ({ isAuthenticated: data })),
   isUser: false,
-  setisUser: (data) => set((state) => ({ isUser: data })),
+  setisUser: (data) => set(() => ({ isUser: data })),
   workingInstance: instanceZUID,
-  setworkingInstance: (data) => set((state) => ({ workingInstance: data })),
+  setworkingInstance: (data) => set(() => ({ workingInstance: data })),
   verifySuccess: {},
-  setverifySuccess: (data) => set((state) => ({ verifySuccess: data })),
+  setverifySuccess: (data) => set(() => ({ verifySuccess: data })),
   instances: {},
-  setInstances: (data) => set((state) => ({ instances: data })),
+  setInstances: (data) => set(() => ({ instances: data })),
   instance: {},
-  setInstance: (data) => set((state) => ({ instance: data })),
+  setInstance: (data) => set(() => ({ instance: data })),
   loading: false,
-  setloading: (data) => set((state) => ({ loading: data })),
+  setloading: (data) => set(() => ({ loading: data })),
   userInfo: {},
-  setuserInfo: (data) => set((state) => ({ userInfo: data })),
+  setuserInfo: (data) => set(() => ({ userInfo: data })),
 }));

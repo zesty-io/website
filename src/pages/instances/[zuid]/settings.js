@@ -11,6 +11,7 @@ import BasicTable from 'components/accounts/users/BasicTable';
 export default function Settings() {
   const [users, setusers] = React.useState([]);
   const [roles, setroles] = React.useState([]);
+  const [settings, setsettings] = React.useState([]);
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
 
   const router = useRouter();
@@ -23,6 +24,11 @@ export default function Settings() {
     console.log(res);
   };
 
+  const getSettings = async () => {
+    const res = await ZestyAPI.getSettings();
+    setsettings(res.data);
+    console.log(res, ':::::::::::::::');
+  };
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
     setroles(res.data);
@@ -30,6 +36,7 @@ export default function Settings() {
   React.useEffect(() => {
     getUsers();
     getInstanceUserRoles();
+    getSettings();
   }, []);
 
   return (

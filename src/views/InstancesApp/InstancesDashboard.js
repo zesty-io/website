@@ -5,9 +5,10 @@ import { useZestyStore } from 'store';
 import { Box, Button, TextField } from '@mui/material';
 import { HorizontalRule } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
+import { setCookie } from 'cookies-next';
 export const InstancesDashboard = () => {
   const router = useRouter();
-  const { ZestyAPI, workingInstance } = useZestyStore((state) => state);
+  const { ZestyAPI } = useZestyStore((state) => state);
 
   const [instances, setInstances] = React.useState([]);
   const [search, setSearch] = React.useState('');
@@ -22,6 +23,7 @@ export const InstancesDashboard = () => {
   }, [instances]);
 
   const handleChange = (zuid) => {
+    setCookie('ZESTY_WORKING_INSTANCE', zuid);
     router.push({
       pathname: `/instances/${zuid}/`,
     });

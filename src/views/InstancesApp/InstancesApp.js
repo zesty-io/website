@@ -30,15 +30,19 @@ const Index = ({ children }) => {
     const res = await ZestyAPI.getInstance(zuid);
     setInstance(res.data);
   };
+
   React.useEffect(() => {
     getInstance();
+  }, []);
+
+  React.useEffect(() => {
     document.title =
       instance.name + ` Instance - ${currentPage} - Zesty.io Console`;
   }, [instance, currentPage]);
 
-  React.useEffect(() => {
-    Object.keys(instance)?.length === 0 && getInstance();
-  }, [instance]);
+  // React.useEffect(() => {
+  //   Object.keys(instance)?.length === 0 && getInstance();
+  // }, [instance]);
 
   return (
     <Box>
