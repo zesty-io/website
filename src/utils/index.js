@@ -166,3 +166,25 @@ export const getUserAppSID = () => {
     return prod;
   }
 };
+
+export function canUseDOM() {
+  return !!(
+    typeof window !== 'undefined' &&
+    window.document &&
+    window.document.createElement
+  );
+}
+export const generateUniqDropdown = ({ data, property = 'category' }) => {
+  const dropdownList = data
+    .map((e) => {
+      return { value: e[property], label: e[property] };
+    })
+    .filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) => t.value === value.value && t.label === value.label,
+        ),
+    );
+  return dropdownList;
+};

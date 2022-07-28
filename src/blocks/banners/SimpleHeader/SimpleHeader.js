@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const Headline = ({eyebrow, title, description, }) => {
+const Headline = ({ eyebrow, title, description }) => {
   return (
     <Box>
       <Typography

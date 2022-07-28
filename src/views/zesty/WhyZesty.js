@@ -33,7 +33,7 @@ import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
-import { Container, filledInputClasses, Grid, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useTheme } from '@emotion/react';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
@@ -83,7 +83,11 @@ const OverviewProcessComp = ({ content, image }) => {
 function WhyZesty({ content }) {
   const theme = useTheme();
 
-  const { data: allArticles, isPending, error } = useFetch(
+  const {
+    data: allArticles,
+    isPending,
+    error,
+  } = useFetch(
     `/-/all-articles-hydrated.json?limit=3`,
     content.zestyProductionMode,
   );

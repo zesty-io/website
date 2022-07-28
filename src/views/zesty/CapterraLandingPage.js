@@ -55,7 +55,6 @@ import {
 import { ReviewsWithSimpleBoxes } from 'blocks/testimonials';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import { HeroWithFormAndBackgroundGradient } from 'blocks/heroes';
-import Head from 'next/head';
 
 const ContactUsForm = ({ theme, content, formContent }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

@@ -16,7 +16,7 @@ import MarketplaceSidebar from './MarketplaceSidebar';
 import CustomContainer from 'components/Container';
 import { TitleBar } from './TitleBar';
 
-//for refactor
+// for refactor
 const marketManage = [
   {
     lang_id: '1',

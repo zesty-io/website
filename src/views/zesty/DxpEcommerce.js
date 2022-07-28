@@ -59,6 +59,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+import { Box } from '@mui/material';
 import React from 'react';
 
 function DxpEcommerce({ content }) {

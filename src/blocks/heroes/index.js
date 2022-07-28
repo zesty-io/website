@@ -1,4 +1,3 @@
-
 export { default as FullScreenHeroWithPromoImagesAndTypedText } from './FullScreenHeroWithPromoImagesAndTypedText';
 export { default as FullScreenHeroWithImageSlider } from './FullScreenHeroWithImageSlider';
 export { default as HeroWithFormAndBackgroundGradient } from './HeroWithFormAndBackgroundGradient';

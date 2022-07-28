@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const HeroNotTyped = ({title, description}) => {
+const HeroNotTyped = ({ title, description }) => {
   return (
     <Box>
       <Box marginBottom={4}>
@@ -30,6 +30,6 @@ const HeroNotTyped = ({title, description}) => {
       </Box>
     </Box>
   );
-}
+};
 
-export default HeroNotTyped
+export default HeroNotTyped;

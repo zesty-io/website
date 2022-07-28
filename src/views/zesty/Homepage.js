@@ -36,7 +36,6 @@ import { useTheme } from '@mui/material/styles';
 import HeroWithIllustrationAndCta from 'blocks/heroes/HeroWithIllustrationAndCta/HeroWithIllustrationAndCta';
 import WithSwiperAndBrandBackgroundColor from 'blocks/logoGrid/WithSwiperAndBrandBackgroundColor';
 import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
-import WithOverlappedCards from 'blocks/team/WithOverlappedCards';
 import ReviewsWithSimpleBoxes from 'blocks/testimonials/ReviewsWithSimpleBoxes';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
@@ -44,12 +43,21 @@ import Stories from 'blocks/portfolioGrid/Stories/Stories';
 import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
+import Dashboard from 'components/accounts/dashboard';
+import { useZestyStore } from 'store';
 
 function Homepage({ content }) {
+  const { isAuthenticated, isUser } = useZestyStore((state) => state);
   const theme = useTheme();
 
+  // dashboard need to verify the session
+
   //  const { data: reviewsData, isPending: reviewPending  } = useFetch(`/-/reviews.json`);
-  const { data: allArticles, isPending: articlesPending, error } = useFetch(
+  const {
+    data: allArticles,
+    isPending: articlesPending,
+    error,
+  } = useFetch(
     `/-/all-articles-hydrated.json?limit=3`,
     content.zestyProductionMode,
   );
@@ -71,6 +79,11 @@ function Homepage({ content }) {
       content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
   };
 
+  // if the visitor is zesty user we output homepage
+  if (isUser) {
+    return <Dashboard />;
+  }
+  // marketing homepage
   return (
     <>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}

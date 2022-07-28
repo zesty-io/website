@@ -16,6 +16,7 @@ export default function CodeBlock({
   const [icon, setIcon] = React.useState('content_copy');
 
   const theme = useTheme('dark');
+  console.log(theme);
   return (
     <Paper
       onMouseEnter={() => setShowCopy(true)}
@@ -28,7 +29,7 @@ export default function CodeBlock({
         navigator.clipboard.writeText(text);
         setCopyWords('Copied!');
         setIcon('check_circle');
-        dataLayer.push({'event': 'codeLineCopied', value: "1"});
+        dataLayer.push({ event: 'codeLineCopied', value: '1' });
       }}
       sx={{
         textAlign: 'center',

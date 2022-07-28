@@ -1,9 +1,8 @@
 import React from 'react';
-import { getCookie } from 'cookies-next';
 import BasicTable from './table';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import TransitionsModal from 'blocks/modal/modal';
-import { fetchWrapperOptions, getUserAppSID } from 'utils';
+import { getUserAppSID } from 'utils';
 import { useZestyStore } from 'store';
 
 const customContainer = {
@@ -15,13 +14,14 @@ const customContainer = {
   textAlign: 'center',
   minHeight: '50vh',
 };
-const index = () => {
+const Index = () => {
+  const { workingInstance } = useZestyStore((state) => state);
   const [modal, setmodal] = React.useState(false);
   const [error, seterror] = React.useState('');
   const [success, setsucces] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const [installedApps, setinstalledApps] = React.useState([]);
-  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const instanceZUID = workingInstance;
   const userAppSID = getUserAppSID();
 
   const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
@@ -111,4 +111,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

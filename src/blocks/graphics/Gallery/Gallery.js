@@ -8,7 +8,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Button from '@mui/material/Button';
 
-const Gallery = ({photos}) => {
+const Gallery = ({ photos }) => {
   const theme = useTheme();
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -27,18 +27,17 @@ const Gallery = ({photos}) => {
     defaultMatches: true,
   });
 
-
   return (
     <Box>
       <Box>
         <ImageList
           variant="quilted"
-          cols={ 3}
+          cols={3}
           rowHeight={isMd ? 300 : 200}
           gap={isMd ? 16 : 4}
         >
           {photos.map((item, i) => (
-            <ImageListItem key={i} cols={ i % 3 == 0 ? 1 : 2} rows={1}>
+            <ImageListItem key={i} cols={i % 3 == 0 ? 1 : 2} rows={1}>
               <LazyLoadImage
                 height={'100%'}
                 width={'100%'}

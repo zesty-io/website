@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import { SidebarNav } from './components';
 
 const Sidebar = ({ customRouting, open, variant, onClose }) => {
-
   return (
     <Drawer
       anchor="left"

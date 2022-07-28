@@ -62,7 +62,6 @@ const NavItem = ({ title, items }) => {
                   }}
                 >
                   {p.title}
-               
                 </Button>
               </Grid>
             ))}

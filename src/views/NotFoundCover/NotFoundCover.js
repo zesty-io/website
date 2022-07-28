@@ -6,7 +6,6 @@ import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Error from 'next/error'
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 

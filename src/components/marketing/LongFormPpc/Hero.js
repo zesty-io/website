@@ -4,7 +4,6 @@ import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
-  Card,
   Grid,
   Typography,
   useMediaQuery,

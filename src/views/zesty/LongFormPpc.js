@@ -60,15 +60,13 @@ import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustration
 import NewsletterWithImage from 'components/marketing/LongFormPpc/NewsletterWithImage';
 import SimpleCentered from 'components/marketing/LongFormPpc/SimpleCentered';
 import BgDecorations from 'components/marketing/LongFormPpc/BgDecorations';
-import ContactUsForm from 'components/marketing/LongFormPpc/ContactUsForm';
 import TechStack from 'blocks/integrations/TechStack';
 import Hero from 'components/marketing/LongFormPpc/Hero';
 import Features from 'blocks/features/Features/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
-import PpcShortForm from 'components/marketing/LongFormPpc/PpcShortForm';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
-import { Container, Grid, Paper, Divider } from '@mui/material';
+import { Container, Grid, Divider } from '@mui/material';
 
 function LongFormPpc({ content }) {
   const router = useRouter();

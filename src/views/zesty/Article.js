@@ -47,7 +47,6 @@ import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleV
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 
 import Container from 'components/Container';
-import SideBarCTA from 'components/cta/SideBarCTA';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import useFetch from 'components/hooks/useFetch';
 

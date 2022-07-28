@@ -26,10 +26,8 @@
 
 import React from 'react';
 
-import SimpleVerticalBlogCardsPage from 'blocks/blog/SimpleVerticalBlogCards';
 import { VerticallyAlignedBlogCardsWithShapedImage } from 'blocks/blog';
 import { CtaWithInputField } from 'blocks/cta';
-import FillerContent from 'components/globals/FillerContent';
 
 import Container from 'components/Container';
 

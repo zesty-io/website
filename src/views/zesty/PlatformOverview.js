@@ -188,7 +188,11 @@ function PlatformOverview({ content }) {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { data: allArticles, isPending, error } = useFetch(
+  const {
+    data: allArticles,
+    isPending,
+    error,
+  } = useFetch(
     `/-/all-articles-hydrated.json?limit=3`,
     content.zestyProductionMode,
   );

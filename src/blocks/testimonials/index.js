@@ -1,4 +1,3 @@
-
 export { default as WithLargeImage } from './WithLargeImage';
 export { default as WithHighlightedCard } from './WithHighlightedCard';
 export { default as ReviewsWithBorderedGridLayout } from './ReviewsWithBorderedGridLayout';

@@ -1,17 +1,7 @@
 /**
  * MUI Imports
  */
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  Link,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 /**

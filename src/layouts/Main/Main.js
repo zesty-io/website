@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
@@ -7,16 +7,17 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
+
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import { getCookie } from 'cookies-next';
 
 import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
 
-import { Topbar, Sidebar, Footer } from './components';
-import { zestyLink } from 'lib/zestyLink';
-import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import { fetchWrapperOptions, getUserAppSID } from 'utils';
+import { Topbar, Sidebar, Footer, AppNavigation } from './components';
+import { getUserAppSID } from 'utils';
+
+import { getCookie } from 'cookies-next';
+import { useZestyStore } from 'store';
 
 const Main = ({
   children,
@@ -26,21 +27,24 @@ const Main = ({
   bgcolor = 'transparent',
   model = '',
 }) => {
+  const { setisAuthenticated, setisUser } = useZestyStore((state) => state);
+
+  // main should verify the user as boolean
   const router = useRouter();
 
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getUserAppSID();
+  const { verifySuccess, loading, userInfo } = useZestyStore((state) => state);
 
-  const { verifySuccess, loading, userInfo } = useFetchWrapper(
-    userAppSID,
-    instanceZUID,
-  );
-
-  const isLogin = verifySuccess.userZuid;
+  const isAuthenticated = verifySuccess.userZuid ? true : false;
+  let isUser = false;
 
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
+  if (getCookie('APP_SID') || getCookie('DEV_APP_SID')) {
+    isUser = true;
+  }
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -90,18 +94,30 @@ const Main = ({
     }
   };
 
+  // store isUser isAuthenticated  in global state
+  React.useEffect(() => {
+    setisAuthenticated(isAuthenticated);
+    setisUser(isUser);
+  }, [isAuthenticated, isUser]);
+
   return (
     <Box>
-      <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
-        <Container
-          paddingTop={
-            hideNav || isExplorePage ? '0px !important' : '8px !important'
-          }
-          paddingBottom={'0 !important'}
+      {isUser == false && (
+        <Box
+          bgcolor={bgcolor}
+          position={'relative'}
+          zIndex={theme.zIndex.appBar}
         >
-          <TopNav nav={nav} colorInvert={headerColorInvert} />
-        </Container>
-      </Box>
+          <Container
+            paddingTop={
+              hideNav || isExplorePage ? '0px !important' : '8px !important'
+            }
+            paddingBottom={'0 !important'}
+          >
+            <TopNav nav={nav} colorInvert={headerColorInvert} />
+          </Container>
+        </Box>
+      )}
       <AppBar
         position={hideNav ? 'fixed' : 'sticky'}
         sx={{
@@ -114,15 +130,26 @@ const Main = ({
         elevation={trigger ? 1 : 0}
       >
         <Container paddingY={isExplorePage ? 2 : 1}>
-          <Topbar
-            onSidebarOpen={handleSidebarOpen}
-            customRouting={hasRouting ? customRouting : []}
-            colorInvert={headerColorInvert && !trigger}
-            trigger={trigger}
-            isLogin={isLogin}
-            userInfo={userInfo?.data}
-            loading={loading}
-          />
+          {!isUser && (
+            <Topbar
+              onSidebarOpen={handleSidebarOpen}
+              customRouting={hasRouting ? customRouting : []}
+              colorInvert={headerColorInvert && !trigger}
+              trigger={trigger}
+              isAuthenticated={isAuthenticated}
+              userInfo={userInfo?.data}
+              loading={loading}
+            />
+          )}
+          {isUser && (
+            <AppNavigation
+              onSidebarOpen={handleSidebarOpen}
+              colorInvert={headerColorInvert && !trigger}
+              trigger={trigger}
+              userInfo={userInfo?.data}
+              loading={loading}
+            />
+          )}
         </Container>
       </AppBar>
       <Sidebar
@@ -135,10 +162,12 @@ const Main = ({
         {children}
         <Divider />
       </main>
-      <Footer
-        colorInvert={colorInvert}
-        customRouting={hasRouting ? customRouting : []}
-      />
+      {isUser == false && (
+        <Footer
+          colorInvert={colorInvert}
+          customRouting={hasRouting ? customRouting : []}
+        />
+      )}
     </Box>
   );
 };
