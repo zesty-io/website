@@ -322,7 +322,7 @@ import { useZestyStore } from 'store';
 
 ## Using the ZestyAPI, a global Object that instantiates fetchwrapper
 
-[ZestyAPI](https://github.com/zesty-io/fetch-wrapper) is global and can be accesed through global state management, here is the example :
+[ZestyAPI](https://github.com/zesty-io/fetch-wrapper) is global and can be accessed through global state management, here is the example :
 
 ```jsx
 import { useZestyStore } from 'store';
