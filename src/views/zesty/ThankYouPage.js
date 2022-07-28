@@ -145,9 +145,7 @@ const SimpleHeroWithCta = ({
           >
             {description}
           </Typography>
-          {router.asPath.includes('/ppc/thank-you/') ? (
-            <></>
-          ) : (
+          {!router.asPath.includes('/ppc/thank-you/') && (
             <Button
               component="a"
               href={primaryCtaButtonLink}
