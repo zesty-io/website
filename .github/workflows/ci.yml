@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '16.x'
       - name: Install NPM dependencies build test
-        run: npm  install
+        run: npm ci
       - name: Run build
         run: npm run build
       - name: Run test
