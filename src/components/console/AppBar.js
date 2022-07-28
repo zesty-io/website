@@ -8,7 +8,6 @@ import { ComboBox } from 'components/globals/ComboBox';
 import { Button, useMediaQuery } from '@mui/material';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookies } from 'cookies-next';
-import Typography from '@mui/material/Typography';
 import HomeIcon from '@mui/icons-material/Home';
 import Skeleton from '@mui/material/Skeleton';
 import { getUserAppSID } from 'utils';

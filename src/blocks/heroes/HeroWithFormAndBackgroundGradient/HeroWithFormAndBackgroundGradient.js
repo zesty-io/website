@@ -73,14 +73,16 @@ const Hero = ({
           bottom: 0,
           width: 1,
           height: 1,
-          backgroundColor:
-            router.asPath.includes('/ppc/content-management-system/')
-              ? theme.palette.zesty.zesyDarkBlue
-              : theme.palette.primary.main,
-          backgroundImage:
-            router.asPath.includes('/ppc/content-management-system/')
-              ? 'tranparent'
-              : `linear-gradient(315deg, ${theme.palette.primary.main} 0%, #000000 74%)`,
+          backgroundColor: router.asPath.includes(
+            '/ppc/content-management-system/',
+          )
+            ? theme.palette.zesty.zesyDarkBlue
+            : theme.palette.primary.main,
+          backgroundImage: router.asPath.includes(
+            '/ppc/content-management-system/',
+          )
+            ? 'tranparent'
+            : `linear-gradient(315deg, ${theme.palette.primary.main} 0%, #000000 74%)`,
           opacity: '0.8',
           zIndex: 1,
         }}

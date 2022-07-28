@@ -10,7 +10,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import SubscribeCTA from 'components/cta/SubscribeCTA';
 
-const Hero = ({title, subtitle, description, image}) => {
+const Hero = ({ title, subtitle, description, image }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -18,7 +18,7 @@ const Hero = ({title, subtitle, description, image}) => {
 
   const LeftSide = () => (
     // transition removed: data-aos={isMd ? 'fade-right' : 'fade-up'}
-    <Box >
+    <Box>
       <Box marginBottom={2}>
         <Typography variant="h2" color="text.primary" sx={{ fontWeight: 700 }}>
           {title}
@@ -43,7 +43,7 @@ const Hero = ({title, subtitle, description, image}) => {
           {description}
         </Typography>
       </Box>
-      <SubscribeCTA/>
+      <SubscribeCTA />
       {/* <Button variant="contained" component={'a'} color="primary" size="large" href={ctaHref}>
         {cta}
       </Button> */}

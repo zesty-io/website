@@ -23,22 +23,19 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-import { React, useEffect, useState } from 'react';
+import { React } from 'react';
 
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import { getCookie, setCookies } from 'cookies-next';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Typography from '@mui/material/Typography';
 
 import FillerContent from 'components/globals/FillerContent';
 import Container from 'components/wrappers/FullWidthContainer';
-import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
 const Demo = ({ content }) => {
-  
   const theme = useTheme();
   return (
     <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
@@ -94,7 +91,7 @@ const Demo = ({ content }) => {
               modalMessage="Our team will be in touch soon to schedule a demo with you."
               phoneNumber={true}
             /> */}
-           <ZohoFormEmbed height="600px" formURL="" />
+            <ZohoFormEmbed height="600px" formURL="" />
           </Container>
         </Box>
         <Box

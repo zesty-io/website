@@ -4,17 +4,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Popover from '@mui/material/Popover';
 import Grid from '@mui/material/Grid';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Avatar from '@mui/material/Avatar';
-import Link from '@mui/material/Link';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
-import Container from 'components/Container';
-import BasicForm from './BasicForm';
 import CodeBlock from './CodeBlock';
 
 const mock = [

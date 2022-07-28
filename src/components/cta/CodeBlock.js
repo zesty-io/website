@@ -28,7 +28,7 @@ export default function CodeBlock({
         navigator.clipboard.writeText(text);
         setCopyWords('Copied!');
         setIcon('check_circle');
-        dataLayer.push({'event': 'codeLineCopied', value: "1"});
+        dataLayer.push({ event: 'codeLineCopied', value: '1' });
       }}
       sx={{
         textAlign: 'center',

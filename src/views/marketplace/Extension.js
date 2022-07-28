@@ -1,18 +1,12 @@
 // prettier-ignore
-import { Accordion, AccordionDetails,AccordionSummary,Box,Button,
-  Chip,Divider,Grid,Link,Stack,Typography, Card, CardContent } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {Box,Button,Grid,Link,Typography, Card, CardContent } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
 import styled from '@emotion/styled';
 import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
-import { getCookie } from 'cookies-next';
 import { AppInstallerComp } from 'components/marketplace/AppInstallerComp';
-import {
-  ModuleInstaller,
-  ResourceLinkComp,
-} from 'components/marketplace/ResourceLinkComp';
+import { ResourceLinkComp } from 'components/marketplace/ResourceLinkComp';
 import LaunchIcon from '@mui/icons-material/Launch';
 import MuiMarkdown from 'mui-markdown';
 import { useZestyStore } from 'store';

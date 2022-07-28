@@ -15,16 +15,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Backdrop from '@mui/material/Backdrop';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
 import TransitionsModal from './TransitionModal';
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
-import { getCookie, setCookies } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { Checkbox, FormControlLabel } from '@mui/material';
-import { useRouter } from 'next/router';
 
 /**
  * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList

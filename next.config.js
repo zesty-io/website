@@ -3,7 +3,7 @@ const { fetchZestyRedirects } = require('./src/lib/zesty/fetchRedirects');
 module.exports = {
   trailingSlash: true,
   async redirects() {
-    return await fetchZestyRedirects()
+    return await fetchZestyRedirects();
   },
   env: {
     zesty: {

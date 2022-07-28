@@ -9,10 +9,10 @@ export const lang = {
       apis: 'APIs & Domains',
       webhooks: 'Webhooks',
       settings: 'Settings',
-      billing: 'Billing & Plans'
+      billing: 'Billing & Plans',
     },
     helpers: {
-      domainInfo: `domains do this and that`
-    } 
-  }
-}
+      domainInfo: `domains do this and that`,
+    },
+  },
+};

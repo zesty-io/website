@@ -40,7 +40,6 @@ import FeatureGridWithBackgrounds from 'blocks/features/FeatureGridWithBackgroun
 import Container from 'components/Container';
 import { alpha, useTheme } from '@mui/material/styles';
 import Icon from '@mui/material/Icon';
-import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import {
   Avatar,
   Box,
@@ -48,8 +47,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia,
-  Divider,
   FormControl,
   Grid,
   InputAdornment,
@@ -57,16 +54,12 @@ import {
   ListItemAvatar,
   ListItemText,
   OutlinedInput,
-  TextField,
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/globals/FillerContent';
 import CodeBlock from 'components/cta/CodeBlock';
 import ReactPlayer from 'react-player';
-import { textAlign } from '@mui/system';
-import { CtaSimpleCentered } from 'blocks/cta';
 
 const WithCompanyLogo = ({ title, header, content, logo }) => {
   const theme = useTheme();
