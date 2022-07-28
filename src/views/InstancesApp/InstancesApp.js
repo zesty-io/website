@@ -19,11 +19,12 @@ const Index = ({ children }) => {
   const { zuid } = router.query;
 
   const handleChange = (event, newValue) => {
+    console.log(event);
     setTabValue(newValue);
-    router.push({
-      pathname: `/instances/[zuid]/${newValue}/`,
-      query: { zuid },
-    });
+    // router.push({
+    //   pathname: `/instances/[zuid]/${newValue}/`,
+    //   query: { zuid },
+    // });
   };
 
   const getInstance = async () => {
@@ -40,10 +41,6 @@ const Index = ({ children }) => {
       instance.name + ` Instance - ${currentPage} - Zesty.io Console`;
   }, [instance, currentPage]);
 
-  // React.useEffect(() => {
-  //   Object.keys(instance)?.length === 0 && getInstance();
-  // }, [instance]);
-
   return (
     <Box>
       <InstanceHeader instance={instance} />
@@ -57,6 +54,7 @@ const Index = ({ children }) => {
           .sort((a, b) => a.sort - b.sort)
           .map((tab) => (
             <Tab
+              href={`/instances/${zuid}/${tab.filename}/`}
               icon={tab.icon}
               value={tab.filename}
               iconPosition="start"

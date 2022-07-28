@@ -43,6 +43,7 @@ const CustomTable = ({ data }) => {
 export const Settings = ({ settings = [] }) => {
   const [search, setsearch] = React.useState('');
   const [categories, setcategories] = React.useState('general');
+  console.log(settings, '3333333333333');
   const data = settings?.filter((e) => {
     if (search || categories) {
       return (

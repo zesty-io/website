@@ -22,9 +22,16 @@ export default function SettingsPage() {
     console.log(res);
   };
 
+  const handleGetSettingSuccess = (res) => {
+    setsettings(res.data);
+  };
+  const handleGetSettingError = (err) => {
+    console.log(err);
+  };
   const getSettings = async () => {
     const res = await ZestyAPI.getSettings();
-    setsettings(res.data);
+    !res.error && handleGetSettingSuccess(res);
+    res.error && handleGetSettingError(res);
   };
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
