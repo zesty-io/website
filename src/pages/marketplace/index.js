@@ -32,6 +32,8 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
     setCookies('PRODUCTION', props.zestyProductionMode);
   }, [props]);
 
+  console.log(props);
+
   return (
     <>
       <Head>
@@ -48,7 +50,7 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
             marketTags={props.featured_tags.data}
             marketEntityTypes={marketEntityTypes}
           />
-          <MarketplaceContainer />
+          <MarketplaceContainer {...props} />
         </MarketplaceProvider>
       </Main>
     </>

@@ -62,11 +62,11 @@ import SimpleCentered from 'components/marketing/LongFormPpc/SimpleCentered';
 import BgDecorations from 'components/marketing/LongFormPpc/BgDecorations';
 import TechStack from 'blocks/integrations/TechStack';
 import Hero from 'components/marketing/LongFormPpc/Hero';
-import Features from 'components/marketing/LongFormPpc/Features';
+import Features from 'blocks/features/Features/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
-import { Container, Grid, Paper, Divider } from '@mui/material';
+import { Container, Grid, Divider } from '@mui/material';
 
 function LongFormPpc({ content }) {
   const router = useRouter();
@@ -215,8 +215,17 @@ function LongFormPpc({ content }) {
 
       {/* Form */}
       <Container>
-        <Grid container>
-          <Grid item md={5} xs={12}>
+        <Grid sx={{ py: 10 }} container>
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              flexDirection: 'column',
+            }}
+            item
+            md={5}
+            xs={12}
+          >
             <Typography
               id="contact-us"
               variant="h4"
@@ -242,12 +251,10 @@ function LongFormPpc({ content }) {
             </Typography>
           </Grid>
           <Grid item md={7} xs={12}>
-            <Paper elevation={2}>
-              <ZohoFormEmbed
-                url="https://forms.zohopublic.com/zestyio/form/SalessignupformPPCCRM/formperma/G9oQMOrpqmdcg7rMbZ3tqucS8d9-92oA5HYh6fO96fM"
-                height="600px"
-              />
-            </Paper>
+            <ZohoFormEmbed
+              formURL="https://forms.zohopublic.com/zestyio/form/SalessignupformPPCCRM/formperma/G9oQMOrpqmdcg7rMbZ3tqucS8d9-92oA5HYh6fO96fM"
+              height="650px"
+            />
           </Grid>
         </Grid>
       </Container>

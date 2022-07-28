@@ -8,12 +8,22 @@ import { Box, Card, Container, Typography } from '@mui/material';
  */
 import * as helper from 'utils';
 
-const Features = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
+/**
+ * Local assets
+ */
+import chevronLeft from '../../../../public/assets/images/chevron-left.svg';
+
+const Features = ({
+  content,
+  theme,
+  isMobile,
+  isDarkMode,
+  FillerContent,
+  textHighlight = 'Zesty',
+}) => {
   const arr = content?.features?.data ? content.features.data : [];
 
-  const bracketImg =
-    content.dxp_background_images?.data[0]?.url ||
-    FillerContent.dashboard_image;
+  const bracketImg = chevronLeft.src || FillerContent.dashboard_image;
   return (
     <Box
       paddingBottom={isMobile ? 20 : 20}
@@ -35,27 +45,39 @@ const Features = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
         <img src={bracketImg} alt="bg" />
       </Box>
       <Container>
-        <Box>
+        <Box sx={{ py: 10 }}>
           <Typography
             component={'h2'}
             variant={'p'}
-            paddingTop={isMobile ? 4 : 10}
-            paddingBottom={isMobile ? 4 : 10}
             sx={{
+              lineHeight: 1,
               color: isDarkMode
                 ? theme.palette.zesty.zestyDarkBlue
-                : theme.palette.secondary.darkCharcoal,
+                : theme.palette.zesty.zestyZambezi,
               textAlign: 'center',
               fontSize: isMobile ? '24px' : '48px',
             }}
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(
                 content.features_header || FillerContent.header,
-                'Zesty',
+                textHighlight,
                 theme.palette.zesty.zestyOrange,
               ),
             }}
           />
+          <Typography
+            variant="h6"
+            component="h2"
+            sx={{
+              mt: 2,
+              textAlign: 'center',
+              color: isDarkMode
+                ? theme.palette.zesty.zestyDarkBlue
+                : theme.palette.zesty.zestyZambezi,
+            }}
+          >
+            {content?.feature_description || ''}
+          </Typography>
         </Box>
         <Box
           sx={{
@@ -70,7 +92,7 @@ const Features = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
         >
           {arr.map((e) => {
             return (
-              <div data-aos="zoom-in-down">
+              <div>
                 <Card
                   sx={{
                     width: '20rem',
@@ -79,7 +101,7 @@ const Features = ({ content, theme, isMobile, isDarkMode, FillerContent }) => {
                     background: theme.palette.common.white,
                   }}
                 >
-                  <img src={e.icon_image.data[0].url} alt="" />
+                  <img src={e.icon_image?.data[0].url} alt="" />
 
                   <Typography
                     component={'p'}

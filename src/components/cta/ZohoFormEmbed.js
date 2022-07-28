@@ -2,11 +2,15 @@
  * Component to inject a ZOHO form via an iframe
  * Work with the sales team to get a custom URL and to play with the height
  */
-
+import { CardMedia, Card } from '@mui/material';
 import { React, useEffect } from 'react';
 import { getCookie } from 'cookies-next';
 
-export default function ZohoFormEmbed({ formURL = '', height = '600px' }) {
+export default function ZohoFormEmbed({
+  formURL = '',
+  height = '600px',
+  width = 500,
+}) {
   let demoFormEmbedLink =
     formURL == ''
       ? `https://forms.zohopublic.com/zestyio/form/SalesSignupform/formperma/634ov0T9TZdP8vJsI1KBz8WyPgltGy_IJ5xGiMKdH5Q`
@@ -40,15 +44,18 @@ export default function ZohoFormEmbed({ formURL = '', height = '600px' }) {
     }
   });
   return (
-    <iframe
-      width="100%"
-      border="0"
-      id="leadframe"
-      src={demoFormEmbedLink}
-      style={{
-        border: 0,
-        height: height,
-      }}
-    ></iframe>
+    <Card sx={{ width: '100%', maxWidth: width, margin: 'auto' }}>
+      <CardMedia
+        sx={{
+          width: '100%',
+          maxWidth: width,
+          height: height,
+          border: 0,
+        }}
+        id="leadframe"
+        src={demoFormEmbedLink}
+        component={'iframe'}
+      />
+    </Card>
   );
 }

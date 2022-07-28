@@ -16,7 +16,7 @@ import { useContext } from 'react';
 import { MarketplaceContext } from '../MarketplaceContext';
 import { useRouter } from 'next/router';
 
-const FeaturedApps = () => {
+const FeaturedApps = ({ featuredApps }) => {
   const { entities, isSearching } = useContext(MarketplaceContext);
   const router = useRouter();
 
@@ -46,7 +46,7 @@ const FeaturedApps = () => {
             Featured Apps
           </Typography>
           <Grid container spacing={2}>
-            {entities.slice(0, 3).map((item, idx) => (
+            {featuredApps?.data.map((item, idx) => (
               <Grid
                 key={idx}
                 sx={{ margin: 'auto' }}

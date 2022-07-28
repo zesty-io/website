@@ -20,9 +20,10 @@ const TopBrands = ({
   isMobile,
   isDarkMode,
   FillerContent,
+  backgroundColor = '#FFFCFB',
+  textHighlight,
   sx,
 }) => {
-  console.log(sx);
   const caseStudies = [...(content.case_studies.data || [])];
   const [active, setActive] = useState(caseStudies[0]);
   /**
@@ -37,22 +38,43 @@ const TopBrands = ({
     <Box sx={sx} component="section">
       <Box>
         <Typography
-          variant="h4"
-          component="h2"
           sx={{
-            mt: 5,
+            color: theme.palette.zesty.zestyZambezi,
+            fontWeight: 'bold',
+            '& span': {
+              color: 'inherit',
+            },
             color: theme.palette.zesty.zestyZambezi,
             textAlign: 'center',
-            fontWeight: 'bold',
-            px: 4,
           }}
+          variant="h4"
+          component="h2"
         >
-          {title || FillerContent.header}
+          <MuiMarkdown
+            overrides={{
+              strong: {
+                component: Typography,
+                props: {
+                  component: 'strong',
+                  sx: {
+                    fontSize: 'inherit',
+                    fontWeight: 'inherit',
+                    color: theme.palette.zesty.zestyOrange,
+                  },
+                },
+              },
+            }}
+          >
+            {title?.replaceAll(
+              textHighlight,
+              `<strong>${textHighlight}</strong>`,
+            ) || FillerContent.header}
+          </MuiMarkdown>
         </Typography>
       </Box>
       <Box
         component="section"
-        sx={{ background: theme.palette.zesty.zestySeaShell, py: 5, mt: 5 }}
+        sx={{ background: backgroundColor, py: 5, mt: 5 }}
       >
         <Container>
           <Grid container>

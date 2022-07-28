@@ -35,6 +35,14 @@ import PricingLever from './PricingLever';
 import PpcZestyKeyAttribute from './PpcZestyKeyAttribute';
 import BrandAsset from './BrandAsset';
 import IntegrationsBenefit from './IntegrationsBenefit';
+import UseCase from './UseCase';
+import IntegrationsLogo from './IntegrationsLogo';
+import EcommCorePillar from './EcommCorePillar';
+import DxSolutionsCard from './DxSolutionsCard';
+import ZestyProduct from './ZestyProduct';
+import PersonaPagesLink from './PersonaPagesLink';
+import SubNav2022 from './SubNav2022';
+import NavigationFlyout from './NavigationFlyout';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -47,6 +55,8 @@ import PpcShortForm from './PpcShortForm';
 import IntegrationsIndividualPage from './IntegrationsIndividualPage';
 import GatedContentPage from './GatedContentPage';
 import ThankYouPage from './ThankYouPage';
+import ForIndustryPage from './ForIndustryPage';
+import ForPersonasPage from './ForPersonasPage';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -82,6 +92,20 @@ import DxpEnterprise from './DxpEnterprise';
 import DxpBenefit from './DxpBenefit';
 import DxpFeature from './DxpFeature';
 import HeadlessCmsFeature from './HeadlessCmsFeature';
+import HeadlessCmsMultiLang from './HeadlessCmsMultiLang';
+import HeadlessDam from './HeadlessDam';
+import ComposableDxp from './ComposableDxp';
+import ScalableCm from './ScalableCm';
+import HeadlessSeo from './HeadlessSeo';
+import HeadlessMultiSite from './HeadlessMultiSite';
+import HeadlessBlogProductPage from './HeadlessBlogProductPage';
+import HeadlessLocalization from './HeadlessLocalization';
+import RoiCalculator from './RoiCalculator';
+import PartnerProgramLp from './PartnerProgramLp';
+import UseCase2 from './UseCase2';
+import ForDeveloper from './ForDeveloper';
+import Scholarship from './Scholarship';
+import DemoVideo from './DemoVideo';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -121,6 +145,14 @@ export {
   PpcZestyKeyAttribute,
   BrandAsset,
   IntegrationsBenefit,
+  UseCase,
+  IntegrationsLogo,
+  EcommCorePillar,
+  DxSolutionsCard,
+  ZestyProduct,
+  PersonaPagesLink,
+  SubNav2022,
+  NavigationFlyout,
   Category,
   Article,
   Tag,
@@ -133,6 +165,8 @@ export {
   IntegrationsIndividualPage,
   GatedContentPage,
   ThankYouPage,
+  ForIndustryPage,
+  ForPersonasPage,
   Homepage,
   SimplePage,
   Mindshare,
@@ -168,6 +202,20 @@ export {
   DxpBenefit,
   DxpFeature,
   HeadlessCmsFeature,
+  HeadlessCmsMultiLang,
+  HeadlessDam,
+  ComposableDxp,
+  ScalableCm,
+  HeadlessSeo,
+  HeadlessMultiSite,
+  HeadlessBlogProductPage,
+  HeadlessLocalization,
+  RoiCalculator,
+  PartnerProgramLp,
+  UseCase2,
+  ForDeveloper,
+  Scholarship,
+  DemoVideo,
   Footer,
   Header,
 };
