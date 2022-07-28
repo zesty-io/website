@@ -140,6 +140,7 @@ const SimpleHeroWithCta = ({
             sx={{
               fontSize: '20px',
               fontWeight: 400,
+              mb: 4,
             }}
             align={'center'}
           >
@@ -183,7 +184,7 @@ const Articles = ({ content, theme }) => {
   const articles = [...content.related_articles.data];
 
   return (
-    <Box sx={{ pt: 5 }} component="section">
+    <Box sx={{}} component="section">
       <Container>
         <Box
           sx={{
