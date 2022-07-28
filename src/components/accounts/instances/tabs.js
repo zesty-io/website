@@ -8,6 +8,7 @@ import DataObject from '@mui/icons-material/DataObject';
 import FolderShared from '@mui/icons-material/FolderShared';
 import SupportIcon from '@mui/icons-material/Support';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import TranslateIcon from '@mui/icons-material/Translate';
 
 export const instanceTabs = [
     {
@@ -35,9 +36,15 @@ export const instanceTabs = [
       sort: 3, 
     },
     {
+      icon: <TranslateIcon />,
+      filename: 'locales',
+      label: 'Locales',
+      sort: 3, 
+    },    
+    {
       icon: <DataObject />,
       filename: 'apis',
-      label: 'API & Tokens',
+      label: 'APIs & Tokens',
       sort: 4, 
     },
     {

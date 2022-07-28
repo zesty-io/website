@@ -6,10 +6,11 @@ export const lang = {
       teams: 'Teams',
       domains: 'Domains',
       support: 'Support',
-      apis: 'APIs & Domains',
+      apis: 'APIs',
       webhooks: 'Webhooks',
       settings: 'Settings',
-      billing: 'Billing & Plans'
+      billing: 'Billing',
+      locales: 'Locales'
     },
     helpers: {
       domainInfo: `domains do this and that`
