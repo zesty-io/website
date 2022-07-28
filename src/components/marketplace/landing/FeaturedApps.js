@@ -20,10 +20,7 @@ const FeaturedApps = () => {
   const { entities, isSearching } = useContext(MarketplaceContext);
   const router = useRouter();
 
-  /************************************************
-   * Theme Settings
-   */
-
+  // Theme settings
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
 

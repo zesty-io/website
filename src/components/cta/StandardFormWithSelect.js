@@ -65,9 +65,7 @@ const getLeadObjectZOHO = (
     Inquiry_Reason: select,
     Description: obj.message,
     newsletter_signup: obj.newsletter_signup,
-    Lead_Source: getCookie('utm_source')
-    ? getCookie('utm_source')
-    : leadSource,
+    Lead_Source: getCookie('utm_source') ? getCookie('utm_source') : leadSource,
     Role: getCookie('persona') ? getCookie('persona') : acRole,
     Captured_URL:
       window.location.href.match(/localhost/gi) == null
@@ -110,7 +108,8 @@ const postToZOHO = async (payloadJSON) => {
       throw new Error(`HTTP error: ${error}`);
     });
 };
-const phoneRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+const phoneRegExp =
+  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
 const validationSchema = yup.object({
   firstName: yup
@@ -266,9 +265,9 @@ function StandardFormWithSelect({
     // post to leads section
     await postToZOHO(payload);
 
-    //post to email marketing signup
-    if(payload.newsletter_signup){
-      await subscribeToZoho(payload)
+    // post to email marketing signup
+    if (payload.newsletter_signup) {
+      await subscribeToZoho(payload);
     }
 
     cmsModel === 'Gated Content Page'

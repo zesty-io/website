@@ -97,7 +97,7 @@ export default function TryFreeButton({
         target={target}
         className="tryButton"
         fullWidth={fullWidth}
-        //href="https://accounts.zesty.io/signup"
+        // href="https://accounts.zesty.io/signup"
         size={size}
         sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}
         onClick={(e) => handleClick(e)}
