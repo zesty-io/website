@@ -7,13 +7,10 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import TryFreeButton from './TryFreeButton';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 
 const validationSchema = yup.object({
@@ -43,31 +40,37 @@ const validationSchema = yup.object({
 // zoho lead object
 const getLeadObjectZOHO = (obj, roles) => {
   let acLeadtype = 'Marketing Website';
-  let acRole ='Marketer';
+  let acRole = 'Marketer';
+  console.log(acRole, acLeadtype);
   return {
-    
-    "First_Name": obj.firstName,
-    "Last_Name": obj.lastName,
-    "Email": obj.email,
-    "Inquiry_Reason": select,
-    "Message": obj.message,
+    First_Name: obj.firstName,
+    Last_Name: obj.lastName,
+    Email: obj.email,
+    Inquiry_Reason: select,
+    Message: obj.message,
     // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
     // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
     // "Current_CMS": acCMS,
     // "How_Using_Zesty_io": acHow,
     // "Website": document.querySelector('#ac-url').value,
-    "Lead_Source": "Website",
+    Lead_Source: 'Website',
     // "Description": document.querySelector('#ac-description').value,
-    "Role": roles,
+    Role: roles,
     // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
-    "Lead_Source_Detail": 'Demo Sign Up',
-    "Business_Type": "Direct",
-    "Lead_Status": "Not Contacted"
-  }
+    Lead_Source_Detail: 'Demo Sign Up',
+    Business_Type: 'Direct',
+    Lead_Status: 'Not Contacted',
+  };
+};
 
-}
-
-const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Text',ctaButtonText='Missing Text'}) => {
+const Form = ({
+  eyebrow = 'Missing Text',
+  title = 'Missing Text',
+  subtitle = 'Missing Text',
+  ctaButtonText = 'Missing Text',
+}) => {
+  console.log(eyebrow, title, subtitle);
+  console.log(getLeadObjectZOHO || '');
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -89,8 +92,8 @@ const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Tex
 
   const { marketers, developers, managers } = state;
   const error = [marketers, developers, managers].filter((v) => v).length !== 2;
+  console.log(error);
   const onSubmit = (values) => {
-
     console.log(values);
     console.log([marketers, developers, managers]);
 
@@ -105,7 +108,6 @@ const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Tex
 
   return (
     <Box>
-     
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
@@ -171,29 +173,43 @@ const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Tex
             />
           </Grid>
           <Grid item xs={12}>
-          <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-            <FormLabel component="legend">Who are we Demoing to? (Select all that apply)</FormLabel>
-            <FormGroup>
-            <FormControlLabel
-                control={
-                <Checkbox checked={marketers} onChange={handleChange} name="marketers" />
-                }
-                label="Marketers"
-            />
-            <FormControlLabel
-                control={
-                <Checkbox checked={developers} onChange={handleChange} name="developers" />
-                }
-                label="Developers"
-            />
-            <FormControlLabel
-                control={
-                <Checkbox checked={managers} onChange={handleChange} name="managers" />
-                }
-                label="Managers"
-            />
-            </FormGroup>
-          </FormControl>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              <FormLabel component="legend">
+                Who are we Demoing to? (Select all that apply)
+              </FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={marketers}
+                      onChange={handleChange}
+                      name="marketers"
+                    />
+                  }
+                  label="Marketers"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={developers}
+                      onChange={handleChange}
+                      name="developers"
+                    />
+                  }
+                  label="Developers"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={managers}
+                      onChange={handleChange}
+                      name="managers"
+                    />
+                  }
+                  label="Managers"
+                />
+              </FormGroup>
+            </FormControl>
           </Grid>
           <Grid item container xs={12}>
             <Box
@@ -218,7 +234,12 @@ const Form = ({eyebrow='Missing Text',title='Missing Text',subtitle='Missing Tex
                   </TryFreeButton>
                 </Typography>
               </Box> */}
-              <Button size={'large'} variant={'contained'} type={'submit'} color='secondary'>
+              <Button
+                size={'large'}
+                variant={'contained'}
+                type={'submit'}
+                color="secondary"
+              >
                 {ctaButtonText}
               </Button>
             </Box>

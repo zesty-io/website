@@ -1,6 +1,5 @@
 import React from 'react';
 import { useZestyStore } from 'store';
-import { fetchWrapperOptions } from 'utils';
 
 const getStatus = (status) => {
   if (status / 100 === 2) return true;

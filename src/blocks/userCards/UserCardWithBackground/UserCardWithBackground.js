@@ -8,8 +8,6 @@ import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
 import { useMediaQuery } from '@mui/material';
 
-
-
 const UserCardWithBackground = ({
   avatar,
   name,

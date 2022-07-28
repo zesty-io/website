@@ -10,7 +10,7 @@ const UserDashboard = () => {
 };
 
 const Dashboard = () => {
-  const { isAuthenticated, ZestyAPI } = useZestyStore((state) => state);
+  const { isAuthenticated } = useZestyStore((state) => state);
   return (
     <Box>
       <AppBar />

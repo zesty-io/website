@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography'
 import Link from '@mui/material/Link';
 
 const SingleNavItem = ({ title, id, url, colorInvert = false }) => {
@@ -23,17 +22,15 @@ const SingleNavItem = ({ title, id, url, colorInvert = false }) => {
         alignItems={'center'}
         aria-describedby={id}
         sx={{ cursor: 'pointer' }}
-       
       >
         <Link
           fontWeight={hasActiveLink ? 700 : 400}
           color={linkColor}
           href={url}
-          underline='none'
+          underline="none"
         >
           {title}
         </Link>
-       
       </Box>
     </Box>
   );

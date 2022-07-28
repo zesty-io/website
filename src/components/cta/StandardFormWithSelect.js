@@ -15,16 +15,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Backdrop from '@mui/material/Backdrop';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
 import TransitionsModal from './TransitionModal';
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
-import { getCookie, setCookies } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { Checkbox, FormControlLabel } from '@mui/material';
-import { useRouter } from 'next/router';
 
 /**
  * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
@@ -50,6 +45,7 @@ const getLeadObjectZOHO = (
 ) => {
   let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
+  console.log(acLeadtype);
   // possible values
   // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
   // "Current_CMS": acCMS,
@@ -65,9 +61,7 @@ const getLeadObjectZOHO = (
     Inquiry_Reason: select,
     Description: obj.message,
     newsletter_signup: obj.newsletter_signup,
-    Lead_Source: getCookie('utm_source')
-    ? getCookie('utm_source')
-    : leadSource,
+    Lead_Source: getCookie('utm_source') ? getCookie('utm_source') : leadSource,
     Role: getCookie('persona') ? getCookie('persona') : acRole,
     Captured_URL:
       window.location.href.match(/localhost/gi) == null
@@ -102,7 +96,7 @@ const postToZOHO = async (payloadJSON) => {
     },
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(() => {
       // google data
       dataLayer.push({ event: 'formCaptureSuccess', value: '1' });
     })
@@ -110,7 +104,8 @@ const postToZOHO = async (payloadJSON) => {
       throw new Error(`HTTP error: ${error}`);
     });
 };
-const phoneRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+const phoneRegExp =
+  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
 const validationSchema = yup.object({
   firstName: yup
@@ -191,6 +186,7 @@ const subscribeToZoho = async (payload) => {
   )
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       dataLayer.push({ event: 'emailSubscribeSubmitted', value: '1' });
       acSENT = true;
     });
@@ -224,6 +220,7 @@ function StandardFormWithSelect({
 }) {
   const theme = useTheme();
 
+  console.log(hideMessage, defaultMessage, onClickBtn);
   const [open, setOpen] = useState(false);
 
   let inquiryReasons = [
@@ -266,9 +263,9 @@ function StandardFormWithSelect({
     // post to leads section
     await postToZOHO(payload);
 
-    //post to email marketing signup
-    if(payload.newsletter_signup){
-      await subscribeToZoho(payload)
+    // post to email marketing signup
+    if (payload.newsletter_signup) {
+      await subscribeToZoho(payload);
     }
 
     cmsModel === 'Gated Content Page'

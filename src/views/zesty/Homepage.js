@@ -36,7 +36,6 @@ import { useTheme } from '@mui/material/styles';
 import HeroWithIllustrationAndCta from 'blocks/heroes/HeroWithIllustrationAndCta/HeroWithIllustrationAndCta';
 import WithSwiperAndBrandBackgroundColor from 'blocks/logoGrid/WithSwiperAndBrandBackgroundColor';
 import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
-import WithOverlappedCards from 'blocks/team/WithOverlappedCards';
 import ReviewsWithSimpleBoxes from 'blocks/testimonials/ReviewsWithSimpleBoxes';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';

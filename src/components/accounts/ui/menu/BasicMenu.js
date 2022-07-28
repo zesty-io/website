@@ -2,7 +2,6 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { setTextRange } from 'typescript';
 
 export const BasicMenu = ({ list = [], setterFn = () => {}, value = ' ' }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);

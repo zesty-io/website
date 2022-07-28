@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { FormControl, NativeSelect } from '@mui/material';
 import React from 'react';
 
 const Index = ({
