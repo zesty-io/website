@@ -27,9 +27,9 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
 import FillerContent from 'components/globals/FillerContent';
 import { alpha, useTheme } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 
 import {
   useMediaQuery,
@@ -38,9 +38,11 @@ import {
   Typography,
   Grid,
   Link,
+  Button,
 } from '@mui/material';
 
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+
 function ThankYouPage({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -58,8 +60,8 @@ function ThankYouPage({ content }) {
         <SimpleHeroWithCta
           title={content.title_h1 || FillerContent.header}
           description={content.description || FillerContent.description}
-          primaryCta={content.hero_cta_primary_text || FillerContent.cta}
-          secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
+          primaryCta={content.cta_button_text || FillerContent.cta}
+          primaryCtaButtonLink={content.cta_button_link || FillerContent.href}
         />
         <Articles {...pageData} />
       </Box>
@@ -69,7 +71,14 @@ function ThankYouPage({ content }) {
   );
 }
 
-const SimpleHeroWithCta = ({ title, subtitle, description }) => {
+const SimpleHeroWithCta = ({
+  title,
+  subtitle,
+  description,
+  primaryCta,
+  primaryCtaButtonLink,
+}) => {
+  const router = useRouter();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -99,7 +108,15 @@ const SimpleHeroWithCta = ({ title, subtitle, description }) => {
       }}
     >
       <Box paddingTop={isMobile ? 0 : 1} position={'relative'} zIndex={2}>
-        <Box marginBottom={4}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          marginBottom={4}
+        >
           <Typography
             variant="p"
             component={'h1'}
@@ -128,6 +145,17 @@ const SimpleHeroWithCta = ({ title, subtitle, description }) => {
           >
             {description}
           </Typography>
+          {!router.asPath.includes('/ppc/thank-you/') && (
+            <Button
+              component="a"
+              href={primaryCtaButtonLink}
+              sx={{ mt: 2 }}
+              color="secondary"
+              variant="contained"
+            >
+              {primaryCta}
+            </Button>
+          )}
         </Box>
       </Box>
       <Box
@@ -253,7 +281,7 @@ const Articles = ({ content, theme }) => {
                         color: theme.palette.zesty.zestyTealWhite,
                         fontWeight: 'bold',
                       }}
-                      href={item.meta.web.uri}
+                      href={item.meta.web?.uri || FillerContent.href}
                     >
                       Learn More <ArrowRightAltIcon />
                     </Link>
@@ -278,7 +306,10 @@ const Articles = ({ content, theme }) => {
                       <Box
                         component="a"
                         sx={{ textDecoration: 'none' }}
-                        href={item.author.data[0].meta.web.uri}
+                        href={
+                          item.author?.data[0].meta.web.uri ||
+                          FillerContent.href
+                        }
                       >
                         <Box
                           sx={{ display: 'flex', gap: 1, alignItems: 'center' }}
@@ -286,7 +317,10 @@ const Articles = ({ content, theme }) => {
                           <Box
                             component="img"
                             sx={{ width: 40, height: 40, borderRadius: '50%' }}
-                            src={item.author.data[0].headshot.data[0].url}
+                            src={
+                              item.author?.data[0].headshot.data[0].url ||
+                              FillerContent.photos[0].src
+                            }
                           />
                           <Typography
                             variant="subtitle1"
@@ -296,7 +330,8 @@ const Articles = ({ content, theme }) => {
                               fontWeight: 'bold',
                             }}
                           >
-                            {item.author.data[0].name}
+                            {item.author?.data[0].name ||
+                              FillerContent.authors[0].name}
                           </Typography>
                         </Box>
                       </Box>
