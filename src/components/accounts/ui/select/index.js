@@ -13,6 +13,7 @@ const Index = ({
         {value}
       </InputLabel> */}
       <NativeSelect
+        variant="standard"
         onClick={() => setdirty(true)}
         value={value}
         onChange={(e) => setterFn(e.target.value)}

@@ -6,16 +6,14 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesApp } from 'views/InstancesApp/InstancesApp';
 import { useRouter } from 'next/router';
-import BasicTable from 'components/accounts/users/BasicTable';
+import { Settings } from 'views/accounts/instances';
 
-export default function Settings() {
+export default function SettingsPage() {
   const [users, setusers] = React.useState([]);
   const [roles, setroles] = React.useState([]);
   const [settings, setsettings] = React.useState([]);
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
-
   const router = useRouter();
-
   const { zuid } = router.query;
 
   const getUsers = async () => {
@@ -27,7 +25,6 @@ export default function Settings() {
   const getSettings = async () => {
     const res = await ZestyAPI.getSettings();
     setsettings(res.data);
-    console.log(res, ':::::::::::::::');
   };
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
@@ -42,13 +39,12 @@ export default function Settings() {
   return (
     <Main>
       <AppBar />
-
-      {/* {JSON.stringify(data)} */}
       <Container>
         {isAuthenticated ? (
-          <InstancesApp>
-            Manager users on instance <BasicTable users={users} roles={roles} />
-          </InstancesApp>
+          <>
+            <InstancesApp />
+            <Settings settings={settings} />
+          </>
         ) : (
           <Login />
         )}

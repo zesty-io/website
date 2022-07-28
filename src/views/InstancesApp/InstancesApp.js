@@ -65,6 +65,7 @@ const Index = ({ children }) => {
           ))}
       </Tabs>
       {tabValue == '' ? <InstanceOverview /> : children}
+      {/* {children} */}
     </Box>
   );
 };
