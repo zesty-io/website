@@ -28,6 +28,8 @@ const MainApps = () => {
 
   const { entities, isSearching } = useContext(MarketplaceContext);
 
+  console.log(entities);
+
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
   return (

@@ -229,6 +229,17 @@ const Extension = (props) => {
                         component: 'p',
                       },
                     },
+                    img: {
+                      component: Box,
+                      props: {
+                        component: 'img',
+                        sx: {
+                          width: '100%',
+                          maxWidth: 900,
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
+                      },
+                    },
                   }}
                 >
                   {props.info || FillerContent.description}
