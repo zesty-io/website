@@ -45,6 +45,7 @@ const getLeadObjectZOHO = (
 ) => {
   let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
+  console.log(acLeadtype);
   // possible values
   // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
   // "Current_CMS": acCMS,
@@ -95,7 +96,7 @@ const postToZOHO = async (payloadJSON) => {
     },
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(() => {
       // google data
       dataLayer.push({ event: 'formCaptureSuccess', value: '1' });
     })
@@ -185,6 +186,7 @@ const subscribeToZoho = async (payload) => {
   )
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       dataLayer.push({ event: 'emailSubscribeSubmitted', value: '1' });
       acSENT = true;
     });
@@ -218,6 +220,7 @@ function StandardFormWithSelect({
 }) {
   const theme = useTheme();
 
+  console.log(hideMessage, defaultMessage, onClickBtn);
   const [open, setOpen] = useState(false);
 
   let inquiryReasons = [

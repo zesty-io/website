@@ -67,6 +67,7 @@ export default function TryFreeButton({
   sx = {},
 }) {
   const theme = useTheme();
+  console.log(theme, mock);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {

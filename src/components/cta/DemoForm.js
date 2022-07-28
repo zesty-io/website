@@ -41,6 +41,7 @@ const validationSchema = yup.object({
 const getLeadObjectZOHO = (obj, roles) => {
   let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
+  console.log(acRole, acLeadtype);
   return {
     First_Name: obj.firstName,
     Last_Name: obj.lastName,
@@ -68,6 +69,8 @@ const Form = ({
   subtitle = 'Missing Text',
   ctaButtonText = 'Missing Text',
 }) => {
+  console.log(eyebrow, title, subtitle);
+  console.log(getLeadObjectZOHO || '');
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -89,6 +92,7 @@ const Form = ({
 
   const { marketers, developers, managers } = state;
   const error = [marketers, developers, managers].filter((v) => v).length !== 2;
+  console.log(error);
   const onSubmit = (values) => {
     console.log(values);
     console.log([marketers, developers, managers]);

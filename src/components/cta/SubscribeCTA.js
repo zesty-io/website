@@ -28,7 +28,7 @@ export default function SubscribeCTA({
       email: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {},
+    onSubmit: () => {},
   });
 
   const handleModal = () => {
@@ -43,6 +43,7 @@ export default function SubscribeCTA({
         )
           .then((res) => res.json())
           .then((data) => {
+            console.log(data);
             dataLayer.push({ event: 'emailSubscribeSubmitted', value: '1' });
             acSENT = true;
           });

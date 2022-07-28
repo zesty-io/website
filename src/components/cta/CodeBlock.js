@@ -16,6 +16,7 @@ export default function CodeBlock({
   const [icon, setIcon] = React.useState('content_copy');
 
   const theme = useTheme('dark');
+  console.log(theme);
   return (
     <Paper
       onMouseEnter={() => setShowCopy(true)}

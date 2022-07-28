@@ -7,7 +7,7 @@ export const SuccessMsg = ({ title = 'Success', action = () => {} }) => {
     title,
     showConfirmButton: true,
     timer: 2500,
-  }).then((e) => action());
+  }).then(() => action());
 };
 
 export const ErrorMsg = ({ text = 'Something went wrong' }) => {
