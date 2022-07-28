@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
@@ -14,10 +14,9 @@ import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
 
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
-import { zestyLink } from 'lib/zestyLink';
 import { getUserAppSID } from 'utils';
 
-import { getCookie, setCookies } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
 
 const Main = ({

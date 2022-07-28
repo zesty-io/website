@@ -8,25 +8,16 @@ import { ComboBox } from 'components/globals/ComboBox';
 import { Button, useMediaQuery } from '@mui/material';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookies } from 'cookies-next';
-import Typography from '@mui/material/Typography';
 import HomeIcon from '@mui/icons-material/Home';
 import Skeleton from '@mui/material/Skeleton';
-import { getUserAppSID } from 'utils';
 import { useZestyStore } from 'store';
 
 export default function AppBar({ url = window.location.pathname }) {
-  const {
-    verifySuccess,
-    instances,
-    userInfo,
-    loading,
-    setworkingInstance,
-    workingInstance,
-  } = useZestyStore((state) => state);
+  const { verifySuccess, instances, userInfo, loading, setworkingInstance } =
+    useZestyStore((state) => state);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = getUserAppSID();
 
   // get param from url to look for instance
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -149,16 +140,17 @@ export default function AppBar({ url = window.location.pathname }) {
                     setCookies={setworkingInstance}
                     instanceZUID={instanceZUID}
                   />
-                  <Box
+                  <Link
                     boxShadow={2}
                     sx={{
                       backgroundColor: theme.palette.common.white,
                       display: 'flex',
                       justifyContent: 'center',
                     }}
+                    href="/profile"
                   >
                     <img src={profileUrl} alt="" height={40} width={40} />
-                  </Box>
+                  </Link>
                 </Box>
               )}
             </Box>

@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MuiMarkdown from 'mui-markdown';
 import useMediaQuery from '@mui/material/useMediaQuery';

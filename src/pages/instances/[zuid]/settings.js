@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@mui/material';
 import AppBar from 'components/console/AppBar';
 import { Container } from '@mui/system';
 import Main from 'layouts/Main';
@@ -7,16 +6,14 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesApp } from 'views/InstancesApp/InstancesApp';
 import { useRouter } from 'next/router';
-import { getCookie } from 'cookies-next';
-import BasicTable from 'components/accounts/users/BasicTable';
+import { Settings } from 'views/accounts/instances';
 
-export default function Settings() {
+export default function SettingsPage() {
   const [users, setusers] = React.useState([]);
   const [roles, setroles] = React.useState([]);
+  const [settings, setsettings] = React.useState([]);
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
-
   const router = useRouter();
-
   const { zuid } = router.query;
 
   const getUsers = async () => {
@@ -25,6 +22,17 @@ export default function Settings() {
     console.log(res);
   };
 
+  const handleGetSettingSuccess = (res) => {
+    setsettings(res.data);
+  };
+  const handleGetSettingError = (err) => {
+    console.log(err);
+  };
+  const getSettings = async () => {
+    const res = await ZestyAPI.getSettings();
+    !res.error && handleGetSettingSuccess(res);
+    res.error && handleGetSettingError(res);
+  };
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
     setroles(res.data);
@@ -32,18 +40,18 @@ export default function Settings() {
   React.useEffect(() => {
     getUsers();
     getInstanceUserRoles();
+    getSettings();
   }, []);
 
   return (
     <Main>
       <AppBar />
-
-      {/* {JSON.stringify(data)} */}
       <Container>
         {isAuthenticated ? (
-          <InstancesApp>
-            Manager users on instance <BasicTable users={users} roles={roles} />
-          </InstancesApp>
+          <>
+            <InstancesApp />
+            <Settings settings={settings} />
+          </>
         ) : (
           <Login />
         )}

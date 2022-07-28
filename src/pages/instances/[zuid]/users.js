@@ -1,5 +1,13 @@
 import React from 'react';
-import { Paper, Box, Tab, Table, Typography, TableRow, TableCell, TableHead } from '@mui/material';
+import {
+  Paper,
+  Box,
+  Table,
+  Typography,
+  TableRow,
+  TableCell,
+  TableHead,
+} from '@mui/material';
 import AppBar from 'components/console/AppBar';
 import { Container } from '@mui/system';
 import Main from 'layouts/Main';
@@ -48,21 +56,19 @@ export default function Users() {
             <Table component={Paper}>
               <TableHead>
                 <TableRow>
-                    <TableCell>Role Name</TableCell>
-                    <TableCell>Role ZUID</TableCell>
-                    <TableCell>Role ID</TableCell>
+                  <TableCell>Role Name</TableCell>
+                  <TableCell>Role ZUID</TableCell>
+                  <TableCell>Role ID</TableCell>
                 </TableRow>
               </TableHead>
-              {baseroles.map(role =>
+              {baseroles.map((role) => (
                 <TableRow>
                   <TableCell>{role.name}</TableCell>
                   <TableCell>{role.ZUID}</TableCell>
                   <TableCell>{role.accessLevel}</TableCell>
                 </TableRow>
-              )}
-              
+              ))}
             </Table>
-
           </InstancesApp>
         ) : (
           <Login />

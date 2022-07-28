@@ -2,7 +2,7 @@
   "name": "zesty-website",
   "author": "Zesty.io Platform Inc.",
   "email": "marketing@zesty.io",
-  "version": "4.6.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
@@ -18,7 +18,14 @@
     "prepare:dev": "chmod ug+x .husky/*",
     "prepare": "husky install && npm run prepare:dev",
     "test": "jest --forceExit",
-    "dev-test": "jest --watch --silent"
+    "dev-test": "jest --watch --silent",
+    "fix-lint": "eslint . --ext=js --fix",
+    "commit": " git add . && cz",
+    "check-types": "tsc --pretty --noEmit",
+    "check-format": "prettier --check .",
+    "check-lint": "eslint . --ext ts --ext tsx --ext js",
+    "format": "prettier --write .",
+    "test-all": "npm run check-format && npm run check-lint "
   },
   "eslintConfig": {
     "extends": [
@@ -47,10 +54,12 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.1",
     "@mui/material": "^5.6.1",
+    "@sweetalert2/theme-material-ui": "^5.0.11",
     "@zesty-io/live-editor": "^2.0.22",
     "aos": "^2.3.4",
     "card-validator": "^8.1.1",
     "cookies-next": "^2.0.4",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "formik": "^2.2.6",
     "fuse.js": "^6.6.2",
     "himalaya": "^1.1.0",
@@ -73,12 +82,16 @@
     "react-window": "^1.8.7",
     "shortid": "^2.2.16",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.4.24",
+    "sweetalert2-react-content": "^4.2.0",
     "tape": "^5.5.3",
     "tape-async": "^2.3.0",
     "yup": "^0.32.11",
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.5",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
@@ -87,11 +100,17 @@
     "babel-plugin-styled-components": "^2.0.7",
     "colortape": "^0.1.2",
     "cross-env": "^7.0.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.20.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.30.1",
     "husky": "^8.0.1",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^28.1.2",
     "jest-environment-jsdom": "^28.1.2",
-    "prettier": "^2.6.2",
+    "prettier": "2.7.1",
     "prettier-eslint": "^13.0.0",
     "prettier-eslint-cli": "^5.0.0",
     "rimraf": "^3.0.2",
@@ -100,9 +119,9 @@
   "engines": {
     "node": ">=16"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run build"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }

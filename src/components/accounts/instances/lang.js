@@ -10,10 +10,10 @@ export const lang = {
       webhooks: 'Webhooks',
       settings: 'Settings',
       billing: 'Billing',
-      locales: 'Locales'
+      locales: 'Locales',
     },
     helpers: {
-      domainInfo: `domains do this and that`
-    } 
-  }
-}
+      domainInfo: `domains do this and that`,
+    },
+  },
+};

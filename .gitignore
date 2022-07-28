@@ -32,5 +32,3 @@ yarn-error.log*
 .env
 
 .eslintcache
-.vscode
-src/views/DashboardApp/Dashboard.js

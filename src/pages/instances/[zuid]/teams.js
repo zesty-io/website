@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import AppBar from 'components/console/AppBar';
 import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
@@ -41,7 +41,8 @@ export default function Users() {
       <Container>
         {isAuthenticated ? (
           <InstancesApp>
-            Manager users on instance <BasicTable users={users ? users : []} roles={roles} />
+            Manager users on instance{' '}
+            <BasicTable users={users ? users : []} roles={roles} />
           </InstancesApp>
         ) : (
           <Login />

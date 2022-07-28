@@ -10,7 +10,7 @@ import ThemeModeToggler from './ThemeModeToggler';
 const TopNav = ({ nav, colorInvert = false }) => {
   const router = useRouter();
 
-  //check if page is from ppc or capterra for hiding of footer and nav
+  // check if page is from ppc or capterra for hiding of footer and nav
   const isPpcShortPage = router.asPath.includes('ppc');
   const isCapterraPage = router.asPath.includes('/capterra');
   const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
