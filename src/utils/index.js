@@ -1,5 +1,4 @@
 import { getCookie } from 'cookies-next';
-console.log(123);
 
 const removeEmptyNodes = (nodes) => {
   return nodes.filter((node) => {
