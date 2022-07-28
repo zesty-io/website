@@ -184,7 +184,7 @@ const Articles = ({ content, theme }) => {
   const articles = [...content.related_articles.data];
 
   return (
-    <Box sx={{}} component="section">
+    <Box component="section">
       <Container>
         <Box
           sx={{
