@@ -18,7 +18,8 @@
     "prepare:dev": "chmod ug+x .husky/*",
     "prepare": "husky install && npm run prepare:dev",
     "test": "jest --forceExit",
-    "dev-test": "jest --watch --silent"
+    "dev-test": "jest --watch --silent",
+    "commit": " git add . && cz"
   },
   "eslintConfig": {
     "extends": [
@@ -92,6 +93,7 @@
     "babel-plugin-styled-components": "^2.0.7",
     "colortape": "^0.1.2",
     "cross-env": "^7.0.2",
+    "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.1",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^28.1.2",
@@ -105,9 +107,9 @@
   "engines": {
     "node": ">=16"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run build"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
