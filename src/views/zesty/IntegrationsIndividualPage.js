@@ -624,6 +624,7 @@ const SimpleHeroWithCta = ({
   description,
   primaryCta,
   secondaryCTA,
+  secondaryLink,
   onClick,
   videoUrl,
   videoHeader,
@@ -716,6 +717,16 @@ const SimpleHeroWithCta = ({
           fill={theme.palette.background.paper}
           d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
         ></path>
+      </Box>
+
+      <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+        <TryFreeButton
+          text={primaryCta || FillerContent.cta}
+          variant="contained"
+        />
+        <Button component="a" href={secondaryLink}>
+          {secondaryCTA || FillerContent.cta}
+        </Button>
       </Box>
     </Container>
   );
@@ -845,6 +856,8 @@ function IntegrationsIndividualPage({ content }) {
       .scrollIntoView({ behavior: 'smooth' });
   };
 
+  console.log(content);
+
   return (
     <>
       {/* HERO */}
@@ -852,8 +865,12 @@ function IntegrationsIndividualPage({ content }) {
         <SimpleHeroWithCta
           title={content.hero_h1 || FillerContent.header}
           description={content.hero_description || FillerContent.description}
-          primaryCta={content.hero_cta_primary_text || FillerContent.cta}
-          secondaryCTA={content.hero_cta_secondary_text || FillerContent.cta}
+          primaryCta={content.cta_primary_text || FillerContent.cta}
+          secondaryCTA={content.cta_secondary_text || FillerContent.cta}
+          secondaryLink={
+            content.secondary_cta_link.data[0].meta.web.uri ||
+            FillerContent.href
+          }
           onClick={scrollToContactUs}
           videoUrl={content.video_link || FillerContent.videoUrl}
           videoHeader={content.video_header}
