@@ -26,7 +26,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
 
   return (
     <Container>
-      <Box sx={{ padding: isMobile ? '1rem 0' : '5rem 0' }}>
+      <Box sx={{ py: '1rem' }}>
         <Box marginBottom={4}>
           {title && (
             <Typography
@@ -36,6 +36,7 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
               component={'h3'}
               fontWeight={700}
               fontSize={'24px'}
+              color={theme.palette.zesty.zestyZambezi}
             >
               {title}
             </Typography>
