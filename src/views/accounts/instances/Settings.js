@@ -154,6 +154,7 @@ export const Settings = ({ settings = [] }) => {
         <Button
           color="primary"
           variant="contained"
+          disabled={arrToSubmit.length === 0 ? true : false}
           onClick={() =>
             updateSettings(
               helper.removeDupsInArrObj(arrToSubmit, 'keyFriendly'),
