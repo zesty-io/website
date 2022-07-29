@@ -1,16 +1,12 @@
 import React from 'react';
-import {
-  Box,
-  Button,
-  TextareaAutosize,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import {
   AccountsSelect,
+  AccountsTextArea,
   AccountTextfield,
   SettingsSelect,
   StickyTable,
+  SuccessMsg,
 } from 'components/accounts';
 import * as helper from 'utils';
 import { useZestyStore } from 'store';
@@ -34,21 +30,6 @@ const COLUMNS = [
   },
 ];
 
-const AccountsTextAre = ({ handleAdd }) => {
-  const handleChange = (event) => {
-    handleAdd(event.target.value);
-  };
-
-  return (
-    <TextareaAutosize
-      aria-label="minimum height"
-      minRows={3}
-      placeholder="Minimum 3 rows"
-      style={{ width: 200 }}
-      onChange={handleChange}
-    />
-  );
-};
 const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
   const { dataType, options } = data;
 
@@ -63,41 +44,34 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
   switch (dataType) {
     case 'checkbox':
       return (
-        <Box>
-          type: {dataType}
+        <>
           <SettingsSelect options={OPTIONS} handleAdd={handleAdd} />
-        </Box>
+        </>
       );
     case 'text':
       return (
         <>
-          type: {dataType}
           <AccountTextfield handleAdd={handleAdd} />
         </>
       );
     case 'dropdown':
       return (
         <>
-          type: {dataType}
           <SettingsSelect options={OPTIONS} handleAdd={handleAdd} />
         </>
       );
     case 'textarea':
       return (
         <>
-          type: {dataType}
-          <AccountsTextAre handleAdd={handleAdd} />
+          <AccountsTextArea handleAdd={handleAdd} />
         </>
       );
 
     default:
       return (
-        <input
-          type="checkbox"
-          id="vehicle1"
-          name="vehicle1"
-          value="Bike"
-        ></input>
+        <>
+          <SettingsSelect options={OPTIONS} handleAdd={handleAdd} />
+        </>
       );
   }
 };
@@ -151,12 +125,14 @@ export const Settings = ({ settings = [] }) => {
   });
 
   const updateSettings = async (data) => {
-    await Promise.all(
-      data.map(async (e) => {
-        const res = await ZestyAPI.updateSetting(e.ZUID, e);
-        console.log(res, 'Result');
-      }),
-    );
+    const dataToUpdate = data?.map(async (e) => {
+      const res = await ZestyAPI.updateSetting(e.ZUID, e);
+      console.log(res, 'Result');
+    });
+
+    await Promise.all(dataToUpdate);
+    await SuccessMsg({ title: 'Success' });
+    await setarrToSubmit([]);
   };
   return (
     <Box>
