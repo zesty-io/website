@@ -188,3 +188,11 @@ export const generateUniqDropdown = ({ data, property = 'category' }) => {
     );
   return dropdownList;
 };
+
+export const removeDupsInArrObj = (arr, property) =>
+  Object.values(
+    arr.reduce((acum, item) => {
+      acum[item[property]] = item;
+      return acum;
+    }, {}),
+  );
