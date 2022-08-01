@@ -28,21 +28,31 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import Hero from 'components/marketing/Scholarship/Hero';
+import { LogoGridSimpleCentered } from 'blocks/logoGrid';
 
-function Scholarship({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+import FillerContent from 'components/globals/FillerContent';
+import Content from 'components/marketing/Scholarship/Content';
+import SimpleLeftAligned from 'blocks/features/SimpleLeftAligned';
+import JobListing from 'components/marketing/Scholarship/JobListing';
+
+function Scholarship({ content }) {
+  console.log(content);
+  return (
+    <>
+      {/* <Hero
+        page_title={content.page_title}
+        eyebrow_content={content.eyebrow_content}
+      />
+      <LogoGridSimpleCentered
+        title={content.logos_h3 || FillerContent.description}
+        imageCollection={content.logos?.data || [FillerContent.image]}
+      />
+      <Content {...content} />
+      <SimpleLeftAligned {...content} /> */}
+      <JobListing {...content} />
+    </>
+  );
 }
-  
+
 export default Scholarship;
