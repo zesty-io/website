@@ -34,12 +34,13 @@ import { LogoGridSimpleCentered } from 'blocks/logoGrid';
 import FillerContent from 'components/globals/FillerContent';
 import Content from 'components/marketing/Scholarship/Content';
 import SimpleLeftAligned from 'blocks/features/SimpleLeftAligned';
+import JobListing from 'components/marketing/Scholarship/JobListing';
 
 function Scholarship({ content }) {
   console.log(content);
   return (
     <>
-      <Hero
+      {/* <Hero
         page_title={content.page_title}
         eyebrow_content={content.eyebrow_content}
       />
@@ -48,7 +49,8 @@ function Scholarship({ content }) {
         imageCollection={content.logos?.data || [FillerContent.image]}
       />
       <Content {...content} />
-      <SimpleLeftAligned {...content} />
+      <SimpleLeftAligned {...content} /> */}
+      <JobListing {...content} />
     </>
   );
 }
