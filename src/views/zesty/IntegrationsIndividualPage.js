@@ -313,54 +313,58 @@ const HeroWithIllustrationAndSearchBar = ({
     </Container>
   );
 };
-const ContactUs = ({ title, description, content, isMobile }) => {
+const ContactUs = ({
+  title,
+  description,
+  content,
+  isMobile,
+  primaryCta,
+  secondaryCTA,
+  secondaryLink,
+}) => {
   const theme = useTheme();
 
   return (
-    <Box
-      sx={{
-        // background: theme.palette.common.white,
-        paddingTop: '3rem',
-        paddingBottom: '1rem',
-        borderRadius: '15px',
-        paddingX: isMobile ? '1rem' : '3rem',
-      }}
-      maxWidth={600}
-      margin={'0 auto'}
-    >
+    <>
       <Box
-        display="block"
-        sx={{ width: isMobile ? 'auto' : '33vw' }}
-        marginX={'auto'}
+        sx={{
+          // background: theme.palette.common.white,
+          paddingTop: '3rem',
+          paddingBottom: '1rem',
+          borderRadius: '15px',
+        }}
+        maxWidth={600}
+        margin={'0 auto'}
       >
-        <Typography
-          variant="h4"
-          color={theme.palette.common.white}
-          textAlign="center"
-          gutterBottom
-          sx={{
-            fontWeight: 700,
-          }}
-        >
-          {title}
-        </Typography>
-        <Typography
-          variant="h6"
-          component="p"
-          paddingY={4}
-          color={theme.palette.common.white}
-          sx={{ fontWeight: 400 }}
-          align={'center'}
-        >
-          {description}
-        </Typography>
-        <CodeBlock
-          bgcolor={theme.palette.zesty.zestyOrange}
-          fontSize="14px"
-          color={theme.palette.common.white}
-        />
-      </Box>
-      {/* <CtaSimpleCentered
+        <Box display="block" marginX={'auto'}>
+          <Typography
+            variant="h4"
+            color={theme.palette.common.white}
+            textAlign="center"
+            gutterBottom
+            sx={{
+              fontWeight: 700,
+            }}
+          >
+            {title}
+          </Typography>
+          <Typography
+            variant="h6"
+            component="p"
+            paddingY={4}
+            color={theme.palette.common.white}
+            sx={{ fontWeight: 400 }}
+            align={'center'}
+          >
+            {description}
+          </Typography>
+          <CodeBlock
+            bgcolor={theme.palette.zesty.zestyOrange}
+            fontSize="14px"
+            color={theme.palette.common.white}
+          />
+        </Box>
+        {/* <CtaSimpleCentered
         headerColor={theme.palette.common.white}
         ctaTitle={title || FillerContent.header}
         description={description || FillerContent.description}
@@ -368,7 +372,25 @@ const ContactUs = ({ title, description, content, isMobile }) => {
         ctaRight={'Arrange a guided demo'}
         ctaRightHref="/demos"
       /> */}
-    </Box>
+      </Box>
+      <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+        <TryFreeButton
+          sx={{ width: '100%', maxWidth: 200 }}
+          fullWidth
+          text={primaryCta || FillerContent.cta}
+          variant="contained"
+        />
+        <Button
+          sx={{ width: '100%', maxWidth: 200 }}
+          variant="contained"
+          color="secondary"
+          component="a"
+          href={secondaryLink}
+        >
+          {secondaryCTA || FillerContent.cta}
+        </Button>
+      </Box>
+    </>
   );
 };
 
@@ -721,10 +743,18 @@ const SimpleHeroWithCta = ({
 
       <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
         <TryFreeButton
+          sx={{ width: '100%', maxWidth: 200 }}
+          fullWidth
           text={primaryCta || FillerContent.cta}
           variant="contained"
         />
-        <Button component="a" href={secondaryLink}>
+        <Button
+          sx={{ width: '100%', maxWidth: 200 }}
+          variant="contained"
+          color="secondary"
+          component="a"
+          href={secondaryLink}
+        >
           {secondaryCTA || FillerContent.cta}
         </Button>
       </Box>
@@ -754,7 +784,13 @@ const BgDecorations = ({ theme }) => {
   );
 };
 
-const ContactUsForm = ({ theme, content }) => {
+const ContactUsForm = ({
+  theme,
+  content,
+  primaryCta,
+  secondaryCTA,
+  secondaryLink,
+}) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
@@ -795,6 +831,9 @@ const ContactUsForm = ({ theme, content }) => {
         }}
       >
         <ContactUs
+          primaryCta={primaryCta}
+          secondaryCTA={secondaryCTA}
+          secondaryLink={secondaryLink}
           title={content.form_title || FillerContent.header}
           description={content.form_description || FillerContent.description}
           content={content}
@@ -878,10 +917,7 @@ function IntegrationsIndividualPage({ content }) {
       </Box>
 
       {/* Platform Description */}
-      <Box
-        marginTop={isMobile ? 20 : 45}
-        bgcolor={theme.palette.zesty.zestyDarkBlue}
-      >
+      <Box marginTop={45} bgcolor={theme.palette.zesty.zestyDarkBlue}>
         <VideoPlayer
           videoHeader={content.video_header}
           videoUrl={content.video_link || FillerContent.videoUrl}
@@ -1011,7 +1047,15 @@ function IntegrationsIndividualPage({ content }) {
       </Box>
 
       {/* Form */}
-      <ContactUsForm theme={theme} content={content} />
+      <ContactUsForm
+        primaryCta={content.cta_primary_text || FillerContent.cta}
+        secondaryCTA={content.cta_secondary_text || FillerContent.cta}
+        secondaryLink={
+          content.secondary_cta_link.data[0].meta.web.uri || FillerContent.href
+        }
+        theme={theme}
+        content={content}
+      />
     </>
   );
 }
