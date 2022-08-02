@@ -28,31 +28,10 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import Hero from 'components/marketing/Scholarship/Hero';
-import { LogoGridSimpleCentered } from 'blocks/logoGrid';
-
-import FillerContent from 'components/globals/FillerContent';
-import Content from 'components/marketing/Scholarship/Content';
-import SimpleLeftAligned from 'blocks/features/SimpleLeftAligned';
 import JobListing from 'components/marketing/Scholarship/JobListing';
 
 function Scholarship({ content }) {
-  console.log(content);
-  return (
-    <>
-      {/* <Hero
-        page_title={content.page_title}
-        eyebrow_content={content.eyebrow_content}
-      />
-      <LogoGridSimpleCentered
-        title={content.logos_h3 || FillerContent.description}
-        imageCollection={content.logos?.data || [FillerContent.image]}
-      />
-      <Content {...content} />
-      <SimpleLeftAligned {...content} /> */}
-      <JobListing {...content} />
-    </>
-  );
+  return <JobListing {...content} />;
 }
 
 export default Scholarship;
