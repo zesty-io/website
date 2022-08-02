@@ -1,11 +1,21 @@
 import React from 'react';
-import { Tabs, Tab, Box } from '@mui/material';
+import { Tabs, Tab, Box, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
 import { instanceTabs } from 'components/accounts/instances/tabs';
 import { lang } from 'components/accounts/instances/lang';
+import ListSubheader from '@mui/material/ListSubheader';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+// import Collapse from '@mui/material/Collapse';
+import SendIcon from '@mui/icons-material/Send';
+// import ExpandLess from '@mui/icons-material/ExpandLess';
+// import ExpandMore from '@mui/icons-material/ExpandMore';
+// import StarBorder from '@mui/icons-material/StarBorder';
 
 const Index = ({ children }) => {
   const langcode = 'en';
@@ -43,7 +53,14 @@ const Index = ({ children }) => {
 
   return (
     <Box>
-      <InstanceHeader instance={instance} />
+      <Grid container>
+        <Grid item>
+          <InstanceHeader instance={instance} />
+          <InstanceNavigation />
+        </Grid>
+        <Grid item></Grid>
+      </Grid>
+      
       {currentPage}
       <Tabs
         value={tabValue}
@@ -67,4 +84,24 @@ const Index = ({ children }) => {
     </Box>
   );
 };
+
+
+function InstanceNavigation() {
+  return (<List
+    sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+    component="nav"
+    aria-labelledby="nested-list-subheader"
+    subheader={
+      <ListSubheader component="div" id="nested-list-subheader">
+        Nested List Items
+      </ListSubheader>
+    }
+  > <ListItemButton>
+    <ListItemIcon>
+      <SendIcon />
+    </ListItemIcon>
+    <ListItemText primary="Sent mail" />
+  </ListItemButton>
+  </List>);
+}
 export const InstancesApp = React.memo(Index);

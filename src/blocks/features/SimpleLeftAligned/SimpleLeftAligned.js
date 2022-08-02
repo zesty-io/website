@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
+import FillerContent from 'components/globals/FillerContent';
 
 const mock = [
   {
@@ -78,30 +79,19 @@ const mock = [
   },
 ];
 
-const SimpleLeftAligned = () => {
+const SimpleLeftAligned = ({ application_header, application_content }) => {
   const theme = useTheme();
   return (
     <Container>
       <Box>
         <Box marginBottom={4}>
           <Typography
-            sx={{
-              textTransform: 'uppercase',
-              fontWeight: 'medium',
-            }}
-            gutterBottom
-            color={'secondary'}
-            align={'center'}
-          >
-            Process
-          </Typography>
-          <Typography
             variant={'h4'}
             gutterBottom
             align={'center'}
             sx={{ fontWeight: 700 }}
           >
-            Our process to find you a new job is fast
+            {application_header || FillerContent.header}
           </Typography>
           <Typography
             variant={'h6'}
@@ -109,11 +99,11 @@ const SimpleLeftAligned = () => {
             color={'text.secondary'}
             align={'center'}
           >
-            Fill out our standardized application on our platform.
-            <br />
-            Most applicants finish in under an hour.
+            {application_content || FillerContent.description}
           </Typography>
-          <Box marginTop={3} display={'flex'} justifyContent={'center'}>
+
+          {/* Hide search buttons */}
+          {/* <Box marginTop={3} display={'flex'} justifyContent={'center'}>
             <Button
               variant="contained"
               color="primary"
@@ -138,7 +128,7 @@ const SimpleLeftAligned = () => {
             >
               Start searching
             </Button>
-          </Box>
+          </Box> */}
         </Box>
         <Box>
           <Grid container spacing={4}>
