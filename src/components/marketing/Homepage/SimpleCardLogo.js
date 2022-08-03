@@ -1,14 +1,13 @@
 import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
+import Container from 'blocks/container/Container';
 
 const SimpleCardLogo = ({ content, FillerContent }) => {
-  console.log('Test', content.homepage_logos);
   return (
-    <Box sx={{ width: ' 100%', maxWidth: 1500, margin: 'auto', px: 4 }}>
+    <Container>
       <Card>
         <CardContent>
           <Box
             sx={{
-              py: 1,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-around',
@@ -17,7 +16,7 @@ const SimpleCardLogo = ({ content, FillerContent }) => {
             }}
           >
             {content.homepage_logos.data.map((item) => (
-              <Box>
+              <Box sx={{ display: 'flex' }}>
                 <Box
                   component="img"
                   src={
@@ -29,7 +28,7 @@ const SimpleCardLogo = ({ content, FillerContent }) => {
           </Box>
         </CardContent>
       </Card>
-    </Box>
+    </Container>
   );
 };
 

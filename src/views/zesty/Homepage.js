@@ -30,48 +30,45 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
-import Box from '@mui/material/Box';
+/**
+ * MUI Imports
+ */
 import { useTheme } from '@mui/material/styles';
-import HeroWithIllustrationAndCta from 'blocks/heroes/HeroWithIllustrationAndCta/HeroWithIllustrationAndCta';
-import WithSwiperAndBrandBackgroundColor from 'blocks/logoGrid/WithSwiperAndBrandBackgroundColor';
-import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
-import WithOverlappedCards from 'blocks/team/WithOverlappedCards';
-import ReviewsWithSimpleBoxes from 'blocks/testimonials/ReviewsWithSimpleBoxes';
-import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
-import CtaWithInputField from 'blocks/cta/CtaWithInputField';
-import Stories from 'blocks/portfolioGrid/Stories/Stories';
-import Container from 'components/Container';
+import useMediaQuery from '@mui/material/useMediaQuery';
+/**
+ * Components Imports
+ */
+import Hero from 'components/marketing/Homepage/Hero';
+import SimpleCardLogo from 'components/marketing/Homepage/SimpleCardLogo';
+
+// Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
-import useFetch from 'components/hooks/useFetch';
+import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
+import NewBenefits from 'components/marketing/Homepage/NewBenefits';
 
 function Homepage({ content }) {
   const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
 
-  //  const { data: reviewsData, isPending: reviewPending  } = useFetch(`/-/reviews.json`);
-  const { data: allArticles, isPending: articlesPending, error } = useFetch(
-    `/-/all-articles-hydrated.json?limit=3`,
-    content.zestyProductionMode,
-  );
-
-  let image_url = content?.zesty_benefits_image
-    ? content.zesty_benefits_image.data[0].url
-    : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
-  const heroProps = {
-    title: content.title,
-    description: content.content || '',
-    subtitle: content.simple_intro_text,
-    image: content.main_image?.data[0].url || FillerContent.image,
-    button_left_text: content.hero_button_left || FillerContent.header,
-
-    button_left_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
-    hero_button_right: content.hero_button_right || FillerContent.header,
-    button_right_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
+  const pageData = {
+    theme,
+    isMedium,
+    isDarkMode,
+    content,
+    FillerContent,
   };
 
-  return <>Test</>;
+  console.log(content);
+
+  return (
+    <>
+      <Hero {...pageData} />
+      <SimpleCardLogo {...pageData} />
+      <DigitalExperience {...pageData} />
+      <NewBenefits {...pageData} />
+    </>
+  );
 }
 
 export default Homepage;

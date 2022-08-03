@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Container, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import DemoCta from 'components/cta/DemoCta';
 import MuiMarkdown from 'mui-markdown';
@@ -12,7 +12,7 @@ import MuiMarkdown from 'mui-markdown';
  */
 import heroBackground from '../../../../public/assets/images/homepage/hero_background.svg';
 
-const Hero = ({ content, FillerContent, theme, middle_cta_button_text }) => {
+const Hero = ({ content, FillerContent, theme, isMedium }) => {
   return (
     <>
       <Box
@@ -37,8 +37,17 @@ const Hero = ({ content, FillerContent, theme, middle_cta_button_text }) => {
             px: 4,
           }}
         >
-          <Grid container spacing={2}>
-            <Grid item sm={12} md={6}>
+          <Grid container spacing={3.5}>
+            <Grid
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}
+              item
+              sm={12}
+              md={6}
+            >
               <MuiMarkdown
                 overrides={{
                   h1: {
@@ -47,7 +56,7 @@ const Hero = ({ content, FillerContent, theme, middle_cta_button_text }) => {
                       component: 'h1',
                       variant: 'h3',
                       sx: {
-                        fontWeight: 'bold',
+                        fontWeight: 900,
                         color: theme.palette.common.white,
                       },
                     },
@@ -70,14 +79,33 @@ const Hero = ({ content, FillerContent, theme, middle_cta_button_text }) => {
                   FillerContent.rich_text}
               </MuiMarkdown>
 
-              <Box sx={{ mt: 4, display: 'flex', gap: 2 }}>
+              <Box
+                sx={{
+                  mt: 4,
+                  display: 'flex',
+                  flexDirection: isMedium ? 'column' : 'row',
+                  gap: 2,
+                }}
+              >
                 <TryFreeButton
-                  text={middle_cta_button_text || FillerContent.cta}
-                  variant="contained"
+                  text={content.hero_button_left || FillerContent.cta}
+                  variant="outline"
+                  fullWidth={isMedium}
+                  sx={{
+                    color: theme.palette.zesty.zestyOrange,
+                    background: 'white',
+                    fontWeight: 'bold',
+                    borderRadius: 1,
+                  }}
                 />
                 <DemoCta
-                  text="Get started"
-                  sx={{ color: theme.palette.common.white, fontWeight: 'bold' }}
+                  fullWidth={isMedium}
+                  href={content.hero_button_right_link?.data[0].meta.web.uri}
+                  text={content.hero_button_right || FillerContent.cta}
+                  sx={{
+                    color: theme.palette.common.white,
+                    fontWeight: 'bold',
+                  }}
                 />
               </Box>
             </Grid>
@@ -87,7 +115,7 @@ const Hero = ({ content, FillerContent, theme, middle_cta_button_text }) => {
                   sx={{ width: '100%', maxWidth: 846 }}
                   component="img"
                   src={
-                    content.header_graphic?.data[0].src ||
+                    content.header_graphic?.data[0].url ||
                     FillerContent.photos[0].src
                   }
                 />
