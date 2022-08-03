@@ -21,6 +21,7 @@ const MainCard = ({
   meta_description,
   available,
   recommended,
+  meta,
 }) => {
   /**
    * Theme Settings
@@ -31,7 +32,7 @@ const MainCard = ({
   return (
     <Box
       component={'a'}
-      href={uri || FillerContent.href}
+      href={uri || meta.web.uri || FillerContent.href}
       sx={{
         textDecoration: 'none',
         background: 'red',
@@ -44,7 +45,7 @@ const MainCard = ({
           },
           width: '100%',
           margin: 'auto',
-          minHeight: 260,
+          minHeight: 300,
           display: 'flex',
           position: 'relative',
           alignItems: 'center',
@@ -144,7 +145,9 @@ const MainCard = ({
                   variant="body1"
                   component="p"
                 >
-                  {meta_description || FillerContent.description}
+                  {meta_description ||
+                    meta.web.seo_meta_description ||
+                    FillerContent.description}
                 </Typography>
 
                 {recommended == 1 && (

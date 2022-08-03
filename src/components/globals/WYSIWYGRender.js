@@ -15,6 +15,11 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
   }
 
   let inlineStyles = `
+        p iframe {
+          width: 100%;
+          maxWidth: 900px;
+          height: 400px;
+        }
         .wysiwyg ul {
             padding-left: 0px;
             margin-left: 0px;
