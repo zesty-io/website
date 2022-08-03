@@ -15,8 +15,8 @@ const SimpleCardLogo = ({ content, FillerContent }) => {
               gap: 4,
             }}
           >
-            {content.homepage_logos.data.map((item) => (
-              <Box sx={{ display: 'flex' }}>
+            {content.homepage_logos.data.map((item, index) => (
+              <Box key={index} sx={{ display: 'flex' }}>
                 <Box
                   component="img"
                   src={

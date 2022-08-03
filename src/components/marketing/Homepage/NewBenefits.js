@@ -5,13 +5,31 @@
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
-import TryFreeButton from 'components/cta/TryFreeButton';
-import Carousel from 'react-material-ui-carousel';
 /**
  * Static Assets Imports
  */
 
+/**
+ * Components Imports
+ */
+// Import Swiper React components
+import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+import DemoCta from 'components/cta/DemoCta';
+
 const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
+  const swiper = useSwiper();
+  const swiperSlide = useSwiperSlide();
+
+  console.log(swiper);
+  console.log(swiperSlide);
+
   return (
     <Box sx={{ background: theme.palette.zesty.zestyGray99, py: 10 }}>
       <Container>
@@ -47,23 +65,43 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
         </MuiMarkdown>
 
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <TryFreeButton
-            sx={{ mt: 4 }}
-            variant="contained"
+          <DemoCta
+            icon={false}
+            href={content.middle_cta_button_link?.data[0].meta.web.uri}
+            sx={{
+              mt: 4,
+              background: theme.palette.zesty.zestyOrange,
+              color: theme.palette.common.white,
+              '&:hover': {
+                background: theme.palette.zesty.zestyOrange,
+              },
+            }}
             text={content.middle_cta_button_text || FillerContent.href}
           />
         </Box>
 
-        <Box>
-          <Carousel
-            animation="slide"
-            indicators={false}
-            navButtonsAlwaysVisible
+        <Box sx={{ mt: 15 }}>
+          <Swiper
+            loop
+            speed={2000}
+            navigation
+            modules={[Navigation, Pagination]}
+            spaceBetween={10}
+            slidesPerView={3}
+            onSlideChange={() => console.log('slide change')}
+            onSwiper={(swiper) => console.log(swiper)}
           >
-            {[1, 2, 3].map((item) => (
-              <Typography>Test {item}</Typography>
+            {content.zesty_benefits_tiles.data.map((item, index) => (
+              <SwiperSlide style={{ width: 715 }} key={index}>
+                <Box
+                  sx={{ width: '100%', maxWidth: 715, height: 480 }}
+                  component="img"
+                  src={item.benefit_image?.data[0].url}
+                  alt={item.header}
+                />
+              </SwiperSlide>
             ))}
-          </Carousel>
+          </Swiper>
         </Box>
       </Container>
     </Box>

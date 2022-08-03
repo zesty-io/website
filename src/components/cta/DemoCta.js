@@ -8,7 +8,7 @@ import { useTheme } from '@mui/material/styles';
 
 const DemoCta = ({
   text = 'Watch Demo',
-  variant = 'outline',
+
   color = 'white',
   fullWidth = false,
   icon = true,
@@ -20,10 +20,9 @@ const DemoCta = ({
   return (
     <Box>
       <Button
+        variant=""
         sx={sx}
-        fullWidth={fullWidth}
         component="a"
-        variant={variant}
         color={color}
         href={href}
         target={target}
