@@ -71,50 +71,7 @@ function Homepage({ content }) {
       content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
   };
 
-  return (
-    <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <HeroWithIllustrationAndCta {...heroProps} />
-      <WithSwiperAndBrandBackgroundColor logos={content.homepage_logos?.data} />
-      <FeaturesWithIllustration
-        rich_text={content.zesty_benefits}
-        image_url={image_url}
-        wysiwyig_type=""
-      />
-      <Box bgcolor={'alternate.main'}>
-        <Container>
-          <Stories
-            eyeBrow={content.case_studies_eyebrow || FillerContent.header}
-            clientTitle={content.case_studies_header || FillerContent.header}
-            clientInfo={content.case_study_cards?.data || []}
-          />
-        </Container>
-        <ReviewsWithSimpleBoxes
-          header={content.testimonials_content}
-          list={content.testimonials?.data || []}
-        />
-      </Box>
-      {/* Latest Articles */}
-      <Box sx={{ pt: 4 }}>
-        <VerticallyAlignedBlogCardsWithShapedImage
-          title={'Industry Insights'}
-          description={
-            'Stay up-to-date with the latest in digital experience, content management and more.'
-          }
-          ctaBtn={'View More' || FillerContent.cta}
-          ctaUrl="/mindshare/"
-          popularArticles={allArticles || FillerContent.missingDataArray}
-        />
-      </Box>
-      <CtaWithInputField
-        title={'Subscribe to the zestiest newsletter in the industry'}
-        description={
-          'Get the latest from the Zesty team, from whitepapers to product updates.'
-        }
-        cta={'Subscribe'}
-      />
-    </>
-  );
+  return <>Test</>;
 }
 
 export default Homepage;
