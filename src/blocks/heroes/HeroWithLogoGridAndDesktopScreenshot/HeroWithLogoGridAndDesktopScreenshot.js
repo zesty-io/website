@@ -8,14 +8,14 @@ import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
 import MuiMarkdown from 'mui-markdown';
 
 import Container from 'components/Container';
-import { CardMedia } from '@mui/material';
+import FillerContent from 'components/globals/FillerContent';
 
-const Hero = ({ header_title_and_description, video_link }) => {
+const Hero = ({ header_title_and_description, video_link = '' }) => {
   const theme = useTheme();
 
   const link =
     video_link === ''
-      ? 'https://www.youtube.com/embed/0vPVZn9VdWs'
+      ? 'https://www.youtube.com/embed/ScMzIvxBSi4'
       : video_link;
 
   return (
@@ -29,7 +29,7 @@ const Hero = ({ header_title_and_description, video_link }) => {
       <Container sx={{ position: 'relative' }}>
         <Box position={'relative'} zIndex={3}>
           <Grid container spacing={4}>
-            <Grid item container alignItems={'center'} xs={12} md={6}>
+            <Grid item container alignItems={'center'} xs={12} md={5}>
               <Box>
                 <MuiMarkdown
                   overrides={{
@@ -58,33 +58,26 @@ const Hero = ({ header_title_and_description, video_link }) => {
                     },
                   }}
                 >
-                  {header_title_and_description}
+                  {header_title_and_description || FillerContent.description}
                 </MuiMarkdown>
               </Box>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <Box
-                sx={{
-                  position: 'relative',
-                  marginX: 'auto',
-                  perspective: 1500,
-                  transformStyle: 'preserve-3d',
-                  perspectiveOrigin: 0,
-                }}
-              >
+            <Grid item xs={12} md={7}>
+              <Box sx={{}}>
                 <Box
                   sx={{
                     position: 'relative',
                     marginX: 'auto',
+
                     // transform: 'rotateY(-35deg) rotateX(15deg) translateZ(0)',
-                    maxWidth: '96%',
+                    maxWidth: '100%',
                   }}
                 >
                   <iframe
                     style={{
                       width: '100%',
-                      maxWidth: 560,
-                      height: 315,
+                      maxWidth: 900,
+                      height: 390,
                       borderRadius: 10,
                     }}
                     src={link}
