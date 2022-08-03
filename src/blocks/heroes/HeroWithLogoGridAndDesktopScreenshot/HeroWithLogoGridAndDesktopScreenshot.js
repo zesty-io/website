@@ -29,7 +29,7 @@ const Hero = ({ header_title_and_description, video_link = '' }) => {
       <Container sx={{ position: 'relative' }}>
         <Box position={'relative'} zIndex={3}>
           <Grid container spacing={4}>
-            <Grid item container alignItems={'center'} xs={12} md={6}>
+            <Grid item container alignItems={'center'} xs={12} md={5}>
               <Box>
                 <MuiMarkdown
                   overrides={{
@@ -62,29 +62,22 @@ const Hero = ({ header_title_and_description, video_link = '' }) => {
                 </MuiMarkdown>
               </Box>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <Box
-                sx={{
-                  position: 'relative',
-                  marginX: 'auto',
-                  perspective: 1500,
-                  transformStyle: 'preserve-3d',
-                  perspectiveOrigin: 0,
-                }}
-              >
+            <Grid item xs={12} md={7}>
+              <Box sx={{}}>
                 <Box
                   sx={{
                     position: 'relative',
                     marginX: 'auto',
+
                     // transform: 'rotateY(-35deg) rotateX(15deg) translateZ(0)',
-                    maxWidth: '96%',
+                    maxWidth: '100%',
                   }}
                 >
                   <iframe
                     style={{
                       width: '100%',
-                      maxWidth: 560,
-                      height: 315,
+                      maxWidth: 900,
+                      height: 390,
                       borderRadius: 10,
                     }}
                     src={link}
