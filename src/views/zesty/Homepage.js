@@ -65,10 +65,10 @@ function Homepage({ content }) {
     button_left_text: content.hero_button_left || FillerContent.header,
 
     button_left_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
+      content.hero_button_left_link?.data[0]?.url || FillerContent.header,
     hero_button_right: content.hero_button_right || FillerContent.header,
     button_right_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
+      content.hero_button_right_link?.data[0]?.meta.web.uri || FillerContent.header,
   };
 
   return (
