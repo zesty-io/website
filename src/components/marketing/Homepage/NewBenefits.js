@@ -3,6 +3,8 @@
  */
 
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
 /**
@@ -22,12 +24,14 @@ import 'swiper/css/navigation';
 
 import DemoCta from 'components/cta/DemoCta';
 import { useEffect, useState } from 'react';
+import { useTheme } from '@emotion/react';
 
-const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
+const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
   const swiper = useSwiper();
   const swiperSlide = useSwiperSlide();
+  const [activeSlide, setActiveSlide] = useState();
 
-  console.log(swiper);
+  console.info('activeSlide', activeSlide);
 
   return (
     <Box sx={{ background: theme.palette.zesty.zestyGray99, py: 10 }}>
@@ -79,20 +83,32 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
           />
         </Box>
 
-        <Box sx={{ mt: 15 }}>
+        <Box sx={{ mt: 10 }}>
           <Swiper
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+                spaceBetween: 0,
+              },
+              1200: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+            }}
             loop
             speed={2000}
             modules={[Navigation, Pagination]}
-            spaceBetween={10}
-            slidesPerView={3}
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
           >
             {content.zesty_benefits_tiles.data.map((item, index) => (
               <SwiperSlide key={index}>
-                {'index ' + index}
-                <SlideWrapper item={item} index={index}>
+                <SlideWrapper
+                  isLarge={isLarge}
+                  setActiveSlide={setActiveSlide}
+                  item={item}
+                  index={index}
+                >
                   <Box
                     sx={{ width: '100%', maxWidth: 715, height: 480 }}
                     component="img"
@@ -107,37 +123,57 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
               </SwiperSlide>
             ))}
 
-            <SwiperButtonPrev />
-            {content.zesty_benefits_tiles.data.map((item, index) => (
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+                width: '100%',
+                maxWidth: 965,
+                margin: 'auto',
+                mt: isLarge ? 2 : 0,
+              }}
+            >
               <Box>
-                <Typography
-                  variant="h4"
-                  component="h2"
-                  sx={{
-                    color: theme.palette.zesty.zestyDarkText,
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {item.header || FillerContent.description}
-                </Typography>
-                <MuiMarkdown
-                  overrides={{
-                    p: {
-                      component: Typography,
-                      props: {
-                        component: 'p',
-                        variant: 'h6',
-                        color: theme.palette.zesty.zestyZambezi,
-                        mt: 2,
-                      },
-                    },
-                  }}
-                >
-                  {item.benefit_content || FillerContent.description}
-                </MuiMarkdown>
+                <SwiperButtonPrev />
               </Box>
-            ))}
-            <SwiperButtonNext />
+              {
+                <Box>
+                  <Typography
+                    variant="h4"
+                    component="h2"
+                    sx={{
+                      color: theme.palette.zesty.zestyDarkText,
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}
+                  >
+                    {activeSlide?.header || FillerContent.description}
+                  </Typography>
+                  <MuiMarkdown
+                    overrides={{
+                      p: {
+                        component: Typography,
+                        props: {
+                          component: 'p',
+                          variant: 'h6',
+                          color: theme.palette.zesty.zestyZambezi,
+                          sx: {
+                            mt: 2,
+                            textAlign: 'center',
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    {activeSlide?.benefit_content || FillerContent.description}
+                  </MuiMarkdown>
+                </Box>
+              }
+              <Box>
+                <SwiperButtonNext />
+              </Box>
+            </Box>
           </Swiper>
         </Box>
       </Container>
@@ -148,58 +184,87 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
 export default NewBenefits;
 
 const SwiperButtonNext = ({ children }) => {
+  const theme = useTheme();
   const swiper = useSwiper();
 
   return (
     <>
-      <button
+      <Box
+        sx={{
+          width: 38,
+          height: 38,
+          cursor: 'pointer',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: `1px solid ${theme.palette.zesty.zestyZambezi}`,
+          borderRadius: '50%',
+        }}
         onClick={() => {
           swiper.slideNext();
         }}
       >
-        Next
-      </button>
+        <ArrowForwardIosIcon
+          sx={{ width: '100%', color: theme.palette.zesty.zestyZambezi }}
+        />
+      </Box>
     </>
   );
 };
 
 const SwiperButtonPrev = ({ children }) => {
+  const theme = useTheme();
   const swiper = useSwiper();
   return (
     <>
-      <button
+      <Box
+        sx={{
+          width: 38,
+          height: 38,
+          cursor: 'pointer',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: `1px solid ${theme.palette.zesty.zestyZambezi}`,
+          borderRadius: '50%',
+        }}
         onClick={() => {
           swiper.slidePrev();
         }}
       >
-        Prev
-      </button>
+        <ArrowBackIosNewIcon
+          sx={{ width: '100%', color: theme.palette.zesty.zestyZambezi }}
+        />
+      </Box>
     </>
   );
 };
 
-const SlideWrapper = ({ children, item, index }) => {
+const SlideWrapper = ({ children, item, index, setActiveSlide, isLarge }) => {
   const swiperSlide = useSwiperSlide();
-  const [active, setActive] = useState(swiperSlide.isNext ? item : null);
 
   useEffect(() => {
-    setActive(swiperSlide.isNext ? item : null);
+    if (swiperSlide.isNext) {
+      setActiveSlide(item);
+    }
   }, [swiperSlide]);
 
-  // console.log(item);
-  // console.log(index);
-  /* It's logging the swiper slide and the active item. */
-  // console.log('swiperslide', swiperSlide);
-  // console.log('active item', active, index);
+  console.info(isLarge);
 
   return (
     <>
       <Box
         className="new-benefits-slide-wrapper"
         sx={{
+          display: 'flex',
+          justifyContent: 'center',
           img: {
-            opacity: !swiperSlide.isNext ? 0.1 : 1,
-            filter: !swiperSlide.isNext ? 'grayscale(100%)' : 'grayscale(0%)',
+            opacity: isLarge ? 1 : !swiperSlide.isNext ? 0.1 : 1,
+            filter: isLarge
+              ? 'grayscale(0%)'
+              : !swiperSlide.isNext
+              ? 'grayscale(100%)'
+              : 'grayscale(0%)',
             transition: 'opacity 1.5s ease',
           },
           '.slide-description': {

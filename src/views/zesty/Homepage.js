@@ -49,11 +49,13 @@ import NewBenefits from 'components/marketing/Homepage/NewBenefits';
 function Homepage({ content }) {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const pageData = {
     theme,
     isMedium,
+    isLarge,
     isDarkMode,
     content,
     FillerContent,
