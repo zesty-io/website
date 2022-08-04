@@ -4,7 +4,7 @@ import { Container } from '@mui/system';
 import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
-import { InstancesApp } from 'views/InstancesApp/InstancesApp';
+import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 export default function Webhooks() {
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);

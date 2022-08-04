@@ -4,7 +4,7 @@ import AppBar from 'components/console/AppBar';
 import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
-import { InstancesApp } from 'views/InstancesApp/InstancesApp';
+import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import BasicTable from 'components/accounts/users/BasicTable';
 
