@@ -186,7 +186,11 @@ const SlideWrapper = ({ children, item, index }) => {
     setActive(swiperSlide.isNext ? item : null);
   }, [swiperSlide]);
 
-  console.log('active item', active, index);
+  // console.log(item);
+  // console.log(index);
+  /* It's logging the swiper slide and the active item. */
+  // console.log('swiperslide', swiperSlide);
+  // console.log('active item', active, index);
 
   return (
     <>
