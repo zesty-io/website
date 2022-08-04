@@ -31,12 +31,16 @@ const COLUMNS = [
   },
 ];
 
+const OPTIONS = (options, separator) => {
+  const res = options?.split(separator).map((e) => {
+    return { value: e, label: e };
+  });
+  return res;
+};
+
 const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
   const { dataType, options, value } = data;
 
-  const OPTIONS = options?.split(';').map((e) => {
-    return { value: e, label: e };
-  });
   const handleAdd = (value) => {
     data['value'] = value;
     setarrToSubmit([...arrToSubmit, data]);
@@ -48,7 +52,7 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
         <>
           <ColorToggleButton
             value={value}
-            options={OPTIONS}
+            options={OPTIONS(options, ',')}
             handleAdd={handleAdd}
           />
         </>
@@ -69,7 +73,7 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
           <SettingsSelect
             value={value}
             name={data?.keyFriendly}
-            options={OPTIONS}
+            options={OPTIONS(options, ';')}
             handleAdd={handleAdd}
           />
         </>
@@ -88,7 +92,10 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
     default:
       return (
         <>
-          <SettingsSelect options={OPTIONS} handleAdd={handleAdd} />
+          <SettingsSelect
+            options={OPTIONS(options, ',')}
+            handleAdd={handleAdd}
+          />
         </>
       );
   }
