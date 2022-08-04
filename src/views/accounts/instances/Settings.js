@@ -131,7 +131,7 @@ export const Settings = ({ settings = [] }) => {
   const [arrToSubmit, setarrToSubmit] = React.useState([]);
   const { ZestyAPI } = useZestyStore();
   const [search, setsearch] = React.useState('');
-  const [categories, setcategories] = React.useState('general');
+  const [categories, setcategories] = React.useState('');
 
   const data = settings?.filter((e) => {
     if (search || categories) {

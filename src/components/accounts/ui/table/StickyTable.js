@@ -17,6 +17,10 @@ const Index = ({ rows, columns }) => {
     setPage(newPage);
   };
 
+  React.useEffect(() => {
+    setPage(0);
+  }, [rows]);
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
