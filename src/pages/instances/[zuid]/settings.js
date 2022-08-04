@@ -9,8 +9,6 @@ import { useRouter } from 'next/router';
 import { Settings } from 'views/accounts/instances';
 
 export default function SettingsPage() {
-  const [users, setusers] = React.useState([]);
-  const [roles, setroles] = React.useState([]);
   const [settings, setsettings] = React.useState([]);
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
   const router = useRouter();
@@ -18,7 +16,6 @@ export default function SettingsPage() {
 
   const getUsers = async () => {
     const res = await ZestyAPI.getInstanceUsers(zuid);
-    setusers(res.data);
     console.log(res);
   };
 
@@ -35,7 +32,7 @@ export default function SettingsPage() {
   };
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
-    setroles(res.data);
+    console.log(res);
   };
   React.useEffect(() => {
     getUsers();
@@ -49,8 +46,9 @@ export default function SettingsPage() {
       <Container>
         {isAuthenticated ? (
           <>
-            <InstancesApp />
-            <Settings settings={settings} />
+            <InstancesApp>
+              <Settings settings={settings} />
+            </InstancesApp>
           </>
         ) : (
           <Login />

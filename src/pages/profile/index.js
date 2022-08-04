@@ -6,7 +6,7 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { YourProfile } from 'views/accounts/profile/YourProfile';
-import { ProfileTabs } from 'components/accounts/profile/ProfileTabs';
+import { ProfileApp } from 'components/accounts';
 
 export default function Profile() {
   const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
@@ -22,8 +22,9 @@ export default function Profile() {
       <Container>
         {isAuthenticated ? (
           <>
-            <ProfileTabs />
-            <YourProfile />
+            <ProfileApp>
+              <YourProfile />
+            </ProfileApp>
           </>
         ) : (
           <Login />

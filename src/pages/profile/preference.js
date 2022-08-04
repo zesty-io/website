@@ -6,7 +6,7 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { Preference } from 'views/accounts/profile/Preference';
-import { ProfileTabs } from 'components/accounts/profile/ProfileTabs';
+import { ProfileApp } from 'components/accounts';
 
 export default function PreferencePage() {
   const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
@@ -22,8 +22,9 @@ export default function PreferencePage() {
       <Container>
         {isAuthenticated ? (
           <>
-            <ProfileTabs />
-            <Preference />
+            <ProfileApp>
+              <Preference />
+            </ProfileApp>
           </>
         ) : (
           <Login />
