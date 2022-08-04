@@ -17,6 +17,7 @@ const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
         mt: 10,
         py: 10,
         position: 'relative',
+        overflow: 'hidden',
       }}
       component="section"
     >

@@ -45,6 +45,8 @@ import SimpleCardLogo from 'components/marketing/Homepage/SimpleCardLogo';
 import FillerContent from 'components/globals/FillerContent';
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
 import NewBenefits from 'components/marketing/Homepage/NewBenefits';
+import Migration from 'components/marketing/Homepage/Migration';
+import Growth from 'components/marketing/Homepage/Growth';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -69,6 +71,8 @@ function Homepage({ content }) {
       <SimpleCardLogo {...pageData} />
       <DigitalExperience {...pageData} />
       <NewBenefits {...pageData} />
+      <Migration {...pageData} />
+      <Growth {...pageData} />
     </>
   );
 }

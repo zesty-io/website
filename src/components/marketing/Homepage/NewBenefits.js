@@ -1,4 +1,9 @@
 /**
+ * React Imports
+ */
+
+import { useEffect, useState } from 'react';
+/**
  * MUI Imports
  */
 
@@ -7,31 +12,22 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
-/**
- * Static Assets Imports
- */
+import { useTheme } from '@mui/material';
 
 /**
  * Components Imports
  */
-// Import Swiper React components
+
 import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper';
+import DemoCta from 'components/cta/DemoCta';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-import DemoCta from 'components/cta/DemoCta';
-import { useEffect, useState } from 'react';
-import { useTheme } from '@emotion/react';
-
 const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
-  const swiper = useSwiper();
-  const swiperSlide = useSwiperSlide();
   const [activeSlide, setActiveSlide] = useState();
-
-  console.info('activeSlide', activeSlide);
 
   return (
     <Box sx={{ background: theme.palette.zesty.zestyGray99, py: 10 }}>
@@ -83,7 +79,7 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
           />
         </Box>
 
-        <Box sx={{ mt: 10 }}>
+        <Box sx={{ mt: 5 }}>
           <Swiper
             breakpoints={{
               640: {
@@ -248,8 +244,6 @@ const SlideWrapper = ({ children, item, index, setActiveSlide, isLarge }) => {
       setActiveSlide(item);
     }
   }, [swiperSlide]);
-
-  console.info(isLarge);
 
   return (
     <>
