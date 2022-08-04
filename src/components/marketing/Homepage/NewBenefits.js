@@ -19,16 +19,15 @@ import { Navigation, Pagination } from 'swiper';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 import DemoCta from 'components/cta/DemoCta';
+import { useEffect, useState } from 'react';
 
 const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
   const swiper = useSwiper();
   const swiperSlide = useSwiperSlide();
 
   console.log(swiper);
-  console.log(swiperSlide);
 
   return (
     <Box sx={{ background: theme.palette.zesty.zestyGray99, py: 10 }}>
@@ -84,7 +83,6 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
           <Swiper
             loop
             speed={2000}
-            navigation
             modules={[Navigation, Pagination]}
             spaceBetween={10}
             slidesPerView={3}
@@ -92,15 +90,54 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
             onSwiper={(swiper) => console.log(swiper)}
           >
             {content.zesty_benefits_tiles.data.map((item, index) => (
-              <SwiperSlide style={{ width: 715 }} key={index}>
-                <Box
-                  sx={{ width: '100%', maxWidth: 715, height: 480 }}
-                  component="img"
-                  src={item.benefit_image?.data[0].url}
-                  alt={item.header}
-                />
+              <SwiperSlide key={index}>
+                {'index ' + index}
+                <SlideWrapper item={item} index={index}>
+                  <Box
+                    sx={{ width: '100%', maxWidth: 715, height: 480 }}
+                    component="img"
+                    src={item.benefit_image?.data[0].url}
+                    alt={item.header}
+                  />
+                  <Box
+                    className="slide-description"
+                    sx={{ textAlign: 'center', display: 'flex' }}
+                  ></Box>
+                </SlideWrapper>
               </SwiperSlide>
             ))}
+
+            <SwiperButtonPrev />
+            {content.zesty_benefits_tiles.data.map((item, index) => (
+              <Box>
+                <Typography
+                  variant="h4"
+                  component="h2"
+                  sx={{
+                    color: theme.palette.zesty.zestyDarkText,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {item.header || FillerContent.description}
+                </Typography>
+                <MuiMarkdown
+                  overrides={{
+                    p: {
+                      component: Typography,
+                      props: {
+                        component: 'p',
+                        variant: 'h6',
+                        color: theme.palette.zesty.zestyZambezi,
+                        mt: 2,
+                      },
+                    },
+                  }}
+                >
+                  {item.benefit_content || FillerContent.description}
+                </MuiMarkdown>
+              </Box>
+            ))}
+            <SwiperButtonNext />
           </Swiper>
         </Box>
       </Container>
@@ -109,3 +146,65 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium }) => {
 };
 
 export default NewBenefits;
+
+const SwiperButtonNext = ({ children }) => {
+  const swiper = useSwiper();
+
+  return (
+    <>
+      <button
+        onClick={() => {
+          swiper.slideNext();
+        }}
+      >
+        Next
+      </button>
+    </>
+  );
+};
+
+const SwiperButtonPrev = ({ children }) => {
+  const swiper = useSwiper();
+  return (
+    <>
+      <button
+        onClick={() => {
+          swiper.slidePrev();
+        }}
+      >
+        Prev
+      </button>
+    </>
+  );
+};
+
+const SlideWrapper = ({ children, item, index }) => {
+  const swiperSlide = useSwiperSlide();
+  const [active, setActive] = useState(swiperSlide.isNext ? item : null);
+
+  useEffect(() => {
+    setActive(swiperSlide.isNext ? item : null);
+  }, [swiperSlide]);
+
+  console.log('active item', active, index);
+
+  return (
+    <>
+      <Box
+        className="new-benefits-slide-wrapper"
+        sx={{
+          img: {
+            opacity: !swiperSlide.isNext ? 0.1 : 1,
+            filter: !swiperSlide.isNext ? 'grayscale(100%)' : 'grayscale(0%)',
+            transition: 'opacity 1.5s ease',
+          },
+          '.slide-description': {
+            display: !swiperSlide.isNext ? 'none' : 'flex',
+          },
+        }}
+      >
+        {children}
+      </Box>
+    </>
+  );
+};

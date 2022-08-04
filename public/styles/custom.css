@@ -40,17 +40,3 @@ h2 span {
   background-color: #467de322;
   margin-right: 10px;
 }
-
-.swiper-slide-next {
-  width: 550px !important;
-}
-.swiper-slide-next > img {
-  width: 550px !important;
-  opacity: 1 !important;
-  filter: grayscale(0%) !important;
-  transition: filter 1.5s ease;
-}
-.swiper-slide > img {
-  opacity: 0.1;
-  filter: grayscale(100%);
-}
