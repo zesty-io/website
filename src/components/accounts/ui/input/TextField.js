@@ -1,6 +1,6 @@
 const { Box, TextField } = require('@mui/material');
 
-export const AccountTextfield = ({ handleAdd }) => {
+export const AccountTextfield = ({ name, value, handleAdd }) => {
   const handleChange = (event) => {
     handleAdd(event.target.value);
   };
@@ -14,9 +14,10 @@ export const AccountTextfield = ({ handleAdd }) => {
       autoComplete="off"
     >
       <TextField
+        defaultValue={value}
         id="outlined-basic"
         onChange={handleChange}
-        label="Outlined"
+        label={name}
         variant="outlined"
       />
     </Box>

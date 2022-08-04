@@ -1,19 +1,24 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import React from 'react';
 
-export const SettingsSelect = ({ options, handleAdd }) => {
+export const SettingsSelect = ({ value, name, options, handleAdd }) => {
+  const [age, setAge] = React.useState(value);
+
   const handleChange = (event) => {
     handleAdd(event.target.value);
+    setAge(event.target.value);
   };
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">{value || age}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={''}
-          label="Age"
+          value={value || age}
+          defaultValue={value}
+          label={name}
           onChange={handleChange}
         >
           {options?.map((e) => {

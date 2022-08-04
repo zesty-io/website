@@ -4,6 +4,7 @@ import {
   AccountsSelect,
   AccountsTextArea,
   AccountTextfield,
+  ColorToggleButton,
   SettingsSelect,
   StickyTable,
   SuccessMsg,
@@ -31,9 +32,9 @@ const COLUMNS = [
 ];
 
 const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
-  const { dataType, options } = data;
+  const { dataType, options, value } = data;
 
-  const OPTIONS = options?.split(',').map((e) => {
+  const OPTIONS = options?.split(';').map((e) => {
     return { value: e, label: e };
   });
   const handleAdd = (value) => {
@@ -45,25 +46,42 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
     case 'checkbox':
       return (
         <>
-          <SettingsSelect options={OPTIONS} handleAdd={handleAdd} />
+          <ColorToggleButton
+            value={value}
+            options={OPTIONS}
+            handleAdd={handleAdd}
+          />
         </>
       );
     case 'text':
       return (
         <>
-          <AccountTextfield handleAdd={handleAdd} />
+          <AccountTextfield
+            name={data?.keyFriendly}
+            value={value}
+            handleAdd={handleAdd}
+          />
         </>
       );
     case 'dropdown':
       return (
         <>
-          <SettingsSelect options={OPTIONS} handleAdd={handleAdd} />
+          <SettingsSelect
+            value={value}
+            name={data?.keyFriendly}
+            options={OPTIONS}
+            handleAdd={handleAdd}
+          />
         </>
       );
     case 'textarea':
       return (
         <>
-          <AccountsTextArea handleAdd={handleAdd} />
+          <AccountsTextArea
+            name={data?.keyFriendly}
+            value={value}
+            handleAdd={handleAdd}
+          />
         </>
       );
 
