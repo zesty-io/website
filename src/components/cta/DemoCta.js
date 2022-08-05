@@ -30,7 +30,7 @@ const DemoCta = ({
       >
         {text}
         {icon && (
-          <ArrowRightAlt sx={{ color: theme.palette.common.white, ml: 1 }} />
+          <ArrowRightAlt sx={{ ml: 1 }} />
         )}
       </Button>
     </Box>
