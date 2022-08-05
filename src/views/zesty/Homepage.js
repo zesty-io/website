@@ -49,9 +49,12 @@ import Migration from 'components/marketing/Homepage/Migration';
 import Growth from 'components/marketing/Homepage/Growth';
 import CaseStudies from 'components/marketing/Homepage/CaseStudies';
 import Testimonials from 'components/marketing/Homepage/Testimonials';
+import LogoSlider from 'components/marketing/Homepage/LogoSlider';
+import Bottom from 'components/marketing/Homepage/Bottom';
 
 function Homepage({ content }) {
   const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
@@ -59,6 +62,7 @@ function Homepage({ content }) {
 
   const pageData = {
     theme,
+    isSmall,
     isMedium,
     isLarge,
     isExtraLarge,
@@ -79,6 +83,8 @@ function Homepage({ content }) {
       <Growth {...pageData} />
       <CaseStudies {...pageData} />
       <Testimonials {...pageData} />
+      <LogoSlider {...pageData} />
+      <Bottom {...pageData} />
     </>
   );
 }

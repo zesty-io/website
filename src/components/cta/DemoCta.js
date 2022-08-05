@@ -20,6 +20,7 @@ const DemoCta = ({
   return (
     <Box>
       <Button
+        fullWidth={fullWidth}
         variant=""
         sx={sx}
         component="a"
