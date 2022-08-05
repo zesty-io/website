@@ -10,7 +10,7 @@ import MuiMarkdown from 'mui-markdown';
 /**
  * Static Assets Imports
  */
-import heroBackground from '../../../../public/assets/images/homepage/hero_background.svg';
+// import heroBackground from '../../../../public/assets/images/homepage/hero_background.svg';
 
 const Hero = ({ content, FillerContent, theme, isMedium }) => {
   return (
@@ -18,8 +18,8 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
       <Box
         component="section"
         sx={{
-          background: `url(${heroBackground.src})`,
-          height: 955,
+          // background: `url(${heroBackground.src})`,
+          height: 700,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -57,7 +57,7 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
                       variant: 'h3',
                       sx: {
                         fontWeight: 900,
-                        color: theme.palette.common.white,
+                       
                       },
                     },
                   },
@@ -69,7 +69,7 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
                       sx: {
                         fontWeight: 'bold',
                         mt: 2,
-                        color: theme.palette.common.white,
+                        color: theme.palette.text.secondary,
                       },
                     },
                   },
@@ -89,23 +89,20 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
               >
                 <TryFreeButton
                   text={content.hero_button_left || FillerContent.cta}
-                  variant="outline"
+                  variant="contained"
                   fullWidth={isMedium}
-                  sx={{
-                    color: theme.palette.zesty.zestyOrange,
-                    background: 'white',
-                    fontWeight: 'bold',
-                    borderRadius: 1,
-                  }}
+                  // sx={{
+                  //   color: theme.palette.zesty.zestyOrange,
+                  //   background: 'white',
+                  //   fontWeight: 'bold',
+                  //   borderRadius: 1,
+                  // }}
                 />
                 <DemoCta
                   fullWidth={isMedium}
                   href={content.hero_button_right_link?.data[0].meta.web.uri}
                   text={content.hero_button_right || FillerContent.cta}
-                  sx={{
-                    color: theme.palette.common.white,
-                    fontWeight: 'bold',
-                  }}
+                  variant="outlined"
                 />
               </Box>
             </Grid>
