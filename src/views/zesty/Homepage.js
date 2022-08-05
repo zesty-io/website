@@ -47,17 +47,21 @@ import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
 import NewBenefits from 'components/marketing/Homepage/NewBenefits';
 import Migration from 'components/marketing/Homepage/Migration';
 import Growth from 'components/marketing/Homepage/Growth';
+import CaseStudies from 'components/marketing/Homepage/CaseStudies';
+import Testimonials from 'components/marketing/Homepage/Testimonials';
 
 function Homepage({ content }) {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const pageData = {
     theme,
     isMedium,
     isLarge,
+    isExtraLarge,
     isDarkMode,
     content,
     FillerContent,
@@ -73,6 +77,8 @@ function Homepage({ content }) {
       <NewBenefits {...pageData} />
       <Migration {...pageData} />
       <Growth {...pageData} />
+      <CaseStudies {...pageData} />
+      <Testimonials {...pageData} />
     </>
   );
 }

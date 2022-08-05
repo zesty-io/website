@@ -16,7 +16,7 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
   return (
     <>
       <Box
-        component="header"
+        component="section"
         sx={{
           background: `url(${heroBackground.src})`,
           height: 955,

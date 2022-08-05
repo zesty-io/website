@@ -96,7 +96,7 @@ const Migration = ({ content, FillerContent, theme, isMedium, isLarge }) => {
           </MuiMarkdown>
         </Card>
 
-        <Box sx={{ mt: isLarge ? 4 : -10 }}>
+        <Box sx={{ mt: isLarge ? 4 : -10, width: '100%', maxWidth: 1503 }}>
           <Box
             sx={{ width: '100%' }}
             component="img"

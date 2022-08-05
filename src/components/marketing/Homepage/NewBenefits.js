@@ -30,7 +30,10 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
   const [activeSlide, setActiveSlide] = useState();
 
   return (
-    <Box sx={{ background: theme.palette.zesty.zestyGray99, py: 10 }}>
+    <Box
+      component="section"
+      sx={{ background: theme.palette.zesty.zestyGray99, py: 10 }}
+    >
       <Container>
         <MuiMarkdown
           overrides={{
@@ -94,8 +97,6 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
             loop
             speed={2000}
             modules={[Navigation, Pagination]}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
           >
             {content.zesty_benefits_tiles.data.map((item, index) => (
               <SwiperSlide key={index}>

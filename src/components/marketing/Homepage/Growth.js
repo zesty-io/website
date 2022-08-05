@@ -8,18 +8,36 @@ import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
 import { useTheme } from '@mui/material';
 
-const Growth = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const Growth = ({
+  content,
+  FillerContent,
+  theme,
+  isMedium,
+  isLarge,
+  isExtraLarge,
+}) => {
   const flexOrder = ['flex-end', 'center', 'flex-start'];
   return (
-    <Box sx={{ py: 5, position: 'relative' }}>
+    <Box component={'section'} sx={{ py: 5, position: 'relative' }}>
       <Box
-        sx={{ position: 'absolute', width: '100%', maxWidth: 1300 }}
+        sx={{
+          display: isExtraLarge && 'none',
+          position: 'absolute',
+          width: '100%',
+          maxWidth: 1400,
+        }}
         component="img"
         src={content.growth_background?.data[0].url}
         alt="timeline guide"
       />
       <Container>
-        <Box sx={{ width: '100%', maxWidth: 639 }}>
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: isExtraLarge ? '100%' : 639,
+            textAlign: isExtraLarge ? 'center' : 'left',
+          }}
+        >
           <MuiMarkdown
             overrides={{
               h2: {
@@ -51,63 +69,73 @@ const Growth = ({ content, FillerContent, theme, isMedium, isLarge }) => {
           </MuiMarkdown>
         </Box>
 
-        {content.growth_cards?.data.map((item, idx) => (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: flexOrder[idx],
-              py: 2,
-              position: 'relative ',
-            }}
-          >
-            <Card
+        <Box
+          sx={{
+            mt: 4,
+            display: isExtraLarge ? 'flex' : 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 4,
+          }}
+        >
+          {content.growth_cards?.data.map((item, idx) => (
+            <Box
               sx={{
-                p: 4,
-                width: '100%',
-                maxWidth: 664,
-                minHeight: 193,
                 display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 2,
+                justifyContent: isExtraLarge ? 'center' : flexOrder[idx],
+                py: 2,
+                position: 'relative ',
               }}
             >
-              <Box sx={{ width: '100%', maxWidth: 153 }}>
-                <Box
-                  sx={{ width: '100%' }}
-                  component="img"
-                  src={
-                    item.icon_image?.data[0].url || FillerContent.logos[0].url
-                  }
-                  alt={item.feature_name || ''}
-                />
-              </Box>
-              <Box>
-                <Typography
-                  component="h3"
-                  variant="h4"
-                  sx={{
-                    color: theme.palette.zesty.zestyDarkText,
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {item.feature_name}
-                </Typography>
-                <Typography
-                  component="p"
-                  variant="h6"
-                  sx={{
-                    color: theme.palette.zesty.zestyZambezi,
-                    lineHeight: 1.2,
-                    mt: 1,
-                  }}
-                >
-                  {item.content}
-                </Typography>
-              </Box>
-            </Card>
-          </Box>
-        ))}
+              <Card
+                sx={{
+                  p: 4,
+                  width: '100%',
+                  maxWidth: 664,
+                  minHeight: 193,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 2,
+                }}
+              >
+                <Box sx={{ width: '100%', maxWidth: 153 }}>
+                  <Box
+                    sx={{ width: '100%' }}
+                    component="img"
+                    src={
+                      item.icon_image?.data[0].url || FillerContent.logos[0].url
+                    }
+                    alt={item.feature_name || ''}
+                  />
+                </Box>
+                <Box>
+                  <Typography
+                    component="h3"
+                    variant="h4"
+                    sx={{
+                      color: theme.palette.zesty.zestyDarkText,
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {item.feature_name}
+                  </Typography>
+                  <Typography
+                    component="p"
+                    variant="h6"
+                    sx={{
+                      color: theme.palette.zesty.zestyZambezi,
+                      lineHeight: 1.2,
+                      mt: 1,
+                    }}
+                  >
+                    {item.content}
+                  </Typography>
+                </Box>
+              </Card>
+            </Box>
+          ))}
+        </Box>
       </Container>
     </Box>
   );
