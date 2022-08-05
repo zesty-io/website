@@ -60,7 +60,7 @@ const Index = ({ children }) => {
         </Grid>
         <Grid item></Grid>
       </Grid>
-      
+
       {currentPage}
       <Tabs
         value={tabValue}
@@ -85,23 +85,26 @@ const Index = ({ children }) => {
   );
 };
 
-
 function InstanceNavigation() {
-  return (<List
-    sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-    component="nav"
-    aria-labelledby="nested-list-subheader"
-    subheader={
-      <ListSubheader component="div" id="nested-list-subheader">
-        Nested List Items
-      </ListSubheader>
-    }
-  > <ListItemButton>
-    <ListItemIcon>
-      <SendIcon />
-    </ListItemIcon>
-    <ListItemText primary="Sent mail" />
-  </ListItemButton>
-  </List>);
+  return (
+    <List
+      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      subheader={
+        <ListSubheader component="div" id="nested-list-subheader">
+          Nested List Items
+        </ListSubheader>
+      }
+    >
+      {' '}
+      <ListItemButton>
+        <ListItemIcon>
+          <SendIcon />
+        </ListItemIcon>
+        <ListItemText primary="Sent mail" />
+      </ListItemButton>
+    </List>
+  );
 }
 export const InstancesApp = React.memo(Index);

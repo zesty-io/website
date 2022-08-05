@@ -84,4 +84,4 @@ const Index = ({ children }) => {
     </Box>
   );
 };
-export const ProfileTabs = React.memo(Index);
+export const ProfileApp = React.memo(Index);

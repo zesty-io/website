@@ -1,4 +1,5 @@
-import { FormControl, NativeSelect } from '@mui/material';
+export * from './SettingsSelect';
+import { FormControl, InputLabel, NativeSelect } from '@mui/material';
 import React from 'react';
 
 const Index = ({
@@ -8,12 +9,12 @@ const Index = ({
   value,
 }) => {
   return (
-    <FormControl fullWidth>
-      {/* <InputLabel variant="standard" htmlFor="uncontrolled-native">
+    <FormControl fullWidth sx={{ margin: '.5rem 2rem' }}>
+      <InputLabel variant="standard" htmlFor="uncontrolled-native">
         {value}
-      </InputLabel> */}
+      </InputLabel>
       <NativeSelect
-        variant="standard"
+        variant="filled"
         onClick={() => setdirty(true)}
         value={value}
         onChange={(e) => setterFn(e.target.value)}
@@ -23,7 +24,7 @@ const Index = ({
           id: 'uncontrolled-native',
         }}
       >
-        {list.map((e) => {
+        {list?.map((e) => {
           return <option value={e.value}>{e.label}</option>;
         })}
       </NativeSelect>

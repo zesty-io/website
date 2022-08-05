@@ -4,6 +4,7 @@ import Login from 'components/console/Login';
 import Container from 'components/Container';
 import React from 'react';
 import { useZestyStore } from 'store';
+export * from './DashboardApp';
 
 const UserDashboard = () => {
   return <Box>user Dashboard</Box>;

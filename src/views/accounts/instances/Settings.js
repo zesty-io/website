@@ -1,7 +1,16 @@
 import React from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
-import { AccountsSelect, StickyTable } from 'components/accounts';
-import { generateUniqDropdown } from 'utils';
+import {
+  AccountsSelect,
+  AccountsTextArea,
+  AccountTextfield,
+  ColorToggleButton,
+  SettingsSelect,
+  StickyTable,
+  SuccessMsg,
+} from 'components/accounts';
+import * as helper from 'utils';
+import { useZestyStore } from 'store';
 
 const COLUMNS = [
   {
@@ -21,29 +30,109 @@ const COLUMNS = [
     label: 'Action',
   },
 ];
-const CustomTable = ({ data }) => {
+
+const OPTIONS = (options, separator) => {
+  const res = options?.split(separator).map((e) => {
+    return { value: e, label: e };
+  });
+  return res;
+};
+
+const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
+  const { dataType, options, value } = data;
+
+  const handleAdd = (value) => {
+    data['value'] = value;
+    setarrToSubmit([...arrToSubmit, data]);
+  };
+
+  switch (dataType) {
+    case 'checkbox':
+      return (
+        <>
+          <ColorToggleButton
+            value={value}
+            options={OPTIONS(options, ',')}
+            handleAdd={handleAdd}
+          />
+        </>
+      );
+    case 'text':
+      return (
+        <>
+          <AccountTextfield
+            name={data?.keyFriendly}
+            value={value}
+            handleAdd={handleAdd}
+          />
+        </>
+      );
+    case 'dropdown':
+      return (
+        <>
+          <SettingsSelect
+            value={value}
+            name={data?.keyFriendly}
+            options={OPTIONS(options, ';')}
+            handleAdd={handleAdd}
+          />
+        </>
+      );
+    case 'textarea':
+      return (
+        <>
+          <AccountsTextArea
+            name={data?.keyFriendly}
+            value={value}
+            handleAdd={handleAdd}
+          />
+        </>
+      );
+
+    default:
+      return (
+        <>
+          <SettingsSelect
+            options={OPTIONS(options, ',')}
+            handleAdd={handleAdd}
+          />
+        </>
+      );
+  }
+};
+
+const CustomTable = ({ data, arrToSubmit, setarrToSubmit }) => {
   const ROWS = data?.map((e) => {
     return {
       keyFriendly: e.keyFriendly,
       category: e.category,
       tips: e.tips,
-      action: <Button onClick={() => {}}>{e.dataType}</Button>,
+      action: (
+        <ActionSwitcher
+          data={e}
+          arrToSubmit={arrToSubmit}
+          setarrToSubmit={setarrToSubmit}
+        />
+      ),
     };
   });
-  const memoizeRows = React.useMemo(() => ROWS, [data]);
-  const memoizeColumns = React.useMemo(() => COLUMNS, []);
+
+  // const memoizeRows = React.useMemo(() => ROWS, [data]);
+  // const memoizeColumns = React.useMemo(() => COLUMNS, []);
 
   return (
     <Box>
-      <StickyTable rows={memoizeRows} columns={memoizeColumns} />
+      <StickyTable rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
 
 export const Settings = ({ settings = [] }) => {
+  const [arrToSubmit, setarrToSubmit] = React.useState([]);
+  const { ZestyAPI } = useZestyStore();
   const [search, setsearch] = React.useState('');
-  const [categories, setcategories] = React.useState('general');
-  console.log(settings, '3333333333333');
+  const [categories, setcategories] = React.useState('');
+
   const data = settings?.filter((e) => {
     if (search || categories) {
       return (
@@ -54,11 +143,22 @@ export const Settings = ({ settings = [] }) => {
       return settings;
     }
   });
-  const dropdownList = generateUniqDropdown({
+
+  const dropdownList = helper.generateUniqDropdown({
     data: settings,
     property: 'category',
   });
 
+  const updateSettings = async (data) => {
+    const dataToUpdate = data?.map(async (e) => {
+      const res = await ZestyAPI.updateSetting(e.ZUID, e);
+      console.log(res, 'Result');
+    });
+
+    await Promise.all(dataToUpdate);
+    await SuccessMsg({ title: 'Success' });
+    await setarrToSubmit([]);
+  };
   return (
     <Box>
       <Typography variant="h3">Settings</Typography>
@@ -76,8 +176,24 @@ export const Settings = ({ settings = [] }) => {
           value={categories}
           setdirty={() => {}}
         />
+        <Button
+          color="primary"
+          variant="contained"
+          disabled={arrToSubmit.length === 0 ? true : false}
+          onClick={() =>
+            updateSettings(
+              helper.removeDupsInArrObj(arrToSubmit, 'keyFriendly'),
+            )
+          }
+        >
+          Save Changes
+        </Button>
       </Box>
-      <CustomTable data={data} />
+      <CustomTable
+        data={data}
+        arrToSubmit={arrToSubmit}
+        setarrToSubmit={setarrToSubmit}
+      />
     </Box>
   );
 };

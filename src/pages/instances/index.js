@@ -4,7 +4,7 @@ import { Container } from '@mui/system';
 import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
-import { InstancesDashboard } from 'views/InstancesApp/InstancesDashboard';
+import { InstancesDashboard } from 'components/accounts/instances/InstancesDashboard';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 
 export default function Intances() {
