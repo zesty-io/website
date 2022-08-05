@@ -3,7 +3,9 @@
  */
 
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
-
+import MuiMarkdown from 'mui-markdown';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 /**
  * Static Assets Imports
  */
@@ -16,7 +18,8 @@ import Star from '../../../../public/assets/images/homepage/star.svg';
  */
 
 import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper';
+import { useTheme } from '@mui/material';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -28,6 +31,7 @@ const Testimonials = ({ content, FillerContent, theme, isMedium, isLarge }) => {
     <Box
       component="section"
       sx={{
+        mt: 10,
         py: 10,
         background: `url(${content.testimonials_background?.data[2].url})`,
         backgroundSize: 'cover',
@@ -43,33 +47,74 @@ const Testimonials = ({ content, FillerContent, theme, isMedium, isLarge }) => {
           container
           spacing={4}
         >
-          <Grid item sm={12} md={5}>
-            Test
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            item
+            xs={12}
+            md={5}
+          >
+            <Box sx={{ width: '100%', maxWidth: 450 }}>
+              <MuiMarkdown
+                overrides={{
+                  h1: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h4',
+                      sx: {
+                        color: theme.palette.zesty.zestyOrange,
+                        fontWeight: 'bold',
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h4',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        fontWeight: 'bold',
+                      },
+                    },
+                  },
+                }}
+              >
+                {content.testimonials_content}
+              </MuiMarkdown>
+            </Box>
           </Grid>
-          <Grid item sm={12} md={7}>
-            <Box>
+          <Grid item xs={12} md={7}>
+            <Box sx={{ borderRadius: 5 }}>
               <Swiper
                 breakpoints={{
                   640: {
                     slidesPerView: 1,
-                    spaceBetween: 0,
+                    spaceBetween: 10,
                   },
                   1200: {
                     slidesPerView: 2,
                     spaceBetween: 10,
                   },
                 }}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
                 loop
                 speed={2000}
-                modules={[Navigation, Pagination]}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
+                modules={[Navigation, Pagination, Autoplay]}
               >
                 {content.testimonials?.data.map((item, index) => (
                   <SwiperSlide key={index}>
                     <Card
                       sx={{
                         py: 3,
+                        margin: 'auto',
                         width: '100%',
                         maxWidth: 462,
                         minHeight: 491,
@@ -132,6 +177,24 @@ const Testimonials = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                     </Card>
                   </SwiperSlide>
                 ))}
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    gap: 3,
+                    position: 'relative',
+                    zIndex: 1,
+                    mt: 2,
+                    justifyContent: isLarge ? 'center' : 'flex-start',
+                  }}
+                >
+                  <Box>
+                    <SwiperButtonPrev />
+                  </Box>
+                  <Box>
+                    <SwiperButtonNext />
+                  </Box>
+                </Box>
               </Swiper>
             </Box>
           </Grid>
@@ -142,3 +205,60 @@ const Testimonials = ({ content, FillerContent, theme, isMedium, isLarge }) => {
 };
 
 export default Testimonials;
+
+const SwiperButtonNext = ({ children }) => {
+  const theme = useTheme();
+  const swiper = useSwiper();
+
+  return (
+    <>
+      <Box
+        sx={{
+          width: 38,
+          height: 38,
+          cursor: 'pointer',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: `1px solid ${theme.palette.zesty.zestyZambezi}`,
+          borderRadius: '50%',
+        }}
+        onClick={() => {
+          swiper.slideNext();
+        }}
+      >
+        <ArrowForwardIosIcon
+          sx={{ width: '100%', color: theme.palette.zesty.zestyZambezi }}
+        />
+      </Box>
+    </>
+  );
+};
+
+const SwiperButtonPrev = ({ children }) => {
+  const theme = useTheme();
+  const swiper = useSwiper();
+  return (
+    <>
+      <Box
+        sx={{
+          width: 38,
+          height: 38,
+          cursor: 'pointer',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: `1px solid ${theme.palette.zesty.zestyZambezi}`,
+          borderRadius: '50%',
+        }}
+        onClick={() => {
+          swiper.slidePrev();
+        }}
+      >
+        <ArrowBackIosNewIcon
+          sx={{ width: '100%', color: theme.palette.zesty.zestyZambezi }}
+        />
+      </Box>
+    </>
+  );
+};

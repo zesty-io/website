@@ -19,7 +19,7 @@ import { useTheme } from '@mui/material';
  */
 
 import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper';
 import DemoCta from 'components/cta/DemoCta';
 
 // Import Swiper styles
@@ -94,9 +94,13 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                 spaceBetween: 10,
               },
             }}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
             loop
             speed={2000}
-            modules={[Navigation, Pagination]}
+            modules={[Navigation, Pagination, Autoplay]}
           >
             {content.zesty_benefits_tiles.data.map((item, index) => (
               <SwiperSlide key={index}>
