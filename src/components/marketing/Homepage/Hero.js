@@ -19,10 +19,14 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
         component="section"
         sx={{
           // background: `url(${heroBackground.src})`,
-          height: 700,
+          minHeight: 700,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          py: isMedium ? 10 : 0,
         }}
       >
         <Box
