@@ -146,7 +146,7 @@ const MainCard = ({
                   component="p"
                 >
                   {meta_description ||
-                    meta.web.seo_meta_description ||
+                    meta?.web.seo_meta_description ||
                     FillerContent.description}
                 </Typography>
 
