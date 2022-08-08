@@ -43,7 +43,7 @@ Any push or merge to the `dev`,`stage`, or `production` branch will kickoff an a
 
 dev: https://zesty-dev-website-m3rbwjxm5q-uc.a.run.app/
 stage: https://kfg6bckb-dev.webengine.zesty.io OR https://zesty-website-m3rbwjxm5q-uc.a.run.app/
-prod: https://www.zesty.io OR https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
+production: https://www.zesty.io OR https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
 
 ## Contribution
 
