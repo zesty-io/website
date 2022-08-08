@@ -110,11 +110,18 @@ const Testimonials = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                 modules={[Navigation, Pagination, Autoplay]}
               >
                 {content.testimonials?.data.map((item, index) => (
-                  <SwiperSlide key={index}>
+                  <SwiperSlide
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: 5,
+                    }}
+                    key={index}
+                  >
                     <Card
                       sx={{
                         py: 3,
-                        margin: 'auto',
+                        margin: '0 5px',
                         width: '100%',
                         maxWidth: 462,
                         minHeight: 491,

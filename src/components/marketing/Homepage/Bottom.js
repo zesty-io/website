@@ -40,6 +40,8 @@ const Bottom = ({
         <Grid container spacing={2}>
           <Grid sm={12} md={7}>
             <Box
+              data-aos-offset="200"
+              data-aos="fade-up"
               sx={{
                 width: isExtraLarge ? '100%' : 950,
                 mt: isExtraLarge ? 0 : -12.5,
@@ -81,6 +83,9 @@ const Bottom = ({
                   h2: {
                     component: Typography,
                     props: {
+                      'data-aos-offset': '200',
+                      'data-aos': 'fade-up',
+                      'data-aos-duration': '1000',
                       variant: 'h3',
                       component: 'h2',
                       sx: {
@@ -92,6 +97,9 @@ const Bottom = ({
                   p: {
                     component: Typography,
                     props: {
+                      'data-aos-offset': '200',
+                      'data-aos': 'fade-up',
+                      'data-aos-duration': '1500',
                       variant: 'h6',
                       component: 'p',
                       sx: {
@@ -107,6 +115,9 @@ const Bottom = ({
               </MuiMarkdown>
 
               <Box
+                data-aos-offset="200"
+                data-aos="fade-up"
+                data-aos-duration="1500"
                 sx={{
                   mt: 4,
                   display: 'flex',
