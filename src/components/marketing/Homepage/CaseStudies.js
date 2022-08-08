@@ -56,7 +56,7 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
             <Box
               data-aos-offset="200"
               data-aos="fade-up"
-              data-aos-duration={`${index + 1}000`}
+              data-aos-duration={`${500 * (index + 1)}`}
               key={index}
               sx={{ width: '100%', maxWidth: 171 }}
             >
