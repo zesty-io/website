@@ -71,7 +71,6 @@ const Index = ({ children }) => {
           .sort((a, b) => a.sort - b.sort)
           .map((tab) => (
             <Tab
-              // href={`/instances/${zuid}/${tab.filename}/`}
               icon={tab.icon}
               value={tab.filename}
               iconPosition="start"
@@ -80,7 +79,6 @@ const Index = ({ children }) => {
           ))}
       </Tabs>
       {tabValue == '' ? <InstanceOverview /> : children}
-      {/* {children} */}
     </Box>
   );
 };
