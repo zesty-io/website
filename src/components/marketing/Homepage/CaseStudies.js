@@ -12,7 +12,14 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
 
-const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const CaseStudies = ({
+  content,
+  FillerContent,
+  theme,
+  isMedium,
+  isLarge,
+  isDarkMode,
+}) => {
   return (
     <Box
       component="section"
@@ -31,7 +38,9 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
             variant="h3"
             component="h2"
             sx={{
-              color: theme.palette.zesty.zestyDarkText,
+              color: isDarkMode
+                ? theme.palette.zesty.zestyDarkBlue
+                : theme.palette.zesty.zestyDarkText,
               textAlign: 'center',
               fontWeight: 'bold',
             }}
@@ -42,7 +51,9 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
             variant="h4"
             component="p"
             sx={{
-              color: theme.palette.zesty.zestyZambezi,
+              color: isDarkMode
+                ? theme.palette.zesty.zestyDarkBlue
+                : theme.palette.zesty.zestyDarkText,
               textAlign: 'center',
               mt: 2,
             }}

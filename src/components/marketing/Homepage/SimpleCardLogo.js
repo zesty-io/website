@@ -1,7 +1,7 @@
 import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
 import Container from 'blocks/container/Container';
 
-const SimpleCardLogo = ({ content, FillerContent }) => {
+const SimpleCardLogo = ({ content, FillerContent, isDarkMode }) => {
   return (
     <Box component="section">
       <Container>
@@ -19,6 +19,7 @@ const SimpleCardLogo = ({ content, FillerContent }) => {
               {content.homepage_logos.data.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
                   <Box
+                    sx={{ filter: isDarkMode ? 'invert(100%)' : '' }}
                     component="img"
                     src={
                       item.customer_logo.data[0].url ||
