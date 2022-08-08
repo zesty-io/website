@@ -2,26 +2,24 @@ import { getCookie } from 'cookies-next';
 import { fetchWrapperOptions, getUserAppSID } from 'utils';
 import create from 'zustand';
 
+const getInstanceZUID = () => {
+  if (typeof window !== 'undefined') {
+    return window?.location?.pathname?.split('/')[2];
+  }
+};
+const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || getInstanceZUID();
+const userAppSID = getUserAppSID();
+
+export const getZestyAPI = (id) => {
+  if (typeof window !== 'undefined') {
+    return new Zesty.FetchWrapper(
+      id || instanceZUID,
+      userAppSID,
+      fetchWrapperOptions(),
+    );
+  }
+};
 export const useZestyStore = create((set) => {
-  const getInstanceZUID = () => {
-    if (typeof window !== 'undefined') {
-      return window?.location?.pathname?.split('/')[2];
-    }
-  };
-
-  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || getInstanceZUID();
-  const userAppSID = getUserAppSID();
-
-  const getZestyAPI = () => {
-    if (typeof window !== 'undefined') {
-      return new Zesty.FetchWrapper(
-        instanceZUID,
-        userAppSID,
-        fetchWrapperOptions(),
-      );
-    }
-  };
-
   return {
     instanceZUID,
     userAppSID,

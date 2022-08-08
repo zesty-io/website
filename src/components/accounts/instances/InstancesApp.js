@@ -31,10 +31,10 @@ const Index = ({ children }) => {
   const handleChange = (event, newValue) => {
     console.log(event);
     setTabValue(newValue);
-    // router.push({
-    //   pathname: `/instances/[zuid]/${newValue}/`,
-    //   query: { zuid },
-    // });
+    router.push({
+      pathname: `/instances/[zuid]/${newValue}/`,
+      query: { zuid },
+    });
   };
 
   const getInstance = async () => {
@@ -71,7 +71,6 @@ const Index = ({ children }) => {
           .sort((a, b) => a.sort - b.sort)
           .map((tab) => (
             <Tab
-              href={`/instances/${zuid}/${tab.filename}/`}
               icon={tab.icon}
               value={tab.filename}
               iconPosition="start"
@@ -80,7 +79,6 @@ const Index = ({ children }) => {
           ))}
       </Tabs>
       {tabValue == '' ? <InstanceOverview /> : children}
-      {/* {children} */}
     </Box>
   );
 };
