@@ -53,7 +53,13 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
 
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, mt: 10 }}>
           {content.g2_badges?.data.map((item, index) => (
-            <Box key={index} sx={{ width: '100%', maxWidth: 171 }}>
+            <Box
+              data-aos-offset="200"
+              data-aos="fade-up"
+              data-aos-duration={`${index + 1}000`}
+              key={index}
+              sx={{ width: '100%', maxWidth: 171 }}
+            >
               <Box
                 sx={{ width: '100%' }}
                 component="img"
@@ -68,6 +74,9 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
           {content.case_study_cards?.data.map((item, index) => (
             <Grid key={index} item sm={12} md={4}>
               <Card
+                data-aos-offset="200"
+                data-aos="fade-up"
+                data-aos-duration={`${index + 1}000`}
                 sx={{
                   width: '100%',
                   maxWidth: 482,

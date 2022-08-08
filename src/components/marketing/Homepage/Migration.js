@@ -18,6 +18,8 @@ const Migration = ({ content, FillerContent, theme, isMedium, isLarge }) => {
     <Box component="section" sx={{ py: 10 }}>
       <Container>
         <Card
+          data-aos-offset="200"
+          data-aos="zoom-in"
           sx={{
             width: '100%',
             maxWidth: 695,
@@ -70,6 +72,8 @@ const Migration = ({ content, FillerContent, theme, isMedium, isLarge }) => {
               h2: {
                 component: Typography,
                 props: {
+                  'data-aos': 'zoom-in-up',
+                  'data-aos-duration': '1000',
                   component: 'h1',
                   variant: 'h3',
                   fontWeight: 'bold',
@@ -80,6 +84,8 @@ const Migration = ({ content, FillerContent, theme, isMedium, isLarge }) => {
               p: {
                 component: Typography,
                 props: {
+                  'data-aos-duration': '1500',
+                  'data-aos': 'zoom-in-up',
                   component: 'p',
                   variant: 'h6',
                   sx: {
