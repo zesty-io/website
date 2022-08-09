@@ -60,47 +60,118 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
-function sendPayload(payload){
-  if(isLive()){
-    fetch('https://us-central1-zesty-prod.cloudfunctions.net/onboardQuestion', {
+var ACCOUNTS_API = process.env.PRODUCTION == "true" ? `https://accounts.api.zesty.io/v1/` : `https://accounts.api.stage.zesty.io/v1/`;
+
+function createAccountSubmission(email, firstName, lastName,password){
+
+  var createEndpoint = ACCOUNTS_API + "users";
+  
+  if(email && firstName && lastName && password ){
+
+    var postBody = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      password: password
+    }
+
+    var params = {
       method: 'POST',
-      credentials: 'omit',
-      body:    JSON.stringify(payload),
-      headers: {
-        'Content-Type': 'application/json'
+       headers: {
+         'Content-Type': 'application/json',
+         'Access-Control-Allow-Origin': '*',
+
+       },
+      mode: 'no-cors',
+      credentials: "omit", // include, *same-origin, omit
+      body: JSON.stringify(postBody)
+    }
+
+    fetch(createEndpoint, params).then(function(response) {
+
+      if (!response.error) {
+        // run GA call
+
+        // ga('send', {
+        //   hitType: 'event',
+        //   eventCategory: 'create-account',
+        //   eventAction: 'submission',
+        //   eventLabel: 'User Creation',
+        //   transport: 'beacon'
+        // });
+
+
+        // gtag('event', 'conversion', {
+        //   send_to: 'AW-955374362/ivZJCMeG3JoBEJq2x8cD'
+        // })
+
+        //loginToZesty(postBody.email, postBody.password);
+
       }
+
+      // run error control
+
+
     });
+
+    return true;
+
   } else {
-    console.log(payload)
+    console.log('form not validated');
+    return false;
   }
+
+}
+
+function loginToZesty(email,password){
+  var endpoint = ACCOUNTS_API + "login";
+  var params = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+
+    },
+    mode: 'no-cors',
+    credentials: "omit", // include, *same-origin, omit
+    body: JSON.stringify({ email, password })
+  }
+
+  fetch(endpoint, params).then(function(response) { console.log(response); });
 }
 
 
-
 export const Signup = ({
-    message = 'What team are you from?', 
+    message = 'What team are you from?',
+    callback = {}
   }) => {
 
     const [values, setValues] = React.useState({
-      lastname: '',
-      firtname: '',
-      email: '',
-      password: '',
+      lastname: 'test',
+      firstname: 'test',
+      email: 'tesg@testr.com',
+      password: 'ab123dbf#$2',
       confirmPassword: '',
       showPassword: false,
-   });
-   const handleChange = e => {
-      setValues({...values, [e.target.name]: e.target.value})
-   }
-   const handleMouseDownPassword = () => {
-    event.preventDefault();
-  };
+    });
+
+    const handleChange = e => {
+        setValues({...values, [e.target.name]: e.target.value})
+    }
+    const handleMouseDownPassword = () => {
+      event.preventDefault();
+    };
     const handleClickShowPassword = () => {
       setValues({
         ...values,
         showPassword: !values.showPassword,
       });
     };
+
+    const submitForm = () => {
+      alert('creating account')
+      createAccountSubmission(values.email, values.firstname, values.lastname, values.password)
+    }
   return (
 
     <Container>
@@ -162,6 +233,7 @@ export const Signup = ({
             }
           />
         </FormControl>
+      <Button variant="contained" onClick={submitForm} >Next</Button>
 
           </div>
         </Box>

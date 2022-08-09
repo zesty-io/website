@@ -1,24 +1,33 @@
 import { React, useEffect, useState, useRef, useCallback } from 'react';
 import { useTheme } from '@emotion/react';
-import { Container, Box, Grid, Typography } from '@mui/system';
+import { Container, Box, Button, Grid, Typography } from '@mui/material';
+
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+
+// import slides
 import { SlideQuestions } from 'components/marketing/Join/SlideQuestions';
 import { SlideMessage } from 'components/marketing/Join/SlideMessage';
 import { DancingLogo } from 'components/marketing/Join/DancingLogo';
 import { Signup } from 'components/marketing/Join/Signup';
+import { WelcomeScreen } from 'components/marketing/Join/WelcomeScreen';
+import { QuizTwoTone } from '@mui/icons-material';
 
-
-
-
-const firstMessage = 'Hello! We are exicted to have you join Zesty. We have 2 questions for you before we start.';
-const firstButton = `Ok, Let's Go!`;
+// messages
+const firstMessage = <>
+    <Typography variant="h2">Hi there!</Typography>
+    <Typography variant="h6">We are excited for you to explore Zesty ;)</Typography>
+    <Box paddingY={1}>
+        <Typography variant="p"> To help onboard you, may we ask two questions?</Typography>
+    </Box>
+</>;
+const firstButton = `Yes, Let's Go!`;
 const firstQuestion = "What team are you on?";
 const firstAnswers = [
     {
@@ -38,24 +47,24 @@ const firstAnswers = [
 const secondQuestion = "What are you building?";
 const secondAnswers = [
     {
-        answer: 'Headless Website',
-        value: 'headless'
+        answer: 'Website',
+        value: 'website'
     },
     {
-        answer: 'Traditional Website',
-        value: 'marketer'
+        answer: 'Landing Page',
+        value: 'landing-page'
     },
     {
         answer: 'Ecommerce',
         value: 'ecommerce'
     },
     {
-        answer: 'Mobile App',
+        answer: 'App',
         value: 'app'
     },
     {
-        answer: 'Other',
-        value: 'other'
+        answer: 'IoT Project',
+        value: 'iot'
     },
     {
         answer: 'All Those Things ;)',
@@ -64,14 +73,15 @@ const secondAnswers = [
 
 ];
 
-const thirdQuestion = "What CMS are you most familir with?";
+ // for everyone
+const thirdQuestion = "What CMS are you currently using?";
 const thirdAnswers = [
     {
         answer: 'Wordpress',
         value: 'wordpress'
     },
     {
-        answer: 'Drupal',
+        answer: 'Drupal / Acquia',
         value: 'drupal'
     },
     {
@@ -79,13 +89,68 @@ const thirdAnswers = [
         value: 'contentful'
     },
     {
-        answer: 'Other',
+        answer: 'Prismic',
+        value: 'prismic'
+    },
+    {
+        answer: 'Strapi',
+        value: 'strapi'
+    },
+    {
+        answer: 'GraphCMS / Hygraph',
+        value: 'graphcms'
+    },
+    {
+        answer: 'Kentico',
+        value: 'kentico'
+    },
+    {
+        answer: 'Webflow / Wix / Weebly',
         value: 'other'
     },
     {
-        answer: 'None',
-        value: 'none'
+        answer: 'Other / Custom',
+        value: 'other'
+    },
+    {
+        answer: 'Content Stack',
+        value: 'kentico'
+    },
+    {
+        answer: 'Adobe',
+        value: 'adobe'
     }
+];
+
+
+// on if developer was picked
+
+const fourthQuestion = "What Technologies are you using?";
+const fourthAnswers = [
+    {
+        answer: 'React / Next.js / Gatsby',
+        value: 'react'
+    },
+    {
+        answer: 'Vue / Nuxt',
+        value: 'vue'
+    },
+    {
+        answer: 'PHP',
+        value: 'php'
+    },
+    {
+        answer: 'Node.js',
+        value: 'node'
+    },    
+    {
+        answer: 'Traditional HTML/Javascript',
+        value: 'traditional'
+    },
+    {
+        answer: '.Net',
+        value: 'node'
+    },      
 ];
 
 
@@ -105,6 +170,8 @@ export default function Join(props) {
     const handleNext = useCallback(() => {
       if (!sliderRef.current) return;
       sliderRef.current.swiper.slideNext();
+      setCurrentAnimation('still');
+
     }, []);
 
     const handleAnswers = (answer) => {
@@ -112,13 +179,16 @@ export default function Join(props) {
         handleNext();
     }
 
+    const handleExit = () => {
+        window.location = '/'
+    }
+
     const handlePrompt = () => {
         setCurrentAnimation('bouncing');
         handleNext();
     }
 
-    const handleHover = (ani) => {
-        setCurrentAnimation('still')
+    const handleAnimation = (ani) => {
         setCurrentAnimation(ani)
     }
 
@@ -133,29 +203,57 @@ export default function Join(props) {
             ref={sliderRef}
             navigation={false}
             modules={[Pagination, Navigation]}
-            
         >
-            <SwiperSlide >
-                <SlideMessage 
-                    message={firstMessage} 
-                    buttonText={firstButton} 
-                    answerCallBack={handlePrompt} 
-                    hoverAnimation={handleHover}
-                    />
+            <SwiperSlide> 
+                <Grid container>  
+                    <Grid item lg={7} md={7} xs={12}>
+                        <WelcomeScreen />
+                    </Grid>  
+                    <Grid item lg={5} md={5} xs={12}>
+                        <Container sx={{padding: '5em'}}>
+
+                            <SlideMessage 
+                                message={firstMessage} 
+                                buttonText={firstButton} 
+                                exitButtonText={'No, get me outta here!'}
+                                exitButtonAction={handleExit}
+                                answerCallBack={handlePrompt} 
+                                hoverAnimation={handleAnimation}
+                                
+                            />
+                        </Container>
+                    </Grid>
+                   
+                </Grid>
             </SwiperSlide>
             <SwiperSlide>
-                <SlideQuestions question={firstQuestion} answers={firstAnswers} answerCallBack={handleAnswers} />
+                <Grid container>
+                    <Grid item lg={6} md={6} xs={12}>
+                        <SlideQuestions 
+                            question={firstQuestion} 
+                            answers={firstAnswers} 
+                            answerCallBack={handleAnswers}
+                            hoverAnimation={handleAnimation}
+                            />
+                    </Grid>
+                    <Grid item lg={6} md={6} xs={12}>
+                        Welcome to Zesty Component
+                    </Grid>
+                </Grid>
             </SwiperSlide>
             <SwiperSlide>
-                <SlideQuestions question={secondQuestion} answers={secondAnswers} answerCallBack={handleAnswers} />
+                <SlideQuestions question={secondQuestion} answers={secondAnswers} answerCallBack={handleAnswers} hoverAnimation={handleAnimation} />
             </SwiperSlide>
             <SwiperSlide>
-                <Signup message="Thanks! Let's create an account." />
+                <Signup message="Thanks, now let's get your started!." />
             </SwiperSlide>
             <SwiperSlide>
-                <SlideQuestions question={thirdQuestion} answers={thirdAnswers} answerCallBack={handleAnswers} />
+                <>
+                    <SlideQuestions question={thirdQuestion} answers={thirdAnswers} answerCallBack={handleAnswers} hoverAnimation={handleAnimation} />
+                    <Button onClick={handleNext}  variant="outlined">Skip</Button>
+                </>
             </SwiperSlide>
-            <SwiperSlide>Slide 5</SwiperSlide>
+            <SwiperSlide>NPM starter, Youtube Video, Join Community Chat, Talk to an onbording specialist</SwiperSlide>
         </Swiper>
        
     </Box>

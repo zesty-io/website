@@ -5,20 +5,29 @@ export const SlideMessage = ({
     message = 'What team are you from?', 
     buttonText,
     answerCallBack,
-    hoverAnimation
+    hoverAnimation,
+    exitButtonText='',
+    exitButtonAction={},
 
   }) => {
   return (
     <Container>
         
-        <Typography>{message}</Typography>
-        <Stack direction="row" spacing={2}>
-            
-            <Button variant="contained" onMouseOver={() => hoverAnimation('bouncing')} onClick={() => answerCallBack()}>
+        <div>{message}</div>
+        
+        <Box paddingY={5}>
+          <Stack direction="row" spacing={2}>
+            <Button size="large" variant="contained" onMouseOver={() => hoverAnimation('bouncing')} onClick={() => answerCallBack()}>
                 {buttonText}
             </Button>
-            
-        </Stack>
+            {exitButtonText !== '' &&
+              <Button size="large" variant="text" onClick={() => exitButtonAction()} onMouseOver={() => hoverAnimation('no')}>
+                {exitButtonText}
+              </Button>
+            }
+          </Stack>
+        </Box>
+        
     </Container>
   )
 }

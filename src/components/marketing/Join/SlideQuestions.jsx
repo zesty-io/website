@@ -1,10 +1,16 @@
 import React from 'react'
 import { Container, Stack, Button, Box, Grid, Typography } from '@mui/material';
 
+function random_boolean(seed){
+
+ return seed < 0.5;
+}
+
 export const SlideQuestions = ({
     question = 'What team are you from?', 
     answers,
-    answerCallBack
+    answerCallBack,
+    hoverAnimation
   }) => {
 
   return (
@@ -12,8 +18,8 @@ export const SlideQuestions = ({
         
         <Typography>{question}</Typography>
         <Stack direction="row" spacing={2}>
-            {answers.map(response => 
-            <Button variant="contained" onClick={() => answerCallBack(response.value)}>
+            {answers.sort((a,b) => (a.name < b.name)).map(response => 
+            <Button variant="contained" onMouseOver={() => hoverAnimation(random_boolean(Math.random()) ? 'shake' : 'sway')} onClick={() => answerCallBack(response.value)}>
                 {response.answer}
             </Button>
             )}
