@@ -57,7 +57,8 @@ function Article({ content }) {
     defaultMatches: true,
   });
 
-  const simliarTags = content.tags?.data[0]?.meta?.zuid;
+  const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
+  console.log('simliarTags', simliarTags);
 
   const { data: latestArticles, isPending: latestPending } = useFetch(
     '/-/all-articles-hydrated.json?limit=5',
@@ -73,8 +74,9 @@ function Article({ content }) {
   let cleanOutErrorHydrating;
 
   // Check if "Error hydrating" is being injected and clean out
+  // Skip if wysiwyg is empty to avoid error
   const validateWysiwyg = () => {
-    if (content.article.includes('Error hydrating')) {
+    if (content.article?.includes('Error hydrating')) {
       cleanOutErrorHydrating = content?.article.replaceAll(
         removeErrorHandlingString,
         '',
