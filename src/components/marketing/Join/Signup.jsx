@@ -140,6 +140,7 @@ function loginToZesty(email,password){
   fetch(endpoint, params).then(function(response) { console.log(response); });
 }
 
+const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
 
 export const Signup = ({
     message = 'What team are you from?',
@@ -149,8 +150,8 @@ export const Signup = ({
     const [values, setValues] = React.useState({
       lastname: 'test',
       firstname: 'test',
-      email: 'tesg@testr.com',
-      password: 'ab123dbf#$2',
+      email: randomString + '@test.com',
+      password: 'aB123dbf#$2',
       confirmPassword: '',
       showPassword: false,
     });
@@ -170,7 +171,8 @@ export const Signup = ({
 
     const submitForm = () => {
       alert('creating account')
-      createAccountSubmission(values.email, values.firstname, values.lastname, values.password)
+      callback();
+      createAccountSubmission(values.email, values.firstname, values.lastname, values.password);
     }
   return (
 

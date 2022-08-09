@@ -1,4 +1,4 @@
-.hello, .still, .bouncing, .rollIn, .rollOut, .dancingLogo, .jiggle, .no, .sway,.shake{
+.hello, .still, .bouncing, .rollIn, .rollOut, .dancingLogo, .jiggle, .no, .sway,.shake,.pa rty{
     width: 150px;
     -webkit-transition: all 1s ease;
     transition: all 1s ease;
@@ -14,6 +14,10 @@
 
 .sway {
     animation: sway 3.5s ease-in-out forwards infinite;
+}
+
+.party {
+    animation: sway 1s infinite, shake 1s infinite,bounce 1s infinite;
 }
 
 .shake {

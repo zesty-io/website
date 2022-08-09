@@ -176,6 +176,11 @@ export default function Join(props) {
 
     const handleAnswers = (answer) => {
         setCurrentAnimation('jiggle');
+        
+    }
+
+    const signUpSuccess = () => {
+        setCurrentAnimation('party');
         handleNext();
     }
 
@@ -245,7 +250,10 @@ export default function Join(props) {
                 <SlideQuestions question={secondQuestion} answers={secondAnswers} answerCallBack={handleAnswers} hoverAnimation={handleAnimation} />
             </SwiperSlide>
             <SwiperSlide>
-                <Signup message="Thanks, now let's get your started!." />
+                <Signup 
+                    message="Thanks, now let's get your started!." 
+                    callback={signUpSuccess}
+                    />
             </SwiperSlide>
             <SwiperSlide>
                 <>
