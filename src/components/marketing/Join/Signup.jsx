@@ -4,6 +4,78 @@ import { EmailOutlined } from '@mui/icons-material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+function checkNameInput(str,inputName){
+  if(validateName(str)){
+    successStateForField(inputName);
+  } else {
+    failStateForField(inputName);
+  }
+}
+
+function checkEmailInput(str){
+  if(validateEmail(str)){
+    successStateForField('ac-email');
+  } else {
+    failStateForField('ac-email');
+  }
+}
+function validatePhone(phoneNumber){
+  return /^(\+\d{1,3}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(phoneNumber);
+}
+
+function validateName(name){
+  return checkStringLength(name, 2);
+}
+
+function toggleCharWarning(el,success){
+  if(success){
+    el.classList.remove('is-primary');
+    el.classList.add('is-success');
+  } else {
+    el.classList.add('is-primary');
+    el.classList.remove('is-success');
+  }
+}
+
+function checkStringLength(str,len){
+  if (str.length >= len){
+    return true;
+  }
+  return false
+}
+function checkStringForNumber(str){
+  return /\d/.test(str);
+}
+
+function checkStringForUppercase(str){
+  return (/[A-Z]/.test(str));
+}
+
+function checkStringForLowercase(str){
+  return (/[a-z]/.test(str));
+}
+
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+function sendPayload(payload){
+  if(isLive()){
+    fetch('https://us-central1-zesty-prod.cloudfunctions.net/onboardQuestion', {
+      method: 'POST',
+      credentials: 'omit',
+      body:    JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  } else {
+    console.log(payload)
+  }
+}
+
+
 
 export const Signup = ({
     message = 'What team are you from?', 

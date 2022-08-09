@@ -4,7 +4,9 @@ import { Container, Stack, Button, Box, Grid, Typography } from '@mui/material';
 export const SlideQuestions = ({
     question = 'What team are you from?', 
     answers,
-    answerCallBack}) => {
+    answerCallBack
+  }) => {
+
   return (
     <Container>
         

@@ -18,7 +18,7 @@ import { Signup } from 'components/marketing/Join/Signup';
 
 
 const firstMessage = 'Hello! We are exicted to have you join Zesty. We have 2 questions for you before we start.';
-const firsButton = `Ok, Let's Go!`;
+const firstButton = `Ok, Let's Go!`;
 const firstQuestion = "What team are you on?";
 const firstAnswers = [
     {
@@ -62,6 +62,30 @@ const secondAnswers = [
         value: 'all'
     },
 
+];
+
+const thirdQuestion = "What CMS are you most familir with?";
+const thirdAnswers = [
+    {
+        answer: 'Wordpress',
+        value: 'wordpress'
+    },
+    {
+        answer: 'Drupal',
+        value: 'drupal'
+    },
+    {
+        answer: 'Contentful',
+        value: 'contentful'
+    },
+    {
+        answer: 'Other',
+        value: 'other'
+    },
+    {
+        answer: 'None',
+        value: 'none'
+    }
 ];
 
 
@@ -114,7 +138,7 @@ export default function Join(props) {
             <SwiperSlide >
                 <SlideMessage 
                     message={firstMessage} 
-                    buttonText={firsButton} 
+                    buttonText={firstButton} 
                     answerCallBack={handlePrompt} 
                     hoverAnimation={handleHover}
                     />
@@ -128,7 +152,9 @@ export default function Join(props) {
             <SwiperSlide>
                 <Signup message="Thanks! Let's create an account." />
             </SwiperSlide>
-            <SwiperSlide>Slide 4</SwiperSlide>
+            <SwiperSlide>
+                <SlideQuestions question={thirdQuestion} answers={thirdAnswers} answerCallBack={handleAnswers} />
+            </SwiperSlide>
             <SwiperSlide>Slide 5</SwiperSlide>
         </Swiper>
        
@@ -136,3 +162,28 @@ export default function Join(props) {
        
     )
 }
+
+
+const payload = {
+    "question": '',
+    "answer": '',
+    "path": '',
+    "email": '',
+  }
+  
+  function sendPayload(payload){
+    if(isLive()){
+      fetch('https://us-central1-zesty-prod.cloudfunctions.net/onboardQuestion', {
+        method: 'POST',
+        credentials: 'omit',
+        body:    JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    } else {
+      console.log(payload)
+    }
+  }
+
+  // sendPayload(payload); 
