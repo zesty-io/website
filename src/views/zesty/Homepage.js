@@ -71,8 +71,6 @@ function Homepage({ content }) {
     FillerContent,
   };
 
-  console.log(content);
-
   return (
     <>
       <Hero {...pageData} />
