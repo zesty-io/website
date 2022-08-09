@@ -74,32 +74,36 @@ const LogoSlider = ({ content, FillerContent, theme }) => {
       </MuiMarkdown>
 
       <Box>
-        <Box sx={{ mt: 5 }}>
-          <Marquee direction="right" gradient={false} speed={30}>
-            {makeRepeated(slideOne[0], 2).map((item, index) => (
-              <Box
-                key={index}
-                sx={{ height: 127, width: '100%' }}
-                component={'img'}
-                src={item.logo?.data[0].url || FillerContent.logos[0].url}
-                alt={item.name}
-              />
-            ))}
-          </Marquee>
-        </Box>
-        <Box sx={{ mt: 5 }}>
-          <Marquee gradient={false} direction="left" speed={30}>
-            {makeRepeated(slideTwo[0], 2).map((item, index) => (
-              <Box
-                key={index}
-                sx={{ height: 127, width: '100%' }}
-                component={'img'}
-                src={item.logo?.data[0].url || FillerContent.logos[0].url}
-                alt={item.name}
-              />
-            ))}
-          </Marquee>
-        </Box>
+        {slideOne && (
+          <Box sx={{ mt: 5 }}>
+            <Marquee direction="right" gradient={false} speed={30}>
+              {makeRepeated(slideOne[0], 2).map((item, index) => (
+                <Box
+                  key={index}
+                  sx={{ height: 127, width: '100%' }}
+                  component={'img'}
+                  src={item.logo?.data[0].url || FillerContent.logos[0].url}
+                  alt={item.name}
+                />
+              ))}
+            </Marquee>
+          </Box>
+        )}
+        {slideTwo && (
+          <Box sx={{ mt: 5 }}>
+            <Marquee gradient={false} direction="left" speed={30}>
+              {makeRepeated(slideTwo[0], 2).map((item, index) => (
+                <Box
+                  key={index}
+                  sx={{ height: 127, width: '100%' }}
+                  component={'img'}
+                  src={item.logo?.data[0].url || FillerContent.logos[0].url}
+                  alt={item.name}
+                />
+              ))}
+            </Marquee>
+          </Box>
+        )}
       </Box>
     </Box>
   );
