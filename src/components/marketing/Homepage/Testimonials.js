@@ -102,7 +102,7 @@ const Testimonials = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                   },
                 }}
                 autoplay={{
-                  delay: 2500,
+                  delay: 10000,
                   disableOnInteraction: false,
                 }}
                 loop
