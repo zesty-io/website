@@ -4,28 +4,24 @@
 
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-/**
- * Static Assets Imports
- */
-
-import HeartQuote from '../../../../public/assets/images/homepage/heartQuote.svg';
-import Star from '../../../../public/assets/images/homepage/star.svg';
 
 /**
  * Components Imports
  */
 import Marquee from 'react-fast-marquee';
-import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper';
-import { useTheme } from '@mui/material';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 const LogoSlider = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+  const slideOne = [content.integrations_logos?.data];
+  const slideTwo = [content.integrations_logos_2?.data];
+
+  // Repeat the array items to fill slide
+  const makeRepeated = (arr, repeats) =>
+    Array.from({ length: repeats }, () => arr).flat();
+
   return (
     <Box
       component="section"
@@ -76,7 +72,7 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, isLarge }) => {
       <Box>
         <Box sx={{ mt: 5 }}>
           <Marquee direction="right" gradient={false} speed={30}>
-            {content.integrations_logos?.data.map((item, index) => (
+            {makeRepeated(slideOne[0], 2).map((item, index) => (
               <Box
                 key={index}
                 sx={{ height: 127, width: '100%' }}
@@ -89,7 +85,7 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, isLarge }) => {
         </Box>
         <Box sx={{ mt: 5 }}>
           <Marquee gradient={false} direction="left" speed={30}>
-            {content.integrations_logos?.data.map((item, index) => (
+            {makeRepeated(slideTwo[0], 2).map((item, index) => (
               <Box
                 key={index}
                 sx={{ height: 127, width: '100%' }}

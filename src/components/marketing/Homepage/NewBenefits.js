@@ -126,6 +126,7 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
 
             <Box
               sx={{
+                minHeight: 200,
                 display: 'flex',
                 alignItems: 'center',
                 gap: 4,
