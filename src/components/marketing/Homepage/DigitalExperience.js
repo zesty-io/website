@@ -9,7 +9,7 @@ import Container from 'blocks/container/Container';
  * Static Assets Imports
  */
 
-const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
+const DigitalExperience = ({ content, FillerContent, theme }) => {
   return (
     <Box
       sx={{

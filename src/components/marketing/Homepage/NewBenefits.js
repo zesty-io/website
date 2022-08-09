@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
  * MUI Imports
  */
 
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import MuiMarkdown from 'mui-markdown';
@@ -26,7 +26,7 @@ import DemoCta from 'components/cta/DemoCta';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const NewBenefits = ({ content, FillerContent, theme, isLarge }) => {
   const [activeSlide, setActiveSlide] = useState();
 
   return (

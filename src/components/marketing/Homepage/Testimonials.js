@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import { Box, Typography, Card, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -17,7 +17,7 @@ import Star from '../../../../public/assets/images/homepage/star.svg';
  * Components Imports
  */
 
-import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
 import { useTheme } from '@mui/material';
 
@@ -26,7 +26,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import Container from 'blocks/container/Container';
 
-const Testimonials = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const Testimonials = ({ content, FillerContent, theme, isLarge }) => {
   return (
     <Box
       component="section"

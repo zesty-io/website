@@ -13,7 +13,7 @@ import Container from 'blocks/container/Container';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const Migration = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const Migration = ({ content, FillerContent, theme, isLarge }) => {
   return (
     <Box component="section" sx={{ py: 10 }}>
       <Container>

@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 /**
@@ -14,7 +14,7 @@ import Marquee from 'react-fast-marquee';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const LogoSlider = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const LogoSlider = ({ content, FillerContent, theme }) => {
   const slideOne = [content.integrations_logos?.data];
   const slideTwo = [content.integrations_logos_2?.data];
 
