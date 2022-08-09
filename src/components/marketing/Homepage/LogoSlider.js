@@ -18,7 +18,11 @@ const LogoSlider = ({ content, FillerContent, theme }) => {
   const slideOne = [content.integrations_logos?.data];
   const slideTwo = [content.integrations_logos_2?.data];
 
-  // Repeat the array items to fill slide
+  /**
+   * It creates an array of length repeats, and then maps each element to the original array
+   * @param arr - The array to repeat.
+   * @param repeats - The number of times to repeat the array.
+   */
   const makeRepeated = (arr, repeats) =>
     Array.from({ length: repeats }, () => arr).flat();
 
