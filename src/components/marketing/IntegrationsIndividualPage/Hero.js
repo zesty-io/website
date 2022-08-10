@@ -26,7 +26,7 @@ const Hero = ({
             sx={{
               position: 'absolute',
               right: '-15%',
-              top: '25%',
+              top: '28%',
               width: '100%',
               maxWidth: 348,
               height: 201,
@@ -138,7 +138,7 @@ const Hero = ({
 
           <Box
             sx={{
-              mt: 5,
+              mt: 10,
               position: 'relative',
               display: 'flex',
               justifyContent: 'center',

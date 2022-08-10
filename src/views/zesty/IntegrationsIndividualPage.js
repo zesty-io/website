@@ -54,12 +54,14 @@ import Resources from 'components/marketing/IntegrationsIndividualPage/Resources
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const pageData = {
     theme,
     isMedium,
+    isLarge,
     isExtraLarge,
     isDarkMode,
     content,

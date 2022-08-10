@@ -39,7 +39,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  * Components Imports
  */
 import Hero from 'components/marketing/Homepage/Hero';
-import SimpleCardLogo from 'components/marketing/Homepage/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -74,7 +74,7 @@ function Homepage({ content }) {
   return (
     <>
       <Hero {...pageData} />
-      <SimpleCardLogo {...pageData} />
+      <SimpleCardLogo logos={content.homepage_logos.data} {...pageData} />
       <DigitalExperience {...pageData} />
       <NewBenefits {...pageData} />
       <Migration {...pageData} />
