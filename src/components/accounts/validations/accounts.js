@@ -17,6 +17,12 @@ const email = yup.object().shape({
     .matches(emailRegex, 'Must be a valid email address*'),
 });
 
+const teams = yup.object().shape({
+  name: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('Name is required'),
+});
 const password = yup.object().shape({
   oldPassword: yup
     .string()
@@ -43,4 +49,5 @@ export const accountsValidations = {
   email,
   password,
   twoFactorAuth,
+  teams,
 };
