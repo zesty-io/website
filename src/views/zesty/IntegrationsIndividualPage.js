@@ -49,15 +49,18 @@ import Hero from 'components/marketing/IntegrationsIndividualPage/Hero';
  * Fillers Imports
  */
 import FillerContent from 'components/globals/FillerContent';
+import Resources from 'components/marketing/IntegrationsIndividualPage/Resources';
 
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const pageData = {
     theme,
     isMedium,
+    isExtraLarge,
     isDarkMode,
     content,
     FillerContent,
@@ -68,6 +71,7 @@ function IntegrationsIndividualPage({ content }) {
   return (
     <>
       <Hero {...pageData} />
+      <Resources {...pageData} />
     </>
   );
 }
