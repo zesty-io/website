@@ -4,15 +4,7 @@
 import { Box, Typography, Button } from '@mui/material';
 import Container from 'blocks/container/Container';
 
-const Resources = ({
-  theme,
-  isMedium,
-  isExtraLarge,
-  isDarkMode,
-  content,
-  FillerContent,
-  isLarge,
-}) => {
+const Resources = ({ theme, content, FillerContent, isLarge }) => {
   return (
     <Container sx={{ py: 5 }}>
       <Box
@@ -52,6 +44,7 @@ const Resources = ({
         >
           {content.resources_buttons?.data.map((item, index) => (
             <Box
+              key={index}
               sx={{ display: 'block', width: '100%', maxWidth: 189 }}
               target="_blank"
               href={item.link}

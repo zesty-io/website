@@ -1,7 +1,7 @@
 import { Box, Card, CardContent } from '@mui/material';
 import Container from 'blocks/container/Container';
 
-const SimpleCardLogo = ({ FillerContent, isDarkMode, logos }) => {
+const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
   return (
     <Box component="section">
       <Container>
@@ -16,7 +16,7 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logos }) => {
                 gap: 4,
               }}
             >
-              {logos?.map((item, index) => (
+              {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
                   <Box
                     sx={{ filter: isDarkMode ? 'invert(100%)' : '' }}

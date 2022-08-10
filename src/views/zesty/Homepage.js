@@ -74,7 +74,7 @@ function Homepage({ content }) {
   return (
     <>
       <Hero {...pageData} />
-      <SimpleCardLogo logos={content.homepage_logos.data} {...pageData} />
+      <SimpleCardLogo logoItems={content.homepage_logos.data} {...pageData} />
       <DigitalExperience {...pageData} />
       <NewBenefits {...pageData} />
       <Migration {...pageData} />
