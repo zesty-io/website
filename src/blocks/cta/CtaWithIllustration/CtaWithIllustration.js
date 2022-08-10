@@ -19,6 +19,7 @@ const CtaWithIllustration = ({
   image,
   isDemoPage,
   request_demo_text,
+  form_zoho_url,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -46,7 +47,6 @@ const CtaWithIllustration = ({
                     component: 'h2',
                     variant: 'h3',
                     sx: {
-                      textAlign: 'center',
                       fontWeight: 'bold',
                       color: theme.palette.zesty.zestyZambezi,
                     },
@@ -58,7 +58,6 @@ const CtaWithIllustration = ({
                     component: 'h2',
                     variant: 'h6',
                     sx: {
-                      textAlign: 'center',
                       color: theme.palette.zesty.zestyZambezi,
                       mt: 2,
                     },
@@ -70,7 +69,6 @@ const CtaWithIllustration = ({
                     component: 'li',
                     variant: 'h6',
                     sx: {
-                      textAlign: 'center',
                       color: theme.palette.zesty.zestyZambezi,
                     },
                   },
@@ -127,7 +125,7 @@ const CtaWithIllustration = ({
                 <ZohoFormEmbed
                   height="470px"
                   width={'100%'}
-                  formURL="https://zesty.zohobookings.com/portal-embed#/customer/3973976000000039370"
+                  formURL={form_zoho_url || ''}
                 />
               ) : (
                 <CreditCardsIllustration width={'100%'} height={'100%'} />
