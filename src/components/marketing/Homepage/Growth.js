@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import { Box, Typography, Card } from '@mui/material';
 
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';

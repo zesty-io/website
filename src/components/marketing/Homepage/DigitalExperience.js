@@ -9,7 +9,7 @@ import Container from 'blocks/container/Container';
  * Static Assets Imports
  */
 
-const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
+const DigitalExperience = ({ content, FillerContent, theme }) => {
   return (
     <Box
       sx={{
@@ -21,11 +21,11 @@ const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
       }}
       component="section"
     >
-      <Box
+      {/* <Box
         sx={{ position: 'absolute', right: 0 }}
         component="img"
         src={content.bracket_background?.data[0].url}
-      />
+      /> */}
       <Box
         sx={{
           position: 'absolute',
@@ -116,6 +116,9 @@ const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
                   data-aos-duration={`${500 * (index + 1)}`}
                 >
                   <Card
+                    component="a"
+                    href={item.link?.data[0].meta.web.uri || FillerContent.href}
+                    target="_blank"
                     sx={{
                       width: '100%',
                       minHeight: 450,
@@ -125,6 +128,7 @@ const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
+                      textDecoration: 'none',
                     }}
                   >
                     <CardContent>
