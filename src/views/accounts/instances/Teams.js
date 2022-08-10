@@ -70,6 +70,7 @@ const CustomTable = ({ data, handleDeleteTeam, handleUpdataTeam }) => {
   );
 };
 
+//
 // const EmailForm = () => {
 //   return (
 //     <Box>
