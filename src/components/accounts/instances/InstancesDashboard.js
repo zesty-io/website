@@ -23,6 +23,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 
+console.log('test');
 const testarr = [
   {
     ZUID: '8-45a294a-btwkv9',
