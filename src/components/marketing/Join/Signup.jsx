@@ -3,6 +3,9 @@ import { Container, Stack, IconButton, Button,InputLabel,FilledInput,FormControl
 import { EmailOutlined } from '@mui/icons-material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useZestyStore } from 'store';
+import { setCookie } from 'cookies-next';
+
 
 function checkNameInput(str,inputName){
   if(validateName(str)){
@@ -18,9 +21,6 @@ function checkEmailInput(str){
   } else {
     failStateForField('ac-email');
   }
-}
-function validatePhone(phoneNumber){
-  return /^(\+\d{1,3}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(phoneNumber);
 }
 
 function validateName(name){
@@ -60,101 +60,36 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
-var ACCOUNTS_API = process.env.PRODUCTION == "true" ? `https://accounts.api.zesty.io/v1/` : `https://accounts.api.stage.zesty.io/v1/`;
-
-function createAccountSubmission(email, firstName, lastName,password){
-
-  var createEndpoint = ACCOUNTS_API + "users";
-  
-  if(email && firstName && lastName && password ){
-
-    var postBody = {
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      password: password
-    }
-
-    var params = {
-      method: 'POST',
-       headers: {
-         'Content-Type': 'application/json',
-         'Access-Control-Allow-Origin': '*',
-
-       },
-      mode: 'no-cors',
-      credentials: "omit", // include, *same-origin, omit
-      body: JSON.stringify(postBody)
-    }
-
-    fetch(createEndpoint, params).then(function(response) {
-
-      if (!response.error) {
-        // run GA call
-
-        // ga('send', {
-        //   hitType: 'event',
-        //   eventCategory: 'create-account',
-        //   eventAction: 'submission',
-        //   eventLabel: 'User Creation',
-        //   transport: 'beacon'
-        // });
-
-
-        // gtag('event', 'conversion', {
-        //   send_to: 'AW-955374362/ivZJCMeG3JoBEJq2x8cD'
-        // })
-
-        //loginToZesty(postBody.email, postBody.password);
-
-      }
-
-      // run error control
-
-
-    });
-
-    return true;
-
-  } else {
-    console.log('form not validated');
-    return false;
-  }
-
-}
-
-function loginToZesty(email,password){
-  var endpoint = ACCOUNTS_API + "login";
-  var params = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-
-    },
-    mode: 'no-cors',
-    credentials: "omit", // include, *same-origin, omit
-    body: JSON.stringify({ email, password })
-  }
-
-  fetch(endpoint, params).then(function(response) { console.log(response); });
-}
-
 const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
 
 export const Signup = ({
     message = 'What team are you from?',
     callback = {}
   }) => {
+    const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
 
     const [values, setValues] = React.useState({
-      lastname: 'test',
-      firstname: 'test',
+      lastname: '',
+      firstname: '',
       email: randomString + '@test.com',
       password: 'aB123dbf#$2',
       confirmPassword: '',
       showPassword: false,
     });
+
+    // create user function, uses ZestyAPI
+    async function createZestyUser(firstName, lastName, email, password){
+      // create the user
+      let response = await ZestyAPI.createUser(firstName, lastName, email, password);
+      // if made successfully, login the user and store the token to cookies
+      if(response?.data?.zuid){
+        let loginResponse = await ZestyAPI.login(email,password);
+        console.log(loginResponse)
+        setCookie('APP_SID',loginResponse.meta.token);
+        return true;
+      }
+      return false;
+    }
 
     const handleChange = e => {
         setValues({...values, [e.target.name]: e.target.value})
@@ -169,10 +104,17 @@ export const Signup = ({
       });
     };
 
-    const submitForm = () => {
-      alert('creating account')
-      callback();
-      createAccountSubmission(values.email, values.firstname, values.lastname, values.password);
+    // user creation submission form 
+    const submitForm = async () => {
+      
+      
+      let success = await createZestyUser(values.firstname, values.lastname, values.email, values.password);
+      if(success) {
+        callback();
+      } else {
+        alert('user failed to create')
+      }
+
     }
   return (
 
@@ -194,18 +136,21 @@ export const Signup = ({
               label="First Name"
               name="firstname"
               onChange={handleChange}
+              onKeyup={handleChange}
             />
             <TextField
               label="Last Name"
               helperText="Incorrect entry."
               name="lastname"
               onChange={handleChange}
+              onKeyup={handleChange}
             />
             <FormControl variant="standard">
             <TextField
               label="Email"
               name="email"
               onChange={handleChange}
+              onKeyup={handleChange}
               startAdornment={
                 <InputAdornment position="start">
                   <EmailOutlined />
@@ -221,6 +166,7 @@ export const Signup = ({
             value={values.password}
             name="password"
             onChange={handleChange}
+            onKeyup={handleChange}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton

@@ -176,7 +176,7 @@ export default function Join(props) {
 
     const handleAnswers = (answer) => {
         setCurrentAnimation('jiggle');
-        
+        handleNext();
     }
 
     const signUpSuccess = () => {
@@ -186,6 +186,10 @@ export default function Join(props) {
 
     const handleExit = () => {
         window.location = '/'
+    }
+
+    const handleInvite = () => {
+        alert('Invite Friends')
     }
 
     const handlePrompt = () => {
@@ -231,6 +235,7 @@ export default function Join(props) {
                    
                 </Grid>
             </SwiperSlide>
+             {/* Question 1  */}
             <SwiperSlide>
                 <Grid container>
                     <Grid item lg={6} md={6} xs={12}>
@@ -242,19 +247,43 @@ export default function Join(props) {
                             />
                     </Grid>
                     <Grid item lg={6} md={6} xs={12}>
-                        Welcome to Zesty Component
+                       What is Zesty component
                     </Grid>
                 </Grid>
             </SwiperSlide>
+             {/* Question 2  */}
             <SwiperSlide>
                 <SlideQuestions question={secondQuestion} answers={secondAnswers} answerCallBack={handleAnswers} hoverAnimation={handleAnimation} />
             </SwiperSlide>
+            {/* Signup  */}
             <SwiperSlide>
                 <Signup 
                     message="Thanks, now let's get your started!." 
                     callback={signUpSuccess}
                     />
             </SwiperSlide>
+            <SwiperSlide> 
+                <Grid container>  
+                    
+                    <Grid item lg={5} md={5} xs={12}>
+                        <Container sx={{padding: '5em'}}>
+
+                            <SlideMessage 
+                                message={<h1>Welcome to Zesty!</h1>}
+                                buttonText={`Let's Go!`} 
+                                exitButtonText={'Wait, let me invite friends ;)'}
+                                exitButtonAction={handleInvite}
+                                answerCallBack={handlePrompt} 
+                                hoverAnimation={handleAnimation}
+                                
+                            />
+                        </Container>
+                    </Grid>
+                   
+                </Grid>
+            </SwiperSlide>
+            
+            
             <SwiperSlide>
                 <>
                     <SlideQuestions question={thirdQuestion} answers={thirdAnswers} answerCallBack={handleAnswers} hoverAnimation={handleAnimation} />
