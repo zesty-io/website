@@ -34,7 +34,6 @@ import { LogoGridSimpleCentered } from 'blocks/logoGrid';
 import FillerContent from 'components/globals/FillerContent';
 
 function DemoVideo({ content }) {
-  console.log(content);
   return (
     <>
       <HeroWithLogoGridAndDesktopScreenshot {...content} />
