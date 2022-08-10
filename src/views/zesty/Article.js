@@ -58,7 +58,6 @@ function Article({ content }) {
   });
 
   const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
-  console.log('simliarTags', simliarTags);
 
   const { data: latestArticles, isPending: latestPending } = useFetch(
     '/-/all-articles-hydrated.json?limit=5',
