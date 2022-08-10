@@ -52,12 +52,12 @@ import FillerContent from 'components/globals/FillerContent';
 
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const pageData = {
     theme,
-    isMobile,
+    isMedium,
     isDarkMode,
     content,
     FillerContent,

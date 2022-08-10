@@ -113,7 +113,6 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
                   fullWidth={isMedium}
                   href={content.hero_button_right_link?.data[0].meta.web.uri}
                   text={content.hero_button_right || FillerContent.cta}
-                  variant="outlined"
                 />
               </Box>
             </Grid>
