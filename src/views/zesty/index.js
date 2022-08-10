@@ -43,6 +43,7 @@ import ZestyProduct from './ZestyProduct';
 import PersonaPagesLink from './PersonaPagesLink';
 import SubNav2022 from './SubNav2022';
 import NavigationFlyout from './NavigationFlyout';
+import Resource from './Resource';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -106,6 +107,10 @@ import UseCase2 from './UseCase2';
 import ForDeveloper from './ForDeveloper';
 import Scholarship from './Scholarship';
 import DemoVideo from './DemoVideo';
+import DigitalGovernance from './DigitalGovernance';
+import CdnHosting from './CdnHosting';
+import HeadlessMobile from './HeadlessMobile';
+import ContentResource from './ContentResource';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -154,6 +159,7 @@ export {
     PersonaPagesLink,
     SubNav2022,
     NavigationFlyout,
+    Resource,
     Category,
     Article,
     Tag,
@@ -217,6 +223,10 @@ export {
     ForDeveloper,
     Scholarship,
     DemoVideo,
+    DigitalGovernance,
+    CdnHosting,
+    HeadlessMobile,
+    ContentResource,
     Footer,
     Header
 }
