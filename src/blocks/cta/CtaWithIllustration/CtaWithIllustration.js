@@ -36,7 +36,6 @@ const CtaWithIllustration = ({
           }}
           item
           xs={12}
-          md={6}
         >
           {isDemoPage ? (
             <MuiMarkdown
@@ -47,6 +46,7 @@ const CtaWithIllustration = ({
                     component: 'h2',
                     variant: 'h3',
                     sx: {
+                      textAlign: 'center',
                       fontWeight: 'bold',
                       color: theme.palette.zesty.zestyZambezi,
                     },
@@ -58,6 +58,7 @@ const CtaWithIllustration = ({
                     component: 'h2',
                     variant: 'h6',
                     sx: {
+                      textAlign: 'center',
                       color: theme.palette.zesty.zestyZambezi,
                       mt: 2,
                     },
@@ -69,6 +70,7 @@ const CtaWithIllustration = ({
                     component: 'li',
                     variant: 'h6',
                     sx: {
+                      textAlign: 'center',
                       color: theme.palette.zesty.zestyZambezi,
                     },
                   },
@@ -118,11 +120,15 @@ const CtaWithIllustration = ({
             </Box>
           )}
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Box height={1} width={1} display={'flex'} justifyContent={'center'}>
             <Box height={1} width={1}>
               {isDemoPage ? (
-                <ZohoFormEmbed height="620px" formURL="" />
+                <ZohoFormEmbed
+                  height="470px"
+                  width={'100%'}
+                  formURL="https://zesty.zohobookings.com/portal-embed#/customer/3973976000000039370"
+                />
               ) : (
                 <CreditCardsIllustration width={'100%'} height={'100%'} />
               )}

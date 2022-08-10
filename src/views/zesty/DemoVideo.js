@@ -31,12 +31,10 @@
 import { HeroWithLogoGridAndDesktopScreenshot } from 'blocks/heroes';
 import { CtaWithIllustration } from 'blocks/cta';
 import { LogoGridSimpleCentered } from 'blocks/logoGrid';
-import { ShowcaseGrid } from 'blocks/categoryShowcases';
 import FillerContent from 'components/globals/FillerContent';
 
 function DemoVideo({ content }) {
   console.log(content);
-
   return (
     <>
       <HeroWithLogoGridAndDesktopScreenshot {...content} />
