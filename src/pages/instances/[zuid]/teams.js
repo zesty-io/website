@@ -55,8 +55,12 @@ export default function TeamsPage() {
     res.error && handleGetAllTeamsError(res);
   };
 
-  const createTeam = async (name) => {
-    const res = await ZestyAPI.createTeam(name);
+  const createTeam = async (data) => {
+    const payload = {
+      Name: data?.name,
+      Description: data?.description,
+    };
+    const res = await ZestyAPI.createTeam(payload);
     !res.error && handleCreateTeamSuccess(res);
     res.error && handleCreateTeamError(res);
   };
@@ -66,8 +70,12 @@ export default function TeamsPage() {
     res.error && handleDeleteTeamError(res);
   };
 
-  const updateTeam = async ({ name, ZUID }) => {
-    const res = await ZestyAPI.updateTeam(name, ZUID);
+  const updateTeam = async (data) => {
+    const payload = {
+      name: data.name,
+      description: data.description,
+    };
+    const res = await ZestyAPI.updateTeam(payload, data.ZUID);
     !res.error && handleUpdateTeamSuccess(res);
     res.error && handleUpdateTeamError(res);
   };

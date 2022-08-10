@@ -22,6 +22,10 @@ const teams = yup.object().shape({
     .string()
     .min(2, 'Must be atleast 2 Characters')
     .required('Name is required'),
+  description: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('Description is required'),
 });
 const password = yup.object().shape({
   oldPassword: yup

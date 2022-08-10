@@ -75,6 +75,7 @@ const CustomForm = ({ onSubmit, data = {} }) => {
     validationSchema: accountsValidations.teams,
     initialValues: {
       name: data?.name,
+      description: data?.description,
     },
     onSubmit: async (values) => {
       const val = { ...values, ZUID: data.ZUID };
@@ -87,6 +88,7 @@ const CustomForm = ({ onSubmit, data = {} }) => {
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
         <FormInput name={'name'} formik={formik} />
+        <FormInput name={'description'} formik={formik} />
         <Button color="primary" variant="contained" fullWidth type="submit">
           Submit
         </Button>
@@ -103,8 +105,8 @@ const Main = ({
   getAllTeams,
   deleteTeam,
 }) => {
-  const handleCreateTeam = async ({ name }) => {
-    await createTeam(name);
+  const handleCreateTeam = async (data) => {
+    await createTeam(data);
     await getAllTeams();
   };
 
