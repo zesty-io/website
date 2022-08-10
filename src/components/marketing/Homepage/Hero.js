@@ -63,7 +63,7 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
                         component: 'h1',
                         variant: 'h3',
                         sx: {
-                          fontWeight: 900,
+                          color: theme.palette.zesty.zestyDarkText,
                         },
                       },
                     },
@@ -75,7 +75,6 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
                         component: 'p',
                         variant: 'h6',
                         sx: {
-                          fontWeight: 'bold',
                           mt: 2,
                           color: theme.palette.text.secondary,
                         },

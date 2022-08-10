@@ -2,30 +2,30 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-/**
- * Static Assets Imports
- */
-
-import HeartQuote from '../../../../public/assets/images/homepage/heartQuote.svg';
-import Star from '../../../../public/assets/images/homepage/star.svg';
 
 /**
  * Components Imports
  */
 import Marquee from 'react-fast-marquee';
-import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper';
-import { useTheme } from '@mui/material';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const LogoSlider = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const LogoSlider = ({ content, FillerContent, theme }) => {
+  const slideOne = [content.integrations_logos?.data];
+  const slideTwo = [content.integrations_logos_2?.data];
+
+  /**
+   * It creates an array of length repeats, and then maps each element to the original array
+   * @param arr - The array to repeat.
+   * @param repeats - The number of times to repeat the array.
+   */
+  const makeRepeated = (arr, repeats) =>
+    Array.from({ length: repeats }, () => arr).flat();
+
   return (
     <Box
       component="section"
@@ -74,32 +74,36 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, isLarge }) => {
       </MuiMarkdown>
 
       <Box>
-        <Box sx={{ mt: 5 }}>
-          <Marquee direction="right" gradient={false} speed={30}>
-            {content.integrations_logos?.data.map((item, index) => (
-              <Box
-                key={index}
-                sx={{ height: 127, width: '100%' }}
-                component={'img'}
-                src={item.logo?.data[0].url || FillerContent.logos[0].url}
-                alt={item.name}
-              />
-            ))}
-          </Marquee>
-        </Box>
-        <Box sx={{ mt: 5 }}>
-          <Marquee gradient={false} direction="left" speed={30}>
-            {content.integrations_logos?.data.map((item, index) => (
-              <Box
-                key={index}
-                sx={{ height: 127, width: '100%' }}
-                component={'img'}
-                src={item.logo?.data[0].url || FillerContent.logos[0].url}
-                alt={item.name}
-              />
-            ))}
-          </Marquee>
-        </Box>
+        {slideOne && (
+          <Box sx={{ mt: 5 }}>
+            <Marquee direction="right" gradient={false} speed={30}>
+              {makeRepeated(slideOne[0], 2).map((item, index) => (
+                <Box
+                  key={index}
+                  sx={{ height: 127, width: '100%' }}
+                  component={'img'}
+                  src={item.logo?.data[0].url || FillerContent.logos[0].url}
+                  alt={item.name}
+                />
+              ))}
+            </Marquee>
+          </Box>
+        )}
+        {slideTwo && (
+          <Box sx={{ mt: 5 }}>
+            <Marquee gradient={false} direction="left" speed={30}>
+              {makeRepeated(slideTwo[0], 2).map((item, index) => (
+                <Box
+                  key={index}
+                  sx={{ height: 127, width: '100%' }}
+                  component={'img'}
+                  src={item.logo?.data[0].url || FillerContent.logos[0].url}
+                  alt={item.name}
+                />
+              ))}
+            </Marquee>
+          </Box>
+        )}
       </Box>
     </Box>
   );
