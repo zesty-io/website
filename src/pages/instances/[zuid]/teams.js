@@ -33,6 +33,22 @@ export default function TeamsPage() {
     ErrorMsg({ text: err.error });
   };
 
+  const handleDeleteTeamSuccess = (res) => {
+    console.log(res);
+    SuccessMsg({ title: 'Success' });
+  };
+  const handleDeleteTeamError = (err) => {
+    console.log(err);
+    ErrorMsg({ text: err.error });
+  };
+  const handleUpdateTeamSuccess = (res) => {
+    console.log(res);
+    SuccessMsg({ title: 'Success' });
+  };
+  const handleUpdateTeamError = (err) => {
+    console.log(err);
+    ErrorMsg({ text: err.error });
+  };
   const getAllTeams = async () => {
     const res = await ZestyAPI.getAllTeams();
     !res.error && handleGetAllTeamsSuccess(res);
@@ -44,6 +60,18 @@ export default function TeamsPage() {
     !res.error && handleCreateTeamSuccess(res);
     res.error && handleCreateTeamError(res);
   };
+  const deleteTeam = async (id) => {
+    const res = await ZestyAPI.deleteTeam(id);
+    !res.error && handleDeleteTeamSuccess(res);
+    res.error && handleDeleteTeamError(res);
+  };
+
+  const updateTeam = async ({ name, ZUID }) => {
+    const res = await ZestyAPI.updateTeam(name, ZUID);
+    !res.error && handleUpdateTeamSuccess(res);
+    res.error && handleUpdateTeamError(res);
+  };
+
   React.useEffect(() => {
     getAllTeams();
   }, []);
@@ -59,7 +87,7 @@ export default function TeamsPage() {
     }
   });
 
-  console.log(zuid);
+  console.log(zuid, 'instance:');
   return (
     <Main>
       <AppBar />
@@ -72,6 +100,8 @@ export default function TeamsPage() {
               getAllTeams={getAllTeams}
               createTeam={createTeam}
               setsearch={setsearch}
+              deleteTeam={deleteTeam}
+              updateTeam={updateTeam}
             />
           </InstancesApp>
         ) : (

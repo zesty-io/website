@@ -29,13 +29,34 @@ const COLUMNS = [
   },
 ];
 
-const CustomTable = ({ data }) => {
+const CustomTable = ({ data, handleDeleteTeam, handleUpdataTeam }) => {
   const ROWS = data?.map((e) => {
     return {
       name: e.name || '-',
       description: e.description || '-',
       zuid: e.ZUID,
-      action: '-',
+      action: (
+        <Box display={'flex'}>
+          <Button
+            onClick={() => handleUpdataTeam(e)}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Edit
+          </Button>
+          <Button
+            onClick={() => handleDeleteTeam(e)}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Delete
+          </Button>
+        </Box>
+      ),
     };
   });
 
@@ -49,14 +70,15 @@ const CustomTable = ({ data }) => {
   );
 };
 
-const CustomForm = ({ handleCreateTeam }) => {
+const CustomForm = ({ onSubmit, data = {} }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.teams,
     initialValues: {
-      name: '',
+      name: data?.name,
     },
     onSubmit: async (values) => {
-      await handleCreateTeam(values);
+      const val = { ...values, ZUID: data.ZUID };
+      await onSubmit(val);
       formik.resetForm();
     },
   });
@@ -73,12 +95,42 @@ const CustomForm = ({ handleCreateTeam }) => {
   );
 };
 
-const Index = ({ setsearch, teams, createTeam, getAllTeams }) => {
+const Main = ({
+  updateTeam,
+  setsearch,
+  teams,
+  createTeam,
+  getAllTeams,
+  deleteTeam,
+}) => {
   const handleCreateTeam = async ({ name }) => {
     await createTeam(name);
     await getAllTeams();
   };
 
+  const handleDeleteTeam = async ({ ZUID }) => {
+    await deleteTeam(ZUID);
+    await getAllTeams();
+  };
+  const handleEditTeam = async (data) => {
+    await updateTeam(data);
+    await getAllTeams();
+  };
+
+  const handleAddTeam = () => {
+    MySwal.fire({
+      title: 'Add Team',
+      html: <CustomForm onSubmit={handleCreateTeam} />,
+      showConfirmButton: false,
+    });
+  };
+  const handleUpdataTeam = (data) => {
+    MySwal.fire({
+      title: 'Edit Team',
+      html: <CustomForm onSubmit={handleEditTeam} data={data} />,
+      showConfirmButton: false,
+    });
+  };
   return (
     <Box>
       <TextField
@@ -88,22 +140,16 @@ const Index = ({ setsearch, teams, createTeam, getAllTeams }) => {
         onChange={(e) => setsearch(e.target.value)}
       />
 
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() => {
-          MySwal.fire({
-            title: 'Add Team',
-            html: <CustomForm handleCreateTeam={handleCreateTeam} />,
-            showConfirmButton: false,
-          });
-        }}
-      >
+      <Button color="primary" variant="contained" onClick={handleAddTeam}>
         Add Team
       </Button>
-      <CustomTable data={teams} />
+      <CustomTable
+        data={teams}
+        handleDeleteTeam={handleDeleteTeam}
+        handleUpdataTeam={handleUpdataTeam}
+      />
     </Box>
   );
 };
 
-export const Teams = React.memo(Index);
+export const Teams = React.memo(Main);
