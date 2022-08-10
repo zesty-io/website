@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
+import { Box, Card, CardContent } from '@mui/material';
 import Container from 'blocks/container/Container';
 
 const SimpleCardLogo = ({ content, FillerContent, isDarkMode }) => {

@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 /**
@@ -17,7 +17,6 @@ const Bottom = ({
   FillerContent,
   theme,
   isMedium,
-  isLarge,
   isSmall,
   isExtraLarge,
 }) => {
