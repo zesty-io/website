@@ -70,24 +70,24 @@ const CustomTable = ({ data, handleDeleteTeam, handleUpdataTeam }) => {
   );
 };
 
-const EmailForm = () => {
-  return (
-    <Box>
-      <form action="submit">
-        <TextField
-          id="outlined-basic"
-          label="Search..."
-          variant="outlined"
-          onChange={(e) => setsearch(e.target.value)}
-        />
+// const EmailForm = () => {
+//   return (
+//     <Box>
+//       <form action="submit">
+//         <TextField
+//           id="outlined-basic"
+//           label="Search..."
+//           variant="outlined"
+//           onChange={(e) => setsearch(e.target.value)}
+//         />
 
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Submit
-        </Button>
-      </form>
-    </Box>
-  );
-};
+//         <Button color="primary" variant="contained" fullWidth type="submit">
+//           Submit
+//         </Button>
+//       </form>
+//     </Box>
+//   );
+// };
 
 const CustomForm = ({ onSubmit, data = {} }) => {
   const formik = useFormik({
