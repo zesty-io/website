@@ -6,6 +6,14 @@ const emailRegex =
 const lowercaseRegex = /(?=.*[a-z])/;
 const uppercaseRegex = /(?=.*[A-Z])/;
 const numericRegex = /(?=.*[0-9])/;
+
+const invite = yup.object().shape({
+  email: yup
+    .string()
+    .required('Email address is required*')
+    .matches(emailRegex, 'Must be a valid email address*'),
+});
+
 const email = yup.object().shape({
   name: yup
     .string()
@@ -17,6 +25,16 @@ const email = yup.object().shape({
     .matches(emailRegex, 'Must be a valid email address*'),
 });
 
+const teams = yup.object().shape({
+  name: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('Name is required'),
+  description: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('Description is required'),
+});
 const password = yup.object().shape({
   oldPassword: yup
     .string()
@@ -43,4 +61,6 @@ export const accountsValidations = {
   email,
   password,
   twoFactorAuth,
+  teams,
+  invite,
 };
