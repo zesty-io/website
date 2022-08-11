@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Container, Stack, IconButton, Button,InputLabel,FilledInput,FormControl, InputAdornment, Box, TextField, Typography } from '@mui/material';
+import { Container, Stack, Grid, OutlinedInput, FormHelperText, IconButton, Button,InputLabel,FilledInput, InputAdornment, Box, TextField, Typography } from '@mui/material';
+import FormControl, { useFormControl } from '@mui/material/FormControl';
+
 import { EmailOutlined } from '@mui/icons-material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -38,6 +40,21 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
+
+function PasswordHelperText() {
+  const { focused } = useFormControl() || {};
+
+  const helperText = React.useMemo(() => {
+    if (focused) {
+      return 'UPPERCASE, lowercase, number, and SP3CI@L CH@R please.';
+    }
+
+    return 'Minimum 8 characters. At least one number. A combination of lower and uppercase letters.';
+  }, [focused]);
+
+  return <FormHelperText>{helperText}</FormHelperText>;
+}
+
 export const Signup = ({
     message = 'What team are you from?',
     callback = {}
@@ -52,7 +69,7 @@ export const Signup = ({
       lastname: '',
       firstname: '',
       email: '',
-      password: 'aB123dbf#$2',
+      password: '',
       confirmPassword: '',
       showPassword: false,
       formValid: false,
@@ -80,7 +97,7 @@ export const Signup = ({
     }
 
     // validate fields
-    const validFirstName = validateName(values.firstname);
+    const validFirstName =  validateName(values.firstname);
     const validLastName = validateName(values.lastname);
     const validPassword = validatePassword(values.password);
     const validEmail = validateEmail(values.email);
@@ -114,70 +131,90 @@ export const Signup = ({
     <Container>
         
         <Typography>{message}</Typography>
-        <EmailOutlined />
+        
         <Box
           component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}
           noValidate
           autoComplete="off"
         >
-          <div>
-            <TextField
-              // error
-              label="First Name"
-              name="firstname"
-              error={!validFirstName}
-              onKeyUp={handleChange}
-            />
-            <TextField
-              label="Last Name"
-              helperText="Incorrect entry."
-              name="lastname"
-              error={!validLastName}
-              onKeyUp={handleChange}
-            />
-            <FormControl variant="standard">
-            <TextField
-              label="Email"
-              name="email"
-              error={!validEmail}
-              onKeyUp={handleChange}
-              startAdornment={
-                <InputAdornment position="start">
-                  <EmailOutlined />
-                </InputAdornment>
-              }
-            />
-            </FormControl>
-            <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
-          <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-          <FilledInput
-            id="filled-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            name="password"
-            error={!validPassword}
-            onChange={handleChange}
-            onKeyUp={handleChange}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+          <Grid container gap={1} paddingY={2}>
+            <Grid md={5} lg={5} xs={12} item>
+              <TextField
+                fullWidth
+                label="First Name"
+                name="firstname"
+                helperText={ validFirstName ? '' : 'Name not long engough' }
+                error={!validFirstName}
+                onKeyUp={handleChange}
+              />
+            </Grid>
+            <Grid md={5} lg={5} xs={12} item>
+              <TextField
+                fullWidth
+                label="Last Name"
+                helperText={ validLastName ? '' : 'Name not long engough' }
+                name="lastname"
+                error={!validLastName}
+                onKeyUp={handleChange}
+              />
+            </Grid>
+          </Grid>
+          <Grid gap={1} container paddingY={1}>
+            <Grid md={5} lg={5} xs={12} item>
+            
+              <FormControl>
+                <InputLabel htmlFor="email">Email</InputLabel>
+                <OutlinedInput
+                  fullWidth
+                  type={'text'}
+                  id="email"
+                  label="Email"
+                  name="email"
+                  error={!validEmail}
+                  onKeyUp={handleChange}
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <EmailOutlined />
+                    </InputAdornment>
+                  }
+                />
+                {validEmail ? '' : <FormHelperText>Valid email required</FormHelperText>}
+              </FormControl>
+            </Grid>
+            <Grid md={5} lg={5} xs={12} item>
+              
+
+              <FormControl>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <OutlinedInput
+                  id="password"
+                  fullWidth
+                  label="Password"
+                  type={values.showPassword ? 'text' : 'password'}
+                  name="password"
+                  error={!validPassword}
+                  onChange={handleChange}
+                  onKeyUp={handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                <PasswordHelperText />
+              </FormControl>
+            </Grid>
+          </Grid>
       <Button variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Next</Button>
 
-          </div>
+          
         </Box>
     </Container>
   )
