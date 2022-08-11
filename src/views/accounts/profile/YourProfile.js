@@ -77,18 +77,20 @@ const ProfileHeader = ({ userInfo }) => {
   );
 };
 
-export const YourProfile = () => {
+export const YourProfile = ({ getUser }) => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
   const [firstName, setfirstName] = React.useState('');
   const [lastName, setlastName] = React.useState('');
   const [emails, setemails] = React.useState([]);
 
-  const updateUsernameSuccess = (data) => {
+  const updateUsernameSuccess = async (data) => {
+    await getUser();
     console.log(data, 'success');
     SuccessMsg({ title: 'Update Success' });
   };
 
-  const updateUsernameError = (err) => {
+  const updateUsernameError = async (err) => {
+    await getUser();
     console.log(err, 'err');
     ErrorMsg({ text: err?.error });
   };
