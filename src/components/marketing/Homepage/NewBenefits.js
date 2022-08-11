@@ -2,7 +2,7 @@
  * React Imports
  */
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 /**
  * MUI Imports
  */
@@ -28,8 +28,6 @@ import 'swiper/css/navigation';
 
 const NewBenefits = ({ content, FillerContent, theme, isLarge }) => {
   const [activeSlide, setActiveSlide] = useState();
-
-  console.info(activeSlide);
 
   return (
     <Box
