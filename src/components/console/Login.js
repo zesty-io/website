@@ -11,6 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
+import * as helpers from 'utils';
 
 const Login = () => {
   const { ZestyAPI } = useZestyStore((state) => state);
@@ -18,7 +19,8 @@ const Login = () => {
 
   const handleLoginSuccess = (res) => {
     setloading(false);
-    setCookie('APP_SID', res.data.data);
+
+    setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data);
     SuccessMsg({
       title: 'Success',
       action: () => {
