@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import {
   accountsValidations,
   ErrorMsg,
@@ -19,10 +19,12 @@ const Login = () => {
   const handleLoginSuccess = (res) => {
     setloading(false);
     setCookie('APP_SID', res.data.data);
-    SuccessMsg({ title: 'Success' });
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+    SuccessMsg({
+      title: 'Success',
+      action: () => {
+        window.location.reload();
+      },
+    });
   };
   const handleLoginErr = (err) => {
     setloading(false);
@@ -52,8 +54,8 @@ const Login = () => {
   });
 
   return (
-    <Box>
-      <Box paddingY={4}>
+    <Grid container>
+      <Grid item xs={12}>
         <form noValidate onSubmit={formik.handleSubmit}>
           <FormInput name={'email'} formik={formik} />
           <FormInput name={'password'} type="password" formik={formik} />
@@ -65,8 +67,8 @@ const Login = () => {
             )}
           </Button>
         </form>
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 };
 
