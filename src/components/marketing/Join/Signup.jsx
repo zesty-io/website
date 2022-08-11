@@ -6,35 +6,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useZestyStore } from 'store';
 import { setCookie } from 'cookies-next';
 
-
-function checkNameInput(str,inputName){
-  if(validateName(str)){
-    successStateForField(inputName);
-  } else {
-    failStateForField(inputName);
-  }
-}
-
-function checkEmailInput(str){
-  if(validateEmail(str)){
-    successStateForField('ac-email');
-  } else {
-    failStateForField('ac-email');
-  }
-}
-
 function validateName(name){
   return checkStringLength(name, 2);
-}
-
-function toggleCharWarning(el,success){
-  if(success){
-    el.classList.remove('is-primary');
-    el.classList.add('is-success');
-  } else {
-    el.classList.add('is-primary');
-    el.classList.remove('is-success');
-  }
 }
 
 function checkStringLength(str,len){
@@ -55,28 +28,37 @@ function checkStringForLowercase(str){
   return (/[a-z]/.test(str));
 }
 
+function validatePassword(str){
+  return checkStringForUppercase(str) && checkStringForLowercase(str) && checkStringForNumber(str) && checkStringLength(str,8);
+
+}
+
 function validateEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
 
-const randomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-
 export const Signup = ({
     message = 'What team are you from?',
     callback = {}
   }) => {
-    const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
+    // ref for submit button
+    const submitButton = React.useRef(null);
 
+    // zesty store
+    const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
+    // intial state setup
     const [values, setValues] = React.useState({
       lastname: '',
       firstname: '',
-      email: randomString + '@test.com',
+      email: '',
       password: 'aB123dbf#$2',
       confirmPassword: '',
       showPassword: false,
+      formValid: false,
     });
 
+    
     // create user function, uses ZestyAPI
     async function createZestyUser(firstName, lastName, email, password){
       // create the user
@@ -84,16 +66,28 @@ export const Signup = ({
       // if made successfully, login the user and store the token to cookies
       if(response?.data?.zuid){
         let loginResponse = await ZestyAPI.login(email,password);
-        console.log(loginResponse)
+        // this emulated accounts for login
         setCookie('APP_SID',loginResponse.meta.token);
         return true;
       }
       return false;
     }
-
+    // updates state with changed values
     const handleChange = e => {
+        console.log('handle change changing: ' + e.target.name + ' : ' + e.target.value)
         setValues({...values, [e.target.name]: e.target.value})
+        
     }
+
+    // validate fields
+    const validFirstName = validateName(values.firstname);
+    const validLastName = validateName(values.lastname);
+    const validPassword = validatePassword(values.password);
+    const validEmail = validateEmail(values.email);
+
+    // check if form is valid 
+    const checkAllValid = validFirstName && validLastName &&  validPassword && validEmail;;
+
     const handleMouseDownPassword = () => {
       event.preventDefault();
     };
@@ -106,8 +100,7 @@ export const Signup = ({
 
     // user creation submission form 
     const submitForm = async () => {
-      
-      
+      // check if user created successfully
       let success = await createZestyUser(values.firstname, values.lastname, values.email, values.password);
       if(success) {
         callback();
@@ -135,22 +128,22 @@ export const Signup = ({
               // error
               label="First Name"
               name="firstname"
-              onChange={handleChange}
-              onKeyup={handleChange}
+              error={!validFirstName}
+              onKeyUp={handleChange}
             />
             <TextField
               label="Last Name"
               helperText="Incorrect entry."
               name="lastname"
-              onChange={handleChange}
-              onKeyup={handleChange}
+              error={!validLastName}
+              onKeyUp={handleChange}
             />
             <FormControl variant="standard">
             <TextField
               label="Email"
               name="email"
-              onChange={handleChange}
-              onKeyup={handleChange}
+              error={!validEmail}
+              onKeyUp={handleChange}
               startAdornment={
                 <InputAdornment position="start">
                   <EmailOutlined />
@@ -165,8 +158,9 @@ export const Signup = ({
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             name="password"
+            error={!validPassword}
             onChange={handleChange}
-            onKeyup={handleChange}
+            onKeyUp={handleChange}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -181,7 +175,7 @@ export const Signup = ({
             }
           />
         </FormControl>
-      <Button variant="contained" onClick={submitForm} >Next</Button>
+      <Button variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Next</Button>
 
           </div>
         </Box>
