@@ -2,7 +2,7 @@
  * React Imports
  */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 /**
  * MUI Imports
  */
@@ -28,6 +28,8 @@ import 'swiper/css/navigation';
 
 const NewBenefits = ({ content, FillerContent, theme, isLarge }) => {
   const [activeSlide, setActiveSlide] = useState();
+
+  console.info(activeSlide);
 
   return (
     <Box
@@ -94,10 +96,11 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge }) => {
                 spaceBetween: 10,
               },
             }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
+            // Disabled auto play temporarily due to bug
+            // autoplay={{
+            //   delay: 2500,
+            //   disableOnInteraction: false,
+            // }}
             loop
             speed={2000}
             modules={[Navigation, Pagination, Autoplay]}
