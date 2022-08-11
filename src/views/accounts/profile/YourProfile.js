@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import React from 'react';
 import { useZestyStore } from 'store';
 import Swal from 'sweetalert2';
@@ -8,9 +8,12 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {
   EmailForm,
   ErrorMsg,
+  FormInput,
   StickyTable,
   SuccessMsg,
 } from 'components/accounts/ui';
+import { useFormik } from 'formik';
+import { accountsValidations } from 'components/accounts';
 
 const MySwal = withReactContent(Swal);
 
@@ -79,8 +82,6 @@ const ProfileHeader = ({ userInfo }) => {
 
 export const YourProfile = ({ getUser }) => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
-  const [firstName, setfirstName] = React.useState('');
-  const [lastName, setlastName] = React.useState('');
   const [emails, setemails] = React.useState([]);
 
   const updateUsernameSuccess = async (data) => {
@@ -123,43 +124,51 @@ export const YourProfile = ({ getUser }) => {
     res.error && handleDeleteEmailErr(res);
     await getUserEmails();
   };
-  const updateUsername = async (e) => {
-    e.preventDefault();
+  const updateUsername = async (values) => {
     const userZUID = userInfo.ZUID;
-    const body = { firstName, lastName, prefs: userInfo.prefs };
+    const body = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      prefs: userInfo.prefs,
+    };
     const res = await ZestyAPI.updateUser(userZUID, body);
     !res.error && updateUsernameSuccess(res);
     res.error && updateUsernameError(res);
   };
 
+  const formik = useFormik({
+    validationSchema: accountsValidations.userName,
+    initialValues: {
+      firstName: userInfo?.firstName,
+      lastName: userInfo?.lastName,
+    },
+    onSubmit: async (values) => {
+      await updateUsername(values);
+      formik.resetForm();
+    },
+  });
+
   React.useEffect(() => {
     getUserEmails();
   }, []);
   return (
-    <Box>
+    <Box paddingY={4}>
       <Grid container gap={4}>
         <Grid item>
-          <form action="submit" onSubmit={updateUsername}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <TextField
-                onChange={(event) => setfirstName(event.target.value)}
-                label={firstName || userInfo?.firstName}
-                value={firstName}
-                variant="standard"
-                fullWidth
-              />
-              <TextField
-                fullWidth
-                onChange={(event) => setlastName(event.target.value)}
-                label={lastName || userInfo?.lastName}
-                value={lastName}
-                variant="standard"
-              />
-
-              <Button fullWidth type="submit" variant="contained">
-                Update Username
-              </Button>
-            </Box>
+          <form noValidate onSubmit={formik.handleSubmit}>
+            <FormInput
+              name={'firstName'}
+              label={userInfo?.firstName}
+              formik={formik}
+            />
+            <FormInput
+              name={'lastName'}
+              label={userInfo?.lastName}
+              formik={formik}
+            />
+            <Button color="primary" variant="contained" fullWidth type="submit">
+              Submit
+            </Button>
           </form>
         </Grid>
 

@@ -6,6 +6,16 @@ const emailRegex =
 const lowercaseRegex = /(?=.*[a-z])/;
 const uppercaseRegex = /(?=.*[A-Z])/;
 const numericRegex = /(?=.*[0-9])/;
+const userName = yup.object().shape({
+  firstName: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('Name is required'),
+  lastName: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('Name is required'),
+});
 const email = yup.object().shape({
   name: yup
     .string()
@@ -43,4 +53,5 @@ export const accountsValidations = {
   email,
   password,
   twoFactorAuth,
+  userName,
 };

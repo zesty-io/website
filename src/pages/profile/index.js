@@ -13,7 +13,6 @@ export default function ProfilePage() {
   const [userZUID, setuserZUID] = React.useState('');
 
   const handleVerifySuccess = (res) => {
-    console.log(res, 'suc');
     setuserZUID(res.meta.userZuid);
   };
 
@@ -22,7 +21,6 @@ export default function ProfilePage() {
   };
 
   const handleGetUserSuccess = (res) => {
-    console.log(res, 'suc get');
     setuserInfo(res?.data);
   };
 
