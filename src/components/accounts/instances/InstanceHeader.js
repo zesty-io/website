@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Skeleton,
   Typography,
 } from '@mui/material';
 import React from 'react';
@@ -18,12 +19,17 @@ export default function InstanceHeader({ instance }) {
 
   return (
     <Card sx={{ maxWidth: isSM ? '100%' : 345 }}>
-      <CardMedia
-        component="img"
-        height="100%"
-        image={instance?.screenshotURL}
-        alt="screenshot"
-      />
+      {instance?.screenshotURL ? (
+        <CardMedia
+          component="img"
+          height="100%"
+          image={instance?.screenshotURL}
+          alt="screenshot"
+        />
+      ) : (
+        <Skeleton variant="rectangular" height="150px" />
+      )}
+
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {instance?.name}

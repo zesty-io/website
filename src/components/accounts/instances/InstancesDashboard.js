@@ -22,76 +22,23 @@ import { setCookie } from 'cookies-next';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
+import CustomMenu from './CustomMenu';
+import useDropdown from 'components/hooks/useDropdown';
 
-console.log('test');
-const testarr = [
+const orderByItems = [
   {
-    ZUID: '8-45a294a-btwkv9',
-    name: '! DEV Parsley',
-    screenshotURL:
-      'https://storage.googleapis.com/zesty-prod-instance-screenshots/parsley.zesty.io_1920_1080._400_200.png',
-    updatedAt: '2022-06-24T13:30:49Z',
+    name: 'asc',
+    label: 'Name (A to Z)',
   },
   {
-    ZUID: '8-45a294a-btwkv9',
-    name: '! DEV Parsley',
-    screenshotURL:
-      'https://storage.googleapis.com/zesty-prod-instance-screenshots/parsley.zesty.io_1920_1080._400_200.png',
-    updatedAt: '2022-06-24T13:30:49Z',
-  },
-  {
-    ZUID: '8-45a294a-btwkv9',
-    name: '! DEV Parsley',
-    screenshotURL:
-      'https://storage.googleapis.com/zesty-prod-instance-screenshots/parsley.zesty.io_1920_1080._400_200.png',
-    updatedAt: '2022-06-24T13:30:49Z',
-  },
-  {
-    ZUID: '8-45a294a-btwkv9',
-    name: '! DEV Parsley',
-    screenshotURL:
-      'https://storage.googleapis.com/zesty-prod-instance-screenshots/parsley.zesty.io_1920_1080._400_200.png',
-    updatedAt: '2022-06-24T13:30:49Z',
-  },
-  {
-    ZUID: '8-45a294a-btwkv9',
-    name: '! DEV Parsley',
-    screenshotURL:
-      'https://storage.googleapis.com/zesty-prod-instance-screenshots/parsley.zesty.io_1920_1080._400_200.png',
-    updatedAt: '2022-06-24T13:30:49Z',
-  },
-  {
-    ZUID: '8-45a294a-btwkv9',
-    name: '! DEV Parsley',
-    screenshotURL:
-      'https://storage.googleapis.com/zesty-prod-instance-screenshots/parsley.zesty.io_1920_1080._400_200.png',
-    updatedAt: '2022-06-24T13:30:49Z',
-  },
-  {
-    ZUID: '8-45a294a-btwkv9',
-    name: '! DEV Parsley',
-    screenshotURL:
-      'https://storage.googleapis.com/zesty-prod-instance-screenshots/parsley.zesty.io_1920_1080._400_200.png',
-    updatedAt: '2022-06-24T13:30:49Z',
-  },
-  {
-    ZUID: '8-45a294a-btwkv9',
-    name: '! DEV Parsley',
-    screenshotURL:
-      'https://storage.googleapis.com/zesty-prod-instance-screenshots/parsley.zesty.io_1920_1080._400_200.png',
-    updatedAt: '2022-06-24T13:30:49Z',
-  },
-  {
-    ZUID: '8-45a294a-btwkv9',
-    name: '! DEV Parsley',
-    screenshotURL:
-      'https://storage.googleapis.com/zesty-prod-instance-screenshots/parsley.zesty.io_1920_1080._400_200.png',
-    updatedAt: '2022-06-24T13:30:49Z',
+    name: 'desc',
+    label: 'Name (Z to A)',
   },
 ];
 
 export const InstancesDashboard = () => {
   const [view, setView] = useState('grid');
+  const [, setOrderByValue] = useDropdown();
   const router = useRouter();
   const { ZestyAPI } = useZestyStore((state) => state);
 
@@ -140,12 +87,18 @@ export const InstancesDashboard = () => {
         />
       </Stack>
 
-      <Stack mt={2} direction="row" spacing={2}>
+      <Stack mt={2} direction="row">
+        <CustomMenu
+          menuName="Order by"
+          menuItems={orderByItems}
+          handleClick={setOrderByValue}
+        />
         <ToggleButtonGroup
           value={view}
           exclusive
           color="secondary"
           onChange={handleChangeView}
+          sx={{ ml: 'auto' }}
         >
           <ToggleButton value="grid">
             <GridViewOutlinedIcon />
@@ -158,7 +111,7 @@ export const InstancesDashboard = () => {
 
       <Grid container direction="row" my={2} spacing={2}>
         {view === 'grid' &&
-          testarr
+          instances
             .filter((inst) => inst?.name?.toLowerCase().includes(search))
             .map((instance, index) => (
               <Grid item xs={12} sm={4} lg={3} key={index}>
@@ -180,7 +133,7 @@ export const InstancesDashboard = () => {
 
       {view === 'list' && (
         <List>
-          {testarr
+          {instances
             .filter((inst) => inst?.name?.toLowerCase().includes(search))
             .map((instance, index) => (
               <ListItem divider key={index} disablePadding>
