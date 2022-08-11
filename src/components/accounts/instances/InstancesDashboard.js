@@ -38,7 +38,7 @@ const orderByItems = [
 
 export const InstancesDashboard = () => {
   const [view, setView] = useState('grid');
-  const [, setOrderByValue] = useDropdown();
+  const [orderByValue, setOrderByValue, reset] = useDropdown();
   const router = useRouter();
   const { ZestyAPI } = useZestyStore((state) => state);
 
@@ -57,6 +57,16 @@ export const InstancesDashboard = () => {
   React.useEffect(() => {
     instances.length === 0 && getInstances();
   }, [instances]);
+
+  React.useEffect(() => {
+    if (orderByValue === 'asc') {
+      setInstances(instances.sort((a, b) => a.name.localeCompare(b.name)));
+    }
+    if (orderByValue === 'desc') {
+      setInstances(instances.sort((a, b) => b.name.localeCompare(a.name)));
+    }
+    reset();
+  }, [orderByValue]);
 
   const handleRoute = (zuid) => {
     setCookie('ZESTY_WORKING_INSTANCE', zuid);

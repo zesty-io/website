@@ -5,8 +5,11 @@ const useDropdown = () => {
   const handleClick = (value) => {
     setValue(value);
   };
+  const reset = () => {
+    setValue('');
+  };
 
-  return [value, handleClick];
+  return [value, handleClick, reset];
 };
 
 export default useDropdown;
