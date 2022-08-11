@@ -15,7 +15,9 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
         // backgroundSize: 'cover',
         // backgroundPosition: 'center',
         // backgroundRepeat: 'no-repeat',
-        background: theme.palette.zesty.zestyWhite,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyWhite,
         py: 10,
         mt: 10,
       }}
@@ -27,7 +29,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
             component="h2"
             sx={{
               color: isDarkMode
-                ? theme.palette.zesty.zestyDarkBlue
+                ? theme.palette.common.white
                 : theme.palette.zesty.zestyDarkText,
               textAlign: 'center',
               fontWeight: 'bold',
@@ -40,7 +42,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
             component="p"
             sx={{
               color: isDarkMode
-                ? theme.palette.zesty.zestyDarkBlue
+                ? theme.palette.common.white
                 : theme.palette.zesty.zestyDarkText,
               textAlign: 'center',
               mt: 2,
@@ -87,6 +89,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   margin: 'auto',
                   position: 'relative',
                   display: 'block',
+                  textDecoration: 'none',
                 }}
               >
                 <Box

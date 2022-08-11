@@ -94,10 +94,11 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge }) => {
                 spaceBetween: 10,
               },
             }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
+            // Disabled auto play temporarily due to bug
+            // autoplay={{
+            //   delay: 2500,
+            //   disableOnInteraction: false,
+            // }}
             loop
             speed={2000}
             modules={[Navigation, Pagination, Autoplay]}
