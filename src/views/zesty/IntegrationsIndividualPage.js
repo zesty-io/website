@@ -53,6 +53,7 @@ import Resources from 'components/marketing/IntegrationsIndividualPage/Resources
 import TopCompanies from 'components/marketing/IntegrationsIndividualPage/TopCompanies';
 import IntegrationBenefits from 'components/marketing/IntegrationsIndividualPage/IntegrationBenefits';
 import Feature from 'components/marketing/IntegrationsIndividualPage/Feature';
+import ResourcesCards from 'components/marketing/IntegrationsIndividualPage/ResourcesCards';
 
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
@@ -80,6 +81,7 @@ function IntegrationsIndividualPage({ content }) {
       <TopCompanies {...pageData} />
       <IntegrationBenefits {...pageData} />
       <Feature {...pageData} />
+      <ResourcesCards {...pageData} />
     </>
   );
 }

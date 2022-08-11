@@ -40,7 +40,18 @@ const Feature = ({ theme, content, FillerContent, isMedium }) => {
       }}
       component="section"
     >
-      <Box component="img" src={Chevron.src} alt="chevron icon" />
+      <Box
+        sx={{ position: 'absolute', opacity: 0.1 }}
+        component="img"
+        src={Chevron.src}
+        alt="chevron icon"
+      />
+      <Box
+        sx={{ position: 'absolute', opacity: 0.1, bottom: 0 }}
+        component="img"
+        src={Chevron.src}
+        alt="chevron icon"
+      />
       <Container
         sx={{
           position: 'relative',
