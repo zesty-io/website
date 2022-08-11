@@ -19,7 +19,10 @@ const Hero = ({
   FillerContent,
 }) => {
   return (
-    <Box sx={{ background: theme.palette.zesty.zestyDarkBlue, pt: 10 }}>
+    <Box
+      component="section"
+      sx={{ background: theme.palette.zesty.zestyDarkBlue, pt: 10 }}
+    >
       <Container>
         <Box sx={{ position: 'relative' }}>
           <Box

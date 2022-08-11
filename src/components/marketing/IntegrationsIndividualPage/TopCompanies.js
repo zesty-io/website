@@ -19,11 +19,14 @@ const TopCompanies = ({
 }) => {
   return (
     <Box
+      component="section"
       sx={{
         mt: 5,
         pt: isExtraLarge ? 0 : 5,
         py: isExtraLarge ? 5 : 0,
-        background: `url(${content.logos_background?.data[0].url})`,
+        background: `url(${
+          content.logos_background && content.logos_background?.data[0].url
+        })`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -33,6 +36,7 @@ const TopCompanies = ({
       <Typography
         sx={{
           textAlign: 'center',
+          pt: 2,
           mb: 4,
           span: {
             color: theme.palette.zesty.zestyDarkText,

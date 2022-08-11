@@ -52,6 +52,7 @@ import FillerContent from 'components/globals/FillerContent';
 import Resources from 'components/marketing/IntegrationsIndividualPage/Resources';
 import TopCompanies from 'components/marketing/IntegrationsIndividualPage/TopCompanies';
 import IntegrationBenefits from 'components/marketing/IntegrationsIndividualPage/IntegrationBenefits';
+import Feature from 'components/marketing/IntegrationsIndividualPage/Feature';
 
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
@@ -78,6 +79,7 @@ function IntegrationsIndividualPage({ content }) {
       <Resources {...pageData} />
       <TopCompanies {...pageData} />
       <IntegrationBenefits {...pageData} />
+      <Feature {...pageData} />
     </>
   );
 }
