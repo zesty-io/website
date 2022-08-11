@@ -45,7 +45,11 @@ export default function TeamsPage() {
     console.log(res);
     SuccessMsg({ title: 'Success' });
   };
-  const handleUpdateTeamError = (err) => {
+  const handleCreateTeamInviteSuccess = (res) => {
+    console.log(res);
+    SuccessMsg({ title: 'Success' });
+  };
+  const handleCreateTeamInviteError = (err) => {
     console.log(err);
     ErrorMsg({ text: err.error });
   };
@@ -80,9 +84,11 @@ export default function TeamsPage() {
     res.error && handleUpdateTeamError(res);
   };
 
-  React.useEffect(() => {
-    getAllTeams();
-  }, []);
+  const createTeamInvite = async (data) => {
+    const res = await ZestyAPI.createTeamInvite(data);
+    !res.error && handleCreateTeamInviteSuccess(res);
+    res.error && handleCreateTeamInviteError(res);
+  };
 
   const data = teams?.filter((e) => {
     if (search) {
@@ -95,7 +101,21 @@ export default function TeamsPage() {
     }
   });
 
+  const teamsProps = {
+    teams: data,
+    getAllTeams,
+    createTeam,
+    setsearch,
+    deleteTeam,
+    updateTeam,
+    createTeamInvite,
+  };
+
   console.log(zuid, 'instance:');
+
+  React.useEffect(() => {
+    getAllTeams();
+  }, []);
   return (
     <Main>
       <AppBar />
@@ -103,14 +123,7 @@ export default function TeamsPage() {
       <Container>
         {isAuthenticated ? (
           <InstancesApp>
-            <Teams
-              teams={data}
-              getAllTeams={getAllTeams}
-              createTeam={createTeam}
-              setsearch={setsearch}
-              deleteTeam={deleteTeam}
-              updateTeam={updateTeam}
-            />
+            <Teams {...teamsProps} />
           </InstancesApp>
         ) : (
           <Login />
