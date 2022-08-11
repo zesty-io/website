@@ -66,8 +66,8 @@ export const Signup = ({
     const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
     // intial state setup
     const [values, setValues] = React.useState({
-      lastname: '',
-      firstname: '',
+      lastName: '',
+      firstName: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -80,8 +80,9 @@ export const Signup = ({
     async function createZestyUser(firstName, lastName, email, password){
       // create the user
       let response = await ZestyAPI.createUser(firstName, lastName, email, password);
+      console.log('user create response', response)
       // if made successfully, login the user and store the token to cookies
-      if(response?.data?.zuid){
+      if(response?.data?.ZUID){
         let loginResponse = await ZestyAPI.login(email,password);
         // this emulated accounts for login
         setCookie('APP_SID',loginResponse.meta.token);
@@ -97,8 +98,8 @@ export const Signup = ({
     }
 
     // validate fields
-    const validFirstName =  validateName(values.firstname);
-    const validLastName = validateName(values.lastname);
+    const validFirstName =  validateName(values.firstName);
+    const validLastName = validateName(values.lastName);
     const validPassword = validatePassword(values.password);
     const validEmail = validateEmail(values.email);
 
@@ -120,7 +121,7 @@ export const Signup = ({
       // check if user created successfully
       let success = await createZestyUser(values.firstname, values.lastname, values.email, values.password);
       if(success) {
-        callback();
+        callback(values);
       } else {
         alert('user failed to create')
       }
@@ -128,10 +129,8 @@ export const Signup = ({
     }
   return (
 
-    <Container>
-        
-        <Typography>{message}</Typography>
-        
+    <Container>     
+        <Typography>{message}</Typography>   
         <Box
           component="form"
           noValidate
@@ -142,7 +141,7 @@ export const Signup = ({
               <TextField
                 fullWidth
                 label="First Name"
-                name="firstname"
+                name="firstName"
                 helperText={ validFirstName ? '' : 'Name not long engough' }
                 error={!validFirstName}
                 onKeyUp={handleChange}
@@ -153,7 +152,7 @@ export const Signup = ({
                 fullWidth
                 label="Last Name"
                 helperText={ validLastName ? '' : 'Name not long engough' }
-                name="lastname"
+                name="lastName"
                 error={!validLastName}
                 onKeyUp={handleChange}
               />
@@ -212,7 +211,7 @@ export const Signup = ({
               </FormControl>
             </Grid>
           </Grid>
-      <Button variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Next</Button>
+        <Button variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Next</Button>
 
           
         </Box>

@@ -2,7 +2,6 @@ import { React, useEffect, useState, useRef, useCallback } from 'react';
 import { useTheme } from '@emotion/react';
 import { Container, Box, Button, Grid, Typography } from '@mui/material';
 
-
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -17,7 +16,9 @@ import { SlideMessage } from 'components/marketing/Join/SlideMessage';
 import { DancingLogo } from 'components/marketing/Join/DancingLogo';
 import { Signup } from 'components/marketing/Join/Signup';
 import { WelcomeScreen } from 'components/marketing/Join/WelcomeScreen';
-import { QuizTwoTone } from '@mui/icons-material';
+
+// zoho object
+import { zohoPostObject } from 'components/marketing/Join/zohoPostObject.js'
 
 // messages
 const firstMessage = <>
@@ -155,6 +156,25 @@ const fourthAnswers = [
 
 
 
+const postToZOHO = async (payloadJSON) => {
+    fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
+      method: 'POST',
+      body: JSON.stringify(payloadJSON),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // google data
+        dataLayer.push({ event: 'formCaptureSuccess', value: '1' });
+      })
+      .catch((error) => {
+        throw new Error(`HTTP error: ${error}`);
+      });
+  };
+
+
 export default function Join(props) {
     const theme = useTheme();
 
@@ -179,7 +199,25 @@ export default function Join(props) {
         handleNext();
     }
 
-    const signUpSuccess = () => {
+    const signUpSuccess = async  (userDetails) => {
+        console.log(userDetails)
+        console.log(zohoPostObject(userDetails))
+
+        await postToZOHO(zohoPostObject(userDetails))
+        // insantian zoho object
+        // map userDetails to zoho object
+
+        /**
+         * {lastname: 'asdasd', firstname: 'asdsad', email: 'asdsad@asdas.com', password: 'Ee323dddd', confirmPassword: '', …}
+    confirmPassword: ""
+    email: "asdsad@asdas.com"
+    firstname: "asdsad"
+    formValid: false
+    lastname: "asdasd"
+    password: "Ee323dddd"
+    showPassword: false
+    
+         */
         setCurrentAnimation('party');
         handleNext();
     }
