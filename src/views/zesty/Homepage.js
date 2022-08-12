@@ -43,11 +43,7 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Imports
  */
 import Hero from 'components/marketing/Homepage/Hero';
-<<<<<<< HEAD
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-=======
-import SimpleCardLogo from 'components/marketing/Homepage/SimpleCardLogo';
->>>>>>> homepage
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
 import NewBenefits from 'components/marketing/Homepage/NewBenefits';
 import Migration from 'components/marketing/Homepage/Migration';
@@ -79,7 +75,6 @@ function Homepage({ content }) {
     content,
     FillerContent,
   };
-
 
   const testimonialsData = {
     title: content.testimonials_content,
