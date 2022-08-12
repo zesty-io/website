@@ -11,7 +11,7 @@ import MuiMarkdown from 'mui-markdown';
 import Line from '../../../../public/assets/images/IntegrationIndividualPage/line.svg';
 import Chevron from '../../../../public/assets/images/IntegrationIndividualPage/chevron.svg';
 
-const Feature = ({ theme, content, FillerContent, isMedium }) => {
+const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
   const featureData = [
     {
       description: content.feature_description_1 || FillerContent.description,
@@ -27,12 +27,12 @@ const Feature = ({ theme, content, FillerContent, isMedium }) => {
     },
   ];
 
-  console.log(featureData);
-
   return (
     <Box
       sx={{
-        background: theme.palette.zesty.zestyBackgroundBlue,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyBackgroundBlue,
         mt: 10,
         minHeight: isMedium ? 3100 : 2300,
         overflow: 'hidden',
