@@ -14,7 +14,7 @@ import Marquee from 'react-fast-marquee';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const LogoSlider = ({ content, FillerContent, theme }) => {
+const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
   const slideOne = [content.integrations_logos?.data];
   const slideTwo = [content.integrations_logos_2?.data];
 
@@ -30,7 +30,6 @@ const LogoSlider = ({ content, FillerContent, theme }) => {
     <Box
       component="section"
       sx={{
-        mt: 10,
         py: 10,
         background: `url(${content.integrations_background?.data[0].url})`,
         backgroundSize: 'cover',
@@ -80,7 +79,7 @@ const LogoSlider = ({ content, FillerContent, theme }) => {
               {makeRepeated(slideOne[0], 2).map((item, index) => (
                 <Box
                   key={index}
-                  sx={{ height: 127, width: '100%' }}
+                  sx={{ height: isMedium ? 70 : 127, width: '100%' }}
                   component={'img'}
                   src={item.logo?.data[0].url || FillerContent.logos[0].url}
                   alt={item.name}
@@ -95,7 +94,7 @@ const LogoSlider = ({ content, FillerContent, theme }) => {
               {makeRepeated(slideTwo[0], 2).map((item, index) => (
                 <Box
                   key={index}
-                  sx={{ height: 127, width: '100%' }}
+                  sx={{ height: isMedium ? 70 : 127, width: '100%' }}
                   component={'img'}
                   src={item.logo?.data[0].url || FillerContent.logos[0].url}
                   alt={item.name}

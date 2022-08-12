@@ -40,9 +40,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  */
 import Hero from 'components/marketing/Homepage/Hero';
 import SimpleCardLogo from 'components/marketing/Homepage/SimpleCardLogo';
-
-// Helpers Imports
-import FillerContent from 'components/globals/FillerContent';
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
 import NewBenefits from 'components/marketing/Homepage/NewBenefits';
 import Migration from 'components/marketing/Homepage/Migration';
@@ -51,6 +48,10 @@ import CaseStudies from 'components/marketing/Homepage/CaseStudies';
 import Testimonials from 'components/marketing/Homepage/Testimonials';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
 import Bottom from 'components/marketing/Homepage/Bottom';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
+import { useEffect } from 'react';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -70,6 +71,12 @@ function Homepage({ content }) {
     content,
     FillerContent,
   };
+
+  useEffect(() => {
+    AOS.init({
+      disable: isMedium,
+    });
+  }, [isMedium]);
 
   return (
     <>

@@ -28,7 +28,6 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-          <script>AOS.init();</script>
           <noscript>
             <iframe
               src="https://www.googletagmanager.com/ns.html?id=GTM-MSPH3C8"

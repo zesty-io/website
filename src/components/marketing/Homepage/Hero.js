@@ -12,7 +12,7 @@ import MuiMarkdown from 'mui-markdown';
  */
 // import heroBackground from '../../../../public/assets/images/homepage/hero_background.svg';
 
-const Hero = ({ content, FillerContent, theme, isMedium }) => {
+const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
   return (
     <>
       <Box
