@@ -36,9 +36,6 @@
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-// Helpers Imports
-import FillerContent from 'components/globals/FillerContent';
-
 /**
  * Components Imports
  */
