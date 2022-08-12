@@ -1,10 +1,10 @@
 import { Box, Card, CardContent } from '@mui/material';
 import Container from 'blocks/container/Container';
 
-const sunsDarkLogoUrl =
-  'https://kfg6bckb.media.zestyio.com/sunsdark.1fc97b3c326478bf6afcb60e52679656.png';
+const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
+  const sunsDarkLogoUrl =
+    'https://kfg6bckb.media.zestyio.com/sunsdark.1fc97b3c326478bf6afcb60e52679656.png';
 
-const SimpleCardLogo = ({ content, FillerContent, isDarkMode }) => {
   return (
     <Box component="section">
       <Container>
