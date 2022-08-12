@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Button, Grid, Card } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
 import CodeBlock from 'components/cta/CodeBlock';
@@ -48,7 +48,7 @@ const Bottom = ({ theme, content, FillerContent, isLarge, isMedium }) => {
             },
           }}
         >
-          {content.bottom_cta}
+          {content.bottom_cta || FillerContent.description}
         </MuiMarkdown>
 
         <Box sx={{ mt: 5 }}>
@@ -83,12 +83,12 @@ const Bottom = ({ theme, content, FillerContent, isLarge, isMedium }) => {
               }}
               target="_blank"
               fullWidth={true}
-              href={content.cta_primary_link}
+              href={content.cta_primary_link || FillerContent.href}
               component="a"
               variant="contained"
               color={'secondary'}
             >
-              {content.cta_primary_text}
+              {content.cta_primary_text || FillerContent.cta}
             </Button>
 
             <DemoCta

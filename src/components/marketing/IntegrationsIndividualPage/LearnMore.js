@@ -5,14 +5,7 @@ import { Box, Typography, Card, Grid } from '@mui/material';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
 
-const LearnMore = ({
-  theme,
-  content,
-  FillerContent,
-  isLarge,
-  isDarkMode,
-  isSmall,
-}) => {
+const LearnMore = ({ theme, content, FillerContent, isDarkMode, isSmall }) => {
   const cardData = [
     {
       text: content.page_1 || FillerContent.description,

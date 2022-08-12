@@ -1,17 +1,11 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Button, Grid, Card } from '@mui/material';
+import { Box, Typography, Grid, Card } from '@mui/material';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
 
-const ResourcesCards = ({
-  theme,
-  content,
-  FillerContent,
-  isLarge,
-  isDarkMode,
-}) => {
+const ResourcesCards = ({ theme, content, FillerContent, isDarkMode }) => {
   return (
     <Box sx={{ py: 10 }} component="section">
       <Container>

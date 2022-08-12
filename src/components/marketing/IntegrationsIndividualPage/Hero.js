@@ -10,14 +10,7 @@ import ReactPlayer from 'react-player';
 import CodeBlock from 'components/cta/CodeBlock';
 import DemoCta from 'components/cta/DemoCta';
 
-const Hero = ({
-  theme,
-  isMedium,
-  isExtraLarge,
-  isDarkMode,
-  content,
-  FillerContent,
-}) => {
+const Hero = ({ theme, isMedium, isExtraLarge, content, FillerContent }) => {
   return (
     <Box
       component="section"

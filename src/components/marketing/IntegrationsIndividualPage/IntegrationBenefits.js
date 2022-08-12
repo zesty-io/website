@@ -1,16 +1,10 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Button, Card, Grid } from '@mui/material';
+import { Box, Typography, Card, Grid } from '@mui/material';
 import Container from 'blocks/container/Container';
 
-const IntegrationBenefits = ({
-  theme,
-  content,
-  FillerContent,
-  isLarge,
-  isDarkMode,
-}) => {
+const IntegrationBenefits = ({ theme, content, FillerContent, isDarkMode }) => {
   return (
     <Box component="section">
       <Container

@@ -83,8 +83,6 @@ function IntegrationsIndividualPage({ content }) {
     data: content.testimonials_carousel?.data,
   };
 
-  console.log(content);
-
   return (
     <>
       <Hero {...pageData} />

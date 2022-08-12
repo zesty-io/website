@@ -1,8 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Button } from '@mui/material';
-import Container from 'blocks/container/Container';
+import { Box, Typography } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 /**
  * Components Imports
