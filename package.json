@@ -56,7 +56,6 @@
     "@mui/material": "^5.6.1",
     "@sweetalert2/theme-material-ui": "^5.0.11",
     "@zesty-io/live-editor": "^2.0.22",
-    "@zesty-io/material": "^0.2.4",
     "aos": "^2.3.4",
     "card-validator": "^8.1.1",
     "cookies-next": "^2.0.4",
