@@ -19,6 +19,7 @@ import { WelcomeScreen } from 'components/marketing/Join/WelcomeScreen';
 
 // zoho object
 import { zohoPostObject } from 'components/marketing/Join/zohoPostObject.js'
+import { setCookie } from 'cookies-next';
 
 // messages
 const firstMessage = <>
@@ -155,6 +156,7 @@ const fourthAnswers = [
 ];
 
 
+// zoho lead post function
 
 const postToZOHO = async (payloadJSON) => {
     fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
@@ -174,10 +176,14 @@ const postToZOHO = async (payloadJSON) => {
       });
   };
 
+// Join component
 
 export default function Join(props) {
     const theme = useTheme();
 
+    // state values for form capture
+    const [role, setRole] = useState('Unknown');
+    const [projectType, setProjectType] = useState('Unknown');
     const [currentAnimation, setCurrentAnimation] = useState('rollIn');
 
     const sliderRef = useRef(null);
@@ -194,30 +200,24 @@ export default function Join(props) {
 
     }, []);
 
-    const handleAnswers = (answer) => {
+    const handleAnswers = (answer,store=false) => {
+        if(store !== false){
+            if(store=='role') { setRole(answer); setCookie('persona',answer) }
+            if(store=='projectType') { setProjectType(answer); }
+        }
         setCurrentAnimation('jiggle');
         handleNext();
     }
 
     const signUpSuccess = async  (userDetails) => {
-        console.log(userDetails)
+
+        // map additional userDetails for zoho object
+        userDetails.message = `Project type: ${projectType}`;
+        // instantiate zoho object
+        userDetails.user = true;
         console.log(zohoPostObject(userDetails))
-
         await postToZOHO(zohoPostObject(userDetails))
-        // insantian zoho object
-        // map userDetails to zoho object
-
-        /**
-         * {lastname: 'asdasd', firstname: 'asdsad', email: 'asdsad@asdas.com', password: 'Ee323dddd', confirmPassword: '', …}
-    confirmPassword: ""
-    email: "asdsad@asdas.com"
-    firstname: "asdsad"
-    formValid: false
-    lastname: "asdasd"
-    password: "Ee323dddd"
-    showPassword: false
-    
-         */
+        
         setCurrentAnimation('party');
         handleNext();
     }
@@ -282,6 +282,7 @@ export default function Join(props) {
                             answers={firstAnswers} 
                             answerCallBack={handleAnswers}
                             hoverAnimation={handleAnimation}
+                            storeValue='role'
                             />
                     </Grid>
                     <Grid item lg={6} md={6} xs={12}>
@@ -291,7 +292,13 @@ export default function Join(props) {
             </SwiperSlide>
              {/* Question 2  */}
             <SwiperSlide>
-                <SlideQuestions question={secondQuestion} answers={secondAnswers} answerCallBack={handleAnswers} hoverAnimation={handleAnimation} />
+                <SlideQuestions 
+                    question={secondQuestion} 
+                    answers={secondAnswers} 
+                    answerCallBack={handleAnswers} 
+                    hoverAnimation={handleAnimation} 
+                    storeValue='projectType'
+                    />
             </SwiperSlide>
             {/* Signup  */}
             <SwiperSlide>

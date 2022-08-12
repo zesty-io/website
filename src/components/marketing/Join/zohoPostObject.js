@@ -14,6 +14,22 @@ import { getCookie } from 'cookies-next';
  * 
  */
 
+/**
+ * let payload = {
+			"question": 'What is your Name?',
+			"answer": document.querySelector('#ac-firstname input').value + ' ' + document.querySelector('#ac-lastname input').value,
+			"path": encodeURI(window.location.pathname),
+			"email": document.querySelector('#ac-email input').value
+		}
+ * fetch('https://us-central1-zesty-prod.cloudfunctions.net/onboardQuestion', {
+			method: 'POST',
+			credentials: 'omit',
+		   	body:    JSON.stringify(payload),
+          	headers: {
+            	'Content-Type': 'application/json'
+            }
+		});
+ */
 export const zohoPostObject = (
     obj,
     select='Unknown',
@@ -28,6 +44,7 @@ export const zohoPostObject = (
       Email: obj.email,
       Phone: obj?.phoneNumber ? obj?.phoneNumber : '',
       Inquiry_Reason: select,
+      Zesty_User_Account: obj?.user && obj.user ? true : false,
       Description: obj?.message ? obj.message : '',
       newsletter_signup: obj?.newsletter_signup ? obj.newsletter_signup : 'unknown',
       Lead_Source: getCookie('utm_source')
