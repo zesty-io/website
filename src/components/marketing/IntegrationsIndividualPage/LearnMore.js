@@ -10,7 +10,7 @@ const LearnMore = ({
   content,
   FillerContent,
   isLarge,
-  isMedium,
+  isDarkMode,
   isSmall,
 }) => {
   const cardData = [
@@ -31,7 +31,7 @@ const LearnMore = ({
     },
   ];
   return (
-    <Box component="section">
+    <Box sx={{ pb: 5 }} component="section">
       <Container
         sx={{
           mt: isSmall ? 0 : 20,
@@ -47,7 +47,9 @@ const LearnMore = ({
             fontWeight: 'bold',
             textAlign: 'center',
             span: {
-              color: theme.palette.zesty.zestyDarkText,
+              color: isDarkMode
+                ? theme.palette.zesty.zestyDarkBlue
+                : theme.palette.zesty.zestyDarkText,
             },
           }}
         >
@@ -93,7 +95,9 @@ const LearnMore = ({
                   </Box>
                   <Typography
                     sx={{
-                      color: theme.palette.zesty.zestyDarkBlue,
+                      color: isDarkMode
+                        ? theme.palette.common.white
+                        : theme.palette.zesty.zestyDarkBlue,
                       fontWeight: 'bold',
                       textAlign: 'center',
                       mt: 2,

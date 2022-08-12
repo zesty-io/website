@@ -5,7 +5,13 @@ import { Box, Typography, Button, Grid, Card } from '@mui/material';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
 
-const ResourcesCards = ({ theme, content, FillerContent, isLarge }) => {
+const ResourcesCards = ({
+  theme,
+  content,
+  FillerContent,
+  isLarge,
+  isDarkMode,
+}) => {
   return (
     <Box sx={{ py: 10 }} component="section">
       <Container>
@@ -15,7 +21,9 @@ const ResourcesCards = ({ theme, content, FillerContent, isLarge }) => {
             color: theme.palette.zesty.zestyDarkText,
             textAlign: 'center',
             span: {
-              color: theme.palette.zesty.zestyDarkText,
+              color: isDarkMode
+                ? theme.palette.common.white
+                : theme.palette.zesty.zestyDarkText,
               fontWeight: 'bold',
             },
           }}

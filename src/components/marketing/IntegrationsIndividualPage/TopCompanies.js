@@ -39,7 +39,9 @@ const TopCompanies = ({
           pt: 2,
           mb: 4,
           span: {
-            color: theme.palette.zesty.zestyDarkText,
+            color: isDarkMode
+              ? theme.palette.common.white
+              : theme.palette.zesty.zestyDarkText,
             fontWeight: 'bold',
           },
         }}

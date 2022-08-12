@@ -96,7 +96,7 @@ function IntegrationsIndividualPage({ content }) {
       <Testimonials {...testimonialsData} />
       <Bottom {...pageData} />
       <LearnMore {...pageData} />
-      <NewsLetterSubscription {...pageData} />
+      {/* <NewsLetterSubscription {...pageData} /> */}
     </>
   );
 }
