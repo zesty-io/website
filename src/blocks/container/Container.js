@@ -8,7 +8,7 @@ const Container = ({ children, maxWidth = 1500, sx }) => {
         maxWidth: { maxWidth },
         margin: 'auto',
         px: 4,
-        sx,
+        ...sx,
       }}
     >
       {children}

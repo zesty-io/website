@@ -1,14 +1,14 @@
 import { Box, Card, CardContent } from '@mui/material';
 import Container from 'blocks/container/Container';
 
-const sunsDarkLogoUrl =
-  'https://kfg6bckb.media.zestyio.com/sunsdark.1fc97b3c326478bf6afcb60e52679656.png';
+const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
+  const sunsDarkLogoUrl =
+    'https://kfg6bckb.media.zestyio.com/sunsdark.1fc97b3c326478bf6afcb60e52679656.png';
 
-const SimpleCardLogo = ({ content, FillerContent, isDarkMode }) => {
   return (
     <Box component="section">
       <Container>
-        <Card>
+        <Card sx={{ py: 2 }}>
           <CardContent>
             <Box
               sx={{
@@ -19,7 +19,7 @@ const SimpleCardLogo = ({ content, FillerContent, isDarkMode }) => {
                 gap: 4,
               }}
             >
-              {content.homepage_logos.data.map((item, index) => (
+              {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
                   <Box
                     sx={{
