@@ -1,12 +1,44 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
-import { Box, Button, TextField } from '@mui/material';
-import { HorizontalRule } from '@mui/icons-material';
-import SearchIcon from '@mui/icons-material/Search';
+import {
+  Box,
+  Card,
+  CardMedia,
+  TextField,
+  Typography,
+  Grid,
+  InputAdornment,
+  ToggleButtonGroup,
+  ToggleButton,
+  Stack,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import { setCookie } from 'cookies-next';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
+import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
+import CustomMenu from './CustomMenu';
+import useDropdown from 'components/hooks/useDropdown';
+
+const orderByItems = [
+  {
+    name: 'asc',
+    label: 'Name (A to Z)',
+  },
+  {
+    name: 'desc',
+    label: 'Name (Z to A)',
+  },
+];
+
 export const InstancesDashboard = () => {
+  const [view, setView] = useState('grid');
+  const [orderByValue, setOrderByValue, reset] = useDropdown();
   const router = useRouter();
   const { ZestyAPI } = useZestyStore((state) => state);
 
@@ -18,11 +50,25 @@ export const InstancesDashboard = () => {
     setInstances(instances?.data ? instances.data : []);
   }
 
+  const handleChangeView = (e, value) => {
+    setView(value);
+  };
+
   React.useEffect(() => {
     instances.length === 0 && getInstances();
   }, [instances]);
 
-  const handleChange = (zuid) => {
+  React.useEffect(() => {
+    if (orderByValue === 'asc') {
+      setInstances(instances.sort((a, b) => a.name.localeCompare(b.name)));
+    }
+    if (orderByValue === 'desc') {
+      setInstances(instances.sort((a, b) => b.name.localeCompare(a.name)));
+    }
+    reset();
+  }, [orderByValue]);
+
+  const handleRoute = (zuid) => {
     setCookie('ZESTY_WORKING_INSTANCE', zuid);
     router.push({
       pathname: `/instances/${zuid}/`,
@@ -33,24 +79,91 @@ export const InstancesDashboard = () => {
   };
 
   return (
-    <Box>
-      <HorizontalRule />
-      <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-        <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+    <Box py={3}>
+      <Stack direction="row" spacing={2}>
         <TextField
-          onChange={(event) => handleSearch(event.target.value)}
-          label="Search"
-          variant="standard"
+          label="Search by instance name"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="start">
+                <SearchOutlinedIcon />
+              </InputAdornment>
+            ),
+          }}
+          variant="outlined"
+          fullWidth
+          color="secondary"
+          onChange={(e) => handleSearch(e.target.value)}
         />
-      </Box>
-      {instances
-        .filter((inst) => inst?.name?.toLowerCase().includes(search))
-        .map((instance) => (
-          <Box key={`${instance.ZUID}-instancelist`}>
-            {instance.ZUID} {instance.name}
-            <Button onClick={() => handleChange(instance.ZUID)}>View</Button>
-          </Box>
-        ))}
+      </Stack>
+
+      <Stack mt={2} direction="row">
+        <CustomMenu
+          menuName="Order by"
+          menuItems={orderByItems}
+          handleClick={setOrderByValue}
+        />
+        <ToggleButtonGroup
+          value={view}
+          exclusive
+          color="secondary"
+          onChange={handleChangeView}
+          sx={{ ml: 'auto' }}
+        >
+          <ToggleButton value="grid">
+            <GridViewOutlinedIcon />
+          </ToggleButton>
+          <ToggleButton value="list">
+            <FormatListBulletedOutlinedIcon />
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </Stack>
+
+      <Grid container direction="row" my={2} spacing={2}>
+        {view === 'grid' &&
+          instances
+            .filter((inst) => inst?.name?.toLowerCase().includes(search))
+            .map((instance, index) => (
+              <Grid item xs={12} sm={4} lg={3} key={index}>
+                <Card sx={{ cursor: 'pointer' }}>
+                  <CardMedia
+                    height="100%"
+                    width="100%"
+                    component="img"
+                    image={instance.screenshotURL}
+                    onClick={() => handleRoute(instance.ZUID)}
+                  />
+                  <Typography p={1} gutterBottom variant="h6">
+                    {instance.name}
+                  </Typography>
+                </Card>
+              </Grid>
+            ))}
+      </Grid>
+
+      {view === 'list' && (
+        <List>
+          {instances
+            .filter((inst) => inst?.name?.toLowerCase().includes(search))
+            .map((instance, index) => (
+              <ListItem divider key={index} disablePadding>
+                <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
+                  <ListItemIcon>
+                    <img
+                      height="50px"
+                      width="50px"
+                      src={instance.screenshotURL}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={instance.name}
+                    secondary={`Updated ${instance.updatedAt}`}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+        </List>
+      )}
     </Box>
   );
 };
