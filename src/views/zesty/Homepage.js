@@ -43,7 +43,11 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Imports
  */
 import Hero from 'components/marketing/Homepage/Hero';
+<<<<<<< HEAD
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+=======
+import SimpleCardLogo from 'components/marketing/Homepage/SimpleCardLogo';
+>>>>>>> homepage
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
 import NewBenefits from 'components/marketing/Homepage/NewBenefits';
 import Migration from 'components/marketing/Homepage/Migration';
@@ -52,6 +56,10 @@ import CaseStudies from 'components/marketing/Homepage/CaseStudies';
 import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
 import Bottom from 'components/marketing/Homepage/Bottom';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
+import { useEffect } from 'react';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -72,10 +80,17 @@ function Homepage({ content }) {
     FillerContent,
   };
 
+
   const testimonialsData = {
     title: content.testimonials_content,
     data: content.testimonials?.data,
   };
+
+  useEffect(() => {
+    AOS.init({
+      disable: isMedium,
+    });
+  }, [isMedium]);
 
   return (
     <>

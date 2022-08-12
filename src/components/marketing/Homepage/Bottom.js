@@ -88,6 +88,7 @@ const Bottom = ({
                       variant: 'h3',
                       component: 'h2',
                       sx: {
+                        textAlign: isMedium ? 'center' : 'left',
                         color: theme.palette.common.white,
                         fontWeight: 'bold',
                       },
@@ -102,6 +103,7 @@ const Bottom = ({
                       variant: 'h6',
                       component: 'p',
                       sx: {
+                        textAlign: isMedium ? 'center' : 'left',
                         mt: 1,
                         color: theme.palette.common.white,
                       },
