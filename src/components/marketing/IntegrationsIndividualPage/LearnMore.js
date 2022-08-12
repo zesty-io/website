@@ -35,7 +35,9 @@ const LearnMore = ({
       <Container
         sx={{
           mt: isSmall ? 0 : 20,
-          background: theme.palette.zesty.zestyWhite,
+          background: isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.zesty.zestyWhite,
           borderRadius: 2,
           py: 10,
         }}
@@ -48,7 +50,7 @@ const LearnMore = ({
             textAlign: 'center',
             span: {
               color: isDarkMode
-                ? theme.palette.zesty.zestyDarkBlue
+                ? theme.palette.common.white
                 : theme.palette.zesty.zestyDarkText,
             },
           }}
@@ -78,14 +80,22 @@ const LearnMore = ({
         <Grid sx={{ mt: 5 }} container spacing={2}>
           {cardData.map((item) => (
             <Grid item xs={12} md={4}>
-              <Card>
+              <Card sx={{ minHeight: 244 }}>
                 <Box
                   component="a"
                   target="_blank"
                   href={item.url}
                   sx={{ p: 5, textDecoration: 'none' }}
                 >
-                  <Box sx={{ width: 75, margin: 'auto' }}>
+                  <Box
+                    sx={{
+                      width: 60,
+                      height: 60,
+                      margin: 'auto',
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  >
                     <Box
                       sx={{ width: '100%' }}
                       component="img"
@@ -100,7 +110,7 @@ const LearnMore = ({
                         : theme.palette.zesty.zestyDarkBlue,
                       fontWeight: 'bold',
                       textAlign: 'center',
-                      mt: 2,
+                      mt: 10,
                     }}
                   >
                     {item.text}

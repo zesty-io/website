@@ -17,7 +17,9 @@ const IntegrationBenefits = ({
         sx={{
           py: 10,
           mt: 15,
-          background: theme.palette.zesty.zestyBackgroundBlue,
+          background: isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.zesty.zestyBackgroundBlue,
           borderRadius: 5,
         }}
       >
@@ -26,7 +28,7 @@ const IntegrationBenefits = ({
           component="h2"
           sx={{
             color: isDarkMode
-              ? theme.palette.zesty.zestyDarkBlue
+              ? theme.palette.common.white
               : theme.palette.zesty.zestyDarkText,
             fontWeight: 'bold',
             textAlign: 'center',

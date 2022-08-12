@@ -30,9 +30,7 @@ const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
   return (
     <Box
       sx={{
-        background: isDarkMode
-          ? theme.palette.zesty.zestyDarkBlue
-          : theme.palette.zesty.zestyBackgroundBlue,
+        background: theme.palette.zesty.zestyDarkBlue,
         mt: 10,
         minHeight: isMedium ? 3100 : 2300,
         overflow: 'hidden',
@@ -75,7 +73,7 @@ const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
               component="h2"
               sx={{
                 textAlign: isMedium ? 'center' : 'left',
-                color: theme.palette.zesty.zestyDarkText,
+                color: theme.palette.common.white,
                 fontWeight: 'bold',
 
                 textDecoration: isMedium ? 'none' : 'underline',
@@ -137,7 +135,7 @@ const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
                           props: {
                             variant: 'h6',
                             component: 'p',
-                            color: theme.palette.zesty.zestyZambezi,
+                            color: theme.palette.common.white,
                             lineHeight: 1.5,
                             mt: 2,
                           },
