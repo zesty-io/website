@@ -60,7 +60,7 @@ const CustomTable = ({
       handleUpdateRole(val);
     };
     const handleDeleteUser = () => {
-      const roleZUID = baseroles.find((x) => x.name === e.role.name)?.ZUID;
+      const roleZUID = instanceRoles.find((x) => x.name === e.role.name)?.ZUID;
       const data = { roleZUID, userZUID: e.ZUID };
       handleDeleteRole(data);
     };
