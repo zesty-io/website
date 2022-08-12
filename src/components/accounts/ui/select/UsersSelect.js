@@ -15,12 +15,13 @@ export const UsersSelect = ({
   const [val, setVal] = React.useState(value);
 
   const handleChange = (event, data) => {
+    console.log(data);
     setVal(event.target.value);
-    onChange(data.props.id);
+    onChange(data.props);
   };
 
   React.useEffect(() => {
-    setVal(value.toLocaleLowerCase());
+    setVal(value);
   }, [value]);
 
   return (
@@ -37,7 +38,7 @@ export const UsersSelect = ({
         >
           {options.map((e) => {
             return (
-              <MenuItem key={e.ZUID} value={e.value} id={e.ZUID}>
+              <MenuItem key={e.ZUID} value={e.value} id={e.ZUID} {...e}>
                 {e.label}
               </MenuItem>
             );

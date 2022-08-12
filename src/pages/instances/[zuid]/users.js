@@ -40,7 +40,10 @@ const RolesTable = ({ title = 'Base Roles in Zesty.io' }) => {
 export default function UsersPage() {
   const [users, setusers] = React.useState([]);
   const [roles, setroles] = React.useState([]);
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
+  const [instanceRoles, setInstanceRoles] = React.useState([]);
+  const { ZestyAPI, isAuthenticated, userInfo } = useZestyStore(
+    (state) => state,
+  );
 
   const router = useRouter();
 
@@ -67,7 +70,7 @@ export default function UsersPage() {
   };
   const handleUpdateRoleErr = (res) => {
     console.log(res);
-    ErrorMsg();
+    ErrorMsg({ text: res.error });
   };
   const handleDeleteRoleSuccess = (res) => {
     console.log(res, 'succ upp');
@@ -75,7 +78,28 @@ export default function UsersPage() {
   };
   const handleDeleteRoleErr = (res) => {
     console.log(res);
-    ErrorMsg();
+    ErrorMsg({ text: res.error });
+  };
+
+  const handleGetInstanceRolesSuccess = (res) => {
+    console.log(res, 'succ upp');
+    const data = res.data.map((e) => {
+      return { ...e, value: e.name, label: e.name };
+    });
+    setInstanceRoles(data);
+  };
+  const handleGetInstanceRolesErr = (res) => {
+    console.log(res);
+    ErrorMsg({ text: res.error });
+  };
+
+  const handleCreateInviteSuccess = (res) => {
+    console.log(res, 'succ upp');
+    SuccessMsg({ title: 'User Successfully invited' });
+  };
+  const handleCreateInviteErr = (res) => {
+    console.log(res);
+    ErrorMsg({ text: res.error });
   };
   const getUsers = async () => {
     const res = await ZestyAPI.getInstanceUsers(zuid);
@@ -94,18 +118,52 @@ export default function UsersPage() {
     const res = await ZestyAPI.updateUserRole(userZUID, roleZUID);
     !res.error && handleUpdateRoleSuccess(res);
     res.error && handleUpdateRoleErr(res);
+
+    await getInstanceUserRoles();
   };
   const deleteUserRole = async (data) => {
     const { userZUID, roleZUID } = data;
     const res = await ZestyAPI.deleteUserRole(userZUID, roleZUID);
     !res.error && handleDeleteRoleSuccess(res);
     res.error && handleDeleteRoleErr(res);
+    await getInstanceUserRoles();
+  };
+
+  const getInstanceRoles = async () => {
+    const res = await ZestyAPI.getInstanceRoles(zuid);
+    !res.error && handleGetInstanceRolesSuccess(res);
+    res.error && handleGetInstanceRolesErr(res);
+  };
+
+  const createInvite = async (data) => {
+    console.log(data, '::::::::::::::::::');
+    const { inviteeName, inviteeEmail, entityZUID, accessLevel } = data;
+    const res = await ZestyAPI.createInvite(
+      inviteeName,
+      inviteeEmail,
+      entityZUID,
+      accessLevel,
+    );
+    !res.error && handleCreateInviteSuccess(res);
+    res.error && handleCreateInviteErr(res);
   };
   React.useEffect(() => {
     getUsers();
     getInstanceUserRoles();
+    getInstanceRoles();
   }, []);
 
+  const isOwner = () => {
+    const currentRole = roles?.find((e) => e.ZUID === userInfo.ZUID)?.role
+      ?.name;
+    if (currentRole === 'Owner') {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  console.log(users, 'user data');
   return (
     <Main>
       <AppBar />
@@ -114,9 +172,12 @@ export default function UsersPage() {
           <InstancesApp>
             <Users
               updateRole={updateRole}
-              users={users}
               roles={roles}
               deleteUserRole={deleteUserRole}
+              instanceRoles={instanceRoles}
+              createInvite={createInvite}
+              isOwner={isOwner}
+              instanceZUID={zuid}
             />
             <RolesTable />
           </InstancesApp>

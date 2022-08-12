@@ -1,7 +1,17 @@
-import { Box, Button, Grid } from '@mui/material';
-import { UsersSelect, StickyTable } from 'components/accounts';
-import { baseroles } from 'components/accounts/users/baseroles';
 import React from 'react';
+import { Box, Button, Grid } from '@mui/material';
+import {
+  UsersSelect,
+  StickyTable,
+  accountsValidations,
+  FormInput,
+} from 'components/accounts';
+import { baseroles } from 'components/accounts/users/baseroles';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { useFormik } from 'formik';
+
+const MySwal = withReactContent(Swal);
 
 const COLUMNS = [
   {
@@ -22,14 +32,14 @@ const COLUMNS = [
   },
 ];
 
-const RoleSwitcher = ({ role, handleOnChange }) => {
+const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
   switch (role) {
     case 'Owner':
       return <>{role}</>;
     default:
       return (
         <UsersSelect
-          options={baseroles}
+          options={instanceRoles}
           label="Role"
           onChange={handleOnChange}
           value={role}
@@ -37,37 +47,53 @@ const RoleSwitcher = ({ role, handleOnChange }) => {
       );
   }
 };
-const CustomTable = ({ data, handleUpdateRole, handleDeleteRole }) => {
+const CustomTable = ({
+  data,
+  handleUpdateRole,
+  handleDeleteRole,
+  instanceRoles,
+  isOwner,
+}) => {
   const ROWS = data?.map((e) => {
-    const handleOnChange = (roleZUID) => {
-      const data = { roleZUID, userZUID: e.ZUID };
-      handleUpdateRole(data);
+    const handleOnChange = (data) => {
+      const val = { roleZUID: data.id, userZUID: e.ZUID };
+      handleUpdateRole(val);
     };
     const handleDeleteUser = () => {
       const roleZUID = baseroles.find((x) => x.name === e.role.name)?.ZUID;
       const data = { roleZUID, userZUID: e.ZUID };
       handleDeleteRole(data);
     };
+
+    const role = isOwner()
+      ? RoleSwitcher({
+          role: e.role.name,
+          handleOnChange,
+          instanceRoles,
+        })
+      : e.role.name;
+
+    const action = isOwner() ? (
+      <Box display={'flex'}>
+        <Button
+          onClick={handleDeleteUser}
+          color="primary"
+          variant="contained"
+          fullWidth
+          type="submit"
+        >
+          Delete User
+        </Button>
+      </Box>
+    ) : (
+      <>-</>
+    );
+
     return {
       name: `${e.firstName} ${e.lastName}` || '-',
       email: e.email || '-',
-      role: RoleSwitcher({ role: e.role.name, handleOnChange }),
-      action:
-        e.role.name !== 'Owner' ? (
-          <Box display={'flex'}>
-            <Button
-              onClick={handleDeleteUser}
-              color="primary"
-              variant="contained"
-              fullWidth
-              type="submit"
-            >
-              Delete User
-            </Button>
-          </Box>
-        ) : (
-          <>-</>
-        ),
+      role,
+      action,
     };
   });
 
@@ -81,22 +107,95 @@ const CustomTable = ({ data, handleUpdateRole, handleDeleteRole }) => {
   );
 };
 
-const Index = ({ users, roles, updateRole, deleteUserRole }) => {
-  console.warn(users, roles, 'User Data');
+const CustomForm = ({ onSubmit, options, instanceZUID }) => {
+  const [role, setrole] = React.useState('');
+  const formik = useFormik({
+    validationSchema: accountsValidations.email,
+    initialValues: {
+      email: '',
+      name: '',
+    },
+    onSubmit: async (values) => {
+      const val = {
+        inviteeName: values.name,
+        inviteeEmail: values.email,
+        entityZUID: instanceZUID,
+        accessLevel: role.accessLevel,
+      };
+      await onSubmit(val);
+      formik.resetForm();
+    },
+  });
 
+  const handleChange = (data) => {
+    setrole(data);
+  };
+  return (
+    <Box paddingY={4}>
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <FormInput name={'name'} formik={formik} />
+        <FormInput name={'email'} formik={formik} />
+        <UsersSelect
+          options={options}
+          label="Role"
+          onChange={handleChange}
+          value={role}
+        />
+        <Button color="primary" variant="contained" fullWidth type="submit">
+          Submit
+        </Button>
+      </form>
+    </Box>
+  );
+};
+const Index = ({
+  roles,
+  updateRole,
+  deleteUserRole,
+  instanceRoles,
+  createInvite,
+  isOwner,
+  instanceZUID,
+}) => {
   const handleUpdateRole = (data) => {
     updateRole(data);
   };
   const handleDeleteRole = (data) => {
     deleteUserRole(data);
   };
+
+  const handleInviteUserModal = (createInvite, options, instanceZUID) => {
+    MySwal.fire({
+      title: 'Invite User',
+      html: (
+        <CustomForm
+          onSubmit={createInvite}
+          options={options}
+          instanceZUID={instanceZUID}
+        />
+      ),
+      showConfirmButton: false,
+    });
+  };
+
   return (
     <Grid container>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() =>
+          handleInviteUserModal(createInvite, baseroles, instanceZUID)
+        }
+      >
+        Invite user
+      </Button>
       <Grid item xs={12}>
         <CustomTable
           data={roles}
           handleUpdateRole={handleUpdateRole}
           handleDeleteRole={handleDeleteRole}
+          instanceRoles={instanceRoles}
+          isOwner={isOwner}
         />
       </Grid>
     </Grid>
