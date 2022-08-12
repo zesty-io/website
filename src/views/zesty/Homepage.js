@@ -35,20 +35,21 @@
  */
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
+
 /**
  * Components Imports
  */
 import Hero from 'components/marketing/Homepage/Hero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-
-// Helpers Imports
-import FillerContent from 'components/globals/FillerContent';
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
 import NewBenefits from 'components/marketing/Homepage/NewBenefits';
 import Migration from 'components/marketing/Homepage/Migration';
 import Growth from 'components/marketing/Homepage/Growth';
 import CaseStudies from 'components/marketing/Homepage/CaseStudies';
-import Testimonials from 'components/marketing/Homepage/Testimonials';
+import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
 import Bottom from 'components/marketing/Homepage/Bottom';
 
@@ -71,6 +72,11 @@ function Homepage({ content }) {
     FillerContent,
   };
 
+  const testimonialsData = {
+    title: content.testimonials_content,
+    data: content.testimonials?.data,
+  };
+
   return (
     <>
       <Hero {...pageData} />
@@ -80,7 +86,7 @@ function Homepage({ content }) {
       <Migration {...pageData} />
       <Growth {...pageData} />
       <CaseStudies {...pageData} />
-      <Testimonials {...pageData} />
+      <Testimonials {...testimonialsData} />
       <LogoSlider {...pageData} />
       <Bottom {...pageData} />
     </>

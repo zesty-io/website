@@ -54,9 +54,14 @@ import TopCompanies from 'components/marketing/IntegrationsIndividualPage/TopCom
 import IntegrationBenefits from 'components/marketing/IntegrationsIndividualPage/IntegrationBenefits';
 import Feature from 'components/marketing/IntegrationsIndividualPage/Feature';
 import ResourcesCards from 'components/marketing/IntegrationsIndividualPage/ResourcesCards';
+import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
+import Bottom from 'components/marketing/IntegrationsIndividualPage/Bottom';
+import LearnMore from 'components/marketing/IntegrationsIndividualPage/LearnMore';
+import NewsLetterSubscription from 'components/marketing/IntegrationsIndividualPage/NewsletterSubscription';
 
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
@@ -64,12 +69,18 @@ function IntegrationsIndividualPage({ content }) {
 
   const pageData = {
     theme,
+    isSmall,
     isMedium,
     isLarge,
     isExtraLarge,
     isDarkMode,
     content,
     FillerContent,
+  };
+
+  const testimonialsData = {
+    title: content.testimonial_title,
+    data: content.testimonials_carousel?.data,
   };
 
   console.log(content);
@@ -82,6 +93,10 @@ function IntegrationsIndividualPage({ content }) {
       <IntegrationBenefits {...pageData} />
       <Feature {...pageData} />
       <ResourcesCards {...pageData} />
+      <Testimonials {...testimonialsData} />
+      <Bottom {...pageData} />
+      <LearnMore {...pageData} />
+      <NewsLetterSubscription {...pageData} />
     </>
   );
 }
