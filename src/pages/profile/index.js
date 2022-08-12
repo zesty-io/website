@@ -4,17 +4,49 @@ import { Container } from '@mui/system';
 import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
-import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { YourProfile } from 'views/accounts/profile/YourProfile';
 import { ProfileApp } from 'components/accounts';
 
-export default function Profile() {
+export default function ProfilePage() {
   const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
-  const { userInfo } = useFetchWrapper();
+  const { ZestyAPI } = useZestyStore((state) => state);
+  const [userZUID, setuserZUID] = React.useState('');
+
+  const handleVerifySuccess = (res) => {
+    setuserZUID(res.meta.userZuid);
+  };
+
+  const handleVerifyError = (res) => {
+    console.log(res, 'err');
+  };
+
+  const handleGetUserSuccess = (res) => {
+    setuserInfo(res?.data);
+  };
+
+  const handleGetUserError = (res) => {
+    console.log(res, 'err');
+  };
+
+  const verify = async () => {
+    const res = await ZestyAPI.verify();
+    !res.error && handleVerifySuccess(res);
+    res.error && handleVerifyError(res);
+  };
+
+  const getUser = async (userZUID) => {
+    const res = await ZestyAPI.getUser(userZUID);
+    !res.error && handleGetUserSuccess(res);
+    res.error && handleGetUserError(res);
+  };
 
   React.useEffect(() => {
-    setuserInfo(userInfo.data);
-  }, [userInfo]);
+    verify();
+  }, []);
+
+  React.useEffect(() => {
+    userZUID && getUser(userZUID);
+  }, [userZUID]);
 
   return (
     <Main>
@@ -23,7 +55,7 @@ export default function Profile() {
         {isAuthenticated ? (
           <>
             <ProfileApp>
-              <YourProfile />
+              <YourProfile getUser={() => getUser(userZUID)} />
             </ProfileApp>
           </>
         ) : (
