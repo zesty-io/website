@@ -139,7 +139,7 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
           options={options}
           label="Role"
           onChange={handleChange}
-          value={role}
+          value={role.value}
         />
         <Button color="primary" variant="contained" fullWidth type="submit">
           Submit
