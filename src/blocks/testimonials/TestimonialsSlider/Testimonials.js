@@ -6,6 +6,9 @@ import { Box, Typography, Card, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useTheme } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 /**
  * Static Assets Imports
  */
@@ -19,21 +22,27 @@ import Star from '../../../../public/assets/images/homepage/star.svg';
 
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
-import { useTheme } from '@mui/material';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Container from 'blocks/container/Container';
 
-const Testimonials = ({ content, FillerContent, theme, isLarge }) => {
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
+
+const Testimonials = ({ title, data }) => {
+  const theme = useTheme();
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const backgroundUrl = 'https://kfg6bckb.media.zestyio.com/testimonials.svg';
+
   return (
     <Box
       component="section"
       sx={{
         mt: 10,
         py: 10,
-        background: `url(${content.testimonials_background?.data[2].url})`,
+        background: `url(${backgroundUrl})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -84,7 +93,7 @@ const Testimonials = ({ content, FillerContent, theme, isLarge }) => {
                   },
                 }}
               >
-                {content.testimonials_content}
+                {title}
               </MuiMarkdown>
             </Box>
           </Grid>
@@ -109,7 +118,7 @@ const Testimonials = ({ content, FillerContent, theme, isLarge }) => {
                 speed={2000}
                 modules={[Navigation, Pagination, Autoplay]}
               >
-                {content.testimonials?.data.map((item, index) => (
+                {data.map((item, index) => (
                   <SwiperSlide
                     style={{
                       display: 'flex',
@@ -213,7 +222,7 @@ const Testimonials = ({ content, FillerContent, theme, isLarge }) => {
 
 export default Testimonials;
 
-const SwiperButtonNext = ({ children }) => {
+const SwiperButtonNext = () => {
   const theme = useTheme();
   const swiper = useSwiper();
 
@@ -242,7 +251,7 @@ const SwiperButtonNext = ({ children }) => {
   );
 };
 
-const SwiperButtonPrev = ({ children }) => {
+const SwiperButtonPrev = () => {
   const theme = useTheme();
   const swiper = useSwiper();
   return (

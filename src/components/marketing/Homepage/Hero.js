@@ -12,7 +12,7 @@ import MuiMarkdown from 'mui-markdown';
  */
 // import heroBackground from '../../../../public/assets/images/homepage/hero_background.svg';
 
-const Hero = ({ content, FillerContent, theme, isMedium }) => {
+const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
   return (
     <>
       <Box
@@ -112,7 +112,6 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
                   fullWidth={isMedium}
                   href={content.hero_button_right_link?.data[0].meta.web.uri}
                   text={content.hero_button_right || FillerContent.cta}
-                  variant="outlined"
                 />
               </Box>
             </Grid>

@@ -26,7 +26,7 @@ import DemoCta from 'components/cta/DemoCta';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const NewBenefits = ({ content, FillerContent, theme, isLarge }) => {
+const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
   const [activeSlide, setActiveSlide] = useState();
 
   return (
@@ -137,7 +137,7 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge }) => {
                 mt: isLarge ? 2 : 0,
               }}
             >
-              <Box>
+              <Box sx={{ display: isMedium ? 'none' : 'block' }}>
                 <SwiperButtonPrev />
               </Box>
               {
@@ -173,9 +173,20 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge }) => {
                   </MuiMarkdown>
                 </Box>
               }
-              <Box>
+              <Box sx={{ display: isMedium ? 'none' : 'block' }}>
                 <SwiperButtonNext />
               </Box>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 4,
+                justifyContent: 'center',
+                display: isMedium ? 'flex' : 'none',
+              }}
+            >
+              <SwiperButtonPrev />
+              <SwiperButtonNext />
             </Box>
           </Swiper>
         </Box>
