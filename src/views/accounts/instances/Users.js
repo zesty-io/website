@@ -108,7 +108,7 @@ const CustomTable = ({
 };
 
 const CustomForm = ({ onSubmit, options, instanceZUID }) => {
-  const [role, setrole] = React.useState('');
+  const [role, setrole] = React.useState({});
   const formik = useFormik({
     validationSchema: accountsValidations.email,
     initialValues: {
@@ -141,7 +141,13 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
           onChange={handleChange}
           value={role.value}
         />
-        <Button color="primary" variant="contained" fullWidth type="submit">
+        <Button
+          color="primary"
+          disabled={!role.accessLevel}
+          variant="contained"
+          fullWidth
+          type="submit"
+        >
           Submit
         </Button>
       </form>
