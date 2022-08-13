@@ -93,9 +93,7 @@ export const Signup = ({
     }
     // updates state with changed values
     const handleChange = e => {
-        console.log('handle change changing: ' + e.target.name + ' : ' + e.target.value)
-        setValues({...values, [e.target.name]: e.target.value})
-        
+      setValues({...values, [e.target.name]: e.target.value})        
     }
 
     // validate fields
@@ -143,7 +141,7 @@ export const Signup = ({
                 fullWidth
                 label="First Name"
                 name="firstName"
-                helperText={ validFirstName ? '' : 'Name not long engough' }
+                helperText={ validFirstName ? '' : 'Name too short.' }
                 error={!validFirstName}
                 onKeyUp={handleChange}
               />
@@ -152,7 +150,7 @@ export const Signup = ({
               <TextField
                 fullWidth
                 label="Last Name"
-                helperText={ validLastName ? '' : 'Name not long engough' }
+                helperText={ validLastName ? '' : 'Name too short.' }
                 name="lastName"
                 error={!validLastName}
                 onKeyUp={handleChange}

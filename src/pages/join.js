@@ -27,6 +27,10 @@ import { setCookie } from 'cookies-next';
 import slackQuestionPost from 'components/marketing/Join/slackQuestionPost.js';
 import slackNotify from 'components/marketing/Join/slackNotify.js';
 
+// google analytis
+import * as ga from 'lib/ga'
+
+
 // messages
 const firstMessage = <>
     <Typography variant="h2">Hi there!</Typography>
@@ -165,6 +169,7 @@ const fourthAnswers = [
 // zoho lead post function
 
 const postToZOHO = async (payloadJSON) => {
+    dataLayer.push({'event': 'SignupLead', value: "1"});
     try {
         let res = await fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
             method: 'POST',
@@ -207,6 +212,13 @@ export default function Join(props) {
 
     // captures the user question 
     const handleAnswers = async (question,answer,store=false) => {
+        ga.event({
+            action: "click",
+            params : {
+              question: question,
+              answer: answer
+            }
+          })
         if(store !== false){
             if(store=='role') { setRole(answer); setCookie('persona',answer) }
             if(store=='projectType') { setProjectType(answer); }
