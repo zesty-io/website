@@ -14,22 +14,6 @@ import { getCookie } from 'cookies-next';
  * 
  */
 
-/**
- * let payload = {
-			"question": 'What is your Name?',
-			"answer": document.querySelector('#ac-firstname input').value + ' ' + document.querySelector('#ac-lastname input').value,
-			"path": encodeURI(window.location.pathname),
-			"email": document.querySelector('#ac-email input').value
-		}
- * fetch('https://us-central1-zesty-prod.cloudfunctions.net/onboardQuestion', {
-			method: 'POST',
-			credentials: 'omit',
-		   	body:    JSON.stringify(payload),
-          	headers: {
-            	'Content-Type': 'application/json'
-            }
-		});
- */
 export const zohoPostObject = (
     obj,
     select='Unknown',

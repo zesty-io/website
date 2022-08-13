@@ -21,6 +21,10 @@ import { WelcomeScreen } from 'components/marketing/Join/WelcomeScreen';
 import { zohoPostObject } from 'components/marketing/Join/zohoPostObject.js'
 import { setCookie } from 'cookies-next';
 
+// slack post function
+import slackQuestionPost from 'components/marketing/Join/slackQuestionPost.js';
+import slackNotify from 'components/marketing/Join/slackNotify.js';
+
 // messages
 const firstMessage = <>
     <Typography variant="h2">Hi there!</Typography>
@@ -159,22 +163,19 @@ const fourthAnswers = [
 // zoho lead post function
 
 const postToZOHO = async (payloadJSON) => {
-    fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
-      method: 'POST',
-      body: JSON.stringify(payloadJSON),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // google data
-        dataLayer.push({ event: 'formCaptureSuccess', value: '1' });
-      })
-      .catch((error) => {
+    try {
+        let res = await fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
+            method: 'POST',
+            body: JSON.stringify(payloadJSON),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return await res.json()
+    } catch(error) {
         throw new Error(`HTTP error: ${error}`);
-      });
-  };
+    }
+};
 
 // Join component
 
@@ -183,6 +184,7 @@ export default function Join(props) {
 
     // state values for form capture
     const [role, setRole] = useState('Unknown');
+    const [email, setEmail] = useState('..still capturing email');
     const [projectType, setProjectType] = useState('Unknown');
     const [currentAnimation, setCurrentAnimation] = useState('rollIn');
 
@@ -200,24 +202,29 @@ export default function Join(props) {
 
     }, []);
 
-    const handleAnswers = (answer,store=false) => {
+    const handleAnswers = async (question,answer,store=false) => {
         if(store !== false){
             if(store=='role') { setRole(answer); setCookie('persona',answer) }
             if(store=='projectType') { setProjectType(answer); }
         }
+        
         setCurrentAnimation('jiggle');
         handleNext();
+        await slackQuestionPost(question,answer,email)
     }
 
     const signUpSuccess = async  (userDetails) => {
-
+        //store email to state
+        setEmail(userDetails.email);
+        await slackNotify(`Captured: ${userDetails.email}`)
         // map additional userDetails for zoho object
         userDetails.message = `Project type: ${projectType}`;
         // instantiate zoho object
         userDetails.user = true;
         console.log(zohoPostObject(userDetails))
-        await postToZOHO(zohoPostObject(userDetails))
-        
+        let zohoData = await postToZOHO(zohoPostObject(userDetails))
+        let zoholeadlink = 'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/'
+        await slackNotify(`View lead for ${userDetails.email} on ZOHO @ ${zoholeadlink}${zohoData.data[0].details.id}`)
         setCurrentAnimation('party');
         handleNext();
     }

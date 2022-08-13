@@ -20,7 +20,7 @@ export const SlideQuestions = ({
         <Typography>{question}</Typography>
         <Stack direction="row" spacing={2}>
             {answers.sort((a,b) => (a.name < b.name)).map(response => 
-            <Button variant="contained" onMouseOver={() => hoverAnimation(random_boolean(Math.random()) ? 'shake' : 'sway')} onClick={() => answerCallBack(response.value,storeValue)}>
+            <Button variant="contained" onMouseOver={() => hoverAnimation(random_boolean(Math.random()) ? 'shake' : 'sway')} onClick={() => answerCallBack(question,response.value,storeValue)}>
                 {response.answer}
             </Button>
             )}
