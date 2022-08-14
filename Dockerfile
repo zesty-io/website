@@ -3,7 +3,7 @@ FROM node:16.16-alpine3.15
 WORKDIR /usr/src/app
 
 COPY . ./
-RUN npm ci
+RUN npm ci --only=production --ignore-scripts
 
 EXPOSE 8080
 
@@ -12,4 +12,6 @@ ENV PORT=8080
 
 RUN npm run build
 
+
 CMD [ "npm", "start" ]
+
