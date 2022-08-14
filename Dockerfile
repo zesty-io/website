@@ -3,7 +3,7 @@ FROM node:16.16-alpine3.15
 WORKDIR /usr/src/app
 
 COPY . ./
-RUN npm ci --only=production --ignore-scripts
+RUN npm ci
 
 EXPOSE 8080
 
