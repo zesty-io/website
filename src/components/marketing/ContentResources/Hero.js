@@ -1,52 +1,56 @@
 import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+/**
+ * MUI Imports
+ */
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { alpha, useTheme } from '@mui/material/styles';
-
 import Container from 'components/Container';
+import MuiMarkdown from 'mui-markdown';
 import SubscribeCTA from 'components/cta/SubscribeCTA';
+import { useTheme, alpha } from '@mui/material/styles';
 
-const Hero = ({ title, subtitle, description, image }) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-
+const Hero = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
   const LeftSide = () => (
-    // transition removed: data-aos={isMd ? 'fade-right' : 'fade-up'}
     <Box>
       <Box marginBottom={2}>
-        <Typography variant="h2" color="text.primary" sx={{ fontWeight: 700 }}>
-          {title}
-        </Typography>
-        <Typography
-          color={'primary'}
-          component={'span'}
-          variant="h2"
-          fontWeight={700}
-          sx={{
-            background: `linear-gradient(180deg, transparent 82%, ${alpha(
-              theme.palette.secondary.main,
-              0.3,
-            )} 0%)`,
+        <MuiMarkdown
+          overrides={{
+            h1: {
+              component: Typography,
+              props: {
+                variant: 'h2',
+                component: 'h1',
+                sx: {
+                  color: theme.palette.text.primary,
+                  fontWeight: 'bold',
+                },
+              },
+            },
+            p: {
+              component: Typography,
+              props: {
+                variant: 'h6',
+                component: 'p',
+                sx: {
+                  color: theme.palette.zesty.zestyZambezi,
+                  lineHeight: 1.2,
+                  mt: 2,
+                },
+              },
+            },
           }}
         >
-          {subtitle}
-        </Typography>
+          {content.title_and_description || FillerContent.description}
+        </MuiMarkdown>
       </Box>
-      <Box marginBottom={3}>
-        <Typography variant="h6" component="p" color="text.secondary">
-          {description}
-        </Typography>
+
+      <Box sx={{ mt: 2 }}>
+        <SubscribeCTA
+          text={content.newsletter_cta_text || FillerContent.header}
+        />
       </Box>
-      <SubscribeCTA />
-      {/* <Button variant="contained" component={'a'} color="primary" size="large" href={ctaHref}>
-        {cta}
-      </Button> */}
     </Box>
   );
 
@@ -67,7 +71,7 @@ const Hero = ({ title, subtitle, description, image }) => {
         <Box
           component={LazyLoadImage}
           effect="blur"
-          src={image}
+          src={content.header_image?.data[0].url || FillerContent.photos[0].src}
           height={{ xs: 'auto', md: 1 }}
           maxHeight={{ xs: 300, md: 1 }}
           width={1}
