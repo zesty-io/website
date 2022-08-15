@@ -6,42 +6,90 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
-import BasicTable from 'components/accounts/users/BasicTable';
+import { Apis } from 'views/accounts';
 
 export default function Users() {
-  const [users, setusers] = React.useState([]);
-  const [roles, setroles] = React.useState([]);
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
+  const [tokens, settokens] = React.useState([]);
+  const [instanceRoles, setInstanceRoles] = React.useState([]);
+  const { ZestyAPI, isAuthenticated, userInfo } = useZestyStore(
+    (state) => state,
+  );
 
   const router = useRouter();
 
   const { zuid } = router.query;
 
-  const getUsers = async () => {
-    const res = await ZestyAPI.getInstanceUsers(zuid);
-    setusers(res.data);
+  const handleGetInstanceTokenSuccess = (res) => {
+    settokens(res.data);
+  };
+  const handleGetInstanceTokenError = (res) => {
     console.log(res);
+  };
+
+  const handleGetInstanceRolesSuccess = (res) => {
+    console.log(res, 'succ upp');
+    const data = res.data.map((e) => {
+      return { ...e, value: e.name, label: e.name };
+    });
+    setInstanceRoles(data);
+  };
+  const handleGetInstanceRolesErr = (res) => {
+    console.log(res);
+    ErrorMsg({ text: res.error });
+  };
+  const getInstanceTokens = async () => {
+    const res = await ZestyAPI.getInstanceToken(zuid);
+    !res.error && handleGetInstanceTokenSuccess(res);
+    res.error && handleGetInstanceTokenError(res);
+  };
+
+  const getInstanceRoles = async () => {
+    const res = await ZestyAPI.getInstanceRoles(zuid);
+    !res.error && handleGetInstanceRolesSuccess(res);
+    res.error && handleGetInstanceRolesErr(res);
   };
 
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
-    setroles(res.data);
-    console.log(res);
+    console.log(res, ':::::');
+    // !res.error && handleGetRolesSuccess(res);
+    // res.error && handleGetRolesErr(res);
+  };
+  const getRole = async (zuid) => {
+    const res = await ZestyAPI.getRole(zuid);
+    console.log(res, 'role:::::');
+    // !res.error && handleGetRolesSuccess(res);
+    // res.error && handleGetRolesErr(res);
+  };
+  const isInstanceOwner = () => {
+    const currentRole = instanceRoles?.find((e) => e.ZUID === userInfo?.ZUID)
+      ?.role?.name;
+    console.log(instanceRoles, userInfo, '::');
+    if (currentRole === 'Owner' || currentRole === 'Admin') {
+      return true;
+    } else {
+      return false;
+    }
   };
   React.useEffect(() => {
-    getUsers();
+    getInstanceTokens();
+    getInstanceRoles();
     getInstanceUserRoles();
-  }, []);
+    getRole(userInfo?.ZUID);
+  }, [userInfo]);
 
   return (
     <Main>
       <AppBar />
 
-      {/* {JSON.stringify(data)} */}
       <Container>
         {isAuthenticated ? (
           <InstancesApp>
-            Manager users on instance <BasicTable users={users} roles={roles} />
+            <Apis
+              tokens={tokens}
+              roles={instanceRoles}
+              isInstanceOwner={isInstanceOwner()}
+            />
           </InstancesApp>
         ) : (
           <Login />
