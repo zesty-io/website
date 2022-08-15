@@ -19,7 +19,7 @@ const isInstanceOwner = (userWithRoles, userInfo) => {
   }
 };
 
-export default function UsersPage() {
+export default function ApisPage() {
   const [tokens, settokens] = React.useState([]);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
@@ -57,9 +57,25 @@ export default function UsersPage() {
   };
 
   const handleCreateTokenSucc = (res) => {
+    console.log(res);
     SuccessMsg({ title: 'Success' });
   };
   const handleCreateTokenErr = (res) => {
+    ErrorMsg({ text: res.error });
+  };
+
+  const handleDeleteTokenSucc = (res) => {
+    SuccessMsg({ title: 'Success' });
+  };
+  const handleDeleteTokenErr = (res) => {
+    ErrorMsg({ text: res.error });
+  };
+
+  const handleUpdateTokenSucc = (res) => {
+    console.log(res);
+    SuccessMsg({ title: 'Success' });
+  };
+  const handleUpdateTokenErr = (res) => {
     ErrorMsg({ text: res.error });
   };
 
@@ -86,8 +102,25 @@ export default function UsersPage() {
     const res = await ZestyAPI.createToken(roleZUID, name);
     !res.error && handleCreateTokenSucc(res);
     res.error && handleCreateTokenErr(res);
+    await getInstanceTokens();
   };
 
+  const deleteToken = async (data) => {
+    const { tokenZUID } = data;
+    const res = await ZestyAPI.deleteToken(tokenZUID);
+    !res.error && handleDeleteTokenSucc(res);
+    res.error && handleDeleteTokenErr(res);
+    await getInstanceTokens();
+  };
+
+  const updateToken = async (data) => {
+    const { tokenZUID } = data;
+    const params = `?actions=renew`;
+    const res = await ZestyAPI.updateToken(tokenZUID, params);
+    !res.error && handleUpdateTokenSucc(res);
+    res.error && handleUpdateTokenErr(res);
+    await getInstanceTokens();
+  };
   React.useEffect(() => {
     getInstanceTokens();
     getInstanceRoles();
@@ -103,9 +136,11 @@ export default function UsersPage() {
           <InstancesApp>
             <Apis
               tokens={tokens}
-              roles={instanceRoles}
+              instanceRoles={instanceRoles}
               isInstanceOwner={isInstanceOwner(instanceUserWithRoles, userInfo)}
               createToken={createToken}
+              deleteToken={deleteToken}
+              updateToken={updateToken}
             />
           </InstancesApp>
         ) : (

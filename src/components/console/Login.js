@@ -25,7 +25,8 @@ const Login = () => {
     SuccessMsg({
       title: 'Success',
       action: () => {
-        window.location.reload();
+        // window.location.reload();
+        window.location.replace('/instances');
       },
     });
   };
