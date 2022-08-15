@@ -14,9 +14,9 @@ module.exports = {
       auth: '',
       src_dir: '/src',
     },
-    eslint: {
-      ignoreDuringBuilds: true,
-    },
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   swcMinify: true,
 };
