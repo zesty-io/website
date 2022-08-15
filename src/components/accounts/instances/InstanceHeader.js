@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import dayjs from 'dayjs';
 
 export default function InstanceHeader({ instance }) {
   const webengineUrl = `https://${instance?.randomHashID}-dev.webengine.zesty.io`;
@@ -35,7 +36,8 @@ export default function InstanceHeader({ instance }) {
           {instance?.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Updated at: {instance.updatedAt}
+          Updated at:
+          {dayjs(instance.updatedAt).format('MMMM D, YYYY @ hh:mm A')}
         </Typography>
       </CardContent>
       <CardActions>

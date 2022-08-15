@@ -11,7 +11,7 @@ export const SettingsSelect = ({ value, name, options, handleAdd }) => {
 
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+      <FormControl fullWidth variant="outlined">
         <InputLabel id="demo-simple-select-label">{value || age}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
