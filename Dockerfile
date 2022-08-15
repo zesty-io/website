@@ -3,7 +3,7 @@ FROM node:16.16-alpine3.15
 WORKDIR /usr/src/app
 
 COPY . ./
-RUN npm ci
+RUN npm ci && npm  cache clean --force
 
 EXPOSE 8080
 
