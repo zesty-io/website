@@ -7,17 +7,12 @@ import Login from 'components/console/Login';
 import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import { Apis } from 'views/accounts';
-import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import { ErrorMsg, SuccessMsg, TokenPrompt } from 'components/accounts';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
+import * as helpers from 'utils';
 
-const isInstanceOwner = (userWithRoles, userInfo) => {
-  const currentRole = userWithRoles?.find((e) => e.ZUID === userInfo?.ZUID)
-    ?.role?.name;
-  if (currentRole === 'Owner' || currentRole === 'Admin') {
-    return true;
-  } else {
-    return false;
-  }
-};
+const MySwal = withReactContent(Swal);
 
 export default function ApisPage() {
   const [tokens, settokens] = React.useState([]);
@@ -57,14 +52,18 @@ export default function ApisPage() {
   };
 
   const handleCreateTokenSucc = (res) => {
-    console.log(res);
-    SuccessMsg({ title: 'Success' });
+    MySwal.fire({
+      title: 'You must copy this token now.',
+      html: <TokenPrompt token={res?.data?.token} />,
+      showConfirmButton: false,
+    });
   };
   const handleCreateTokenErr = (res) => {
     ErrorMsg({ text: res.error });
   };
 
   const handleDeleteTokenSucc = (res) => {
+    console.log(res);
     SuccessMsg({ title: 'Success' });
   };
   const handleDeleteTokenErr = (res) => {
@@ -121,6 +120,10 @@ export default function ApisPage() {
     res.error && handleUpdateTokenErr(res);
     await getInstanceTokens();
   };
+  const isInstanceOwner = helpers.isInstanceOwner(
+    instanceUserWithRoles,
+    userInfo,
+  );
   React.useEffect(() => {
     getInstanceTokens();
     getInstanceRoles();
@@ -137,7 +140,7 @@ export default function ApisPage() {
             <Apis
               tokens={tokens}
               instanceRoles={instanceRoles}
-              isInstanceOwner={isInstanceOwner(instanceUserWithRoles, userInfo)}
+              isInstanceOwner={isInstanceOwner}
               createToken={createToken}
               deleteToken={deleteToken}
               updateToken={updateToken}
