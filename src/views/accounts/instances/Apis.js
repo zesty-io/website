@@ -1,6 +1,10 @@
 import { Box, Button } from '@mui/material';
 import { StickyTable } from 'components/accounts';
 import React from 'react';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 const COLUMNS = [
   {
@@ -67,10 +71,27 @@ const CustomTable = ({ data = [], roles = [] }) => {
     </Box>
   );
 };
-export const Apis = ({ tokens, roles, isInstanceOwner }) => {
+export const Apis = ({ tokens, roles, isInstanceOwner, createToken }) => {
   console.log(tokens, roles, isInstanceOwner, ':::');
+  const handleCreateTokenModal = (data) => {
+    // MySwal.fire({
+    //   title: 'Add Team',
+    //   html: <CustomForm onSubmit={handleCreateTeam} />,
+    //   showConfirmButton: false,
+    // });
+    createToken(data);
+  };
   return (
     <Box>
+      <Button
+        onClick={() => console.log(e)}
+        color="primary"
+        variant="contained"
+        fullWidth
+        type="button"
+      >
+        Create Token
+      </Button>
       <CustomTable data={tokens} roles={roles} />
     </Box>
   );
