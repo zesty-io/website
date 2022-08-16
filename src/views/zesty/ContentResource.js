@@ -46,7 +46,9 @@ import { Box } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import Hero from 'components/marketing/ContentResources/Hero';
 import React from 'react';
-import ArticleCard from 'components/marketing/ContentResources/ArticleCards';
+import GatedContentCard from 'components/marketing/ContentResources/GatedContentCard';
+import ArticlesCard from 'components/marketing/ContentResources/ArticlesCard';
+import VideosCard from 'components/marketing/ContentResources/VideosCard';
 
 function ContentResource({ content }) {
   const theme = useTheme();
@@ -88,7 +90,9 @@ function ContentResource({ content }) {
       >
         <Hero {...pageData} />
       </Box>
-      <ArticleCard {...pageData} />
+      <GatedContentCard {...pageData} />
+      <ArticlesCard {...pageData} />
+      <VideosCard {...pageData} />
     </>
   );
 }
