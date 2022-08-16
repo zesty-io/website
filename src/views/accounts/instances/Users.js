@@ -65,7 +65,7 @@ const CustomTable = ({
       handleDeleteRole(data);
     };
 
-    const role = isOwner()
+    const role = isOwner
       ? RoleSwitcher({
           role: e.role.name,
           handleOnChange,
@@ -73,7 +73,7 @@ const CustomTable = ({
         })
       : e.role.name;
 
-    const action = isOwner() ? (
+    const action = isOwner ? (
       <Box display={'flex'}>
         <Button
           onClick={handleDeleteUser}

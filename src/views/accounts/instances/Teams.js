@@ -38,13 +38,14 @@ const CustomTable = ({
   handleDeleteTeamModal,
   handleUpdataTeamModal,
   handleCreateTeamInviteModal,
+  isInstanceOwner,
 }) => {
   const ROWS = data?.map((e) => {
     return {
       name: e.name || '-',
       description: e.description || '-',
       zuid: e.ZUID,
-      invite: (
+      invite: isInstanceOwner ? (
         <Box>
           <Button
             onClick={() => handleCreateTeamInviteModal(e)}
@@ -56,8 +57,10 @@ const CustomTable = ({
             Invite
           </Button>
         </Box>
+      ) : (
+        '-'
       ),
-      action: (
+      action: isInstanceOwner ? (
         <Box display={'flex'}>
           <Button
             onClick={() => handleUpdataTeamModal(e)}
@@ -78,6 +81,8 @@ const CustomTable = ({
             Delete
           </Button>
         </Box>
+      ) : (
+        '-'
       ),
     };
   });
@@ -157,6 +162,7 @@ const Main = ({
   getAllTeams,
   deleteTeam,
   createTeamInvite,
+  isInstanceOwner,
 }) => {
   const handleCreateTeam = async (data) => {
     await createTeam(data);
@@ -197,6 +203,7 @@ const Main = ({
       showConfirmButton: false,
     });
   };
+  console.log(isInstanceOwner, 22222222222222);
   return (
     <Box>
       <TextField
@@ -206,14 +213,21 @@ const Main = ({
         onChange={(e) => setsearch(e.target.value)}
       />
 
-      <Button color="primary" variant="contained" onClick={handleAddTeamModal}>
-        Add Team
-      </Button>
+      {isInstanceOwner && (
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleAddTeamModal}
+        >
+          Add Team
+        </Button>
+      )}
       <CustomTable
         data={teams}
         handleDeleteTeamModal={handleDeleteTeamModal}
         handleUpdataTeamModal={handleUpdataTeamModal}
         handleCreateTeamInviteModal={handleCreateTeamInviteModal}
+        isInstanceOwner={isInstanceOwner}
       />
     </Box>
   );

@@ -10,6 +10,7 @@ import { Users } from 'views/accounts';
 import { ErrorMsg, StickyTable, SuccessMsg } from 'components/accounts';
 import { baseroles } from 'components/accounts/users/baseroles';
 import { Box, Typography } from '@mui/material';
+import * as helpers from 'utils';
 
 const COLUMNS = [
   {
@@ -39,7 +40,7 @@ const RolesTable = ({ title = 'Base Roles in Zesty.io' }) => {
 
 export default function UsersPage() {
   const [users, setusers] = React.useState([]);
-  const [roles, setroles] = React.useState([]);
+  const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
   const { ZestyAPI, isAuthenticated, userInfo } = useZestyStore(
     (state) => state,
@@ -58,8 +59,7 @@ export default function UsersPage() {
   };
 
   const handleGetRolesSuccess = (res) => {
-    setroles(res.data);
-    console.log(res);
+    setInstanceUserWithRoles(res.data);
   };
   const handleGetRolesErr = (res) => {
     console.log(res);
@@ -153,16 +153,10 @@ export default function UsersPage() {
     getInstanceRoles();
   }, []);
 
-  const isOwner = () => {
-    const currentRole = roles?.find((e) => e.ZUID === userInfo.ZUID)?.role
-      ?.name;
-    if (currentRole === 'Owner') {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
+  const isInstanceOwner = helpers.isInstanceOwner(
+    instanceUserWithRoles,
+    userInfo,
+  );
   console.log(users, 'user data');
   return (
     <Main>
@@ -172,11 +166,11 @@ export default function UsersPage() {
           <InstancesApp>
             <Users
               updateRole={updateRole}
-              roles={roles}
+              roles={instanceUserWithRoles}
               deleteUserRole={deleteUserRole}
               instanceRoles={instanceRoles}
               createInvite={createInvite}
-              isOwner={isOwner}
+              isOwner={isInstanceOwner}
               instanceZUID={zuid}
             />
             <RolesTable />
