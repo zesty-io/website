@@ -16,10 +16,49 @@ export default function WebhooksPage() {
 
   const { zuid } = router.query;
 
+  const handleGetWebhooksSuccess = (res) => {
+    console.log(res.data);
+  };
+
+  const handleGetWebhooksError = (res) => {
+    console.log(res.error);
+  };
+  const handleCreateWebhooksSuccess = (res) => {
+    console.log(res.data);
+  };
+
+  const handleCreateWebhooksError = (res) => {
+    console.log(res.error);
+  };
   const getWebhooks = async () => {
     const res = await ZestyAPI.retrieveWebhookForInstance(zuid);
-    setWebhooks(res.data);
-    console.log(res.data);
+    !res.error && handleGetWebhooksSuccess(res);
+    res.error && handleGetWebhooksError(res);
+  };
+
+  const createWebhook = async (data) => {
+    const {
+      scopedResource,
+      parentResourceZUID,
+      resource,
+      eventAction,
+      method,
+      URL,
+      contentType,
+      text,
+    } = data;
+    const res = await ZestyAPI.createWebhook(
+      scopedResource,
+      parentResourceZUID,
+      resource,
+      eventAction,
+      method,
+      URL,
+      contentType,
+      text,
+    );
+    !res.error && handleCreateWebhooksSuccess(res);
+    res.error && handleCreateWebhooksError(res);
   };
   React.useEffect(() => {
     getWebhooks();
@@ -32,7 +71,7 @@ export default function WebhooksPage() {
       <Container>
         {isAuthenticated ? (
           <InstancesApp>
-            <Webhooks />
+            <Webhooks createWebhook={createWebhook} />
           </InstancesApp>
         ) : (
           <Login />
