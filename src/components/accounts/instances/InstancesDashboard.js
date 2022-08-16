@@ -139,7 +139,12 @@ export const InstancesDashboard = () => {
                     }
                     onClick={() => handleRoute(instance.ZUID)}
                   />
-                  <Typography p={1} gutterBottom variant="h6">
+                  <Typography
+                    p={1}
+                    gutterBottom
+                    variant="h6"
+                    onClick={() => handleRoute(instance.ZUID)}
+                  >
                     {instance.name}
                   </Typography>
                 </Card>

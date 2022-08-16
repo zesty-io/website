@@ -60,6 +60,7 @@
     "aos": "^2.3.4",
     "card-validator": "^8.1.1",
     "cookies-next": "^2.0.4",
+    "dayjs": "^1.11.4",
     "eslint-plugin-unused-imports": "^2.0.0",
     "formik": "^2.2.6",
     "fuse.js": "^6.6.2",
