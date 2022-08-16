@@ -8,11 +8,15 @@ import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import { Teams } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import * as helpers from 'utils';
 
 export default function TeamsPage() {
   const [search, setsearch] = React.useState('');
   const [teams, setteams] = React.useState([]);
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
+  const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
+  const { ZestyAPI, isAuthenticated, userInfo } = useZestyStore(
+    (state) => state,
+  );
 
   const router = useRouter();
   const { zuid } = router.query;
@@ -53,6 +57,14 @@ export default function TeamsPage() {
     console.log(err);
     ErrorMsg({ text: err.error });
   };
+
+  const handleGetInstanceUserWithRolesSucc = (res) => {
+    setInstanceUserWithRoles(res.data);
+  };
+  const handleGetInstanceUserWithRolesErr = (res) => {
+    ErrorMsg({ text: res.error });
+  };
+
   const getAllTeams = async () => {
     const res = await ZestyAPI.getAllTeams();
     !res.error && handleGetAllTeamsSuccess(res);
@@ -90,6 +102,11 @@ export default function TeamsPage() {
     res.error && handleCreateTeamInviteError(res);
   };
 
+  const getInstanceUserWithRoles = async () => {
+    const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
+    !res.error && handleGetInstanceUserWithRolesSucc(res);
+    res.error && handleGetInstanceUserWithRolesErr(res);
+  };
   const data = teams?.filter((e) => {
     if (search) {
       return (
@@ -101,6 +118,10 @@ export default function TeamsPage() {
     }
   });
 
+  const isInstanceOwner = helpers.isInstanceOwner(
+    instanceUserWithRoles,
+    userInfo,
+  );
   const teamsProps = {
     teams: data,
     getAllTeams,
@@ -109,12 +130,12 @@ export default function TeamsPage() {
     deleteTeam,
     updateTeam,
     createTeamInvite,
+    isInstanceOwner,
   };
-
-  console.log(zuid, 'instance:');
 
   React.useEffect(() => {
     getAllTeams();
+    getInstanceUserWithRoles();
   }, []);
   return (
     <Main>
