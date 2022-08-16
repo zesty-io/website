@@ -240,10 +240,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                   >
                     <Button
                       href={
-                        (item.button_cta?.data &&
-                          item.button_cta?.data[0]?.internal_link?.data &&
-                          item.button_cta?.data[0]?.internal_link?.data[0]?.meta
-                            ?.web?.url) ||
+                        item.button_cta?.data[0]?.external_link ||
                         FillerContent.href
                       }
                       variant="contained"
