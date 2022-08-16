@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
-import { lighten, Skeleton } from '@mui/material';
-import { useTheme } from '@emotion/react';
+import { Skeleton } from '@mui/material';
 
 const LoadingSkeleton = () => (
   <Box
@@ -20,8 +19,9 @@ export default function CustomDataGrid({
   rows,
   isLoading,
   pageSize,
-  headerBGColor = `${lighten(useTheme().palette.secondary.light, 0.9)}`,
-  headerTextColor = 'secondary.main',
+  headerBGColor = `white`,
+  headerTextColor = 'text.primary',
+  striped = true,
   hideSeparator = true,
 }) {
   return (
@@ -37,6 +37,12 @@ export default function CustomDataGrid({
           '& .MuiDataGrid-columnHeaders': {
             bgcolor: headerBGColor,
             color: headerTextColor,
+            '& .MuiDataGrid-columnHeaderTitle': {
+              fontWeight: 'bolder',
+            },
+          },
+          ' .MuiDataGrid-row:nth-child(even)': {
+            bgcolor: striped ? 'grey.100' : '',
           },
         }}
         autoHeight={isLoading ? false : true}
