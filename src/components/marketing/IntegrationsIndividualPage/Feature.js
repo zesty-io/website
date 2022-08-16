@@ -4,6 +4,7 @@
 import { Box, Typography, Grid } from '@mui/material';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
+import { useRouter } from 'next/router';
 
 /**
  * Static Assets Imports
@@ -12,6 +13,12 @@ import Line from '../../../../public/assets/images/IntegrationIndividualPage/lin
 import Chevron from '../../../../public/assets/images/IntegrationIndividualPage/chevron.svg';
 
 const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
+  const router = useRouter();
+  const isNextCms = router.asPath.includes('/integrations/nextjs-cms/');
+  const isTeamBenefits = router.asPath.includes(
+    '/integrations/nextjs-team-benefits/',
+  );
+
   const featureData = [
     {
       description: content.feature_description_1 || FillerContent.description,
@@ -32,7 +39,7 @@ const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
       sx={{
         background: theme.palette.zesty.zestyDarkBlue,
         mt: 10,
-        minHeight: isMedium ? 3100 : 2300,
+
         overflow: 'hidden',
         position: 'relative',
       }}
@@ -53,7 +60,7 @@ const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
       <Container
         sx={{
           position: 'relative',
-          height: isMedium ? 3100 : 2300,
+          py: 2,
         }}
       >
         <Box
@@ -146,26 +153,44 @@ const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
                     </MuiMarkdown>
                   </Box>
                 </Grid>
-                <Grid sx={{ position: 'relative' }} item sm={12} md={6}>
-                  <Box sx={{ display: 'flex', pl: isMedium ? 0 : 15 }}>
-                    <Box sx={{ position: 'absolute', ml: isMedium ? 0 : -15 }}>
+                <Grid
+                  sx={{ position: 'relative', display: 'flex' }}
+                  item
+                  sm={12}
+                  md={6}
+                >
+                  {isNextCms && (
+                    <Box sx={{ display: 'flex', pl: isMedium ? 0 : 15 }}>
                       <Box
-                        sx={{ width: '100%', maxWidth: 768, height: 568 }}
+                        sx={{ position: 'absolute', ml: isMedium ? 0 : -15 }}
+                      >
+                        <Box
+                          sx={{ width: '100%', maxWidth: 768, height: 568 }}
+                          component="img"
+                          alt="background image"
+                          src={item.image}
+                        />
+                      </Box>
+                      <Box
+                        sx={{
+                          width: 1276,
+                          height: 568,
+                          opacity: 0.1,
+                          filter: 'invert(30%)',
+                        }}
                         component="img"
-                        alt="background image"
+                        alt="image"
                         src={item.image}
                       />
                     </Box>
+                  )}
+
+                  <Box sx={{ alignSelf: 'center', py: 2 }}>
                     <Box
-                      sx={{
-                        width: 1276,
-                        height: 568,
-                        opacity: 0.1,
-                        filter: 'invert(30%)',
-                      }}
+                      sx={{ width: '100%' }}
                       component="img"
-                      alt="background image"
                       src={item.image}
+                      alt="image"
                     />
                   </Box>
                 </Grid>
