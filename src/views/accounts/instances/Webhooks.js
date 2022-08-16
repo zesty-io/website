@@ -1,21 +1,29 @@
 import { Box, Button } from '@mui/material';
-import { FormInput } from 'components/accounts';
+import { accountsValidations, FormInput } from 'components/accounts';
+import { useFormik } from 'formik';
 import React from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
-const CustomForm = ({ onSubmit, data = {} }) => {
+const WebhookForm = ({ onSubmit }) => {
   const formik = useFormik({
-    validationSchema: accountsValidations.teams,
+    validationSchema: accountsValidations.createWebhook,
     initialValues: {
-      name: data?.name,
-      description: data?.description,
+      scopedResource: '',
+      parentResourceZUID: '',
+      resource: '',
+      eventAction: '',
+      URL: '',
+      contentType: '',
+      authorization: '',
+      text: '',
     },
     onSubmit: async (values) => {
-      const val = { ...values, ZUID: data.ZUID };
-      await onSubmit(val);
+      console.log(values);
+      // const val = { ...values, ZUID: data.ZUID };
+      await onSubmit(values);
       formik.resetForm();
     },
   });
@@ -23,8 +31,15 @@ const CustomForm = ({ onSubmit, data = {} }) => {
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput name={'name'} formik={formik} />
-        <FormInput name={'description'} formik={formik} />
+        <FormInput name={'scopedResource'} formik={formik} />
+        <FormInput name={'parentResourceZUID'} formik={formik} />
+        <FormInput name={'resource'} formik={formik} />
+        <FormInput name={'eventAction'} formik={formik} />
+        <FormInput name={'method'} formik={formik} />
+        <FormInput name={'URL'} formik={formik} />
+        <FormInput name={'contentType'} formik={formik} />
+        <FormInput name={'authorization'} formik={formik} />
+        <FormInput name={'text'} formik={formik} />
         <Button color="primary" variant="contained" fullWidth type="submit">
           Submit
         </Button>
@@ -34,18 +49,20 @@ const CustomForm = ({ onSubmit, data = {} }) => {
 };
 
 export const Webhooks = ({ createWebhook }) => {
-  const handleAddWebhookModal = (data) => {
-    // MySwal.fire({
-    //   title: 'Invite Team',
-    //   html: <InviteForm onSubmit={handlerCreateTeamInvite} data={data} />,
-    //   showConfirmButton: false,
-    // });
-
-    createWebhook(data);
+  const handleAddWebhookModal = () => {
+    MySwal.fire({
+      title: 'Invite Team',
+      html: <WebhookForm onSubmit={createWebhook} />,
+      showConfirmButton: false,
+    });
   };
   return (
     <Box>
-      <Button color="primary" variant="contained" onClick={handleAddTeamModal}>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={handleAddWebhookModal}
+      >
         Add Webhooks
       </Button>
     </Box>

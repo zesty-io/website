@@ -83,6 +83,16 @@ const twoFactorAuth = yup.object().shape({
   phoneNumber: yup.string().required('Email address is required*'),
 });
 
+const createWebhook = yup.object().shape({
+  scopedResource: yup.string().required('This is Required'),
+  parentResourceZUID: yup.string().required('This is Required'),
+  resource: yup.string().required('This is Required'),
+  eventAction: yup.string().required('This is Required'),
+  URL: yup.string().required('This is Required'),
+  contentType: yup.string().required('This is Required'),
+  authorization: yup.string().required('This is Required'),
+  text: yup.string().required('This is Required'),
+});
 export const accountsValidations = {
   email,
   password,
@@ -92,4 +102,5 @@ export const accountsValidations = {
   login,
   userName,
   createToken,
+  createWebhook,
 };
