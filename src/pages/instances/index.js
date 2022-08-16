@@ -6,10 +6,13 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { InstancesDashboard } from 'components/accounts/instances/InstancesDashboard';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
+import { getCookie } from 'cookies-next';
 
 export default function Intances() {
   const { instances } = useFetchWrapper();
-  const { isAuthenticated, setInstances } = useZestyStore((state) => state);
+  const { setInstances } = useZestyStore((state) => state);
+
+  const isAuthenticated = getCookie('isAuthenticated');
 
   React.useEffect(() => {
     setInstances(instances);
