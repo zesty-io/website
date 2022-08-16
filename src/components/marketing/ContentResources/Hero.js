@@ -6,7 +6,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import Container from 'components/Container';
+import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
 import SubscribeCTA from 'components/cta/SubscribeCTA';
 import { useTheme, alpha } from '@mui/material/styles';
@@ -89,7 +89,7 @@ const Hero = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
         overflow: 'hidden',
       }}
     >
-      <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 936 }}>
+      <Container>
         <Box
           display={'flex'}
           flexDirection={{ xs: 'column', md: 'row' }}
