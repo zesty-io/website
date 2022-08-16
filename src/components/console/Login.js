@@ -21,11 +21,13 @@ const Login = () => {
   const handleLoginSuccess = (res) => {
     setloading(false);
 
-    setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data);
     SuccessMsg({
       title: 'Success',
       action: () => {
-        window.location.reload();
+        setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data);
+        setCookie('isAuthenticated', true);
+        setCookie('isUser', true);
+        window.location.replace('/instances');
       },
     });
   };

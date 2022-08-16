@@ -6,9 +6,10 @@ import { useZestyStore } from 'store';
 import Login from 'components/console/Login';
 import { YourProfile } from 'views/accounts/profile/YourProfile';
 import { ProfileApp } from 'components/accounts';
+import { getCookie } from 'cookies-next';
 
 export default function ProfilePage() {
-  const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
+  const { setuserInfo } = useZestyStore((state) => state);
   const { ZestyAPI } = useZestyStore((state) => state);
   const [userZUID, setuserZUID] = React.useState('');
 
@@ -39,6 +40,8 @@ export default function ProfilePage() {
     !res.error && handleGetUserSuccess(res);
     res.error && handleGetUserError(res);
   };
+
+  const isAuthenticated = getCookie('isAuthenticated');
 
   React.useEffect(() => {
     verify();
