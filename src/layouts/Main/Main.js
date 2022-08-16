@@ -14,9 +14,8 @@ import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
 
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
-import { getUserAppSID } from 'utils';
 
-import { getCookie } from 'cookies-next';
+import { getCookie, setCookies } from 'cookies-next';
 import { useZestyStore } from 'store';
 
 const Main = ({
@@ -32,8 +31,8 @@ const Main = ({
   // main should verify the user as boolean
   const router = useRouter();
 
-  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = getUserAppSID();
+  // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  // const userAppSID = getUserAppSID();
   const { verifySuccess, loading, userInfo } = useZestyStore((state) => state);
 
   const isAuthenticated = verifySuccess.userZuid ? true : false;
@@ -96,8 +95,12 @@ const Main = ({
 
   // store isUser isAuthenticated  in global state
   React.useEffect(() => {
-    setisAuthenticated(isAuthenticated);
-    setisUser(isUser);
+    if (isAuthenticated) {
+      setisAuthenticated(isAuthenticated);
+      setisUser(isUser);
+      setCookies('isAuthenticated', isAuthenticated);
+      setCookies('isUser', isUser);
+    }
   }, [isAuthenticated, isUser]);
 
   return (
