@@ -168,13 +168,16 @@ export const Apis = ({
           </Button>
         )}
       </Grid>
-      <CustomTable
-        isInstanceOwner={isInstanceOwner}
-        data={tokens}
-        roles={instanceRoles}
-        handleDeleteToken={handleDeleteToken}
-        handleUpdateToken={handleUpdateToken}
-      />
+      <Grid item xs={8}></Grid>
+      <Grid item xs={12}>
+        <CustomTable
+          isInstanceOwner={isInstanceOwner}
+          data={tokens}
+          roles={instanceRoles}
+          handleDeleteToken={handleDeleteToken}
+          handleUpdateToken={handleUpdateToken}
+        />
+      </Grid>
     </Grid>
   );
 };
