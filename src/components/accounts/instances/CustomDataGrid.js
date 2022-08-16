@@ -41,7 +41,7 @@ export default function CustomDataGrid({
               fontWeight: 'bolder',
             },
           },
-          ' .MuiDataGrid-row:nth-child(even)': {
+          ' .MuiDataGrid-row:nth-child(odd)': {
             bgcolor: striped ? 'grey.100' : '',
           },
         }}
