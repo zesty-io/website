@@ -114,8 +114,8 @@ export default function ApisPage() {
 
   const updateToken = async (data) => {
     const { tokenZUID } = data;
-    const params = `?actions=renew`;
-    const res = await ZestyAPI.updateToken(tokenZUID, params);
+    const action = `renew`;
+    const res = await ZestyAPI.updateToken(tokenZUID, action);
     !res.error && handleUpdateTokenSucc(res);
     res.error && handleUpdateTokenErr(res);
     await getInstanceTokens();

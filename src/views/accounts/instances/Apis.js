@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import {
   accountsValidations,
   FormInput,
@@ -154,18 +154,20 @@ export const Apis = ({
     updateToken(val);
   };
   return (
-    <Box>
-      {isInstanceOwner && (
-        <Button
-          onClick={handleCreateTokenModal}
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="button"
-        >
-          Create Token
-        </Button>
-      )}
+    <Grid container>
+      <Grid item xs={4}>
+        {isInstanceOwner && (
+          <Button
+            onClick={handleCreateTokenModal}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="button"
+          >
+            Create Token
+          </Button>
+        )}
+      </Grid>
       <CustomTable
         isInstanceOwner={isInstanceOwner}
         data={tokens}
@@ -173,6 +175,6 @@ export const Apis = ({
         handleDeleteToken={handleDeleteToken}
         handleUpdateToken={handleUpdateToken}
       />
-    </Box>
+    </Grid>
   );
 };
