@@ -1,15 +1,10 @@
 import React from 'react';
-import AppBar from 'components/console/AppBar';
-import { Container } from '@mui/system';
-import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import Login from 'components/console/Login';
-import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function Webhooks() {
-  const { ZestyAPI, isAuthenticated, userInfo, workingInstance } =
-    useZestyStore((state) => state);
+  const { userInfo, workingInstance } = useZestyStore((state) => state);
 
   const router = useRouter();
 
@@ -18,19 +13,9 @@ export default function Webhooks() {
   console.log(userInfo, 'support');
 
   return (
-    <Main>
-      <AppBar />
-
-      <Container>
-        {isAuthenticated && (
-          <InstancesApp>
-            Support Instance: {workingInstance}
-            User ZUID: {userInfo?.ZUID} User Email: {userInfo?.email}
-          </InstancesApp>
-        )}
-
-        {!isAuthenticated && <Login />}
-      </Container>
-    </Main>
+    <InstanceContainer>
+      Support Instance: {workingInstance}
+      User ZUID: {userInfo?.ZUID} User Email: {userInfo?.email}
+    </InstanceContainer>
   );
 }
