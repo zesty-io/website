@@ -1,6 +1,7 @@
 import { Box, Button } from '@mui/material';
 import {
   accountsValidations,
+  FormAutoComplete,
   FormInput,
   FormSelect,
 } from 'components/accounts';
@@ -15,6 +16,7 @@ const MySwal = withReactContent(Swal);
 const WebhookForm = ({ onSubmit, scopedResourcesOptions }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.createWebhook,
+
     initialValues: {
       scopedResource: '',
       parentResourceZUID: '',
@@ -35,7 +37,7 @@ const WebhookForm = ({ onSubmit, scopedResourcesOptions }) => {
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormSelect
+        <FormAutoComplete
           label="Scope Resource"
           name={'scopedResource'}
           formik={formik}
