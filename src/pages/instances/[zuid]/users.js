@@ -144,10 +144,12 @@ export default function UsersPage() {
     res.error && handleCreateInviteErr(res);
   };
   React.useEffect(() => {
-    getUsers();
-    getInstanceUserRoles();
-    getInstanceRoles();
-  }, []);
+    if (router.isReady) {
+      getUsers();
+      getInstanceUserRoles();
+      getInstanceRoles();
+    }
+  }, [router.isReady]);
 
   const isInstanceOwner = helpers.isInstanceOwner(
     instanceUserWithRoles,

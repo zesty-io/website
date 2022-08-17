@@ -31,10 +31,12 @@ export default function SettingsPage() {
     console.log(res);
   };
   React.useEffect(() => {
-    getUsers();
-    getInstanceUserRoles();
-    getSettings();
-  }, []);
+    if (router.isReady) {
+      getUsers();
+      getInstanceUserRoles();
+      getSettings();
+    }
+  }, [router.isReady]);
 
   return (
     <InstanceContainer>

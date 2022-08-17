@@ -128,9 +128,11 @@ export default function TeamsPage() {
   };
 
   React.useEffect(() => {
-    getAllTeams();
-    getInstanceUserWithRoles();
-  }, []);
+    if (router.isReady) {
+      getAllTeams();
+      getInstanceUserWithRoles();
+    }
+  }, [router.isReady]);
   return (
     <InstanceContainer>
       <Teams {...teamsProps} />

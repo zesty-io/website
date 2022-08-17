@@ -25,9 +25,11 @@ export default function Billing() {
     console.log(res);
   };
   React.useEffect(() => {
-    getUsers();
-    getInstanceUserRoles();
-  }, []);
+    if (router.isReady) {
+      getUsers();
+      getInstanceUserRoles();
+    }
+  }, [router.isReady]);
 
   return (
     <InstanceContainer>

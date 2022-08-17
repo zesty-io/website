@@ -81,9 +81,11 @@ export default function WebhooksPage() {
     res.error && handleSearchItemsError(res);
   };
   React.useEffect(() => {
-    getWebhooks();
-    searhcItems();
-  }, []);
+    if (router.isReady) {
+      getWebhooks();
+      searhcItems();
+    }
+  }, [router.isReady]);
 
   return (
     <InstanceContainer>

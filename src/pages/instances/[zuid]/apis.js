@@ -119,10 +119,12 @@ export default function ApisPage() {
     userInfo,
   );
   React.useEffect(() => {
-    getInstanceTokens();
-    getInstanceRoles();
-    getInstanceUserWithRoles();
-  }, []);
+    if (router.isReady) {
+      getInstanceTokens();
+      getInstanceRoles();
+      getInstanceUserWithRoles();
+    }
+  }, [router.isReady]);
 
   return (
     <InstanceContainer>

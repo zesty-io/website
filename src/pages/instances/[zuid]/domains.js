@@ -109,9 +109,11 @@ export default function Users() {
 
   useEffect(() => {
     // access necessary endpoints
-    getInstanceDomains();
-    getSettings();
-  }, [instanceDomains.length]);
+    if (router.isReady) {
+      getInstanceDomains();
+      getSettings();
+    }
+  }, [instanceDomains.length, router.isReady]);
 
   return (
     <InstanceContainer>
