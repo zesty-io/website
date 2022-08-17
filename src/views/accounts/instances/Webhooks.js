@@ -1,19 +1,25 @@
 import { Box, Button } from '@mui/material';
-import { accountsValidations, FormInput } from 'components/accounts';
+import {
+  accountsValidations,
+  FormInput,
+  FormSelect,
+} from 'components/accounts';
 import { useFormik } from 'formik';
 import React from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { accounts } from 'components/accounts/constants';
 
 const MySwal = withReactContent(Swal);
 
-const WebhookForm = ({ onSubmit }) => {
+const WebhookForm = ({ onSubmit, scopedResourcesOptions }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.createWebhook,
     initialValues: {
       scopedResource: '',
       parentResourceZUID: '',
       resource: '',
+      method: '',
       eventAction: '',
       URL: '',
       contentType: '',
@@ -21,8 +27,6 @@ const WebhookForm = ({ onSubmit }) => {
       text: '',
     },
     onSubmit: async (values) => {
-      console.log(values);
-      // const val = { ...values, ZUID: data.ZUID };
       await onSubmit(values);
       formik.resetForm();
     },
@@ -31,13 +35,33 @@ const WebhookForm = ({ onSubmit }) => {
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput name={'scopedResource'} formik={formik} />
+        <FormSelect
+          label="Scope Resource"
+          name={'scopedResource'}
+          formik={formik}
+          options={scopedResourcesOptions}
+        />
         <FormInput name={'parentResourceZUID'} formik={formik} />
         <FormInput name={'resource'} formik={formik} />
-        <FormInput name={'eventAction'} formik={formik} />
-        <FormInput name={'method'} formik={formik} />
+        <FormSelect
+          label="Event Action"
+          name={'eventAction'}
+          formik={formik}
+          options={accounts.eventActionOptions}
+        />
+        <FormSelect
+          label="Method"
+          name={'method'}
+          formik={formik}
+          options={accounts.methodOptions}
+        />
         <FormInput name={'URL'} formik={formik} />
-        <FormInput name={'contentType'} formik={formik} />
+        <FormSelect
+          label="Content Type"
+          name={'contentType'}
+          formik={formik}
+          options={accounts.contentTypeOptions}
+        />
         <FormInput name={'authorization'} formik={formik} />
         <FormInput name={'text'} formik={formik} />
         <Button color="primary" variant="contained" fullWidth type="submit">
@@ -48,11 +72,16 @@ const WebhookForm = ({ onSubmit }) => {
   );
 };
 
-export const Webhooks = ({ createWebhook }) => {
+export const Webhooks = ({ createWebhook, scopedResourcesOptions }) => {
   const handleAddWebhookModal = () => {
     MySwal.fire({
-      title: 'Invite Team',
-      html: <WebhookForm onSubmit={createWebhook} />,
+      title: 'Create Webhook',
+      html: (
+        <WebhookForm
+          onSubmit={createWebhook}
+          scopedResourcesOptions={scopedResourcesOptions}
+        />
+      ),
       showConfirmButton: false,
     });
   };

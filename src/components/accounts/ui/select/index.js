@@ -1,5 +1,6 @@
 export * from './SettingsSelect';
 export * from './UsersSelect';
+export * from './FormSelect';
 import { FormControl, InputLabel, NativeSelect } from '@mui/material';
 import React from 'react';
 

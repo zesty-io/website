@@ -1,27 +1,31 @@
-const { Box, TextField } = require('@mui/material');
+import { Box, MenuItem, TextField } from '@mui/material';
 import React from 'react';
 
-const Index = React.memo(({ name, formik, label, type = 'text' }) => {
+export const FormSelect = ({ name = '', formik, label = '', options = [] }) => {
   const newLabel =
     label || (name && name[0].toUpperCase() + name.slice(1)) || '';
+
   return (
     <Box marginBottom={4}>
       <TextField
         sx={{ height: 54 }}
-        label={newLabel}
         variant="outlined"
-        color="primary"
-        size="medium"
         name={name}
+        id={name}
         fullWidth
+        select
+        label={newLabel}
         value={formik.values[name]}
         onChange={formik.handleChange}
         error={formik.touched[name] && Boolean(formik.errors[name])}
         helperText={formik.touched[name] && formik.errors[name]}
-        type={type}
-      />
+      >
+        {options.map((option) => (
+          <MenuItem key={option?.id} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
     </Box>
   );
-});
-
-export const FormInput = React.memo(Index);
+};

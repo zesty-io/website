@@ -7,17 +7,19 @@ import Login from 'components/console/Login';
 import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import { Webhooks } from 'views/accounts';
+import { ErrorMsg, SuccessMsg } from 'components/accounts';
 
 export default function WebhooksPage() {
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
   const [webhooks, setWebhooks] = React.useState([]);
+  const [scopeResources, setscopeResources] = React.useState([]);
 
   const router = useRouter();
 
   const { zuid } = router.query;
 
   const handleGetWebhooksSuccess = (res) => {
-    console.log(res.data);
+    setWebhooks(res.data);
   };
 
   const handleGetWebhooksError = (res) => {
@@ -25,9 +27,25 @@ export default function WebhooksPage() {
   };
   const handleCreateWebhooksSuccess = (res) => {
     console.log(res.data);
+    SuccessMsg({ title: 'Webhook Created Succesfully' });
   };
 
   const handleCreateWebhooksError = (res) => {
+    console.log(res.error);
+    ErrorMsg({ text: res.error });
+  };
+  const handleSearchItemsSuccess = (res) => {
+    const arr = res?.data?.map((e) => {
+      const label = e.meta.ZUID;
+      const value = e.meta.ZUID;
+      const id = e.meta.ZUID;
+
+      return { label, value, id };
+    });
+    setscopeResources(arr);
+  };
+
+  const handleSearchItemsError = (res) => {
     console.log(res.error);
   };
   const getWebhooks = async () => {
@@ -60,8 +78,15 @@ export default function WebhooksPage() {
     !res.error && handleCreateWebhooksSuccess(res);
     res.error && handleCreateWebhooksError(res);
   };
+
+  const searhcItems = async () => {
+    const res = await ZestyAPI.searchItems();
+    !res.error && handleSearchItemsSuccess(res);
+    res.error && handleSearchItemsError(res);
+  };
   React.useEffect(() => {
     getWebhooks();
+    searhcItems();
   }, []);
 
   return (
@@ -71,7 +96,11 @@ export default function WebhooksPage() {
       <Container>
         {isAuthenticated ? (
           <InstancesApp>
-            <Webhooks createWebhook={createWebhook} />
+            <Webhooks
+              webhooks={webhooks}
+              createWebhook={createWebhook}
+              scopedResourcesOptions={scopeResources}
+            />
           </InstancesApp>
         ) : (
           <Login />
