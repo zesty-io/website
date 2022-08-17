@@ -16,12 +16,22 @@ import { getCookie } from 'cookies-next';
 
 export const zohoPostObject = (
     obj,
-    select='Unknown',
-    leadDetail,
-    businessType,
+    select='Trial',
+    leadDetail = false,
+    businessType = 'Unknown',
     leadSource = 'Website',
     role = 'Marketer'
   ) => {
+
+    // logic to override lead source detail, or default to utm_medium, or empty if nothing
+    if(leadDetail != false){
+      leadDetail = leadDetail;
+    } else if (getCookie('utm_medium')){
+      leadDetail = getCookie('utm_medium');
+    } else {
+      leadDetail = '';
+    }
+
     return {
       First_Name: obj.firstName,
       Last_Name: obj.lastName,
@@ -46,9 +56,7 @@ export const zohoPostObject = (
       UTM_Term: getCookie('utm_term') ? getCookie('utm_term') : 'unknown',
       UTM_Medium: getCookie('utm_medium') ? getCookie('utm_medium') : 'unknown',
       $gclid: getCookie('gclid') ? getCookie('gclid') : '',
-      Lead_Source_Detail: getCookie('utm_medium')
-        ? getCookie('utm_medium')
-        : leadDetail,
+      Lead_Source_Detail: leadDetail,
       Lead_Source_Topic: getCookie('utm_campaign')
         ? getCookie('utm_campaign')
         : 'none',

@@ -1,5 +1,5 @@
 export default {
-    question: "Select your Class",
+    question: "What is your team role?",
     answers: [
         {
             answer: 'Manager',

@@ -76,9 +76,9 @@ export default {
             }
         },
         {
-            answer: 'Everything!',
-            value: 'everything',
-            asset: 'https://www.reviewofreligions.org/wp-content/uploads/2020/08/shutterstock_557126443-1024x683.jpg',
+            answer: 'Multiple Targets',
+            value: 'multiple',
+            asset: 'https://www.rollingstone.com/wp-content/uploads/2020/08/2F630CC0-8E91-4C7F-A95F-6D3DE976C0DA.jpeg',
             imageSX: {
                 position: 'absolute',
                 width: '100%',

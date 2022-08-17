@@ -51,7 +51,7 @@ export const SlideQuestions = ({
           <Box paddingY={4}>
             <Typography variant="h4">{question}</Typography>
           </Box>
-          <Stack direction="row" alignItems="center" spacing={2}>
+          <Stack direction="row" alignItems="center" spacing={2} justifyContent="center">
               {answers.sort((a,b) => (a.value < b.value)).map(response => 
                 <ActionAreaCard 
                   question={question}

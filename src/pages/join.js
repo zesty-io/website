@@ -3,6 +3,9 @@ import { React, useEffect, useState, useRef, useCallback } from 'react';
 import { useTheme } from '@emotion/react';
 import { Container, Box, Button, Grid, Typography } from '@mui/material';
 
+// confetti
+import Confetti from 'react-confetti'
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -38,13 +41,18 @@ import CMSQuestions from 'components/marketing/Join/Data/CMSQuestions'
 
 
 // messages
-const firstMessage = <>
-    <Typography variant="h2">Hi there!</Typography>
+const firstMessage = <Box paddingY={4} sx={{textAlign: 'center'}}>
+    <Typography variant="h4" gutterBottom>Hello Friend!</Typography>
     <Typography variant="h6">We are excited for you to explore Zesty ;)</Typography>
     <Box paddingY={1}>
         <Typography variant="p"> To help onboard you, may we ask two questions?</Typography>
     </Box>
-</>;
+</Box>;
+
+const welcomeMessage =  <Box paddingY={4} sx={{textAlign: 'center'}}>
+<Typography variant="h4" gutterBottom>Welcome to Zesty!</Typography>
+</Box>;
+
 const firstButton = `Yes, Let's Go!`;
 
  // for everyone
@@ -213,7 +221,7 @@ export default function Join(props) {
         // instantiate zoho object
         userDetails.user = true;
         // setup zoho object 
-        let zohoLeadObject = zohoPostObject(userDetails);
+        let zohoLeadObject = zohoPostObject(userDetails,'Trial','Trial','Unknown', 'Website',role);
         // zoho capture backup
         slackNotify(`ZOHO lead slack fallback info: \n ${stringifyLead(zohoLeadObject)}`)
         // post lead to zoho
@@ -257,29 +265,17 @@ export default function Join(props) {
                 modules={[Pagination, Navigation]}
             >
                 <SwiperSlide> 
-                    <Grid container
-                     direction="row"
-                     justifyContent="center"
-                     alignItems="center">  
-                        {/* <Grid item lg={7} md={7} xs={12}>
-                            <WelcomeScreen />
-                        </Grid>   */}
-                        <Grid item lg={6} md={6} xs={12}>
-                            <Container sx={{padding: '1em'}}>
+                  
 
-                                <SlideMessage 
-                                    message={firstMessage} 
-                                    buttonText={firstButton} 
-                                    exitButtonText={'No, get me outta here!'}
-                                    exitButtonAction={handleExit}
-                                    answerCallBack={handlePrompt} 
-                                    hoverAnimation={handleAnimation}
-                                    
-                                />
-                            </Container>
-                        </Grid>
-                    
-                    </Grid>
+                    <SlideMessage 
+                        message={firstMessage} 
+                        buttonText={firstButton} 
+                        exitButtonText={'No, get me outta here!'}
+                        exitButtonAction={handleExit}
+                        answerCallBack={handlePrompt} 
+                        hoverAnimation={handleAnimation}
+                        
+                    />
                 </SwiperSlide>
                 {/* Question 1  */}
                 <SwiperSlide>
@@ -313,24 +309,19 @@ export default function Join(props) {
                         />
                 </SwiperSlide>
                 <SwiperSlide> 
-                    <Grid container>  
+                <Confetti
+                    width={'1000px'}
+                    height={'500px'}
+                  />
+                    <SlideMessage 
+                        message={welcomeMessage}
+                        buttonText={`Let's Go!`} 
+                        exitButtonText={'Wait, let me invite friends ;)'}
+                        exitButtonAction={handleInvite}
+                        answerCallBack={handlePrompt} 
+                        hoverAnimation={handleAnimation}
                         
-                        <Grid item lg={5} md={5} xs={12}>
-                            <Container sx={{padding: '5em'}}>
-
-                                <SlideMessage 
-                                    message={<h1>Welcome to Zesty!</h1>}
-                                    buttonText={`Let's Go!`} 
-                                    exitButtonText={'Wait, let me invite friends ;)'}
-                                    exitButtonAction={handleInvite}
-                                    answerCallBack={handlePrompt} 
-                                    hoverAnimation={handleAnimation}
-                                    
-                                />
-                            </Container>
-                        </Grid>
-                    
-                    </Grid>
+                    />
                 </SwiperSlide>
                 
                 

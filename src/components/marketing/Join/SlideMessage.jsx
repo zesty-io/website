@@ -15,23 +15,31 @@ export const SlideMessage = ({
     const theme = useTheme();
 
   return (
-    <Container>
+    
+      <Grid container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center">  
+                 
+                    <Grid item lg={6} md={6} xs={12}>
+                        <Container sx={{padding: '1em'}}>
+                          {message}
+                          
+                          <Box paddingY={3} sx={{textAlign: 'center'}}>
+                            <Stack direction="row" alignItems="center" spacing={2} justifyContent="center">
+                              <Button size="large" color="secondary" variant="contained" onMouseOver={() => hoverAnimation('bouncing')} onClick={() => answerCallBack()}>
+                                  {buttonText}
+                              </Button>
+                              {exitButtonText !== '' &&
+                                <Button size="large" sx={{color: theme.palette.common.grey}} variant="text" onClick={() => exitButtonAction()} onMouseOver={() => hoverAnimation('no')}>
+                                  {exitButtonText}
+                                </Button>
+                              }
+                            </Stack>
+                          </Box>
         
-        <Box sx={{textAlign: 'center'}}>{message}</Box>
-        
-        <Box paddingY={3} sx={{textAlign: 'center'}}>
-          <Stack direction="row" spacing={2}>
-            <Button size="large" color="secondary" variant="contained" onMouseOver={() => hoverAnimation('bouncing')} onClick={() => answerCallBack()}>
-                {buttonText}
-            </Button>
-            {exitButtonText !== '' &&
-              <Button size="large" sx={{color: theme.palette.common.grey}} variant="text" onClick={() => exitButtonAction()} onMouseOver={() => hoverAnimation('no')}>
-                {exitButtonText}
-              </Button>
-            }
-          </Stack>
-        </Box>
-        
-    </Container>
+                        </Container>
+                      </Grid>
+                </Grid>
   )
 }

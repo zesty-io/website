@@ -50,7 +50,7 @@ function PasswordHelperText() {
       return 'UPPERCASE, lowercase, number, and SP3CI@L CH@R please.';
     }
 
-    return 'Minimum 8 characters. At least one number. A combination of lower and uppercase letters.';
+    return 'Minimum 8 mixed numbers, upper and lowercase characters.';
   }, [focused]);
 
   return <FormHelperText>{helperText}</FormHelperText>;
@@ -129,13 +129,16 @@ export const Signup = ({
   return (
 
     <Container>     
-        <Typography>{message}</Typography>   
+        <Box paddingY={4} sx={{textAlign: 'center'}}>
+          <Typography variant="h4" gutterBottom>{message}</Typography>
+        </Box>
         <Box
           component="form"
           noValidate
           autoComplete="off"
+          paddingX={10}
         >
-          <Grid container gap={1} paddingY={2}>
+          <Grid container gap={1} paddingY={2} direction="row" alignItems="center" spacing={2} justifyContent="center">
             <Grid md={5} lg={5} xs={12} item>
               <TextField
                 fullWidth
@@ -157,10 +160,10 @@ export const Signup = ({
               />
             </Grid>
           </Grid>
-          <Grid gap={1} container paddingY={1}>
+          <Grid gap={1} container paddingY={1} direction="row" spacing={2} justifyContent="center">
             <Grid md={5} lg={5} xs={12} item>
             
-              <FormControl>
+              <FormControl fullWidth>
                 <InputLabel htmlFor="email">Email</InputLabel>
                 <OutlinedInput
                   fullWidth
@@ -180,13 +183,12 @@ export const Signup = ({
               </FormControl>
             </Grid>
             <Grid md={5} lg={5} xs={12} item>
-              
-
-              <FormControl>
+              <FormControl fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <OutlinedInput
-                  id="password"
                   fullWidth
+                  id="password"
+                  
                   label="Password"
                   type={values.showPassword ? 'text' : 'password'}
                   name="password"
@@ -210,8 +212,9 @@ export const Signup = ({
               </FormControl>
             </Grid>
           </Grid>
-        <Button variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Next</Button>
-
+          <Grid container gap={1} paddingY={2} direction="row" alignItems="center" spacing={2} justifyContent="center">
+            <Button item variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Sign Up, Next</Button>
+          </Grid>
           
         </Box>
     </Container>
