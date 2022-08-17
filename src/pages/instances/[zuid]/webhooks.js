@@ -84,10 +84,12 @@ export default function WebhooksPage() {
   );
 
   React.useEffect(() => {
-    getWebhooks();
-    searhcItems();
-    getInstanceUserWithRoles();
-  }, []);
+    if (router.isReady) {
+      getWebhooks();
+      searhcItems();
+      getInstanceUserWithRoles();
+    }
+  }, [router.isReady]);
 
   return (
     <InstanceContainer>
