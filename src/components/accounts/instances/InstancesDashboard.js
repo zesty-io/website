@@ -24,6 +24,7 @@ import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBullet
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import CustomMenu from './CustomMenu';
 import useDropdown from 'components/hooks/useDropdown';
+import FillerContent from 'components/globals/FillerContent';
 
 const orderByItems = [
   {
@@ -125,12 +126,17 @@ export const InstancesDashboard = () => {
             .filter((inst) => inst?.name?.toLowerCase().includes(search))
             .map((instance, index) => (
               <Grid item xs={12} sm={4} lg={3} key={index}>
-                <Card sx={{ cursor: 'pointer' }}>
+                <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
                   <CardMedia
                     height="100%"
+                    sx={{ minHeight: 170 }}
                     width="100%"
                     component="img"
-                    image={instance.screenshotURL}
+                    image={
+                      instance.screenshotURL
+                        ? instance.screenshotURL
+                        : FillerContent.image
+                    }
                     onClick={() => handleRoute(instance.ZUID)}
                   />
                   <Typography
@@ -155,9 +161,14 @@ export const InstancesDashboard = () => {
                 <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
                   <ListItemIcon>
                     <img
+                      alt={instance.name}
                       height="50px"
                       width="50px"
-                      src={instance.screenshotURL}
+                      src={
+                        instance.screenshotURL
+                          ? instance.screenshotURL
+                          : FillerContent.image
+                      }
                     />
                   </ListItemIcon>
                   <ListItemText

@@ -13,6 +13,7 @@ import { useZestyStore } from 'store';
 import { getCookie } from 'cookies-next';
 import { getUserAppSID } from 'utils';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
+import { SnackbarProvider } from 'notistack';
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -41,9 +42,11 @@ export default function App({ Component, pageProps }) {
   return (
     <React.Fragment>
       {pageProps?.meta?.web && <ZestyHead content={pageProps} />}
-      <Page>
-        <Component {...pageProps} />
-      </Page>
+      <SnackbarProvider autoHideDuration={2500} preventDuplicate maxSnack={3}>
+        <Page>
+          <Component {...pageProps} />
+        </Page>
+      </SnackbarProvider>
     </React.Fragment>
   );
 }
