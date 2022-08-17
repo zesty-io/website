@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import {
   accountsValidations,
   FormAutoComplete,
@@ -37,35 +37,41 @@ const WebhookForm = ({ onSubmit, scopedResourcesOptions }) => {
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormAutoComplete
-          label="Scope Resource"
-          name={'scopedResource'}
-          formik={formik}
-          options={scopedResourcesOptions}
-        />
-        <FormInput name={'parentResourceZUID'} formik={formik} />
-        <FormInput name={'resource'} formik={formik} />
-        <FormSelect
-          label="Event Action"
-          name={'eventAction'}
-          formik={formik}
-          options={accounts.eventActionOptions}
-        />
-        <FormSelect
-          label="Method"
-          name={'method'}
-          formik={formik}
-          options={accounts.methodOptions}
-        />
-        <FormInput name={'URL'} formik={formik} />
-        <FormSelect
-          label="Content Type"
-          name={'contentType'}
-          formik={formik}
-          options={accounts.contentTypeOptions}
-        />
-        <FormInput name={'authorization'} formik={formik} />
-        <FormInput name={'text'} formik={formik} />
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <FormAutoComplete
+              label="Scope Resource"
+              name={'scopedResource'}
+              formik={formik}
+              options={scopedResourcesOptions}
+            />
+            <FormInput name={'Parent Resource ZUID'} formik={formik} />
+            <FormInput name={'resource'} formik={formik} />
+            <FormSelect
+              label="Event Action"
+              name={'eventAction'}
+              formik={formik}
+              options={accounts.eventActionOptions}
+            />
+            <FormSelect
+              label="Method"
+              name={'method'}
+              formik={formik}
+              options={accounts.methodOptions}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <FormInput name={'URL'} formik={formik} />
+            <FormSelect
+              label="Content Type"
+              name={'contentType'}
+              formik={formik}
+              options={accounts.contentTypeOptions}
+            />
+            <FormInput name={'authorization'} formik={formik} />
+            <FormInput name={'text'} formik={formik} />
+          </Grid>
+        </Grid>
         <Button color="primary" variant="contained" fullWidth type="submit">
           Submit
         </Button>
@@ -74,7 +80,11 @@ const WebhookForm = ({ onSubmit, scopedResourcesOptions }) => {
   );
 };
 
-export const Webhooks = ({ createWebhook, scopedResourcesOptions }) => {
+export const Webhooks = ({
+  createWebhook,
+  scopedResourcesOptions,
+  isInstanceOwner,
+}) => {
   const handleAddWebhookModal = () => {
     MySwal.fire({
       title: 'Create Webhook',
@@ -89,13 +99,15 @@ export const Webhooks = ({ createWebhook, scopedResourcesOptions }) => {
   };
   return (
     <Box>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={handleAddWebhookModal}
-      >
-        Add Webhooks
-      </Button>
+      {isInstanceOwner && (
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleAddWebhookModal}
+        >
+          Add Webhooks
+        </Button>
+      )}
     </Box>
   );
 };
