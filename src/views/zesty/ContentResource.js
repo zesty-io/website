@@ -33,21 +33,48 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+/**
+ * MUI Imports
+ */
 
-function ContentResource({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { alpha, useTheme } from '@mui/material/styles';
+import { Box } from '@mui/material';
+/**
+ * Helpers Import
+ */
+import FillerContent from 'components/globals/FillerContent';
+import Hero from 'components/marketing/ContentResources/Hero';
+import React from 'react';
+import GatedContentCard from 'components/marketing/ContentResources/GatedContentCard';
+import ArticlesCard from 'components/marketing/ContentResources/ArticlesCard';
+import VideosCard from 'components/marketing/ContentResources/VideosCard';
+
+function ContentResource({ content }) {
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
+
+  console.log(content);
+
+  const pageData = {
+    theme,
+    isMedium,
+    isDarkMode,
+    content,
+    FillerContent,
+  };
+
+  return (
+    <>
+      <Box bgcolor={'alternate.main'}>
+        <Hero {...pageData} />
+      </Box>
+      <GatedContentCard {...pageData} />
+      <ArticlesCard {...pageData} />
+      <VideosCard {...pageData} />
+    </>
+  );
 }
-  
+
 export default ContentResource;
