@@ -1,5 +1,7 @@
 import React from 'react'
 import { Container, Stack, Button, Box, Grid, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+
 
 export const SlideMessage = ({
     message = 'What team are you from?', 
@@ -10,18 +12,20 @@ export const SlideMessage = ({
     exitButtonAction={},
 
   }) => {
+    const theme = useTheme();
+
   return (
     <Container>
         
-        <div>{message}</div>
+        <Box sx={{textAlign: 'center'}}>{message}</Box>
         
-        <Box paddingY={5}>
+        <Box paddingY={3} sx={{textAlign: 'center'}}>
           <Stack direction="row" spacing={2}>
-            <Button size="large" variant="contained" onMouseOver={() => hoverAnimation('bouncing')} onClick={() => answerCallBack()}>
+            <Button size="large" color="secondary" variant="contained" onMouseOver={() => hoverAnimation('bouncing')} onClick={() => answerCallBack()}>
                 {buttonText}
             </Button>
             {exitButtonText !== '' &&
-              <Button size="large" variant="text" onClick={() => exitButtonAction()} onMouseOver={() => hoverAnimation('no')}>
+              <Button size="large" sx={{color: theme.palette.common.grey}} variant="text" onClick={() => exitButtonAction()} onMouseOver={() => hoverAnimation('no')}>
                 {exitButtonText}
               </Button>
             }

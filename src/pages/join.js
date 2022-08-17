@@ -30,6 +30,12 @@ import slackNotify from 'components/marketing/Join/slackNotify.js';
 // google analytis
 import * as ga from 'lib/ga'
 
+// data 
+
+import RoleQuestions from 'components/marketing/Join/Data/RoleQuestions'
+import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions'
+import CMSQuestions from 'components/marketing/Join/Data/CMSQuestions'
+
 
 // messages
 const firstMessage = <>
@@ -40,50 +46,6 @@ const firstMessage = <>
     </Box>
 </>;
 const firstButton = `Yes, Let's Go!`;
-const firstQuestion = "What team are you on?";
-const firstAnswers = [
-    {
-        answer: 'Development',
-        value: 'developer'
-    },
-    {
-        answer: 'Marketing',
-        value: 'marketer'
-    },
-    {
-        answer: 'Management',
-        value: 'manager'
-    }
-];
-
-const secondQuestion = "What are you building?";
-const secondAnswers = [
-    {
-        answer: 'Website',
-        value: 'website'
-    },
-    {
-        answer: 'Landing Page',
-        value: 'landing-page'
-    },
-    {
-        answer: 'Ecommerce',
-        value: 'ecommerce'
-    },
-    {
-        answer: 'App',
-        value: 'app'
-    },
-    {
-        answer: 'IoT Project',
-        value: 'iot'
-    },
-    {
-        answer: 'All Those Things ;)',
-        value: 'all'
-    },
-
-];
 
  // for everyone
 const thirdQuestion = "What CMS are you currently using?";
@@ -281,25 +243,29 @@ export default function Join(props) {
         setCurrentAnimation(ani)
     }
 
-
+    // sx={{background: theme.palette.zesty.zestyDarkBlue}}
     return (
-        <Box>
+        <Box >
             <DancingLogo animation={currentAnimation} />
             <Swiper
                 pagination={{
-                type: "progressbar",
+                    type: "none",
                 }}
                 ref={sliderRef}
+                autoHeight={false}
                 navigation={false}
                 modules={[Pagination, Navigation]}
             >
                 <SwiperSlide> 
-                    <Grid container>  
-                        <Grid item lg={7} md={7} xs={12}>
+                    <Grid container
+                     direction="row"
+                     justifyContent="center"
+                     alignItems="center">  
+                        {/* <Grid item lg={7} md={7} xs={12}>
                             <WelcomeScreen />
-                        </Grid>  
-                        <Grid item lg={5} md={5} xs={12}>
-                            <Container sx={{padding: '5em'}}>
+                        </Grid>   */}
+                        <Grid item lg={6} md={6} xs={12}>
+                            <Container sx={{padding: '1em'}}>
 
                                 <SlideMessage 
                                     message={firstMessage} 
@@ -318,25 +284,22 @@ export default function Join(props) {
                 {/* Question 1  */}
                 <SwiperSlide>
                     <Grid container>
-                        <Grid item lg={6} md={6} xs={12}>
+                        <Grid item lg={12} md={12} xs={12}>
                             <SlideQuestions 
-                                question={firstQuestion} 
-                                answers={firstAnswers} 
+                                question={RoleQuestions.question} 
+                                answers={RoleQuestions.answers} 
                                 answerCallBack={handleAnswers}
                                 hoverAnimation={handleAnimation}
                                 storeValue='role'
                                 />
-                        </Grid>
-                        <Grid item lg={6} md={6} xs={12}>
-                        What is Zesty component
                         </Grid>
                     </Grid>
                 </SwiperSlide>
                 {/* Question 2  */}
                 <SwiperSlide>
                     <SlideQuestions 
-                        question={secondQuestion} 
-                        answers={secondAnswers} 
+                        question={ProjectQuestions.question} 
+                        answers={ProjectQuestions.answers} 
                         answerCallBack={handleAnswers} 
                         hoverAnimation={handleAnimation} 
                         storeValue='projectType'
@@ -373,7 +336,7 @@ export default function Join(props) {
                 
                 <SwiperSlide>
                     <>
-                        <SlideQuestions question={thirdQuestion} answers={thirdAnswers} answerCallBack={handleAnswers} hoverAnimation={handleAnimation} />
+                        <SlideQuestions question={CMSQuestions.question} answers={CMSQuestions.answers} answerCallBack={handleAnswers} hoverAnimation={handleAnimation} />
                         <Button onClick={handleNext}  variant="outlined">Skip</Button>
                     </>
                 </SwiperSlide>

@@ -8,7 +8,8 @@
     -webkit-animation-fill-mode: both; 
     animation-fill-mode: both; 
     position: absolute;
-    left: 45%;
+    left: 50%;
+    margin-left: -75px;
     top: 25px;
 }
 
