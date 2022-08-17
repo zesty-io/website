@@ -1,16 +1,12 @@
 import React from 'react';
-import AppBar from 'components/console/AppBar';
-import { Container } from '@mui/system';
-import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import Login from 'components/console/Login';
-import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import { Settings } from 'views/accounts/instances';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function SettingsPage() {
   const [settings, setsettings] = React.useState([]);
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
+  const { ZestyAPI } = useZestyStore((state) => state);
   const router = useRouter();
   const { zuid } = router.query;
 
@@ -41,19 +37,8 @@ export default function SettingsPage() {
   }, []);
 
   return (
-    <Main>
-      <AppBar />
-      <Container>
-        {isAuthenticated ? (
-          <>
-            <InstancesApp>
-              <Settings settings={settings} />
-            </InstancesApp>
-          </>
-        ) : (
-          <Login />
-        )}
-      </Container>
-    </Main>
+    <InstanceContainer>
+      <Settings settings={settings} />
+    </InstanceContainer>
   );
 }

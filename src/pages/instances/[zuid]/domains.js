@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Grid } from '@mui/material';
-import AppBar from 'components/console/AppBar';
 import { Container } from '@mui/system';
-import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import Login from 'components/console/Login';
-import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import DomainPaper from 'components/accounts/domains/DomainPaper';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function Users() {
   const [instanceDomains, setinstanceDomains] = useState([]);
@@ -16,7 +13,7 @@ export default function Users() {
   const [settings, setsettings] = useState([]);
   const [domain, setdomain] = useState('');
   const [branch, setbranch] = useState('');
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
+  const { ZestyAPI } = useZestyStore((state) => state);
 
   const router = useRouter();
 
@@ -117,42 +114,31 @@ export default function Users() {
   }, [instanceDomains.length]);
 
   return (
-    <Main>
-      <AppBar />
-
-      {/* {JSON.stringify(data)} */}
+    <InstanceContainer>
       <Container>
-        {isAuthenticated ? (
-          <InstancesApp>
-            <Container>
-              <Box m={4}>
-                Live Domains
-                <Grid container spacing={{ xs: 2 }}>
-                  {/* loop through live domains and output row of content */}
-                  {liveDomains.map((domain) => (
-                    <Grid item xs={12}>
-                      <DomainPaper data={domain} onclick={handleDeleteDomain} />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
-              <Box m={4}>
-                Preview Domains
-                <Grid container spacing={{ xs: 2 }}>
-                  {/* loop through dev domains and output row of content */}
-                  {devDomains.map((domain) => (
-                    <Grid item xs={12}>
-                      <DomainPaper data={domain} onclick={handleDeleteDomain} />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
-            </Container>
-          </InstancesApp>
-        ) : (
-          <Login />
-        )}
+        <Box m={4}>
+          Live Domains
+          <Grid container spacing={{ xs: 2 }}>
+            {/* loop through live domains and output row of content */}
+            {liveDomains.map((domain) => (
+              <Grid item xs={12}>
+                <DomainPaper data={domain} onclick={handleDeleteDomain} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+        <Box m={4}>
+          Preview Domains
+          <Grid container spacing={{ xs: 2 }}>
+            {/* loop through dev domains and output row of content */}
+            {devDomains.map((domain) => (
+              <Grid item xs={12}>
+                <DomainPaper data={domain} onclick={handleDeleteDomain} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Container>
-    </Main>
+    </InstanceContainer>
   );
 }
