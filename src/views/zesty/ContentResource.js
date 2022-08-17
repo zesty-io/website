@@ -55,8 +55,6 @@ function ContentResource({ content }) {
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
-  console.log(content);
-
   const pageData = {
     theme,
     isMedium,

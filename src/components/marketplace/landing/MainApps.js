@@ -28,12 +28,11 @@ const MainApps = () => {
 
   const { entities, isSearching } = useContext(MarketplaceContext);
 
-  console.log(entities);
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
   return (
     <>
-      <Box sx={{ py: isLanding ? 10 : 3 }} component="section">
+      <Box sx={{ py: isLanding ? 10 : 3, px: 4 }} component="section">
         <Box
           sx={{
             width: '100%',
