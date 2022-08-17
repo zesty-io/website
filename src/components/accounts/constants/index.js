@@ -50,9 +50,23 @@ const contentTypeOptions = [
     value: 'application/x-www-form-urlencoded',
   },
 ];
-
+const resourceOptions = [
+  { label: 'Content Items', value: 'items' },
+  { label: 'Content Models', value: 'models' },
+  { label: 'Content Fields', value: 'fields' },
+  { label: 'Content Settings', value: 'settings' },
+  { label: 'Stylesheets', value: 'stylesheets' },
+  { label: 'Views and custom files', value: 'views' },
+  { label: '301 Redirects', value: 'redirects' },
+  { label: 'Domain Changes', value: 'domains' },
+  { label: 'User Invites', value: 'invites' },
+  { label: 'Users Role Changes', value: 'roles' },
+  // { label: 'Specific Content Model', value: 'roles' },
+  // { label: 'Specific Content Item', value: 'roles' },
+];
 export const accounts = {
   eventActionOptions,
   contentTypeOptions,
   methodOptions,
+  resourceOptions,
 };

@@ -9,7 +9,7 @@ import * as helpers from 'utils';
 export default function WebhooksPage() {
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [webhooks, setWebhooks] = React.useState([]);
-  const [scopeResources, setscopeResources] = React.useState([]);
+  const [resourcesOption, setResourcesOption] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
 
   const router = useRouter();
@@ -33,14 +33,14 @@ export default function WebhooksPage() {
     ErrorMsg({ text: res.error });
   };
   const handleSearchItemsSuccess = (res) => {
-    const arr = res?.data?.map((e) => {
+    const options = res?.data?.map((e) => {
       const label = e.meta.ZUID;
       const value = e.meta.ZUID;
       const id = e.meta.ZUID;
 
       return { label, value, id };
     });
-    setscopeResources(arr);
+    setResourcesOption(options);
   };
 
   const handleSearchItemsError = (res) => {
@@ -61,13 +61,16 @@ export default function WebhooksPage() {
   };
 
   const createWebhook = async (data) => {
-    const res = await ZestyAPI.createWebhook(data);
+    const payload = { ...data, scopedResource: zuid };
+    const res = await ZestyAPI.createWebhook(payload);
     !res.error && handleCreateWebhooksSuccess(res);
     res.error && handleCreateWebhooksError(res);
   };
 
   const searhcItems = async () => {
-    const res = await ZestyAPI.searchItems();
+    // const params = `?q=models&limit=1000`;
+    const params = ``;
+    const res = await ZestyAPI.searchItems(params);
     !res.error && handleSearchItemsSuccess(res);
     res.error && handleSearchItemsError(res);
   };
@@ -96,7 +99,6 @@ export default function WebhooksPage() {
       <Webhooks
         webhooks={webhooks}
         createWebhook={createWebhook}
-        scopedResourcesOptions={scopeResources}
         isInstanceOwner={isInstanceOwner}
       />
     </InstanceContainer>
