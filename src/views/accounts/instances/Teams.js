@@ -203,7 +203,6 @@ const Main = ({
       showConfirmButton: false,
     });
   };
-  console.log(isInstanceOwner, 22222222222222);
   return (
     <Box>
       <TextField

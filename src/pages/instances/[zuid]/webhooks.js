@@ -4,11 +4,13 @@ import { useRouter } from 'next/router';
 import { Webhooks } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
+import * as helpers from 'utils';
 
 export default function WebhooksPage() {
-  const { ZestyAPI } = useZestyStore((state) => state);
+  const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [webhooks, setWebhooks] = React.useState([]);
   const [scopeResources, setscopeResources] = React.useState([]);
+  const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
 
   const router = useRouter();
 
@@ -44,6 +46,14 @@ export default function WebhooksPage() {
   const handleSearchItemsError = (res) => {
     console.log(res.error);
   };
+
+  const handleGetInstanceUserWithRolesSucc = (res) => {
+    setInstanceUserWithRoles(res.data);
+  };
+  const handleGetInstanceUserWithRolesErr = (res) => {
+    ErrorMsg({ text: res.error });
+  };
+
   const getWebhooks = async () => {
     const res = await ZestyAPI.retrieveWebhookForInstance(zuid);
     !res.error && handleGetWebhooksSuccess(res);
@@ -51,26 +61,7 @@ export default function WebhooksPage() {
   };
 
   const createWebhook = async (data) => {
-    const {
-      scopedResource,
-      parentResourceZUID,
-      resource,
-      eventAction,
-      method,
-      URL,
-      contentType,
-      text,
-    } = data;
-    const res = await ZestyAPI.createWebhook(
-      scopedResource,
-      parentResourceZUID,
-      resource,
-      eventAction,
-      method,
-      URL,
-      contentType,
-      text,
-    );
+    const res = await ZestyAPI.createWebhook(data);
     !res.error && handleCreateWebhooksSuccess(res);
     res.error && handleCreateWebhooksError(res);
   };
@@ -80,12 +71,23 @@ export default function WebhooksPage() {
     !res.error && handleSearchItemsSuccess(res);
     res.error && handleSearchItemsError(res);
   };
+
+  const getInstanceUserWithRoles = async () => {
+    const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
+    !res.error && handleGetInstanceUserWithRolesSucc(res);
+    res.error && handleGetInstanceUserWithRolesErr(res);
+  };
+
+  const isInstanceOwner = helpers.isInstanceOwner(
+    instanceUserWithRoles,
+    userInfo,
+  );
+
   React.useEffect(() => {
-    if (router.isReady) {
-      getWebhooks();
-      searhcItems();
-    }
-  }, [router.isReady]);
+    getWebhooks();
+    searhcItems();
+    getInstanceUserWithRoles();
+  }, []);
 
   return (
     <InstanceContainer>
@@ -93,6 +95,7 @@ export default function WebhooksPage() {
         webhooks={webhooks}
         createWebhook={createWebhook}
         scopedResourcesOptions={scopeResources}
+        isInstanceOwner={isInstanceOwner}
       />
     </InstanceContainer>
   );
