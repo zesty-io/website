@@ -12,7 +12,10 @@ const InstanceContainer = ({ children }) => {
   return (
     <Main>
       <AppBar />
-      <Container>
+      <Container
+        maxWidth={false}
+        sx={(theme) => ({ maxWidth: theme.breakpoints.values.xl2 })}
+      >
         {isAuthenticated ? <InstancesApp>{children}</InstancesApp> : <Login />}
       </Container>
     </Main>
