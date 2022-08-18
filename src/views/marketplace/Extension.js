@@ -128,7 +128,6 @@ const Extension = (props) => {
     },
   ];
 
-  console.log(props);
   return (
     <>
       <Box sx={{ py: 5 }}>
