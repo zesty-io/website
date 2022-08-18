@@ -230,6 +230,7 @@ export default function Join(props) {
         await slackNotify(`View lead for ${userDetails.email} on ZOHO @ ${zoholeadlink}${zohoData.data[0].details.id}`)
         setCurrentAnimation('party');
         
+        
     }
 
     // leaves the onboard program
@@ -254,6 +255,12 @@ export default function Join(props) {
     // sx={{background: theme.palette.zesty.zestyDarkBlue}}
     return (
         <Box >
+            {currentAnimation == 'party' &&
+             <Confetti
+                    width={'1000px'}
+                    height={'500px'}
+                    confettiSource={{ x: 500, y: 0, w: 200, h: 200 }}
+                  />}
             <DancingLogo animation={currentAnimation} />
             <Swiper
                 pagination={{
@@ -304,15 +311,12 @@ export default function Join(props) {
                 {/* Signup  */}
                 <SwiperSlide>
                     <Signup 
-                        message={`Awesome, now let's get your ${projectType} started!`} 
+                        message={<Box><Box sx={{fontWeight:'bold'}} display='inline'>Awesome!</Box> Let's start your <Box sx={{fontWeight:'bold'}} display='inline'>{projectType}</Box>.</Box>} 
                         callback={signUpSuccess}
                         />
                 </SwiperSlide>
                 <SwiperSlide> 
-                <Confetti
-                    width={'1000px'}
-                    height={'500px'}
-                  />
+               
                     <SlideMessage 
                         message={welcomeMessage}
                         buttonText={`Let's Go!`} 
@@ -327,7 +331,11 @@ export default function Join(props) {
                 
                 <SwiperSlide>
                     <>
-                        <SlideQuestions question={CMSQuestions.question} answers={CMSQuestions.answers} answerCallBack={handleAnswers} hoverAnimation={handleAnimation} />
+                        <SlideQuestions 
+                            question={CMSQuestions.question} 
+                            answers={CMSQuestions.answers} 
+                            answerCallBack={handleAnswers} 
+                            hoverAnimation={handleAnimation} />
                         <Button onClick={handleNext}  variant="outlined">Skip</Button>
                     </>
                 </SwiperSlide>

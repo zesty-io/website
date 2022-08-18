@@ -137,7 +137,7 @@ export const Signup = ({
           component="form"
           noValidate
           autoComplete="off"
-          paddingX={10}
+          paddingX={15}
         >
           <Grid container gap={1} paddingY={2} direction="row" alignItems="center" spacing={2} justifyContent="center">
             <Grid md={5} lg={5} xs={12} item>

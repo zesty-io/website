@@ -1,5 +1,5 @@
 export default {
-    question: "What are you building?",
+    question: "Where is your content going?",
     answers: [
         {
             answer: 'Website',
@@ -21,8 +21,8 @@ export default {
             }
         },
         {
-            answer: 'Mobile App',
-            value: 'mobile-app',
+            answer: 'Apps or IoT',
+            value: 'apps-iot',
             asset: 'https://www.cvs.com/bizcontent/marketing/mobile-app/images1/mobile_in_hand.png',
             imageSX: {
                 position: 'absolute',
@@ -58,8 +58,8 @@ export default {
             }
         },
         {
-            answer: 'IoT App',
-            value: 'iot-app',
+            answer: 'Emails',
+            value: 'emails',
             asset: 'https://www.themanual.com/wp-content/uploads/sites/9/2021/03/the-best-smartwatches-for-men-in-2021.jpg?p=1',
             imageSX: {
                 position: 'absolute',
