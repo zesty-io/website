@@ -40,7 +40,6 @@ const COLUMNS = [
 const CustomTable = ({
   data,
   isInstanceOwner,
-  handleUpdataWebhookModal,
   handleDeleteWebhookModal,
   handleTestWebhook,
 }) => {
@@ -64,15 +63,6 @@ const CustomTable = ({
       ),
       action: isInstanceOwner ? (
         <Box display={'flex'}>
-          <Button
-            onClick={() => handleUpdataWebhookModal(e)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-          >
-            Edit
-          </Button>
           <Button
             onClick={() => handleDeleteWebhookModal(e)}
             color="primary"
@@ -214,9 +204,6 @@ export const Webhooks = ({
       showConfirmButton: false,
     });
   };
-  const handleUpdataWebhookModal = (data) => {
-    console.log(data);
-  };
   const handleDeleteWebhookModal = (data) => {
     const action = () => {
       deleteWebhook(data.ZUID);
@@ -240,7 +227,6 @@ export const Webhooks = ({
       <CustomTable
         data={webhooks}
         isInstanceOwner={isInstanceOwner}
-        handleUpdataWebhookModal={handleUpdataWebhookModal}
         handleDeleteWebhookModal={handleDeleteWebhookModal}
         handleTestWebhook={handleTestWebhook}
       />
