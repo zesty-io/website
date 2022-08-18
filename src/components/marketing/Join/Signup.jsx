@@ -131,7 +131,7 @@ export const Signup = ({
     <Container>     
         <Box paddingY={4} sx={{textAlign: 'center'}}>
           <Typography variant="h4" gutterBottom>{message}</Typography>
-          <Typography variant="p">You'll need to create a Zesty account. We don't sell information or giveaway emails.</Typography>
+          <Typography variant="p">You'll need to create a Zesty account. We don't sell or giveaway your information.</Typography>
         </Box>
         <Box
           component="form"
@@ -214,7 +214,7 @@ export const Signup = ({
             </Grid>
           </Grid>
           <Grid container gap={1} paddingY={2} direction="row" alignItems="center" spacing={2} justifyContent="center">
-            <Button item variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Sign Up, Next</Button>
+            <Button item variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Create account</Button>
           </Grid>
           
         </Box>

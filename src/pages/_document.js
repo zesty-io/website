@@ -15,7 +15,7 @@ const getCache = () => {
 export default class MyDocument extends Document {
   render() {
       // google analytics tags
-  let GTM_ID = process.env.NEXT_PUBLIC_GITHUB_AUTH;
+  let GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
   
     const fetchUrl =
       process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||

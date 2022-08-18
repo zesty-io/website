@@ -42,10 +42,10 @@ import CMSQuestions from 'components/marketing/Join/Data/CMSQuestions'
 
 // messages
 const firstMessage = <Box paddingY={4} sx={{textAlign: 'center'}}>
-    <Typography variant="h4" gutterBottom>Hello Friend!</Typography>
-    <Typography variant="h6">We are excited for you to explore Zesty ;)</Typography>
+    <Typography variant="h4" gutterBottom>Hello!</Typography>
+    <Typography variant="h6">We are excited for you to explore Zesty.</Typography>
     <Box paddingY={1}>
-        <Typography variant="p"> To help onboard you, may we ask two questions?</Typography>
+        <Typography variant="p"> To help onboard you, can we ask two questions?</Typography>
     </Box>
 </Box>;
 
@@ -53,7 +53,7 @@ const welcomeMessage =  <Box paddingY={4} sx={{textAlign: 'center'}}>
 <Typography variant="h4" gutterBottom>Welcome to Zesty!</Typography>
 </Box>;
 
-const firstButton = `Yes, Let's Go!`;
+const firstButton = `Yes, let's go!`;
 
  // for everyone
 const thirdQuestion = "What CMS are you currently using?";
@@ -283,7 +283,7 @@ export default function Join(props) {
                     <SlideMessage 
                         message={firstMessage} 
                         buttonText={firstButton} 
-                        exitButtonText={'No, get me outta here!'}
+                        exitButtonText={'No, get me out of here!'}
                         exitButtonAction={handleExit}
                         answerCallBack={handlePrompt} 
                         hoverAnimation={handleAnimation}
@@ -319,7 +319,7 @@ export default function Join(props) {
                 {/* Signup  */}
                 <SwiperSlide>
                     <Signup 
-                        message={<Box><Box sx={{fontWeight:'bold'}} display='inline'>Awesome!</Box> Let's start your <Box sx={{fontWeight:'bold'}} display='inline'>{projectType}</Box>.</Box>} 
+                        message={<Box><Box sx={{fontWeight:'bold'}} display='inline'>Awesome!</Box> Let's start on your <Box sx={{fontWeight:'bold'}} display='inline'>{projectType}</Box> project.</Box>} 
                         callback={signUpSuccess}
                         />
                 </SwiperSlide>
@@ -327,8 +327,8 @@ export default function Join(props) {
                
                     <SlideMessage 
                         message={welcomeMessage}
-                        buttonText={`Let's Go!`} 
-                        exitButtonText={'Wait, let me invite friends ;)'}
+                        buttonText={`Let's go!`} 
+                        exitButtonText={'Wait, let me invite my team.'}
                         exitButtonAction={handleInvite}
                         answerCallBack={handlePrompt} 
                         hoverAnimation={handleAnimation}

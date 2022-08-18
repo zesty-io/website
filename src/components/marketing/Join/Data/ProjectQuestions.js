@@ -23,7 +23,7 @@ export default {
         },
         {
             answer: 'Apps or IoT',
-            value: 'apps-iot',
+            value: 'app or iot',
             asset: 'https://www.cvs.com/bizcontent/marketing/mobile-app/images1/mobile_in_hand.png',
             imageSX: {
                 position: 'absolute',
@@ -59,8 +59,8 @@ export default {
             }
         },
         {
-            answer: 'Emails',
-            value: 'emails',
+            answer: 'Email',
+            value: 'email',
             asset: 'https://www.themanual.com/wp-content/uploads/sites/9/2021/03/the-best-smartwatches-for-men-in-2021.jpg?p=1',
             imageSX: {
                 position: 'absolute',
@@ -78,7 +78,7 @@ export default {
         },
         {
             answer: 'Multiple Targets',
-            value: 'multiple',
+            value: 'multiple target',
             asset: 'https://www.rollingstone.com/wp-content/uploads/2020/08/2F630CC0-8E91-4C7F-A95F-6D3DE976C0DA.jpeg',
             imageSX: {
                 position: 'absolute',
