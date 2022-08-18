@@ -131,6 +131,7 @@ export const Signup = ({
     <Container>     
         <Box paddingY={4} sx={{textAlign: 'center'}}>
           <Typography variant="h4" gutterBottom>{message}</Typography>
+          <Typography variant="p">You'll need to create a Zesty account. We don't sell information or giveaway emails.</Typography>
         </Box>
         <Box
           component="form"

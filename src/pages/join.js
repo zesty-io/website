@@ -162,7 +162,7 @@ export default function Join(props) {
     // state values for form capture
     const [role, setRole] = useState('Unknown');
     const [email, setEmail] = useState('..still capturing email');
-    const [projectType, setProjectType] = useState('Unknown');
+    const [projectType, setProjectType] = useState('website');
     const [currentAnimation, setCurrentAnimation] = useState('rollIn');
 
     const sliderRef = useRef(null);
@@ -304,7 +304,7 @@ export default function Join(props) {
                 {/* Signup  */}
                 <SwiperSlide>
                     <Signup 
-                        message="Thanks, now let's get your started!." 
+                        message={`Awesome, now let's get your ${projectType} started!`} 
                         callback={signUpSuccess}
                         />
                 </SwiperSlide>
