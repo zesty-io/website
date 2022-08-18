@@ -8,18 +8,14 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import dayjs from 'dayjs';
 
 export default function InstanceHeader({ instance }) {
   const webengineUrl = `https://${instance?.randomHashID}-dev.webengine.zesty.io`;
   const managerURl = `https://${instance?.ZUID}.manager.zesty.io`;
-  const theme = useTheme();
-  const isSM = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Card sx={{ maxWidth: isSM ? '100%' : 345 }}>
+    <Card sx={{ maxWidth: '100%' }}>
       {instance?.screenshotURL ? (
         <CardMedia
           component="img"
