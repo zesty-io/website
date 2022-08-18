@@ -148,25 +148,34 @@ const WebhookForm = ({ onSubmit }) => {
           </Grid>
         </Grid>
 
-        {formik.values.method === 'POST' && (
-          <Grid container>
-            <Grid xs={12} item>
-              <FormSelect
-                label="Content Type"
-                name={'contentType'}
-                formik={formik}
-                options={accounts.contentTypeOptions}
-              />
+        <Box paddingY={4}>
+          {formik.values.method === 'POST' && (
+            <Grid container>
+              <Grid xs={12} item>
+                <FormSelect
+                  label="Content Type"
+                  name={'contentType'}
+                  formik={formik}
+                  options={accounts.contentTypeOptions}
+                />
+              </Grid>
+              <Grid xs={12} item>
+                <FormInput
+                  label="Body"
+                  name={'text'}
+                  formik={formik}
+                  multiline={true}
+                />
+              </Grid>
             </Grid>
-            <Grid xs={12} item>
-              <FormInput label="Body" name={'text'} formik={formik} />
-            </Grid>
-          </Grid>
-        )}
+          )}
+        </Box>
         {/* <FormInput name={'Parent Resource ZUID'} formik={formik} /> */}
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Submit
-        </Button>
+        <Box paddingTop={4}>
+          <Button color="primary" variant="contained" fullWidth type="submit">
+            Submit
+          </Button>
+        </Box>
       </form>
     </Box>
   );

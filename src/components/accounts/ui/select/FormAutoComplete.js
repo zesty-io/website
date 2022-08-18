@@ -33,7 +33,20 @@ export const FormAutoComplete = ({
         }}
         renderInput={(params) => (
           <TextField
-            sx={{ height: 54 }}
+            sx={{
+              height: 54,
+              textAlign: 'left',
+              // '& .MuiOutlinedInput-root.Mui-focused': {
+              //   '& > fieldset': {
+              //     border: '1px solid #c4c4c4',
+              //   },
+              // },
+              '& .MuiOutlinedInput-root:hover': {
+                '& > fieldset': {
+                  border: '1px solid #c4c4c4',
+                },
+              },
+            }}
             label={label}
             fullWidth
             name={name}

@@ -123,8 +123,8 @@ export const InstancesDashboard = () => {
       <Grid container direction="row" my={2} spacing={2}>
         {view === 'grid' &&
           instances
-            .filter((inst) => inst?.name?.toLowerCase().includes(search))
-            .map((instance, index) => (
+            ?.filter((inst) => inst?.name?.toLowerCase().includes(search))
+            ?.map((instance, index) => (
               <Grid item xs={12} sm={4} lg={3} key={index}>
                 <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
                   <CardMedia
@@ -155,8 +155,8 @@ export const InstancesDashboard = () => {
       {view === 'list' && (
         <List>
           {instances
-            .filter((inst) => inst?.name?.toLowerCase().includes(search))
-            .map((instance, index) => (
+            ?.filter((inst) => inst?.name?.toLowerCase().includes(search))
+            ?.map((instance, index) => (
               <ListItem divider key={index} disablePadding>
                 <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
                   <ListItemIcon>

@@ -8,7 +8,20 @@ export const FormSelect = ({ name = '', formik, label = '', options = [] }) => {
   return (
     <Box marginBottom={4}>
       <TextField
-        sx={{ height: 54 }}
+        sx={{
+          height: 54,
+          textAlign: 'left',
+          // '& .MuiOutlinedInput-root.Mui-focused': {
+          //   '& > fieldset': {
+          //     border: '1px solid #c4c4c4',
+          //   },
+          // },
+          '& .MuiOutlinedInput-root:hover': {
+            '& > fieldset': {
+              border: '1px solid #c4c4c4',
+            },
+          },
+        }}
         variant="outlined"
         name={name}
         id={name}
