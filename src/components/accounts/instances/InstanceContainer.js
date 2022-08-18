@@ -6,8 +6,20 @@ import { Container } from '@mui/material';
 import { useZestyStore } from 'store';
 import { InstancesApp } from './InstancesApp';
 
-const InstanceContainer = ({ children }) => {
+const InstanceContainer = ({ children, isDashboard = false }) => {
   const { isAuthenticated } = useZestyStore((state) => state);
+
+  const renderChildren = () => {
+    if (isAuthenticated) {
+      if (isDashboard) {
+        return children;
+      } else {
+        return <InstancesApp>{children}</InstancesApp>;
+      }
+    } else {
+      return <Login />;
+    }
+  };
 
   return (
     <Main>
@@ -16,7 +28,7 @@ const InstanceContainer = ({ children }) => {
         maxWidth={false}
         sx={(theme) => ({ maxWidth: theme.breakpoints.values.xl2 })}
       >
-        {isAuthenticated ? <InstancesApp>{children}</InstancesApp> : <Login />}
+        {renderChildren()}
       </Container>
     </Main>
   );
