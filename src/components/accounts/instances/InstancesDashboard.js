@@ -46,9 +46,23 @@ export const InstancesDashboard = () => {
   const [instances, setInstances] = React.useState([]);
   const [search, setSearch] = React.useState('');
 
+  const handleGetInstancesSuccess = (res) => {
+    console.log(res);
+    setInstances(res.data);
+  };
+
+  // Partial fix when invalid session is detected
+  // will redirect user to home page
+  const handleGetInstancesError = (res) => {
+    console.log(res);
+    if (res.error === 'invalid session') {
+      setCookie('isAuthenticated', 'false');
+    }
+  };
   async function getInstances() {
-    let instances = await ZestyAPI.getInstances();
-    setInstances(instances?.data ? instances.data : []);
+    const res = await ZestyAPI.getInstances();
+    !res.error && handleGetInstancesSuccess(res);
+    res.error && handleGetInstancesError(res);
   }
 
   const handleChangeView = (e, value) => {
