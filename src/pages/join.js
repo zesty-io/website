@@ -5,7 +5,7 @@ import { Container, Box, Button, Grid, Typography } from '@mui/material';
 
 // confetti
 import Confetti from 'react-confetti'
-
+import  getWindowDimensions from 'components/marketing/Join/getWindowDimensions';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -158,6 +158,8 @@ const postToZOHO = async (payloadJSON) => {
 
 export default function Join(props) {
     const theme = useTheme();
+    const { height, width } = getWindowDimensions();
+
 
     // state values for form capture
     const [role, setRole] = useState('Unknown');
@@ -257,9 +259,13 @@ export default function Join(props) {
         <Box >
             {currentAnimation == 'party' &&
              <Confetti
-                    width={'1000px'}
-                    height={'500px'}
-                    confettiSource={{ x: 500, y: 0, w: 200, h: 200 }}
+                    width={width}
+                    height={height}
+                    numberOfPieces={333}
+                    recycle={false}
+                    confettiSource={{ x: ((width / 2) - 100), y: 0, w: 200, h: 200 }}
+                    onConfettiComplete={() => setCurrentAnimation('still')}
+                    
                   />}
             <DancingLogo animation={currentAnimation} />
             <Swiper
@@ -290,6 +296,7 @@ export default function Join(props) {
                         <Grid item lg={12} md={12} xs={12}>
                             <SlideQuestions 
                                 question={RoleQuestions.question} 
+                                why={RoleQuestions.why} 
                                 answers={RoleQuestions.answers} 
                                 answerCallBack={handleAnswers}
                                 hoverAnimation={handleAnimation}
@@ -302,6 +309,7 @@ export default function Join(props) {
                 <SwiperSlide>
                     <SlideQuestions 
                         question={ProjectQuestions.question} 
+                        why={ProjectQuestions.why} 
                         answers={ProjectQuestions.answers} 
                         answerCallBack={handleAnswers} 
                         hoverAnimation={handleAnimation} 
@@ -334,6 +342,7 @@ export default function Join(props) {
                         <SlideQuestions 
                             question={CMSQuestions.question} 
                             answers={CMSQuestions.answers} 
+                            why={CMSQuestions?.why} 
                             answerCallBack={handleAnswers} 
                             hoverAnimation={handleAnimation} />
                         <Button onClick={handleNext}  variant="outlined">Skip</Button>

@@ -1,5 +1,6 @@
 export default {
     question: "What is your team role?",
+    why: `This info is used to tailor your experience. It can be changed later.`,
     answers: [
         {
             answer: 'Manager',

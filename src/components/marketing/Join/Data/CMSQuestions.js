@@ -1,5 +1,6 @@
 export default {
     question: "What team are you on?",
+    why: "Zesty will use your role to tailor your experience.",
     answers: [
         {
             answer: 'Development',

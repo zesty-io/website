@@ -1,5 +1,6 @@
 export default {
     question: "Where is your content going?",
+    why: "This question will help Zesty guide your solution.",
     answers: [
         {
             answer: 'Website',

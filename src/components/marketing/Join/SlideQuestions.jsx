@@ -38,6 +38,7 @@ function ActionAreaCard({question, title='', asset='', storeValue, animation, an
 export const SlideQuestions = ({
     question = 'What team are you from?', 
     answers,
+    why='',
     answerCallBack,
     hoverAnimation,
     storeValue=false
@@ -50,6 +51,7 @@ export const SlideQuestions = ({
         }}>
           <Box paddingY={4}>
             <Typography variant="h4">{question}</Typography>
+            <Typography variant="p">{why}</Typography>
           </Box>
           <Stack direction="row" alignItems="center" spacing={2} justifyContent="center">
               {answers.sort((a,b) => (a.value < b.value)).map(response => 
