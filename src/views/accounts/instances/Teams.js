@@ -147,7 +147,13 @@ const CustomForm = ({ onSubmit, data = {} }) => {
       <form noValidate onSubmit={formik.handleSubmit}>
         <FormInput name={'name'} formik={formik} />
         <FormInput name={'description'} formik={formik} />
-        <Button color="primary" variant="contained" fullWidth type="submit">
+        <Button
+          disabled={formik.isSubmitting}
+          color="primary"
+          variant="contained"
+          fullWidth
+          type="submit"
+        >
           Submit
         </Button>
       </form>

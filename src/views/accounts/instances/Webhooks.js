@@ -172,7 +172,13 @@ const WebhookForm = ({ onSubmit }) => {
         </Box>
         {/* <FormInput name={'Parent Resource ZUID'} formik={formik} /> */}
         <Box paddingTop={4}>
-          <Button color="primary" variant="contained" fullWidth type="submit">
+          <Button
+            color="primary"
+            disabled={formik.isSubmitting}
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
             Submit
           </Button>
         </Box>

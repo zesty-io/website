@@ -2,7 +2,7 @@ export * from './SettingsSelect';
 export * from './UsersSelect';
 export * from './FormSelect';
 export * from './FormAutoComplete';
-import { FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { FormControl, NativeSelect } from '@mui/material';
 import React from 'react';
 
 const Index = ({
@@ -13,9 +13,9 @@ const Index = ({
 }) => {
   return (
     <FormControl fullWidth sx={{ margin: '.5rem 2rem' }}>
-      <InputLabel variant="standard" htmlFor="uncontrolled-native">
+      {/* <InputLabel variant="standard" htmlFor="uncontrolled-native">
         {value}
-      </InputLabel>
+      </InputLabel> */}
       <NativeSelect
         variant="filled"
         onClick={() => setdirty(true)}

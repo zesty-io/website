@@ -147,7 +147,7 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
         />
         <Button
           color="primary"
-          disabled={!role.accessLevel}
+          disabled={!role.accessLevel || formik.isSubmitting}
           variant="contained"
           fullWidth
           type="submit"

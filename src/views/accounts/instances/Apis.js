@@ -69,7 +69,7 @@ const CreateTokenForm = ({ onSubmit, options }) => {
         />
         <Button
           color="primary"
-          disabled={Object.keys(role).length === 0}
+          disabled={Object.keys(role).length === 0 || formik.isSubmitting}
           variant="contained"
           fullWidth
           type="submit"
