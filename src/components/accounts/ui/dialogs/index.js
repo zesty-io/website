@@ -4,20 +4,31 @@ import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
-export const SuccessMsg = ({ title = 'Success', action = () => {} }) => {
+export const SuccessMsg = ({
+  title = 'Success',
+  action = () => {},
+  html = '',
+}) => {
   MySwal.fire({
     position: 'center',
     icon: 'success',
+    html,
     title,
     showConfirmButton: true,
     timer: 2500,
   }).then(() => action());
 };
 
-export const ErrorMsg = ({ text = 'Something went wrong' }) => {
+export const ErrorMsg = ({
+  title = 'Error',
+  text = 'Something went wrong',
+  html = '',
+}) => {
   MySwal.fire({
+    position: 'center',
     icon: 'error',
-    title: 'Error',
+    title,
+    html,
     text,
     //   footer: '<a href="">Why do I have this issue?</a>',
   });

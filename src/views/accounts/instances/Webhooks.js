@@ -20,16 +20,16 @@ const COLUMNS = [
     label: 'ZUID',
   },
   {
-    id: 'contentType',
-    label: 'Content Type',
-  },
-  {
     id: 'method',
     label: 'Method',
   },
   {
     id: 'resource',
     label: 'Resource',
+  },
+  {
+    id: 'test',
+    label: 'test',
   },
   {
     id: 'action',
@@ -42,13 +42,26 @@ const CustomTable = ({
   isInstanceOwner,
   handleUpdataWebhookModal,
   handleDeleteWebhookModal,
+  handleTestWebhook,
 }) => {
   const ROWS = data?.map((e) => {
     return {
       ZUID: e.ZUID || '-',
-      contentType: e.contentType || '-',
       method: e.method,
       resource: e.resource,
+      test: (
+        <Box>
+          <Button
+            onClick={() => handleTestWebhook(e)}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Test Webhook
+          </Button>
+        </Box>
+      ),
       action: isInstanceOwner ? (
         <Box display={'flex'}>
           <Button
@@ -192,6 +205,7 @@ export const Webhooks = ({
   isInstanceOwner,
   webhooks,
   deleteWebhook,
+  testWebhook,
 }) => {
   const handleAddWebhookModal = () => {
     MySwal.fire({
@@ -209,6 +223,9 @@ export const Webhooks = ({
     };
     DeleteMsg({ action });
   };
+  const handleTestWebhook = async (data) => {
+    testWebhook(data);
+  };
   return (
     <Box>
       {isInstanceOwner && (
@@ -225,6 +242,7 @@ export const Webhooks = ({
         isInstanceOwner={isInstanceOwner}
         handleUpdataWebhookModal={handleUpdataWebhookModal}
         handleDeleteWebhookModal={handleDeleteWebhookModal}
+        handleTestWebhook={handleTestWebhook}
       />
     </Box>
   );

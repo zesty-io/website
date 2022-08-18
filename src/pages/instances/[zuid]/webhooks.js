@@ -95,6 +95,39 @@ export default function WebhooksPage() {
     res.error && handleDeleteWebhookError(res);
     await getWebhooks();
   };
+
+  const testWebhook = async (data) => {
+    let { URL, method, contentType, body } = data;
+
+    let options = {};
+    if (method != 'GET') options.body = body;
+
+    options.method = method;
+    options.headers = {
+      'Content-Type': contentType,
+    };
+    try {
+      await fetch(URL, options)
+        .then(async (response) => {
+          const res = await response.json();
+          SuccessMsg({
+            html: `<Box><Box></Box>Status:${response.status}</Box> </br> <Box>Response: ${res}</Box><Box>`,
+          });
+        })
+        .catch((error) => {
+          ErrorMsg({
+            title: 'Error 400',
+            text: error,
+          });
+        });
+    } catch (error) {
+      ErrorMsg({
+        title: 'Error 400',
+        text: error,
+      });
+    }
+  };
+
   const isInstanceOwner = helpers.isInstanceOwner(
     instanceUserWithRoles,
     userInfo,
@@ -114,6 +147,7 @@ export default function WebhooksPage() {
         webhooks={webhooks}
         createWebhook={createWebhook}
         deleteWebhook={deleteWebhook}
+        testWebhook={testWebhook}
         isInstanceOwner={isInstanceOwner}
       />
     </InstanceContainer>
