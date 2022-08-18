@@ -13,8 +13,14 @@ import Skeleton from '@mui/material/Skeleton';
 import { useZestyStore } from 'store';
 
 export default function AppBar({ url = window.location.pathname }) {
-  const { verifySuccess, instances, userInfo, loading, setworkingInstance } =
-    useZestyStore((state) => state);
+  const {
+    verifySuccess,
+    instances,
+    userInfo,
+    loading,
+    setworkingInstance,
+    isAuthenticated,
+  } = useZestyStore((state) => state);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
@@ -50,7 +56,14 @@ export default function AppBar({ url = window.location.pathname }) {
         marginTop: '10px',
       }}
     >
-      <Container>
+      <Container
+        maxWidth={isAuthenticated ? false : true}
+        sx={(theme) => ({
+          maxWidth: isAuthenticated
+            ? theme.breakpoints.values.xl2
+            : theme.breakpoints.values.lg,
+        })}
+      >
         <Box
           sx={{
             display: 'flex',

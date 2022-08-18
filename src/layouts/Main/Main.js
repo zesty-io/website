@@ -10,13 +10,14 @@ import AppBar from '@mui/material/AppBar';
 
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 
-import Container from 'components/Container';
+// import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
 
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
 
 import { getCookie, setCookies } from 'cookies-next';
 import { useZestyStore } from 'store';
+import { Container } from '@mui/material';
 
 const Main = ({
   children,
@@ -112,6 +113,12 @@ const Main = ({
           zIndex={theme.zIndex.appBar}
         >
           <Container
+            maxWidth={isAuthenticated ? false : true}
+            sx={(theme) => ({
+              maxWidth: isAuthenticated
+                ? theme.breakpoints.values.xl2
+                : theme.breakpoints.values.lg,
+            })}
             paddingTop={
               hideNav || isExplorePage ? '0px !important' : '8px !important'
             }
@@ -129,10 +136,19 @@ const Main = ({
           boxShadow: hideNav ? '' : '',
           top: 0,
           backgroundColor: bgColorSwitch(),
+          py: 1,
         }}
         elevation={trigger ? 1 : 0}
       >
-        <Container paddingY={isExplorePage ? 2 : 1}>
+        <Container
+          maxWidth={isAuthenticated ? false : true}
+          sx={(theme) => ({
+            maxWidth: isAuthenticated
+              ? theme.breakpoints.values.xl2
+              : theme.breakpoints.values.lg,
+          })}
+          paddingY={isExplorePage ? 2 : 1}
+        >
           {!isUser && (
             <Topbar
               onSidebarOpen={handleSidebarOpen}
