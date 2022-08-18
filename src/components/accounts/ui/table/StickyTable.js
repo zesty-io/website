@@ -9,9 +9,9 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
 
-const Index = ({ rows, columns }) => {
+const Index = ({ rows, columns, pagination = true, perPage = 10 }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(perPage);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -35,6 +35,7 @@ const Index = ({ rows, columns }) => {
               {columns?.map((e) => {
                 return (
                   <TableCell
+                    width={'10rem'}
                     align="left"
                     sx={{
                       fontWeight: 'bold',
@@ -56,6 +57,19 @@ const Index = ({ rows, columns }) => {
                   <TableRow hover>
                     {columns?.map((column) => {
                       const value = row[column.id];
+
+                      // Check if JSX ELEMENT ex Buttons etc
+                      if (React.isValidElement(value)) {
+                        return <TableCell>{value}</TableCell>;
+                      }
+                      // Check if object for preventing Errors
+                      if (typeof value === 'object') {
+                        return (
+                          <TableCell>
+                            {JSON.stringify(value, null, 4)}
+                          </TableCell>
+                        );
+                      }
                       return <TableCell>{value}</TableCell>;
                     })}
                   </TableRow>
@@ -64,15 +78,17 @@ const Index = ({ rows, columns }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      {pagination && (
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      )}
     </Paper>
   );
 };

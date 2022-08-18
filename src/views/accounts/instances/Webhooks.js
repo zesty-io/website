@@ -16,8 +16,8 @@ const MySwal = withReactContent(Swal);
 
 const COLUMNS = [
   {
-    id: 'ZUID',
-    label: 'ZUID',
+    id: 'URL',
+    label: 'URL',
   },
   {
     id: 'method',
@@ -32,8 +32,23 @@ const COLUMNS = [
     label: 'test',
   },
   {
+    id: 'view',
+    label: 'View',
+  },
+  {
     id: 'action',
     label: 'Action',
+  },
+];
+
+const COLUMNS_VIEW = [
+  {
+    id: 'key',
+    label: 'Key',
+  },
+  {
+    id: 'value',
+    label: 'Value',
   },
 ];
 
@@ -42,12 +57,26 @@ const CustomTable = ({
   isInstanceOwner,
   handleDeleteWebhookModal,
   handleTestWebhook,
+  handleViewWebhook,
 }) => {
   const ROWS = data?.map((e) => {
     return {
-      ZUID: e.ZUID || '-',
+      URL: e.URL || '-',
       method: e.method,
       resource: e.resource,
+      view: (
+        <Box>
+          <Button
+            onClick={() => handleViewWebhook(e)}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            View
+          </Button>
+        </Box>
+      ),
       test: (
         <Box>
           <Button
@@ -57,7 +86,7 @@ const CustomTable = ({
             fullWidth
             type="submit"
           >
-            Test Webhook
+            Test
           </Button>
         </Box>
       ),
@@ -82,6 +111,7 @@ const CustomTable = ({
   // const memoizeRows = React.useMemo(() => ROWS, [data]);
   // const memoizeColumns = React.useMemo(() => COLUMNS, []);
 
+  console.log(ROWS, COLUMNS, ':::');
   return (
     <Box>
       <StickyTable rows={ROWS} columns={COLUMNS} />
@@ -182,7 +212,7 @@ const WebhookForm = ({ onSubmit }) => {
             fullWidth
             type="submit"
           >
-            Submit
+            Create Webhook
           </Button>
         </Box>
       </form>
@@ -208,10 +238,27 @@ export const Webhooks = ({
     const action = () => {
       deleteWebhook(data.ZUID);
     };
-    DeleteMsg({ action });
+    DeleteMsg({ title: 'Delete this Webhook?', action });
   };
-  const handleTestWebhook = async (data) => {
+  const handleTestWebhook = (data) => {
     testWebhook(data);
+  };
+  const handleViewWebhook = (data) => {
+    const ROWS_VIEW = Object.entries(data).map((e) => {
+      return { key: e[0], value: e[1] };
+    });
+    MySwal.fire({
+      title: 'View Webhook',
+      html: (
+        <StickyTable
+          perPage={100}
+          pagination={false}
+          rows={ROWS_VIEW}
+          columns={COLUMNS_VIEW}
+        />
+      ),
+      showConfirmButton: false,
+    });
   };
   return (
     <Box>
@@ -229,6 +276,7 @@ export const Webhooks = ({
         isInstanceOwner={isInstanceOwner}
         handleDeleteWebhookModal={handleDeleteWebhookModal}
         handleTestWebhook={handleTestWebhook}
+        handleViewWebhook={handleViewWebhook}
       />
     </Box>
   );
