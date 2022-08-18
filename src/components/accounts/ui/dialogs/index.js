@@ -1,8 +1,11 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 export const SuccessMsg = ({ title = 'Success', action = () => {} }) => {
-  Swal.fire({
+  MySwal.fire({
     position: 'center',
     icon: 'success',
     title,
@@ -12,7 +15,7 @@ export const SuccessMsg = ({ title = 'Success', action = () => {} }) => {
 };
 
 export const ErrorMsg = ({ text = 'Something went wrong' }) => {
-  Swal.fire({
+  MySwal.fire({
     icon: 'error',
     title: 'Error',
     text,
@@ -52,4 +55,23 @@ export const TokenPrompt = ({ token = '' }) => {
       </Grid>
     </Box>
   );
+};
+
+export const DeleteMsg = ({
+  title = 'Please confirm below',
+  action = () => {},
+  html = '',
+}) => {
+  MySwal.fire({
+    title,
+    html,
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      action();
+    }
+  });
 };

@@ -1,8 +1,10 @@
 import { Box, Button, Divider, Grid } from '@mui/material';
 import {
   accountsValidations,
+  DeleteMsg,
   FormInput,
   FormSelect,
+  StickyTable,
 } from 'components/accounts';
 import { useFormik } from 'formik';
 import React from 'react';
@@ -11,6 +13,78 @@ import withReactContent from 'sweetalert2-react-content';
 import { accounts } from 'components/accounts/constants';
 
 const MySwal = withReactContent(Swal);
+
+const COLUMNS = [
+  {
+    id: 'ZUID',
+    label: 'ZUID',
+  },
+  {
+    id: 'contentType',
+    label: 'Content Type',
+  },
+  {
+    id: 'method',
+    label: 'Method',
+  },
+  {
+    id: 'resource',
+    label: 'Resource',
+  },
+  {
+    id: 'action',
+    label: 'Action',
+  },
+];
+
+const CustomTable = ({
+  data,
+  isInstanceOwner,
+  handleUpdataWebhookModal,
+  handleDeleteWebhookModal,
+}) => {
+  const ROWS = data?.map((e) => {
+    return {
+      ZUID: e.ZUID || '-',
+      contentType: e.contentType || '-',
+      method: e.method,
+      resource: e.resource,
+      action: isInstanceOwner ? (
+        <Box display={'flex'}>
+          <Button
+            onClick={() => handleUpdataWebhookModal(e)}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Edit
+          </Button>
+          <Button
+            onClick={() => handleDeleteWebhookModal(e)}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Delete
+          </Button>
+        </Box>
+      ) : (
+        '-'
+      ),
+    };
+  });
+
+  // const memoizeRows = React.useMemo(() => ROWS, [data]);
+  // const memoizeColumns = React.useMemo(() => COLUMNS, []);
+
+  return (
+    <Box>
+      <StickyTable rows={ROWS} columns={COLUMNS} />
+    </Box>
+  );
+};
 
 const WebhookForm = ({ onSubmit }) => {
   const formik = useFormik({
@@ -98,13 +172,27 @@ const WebhookForm = ({ onSubmit }) => {
   );
 };
 
-export const Webhooks = ({ createWebhook, isInstanceOwner }) => {
+export const Webhooks = ({
+  createWebhook,
+  isInstanceOwner,
+  webhooks,
+  deleteWebhook,
+}) => {
   const handleAddWebhookModal = () => {
     MySwal.fire({
       title: 'Create Webhook',
       html: <WebhookForm onSubmit={createWebhook} />,
       showConfirmButton: false,
     });
+  };
+  const handleUpdataWebhookModal = (data) => {
+    console.log(data);
+  };
+  const handleDeleteWebhookModal = (data) => {
+    const action = () => {
+      deleteWebhook(data.ZUID);
+    };
+    DeleteMsg({ action });
   };
   return (
     <Box>
@@ -117,6 +205,12 @@ export const Webhooks = ({ createWebhook, isInstanceOwner }) => {
           Create Webhooks
         </Button>
       )}
+      <CustomTable
+        data={webhooks}
+        isInstanceOwner={isInstanceOwner}
+        handleUpdataWebhookModal={handleUpdataWebhookModal}
+        handleDeleteWebhookModal={handleDeleteWebhookModal}
+      />
     </Box>
   );
 };

@@ -46,8 +46,8 @@ const contentTypeOptions = [
   },
   {
     id: 2,
-    label: 'application/x-www-form-urlencoded',
-    value: 'application/x-www-form-urlencoded',
+    label: 'application/x-www-form-url-encoded',
+    value: 'application/x-www-form-url-encoded',
   },
 ];
 const resourceOptions = [

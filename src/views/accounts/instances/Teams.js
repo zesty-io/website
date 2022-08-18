@@ -1,6 +1,7 @@
 import { Box, Button, TextField } from '@mui/material';
 import {
   accountsValidations,
+  DeleteMsg,
   FormInput,
   StickyTable,
 } from 'components/accounts';
@@ -170,7 +171,10 @@ const Main = ({
   };
 
   const handleDeleteTeamModal = async ({ ZUID }) => {
-    await deleteTeam(ZUID);
+    const action = async () => {
+      await deleteTeam(ZUID);
+    };
+    DeleteMsg({ action });
     await getAllTeams();
   };
   const handleEditTeam = async (data) => {

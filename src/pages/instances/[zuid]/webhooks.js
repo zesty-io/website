@@ -54,6 +54,13 @@ export default function WebhooksPage() {
     ErrorMsg({ text: res.error });
   };
 
+  const handleDeleteWebhookSuccess = (res) => {
+    console.log(res);
+    SuccessMsg({ title: 'Webhook Successfully Deleted' });
+  };
+  const handleDeleteWebhookError = (res) => {
+    ErrorMsg({ text: res.error });
+  };
   const getWebhooks = async () => {
     const res = await ZestyAPI.retrieveWebhookForInstance(zuid);
     !res.error && handleGetWebhooksSuccess(res);
@@ -65,6 +72,7 @@ export default function WebhooksPage() {
     const res = await ZestyAPI.createWebhook(payload);
     !res.error && handleCreateWebhooksSuccess(res);
     res.error && handleCreateWebhooksError(res);
+    await getWebhooks();
   };
 
   const searhcItems = async () => {
@@ -81,6 +89,12 @@ export default function WebhooksPage() {
     res.error && handleGetInstanceUserWithRolesErr(res);
   };
 
+  const deleteWebhook = async (webhookZuid) => {
+    const res = await ZestyAPI.deleteWebhook(webhookZuid);
+    !res.error && handleDeleteWebhookSuccess(res);
+    res.error && handleDeleteWebhookError(res);
+    await getWebhooks();
+  };
   const isInstanceOwner = helpers.isInstanceOwner(
     instanceUserWithRoles,
     userInfo,
@@ -99,6 +113,7 @@ export default function WebhooksPage() {
       <Webhooks
         webhooks={webhooks}
         createWebhook={createWebhook}
+        deleteWebhook={deleteWebhook}
         isInstanceOwner={isInstanceOwner}
       />
     </InstanceContainer>

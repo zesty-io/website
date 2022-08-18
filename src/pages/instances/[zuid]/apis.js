@@ -58,7 +58,7 @@ export default function ApisPage() {
 
   const handleDeleteTokenSucc = (res) => {
     console.log(res);
-    SuccessMsg({ title: 'Success' });
+    SuccessMsg({ title: 'Token Successfully Deleted' });
   };
   const handleDeleteTokenErr = (res) => {
     ErrorMsg({ text: res.error });
@@ -66,7 +66,7 @@ export default function ApisPage() {
 
   const handleUpdateTokenSucc = (res) => {
     console.log(res);
-    SuccessMsg({ title: 'Success' });
+    SuccessMsg({ title: 'Token Successfully Updated' });
   };
   const handleUpdateTokenErr = (res) => {
     ErrorMsg({ text: res.error });

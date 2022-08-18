@@ -78,6 +78,7 @@ export default function TeamsPage() {
     const res = await ZestyAPI.deleteTeam(id);
     !res.error && handleDeleteTeamSuccess(res);
     res.error && handleDeleteTeamError(res);
+    await getAllTeams();
   };
 
   const updateTeam = async (data) => {
