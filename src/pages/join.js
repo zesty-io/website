@@ -202,15 +202,17 @@ export default function Join(props) {
                   />}
             <DancingLogo animation={currentAnimation} />
             <Swiper
-                pagination={{
-                    type: "none",
-                }}
+                
                 ref={sliderRef}
                 autoHeight={false}
                 navigation={false}
+                pagination={{ clickable: false, draggable: false, type: "none" }}
+                scrollbar={{ draggable: false }}
                 modules={[Pagination, Navigation]}
+                
+                allowSlideNext={false}
             >
-                <SwiperSlide> 
+                <SwiperSlide > 
                   
 
                     <SlideMessage 
