@@ -209,8 +209,9 @@ export default function Join(props) {
                 pagination={{ clickable: false, draggable: false, type: "none" }}
                 scrollbar={{ draggable: false }}
                 modules={[Pagination, Navigation]}
-                
-                allowSlideNext={false}
+                // remove this when testing
+                allowTouchMove={false}
+
             >
                 <SwiperSlide > 
                   
