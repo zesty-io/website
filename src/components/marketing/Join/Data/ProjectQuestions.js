@@ -5,7 +5,7 @@ export default {
         {
             answer: 'Website',
             value: 'website',
-            asset: 'https://img.indiefolio.com/1200x630/filters:format(webp):fill(transparent)/project/thumb/7488b17acc4d83673374d50e061f6376.png',
+            asset: '/assets/images/join/website.svg',
             imageSX: {
                 position: 'absolute',
                 width: '100%',
@@ -13,7 +13,7 @@ export default {
                 top: '0px'
             },
             cardSX: {
-                backgroundColor: '#69c',
+                backgroundColor: '#e8e8e8',
                 position: 'relative',
                 height: '120px',
                 width: '250px',
@@ -24,17 +24,18 @@ export default {
         {
             answer: 'Apps or IoT',
             value: 'app or iot',
-            asset: 'https://www.cvs.com/bizcontent/marketing/mobile-app/images1/mobile_in_hand.png',
+            asset: '/assets/images/join/apps.svg',
             imageSX: {
                 position: 'absolute',
-                width: '100%',
-                left: '0px',
-                top: '0px'
+                width: '80%',
+                left: '5%',
+                top: '15%'
                 
             },
             cardSX: {
-                backgroundColor: 'black',
+                backgroundColor: '#e8e8e8',
                 position: 'relative',
+                
                 height: '120px',
                 width: '250px',
                 overflow: 'hidden'
@@ -43,15 +44,15 @@ export default {
         {
             answer: 'Landing Page',
             value: 'landing-page',
-            asset: 'https://wpengine.com.au/wp-content/uploads/2018/04/shutterstock_1081849301-1-1024x465.jpg',
+            asset: '/assets/images/join/landing-page.svg',
             imageSX: {
                 position: 'absolute',
-                width: '130%',
-                left: '-10%',
-                top: '-10%'
+                width: '90%',
+                left: '5%',
+                top: '5%'
             },
             cardSX: {
-                backgroundColor: 'black',
+                backgroundColor: '#e8e8e8',
                 position: 'relative',
                 height: '120px',
                 width: '250px',
@@ -61,7 +62,7 @@ export default {
         {
             answer: 'Email',
             value: 'email',
-            asset: 'https://www.themanual.com/wp-content/uploads/sites/9/2021/03/the-best-smartwatches-for-men-in-2021.jpg?p=1',
+            asset: '/assets/images/join/email.svg',
             imageSX: {
                 position: 'absolute',
                 width: '100%',
@@ -69,17 +70,17 @@ export default {
                 top: '0px'
             },
             cardSX: {
-                backgroundColor: 'black',
+                backgroundColor: '#e8e8e8',
                 position: 'relative',
                 height: '120px',
                 width: '250px',
                 overflow: 'hidden'
             }
-        },
+        }, 
         {
             answer: 'Multiple Targets',
             value: 'multiple target',
-            asset: 'https://www.rollingstone.com/wp-content/uploads/2020/08/2F630CC0-8E91-4C7F-A95F-6D3DE976C0DA.jpeg',
+            asset: '/assets/images/join/multiple-targets.svg',
             imageSX: {
                 position: 'absolute',
                 width: '100%',
@@ -87,7 +88,7 @@ export default {
                 top: '0px'
             },
             cardSX: {
-                backgroundColor: 'black',
+                backgroundColor: '#e8e8e8',
                 position: 'relative',
                 height: '120px',
                 width: '250px',
