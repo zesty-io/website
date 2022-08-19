@@ -1,35 +1,14 @@
-import { React, useEffect } from 'react';
+import { React } from 'react';
 
 import { fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
 
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
-import { getCookie, setCookies } from 'cookies-next';
 import { useTheme } from '@emotion/react';
 
 export default function Slug(props) {
   const theme = useTheme();
-  // capture information about the url and request
-  useEffect(() => {
-    const params = new Proxy(new URLSearchParams(window.location.search.toLowerCase()), {
-      get: (searchParams, prop) => searchParams.get(prop),
-    });
-    // referrer, stored in a cookie so its not lost as a user browses
-    let refCookie = getCookie('referrer');
-    if (undefined == refCookie) setCookies('referrer', document.referrer);
-
-    // utm query params
-    if (params.utm_campaign) setCookies('utm_campaign', params.utm_campaign);
-    if (params.utm_term) setCookies('utm_term', params.utm_term);
-    if (params.utm_source) setCookies('utm_source', params.utm_source);
-    if (params.utm_medium) setCookies('utm_medium', params.utm_medium);
-    //google click id  https://support.google.com/searchads/answer/7342044?hl=en
-    if (params.gclid) setCookies('gclid', params.gclid);
-
-    // persona
-    if (params.persona) setCookies('persona', params.persona);
-  }, []);
 
   // for homepage navigation
   // const isDarkMode = theme.palette.mode === 'dark';
