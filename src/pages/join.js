@@ -256,6 +256,7 @@ export default function Join(props) {
                         callback={signUpSuccess}
                         />
                 </SwiperSlide>
+                {/* Welcome  */}
                 <SwiperSlide> 
 
                     <WelcomeScreen
@@ -269,34 +270,18 @@ export default function Join(props) {
                         <SlideMessage 
                             message={welcomeMessage}
                             buttonText={`Let's go!`} 
-                            exitButtonText={'Wait, let me invite my team.'}
+                            // exitButtonText={'Wait, let me invite my team.'}
                             exitButtonAction={handleInvite}
                             answerCallBack={handlePrompt} 
                             hoverAnimation={handleAnimation}
+                            exitButtonText={''}
                             
                         />
                     </WelcomeScreen>
                 </SwiperSlide>
-                
-{/*                 
+                {/* Onboarding */}
                 <SwiperSlide>
-                    <>
-                        <SlideQuestions 
-                            question={CMSQuestions.question} 
-                            answers={CMSQuestions.answers} 
-                            why={CMSQuestions?.why} 
-                            answerCallBack={handleAnswers} 
-                            hoverAnimation={handleAnimation} />
-                        <Button onClick={handleNext}  variant="outlined">Skip</Button>
-                    </>
-                </SwiperSlide> */}
-                <SwiperSlide>
-                    {role}
                     <Onboarding role={role} />
-                    
-
-                    
-                    
                 </SwiperSlide>
             </Swiper>
         
