@@ -53,9 +53,7 @@ const firstMessage = <Box paddingY={4} sx={{textAlign: 'center'}}>
     </Box>
 </Box>;
 
-const welcomeMessage =  <Box paddingY={4} sx={{textAlign: 'center'}}>
-<Typography variant="h4" gutterBottom>Welcome to Zesty!</Typography>
-</Box>;
+
 
 const firstButton = `Yes, let's go!`;
 
@@ -137,6 +135,10 @@ export default function Join(props) {
       setCurrentAnimation('still');
 
     }, []);
+
+    const welcomeMessage = <Box paddingY={4} sx={{textAlign: 'center'}}>
+        <Typography variant="h4" gutterBottom>Welcome to Zesty {firstName}!</Typography>
+        </Box>;
 
     // captures the user question 
     const handleAnswers = async (question,answer,store=false) => {
