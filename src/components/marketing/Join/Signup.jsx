@@ -81,7 +81,6 @@ export const Signup = ({
     async function createZestyUser(firstName, lastName, email, password){
       // create the user
       let response = await ZestyAPI.createUser(firstName, lastName, email, password);
-      console.log('user create response', response)
       // if made successfully, login the user and store the token to cookies
       if(response?.data?.ZUID){
         let loginResponse = await ZestyAPI.login(email,password);
@@ -119,8 +118,8 @@ export const Signup = ({
     const submitForm = async () => {
       // check if user created successfully
       let success = await createZestyUser(values.firstname, values.lastname, values.email, values.password);
-      if(success) {
-        callback(values);
+      if(success !== false) {
+        callback(values, success);
       } else {
         alert('user failed to create')
       }

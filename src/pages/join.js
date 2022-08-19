@@ -26,6 +26,9 @@ import { WelcomeScreen } from 'components/marketing/Join/WelcomeScreen';
 import { zohoPostObject } from 'components/marketing/Join/zohoPostObject.js'
 import { setCookie } from 'cookies-next';
 
+// pendo
+import  { pendoScript }  from 'components/marketing/Join/pendoScript.js'
+
 // slack post function
 import slackQuestionPost from 'components/marketing/Join/slackQuestionPost.js';
 import slackNotify from 'components/marketing/Join/slackNotify.js';
@@ -33,12 +36,13 @@ import slackNotify from 'components/marketing/Join/slackNotify.js';
 // google analytis
 import * as ga from 'lib/ga'
 
-// data 
-
+// questions data 
 import RoleQuestions from 'components/marketing/Join/Data/RoleQuestions'
 import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions'
 import CMSQuestions from 'components/marketing/Join/Data/CMSQuestions'
 
+// onboarding
+import Onboarding from 'components/marketing/Join/Onboarding'
 
 // messages
 const firstMessage = <Box paddingY={4} sx={{textAlign: 'center'}}>
@@ -54,56 +58,6 @@ const welcomeMessage =  <Box paddingY={4} sx={{textAlign: 'center'}}>
 </Box>;
 
 const firstButton = `Yes, let's go!`;
-
- // for everyone
-const thirdQuestion = "What CMS are you currently using?";
-const thirdAnswers = [
-    {
-        answer: 'Wordpress',
-        value: 'wordpress'
-    },
-    {
-        answer: 'Drupal / Acquia',
-        value: 'drupal'
-    },
-    {
-        answer: 'Contentful',
-        value: 'contentful'
-    },
-    {
-        answer: 'Prismic',
-        value: 'prismic'
-    },
-    {
-        answer: 'Strapi',
-        value: 'strapi'
-    },
-    {
-        answer: 'GraphCMS / Hygraph',
-        value: 'graphcms'
-    },
-    {
-        answer: 'Kentico',
-        value: 'kentico'
-    },
-    {
-        answer: 'Webflow / Wix / Weebly',
-        value: 'other'
-    },
-    {
-        answer: 'Other / Custom',
-        value: 'other'
-    },
-    {
-        answer: 'Content Stack',
-        value: 'kentico'
-    },
-    {
-        answer: 'Adobe',
-        value: 'adobe'
-    }
-];
-
 
 // on if developer was picked
 
@@ -164,9 +118,11 @@ export default function Join(props) {
     // state values for form capture
     const [role, setRole] = useState('Unknown');
     const [email, setEmail] = useState('..still capturing email');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [projectType, setProjectType] = useState('website');
     const [currentAnimation, setCurrentAnimation] = useState('rollIn');
-
+    const [userObject, setUserObject] = useState({});
     const sliderRef = useRef(null);
 
     const handlePrev = useCallback(() => {
@@ -211,11 +167,15 @@ export default function Join(props) {
         return str;
     }
     // creates a zesty user and send data into ZOHO leads
-    const signUpSuccess = async  (userDetails) => {
+    const signUpSuccess = async  (userDetails, creationObect) => {
         // send user forward visually, then capture their data
         handleNext();
-        //store email to state
+        // store email and user to state
         setEmail(userDetails.email);
+        setFirstName(userDetails.firstName);
+        setLastName(userDetails.lastName);
+        setUserObject(creationObect);
+
         // notify the team in slack
         await slackNotify(`Captured: ${userDetails.email}`)
         // map additional userDetails for zoho object
@@ -257,6 +217,7 @@ export default function Join(props) {
     // sx={{background: theme.palette.zesty.zestyDarkBlue}}
     return (
         <Box >
+            {pendoScript}
             {currentAnimation == 'party' &&
              <Confetti
                     width={width}
@@ -324,19 +285,28 @@ export default function Join(props) {
                         />
                 </SwiperSlide>
                 <SwiperSlide> 
-               
-                    <SlideMessage 
-                        message={welcomeMessage}
-                        buttonText={`Let's go!`} 
-                        exitButtonText={'Wait, let me invite my team.'}
-                        exitButtonAction={handleInvite}
-                        answerCallBack={handlePrompt} 
-                        hoverAnimation={handleAnimation}
-                        
-                    />
+
+                    <WelcomeScreen
+                        firstname={firstName}
+                        lastname={lastName}
+                        email={firstName}
+                        role={role}
+                        userZUID={userObject?.data?.meta?.ZUID}
+                        dateCreated={new Date().toUTCString()}
+                        >
+                        <SlideMessage 
+                            message={welcomeMessage}
+                            buttonText={`Let's go!`} 
+                            exitButtonText={'Wait, let me invite my team.'}
+                            exitButtonAction={handleInvite}
+                            answerCallBack={handlePrompt} 
+                            hoverAnimation={handleAnimation}
+                            
+                        />
+                    </WelcomeScreen>
                 </SwiperSlide>
                 
-                
+{/*                 
                 <SwiperSlide>
                     <>
                         <SlideQuestions 
@@ -347,8 +317,15 @@ export default function Join(props) {
                             hoverAnimation={handleAnimation} />
                         <Button onClick={handleNext}  variant="outlined">Skip</Button>
                     </>
+                </SwiperSlide> */}
+                <SwiperSlide>
+                    {role}
+                    <Onboarding role={role} />
+                    
+
+                    NPM starter, Youtube Video, Join Community Chat, Talk to an onbording specialist
+                    
                 </SwiperSlide>
-                <SwiperSlide>NPM starter, Youtube Video, Join Community Chat, Talk to an onbording specialist</SwiperSlide>
             </Swiper>
         
         </Box>
