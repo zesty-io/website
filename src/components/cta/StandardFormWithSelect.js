@@ -64,6 +64,7 @@ const getLeadObjectZOHO = (
     Phone: obj.phoneNumber,
     Inquiry_Reason: select,
     Description: obj.message,
+    Zesty_User_Account: obj?.user && obj.user ? true : false,
     newsletter_signup: obj.newsletter_signup,
     Lead_Source: getCookie('utm_source')
     ? getCookie('utm_source')
