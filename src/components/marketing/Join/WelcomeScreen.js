@@ -26,8 +26,8 @@ export const WelcomeScreen = ({firstname, lastname, email,role, userZUID=false, 
   }, []);
 
   return (
-    <Box sx={{height: '400px', background: '#e8e8e8'}}>
-         Welcome to Zesty
+    <Box sx={{height: '400px'}}>
+         
         {children}
     </Box>
   )

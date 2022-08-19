@@ -84,7 +84,7 @@ export default function Join(props) {
 
 
     // state values for form capture
-    const [role, setRole] = useState('Unknown');
+    const [role, setRole] = useState('Developer');
     const [email, setEmail] = useState('..still capturing email');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -295,7 +295,7 @@ export default function Join(props) {
                     <Onboarding role={role} />
                     
 
-                    NPM starter, Youtube Video, Join Community Chat, Talk to an onbording specialist
+                    
                     
                 </SwiperSlide>
             </Swiper>

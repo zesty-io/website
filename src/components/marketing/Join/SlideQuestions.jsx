@@ -14,7 +14,7 @@ function ActionAreaCard({question, title='', asset='', storeValue, animation, an
   return ( 
     <Card sx={{ maxWidth: 345 }} >
       <CardActionArea
-        onMouseOver={() => animation(random_boolean(Math.random()) ? 'shake' : 'sway')} 
+        //onMouseOver={() => animation(random_boolean(Math.random()) ? 'shake' : 'sway')} 
         onClick={() => callback(question,answer,storeValue)}
         >
         <Box sx={{
