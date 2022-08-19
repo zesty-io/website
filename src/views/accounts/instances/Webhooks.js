@@ -66,7 +66,7 @@ const CustomTable = ({
       <Button
         onClick={() => handleViewWebhook(e)}
         color="primary"
-        variant="text"
+        variant="contained"
         fullWidth
         type="submit"
       >
@@ -75,7 +75,7 @@ const CustomTable = ({
       <Button
         onClick={() => handleTestWebhook(e)}
         color="primary"
-        variant="text"
+        variant="contained"
         fullWidth
         type="submit"
       >
@@ -84,7 +84,7 @@ const CustomTable = ({
       <Button
         onClick={() => handleDeleteWebhookModal(e)}
         color="error"
-        variant="text"
+        variant="contained"
         fullWidth
         type="submit"
       >

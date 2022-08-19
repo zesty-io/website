@@ -17,6 +17,7 @@ export const DirectionStack = ({ items = [] }) => {
       <Stack direction="row" spacing={2}>
         {items?.map((e) => {
           return <Item>{e}</Item>;
+          // return e;
         })}
       </Stack>
     </div>

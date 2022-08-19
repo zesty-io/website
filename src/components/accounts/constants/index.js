@@ -24,6 +24,11 @@ const eventActionOptions = [
     label: 'Unpublish',
     value: 5,
   },
+  {
+    id: 6,
+    label: 'UndoDelete',
+    value: 6,
+  },
 ];
 const methodOptions = [
   {
