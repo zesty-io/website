@@ -2,6 +2,7 @@ import { Box, Button, Divider, Grid } from '@mui/material';
 import {
   accountsValidations,
   DeleteMsg,
+  DirectionStack,
   FormInput,
   FormSelect,
   StickyTable,
@@ -28,12 +29,8 @@ const COLUMNS = [
     label: 'Resource',
   },
   {
-    id: 'test',
-    label: 'test',
-  },
-  {
-    id: 'view',
-    label: 'View',
+    id: 'eventAction',
+    label: 'Event Type',
   },
   {
     id: 'action',
@@ -52,6 +49,11 @@ const COLUMNS_VIEW = [
   },
 ];
 
+const eventActionSwitcher = (event) => {
+  const res = accounts.eventActionOptions.find((e) => e.value === event)?.label;
+  return res;
+};
+
 const CustomTable = ({
   data,
   isInstanceOwner,
@@ -60,51 +62,42 @@ const CustomTable = ({
   handleViewWebhook,
 }) => {
   const ROWS = data?.map((e) => {
+    const btns = [
+      <Button
+        onClick={() => handleViewWebhook(e)}
+        color="primary"
+        variant="text"
+        fullWidth
+        type="submit"
+      >
+        View
+      </Button>,
+      <Button
+        onClick={() => handleTestWebhook(e)}
+        color="primary"
+        variant="text"
+        fullWidth
+        type="submit"
+      >
+        Test
+      </Button>,
+      <Button
+        onClick={() => handleDeleteWebhookModal(e)}
+        color="error"
+        variant="text"
+        fullWidth
+        type="submit"
+      >
+        Delete
+      </Button>,
+    ];
+
     return {
       URL: e.URL || '-',
       method: e.method,
       resource: e.resource,
-      view: (
-        <Box>
-          <Button
-            onClick={() => handleViewWebhook(e)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-          >
-            View
-          </Button>
-        </Box>
-      ),
-      test: (
-        <Box>
-          <Button
-            onClick={() => handleTestWebhook(e)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-          >
-            Test
-          </Button>
-        </Box>
-      ),
-      action: isInstanceOwner ? (
-        <Box display={'flex'}>
-          <Button
-            onClick={() => handleDeleteWebhookModal(e)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-          >
-            Delete
-          </Button>
-        </Box>
-      ) : (
-        '-'
-      ),
+      eventAction: eventActionSwitcher(e.eventAction) || '-',
+      action: isInstanceOwner ? <DirectionStack items={btns} /> : '-',
     };
   });
 
