@@ -1,4 +1,4 @@
-import { Button, Stack, TextField } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import CustomDataGrid from 'components/accounts/instances/CustomDataGrid';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -7,18 +7,19 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
 import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import CustomDialog from 'components/accounts/instances/CustomDialog';
-import useDialog from 'components/hooks/useDialog';
 import { useSnackbar } from 'notistack';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { useFormik } from 'formik';
+import { FormInput } from 'components/accounts';
+import { accountsValidations } from 'components/accounts/';
 
-const Locales = () => {
+const MySwal = withReactContent(Swal);
+
+export default function Locales() {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [isLoading, setIsLoading] = useState(true);
   const [rows, setRows] = useState([]);
-  const [open, handleOpen, handleClose] = useDialog();
-  const [openDel, handleOpenDel, handleCloseDel] = useDialog();
-  const [locale, setLocale] = useState('');
-  const [code, setCode] = useState('');
   const { enqueueSnackbar } = useSnackbar();
   const columns = useMemo(() => [
     {
@@ -102,8 +103,22 @@ const Locales = () => {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
-          handleOpenDel();
-          setCode(params?.row?.code);
+          const code = params?.row?.code;
+          MySwal.fire({
+            title: `Are you sure you want to delete ${code}?`,
+            showDenyButton: true,
+            confirmButtonText: 'Continue',
+            denyButtonText: `Cancel`,
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              const response = await ZestyAPI.deleteLocale(code);
+              if (response.error) {
+                enqueueSnackbar(response.error, { variant: 'error' });
+              } else {
+                getLocales();
+              }
+            }
+          });
         };
 
         return (
@@ -130,6 +145,39 @@ const Locales = () => {
     setIsLoading(false);
     setRows(newLocales);
   };
+
+  const InputLocale = () => {
+    const formik = useFormik({
+      initialValues: {
+        locale: '',
+      },
+      validationSchema: accountsValidations.localeSchema,
+      onSubmit: async (values) => {
+        MySwal.close();
+        const response = await ZestyAPI.addLocale(values.locale);
+        if (response.error) {
+          enqueueSnackbar(response.error, { variant: 'error' });
+        } else {
+          getLocales();
+        }
+        formik.resetForm();
+      },
+    });
+
+    return (
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <FormInput
+          name="locale"
+          formik={formik}
+          placeholder="Enter a valid locale"
+        />
+        <Button color="primary" variant="contained" fullWidth type="submit">
+          Submit
+        </Button>
+      </form>
+    );
+  };
+
   return (
     <InstanceContainer>
       <Stack>
@@ -138,7 +186,13 @@ const Locales = () => {
             variant="contained"
             color="success"
             startIcon={<AddOutlinedIcon />}
-            onClick={handleOpen}
+            onClick={() => {
+              MySwal.fire({
+                title: `Locale`,
+                showConfirmButton: false,
+                html: <InputLocale />,
+              });
+            }}
           >
             Add
           </Button>
@@ -151,78 +205,6 @@ const Locales = () => {
         pageSize={5}
         isLoading={isLoading}
       />
-
-      <CustomDialog
-        title="Locale"
-        open={open}
-        handleClose={handleClose}
-        showCloseIcon
-        actions={
-          <>
-            <Button
-              variant="contained"
-              color="success"
-              onClick={async () => {
-                const response = await ZestyAPI.addLocale(locale);
-                if (response.error) {
-                  enqueueSnackbar(response.error, { variant: 'error' });
-                } else {
-                  getLocales();
-                }
-                setLocale('');
-                handleClose();
-              }}
-            >
-              Continue
-            </Button>
-            <Button variant="outlined" color="warning" onClick={handleClose}>
-              Cancel
-            </Button>
-          </>
-        }
-      >
-        <TextField
-          sx={{ mt: 1 }}
-          label="Please enter a locale"
-          value={locale}
-          onChange={(e) => setLocale(e.target.value)}
-          variant="outlined"
-          fullWidth
-        />
-      </CustomDialog>
-
-      <CustomDialog
-        title={`Are you sure you want to delete ${code}?`}
-        open={openDel}
-        handleClose={handleCloseDel}
-        showCloseIcon
-        actions={
-          <>
-            <Button
-              variant="contained"
-              color="success"
-              onClick={async () => {
-                const response = await ZestyAPI.deleteLocale(code);
-                if (response.error) {
-                  enqueueSnackbar(response.error, { variant: 'error' });
-                } else {
-                  getLocales();
-                }
-
-                setCode('');
-                handleCloseDel();
-              }}
-            >
-              Continue
-            </Button>
-            <Button variant="outlined" color="warning" onClick={handleCloseDel}>
-              Cancel
-            </Button>
-          </>
-        }
-      />
     </InstanceContainer>
   );
-};
-
-export default Locales;
+}

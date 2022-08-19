@@ -1,16 +1,12 @@
 import React from 'react';
-import AppBar from 'components/console/AppBar';
-import { Container } from '@mui/system';
-import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import Login from 'components/console/Login';
-import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import { Users } from 'views/accounts';
 import { ErrorMsg, StickyTable, SuccessMsg } from 'components/accounts';
 import { baseroles } from 'components/accounts/users/baseroles';
 import { Box, Typography } from '@mui/material';
 import * as helpers from 'utils';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 const COLUMNS = [
   {
@@ -148,10 +144,12 @@ export default function UsersPage() {
     res.error && handleCreateInviteErr(res);
   };
   React.useEffect(() => {
-    getUsers();
-    getInstanceUserRoles();
-    getInstanceRoles();
-  }, []);
+    if (router.isReady) {
+      getUsers();
+      getInstanceUserRoles();
+      getInstanceRoles();
+    }
+  }, [router.isReady]);
 
   const isInstanceOwner = helpers.isInstanceOwner(
     instanceUserWithRoles,
@@ -159,26 +157,17 @@ export default function UsersPage() {
   );
   console.log(users, 'user data');
   return (
-    <Main>
-      <AppBar />
-      <Container>
-        {isAuthenticated ? (
-          <InstancesApp>
-            <Users
-              updateRole={updateRole}
-              roles={instanceUserWithRoles}
-              deleteUserRole={deleteUserRole}
-              instanceRoles={instanceRoles}
-              createInvite={createInvite}
-              isOwner={isInstanceOwner}
-              instanceZUID={zuid}
-            />
-            <RolesTable />
-          </InstancesApp>
-        ) : (
-          <Login />
-        )}
-      </Container>
-    </Main>
+    <InstanceContainer>
+      <Users
+        updateRole={updateRole}
+        roles={instanceUserWithRoles}
+        deleteUserRole={deleteUserRole}
+        instanceRoles={instanceRoles}
+        createInvite={createInvite}
+        isOwner={isInstanceOwner}
+        instanceZUID={zuid}
+      />
+      <RolesTable />
+    </InstanceContainer>
   );
 }

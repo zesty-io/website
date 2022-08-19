@@ -1,6 +1,7 @@
 import { Box, Button, TextField } from '@mui/material';
 import {
   accountsValidations,
+  DeleteMsg,
   FormInput,
   StickyTable,
 } from 'components/accounts';
@@ -146,7 +147,13 @@ const CustomForm = ({ onSubmit, data = {} }) => {
       <form noValidate onSubmit={formik.handleSubmit}>
         <FormInput name={'name'} formik={formik} />
         <FormInput name={'description'} formik={formik} />
-        <Button color="primary" variant="contained" fullWidth type="submit">
+        <Button
+          disabled={formik.isSubmitting}
+          color="primary"
+          variant="contained"
+          fullWidth
+          type="submit"
+        >
           Submit
         </Button>
       </form>
@@ -170,7 +177,10 @@ const Main = ({
   };
 
   const handleDeleteTeamModal = async ({ ZUID }) => {
-    await deleteTeam(ZUID);
+    const action = async () => {
+      await deleteTeam(ZUID);
+    };
+    DeleteMsg({ action });
     await getAllTeams();
   };
   const handleEditTeam = async (data) => {
@@ -203,7 +213,6 @@ const Main = ({
       showConfirmButton: false,
     });
   };
-  console.log(isInstanceOwner, 22222222222222);
   return (
     <Box>
       <TextField

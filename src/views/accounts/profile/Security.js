@@ -195,6 +195,7 @@ export const Security = () => {
                     variant="contained"
                     fullWidth
                     type="submit"
+                    disabled={formik.isSubmitting}
                   >
                     Submit
                   </Button>
@@ -210,7 +211,13 @@ export const Security = () => {
           <form noValidate onSubmit={formik.handleSubmit}>
             <FormInput name={'areaCode'} formik={formik} />
             <FormInput name={'phoneNumber'} formik={formik} />
-            <Button color="primary" variant="contained" fullWidth type="submit">
+            <Button
+              color="primary"
+              variant="contained"
+              disabled={formik.isSubmitting}
+              fullWidth
+              type="submit"
+            >
               Submit
             </Button>
           </form>

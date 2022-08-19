@@ -5,6 +5,7 @@ import {
   StickyTable,
   accountsValidations,
   FormInput,
+  DeleteMsg,
 } from 'components/accounts';
 import { baseroles } from 'components/accounts/users/baseroles';
 import Swal from 'sweetalert2';
@@ -62,7 +63,10 @@ const CustomTable = ({
     const handleDeleteUser = () => {
       const roleZUID = instanceRoles.find((x) => x.name === e.role.name)?.ZUID;
       const data = { roleZUID, userZUID: e.ZUID };
-      handleDeleteRole(data);
+      const action = () => {
+        handleDeleteRole(data);
+      };
+      DeleteMsg({ action });
     };
 
     const role = isOwner
@@ -143,7 +147,7 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
         />
         <Button
           color="primary"
-          disabled={!role.accessLevel}
+          disabled={!role.accessLevel || formik.isSubmitting}
           variant="contained"
           fullWidth
           type="submit"

@@ -1,22 +1,16 @@
 import React from 'react';
-import { Container } from '@mui/material';
-import AppBar from 'components/console/AppBar';
-import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import Login from 'components/console/Login';
-import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import { Teams } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function TeamsPage() {
   const [search, setsearch] = React.useState('');
   const [teams, setteams] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
-  const { ZestyAPI, isAuthenticated, userInfo } = useZestyStore(
-    (state) => state,
-  );
+  const { ZestyAPI, userInfo } = useZestyStore((state) => state);
 
   const router = useRouter();
   const { zuid } = router.query;
@@ -84,6 +78,7 @@ export default function TeamsPage() {
     const res = await ZestyAPI.deleteTeam(id);
     !res.error && handleDeleteTeamSuccess(res);
     res.error && handleDeleteTeamError(res);
+    await getAllTeams();
   };
 
   const updateTeam = async (data) => {
@@ -134,22 +129,14 @@ export default function TeamsPage() {
   };
 
   React.useEffect(() => {
-    getAllTeams();
-    getInstanceUserWithRoles();
-  }, []);
+    if (router.isReady) {
+      getAllTeams();
+      getInstanceUserWithRoles();
+    }
+  }, [router.isReady]);
   return (
-    <Main>
-      <AppBar />
-
-      <Container>
-        {isAuthenticated ? (
-          <InstancesApp>
-            <Teams {...teamsProps} />
-          </InstancesApp>
-        ) : (
-          <Login />
-        )}
-      </Container>
-    </Main>
+    <InstanceContainer>
+      <Teams {...teamsProps} />
+    </InstanceContainer>
   );
 }

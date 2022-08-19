@@ -1,6 +1,7 @@
 import { Box, Button, Grid } from '@mui/material';
 import {
   accountsValidations,
+  DeleteMsg,
   FormInput,
   StickyTable,
   UsersSelect,
@@ -68,7 +69,7 @@ const CreateTokenForm = ({ onSubmit, options }) => {
         />
         <Button
           color="primary"
-          disabled={Object.keys(role).length === 0}
+          disabled={Object.keys(role).length === 0 || formik.isSubmitting}
           variant="contained"
           fullWidth
           type="submit"
@@ -147,7 +148,10 @@ export const Apis = ({
   };
   const handleDeleteToken = (data) => {
     const val = { tokenZUID: data.ZUID };
-    deleteToken(val);
+    const action = () => {
+      deleteToken(val);
+    };
+    DeleteMsg({ action });
   };
   const handleUpdateToken = (data) => {
     const val = { tokenZUID: data.ZUID };

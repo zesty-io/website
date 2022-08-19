@@ -1,17 +1,13 @@
 import React from 'react';
-import AppBar from 'components/console/AppBar';
-import { Container } from '@mui/system';
-import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import Login from 'components/console/Login';
-import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import BasicTable from 'components/accounts/users/BasicTable';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function Billing() {
   const [users, setusers] = React.useState([]);
   const [roles, setroles] = React.useState([]);
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
+  const { ZestyAPI } = useZestyStore((state) => state);
 
   const router = useRouter();
 
@@ -29,24 +25,15 @@ export default function Billing() {
     console.log(res);
   };
   React.useEffect(() => {
-    getUsers();
-    getInstanceUserRoles();
-  }, []);
+    if (router.isReady) {
+      getUsers();
+      getInstanceUserRoles();
+    }
+  }, [router.isReady]);
 
   return (
-    <Main>
-      <AppBar />
-
-      {/* {JSON.stringify(data)} */}
-      <Container>
-        {isAuthenticated ? (
-          <InstancesApp>
-            Manager users on instance <BasicTable users={users} roles={roles} />
-          </InstancesApp>
-        ) : (
-          <Login />
-        )}
-      </Container>
-    </Main>
+    <InstanceContainer>
+      Manager users on instance <BasicTable users={users} roles={roles} />
+    </InstanceContainer>
   );
 }

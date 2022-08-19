@@ -46,9 +46,23 @@ export const InstancesDashboard = () => {
   const [instances, setInstances] = React.useState([]);
   const [search, setSearch] = React.useState('');
 
+  const handleGetInstancesSuccess = (res) => {
+    console.log(res);
+    setInstances(res.data);
+  };
+
+  // Partial fix when invalid session is detected
+  // will redirect user to home page
+  const handleGetInstancesError = (res) => {
+    console.log(res);
+    if (res.error === 'invalid session') {
+      setCookie('isAuthenticated', 'false');
+    }
+  };
   async function getInstances() {
-    let instances = await ZestyAPI.getInstances();
-    setInstances(instances?.data ? instances.data : []);
+    const res = await ZestyAPI.getInstances();
+    !res.error && handleGetInstancesSuccess(res);
+    res.error && handleGetInstancesError(res);
   }
 
   const handleChangeView = (e, value) => {
@@ -123,8 +137,8 @@ export const InstancesDashboard = () => {
       <Grid container direction="row" my={2} spacing={2}>
         {view === 'grid' &&
           instances
-            .filter((inst) => inst?.name?.toLowerCase().includes(search))
-            .map((instance, index) => (
+            ?.filter((inst) => inst?.name?.toLowerCase().includes(search))
+            ?.map((instance, index) => (
               <Grid item xs={12} sm={4} lg={3} key={index}>
                 <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
                   <CardMedia
@@ -155,8 +169,8 @@ export const InstancesDashboard = () => {
       {view === 'list' && (
         <List>
           {instances
-            .filter((inst) => inst?.name?.toLowerCase().includes(search))
-            .map((instance, index) => (
+            ?.filter((inst) => inst?.name?.toLowerCase().includes(search))
+            ?.map((instance, index) => (
               <ListItem divider key={index} disablePadding>
                 <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
                   <ListItemIcon>

@@ -1,16 +1,12 @@
 import React from 'react';
-import AppBar from 'components/console/AppBar';
-import { Container } from '@mui/system';
-import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import Login from 'components/console/Login';
-import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
 import { Apis } from 'views/accounts';
 import { ErrorMsg, SuccessMsg, TokenPrompt } from 'components/accounts';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import * as helpers from 'utils';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 const MySwal = withReactContent(Swal);
 
@@ -18,9 +14,7 @@ export default function ApisPage() {
   const [tokens, settokens] = React.useState([]);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
-  const { ZestyAPI, isAuthenticated, userInfo } = useZestyStore(
-    (state) => state,
-  );
+  const { ZestyAPI, userInfo } = useZestyStore((state) => state);
 
   const router = useRouter();
 
@@ -64,7 +58,7 @@ export default function ApisPage() {
 
   const handleDeleteTokenSucc = (res) => {
     console.log(res);
-    SuccessMsg({ title: 'Success' });
+    SuccessMsg({ title: 'Token Successfully Deleted' });
   };
   const handleDeleteTokenErr = (res) => {
     ErrorMsg({ text: res.error });
@@ -72,7 +66,7 @@ export default function ApisPage() {
 
   const handleUpdateTokenSucc = (res) => {
     console.log(res);
-    SuccessMsg({ title: 'Success' });
+    SuccessMsg({ title: 'Token Successfully Updated' });
   };
   const handleUpdateTokenErr = (res) => {
     ErrorMsg({ text: res.error });
@@ -125,31 +119,23 @@ export default function ApisPage() {
     userInfo,
   );
   React.useEffect(() => {
-    getInstanceTokens();
-    getInstanceRoles();
-    getInstanceUserWithRoles();
-  }, []);
+    if (router.isReady) {
+      getInstanceTokens();
+      getInstanceRoles();
+      getInstanceUserWithRoles();
+    }
+  }, [router.isReady]);
 
   return (
-    <Main>
-      <AppBar />
-
-      <Container>
-        {isAuthenticated ? (
-          <InstancesApp>
-            <Apis
-              tokens={tokens}
-              instanceRoles={instanceRoles}
-              isInstanceOwner={isInstanceOwner}
-              createToken={createToken}
-              deleteToken={deleteToken}
-              updateToken={updateToken}
-            />
-          </InstancesApp>
-        ) : (
-          <Login />
-        )}
-      </Container>
-    </Main>
+    <InstanceContainer>
+      <Apis
+        tokens={tokens}
+        instanceRoles={instanceRoles}
+        isInstanceOwner={isInstanceOwner}
+        createToken={createToken}
+        deleteToken={deleteToken}
+        updateToken={updateToken}
+      />
+    </InstanceContainer>
   );
 }

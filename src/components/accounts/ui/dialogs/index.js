@@ -1,20 +1,34 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-export const SuccessMsg = ({ title = 'Success', action = () => {} }) => {
-  Swal.fire({
+const MySwal = withReactContent(Swal);
+
+export const SuccessMsg = ({
+  title = 'Success',
+  action = () => {},
+  html = '',
+}) => {
+  MySwal.fire({
     position: 'center',
     icon: 'success',
+    html,
     title,
     showConfirmButton: true,
     timer: 2500,
   }).then(() => action());
 };
 
-export const ErrorMsg = ({ text = 'Something went wrong' }) => {
-  Swal.fire({
+export const ErrorMsg = ({
+  title = 'Error',
+  text = 'Something went wrong',
+  html = '',
+}) => {
+  MySwal.fire({
+    position: 'center',
     icon: 'error',
-    title: 'Error',
+    title,
+    html,
     text,
     //   footer: '<a href="">Why do I have this issue?</a>',
   });
@@ -52,4 +66,23 @@ export const TokenPrompt = ({ token = '' }) => {
       </Grid>
     </Box>
   );
+};
+
+export const DeleteMsg = ({
+  title = 'Please confirm below',
+  action = () => {},
+  html = '',
+}) => {
+  MySwal.fire({
+    title,
+    html,
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      action();
+    }
+  });
 };
