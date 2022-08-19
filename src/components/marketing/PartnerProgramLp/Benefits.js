@@ -104,6 +104,15 @@ const Benefits = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
                           },
                         },
                       },
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'p',
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
+                        },
+                      },
                     }}
                   >
                     {item.description}

@@ -27,7 +27,7 @@ const Testimonial = ({
             variant="h4"
             component="h2"
             sx={{
-              pb: 2,
+              p: 2,
               fontWeight: 'bold',
               textAlign: 'center',
               color: theme.palette.common.white,
@@ -46,6 +46,7 @@ const Testimonial = ({
             }}
           >
             <Typography
+              variant="h6"
               sx={{
                 textAlign: 'center',
                 color: theme.palette.zesty.zestyZambezi,
@@ -54,6 +55,7 @@ const Testimonial = ({
               {content.testimonial.data[0].title}
             </Typography>
             <Typography
+              variant="h6"
               sx={{
                 textAlign: 'center',
                 color: theme.palette.zesty.zestyZambezi,
