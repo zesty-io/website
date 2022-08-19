@@ -44,6 +44,7 @@ import PersonaPagesLink from './PersonaPagesLink';
 import SubNav2022 from './SubNav2022';
 import NavigationFlyout from './NavigationFlyout';
 import Resource from './Resource';
+import PartnerProgramFeature from './PartnerProgramFeature';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -111,6 +112,7 @@ import DigitalGovernance from './DigitalGovernance';
 import CdnHosting from './CdnHosting';
 import HeadlessMobile from './HeadlessMobile';
 import ContentResource from './ContentResource';
+import PartnerProgramDirectory from './PartnerProgramDirectory';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -160,6 +162,7 @@ export {
     SubNav2022,
     NavigationFlyout,
     Resource,
+    PartnerProgramFeature,
     Category,
     Article,
     Tag,
@@ -227,6 +230,7 @@ export {
     CdnHosting,
     HeadlessMobile,
     ContentResource,
+    PartnerProgramDirectory,
     Footer,
     Header
 }
