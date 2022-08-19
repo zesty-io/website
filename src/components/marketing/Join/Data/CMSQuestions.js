@@ -1,24 +1,50 @@
 export default {
-    question: "What team are you on?",
-    why: "Zesty will use your role to tailor your experience.",
+    question: "What CMS are you currently using?",
+    why: "This info will help us onboard you.",
     answers: [
         {
-            answer: 'Development',
-            value: 'developer',
-            asset: '/assets/images/join/The-Architect-Zesty-io-Hero-Campaign.png',
-            backgroungColor: 'green'
+            answer: 'Wordpress',
+            value: 'wordpress'
         },
         {
-            answer: 'Marketing',
-            value: 'marketer',
-            asset: '/assets/images/join/The-Marketer-Zesty-io-Hero-Campaign.png',
-            backgroungColor: 'black'
+            answer: 'Drupal / Acquia',
+            value: 'drupal'
         },
         {
-            answer: 'Management',
-            value: 'manager',
-            asset: '/assets/images/join/The-Project-Manager-Zesty-io-Hero-Campaign.png',
-            backgroungColor: 'blue'
+            answer: 'Contentful',
+            value: 'contentful'
+        },
+        {
+            answer: 'Prismic',
+            value: 'prismic'
+        },
+        {
+            answer: 'Strapi',
+            value: 'strapi'
+        },
+        {
+            answer: 'GraphCMS / Hygraph',
+            value: 'graphcms'
+        },
+        {
+            answer: 'Kentico',
+            value: 'kentico'
+        },
+        {
+            answer: 'Webflow / Wix / Weebly',
+            value: 'other'
+        },
+        {
+            answer: 'Other / Custom',
+            value: 'other'
+        },
+        {
+            answer: 'Content Stack',
+            value: 'kentico'
+        },
+        {
+            answer: 'Adobe',
+            value: 'adobe'
         }
     ]
 }
