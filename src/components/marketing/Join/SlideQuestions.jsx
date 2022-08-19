@@ -12,7 +12,7 @@ function random_boolean(seed){
 
 function ActionAreaCard({question, title='', asset='', storeValue, animation, answer, callback, cardStyles ={}, imageStyles={}}) {
   return ( 
-    <Card sx={{ maxWidth: 345 }} key={`${answer.slice(0,3)}${Math.random()}`} >
+    <Card sx={{ maxWidth: 345 }} >
       <CardActionArea
         onMouseOver={() => animation(random_boolean(Math.random()) ? 'shake' : 'sway')} 
         onClick={() => callback(question,answer,storeValue)}
@@ -56,6 +56,7 @@ export const SlideQuestions = ({
           <Stack direction="row" alignItems="center" spacing={2} justifyContent="center">
               {answers.sort((a,b) => (a.value < b.value)).map(response => 
                 <ActionAreaCard 
+                  key={`${response.answer.slice(0,3)}${Math.random()}`} 
                   question={question}
                   callback={answerCallBack}
                   title={response.answer}

@@ -54,38 +54,8 @@ const firstMessage = <Box paddingY={4} sx={{textAlign: 'center'}}>
 </Box>;
 
 
-
 const firstButton = `Yes, let's go!`;
 
-// on if developer was picked
-
-const fourthQuestion = "What Technologies are you using?";
-const fourthAnswers = [
-    {
-        answer: 'React / Next.js / Gatsby',
-        value: 'react'
-    },
-    {
-        answer: 'Vue / Nuxt',
-        value: 'vue'
-    },
-    {
-        answer: 'PHP',
-        value: 'php'
-    },
-    {
-        answer: 'Node.js',
-        value: 'node'
-    },    
-    {
-        answer: 'Traditional HTML/Javascript',
-        value: 'traditional'
-    },
-    {
-        answer: '.Net',
-        value: 'node'
-    },      
-];
 
 
 // zoho lead post function

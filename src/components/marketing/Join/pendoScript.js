@@ -23,7 +23,7 @@ export const pendoScript = <Script dangerouslySetInnerHTML={{
         y.async = !0;
         y.src =
         "https://content.guide-po.manager.zesty.io/agent/static/" +
-        apiKey +
+        "3d21bb27-f37f-472d-5508-da646c7f5fe6" +
         "/pendo.js";
         z = e.getElementsByTagName(n)[0];
         z.parentNode.insertBefore(y, z);
