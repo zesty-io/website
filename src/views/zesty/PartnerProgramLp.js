@@ -58,15 +58,18 @@ import { SlashImageHero } from 'blocks/heroes';
 import Hero from 'components/marketing/PartnerProgramLp/Hero';
 import WhyZesty from 'components/marketing/PartnerProgramLp/WhyZesty';
 import WithDarkBackgroundAndSimpleDescriptionBox from 'blocks/logoGrid/WithDarkBackgroundAndSimpleDescriptionBox/WithDarkBackgroundAndSimpleDescriptionBox';
+import Benefits from 'components/marketing/PartnerProgramLp/Benefits';
+import Testimonial from 'components/marketing/PartnerProgramLp/Testimonial';
+import Bottom from 'components/marketing/PartnerProgramLp/Bottom';
 
 function PartnerProgramLp({ content }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const pageData = {
     theme,
-    isMobile,
+    isMedium,
     isDarkMode,
     content,
     FillerContent,
@@ -100,6 +103,9 @@ function PartnerProgramLp({ content }) {
       </Box>
       <WhyZesty {...pageData} />
       <WithDarkBackgroundAndSimpleDescriptionBox {...pageData} />
+      <Benefits {...pageData} />
+      <Testimonial {...pageData} />
+      <Bottom {...pageData} />
     </>
   );
 }
