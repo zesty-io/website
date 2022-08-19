@@ -2,38 +2,30 @@
  * MUI Imports
  */
 
-const { Button, Box } = require('@mui/material');
+import Button from '@mui/material/Button';
 import ArrowRightAlt from '@mui/icons-material/ArrowRightAlt';
-import { useTheme } from '@mui/material/styles';
 
 const DemoCta = ({
   text = 'Watch Demo',
-
-  color = 'white',
   fullWidth = false,
   icon = true,
   sx = {},
   href = 'demos/video',
   target = '_blank',
+  variant = '',
 }) => {
-  const theme = useTheme();
   return (
-    <Box>
-      <Button
-        fullWidth={fullWidth}
-        variant=""
-        sx={sx}
-        component="a"
-        color={color}
-        href={href}
-        target={target}
-      >
-        {text}
-        {icon && (
-          <ArrowRightAlt sx={{ ml: 1 }} />
-        )}
-      </Button>
-    </Box>
+    <Button
+      variant={variant}
+      fullWidth={fullWidth}
+      sx={sx}
+      component="a"
+      href={href}
+      target={target}
+    >
+      {text}
+      {icon && <ArrowRightAlt sx={{ ml: 1 }} />}
+    </Button>
   );
 };
 

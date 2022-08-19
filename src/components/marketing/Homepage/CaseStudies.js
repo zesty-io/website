@@ -1,26 +1,23 @@
 /**
- * React Imports
- */
-
-import { useEffect, useState } from 'react';
-/**
  * MUI Imports
  */
 
 import { Box, Typography, Card, Button, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
 
-const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
   return (
     <Box
       component="section"
       sx={{
-        background: `url(${content.case_studies_background.data[0].url})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        // background: `url(${content.case_studies_background.data[0].url})`,
+        // backgroundSize: 'cover',
+        // backgroundPosition: 'center',
+        // backgroundRepeat: 'no-repeat',
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyWhite,
         py: 10,
         mt: 10,
       }}
@@ -31,7 +28,9 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
             variant="h3"
             component="h2"
             sx={{
-              color: theme.palette.zesty.zestyDarkText,
+              color: isDarkMode
+                ? theme.palette.common.white
+                : theme.palette.zesty.zestyDarkText,
               textAlign: 'center',
               fontWeight: 'bold',
             }}
@@ -42,7 +41,9 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
             variant="h4"
             component="p"
             sx={{
-              color: theme.palette.zesty.zestyZambezi,
+              color: isDarkMode
+                ? theme.palette.common.white
+                : theme.palette.zesty.zestyDarkText,
               textAlign: 'center',
               mt: 2,
             }}
@@ -53,7 +54,13 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
 
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, mt: 10 }}>
           {content.g2_badges?.data.map((item, index) => (
-            <Box key={index} sx={{ width: '100%', maxWidth: 171 }}>
+            <Box
+              data-aos-offset="200"
+              data-aos="fade-up"
+              data-aos-duration={`${500 * (index + 1)}`}
+              key={index}
+              sx={{ width: '100%', maxWidth: 171 }}
+            >
               <Box
                 sx={{ width: '100%' }}
                 component="img"
@@ -68,6 +75,12 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
           {content.case_study_cards?.data.map((item, index) => (
             <Grid key={index} item sm={12} md={4}>
               <Card
+                component="a"
+                href={item.card_link.data[0].meta.web.uri}
+                target="_blank"
+                data-aos-offset="200"
+                data-aos="fade-up"
+                data-aos-duration={`${index + 1}000`}
                 sx={{
                   width: '100%',
                   maxWidth: 482,
@@ -75,6 +88,8 @@ const CaseStudies = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                   borderRadius: 5,
                   margin: 'auto',
                   position: 'relative',
+                  display: 'block',
+                  textDecoration: 'none',
                 }}
               >
                 <Box

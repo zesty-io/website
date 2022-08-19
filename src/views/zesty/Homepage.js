@@ -35,22 +35,24 @@
  */
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+
 /**
  * Components Imports
  */
 import Hero from 'components/marketing/Homepage/Hero';
-import SimpleCardLogo from 'components/marketing/Homepage/SimpleCardLogo';
-
-// Helpers Imports
-import FillerContent from 'components/globals/FillerContent';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
 import NewBenefits from 'components/marketing/Homepage/NewBenefits';
 import Migration from 'components/marketing/Homepage/Migration';
 import Growth from 'components/marketing/Homepage/Growth';
 import CaseStudies from 'components/marketing/Homepage/CaseStudies';
-import Testimonials from 'components/marketing/Homepage/Testimonials';
+import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
 import Bottom from 'components/marketing/Homepage/Bottom';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
+import { useEffect } from 'react';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -71,16 +73,27 @@ function Homepage({ content }) {
     FillerContent,
   };
 
+  const testimonialsData = {
+    title: content.testimonials_content,
+    data: content.testimonials?.data,
+  };
+
+  useEffect(() => {
+    AOS.init({
+      disable: isMedium,
+    });
+  }, [isMedium]);
+
   return (
     <>
       <Hero {...pageData} />
-      <SimpleCardLogo {...pageData} />
+      <SimpleCardLogo logoItems={content.homepage_logos.data} {...pageData} />
       <DigitalExperience {...pageData} />
       <NewBenefits {...pageData} />
       <Migration {...pageData} />
       <Growth {...pageData} />
       <CaseStudies {...pageData} />
-      <Testimonials {...pageData} />
+      <Testimonials {...testimonialsData} />
       <LogoSlider {...pageData} />
       <Bottom {...pageData} />
     </>

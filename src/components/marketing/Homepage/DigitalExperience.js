@@ -9,7 +9,7 @@ import Container from 'blocks/container/Container';
  * Static Assets Imports
  */
 
-const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
+const DigitalExperience = ({ content, FillerContent, theme }) => {
   return (
     <Box
       sx={{
@@ -21,11 +21,11 @@ const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
       }}
       component="section"
     >
-      <Box
+      {/* <Box
         sx={{ position: 'absolute', right: 0 }}
         component="img"
         src={content.bracket_background?.data[0].url}
-      />
+      /> */}
       <Box
         sx={{
           position: 'absolute',
@@ -100,8 +100,9 @@ const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
             spacing={2}
             container
           >
-            {content.product_options?.data.map((item) => (
+            {content.product_options?.data.map((item, index) => (
               <Grid
+                key={index}
                 sx={{
                   width: '100%',
                 }}
@@ -109,61 +110,72 @@ const DigitalExperience = ({ content, FillerContent, theme, isMedium }) => {
                 sm={12}
                 md={4}
               >
-                <Card
-                  sx={{
-                    width: '100%',
-                    minHeight: 450,
-                    p: 2,
-                    maxWidth: 426,
-                    margin: 'auto',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
+                <Box
+                  data-aos-offset="200"
+                  data-aos="fade-up"
+                  data-aos-duration={`${500 * (index + 1)}`}
                 >
-                  <CardContent>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
+                  <Card
+                    component="a"
+                    href={item.link?.data[0].meta.web.uri || FillerContent.href}
+                    target="_blank"
+                    sx={{
+                      width: '100%',
+                      minHeight: 450,
+                      p: 2,
+                      maxWidth: 426,
+                      margin: 'auto',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <CardContent>
                       <Box
-                        component="img"
-                        sx={{ width: '100%', maxWidth: 334, height: 179 }}
-                        src={
-                          item.graphic?.data[0].url ||
-                          FillerContent.photos[0].url
-                        }
-                      />
-                    </Box>
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Box
+                          component="img"
+                          sx={{ width: '100%', maxWidth: 334, height: 179 }}
+                          src={
+                            item.graphic?.data[0].url ||
+                            FillerContent.photos[0].url
+                          }
+                        />
+                      </Box>
 
-                    <Box sx={{ textAlign: 'center', mt: 4 }}>
-                      <Typography
-                        component="p"
-                        variant="h6"
-                        sx={{
-                          fontWeight: 'bold',
-                          color: theme.palette.zesty.zestyOrange,
-                        }}
-                      >
-                        {item.product_name || FillerContent.description}
-                      </Typography>
-                      <Typography
-                        component="p"
-                        variant="h6"
-                        sx={{
-                          mt: 4,
-                          lineHeight: 1.2,
-                          color: theme.palette.zesty.zestyZambezi,
-                        }}
-                      >
-                        {item.product_description || FillerContent.description}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
+                      <Box sx={{ textAlign: 'center', mt: 4 }}>
+                        <Typography
+                          component="p"
+                          variant="h6"
+                          sx={{
+                            fontWeight: 'bold',
+                            color: theme.palette.zesty.zestyOrange,
+                          }}
+                        >
+                          {item.product_name || FillerContent.description}
+                        </Typography>
+                        <Typography
+                          component="p"
+                          variant="h6"
+                          sx={{
+                            mt: 4,
+                            lineHeight: 1.2,
+                            color: theme.palette.zesty.zestyZambezi,
+                          }}
+                        >
+                          {item.product_description ||
+                            FillerContent.description}
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Box>
               </Grid>
             ))}
           </Grid>

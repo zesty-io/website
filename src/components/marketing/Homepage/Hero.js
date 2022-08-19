@@ -12,17 +12,21 @@ import MuiMarkdown from 'mui-markdown';
  */
 // import heroBackground from '../../../../public/assets/images/homepage/hero_background.svg';
 
-const Hero = ({ content, FillerContent, theme, isMedium }) => {
+const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
   return (
     <>
       <Box
         component="section"
         sx={{
           // background: `url(${heroBackground.src})`,
-          height: 700,
+          minHeight: 700,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          py: isMedium ? 10 : 0,
         }}
       >
         <Box
@@ -48,38 +52,44 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
               sm={12}
               md={6}
             >
-              <MuiMarkdown
-                overrides={{
-                  h1: {
-                    component: Typography,
-                    props: {
-                      component: 'h1',
-                      variant: 'h3',
-                      sx: {
-                        fontWeight: 900,
-                       
+              <Box>
+                <MuiMarkdown
+                  overrides={{
+                    h1: {
+                      component: Typography,
+                      props: {
+                        'data-aos': 'fade-up',
+                        'data-aos-duration': '1000',
+                        component: 'h1',
+                        variant: 'h3',
+                        sx: {
+                          color: theme.palette.zesty.zestyDarkText,
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      component: 'p',
-                      variant: 'h6',
-                      sx: {
-                        fontWeight: 'bold',
-                        mt: 2,
-                        color: theme.palette.text.secondary,
+                    p: {
+                      component: Typography,
+                      props: {
+                        'data-aos': 'fade-up',
+                        'data-aos-duration': '1500',
+                        component: 'p',
+                        variant: 'h6',
+                        sx: {
+                          mt: 2,
+                          color: theme.palette.text.secondary,
+                        },
                       },
                     },
-                  },
-                }}
-              >
-                {content.header_title_and_description ||
-                  FillerContent.rich_text}
-              </MuiMarkdown>
+                  }}
+                >
+                  {content.header_title_and_description ||
+                    FillerContent.rich_text}
+                </MuiMarkdown>
+              </Box>
 
               <Box
+                data-aos="fade-up"
+                data-aos-duration="2500"
                 sx={{
                   mt: 4,
                   display: 'flex',
@@ -102,13 +112,13 @@ const Hero = ({ content, FillerContent, theme, isMedium }) => {
                   fullWidth={isMedium}
                   href={content.hero_button_right_link?.data[0].meta.web.uri}
                   text={content.hero_button_right || FillerContent.cta}
-                  variant="outlined"
                 />
               </Box>
             </Grid>
             <Grid item sm={12} md={6}>
               <Box>
                 <Box
+                  data-aos="fade-up"
                   sx={{ width: '100%', maxWidth: 846 }}
                   component="img"
                   src={

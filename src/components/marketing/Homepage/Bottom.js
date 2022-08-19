@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 /**
@@ -17,7 +17,6 @@ const Bottom = ({
   FillerContent,
   theme,
   isMedium,
-  isLarge,
   isSmall,
   isExtraLarge,
 }) => {
@@ -40,6 +39,8 @@ const Bottom = ({
         <Grid container spacing={2}>
           <Grid sm={12} md={7}>
             <Box
+              data-aos-offset="200"
+              data-aos="fade-up"
               sx={{
                 width: isExtraLarge ? '100%' : 950,
                 mt: isExtraLarge ? 0 : -12.5,
@@ -81,9 +82,13 @@ const Bottom = ({
                   h2: {
                     component: Typography,
                     props: {
+                      'data-aos-offset': '200',
+                      'data-aos': 'fade-up',
+                      'data-aos-duration': '1000',
                       variant: 'h3',
                       component: 'h2',
                       sx: {
+                        textAlign: isMedium ? 'center' : 'left',
                         color: theme.palette.common.white,
                         fontWeight: 'bold',
                       },
@@ -92,9 +97,13 @@ const Bottom = ({
                   p: {
                     component: Typography,
                     props: {
+                      'data-aos-offset': '200',
+                      'data-aos': 'fade-up',
+                      'data-aos-duration': '1500',
                       variant: 'h6',
                       component: 'p',
                       sx: {
+                        textAlign: isMedium ? 'center' : 'left',
                         mt: 1,
                         color: theme.palette.common.white,
                       },
@@ -107,6 +116,9 @@ const Bottom = ({
               </MuiMarkdown>
 
               <Box
+                data-aos-offset="200"
+                data-aos="fade-up"
+                data-aos-duration="1500"
                 sx={{
                   mt: 4,
                   display: 'flex',

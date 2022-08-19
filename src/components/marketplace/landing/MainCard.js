@@ -9,11 +9,6 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
  */
 import FillerContent from 'components/globals/FillerContent';
 
-/**
- * React Imports
- */
-import { useRouter } from 'next/router';
-
 const MainCard = ({
   name,
   image,
@@ -27,7 +22,9 @@ const MainCard = ({
    * Theme Settings
    */
   const theme = useTheme();
-  const router = useRouter();
+
+  const landingPage = uri;
+  const productPage = meta?.web.uri;
 
   return (
     <Box
@@ -104,9 +101,9 @@ const MainCard = ({
                   component="img"
                   alt=""
                   src={
-                    router.asPath !== '/marketplace/'
-                      ? image.data[0].url
-                      : image || FillerContent.logos[0].url
+                    (landingPage && image) ||
+                    (productPage && image.data[0].url) ||
+                    FillerContent.logos[0].url
                   }
                 />
               </Box>
@@ -146,7 +143,7 @@ const MainCard = ({
                   component="p"
                 >
                   {meta_description ||
-                    meta.web.seo_meta_description ||
+                    meta?.web.seo_meta_description ||
                     FillerContent.description}
                 </Typography>
 
