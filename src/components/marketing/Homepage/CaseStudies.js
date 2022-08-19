@@ -1,33 +1,23 @@
 /**
- * React Imports
- */
-
-import { useEffect, useState } from 'react';
-/**
  * MUI Imports
  */
 
 import { Box, Typography, Card, Button, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
 
-const CaseStudies = ({
-  content,
-  FillerContent,
-  theme,
-  isMedium,
-  isLarge,
-  isDarkMode,
-}) => {
+const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
   return (
     <Box
       component="section"
       sx={{
-        background: `url(${content.case_studies_background.data[0].url})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        // background: `url(${content.case_studies_background.data[0].url})`,
+        // backgroundSize: 'cover',
+        // backgroundPosition: 'center',
+        // backgroundRepeat: 'no-repeat',
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyWhite,
         py: 10,
         mt: 10,
       }}
@@ -39,7 +29,7 @@ const CaseStudies = ({
             component="h2"
             sx={{
               color: isDarkMode
-                ? theme.palette.zesty.zestyDarkBlue
+                ? theme.palette.common.white
                 : theme.palette.zesty.zestyDarkText,
               textAlign: 'center',
               fontWeight: 'bold',
@@ -52,7 +42,7 @@ const CaseStudies = ({
             component="p"
             sx={{
               color: isDarkMode
-                ? theme.palette.zesty.zestyDarkBlue
+                ? theme.palette.common.white
                 : theme.palette.zesty.zestyDarkText,
               textAlign: 'center',
               mt: 2,
@@ -85,6 +75,9 @@ const CaseStudies = ({
           {content.case_study_cards?.data.map((item, index) => (
             <Grid key={index} item sm={12} md={4}>
               <Card
+                component="a"
+                href={item.card_link.data[0].meta.web.uri}
+                target="_blank"
                 data-aos-offset="200"
                 data-aos="fade-up"
                 data-aos-duration={`${index + 1}000`}
@@ -95,6 +88,8 @@ const CaseStudies = ({
                   borderRadius: 5,
                   margin: 'auto',
                   position: 'relative',
+                  display: 'block',
+                  textDecoration: 'none',
                 }}
               >
                 <Box

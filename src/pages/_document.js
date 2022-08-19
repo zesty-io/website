@@ -14,8 +14,8 @@ const getCache = () => {
 
 export default class MyDocument extends Document {
   render() {
-      // google analytics tags
-  let GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
+    // taga manager / google analytics tags
+    let GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
   
     const fetchUrl =
       process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
@@ -52,8 +52,15 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-          <script>AOS.init();</script>
-          
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            ></iframe>
+          </noscript>
+
           {/* Zoominfo */}
           <noscript>
             <img

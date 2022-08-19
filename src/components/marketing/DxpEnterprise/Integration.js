@@ -106,7 +106,11 @@ const Integration = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                       text={'Get Started'}
                     />
                     <Button
-                      href={'/demo'}
+                      target={'_blank'}
+                      href={
+                        content.footer_cta_secondary_link?.data[0].meta.web
+                          .uri || FillerContent.href
+                      }
                       component="a"
                       fullWidth={false}
                       endIcon={<ArrowRightAltIcon />}
@@ -114,12 +118,11 @@ const Integration = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                         '&:hover': {
                           background: 'transparent',
                         },
-                        textDecoration: 'underline',
                         color: theme.palette.zesty.zestyOrange,
                         px: 6,
                       }}
                     >
-                      Request Demo
+                      {content.footer_cta_secondary}
                     </Button>
                   </Box>
                 </Box>

@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 /**
@@ -17,7 +17,6 @@ const Bottom = ({
   FillerContent,
   theme,
   isMedium,
-  isLarge,
   isSmall,
   isExtraLarge,
 }) => {
@@ -89,6 +88,7 @@ const Bottom = ({
                       variant: 'h3',
                       component: 'h2',
                       sx: {
+                        textAlign: isMedium ? 'center' : 'left',
                         color: theme.palette.common.white,
                         fontWeight: 'bold',
                       },
@@ -103,6 +103,7 @@ const Bottom = ({
                       variant: 'h6',
                       component: 'p',
                       sx: {
+                        textAlign: isMedium ? 'center' : 'left',
                         mt: 1,
                         color: theme.palette.common.white,
                       },

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
  * MUI Imports
  */
 
-import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import MuiMarkdown from 'mui-markdown';
@@ -26,7 +26,7 @@ import DemoCta from 'components/cta/DemoCta';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
   const [activeSlide, setActiveSlide] = useState();
 
   return (
@@ -94,10 +94,11 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                 spaceBetween: 10,
               },
             }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
+            // Disabled auto play temporarily due to bug
+            // autoplay={{
+            //   delay: 2500,
+            //   disableOnInteraction: false,
+            // }}
             loop
             speed={2000}
             modules={[Navigation, Pagination, Autoplay]}
@@ -126,6 +127,7 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
 
             <Box
               sx={{
+                minHeight: 200,
                 display: 'flex',
                 alignItems: 'center',
                 gap: 4,
@@ -135,7 +137,7 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                 mt: isLarge ? 2 : 0,
               }}
             >
-              <Box>
+              <Box sx={{ display: isMedium ? 'none' : 'block' }}>
                 <SwiperButtonPrev />
               </Box>
               {
@@ -171,9 +173,20 @@ const NewBenefits = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                   </MuiMarkdown>
                 </Box>
               }
-              <Box>
+              <Box sx={{ display: isMedium ? 'none' : 'block' }}>
                 <SwiperButtonNext />
               </Box>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 4,
+                justifyContent: 'center',
+                display: isMedium ? 'flex' : 'none',
+              }}
+            >
+              <SwiperButtonPrev />
+              <SwiperButtonNext />
             </Box>
           </Swiper>
         </Box>
