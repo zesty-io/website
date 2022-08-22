@@ -88,6 +88,7 @@ export default function Users() {
     // will need to get a single setting by zuid to have the accurate body to pass for update:
     // GET single setting not in fetchwarpper: https://instances-api.zesty.org/#e728c7a2-eb7d-476f-b493-232eb7ef2ef3
     // can use the getSettings endpoint but will need to filter our the needed body to process
+    const body = null;
     try {
       // get settings body object, destructure object and update value key with new value
       const res = await ZestyAPI.updateSetting(settingZUID, body);

@@ -165,7 +165,7 @@ const Hero = ({
                             component="img"
                             src={
                               item.image?.data[0].url ||
-                              FillterContent.logos[0].url
+                              FillerContent.logos[0].url
                             }
                           />
                         </Box>

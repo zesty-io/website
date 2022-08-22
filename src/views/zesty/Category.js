@@ -68,6 +68,7 @@ function Category({ content }) {
     },
   ]);
 
+  const error = 'Error';
   // use effect pull in news articles
   useEffect(() => {
     try {

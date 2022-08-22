@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // run script: node lib/sync.js
 // reach out to zesty's url map
 // create file structure that maps over the zesty instance

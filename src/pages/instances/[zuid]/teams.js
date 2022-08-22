@@ -43,6 +43,10 @@ export default function TeamsPage() {
     console.log(res);
     SuccessMsg({ title: 'Success' });
   };
+  const handleUpdateTeamError = (res) => {
+    console.log(res);
+    ErrorMsg({ text: res.error });
+  };
   const handleCreateTeamInviteSuccess = (res) => {
     console.log(res);
     SuccessMsg({ title: 'Success' });

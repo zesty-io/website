@@ -2,6 +2,11 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    node: true,
+  },
+  globals: {
+    Zesty: true,
+    dataLayer: true,
   },
   extends: ['plugin:react/recommended', 'google', 'prettier'],
   parser: '@typescript-eslint/parser',
@@ -14,6 +19,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'import', 'unused-imports'],
   rules: {
+    'no-undef': 'error',
     'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
