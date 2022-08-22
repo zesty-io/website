@@ -79,8 +79,8 @@ const password = yup.object().shape({
 });
 
 const twoFactorAuth = yup.object().shape({
-  areaCode: yup.string().required('This is required'),
-  phoneNumber: yup.string().required('Email address is required*'),
+  areaCode: yup.string().required('Area Code is Required*'),
+  phoneNumber: yup.string().required('Phone Number is required*'),
 });
 
 const localeSchema = yup.object().shape({

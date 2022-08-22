@@ -46,7 +46,7 @@ export default function SecurityPage() {
 
   return (
     <ProfileContainer>
-      <Security />
+      <Security getUser={() => getUser(userZUID)} />
     </ProfileContainer>
   );
 }
