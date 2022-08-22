@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useZestyStore } from 'store';
 import {
   AccountsSelect,
@@ -114,7 +114,6 @@ export const Preference = () => {
 
   return (
     <Box>
-      <Typography variant="h4">Preference</Typography>
       <StickyTable rows={memoizeRows} columns={memoizeColumns} />
     </Box>
   );
