@@ -14,12 +14,19 @@ import { getCookie } from 'cookies-next';
 import { getUserAppSID } from 'utils';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { SnackbarProvider } from 'notistack';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
   console.error = () => {};
   console.debug = () => {};
 }
+
+// add your layout component here as an object, then on your specific pages
+// set an object of data with a container object to automatically set your layout
+const layouts = {
+  InstanceContainer,
+};
 
 export default function App({ Component, pageProps }) {
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
@@ -31,6 +38,8 @@ export default function App({ Component, pageProps }) {
     userAppSID,
     instanceZUID,
   );
+
+  const Layout = layouts[Component.data?.container];
 
   React.useEffect(() => {
     setverifySuccess(verifySuccess);
@@ -44,7 +53,13 @@ export default function App({ Component, pageProps }) {
       {pageProps?.meta?.web && <ZestyHead content={pageProps} />}
       <SnackbarProvider autoHideDuration={2500} preventDuplicate maxSnack={3}>
         <Page>
-          <Component {...pageProps} />
+          {Layout === undefined ? (
+            <Component {...pageProps} />
+          ) : (
+            <Layout {...Component.data.props}>
+              <Component {...pageProps} />
+            </Layout>
+          )}
         </Page>
       </SnackbarProvider>
     </React.Fragment>

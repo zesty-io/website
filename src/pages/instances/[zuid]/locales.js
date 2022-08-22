@@ -1,6 +1,5 @@
 import { Button, Stack } from '@mui/material';
 import CustomDataGrid from 'components/accounts/instances/CustomDataGrid';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useZestyStore } from 'store';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
@@ -179,7 +178,7 @@ export default function Locales() {
   };
 
   return (
-    <InstanceContainer>
+    <>
       <Stack>
         <Button sx={{ px: 0, ml: 'auto' }} title="add">
           <Button
@@ -205,6 +204,10 @@ export default function Locales() {
         pageSize={5}
         isLoading={isLoading}
       />
-    </InstanceContainer>
+    </>
   );
 }
+
+Locales.data = {
+  container: 'InstanceContainer',
+};

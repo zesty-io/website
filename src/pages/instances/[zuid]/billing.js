@@ -2,7 +2,6 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import BasicTable from 'components/accounts/users/BasicTable';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function Billing() {
   const [users, setusers] = React.useState([]);
@@ -32,8 +31,12 @@ export default function Billing() {
   }, [router.isReady]);
 
   return (
-    <InstanceContainer>
+    <>
       Manager users on instance <BasicTable users={users} roles={roles} />
-    </InstanceContainer>
+    </>
   );
 }
+
+Billing.data = {
+  container: 'InstanceContainer',
+};

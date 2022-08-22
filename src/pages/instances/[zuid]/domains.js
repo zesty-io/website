@@ -4,9 +4,8 @@ import { Container } from '@mui/system';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import DomainPaper from 'components/accounts/domains/DomainPaper';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
-export default function Users() {
+export default function Domains() {
   const [instanceDomains, setinstanceDomains] = useState([]);
   const [devDomains, setdevDomains] = useState([]);
   const [liveDomains, setliveDomains] = useState([]);
@@ -116,7 +115,7 @@ export default function Users() {
   }, [instanceDomains.length, router.isReady]);
 
   return (
-    <InstanceContainer>
+    <>
       <Container>
         <Box m={4}>
           Live Domains
@@ -141,6 +140,10 @@ export default function Users() {
           </Grid>
         </Box>
       </Container>
-    </InstanceContainer>
+    </>
   );
 }
+
+Domains.data = {
+  container: 'InstanceContainer',
+};

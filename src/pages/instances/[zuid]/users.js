@@ -6,7 +6,6 @@ import { ErrorMsg, StickyTable, SuccessMsg } from 'components/accounts';
 import { baseroles } from 'components/accounts/users/baseroles';
 import { Box, Typography } from '@mui/material';
 import * as helpers from 'utils';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 const COLUMNS = [
   {
@@ -157,7 +156,7 @@ export default function UsersPage() {
   );
   console.log(users, 'user data');
   return (
-    <InstanceContainer>
+    <>
       <Users
         updateRole={updateRole}
         roles={instanceUserWithRoles}
@@ -168,6 +167,10 @@ export default function UsersPage() {
         instanceZUID={zuid}
       />
       <RolesTable />
-    </InstanceContainer>
+    </>
   );
 }
+
+UsersPage.data = {
+  container: 'InstanceContainer',
+};

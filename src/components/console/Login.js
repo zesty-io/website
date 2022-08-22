@@ -7,16 +7,22 @@ import {
 } from 'components/accounts';
 import { setCookie } from 'cookies-next';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import LoadingButton from '@mui/lab/LoadingButton';
 import { useFormik } from 'formik';
-import React from 'react';
+import { useState } from 'react';
 import { useZestyStore } from 'store';
 import * as helpers from 'utils';
 import { Box } from '@mui/system';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { useSnackbar } from 'notistack';
+
+const MySwal = withReactContent(Swal);
 
 const Login = () => {
   const { ZestyAPI } = useZestyStore((state) => state);
-  const [loading, setloading] = React.useState(false);
+  const [loading, setloading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleLoginSuccess = (res) => {
     setloading(false);
@@ -36,16 +42,87 @@ const Login = () => {
     ErrorMsg({ text: err.message });
   };
 
+  const triggerAuto2FA = () => {
+    setInterval(async () => {
+      const response = await ZestyAPI.verify2FAAuto();
+      if (response.code === 200) {
+        window.location.replace('/instances');
+      }
+    }, 3000);
+  };
+
+  const TwoFactorAuth = () => {
+    const [loading2FA, setLoading2FA] = useState(false);
+    const formik = useFormik({
+      initialValues: {
+        otp: '',
+      },
+      validationSchema: accountsValidations.otpTwoFactor,
+      onSubmit: async (values) => {
+        setLoading2FA(true);
+        const response = await ZestyAPI.verify2FA(values.otp);
+        if (response.code === 200) {
+          await ZestyAPI.verify();
+          window.location.replace('/instances');
+
+          MySwal.close();
+          formik.resetForm();
+          setLoading2FA(false);
+          return;
+        }
+        enqueueSnackbar(response.message, { variant: 'error' });
+        setLoading2FA(false);
+      },
+    });
+
+    return (
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <FormInput
+          label="Two Factor Auth"
+          name="otp"
+          formik={formik}
+          sx={{ mt: 2 }}
+        />
+        <LoadingButton
+          type="submit"
+          color="primary"
+          variant="contained"
+          fullWidth
+          loading={loading2FA}
+        >
+          Submit
+        </LoadingButton>
+      </form>
+    );
+  };
+
+  const handleShow2FA = async (res) => {
+    setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.meta.token);
+    await ZestyAPI.setToken(res.meta.token);
+    triggerAuto2FA();
+
+    MySwal.fire({
+      title: `Two factor authentication`,
+      showConfirmButton: false,
+      html: <TwoFactorAuth />,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+    });
+  };
+
   const login = async (data) => {
     setloading(true);
     const { email, password } = data;
     const res = await ZestyAPI.login(email, password);
-    res.code === 200 && handleLoginSuccess(res);
-    res.code !== 200 && handleLoginErr(res);
+    if (res.code === 200) handleLoginSuccess(res);
+    else if (res.code === 202) await handleShow2FA(res);
+    else if (res.code !== 200) handleLoginErr(res);
   };
+
   const handleLogin = async (data) => {
     await login(data);
   };
+
   const formik = useFormik({
     validationSchema: accountsValidations.login,
     initialValues: {

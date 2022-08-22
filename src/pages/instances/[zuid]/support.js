@@ -1,9 +1,8 @@
 import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
-export default function Webhooks() {
+export default function Support() {
   const { userInfo, workingInstance } = useZestyStore((state) => state);
 
   const router = useRouter();
@@ -13,9 +12,13 @@ export default function Webhooks() {
   console.log(userInfo, 'support');
 
   return (
-    <InstanceContainer>
+    <>
       Support Instance: {workingInstance}
       User ZUID: {userInfo?.ZUID} User Email: {userInfo?.email}
-    </InstanceContainer>
+    </>
   );
 }
+
+Support.data = {
+  container: 'InstanceContainer',
+};
