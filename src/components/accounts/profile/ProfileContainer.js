@@ -3,18 +3,17 @@ import Login from 'components/console/Login';
 import Main from 'layouts/Main/Main';
 import React from 'react';
 import { Container } from '@mui/material';
-import { InstancesApp } from './InstancesApp';
+import { ProfileApp } from './ProfileApp';
 import { getCookie } from 'cookies-next';
 
-const InstanceContainer = ({ children, isDashboard = false }) => {
+const Index = ({ children, isDashboard = false }) => {
   const isAuthenticated = getCookie('isAuthenticated');
-
   const renderChildren = () => {
     if (isAuthenticated) {
       if (isDashboard) {
         return children;
       } else {
-        return <InstancesApp>{children}</InstancesApp>;
+        return <ProfileApp>{children}</ProfileApp>;
       }
     } else {
       return <Login />;
@@ -34,4 +33,4 @@ const InstanceContainer = ({ children, isDashboard = false }) => {
   );
 };
 
-export default InstanceContainer;
+export const ProfileContainer = React.memo(Index);

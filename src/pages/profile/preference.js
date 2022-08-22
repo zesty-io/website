@@ -1,14 +1,10 @@
 import React from 'react';
-import AppBar from 'components/console/AppBar';
-import { Container } from '@mui/system';
-import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import Login from 'components/console/Login';
 import { Preference } from 'views/accounts/profile/Preference';
-import { ProfileApp } from 'components/accounts';
+import { ProfileContainer } from 'components/accounts';
 
 export default function PreferencePage() {
-  const { isAuthenticated, setuserInfo } = useZestyStore((state) => state);
+  const { setuserInfo } = useZestyStore((state) => state);
   const { ZestyAPI } = useZestyStore((state) => state);
   const [userZUID, setuserZUID] = React.useState('');
 
@@ -49,19 +45,8 @@ export default function PreferencePage() {
   }, [userZUID]);
 
   return (
-    <Main>
-      <AppBar />
-      <Container>
-        {isAuthenticated ? (
-          <>
-            <ProfileApp>
-              <Preference />
-            </ProfileApp>
-          </>
-        ) : (
-          <Login />
-        )}
-      </Container>
-    </Main>
+    <ProfileContainer>
+      <Preference />
+    </ProfileContainer>
   );
 }
