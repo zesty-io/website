@@ -1,12 +1,7 @@
 import React from 'react';
-import AppBar from 'components/console/AppBar';
-import { Container } from '@mui/system';
-import Main from 'layouts/Main';
 import { useZestyStore } from 'store';
-import Login from 'components/console/Login';
 import { YourProfile } from 'views/accounts/profile/YourProfile';
-import { ProfileApp } from 'components/accounts';
-import { getCookie } from 'cookies-next';
+import { ProfileContainer } from 'components/accounts';
 
 export default function ProfilePage() {
   const { setuserInfo } = useZestyStore((state) => state);
@@ -41,8 +36,6 @@ export default function ProfilePage() {
     res.error && handleGetUserError(res);
   };
 
-  const isAuthenticated = getCookie('isAuthenticated');
-
   React.useEffect(() => {
     verify();
   }, []);
@@ -52,19 +45,8 @@ export default function ProfilePage() {
   }, [userZUID]);
 
   return (
-    <Main>
-      <AppBar />
-      <Container>
-        {isAuthenticated ? (
-          <>
-            <ProfileApp>
-              <YourProfile getUser={() => getUser(userZUID)} />
-            </ProfileApp>
-          </>
-        ) : (
-          <Login />
-        )}
-      </Container>
-    </Main>
+    <ProfileContainer>
+      <YourProfile getUser={() => getUser(userZUID)} />
+    </ProfileContainer>
   );
 }
