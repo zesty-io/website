@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, Link, Typography } from '@mui/material';
 import {
   accountsValidations,
   ErrorMsg,
@@ -76,23 +76,32 @@ const Login = () => {
     });
 
     return (
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput
-          label="Two Factor Auth"
-          name="otp"
-          formik={formik}
-          sx={{ mt: 2 }}
-        />
-        <LoadingButton
-          type="submit"
-          color="primary"
-          variant="contained"
-          fullWidth
-          loading={loading2FA}
-        >
-          Submit
-        </LoadingButton>
-      </form>
+      <>
+        <Typography>
+          To sign in, open the{' '}
+          <Link target="_blank" href="https://authy.com">
+            Authy
+          </Link>{' '}
+          app on your mobile device.
+        </Typography>
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <FormInput
+            label="Enter your authy token"
+            name="otp"
+            formik={formik}
+            sx={{ mt: 2 }}
+          />
+          <LoadingButton
+            type="submit"
+            color="primary"
+            variant="contained"
+            fullWidth
+            loading={loading2FA}
+          >
+            Submit
+          </LoadingButton>
+        </form>
+      </>
     );
   };
 
@@ -102,7 +111,7 @@ const Login = () => {
     triggerAuto2FA();
 
     MySwal.fire({
-      title: `Two factor authentication`,
+      title: `Enter Authy Token`,
       showConfirmButton: false,
       html: <TwoFactorAuth />,
       allowOutsideClick: false,
