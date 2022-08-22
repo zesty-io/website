@@ -35,6 +35,7 @@ const Main = ({
   // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   // const userAppSID = getUserAppSID();
   const { verifySuccess, loading, userInfo } = useZestyStore((state) => state);
+  const isAuth = getCookie('isAuthenticated');
 
   const isAuthenticated = verifySuccess.userZuid ? true : false;
   let isUser = false;
@@ -113,9 +114,9 @@ const Main = ({
           zIndex={theme.zIndex.appBar}
         >
           <Container
-            maxWidth={isAuthenticated ? false : true}
+            maxWidth={isAuth ? false : true}
             sx={(theme) => ({
-              maxWidth: isAuthenticated
+              maxWidth: isAuth
                 ? theme.breakpoints.values.xl2
                 : theme.breakpoints.values.lg,
             })}
@@ -141,9 +142,9 @@ const Main = ({
         elevation={trigger ? 1 : 0}
       >
         <Container
-          maxWidth={isAuthenticated ? false : true}
+          maxWidth={isAuth ? false : true}
           sx={(theme) => ({
-            maxWidth: isAuthenticated
+            maxWidth: isAuth
               ? theme.breakpoints.values.xl2
               : theme.breakpoints.values.lg,
           })}
