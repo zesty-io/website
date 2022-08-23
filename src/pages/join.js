@@ -81,7 +81,7 @@ const postToZOHO = async (payloadJSON) => {
 export default function Join(props) {
     const theme = useTheme();
     const { height, width } = getWindowDimensions();
-
+    const isProduction = process.env.PRODUCTION || process.env.PRODUCTION === 'true'
 
     // state values for form capture
     const [role, setRole] = useState('Developer');
@@ -210,7 +210,7 @@ export default function Join(props) {
                 scrollbar={{ draggable: false }}
                 modules={[Pagination, Navigation]}
                 // remove this when testing
-                allowTouchMove={false}
+                allowTouchMove={isProduction ? false : true}
 
             >
                 <SwiperSlide > 
