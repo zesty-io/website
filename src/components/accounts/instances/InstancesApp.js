@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
-import InstanceOverview from 'components/accounts/instances/InstanceOverview';
 import InstanceHeader from 'components/accounts/instances/InstanceHeader';
 import { instanceTabs } from 'components/accounts/instances/tabs';
 import { lang } from 'components/accounts/instances/lang';
@@ -102,7 +101,7 @@ const Index = ({ children }) => {
               {currentPage ? capitalize(currentPage) : 'Overview'}
             </Typography>
             <Divider sx={{ mb: 2 }} />
-            {tabValue == '' ? <InstanceOverview /> : children}
+            {children}
           </Grid>
         </Grid>
       ) : (
@@ -134,7 +133,7 @@ const Index = ({ children }) => {
                 />
               ))}
           </Tabs>
-          {tabValue == '' ? <InstanceOverview /> : children}
+          {children}
         </>
       )}
     </Box>

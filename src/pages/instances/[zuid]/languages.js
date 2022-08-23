@@ -1,8 +1,7 @@
 import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
-export default function Webhooks() {
+export default function Languages() {
   const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
   const [webhooks, setWebhooks] = React.useState([]);
 
@@ -19,5 +18,9 @@ export default function Webhooks() {
     getWebhooks();
   }, []);
 
-  return <InstanceContainer>Manager Webhooks</InstanceContainer>;
+  return <>Languages</>;
 }
+
+Languages.data = {
+  container: 'InstanceContainer',
+};

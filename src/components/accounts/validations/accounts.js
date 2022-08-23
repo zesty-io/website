@@ -97,6 +97,11 @@ const createWebhook = yup.object().shape({
   authorization: yup.string(),
   text: yup.string(),
 });
+
+const otpTwoFactor = yup.object().shape({
+  otp: yup.string().required('This is required'),
+});
+
 export const accountsValidations = {
   email,
   password,
@@ -108,4 +113,5 @@ export const accountsValidations = {
   createToken,
   localeSchema,
   createWebhook,
+  otpTwoFactor,
 };

@@ -18,6 +18,7 @@ import { Topbar, Sidebar, Footer, AppNavigation } from './components';
 import { getCookie, setCookies } from 'cookies-next';
 import { useZestyStore } from 'store';
 import { Container } from '@mui/material';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 const Main = ({
   children,
@@ -35,6 +36,8 @@ const Main = ({
   // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   // const userAppSID = getUserAppSID();
   const { verifySuccess, loading, userInfo } = useZestyStore((state) => state);
+
+  const isLoggedIn = useIsLoggedIn();
 
   const isAuthenticated = verifySuccess.userZuid ? true : false;
   let isUser = false;
@@ -113,9 +116,9 @@ const Main = ({
           zIndex={theme.zIndex.appBar}
         >
           <Container
-            maxWidth={isAuthenticated ? false : true}
+            maxWidth={isLoggedIn ? false : true}
             sx={(theme) => ({
-              maxWidth: isAuthenticated
+              maxWidth: isLoggedIn
                 ? theme.breakpoints.values.xl2
                 : theme.breakpoints.values.lg,
             })}
@@ -141,9 +144,9 @@ const Main = ({
         elevation={trigger ? 1 : 0}
       >
         <Container
-          maxWidth={isAuthenticated ? false : true}
+          maxWidth={isLoggedIn ? false : true}
           sx={(theme) => ({
-            maxWidth: isAuthenticated
+            maxWidth: isLoggedIn
               ? theme.breakpoints.values.xl2
               : theme.breakpoints.values.lg,
           })}

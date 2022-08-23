@@ -1,7 +1,14 @@
 const { Box, TextField } = require('@mui/material');
 import React from 'react';
 
-const Index = ({ name, formik, label, type = 'text', multiline = false }) => {
+const Index = ({
+  name,
+  formik,
+  label,
+  type = 'text',
+  multiline = false,
+  ...props
+}) => {
   const newLabel =
     label || (name && name[0].toUpperCase() + name.slice(1)) || '';
   return (
@@ -20,6 +27,7 @@ const Index = ({ name, formik, label, type = 'text', multiline = false }) => {
               border: '1px solid #c4c4c4',
             },
           },
+          ...props.sx,
         }}
         label={newLabel}
         variant="outlined"
