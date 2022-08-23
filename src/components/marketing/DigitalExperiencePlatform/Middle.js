@@ -3,6 +3,7 @@
  */
 
 import { Box, Container, Typography, Grid } from '@mui/material';
+import FillerContent from 'components/globals/FillerContent';
 import MuiMarkdown from 'mui-markdown';
 
 const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {

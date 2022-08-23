@@ -9,6 +9,7 @@ import {
   useMediaQuery,
   Container,
 } from '@mui/material';
+import FillerContent from 'components/globals/FillerContent';
 
 const Hero = ({
   title,

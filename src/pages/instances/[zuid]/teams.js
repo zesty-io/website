@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { Teams } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function TeamsPage() {
   const [search, setsearch] = React.useState('');
@@ -42,6 +41,10 @@ export default function TeamsPage() {
   const handleUpdateTeamSuccess = (res) => {
     console.log(res);
     SuccessMsg({ title: 'Success' });
+  };
+  const handleUpdateTeamError = (res) => {
+    console.log(res);
+    ErrorMsg({ text: res.error });
   };
   const handleCreateTeamInviteSuccess = (res) => {
     console.log(res);
@@ -135,8 +138,12 @@ export default function TeamsPage() {
     }
   }, [router.isReady]);
   return (
-    <InstanceContainer>
+    <>
       <Teams {...teamsProps} />
-    </InstanceContainer>
+    </>
   );
 }
+
+TeamsPage.data = {
+  container: 'InstanceContainer',
+};

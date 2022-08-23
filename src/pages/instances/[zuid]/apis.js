@@ -6,7 +6,6 @@ import { ErrorMsg, SuccessMsg, TokenPrompt } from 'components/accounts';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import * as helpers from 'utils';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 const MySwal = withReactContent(Swal);
 
@@ -127,15 +126,17 @@ export default function ApisPage() {
   }, [router.isReady]);
 
   return (
-    <InstanceContainer>
-      <Apis
-        tokens={tokens}
-        instanceRoles={instanceRoles}
-        isInstanceOwner={isInstanceOwner}
-        createToken={createToken}
-        deleteToken={deleteToken}
-        updateToken={updateToken}
-      />
-    </InstanceContainer>
+    <Apis
+      tokens={tokens}
+      instanceRoles={instanceRoles}
+      isInstanceOwner={isInstanceOwner}
+      createToken={createToken}
+      deleteToken={deleteToken}
+      updateToken={updateToken}
+    />
   );
 }
+
+ApisPage.data = {
+  container: 'InstanceContainer',
+};

@@ -53,6 +53,7 @@
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.1",
+    "@mui/lab": "^5.0.0-alpha.95",
     "@mui/material": "^5.6.1",
     "@mui/x-data-grid": "^5.15.2",
     "@sweetalert2/theme-material-ui": "^5.0.11",

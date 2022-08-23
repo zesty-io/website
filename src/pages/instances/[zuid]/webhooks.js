@@ -3,7 +3,6 @@ import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Webhooks } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import * as helpers from 'utils';
 
 export default function WebhooksPage() {
@@ -142,7 +141,7 @@ export default function WebhooksPage() {
   }, [router.isReady]);
 
   return (
-    <InstanceContainer>
+    <>
       <Webhooks
         webhooks={webhooks}
         createWebhook={createWebhook}
@@ -150,6 +149,10 @@ export default function WebhooksPage() {
         testWebhook={testWebhook}
         isInstanceOwner={isInstanceOwner}
       />
-    </InstanceContainer>
+    </>
   );
 }
+
+WebhooksPage.data = {
+  container: 'InstanceContainer',
+};

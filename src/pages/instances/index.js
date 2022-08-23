@@ -2,9 +2,8 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { InstancesDashboard } from 'components/accounts/instances/InstancesDashboard';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
-export default function Intances() {
+export default function Instances() {
   const { instances } = useFetchWrapper();
   const { setInstances } = useZestyStore((state) => state);
 
@@ -12,9 +11,12 @@ export default function Intances() {
     setInstances(instances);
   }, [instances]);
 
-  return (
-    <InstanceContainer isDashboard>
-      <InstancesDashboard />
-    </InstanceContainer>
-  );
+  return <InstancesDashboard />;
 }
+
+Instances.data = {
+  container: 'InstanceContainer',
+  props: {
+    isDashboard: true,
+  },
+};

@@ -4,9 +4,8 @@ import { Container } from '@mui/system';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import DomainPaper from 'components/accounts/domains/DomainPaper';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
-export default function Users() {
+export default function Domains() {
   const [instanceDomains, setinstanceDomains] = useState([]);
   const [devDomains, setdevDomains] = useState([]);
   const [liveDomains, setliveDomains] = useState([]);
@@ -88,6 +87,7 @@ export default function Users() {
     // will need to get a single setting by zuid to have the accurate body to pass for update:
     // GET single setting not in fetchwarpper: https://instances-api.zesty.org/#e728c7a2-eb7d-476f-b493-232eb7ef2ef3
     // can use the getSettings endpoint but will need to filter our the needed body to process
+    const body = null;
     try {
       // get settings body object, destructure object and update value key with new value
       const res = await ZestyAPI.updateSetting(settingZUID, body);
@@ -116,7 +116,7 @@ export default function Users() {
   }, [instanceDomains.length, router.isReady]);
 
   return (
-    <InstanceContainer>
+    <>
       <Container>
         <Box m={4}>
           Live Domains
@@ -141,6 +141,10 @@ export default function Users() {
           </Grid>
         </Box>
       </Container>
-    </InstanceContainer>
+    </>
   );
 }
+
+Domains.data = {
+  container: 'InstanceContainer',
+};

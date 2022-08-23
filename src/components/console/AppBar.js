@@ -11,19 +11,15 @@ import { getCookie, setCookies } from 'cookies-next';
 import HomeIcon from '@mui/icons-material/Home';
 import Skeleton from '@mui/material/Skeleton';
 import { useZestyStore } from 'store';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 export default function AppBar({ url = window.location.pathname }) {
-  const {
-    verifySuccess,
-    instances,
-    userInfo,
-    loading,
-    setworkingInstance,
-    isAuthenticated,
-  } = useZestyStore((state) => state);
+  const { verifySuccess, instances, userInfo, loading, setworkingInstance } =
+    useZestyStore((state) => state);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const isLoggedIn = useIsLoggedIn();
 
   // get param from url to look for instance
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -57,9 +53,9 @@ export default function AppBar({ url = window.location.pathname }) {
       }}
     >
       <Container
-        maxWidth={isAuthenticated ? false : true}
+        maxWidth={isLoggedIn ? false : true}
         sx={(theme) => ({
-          maxWidth: isAuthenticated
+          maxWidth: isLoggedIn
             ? theme.breakpoints.values.xl2
             : theme.breakpoints.values.lg,
         })}

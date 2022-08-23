@@ -2,7 +2,6 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Settings } from 'views/accounts/instances';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function SettingsPage() {
   const [settings, setsettings] = React.useState([]);
@@ -38,9 +37,9 @@ export default function SettingsPage() {
     }
   }, [router.isReady]);
 
-  return (
-    <InstanceContainer>
-      <Settings settings={settings} />
-    </InstanceContainer>
-  );
+  return <Settings settings={settings} />;
 }
+
+SettingsPage.data = {
+  container: 'InstanceContainer',
+};

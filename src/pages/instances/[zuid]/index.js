@@ -1,8 +1,7 @@
 import React from 'react';
 import { useZestyStore, getZestyAPI } from 'store';
-import { InstancesApp } from 'components/accounts/instances/InstancesApp';
 import { useRouter } from 'next/router';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
+import { Typography } from '@mui/material';
 
 export default function Instance() {
   const { setZestyAPI } = useZestyStore((state) => state);
@@ -14,8 +13,12 @@ export default function Instance() {
   }, []);
 
   return (
-    <InstanceContainer>
-      <InstancesApp />
-    </InstanceContainer>
+    <>
+      <Typography variant="h2">Overview!</Typography>
+    </>
   );
 }
+
+Instance.data = {
+  container: 'InstanceContainer',
+};
