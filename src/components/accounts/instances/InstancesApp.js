@@ -12,6 +12,7 @@ import {
   Divider,
   Tabs,
   Tab,
+  Container,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
@@ -77,15 +78,14 @@ const Index = ({ children }) => {
   }, [instance, currentPage]);
 
   return (
-    <Box my={2}>
+    <Box>
       {!isSM ? (
-        <Grid container spacing={2}>
+        <Grid container>
           <Grid
             item
             xs={3}
             sx={{
               borderRight: `1px solid ${grey[300]}`,
-              px: 1,
             }}
           >
             <InstanceHeader instance={instance} />
@@ -97,15 +97,17 @@ const Index = ({ children }) => {
             />
           </Grid>
           <Grid item xs={9}>
-            <Typography variant="h4" color="secondary">
-              {currentPage ? capitalize(currentPage) : 'Overview'}
-            </Typography>
+            <Container maxWidth={false}>
+              <Typography pt={3} pb={1} variant="h5" color="text.secondary">
+                {currentPage ? capitalize(currentPage) : 'Overview'}
+              </Typography>
+            </Container>
             <Divider sx={{ mb: 2 }} />
-            {children}
+            <Container maxWidth={false}>{children}</Container>
           </Grid>
         </Grid>
       ) : (
-        <>
+        <Container>
           <InstanceHeader instance={instance} />
           <Tabs
             value={tabValue}
@@ -134,7 +136,7 @@ const Index = ({ children }) => {
               ))}
           </Tabs>
           {children}
-        </>
+        </Container>
       )}
     </Box>
   );

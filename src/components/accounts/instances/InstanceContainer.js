@@ -26,7 +26,10 @@ const InstanceContainer = ({ children, isDashboard = false }) => {
       <AppBar />
       <Container
         maxWidth={false}
-        sx={(theme) => ({ maxWidth: theme.breakpoints.values.xl2 })}
+        disableGutters
+        sx={(theme) => ({
+          maxWidth: theme.breakpoints.values.xl2,
+        })}
       >
         {renderChildren()}
       </Container>

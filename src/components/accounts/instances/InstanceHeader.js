@@ -9,13 +9,21 @@ import {
 } from '@mui/material';
 import React from 'react';
 import dayjs from 'dayjs';
+import { grey } from '@mui/material/colors';
 
 export default function InstanceHeader({ instance }) {
   const webengineUrl = `https://${instance?.randomHashID}-dev.webengine.zesty.io`;
   const managerURl = `https://${instance?.ZUID}.manager.zesty.io`;
 
   return (
-    <Card sx={{ maxWidth: '100%' }}>
+    <Card
+      sx={{
+        maxWidth: '100%',
+        borderRadius: 0,
+        boxShadow: 'none',
+        borderBottom: `1px solid ${grey[300]}`,
+      }}
+    >
       {instance?.screenshotURL ? (
         <CardMedia
           component="img"

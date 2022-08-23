@@ -25,6 +25,7 @@ const Index = ({ children, isDashboard = false }) => {
       <AppBar />
       <Container
         maxWidth={false}
+        disableGutters
         sx={(theme) => ({ maxWidth: theme.breakpoints.values.xl2 })}
       >
         {renderChildren()}

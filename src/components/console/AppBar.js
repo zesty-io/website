@@ -48,7 +48,6 @@ export default function AppBar({ url = window.location.pathname }) {
     <Box
       sx={{
         backgroundColor: theme.palette.background.level2,
-        padding: '12px 0rem',
         marginTop: '10px',
       }}
     >
