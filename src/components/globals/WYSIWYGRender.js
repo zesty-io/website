@@ -35,6 +35,18 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
         .wysiwyg , .wysiwyg  p {
           color: ${theme.palette.text.secondary};
+          font-size: 1.1rem;
+          line-height: 150%;
+        }
+        .wysiwyg , .wysiwyg  h1 {
+          color: ${theme.palette.text.secondary};
+          font-size: 1rem;
+          line-height: 120%;
+        }
+        .wysiwyg , .wysiwyg  h2 {
+          color: ${theme.palette.text.secondary};
+          font-size: 1.4rem;
+          line-height: 120%;
         }
         .wysiwyg strong, .wysiwyg h1, .wysiwyg h2, .wysiwyg h3,.wysiwyg h4,.wysiwyg h5,.wysiwyg h6 {
           color: ${theme.palette.text.primary} !important;
