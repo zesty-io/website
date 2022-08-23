@@ -267,7 +267,8 @@ export default function Join(props) {
                         lastname={lastName}
                         email={firstName}
                         role={role}
-                        userZUID={userObject?.data?.meta?.ZUID}
+                        projectType={projectType}
+                        userZUID={userObject?.data?.ZUID}
                         dateCreated={new Date().toUTCString()}
                         >
                         <SlideMessage 
