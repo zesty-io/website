@@ -130,7 +130,8 @@ module.exports = {
   }
 
   // update the config
-  await writeFileAsync(configPath,'module.exports = '+JSON.stringify(nextJSConfig,null,2))
+  // removed the config overwrite on 8/22/22
+  // await writeFileAsync(configPath,'module.exports = '+JSON.stringify(nextJSConfig,null,2))
 
   return nextJSConfig.env.zesty;
 }
