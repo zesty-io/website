@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // fetchRedirects, get the list of all redirects set in the content manager, loads into next.config.js
 async function fetchZestyRedirects() {
   try {
