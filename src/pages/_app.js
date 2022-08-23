@@ -15,6 +15,7 @@ import { getUserAppSID } from 'utils';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { SnackbarProvider } from 'notistack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
+import usePeriodicVerify from 'components/hooks/usePeriodicVerify';
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -40,6 +41,9 @@ export default function App({ Component, pageProps }) {
   );
 
   const Layout = layouts[Component.data?.container];
+
+  // this will run to if the user is logged in to keep the session alive!
+  usePeriodicVerify();
 
   React.useEffect(() => {
     setverifySuccess(verifySuccess);
