@@ -62,7 +62,7 @@ export const zohoPostObject = (
         ? getCookie('utm_campaign')
         : 'none',
       User_ZUID : userZUID,
-      Trial_Created_Date: (new Date()).toISOString(),
+      Trial_Created_Date: (new Date()).toISOString().slice(0, 19),
       Business_Type: businessType,
       Lead_Status: 'Not Contacted',
       Designation: obj?.jobTitle ? obj.jobTitle : '',
