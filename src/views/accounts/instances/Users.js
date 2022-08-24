@@ -57,7 +57,12 @@ const CustomTable = ({
 }) => {
   const ROWS = data?.map((e) => {
     const handleOnChange = (data) => {
-      const val = { roleZUID: data.id, userZUID: e.ZUID };
+      const val = {
+        newRoleZUID: data.id,
+        userZUID: e.ZUID,
+        oldRoleZUID: e.role.ZUID,
+      };
+
       handleUpdateRole(val);
     };
     const handleDeleteUser = () => {
