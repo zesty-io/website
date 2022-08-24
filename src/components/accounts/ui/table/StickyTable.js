@@ -58,11 +58,6 @@ const Index = ({ rows, columns, pagination = true, perPage = 10 }) => {
                     {columns?.map((column) => {
                       const value = row[column.id];
 
-                      // for view of webhook
-                      if (value?.text) {
-                        return <TableCell>{value?.text}</TableCell>;
-                      }
-
                       // Check if JSX ELEMENT ex Buttons etc
                       if (React.isValidElement(value)) {
                         return <TableCell>{value}</TableCell>;

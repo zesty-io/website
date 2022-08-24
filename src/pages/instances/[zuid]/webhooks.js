@@ -70,7 +70,15 @@ export default function WebhooksPage() {
   };
 
   const createWebhook = async (data) => {
-    const payload = { ...data, scopedResource: zuid };
+    const payload = {
+      ...data,
+      scopedResource: zuid,
+    };
+
+    if (helpers.isJsonString(data.text)) {
+      payload.text = JSON.parse(data?.text);
+    }
+
     const res = await ZestyAPI.createWebhook(payload);
     !res.error && handleCreateWebhooksSuccess(res);
     res.error && handleCreateWebhooksError(res);
@@ -108,7 +116,6 @@ export default function WebhooksPage() {
     options.headers = {
       'Content-Type': contentType,
     };
-    console.log(options, '::4');
     try {
       await fetch(URL, options)
         .then(async (response) => {

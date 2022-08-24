@@ -206,3 +206,12 @@ export const isInstanceOwner = (userWithRoles, userInfo) => {
     return false;
   }
 };
+
+export const isJsonString = (str) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
