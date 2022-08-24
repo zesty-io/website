@@ -76,10 +76,27 @@ function DxpEnterprise({ content }) {
     isDarkMode,
   };
 
+    /* Taking the data from the content model and converting it into a format that the Features component can use. */
+    const feature_data = content?.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content
+      })
+    
+      return acc;
+    } ,[]) || []
+
+
+
   return (
     <>
       <Hero {...pageData} />
-      <Features textHighlight={'Zesty’s enterprise'} {...pageData} />
+      <Features
+      textHighlight='Zesty’s enterprise'
+        features_header={content.features_header  }
+        data={feature_data}
+        content={content} />
       <WhyZesty {...pageData} />
       <TopBrands
         textHighlight={'our customers'}

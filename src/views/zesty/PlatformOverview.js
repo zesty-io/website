@@ -42,7 +42,7 @@ import FillerContent from 'components/globals/FillerContent';
  */
 
  import Hero from 'components/marketing/PlatformOverview/Hero';
-
+ import Features from 'blocks/features/Features/Features';
 
 
 
@@ -68,10 +68,29 @@ function PlatformOverview({ content }) {
 
   console.log(content)
 
+/* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const feature_data = content.what_you_can_do_tiles?.data.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.image.data[0].url,
+          feature_name: item.title,
+          content: item.description
+        })
+
+        return acc;
+  } ,[]) || []
+
+  console.log("feature_data", feature_data)
+
 
   return (
     <>
      <Hero {...pageData}/>
+     <Features
+        features_header={content.what_you_can_do }
+        data={feature_data}
+        content={content}
+        header_size={28}
+        />
     </>
   );
 }
