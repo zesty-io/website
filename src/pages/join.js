@@ -5,7 +5,7 @@ import { Container, Box, Button, Grid, Typography } from '@mui/material';
 
 // confetti
 import Confetti from 'react-confetti'
-import  getWindowDimensions from 'components/marketing/Join/getWindowDimensions';
+import getWindowDimensions from 'components/marketing/Join/getWindowDimensions';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -33,7 +33,7 @@ import  { pendoScript }  from 'components/marketing/Join/pendoScript.js'
 import slackQuestionPost from 'components/marketing/Join/slackQuestionPost.js';
 import slackNotify from 'components/marketing/Join/slackNotify.js';
 
-// google analytis
+// google analytics
 import * as ga from 'lib/ga'
 
 // questions data 
@@ -292,4 +292,18 @@ export default function Join(props) {
         </Box>
        
     )
+}
+
+
+
+export async function getServerSideProps({ res }) {
+    // does not display with npm run dev
+    res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=600, stale-while-revalidate=3600',
+    );
+    let data = {}
+    
+    // Pass data to the page via props
+    return { props: data };
 }
