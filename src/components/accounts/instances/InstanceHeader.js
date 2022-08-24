@@ -4,12 +4,12 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Skeleton,
   Typography,
 } from '@mui/material';
 import React from 'react';
 import dayjs from 'dayjs';
 import { grey } from '@mui/material/colors';
+import FillerContent from 'components/globals/FillerContent';
 
 export default function InstanceHeader({ instance }) {
   const webengineUrl = `https://${instance?.randomHashID}-dev.webengine.zesty.io`;
@@ -32,7 +32,12 @@ export default function InstanceHeader({ instance }) {
           alt="screenshot"
         />
       ) : (
-        <Skeleton variant="rectangular" height="150px" />
+        <CardMedia
+          component="img"
+          height="100%"
+          image={FillerContent.image}
+          alt="screenshot"
+        />
       )}
 
       <CardContent>

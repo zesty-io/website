@@ -200,9 +200,20 @@ export const removeDupsInArrObj = (arr, property) =>
 export const isInstanceOwner = (userWithRoles, userInfo) => {
   const currentRole = userWithRoles?.find((e) => e.ZUID === userInfo?.ZUID)
     ?.role?.name;
-  if (currentRole === 'Owner' || currentRole === 'Admin') {
+  const isStaff = userInfo?.staff;
+
+  if (currentRole === 'Owner' || currentRole === 'Admin' || isStaff) {
     return true;
   } else {
     return false;
   }
+};
+
+export const isJsonString = (str) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 };

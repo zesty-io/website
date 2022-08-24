@@ -225,6 +225,9 @@ export const Webhooks = ({
       title: 'Create Webhook',
       html: <WebhookForm onSubmit={createWebhook} />,
       showConfirmButton: false,
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      showCloseButton: true,
     });
   };
   const handleDeleteWebhookModal = (data) => {

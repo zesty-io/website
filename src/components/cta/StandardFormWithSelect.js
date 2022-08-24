@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';

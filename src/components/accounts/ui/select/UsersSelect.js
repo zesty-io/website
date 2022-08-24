@@ -15,7 +15,6 @@ export const UsersSelect = ({
   const [val, setVal] = React.useState(value);
 
   const handleChange = (event, data) => {
-    console.log(data);
     setVal(event.target.value);
     onChange(data.props);
   };

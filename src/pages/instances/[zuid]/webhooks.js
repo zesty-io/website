@@ -16,7 +16,10 @@ export default function WebhooksPage() {
   const { zuid } = router.query;
 
   const handleGetWebhooksSuccess = (res) => {
-    setWebhooks(res.data);
+    const data = res.data.sort(
+      (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt),
+    );
+    setWebhooks(data);
   };
 
   const handleGetWebhooksError = (res) => {
@@ -67,7 +70,15 @@ export default function WebhooksPage() {
   };
 
   const createWebhook = async (data) => {
-    const payload = { ...data, scopedResource: zuid };
+    const payload = {
+      ...data,
+      scopedResource: zuid,
+    };
+
+    if (helpers.isJsonString(data.text)) {
+      payload.text = JSON.parse(data?.text);
+    }
+
     const res = await ZestyAPI.createWebhook(payload);
     !res.error && handleCreateWebhooksSuccess(res);
     res.error && handleCreateWebhooksError(res);
@@ -99,7 +110,7 @@ export default function WebhooksPage() {
     let { URL, method, contentType, body } = data;
 
     let options = {};
-    if (method != 'GET') options.body = body;
+    if (method != 'GET') options.body = JSON.stringify(body);
 
     options.method = method;
     options.headers = {

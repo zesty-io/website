@@ -96,7 +96,7 @@ export const InstancesDashboard = () => {
 
   return (
     <Container maxWidth={false} sx={{ my: 2 }}>
-      <Stack direction="row" spacing={2}>
+      <Stack alignItems={'center'} direction="row" spacing={2}>
         <TextField
           label="Search by instance name"
           InputProps={{
@@ -111,9 +111,6 @@ export const InstancesDashboard = () => {
           color="secondary"
           onChange={(e) => handleSearch(e.target.value)}
         />
-      </Stack>
-
-      <Stack mt={2} direction="row">
         <CustomMenu
           menuName="Order by"
           menuItems={orderByItems}

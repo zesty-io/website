@@ -2,12 +2,36 @@ repo:
   - ./*
 test:
   - src/**/*.test.js
+middleware:
+  - src/middleware.js
 
 accounts:
    - any: ["src/*/accounts/**/*"]
 
+accounts-page:
+   - any: ["src/pages/instances/**/*"]
+accounts-pages:
+   - any: ["src/pages/profile/**/*"]
+marketplace-page:
+   - any: ["src/pages/marketplace/**/*"]
+docs-page:
+   - any: ["src/pages/docs/**/*"]
+
 marketplace:
    - any: ["src/*/marketplace/**/*"]
+
+docs:
+   - any: ["src/*/docs/**/*"]
+cta:
+   - any: ["src/*/cta/**/*"]
+globals:
+   - any: ["src/*/globals/**/*"]
+
+hooks:
+   - any: ["src/*/hooks/**/*"]
+
+lib:
+   - any: ["src/lib/**/*"]
 
 marketing:
    - any: ["src/*/marketing/**/*"]
