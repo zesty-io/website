@@ -86,7 +86,7 @@ export const Signup = ({
         let loginResponse = await ZestyAPI.login(email,password);
         // this emulated accounts for login
         setCookie('APP_SID',loginResponse.meta.token);
-        return true;
+        return response;
       }
       return false;
     }

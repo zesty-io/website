@@ -8,12 +8,16 @@ export default async function slackQuestionPost(question,answer,email='unknown')
         "path": getCookie('referrer') ? getCookie('referrer') : window.location.href,
         "email": email
     }
-    await fetch('https://us-central1-zesty-prod.cloudfunctions.net/onboardQuestion', {
-        method: 'POST',
-        credentials: 'omit',
-        body:    JSON.stringify(payload),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    try{
+        await fetch('https://us-central1-zesty-prod.cloudfunctions.net/onboardQuestion', {
+            method: 'POST',
+            credentials: 'omit',
+            body:    JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    } catch (err){
+        console.log("failed to post to slack",err)
+    }
 }

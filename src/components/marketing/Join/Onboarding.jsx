@@ -109,7 +109,7 @@ const Marketer = () => {
                     <MarketerDocumentation />
                 </Grid>
                 <Grid xs={4} item>
-                <DiscordCard />
+                    <DiscordCard />
                     <YoutubeCard />
                 </Grid>
             </Grid>
@@ -119,8 +119,6 @@ const Manager = () => {
     return <Grid spacing={2} container>
     <Grid xs={8} item>
         <ManagerDocumentation />
-
-        
     </Grid>
     <Grid  xs={4} item>
         <DiscordCard />
@@ -132,7 +130,6 @@ const Manager = () => {
 const Developer = () => {
     return <Grid spacing={2} container>
     <Grid xs={8} item>
-        
         <Typography variant="h6" mb={2}>Get Started on the command line</Typography>
         <CodeBlock />
         <Typography variant="h6" mb={2} mt={2}>Zesty.io Documention</Typography>
