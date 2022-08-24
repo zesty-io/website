@@ -102,12 +102,13 @@ export default function WebhooksPage() {
     let { URL, method, contentType, body } = data;
 
     let options = {};
-    if (method != 'GET') options.body = body;
+    if (method != 'GET') options.body = JSON.stringify(body);
 
     options.method = method;
     options.headers = {
       'Content-Type': contentType,
     };
+    console.log(options, '::4');
     try {
       await fetch(URL, options)
         .then(async (response) => {
