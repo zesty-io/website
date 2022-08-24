@@ -377,3 +377,7 @@ Accounts is instances, profile, teams, dashboard. To working on the accounts app
 1. You need to edit your ETC hosts files to use a domain like `test.zesty.io` to avoid CORS errors. To access your `localhost` see this thread for windows users https://github.com/zesty-io/manager-ui/discussions/1240
 2. Run `npm run dev` check your `test.zesty.io` domain, if that resolves to your next.js page, great, if not, googlefu
 3. Log into accounts.dev.zesty.io, refresh your localhost or test.zesty.io site
+
+## 🖥️ Code Contributors
+
+<img src ="https://contrib.rocks/image?repo=zesty-io/website"/>
