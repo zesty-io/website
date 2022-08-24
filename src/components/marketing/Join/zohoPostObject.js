@@ -20,7 +20,8 @@ export const zohoPostObject = (
     leadDetail = false,
     businessType = 'Unknown',
     leadSource = 'Website',
-    role = 'Marketer'
+    role = 'Marketer',
+    userZUID=''
   ) => {
 
     // logic to override lead source detail, or default to utm_medium, or empty if nothing
@@ -60,6 +61,8 @@ export const zohoPostObject = (
       Lead_Source_Topic: getCookie('utm_campaign')
         ? getCookie('utm_campaign')
         : 'none',
+      User_ZUID : userZUID,
+      Trial_Created_Date: (new Date()).toISOString(),
       Business_Type: businessType,
       Lead_Status: 'Not Contacted',
       Designation: obj?.jobTitle ? obj.jobTitle : '',
