@@ -102,7 +102,7 @@ const ProfileHeader = ({ userInfo }) => {
         <CardMedia
           component="img"
           height="100%"
-          sx={{ padding: '5rem' }}
+          sx={{ p: 5 }}
           image={profileUrl}
           alt="screenshot"
         />
@@ -166,7 +166,7 @@ const Index = ({ children }) => {
 
           <Grid item xs={9}>
             <Container maxWidth={false}>
-              <Typography pt={3} pb={1} variant="h5" color="text.secondary">
+              <Typography py={2} variant="h5" color="text.secondary">
                 {currentPage ? capitalize(currentPage) : 'Overview'}
               </Typography>
             </Container>

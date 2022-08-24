@@ -69,8 +69,8 @@ const Index = ({ children }) => {
   };
 
   React.useEffect(() => {
-    getInstance();
-  }, []);
+    if (router.isReady) getInstance();
+  }, [router.isReady]);
 
   React.useEffect(() => {
     document.title =
@@ -98,7 +98,7 @@ const Index = ({ children }) => {
           </Grid>
           <Grid item xs={9}>
             <Container maxWidth={false}>
-              <Typography pt={3} pb={1} variant="h5" color="text.secondary">
+              <Typography py={2} variant="h5" color="text.secondary">
                 {currentPage ? capitalize(currentPage) : 'Overview'}
               </Typography>
             </Container>

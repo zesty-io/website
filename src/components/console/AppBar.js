@@ -49,6 +49,7 @@ export default function AppBar({ url = window.location.pathname }) {
       sx={{
         backgroundColor: theme.palette.background.level2,
         marginTop: '10px',
+        py: 1,
       }}
     >
       <Container
@@ -110,6 +111,7 @@ export default function AppBar({ url = window.location.pathname }) {
                   underline="hover"
                   color="inherit"
                   href={routeTo}
+                  key={index}
                   sx={{
                     textTransform: 'capitalize',
                     display: 'flex',
@@ -147,7 +149,9 @@ export default function AppBar({ url = window.location.pathname }) {
                     instances={instances?.data}
                     setCookies={setworkingInstance}
                     instanceZUID={instanceZUID}
+                    size="small"
                   />
+
                   <Link
                     boxShadow={2}
                     sx={{
