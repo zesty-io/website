@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
@@ -16,6 +16,9 @@ import {
   lighten,
   Divider,
   capitalize,
+  Container,
+  Tabs,
+  Tab,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
@@ -24,6 +27,8 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DataObject from '@mui/icons-material/DataObject';
 import LockIcon from '@mui/icons-material/Lock';
 import { grey } from '@mui/material/colors';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 const ProfileNavigation = ({ lists, handleChange, currentPage = '' }) => {
   return (
@@ -85,12 +90,19 @@ const ProfileHeader = ({ userInfo }) => {
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
   const name = `${firstName || ''} ${lastName || ''}` || '';
   return (
-    <Card sx={{ maxWidth: '100%' }}>
+    <Card
+      sx={{
+        maxWidth: '100%',
+        borderRadius: 0,
+        boxShadow: 'none',
+        borderBottom: `1px solid ${grey[300]}`,
+      }}
+    >
       {profileUrl ? (
         <CardMedia
           component="img"
           height="100%"
-          sx={{ padding: '5rem' }}
+          sx={{ p: 5 }}
           image={profileUrl}
           alt="screenshot"
         />
@@ -112,46 +124,88 @@ const ProfileHeader = ({ userInfo }) => {
 };
 
 const Index = ({ children }) => {
+  const theme = useTheme();
+  const isSM = useMediaQuery(theme.breakpoints.down('md'));
   const { userInfo } = useZestyStore((state) => state);
   const currentPage =
     location.pathname.split('/').length > 2
       ? location.pathname.split('/')[2]
       : '';
+  const [tabValue, setTabValue] = useState(currentPage);
   const router = useRouter();
 
   const handleChange = (newValue) => {
+    setTabValue(newValue);
     router.push({
       pathname: `/profile/${newValue}/`,
     });
   };
 
-  return (
-    <Box my={2}>
-      <Grid container spacing={2}>
-        <Grid
-          item
-          xs={3}
-          sx={{
-            borderRight: `1px solid ${grey[300]}`,
-            px: 1,
-          }}
-        >
-          <ProfileHeader userInfo={userInfo} />
-          <ProfileNavigation
-            lists={profileTabs}
-            handleChange={handleChange}
-            currentPage={currentPage}
-          />
-        </Grid>
+  const handleTabChange = (event, newValue) => {
+    handleChange(newValue);
+  };
 
-        <Grid item xs={9}>
-          <Typography variant="h4" color="secondary">
-            {currentPage ? capitalize(currentPage) : 'Overview'}
-          </Typography>
-          <Divider sx={{ mb: 2 }} />
-          {children}
+  return (
+    <Box>
+      {!isSM ? (
+        <Grid container>
+          <Grid
+            item
+            xs={3}
+            sx={{
+              borderRight: `1px solid ${grey[300]}`,
+            }}
+          >
+            <ProfileHeader userInfo={userInfo} />
+            <ProfileNavigation
+              lists={profileTabs}
+              handleChange={handleChange}
+              currentPage={currentPage}
+            />
+          </Grid>
+
+          <Grid item xs={9}>
+            <Container maxWidth={false}>
+              <Typography py={2} variant="h5" color="text.secondary">
+                {currentPage ? capitalize(currentPage) : 'Overview'}
+              </Typography>
+            </Container>
+            <Divider sx={{ mb: 2 }} />
+            <Container maxWidth={false}>{children}</Container>
+          </Grid>
         </Grid>
-      </Grid>
+      ) : (
+        <Container>
+          <ProfileHeader userInfo={userInfo} />
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
+            aria-label="icon position tabs example"
+            indicatorColor="secondary"
+            textColor="secondary"
+            variant="scrollable"
+            scrollButtons="auto"
+            sx={{
+              '.MuiTabs-scrollButtons.Mui-disabled': {
+                opacity: 0.3,
+              },
+              mb: 2,
+            }}
+          >
+            {profileTabs
+              .sort((a, b) => a.sort - b.sort)
+              .map((tab) => (
+                <Tab
+                  icon={tab.icon}
+                  value={tab.filename}
+                  iconPosition="start"
+                  label={tab.label}
+                />
+              ))}
+          </Tabs>
+          {children}
+        </Container>
+      )}
     </Box>
   );
 };

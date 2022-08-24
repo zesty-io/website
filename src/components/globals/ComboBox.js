@@ -143,7 +143,7 @@ const filterOptions = createFilterOptions({
   stringify: (option) => option.name + option.value,
 });
 
-const Index = ({ instances, setCookies, instanceZUID }) => {
+const Index = ({ instances, setCookies, instanceZUID, ...props }) => {
   const theme = useTheme();
   const [label, setlabel] = React.useState('');
   const memoizedInstances = React.useMemo(() => {
@@ -186,6 +186,7 @@ const Index = ({ instances, setCookies, instanceZUID }) => {
       renderOption={(props, option) => {
         return [props, option.name];
       }}
+      {...props}
     />
   );
 };

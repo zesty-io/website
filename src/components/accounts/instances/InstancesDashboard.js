@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import {
-  Box,
   Card,
   CardMedia,
   TextField,
@@ -17,6 +16,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Container,
 } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -66,7 +66,8 @@ export const InstancesDashboard = () => {
   }
 
   const handleChangeView = (e, value) => {
-    setView(value);
+    if (value === null) setView(view);
+    else setView(value);
   };
 
   React.useEffect(() => {
@@ -94,7 +95,7 @@ export const InstancesDashboard = () => {
   };
 
   return (
-    <Box py={3}>
+    <Container maxWidth={false} sx={{ my: 2 }}>
       <Stack alignItems={'center'} direction="row" spacing={2}>
         <TextField
           label="Search by instance name"
@@ -191,6 +192,6 @@ export const InstancesDashboard = () => {
             ))}
         </List>
       )}
-    </Box>
+    </Container>
   );
 };
