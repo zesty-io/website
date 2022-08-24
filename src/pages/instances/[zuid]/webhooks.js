@@ -16,7 +16,10 @@ export default function WebhooksPage() {
   const { zuid } = router.query;
 
   const handleGetWebhooksSuccess = (res) => {
-    setWebhooks(res.data);
+    const data = res.data.sort(
+      (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt),
+    );
+    setWebhooks(data);
   };
 
   const handleGetWebhooksError = (res) => {
