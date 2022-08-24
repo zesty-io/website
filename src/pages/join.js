@@ -155,7 +155,7 @@ export default function Join(props) {
         // instantiate zoho object
         userDetails.user = true;
         // setup zoho object 
-        let zohoLeadObject = zohoPostObject(userDetails,'Trial','Trial','Unknown', 'Website',role);
+        let zohoLeadObject = zohoPostObject(userDetails,'Trial','Trial','Unknown', 'Website',role ,creationObect.data.ZUID);
         // zoho capture backup
         slackNotify(`ZOHO lead slack fallback info: \n ${stringifyLead(zohoLeadObject)}`)
         // post lead to zoho
