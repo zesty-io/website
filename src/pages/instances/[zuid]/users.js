@@ -109,8 +109,12 @@ export default function UsersPage() {
   };
 
   const updateRole = async (data) => {
-    const { userZUID, roleZUID } = data;
-    const res = await ZestyAPI.updateUserRole(userZUID, roleZUID);
+    const { newRoleZUID, userZUID, oldRoleZUID } = data;
+    const res = await ZestyAPI.updateUserRole(
+      userZUID,
+      oldRoleZUID,
+      newRoleZUID,
+    );
     !res.error && handleUpdateRoleSuccess(res);
     res.error && handleUpdateRoleErr(res);
 
@@ -131,7 +135,6 @@ export default function UsersPage() {
   };
 
   const createInvite = async (data) => {
-    console.log(data, '::::::::::::::::::');
     const { inviteeName, inviteeEmail, entityZUID, accessLevel } = data;
     const res = await ZestyAPI.createInvite(
       inviteeName,
