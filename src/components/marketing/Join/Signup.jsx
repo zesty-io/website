@@ -120,10 +120,9 @@ export const Signup = ({
     const submitForm = async () => {
       // check if user created successfully
       let success = false
-      console.log(values.isProduction)
+      
       // on run if production
       if(values.isProduction  === true){
-        console.log('running create',values.isProduction)
         success = await createZestyUser(values.firstname, values.lastname, values.email, values.password);
       } else {
         success = {data: {ZUID: '5-TEST'}}

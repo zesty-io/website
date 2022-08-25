@@ -83,9 +83,6 @@ export default function Join(props) {
     const { height, width } = getWindowDimensions();
     const isProduction = process.env.NEXT_PUBLIC_PRODUCTION === 'true' ? true : false
     
-    console.log('productio env value',process.env.NEXT_PUBLIC_PRODUCTION)
-    console.log(typeof isProduction);
-    console.log('production resolbed value', isProduction)
     // state values for form capture
     const [role, setRole] = useState('Developer');
     const [email, setEmail] = useState('..still capturing email');
