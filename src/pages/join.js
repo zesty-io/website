@@ -81,8 +81,8 @@ const postToZOHO = async (payloadJSON) => {
 export default function Join(props) {
     const theme = useTheme();
     const { height, width } = getWindowDimensions();
-    const isProduction = process.env.PRODUCTION || process.env.PRODUCTION === 'true'
-
+    const isProduction = process.env.NEXT_PUBLIC_PRODUCTION === 'true' ? true : false
+    
     // state values for form capture
     const [role, setRole] = useState('Developer');
     const [email, setEmail] = useState('..still capturing email');
@@ -126,7 +126,9 @@ export default function Join(props) {
         
         setCurrentAnimation('jiggle');
         handleNext();
-        await slackQuestionPost(question,answer,email)
+        if(isProduction === true) { 
+            await slackQuestionPost(question,answer,email) 
+        }
     }
 
     const stringifyLead = (obj) => {
@@ -149,7 +151,9 @@ export default function Join(props) {
         setUserObject(creationObect);
 
         // notify the team in slack
-        await slackNotify(`Captured: ${userDetails.email}`)
+        if(isProduction === true) { 
+            await slackNotify(`Captured: ${userDetails.email}`)
+        }
         // map additional userDetails for zoho object
         userDetails.message = `Project type: ${projectType}`;
         // instantiate zoho object
@@ -157,11 +161,17 @@ export default function Join(props) {
         // setup zoho object 
         let zohoLeadObject = zohoPostObject(userDetails,'Trial','Trial','Unknown', 'Website',role ,creationObect.data.ZUID);
         // zoho capture backup
-        slackNotify(`ZOHO lead slack fallback info: \n ${stringifyLead(zohoLeadObject)}`)
+        if(isProduction === true) { 
+            slackNotify(`ZOHO lead slack fallback info: \n ${stringifyLead(zohoLeadObject)}`)
+        }
         // post lead to zoho
-        let zohoData = await postToZOHO(zohoLeadObject)
-        let zoholeadlink = 'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/'
-        await slackNotify(`View lead for ${userDetails.email} on ZOHO @ ${zoholeadlink}${zohoData.data[0].details.id}`)
+        if(isProduction === true) { 
+            let zohoData = await postToZOHO(zohoLeadObject)
+            let zoholeadlink = 'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/'
+            await slackNotify(`View lead for ${userDetails.email} on ZOHO @ ${zoholeadlink}${zohoData.data[0].details.id}`)
+        } else {
+            console.log('post object not sent', zohoLeadObject)
+        }
         setCurrentAnimation('party');
         
         
@@ -210,8 +220,7 @@ export default function Join(props) {
                 scrollbar={{ draggable: false }}
                 modules={[Pagination, Navigation]}
                 // remove this when testing
-                allowTouchMove={isProduction ? false : true}
-
+                allowTouchMove={isProduction === true ? false : true}
             >
                 <SwiperSlide > 
                   
@@ -257,6 +266,7 @@ export default function Join(props) {
                     <Signup 
                         message={<Box><Box sx={{fontWeight:'bold'}} display='inline'>Awesome!</Box> Let's start on your <Box sx={{fontWeight:'bold'}} display='inline'>{projectType}</Box> project.</Box>} 
                         callback={signUpSuccess}
+                        production={isProduction}
                         />
                 </SwiperSlide>
                 {/* Welcome  */}
