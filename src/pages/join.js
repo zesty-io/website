@@ -81,7 +81,7 @@ const postToZOHO = async (payloadJSON) => {
 export default function Join(props) {
     const theme = useTheme();
     const { height, width } = getWindowDimensions();
-    const isProduction = process.env.NEXT_PUBLIC_PRODUCTION === 'true' ? true : false
+    const isProduction = process.env.NEXT_PUBLIC_PRODUCTION == 'true' || process.env.NEXT_PUBLIC_PRODUCTION === true  ? true : false
     
     // state values for form capture
     const [role, setRole] = useState('Developer');
