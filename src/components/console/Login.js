@@ -1,4 +1,11 @@
-import { Button, Grid, Link, Typography } from '@mui/material';
+import {
+  Button,
+  Grid,
+  InputAdornment,
+  Link,
+  Stack,
+  Typography,
+} from '@mui/material';
 import {
   accountsValidations,
   ErrorMsg,
@@ -6,16 +13,21 @@ import {
   SuccessMsg,
 } from 'components/accounts';
 import { setCookie } from 'cookies-next';
-import CircularProgress from '@mui/material/CircularProgress';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import * as helpers from 'utils';
-import { Box } from '@mui/system';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useSnackbar } from 'notistack';
+import dayjs from 'dayjs';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
+import LoginIcon from '@mui/icons-material/Login';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const MySwal = withReactContent(Swal);
 
@@ -23,6 +35,22 @@ const Login = () => {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [loading, setloading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [loginData, setLoginData] = useState({});
+  const theme = useTheme();
+  const isMD = useMediaQuery(theme.breakpoints.down('md'));
+
+  useEffect(async () => {
+    const getData = async () => {
+      const loginDataURL = helpers.isProd
+        ? 'https://www.zesty.io/login/?toJSON'
+        : 'https://kfg6bckb-dev.webengine.zesty.io/login/?toJSON';
+      const response = await fetch(loginDataURL);
+      const data = await response.json();
+      return data;
+    };
+
+    setLoginData(await getData());
+  }, []);
 
   const handleLoginSuccess = (res) => {
     setloading(false);
@@ -145,46 +173,170 @@ const Login = () => {
   });
 
   return (
-    <Box>
+    <>
       <Grid container>
-        <Grid item xs={4} />
-        <Grid item xs={4}>
-          <Box
-            display={'flex'}
-            flexDirection="column"
-            justifyItems={'center'}
-            justifyContent="center"
-          >
-            <Box
-              paddingY={2}
-              component="img"
-              sx={{
-                height: 200,
-              }}
-              alt="Zesty-io Login"
-              src="https://brand.zesty.io/zesty-io-logo-vertical.svg"
-            />
-            <form noValidate onSubmit={formik.handleSubmit}>
-              <FormInput name={'email'} formik={formik} />
-              <FormInput name={'password'} type="password" formik={formik} />
-              <Button
-                color="secondary"
-                variant="contained"
-                fullWidth
-                type="submit"
+        <Grid item xs={12} md={4}>
+          <Stack px={4} height="100%">
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <img
+                src="https://brand.zesty.io/zesty-io-logo-horizontal.svg"
+                height={150}
+                width={150}
+              />
+              <Link underline="none" href="#" color="secondary">
+                Try for free!
+              </Link>
+            </Stack>
+
+            <Stack mt={10} mb={15}>
+              <Stack>
+                <Typography variant="h4">Hi, Welcome Back!</Typography>
+                <Typography mb={3} color="text.secondary">
+                  Start empowering the world with content again
+                </Typography>
+              </Stack>
+
+              <Stack>
+                <form noValidate onSubmit={formik.handleSubmit}>
+                  <Stack>
+                    <FormInput
+                      color="secondary"
+                      name="email"
+                      customLabel="Email Address"
+                      formik={formik}
+                      placeholder="e.g john@zesty.io"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <AlternateEmailIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <FormInput
+                      color="secondary"
+                      name="password"
+                      type="password"
+                      customLabel="Password"
+                      formik={formik}
+                    />
+
+                    <Link href="#" alignSelf="end" mb={3} color="secondary">
+                      Forgot Password?
+                    </Link>
+                    <LoadingButton
+                      type="submit"
+                      startIcon={<LoginIcon />}
+                      variant="contained"
+                      color="secondary"
+                      size="large"
+                      loading={loading}
+                    >
+                      Log In
+                    </LoadingButton>
+                  </Stack>
+                </form>
+              </Stack>
+            </Stack>
+
+            <Stack mb={3} alignItems="center">
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
               >
-                {loading ? (
-                  <CircularProgress color="primary" />
-                ) : (
-                  <Typography variant="h6">Login</Typography>
-                )}
-              </Button>
-            </form>
-          </Box>
+                <Typography variant="subtitle2">
+                  {`Don't have an account yet? `}
+                  <Link href="#" color="secondary">
+                    Try for free!
+                  </Link>
+                </Typography>
+              </Stack>
+
+              <Typography variant="caption" color="text.secondary">
+                © {dayjs().year()} Zesty.io, inc. All rights reserved.
+              </Typography>
+            </Stack>
+          </Stack>
         </Grid>
-        <Grid item xs={4} />
+        <Grid
+          item
+          md={8}
+          bgcolor={(theme) => theme.palette.zesty.zestyDarkerBlue}
+          display={isMD ? 'none' : 'block'}
+        >
+          <Stack
+            justifyContent="center"
+            alignItems="center"
+            spacing={4}
+            px={4}
+            py={5}
+            height="100%"
+          >
+            <Stack textAlign="center">
+              <Typography variant="h5" color="common.white" mb={2}>
+                {loginData.title}
+              </Typography>
+              <Typography color="common.white">
+                {loginData.description}
+              </Typography>
+            </Stack>
+
+            <Stack direction="row" spacing={2}>
+              <Button
+                target="_blank"
+                href={loginData?.video_link}
+                variant="contained"
+                sx={{
+                  px: 4,
+                  bgcolor: 'common.white',
+                  color: 'black',
+                  '&.MuiButtonBase-root:hover': {
+                    bgcolor: 'white',
+                  },
+                }}
+                startIcon={<PlayArrowIcon />}
+                size="large"
+              >
+                Watch Demo
+              </Button>
+              <Button
+                target="_blank"
+                href={loginData?.docs_link}
+                variant="outlined"
+                sx={{
+                  px: 4,
+
+                  color: 'common.white',
+                  borderColor: 'common.white',
+                  '&.MuiButtonBase-root:hover': {
+                    bgcolor: 'transparent',
+                    border: '1px solid white',
+                  },
+                }}
+                startIcon={<ImportContactsOutlinedIcon />}
+                size="large"
+              >
+                Read Docs
+              </Button>
+            </Stack>
+
+            <Stack px={10} pb={5}>
+              <img
+                src={loginData?.image?.data[0]?.url}
+                width="100%"
+                height="100%"
+              />
+            </Stack>
+          </Stack>
+        </Grid>
       </Grid>
-    </Box>
+    </>
   );
 };
 

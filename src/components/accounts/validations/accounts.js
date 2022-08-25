@@ -26,7 +26,10 @@ const invite = yup.object().shape({
 });
 
 const login = yup.object().shape({
-  email: yup.string().required('Username is required*'),
+  email: yup
+    .string()
+    .email('Email is invalid format')
+    .required('Email is required*'),
   password: yup
     .string()
     .min(8, 'Must be atleast 8 Characters*')
