@@ -42,6 +42,7 @@ export const light = {
     lightPeach: '#FFFBF9',
   },
   zesty: {
+    zestyDarkerBlue: '#293056',
     zestyDarkBlue: '#1b202c',
     zestyTabBlue: '#697A91',
     zestyBlue2: '#2196F3',
