@@ -23,6 +23,7 @@ const Features = ({ data, features_header, header_size = 48, feature_description
 	const bracketImg = chevronLeft.src || FillerContent.dashboard_image;
 	return (
 		<Box
+		component="section"
 			paddingBottom={isMobile ? 20 : 20}
 			sx={{
 				position: 'relative',

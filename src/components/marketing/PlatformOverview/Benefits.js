@@ -2,6 +2,7 @@
  * MUI Imports
  */
 import { Box, Grid, Typography, Container } from '@mui/material';
+import MuiMarkdown from 'mui-markdown'
 
 /**
   * Components Imports
@@ -9,7 +10,7 @@ import { Box, Grid, Typography, Container } from '@mui/material';
 
 const Benefits = ({ theme, isMedium, content, FillerContent }) => {
 	return (
-		<Box>
+		<Box component="section">
 			<Container>
 				<Typography
 					variant="h3"
@@ -24,21 +25,40 @@ const Benefits = ({ theme, isMedium, content, FillerContent }) => {
 					{content.benefits_title_h2 || FillerContent.description}
 				</Typography>
 			</Container>
-			<Box sx={{ width: '65%', height: 10, background: theme.palette.zesty.zestyTealWhite, mt: 2 }} />
+			<Box sx={{ width: '65%', height: 10, background: theme.palette.zesty.zestyTealWhite, my: 4 }} />
 
 			<Container>
-				{[ 1, 2, 3, 4 ].map(() => (
-					<Grid container spacing={2}>
-						<Grid item sm={12} md={6}>
-							<Typography>Test</Typography>
+				{
+				content.platform_overview_cards?.data.map((item,index) => (
+					<Grid key={index} container spacing={4}>
+						<Grid sx={{display:'flex', justifyContent:"center", alignItems:"center"}} item sm={12} md={6} order={isMedium ? 1 : index % 2}>
+					<Box>
+					<Typography variant="h4" component="h2" sx={{fontWeight:500,lineHeight:1, color: theme.palette.zesty.zestyDarkBlue}}>{item.header || FillerContent.header}</Typography>
+							<Box sx={{mt:2}}>
+								<MuiMarkdown overrides={{p: {
+									component: Typography,
+									props: {
+										component:"p",
+										variant:"h6",
+										sx: {
+											lineHeight:1.2,
+											color: theme.palette.zesty.zestyZambezi
+										}
+									}
+								}}}>
+									{item.content || FillerContent.description}
+								</MuiMarkdown>
+							</Box>
+					</Box>
 						</Grid>
-						<Grid item sm={12} md={6}>
+						<Grid sx={{display:'flex', justifyContent:"center", alignItems:"center"}} item sm={12} md={6}>
 							<Box>
-								<Box component="img" src={FillerContent.photos[0].src} alt="" />
+								<Box sx={{width:"100%"}} component="img" src={`${item.image.data[0].url}?width=761` || FillerContent.photos[0].src} alt={item.header || ""} />
 							</Box>
 						</Grid>
 					</Grid>
-				))}
+				))
+				}
 			</Container>
 		</Box>
 	);

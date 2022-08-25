@@ -41,9 +41,10 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Import 
  */
 
- import Hero from 'components/marketing/PlatformOverview/Hero';
- import Features from 'blocks/features/Features/Features';
+import Hero from 'components/marketing/PlatformOverview/Hero';
+import Features from 'blocks/features/Features/Features';
 import Benefits from 'components/marketing/PlatformOverview/Benefits';
+import LevelUp from 'components/marketing/PlatformOverview/LevelUp';
 
 
 
@@ -93,6 +94,7 @@ function PlatformOverview({ content }) {
         header_size={28}
         />
       <Benefits {...pageData}/>
+      <LevelUp {...pageData}/>
     </>
   );
 }
