@@ -89,7 +89,7 @@ export default function Join(props) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [projectType, setProjectType] = useState('website');
-    const [currentAnimation, setCurrentAnimation] = useState('rollIn');
+    const [currentAnimation, setCurrentAnimation] = useState('enterScreen'); // set starting animation
     const [userObject, setUserObject] = useState({});
     const sliderRef = useRef(null);
 
