@@ -93,7 +93,6 @@ export default function Join(props) {
     const [userObject, setUserObject] = useState({});
     const sliderRef = useRef(null);
 
-    console.log(process.env)
     const handlePrev = useCallback(() => {
       if (!sliderRef.current) return;
       sliderRef.current.swiper.slidePrev();
@@ -145,6 +144,8 @@ export default function Join(props) {
     const signUpSuccess = async  (userDetails, creationObect) => {
         // send user forward visually, then capture their data
         handleNext();
+        setCurrentAnimation('party');
+
         // store email and user to state
         setEmail(userDetails.email);
         setFirstName(userDetails.firstName);
@@ -173,7 +174,7 @@ export default function Join(props) {
         } else {
             console.log('post object not sent', zohoLeadObject)
         }
-        setCurrentAnimation('party');
+        
         
         
     }

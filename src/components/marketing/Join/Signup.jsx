@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Container, Stack, Grid, OutlinedInput, FormHelperText, IconButton, Button,InputLabel,FilledInput, InputAdornment, Box, TextField, Typography } from '@mui/material';
 import FormControl, { useFormControl } from '@mui/material/FormControl';
-
+import CircularProgress from '@mui/material/CircularProgress';
 import { EmailOutlined } from '@mui/icons-material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -75,7 +75,8 @@ export const Signup = ({
       confirmPassword: '',
       showPassword: false,
       formValid: false,
-      isProduction: production
+      isProduction: production,
+      waiting: false
     });
 
     
@@ -120,12 +121,17 @@ export const Signup = ({
     const submitForm = async () => {
       // check if user created successfully
       let success = false
-      
+      // waiting screen
+      setValues({
+        ...values,
+        waiting: true,
+      });
       // on run if production
       if(values.isProduction  === true){
-        success = await createZestyUser(values.firstname, values.lastname, values.email, values.password);
+        success = await createZestyUser(values.firstName, values.lastName, values.email, values.password);
       } else {
-        success = {data: {ZUID: '5-TEST'}}
+        let randomchars = (Math.random() + 1).toString(36).substring(7);
+        success = {data: {ZUID: `5-TEST-${randomchars}`}}
       }
       if(success !== false) {
         callback(values, success);
@@ -135,97 +141,101 @@ export const Signup = ({
 
     }
   return (
-
-    <Container>     
-        <Box paddingY={4} sx={{textAlign: 'center'}}>
-          <Typography variant="h4" gutterBottom>{message}</Typography>
-          <Typography variant="p">You'll need to create a Zesty account. We don't sell or giveaway your information.</Typography>
-        </Box>
-        <Box
-          component="form"
-          noValidate
-          autoComplete="off"
-          paddingX={15}
-        >
-          <Grid container gap={1} paddingY={2} direction="row" alignItems="center" spacing={2} justifyContent="center">
-            <Grid md={5} lg={5} xs={12} item>
-              <TextField
-                fullWidth
-                label="First Name"
-                name="firstName"
-                helperText={ validFirstName ? '' : 'Name too short.' }
-                error={!validFirstName}
-                onKeyUp={handleChange}
-              />
+    <>
+    {values.waiting == false &&
+      <Container>     
+          <Box paddingY={4} sx={{textAlign: 'center'}}>
+            <Typography variant="h4" gutterBottom>{message}</Typography>
+            <Typography variant="p">You'll need to create a Zesty account. We don't sell or giveaway your information.</Typography>
+          </Box>
+          <Box
+            component="form"
+            noValidate
+            autoComplete="off"
+            paddingX={15}
+          >
+            <Grid container gap={1} paddingY={2} direction="row" alignItems="center" spacing={2} justifyContent="center">
+              <Grid md={5} lg={5} xs={12} item>
+                <TextField
+                  fullWidth
+                  label="First Name"
+                  name="firstName"
+                  helperText={ validFirstName ? '' : 'Name too short.' }
+                  error={!validFirstName}
+                  onKeyUp={handleChange}
+                />
+              </Grid>
+              <Grid md={5} lg={5} xs={12} item>
+                <TextField
+                  fullWidth
+                  label="Last Name"
+                  helperText={ validLastName ? '' : 'Name too short.' }
+                  name="lastName"
+                  error={!validLastName}
+                  onKeyUp={handleChange}
+                />
+              </Grid>
             </Grid>
-            <Grid md={5} lg={5} xs={12} item>
-              <TextField
-                fullWidth
-                label="Last Name"
-                helperText={ validLastName ? '' : 'Name too short.' }
-                name="lastName"
-                error={!validLastName}
-                onKeyUp={handleChange}
-              />
+            <Grid gap={1} container paddingY={1} direction="row" spacing={2} justifyContent="center">
+              <Grid md={5} lg={5} xs={12} item>
+              
+                <FormControl fullWidth>
+                  <InputLabel htmlFor="email">Email</InputLabel>
+                  <OutlinedInput
+                    fullWidth
+                    type={'text'}
+                    id="email"
+                    label="Email"
+                    name="email"
+                    error={!validEmail}
+                    onKeyUp={handleChange}
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <EmailOutlined />
+                      </InputAdornment>
+                    }
+                  />
+                  {validEmail ? '' : <FormHelperText>Valid email required</FormHelperText>}
+                </FormControl>
+              </Grid>
+              <Grid md={5} lg={5} xs={12} item>
+                <FormControl fullWidth>
+                  <InputLabel htmlFor="password">Password</InputLabel>
+                  <OutlinedInput
+                    fullWidth
+                    id="password"
+                    
+                    label="Password"
+                    type={values.showPassword ? 'text' : 'password'}
+                    name="password"
+                    error={!validPassword}
+                    onChange={handleChange}
+                    onKeyUp={handleChange}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                  <PasswordHelperText />
+                </FormControl>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid gap={1} container paddingY={1} direction="row" spacing={2} justifyContent="center">
-            <Grid md={5} lg={5} xs={12} item>
+            <Grid container gap={1} paddingY={2} direction="row" alignItems="center" spacing={2} justifyContent="center">
+              <Button item variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Create account</Button>
+            </Grid>
             
-              <FormControl fullWidth>
-                <InputLabel htmlFor="email">Email</InputLabel>
-                <OutlinedInput
-                  fullWidth
-                  type={'text'}
-                  id="email"
-                  label="Email"
-                  name="email"
-                  error={!validEmail}
-                  onKeyUp={handleChange}
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <EmailOutlined />
-                    </InputAdornment>
-                  }
-                />
-                {validEmail ? '' : <FormHelperText>Valid email required</FormHelperText>}
-              </FormControl>
-            </Grid>
-            <Grid md={5} lg={5} xs={12} item>
-              <FormControl fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <OutlinedInput
-                  fullWidth
-                  id="password"
-                  
-                  label="Password"
-                  type={values.showPassword ? 'text' : 'password'}
-                  name="password"
-                  error={!validPassword}
-                  onChange={handleChange}
-                  onKeyUp={handleChange}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-                <PasswordHelperText />
-              </FormControl>
-            </Grid>
-          </Grid>
-          <Grid container gap={1} paddingY={2} direction="row" alignItems="center" spacing={2} justifyContent="center">
-            <Button item variant="contained" ref={submitButton} disabled={!checkAllValid} onClick={submitForm} >Create account</Button>
-          </Grid>
-          
-        </Box>
-    </Container>
+          </Box>
+      </Container>
+      }
+      {values.waiting == true && <CircularProgress color="secondary" />}
+      </>
   )
 }
