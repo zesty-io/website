@@ -6,7 +6,6 @@ import { Box, Typography, Card } from '@mui/material';
 
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
-import { useTheme } from '@mui/material';
 
 const Growth = ({
   content,

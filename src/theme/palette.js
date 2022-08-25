@@ -95,7 +95,7 @@ export const dark = {
   common: {
     black: '#000',
     white: '#fff',
-    grey: '#666'
+    grey: '#666',
   },
   mode: 'dark',
   primary: {

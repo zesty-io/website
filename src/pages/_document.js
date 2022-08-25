@@ -16,7 +16,7 @@ export default class MyDocument extends Document {
   render() {
     // taga manager / google analytics tags
     let GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
-  
+
     const fetchUrl =
       process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
       'https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js';
@@ -28,14 +28,13 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://unpkg.com/aos@next/dist/aos.css"
           />
-           {/* Global Site Tag (gtag.js) - Google Analytics */}
-      
-       <script
+          {/* Global Site Tag (gtag.js) - Google Analytics */}
+
+          <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
           />
-       
-      
+
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -48,7 +47,6 @@ export default class MyDocument extends Document {
           `,
             }}
           />
-          
         </Head>
         <body>
           <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

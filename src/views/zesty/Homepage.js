@@ -78,7 +78,7 @@ function Homepage({ content }) {
   };
 
   useEffect(() => {
-    AOS.init({
+    window.AOS.init({
       disable: isMedium,
     });
   }, [isMedium]);
