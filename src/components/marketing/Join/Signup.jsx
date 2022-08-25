@@ -58,7 +58,8 @@ function PasswordHelperText() {
 
 export const Signup = ({
     message = 'What team are you from?',
-    callback = {}
+    callback = {},
+    production=false
   }) => {
     // ref for submit button
     const submitButton = React.useRef(null);
@@ -74,6 +75,7 @@ export const Signup = ({
       confirmPassword: '',
       showPassword: false,
       formValid: false,
+      isProduction: production
     });
 
     
@@ -117,7 +119,14 @@ export const Signup = ({
     // user creation submission form 
     const submitForm = async () => {
       // check if user created successfully
-      let success = await createZestyUser(values.firstname, values.lastname, values.email, values.password);
+      let success = false
+      
+      // on run if production
+      if(values.isProduction  === true){
+        success = await createZestyUser(values.firstname, values.lastname, values.email, values.password);
+      } else {
+        success = {data: {ZUID: '5-TEST'}}
+      }
       if(success !== false) {
         callback(values, success);
       } else {
