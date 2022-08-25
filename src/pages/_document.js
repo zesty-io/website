@@ -14,7 +14,7 @@ const getCache = () => {
 
 export default class MyDocument extends Document {
   render() {
-    // taga manager / google analytics tags
+    // tag manager / google analytics tags
     let GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
   
     const fetchUrl =
@@ -34,8 +34,7 @@ export default class MyDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
           />
-       
-      
+
           <script
             dangerouslySetInnerHTML={{
               __html: `
