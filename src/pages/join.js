@@ -81,7 +81,7 @@ const postToZOHO = async (payloadJSON) => {
 export default function Join(props) {
     const theme = useTheme();
     const { height, width } = getWindowDimensions();
-    const isProduction = process.env.NEXT_PUBLIC_PRODUCTION == 'true' || process.env.NEXT_PUBLIC_PRODUCTION === true  ? true : false
+    const isProduction = props.production;
     
     // state values for form capture
     const [role, setRole] = useState('Developer');
@@ -312,8 +312,10 @@ export async function getServerSideProps({ res }) {
         'Cache-Control',
         'public, s-maxage=600, stale-while-revalidate=3600',
     );
-    let data = {}
+    let data = {
+        production: (process.env.PRODUCTION == 'true' || process.env.PRODUCTION === true) ? true : false
+    }
     
     // Pass data to the page via props
-    return { props: data };
+    return { props: data }
 }
