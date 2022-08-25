@@ -28,13 +28,11 @@ const MainApps = () => {
 
   const { entities, isSearching } = useContext(MarketplaceContext);
 
-  console.log(entities);
-
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
   return (
     <>
-      <Box sx={{ py: isLanding ? 10 : 3 }} component="section">
+      <Box sx={{ py: isLanding ? 10 : 3, px: 4 }} component="section">
         <Box
           sx={{
             width: '100%',
@@ -63,9 +61,9 @@ const MainApps = () => {
                 xs={12}
                 sm={6}
                 lg={4}
-                xl={3}
+                xl={!isLanding ? 4 : 3}
               >
-                <Box component={'a'} href="#" sx={{ textDecoration: 'none' }}>
+                <Box component={'a'} sx={{ textDecoration: 'none' }}>
                   <MainCard {...item} />
                 </Box>
               </Grid>

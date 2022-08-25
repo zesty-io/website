@@ -32,8 +32,6 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
     setCookies('PRODUCTION', props.zestyProductionMode);
   }, [props]);
 
-  console.log(props);
-
   return (
     <>
       <Head>

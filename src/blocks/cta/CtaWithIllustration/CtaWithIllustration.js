@@ -19,6 +19,7 @@ const CtaWithIllustration = ({
   image,
   isDemoPage,
   request_demo_text,
+  form_zoho_url,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -36,7 +37,6 @@ const CtaWithIllustration = ({
           }}
           item
           xs={12}
-          md={6}
         >
           {isDemoPage ? (
             <MuiMarkdown
@@ -118,11 +118,15 @@ const CtaWithIllustration = ({
             </Box>
           )}
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Box height={1} width={1} display={'flex'} justifyContent={'center'}>
             <Box height={1} width={1}>
               {isDemoPage ? (
-                <ZohoFormEmbed height="620px" formURL="" />
+                <ZohoFormEmbed
+                  height="470px"
+                  width={'100%'}
+                  formURL={form_zoho_url || ''}
+                />
               ) : (
                 <CreditCardsIllustration width={'100%'} height={'100%'} />
               )}

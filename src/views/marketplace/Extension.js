@@ -107,6 +107,7 @@ const InstallButton = ({ data, theme }) => {
 const Extension = (props) => {
   const theme = useTheme();
   const isSM = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const links = [
     {
@@ -123,7 +124,6 @@ const Extension = (props) => {
     },
   ];
 
-  console.log(props);
   return (
     <>
       <Box sx={{ py: 5 }}>
@@ -243,7 +243,7 @@ const Extension = (props) => {
               </Box>
             </Box>
           </Grid>
-          <Grid item sm={12} md={4}>
+          <Grid sx={{ width: '100%' }} item sm={12} md={4}>
             <Box>
               <InstallButton data={props} theme={theme} />
               <Box
@@ -252,7 +252,11 @@ const Extension = (props) => {
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 4,
-                  border: `1px solid ${theme.palette.common.grey}`,
+                  border: `1px solid ${
+                    isDarkMode
+                      ? theme.palette.common.white
+                      : theme.palette.common.grey
+                  }`,
                   borderRadius: 2,
                   background: theme.palette.background.paper,
                   mt: 2,
@@ -311,7 +315,11 @@ const Extension = (props) => {
                   p: 5,
                   display: 'flex',
                   flexDirection: 'column',
-                  border: `1px solid ${theme.palette.common.grey}`,
+                  border: `1px solid ${
+                    isDarkMode
+                      ? theme.palette.common.white
+                      : theme.palette.common.grey
+                  }`,
                   borderRadius: 2,
                   background: theme.palette.background.paper,
                   mt: 2,
@@ -360,7 +368,11 @@ const Extension = (props) => {
                   p: 5,
                   display: 'flex',
                   flexDirection: 'column',
-                  border: `1px solid ${theme.palette.common.grey}`,
+                  border: `1px solid ${
+                    isDarkMode
+                      ? theme.palette.common.white
+                      : theme.palette.common.grey
+                  }`,
                   borderRadius: 2,
                   background: theme.palette.background.paper,
                   mt: 2,
