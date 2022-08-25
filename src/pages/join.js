@@ -93,6 +93,7 @@ export default function Join(props) {
     const [userObject, setUserObject] = useState({});
     const sliderRef = useRef(null);
 
+    console.log(process.env)
     const handlePrev = useCallback(() => {
       if (!sliderRef.current) return;
       sliderRef.current.swiper.slidePrev();
