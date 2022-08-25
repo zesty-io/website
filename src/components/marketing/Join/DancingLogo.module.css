@@ -1,4 +1,4 @@
-.hello, .still, .bouncing, .rollIn, .rollOut, .dancingLogo, .jiggle, .no, .sway,.shake,.party{
+.hello, .still, .bouncing, .rollIn, .rollOut, .dancingLogo, .jiggle, .no, .sway,.shake,.party,.fadeIn,.enterScreen{
     width: 150px;
     -webkit-transition: all 1s ease;
     transition: all 1s ease;
@@ -25,6 +25,10 @@
     animation: shake 3.5s ease-in-out forwards ;
 }
 
+.enterScreen {
+  animation: fadein 2000ms ease-out, enterFromTop 1000ms linear;
+}
+
 .hello {
     transform: rotate(90deg);
 }
@@ -40,6 +44,10 @@
 .rollIn {
     animation: rollIn 1500ms ease-out, spin 1500ms ease-out;
     
+}
+.fadeIn {
+  animation: fadein 1000ms ease-out;
+  
 }
 .rollOut {
     animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite;
@@ -65,6 +73,20 @@
     50% {transform: rotate(0deg) scale(1,1)}
     75% {transform: rotate(-10deg) scale(1,1)}
     100% {transform: rotate(0deg) scale(1,1)}
+  }
+
+  @keyframes fadein {
+    /* start at 0deg and this scale size.
+       scale size is repeated here to maintain smooth scaling */
+    0% {opacity: 0%;}
+    100% {opacity: 100%}
+  }
+
+  @keyframes enterFromTop {
+    /* start at 0deg and this scale size.
+       scale size is repeated here to maintain smooth scaling */
+    0% {top: -200px;}
+    100% {top: 25px}
   }
 
 @keyframes jiggle {

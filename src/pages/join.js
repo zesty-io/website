@@ -89,7 +89,7 @@ export default function Join(props) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [projectType, setProjectType] = useState('website');
-    const [currentAnimation, setCurrentAnimation] = useState('rollIn');
+    const [currentAnimation, setCurrentAnimation] = useState('enterScreen'); // set starting animation
     const [userObject, setUserObject] = useState({});
     const sliderRef = useRef(null);
 
@@ -144,6 +144,8 @@ export default function Join(props) {
     const signUpSuccess = async  (userDetails, creationObect) => {
         // send user forward visually, then capture their data
         handleNext();
+        setCurrentAnimation('party');
+
         // store email and user to state
         setEmail(userDetails.email);
         setFirstName(userDetails.firstName);
@@ -172,7 +174,7 @@ export default function Join(props) {
         } else {
             console.log('post object not sent', zohoLeadObject)
         }
-        setCurrentAnimation('party');
+        
         
         
     }
