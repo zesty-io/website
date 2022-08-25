@@ -27,7 +27,7 @@ const Features = ({ data, features_header, header_size = 48, feature_description
 			sx={{
 				position: 'relative',
 				zIndex: '500',
-				background: theme.palette.common.white
+				background: isDarkMode ? theme.palette.zesty.zestyDarkBlue : theme.palette.common.white
 			}}
 		>
 			<Box
@@ -48,7 +48,7 @@ const Features = ({ data, features_header, header_size = 48, feature_description
 						variant={'p'}
 						sx={{
 							lineHeight: 1,
-							color: isDarkMode ? theme.palette.zesty.zestyDarkBlue : theme.palette.zesty.zestyZambezi,
+							color: isDarkMode ? theme.palette.common.white : theme.palette.zesty.zestyZambezi,
 							textAlign: 'center',
 							fontSize: isMobile ? '24px' : header_size
 						}}

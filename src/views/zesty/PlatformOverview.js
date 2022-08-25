@@ -43,6 +43,7 @@ import FillerContent from 'components/globals/FillerContent';
 
  import Hero from 'components/marketing/PlatformOverview/Hero';
  import Features from 'blocks/features/Features/Features';
+import Benefits from 'components/marketing/PlatformOverview/Benefits';
 
 
 
@@ -79,7 +80,7 @@ function PlatformOverview({ content }) {
         return acc;
   } ,[]) || []
 
-  console.log("feature_data", feature_data)
+
 
 
   return (
@@ -91,6 +92,7 @@ function PlatformOverview({ content }) {
         content={content}
         header_size={28}
         />
+      <Benefits {...pageData}/>
     </>
   );
 }

@@ -14,11 +14,12 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 const Hero = ({ theme, isMedium, content, FillerContent }) => {
 	return (
 		<Box
+			component="section"
 			sx={{
 				py: 10,
 				position: 'relative',
 				minHeight: 800,
-				background: isMedium ? '' : `url(${content.header_image.data[9].url})`,
+				background: isMedium ? '' : `url(${content.header_image.data[9].url}?width=1920&height=840)`,
 				backgroundRepeat: 'no-repeat',
 				backgroundSize: 'cover',
 				backgroundPosition: 'center',
@@ -80,6 +81,7 @@ const Hero = ({ theme, isMedium, content, FillerContent }) => {
 							<Box
 								sx={{ width: '100%' }}
 								component="img"
+								alt="zesty header"
 								src={content.header_image.data[8].url || FillerContent.photos[0].src}
 							/>
 						</Box>
