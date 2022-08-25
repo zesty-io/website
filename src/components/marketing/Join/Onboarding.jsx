@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import {
   Box,
   Button,
@@ -7,11 +6,9 @@ import {
   Container,
   Typography,
   Grid,
-  Paper,
   Stack,
   List,
   ListItemText,
-  ListItem,
   ListItemIcon,
   Chip,
   ListItemButton,
@@ -21,8 +18,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
-import LaunchIcon from '@mui/icons-material/Launch';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';

@@ -11,7 +11,6 @@ import 'react-image-lightbox/style.css';
 import 'aos/dist/aos.css';
 import '../../public/styles/custom.css';
 import { useZestyStore } from 'store';
-import { getCookie } from 'cookies-next';
 import { getUserAppSID } from 'utils';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { SnackbarProvider } from 'notistack';
