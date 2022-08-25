@@ -48,6 +48,7 @@ function DeveloperResourceCard({ content }) {
       >
         <h2>Accessible Zesty.io JSON Object</h2>
         <pre>{JSON.stringify(content, null, 2)}</pre>
+        Test
       </div>
       {/* End of Zesty.io output example */}
     </>

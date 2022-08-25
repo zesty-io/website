@@ -9,11 +9,6 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
  */
 import FillerContent from 'components/globals/FillerContent';
 
-/**
- * React Imports
- */
-import { useRouter } from 'next/router';
-
 const MainCard = ({
   name,
   image,
@@ -21,17 +16,20 @@ const MainCard = ({
   meta_description,
   available,
   recommended,
+  meta,
 }) => {
   /**
    * Theme Settings
    */
   const theme = useTheme();
-  const router = useRouter();
+
+  const landingPage = uri;
+  const productPage = meta?.web.uri;
 
   return (
     <Box
       component={'a'}
-      href={uri || FillerContent.href}
+      href={uri || meta.web.uri || FillerContent.href}
       sx={{
         textDecoration: 'none',
         background: 'red',
@@ -44,7 +42,7 @@ const MainCard = ({
           },
           width: '100%',
           margin: 'auto',
-          minHeight: 260,
+          minHeight: 300,
           display: 'flex',
           position: 'relative',
           alignItems: 'center',
@@ -103,9 +101,9 @@ const MainCard = ({
                   component="img"
                   alt=""
                   src={
-                    router.asPath !== '/marketplace/'
-                      ? image.data[0].url
-                      : image || FillerContent.logos[0].url
+                    (landingPage && image) ||
+                    (productPage && image.data[0].url) ||
+                    FillerContent.logos[0].url
                   }
                 />
               </Box>
@@ -144,7 +142,9 @@ const MainCard = ({
                   variant="body1"
                   component="p"
                 >
-                  {meta_description || FillerContent.description}
+                  {meta_description ||
+                    meta?.web.seo_meta_description ||
+                    FillerContent.description}
                 </Typography>
 
                 {recommended == 1 && (

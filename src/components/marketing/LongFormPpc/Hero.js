@@ -19,6 +19,8 @@ const Hero = ({
   cta_right_text,
   cta_right_url,
   scrollToContactUs,
+  cta_left_text,
+  cta_left_url,
 }) => {
   const theme = useTheme();
 
@@ -65,9 +67,28 @@ const Hero = ({
             </Box>
             <Box
               display="flex"
+              gap={2}
               flexDirection={{ xs: 'column', sm: 'row' }}
               alignItems={{ xs: 'stretched', sm: 'flex-start' }}
             >
+              {cta_left_text !== '' && (
+                <Button
+                  href={cta_left_url}
+                  target="_blank"
+                  component={'a'}
+                  variant="contained"
+                  size="large"
+                  marginTop={{ xs: 2, sm: 0 }}
+                  fullWidth={isMd ? false : true}
+                  sx={{
+                    color: theme.palette.common.white,
+                    backgroundColor: theme.palette.zesty.zestyOrange,
+                  }}
+                >
+                  {cta_left_text || FillerContent.cta}
+                </Button>
+              )}
+
               <Box
                 onClick={() => scrollToContactUs()}
                 component={Button}

@@ -112,6 +112,11 @@ function LongFormPpc({ content }) {
       (content.cta_right_url &&
         zestyLink(content.navigationTree, content.cta_right_url)) ||
       zestyLink(content.navigationTree, FillerContent.contact_zuid),
+    cta_left_text: content.cta_left_text || '',
+    cta_left_url:
+      (content.cta_left_url === '0' && '/join') ||
+      content.cta_left_url?.data[0]?.meta.web.uri ||
+      '/join',
   };
 
   return (

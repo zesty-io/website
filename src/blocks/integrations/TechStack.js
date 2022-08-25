@@ -5,7 +5,6 @@ import MuiMarkdown from 'mui-markdown';
 // Local Assets Imports
 
 const TechStack = ({ theme, isMobile, content, FillerContent }) => {
-  console.log(content.integrations_logos);
   return (
     <Box component="section" sx={{ px: 4 }}>
       <Box

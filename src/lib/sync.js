@@ -146,10 +146,8 @@ module.exports = {
   }
 
   // update the config
-  await writeFileAsync(
-    configPath,
-    'module.exports = ' + JSON.stringify(nextJSConfig, null, 2),
-  );
+  // removed the config overwrite on 8/22/22
+  // await writeFileAsync(configPath,'module.exports = '+JSON.stringify(nextJSConfig,null,2))
 
   return nextJSConfig.env.zesty;
 }
@@ -550,9 +548,7 @@ async function createComponent(path, model, instanceZUID = '') {
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-
 import React  from 'react';
-
 function ${model.component_name}({content}) {
     return (
         <>
