@@ -105,6 +105,13 @@ const otpTwoFactor = yup.object().shape({
   otp: yup.string().required('This is required'),
 });
 
+const forgotPassword = yup.object().shape({
+  email: yup
+    .string()
+    .email('Email is invalid format')
+    .required('Email is required*'),
+});
+
 export const accountsValidations = {
   email,
   password,
@@ -117,4 +124,5 @@ export const accountsValidations = {
   localeSchema,
   createWebhook,
   otpTwoFactor,
+  forgotPassword,
 };

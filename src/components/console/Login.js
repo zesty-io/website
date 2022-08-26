@@ -226,7 +226,12 @@ const Login = () => {
                       formik={formik}
                     />
 
-                    <Link href="#" alignSelf="end" mb={3} color="secondary">
+                    <Link
+                      href="/login/forgot-password/"
+                      alignSelf="end"
+                      mb={3}
+                      color="secondary"
+                    >
                       Forgot Password?
                     </Link>
                     <LoadingButton
