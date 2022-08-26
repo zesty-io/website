@@ -183,7 +183,11 @@ const Login = () => {
               justifyContent="space-between"
             >
               <img
-                src="https://brand.zesty.io/zesty-io-logo-horizontal.svg"
+                src={
+                  theme.palette.mode === 'light'
+                    ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                    : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+                }
                 height={150}
                 width={150}
               />
@@ -272,7 +276,11 @@ const Login = () => {
         <Grid
           item
           md={8}
-          bgcolor={(theme) => theme.palette.zesty.zestyDarkerBlue}
+          bgcolor={(theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.zesty.zestyDarkerBlue
+              : theme.palette.secondary.main
+          }
           display={isMD ? 'none' : 'block'}
         >
           <Stack

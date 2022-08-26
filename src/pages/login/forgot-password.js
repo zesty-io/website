@@ -15,10 +15,12 @@ import { accountsValidations, FormInput } from 'components/accounts';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import { useZestyStore } from 'store';
+import { useTheme } from '@mui/material/styles';
 
 const ForgotPassword = () => {
   document.title = 'Forgot Password';
 
+  const theme = useTheme();
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState({});
   const { ZestyAPI } = useZestyStore((state) => state);
@@ -65,7 +67,11 @@ const ForgotPassword = () => {
       >
         <Stack alignItems="center">
           <img
-            src="https://brand.zesty.io/zesty-io-logo-vertical.svg"
+            src={
+              theme.palette.mode === 'light'
+                ? 'https://brand.zesty.io/zesty-io-logo-vertical.svg'
+                : 'https://brand.zesty.io/zesty-io-logo-vertical-light-color.svg'
+            }
             alt="logo"
             height="150px"
             width="150px"
