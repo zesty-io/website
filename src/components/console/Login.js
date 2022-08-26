@@ -28,6 +28,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useRouter } from 'next/router';
 
 const MySwal = withReactContent(Swal);
 
@@ -38,6 +39,7 @@ const Login = () => {
   const [loginData, setLoginData] = useState({});
   const theme = useTheme();
   const isMD = useMediaQuery(theme.breakpoints.down('md'));
+  const router = useRouter();
 
   useEffect(async () => {
     const getData = async () => {
@@ -48,9 +50,8 @@ const Login = () => {
       const data = await response.json();
       return data;
     };
-
-    setLoginData(await getData());
-  }, []);
+    if (router.isReady) setLoginData(await getData());
+  }, [router.isReady]);
 
   const handleLoginSuccess = (res) => {
     setloading(false);
