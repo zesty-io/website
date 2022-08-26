@@ -22,7 +22,7 @@ export const zohoPostObject = (
     leadSource = 'Website',
     role = 'Marketer',
     userZUID='',
-    trialStatus='Active'
+    // trialStatus='Active'
   ) => {
 
     // logic to override lead source detail, or default to utm_medium, or empty if nothing
@@ -65,7 +65,7 @@ export const zohoPostObject = (
       User_ZUID : userZUID,
       Trial_Created_Date: (new Date()).toISOString().slice(0, 19),
       Business_Type: businessType,
-      Trial_Status: trialStatus,
+      // Trial_Status: trialStatus,
       Lead_Status: 'Not Contacted',
       Designation: obj?.jobTitle ? obj.jobTitle : '',
       Company: obj?.company ? obj.company : '',
