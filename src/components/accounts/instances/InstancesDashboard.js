@@ -40,12 +40,107 @@ const orderByItems = [
   },
 ];
 
+const InstancesList = ({
+  title = '',
+  data = [],
+  view = 'grid',
+  toggleFavorites,
+  handleRoute,
+  initialFavorites = [],
+}) => {
+  if (view === 'list') {
+    return (
+      <List>
+        {data?.map((instance, index) => {
+          const isFavorite = initialFavorites.find((e) => e === instance.ZUID);
+
+          return (
+            <ListItem divider key={index} disablePadding>
+              <Box onClick={() => toggleFavorites(instance)}>
+                {isFavorite ? <GradeIcon /> : <StarOutlineIcon />}
+              </Box>
+              <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
+                <ListItemIcon>
+                  <img
+                    alt={instance.name}
+                    height="50px"
+                    width="50px"
+                    src={
+                      instance.screenshotURL
+                        ? instance.screenshotURL
+                        : FillerContent.image
+                    }
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary={instance.name}
+                  secondary={`Updated ${instance.updatedAt}`}
+                />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
+      </List>
+    );
+  }
+
+  return (
+    <Box>
+      <Typography variant="h5">{title}</Typography>
+      <Grid container direction="row" my={2} spacing={2}>
+        {data?.map((instance, index) => {
+          const isFavorite = initialFavorites.find((e) => e === instance.ZUID);
+          return (
+            <Grid item xs={12} sm={4} lg={3} key={index}>
+              <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
+                <Box
+                  paddingX={1}
+                  paddingY={1}
+                  width={1}
+                  display={'flex'}
+                  justifyContent={'flex-end'}
+                >
+                  <Box onClick={() => toggleFavorites(instance)}>
+                    {isFavorite ? <GradeIcon /> : <StarOutlineIcon />}
+                  </Box>
+                </Box>
+                <CardMedia
+                  height="100%"
+                  sx={{ minHeight: 170 }}
+                  width="100%"
+                  component="img"
+                  image={
+                    instance.screenshotURL
+                      ? instance.screenshotURL
+                      : FillerContent.image
+                  }
+                  onClick={() => handleRoute(instance.ZUID)}
+                />
+                <Typography
+                  p={1}
+                  gutterBottom
+                  variant="h6"
+                  onClick={() => handleRoute(instance.ZUID)}
+                >
+                  {instance.name}
+                </Typography>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Box>
+  );
+};
+
 export const InstancesDashboard = () => {
   const [view, setView] = useState('grid');
   const [orderByValue, setOrderByValue, reset] = useDropdown();
   const [initialFavorites, setinitialFavorites] = useState([]);
   const router = useRouter();
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
+  const [instances, setInstances] = React.useState([]);
+  const [search, setSearch] = React.useState('');
 
   const [userZUID, setuserZUID] = React.useState('');
   const { setuserInfo } = useZestyStore((state) => state);
@@ -78,27 +173,10 @@ export const InstancesDashboard = () => {
     res.error && handleGetUserError(res);
   };
 
-  React.useEffect(() => {
-    verify();
-  }, []);
-
-  React.useEffect(() => {
-    userZUID && getUser(userZUID);
-  }, [userZUID]);
-
-  const [instances, setInstances] = React.useState([]);
-  const [search, setSearch] = React.useState('');
-
   const handleGetInstancesSuccess = (res) => {
     console.log(res);
     setInstances(res.data);
   };
-
-  React.useEffect(() => {
-    if (userInfo && Object.keys(userInfo).length !== 0) {
-      setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites);
-    }
-  }, [userInfo]);
 
   // Partial fix when invalid session is detected
   // will redirect user to home page
@@ -119,20 +197,6 @@ export const InstancesDashboard = () => {
     else setView(value);
   };
 
-  React.useEffect(() => {
-    instances.length === 0 && getInstances();
-  }, [instances]);
-
-  React.useEffect(() => {
-    if (orderByValue === 'asc') {
-      setInstances(instances.sort((a, b) => a.name.localeCompare(b.name)));
-    }
-    if (orderByValue === 'desc') {
-      setInstances(instances.sort((a, b) => b.name.localeCompare(a.name)));
-    }
-    reset();
-  }, [orderByValue]);
-
   const handleRoute = (zuid) => {
     setCookie('ZESTY_WORKING_INSTANCE', zuid);
     router.push({
@@ -149,6 +213,7 @@ export const InstancesDashboard = () => {
   const handleUpdateUserError = (res) => {
     console.log(res);
   };
+
   const toggleFavorites = async (data) => {
     const isExist = initialFavorites.find((e) => e === data.ZUID);
     const favorite_sites = [
@@ -163,17 +228,49 @@ export const InstancesDashboard = () => {
       lastName: userInfo.lastName,
       prefs: JSON.stringify(prefs),
     };
-    // console.log(prefs);
-    // console.log(body, prefs);
     const res = await ZestyAPI.updateUser(userInfo.ZUID, body, '');
     !res.error && handleUpdateUserSuccess(res);
     res.error && handleUpdateUserError(res);
     await getInstances();
     await getUser(userZUID);
   };
+
   const favoritesList = instances
     ?.filter((instance) => initialFavorites.includes(instance.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
+
+  const instancesList = instances
+    ?.filter((instance) => !initialFavorites.includes(instance.ZUID))
+    ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
+
+  React.useEffect(() => {
+    verify();
+  }, []);
+
+  React.useEffect(() => {
+    userZUID && getUser(userZUID);
+  }, [userZUID]);
+
+  React.useEffect(() => {
+    instances.length === 0 && getInstances();
+  }, [instances]);
+
+  React.useEffect(() => {
+    if (orderByValue === 'asc') {
+      setInstances(instances.sort((a, b) => a.name.localeCompare(b.name)));
+    }
+    if (orderByValue === 'desc') {
+      setInstances(instances.sort((a, b) => b.name.localeCompare(a.name)));
+    }
+    reset();
+  }, [orderByValue]);
+
+  React.useEffect(() => {
+    if (userInfo && Object.keys(userInfo).length !== 0) {
+      setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites);
+    }
+  }, [userInfo]);
+
   return (
     <Container maxWidth={false} sx={{ my: 2 }}>
       <Stack alignItems={'center'} direction="row" spacing={2}>
@@ -212,121 +309,22 @@ export const InstancesDashboard = () => {
         </ToggleButtonGroup>
       </Stack>
 
-      {favoritesList.length !== 0 && (
-        <Grid container direction="row" my={2} spacing={2}>
-          <Typography>Favorites</Typography>
-          {view === 'grid' &&
-            favoritesList?.map((instance, index) => (
-              <Grid item xs={12} sm={4} lg={3} key={index}>
-                <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
-                  <Box
-                    paddingX={1}
-                    paddingY={1}
-                    width={1}
-                    display={'flex'}
-                    justifyContent={'flex-end'}
-                  >
-                    <Box onClick={() => toggleFavorites(instance)}>
-                      <GradeIcon />
-                    </Box>
-                  </Box>
-                  <CardMedia
-                    height="100%"
-                    sx={{ minHeight: 170 }}
-                    width="100%"
-                    component="img"
-                    image={
-                      instance.screenshotURL
-                        ? instance.screenshotURL
-                        : FillerContent.image
-                    }
-                    onClick={() => handleRoute(instance.ZUID)}
-                  />
-                  <Typography
-                    p={1}
-                    gutterBottom
-                    variant="h6"
-                    onClick={() => handleRoute(instance.ZUID)}
-                  >
-                    {instance.name}
-                  </Typography>
-                </Card>
-              </Grid>
-            ))}
-        </Grid>
-      )}
-      <Grid container direction="row" my={2} spacing={2}>
-        {view === 'grid' &&
-          instances
-            ?.filter((instance) => !initialFavorites.includes(instance.ZUID))
-            ?.filter((inst) => inst?.name?.toLowerCase().includes(search))
-            ?.map((instance, index) => (
-              <Grid item xs={12} sm={4} lg={3} key={index}>
-                <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
-                  <Box
-                    paddingX={1}
-                    paddingY={1}
-                    width={1}
-                    display={'flex'}
-                    justifyContent={'flex-end'}
-                  >
-                    <Box onClick={() => toggleFavorites(instance)}>
-                      <StarOutlineIcon />
-                    </Box>
-                  </Box>
-                  <CardMedia
-                    height="100%"
-                    sx={{ minHeight: 170 }}
-                    width="100%"
-                    component="img"
-                    image={
-                      instance.screenshotURL
-                        ? instance.screenshotURL
-                        : FillerContent.image
-                    }
-                    onClick={() => handleRoute(instance.ZUID)}
-                  />
-                  <Typography
-                    p={1}
-                    gutterBottom
-                    variant="h6"
-                    onClick={() => handleRoute(instance.ZUID)}
-                  >
-                    {instance.name}
-                  </Typography>
-                </Card>
-              </Grid>
-            ))}
-      </Grid>
-
-      {view === 'list' && (
-        <List>
-          {instances
-            ?.filter((inst) => inst?.name?.toLowerCase().includes(search))
-            ?.map((instance, index) => (
-              <ListItem divider key={index} disablePadding>
-                <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
-                  <ListItemIcon>
-                    <img
-                      alt={instance.name}
-                      height="50px"
-                      width="50px"
-                      src={
-                        instance.screenshotURL
-                          ? instance.screenshotURL
-                          : FillerContent.image
-                      }
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={instance.name}
-                    secondary={`Updated ${instance.updatedAt}`}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
-        </List>
-      )}
+      <InstancesList
+        title={'Favorites'}
+        view={view}
+        data={favoritesList}
+        toggleFavorites={toggleFavorites}
+        handleRoute={handleRoute}
+        initialFavorites={initialFavorites}
+      />
+      <InstancesList
+        title={'Instances'}
+        view={view}
+        data={instancesList}
+        toggleFavorites={toggleFavorites}
+        handleRoute={handleRoute}
+        initialFavorites={initialFavorites}
+      />
     </Container>
   );
 };
