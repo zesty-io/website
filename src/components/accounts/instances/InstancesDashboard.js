@@ -17,6 +17,7 @@ import {
   ListItemIcon,
   ListItemText,
   Container,
+  Box,
 } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -25,6 +26,8 @@ import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import CustomMenu from './CustomMenu';
 import useDropdown from 'components/hooks/useDropdown';
 import FillerContent from 'components/globals/FillerContent';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import GradeIcon from '@mui/icons-material/Grade';
 
 const orderByItems = [
   {
@@ -40,8 +43,48 @@ const orderByItems = [
 export const InstancesDashboard = () => {
   const [view, setView] = useState('grid');
   const [orderByValue, setOrderByValue, reset] = useDropdown();
+  const [initialFavorites, setinitialFavorites] = useState([]);
   const router = useRouter();
-  const { ZestyAPI } = useZestyStore((state) => state);
+  const { ZestyAPI, userInfo } = useZestyStore((state) => state);
+
+  const [userZUID, setuserZUID] = React.useState('');
+  const { setuserInfo } = useZestyStore((state) => state);
+
+  const handleVerifySuccess = (res) => {
+    setuserZUID(res.meta.userZuid);
+  };
+
+  const handleVerifyError = (res) => {
+    console.log(res, 'err');
+  };
+
+  const handleGetUserSuccess = (res) => {
+    setuserInfo(res?.data);
+  };
+
+  const handleGetUserError = (res) => {
+    console.log(res, 'err');
+  };
+
+  const verify = async () => {
+    const res = await ZestyAPI.verify();
+    !res.error && handleVerifySuccess(res);
+    res.error && handleVerifyError(res);
+  };
+
+  const getUser = async (userZUID) => {
+    const res = await ZestyAPI.getUser(userZUID);
+    !res.error && handleGetUserSuccess(res);
+    res.error && handleGetUserError(res);
+  };
+
+  React.useEffect(() => {
+    verify();
+  }, []);
+
+  React.useEffect(() => {
+    userZUID && getUser(userZUID);
+  }, [userZUID]);
 
   const [instances, setInstances] = React.useState([]);
   const [search, setSearch] = React.useState('');
@@ -50,6 +93,12 @@ export const InstancesDashboard = () => {
     console.log(res);
     setInstances(res.data);
   };
+
+  React.useEffect(() => {
+    if (userInfo && Object.keys(userInfo).length !== 0) {
+      setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites);
+    }
+  }, [userInfo]);
 
   // Partial fix when invalid session is detected
   // will redirect user to home page
@@ -94,6 +143,37 @@ export const InstancesDashboard = () => {
     setSearch(search.toLowerCase());
   };
 
+  const handleUpdateUserSuccess = (res) => {
+    console.log(res);
+  };
+  const handleUpdateUserError = (res) => {
+    console.log(res);
+  };
+  const toggleFavorites = async (data) => {
+    const isExist = initialFavorites.find((e) => e === data.ZUID);
+    const favorite_sites = [
+      ...JSON.parse(userInfo.prefs).favorite_sites,
+      data.ZUID,
+    ];
+    const filterdFavorite = initialFavorites.filter((e) => e !== data.ZUID);
+    const prefs = JSON.parse(userInfo.prefs);
+    prefs.favorite_sites = !isExist ? favorite_sites : filterdFavorite;
+    const body = {
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      prefs: JSON.stringify(prefs),
+    };
+    // console.log(prefs);
+    // console.log(body, prefs);
+    const res = await ZestyAPI.updateUser(userInfo.ZUID, body, '');
+    !res.error && handleUpdateUserSuccess(res);
+    res.error && handleUpdateUserError(res);
+    await getInstances();
+    await getUser(userZUID);
+  };
+  const favoritesList = instances
+    ?.filter((instance) => initialFavorites.includes(instance.ZUID))
+    ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
   return (
     <Container maxWidth={false} sx={{ my: 2 }}>
       <Stack alignItems={'center'} direction="row" spacing={2}>
@@ -132,13 +212,68 @@ export const InstancesDashboard = () => {
         </ToggleButtonGroup>
       </Stack>
 
+      {favoritesList.length !== 0 && (
+        <Grid container direction="row" my={2} spacing={2}>
+          <Typography>Favorites</Typography>
+          {view === 'grid' &&
+            favoritesList?.map((instance, index) => (
+              <Grid item xs={12} sm={4} lg={3} key={index}>
+                <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
+                  <Box
+                    paddingX={1}
+                    paddingY={1}
+                    width={1}
+                    display={'flex'}
+                    justifyContent={'flex-end'}
+                  >
+                    <Box onClick={() => toggleFavorites(instance)}>
+                      <GradeIcon />
+                    </Box>
+                  </Box>
+                  <CardMedia
+                    height="100%"
+                    sx={{ minHeight: 170 }}
+                    width="100%"
+                    component="img"
+                    image={
+                      instance.screenshotURL
+                        ? instance.screenshotURL
+                        : FillerContent.image
+                    }
+                    onClick={() => handleRoute(instance.ZUID)}
+                  />
+                  <Typography
+                    p={1}
+                    gutterBottom
+                    variant="h6"
+                    onClick={() => handleRoute(instance.ZUID)}
+                  >
+                    {instance.name}
+                  </Typography>
+                </Card>
+              </Grid>
+            ))}
+        </Grid>
+      )}
       <Grid container direction="row" my={2} spacing={2}>
         {view === 'grid' &&
           instances
+            ?.filter((instance) => !initialFavorites.includes(instance.ZUID))
             ?.filter((inst) => inst?.name?.toLowerCase().includes(search))
             ?.map((instance, index) => (
               <Grid item xs={12} sm={4} lg={3} key={index}>
                 <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
+                  <Box
+                    paddingX={1}
+                    paddingY={1}
+                    width={1}
+                    display={'flex'}
+                    justifyContent={'flex-end'}
+                  >
+                    <Box onClick={() => toggleFavorites(instance)}>
+                      <StarOutlineIcon />
+                    </Box>
+                  </Box>
                   <CardMedia
                     height="100%"
                     sx={{ minHeight: 170 }}
