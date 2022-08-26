@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Grid,
   InputAdornment,
   Link,
@@ -29,6 +30,7 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useRouter } from 'next/router';
+import msLogin from '../../../public/assets/images/ms-symbollockup_signin_light.svg';
 
 const MySwal = withReactContent(Swal);
 
@@ -222,7 +224,6 @@ const Login = () => {
                         ),
                       }}
                     />
-
                     <FormInput
                       color="secondary"
                       name="password"
@@ -230,7 +231,6 @@ const Login = () => {
                       customLabel="Password"
                       formik={formik}
                     />
-
                     <Link
                       href="/login/forgot-password/"
                       alignSelf="end"
@@ -249,6 +249,11 @@ const Login = () => {
                     >
                       Log In
                     </LoadingButton>
+                    <Divider sx={{ py: 2 }}>Or</Divider>
+
+                    <Link href={`${ZestyAPI?.authAPIURL}/azure/login`}>
+                      <img src={msLogin?.src} alt="Microsoft Single Sign On" />
+                    </Link>
                   </Stack>
                 </form>
               </Stack>
