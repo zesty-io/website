@@ -93,7 +93,7 @@ const InstancesList = ({
   return (
     <Box paddingY={2}>
       {data.length !== 0 && <Typography variant="h5">{title}</Typography>}
-      <Grid container direction="row" my={2} spacing={2}>
+      <Grid container direction="row" my={2} spacing={4}>
         {data?.map((instance, index) => {
           const isFavorite = initialFavorites.find((e) => e === instance.ZUID);
           return (
@@ -112,7 +112,7 @@ const InstancesList = ({
                 </Box>
                 <CardMedia
                   height="100%"
-                  sx={{ minHeight: 170 }}
+                  sx={{ height: 220 }}
                   width="100%"
                   component="img"
                   image={

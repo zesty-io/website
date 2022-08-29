@@ -17,10 +17,10 @@ const CardLoadingGrid = () => {
             <Skeleton variant="circular" width={30} height={30} />
           </Box>
         </Box>
-        <Skeleton variant="rectangular" height="150px" />
+        <Skeleton variant="rectangular" height="220px" />
 
-        <Box paddingX={2} paddingY={2}>
-          <Skeleton variant="text" width={120} height={50} />
+        <Box paddingX={2} paddingY={1}>
+          <Skeleton variant="text" width={150} height={30} />
         </Box>
       </Card>
     </Grid>
@@ -73,7 +73,7 @@ export const InstanceLoading = ({ view }) => {
   return (
     <Box paddingY={2}>
       <Skeleton variant="rectangular" width={250} height={40} />
-      <Grid container direction="row" my={2} spacing={2}>
+      <Grid container direction="row" my={2} spacing={4}>
         {gridLoading.map((e) => e)}
       </Grid>
     </Box>
