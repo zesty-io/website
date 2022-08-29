@@ -64,9 +64,9 @@ const listLoading = [
 export const InstanceLoading = ({ view }) => {
   if (view === 'list') {
     return (
-      <Box>
-        <Skeleton variant="rectangular" width={20} height={20} />
-        <List>{listLoading.map((e) => e)}</List>;
+      <Box paddingY={2}>
+        <Skeleton variant="rectangular" width={180} height={40} />
+        <List>{listLoading.map((e) => e)}</List>
       </Box>
     );
   }

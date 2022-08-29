@@ -56,6 +56,7 @@ const InstancesList = ({
   if (view === 'list') {
     return (
       <List>
+        {data.length !== 0 && <Typography variant="h5">{title}</Typography>}
         {data?.map((instance, index) => {
           const isFavorite = initialFavorites.find((e) => e === instance.ZUID);
 
