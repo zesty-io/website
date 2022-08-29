@@ -36,14 +36,20 @@ export default function Overview() {
         color="secondary"
         onChange={(e) => console.log(e.target.value)}
       />
-      <Box>
-        <Typography>Welcome {userInfo?.firstName}</Typography>
-        <Typography>Catch up on the latest Zesty news</Typography>
+      <Box paddingY={2}>
+        <Typography variant="h4">Welcome {userInfo?.firstName}</Typography>
+        <Typography variant="h6">Catch up on the latest Zesty news</Typography>
       </Box>
-      <Box>
+      <Box position={'relative'}>
         <Button
           variant="contained"
           href="https://accounts.zesty.io/instances/create"
+          sx={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            zIndex: '1000',
+          }}
         >
           Create Instance
         </Button>
