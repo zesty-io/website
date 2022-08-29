@@ -7,3 +7,4 @@ export * from './forms';
 export * from './textarea';
 export * from './buttons';
 export * from './direction';
+export * from './loading';

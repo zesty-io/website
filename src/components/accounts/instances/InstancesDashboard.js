@@ -28,6 +28,7 @@ import useDropdown from 'components/hooks/useDropdown';
 import FillerContent from 'components/globals/FillerContent';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import GradeIcon from '@mui/icons-material/Grade';
+import { InstanceLoading } from '../ui';
 
 const orderByItems = [
   {
@@ -47,7 +48,11 @@ const InstancesList = ({
   toggleFavorites,
   handleRoute,
   initialFavorites = [],
+  loading = false,
 }) => {
+  if (loading) {
+    return <InstanceLoading view={view} />;
+  }
   if (view === 'list') {
     return (
       <List>
@@ -85,8 +90,8 @@ const InstancesList = ({
   }
 
   return (
-    <Box>
-      <Typography variant="h5">{title}</Typography>
+    <Box paddingY={2}>
+      {data.length !== 0 && <Typography variant="h5">{title}</Typography>}
       <Grid container direction="row" my={2} spacing={2}>
         {data?.map((instance, index) => {
           const isFavorite = initialFavorites.find((e) => e === instance.ZUID);
@@ -141,6 +146,7 @@ export const InstancesDashboard = () => {
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [instances, setInstances] = React.useState([]);
   const [search, setSearch] = React.useState('');
+  const [loading, setloading] = React.useState(false);
 
   const [userZUID, setuserZUID] = React.useState('');
   const { setuserInfo } = useZestyStore((state) => state);
@@ -168,9 +174,11 @@ export const InstancesDashboard = () => {
   };
 
   const getUser = async (userZUID) => {
+    setloading(true);
     const res = await ZestyAPI.getUser(userZUID);
     !res.error && handleGetUserSuccess(res);
     res.error && handleGetUserError(res);
+    setloading(false);
   };
 
   const handleGetInstancesSuccess = (res) => {
@@ -187,9 +195,11 @@ export const InstancesDashboard = () => {
     }
   };
   async function getInstances() {
+    setloading(true);
     const res = await ZestyAPI.getInstances();
     !res.error && handleGetInstancesSuccess(res);
     res.error && handleGetInstancesError(res);
+    setloading(false);
   }
 
   const handleChangeView = (e, value) => {
@@ -215,6 +225,7 @@ export const InstancesDashboard = () => {
   };
 
   const toggleFavorites = async (data) => {
+    setloading(true);
     const isExist = initialFavorites.find((e) => e === data.ZUID);
     const favorite_sites = [
       ...JSON.parse(userInfo.prefs).favorite_sites,
@@ -233,6 +244,7 @@ export const InstancesDashboard = () => {
     res.error && handleUpdateUserError(res);
     await getInstances();
     await getUser(userZUID);
+    await setloading(false);
   };
 
   const favoritesList = instances
@@ -316,6 +328,7 @@ export const InstancesDashboard = () => {
         toggleFavorites={toggleFavorites}
         handleRoute={handleRoute}
         initialFavorites={initialFavorites}
+        loading={loading}
       />
       <InstancesList
         title={'Instances'}
@@ -324,6 +337,7 @@ export const InstancesDashboard = () => {
         toggleFavorites={toggleFavorites}
         handleRoute={handleRoute}
         initialFavorites={initialFavorites}
+        loading={loading}
       />
     </Container>
   );
