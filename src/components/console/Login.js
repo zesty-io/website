@@ -28,6 +28,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useRouter } from 'next/router';
 
 const MySwal = withReactContent(Swal);
 
@@ -38,6 +39,7 @@ const Login = () => {
   const [loginData, setLoginData] = useState({});
   const theme = useTheme();
   const isMD = useMediaQuery(theme.breakpoints.down('md'));
+  const router = useRouter();
 
   useEffect(async () => {
     const getData = async () => {
@@ -48,9 +50,8 @@ const Login = () => {
       const data = await response.json();
       return data;
     };
-
-    setLoginData(await getData());
-  }, []);
+    if (router.isReady) setLoginData(await getData());
+  }, [router.isReady]);
 
   const handleLoginSuccess = (res) => {
     setloading(false);
@@ -183,7 +184,11 @@ const Login = () => {
               justifyContent="space-between"
             >
               <img
-                src="https://brand.zesty.io/zesty-io-logo-horizontal.svg"
+                src={
+                  theme.palette.mode === 'light'
+                    ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                    : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+                }
                 height={150}
                 width={150}
               />
@@ -226,7 +231,12 @@ const Login = () => {
                       formik={formik}
                     />
 
-                    <Link href="#" alignSelf="end" mb={3} color="secondary">
+                    <Link
+                      href="/login/forgot-password/"
+                      alignSelf="end"
+                      mb={3}
+                      color="secondary"
+                    >
                       Forgot Password?
                     </Link>
                     <LoadingButton
@@ -267,7 +277,11 @@ const Login = () => {
         <Grid
           item
           md={8}
-          bgcolor={(theme) => theme.palette.zesty.zestyDarkerBlue}
+          bgcolor={(theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.zesty.zestyDarkerBlue
+              : theme.palette.secondary.main
+          }
           display={isMD ? 'none' : 'block'}
         >
           <Stack
