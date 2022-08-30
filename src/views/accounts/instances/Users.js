@@ -149,6 +149,7 @@ const CustomForm = ({ onSubmit, options, instanceZUID }) => {
           label="Role"
           onChange={handleChange}
           value={role.value}
+          testId={'invite_user'}
         />
         <Button
           color="primary"

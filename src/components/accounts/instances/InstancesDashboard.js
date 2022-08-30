@@ -111,6 +111,7 @@ const InstancesList = ({
                   </Box>
                 </Box>
                 <CardMedia
+                  data-testid={instance.name}
                   height="100%"
                   sx={{ height: 220 }}
                   width="100%"

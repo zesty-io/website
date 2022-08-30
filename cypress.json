@@ -1,7 +1,9 @@
 {
   "defaultCommandTimeout": 20000,
   "env": {
-    "apiBaseUrl": "http://test.zesty.io:3001"
+    "apiBaseUrl": "http://test.zesty.io:3001",
+    "email": "darwin.apolinario@zesty.io",
+    "pass": "Gand27ef!"
   },
   "video": false,
   "screenshotOnRunFailure": false
