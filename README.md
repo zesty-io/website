@@ -382,3 +382,17 @@ Accounts is instances, profile, teams, dashboard. To working on the accounts app
 1. You need to edit your ETC hosts files to use a domain like `test.zesty.io` to avoid CORS errors. To access your `localhost` see this thread for windows users https://github.com/zesty-io/manager-ui/discussions/1240
 2. Run `npm run dev` check your `test.zesty.io` domain, if that resolves to your next.js page, great, if not, googlefu
 3. Log into accounts.dev.zesty.io, refresh your localhost or test.zesty.io site
+
+# End to end test using Cypress
+
+Cypress test files are located in root/cypress/integration `*.spec.js`
+
+## Running Cypress Tests
+
+### Headlessly
+
+`npm run test:e2e:ci`
+
+### Visually
+
+`npm run dev` in 1st terminal and `npm run cy:open` in 2nd terminal then click the test you want to run.
