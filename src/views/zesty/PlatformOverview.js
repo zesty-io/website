@@ -46,6 +46,7 @@ import Benefits from 'components/marketing/PlatformOverview/Benefits';
 import LevelUp from 'components/marketing/PlatformOverview/LevelUp';
 import PowerHeadless from 'components/marketing/PlatformOverview/PowerHeadless';
 import CaseStudies from 'components/marketing/PlatformOverview/CaseStudies';
+import Bottom from 'components/marketing/PlatformOverview/Bottom';
 
 function PlatformOverview({ content }) {
   const theme = useTheme();
@@ -112,6 +113,7 @@ function PlatformOverview({ content }) {
         header_size={28}
       />
       <CaseStudies {...pageData} />
+      <Bottom {...pageData} />
     </>
   );
 }
