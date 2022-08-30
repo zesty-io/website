@@ -32,8 +32,8 @@ export default {
       },
       
       {
-        name: 'Tab Blue',
-        hex: '#697A91'
+        name: 'Purple',
+        hex: '#293056'
       },
       
       
