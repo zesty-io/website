@@ -389,6 +389,19 @@ Cypress test files are located in root/cypress/integration `*.spec.js`
 
 ## Running Cypress Tests
 
+Create `cypress.env.json` in root directory
+
+```jsx
+
+{
+  "email": "zestytest@zesty.io",
+  "pass": "Test***********"
+}
+
+```
+
+then run the ff commands below
+
 ### Headlessly
 
 `npm run test:e2e:ci`
