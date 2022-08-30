@@ -26,9 +26,8 @@
  * View /solutions/
  */
 
-
 /**
- * Mui Import 
+ * Mui Import
  */
 
 import { useTheme } from '@mui/material/styles';
@@ -38,18 +37,17 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
 
 /**
- * Components Import 
+ * Components Import
  */
 
 import Hero from 'components/marketing/PlatformOverview/Hero';
 import Features from 'blocks/features/Features/Features';
 import Benefits from 'components/marketing/PlatformOverview/Benefits';
 import LevelUp from 'components/marketing/PlatformOverview/LevelUp';
-
-
+import PowerHeadless from 'components/marketing/PlatformOverview/PowerHeadless';
+import CaseStudies from 'components/marketing/PlatformOverview/CaseStudies';
 
 function PlatformOverview({ content }) {
-
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
@@ -68,33 +66,52 @@ function PlatformOverview({ content }) {
     FillerContent,
   };
 
-  console.log(content)
+  console.log(content);
 
-/* Taking the data from the content model and converting it into a format that the Features component can use. */
-  const feature_data = content.what_you_can_do_tiles?.data.reduce((acc, item) => {
-        acc.push({
-          icon_image: item.image.data[0].url,
-          feature_name: item.title,
-          content: item.description
-        })
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const feature_data =
+    content.what_you_can_do_tiles?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.image.data[0].url,
+        feature_name: item.title,
+        content: item.description,
+      });
 
-        return acc;
-  } ,[]) || []
+      return acc;
+    }, []) || [];
 
+  const feature_data_2 =
+    content.why_zesty_tiles?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
 
+      return acc;
+    }, []) || [];
 
+  console.log(feature_data_2);
 
   return (
     <>
-     <Hero {...pageData}/>
-     <Features
-        features_header={content.what_you_can_do }
+      <Hero {...pageData} />
+      <Features
+        features_header={content.what_you_can_do}
         data={feature_data}
         content={content}
         header_size={28}
-        />
-      <Benefits {...pageData}/>
-      <LevelUp {...pageData}/>
+      />
+      <Benefits {...pageData} />
+      <LevelUp {...pageData} />
+      <PowerHeadless {...pageData} />
+      <Features
+        features_header={content.why_zesty_title}
+        data={feature_data}
+        content={content}
+        header_size={28}
+      />
+      <CaseStudies {...pageData} />
     </>
   );
 }
