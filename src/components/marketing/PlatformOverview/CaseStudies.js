@@ -49,7 +49,7 @@ const CaseStudies = ({ theme, isMedium, content, FillerContent }) => {
             <Grid key={index} item sm={12} md={4}>
               <Card>
                 <Box
-                  sx={{ width: '100%', borderBottomRightRadius: 100 }}
+                  sx={{ width: '100%' }}
                   component="img"
                   src={`${item.image.data[0].url}?width=482`}
                 />
