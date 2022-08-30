@@ -40,7 +40,7 @@ const Bottom = ({
               <Box
                 sx={{ width: '100%' }}
                 component="img"
-                src={content.footer_graphic?.data[0].url}
+                src={`${content.footer_graphic?.data[0].url}?width=708`}
                 alt=""
               />
             </Box>

@@ -67,8 +67,6 @@ function PlatformOverview({ content }) {
     FillerContent,
   };
 
-  console.log(content);
-
   /* Taking the data from the content model and converting it into a format that the Features component can use. */
   const feature_data =
     content.what_you_can_do_tiles?.data.reduce((acc, item) => {
@@ -91,8 +89,6 @@ function PlatformOverview({ content }) {
 
       return acc;
     }, []) || [];
-
-  console.log(feature_data_2);
 
   return (
     <>
