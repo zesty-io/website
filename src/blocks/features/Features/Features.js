@@ -126,40 +126,44 @@ const Features = ({
                 <Card
                   sx={{
                     width: '20rem',
-                    height: '22rem',
+                    minHeight: 320,
                     padding: '3rem 2rem',
                     background: theme.palette.common.white,
+                    py: 2,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
-                  <img src={e?.icon_image} alt="" />
-
-                  <Typography
-                    component={'p'}
-                    variant={'p'}
-                    paddingTop={4}
-                    paddingBottom={2}
-                    sx={{
-                      color: theme.palette.zesty.zestyOrange,
-                      textAlign: 'left',
-                      fontSize: '20px',
-                    }}
-                  >
-                    {e?.feature_name}
-                  </Typography>
-                  <Typography
-                    component={'h2'}
-                    variant={'p'}
-                    sx={{
-                      color: isDarkMode
-                        ? theme.palette.zesty.zestyDarkBlue
-                        : theme.palette.secondary.darkCharcoal,
-                      textAlign: 'left',
-                      fontSize: '16px',
-                      fontWeight: 'light',
-                    }}
-                  >
-                    {e?.content}
-                  </Typography>
+                  <Box sx={{ minHeight: 200, height: '100%' }}>
+                    <img src={e?.icon_image} alt="" />
+                    <Typography
+                      component={'p'}
+                      variant={'p'}
+                      sx={{
+                        py: 2,
+                        color: theme.palette.zesty.zestyOrange,
+                        textAlign: 'left',
+                        fontSize: '20px',
+                      }}
+                    >
+                      {e?.feature_name}
+                    </Typography>
+                    <Typography
+                      component={'h2'}
+                      variant={'p'}
+                      sx={{
+                        color: isDarkMode
+                          ? theme.palette.zesty.zestyDarkBlue
+                          : theme.palette.secondary.darkCharcoal,
+                        textAlign: 'left',
+                        fontSize: '16px',
+                        fontWeight: 'light',
+                      }}
+                    >
+                      {e?.content}
+                    </Typography>
+                  </Box>
                 </Card>
               </div>
             );
