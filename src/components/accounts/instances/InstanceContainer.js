@@ -1,5 +1,4 @@
 import AppBar from 'components/console/AppBar';
-import Login from 'components/console/Login';
 import Main from 'layouts/Main/Main';
 import React from 'react';
 import { Container } from '@mui/material';
@@ -17,7 +16,7 @@ const InstanceContainer = ({ children, isDashboard = false }) => {
         return <InstancesApp>{children}</InstancesApp>;
       }
     } else {
-      return <Login />;
+      window.location.replace('/login');
     }
   };
 
