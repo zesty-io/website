@@ -185,15 +185,17 @@ const Login = () => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <img
-                src={
-                  theme.palette.mode === 'light'
-                    ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
-                    : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
-                }
-                height={150}
-                width={150}
-              />
+              <Link href="/">
+                <img
+                  src={
+                    theme.palette.mode === 'light'
+                      ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                      : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+                  }
+                  height={150}
+                  width={150}
+                />
+              </Link>
               <Link underline="none" href="#" color="secondary">
                 Try for free!
               </Link>
