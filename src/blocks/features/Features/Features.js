@@ -1,12 +1,14 @@
 /**
  * MUI Imports
  */
-import { Box, Card, Container, Typography } from '@mui/material';
-
+import { Box, Card, Container, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import Image from 'next/image';
 /**
  * Helpers Imports
  */
 import * as helper from 'utils';
+import FillerContent from 'components/globals/FillerContent';
 
 /**
  * Local assets
@@ -14,23 +16,27 @@ import * as helper from 'utils';
 import chevronLeft from '../../../../public/assets/images/chevron-left.svg';
 
 const Features = ({
-  content,
-  theme,
-  isMobile,
-  isDarkMode,
-  FillerContent,
+  data,
+  features_header,
+  header_size = 48,
+  feature_description,
   textHighlight = 'Zesty',
 }) => {
-  const arr = content?.features?.data ? content.features.data : [];
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const bracketImg = chevronLeft.src || FillerContent.dashboard_image;
   return (
     <Box
+      component="section"
       paddingBottom={isMobile ? 20 : 20}
       sx={{
         position: 'relative',
         zIndex: '500',
-        background: theme.palette.common.white,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.common.white,
       }}
     >
       <Box
@@ -52,14 +58,14 @@ const Features = ({
             sx={{
               lineHeight: 1,
               color: isDarkMode
-                ? theme.palette.zesty.zestyDarkBlue
+                ? theme.palette.common.white
                 : theme.palette.zesty.zestyZambezi,
               textAlign: 'center',
-              fontSize: isMobile ? '24px' : '48px',
+              fontSize: isMobile ? '24px' : header_size,
             }}
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(
-                content.features_header || FillerContent.header,
+                features_header || FillerContent.header,
                 textHighlight,
                 theme.palette.zesty.zestyOrange,
               ),
@@ -76,7 +82,7 @@ const Features = ({
                 : theme.palette.zesty.zestyZambezi,
             }}
           >
-            {content?.feature_description || ''}
+            {feature_description || ''}
           </Typography>
         </Box>
         <Box
@@ -90,9 +96,9 @@ const Features = ({
             zIndex: '1000',
           }}
         >
-          {arr.map((e) => {
+          {data.map((e, i) => {
             return (
-              <div>
+              <div key={i}>
                 <Card
                   sx={{
                     width: '20rem',
@@ -101,7 +107,7 @@ const Features = ({
                     background: theme.palette.common.white,
                   }}
                 >
-                  <img src={e.icon_image?.data[0].url} alt="" />
+                  <img src={e?.icon_image} alt="" />
 
                   <Typography
                     component={'p'}
