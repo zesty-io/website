@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Users } from 'views/accounts';
 import { ErrorMsg, StickyTable, SuccessMsg } from 'components/accounts';
 import { baseroles } from 'components/accounts/users/baseroles';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import * as helpers from 'utils';
 
 const COLUMNS = [
@@ -13,8 +13,8 @@ const COLUMNS = [
     label: 'Name',
   },
   {
-    id: 'ZUID',
-    label: 'Zuid',
+    id: 'desc',
+    label: 'Description',
   },
   {
     id: 'accessLevel',
@@ -22,6 +22,20 @@ const COLUMNS = [
   },
 ];
 
+const COLUMNS_PENDING = [
+  {
+    id: 'email',
+    label: 'Email',
+  },
+  {
+    id: 'name',
+    label: 'Name',
+  },
+  {
+    id: 'action',
+    label: 'Action',
+  },
+];
 const RolesTable = ({ title = 'Base Roles in Zesty.io' }) => {
   return (
     <Box>
@@ -33,18 +47,52 @@ const RolesTable = ({ title = 'Base Roles in Zesty.io' }) => {
   );
 };
 
+const PendingTable = ({
+  title = 'Pending Users',
+  data = [],
+  respondToInvite,
+}) => {
+  const newData = data.map((e) => {
+    return {
+      ...e,
+      action: (
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => respondToInvite(e, 'cancel')}
+        >
+          Cancel Invite
+        </Button>
+      ),
+    };
+  });
+  return (
+    <Box>
+      <Box paddingY={2}>
+        <Typography variant="h5">{title}</Typography>
+      </Box>
+      <StickyTable rows={newData} columns={COLUMNS_PENDING} />
+    </Box>
+  );
+};
 export default function UsersPage() {
   const [users, setusers] = React.useState([]);
+  const [pendingUsers, setpendingUsers] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
-  const { ZestyAPI, isAuthenticated, userInfo } = useZestyStore(
-    (state) => state,
-  );
+  const { ZestyAPI, userInfo } = useZestyStore((state) => state);
 
   const router = useRouter();
 
   const { zuid } = router.query;
 
+  const handleRespondToInviteSuccess = (res) => {
+    setusers(res.data);
+    console.log(res);
+  };
+  const handleRespondToInviteErr = (res) => {
+    console.log(res);
+  };
   const handleGetUserSuccess = (res) => {
     setusers(res.data);
     console.log(res);
@@ -53,6 +101,13 @@ export default function UsersPage() {
     console.log(res);
   };
 
+  const handleGetInstancePendingUsersSuccess = (res) => {
+    setpendingUsers(res.data);
+    console.log(res);
+  };
+  const handlegetInstancePendingUsersErr = (res) => {
+    console.log(res);
+  };
   const handleGetRolesSuccess = (res) => {
     setInstanceUserWithRoles(res.data);
   };
@@ -134,6 +189,18 @@ export default function UsersPage() {
     res.error && handleGetInstanceRolesErr(res);
   };
 
+  const getInstancePendingUsers = async () => {
+    const res = await ZestyAPI.getInstancePendingUsers(zuid);
+    !res.error && handleGetInstancePendingUsersSuccess(res);
+    res.error && handlegetInstancePendingUsersErr(res);
+  };
+
+  const respondToInvite = async (data, action) => {
+    const res = await ZestyAPI.respondToInvite(data.inviteZUID, action);
+    !res.error && handleRespondToInviteSuccess(res);
+    res.error && handleRespondToInviteErr(res);
+    await getPageData();
+  };
   const createInvite = async (data) => {
     const { inviteeName, inviteeEmail, entityZUID, accessLevel } = data;
     const res = await ZestyAPI.createInvite(
@@ -144,12 +211,17 @@ export default function UsersPage() {
     );
     !res.error && handleCreateInviteSuccess(res);
     res.error && handleCreateInviteErr(res);
+    await getPageData();
+  };
+  const getPageData = async () => {
+    await getUsers();
+    await getInstanceUserRoles();
+    await getInstanceRoles();
+    await getInstancePendingUsers();
   };
   React.useEffect(() => {
     if (router.isReady) {
-      getUsers();
-      getInstanceUserRoles();
-      getInstanceRoles();
+      getPageData();
     }
   }, [router.isReady]);
 
@@ -157,7 +229,9 @@ export default function UsersPage() {
     instanceUserWithRoles,
     userInfo,
   );
-  console.log(users, 'user data');
+
+  console.log(users, pendingUsers, 'user data');
+
   return (
     <>
       <Users
@@ -169,6 +243,7 @@ export default function UsersPage() {
         isOwner={isInstanceOwner}
         instanceZUID={zuid}
       />
+      <PendingTable respondToInvite={respondToInvite} data={pendingUsers} />
       <RolesTable />
     </>
   );

@@ -2,22 +2,13 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import {
-  Card,
-  CardMedia,
   TextField,
-  Typography,
-  Grid,
   InputAdornment,
   ToggleButtonGroup,
   ToggleButton,
   Stack,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Container,
-  Box,
+  Typography,
 } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -25,10 +16,10 @@ import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBullet
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import CustomMenu from './CustomMenu';
 import useDropdown from 'components/hooks/useDropdown';
-import FillerContent from 'components/globals/FillerContent';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import GradeIcon from '@mui/icons-material/Grade';
-import { InstanceLoading } from '../ui';
+import { InstancesList } from './InstancesList';
+import StarIcon from '@mui/icons-material/Star';
+import EmailIcon from '@mui/icons-material/Email';
+import WidgetsIcon from '@mui/icons-material/Widgets';
 
 const orderByItems = [
   {
@@ -41,105 +32,6 @@ const orderByItems = [
   },
 ];
 
-const InstancesList = ({
-  title = '',
-  data = [],
-  view = 'grid',
-  toggleFavorites,
-  handleRoute,
-  initialFavorites = [],
-  loading = false,
-}) => {
-  if (loading) {
-    return <InstanceLoading view={view} />;
-  }
-  if (view === 'list') {
-    return (
-      <List>
-        {data.length !== 0 && <Typography variant="h5">{title}</Typography>}
-        {data?.map((instance, index) => {
-          const isFavorite = initialFavorites?.find((e) => e === instance.ZUID);
-
-          return (
-            <ListItem divider key={index} disablePadding>
-              <Box onClick={() => toggleFavorites(instance)}>
-                {isFavorite ? <GradeIcon /> : <StarOutlineIcon />}
-              </Box>
-              <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
-                <ListItemIcon>
-                  <img
-                    alt={instance.name}
-                    height="50px"
-                    width="50px"
-                    src={
-                      instance.screenshotURL
-                        ? instance.screenshotURL
-                        : FillerContent.image
-                    }
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary={instance.name}
-                  secondary={`Updated ${instance.updatedAt}`}
-                />
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
-      </List>
-    );
-  }
-
-  return (
-    <Box paddingY={2}>
-      {data.length !== 0 && <Typography variant="h5">{title}</Typography>}
-      <Grid container direction="row" my={2} spacing={4}>
-        {data?.map((instance, index) => {
-          const isFavorite = initialFavorites?.find((e) => e === instance.ZUID);
-          return (
-            <Grid item xs={12} sm={4} lg={3} key={index}>
-              <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
-                <Box
-                  paddingX={1}
-                  paddingY={1}
-                  width={1}
-                  display={'flex'}
-                  justifyContent={'flex-end'}
-                >
-                  <Box onClick={() => toggleFavorites(instance)}>
-                    {isFavorite ? <GradeIcon /> : <StarOutlineIcon />}
-                  </Box>
-                </Box>
-                <CardMedia
-                  data-testid={instance.name}
-                  height="100%"
-                  sx={{ height: 220 }}
-                  width="100%"
-                  component="img"
-                  image={
-                    instance.screenshotURL
-                      ? instance.screenshotURL
-                      : FillerContent.image
-                  }
-                  onClick={() => handleRoute(instance.ZUID)}
-                />
-                <Typography
-                  p={1}
-                  gutterBottom
-                  variant="h6"
-                  onClick={() => handleRoute(instance.ZUID)}
-                >
-                  {instance.name}
-                </Typography>
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
-    </Box>
-  );
-};
-
 export const InstancesDashboard = () => {
   const [view, setView] = useState('grid');
   const [orderByValue, setOrderByValue, reset] = useDropdown();
@@ -149,6 +41,7 @@ export const InstancesDashboard = () => {
   const [instances, setInstances] = React.useState([]);
   const [search, setSearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
+  const [invites, setinvites] = React.useState([]);
 
   const [userZUID, setuserZUID] = React.useState('');
   const { setuserInfo } = useZestyStore((state) => state);
@@ -169,6 +62,13 @@ export const InstancesDashboard = () => {
     console.log(res, 'err');
   };
 
+  const handleGetAllInvitesSuccess = (res) => {
+    setinvites(res?.data);
+  };
+
+  const handleGetAllInvitesError = (res) => {
+    console.log(res, 'err');
+  };
   const verify = async () => {
     const res = await ZestyAPI.verify();
     !res.error && handleVerifySuccess(res);
@@ -176,11 +76,9 @@ export const InstancesDashboard = () => {
   };
 
   const getUser = async (userZUID) => {
-    setloading(true);
     const res = await ZestyAPI.getUser(userZUID);
     !res.error && handleGetUserSuccess(res);
     res.error && handleGetUserError(res);
-    setloading(false);
   };
 
   const handleGetInstancesSuccess = (res) => {
@@ -196,14 +94,17 @@ export const InstancesDashboard = () => {
       setCookie('isAuthenticated', 'false');
     }
   };
-  async function getInstances() {
-    setloading(true);
+  const getInstances = async () => {
     const res = await ZestyAPI.getInstances();
     !res.error && handleGetInstancesSuccess(res);
     res.error && handleGetInstancesError(res);
-    setloading(false);
-  }
+  };
 
+  const getAllInvitedInstances = async () => {
+    const res = await ZestyAPI.getAllInvitedInstances();
+    !res.error && handleGetAllInvitesSuccess(res);
+    res.error && handleGetAllInvitesError(res);
+  };
   const handleChangeView = (e, value) => {
     if (value === null) setView(view);
     else setView(value);
@@ -225,10 +126,15 @@ export const InstancesDashboard = () => {
   const handleUpdateUserError = (res) => {
     console.log(res);
   };
+  const handleRespondToInviteSuccess = (res) => {
+    console.log(res);
+  };
+  const handleRespondToInviteError = (res) => {
+    console.log(res);
+  };
 
   const toggleFavorites = async (data) => {
-    setloading(true);
-    const isExist = initialFavorites?.find((e) => e === data.ZUID);
+    const isExist = initialFavorites.find((e) => e === data.ZUID);
     const favorite_sites = [
       ...JSON.parse(userInfo?.prefs)?.favorite_sites,
       data.ZUID,
@@ -244,9 +150,14 @@ export const InstancesDashboard = () => {
     const res = await ZestyAPI.updateUser(userInfo?.ZUID, body, '');
     !res.error && handleUpdateUserSuccess(res);
     res.error && handleUpdateUserError(res);
-    await getInstances();
-    await getUser(userZUID);
-    await setloading(false);
+    await getPageData();
+  };
+
+  const respondToInvite = async (data, action) => {
+    const res = await ZestyAPI.respondToInvite(data.inviteZUID, action);
+    !res.error && handleRespondToInviteSuccess(res);
+    res.error && handleRespondToInviteError(res);
+    await getPageData();
   };
 
   const favoritesList = instances
@@ -257,8 +168,20 @@ export const InstancesDashboard = () => {
     ?.filter((instance) => !initialFavorites?.includes(instance.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
 
+  const getPageData = async () => {
+    setloading(true);
+    await getInstances();
+    await getUser(userZUID);
+    await getAllInvitedInstances();
+    setloading(false);
+  };
+
   React.useEffect(() => {
     verify();
+  }, []);
+
+  React.useEffect(() => {
+    getPageData();
   }, []);
 
   React.useEffect(() => {
@@ -324,7 +247,37 @@ export const InstancesDashboard = () => {
       </Stack>
 
       <InstancesList
-        title={'Favorites'}
+        title={
+          <Typography
+            gap={1}
+            variant="h5"
+            display={'flex'}
+            alignItems={'center'}
+          >
+            <EmailIcon fontSize="large" color="secondary" /> Invites
+          </Typography>
+        }
+        view={view}
+        data={invites}
+        toggleFavorites={toggleFavorites}
+        handleRoute={handleRoute}
+        initialFavorites={initialFavorites}
+        loading={loading}
+        invite={true}
+        acceptInvite={respondToInvite}
+        declineInvite={respondToInvite}
+      />
+      <InstancesList
+        title={
+          <Typography
+            gap={1}
+            variant="h5"
+            display={'flex'}
+            alignItems={'center'}
+          >
+            <StarIcon fontSize="large" color="secondary" /> Favorites
+          </Typography>
+        }
         view={view}
         data={favoritesList}
         toggleFavorites={toggleFavorites}
@@ -333,7 +286,17 @@ export const InstancesDashboard = () => {
         loading={loading}
       />
       <InstancesList
-        title={'Instances'}
+        title={
+          <Typography
+            gap={1}
+            variant="h5"
+            display={'flex'}
+            alignItems={'center'}
+          >
+            <WidgetsIcon fontSize="large" color="secondary" />
+            Instances
+          </Typography>
+        }
         view={view}
         data={instancesList}
         toggleFavorites={toggleFavorites}

@@ -55,16 +55,22 @@ const Login = () => {
     if (router.isReady) setLoginData(await getData());
   }, [router.isReady]);
 
+  const handleCookieAndRedirect = (res) => {
+    if (res)
+      setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data);
+
+    setCookie('isAuthenticated', true);
+    setCookie('isUser', true);
+    window.location.replace('/instances');
+  };
+
   const handleLoginSuccess = (res) => {
     setloading(false);
 
     SuccessMsg({
       title: 'Success',
       action: () => {
-        setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data);
-        setCookie('isAuthenticated', true);
-        setCookie('isUser', true);
-        window.location.replace('/instances');
+        handleCookieAndRedirect(res);
       },
     });
   };
@@ -77,7 +83,7 @@ const Login = () => {
     setInterval(async () => {
       const response = await ZestyAPI.verify2FAAuto();
       if (response.code === 200) {
-        window.location.replace('/instances');
+        handleCookieAndRedirect();
       }
     }, 3000);
   };
@@ -94,7 +100,7 @@ const Login = () => {
         const response = await ZestyAPI.verify2FA(values.otp);
         if (response.code === 200) {
           await ZestyAPI.verify();
-          window.location.replace('/instances');
+          handleCookieAndRedirect();
 
           MySwal.close();
           formik.resetForm();
@@ -185,17 +191,16 @@ const Login = () => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <img
-                src={
-                  theme.palette.mode === 'light'
-                    ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
-                    : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
-                }
-                height={150}
-                width={150}
-              />
-              <Link underline="none" href="#" color="secondary">
-                Try for free!
+              <Link href="/">
+                <img
+                  src={
+                    theme.palette.mode === 'light'
+                      ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                      : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+                  }
+                  height={150}
+                  width={150}
+                />
               </Link>
             </Stack>
 

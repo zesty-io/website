@@ -6,11 +6,15 @@ import {
   accountsValidations,
   FormInput,
   DeleteMsg,
+  SubmitBtn,
+  FormSelect,
+  DeleteBtn,
 } from 'components/accounts';
 import { baseroles } from 'components/accounts/users/baseroles';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
+import * as helpers from 'utils';
 
 const MySwal = withReactContent(Swal);
 
@@ -84,15 +88,7 @@ const CustomTable = ({
 
     const action = isOwner ? (
       <Box display={'flex'}>
-        <Button
-          onClick={handleDeleteUser}
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Delete User
-        </Button>
+        <DeleteBtn onClick={handleDeleteUser} />
       </Box>
     ) : (
       <>-</>
@@ -117,49 +113,41 @@ const CustomTable = ({
 };
 
 const CustomForm = ({ onSubmit, options, instanceZUID }) => {
-  const [role, setrole] = React.useState({});
   const formik = useFormik({
     validationSchema: accountsValidations.email,
     initialValues: {
       email: '',
       name: '',
+      accessLevel: '',
     },
     onSubmit: async (values) => {
       const val = {
         inviteeName: values.name,
         inviteeEmail: values.email,
         entityZUID: instanceZUID,
-        accessLevel: role.accessLevel,
+        accessLevel: values.accessLevel,
       };
       await onSubmit(val);
       formik.resetForm();
     },
   });
 
-  const handleChange = (data) => {
-    setrole(data);
-  };
+  const newOptions = options.map((e) => {
+    return { ...e, value: e.accessLevel };
+  });
+
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
         <FormInput name={'name'} formik={formik} />
         <FormInput name={'email'} formik={formik} />
-        <UsersSelect
-          options={options}
+        <FormSelect
           label="Role"
-          onChange={handleChange}
-          value={role.value}
-          testId={'invite_user'}
+          name={'accessLevel'}
+          formik={formik}
+          options={newOptions}
         />
-        <Button
-          color="primary"
-          disabled={!role.accessLevel || formik.isSubmitting}
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Submit
-        </Button>
+        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
       </form>
     </Box>
   );
@@ -194,20 +182,26 @@ const Index = ({
     });
   };
 
+  // Remove not valid user using email check
+  const data = roles.filter((e) => {
+    return helpers.validateEmail(e.email);
+  });
   return (
     <Grid container>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() =>
-          handleInviteUserModal(createInvite, baseroles, instanceZUID)
-        }
-      >
-        Invite user
-      </Button>
+      <Box sx={{ display: 'flex', width: '100%', justifyContent: 'end' }}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() =>
+            handleInviteUserModal(createInvite, baseroles, instanceZUID)
+          }
+        >
+          Invite user
+        </Button>
+      </Box>
       <Grid item xs={12}>
         <CustomTable
-          data={roles}
+          data={data}
           handleUpdateRole={handleUpdateRole}
           handleDeleteRole={handleDeleteRole}
           instanceRoles={instanceRoles}
