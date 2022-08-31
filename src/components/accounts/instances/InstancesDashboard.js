@@ -134,6 +134,7 @@ export const InstancesDashboard = () => {
   };
 
   const toggleFavorites = async (data) => {
+    setloading(true);
     const isExist = initialFavorites.find((e) => e === data.ZUID);
     const favorite_sites = [
       ...JSON.parse(userInfo?.prefs)?.favorite_sites,
