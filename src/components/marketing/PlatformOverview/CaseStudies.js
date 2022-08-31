@@ -21,7 +21,7 @@ const CaseStudies = ({ theme, isMedium, content, FillerContent }) => {
                 variant: 'h4',
                 sx: {
                   textAlign: 'center',
-                  color: theme.palette.zesty.zestyOrange,
+                  color: theme.palette.zesty.zestyDarkText,
                   fontWeight: 'inherit',
                 },
               },
@@ -46,7 +46,7 @@ const CaseStudies = ({ theme, isMedium, content, FillerContent }) => {
 
         <Grid sx={{ mt: 5 }} container spacing={2}>
           {content.case_studies?.data.map((item, index) => (
-            <Grid key={index} item sm={12} md={4}>
+            <Grid key={index} item xs={12} md={4}>
               <Card
                 component="a"
                 href={item.card_link.data[0].meta.web.uri || FillerContent.href}

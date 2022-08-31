@@ -103,8 +103,9 @@ function PlatformOverview({ content }) {
       <LevelUp {...pageData} />
       <PowerHeadless {...pageData} />
       <Features
+        background="zesty"
         features_header={content.why_zesty_title}
-        data={feature_data}
+        data={feature_data_2}
         content={content}
         header_size={28}
       />

@@ -16,14 +16,15 @@ const LevelUp = ({ theme, isMedium, content, FillerContent }) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: 982,
+        minHeight: 800,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
-        background: `url(${content.background_orange.data[0].url}?width=1920)`,
+        background: theme.palette.zesty.lightPink,
+        transform: 'skew(0deg, 10deg)',
       }}
     >
-      <Container sx={{ height: '100%' }}>
+      <Container sx={{ height: '100%', transform: 'skew(0deg, -10deg)' }}>
         <MuiMarkdown
           overrides={{
             h2: {
