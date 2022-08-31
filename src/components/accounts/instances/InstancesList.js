@@ -50,17 +50,19 @@ export const InstancesList = ({
 
           return (
             <ListItem divider key={index} disablePadding>
-              <Box
-                sx={{ cursor: 'pointer' }}
-                onClick={() => toggleFavorites(instance)}
-              >
-                {isFavorite ? (
-                  <StarRoundedIcon color="secondary" fontSize="medium" />
-                ) : (
-                  <StarBorderRoundedIcon fontSize="medium" />
-                )}
-              </Box>
               <ListItemButton onClick={() => handleRedirect(instance.ZUID)}>
+                <Box
+                  marginRight={1}
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => toggleFavorites(instance)}
+                  visibility={invite ? 'hidden' : 'visible'}
+                >
+                  {isFavorite ? (
+                    <StarRoundedIcon color="secondary" fontSize="medium" />
+                  ) : (
+                    <StarBorderRoundedIcon fontSize="medium" />
+                  )}
+                </Box>
                 <ListItemIcon>
                   <img
                     alt={instance.name}
@@ -77,6 +79,41 @@ export const InstancesList = ({
                   primary={instance.name}
                   secondary={`Updated ${instance.updatedAt}`}
                 />
+
+                {invite && (
+                  <Box display={'flex'}>
+                    <Button
+                      onClick={() => acceptInvite(instance, 'accept')}
+                      size="small"
+                      variant="contained"
+                      color="success"
+                      target="_blank"
+                      fullWidth
+                    >
+                      <CheckCircleIcon
+                        sx={{ color: '#fff' }}
+                        fontSize="small"
+                      />{' '}
+                    </Button>
+
+                    <Button
+                      onClick={() => declineInvite(instance, 'decline')}
+                      size="small"
+                      target="_blank"
+                      variant="outlined"
+                      color="error"
+                    >
+                      <Typography
+                        variant="p"
+                        display={'flex'}
+                        gap={1}
+                        marginX={2}
+                      >
+                        <NotInterestedIcon color="error" fontSize="small" />
+                      </Typography>
+                    </Button>
+                  </Box>
+                )}
               </ListItemButton>
             </ListItem>
           );
