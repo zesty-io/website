@@ -14,6 +14,7 @@ import FillerContent from 'components/globals/FillerContent';
  * Local assets
  */
 import chevronLeft from '../../../../public/assets/images/chevron-left.svg';
+import zesty from '../../../../public/assets/images/zesty.svg';
 
 const Features = ({
   data,
@@ -21,12 +22,14 @@ const Features = ({
   header_size = 48,
   feature_description,
   textHighlight = 'Zesty',
+  background = '',
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const bracketImg = chevronLeft.src || FillerContent.dashboard_image;
+  const zestyImg = zesty.src || FillerContent.dashboard_image;
   return (
     <Box
       component="section"
@@ -48,7 +51,28 @@ const Features = ({
           display: isMobile ? 'none' : 'flex',
         }}
       >
-        <img src={bracketImg} alt="bg" />
+        {background === 'chevron' && (
+          <Box component="img" src={bracketImg} alt="bg" />
+        )}
+      </Box>
+      <Box
+        sx={{
+          zIndex: '10',
+          position: 'absolute',
+          left: 0,
+          bottom: 0,
+          display: isMobile ? 'none' : 'flex',
+          width: '100%',
+        }}
+      >
+        {background === 'zesty' && (
+          <Box
+            component="img"
+            sx={{ width: '100%', maxWidth: 1920 }}
+            src={zestyImg}
+            alt="bg"
+          />
+        )}
       </Box>
       <Container>
         <Box sx={{ py: 10 }}>

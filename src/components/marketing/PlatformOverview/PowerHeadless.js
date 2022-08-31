@@ -20,12 +20,12 @@ import 'swiper/css/navigation';
 
 const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
   return (
-    <Box component="section" sx={{ py: 5 }}>
+    <Box component="section" sx={{ pt: 20 }}>
       <Container sx={{ height: '100%' }}>
         <Box
           sx={{
             display: 'flex',
-            justifyContent: isMedium ? 'flex-start' : 'flex-end',
+            justifyContent: 'flex-start',
           }}
         >
           <Box
@@ -51,7 +51,7 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
                     component: 'h2',
                     variant: 'h4',
                     sx: {
-                      textAlign: isMedium ? 'center' : 'right',
+                      textAlign: isMedium ? 'center' : 'left',
                       fontWeight: 'bold',
                       color: theme.palette.zesty.zestyDarkText,
                     },
@@ -64,7 +64,7 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
                     variant: 'h6',
                     sx: {
                       mt: 2,
-                      textAlign: isMedium ? 'center' : 'right',
+                      textAlign: isMedium ? 'center' : 'left',
                       lineHeight: 1.2,
                       color: theme.palette.zesty.zestyZambezi,
                     },
@@ -77,7 +77,7 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
                     variant: 'h6',
                     sx: {
                       mt: 2,
-                      textAlign: isMedium ? 'center' : 'right',
+                      textAlign: isMedium ? 'center' : 'left',
                       color: theme.palette.zesty.zestyOrange,
                     },
                   },
@@ -92,14 +92,14 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
 
       <Box
         sx={{
-          mt: 10,
+          mt: isMedium ? 0 : 10,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          background: `url(${content.background_orange.data[2].url}?width=1731)`,
+          background: `url(${content.background_orange.data[0].url}?width=1731)`,
           minHeight: 655,
         }}
       >
@@ -128,11 +128,11 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
                     sx={{
                       display: 'flex',
                       justifyContent: 'center',
-                      alignItems: 'center',
+
                       flexDirection: 'column',
                     }}
                     item
-                    sm={12}
+                    xs={12}
                     md={6}
                   >
                     <Box sx={{ p: isMedium ? 0 : 5 }}>
@@ -149,10 +149,11 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
                       <MuiMarkdown
                         overrides={{
                           p: {
-                            component: 'p',
+                            component: Typography,
                             variant: 'h6',
                             props: {
                               sx: {
+                                textAlign: isMedium ? 'center' : 'text-left',
                                 color: theme.palette.zesty.zestyZambezi,
                               },
                             },
@@ -170,7 +171,7 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
                       alignItems: 'center',
                     }}
                     item
-                    sm={12}
+                    xs={12}
                     md={6}
                   >
                     <Box

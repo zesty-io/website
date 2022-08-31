@@ -24,7 +24,9 @@ const Bottom = ({
     <Box
       component="section"
       sx={{
-        background: `url(${content.bottom_cta_background?.data[0].url})`,
+        mt: 10,
+        py: 5,
+        background: `url(${content.background_orange?.data[1].url})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
@@ -65,7 +67,7 @@ const Bottom = ({
                       variant: 'h3',
                       component: 'span',
                       sx: {
-                        color: theme.palette.zesty.zestyOrange,
+                        color: theme.palette.common.white,
                         fontWeight: 'inherit',
                         textAlign: 'inherit',
                       },
@@ -78,7 +80,7 @@ const Bottom = ({
                       component: 'h2',
                       sx: {
                         textAlign: isMedium ? 'center' : 'left',
-                        color: theme.palette.zesty.zestyDarkText,
+                        color: theme.palette.common.white,
                         fontWeight: 'bold',
                       },
                     },
@@ -91,7 +93,7 @@ const Bottom = ({
                       sx: {
                         textAlign: isMedium ? 'center' : 'left',
                         mt: 1,
-                        color: theme.palette.zesty.zestyDarkText,
+                        color: theme.palette.common.white,
                       },
                     },
                   },
@@ -125,7 +127,7 @@ const Bottom = ({
                   href={content.cta_right_url?.data[0].meta.web.uri}
                   text={'Request a demo' || FillerContent.cta}
                   sx={{
-                    color: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.common.white,
                     fontWeight: 'bold',
                   }}
                 />

@@ -21,7 +21,7 @@ const CaseStudies = ({ theme, isMedium, content, FillerContent }) => {
                 variant: 'h4',
                 sx: {
                   textAlign: 'center',
-                  color: theme.palette.zesty.zestyOrange,
+                  color: theme.palette.zesty.zestyDarkText,
                   fontWeight: 'inherit',
                 },
               },

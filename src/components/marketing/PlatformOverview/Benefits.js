@@ -29,7 +29,7 @@ const Benefits = ({ theme, isMedium, content, FillerContent }) => {
         sx={{
           width: '65%',
           height: 10,
-          background: theme.palette.zesty.zestyTealWhite,
+          background: theme.palette.zesty.zestyOrange,
           my: 4,
         }}
       />
