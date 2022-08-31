@@ -26,7 +26,7 @@ const Bottom = ({
       sx={{
         mt: 10,
         py: 5,
-        background: `url(${content.background_orange?.data[1].url})`,
+        background: `url(${content.background_orange?.data[1].url}?width=1920)`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
