@@ -28,8 +28,11 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import React, { useEffect } from 'react';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import CustomLogin from 'components/console/Login';
 function Login({ content }) {
+  const isLoggedIn = useIsLoggedIn();
+
   useEffect(() => {
     const header = document.querySelector('header'),
       topNavBox = document.querySelector('#topNavBox'),
@@ -40,6 +43,11 @@ function Login({ content }) {
       footer.style.display = 'none';
     }
   }, []);
+
+  if (isLoggedIn) {
+    window.location.replace('/instances');
+  }
+
   return <CustomLogin />;
 }
 
