@@ -50,14 +50,7 @@ export default function TeamsPage() {
     console.log(err);
     ErrorMsg({ text: err.error });
   };
-  const handleUpdateTeamSuccess = (res) => {
-    console.log(res);
-    SuccessMsg({ title: 'Success' });
-  };
-  const handleUpdateTeamError = (res) => {
-    console.log(res);
-    ErrorMsg({ text: res.error });
-  };
+
   const handleCreateTeamInviteSuccess = (res) => {
     console.log(res);
     SuccessMsg({ title: 'Success' });
@@ -98,16 +91,6 @@ export default function TeamsPage() {
     await getAllInstancesTeams();
   };
 
-  const updateTeam = async (data) => {
-    const payload = {
-      name: data.name,
-      description: data.description,
-    };
-    const res = await ZestyAPI.updateTeam(payload, data.ZUID);
-    !res.error && handleUpdateTeamSuccess(res);
-    res.error && handleUpdateTeamError(res);
-  };
-
   const createTeamInvite = async (data) => {
     const res = await ZestyAPI.createTeamInvite(data);
     !res.error && handleCreateTeamInviteSuccess(res);
@@ -134,12 +117,12 @@ export default function TeamsPage() {
     instanceUserWithRoles,
     userInfo,
   );
+
   const teamsProps = {
     teams: data,
     getAllInstancesTeams,
     setsearch,
     deleteTeamToInstance,
-    updateTeam,
     createTeamInvite,
     isInstanceOwner,
     addTeamToInstance,

@@ -160,7 +160,6 @@ const CustomForm = ({ onSubmit, options = [] }) => {
 };
 
 const Main = ({
-  updateTeam,
   setsearch,
   teams,
   getAllInstancesTeams,
@@ -180,10 +179,6 @@ const Main = ({
       await deleteTeamToInstance(ZUID);
     };
     DeleteMsg({ action });
-    await getAllInstancesTeams();
-  };
-  const handleEditTeam = async (data) => {
-    await updateTeam(data);
     await getAllInstancesTeams();
   };
 
