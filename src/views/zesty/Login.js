@@ -32,3 +32,5 @@ import CustomLogin from 'components/console/Login';
 function Login({ content }) {
   return <CustomLogin />;
 }
+
+export default Login;
