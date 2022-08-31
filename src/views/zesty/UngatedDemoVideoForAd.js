@@ -30,21 +30,23 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
 
-function UngatedDemoVideoForAd({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+import { HeroWithLogoGridAndDesktopScreenshot } from 'blocks/heroes';
+import { CtaWithIllustration } from 'blocks/cta';
+import { LogoGridSimpleCentered } from 'blocks/logoGrid';
+import FillerContent from 'components/globals/FillerContent';
+
+function UngatedDemoVideoForAd({ content }) {
+  return (
+    <>
+      <HeroWithLogoGridAndDesktopScreenshot {...content} />
+      <CtaWithIllustration isDemoPage={true} {...content} />
+      <LogoGridSimpleCentered
+        title={content.logos_title || FillerContent.header}
+        imageCollection={content.client_logos?.data || [FillerContent.image]}
+      />
+    </>
+  );
 }
-  
+
 export default UngatedDemoVideoForAd;
