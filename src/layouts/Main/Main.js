@@ -99,17 +99,24 @@ const Main = ({
 
   // store isUser isAuthenticated  in global state
   React.useEffect(() => {
-    if (isAuthenticated) {
+    if (isLoggedIn) {
       setisAuthenticated(isAuthenticated);
       setisUser(isUser);
       setCookies('isAuthenticated', isAuthenticated);
       setCookies('isUser', isUser);
     }
-  }, [isAuthenticated, isUser]);
+    //resetting state when logged out
+    else {
+      setisAuthenticated(false);
+      setisUser(false);
+      setCookies('isAuthenticated', false);
+      setCookies('isUser', false);
+    }
+  }, [isAuthenticated, isUser, isLoggedIn]);
 
   return (
     <Box>
-      {isUser == false && (
+      {isLoggedIn === false && (
         <Box
           bgcolor={bgcolor}
           position={'relative'}
@@ -152,7 +159,7 @@ const Main = ({
           })}
           paddingY={isExplorePage ? 2 : 1}
         >
-          {!isUser && (
+          {!isLoggedIn && (
             <Topbar
               onSidebarOpen={handleSidebarOpen}
               customRouting={hasRouting ? customRouting : []}
@@ -163,7 +170,7 @@ const Main = ({
               loading={loading}
             />
           )}
-          {isUser && (
+          {isLoggedIn && (
             <AppNavigation
               onSidebarOpen={handleSidebarOpen}
               colorInvert={headerColorInvert && !trigger}
@@ -184,7 +191,7 @@ const Main = ({
         {children}
         <Divider />
       </main>
-      {isUser == false && (
+      {isLoggedIn == false && (
         <Footer
           colorInvert={colorInvert}
           customRouting={hasRouting ? customRouting : []}
