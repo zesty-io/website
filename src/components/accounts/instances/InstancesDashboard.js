@@ -8,6 +8,7 @@ import {
   ToggleButton,
   Stack,
   Container,
+  Typography,
 } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -16,6 +17,9 @@ import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import CustomMenu from './CustomMenu';
 import useDropdown from 'components/hooks/useDropdown';
 import { InstancesList } from './InstancesList';
+import StarIcon from '@mui/icons-material/Star';
+import EmailIcon from '@mui/icons-material/Email';
+import WidgetsIcon from '@mui/icons-material/Widgets';
 
 const orderByItems = [
   {
@@ -243,7 +247,16 @@ export const InstancesDashboard = () => {
       </Stack>
 
       <InstancesList
-        title={'Invites'}
+        title={
+          <Typography
+            gap={1}
+            variant="h5"
+            display={'flex'}
+            alignItems={'center'}
+          >
+            <EmailIcon fontSize="large" color="secondary" /> Invites
+          </Typography>
+        }
         view={view}
         data={invites}
         toggleFavorites={toggleFavorites}
@@ -255,7 +268,16 @@ export const InstancesDashboard = () => {
         declineInvite={respondToInvite}
       />
       <InstancesList
-        title={'Favorites'}
+        title={
+          <Typography
+            gap={1}
+            variant="h5"
+            display={'flex'}
+            alignItems={'center'}
+          >
+            <StarIcon fontSize="large" color="secondary" /> Favorites
+          </Typography>
+        }
         view={view}
         data={favoritesList}
         toggleFavorites={toggleFavorites}
@@ -264,7 +286,17 @@ export const InstancesDashboard = () => {
         loading={loading}
       />
       <InstancesList
-        title={'Instances'}
+        title={
+          <Typography
+            gap={1}
+            variant="h5"
+            display={'flex'}
+            alignItems={'center'}
+          >
+            <WidgetsIcon fontSize="large" color="secondary" />
+            Instances
+          </Typography>
+        }
         view={view}
         data={instancesList}
         toggleFavorites={toggleFavorites}

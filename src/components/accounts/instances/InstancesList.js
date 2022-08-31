@@ -17,6 +17,8 @@ import { InstanceLoading } from '../ui';
 import FillerContent from 'components/globals/FillerContent';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
 
 export const InstancesList = ({
   title = '',
@@ -30,13 +32,19 @@ export const InstancesList = ({
   acceptInvite = () => {},
   declineInvite = () => {},
 }) => {
+  const handleRedirect = (instanceZuid) => {
+    if (!invite) {
+      handleRoute(instanceZuid);
+    }
+  };
+
   if (loading) {
     return <InstanceLoading view={view} />;
   }
   if (view === 'list') {
     return (
       <List sx={{ display: data.length === 0 ? 'none' : 'block' }}>
-        <Typography variant="h5">{title}</Typography>
+        <Box>{title}</Box>
         {data?.map((instance, index) => {
           const isFavorite = initialFavorites.find((e) => e === instance.ZUID);
 
@@ -52,7 +60,7 @@ export const InstancesList = ({
                   <StarBorderRoundedIcon fontSize="medium" />
                 )}
               </Box>
-              <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
+              <ListItemButton onClick={() => handleRedirect(instance.ZUID)}>
                 <ListItemIcon>
                   <img
                     alt={instance.name}
@@ -79,13 +87,21 @@ export const InstancesList = ({
 
   return (
     <Box paddingY={2} display={data.length === 0 ? 'none' : 'block'}>
-      <Typography variant="h5">{title}</Typography>
-      <Grid container direction="row" my={2} spacing={4}>
+      <Box>{title}</Box>
+      <Grid container direction="row" my={0} spacing={4}>
         {data?.map((instance, index) => {
           const isFavorite = initialFavorites.find((e) => e === instance.ZUID);
           return (
             <Grid item xs={12} sm={4} lg={3} key={index}>
-              <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
+              <Card
+                sx={{
+                  cursor: 'pointer',
+                  minHeight: '100%',
+                  ':hover': {
+                    boxShadow: 20,
+                  },
+                }}
+              >
                 <Box
                   paddingX={1}
                   paddingY={1}
@@ -115,13 +131,13 @@ export const InstancesList = ({
                       ? instance.screenshotURL
                       : FillerContent.image
                   }
-                  onClick={() => handleRoute(instance.ZUID)}
+                  onClick={() => handleRedirect(instance.ZUID)}
                 />
                 <Typography
                   p={1}
                   gutterBottom
                   variant="h6"
-                  onClick={() => handleRoute(instance.ZUID)}
+                  onClick={() => handleRedirect(instance.ZUID)}
                 >
                   {instance.name}
                 </Typography>
@@ -131,19 +147,36 @@ export const InstancesList = ({
                     <Button
                       onClick={() => acceptInvite(instance, 'accept')}
                       size="small"
-                      color="secondary"
+                      variant="contained"
+                      color="success"
                       target="_blank"
+                      fullWidth
                     >
-                      Accept Invite
+                      <CheckCircleIcon
+                        sx={{ color: '#fff' }}
+                        fontSize="small"
+                      />{' '}
+                      <Typography variant="p" marginX={1}>
+                        Accept Invite
+                      </Typography>
                     </Button>
 
                     <Button
                       onClick={() => declineInvite(instance, 'decline')}
                       size="small"
                       target="_blank"
-                      color="secondary"
+                      variant="outlined"
+                      color="error"
                     >
-                      Decline
+                      <Typography
+                        variant="p"
+                        display={'flex'}
+                        gap={1}
+                        marginX={2}
+                      >
+                        <NotInterestedIcon color="error" fontSize="small" />
+                        Decline
+                      </Typography>
                     </Button>
                   </CardActions>
                 )}
