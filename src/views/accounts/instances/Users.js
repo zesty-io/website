@@ -8,11 +8,13 @@ import {
   DeleteMsg,
   SubmitBtn,
   FormSelect,
+  DeleteBtn,
 } from 'components/accounts';
 import { baseroles } from 'components/accounts/users/baseroles';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
+import * as helpers from 'utils';
 
 const MySwal = withReactContent(Swal);
 
@@ -86,15 +88,7 @@ const CustomTable = ({
 
     const action = isOwner ? (
       <Box display={'flex'}>
-        <Button
-          onClick={handleDeleteUser}
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Delete User
-        </Button>
+        <DeleteBtn onClick={handleDeleteUser} />
       </Box>
     ) : (
       <>-</>
@@ -188,6 +182,10 @@ const Index = ({
     });
   };
 
+  // Remove not valid user using email check
+  const data = roles.filter((e) => {
+    return helpers.validateEmail(e.email);
+  });
   return (
     <Grid container>
       <Button
@@ -201,7 +199,7 @@ const Index = ({
       </Button>
       <Grid item xs={12}>
         <CustomTable
-          data={roles}
+          data={data}
           handleUpdateRole={handleUpdateRole}
           handleDeleteRole={handleDeleteRole}
           instanceRoles={instanceRoles}
