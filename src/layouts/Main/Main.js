@@ -111,6 +111,7 @@ const Main = ({
     <Box>
       {isUser == false && (
         <Box
+          id="topNavBox"
           bgcolor={bgcolor}
           position={'relative'}
           zIndex={theme.zIndex.appBar}

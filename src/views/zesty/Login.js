@@ -27,9 +27,21 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import CustomLogin from 'components/console/Login';
+import { useRouter } from 'next/router';
 function Login({ content }) {
+  const router = useRouter();
+  useEffect(() => {
+    const header = document.querySelector('header'),
+      topNavBox = document.querySelector('#topNavBox'),
+      footer = document.querySelector('footer');
+    if (router.isReady) {
+      header.style.display = 'none';
+      topNavBox.style.display = 'none';
+      footer.style.display = 'none';
+    }
+  }, [router.isReady]);
   return <CustomLogin />;
 }
 
