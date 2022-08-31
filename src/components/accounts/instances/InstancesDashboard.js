@@ -72,11 +72,9 @@ export const InstancesDashboard = () => {
   };
 
   const getUser = async (userZUID) => {
-    setloading(true);
     const res = await ZestyAPI.getUser(userZUID);
     !res.error && handleGetUserSuccess(res);
     res.error && handleGetUserError(res);
-    setloading(false);
   };
 
   const handleGetInstancesSuccess = (res) => {
@@ -92,13 +90,11 @@ export const InstancesDashboard = () => {
       setCookie('isAuthenticated', 'false');
     }
   };
-  async function getInstances() {
-    setloading(true);
+  const getInstances = async () => {
     const res = await ZestyAPI.getInstances();
     !res.error && handleGetInstancesSuccess(res);
     res.error && handleGetInstancesError(res);
-    setloading(false);
-  }
+  };
 
   const getAllInvitedInstances = async () => {
     const res = await ZestyAPI.getAllInvitedInstances();
@@ -134,7 +130,6 @@ export const InstancesDashboard = () => {
   };
 
   const toggleFavorites = async (data) => {
-    setloading(true);
     const isExist = initialFavorites.find((e) => e === data.ZUID);
     const favorite_sites = [
       ...JSON.parse(userInfo.prefs).favorite_sites,
@@ -151,23 +146,16 @@ export const InstancesDashboard = () => {
     const res = await ZestyAPI.updateUser(userInfo.ZUID, body, '');
     !res.error && handleUpdateUserSuccess(res);
     res.error && handleUpdateUserError(res);
-    await getInstances();
-    await getUser(userZUID);
-    await setloading(false);
+    await getPageData();
   };
 
   const respondToInvite = async (data, action) => {
     const res = await ZestyAPI.respondToInvite(data.inviteZUID, action);
     !res.error && handleRespondToInviteSuccess(res);
     res.error && handleRespondToInviteError(res);
-    await getInstances();
-    await getUser(userZUID);
-    await getAllInvitedInstances();
+    await getPageData();
   };
 
-  const handleDeclineInvite = async (data) => {
-    console.log(data);
-  };
   const favoritesList = instances
     ?.filter((instance) => initialFavorites.includes(instance.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
@@ -176,12 +164,20 @@ export const InstancesDashboard = () => {
     ?.filter((instance) => !initialFavorites.includes(instance.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
 
+  const getPageData = async () => {
+    setloading(true);
+    await getInstances();
+    await getUser(userZUID);
+    await getAllInvitedInstances();
+    setloading(false);
+  };
+
   React.useEffect(() => {
     verify();
   }, []);
 
   React.useEffect(() => {
-    getAllInvitedInstances();
+    getPageData();
   }, []);
 
   React.useEffect(() => {
