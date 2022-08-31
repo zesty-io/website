@@ -42,11 +42,11 @@ export default function TeamsPage() {
     ErrorMsg({ text: err.error });
   };
 
-  const handleDeleteTeamSuccess = (res) => {
+  const handleDeleteTeamToInstanceSuccess = (res) => {
     console.log(res);
     SuccessMsg({ title: 'Success' });
   };
-  const handleDeleteTeamError = (err) => {
+  const handleDeleteTeamToInstanceError = (err) => {
     console.log(err);
     ErrorMsg({ text: err.error });
   };
@@ -91,10 +91,10 @@ export default function TeamsPage() {
     !res.error && handleAddTeamToInstanceSuccess(res);
     res.error && handleAddTeamToInstanceError(res);
   };
-  const deleteTeam = async (id) => {
-    const res = await ZestyAPI.deleteTeam(id);
-    !res.error && handleDeleteTeamSuccess(res);
-    res.error && handleDeleteTeamError(res);
+  const deleteTeamToInstance = async (teamZUID) => {
+    const res = await ZestyAPI.removeTeamFromInstance(zuid, teamZUID);
+    !res.error && handleDeleteTeamToInstanceSuccess(res);
+    res.error && handleDeleteTeamToInstanceError(res);
     await getAllInstancesTeams();
   };
 
@@ -138,7 +138,7 @@ export default function TeamsPage() {
     teams: data,
     getAllInstancesTeams,
     setsearch,
-    deleteTeam,
+    deleteTeamToInstance,
     updateTeam,
     createTeamInvite,
     isInstanceOwner,

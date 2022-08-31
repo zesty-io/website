@@ -38,7 +38,6 @@ const COLUMNS = [
 const CustomTable = ({
   data,
   handleDeleteTeamModal,
-  handleUpdataTeamModal,
   handleCreateTeamInviteModal,
   isInstanceOwner,
 }) => {
@@ -64,15 +63,6 @@ const CustomTable = ({
       ),
       action: isInstanceOwner ? (
         <Box display={'flex'}>
-          <Button
-            onClick={() => handleUpdataTeamModal(e)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-          >
-            Edit
-          </Button>
           <Button
             onClick={() => handleDeleteTeamModal(e)}
             color="primary"
@@ -111,7 +101,6 @@ const InviteForm = ({ onSubmit, data }) => {
         admin: false,
         teamZUID: data.ZUID,
       };
-      console.log(val);
       await onSubmit(val);
       formik.resetForm();
     },
@@ -175,7 +164,7 @@ const Main = ({
   setsearch,
   teams,
   getAllInstancesTeams,
-  deleteTeam,
+  deleteTeamToInstance,
   createTeamInvite,
   isInstanceOwner,
   addTeamToInstance,
@@ -188,7 +177,7 @@ const Main = ({
 
   const handleDeleteTeamModal = async ({ ZUID }) => {
     const action = async () => {
-      await deleteTeam(ZUID);
+      await deleteTeamToInstance(ZUID);
     };
     DeleteMsg({ action });
     await getAllInstancesTeams();
@@ -211,13 +200,6 @@ const Main = ({
           options={instanceRoles}
         />
       ),
-      showConfirmButton: false,
-    });
-  };
-  const handleUpdataTeamModal = (data) => {
-    MySwal.fire({
-      title: 'Edit Team',
-      html: <CustomForm onSubmit={handleEditTeam} data={data} />,
       showConfirmButton: false,
     });
   };
@@ -249,7 +231,6 @@ const Main = ({
       <CustomTable
         data={teams}
         handleDeleteTeamModal={handleDeleteTeamModal}
-        handleUpdataTeamModal={handleUpdataTeamModal}
         handleCreateTeamInviteModal={handleCreateTeamInviteModal}
         isInstanceOwner={isInstanceOwner}
       />
