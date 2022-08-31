@@ -14,9 +14,9 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { InstanceLoading } from '../ui';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import GradeIcon from '@mui/icons-material/Grade';
 import FillerContent from 'components/globals/FillerContent';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 
 export const InstancesList = ({
   title = '',
@@ -42,8 +42,15 @@ export const InstancesList = ({
 
           return (
             <ListItem divider key={index} disablePadding>
-              <Box onClick={() => toggleFavorites(instance)}>
-                {isFavorite ? <GradeIcon /> : <StarOutlineIcon />}
+              <Box
+                sx={{ cursor: 'pointer' }}
+                onClick={() => toggleFavorites(instance)}
+              >
+                {isFavorite ? (
+                  <StarRoundedIcon color="secondary" fontSize="medium" />
+                ) : (
+                  <StarBorderRoundedIcon fontSize="medium" />
+                )}
               </Box>
               <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
                 <ListItemIcon>
@@ -87,8 +94,15 @@ export const InstancesList = ({
                   justifyContent={'flex-end'}
                   visibility={invite ? 'hidden' : 'visible'}
                 >
-                  <Box onClick={() => toggleFavorites(instance)}>
-                    {isFavorite ? <GradeIcon /> : <StarOutlineIcon />}
+                  <Box
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => toggleFavorites(instance)}
+                  >
+                    {isFavorite ? (
+                      <StarRoundedIcon color="secondary" fontSize="medium" />
+                    ) : (
+                      <StarBorderRoundedIcon fontSize="medium" />
+                    )}
                   </Box>
                 </Box>
                 <CardMedia
