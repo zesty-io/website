@@ -26,9 +26,9 @@ import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import CustomMenu from './CustomMenu';
 import useDropdown from 'components/hooks/useDropdown';
 import FillerContent from 'components/globals/FillerContent';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import GradeIcon from '@mui/icons-material/Grade';
 import { InstanceLoading } from '../ui';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 
 const orderByItems = [
   {
@@ -62,8 +62,15 @@ const InstancesList = ({
 
           return (
             <ListItem divider key={index} disablePadding>
-              <Box onClick={() => toggleFavorites(instance)}>
-                {isFavorite ? <GradeIcon /> : <StarOutlineIcon />}
+              <Box
+                onClick={() => toggleFavorites(instance)}
+                sx={{ cursor: 'pointer' }}
+              >
+                {isFavorite ? (
+                  <StarRoundedIcon color="secondary" fontSize="large" />
+                ) : (
+                  <StarBorderRoundedIcon fontSize="large" />
+                )}
               </Box>
               <ListItemButton onClick={() => handleRoute(instance.ZUID)}>
                 <ListItemIcon>
@@ -106,8 +113,15 @@ const InstancesList = ({
                   display={'flex'}
                   justifyContent={'flex-end'}
                 >
-                  <Box onClick={() => toggleFavorites(instance)}>
-                    {isFavorite ? <GradeIcon /> : <StarOutlineIcon />}
+                  <Box
+                    onClick={() => toggleFavorites(instance)}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    {isFavorite ? (
+                      <StarRoundedIcon color="secondary" fontSize="large" />
+                    ) : (
+                      <StarBorderRoundedIcon fontSize="large" />
+                    )}
                   </Box>
                 </Box>
                 <CardMedia
