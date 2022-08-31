@@ -188,15 +188,17 @@ const Index = ({
   });
   return (
     <Grid container>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() =>
-          handleInviteUserModal(createInvite, baseroles, instanceZUID)
-        }
-      >
-        Invite user
-      </Button>
+      <Box sx={{ display: 'flex', width: '100%', justifyContent: 'end' }}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() =>
+            handleInviteUserModal(createInvite, baseroles, instanceZUID)
+          }
+        >
+          Invite user
+        </Button>
+      </Box>
       <Grid item xs={12}>
         <CustomTable
           data={data}
