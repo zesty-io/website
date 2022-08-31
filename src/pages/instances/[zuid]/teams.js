@@ -10,22 +10,34 @@ export default function TeamsPage() {
   const [teams, setteams] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
+  const [instanceRoles, setInstanceRoles] = React.useState([]);
 
   const router = useRouter();
   const { zuid } = router.query;
 
-  const handleGetAllTeamsSuccess = (res) => {
+  const handleGetInstanceRolesSuccess = (res) => {
+    console.log(res, 'succ upp');
+    const data = res.data.map((e) => {
+      return { ...e, value: e.name, label: e.name };
+    });
+    setInstanceRoles(data);
+  };
+  const handleGetInstanceRolesErr = (res) => {
+    console.log(res);
+    ErrorMsg({ text: res.error });
+  };
+  const handleGetAllInstancesTeamsSuccess = (res) => {
     setteams(res.data);
   };
-  const handleGetAllTeamsError = (err) => {
+  const handleGetAllInstancesTeamsError = (err) => {
     console.log(err);
     ErrorMsg({ text: err.error });
   };
-  const handleCreateTeamSuccess = (res) => {
+  const handleAddTeamToInstanceSuccess = (res) => {
     console.log(res);
-    SuccessMsg({ title: 'Success' });
+    SuccessMsg({ title: 'Team Succesfully Added' });
   };
-  const handleCreateTeamError = (err) => {
+  const handleAddTeamToInstanceError = (err) => {
     console.log(err);
     ErrorMsg({ text: err.error });
   };
@@ -62,26 +74,28 @@ export default function TeamsPage() {
     ErrorMsg({ text: res.error });
   };
 
-  const getAllTeams = async () => {
-    const res = await ZestyAPI.getAllTeams();
-    !res.error && handleGetAllTeamsSuccess(res);
-    res.error && handleGetAllTeamsError(res);
+  const getAllInstancesTeams = async () => {
+    const res = await ZestyAPI.getAllInstancesTeams(zuid);
+    !res.error && handleGetAllInstancesTeamsSuccess(res);
+    res.error && handleGetAllInstancesTeamsError(res);
   };
 
-  const createTeam = async (data) => {
-    const payload = {
-      Name: data?.name,
-      Description: data?.description,
-    };
-    const res = await ZestyAPI.createTeam(payload);
-    !res.error && handleCreateTeamSuccess(res);
-    res.error && handleCreateTeamError(res);
+  const getInstanceRoles = async () => {
+    const res = await ZestyAPI.getInstanceRoles(zuid);
+    !res.error && handleGetInstanceRolesSuccess(res);
+    res.error && handleGetInstanceRolesErr(res);
+  };
+  const addTeamToInstance = async (data) => {
+    const { teamZUID, roleZUID } = data;
+    const res = await ZestyAPI.addTeamToInstance(zuid, teamZUID, roleZUID);
+    !res.error && handleAddTeamToInstanceSuccess(res);
+    res.error && handleAddTeamToInstanceError(res);
   };
   const deleteTeam = async (id) => {
     const res = await ZestyAPI.deleteTeam(id);
     !res.error && handleDeleteTeamSuccess(res);
     res.error && handleDeleteTeamError(res);
-    await getAllTeams();
+    await getAllInstancesTeams();
   };
 
   const updateTeam = async (data) => {
@@ -122,19 +136,21 @@ export default function TeamsPage() {
   );
   const teamsProps = {
     teams: data,
-    getAllTeams,
-    createTeam,
+    getAllInstancesTeams,
     setsearch,
     deleteTeam,
     updateTeam,
     createTeamInvite,
     isInstanceOwner,
+    addTeamToInstance,
+    instanceRoles,
   };
 
   React.useEffect(() => {
     if (router.isReady) {
-      getAllTeams();
+      getAllInstancesTeams();
       getInstanceUserWithRoles();
+      getInstanceRoles();
     }
   }, [router.isReady]);
   return (

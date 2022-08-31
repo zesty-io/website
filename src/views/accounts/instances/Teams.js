@@ -3,6 +3,7 @@ import {
   accountsValidations,
   DeleteMsg,
   FormInput,
+  FormSelect,
   StickyTable,
 } from 'components/accounts';
 import { useFormik } from 'formik';
@@ -128,25 +129,33 @@ const InviteForm = ({ onSubmit, data }) => {
   );
 };
 
-const CustomForm = ({ onSubmit, data = {} }) => {
+const CustomForm = ({ onSubmit, options = [] }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.teams,
     initialValues: {
-      name: data?.name,
-      description: data?.description,
+      teamZUID: '',
+      roleZUID: '',
     },
     onSubmit: async (values) => {
-      const val = { ...values, ZUID: data.ZUID };
-      await onSubmit(val);
+      await onSubmit(values);
       formik.resetForm();
     },
+  });
+
+  const newOptions = options?.map((e) => {
+    return { ...e, value: e.ZUID };
   });
 
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput name={'name'} formik={formik} />
-        <FormInput name={'description'} formik={formik} />
+        <FormInput name={'teamZUID'} formik={formik} />
+        <FormSelect
+          label="Role ZUID"
+          name={'roleZUID'}
+          formik={formik}
+          options={newOptions}
+        />
         <Button
           disabled={formik.isSubmitting}
           color="primary"
@@ -165,15 +174,16 @@ const Main = ({
   updateTeam,
   setsearch,
   teams,
-  createTeam,
-  getAllTeams,
+  getAllInstancesTeams,
   deleteTeam,
   createTeamInvite,
   isInstanceOwner,
+  addTeamToInstance,
+  instanceRoles,
 }) => {
-  const handleCreateTeam = async (data) => {
-    await createTeam(data);
-    await getAllTeams();
+  const handleAddTeamToInstance = async (data) => {
+    await addTeamToInstance(data);
+    await getAllInstancesTeams();
   };
 
   const handleDeleteTeamModal = async ({ ZUID }) => {
@@ -181,21 +191,26 @@ const Main = ({
       await deleteTeam(ZUID);
     };
     DeleteMsg({ action });
-    await getAllTeams();
+    await getAllInstancesTeams();
   };
   const handleEditTeam = async (data) => {
     await updateTeam(data);
-    await getAllTeams();
+    await getAllInstancesTeams();
   };
 
   const handlerCreateTeamInvite = async (data) => {
     await createTeamInvite(data);
-    await getAllTeams();
+    await getAllInstancesTeams();
   };
   const handleAddTeamModal = () => {
     MySwal.fire({
-      title: 'Add Team',
-      html: <CustomForm onSubmit={handleCreateTeam} />,
+      title: 'Add Team to Instance',
+      html: (
+        <CustomForm
+          onSubmit={handleAddTeamToInstance}
+          options={instanceRoles}
+        />
+      ),
       showConfirmButton: false,
     });
   };
@@ -228,7 +243,7 @@ const Main = ({
           variant="contained"
           onClick={handleAddTeamModal}
         >
-          Add Team
+          Add Team to Instance
         </Button>
       )}
       <CustomTable

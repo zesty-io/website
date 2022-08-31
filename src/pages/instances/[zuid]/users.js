@@ -37,9 +37,7 @@ export default function UsersPage() {
   const [users, setusers] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
-  const { ZestyAPI, isAuthenticated, userInfo } = useZestyStore(
-    (state) => state,
-  );
+  const { ZestyAPI, userInfo } = useZestyStore((state) => state);
 
   const router = useRouter();
 
