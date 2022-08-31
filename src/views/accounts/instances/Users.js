@@ -6,6 +6,8 @@ import {
   accountsValidations,
   FormInput,
   DeleteMsg,
+  SubmitBtn,
+  FormSelect,
 } from 'components/accounts';
 import { baseroles } from 'components/accounts/users/baseroles';
 import Swal from 'sweetalert2';
@@ -117,48 +119,41 @@ const CustomTable = ({
 };
 
 const CustomForm = ({ onSubmit, options, instanceZUID }) => {
-  const [role, setrole] = React.useState({});
   const formik = useFormik({
     validationSchema: accountsValidations.email,
     initialValues: {
       email: '',
       name: '',
+      accessLevel: '',
     },
     onSubmit: async (values) => {
       const val = {
         inviteeName: values.name,
         inviteeEmail: values.email,
         entityZUID: instanceZUID,
-        accessLevel: role.accessLevel,
+        accessLevel: values.accessLevel,
       };
       await onSubmit(val);
       formik.resetForm();
     },
   });
 
-  const handleChange = (data) => {
-    setrole(data);
-  };
+  const newOptions = options.map((e) => {
+    return { ...e, value: e.accessLevel };
+  });
+
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
         <FormInput name={'name'} formik={formik} />
         <FormInput name={'email'} formik={formik} />
-        <UsersSelect
-          options={options}
+        <FormSelect
           label="Role"
-          onChange={handleChange}
-          value={role.value}
+          name={'accessLevel'}
+          formik={formik}
+          options={newOptions}
         />
-        <Button
-          color="primary"
-          disabled={!role.accessLevel || formik.isSubmitting}
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Submit
-        </Button>
+        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
       </form>
     </Box>
   );

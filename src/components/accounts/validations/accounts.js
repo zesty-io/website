@@ -44,6 +44,7 @@ const email = yup.object().shape({
     .string()
     .required('Email address is required*')
     .matches(emailRegex, 'Must be a valid email address*'),
+  accessLevel: yup.string().required('Role is required*'),
 });
 
 const createToken = yup.object().shape({
