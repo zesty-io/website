@@ -105,14 +105,7 @@ const Main = ({
       setCookies('isAuthenticated', isAuthenticated);
       setCookies('isUser', isUser);
     }
-    //resetting state when logged out
-    else {
-      setisAuthenticated(false);
-      setisUser(false);
-      setCookies('isAuthenticated', false);
-      setCookies('isUser', false);
-    }
-  }, [isAuthenticated, isUser, isLoggedIn]);
+  }, [isAuthenticated, isUser]);
 
   return (
     <Box>

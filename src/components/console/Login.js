@@ -196,9 +196,6 @@ const Login = () => {
                   width={150}
                 />
               </Link>
-              <Link underline="none" href="#" color="secondary">
-                Try for free!
-              </Link>
             </Stack>
 
             <Stack mt={10} mb={15}>
