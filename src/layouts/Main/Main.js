@@ -99,7 +99,7 @@ const Main = ({
 
   // store isUser isAuthenticated  in global state
   React.useEffect(() => {
-    if (isLoggedIn) {
+    if (isAuthenticated) {
       setisAuthenticated(isAuthenticated);
       setisUser(isUser);
       setCookies('isAuthenticated', isAuthenticated);
