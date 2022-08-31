@@ -1,9 +1,12 @@
 import { Box, Button, TextField } from '@mui/material';
 import {
   accountsValidations,
+  DeleteBtn,
   DeleteMsg,
   FormInput,
+  FormSelect,
   StickyTable,
+  SubmitBtn,
 } from 'components/accounts';
 import { useFormik } from 'formik';
 import React from 'react';
@@ -25,62 +28,20 @@ const COLUMNS = [
     label: 'Zuid',
   },
   {
-    id: 'invite',
-    label: 'Invite Team Member',
-  },
-  {
     id: 'action',
     label: 'Action',
   },
 ];
 
-const CustomTable = ({
-  data,
-  handleDeleteTeamModal,
-  handleUpdataTeamModal,
-  handleCreateTeamInviteModal,
-  isInstanceOwner,
-}) => {
+const CustomTable = ({ data, handleDeleteTeamModal, isInstanceOwner }) => {
   const ROWS = data?.map((e) => {
     return {
       name: e.name || '-',
       description: e.description || '-',
       zuid: e.ZUID,
-      invite: isInstanceOwner ? (
-        <Box>
-          <Button
-            onClick={() => handleCreateTeamInviteModal(e)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="button"
-          >
-            Invite
-          </Button>
-        </Box>
-      ) : (
-        '-'
-      ),
       action: isInstanceOwner ? (
         <Box display={'flex'}>
-          <Button
-            onClick={() => handleUpdataTeamModal(e)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-          >
-            Edit
-          </Button>
-          <Button
-            onClick={() => handleDeleteTeamModal(e)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-          >
-            Delete
-          </Button>
+          <DeleteBtn onClick={() => handleDeleteTeamModal(e)} />
         </Box>
       ) : (
         '-'
@@ -98,144 +59,98 @@ const CustomTable = ({
   );
 };
 
-const InviteForm = ({ onSubmit, data }) => {
+const CustomForm = ({ onSubmit, options = [] }) => {
   const formik = useFormik({
-    validationSchema: accountsValidations.invite,
+    validationSchema: accountsValidations.teams,
     initialValues: {
-      email: '',
+      teamZUID: '',
+      roleZUID: '',
     },
     onSubmit: async (values) => {
-      const val = {
-        inviteeEmail: values.email,
-        admin: false,
-        teamZUID: data.ZUID,
-      };
-      console.log(val);
-      await onSubmit(val);
+      await onSubmit(values);
       formik.resetForm();
     },
   });
 
-  return (
-    <Box>
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput name={'email'} formik={formik} />
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Submit
-        </Button>
-      </form>
-    </Box>
-  );
-};
-
-const CustomForm = ({ onSubmit, data = {} }) => {
-  const formik = useFormik({
-    validationSchema: accountsValidations.teams,
-    initialValues: {
-      name: data?.name,
-      description: data?.description,
-    },
-    onSubmit: async (values) => {
-      const val = { ...values, ZUID: data.ZUID };
-      await onSubmit(val);
-      formik.resetForm();
-    },
+  const newOptions = options?.map((e) => {
+    return { ...e, value: e.ZUID };
   });
 
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput name={'name'} formik={formik} />
-        <FormInput name={'description'} formik={formik} />
-        <Button
-          disabled={formik.isSubmitting}
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Submit
-        </Button>
+        <FormInput name={'teamZUID'} formik={formik} />
+        <FormSelect
+          label="Role ZUID"
+          name={'roleZUID'}
+          formik={formik}
+          options={newOptions}
+        />
+        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
       </form>
     </Box>
   );
 };
 
 const Main = ({
-  updateTeam,
   setsearch,
   teams,
-  createTeam,
-  getAllTeams,
-  deleteTeam,
-  createTeamInvite,
+  getAllInstancesTeams,
+  deleteTeamToInstance,
   isInstanceOwner,
+  addTeamToInstance,
+  instanceRoles,
 }) => {
-  const handleCreateTeam = async (data) => {
-    await createTeam(data);
-    await getAllTeams();
+  const handleAddTeamToInstance = async (data) => {
+    await addTeamToInstance(data);
+    await getAllInstancesTeams();
   };
 
   const handleDeleteTeamModal = async ({ ZUID }) => {
     const action = async () => {
-      await deleteTeam(ZUID);
+      await deleteTeamToInstance(ZUID);
     };
     DeleteMsg({ action });
-    await getAllTeams();
-  };
-  const handleEditTeam = async (data) => {
-    await updateTeam(data);
-    await getAllTeams();
+    await getAllInstancesTeams();
   };
 
-  const handlerCreateTeamInvite = async (data) => {
-    await createTeamInvite(data);
-    await getAllTeams();
-  };
   const handleAddTeamModal = () => {
     MySwal.fire({
-      title: 'Add Team',
-      html: <CustomForm onSubmit={handleCreateTeam} />,
+      title: 'Add Team to Instance',
+      html: (
+        <CustomForm
+          onSubmit={handleAddTeamToInstance}
+          options={instanceRoles}
+        />
+      ),
       showConfirmButton: false,
     });
   };
-  const handleUpdataTeamModal = (data) => {
-    MySwal.fire({
-      title: 'Edit Team',
-      html: <CustomForm onSubmit={handleEditTeam} data={data} />,
-      showConfirmButton: false,
-    });
-  };
-  const handleCreateTeamInviteModal = (data) => {
-    MySwal.fire({
-      title: 'Invite Team',
-      html: <InviteForm onSubmit={handlerCreateTeamInvite} data={data} />,
-      showConfirmButton: false,
-    });
-  };
+
   return (
     <Box>
-      <TextField
-        id="outlined-basic"
-        label="Search..."
-        variant="outlined"
-        onChange={(e) => setsearch(e.target.value)}
-      />
+      <Box paddingY={2} display={'flex'} justifyContent={'space-between'}>
+        <TextField
+          id="outlined-basic"
+          label="Search..."
+          variant="outlined"
+          onChange={(e) => setsearch(e.target.value)}
+        />
 
-      {isInstanceOwner && (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleAddTeamModal}
-        >
-          Add Team
-        </Button>
-      )}
+        {isInstanceOwner && (
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleAddTeamModal}
+          >
+            Add Team to Instance
+          </Button>
+        )}
+      </Box>
+
       <CustomTable
         data={teams}
         handleDeleteTeamModal={handleDeleteTeamModal}
-        handleUpdataTeamModal={handleUpdataTeamModal}
-        handleCreateTeamInviteModal={handleCreateTeamInviteModal}
         isInstanceOwner={isInstanceOwner}
       />
     </Box>

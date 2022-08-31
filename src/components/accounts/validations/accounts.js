@@ -44,6 +44,7 @@ const email = yup.object().shape({
     .string()
     .required('Email address is required*')
     .matches(emailRegex, 'Must be a valid email address*'),
+  accessLevel: yup.string().required('Role is required*'),
 });
 
 const createToken = yup.object().shape({
@@ -54,11 +55,11 @@ const createToken = yup.object().shape({
 });
 
 const teams = yup.object().shape({
-  name: yup
+  teamZUID: yup
     .string()
     .min(2, 'Must be atleast 2 Characters')
     .required('Name is required'),
-  description: yup
+  roleZUID: yup
     .string()
     .min(2, 'Must be atleast 2 Characters')
     .required('Description is required'),
