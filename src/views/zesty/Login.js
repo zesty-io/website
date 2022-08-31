@@ -29,19 +29,17 @@
  */
 import React, { useEffect } from 'react';
 import CustomLogin from 'components/console/Login';
-import { useRouter } from 'next/router';
 function Login({ content }) {
-  const router = useRouter();
   useEffect(() => {
     const header = document.querySelector('header'),
       topNavBox = document.querySelector('#topNavBox'),
       footer = document.querySelector('footer');
-    if (router.isReady) {
+    if (header && topNavBox && footer) {
       header.style.display = 'none';
       topNavBox.style.display = 'none';
       footer.style.display = 'none';
     }
-  }, [router.isReady]);
+  }, []);
   return <CustomLogin />;
 }
 
