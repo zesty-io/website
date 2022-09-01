@@ -7,10 +7,9 @@ import {
   ColorToggleButton,
   SettingsSelect,
   StickyTable,
-  SuccessMsg,
 } from 'components/accounts';
 import * as helper from 'utils';
-import { useZestyStore } from 'store';
+import SaveIcon from '@mui/icons-material/Save';
 
 const COLUMNS = [
   {
@@ -28,6 +27,10 @@ const COLUMNS = [
   {
     id: 'action',
     label: 'Action',
+  },
+  {
+    id: 'save',
+    label: 'Save',
   },
 ];
 
@@ -101,12 +104,37 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
   }
 };
 
-const CustomTable = ({ data, arrToSubmit, setarrToSubmit }) => {
+const CustomTable = ({
+  data,
+  arrToSubmit,
+  setarrToSubmit,
+  singleSettingsUpdate,
+}) => {
+  const handleClick = (data) => {
+    singleSettingsUpdate(data);
+    setarrToSubmit(arrToSubmit.filter((e) => e.ZUID !== data.ZUID));
+  };
   const ROWS = data?.map((e) => {
+    const isDataChange = helper
+      .removeDupsInArrObj(arrToSubmit, 'keyFriendly')
+      .find((x) => x.ZUID === e.ZUID);
+
     return {
       keyFriendly: e.keyFriendly,
       category: e.category,
       tips: e.tips,
+      save: isDataChange ? (
+        <Button
+          onClick={() => handleClick(e)}
+          variant="contained"
+          color="secondary"
+        >
+          <SaveIcon size={20} />
+          Save
+        </Button>
+      ) : (
+        <>-</>
+      ),
       action: (
         <ActionSwitcher
           data={e}
@@ -127,9 +155,8 @@ const CustomTable = ({ data, arrToSubmit, setarrToSubmit }) => {
   );
 };
 
-export const Settings = ({ settings = [] }) => {
+export const Settings = ({ settings = [], singleSettingsUpdate }) => {
   const [arrToSubmit, setarrToSubmit] = React.useState([]);
-  const { ZestyAPI } = useZestyStore();
   const [search, setsearch] = React.useState('');
   const [categories, setcategories] = React.useState('');
 
@@ -149,16 +176,17 @@ export const Settings = ({ settings = [] }) => {
     property: 'category',
   });
 
-  const updateSettings = async (data) => {
-    const dataToUpdate = data?.map(async (e) => {
-      const res = await ZestyAPI.updateSetting(e.ZUID, e);
-      console.log(res, 'Result');
-    });
+  // OLd setting to be remove
+  // const updateSettings = async (data) => {
+  //   const dataToUpdate = data?.map(async (e) => {
+  //     const res = await ZestyAPI.updateSetting(e.ZUID, e);
+  //     console.log(res, 'Result');
+  //   });
+  //   await Promise.all(dataToUpdate);
+  //   await SuccessMsg({ title: 'Success' });
+  //   await setarrToSubmit([]);
+  // };
 
-    await Promise.all(dataToUpdate);
-    await SuccessMsg({ title: 'Success' });
-    await setarrToSubmit([]);
-  };
   return (
     <Box>
       <Typography variant="h3">Settings</Typography>
@@ -176,7 +204,9 @@ export const Settings = ({ settings = [] }) => {
           value={categories}
           setdirty={() => {}}
         />
-        <Button
+
+        {/* Old setting to be remove */}
+        {/* <Button
           color="primary"
           variant="contained"
           disabled={arrToSubmit.length === 0 ? true : false}
@@ -187,12 +217,13 @@ export const Settings = ({ settings = [] }) => {
           }
         >
           Save Changes
-        </Button>
+        </Button> */}
       </Box>
       <CustomTable
         data={data}
         arrToSubmit={arrToSubmit}
         setarrToSubmit={setarrToSubmit}
+        singleSettingsUpdate={singleSettingsUpdate}
       />
     </Box>
   );
