@@ -17,7 +17,6 @@ export default function TeamsPage() {
   const { zuid } = router.query;
 
   const handleGetInstanceRolesSuccess = (res) => {
-    console.log(res, 'succ upp');
     const data = res.data.map((e) => {
       return { ...e, value: e.name, label: e.name };
     });
@@ -45,7 +44,7 @@ export default function TeamsPage() {
 
   const handleDeleteTeamToInstanceSuccess = (res) => {
     console.log(res);
-    SuccessMsg({ title: 'Success' });
+    SuccessMsg({ title: 'Team Successfully Deleted' });
   };
   const handleDeleteTeamToInstanceError = (err) => {
     console.log(err);

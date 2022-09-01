@@ -14,7 +14,7 @@ export const LoadingSpinner = () => {
         flexDirection: 'column',
       }}
     >
-      <Box display={'flex'} gap={20} paddingX={6}>
+      <Box display={'flex'} gap={20} paddingX={6} paddingTop={2}>
         <Skeleton variant="rectangular" width={200} height={30} />
         <Skeleton variant="rectangular" width={300} height={30} />
         <Skeleton variant="rectangular" width={80} height={30} />
