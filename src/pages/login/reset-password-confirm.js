@@ -3,14 +3,12 @@ import {
   Box,
   Button,
   Container,
-  InputAdornment,
   Paper,
   Stack,
   Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { accountsValidations, FormInput } from 'components/accounts';
-import PasswordIcon from '@mui/icons-material/Password';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import { LoadingButton } from '@mui/lab';
@@ -94,13 +92,7 @@ const ResetPasswordConfirm = ({ address, token }) => {
                   customLabel="New Password"
                   formik={formik}
                   placeholder="Enter your new password"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PasswordIcon />
-                      </InputAdornment>
-                    ),
-                  }}
+                  type="password"
                 />
                 <FormInput
                   color="secondary"
@@ -108,13 +100,7 @@ const ResetPasswordConfirm = ({ address, token }) => {
                   customLabel="Confirm New Password"
                   formik={formik}
                   placeholder="Repeat your new password"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PasswordIcon />
-                      </InputAdornment>
-                    ),
-                  }}
+                  type="password"
                 />
                 {response?.status && (
                   <Alert
