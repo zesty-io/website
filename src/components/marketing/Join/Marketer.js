@@ -26,11 +26,8 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import StartOutlinedIcon from '@mui/icons-material/StartOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
-import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import SchemaOutlinedIcon from '@mui/icons-material/SchemaOutlined';
-import TextFieldsOutlinedIcon from '@mui/icons-material/TextFieldsOutlined';
 import Youtube from '../../../../public/assets/images/join/youtube.svg';
-import Discord from '../../../../public/assets/images/join/discord.svg';
 import Twitter from '../../../../public/assets/images/join/twitter.svg';
 import LinkedIn from '../../../../public/assets/images/join/linkedin.svg';
 

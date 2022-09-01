@@ -2,8 +2,6 @@ import { Box, Typography, Grid } from '@mui/material';
 import Card from '@mui/material/Card';
 import CodeBlock from 'components/cta/CodeBlock';
 import { useTheme } from '@mui/material/styles';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
