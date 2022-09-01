@@ -35,7 +35,7 @@ const ForgotPassword = () => {
       if (response?.data || response?.meta) {
         setResponse({
           status: 'ok',
-          message: `Your request has been submitted. If a Zesty accounts exists with this email, you will receive an email to complete your password reset.`,
+          message: `Your request has been submitted. If a Zesty account exists with this email, you will receive an email to complete your password reset.`,
         });
       } else {
         setResponse({
