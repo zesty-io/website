@@ -9,6 +9,23 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../loading';
+import { Typography } from '@mui/material';
+
+const NoData = () => {
+  return (
+    <Typography
+      variant="h4"
+      sx={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%,-50%)',
+      }}
+    >
+      No Data
+    </Typography>
+  );
+};
 
 const Index = ({
   rows,
@@ -59,33 +76,36 @@ const Index = ({
                 })}
               </TableRow>
             </TableHead>
+            <TableBody sx={{ height: '30vh', position: 'relative' }}>
+              {rows.length === 0 ? (
+                <NoData />
+              ) : (
+                rows
+                  ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  ?.map((row) => {
+                    return (
+                      <TableRow hover>
+                        {columns?.map((column) => {
+                          const value = row[column.id];
 
-            <TableBody sx={{ height: '30vh' }}>
-              {rows
-                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                ?.map((row) => {
-                  return (
-                    <TableRow hover>
-                      {columns?.map((column) => {
-                        const value = row[column.id];
-
-                        // Check if JSX ELEMENT ex Buttons etc
-                        if (React.isValidElement(value)) {
+                          // Check if JSX ELEMENT ex Buttons etc
+                          if (React.isValidElement(value)) {
+                            return <TableCell>{value}</TableCell>;
+                          }
+                          // Check if object for preventing Errors
+                          if (typeof value === 'object') {
+                            return (
+                              <TableCell>
+                                {JSON.stringify(value, null, 4)}
+                              </TableCell>
+                            );
+                          }
                           return <TableCell>{value}</TableCell>;
-                        }
-                        // Check if object for preventing Errors
-                        if (typeof value === 'object') {
-                          return (
-                            <TableCell>
-                              {JSON.stringify(value, null, 4)}
-                            </TableCell>
-                          );
-                        }
-                        return <TableCell>{value}</TableCell>;
-                      })}
-                    </TableRow>
-                  );
-                })}
+                        })}
+                      </TableRow>
+                    );
+                  })
+              )}
             </TableBody>
           </Table>
         </TableContainer>
