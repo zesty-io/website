@@ -1,38 +1,22 @@
 import React from 'react';
-import {
-  Box,
-  Button,
-  InputAdornment,
-  TextField,
-  Typography,
-} from '@mui/material';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { Box, Button, Typography } from '@mui/material';
 import { OverviewTabs } from 'components/accounts';
+import dayjs from 'dayjs';
 
 export const Overview = ({ instance, userInfo, blueprint }) => {
   return (
     <>
-      <TextField
-        label="Search"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="start">
-              <SearchOutlinedIcon />
-            </InputAdornment>
-          ),
-        }}
-        variant="outlined"
-        fullWidth
-        color="secondary"
-        onChange={(e) => console.log(e.target.value)}
-      />
       <Box paddingY={2}>
-        <Typography variant="h4">Welcome {userInfo?.firstName}</Typography>
-        <Typography variant="h6">Catch up on the latest Zesty news</Typography>
+        <Typography variant="h4">{instance?.name}</Typography>
+        <Typography variant="body2" color="text.secondary">
+          Last Updated at:
+          {dayjs(instance.updatedAt).format(' MMMM D, YYYY')}
+        </Typography>
       </Box>
       <Box position={'relative'}>
         <Button
           variant="contained"
+          color="secondary"
           href="https://accounts.zesty.io/instances/create"
           sx={{
             position: 'absolute',

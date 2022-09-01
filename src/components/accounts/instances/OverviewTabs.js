@@ -74,7 +74,9 @@ const BlueprintContent = ({ blueprint }) => {
     >
       <Box display={'flex'} justifyContent={'space-between'}>
         <Typography variant="h4">Blueprint</Typography>
-        <Button variant="contained">Change Blueprint</Button>
+        <Button variant="contained" color="secondary">
+          Change Blueprint
+        </Button>
       </Box>
       <Box display={'block'} justifyContent="center" justifyItems={'center'}>
         <Image
@@ -93,8 +95,6 @@ const BlueprintContent = ({ blueprint }) => {
   );
 };
 const OverviewContent = ({ instance, blueprint }) => {
-  const [text, settext] = React.useState('');
-
   const copyToClipboard = (data) => {
     navigator?.clipboard?.writeText(data);
   };
@@ -136,6 +136,7 @@ const OverviewContent = ({ instance, blueprint }) => {
     </Box>
   );
 };
+
 const StatusContent = () => {
   const url = 'https://status.zesty.io/';
   function openInNewTab(url) {
@@ -147,6 +148,7 @@ const StatusContent = () => {
 
   return <a href={url}>Status of Zesty.io</a>;
 };
+
 export const OverviewTabs = ({ instance, blueprint }) => {
   const [value, setValue] = React.useState('overview');
 
