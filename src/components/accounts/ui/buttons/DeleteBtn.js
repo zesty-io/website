@@ -4,7 +4,13 @@ import React from 'react';
 
 export const DeleteBtn = ({ onClick, children = <></> }) => {
   return (
-    <Button onClick={onClick} color="error" variant="text" type="button">
+    <Button
+      title="Delete this item"
+      onClick={onClick}
+      color="error"
+      variant="text"
+      type="button"
+    >
       <DeleteIcon /> {children}
     </Button>
   );

@@ -122,7 +122,7 @@ const CustomTable = ({
     return {
       keyFriendly: e.keyFriendly,
       category: e.category,
-      tips: e.tips,
+      tips: e.tips || '-',
       save: isDataChange ? (
         <Button
           onClick={() => handleClick(e)}

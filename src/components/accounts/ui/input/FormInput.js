@@ -44,9 +44,26 @@ const Index = ({
     <Box mb={3}>
       {customLabel && <Typography variant="h6">{customLabel}</Typography>}
       {type !== 'password' ? (
-        <TextField {...defaultProps} {...props} />
+        <TextField
+          {...defaultProps}
+          {...props}
+          sx={{
+            '& .MuiOutlinedInput-root:hover': {
+              '& > fieldset': {
+                border: '1px solid #c4c4c4',
+              },
+            },
+          }}
+        />
       ) : (
         <TextField
+          sx={{
+            '& .MuiOutlinedInput-root:hover': {
+              '& > fieldset': {
+                border: '1px solid #c4c4c4',
+              },
+            },
+          }}
           {...defaultProps}
           type={showPassword ? 'text' : 'password'}
           InputProps={{
