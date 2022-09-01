@@ -1,23 +1,22 @@
 import AppBar from 'components/console/AppBar';
-import Login from 'components/console/Login';
 import Main from 'layouts/Main/Main';
 import React from 'react';
 import { Container } from '@mui/material';
 import { InstancesApp } from './InstancesApp';
-import { getCookie } from 'cookies-next';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 const InstanceContainer = ({ children, isDashboard = false }) => {
-  const isAuthenticated = getCookie('isAuthenticated');
+  const isLoggedIn = useIsLoggedIn();
 
   const renderChildren = () => {
-    if (isAuthenticated) {
+    if (isLoggedIn) {
       if (isDashboard) {
         return children;
       } else {
         return <InstancesApp>{children}</InstancesApp>;
       }
     } else {
-      return <Login />;
+      window.location.replace('/login');
     }
   };
 

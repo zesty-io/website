@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Grid,
   InputAdornment,
   Link,
@@ -28,6 +29,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useRouter } from 'next/router';
+import msLogin from '../../../public/assets/images/ms-symbollockup_signin_light.svg';
 
 const MySwal = withReactContent(Swal);
 
@@ -38,6 +41,7 @@ const Login = () => {
   const [loginData, setLoginData] = useState({});
   const theme = useTheme();
   const isMD = useMediaQuery(theme.breakpoints.down('md'));
+  const router = useRouter();
 
   useEffect(async () => {
     const getData = async () => {
@@ -48,9 +52,17 @@ const Login = () => {
       const data = await response.json();
       return data;
     };
+    if (router.isReady) setLoginData(await getData());
+  }, [router.isReady]);
 
-    setLoginData(await getData());
-  }, []);
+  const handleCookieAndRedirect = (res) => {
+    if (res)
+      setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data);
+
+    setCookie('isAuthenticated', true);
+    setCookie('isUser', true);
+    window.location.replace('/instances');
+  };
 
   const handleLoginSuccess = (res) => {
     setloading(false);
@@ -58,10 +70,7 @@ const Login = () => {
     SuccessMsg({
       title: 'Success',
       action: () => {
-        setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data);
-        setCookie('isAuthenticated', true);
-        setCookie('isUser', true);
-        window.location.replace('/instances');
+        handleCookieAndRedirect(res);
       },
     });
   };
@@ -74,7 +83,7 @@ const Login = () => {
     setInterval(async () => {
       const response = await ZestyAPI.verify2FAAuto();
       if (response.code === 200) {
-        window.location.replace('/instances');
+        handleCookieAndRedirect();
       }
     }, 3000);
   };
@@ -91,7 +100,7 @@ const Login = () => {
         const response = await ZestyAPI.verify2FA(values.otp);
         if (response.code === 200) {
           await ZestyAPI.verify();
-          window.location.replace('/instances');
+          handleCookieAndRedirect();
 
           MySwal.close();
           formik.resetForm();
@@ -182,13 +191,16 @@ const Login = () => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <img
-                src="https://brand.zesty.io/zesty-io-logo-horizontal.svg"
-                height={150}
-                width={150}
-              />
-              <Link underline="none" href="#" color="secondary">
-                Try for free!
+              <Link href="/">
+                <img
+                  src={
+                    theme.palette.mode === 'light'
+                      ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                      : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+                  }
+                  height={150}
+                  width={150}
+                />
               </Link>
             </Stack>
 
@@ -217,7 +229,6 @@ const Login = () => {
                         ),
                       }}
                     />
-
                     <FormInput
                       color="secondary"
                       name="password"
@@ -225,8 +236,12 @@ const Login = () => {
                       customLabel="Password"
                       formik={formik}
                     />
-
-                    <Link href="#" alignSelf="end" mb={3} color="secondary">
+                    <Link
+                      href="/login/forgot-password/"
+                      alignSelf="end"
+                      mb={3}
+                      color="secondary"
+                    >
                       Forgot Password?
                     </Link>
                     <LoadingButton
@@ -239,6 +254,11 @@ const Login = () => {
                     >
                       Log In
                     </LoadingButton>
+                    <Divider sx={{ py: 2 }}>Or</Divider>
+
+                    <Link href={`${ZestyAPI?.authAPIURL}/azure/login`}>
+                      <img src={msLogin?.src} alt="Microsoft Single Sign On" />
+                    </Link>
                   </Stack>
                 </form>
               </Stack>
@@ -267,7 +287,11 @@ const Login = () => {
         <Grid
           item
           md={8}
-          bgcolor={(theme) => theme.palette.zesty.zestyDarkerBlue}
+          bgcolor={(theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.zesty.zestyDarkerBlue
+              : theme.palette.secondary.main
+          }
           display={isMD ? 'none' : 'block'}
         >
           <Stack

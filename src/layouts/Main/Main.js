@@ -109,8 +109,9 @@ const Main = ({
 
   return (
     <Box>
-      {isUser == false && (
+      {isLoggedIn === false && (
         <Box
+          id="topNavBox"
           bgcolor={bgcolor}
           position={'relative'}
           zIndex={theme.zIndex.appBar}
@@ -152,7 +153,7 @@ const Main = ({
           })}
           paddingY={isExplorePage ? 2 : 1}
         >
-          {!isUser && (
+          {!isLoggedIn && (
             <Topbar
               onSidebarOpen={handleSidebarOpen}
               customRouting={hasRouting ? customRouting : []}
@@ -163,7 +164,7 @@ const Main = ({
               loading={loading}
             />
           )}
-          {isUser && (
+          {isLoggedIn && (
             <AppNavigation
               onSidebarOpen={handleSidebarOpen}
               colorInvert={headerColorInvert && !trigger}
@@ -184,7 +185,7 @@ const Main = ({
         {children}
         <Divider />
       </main>
-      {isUser == false && (
+      {isLoggedIn == false && (
         <Footer
           colorInvert={colorInvert}
           customRouting={hasRouting ? customRouting : []}

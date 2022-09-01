@@ -35,6 +35,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
 
   return (
     <Box
+      component="footer"
       display={hideNav ? 'none' : 'flex'}
       sx={{ background: backgroundColor }}
     >
