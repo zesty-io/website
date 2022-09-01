@@ -42,7 +42,7 @@ const FieldComponent = ({
     );
   }
   return (
-    <Box sx={{ width: '15rem' }}>
+    <Box sx={{ width: '18rem' }}>
       <Typography variant="h6">{label}</Typography>
       <Box
         onClick={() => copyToClipboard(value)}
@@ -57,7 +57,9 @@ const FieldComponent = ({
         }}
       >
         {value}
-        <ContentCopyIcon color="secondary" />
+        <Button variant="text">
+          <ContentCopyIcon color="secondary" />
+        </Button>
       </Box>
     </Box>
   );
