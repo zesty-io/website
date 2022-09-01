@@ -31,11 +31,11 @@ import Youtube from '../../../../public/assets/images/join/youtube.svg';
 import Twitter from '../../../../public/assets/images/join/twitter.svg';
 import LinkedIn from '../../../../public/assets/images/join/linkedin.svg';
 
-const Marketer = ({ TrainingVideoCard, CaseStudiesCard, YoutubeCard }) => {
+const Marketer = ({ TrainingVideoCard, CaseStudiesCard }) => {
   const theme = useTheme();
   return (
     <Grid spacing={2} container>
-      <Grid xs={8} item>
+      <Grid xs={12} md={8} item>
         <Card
           variant="outlined"
           sx={{
@@ -175,7 +175,7 @@ const Marketer = ({ TrainingVideoCard, CaseStudiesCard, YoutubeCard }) => {
           </Timeline>
         </Card>
       </Grid>
-      <Grid xs={4} item>
+      <Grid sx={12} md={4} item>
         <Card
           variant="outlined"
           sx={{
