@@ -101,7 +101,7 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
   }
 };
 
-const CustomTable = ({ data, arrToSubmit, setarrToSubmit }) => {
+const CustomTable = ({ data, arrToSubmit, setarrToSubmit, loading }) => {
   const ROWS = data?.map((e) => {
     return {
       keyFriendly: e.keyFriendly,
@@ -122,12 +122,12 @@ const CustomTable = ({ data, arrToSubmit, setarrToSubmit }) => {
 
   return (
     <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
+      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
 
-export const Settings = ({ settings = [] }) => {
+export const Settings = ({ settings = [], loading }) => {
   const [arrToSubmit, setarrToSubmit] = React.useState([]);
   const { ZestyAPI } = useZestyStore();
   const [search, setsearch] = React.useState('');
@@ -190,6 +190,7 @@ export const Settings = ({ settings = [] }) => {
         </Button>
       </Box>
       <CustomTable
+        loading={loading}
         data={data}
         arrToSubmit={arrToSubmit}
         setarrToSubmit={setarrToSubmit}

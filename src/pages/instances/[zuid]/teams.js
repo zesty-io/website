@@ -11,6 +11,7 @@ export default function TeamsPage() {
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
+  const [loading, setloading] = React.useState(false);
 
   const router = useRouter();
   const { zuid } = router.query;
@@ -127,13 +128,19 @@ export default function TeamsPage() {
     isInstanceOwner,
     addTeamToInstance,
     instanceRoles,
+    loading,
   };
 
+  const getPageData = async () => {
+    await setloading(true);
+    await getAllInstancesTeams();
+    await getInstanceUserWithRoles();
+    await getInstanceRoles();
+    await setloading(false);
+  };
   React.useEffect(() => {
     if (router.isReady) {
-      getAllInstancesTeams();
-      getInstanceUserWithRoles();
-      getInstanceRoles();
+      getPageData();
     }
   }, [router.isReady]);
   return (
