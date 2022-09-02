@@ -7,7 +7,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { grey } from '@mui/material/colors';
 import { Button, Grid, Typography } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-// import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 
@@ -20,16 +20,21 @@ const FieldComponent = ({
   value = '',
   copyToClipboard = () => {},
   copy = true,
+  settext = () => {},
+  text = '',
 }) => {
+  const handleClick = () => {
+    copyToClipboard(value);
+    settext(value);
+  };
   if (!copy) {
     return (
       <Box sx={{ width: '15rem' }}>
         <Typography variant="h6">{label}</Typography>
         <Box
-          onClick={() => copyToClipboard(value)}
+          onClick={handleClick}
           sx={{
             padding: '.8rem 1rem',
-            cursor: 'pointer',
             borderRadius: '5px',
             display: 'flex',
             alignItems: 'center',
@@ -45,7 +50,7 @@ const FieldComponent = ({
     <Box sx={{ width: '18rem' }}>
       <Typography variant="h6">{label}</Typography>
       <Box
-        onClick={() => copyToClipboard(value)}
+        onClick={handleClick}
         sx={{
           background: grey[300],
           padding: '.8rem 1rem',
@@ -57,8 +62,12 @@ const FieldComponent = ({
         }}
       >
         {value}
-        <Button variant="text">
-          <ContentCopyIcon color="secondary" />
+        <Button variant="text" color="secondary">
+          {text === value ? (
+            <CheckCircleOutlineIcon color="secondary" />
+          ) : (
+            <ContentCopyIcon color="secondary" />
+          )}
         </Button>
       </Box>
     </Box>
@@ -97,6 +106,7 @@ const BlueprintContent = ({ blueprint }) => {
   );
 };
 const OverviewContent = ({ instance, blueprint }) => {
+  const [text, settext] = React.useState('');
   const copyToClipboard = (data) => {
     navigator?.clipboard?.writeText(data);
   };
@@ -106,12 +116,16 @@ const OverviewContent = ({ instance, blueprint }) => {
         <Grid item xs={6}>
           <FieldComponent
             copyToClipboard={copyToClipboard}
+            settext={settext}
+            text={text}
             label={'Instance Zuid'}
             value={instance.ZUID}
           />
         </Grid>
         <Grid item xs={6}>
           <FieldComponent
+            settext={settext}
+            text={text}
             copyToClipboard={() => {}}
             label={'Created Date'}
             copy={false}
@@ -120,6 +134,8 @@ const OverviewContent = ({ instance, blueprint }) => {
         </Grid>
         <Grid item xs={6}>
           <FieldComponent
+            settext={settext}
+            text={text}
             copyToClipboard={copyToClipboard}
             label={'Numeric Id'}
             value={instance.ID}
@@ -130,6 +146,8 @@ const OverviewContent = ({ instance, blueprint }) => {
             copyToClipboard={copyToClipboard}
             label={'Hash Id'}
             value={instance.randomHashID}
+            settext={settext}
+            text={text}
           />
         </Grid>
       </Grid>
