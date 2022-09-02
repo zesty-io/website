@@ -125,7 +125,6 @@ const Migration = ({ content, FillerContent, theme, isLarge }) => {
                 height={1310}
                 data-aos-offset="200"
                 data-aos="zoom-in"
-                style={{ width: '100%' }}
                 component="img"
                 loading="lazy"
                 src={`${content.migration_graphic?.data[0].url}?width=1503`}

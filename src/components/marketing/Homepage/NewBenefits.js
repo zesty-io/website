@@ -119,7 +119,6 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
                     loading="lazy"
                     width={715}
                     height={480}
-                    style={{ width: '100%', maxWidth: 715, height: 480 }}
                     component="img"
                     src={`${item.benefit_image?.data[0].url}?width=715`}
                     alt={item.header}
