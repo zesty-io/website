@@ -41,21 +41,54 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
+import FillerContent from 'components/globals/FillerContent';
 
-function PartnerProgramLp({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+/**
+ * Mui Imports
+ */
+import { Box } from '@mui/material';
+import { useTheme, alpha } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+/**
+ * Components Imports
+ */
+import { SlashImageHero } from 'blocks/heroes';
+import Hero from 'components/marketing/PartnerProgramLp/Hero';
+import WhyZesty from 'components/marketing/PartnerProgramLp/WhyZesty';
+import WithDarkBackgroundAndSimpleDescriptionBox from 'blocks/logoGrid/WithDarkBackgroundAndSimpleDescriptionBox/WithDarkBackgroundAndSimpleDescriptionBox';
+import Benefits from 'components/marketing/PartnerProgramLp/Benefits';
+import Testimonial from 'components/marketing/PartnerProgramLp/Testimonial';
+import Bottom from 'components/marketing/PartnerProgramLp/Bottom';
+
+function PartnerProgramLp({ content }) {
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
+
+  const pageData = {
+    theme,
+    isMedium,
+    isDarkMode,
+    content,
+    FillerContent,
+  };
+
+  console.log(content);
+
+  return (
+    <>
+      <Box>
+        <Hero {...pageData} />
+      </Box>
+      <WhyZesty {...pageData} />
+      <WithDarkBackgroundAndSimpleDescriptionBox {...pageData} />
+      <Benefits {...pageData} />
+      <Testimonial {...pageData} />
+      <Bottom {...pageData} />
+    </>
+  );
 }
-  
+
 export default PartnerProgramLp;
