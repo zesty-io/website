@@ -33,7 +33,12 @@ const COLUMNS = [
   },
 ];
 
-const CustomTable = ({ data, handleDeleteTeamModal, isInstanceOwner }) => {
+const CustomTable = ({
+  loading,
+  data,
+  handleDeleteTeamModal,
+  isInstanceOwner,
+}) => {
   const ROWS = data?.map((e) => {
     return {
       name: e.name || '-',
@@ -54,7 +59,7 @@ const CustomTable = ({ data, handleDeleteTeamModal, isInstanceOwner }) => {
 
   return (
     <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
+      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
@@ -100,6 +105,7 @@ const Main = ({
   isInstanceOwner,
   addTeamToInstance,
   instanceRoles,
+  loading,
 }) => {
   const handleAddTeamToInstance = async (data) => {
     await addTeamToInstance(data);
@@ -149,6 +155,7 @@ const Main = ({
       </Box>
 
       <CustomTable
+        loading={loading}
         data={teams}
         handleDeleteTeamModal={handleDeleteTeamModal}
         isInstanceOwner={isInstanceOwner}

@@ -108,6 +108,7 @@ const CustomTable = ({
   data,
   arrToSubmit,
   setarrToSubmit,
+  loading,
   singleSettingsUpdate,
 }) => {
   const handleClick = (data) => {
@@ -150,12 +151,12 @@ const CustomTable = ({
 
   return (
     <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
+      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
 
-export const Settings = ({ settings = [], singleSettingsUpdate }) => {
+export const Settings = ({ settings = [], singleSettingsUpdate, loading }) => {
   const [arrToSubmit, setarrToSubmit] = React.useState([]);
   const [search, setsearch] = React.useState('');
   const [categories, setcategories] = React.useState('');
@@ -220,6 +221,7 @@ export const Settings = ({ settings = [], singleSettingsUpdate }) => {
         </Button> */}
       </Box>
       <CustomTable
+        loading={loading}
         data={data}
         arrToSubmit={arrToSubmit}
         setarrToSubmit={setarrToSubmit}

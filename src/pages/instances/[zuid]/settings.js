@@ -5,6 +5,7 @@ import { Settings } from 'views/accounts/instances';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 
 export default function SettingsPage() {
+  const [loading, setloading] = React.useState(false);
   const [settings, setsettings] = React.useState([]);
   const { ZestyAPI } = useZestyStore((state) => state);
   const router = useRouter();
@@ -45,16 +46,25 @@ export default function SettingsPage() {
     res.error && handleSingleSettingUpdateError(res);
   };
 
+  const getPageData = async () => {
+    await setloading(true);
+    await getUsers();
+    await getInstanceUserRoles();
+    await getSettings();
+    await setloading(false);
+  };
   React.useEffect(() => {
     if (router.isReady) {
-      getUsers();
-      getInstanceUserRoles();
-      getSettings();
+      getPageData();
     }
   }, [router.isReady]);
 
   return (
-    <Settings settings={settings} singleSettingsUpdate={singleSettingsUpdate} />
+    <Settings
+      loading={loading}
+      settings={settings}
+      singleSettingsUpdate={singleSettingsUpdate}
+    />
   );
 }
 

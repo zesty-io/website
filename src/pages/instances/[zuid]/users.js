@@ -51,11 +51,13 @@ const PendingTable = ({
   title = 'Pending Users',
   data = [],
   respondToInvite,
+  isInstanceOwner,
+  loading,
 }) => {
   const newData = data.map((e) => {
     return {
       ...e,
-      action: (
+      action: isInstanceOwner ? (
         <Button
           variant="contained"
           color="error"
@@ -63,6 +65,8 @@ const PendingTable = ({
         >
           Cancel Invite
         </Button>
+      ) : (
+        '-'
       ),
     };
   });
@@ -71,11 +75,12 @@ const PendingTable = ({
       <Box paddingY={2}>
         <Typography variant="h5">{title}</Typography>
       </Box>
-      <StickyTable rows={newData} columns={COLUMNS_PENDING} />
+      <StickyTable loading={loading} rows={newData} columns={COLUMNS_PENDING} />
     </Box>
   );
 };
 export default function UsersPage() {
+  const [loading, setloading] = React.useState(false);
   const [users, setusers] = React.useState([]);
   const [pendingUsers, setpendingUsers] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
@@ -214,10 +219,12 @@ export default function UsersPage() {
     await getPageData();
   };
   const getPageData = async () => {
+    await setloading(true);
     await getUsers();
     await getInstanceUserRoles();
     await getInstanceRoles();
     await getInstancePendingUsers();
+    await setloading(false);
   };
   React.useEffect(() => {
     if (router.isReady) {
@@ -242,8 +249,14 @@ export default function UsersPage() {
         createInvite={createInvite}
         isOwner={isInstanceOwner}
         instanceZUID={zuid}
+        loading={loading}
       />
-      <PendingTable respondToInvite={respondToInvite} data={pendingUsers} />
+      <PendingTable
+        loading={loading}
+        isInstanceOwner={isInstanceOwner}
+        respondToInvite={respondToInvite}
+        data={pendingUsers}
+      />
       <RolesTable />
     </>
   );

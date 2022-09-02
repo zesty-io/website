@@ -77,6 +77,7 @@ const CustomTable = ({
   handleDeleteToken,
   handleUpdateToken,
   isInstanceOwner,
+  loading,
 }) => {
   const ROWS = data?.map((e) => {
     const role = roles.find((x) => x.ZUID === e.roleZUID)?.name;
@@ -109,7 +110,7 @@ const CustomTable = ({
 
   return (
     <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
+      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
@@ -120,6 +121,7 @@ export const Apis = ({
   createToken,
   deleteToken,
   updateToken,
+  loading,
 }) => {
   const handleCreateTokenModal = () => {
     MySwal.fire({
@@ -157,6 +159,7 @@ export const Apis = ({
       </Grid>
       <Grid item xs={12}>
         <CustomTable
+          loading={loading}
           isInstanceOwner={isInstanceOwner}
           data={tokens}
           roles={instanceRoles}
