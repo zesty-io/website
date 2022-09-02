@@ -185,7 +185,7 @@ export const generateUniqDropdown = ({ data, property = 'category' }) => {
           (t) => t.value === value.value && t.label === value.label,
         ),
     );
-  const res = [{ value: '', label: '' }, ...dropdownList];
+  const res = [{ value: '', label: 'All Categories' }, ...dropdownList];
   return res;
 };
 

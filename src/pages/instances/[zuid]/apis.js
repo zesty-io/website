@@ -131,9 +131,13 @@ export default function ApisPage() {
     }
   }, [router.isReady]);
 
+  const data = tokens.sort(function (a, b) {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+
   return (
     <Apis
-      tokens={tokens}
+      tokens={data}
       instanceRoles={instanceRoles}
       isInstanceOwner={isInstanceOwner}
       createToken={createToken}

@@ -52,6 +52,10 @@ const createToken = yup.object().shape({
     .string()
     .min(2, 'Must be atleast 2 Characters')
     .required('Name is required'),
+  roleZUID: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('Role is required'),
 });
 
 const teams = yup.object().shape({
@@ -113,6 +117,22 @@ const forgotPassword = yup.object().shape({
     .required('Email is required*'),
 });
 
+const resetPassword = yup.object().shape({
+  newPassword: yup
+    .string()
+    .label('New Password')
+    .required()
+    .matches(lowercaseRegex, 'One lowercase required!')
+    .matches(uppercaseRegex, 'One uppercase required!')
+    .matches(numericRegex, 'One number required!')
+    .min(8, 'Must be atleast 8 Characters'),
+  confirmNewPassword: yup
+    .string()
+    .label('Confirm New Password')
+    .required()
+    .oneOf([yup.ref('newPassword')], 'Your passwords do not match.'),
+});
+
 export const accountsValidations = {
   email,
   password,
@@ -126,4 +146,5 @@ export const accountsValidations = {
   createWebhook,
   otpTwoFactor,
   forgotPassword,
+  resetPassword,
 };
