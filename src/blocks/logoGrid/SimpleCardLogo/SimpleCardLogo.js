@@ -22,8 +22,8 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
               {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
                   <img
-                    width={140}
-                    height={49}
+                    width={150}
+                    height={50}
                     loading="lazy"
                     style={{
                       filter: isDarkMode
@@ -35,7 +35,6 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
                         : '',
                     }}
                     alt={item.customer_name || ''}
-                    component="img"
                     src={
                       item.customer_name === 'Phoenix Suns' && isDarkMode
                         ? sunsDarkLogoUrl

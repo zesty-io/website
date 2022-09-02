@@ -122,10 +122,11 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                   blurDataURL
                   placeholder="blur"
                   quality={70}
-                  loading="lazy"
+                  priority
                   data-aos="fade-up"
                   width={846}
                   height={576}
+                  objectFit="contain"
                   alt="hero image"
                   src={
                     `${content.header_graphic?.data[0].url}?width=846` ||

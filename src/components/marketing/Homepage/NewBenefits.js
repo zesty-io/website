@@ -113,13 +113,13 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
                   index={index}
                 >
                   <Image
+                    objectFit="contain"
                     blurDataURL
                     placeholder="blur"
                     quality={90}
                     loading="lazy"
                     width={715}
                     height={480}
-                    component="img"
                     src={`${item.benefit_image?.data[0].url}?width=715`}
                     alt={item.header}
                   />
