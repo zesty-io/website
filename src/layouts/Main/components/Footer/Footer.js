@@ -49,20 +49,21 @@ const Footer = ({ customRouting, colorInvert = false }) => {
           <Grid item xs={6} md={2}>
             <Box
               display={'flex'}
-              justifyContent={'space-between'}
+              justifyContent={'center'}
               alignItems={'center'}
               width={1}
               flexDirection={{ xs: 'column', sm: 'row' }}
             >
-              <Box
+              <img
+                width={150}
+                height={150}
                 alt="zesty.io logo"
-                component={'img'}
                 src={
                   mode === 'light' && !colorInvert
                     ? 'https://brand.zesty.io/zesty-io-logo-vertical.svg'
                     : 'https://brand.zesty.io/zesty-io-logo-vertical-light-color.svg'
                 }
-                sx={{
+                style={{
                   marginLeft: isMobile ? 2 : 0,
                 }}
               />

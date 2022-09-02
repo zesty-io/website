@@ -109,8 +109,10 @@ const Growth = ({
                 }}
               >
                 <Box sx={{ width: '100%', maxWidth: 153 }}>
-                  <Box
-                    sx={{ width: '100%' }}
+                  <img
+                    width={184}
+                    height={147}
+                    style={{ width: '100%', height: 'auto' }}
                     component="img"
                     loading="lazy"
                     src={

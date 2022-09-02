@@ -72,15 +72,15 @@ const Topbar = ({
         width={{ xs: 100, md: 150 }}
         paddingTop={isDxpTemplatePage ? 4 : 0}
       >
-        <Box
-          component={'img'}
+        <img
+          alt="zesty.io"
           src={
             changeLogoColor()
               ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
               : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
           }
-          height={1}
-          width={1}
+          height={42}
+          width={150}
         />
       </Box>
       <Box

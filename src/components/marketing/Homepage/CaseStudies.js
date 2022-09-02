@@ -62,9 +62,9 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
               key={index}
               sx={{ width: '100%', maxWidth: 171 }}
             >
-              <Box
-                sx={{ width: '100%' }}
-                component="img"
+              <Image
+                width={171}
+                height={192}
                 loading="lazy"
                 src={item.url}
                 alt={item.type || ''}

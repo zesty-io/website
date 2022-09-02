@@ -138,7 +138,6 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
                           width={294}
                           height={179}
                           loading="lazy"
-                          style={{ width: '100%', maxWidth: 334, height: 179 }}
                           src={
                             `${item.graphic?.data[0].url}?width=294` ||
                             FillerContent.photos[0].url

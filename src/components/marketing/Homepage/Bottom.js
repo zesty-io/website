@@ -49,11 +49,9 @@ const Bottom = ({
               <Image
                 width={951}
                 height={519}
-                style={{ width: '100%' }}
-                component="img"
                 loading="lazy"
                 src={`${content.bottom_cta_graphic?.data[0].url}?width=951`}
-                alt=""
+                alt="zesty.io"
               />
             </Box>
           </Grid>

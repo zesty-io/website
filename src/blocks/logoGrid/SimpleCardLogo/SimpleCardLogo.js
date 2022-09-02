@@ -21,10 +21,11 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
             >
               {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
-                  <Box
+                  <img
+                    width={140}
+                    height={49}
                     loading="lazy"
-                    sx={{
-                      height: 49,
+                    style={{
                       filter: isDarkMode
                         ? `${
                             item.customer_name === 'Phoenix Suns'
