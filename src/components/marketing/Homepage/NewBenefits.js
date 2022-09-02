@@ -113,6 +113,8 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
                   index={index}
                 >
                   <Image
+                    blurDataURL
+                    placeholder="blur"
                     quality={90}
                     loading="lazy"
                     width={715}

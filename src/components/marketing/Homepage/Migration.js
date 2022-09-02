@@ -118,6 +118,9 @@ const Migration = ({ content, FillerContent, theme, isLarge }) => {
           <Grid item sm={12} md={6}>
             <Box sx={{ width: '100%', maxWidth: 1503 }}>
               <Image
+                alt={'migrations'}
+                blurDataURL
+                placeholder="blur"
                 width={1503}
                 height={1310}
                 data-aos-offset="200"

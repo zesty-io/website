@@ -55,6 +55,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
               flexDirection={{ xs: 'column', sm: 'row' }}
             >
               <Box
+                alt="zesty.io logo"
                 component={'img'}
                 src={
                   mode === 'light' && !colorInvert
@@ -69,6 +70,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
             <Grid item marginTop={3} paddingBottom={2} xs={12} align={'center'}>
               <Container>
                 <Box
+                  aria-label="twitter"
                   component="a"
                   href="https://twitter.com/zestyio"
                   color="#1DA1F2"
@@ -79,6 +81,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                 </Box>
                 <Box
                   component="a"
+                  aria-label="youtube"
                   href="https://www.youtube.com/c/Zestyio"
                   color="#FF0000"
                   target="_blank"
@@ -87,6 +90,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                   <YouTubeIcon />
                 </Box>
                 <Box
+                  aria-label="facebook"
                   component="a"
                   href="https://www.facebook.com/zestyio"
                   color="#4267B2"
@@ -96,6 +100,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                   <FacebookIcon />
                 </Box>
                 <Box
+                  aria-label="linkedin"
                   component="a"
                   href="https://www.linkedin.com/company/zesty-io/"
                   color="#0e76a8"
@@ -132,7 +137,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                     >
                       <Typography
                         marginBottom={1}
-                        variant={'h6'}
+                        variant={'p'}
                         sx={{
                           textAlign: isMobile ? 'center' : 'left',
                         }}

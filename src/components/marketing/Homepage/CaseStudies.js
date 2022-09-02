@@ -95,6 +95,8 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 }}
               >
                 <Image
+                  blurDataURL
+                  placeholder="blur"
                   style={{ width: '100%' }}
                   width={482}
                   height={233}
@@ -111,7 +113,11 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 >
                   <Box>
                     <Box sx={{ width: '100%', maxWidth: 150 }}>
-                      <Box
+                      <Image
+                        width={194}
+                        height={60}
+                        blurDataURL
+                        placeholder="blur"
                         sx={{ width: '100%' }}
                         component="img"
                         loading="lazy"

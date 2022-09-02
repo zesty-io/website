@@ -119,12 +119,15 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
             <Grid item sm={12} md={6}>
               <Box>
                 <Image
+                  blurDataURL
+                  placeholder="blur"
                   quality={70}
                   loading="lazy"
                   data-aos="fade-up"
                   style={{ width: '100%', maxWidth: 846 }}
                   width={846}
                   height={576}
+                  alt="hero image"
                   src={
                     `${content.header_graphic?.data[0].url}?width=846` ||
                     FillerContent.photos[0].src

@@ -131,6 +131,9 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
                         }}
                       >
                         <Image
+                          blurDataURL
+                          placeholder="blur"
+                          alt={item.product_name}
                           quality={100}
                           width={294}
                           height={179}
