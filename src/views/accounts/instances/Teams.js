@@ -1,11 +1,11 @@
 import { Box, Button, TextField } from '@mui/material';
 import {
   accountsValidations,
+  CollapseTable,
   DeleteBtn,
   DeleteMsg,
   FormInput,
   FormSelect,
-  StickyTable,
   SubmitBtn,
 } from 'components/accounts';
 import { useFormik } from 'formik';
@@ -15,6 +15,10 @@ import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 const COLUMNS = [
+  {
+    id: 'btn',
+    label: '',
+  },
   {
     id: 'name',
     label: 'Name',
@@ -46,7 +50,7 @@ const CustomTable = ({
       zuid: e.ZUID,
       action: isInstanceOwner ? (
         <Box display={'flex'}>
-          <DeleteBtn onClick={() => handleDeleteTeamModal(e)} />
+          <DeleteBtn onClick={() => handleDeleteTeamModal(e)}>Delete</DeleteBtn>
         </Box>
       ) : (
         '-'
@@ -59,7 +63,7 @@ const CustomTable = ({
 
   return (
     <Box>
-      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
+      <CollapseTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
@@ -116,7 +120,7 @@ const Main = ({
     const action = async () => {
       await deleteTeamToInstance(ZUID);
     };
-    DeleteMsg({ action });
+    DeleteMsg({ title: 'Delete this team?', action });
     await getAllInstancesTeams();
   };
 
