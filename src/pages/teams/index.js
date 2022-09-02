@@ -5,19 +5,30 @@ import React, { useEffect, useState } from 'react';
 import AddTeam from 'components/accounts/teams/AddTeam';
 import ManageTeam from 'components/accounts/teams/ManageTeam';
 import { useZestyStore } from 'store';
+import TeamInvites from 'components/accounts/teams/TeamInvites';
 
 const Teams = () => {
   document.title = 'Accounts: Teams';
-  const { ZestyAPI } = useZestyStore((state) => state);
+  const {
+    ZestyAPI,
+    verifySuccess: { userZuid },
+  } = useZestyStore((state) => state);
   const [teams, setTeams] = useState([]);
+  const [invites, setInvites] = useState([]);
 
   const getAllTeams = async () => {
     const response = await ZestyAPI.getAllTeams();
     setTeams(response?.data);
   };
 
+  const getAllTeamInvites = async () => {
+    const response = await ZestyAPI.getAllTeamInvites();
+    setInvites(response?.data);
+  };
+
   useEffect(() => {
     getAllTeams();
+    getAllTeamInvites();
   }, []);
 
   return (
@@ -37,17 +48,40 @@ const Teams = () => {
           <Grid item xs={12} md={6} lg={4}>
             <AddTeam getAllTeams={getAllTeams} />
           </Grid>
-          {teams?.map((team) => (
-            <Grid key={team.ZUID} item xs={12} md={6} lg={4}>
-              <ManageTeam
-                id={team.ZUID}
-                name={team.name}
-                description={team.description}
-                owner={team.createdByUserZUID}
-                getAllTeams={getAllTeams}
-              />
-            </Grid>
-          ))}
+
+          {invites
+            ?.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+            .filter(
+              (invite) =>
+                !invite.accepted && !invite.declined && !invite.cancelled,
+            )
+            .map((invite) => (
+              <Grid key={invite.ZUID} item xs={12} md={6} lg={4}>
+                <TeamInvites
+                  teamZUID={invite.teamZUID}
+                  teamInviteZUID={invite.ZUID}
+                  getAllTeamsAndInvites={() => {
+                    getAllTeamInvites();
+                    getAllTeams();
+                  }}
+                />
+              </Grid>
+            ))}
+
+          {teams
+            ?.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+            .map((team) => (
+              <Grid key={team.ZUID} item xs={12} md={6} lg={4}>
+                <ManageTeam
+                  id={team.ZUID}
+                  name={team.name}
+                  description={team.description}
+                  owner={team.createdByUserZUID}
+                  getAllTeams={getAllTeams}
+                  isAdmin={userZuid === team.createdByUserZUID}
+                />
+              </Grid>
+            ))}
         </Grid>
       </Box>
     </TeamsContainer>

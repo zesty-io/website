@@ -123,6 +123,7 @@ export const dark = {
     level1: '#2D3748',
   },
   zesty: {
+    zestyDarkerBlue: '#293056',
     zestyDarkBlue: '#1b202c',
     zestyTabBlue: '#697A91',
     zestyOrange: '#FF5D0A',

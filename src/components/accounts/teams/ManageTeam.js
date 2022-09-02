@@ -2,6 +2,7 @@ import { LoadingButton } from '@mui/lab';
 import {
   Divider,
   IconButton,
+  Link,
   List,
   ListItem,
   Paper,
@@ -30,7 +31,7 @@ import { notistackMessage } from 'utils';
 
 const MySwal = withReactContent(Swal);
 
-const ManageTeam = ({ id, name, description, getAllTeams }) => {
+const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [initialValues, setInitialValues] = useState({
     name,
@@ -40,23 +41,32 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isInviting, setIsInviting] = useState(false);
   const { ZestyAPI } = useZestyStore((state) => state);
-  const [owners, setOwners] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
   const [instances, setInstances] = useState([]);
-  const [members, setMembers] = useState([]);
+  const [filteredMembers, setFilteredMembers] = useState([]);
 
-  const getOwners = async () => {
-    const ownerResponse = await ZestyAPI.getTeamMembers(id);
-    setOwners(ownerResponse?.data);
+  const getFilteredMembers = async () => {
+    let regularMembers = await ZestyAPI.getTeamMembers(id);
+    let pendingMembers = await ZestyAPI.getTeamMembersPending(id);
+    let filteredPendingMembers = [];
+
+    setTeamMembers(regularMembers?.data);
+
+    regularMembers = regularMembers?.data?.filter((member) => !member.admin);
+    pendingMembers = pendingMembers?.data;
+
+    filteredPendingMembers = [...pendingMembers].filter(
+      (x) =>
+        x.inviteeUserZUID !==
+        regularMembers.find((c) => c.ZUID === x.inviteeUserZUID)?.ZUID,
+    );
+
+    setFilteredMembers([...filteredPendingMembers, ...regularMembers]);
   };
 
   const getInstances = async () => {
-    const instancesResponse = await ZestyAPI.getAllTeamsInstances(id);
-    setInstances(instancesResponse?.data);
-  };
-
-  const getMembers = async () => {
-    const membersResponse = await ZestyAPI.getTeamMembersPending(id);
-    setMembers(membersResponse?.data);
+    const response = await ZestyAPI.getAllTeamsInstances(id);
+    setInstances(response?.data);
   };
 
   const deleteTeam = async () => {
@@ -97,7 +107,7 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
           enqueueSnackbar,
           {
             message: `Users team invitation successfully canceled`,
-            callback: getMembers,
+            callback: getFilteredMembers,
           },
           response,
         );
@@ -118,7 +128,7 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
           enqueueSnackbar,
           {
             message: `Team member is successfully removed`,
-            callback: getMembers,
+            callback: getFilteredMembers,
           },
           response,
         );
@@ -139,11 +149,12 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
         enqueueSnackbar,
         {
           message: `Updated Team: ${name}`,
+          callback: () => {
+            setInitialValues({ name, description });
+          },
         },
         response,
       );
-
-      setInitialValues({ name, description });
 
       setWillUpdate(false);
       setIsUpdating(false);
@@ -167,7 +178,7 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
         enqueueSnackbar,
         {
           message: `Team invitation sent!`,
-          callback: getMembers,
+          callback: getFilteredMembers,
         },
         response,
       );
@@ -179,9 +190,8 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
 
   useEffect(() => {
     const initializeValues = async () => {
-      getOwners();
       getInstances();
-      getMembers();
+      getFilteredMembers();
     };
 
     initializeValues();
@@ -194,9 +204,9 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
   }, [formikInvite.isValid, formikInvite.isSubmitting]);
 
   return (
-    <Paper elevation={4} sx={{ height: '100%' }}>
+    <Paper elevation={4} sx={{ height: '100%', color: 'text.secondary' }}>
       <Stack height="100%">
-        <Typography color="text.secondary" variant="h6" px={3} py={1}>
+        <Typography variant="h6" px={3} py={1}>
           <Stack direction="row" alignItems="center">
             <NoteIcon sx={{ mr: 1 }} />
             {id}
@@ -205,7 +215,6 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
         <Divider />
         <Stack
           p={3}
-          color="text.secondary"
           sx={{ overflowY: 'auto', overflowX: 'hidden', height: 574 }}
         >
           <Stack position="relative" mb={2}>
@@ -239,7 +248,12 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
               )}
             </Stack>
             <IconButton
-              sx={{ position: 'absolute', top: '-1rem', right: '-.7rem' }}
+              sx={{
+                position: 'absolute',
+                top: '-1rem',
+                right: '-.7rem',
+                display: isAdmin ? 'block' : 'none',
+              }}
               onClick={() => setWillUpdate((prev) => !prev)}
             >
               {willUpdate ? <DisabledByDefaultIcon /> : <SettingsIcon />}
@@ -267,13 +281,13 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
           <Stack mb={2}>
             <Typography variant="h6">Owners</Typography>
             <List>
-              {owners
-                ?.filter((owner) => owner.admin)
-                .map((owner) => (
-                  <ListItem disablePadding key={owner.ID}>
+              {teamMembers
+                ?.filter((member) => member.admin)
+                .map((member) => (
+                  <ListItem disablePadding key={member.ID}>
                     <Stack width="100%" direction="row" alignItems="center">
-                      <LockIcon fontSize=".7rem" sx={{ mr: 1 }} />
-                      <Typography ml={1}>{owner.email}</Typography>
+                      <LockIcon fontSize=".7rem" />
+                      <Typography ml={1}>{member.email}</Typography>
                     </Stack>
                   </ListItem>
                 ))}
@@ -281,33 +295,38 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
           </Stack>
           <Stack mb={2}>
             <Typography variant="h6">Members</Typography>
-            {members?.length === 0 ? (
+            {filteredMembers?.length === 0 ? (
               <Typography variant="caption">
                 No members for this team
               </Typography>
             ) : (
               <List disablePadding>
-                {members
-                  ?.filter((member) => !member.cancelled)
+                {filteredMembers
+                  ?.filter(
+                    (member) =>
+                      !member.cancelled && !member.declined && !member.accepted,
+                  )
                   .map((member) => (
                     <ListItem disablePadding key={member.ZUID}>
                       <Stack width="100%" direction="row" alignItems="center">
-                        {member.accepted ? (
-                          <PersonIcon />
+                        {member.ID !== undefined ? (
+                          <PersonIcon fontSize=".7rem" />
                         ) : (
                           <AccessTimeFilledIcon fontSize=".7rem" />
                         )}
-                        <Typography ml={1}>{member.inviteeEmail}</Typography>
+                        <Typography ml={1}>
+                          {member.inviteeEmail || member.email}
+                        </Typography>
                         <IconButton
                           onClick={() => {
-                            if (!member.accepted) cancelTeamInvite(member.ZUID);
-                            else
-                              deleteTeamMember(
-                                member.teamZUID,
-                                member.inviteeUserZUID,
-                              );
+                            if (member.ID === undefined)
+                              cancelTeamInvite(member.ZUID);
+                            else deleteTeamMember(id, member.ZUID);
                           }}
-                          sx={{ ml: 'auto' }}
+                          sx={{
+                            ml: 'auto',
+                            visibility: isAdmin ? 'visible' : 'hidden',
+                          }}
                         >
                           <PersonOffIcon fontSize=".7rem" />
                         </IconButton>
@@ -324,41 +343,59 @@ const ManageTeam = ({ id, name, description, getAllTeams }) => {
                 No instances for this team
               </Typography>
             ) : (
-              'show lists'
+              <List disablePadding>
+                {instances?.map((instance) => (
+                  <ListItem disablePadding key={instance.ZUID}>
+                    <Link underline="none" href={`/instances/${instance.ZUID}`}>
+                      {instance.name}
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
             )}
           </Stack>
         </Stack>
-        <Stack mt="auto">
-          <Divider />
-          <Stack direction="row" alignItems="center" spacing={1} px={3} py={1}>
-            <FormInput
-              type="text"
-              placeholder="Enter your team members email address"
-              name="email"
-              color="secondary"
-              formik={formikInvite}
-              fullWidth
-              hasNoLabel
-              boxGutterBottom={false}
-              size="small"
-              hasHelperText={false}
-              hasError={false}
-            />
+        {isAdmin && (
+          <Stack mt="auto">
+            <Divider />
+            <form noValidate onSubmit={formikInvite.handleSubmit}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1}
+                px={3}
+                py={1}
+              >
+                <FormInput
+                  type="text"
+                  placeholder="Enter your team members email address"
+                  name="email"
+                  color="secondary"
+                  formik={formikInvite}
+                  fullWidth
+                  hasNoLabel
+                  boxGutterBottom={false}
+                  size="small"
+                  hasHelperText={false}
+                  hasError={false}
+                  autoComplete="off"
+                />
 
-            <LoadingButton
-              startIcon={<PersonAddIcon />}
-              variant="outlined"
-              color="secondary"
-              size="small"
-              sx={{ px: 4 }}
-              type="submit"
-              loading={isInviting}
-              onClick={formikInvite.handleSubmit}
-            >
-              Invite
-            </LoadingButton>
+                <LoadingButton
+                  startIcon={<PersonAddIcon />}
+                  variant="outlined"
+                  color="secondary"
+                  size="small"
+                  sx={{ px: 4 }}
+                  type="submit"
+                  loading={isInviting}
+                >
+                  Invite
+                </LoadingButton>
+              </Stack>
+            </form>
           </Stack>
-        </Stack>
+        )}
       </Stack>
     </Paper>
   );
