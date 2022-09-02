@@ -3,12 +3,38 @@ import { Divider, Paper, Stack, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { FormInput } from '../ui';
 import { useFormik } from 'formik';
+import { accountsValidations } from '../validations';
+import { useState } from 'react';
+import { useZestyStore } from 'store';
+import { useSnackbar } from 'notistack';
+import { notistackMessage } from 'utils';
 
-const AddTeam = () => {
+const AddTeam = ({ getAllTeams }) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const { ZestyAPI } = useZestyStore((state) => state);
+  const [isCreating, setIsCreating] = useState(false);
   const formik = useFormik({
+    validationSchema: accountsValidations.updateTeam,
     initialValues: {
-      teamName: '',
+      name: '',
       description: '',
+    },
+    onSubmit: async (values) => {
+      setIsCreating(true);
+      const name = values.name,
+        description = values.description;
+      const response = await ZestyAPI.createTeam({ name, description });
+      notistackMessage(
+        enqueueSnackbar,
+        {
+          message: 'Team created!',
+        },
+        response,
+      );
+
+      setIsCreating(false);
+      getAllTeams();
+      formik.resetForm();
     },
   });
   return (
@@ -32,24 +58,22 @@ const AddTeam = () => {
             </Typography>
           </Stack>
           <Stack>
-            <form>
-              <FormInput
-                type="text"
-                customLabel="Team Name"
-                placeholder="Enter your team name"
-                name="teamsName"
-                color="secondary"
-                formik={formik}
-              />
-              <FormInput
-                type="text"
-                customLabel="Description of your team"
-                name="description"
-                color="secondary"
-                formik={formik}
-                multiline
-              />
-            </form>
+            <FormInput
+              type="text"
+              customLabel="Team Name"
+              placeholder="Enter your team name"
+              name="name"
+              color="secondary"
+              formik={formik}
+            />
+            <FormInput
+              type="text"
+              customLabel="Description of your team"
+              name="description"
+              color="secondary"
+              formik={formik}
+              multiline
+            />
           </Stack>
         </Stack>
         <Stack mt="auto">
@@ -61,6 +85,9 @@ const AddTeam = () => {
               color="secondary"
               size="small"
               fullWidth
+              loading={isCreating}
+              type="submit"
+              onClick={formik.handleSubmit}
             >
               Create Team
             </LoadingButton>

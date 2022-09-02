@@ -18,6 +18,8 @@ const Index = ({
   multiline = false,
   boxGutterBottom = true,
   hasNoLabel = false,
+  hasHelperText = true,
+  hasError = true,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,8 +38,8 @@ const Index = ({
     fullWidth: true,
     value: formik.values[name],
     onChange: formik.handleChange,
-    error: formik.touched[name] && Boolean(formik.errors[name]),
-    helperText: formik.touched[name] && formik.errors[name],
+    error: hasError && formik.touched[name] && Boolean(formik.errors[name]),
+    helperText: hasHelperText && formik.touched[name] && formik.errors[name],
     type,
     multiline,
     rows: 4,

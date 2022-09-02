@@ -110,7 +110,11 @@ const forgotPassword = yup.object().shape({
   email: yup
     .string()
     .email('Email is invalid format')
-    .required('Email is required*'),
+    .required('Email is required'),
+});
+
+const updateTeam = yup.object().shape({
+  name: yup.string().label('Team Name').required(),
 });
 
 export const accountsValidations = {
@@ -126,4 +130,5 @@ export const accountsValidations = {
   createWebhook,
   otpTwoFactor,
   forgotPassword,
+  updateTeam,
 };

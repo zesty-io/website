@@ -11,12 +11,12 @@ const Teams = () => {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [teams, setTeams] = useState([]);
 
-  useEffect(() => {
-    const getAllTeams = async () => {
-      const response = await ZestyAPI.getAllTeams();
-      setTeams(response?.data);
-    };
+  const getAllTeams = async () => {
+    const response = await ZestyAPI.getAllTeams();
+    setTeams(response?.data);
+  };
 
+  useEffect(() => {
     getAllTeams();
   }, []);
 
@@ -34,16 +34,17 @@ const Teams = () => {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
-            <AddTeam />
+          <Grid item xs={12} md={6} lg={4}>
+            <AddTeam getAllTeams={getAllTeams} />
           </Grid>
           {teams?.map((team) => (
-            <Grid key={team.ZUID} item xs={12} md={4}>
+            <Grid key={team.ZUID} item xs={12} md={6} lg={4}>
               <ManageTeam
                 id={team.ZUID}
-                teamName={team.name}
-                teamDescription={team.description}
+                name={team.name}
+                description={team.description}
                 owner={team.createdByUserZUID}
+                getAllTeams={getAllTeams}
               />
             </Grid>
           ))}

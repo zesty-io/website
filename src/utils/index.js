@@ -225,3 +225,16 @@ export const validateEmail = (email) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     );
 };
+
+export const notistackMessage = (enqueueSnackbar, successProps, response) => {
+  if (response?.status >= 200 && response?.status <= 299) {
+    enqueueSnackbar(successProps?.message, {
+      variant: 'success',
+    });
+    if (successProps.callback !== undefined) successProps?.callback();
+  } else {
+    enqueueSnackbar(response?.message || response?.error, {
+      variant: 'error',
+    });
+  }
+};
