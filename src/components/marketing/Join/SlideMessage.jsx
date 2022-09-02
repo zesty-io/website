@@ -25,9 +25,9 @@ export const SlideMessage = ({
                         <Container sx={{padding: '1em'}}>
                           {message}
                           
-                          <Box paddingY={2  } sx={{textAlign: 'center'}}>
+                          <Box paddingY={2} sx={{textAlign: 'center'}}>
                             <Stack direction="row" alignItems="center" spacing={2} justifyContent="center">
-                              <Button size="large" color="secondary" variant="contained" onMouseOver={() => hoverAnimation('party')} onClick={() => answerCallBack()}>
+                              <Button size="large" color="secondary" variant="contained" onMouseOver={() => hoverAnimation('still')} onClick={() => answerCallBack()}>
                                   {buttonText}
                               </Button>
                               {exitButtonText !== '' &&

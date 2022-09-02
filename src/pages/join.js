@@ -5,7 +5,7 @@ import { Container, Box, Button, Grid, Typography } from '@mui/material';
 
 // confetti
 import Confetti from 'react-confetti'
-import  getWindowDimensions from 'components/marketing/Join/getWindowDimensions';
+import getWindowDimensions from 'components/marketing/Join/getWindowDimensions';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -33,7 +33,7 @@ import  { pendoScript }  from 'components/marketing/Join/pendoScript.js'
 import slackQuestionPost from 'components/marketing/Join/slackQuestionPost.js';
 import slackNotify from 'components/marketing/Join/slackNotify.js';
 
-// google analytis
+// google analytics
 import * as ga from 'lib/ga'
 
 // questions data 
@@ -81,15 +81,15 @@ const postToZOHO = async (payloadJSON) => {
 export default function Join(props) {
     const theme = useTheme();
     const { height, width } = getWindowDimensions();
-
-
+    const isProduction = props.production;
+    
     // state values for form capture
-    const [role, setRole] = useState('Unknown');
+    const [role, setRole] = useState('Developer');
     const [email, setEmail] = useState('..still capturing email');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [projectType, setProjectType] = useState('website');
-    const [currentAnimation, setCurrentAnimation] = useState('rollIn');
+    const [currentAnimation, setCurrentAnimation] = useState('enterScreen'); // set starting animation
     const [userObject, setUserObject] = useState({});
     const sliderRef = useRef(null);
 
@@ -126,7 +126,9 @@ export default function Join(props) {
         
         setCurrentAnimation('jiggle');
         handleNext();
-        await slackQuestionPost(question,answer,email)
+        if(isProduction === true) { 
+            await slackQuestionPost(question,answer,email) 
+        }
     }
 
     const stringifyLead = (obj) => {
@@ -142,6 +144,8 @@ export default function Join(props) {
     const signUpSuccess = async  (userDetails, creationObect) => {
         // send user forward visually, then capture their data
         handleNext();
+        setCurrentAnimation('party');
+
         // store email and user to state
         setEmail(userDetails.email);
         setFirstName(userDetails.firstName);
@@ -149,20 +153,28 @@ export default function Join(props) {
         setUserObject(creationObect);
 
         // notify the team in slack
-        await slackNotify(`Captured: ${userDetails.email}`)
+        if(isProduction === true) { 
+            await slackNotify(`Captured: ${userDetails.email}`)
+        }
         // map additional userDetails for zoho object
         userDetails.message = `Project type: ${projectType}`;
         // instantiate zoho object
         userDetails.user = true;
         // setup zoho object 
-        let zohoLeadObject = zohoPostObject(userDetails,'Trial','Trial','Unknown', 'Website',role);
+        let zohoLeadObject = zohoPostObject(userDetails,'Trial','Trial','Unknown', 'Website',role ,creationObect.data.ZUID);
         // zoho capture backup
-        slackNotify(`ZOHO lead slack fallback info: \n ${stringifyLead(zohoLeadObject)}`)
+        if(isProduction === true) { 
+            slackNotify(`ZOHO lead slack fallback info: \n ${stringifyLead(zohoLeadObject)}`)
+        }
         // post lead to zoho
-        let zohoData = await postToZOHO(zohoLeadObject)
-        let zoholeadlink = 'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/'
-        await slackNotify(`View lead for ${userDetails.email} on ZOHO @ ${zoholeadlink}${zohoData.data[0].details.id}`)
-        setCurrentAnimation('party');
+        if(isProduction === true) { 
+            let zohoData = await postToZOHO(zohoLeadObject)
+            let zoholeadlink = 'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/'
+            await slackNotify(`View lead for ${userDetails.email} on ZOHO @ ${zoholeadlink}${zohoData.data[0].details.id}`)
+        } else {
+            console.log('post object not sent', zohoLeadObject)
+        }
+        
         
         
     }
@@ -202,15 +214,17 @@ export default function Join(props) {
                   />}
             <DancingLogo animation={currentAnimation} />
             <Swiper
-                pagination={{
-                    type: "none",
-                }}
+                
                 ref={sliderRef}
                 autoHeight={false}
                 navigation={false}
+                pagination={{ clickable: false, draggable: false, type: "none" }}
+                scrollbar={{ draggable: false }}
                 modules={[Pagination, Navigation]}
+                // remove this when testing
+                allowTouchMove={isProduction === true ? false : true}
             >
-                <SwiperSlide> 
+                <SwiperSlide > 
                   
 
                     <SlideMessage 
@@ -254,8 +268,10 @@ export default function Join(props) {
                     <Signup 
                         message={<Box><Box sx={{fontWeight:'bold'}} display='inline'>Awesome!</Box> Let's start on your <Box sx={{fontWeight:'bold'}} display='inline'>{projectType}</Box> project.</Box>} 
                         callback={signUpSuccess}
+                        production={isProduction}
                         />
                 </SwiperSlide>
+                {/* Welcome  */}
                 <SwiperSlide> 
 
                     <WelcomeScreen
@@ -263,44 +279,45 @@ export default function Join(props) {
                         lastname={lastName}
                         email={firstName}
                         role={role}
-                        userZUID={userObject?.data?.meta?.ZUID}
+                        projectType={projectType}
+                        userZUID={userObject?.data?.ZUID}
                         dateCreated={new Date().toUTCString()}
                         >
                         <SlideMessage 
                             message={welcomeMessage}
                             buttonText={`Let's go!`} 
-                            exitButtonText={'Wait, let me invite my team.'}
+                            // exitButtonText={'Wait, let me invite my team.'}
                             exitButtonAction={handleInvite}
                             answerCallBack={handlePrompt} 
                             hoverAnimation={handleAnimation}
+                            exitButtonText={''}
                             
                         />
                     </WelcomeScreen>
                 </SwiperSlide>
-                
-{/*                 
+                {/* Onboarding */}
                 <SwiperSlide>
-                    <>
-                        <SlideQuestions 
-                            question={CMSQuestions.question} 
-                            answers={CMSQuestions.answers} 
-                            why={CMSQuestions?.why} 
-                            answerCallBack={handleAnswers} 
-                            hoverAnimation={handleAnimation} />
-                        <Button onClick={handleNext}  variant="outlined">Skip</Button>
-                    </>
-                </SwiperSlide> */}
-                <SwiperSlide>
-                    {role}
                     <Onboarding role={role} />
-                    
-
-                    NPM starter, Youtube Video, Join Community Chat, Talk to an onbording specialist
-                    
                 </SwiperSlide>
             </Swiper>
         
         </Box>
        
     )
+}
+
+
+
+export async function getServerSideProps({ res }) {
+    // does not display with npm run dev
+    res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=600, stale-while-revalidate=3600',
+    );
+    let data = {
+        production: (process.env.PRODUCTION == 'true' || process.env.PRODUCTION === true) ? true : false
+    }
+    
+    // Pass data to the page via props
+    return { props: data }
 }

@@ -5,7 +5,6 @@
  * Label: Partner Program Features 
  * Name: partner_program_features 
  * Model ZUID: 6-bcdc9cd2e2-4zs860
- * File Created On: Fri Aug 19 2022 18:38:28 GMT+0700 (Indochina Time)
  * 
  * Model Fields:
  * 

@@ -83,6 +83,7 @@ export const light = {
     zestyLightText3: '#E2E2E2',
     zestyLightOrange: '#F5F1F1',
     zestyDarkText: '#2D3748',
+    lightPink: '#FFF6F1',
   },
 };
 
@@ -95,7 +96,7 @@ export const dark = {
   common: {
     black: '#000',
     white: '#fff',
-    grey: '#666'
+    grey: '#666',
   },
   mode: 'dark',
   primary: {

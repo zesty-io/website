@@ -1,6 +1,9 @@
 const { fetchZestyRedirects } = require('./src/lib/zesty/fetchRedirects');
 
 module.exports = {
+  images: {
+    domains: ['kfg6bckb.media.zestyio.com'],
+  },
   trailingSlash: true,
   async redirects() {
     return await fetchZestyRedirects();

@@ -27,6 +27,7 @@ const Growth = ({
           maxWidth: 1400,
         }}
         component="img"
+        loading="lazy"
         src={content.growth_background?.data[0].url}
         alt="timeline guide"
       />
@@ -111,8 +112,10 @@ const Growth = ({
                   <Box
                     sx={{ width: '100%' }}
                     component="img"
+                    loading="lazy"
                     src={
-                      item.icon_image?.data[0].url || FillerContent.logos[0].url
+                      `${item.icon_image?.data[0].url}?width=157` ||
+                      FillerContent.logos[0].url
                     }
                     alt={item.feature_name || ''}
                   />

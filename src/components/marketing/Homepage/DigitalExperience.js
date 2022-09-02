@@ -5,6 +5,7 @@
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
+import Image from 'next/image';
 /**
  * Static Assets Imports
  */
@@ -26,17 +27,7 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
         component="img"
         src={content.bracket_background?.data[0].url}
       /> */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: -550,
-          left: '25%',
-          width: '100%',
-          maxWidth: 919,
-        }}
-        component="img"
-        src={content.triangles_background_1?.data[0].url}
-      />
+
       <Container>
         <MuiMarkdown
           overrides={{
@@ -139,11 +130,17 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
                           alignItems: 'center',
                         }}
                       >
-                        <Box
-                          component="img"
-                          sx={{ width: '100%', maxWidth: 334, height: 179 }}
+                        <Image
+                          blurDataURL
+                          placeholder="blur"
+                          alt={item.product_name}
+                          quality={100}
+                          width={294}
+                          height={179}
+                          loading="lazy"
+                          style={{ width: '100%', maxWidth: 334, height: 179 }}
                           src={
-                            item.graphic?.data[0].url ||
+                            `${item.graphic?.data[0].url}?width=294` ||
                             FillerContent.photos[0].url
                           }
                         />

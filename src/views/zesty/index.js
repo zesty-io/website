@@ -113,6 +113,8 @@ import CdnHosting from './CdnHosting';
 import HeadlessMobile from './HeadlessMobile';
 import ContentResource from './ContentResource';
 import PartnerProgramDirectory from './PartnerProgramDirectory';
+import Login from './Login';
+import UngatedDemoVideoForAd from './UngatedDemoVideoForAd';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -231,6 +233,8 @@ export {
     HeadlessMobile,
     ContentResource,
     PartnerProgramDirectory,
+    Login,
+    UngatedDemoVideoForAd,
     Footer,
     Header
 }

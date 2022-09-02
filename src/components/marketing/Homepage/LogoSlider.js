@@ -81,6 +81,7 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
                   key={index}
                   sx={{ height: isMedium ? 70 : 127, width: '100%' }}
                   component={'img'}
+                  loading="lazy"
                   src={item.logo?.data[0].url || FillerContent.logos[0].url}
                   alt={item.name}
                 />
@@ -96,6 +97,7 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
                   key={index}
                   sx={{ height: isMedium ? 70 : 127, width: '100%' }}
                   component={'img'}
+                  loading="lazy"
                   src={item.logo?.data[0].url || FillerContent.logos[0].url}
                   alt={item.name}
                 />
