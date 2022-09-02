@@ -140,6 +140,7 @@ const Testimonials = ({ title, data }) => {
                         <Box
                           sx={{ width: '100%' }}
                           component="img"
+                          loading="lazy"
                           src={HeartQuote.src}
                           alt="heart quote"
                         />
@@ -179,6 +180,7 @@ const Testimonials = ({ title, data }) => {
                           <Box
                             sx={{ px: 0.5 }}
                             component="img"
+                            loading="lazy"
                             src={Star.src}
                             alt="star rating"
                           />

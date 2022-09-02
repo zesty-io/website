@@ -5,6 +5,7 @@
 import { Box, Typography, Card, Button, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Container from 'blocks/container/Container';
+import Image from 'next/image';
 
 const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
   return (
@@ -64,6 +65,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
               <Box
                 sx={{ width: '100%' }}
                 component="img"
+                loading="lazy"
                 src={item.url}
                 alt={item.type || ''}
               />
@@ -92,10 +94,12 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   textDecoration: 'none',
                 }}
               >
-                <Box
-                  sx={{ width: '100%' }}
-                  component="img"
-                  src={item.image?.data[0].url}
+                <Image
+                  style={{ width: '100%' }}
+                  width={482}
+                  height={233}
+                  loading="lazy"
+                  src={`${item.image?.data[0].url}?width=482`}
                   alt={item.title}
                 />
 
@@ -110,6 +114,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                       <Box
                         sx={{ width: '100%' }}
                         component="img"
+                        loading="lazy"
                         src={item.logo?.data[0].url}
                         alt={item.title}
                       />

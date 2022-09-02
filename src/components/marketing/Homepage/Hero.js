@@ -6,6 +6,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import DemoCta from 'components/cta/DemoCta';
 import MuiMarkdown from 'mui-markdown';
+import Image from 'next/image';
 
 /**
  * Static Assets Imports
@@ -117,12 +118,15 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
             </Grid>
             <Grid item sm={12} md={6}>
               <Box>
-                <Box
+                <Image
+                  quality={70}
+                  loading="lazy"
                   data-aos="fade-up"
-                  sx={{ width: '100%', maxWidth: 846 }}
-                  component="img"
+                  style={{ width: '100%', maxWidth: 846 }}
+                  width={846}
+                  height={576}
                   src={
-                    content.header_graphic?.data[0].url ||
+                    `${content.header_graphic?.data[0].url}?width=846` ||
                     FillerContent.photos[0].src
                   }
                 />
