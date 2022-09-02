@@ -124,7 +124,9 @@ const YoutubeCard = () => {
   return (
     <Card sx={{}}>
       <CardActionArea
-        onClick={() => handleClick('https://www.youtube.com/zesty-io')}
+        onClick={() =>
+          handleClick('https://www.youtube.com/watch?v=Y2cux28b9q0')
+        }
       >
         <CardMedia
           component="img"

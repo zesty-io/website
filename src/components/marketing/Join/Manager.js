@@ -176,9 +176,9 @@ const Manager = ({ TrainingVideoCard, CaseStudiesCard }) => {
         </Card>
       </Grid>
       <Grid xs={12} md={4} item>
-        <Card
-          variant="outlined"
+        <Box
           sx={{
+            border: 'none',
             minHeight: 600,
             borderRadius: 2,
             py: 2,
@@ -238,7 +238,7 @@ const Manager = ({ TrainingVideoCard, CaseStudiesCard }) => {
             <CaseStudiesCard marketer />
             <TrainingVideoCard />
           </Box>
-        </Card>
+        </Box>
       </Grid>
     </Grid>
   );
