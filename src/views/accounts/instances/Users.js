@@ -58,6 +58,7 @@ const CustomTable = ({
   handleDeleteRole,
   instanceRoles,
   isOwner,
+  loading,
 }) => {
   const ROWS = data?.map((e) => {
     const handleOnChange = (data) => {
@@ -107,7 +108,7 @@ const CustomTable = ({
 
   return (
     <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
+      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
@@ -160,6 +161,7 @@ const Index = ({
   createInvite,
   isOwner,
   instanceZUID,
+  loading,
 }) => {
   const handleUpdateRole = (data) => {
     updateRole(data);
@@ -206,6 +208,7 @@ const Index = ({
           handleDeleteRole={handleDeleteRole}
           instanceRoles={instanceRoles}
           isOwner={isOwner}
+          loading={loading}
         />
       </Grid>
     </Grid>

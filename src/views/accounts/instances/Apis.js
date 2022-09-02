@@ -1,10 +1,12 @@
 import { Box, Button, Grid } from '@mui/material';
 import {
   accountsValidations,
+  DeleteBtn,
   DeleteMsg,
   FormInput,
+  FormSelect,
   StickyTable,
-  UsersSelect,
+  SubmitBtn,
 } from 'components/accounts';
 import React from 'react';
 import Swal from 'sweetalert2';
@@ -38,44 +40,32 @@ const COLUMNS = [
 ];
 
 const CreateTokenForm = ({ onSubmit, options }) => {
-  const [role, setrole] = React.useState({});
   const formik = useFormik({
     validationSchema: accountsValidations.createToken,
     initialValues: {
       name: '',
+      roleZUID: '',
     },
     onSubmit: async (values) => {
-      const val = {
-        name: values.name,
-        roleZUID: role.ZUID,
-      };
-      await onSubmit(val);
+      await onSubmit(values);
       formik.resetForm();
     },
   });
 
-  const handleChange = (data) => {
-    setrole(data);
-  };
+  const newOptions = options.map((e) => {
+    return { ...e, value: e.ZUID };
+  });
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
         <FormInput name={'name'} formik={formik} />
-        <UsersSelect
-          options={options}
+        <FormSelect
           label="Role"
-          onChange={handleChange}
-          value={role.value}
+          name={'roleZUID'}
+          formik={formik}
+          options={newOptions}
         />
-        <Button
-          color="primary"
-          disabled={Object.keys(role).length === 0 || formik.isSubmitting}
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Submit
-        </Button>
+        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
       </form>
     </Box>
   );
@@ -87,6 +77,7 @@ const CustomTable = ({
   handleDeleteToken,
   handleUpdateToken,
   isInstanceOwner,
+  loading,
 }) => {
   const ROWS = data?.map((e) => {
     const role = roles.find((x) => x.ZUID === e.roleZUID)?.name;
@@ -96,7 +87,7 @@ const CustomTable = ({
       role: role || '-',
       expiry: dayjs(e.expiry).format('MMMM D, YYYY') || '-',
       action: isInstanceOwner ? (
-        <Box display={'flex'}>
+        <Box display={'flex'} gap={4}>
           <Button
             onClick={() => handleUpdateToken(e)}
             color="primary"
@@ -106,15 +97,7 @@ const CustomTable = ({
           >
             Renew
           </Button>
-          <Button
-            onClick={() => handleDeleteToken(e)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="button"
-          >
-            Delete
-          </Button>
+          <DeleteBtn onClick={() => handleDeleteToken(e)}></DeleteBtn>
         </Box>
       ) : (
         '-'
@@ -127,7 +110,7 @@ const CustomTable = ({
 
   return (
     <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
+      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
@@ -138,6 +121,7 @@ export const Apis = ({
   createToken,
   deleteToken,
   updateToken,
+  loading,
 }) => {
   const handleCreateTokenModal = () => {
     MySwal.fire({
@@ -151,7 +135,7 @@ export const Apis = ({
     const action = () => {
       deleteToken(val);
     };
-    DeleteMsg({ action });
+    DeleteMsg({ title: 'Delete this token?', action });
   };
   const handleUpdateToken = (data) => {
     const val = { tokenZUID: data.ZUID };
@@ -159,22 +143,23 @@ export const Apis = ({
   };
   return (
     <Grid container>
-      <Grid item xs={4}>
+      <Grid item xs={10}></Grid>
+      <Grid item xs={2}>
         {isInstanceOwner && (
           <Button
             onClick={handleCreateTokenModal}
             color="primary"
             variant="contained"
-            fullWidth
             type="button"
+            fullWidth
           >
             Create Token
           </Button>
         )}
       </Grid>
-      <Grid item xs={8}></Grid>
       <Grid item xs={12}>
         <CustomTable
+          loading={loading}
           isInstanceOwner={isInstanceOwner}
           data={tokens}
           roles={instanceRoles}

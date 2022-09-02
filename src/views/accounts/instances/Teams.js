@@ -1,11 +1,11 @@
 import { Box, Button, TextField } from '@mui/material';
 import {
   accountsValidations,
+  CollapseTable,
   DeleteBtn,
   DeleteMsg,
   FormInput,
   FormSelect,
-  StickyTable,
   SubmitBtn,
 } from 'components/accounts';
 import { useFormik } from 'formik';
@@ -15,6 +15,10 @@ import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 const COLUMNS = [
+  {
+    id: 'btn',
+    label: '',
+  },
   {
     id: 'name',
     label: 'Name',
@@ -33,7 +37,12 @@ const COLUMNS = [
   },
 ];
 
-const CustomTable = ({ data, handleDeleteTeamModal, isInstanceOwner }) => {
+const CustomTable = ({
+  loading,
+  data,
+  handleDeleteTeamModal,
+  isInstanceOwner,
+}) => {
   const ROWS = data?.map((e) => {
     return {
       name: e.name || '-',
@@ -41,7 +50,7 @@ const CustomTable = ({ data, handleDeleteTeamModal, isInstanceOwner }) => {
       zuid: e.ZUID,
       action: isInstanceOwner ? (
         <Box display={'flex'}>
-          <DeleteBtn onClick={() => handleDeleteTeamModal(e)} />
+          <DeleteBtn onClick={() => handleDeleteTeamModal(e)}>Delete</DeleteBtn>
         </Box>
       ) : (
         '-'
@@ -54,7 +63,7 @@ const CustomTable = ({ data, handleDeleteTeamModal, isInstanceOwner }) => {
 
   return (
     <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
+      <CollapseTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
@@ -100,6 +109,7 @@ const Main = ({
   isInstanceOwner,
   addTeamToInstance,
   instanceRoles,
+  loading,
 }) => {
   const handleAddTeamToInstance = async (data) => {
     await addTeamToInstance(data);
@@ -110,7 +120,7 @@ const Main = ({
     const action = async () => {
       await deleteTeamToInstance(ZUID);
     };
-    DeleteMsg({ action });
+    DeleteMsg({ title: 'Delete this team?', action });
     await getAllInstancesTeams();
   };
 
@@ -149,6 +159,7 @@ const Main = ({
       </Box>
 
       <CustomTable
+        loading={loading}
         data={teams}
         handleDeleteTeamModal={handleDeleteTeamModal}
         isInstanceOwner={isInstanceOwner}

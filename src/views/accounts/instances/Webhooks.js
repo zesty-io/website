@@ -6,6 +6,7 @@ import {
   FormInput,
   FormSelect,
   StickyTable,
+  SubmitBtn,
 } from 'components/accounts';
 import { useFormik } from 'formik';
 import React from 'react';
@@ -60,6 +61,7 @@ const CustomTable = ({
   handleDeleteWebhookModal,
   handleTestWebhook,
   handleViewWebhook,
+  loading,
 }) => {
   const ROWS = data?.map((e) => {
     const btns = [
@@ -104,10 +106,9 @@ const CustomTable = ({
   // const memoizeRows = React.useMemo(() => ROWS, [data]);
   // const memoizeColumns = React.useMemo(() => COLUMNS, []);
 
-  console.log(ROWS, COLUMNS, ':::');
   return (
     <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
+      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
@@ -198,15 +199,7 @@ const WebhookForm = ({ onSubmit }) => {
         </Box>
         {/* <FormInput name={'Parent Resource ZUID'} formik={formik} /> */}
         <Box paddingTop={4}>
-          <Button
-            color="primary"
-            disabled={formik.isSubmitting}
-            variant="contained"
-            fullWidth
-            type="submit"
-          >
-            Create Webhook
-          </Button>
+          <SubmitBtn loading={formik.isSubmitting}>Create Webhook</SubmitBtn>
         </Box>
       </form>
     </Box>
@@ -219,6 +212,7 @@ export const Webhooks = ({
   webhooks,
   deleteWebhook,
   testWebhook,
+  loading,
 }) => {
   const handleAddWebhookModal = () => {
     MySwal.fire({
@@ -268,6 +262,7 @@ export const Webhooks = ({
         </Button>
       )}
       <CustomTable
+        loading={loading}
         data={webhooks}
         isInstanceOwner={isInstanceOwner}
         handleDeleteWebhookModal={handleDeleteWebhookModal}
