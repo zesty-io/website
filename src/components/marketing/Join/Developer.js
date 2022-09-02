@@ -174,8 +174,7 @@ const Developer = ({
       </Grid>
 
       <Grid xs={12} md={4} item>
-        <Card
-          variant="outlined"
+        <Box
           sx={{
             minHeight: 600,
             borderRadius: 2,
@@ -249,7 +248,7 @@ const Developer = ({
             <DeveloperGuideCard />
             <CaseStudiesCard developer />
           </Box>
-        </Card>
+        </Box>
       </Grid>
     </Grid>
   );
