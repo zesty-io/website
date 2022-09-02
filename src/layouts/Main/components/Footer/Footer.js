@@ -204,6 +204,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
               align={'center'}
               variant={'subtitle2'}
               color="text.secondary"
+              component="p"
               gutterBottom
             >
               &copy; Zesty.io Platform, Inc. All Rights Reserved.
