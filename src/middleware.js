@@ -8,7 +8,7 @@ export function middleware(request) {
   //   console.log(response.cookies, appSid, isAuthenticated, isUser, 222);
 
   if (!isAuthenticated) {
-    return NextResponse.rewrite(new URL('/instances/', request.url));
+    return NextResponse.rewrite(new URL('/login/', request.url));
   }
 }
 
