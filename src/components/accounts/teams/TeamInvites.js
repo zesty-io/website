@@ -9,6 +9,10 @@ const TeamInvites = ({ teamZUID, teamInviteZUID, getAllTeamsAndInvites }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { ZestyAPI } = useZestyStore((state) => state);
   const [team, setTeam] = useState({});
+  const [isRespondingToTeamInvite, setIsRespondingToTeamInvite] = useState({
+    status: false,
+    action: '',
+  });
 
   const getTeam = async () => {
     const teamResponse = await ZestyAPI.getTeam(teamZUID);
@@ -16,6 +20,10 @@ const TeamInvites = ({ teamZUID, teamInviteZUID, getAllTeamsAndInvites }) => {
   };
 
   const respondToTeamInvite = async (action) => {
+    setIsRespondingToTeamInvite({
+      action,
+      status: true,
+    });
     const teamInviteResponse = await ZestyAPI.respondToTeamInvite(
       teamInviteZUID,
       action,
@@ -26,7 +34,13 @@ const TeamInvites = ({ teamZUID, teamInviteZUID, getAllTeamsAndInvites }) => {
       {
         message:
           action === 'accept' ? 'Invite accepted' : 'Declined invitation',
-        callback: getAllTeamsAndInvites,
+        callback: async () => {
+          await getAllTeamsAndInvites();
+          setIsRespondingToTeamInvite({
+            action: '',
+            status: false,
+          });
+        },
       },
       teamInviteResponse,
     );
@@ -79,6 +93,10 @@ const TeamInvites = ({ teamZUID, teamInviteZUID, getAllTeamsAndInvites }) => {
               onClick={() => respondToTeamInvite('accept')}
               color="info"
               variant="contained"
+              loading={
+                isRespondingToTeamInvite.action === 'accept' &&
+                isRespondingToTeamInvite.status
+              }
             >
               Accept Invite
             </LoadingButton>
@@ -86,6 +104,10 @@ const TeamInvites = ({ teamZUID, teamInviteZUID, getAllTeamsAndInvites }) => {
               onClick={() => respondToTeamInvite('decline')}
               color="error"
               variant="contained"
+              loading={
+                isRespondingToTeamInvite.action === 'decline' &&
+                isRespondingToTeamInvite.status
+              }
             >
               Decline
             </LoadingButton>

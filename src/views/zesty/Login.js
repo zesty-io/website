@@ -36,13 +36,15 @@ function Login({ content }) {
   const router = useRouter();
   const header = document.querySelector('header'),
     topNavBox = document.querySelector('#topNavBox'),
-    footer = document.querySelector('footer');
+    footer = document.querySelector('footer'),
+    divider = document.querySelector('hr');
 
   useEffect(() => {
     if (router.isReady) {
       if (header) header.style.display = 'none';
       if (topNavBox) topNavBox.style.display = 'none';
       if (footer) footer.style.display = 'none';
+      if (divider) divider.style.display = 'none';
     }
   }, [header, footer, topNavBox, router.isReady]);
 

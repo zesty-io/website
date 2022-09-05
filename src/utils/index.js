@@ -226,12 +226,17 @@ export const validateEmail = (email) => {
     );
 };
 
-export const notistackMessage = (enqueueSnackbar, successProps, response) => {
+export const notistackMessage = async (
+  enqueueSnackbar,
+  successProps,
+  response,
+) => {
   if (response?.status >= 200 && response?.status <= 299) {
+    if (successProps.callback !== undefined) await successProps?.callback();
+
     enqueueSnackbar(successProps?.message, {
       variant: 'success',
     });
-    if (successProps.callback !== undefined) successProps?.callback();
   } else {
     enqueueSnackbar(response?.message || response?.error, {
       variant: 'error',

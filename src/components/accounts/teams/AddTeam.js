@@ -28,13 +28,14 @@ const AddTeam = ({ getAllTeams }) => {
         enqueueSnackbar,
         {
           message: 'Team created!',
+          callback: async () => {
+            await getAllTeams();
+            formik.resetForm();
+            setIsCreating(false);
+          },
         },
         response,
       );
-
-      setIsCreating(false);
-      getAllTeams();
-      formik.resetForm();
     },
   });
   return (

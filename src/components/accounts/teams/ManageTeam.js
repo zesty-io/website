@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   Paper,
+  Skeleton,
   Stack,
   Typography,
 } from '@mui/material';
@@ -31,7 +32,7 @@ import { notistackMessage } from 'utils';
 
 const MySwal = withReactContent(Swal);
 
-const ManageTeam = ({ teamZUID, name, description, getAllTeams, isAdmin }) => {
+const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [initialValues, setInitialValues] = useState({
     name,
@@ -40,6 +41,8 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isAdmin }) => {
   const [willUpdate, setWillUpdate] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isInviting, setIsInviting] = useState(false);
+  const [listOfRemovingMembers, setListOfRemovingMembers] = useState(false);
+  const [isDeletingTeam, setIsDeletingTeam] = useState(false);
   const { ZestyAPI } = useZestyStore((state) => state);
   const [teamMembers, setTeamMembers] = useState([]);
   const [instances, setInstances] = useState([]);
@@ -82,12 +85,16 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isAdmin }) => {
       denyButtonText: `Cancel`,
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setIsDeletingTeam(true);
         const response = await ZestyAPI.deleteTeam(teamZUID);
         notistackMessage(
           enqueueSnackbar,
           {
             message: `Deleted Team: ${name}`,
-            callback: getAllTeams,
+            callback: async () => {
+              await getAllTeams();
+              setIsDeletingTeam(false);
+            },
           },
           response,
         );
@@ -103,6 +110,7 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isAdmin }) => {
       denyButtonText: `Cancel`,
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setListOfRemovingMembers(true);
         const response = await ZestyAPI.respondToTeamInvite(
           teamInviteZUID,
           'cancel',
@@ -111,7 +119,10 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isAdmin }) => {
           enqueueSnackbar,
           {
             message: `Users team invitation successfully canceled`,
-            callback: getFilteredMembers,
+            callback: async () => {
+              await getFilteredMembers();
+              setListOfRemovingMembers(false);
+            },
           },
           response,
         );
@@ -127,12 +138,16 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isAdmin }) => {
       denyButtonText: `Cancel`,
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setListOfRemovingMembers(true);
         const response = await ZestyAPI.deleteTeamMember(teamZUID, userZUID);
         notistackMessage(
           enqueueSnackbar,
           {
             message: `Team member is successfully removed`,
-            callback: getFilteredMembers,
+            callback: async () => {
+              await getFilteredMembers();
+              setListOfRemovingMembers(false);
+            },
           },
           response,
         );
@@ -185,20 +200,21 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isAdmin }) => {
         enqueueSnackbar,
         {
           message: `Team invitation sent!`,
-          callback: getFilteredMembers,
+          callback: async () => {
+            await getFilteredMembers();
+            formikInvite.resetForm();
+            setIsInviting(false);
+          },
         },
         response,
       );
-
-      formikInvite.resetForm();
-      setIsInviting(false);
     },
   });
 
   useEffect(() => {
     const initializeValues = async () => {
-      getInstances();
-      getFilteredMembers();
+      await getInstances();
+      await getFilteredMembers();
     };
 
     initializeValues();
@@ -212,193 +228,217 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isAdmin }) => {
 
   return (
     <Paper elevation={4} sx={{ height: '100%', color: 'text.secondary' }}>
-      <Stack height="100%">
-        <Typography variant="h6" px={3} py={1}>
-          <Stack direction="row" alignItems="center">
-            <NoteIcon sx={{ mr: 1 }} />
-            {teamZUID}
-          </Stack>
-        </Typography>
-        <Divider />
-        <Stack
-          p={3}
-          sx={{ overflowY: 'auto', overflowX: 'hidden', height: 574 }}
-        >
-          <Stack position="relative" mb={2}>
-            <Stack>
-              {!willUpdate ? (
-                <Stack>
-                  <Typography variant="h6">{initialValues.name}</Typography>
-                  <Typography>{initialValues.description}</Typography>
-                </Stack>
-              ) : (
-                <Stack>
-                  <FormInput
-                    type="text"
-                    customLabel="Team Name"
-                    placeholder="Enter your team name"
-                    name="name"
-                    color="secondary"
-                    fullWidth
-                    formik={formik}
-                  />
-                  <FormInput
-                    type="text"
-                    customLabel="Description of your team"
-                    name="description"
-                    color="secondary"
-                    formik={formik}
-                    fullWidth
-                    multiline
-                  />
-                </Stack>
-              )}
+      {isDeletingTeam ? (
+        <Stack height="100%">
+          <Skeleton variant="rectangular" height="100%" />
+        </Stack>
+      ) : (
+        <Stack height="100%">
+          <Typography variant="h6" px={3} py={1}>
+            <Stack direction="row" alignItems="center">
+              <NoteIcon sx={{ mr: 1 }} />
+              {teamZUID}
             </Stack>
-            <IconButton
-              sx={{
-                position: 'absolute',
-                top: '-1rem',
-                right: '-.7rem',
-                display: isAdmin ? 'block' : 'none',
-              }}
-              onClick={() => setWillUpdate((prev) => !prev)}
-            >
-              {willUpdate ? <DisabledByDefaultIcon /> : <SettingsIcon />}
-            </IconButton>
-          </Stack>
-
-          {willUpdate && (
-            <Stack direction="row" justifyContent="space-between" mb={2}>
-              <LoadingButton
-                color="info"
-                startIcon={<SaveIcon />}
-                variant="contained"
-                onClick={formik.handleSubmit}
-                type="submit"
-                loading={isUpdating}
+          </Typography>
+          <Divider />
+          <Stack
+            p={3}
+            sx={{ overflowY: 'auto', overflowX: 'hidden', height: 574 }}
+          >
+            <Stack position="relative" mb={2}>
+              <Stack>
+                {!willUpdate ? (
+                  <Stack>
+                    <Typography variant="h6">{initialValues.name}</Typography>
+                    <Typography>{initialValues.description}</Typography>
+                  </Stack>
+                ) : (
+                  <Stack>
+                    <FormInput
+                      type="text"
+                      customLabel="Team Name"
+                      placeholder="Enter your team name"
+                      name="name"
+                      color="secondary"
+                      fullWidth
+                      formik={formik}
+                    />
+                    <FormInput
+                      type="text"
+                      customLabel="Description of your team"
+                      name="description"
+                      color="secondary"
+                      formik={formik}
+                      fullWidth
+                      multiline
+                    />
+                  </Stack>
+                )}
+              </Stack>
+              <IconButton
+                sx={{
+                  position: 'absolute',
+                  top: '-1rem',
+                  right: '-.7rem',
+                  display: isOwner ? 'block' : 'none',
+                }}
+                onClick={() => setWillUpdate((prev) => !prev)}
               >
-                Update Team
-              </LoadingButton>
-              <IconButton onClick={deleteTeam}>
-                <DeleteIcon />
+                {willUpdate ? <DisabledByDefaultIcon /> : <SettingsIcon />}
               </IconButton>
             </Stack>
-          )}
 
-          <Stack mb={2}>
-            <Typography variant="h6">Owners</Typography>
-            <List>
-              {teamMembers
-                ?.filter((member) => member.admin)
-                .map((member) => (
-                  <ListItem disablePadding key={member.ID}>
-                    <Stack width="100%" direction="row" alignItems="center">
-                      <LockIcon fontSize=".7rem" />
-                      <Typography ml={1}>{member.email}</Typography>
-                    </Stack>
-                  </ListItem>
-                ))}
-            </List>
-          </Stack>
-          <Stack mb={2}>
-            <Typography variant="h6">Members</Typography>
-            {filteredMembers?.length === 0 ? (
-              <Typography variant="caption">
-                No members for this team
-              </Typography>
-            ) : (
-              <List disablePadding>
-                {filteredMembers?.map((member) => (
-                  <ListItem disablePadding key={member.ZUID}>
-                    <Stack width="100%" direction="row" alignItems="center">
-                      {member.ID !== undefined ? (
-                        <PersonIcon fontSize=".7rem" />
-                      ) : (
-                        <AccessTimeFilledIcon fontSize=".7rem" />
-                      )}
-                      <Typography ml={1}>
-                        {member.inviteeEmail || member.email}
-                      </Typography>
-                      <IconButton
-                        onClick={() => {
-                          if (member.ID === undefined)
-                            cancelTeamInvite(member.ZUID);
-                          else deleteTeamMember(teamZUID, member.ZUID);
-                        }}
-                        sx={{
-                          ml: 'auto',
-                          visibility: isAdmin ? 'visible' : 'hidden',
-                        }}
-                      >
-                        <PersonOffIcon fontSize=".7rem" />
-                      </IconButton>
-                    </Stack>
-                  </ListItem>
-                ))}
-              </List>
-            )}
-          </Stack>
-          <Stack mb={2}>
-            <Typography variant="h6">Instances</Typography>
-            {instances?.length === 0 ? (
-              <Typography variant="caption">
-                No instances for this team
-              </Typography>
-            ) : (
-              <List disablePadding>
-                {instances?.map((instance) => (
-                  <ListItem disablePadding key={instance.ZUID}>
-                    <Link underline="none" href={`/instances/${instance.ZUID}`}>
-                      {instance.name}
-                    </Link>
-                  </ListItem>
-                ))}
-              </List>
-            )}
-          </Stack>
-        </Stack>
-        {isAdmin && (
-          <Stack mt="auto">
-            <Divider />
-            <form noValidate onSubmit={formikInvite.handleSubmit}>
-              <Stack
-                direction="row"
-                alignItems="center"
-                spacing={1}
-                px={3}
-                py={1}
-              >
-                <FormInput
-                  type="text"
-                  placeholder="Enter your team members email address"
-                  name="email"
-                  color="secondary"
-                  formik={formikInvite}
-                  fullWidth
-                  hasNoLabel
-                  boxGutterBottom={false}
-                  size="small"
-                  hasHelperText={false}
-                  hasError={false}
-                  autoComplete="off"
-                />
-
+            {willUpdate && (
+              <Stack direction="row" justifyContent="space-between" mb={2}>
                 <LoadingButton
-                  startIcon={<PersonAddIcon />}
-                  variant="outlined"
-                  color="secondary"
-                  size="small"
-                  sx={{ px: 4 }}
+                  color="info"
+                  startIcon={<SaveIcon />}
+                  variant="contained"
+                  onClick={formik.handleSubmit}
                   type="submit"
-                  loading={isInviting}
+                  loading={isUpdating}
                 >
-                  Invite
+                  Update Team
                 </LoadingButton>
+                <IconButton onClick={deleteTeam}>
+                  <DeleteIcon />
+                </IconButton>
               </Stack>
-            </form>
+            )}
+
+            <Stack mb={2}>
+              <Typography variant="h6">Owners</Typography>
+              <List>
+                {teamMembers
+                  ?.filter((member) => member.admin)
+                  .map((member) => (
+                    <ListItem disablePadding key={member.ID}>
+                      <Stack width="100%" direction="row" alignItems="center">
+                        <LockIcon fontSize=".7rem" />
+                        <Typography ml={1}>{member.email}</Typography>
+                      </Stack>
+                    </ListItem>
+                  ))}
+              </List>
+            </Stack>
+            <Stack mb={2}>
+              <Typography variant="h6">Members</Typography>
+              {filteredMembers?.length === 0 ? (
+                <Typography variant="caption">
+                  No members for this team
+                </Typography>
+              ) : (
+                <List disablePadding>
+                  {isInviting || listOfRemovingMembers
+                    ? [...new Array(filteredMembers?.length)]?.map((index) => (
+                        <Skeleton
+                          variant="rectangular"
+                          width="100%"
+                          height={20}
+                          key={index}
+                          animation="wave"
+                          sx={{ my: 2 }}
+                        />
+                      ))
+                    : filteredMembers?.map((member) => (
+                        <ListItem disablePadding key={member.ZUID}>
+                          <Stack
+                            width="100%"
+                            direction="row"
+                            alignItems="center"
+                          >
+                            {member.ID !== undefined ? (
+                              <PersonIcon fontSize=".7rem" />
+                            ) : (
+                              <AccessTimeFilledIcon fontSize=".7rem" />
+                            )}
+                            <Typography ml={1}>
+                              {member.inviteeEmail || member.email}
+                            </Typography>
+                            <IconButton
+                              onClick={() => {
+                                if (member.ID === undefined)
+                                  cancelTeamInvite(member.ZUID);
+                                else deleteTeamMember(teamZUID, member.ZUID);
+                              }}
+                              sx={{
+                                ml: 'auto',
+                                visibility: isOwner ? 'visible' : 'hidden',
+                              }}
+                            >
+                              <PersonOffIcon fontSize=".7rem" />
+                            </IconButton>
+                          </Stack>
+                        </ListItem>
+                      ))}
+                </List>
+              )}
+            </Stack>
+            <Stack mb={2}>
+              <Typography variant="h6">Instances</Typography>
+              {instances?.length === 0 ? (
+                <Typography variant="caption">
+                  No instances for this team
+                </Typography>
+              ) : (
+                <List disablePadding>
+                  {instances?.map((instance) => (
+                    <ListItem disablePadding key={instance.ZUID}>
+                      <Link
+                        underline="none"
+                        href={`/instances/${instance.ZUID}`}
+                      >
+                        {instance.name}
+                      </Link>
+                    </ListItem>
+                  ))}
+                </List>
+              )}
+            </Stack>
           </Stack>
-        )}
-      </Stack>
+          {isOwner && (
+            <Stack mt="auto">
+              <Divider />
+              <form noValidate onSubmit={formikInvite.handleSubmit}>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  spacing={1}
+                  px={3}
+                  py={1}
+                >
+                  <FormInput
+                    type="text"
+                    placeholder="Enter your team members email address"
+                    name="email"
+                    color="secondary"
+                    formik={formikInvite}
+                    fullWidth
+                    hasNoLabel
+                    boxGutterBottom={false}
+                    size="small"
+                    hasHelperText={false}
+                    hasError={false}
+                    autoComplete="off"
+                  />
+
+                  <LoadingButton
+                    startIcon={<PersonAddIcon />}
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
+                    sx={{ px: 4 }}
+                    type="submit"
+                    loading={isInviting}
+                  >
+                    Invite
+                  </LoadingButton>
+                </Stack>
+              </form>
+            </Stack>
+          )}
+        </Stack>
+      )}
     </Paper>
   );
 };

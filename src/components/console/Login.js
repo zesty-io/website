@@ -182,185 +182,179 @@ const Login = () => {
   });
 
   return (
-    <>
-      <Grid container>
-        <Grid item xs={12} md={4}>
-          <Stack px={4} height="100%">
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Link href="/">
-                <img
-                  src={
-                    theme.palette.mode === 'light'
-                      ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
-                      : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
-                  }
-                  height={150}
-                  width={150}
-                />
-              </Link>
-            </Stack>
-
-            <Stack mt={10} mb={15}>
-              <Stack>
-                <Typography variant="h4">Hi, Welcome Back!</Typography>
-                <Typography mb={3} color="text.secondary">
-                  Start empowering the world with content again
-                </Typography>
-              </Stack>
-
-              <Stack>
-                <form noValidate onSubmit={formik.handleSubmit}>
-                  <Stack>
-                    <FormInput
-                      color="secondary"
-                      name="email"
-                      customLabel="Email Address"
-                      formik={formik}
-                      placeholder="e.g john@zesty.io"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <AlternateEmailIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                    <FormInput
-                      color="secondary"
-                      name="password"
-                      type="password"
-                      customLabel="Password"
-                      formik={formik}
-                    />
-                    <Link
-                      href="/login/forgot-password/"
-                      alignSelf="end"
-                      mb={3}
-                      color="secondary"
-                    >
-                      Forgot Password?
-                    </Link>
-                    <LoadingButton
-                      type="submit"
-                      startIcon={<LoginIcon />}
-                      variant="contained"
-                      color="secondary"
-                      size="large"
-                      loading={loading}
-                    >
-                      Log In
-                    </LoadingButton>
-                    <Divider sx={{ py: 2 }}>Or</Divider>
-
-                    <Link href={`${ZestyAPI?.authAPIURL}/azure/login`}>
-                      <img src={msLogin?.src} alt="Microsoft Single Sign On" />
-                    </Link>
-                  </Stack>
-                </form>
-              </Stack>
-            </Stack>
-
-            <Stack mb={3} alignItems="center">
-              <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Typography variant="subtitle2">
-                  {`Don't have an account yet? `}
-                  <Link href="#" color="secondary">
-                    Try for free!
-                  </Link>
-                </Typography>
-              </Stack>
-
-              <Typography variant="caption" color="text.secondary">
-                © {dayjs().year()} Zesty.io, inc. All rights reserved.
-              </Typography>
-            </Stack>
-          </Stack>
-        </Grid>
-        <Grid
-          item
-          md={8}
-          bgcolor={(theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.zesty.zestyDarkerBlue
-              : theme.palette.secondary.main
-          }
-          display={isMD ? 'none' : 'block'}
-        >
+    <Grid height="100vh" container>
+      <Grid item xs={12} md={4}>
+        <Stack px={4} height="100%">
           <Stack
-            justifyContent="center"
+            direction="row"
             alignItems="center"
-            spacing={4}
-            px={4}
-            py={5}
-            height="100%"
+            justifyContent="space-between"
           >
-            <Stack textAlign="center">
-              <Typography variant="h5" color="common.white" mb={2}>
-                {loginData.title}
-              </Typography>
-              <Typography color="common.white">
-                {loginData.description}
-              </Typography>
-            </Stack>
-
-            <Stack direction="row" spacing={2}>
-              <Button
-                target="_blank"
-                href={loginData?.video_link}
-                variant="contained"
-                sx={{
-                  px: 4,
-                  bgcolor: 'common.white',
-                  color: 'black',
-                  '&.MuiButtonBase-root:hover': {
-                    bgcolor: 'white',
-                  },
-                }}
-                startIcon={<PlayArrowIcon />}
-                size="large"
-              >
-                Watch Demo
-              </Button>
-              <Button
-                target="_blank"
-                href={loginData?.docs_link}
-                variant="outlined"
-                sx={{
-                  px: 4,
-
-                  color: 'common.white',
-                  borderColor: 'common.white',
-                  '&.MuiButtonBase-root:hover': {
-                    bgcolor: 'transparent',
-                    border: '1px solid white',
-                  },
-                }}
-                startIcon={<ImportContactsOutlinedIcon />}
-                size="large"
-              >
-                Read Docs
-              </Button>
-            </Stack>
-
-            <Stack px={10} pb={5}>
+            <Link href="/">
               <img
-                src={loginData?.image?.data[0]?.url}
-                width="100%"
-                height="100%"
+                src={
+                  theme.palette.mode === 'light'
+                    ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                    : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+                }
+                height={150}
+                width={150}
               />
+            </Link>
+          </Stack>
+
+          <Stack mt={10} mb={15}>
+            <Stack>
+              <Typography variant="h4">Hi, Welcome Back!</Typography>
+              <Typography mb={3} color="text.secondary">
+                Start empowering the world with content again
+              </Typography>
+            </Stack>
+
+            <Stack>
+              <form noValidate onSubmit={formik.handleSubmit}>
+                <Stack>
+                  <FormInput
+                    color="secondary"
+                    name="email"
+                    customLabel="Email Address"
+                    formik={formik}
+                    placeholder="e.g john@zesty.io"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <AlternateEmailIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <FormInput
+                    color="secondary"
+                    name="password"
+                    type="password"
+                    customLabel="Password"
+                    formik={formik}
+                  />
+                  <Link
+                    href="/login/forgot-password/"
+                    alignSelf="end"
+                    mb={3}
+                    color="secondary"
+                  >
+                    Forgot Password?
+                  </Link>
+                  <LoadingButton
+                    type="submit"
+                    startIcon={<LoginIcon />}
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    loading={loading}
+                  >
+                    Log In
+                  </LoadingButton>
+                  <Divider sx={{ py: 2 }}>Or</Divider>
+
+                  <Link href={`${ZestyAPI?.authAPIURL}/azure/login`}>
+                    <img src={msLogin?.src} alt="Microsoft Single Sign On" />
+                  </Link>
+                </Stack>
+              </form>
             </Stack>
           </Stack>
-        </Grid>
+
+          <Stack mb={3} alignItems="center">
+            <Stack direction="row" justifyContent="center" alignItems="center">
+              <Typography variant="subtitle2">
+                {`Don't have an account yet? `}
+                <Link href="#" color="secondary">
+                  Try for free!
+                </Link>
+              </Typography>
+            </Stack>
+
+            <Typography variant="caption" color="text.secondary">
+              © {dayjs().year()} Zesty.io, inc. All rights reserved.
+            </Typography>
+          </Stack>
+        </Stack>
       </Grid>
-    </>
+      <Grid
+        item
+        md={8}
+        bgcolor={(theme) =>
+          theme.palette.mode === 'light'
+            ? theme.palette.zesty.zestyDarkerBlue
+            : theme.palette.secondary.main
+        }
+        display={isMD ? 'none' : 'block'}
+      >
+        <Stack
+          justifyContent="center"
+          alignItems="center"
+          spacing={4}
+          px={4}
+          py={5}
+          height="100%"
+        >
+          <Stack textAlign="center">
+            <Typography variant="h5" color="common.white" mb={2}>
+              {loginData.title}
+            </Typography>
+            <Typography color="common.white">
+              {loginData.description}
+            </Typography>
+          </Stack>
+
+          <Stack direction="row" spacing={2}>
+            <Button
+              target="_blank"
+              href={loginData?.video_link}
+              variant="contained"
+              sx={{
+                px: 4,
+                bgcolor: 'common.white',
+                color: 'black',
+                '&.MuiButtonBase-root:hover': {
+                  bgcolor: 'white',
+                },
+              }}
+              startIcon={<PlayArrowIcon />}
+              size="large"
+            >
+              Watch Demo
+            </Button>
+            <Button
+              target="_blank"
+              href={loginData?.docs_link}
+              variant="outlined"
+              sx={{
+                px: 4,
+
+                color: 'common.white',
+                borderColor: 'common.white',
+                '&.MuiButtonBase-root:hover': {
+                  bgcolor: 'transparent',
+                  border: '1px solid white',
+                },
+              }}
+              startIcon={<ImportContactsOutlinedIcon />}
+              size="large"
+            >
+              Read Docs
+            </Button>
+          </Stack>
+
+          <Stack px={10} pb={5}>
+            <img
+              src={loginData?.image?.data[0]?.url}
+              width="100%"
+              height="100%"
+            />
+          </Stack>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 };
 

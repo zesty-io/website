@@ -27,8 +27,12 @@ const Teams = () => {
   };
 
   useEffect(() => {
-    getAllTeams();
-    getAllTeamInvites();
+    const initializeGrid = async () => {
+      await getAllTeams();
+      await getAllTeamInvites();
+    };
+
+    initializeGrid();
   }, []);
 
   return (
@@ -60,9 +64,9 @@ const Teams = () => {
                 <TeamInvites
                   teamZUID={invite.teamZUID}
                   teamInviteZUID={invite.ZUID}
-                  getAllTeamsAndInvites={() => {
-                    getAllTeamInvites();
-                    getAllTeams();
+                  getAllTeamsAndInvites={async () => {
+                    await getAllTeams();
+                    await getAllTeamInvites();
                   }}
                 />
               </Grid>
@@ -78,7 +82,7 @@ const Teams = () => {
                   description={team.description}
                   owner={team.createdByUserZUID}
                   getAllTeams={getAllTeams}
-                  isAdmin={userZuid === team.createdByUserZUID}
+                  isOwner={userZuid === team.createdByUserZUID}
                 />
               </Grid>
             ))}
