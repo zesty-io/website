@@ -5,6 +5,7 @@
 import { Box, Typography, Card, Button, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Container from 'blocks/container/Container';
+import Image from 'next/image';
 
 const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
   return (
@@ -61,9 +62,10 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
               key={index}
               sx={{ width: '100%', maxWidth: 171 }}
             >
-              <Box
-                sx={{ width: '100%' }}
-                component="img"
+              <Image
+                width={171}
+                height={192}
+                loading="lazy"
                 src={item.url}
                 alt={item.type || ''}
               />
@@ -92,10 +94,14 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   textDecoration: 'none',
                 }}
               >
-                <Box
-                  sx={{ width: '100%' }}
-                  component="img"
-                  src={item.image?.data[0].url}
+                <Image
+                  blurDataURL
+                  placeholder="blur"
+                  style={{ width: '100%' }}
+                  width={482}
+                  height={233}
+                  loading="lazy"
+                  src={`${item.image?.data[0].url}?width=482`}
                   alt={item.title}
                 />
 
@@ -107,9 +113,14 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 >
                   <Box>
                     <Box sx={{ width: '100%', maxWidth: 150 }}>
-                      <Box
+                      <Image
+                        width={194}
+                        height={60}
+                        blurDataURL
+                        placeholder="blur"
                         sx={{ width: '100%' }}
                         component="img"
+                        loading="lazy"
                         src={item.logo?.data[0].url}
                         alt={item.title}
                       />

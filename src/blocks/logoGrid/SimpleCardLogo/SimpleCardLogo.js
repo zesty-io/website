@@ -3,7 +3,7 @@ import Container from 'blocks/container/Container';
 
 const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
   const sunsDarkLogoUrl =
-    'https://kfg6bckb.media.zestyio.com/sunsdark.1fc97b3c326478bf6afcb60e52679656.png';
+    'https://kfg6bckb.media.zestyio.com/sunsdark.1fc97b3c326478bf6afcb60e52679656.png?width=241';
 
   return (
     <Box component="section">
@@ -21,9 +21,11 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
             >
               {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
-                  <Box
-                    sx={{
-                      height: 49,
+                  <img
+                    width={150}
+                    height={50}
+                    loading="lazy"
+                    style={{
                       filter: isDarkMode
                         ? `${
                             item.customer_name === 'Phoenix Suns'
@@ -33,11 +35,10 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
                         : '',
                     }}
                     alt={item.customer_name || ''}
-                    component="img"
                     src={
                       item.customer_name === 'Phoenix Suns' && isDarkMode
                         ? sunsDarkLogoUrl
-                        : item.customer_logo.data[0].url ||
+                        : `${item.customer_logo.data[0].url}?width=241` ||
                           FillerContent.logos[0].url
                     }
                   />

@@ -5,7 +5,6 @@
  * Label: Partner Program Directory 
  * Name: partner_program_directory 
  * Model ZUID: 6-d0bcafc9d3-qlm350
- * File Created On: Thu Sep 01 2022 00:10:37 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 

@@ -21,6 +21,7 @@ import { useTheme } from '@mui/material';
 import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
 import DemoCta from 'components/cta/DemoCta';
+import Image from 'next/image';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -111,10 +112,15 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
                   item={item}
                   index={index}
                 >
-                  <Box
-                    sx={{ width: '100%', maxWidth: 715, height: 480 }}
-                    component="img"
-                    src={item.benefit_image?.data[0].url}
+                  <Image
+                    objectFit="contain"
+                    blurDataURL
+                    placeholder="blur"
+                    quality={90}
+                    loading="lazy"
+                    width={715}
+                    height={480}
+                    src={`${item.benefit_image?.data[0].url}?width=715`}
                     alt={item.header}
                   />
                   <Box
