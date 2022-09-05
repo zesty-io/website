@@ -6,7 +6,7 @@ import { Box, Typography, Card } from '@mui/material';
 
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
-import { useTheme } from '@mui/material';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Growth = ({
   content,
@@ -109,16 +109,12 @@ const Growth = ({
                 }}
               >
                 <Box sx={{ width: '100%', maxWidth: 153 }}>
-                  <img
-                    width={184}
-                    height={147}
+                  <ZestyImage
+                    options={{ width: 157, height: 147 }}
                     style={{ width: '100%', height: 'auto' }}
-                    component="img"
                     loading="lazy"
-                    src={
-                      `${item.icon_image?.data[0].url}?width=157` ||
-                      FillerContent.logos[0].url
-                    }
+                    src={item.icon_image?.data[0].url}
+                    l
                     alt={item.feature_name || ''}
                   />
                 </Box>

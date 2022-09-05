@@ -5,7 +5,7 @@
 import { Box, Typography, Card, Button, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Container from 'blocks/container/Container';
-import Image from 'next/image';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
   return (
@@ -62,9 +62,8 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
               key={index}
               sx={{ width: '100%', maxWidth: 171 }}
             >
-              <Image
-                width={171}
-                height={192}
+              <ZestyImage
+                options={{ width: 171, height: 192 }}
                 loading="lazy"
                 src={item.url}
                 alt={item.type || ''}
@@ -94,14 +93,11 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   textDecoration: 'none',
                 }}
               >
-                <Image
-                  blurDataURL
-                  placeholder="blur"
-                  style={{ width: '100%' }}
-                  width={482}
-                  height={233}
+                <ZestyImage
+                  options={{ width: 482, height: 233 }}
+                  style={{ width: '100%', maxWidth: 482, height: 'auto' }}
                   loading="lazy"
-                  src={`${item.image?.data[0].url}?width=482`}
+                  src={item.image?.data[0].url}
                   alt={item.title}
                 />
 
@@ -113,12 +109,9 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 >
                   <Box>
                     <Box sx={{ width: '100%', maxWidth: 150 }}>
-                      <Image
-                        width={194}
-                        height={60}
-                        blurDataURL
-                        placeholder="blur"
-                        sx={{ width: '100%' }}
+                      <ZestyImage
+                        options={{ width: 194, height: 60 }}
+                        style={{ width: '100%', maxWidth: 194, height: 'auto' }}
                         component="img"
                         loading="lazy"
                         src={item.logo?.data[0].url}

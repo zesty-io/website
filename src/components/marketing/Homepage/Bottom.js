@@ -4,7 +4,8 @@
 
 import { Box, Typography, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
-import Image from 'next/image';
+import ZestyImage from 'blocks/Image/ZestyImage';
+
 /**
  * Components Imports
  */
@@ -46,9 +47,9 @@ const Bottom = ({
                 mt: isExtraLarge ? 0 : -12.5,
               }}
             >
-              <Image
-                width={951}
-                height={519}
+              <ZestyImage
+                options={{ width: 951, height: 519 }}
+                style={{ width: '100%', maxWidth: 951, height: 'auto' }}
                 loading="lazy"
                 src={`${content.bottom_cta_graphic?.data[0].url}?width=951`}
                 alt="zesty.io"

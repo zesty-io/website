@@ -22,6 +22,7 @@ import Star from '../../../../public/assets/images/homepage/star.svg';
 
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -137,10 +138,8 @@ const Testimonials = ({ title, data }) => {
                       }}
                     >
                       <Box sx={{ width: 75, height: 71, margin: 'auto' }}>
-                        <img
-                          height={71}
-                          width={75}
-                          component="img"
+                        <ZestyImage
+                          options={{ width: 75, height: 71 }}
                           loading="lazy"
                           src={HeartQuote.src}
                           alt="heart quote"
@@ -178,9 +177,8 @@ const Testimonials = ({ title, data }) => {
                         }}
                       >
                         {[1, 2, 3, 4, 5].map(() => (
-                          <img
-                            height={20}
-                            width={20}
+                          <ZestyImage
+                            options={{ width: 20, height: 20 }}
                             style={{ paddingLeft: 0.5, paddingRight: 0.5 }}
                             loading="lazy"
                             src={Star.src}
