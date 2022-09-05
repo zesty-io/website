@@ -176,8 +176,7 @@ const Marketer = ({ TrainingVideoCard, CaseStudiesCard }) => {
         </Card>
       </Grid>
       <Grid sx={12} md={4} item>
-        <Card
-          variant="outlined"
+        <Box
           sx={{
             minHeight: 600,
             borderRadius: 2,
@@ -238,7 +237,7 @@ const Marketer = ({ TrainingVideoCard, CaseStudiesCard }) => {
             <CaseStudiesCard marketer />
             <TrainingVideoCard />
           </Box>
-        </Card>
+        </Box>
       </Grid>
     </Grid>
   );
