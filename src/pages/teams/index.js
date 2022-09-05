@@ -73,7 +73,7 @@ const Teams = () => {
             .map((team) => (
               <Grid key={team.ZUID} item xs={12} md={6} lg={4}>
                 <ManageTeam
-                  id={team.ZUID}
+                  teamZUID={team.ZUID}
                   name={team.name}
                   description={team.description}
                   owner={team.createdByUserZUID}

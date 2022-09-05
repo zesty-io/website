@@ -30,19 +30,21 @@
 import React, { useEffect } from 'react';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import CustomLogin from 'components/console/Login';
+import { useRouter } from 'next/router';
 function Login({ content }) {
   const isLoggedIn = useIsLoggedIn();
+  const router = useRouter();
+  const header = document.querySelector('header'),
+    topNavBox = document.querySelector('#topNavBox'),
+    footer = document.querySelector('footer');
 
   useEffect(() => {
-    const header = document.querySelector('header'),
-      topNavBox = document.querySelector('#topNavBox'),
-      footer = document.querySelector('footer');
-    if (header && topNavBox && footer) {
-      header.style.display = 'none';
-      topNavBox.style.display = 'none';
-      footer.style.display = 'none';
+    if (router.isReady) {
+      if (header) header.style.display = 'none';
+      if (topNavBox) topNavBox.style.display = 'none';
+      if (footer) footer.style.display = 'none';
     }
-  }, []);
+  }, [header, footer, topNavBox, router.isReady]);
 
   if (isLoggedIn) {
     window.location.replace('/instances');

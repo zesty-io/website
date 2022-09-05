@@ -31,7 +31,7 @@ import { notistackMessage } from 'utils';
 
 const MySwal = withReactContent(Swal);
 
-const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
+const ManageTeam = ({ teamZUID, name, description, getAllTeams, isAdmin }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [initialValues, setInitialValues] = useState({
     name,
@@ -46,8 +46,8 @@ const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
   const [filteredMembers, setFilteredMembers] = useState([]);
 
   const getFilteredMembers = async () => {
-    let regularMembers = await ZestyAPI.getTeamMembers(id);
-    let pendingMembers = await ZestyAPI.getTeamMembersPending(id);
+    let regularMembers = await ZestyAPI.getTeamMembers(teamZUID);
+    let pendingMembers = await ZestyAPI.getTeamMembersPending(teamZUID);
     let filteredPendingMembers = [];
 
     setTeamMembers(regularMembers?.data);
@@ -61,11 +61,15 @@ const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
         regularMembers.find((c) => c.ZUID === x.inviteeUserZUID)?.ZUID,
     );
 
-    setFilteredMembers([...filteredPendingMembers, ...regularMembers]);
+    setFilteredMembers(
+      [...filteredPendingMembers, ...regularMembers]?.filter(
+        (member) => !member.cancelled && !member.declined && !member.accepted,
+      ),
+    );
   };
 
   const getInstances = async () => {
-    const response = await ZestyAPI.getAllTeamsInstances(id);
+    const response = await ZestyAPI.getAllTeamsInstances(teamZUID);
     setInstances(response?.data);
   };
 
@@ -78,7 +82,7 @@ const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
       denyButtonText: `Cancel`,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const response = await ZestyAPI.deleteTeam(id);
+        const response = await ZestyAPI.deleteTeam(teamZUID);
         notistackMessage(
           enqueueSnackbar,
           {
@@ -143,7 +147,10 @@ const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
       setIsUpdating(true);
       const name = formik.values.name,
         description = formik.values.description;
-      const response = await ZestyAPI.updateTeam({ name, description }, id);
+      const response = await ZestyAPI.updateTeam(
+        { name, description },
+        teamZUID,
+      );
 
       notistackMessage(
         enqueueSnackbar,
@@ -171,7 +178,7 @@ const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
       const response = await ZestyAPI.createTeamInvite({
         admin: false,
         inviteeEmail: formikInvite.values.email,
-        teamZUID: id,
+        teamZUID,
       });
 
       notistackMessage(
@@ -195,7 +202,7 @@ const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
     };
 
     initializeValues();
-  }, [id]);
+  }, [teamZUID]);
 
   useEffect(() => {
     if (!formikInvite.isValid && formikInvite.isSubmitting) {
@@ -209,7 +216,7 @@ const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
         <Typography variant="h6" px={3} py={1}>
           <Stack direction="row" alignItems="center">
             <NoteIcon sx={{ mr: 1 }} />
-            {id}
+            {teamZUID}
           </Stack>
         </Typography>
         <Divider />
@@ -301,38 +308,33 @@ const ManageTeam = ({ id, name, description, getAllTeams, isAdmin }) => {
               </Typography>
             ) : (
               <List disablePadding>
-                {filteredMembers
-                  ?.filter(
-                    (member) =>
-                      !member.cancelled && !member.declined && !member.accepted,
-                  )
-                  .map((member) => (
-                    <ListItem disablePadding key={member.ZUID}>
-                      <Stack width="100%" direction="row" alignItems="center">
-                        {member.ID !== undefined ? (
-                          <PersonIcon fontSize=".7rem" />
-                        ) : (
-                          <AccessTimeFilledIcon fontSize=".7rem" />
-                        )}
-                        <Typography ml={1}>
-                          {member.inviteeEmail || member.email}
-                        </Typography>
-                        <IconButton
-                          onClick={() => {
-                            if (member.ID === undefined)
-                              cancelTeamInvite(member.ZUID);
-                            else deleteTeamMember(id, member.ZUID);
-                          }}
-                          sx={{
-                            ml: 'auto',
-                            visibility: isAdmin ? 'visible' : 'hidden',
-                          }}
-                        >
-                          <PersonOffIcon fontSize=".7rem" />
-                        </IconButton>
-                      </Stack>
-                    </ListItem>
-                  ))}
+                {filteredMembers?.map((member) => (
+                  <ListItem disablePadding key={member.ZUID}>
+                    <Stack width="100%" direction="row" alignItems="center">
+                      {member.ID !== undefined ? (
+                        <PersonIcon fontSize=".7rem" />
+                      ) : (
+                        <AccessTimeFilledIcon fontSize=".7rem" />
+                      )}
+                      <Typography ml={1}>
+                        {member.inviteeEmail || member.email}
+                      </Typography>
+                      <IconButton
+                        onClick={() => {
+                          if (member.ID === undefined)
+                            cancelTeamInvite(member.ZUID);
+                          else deleteTeamMember(teamZUID, member.ZUID);
+                        }}
+                        sx={{
+                          ml: 'auto',
+                          visibility: isAdmin ? 'visible' : 'hidden',
+                        }}
+                      >
+                        <PersonOffIcon fontSize=".7rem" />
+                      </IconButton>
+                    </Stack>
+                  </ListItem>
+                ))}
               </List>
             )}
           </Stack>
