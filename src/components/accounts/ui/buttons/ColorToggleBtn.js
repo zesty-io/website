@@ -16,6 +16,8 @@ export const ColorToggleButton = ({ value, options, handleAdd }) => {
         return 'Yes';
       case '0':
         return 'No';
+      case '2':
+        return 'No';
       default:
         return val;
     }
