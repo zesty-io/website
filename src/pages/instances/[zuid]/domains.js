@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Grid } from '@mui/material';
-import { Container } from '@mui/system';
+// import { Box, Grid } from '@mui/material';
+// import { Container } from '@mui/system';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
-import DomainPaper from 'components/accounts/domains/DomainPaper';
+// import DomainPaper from 'components/accounts/domains/DomainPaper';
+import DomainListings from 'components/accounts/domains/DomainListings';
+import DomainSettings from 'components/accounts/domains/DomainSettings';
 
 export default function Domains() {
   const [instanceDomains, setinstanceDomains] = useState([]);
@@ -117,30 +119,10 @@ export default function Domains() {
 
   return (
     <>
-      <Container>
-        <Box m={4}>
-          Live Domains
-          <Grid container spacing={{ xs: 2 }}>
-            {/* loop through live domains and output row of content */}
-            {liveDomains.map((domain) => (
-              <Grid item xs={12}>
-                <DomainPaper data={domain} onclick={handleDeleteDomain} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-        <Box m={4}>
-          Preview Domains
-          <Grid container spacing={{ xs: 2 }}>
-            {/* loop through dev domains and output row of content */}
-            {devDomains.map((domain) => (
-              <Grid item xs={12}>
-                <DomainPaper data={domain} onclick={handleDeleteDomain} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Container>
+      {/* <Container> */}
+      <DomainListings />
+      <DomainSettings />
+      {/* </Container> */}
     </>
   );
 }
