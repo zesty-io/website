@@ -23,7 +23,7 @@ export const BaseRolesTable = ({ title = 'Base Roles in Zesty.io' }) => {
       <Box paddingY={2}>
         <Typography variant="h5">{title}</Typography>
       </Box>
-      <StickyTable rows={baseroles} columns={COLUMNS} />;
+      <StickyTable rows={baseroles} columns={COLUMNS} />
     </Box>
   );
 };
