@@ -14,22 +14,7 @@ import { useZestyStore } from 'store';
 import { ErrorMsg } from '../dialogs';
 import { TablePagination, Typography } from '@mui/material';
 import { LoadingSpinner } from '../loading';
-
-const NoData = () => {
-  return (
-    <Typography
-      variant="h4"
-      sx={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%,-50%)',
-      }}
-    >
-      No Data
-    </Typography>
-  );
-};
+import { NoData } from './NoData';
 
 function Row(props) {
   const { row } = props;
@@ -53,6 +38,7 @@ function Row(props) {
       setOpen(false);
     }
   };
+
   return (
     <React.Fragment>
       <TableRow
@@ -113,42 +99,43 @@ export const CollapseTable = ({
     setPage(0);
   };
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+  if (rows.length === 0) {
+    return <NoData columns={columns} />;
+  }
   return (
     <Paper>
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <TableContainer>
-          <Table aria-label="collapsible table">
-            <TableHead>
-              <TableRow>
-                {columns?.map((e) => {
-                  return (
-                    <TableCell
-                      width={'3rem'}
-                      align="left"
-                      sx={{
-                        fontWeight: 'bold',
-                        textTransform: 'capitalize',
-                        fontSize: '14px',
-                      }}
-                    >
-                      {e.label}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            </TableHead>
-            <TableBody sx={{ height: '30vh', position: 'relative' }}>
-              {rows.length === 0 ? (
-                <NoData />
-              ) : (
-                rows.map((row) => <Row key={row.name} row={row} />)
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+      <TableContainer>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              {columns?.map((e) => {
+                return (
+                  <TableCell
+                    width={'3rem'}
+                    align="left"
+                    sx={{
+                      fontWeight: 'bold',
+                      textTransform: 'capitalize',
+                      fontSize: '14px',
+                    }}
+                  >
+                    {e.label}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <Row key={row.name} row={row} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       {pagination && (
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
