@@ -1,6 +1,7 @@
 import { Box, Button, TextField } from '@mui/material';
 import {
   accountsValidations,
+  BaseRolesTable,
   CollapseTable,
   DeleteBtn,
   DeleteMsg,
@@ -21,7 +22,7 @@ const COLUMNS = [
   },
   {
     id: 'name',
-    label: 'Name',
+    label: <a href="/teams">Team Name</a>,
   },
   {
     id: 'description',
@@ -164,6 +165,7 @@ const Main = ({
         handleDeleteTeamModal={handleDeleteTeamModal}
         isInstanceOwner={isInstanceOwner}
       />
+      <BaseRolesTable />
     </Box>
   );
 };

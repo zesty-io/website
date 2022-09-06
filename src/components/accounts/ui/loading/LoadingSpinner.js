@@ -12,13 +12,14 @@ export const LoadingSpinner = () => {
         height: '40vh',
         width: '100%',
         flexDirection: 'column',
+        boxShadow: 1,
       }}
     >
       <Box display={'flex'} gap={20} paddingX={6} paddingTop={2}>
-        <Skeleton variant="rectangular" width={200} height={30} />
-        <Skeleton variant="rectangular" width={300} height={30} />
-        <Skeleton variant="rectangular" width={80} height={30} />
-        <Skeleton variant="rectangular" width={100} height={30} />
+        <Skeleton variant="text" width={200} height={30} />
+        <Skeleton variant="text" width={300} height={30} />
+        <Skeleton variant="text" width={80} height={30} />
+        <Skeleton variant="text" width={100} height={30} />
       </Box>
       <Box
         sx={{

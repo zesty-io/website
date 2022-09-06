@@ -2,25 +2,14 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Users } from 'views/accounts';
-import { ErrorMsg, StickyTable, SuccessMsg } from 'components/accounts';
-import { baseroles } from 'components/accounts/users/baseroles';
+import {
+  BaseRolesTable,
+  ErrorMsg,
+  StickyTable,
+  SuccessMsg,
+} from 'components/accounts';
 import { Box, Button, Typography } from '@mui/material';
 import * as helpers from 'utils';
-
-const COLUMNS = [
-  {
-    id: 'name',
-    label: 'Name',
-  },
-  {
-    id: 'desc',
-    label: 'Description',
-  },
-  {
-    id: 'accessLevel',
-    label: 'Access Level',
-  },
-];
 
 const COLUMNS_PENDING = [
   {
@@ -36,16 +25,6 @@ const COLUMNS_PENDING = [
     label: 'Action',
   },
 ];
-const RolesTable = ({ title = 'Base Roles in Zesty.io' }) => {
-  return (
-    <Box>
-      <Box paddingY={2}>
-        <Typography variant="h5">{title}</Typography>
-      </Box>
-      <StickyTable rows={baseroles} columns={COLUMNS} />;
-    </Box>
-  );
-};
 
 const PendingTable = ({
   title = 'Pending Users',
@@ -257,7 +236,7 @@ export default function UsersPage() {
         respondToInvite={respondToInvite}
         data={pendingUsers}
       />
-      <RolesTable />
+      <BaseRolesTable />
     </>
   );
 }
