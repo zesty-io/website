@@ -21,7 +21,7 @@ import { useTheme } from '@mui/material';
 import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
 import DemoCta from 'components/cta/DemoCta';
-import Image from 'next/image';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -112,14 +112,12 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
                   item={item}
                   index={index}
                 >
-                  <Image
-                    objectFit="contain"
-                    blurDataURL
-                    placeholder="blur"
-                    quality={90}
-                    loading="lazy"
+                  <ZestyImage
                     width={715}
                     height={480}
+                    options={{ width: 715, height: 480 }}
+                    loading="lazy"
+                    style={{ width: '100%', maxWidth: 715, height: 'auto' }}
                     src={`${item.benefit_image?.data[0].url}?width=715`}
                     alt={item.header}
                   />

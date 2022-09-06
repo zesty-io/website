@@ -5,7 +5,7 @@
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
-import Image from 'next/image';
+import ZestyImage from 'blocks/Image/ZestyImage';
 /**
  * Static Assets Imports
  */
@@ -130,18 +130,14 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
                           alignItems: 'center',
                         }}
                       >
-                        <Image
-                          blurDataURL
-                          placeholder="blur"
-                          alt={item.product_name}
-                          quality={100}
+                        <ZestyImage
                           width={294}
                           height={179}
+                          options={{ width: 294, height: 179 }}
+                          style={{ width: '100%', maxWidth: 294 }}
+                          alt={item.product_name}
                           loading="lazy"
-                          src={
-                            `${item.graphic?.data[0].url}?width=294` ||
-                            FillerContent.photos[0].url
-                          }
+                          src={item.graphic?.data[0].url}
                         />
                       </Box>
 
