@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Link, Typography } from '@mui/material';
 import {
   accountsValidations,
   DeleteBtn,
@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
 import dayjs from 'dayjs';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 const MySwal = withReactContent(Swal);
 
@@ -90,14 +91,14 @@ const CustomTable = ({
         <Box display={'flex'} gap={4}>
           <Button
             onClick={() => handleUpdateToken(e)}
-            color="primary"
+            color="info"
             variant="contained"
-            fullWidth
             type="button"
           >
+            <AutorenewIcon color="inherit" sx={{ marginRight: 1 }} />
             Renew
           </Button>
-          <DeleteBtn onClick={() => handleDeleteToken(e)}></DeleteBtn>
+          <DeleteBtn onClick={() => handleDeleteToken(e)}> </DeleteBtn>
         </Box>
       ) : (
         '-'
@@ -143,15 +144,31 @@ export const Apis = ({
   };
   return (
     <Grid container>
-      <Grid item xs={10}></Grid>
-      <Grid item xs={2}>
+      <Typography variant="p" fontSize={'medium'}>
+        The{' '}
+        <Link href="https://zesty.org/apis/auth-api#token-based-authentication">
+          {' '}
+          Access token
+        </Link>{' '}
+        feature is beta and is recommended for use with the{' '}
+        <Link href="https://zesty.org/tools/atom-package">
+          Atom IDE plugin
+        </Link>{' '}
+        , experimenting with CI/CD flows, and/or{'  '}
+        <Link href="https://github.com/zesty-io/node-sdk">Node SDK</Link> script
+        usage. This feature will be augmented in the future. After that
+        automated production flows using tokens will be generally available.
+      </Typography>
+      <Grid item xs={11}></Grid>
+      <Grid item xs={1}>
         {isInstanceOwner && (
           <Button
             onClick={handleCreateTokenModal}
-            color="primary"
+            color="secondary"
+            fullWidth
             variant="contained"
             type="button"
-            fullWidth
+            sx={{ whiteSpace: 'nowrap' }}
           >
             Create Token
           </Button>

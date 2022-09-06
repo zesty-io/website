@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import {
   AccountsSelect,
   AccountsTextArea,
@@ -190,7 +190,6 @@ export const Settings = ({ settings = [], singleSettingsUpdate, loading }) => {
 
   return (
     <Box>
-      <Typography variant="h3">Settings</Typography>
       <Box display={'flex'} alignItems="center">
         <TextField
           id="outlined-basic"

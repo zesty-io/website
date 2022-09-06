@@ -1,6 +1,7 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Link, TextField, Typography } from '@mui/material';
 import {
   accountsValidations,
+  BaseRolesTable,
   CollapseTable,
   DeleteBtn,
   DeleteMsg,
@@ -21,7 +22,7 @@ const COLUMNS = [
   },
   {
     id: 'name',
-    label: 'Name',
+    label: 'Team Name',
   },
   {
     id: 'description',
@@ -139,17 +140,23 @@ const Main = ({
 
   return (
     <Box>
+      <Typography variant="p" fontSize={'medium'}>
+        By providing a team access you can allow an external group of users
+        access to manage your instance. For example: this can be used to provide
+        an agency with access to manage your website.{' '}
+        <Link href="/teams">Learn more about teams</Link>
+      </Typography>
       <Box paddingY={2} display={'flex'} justifyContent={'space-between'}>
         <TextField
           id="outlined-basic"
-          label="Search..."
+          label="Search Teams"
           variant="outlined"
           onChange={(e) => setsearch(e.target.value)}
         />
 
         {isInstanceOwner && (
           <Button
-            color="primary"
+            color="secondary"
             variant="contained"
             onClick={handleAddTeamModal}
           >
@@ -157,13 +164,13 @@ const Main = ({
           </Button>
         )}
       </Box>
-
       <CustomTable
         loading={loading}
         data={teams}
         handleDeleteTeamModal={handleDeleteTeamModal}
         isInstanceOwner={isInstanceOwner}
       />
+      <BaseRolesTable />
     </Box>
   );
 };
