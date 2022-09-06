@@ -77,10 +77,13 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
           <Box sx={{ mt: 5 }}>
             <Marquee direction="right" gradient={false} speed={30}>
               {makeRepeated(slideOne[0], 2).map((item, index) => (
-                <Box
+                <img
+                  height={127}
+                  width={'100%'}
                   key={index}
-                  sx={{ height: isMedium ? 70 : 127, width: '100%' }}
                   component={'img'}
+                  style={{ height: isMedium ? 70 : 127, width: '100%' }}
+                  loading="lazy"
                   src={item.logo?.data[0].url || FillerContent.logos[0].url}
                   alt={item.name}
                 />
@@ -92,10 +95,12 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
           <Box sx={{ mt: 5 }}>
             <Marquee gradient={false} direction="left" speed={30}>
               {makeRepeated(slideTwo[0], 2).map((item, index) => (
-                <Box
+                <img
+                  height={127}
+                  width={'100%'}
                   key={index}
-                  sx={{ height: isMedium ? 70 : 127, width: '100%' }}
-                  component={'img'}
+                  style={{ height: isMedium ? 70 : 127, width: '100%' }}
+                  loading="lazy"
                   src={item.logo?.data[0].url || FillerContent.logos[0].url}
                   alt={item.name}
                 />

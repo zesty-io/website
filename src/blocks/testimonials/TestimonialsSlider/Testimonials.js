@@ -137,9 +137,11 @@ const Testimonials = ({ title, data }) => {
                       }}
                     >
                       <Box sx={{ width: 75, height: 71, margin: 'auto' }}>
-                        <Box
-                          sx={{ width: '100%' }}
+                        <img
+                          height={71}
+                          width={75}
                           component="img"
+                          loading="lazy"
                           src={HeartQuote.src}
                           alt="heart quote"
                         />
@@ -176,9 +178,11 @@ const Testimonials = ({ title, data }) => {
                         }}
                       >
                         {[1, 2, 3, 4, 5].map(() => (
-                          <Box
-                            sx={{ px: 0.5 }}
-                            component="img"
+                          <img
+                            height={20}
+                            width={20}
+                            style={{ paddingLeft: 0.5, paddingRight: 0.5 }}
+                            loading="lazy"
                             src={Star.src}
                             alt="star rating"
                           />

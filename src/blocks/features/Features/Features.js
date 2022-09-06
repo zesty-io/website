@@ -16,6 +16,12 @@ import FillerContent from 'components/globals/FillerContent';
 import chevronLeft from '../../../../public/assets/images/chevron-left.svg';
 import zesty from '../../../../public/assets/images/zesty.svg';
 
+/**
+ *
+ * @param {array} data - array items that is needed to loop through cards
+ * @returns
+ */
+
 const Features = ({
   data,
   features_header,
