@@ -11,12 +11,12 @@ export default function TeamsPage() {
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
+  const [loading, setloading] = React.useState(false);
 
   const router = useRouter();
   const { zuid } = router.query;
 
   const handleGetInstanceRolesSuccess = (res) => {
-    console.log(res, 'succ upp');
     const data = res.data.map((e) => {
       return { ...e, value: e.name, label: e.name };
     });
@@ -44,7 +44,7 @@ export default function TeamsPage() {
 
   const handleDeleteTeamToInstanceSuccess = (res) => {
     console.log(res);
-    SuccessMsg({ title: 'Success' });
+    SuccessMsg({ title: 'Team Successfully Deleted' });
   };
   const handleDeleteTeamToInstanceError = (err) => {
     console.log(err);
@@ -83,12 +83,13 @@ export default function TeamsPage() {
     const res = await ZestyAPI.addTeamToInstance(zuid, teamZUID, roleZUID);
     !res.error && handleAddTeamToInstanceSuccess(res);
     res.error && handleAddTeamToInstanceError(res);
+    await getPageData();
   };
   const deleteTeamToInstance = async (teamZUID) => {
     const res = await ZestyAPI.removeTeamFromInstance(zuid, teamZUID);
     !res.error && handleDeleteTeamToInstanceSuccess(res);
     res.error && handleDeleteTeamToInstanceError(res);
-    await getAllInstancesTeams();
+    await getPageData();
   };
 
   const createTeamInvite = async (data) => {
@@ -127,13 +128,19 @@ export default function TeamsPage() {
     isInstanceOwner,
     addTeamToInstance,
     instanceRoles,
+    loading,
   };
 
+  const getPageData = async () => {
+    await setloading(true);
+    await getAllInstancesTeams();
+    await getInstanceUserWithRoles();
+    await getInstanceRoles();
+    await setloading(false);
+  };
   React.useEffect(() => {
     if (router.isReady) {
-      getAllInstancesTeams();
-      getInstanceUserWithRoles();
-      getInstanceRoles();
+      getPageData();
     }
   }, [router.isReady]);
   return (

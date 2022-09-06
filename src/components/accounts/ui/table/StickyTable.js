@@ -8,8 +8,16 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
+import { LoadingSpinner } from '../loading';
+import { NoData } from './NoData';
 
-const Index = ({ rows, columns, pagination = true, perPage = 10 }) => {
+const Index = ({
+  rows,
+  columns,
+  pagination = true,
+  perPage = 10,
+  loading = false,
+}) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(perPage);
 
@@ -26,6 +34,12 @@ const Index = ({ rows, columns, pagination = true, perPage = 10 }) => {
     setPage(0);
   };
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+  if (rows.length === 0) {
+    return <NoData columns={columns} />;
+  }
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden', padding: '1rem 0' }}>
       <TableContainer sx={{ maxHeight: 440 }}>

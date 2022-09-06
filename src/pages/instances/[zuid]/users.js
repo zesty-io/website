@@ -2,25 +2,14 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Users } from 'views/accounts';
-import { ErrorMsg, StickyTable, SuccessMsg } from 'components/accounts';
-import { baseroles } from 'components/accounts/users/baseroles';
+import {
+  BaseRolesTable,
+  ErrorMsg,
+  StickyTable,
+  SuccessMsg,
+} from 'components/accounts';
 import { Box, Button, Typography } from '@mui/material';
 import * as helpers from 'utils';
-
-const COLUMNS = [
-  {
-    id: 'name',
-    label: 'Name',
-  },
-  {
-    id: 'desc',
-    label: 'Description',
-  },
-  {
-    id: 'accessLevel',
-    label: 'Access Level',
-  },
-];
 
 const COLUMNS_PENDING = [
   {
@@ -36,26 +25,18 @@ const COLUMNS_PENDING = [
     label: 'Action',
   },
 ];
-const RolesTable = ({ title = 'Base Roles in Zesty.io' }) => {
-  return (
-    <Box>
-      <Box paddingY={2}>
-        <Typography variant="h5">{title}</Typography>
-      </Box>
-      <StickyTable rows={baseroles} columns={COLUMNS} />;
-    </Box>
-  );
-};
 
 const PendingTable = ({
   title = 'Pending Users',
   data = [],
   respondToInvite,
+  isInstanceOwner,
+  loading,
 }) => {
   const newData = data.map((e) => {
     return {
       ...e,
-      action: (
+      action: isInstanceOwner ? (
         <Button
           variant="contained"
           color="error"
@@ -63,6 +44,8 @@ const PendingTable = ({
         >
           Cancel Invite
         </Button>
+      ) : (
+        '-'
       ),
     };
   });
@@ -71,11 +54,12 @@ const PendingTable = ({
       <Box paddingY={2}>
         <Typography variant="h5">{title}</Typography>
       </Box>
-      <StickyTable rows={newData} columns={COLUMNS_PENDING} />
+      <StickyTable loading={loading} rows={newData} columns={COLUMNS_PENDING} />
     </Box>
   );
 };
 export default function UsersPage() {
+  const [loading, setloading] = React.useState(false);
   const [users, setusers] = React.useState([]);
   const [pendingUsers, setpendingUsers] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
@@ -214,10 +198,12 @@ export default function UsersPage() {
     await getPageData();
   };
   const getPageData = async () => {
+    await setloading(true);
     await getUsers();
     await getInstanceUserRoles();
     await getInstanceRoles();
     await getInstancePendingUsers();
+    await setloading(false);
   };
   React.useEffect(() => {
     if (router.isReady) {
@@ -242,9 +228,15 @@ export default function UsersPage() {
         createInvite={createInvite}
         isOwner={isInstanceOwner}
         instanceZUID={zuid}
+        loading={loading}
       />
-      <PendingTable respondToInvite={respondToInvite} data={pendingUsers} />
-      <RolesTable />
+      <PendingTable
+        loading={loading}
+        isInstanceOwner={isInstanceOwner}
+        respondToInvite={respondToInvite}
+        data={pendingUsers}
+      />
+      <BaseRolesTable />
     </>
   );
 }

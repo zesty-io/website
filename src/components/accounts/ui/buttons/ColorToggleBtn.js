@@ -12,9 +12,15 @@ export const ColorToggleButton = ({ value, options, handleAdd }) => {
 
   const switchVal = (val) => {
     switch (val) {
+      // Checkboxes options =[0,1]
+      // 0=false and 1=true
       case '1':
         return 'Yes';
       case '0':
+        return 'No';
+      // Use Parsley Debugger options
+      // options =[1,2] 1=true and 2=false
+      case '2':
         return 'No';
       default:
         return val;

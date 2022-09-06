@@ -46,12 +46,20 @@ const AppNavigation = ({
         alignItems={'center'}
         justifyContent="flex-start"
       >
-        <Box>
+        <Box display="flex">
           <Box marginLeft={4}>
             <SingleNavItem
-              title="instances"
-              id="sdsadf"
+              title="Instances"
+              id="instances"
               url="/instances"
+              colorInvert={colorInvert}
+            />
+          </Box>
+          <Box marginLeft={4}>
+            <SingleNavItem
+              title="Teams"
+              id="teams"
+              url="/teams"
               colorInvert={colorInvert}
             />
           </Box>

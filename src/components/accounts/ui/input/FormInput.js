@@ -16,6 +16,10 @@ const Index = ({
   customLabel,
   type = 'text',
   multiline = false,
+  boxGutterBottom = true,
+  hasNoLabel = false,
+  hasHelperText = true,
+  hasError = true,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +30,7 @@ const Index = ({
   const newLabel =
     label || (name && name[0].toUpperCase() + name.slice(1)) || '';
   const defaultProps = {
-    label: customLabel ? '' : newLabel,
+    label: customLabel || hasNoLabel ? '' : newLabel,
     variant: 'outlined',
     color: 'primary',
     size: 'medium',
@@ -34,19 +38,36 @@ const Index = ({
     fullWidth: true,
     value: formik.values[name],
     onChange: formik.handleChange,
-    error: formik.touched[name] && Boolean(formik.errors[name]),
-    helperText: formik.touched[name] && formik.errors[name],
+    error: hasError && formik.touched[name] && Boolean(formik.errors[name]),
+    helperText: hasHelperText && formik.touched[name] && formik.errors[name],
     type,
     multiline,
     rows: 4,
   };
   return (
-    <Box mb={3}>
+    <Box width={props.fullWidth ? '100%' : 'auto'} mb={boxGutterBottom ? 1 : 0}>
       {customLabel && <Typography variant="h6">{customLabel}</Typography>}
       {type !== 'password' ? (
-        <TextField {...defaultProps} {...props} />
+        <TextField
+          {...defaultProps}
+          {...props}
+          sx={{
+            '& .MuiOutlinedInput-root:hover': {
+              '& > fieldset': {
+                border: '1px solid #c4c4c4',
+              },
+            },
+          }}
+        />
       ) : (
         <TextField
+          sx={{
+            '& .MuiOutlinedInput-root:hover': {
+              '& > fieldset': {
+                border: '1px solid #c4c4c4',
+              },
+            },
+          }}
           {...defaultProps}
           type={showPassword ? 'text' : 'password'}
           InputProps={{

@@ -185,7 +185,7 @@ export const generateUniqDropdown = ({ data, property = 'category' }) => {
           (t) => t.value === value.value && t.label === value.label,
         ),
     );
-  const res = [{ value: '', label: '' }, ...dropdownList];
+  const res = [{ value: '', label: 'All Categories' }, ...dropdownList];
   return res;
 };
 
@@ -224,4 +224,22 @@ export const validateEmail = (email) => {
     .match(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     );
+};
+
+export const notistackMessage = async (
+  enqueueSnackbar,
+  successProps,
+  response,
+) => {
+  if (response?.status >= 200 && response?.status <= 299) {
+    if (successProps.callback !== undefined) await successProps?.callback();
+
+    enqueueSnackbar(successProps?.message, {
+      variant: 'success',
+    });
+  } else {
+    enqueueSnackbar(response?.message || response?.error, {
+      variant: 'error',
+    });
+  }
 };

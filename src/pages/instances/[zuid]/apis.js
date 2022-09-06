@@ -10,6 +10,7 @@ import * as helpers from 'utils';
 const MySwal = withReactContent(Swal);
 
 export default function ApisPage() {
+  const [loading, setloading] = React.useState(false);
   const [tokens, settokens] = React.useState([]);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
@@ -94,7 +95,7 @@ export default function ApisPage() {
     const res = await ZestyAPI.createToken(roleZUID, name);
     !res.error && handleCreateTokenSucc(res);
     res.error && handleCreateTokenErr(res);
-    await getInstanceTokens();
+    await getPageData();
   };
 
   const deleteToken = async (data) => {
@@ -102,7 +103,7 @@ export default function ApisPage() {
     const res = await ZestyAPI.deleteToken(tokenZUID);
     !res.error && handleDeleteTokenSucc(res);
     res.error && handleDeleteTokenErr(res);
-    await getInstanceTokens();
+    await getPageData();
   };
 
   const updateToken = async (data) => {
@@ -111,28 +112,38 @@ export default function ApisPage() {
     const res = await ZestyAPI.updateToken(tokenZUID, action);
     !res.error && handleUpdateTokenSucc(res);
     res.error && handleUpdateTokenErr(res);
-    await getInstanceTokens();
+    await getPageData();
   };
   const isInstanceOwner = helpers.isInstanceOwner(
     instanceUserWithRoles,
     userInfo,
   );
+  const getPageData = async () => {
+    await setloading(true);
+    await getInstanceTokens();
+    await getInstanceRoles();
+    await getInstanceUserWithRoles();
+    await setloading(false);
+  };
   React.useEffect(() => {
     if (router.isReady) {
-      getInstanceTokens();
-      getInstanceRoles();
-      getInstanceUserWithRoles();
+      getPageData();
     }
   }, [router.isReady]);
 
+  const data = tokens.sort(function (a, b) {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+
   return (
     <Apis
-      tokens={tokens}
+      tokens={data}
       instanceRoles={instanceRoles}
       isInstanceOwner={isInstanceOwner}
       createToken={createToken}
       deleteToken={deleteToken}
       updateToken={updateToken}
+      loading={loading}
     />
   );
 }
