@@ -9,6 +9,7 @@ import MuiMarkdown from 'mui-markdown';
  * Components Imports
  */
 import Marquee from 'react-fast-marquee';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -77,11 +78,11 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
           <Box sx={{ mt: 5 }}>
             <Marquee direction="right" gradient={false} speed={30}>
               {makeRepeated(slideOne[0], 2).map((item, index) => (
-                <img
+                <ZestyImage
+                  width={200}
                   height={127}
-                  width={'100%'}
+                  options={{ width: 200, height: 127 }}
                   key={index}
-                  component={'img'}
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}
                   loading="lazy"
                   src={item.logo?.data[0].url || FillerContent.logos[0].url}
@@ -95,9 +96,10 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
           <Box sx={{ mt: 5 }}>
             <Marquee gradient={false} direction="left" speed={30}>
               {makeRepeated(slideTwo[0], 2).map((item, index) => (
-                <img
+                <ZestyImage
+                  width={200}
                   height={127}
-                  width={'100%'}
+                  options={{ width: 200, height: 127 }}
                   key={index}
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}
                   loading="lazy"

@@ -1,5 +1,6 @@
 import { Box, Card, CardContent } from '@mui/material';
 import Container from 'blocks/container/Container';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
   const sunsDarkLogoUrl =
@@ -16,14 +17,15 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
                 alignItems: 'center',
                 justifyContent: 'space-around',
                 flexWrap: 'wrap',
-                gap: 4,
+                gap: 3,
               }}
             >
               {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
-                  <img
+                  <ZestyImage
                     width={150}
                     height={50}
+                    options={{ width: 150, height: 50 }}
                     loading="lazy"
                     style={{
                       filter: isDarkMode
@@ -38,8 +40,7 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
                     src={
                       item.customer_name === 'Phoenix Suns' && isDarkMode
                         ? sunsDarkLogoUrl
-                        : `${item.customer_logo.data[0].url}?width=241` ||
-                          FillerContent.logos[0].url
+                        : `${item.customer_logo.data[0].url}`
                     }
                   />
                 </Box>
