@@ -1,4 +1,5 @@
 import FillerContent from 'components/globals/FillerContent';
+import { useMemo, useState } from 'react';
 
 /**
  *
@@ -14,20 +15,30 @@ import FillerContent from 'components/globals/FillerContent';
 
 const ZestyImage = ({ options, src, alt, loading, style, attributes }) => {
   /* Taking the options object and converting it into a query string. */
-  const imageUrl = Object.entries(options).reduce(
-    (acc, item, idx) => {
-      const newUrl = `${acc}${idx === 0 ? '?' : '&'}${item[0]}=${item[1]}`;
-      return newUrl;
-    },
-    src ? src : FillerContent.photos[0].src,
-  );
+  const { width, height } = { ...options };
+  const [url, setUrl] = useState('');
+
+  // ignore if options params is empty or not defined
+  if (options) {
+    useMemo(() => {
+      const imageUrl = Object.entries(options).reduce(
+        (acc, item, idx) => {
+          const newUrl = `${acc}${idx === 0 ? '?' : '&'}${item[0]}=${item[1]}`;
+          return newUrl;
+        },
+        src ? src : FillerContent.photos[0].src,
+      );
+
+      setUrl(imageUrl);
+    }, [options]);
+  }
 
   return (
     <img
-      width={options.width}
-      height={options.height}
+      width={width}
+      height={height}
       {...attributes}
-      src={imageUrl}
+      src={url ? url : src}
       alt={alt}
       loading={loading}
       style={style}
