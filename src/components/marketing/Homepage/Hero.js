@@ -126,6 +126,8 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                     width: 846,
                     height: 576,
                   }}
+                  width={846}
+                  height={576}
                   attributes={{ 'data-aos': 'fade-up' }}
                   src={content.header_graphic?.data[0].url}
                 />

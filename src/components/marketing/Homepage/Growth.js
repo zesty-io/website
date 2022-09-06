@@ -110,6 +110,8 @@ const Growth = ({
               >
                 <Box sx={{ width: '100%', maxWidth: 153 }}>
                   <ZestyImage
+                    width={157}
+                    height={147}
                     options={{ width: 157, height: 147 }}
                     style={{ width: '100%', height: 'auto' }}
                     loading="lazy"

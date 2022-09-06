@@ -113,6 +113,8 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
                   index={index}
                 >
                   <ZestyImage
+                    width={715}
+                    height={480}
                     options={{ width: 715, height: 480 }}
                     loading="lazy"
                     style={{ width: '100%', maxWidth: 715, height: 'auto' }}

@@ -79,6 +79,8 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
             <Marquee direction="right" gradient={false} speed={30}>
               {makeRepeated(slideOne[0], 2).map((item, index) => (
                 <ZestyImage
+                  width={200}
+                  height={127}
                   options={{ width: 200, height: 127 }}
                   key={index}
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}
@@ -95,6 +97,8 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
             <Marquee gradient={false} direction="left" speed={30}>
               {makeRepeated(slideTwo[0], 2).map((item, index) => (
                 <ZestyImage
+                  width={200}
+                  height={127}
                   options={{ width: 200, height: 127 }}
                   key={index}
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}

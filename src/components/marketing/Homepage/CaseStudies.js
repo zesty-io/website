@@ -63,6 +63,8 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
               sx={{ width: '100%', maxWidth: 171 }}
             >
               <ZestyImage
+                width={171}
+                height={192}
                 options={{ width: 171, height: 192 }}
                 loading="lazy"
                 src={item.url}
@@ -94,6 +96,8 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 }}
               >
                 <ZestyImage
+                  width={482}
+                  height={233}
                   options={{ width: 482, height: 233 }}
                   style={{ width: '100%', maxWidth: 482, height: 'auto' }}
                   loading="lazy"
@@ -110,6 +114,8 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   <Box>
                     <Box sx={{ width: '100%', maxWidth: 150 }}>
                       <ZestyImage
+                        width={194}
+                        height={60}
                         options={{ width: 194, height: 60 }}
                         style={{ width: '100%', maxWidth: 194, height: 'auto' }}
                         component="img"

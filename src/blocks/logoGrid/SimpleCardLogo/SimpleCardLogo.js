@@ -23,6 +23,8 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
               {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
                   <ZestyImage
+                    width={150}
+                    height={50}
                     options={{ width: 150, height: 50 }}
                     loading="lazy"
                     style={{

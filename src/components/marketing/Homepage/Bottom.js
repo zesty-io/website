@@ -48,6 +48,8 @@ const Bottom = ({
               }}
             >
               <ZestyImage
+                width={951}
+                height={519}
                 options={{ width: 951, height: 519 }}
                 style={{ width: '100%', maxWidth: 951, height: 'auto' }}
                 loading="lazy"

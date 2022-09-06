@@ -139,6 +139,8 @@ const Testimonials = ({ title, data }) => {
                     >
                       <Box sx={{ width: 75, height: 71, margin: 'auto' }}>
                         <ZestyImage
+                          width={75}
+                          height={71}
                           options={{ width: 75, height: 71 }}
                           loading="lazy"
                           src={HeartQuote.src}
@@ -178,6 +180,8 @@ const Testimonials = ({ title, data }) => {
                       >
                         {[1, 2, 3, 4, 5].map(() => (
                           <ZestyImage
+                            width={20}
+                            height={20}
                             options={{ width: 20, height: 20 }}
                             style={{ paddingLeft: 0.5, paddingRight: 0.5 }}
                             loading="lazy"
