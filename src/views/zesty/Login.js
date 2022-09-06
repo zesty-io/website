@@ -28,11 +28,9 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import React, { useEffect } from 'react';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import CustomLogin from 'components/console/Login';
 import { useRouter } from 'next/router';
 function Login({ content }) {
-  const isLoggedIn = useIsLoggedIn();
   const router = useRouter();
   const header = document.querySelector('header'),
     topNavBox = document.querySelector('#topNavBox'),
@@ -40,17 +38,11 @@ function Login({ content }) {
     divider = document.querySelector('hr');
 
   useEffect(() => {
-    if (router.isReady) {
-      if (header) header.style.display = 'none';
-      if (topNavBox) topNavBox.style.display = 'none';
-      if (footer) footer.style.display = 'none';
-      if (divider) divider.style.display = 'none';
-    }
+    if (header) header.style.display = 'none';
+    if (topNavBox) topNavBox.style.display = 'none';
+    if (footer) footer.style.display = 'none';
+    if (divider) divider.style.display = 'none';
   }, [header, footer, topNavBox, router.isReady]);
-
-  if (isLoggedIn) {
-    window.location.replace('/instances');
-  }
 
   return <CustomLogin />;
 }

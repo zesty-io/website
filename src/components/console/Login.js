@@ -62,6 +62,7 @@ const Login = () => {
     setCookie('isAuthenticated', true);
     setCookie('isUser', true);
     window.location.replace('/instances');
+    // window.history.back();
   };
 
   const handleLoginSuccess = (res) => {
