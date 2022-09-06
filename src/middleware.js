@@ -8,10 +8,10 @@ export function middleware(request) {
   //   console.log(response.cookies, appSid, isAuthenticated, isUser, 222);
 
   if (!isAuthenticated) {
-    return NextResponse.rewrite(new URL('/instances/', request.url));
+    return NextResponse.redirect(new URL('/login/', request.url));
   }
 }
 
 export const config = {
-  matcher: ['/instances/:path*', '/profile/:path*'],
+  matcher: ['/instances/:path*', '/profile/:path*', '/teams/:path*'],
 };
