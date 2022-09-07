@@ -211,7 +211,13 @@ export const InstancesDashboard = () => {
 
   return (
     <Container maxWidth={false} sx={{ my: 2 }}>
-      <Stack alignItems={'center'} direction="row" spacing={2}>
+      <Stack
+        alignItems={'center'}
+        display={'flex'}
+        direction="row"
+        spacing={2}
+        sx={{ height: '3.5rem' }}
+      >
         <TextField
           label="Search by instance name"
           InputProps={{
@@ -221,6 +227,7 @@ export const InstancesDashboard = () => {
               </InputAdornment>
             ),
           }}
+          size="medium"
           variant="outlined"
           fullWidth
           color="secondary"
@@ -236,7 +243,7 @@ export const InstancesDashboard = () => {
           exclusive
           color="secondary"
           onChange={handleChangeView}
-          sx={{ ml: 'auto' }}
+          sx={{ ml: 'auto', height: '100%' }}
         >
           <ToggleButton value="grid">
             <GridViewOutlinedIcon />
