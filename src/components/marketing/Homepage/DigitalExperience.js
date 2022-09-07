@@ -133,7 +133,6 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
                         <ZestyImage
                           width={294}
                           height={179}
-                          options={{ width: 294, height: 179 }}
                           style={{ width: '100%', maxWidth: 294 }}
                           alt={item.product_name}
                           loading="lazy"

@@ -141,7 +141,6 @@ const Testimonials = ({ title, data }) => {
                         <ZestyImage
                           width={75}
                           height={71}
-                          options={{ width: 75, height: 71 }}
                           loading="lazy"
                           src={HeartQuote.src}
                           alt="heart quote"
@@ -182,7 +181,6 @@ const Testimonials = ({ title, data }) => {
                           <ZestyImage
                             width={20}
                             height={20}
-                            options={{ width: 20, height: 20 }}
                             style={{ paddingLeft: 0.5, paddingRight: 0.5 }}
                             loading="lazy"
                             src={Star.src}

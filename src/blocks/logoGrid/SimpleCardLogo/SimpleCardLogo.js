@@ -25,7 +25,6 @@ const SimpleCardLogo = ({ FillerContent, isDarkMode, logoItems }) => {
                   <ZestyImage
                     width={150}
                     height={50}
-                    options={{ width: 150, height: 50 }}
                     loading="lazy"
                     style={{
                       filter: isDarkMode
