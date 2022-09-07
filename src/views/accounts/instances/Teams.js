@@ -1,4 +1,4 @@
-import { Box, Button, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import {
   accountsValidations,
   BaseRolesTable,
@@ -103,7 +103,6 @@ const CustomForm = ({ onSubmit, options = [] }) => {
 };
 
 const Main = ({
-  setsearch,
   teams,
   getAllInstancesTeams,
   deleteTeamToInstance,
@@ -147,13 +146,6 @@ const Main = ({
         <Link href="/teams">Learn more about teams</Link>
       </Typography>
       <Box paddingY={2} display={'flex'} justifyContent={'space-between'}>
-        <TextField
-          id="outlined-basic"
-          label="Search Teams"
-          variant="outlined"
-          onChange={(e) => setsearch(e.target.value)}
-        />
-
         {isInstanceOwner && (
           <Button
             color="secondary"

@@ -39,7 +39,7 @@ const Index = ({
     return <LoadingSpinner />;
   }
 
-  if (rows.length < 6) {
+  if (rows.length < 10) {
     pagination = false;
   }
 
