@@ -47,6 +47,7 @@ const gridLoading = [
   <CardLoadingGrid />,
   <CardLoadingGrid />,
   <CardLoadingGrid />,
+  <CardLoadingGrid />,
 ];
 const listLoading = [
   <CardLoadingList />,
@@ -70,7 +71,7 @@ export const InstanceLoading = ({ view }) => {
       <Skeleton variant="text" width={250} height={40} />
       <Grid container direction="row" my={2} spacing={4}>
         {gridLoading.map((e, index) => (
-          <Grid item xs={12} sm={6} md={6} lg={4} xl={2.4} key={index}>
+          <Grid item xs={12} sm={6} md={4} lg={2.4} xl={2} key={index}>
             {e}
           </Grid>
         ))}
