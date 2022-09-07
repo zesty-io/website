@@ -96,7 +96,7 @@ export default function HttpSettings({ settings, updateSetting }) {
           .find((x) => x.ZUID === setting.ZUID);
         return (
           <Grid container key={setting.key} mb={2} spacing={1}>
-            <Grid item xs={8} alignContent={'center'} alignSelf={'center'}>
+            <Grid item xs={6} alignContent={'center'} alignSelf={'center'}>
               <Typography variant="subtitle1">{setting.keyFriendly}</Typography>
             </Grid>
             <Grid item xs={3}>
@@ -107,7 +107,7 @@ export default function HttpSettings({ settings, updateSetting }) {
                 updateSetting={updateSetting}
               />
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={3}>
               {isDataChange && (
                 <Button
                   size="small"
