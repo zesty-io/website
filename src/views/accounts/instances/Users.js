@@ -108,7 +108,7 @@ const CustomTable = ({
 
   return (
     <StickyTable
-      title={'Users'}
+      title={'Active Users'}
       loading={loading}
       rows={ROWS}
       columns={COLUMNS}
