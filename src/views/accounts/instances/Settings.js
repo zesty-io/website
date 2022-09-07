@@ -151,7 +151,12 @@ const CustomTable = ({
 
   return (
     <Box>
-      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
+      <StickyTable
+        pagination={false}
+        loading={loading}
+        rows={ROWS}
+        columns={COLUMNS}
+      />
     </Box>
   );
 };
