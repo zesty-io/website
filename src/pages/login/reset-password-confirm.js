@@ -150,8 +150,8 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      address,
-      token,
+      address: address || '',
+      token: token || '',
     },
   };
 }

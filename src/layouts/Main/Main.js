@@ -115,7 +115,7 @@ const Main = ({
           bgcolor={bgcolor}
           position={'relative'}
           zIndex={theme.zIndex.appBar}
-          display={router.asPath === '/login/' && 'none'}
+          display={router?.query?.slug?.[0] === 'login' && 'none'}
         >
           <Container
             maxWidth={isLoggedIn ? false : true}
@@ -142,7 +142,7 @@ const Main = ({
           top: 0,
           backgroundColor: bgColorSwitch(),
           py: 1,
-          display: router.asPath === '/login/' && 'none',
+          display: router?.query?.slug?.[0] === 'login' && 'none',
         }}
         elevation={trigger ? 1 : 0}
       >
@@ -187,7 +187,7 @@ const Main = ({
         {children}
         <Divider
           sx={{
-            display: router.asPath === '/login/' && 'none',
+            display: router?.query?.slug?.[0] === 'login' && 'none',
           }}
         />
       </main>

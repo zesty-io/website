@@ -39,7 +39,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
       display={hideNav ? 'none' : 'flex'}
       sx={{
         background: backgroundColor,
-        display: router.asPath === '/login/' && 'none',
+        display: router?.query?.slug?.[0] === 'login' && 'none',
       }}
     >
       <Container paddingY={2}>
