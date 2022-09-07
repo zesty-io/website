@@ -12,6 +12,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import Skeleton from '@mui/material/Skeleton';
 import { useZestyStore } from 'store';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { ProfileMenu } from 'components/accounts';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export default function AppBar({ url = window.location.pathname }) {
   const { verifySuccess, instances, userInfo, loading, setworkingInstance } =
@@ -152,17 +154,21 @@ export default function AppBar({ url = window.location.pathname }) {
                     size="small"
                   />
 
-                  <Link
-                    boxShadow={2}
-                    sx={{
-                      backgroundColor: theme.palette.common.white,
-                      display: 'flex',
-                      justifyContent: 'center',
-                    }}
-                    href="/profile"
-                  >
-                    <img src={profileUrl} alt="" height={40} width={40} />
-                  </Link>
+                  <ProfileMenu
+                    userInfo={userInfo}
+                    profilePic={
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <img
+                          src={profileUrl}
+                          alt="User"
+                          height={50}
+                          width={50}
+                          style={{ borderRadius: '50%' }}
+                        />
+                        <ArrowDropDownIcon fontSize="medium" />
+                      </Box>
+                    }
+                  />
                 </Box>
               )}
             </Box>
