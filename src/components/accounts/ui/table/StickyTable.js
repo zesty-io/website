@@ -9,8 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../loading';
-import { NoData } from './NoData';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const Index = ({
   rows,
@@ -18,6 +17,7 @@ const Index = ({
   pagination = true,
   perPage = 10,
   loading = false,
+  title,
 }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(perPage);
@@ -38,16 +38,18 @@ const Index = ({
   if (loading) {
     return <LoadingSpinner />;
   }
-  if (rows.length === 0) {
-    return <NoData columns={columns} />;
-  }
 
   if (rows.length < 6) {
     pagination = false;
   }
 
+  const showTable = rows.length === 0 ? false : true;
+
   return (
-    <Box>
+    <Box paddingY={2} display={showTable ? 'block' : 'none'}>
+      <Box paddingY={0}>
+        <Typography variant="h5">{title}</Typography>
+      </Box>
       <Paper sx={{ width: '100%', overflow: 'hidden', padding: '1rem 0' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
