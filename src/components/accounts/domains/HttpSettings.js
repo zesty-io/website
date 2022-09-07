@@ -2,7 +2,8 @@ import React from 'react';
 // import InputLabel from '@mui/material/InputLabel';
 // import FormHelperText from '@mui/material/FormHelperText';
 // import FormControl from '@mui/material/FormControl';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import * as helper from 'utils';
 
 import { ColorToggleButton } from '../ui';
 
@@ -44,12 +45,18 @@ const OPTIONS = (options, separator) => {
 };
 
 // domain setting toggle
-const SettingsToggle = ({ data, updateSetting }) => {
+const SettingsToggle = ({
+  data,
+  updateSetting,
+  arrToSubmit,
+  setarrToSubmit,
+}) => {
   const { options, value } = data;
 
   const handleAdd = async (value) => {
     data['value'] = value;
-    await updateSetting(data);
+    setarrToSubmit([...arrToSubmit, data]);
+    // await updateSetting(data);
   };
 
   return (
@@ -62,6 +69,11 @@ const SettingsToggle = ({ data, updateSetting }) => {
 };
 
 export default function HttpSettings({ settings, updateSetting }) {
+  const [arrToSubmit, setarrToSubmit] = React.useState([]);
+  const handleUpdateSetting = async (data) => {
+    updateSetting(data);
+    setarrToSubmit(arrToSubmit.filter((e) => e.ZUID !== data.ZUID));
+  };
   // const [formattedSettings, setformattedSettings] = useState([]);
 
   // useEffect(() => {
@@ -78,16 +90,38 @@ export default function HttpSettings({ settings, updateSetting }) {
 
   return (
     <Box mt={2}>
-      {settings?.map((setting) => (
-        <Grid container key={setting.key} mb={2}>
-          <Grid item xs={9} alignContent={'center'} alignSelf={'center'}>
-            <Typography variant="subtitle1">{setting.keyFriendly}</Typography>
+      {settings?.map((setting) => {
+        const isDataChange = helper
+          .removeDupsInArrObj(arrToSubmit, 'keyFriendly')
+          .find((x) => x.ZUID === setting.ZUID);
+        return (
+          <Grid container key={setting.key} mb={2} spacing={1}>
+            <Grid item xs={8} alignContent={'center'} alignSelf={'center'}>
+              <Typography variant="subtitle1">{setting.keyFriendly}</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <SettingsToggle
+                arrToSubmit={arrToSubmit}
+                setarrToSubmit={setarrToSubmit}
+                data={setting}
+                updateSetting={updateSetting}
+              />
+            </Grid>
+            <Grid item xs={1}>
+              {isDataChange && (
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleUpdateSetting(setting)}
+                >
+                  Save
+                </Button>
+              )}
+            </Grid>
           </Grid>
-          <Grid item xs={3}>
-            <SettingsToggle data={setting} updateSetting={updateSetting} />
-          </Grid>
-        </Grid>
-      ))}
+        );
+      })}
     </Box>
   );
 }
