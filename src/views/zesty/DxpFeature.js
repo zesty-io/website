@@ -45,6 +45,7 @@
  */
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Features from 'blocks/features/Features/Features';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -72,9 +73,28 @@ function DxpFeature({ content }) {
   };
 
   console.log(content);
+
+  const feature_data =
+    content.section_1_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const feature_header = content.section_1;
   return (
     <>
       <Hero {...pageData} />
+      <Features
+        header_size={32}
+        textHighlight={'Workflow management'}
+        data={feature_data}
+        features_header={content.section_1}
+      />
     </>
   );
 }

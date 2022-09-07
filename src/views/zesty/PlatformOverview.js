@@ -108,6 +108,7 @@ function PlatformOverview({ content }) {
         data={feature_data_2}
         content={content}
         header_size={28}
+        textHighlight={'Power more'}
       />
       <CaseStudies {...pageData} />
       <Bottom {...pageData} />

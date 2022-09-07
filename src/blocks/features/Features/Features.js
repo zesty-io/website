@@ -3,7 +3,7 @@
  */
 import { Box, Card, Container, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import Image from 'next/image';
+import MuiMarkdown from 'mui-markdown';
 /**
  * Helpers Imports
  */
@@ -17,9 +17,18 @@ import chevronLeft from '../../../../public/assets/images/chevron-left.svg';
 import zesty from '../../../../public/assets/images/zesty.svg';
 
 /**
+ * Components Import
+ */
+import ZestyImage from 'blocks/Image/ZestyImage';
+
+/**
  *
  * @param {array} data - array items that is needed to loop through cards
- * @returns
+ * @param {string} features_header - string header text
+ * @param {number} header_size - header size
+ * @param {string} feature_description - feature description
+ * @param {string} textHighlight - text you want to highlight on header
+ * @param {string} background - background options can be one of the two "zesty" || "chevron" default is none
  */
 
 const Features = ({
@@ -28,7 +37,7 @@ const Features = ({
   header_size = 48,
   feature_description,
   textHighlight = 'Zesty',
-  background = '',
+  background = '', // options "zesty" || "chevron"
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -36,6 +45,14 @@ const Features = ({
 
   const bracketImg = chevronLeft.src || FillerContent.dashboard_image;
   const zestyImg = zesty.src || FillerContent.dashboard_image;
+
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(features_header);
+
+  if (!isRichText) {
+    features_header = `<h2>${features_header}</h2>`;
+  }
   return (
     <Box
       component="section"
@@ -82,7 +99,7 @@ const Features = ({
       </Box>
       <Container>
         <Box sx={{ py: 10 }}>
-          <Typography
+          {/* <Typography
             component={'h2'}
             variant={'p'}
             sx={{
@@ -100,7 +117,51 @@ const Features = ({
                 theme.palette.zesty.zestyOrange,
               ),
             }}
-          />
+          /> */}
+          <MuiMarkdown
+            overrides={{
+              h2: {
+                component: Typography,
+                props: {
+                  variant: 'p',
+                  component: 'h2',
+                  sx: {
+                    fontSize: isMobile ? 24 : header_size,
+                    textAlign: 'center',
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h6',
+                  component: 'p',
+                  sx: {
+                    textAlign: 'center',
+                    color: isDarkMode
+                      ? theme.palette.zesty.zestyDarkBlue
+                      : theme.palette.zesty.zestyZambezi,
+                  },
+                },
+              },
+              span: {
+                component: Typography,
+                props: {
+                  variant: 'p',
+                  component: 'span',
+                  sx: {
+                    fontSize: 'inherit',
+                    color: theme.palette.zesty.zestyOrange,
+                  },
+                },
+              },
+            }}
+          >
+            {features_header.replace(
+              textHighlight,
+              `<span>${textHighlight}</span>`,
+            )}
+          </MuiMarkdown>
           <Typography
             variant="h6"
             component="h2"
@@ -142,7 +203,13 @@ const Features = ({
                   }}
                 >
                   <Box sx={{ minHeight: 200, height: '100%' }}>
-                    <img src={e?.icon_image} alt="" />
+                    <ZestyImage
+                      loading="lazy"
+                      width={67}
+                      height={60}
+                      src={e?.icon_image}
+                      alt={e.feature_name}
+                    />
                     <Typography
                       component={'p'}
                       variant={'p'}

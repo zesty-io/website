@@ -83,6 +83,7 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
             </Grid>
             <Grid item sm={12} md={6}>
               <ZestyImage
+                alt="dxp features"
                 width={794}
                 height={508}
                 style={{ width: '100%', height: 'auto' }}
