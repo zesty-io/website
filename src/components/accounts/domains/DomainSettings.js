@@ -4,6 +4,7 @@ import { Container } from '@mui/system';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import HttpSettings from 'components/accounts/domains/HttpSettings';
+import { ErrorMsg, SuccessMsg } from '../ui';
 
 export default function DomainSettings() {
   const [settings, setsettings] = useState([]);
@@ -32,16 +33,29 @@ export default function DomainSettings() {
     }
   };
 
-  const updateSetting = async (settingZUID) => {
+  const updateSettingSucc = (res) => {
+    console.log(res);
+    SuccessMsg({ title: 'Settings Updated' });
+  };
+  const updateSettingErr = (err) => {
+    console.log(err);
+    ErrorMsg({ title: err.error });
+  };
+
+  const updateSetting = async (data) => {
     try {
       // get settings body object, destructure object and update value key with new value
-      //   const res = await ZestyAPI.updateSetting(settingZUID, body);
-      const res = await ZestyAPI.updateSetting(settingZUID);
+      const res = await ZestyAPI.updateSetting(data.ZUID, data);
+      !res.error && updateSettingSucc(res);
+      res.error && updateSettingErr(res);
+      // const res = await ZestyAPI.updateSetting(settingZUID);
+      await getSettings();
       console.log(
         '🚀 ~ file: DomainListings.js ~ line 79 ~ updateSetting ~ res',
         res,
       );
     } catch (error) {
+      updateSettingErr(error);
       console.log(
         '🚀 ~ file: DomainListings.js ~ line 81 ~ updateSetting ~ error',
         error,
@@ -60,7 +74,7 @@ export default function DomainSettings() {
         <Grid container mb={2}>
           <Grid item xs={12} sm={6} p={2}>
             <Typography variant="h5">Domain Settings</Typography>
-            <HttpSettings settings={settings} />
+            <HttpSettings settings={settings} updateSetting={updateSetting} />
           </Grid>
           <Grid item xs={12} sm={6} p={2}>
             <Typography variant="h5" pb={2}>

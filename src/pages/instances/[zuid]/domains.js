@@ -93,6 +93,7 @@ export default function Domains() {
     try {
       // get settings body object, destructure object and update value key with new value
       const res = await ZestyAPI.updateSetting(settingZUID, body);
+
       console.log('🚀 ~ file: domains.js ~ line 82 ~ updateSetting ~ res', res);
     } catch (error) {
       console.log(
