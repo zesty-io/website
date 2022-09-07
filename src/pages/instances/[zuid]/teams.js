@@ -83,12 +83,13 @@ export default function TeamsPage() {
     const res = await ZestyAPI.addTeamToInstance(zuid, teamZUID, roleZUID);
     !res.error && handleAddTeamToInstanceSuccess(res);
     res.error && handleAddTeamToInstanceError(res);
+    await getPageData();
   };
   const deleteTeamToInstance = async (teamZUID) => {
     const res = await ZestyAPI.removeTeamFromInstance(zuid, teamZUID);
     !res.error && handleDeleteTeamToInstanceSuccess(res);
     res.error && handleDeleteTeamToInstanceError(res);
-    await getAllInstancesTeams();
+    await getPageData();
   };
 
   const createTeamInvite = async (data) => {
