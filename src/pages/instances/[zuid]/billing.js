@@ -1,7 +1,7 @@
 import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
-import BasicTable from 'components/accounts/users/BasicTable';
+import { Box, Typography } from '@mui/material';
 
 export default function Billing() {
   const [users, setusers] = React.useState([]);
@@ -31,9 +31,9 @@ export default function Billing() {
   }, [router.isReady]);
 
   return (
-    <>
-      Manager users on instance <BasicTable users={users} roles={roles} />
-    </>
+    <Box>
+      <Typography variant="h3">Coming Soon</Typography>
+    </Box>
   );
 }
 
