@@ -62,6 +62,7 @@ export default function CustomMenu({
         startIcon={startIcon}
         endIcon={<KeyboardArrowDownIcon />}
         color="secondary"
+        fullWidth
         sx={{ whiteSpace: 'nowrap', height: '100%' }}
         {...props}
       >

@@ -9,6 +9,7 @@ import {
   Stack,
   Container,
   Typography,
+  Box,
 } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -20,6 +21,7 @@ import { InstancesList } from './InstancesList';
 import StarIcon from '@mui/icons-material/Star';
 import EmailIcon from '@mui/icons-material/Email';
 import WidgetsIcon from '@mui/icons-material/Widgets';
+import { LaunchInstance } from './LaunchInstance';
 
 const orderByItems = [
   {
@@ -214,9 +216,10 @@ export const InstancesDashboard = () => {
       <Stack
         alignItems={'center'}
         display={'flex'}
-        direction="row"
+        direction={{ xs: 'column', sm: 'row' }}
         spacing={2}
         sx={{ height: '3.5rem' }}
+        paddingBottom={{ xs: 15, sm: 0 }}
       >
         <TextField
           label="Search by instance name"
@@ -233,25 +236,32 @@ export const InstancesDashboard = () => {
           color="secondary"
           onChange={(e) => handleSearch(e.target.value)}
         />
-        <CustomMenu
-          menuName="Order by"
-          menuItems={orderByItems}
-          handleClick={setOrderByValue}
-        />
-        <ToggleButtonGroup
-          value={view}
-          exclusive
-          color="secondary"
-          onChange={handleChangeView}
-          sx={{ ml: 'auto', height: '100%' }}
-        >
-          <ToggleButton value="grid">
-            <GridViewOutlinedIcon />
-          </ToggleButton>
-          <ToggleButton value="list">
-            <FormatListBulletedOutlinedIcon />
-          </ToggleButton>
-        </ToggleButtonGroup>
+        <Box display="flex" gap={2} sx={{ height: { xs: 'auto', sm: '100%' } }}>
+          <CustomMenu
+            menuName="Order by"
+            menuItems={orderByItems}
+            handleClick={setOrderByValue}
+          />
+          <ToggleButtonGroup
+            value={view}
+            exclusive
+            color="secondary"
+            onChange={handleChangeView}
+            sx={{ ml: 'auto', height: '100%' }}
+          >
+            <ToggleButton value="grid">
+              <GridViewOutlinedIcon />
+            </ToggleButton>
+            <ToggleButton value="list">
+              <FormatListBulletedOutlinedIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
+          <LaunchInstance
+            onClick={() =>
+              router.push('https://accounts.zesty.io/instances/create')
+            }
+          ></LaunchInstance>
+        </Box>
       </Stack>
 
       <InstancesList
