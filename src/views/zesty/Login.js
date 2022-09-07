@@ -27,22 +27,10 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-import React, { useEffect } from 'react';
+import React from 'react';
 import CustomLogin from 'components/console/Login';
 function Login({ content }) {
-  const header = document.querySelector('header'),
-    topNavBox = document.querySelector('#topNavBox'),
-    footer = document.querySelector('footer'),
-    divider = document.querySelector('hr');
-
-  useEffect(() => {
-    if (header) header.style.display = 'none';
-    if (topNavBox) topNavBox.style.display = 'none';
-    if (footer) footer.style.display = 'none';
-    if (divider) divider.style.display = 'none';
-  }, [header, footer, topNavBox]);
-
-  return <CustomLogin />;
+  return <CustomLogin content={content} />;
 }
 
 export default Login;

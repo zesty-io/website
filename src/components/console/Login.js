@@ -16,7 +16,7 @@ import {
 import { setCookie } from 'cookies-next';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useZestyStore } from 'store';
 import * as helpers from 'utils';
 import Swal from 'sweetalert2';
@@ -29,31 +29,16 @@ import LoginIcon from '@mui/icons-material/Login';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useRouter } from 'next/router';
 import msLogin from '../../../public/assets/images/ms-symbollockup_signin_light.svg';
 
 const MySwal = withReactContent(Swal);
 
-const Login = () => {
+const Login = ({ content }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [loading, setloading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const [loginData, setLoginData] = useState({});
   const theme = useTheme();
   const isMD = useMediaQuery(theme.breakpoints.down('md'));
-  const router = useRouter();
-
-  useEffect(async () => {
-    const getData = async () => {
-      const loginDataURL = helpers.isProd
-        ? 'https://www.zesty.io/login/?toJSON'
-        : 'https://kfg6bckb-dev.webengine.zesty.io/login/?toJSON';
-      const response = await fetch(loginDataURL);
-      const data = await response.json();
-      return data;
-    };
-    if (router.isReady) setLoginData(await getData());
-  }, [router.isReady]);
 
   const handleCookieAndRedirect = (res) => {
     if (res)
@@ -62,7 +47,6 @@ const Login = () => {
     setCookie('isAuthenticated', true);
     setCookie('isUser', true);
     window.location.replace('/instances');
-    // window.history.back();
   };
 
   const handleLoginSuccess = (res) => {
@@ -300,17 +284,15 @@ const Login = () => {
         >
           <Stack textAlign="center">
             <Typography variant="h5" color="common.white" mb={2}>
-              {loginData.title}
+              {content?.title}
             </Typography>
-            <Typography color="common.white">
-              {loginData.description}
-            </Typography>
+            <Typography color="common.white">{content?.description}</Typography>
           </Stack>
 
           <Stack direction="row" spacing={2}>
             <Button
               target="_blank"
-              href={loginData?.video_link}
+              href={content?.video_link}
               variant="contained"
               sx={{
                 px: 4,
@@ -327,7 +309,7 @@ const Login = () => {
             </Button>
             <Button
               target="_blank"
-              href={loginData?.docs_link}
+              href={content?.docs_link}
               variant="outlined"
               sx={{
                 px: 4,
@@ -348,7 +330,7 @@ const Login = () => {
 
           <Stack px={10} pb={5}>
             <img
-              src={loginData?.image?.data[0]?.url}
+              src={content?.image?.data[0]?.url}
               width="100%"
               height="100%"
             />
