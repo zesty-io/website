@@ -29,9 +29,7 @@
  */
 import React, { useEffect } from 'react';
 import CustomLogin from 'components/console/Login';
-import { useRouter } from 'next/router';
 function Login({ content }) {
-  const router = useRouter();
   const header = document.querySelector('header'),
     topNavBox = document.querySelector('#topNavBox'),
     footer = document.querySelector('footer'),
@@ -42,7 +40,7 @@ function Login({ content }) {
     if (topNavBox) topNavBox.style.display = 'none';
     if (footer) footer.style.display = 'none';
     if (divider) divider.style.display = 'none';
-  }, [header, footer, topNavBox, router.isReady]);
+  }, [header, footer, topNavBox]);
 
   return <CustomLogin />;
 }
