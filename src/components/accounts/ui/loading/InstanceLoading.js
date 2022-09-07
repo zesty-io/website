@@ -4,26 +4,24 @@ import { Box, Card, Grid, List, ListItem, ListItemButton } from '@mui/material';
 
 const CardLoadingGrid = () => {
   return (
-    <Grid item xs={3} sm={4} lg={3}>
-      <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
-        <Box
-          paddingX={1}
-          paddingY={1}
-          width={1}
-          display={'flex'}
-          justifyContent={'flex-end'}
-        >
-          <Box>
-            <Skeleton variant="circular" width={30} height={30} />
-          </Box>
+    <Card sx={{ cursor: 'pointer', minHeight: '100%' }}>
+      <Box
+        paddingX={1}
+        paddingY={1}
+        width={1}
+        display={'flex'}
+        justifyContent={'flex-end'}
+      >
+        <Box>
+          <Skeleton variant="circular" width={25} height={25} />
         </Box>
-        <Skeleton variant="rectangular" height="220px" />
+      </Box>
+      <Skeleton variant="rectangular" height="220px" />
 
-        <Box paddingX={2} paddingY={1}>
-          <Skeleton variant="text" width={150} height={30} />
-        </Box>
-      </Card>
-    </Grid>
+      <Box paddingX={2} paddingY={1}>
+        <Skeleton variant="text" width={150} height={30} />
+      </Box>
+    </Card>
   );
 };
 
@@ -49,9 +47,6 @@ const gridLoading = [
   <CardLoadingGrid />,
   <CardLoadingGrid />,
   <CardLoadingGrid />,
-  <CardLoadingGrid />,
-  <CardLoadingGrid />,
-  <CardLoadingGrid />,
 ];
 const listLoading = [
   <CardLoadingList />,
@@ -72,9 +67,13 @@ export const InstanceLoading = ({ view }) => {
   }
   return (
     <Box paddingY={2}>
-      <Skeleton variant="rectangular" width={250} height={40} />
+      <Skeleton variant="text" width={250} height={40} />
       <Grid container direction="row" my={2} spacing={4}>
-        {gridLoading.map((e) => e)}
+        {gridLoading.map((e, index) => (
+          <Grid item xs={12} sm={6} md={6} lg={4} xl={2.4} key={index}>
+            {e}
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );
