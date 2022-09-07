@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../loading';
 import { NoData } from './NoData';
+import { Box } from '@mui/material';
 
 const Index = ({
   rows,
@@ -40,70 +41,77 @@ const Index = ({
   if (rows.length === 0) {
     return <NoData columns={columns} />;
   }
-  return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', padding: '1rem 0' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns?.map((e) => {
-                return (
-                  <TableCell
-                    width={'10rem'}
-                    align="left"
-                    sx={{
-                      fontWeight: 'bold',
-                      textTransform: 'capitalize',
-                      fontSize: '14px',
-                    }}
-                  >
-                    {e.label}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              ?.map((row) => {
-                return (
-                  <TableRow hover>
-                    {columns?.map((column) => {
-                      const value = row[column.id];
 
-                      // Check if JSX ELEMENT ex Buttons etc
-                      if (React.isValidElement(value)) {
+  if (rows.length < 6) {
+    pagination = false;
+  }
+
+  return (
+    <Box>
+      <Paper sx={{ width: '100%', overflow: 'hidden', padding: '1rem 0' }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns?.map((e) => {
+                  return (
+                    <TableCell
+                      width={'10rem'}
+                      align="left"
+                      sx={{
+                        fontWeight: 'bold',
+                        textTransform: 'capitalize',
+                        fontSize: '14px',
+                      }}
+                    >
+                      {e.label}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ?.map((row) => {
+                  return (
+                    <TableRow hover>
+                      {columns?.map((column) => {
+                        const value = row[column.id];
+
+                        // Check if JSX ELEMENT ex Buttons etc
+                        if (React.isValidElement(value)) {
+                          return <TableCell>{value}</TableCell>;
+                        }
+                        // Check if object for preventing Errors
+                        if (typeof value === 'object') {
+                          return (
+                            <TableCell>
+                              {JSON.stringify(value, null, 4)}
+                            </TableCell>
+                          );
+                        }
                         return <TableCell>{value}</TableCell>;
-                      }
-                      // Check if object for preventing Errors
-                      if (typeof value === 'object') {
-                        return (
-                          <TableCell>
-                            {JSON.stringify(value, null, 4)}
-                          </TableCell>
-                        );
-                      }
-                      return <TableCell>{value}</TableCell>;
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {pagination && (
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      )}
-    </Paper>
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {pagination && (
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
+      </Paper>
+    </Box>
   );
 };
 
