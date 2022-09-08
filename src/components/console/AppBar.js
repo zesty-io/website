@@ -12,8 +12,24 @@ import HomeIcon from '@mui/icons-material/Home';
 import Skeleton from '@mui/material/Skeleton';
 import { useZestyStore } from 'store';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { ProfileMenu } from 'components/accounts';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useRouter } from 'next/router';
+import ThemeModeToggler from 'components/globals/ThemeModeToggler';
 
+const developerDocs = [
+  { name: 'Guides and Docs', ZUID: 'https://zesty.org/' },
+  { name: 'Node SDK', ZUID: 'https://github.com/zesty-io/node-sdk' },
+  { name: 'Instance API', ZUID: 'https://instances-api.zesty.org/' },
+  { name: 'Accounts API', ZUID: 'https://accounts-api.zesty.org/' },
+  { name: 'Auth API', ZUID: 'https://auth-api.zesty.org/' },
+  { name: 'Media API', ZUID: 'https://media-api.zesty.org/' },
+  { name: 'Fetch Wrapper', ZUID: 'https://github.com/zesty-io/fetch-wrapper' },
+  { name: 'Status', ZUID: 'https://status.zesty.io/' },
+  { name: 'Parsley', ZUID: 'https://github.com/zesty-io/parsley' },
+];
 export default function AppBar({ url = window.location.pathname }) {
+  const router = useRouter();
   const { verifySuccess, instances, userInfo, loading, setworkingInstance } =
     useZestyStore((state) => state);
   const theme = useTheme();
@@ -44,6 +60,10 @@ export default function AppBar({ url = window.location.pathname }) {
     setworkingInstance(instanceZUID);
   }, [instanceZUID]);
 
+  const handleDocs = (data) => {
+    console.log(data, 555);
+    router.push(data);
+  };
   return (
     <Box
       sx={{
@@ -146,23 +166,35 @@ export default function AppBar({ url = window.location.pathname }) {
                   sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
                 >
                   <ComboBox
+                    initialLabel="Developer Docs"
+                    instances={developerDocs}
+                    setCookies={handleDocs}
+                    instanceZUID={''}
+                    size="small"
+                  />
+                  <ComboBox
                     instances={instances?.data}
                     setCookies={setworkingInstance}
                     instanceZUID={instanceZUID}
                     size="small"
                   />
 
-                  <Link
-                    boxShadow={2}
-                    sx={{
-                      backgroundColor: theme.palette.common.white,
-                      display: 'flex',
-                      justifyContent: 'center',
-                    }}
-                    href="/profile"
-                  >
-                    <img src={profileUrl} alt="" height={40} width={40} />
-                  </Link>
+                  <ThemeModeToggler />
+                  <ProfileMenu
+                    userInfo={userInfo}
+                    profilePic={
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <img
+                          src={profileUrl}
+                          alt="User"
+                          height={50}
+                          width={50}
+                          style={{ borderRadius: '50%' }}
+                        />
+                        <ArrowDropDownIcon fontSize="medium" />
+                      </Box>
+                    }
+                  />
                 </Box>
               )}
             </Box>

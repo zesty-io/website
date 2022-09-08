@@ -148,6 +148,7 @@ const Index = ({
   setCookies,
   instanceZUID,
   width = 300,
+  initialLabel,
   ...props
 }) => {
   const theme = useTheme();
@@ -187,7 +188,12 @@ const Index = ({
       options={OPTIONS}
       getOptionLabel={(option) => option.name}
       renderInput={(params) => {
-        return <TextField {...params} label={label || 'Select an instance'} />;
+        return (
+          <TextField
+            {...params}
+            label={label || initialLabel || 'Select an instance'}
+          />
+        );
       }}
       renderOption={(props, option) => {
         return [props, option.name];

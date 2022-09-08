@@ -92,6 +92,7 @@ const CustomForm = ({ onSubmit, options = [], allTeams = [] }) => {
       <form noValidate onSubmit={formik.handleSubmit}>
         <Box paddingBottom={1}>
           <ComboBox
+            initialLabel={'Select Teams'}
             width={1}
             instances={allTeams}
             setCookies={setteamZUID}
