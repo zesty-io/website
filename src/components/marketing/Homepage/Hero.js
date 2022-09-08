@@ -122,10 +122,6 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                   alt="hero image"
                   loading="eager"
                   style={{ width: '100%', maxWidth: 846, height: 'auto' }}
-                  options={{
-                    width: 846,
-                    height: 576,
-                  }}
                   width={846}
                   height={576}
                   attributes={{ 'data-aos': 'fade-up' }}

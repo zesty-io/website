@@ -50,7 +50,6 @@ const Bottom = ({
               <ZestyImage
                 width={951}
                 height={519}
-                options={{ width: 951, height: 519 }}
                 style={{ width: '100%', maxWidth: 951, height: 'auto' }}
                 loading="lazy"
                 src={`${content.bottom_cta_graphic?.data[0].url}?width=951`}

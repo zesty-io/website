@@ -65,7 +65,6 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
               <ZestyImage
                 width={171}
                 height={192}
-                options={{ width: 171, height: 192 }}
                 loading="lazy"
                 src={item.url}
                 alt={item.type || ''}
@@ -98,7 +97,6 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 <ZestyImage
                   width={482}
                   height={233}
-                  options={{ width: 482, height: 233 }}
                   style={{ width: '100%', maxWidth: 482, height: 'auto' }}
                   loading="lazy"
                   src={item.image?.data[0].url}
@@ -116,7 +114,6 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                       <ZestyImage
                         width={194}
                         height={60}
-                        options={{ width: 194, height: 60 }}
                         style={{ width: '100%', maxWidth: 194, height: 'auto' }}
                         component="img"
                         loading="lazy"

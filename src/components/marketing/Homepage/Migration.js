@@ -120,7 +120,6 @@ const Migration = ({ content, FillerContent, theme, isLarge }) => {
               <ZestyImage
                 width={1503}
                 height={1310}
-                options={{ width: 1503, height: 1310 }}
                 style={{ width: '100%', maxWidth: 1503, height: 'auto' }}
                 alt={'migrations'}
                 attributes={{ 'data-aos-offset': '200', 'data-aos': 'zoom-in' }}

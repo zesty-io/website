@@ -112,7 +112,6 @@ const Growth = ({
                   <ZestyImage
                     width={157}
                     height={147}
-                    options={{ width: 157, height: 147 }}
                     style={{ width: '100%', height: 'auto' }}
                     loading="lazy"
                     src={item.icon_image?.data[0].url}
