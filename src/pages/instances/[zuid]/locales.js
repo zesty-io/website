@@ -10,7 +10,7 @@ import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
-import { FormInput } from 'components/accounts';
+import { FormSelect } from 'components/accounts';
 import { accountsValidations } from 'components/accounts/';
 
 const MySwal = withReactContent(Swal);
@@ -19,6 +19,7 @@ export default function Locales() {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [isLoading, setIsLoading] = useState(true);
   const [rows, setRows] = useState([]);
+  const [availableLocales, setAvailableLocales] = useState({});
   const { enqueueSnackbar } = useSnackbar();
   const columns = useMemo(() => [
     {
@@ -78,6 +79,9 @@ export default function Locales() {
           if (response.error) {
             enqueueSnackbar(response.error, { variant: 'error' });
           } else {
+            enqueueSnackbar('Successfully Updated Locale', {
+              variant: 'success',
+            });
             getLocales();
           }
         };
@@ -114,6 +118,9 @@ export default function Locales() {
               if (response.error) {
                 enqueueSnackbar(response.error, { variant: 'error' });
               } else {
+                enqueueSnackbar('Successfully Deleted Locale', {
+                  variant: 'success',
+                });
                 getLocales();
               }
             }
@@ -129,10 +136,6 @@ export default function Locales() {
     },
   ]);
 
-  useEffect(() => {
-    getLocales();
-  }, []);
-
   const getLocales = async () => {
     setRows([]);
     setIsLoading(true);
@@ -145,7 +148,23 @@ export default function Locales() {
     setRows(newLocales);
   };
 
-  const InputLocale = () => {
+  const getAllLocales = async () => {
+    const locales = await ZestyAPI.getAllLocales();
+    let data = Object.entries(locales?.data)?.map(([key, value]) => ({
+      id: key,
+      value: key,
+      label: locales?.data[key],
+    }));
+
+    setAvailableLocales(data);
+  };
+
+  useEffect(() => {
+    getLocales();
+    getAllLocales();
+  }, []);
+
+  const InputLocale = ({ availableLocales }) => {
     const formik = useFormik({
       initialValues: {
         locale: '',
@@ -157,6 +176,7 @@ export default function Locales() {
         if (response.error) {
           enqueueSnackbar(response.error, { variant: 'error' });
         } else {
+          enqueueSnackbar('Successfully Added Locale', { variant: 'success' });
           getLocales();
         }
         formik.resetForm();
@@ -165,11 +185,8 @@ export default function Locales() {
 
     return (
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput
-          name="locale"
-          formik={formik}
-          placeholder="Enter a valid locale"
-        />
+        <FormSelect name="locale" options={availableLocales} formik={formik} />
+
         <Button color="primary" variant="contained" fullWidth type="submit">
           Submit
         </Button>
@@ -205,7 +222,7 @@ export default function Locales() {
             MySwal.fire({
               title: `Locale`,
               showConfirmButton: false,
-              html: <InputLocale />,
+              html: <InputLocale availableLocales={availableLocales} />,
             });
           }}
         >
