@@ -59,10 +59,6 @@ const createToken = yup.object().shape({
 });
 
 const teams = yup.object().shape({
-  teamZUID: yup
-    .string()
-    .min(2, 'Must be atleast 2 Characters')
-    .required('Name is required'),
   roleZUID: yup
     .string()
     .min(2, 'Must be atleast 2 Characters')

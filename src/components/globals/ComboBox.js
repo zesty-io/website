@@ -143,7 +143,13 @@ const filterOptions = createFilterOptions({
   stringify: (option) => option.name + option.value,
 });
 
-const Index = ({ instances, setCookies, instanceZUID, ...props }) => {
+const Index = ({
+  instances,
+  setCookies,
+  instanceZUID,
+  width = 300,
+  ...props
+}) => {
   const theme = useTheme();
   const [label, setlabel] = React.useState('');
   const memoizedInstances = React.useMemo(() => {
@@ -174,7 +180,7 @@ const Index = ({ instances, setCookies, instanceZUID, ...props }) => {
       filterOptions={filterOptions}
       id="virtualize-demo"
       onChange={handleChange}
-      sx={{ width: 300, backgroundColor: theme.palette.common.white }}
+      sx={{ width, backgroundColor: theme.palette.common.white }}
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
