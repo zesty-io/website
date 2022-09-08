@@ -5,6 +5,8 @@ import { Webhooks } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function WebhooksPage() {
   const [loading, setloading] = React.useState(false);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);

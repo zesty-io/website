@@ -2,6 +2,8 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function Support() {
   const { userInfo, workingInstance } = useZestyStore((state) => state);
 

@@ -3,6 +3,8 @@ import { useZestyStore, getZestyAPI } from 'store';
 import { useRouter } from 'next/router';
 import { Overview } from 'views/accounts';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function OverviewPage() {
   const { setZestyAPI, userInfo, ZestyAPI } = useZestyStore((state) => state);
   const [instance, setinstance] = React.useState({});

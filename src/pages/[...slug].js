@@ -34,6 +34,8 @@ export default function Slug(props) {
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
+  let isAuthenticated = JSON.parse(req.cookies.isAuthenticated || false);
+
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
@@ -56,6 +58,15 @@ export async function getServerSideProps({ req, res }) {
 
   // generate a status 404 page
   if (data.error) return { notFound: true };
+
+  if (isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/instances/',
+        permanent: false,
+      },
+    };
+  }
 
   // Pass data to the page via props
   return { props: data };

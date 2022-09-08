@@ -3,6 +3,8 @@ import { useZestyStore } from 'store';
 import { Preference } from 'views/accounts/profile/Preference';
 import { ProfileContainer } from 'components/accounts';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function PreferencePage() {
   const { setuserInfo } = useZestyStore((state) => state);
   const { ZestyAPI } = useZestyStore((state) => state);

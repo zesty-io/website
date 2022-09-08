@@ -3,6 +3,8 @@ import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import BasicTable from 'components/accounts/users/BasicTable';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function Billing() {
   const [users, setusers] = React.useState([]);
   const [roles, setroles] = React.useState([]);

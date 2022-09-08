@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import DomainListings from 'components/accounts/domains/DomainListings';
 import DomainSettings from 'components/accounts/domains/DomainSettings';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function Domains() {
   const [instanceDomains, setinstanceDomains] = useState([]);
   const [devDomains, setdevDomains] = useState([]);
