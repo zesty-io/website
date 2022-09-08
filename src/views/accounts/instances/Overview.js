@@ -4,6 +4,7 @@ import { OverviewTabs } from 'components/accounts';
 import dayjs from 'dayjs';
 import { grey } from '@mui/material/colors';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import BarChartIcon from '@mui/icons-material/BarChart';
 const NoData = () => {
   return (
     <Box position={'relative'}>
@@ -105,12 +106,22 @@ export const Overview = ({
             sx={{
               boxShadow: 1,
               borderRadius: '5px',
+              overflow: 'hidden',
             }}
             item
             xs={4}
-            padding={2}
           >
-            <Grid container paddingY={4}>
+            <Box paddingY={1} paddingX={2} sx={{ background: grey[400] }}>
+              <Typography
+                variant="h6"
+                alignItems={'center'}
+                display={'flex'}
+                gap={1}
+              >
+                <BarChartIcon /> Statistics
+              </Typography>
+            </Box>
+            <Grid container paddingY={2} paddingX={4}>
               <Grid item xs={9}>
                 <Typography variant="h5">Total users</Typography>
               </Grid>
