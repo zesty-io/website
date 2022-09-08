@@ -12,9 +12,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useZestyStore } from 'store';
 import { ErrorMsg } from '../dialogs';
-import { TablePagination, Typography } from '@mui/material';
+import { Box, TablePagination, Typography } from '@mui/material';
 import { LoadingSpinner } from '../loading';
-import { NoData } from './NoData';
 
 function Row(props) {
   const { row } = props;
@@ -66,7 +65,9 @@ function Row(props) {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Typography variant="h6">Team Members</Typography>
               {teamMembers?.map((e) => (
-                <Typography variant="p">- {e.email}</Typography>
+                <Box>
+                  <Typography variant="p"> - {e.email}</Typography>
+                </Box>
               ))}
             </Collapse>
           </TableCell>
@@ -82,6 +83,7 @@ export const CollapseTable = ({
   pagination = true,
   perPage = 10,
   loading = false,
+  title = '',
 }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(perPage);
@@ -102,51 +104,59 @@ export const CollapseTable = ({
   if (loading) {
     return <LoadingSpinner />;
   }
-  if (rows.length === 0) {
-    return <NoData columns={columns} />;
-  }
-  return (
-    <Paper>
-      <TableContainer>
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              {columns?.map((e) => {
-                return (
-                  <TableCell
-                    width={'3rem'}
-                    align="left"
-                    sx={{
-                      fontWeight: 'bold',
-                      textTransform: 'capitalize',
-                      fontSize: '14px',
-                    }}
-                  >
-                    {e.label}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <Row key={row.name} row={row} />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
 
-      {pagination && (
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      )}
-    </Paper>
+  if (rows.length < 10) {
+    pagination = false;
+  }
+
+  const showTable = rows.length === 0 ? false : true;
+  return (
+    <Box paddingY={2} display={showTable ? 'block' : 'none'}>
+      <Box paddingY={0}>
+        <Typography variant="h5">{title}</Typography>
+      </Box>
+      <Paper>
+        <TableContainer>
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                {columns?.map((e) => {
+                  return (
+                    <TableCell
+                      width={'3rem'}
+                      align="left"
+                      sx={{
+                        fontWeight: 'bold',
+                        textTransform: 'capitalize',
+                        fontSize: '14px',
+                      }}
+                    >
+                      {e.label}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <Row key={row.name} row={row} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        {pagination && (
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
+      </Paper>
+    </Box>
   );
 };

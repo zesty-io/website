@@ -8,7 +8,7 @@ import {
   StickyTable,
   SuccessMsg,
 } from 'components/accounts';
-import { Box, Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import * as helpers from 'utils';
 
 const COLUMNS_PENDING = [
@@ -27,7 +27,6 @@ const COLUMNS_PENDING = [
 ];
 
 const PendingTable = ({
-  title = 'Pending Users',
   data = [],
   respondToInvite,
   isInstanceOwner,
@@ -50,12 +49,12 @@ const PendingTable = ({
     };
   });
   return (
-    <Box>
-      <Box paddingY={2}>
-        <Typography variant="h5">{title}</Typography>
-      </Box>
-      <StickyTable loading={loading} rows={newData} columns={COLUMNS_PENDING} />
-    </Box>
+    <StickyTable
+      title="Pending Users"
+      loading={loading}
+      rows={newData}
+      columns={COLUMNS_PENDING}
+    />
   );
 };
 export default function UsersPage() {

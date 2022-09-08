@@ -1,29 +1,27 @@
-const { Box, Typography } = require('@mui/material');
-const { baseroles } = require('components/accounts/users/baseroles');
-const { StickyTable } = require('./StickyTable');
+import { Box } from '@mui/material';
+import { baseroles } from 'components/accounts/users/baseroles';
+import { StickyTable } from './StickyTable';
 
 const COLUMNS = [
   {
     id: 'name',
-    label: 'Name',
+    label: 'Access Level - Name',
   },
   {
     id: 'desc',
     label: 'Description',
-  },
-  {
-    id: 'accessLevel',
-    label: 'Access Level',
   },
 ];
 
 export const BaseRolesTable = ({ title = 'Base Roles in Zesty.io' }) => {
   return (
     <Box>
-      <Box paddingY={2}>
-        <Typography variant="h5">{title}</Typography>
-      </Box>
-      <StickyTable rows={baseroles} columns={COLUMNS} />
+      <StickyTable
+        title={title}
+        rows={baseroles}
+        columns={COLUMNS}
+        pagination={false}
+      />
     </Box>
   );
 };

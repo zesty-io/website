@@ -6,8 +6,8 @@ import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
 
 export default function TeamsPage() {
-  const [search, setsearch] = React.useState('');
   const [teams, setteams] = React.useState([]);
+  const [allTeams, setallTeams] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
@@ -59,6 +59,13 @@ export default function TeamsPage() {
     console.log(err);
     ErrorMsg({ text: err.error });
   };
+  const handleGetAllTeamsSuccess = (res) => {
+    console.log(res);
+    setallTeams(res.data);
+  };
+  const handleGetAllTeamsError = (res) => {
+    console.log(res);
+  };
 
   const handleGetInstanceUserWithRolesSucc = (res) => {
     setInstanceUserWithRoles(res.data);
@@ -73,6 +80,11 @@ export default function TeamsPage() {
     res.error && handleGetAllInstancesTeamsError(res);
   };
 
+  const getAllTeams = async () => {
+    const res = await ZestyAPI.getAllTeams();
+    !res.error && handleGetAllTeamsSuccess(res);
+    res.error && handleGetAllTeamsError(res);
+  };
   const getInstanceRoles = async () => {
     const res = await ZestyAPI.getInstanceRoles(zuid);
     !res.error && handleGetInstanceRolesSuccess(res);
@@ -103,16 +115,6 @@ export default function TeamsPage() {
     !res.error && handleGetInstanceUserWithRolesSucc(res);
     res.error && handleGetInstanceUserWithRolesErr(res);
   };
-  const data = teams?.filter((e) => {
-    if (search) {
-      return (
-        e.name.toLowerCase().includes(search.toLowerCase()) ||
-        e.ZUID.toLowerCase().includes(search.toLowerCase())
-      );
-    } else {
-      return teams;
-    }
-  });
 
   const isInstanceOwner = helpers.isInstanceOwner(
     instanceUserWithRoles,
@@ -120,15 +122,15 @@ export default function TeamsPage() {
   );
 
   const teamsProps = {
-    teams: data,
+    teams,
     getAllInstancesTeams,
-    setsearch,
     deleteTeamToInstance,
     createTeamInvite,
     isInstanceOwner,
     addTeamToInstance,
     instanceRoles,
     loading,
+    allTeams,
   };
 
   const getPageData = async () => {
@@ -137,6 +139,7 @@ export default function TeamsPage() {
     await getInstanceUserWithRoles();
     await getInstanceRoles();
     await setloading(false);
+    await getAllTeams();
   };
   React.useEffect(() => {
     if (router.isReady) {

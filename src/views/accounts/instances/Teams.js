@@ -1,14 +1,14 @@
-import { Box, Button, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import {
   accountsValidations,
   BaseRolesTable,
   CollapseTable,
   DeleteBtn,
   DeleteMsg,
-  FormInput,
   FormSelect,
   SubmitBtn,
 } from 'components/accounts';
+import { ComboBox } from 'components/globals/ComboBox';
 import { useFormik } from 'formik';
 import React from 'react';
 import Swal from 'sweetalert2';
@@ -69,15 +69,16 @@ const CustomTable = ({
   );
 };
 
-const CustomForm = ({ onSubmit, options = [] }) => {
+const CustomForm = ({ onSubmit, options = [], allTeams = [] }) => {
+  const [teamZUID, setteamZUID] = React.useState('');
   const formik = useFormik({
     validationSchema: accountsValidations.teams,
     initialValues: {
-      teamZUID: '',
       roleZUID: '',
     },
     onSubmit: async (values) => {
-      await onSubmit(values);
+      const newVal = { ...values, teamZUID };
+      await onSubmit(newVal);
       formik.resetForm();
     },
   });
@@ -89,21 +90,34 @@ const CustomForm = ({ onSubmit, options = [] }) => {
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput name={'teamZUID'} formik={formik} />
+        <Box paddingBottom={1}>
+          <ComboBox
+            initialLabel={'Select Teams'}
+            width={1}
+            instances={allTeams}
+            setCookies={setteamZUID}
+            instanceZUID={''}
+            size="medium"
+          />
+        </Box>
         <FormSelect
           label="Role ZUID"
           name={'roleZUID'}
           formik={formik}
           options={newOptions}
         />
-        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        <SubmitBtn
+          loading={formik.isSubmitting}
+          disabled={!teamZUID || formik.isSubmitting}
+        >
+          Submit
+        </SubmitBtn>
       </form>
     </Box>
   );
 };
 
 const Main = ({
-  setsearch,
   teams,
   getAllInstancesTeams,
   deleteTeamToInstance,
@@ -111,6 +125,7 @@ const Main = ({
   addTeamToInstance,
   instanceRoles,
   loading,
+  allTeams,
 }) => {
   const handleAddTeamToInstance = async (data) => {
     await addTeamToInstance(data);
@@ -132,6 +147,7 @@ const Main = ({
         <CustomForm
           onSubmit={handleAddTeamToInstance}
           options={instanceRoles}
+          allTeams={allTeams}
         />
       ),
       showConfirmButton: false,
@@ -147,13 +163,6 @@ const Main = ({
         <Link href="/teams">Learn more about teams</Link>
       </Typography>
       <Box paddingY={2} display={'flex'} justifyContent={'space-between'}>
-        <TextField
-          id="outlined-basic"
-          label="Search Teams"
-          variant="outlined"
-          onChange={(e) => setsearch(e.target.value)}
-        />
-
         {isInstanceOwner && (
           <Button
             color="secondary"
