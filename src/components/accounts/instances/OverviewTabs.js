@@ -115,7 +115,7 @@ const OverviewContent = ({ instance }) => {
   );
 };
 
-export const OverviewTabs = ({ instance, blueprint }) => {
+export const OverviewTabs = ({ instance }) => {
   return (
     <Box
       sx={{
@@ -123,7 +123,7 @@ export const OverviewTabs = ({ instance, blueprint }) => {
         typography: 'body1',
       }}
     >
-      <OverviewContent instance={instance} blueprint={blueprint} />
+      <OverviewContent instance={instance} />
     </Box>
   );
 };
