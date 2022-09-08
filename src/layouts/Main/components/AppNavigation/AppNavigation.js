@@ -6,23 +6,13 @@ import { useRouter } from 'next/router';
 import SingleNavItem from '../Topbar/components/NavItem/SingleNavItem';
 import { ComboBox } from 'components/globals/ComboBox';
 import ThemeModeToggler from 'components/globals/ThemeModeToggler';
-import { ProfileMenu } from 'components/accounts';
+import { DeveloperDocMenu, ProfileMenu } from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie } from 'cookies-next';
+import { Typography } from '@mui/material';
 
-const developerDocs = [
-  { name: 'Guides and Docs', ZUID: 'https://zesty.org/' },
-  { name: 'Node SDK', ZUID: 'https://github.com/zesty-io/node-sdk' },
-  { name: 'Instance API', ZUID: 'https://instances-api.zesty.org/' },
-  { name: 'Accounts API', ZUID: 'https://accounts-api.zesty.org/' },
-  { name: 'Auth API', ZUID: 'https://auth-api.zesty.org/' },
-  { name: 'Media API', ZUID: 'https://media-api.zesty.org/' },
-  { name: 'Fetch Wrapper', ZUID: 'https://github.com/zesty-io/fetch-wrapper' },
-  { name: 'Status', ZUID: 'https://status.zesty.io/' },
-  { name: 'Parsley', ZUID: 'https://github.com/zesty-io/parsley' },
-];
 const AppNavigation = ({
   onSidebarOpen,
   colorInvert = false,
@@ -94,6 +84,19 @@ const AppNavigation = ({
             </Box>
           </Box>
           <Box gap={2} display={'flex'} alignItems="center">
+            <DeveloperDocMenu
+              parent={
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#333333',
+                  }}
+                >
+                  <Typography variant="body1">Developer Docs</Typography>
+                </Box>
+              }
+            />
             <ComboBox
               instances={instances?.data}
               setCookies={setworkingInstance}
@@ -113,7 +116,7 @@ const AppNavigation = ({
                     width={50}
                     style={{ borderRadius: '50%' }}
                   />
-                  <ArrowDropDownIcon color="secondary" fontSize="medium" />
+                  <ArrowDropDownIcon color="primary" fontSize="medium" />
                 </Box>
               }
             />
