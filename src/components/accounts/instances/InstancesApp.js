@@ -86,6 +86,7 @@ const Index = ({ children }) => {
             xs={3}
             sx={{
               borderRight: `1px solid ${grey[300]}`,
+              maxWidth: { xs: '384px' },
             }}
           >
             <InstanceHeader instance={instance} />
