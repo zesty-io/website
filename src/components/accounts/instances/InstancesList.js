@@ -129,7 +129,7 @@ export const InstancesList = ({
         {data?.map((instance, index) => {
           const isFavorite = initialFavorites.find((e) => e === instance.ZUID);
           return (
-            <Grid item xs={12} sm={4} lg={3} key={index}>
+            <Grid item xs={12} sm={6} md={4} lg={2.4} xl={2} key={index}>
               <Card
                 sx={{
                   cursor: 'pointer',
