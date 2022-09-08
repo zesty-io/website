@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material';
+import { Button, Link, Stack } from '@mui/material';
 import CustomDataGrid from 'components/accounts/instances/CustomDataGrid';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useZestyStore } from 'store';
@@ -110,7 +110,7 @@ export default function Locales() {
             denyButtonText: `Cancel`,
           }).then(async (result) => {
             if (result.isConfirmed) {
-              const response = await ZestyAPI.deleteLocale(code);
+              const response = await ZestyAPI.deleteLocale(code, false);
               if (response.error) {
                 enqueueSnackbar(response.error, { variant: 'error' });
               } else {
@@ -180,21 +180,36 @@ export default function Locales() {
   return (
     <>
       <Stack>
-        <Button sx={{ px: 0, ml: 'auto' }} title="add">
-          <Button
-            variant="contained"
-            color="success"
-            startIcon={<AddOutlinedIcon />}
-            onClick={() => {
-              MySwal.fire({
-                title: `Locale`,
-                showConfirmButton: false,
-                html: <InputLocale />,
-              });
-            }}
-          >
-            Add
-          </Button>
+        <Link
+          alignSelf="start"
+          color="secondary"
+          underline="none"
+          href="https://zesty.org/getting-started/i18n-multi-language"
+        >
+          Locales Documentation
+        </Link>
+        <Link
+          alignSelf="start"
+          color="secondary"
+          underline="none"
+          href="https://zesty.org/getting-started/i18n-multi-language#what-happens-when-a-new-language-is-added"
+        >
+          What happens when lang added?
+        </Link>
+        <Button
+          variant="contained"
+          color="success"
+          startIcon={<AddOutlinedIcon />}
+          sx={{ alignSelf: 'end' }}
+          onClick={() => {
+            MySwal.fire({
+              title: `Locale`,
+              showConfirmButton: false,
+              html: <InputLocale />,
+            });
+          }}
+        >
+          Add
         </Button>
       </Stack>
 
