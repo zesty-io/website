@@ -153,7 +153,7 @@ export default function Locales() {
     let data = Object.entries(locales?.data)?.map(([key, value]) => ({
       id: key,
       value: key,
-      label: locales?.data[key],
+      label: `${locales?.data[key]} - ${key}`,
     }));
 
     setAvailableLocales(data);
