@@ -46,12 +46,14 @@
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Features from 'blocks/features/Features/Features';
+import TwoColumnFeatures from 'blocks/features/Features/TwoColumnFeatures';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
 import Hero from 'components/marketing/DxpFeatures/Hero';
 
-import React from 'react';
+// Components Imports
+// import WhyZesty from 'components/marketing/DxpFeatures/WhyZesty';
 
 function DxpFeature({ content }) {
   const theme = useTheme();
@@ -77,7 +79,7 @@ function DxpFeature({ content }) {
   const feature_data =
     content.section_1_features?.data.reduce((acc, item) => {
       acc.push({
-        icon_image: item.icon_image.data[0].url,
+        icon_image: item.icon_image?.data[0].url,
         feature_name: item.feature_name,
         content: item.content,
       });
@@ -85,7 +87,28 @@ function DxpFeature({ content }) {
       return acc;
     }, []) || [];
 
-  const feature_header = content.section_1;
+  const feature_data_2 =
+    content.section_2_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const feature_data_3 =
+    content.section_3_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
   return (
     <>
       <Hero {...pageData} />
@@ -95,6 +118,22 @@ function DxpFeature({ content }) {
         data={feature_data}
         features_header={content.section_1}
       />
+      <TwoColumnFeatures
+        features_header={content.section_2}
+        data={feature_data_2}
+        cta_text={content.section_2_cta}
+        cta_url={content.section_2_cta_link}
+      />
+      <Features
+        center
+        background="zesty"
+        header_size={32}
+        data={feature_data_3}
+        features_header={content.section_3}
+        cta_text={content.section_3_cta}
+        cta_url={content.section_3_cta_link}
+      />
+      {/* <WhyZesty {...pageData} /> */}
     </>
   );
 }
