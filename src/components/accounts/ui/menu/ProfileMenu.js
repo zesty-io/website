@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Typography } from '@mui/material';
@@ -30,16 +29,17 @@ export const ProfileMenu = ({ profilePic, userInfo }) => {
 
   return (
     <Box>
-      <Button
+      <Box
         title={`${userInfo?.firstName} ${userInfo?.lastName}`}
         id="profile-btn"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        sx={{ cursor: 'pointer' }}
       >
         {profilePic}
-      </Button>
+      </Box>
       <Menu
         id="Profile"
         anchorEl={anchorEl}
