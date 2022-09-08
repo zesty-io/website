@@ -15,6 +15,7 @@ import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { ProfileMenu } from 'components/accounts';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useRouter } from 'next/router';
+import ThemeModeToggler from 'components/globals/ThemeModeToggler';
 
 const developerDocs = [
   { name: 'Guides and Docs', ZUID: 'https://zesty.org/' },
@@ -178,6 +179,7 @@ export default function AppBar({ url = window.location.pathname }) {
                     size="small"
                   />
 
+                  <ThemeModeToggler />
                   <ProfileMenu
                     userInfo={userInfo}
                     profilePic={
