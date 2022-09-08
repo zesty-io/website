@@ -1,5 +1,4 @@
 import FillerContent from 'components/globals/FillerContent';
-import { useMemo, useState } from 'react';
 
 /**
  *
@@ -25,8 +24,15 @@ const ZestyImage = ({
   style = {},
   attributes = {},
 }) => {
-  /* Taking the options object and converting it into a query string. */
+  //  check if exist and assign values to options object
+  if (width) {
+    options.width = width;
+  }
+  if (height) {
+    options.height = height;
+  }
 
+  /* Taking the options object and converting it into a query string. */
   const imageUrl = Object.entries(options).reduce(
     (acc, item, idx) => {
       const newUrl = `${acc}${idx === 0 ? '?' : '&'}${item[0]}=${item[1]}`;

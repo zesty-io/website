@@ -115,7 +115,6 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
                   <ZestyImage
                     width={715}
                     height={480}
-                    options={{ width: 715, height: 480 }}
                     loading="lazy"
                     style={{ width: '100%', maxWidth: 715, height: 'auto' }}
                     src={`${item.benefit_image?.data[0].url}?width=715`}
