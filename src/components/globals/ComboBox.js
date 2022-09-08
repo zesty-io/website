@@ -143,7 +143,13 @@ const filterOptions = createFilterOptions({
   stringify: (option) => option.name + option.value,
 });
 
-const Index = ({ instances, setCookies, instanceZUID, ...props }) => {
+const Index = ({
+  initialLabel = '',
+  instances,
+  setCookies,
+  instanceZUID,
+  ...props
+}) => {
   const theme = useTheme();
   const [label, setlabel] = React.useState('');
   const memoizedInstances = React.useMemo(() => {
@@ -181,7 +187,12 @@ const Index = ({ instances, setCookies, instanceZUID, ...props }) => {
       options={OPTIONS}
       getOptionLabel={(option) => option.name}
       renderInput={(params) => {
-        return <TextField {...params} label={label || 'Select an instance'} />;
+        return (
+          <TextField
+            {...params}
+            label={label || initialLabel || 'Select an instance'}
+          />
+        );
       }}
       renderOption={(props, option) => {
         return [props, option.name];
