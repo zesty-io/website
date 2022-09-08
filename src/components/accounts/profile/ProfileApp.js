@@ -151,7 +151,7 @@ const Index = ({ children }) => {
         <Grid container>
           <Grid
             item
-            xs={3}
+            xs={2}
             sx={{
               borderRight: `1px solid ${grey[300]}`,
               maxWidth: { xs: '384px' },
@@ -165,7 +165,7 @@ const Index = ({ children }) => {
             />
           </Grid>
 
-          <Grid item xs={9}>
+          <Grid item xs={10}>
             <Container maxWidth={false}>
               <Typography py={2} variant="h5" color="text.secondary">
                 {currentPage ? capitalize(currentPage) : 'Overview'}
