@@ -157,8 +157,9 @@ const Index = ({ children }) => {
               borderRight: `1px solid ${grey[300]}`,
               maxWidth: { md: '384px' },
               position: 'sticky',
-              top: '5%',
+              top: '6%',
               height: `calc(100vh - ${45}px)`,
+              overflow: 'auto',
             }}
           >
             <ProfileHeader userInfo={userInfo} />
