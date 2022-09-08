@@ -88,6 +88,9 @@ const Index = ({ children }) => {
             sx={{
               borderRight: `1px solid ${grey[300]}`,
               maxWidth: { md: '384px' },
+              position: 'sticky',
+              top: 0,
+              height: '100vh',
             }}
           >
             <InstanceHeader instance={instance} />

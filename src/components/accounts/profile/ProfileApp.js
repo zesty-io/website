@@ -155,7 +155,10 @@ const Index = ({ children }) => {
             lg={2}
             sx={{
               borderRight: `1px solid ${grey[300]}`,
-              maxWidth: { xs: '384px' },
+              maxWidth: { md: '384px' },
+              position: 'sticky',
+              top: 0,
+              height: '100vh',
             }}
           >
             <ProfileHeader userInfo={userInfo} />
