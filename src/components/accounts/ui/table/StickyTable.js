@@ -47,7 +47,7 @@ const Index = ({
 
   return (
     <Box paddingY={2} display={showTable ? 'block' : 'none'}>
-      <Box paddingY={0}>
+      <Box paddingY={1}>
         <Typography variant="h5">{title}</Typography>
       </Box>
       <Paper sx={{ width: '100%', overflow: 'hidden', padding: '1rem 0' }}>

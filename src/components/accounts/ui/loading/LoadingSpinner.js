@@ -6,8 +6,8 @@ import { Skeleton } from '@mui/material';
 export const LoadingSpinner = () => {
   return (
     <Box paddingY={2}>
-      <Box>
-        <Skeleton variant="text" width={200} height={50} />
+      <Box paddingY={1}>
+        <Skeleton variant="text" width={200} height={40} />
       </Box>
       <Box
         paddingTop={2}
