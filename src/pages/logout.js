@@ -8,7 +8,10 @@ import {
 import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 const logout = () => {
+  document.title = 'Accounts: Logout';
   const { ZestyAPI } = useZestyStore((state) => state);
 
   useEffect(() => {

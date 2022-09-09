@@ -43,7 +43,14 @@ export async function getServerSideProps({ req, res }) {
   );
 
   // attempt to get page data relative to zesty
-  const data = await fetchPage(req.url);
+  let data = await fetchPage(req.url);
+
+  data = {
+    ...data,
+    zesty: {
+      isAuthenticated,
+    },
+  };
 
   // This section holds data settings for fetching Github Data
   if (req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
@@ -59,7 +66,7 @@ export async function getServerSideProps({ req, res }) {
   // generate a status 404 page
   if (data.error) return { notFound: true };
 
-  if (isAuthenticated) {
+  if (req.url === '/login/' && isAuthenticated) {
     return {
       redirect: {
         destination: '/instances/',

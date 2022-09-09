@@ -77,7 +77,7 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
   };
 
   const deleteTeam = async () => {
-    const name = formik.values.name;
+    const name = initialValues.name;
     MySwal.fire({
       title: `Are you sure you want to delete ${name}?`,
       showDenyButton: true,

@@ -10,17 +10,6 @@ export default IndexPage;
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
-  let isAuthenticated = JSON.parse(req.cookies.isAuthenticated || false);
-
-  if (isAuthenticated) {
-    return {
-      redirect: {
-        destination: '/instances/',
-        permanent: false,
-      },
-    };
-  }
-
   // issue:  multiple call of getServersideprops
   const data = await fetchPage(req.url);
 

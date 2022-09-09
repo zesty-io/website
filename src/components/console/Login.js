@@ -7,12 +7,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import {
-  accountsValidations,
-  ErrorMsg,
-  FormInput,
-  SuccessMsg,
-} from 'components/accounts';
+import { accountsValidations, FormInput } from 'components/accounts';
 import { setCookie } from 'cookies-next';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useFormik } from 'formik';
@@ -30,12 +25,13 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import msLogin from '../../../public/assets/images/ms-symbollockup_signin_light.svg';
+import { notistackMessage } from 'utils';
 
 const MySwal = withReactContent(Swal);
 
 const Login = ({ content }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const theme = useTheme();
   const isMD = useMediaQuery(theme.breakpoints.down('md'));
@@ -49,21 +45,6 @@ const Login = ({ content }) => {
     setCookie('isAuthenticated', true);
     setCookie('isUser', true);
     window.location.replace('/instances');
-  };
-
-  const handleLoginSuccess = (res) => {
-    setloading(false);
-
-    SuccessMsg({
-      title: 'Success',
-      action: () => {
-        handleCookieAndRedirect(res);
-      },
-    });
-  };
-  const handleLoginErr = (err) => {
-    setloading(false);
-    ErrorMsg({ text: err.message });
   };
 
   const triggerAuto2FA = () => {
@@ -85,16 +66,26 @@ const Login = ({ content }) => {
       onSubmit: async (values) => {
         setLoading2FA(true);
         const response = await ZestyAPI.verify2FA(values.otp);
-        if (response.code === 200) {
-          await ZestyAPI.verify();
-          handleCookieAndRedirect();
 
-          MySwal.close();
-          formik.resetForm();
-          setLoading2FA(false);
-          return;
-        }
-        enqueueSnackbar(response.message, { variant: 'error' });
+        notistackMessage(
+          enqueueSnackbar,
+          {
+            message: response.message,
+            callback: async () => {
+              await ZestyAPI.verify();
+              handleCookieAndRedirect();
+
+              MySwal.close();
+              formik.resetForm();
+              setLoading2FA(false);
+            },
+          },
+          response,
+          {
+            hideSuccessMessage: true,
+          },
+        );
+
         setLoading2FA(false);
       },
     });
@@ -145,17 +136,29 @@ const Login = ({ content }) => {
     });
   };
 
-  const login = async (data) => {
-    setloading(true);
+  const handleLogin = async (data) => {
+    setLoading(true);
     const { email, password } = data;
     const res = await ZestyAPI.login(email, password);
-    if (res.code === 200) handleLoginSuccess(res);
-    else if (res.code === 202) await handleShow2FA(res);
-    else if (res.code !== 200) handleLoginErr(res);
-  };
 
-  const handleLogin = async (data) => {
-    await login(data);
+    if (res.code === 202) await handleShow2FA(res);
+    else {
+      notistackMessage(
+        enqueueSnackbar,
+        {
+          message: res.message,
+          callback: () => {
+            handleCookieAndRedirect(res);
+          },
+        },
+        res,
+        {
+          hideSuccessMessage: true,
+        },
+      );
+    }
+
+    setLoading(false);
   };
 
   const formik = useFormik({
