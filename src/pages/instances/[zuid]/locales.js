@@ -15,6 +15,8 @@ import { accountsValidations } from 'components/accounts/';
 
 const MySwal = withReactContent(Swal);
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function Locales() {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [isLoading, setIsLoading] = useState(true);

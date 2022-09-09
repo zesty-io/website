@@ -89,8 +89,8 @@ const Index = ({ children }) => {
               borderRight: `1px solid ${grey[300]}`,
               maxWidth: { md: '384px' },
               position: 'sticky',
-              top: '6%',
-              height: `calc(100vh - ${45}px)`,
+              top: '60px',
+              height: `calc(100vh - 82px)`,
               overflow: 'auto',
             }}
           >

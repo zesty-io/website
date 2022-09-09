@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { Settings } from 'views/accounts/instances';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function SettingsPage() {
   const [loading, setloading] = React.useState(false);
   const [settings, setsettings] = React.useState([]);

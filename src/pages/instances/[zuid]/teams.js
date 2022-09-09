@@ -5,6 +5,8 @@ import { Teams } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function TeamsPage() {
   const [teams, setteams] = React.useState([]);
   const [allTeams, setallTeams] = React.useState([]);

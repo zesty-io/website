@@ -230,13 +230,21 @@ export const notistackMessage = async (
   enqueueSnackbar,
   successProps,
   response,
+  options = {
+    hideSuccessMessage: false,
+  },
 ) => {
-  if (response?.status >= 200 && response?.status <= 299) {
+  if (
+    (response?.status >= 200 && response?.status <= 299) ||
+    (response?.code >= 200 && response?.code <= 299)
+  ) {
     if (successProps.callback !== undefined) await successProps?.callback();
 
-    enqueueSnackbar(successProps?.message, {
-      variant: 'success',
-    });
+    if (!options?.hideSuccessMessage) {
+      enqueueSnackbar(successProps?.message, {
+        variant: 'success',
+      });
+    }
   } else {
     enqueueSnackbar(response?.message || response?.error, {
       variant: 'error',

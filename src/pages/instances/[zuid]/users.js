@@ -11,6 +11,8 @@ import {
 import { Button } from '@mui/material';
 import * as helpers from 'utils';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 const COLUMNS_PENDING = [
   {
     id: 'email',

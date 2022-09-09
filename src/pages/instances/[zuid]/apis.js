@@ -9,6 +9,8 @@ import * as helpers from 'utils';
 
 const MySwal = withReactContent(Swal);
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function ApisPage() {
   const [loading, setloading] = React.useState(false);
   const [tokens, settokens] = React.useState([]);

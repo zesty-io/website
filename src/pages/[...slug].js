@@ -34,6 +34,8 @@ export default function Slug(props) {
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
+  let isAuthenticated = JSON.parse(req.cookies.isAuthenticated || false);
+
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
@@ -41,7 +43,14 @@ export async function getServerSideProps({ req, res }) {
   );
 
   // attempt to get page data relative to zesty
-  const data = await fetchPage(req.url);
+  let data = await fetchPage(req.url);
+
+  data = {
+    ...data,
+    zesty: {
+      isAuthenticated,
+    },
+  };
 
   // This section holds data settings for fetching Github Data
   if (req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
@@ -56,6 +65,15 @@ export async function getServerSideProps({ req, res }) {
 
   // generate a status 404 page
   if (data.error) return { notFound: true };
+
+  if (req.url === '/login/' && isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
 
   // Pass data to the page via props
   return { props: data };

@@ -7,6 +7,8 @@ import ManageTeam from 'components/accounts/teams/ManageTeam';
 import { useZestyStore } from 'store';
 import TeamInvites from 'components/accounts/teams/TeamInvites';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 const Teams = () => {
   document.title = 'Accounts: Teams';
   const {
