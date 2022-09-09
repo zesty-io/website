@@ -29,7 +29,7 @@ import { notistackMessage } from 'utils';
 
 const MySwal = withReactContent(Swal);
 
-const Login = ({ content }) => {
+const Login = ({ content, userEmail }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -44,7 +44,7 @@ const Login = ({ content }) => {
 
     setCookie('isAuthenticated', true);
     setCookie('isUser', true);
-    window.location.replace('/instances');
+    window.location.replace('/');
   };
 
   const triggerAuto2FA = () => {
@@ -164,7 +164,7 @@ const Login = ({ content }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.login,
     initialValues: {
-      email: '',
+      email: userEmail,
       password: '',
     },
     onSubmit: async (values) => {

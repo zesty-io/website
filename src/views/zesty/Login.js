@@ -29,8 +29,10 @@
  */
 import React from 'react';
 import CustomLogin from 'components/console/Login';
+import { getCookie } from 'cookies-next';
 function Login({ content }) {
-  return <CustomLogin content={content} />;
+  const APP_USER_EMAIL = getCookie('APP_USER_EMAIL');
+  return <CustomLogin content={content} userEmail={APP_USER_EMAIL} />;
 }
 
 export default Login;

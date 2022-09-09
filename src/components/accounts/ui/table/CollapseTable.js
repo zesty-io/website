@@ -14,7 +14,18 @@ import { useZestyStore } from 'store';
 import { ErrorMsg } from '../dialogs';
 import { Box, TablePagination, Typography } from '@mui/material';
 import { LoadingSpinner } from '../loading';
+import { StickyTable } from './StickyTable';
 
+const collapsColumns = [
+  {
+    id: 'name',
+    label: 'Name',
+  },
+  {
+    id: 'email',
+    label: 'email',
+  },
+];
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
@@ -37,6 +48,13 @@ function Row(props) {
       setOpen(false);
     }
   };
+
+  const collapseRows = teamMembers?.map((e) => {
+    return {
+      name: `${e.firstName} ${e.lastName}` || '-',
+      email: e.email || '-',
+    };
+  });
 
   return (
     <React.Fragment>
@@ -63,12 +81,12 @@ function Row(props) {
         <TableRow>
           <TableCell style={{ padding: '1.5rem 4rem' }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
-              <Typography variant="h6">Team Members</Typography>
-              {teamMembers?.map((e) => (
-                <Box>
-                  <Typography variant="p"> - {e.email}</Typography>
-                </Box>
-              ))}
+              <StickyTable
+                title={'Team Members'}
+                loading={false}
+                rows={collapseRows}
+                columns={collapsColumns}
+              />
             </Collapse>
           </TableCell>
         </TableRow>
