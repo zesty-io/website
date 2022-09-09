@@ -1,9 +1,11 @@
 import { Container, Grid } from '@mui/material';
 import React from 'react';
+import { useZestyStore } from 'store';
 import MainContent from './MainContent';
 import SideContent from './SideContent';
 
 const Dashboard = () => {
+  const { userInfo } = useZestyStore((state) => state);
   return (
     <Container
       maxWidth={false}
@@ -16,10 +18,10 @@ const Dashboard = () => {
       <Grid container spacing={2}>
         <Grid
           sx={{
-            // height: `calc(100vh - 66px)`,
-            // position: 'sticky',
-            // top: '66px',
-            // overflowY: 'auto',
+            height: { md: `calc(100vh - 66px)` },
+            position: { md: 'sticky' },
+            top: { md: '66px' },
+            overflowY: { md: 'auto' },
             maxWidth: { md: '384px' },
           }}
           md={3}
@@ -27,7 +29,7 @@ const Dashboard = () => {
           xs={12}
           item
         >
-          <SideContent />
+          <SideContent firstName={userInfo?.firstName} />
         </Grid>
 
         <Grid xs={12} md={9} lg={10} item>

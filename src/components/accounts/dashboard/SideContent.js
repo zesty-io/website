@@ -1,8 +1,9 @@
 import {
-  Button,
   Divider,
+  Link,
   List,
   ListItem,
+  Skeleton,
   Stack,
   TextField,
   Typography,
@@ -13,42 +14,48 @@ const repositories = [
   {
     logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
     name: 'zesty-io/website',
+    link: '',
   },
   {
     logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
     name: 'zesty-io/fetch-wrapper',
+    link: '',
   },
   {
     logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
     name: 'zesty-io/manager-ui',
+    link: '',
   },
   {
     logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
     name: 'zesty-io/app-layouts',
+    link: '',
   },
   {
     logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
     name: 'zesty-io/react-autolayout',
+    link: '',
   },
 ];
 
-const SideContent = () => {
+const SideContent = ({ firstName }) => {
   return (
-    <Stack p={3}>
+    <Stack p={3} pl={1} pr={3}>
       <Stack>
-        <Typography>Username</Typography>
+        <Typography color="text.secondary" fontWeight="bold">
+          {firstName ? firstName : <Skeleton />}
+        </Typography>
       </Stack>
       <Divider sx={{ my: 2 }} />
       <SideListItems
         label="Recent Repositories"
         lists={repositories}
         bottomAction={
-          <Button color="secondary" sx={{ alignSelf: 'start' }}>
+          <Link underline="none" color="secondary" sx={{ cursor: 'pointer' }}>
             Show more
-          </Button>
+          </Link>
         }
       >
-        <Typography mb={2}>Recent Repositories</Typography>
         <TextField
           size="small"
           color="secondary"
@@ -60,7 +67,14 @@ const SideContent = () => {
       <Divider sx={{ my: 2 }} />
       <SideListItems label="Recent Activity" lists={repositories} />
       <Divider sx={{ my: 2 }} />
-      <SideListItems label="Your Teams" lists={repositories} />
+      <SideListItems label="Your Teams" lists={repositories}>
+        <TextField
+          size="small"
+          color="secondary"
+          placeholder="Find a team.."
+          sx={{ mb: 2 }}
+        />
+      </SideListItems>
     </Stack>
   );
 };
@@ -70,20 +84,33 @@ export default SideContent;
 const SideListItems = ({ label, lists, children, bottomAction }) => {
   return (
     <Stack>
-      {children}
       <Typography fontWeight="bold" color="text.secondary" mb={2}>
         {label}
       </Typography>
+      {children}
       <List disablePadding>
-        {lists.map((repo, index) => (
+        {lists.map((list, index) => (
           <ListItem
             alignItems="center"
             key={index}
             sx={{ pb: 1 }}
             disablePadding
           >
-            <img src={repo.logo} />
-            <Typography ml={1}>{repo.name}</Typography>
+            <img src={list.logo} />
+            <Link
+              href={list.link}
+              underline="none"
+              color="text.primary"
+              sx={{
+                cursor: 'pointer',
+                '&:hover': {
+                  textDecoration: 'underline',
+                },
+              }}
+              ml={1}
+            >
+              {list.name}
+            </Link>
           </ListItem>
         ))}
       </List>
