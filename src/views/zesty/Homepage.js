@@ -52,6 +52,7 @@ import Bottom from 'components/marketing/Homepage/Bottom';
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
 import { useEffect } from 'react';
+import Dashboard from 'components/accounts/dashboard';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -83,20 +84,24 @@ function Homepage({ content }) {
     });
   }, [isMedium]);
 
-  return (
-    <>
-      <Hero {...pageData} />
-      <SimpleCardLogo logoItems={content.homepage_logos.data} {...pageData} />
-      <DigitalExperience {...pageData} />
-      <NewBenefits {...pageData} />
-      <Migration {...pageData} />
-      <Growth {...pageData} />
-      <CaseStudies {...pageData} />
-      <Testimonials {...testimonialsData} />
-      <LogoSlider {...pageData} />
-      <Bottom {...pageData} />
-    </>
-  );
+  if (content?.zesty?.isAuthenticated) {
+    return <Dashboard />;
+  } else {
+    return (
+      <>
+        <Hero {...pageData} />
+        <SimpleCardLogo logoItems={content.homepage_logos.data} {...pageData} />
+        <DigitalExperience {...pageData} />
+        <NewBenefits {...pageData} />
+        <Migration {...pageData} />
+        <Growth {...pageData} />
+        <CaseStudies {...pageData} />
+        <Testimonials {...testimonialsData} />
+        <LogoSlider {...pageData} />
+        <Bottom {...pageData} />
+      </>
+    );
+  }
 }
 
 export default Homepage;

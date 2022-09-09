@@ -20,10 +20,10 @@ export default function Slug(props) {
   return (
     <>
       <Main
-        model={props.meta.model_alternate_name}
-        nav={props.navigationTree}
-        customRouting={props.navigationCustom}
-        url={props.meta.web.uri}
+        model={props?.meta?.model_alternate_name}
+        nav={props?.navigationTree}
+        customRouting={props?.navigationCustom}
+        url={props?.meta?.web?.uri}
         bgcolor={bgcolor}
       >
         <ZestyView content={props} />
