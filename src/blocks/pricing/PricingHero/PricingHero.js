@@ -27,6 +27,8 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
     setPricingOption(newPricingOption);
   };
 
+  console.log(tiers);
+
   return (
     <Box>
       <Box
@@ -213,18 +215,22 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
                     <CardActions
                       sx={{ justifyContent: 'flex-end', padding: 4 }}
                     >
-                      <TryFreeButton
-                        target={FillerContent.href}
+                      <Button
+                        href={
+                          item.button_cta.data[0].external_link ||
+                          FillerContent.href
+                        }
+                        color={'secondary'}
+                        target="_blank"
                         component={'a'}
                         variant="contained"
                         size="large"
                         fullWidth={isMd ? false : true}
-                        text={
-                          (item.button_cta?.data &&
-                            item?.button_cta?.data[0]?.button_text) ||
-                          FillerContent.cta
-                        }
-                      ></TryFreeButton>
+                      >
+                        {(item.button_cta?.data &&
+                          item?.button_cta?.data[0]?.button_text) ||
+                          FillerContent.cta}
+                      </Button>
                     </CardActions>
                   </>
                 )}
