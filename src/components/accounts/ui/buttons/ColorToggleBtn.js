@@ -5,9 +5,12 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 export const ColorToggleButton = ({ value, options, handleAdd }) => {
   const [alignment, setAlignment] = React.useState(value);
 
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-    handleAdd(newAlignment);
+  const handleChange = (_event, newAlignment) => {
+    // prevent null if double click
+    if (newAlignment) {
+      setAlignment(newAlignment);
+      handleAdd(newAlignment);
+    }
   };
 
   const switchVal = (val) => {
@@ -35,6 +38,7 @@ export const ColorToggleButton = ({ value, options, handleAdd }) => {
         exclusive
         onChange={handleChange}
       >
+        {JSON.stringify(alignment)}
         {options?.map((e) => {
           return (
             <ToggleButton value={e.value}>{switchVal(e.value)}</ToggleButton>

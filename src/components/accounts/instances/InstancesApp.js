@@ -32,7 +32,7 @@ let capitalize = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
 
 const Index = ({ children }) => {
   const theme = useTheme();
-  const isSM = useMediaQuery(theme.breakpoints.down('md'));
+  const isLG = useMediaQuery(theme.breakpoints.up('md'));
   const langcode = 'en';
   const currentPage =
     location.pathname.split('/').length > 2
@@ -79,13 +79,19 @@ const Index = ({ children }) => {
 
   return (
     <Box>
-      {!isSM ? (
+      {isLG ? (
         <Grid container>
           <Grid
             item
-            xs={3}
+            md={3}
+            lg={2}
             sx={{
               borderRight: `1px solid ${grey[300]}`,
+              maxWidth: { md: '384px' },
+              position: 'sticky',
+              top: '6%',
+              height: `calc(100vh - ${45}px)`,
+              overflow: 'auto',
             }}
           >
             <InstanceHeader instance={instance} />
@@ -96,7 +102,7 @@ const Index = ({ children }) => {
               langcode={langcode}
             />
           </Grid>
-          <Grid item xs={9}>
+          <Grid item md={9} lg={10}>
             <Container maxWidth={false}>
               <Typography py={2} variant="h5" color="text.secondary">
                 {currentPage ? capitalize(currentPage) : 'Overview'}

@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material';
+import { Button, Link, Stack } from '@mui/material';
 import CustomDataGrid from 'components/accounts/instances/CustomDataGrid';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useZestyStore } from 'store';
@@ -10,7 +10,7 @@ import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
-import { FormInput } from 'components/accounts';
+import { FormSelect } from 'components/accounts';
 import { accountsValidations } from 'components/accounts/';
 
 const MySwal = withReactContent(Swal);
@@ -21,6 +21,7 @@ export default function Locales() {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [isLoading, setIsLoading] = useState(true);
   const [rows, setRows] = useState([]);
+  const [availableLocales, setAvailableLocales] = useState({});
   const { enqueueSnackbar } = useSnackbar();
   const columns = useMemo(() => [
     {
@@ -80,6 +81,9 @@ export default function Locales() {
           if (response.error) {
             enqueueSnackbar(response.error, { variant: 'error' });
           } else {
+            enqueueSnackbar('Successfully Updated Locale', {
+              variant: 'success',
+            });
             getLocales();
           }
         };
@@ -112,10 +116,13 @@ export default function Locales() {
             denyButtonText: `Cancel`,
           }).then(async (result) => {
             if (result.isConfirmed) {
-              const response = await ZestyAPI.deleteLocale(code);
+              const response = await ZestyAPI.deleteLocale(code, false);
               if (response.error) {
                 enqueueSnackbar(response.error, { variant: 'error' });
               } else {
+                enqueueSnackbar('Successfully Deleted Locale', {
+                  variant: 'success',
+                });
                 getLocales();
               }
             }
@@ -131,10 +138,6 @@ export default function Locales() {
     },
   ]);
 
-  useEffect(() => {
-    getLocales();
-  }, []);
-
   const getLocales = async () => {
     setRows([]);
     setIsLoading(true);
@@ -147,7 +150,23 @@ export default function Locales() {
     setRows(newLocales);
   };
 
-  const InputLocale = () => {
+  const getAllLocales = async () => {
+    const locales = await ZestyAPI.getAllLocales();
+    let data = Object.entries(locales?.data)?.map(([key, value]) => ({
+      id: key,
+      value: key,
+      label: `${locales?.data[key]} - ${key}`,
+    }));
+
+    setAvailableLocales(data);
+  };
+
+  useEffect(() => {
+    getLocales();
+    getAllLocales();
+  }, []);
+
+  const InputLocale = ({ availableLocales }) => {
     const formik = useFormik({
       initialValues: {
         locale: '',
@@ -159,6 +178,7 @@ export default function Locales() {
         if (response.error) {
           enqueueSnackbar(response.error, { variant: 'error' });
         } else {
+          enqueueSnackbar('Successfully Added Locale', { variant: 'success' });
           getLocales();
         }
         formik.resetForm();
@@ -167,11 +187,8 @@ export default function Locales() {
 
     return (
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput
-          name="locale"
-          formik={formik}
-          placeholder="Enter a valid locale"
-        />
+        <FormSelect name="locale" options={availableLocales} formik={formik} />
+
         <Button color="primary" variant="contained" fullWidth type="submit">
           Submit
         </Button>
@@ -182,21 +199,36 @@ export default function Locales() {
   return (
     <>
       <Stack>
-        <Button sx={{ px: 0, ml: 'auto' }} title="add">
-          <Button
-            variant="contained"
-            color="success"
-            startIcon={<AddOutlinedIcon />}
-            onClick={() => {
-              MySwal.fire({
-                title: `Locale`,
-                showConfirmButton: false,
-                html: <InputLocale />,
-              });
-            }}
-          >
-            Add
-          </Button>
+        <Link
+          alignSelf="start"
+          color="secondary"
+          underline="none"
+          href="https://zesty.org/getting-started/i18n-multi-language"
+        >
+          Locales Documentation
+        </Link>
+        <Link
+          alignSelf="start"
+          color="secondary"
+          underline="none"
+          href="https://zesty.org/getting-started/i18n-multi-language#what-happens-when-a-new-language-is-added"
+        >
+          What happens when lang added?
+        </Link>
+        <Button
+          variant="contained"
+          color="success"
+          startIcon={<AddOutlinedIcon />}
+          sx={{ alignSelf: 'end' }}
+          onClick={() => {
+            MySwal.fire({
+              title: `Locale`,
+              showConfirmButton: false,
+              html: <InputLocale availableLocales={availableLocales} />,
+            });
+          }}
+        >
+          Add
         </Button>
       </Stack>
 

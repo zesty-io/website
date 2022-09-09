@@ -4,9 +4,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import { ComboBox } from 'components/globals/ComboBox';
 import { Button, useMediaQuery } from '@mui/material';
-import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookies } from 'cookies-next';
 import HomeIcon from '@mui/icons-material/Home';
 import Skeleton from '@mui/material/Skeleton';
@@ -14,8 +12,9 @@ import { useZestyStore } from 'store';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 export default function AppBar({ url = window.location.pathname }) {
-  const { verifySuccess, instances, userInfo, loading, setworkingInstance } =
-    useZestyStore((state) => state);
+  const { verifySuccess, loading, setworkingInstance } = useZestyStore(
+    (state) => state,
+  );
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
@@ -36,9 +35,6 @@ export default function AppBar({ url = window.location.pathname }) {
     .split('?')[0]
     .split('/')
     .filter((e) => e);
-
-  const profileUrl =
-    'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
 
   React.useEffect(() => {
     setworkingInstance(instanceZUID);
@@ -144,26 +140,7 @@ export default function AppBar({ url = window.location.pathname }) {
               ) : (
                 <Box
                   sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
-                >
-                  <ComboBox
-                    instances={instances?.data}
-                    setCookies={setworkingInstance}
-                    instanceZUID={instanceZUID}
-                    size="small"
-                  />
-
-                  <Link
-                    boxShadow={2}
-                    sx={{
-                      backgroundColor: theme.palette.common.white,
-                      display: 'flex',
-                      justifyContent: 'center',
-                    }}
-                    href="/profile"
-                  >
-                    <img src={profileUrl} alt="" height={40} width={40} />
-                  </Link>
-                </Box>
+                ></Box>
               )}
             </Box>
           )}

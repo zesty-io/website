@@ -107,9 +107,12 @@ const CustomTable = ({
   // const memoizeColumns = React.useMemo(() => COLUMNS, []);
 
   return (
-    <Box>
-      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
-    </Box>
+    <StickyTable
+      title={'Active Users'}
+      loading={loading}
+      rows={ROWS}
+      columns={COLUMNS}
+    />
   );
 };
 

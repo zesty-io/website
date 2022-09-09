@@ -42,7 +42,9 @@ const Login = ({ content }) => {
 
   const handleCookieAndRedirect = (res) => {
     if (res)
-      setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data);
+      setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data, {
+        domain: '.zesty.io',
+      });
 
     setCookie('isAuthenticated', true);
     setCookie('isUser', true);
@@ -128,7 +130,9 @@ const Login = ({ content }) => {
   };
 
   const handleShow2FA = async (res) => {
-    setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.meta.token);
+    setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.meta.token, {
+      domain: '.zesty.io',
+    });
     await ZestyAPI.setToken(res.meta.token);
     triggerAuto2FA();
 
