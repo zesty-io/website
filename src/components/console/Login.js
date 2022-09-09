@@ -44,7 +44,7 @@ const Login = ({ content, userEmail }) => {
 
     setCookie('isAuthenticated', true);
     setCookie('isUser', true);
-    window.location.replace('/instances');
+    window.location.replace('/');
   };
 
   const triggerAuto2FA = () => {
