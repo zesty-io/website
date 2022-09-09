@@ -69,7 +69,7 @@ export async function getServerSideProps({ req, res }) {
   if (req.url === '/login/' && isAuthenticated) {
     return {
       redirect: {
-        destination: '/instances/',
+        destination: '/',
         permanent: false,
       },
     };
