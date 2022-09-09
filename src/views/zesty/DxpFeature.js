@@ -53,7 +53,7 @@ import FillerContent from 'components/globals/FillerContent';
 import Hero from 'components/marketing/DxpFeatures/Hero';
 
 // Components Imports
-// import WhyZesty from 'components/marketing/DxpFeatures/WhyZesty';
+import WhyZesty from 'components/marketing/DxpFeatures/WhyZesty';
 
 function DxpFeature({ content }) {
   const theme = useTheme();
@@ -133,7 +133,7 @@ function DxpFeature({ content }) {
         cta_text={content.section_3_cta}
         cta_url={content.section_3_cta_link}
       />
-      {/* <WhyZesty {...pageData} /> */}
+      <WhyZesty {...pageData} />
     </>
   );
 }
