@@ -1,14 +1,8 @@
-import React from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 /**
  * MUI Imports
  */
 import { Box, Typography, Button, Grid, Card } from '@mui/material';
-import Divider from '@mui/material/Divider';
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
-import { useTheme, alpha } from '@mui/material/styles';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Star from '../../../../public/assets/images/homepage/star.svg';
 
 const Testimonial = ({
@@ -18,9 +12,8 @@ const Testimonial = ({
   content,
   FillerContent,
 }) => {
-  console.log(content.testimonial);
   return (
-    <Box sx={{ background: theme.palette.zesty.zestyDarkBlue }}>
+    <Box sx={{ background: theme.palette.zesty.zestyWhite }}>
       <Container sx={{ py: 5 }}>
         <Box>
           <Typography
@@ -30,7 +23,7 @@ const Testimonial = ({
               p: 2,
               fontWeight: 'bold',
               textAlign: 'center',
-              color: theme.palette.common.white,
+              color: theme.palette.zesty.zestyZambezi,
             }}
           >
             {content.testimonial_title || FillerContent.description}

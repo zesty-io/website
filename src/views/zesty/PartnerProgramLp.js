@@ -48,7 +48,7 @@ import FillerContent from 'components/globals/FillerContent';
  * Mui Imports
  */
 import { Box } from '@mui/material';
-import { useTheme, alpha } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 /**
@@ -61,6 +61,7 @@ import WithDarkBackgroundAndSimpleDescriptionBox from 'blocks/logoGrid/WithDarkB
 import Benefits from 'components/marketing/PartnerProgramLp/Benefits';
 import Testimonial from 'components/marketing/PartnerProgramLp/Testimonial';
 import Bottom from 'components/marketing/PartnerProgramLp/Bottom';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 
 function PartnerProgramLp({ content }) {
   const theme = useTheme();
@@ -79,11 +80,15 @@ function PartnerProgramLp({ content }) {
 
   return (
     <>
-      <Box>
-        <Hero {...pageData} />
+      <Hero {...pageData} />
+      <Box sx={{ py: 10 }}>
+        <SimpleCardLogo
+          heading_text={content.logos_title}
+          logoItems={content.logos.data}
+          {...pageData}
+        />
       </Box>
       <WhyZesty {...pageData} />
-      <WithDarkBackgroundAndSimpleDescriptionBox {...pageData} />
       <Benefits {...pageData} />
       <Testimonial {...pageData} />
       <Bottom {...pageData} />

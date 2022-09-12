@@ -17,8 +17,8 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   const LeftSide = () => (
-    <Box>
-      <Box marginBottom={2}>
+    <Box sx={{py:10, px:2}}>
+      <Box sx={{display:'flex', flexDirection:"column", gap:4}} marginBottom={2}>
         <MuiMarkdown
           overrides={{
             span: {
@@ -61,7 +61,7 @@ const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
           {content.header_text || FillerContent.description}
         </MuiMarkdown>
 
-        <Box sx={{ mt: 2 }}>
+        <Box >
           <Box sx={{ display: isMobile ? 'block' : 'flex' }}>
             <TryFreeButton
               text={content.button_text || FillerContent.cta}
