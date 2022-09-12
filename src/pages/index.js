@@ -10,8 +10,19 @@ export default IndexPage;
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
+  // needs to add this here, because the [...slug].js in pages don't get triggered in homepage path /
+  // in able to use zesty.isAuthenticated to swap layout in /
+  let isAuthenticated = JSON.parse(req.cookies.isAuthenticated || false);
+
   // issue:  multiple call of getServersideprops
-  const data = await fetchPage(req.url);
+  let data = await fetchPage(req.url);
+
+  data = {
+    ...data,
+    zesty: {
+      isAuthenticated,
+    },
+  };
 
   // logic needed to prevent caching in homepage for zesty users
   if (req?.headers?.cookies?.include('APP_SID')) {

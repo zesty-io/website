@@ -112,8 +112,8 @@ const AppNavigation = ({
                   <img
                     src={profileUrl}
                     alt="User"
-                    height={50}
-                    width={50}
+                    height={25}
+                    width={25}
                     style={{ borderRadius: '50%' }}
                   />
                   <ArrowDropDownIcon color="primary" fontSize="medium" />
