@@ -7,7 +7,14 @@ import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
 
-const HeroJarallax = (image) => {
+const HeroJarallax = ({
+  title,
+  image,
+  authorImage,
+  authorName,
+  authorDate,
+  featuredAuthorLink,
+}) => {
   useEffect(() => {
     const jarallaxInit = async () => {
       const jarallaxElems = document.querySelectorAll('.jarallax');
@@ -22,13 +29,25 @@ const HeroJarallax = (image) => {
     jarallaxInit();
   });
 
+  function makeDate(date) {
+    var d = new Date(date);
+    var options = {
+      year: 'numeric',
+      month: 'long',
+    };
+    var n = d.toLocaleDateString('en-US', options);
+
+    var replace = n.replace(new RegExp(',', 'g'), ' ');
+    return replace;
+  }
+
   return (
     <Box
       className={'jarallax'}
       data-jarallax
       data-speed="0.2"
       position={'relative'}
-      minHeight={{ xs: 400, sm: 500, md: 650, lg: 800 }}
+      minHeight={{ xs: 400, sm: 500, md: 650 }}
       display={'flex'}
       marginTop={-13}
       paddingTop={13}
@@ -50,7 +69,7 @@ const HeroJarallax = (image) => {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
-          backgroundImage: `url(${image.image})`,
+          backgroundImage: `url(${image})`,
         }}
       />
       <Box
@@ -76,17 +95,25 @@ const HeroJarallax = (image) => {
               marginBottom: 2,
             }}
           >
-            Remote work is the future, but should you go remote?
+            {title}
           </Typography>
-          <Box display={'flex'} alignItems={'center'}>
+          <Box
+            display={'flex'}
+            alignItems={'center'}
+            component={'a'}
+            href={featuredAuthorLink}
+            sx={{
+              textDecoration: 'none',
+            }}
+          >
             <Avatar
               sx={{ width: 60, height: 60, marginRight: 2 }}
-              src={'https://assets.maccarianagency.com/avatars/img3.jpg'}
+              src={authorImage}
             />
             <ListItemText
               sx={{ margin: 0 }}
-              primary={'Jhon Anderson'}
-              secondary={'May 19, 2021'}
+              primary={authorName}
+              secondary={makeDate(authorDate)}
               primaryTypographyProps={{
                 variant: 'h6',
                 sx: { color: 'common.white' },

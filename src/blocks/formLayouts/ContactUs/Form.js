@@ -28,13 +28,10 @@ const validationSchema = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required('Email is required.'),
-  message: yup
-    .string()
-    .trim()
-    .required('Please specify your message'),
+  message: yup.string().trim().required('Please specify your message'),
 });
 
-const ContactUs = ({title, description}) => {
+const ContactUs = ({ title, description }) => {
   const theme = useTheme();
 
   const initialValues = {
@@ -69,7 +66,7 @@ const ContactUs = ({title, description}) => {
           {description}
         </Typography>
       </Box>
-      <Box>
+      <Box paddingBottom={6}>
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={4}>
             <Grid item xs={12} sm={6}>
@@ -142,17 +139,12 @@ const ContactUs = ({title, description}) => {
               <Button
                 sx={{ height: 54, minWidth: 150 }}
                 variant="contained"
-                color="primary"
+                color="secondary"
                 size="medium"
                 type="submit"
               >
                 Submit
               </Button>
-            </Grid>
-            <Grid item container justifyContent={'center'} xs={12}>
-              <Typography color="text.secondary">
-                We'll get back to you in 1-2 business days.
-              </Typography>
             </Grid>
             <Grid item xs={12}>
               <Divider />
@@ -163,29 +155,11 @@ const ContactUs = ({title, description}) => {
                   By clicking on "submit" you agree to our{' '}
                   <Box
                     component="a"
-                    href=""
+                    href="/legal/privacy-policy/"
                     color={theme.palette.text.primary}
                     fontWeight={'700'}
                   >
                     Privacy Policy
-                  </Box>
-                  ,{' '}
-                  <Box
-                    component="a"
-                    href=""
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}
-                  >
-                    Data Policy
-                  </Box>{' '}
-                  and{' '}
-                  <Box
-                    component="a"
-                    href=""
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}
-                  >
-                    Cookie Policy
                   </Box>
                   .
                 </Typography>

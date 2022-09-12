@@ -35,52 +35,111 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
+import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 import BlogCTA from 'components/cta/BlogCTA';
 
 import HeroJarallax from 'blocks/heroes/HeroJarallax';
-
 import SidebarArticles from 'blocks/sidebars/SidebarArticles';
-import SidebarNewsletter from 'blocks/sidebars/SidebarNewsletter';
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 
 import Container from 'components/Container';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
+import useFetch from 'components/hooks/useFetch';
 
 function Article({ content }) {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+
+  const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
+
+  const { data: latestArticles, isPending: latestPending } = useFetch(
+    '/-/all-articles-hydrated.json?limit=5',
+    content.zestyProductionMode,
+  );
+
+  const { data: tagArticles, isPending: tagsPending } = useFetch(
+    `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
+    content.zestyProductionMode,
+  );
+
+  const removeErrorHandlingString = /Error hydrating/gi;
+  let cleanOutErrorHydrating;
+
+  // Check if "Error hydrating" is being injected and clean out
+  // Skip if wysiwyg is empty to avoid error
+  const validateWysiwyg = () => {
+    if (content.article?.includes('Error hydrating')) {
+      cleanOutErrorHydrating = content?.article.replaceAll(
+        removeErrorHandlingString,
+        '',
+      );
+      return cleanOutErrorHydrating;
+    } else {
+      return content.article;
+    }
+  };
+
   return (
     <>
       <Box>
         <HeroJarallax
+          articleDate={content.date || FillerContent.date}
+          title={content?.title || FillerContent.header}
+          articleAvatar={
+            content?.author?.data[0]?.headshot?.data[0]?.url ||
+            FillerContent.image
+          }
           image={
             content.hero_image?.data
               ? content.hero_image.data[0].url
               : FillerContent.image
           }
+          authorImage={
+            content.author?.data[0]?.headshot?.data[0]?.url ||
+            FillerContent.image
+          }
+          authorName={content.author?.data[0]?.name || FillerContent.header}
+          authorDate={content.date || FillerContent.date}
+          featuredAuthorLink={
+            content.author?.data[0]?.meta?.web?.uri || FillerContent.href
+          }
         />
         <Container>
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: content.article,
-                }}
-              ></Box>
-              <BlogCTA />
+              <WYSIWYGRender
+                customClass="normal-bullets"
+                rich_text={validateWysiwyg() || FillerContent.rich_text}
+              ></WYSIWYGRender>
+
+              <BlogCTA
+                title={'Insights in your inbox'}
+                description={'Subscribe to the Zesty newsletter'}
+                ctaBtn={'Subscribe'}
+              />
             </Grid>
             <Grid item xs={12} md={4}>
               {isMd ? (
-                <Box marginBottom={4}>
-                  <SidebarArticles />
+                <Box marginBottom={4} sx={{ minHeight: 700 }}>
+                  {latestPending ? (
+                    <CircularProgressWithLabel />
+                  ) : (
+                    <SidebarArticles
+                      latestArticles={
+                        latestArticles || FillerContent.missingDataArray
+                      }
+                    />
+                  )}
                 </Box>
               ) : null}
-              <SidebarNewsletter />
+
+              {/* <SideBarCTA /> */}
             </Grid>
           </Grid>
         </Container>
@@ -103,10 +162,20 @@ function Article({ content }) {
         </Box>
       </Box>
       <Box bgcolor={'alternate.main'}>
-        <SimpleVerticalBlogCards />
-
-        <CtaWithInputField />
-
+        <SimpleVerticalBlogCards
+          cards={tagArticles.length !== 0 ? tagArticles : latestArticles}
+          title={
+            tagArticles.length !== 0 ? 'Similar stories' : 'Latest articles'
+          }
+          cta_url={'/mindshare'}
+        />
+        <CtaWithInputField
+          title={'Subscribe to the zestiest newsletter in the industry'}
+          description={
+            'Get the latest from the Zesty team, from whitepapers to product updates.'
+          }
+          cta={'Subscribe'}
+        />
         <Box
           component={'svg'}
           preserveAspectRatio="none"
@@ -125,24 +194,6 @@ function Article({ content }) {
           ></path>
         </Box>
       </Box>
-
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
     </>
   );
 }

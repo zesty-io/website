@@ -17,7 +17,7 @@ const NavItem = ({ title, items }) => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
 
-  const hasActiveLink = () => items.find((i) => i.href === activeLink);
+  const hasActiveLink = () => items.find((i) => i.url === activeLink);
 
   return (
     <Box>
@@ -46,38 +46,22 @@ const NavItem = ({ title, items }) => {
                 <Button
                   size={'large'}
                   component={'a'}
-                  href={p.href}
+                  href={p.url}
                   fullWidth
                   sx={{
                     justifyContent: 'flex-start',
                     color:
-                      activeLink === p.href
+                      activeLink === p.url
                         ? theme.palette.primary.main
                         : theme.palette.text.primary,
                     backgroundColor:
-                      activeLink === p.href
+                      activeLink === p.url
                         ? alpha(theme.palette.primary.main, 0.1)
                         : 'transparent',
-                    fontWeight: activeLink === p.href ? 600 : 400,
+                    fontWeight: activeLink === p.url ? 600 : 400,
                   }}
                 >
                   {p.title}
-                  {p.isNew && (
-                    <Box
-                      padding={0.5}
-                      display={'inline-flex'}
-                      borderRadius={1}
-                      bgcolor={'primary.main'}
-                      marginLeft={2}
-                    >
-                      <Typography
-                        variant={'caption'}
-                        sx={{ color: 'common.white', lineHeight: 1 }}
-                      >
-                        new
-                      </Typography>
-                    </Box>
-                  )}
                 </Button>
               </Grid>
             ))}

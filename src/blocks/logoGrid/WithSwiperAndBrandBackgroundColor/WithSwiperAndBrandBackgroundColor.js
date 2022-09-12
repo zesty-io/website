@@ -1,21 +1,19 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-
+import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
-
-
 
 const WithSwiperAndBrandBackgroundColor = (props) => {
   // logos is an array of content items
-  let logos = (undefined !== props.logos) ? props.logos : [];
-
+  let logos = undefined !== props.logos ? props.logos : [];
+  const theme = useTheme();
   return (
-    <Box >
+    <Box>
       {/* removed this attribute from above box: bgcolor={'alternate.main'}*/}
       {/* <pre>{JSON.stringify(logos, null, 2)}</pre> */}
-      <Container maxWidth={1}>
+      <Container maxWidth={1} paddingY={2}>
         <Box display={'flex'} justifyContent={'center'} flexWrap={'wrap'}>
-          {logos.map((item, i) => (
+          {logos?.map((item, i) => (
             <Box
               maxWidth={200}
               key={i}
@@ -26,10 +24,16 @@ const WithSwiperAndBrandBackgroundColor = (props) => {
                 component="img"
                 width={1}
                 height="auto"
-                src={item.customer_logo.data[0].url}
-                alt={`${item.customer_name}, a Zesty.io Customer`}
+                src={
+                  item?.customer_logo?.data && item?.customer_logo?.data[0].url
+                }
+                // src={theme.palette.mode === 'dark' ? item.white_logo.data[0].url : item.grey_logo.data[0].url}
+                alt={`${item?.customer_name}, a Zesty.io Customer`}
                 sx={{
-                  filter: 'grayscale(1) brightness(0.6)',
+                  filter:
+                    theme.palette.mode === 'dark'
+                      ? 'grayscale(100%) brightness(0%) invert(1)'
+                      : 'grayscale(40%) brightness(0%)',
                 }}
               />
             </Box>

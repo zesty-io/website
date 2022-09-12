@@ -5,7 +5,7 @@
  * Label: Demo Page Items 
  * Name: demo_page_items 
  * Model ZUID: 6-aa95b8e195-f7r9h0
- * File Created On: Fri Mar 11 2022 17:29:29 GMT+0100 (Central European Standard Time)
+ * File Created On: Tue Mar 15 2022 23:36:31 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 
@@ -29,21 +29,30 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React  from 'react';
+import React from 'react';
 
-function DemoPageItem({content}) {
-    return (
-        <>
-            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            {/* End of Zesty.io output example */}
-        </>
-    );
+function DemoPageItem({ content }) {
+  return (
+    <>
+      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+      <h1
+        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
+      ></h1>
+      <div>{content.meta.web.seo_meta_description}</div>
+      <div
+        style={{
+          background: '#eee',
+          border: '1px #000 solid',
+          margin: '10px',
+          padding: '20px',
+        }}
+      >
+        <h2>Accessible Zesty.io JSON Object</h2>
+        <pre>{JSON.stringify(content, null, 2)}</pre>
+      </div>
+      {/* End of Zesty.io output example */}
+    </>
+  );
 }
-  
+
 export default DemoPageItem;

@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+
+npm run  build ||
+(
+    echo '
+    
+    🤢🤮🤢🤮 #####################  BUILD  ################## 🤢🤮🤢🤮
+    ❌❌❌❌❌❌❌              BUILD Failed.            ❌❌❌❌❌❌❌ 
+    🤢🤮🤢🤮 #####################  BUILD  ################## 🤢🤮🤢🤮
+            ';
+    false;
+)
+
+echo ' '
+echo ' '
+echo '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Git Push 👌  🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀'
+echo '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Git Push 👌  🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀'
+echo '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Git Push 👌  🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀'
+echo ' '
+echo ' '

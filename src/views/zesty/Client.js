@@ -35,7 +35,7 @@ import Stories from 'blocks/portfolioGrid/Stories/Stories';
 import PartnersColor from 'blocks/logoGrid/PartnersColor/PartnersColor';
 import ShowcaseBgImagePage from 'blocks/heroes/ShowcaseBgImage/ShowcaseBgImage';
 import CtaSimpleCentered from 'blocks/cta/CtaSimpleCentered/CtaSimpleCentered';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 function Client({ content }) {
   const theme = useTheme();
@@ -85,49 +85,52 @@ function Client({ content }) {
         </Box>
         <Box position={'relative'} zIndex={3} marginTop={{ xs: 0, md: -22 }}>
           <Container>
-            <PartnersColor />
+            <PartnersColor
+              partnerLogos={content?.logos?.data || FillerContent.photos}
+            />
           </Container>
         </Box>
         <Container>
           <Box>
             <Box marginBottom={4}>
               <ShowcaseBgImagePage
-                image={content.showcase_background_image.data[0].url}
-                showCase={content.showcase}
-                description={content.showcase_description}
+                image={
+                  content?.showcase_background_image?.data[0]?.url ||
+                  FillerContent.image
+                }
+                showCase={content.showcase || FillerContent.header}
+                description={
+                  content.showcase_description || FillerContent.description
+                }
+                showCaseCTA={
+                  content.showcase_cta_link_title || FillerContent.header
+                }
+                showCaseLink={
+                  content.showcase_cta_link?.data[0]?.meta?.web?.uri ||
+                  FillerContent.href
+                }
               />
             </Box>
           </Box>
         </Container>
         <Container>
           <Stories
-            eyeBrow={content.client_eyebrow}
-            clientTitle={content.client_title}
-            cards={content.client_cards.data}
+            eyeBrow={content.client_eyebrow || FillerContent.header}
+            clientTitle={content.client_title || FillerContent.header}
+            clientInfo={
+              content.client_cards.data || FillerContent.missingDataArray
+            }
           />
         </Container>
         <Box bgcolor={theme.palette.alternate.main}>
           <CtaSimpleCentered
-            cta={content.cta_title}
-            description={content.cta_description}
-            ctaLeft={content.cta_left}
-            ctaRight={content.cta_right}
+            ctaTitle={content.cta_title || FillerContent.header}
+            description={content.cta_description || FillerContent.description}
+            ctaLeft={content.cta_left || FillerContent.cta}
+            ctaRight={content.cta_right || FillerContent.cta}
           />
         </Box>
       </Box>
-
-      {/* <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div> */}
-      {/* End of Zesty.io output example */}
     </>
   );
 }

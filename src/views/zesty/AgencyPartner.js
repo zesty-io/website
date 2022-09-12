@@ -32,17 +32,20 @@ import Box from '@mui/material/Box';
 import HeroNotTyped from '../../blocks/heroes/HeroNotTyped';
 import Partners from '../../blocks/logoGrid/Partners';
 import Main from '../../blocks/portfolioGrid/Main/Main';
-import ContactEmail from '../../blocks/formLayouts/ContactEmail';
-import CtaSimpleCentered from 'blocks/cta/CtaSimpleCentered/CtaSimpleCentered'
-import FillerContent from 'components/FillerContent';
-
+import Typography from '@mui/material/Typography';
+import FillerContent from 'components/globals/FillerContent';
+import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
+import Button from '@mui/material/Button';
+import { zestyLink } from 'lib/zestyLink';
 
 import Container from 'components/Container';
-
+import { useMediaQuery } from '@mui/material';
 
 function AgencyPartner({ content }) {
   const theme = useTheme();
-
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
 
   return (
     <>
@@ -53,18 +56,75 @@ function AgencyPartner({ content }) {
         />
       </Container>
       <Container paddingY={'0 !important'}>
-        <Partners data={content.header_logos.data} />
+        <Partners logoPartners={content.header_logos.data} />
       </Container>
 
-      <CtaSimpleCentered
-        title={content.cta_header_title}
-        description={content.cta_header_description}
-        ctaLeft={content.cta_header_left}
-        ctaRight={content.cta_header_right}
-      />
+      <Container>
+        <Box>
+          <Typography
+            variant="h4"
+            color="text.primary"
+            align={'center'}
+            gutterBottom
+            sx={{
+              fontWeight: 700,
+            }}
+          >
+            {content.cta_header_title || FillerContent.header}
+          </Typography>
+          <Typography
+            variant="h6"
+            component="p"
+            color="text.secondary"
+            sx={{ fontWeight: 400 }}
+            align={'center'}
+          >
+            {content.cta_header_description || FillerContent.description}
+          </Typography>
+          <Box
+            display="flex"
+            flexDirection={{ xs: 'column', sm: 'row' }}
+            alignItems={{ xs: 'stretched', sm: 'flex-start' }}
+            justifyContent={'center'}
+            marginTop={4}
+          >
+            <Button
+              component={'a'}
+              href={'#signup'}
+              variant="contained"
+              color="secondary"
+              size="large"
+              fullWidth={isMd ? false : true}
+            >
+              {content.cta_header_left || FillerContent.cta}
+            </Button>
+
+            <Box
+              marginTop={{ xs: 2, sm: 0 }}
+              marginLeft={{ sm: 2 }}
+              width={{ xs: '100%', md: 'auto' }}
+            >
+              <Button
+                component={'a'}
+                href={zestyLink(content.navigationTree, '7-cec987fcf5-9bht2z')}
+                variant="outlined"
+                color="secondary"
+                size="large"
+                fullWidth={isMd ? false : true}
+              >
+                {content.cta_header_right || FillerContent.cta}
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Container>
 
       <Container>
-        <Main data={content.agency_partners_cards.data} />
+        <Main
+          partnerCards={
+            content.agency_partners_cards.data || FillerContent.missingDataArray
+          }
+        />
       </Container>
       <Box
         position={'relative'}
@@ -96,30 +156,39 @@ function AgencyPartner({ content }) {
           ></path>
         </Box>
         <Container>
-          <ContactEmail
-            title={content.cta_footer_title}
-            description={content.cta_footer_description}
-            cta={content.cta_footer_cta}
-          />
+          <Box id="signup">
+            <Box marginBottom={4}>
+              <Typography
+                fontWeight={700}
+                variant={'h4'}
+                align={'center'}
+                gutterBottom
+              >
+                {content.cta_footer_title || FillerContent.title}
+              </Typography>
+              <Typography
+                variant={'h6'}
+                component={'p'}
+                color={'text.secondary'}
+                align={'center'}
+              >
+                {content.cta_footer_description || FillerContent.description}
+              </Typography>
+            </Box>
+
+            <StandardFormWithSelect
+              leadDetail="Agency Partner Sign Up"
+              businessType="Partner"
+              selectedValue={1}
+              hideSelect={true}
+              hideMessage={true}
+              ctaText={content.cta_footer_cta || FillerContent.cta}
+              modalTitle="Thank you for submitting your agency information."
+              modalMessage="Our team will be in touch soon to discuss next steps."
+            />
+          </Box>
         </Container>
       </Box>
-
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
     </>
   );
 }

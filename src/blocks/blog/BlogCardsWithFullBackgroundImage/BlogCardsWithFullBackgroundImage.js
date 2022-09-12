@@ -10,36 +10,28 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
+import FillerContent from 'components/globals/FillerContent';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img2.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Lorem ipsum dolor sit amet,',
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img4.jpg',
-    },
-    date: '04 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Consectetur adipiscing elit',
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-    },
-    date: '12 Sep',
-  },
-];
+const BlogCardsWithFullBackgroundImage = ({
+  caseStudy,
+  title,
+  description,
+}) => {
+  function makeDate(date) {
+    var d = new Date(date);
+    var options = {
+      year: 'numeric',
+      month: 'long',
+    };
+    var n = d.toLocaleDateString('en-US', options);
 
-const BlogCardsWithFullBackgroundImage = () => {
+    var replace = n.replace(new RegExp(',', 'g'), ' ');
+    return replace;
+  }
+
   const theme = useTheme();
   return (
-    <Container>
+    <Container paddingTop={'0 !important'}>
       <Box
         display={'flex'}
         justifyContent={'space-between'}
@@ -49,30 +41,37 @@ const BlogCardsWithFullBackgroundImage = () => {
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            Case studies
+            {title}
           </Typography>
-          <Typography color={'text.secondary'}>
-            In-depth looks at our work.
-          </Typography>
+          <Typography color={'text.secondary'}>{description}</Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
           <Box
             component={Button}
             variant="outlined"
-            color="primary"
+            color={theme.palette.zesty.zestyOrange}
+            borderColor={theme.palette.zesty.zestyOrange}
             size="large"
             marginLeft={2}
+            href={'customer-stories/'}
+            sx={{
+              '&:hover': {
+                borderColor: '#FF5D0A',
+                backgroundColor: '#FF5D0A',
+                color: 'white',
+              },
+            }}
           >
             View all
           </Box>
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {caseStudy.map((item, i) => (
           <Grid item xs={12} key={i}>
             <Box
               component={'a'}
-              href={''}
+              href={item?.meta?.web?.uri}
               display={'block'}
               width={1}
               height={1}
@@ -96,7 +95,7 @@ const BlogCardsWithFullBackgroundImage = () => {
                 }}
                 sx={{
                   minHeight: 300,
-                  backgroundImage: `url("${item.image}")`,
+                  backgroundImage: `url("${item?.hero_image?.data[0]?.url}")`,
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -134,13 +133,13 @@ const BlogCardsWithFullBackgroundImage = () => {
                       gutterBottom
                       sx={{ color: 'common.white' }}
                     >
-                      {item.title}
+                      {item?.title}
                     </Typography>
                     <Typography
                       color="text.secondary"
                       sx={{ color: 'common.white', opacity: 0.8 }}
                     >
-                      {item.description}
+                      {item?.description}
                     </Typography>
                   </Box>
                   <Box>
@@ -158,21 +157,21 @@ const BlogCardsWithFullBackgroundImage = () => {
                     >
                       <Box display={'flex'} alignItems={'center'}>
                         <Avatar
-                          src={item.author.avatar}
+                          src={item?.author?.data[0]?.headshot?.data[0]?.url}
                           sx={{ marginRight: 1 }}
                         />
                         <Typography
                           color={'text.secondary'}
                           sx={{ color: 'common.white', opacity: 0.8 }}
                         >
-                          {item.author.name}
+                          {item?.author?.data[0]?.name}
                         </Typography>
                       </Box>
                       <Typography
                         color={'text.secondary'}
                         sx={{ color: 'common.white', opacity: 0.8 }}
                       >
-                        {item.date}
+                        {makeDate(item?.date) || FillerContent.date}
                       </Typography>
                     </Box>
                   </Box>

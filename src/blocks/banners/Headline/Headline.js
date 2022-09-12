@@ -3,7 +3,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const Headline = ({title, description}) => {
+const Headline = ({ title, subtitle, description }) => {
   const theme = useTheme();
 
   return (
@@ -42,7 +42,7 @@ const Headline = ({title, description}) => {
           align={'center'}
           gutterBottom
         >
-          We take you by hand on each step of the process
+          {subtitle}
         </Typography>
         <Typography variant="h6" color={'text.secondary'} align={'center'}>
           {description}

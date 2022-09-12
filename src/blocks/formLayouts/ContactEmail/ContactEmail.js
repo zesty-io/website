@@ -3,9 +3,10 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import FillerContent from 'components/FillerContent';
+import { useTheme } from '@mui/material/styles';
 
-const Contact = ({ title, description, cta }) => {
+const Contact = ({ title, description, ctaBtn }) => {
+  const theme = useTheme();
   return (
     <Box>
       <Box marginBottom={4}>
@@ -15,7 +16,7 @@ const Contact = ({ title, description, cta }) => {
           align={'center'}
           gutterBottom
         >
-          {title || FillerContent.header}
+          {title}
         </Typography>
         <Typography
           variant={'h6'}
@@ -23,7 +24,7 @@ const Contact = ({ title, description, cta }) => {
           color={'text.secondary'}
           align={'center'}
         >
-          {description || FillerContent.header}
+          {description}
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
@@ -58,13 +59,13 @@ const Contact = ({ title, description, cta }) => {
             <Box
               component={Button}
               variant="contained"
-              color="primary"
+              backgroundColor={theme.palette.zesty.zestyOrange}
               size="large"
               height={54}
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
             >
-              {cta || FillerContent.cta}
+              {ctaBtn}
             </Box>
           </Box>
         </Box>

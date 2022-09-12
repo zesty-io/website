@@ -25,65 +25,291 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+import React, { useState } from 'react';
+
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
+
+import SearchBox from 'blocks/searchBox/SearchBox';
+
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
 
-
 import HeroWithBackgroundAndFullSearchBar from 'blocks/heroes/HeroWithBackgroundAndFullSearchBar/';
-import SearchBox from 'blocks/searchBox/SearchBox'
-import HorizontallyAlignedBlogCardWithShapedImage from 'blocks/blog/HorizontallyAlignedBlogCardWithShapedImage'
+import HorizontallyAlignedBlogCardWithShapedImage from 'blocks/blog/HorizontallyAlignedBlogCardWithShapedImage';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
 import BlogCardsWithFullBackgroundImage from 'blocks/blog/BlogCardsWithFullBackgroundImage';
-import PopularArticles from 'blocks/blog/popularArticles/PopularArticles'
-import Newsletter from 'blocks/newsletters/Newsletter'
-
-
+import PopularArticles from 'blocks/blog/popularArticles/PopularArticles';
+import Newsletter from 'blocks/newsletters/Newsletter';
+import useFetch from 'components/hooks/useFetch';
 
 function Mindshare({ content }) {
   const theme = useTheme();
+  const {
+    data: allArticles,
+    isPending,
+    error,
+  } = useFetch(
+    '/-/all-articles-hydrated.json?limit=140',
+    content.zestyProductionMode,
+  );
+
+  const [searchQuery, setSearchQuery] = useState('');
 
   const chipsTitle = content.popular_categories
     ? Object.keys(content.popular_categories.data).map(
-        (item) => content.popular_categories.data[item]?.category,
+        (item) => content?.popular_categories?.data[item]?.category,
       )
-    : FillerContent.missingDataArray; ;
+    : FillerContent.missingDataArray;
 
+  const onSearchHandler = (evt, value) => {
+    evt.preventDefault();
+    setSearchQuery(evt.target.value);
+  };
+  const onSubmit = (evt, value) => {
+    evt.preventDefault();
+  };
 
   return (
     <>
       <Box bgcolor={'alternate.main'} position={'relative'}>
         <HeroWithBackgroundAndFullSearchBar
-          image={content.hero_image.data[0].url}
-          title={content.title}
-          subTitle={content.subtitle}
+          image={content.hero_image?.data[0]?.url || FillerContent.image}
+          title={content.title || FillerContent.header}
+          subTitle={content.subtitle || FillerContent.description}
         />
 
-        <Container
-          sx={{
-            marginTop: '-5rem',
-            position: 'relative',
-            zIndex: 3,
-            paddingY: '0 !important',
-          }}
-        >
-          <SearchBox chipsTitle={chipsTitle} />
+        <Container>
+          {/* Search Filter */}
+          <Container
+            sx={{
+              position: 'relative',
+              zIndex: 3,
+              paddingY: '0 !important',
+            }}
+          >
+            <SearchBox
+              onSearchHandler={onSearchHandler}
+              searchQuery={searchQuery}
+              onSubmit={onSubmit}
+            />
+          </Container>
+          {/* Search Result section */}
+          {searchQuery.length !== 0 && (
+            <Grid container spacing={4} marginBottom={4}>
+              {allArticles
+                .filter((post) => {
+                  if (searchQuery === '') {
+                    return post;
+                  } else if (
+                    post.title
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ||
+                    post.description
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())
+                  ) {
+                    return post;
+                  }
+                })
+                .map((item, i) => (
+                  <Grid item xs={12} sm={6} md={4} key={i}>
+                    <Box
+                      component={'a'}
+                      href={item?.path || item?.uri || FillerContent.href}
+                      display={'block'}
+                      width={1}
+                      height={1}
+                      sx={{
+                        textDecoration: 'none',
+                        transition: 'all .2s ease-in-out',
+                        '&:hover': {
+                          transform: `translateY(-${theme.spacing(1 / 2)})`,
+                        },
+                      }}
+                    >
+                      <Box
+                        component={Card}
+                        width={1}
+                        height={1}
+                        boxShadow={4}
+                        display={'flex'}
+                        flexDirection={'column'}
+                        sx={{ backgroundImage: 'none' }}
+                      >
+                        <CardMedia
+                          image={item?.image || FillerContent.image}
+                          title={item?.meta_title || 'Card Image'}
+                          sx={{
+                            height: { xs: 300, md: 360 },
+                            position: 'relative',
+                          }}
+                        >
+                          <Box
+                            component={'svg'}
+                            viewBox="0 0 2880 480"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            sx={{
+                              position: 'absolute',
+                              bottom: 0,
+                              color: theme.palette.background.paper,
+                              transform: 'scale(2)',
+                              height: 'auto',
+                              width: 1,
+                              transformOrigin: 'top center',
+                            }}
+                          >
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M2160 0C1440 240 720 240 720 240H0v240h2880V0h-720z"
+                              fill="currentColor"
+                            />
+                          </Box>
+                        </CardMedia>
+                        <Box component={CardContent} position={'relative'}>
+                          <Typography variant={'h6'} gutterBottom>
+                            {item.title || FillerContent.header}
+                          </Typography>
+                          <Typography color="text.secondary">
+                            {item.description || FillerContent.description}
+                          </Typography>
+                        </Box>
+                        <Box flexGrow={1} />
+                        <Box
+                          padding={2}
+                          display={'flex'}
+                          flexDirection={'column'}
+                        >
+                          <Box marginBottom={2}>
+                            <Divider />
+                          </Box>
+                          <Box
+                            display={'flex'}
+                            justifyContent={'space-between'}
+                            alignItems={'center'}
+                          >
+                            <Box display={'flex'} alignItems={'center'}>
+                              <Avatar
+                                src={item?.author.image || FillerContent.image}
+                                sx={{ marginRight: 1 }}
+                              />
+                              <Typography color={'text.secondary'}>
+                                {item?.author.name || FillerContent.header}
+                              </Typography>
+                            </Box>
+                            <Typography color={'text.secondary'}>
+                              {item?.date || FillerContent.header}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Grid>
+                ))}
+            </Grid>
+          )}
+
+          {/* Popular_categories */}
+          <Box>
+            {chipsTitle.map((item) => (
+              <Chip
+                key={item}
+                label={item}
+                component="a"
+                href={`/mindshare/${item.toLowerCase().replace(/\s/g, '-')}`}
+                clickable
+                sx={{ margin: 0.5 }}
+              />
+            ))}
+          </Box>
         </Container>
-        <Container paddingTop={'0 !important'}>
-          <HorizontallyAlignedBlogCardWithShapedImage />
-        </Container>
-        <Container paddingTop={'0 !important'}>
-          <VerticallyAlignedBlogCardsWithShapedImage />
-        </Container>
-        <Container paddingTop={'0 !important'}>
-          <BlogCardsWithFullBackgroundImage />
-        </Container>
+        {/* Featured Articles */}
+        <HorizontallyAlignedBlogCardWithShapedImage
+          featuredLink={
+            content.featured_article.data[0]?.meta?.web?.uri ||
+            FillerContent.href
+          }
+          featuredImage={
+            content.featured_article.data[0]?.hero_image?.data[0]?.url ||
+            FillerContent.image
+          }
+          featuredTitle={
+            content.featured_article?.data[0]?.title || FillerContent.header
+          }
+          featuredDescription={
+            content.featured_article?.data[0]?.description ||
+            FillerContent.description
+          }
+          featureAvatar={
+            content.featured_article?.data[0]?.author?.data[0].headshot?.data[0]
+              .url || FillerContent.image
+          }
+          featureName={
+            content.featured_article?.data[0]?.author?.data[0]?.name ||
+            FillerContent.image
+          }
+          featuredAuthorLink={
+            content.featured_article?.data[0].author?.data[0].meta.web.uri ||
+            FillerContent.href
+          }
+          featuredDate={
+            content?.featured_article?.data[0]?.date || FillerContent.date
+          }
+        />
+
+        {/*  Top Insights */}
+        <VerticallyAlignedBlogCardsWithShapedImage
+          title={content.top_articles_title || FillerContent.header}
+          description={
+            content.top_articles_description || FillerContent.description
+          }
+          popularArticles={
+            content.popular_articles.data || FillerContent.missingDataArray
+          }
+        />
+
+        {/* Case Studies */}
+        <BlogCardsWithFullBackgroundImage
+          title={content.case_studies_title || FillerContent.header}
+          description={
+            content.case_studies_description || FillerContent.description
+          }
+          caseStudy={
+            content?.case_studies?.data || FillerContent.missingDataArray
+          }
+        />
+
         <Box paddingBottom={{ xs: 2, sm: 3, md: 4 }}>
           <Container paddingTop={'0 !important'}>
-            <PopularArticles />
+            {/*  Latest Articles W/PAGINATION */}
+            {isPending ? (
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <CircularProgressWithLabel />
+              </Box>
+            ) : (
+              <PopularArticles
+                title={
+                  content.additional_insights_title || FillerContent.header
+                }
+                description={
+                  content.additional_insights_description ||
+                  FillerContent.description
+                }
+                articles={allArticles}
+              />
+            )}
           </Container>
         </Box>
         <Box
@@ -110,26 +336,13 @@ function Mindshare({ content }) {
         </Box>
       </Box>
       <Container>
-        <Newsletter />
+        {/* CTA */}
+        <Newsletter
+          title={content.cta_title}
+          description={content.cta_description}
+          ctaBtn={content.cta_link}
+        />
       </Container>
-
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
     </>
   );
 }

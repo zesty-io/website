@@ -11,78 +11,80 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 
 import Container from 'components/Container';
+import FillerContent from 'components/globals/FillerContent';
 
-const mock = [
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img23.jpg',
-    description:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem',
-    title: 'Eiusmod tempor incididunt',
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-    },
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img24.jpg',
-    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus',
-    title: 'Sed ut perspiciatis',
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
-    },
-    date: '02 Aug',
-  },
-  {
-    image: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
-    description:
-      'Qui blanditiis praesentium voluptatum deleniti atque corrupti',
-    title: 'Unde omnis iste natus',
-    author: {
-      name: 'Chary Smith',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '05 Mar',
-  },
-];
+const VerticallyAlignedBlogCardsWithShapedImage = ({
+  title,
+  description,
+  ctaBtn,
+  ctaUrl,
+  popularArticles = [],
+  titlePosition = 'space-between',
+  titleVariant = 'h6',
+}) => {
+  function makeDate(date) {
+    var d = new Date(date);
+    var options = {
+      year: 'numeric',
+      month: 'long',
+    };
+    var n = d.toLocaleDateString('en-US', options);
 
-const VerticallyAlignedBlogCardsWithShapedImage = () => {
+    var replace = n.replace(new RegExp(',', 'g'), ' ');
+    return replace;
+  }
+
   const theme = useTheme();
+
   return (
-    <Container>
+    <Container paddingTop={'0 !important'}>
       <Box
         display={'flex'}
-        justifyContent={'space-between'}
+        justifyContent={titlePosition}
         alignItems={{ xs: 'flex-start', sm: 'center' }}
         flexDirection={{ xs: 'column', sm: 'row' }}
         marginBottom={4}
       >
         <Box>
-          <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            Latest stories
-          </Typography>
-          <Typography color={'text.secondary'}>
-            Here’s what we’ve been up to recently.
-          </Typography>
-        </Box>
-        <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
-          <Box
-            component={Button}
-            variant="outlined"
-            color="primary"
-            size="large"
-            marginLeft={2}
+          <Typography
+            paddingTop={1}
+            fontWeight={700}
+            variant={titleVariant}
+            gutterBottom
           >
-            View all
-          </Box>
+            {title}
+          </Typography>
+          {description && (
+            <Typography color={'text.secondary'}>{description}</Typography>
+          )}
+        </Box>
+
+        <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
+          {ctaBtn && (
+            <Button
+              component={Button}
+              href={ctaUrl}
+              variant="outlined"
+              color="secondary"
+              size="large"
+              marginLeft={2}
+            >
+              {ctaBtn}
+            </Button>
+          )}
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
-          <Grid item xs={12} sm={6} md={4} key={i}>
+        {popularArticles.map((item, i) => (
+          <Grid item xs={12} sm={6} md={4} key={`${item.zuid}-VABC`}>
             <Box
               component={'a'}
-              href={''}
+              href={
+                item?.meta?.uri ||
+                item?.meta?.web?.uri ||
+                item?.path ||
+                FillerContent.href
+              }
               display={'block'}
               width={1}
               height={1}
@@ -104,8 +106,8 @@ const VerticallyAlignedBlogCardsWithShapedImage = () => {
                 sx={{ backgroundImage: 'none' }}
               >
                 <CardMedia
-                  image={item.image}
-                  title={item.title}
+                  image={item?.hero_image?.data[0]?.url || item.image}
+                  title={item?.title}
                   sx={{
                     height: { xs: 300, md: 360 },
                     position: 'relative',
@@ -136,10 +138,10 @@ const VerticallyAlignedBlogCardsWithShapedImage = () => {
                 </CardMedia>
                 <Box component={CardContent} position={'relative'}>
                   <Typography variant={'h6'} gutterBottom>
-                    {item.title}
+                    {item?.title}
                   </Typography>
                   <Typography color="text.secondary">
-                    {item.description}
+                    {item?.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -154,15 +156,23 @@ const VerticallyAlignedBlogCardsWithShapedImage = () => {
                   >
                     <Box display={'flex'} alignItems={'center'}>
                       <Avatar
-                        src={item.author.avatar}
+                        src={
+                          (item?.author?.data &&
+                            item?.author?.data[0]?.headshot?.data &&
+                            item?.author?.data[0]?.headshot?.data[0]?.url) ||
+                          item?.author?.image ||
+                          FillerContent.image
+                        }
                         sx={{ marginRight: 1 }}
                       />
                       <Typography color={'text.secondary'}>
-                        {item.author.name}
+                        {(item?.author?.data && item?.author?.data[0]?.name) ||
+                          item?.author?.name ||
+                          FillerContent.header}
                       </Typography>
                     </Box>
                     <Typography color={'text.secondary'}>
-                      {item.date}
+                      {makeDate(item?.date) || FillerContent.date}
                     </Typography>
                   </Box>
                 </Box>

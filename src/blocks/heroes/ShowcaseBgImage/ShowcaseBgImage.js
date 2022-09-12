@@ -4,18 +4,17 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
 import Container from 'components/Container';
 
-// const mock = {
-//   bgImage: 'https://assets.maccarianagency.com/backgrounds/img62.jpg',
-//   title: 'Denim essentials',
-//   subtitle: 'Buy now, wear forever',
-//   href: '#',
-// };
-
-const ShowcaseBgImage = ({ image, showCase, description }) => {
+const ShowcaseBgImage = ({
+  image,
+  showCase,
+  description,
+  showCaseCTA,
+  showCaseLink,
+}) => {
   const theme = useTheme();
   return (
     <Box
@@ -23,7 +22,7 @@ const ShowcaseBgImage = ({ image, showCase, description }) => {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
-        backgroundImage: `url(${image || FillerContent.image})`,
+        backgroundImage: `url(${image})`,
         bgcolor: 'alternate.main',
         display: 'flex',
         alignItems: 'flex-end',
@@ -44,20 +43,17 @@ const ShowcaseBgImage = ({ image, showCase, description }) => {
           }}
         >
           <Typography color={'text.secondary'} fontWeight={700} variant={'h4'}>
-            {showCase || FillerContent.header}
+            {showCase}
           </Typography>
-          <Typography variant={'h4'}>
-            {description || FillerContent.header}
-          </Typography>
+          <Typography variant={'h4'}>{description}</Typography>
           <Link
-            target="_blank"
-            href={FillerContent.href}
+            href={showCaseLink || FillerContent.href}
             color={'text.primary'}
             variant={'h5'}
             fontWeight={700}
             sx={{ marginTop: 4, display: 'block' }}
           >
-            Discover more
+            {showCaseCTA}
             {}
           </Link>
         </Card>

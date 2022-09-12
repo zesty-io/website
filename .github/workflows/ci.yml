@@ -1,0 +1,25 @@
+name: Zesty Website CI Dev
+on:
+  push:
+    branches: [stage,accounts,production]
+  pull_request:
+    branches: [stage,accounts,feat/profile]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PRODUCTION: 'false'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+      - name: Install NPM dependencies build test
+        run: npm ci
+      - name: Check format and linters
+        run: npm run test-all
+      - name: Run build
+        run: npm run build
+      - name: Run test
+        run: npm run test

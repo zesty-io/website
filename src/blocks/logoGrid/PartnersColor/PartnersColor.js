@@ -2,37 +2,12 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 
-const mock = [
-  {
-    logo: 'https://assets.maccarianagency.com/svg/logos/slack.svg',
-    name: 'Slack',
-  },
-  {
-    logo: 'https://assets.maccarianagency.com/svg/logos/mailchimp.svg',
-    name: 'Mailchimp',
-  },
-  {
-    logo: 'https://assets.maccarianagency.com/svg/logos/dropbox.svg',
-    name: 'Dropbox',
-  },
-  {
-    logo: 'https://assets.maccarianagency.com/svg/logos/google-drive.svg',
-    name: 'Google Drive',
-  },
-  {
-    logo: 'https://assets.maccarianagency.com/svg/logos/google-ad-manager.svg',
-    name: 'Google Ad Manager',
-  },
-  {
-    logo: 'https://assets.maccarianagency.com/svg/logos/atlassian.svg',
-    name: 'Atlassian',
-  },
-];
+const PartnersColor = (partnerLogos) => {
+  const logos = partnerLogos.partnerLogos;
 
-const PartnersColor = () => {
   return (
     <Grid container spacing={0}>
-      {mock.map((item, index) => (
+      {logos.map((item, index) => (
         <Grid
           item
           container
@@ -42,7 +17,7 @@ const PartnersColor = () => {
         >
           <Grid item xs={6}>
             <Avatar
-              src={item.logo}
+              src={item?.url}
               sx={{
                 width: { xs: 60, md: 80 },
                 height: { xs: 60, md: 80 },

@@ -11,6 +11,9 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
 import Container from 'components/Container';
+import { Typography, useMediaQuery } from '@mui/material';
+import FillerContent from 'components/globals/FillerContent';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
 const mock = [
   {
@@ -60,7 +63,7 @@ const mock = [
   {
     title: 'Documentation for everything',
     subtitle:
-      'We\'ve written extensive documentation for components and tools, so you never have to reverse engineer anything.',
+      "We've written extensive documentation for components and tools, so you never have to reverse engineer anything.",
     icon: (
       <svg
         height={24}
@@ -81,30 +84,21 @@ const mock = [
   },
 ];
 
-const FeatureListWithDesktopAppScreenshot = () => {
+const LeftSide = ({ content }) => (
+  <List disablePadding>
+    <WYSIWYGRender
+      customClass="icon-box"
+      rich_text={content || FillerContent.rich_text}
+    ></WYSIWYGRender>
+    {/* <Box
+      dangerouslySetInnerHTML={{ __html: content || FillerContent.description }}
+    ></Box> */}
+  </List>
+);
+
+const RightSide = ({ image }) => {
   const theme = useTheme();
-
-  const LeftSide = () => (
-    <List disablePadding>
-      {mock.map((item, index) => (
-        <ListItem key={index} disableGutters>
-          <ListItemAvatar>
-            <Box
-              component={Avatar}
-              variant={'rounded'}
-              color={theme.palette.primary.dark}
-              bgcolor={`${theme.palette.primary.light}22`}
-            >
-              {item.icon}
-            </Box>
-          </ListItemAvatar>
-          <ListItemText primary={item.title} secondary={item.subtitle} />
-        </ListItem>
-      ))}
-    </List>
-  );
-
-  const RightSide = () => (
+  return (
     <Box width={1}>
       <Box
         sx={{
@@ -139,14 +133,14 @@ const FeatureListWithDesktopAppScreenshot = () => {
             >
               <Box
                 component={'img'}
-                src="https://assets.maccarianagency.com/screenshots/dashboard.png"
+                src={image || FillerContent.dashboard_image}
                 alt="Image Description"
                 width={1}
                 height={1}
                 sx={{
                   objectFit: 'cover',
                   filter:
-                    theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
+                    theme.palette.mode === 'dark' ? 'brightness(1)' : 'none',
                 }}
               />
             </Box>
@@ -155,17 +149,37 @@ const FeatureListWithDesktopAppScreenshot = () => {
       </Box>
     </Box>
   );
-
+};
+const FeatureListWithDesktopAppScreenshot = ({ header, content, image }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container>
-      <Grid container spacing={4}>
+      <Typography
+        variant="h4"
+        component="h2"
+        color="text.primary"
+        align={'center'}
+        gutterBottom
+        sx={{
+          marginBottom: '4rem',
+          fontWeight: 700,
+        }}
+      >
+        {header || FillerContent.header}
+      </Typography>
+      <Grid
+        container
+        spacing={4}
+        flexDirection={isMobile ? 'column-reverse' : 'row'}
+      >
         <Grid item container alignItems={'center'} xs={12} md={6}>
           <Box>
-            <LeftSide />
+            <LeftSide content={content} />
           </Box>
         </Grid>
         <Grid item container alignItems={'center'} xs={12} md={6}>
-          <RightSide />
+          <RightSide image={image} />
         </Grid>
       </Grid>
     </Container>

@@ -14,17 +14,60 @@ const getCache = () => {
 
 export default class MyDocument extends Document {
   render() {
+    // taga manager / google analytics tags
+    let GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+
+    const fetchUrl =
+      process.env.NEXT_PUBLIC_FETCH_WRAPPER_URL ||
+      'https://cdn.jsdelivr.net/gh/zesty-io/fetch-wrapper@latest/dist/index.js';
     return (
       <Html lang="en">
         <Head>
-          
+          <script src={fetchUrl} />
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/aos@next/dist/aos.css"
+          />
+          {/* Global Site Tag (gtag.js) - Google Analytics */}
+
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
+          />
+
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GTM_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
         </Head>
         <body>
+          <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
           <noscript>
-            <iframe 
-            src="https://www.googletagmanager.com/ns.html?id=GTM-MSPH3C8" 
-            height="0" width="0" 
-            style={{display: 'none',visibility:'hidden'}}></iframe>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            ></iframe>
+          </noscript>
+
+          {/* Zoominfo */}
+          <noscript>
+            <img
+              src="https://ws.zoominfo.com/pixel/62cc55bc7b3465008f482d68"
+              width="1"
+              height="1"
+              style={{ display: 'none' }}
+              alt="websights"
+            />
           </noscript>
           <Main />
           <NextScript />
@@ -68,11 +111,12 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // Take precedence over the CacheProvider in our custom _app.js
-      enhanceComponent: (Component) => (props) => (
-        <CacheProvider value={cache}>
-          <Component {...props} />
-        </CacheProvider>
-      ),
+      enhanceComponent: (Component) => (props) =>
+        (
+          <CacheProvider value={cache}>
+            <Component {...props} />
+          </CacheProvider>
+        ),
     });
 
   const initialProps = await Document.getInitialProps(ctx);

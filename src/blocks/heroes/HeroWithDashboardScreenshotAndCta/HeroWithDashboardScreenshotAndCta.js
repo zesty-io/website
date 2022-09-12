@@ -1,5 +1,5 @@
 import React from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -7,47 +7,64 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 import Container from 'components/Container';
+import FillerContent from 'components/globals/FillerContent';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
-const HeroWithDashboardScreenshotAndCta = () => {
+const HeroWithDashboardScreenshotAndCta = ({
+  title,
+  subtitle,
+  description,
+  image,
+  cta_left_text,
+  cta_right_text,
+  cta_right_url,
+}) => {
   const theme = useTheme();
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Container>
-      <Grid container spacing={4}>
+      <Grid
+        container
+        spacing={4}
+        flexDirection={isMobile ? 'column-reverse' : 'row'}
+      >
         <Grid item container xs={12} md={6} alignItems={'center'}>
           <Box>
             <Box marginBottom={2}>
               <Typography
                 variant="h3"
+                component="h1"
                 color="text.primary"
                 sx={{ fontWeight: 700 }}
               >
-                Beautiful data representation{' '}
-                <Typography
-                  color={'primary'}
-                  component={'span'}
-                  variant={'inherit'}
-                  sx={{
-                    background: `linear-gradient(180deg, transparent 82%, ${alpha(
-                      theme.palette.secondary.main,
-                      0.3,
-                    )} 0%)`,
-                  }}
-                >
-                  built with theFront
-                </Typography>
+                {title}
+              </Typography>
+              <Typography
+                variant="h3"
+                component="p"
+                color={theme.palette.zesty.zestyOrange}
+                sx={{ fontWeight: 700 }}
+              >
+                {subtitle}
               </Typography>
             </Box>
             <Box marginBottom={3}>
-              <Typography variant="h6" component="p" color="text.secondary">
-                World developers use our theFront theme to build their internal
-                tools and client admin applications.
-                <br />
-                Save yourself time and money.
+              <Typography
+                variant="p"
+                component="h3"
+                color="text.secondary"
+                sx={{
+                  fontSize: '20px',
+                  fontWeight: '500',
+                }}
+              >
+                {description || FillerContent.description}
               </Typography>
             </Box>
             <Box
@@ -55,24 +72,33 @@ const HeroWithDashboardScreenshotAndCta = () => {
               flexDirection={{ xs: 'column', sm: 'row' }}
               alignItems={{ xs: 'stretched', sm: 'flex-start' }}
             >
-              <Button
+              <TryFreeButton
                 variant="contained"
-                color="primary"
+                color="secondary"
                 size="large"
                 fullWidth={isMd ? false : true}
-              >
-                Start now
-              </Button>
+                text={cta_left_text || FillerContent.cta}
+              ></TryFreeButton>
               <Box
+                href={cta_right_url || FillerContent.href}
                 component={Button}
                 variant="outlined"
-                color="primary"
+                color={theme.palette.zestyOrange}
                 size="large"
                 marginTop={{ xs: 2, sm: 0 }}
-                marginLeft={{ sm: 2 }}
+                marginLeft={{ xs: 2 }}
                 fullWidth={isMd ? false : true}
+                sx={{
+                  color: '#FF5D0A',
+                  borderColor: '#FF5D0A',
+                  '&:hover': {
+                    borderColor: '#FF5D0A',
+                    backgroundColor: '#FF5D0A',
+                    color: 'white',
+                  },
+                }}
               >
-                Learn more
+                {cta_right_text || FillerContent.cta}
               </Box>
             </Box>
           </Box>
@@ -89,14 +115,12 @@ const HeroWithDashboardScreenshotAndCta = () => {
             component={'img'}
             height={1}
             width={1}
-            src={'https://assets.maccarianagency.com/screenshots/dashboard.png'}
-            alt="..."
-            boxShadow={3}
+            src={image || FillerContent.dashboard_image}
+            alt="headless cms image"
             borderRadius={2}
             maxWidth={600}
             sx={{
-              filter:
-                theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
+              filter: theme.palette.mode === 'dark' ? 'brightness(1)' : 'none',
             }}
           />
         </Grid>

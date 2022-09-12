@@ -2,17 +2,16 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import FillerContent from 'components/FillerContent';
 
 import Container from 'components/Container';
 
-const Hero = ({title, subTitle, image}) => {
+const Hero = ({ title, subTitle, image }) => {
   const theme = useTheme();
   return (
     <Box
       position={'relative'}
       sx={{
-        backgroundImage: image ? `url(${image})` :  `url(${FillerContent.image})`,
+        backgroundImage: `url(${image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         marginTop: -13,
@@ -51,7 +50,7 @@ const Hero = ({title, subTitle, image}) => {
                 color: theme.palette.common.white,
               }}
             >
-              {title || FillerContent.header}
+              {title}
             </Typography>
           </Box>
           <Box>
@@ -62,7 +61,7 @@ const Hero = ({title, subTitle, image}) => {
                 color: theme.palette.common.white,
               }}
             >
-              {subTitle || FillerContent.header}
+              {subTitle}
             </Typography>
           </Box>
         </Box>

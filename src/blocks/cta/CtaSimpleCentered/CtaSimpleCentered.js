@@ -2,17 +2,21 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { zestyLink } from 'lib/zestyLink';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import FillerContent from 'components/FillerContent';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 import Container from 'components/Container';
 
 const CtaSimpleCentered = ({
-  title,
+  nav = [],
+  ctaTitle,
   description,
   ctaLeft,
   ctaRight,
+  headerColor = 'text.primary',
+  ctaRightHref,
 }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -24,14 +28,14 @@ const CtaSimpleCentered = ({
       <Box>
         <Typography
           variant="h4"
-          color="text.primary"
+          color={headerColor}
           align={'center'}
           gutterBottom
           sx={{
             fontWeight: 700,
           }}
         >
-          {title || FillerContent.header}
+          {ctaTitle}
         </Typography>
         <Typography
           variant="h6"
@@ -40,7 +44,7 @@ const CtaSimpleCentered = ({
           sx={{ fontWeight: 400 }}
           align={'center'}
         >
-          {description || FillerContent.header}
+          {description}
         </Typography>
         <Box
           display="flex"
@@ -49,16 +53,13 @@ const CtaSimpleCentered = ({
           justifyContent={'center'}
           marginTop={4}
         >
-          <Button
-            component={'a'}
+          <TryFreeButton
             variant="contained"
-            color="primary"
+            color="secondary"
             size="large"
+            text={ctaLeft}
             fullWidth={isMd ? false : true}
-            href={'/home'}
-          >
-            {ctaLeft || FillerContent.cta}
-          </Button>
+          />
           <Box
             marginTop={{ xs: 2, sm: 0 }}
             marginLeft={{ sm: 2 }}
@@ -66,13 +67,13 @@ const CtaSimpleCentered = ({
           >
             <Button
               component={'a'}
-              href={'/docs/introduction'}
+              href={ctaRightHref || zestyLink(nav, '7-cec987fcf5-9bht2z')}
               variant="outlined"
-              color="primary"
+              color="secondary"
               size="large"
               fullWidth={isMd ? false : true}
             >
-              {ctaRight || FillerContent.cta}
+              {ctaRight}
             </Button>
           </Box>
         </Box>

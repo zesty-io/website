@@ -1,4 +1,3 @@
-
 export { default as FullScreenHeroWithPromoImagesAndTypedText } from './FullScreenHeroWithPromoImagesAndTypedText';
 export { default as FullScreenHeroWithImageSlider } from './FullScreenHeroWithImageSlider';
 export { default as HeroWithFormAndBackgroundGradient } from './HeroWithFormAndBackgroundGradient';
@@ -11,6 +10,7 @@ export { default as SimpleHeroWithSearchBox } from './SimpleHeroWithSearchBox';
 export { default as SimpleHeroWithCta } from './SimpleHeroWithCta';
 export { default as SimpleHeroWithSingleCta } from './SimpleHeroWithSingleCta';
 export { default as SimpleHero } from './SimpleHero';
+export { default as SimpleHeroSolidBg } from './SimpleHeroSolidBg';
 export { default as HeroWithIllustrationAndCta } from './HeroWithIllustrationAndCta';
 export { default as HeroWithLogoGridAndDesktopScreenshot } from './HeroWithLogoGridAndDesktopScreenshot';
 export { default as HeroWithBackgroundVideo } from './HeroWithBackgroundVideo';
@@ -19,3 +19,4 @@ export { default as HeroWithPrimaryBackgroundAndDesktopScreenshot } from './Hero
 export { default as FullScreenHeroWithLogoGrid } from './FullScreenHeroWithLogoGrid';
 export { default as SimpleHeroWithImageAndCtaButtons } from './SimpleHeroWithImageAndCtaButtons';
 export { default as HeroWithGeometricImages } from './HeroWithGeometricImages';
+export { default as SlashImageHero } from './SlashImageHero';

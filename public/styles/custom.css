@@ -1,50 +1,42 @@
-h1 span{
-    color: #497edf
+h1 span {
+  color: #497edf;
 }
-h2 span{
-    color: #497edf
+h2 span {
+  color: #497edf;
 }
-.MuiList-root .MuiListItemAvatar-root {
-    position: relative;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-flex-shrink: 0;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    font-family: "Mulish",sans-serif;
-    font-size: 1.25rem;
-    line-height: 1;
-    border-radius: 4px;
-    overflow: hidden;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    color: #ffffff;
-    background-color: #bdbdbd;
-    color: #1a202c;
-    background-color: #467de322;
-    color: #1a202c;
-    background-color: #467de322;
-    margin-right: 10px
-}
-.MuiList-root {
-    list-style: none;
-}
-.MuiList-root li {
-    margin-right: 10px;
-    display: inline-flex;
-
+.wysiwyg .css-j485j-MuiAvatar-root {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 4px;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #ffffff;
+  background-color: #bdbdbd;
+  color: #1a202c;
+  background-color: #467de322;
+  color: #1a202c;
+  background-color: #467de322;
+  margin-right: 10px;
 }

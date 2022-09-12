@@ -32,42 +32,202 @@ import WithBorderedCardsAndBrandColor from 'blocks/stats/WithBorderedCardsAndBra
 import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js';
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
+import CircularProgressWithLabel from '@mui/material/CircularProgress';
+import { Container, Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { useTheme } from '@emotion/react';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
+
+import FillerContent from 'components/globals/FillerContent';
+import useFetch from 'components/hooks/useFetch';
+
+const OverviewProcessComp = ({ content, image }) => {
+  return (
+    <Container sx={{ padding: '2rem' }}>
+      <Grid container justify="center">
+        <Box justifyContent="center" alignItems="center">
+          <Typography
+            variant="h5"
+            alignItems={'center'}
+            sx={{ textAlign: 'center' }}
+            gutterBottom
+          >
+            <WYSIWYGRender
+              rich_text={content || FillerContent.rich_text}
+            ></WYSIWYGRender>
+          </Typography>
+          <Container>
+            {image && (
+              <Box
+                component={'img'}
+                src={image}
+                alt={FillerContent.header}
+                width={1}
+                height={1}
+                sx={{
+                  objectFit: 'cover',
+                  borderRadius: '1rem',
+                  justifyContent: 'center',
+                }}
+              />
+            )}
+          </Container>
+        </Box>
+      </Grid>
+    </Container>
+  );
+};
+
+/* ------------------------------------------------------------------- */
 
 function WhyZesty({ content }) {
+  const theme = useTheme();
+
+  const {
+    data: allArticles,
+    isPending,
+    error,
+  } = useFetch(
+    `/-/all-articles-hydrated.json?limit=3`,
+    content.zestyProductionMode,
+  );
+
   let overview_text =
-    undefined !== content.overview_of_process_text
-      ? content.overview_of_process_text
+    undefined !== content.hybrid_vs_headless_content
+      ? content.hybrid_vs_headless_content
       : 'Failed to load content.';
   let image_url =
-    undefined !== content.overview_of_process_image.data
-      ? content.overview_of_process_image.data[0].url
+    undefined !== content.hybrid_vs_headless_image
+      ? content.hybrid_vs_headless_image
       : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
+
+  const headerProps = {
+    mainTitle: content.header_title_main || FillerContent.header,
+    title: content.header_title || FillerContent.header,
+    image:
+      (content.header_image?.data && content.header_image?.data[0]?.url) ||
+      FillerContent.image,
+    description: content.header_description || FillerContent.description,
+    cta_left:
+      (content.cta_left.data && content.cta_left?.data[0]?.button_text) ||
+      FillerContent.cta,
+    cta_right:
+      (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
+      FillerContent.cta,
+    cta_left_url:
+      (content.cta_left?.data &&
+        content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      FillerContent.href,
+    cta_right_url:
+      (content.cta_right.data &&
+        content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      FillerContent.href,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <SimpleHeroWithImageAndCtaButtonsPage></SimpleHeroWithImageAndCtaButtonsPage>
-      <FeaturesWithIllustration
-        rich_text={overview_text}
-        image_url={image_url}
+      {/* Header */}
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+      </Box>
+
+      {/* Overview of process */}
+      <OverviewProcessComp
+        image={
+          (content.overview_of_process_image.data &&
+            content.overview_of_process_image.data[0].url) ||
+          ''
+        }
+        content={content.overview_of_process_text || FillerContent.rich_text}
       />
-      <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
-      <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
-      <FeaturesWithMobileScreenshot></FeaturesWithMobileScreenshot>
-      <WithBorderedCardsAndBrandColor></WithBorderedCardsAndBrandColor>
-      <FeaturesWithIllustration
-        rich_text={overview_text}
-        image_url={image_url}
+
+      {/* Benefits */}
+      {content.benefits?.data?.map((e, i) => {
+        return (
+          <FeaturesWithMobileScreenshot
+            index={i}
+            content={e.benefit_content || FillerContent.rich_text}
+            header={e.header || FillerContent.header}
+            image={
+              (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
+              FillerContent.image
+            }
+          />
+        );
+      })}
+
+      {/* HYBRID VS HEADLESS */}
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <FeaturesWithIllustration
+          wysiwyig_type="icon-box"
+          rich_text={overview_text}
+          image_url={image_url}
+        />
+      </Box>
+
+      {/* PROOF POINTS */}
+      <WithBorderedCardsAndBrandColor
+        cards={content.proof_points.data || FillerContent.emptyList}
+        content={content.proof_points_content || FillerContent.rich_text}
       />
-      <CtaWithCoverImage></CtaWithCoverImage>
-      <VerticallyAlignedBlogCardsWithShapedImage></VerticallyAlignedBlogCardsWithShapedImage>
-      <CtaWithInputField></CtaWithInputField>
-      {/*
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px', whiteSpace: 'pre-wrap', overflow: 'hidden'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>
-            */}
-      {/* End of Zesty.io output example */}
+
+      {/* CASE STUDY */}
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+          marginBottom: '4rem',
+        }}
+      >
+        {content.case_study?.data?.map((e) => (
+          <CtaWithCoverImage
+            key={e.title || FillerContent.header}
+            title={e.title || FillerContent.header}
+            summary={e.summary || FillerContent.description}
+            cta={e.cta || FillerContent.cta}
+            cta_url={e.link || FillerContent.href}
+            image={
+              (e.image?.data && e.image?.data[0].url) || FillerContent.image
+            }
+          />
+        ))}
+      </Box>
+
+      {/* Industry Insights > Latest Blogs articles */}
+      {isPending ? (
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <CircularProgressWithLabel />
+        </Box>
+      ) : (
+        <VerticallyAlignedBlogCardsWithShapedImage
+          title={'Industry Insights'}
+          description={
+            'Stay up-to-date with the latest in digital experience, content management and more.'
+          }
+          popularArticles={allArticles}
+          ctaBtn="Read more"
+          ctaUrl={/mindshare/}
+        />
+      )}
+
+      {/* FINAL CTA */}
+      <CtaWithInputField
+        title={'Subscribe to the zestiest newsletter in the industry'}
+        description={
+          'Get the latest from the Zesty team, from whitepapers to product updates.'
+        }
+        cta={'Subscribe'}
+      />
     </>
   );
 }

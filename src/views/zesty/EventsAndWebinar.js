@@ -34,18 +34,43 @@ import Container from 'components/Container';
 import { SimpleHero } from 'blocks/heroes';
 import { Result } from 'blocks/formLayouts';
 import { Newsletter } from 'blocks/newsletters';
+import { CtaWithIllustrationNoCta } from 'blocks/cta';
+// filler content
+import FillerContent from 'components/globals/FillerContent';
 
 function EventsAndWebinar({ content }) {
   const theme = useTheme();
+
+  // conditional rendering
+  const ComingSoon = () => {
+    return (
+      <>
+        <CtaWithIllustrationNoCta
+          title={'Coming Soon'}
+          description={'Check back again for new Events and Webinars!'}
+          image={content.coming_soon_image?.data[0].url || FillerContent.image}
+        />
+      </>
+    );
+  };
+
   return (
     <>
-      <SimpleHero />
-      <Container>
-        <Result />
-      </Container>
+      <SimpleHero
+        title={content.title || FillerContent.header}
+        subtitle={content.subtitle || ''}
+        description={content.header_description || FillerContent.description}
+      />
+      {content.events?.data ? (
+        <Container py={1}>
+          <Result array={content.events.data || []} /> :
+        </Container>
+      ) : (
+        <ComingSoon />
+      )}
       <Box
         position={'relative'}
-        marginTop={{ xs: 4, md: 6 }}
+        marginTop={{ xs: 4, md: 4 }}
         sx={{
           backgroundColor: theme.palette.alternate.main,
         }}
@@ -72,12 +97,15 @@ function EventsAndWebinar({ content }) {
             d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
           ></path>
         </Box>
-        <Container>
-          <Newsletter />
+        <Container py={1}>
+          <Newsletter
+            title={content.cta_title || FillerContent.header}
+            description={content.cta_description || FillerContent.description}
+            ctaBtn={content.cta_button || FillerContent.cta}
+          />
         </Container>
       </Box>
       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-
       {/* <div
         style={{
           background: '#eee',

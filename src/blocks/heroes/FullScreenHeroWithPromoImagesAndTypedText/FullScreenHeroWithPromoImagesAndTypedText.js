@@ -6,81 +6,94 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
+import FillerContent from 'components/globals/FillerContent';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
-const images = [
-  {
-    group: [
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img1.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img1--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img4.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img4--dark.png',
-      },
-    ],
-  },
-  {
-    group: [
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img13.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img13--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img10.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img10--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img7.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img7--dark.png',
-      },
-    ],
-  },
-  {
-    group: [
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img6.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img6--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img24.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img24--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img17.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img17--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img12.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img12--dark.png',
-      },
-    ],
-  },
-];
+const reconstructImages = (images = []) => {
+  return [
+    {
+      group: [
+        {
+          cover: (images && images[0]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[0]?.url) || FillerContent.dashboard_image,
+        },
+        {
+          cover: (images && images[1]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[1]?.url) || FillerContent.dashboard_image,
+        },
+      ],
+    },
+    {
+      group: [
+        {
+          cover: (images && images[2]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[2]?.url) || FillerContent.dashboard_image,
+        },
+        {
+          cover: (images && images[3]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[3]?.url) || FillerContent.dashboard_image,
+        },
+        {
+          cover: (images && images[4]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[4]?.url) || FillerContent.dashboard_image,
+        },
+      ],
+    },
+    {
+      group: [
+        {
+          cover: (images && images[5]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[5]?.url) || FillerContent.dashboard_image,
+        },
+        {
+          cover: (images && images[6]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[6]?.url) || FillerContent.dashboard_image,
+        },
+        {
+          cover: (images && images[2]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[2]?.url) || FillerContent.dashboard_image,
+        },
+        {
+          cover: (images && images[1]?.url) || FillerContent.dashboard_image,
+          coverDark:
+            (images && images[1]?.url) || FillerContent.dashboard_image,
+        },
+      ],
+    },
+  ];
+};
 
-const FullScreenHeroWithPromoImagesAndTypedText = () => {
+const FullScreenHeroWithPromoImagesAndTypedText = ({
+  title,
+  description,
+  h1_title,
+  cta_left_text = '',
+  cta_right_text,
+  cta_right_url = '',
+  images,
+}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isDarkMode = theme.palette.mode === 'dark';
+  // split the title from api by br tag for styling purposes
+  const newTitle = title.split('<br/>');
+  const title0 = newTitle && newTitle[0];
+  const title1 = newTitle && newTitle[1];
+  const title2 = newTitle && newTitle[2];
+
+  // images to be map
+  const imageList = reconstructImages(images);
 
   return (
     <Box sx={{ overflow: 'hidden' }}>
@@ -98,38 +111,67 @@ const FullScreenHeroWithPromoImagesAndTypedText = () => {
           <Container>
             <Box maxWidth={{ xs: 1, sm: '50%' }}>
               <Typography
-                variant="h2"
+                component={'h1'}
+                variant="p"
+                color={
+                  isDarkMode
+                    ? theme.palette.zesty.zestyWhite
+                    : theme.palette.zesty.zestyGrey
+                }
+                sx={{ fontWeight: 400, fontSize: '20px' }}
+                gutterBottom
+              >
+                {h1_title}
+              </Typography>
+              <Box display={'flex'} gap={2} sx={{ margin: 0 }}>
+                <Typography
+                  component={'h3'}
+                  variant="p"
+                  color="text.primary"
+                  gutterBottom
+                  sx={{
+                    margin: 0,
+                    fontWeight: 700,
+                    fontSize: isMobile ? '45px' : '60px',
+                  }}
+                >
+                  {title0}
+                </Typography>
+                <Typography
+                  component={'h3'}
+                  variant="p"
+                  color={theme.palette.zesty.zestyOrange}
+                  gutterBottom
+                  sx={{
+                    margin: 0,
+                    fontWeight: 700,
+                    fontSize: isMobile ? '45px' : '60px',
+                  }}
+                >
+                  {title1}
+                </Typography>
+              </Box>
+
+              <Typography
+                component={'h3'}
+                variant="p"
                 color="text.primary"
                 gutterBottom
                 sx={{
                   fontWeight: 700,
+                  lineHeight: '3.5rem',
+                  fontSize: isMobile ? '45px' : '60px',
                 }}
               >
-                Turn your ideas
-                <br />
-                into{' '}
-                <Typography
-                  color={'primary'}
-                  component={'span'}
-                  variant={'inherit'}
-                  sx={{
-                    background: `linear-gradient(180deg, transparent 82%, ${alpha(
-                      theme.palette.secondary.main,
-                      0.3,
-                    )} 0%)`,
-                  }}
-                >
-                  success
-                </Typography>
+                {title2}
               </Typography>
               <Typography
-                variant="h6"
-                component="p"
+                component={'h2'}
+                variant="p"
                 color="text.secondary"
-                sx={{ fontWeight: 400 }}
+                sx={{ fontWeight: 400, fontSize: '20px' }}
               >
-                theFront will make your product look modern and professional
-                while saving you precious time.
+                {description || FillerContent.description}
               </Typography>
               <Box
                 display="flex"
@@ -137,30 +179,27 @@ const FullScreenHeroWithPromoImagesAndTypedText = () => {
                 alignItems={{ xs: 'stretched', sm: 'flex-start' }}
                 marginTop={4}
               >
-                <Button
+                <TryFreeButton
                   component={'a'}
                   variant="contained"
-                  color="primary"
                   size="large"
                   fullWidth={isMd ? false : true}
-                  href={'/home'}
-                >
-                  View pages
-                </Button>
+                  text={cta_left_text || 'Try Free'}
+                />
                 <Box
                   marginTop={{ xs: 2, sm: 0 }}
                   marginLeft={{ sm: 2 }}
-                  width={{ xs: '100%', md: 'auto' }}
+                  width={{ xs: '100%', md: 'auto', sm: 'auto' }}
                 >
                   <Button
                     component={'a'}
-                    href={'/docs/introduction'}
-                    variant="outlined"
+                    href={cta_right_url || FillerContent.href}
+                    variant="text"
                     color="primary"
                     size="large"
                     fullWidth={isMd ? false : true}
                   >
-                    Documentation
+                    {cta_right_text || 'Contact Us'}
                   </Button>
                 </Box>
               </Box>
@@ -180,7 +219,7 @@ const FullScreenHeroWithPromoImagesAndTypedText = () => {
               position={'absolute'}
               sx={{ transform: 'translate3d(20%, -50%, 0)' }}
             >
-              {images.map((item, i) => (
+              {imageList?.map((item, i) => (
                 <Box key={i} marginTop={{ sm: -(i * 16) }} marginX={1}>
                   {item.group.map((g, j) => (
                     <Box

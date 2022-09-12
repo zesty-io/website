@@ -10,26 +10,34 @@ import Chip from '@mui/material/Chip';
 
 import Container from 'components/Container';
 
-const mock = {
-  image: 'https://assets.maccarianagency.com/backgrounds/img4.jpg',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  title:
-    'Labore et dolore magna aliqua. Eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  author: {
-    name: 'Chary Smith',
-    avatar: 'https://assets.maccarianagency.com/avatars/img6.jpg',
-  },
-  date: '22 Nov',
-};
-
-const HorizontallyAlignedBlogCardWithShapedImage = () => {
+const HorizontallyAlignedBlogCardWithShapedImage = ({
+  featuredLink,
+  featuredImage,
+  featuredTitle,
+  featuredDescription,
+  featureAvatar,
+  featureName,
+  featuredDate,
+  featuredAuthorLink,
+}) => {
   const theme = useTheme();
+  function makeDate(date) {
+    var d = new Date(date);
+    var options = {
+      year: 'numeric',
+      month: 'long',
+    };
+    var n = d.toLocaleDateString('en-US', options);
+
+    var replace = n.replace(new RegExp(',', 'g'), ' ');
+    return replace;
+  }
+
   return (
-    <Container>
+    <Container paddingTop={'0 !important'}>
       <Box
         component={'a'}
-        href={''}
+        href={featuredLink}
         display={'block'}
         width={1}
         height={1}
@@ -61,8 +69,8 @@ const HorizontallyAlignedBlogCardWithShapedImage = () => {
               component={'img'}
               height={1}
               width={1}
-              src={mock.image}
-              alt="..."
+              src={featuredImage}
+              alt="Headshot"
               sx={{
                 objectFit: 'cover',
                 maxHeight: 360,
@@ -116,9 +124,11 @@ const HorizontallyAlignedBlogCardWithShapedImage = () => {
           >
             <Box>
               <Typography variant={'h5'} gutterBottom>
-                {mock.title}
+                {featuredTitle}
               </Typography>
-              <Typography color="text.secondary">{mock.description}</Typography>
+              <Typography color="text.secondary">
+                {featuredDescription}
+              </Typography>
             </Box>
             <Box>
               <Divider sx={{ marginY: 2 }} />
@@ -127,13 +137,23 @@ const HorizontallyAlignedBlogCardWithShapedImage = () => {
                 justifyContent={'space-between'}
                 alignItems={'center'}
               >
-                <Box display={'flex'} alignItems={'center'}>
-                  <Avatar src={mock.author.avatar} sx={{ marginRight: 1 }} />
+                <Box
+                  display={'flex'}
+                  alignItems={'center'}
+                  component={'a'}
+                  href={featuredAuthorLink}
+                  sx={{
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Avatar src={featureAvatar} sx={{ marginRight: 1 }} />
                   <Typography color={'text.secondary'}>
-                    {mock.author.name}
+                    {featureName}
                   </Typography>
                 </Box>
-                <Typography color={'text.secondary'}>{mock.date}</Typography>
+                <Typography color={'text.secondary'}>
+                  {makeDate(featuredDate)}
+                </Typography>
               </Box>
             </Box>
           </CardContent>

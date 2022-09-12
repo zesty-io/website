@@ -19,11 +19,21 @@ const getTheme = (mode, themeToggler) =>
         appBar: 1200,
         drawer: 1300,
       },
+      breakpoints: {
+        values: {
+          xs: 0,
+          sm: 600,
+          md: 900,
+          lg: 1200,
+          xl: 1536,
+          xl2: 2500,
+        },
+      },
       components: {
         MuiButton: {
           styleOverrides: {
             root: {
-              fontWeight: 400,
+              fontWeight: 600,
               borderRadius: 5,
               paddingTop: 10,
               paddingBottom: 10,

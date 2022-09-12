@@ -8,48 +8,52 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
+import { useRouter } from 'next/router';
 
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
-const Stories = ({ cards, eyeBrow, clientTitle }) => {
+const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
-
+  const router = useRouter();
   return (
     <Box>
+      {' '}
       <Box marginBottom={4}>
+        {' '}
         <Typography
-          sx={{
-            textTransform: 'uppercase',
-            fontWeight: 'medium',
-          }}
+          sx={{ textTransform: 'uppercase', fontWeight: 'medium' }}
           gutterBottom
-          color={'secondary'}
+          color={
+            router.asPath === '/' ? theme.palette.zesty.zestyGrey : 'secondary'
+          }
           align={'center'}
         >
-          {eyeBrow || FillerContent.header}
+          {' '}
+          {eyeBrow}{' '}
         </Typography>
         <Box
           component={Typography}
           fontWeight={700}
-          variant={'h3'}
+          variant={router.asPath === '/' ? 'h4' : 'h3'}
           align={'center'}
         >
           {/* <br/> tag inject in field */}
           <h3
             dangerouslySetInnerHTML={{
-              __html: clientTitle || FillerContent.header,
+              __html: clientTitle,
             }}
           ></h3>
         </Box>
       </Box>
       <Grid container spacing={4}>
-        {cards.map((item, i) => (
+        {clientInfo.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item.link || FillerContent.href}
-              target="_blank"
+              href={
+                item?.card_link?.data[0]?.meta?.web?.uri || FillerContent.href
+              }
               display={'block'}
               width={1}
               height={1}
@@ -70,8 +74,8 @@ const Stories = ({ cards, eyeBrow, clientTitle }) => {
                 flexDirection={'column'}
               >
                 <CardMedia
-                  image={item.image || FillerContent.image}
-                  title={item.title || FillerContent.header}
+                  image={item?.image?.data[0]?.url || FillerContent.image}
+                  title={item.title}
                   sx={{
                     height: 240,
                   }}
@@ -82,8 +86,12 @@ const Stories = ({ cards, eyeBrow, clientTitle }) => {
                       component="img"
                       height={1}
                       width={1}
-                      src={item.logo || FillerContent.image}
-                      alt="..."
+                      src={
+                        item.logo !== ''
+                          ? item?.logo?.data[0]?.url
+                          : FillerContent.image
+                      }
+                      alt={item?.title}
                       sx={{
                         filter: mode === 'dark' ? 'contrast(0)' : 'none',
                       }}
@@ -119,7 +127,7 @@ const Stories = ({ cards, eyeBrow, clientTitle }) => {
                       </svg>
                     }
                   >
-                    {item.cta || FillerContent.cta}
+                    {item.cta ? item?.cta : ''}
                   </Button>
                 </Box>
               </Box>

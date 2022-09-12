@@ -9,8 +9,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 import Container from 'components/Container';
+import SubscribeCTA from 'components/cta/SubscribeCTA';
 
-const CtaWithInputField = () => {
+const CtaWithInputField = ({ title, description, cta }) => {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
@@ -25,11 +26,14 @@ const CtaWithInputField = () => {
           gutterBottom
           sx={{ fontWeight: 700 }}
         >
-          Subscribe to our newsletter
+          {title || 'Subscribe to our newsletter'}
         </Typography>
         <Typography variant="h6" align={'center'} color={'text.secondary'}>
+          {description ||
+            `
           Don't lose a chance to be among the firsts to know about our upcoming
           news and updates.
+          `}
         </Typography>
       </Box>
       <Box
@@ -39,42 +43,7 @@ const CtaWithInputField = () => {
         alignItems={{ xs: 'stretched', sm: 'flex-start' }}
         justifyContent={'center'}
       >
-        <FormControl
-          fullWidth
-          variant="outlined"
-          sx={{ maxWidth: { xs: 1, sm: 400 }, width: 1 }}
-        >
-          <OutlinedInput placeholder="Enter your email" />
-        </FormControl>
-        <Box
-          component={Button}
-          variant="contained"
-          color="primary"
-          size="large"
-          fullWidth={isSm ? false : true}
-          marginTop={{ xs: 2, sm: 0 }}
-          marginLeft={{ sm: 2 }}
-          height={54}
-          endIcon={
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              width={24}
-              height={24}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />
-            </svg>
-          }
-        >
-          Subscribe
-        </Box>
+        <SubscribeCTA text="" />
       </Box>
     </Container>
   );

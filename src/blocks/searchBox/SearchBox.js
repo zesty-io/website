@@ -6,16 +6,7 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Chip from '@mui/material/Chip';
 
-const mock = [
-  'Business',
-  'Strategy',
-  'Health',
-  'Creative',
-  'Environment',
-  'Stories',
-];
-
-const SearchBox = ({ chipsTitle }) => {
+const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery, onSubmit }) => {
   return (
     <Box>
       <Box
@@ -25,10 +16,12 @@ const SearchBox = ({ chipsTitle }) => {
         boxShadow={4}
         marginBottom={4}
       >
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" onSubmit={onSubmit}>
           <Box display="flex" alignItems={'center'}>
             <Box width={1} marginRight={1}>
               <TextField
+                onChange={onSearchHandler}
+                value={searchQuery}
                 sx={{
                   height: 54,
                   '& .MuiOutlinedInput-notchedOutline': {
@@ -69,9 +62,10 @@ const SearchBox = ({ chipsTitle }) => {
               <Button
                 sx={{ height: 54, minWidth: 100, whiteSpace: 'nowrap' }}
                 variant="contained"
-                color="primary"
+                color="secondary"
                 size="medium"
                 fullWidth
+                type="button"
               >
                 Search
               </Button>
@@ -79,7 +73,7 @@ const SearchBox = ({ chipsTitle }) => {
           </Box>
         </form>
       </Box>
-      <Box>
+      {/* <Box>
         {chipsTitle.map((item) => (
           <Chip
             key={item}
@@ -90,7 +84,7 @@ const SearchBox = ({ chipsTitle }) => {
             sx={{ margin: 0.5 }}
           />
         ))}
-      </Box>
+      </Box> */}
     </Box>
   );
 };

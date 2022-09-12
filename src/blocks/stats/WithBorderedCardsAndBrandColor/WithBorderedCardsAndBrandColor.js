@@ -8,9 +8,22 @@ import Card from '@mui/material/Card';
 import Avatar from '@mui/material/Avatar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-
+import { Speed, Bolt, AttachMoney } from '@mui/icons-material';
 import Container from 'components/Container';
+import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
+const switchIcon = (icon) => {
+  switch (icon) {
+    case 'speed':
+      return <Speed />;
+    case 'bolt':
+      return <Bolt />;
+    case 'attach_money':
+      return <AttachMoney />;
+    default:
+      return <AttachMoney />;
+  }
+};
 const mock = [
   {
     number: '1000+',
@@ -104,74 +117,33 @@ const mock = [
   },
 ];
 
-const WithBorderedCardsAndBrandColor = () => {
+const WithBorderedCardsAndBrandColor = ({ cards, content }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const cardsList = cards || mock;
   return (
     <Container>
       <Box>
-        <Box marginBottom={4}>
-          <Typography
-            sx={{
-              textTransform: 'uppercase',
-              fontWeight: 'medium',
-            }}
-            gutterBottom
-            color={'secondary'}
-            align={'center'}
-          >
-            Numbers
-          </Typography>
-          <Typography
-            variant="h4"
-            align={'center'}
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-            }}
-          >
-            Our global class is open for all
-          </Typography>
-          <Typography variant="h6" align={'center'} color={'text.secondary'}>
-            The best way to learn is by using skills.
-            <br />
-            That's why every class has a project that lets you practice and get
-            feedback.
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection={{ xs: 'column', sm: 'row' }}
-            alignItems={{ xs: 'stretched', sm: 'flex-start' }}
-            justifyContent={'center'}
-            marginTop={2}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              fullWidth={isMd ? false : true}
-            >
-              Book a tutor
-            </Button>
-            <Box
-              component={Button}
-              variant="outlined"
-              color="primary"
-              size="large"
-              marginTop={{ xs: 2, sm: 0 }}
-              marginLeft={{ sm: 2 }}
-              fullWidth={isMd ? false : true}
-            >
-              Explore more
-            </Box>
-          </Box>
-        </Box>
-        <Box>
-          <Grid container spacing={4}>
-            {mock.map((item, i) => (
+        <Typography variant="h5" style={{ textAlign: 'center' }}>
+          <WYSIWYGRender
+            rich_text={content || FillerContent.rich_text}
+          ></WYSIWYGRender>
+        </Typography>
+
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-between',
+            marginTop: '2rem',
+            flexDirection: isMobile ? 'column' : 'row',
+          }}
+        >
+          {cardsList?.map((item, i) => {
+            return (
               <Grid item xs={12} sm={6} md={3} key={i}>
                 <Box
                   component={Card}
@@ -179,6 +151,7 @@ const WithBorderedCardsAndBrandColor = () => {
                   width={1}
                   height={1}
                   variant={'outlined'}
+                  sx={{ border: 'none' }}
                 >
                   <Box display={'flex'} flexDirection={'column'}>
                     <Box
@@ -189,7 +162,7 @@ const WithBorderedCardsAndBrandColor = () => {
                       bgcolor={theme.palette.primary.main}
                       color={theme.palette.background.paper}
                     >
-                      {item.icon}
+                      {switchIcon(item.icon_name)}
                     </Box>
                     <Typography
                       variant={'h4'}
@@ -197,23 +170,23 @@ const WithBorderedCardsAndBrandColor = () => {
                       gutterBottom
                       sx={{ fontWeight: 700 }}
                     >
-                      {item.number}
+                      {item.blue_content || item.number}
                     </Typography>
                     <Typography
                       variant={'h6'}
                       gutterBottom
                       sx={{ fontWeight: 500 }}
                     >
-                      {item.title}
+                      {item.text || item.title}
                     </Typography>
                     <Typography color="text.secondary">
-                      {item.subtitle}
+                      {item.additional_content || item.subtitle}
                     </Typography>
                   </Box>
                 </Box>
               </Grid>
-            ))}
-          </Grid>
+            );
+          })}
         </Box>
       </Box>
     </Container>

@@ -1,15 +1,13 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/system';
 
-
-
-const Partners = ({data}) => {
-
+const Partners = ({ logoPartners }) => {
+  const theme = useTheme();
   return (
     <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
-      {data.map((item, i) => (
+      {logoPartners.map((item, i) => (
         <Box
-          maxWidth={{ xs: 80, sm: 90 }}
           marginTop={{ xs: 1 }}
           marginRight={{ xs: 3, sm: 6, md: 12 }}
           key={i}
@@ -19,9 +17,12 @@ const Partners = ({data}) => {
             height={1}
             width={1}
             src={item?.url}
-            alt="..."
+            alt={item?.zuid}
             sx={{
-              filter: 'contrast(0)',
+              filter:
+                theme.palette.mode === 'dark'
+                  ? 'brightness(0) invert(1)'
+                  : 'none',
             }}
           />
         </Box>

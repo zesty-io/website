@@ -1,0 +1,9 @@
+.git
+dist
+node_modules
+vendor
+*.jar
+.husky
+.next
+test
+README.md

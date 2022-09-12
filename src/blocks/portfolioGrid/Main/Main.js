@@ -9,21 +9,19 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 
-import FillerContent from 'components/FillerContent';
+import FillerContent from 'components/globals/FillerContent';
 
-const Main = ({ data }) => {
+const Main = ({ partnerCards }) => {
   const theme = useTheme();
-
 
   return (
     <Box>
       <Grid container spacing={4}>
-        {data.map((item, i) => (
-
+        {partnerCards.map((item, i) => (
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box
               component={'a'}
-              href={item.link || FillerContent.href}
+              href={item?.link || FillerContent.href}
               target="_blank"
               display={'block'}
               width={1}
@@ -45,21 +43,17 @@ const Main = ({ data }) => {
               >
                 <CardMedia
                   image={item?.image?.data[0].url || FillerContent.image}
-                  title={item.title || FillerContent.header}
+                  title={item?.title || FillerContent.header}
                   sx={{
                     height: { xs: 340, md: 400 },
-                    filter:
-                      theme.palette.mode === 'dark'
-                        ? 'brightness(0.7)'
-                        : 'none',
                   }}
                 />
                 <Box component={CardContent}>
                   <Typography variant={'h6'} fontWeight={700} gutterBottom>
-                    {item.title || FillerContent.header}
+                    {item?.title || FillerContent.header}
                   </Typography>
                   <Typography variant={'body2'} color="text.secondary">
-                    {item.description || FillerContent.description}
+                    {item?.description || FillerContent.description}
                   </Typography>
                 </Box>
                 <Box flexGrow={1} />
@@ -84,7 +78,7 @@ const Main = ({ data }) => {
                       </svg>
                     }
                   >
-                    {item.cta || FillerContent.cta}
+                    {item?.cta || FillerContent.cta}
                   </Button>
                 </Box>
               </Box>
