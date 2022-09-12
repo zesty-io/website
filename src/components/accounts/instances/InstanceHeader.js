@@ -54,6 +54,7 @@ export default function InstanceHeader({ instance }) {
           size="small"
           color="secondary"
           target="_blank"
+          variant="contained"
           href={managerURl}
         >
           Edit Content
@@ -61,6 +62,7 @@ export default function InstanceHeader({ instance }) {
 
         <Button
           size="small"
+          variant="contained"
           target="_blank"
           color="secondary"
           href={webengineUrl}
