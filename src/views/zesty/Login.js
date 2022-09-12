@@ -27,28 +27,12 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-import React, { useEffect } from 'react';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import React from 'react';
 import CustomLogin from 'components/console/Login';
+import { getCookie } from 'cookies-next';
 function Login({ content }) {
-  const isLoggedIn = useIsLoggedIn();
-
-  useEffect(() => {
-    const header = document.querySelector('header'),
-      topNavBox = document.querySelector('#topNavBox'),
-      footer = document.querySelector('footer');
-    if (header && topNavBox && footer) {
-      header.style.display = 'none';
-      topNavBox.style.display = 'none';
-      footer.style.display = 'none';
-    }
-  }, []);
-
-  if (isLoggedIn) {
-    window.location.replace('/instances');
-  }
-
-  return <CustomLogin />;
+  const APP_USER_EMAIL = getCookie('APP_USER_EMAIL');
+  return <CustomLogin content={content} userEmail={APP_USER_EMAIL} />;
 }
 
 export default Login;

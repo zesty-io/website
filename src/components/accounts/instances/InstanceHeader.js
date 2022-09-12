@@ -46,7 +46,7 @@ export default function InstanceHeader({ instance }) {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Updated at:
-          {dayjs(instance.updatedAt).format('MMMM D, YYYY @ hh:mm A')}
+          {dayjs(instance.updatedAt).format(' MMMM D, YYYY @ hh:mm A')}
         </Typography>
       </CardContent>
       <CardActions>

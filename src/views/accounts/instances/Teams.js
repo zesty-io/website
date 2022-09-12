@@ -1,13 +1,14 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import {
   accountsValidations,
+  BaseRolesTable,
+  CollapseTable,
   DeleteBtn,
   DeleteMsg,
-  FormInput,
   FormSelect,
-  StickyTable,
   SubmitBtn,
 } from 'components/accounts';
+import { ComboBox } from 'components/globals/ComboBox';
 import { useFormik } from 'formik';
 import React from 'react';
 import Swal from 'sweetalert2';
@@ -16,8 +17,12 @@ import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 const COLUMNS = [
   {
+    id: 'btn',
+    label: '',
+  },
+  {
     id: 'name',
-    label: 'Name',
+    label: 'Team Name',
   },
   {
     id: 'description',
@@ -33,7 +38,12 @@ const COLUMNS = [
   },
 ];
 
-const CustomTable = ({ data, handleDeleteTeamModal, isInstanceOwner }) => {
+const CustomTable = ({
+  loading,
+  data,
+  handleDeleteTeamModal,
+  isInstanceOwner,
+}) => {
   const ROWS = data?.map((e) => {
     return {
       name: e.name || '-',
@@ -41,7 +51,7 @@ const CustomTable = ({ data, handleDeleteTeamModal, isInstanceOwner }) => {
       zuid: e.ZUID,
       action: isInstanceOwner ? (
         <Box display={'flex'}>
-          <DeleteBtn onClick={() => handleDeleteTeamModal(e)} />
+          <DeleteBtn onClick={() => handleDeleteTeamModal(e)}>Delete</DeleteBtn>
         </Box>
       ) : (
         '-'
@@ -54,20 +64,21 @@ const CustomTable = ({ data, handleDeleteTeamModal, isInstanceOwner }) => {
 
   return (
     <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
+      <CollapseTable loading={loading} rows={ROWS} columns={COLUMNS} />
     </Box>
   );
 };
 
-const CustomForm = ({ onSubmit, options = [] }) => {
+const CustomForm = ({ onSubmit, options = [], allTeams = [] }) => {
+  const [teamZUID, setteamZUID] = React.useState('');
   const formik = useFormik({
     validationSchema: accountsValidations.teams,
     initialValues: {
-      teamZUID: '',
       roleZUID: '',
     },
     onSubmit: async (values) => {
-      await onSubmit(values);
+      const newVal = { ...values, teamZUID };
+      await onSubmit(newVal);
       formik.resetForm();
     },
   });
@@ -79,27 +90,42 @@ const CustomForm = ({ onSubmit, options = [] }) => {
   return (
     <Box paddingY={4}>
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput name={'teamZUID'} formik={formik} />
+        <Box paddingBottom={1}>
+          <ComboBox
+            initialLabel={'Select Teams'}
+            width={1}
+            instances={allTeams}
+            setCookies={setteamZUID}
+            instanceZUID={''}
+            size="medium"
+          />
+        </Box>
         <FormSelect
           label="Role ZUID"
           name={'roleZUID'}
           formik={formik}
           options={newOptions}
         />
-        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        <SubmitBtn
+          loading={formik.isSubmitting}
+          disabled={!teamZUID || formik.isSubmitting}
+        >
+          Submit
+        </SubmitBtn>
       </form>
     </Box>
   );
 };
 
 const Main = ({
-  setsearch,
   teams,
   getAllInstancesTeams,
   deleteTeamToInstance,
   isInstanceOwner,
   addTeamToInstance,
   instanceRoles,
+  loading,
+  allTeams,
 }) => {
   const handleAddTeamToInstance = async (data) => {
     await addTeamToInstance(data);
@@ -110,7 +136,7 @@ const Main = ({
     const action = async () => {
       await deleteTeamToInstance(ZUID);
     };
-    DeleteMsg({ action });
+    DeleteMsg({ title: 'Delete this team?', action });
     await getAllInstancesTeams();
   };
 
@@ -121,6 +147,7 @@ const Main = ({
         <CustomForm
           onSubmit={handleAddTeamToInstance}
           options={instanceRoles}
+          allTeams={allTeams}
         />
       ),
       showConfirmButton: false,
@@ -129,17 +156,16 @@ const Main = ({
 
   return (
     <Box>
+      <Typography variant="p" fontSize={'medium'}>
+        By providing a team access you can allow an external group of users
+        access to manage your instance. For example: this can be used to provide
+        an agency with access to manage your website.{' '}
+        <Link href="/teams">Learn more about teams</Link>
+      </Typography>
       <Box paddingY={2} display={'flex'} justifyContent={'space-between'}>
-        <TextField
-          id="outlined-basic"
-          label="Search..."
-          variant="outlined"
-          onChange={(e) => setsearch(e.target.value)}
-        />
-
         {isInstanceOwner && (
           <Button
-            color="primary"
+            color="secondary"
             variant="contained"
             onClick={handleAddTeamModal}
           >
@@ -147,12 +173,13 @@ const Main = ({
           </Button>
         )}
       </Box>
-
       <CustomTable
+        loading={loading}
         data={teams}
         handleDeleteTeamModal={handleDeleteTeamModal}
         isInstanceOwner={isInstanceOwner}
       />
+      <BaseRolesTable />
     </Box>
   );
 };

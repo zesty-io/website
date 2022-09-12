@@ -1,17 +1,32 @@
 import { NextResponse } from 'next/server';
 
-export function middleware(request) {
-  const isAuthenticated = request.cookies.get('isAuthenticated');
-  //   const response = NextResponse.next();
-  //   const appSid = request.cookies.get('APP_SID');
-  //   const isUser = request.cookies.get('isUser');
-  //   console.log(response.cookies, appSid, isAuthenticated, isUser, 222);
+export async function middleware(request, ev) {
+  const response = NextResponse.next();
+  const isAuthenticated = await isUserAuthenticated(request);
 
-  if (!isAuthenticated) {
-    return NextResponse.rewrite(new URL('/instances/', request.url));
-  }
+  response.cookies.set('isAuthenticated', isAuthenticated);
+  return response;
 }
 
+const isUserAuthenticated = async (request) => {
+  let isProd = JSON.parse(request.cookies.get('PRODUCTION') || true);
+
+  const verifyUrl = !isProd
+    ? 'https://auth.api.dev.zesty.io/verify'
+    : 'https://auth.api.zesty.io/verify';
+
+  const appSid = request.cookies.get(isProd ? 'APP_SID' : 'DEV_APP_SID');
+
+  const response = await fetch(verifyUrl, {
+    headers: {
+      Authorization: `Bearer ${appSid}`,
+    },
+  });
+  const data = await response.json();
+
+  return data?.code === 200 ? true : false;
+};
+
 export const config = {
-  matcher: ['/instances/:path*', '/profile/:path*'],
+  matcher: ['/:path*'],
 };

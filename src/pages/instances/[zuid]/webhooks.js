@@ -5,7 +5,10 @@ import { Webhooks } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
 
+export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+
 export default function WebhooksPage() {
+  const [loading, setloading] = React.useState(false);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [webhooks, setWebhooks] = React.useState([]);
   const [resourcesOption, setResourcesOption] = React.useState([]);
@@ -82,7 +85,7 @@ export default function WebhooksPage() {
     const res = await ZestyAPI.createWebhook(payload);
     !res.error && handleCreateWebhooksSuccess(res);
     res.error && handleCreateWebhooksError(res);
-    await getWebhooks();
+    await getPageData();
   };
 
   const searhcItems = async () => {
@@ -103,7 +106,7 @@ export default function WebhooksPage() {
     const res = await ZestyAPI.deleteWebhook(webhookZuid);
     !res.error && handleDeleteWebhookSuccess(res);
     res.error && handleDeleteWebhookError(res);
-    await getWebhooks();
+    await getPageData();
   };
 
   const testWebhook = async (data) => {
@@ -142,12 +145,17 @@ export default function WebhooksPage() {
     instanceUserWithRoles,
     userInfo,
   );
+  const getPageData = async () => {
+    await setloading(true);
+    await getWebhooks();
+    await searhcItems();
+    await getInstanceUserWithRoles();
+    await setloading(false);
+  };
 
   React.useEffect(() => {
     if (router.isReady) {
-      getWebhooks();
-      searhcItems();
-      getInstanceUserWithRoles();
+      getPageData();
     }
   }, [router.isReady]);
 
@@ -159,6 +167,7 @@ export default function WebhooksPage() {
         deleteWebhook={deleteWebhook}
         testWebhook={testWebhook}
         isInstanceOwner={isInstanceOwner}
+        loading={loading}
       />
     </>
   );

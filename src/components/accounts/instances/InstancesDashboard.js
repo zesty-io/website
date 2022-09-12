@@ -9,6 +9,7 @@ import {
   Stack,
   Container,
   Typography,
+  Box,
 } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -20,6 +21,8 @@ import { InstancesList } from './InstancesList';
 import StarIcon from '@mui/icons-material/Star';
 import EmailIcon from '@mui/icons-material/Email';
 import WidgetsIcon from '@mui/icons-material/Widgets';
+import { ComboBox } from 'components/globals/ComboBox';
+import { LaunchInstance } from './LaunchInstance';
 
 const orderByItems = [
   {
@@ -33,12 +36,15 @@ const orderByItems = [
 ];
 
 export const InstancesDashboard = () => {
+  const [ecosystem, setecosystem] = React.useState([]);
+  const [selectedEcosystem, setselectedEcosystem] = React.useState(null);
   const [view, setView] = useState('grid');
   const [orderByValue, setOrderByValue, reset] = useDropdown();
   const [initialFavorites, setinitialFavorites] = useState([]);
   const router = useRouter();
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [instances, setInstances] = React.useState([]);
+  const [initialInstances, setinitialInstances] = useState([]);
   const [search, setSearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const [invites, setinvites] = React.useState([]);
@@ -84,6 +90,7 @@ export const InstancesDashboard = () => {
   const handleGetInstancesSuccess = (res) => {
     console.log(res);
     setInstances(res.data);
+    setinitialInstances(res.data);
   };
 
   // Partial fix when invalid session is detected
@@ -120,6 +127,12 @@ export const InstancesDashboard = () => {
     setSearch(search.toLowerCase());
   };
 
+  const handleGetAllEcosystemSuccess = (res) => {
+    setecosystem(res.data);
+  };
+  const handleGetAllEcosystemError = (res) => {
+    console.log(res);
+  };
   const handleUpdateUserSuccess = (res) => {
     console.log(res);
   };
@@ -158,22 +171,31 @@ export const InstancesDashboard = () => {
     const res = await ZestyAPI.respondToInvite(data.inviteZUID, action);
     !res.error && handleRespondToInviteSuccess(res);
     res.error && handleRespondToInviteError(res);
-    await getPageData();
+  };
+  const getAllEcosystem = async () => {
+    const res = await ZestyAPI.getALLEcosystems();
+    !res.error && handleGetAllEcosystemSuccess(res);
+    res.error && handleGetAllEcosystemError(res);
   };
 
   const favoritesList = instances
-    ?.filter((instance) => initialFavorites?.includes(instance.ZUID))
+    ?.filter((instance) => initialFavorites.includes(instance?.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
 
   const instancesList = instances
-    ?.filter((instance) => !initialFavorites?.includes(instance.ZUID))
+    ?.filter((instance) => !initialFavorites.includes(instance?.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
 
+  const handleSelectEcosystem = (ZUID) => {
+    const res = initialInstances.filter((e) => e.ecoZUID === ZUID);
+    setInstances(res);
+  };
   const getPageData = async () => {
     setloading(true);
     await getInstances();
     await getUser(userZUID);
     await getAllInvitedInstances();
+    await getAllEcosystem();
     setloading(false);
   };
 
@@ -208,10 +230,31 @@ export const InstancesDashboard = () => {
       setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites);
     }
   }, [userInfo]);
+  React.useEffect(() => {
+    if (selectedEcosystem) {
+      handleSelectEcosystem(selectedEcosystem);
+    } else {
+      setInstances(initialInstances);
+    }
+  }, [selectedEcosystem]);
 
   return (
     <Container maxWidth={false} sx={{ my: 2 }}>
-      <Stack alignItems={'center'} direction="row" spacing={2}>
+      <Stack
+        alignItems={'center'}
+        display={'flex'}
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={2}
+        sx={{ height: '3.5rem' }}
+        paddingBottom={{ xs: 15, sm: 0 }}
+      >
+        <ComboBox
+          initialLabel={'Select Ecosystems'}
+          instances={ecosystem}
+          setCookies={setselectedEcosystem}
+          instanceZUID={''}
+          size="medium"
+        />
         <TextField
           label="Search by instance name"
           InputProps={{
@@ -221,30 +264,38 @@ export const InstancesDashboard = () => {
               </InputAdornment>
             ),
           }}
+          size="medium"
           variant="outlined"
           fullWidth
           color="secondary"
           onChange={(e) => handleSearch(e.target.value)}
         />
-        <CustomMenu
-          menuName="Order by"
-          menuItems={orderByItems}
-          handleClick={setOrderByValue}
-        />
-        <ToggleButtonGroup
-          value={view}
-          exclusive
-          color="secondary"
-          onChange={handleChangeView}
-          sx={{ ml: 'auto' }}
-        >
-          <ToggleButton value="grid">
-            <GridViewOutlinedIcon />
-          </ToggleButton>
-          <ToggleButton value="list">
-            <FormatListBulletedOutlinedIcon />
-          </ToggleButton>
-        </ToggleButtonGroup>
+        <Box display="flex" gap={2} sx={{ height: { xs: 'auto', sm: '100%' } }}>
+          <CustomMenu
+            menuName="Order by"
+            menuItems={orderByItems}
+            handleClick={setOrderByValue}
+          />
+          <ToggleButtonGroup
+            value={view}
+            exclusive
+            color="secondary"
+            onChange={handleChangeView}
+            sx={{ ml: 'auto', height: '100%' }}
+          >
+            <ToggleButton value="grid">
+              <GridViewOutlinedIcon />
+            </ToggleButton>
+            <ToggleButton value="list">
+              <FormatListBulletedOutlinedIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
+          <LaunchInstance
+            onClick={() =>
+              router.push('https://accounts.zesty.io/instances/create')
+            }
+          ></LaunchInstance>
+        </Box>
       </Stack>
 
       <InstancesList

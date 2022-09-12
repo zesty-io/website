@@ -58,6 +58,7 @@ const CustomTable = ({
   handleDeleteRole,
   instanceRoles,
   isOwner,
+  loading,
 }) => {
   const ROWS = data?.map((e) => {
     const handleOnChange = (data) => {
@@ -106,9 +107,12 @@ const CustomTable = ({
   // const memoizeColumns = React.useMemo(() => COLUMNS, []);
 
   return (
-    <Box>
-      <StickyTable rows={ROWS} columns={COLUMNS} />
-    </Box>
+    <StickyTable
+      title={'Active Users'}
+      loading={loading}
+      rows={ROWS}
+      columns={COLUMNS}
+    />
   );
 };
 
@@ -160,6 +164,7 @@ const Index = ({
   createInvite,
   isOwner,
   instanceZUID,
+  loading,
 }) => {
   const handleUpdateRole = (data) => {
     updateRole(data);
@@ -190,7 +195,7 @@ const Index = ({
     <Grid container>
       <Box sx={{ display: 'flex', width: '100%', justifyContent: 'end' }}>
         <Button
-          color="primary"
+          color="secondary"
           variant="contained"
           onClick={() =>
             handleInviteUserModal(createInvite, baseroles, instanceZUID)
@@ -206,6 +211,7 @@ const Index = ({
           handleDeleteRole={handleDeleteRole}
           instanceRoles={instanceRoles}
           isOwner={isOwner}
+          loading={loading}
         />
       </Grid>
     </Grid>

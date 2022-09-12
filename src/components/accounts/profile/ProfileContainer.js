@@ -3,20 +3,10 @@ import Main from 'layouts/Main/Main';
 import React from 'react';
 import { Container } from '@mui/material';
 import { ProfileApp } from './ProfileApp';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
-const Index = ({ children, isDashboard = false }) => {
-  const isLoggedIn = useIsLoggedIn();
+const Index = ({ children }) => {
   const renderChildren = () => {
-    if (isLoggedIn) {
-      if (isDashboard) {
-        return children;
-      } else {
-        return <ProfileApp>{children}</ProfileApp>;
-      }
-    } else {
-      window.location.replace('/login');
-    }
+    return <ProfileApp>{children}</ProfileApp>;
   };
 
   return (
