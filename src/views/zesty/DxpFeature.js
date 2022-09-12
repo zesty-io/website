@@ -54,6 +54,8 @@ import Hero from 'components/marketing/DxpFeatures/Hero';
 
 // Components Imports
 import WhyZesty from 'components/marketing/DxpFeatures/WhyZesty';
+import Bottom from 'components/marketing/DxpFeatures/Bottom';
+import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
 
 function DxpFeature({ content }) {
   const theme = useTheme();
@@ -109,6 +111,11 @@ function DxpFeature({ content }) {
       return acc;
     }, []) || [];
 
+  const testimonialsData = {
+    title: content.case_studies_title,
+    data: content.testimonials?.data,
+  };
+
   return (
     <>
       <Hero {...pageData} />
@@ -125,6 +132,8 @@ function DxpFeature({ content }) {
         cta_url={content.section_2_cta_link}
       />
       <Features
+        icon_width={150}
+        icon_height={70}
         center
         background="zesty"
         header_size={32}
@@ -134,6 +143,8 @@ function DxpFeature({ content }) {
         cta_url={content.section_3_cta_link}
       />
       <WhyZesty {...pageData} />
+      <Testimonials {...testimonialsData} />
+      <Bottom {...pageData} />
     </>
   );
 }

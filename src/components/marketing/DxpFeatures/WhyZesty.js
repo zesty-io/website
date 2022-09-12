@@ -11,7 +11,7 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 const WhyZesty = ({ content, FillerContent, theme, isMedium, isSmall }) => {
   return (
     <>
-      <Box component="section">
+      <Box component="section" sx={{ pb: 7 }}>
         <Container>
           <MuiMarkdown
             overrides={{

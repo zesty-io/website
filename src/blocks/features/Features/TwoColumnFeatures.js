@@ -82,7 +82,7 @@ const TwoColumnFeatures = ({
               lg={3}
               xl={4}
             >
-              <Box>
+              <Box sx={{ pl: 5 }}>
                 <MuiMarkdown
                   overrides={{
                     h2: {

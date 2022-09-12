@@ -38,7 +38,7 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
               md={6}
             >
               <Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   <Typography
                     variant="h3"
                     component="h1"
@@ -64,8 +64,24 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                   </Typography>
                 </Box>
 
-                <Box sx={{ mt: 2 }}>
+                <Box
+                  sx={{
+                    mt: 4,
+                    display: 'flex',
+                    flexDirection: isMedium ? 'column' : 'row',
+                    gap: 2,
+                  }}
+                >
+                  <TryFreeButton
+                    fullWidth={isMedium}
+                    text={content.cta_button_1}
+                    target="_blank"
+                    variant="contained"
+                    color={'secondary'}
+                  />
+
                   <DemoCta
+                    href={content.cta_button_2_link}
                     text={content.hero_cta || FillerContent.cta}
                     variant={'contained'}
                     fullWidth={isMedium}

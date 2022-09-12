@@ -29,15 +29,24 @@ import ZestyImage from 'blocks/Image/ZestyImage';
  * @param {string} feature_description - feature description
  * @param {string} textHighlight - text you want to highlight on header
  * @param {string} background - background options can be one of the two "zesty" || "chevron" default is none
+ * @param {number} icon_width - override default icon width set as 77
+ * @param {number} icon_height - override default icon height set as 60
+ * @param {boolean} center - center card items including logo, title and description
+ * @param {string} header_color - header title color default is zestyOrange
+ *
  */
 
 const Features = ({
   data,
   features_header,
   header_size = 48,
+  header_color,
   feature_description,
   textHighlight = 'Zesty',
   background = '', // options "zesty" || "chevron"
+  icon_width = 67,
+  icon_height = 60,
+  center = false,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -202,11 +211,20 @@ const Features = ({
                     alignItems: 'center',
                   }}
                 >
-                  <Box sx={{ minHeight: 200, height: '100%' }}>
+                  <Box
+                    sx={{
+                      minHeight: 200,
+                      height: '100%',
+                      display: 'flex',
+                      justifyContent: center ? 'center' : 'flex-start',
+                      flexDirection: 'column',
+                      alignItems: center ? 'center' : 'flex-start',
+                    }}
+                  >
                     <ZestyImage
                       loading="lazy"
-                      width={67}
-                      height={60}
+                      width={icon_width}
+                      height={icon_height}
                       src={e?.icon_image}
                       alt={e.feature_name}
                     />
@@ -215,9 +233,12 @@ const Features = ({
                       variant={'p'}
                       sx={{
                         py: 2,
-                        color: theme.palette.zesty.zestyOrange,
-                        textAlign: 'left',
+                        color: header_color
+                          ? header_color
+                          : theme.palette.zesty.zestyOrange,
+                        fontWeight: 500,
                         fontSize: '20px',
+                        textAlign: center ? 'center' : 'left',
                       }}
                     >
                       {e?.feature_name}
@@ -226,10 +247,10 @@ const Features = ({
                       component={'h2'}
                       variant={'p'}
                       sx={{
+                        textAlign: center ? 'center' : 'left',
                         color: isDarkMode
                           ? theme.palette.zesty.zestyDarkBlue
                           : theme.palette.secondary.darkCharcoal,
-                        textAlign: 'left',
                         fontSize: '16px',
                         fontWeight: 'light',
                       }}
