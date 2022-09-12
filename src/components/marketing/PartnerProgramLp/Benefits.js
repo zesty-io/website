@@ -1,14 +1,12 @@
 import React from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 /**
  * MUI Imports
  */
 import { Box, Typography, Button, Grid } from '@mui/material';
-import Divider from '@mui/material/Divider';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
-import { useTheme, alpha } from '@mui/material/styles';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Benefits = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
   const data = [
@@ -69,16 +67,18 @@ const Benefits = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 item
                 sm={12}
                 md={6}
                 order={isMedium ? 1 : index % 2}
               >
-                <Box sx={{ width: '100%', maxWidth: 700 }}>
-                  <Box
-                    sx={{ width: '100%' }}
-                    component="img"
+                <Box>
+                  <ZestyImage
+                    style={{ width: '100%', maxWidth: 500, height: 'auto' }}
+                    width={700}
+                    height={500}
                     src={item.graphic}
                     alt={''}
                   />
@@ -90,7 +90,7 @@ const Benefits = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
                 sm={12}
                 md={6}
               >
-                <Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                   <MuiMarkdown
                     overrides={{
                       h3: {
@@ -107,15 +107,18 @@ const Benefits = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
                       p: {
                         component: Typography,
                         props: {
-                          variant: 'p',
+                          variant: 'h6',
+                          component: 'p',
                           sx: {
+                            lineHeight: 1.2,
+                            mt: 2,
                             color: theme.palette.zesty.zestyZambezi,
                           },
                         },
                       },
                     }}
                   >
-                    {item.description}
+                    {item.description.replace('&rsquo;', "'")}
                   </MuiMarkdown>
                 </Box>
               </Grid>
