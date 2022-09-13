@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Link, Typography } from '@mui/material';
+import { Box, Button, Link, Stack, Typography } from '@mui/material';
 import {
   accountsValidations,
   DeleteBtn,
@@ -143,47 +143,77 @@ export const Apis = ({
     updateToken(val);
   };
   return (
-    <Grid container>
-      <Typography variant="p" fontSize={'medium'}>
-        The{' '}
-        <Link href="https://zesty.org/apis/auth-api#token-based-authentication">
-          {' '}
-          Access token
-        </Link>{' '}
-        feature is beta and is recommended for use with the{' '}
-        <Link href="https://zesty.org/tools/atom-package">
-          Atom IDE plugin
-        </Link>{' '}
-        , experimenting with CI/CD flows, and/or{'  '}
-        <Link href="https://github.com/zesty-io/node-sdk">Node SDK</Link> script
-        usage. This feature will be augmented in the future. After that
-        automated production flows using tokens will be generally available.
-      </Typography>
-      <Grid item xs={11}></Grid>
-      <Grid item xs={1}>
+    <Stack>
+      <Stack spacing={1}>
+        <Typography>
+          The{' '}
+          <Link href="https://zesty.org/apis/auth-api#token-based-authentication">
+            {' '}
+            Access token
+          </Link>{' '}
+          feature is beta and is recommended for use with the{' '}
+          <Link href="https://zesty.org/tools/atom-package">
+            Atom IDE plugin
+          </Link>{' '}
+          , experimenting with CI/CD flows, and/or{'  '}
+          <Link href="https://github.com/zesty-io/node-sdk">Node SDK</Link>{' '}
+          script usage. This feature will be augmented in the future. After that
+          automated production flows using tokens will be generally available.
+        </Typography>
+        <Typography>
+          The{' '}
+          <Link href="https://zesty.org/services/web-engine/modes">
+            Web Engine
+          </Link>{' '}
+          has 3 modes (Traditional(default), Hybrid, Headless). The{' '}
+          <Link href="https://zesty.org/apis/json-endpoints">
+            Instant API endpoints
+          </Link>{' '}
+          are reliant on the{' '}
+          <Typography
+            display="inline-block"
+            fontWeight="bolder"
+            color="text.secondary"
+          >
+            Access to Basic JSON API for content
+          </Typography>{' '}
+          to be on. Docs for{' '}
+          <Link href="https://instances-api.zesty.org/#9db975df-8f8b-4a6a-b820-2d684a5e0da3">
+            updating setting endpoint
+          </Link>
+        </Typography>
+        <Typography>
+          All of the other endpoints are reliant on the webengine mode setting
+          set to Headless or Hybrid. Once the setting is turned on you can go to
+          the /-/headless/ endpoint of the instance. Which is structured using
+          the {`instance's`} domain followed by the endpoint. Sample:
+          <Link href="https://photoblog.zesty.dev/-/headless/">
+            https://photoblog.zesty.dev/-/headless/
+          </Link>
+        </Typography>
+      </Stack>
+      <Stack direction="row" width="100%" my={1}>
         {isInstanceOwner && (
           <Button
             onClick={handleCreateTokenModal}
             color="secondary"
-            fullWidth
             variant="contained"
             type="button"
-            sx={{ whiteSpace: 'nowrap' }}
+            sx={{ ml: 'auto' }}
           >
             Create Token
           </Button>
         )}
-      </Grid>
-      <Grid item xs={12}>
-        <CustomTable
-          loading={loading}
-          isInstanceOwner={isInstanceOwner}
-          data={tokens}
-          roles={instanceRoles}
-          handleDeleteToken={handleDeleteToken}
-          handleUpdateToken={handleUpdateToken}
-        />
-      </Grid>
-    </Grid>
+      </Stack>
+
+      <CustomTable
+        loading={loading}
+        isInstanceOwner={isInstanceOwner}
+        data={tokens}
+        roles={instanceRoles}
+        handleDeleteToken={handleDeleteToken}
+        handleUpdateToken={handleUpdateToken}
+      />
+    </Stack>
   );
 };
