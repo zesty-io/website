@@ -12,7 +12,8 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 const WhyZesty = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (
-    <Container sx={{ py: 15 }}>
+    <Box component="section" sx={{background: theme.palette.zesty.zestyWhite}}>
+      <Container sx={{ py: 15 }}>
       <Grid container spacing={2}>
         <Grid
           sx={{
@@ -80,6 +81,7 @@ const WhyZesty = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
         </Grid>
       </Grid>
     </Container>
+    </Box>
   );
 };
 

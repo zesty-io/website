@@ -37,6 +37,14 @@ const Testimonials = ({ title, data }) => {
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const backgroundUrl = 'https://kfg6bckb.media.zestyio.com/testimonials.svg';
 
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(title);
+
+  if (!isRichText) {
+    title = `<p>${title}</p>`;
+  }
+
   return (
     <Box
       component="section"
@@ -141,7 +149,6 @@ const Testimonials = ({ title, data }) => {
                         <ZestyImage
                           width={75}
                           height={71}
-                          options={{ width: 75, height: 71 }}
                           loading="lazy"
                           src={HeartQuote.src}
                           alt="heart quote"
@@ -182,7 +189,6 @@ const Testimonials = ({ title, data }) => {
                           <ZestyImage
                             width={20}
                             height={20}
-                            options={{ width: 20, height: 20 }}
                             style={{ paddingLeft: 0.5, paddingRight: 0.5 }}
                             loading="lazy"
                             src={Star.src}

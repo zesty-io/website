@@ -114,25 +114,25 @@ function LongFormPpc({ content }) {
       (content.cta_right_url &&
         zestyLink(content.navigationTree, content.cta_right_url)) ||
       zestyLink(content.navigationTree, FillerContent.contact_zuid),
-      cta_left_text: content.cta_left_text || "",
-      cta_left_url: content.cta_left_url === '0' && '/join/' || content.cta_left_url?.data[0]?.meta.web.uri || '/join/'
+    cta_left_text: content.cta_left_text || '',
+    cta_left_url:
+      (content.cta_left_url === '0' && '/join/') ||
+      content.cta_left_url?.data[0]?.meta.web.uri ||
+      '/join/',
   };
 
-
-  console.log(content)
+  console.log(content);
   /* Taking the data from the content model and converting it into a format that the Features component can use. */
-const feature_data = content?.features?.data.reduce((acc, item) => {
-  acc.push({
-    icon_image: item.icon_image.data[0].url,
-    feature_name: item.feature_name,
-    content: item.content
-  })
+  const feature_data =
+    content?.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
 
-  return acc;
-} ,[]) || []
-
-
-
+      return acc;
+    }, []) || [];
 
   return (
     <>
@@ -200,9 +200,10 @@ const feature_data = content?.features?.data.reduce((acc, item) => {
         />
       ) : (
         <Features
-        features_header={content.features_header  }
-        data={feature_data}
-        content={content} />
+          features_header={content.features_header}
+          data={feature_data}
+          content={content}
+        />
       )}
 
       {/* Benefits */}

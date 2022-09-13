@@ -95,7 +95,7 @@ function DxpEnterprise({ content }) {
         textHighlight="Zesty’s enterprise"
         features_header={content.features_header}
         data={feature_data}
-        content={content}
+        header_size={32}
       />
       <WhyZesty {...pageData} />
       <TopBrands

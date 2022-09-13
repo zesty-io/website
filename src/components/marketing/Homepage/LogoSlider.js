@@ -81,7 +81,6 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
                 <ZestyImage
                   width={200}
                   height={127}
-                  options={{ width: 200, height: 127 }}
                   key={index}
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}
                   loading="lazy"
@@ -99,7 +98,6 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
                 <ZestyImage
                   width={200}
                   height={127}
-                  options={{ width: 200, height: 127 }}
                   key={index}
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}
                   loading="lazy"
