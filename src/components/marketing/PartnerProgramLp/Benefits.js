@@ -3,8 +3,7 @@ import React from 'react';
 /**
  * MUI Imports
  */
-import { Box, Typography, Button, Grid } from '@mui/material';
-import Container from 'blocks/container/Container';
+import { Box, Typography, Grid, Container } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import ZestyImage from 'blocks/Image/ZestyImage';
 

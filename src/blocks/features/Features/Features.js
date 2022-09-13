@@ -32,7 +32,8 @@ import ZestyImage from 'blocks/Image/ZestyImage';
  * @param {number} icon_width - override default icon width set as 77
  * @param {number} icon_height - override default icon height set as 60
  * @param {boolean} center - center card items including logo, title and description
- * @param {string} header_color - header title color default is zestyOrange
+ * @param {string} card_name_color - card name title color default is zestyOrange
+ * @param {string} header_color - header title color default is zestyDarkText
  *
  */
 
@@ -41,6 +42,7 @@ const Features = ({
   features_header,
   header_size = 48,
   header_color,
+  card_name_color,
   feature_description,
   textHighlight = 'Zesty',
   background = '', // options "zesty" || "chevron"
@@ -108,25 +110,6 @@ const Features = ({
       </Box>
       <Container>
         <Box sx={{ py: 10 }}>
-          {/* <Typography
-            component={'h2'}
-            variant={'p'}
-            sx={{
-              lineHeight: 1,
-              color: isDarkMode
-                ? theme.palette.common.white
-                : theme.palette.zesty.zestyZambezi,
-              textAlign: 'center',
-              fontSize: isMobile ? '24px' : header_size,
-            }}
-            dangerouslySetInnerHTML={{
-              __html: helper.strColorChanger(
-                features_header || FillerContent.header,
-                textHighlight,
-                theme.palette.zesty.zestyOrange,
-              ),
-            }}
-          /> */}
           <MuiMarkdown
             overrides={{
               h2: {
@@ -135,6 +118,9 @@ const Features = ({
                   variant: 'p',
                   component: 'h2',
                   sx: {
+                    color: header_color
+                      ? header_color
+                      : theme.palette.zesty.zestyDarkText,
                     fontSize: isMobile ? 24 : header_size,
                     textAlign: 'center',
                   },
@@ -233,8 +219,8 @@ const Features = ({
                       variant={'p'}
                       sx={{
                         py: 2,
-                        color: header_color
-                          ? header_color
+                        color: card_name_color
+                          ? card_name_color
                           : theme.palette.zesty.zestyOrange,
                         fontWeight: 500,
                         fontSize: '20px',

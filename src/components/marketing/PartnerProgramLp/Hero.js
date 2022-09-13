@@ -17,8 +17,11 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   const LeftSide = () => (
-    <Box sx={{py:10, px:2}}>
-      <Box sx={{display:'flex', flexDirection:"column", gap:4}} marginBottom={2}>
+    <Box sx={{ py: 10, px: 2 }}>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}
+        marginBottom={2}
+      >
         <MuiMarkdown
           overrides={{
             span: {
@@ -27,9 +30,8 @@ const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
                 component: 'span',
                 sx: {
                   fontSize: 'inherit',
-                  color: theme.palette.zesty.zestyOrange,
+                  color: theme.palette.zesty.zestyZambezi,
                   fontWeight: 'inherit',
-                  textDecoration: 'underline',
                 },
               },
             },
@@ -61,7 +63,7 @@ const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
           {content.header_text || FillerContent.description}
         </MuiMarkdown>
 
-        <Box >
+        <Box>
           <Box sx={{ display: isMobile ? 'block' : 'flex' }}>
             <TryFreeButton
               text={content.button_text || FillerContent.cta}
@@ -98,6 +100,7 @@ const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
     return (
       <Box
         sx={{
+          py: 5,
           height: { xs: 'auto', md: 1 },
           '& img': {
             objectFit: 'cover',

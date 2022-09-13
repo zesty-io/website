@@ -62,6 +62,7 @@ import Benefits from 'components/marketing/PartnerProgramLp/Benefits';
 import Testimonial from 'components/marketing/PartnerProgramLp/Testimonial';
 import Bottom from 'components/marketing/PartnerProgramLp/Bottom';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import Features from 'blocks/features/Features/Features';
 
 function PartnerProgramLp({ content }) {
   const theme = useTheme();
@@ -78,6 +79,17 @@ function PartnerProgramLp({ content }) {
 
   console.log(content);
 
+  const feature_data =
+    content.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
   return (
     <>
       <Hero {...pageData} />
@@ -91,6 +103,13 @@ function PartnerProgramLp({ content }) {
       <WhyZesty {...pageData} />
       <Benefits {...pageData} />
       <Testimonial {...pageData} />
+      <Features
+        header_color={theme.palette.zesty.zestyZambezi}
+        header_size={48}
+        textHighlight={'Zesty'}
+        data={feature_data}
+        features_header={content.features_header}
+      />
       <Bottom {...pageData} />
     </>
   );
