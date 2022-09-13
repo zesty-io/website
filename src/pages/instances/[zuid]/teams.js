@@ -133,6 +133,7 @@ export default function TeamsPage() {
     instanceRoles,
     loading,
     allTeams,
+    instanceUserWithRoles,
   };
 
   const getPageData = async () => {
