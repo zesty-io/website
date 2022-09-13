@@ -106,7 +106,6 @@ function PartnerProgramLp({ content }) {
       <Features
         header_color={theme.palette.zesty.zestyZambezi}
         header_size={48}
-        textHighlight={'Zesty'}
         data={feature_data}
         features_header={content.features_header}
       />
