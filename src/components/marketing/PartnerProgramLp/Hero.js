@@ -65,12 +65,21 @@ const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
 
         <Box>
           <Box sx={{ display: isMobile ? 'block' : 'flex' }}>
-            <TryFreeButton
+            {/* <TryFreeButton
               text={content.button_text || FillerContent.cta}
               fullWidth={isMobile}
               variant="contained"
               size="large"
-            />
+              href="#form"
+            /> */}
+            <Button
+              href="#form"
+              component="a"
+              variant="contained"
+              color="secondary"
+            >
+              {content.button_text || FillerContent.cta}
+            </Button>
             <Button
               href={
                 content.watch_demo_cta_button_link?.data[0].meta.web.uri ||

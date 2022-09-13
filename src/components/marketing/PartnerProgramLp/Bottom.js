@@ -8,7 +8,7 @@ import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
 const Bottom = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
   return (
-    <Box sx={{}}>
+    <Box id="form" sx={{}}>
       <Container sx={{ py: 5 }}>
         <Grid container spacing={2}>
           <Grid
