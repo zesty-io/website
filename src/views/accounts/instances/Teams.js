@@ -43,6 +43,7 @@ const CustomTable = ({
   data,
   handleDeleteTeamModal,
   isInstanceOwner,
+  instanceUserWithRoles,
 }) => {
   const ROWS = data?.map((e) => {
     return {
@@ -64,7 +65,12 @@ const CustomTable = ({
 
   return (
     <Box>
-      <CollapseTable loading={loading} rows={ROWS} columns={COLUMNS} />
+      <CollapseTable
+        instanceUserWithRoles={instanceUserWithRoles}
+        loading={loading}
+        rows={ROWS}
+        columns={COLUMNS}
+      />
     </Box>
   );
 };
@@ -126,6 +132,7 @@ const Main = ({
   instanceRoles,
   loading,
   allTeams,
+  instanceUserWithRoles,
 }) => {
   const handleAddTeamToInstance = async (data) => {
     await addTeamToInstance(data);
@@ -174,6 +181,7 @@ const Main = ({
         )}
       </Box>
       <CustomTable
+        instanceUserWithRoles={instanceUserWithRoles}
         loading={loading}
         data={teams}
         handleDeleteTeamModal={handleDeleteTeamModal}
