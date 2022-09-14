@@ -37,6 +37,12 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Imports
  */
 import TwoRowsHero from 'blocks/zesty/Hero/TwoRowsHero';
+import SimpleCardLogo from 'blocks/zesty/SimpleCardLogo/SimpleCardLogo';
+import WhyZesty from 'blocks/zesty/WhyZesty/WhyZesty';
+import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
+import Features from 'blocks/zesty/Features/Features';
+import TechStack from 'blocks/integrations/TechStack';
+import Bottom from 'components/marketing/AgencyPartner.js/Bottom';
 
 function AgencyPartner({ content }) {
   const theme = useTheme();
@@ -57,11 +63,81 @@ function AgencyPartner({ content }) {
     FillerContent,
   };
 
+  const whyZestyData = [
+    {
+      text: content.why_zesty_1 || FillerContent.description,
+      image:
+        content.why_zesty_1_image.data[0]?.url || FillerContent.photos[0].url,
+    },
+    {
+      text: content.why_zesty_2 || FillerContent.description,
+      image:
+        content.why_zesty_2_image.data[0]?.url || FillerContent.photos[0].url,
+    },
+    {
+      text: content.why_zesty_3 || FillerContent.description,
+      image:
+        content.why_zesty_3_image.data[0]?.url || FillerContent.photos[0].url,
+    },
+    {
+      text: content.why_zesty_4 || FillerContent.description,
+      image:
+        content.why_zesty_4_image.data[0]?.url || FillerContent.photos[0].url,
+    },
+  ];
+
+  const testimonialsData = {
+    title: content.testimonial_title,
+    data: content.testimonials?.data,
+  };
+
+  const feature_data =
+    content.partner_program_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.graphic?.data[0].url,
+        feature_name: item.title,
+        content: item.description,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const techStackData = {
+    text_content: content.looking_for_partner,
+    logos: content.partner_logos?.data,
+    cta_text: content.looking_button,
+    cta_link: content.looking_button_link,
+  };
+
   console.log(content);
 
   return (
     <>
-      <TwoRowsHero {...pageData} />
+      <TwoRowsHero
+        header={content.header_title_and_description}
+        eyebrow={content.title}
+        primaryCta={content.cta_button_primary}
+        primaryCta_link={content.cta_button_primary_link}
+        secondaryCta={content.cta_button_secondary}
+        secondaryCta_link={content.cta_button_secondary_link}
+        heroImage={content.header_image.data[0].url}
+      />
+      <SimpleCardLogo logoItems={content.client_logos.data} {...pageData} />
+      <WhyZesty
+        header={content.why_zesty_}
+        {...pageData}
+        whyZestyData={whyZestyData}
+      />
+      <Testimonials {...testimonialsData} />
+      <Features
+        background="zesty"
+        header_size={32}
+        textHighlight={'Workflow management'}
+        data={feature_data}
+        features_header={content.features_title}
+      />
+      <TechStack textHighlight="agency partner?" {...techStackData} />
+      <Bottom {...pageData} />
     </>
   );
 }

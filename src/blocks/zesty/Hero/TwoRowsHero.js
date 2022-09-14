@@ -4,125 +4,120 @@
 
 import React from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import MuiMarkdown from 'mui-markdown';
 
 /**
  *  Components Imports
  * */
-import TryFreeButton from 'components/cta/TryFreeButton';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import FillerContent from 'components/globals/FillerContent';
+import ZestyImage from '../Image/ZestyImage';
 
-const Hero = ({
+const TwoRowsHero = ({
   eyebrow = FillerContent.header,
   header = FillerContent.header,
-  subHeader = FillerContent.header,
-  mainImage,
-  bgImage = FillerContent.dashboard_image,
+  heroImage,
   primaryCta = 'Try Free',
+  primaryCta_link = FillerContent.href,
   secondaryCta = 'Try Free',
-
+  secondaryCta_link = FillerContent.href,
   isMobile,
-  theme,
 }) => {
+  const theme = useTheme();
   return (
-    <Box
-      paddingTop={isMobile ? 4 : 15}
-      paddingBottom={isMobile ? 4 : 25}
-      sx={{
-        position: 'relative',
-        textAlign: 'center',
-      }}
-    >
+    <Box component="section" sx={{ py: 10 }}>
       <Container
         sx={{
           display: 'flex',
-          gap: '3rem',
-          flexDirection: isMobile ? 'column' : 'column',
+          justifyContent: 'center',
+          flexDirection: 'column',
         }}
       >
         <Box
           sx={{
-            background: '',
             display: 'flex',
             justifyContent: 'center',
             flexDirection: 'column',
           }}
         >
-          <Box
-            sx={{
-              position: 'absolute',
-              left: '15rem',
-              top: '2rem',
-              display: isMobile ? 'none' : 'flex',
-            }}
-          >
-            <Box
-              component="img"
-              sx={{ width: 797, opacity: 0.03, zIndex: 0 }}
-              src={bgImage}
-              alt=""
-            />
-          </Box>
           <Typography
-            component={'h2'}
-            variant={'h4'}
+            component={'span'}
+            variant={'h6'}
             sx={{
-              color: theme.palette.zesty.zestyOrange,
+              color: theme.palette.zesty.zestyZambezi,
+              textAlign: 'center',
               fontWeight: 'bold',
             }}
           >
             {eyebrow}
           </Typography>
-          <Typography
-            component={'h1'}
-            variant={'h3'}
-            sx={{
-              color: theme.palette.zesty.zestyZambezi,
-              fontWeight: 'bold',
+          <MuiMarkdown
+            overrides={{
+              h1: {
+                component: Typography,
+                props: {
+                  variant: 'h3',
+                  component: 'h1',
+                  sx: {
+                    fontWeight: 'bold',
+                    color: theme.palette.zesty.zestyOrange,
+                    textAlign: 'center',
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h6',
+                  component: 'p',
+                  sx: {
+                    mt: 2,
+                    lineHeight: 1.2,
+                    maxWidth: 850,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    color: theme.palette.zesty.zestyZambezi,
+                    textAlign: 'center',
+                  },
+                },
+              },
             }}
           >
             {header}
-          </Typography>
-          <Typography
-            paddingY={2}
-            component={'h3'}
-            variant={'p'}
-            sx={{
-              color: theme.palette.zesty.zestyZambezi,
-              fontWeight: 500,
-              fontSize: '20px',
-            }}
-          >
-            {subHeader}
-          </Typography>
+          </MuiMarkdown>
           <Box
             sx={{
               display: isMobile ? 'block' : 'flex',
               width: '100%',
               justifyContent: 'center',
               justifyItems: 'center',
+              mt: 2,
+              gap: 1,
             }}
           >
             <Box sx={{ width: isMobile ? '100%' : '10rem' }}>
-              <TryFreeButton
+              <Button
                 fullWidth={true}
-                text={primaryCta}
+                color="secondary"
                 variant="contained"
                 component="a"
-              />
+                href={primaryCta_link}
+                target="_blank"
+              >
+                {primaryCta}
+              </Button>
             </Box>
             <Button
-              href={'/demos'}
-              variant="text"
+              component="a"
+              target="_blank"
+              href={secondaryCta_link}
+              variant="outlined"
               color="secondary"
               fullWidth={isMobile ? true : false}
               sx={{
                 display: secondaryCta ? 'flex' : 'none',
-                padding: '.6rem 4rem',
-                fontSize: '16px',
-                whiteSpace: 'nowrap',
                 alignItems: 'center',
-                textDecoration: 'underline',
                 gap: '.5rem',
               }}
             >
@@ -132,22 +127,24 @@ const Hero = ({
           </Box>
         </Box>
 
-        {mainImage && (
+        {heroImage && (
           <Box
             sx={{
+              mt: 4,
               display: 'flex',
               justifyContent: 'center',
               justifyItems: 'center',
             }}
           >
-            <Box
-              component="img"
-              src={mainImage}
-              sx={{
-                maxWidth: 928,
+            <ZestyImage
+              alt="agency partner"
+              width={1024}
+              height={513}
+              src={heroImage}
+              style={{
+                maxWidth: 900,
                 width: '100%',
-                position: 'relative',
-                zIndex: 1,
+                height: 'auto',
               }}
             />
           </Box>
@@ -157,4 +154,4 @@ const Hero = ({
   );
 };
 
-export default Hero;
+export default TwoRowsHero;
