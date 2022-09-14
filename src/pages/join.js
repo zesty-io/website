@@ -175,6 +175,10 @@ export default function Join(props) {
             console.log('post object not sent', zohoLeadObject)
         }
         
+        // welcome screen auto skip!
+        setTimeout(() => {
+            handleNext();
+        },5000);
         
         
     }
@@ -283,7 +287,8 @@ export default function Join(props) {
                         userZUID={userObject?.data?.ZUID}
                         dateCreated={new Date().toUTCString()}
                         >
-                        <SlideMessage 
+                        {welcomeMessage}
+                        {/* <SlideMessage 
                             message={welcomeMessage}
                             buttonText={`Let's go!`} 
                             // exitButtonText={'Wait, let me invite my team.'}
@@ -292,7 +297,7 @@ export default function Join(props) {
                             hoverAnimation={handleAnimation}
                             exitButtonText={''}
                             
-                        />
+                        /> */}
                     </WelcomeScreen>
                 </SwiperSlide>
                 {/* Onboarding */}
