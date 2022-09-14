@@ -239,7 +239,7 @@ export const Signup = ({
           </Box>
       </Container>
       }
-      {values.waiting == true && <CircularProgress color="secondary" />}
+      {values.waiting == true && <Box paddingY={6} sx={{textAlign: 'center'}}><CircularProgress color="secondary" /></Box>}
       </>
   )
 }
