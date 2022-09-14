@@ -20,7 +20,7 @@ import FillerContent from 'components/globals/FillerContent';
 /**
  * Components Import
  */
-import ZestyImage from 'blocks/Image/ZestyImage';
+import ZestyImage from 'blocks/zesty/Image/ZestyImage';
 import Container from 'blocks/container/Container';
 /**
  *

@@ -9,7 +9,7 @@ import MuiMarkdown from 'mui-markdown';
  * Components Imports
  */
 import Marquee from 'react-fast-marquee';
-import ZestyImage from 'blocks/Image/ZestyImage';
+import ZestyImage from 'blocks/zesty/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';

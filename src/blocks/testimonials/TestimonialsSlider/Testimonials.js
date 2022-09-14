@@ -22,7 +22,7 @@ import Star from '../../../../public/assets/images/homepage/star.svg';
 
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
-import ZestyImage from 'blocks/Image/ZestyImage';
+import ZestyImage from 'blocks/zesty/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';

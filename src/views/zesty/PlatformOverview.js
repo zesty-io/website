@@ -41,7 +41,7 @@ import FillerContent from 'components/globals/FillerContent';
  */
 
 import Hero from 'components/marketing/PlatformOverview/Hero';
-import Features from 'blocks/features/Features/Features';
+import Features from 'blocks/zesty/Features/Features';
 import Benefits from 'components/marketing/PlatformOverview/Benefits';
 import LevelUp from 'components/marketing/PlatformOverview/LevelUp';
 import PowerHeadless from 'components/marketing/PlatformOverview/PowerHeadless';

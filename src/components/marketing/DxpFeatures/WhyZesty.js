@@ -6,7 +6,7 @@ import { Box, Typography, Grid, Container } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import DemoCta from 'components/cta/DemoCta';
 import MuiMarkdown from 'mui-markdown';
-import ZestyImage from 'blocks/Image/ZestyImage';
+import ZestyImage from 'blocks/zesty/Image/ZestyImage';
 
 const WhyZesty = ({ content, FillerContent, theme, isMedium, isSmall }) => {
   return (

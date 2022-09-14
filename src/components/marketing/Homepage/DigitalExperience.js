@@ -5,7 +5,7 @@
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
-import ZestyImage from 'blocks/Image/ZestyImage';
+import ZestyImage from 'blocks/zesty/Image/ZestyImage';
 /**
  * Static Assets Imports
  */

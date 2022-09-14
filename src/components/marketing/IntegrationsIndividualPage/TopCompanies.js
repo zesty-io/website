@@ -6,7 +6,7 @@ import MuiMarkdown from 'mui-markdown';
 /**
  * Components Imports
  */
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/SimpleCardLogo/SimpleCardLogo';
 
 const TopCompanies = ({
   theme,

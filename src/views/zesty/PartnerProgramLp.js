@@ -61,8 +61,8 @@ import WithDarkBackgroundAndSimpleDescriptionBox from 'blocks/logoGrid/WithDarkB
 import Benefits from 'components/marketing/PartnerProgramLp/Benefits';
 import Testimonial from 'components/marketing/PartnerProgramLp/Testimonial';
 import Bottom from 'components/marketing/PartnerProgramLp/Bottom';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-import Features from 'blocks/features/Features/Features';
+import SimpleCardLogo from 'blocks/zesty/SimpleCardLogo/SimpleCardLogo';
+import Features from 'blocks/zesty/Features/Features';
 
 function PartnerProgramLp({ content }) {
   const theme = useTheme();

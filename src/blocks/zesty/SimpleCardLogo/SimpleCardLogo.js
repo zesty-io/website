@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import Container from 'blocks/container/Container';
-import ZestyImage from 'blocks/Image/ZestyImage';
+import ZestyImage from 'blocks/zesty/Image/ZestyImage';
 import MuiMarkdown from 'mui-markdown';
 import { useTheme } from '@mui/material/styles';
 

@@ -19,7 +19,7 @@ import zesty from '../../../../public/assets/images/zesty.svg';
 /**
  * Components Import
  */
-import ZestyImage from 'blocks/Image/ZestyImage';
+import ZestyImage from 'blocks/zesty/Image/ZestyImage';
 
 /**
  *
