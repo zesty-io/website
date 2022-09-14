@@ -5,18 +5,11 @@ import Link from '@mui/material/Link';
 
 const SingleNavItem = ({ title, id, url, colorInvert = false }) => {
   const [activeLink, setActiveLink] = useState('');
-  const res =
-    window.location.pathname !== '/'
-      ? window.location.pathname
-          .split('/')
-          .filter((e) => e)[0]
-          .toLocaleLowerCase()
-      : 'dashboard';
   useEffect(() => {
-    setActiveLink(res);
+    setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
 
-  const hasActiveLink = activeLink === title.toLocaleLowerCase();
+  const hasActiveLink = activeLink === url;
 
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
