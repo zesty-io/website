@@ -22,8 +22,20 @@ const AppNavigation = ({
 
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
 
+  const isMarketplace =
+    window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
+      ? true
+      : false;
+
+  const handleComboxClick = (zuid) => {
+    setworkingInstance(zuid);
+    if (!isMarketplace) {
+      window.location.href = `/instances/${zuid}/`;
+    }
+  };
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
+
   return (
     <Box
       display={'flex'}
@@ -87,7 +99,7 @@ const AppNavigation = ({
             <DeveloperDocMenu />
             <ComboBox
               instances={instances?.data}
-              setCookies={setworkingInstance}
+              setCookies={handleComboxClick}
               instanceZUID={instanceZUID}
               size="small"
             />

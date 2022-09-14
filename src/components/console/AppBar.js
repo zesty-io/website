@@ -7,7 +7,6 @@ import { useTheme } from '@mui/material/styles';
 import { Button, useMediaQuery } from '@mui/material';
 import { getCookie, setCookies } from 'cookies-next';
 import HomeIcon from '@mui/icons-material/Home';
-import Skeleton from '@mui/material/Skeleton';
 import { useZestyStore } from 'store';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
@@ -119,12 +118,6 @@ export default function AppBar({ url = window.location.pathname }) {
               );
             })}
           </Breadcrumbs>
-          {loading && (
-            <Box sx={{ display: 'flex', gap: '1rem' }}>
-              <Skeleton variant="rectangular" width={270} height={50} />
-              <Skeleton variant="rectangular" width={50} height={50} />
-            </Box>
-          )}
           {!loading && (
             <Box>
               {!verifySuccess ? (
