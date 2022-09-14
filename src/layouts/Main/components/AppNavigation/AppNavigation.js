@@ -74,6 +74,14 @@ const AppNavigation = ({
                 colorInvert={colorInvert}
               />
             </Box>
+            <Box marginLeft={4}>
+              <SingleNavItem
+                title="Marketplace"
+                id="marketplace"
+                url="/marketplace"
+                colorInvert={colorInvert}
+              />
+            </Box>
           </Box>
           <Box gap={2} display={'flex'} alignItems="center">
             <DeveloperDocMenu />
