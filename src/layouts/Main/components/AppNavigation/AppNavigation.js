@@ -10,6 +10,28 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookie } from 'cookies-next';
 
+const leftNav = [
+  {
+    title: 'Dashboard',
+    id: 'dashboard',
+    url: '/',
+  },
+  {
+    title: 'Instances',
+    id: 'instances',
+    url: '/instances',
+  },
+  {
+    title: 'Teams',
+    id: 'teams',
+    url: '/teams/',
+  },
+  {
+    title: 'Marketplace',
+    id: 'marketplace',
+    url: '/marketplace/',
+  },
+];
 const AppNavigation = ({
   onSidebarOpen,
   colorInvert = false,
@@ -71,30 +93,16 @@ const AppNavigation = ({
           sx={{ width: '100%' }}
         >
           <Box display={'flex'}>
-            <Box marginLeft={4}>
-              <SingleNavItem
-                title="Instances"
-                id="instances"
-                url="/instances"
-                colorInvert={colorInvert}
-              />
-            </Box>
-            <Box marginLeft={4}>
-              <SingleNavItem
-                title="Teams"
-                id="teams"
-                url="/teams"
-                colorInvert={colorInvert}
-              />
-            </Box>
-            <Box marginLeft={4}>
-              <SingleNavItem
-                title="Marketplace"
-                id="marketplace"
-                url="/marketplace"
-                colorInvert={colorInvert}
-              />
-            </Box>
+            {leftNav.map((e) => (
+              <Box marginLeft={4}>
+                <SingleNavItem
+                  title={e.title}
+                  id={e.id}
+                  url={e.url}
+                  colorInvert={colorInvert}
+                />
+              </Box>
+            ))}
           </Box>
           <Box gap={2} display={'flex'} alignItems="center">
             <DeveloperDocMenu />
