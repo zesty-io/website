@@ -92,6 +92,7 @@ export default function AppBar({ url = window.location.pathname }) {
                     textTransform: 'capitalize',
                     display: 'flex',
                     alignItems: 'center',
+                    fontWeight: 'bold',
                   }}
                   underline="hover"
                   color="text.primary"
