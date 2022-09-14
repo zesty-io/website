@@ -36,27 +36,33 @@ const Login = ({ content, userEmail }) => {
   const theme = useTheme();
   const isMD = useMediaQuery(theme.breakpoints.down('md'));
 
-  const handleCookieAndRedirect = (res) => {
-    if (res)
-      setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.data.data, {
-        domain: '.zesty.io',
-      });
-
+  const handleCookieAndRedirect = (sysID) => {
+    setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', sysID, {
+      domain: '.zesty.io',
+    });
+    MySwal.close();
     setCookie('isAuthenticated', true);
     setCookie('isUser', true);
     window.location.replace('/');
   };
 
-  const triggerAuto2FA = () => {
-    setInterval(async () => {
+  const triggerAuto2FA = (sysID) => {
+    const auto2FAInterval = setInterval(async () => {
+      await auto2FA();
+    }, 3000);
+
+    async function auto2FA() {
       const response = await ZestyAPI.verify2FAAuto();
       if (response.code === 200) {
-        handleCookieAndRedirect();
+        handleCookieAndRedirect(sysID);
+        clearInterval(auto2FAInterval);
+      } else if (response.code > 299) {
+        clearInterval(auto2FAInterval);
       }
-    }, 3000);
+    }
   };
 
-  const TwoFactorAuth = () => {
+  const TwoFactorAuth = ({ sysID }) => {
     const [loading2FA, setLoading2FA] = useState(false);
     const formik = useFormik({
       initialValues: {
@@ -73,7 +79,7 @@ const Login = ({ content, userEmail }) => {
             message: response.message,
             callback: async () => {
               await ZestyAPI.verify();
-              handleCookieAndRedirect();
+              handleCookieAndRedirect(sysID);
 
               MySwal.close();
               formik.resetForm();
@@ -92,7 +98,7 @@ const Login = ({ content, userEmail }) => {
 
     return (
       <>
-        <Typography>
+        <Typography mb={2}>
           To sign in, open the{' '}
           <Link target="_blank" href="https://authy.com">
             Authy
@@ -120,17 +126,14 @@ const Login = ({ content, userEmail }) => {
     );
   };
 
-  const handleShow2FA = async (res) => {
-    setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', res.meta.token, {
-      domain: '.zesty.io',
-    });
-    await ZestyAPI.setToken(res.meta.token);
-    triggerAuto2FA();
+  const handleShow2FA = async (sysID) => {
+    await ZestyAPI.setToken(sysID);
+    triggerAuto2FA(sysID);
 
     MySwal.fire({
       title: `Enter Authy Token`,
       showConfirmButton: false,
-      html: <TwoFactorAuth />,
+      html: <TwoFactorAuth sysID={sysID} />,
       allowOutsideClick: false,
       allowEscapeKey: false,
     });
@@ -141,14 +144,14 @@ const Login = ({ content, userEmail }) => {
     const { email, password } = data;
     const res = await ZestyAPI.login(email, password);
 
-    if (res.code === 202) await handleShow2FA(res);
+    if (res.code === 202) await handleShow2FA(res?.meta?.token);
     else {
       notistackMessage(
         enqueueSnackbar,
         {
           message: res.message,
           callback: () => {
-            handleCookieAndRedirect(res);
+            handleCookieAndRedirect(res?.data?.data);
           },
         },
         res,
@@ -247,7 +250,10 @@ const Login = ({ content, userEmail }) => {
                   </LoadingButton>
                   <Divider sx={{ py: 2 }}>Or</Divider>
 
-                  <Link href={`${ZestyAPI?.authAPIURL}/azure/login`}>
+                  <Link
+                    alignSelf="start"
+                    href={`${ZestyAPI?.authAPIURL}/azure/login`}
+                  >
                     <img src={msLogin?.src} alt="Microsoft Single Sign On" />
                   </Link>
                 </Stack>
