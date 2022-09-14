@@ -12,8 +12,12 @@ export default IndexPage;
 export async function getServerSideProps({ req, res }) {
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=600, stale-while-revalidate=3600',
+    'public, max-age=60, must-revalidate'
   );
+  res.setHeader(
+    'Surrogate-Control' , 'max-age=60'
+  )
+  
 
   const data = await fetchPage(req.url);
 
