@@ -224,7 +224,7 @@ export default function Join(props) {
                 // remove this when testing
                 allowTouchMove={isProduction === true ? false : true}
             >
-                <SwiperSlide > 
+                {/* <SwiperSlide > 
                   
 
                     <SlideMessage 
@@ -236,7 +236,7 @@ export default function Join(props) {
                         hoverAnimation={handleAnimation}
                         
                     />
-                </SwiperSlide>
+                </SwiperSlide> */}
                 {/* Question 1  */}
                 <SwiperSlide>
                     <Grid container>
