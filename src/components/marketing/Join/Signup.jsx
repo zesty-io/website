@@ -89,7 +89,7 @@ export const Signup = ({
         let loginResponse = await ZestyAPI.login(email,password);
         // this emulated accounts for login
         setCookie(
-          helpers.isProd ? 'APP_SID' : 'DEV_APP_SID',
+          'APP_SID',
           loginResponse.meta.token,
           { domain: '.zesty.io' },
         );
