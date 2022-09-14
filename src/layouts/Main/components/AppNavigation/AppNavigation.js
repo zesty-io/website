@@ -19,7 +19,7 @@ const leftNav = [
   {
     title: 'Instances',
     id: 'instances',
-    url: '/instances',
+    url: '/instances/',
   },
   {
     title: 'Teams',

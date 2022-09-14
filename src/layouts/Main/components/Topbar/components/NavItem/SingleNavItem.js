@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
 import Link from '@mui/material/Link';
 
 const SingleNavItem = ({ title, id, url, colorInvert = false }) => {
-  const theme = useTheme();
   const [activeLink, setActiveLink] = useState('');
+  const res =
+    window.location.pathname !== '/'
+      ? window.location.pathname
+          .split('/')
+          .filter((e) => e)[0]
+          .toLocaleLowerCase()
+      : 'dashboard';
   useEffect(() => {
-    setActiveLink(window && window.location ? window.location.pathname : '');
+    setActiveLink(res);
   }, []);
 
-  const hasActiveLink = activeLink === url;
+  const hasActiveLink = activeLink === title.toLocaleLowerCase();
 
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
