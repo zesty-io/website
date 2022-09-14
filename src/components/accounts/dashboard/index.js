@@ -1,11 +1,31 @@
 import { Container, Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import MainContent from './MainContent';
 import SideContent from './SideContent';
 
 const Dashboard = () => {
-  const { userInfo } = useZestyStore((state) => state);
+  const { userInfo, ZestyAPI } = useZestyStore((state) => state);
+  const [instances, setInstances] = useState([]);
+  const [filteredInstances, setFilteredInstances] = useState([]);
+
+  const handleSearchInstances = (value) => {
+    const filterInstances = instances?.filter((instance) =>
+      instance?.name.toLowerCase().includes(value),
+    );
+    setFilteredInstances([...filterInstances]);
+  };
+
+  useEffect(() => {
+    const getInstances = async () => {
+      const res = await ZestyAPI.getInstances();
+      setInstances(res?.data);
+      setFilteredInstances(res?.data);
+    };
+
+    getInstances();
+  }, []);
+
   return (
     <Container
       maxWidth={false}
@@ -29,7 +49,11 @@ const Dashboard = () => {
           xs={12}
           item
         >
-          <SideContent firstName={userInfo?.firstName} />
+          <SideContent
+            firstName={userInfo?.firstName}
+            instances={filteredInstances}
+            handleSearchInstances={handleSearchInstances}
+          />
         </Grid>
 
         <Grid xs={12} md={9} lg={10} item>
