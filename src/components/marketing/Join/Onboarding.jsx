@@ -16,6 +16,7 @@ import { useTheme } from '@mui/material/styles';
 import Developer from './Developer';
 import Marketer from './Marketer';
 import Manager from './Manager';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 const handleClick = (url) => {
   window.open(url, '_blank');
@@ -40,29 +41,31 @@ export default function Onboarding({ role }) {
             justifyContent="center"
           >
             <Button
-              color="secondary"
               variant="contained"
-              onClick={() => handleClick('https://www.zesty.io/meet/')}
-            >
-              Schedule onboarding
-            </Button>
-            <Divider orientation="vertical" flexItem />
-            <Button
-              variant="outlined"
               color={'secondary'}
               onClick={() =>
                 handleClick('https://accounts.zesty.io/instances/create')
               }
+              startIcon={<RocketLaunchIcon />}
             >
-              Start your project
+              Start your Instance
+            </Button>
+            <Divider orientation="vertical" flexItem />
+            
+            <Button
+              color="secondary"
+              variant="outlined"
+              onClick={() => handleClick('https://www.zesty.io/meet/')}
+            >
+              Connect with Specialist
             </Button>
           </Stack>
         </Box>
-        <Box paddingY={3}>
+        {/* <Box paddingY={3}>
           <Divider>
             <Chip label="More Resources" />
           </Divider>
-        </Box>
+        </Box> */}
         {role == 'Marketer' && <Marketer {...cards} />}
         {role == 'Developer' && <Developer {...cards} />}
         {role == 'Manager' && <Manager {...cards} />}
