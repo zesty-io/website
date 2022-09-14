@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
-import { useRouter } from 'next/router';
 import SingleNavItem from '../Topbar/components/NavItem/SingleNavItem';
 import { ComboBox } from 'components/globals/ComboBox';
 import ThemeModeToggler from 'components/globals/ThemeModeToggler';
@@ -11,7 +9,6 @@ import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie } from 'cookies-next';
-import { Typography } from '@mui/material';
 
 const AppNavigation = ({
   onSidebarOpen,
@@ -22,11 +19,6 @@ const AppNavigation = ({
   const { instances, setworkingInstance, userInfo } = useZestyStore(
     (state) => state,
   );
-  const theme = useTheme();
-  const { mode } = theme.palette;
-  const router = useRouter();
-
-  const firstName = userInfo?.firstName;
 
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
 
@@ -84,19 +76,7 @@ const AppNavigation = ({
             </Box>
           </Box>
           <Box gap={2} display={'flex'} alignItems="center">
-            <DeveloperDocMenu
-              parent={
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#333333',
-                  }}
-                >
-                  <Typography variant="body1">Developer Docs</Typography>
-                </Box>
-              }
-            />
+            <DeveloperDocMenu />
             <ComboBox
               instances={instances?.data}
               setCookies={setworkingInstance}
