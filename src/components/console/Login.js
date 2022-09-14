@@ -40,6 +40,7 @@ const Login = ({ content, userEmail }) => {
     setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', sysID, {
       domain: '.zesty.io',
     });
+    MySwal.close();
     setCookie('isAuthenticated', true);
     setCookie('isUser', true);
     window.location.replace('/');
