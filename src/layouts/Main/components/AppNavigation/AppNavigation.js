@@ -4,11 +4,16 @@ import Box from '@mui/material/Box';
 import SingleNavItem from '../Topbar/components/NavItem/SingleNavItem';
 import { ComboBox } from 'components/globals/ComboBox';
 import ThemeModeToggler from 'components/globals/ThemeModeToggler';
-import { DeveloperDocMenu, ProfileMenu } from 'components/accounts';
+import {
+  DeveloperDocMenu,
+  LaunchInstance,
+  ProfileMenu,
+} from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 
 const leftNav = [
   {
@@ -38,6 +43,7 @@ const AppNavigation = ({
   loading = false,
   trigger,
 }) => {
+  const router = useRouter();
   const { instances, setworkingInstance, userInfo } = useZestyStore(
     (state) => state,
   );
@@ -105,6 +111,11 @@ const AppNavigation = ({
             ))}
           </Box>
           <Box gap={2} display={'flex'} alignItems="center">
+            <LaunchInstance
+              onClick={() =>
+                router.push('https://accounts.zesty.io/instances/create')
+              }
+            ></LaunchInstance>
             <DeveloperDocMenu />
             <ComboBox
               instances={instances?.data}

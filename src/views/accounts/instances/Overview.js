@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  lighten,
-  Box,
-  Button,
-  Grid,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { lighten, Box, Grid, Typography, useTheme } from '@mui/material';
 import { OverviewTabs } from 'components/accounts';
 import dayjs from 'dayjs';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -55,19 +48,6 @@ export const Overview = ({
         </Typography>
       </Box>
       <Box position={'relative'}>
-        <Button
-          variant="contained"
-          color="secondary"
-          href="https://accounts.zesty.io/instances/create"
-          sx={{
-            position: 'absolute',
-            right: 0,
-            top: 0,
-            zIndex: '1000',
-          }}
-        >
-          Create Instance
-        </Button>
         <OverviewTabs {...tabProps} />
         <Grid container>
           <Grid
