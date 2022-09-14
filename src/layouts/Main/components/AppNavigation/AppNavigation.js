@@ -8,7 +8,7 @@ import { DeveloperDocMenu, ProfileMenu } from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
-import { getCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 
 const AppNavigation = ({
   onSidebarOpen,
@@ -28,8 +28,9 @@ const AppNavigation = ({
       : false;
 
   const handleComboxClick = (zuid) => {
-    setworkingInstance(zuid);
+    setCookie('ZESTY_WORKING_INSTANCE', zuid);
     if (!isMarketplace) {
+      setworkingInstance(zuid);
       window.location.href = `/instances/${zuid}/`;
     }
   };
