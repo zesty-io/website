@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 import SingleNavItem from '../Topbar/components/NavItem/SingleNavItem';
 import { ComboBox } from 'components/globals/ComboBox';
 import ThemeModeToggler from 'components/globals/ThemeModeToggler';
-import {
-  DeveloperDocMenu,
-  LaunchInstance,
-  ProfileMenu,
-} from 'components/accounts';
+import { DeveloperDocMenu, ProfileMenu } from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { Button, Link, Stack } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 const navigationLinks = [
   {
@@ -94,11 +91,6 @@ const AppNavigation = ({
           ))}
         </Stack>
         <Stack direction="row" ml="auto" spacing={2} alignItems="center">
-          <LaunchInstance
-            onClick={() =>
-              router.push('https://accounts.zesty.io/instances/create')
-            }
-          />
           <DeveloperDocMenu />
           <ComboBox
             instances={instances?.data}
@@ -106,7 +98,17 @@ const AppNavigation = ({
             instanceZUID={instanceZUID}
             size="small"
           />
-
+          <Button
+            color="secondary"
+            size="small"
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() =>
+              router.push('https://accounts.zesty.io/instances/create')
+            }
+          >
+            Create Instance
+          </Button>
           <ThemeModeToggler />
           <ProfileMenu
             userInfo={userInfo}
@@ -125,7 +127,7 @@ const AppNavigation = ({
           />
           <Button
             href="https://accounts.zesty.io/"
-            variant="contained"
+            variant="outlined"
             size="small"
             id="accounts-legacy"
             className="accounts-legacy-button"
