@@ -22,7 +22,9 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { useRouter } from 'next/router';
+import * as helpers from 'utils';
 
 export const InstancesList = ({
   title = '',
@@ -190,19 +192,29 @@ export const InstancesList = ({
                     p={1}
                   >
                     <Link
-                      onClick={() => router.push(`/instances/${instance.ZUID}`)}
+                      underline="none"
+                      href={`https://${instance?.randomHashID}-dev${
+                        helpers?.isProd
+                          ? '.webengine.zesty.io'
+                          : '.preview.dev.zesty.io'
+                      }`}
+                      target="_blank"
                       color="secondary"
+                      sx={{
+                        ':hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
                     >
-                      Content Manager
+                      Preview
                     </Link>
-                    <Link
-                      onClick={() =>
-                        router.push(`/instances/${instance.ZUID}/settings/`)
-                      }
-                      color="secondary"
+                    <IconButton
+                      onClick={() => {
+                        router.push(`/instances/${instance.ZUID}`);
+                      }}
                     >
-                      Settings
-                    </Link>
+                      <SettingsIcon />
+                    </IconButton>
                   </Stack>
                 </Stack>
                 {invite && (
