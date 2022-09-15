@@ -139,7 +139,7 @@ const Topbar = ({
                     endIcon={<LoginIcon />}
                     fullWidth
                     component="a"
-                    href="/login"
+                    href="/login/"
                   >
                     Login
                   </Button>

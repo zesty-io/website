@@ -39,7 +39,13 @@ const repositories = [
   },
 ];
 
-const SideContent = ({ firstName, instances, handleSearchInstances }) => {
+const SideContent = ({
+  firstName,
+  instances,
+  totalLength,
+  unfilteredTotalInstances,
+  handleSearchInstances,
+}) => {
   return (
     <Stack p={3} pl={1} pr={{ xs: 0, md: 3 }}>
       <Stack>
@@ -52,7 +58,8 @@ const SideContent = ({ firstName, instances, handleSearchInstances }) => {
       <SideListContent
         label="Recent Instances"
         bottomAction={
-          instances?.length > 5 && (
+          unfilteredTotalInstances > totalLength &&
+          instances?.length > 0 && (
             <Link
               underline="none"
               href="/instances"

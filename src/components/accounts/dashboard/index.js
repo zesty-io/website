@@ -4,23 +4,26 @@ import { useZestyStore } from 'store';
 import MainContent from './MainContent';
 import SideContent from './SideContent';
 
+const TOTAL_INSTANCES_LENGTH = 10;
+
 const Dashboard = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
   const [instances, setInstances] = useState([]);
   const [filteredInstances, setFilteredInstances] = useState([]);
 
   const handleSearchInstances = (value) => {
-    const filterInstances = instances?.filter((instance) =>
+    const filterInstances = [...instances]?.filter((instance) =>
       instance?.name.toLowerCase().includes(value),
     );
-    setFilteredInstances([...filterInstances]);
+
+    setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LENGTH));
   };
 
   useEffect(() => {
     const getInstances = async () => {
       const res = await ZestyAPI.getInstances();
-      setInstances(res?.data);
-      setFilteredInstances(res?.data);
+      setInstances([...res?.data]);
+      setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LENGTH));
     };
 
     getInstances();
@@ -52,6 +55,8 @@ const Dashboard = () => {
           <SideContent
             firstName={userInfo?.firstName}
             instances={filteredInstances}
+            totalLength={TOTAL_INSTANCES_LENGTH}
+            unfilteredTotalInstances={instances?.length}
             handleSearchInstances={handleSearchInstances}
           />
         </Grid>

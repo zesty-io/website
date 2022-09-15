@@ -127,7 +127,7 @@ const ResetPasswordConfirm = ({ address, token }) => {
                   </LoadingButton>
                   <Button
                     startIcon={<DoNotDisturbIcon />}
-                    href="/login"
+                    href="/login/"
                     color="secondary"
                     variant="outlined"
                   >

@@ -129,7 +129,7 @@ export default function AppBar({ url = window.location.pathname }) {
             <Box>
               {!verifySuccess ? (
                 <Button
-                  href="/login"
+                  href="/login/"
                   variant="contained"
                   color="secondary"
                   size="small"
