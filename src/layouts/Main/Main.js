@@ -98,6 +98,8 @@ const Main = ({
     }
   };
 
+  const isDashboard = window.location.pathname.split('/').filter((e) => e)[0];
+
   // store isUser isAuthenticated  in global state
   React.useEffect(() => {
     if (isAuthenticated) {
@@ -144,7 +146,8 @@ const Main = ({
           backgroundColor: bgColorSwitch(),
           py: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
-          borderBottom: `1px solid ${grey[300]}`,
+          borderBottom:
+            isLoggedIn && !isDashboard ? `1px solid ${grey[300]}` : 'none',
         }}
         elevation={trigger ? 1 : 0}
       >
