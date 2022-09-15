@@ -6,6 +6,7 @@ import { githubFetch } from 'lib/githubFetch';
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
 import { useTheme } from '@emotion/react';
+import { parseCookie } from 'utils';
 
 export default function Slug(props) {
   const theme = useTheme();
@@ -33,9 +34,11 @@ export default function Slug(props) {
 }
 
 // This gets called on every request
-export async function getServerSideProps({ req, res }) {
-  let isAuthenticated = JSON.parse(req.cookies.isAuthenticated || false);
-
+export async function getServerSideProps({ req, res, resolvedUrl }) {
+  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
+  let isAuthenticated = JSON.parse(
+    parseCookie(getHeaderCookie)?.isAuthenticated || false,
+  );
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
@@ -43,7 +46,7 @@ export async function getServerSideProps({ req, res }) {
   );
 
   // attempt to get page data relative to zesty
-  let data = await fetchPage(req.url);
+  let data = await fetchPage(resolvedUrl);
 
   data = {
     ...data,

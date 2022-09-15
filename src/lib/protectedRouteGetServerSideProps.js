@@ -1,7 +1,12 @@
-export default async function getServerSideProps({ req, res }) {
-  let isAuthenticated = JSON.parse(req.cookies.isAuthenticated || false);
+import { parseCookie } from 'utils';
 
-  if (!isAuthenticated && isProtectedRoute(req.url)) {
+export default async function getServerSideProps({ req, res, resolvedUrl }) {
+  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
+  let isAuthenticated = JSON.parse(
+    parseCookie(getHeaderCookie)?.isAuthenticated || false,
+  );
+
+  if (!isAuthenticated && isProtectedRoute(resolvedUrl)) {
     return {
       redirect: {
         destination: '/login/',

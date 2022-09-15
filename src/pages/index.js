@@ -1,6 +1,7 @@
 import React from 'react';
 import Slug from './[...slug]';
 import { fetchPage } from '../lib/api';
+import { parseCookie } from 'utils';
 
 function IndexPage(content) {
   return <Slug {...content} />;
@@ -9,13 +10,16 @@ function IndexPage(content) {
 export default IndexPage;
 
 // This gets called on every request
-export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps({ req, res, resolvedUrl }) {
   // needs to add this here, because the [...slug].js in pages don't get triggered in homepage path /
   // in able to use zesty.isAuthenticated to swap layout in /
-  let isAuthenticated = JSON.parse(req.cookies.isAuthenticated || false);
+  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
+  let isAuthenticated = JSON.parse(
+    parseCookie(getHeaderCookie)?.isAuthenticated || false,
+  );
 
   // issue:  multiple call of getServersideprops
-  let data = await fetchPage(req.url);
+  let data = await fetchPage(resolvedUrl);
 
   data = {
     ...data,

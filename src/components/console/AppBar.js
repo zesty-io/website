@@ -147,7 +147,7 @@ export default function AppBar({ url = window.location.pathname }) {
             <Box>
               {!verifySuccess ? (
                 <Button
-                  href={`https://accounts.zesty.io/login`}
+                  href="/login"
                   variant="contained"
                   color="secondary"
                   size="small"
