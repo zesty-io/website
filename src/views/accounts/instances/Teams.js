@@ -44,6 +44,7 @@ const CustomTable = ({
   handleDeleteTeamModal,
   isInstanceOwner,
   instanceUserWithRoles,
+  cta,
 }) => {
   const ROWS = data?.map((e) => {
     return {
@@ -70,6 +71,7 @@ const CustomTable = ({
         loading={loading}
         rows={ROWS}
         columns={COLUMNS}
+        cta={cta}
       />
     </Box>
   );
@@ -186,6 +188,15 @@ const Main = ({
         data={teams}
         handleDeleteTeamModal={handleDeleteTeamModal}
         isInstanceOwner={isInstanceOwner}
+        cta={
+          <Button
+            color="secondary"
+            variant="outlined"
+            onClick={handleAddTeamModal}
+          >
+            Add Team
+          </Button>
+        }
       />
       <BaseRolesTable />
     </Box>
