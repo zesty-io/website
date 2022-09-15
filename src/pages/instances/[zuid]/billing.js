@@ -1,7 +1,7 @@
 import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
-import { Box, Typography } from '@mui/material';
+import { ComingSoon } from 'components/accounts';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
@@ -32,11 +32,7 @@ export default function Billing() {
     }
   }, [router.isReady]);
 
-  return (
-    <Box>
-      <Typography variant="h3">Coming Soon</Typography>
-    </Box>
-  );
+  return <ComingSoon />;
 }
 
 Billing.data = {

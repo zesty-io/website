@@ -52,22 +52,22 @@ export default function InstanceHeader({ instance }) {
       <CardActions>
         <Button
           size="small"
-          color="secondary"
-          target="_blank"
-          variant="contained"
-          href={managerURl}
-        >
-          Edit Content
-        </Button>
-
-        <Button
-          size="small"
-          variant="contained"
+          variant="outlined"
           target="_blank"
           color="secondary"
           href={webengineUrl}
         >
           Preview Website
+        </Button>
+
+        <Button
+          size="small"
+          color="secondary"
+          target="_blank"
+          variant="contained"
+          href={managerURl}
+        >
+          Open Manager
         </Button>
       </CardActions>
     </Card>

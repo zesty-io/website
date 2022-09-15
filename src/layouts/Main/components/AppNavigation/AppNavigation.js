@@ -1,37 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
-import { useRouter } from 'next/router';
 import SingleNavItem from '../Topbar/components/NavItem/SingleNavItem';
 import { ComboBox } from 'components/globals/ComboBox';
 import ThemeModeToggler from 'components/globals/ThemeModeToggler';
-import { DeveloperDocMenu, ProfileMenu } from 'components/accounts';
+import {
+  DeveloperDocMenu,
+  LaunchInstance,
+  ProfileMenu,
+} from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
-import { getCookie } from 'cookies-next';
-import { Typography } from '@mui/material';
+import { getCookie, setCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
+import { Button } from '@mui/material';
 
+const leftNav = [
+  {
+    title: 'Dashboard',
+    id: 'dashboard',
+    url: '/',
+  },
+  {
+    title: 'Instances',
+    id: 'instances',
+    url: '/instances/',
+  },
+  {
+    title: 'Teams',
+    id: 'teams',
+    url: '/teams/',
+  },
+  {
+    title: 'Marketplace',
+    id: 'marketplace',
+    url: '/marketplace/',
+  },
+];
 const AppNavigation = ({
   onSidebarOpen,
   colorInvert = false,
   loading = false,
   trigger,
 }) => {
+  const router = useRouter();
   const { instances, setworkingInstance, userInfo } = useZestyStore(
     (state) => state,
   );
-  const theme = useTheme();
-  const { mode } = theme.palette;
-  const router = useRouter();
-
-  const firstName = userInfo?.firstName;
 
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
 
+  const isMarketplace =
+    window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
+      ? true
+      : false;
+
+  const handleComboxClick = (zuid) => {
+    setCookie('ZESTY_WORKING_INSTANCE', zuid);
+    if (!isMarketplace) {
+      setworkingInstance(zuid);
+      window.location.href = `/instances/${zuid}/`;
+    }
+  };
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
+
   return (
     <Box
       display={'flex'}
@@ -66,40 +100,27 @@ const AppNavigation = ({
           sx={{ width: '100%' }}
         >
           <Box display={'flex'}>
-            <Box marginLeft={4}>
-              <SingleNavItem
-                title="Instances"
-                id="instances"
-                url="/instances"
-                colorInvert={colorInvert}
-              />
-            </Box>
-            <Box marginLeft={4}>
-              <SingleNavItem
-                title="Teams"
-                id="teams"
-                url="/teams"
-                colorInvert={colorInvert}
-              />
-            </Box>
+            {leftNav.map((e) => (
+              <Box marginLeft={4}>
+                <SingleNavItem
+                  title={e.title}
+                  id={e.id}
+                  url={e.url}
+                  colorInvert={colorInvert}
+                />
+              </Box>
+            ))}
           </Box>
           <Box gap={2} display={'flex'} alignItems="center">
-            <DeveloperDocMenu
-              parent={
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#333333',
-                  }}
-                >
-                  <Typography variant="body1">Developer Docs</Typography>
-                </Box>
+            <LaunchInstance
+              onClick={() =>
+                router.push('https://accounts.zesty.io/instances/create')
               }
-            />
+            ></LaunchInstance>
+            <DeveloperDocMenu />
             <ComboBox
               instances={instances?.data}
-              setCookies={setworkingInstance}
+              setCookies={handleComboxClick}
               instanceZUID={instanceZUID}
               size="small"
             />
@@ -120,6 +141,15 @@ const AppNavigation = ({
                 </Box>
               }
             />
+            <Button
+              href="https://accounts.zesty.io/"
+              variant="contained"
+              size="small"
+              id="accounts-legacy"
+              className="accounts-legacy-button"
+            >
+              Legacy Accounts
+            </Button>
           </Box>
         </Box>
       </Box>

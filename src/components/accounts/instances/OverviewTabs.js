@@ -1,7 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { grey } from '@mui/material/colors';
-import { Button, Grid, Typography } from '@mui/material';
+import {
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import dayjs from 'dayjs';
@@ -40,27 +45,26 @@ const FieldComponent = ({
   return (
     <Box sx={{ width: '18rem' }}>
       <Typography variant="h6">{label}</Typography>
-      <Box
-        onClick={handleClick}
-        sx={{
-          background: grey[300],
-          padding: '.8rem 1rem',
-          cursor: 'pointer',
-          borderRadius: '5px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+      <TextField
+        value={value}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClick}
+                edge="end"
+              >
+                {text === value ? (
+                  <CheckCircleOutlineIcon color="secondary" />
+                ) : (
+                  <ContentCopyIcon color="secondary" />
+                )}
+              </IconButton>
+            </InputAdornment>
+          ),
         }}
-      >
-        {value}
-        <Button variant="text" color="secondary">
-          {text === value ? (
-            <CheckCircleOutlineIcon color="secondary" />
-          ) : (
-            <ContentCopyIcon color="secondary" />
-          )}
-        </Button>
-      </Box>
+      ></TextField>
     </Box>
   );
 };

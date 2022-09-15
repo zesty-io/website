@@ -113,6 +113,9 @@ const forgotPassword = yup.object().shape({
     .required('Email is required'),
 });
 
+const domain = yup.object().shape({
+  domain: yup.string().required('Domain is required'),
+});
 const updateTeam = yup.object().shape({
   name: yup.string().label('Team Name').required(),
 });
@@ -134,6 +137,7 @@ const resetPassword = yup.object().shape({
 });
 
 export const accountsValidations = {
+  domain,
   email,
   password,
   twoFactorAuth,

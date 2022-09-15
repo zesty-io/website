@@ -1,28 +1,27 @@
 import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
+import { NavItem } from 'layouts/Main/components/Topbar/components';
 
 const developerDocs = [
-  { label: 'Guides and Docs', link: 'https://zesty.org/' },
-  { label: 'Node SDK', link: 'https://github.com/zesty-io/node-sdk' },
-  { label: 'Instance API', link: 'https://instances-api.zesty.org/' },
-  { label: 'Accounts API', link: 'https://accounts-api.zesty.org/' },
-  { label: 'Auth API', link: 'https://auth-api.zesty.org/' },
-  { label: 'Media API', link: 'https://media-api.zesty.org/' },
-  { label: 'Fetch Wrapper', link: 'https://github.com/zesty-io/fetch-wrapper' },
-  { label: 'Status', link: 'https://status.zesty.io/' },
-  { label: 'Parsley', link: 'https://github.com/zesty-io/parsley' },
+  { title: 'Guides and Docs', url: 'https://zesty.org/' },
+  { title: 'Node SDK', url: 'https://github.com/zesty-io/node-sdk' },
+  { title: 'Instance API', url: 'https://instances-api.zesty.org/' },
+  { title: 'Accounts API', url: 'https://accounts-api.zesty.org/' },
+  { title: 'Auth API', url: 'https://auth-api.zesty.org/' },
+  { title: 'Media API', url: 'https://media-api.zesty.org/' },
+  { title: 'Fetch Wrapper', url: 'https://github.com/zesty-io/fetch-wrapper' },
+  { title: 'Status', url: 'https://status.zesty.io/' },
+  { title: 'Parsley', url: 'https://github.com/zesty-io/parsley' },
 ];
 
-export const DeveloperDocMenu = ({ parent }) => {
+export const DeveloperDocMenu = ({}) => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+
   const handleClose = (pathname) => {
     setAnchorEl(null);
     if (typeof pathname === 'string') {
@@ -32,19 +31,13 @@ export const DeveloperDocMenu = ({ parent }) => {
 
   return (
     <Box>
-      <Button
-        title={`Developer Docs`}
-        color="inherit"
-        id="profile-btn"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        sx={{ cursor: 'pointer' }}
-        variant="text"
-      >
-        {parent}
-      </Button>
+      <NavItem
+        title={'Documentation'}
+        id={'documentation'}
+        items={developerDocs}
+        colorInvert={false}
+      />
+
       <Menu
         id="Profile"
         anchorEl={anchorEl}

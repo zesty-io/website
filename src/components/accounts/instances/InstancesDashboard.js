@@ -22,7 +22,6 @@ import StarIcon from '@mui/icons-material/Star';
 import EmailIcon from '@mui/icons-material/Email';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import { ComboBox } from 'components/globals/ComboBox';
-import { LaunchInstance } from './LaunchInstance';
 
 const orderByItems = [
   {
@@ -290,11 +289,6 @@ export const InstancesDashboard = () => {
               <FormatListBulletedOutlinedIcon />
             </ToggleButton>
           </ToggleButtonGroup>
-          <LaunchInstance
-            onClick={() =>
-              router.push('https://accounts.zesty.io/instances/create')
-            }
-          ></LaunchInstance>
         </Box>
       </Stack>
 
