@@ -14,6 +14,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
+import { Button } from '@mui/material';
 
 const leftNav = [
   {
@@ -140,6 +141,15 @@ const AppNavigation = ({
                 </Box>
               }
             />
+            <Button
+              href="https://accounts.zesty.io/"
+              variant="contained"
+              size="small"
+              id="accounts-legacy"
+              className="accounts-legacy-button"
+            >
+              Legacy Accounts
+            </Button>
           </Box>
         </Box>
       </Box>
