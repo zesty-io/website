@@ -34,14 +34,12 @@ export const DeveloperDocMenu = ({ parent }) => {
     <Box>
       <Button
         title={`Developer Docs`}
-        color="inherit"
         id="profile-btn"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         sx={{ cursor: 'pointer' }}
-        variant="text"
       >
         {parent}
       </Button>

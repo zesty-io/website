@@ -29,6 +29,7 @@ import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { notistackMessage } from 'utils';
+import { grey } from '@mui/material/colors';
 
 const MySwal = withReactContent(Swal);
 
@@ -87,17 +88,17 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
       if (result.isConfirmed) {
         setIsDeletingTeam(true);
         const response = await ZestyAPI.deleteTeam(teamZUID);
-        notistackMessage(
+        await notistackMessage(
           enqueueSnackbar,
           {
             message: `Deleted Team: ${name}`,
             callback: async () => {
               await getAllTeams();
-              setIsDeletingTeam(false);
             },
           },
           response,
         );
+        setIsDeletingTeam(false);
       }
     });
   };
@@ -115,17 +116,17 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
           teamInviteZUID,
           'cancel',
         );
-        notistackMessage(
+        await notistackMessage(
           enqueueSnackbar,
           {
             message: `Users team invitation successfully canceled`,
             callback: async () => {
               await getFilteredMembers();
-              setListOfRemovingMembers(false);
             },
           },
           response,
         );
+        setListOfRemovingMembers(false);
       }
     });
   };
@@ -140,17 +141,17 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
       if (result.isConfirmed) {
         setListOfRemovingMembers(true);
         const response = await ZestyAPI.deleteTeamMember(teamZUID, userZUID);
-        notistackMessage(
+        await notistackMessage(
           enqueueSnackbar,
           {
             message: `Team member is successfully removed`,
             callback: async () => {
               await getFilteredMembers();
-              setListOfRemovingMembers(false);
             },
           },
           response,
         );
+        setListOfRemovingMembers(false);
       }
     });
   };
@@ -167,7 +168,7 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
         teamZUID,
       );
 
-      notistackMessage(
+      await notistackMessage(
         enqueueSnackbar,
         {
           message: `Updated Team: ${name}`,
@@ -196,18 +197,19 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
         teamZUID,
       });
 
-      notistackMessage(
+      await notistackMessage(
         enqueueSnackbar,
         {
           message: `Team invitation sent!`,
           callback: async () => {
             await getFilteredMembers();
             formikInvite.resetForm();
-            setIsInviting(false);
           },
         },
         response,
       );
+
+      setIsInviting(false);
     },
   });
 
@@ -227,7 +229,13 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
   }, [formikInvite.isValid, formikInvite.isSubmitting]);
 
   return (
-    <Paper elevation={4} sx={{ height: '100%', color: 'text.secondary' }}>
+    <Paper
+      sx={{
+        height: '100%',
+        color: 'text.secondary',
+        border: `1px solid ${grey[400]}`,
+      }}
+    >
       {isDeletingTeam ? (
         <Stack height="100%">
           <Skeleton variant="rectangular" height="100%" />

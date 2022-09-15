@@ -219,7 +219,7 @@ export default function Locales() {
           variant="contained"
           color="success"
           startIcon={<AddOutlinedIcon />}
-          sx={{ alignSelf: 'end' }}
+          sx={{ alignSelf: 'end', display: 'none' }}
           onClick={() => {
             MySwal.fire({
               title: `Locale`,
