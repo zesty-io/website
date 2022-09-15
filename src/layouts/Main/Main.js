@@ -19,6 +19,7 @@ import { getCookie, setCookies } from 'cookies-next';
 import { useZestyStore } from 'store';
 import { Container } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { grey } from '@mui/material/colors';
 
 const Main = ({
   children,
@@ -143,6 +144,7 @@ const Main = ({
           backgroundColor: bgColorSwitch(),
           py: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
+          borderBottom: `1px solid ${grey[300]}`,
         }}
         elevation={trigger ? 1 : 0}
       >

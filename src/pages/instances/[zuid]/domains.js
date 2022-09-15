@@ -44,11 +44,11 @@ export default function Domains() {
     }
   };
 
-  const createDomain = async () => {
+  const createDomain = async ({ domain, branch }) => {
     // fetchwrapper needs update to accept an object with domain and branch
     // OR accept a third parameter for branch
     try {
-      const res = await ZestyAPI.createDomain(zuid, domain);
+      const res = await ZestyAPI.createDomain(zuid, domain, branch);
       console.log('🚀 ~ file: domains.js ~ line 45 ~ createDomain ~ res', res);
     } catch (error) {
       console.log(

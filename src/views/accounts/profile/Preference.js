@@ -52,7 +52,7 @@ export const Preference = () => {
   const COLUMNS = [
     {
       id: 'name',
-      label: 'Preference Name',
+      label: 'Preferences Name',
     },
     {
       id: 'description',

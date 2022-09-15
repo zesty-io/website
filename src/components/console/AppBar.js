@@ -7,18 +7,20 @@ import { useTheme } from '@mui/material/styles';
 import { Button, useMediaQuery } from '@mui/material';
 import { getCookie, setCookies } from 'cookies-next';
 import HomeIcon from '@mui/icons-material/Home';
-import Skeleton from '@mui/material/Skeleton';
 import { useZestyStore } from 'store';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { useRouter } from 'next/router';
 
 export default function AppBar({ url = window.location.pathname }) {
-  const { verifySuccess, loading, setworkingInstance } = useZestyStore(
-    (state) => state,
-  );
+  const router = useRouter();
+  const { verifySuccess, ZestyAPI, loading, setworkingInstance } =
+    useZestyStore((state) => state);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const [instance, setinstance] = React.useState([]);
   const isLoggedIn = useIsLoggedIn();
+  const { zuid } = router.query;
 
   // get param from url to look for instance
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -36,6 +38,24 @@ export default function AppBar({ url = window.location.pathname }) {
     .split('/')
     .filter((e) => e);
 
+  const handleGetInstanceSuccess = (res) => {
+    setinstance(res.data);
+  };
+  const handleGetInstanceError = (res) => {
+    setinstance(res.data);
+  };
+
+  const getInstance = async () => {
+    const res = await ZestyAPI.getInstance(zuid);
+    !res.error && handleGetInstanceSuccess(res);
+    res.error && handleGetInstanceError(res);
+  };
+
+  React.useEffect(() => {
+    if (router.isReady) {
+      getInstance();
+    }
+  }, [router.isReady, url]);
   React.useEffect(() => {
     setworkingInstance(instanceZUID);
   }, [instanceZUID]);
@@ -86,13 +106,17 @@ export default function AppBar({ url = window.location.pathname }) {
             {pathnames?.map((url, index) => {
               const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
               const isLastItem = index === pathnames.length - 1;
-              const name = url.replaceAll('-', ' ');
+              let name = url.replaceAll('-', ' ');
+              if (url.match(/^8-.*$/)) {
+                name = instance.name;
+              }
               return isLastItem ? (
                 <Link
                   sx={{
                     textTransform: 'capitalize',
                     display: 'flex',
                     alignItems: 'center',
+                    fontWeight: 'bold',
                   }}
                   underline="hover"
                   color="text.primary"
@@ -119,12 +143,6 @@ export default function AppBar({ url = window.location.pathname }) {
               );
             })}
           </Breadcrumbs>
-          {loading && (
-            <Box sx={{ display: 'flex', gap: '1rem' }}>
-              <Skeleton variant="rectangular" width={270} height={50} />
-              <Skeleton variant="rectangular" width={50} height={50} />
-            </Box>
-          )}
           {!loading && (
             <Box>
               {!verifySuccess ? (

@@ -13,6 +13,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Box, TablePagination, Typography } from '@mui/material';
 import { LoadingSpinner } from '../loading';
 import { StickyTable } from './StickyTable';
+import { NoData } from './NoData';
 
 const collapsColumns = [
   {
@@ -98,6 +99,7 @@ export const CollapseTable = ({
   loading = false,
   title = '',
   instanceUserWithRoles = [],
+  cta,
 }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(perPage);
@@ -117,6 +119,9 @@ export const CollapseTable = ({
 
   if (loading) {
     return <LoadingSpinner />;
+  }
+  if (rows.length === 0) {
+    return <NoData columns={columns} header={'No Teams Added'} cta={cta} />;
   }
 
   if (rows.length < 10) {
