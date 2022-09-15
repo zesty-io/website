@@ -21,7 +21,7 @@ import {
 import { accountsValidations } from '../../../components/accounts/validations';
 
 const url =
-  'https://user-images.githubusercontent.com/50595614/190177657-3b5c3182-cbf1-4c01-800e-51ac9524f7ab.png';
+  'https://seeklogo.com/images/A/authy-logo-5598145895-seeklogo.com.png?v=637714439950000000';
 const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
   const { authyPhoneCountryCode, authyPhoneNumber } = userInfo;
   const handleDisableAuthy = () => {
@@ -60,7 +60,7 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
               >
                 Enable Two Factor Authentication
               </Button>
-              <img src={url} alt="zesty auth" />
+              <img src={url} alt="zesty auth" height={'40'} width="40" />
             </Box>
           </form>
         ) : (
