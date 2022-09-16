@@ -133,12 +133,15 @@ const AppNavigation = ({
             id="accounts-legacy"
             className="accounts-legacy-button"
             endIcon={<ExitToAppIcon />}
-            sx={{
-              border: `1px solid ${grey[500]}`,
-              color: grey[500],
-              '&.MuiButtonBase-root:hover': {
-                border: `1px solid ${grey[500]}`,
-              },
+            sx={({ palette: { mode } }) => {
+              const adjustedGrey = mode === 'light' ? grey[500] : grey[200];
+              return {
+                border: `1px solid ${adjustedGrey}`,
+                color: adjustedGrey,
+                '&.MuiButtonBase-root:hover': {
+                  border: `1px solid ${adjustedGrey}`,
+                },
+              };
             }}
           >
             Legacy Accounts
