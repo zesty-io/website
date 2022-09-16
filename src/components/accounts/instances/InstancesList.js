@@ -157,6 +157,7 @@ export const InstancesList = ({
                       variant="h6"
                       px={1}
                       onClick={() => handleRedirect(instance.ZUID)}
+                      noWrap
                     >
                       {instance.name}
                     </Typography>
