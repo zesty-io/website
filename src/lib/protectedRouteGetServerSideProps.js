@@ -1,10 +1,7 @@
-import { parseCookie } from 'utils';
+import { getIsAuthenticated } from 'utils';
 
 export default async function getServerSideProps({ req, res, resolvedUrl }) {
-  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
-  let isAuthenticated = JSON.parse(
-    parseCookie(getHeaderCookie)?.isAuthenticated || false,
-  );
+  let isAuthenticated = getIsAuthenticated(res);
 
   if (!isAuthenticated && isProtectedRoute(resolvedUrl)) {
     return {
