@@ -11,6 +11,8 @@ import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { Button, Link, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { grey } from '@mui/material/colors';
 
 const navigationLinks = [
   {
@@ -46,7 +48,7 @@ const AppNavigation = ({
     (state) => state,
   );
 
-  let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
 
   const isMarketplace =
     window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
@@ -84,7 +86,6 @@ const AppNavigation = ({
             <SingleNavItem
               key={nav.id}
               title={nav.title}
-              id={nav.id}
               url={nav.url}
               colorInvert={colorInvert}
             />
@@ -131,6 +132,14 @@ const AppNavigation = ({
             size="small"
             id="accounts-legacy"
             className="accounts-legacy-button"
+            endIcon={<ExitToAppIcon />}
+            sx={{
+              border: `1px solid ${grey[500]}`,
+              color: grey[500],
+              '&.MuiButtonBase-root:hover': {
+                border: `1px solid ${grey[500]}`,
+              },
+            }}
           >
             Legacy Accounts
           </Button>

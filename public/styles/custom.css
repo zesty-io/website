@@ -40,3 +40,7 @@ h2 span {
   background-color: #467de322;
   margin-right: 10px;
 }
+
+.swal2-container{
+  z-index: 9999999 !important;
+}

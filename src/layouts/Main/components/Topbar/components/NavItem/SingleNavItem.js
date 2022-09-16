@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
+import { useRouter } from 'next/router';
 
-const SingleNavItem = ({ title, id, url, colorInvert = false }) => {
-  const [activeLink, setActiveLink] = useState('');
-  useEffect(() => {
-    setActiveLink(window && window.location ? window.location.pathname : '');
-  }, []);
-
-  const hasActiveLink = activeLink === url;
-
+const SingleNavItem = ({ title, url, colorInvert = false }) => {
+  const { asPath } = useRouter();
+  const hasActiveLink = url === '/' ? asPath === url : asPath.startsWith(url);
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
   return (
@@ -31,7 +26,6 @@ const SingleNavItem = ({ title, id, url, colorInvert = false }) => {
 
 SingleNavItem.propTypes = {
   title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   colorInvert: PropTypes.bool,
 };
