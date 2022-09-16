@@ -68,7 +68,7 @@ const profileTabs = [
     icon: <InfoOutlinedIcon />,
     filename: '',
     label: 'Your Profile',
-    sort: 0,
+    sort: 2,
   },
   {
     icon: <LockIcon />,
@@ -78,9 +78,9 @@ const profileTabs = [
   },
   {
     icon: <DataObject />,
-    filename: 'preference',
+    filename: 'preferences',
     label: 'Preferences',
-    sort: 4,
+    sort: 3,
   },
 ];
 
