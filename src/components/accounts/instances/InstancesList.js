@@ -5,11 +5,14 @@ import {
   CardActions,
   CardMedia,
   Grid,
+  IconButton,
+  Link,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Stack,
   Typography,
 } from '@mui/material';
 import React from 'react';
@@ -19,6 +22,9 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { useRouter } from 'next/router';
+import * as helpers from 'utils';
 
 export const InstancesList = ({
   title = '',
@@ -32,6 +38,8 @@ export const InstancesList = ({
   acceptInvite = () => {},
   declineInvite = () => {},
 }) => {
+  const router = useRouter();
+
   const handleRedirect = (instanceZuid) => {
     if (!invite) {
       handleRoute(instanceZuid);
@@ -123,7 +131,7 @@ export const InstancesList = ({
   }
 
   return (
-    <Box paddingY={2} display={data.length === 0 ? 'none' : 'block'}>
+    <Box py={2} display={data.length === 0 ? 'none' : 'block'}>
       <Box>{title}</Box>
       <Grid container direction="row" my={0} spacing={4}>
         {data?.map((instance, index) => {
@@ -139,46 +147,77 @@ export const InstancesList = ({
                   },
                 }}
               >
-                <Box
-                  paddingX={1}
-                  paddingY={1}
-                  width={1}
-                  display={'flex'}
-                  justifyContent={'flex-end'}
-                  visibility={invite ? 'hidden' : 'visible'}
-                >
-                  <Box
-                    sx={{ cursor: 'pointer' }}
-                    onClick={() => toggleFavorites(instance)}
+                <Stack>
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
                   >
-                    {isFavorite ? (
-                      <StarRoundedIcon color="secondary" fontSize="medium" />
-                    ) : (
-                      <StarBorderRoundedIcon fontSize="medium" />
-                    )}
-                  </Box>
-                </Box>
-                <CardMedia
-                  height="100%"
-                  sx={{ height: 220 }}
-                  width="100%"
-                  component="img"
-                  image={
-                    instance.screenshotURL
-                      ? instance.screenshotURL
-                      : FillerContent.image
-                  }
-                  onClick={() => handleRedirect(instance.ZUID)}
-                />
-                <Typography
-                  p={1}
-                  gutterBottom
-                  variant="h6"
-                  onClick={() => handleRedirect(instance.ZUID)}
-                >
-                  {instance.name}
-                </Typography>
+                    <Typography
+                      variant="h6"
+                      px={1}
+                      onClick={() => handleRedirect(instance.ZUID)}
+                      noWrap
+                    >
+                      {instance.name}
+                    </Typography>
+                    <IconButton
+                      sx={{ visibility: invite ? 'hidden' : 'visible' }}
+                      onClick={() => toggleFavorites(instance)}
+                    >
+                      {isFavorite ? (
+                        <StarRoundedIcon color="secondary" fontSize="medium" />
+                      ) : (
+                        <StarBorderRoundedIcon fontSize="medium" />
+                      )}
+                    </IconButton>
+                  </Stack>
 
+                  <CardMedia
+                    height="100%"
+                    sx={{ height: 220 }}
+                    width="100%"
+                    component="img"
+                    image={
+                      instance.screenshotURL
+                        ? instance.screenshotURL
+                        : FillerContent.image
+                    }
+                    onClick={() => handleRedirect(instance.ZUID)}
+                  />
+
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    p={1}
+                  >
+                    <Link
+                      underline="none"
+                      href={`https://${instance?.randomHashID}-dev${
+                        helpers?.isProd
+                          ? '.webengine.zesty.io'
+                          : '.preview.dev.zesty.io'
+                      }`}
+                      target="_blank"
+                      color="secondary"
+                      sx={{
+                        ':hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
+                    >
+                      Preview
+                    </Link>
+                    <IconButton
+                      onClick={() => {
+                        router.push(`/instances/${instance.ZUID}`);
+                      }}
+                    >
+                      <SettingsIcon />
+                    </IconButton>
+                  </Stack>
+                </Stack>
                 {invite && (
                   <CardActions>
                     <Button

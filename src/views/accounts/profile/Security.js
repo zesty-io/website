@@ -111,7 +111,7 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
                 </Grid>
               </Grid>
               <Button
-                color="primary"
+                color="secondary"
                 variant="contained"
                 disabled={formik.isSubmitting}
                 fullWidth
@@ -125,7 +125,7 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
       ) : (
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           type="button"
           onClick={handleDisableAuthy}
         >
@@ -245,7 +245,7 @@ const ChangePassForm = ({
                   }}
                 />
                 <Button
-                  color="primary"
+                  color="secondary"
                   variant="contained"
                   fullWidth
                   type="submit"

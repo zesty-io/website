@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import FillerContent from 'components/globals/FillerContent';
 import React from 'react';
 import MyListItem from './ui/MyListItem';
 import SideListContent from './ui/SideListContent';
@@ -39,7 +40,13 @@ const repositories = [
   },
 ];
 
-const SideContent = ({ firstName, instances, handleSearchInstances }) => {
+const SideContent = ({
+  firstName,
+  instances,
+  totalLength,
+  unfilteredTotalInstances,
+  handleSearchInstances,
+}) => {
   return (
     <Stack p={3} pl={1} pr={{ xs: 0, md: 3 }}>
       <Stack>
@@ -52,7 +59,8 @@ const SideContent = ({ firstName, instances, handleSearchInstances }) => {
       <SideListContent
         label="Recent Instances"
         bottomAction={
-          instances?.length > 5 && (
+          unfilteredTotalInstances > totalLength &&
+          instances?.length > 0 && (
             <Link
               underline="none"
               href="/instances"
@@ -81,7 +89,7 @@ const SideContent = ({ firstName, instances, handleSearchInstances }) => {
             : instances?.map((instance, index) => (
                 <MyListItem
                   key={index}
-                  logo={instance.screenshotURL}
+                  logo={instance.screenshotURL || FillerContent.image}
                   link={`/instances/${instance.ZUID}`}
                   name={instance.name}
                 />
