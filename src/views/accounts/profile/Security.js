@@ -84,7 +84,7 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
               >
                 Disable Two Factor Authentication
               </Button>
-              <img src={url} alt="zesty auth" />
+              <img src={url} alt="zesty auth" height={'40'} width="40" />
             </Box>
           </Box>
         )}
