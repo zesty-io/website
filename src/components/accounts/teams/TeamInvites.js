@@ -1,5 +1,6 @@
 import { LoadingButton } from '@mui/lab';
 import { Divider, Paper, Stack, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
@@ -29,21 +30,21 @@ const TeamInvites = ({ teamZUID, teamInviteZUID, getAllTeamsAndInvites }) => {
       action,
     );
 
-    notistackMessage(
+    await notistackMessage(
       enqueueSnackbar,
       {
         message:
           action === 'accept' ? 'Invite accepted' : 'Declined invitation',
         callback: async () => {
           await getAllTeamsAndInvites();
-          setIsRespondingToTeamInvite({
-            action: '',
-            status: false,
-          });
         },
       },
       teamInviteResponse,
     );
+    setIsRespondingToTeamInvite({
+      action: '',
+      status: false,
+    });
   };
 
   useEffect(() => {
@@ -52,11 +53,11 @@ const TeamInvites = ({ teamZUID, teamInviteZUID, getAllTeamsAndInvites }) => {
 
   return (
     <Paper
-      elevation={4}
       sx={(theme) => ({
         height: '100%',
         bgcolor: theme.palette.zesty.zestyTeal,
         color: 'common.white',
+        border: `1px solid ${grey[400]}`,
       })}
     >
       <Stack height="100%">

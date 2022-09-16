@@ -23,11 +23,6 @@ import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 
-// import Collapse from '@mui/material/Collapse';
-// import ExpandLess from '@mui/icons-material/ExpandLess';
-// import ExpandMore from '@mui/icons-material/ExpandMore';
-// import StarBorder from '@mui/icons-material/StarBorder';
-
 let capitalize = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
 
 const Index = ({ children }) => {

@@ -64,7 +64,6 @@ export default function AppBar({ url = window.location.pathname }) {
     <Box
       sx={{
         backgroundColor: theme.palette.background.level2,
-        marginTop: '10px',
         py: 1,
       }}
     >
@@ -147,7 +146,7 @@ export default function AppBar({ url = window.location.pathname }) {
             <Box>
               {!verifySuccess ? (
                 <Button
-                  href="/login"
+                  href="/login/"
                   variant="contained"
                   color="secondary"
                   size="small"
