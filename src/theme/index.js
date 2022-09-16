@@ -16,7 +16,7 @@ const getTheme = (mode, themeToggler) =>
         },
       },
       zIndex: {
-        appBar: 1200,
+        appBar: 1000,
         drawer: 1300,
       },
       breakpoints: {

@@ -15,6 +15,6 @@ export const docData = [
     id: 3,
     title: 'Granular and Custom Roles',
     desc: 'Access to: Content, Media, Web IDE, Leads, Analytics, Schema, Health and Settings sections.',
-    link: '/',
+    link: 'https://accounts-api.zesty.org/#dfec51e4-3eae-41c4-9c96-374d3eacda83',
   },
 ];
