@@ -260,3 +260,12 @@ export const parseCookie = (str) =>
       acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
       return acc;
     }, {});
+
+export const getIsAuthenticated = (res) => {
+  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
+  let isAuthenticated = JSON.parse(
+    parseCookie(getHeaderCookie)?.isAuthenticated || false,
+  );
+
+  return isAuthenticated;
+};
