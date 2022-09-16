@@ -2,6 +2,7 @@ import React from 'react';
 import { useZestyStore, getZestyAPI } from 'store';
 import { useRouter } from 'next/router';
 import { Overview } from 'views/accounts';
+import { ErrorMsg, SuccessMsg } from 'components/accounts';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
@@ -93,6 +94,26 @@ export default function OverviewPage() {
     res.error && handleGetUserErr(res);
   };
 
+  const purgeUrl = `${
+    process.env.NEXT_PUBLIC_CLOUD_FUNCTIONS_DOMAIN ||
+    'https://us-central1-zesty-prod.cloudfunctions.net'
+  }/fastlyPurge?zuid=${zuid}&instance=${zuid}`;
+  const clearCache = async () => {
+    try {
+      await fetch(purgeUrl)
+        .then((data) => {
+          SuccessMsg({ title: 'Cache Successfully Cleared' });
+          return data.json();
+        })
+        .catch((error) => {
+          ErrorMsg({ title: error });
+          return error;
+        });
+    } catch (error) {
+      ErrorMsg({ title: error });
+      return error;
+    }
+  };
   const getPageData = async () => {
     await getInstance();
     await getLocales();
@@ -110,6 +131,7 @@ export default function OverviewPage() {
     instance,
     models,
     audits,
+    clearCache,
   };
 
   React.useEffect(() => {

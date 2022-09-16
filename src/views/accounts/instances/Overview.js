@@ -1,5 +1,12 @@
 import React from 'react';
-import { lighten, Box, Grid, Typography, useTheme } from '@mui/material';
+import {
+  lighten,
+  Box,
+  Grid,
+  Typography,
+  useTheme,
+  Button,
+} from '@mui/material';
 import { OverviewTabs } from 'components/accounts';
 import dayjs from 'dayjs';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -22,6 +29,7 @@ export const Overview = ({
   locales,
   models,
   audits,
+  clearCache,
 }) => {
   const tabProps = {
     instance,
@@ -38,14 +46,27 @@ export const Overview = ({
   const localesLength = locales.length || '0';
   const modelsLength = models.length || '0';
   const usersLength = users.length || '0';
+  const handleClearCache = () => {
+    clearCache();
+  };
   return (
     <>
-      <Box paddingY={2}>
-        <Typography variant="h4">{instance?.name}</Typography>
-        <Typography variant="body2" color="text.secondary">
-          Last Updated at:
-          {dayjs(instance.updatedAt).format(' MMMM D, YYYY')}
-        </Typography>
+      <Box paddingY={2} display="flex" justifyContent={'space-between'}>
+        <Box>
+          <Typography variant="h4">{instance?.name}</Typography>
+          <Typography variant="body2" color="text.secondary">
+            Last Updated at:
+            {dayjs(instance.updatedAt).format(' MMMM D, YYYY')}
+          </Typography>
+        </Box>
+        <Button
+          onClick={handleClearCache}
+          variant="contained"
+          color="secondary"
+          size="small"
+        >
+          Clear Instance Cache
+        </Button>
       </Box>
       <Box position={'relative'}>
         <OverviewTabs {...tabProps} />
