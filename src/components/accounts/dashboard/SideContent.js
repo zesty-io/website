@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import FillerContent from 'components/globals/FillerContent';
 import React from 'react';
 import MyListItem from './ui/MyListItem';
 import SideListContent from './ui/SideListContent';
@@ -88,7 +89,7 @@ const SideContent = ({
             : instances?.map((instance, index) => (
                 <MyListItem
                   key={index}
-                  logo={instance.screenshotURL}
+                  logo={instance.screenshotURL || FillerContent.image}
                   link={`/instances/${instance.ZUID}`}
                   name={instance.name}
                 />
