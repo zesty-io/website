@@ -85,6 +85,7 @@ export const light = {
     zestyDarkText: '#2D3748',
     lightPink: '#FFF6F1',
     zestyLightOrange: '#FFEDE4',
+    zestyPurple: '#293056',
   },
 };
 
