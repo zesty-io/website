@@ -101,6 +101,7 @@ const AppNavigation = ({
           alignItems="center"
           spacing={2}
           display={{ xs: 'none', lg: 'flex' }}
+          mr={2}
         >
           {navigationLinks.map((nav) => (
             <SingleNavItem
