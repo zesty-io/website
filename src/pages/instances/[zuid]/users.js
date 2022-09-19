@@ -199,10 +199,13 @@ export default function UsersPage() {
   };
   const getPageData = async () => {
     await setloading(true);
-    await getUsers();
-    await getInstanceUserRoles();
-    await getInstanceRoles();
-    await getInstancePendingUsers();
+
+    await Promise.all([
+      getUsers(),
+      getInstanceUserRoles(),
+      getInstanceRoles(),
+      getInstancePendingUsers(),
+    ]);
     await setloading(false);
   };
   React.useEffect(() => {

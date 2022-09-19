@@ -115,12 +115,14 @@ export default function OverviewPage() {
     }
   };
   const getPageData = async () => {
-    await getInstance();
-    await getLocales();
-    await getAllInstancesTeams();
-    await getModels();
-    await getUsers();
-    await getInstanceAudit();
+    await Promise.all([
+      getInstance(),
+      getLocales(),
+      getAllInstancesTeams(),
+      getModels(),
+      getUsers(),
+      getInstanceAudit(),
+    ]);
   };
 
   const overviewProps = {
