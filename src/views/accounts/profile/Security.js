@@ -13,19 +13,83 @@ import { Form, Formik, useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
 import {
+  Card2Fa,
   ErrorMsg,
   FormInput,
   SuccessMsg,
 } from '../../../components/accounts/ui';
 import { accountsValidations } from '../../../components/accounts/validations';
 
-const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy }) => {
+const url =
+  'https://seeklogo.com/images/A/authy-logo-5598145895-seeklogo.com.png?v=637714439950000000';
+const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
+  const { authyPhoneCountryCode, authyPhoneNumber } = userInfo;
   const handleDisableAuthy = () => {
     disableAuthy();
   };
   return (
     <Box>
-      {!isAuthyEnable ? (
+      <Card2Fa>
+        {!isAuthyEnable ? (
+          <form noValidate onSubmit={formik.handleSubmit}>
+            <Typography variant="h6">Phone number for 2FA</Typography>
+            <Box display={'flex'} gap={2} marginY={1}>
+              <Box sx={{ width: '7rem' }}>
+                <FormInput
+                  label={'Area Code'}
+                  name={'areaCode'}
+                  formik={formik}
+                />
+              </Box>
+              <Box>
+                <FormInput
+                  label={'Phone Number'}
+                  name={'phoneNumber'}
+                  formik={formik}
+                />
+              </Box>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button
+                color="secondary"
+                variant="contained"
+                disabled={formik.isSubmitting}
+                fullWidth
+                type="submit"
+                sx={{ width: '20rem' }}
+              >
+                Enable Two Factor Authentication
+              </Button>
+              <img src={url} alt="zesty auth" height={'40'} width="40" />
+            </Box>
+          </form>
+        ) : (
+          <Box>
+            <Box marginBottom={2}>
+              <Typography variant="h5">Phone number enable for 2FA</Typography>
+              <Typography variant="p" color={'text.secondary'}>
+                +{authyPhoneCountryCode}
+                {authyPhoneNumber}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button
+                color="secondary"
+                variant="contained"
+                fullWidth
+                type="submit"
+                sx={{ width: '20rem' }}
+                onClick={handleDisableAuthy}
+              >
+                Disable Two Factor Authentication
+              </Button>
+              <img src={url} alt="zesty auth" height={'40'} width="40" />
+            </Box>
+          </Box>
+        )}
+      </Card2Fa>
+      {/* {!isAuthyEnable ? (
         <Box>
           <Typography variant="h4">Two Factor Authentication</Typography>
           <Box paddingY={4}>
@@ -47,7 +111,7 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy }) => {
                 </Grid>
               </Grid>
               <Button
-                color="primary"
+                color="secondary"
                 variant="contained"
                 disabled={formik.isSubmitting}
                 fullWidth
@@ -61,13 +125,13 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy }) => {
       ) : (
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           type="button"
           onClick={handleDisableAuthy}
         >
           Disable Two Factor Authentication
         </Button>
-      )}
+      )} */}
     </Box>
   );
 };
@@ -181,7 +245,7 @@ const ChangePassForm = ({
                   }}
                 />
                 <Button
-                  color="primary"
+                  color="secondary"
                   variant="contained"
                   fullWidth
                   type="submit"
@@ -305,6 +369,7 @@ export const Security = ({ getUser }) => {
           formik={formik}
           isAuthyEnable={isAuthyEnable}
           disableAuthy={disableAuthy}
+          userInfo={userInfo}
         />
       </Grid>
     </Grid>

@@ -251,3 +251,28 @@ export const notistackMessage = async (
     });
   }
 };
+
+export const parseCookie = (str) =>
+  str
+    .split(';')
+    .map((v) => v.split('='))
+    .reduce((acc, v) => {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      return acc;
+    }, {});
+
+export const getIsAuthenticated = (res) => {
+  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
+  let isAuthenticated = JSON.parse(
+    parseCookie(getHeaderCookie)?.isAuthenticated || false,
+  );
+
+  return isAuthenticated;
+};
+
+export const OPTIONS = (options, separator) => {
+  const res = options?.split(separator).map((e) => {
+    return { value: e, label: e };
+  });
+  return res;
+};

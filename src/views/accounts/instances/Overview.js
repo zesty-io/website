@@ -1,8 +1,14 @@
 import React from 'react';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import {
+  lighten,
+  Box,
+  Grid,
+  Typography,
+  useTheme,
+  Button,
+} from '@mui/material';
 import { OverviewTabs } from 'components/accounts';
 import dayjs from 'dayjs';
-import { grey } from '@mui/material/colors';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import BarChartIcon from '@mui/icons-material/BarChart';
 const NoData = () => {
@@ -23,6 +29,7 @@ export const Overview = ({
   locales,
   models,
   audits,
+  clearCache,
 }) => {
   const tabProps = {
     instance,
@@ -34,33 +41,34 @@ export const Overview = ({
     audits,
   };
 
+  const theme = useTheme();
   const teamsLength = teams.length || '0';
   const localesLength = locales.length || '0';
   const modelsLength = models.length || '0';
   const usersLength = users.length || '0';
+  const handleClearCache = () => {
+    clearCache();
+  };
   return (
     <>
-      <Box paddingY={2}>
-        <Typography variant="h4">{instance?.name}</Typography>
-        <Typography variant="body2" color="text.secondary">
-          Last Updated at:
-          {dayjs(instance.updatedAt).format(' MMMM D, YYYY')}
-        </Typography>
-      </Box>
-      <Box position={'relative'}>
+      <Box paddingY={2} display="flex" justifyContent={'space-between'}>
+        <Box>
+          <Typography variant="h4">{instance?.name}</Typography>
+          <Typography variant="body2" color="text.secondary">
+            Last Updated at:
+            {dayjs(instance.updatedAt).format(' MMMM D, YYYY')}
+          </Typography>
+        </Box>
         <Button
+          onClick={handleClearCache}
           variant="contained"
           color="secondary"
-          href="https://accounts.zesty.io/instances/create"
-          sx={{
-            position: 'absolute',
-            right: 0,
-            top: 0,
-            zIndex: '1000',
-          }}
+          size="small"
         >
-          Create Instance
+          Clear Instance Cache
         </Button>
+      </Box>
+      <Box position={'relative'}>
         <OverviewTabs {...tabProps} />
         <Grid container>
           <Grid
@@ -72,12 +80,17 @@ export const Overview = ({
             }}
             xs={4}
           >
-            <Box paddingY={1} paddingX={2} sx={{ background: grey[400] }}>
+            <Box
+              paddingY={1}
+              paddingX={2}
+              sx={{ background: lighten(theme.palette.secondary.light, 0.9) }}
+            >
               <Typography
                 variant="h6"
                 alignItems={'center'}
                 display={'flex'}
                 gap={1}
+                color={'secondary'}
               >
                 <AccessTimeIcon /> Your Latest Edits
               </Typography>
@@ -85,13 +98,9 @@ export const Overview = ({
             {audits.length === 0 ? (
               <NoData />
             ) : (
-              audits.slice(0, 5).map((e, i) => {
+              audits.slice(0, 5).map((e) => {
                 return (
-                  <Box
-                    paddingY={1}
-                    paddingX={2}
-                    sx={{ background: i % 2 !== 0 ? grey[300] : '#fff' }}
-                  >
+                  <Box paddingY={1} paddingX={2}>
                     <Typography variant="subtitle2">
                       {e.meta.message}
                     </Typography>
@@ -111,12 +120,17 @@ export const Overview = ({
             item
             xs={4}
           >
-            <Box paddingY={1} paddingX={2} sx={{ background: grey[400] }}>
+            <Box
+              paddingY={1}
+              paddingX={2}
+              sx={{ background: lighten(theme.palette.secondary.light, 0.9) }}
+            >
               <Typography
                 variant="h6"
                 alignItems={'center'}
                 display={'flex'}
                 gap={1}
+                color="secondary"
               >
                 <BarChartIcon /> Statistics
               </Typography>

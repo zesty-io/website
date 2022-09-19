@@ -107,7 +107,7 @@
     "colortape": "^0.1.2",
     "cross-env": "^7.0.2",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.20.0",
+    "eslint": "^8.23.1",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",

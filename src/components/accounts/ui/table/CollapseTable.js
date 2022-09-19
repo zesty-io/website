@@ -10,11 +10,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { useZestyStore } from 'store';
-import { ErrorMsg } from '../dialogs';
 import { Box, TablePagination, Typography } from '@mui/material';
 import { LoadingSpinner } from '../loading';
 import { StickyTable } from './StickyTable';
+import { NoData } from './NoData';
 
 const collapsColumns = [
   {
@@ -25,25 +24,21 @@ const collapsColumns = [
     id: 'email',
     label: 'email',
   },
+  {
+    id: 'role',
+    label: 'Role',
+  },
 ];
-function Row(props) {
-  const { row } = props;
+
+function Row({ row, instanceUserWithRoles }) {
   const [open, setOpen] = React.useState(false);
-  const { ZestyAPI } = useZestyStore((state) => state);
   const [teamMembers, setteamMembers] = React.useState([]);
 
-  const handleGetTeamMemberSuccess = (res) => {
-    setteamMembers(res.data);
-  };
-  const handleGetTeamMemberError = (res) => {
-    ErrorMsg({ text: res.error });
-  };
   const handleClick = async (e) => {
     if (!open) {
       setOpen(true);
-      const res = await ZestyAPI.getTeamMembers(e.zuid);
-      !res.error && handleGetTeamMemberSuccess(res);
-      res.error && handleGetTeamMemberError(res);
+      const res = instanceUserWithRoles.filter((x) => x.teamZUID === e.zuid);
+      setteamMembers(res);
     } else {
       setOpen(false);
     }
@@ -53,6 +48,7 @@ function Row(props) {
     return {
       name: `${e.firstName} ${e.lastName}` || '-',
       email: e.email || '-',
+      role: e.role?.name || '-',
     };
   });
 
@@ -102,6 +98,8 @@ export const CollapseTable = ({
   perPage = 10,
   loading = false,
   title = '',
+  instanceUserWithRoles = [],
+  cta,
 }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(perPage);
@@ -121,6 +119,9 @@ export const CollapseTable = ({
 
   if (loading) {
     return <LoadingSpinner />;
+  }
+  if (rows.length === 0) {
+    return <NoData columns={columns} header={'No Teams Added'} cta={cta} />;
   }
 
   if (rows.length < 10) {
@@ -157,7 +158,11 @@ export const CollapseTable = ({
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <Row key={row.name} row={row} />
+                <Row
+                  key={row.name}
+                  row={row}
+                  instanceUserWithRoles={instanceUserWithRoles}
+                />
               ))}
             </TableBody>
           </Table>

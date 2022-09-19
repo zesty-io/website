@@ -139,7 +139,7 @@ const Topbar = ({
                     endIcon={<LoginIcon />}
                     fullWidth
                     component="a"
-                    href="https://accounts.zesty.io"
+                    href="/login/"
                   >
                     Login
                   </Button>

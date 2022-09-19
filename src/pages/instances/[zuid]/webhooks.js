@@ -147,9 +147,11 @@ export default function WebhooksPage() {
   );
   const getPageData = async () => {
     await setloading(true);
-    await getWebhooks();
-    await searhcItems();
-    await getInstanceUserWithRoles();
+    await Promise.all([
+      getWebhooks(),
+      searhcItems(),
+      getInstanceUserWithRoles(),
+    ]);
     await setloading(false);
   };
 

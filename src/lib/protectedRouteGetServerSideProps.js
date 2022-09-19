@@ -1,7 +1,9 @@
-export default async function getServerSideProps({ req, res }) {
-  let isAuthenticated = JSON.parse(req.cookies.isAuthenticated || false);
+import { getIsAuthenticated } from 'utils';
 
-  if (!isAuthenticated && isProtectedRoute(req.url)) {
+export default async function getServerSideProps({ req, res, resolvedUrl }) {
+  let isAuthenticated = getIsAuthenticated(res);
+
+  if (!isAuthenticated && isProtectedRoute(resolvedUrl)) {
     return {
       redirect: {
         destination: '/login/',

@@ -1,13 +1,16 @@
 import {
   Divider,
   Link,
+  List,
   Skeleton,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
+import FillerContent from 'components/globals/FillerContent';
 import React from 'react';
-import SideListItems from './ui/SideListItem';
+import MyListItem from './ui/MyListItem';
+import SideListContent from './ui/SideListContent';
 
 const repositories = [
   {
@@ -37,7 +40,13 @@ const repositories = [
   },
 ];
 
-const SideContent = ({ firstName }) => {
+const SideContent = ({
+  firstName,
+  instances,
+  totalLength,
+  unfilteredTotalInstances,
+  handleSearchInstances,
+}) => {
   return (
     <Stack p={3} pl={1} pr={{ xs: 0, md: 3 }}>
       <Stack>
@@ -47,32 +56,82 @@ const SideContent = ({ firstName }) => {
         <Divider sx={{ my: 2 }} />
       </Stack>
 
-      <SideListItems
-        label="Recent Repositories"
-        lists={repositories}
+      <SideListContent
+        label="Recent Instances"
         bottomAction={
-          <Link underline="none" color="secondary" sx={{ cursor: 'pointer' }}>
-            Show more
-          </Link>
+          unfilteredTotalInstances > totalLength &&
+          instances?.length > 0 && (
+            <Link
+              underline="none"
+              href="/instances"
+              color="secondary"
+              sx={{ cursor: 'pointer' }}
+            >
+              Show more
+            </Link>
+          )
+        }
+        topAction={
+          <TextField
+            size="small"
+            color="secondary"
+            placeholder="Search an Instances"
+            onChange={(e) => {
+              handleSearchInstances(e.target.value.toLocaleLowerCase());
+            }}
+            sx={{ mb: 2 }}
+          />
         }
       >
-        <TextField
-          size="small"
-          color="secondary"
-          placeholder="Find a repository"
-          sx={{ mb: 2 }}
-        />
-      </SideListItems>
+        <List disablePadding>
+          {instances?.length === 0
+            ? 'No Instances Found.'
+            : instances?.map((instance, index) => (
+                <MyListItem
+                  key={index}
+                  logo={instance.screenshotURL || FillerContent.image}
+                  link={`/instances/${instance.ZUID}`}
+                  name={instance.name}
+                />
+              ))}
+        </List>
+      </SideListContent>
 
-      <SideListItems label="Recent Activity" lists={repositories} />
-      <SideListItems label="Your Teams" lists={repositories}>
-        <TextField
-          size="small"
-          color="secondary"
-          placeholder="Find a team.."
-          sx={{ mb: 2 }}
-        />
-      </SideListItems>
+      <SideListContent label="Recent Activity">
+        <List disablePadding>
+          {repositories?.map((repo, index) => (
+            <MyListItem
+              key={index}
+              logo={repo.logo}
+              link={repo.link}
+              name={repo.name}
+            />
+          ))}
+        </List>
+      </SideListContent>
+
+      <SideListContent
+        label="Your Teams"
+        topAction={
+          <TextField
+            size="small"
+            color="secondary"
+            placeholder="Find a team.."
+            sx={{ mb: 2 }}
+          />
+        }
+      >
+        <List disablePadding>
+          {repositories?.map((repo, index) => (
+            <MyListItem
+              key={index}
+              logo={repo.logo}
+              link={repo.link}
+              name={repo.name}
+            />
+          ))}
+        </List>
+      </SideListContent>
     </Stack>
   );
 };

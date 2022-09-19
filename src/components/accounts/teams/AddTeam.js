@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useZestyStore } from 'store';
 import { useSnackbar } from 'notistack';
 import { notistackMessage } from 'utils';
+import { grey } from '@mui/material/colors';
 
 const AddTeam = ({ getAllTeams }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -24,22 +25,23 @@ const AddTeam = ({ getAllTeams }) => {
       const name = values.name,
         description = values.description;
       const response = await ZestyAPI.createTeam({ name, description });
-      notistackMessage(
+      await notistackMessage(
         enqueueSnackbar,
         {
           message: 'Team created!',
           callback: async () => {
             await getAllTeams();
             formik.resetForm();
-            setIsCreating(false);
           },
         },
         response,
       );
+
+      setIsCreating(false);
     },
   });
   return (
-    <Paper elevation={4} sx={{ height: '100%' }}>
+    <Paper sx={{ height: '100%', border: `1px solid ${grey[400]}` }}>
       <Stack height="100%">
         <Typography color="text.secondary" variant="h6" px={3} py={1}>
           Teams

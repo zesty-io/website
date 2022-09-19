@@ -10,7 +10,7 @@ import { IconButton, Typography } from '@mui/material';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import Link from '@mui/material/Link';
 
-export default function DomainTable({ rows, caption }) {
+export default function DomainTable({ rows, caption, deleteDomain }) {
   return (
     <TableContainer component={Paper} sx={{ boxShadow: 1 }}>
       <Table sx={{ minWidth: 450 }} aria-label="caption table">
@@ -59,7 +59,7 @@ export default function DomainTable({ rows, caption }) {
                   <IconButton
                     variant="text"
                     color="error"
-                    onClick={() => onclick(row.ZUID)}
+                    onClick={() => deleteDomain(row.ZUID)}
                     value={row.ZUID}
                   >
                     <DeleteRoundedIcon />

@@ -28,10 +28,6 @@ const COLUMNS = [
     id: 'action',
     label: 'Action',
   },
-  {
-    id: 'save',
-    label: 'Save',
-  },
 ];
 
 const OPTIONS = (options, separator) => {
@@ -124,24 +120,27 @@ const CustomTable = ({
       keyFriendly: e.keyFriendly,
       category: e.category,
       tips: e.tips || '-',
-      save: isDataChange ? (
-        <Button
-          onClick={() => handleClick(e)}
-          variant="contained"
-          color="secondary"
-        >
-          <SaveIcon size={20} />
-          Save
-        </Button>
-      ) : (
-        <>-</>
-      ),
       action: (
-        <ActionSwitcher
-          data={e}
-          arrToSubmit={arrToSubmit}
-          setarrToSubmit={setarrToSubmit}
-        />
+        <Box display={'flex'} gap={2}>
+          <ActionSwitcher
+            data={e}
+            arrToSubmit={arrToSubmit}
+            setarrToSubmit={setarrToSubmit}
+          />
+
+          {isDataChange ? (
+            <Button
+              onClick={() => handleClick(e)}
+              variant="contained"
+              color="secondary"
+            >
+              <SaveIcon size={20} sx={{ marginRight: '.3rem' }} />
+              Save
+            </Button>
+          ) : (
+            <>-</>
+          )}
+        </Box>
       ),
     };
   });

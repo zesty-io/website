@@ -133,15 +133,18 @@ export default function TeamsPage() {
     instanceRoles,
     loading,
     allTeams,
+    instanceUserWithRoles,
   };
 
   const getPageData = async () => {
     await setloading(true);
-    await getAllInstancesTeams();
-    await getInstanceUserWithRoles();
-    await getInstanceRoles();
+    await Promise.all([
+      getAllInstancesTeams(),
+      getInstanceUserWithRoles(),
+      getInstanceRoles(),
+      getAllTeams(),
+    ]);
     await setloading(false);
-    await getAllTeams();
   };
   React.useEffect(() => {
     if (router.isReady) {

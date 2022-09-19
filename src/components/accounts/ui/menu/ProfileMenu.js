@@ -7,8 +7,8 @@ import { grey } from '@mui/material/colors';
 
 const dropdown = [
   { link: '/profile/', label: 'Profile' },
-  { link: '/profile/security', label: 'Security' },
-  { link: '/profile/preference', label: 'Preferences' },
+  { link: '/profile/security/', label: 'Security' },
+  { link: '/profile/preferences/', label: 'Preferences' },
 ];
 
 const signOut = [{ link: '/logout', label: 'Logout' }];

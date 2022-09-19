@@ -52,7 +52,7 @@ export const Preference = () => {
   const COLUMNS = [
     {
       id: 'name',
-      label: 'Preference Name',
+      label: 'Preferences Name',
     },
     {
       id: 'description',
@@ -66,7 +66,7 @@ export const Preference = () => {
           variant="contained"
           disabled={!dirty}
           onClick={() => handleSave(userInfo)}
-          color="success"
+          color="secondary"
         >
           Save
         </Button>

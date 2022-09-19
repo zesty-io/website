@@ -68,7 +68,7 @@ const SidebarNav = ({ customRouting }) => {
             variant="outlined"
             fullWidth
             component="a"
-            href="https://accounts.zesty.io"
+            href="/login"
           >
             Login
           </Button>
