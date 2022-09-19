@@ -435,16 +435,16 @@ const ApiDocs = () => {
               xs={12}
               sx={{}}
               width={1}
-              display="flex"
-              alignItems={'center'}
-              justifyContent="space-between"
-              paddingRight={50}
+              display="grid"
+              gridTemplateColumns={'1fr 1fr'}
             >
               <Typography pl={4}>{e.label}</Typography>
 
-              <Button color="secondary" href={e.url}>
-                Learn more <ArrowRightAltIcon />
-              </Button>
+              <Box>
+                <Button color="secondary" href={e.url}>
+                  Learn more <ArrowRightAltIcon />
+                </Button>
+              </Box>
             </Grid>
           );
         })}
