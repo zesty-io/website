@@ -269,3 +269,10 @@ export const getIsAuthenticated = (res) => {
 
   return isAuthenticated;
 };
+
+export const OPTIONS = (options, separator) => {
+  const res = options?.split(separator).map((e) => {
+    return { value: e, label: e };
+  });
+  return res;
+};
