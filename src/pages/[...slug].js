@@ -38,8 +38,11 @@ export async function getServerSideProps({ req, res }) {
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=600, stale-while-revalidate=3600',
+    'public, maxage=60, must-revalidate'
   );
+  res.setHeader(
+    'Surrogate-Control' , 'max-age=60'
+  )
 
   // attempt to get page data relative to zesty
   const data = await fetchPage(req.url);

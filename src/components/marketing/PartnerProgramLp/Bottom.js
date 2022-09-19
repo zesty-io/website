@@ -2,14 +2,13 @@ import React from 'react';
 /**
  * MUI Imports
  */
-import { Box, Typography, Grid } from '@mui/material';
-import Container from 'blocks/container/Container';
+import { Box, Typography, Grid, Container } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
 const Bottom = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
   return (
-    <Box sx={{}}>
+    <Box id="form" sx={{}}>
       <Container sx={{ py: 5 }}>
         <Grid container spacing={2}>
           <Grid

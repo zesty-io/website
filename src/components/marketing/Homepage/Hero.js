@@ -6,7 +6,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import DemoCta from 'components/cta/DemoCta';
 import MuiMarkdown from 'mui-markdown';
-import Image from 'next/image';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 /**
  * Static Assets Imports
@@ -118,20 +118,14 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
             </Grid>
             <Grid item sm={12} md={6}>
               <Box>
-                <Image
-                  blurDataURL
-                  placeholder="blur"
-                  quality={70}
-                  priority
-                  data-aos="fade-up"
+                <ZestyImage
+                  alt="hero image"
+                  loading="eager"
+                  style={{ width: '100%', maxWidth: 846, height: 'auto' }}
                   width={846}
                   height={576}
-                  objectFit="contain"
-                  alt="hero image"
-                  src={
-                    `${content.header_graphic?.data[0].url}?width=846` ||
-                    FillerContent.photos[0].src
-                  }
+                  attributes={{ 'data-aos': 'fade-up' }}
+                  src={content.header_graphic?.data[0].url}
                 />
               </Box>
             </Grid>

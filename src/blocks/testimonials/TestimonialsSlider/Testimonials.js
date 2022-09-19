@@ -22,6 +22,7 @@ import Star from '../../../../public/assets/images/homepage/star.svg';
 
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -35,6 +36,14 @@ const Testimonials = ({ title, data }) => {
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const backgroundUrl = 'https://kfg6bckb.media.zestyio.com/testimonials.svg';
+
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(title);
+
+  if (!isRichText) {
+    title = `<p>${title}</p>`;
+  }
 
   return (
     <Box
@@ -137,10 +146,9 @@ const Testimonials = ({ title, data }) => {
                       }}
                     >
                       <Box sx={{ width: 75, height: 71, margin: 'auto' }}>
-                        <img
-                          height={71}
+                        <ZestyImage
                           width={75}
-                          component="img"
+                          height={71}
                           loading="lazy"
                           src={HeartQuote.src}
                           alt="heart quote"
@@ -178,9 +186,9 @@ const Testimonials = ({ title, data }) => {
                         }}
                       >
                         {[1, 2, 3, 4, 5].map(() => (
-                          <img
-                            height={20}
+                          <ZestyImage
                             width={20}
+                            height={20}
                             style={{ paddingLeft: 0.5, paddingRight: 0.5 }}
                             loading="lazy"
                             src={Star.src}
