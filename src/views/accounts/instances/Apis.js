@@ -1,4 +1,13 @@
-import { Box, Button, Link, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+} from '@mui/material';
 import {
   accountsValidations,
   DeleteBtn,
@@ -144,54 +153,76 @@ export const Apis = ({
   };
   return (
     <Stack>
-      <Stack spacing={1}>
-        <Typography>
-          The{' '}
-          <Link href="https://zesty.org/apis/auth-api#token-based-authentication">
-            {' '}
-            Access token
-          </Link>{' '}
-          feature is beta and is recommended for use with the{' '}
-          <Link href="https://zesty.org/tools/atom-package">
-            Atom IDE plugin
-          </Link>{' '}
-          , experimenting with CI/CD flows, and/or{'  '}
-          <Link href="https://github.com/zesty-io/node-sdk">Node SDK</Link>{' '}
-          script usage. This feature will be augmented in the future. After that
-          automated production flows using tokens will be generally available.
-        </Typography>
-        <Typography>
-          The{' '}
-          <Link href="https://zesty.org/services/web-engine/modes">
-            Web Engine
-          </Link>{' '}
-          has 3 modes (Traditional(default), Hybrid, Headless). The{' '}
-          <Link href="https://zesty.org/apis/json-endpoints">
-            Instant API endpoints
-          </Link>{' '}
-          are reliant on the{' '}
-          <Typography
-            display="inline-block"
-            fontWeight="bolder"
-            color="text.secondary"
-          >
-            Access to Basic JSON API for content
-          </Typography>{' '}
-          to be on. Docs for{' '}
-          <Link href="https://instances-api.zesty.org/#9db975df-8f8b-4a6a-b820-2d684a5e0da3">
-            updating setting endpoint
-          </Link>
-        </Typography>
-        <Typography>
-          All of the other endpoints are reliant on the webengine mode setting
-          set to Headless or Hybrid. Once the setting is turned on you can go to
-          the /-/headless/ endpoint of the instance. Which is structured using
-          the {`instance's`} domain followed by the endpoint. Sample:
-          <Link href="https://photoblog.zesty.dev/-/headless/">
-            https://photoblog.zesty.dev/-/headless/
-          </Link>
-        </Typography>
-      </Stack>
+      <Grid container spacing={4}>
+        <Grid item xs={6}>
+          <BasicCard
+            title={'Read/Write Rest Api Info'}
+            body={
+              <Typography sx={{ textIndent: '2rem' }}>
+                The{' '}
+                <Link href="https://zesty.org/apis/auth-api#token-based-authentication">
+                  {' '}
+                  Access token
+                </Link>{' '}
+                feature is beta and is recommended for use with the{' '}
+                <Link href="https://zesty.org/tools/atom-package">
+                  Atom IDE plugin
+                </Link>{' '}
+                , experimenting with CI/CD flows, and/or{'  '}
+                <Link href="https://github.com/zesty-io/node-sdk">
+                  Node SDK
+                </Link>{' '}
+                script usage. This feature will be augmented in the future.
+                After that automated production flows using tokens will be
+                generally available.
+              </Typography>
+            }
+          />
+        </Grid>
+
+        <Grid item xs={6}>
+          <BasicCard
+            title={'WebEngine Mode Endpoints'}
+            body={
+              <>
+                <Typography sx={{ textIndent: '2rem' }}>
+                  The{' '}
+                  <Link href="https://zesty.org/services/web-engine/modes">
+                    Web Engine
+                  </Link>{' '}
+                  has 3 modes (Traditional(default), Hybrid, Headless). The{' '}
+                  <Link href="https://zesty.org/apis/json-endpoints">
+                    Instant API endpoints
+                  </Link>{' '}
+                  are reliant on the{' '}
+                  <Typography
+                    display="inline-block"
+                    fontWeight="bolder"
+                    color="text.secondary"
+                  >
+                    Access to Basic JSON API for content
+                  </Typography>{' '}
+                  to be on. Docs for{' '}
+                  <Link href="https://instances-api.zesty.org/#9db975df-8f8b-4a6a-b820-2d684a5e0da3">
+                    updating setting endpoint
+                  </Link>
+                </Typography>
+                <Typography sx={{ textIndent: '2rem' }}>
+                  All of the other endpoints are reliant on the webengine mode
+                  setting set to Headless or Hybrid. Once the setting is turned
+                  on you can go to the /-/headless/ endpoint of the instance.
+                  Which is structured using the {`instance's`} domain followed
+                  by the endpoint. Sample:
+                  <Link href="https://photoblog.zesty.dev/-/headless/">
+                    https://photoblog.zesty.dev/-/headless/
+                  </Link>
+                </Typography>
+              </>
+            }
+          />
+        </Grid>
+      </Grid>
+      <Stack spacing={1}></Stack>
       <Stack direction="row" width="100%" my={1}>
         {isInstanceOwner && (
           <Button
@@ -215,5 +246,18 @@ export const Apis = ({
         handleUpdateToken={handleUpdateToken}
       />
     </Stack>
+  );
+};
+
+const BasicCard = ({ title, body }) => {
+  return (
+    <Card sx={{ minWidth: 275, height: '100%' }}>
+      <CardContent>
+        <Typography variant="h5" component="div" mb={4}>
+          {title}
+        </Typography>
+        <Typography variant="body2">{body}</Typography>
+      </CardContent>
+    </Card>
   );
 };
