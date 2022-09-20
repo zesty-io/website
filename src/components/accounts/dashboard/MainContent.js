@@ -84,7 +84,7 @@ const MainContent = ({
         <Grid item xs={12} lg={9}>
           <Grid container spacing={2}>
             {instances?.slice(0, 3)?.map((instance, index) => (
-              <Grid key={index} item xs={12} lg={4}>
+              <Grid key={index} item xs={12} md={4}>
                 <ZInstanceItem
                   image={instance?.screenshotURL}
                   title={instance?.name}
@@ -129,8 +129,11 @@ const MainContent = ({
                 >
                   <Stack>
                     <Typography>{initialInstanceName}</Typography>
-                    <Typography variant="body2">
-                      {audit.meta.message.trim()}
+                    <Typography
+                      variant="body2"
+                      sx={{ wordBreak: 'break-word' }}
+                    >
+                      {audit.meta.message}
                     </Typography>
                   </Stack>
                   <Stack
