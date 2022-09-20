@@ -41,10 +41,10 @@ const MainContent = ({
 
   const toggleFavorites = async (zuid) => {
     const isExisting = instancesFavorites?.find((e) => e === zuid);
-    const favorite_sites = [...instancesFavorites, zuid];
-    const filteredFavorite = instancesFavorites?.filter((e) => e !== zuid);
+    const favoritesSites = [...instancesFavorites, zuid];
+    const filteredFavorites = instancesFavorites?.filter((e) => e !== zuid);
     const prefs = JSON.parse(userInfo.prefs);
-    prefs.favorite_sites = !isExisting ? favorite_sites : filteredFavorite;
+    prefs.favorite_sites = !isExisting ? favoritesSites : filteredFavorites;
     const body = {
       firstName: userInfo.firstName,
       lastName: userInfo.lastName,
