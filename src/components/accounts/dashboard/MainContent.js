@@ -31,13 +31,15 @@ const MainContent = ({
   initialInstanceZUID,
   initialInstanceName,
   instances,
+  isInstancesLoading,
 }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
-  const [instanceAudit, setInstanceAudit] = useState([]);
-  const [instancesFavorites, setInstancesFavorites] = useState([]);
   const router = useRouter();
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
+  const [instanceAudit, setInstanceAudit] = useState([]);
+  const [isInstanceAuditLoading, setIsInstanceAuditLoading] = useState(false);
+  const [instancesFavorites, setInstancesFavorites] = useState([]);
 
   const toggleFavorites = async (zuid) => {
     const isExisting = instancesFavorites?.find((e) => e === zuid);
@@ -57,12 +59,15 @@ const MainContent = ({
   useEffect(() => {
     const getAudit = async () => {
       if (typeof ZestyAPI?.getInstanceAuditInitZUID === 'function') {
+        setIsInstanceAuditLoading(true);
         const response = await ZestyAPI.getInstanceAuditInitZUID(
           20,
           initialInstanceZUID,
         );
 
         if (!response?.error) setInstanceAudit(response?.data);
+
+        setIsInstanceAuditLoading(false);
       }
     };
 
@@ -82,86 +87,107 @@ const MainContent = ({
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} lg={9}>
-          <Grid container spacing={2}>
-            {instances?.slice(0, 3)?.map((instance, index) => (
-              <Grid key={index} item xs={12} md={4}>
-                <ZInstanceItem
-                  image={instance?.screenshotURL}
-                  title={instance?.name}
-                  zuidLink={`/instances/${instance.ZUID}`}
-                  previewLink={`https://${instance?.randomHashID}-dev${
-                    helpers?.isProd
-                      ? '.webengine.zesty.io'
-                      : '.preview.dev.zesty.io'
-                  }`}
-                  isFavorite={instancesFavorites?.find(
-                    (c) => c === instance.ZUID,
-                  )}
-                  toggleFavorites={() => toggleFavorites(instance.ZUID)}
-                />
-              </Grid>
-            ))}
+          <Grid container spacing={{ xs: 2, xl: 4 }}>
+            {isInstancesLoading
+              ? [...new Array(3)].map((i) => (
+                  <Grid key={i} item xs={12} md={4}>
+                    <ZInstanceItem isLoading={isInstancesLoading} />
+                  </Grid>
+                ))
+              : instances?.slice(0, 3)?.map((instance, index) => (
+                  <Grid key={index} item xs={12} md={4}>
+                    <ZInstanceItem
+                      isLoading={isInstancesLoading}
+                      image={instance?.screenshotURL}
+                      title={instance?.name}
+                      zuidLink={`/instances/${instance.ZUID}`}
+                      previewLink={`https://${instance?.randomHashID}-dev${
+                        helpers?.isProd
+                          ? '.webengine.zesty.io'
+                          : '.preview.dev.zesty.io'
+                      }`}
+                      isFavorite={instancesFavorites?.find(
+                        (c) => c === instance.ZUID,
+                      )}
+                      toggleFavorites={() => toggleFavorites(instance.ZUID)}
+                    />
+                  </Grid>
+                ))}
           </Grid>
 
           <Divider sx={{ my: 2 }} />
 
           <Timeline sx={{ p: 0 }}>
-            {instanceAudit?.map((audit, index) => (
-              <ZTimelineItem
-                sx={{
-                  '::before': {
-                    content: 'none',
-                  },
-                  mt: 1,
-                }}
-                key={index}
-                title={`${dayjs().diff(
-                  dayjs(audit?.updatedAt),
-                  'day',
-                )} days ago`}
-              >
-                <Stack
-                  sx={{ border: `1px solid ${grey[400]}`, p: 2 }}
-                  component={Paper}
-                  elevation={0}
-                  direction={{ xs: 'column', lg: 'row' }}
-                  justifyContent="space-between"
-                >
-                  <Stack>
-                    <Typography>{initialInstanceName}</Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ wordBreak: 'break-word' }}
-                    >
-                      {audit.meta.message}
-                    </Typography>
-                  </Stack>
-                  <Stack
-                    alignItems="center"
-                    direction="row"
-                    spacing={2}
-                    mt={{ xs: 1 }}
+            {isInstanceAuditLoading
+              ? [...new Array(5)].map((i) => (
+                  <ZTimelineItem
+                    sx={{
+                      '::before': {
+                        content: 'none',
+                      },
+                      mt: 1,
+                    }}
+                    key={i}
+                    isLoading={isInstanceAuditLoading}
+                  />
+                ))
+              : instanceAudit?.map((audit, index) => (
+                  <ZTimelineItem
+                    sx={{
+                      '::before': {
+                        content: 'none',
+                      },
+                      mt: 1,
+                    }}
+                    key={index}
+                    title={`${dayjs().diff(
+                      dayjs(audit?.updatedAt),
+                      'day',
+                    )} days ago`}
+                    isLoading={isInstanceAuditLoading}
                   >
-                    <Button
-                      href={audit.meta.url}
-                      size="small"
-                      variant="contained"
-                      color="secondary"
+                    <Stack
+                      sx={{ border: `1px solid ${grey[400]}`, p: 2 }}
+                      component={Paper}
+                      elevation={0}
+                      direction={{ xs: 'column', lg: 'row' }}
+                      justifyContent="space-between"
                     >
-                      Edit Item
-                    </Button>
-                    <Button
-                      href={audit.meta.url}
-                      size="small"
-                      variant="outlined"
-                      color="secondary"
-                    >
-                      Edit Content
-                    </Button>
-                  </Stack>
-                </Stack>
-              </ZTimelineItem>
-            ))}
+                      <Stack>
+                        <Typography>{initialInstanceName}</Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{ wordBreak: 'break-word' }}
+                        >
+                          {audit.meta.message}
+                        </Typography>
+                      </Stack>
+                      <Stack
+                        alignItems="center"
+                        direction="row"
+                        spacing={2}
+                        mt={{ xs: 1 }}
+                      >
+                        <Button
+                          href={audit.meta.url}
+                          size="small"
+                          variant="contained"
+                          color="secondary"
+                        >
+                          Edit Item
+                        </Button>
+                        <Button
+                          href={audit.meta.url}
+                          size="small"
+                          variant="outlined"
+                          color="secondary"
+                        >
+                          Edit Content
+                        </Button>
+                      </Stack>
+                    </Stack>
+                  </ZTimelineItem>
+                ))}
           </Timeline>
         </Grid>
 

@@ -10,6 +10,7 @@ const TOTAL_INSTANCES_LENGTH = 10;
 const Dashboard = () => {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [instances, setInstances] = useState([]);
+  const [isInstancesLoading, setIsInstanceLoading] = useState(false);
   const [filteredInstances, setFilteredInstances] = useState([]);
   const [teams, setTeams] = useState([]);
   const initialInstanceName =
@@ -34,6 +35,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getInstances = async () => {
+      setIsInstanceLoading(true);
       const res = await ZestyAPI.getInstances();
       setInstances(
         [...res?.data]?.sort(
@@ -41,6 +43,7 @@ const Dashboard = () => {
         ),
       );
       setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LENGTH));
+      setIsInstanceLoading(false);
     };
 
     getInstances();
@@ -84,6 +87,7 @@ const Dashboard = () => {
             initialInstanceName={initialInstanceName}
             initialInstanceZUID={initialInstanceZUID}
             instances={instances}
+            isInstancesLoading={isInstancesLoading}
           />
         </Grid>
       </Grid>

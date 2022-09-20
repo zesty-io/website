@@ -5,10 +5,10 @@ import {
   TimelineItem,
   TimelineSeparator,
 } from '@mui/lab';
-import { Typography } from '@mui/material';
+import { Skeleton, Typography } from '@mui/material';
 import React from 'react';
 
-const ZTimelineItem = ({ title, children, ...props }) => {
+const ZTimelineItem = ({ title, children, isLoading, ...props }) => {
   return (
     <TimelineItem {...props}>
       <TimelineSeparator>
@@ -25,10 +25,15 @@ const ZTimelineItem = ({ title, children, ...props }) => {
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>
-        <Typography variant="caption" color="text.secondary">
-          {title}
-        </Typography>
-        {children}
+        {isLoading ? (
+          <Skeleton width="100%" />
+        ) : (
+          <Typography variant="caption" color="text.secondary">
+            {title}
+          </Typography>
+        )}
+
+        {isLoading ? <Skeleton width="100%" height="200px" /> : children}
       </TimelineContent>
     </TimelineItem>
   );
