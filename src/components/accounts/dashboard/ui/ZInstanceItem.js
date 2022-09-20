@@ -3,7 +3,6 @@ import { grey } from '@mui/material/colors';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useRouter } from 'next/router';
 
 const ZInstanceItem = ({
   title,
@@ -12,9 +11,9 @@ const ZInstanceItem = ({
   isInvite,
   previewLink,
   zuidLink,
+  toggleFavorites,
   ...props
 }) => {
-  const router = useRouter();
   return (
     <Stack
       component={Paper}
@@ -30,7 +29,7 @@ const ZInstanceItem = ({
         <Typography variant="h6" noWrap>
           {title}
         </Typography>
-        <IconButton>
+        <IconButton onClick={toggleFavorites}>
           {isFavorite ? (
             <StarRoundedIcon color="secondary" fontSize="medium" />
           ) : (

@@ -35,7 +35,11 @@ const Dashboard = () => {
   useEffect(() => {
     const getInstances = async () => {
       const res = await ZestyAPI.getInstances();
-      setInstances([...res?.data]);
+      setInstances(
+        [...res?.data]?.sort(
+          (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
+        ),
+      );
       setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LENGTH));
     };
 

@@ -35,8 +35,24 @@ const MainContent = ({
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
   const [instanceAudit, setInstanceAudit] = useState([]);
+  const [instancesFavorites, setInstancesFavorites] = useState([]);
   const router = useRouter();
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
+
+  const toggleFavorites = async (zuid) => {
+    const isExisting = instancesFavorites?.find((e) => e === zuid);
+    const favorite_sites = [...instancesFavorites, zuid];
+    const filteredFavorite = instancesFavorites?.filter((e) => e !== zuid);
+    const prefs = JSON.parse(userInfo.prefs);
+    prefs.favorite_sites = !isExisting ? favorite_sites : filteredFavorite;
+    const body = {
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      prefs: JSON.stringify(prefs),
+    };
+    const res = await ZestyAPI.updateUser(userInfo.ZUID, body, '');
+    setInstancesFavorites(JSON.parse(res?.data?.prefs)?.favorite_sites);
+  };
 
   useEffect(() => {
     const getAudit = async () => {
@@ -50,8 +66,14 @@ const MainContent = ({
       }
     };
 
-    getAudit();
+    if (router.isReady) getAudit();
   }, [initialInstanceZUID, router.isReady]);
+
+  useEffect(() => {
+    if (userInfo && Object.keys(userInfo).length !== 0) {
+      setInstancesFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites);
+    }
+  }, [userInfo]);
 
   return (
     <>
@@ -72,12 +94,10 @@ const MainContent = ({
                       ? '.webengine.zesty.io'
                       : '.preview.dev.zesty.io'
                   }`}
-                  isFavorite={
-                    userInfo?.prefs !== undefined &&
-                    JSON.parse(userInfo?.prefs)?.favorite_sites?.find(
-                      (c) => c === instance.ZUID,
-                    )
-                  }
+                  isFavorite={instancesFavorites?.find(
+                    (c) => c === instance.ZUID,
+                  )}
+                  toggleFavorites={() => toggleFavorites(instance.ZUID)}
                 />
               </Grid>
             ))}
