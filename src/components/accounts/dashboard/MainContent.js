@@ -119,10 +119,20 @@ const MainContent = ({
                     spacing={2}
                     mt={{ xs: 1 }}
                   >
-                    <Button size="small" variant="contained" color="secondary">
+                    <Button
+                      href={audit.meta.url}
+                      size="small"
+                      variant="contained"
+                      color="secondary"
+                    >
                       Edit Item
                     </Button>
-                    <Button size="small" variant="outlined" color="secondary">
+                    <Button
+                      href={audit.meta.url}
+                      size="small"
+                      variant="outlined"
+                      color="secondary"
+                    >
                       Edit Content
                     </Button>
                   </Stack>
