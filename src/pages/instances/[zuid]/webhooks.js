@@ -128,7 +128,7 @@ export default function WebhooksPage() {
           SuccessMsg({
             html: `<Box><Box></Box>Status:${
               response.status
-            }</Box> </br> <Box>Response: ${JSON.stringify(
+            }</Box> </br> <Box> <b>Response</b>: ${JSON.stringify(
               response.data,
             )}</Box><Box>`,
           });
