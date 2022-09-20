@@ -42,6 +42,8 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
     'public, s-maxage=600, stale-while-revalidate=3600',
   );
 
+  res.setHeader('set-cookie', `PRODUCTION=${process.env.PRODUCTION}`);
+
   // attempt to get page data relative to zesty
   let data = await fetchPage(resolvedUrl);
 

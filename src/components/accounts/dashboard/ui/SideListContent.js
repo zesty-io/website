@@ -1,24 +1,35 @@
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
-const SideListContent = ({ label, children, topAction, bottomAction }) => {
+const SideListContent = ({
+  label,
+  children,
+  topAction,
+  bottomAction,
+  showDivider = true,
+  ...props
+}) => {
   const theme = useTheme();
   const isSM = useMediaQuery(theme.breakpoints.down('md'));
   return (
-    <Stack my={2}>
+    <Stack {...props}>
       <Typography fontWeight="bold" color="text.secondary" mb={2}>
         {label}
       </Typography>
       <Stack
         component={isSM ? Paper : ''}
-        sx={{ p: { xs: 1, md: 0 } }}
-        elevation={5}
+        sx={{
+          p: { xs: 1, md: 0 },
+          border: { xs: `1px solid ${grey[400]}`, md: 'none' },
+        }}
+        elevation={0}
       >
         {topAction}
         {children}
-        {bottomAction && isSM && <Divider sx={{ my: 2 }} />}
+        {bottomAction && isSM && showDivider && <Divider />}
         {bottomAction}
-        {!isSM && <Divider sx={{ my: 2 }} />}
+        {!isSM && showDivider && <Divider />}
       </Stack>
     </Stack>
   );

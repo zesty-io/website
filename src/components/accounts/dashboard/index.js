@@ -1,4 +1,5 @@
 import { Container, Grid } from '@mui/material';
+import { getCookie } from 'cookies-next';
 import React, { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import MainContent from './MainContent';
@@ -7,9 +8,21 @@ import SideContent from './SideContent';
 const TOTAL_INSTANCES_LENGTH = 10;
 
 const Dashboard = () => {
-  const { userInfo, ZestyAPI } = useZestyStore((state) => state);
+  const { ZestyAPI } = useZestyStore((state) => state);
   const [instances, setInstances] = useState([]);
   const [filteredInstances, setFilteredInstances] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const initialInstanceName =
+    instances?.find((i) => i.ZUID === getCookie('ZESTY_WORKING_INSTANCE'))
+      ?.name || instances?.[0]?.name;
+
+  const initialInstanceZUID =
+    getCookie('ZESTY_WORKING_INSTANCE') || instances?.[0]?.ZUID;
+
+  const getAllTeams = async () => {
+    const response = await ZestyAPI.getAllTeams();
+    setTeams(response?.data);
+  };
 
   const handleSearchInstances = (value) => {
     const filterInstances = [...instances]?.filter((instance) =>
@@ -27,6 +40,7 @@ const Dashboard = () => {
     };
 
     getInstances();
+    getAllTeams();
   }, []);
 
   return (
@@ -53,16 +67,20 @@ const Dashboard = () => {
           item
         >
           <SideContent
-            firstName={userInfo?.firstName}
             instances={filteredInstances}
             totalLength={TOTAL_INSTANCES_LENGTH}
             unfilteredTotalInstances={instances?.length}
             handleSearchInstances={handleSearchInstances}
+            teams={teams}
           />
         </Grid>
 
         <Grid xs={12} md={9} lg={10} item>
-          <MainContent />
+          <MainContent
+            initialInstanceName={initialInstanceName}
+            initialInstanceZUID={initialInstanceZUID}
+            instances={instances}
+          />
         </Grid>
       </Grid>
     </Container>
