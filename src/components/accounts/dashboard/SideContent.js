@@ -1,8 +1,8 @@
 import { Link, List, Stack, TextField } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import React from 'react';
-import MyListItem from './ui/MyListItem';
-import SideListContent from './ui/SideListContent';
+import ZMyListItem from './ui/ZMyListItem';
+import ZSideListContent from './ui/ZSideListContent';
 
 const SideContent = ({
   instances,
@@ -13,7 +13,7 @@ const SideContent = ({
 }) => {
   return (
     <Stack p={3} pl={1} spacing={2} pr={{ xs: 0, md: 3 }}>
-      <SideListContent
+      <ZSideListContent
         label="Your Instances"
         bottomAction={
           unfilteredTotalInstances > totalLength &&
@@ -44,7 +44,7 @@ const SideContent = ({
           {instances?.length === 0
             ? 'No Instances Found.'
             : instances?.map((instance, index) => (
-                <MyListItem
+                <ZMyListItem
                   key={index}
                   logo={instance.screenshotURL || FillerContent.image}
                   link={`/instances/${instance.ZUID}`}
@@ -52,12 +52,12 @@ const SideContent = ({
                 />
               ))}
         </List>
-      </SideListContent>
+      </ZSideListContent>
 
-      <SideListContent label="Your Teams" showDivider={false}>
+      <ZSideListContent label="Your Teams" showDivider={false}>
         <List disablePadding>
           {teams?.map((team, index) => (
-            <MyListItem
+            <ZMyListItem
               key={index}
               logo="https://avatars.githubusercontent.com/u/8280627?s=16&v=4"
               link="/teams"
@@ -65,7 +65,7 @@ const SideContent = ({
             />
           ))}
         </List>
-      </SideListContent>
+      </ZSideListContent>
     </Stack>
   );
 };

@@ -20,12 +20,13 @@ const ZInstanceItem = ({
   zuidLink,
   toggleFavorites,
   isLoading,
+  sx,
   ...props
 }) => {
   return (
     <Stack
       component={Paper}
-      style={{ border: `1px solid ${grey[400]}` }}
+      sx={{ border: `1px solid ${grey[400]}`, ...sx }}
       {...props}
     >
       <Stack

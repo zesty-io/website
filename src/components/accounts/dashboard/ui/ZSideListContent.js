@@ -2,7 +2,7 @@ import { Divider, Paper, Stack, Typography } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
-const SideListContent = ({
+const ZSideListContent = ({
   label,
   children,
   topAction,
@@ -35,4 +35,4 @@ const SideListContent = ({
   );
 };
 
-export default SideListContent;
+export default ZSideListContent;
