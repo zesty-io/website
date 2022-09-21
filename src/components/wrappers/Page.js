@@ -5,8 +5,9 @@ import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from 'theme';
 import AOS from 'aos';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { theme } from '@zesty-io/material';
+import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 function canUseDOM() {
   return !!(
@@ -57,12 +58,9 @@ export default function Page({ children }) {
   if (!canUseDOM()) {
     return null;
   }
-  const isLoggedIn = useIsLoggedIn();
 
-  const isMarketplace =
-    window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
-      ? true
-      : false;
+  const isLoggedIn = useIsLoggedIn();
+  const isAccounts = isProtectedRoute(window.location.pathname);
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -88,8 +86,9 @@ export default function Page({ children }) {
 
   return (
     <ThemeProvider
+      // only apply zesty/material in accounts paths
       theme={
-        isLoggedIn && !isMarketplace ? theme : getTheme(themeMode, themeToggler)
+        isAccounts && isLoggedIn ? theme : getTheme(themeMode, themeToggler)
       }
     >
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
