@@ -100,8 +100,8 @@ const AppNavigation = ({
             size="small"
           />
           <Button
-            color="primary"
-            size="small"
+            color={!isMarketplace ? 'primary' : 'secondary'}
+            size="medium"
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() =>
@@ -129,7 +129,7 @@ const AppNavigation = ({
           <Button
             href="https://accounts.zesty.io/"
             variant="outlined"
-            size="small"
+            size="medium"
             id="accounts-legacy"
             className="accounts-legacy-button"
             endIcon={<ExitToAppIcon />}
