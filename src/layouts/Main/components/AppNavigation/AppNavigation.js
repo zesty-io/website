@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SingleNavItem from '../Topbar/components/NavItem/SingleNavItem';
 import { ComboBox } from 'components/globals/ComboBox';
 import ThemeModeToggler from 'components/globals/ThemeModeToggler';
-import { DeveloperDocMenu, ProfileMenu } from 'components/accounts';
+import { accounts, DeveloperDocMenu, ProfileMenu } from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
@@ -15,6 +15,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { grey } from '@mui/material/colors';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
+import { NavItem } from '../Topbar/components';
 
 const navigationLinks = [
   {
@@ -80,14 +81,34 @@ const AppNavigation = ({
           width={41}
         />
       </Link>
+
+      <Stack
+        direction="row"
+        alignItems="center"
+        spacing={2}
+        ml={4}
+        display={{ xs: 'flex', lg: 'none' }}
+      >
+        <NavItem
+          title={'Accounts'}
+          id={'accounts'}
+          items={accounts.leftNav}
+          colorInvert={false}
+        />
+      </Stack>
       <Stack
         direction="row"
         width="100%"
         ml={4}
         display={{ xs: 'none', md: 'flex' }}
-        flexWrap="wrap"
       >
-        <Stack direction="row" alignItems="center" spacing={2}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={2}
+          display={{ xs: 'none', lg: 'flex' }}
+          mr={2}
+        >
           {navigationLinks.map((nav) => (
             <SingleNavItem
               key={nav.id}
@@ -110,6 +131,7 @@ const AppNavigation = ({
             size="medium"
             variant="contained"
             startIcon={<AddIcon />}
+            sx={{ whiteSpace: 'nowrap' }}
             onClick={() =>
               router.push('https://accounts.zesty.io/instances/create')
             }
@@ -145,6 +167,7 @@ const AppNavigation = ({
             sx={({ palette: { mode } }) => {
               const adjustedGrey = mode === 'light' ? grey[500] : grey[200];
               return {
+                whiteSpace: 'nowrap',
                 border: `1px solid ${adjustedGrey}`,
                 color: adjustedGrey,
                 '&.MuiButtonBase-root:hover': {
