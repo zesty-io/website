@@ -16,8 +16,18 @@ const getTheme = (mode, themeToggler) =>
         },
       },
       zIndex: {
-        appBar: 1200,
+        appBar: 1000,
         drawer: 1300,
+      },
+      breakpoints: {
+        values: {
+          xs: 0,
+          sm: 600,
+          md: 900,
+          lg: 1200,
+          xl: 1536,
+          xl2: 2500,
+        },
       },
       components: {
         MuiButton: {

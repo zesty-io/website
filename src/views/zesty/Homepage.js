@@ -9,14 +9,13 @@
  *
  * Model Fields:
  *
-  * title (text)
+ * title (text)
  * content (wysiwyg_advanced)
  * image (images)
  * customer_logo_heading (text)
  * main_headline (text)
  * main_description (wysiwyg_advanced)
  * og_image (images)
-
  *
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
  * images are objects {content.image_name.data[0].url}
@@ -53,6 +52,7 @@ import Bottom from 'components/marketing/Homepage/Bottom';
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
 import { useEffect } from 'react';
+import Dashboard from 'components/accounts/dashboard';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -79,25 +79,29 @@ function Homepage({ content }) {
   };
 
   useEffect(() => {
-    AOS.init({
+    window.AOS.init({
       disable: isMedium,
     });
   }, [isMedium]);
 
-  return (
-    <>
-      <Hero {...pageData} />
-      <SimpleCardLogo logoItems={content.homepage_logos.data} {...pageData} />
-      <DigitalExperience {...pageData} />
-      <NewBenefits {...pageData} />
-      <Migration {...pageData} />
-      <Growth {...pageData} />
-      <CaseStudies {...pageData} />
-      <Testimonials {...testimonialsData} />
-      <LogoSlider {...pageData} />
-      <Bottom {...pageData} />
-    </>
-  );
+  if (content?.zesty?.isAuthenticated) {
+    return <Dashboard />;
+  } else {
+    return (
+      <>
+        <Hero {...pageData} />
+        <SimpleCardLogo logoItems={content.homepage_logos.data} {...pageData} />
+        <DigitalExperience {...pageData} />
+        <NewBenefits {...pageData} />
+        <Migration {...pageData} />
+        <Growth {...pageData} />
+        <CaseStudies {...pageData} />
+        <Testimonials {...testimonialsData} />
+        <LogoSlider {...pageData} />
+        <Bottom {...pageData} />
+      </>
+    );
+  }
 }
 
 export default Homepage;

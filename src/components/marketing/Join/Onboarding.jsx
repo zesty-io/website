@@ -5,8 +5,13 @@ import {
   Divider,
   Container,
   Typography,
+  Grid,
   Stack,
+  List,
+  ListItemText,
+  ListItemIcon,
   Chip,
+  ListItemButton,
 } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -51,7 +56,7 @@ export default function Onboarding({ role }) {
               Start your Instance
             </Button>
             <Divider orientation="vertical" flexItem />
-            
+
             <Button
               color="secondary"
               variant="outlined"

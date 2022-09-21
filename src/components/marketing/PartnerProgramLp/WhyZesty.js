@@ -1,13 +1,9 @@
 import React from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 /**
  * MUI Imports
  */
-import { Box, Typography, Button, Grid, Container } from '@mui/material';
-import Divider from '@mui/material/Divider';
+import { Box, Typography, Grid, Container } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
-import { useTheme, alpha } from '@mui/material/styles';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 const WhyZesty = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (

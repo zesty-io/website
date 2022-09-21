@@ -1,16 +1,7 @@
 /**
  * MUI Imports
  */
-import {
-  Box,
-  CardMedia,
-  Typography,
-  Divider,
-  Card,
-  CardContent,
-  Grid,
-} from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import { Box, Typography, Grid } from '@mui/material';
 import Container from 'blocks/container/Container';
 import ReactPlayer from 'react-player';
 

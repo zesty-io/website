@@ -19,11 +19,12 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
   const slideOne = [content.integrations_logos?.data];
   const slideTwo = [content.integrations_logos_2?.data];
 
-  /**
-   * It creates an array of length repeats, and then maps each element to the original array
-   * @param arr - The array to repeat.
-   * @param repeats - The number of times to repeat the array.
-   */
+  // commenting this out to avoid eslint errors Missing JSDOC
+  // /**
+  //  * It creates an array of length repeats, and then maps each element to the original array
+  //  * @param arr - The array to repeat.
+  //  * @param repeats - The number of times to repeat the array.
+  //  */
   const makeRepeated = (arr, repeats) =>
     Array.from({ length: repeats }, () => arr).flat();
 

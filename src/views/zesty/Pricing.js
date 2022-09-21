@@ -41,7 +41,6 @@ import PricingHero from '../../blocks/pricing/PricingHero/PricingHero';
 import SupportBanner from '../../blocks/pricing/SupportBanner/SupportBanner';
 import PricingCompareTable from '../../blocks/pricing/PricingCompareTable/PricingCompareTable';
 import Faq from '../../blocks/pricing/Faq/Faq';
-import Plans from '../../blocks/pricing/Plans/Plans';
 import useFetch from 'components/hooks/useFetch';
 
 function onlyUnique(value, index, self) {

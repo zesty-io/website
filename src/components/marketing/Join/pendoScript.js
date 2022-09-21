@@ -1,8 +1,9 @@
-import Script from 'next/script'
+import Script from 'next/script';
 
-
-export const pendoScript = <Script dangerouslySetInnerHTML={{
-    __html: `
+export const pendoScript = (
+  <Script
+    dangerouslySetInnerHTML={{
+      __html: `
     (function (apiKey) {
     (function (p, e, n, d, o) {
         var v, w, x, y, z;
@@ -28,5 +29,7 @@ export const pendoScript = <Script dangerouslySetInnerHTML={{
         z = e.getElementsByTagName(n)[0];
         z.parentNode.insertBefore(y, z);
     })(window, document, "script", "pendo");
-    })("3d21bb27-f37f-472d-5508-da646c7f5fe6");`
-}} />
+    })("3d21bb27-f37f-472d-5508-da646c7f5fe6");`,
+    }}
+  />
+);

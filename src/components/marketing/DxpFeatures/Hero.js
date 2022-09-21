@@ -5,7 +5,6 @@
 import { Box, Typography, Grid, Container } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import DemoCta from 'components/cta/DemoCta';
-import MuiMarkdown from 'mui-markdown';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {

@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 /**

@@ -1,19 +1,18 @@
+/* eslint-disable no-undef */
 // run script: node lib/sync.js
 // reach out to zesty's url map
 // create file structure that maps over the zesty instance
 // in each file, create the script to load props into the file
 const rl = require('readline').createInterface({
   input: process.stdin,
-  output: process.stdout
-})
+  output: process.stdout,
+});
 
 async function ask(question) {
   return new Promise((resolve, reject) => {
-      rl.question(question, (input) => resolve(input) );
+    rl.question(question, (input) => resolve(input));
   });
 }
-
-
 
 // pseudo code
 
@@ -50,10 +49,17 @@ const writeFileAsync = promisify(fs.writeFile);
 const accessAsync = (s) =>
   new Promise((r) => fs.access(s, fs.F_OK, (e) => r(!e)));
 //console output shorthands
-const successMark = `      ${chalk.gray.bold('[')}${chalk.green.bold('V')}${chalk.gray.bold(']')}`;
-const failMark = `      ${chalk.gray.bold('[')}${chalk.red.bold('X')}${chalk.gray.bold(']')}`;
-const warningMark = `      ${chalk.gray.bold('[')}${chalk.yellow.bold('O')}${chalk.gray.bold(']')}`;
-const stageMark = (num) => `   ${chalk.gray.bold('[')}${chalk.white.bold(num)}${chalk.gray.bold(']')}`;
+const successMark = `      ${chalk.gray.bold('[')}${chalk.green.bold(
+  'V',
+)}${chalk.gray.bold(']')}`;
+const failMark = `      ${chalk.gray.bold('[')}${chalk.red.bold(
+  'X',
+)}${chalk.gray.bold(']')}`;
+const warningMark = `      ${chalk.gray.bold('[')}${chalk.yellow.bold(
+  'O',
+)}${chalk.gray.bold(']')}`;
+const stageMark = (num) =>
+  `   ${chalk.gray.bold('[')}${chalk.white.bold(num)}${chalk.gray.bold(']')}`;
 
 // 0a
 // these env var values can be extracted from an initial login, but for now we will
@@ -106,26 +112,36 @@ module.exports = {
     };
   }
   let missingValues = false;
-  // enter 
-  if(nextJSConfig.env.zesty.instance_zuid == ''){
-    nextJSConfig.env.zesty.instance_zuid = await ask('Enter the Content Instance ZUID: ')
+  // enter
+  if (nextJSConfig.env.zesty.instance_zuid == '') {
+    nextJSConfig.env.zesty.instance_zuid = await ask(
+      'Enter the Content Instance ZUID: ',
+    );
 
     missingValues = true;
   }
-  if(nextJSConfig.env.zesty.stage == ''){
-    nextJSConfig.env.zesty.stage = await ask('Enter Stage Domain e.g. (https://xyz-dev.webengine.zesty.io): ')
+  if (nextJSConfig.env.zesty.stage == '') {
+    nextJSConfig.env.zesty.stage = await ask(
+      'Enter Stage Domain e.g. (https://xyz-dev.webengine.zesty.io): ',
+    );
     missingValues = true;
   }
-  if(nextJSConfig.env.zesty.production == ''){
-    nextJSConfig.env.zesty.production = await ask('Enter Production Domain  e.g. (https://www.acme.com): ')
+  if (nextJSConfig.env.zesty.production == '') {
+    nextJSConfig.env.zesty.production = await ask(
+      'Enter Production Domain  e.g. (https://www.acme.com): ',
+    );
     missingValues = true;
   }
-  if(nextJSConfig.env.zesty.stage_password == ''){
-    nextJSConfig.env.zesty.stage_password = await ask('Enter Stage Password (hit enter for none): ')
+  if (nextJSConfig.env.zesty.stage_password == '') {
+    nextJSConfig.env.zesty.stage_password = await ask(
+      'Enter Stage Password (hit enter for none): ',
+    );
     missingValues = true;
   }
-  if(nextJSConfig.env.zesty.src_dir == ''){
-    nextJSConfig.env.zesty.src_dir = await ask('Enter source directory (hit enter if root): ')
+  if (nextJSConfig.env.zesty.src_dir == '') {
+    nextJSConfig.env.zesty.src_dir = await ask(
+      'Enter source directory (hit enter if root): ',
+    );
     missingValues = true;
   }
 
@@ -143,7 +159,11 @@ async function checkVariables(config) {
   // verify https is or isnt there
 
   // output the working directory
-  console.log(`${successMark} Working Project Directory: ${chalk.blue.bold(process.cwd())}`);
+  console.log(
+    `${successMark} Working Project Directory: ${chalk.blue.bold(
+      process.cwd(),
+    )}`,
+  );
   const workingDir = process.cwd();
   const srcDir = workingDir + config.src_dir;
   let success = true;
@@ -151,7 +171,9 @@ async function checkVariables(config) {
   // verify the src_dir exists and is a folder
   success = await accessAsync(srcDir);
   if (success) {
-    console.log(`${successMark} Source directory found: ${chalk.blue.bold(srcDir)}`);
+    console.log(
+      `${successMark} Source directory found: ${chalk.blue.bold(srcDir)}`,
+    );
   } else {
     console.log(`${failMark} src_dir does not exist: ${srcDir}`);
     success = false;
@@ -160,9 +182,15 @@ async function checkVariables(config) {
   // check the domain variables
   success = await accessAsync(srcDir + '/components/');
   if (success) {
-    console.log( `${successMark} Components directory found: ${chalk.blue.bold(`${srcDir}/components`)}`);
+    console.log(
+      `${successMark} Components directory found: ${chalk.blue.bold(
+        `${srcDir}/components`,
+      )}`,
+    );
   } else {
-    console.log(`${failMark} ${srcDir}/components/ directory missing, did you setup NextJS correct?`);
+    console.log(
+      `${failMark} ${srcDir}/components/ directory missing, did you setup NextJS correct?`,
+    );
     success = false;
   }
 
@@ -241,8 +269,14 @@ async function checkNetworkConnectionsAndModes(config) {
   );
   try {
     var res = await fetch(stage200URL);
-  } catch(e) {
-    console.log(chalk.red.bold('Error with the stage domain: ' + chalk.yellow.bold(config.stage) + ' please fix this value in next.config.js'))
+  } catch (e) {
+    console.log(
+      chalk.red.bold(
+        'Error with the stage domain: ' +
+          chalk.yellow.bold(config.stage) +
+          ' please fix this value in next.config.js',
+      ),
+    );
     exit();
   }
   if (res.status == 200) {
@@ -271,11 +305,17 @@ async function checkNetworkConnectionsAndModes(config) {
   let prod200URL = config.production;
   try {
     res = await fetch(prod200URL);
-  } catch(e) {
-    console.log(chalk.red.bold('Error with the production domain: ' + chalk.yellow.bold(config.production) + ' please fix this value in next.config.js'))
+  } catch (e) {
+    console.log(
+      chalk.red.bold(
+        'Error with the production domain: ' +
+          chalk.yellow.bold(config.production) +
+          ' please fix this value in next.config.js',
+      ),
+    );
     exit();
   }
-  
+
   if (res.status == 200) {
     console.log(`${successMark} Production URL accessible`);
   } else {
@@ -343,22 +383,34 @@ async function createFiles(config) {
 
     let exists = await accessAsync(filePath);
     if (exists) {
-      console.log(`   ${warningMark} Skipping ${chalk.yellow.bold(model.label)} already exists ${chalk.gray.bold(`views/zesty/${model.gqlModelName}.js`)}`);
+      console.log(
+        `   ${warningMark} Skipping ${chalk.yellow.bold(
+          model.label,
+        )} already exists ${chalk.gray.bold(
+          `views/zesty/${model.gqlModelName}.js`,
+        )}`,
+      );
     } else {
-      console.log(`   ${successMark} Creating ${chalk.blue.bold(model.label)} to ${chalk.gray.bold(`views/zesty/${model.gqlModelName}.js`)}`,
+      console.log(
+        `   ${successMark} Creating ${chalk.blue.bold(
+          model.label,
+        )} to ${chalk.gray.bold(`views/zesty/${model.gqlModelName}.js`)}`,
       );
       await createComponent(filePath, model, config.instance_zuid);
     }
 
     // build index.js strings
-    importString = importString + `import ${model.component_name} from './${model.component_name}';\n`;
+    importString =
+      importString +
+      `import ${model.component_name} from './${model.component_name}';\n`;
     exportString = exportString + `\n    ${model.component_name},`;
   }
 
   // add header and footer to import/export index.js string (this always happens even when files are not created)
-  importString = importString + `import Header from './Header';\nimport Footer from './Footer';\n`;
+  importString =
+    importString +
+    `import Header from './Header';\nimport Footer from './Footer';\n`;
   exportString = exportString + `\n    Footer,\n    Header,`;
-  
 
   // remove last command and end the export of the index.js file
   exportString = exportString.slice(0, -1) + `\n}`;
@@ -381,11 +433,13 @@ async function createFiles(config) {
 // Run Function connects all functions and outputs console logs
 
 async function run() {
-
-
   // terminal output of start
   console.log(`${chalk.gray.bold(' ')}`);
-  console.log(`   ${chalk.gray.bold('-----------------------------------------------------------------------------')}`);
+  console.log(
+    `   ${chalk.gray.bold(
+      '-----------------------------------------------------------------------------',
+    )}`,
+  );
   console.log(
     `                          ${chalk
       .hex('#FF5D0A')
@@ -400,11 +454,9 @@ async function run() {
   );
   console.log(`${chalk.gray.bold(' ')}`);
 
-
   // load config
   const config = await accessNextConfig();
   if (config == false) exit();
-  
 
   // Step 1 config check
   console.log(stageMark(1) + ' Config Check');
@@ -431,15 +483,15 @@ async function run() {
   console.log(stageMark(3) + ' File Creation');
   const createFileSuccess = await createFiles(config);
   if (!createFileSuccess) {
-    finalErrorOutput('File creation failed. Check your working directory is correct, and that the script has file write access.',
+    finalErrorOutput(
+      'File creation failed. Check your working directory is correct, and that the script has file write access.',
     );
     exit();
   }
 
   // complete exit from script
-  rl.close()
+  rl.close();
 }
-
 
 // run the script
 
@@ -452,9 +504,17 @@ function formURLWithPassword(domain, path, password = '') {
 }
 
 function finalErrorOutput(message) {
-  console.log(`   ${chalk.red.bold('-----------------------------------------------------------------------------')}`);
+  console.log(
+    `   ${chalk.red.bold(
+      '-----------------------------------------------------------------------------',
+    )}`,
+  );
   console.log(`    ${chalk.red.bold(message)} `);
-  console.log(`   ${chalk.red.bold('-----------------------------------------------------------------------------')}`);
+  console.log(
+    `   ${chalk.red.bold(
+      '-----------------------------------------------------------------------------',
+    )}`,
+  );
 }
 
 async function createComponent(path, model, instanceZUID = '') {
@@ -488,9 +548,7 @@ async function createComponent(path, model, instanceZUID = '') {
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-
 import React  from 'react';
-
 function ${model.component_name}({content}) {
     return (
         <>
@@ -516,7 +574,6 @@ export default ${model.component_name};
     exit();
   }
 }
-
 
 // 5a
 // create Footer and Header in zesty models, rename zesty-models to Zesty, update slug, make content props on the model

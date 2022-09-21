@@ -28,13 +28,11 @@ import React from 'react';
 // mui
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import Divider from '@mui/material/Divider';
 // container component
 import Container from 'components/Container';
 // blocks
 import { SimpleHeroWithCta } from 'blocks/heroes';
 import { VerticalMinimalDesignedBlogCardsNoFooter } from 'blocks/blog';
-import { ContactUs } from 'blocks/formLayouts';
 // Filler content
 import FillerContent from 'components/globals/FillerContent';
 
