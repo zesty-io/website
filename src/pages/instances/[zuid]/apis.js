@@ -86,6 +86,7 @@ export default function ApisPage() {
         e.key === 'gql_cors' ||
         e.key === 'basic_content_api_cors_allow_any_origin' ||
         e.key === 'gql' ||
+        e.key === 'basic_content_api_enabled' ||
         e.key === 'ajax_cors_allow_any_origin'
       );
     });
