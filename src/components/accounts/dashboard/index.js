@@ -1,10 +1,9 @@
-import { Container, Grid, ThemeProvider } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { getCookie } from 'cookies-next';
 import React, { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import MainContent from './MainContent';
 import SideContent from './SideContent';
-import { theme } from '@zesty-io/material';
 
 const TOTAL_INSTANCES_LENGTH = 10;
 
@@ -52,49 +51,47 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container
-        maxWidth={false}
-        disableGutters
-        sx={(theme) => ({
-          maxWidth: theme.breakpoints.values.xl2,
-          px: 3,
-        })}
-      >
-        <Grid container spacing={2}>
-          <Grid
-            sx={{
-              height: { md: `calc(100vh - 66px)` },
-              position: { md: 'sticky' },
-              top: { md: '66px' },
-              overflowY: { md: 'auto' },
-              maxWidth: { md: '384px' },
-            }}
-            md={3}
-            lg={2}
-            xs={12}
-            item
-          >
-            <SideContent
-              instances={filteredInstances}
-              totalLength={TOTAL_INSTANCES_LENGTH}
-              unfilteredTotalInstances={instances?.length}
-              handleSearchInstances={handleSearchInstances}
-              teams={teams}
-            />
-          </Grid>
-
-          <Grid xs={12} md={9} lg={10} item>
-            <MainContent
-              initialInstanceName={initialInstanceName}
-              initialInstanceZUID={initialInstanceZUID}
-              instances={instances}
-              isInstancesLoading={isInstancesLoading}
-            />
-          </Grid>
+    <Container
+      maxWidth={false}
+      disableGutters
+      sx={(theme) => ({
+        maxWidth: theme.breakpoints.values.xl2,
+        px: 3,
+      })}
+    >
+      <Grid container spacing={2}>
+        <Grid
+          sx={{
+            height: { md: `calc(100vh - 66px)` },
+            position: { md: 'sticky' },
+            top: { md: '66px' },
+            overflowY: { md: 'auto' },
+            maxWidth: { md: '384px' },
+          }}
+          md={3}
+          lg={2}
+          xs={12}
+          item
+        >
+          <SideContent
+            instances={filteredInstances}
+            totalLength={TOTAL_INSTANCES_LENGTH}
+            unfilteredTotalInstances={instances?.length}
+            handleSearchInstances={handleSearchInstances}
+            teams={teams}
+          />
         </Grid>
-      </Container>
-    </ThemeProvider>
+
+        <Grid xs={12} md={9} lg={10} item>
+          <MainContent
+            initialInstanceName={initialInstanceName}
+            initialInstanceZUID={initialInstanceZUID}
+            instances={instances}
+            isInstancesLoading={isInstancesLoading}
+          />
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
