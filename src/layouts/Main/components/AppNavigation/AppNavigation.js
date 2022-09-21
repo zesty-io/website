@@ -13,6 +13,8 @@ import { Button, Link, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { grey } from '@mui/material/colors';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 
 const navigationLinks = [
   {
@@ -65,6 +67,10 @@ const AppNavigation = ({
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
 
+  const isLoggedIn = useIsLoggedIn();
+
+  const isAccounts = isProtectedRoute(window.location.pathname);
+
   return (
     <Stack direction="row">
       <Link href="/">
@@ -100,7 +106,7 @@ const AppNavigation = ({
             size="small"
           />
           <Button
-            color={!isMarketplace ? 'primary' : 'secondary'}
+            color={!isAccounts && isLoggedIn ? 'secondary' : 'primary'}
             size="medium"
             variant="contained"
             startIcon={<AddIcon />}
@@ -122,7 +128,10 @@ const AppNavigation = ({
                   width={25}
                   style={{ borderRadius: '50%' }}
                 />
-                <ArrowDropDownIcon color="primary" fontSize="medium" />
+                <ArrowDropDownIcon
+                  color={!isAccounts && isLoggedIn ? 'secondary' : 'primary'}
+                  fontSize="medium"
+                />
               </Stack>
             }
           />
