@@ -4,12 +4,12 @@ import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
+  Card,
   Grid,
   Typography,
   useMediaQuery,
   Container,
 } from '@mui/material';
-import FillerContent from 'components/globals/FillerContent';
 
 const Hero = ({
   title,

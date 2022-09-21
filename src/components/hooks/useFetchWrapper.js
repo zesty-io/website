@@ -1,19 +1,24 @@
 import React from 'react';
-import { useZestyStore } from 'store';
+import { fetchWrapperOptions } from 'utils';
 
 const getStatus = (status) => {
   if (status / 100 === 2) return true;
   return false;
 };
-export const useFetchWrapper = () => {
+export const useFetchWrapper = (userAppSID, instanceZUID) => {
   const [verifySuccess, setverifySuccess] = React.useState('');
   const [verifyFailed, setverifyFailed] = React.useState('');
-  const [instances, setInstances] = React.useState([]);
-  // const [models, setmodels] = React.useState('');
-  // const [views, setviews] = React.useState('');
+  const [instances, setinstances] = React.useState([]);
+  const [models, setmodels] = React.useState('');
+  const [views, setviews] = React.useState('');
   const [userInfo, setuserInfo] = React.useState('');
   const [loading, setloading] = React.useState(false);
-  const { ZestyAPI } = useZestyStore((state) => state);
+
+  const ZestyAPI = new Zesty.FetchWrapper(
+    instanceZUID,
+    userAppSID,
+    fetchWrapperOptions(),
+  );
 
   const verifyUser = async () => {
     setloading(true);
@@ -26,20 +31,20 @@ export const useFetchWrapper = () => {
   const getInstances = async () => {
     setloading(true);
     const res = await ZestyAPI.getInstances();
-    !res.error && setInstances(res);
+    !res.error && setinstances(res);
     res.error && console.log(res, 'instance failed');
     setloading(false);
   };
-  // const getModels = async () => {
-  //   const res = await ZestyAPI.getModels();
-  //   !res.error && setmodels(res);
-  //   res.error && console.log(res, 'models failed');
-  // };
-  // const getViews = async () => {
-  //   const res = await ZestyAPI.getViews();
-  //   !res.error && setviews(res);
-  //   res.error && console.log(res, 'views failed');
-  // };
+  const getModels = async () => {
+    const res = await ZestyAPI.getModels();
+    !res.error && setmodels(res);
+    res.error && console.log(res, 'models failed');
+  };
+  const getViews = async () => {
+    const res = await ZestyAPI.getViews();
+    !res.error && setviews(res);
+    res.error && console.log(res, 'views failed');
+  };
 
   const getUserInfo = async () => {
     setloading(true);
@@ -63,9 +68,9 @@ export const useFetchWrapper = () => {
     loading,
     verifyFailed,
     verifySuccess,
-    // models,
+    models,
     instances,
-    // views,
+    views,
     userInfo,
   };
 };

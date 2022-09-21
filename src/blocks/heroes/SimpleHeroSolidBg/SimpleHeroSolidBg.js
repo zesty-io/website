@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
 
-const Hero = ({ title, subtitle, description }) => {
+const Hero = ({title, subtitle, description}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -19,7 +19,7 @@ const Hero = ({ title, subtitle, description }) => {
       sx={{
         backgroundColor: theme.palette.primary.main,
         backgroundSize: 'cover',
-        maxWidth: '100%',
+        maxWidth: '100%'
       }}
     >
       <Box position={'relative'} zIndex={2}>

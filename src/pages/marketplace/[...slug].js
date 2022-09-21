@@ -13,6 +13,7 @@ import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
 import { setCookies } from 'cookies-next';
 import { useTheme } from '@emotion/react';
+import { TitleBar } from 'components/marketplace/TitleBar';
 import MainApps from 'components/marketplace/landing/MainApps';
 
 const ALTNAME = {

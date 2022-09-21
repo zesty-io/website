@@ -1,9 +1,9 @@
 name: Zesty Website CI Dev
 on:
   push:
-    branches: [stage,accounts,production]
+    branches: [main]
   pull_request:
-    branches: [stage,accounts,feat/profile]
+    branches: [main]
   workflow_dispatch:
 jobs:
   build:
@@ -16,9 +16,7 @@ jobs:
         with:
           node-version: '16.x'
       - name: Install NPM dependencies build test
-        run: npm ci
-      - name: Check format and linters
-        run: npm run test-all
+        run: npm  install
       - name: Run build
         run: npm run build
       - name: Run test

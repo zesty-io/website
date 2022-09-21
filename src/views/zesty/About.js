@@ -29,7 +29,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Container from 'components/Container';
@@ -40,6 +40,7 @@ import { Gallery } from 'blocks/graphics';
 import { Numbers } from 'blocks/stats';
 import { Story } from 'blocks/contentBlocks';
 import { TeamWithSmallSquarePhotos } from 'blocks/team';
+import { LogoGridSimpleCentered, Partners } from 'blocks/logoGrid';
 // filler content
 import FillerContent from 'components/globals/FillerContent';
 

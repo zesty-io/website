@@ -1,31 +1,47 @@
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography'
 import Link from '@mui/material/Link';
-import { useRouter } from 'next/router';
 
-const SingleNavItem = ({ title, url, colorInvert = false }) => {
-  const { asPath } = useRouter();
-  const hasActiveLink = url === '/' ? asPath === url : asPath.startsWith(url);
+const SingleNavItem = ({ title, id, url, colorInvert = false }) => {
+  const theme = useTheme();
+  const [activeLink, setActiveLink] = useState('');
+  useEffect(() => {
+    setActiveLink(window && window.location ? window.location.pathname : '');
+  }, []);
+
+  const hasActiveLink = activeLink === url;
+
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
   return (
-    <Link
-      fontWeight={hasActiveLink ? 700 : 400}
-      color={linkColor}
-      href={url}
-      underline="none"
-      sx={{
-        ':hover': {
-          fontWeight: '700',
-        },
-      }}
-    >
-      {title}
-    </Link>
+    <Box>
+      <Box
+        display={'flex'}
+        alignItems={'center'}
+        aria-describedby={id}
+        sx={{ cursor: 'pointer' }}
+       
+      >
+        <Link
+          fontWeight={hasActiveLink ? 700 : 400}
+          color={linkColor}
+          href={url}
+          underline='none'
+        >
+          {title}
+        </Link>
+       
+      </Box>
+    </Box>
   );
 };
 
 SingleNavItem.propTypes = {
   title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   colorInvert: PropTypes.bool,
 };

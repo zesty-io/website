@@ -28,11 +28,14 @@
 import React from 'react';
 import WithAlternateCards from '../../blocks/team/WithAlternateCards';
 
+
+
 const fetchCardsData = async (uri, setFunc) => {
   const res = await fetch(uri).then((response) => response.json());
   res && (await setFunc(res));
 };
 function MindshareAuthor({ content }) {
+  
   let zestyURL = content.zestyProductionMode
     ? process.env.zesty.production
     : process.env.zesty.stage;

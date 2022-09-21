@@ -30,6 +30,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+
 import { HeroWithLogoGridAndDesktopScreenshot } from 'blocks/heroes';
 import { CtaWithIllustration } from 'blocks/cta';
 import { LogoGridSimpleCentered } from 'blocks/logoGrid';

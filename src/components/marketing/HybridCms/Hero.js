@@ -10,7 +10,6 @@ import { Box, Button, Container, Typography } from '@mui/material';
  * */
 import TryFreeButton from 'components/cta/TryFreeButton';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import FillerContent from 'components/globals/FillerContent';
 
 const Hero = ({
   eyebrow = FillerContent.header,

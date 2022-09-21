@@ -55,11 +55,7 @@ import useFetch from 'components/hooks/useFetch';
 
 function Mindshare({ content }) {
   const theme = useTheme();
-  const {
-    data: allArticles,
-    isPending,
-    error,
-  } = useFetch(
+  const { data: allArticles, isPending, error } = useFetch(
     '/-/all-articles-hydrated.json?limit=140',
     content.zestyProductionMode,
   );

@@ -100,7 +100,6 @@ export const transformSearch = (arr) => {
             const name = q.children[0].content;
             const href = u.children[0].attributes[0].value;
             const name1 = q;
-            console.log(name1);
             if (q.tagName === 'a') {
               return { name, href };
             }
@@ -118,7 +117,9 @@ export const transformSearch = (arr) => {
   return result;
 };
 export const test = (arr) => {
+  let numbers = [1, 2, 3];
   let sum = arr.reduce((previousValue, currentValue) => {
+    // console.log(previousValue, currentValue, 4444);
     return { ...previousValue, test: currentValue.children };
   }, []);
   return sum;
@@ -132,7 +133,7 @@ export const strColorChanger = (str, word, color) => {
   return res;
 };
 
-export const isProd =
+const isProd =
   getCookie('PRODUCTION') === false || getCookie('PRODUCTION') === 'false'
     ? false
     : true;
@@ -164,115 +165,4 @@ export const getUserAppSID = () => {
   } else {
     return prod;
   }
-};
-
-export function canUseDOM() {
-  return !!(
-    typeof window !== 'undefined' &&
-    window.document &&
-    window.document.createElement
-  );
-}
-export const generateUniqDropdown = ({ data, property = 'category' }) => {
-  const dropdownList = data
-    .map((e) => {
-      return { value: e[property], label: e[property] };
-    })
-    .filter(
-      (value, index, self) =>
-        index ===
-        self.findIndex(
-          (t) => t.value === value.value && t.label === value.label,
-        ),
-    );
-  const res = [{ value: '', label: 'All Categories' }, ...dropdownList];
-  return res;
-};
-
-export const removeDupsInArrObj = (arr, property) =>
-  Object.values(
-    arr.reduce((acum, item) => {
-      acum[item[property]] = item;
-      return acum;
-    }, {}),
-  );
-
-export const isInstanceOwner = (userWithRoles, userInfo) => {
-  const currentRole = userWithRoles?.find((e) => e.ZUID === userInfo?.ZUID)
-    ?.role?.name;
-  const isStaff = userInfo?.staff;
-
-  if (currentRole === 'Owner' || currentRole === 'Admin' || isStaff) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-export const isJsonString = (str) => {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
-
-export const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    );
-};
-
-export const notistackMessage = async (
-  enqueueSnackbar,
-  successProps,
-  response,
-  options = {
-    hideSuccessMessage: false,
-  },
-) => {
-  if (
-    (response?.status >= 200 && response?.status <= 299) ||
-    (response?.code >= 200 && response?.code <= 299)
-  ) {
-    if (successProps.callback !== undefined) await successProps?.callback();
-
-    if (!options?.hideSuccessMessage) {
-      enqueueSnackbar(successProps?.message, {
-        variant: 'success',
-      });
-    }
-  } else {
-    enqueueSnackbar(response?.message || response?.error, {
-      variant: 'error',
-    });
-  }
-};
-
-export const parseCookie = (str) =>
-  str
-    .split(';')
-    .map((v) => v.split('='))
-    .reduce((acc, v) => {
-      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-      return acc;
-    }, {});
-
-export const getIsAuthenticated = (res) => {
-  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
-  let isAuthenticated = JSON.parse(
-    parseCookie(getHeaderCookie)?.isAuthenticated || false,
-  );
-
-  return isAuthenticated;
-};
-
-export const OPTIONS = (options, separator) => {
-  const res = options?.split(separator).map((e) => {
-    return { value: e, label: e };
-  });
-  return res;
 };

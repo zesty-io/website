@@ -6,7 +6,6 @@ import { githubFetch } from 'lib/githubFetch';
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
 import { useTheme } from '@emotion/react';
-import { getIsAuthenticated } from 'utils';
 
 export default function Slug(props) {
   const theme = useTheme();
@@ -20,11 +19,12 @@ export default function Slug(props) {
 
   return (
     <>
+      
       <Main
-        model={props?.meta?.model_alternate_name}
-        nav={props?.navigationTree}
-        customRouting={props?.navigationCustom}
-        url={props?.meta?.web?.uri}
+        model={props.meta.model_alternate_name}
+        nav={props.navigationTree}
+        customRouting={props.navigationCustom}
+        url={props.meta.web.uri}
         bgcolor={bgcolor}
       >
         <ZestyView content={props} />
@@ -34,21 +34,18 @@ export default function Slug(props) {
 }
 
 // This gets called on every request
-export async function getServerSideProps({ req, res, resolvedUrl }) {
-  const isAuthenticated = getIsAuthenticated(res);
+export async function getServerSideProps({ req, res }) {
   // does not display with npm run dev
-  res.setHeader('Cache-Control', 'public, maxage=60, must-revalidate');
-  res.setHeader('Surrogate-Control', 'max-age=60');
+  res.setHeader(
+    'Cache-Control',
+    'public, maxage=60, must-revalidate'
+  );
+  res.setHeader(
+    'Surrogate-Control' , 'max-age=60'
+  )
 
   // attempt to get page data relative to zesty
-  let data = await fetchPage(resolvedUrl);
-
-  data = {
-    ...data,
-    zesty: {
-      isAuthenticated,
-    },
-  };
+  const data = await fetchPage(req.url);
 
   // This section holds data settings for fetching Github Data
   if (req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
@@ -63,15 +60,6 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
 
   // generate a status 404 page
   if (data.error) return { notFound: true };
-
-  if (req.url === '/login/' && isAuthenticated) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
 
   // Pass data to the page via props
   return { props: data };

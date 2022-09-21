@@ -9,7 +9,7 @@ import CreditCardsIllustration from 'svg/illustrations/CreditCards';
 
 import Container from 'components/Container';
 
-const CtaWithIllustration = ({ title, description, cta, ctaHref, image }) => {
+const CtaWithIllustration = ({title, description, cta, ctaHref, image}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,

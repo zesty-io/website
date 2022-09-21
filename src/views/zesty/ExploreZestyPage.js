@@ -31,13 +31,17 @@ import {
   Box,
   Button,
   Card,
+  CardActions,
   CardContent,
+  CardMedia,
   Container,
   Grid,
   Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { WithSwiperAndBrandBackgroundColor } from 'blocks/logoGrid';
+import { ReviewsWithSimpleBoxes } from 'blocks/testimonials';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import FillerContent from 'components/globals/FillerContent';
@@ -604,8 +608,10 @@ const ContactUs = ({ title, description, content, formContent }) => {
   );
 };
 
-function ExploreZesty({ content }) {
-  console.log('explore content', content);
+
+
+function ExploreZesty({content}) {
+  console.log('explore content', content)
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -713,19 +719,22 @@ export default ExploreZesty;
 
 const case_study_cards = [
   {
-    img: 'https://hkrhwx6h.media.zestyio.com/content-management.f1cb27a519bdb5b6ed34049a5b86e317.png',
+    img:
+      'https://hkrhwx6h.media.zestyio.com/content-management.f1cb27a519bdb5b6ed34049a5b86e317.png',
     title: 'Content Management',
     description:
       'Through one central hub, you can control content for all of your brands, websites and channels—and you don’t need to be a tech whiz to do it.',
   },
   {
-    img: 'https://hkrhwx6h.media.zestyio.com/asset-management.f1cb27a519bdb5b6ed34049a5b86e317.png',
+    img:
+      'https://hkrhwx6h.media.zestyio.com/asset-management.f1cb27a519bdb5b6ed34049a5b86e317.png',
     title: 'Digital Asset Management',
     description:
       'Have your entire media library stored through our Micro DAM, where files can be easily accessed wherever and whenever you need.',
   },
   {
-    img: 'https://hkrhwx6h.media.zestyio.com/rendering.f1cb27a519bdb5b6ed34049a5b86e317.png',
+    img:
+      'https://hkrhwx6h.media.zestyio.com/rendering.f1cb27a519bdb5b6ed34049a5b86e317.png',
     title: 'WebEngine Server-Side Rendering',
     description:
       'WebEngine guides your digital experience from database to deployment without third-party hosting hassles, plus the speeds we deliver are next-gen fast.',

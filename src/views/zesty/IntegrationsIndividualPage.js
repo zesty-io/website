@@ -57,6 +57,7 @@ import ResourcesCards from 'components/marketing/IntegrationsIndividualPage/Reso
 import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
 import Bottom from 'components/marketing/IntegrationsIndividualPage/Bottom';
 import LearnMore from 'components/marketing/IntegrationsIndividualPage/LearnMore';
+import NewsLetterSubscription from 'components/marketing/IntegrationsIndividualPage/NewsletterSubscription';
 
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
