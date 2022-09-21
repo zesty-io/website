@@ -66,14 +66,14 @@ const AddTeam = ({ getAllTeams }) => {
               customLabel="Team Name"
               placeholder="Enter your team name"
               name="name"
-              color="secondary"
+              color="primary"
               formik={formik}
             />
             <FormInput
               type="text"
               customLabel="Description of your team"
               name="description"
-              color="secondary"
+              color="primary"
               formik={formik}
               multiline
             />
@@ -85,7 +85,7 @@ const AddTeam = ({ getAllTeams }) => {
             <LoadingButton
               startIcon={<AddIcon />}
               variant="contained"
-              color="secondary"
+              color="primary"
               size="small"
               fullWidth
               loading={isCreating}

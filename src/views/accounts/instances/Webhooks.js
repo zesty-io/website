@@ -254,7 +254,7 @@ export const Webhooks = ({
     <Box>
       {isInstanceOwner && (
         <Button
-          color="secondary"
+          color="primary"
           variant="contained"
           onClick={handleAddWebhookModal}
         >

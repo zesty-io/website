@@ -100,7 +100,7 @@ const AppNavigation = ({
             size="small"
           />
           <Button
-            color="secondary"
+            color="primary"
             size="small"
             variant="contained"
             startIcon={<AddIcon />}

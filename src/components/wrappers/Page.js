@@ -5,6 +5,8 @@ import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from 'theme';
 import AOS from 'aos';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { theme } from '@zesty-io/material';
 
 function canUseDOM() {
   return !!(
@@ -55,7 +57,9 @@ export default function Page({ children }) {
   if (!canUseDOM()) {
     return null;
   }
+  const isLoggedIn = useIsLoggedIn();
 
+  console.log(isLoggedIn, 4444444444444444444);
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -79,7 +83,9 @@ export default function Page({ children }) {
   }, [mountedComponent, themeMode]);
 
   return (
-    <ThemeProvider theme={getTheme(themeMode, themeToggler)}>
+    <ThemeProvider
+      theme={isLoggedIn ? theme : getTheme(themeMode, themeToggler)}
+    >
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
       <Paper elevation={0}>{children}</Paper>

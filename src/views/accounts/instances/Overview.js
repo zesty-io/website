@@ -83,7 +83,7 @@ export const Overview = ({
             <Box
               paddingY={1}
               paddingX={2}
-              sx={{ background: lighten(theme.palette.secondary.light, 0.9) }}
+              sx={{ background: lighten(theme.palette.primary.light, 0.9) }}
             >
               <Typography
                 variant="h6"
@@ -123,7 +123,7 @@ export const Overview = ({
             <Box
               paddingY={1}
               paddingX={2}
-              sx={{ background: lighten(theme.palette.secondary.light, 0.9) }}
+              sx={{ background: lighten(theme.palette.primary.light, 0.9) }}
             >
               <Typography
                 variant="h6"

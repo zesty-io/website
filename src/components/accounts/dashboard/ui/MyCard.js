@@ -8,7 +8,7 @@ const MyCard = ({ title, description, actionTitle, actionLink }) => {
       <Button
         size="small"
         variant="contained"
-        color="secondary"
+        color="primary"
         href={actionLink}
         sx={{ py: 1 }}
       >
