@@ -37,7 +37,7 @@ export const LoadingSpinner = () => {
             alignItems: 'center',
           }}
         >
-          <CircularProgress color="secondary" />
+          <CircularProgress color="primary" />
         </Box>
       </Box>
     </Box>

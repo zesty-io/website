@@ -47,7 +47,7 @@ const AddDomainBtn = ({ onclick, variant, text, branch }) => {
       variant={variant}
       startIcon={<AddRoundedIcon fontSize="small" />}
       size="small"
-      style={{ backgroundColor: theme.palette.zesty.zestyGreen }}
+      color="primary"
       p={0}
       onClick={() => {
         onclick(branch);

@@ -195,7 +195,7 @@ const Index = ({
     <Grid container>
       <Box sx={{ display: 'flex', width: '100%', justifyContent: 'end' }}>
         <Button
-          color="secondary"
+          color="primary"
           variant="contained"
           onClick={() =>
             handleInviteUserModal(createInvite, baseroles, instanceZUID)

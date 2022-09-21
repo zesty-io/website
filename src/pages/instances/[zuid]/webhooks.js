@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Webhooks } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
+import axios from 'axios';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
@@ -119,24 +120,29 @@ export default function WebhooksPage() {
     options.headers = {
       'Content-Type': contentType,
     };
+
     try {
-      await fetch(URL, options)
-        .then(async (response) => {
-          const res = await response.json();
+      await axios
+        .get(URL, options)
+        .then(function (response) {
           SuccessMsg({
-            html: `<Box><Box></Box>Status:${response.status}</Box> </br> <Box>Response: ${res}</Box><Box>`,
+            html: `<Box><Box></Box>Status:${
+              response.status
+            }</Box> </br> <Box> <b>Response</b>: ${JSON.stringify(
+              response.data,
+            )}</Box><Box>`,
           });
         })
-        .catch((error) => {
+        .catch(function (error) {
           ErrorMsg({
-            title: 'Error 400',
-            text: error,
+            title: error.code,
+            text: error.message,
           });
         });
     } catch (error) {
       ErrorMsg({
-        title: 'Error 400',
-        text: error,
+        title: error.code,
+        text: error.message,
       });
     }
   };
@@ -147,9 +153,11 @@ export default function WebhooksPage() {
   );
   const getPageData = async () => {
     await setloading(true);
-    await getWebhooks();
-    await searhcItems();
-    await getInstanceUserWithRoles();
+    await Promise.all([
+      getWebhooks(),
+      searhcItems(),
+      getInstanceUserWithRoles(),
+    ]);
     await setloading(false);
   };
 

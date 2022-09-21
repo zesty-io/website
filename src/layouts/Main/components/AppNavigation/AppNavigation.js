@@ -13,6 +13,8 @@ import { Button, Link, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { grey } from '@mui/material/colors';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 import { NavItem } from '../Topbar/components';
 
 const navigationLinks = [
@@ -65,6 +67,10 @@ const AppNavigation = ({
   };
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
+
+  const isLoggedIn = useIsLoggedIn();
+
+  const isAccounts = isProtectedRoute(window.location.pathname);
 
   return (
     <Stack direction="row">
@@ -121,8 +127,8 @@ const AppNavigation = ({
             size="small"
           />
           <Button
-            color="secondary"
-            size="small"
+            color={!isAccounts && isLoggedIn ? 'secondary' : 'primary'}
+            size="medium"
             variant="contained"
             startIcon={<AddIcon />}
             sx={{ whiteSpace: 'nowrap' }}
@@ -144,14 +150,17 @@ const AppNavigation = ({
                   width={25}
                   style={{ borderRadius: '50%' }}
                 />
-                <ArrowDropDownIcon color="primary" fontSize="medium" />
+                <ArrowDropDownIcon
+                  color={!isAccounts && isLoggedIn ? 'secondary' : 'primary'}
+                  fontSize="medium"
+                />
               </Stack>
             }
           />
           <Button
             href="https://accounts.zesty.io/"
             variant="outlined"
-            size="small"
+            size="medium"
             id="accounts-legacy"
             className="accounts-legacy-button"
             endIcon={<ExitToAppIcon />}

@@ -64,7 +64,7 @@ const SideContent = ({
             <Link
               underline="none"
               href="/instances"
-              color="secondary"
+              color="primary"
               sx={{ cursor: 'pointer' }}
             >
               Show more
@@ -74,7 +74,7 @@ const SideContent = ({
         topAction={
           <TextField
             size="small"
-            color="secondary"
+            color="primary"
             placeholder="Search an Instances"
             onChange={(e) => {
               handleSearchInstances(e.target.value.toLocaleLowerCase());
@@ -115,7 +115,7 @@ const SideContent = ({
         topAction={
           <TextField
             size="small"
-            color="secondary"
+            color="primary"
             placeholder="Find a team.."
             sx={{ mb: 2 }}
           />
