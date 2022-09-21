@@ -1,7 +1,7 @@
 // MUI Imports
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/globals/FillerContent';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 // Components Imports
 
 import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBackgroundGradient';

@@ -2,6 +2,8 @@ import React from 'react';
 import MuiMarkdown from 'mui-markdown';
 import Main from 'layouts/Main';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import { docsLookup } from 'components/docs/docsLookup';
 import MarkdownIt from 'markdown-it';
@@ -11,6 +13,7 @@ import Head from 'next/head';
 import { parse } from 'himalaya';
 import * as helper from 'utils';
 import { AccordionMui } from 'components/marketing/Accordion';
+import { SimpleHeroWithSearchBox } from 'blocks/heroes';
 
 const zestyImage =
   'https://kfg6bckb.media.zestyio.com/zesty-share-image-generic.png?width=1200';

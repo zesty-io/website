@@ -24,42 +24,30 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
     {
       id: 0,
       name: 'personalize',
-      icon:
-        content.solutions_icon_1?.data[0]?.url || FillerContent.logos[0].url,
+      icon: content.solutions_icon_1?.data[0]?.url || FillerContent.logos[0].url,
       text: content.solution_1_description || FillerContent.description,
-      subText:
-        content.solution_1_description?.match(headerRegex)[1] ||
-        FillerContent.description,
-      img:
-        content.solution_1_graphic.data[0]?.url || FillerContent.logos[0].url,
+      subText: content.solution_1_description?.match(headerRegex)[1] || FillerContent.description,
+      img: content.solution_1_graphic.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
       href: '',
     },
     {
       id: 1,
       name: 'ecom',
-      icon:
-        content.solutions_icon_2?.data[0]?.url || FillerContent.logos[0].url,
+      icon: content.solutions_icon_2?.data[0]?.url || FillerContent.logos[0].url,
       text: content.solution_2_description || FillerContent.description,
-      subText:
-        content.solution_2_description?.match(headerRegex)[1] ||
-        FillerContent.description,
-      img:
-        content.solution_2_graphic?.data[0]?.url || FillerContent.logos[0].url,
+      subText: content.solution_2_description?.match(headerRegex)[1]  || FillerContent.description,
+      img: content.solution_2_graphic?.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
       href: '',
     },
     {
       id: 2,
       name: 'distribution',
-      icon:
-        content.solutions_icon_3?.data[0]?.url || FillerContent.logos[0].url,
+      icon: content.solutions_icon_3?.data[0]?.url || FillerContent.logos[0].url,
       text: content.solution_3_description || FillerContent.description,
-      subText:
-        content.solution_3_description?.match(headerRegex)[1] ||
-        FillerContent.description,
-      img:
-        content.solution_3_graphic.data[0]?.url || FillerContent.logos[0].url,
+      subText: content.solution_3_description?.match(headerRegex)[1] || FillerContent.description,
+      img: content.solution_3_graphic.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
       href: '',
     },
@@ -68,11 +56,8 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
       name: 'innovate',
       icon: content.solutions_icon_4.data[0]?.url || FillerContent.logos[0].url,
       text: content.solution_4_description || FillerContent.description,
-      subText:
-        content.solution_4_description?.match(headerRegex)[1] ||
-        FillerContent.description,
-      img:
-        content.solution_4_graphic.data[0]?.url || FillerContent.logos[0].url,
+      subText: content.solution_4_description?.match(headerRegex)[1] || FillerContent.description,
+      img: content.solution_4_graphic.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
       href: '',
     },
@@ -110,7 +95,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
               },
             }}
           >
-            {content.solutions_h2 || FillerContent.description}
+            {content.solutions_h2|| FillerContent.description}
           </MuiMarkdown>
         </Box>
 
@@ -124,10 +109,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                     style={{ display: active === 0 ? 'block' : 'none' }}
                   >
                     <Box
-                      src={
-                        content[`solution_1_graphic`].data[0].url ||
-                        FillerContent.logos[0].url
-                      }
+                      src={content[`solution_1_graphic`].data[0].url || FillerContent.logos[0].url}
                       alt=""
                       component="img"
                       sx={{
@@ -141,10 +123,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                   >
                     <Box
                       width={imgWidth}
-                      src={
-                        content[`solution_2_graphic`].data[0].url ||
-                        FillerContent.logos[0].url
-                      }
+                      src={content[`solution_2_graphic`].data[0].url || FillerContent.logos[0].url}
                       alt=""
                       component="img"
                       sx={{
@@ -158,10 +137,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                   >
                     <Box
                       width={imgWidth}
-                      src={
-                        content[`solution_3_graphic`].data[0].url ||
-                        FillerContent.logos[0].url
-                      }
+                      src={content[`solution_3_graphic`].data[0].url || FillerContent.logos[0].url}
                       alt=""
                       component="img"
                       sx={{
@@ -175,10 +151,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                   >
                     <Box
                       width={imgWidth}
-                      src={
-                        content[`solution_4_graphic`].data[0].url ||
-                        FillerContent.logos[0].url
-                      }
+                      src={content[`solution_4_graphic`].data[0].url || FillerContent.logos[0].url}
                       alt=""
                       component="img"
                       sx={{
@@ -287,8 +260,9 @@ const CustomCard = ({ data, theme }) => {
             ),
           }}
         />
-        {data.href && (
-          <Link
+        {
+          data.href && (
+            <Link
             href={data.href}
             underline="always"
             paddingTop={4}
@@ -302,7 +276,8 @@ const CustomCard = ({ data, theme }) => {
           >
             {data.ctaName} <ArrowRightAltIcon />
           </Link>
-        )}
+          )
+        }
       </Box>
     </Card>
   );

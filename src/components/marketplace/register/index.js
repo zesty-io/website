@@ -9,10 +9,11 @@ import {
 import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 import { useFormik } from 'formik';
+import { getCookie } from 'cookies-next';
 import * as yup from 'yup';
 import TransitionsModal from '../../../blocks/modal/modal';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-import { getUserAppSID } from 'utils';
+import { fetchWrapperOptions, getUserAppSID } from 'utils';
 import { useZestyStore } from 'store';
 const URL =
   /^((https?|ftp):\/\/)?(www.)?(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
@@ -85,7 +86,7 @@ const FormComp = React.memo(
     const [success, setsucces] = React.useState('');
     const [loading, setloading] = React.useState(false);
 
-    const isAuthenticated = verifySuccess?.userZuid ? true : false;
+    const isLogin = verifySuccess?.userZuid ? true : false;
 
     const handleRegisterSuccess = (data) => {
       setmodal(true);
@@ -135,7 +136,7 @@ const FormComp = React.memo(
 
             <Grid item xs={12}>
               <Button
-                disabled={!isAuthenticated}
+                disabled={!isLogin}
                 fullWidth
                 sx={{ height: 54, minWidth: 150 }}
                 variant="contained"
@@ -156,7 +157,7 @@ const FormComp = React.memo(
                   </Box>
                 ) : (
                   <>
-                    {!isAuthenticated
+                    {!isLogin
                       ? 'Please Login to Zesty.io to continue'
                       : 'Submit'}
                   </>
@@ -187,10 +188,9 @@ const customContainer = {
   minHeight: '50vh',
 };
 const RegisterPage = ({}) => {
-  const { workingInstance } = useZestyStore((state) => state);
   const theme = useTheme();
 
-  const instanceZUID = workingInstance;
+  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getUserAppSID();
 
   const ZestyAPI = useZestyStore((state) => state.ZestyAPI);

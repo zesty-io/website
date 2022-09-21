@@ -38,7 +38,7 @@
  */
 
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 /**
  * Helpers Import

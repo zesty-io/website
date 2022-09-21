@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Grid, Typography, Container } from '@mui/material';
+import { Box, Grid, Card, Typography, Container } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import { useTheme } from '@mui/material/styles';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';

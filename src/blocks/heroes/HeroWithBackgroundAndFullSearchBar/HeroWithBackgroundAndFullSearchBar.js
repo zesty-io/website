@@ -50,7 +50,7 @@ const Hero = ({ title, subTitle, image }) => {
                 color: theme.palette.common.white,
               }}
             >
-              {title}
+              {title }
             </Typography>
           </Box>
           <Box>
@@ -61,7 +61,7 @@ const Hero = ({ title, subTitle, image }) => {
                 color: theme.palette.common.white,
               }}
             >
-              {subTitle}
+              {subTitle }
             </Typography>
           </Box>
         </Box>

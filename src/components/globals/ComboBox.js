@@ -143,14 +143,7 @@ const filterOptions = createFilterOptions({
   stringify: (option) => option.name + option.value,
 });
 
-const Index = ({
-  instances,
-  setCookies,
-  instanceZUID,
-  width = 300,
-  initialLabel,
-  ...props
-}) => {
+const Index = ({ instances, setCookies, instanceZUID }) => {
   const theme = useTheme();
   const [label, setlabel] = React.useState('');
   const memoizedInstances = React.useMemo(() => {
@@ -167,9 +160,9 @@ const Index = ({
   const currentVal = memoizedInstances?.find((e) => e.ZUID === instanceZUID);
 
   const handleChange = (e, newValue) => {
-    setCookies(newValue?.value);
+    setCookies('ZESTY_WORKING_INSTANCE', newValue?.value);
     setlabel(newValue?.name);
-    // window.location.reload();
+    window.location.reload();
   };
 
   React.useEffect(() => {
@@ -181,24 +174,18 @@ const Index = ({
       filterOptions={filterOptions}
       id="virtualize-demo"
       onChange={handleChange}
-      sx={{ width, backgroundColor: theme.palette.common.white }}
+      sx={{ width: 300, backgroundColor: theme.palette.common.white }}
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
       options={OPTIONS}
       getOptionLabel={(option) => option.name}
       renderInput={(params) => {
-        return (
-          <TextField
-            {...params}
-            label={label || initialLabel || 'Select an instance'}
-          />
-        );
+        return <TextField {...params} label={label || 'Select an instance'} />;
       }}
       renderOption={(props, option) => {
         return [props, option.name];
       }}
-      {...props}
     />
   );
 };

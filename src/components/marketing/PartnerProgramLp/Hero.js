@@ -4,13 +4,16 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
  * MUI Imports
  */
 import { Box, Typography, Button } from '@mui/material';
+import Divider from '@mui/material/Divider';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
+import { useTheme, alpha } from '@mui/material/styles';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 /**
  * Components Imports
  */
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   const LeftSide = () => (
