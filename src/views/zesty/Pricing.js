@@ -97,7 +97,7 @@ function Pricing({ content }) {
         maxWidth={1400}
       />
 
-      <Container sx={{ mt: 5, maxWidth: 1400 }}>
+      <Container sx={{ mt: 10, maxWidth: 1400 }}>
         <Card
           variant="outlined"
           sx={{
@@ -114,9 +114,9 @@ function Pricing({ content }) {
             }}
           >
             <Typography
-              variant="h3"
+              variant="h4"
               sx={{
-                color: theme.palette.zesty.zestyDarkText,
+                color: theme.palette.zesty.zestyZambezi,
                 fontWeight: 'bold',
                 textAlign: 'center',
               }}
@@ -161,7 +161,7 @@ function Pricing({ content }) {
       {/* <Container maxWidth={400} paddingY={'0 !important'}>
         <Divider />
       </Container> */}
-      <Box sx={{ mt: 10 }}>
+      <Box sx={{ py: 10 }}>
         <Container>
           <Faq />
         </Container>

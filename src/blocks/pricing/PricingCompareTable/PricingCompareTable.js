@@ -36,6 +36,7 @@ const PricingCompareTable = ({ tiers, category = '', pricingLevers, id }) => {
         {/* Removed expandIcon from AccordionSummary */}
         {/*expandIcon={<ExpandMoreIcon />}*/}
         <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
           sx={{ bgcolor: 'background.level2' }}

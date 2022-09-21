@@ -66,7 +66,7 @@ const Enterprise = ({ data }) => {
             alignItems: 'center',
             flexDirection: 'column',
             px: 4,
-            py: 2,
+            py: 5,
           }}
           item
           xs={12}
