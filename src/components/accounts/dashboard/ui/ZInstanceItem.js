@@ -25,7 +25,7 @@ const ZInstanceItem = ({
   return (
     <Stack
       component={Paper}
-      sx={{ border: `1px solid ${grey[400]}` }}
+      style={{ border: `1px solid ${grey[400]}` }}
       {...props}
     >
       <Stack
