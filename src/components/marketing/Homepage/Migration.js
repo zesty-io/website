@@ -5,6 +5,7 @@
 import { Box, Typography, Card, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
+import ZestyImage from 'blocks/Image/ZestyImage';
 /**
  * Static Assets Imports
  */
@@ -116,11 +117,13 @@ const Migration = ({ content, FillerContent, theme, isLarge }) => {
           </Grid>
           <Grid item sm={12} md={6}>
             <Box sx={{ width: '100%', maxWidth: 1503 }}>
-              <Box
-                data-aos-offset="200"
-                data-aos="zoom-in"
-                sx={{ width: '100%' }}
-                component="img"
+              <ZestyImage
+                width={1503}
+                height={1310}
+                style={{ width: '100%', maxWidth: 1503, height: 'auto' }}
+                alt={'migrations'}
+                attributes={{ 'data-aos-offset': '200', 'data-aos': 'zoom-in' }}
+                loading="lazy"
                 src={content.migration_graphic?.data[0].url}
               />
             </Box>

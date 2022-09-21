@@ -5,7 +5,6 @@
  * Label: Partner Program Features 
  * Name: partner_program_features 
  * Model ZUID: 6-bcdc9cd2e2-4zs860
- * File Created On: Fri Aug 26 2022 15:52:03 GMT+0800 (Taipei Standard Time)
  * 
  * Model Fields:
  * 
@@ -25,7 +24,9 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
+
 import React from 'react';
+
 function PartnerProgramFeature({ content }) {
   return (
     <>

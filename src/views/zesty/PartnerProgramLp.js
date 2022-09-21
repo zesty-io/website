@@ -42,27 +42,72 @@
  */
 
 import React from 'react';
+import FillerContent from 'components/globals/FillerContent';
+
+/**
+ * Mui Imports
+ */
+import { Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+/**
+ * Components Imports
+ */
+import Hero from 'components/marketing/PartnerProgramLp/Hero';
+import WhyZesty from 'components/marketing/PartnerProgramLp/WhyZesty';
+import Benefits from 'components/marketing/PartnerProgramLp/Benefits';
+import Testimonial from 'components/marketing/PartnerProgramLp/Testimonial';
+import Bottom from 'components/marketing/PartnerProgramLp/Bottom';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import Features from 'blocks/features/Features/Features';
 
 function PartnerProgramLp({ content }) {
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
+
+  const pageData = {
+    theme,
+    isMedium,
+    isDarkMode,
+    content,
+    FillerContent,
+  };
+
+  console.log(content);
+
+  const feature_data =
+    content.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <Hero {...pageData} />
+      <Box sx={{ py: 10 }}>
+        <SimpleCardLogo
+          heading_text={content.logos_title}
+          logoItems={content.logos.data}
+          {...pageData}
+        />
+      </Box>
+      <WhyZesty {...pageData} />
+      <Benefits {...pageData} />
+      <Testimonial {...pageData} />
+      <Features
+        header_color={theme.palette.zesty.zestyZambezi}
+        header_size={48}
+        data={feature_data}
+        features_header={content.features_header}
+      />
+      <Bottom {...pageData} />
     </>
   );
 }

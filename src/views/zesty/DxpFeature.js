@@ -40,28 +40,111 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Features from 'blocks/features/Features/Features';
+import TwoColumnFeatures from 'blocks/features/Features/TwoColumnFeatures';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
+import Hero from 'components/marketing/DxpFeatures/Hero';
+
+// Components Imports
+import WhyZesty from 'components/marketing/DxpFeatures/WhyZesty';
+import Bottom from 'components/marketing/DxpFeatures/Bottom';
+import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
 
 function DxpFeature({ content }) {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
+  const isDarkMode = theme.palette.mode === 'dark';
+
+  const pageData = {
+    theme,
+    isSmall,
+    isMedium,
+    isLarge,
+    isExtraLarge,
+    isDarkMode,
+    content,
+    FillerContent,
+  };
+
+  console.log(content);
+
+  const feature_data =
+    content.section_1_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const feature_data_2 =
+    content.section_2_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const feature_data_3 =
+    content.section_3_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const testimonialsData = {
+    title: content.case_studies_title,
+    data: content.testimonials?.data,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <Hero {...pageData} />
+      <Features
+        header_size={32}
+        textHighlight={'Workflow management'}
+        data={feature_data}
+        features_header={content.section_1}
+      />
+      <TwoColumnFeatures
+        features_header={content.section_2}
+        data={feature_data_2}
+        cta_text={content.section_2_cta}
+        cta_url={content.section_2_cta_link}
+      />
+      <Features
+        icon_width={150}
+        icon_height={70}
+        center
+        background="zesty"
+        header_size={32}
+        data={feature_data_3}
+        features_header={content.section_3}
+        cta_text={content.section_3_cta}
+        cta_url={content.section_3_cta_link}
+      />
+      <WhyZesty {...pageData} />
+      <Testimonials {...testimonialsData} />
+      <Bottom {...pageData} />
     </>
   );
 }
