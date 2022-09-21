@@ -62,7 +62,7 @@ export const Overview = ({
         <Button
           onClick={handleClearCache}
           variant="contained"
-          color="secondary"
+          color="primary"
           size="small"
         >
           Clear Instance Cache
@@ -90,7 +90,7 @@ export const Overview = ({
                 alignItems={'center'}
                 display={'flex'}
                 gap={1}
-                color={'secondary'}
+                color={'primary'}
               >
                 <AccessTimeIcon /> Your Latest Edits
               </Typography>
@@ -130,7 +130,7 @@ export const Overview = ({
                 alignItems={'center'}
                 display={'flex'}
                 gap={1}
-                color="secondary"
+                color="primary"
               >
                 <BarChartIcon /> Statistics
               </Typography>

@@ -3,6 +3,8 @@ import { useZestyStore, getZestyAPI } from 'store';
 import { useRouter } from 'next/router';
 import { Overview } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import { theme } from '@zesty-io/material';
+import { ThemeProvider } from '@mui/material';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
@@ -146,7 +148,11 @@ export default function OverviewPage() {
     }
   }, [router.isReady]);
 
-  return <Overview {...overviewProps} />;
+  return (
+    <ThemeProvider theme={theme}>
+      <Overview {...overviewProps} />
+    </ThemeProvider>
+  );
 }
 
 OverviewPage.data = {
