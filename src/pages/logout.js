@@ -45,7 +45,7 @@ const logout = () => {
         px={5}
       >
         <Stack>
-          <Typography variant="h3" mb={3} color="secondary">
+          <Typography variant="h3" mb={3} color="primary">
             Signing Out of Zesty.io
           </Typography>
           <LinearProgress color="primary" />

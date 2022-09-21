@@ -48,7 +48,7 @@ const ZInstanceItem = ({
         ) : (
           <IconButton onClick={toggleFavorites}>
             {isFavorite ? (
-              <StarRoundedIcon color="secondary" fontSize="medium" />
+              <StarRoundedIcon color="primary" fontSize="medium" />
             ) : (
               <StarBorderRoundedIcon fontSize="medium" />
             )}
@@ -77,7 +77,7 @@ const ZInstanceItem = ({
             underline="none"
             href={previewLink}
             target="_blank"
-            color="secondary"
+            color="primary"
             sx={{
               ':hover': {
                 textDecoration: 'underline',

@@ -28,7 +28,7 @@ const ZTimelineItem = ({ title, children, isLoading, ...props }) => {
         {isLoading ? (
           <Skeleton width="100%" />
         ) : (
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" color="text.primary">
             {title}
           </Typography>
         )}

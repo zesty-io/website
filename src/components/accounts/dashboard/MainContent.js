@@ -172,7 +172,7 @@ const MainContent = ({
                           href={audit.meta.url}
                           size="small"
                           variant="contained"
-                          color="secondary"
+                          color="primary"
                         >
                           Edit Item
                         </Button>
@@ -180,7 +180,7 @@ const MainContent = ({
                           href={audit.meta.url}
                           size="small"
                           variant="outlined"
-                          color="secondary"
+                          color="primary"
                         >
                           Edit Content
                         </Button>
@@ -203,7 +203,7 @@ const MainContent = ({
                 spacing={2}
                 mb={4}
               >
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="primary">
                   Read Article
                 </Button>
               </ZMyCard>
