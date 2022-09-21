@@ -28,13 +28,13 @@ export const Card2Fa = ({ children }) => {
           }}
         >
           <Button
-            color="secondary"
+            color="primary"
             size="small"
             sx={{ display: 'flex', gap: '.3rem', alignItems: 'center' }}
             href="https://authy.com/what-is-2fa/"
           >
             Learn More
-            <ArrowRightAltIcon color="secondary" />
+            <ArrowRightAltIcon color="primary" />
           </Button>
         </Box>
       </CardContent>

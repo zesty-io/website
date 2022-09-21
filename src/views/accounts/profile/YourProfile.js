@@ -166,12 +166,7 @@ export const YourProfile = ({ getUser }) => {
               label={userInfo?.lastName}
               formik={formik}
             />
-            <Button
-              color="secondary"
-              variant="contained"
-              fullWidth
-              type="submit"
-            >
+            <Button color="primary" variant="contained" fullWidth type="submit">
               Submit
             </Button>
           </form>
@@ -191,7 +186,7 @@ export const YourProfile = ({ getUser }) => {
       </Box>
       <Box>
         <Button
-          color="secondary"
+          color="primary"
           variant="contained"
           onClick={() => {
             MySwal.fire({

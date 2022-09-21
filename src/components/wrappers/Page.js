@@ -59,7 +59,11 @@ export default function Page({ children }) {
   }
   const isLoggedIn = useIsLoggedIn();
 
-  console.log(isLoggedIn, 4444444444444444444);
+  const isMarketplace =
+    window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
+      ? true
+      : false;
+
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -84,7 +88,9 @@ export default function Page({ children }) {
 
   return (
     <ThemeProvider
-      theme={isLoggedIn ? theme : getTheme(themeMode, themeToggler)}
+      theme={
+        isLoggedIn && !isMarketplace ? theme : getTheme(themeMode, themeToggler)
+      }
     >
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
