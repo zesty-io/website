@@ -2,7 +2,7 @@
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+// import Container from '@mui/material/Container';
 // Components Import
 import FreeCommunityPlan from 'blocks/pricing/PricingHero/FreeCommunityPlan';
 import PricingGrid from 'blocks/pricing/PricingHero/pricingGrid';
@@ -26,7 +26,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
   const enterprise = getPlanData('Enterprise');
 
   return (
-    <Container sx={{ py: 10 }}>
+    <Container maxWidth={1400} sx={{ py: 10 }}>
       <Box>
         <Typography
           variant="h3"

@@ -8,8 +8,8 @@ import FillerContent from 'components/globals/FillerContent';
 const SupportBanner = ({ text_content }) => {
   const theme = useTheme();
   return (
-    <Box>
-      <Grid container spacing={4}>
+    <Box sx={{ py: 5 }}>
+      <Grid container>
         <Grid item xs={12}>
           <Box>
             <Box
@@ -21,6 +21,16 @@ const SupportBanner = ({ text_content }) => {
             />
             <Box marginTop={2} display={'flex'} justifyContent={'center'}>
               <Button
+                sx={{
+                  border: `1px solid ${theme.palette.common.white}`,
+                  color: theme.palette.common.white,
+                  '&:hover': {
+                    background: theme.palette.zesty.zestyOrange,
+                    border: `1px solid ${theme.palette.zesty.zestyOrange}`,
+                  },
+                }}
+                color="secondary"
+                variant="outlined"
                 size={'large'}
                 href="mailto:support@zesty.io"
                 endIcon={
