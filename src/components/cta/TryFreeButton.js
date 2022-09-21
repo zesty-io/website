@@ -58,7 +58,7 @@ const mock = [
 ];
 
 export default function TryFreeButton({
-  text = 'Try Free',
+  text = 'Start Now',
   target = 'blank',
   fullWidth = false,
   component = 'button',
@@ -93,6 +93,7 @@ export default function TryFreeButton({
         component={component}
         target={target}
         className="tryButton"
+        id="start-button"
         fullWidth={fullWidth}
         // href="https://accounts.zesty.io/signup"
         size={size}

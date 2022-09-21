@@ -37,10 +37,8 @@ export default function Slug(props) {
 export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isAuthenticated = getIsAuthenticated(res);
   // does not display with npm run dev
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=600, stale-while-revalidate=3600',
-  );
+  res.setHeader('Cache-Control', 'public, maxage=60, must-revalidate');
+  res.setHeader('Surrogate-Control', 'max-age=60');
 
   // attempt to get page data relative to zesty
   let data = await fetchPage(resolvedUrl);

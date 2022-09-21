@@ -30,6 +30,9 @@ const layouts = {
 };
 
 export default function App({ Component, pageProps }) {
+  // tag manager / google analytics tags
+  let GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+
   useEffect(() => {
     const params = new Proxy(
       new URLSearchParams(window.location.search.toLowerCase()),

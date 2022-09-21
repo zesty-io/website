@@ -89,6 +89,7 @@ const HeroJarallax = ({
         <Box>
           <Typography
             variant="h3"
+            component="h1"
             sx={{
               fontWeight: 400,
               color: 'common.white',
