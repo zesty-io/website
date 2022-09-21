@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
-import getTheme from 'theme';
+import getTheme, { getThemeAccounts } from 'theme';
 import AOS from 'aos';
-import { theme } from '@zesty-io/material';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
@@ -88,7 +87,10 @@ export default function Page({ children }) {
     <ThemeProvider
       // only apply zesty/material in accounts paths
       theme={
-        isAccounts && isLoggedIn ? theme : getTheme(themeMode, themeToggler)
+        (isAccounts && isLoggedIn) ||
+        (isLoggedIn && window.location.pathname === '/')
+          ? getThemeAccounts(themeMode, themeToggler)
+          : getTheme(themeMode, themeToggler)
       }
     >
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

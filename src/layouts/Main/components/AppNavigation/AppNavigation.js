@@ -127,7 +127,12 @@ const AppNavigation = ({
             size="small"
           />
           <Button
-            color={!isAccounts && isLoggedIn ? 'secondary' : 'primary'}
+            color={
+              (isAccounts && isLoggedIn) ||
+              (isLoggedIn && window.location.pathname === '/')
+                ? 'primary'
+                : 'secondary'
+            }
             size="medium"
             variant="contained"
             startIcon={<AddIcon />}
@@ -151,7 +156,12 @@ const AppNavigation = ({
                   style={{ borderRadius: '50%' }}
                 />
                 <ArrowDropDownIcon
-                  color={!isAccounts && isLoggedIn ? 'secondary' : 'primary'}
+                  color={
+                    (isAccounts && isLoggedIn) ||
+                    (isLoggedIn && window.location.pathname === '/')
+                      ? 'primary'
+                      : 'secondary'
+                  }
                   fontSize="medium"
                 />
               </Stack>

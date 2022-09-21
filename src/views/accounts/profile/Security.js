@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { Form, Formik, useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
@@ -231,7 +231,7 @@ export const Security = ({ getUser }) => {
       title: 'Success',
       action: () => {
         window.location.reload();
-        setCookies('isAuthenticated', 'false');
+        setCookie('isAuthenticated', 'false');
       },
     });
   };

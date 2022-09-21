@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { Button, useMediaQuery } from '@mui/material';
-import { getCookie, setCookies } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import HomeIcon from '@mui/icons-material/Home';
 import { useZestyStore } from 'store';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -28,7 +28,7 @@ export default function AppBar({ url = window.location.pathname }) {
   });
 
   if (params.instanceZUID) {
-    setCookies('ZESTY_WORKING_INSTANCE', params.instanceZUID);
+    setCookie('ZESTY_WORKING_INSTANCE', params.instanceZUID);
     instanceZUID = params.instanceZUID;
   }
 
