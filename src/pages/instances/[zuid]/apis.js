@@ -17,6 +17,8 @@ export default function ApisPage() {
   const [instanceRoles, setInstanceRoles] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
+  const [settings, setsettings] = React.useState([]);
+  const [arrToSubmit, setarrToSubmit] = React.useState([]);
 
   const router = useRouter();
 
@@ -74,10 +76,43 @@ export default function ApisPage() {
     ErrorMsg({ text: res.error });
   };
 
+  const handleGetSettingsSucc = (res) => {
+    const data = res?.data?.filter((e) => {
+      return (
+        e.key === 'mode' ||
+        e.key === 'preview_lock_password' ||
+        e.key === 'headless_authorization_key' ||
+        e.key === 'authorization_key' ||
+        e.key === 'gql_cors' ||
+        e.key === 'basic_content_api_cors_allow_any_origin' ||
+        e.key === 'gql' ||
+        e.key === 'basic_content_api_enabled' ||
+        e.key === 'ajax_cors_allow_any_origin'
+      );
+    });
+    setsettings(data);
+  };
+  const handleGetSettingsErr = (res) => {
+    console.log(res);
+  };
+
+  const handleUpdateSettingSucc = (res) => {
+    console.log(res);
+    SuccessMsg({ title: 'Settings Updated' });
+  };
+  const handleUpdateSettingErr = (error) => {
+    console.log(error);
+    ErrorMsg({ title: error.error });
+  };
   const getInstanceTokens = async () => {
     const res = await ZestyAPI.getInstanceToken(zuid);
     !res.error && handleGetInstanceTokenSuccess(res);
     res.error && handleGetInstanceTokenError(res);
+  };
+  const getSettings = async () => {
+    const res = await ZestyAPI.getSettings();
+    !res.error && handleGetSettingsSucc(res);
+    res.error && handleGetSettingsErr(res);
   };
 
   const getInstanceRoles = async () => {
@@ -122,9 +157,12 @@ export default function ApisPage() {
   );
   const getPageData = async () => {
     await setloading(true);
-    await getInstanceTokens();
-    await getInstanceRoles();
-    await getInstanceUserWithRoles();
+    await Promise.all([
+      getInstanceTokens(),
+      getInstanceRoles(),
+      getInstanceUserWithRoles(),
+      getSettings(),
+    ]);
     await setloading(false);
   };
   React.useEffect(() => {
@@ -137,17 +175,26 @@ export default function ApisPage() {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
 
-  return (
-    <Apis
-      tokens={data}
-      instanceRoles={instanceRoles}
-      isInstanceOwner={isInstanceOwner}
-      createToken={createToken}
-      deleteToken={deleteToken}
-      updateToken={updateToken}
-      loading={loading}
-    />
-  );
+  const updateSetting = async (data) => {
+    const res = await ZestyAPI.updateSetting(data.ZUID, data);
+    !res.error && handleUpdateSettingSucc(res);
+    res.error && handleUpdateSettingErr(res);
+  };
+
+  const ApisProps = {
+    tokens: data,
+    instanceRoles,
+    isInstanceOwner,
+    createToken,
+    deleteToken,
+    updateToken,
+    loading,
+    settings,
+    arrToSubmit,
+    setarrToSubmit,
+    updateSetting,
+  };
+  return <Apis {...ApisProps} />;
 }
 
 ApisPage.data = {

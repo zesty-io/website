@@ -50,9 +50,7 @@ export default function SettingsPage() {
 
   const getPageData = async () => {
     await setloading(true);
-    await getUsers();
-    await getInstanceUserRoles();
-    await getSettings();
+    await Promise.all([getUsers(), getInstanceUserRoles(), getSettings()]);
     await setloading(false);
   };
   React.useEffect(() => {

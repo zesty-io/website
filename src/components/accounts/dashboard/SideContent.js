@@ -21,7 +21,7 @@ const SideContent = ({
             <Link
               underline="none"
               href="/instances"
-              color="secondary"
+              color="primary"
               sx={{ cursor: 'pointer' }}
             >
               Show All
@@ -31,7 +31,7 @@ const SideContent = ({
         topAction={
           <TextField
             size="small"
-            color="secondary"
+            color="primary"
             placeholder="Search an Instances"
             onChange={(e) => {
               handleSearchInstances(e.target.value.toLocaleLowerCase());

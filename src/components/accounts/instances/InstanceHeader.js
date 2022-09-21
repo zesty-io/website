@@ -54,7 +54,7 @@ export default function InstanceHeader({ instance }) {
           size="small"
           variant="outlined"
           target="_blank"
-          color="secondary"
+          color="primary"
           href={webengineUrl}
         >
           Preview Website
@@ -62,7 +62,7 @@ export default function InstanceHeader({ instance }) {
 
         <Button
           size="small"
-          color="secondary"
+          color="primary"
           target="_blank"
           variant="contained"
           href={managerURl}

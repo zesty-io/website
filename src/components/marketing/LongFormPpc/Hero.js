@@ -32,12 +32,7 @@ const Hero = ({
 
   return (
     <Container>
-      <Grid
-        sx={{ py: isMobile ? 5 : 0 }}
-        container
-        spacing={4}
-        flexDirection={isMobile ? 'column-reverse' : 'row'}
-      >
+      <Grid sx={{ py: isMobile ? 5 : 0 }} container spacing={4}>
         <Grid item container xs={12} md={6} alignItems={'center'}>
           <Box>
             <Box marginBottom={2}>

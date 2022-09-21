@@ -148,7 +148,7 @@ export default function AppBar({ url = window.location.pathname }) {
                 <Button
                   href="/login/"
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   size="small"
                   sx={{ whiteSpace: 'nowrap' }}
                 >

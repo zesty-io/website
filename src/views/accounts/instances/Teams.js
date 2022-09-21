@@ -174,7 +174,7 @@ const Main = ({
       <Box paddingY={2} display={'flex'} justifyContent={'space-between'}>
         {isInstanceOwner && (
           <Button
-            color="secondary"
+            color="primary"
             variant="contained"
             onClick={handleAddTeamModal}
           >
@@ -190,7 +190,7 @@ const Main = ({
         isInstanceOwner={isInstanceOwner}
         cta={
           <Button
-            color="secondary"
+            color="primary"
             variant="outlined"
             onClick={handleAddTeamModal}
           >

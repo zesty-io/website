@@ -21,7 +21,7 @@ export const LaunchInstance = ({
       <Button
         sx={{ height: '100%' }}
         type="button"
-        color="secondary"
+        color="primary"
         variant="contained"
         onClick={handleClick}
       >
