@@ -209,7 +209,7 @@ const SettingComp = ({
         <Button
           size="small"
           variant="contained"
-          color="secondary"
+          color="primary"
           sx={{ visibility: isDataChange ? 'visible' : 'hidden' }}
           onClick={() => handleUpdateSetting(data)}
         >
@@ -392,7 +392,7 @@ export const Apis = ({
         {isInstanceOwner && (
           <Button
             onClick={handleCreateTokenModal}
-            color="secondary"
+            color="primary"
             variant="contained"
             type="button"
             sx={{ ml: 'auto' }}
@@ -441,8 +441,9 @@ const ApiDocs = () => {
               <Typography pl={4}>{e.label}</Typography>
 
               <Box>
-                <Button color="secondary" href={e.url}>
-                  Learn more <ArrowRightAltIcon />
+                <Button color="primary" href={e.url}>
+                  <Typography variant="p">Learn more</Typography>
+                  <ArrowRightAltIcon />
                 </Button>
               </Box>
             </Grid>

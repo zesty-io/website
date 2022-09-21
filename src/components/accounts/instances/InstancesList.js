@@ -66,7 +66,7 @@ export const InstancesList = ({
                   visibility={invite ? 'hidden' : 'visible'}
                 >
                   {isFavorite ? (
-                    <StarRoundedIcon color="secondary" fontSize="medium" />
+                    <StarRoundedIcon color="primary" fontSize="medium" />
                   ) : (
                     <StarBorderRoundedIcon fontSize="medium" />
                   )}
@@ -166,7 +166,7 @@ export const InstancesList = ({
                       onClick={() => toggleFavorites(instance)}
                     >
                       {isFavorite ? (
-                        <StarRoundedIcon color="secondary" fontSize="medium" />
+                        <StarRoundedIcon color="primary" fontSize="medium" />
                       ) : (
                         <StarBorderRoundedIcon fontSize="medium" />
                       )}
@@ -175,7 +175,7 @@ export const InstancesList = ({
 
                   <CardMedia
                     height="100%"
-                    sx={{ height: 220 }}
+                    sx={{ height: 180 }}
                     width="100%"
                     component="img"
                     image={
@@ -200,7 +200,7 @@ export const InstancesList = ({
                           : '.preview.dev.zesty.io'
                       }`}
                       target="_blank"
-                      color="secondary"
+                      color="primary"
                       sx={{
                         ':hover': {
                           textDecoration: 'underline',

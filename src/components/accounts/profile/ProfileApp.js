@@ -45,10 +45,10 @@ const ProfileNavigation = ({ lists, handleChange, currentPage = '' }) => {
               borderRadius: '4px',
               '&.Mui-selected': {
                 ' .MuiListItemIcon-root': {
-                  color: theme.palette.secondary.main,
+                  color: theme.palette.primary.main,
                 },
-                bgcolor: lighten(theme.palette.secondary.light, 0.9),
-                color: theme.palette.secondary.main,
+                bgcolor: lighten(theme.palette.primary.light, 0.9),
+                color: theme.palette.primary.main,
                 pointerEvents: 'none',
               },
             })}
@@ -187,8 +187,8 @@ const Index = ({ children }) => {
             value={tabValue}
             onChange={handleTabChange}
             aria-label="icon position tabs example"
-            indicatorColor="secondary"
-            textColor="secondary"
+            indicatorColor="primary"
+            textColor="primary"
             variant="scrollable"
             scrollButtons="auto"
             sx={{

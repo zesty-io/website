@@ -26,6 +26,10 @@ export default class MyDocument extends Document {
           <script src={fetchUrl} />
           <link
             rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Mulish"
+          />
+          <link
+            rel="stylesheet"
             href="https://unpkg.com/aos@next/dist/aos.css"
           />
           {/* Global Site Tag (gtag.js) - Google Analytics */}

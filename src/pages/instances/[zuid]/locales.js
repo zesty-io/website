@@ -201,7 +201,7 @@ export default function Locales() {
       <Stack>
         <Link
           alignSelf="start"
-          color="secondary"
+          color="primary"
           underline="none"
           href="https://zesty.org/getting-started/i18n-multi-language"
         >
@@ -209,7 +209,7 @@ export default function Locales() {
         </Link>
         <Link
           alignSelf="start"
-          color="secondary"
+          color="primary"
           underline="none"
           href="https://zesty.org/getting-started/i18n-multi-language#what-happens-when-a-new-language-is-added"
         >

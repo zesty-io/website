@@ -16,7 +16,7 @@ export default async function getServerSideProps({ req, res, resolvedUrl }) {
   };
 }
 
-const isProtectedRoute = (pathname) => {
+export const isProtectedRoute = (pathname) => {
   const protectedRoutes = ['/instances/', '/profile/', '/teams/', '/logout/'];
 
   for (let route of protectedRoutes) {
