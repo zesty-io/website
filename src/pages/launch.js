@@ -4,41 +4,43 @@
 // step 4 once instance is completed generated , post instance zuid ,github url ,token
 // step 5 after response complete , open new tab manager url and web engine url
 
-import { Box, Button, TextField } from '@mui/material';
+import FileSaver from 'file-saver';
+
 import React from 'react';
 import axios from 'axios';
 import { useZestyStore } from 'store';
 import { getCookie } from 'cookies-next';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import { Launch } from 'views/accounts';
+import Main from '../layouts/Main';
 
-const url = 'https://installer-m3rbwjxm5q-uc.a.run.app/install';
-const urlDl = 'https://installer-m3rbwjxm5q-uc.a.run.app/download';
 const instance = '8-ae9e8f9b98-140ttp';
 const repo = 'https://github.com/allenpigar/blog_template_acme';
+const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
 
 const LaunchPage = () => {
+  const [domain, setdomain] = React.useState('');
   const { ZestyAPI } = useZestyStore((state) => state);
   const [name, setname] = React.useState('');
   const [ecoZUID, setecoZUID] = React.useState('');
   const [instance_zuid, setinstance_zuid] = React.useState('');
   const [token, settoken] = React.useState('');
-  const [repository, setrepository] = React.useState('');
+  const [repository, setrepository] = React.useState(repo);
   const [github_key, setgithub_key] = React.useState('');
   const APP_SID = getCookie('APP_SID');
 
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  };
   const handleSuccessCreate = (res) => {
     SuccessMsg({ title: 'Instance Created' });
     setinstance_zuid(res.data.ZUID);
+    setdomain(res.data.domain);
     settoken(APP_SID);
-    console.log(res);
   };
 
+  const opentTabs = () => {
+    window.open(`https://${instance_zuid}.manager.zesty.io/`, '_blank');
+    window.open(`https://${domain}`, '_blank');
+  };
   const handleErrCreate = (res) => {
-    console.log(res);
     ErrorMsg({ title: res.error });
   };
 
@@ -49,12 +51,16 @@ const LaunchPage = () => {
     res.error && handleErrCreate(res);
   };
 
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  };
   const handleInstall = async (e) => {
     e.preventDefault();
-
+    const url = `${baseUrl}/install`;
     const body = {
       repository,
-      github_key, // optional
+      github_key,
       instance_zuid,
       token,
     };
@@ -65,15 +71,25 @@ const LaunchPage = () => {
           headers,
         })
         .then((response) => {
-          SuccessMsg({ title: 'Install Ok' });
-          console.log(response);
+          SuccessMsg({
+            title: 'Install Ok',
+            action: opentTabs,
+          });
+
+          console.log(response.data, 44444);
         })
         .catch((error) => {
           console.log(error);
-          ErrorMsg({ title: error.message });
+          ErrorMsg({
+            title: error.message,
+            text: error?.response.data?.message,
+          });
         });
     } catch (error) {
-      ErrorMsg({ title: error.messagej });
+      ErrorMsg({
+        title: error.message,
+        text: error?.response.data?.message,
+      });
     }
   };
 
@@ -81,121 +97,56 @@ const LaunchPage = () => {
     e.preventDefault();
 
     const body = {
-      instance_zuid,
+      zuid: instance_zuid,
       token,
     };
+    const url = `${baseUrl}/download`;
 
     try {
       await axios
         .post(url, body, {
+          responseType: 'arraybuffer',
           headers,
         })
         .then((response) => {
-          SuccessMsg({ title: 'Download Ok' });
-          console.log(response);
+          const blob = new Blob([response.data], { type: 'application/zip' });
+          FileSaver.saveAs(blob, `${instance_zuid}`);
         })
         .catch((error) => {
           console.log(error);
-          ErrorMsg({ title: error.message });
+          ErrorMsg({
+            title: error.message,
+            text: error?.response.data?.message,
+          });
         });
     } catch (error) {
-      ErrorMsg({ title: error.message });
+      ErrorMsg({
+        title: error.message,
+        text: error?.response.data?.message,
+      });
     }
   };
 
+  const LaunchProps = {
+    handleCreateInstance,
+    setname,
+    ecoZUID,
+    setecoZUID,
+    token,
+    settoken,
+    instance_zuid,
+    setinstance_zuid,
+    github_key,
+    setgithub_key,
+    repository,
+    setrepository,
+    handleDownload,
+    handleInstall,
+  };
   return (
-    <Box>
-      <Box>
-        <form action="submit" onSubmit={handleCreateInstance}>
-          <TextField
-            label="Instance Name"
-            type="text"
-            name="name"
-            id="name"
-            value={name}
-            onChange={(e) => setname(e.target.value)}
-          />
-          <TextField
-            label="Eco ZUID Optional"
-            type="text"
-            name="Eco ZUID"
-            id="Eco ZUID"
-            value={ecoZUID}
-            onChange={(e) => setecoZUID(e.target.value)}
-          />
-          <Button color="primary" variant="contained" type="submit">
-            Create instance
-          </Button>
-        </form>
-      </Box>
-      <Box paddingX={10} paddingY={20}>
-        <form action="submit" onSubmit={handleInstall}>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }} gap={4}>
-            <TextField
-              label="Instance ZUID"
-              type="text"
-              name="instance_zuid"
-              id="instance_zuid"
-              value={instance_zuid}
-              onChange={(e) => setinstance_zuid(e.target.value)}
-            />
-            <TextField
-              type="text"
-              name="token"
-              label="APP SID USER TOKEN"
-              id="token"
-              value={token}
-              onChange={(e) => settoken(e.target.value)}
-            />
-            <TextField
-              label="Repository"
-              type="text"
-              name="repository"
-              id="repository"
-              value={repository}
-              onChange={(e) => setrepository(e.target.value)}
-            />
-            <TextField
-              label="Github Key"
-              type="text"
-              name="github_key"
-              id="github_key"
-              value={github_key}
-              onChange={(e) => setgithub_key(e.target.value)}
-            />
-            <Button color="primary" variant="contained" type="submit">
-              Install
-            </Button>
-          </Box>
-        </form>
-      </Box>
-
-      <Box paddingX={40}>
-        <form action="submit" onSubmit={handleDownload}>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }} gap={4}>
-            <TextField
-              label="Instance ZUID"
-              type="text"
-              name="instance_zuid"
-              id="instance_zuid"
-              value={instance_zuid}
-              onChange={(e) => setinstance_zuid(e.target.value)}
-            />
-            <TextField
-              type="text"
-              name="token"
-              label="APP SID USER TOKEN"
-              id="token"
-              value={token}
-              onChange={(e) => settoken(e.target.value)}
-            />
-            <Button color="primary" variant="outlined" type="submit">
-              Download
-            </Button>
-          </Box>
-        </form>
-      </Box>
-    </Box>
+    <Main customRouting={[]}>
+      <Launch {...LaunchProps} />
+    </Main>
   );
 };
 
