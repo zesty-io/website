@@ -69,8 +69,21 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 
 const InstallButton = ({ data, theme }) => {
   const { workingInstance } = useZestyStore((state) => state);
-  if (data.app_zuid) {
+  const isTemplate = data.meta.model.name === 'template' ? true : false;
+
+  if (data.app_zuid && !isTemplate) {
     return <AppInstallerComp data={data} />;
+  } else if (data.app_zuid && isTemplate) {
+    return (
+      <Button
+        href={`/launch/?template=${data.app_zuid}`}
+        variant="contained"
+        color="secondary"
+        fullWidth
+      >
+        Install {data.name}
+      </Button>
+    );
   } else if (data.github_url && !data.app_zuid && !data.resource_link) {
     return (
       <ExtensionsIntaller
