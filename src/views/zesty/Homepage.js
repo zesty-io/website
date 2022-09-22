@@ -53,6 +53,7 @@ import Bottom from 'components/marketing/Homepage/Bottom';
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
 import { useEffect } from 'react';
+import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -78,18 +79,40 @@ function Homepage({ content }) {
     data: content.testimonials?.data,
   };
 
+  console.log(content);
+
   useEffect(() => {
     AOS.init({
       disable: isMedium,
     });
   }, [isMedium]);
 
+  const alternateColumnsData = content.zesty_benefits_tiles.data.map((item) => {
+    return {
+      header: item.header,
+      content: item.benefit_content,
+      image: item.benefit_image.data[0].url,
+    };
+  });
+
+  console.log(alternateColumnsData);
+
   return (
     <>
       <Hero {...pageData} />
-      <SimpleCardLogo logoItems={content.homepage_logos.data} {...pageData} />
+      <SimpleCardLogo
+        textOutside
+        heading_text={content?.logo_heading}
+        logoItems={content.homepage_logos.data}
+      />
       <DigitalExperience {...pageData} />
-      <NewBenefits {...pageData} />
+      {/* <NewBenefits {...pageData} /> */}
+      <AlternateColumns
+        column_data={alternateColumnsData}
+        header_content={content.zesty_new_benefits}
+        cta_link={content.middle_cta_button_link?.data[0].meta.web.uri}
+        cta_text={content.middle_cta_button_text}
+      />
       <Migration {...pageData} />
       <Growth {...pageData} />
       <CaseStudies {...pageData} />
