@@ -1,10 +1,17 @@
 import { Timeline } from '@mui/lab';
-import { Button, Divider, Grid, Paper, Stack, Typography } from '@mui/material';
+import {
+  Alert,
+  Button,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
 import dayjs from 'dayjs';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import ZInstanceItem from './ui/ZInstanceItem';
@@ -12,15 +19,11 @@ import ZMyCard from './ui/ZMyCard';
 import ZTimelineItem from './ui/ZTimelineItem';
 import * as helpers from 'utils';
 
-const MainContent = ({
-  initialInstanceZUID,
-  initialInstanceName,
-  instances,
-  isInstancesLoading,
-}) => {
+const INSTANCE_LIMIT = 3;
+
+const MainContent = ({ instances, isInstancesLoading }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
-  const router = useRouter();
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
   const [instanceAudit, setInstanceAudit] = useState([]);
   const [isInstanceAuditLoading, setIsInstanceAuditLoading] = useState(false);
@@ -42,23 +45,57 @@ const MainContent = ({
     setInstancesFavorites(JSON.parse(res?.data?.prefs)?.favorite_sites);
   };
 
-  useEffect(() => {
-    const getAudit = async () => {
-      if (typeof ZestyAPI?.getInstanceAuditInitZUID === 'function') {
-        setIsInstanceAuditLoading(true);
-        const response = await ZestyAPI.getInstanceAuditInitZUID(
-          20,
-          initialInstanceZUID,
-        );
+  const setResponseToAuditState = async (zuid, limit = 10) => {
+    const response = await ZestyAPI.getInstanceAuditInitZUID(limit, zuid);
 
-        if (!response?.error) setInstanceAudit(response?.data);
+    if (!response?.error) {
+      const instanceAuditData = [...response?.data].map((audit) => {
+        return {
+          ...audit,
+          entityName: instances?.find((i) => i.ZUID === audit.entityZUID)?.name,
+        };
+      });
+      setInstanceAudit((prev) =>
+        [...prev, ...instanceAuditData].sort(
+          (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
+        ),
+      );
+    }
+  };
 
-        setIsInstanceAuditLoading(false);
+  const getAudit = async () => {
+    if (typeof ZestyAPI?.getInstanceAuditInitZUID === 'function') {
+      setIsInstanceAuditLoading(true);
+      setInstanceAudit([]);
+
+      if (instances?.length < INSTANCE_LIMIT) {
+        for (let instance of instances) {
+          await setResponseToAuditState(instance.ZUID);
+        }
+      } else if (
+        instances?.length > INSTANCE_LIMIT &&
+        instancesFavorites?.length > 0
+      ) {
+        for (let instance of instances?.filter((ins) =>
+          instancesFavorites?.find((iFav) => iFav === ins.ZUID),
+        )) {
+          await setResponseToAuditState(instance.ZUID);
+        }
       }
-    };
 
-    if (router.isReady) getAudit();
-  }, [initialInstanceZUID, router.isReady]);
+      setIsInstanceAuditLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // this for initial getting of audit
+    getAudit();
+  }, [instances]);
+
+  useEffect(() => {
+    // this is for triggering getting of audit when user togglesFavorites and instances length > 3
+    if (instances?.length > INSTANCE_LIMIT) getAudit();
+  }, [instancesFavorites]);
 
   useEffect(() => {
     const getMarketingCards = async () => {
@@ -75,7 +112,9 @@ const MainContent = ({
 
   useEffect(() => {
     if (userInfo && Object.keys(userInfo).length !== 0) {
-      setInstancesFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites);
+      setInstancesFavorites(
+        JSON.parse(userInfo?.prefs)?.favorite_sites?.filter((c) => c !== null),
+      );
     }
   }, [userInfo]);
 
@@ -117,78 +156,86 @@ const MainContent = ({
 
             <Divider sx={{ my: 2 }} />
 
-            <Timeline sx={{ p: 0 }}>
-              {isInstanceAuditLoading
-                ? [...new Array(5)].map((i) => (
-                    <ZTimelineItem
-                      sx={{
-                        '::before': {
-                          content: 'none',
-                        },
-                        mt: 1,
-                      }}
-                      key={i}
-                      isLoading={isInstanceAuditLoading}
-                    />
-                  ))
-                : instanceAudit?.map((audit, index) => (
-                    <ZTimelineItem
-                      sx={{
-                        '::before': {
-                          content: 'none',
-                        },
-                        mt: 1,
-                      }}
-                      key={index}
-                      title={`${dayjs().diff(
-                        dayjs(audit?.updatedAt),
-                        'day',
-                      )} days ago`}
-                      isLoading={isInstanceAuditLoading}
-                    >
-                      <Stack
-                        sx={{ border: `1px solid ${grey[400]}`, p: 2 }}
-                        component={Paper}
-                        elevation={0}
-                        direction={{ xs: 'column', lg: 'row' }}
-                        justifyContent="space-between"
+            {instancesFavorites?.length === 0 &&
+            instances?.length > INSTANCE_LIMIT ? (
+              <Alert severity="warning" variant="filled">
+                Want to see more relevant activity, mark an instance as a
+                favorite to see details from that stream.
+              </Alert>
+            ) : (
+              <Timeline sx={{ p: 0 }}>
+                {isInstanceAuditLoading
+                  ? [...new Array(5)].map((i) => (
+                      <ZTimelineItem
+                        sx={{
+                          '::before': {
+                            content: 'none',
+                          },
+                          mt: 1,
+                        }}
+                        key={i}
+                        isLoading={isInstanceAuditLoading}
+                      />
+                    ))
+                  : instanceAudit?.map((audit, index) => (
+                      <ZTimelineItem
+                        sx={{
+                          '::before': {
+                            content: 'none',
+                          },
+                          mt: 1,
+                        }}
+                        key={index}
+                        title={`${dayjs().diff(
+                          dayjs(audit?.updatedAt),
+                          'day',
+                        )} days ago`}
+                        isLoading={isInstanceAuditLoading}
                       >
-                        <Stack>
-                          <Typography>{initialInstanceName}</Typography>
-                          <Typography
-                            variant="body2"
-                            sx={{ wordBreak: 'break-word' }}
-                          >
-                            {audit.meta.message}
-                          </Typography>
-                        </Stack>
                         <Stack
-                          alignItems="center"
-                          direction="row"
-                          spacing={2}
-                          mt={{ xs: 1 }}
+                          sx={{ border: `1px solid ${grey[400]}`, p: 2 }}
+                          component={Paper}
+                          elevation={0}
+                          direction={{ xs: 'column', lg: 'row' }}
+                          justifyContent="space-between"
                         >
-                          <Button
-                            href={audit.meta.url}
-                            size="small"
-                            variant="contained"
-                            color="primary"
+                          <Stack>
+                            <Typography>{audit.entityName}</Typography>
+                            <Typography
+                              variant="body2"
+                              sx={{ wordBreak: 'break-word' }}
+                            >
+                              {audit.meta.message}
+                            </Typography>
+                          </Stack>
+                          <Stack
+                            alignItems="center"
+                            direction="row"
+                            spacing={2}
+                            mt={{ xs: 1 }}
                           >
-                            Edit Item
-                          </Button>
-                          <Button
-                            href={audit.meta.url}
-                            size="small"
-                            variant="outlined"
-                            color="primary"
-                          >
-                            Edit Content
-                          </Button>
+                            <Button
+                              href={audit.meta.url}
+                              size="small"
+                              variant="contained"
+                              color="primary"
+                            >
+                              Edit Item
+                            </Button>
+                            <Button
+                              href={audit.meta.url}
+                              size="small"
+                              variant="outlined"
+                              color="primary"
+                            >
+                              Edit Content
+                            </Button>
+                          </Stack>
                         </Stack>
-                      </Stack>
-                    </ZTimelineItem>
-                  ))}
-            </Timeline>
+                      </ZTimelineItem>
+                    ))}
+              </Timeline>
+            )}
           </Stack>
         </Grid>
 
