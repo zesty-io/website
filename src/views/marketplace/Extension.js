@@ -1,5 +1,14 @@
 // prettier-ignore
-import {Box,Button,Grid,Link,Typography, Card, CardContent } from '@mui/material';
+import React from 'react'
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  Typography,
+  Card,
+  CardContent,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
@@ -10,6 +19,7 @@ import { ResourceLinkComp } from 'components/marketplace/ResourceLinkComp';
 import LaunchIcon from '@mui/icons-material/Launch';
 import MuiMarkdown from 'mui-markdown';
 import { useZestyStore } from 'store';
+import { getTemplate } from 'utils/LaunchApp';
 
 function showDetails(props) {
   return (
@@ -70,13 +80,18 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 const InstallButton = ({ data, theme }) => {
   const { workingInstance } = useZestyStore((state) => state);
   const isTemplate = data.meta.web.uri.includes('template') ? true : false;
+  const [template, settemplate] = React.useState({});
+
+  React.useEffect(() => {
+    getTemplate(data?.meta?.zuid, settemplate);
+  }, []);
 
   if (data.app_zuid && !isTemplate) {
     return <AppInstallerComp data={data} />;
   } else if (isTemplate) {
     return (
       <Button
-        href={`/launch/?template=${data.meta.zuid}`}
+        href={`/launch/?template=${template.meta.zuid}`}
         variant="contained"
         color="secondary"
         fullWidth
