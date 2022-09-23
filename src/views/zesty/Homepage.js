@@ -40,7 +40,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  * Components Imports
  */
 import Hero from 'components/marketing/Homepage/Hero';
-import SimpleCardLogo from 'blocks/zesty/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
 import NewBenefits from 'components/marketing/Homepage/NewBenefits';
 import Migration from 'components/marketing/Homepage/Migration';

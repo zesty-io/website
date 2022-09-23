@@ -12,7 +12,7 @@ import MuiMarkdown from 'mui-markdown';
  * */
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import FillerContent from 'components/globals/FillerContent';
-import ZestyImage from '../Image/ZestyImage';
+import ZestyImage from '../../Image/ZestyImage';
 
 const TwoRowsHero = ({
   eyebrow = FillerContent.header,

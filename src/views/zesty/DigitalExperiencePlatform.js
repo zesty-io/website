@@ -98,7 +98,7 @@ import Hero from 'components/marketing/DigitalExperiencePlatform/Hero';
 import Solution from 'components/marketing/DigitalExperiencePlatform/Solution';
 import About from 'components/marketing/DigitalExperiencePlatform/About';
 import Middle from 'components/marketing/DigitalExperiencePlatform/Middle';
-import Features from 'blocks/zesty/Features/Features';
+import Features from 'blocks/features/Features/Features';
 import Integrations from 'components/marketing/DigitalExperiencePlatform/Integrations';
 import Implementation from 'components/marketing/DigitalExperiencePlatform/Implementation';
 import Bottom from 'components/marketing/DigitalExperiencePlatform/Bottom';

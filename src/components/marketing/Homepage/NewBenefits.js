@@ -21,7 +21,7 @@ import { useTheme } from '@mui/material';
 import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
 import DemoCta from 'components/cta/DemoCta';
-import ZestyImage from 'blocks/zesty/Image/ZestyImage';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';

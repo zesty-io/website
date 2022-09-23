@@ -63,7 +63,7 @@ import BgDecorations from 'components/marketing/LongFormPpc/BgDecorations';
 import ContactUsForm from 'components/marketing/LongFormPpc/ContactUsForm';
 import TechStack from 'blocks/integrations/TechStack';
 import Hero from 'components/marketing/LongFormPpc/Hero';
-import Features from 'blocks/zesty/Features/Features';
+import Features from 'blocks/features/Features/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
 import PpcShortForm from 'components/marketing/LongFormPpc/PpcShortForm';

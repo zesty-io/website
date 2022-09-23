@@ -5,7 +5,7 @@
 import { Box, Grid, Typography, Container } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
-import ZestyImage from '../Image/ZestyImage';
+import ZestyImage from '../../Image/ZestyImage';
 const WhyZesty = ({ header, FillerContent, theme, isMedium, whyZestyData }) => {
   return (
     <Box

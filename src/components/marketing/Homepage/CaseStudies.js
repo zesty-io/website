@@ -5,7 +5,7 @@
 import { Box, Typography, Card, Button, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Container from 'blocks/container/Container';
-import ZestyImage from 'blocks/zesty/Image/ZestyImage';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
   return (

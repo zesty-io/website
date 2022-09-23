@@ -4,7 +4,7 @@ import MuiMarkdown from 'mui-markdown';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
-import ZestyImage from 'blocks/zesty/Image/ZestyImage';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const TechStack = ({
   text_content,

@@ -5,7 +5,7 @@ import React from 'react';
  */
 import { Box, Typography, Grid, Container } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
-import ZestyImage from 'blocks/zesty/Image/ZestyImage';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Benefits = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
   const data = [

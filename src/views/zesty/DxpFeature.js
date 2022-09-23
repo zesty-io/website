@@ -45,8 +45,8 @@
  */
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Features from 'blocks/zesty/Features/Features';
-import TwoColumnFeatures from 'blocks/zesty/Features/TwoColumnFeatures';
+import Features from 'blocks/features/Features/Features';
+import TwoColumnFeatures from 'blocks/features/Features/TwoColumnFeatures';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
