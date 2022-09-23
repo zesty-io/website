@@ -80,8 +80,6 @@ function Homepage({ content }) {
     data: content.testimonials?.data,
   };
 
-  console.log(content);
-
   useEffect(() => {
     AOS.init({
       disable: isMedium,
@@ -96,13 +94,10 @@ function Homepage({ content }) {
     };
   });
 
-  console.log(alternateColumnsData);
-
   return (
     <>
       <Hero {...pageData} />
       <SimpleCardLogo
-        textOutside
         heading_text={content?.logo_heading}
         logoItems={content.homepage_logos.data}
       />
@@ -133,13 +128,13 @@ function Homepage({ content }) {
         {...testimonialsData}
       />
       <LogoSlider cta_text={content.marketplace_cta_text} {...pageData} />
-      <MiddleCta
+      {/* <MiddleCta
         cta_text={content.bottom_cta_text}
         cta_secondary_link={content.bottom_cta_secondary_link}
         cta_secondary_text={content.bottom_cta_secondary_text}
         header_content={content.bottom_cta_header}
         {...pageData}
-      />
+      /> */}
       <Bottom {...pageData} />
     </>
   );

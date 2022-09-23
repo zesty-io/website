@@ -53,7 +53,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
           </Typography>
         </Box>
 
-        <Box sx={{ mt: 4 }}>
+        <Box sx={{ mt: 8 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
               <MuiMarkdown

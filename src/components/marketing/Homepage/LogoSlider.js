@@ -84,7 +84,7 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, cta_text }) => {
           <Button
             target="_blank"
             sx={{ mt: 2 }}
-            variant="contained"
+            variant="outlined"
             color="secondary"
             component="a"
             href="/marketplace/"

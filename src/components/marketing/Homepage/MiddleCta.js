@@ -30,8 +30,7 @@ const MiddleCta = ({
     <Box component="section">
       <Container
         sx={{
-          background:
-            'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(41, 48, 86, 1) 0%, #1B202C 100%)',
+          background: theme.palette.zesty.zestyDarkBlueRadialGradient,
           py: 10,
           borderRadius: 5,
         }}
@@ -64,7 +63,7 @@ const MiddleCta = ({
               },
             }}
           >
-            {header_content}
+            {header_content || FillerContent.header}
           </MuiMarkdown>
           <Box
             sx={{
@@ -90,7 +89,7 @@ const MiddleCta = ({
                 color: theme.palette.zesty.zetsyOrange,
               }}
             >
-              {cta_secondary_text}
+              {cta_secondary_text || FillerContent.cta}
               <ArrowRightAlt sx={{ ml: 1 }} />
             </Button>
           </Box>

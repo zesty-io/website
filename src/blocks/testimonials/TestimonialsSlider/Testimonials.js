@@ -84,6 +84,7 @@ const Testimonials = ({ title, data, cta_text, cta_link }) => {
                       component: 'h2',
                       variant: 'h4',
                       sx: {
+                        textAlign: 'left !important',
                         color: theme.palette.zesty.zestyOrange,
                         fontWeight: 'bold',
                       },
@@ -95,6 +96,7 @@ const Testimonials = ({ title, data, cta_text, cta_link }) => {
                       component: 'p',
                       variant: 'h4',
                       sx: {
+                        textAlign: 'left !important',
                         color: theme.palette.zesty.zestyZambezi,
                         fontWeight: 'bold',
                       },
@@ -110,14 +112,13 @@ const Testimonials = ({ title, data, cta_text, cta_link }) => {
                   sx={{
                     mt: 2,
                     display: 'flex',
-                    justifyContent: 'center',
                     alignItems: 'center',
                   }}
                 >
                   <Button
                     href={cta_link}
                     component={'a'}
-                    variant="contained"
+                    variant="outlined"
                     color="secondary"
                   >
                     {cta_text}

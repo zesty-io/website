@@ -86,6 +86,8 @@ export const light = {
     zestyLightOrange: '#F5F1F1',
     zestyDarkText: '#2D3748',
     lightPink: '#FFF6F1',
+    zestyDarkBlueRadialGradient:
+      'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(41, 48, 86, 1) 0%, #1B202C 100%)',
   },
 };
 

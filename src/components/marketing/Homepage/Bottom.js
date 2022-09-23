@@ -25,8 +25,8 @@ const Bottom = ({
     <Box
       component="section"
       sx={{
-        mt: 25,
-        background: theme.palette.zesty.zestyTealGradient2,
+        mt: 5,
+        background: theme.palette.zesty.zestyDarkBlueRadialGradient,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
