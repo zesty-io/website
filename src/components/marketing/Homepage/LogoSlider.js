@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 /**
@@ -15,7 +15,7 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
+const LogoSlider = ({ content, FillerContent, theme, isMedium, cta_text }) => {
   const slideOne = [content.integrations_logos?.data];
   const slideTwo = [content.integrations_logos_2?.data];
 
@@ -72,6 +72,27 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium }) => {
       >
         {content.integration_title_and_description || FillerContent.description}
       </MuiMarkdown>
+
+      {cta_text && (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Button
+            target="_blank"
+            sx={{ mt: 2 }}
+            variant="contained"
+            color="secondary"
+            component="a"
+            href="/marketplace/"
+          >
+            {cta_text}
+          </Button>
+        </Box>
+      )}
 
       <Box>
         {slideOne && (

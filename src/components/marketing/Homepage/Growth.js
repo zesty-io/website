@@ -18,7 +18,7 @@ const Growth = ({
 }) => {
   const flexOrder = ['flex-end', 'center', 'flex-start'];
   return (
-    <Box component={'section'} sx={{ py: 5, position: 'relative' }}>
+    <Box component={'section'} sx={{ py: 15, position: 'relative' }}>
       <Box
         sx={{
           display: isExtraLarge && 'none',
@@ -33,9 +33,6 @@ const Growth = ({
       />
       <Container>
         <Box
-          data-aos="fade-right"
-          data-aos-delay="50"
-          data-aos-offset="700"
           sx={{
             width: '100%',
             maxWidth: isExtraLarge ? '100%' : 639,
@@ -50,7 +47,7 @@ const Growth = ({
                   variant: 'h3',
                   component: 'h2',
                   sx: {
-                    color: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.zesty.zestyZambezi,
                     fontWeight: 'bold',
                   },
                 },
@@ -58,7 +55,7 @@ const Growth = ({
               p: {
                 component: Typography,
                 props: {
-                  variant: 'h4',
+                  variant: 'h6',
                   component: 'p',
                   sx: {
                     color: theme.palette.zesty.zestyZambezi,
@@ -85,10 +82,6 @@ const Growth = ({
           {content.growth_cards?.data.map((item, index) => (
             <Box
               key={index}
-              data-aos-delay="150"
-              data-aos-offset="400"
-              data-aos="fade-up"
-              data-aos-duration={`${index + 1}000`}
               sx={{
                 display: 'flex',
                 justifyContent: isExtraLarge ? 'center' : flexOrder[index],
