@@ -5,7 +5,8 @@ import { useZestyStore } from 'store';
 import MainContent from './MainContent';
 import SideContent from './SideContent';
 
-const TOTAL_INSTANCES_LENGTH = 10;
+const TOTAL_INSTANCES_LIMIT = 10;
+const TOTAL_TEAMS_LIMIT = 5;
 
 const Dashboard = () => {
   const { ZestyAPI } = useZestyStore((state) => state);
@@ -30,7 +31,7 @@ const Dashboard = () => {
       instance?.name.toLowerCase().includes(value),
     );
 
-    setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LENGTH));
+    setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LIMIT));
   };
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const Dashboard = () => {
           (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
         ),
       );
-      setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LENGTH));
+      setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LIMIT));
       setIsInstanceLoading(false);
     };
 
@@ -75,7 +76,8 @@ const Dashboard = () => {
         >
           <SideContent
             instances={filteredInstances}
-            totalLength={TOTAL_INSTANCES_LENGTH}
+            totalInstancesLimit={TOTAL_INSTANCES_LIMIT}
+            totalTeamsLimit={TOTAL_TEAMS_LIMIT}
             unfilteredTotalInstances={instances?.length}
             handleSearchInstances={handleSearchInstances}
             teams={teams}
