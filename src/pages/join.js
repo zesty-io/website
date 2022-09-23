@@ -38,6 +38,8 @@ import * as ga from 'lib/ga';
 // questions data
 import RoleQuestions from 'components/marketing/Join/Data/RoleQuestions';
 import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
+import { SelectTemplate } from 'components/marketing/Join/Start/SelectTemplate';
+import { ProjectDetails } from 'components/marketing/Join/Start/ProjectDetails';
 
 // onboarding
 // import Onboarding from 'components/marketing/Join/Onboarding';
@@ -90,6 +92,7 @@ export default function Join(props) {
   const { height, width } = getWindowDimensions();
   const isProduction = props.production;
 
+  const [repository, setrepository] = useState('');
   // state values for form capture
   const [role, setRole] = useState('Developer');
   const [email, setEmail] = useState('..still capturing email');
@@ -154,6 +157,10 @@ export default function Join(props) {
     }
   };
 
+  const handleSelectTemplate = (repository) => {
+    setrepository(repository);
+    handleNext();
+  };
   const stringifyLead = (obj) => {
     let str = '';
     for (var key in obj) {
@@ -328,10 +335,7 @@ export default function Join(props) {
             </SwiperSlide>
             {/* Step 2: Select a Template  */}
             <SwiperSlide>
-              <p>
-                Select a Template. Need template browser, need to store the
-                template type. Set the tempalte name as projectType for CRM.
-              </p>
+              <SelectTemplate handleSelectTemplate={handleSelectTemplate} />
             </SwiperSlide>
             {/* Step 3: Signup  */}
             <SwiperSlide>
@@ -378,11 +382,7 @@ export default function Join(props) {
             </SwiperSlide>
             {/* Step 4: enter project details, on continue it creates an instance */}
             <SwiperSlide>
-              <p>
-                Project Details (name and ecosystem) triggers the isntance build
-                at continue. Needs a loading screen while wait for response from
-                install.
-              </p>
+              <ProjectDetails />
             </SwiperSlide>
             {/* Step 5: Technilogy selection Onboarding */}
             <SwiperSlide>
