@@ -110,12 +110,14 @@ export default function Join(props) {
 
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
+    setCurrentStep(currentStep - 1);
     sliderRef.current.swiper.slidePrev();
   }, []);
 
   // moves user forward a slide in the onboard process
   const handleNext = useCallback(() => {
     if (!sliderRef.current) return;
+    setCurrentStep(currentStep + 1);
     sliderRef.current.swiper.slideNext();
     setCurrentAnimation('still');
   }, []);
@@ -269,7 +271,9 @@ export default function Join(props) {
               </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Button onClick={handlePrev}>Back</Button>
+              {currentStep > 1 && (
+                <Button onClick={() => handlePrev()}>Back</Button>
+              )}
             </Grid>
           </Grid>
           <Box>
