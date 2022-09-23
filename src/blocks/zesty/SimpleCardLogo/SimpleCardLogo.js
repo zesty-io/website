@@ -9,6 +9,8 @@ const SimpleCardLogo = ({
   isDarkMode,
   logoItems,
   heading_text = '',
+  maxWidth = 1500,
+  variant = 'elevation',
 }) => {
   const theme = useTheme();
   const sunsDarkLogoUrl =
@@ -16,8 +18,8 @@ const SimpleCardLogo = ({
 
   return (
     <Box component="section">
-      <Container>
-        <Card sx={{ py: 2 }}>
+      <Container maxWidth={maxWidth}>
+        <Card variant={variant} sx={{ py: 2 }}>
           <CardContent>
             <MuiMarkdown
               overrides={{
