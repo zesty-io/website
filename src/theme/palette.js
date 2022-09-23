@@ -69,6 +69,8 @@ export const light = {
     whiteGray: '#F4F6FB',
     lightBlue: '#D9E2F4',
     zestyGray99: '#FCFCFC',
+    zestyTealGradient2:
+      'linear-gradient(269.83deg, #06BBCF 0.13%, #C6E9ED 104.87%);',
     zestyTealGradient:
       'linear-gradient(180deg, rgba(15,172,185,1) 45%, rgba(255,255,255,1) 100%)',
     zestyBlueGradient:

@@ -54,6 +54,7 @@ import Bottom from 'components/marketing/Homepage/Bottom';
 import FillerContent from 'components/globals/FillerContent';
 import { useEffect } from 'react';
 import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
+import MiddleCta from 'components/marketing/Homepage/MiddleCta';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -114,10 +115,31 @@ function Homepage({ content }) {
         cta_text={content.middle_cta_button_text}
       />
       <Migration {...pageData} />
+
+      <MiddleCta
+        cta_text={content.middle_cta_text}
+        cta_secondary_link={
+          content.middle_cta_secondary_cta_link.data[0].meta.web.uri
+        }
+        cta_secondary_text={content.middle_secondary_cta_text}
+        header_content={content.middle_cta_header}
+        {...pageData}
+      />
       <Growth {...pageData} />
       <CaseStudies {...pageData} />
-      <Testimonials {...testimonialsData} />
-      <LogoSlider {...pageData} />
+      <Testimonials
+        cta_text={content.testimonials_cta_text}
+        cta_link={content.testimonial_cta_link}
+        {...testimonialsData}
+      />
+      <LogoSlider cta_text={content.marketplace_cta_text} {...pageData} />
+      <MiddleCta
+        cta_text={content.bottom_cta_text}
+        cta_secondary_link={content.bottom_cta_secondary_link}
+        cta_secondary_text={content.bottom_cta_secondary_text}
+        header_content={content.bottom_cta_header}
+        {...pageData}
+      />
       <Bottom {...pageData} />
     </>
   );

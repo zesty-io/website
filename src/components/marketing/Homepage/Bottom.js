@@ -25,7 +25,8 @@ const Bottom = ({
     <Box
       component="section"
       sx={{
-        background: `url(${content.bottom_cta_background?.data[0].url}?width=1920)`,
+        mt: 25,
+        background: theme.palette.zesty.zestyTealGradient2,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
@@ -76,7 +77,7 @@ const Bottom = ({
                       variant: 'h3',
                       component: 'span',
                       sx: {
-                        color: theme.palette.zesty.zestyOrange,
+                        color: theme.palette.common.white,
                         fontWeight: 'inherit',
                         textAlign: 'inherit',
                       },

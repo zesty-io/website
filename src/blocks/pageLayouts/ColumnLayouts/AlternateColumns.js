@@ -31,7 +31,6 @@ const AlternateColumns = ({
     <Box
       sx={{
         pt: 15,
-        pb: 5,
       }}
       component="section"
     >

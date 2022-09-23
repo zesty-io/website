@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, Grid } from '@mui/material';
+import { Box, Typography, Card, Grid, Button } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -32,7 +32,7 @@ import Container from 'blocks/container/Container';
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
 
-const Testimonials = ({ title, data }) => {
+const Testimonials = ({ title, data, cta_text, cta_link }) => {
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const backgroundUrl = 'https://kfg6bckb.media.zestyio.com/testimonials.svg';
@@ -104,6 +104,26 @@ const Testimonials = ({ title, data }) => {
               >
                 {title}
               </MuiMarkdown>
+
+              {cta_text && (
+                <Box
+                  sx={{
+                    mt: 2,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    href={cta_link}
+                    component={'a'}
+                    variant="contained"
+                    color="secondary"
+                  >
+                    {cta_text}
+                  </Button>
+                </Box>
+              )}
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
