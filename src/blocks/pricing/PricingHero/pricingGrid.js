@@ -15,7 +15,6 @@ const pricingGrid = ({ data }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
-  console.log(data);
 
   return (
     <>
@@ -165,18 +164,10 @@ const pricingGrid = ({ data }) => {
                       {item?.includes_header}
                     </Typography>
                   </Box>
-                  {/* {console.log(
-                    item.features_included.data.map((item) => item.title),
-                  )} */}
-                  {item.features_included.data.map((item) => (
+
+                  {item?.features_included?.data.map((item) => (
                     <FeatureItem item={item.title} />
                   ))}
-                  {/* <FeatureItem item={item?.support} />
-                  <FeatureItem item={item?.feature1} />
-                  <FeatureItem item={item?.feature2} />
-                  <FeatureItem item={item?.feature3} />
-                  <FeatureItem item={item?.feature4} />
-                  <FeatureItem item={item?.feature5} /> */}
                 </Box>
               </Card>
             </Grid>
