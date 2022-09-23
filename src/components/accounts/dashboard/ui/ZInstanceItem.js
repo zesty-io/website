@@ -58,9 +58,14 @@ const ZInstanceItem = ({
       <Stack>
         <IconButton sx={{ borderRadius: 0, p: 0 }} href={zuidLink}>
           {isLoading ? (
-            <Skeleton width="100%" height={220} />
+            <Skeleton width="100%" height={200} />
           ) : (
-            <img src={image} width="100%" height={268} />
+            <img
+              src={image}
+              width="100%"
+              height={200}
+              style={{ objectFit: 'cover' }}
+            />
           )}
         </IconButton>
       </Stack>
