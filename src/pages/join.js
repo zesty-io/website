@@ -158,6 +158,7 @@ export default function Join(props) {
   };
 
   const handleSelectTemplate = (repository) => {
+    console.log(repository, 444);
     setrepository(repository);
     handleNext();
   };
@@ -382,7 +383,7 @@ export default function Join(props) {
             </SwiperSlide>
             {/* Step 4: enter project details, on continue it creates an instance */}
             <SwiperSlide>
-              <ProjectDetails />
+              <ProjectDetails repository={repository} />
             </SwiperSlide>
             {/* Step 5: Technilogy selection Onboarding */}
             <SwiperSlide>
