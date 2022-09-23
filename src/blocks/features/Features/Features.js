@@ -61,7 +61,7 @@ const Features = ({
   const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
   const isRichText = htmlCheck.test(features_header);
 
-  if (!isRichText) {
+  if (!isRichText && features_header) {
     features_header = `<h2>${features_header}</h2>`;
   }
   return (

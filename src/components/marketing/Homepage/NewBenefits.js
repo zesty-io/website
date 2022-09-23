@@ -42,7 +42,7 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
               component: Typography,
               props: {
                 component: 'h2',
-                variant: 'h4',
+                variant: 'h3',
                 sx: {
                   color: theme.palette.zesty.zestyDarkText,
                   fontWeight: 'bold',
@@ -83,7 +83,7 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
           />
         </Box>
 
-        <Box sx={{ mt: 5 }}>
+        {/* <Box sx={{ mt: 5 }}>
           <Swiper
             breakpoints={{
               640: {
@@ -192,7 +192,7 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
               <SwiperButtonNext />
             </Box>
           </Swiper>
-        </Box>
+        </Box> */}
       </Container>
     </Box>
   );
