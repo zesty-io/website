@@ -21,6 +21,8 @@ const SimpleCardLogo = ({
   logoItems = FillerContent.logos,
   heading_text = '',
   textOutside = false,
+  maxWidth = 1500,
+  variant = 'elevation',
 }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';

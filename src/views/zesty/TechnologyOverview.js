@@ -78,6 +78,13 @@ function TechnologyOverview({ content }) {
     ],
   };
 
+  const techStackData = {
+    text_content: content.integrations_description,
+    logos: content.integrations_logos?.data,
+    cta_text: content.integrations_button,
+    cta_link: content.integration_link.data[0].meta.web.uri,
+  };
+
   return (
     <Box>
       <Hero {...pageData} />
@@ -86,7 +93,7 @@ function TechnologyOverview({ content }) {
       <GetStarted {...pageData} />
       <Features {...pageData} />
       <HeadlessApi {...pageData} />
-      <TechStack {...pageData} />
+      <TechStack {...techStackData} {...pageData} />
       <TopBrands title={content.case_study_header} {...pageData} />
       <Articles
         title={content.articles_header}
