@@ -174,6 +174,11 @@ const MainContent = ({
                             size="small"
                             variant="contained"
                             color="primary"
+                            sx={{
+                              whiteSpace: {
+                                md: 'nowrap',
+                              },
+                            }}
                           >
                             Open Resource
                           </Button>
@@ -184,6 +189,11 @@ const MainContent = ({
                           size="small"
                           variant="outlined"
                           color="primary"
+                          sx={{
+                            whiteSpace: {
+                              md: 'nowrap',
+                            },
+                          }}
                         >
                           Edit Instance
                         </Button>
