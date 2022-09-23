@@ -1,11 +1,11 @@
 import { Container, Grid } from '@mui/material';
-import { getCookie } from 'cookies-next';
 import React, { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import MainContent from './MainContent';
 import SideContent from './SideContent';
 
-const TOTAL_INSTANCES_LENGTH = 10;
+const TOTAL_INSTANCES_LIMIT = 10;
+const TOTAL_TEAMS_LIMIT = 5;
 
 const Dashboard = () => {
   const { ZestyAPI } = useZestyStore((state) => state);
@@ -13,12 +13,6 @@ const Dashboard = () => {
   const [isInstancesLoading, setIsInstanceLoading] = useState(false);
   const [filteredInstances, setFilteredInstances] = useState([]);
   const [teams, setTeams] = useState([]);
-  const initialInstanceName =
-    instances?.find((i) => i.ZUID === getCookie('ZESTY_WORKING_INSTANCE'))
-      ?.name || instances?.[0]?.name;
-
-  const initialInstanceZUID =
-    getCookie('ZESTY_WORKING_INSTANCE') || instances?.[0]?.ZUID;
 
   const getAllTeams = async () => {
     const response = await ZestyAPI.getAllTeams();
@@ -30,7 +24,7 @@ const Dashboard = () => {
       instance?.name.toLowerCase().includes(value),
     );
 
-    setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LENGTH));
+    setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LIMIT));
   };
 
   useEffect(() => {
@@ -42,7 +36,7 @@ const Dashboard = () => {
           (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
         ),
       );
-      setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LENGTH));
+      setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LIMIT));
       setIsInstanceLoading(false);
     };
 
@@ -75,7 +69,8 @@ const Dashboard = () => {
         >
           <SideContent
             instances={filteredInstances}
-            totalLength={TOTAL_INSTANCES_LENGTH}
+            totalInstancesLimit={TOTAL_INSTANCES_LIMIT}
+            totalTeamsLimit={TOTAL_TEAMS_LIMIT}
             unfilteredTotalInstances={instances?.length}
             handleSearchInstances={handleSearchInstances}
             teams={teams}
@@ -84,8 +79,6 @@ const Dashboard = () => {
 
         <Grid xs={12} md={9} lg={10} item>
           <MainContent
-            initialInstanceName={initialInstanceName}
-            initialInstanceZUID={initialInstanceZUID}
             instances={instances}
             isInstancesLoading={isInstancesLoading}
           />
