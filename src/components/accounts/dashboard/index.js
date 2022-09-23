@@ -1,4 +1,5 @@
 import { Container, Grid } from '@mui/material';
+import AppBar from 'components/console/AppBar';
 import { getCookie } from 'cookies-next';
 import React, { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
@@ -51,47 +52,50 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Container
-      maxWidth={false}
-      disableGutters
-      sx={(theme) => ({
-        maxWidth: theme.breakpoints.values.xl2,
-        px: 3,
-      })}
-    >
-      <Grid container spacing={2}>
-        <Grid
-          sx={{
-            height: { md: `calc(100vh - 66px)` },
-            position: { md: 'sticky' },
-            top: { md: '66px' },
-            overflowY: { md: 'auto' },
-            maxWidth: { md: '384px' },
-          }}
-          md={3}
-          lg={2}
-          xs={12}
-          item
-        >
-          <SideContent
-            instances={filteredInstances}
-            totalLength={TOTAL_INSTANCES_LENGTH}
-            unfilteredTotalInstances={instances?.length}
-            handleSearchInstances={handleSearchInstances}
-            teams={teams}
-          />
-        </Grid>
+    <>
+      <AppBar />
+      <Container
+        maxWidth={false}
+        disableGutters
+        sx={(theme) => ({
+          maxWidth: theme.breakpoints.values.xl2,
+          px: 3,
+        })}
+      >
+        <Grid container spacing={2}>
+          <Grid
+            sx={{
+              height: { md: `calc(100vh - 66px)` },
+              position: { md: 'sticky' },
+              top: { md: '66px' },
+              overflowY: { md: 'auto' },
+              maxWidth: { md: '384px' },
+            }}
+            md={3}
+            lg={2}
+            xs={12}
+            item
+          >
+            <SideContent
+              instances={filteredInstances}
+              totalLength={TOTAL_INSTANCES_LENGTH}
+              unfilteredTotalInstances={instances?.length}
+              handleSearchInstances={handleSearchInstances}
+              teams={teams}
+            />
+          </Grid>
 
-        <Grid xs={12} md={9} lg={10} item>
-          <MainContent
-            initialInstanceName={initialInstanceName}
-            initialInstanceZUID={initialInstanceZUID}
-            instances={instances}
-            isInstancesLoading={isInstancesLoading}
-          />
+          <Grid xs={12} md={9} lg={10} item>
+            <MainContent
+              initialInstanceName={initialInstanceName}
+              initialInstanceZUID={initialInstanceZUID}
+              instances={instances}
+              isInstancesLoading={isInstancesLoading}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </>
   );
 };
 
