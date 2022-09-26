@@ -1,11 +1,12 @@
 // REact and MUI Imports
-import { React, useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { useTheme } from '@emotion/react';
-import { Box, Grid, Typography, Button } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
+import React from 'react';
 
 // confetti
 import Confetti from 'react-confetti';
-import getWindowDimensions from 'components/marketing/Join/getWindowDimensions';
+import getWindowDimensions from 'components/marketing/Start/getWindowDimensions';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
@@ -16,33 +17,33 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 // import slides
-import { SlideQuestions } from 'components/marketing/Join/SlideQuestions';
-import { DancingLogo } from 'components/marketing/Join/DancingLogo';
-import { Signup } from 'components/marketing/Join/Signup';
-import { WelcomeScreen } from 'components/marketing/Join/WelcomeScreen';
+import { SlideQuestions } from 'components/marketing/Start/SlideQuestions';
+import { Signup } from 'components/marketing/Start/Signup';
 
 // zoho object
-import { zohoPostObject } from 'components/marketing/Join/zohoPostObject.js';
+import { zohoPostObject } from 'components/marketing/Start/zohoPostObject.js';
 import { setCookie } from 'cookies-next';
 
 // pendo
-import { pendoScript } from 'components/marketing/Join/pendoScript.js';
+import { pendoScript } from 'components/marketing/Start/pendoScript.js';
 
 // slack post function
-import slackQuestionPost from 'components/marketing/Join/slackQuestionPost.js';
-import slackNotify from 'components/marketing/Join/slackNotify.js';
+import slackQuestionPost from 'components/marketing/Start/slackQuestionPost.js';
+import slackNotify from 'components/marketing/Start/slackNotify.js';
 
 // google analytics
 import * as ga from 'lib/ga';
 
 // questions data
-import RoleQuestions from 'components/marketing/Join/Data/RoleQuestions';
-import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
-import { SelectTemplate } from 'components/marketing/Join/Start/SelectTemplate';
-import { ProjectDetails } from 'components/marketing/Join/Start/ProjectDetails';
+import RoleQuestions from 'components/marketing/Start/Data/RoleQuestions';
+import { SelectTemplate } from 'components/marketing/Start/Start/SelectTemplate';
+import { ProjectDetails } from 'components/marketing/Start/Start/ProjectDetails';
+import { NavigationStart } from 'components/marketing/Start/NavigationStart';
+import { NavStartData } from 'components/marketing/Start/Data/NavStartData';
+import { ChooseTechStack } from 'components/marketing/Start/Start/ChooseTechStack';
 
 // onboarding
-// import Onboarding from 'components/marketing/Join/Onboarding';
+// import Onboarding from 'components/marketing/Start/Onboarding';
 
 // messages
 const firstMessage = (
@@ -85,9 +86,9 @@ const postToZOHO = async (payloadJSON) => {
   }
 };
 
-// Join component
+// Start component
 
-export default function Join(props) {
+export default function Start(props) {
   const theme = useTheme();
   const { height, width } = getWindowDimensions();
   const isProduction = props.production;
@@ -112,9 +113,13 @@ export default function Join(props) {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handlePrev = useCallback(() => {
+    console.log(currentStep, 555);
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
-  }, []);
+  }, [currentStep]);
 
   // moves user forward a slide in the onboard process
   const handleNext = useCallback(() => {
@@ -152,15 +157,20 @@ export default function Join(props) {
 
     setCurrentAnimation('jiggle');
     handleNext();
+    setCurrentStep(2);
     if (isProduction === true) {
       await slackQuestionPost(question, answer, email);
     }
   };
 
   const handleSelectTemplate = (repository) => {
-    console.log(repository, 444);
     setrepository(repository);
     handleNext();
+    setCurrentStep(3);
+  };
+  const hanldeChooseTechStack = () => {
+    handleNext();
+    setCurrentStep(5);
   };
   const stringifyLead = (obj) => {
     let str = '';
@@ -244,59 +254,43 @@ export default function Join(props) {
     setCurrentAnimation(ani);
   };
 
-  // sx={{background: theme.palette.zesty.zestyDarkBlue}}
+  const nagivationProps = {
+    theme,
+    handlePrev,
+    currentStep,
+    steps,
+    title,
+    description,
+  };
+
+  React.useEffect(() => {
+    setDescription(
+      NavStartData.find((e) => e.step === currentStep)?.description,
+    );
+    setTitle(NavStartData.find((e) => e.step === currentStep)?.title);
+  }, [currentStep]);
+
   return (
-    <Box>
-      <Grid container>
+    <Box
+      sx={{
+        height: '100vh',
+        background: theme.palette.zesty.zestyDarkBlue,
+        position: 'relative',
+      }}
+    >
+      <Grid container height={1}>
         {/* Navigation Description Guide */}
+        <NavigationStart {...nagivationProps} /> {/* Slider Expereince  */}
         <Grid
           item
-          xs={0}
-          md={3}
-          sx={{ background: theme.palette.zesty.zestyDarkBlue }}
+          xs={12}
+          md={9}
+          height={1}
+          sx={{
+            background: theme.palette.common.white,
+            borderTopLeftRadius: '120px',
+          }}
         >
-          <Grid container>
-            <Grid item xs={6}>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                {currentStep}
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                of
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                {steps}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Button onClick={handlePrev}>Back</Button>
-            </Grid>
-          </Grid>
-          <Box sx={{ background: 'red' }}>
-            <Typography
-              variant="h2"
-              sx={{ color: theme.palette.zesty.zestyWhite }}
-            >
-              {title}lsdkf
-            </Typography>
-            <Typography
-              variant="body"
-              sx={{ color: theme.palette.zesty.zestyWhite }}
-            >
-              {description}
-            </Typography>
-          </Box>
-        </Grid>
-        {/* Slider Expereince  */}
-        <Grid item xs={12} md={9}>
           {pendoScript}
           {currentAnimation == 'party' && (
             <Confetti
@@ -308,7 +302,7 @@ export default function Join(props) {
               onConfettiComplete={() => setCurrentAnimation('still')}
             />
           )}
-          <DancingLogo animation={currentAnimation} />
+          {/* <DancingLogo animation={currentAnimation} /> */}
           <Swiper
             ref={sliderRef}
             autoHeight={false}
@@ -336,10 +330,16 @@ export default function Join(props) {
             </SwiperSlide>
             {/* Step 2: Select a Template  */}
             <SwiperSlide>
-              <SelectTemplate handleSelectTemplate={handleSelectTemplate} />
+              <SelectTemplate
+                handleSelectTemplate={handleSelectTemplate}
+                title="What kind of project do you want to build?"
+                description={
+                  'Create from a blank project or start from a schema template'
+                }
+              />
             </SwiperSlide>
             {/* Step 3: Signup  */}
-            <SwiperSlide>
+            {/* <SwiperSlide>
               <Signup
                 message={
                   <Box>
@@ -356,9 +356,9 @@ export default function Join(props) {
                 callback={signUpSuccess}
                 production={isProduction}
               />
-            </SwiperSlide>
+            </SwiperSlide> */}
             {/* Removing: Welcome - we need move the pendo capture script to post create  */}
-            <SwiperSlide>
+            {/* <SwiperSlide>
               <WelcomeScreen
                 firstname={firstName}
                 lastname={lastName}
@@ -369,7 +369,7 @@ export default function Join(props) {
                 dateCreated={new Date().toUTCString()}
               >
                 {welcomeMessage}
-                {/* <SlideMessage 
+                <SlideMessage 
                                 message={welcomeMessage}
                                 buttonText={`Let's go!`} 
                                 // exitButtonText={'Wait, let me invite my team.'}
@@ -378,22 +378,52 @@ export default function Join(props) {
                                 hoverAnimation={handleAnimation}
                                 exitButtonText={''}
                                 
-                            /> */}
+                            />
               </WelcomeScreen>
-            </SwiperSlide>
+            </SwiperSlide> */}
             {/* Step 4: enter project details, on continue it creates an instance */}
             <SwiperSlide>
-              <ProjectDetails repository={repository} />
+              <ProjectDetails
+                title={'Project Details'}
+                description="You can change these details after"
+                repository={repository}
+                handleNext={handleNext}
+                setCurrentStep={() => setCurrentStep(4)}
+              />
             </SwiperSlide>
             {/* Step 5: Technilogy selection Onboarding */}
             <SwiperSlide>
-              <SlideQuestions
+              <ChooseTechStack
+                title={'Choose your tech stack'}
+                description="This will help us guide you through your onboarding experience better"
+                handleNext={handleNext}
+                hanldeChooseTechStack={hanldeChooseTechStack}
+              />
+              {/* <SlideQuestions
                 question={ProjectQuestions.question}
                 why={ProjectQuestions.why}
                 answers={ProjectQuestions.answers}
                 answerCallBack={handleAnswers}
                 hoverAnimation={handleAnimation}
                 storeValue="projectType"
+              /> */}
+            </SwiperSlide>
+            <SwiperSlide>
+              <Signup
+                message={
+                  <Box>
+                    <Box sx={{ fontWeight: 'bold' }} display="inline">
+                      Awesome!
+                    </Box>{' '}
+                    {`Let's start on your`}
+                    <Box sx={{ fontWeight: 'bold' }} display="inline">
+                      {projectType}
+                    </Box>{' '}
+                    project.
+                  </Box>
+                }
+                callback={signUpSuccess}
+                production={isProduction}
               />
             </SwiperSlide>
           </Swiper>
