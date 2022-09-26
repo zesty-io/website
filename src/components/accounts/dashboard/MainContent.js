@@ -35,7 +35,7 @@ const MainContent = ({
   const [instanceAudit, setInstanceAudit] = useState([]);
   const [isInstanceAuditLoading, setIsInstanceAuditLoading] = useState(false);
 
-  const setResponseToAuditState = async (zuid, limit = 1) => {
+  const setResponseToAuditState = async (zuid, limit = 10) => {
     const response = await ZestyAPI.getInstanceAuditInitZUID(limit, zuid);
 
     if (!response?.error) {
