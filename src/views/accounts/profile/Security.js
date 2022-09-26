@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { Form, Formik, useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
@@ -51,7 +51,7 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Button
-                color="secondary"
+                color="primary"
                 variant="contained"
                 disabled={formik.isSubmitting}
                 fullWidth
@@ -75,7 +75,7 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Button
-                color="secondary"
+                color="primary"
                 variant="contained"
                 fullWidth
                 type="submit"
@@ -89,49 +89,6 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
           </Box>
         )}
       </Card2Fa>
-      {/* {!isAuthyEnable ? (
-        <Box>
-          <Typography variant="h4">Two Factor Authentication</Typography>
-          <Box paddingY={4}>
-            <form noValidate onSubmit={formik.handleSubmit}>
-              <Grid container spacing={2}>
-                <Grid item xs={3}>
-                  <FormInput
-                    label={'Area Code'}
-                    name={'areaCode'}
-                    formik={formik}
-                  />
-                </Grid>
-                <Grid item>
-                  <FormInput
-                    label={'Phone Number'}
-                    name={'phoneNumber'}
-                    formik={formik}
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                color="secondary"
-                variant="contained"
-                disabled={formik.isSubmitting}
-                fullWidth
-                type="submit"
-              >
-                Enable Two Factor Authentication
-              </Button>
-            </form>
-          </Box>
-        </Box>
-      ) : (
-        <Button
-          variant="contained"
-          color="secondary"
-          type="button"
-          onClick={handleDisableAuthy}
-        >
-          Disable Two Factor Authentication
-        </Button>
-      )} */}
     </Box>
   );
 };
@@ -245,7 +202,7 @@ const ChangePassForm = ({
                   }}
                 />
                 <Button
-                  color="secondary"
+                  color="primary"
                   variant="contained"
                   fullWidth
                   type="submit"
@@ -274,7 +231,7 @@ export const Security = ({ getUser }) => {
       title: 'Success',
       action: () => {
         window.location.reload();
-        setCookies('isAuthenticated', 'false');
+        setCookie('isAuthenticated', 'false');
       },
     });
   };

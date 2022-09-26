@@ -61,7 +61,7 @@ export default function CustomMenu({
         onClick={handleClickMenu}
         startIcon={startIcon}
         endIcon={<KeyboardArrowDownIcon />}
-        color="secondary"
+        color="primary"
         fullWidth
         sx={{ whiteSpace: 'nowrap', height: '100%' }}
         {...props}

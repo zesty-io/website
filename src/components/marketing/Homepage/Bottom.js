@@ -4,6 +4,7 @@
 
 import { Box, Typography, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 /**
  * Components Imports
@@ -24,7 +25,7 @@ const Bottom = ({
     <Box
       component="section"
       sx={{
-        background: `url(${content.bottom_cta_background?.data[0].url})`,
+        background: `url(${content.bottom_cta_background?.data[0].url}?width=1920)`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
@@ -46,11 +47,13 @@ const Bottom = ({
                 mt: isExtraLarge ? 0 : -12.5,
               }}
             >
-              <Box
-                sx={{ width: '100%' }}
-                component="img"
-                src={content.bottom_cta_graphic?.data[0].url}
-                alt=""
+              <ZestyImage
+                width={951}
+                height={519}
+                style={{ width: '100%', maxWidth: 951, height: 'auto' }}
+                loading="lazy"
+                src={`${content.bottom_cta_graphic?.data[0].url}?width=951`}
+                alt="zesty.io"
               />
             </Box>
           </Grid>

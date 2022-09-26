@@ -56,9 +56,9 @@ const FieldComponent = ({
                 edge="end"
               >
                 {text === value ? (
-                  <CheckCircleOutlineIcon color="secondary" />
+                  <CheckCircleOutlineIcon color="primary" />
                 ) : (
-                  <ContentCopyIcon color="secondary" />
+                  <ContentCopyIcon color="primary" />
                 )}
               </IconButton>
             </InputAdornment>

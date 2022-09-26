@@ -5,7 +5,7 @@ export const WelcomeScreen = ({
   lastname,
   email,
   role,
-  project,
+  projectType,
   userZUID = false,
   dateCreated,
   children,
@@ -19,21 +19,21 @@ export const WelcomeScreen = ({
         firstName: firstname,
         lastName: lastname,
         full_name: `${firstname} ${lastname}`,
-        personaJoin: role,
-        projectType: project,
+        personajoin: role,
+        projecttype: projectType,
         // You can add any additional visitor level key-values here,
         // as long as it's not one of the above reserved names.
         staff: 0,
-        creationDate: dateCreated,
+        creationdate: dateCreated,
       };
 
-      console.log('Registering Pendo Users', visitor);
+      console.log('Registering User for Onboarding:', visitor);
       window.pendo.initialize({
         visitor: visitor,
       });
     }
     //Check if pendo is running correctly open browser console and run pendo.validateInstall()
-  });
+  }, [userZUID]);
 
   return <Box sx={{ height: '400px' }}>{children}</Box>;
 };

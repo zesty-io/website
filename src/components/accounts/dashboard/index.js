@@ -4,29 +4,44 @@ import { useZestyStore } from 'store';
 import MainContent from './MainContent';
 import SideContent from './SideContent';
 
-const TOTAL_INSTANCES_LENGTH = 10;
+const TOTAL_INSTANCES_LIMIT = 10;
+const TOTAL_TEAMS_LIMIT = 5;
 
 const Dashboard = () => {
-  const { userInfo, ZestyAPI } = useZestyStore((state) => state);
+  const { ZestyAPI } = useZestyStore((state) => state);
   const [instances, setInstances] = useState([]);
+  const [isInstancesLoading, setIsInstanceLoading] = useState(false);
   const [filteredInstances, setFilteredInstances] = useState([]);
+  const [teams, setTeams] = useState([]);
+
+  const getAllTeams = async () => {
+    const response = await ZestyAPI.getAllTeams();
+    setTeams(response?.data);
+  };
 
   const handleSearchInstances = (value) => {
     const filterInstances = [...instances]?.filter((instance) =>
       instance?.name.toLowerCase().includes(value),
     );
 
-    setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LENGTH));
+    setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LIMIT));
   };
 
   useEffect(() => {
     const getInstances = async () => {
+      setIsInstanceLoading(true);
       const res = await ZestyAPI.getInstances();
-      setInstances([...res?.data]);
-      setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LENGTH));
+      setInstances(
+        [...res?.data]?.sort(
+          (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
+        ),
+      );
+      setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LIMIT));
+      setIsInstanceLoading(false);
     };
 
     getInstances();
+    getAllTeams();
   }, []);
 
   return (
@@ -53,16 +68,20 @@ const Dashboard = () => {
           item
         >
           <SideContent
-            firstName={userInfo?.firstName}
             instances={filteredInstances}
-            totalLength={TOTAL_INSTANCES_LENGTH}
+            totalInstancesLimit={TOTAL_INSTANCES_LIMIT}
+            totalTeamsLimit={TOTAL_TEAMS_LIMIT}
             unfilteredTotalInstances={instances?.length}
             handleSearchInstances={handleSearchInstances}
+            teams={teams}
           />
         </Grid>
 
         <Grid xs={12} md={9} lg={10} item>
-          <MainContent />
+          <MainContent
+            instances={instances}
+            isInstancesLoading={isInstancesLoading}
+          />
         </Grid>
       </Grid>
     </Container>

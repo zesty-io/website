@@ -5,6 +5,7 @@
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
+import ZestyImage from 'blocks/Image/ZestyImage';
 /**
  * Static Assets Imports
  */
@@ -26,17 +27,7 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
         component="img"
         src={content.bracket_background?.data[0].url}
       /> */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: -550,
-          left: '25%',
-          width: '100%',
-          maxWidth: 919,
-        }}
-        component="img"
-        src={content.triangles_background_1?.data[0].url}
-      />
+
       <Container>
         <MuiMarkdown
           overrides={{
@@ -139,13 +130,13 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
                           alignItems: 'center',
                         }}
                       >
-                        <Box
-                          component="img"
-                          sx={{ width: '100%', maxWidth: 334, height: 179 }}
-                          src={
-                            item.graphic?.data[0].url ||
-                            FillerContent.photos[0].url
-                          }
+                        <ZestyImage
+                          width={294}
+                          height={179}
+                          style={{ width: '100%', maxWidth: 294 }}
+                          alt={item.product_name}
+                          loading="lazy"
+                          src={item.graphic?.data[0].url}
                         />
                       </Box>
 

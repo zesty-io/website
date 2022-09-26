@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Page from '../components/wrappers/Page';
 import ZestyHead from 'components/globals/ZestyHead';
-import { getCookie, setCookies } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'slick-carousel/slick/slick.css';
@@ -30,6 +30,9 @@ const layouts = {
 };
 
 export default function App({ Component, pageProps }) {
+  // tag manager / google analytics tags
+  let GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+
   useEffect(() => {
     const params = new Proxy(
       new URLSearchParams(window.location.search.toLowerCase()),
@@ -39,18 +42,18 @@ export default function App({ Component, pageProps }) {
     );
     // referrer, stored in a cookie so its not lost as a user browses
     let refCookie = getCookie('referrer');
-    if (undefined == refCookie) setCookies('referrer', document.referrer);
+    if (undefined == refCookie) setCookie('referrer', document.referrer);
 
     // utm query params
-    if (params.utm_campaign) setCookies('utm_campaign', params.utm_campaign);
-    if (params.utm_term) setCookies('utm_term', params.utm_term);
-    if (params.utm_source) setCookies('utm_source', params.utm_source);
-    if (params.utm_medium) setCookies('utm_medium', params.utm_medium);
+    if (params.utm_campaign) setCookie('utm_campaign', params.utm_campaign);
+    if (params.utm_term) setCookie('utm_term', params.utm_term);
+    if (params.utm_source) setCookie('utm_source', params.utm_source);
+    if (params.utm_medium) setCookie('utm_medium', params.utm_medium);
     //google click id  https://support.google.com/searchads/answer/7342044?hl=en
-    if (params.gclid) setCookies('gclid', params.gclid);
+    if (params.gclid) setCookie('gclid', params.gclid);
 
     // persona
-    if (params.persona) setCookies('persona', params.persona);
+    if (params.persona) setCookie('persona', params.persona);
   }, []);
 
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');

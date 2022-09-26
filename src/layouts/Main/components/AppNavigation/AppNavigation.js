@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SingleNavItem from '../Topbar/components/NavItem/SingleNavItem';
 import { ComboBox } from 'components/globals/ComboBox';
 import ThemeModeToggler from 'components/globals/ThemeModeToggler';
-import { DeveloperDocMenu, ProfileMenu } from 'components/accounts';
+import { accounts, DeveloperDocMenu, ProfileMenu } from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
@@ -13,6 +13,9 @@ import { Button, Link, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { grey } from '@mui/material/colors';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
+import { NavItem } from '../Topbar/components';
 
 const navigationLinks = [
   {
@@ -65,6 +68,10 @@ const AppNavigation = ({
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
 
+  const isLoggedIn = useIsLoggedIn();
+
+  const isAccounts = isProtectedRoute(window.location.pathname);
+
   return (
     <Stack direction="row">
       <Link href="/">
@@ -74,14 +81,34 @@ const AppNavigation = ({
           width={41}
         />
       </Link>
+
+      <Stack
+        direction="row"
+        alignItems="center"
+        spacing={2}
+        ml={4}
+        display={{ xs: 'flex', lg: 'none' }}
+      >
+        <NavItem
+          title={'Accounts'}
+          id={'accounts'}
+          items={accounts.leftNav}
+          colorInvert={false}
+        />
+      </Stack>
       <Stack
         direction="row"
         width="100%"
         ml={4}
         display={{ xs: 'none', md: 'flex' }}
-        flexWrap="wrap"
       >
-        <Stack direction="row" alignItems="center" spacing={2}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={2}
+          display={{ xs: 'none', lg: 'flex' }}
+          mr={2}
+        >
           {navigationLinks.map((nav) => (
             <SingleNavItem
               key={nav.id}
@@ -100,10 +127,16 @@ const AppNavigation = ({
             size="small"
           />
           <Button
-            color="secondary"
-            size="small"
+            color={
+              (isAccounts && isLoggedIn) ||
+              (isLoggedIn && window.location.pathname === '/')
+                ? 'primary'
+                : 'secondary'
+            }
+            size="medium"
             variant="contained"
             startIcon={<AddIcon />}
+            sx={{ whiteSpace: 'nowrap' }}
             onClick={() =>
               router.push('https://accounts.zesty.io/instances/create')
             }
@@ -122,20 +155,29 @@ const AppNavigation = ({
                   width={25}
                   style={{ borderRadius: '50%' }}
                 />
-                <ArrowDropDownIcon color="primary" fontSize="medium" />
+                <ArrowDropDownIcon
+                  color={
+                    (isAccounts && isLoggedIn) ||
+                    (isLoggedIn && window.location.pathname === '/')
+                      ? 'primary'
+                      : 'secondary'
+                  }
+                  fontSize="medium"
+                />
               </Stack>
             }
           />
           <Button
             href="https://accounts.zesty.io/"
             variant="outlined"
-            size="small"
+            size="medium"
             id="accounts-legacy"
             className="accounts-legacy-button"
             endIcon={<ExitToAppIcon />}
             sx={({ palette: { mode } }) => {
               const adjustedGrey = mode === 'light' ? grey[500] : grey[200];
               return {
+                whiteSpace: 'nowrap',
                 border: `1px solid ${adjustedGrey}`,
                 color: adjustedGrey,
                 '&.MuiButtonBase-root:hover': {

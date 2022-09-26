@@ -15,7 +15,7 @@ import TopNav from 'components/globals/TopNav';
 
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
 
-import { getCookie, setCookies } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
 import { Container } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -67,7 +67,7 @@ const Main = ({
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 38,
+    threshold: 5,
   });
 
   // check if from ppc short form page then change color of logo and nav
@@ -105,8 +105,8 @@ const Main = ({
     if (isAuthenticated) {
       setisAuthenticated(isAuthenticated);
       setisUser(isUser);
-      setCookies('isAuthenticated', isAuthenticated);
-      setCookies('isUser', isUser);
+      setCookie('isAuthenticated', isAuthenticated);
+      setCookie('isUser', isUser);
     }
   }, [isAuthenticated, isUser]);
 

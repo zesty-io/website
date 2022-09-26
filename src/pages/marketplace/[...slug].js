@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useTheme } from '@emotion/react';
 import MainApps from 'components/marketplace/landing/MainApps';
 
@@ -158,7 +158,7 @@ export async function getServerSideProps({ req, res }) {
 
   // set instance zuid cookie
   if (req.query?.instanceZUID) {
-    setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
+    setCookie('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
   const data = await getMarketplaceData(req.url);

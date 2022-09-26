@@ -62,7 +62,7 @@ export const Overview = ({
         <Button
           onClick={handleClearCache}
           variant="contained"
-          color="secondary"
+          color="primary"
           size="small"
         >
           Clear Instance Cache
@@ -83,14 +83,14 @@ export const Overview = ({
             <Box
               paddingY={1}
               paddingX={2}
-              sx={{ background: lighten(theme.palette.secondary.light, 0.9) }}
+              sx={{ background: lighten(theme.palette.primary.light, 0.9) }}
             >
               <Typography
                 variant="h6"
                 alignItems={'center'}
                 display={'flex'}
                 gap={1}
-                color={'secondary'}
+                color={'primary'}
               >
                 <AccessTimeIcon /> Your Latest Edits
               </Typography>
@@ -123,14 +123,14 @@ export const Overview = ({
             <Box
               paddingY={1}
               paddingX={2}
-              sx={{ background: lighten(theme.palette.secondary.light, 0.9) }}
+              sx={{ background: lighten(theme.palette.primary.light, 0.9) }}
             >
               <Typography
                 variant="h6"
                 alignItems={'center'}
                 display={'flex'}
                 gap={1}
-                color="secondary"
+                color="primary"
               >
                 <BarChartIcon /> Statistics
               </Typography>

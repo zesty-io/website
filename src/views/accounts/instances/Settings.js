@@ -128,18 +128,15 @@ const CustomTable = ({
             setarrToSubmit={setarrToSubmit}
           />
 
-          {isDataChange ? (
-            <Button
-              onClick={() => handleClick(e)}
-              variant="contained"
-              color="secondary"
-            >
-              <SaveIcon size={20} sx={{ marginRight: '.3rem' }} />
-              Save
-            </Button>
-          ) : (
-            <>-</>
-          )}
+          <Button
+            onClick={() => handleClick(e)}
+            variant="contained"
+            color="primary"
+            sx={{ visibility: isDataChange ? 'visible' : 'hidden' }}
+          >
+            <SaveIcon size={20} sx={{ marginRight: '.3rem' }} />
+            Save
+          </Button>
         </Box>
       ),
     };

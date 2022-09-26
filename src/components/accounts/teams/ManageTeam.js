@@ -267,7 +267,7 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
                       customLabel="Team Name"
                       placeholder="Enter your team name"
                       name="name"
-                      color="secondary"
+                      color="primary"
                       fullWidth
                       formik={formik}
                     />
@@ -275,7 +275,7 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
                       type="text"
                       customLabel="Description of your team"
                       name="description"
-                      color="secondary"
+                      color="primary"
                       formik={formik}
                       fullWidth
                       multiline
@@ -419,7 +419,7 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
                     type="text"
                     placeholder="Enter your team members email address"
                     name="email"
-                    color="secondary"
+                    color="primary"
                     formik={formikInvite}
                     fullWidth
                     hasNoLabel
@@ -433,7 +433,7 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
                   <LoadingButton
                     startIcon={<PersonAddIcon />}
                     variant="outlined"
-                    color="secondary"
+                    color="primary"
                     size="small"
                     sx={{ px: 4 }}
                     type="submit"

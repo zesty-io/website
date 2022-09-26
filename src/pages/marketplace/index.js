@@ -7,7 +7,7 @@ import { fetchPage } from 'lib/api';
 /**
  * React Imports
  */
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -29,7 +29,7 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
     seoDescription = props.meta.web.seo_meta_description;
 
   useEffect(() => {
-    setCookies('PRODUCTION', props.zestyProductionMode);
+    setCookie('PRODUCTION', props.zestyProductionMode);
   }, [props]);
 
   return (
@@ -63,7 +63,7 @@ export async function getServerSideProps({ res, req }) {
 
   // set instance zuid cookie
   if (req.query?.instanceZUID) {
-    setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
+    setCookie('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
   let extensionsURL = process.env.PRODUCTION

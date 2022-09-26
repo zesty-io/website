@@ -1,9 +1,14 @@
 import { Link, ListItem } from '@mui/material';
 import React from 'react';
 
-const MyListItem = ({ logo, link, name }) => {
+const ZMyListItem = ({ logo, link, name, sx, ...props }) => {
   return (
-    <ListItem alignItems="center" sx={{ pb: 1 }} disablePadding>
+    <ListItem
+      alignItems="center"
+      disablePadding
+      sx={{ pb: 1, ...sx }}
+      {...props}
+    >
       <img src={logo} height={16} width={16} />
       <Link
         href={link}
@@ -23,4 +28,4 @@ const MyListItem = ({ logo, link, name }) => {
   );
 };
 
-export default MyListItem;
+export default ZMyListItem;

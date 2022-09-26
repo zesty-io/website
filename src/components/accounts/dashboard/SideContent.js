@@ -1,80 +1,38 @@
-import {
-  Divider,
-  Link,
-  List,
-  Skeleton,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Link, List, Stack, TextField } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import React from 'react';
-import MyListItem from './ui/MyListItem';
-import SideListContent from './ui/SideListContent';
-
-const repositories = [
-  {
-    logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
-    name: 'zesty-io/website',
-    link: '/',
-  },
-  {
-    logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
-    name: 'zesty-io/fetch-wrapper',
-    link: '/',
-  },
-  {
-    logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
-    name: 'zesty-io/manager-ui',
-    link: '/',
-  },
-  {
-    logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
-    name: 'zesty-io/app-layouts',
-    link: '/',
-  },
-  {
-    logo: 'https://avatars.githubusercontent.com/u/8280627?s=16&v=4',
-    name: 'zesty-io/react-autolayout',
-    link: '/',
-  },
-];
+import ZMyListItem from './ui/ZMyListItem';
+import ZSideListContent from './ui/ZSideListContent';
 
 const SideContent = ({
-  firstName,
   instances,
-  totalLength,
+  totalInstancesLimit,
+  totalTeamsLimit,
   unfilteredTotalInstances,
   handleSearchInstances,
+  teams,
 }) => {
   return (
-    <Stack p={3} pl={1} pr={{ xs: 0, md: 3 }}>
-      <Stack>
-        <Typography color="text.secondary" fontWeight="bold">
-          {firstName ? firstName : <Skeleton />}
-        </Typography>
-        <Divider sx={{ my: 2 }} />
-      </Stack>
-
-      <SideListContent
-        label="Recent Instances"
+    <Stack p={3} pl={1} spacing={2} pr={{ xs: 0, md: 3 }}>
+      <ZSideListContent
+        label="Your Instances"
         bottomAction={
-          unfilteredTotalInstances > totalLength &&
+          unfilteredTotalInstances > totalInstancesLimit &&
           instances?.length > 0 && (
             <Link
               underline="none"
               href="/instances"
-              color="secondary"
+              color="primary"
               sx={{ cursor: 'pointer' }}
             >
-              Show more
+              Show All
             </Link>
           )
         }
         topAction={
           <TextField
             size="small"
-            color="secondary"
+            color="primary"
             placeholder="Search an Instances"
             onChange={(e) => {
               handleSearchInstances(e.target.value.toLocaleLowerCase());
@@ -87,7 +45,7 @@ const SideContent = ({
           {instances?.length === 0
             ? 'No Instances Found.'
             : instances?.map((instance, index) => (
-                <MyListItem
+                <ZMyListItem
                   key={index}
                   logo={instance.screenshotURL || FillerContent.image}
                   link={`/instances/${instance.ZUID}`}
@@ -95,43 +53,40 @@ const SideContent = ({
                 />
               ))}
         </List>
-      </SideListContent>
+      </ZSideListContent>
 
-      <SideListContent label="Recent Activity">
-        <List disablePadding>
-          {repositories?.map((repo, index) => (
-            <MyListItem
-              key={index}
-              logo={repo.logo}
-              link={repo.link}
-              name={repo.name}
-            />
-          ))}
-        </List>
-      </SideListContent>
-
-      <SideListContent
+      <ZSideListContent
         label="Your Teams"
-        topAction={
-          <TextField
-            size="small"
-            color="secondary"
-            placeholder="Find a team.."
-            sx={{ mb: 2 }}
-          />
+        showDivider={false}
+        bottomAction={
+          teams?.length > totalTeamsLimit &&
+          teams?.length > 0 && (
+            <Link
+              underline="none"
+              href="/teams"
+              color="primary"
+              sx={{ cursor: 'pointer' }}
+            >
+              Show All
+            </Link>
+          )
         }
       >
         <List disablePadding>
-          {repositories?.map((repo, index) => (
-            <MyListItem
-              key={index}
-              logo={repo.logo}
-              link={repo.link}
-              name={repo.name}
-            />
-          ))}
+          {teams?.length === 0
+            ? 'No Teams Found.'
+            : teams
+                ?.slice(0, totalTeamsLimit)
+                ?.map((team, index) => (
+                  <ZMyListItem
+                    key={index}
+                    logo="https://avatars.githubusercontent.com/u/8280627?s=16&v=4"
+                    link="/teams"
+                    name={team.name}
+                  />
+                ))}
         </List>
-      </SideListContent>
+      </ZSideListContent>
     </Stack>
   );
 };

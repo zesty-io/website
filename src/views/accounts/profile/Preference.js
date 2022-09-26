@@ -66,7 +66,7 @@ export const Preference = () => {
           variant="contained"
           disabled={!dirty}
           onClick={() => handleSave(userInfo)}
-          color="secondary"
+          color="primary"
         >
           Save
         </Button>
