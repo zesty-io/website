@@ -21,31 +21,21 @@ import * as helpers from 'utils';
 
 const INSTANCE_LIMIT = 3;
 
-const MainContent = ({ instances, isInstancesLoading }) => {
+const MainContent = ({
+  instances,
+  isInstancesLoading,
+  toggleFavorites,
+  instancesFavorites,
+  marketingCards,
+  isTogglingFavorites,
+}) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
-  const { userInfo, ZestyAPI } = useZestyStore((state) => state);
+  const { ZestyAPI } = useZestyStore((state) => state);
   const [instanceAudit, setInstanceAudit] = useState([]);
   const [isInstanceAuditLoading, setIsInstanceAuditLoading] = useState(false);
-  const [instancesFavorites, setInstancesFavorites] = useState([]);
-  const [marketingCards, setMarketingCards] = useState([]);
 
-  const toggleFavorites = async (zuid) => {
-    const isExisting = instancesFavorites?.find((e) => e === zuid);
-    const favoritesSites = [...instancesFavorites, zuid];
-    const filteredFavorites = instancesFavorites?.filter((e) => e !== zuid);
-    const prefs = JSON.parse(userInfo.prefs);
-    prefs.favorite_sites = !isExisting ? favoritesSites : filteredFavorites;
-    const body = {
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      prefs: JSON.stringify(prefs),
-    };
-    const res = await ZestyAPI.updateUser(userInfo.ZUID, body, '');
-    setInstancesFavorites(JSON.parse(res?.data?.prefs)?.favorite_sites);
-  };
-
-  const setResponseToAuditState = async (zuid, limit = 10) => {
+  const setResponseToAuditState = async (zuid, limit = 1) => {
     const response = await ZestyAPI.getInstanceAuditInitZUID(limit, zuid);
 
     if (!response?.error) {
@@ -68,7 +58,7 @@ const MainContent = ({ instances, isInstancesLoading }) => {
       setIsInstanceAuditLoading(true);
       setInstanceAudit([]);
 
-      if (instances?.length < INSTANCE_LIMIT) {
+      if (instances?.length <= INSTANCE_LIMIT) {
         for (let instance of instances) {
           await setResponseToAuditState(instance.ZUID);
         }
@@ -97,27 +87,6 @@ const MainContent = ({ instances, isInstancesLoading }) => {
     if (instances?.length > INSTANCE_LIMIT) getAudit();
   }, [instancesFavorites]);
 
-  useEffect(() => {
-    const getMarketingCards = async () => {
-      const response = await fetch(
-        helpers.isProd
-          ? 'https://www.zesty.io/-/accountsdashcards.json'
-          : 'https://kfg6bckb-dev.webengine.zesty.io/-/accountsdashcards.json',
-      );
-      const data = await response.json();
-      setMarketingCards(Object.entries(data[0]));
-    };
-    getMarketingCards();
-  }, []);
-
-  useEffect(() => {
-    if (userInfo && Object.keys(userInfo).length !== 0) {
-      setInstancesFavorites(
-        JSON.parse(userInfo?.prefs)?.favorite_sites?.filter((c) => c !== null),
-      );
-    }
-  }, [userInfo]);
-
   return (
     <>
       <Grid container spacing={2}>
@@ -136,6 +105,7 @@ const MainContent = ({ instances, isInstancesLoading }) => {
                 : instances?.slice(0, 3)?.map((instance, index) => (
                     <Grid key={index} item xs={12} md={4}>
                       <ZInstanceItem
+                        isTogglingFavorites={isTogglingFavorites}
                         isLoading={isInstancesLoading}
                         image={instance?.screenshotURL}
                         title={instance?.name}
