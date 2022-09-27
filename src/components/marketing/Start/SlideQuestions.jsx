@@ -3,6 +3,7 @@ import { Container, Stack, Box, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea } from '@mui/material';
+import Image from 'next/image';
 
 function random_boolean(seed) {
   return seed < 0.5;
@@ -31,21 +32,34 @@ function ActionAreaCard({
             ...cardStyles,
           }}
         >
-          <Box
+          <Image
+            alt={answer}
+            src={asset}
+            height={200}
+            width={200}
+            layout="responsive"
+            quality={20}
+            style={{
+              ...imageStyles,
+            }}
+          />
+          {/* <Box
             component="img"
             src={asset}
             alt={answer}
             sx={{
               ...imageStyles,
             }}
-          />
+          /> */}
         </Box>
 
         <CardContent>
           <Typography variant="h5" component="div">
             {answer}
           </Typography>
-          <Typography variant="body2">{description}</Typography>
+          <Typography variant="body2" sx={{ height: '3rem' }}>
+            {description}
+          </Typography>
         </CardContent>
       </CardActionArea>
     </Card>

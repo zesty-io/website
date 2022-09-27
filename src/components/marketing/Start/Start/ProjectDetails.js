@@ -55,6 +55,7 @@ export const ProjectDetails = ({
     window.open(webengineUrl, '_blank');
   };
   const handleErrCreate = (res) => {
+    setloading(false);
     ErrorMsg({ title: res.error, text: 'Try again later' });
   };
 
@@ -65,7 +66,6 @@ export const ProjectDetails = ({
     const res = await ZestyAPI.createInstance(name, ecoZUID);
     !res.error && handleSuccessCreate(res);
     res.error && handleErrCreate(res);
-    setloading(false);
   };
 
   const handleInstall = async ({
@@ -202,6 +202,7 @@ export const ProjectDetails = ({
                 variant="contained"
                 size="large"
                 type="submit"
+                disabled={!name}
               >
                 Continue
               </Button>
@@ -246,7 +247,7 @@ const Loader = () => {
     >
       <CircularProgress color="secondary" size={60} />
       <Typography variant="h5" color={'secondary'}>
-        Please Wait...
+        Please wait
       </Typography>
     </Box>
   );

@@ -15,7 +15,12 @@ export const NavigationStart = ({
       item
       xs={0}
       md={3}
-      sx={{ background: theme.palette.zesty.zestyDarkBlue }}
+      sx={{
+        background: theme.palette.zesty.zestyDarkBlue,
+        position: 'fixed',
+        top: 0,
+        height: '100vh',
+      }}
       px={6}
       pt={10}
     >
@@ -32,8 +37,11 @@ export const NavigationStart = ({
               src="https://brand.zesty.io/zesty-io-logo.svg"
               alt="Zesty.io Logo"
             />
-            <Button onClick={handlePrev}>
-              <ChevronLeftIcon fontSize="large" color="secondary" />
+            <Button
+              onClick={handlePrev}
+              sx={{ color: theme.palette.zesty.zestyWhite }}
+            >
+              <ChevronLeftIcon fontSize="large" color="inherit" />
             </Button>
           </Box>
         </Grid>
@@ -73,9 +81,11 @@ export const NavigationStart = ({
       </Grid>
       <Box>
         <Typography
-          variant="h3"
           pb={4}
-          sx={{ color: theme.palette.zesty.zestyWhite }}
+          sx={{
+            typography: { xs: 'h4', xl: 'h3' },
+            color: theme.palette.zesty.zestyWhite,
+          }}
         >
           {title}
         </Typography>

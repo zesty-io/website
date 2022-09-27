@@ -68,7 +68,7 @@ export const SelectTemplate = ({
             onClick: () => handleSelectTemplate(e.github_url),
           };
           return (
-            <Grid item xs={4}>
+            <Grid item xs={6} lg={4}>
               <ImgMediaCard {...cardProps} />
             </Grid>
           );
@@ -84,7 +84,7 @@ export default function ImgMediaCard({ name, subtitle, img, onClick }) {
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 350,
         cursor: 'pointer',
         ':hover': {
           boxShadow: 20,
@@ -94,7 +94,7 @@ export default function ImgMediaCard({ name, subtitle, img, onClick }) {
     >
       {isBlank ? (
         <Box
-          height={280}
+          height={250}
           sx={{ background: theme.palette.secondary.whiteSmoke }}
           display="flex"
           textAlign={'center'}
@@ -107,7 +107,7 @@ export default function ImgMediaCard({ name, subtitle, img, onClick }) {
         <CardMedia
           component="img"
           alt="Zesty Template"
-          height={280}
+          height={250}
           image={img}
         />
       )}

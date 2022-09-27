@@ -273,7 +273,6 @@ export default function Start(props) {
   return (
     <Box
       sx={{
-        height: '100vh',
         background: theme.palette.zesty.zestyDarkBlue,
         position: 'relative',
       }}
@@ -281,6 +280,7 @@ export default function Start(props) {
       <Grid container height={1}>
         {/* Navigation Description Guide */}
         <NavigationStart {...nagivationProps} /> {/* Slider Expereince  */}
+        <Grid item xs={0} md={3}></Grid>
         <Grid
           item
           xs={12}
@@ -289,6 +289,7 @@ export default function Start(props) {
           sx={{
             background: theme.palette.common.white,
             borderTopLeftRadius: '120px',
+            overflow: 'hidden',
           }}
         >
           {pendoScript}
