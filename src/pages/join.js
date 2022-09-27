@@ -1,7 +1,7 @@
 // REact and MUI Imports
 import { React, useState, useRef, useCallback } from 'react';
 import { useTheme } from '@emotion/react';
-import { Box, Grid, Typography, Button } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 
 // confetti
 import Confetti from 'react-confetti';
@@ -38,11 +38,9 @@ import * as ga from 'lib/ga';
 // questions data
 import RoleQuestions from 'components/marketing/Join/Data/RoleQuestions';
 import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
-import { SelectTemplate } from 'components/marketing/Join/Start/SelectTemplate';
-import { ProjectDetails } from 'components/marketing/Join/Start/ProjectDetails';
 
 // onboarding
-// import Onboarding from 'components/marketing/Join/Onboarding';
+import Onboarding from 'components/marketing/Join/Onboarding';
 
 // messages
 const firstMessage = (
@@ -92,7 +90,6 @@ export default function Join(props) {
   const { height, width } = getWindowDimensions();
   const isProduction = props.production;
 
-  const [repository, setrepository] = useState('');
   // state values for form capture
   const [role, setRole] = useState('Developer');
   const [email, setEmail] = useState('..still capturing email');
@@ -103,24 +100,14 @@ export default function Join(props) {
   const [userObject, setUserObject] = useState({});
   const sliderRef = useRef(null);
 
-  // state values for left guide
-  const [title, setTitle] = useState(`Let's begin your Zesty Journey`);
-  const [description, setDescription] = useState(
-    'We are here to guide you every step fo the way.',
-  );
-  const [steps, setSteps] = useState(4);
-  const [currentStep, setCurrentStep] = useState(1);
-
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
-    setCurrentStep(currentStep - 1);
     sliderRef.current.swiper.slidePrev();
   }, []);
 
   // moves user forward a slide in the onboard process
   const handleNext = useCallback(() => {
     if (!sliderRef.current) return;
-    setCurrentStep(currentStep + 1);
     sliderRef.current.swiper.slideNext();
     setCurrentAnimation('still');
   }, []);
@@ -159,11 +146,6 @@ export default function Join(props) {
     }
   };
 
-  const handleSelectTemplate = (repository) => {
-    console.log(repository, 444);
-    setrepository(repository);
-    handleNext();
-  };
   const stringifyLead = (obj) => {
     let str = '';
     for (var key in obj) {
@@ -249,160 +231,114 @@ export default function Join(props) {
   // sx={{background: theme.palette.zesty.zestyDarkBlue}}
   return (
     <Box>
-      <Grid container>
-        {/* Navigation Description Guide */}
-        <Grid
-          item
-          xs={0}
-          md={3}
-          sx={{ background: theme.palette.zesty.zestyDarkBlue }}
-        >
+      {pendoScript}
+      {currentAnimation == 'party' && (
+        <Confetti
+          width={width}
+          height={height}
+          numberOfPieces={333}
+          recycle={false}
+          confettiSource={{ x: width / 2 - 100, y: 0, w: 200, h: 200 }}
+          onConfettiComplete={() => setCurrentAnimation('still')}
+        />
+      )}
+      <DancingLogo animation={currentAnimation} />
+      <Swiper
+        ref={sliderRef}
+        autoHeight={false}
+        navigation={false}
+        pagination={{ clickable: false, draggable: false, type: 'none' }}
+        scrollbar={{ draggable: false }}
+        modules={[Pagination, Navigation]}
+        // remove this when testing
+        allowTouchMove={isProduction === true ? false : true}
+      >
+        {/* <SwiperSlide > 
+                  
+                    <SlideMessage 
+                        message={firstMessage} 
+                        buttonText={firstButton} 
+                        exitButtonText={'No, get me out of here!'}
+                        exitButtonAction={handleExit}
+                        answerCallBack={handlePrompt} 
+                        hoverAnimation={handleAnimation}
+                        
+                    />
+                </SwiperSlide> */}
+        {/* Question 1  */}
+        <SwiperSlide>
           <Grid container>
-            <Grid item xs={6}>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                {currentStep}
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                of
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                {steps}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              {currentStep > 1 && (
-                <Button onClick={() => handlePrev()}>Back</Button>
-              )}
-            </Grid>
-          </Grid>
-          <Box sx={{ background: 'red' }}>
-            <Typography
-              variant="h2"
-              sx={{ color: theme.palette.zesty.zestyWhite }}
-            >
-              {title}lsdkf
-            </Typography>
-            <Typography
-              variant="body"
-              sx={{ color: theme.palette.zesty.zestyWhite }}
-            >
-              {description}
-            </Typography>
-          </Box>
-        </Grid>
-        {/* Slider Expereince  */}
-        <Grid item xs={12} md={9}>
-          {pendoScript}
-          {currentAnimation == 'party' && (
-            <Confetti
-              width={width}
-              height={height}
-              numberOfPieces={333}
-              recycle={false}
-              confettiSource={{ x: width / 2 - 100, y: 0, w: 200, h: 200 }}
-              onConfettiComplete={() => setCurrentAnimation('still')}
-            />
-          )}
-          <DancingLogo animation={currentAnimation} />
-          <Swiper
-            ref={sliderRef}
-            autoHeight={false}
-            navigation={false}
-            pagination={{ clickable: false, draggable: false, type: 'none' }}
-            scrollbar={{ draggable: false }}
-            modules={[Pagination, Navigation]}
-            // remove this when testing
-            allowTouchMove={isProduction === true ? false : true}
-          >
-            {/* Step 1: persona question */}
-            <SwiperSlide>
-              <Grid container>
-                <Grid item lg={12} md={12} xs={12}>
-                  <SlideQuestions
-                    question={RoleQuestions.question}
-                    why={RoleQuestions.why}
-                    answers={RoleQuestions.answers}
-                    answerCallBack={handleAnswers}
-                    hoverAnimation={handleAnimation}
-                    storeValue="role"
-                  />
-                </Grid>
-              </Grid>
-            </SwiperSlide>
-            {/* Step 2: Select a Template  */}
-            <SwiperSlide>
-              <SelectTemplate handleSelectTemplate={handleSelectTemplate} />
-            </SwiperSlide>
-            {/* Step 3: Signup  */}
-            <SwiperSlide>
-              <Signup
-                message={
-                  <Box>
-                    <Box sx={{ fontWeight: 'bold' }} display="inline">
-                      Awesome!
-                    </Box>{' '}
-                    {`Let's start on your`}
-                    <Box sx={{ fontWeight: 'bold' }} display="inline">
-                      {projectType}
-                    </Box>{' '}
-                    project.
-                  </Box>
-                }
-                callback={signUpSuccess}
-                production={isProduction}
-              />
-            </SwiperSlide>
-            {/* Removing: Welcome - we need move the pendo capture script to post create  */}
-            <SwiperSlide>
-              <WelcomeScreen
-                firstname={firstName}
-                lastname={lastName}
-                email={firstName}
-                role={role}
-                projectType={projectType}
-                userZUID={userObject?.data?.ZUID}
-                dateCreated={new Date().toUTCString()}
-              >
-                {welcomeMessage}
-                {/* <SlideMessage 
-                                message={welcomeMessage}
-                                buttonText={`Let's go!`} 
-                                // exitButtonText={'Wait, let me invite my team.'}
-                                exitButtonAction={handleInvite}
-                                answerCallBack={handlePrompt} 
-                                hoverAnimation={handleAnimation}
-                                exitButtonText={''}
-                                
-                            /> */}
-              </WelcomeScreen>
-            </SwiperSlide>
-            {/* Step 4: enter project details, on continue it creates an instance */}
-            <SwiperSlide>
-              <ProjectDetails repository={repository} />
-            </SwiperSlide>
-            {/* Step 5: Technilogy selection Onboarding */}
-            <SwiperSlide>
+            <Grid item lg={12} md={12} xs={12}>
               <SlideQuestions
-                question={ProjectQuestions.question}
-                why={ProjectQuestions.why}
-                answers={ProjectQuestions.answers}
+                question={RoleQuestions.question}
+                why={RoleQuestions.why}
+                answers={RoleQuestions.answers}
                 answerCallBack={handleAnswers}
                 hoverAnimation={handleAnimation}
-                storeValue="projectType"
+                storeValue="role"
               />
-            </SwiperSlide>
-          </Swiper>
-        </Grid>
-      </Grid>
+            </Grid>
+          </Grid>
+        </SwiperSlide>
+        {/* Question 2  */}
+        <SwiperSlide>
+          <SlideQuestions
+            question={ProjectQuestions.question}
+            why={ProjectQuestions.why}
+            answers={ProjectQuestions.answers}
+            answerCallBack={handleAnswers}
+            hoverAnimation={handleAnimation}
+            storeValue="projectType"
+          />
+        </SwiperSlide>
+        {/* Signup  */}
+        <SwiperSlide>
+          <Signup
+            message={
+              <Box>
+                <Box sx={{ fontWeight: 'bold' }} display="inline">
+                  Awesome!
+                </Box>{' '}
+                {`Let's start on your`}
+                <Box sx={{ fontWeight: 'bold' }} display="inline">
+                  {projectType}
+                </Box>{' '}
+                project.
+              </Box>
+            }
+            callback={signUpSuccess}
+            production={isProduction}
+          />
+        </SwiperSlide>
+        {/* Welcome  */}
+        <SwiperSlide>
+          <WelcomeScreen
+            firstname={firstName}
+            lastname={lastName}
+            email={firstName}
+            role={role}
+            projectType={projectType}
+            userZUID={userObject?.data?.ZUID}
+            dateCreated={new Date().toUTCString()}
+          >
+            {welcomeMessage}
+            {/* <SlideMessage 
+                            message={welcomeMessage}
+                            buttonText={`Let's go!`} 
+                            // exitButtonText={'Wait, let me invite my team.'}
+                            exitButtonAction={handleInvite}
+                            answerCallBack={handlePrompt} 
+                            hoverAnimation={handleAnimation}
+                            exitButtonText={''}
+                            
+                        /> */}
+          </WelcomeScreen>
+        </SwiperSlide>
+        {/* Onboarding */}
+        <SwiperSlide>
+          <Onboarding role={role} />
+        </SwiperSlide>
+      </Swiper>
     </Box>
   );
 }
