@@ -184,21 +184,34 @@ const MainContent = ({
                             spacing={2}
                             mt={{ xs: 1 }}
                           >
+                            {audit.meta.url && (
+                              <Button
+                                href={audit.meta.url}
+                                size="small"
+                                variant="contained"
+                                color="primary"
+                                sx={{
+                                  whiteSpace: {
+                                    md: 'nowrap',
+                                  },
+                                }}
+                              >
+                                Open Resource
+                              </Button>
+                            )}
+
                             <Button
-                              href={audit.meta.url}
-                              size="small"
-                              variant="contained"
-                              color="primary"
-                            >
-                              Edit Item
-                            </Button>
-                            <Button
-                              href={audit.meta.url}
+                              href={`/instances/${audit.entityZUID}`}
                               size="small"
                               variant="outlined"
                               color="primary"
+                              sx={{
+                                whiteSpace: {
+                                  md: 'nowrap',
+                                },
+                              }}
                             >
-                              Edit Content
+                              Edit Instance
                             </Button>
                           </Stack>
                         </Stack>

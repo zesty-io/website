@@ -3,13 +3,46 @@ import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Settings } from 'views/accounts/instances';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  Typography,
+} from '@mui/material';
+import DownloadIcon from '@mui/icons-material/Download';
+import { downloadTemplate } from 'utils/LaunchApp';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
+const DownloadCard = ({ token, instance_zuid }) => {
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Export as template
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button
+          size="small"
+          color="primary"
+          variant="contained"
+          onClick={() => downloadTemplate(instance_zuid, token)}
+        >
+          <DownloadIcon fontSize="small" sx={{ mr: 1 }} /> Download
+        </Button>
+      </CardActions>
+    </Card>
+  );
+};
 export default function SettingsPage() {
   const [loading, setloading] = React.useState(false);
   const [settings, setsettings] = React.useState([]);
-  const { ZestyAPI } = useZestyStore((state) => state);
+  const { ZestyAPI, userAppSID } = useZestyStore((state) => state);
   const router = useRouter();
   const { zuid } = router.query;
 
@@ -60,11 +93,16 @@ export default function SettingsPage() {
   }, [router.isReady]);
 
   return (
-    <Settings
-      loading={loading}
-      settings={settings}
-      singleSettingsUpdate={singleSettingsUpdate}
-    />
+    <>
+      <Settings
+        loading={loading}
+        settings={settings}
+        singleSettingsUpdate={singleSettingsUpdate}
+      />
+      {settings.length !== 0 && (
+        <DownloadCard token={userAppSID} instance_zuid={zuid} />
+      )}
+    </>
   );
 }
 
