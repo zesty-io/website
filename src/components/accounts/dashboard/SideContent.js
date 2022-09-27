@@ -6,7 +6,8 @@ import ZSideListContent from './ui/ZSideListContent';
 
 const SideContent = ({
   instances,
-  totalLength,
+  totalInstancesLimit,
+  totalTeamsLimit,
   unfilteredTotalInstances,
   handleSearchInstances,
   teams,
@@ -16,7 +17,7 @@ const SideContent = ({
       <ZSideListContent
         label="Your Instances"
         bottomAction={
-          unfilteredTotalInstances > totalLength &&
+          unfilteredTotalInstances > totalInstancesLimit &&
           instances?.length > 0 && (
             <Link
               underline="none"
@@ -54,16 +55,36 @@ const SideContent = ({
         </List>
       </ZSideListContent>
 
-      <ZSideListContent label="Your Teams" showDivider={false}>
+      <ZSideListContent
+        label="Your Teams"
+        showDivider={false}
+        bottomAction={
+          teams?.length > totalTeamsLimit &&
+          teams?.length > 0 && (
+            <Link
+              underline="none"
+              href="/teams"
+              color="primary"
+              sx={{ cursor: 'pointer' }}
+            >
+              Show All
+            </Link>
+          )
+        }
+      >
         <List disablePadding>
-          {teams?.map((team, index) => (
-            <ZMyListItem
-              key={index}
-              logo="https://avatars.githubusercontent.com/u/8280627?s=16&v=4"
-              link="/teams"
-              name={team.name}
-            />
-          ))}
+          {teams?.length === 0
+            ? 'No Teams Found.'
+            : teams
+                ?.slice(0, totalTeamsLimit)
+                ?.map((team, index) => (
+                  <ZMyListItem
+                    key={index}
+                    logo="https://avatars.githubusercontent.com/u/8280627?s=16&v=4"
+                    link="/teams"
+                    name={team.name}
+                  />
+                ))}
         </List>
       </ZSideListContent>
     </Stack>
