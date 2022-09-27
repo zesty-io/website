@@ -1,4 +1,5 @@
 import { Container, Grid } from '@mui/material';
+import AppBar from 'components/console/AppBar';
 import React, { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import MainContent from './MainContent';
@@ -112,50 +113,53 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Container
-      maxWidth={false}
-      disableGutters
-      sx={(theme) => ({
-        maxWidth: theme.breakpoints.values.xl2,
-        px: 3,
-      })}
-    >
-      <Grid container spacing={2}>
-        <Grid
-          sx={{
-            height: { md: `calc(100vh - 66px)` },
-            position: { md: 'sticky' },
-            top: { md: '66px' },
-            overflowY: { md: 'auto' },
-            maxWidth: { md: '384px' },
-          }}
-          md={3}
-          lg={2}
-          xs={12}
-          item
-        >
-          <SideContent
-            instances={filteredInstances}
-            totalInstancesLimit={TOTAL_INSTANCES_LIMIT}
-            totalTeamsLimit={TOTAL_TEAMS_LIMIT}
-            unfilteredTotalInstances={instances?.length}
-            handleSearchInstances={handleSearchInstances}
-            teams={teams}
-          />
-        </Grid>
+    <>
+      <AppBar />
+      <Container
+        maxWidth={false}
+        disableGutters
+        sx={(theme) => ({
+          maxWidth: theme.breakpoints.values.xl2,
+          px: 3,
+        })}
+      >
+        <Grid container spacing={2}>
+          <Grid
+            sx={{
+              height: { md: `calc(100vh - 66px)` },
+              position: { md: 'sticky' },
+              top: { md: '66px' },
+              overflowY: { md: 'auto' },
+              maxWidth: { md: '384px' },
+            }}
+            md={3}
+            lg={2}
+            xs={12}
+            item
+          >
+            <SideContent
+              instances={filteredInstances}
+              totalInstancesLimit={TOTAL_INSTANCES_LIMIT}
+              totalTeamsLimit={TOTAL_TEAMS_LIMIT}
+              unfilteredTotalInstances={instances?.length}
+              handleSearchInstances={handleSearchInstances}
+              teams={teams}
+            />
+          </Grid>
 
-        <Grid xs={12} md={9} lg={10} item>
-          <MainContent
-            instances={instances}
-            isInstancesLoading={isInstancesLoading}
-            toggleFavorites={toggleFavorites}
-            instancesFavorites={instancesFavorites}
-            marketingCards={marketingCards}
-            isTogglingFavorites={isTogglingFavorites}
-          />
+          <Grid xs={12} md={9} lg={10} item>
+            <MainContent
+              instances={instances}
+              isInstancesLoading={isInstancesLoading}
+              toggleFavorites={toggleFavorites}
+              instancesFavorites={instancesFavorites}
+              marketingCards={marketingCards}
+              isTogglingFavorites={isTogglingFavorites}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </>
   );
 };
 
