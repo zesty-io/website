@@ -67,7 +67,7 @@ const Main = ({
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 38,
+    threshold: 5,
   });
 
   // check if from ppc short form page then change color of logo and nav
