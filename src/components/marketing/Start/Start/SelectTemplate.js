@@ -1,7 +1,6 @@
 import { Box, Grid, useTheme } from '@mui/material';
 import axios from 'axios';
 import React from 'react';
-import { isProd } from 'utils';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -17,13 +16,17 @@ const stageUrl =
   'https://39ntbr6g-dev.webengine.zesty.io/data/entity.json?zuid=7-9cebf0bedd-ls0gg0';
 const prodUrl =
   'https://extensions.zesty.io/data/entity.json?zuid=7-9cebf0bedd-ls0gg0';
-const url = isProd ? prodUrl : stageUrl;
+
 export const SelectTemplate = ({
   handleSelectTemplate,
   title,
   description,
+  production,
 }) => {
   const [templates, settemplates] = React.useState([]);
+
+  const url = production ? prodUrl : stageUrl;
+
   const getAllTemplates = async () => {
     await axios
       .get(url)

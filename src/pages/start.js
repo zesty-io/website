@@ -331,6 +331,7 @@ export default function Start(props) {
             {/* Step 2: Select a Template  */}
             <SwiperSlide>
               <SelectTemplate
+                production={props.production}
                 handleSelectTemplate={handleSelectTemplate}
                 title="What kind of project do you want to build?"
                 description={
