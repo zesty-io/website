@@ -20,6 +20,7 @@ const ZInstanceItem = ({
   zuidLink,
   toggleFavorites,
   isLoading,
+  isTogglingFavorites,
   sx,
   ...props
 }) => {
@@ -46,7 +47,7 @@ const ZInstanceItem = ({
         {isLoading ? (
           <Skeleton variant="circular" width={20} height={20} />
         ) : (
-          <IconButton onClick={toggleFavorites}>
+          <IconButton disabled={isTogglingFavorites} onClick={toggleFavorites}>
             {isFavorite ? (
               <StarRoundedIcon color="primary" fontSize="medium" />
             ) : (
