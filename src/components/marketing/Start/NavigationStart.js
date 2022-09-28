@@ -9,7 +9,9 @@ export const NavigationStart = ({
   steps,
   title,
   description,
+  scenario,
 }) => {
+  console.log(scenario);
   return (
     <Grid
       item
@@ -46,37 +48,26 @@ export const NavigationStart = ({
           </Box>
         </Grid>
         <Grid item xs={12}>
-          {currentStep !== 5 ? (
-            <Box display={'flex'} pt={10} pb={4} gap={1}>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                {currentStep}
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                of
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                {steps}
-              </Typography>
-            </Box>
-          ) : (
-            <Box display={'flex'} pt={10} pb={4} gap={1}>
-              <Typography
-                variant="h6"
-                sx={{ color: theme.palette.zesty.zestyWhite }}
-              >
-                Great Progress
-              </Typography>
-            </Box>
-          )}
+          <Box display={'flex'} pt={10} pb={4} gap={1}>
+            <Typography
+              variant="h6"
+              sx={{ color: theme.palette.zesty.zestyWhite }}
+            >
+              {currentStep}
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{ color: theme.palette.zesty.zestyWhite }}
+            >
+              of
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{ color: theme.palette.zesty.zestyWhite }}
+            >
+              {steps}
+            </Typography>
+          </Box>
         </Grid>
       </Grid>
       <Box>

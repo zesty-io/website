@@ -15,7 +15,7 @@ import 'swiper/css/navigation';
 
 // zoho object
 import { zohoPostObject } from 'components/marketing/Start/zohoPostObject.js';
-import { setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 
 // pendo
 import { pendoScript } from 'components/marketing/Start/pendoScript.js';
@@ -54,13 +54,14 @@ const postToZOHO = async (payloadJSON) => {
 };
 
 export default function Start(props) {
+  const [isLogin, setisLogin] = useState('');
   const { userAppSID, template } = useZestyStore();
   const theme = useTheme();
   const { height, width } = getWindowDimensions();
   const isProduction = props.production;
   const [token, settoken] = useState(userAppSID);
 
-  const [scenario, setscenario] = React.useState(1);
+  const [scenario, setscenario] = React.useState(null);
   const [repository, setrepository] = useState(template);
   const [instanceZUID, setinstanceZUID] = useState('');
   // state values for form capture
@@ -196,6 +197,7 @@ export default function Start(props) {
   };
 
   const nagivationProps = {
+    scenario,
     theme,
     handlePrev,
     currentStep,
@@ -224,15 +226,20 @@ export default function Start(props) {
     currentStep,
   };
 
+  const isTemplate = Object.keys(template).length !== 0 ? true : false;
+  React.useEffect(() => {
+    setisLogin(getCookie('APP_SID'));
+  }, [isTemplate]);
+
   const ScenarioSwitch = () => {
-    const isTemplate = Object.keys(template).length !== 0 ? true : false;
-    if (!isTemplate && token) {
+    console.log(isTemplate, isLogin, scenario, ':::');
+    if (!isTemplate && isLogin) {
       return <Scenarios.Scenario2 {...scenarioProps} />;
-    } else if (isTemplate && !token) {
+    } else if (isTemplate && !isLogin) {
       return <Scenarios.Scenario3 {...scenarioProps} />;
-    } else if (isTemplate && token) {
+    } else if (isTemplate && isLogin) {
       return <Scenarios.Scenario4 {...scenarioProps} />;
-    } else if (!isTemplate && !token) {
+    } else if (!isTemplate && !isLogin) {
       return <Scenarios.Scenario1 {...scenarioProps} />;
     } else {
       return <Scenarios.Scenario1 {...scenarioProps} />;

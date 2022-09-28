@@ -217,13 +217,19 @@ export const ProjectDetails = ({
           <Typography variant="h5" pb={2} pt={6}>
             Resources
           </Typography>
-          {resourceStart.map((e) => {
+          {resourceStart({ template }).map((e) => {
             return (
               <Box display="flex" gap={1} alignItems={'center'}>
                 <Typography color="secondary" variant="h6">
                   {e.label}
                 </Typography>
-                <LaunchIcon fontSize="medium" color="secondary" href={e.url} />
+                <Button href={e.url} color="secondary" title={e.label}>
+                  <LaunchIcon
+                    fontSize="medium"
+                    color="secondary"
+                    href={e.url}
+                  />
+                </Button>
               </Box>
             );
           })}
