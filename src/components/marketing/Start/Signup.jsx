@@ -7,11 +7,14 @@ import {
   FormHelperText,
   IconButton,
   Button,
-  InputLabel,
   InputAdornment,
   Box,
   TextField,
   Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
 } from '@mui/material';
 import FormControl, { useFormControl } from '@mui/material/FormControl';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -20,6 +23,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useZestyStore } from 'store';
 import { setCookie } from 'cookies-next';
+import LockIcon from '@mui/icons-material/Lock';
+import FillerContent from 'components/globals/FillerContent';
 
 function validateName(name) {
   return checkStringLength(name, 2);
@@ -78,6 +83,7 @@ export const Signup = ({
   callback = {},
   production = false,
   settoken,
+  template,
 }) => {
   // ref for submit button
   const submitButton = React.useRef(null);
@@ -168,11 +174,126 @@ export const Signup = ({
       alert('user failed to create');
     }
   };
+
   return (
     <>
       {values.waiting == false && (
         <Container>
-          <Box paddingY={4} sx={{ textAlign: 'center' }}>
+          <Grid container px={8} pt={20}>
+            <Grid item xs={8} sx={{ height: 'auto' }} pr={8}>
+              <Box pb={4} pt={4}>
+                <Typography variant="h4" pb={1}>
+                  Tell us about yourself
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  You can change these details later
+                </Typography>
+                <Box pt={4} pb={2} gap={4} display="flex" width={1} sx={{}}>
+                  <Box width={1}>
+                    <Typography variant="body1">First Name</Typography>
+                    <TextField
+                      fullWidth
+                      name="firstName"
+                      helperText={validFirstName ? '' : 'Name too short.'}
+                      error={!validFirstName}
+                      onKeyUp={handleChange}
+                    />
+                  </Box>
+                  <Box width={1}>
+                    <Typography variant="body1">Last Name</Typography>
+                    <TextField
+                      fullWidth
+                      helperText={validLastName ? '' : 'Name too short.'}
+                      name="lastName"
+                      error={!validLastName}
+                      onKeyUp={handleChange}
+                    />
+                  </Box>
+                </Box>
+
+                <Box pb={2}>
+                  <FormControl fullWidth>
+                    <Typography variant="body1">Email</Typography>
+                    <OutlinedInput
+                      fullWidth
+                      type={'text'}
+                      id="email"
+                      name="email"
+                      error={!validEmail}
+                      onKeyUp={handleChange}
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <EmailOutlined />
+                        </InputAdornment>
+                      }
+                    />
+                    {validEmail ? (
+                      ''
+                    ) : (
+                      <FormHelperText>Valid email required</FormHelperText>
+                    )}
+                  </FormControl>
+                </Box>
+
+                <FormControl fullWidth>
+                  <Typography variant="body1">Password</Typography>
+                  <OutlinedInput
+                    fullWidth
+                    id="password"
+                    type={values.showPassword ? 'text' : 'password'}
+                    name="password"
+                    error={!validPassword}
+                    onChange={handleChange}
+                    onKeyUp={handleChange}
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    }
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {values.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                  <PasswordHelperText />
+                </FormControl>
+                <Typography pt={2} variant="body1" color="text.secondary">
+                  By continuing, you agree to the Zesty <u>terms</u> and{' '}
+                  <u>privacy notice</u>.
+                </Typography>
+              </Box>
+
+              <Box>
+                <Button
+                  item
+                  variant="contained"
+                  color="secondary"
+                  ref={submitButton}
+                  disabled={!checkAllValid}
+                  onClick={submitForm}
+                >
+                  Create account
+                </Button>
+              </Box>
+            </Grid>
+
+            <Grid item xs={4} pt={6} sx={{}}>
+              <ImgMediaCard template={template} />
+            </Grid>
+          </Grid>
+          {/* <Box paddingY={4} sx={{ textAlign: 'center' }}>
             <Typography variant="h4" gutterBottom>
               {message}
             </Typography>
@@ -296,7 +417,7 @@ export const Signup = ({
                 Create account
               </Button>
             </Grid>
-          </Box>
+          </Box> */}
         </Container>
       )}
       {values.waiting == true && (
@@ -305,5 +426,24 @@ export const Signup = ({
         </Box>
       )}
     </>
+  );
+};
+
+const ImgMediaCard = ({ template = {} }) => {
+  const img = template?.placard_image?.data[0]?.url || FillerContent.image;
+  const { name, subtitle } = template;
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardMedia component="img" alt="green iguana" height="340" image={img} />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {subtitle}
+        </Typography>
+      </CardContent>
+      <CardActions></CardActions>
+    </Card>
   );
 };

@@ -8,11 +8,11 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import projectDetails from '../../../../../public/assets/images/join/project-details.png';
 import Image from 'next/image';
 import nextjs from '../../../../../public/assets/images/join/nextjs.png';
 import parsely from '../../../../../public/assets/images/join/parselly.png';
 import nextParsely from '../../../../../public/assets/images/join/nextparsely.png';
+import FillerContent from 'components/globals/FillerContent';
 
 export const ChooseTechStack = ({
   title,
@@ -25,7 +25,7 @@ export const ChooseTechStack = ({
     <Box sx={{ height: '100vh', width: '100%', position: 'relative' }}>
       <Box sx={{}}>
         <Image
-          src={placard_image || projectDetails.src}
+          src={placard_image || FillerContent.image}
           alt="Picture of the author"
           width={500}
           height={500}

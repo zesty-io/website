@@ -1,7 +1,7 @@
 // REact and MUI Imports
 import { useState, useRef, useCallback } from 'react';
 import { useTheme } from '@emotion/react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React from 'react';
 
 // confetti
@@ -62,6 +62,7 @@ export default function Start(props) {
   const isProduction = props.production;
   const [token, settoken] = useState(userAppSID);
 
+  const [scenario, setscenario] = React.useState(1);
   const [repository, setrepository] = useState(template);
   const [instanceZUID, setinstanceZUID] = useState('');
   // state values for form capture
@@ -79,11 +80,10 @@ export default function Start(props) {
   const [description, setDescription] = useState(
     'We are here to guide you every step fo the way.',
   );
-  const [steps, setSteps] = useState(4);
+  const [steps, setSteps] = useState(5);
   const [currentStep, setCurrentStep] = useState(1);
 
   const handlePrev = useCallback(() => {
-    console.log(currentStep, 555);
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
@@ -97,14 +97,6 @@ export default function Start(props) {
     sliderRef.current.swiper.slideNext();
     setCurrentAnimation('still');
   }, []);
-
-  const welcomeMessage = (
-    <Box paddingY={4} sx={{ textAlign: 'center' }}>
-      <Typography variant="h4" gutterBottom>
-        Welcome to Zesty {firstName}!
-      </Typography>
-    </Box>
-  );
 
   // captures the user question
   const handleAnswers = async (question, answer, store = false) => {
@@ -127,7 +119,7 @@ export default function Start(props) {
 
     setCurrentAnimation('jiggle');
     handleNext();
-    setCurrentStep(2);
+    setCurrentStep(currentStep + 1);
     if (isProduction === true) {
       await slackQuestionPost(question, answer, email);
     }
@@ -136,11 +128,10 @@ export default function Start(props) {
   const handleSelectTemplate = (repository) => {
     setrepository(repository);
     handleNext();
-    setCurrentStep(3);
+    setCurrentStep(currentStep + 1);
   };
   const hanldeChooseTechStack = () => {
     window.location.replace(`/instances/${instanceZUID}`);
-    setCurrentStep(5);
   };
   const stringifyLead = (obj) => {
     let str = '';
@@ -156,6 +147,7 @@ export default function Start(props) {
     // send user forward visually, then capture their data
     handleNext();
     setCurrentAnimation('party');
+    setCurrentStep(currentStep + 1);
 
     // store email and user to state
     setEmail(userDetails.email);
@@ -200,9 +192,9 @@ export default function Start(props) {
     }
 
     // welcome screen auto skip!
-    setTimeout(() => {
-      handleNext();
-    }, 5000);
+    // setTimeout(() => {
+    //   handleNext();
+    // }, 5000);
   };
 
   // leaves the onboard program
@@ -249,33 +241,41 @@ export default function Start(props) {
     handleAnimation,
     projectType,
     signUpSuccess,
+    setscenario,
+    currentStep,
   };
 
   const ScenarioSwitch = () => {
     const isTemplate = Object.keys(template).length !== 0 ? true : false;
     if (!isTemplate && token) {
-      console.log('scenario2 ');
       return <Scenarios.Scenario2 {...scenarioProps} />;
     } else if (isTemplate && !token) {
-      console.log('scenario3 ');
       return <Scenarios.Scenario3 {...scenarioProps} />;
     } else if (isTemplate && token) {
-      console.log('scenario4 ');
       return <Scenarios.Scenario4 {...scenarioProps} />;
     } else if (!isTemplate && !token) {
-      console.log('scenario1 ');
       return <Scenarios.Scenario1 {...scenarioProps} />;
     } else {
-      console.log('scenario1 ');
+      return <Scenarios.Scenario1 {...scenarioProps} />;
     }
   };
 
   React.useEffect(() => {
     setDescription(
-      NavStartData.find((e) => e.step === currentStep)?.description,
+      NavStartData(scenario).find((e) => e.step.id === currentStep)
+        ?.description,
     );
-    setTitle(NavStartData.find((e) => e.step === currentStep)?.title);
-  }, [currentStep]);
+    setTitle(
+      NavStartData(scenario).find((e) => e.step.id === currentStep)?.title,
+    );
+  }, [currentStep, scenario]);
+  React.useEffect(() => {
+    console.log(scenario, 4444);
+    if (scenario === 1) setSteps(5);
+    if (scenario === 2) setSteps(3);
+    if (scenario === 3) setSteps(3);
+    if (scenario === 4) setSteps(2);
+  }, [scenario]);
 
   return (
     <Box

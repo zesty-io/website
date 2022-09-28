@@ -29,7 +29,13 @@ const Scenario1 = ({
   handleAnswers,
   projectType,
   signUpSuccess,
+  setscenario,
+  currentStep,
 }) => {
+  React.useEffect(() => {
+    setscenario(1);
+  }, []);
+
   return (
     <Swiper
       ref={sliderRef}
@@ -65,6 +71,7 @@ const Scenario1 = ({
 
       <SwiperSlide>
         <Signup
+          template={repository}
           settoken={settoken}
           message={
             <Box>
@@ -88,7 +95,8 @@ const Scenario1 = ({
           description="You can change these details after"
           template={repository}
           handleNext={handleNext}
-          setCurrentStep={() => setCurrentStep(4)}
+          setCurrentStep={setCurrentStep}
+          currentStep={currentStep}
           token={token}
           setinstanceZUID={setinstanceZUID}
         />
@@ -119,7 +127,12 @@ const Scenario2 = ({
   hanldeChooseTechStack,
   setinstanceZUID,
   settoken,
+  setscenario,
+  currentStep,
 }) => {
+  React.useEffect(() => {
+    setscenario(2);
+  }, []);
   return (
     <Swiper
       ref={sliderRef}
@@ -147,9 +160,10 @@ const Scenario2 = ({
           description="You can change these details after"
           template={repository}
           handleNext={handleNext}
-          setCurrentStep={() => setCurrentStep(4)}
           token={token}
           setinstanceZUID={setinstanceZUID}
+          setCurrentStep={setCurrentStep}
+          currentStep={currentStep}
         />
       </SwiperSlide>
 
@@ -182,7 +196,12 @@ const Scenario3 = ({
   handleAnswers,
   projectType,
   signUpSuccess,
+  setscenario,
+  currentStep,
 }) => {
+  React.useEffect(() => {
+    setscenario(3);
+  }, []);
   return (
     <Swiper
       ref={sliderRef}
@@ -196,6 +215,7 @@ const Scenario3 = ({
     >
       <SwiperSlide>
         <Signup
+          template={repository}
           settoken={settoken}
           message={
             <Box>
@@ -219,9 +239,10 @@ const Scenario3 = ({
           description="You can change these details after"
           template={repository}
           handleNext={handleNext}
-          setCurrentStep={() => setCurrentStep(4)}
           token={token}
           setinstanceZUID={setinstanceZUID}
+          setCurrentStep={setCurrentStep}
+          currentStep={currentStep}
         />
       </SwiperSlide>
 
@@ -250,7 +271,13 @@ const Scenario4 = ({
   hanldeChooseTechStack,
   setinstanceZUID,
   settoken,
+  setscenario,
+  currentStep,
 }) => {
+  React.useEffect(() => {
+    setscenario(4);
+  }, []);
+
   return (
     <Swiper
       ref={sliderRef}
@@ -268,7 +295,8 @@ const Scenario4 = ({
           description="You can change these details after"
           template={repository}
           handleNext={handleNext}
-          setCurrentStep={() => setCurrentStep(4)}
+          setCurrentStep={setCurrentStep}
+          currentStep={currentStep}
           token={token}
           setinstanceZUID={setinstanceZUID}
         />

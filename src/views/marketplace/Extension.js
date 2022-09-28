@@ -81,7 +81,6 @@ const InstallButton = ({ data, theme }) => {
     });
   };
 
-  console.log(data, 444444);
   if (data.app_zuid) {
     return <AppInstallerComp data={data} />;
   } else if (isTemplate) {
