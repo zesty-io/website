@@ -163,7 +163,7 @@ export async function getServerSideProps({ req, res }) {
   }
 
   const data = await getMarketplaceData(req.url);
-  let extensionsURL = process.env.PRODUCTION
+  let extensionsURL = JSON.parse(process.env.PRODUCTION)
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
