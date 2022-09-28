@@ -75,6 +75,17 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 const InstallButton = ({ data, theme }) => {
   if (data.app_zuid) {
     return <AppInstallerComp data={data} />;
+  } else if (window.location.pathname.includes('/templates/')) {
+    return (
+      <Button
+        variant="contained"
+        color="secondary"
+        fullWidth
+        href={`/start/?template=${data.meta.zuid}`}
+      >
+        Install {data.name}
+      </Button>
+    );
   } else if (data.github_url && !data.app_zuid && !data.resource_link) {
     return (
       <ExtensionsIntaller
