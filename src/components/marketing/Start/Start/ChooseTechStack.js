@@ -18,12 +18,14 @@ export const ChooseTechStack = ({
   title,
   description,
   hanldeChooseTechStack,
+  template,
 }) => {
+  const placard_image = template?.placard_image?.data[0]?.url;
   return (
     <Box sx={{ height: '100vh', width: '100%', position: 'relative' }}>
       <Box sx={{}}>
         <Image
-          src={projectDetails.src}
+          src={placard_image || projectDetails.src}
           alt="Picture of the author"
           width={500}
           height={500}

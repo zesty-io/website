@@ -65,7 +65,7 @@ export const SelectTemplate = ({
             name,
             subtitle,
             img,
-            onClick: () => handleSelectTemplate(e.github_url),
+            onClick: () => handleSelectTemplate(e),
           };
           return (
             <Grid item xs={6} lg={4}>

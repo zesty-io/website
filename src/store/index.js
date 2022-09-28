@@ -41,5 +41,7 @@ export const useZestyStore = create((set) => {
     setloading: (data) => set(() => ({ loading: data })),
     userInfo: {},
     setuserInfo: (data) => set(() => ({ userInfo: data })),
+    template: {},
+    setTemplate: (data) => set(() => ({ template: data })),
   };
 });

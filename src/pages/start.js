@@ -7,18 +7,11 @@ import React from 'react';
 // confetti
 import Confetti from 'react-confetti';
 import getWindowDimensions from 'components/marketing/Start/getWindowDimensions';
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
-// import slides
-import { SlideQuestions } from 'components/marketing/Start/SlideQuestions';
-import { Signup } from 'components/marketing/Start/Signup';
 
 // zoho object
 import { zohoPostObject } from 'components/marketing/Start/zohoPostObject.js';
@@ -34,36 +27,10 @@ import slackNotify from 'components/marketing/Start/slackNotify.js';
 // google analytics
 import * as ga from 'lib/ga';
 
-// questions data
-import RoleQuestions from 'components/marketing/Start/Data/RoleQuestions';
-import { SelectTemplate } from 'components/marketing/Start/Start/SelectTemplate';
-import { ProjectDetails } from 'components/marketing/Start/Start/ProjectDetails';
 import { NavigationStart } from 'components/marketing/Start/NavigationStart';
 import { NavStartData } from 'components/marketing/Start/Data/NavStartData';
-import { ChooseTechStack } from 'components/marketing/Start/Start/ChooseTechStack';
-
-// onboarding
-// import Onboarding from 'components/marketing/Start/Onboarding';
-
-// messages
-const firstMessage = (
-  <Box paddingY={4} sx={{ textAlign: 'center' }}>
-    <Typography variant="h4" gutterBottom>
-      Hello!
-    </Typography>
-    <Typography variant="h6">
-      We are excited for you to explore Zesty.
-    </Typography>
-    <Box paddingY={1}>
-      <Typography variant="p">
-        {' '}
-        To help onboard you, can we ask two questions?
-      </Typography>
-    </Box>
-  </Box>
-);
-
-const firstButton = `Yes, let's go!`;
+import { useZestyStore } from 'store';
+import { Scenarios } from 'components/marketing/Start/Data/Scenarios';
 
 // zoho lead post function
 
@@ -89,11 +56,14 @@ const postToZOHO = async (payloadJSON) => {
 // Start component
 
 export default function Start(props) {
+  const { userAppSID, template } = useZestyStore();
   const theme = useTheme();
   const { height, width } = getWindowDimensions();
   const isProduction = props.production;
+  const [token, settoken] = useState(userAppSID);
 
-  const [repository, setrepository] = useState('');
+  const [repository, setrepository] = useState(template);
+  const [instanceZUID, setinstanceZUID] = useState('');
   // state values for form capture
   const [role, setRole] = useState('Developer');
   const [email, setEmail] = useState('..still capturing email');
@@ -169,7 +139,7 @@ export default function Start(props) {
     setCurrentStep(3);
   };
   const hanldeChooseTechStack = () => {
-    handleNext();
+    window.location.replace(`/instances/${instanceZUID}`);
     setCurrentStep(5);
   };
   const stringifyLead = (obj) => {
@@ -263,6 +233,43 @@ export default function Start(props) {
     description,
   };
 
+  const scenarioProps = {
+    sliderRef,
+    isProduction,
+    props,
+    handleSelectTemplate,
+    repository,
+    handleNext,
+    token,
+    setCurrentStep,
+    hanldeChooseTechStack,
+    setinstanceZUID,
+    settoken,
+    handleAnswers,
+    handleAnimation,
+    projectType,
+    signUpSuccess,
+  };
+
+  const ScenarioSwitch = () => {
+    const isTemplate = Object.keys(template).length !== 0 ? true : false;
+    if (!isTemplate && token) {
+      console.log('scenario2 ');
+      return <Scenarios.Scenario2 {...scenarioProps} />;
+    } else if (isTemplate && !token) {
+      console.log('scenario3 ');
+      return <Scenarios.Scenario3 {...scenarioProps} />;
+    } else if (isTemplate && token) {
+      console.log('scenario4 ');
+      return <Scenarios.Scenario4 {...scenarioProps} />;
+    } else if (!isTemplate && !token) {
+      console.log('scenario1 ');
+      return <Scenarios.Scenario1 {...scenarioProps} />;
+    } else {
+      console.log('scenario1 ');
+    }
+  };
+
   React.useEffect(() => {
     setDescription(
       NavStartData.find((e) => e.step === currentStep)?.description,
@@ -303,132 +310,7 @@ export default function Start(props) {
               onConfettiComplete={() => setCurrentAnimation('still')}
             />
           )}
-          {/* <DancingLogo animation={currentAnimation} /> */}
-          <Swiper
-            ref={sliderRef}
-            autoHeight={false}
-            navigation={false}
-            pagination={{ clickable: false, draggable: false, type: 'none' }}
-            scrollbar={{ draggable: false }}
-            modules={[Pagination, Navigation]}
-            // remove this when testing
-            allowTouchMove={isProduction === true ? false : true}
-          >
-            {/* Step 1: persona question */}
-            <SwiperSlide>
-              <Grid container>
-                <Grid item lg={12} md={12} xs={12}>
-                  <SlideQuestions
-                    question={RoleQuestions.question}
-                    why={RoleQuestions.why}
-                    answers={RoleQuestions.answers}
-                    answerCallBack={handleAnswers}
-                    hoverAnimation={handleAnimation}
-                    storeValue="role"
-                  />
-                </Grid>
-              </Grid>
-            </SwiperSlide>
-            {/* Step 2: Select a Template  */}
-            <SwiperSlide>
-              <SelectTemplate
-                production={props.production}
-                handleSelectTemplate={handleSelectTemplate}
-                title="What kind of project do you want to build?"
-                description={
-                  'Create from a blank project or start from a schema template'
-                }
-              />
-            </SwiperSlide>
-            {/* Step 3: Signup  */}
-            {/* <SwiperSlide>
-              <Signup
-                message={
-                  <Box>
-                    <Box sx={{ fontWeight: 'bold' }} display="inline">
-                      Awesome!
-                    </Box>{' '}
-                    {`Let's start on your`}
-                    <Box sx={{ fontWeight: 'bold' }} display="inline">
-                      {projectType}
-                    </Box>{' '}
-                    project.
-                  </Box>
-                }
-                callback={signUpSuccess}
-                production={isProduction}
-              />
-            </SwiperSlide> */}
-            {/* Removing: Welcome - we need move the pendo capture script to post create  */}
-            {/* <SwiperSlide>
-              <WelcomeScreen
-                firstname={firstName}
-                lastname={lastName}
-                email={firstName}
-                role={role}
-                projectType={projectType}
-                userZUID={userObject?.data?.ZUID}
-                dateCreated={new Date().toUTCString()}
-              >
-                {welcomeMessage}
-                <SlideMessage 
-                                message={welcomeMessage}
-                                buttonText={`Let's go!`} 
-                                // exitButtonText={'Wait, let me invite my team.'}
-                                exitButtonAction={handleInvite}
-                                answerCallBack={handlePrompt} 
-                                hoverAnimation={handleAnimation}
-                                exitButtonText={''}
-                                
-                            />
-              </WelcomeScreen>
-            </SwiperSlide> */}
-            {/* Step 4: enter project details, on continue it creates an instance */}
-            <SwiperSlide>
-              <ProjectDetails
-                title={'Project Details'}
-                description="You can change these details after"
-                repository={repository}
-                handleNext={handleNext}
-                setCurrentStep={() => setCurrentStep(4)}
-              />
-            </SwiperSlide>
-            {/* Step 5: Technilogy selection Onboarding */}
-            <SwiperSlide>
-              <ChooseTechStack
-                title={'Choose your tech stack'}
-                description="This will help us guide you through your onboarding experience better"
-                handleNext={handleNext}
-                hanldeChooseTechStack={hanldeChooseTechStack}
-              />
-              {/* <SlideQuestions
-                question={ProjectQuestions.question}
-                why={ProjectQuestions.why}
-                answers={ProjectQuestions.answers}
-                answerCallBack={handleAnswers}
-                hoverAnimation={handleAnimation}
-                storeValue="projectType"
-              /> */}
-            </SwiperSlide>
-            <SwiperSlide>
-              <Signup
-                message={
-                  <Box>
-                    <Box sx={{ fontWeight: 'bold' }} display="inline">
-                      Awesome!
-                    </Box>{' '}
-                    {`Let's start on your`}
-                    <Box sx={{ fontWeight: 'bold' }} display="inline">
-                      {projectType}
-                    </Box>{' '}
-                    project.
-                  </Box>
-                }
-                callback={signUpSuccess}
-                production={isProduction}
-              />
-            </SwiperSlide>
-          </Swiper>
+          {ScenarioSwitch()}
         </Grid>
       </Grid>
     </Box>

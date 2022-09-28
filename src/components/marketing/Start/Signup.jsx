@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import * as React from 'react';
 import {
   Container,
@@ -76,6 +77,7 @@ export const Signup = ({
   message = 'What team are you from?',
   callback = {},
   production = false,
+  settoken,
 }) => {
   // ref for submit button
   const submitButton = React.useRef(null);
@@ -109,6 +111,7 @@ export const Signup = ({
       let loginResponse = await ZestyAPI.login(email, password);
       // this emulated accounts for login
       setCookie('APP_SID', loginResponse.meta.token, { domain: '.zesty.io' });
+      settoken(loginResponse.meta.token);
       return response;
     }
     return false;

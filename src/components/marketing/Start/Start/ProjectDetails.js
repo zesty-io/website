@@ -7,7 +7,6 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { ErrorMsg } from 'components/accounts';
-import { getCookie } from 'cookies-next';
 import React from 'react';
 import { useZestyStore } from 'store';
 import projectDetails from '../../../../../public/assets/images/join/project-details.png';
@@ -15,30 +14,33 @@ import ErrorIcon from '@mui/icons-material/Error';
 import Checkbox from '@mui/material/Checkbox';
 import LaunchIcon from '@mui/icons-material/Launch';
 import { resourceStart } from '../Data/Resources';
-import { isProd } from 'utils';
 import Image from 'next/image';
 
 // const repo = 'https://github.com/allenpigar/blog_template_acme';
 const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
 
 export const ProjectDetails = ({
-  repository,
   title,
   description,
   handleNext,
   setCurrentStep,
+  token,
+  template,
+  setinstanceZUID,
 }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
-  const [loading, setloading] = React.useState(false);
+  const [loading, setloading] = React.useState(true);
   const [name, setname] = React.useState('');
   const [ecoZUID, setecoZUID] = React.useState('');
   const [github_key, setgithub_key] = React.useState('');
-  const APP_SID = !isProd ? getCookie('DEV_APP_SID') : getCookie('APP_SID');
+  const repository = template?.github_url;
+  console.log(template, 'repo2');
 
   const handleSuccessCreate = async (res) => {
+    setinstanceZUID(res.data.ZUID);
     const action = async () => {
       await handleInstall({
-        token: APP_SID,
+        token,
         instance_zuid: res.data.ZUID,
         repository,
         randomHashID: res.data.randomHashID,
@@ -63,7 +65,7 @@ export const ProjectDetails = ({
     setloading(true);
     e.preventDefault();
 
-    const res = await ZestyAPI.createInstance(name, ecoZUID);
+    const res = await ZestyAPI.createInstance(name, ecoZUID, token);
     !res.error && handleSuccessCreate(res);
     res.error && handleErrCreate(res);
   };
@@ -119,6 +121,7 @@ export const ProjectDetails = ({
 
     setloading(false);
   };
+  const placard_image = template?.placard_image?.data[0]?.url;
 
   if (loading) {
     return <Loader />;
@@ -128,7 +131,7 @@ export const ProjectDetails = ({
     <Box sx={{ height: '100vh', width: '100%', position: 'relative' }}>
       <Box sx={{}}>
         <Image
-          src={projectDetails.src}
+          src={placard_image || projectDetails.src}
           alt="Picture of the author"
           width={500}
           height={500}
@@ -239,15 +242,15 @@ const Loader = () => {
         height: '100vh',
         textAlign: 'center',
         alignItems: 'center',
-        position: 'fixed',
+        position: 'absolute',
         top: '50%',
-        left: '50%',
+        left: '30%',
         gap: '10px',
       }}
     >
       <CircularProgress color="secondary" size={60} />
       <Typography variant="h5" color={'secondary'}>
-        Please wait
+        This process may take up to 60 seconds.
       </Typography>
     </Box>
   );
