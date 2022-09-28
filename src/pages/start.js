@@ -53,8 +53,6 @@ const postToZOHO = async (payloadJSON) => {
   }
 };
 
-// Start component
-
 export default function Start(props) {
   const { userAppSID, template } = useZestyStore();
   const theme = useTheme();
@@ -190,25 +188,6 @@ export default function Start(props) {
     } else {
       console.log('post object not sent', zohoLeadObject);
     }
-
-    // welcome screen auto skip!
-    // setTimeout(() => {
-    //   handleNext();
-    // }, 5000);
-  };
-
-  // leaves the onboard program
-  const handleExit = () => {
-    window.location = '/';
-  };
-
-  const handleInvite = () => {
-    alert('Invite Friends');
-  };
-
-  const handlePrompt = () => {
-    setCurrentAnimation('bouncing');
-    handleNext();
   };
 
   // modifies the logo animation
@@ -269,6 +248,7 @@ export default function Start(props) {
       NavStartData(scenario).find((e) => e.step.id === currentStep)?.title,
     );
   }, [currentStep, scenario]);
+
   React.useEffect(() => {
     console.log(scenario, 4444);
     if (scenario === 1) setSteps(5);
