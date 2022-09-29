@@ -11,13 +11,17 @@ import {
 import { useMediaQuery } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import ZInstanceItem from './ui/ZInstanceItem';
 import ZMyCard from './ui/ZMyCard';
 import ZTimelineItem from './ui/ZTimelineItem';
 import * as helpers from 'utils';
+import SettingsIcon from '@mui/icons-material/Settings';
+import CodeIcon from '@mui/icons-material/Code';
+import EditIcon from '@mui/icons-material/Edit';
+import StorageIcon from '@mui/icons-material/Storage';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 const INSTANCE_LIMIT = 3;
 
@@ -35,53 +39,121 @@ const MainContent = ({
   const [instanceAudit, setInstanceAudit] = useState([]);
   const [isInstanceAuditLoading, setIsInstanceAuditLoading] = useState(false);
 
-  function getTimeAgo(date) {
-    // reference: https://stackoverflow.com/a/72973090
-    const MINUTE = 60;
-    const HOUR = MINUTE * 60;
-    const DAY = HOUR * 24;
-    const WEEK = DAY * 7;
-    const MONTH = DAY * 30;
-    const YEAR = DAY * 365;
-    const secondsAgo = dayjs().diff(date, 'seconds');
+  const getIcon = (uri) => {
+    /* if the uri has 
+          items = edit icon
+          settings = cog icon
+          views or scripts or stylesheets = code icon
+          models = schema icon
+      */
 
-    if (secondsAgo < MINUTE) {
-      return secondsAgo + ` second${secondsAgo !== 1 ? 's' : ''} ago`;
-    }
-
-    let divisor;
-    let unit = '';
-
-    if (secondsAgo < HOUR) {
-      [divisor, unit] = [MINUTE, 'minute'];
-    } else if (secondsAgo < DAY) {
-      [divisor, unit] = [HOUR, 'hour'];
-    } else if (secondsAgo < WEEK) {
-      [divisor, unit] = [DAY, 'day'];
-    } else if (secondsAgo < MONTH) {
-      [divisor, unit] = [WEEK, 'week'];
-    } else if (secondsAgo < YEAR) {
-      [divisor, unit] = [MONTH, 'month'];
+    if (uri === undefined) {
+      return <BorderColorIcon color="primary" />;
+    } else if (uri.includes('items')) {
+      return <EditIcon color="primary" />;
+    } else if (uri.includes('settings')) {
+      return <SettingsIcon color="primary" />;
+    } else if (
+      uri.includes('views') ||
+      uri.includes('scripts') ||
+      uri.includes('stylesheets')
+    ) {
+      return <CodeIcon color="primary" />;
+    } else if (uri.includes('models')) {
+      return <StorageIcon color="primary" />;
     } else {
-      [divisor, unit] = [YEAR, 'year'];
+      return <BorderColorIcon color="primary" />;
     }
-
-    const count = Math.floor(secondsAgo / divisor);
-    return `${count} ${unit}${count > 1 ? 's' : ''} ago`;
-  }
+  };
 
   const setResponseToAuditState = async (zuid, limit = 10) => {
     const response = await ZestyAPI.getInstanceAuditInitZUID(limit, zuid);
 
     if (!response?.error) {
-      const instanceAuditData = [...response?.data].map((audit) => {
-        return {
-          ...audit,
-          entityName: instances?.find((i) => i.ZUID === audit.entityZUID)?.name,
-          screenshotURL: instances?.find((i) => i.ZUID === audit.entityZUID)
-            ?.screenshotURL,
-        };
-      });
+      const instanceAuditData = await Promise.all(
+        [...response?.data].map(async (audit) => {
+          let newMessage = '';
+          let auditMessage = audit?.meta?.message;
+          if (
+            auditMessage.includes('Modified Item') &&
+            auditMessage.includes('ContentModel')
+          ) {
+            const itemZUIDName = await ZestyAPI.appendURI(
+              audit?.meta?.uri,
+              audit?.entityZUID,
+            );
+
+            const contentZUIDName = await ZestyAPI.appendURI(
+              audit?.meta?.uri.substr(0, audit.meta.uri.indexOf('/items')),
+              audit?.entityZUID,
+            );
+
+            const message = auditMessage.split('`');
+            const itemZUID = message[1];
+            const contentZUID = message[3];
+            newMessage = auditMessage
+              .replace(itemZUID, itemZUIDName?.data?.web?.metaTitle)
+              .replace(contentZUID, contentZUIDName?.data?.label);
+          } else if (
+            auditMessage.includes('Added Item') &&
+            auditMessage.includes('ContentModel')
+          ) {
+            const message = auditMessage.split('`');
+            const itemZUID = message[1];
+            const contentZUID = message[3];
+
+            const itemZUIDName = await ZestyAPI.appendURI(
+              audit?.meta?.uri.substr(0, audit.meta.uri.indexOf('/items') + 7) +
+                `/${itemZUID}`,
+              audit?.entityZUID,
+            );
+
+            const contentZUIDName = await ZestyAPI.appendURI(
+              audit?.meta?.uri.substr(0, audit.meta.uri.indexOf('/items')),
+              audit?.entityZUID,
+            );
+
+            newMessage = auditMessage
+              .replace(
+                itemZUID,
+                itemZUIDName?.data?.web?.metaTitle ||
+                  itemZUIDName?.data?.data?.title,
+              )
+              .replace(contentZUID, contentZUIDName?.data?.label);
+          } else if (auditMessage.includes('Modified EnvSetting')) {
+            const response = await ZestyAPI.appendURI(
+              audit?.meta?.uri,
+              audit?.entityZUID,
+            );
+
+            const message = auditMessage.split('`');
+            const envZUID = message[1];
+            newMessage = auditMessage.replace(
+              envZUID,
+              response?.data?.keyFriendly,
+            );
+          } else if (auditMessage.includes('Published Item')) {
+            const response = await ZestyAPI.appendURI(
+              audit?.meta?.uri.substr(0, audit.meta.uri.indexOf('/items')),
+              audit?.entityZUID,
+            );
+
+            const message = auditMessage.split('`');
+            const envZUID = message[1];
+            newMessage = auditMessage.replace(envZUID, response?.data?.label);
+          }
+
+          return {
+            ...audit,
+            entityName: instances?.find((i) => i.ZUID === audit.entityZUID)
+              ?.name,
+            screenshotURL: instances?.find((i) => i.ZUID === audit.entityZUID)
+              ?.screenshotURL,
+            newMessage,
+          };
+        }),
+      );
+
       setInstanceAudit((prev) =>
         [...prev, ...instanceAuditData].sort(
           (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
@@ -193,7 +265,7 @@ const MainContent = ({
                           mt: 1,
                         }}
                         key={index}
-                        title={`${getTimeAgo(audit.updatedAt)}`}
+                        title={`${helpers.getTimeAgo(audit?.updatedAt)}`}
                         timelineImage={audit?.screenshotURL}
                         isLoading={isInstanceAuditLoading}
                       >
@@ -209,20 +281,15 @@ const MainContent = ({
                             spacing={2}
                             alignItems="center"
                           >
+                            <Stack>{getIcon(audit?.meta?.uri)}</Stack>
                             <Stack>
-                              <img
-                                src={audit?.screenshotURL}
-                                height={40}
-                                width={40}
-                              />
-                            </Stack>
-                            <Stack>
-                              <Typography>{`${audit.entityName} by ${audit.firstName} ${audit.lastName}`}</Typography>
+                              {audit.meta.uri}
+                              <Typography>{`${audit?.entityName} by ${audit?.firstName} ${audit?.lastName}`}</Typography>
                               <Typography
                                 variant="body2"
                                 sx={{ wordBreak: 'break-word' }}
                               >
-                                {audit.meta.message}
+                                {audit?.newMessage || audit?.meta?.message}
                               </Typography>
                             </Stack>
                           </Stack>
@@ -231,11 +298,11 @@ const MainContent = ({
                             direction="row"
                             spacing={2}
                             mt={{ xs: 1 }}
-                            ml={{ xs: '56px', lg: 0 }}
+                            ml={{ xs: 5, lg: 0 }}
                           >
-                            {audit.meta.url && (
+                            {audit?.meta?.url && (
                               <Button
-                                href={audit.meta.url}
+                                href={audit?.meta?.url}
                                 size="small"
                                 variant="contained"
                                 color="primary"
@@ -250,7 +317,7 @@ const MainContent = ({
                             )}
 
                             <Button
-                              href={`/instances/${audit.entityZUID}`}
+                              href={`/instances/${audit?.entityZUID}`}
                               size="small"
                               variant="outlined"
                               color="primary"
@@ -261,6 +328,44 @@ const MainContent = ({
                               }}
                             >
                               Edit Instance
+                            </Button>
+                            <Button
+                              onClick={async () => {
+                                const response = await ZestyAPI.appendURI(
+                                  audit.meta.uri,
+                                  audit.entityZUID,
+                                );
+                              }}
+                            >
+                              content
+                            </Button>
+
+                            <Button
+                              onClick={async () => {
+                                const response = await ZestyAPI.appendURI(
+                                  audit.meta.uri.substr(
+                                    0,
+                                    audit.meta.uri.indexOf('/items') + 7,
+                                  ) + '/7-a28a9af0b9-z6w7k6',
+                                  audit.entityZUID,
+                                );
+                              }}
+                            >
+                              contentsss
+                            </Button>
+
+                            <Button
+                              onClick={async () => {
+                                const response = await ZestyAPI.appendURI(
+                                  audit.meta.uri.substr(
+                                    0,
+                                    audit.meta.uri.indexOf('/items'),
+                                  ),
+                                  audit.entityZUID,
+                                );
+                              }}
+                            >
+                              model
                             </Button>
                           </Stack>
                         </Stack>

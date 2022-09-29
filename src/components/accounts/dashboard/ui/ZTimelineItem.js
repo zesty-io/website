@@ -27,7 +27,6 @@ const ZTimelineItem = ({
                   : 'https://brand.zesty.io/zesty-io-logo.svg'
               }) no-repeat`,
               backgroundPosition: 'center',
-              backgroundSize: 'cover',
               height: 20,
               width: 20,
             },
