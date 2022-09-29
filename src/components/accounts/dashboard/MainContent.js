@@ -283,7 +283,6 @@ const MainContent = ({
                           >
                             <Stack>{getIcon(audit?.meta?.uri)}</Stack>
                             <Stack>
-                              {audit.meta.uri}
                               <Typography>{`${audit?.entityName} by ${audit?.firstName} ${audit?.lastName}`}</Typography>
                               <Typography
                                 variant="body2"
@@ -328,44 +327,6 @@ const MainContent = ({
                               }}
                             >
                               Edit Instance
-                            </Button>
-                            <Button
-                              onClick={async () => {
-                                const response = await ZestyAPI.appendURI(
-                                  audit.meta.uri,
-                                  audit.entityZUID,
-                                );
-                              }}
-                            >
-                              content
-                            </Button>
-
-                            <Button
-                              onClick={async () => {
-                                const response = await ZestyAPI.appendURI(
-                                  audit.meta.uri.substr(
-                                    0,
-                                    audit.meta.uri.indexOf('/items') + 7,
-                                  ) + '/7-a28a9af0b9-z6w7k6',
-                                  audit.entityZUID,
-                                );
-                              }}
-                            >
-                              contentsss
-                            </Button>
-
-                            <Button
-                              onClick={async () => {
-                                const response = await ZestyAPI.appendURI(
-                                  audit.meta.uri.substr(
-                                    0,
-                                    audit.meta.uri.indexOf('/items'),
-                                  ),
-                                  audit.entityZUID,
-                                );
-                              }}
-                            >
-                              model
                             </Button>
                           </Stack>
                         </Stack>
