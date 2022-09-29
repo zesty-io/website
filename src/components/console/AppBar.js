@@ -81,7 +81,6 @@ export default function AppBar({ url = window.location.pathname }) {
             justifyContent: 'space-between',
             alignItems: isMobile ? 'left' : 'center',
             flexDirection: isMobile ? 'column' : 'flex',
-            gap: isMobile ? '1rem' : '0',
           }}
         >
           <Breadcrumbs
