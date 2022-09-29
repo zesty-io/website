@@ -35,6 +35,41 @@ const MainContent = ({
   const [instanceAudit, setInstanceAudit] = useState([]);
   const [isInstanceAuditLoading, setIsInstanceAuditLoading] = useState(false);
 
+  function getTimeAgo(date) {
+    // reference: https://stackoverflow.com/a/72973090
+    const MINUTE = 60;
+    const HOUR = MINUTE * 60;
+    const DAY = HOUR * 24;
+    const WEEK = DAY * 7;
+    const MONTH = DAY * 30;
+    const YEAR = DAY * 365;
+    const secondsAgo = dayjs().diff(date, 'seconds');
+
+    if (secondsAgo < MINUTE) {
+      return secondsAgo + ` second${secondsAgo !== 1 ? 's' : ''} ago`;
+    }
+
+    let divisor;
+    let unit = '';
+
+    if (secondsAgo < HOUR) {
+      [divisor, unit] = [MINUTE, 'minute'];
+    } else if (secondsAgo < DAY) {
+      [divisor, unit] = [HOUR, 'hour'];
+    } else if (secondsAgo < WEEK) {
+      [divisor, unit] = [DAY, 'day'];
+    } else if (secondsAgo < MONTH) {
+      [divisor, unit] = [WEEK, 'week'];
+    } else if (secondsAgo < YEAR) {
+      [divisor, unit] = [MONTH, 'month'];
+    } else {
+      [divisor, unit] = [YEAR, 'year'];
+    }
+
+    const count = Math.floor(secondsAgo / divisor);
+    return `${count} ${unit}${count > 1 ? 's' : ''} ago`;
+  }
+
   const setResponseToAuditState = async (zuid, limit = 10) => {
     const response = await ZestyAPI.getInstanceAuditInitZUID(limit, zuid);
 
@@ -43,6 +78,8 @@ const MainContent = ({
         return {
           ...audit,
           entityName: instances?.find((i) => i.ZUID === audit.entityZUID)?.name,
+          screenshotURL: instances?.find((i) => i.ZUID === audit.entityZUID)
+            ?.screenshotURL,
         };
       });
       setInstanceAudit((prev) =>
@@ -156,10 +193,8 @@ const MainContent = ({
                           mt: 1,
                         }}
                         key={index}
-                        title={`${dayjs().diff(
-                          dayjs(audit?.updatedAt),
-                          'day',
-                        )} days ago`}
+                        title={`${getTimeAgo(audit.updatedAt)}`}
+                        timelineImage={audit?.screenshotURL}
                         isLoading={isInstanceAuditLoading}
                       >
                         <Stack
@@ -169,20 +204,34 @@ const MainContent = ({
                           direction={{ xs: 'column', lg: 'row' }}
                           justifyContent="space-between"
                         >
-                          <Stack>
-                            <Typography>{audit.entityName}</Typography>
-                            <Typography
-                              variant="body2"
-                              sx={{ wordBreak: 'break-word' }}
-                            >
-                              {audit.meta.message}
-                            </Typography>
+                          <Stack
+                            direction="row"
+                            spacing={2}
+                            alignItems="center"
+                          >
+                            <Stack>
+                              <img
+                                src={audit?.screenshotURL}
+                                height={40}
+                                width={40}
+                              />
+                            </Stack>
+                            <Stack>
+                              <Typography>{`${audit.entityName} by ${audit.firstName} ${audit.lastName}`}</Typography>
+                              <Typography
+                                variant="body2"
+                                sx={{ wordBreak: 'break-word' }}
+                              >
+                                {audit.meta.message}
+                              </Typography>
+                            </Stack>
                           </Stack>
                           <Stack
                             alignItems="center"
                             direction="row"
                             spacing={2}
                             mt={{ xs: 1 }}
+                            ml={{ xs: '56px', lg: 0 }}
                           >
                             {audit.meta.url && (
                               <Button
