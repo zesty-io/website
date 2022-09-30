@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Skeleton, Typography } from '@mui/material';
 import ZInstanceItem from './ZInstanceItem';
 import * as helpers from 'utils';
 
@@ -21,8 +21,9 @@ const ZInstancesContainer = ({
   return (
     <>
       <Typography mb={2} variant="h6" color="text.secondary">
-        {dayTime() + firstName}
+        {firstName ? dayTime() + firstName : <Skeleton width="150px" />}
       </Typography>
+
       <Grid container spacing={{ xs: 2, xl: 4 }}>
         {isInstancesLoading
           ? [...new Array(3)].map((i) => (
