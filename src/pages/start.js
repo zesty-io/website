@@ -1,7 +1,7 @@
 // REact and MUI Imports
 import { useState, useRef, useCallback } from 'react';
 import { useTheme } from '@emotion/react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 
 // confetti
@@ -232,7 +232,15 @@ export default function Start(props) {
 
   const welcomeMessage = (
     <Box paddingY={4} sx={{ textAlign: 'center' }}>
-      <Typography variant="h4" gutterBottom>
+      <Stack pt={8} justifyContent={'center'} width={1} alignItems={'center'}>
+        <img
+          src="https://brand.zesty.io/zesty-io-logo.svg"
+          alt=""
+          height={200}
+          width={200}
+        />
+      </Stack>
+      <Typography variant="h4" gutterBottom pt={4} pb={4}>
         Welcome to Zesty {firstName}!
       </Typography>
     </Box>

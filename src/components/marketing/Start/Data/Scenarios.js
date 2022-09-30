@@ -357,6 +357,7 @@ const Scenario4 = ({
 
       <SwiperSlide>
         <ChooseTechStack
+          template={repository}
           title={'Choose your tech stack'}
           description="This will help us guide you through your onboarding experience better"
           handleNext={handleNext}
