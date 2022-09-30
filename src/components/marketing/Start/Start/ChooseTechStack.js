@@ -10,8 +10,8 @@ import {
 import React from 'react';
 import Image from 'next/image';
 import nextjs from '../../../../../public/assets/images/join/nextjs.png';
-import parsely from '../../../../../public/assets/images/join/parselly.png';
-import nextParsely from '../../../../../public/assets/images/join/nextparsely.png';
+import parsely from '../../../../../public/assets/images/join/parsely.png';
+import nextParsely from '../../../../../public/assets/images/join/nextParsely.png';
 import FillerContent from 'components/globals/FillerContent';
 
 export const ChooseTechStack = ({

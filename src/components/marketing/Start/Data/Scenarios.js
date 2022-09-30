@@ -12,6 +12,7 @@ import RoleQuestions from './RoleQuestions';
 import { SlideQuestions } from '../SlideQuestions';
 import { Signup } from '../Signup';
 import { Box } from '@mui/material';
+import { WelcomeScreen } from '../WelcomeScreen';
 
 const Scenario1 = ({
   sliderRef,
@@ -31,6 +32,12 @@ const Scenario1 = ({
   signUpSuccess,
   setscenario,
   currentStep,
+
+  firstName,
+  lastName,
+  role,
+  userObject,
+  welcomeMessage,
 }) => {
   React.useEffect(() => {
     setscenario(1);
@@ -89,6 +96,21 @@ const Scenario1 = ({
           production={isProduction}
         />
       </SwiperSlide>
+
+      <SwiperSlide>
+        <WelcomeScreen
+          firstname={firstName}
+          lastname={lastName}
+          email={firstName}
+          role={role}
+          projectType={projectType}
+          userZUID={userObject?.data?.ZUID}
+          dateCreated={new Date().toUTCString()}
+        >
+          {welcomeMessage}
+        </WelcomeScreen>
+      </SwiperSlide>
+
       <SwiperSlide>
         <ProjectDetails
           title={'Project Details'}
@@ -129,6 +151,12 @@ const Scenario2 = ({
   settoken,
   setscenario,
   currentStep,
+
+  firstName,
+  lastName,
+  role,
+  userObject,
+  welcomeMessage,
 }) => {
   React.useEffect(() => {
     setscenario(2);
@@ -198,6 +226,12 @@ const Scenario3 = ({
   signUpSuccess,
   setscenario,
   currentStep,
+
+  firstName,
+  lastName,
+  role,
+  userObject,
+  welcomeMessage,
 }) => {
   React.useEffect(() => {
     setscenario(3);
@@ -232,6 +266,19 @@ const Scenario3 = ({
           callback={signUpSuccess}
           production={isProduction}
         />
+      </SwiperSlide>
+      <SwiperSlide>
+        <WelcomeScreen
+          firstname={firstName}
+          lastname={lastName}
+          email={firstName}
+          role={role}
+          projectType={projectType}
+          userZUID={userObject?.data?.ZUID}
+          dateCreated={new Date().toUTCString()}
+        >
+          {welcomeMessage}
+        </WelcomeScreen>
       </SwiperSlide>
       <SwiperSlide>
         <ProjectDetails
@@ -273,6 +320,12 @@ const Scenario4 = ({
   settoken,
   setscenario,
   currentStep,
+
+  firstName,
+  lastName,
+  role,
+  userObject,
+  welcomeMessage,
 }) => {
   React.useEffect(() => {
     setscenario(4);

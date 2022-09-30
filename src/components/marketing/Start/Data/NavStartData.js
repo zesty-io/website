@@ -54,8 +54,9 @@ const scenario2 = [
   },
   {
     step: { id: 2, label: 'Great progress' },
-    title: `Create an account to save and continue`,
-    description: 'We are excited to have you here!',
+    title: `Tell us a little more about your project`,
+    description:
+      'This information helps us make you get started in Zesty faster.',
   },
   {
     step: { id: 3, label: '4' },

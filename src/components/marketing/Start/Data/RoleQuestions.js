@@ -26,7 +26,7 @@ export default {
       answer: 'Marketer',
       value: 'marketer',
       asset: '/assets/images/join/The-Marketer-Zesty-io-Hero-Campaign.png',
-      description: 'You initiat and lead marketing campaigns.',
+      description: 'You initiate and lead marketing campaigns.',
       imageSX: {
         right: '130px',
         top: '-50px',

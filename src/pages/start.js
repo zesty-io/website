@@ -1,7 +1,7 @@
 // REact and MUI Imports
 import { useState, useRef, useCallback } from 'react';
 import { useTheme } from '@emotion/react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 
 // confetti
@@ -208,6 +208,11 @@ export default function Start(props) {
     } else {
       console.log('post object not sent', zohoLeadObject);
     }
+
+    // welcome screen auto skip!
+    setTimeout(() => {
+      handleNext();
+    }, 5000);
   };
 
   // modifies the logo animation
@@ -225,6 +230,13 @@ export default function Start(props) {
     description,
   };
 
+  const welcomeMessage = (
+    <Box paddingY={4} sx={{ textAlign: 'center' }}>
+      <Typography variant="h4" gutterBottom>
+        Welcome to Zesty {firstName}!
+      </Typography>
+    </Box>
+  );
   const scenarioProps = {
     sliderRef,
     isProduction,
@@ -243,6 +255,11 @@ export default function Start(props) {
     signUpSuccess,
     setscenario,
     currentStep,
+    firstName,
+    lastName,
+    role,
+    userObject,
+    welcomeMessage,
   };
 
   React.useEffect(() => {
@@ -281,7 +298,6 @@ export default function Start(props) {
   }, [currentStep, scenario]);
 
   React.useEffect(() => {
-    console.log(scenario, 4444);
     if (scenario === 1) setSteps(5);
     if (scenario === 2) setSteps(3);
     if (scenario === 3) setSteps(3);
