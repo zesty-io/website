@@ -69,15 +69,14 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 };
 
 const InstallButton = ({ data, theme }) => {
-  const { workingInstance, setTemplate } = useZestyStore((state) => state);
+  const { workingInstance } = useZestyStore((state) => state);
 
   const router = useRouter();
   const isTemplate = data.meta.web.uri.includes('template') ? true : false;
   const handleTemplate = () => {
-    setTemplate(data);
     router.push({
       pathname: `/start/`,
-      query: { template: data.github_url },
+      query: { template: data?.meta?.zuid },
     });
   };
 

@@ -31,6 +31,8 @@ import { NavigationStart } from 'components/marketing/Start/NavigationStart';
 import { NavStartData } from 'components/marketing/Start/Data/NavStartData';
 import { useZestyStore } from 'store';
 import { Scenarios } from 'components/marketing/Start/Data/Scenarios';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 // zoho lead post function
 
@@ -53,17 +55,34 @@ const postToZOHO = async (payloadJSON) => {
   }
 };
 
+const getTemplate = async (zuid, setrepository, isProduction) => {
+  const url = isProduction
+    ? `https://39ntbr6g-dev.webengine.zesty.io/data/entity.json?zuid=${zuid}`
+    : `https://extensions.zesty.io/data/entity.json?zuid=${zuid}`;
+  await axios
+    .get(url)
+    .then(function (response) {
+      setrepository(response.data[0]);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
 export default function Start(props) {
+  const router = useRouter();
+  const templateId = router.query.template;
+  const isTemplate = templateId ? true : false;
   const [isLogin, setisLogin] = useState('');
-  const { userAppSID, template } = useZestyStore();
+  const { userAppSID } = useZestyStore();
   const theme = useTheme();
   const { height, width } = getWindowDimensions();
   const isProduction = props.production;
   const [token, settoken] = useState(userAppSID);
 
   const [scenario, setscenario] = React.useState(null);
-  const [repository, setrepository] = useState(template);
+  const [repository, setrepository] = useState();
   const [instanceZUID, setinstanceZUID] = useState('');
+
   // state values for form capture
   const [role, setRole] = useState('Developer');
   const [email, setEmail] = useState('..still capturing email');
@@ -226,10 +245,15 @@ export default function Start(props) {
     currentStep,
   };
 
-  const isTemplate = Object.keys(template).length !== 0 ? true : false;
   React.useEffect(() => {
     setisLogin(getCookie('APP_SID'));
   }, [isTemplate]);
+
+  React.useEffect(() => {
+    if (templateId) {
+      getTemplate(templateId, setrepository, isProduction);
+    }
+  }, [templateId]);
 
   const ScenarioSwitch = () => {
     console.log(isTemplate, isLogin, scenario, ':::');

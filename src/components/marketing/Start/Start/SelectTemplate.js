@@ -13,9 +13,9 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 //   'https://39ntbr6g-dev.webengine.zesty.io/data/entities-by-type.json?type=7-d2f78497d3-3wbx6p';
 
 const stageUrl =
-  'https://39ntbr6g-dev.webengine.zesty.io/data/entity.json?zuid=7-9cebf0bedd-ls0gg0';
+  'https://39ntbr6g-dev.webengine.zesty.io/data/entities-by-type.json?type=7-d2f78497d3-3wbx6p';
 const prodUrl =
-  'https://extensions.zesty.io/data/entity.json?zuid=7-9cebf0bedd-ls0gg0';
+  'https://extensions.zesty.io/data/entities-by-type.json?type=7-d2f78497d3-3wbx6p';
 
 export const SelectTemplate = ({
   handleSelectTemplate,
