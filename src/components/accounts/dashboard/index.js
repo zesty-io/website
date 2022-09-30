@@ -39,7 +39,8 @@ const Dashboard = () => {
 
   const getAllTeams = async () => {
     const response = await ZestyAPI.getAllTeams();
-    setTeams(response?.data);
+    !response.error && setTeams(response?.data);
+    response.error && setTeams([]);
   };
 
   const handleSearchInstances = (value) => {

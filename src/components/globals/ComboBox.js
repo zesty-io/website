@@ -144,7 +144,7 @@ const filterOptions = createFilterOptions({
 });
 
 const Index = ({
-  instances,
+  instances = [],
   setCookies,
   instanceZUID,
   width = 300,
