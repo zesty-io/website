@@ -8,20 +8,30 @@ import {
 import { Skeleton, Typography } from '@mui/material';
 import React from 'react';
 
-const ZTimelineItem = ({ title, children, isLoading, ...props }) => {
+const ZTimelineItem = ({
+  title,
+  children,
+  isLoading,
+  logo = 'https://brand.zesty.io/zesty-io-logo.svg',
+  icon,
+  ...props
+}) => {
   return (
     <TimelineItem {...props}>
       <TimelineSeparator>
-        <TimelineDot
-          sx={{
-            '&.MuiTimelineDot-root': {
-              background:
-                'url(https://brand.zesty.io/zesty-io-logo.svg) no-repeat',
-              height: 20,
-              width: 20,
-            },
-          }}
-        />
+        {icon ? (
+          <>{icon}</>
+        ) : (
+          <TimelineDot
+            sx={{
+              '&.MuiTimelineDot-root': {
+                background: `url(${logo}) no-repeat`,
+                height: 20,
+                width: 20,
+              },
+            }}
+          ></TimelineDot>
+        )}
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>

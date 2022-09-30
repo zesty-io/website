@@ -73,7 +73,8 @@ export default function OverviewPage() {
     console.log(res);
   };
   const getInstanceAudit = async () => {
-    const res = await ZestyAPI.getInstanceAudit();
+    const limit = '10';
+    const res = await ZestyAPI.getInstanceAudit(limit);
     !res.error && handleGetInstanceAuditSucc(res);
     res.error && handleGetInstanceAuditErr(res);
   };

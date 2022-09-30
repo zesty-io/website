@@ -9,9 +9,7 @@ export const AOverviewCards = ({
   title,
   logo,
   mainData,
-  footerData,
   footerTitle,
-  chipColor,
   chip,
 }) => {
   return (
