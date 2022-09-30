@@ -11,13 +11,14 @@ import {
 import { useMediaQuery } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import ZInstanceItem from './ui/ZInstanceItem';
 import ZMyCard from './ui/ZMyCard';
 import ZTimelineItem from './ui/ZTimelineItem';
 import * as helpers from 'utils';
+
+import ZInstanceTimelineItemContainer from './ui/ZInstanceTimelineItemContainer';
 
 const INSTANCE_LIMIT = 3;
 
@@ -43,8 +44,11 @@ const MainContent = ({
         return {
           ...audit,
           entityName: instances?.find((i) => i.ZUID === audit.entityZUID)?.name,
+          screenshotURL: instances?.find((i) => i.ZUID === audit.entityZUID)
+            ?.screenshotURL,
         };
       });
+
       setInstanceAudit((prev) =>
         [...prev, ...instanceAuditData].sort(
           (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
@@ -148,74 +152,11 @@ const MainContent = ({
                       />
                     ))
                   : instanceAudit?.map((audit, index) => (
-                      <ZTimelineItem
-                        sx={{
-                          '::before': {
-                            content: 'none',
-                          },
-                          mt: 1,
-                        }}
+                      <ZInstanceTimelineItemContainer
                         key={index}
-                        title={`${dayjs().diff(
-                          dayjs(audit?.updatedAt),
-                          'day',
-                        )} days ago`}
-                        isLoading={isInstanceAuditLoading}
-                      >
-                        <Stack
-                          sx={{ border: `1px solid ${grey[400]}`, p: 2 }}
-                          component={Paper}
-                          elevation={0}
-                          direction={{ xs: 'column', lg: 'row' }}
-                          justifyContent="space-between"
-                        >
-                          <Stack>
-                            <Typography>{audit.entityName}</Typography>
-                            <Typography
-                              variant="body2"
-                              sx={{ wordBreak: 'break-word' }}
-                            >
-                              {audit.meta.message}
-                            </Typography>
-                          </Stack>
-                          <Stack
-                            alignItems="center"
-                            direction="row"
-                            spacing={2}
-                            mt={{ xs: 1 }}
-                          >
-                            {audit.meta.url && (
-                              <Button
-                                href={audit.meta.url}
-                                size="small"
-                                variant="contained"
-                                color="primary"
-                                sx={{
-                                  whiteSpace: {
-                                    md: 'nowrap',
-                                  },
-                                }}
-                              >
-                                Open Resource
-                              </Button>
-                            )}
-
-                            <Button
-                              href={`/instances/${audit.entityZUID}`}
-                              size="small"
-                              variant="outlined"
-                              color="primary"
-                              sx={{
-                                whiteSpace: {
-                                  md: 'nowrap',
-                                },
-                              }}
-                            >
-                              Edit Instance
-                            </Button>
-                          </Stack>
-                        </Stack>
-                      </ZTimelineItem>
+                        audit={audit}
+                        isInstanceAuditLoading={isInstanceAuditLoading}
+                      />
                     ))}
               </Timeline>
             )}

@@ -1,10 +1,13 @@
-import { Container, Grid } from '@mui/material';
-import AppBar from 'components/console/AppBar';
+import { Container, Divider, Grid, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
-import MainContent from './MainContent';
-import SideContent from './SideContent';
 import * as helpers from 'utils';
+import ZInstancesContainer from './ui/ZInstancesContainer';
+import ZMarketingAds from './ui/ZMarketingAds';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
+import ZActivityStream from './ui/ZActivityStream';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
@@ -19,6 +22,8 @@ const Dashboard = () => {
   const [isTogglingFavorites, setIsTogglingFavorites] = useState(false);
   const [teams, setTeams] = useState([]);
   const [marketingCards, setMarketingCards] = useState([]);
+  const theme = useTheme();
+  const isLG = useMediaQuery(theme.breakpoints.up('lg'));
 
   const toggleFavorites = async (zuid) => {
     setIsTogglingFavorites(true);
@@ -115,7 +120,6 @@ const Dashboard = () => {
 
   return (
     <>
-      <AppBar />
       <Container
         maxWidth={false}
         disableGutters
@@ -124,40 +128,35 @@ const Dashboard = () => {
           px: 3,
         })}
       >
-        <Grid container spacing={2}>
+        <Stack py={2}>
+          <ZInstancesContainer
+            firstName={userInfo?.firstName}
+            instances={instances}
+            isInstancesLoading={isInstancesLoading}
+            isTogglingFavorites={isTogglingFavorites}
+            toggleFavorites={toggleFavorites}
+            instancesFavorites={instancesFavorites}
+          />
+        </Stack>
+        <Divider />
+        <Grid container>
           <Grid
-            sx={{
-              height: { md: `calc(100vh - 66px)` },
-              position: { md: 'sticky' },
-              top: { md: '66px' },
-              overflowY: { md: 'auto' },
-              maxWidth: { md: '384px' },
-            }}
-            md={3}
-            lg={2}
-            xs={12}
+            py={2}
             item
+            xs={12}
+            lg={9.5}
+            borderRight={`1px solid ${grey[400]}`}
           >
-            <SideContent
-              instances={filteredInstances}
-              totalInstancesLimit={TOTAL_INSTANCES_LIMIT}
-              totalTeamsLimit={TOTAL_TEAMS_LIMIT}
-              unfilteredTotalInstances={instances?.length}
-              handleSearchInstances={handleSearchInstances}
-              teams={teams}
-            />
-          </Grid>
-
-          <Grid xs={12} md={9} lg={10} item>
-            <MainContent
+            <ZActivityStream
               instances={instances}
-              isInstancesLoading={isInstancesLoading}
-              toggleFavorites={toggleFavorites}
               instancesFavorites={instancesFavorites}
-              marketingCards={marketingCards}
-              isTogglingFavorites={isTogglingFavorites}
             />
           </Grid>
+          {isLG && (
+            <Grid p={2} item xs={12} lg={2.5}>
+              <ZMarketingAds marketingCards={marketingCards} />
+            </Grid>
+          )}
         </Grid>
       </Container>
     </>
