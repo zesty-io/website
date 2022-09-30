@@ -1,15 +1,21 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import {
+  Button,
+  Container,
   Grid,
   IconButton,
   InputAdornment,
+  Stack,
   TextField,
   Typography,
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import dayjs from 'dayjs';
+import InfoIcon from '@mui/icons-material/Info';
+import CachedIcon from '@mui/icons-material/Cached';
+import { grey } from '@mui/material/colors';
 
 const FieldComponent = ({
   label = '',
@@ -23,14 +29,14 @@ const FieldComponent = ({
     copyToClipboard(value);
     settext(value);
   };
+
   if (!copy) {
     return (
       <Box sx={{ width: '15rem' }}>
-        <Typography variant="h6">{label}</Typography>
+        <Typography variant="text.body2">{label}</Typography>
         <Box
           onClick={handleClick}
           sx={{
-            padding: '.8rem 1rem',
             borderRadius: '5px',
             display: 'flex',
             alignItems: 'center',
@@ -42,10 +48,19 @@ const FieldComponent = ({
       </Box>
     );
   }
+
   return (
-    <Box sx={{ width: '18rem' }}>
-      <Typography variant="h6">{label}</Typography>
+    <Stack sx={{ width: 1 }} spacing={0.5}>
+      <Stack direction={'row'} textAlign="center" spacing={0.5}>
+        <Typography variant="text.body2">{label}</Typography>
+        <Box sx={{ color: 'GrayText' }}>
+          <InfoIcon fontSize="small" color="inherit" />
+        </Box>
+      </Stack>
       <TextField
+        sx={{
+          background: '#fff',
+        }}
         value={value}
         InputProps={{
           endAdornment: (
@@ -56,16 +71,16 @@ const FieldComponent = ({
                 edge="end"
               >
                 {text === value ? (
-                  <CheckCircleOutlineIcon color="primary" />
+                  <CheckCircleOutlineIcon color="inherit" />
                 ) : (
-                  <ContentCopyIcon color="primary" />
+                  <ContentCopyIcon color="inherit" />
                 )}
               </IconButton>
             </InputAdornment>
           ),
         }}
       ></TextField>
-    </Box>
+    </Stack>
   );
 };
 
@@ -119,15 +134,50 @@ const OverviewContent = ({ instance }) => {
   );
 };
 
-export const OverviewTabs = ({ instance }) => {
+export const OverviewTabs = ({ instance, handleClearCache }) => {
   return (
-    <Box
+    <Container
       sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        pt: 4,
+        background: '#F2F4F7',
         width: '100%',
-        typography: 'body1',
+        height: '100%',
       }}
     >
-      <OverviewContent instance={instance} />
-    </Box>
+      <FieldComponent
+        // copyToClipboard={copyToClipboard}
+        // settext={settext}
+        // text={text}
+        label={'Instance ZUID'}
+        value={instance.ZUID}
+      />
+      <FieldComponent
+        // copyToClipboard={copyToClipboard}
+        // settext={settext}
+        // text={text}
+        label={'Numeric ID'}
+        value={instance.ID}
+      />
+      <FieldComponent
+        // copyToClipboard={copyToClipboard}
+        // settext={settext}
+        // text={text}
+        label={'Hash ID'}
+        value={instance.randomHashID}
+      />
+      <Button
+        variant="contained"
+        fullWidth
+        color="grey"
+        sx={{ border: `1px solid ${grey[400]}` }}
+        onClick={handleClearCache}
+      >
+        <CachedIcon sx={{ color: 'GrayText' }} />
+        <Typography ml={0.5}>Clear Cache</Typography>
+      </Button>
+    </Container>
   );
 };

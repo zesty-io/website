@@ -6,20 +6,13 @@ import {
   Typography,
   useTheme,
   Button,
+  Stack,
+  Chip,
 } from '@mui/material';
-import { OverviewTabs } from 'components/accounts';
-import dayjs from 'dayjs';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import BarChartIcon from '@mui/icons-material/BarChart';
-const NoData = () => {
-  return (
-    <Box position={'relative'}>
-      <Typography variant="h4" sx={{ textAlign: 'center', paddingTop: '3rem' }}>
-        No Data
-      </Typography>
-    </Box>
-  );
-};
+import { AOverviewCards, OverviewTabs } from 'components/accounts';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import { Group, Language } from '@mui/icons-material';
+import { purple } from '@mui/material/colors';
 
 export const Overview = ({
   instance,
@@ -30,7 +23,109 @@ export const Overview = ({
   models,
   audits,
   clearCache,
+  usage,
 }) => {
+  const theme = useTheme();
+  const teamsLength = teams.length || '0';
+  const localesLength = locales.length || '0';
+  const modelsLength = models.length || '0';
+  const usersLength = users.length || '0';
+
+  const handleClearCache = () => {
+    clearCache();
+  };
+
+  const { TotalGBs, TotalRequests } = usage?.MediaConsumption || {};
+  const totalUsers = users?.length || [];
+
+  const newArr = [
+    {
+      title: 'Users',
+      logo: (
+        <Stack
+          sx={{
+            bgcolor: lighten(theme.palette.primary.light, 0.9),
+            borderRadius: '50px',
+            p: 1,
+          }}
+        >
+          <Group color="primary" />
+        </Stack>
+      ),
+      mainData: totalUsers,
+      footerData: 1,
+      footerTitle: 'User left in plan',
+      chipColor: 'warning',
+      chip: (
+        <Chip
+          label={'1'}
+          variant="contained"
+          sx={{
+            bgcolor: lighten(theme.palette.warning.main, 0.6),
+            color: theme.palette.warning.main,
+          }}
+        />
+      ),
+    },
+    {
+      title: 'Bandwidth',
+      logo: (
+        <Stack
+          sx={{
+            bgcolor: lighten(theme.palette.info.main, 0.9),
+            borderRadius: '50px',
+            p: 1,
+          }}
+        >
+          <Language color="info" />
+        </Stack>
+      ),
+      mainData: `${TotalGBs?.toFixed(2) || '-'} GB`,
+      footerData: '2.5 GB',
+      footerTitle: 'Exceeded from plan',
+      chipColor: 'error',
+      chip: (
+        <Chip
+          label={'2.5 GB'}
+          variant="contained"
+          sx={{
+            bgcolor: lighten(theme.palette.error.main, 0.6),
+            color: theme.palette.error.main,
+          }}
+        />
+      ),
+    },
+    {
+      title: 'API Requests',
+      logo: (
+        <Stack
+          color={'purple'}
+          sx={{
+            bgcolor: lighten(purple[500], 0.9),
+            borderRadius: '50px',
+            p: 1,
+          }}
+        >
+          <Language color="inherit" />
+        </Stack>
+      ),
+      mainData: TotalRequests || '-',
+      footerData: '10K',
+      footerTitle: 'Request left in plan',
+      chipColor: 'success',
+      chip: (
+        <Chip
+          label={'10K'}
+          variant="contained"
+          sx={{
+            bgcolor: lighten(theme.palette.success.main, 0.5),
+            color: theme.palette.success.main,
+          }}
+        />
+      ),
+    },
+  ];
+
   const tabProps = {
     instance,
     userInfo,
@@ -39,134 +134,65 @@ export const Overview = ({
     locales,
     models,
     audits,
-  };
-
-  const theme = useTheme();
-  const teamsLength = teams.length || '0';
-  const localesLength = locales.length || '0';
-  const modelsLength = models.length || '0';
-  const usersLength = users.length || '0';
-  const handleClearCache = () => {
-    clearCache();
+    handleClearCache,
   };
   return (
-    <>
-      <Box paddingY={2} display="flex" justifyContent={'space-between'}>
-        <Box>
-          <Typography variant="h4">{instance?.name}</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Last Updated at:
-            {dayjs(instance.updatedAt).format(' MMMM D, YYYY')}
-          </Typography>
-        </Box>
-        <Button
-          onClick={handleClearCache}
-          variant="contained"
-          color="primary"
-          size="small"
-        >
-          Clear Instance Cache
-        </Button>
-      </Box>
-      <Box position={'relative'}>
-        <OverviewTabs {...tabProps} />
-        <Grid container>
-          <Grid
-            item
-            sx={{
-              boxShadow: 1,
-              borderRadius: '5px',
-              overflow: 'hidden',
-            }}
-            xs={4}
-          >
-            <Box
-              paddingY={1}
-              paddingX={2}
-              sx={{ background: lighten(theme.palette.primary.light, 0.9) }}
+    <Box sx={{ background: 'aqua', width: '100%' }}>
+      <Stack p={5} sx={{ background: theme.palette.zesty.zestyOrange }}>
+        <Stack pb={4} direction={'row'} justifyContent={'space-between'}>
+          <Stack>
+            <Typography color={'white'} variant="h4">
+              Overview
+            </Typography>
+          </Stack>
+          <Stack direction={'row'} spacing={2}>
+            <Button
+              onClick={() => {}}
+              variant="contained"
+              size="small"
+              color="inherit"
+              sx={{ background: 'white' }}
             >
-              <Typography
-                variant="h6"
-                alignItems={'center'}
-                display={'flex'}
-                gap={1}
-                color={'primary'}
-              >
-                <AccessTimeIcon /> Your Latest Edits
-              </Typography>
-            </Box>
-            {audits.length === 0 ? (
-              <NoData />
-            ) : (
-              audits.slice(0, 5).map((e) => {
-                return (
-                  <Box paddingY={1} paddingX={2}>
-                    <Typography variant="subtitle2">
-                      {e.meta.message}
-                    </Typography>
-                  </Box>
-                );
-              })
-            )}
-          </Grid>
-          <Grid item xs={2} />
+              <CreditCardIcon color="inherit" sx={{ color: 'GrayText' }} />
+              <Typography ml={0.5}>Review Billing</Typography>
+            </Button>
+          </Stack>
+        </Stack>
 
-          <Grid
-            sx={{
-              boxShadow: 1,
-              borderRadius: '5px',
-              overflow: 'hidden',
-            }}
-            item
-            xs={4}
-          >
-            <Box
-              paddingY={1}
-              paddingX={2}
-              sx={{ background: lighten(theme.palette.primary.light, 0.9) }}
-            >
-              <Typography
-                variant="h6"
-                alignItems={'center'}
-                display={'flex'}
-                gap={1}
-                color="primary"
-              >
-                <BarChartIcon /> Statistics
-              </Typography>
-            </Box>
-            <Grid container paddingY={2} paddingX={4}>
-              <Grid item xs={9}>
-                <Typography variant="h5">Total users</Typography>
+        <Grid container spacing={4}>
+          {newArr.map((e) => {
+            const {
+              title,
+              logo,
+              mainData,
+              footerData,
+              footerTitle,
+              chipColor,
+              chip,
+            } = e;
+            const cardprops = {
+              title,
+              logo,
+              mainData,
+              footerData,
+              footerTitle,
+              chipColor,
+              chip,
+            };
+            return (
+              <Grid item xs={4}>
+                <AOverviewCards {...cardprops} />
               </Grid>
-
-              <Grid item xs={3}>
-                {usersLength}
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5">Total content models</Typography>
-              </Grid>
-
-              <Grid item xs={3}>
-                {modelsLength}
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5">Total locales</Typography>
-              </Grid>
-              <Grid item xs={3}>
-                {localesLength}
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5">Total teams</Typography>
-              </Grid>
-
-              <Grid item xs={3}>
-                {teamsLength}
-              </Grid>
-            </Grid>
-          </Grid>
+            );
+          })}
         </Grid>
-      </Box>
-    </>
+      </Stack>
+      <Grid container position={'relative'} sx={{ background: 'red' }}>
+        <Grid item xs={9}></Grid>
+        <Grid item xs={3}>
+          <OverviewTabs {...tabProps} />
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
