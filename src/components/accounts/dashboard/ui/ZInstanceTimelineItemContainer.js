@@ -113,10 +113,16 @@ const ZInstanceTimelineItemContainer = ({ audit, isInstanceAuditLoading }) => {
       const message = auditMessage.split('`');
       const envZUID = message[1];
       newMessage = auditMessage.replace(envZUID, response?.data?.label);
+    } else {
+      newMessage = auditMessage;
     }
 
     setIsFetchingMsg(false);
-    setNewMessage(newMessage);
+
+    setNewMessage(
+      newMessage +
+        `${audit.totalActions > 1 ? ` (Actions ${audit.totalActions})` : ''} `,
+    );
 
     return newMessage;
   };
