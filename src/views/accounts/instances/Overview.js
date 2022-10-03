@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { AOverviewCards, OverviewTabs } from 'components/accounts';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
+import CachedIcon from '@mui/icons-material/Cached';
 import { Group, Language } from '@mui/icons-material';
 import { purple } from '@mui/material/colors';
 import { Timeline } from '@mui/lab';
@@ -139,24 +140,51 @@ export const Overview = ({
   };
 
   return (
-    <Box sx={{ background: 'aqua', width: '100%' }}>
-      <Stack p={5} sx={{ background: theme.palette.zesty.zestyOrange }}>
+    <Box>
+      <Stack px={5} pt={2} pb={4} bgcolor="background.level2">
         <Stack pb={4} direction={'row'} justifyContent={'space-between'}>
           <Stack>
-            <Typography color={'white'} variant="h4">
-              Overview
-            </Typography>
+            <Typography variant="h4">Overview</Typography>
           </Stack>
           <Stack direction={'row'} spacing={2}>
             <Button
+              variant="contained"
+              color="inherit"
+              sx={(theme) => ({
+                bgcolor:
+                  theme.palette.mode === 'light'
+                    ? 'white'
+                    : theme.palette.primary.main,
+                '&:hover': {
+                  bgcolor: 'white',
+                  color: 'black',
+                },
+              })}
+              onClick={handleClearCache}
+              startIcon={<CachedIcon sx={{ color: 'GrayText' }} />}
+            >
+              Clear Cache
+            </Button>
+            <Button
               onClick={() => {}}
               variant="contained"
-              size="small"
               color="inherit"
-              sx={{ background: 'white' }}
+              sx={(theme) => ({
+                bgcolor:
+                  theme.palette.mode === 'light'
+                    ? 'white'
+                    : theme.palette.primary.main,
+
+                '&:hover': {
+                  bgcolor: 'white',
+                  color: 'black',
+                },
+              })}
+              startIcon={
+                <CreditCardIcon color="inherit" sx={{ color: 'GrayText' }} />
+              }
             >
-              <CreditCardIcon color="inherit" sx={{ color: 'GrayText' }} />
-              <Typography ml={0.5}>Review Billing</Typography>
+              Review Billing
             </Button>
           </Stack>
         </Stack>
@@ -172,15 +200,15 @@ export const Overview = ({
               chip,
             };
             return (
-              <Grid item xs={4}>
+              <Grid item xs={12} lg={4}>
                 <AOverviewCards {...cardprops} />
               </Grid>
             );
           })}
         </Grid>
       </Stack>
-      <Grid container position={'relative'} sx={{ background: 'white' }}>
-        <Grid px={2} item xs={9}>
+      <Grid container>
+        <Grid px={2} item xs={12} lg={9}>
           <Timeline sx={{ p: 0 }}>
             {isInstanceAuditLoading
               ? [...new Array(5)].map((i) => (
@@ -204,7 +232,7 @@ export const Overview = ({
                 ))}
           </Timeline>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} lg={3}>
           <OverviewTabs {...tabProps} />
         </Grid>
       </Grid>
