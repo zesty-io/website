@@ -72,7 +72,7 @@ export default function TryFreeButton({
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
-    location.href = '/join/';
+    location.href = '/start/';
 
     // uncomment this to bring the dropdown back
     //setAnchorEl(event.target);
