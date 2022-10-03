@@ -12,26 +12,26 @@ const ZTimelineItem = ({
   title,
   children,
   isLoading,
-  logo = 'https://brand.zesty.io/zesty-io-logo.svg',
-  icon,
+  timelineImage,
   ...props
 }) => {
   return (
     <TimelineItem {...props}>
       <TimelineSeparator>
-        {icon ? (
-          <>{icon}</>
-        ) : (
-          <TimelineDot
-            sx={{
-              '&.MuiTimelineDot-root': {
-                background: `url(${logo}) no-repeat`,
-                height: 20,
-                width: 20,
-              },
-            }}
-          ></TimelineDot>
-        )}
+        <TimelineDot
+          sx={{
+            '&.MuiTimelineDot-root': {
+              background: `url(${
+                timelineImage
+                  ? timelineImage
+                  : 'https://brand.zesty.io/zesty-io-logo.svg'
+              }) no-repeat`,
+              backgroundPosition: 'center',
+              height: 20,
+              width: 20,
+            },
+          }}
+        />
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>

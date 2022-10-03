@@ -10,6 +10,7 @@ import { ResourceLinkComp } from 'components/marketplace/ResourceLinkComp';
 import LaunchIcon from '@mui/icons-material/Launch';
 import MuiMarkdown from 'mui-markdown';
 import { useZestyStore } from 'store';
+import { useRouter } from 'next/router';
 
 function showDetails(props) {
   return (
@@ -69,8 +70,29 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 
 const InstallButton = ({ data, theme }) => {
   const { workingInstance } = useZestyStore((state) => state);
+
+  const router = useRouter();
+  const isTemplate = data.meta.web.uri.includes('template') ? true : false;
+  const handleTemplate = () => {
+    router.push({
+      pathname: `/start/`,
+      query: { template: data?.meta?.zuid },
+    });
+  };
+
   if (data.app_zuid) {
     return <AppInstallerComp data={data} />;
+  } else if (isTemplate) {
+    return (
+      <Button
+        onClick={handleTemplate}
+        variant="contained"
+        color="secondary"
+        fullWidth
+      >
+        Install {data.name}
+      </Button>
+    );
   } else if (data.github_url && !data.app_zuid && !data.resource_link) {
     return (
       <ExtensionsIntaller
