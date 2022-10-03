@@ -274,13 +274,13 @@ export default function UsersPage() {
         instanceZUID={zuid}
         loading={loading}
       />
-      <PendingTable
+      {/* <PendingTable
         loading={loading}
         isInstanceOwner={isInstanceOwner}
         respondToInvite={respondToInvite}
         data={pendingUsers}
       />
-      <RolesDescription />
+      <RolesDescription /> */}
     </>
   );
 }

@@ -1,20 +1,28 @@
 import React from 'react';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import {
-  UsersSelect,
-  StickyTable,
   accountsValidations,
   FormInput,
   DeleteMsg,
   SubmitBtn,
   FormSelect,
   DeleteBtn,
+  AccountsTable,
+  AccountSelect,
 } from 'components/accounts';
+import GroupsIcon from '@mui/icons-material/Groups';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
+import AddIcon from '@mui/icons-material/Add';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { baseroles } from 'components/accounts/users/baseroles';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
 import * as helpers from 'utils';
+import { grey } from '@mui/material/colors';
+import { hashMD5 } from 'utils/Md5Hash';
+import dayjs from 'dayjs';
 
 const MySwal = withReactContent(Swal);
 
@@ -43,7 +51,7 @@ const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
       return <>{role}</>;
     default:
       return (
-        <UsersSelect
+        <AccountSelect
           options={instanceRoles}
           label="Role"
           onChange={handleOnChange}
@@ -95,24 +103,112 @@ const CustomTable = ({
       <>-</>
     );
 
-    return {
-      name: `${e.firstName} ${e.lastName}` || '-',
-      email: e.email || '-',
-      role,
-      action,
-    };
+    return { ...e, id: e.ZUID };
   });
 
-  // const memoizeRows = React.useMemo(() => ROWS, [data]);
-  // const memoizeColumns = React.useMemo(() => COLUMNS, []);
+  const columns = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 300,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const name = `${params.row.firstName} ${params.row.lastName}`;
+        const email = `${params.row.email}`;
+        const profileUrl =
+          'https://www.gravatar.com/avatar/' + hashMD5(params.row?.email);
+        return (
+          <Stack direction="row" alignItems={'center'} gap={2}>
+            <img
+              src={profileUrl}
+              alt="User"
+              height={35}
+              width={35}
+              style={{ borderRadius: '50%' }}
+            />
+            <Stack>
+              <Typography variant="body2">{name}</Typography>
+              <Typography variant="caption" color={'GrayText'}>
+                {email}
+              </Typography>
+            </Stack>
+          </Stack>
+        );
+      },
+    },
+    {
+      field: 'role',
+      headerName: 'Role',
+      width: 150,
+      editable: false,
+      renderCell: (params) => {
+        const e = params.row;
+        const handleOnChange = (data) => {
+          const val = {
+            newRoleZUID: data.id,
+            userZUID: e.ZUID,
+            oldRoleZUID: e.role.ZUID,
+          };
 
+          handleUpdateRole(val);
+        };
+
+        const role = isOwner
+          ? RoleSwitcher({
+              role: e.role.name,
+              handleOnChange,
+              instanceRoles,
+            })
+          : e.role.name;
+        return role;
+      },
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Date Added',
+      width: 110,
+      editable: false,
+      renderCell: (params) => {
+        const date = dayjs(params.row.createdAt).format('MMM DD, YYYY');
+        return <Typography variant="body2">{date}</Typography>;
+      },
+    },
+    {
+      field: 'lastLogin',
+      headerName: 'Last Login',
+      width: 150,
+      editable: false,
+      renderCell: (params) => {
+        const date = dayjs(params.row.lastLogin).format('MMM DD, YYYY');
+        return <Typography variant="body2">{date}</Typography>;
+      },
+    },
+    {
+      field: 'action',
+      headerName: '',
+      width: 110,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        return <MoreVertIcon color="disabled" />;
+      },
+    },
+  ];
   return (
-    <StickyTable
-      title={'Active Users'}
-      loading={loading}
-      rows={ROWS}
-      columns={COLUMNS}
-    />
+    <>
+      <AccountsTable
+        loading={loading}
+        rows={ROWS}
+        columns={columns}
+        pageSize={100}
+      />
+    </>
   );
 };
 
@@ -193,17 +289,45 @@ const Index = ({
   });
   return (
     <Grid container>
-      <Box sx={{ display: 'flex', width: '100%', justifyContent: 'end' }}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() =>
-            handleInviteUserModal(createInvite, baseroles, instanceZUID)
-          }
-        >
-          Invite user
-        </Button>
-      </Box>
+      <Stack direction="row" justifyContent={'space-between'} width={1}>
+        <Stack direction="row" alignItems={'center'} gap={0.5}>
+          <Typography variant="h4">Users</Typography>
+          <HelpOutlineIcon color="disabled" />
+        </Stack>
+        <Stack direction={'row'} gap={2}>
+          {/* <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">kg</InputAdornment>
+              ),
+            }}
+            size="small"
+            variant="filled"
+          /> */}
+          <Button
+            variant="outlined"
+            onClick={() =>
+              handleInviteUserModal(createInvite, baseroles, instanceZUID)
+            }
+            color="inherit"
+            sx={{ gap: 1, borderColor: grey[300] }}
+          >
+            <GroupsIcon color="disabled" />
+            <Typography color={'GrayText'}>Create Role</Typography>
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() =>
+              handleInviteUserModal(createInvite, baseroles, instanceZUID)
+            }
+            sx={{ gap: 1 }}
+          >
+            <AddIcon />
+            <Typography>Invite user</Typography>
+          </Button>
+        </Stack>
+      </Stack>
       <Grid item xs={12}>
         <CustomTable
           data={data}
