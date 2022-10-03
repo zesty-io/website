@@ -42,6 +42,8 @@ const ZActivityStream = ({ instancesFavorites, instances }) => {
               c.meta.message === audit.meta.message &&
               c.affectedZUID === audit.affectedZUID,
           )?.length,
+          screenshotURL: instances?.find((i) => i.ZUID === audit.entityZUID)
+            ?.screenshotURL,
         };
       });
       setInstanceAudit((prev) =>

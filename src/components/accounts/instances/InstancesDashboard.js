@@ -227,7 +227,7 @@ export const InstancesDashboard = () => {
 
   React.useEffect(() => {
     if (userInfo && Object.keys(userInfo).length !== 0) {
-      setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites);
+      setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites || []);
     }
   }, [userInfo]);
   React.useEffect(() => {
