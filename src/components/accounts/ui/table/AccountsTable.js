@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
 
-export const AccountsTable = ({
+const Index = ({
   rows,
   columns,
   pageSize = 5,
@@ -15,7 +15,7 @@ export const AccountsTable = ({
   return (
     <Box
       sx={{
-        height: 600,
+        height: autoHeight ? 'auto' : 600,
         width: '100%',
         border: `1px solid ${grey[200]}`,
         borderRadius: '5px',
@@ -43,7 +43,7 @@ export const AccountsTable = ({
         columns={columns}
         pageSize={pageSize}
         rowsPerPageOptions={[10, 30, 50]}
-        checkboxSelection
+        // checkboxSelection
         pagination={<></>}
         loading={loading}
         disableSelectionOnClick
@@ -54,3 +54,4 @@ export const AccountsTable = ({
     </Box>
   );
 };
+export const AccountsTable = React.memo(Index);

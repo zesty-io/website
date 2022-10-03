@@ -9,16 +9,16 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
+  AccountsTable,
   accountsValidations,
   AccountTextfield,
   ColorToggleButton,
-  DeleteBtn,
   DeleteMsg,
   FormInput,
   FormSelect,
   SettingsSelect,
-  StickyTable,
   SubmitBtn,
 } from 'components/accounts';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
@@ -27,7 +27,6 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
 import dayjs from 'dayjs';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
 import * as helpers from 'utils';
 
 const MySwal = withReactContent(Swal);
@@ -95,39 +94,102 @@ const CustomTable = ({
   isInstanceOwner,
   loading,
 }) => {
+  console.log(data, ':::');
   const ROWS = data?.map((e) => {
     const role = roles.find((x) => x.ZUID === e.roleZUID)?.name;
     return {
-      name: e.name || '-',
-      token: e.token || '-',
-      role: role || '-',
-      expiry: dayjs(e.expiry).format('MMMM D, YYYY') || '-',
-      action: isInstanceOwner ? (
-        <Box display={'flex'} gap={4}>
-          <Button
-            onClick={() => handleUpdateToken(e)}
-            color="info"
-            variant="contained"
-            type="button"
-          >
-            <AutorenewIcon color="inherit" sx={{ marginRight: 1 }} />
-            Renew
-          </Button>
-          <DeleteBtn onClick={() => handleDeleteToken(e)}> </DeleteBtn>
-        </Box>
-      ) : (
-        '-'
-      ),
+      ...e,
+      id: e.ZUID,
     };
   });
+
+  const columns = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 300,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Name</Typography>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.name}</Typography>;
+      },
+    },
+    {
+      field: 'token',
+      headerName: 'Token',
+      width: 200,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Token</Typography>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.token}</Typography>;
+      },
+    },
+    {
+      field: 'role',
+      headerName: 'Role',
+      width: 150,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Role</Typography>,
+      renderCell: (params) => {
+        const role = roles.find((x) => x.ZUID === params.row.roleZUID)?.name;
+        return <Typography variant="body2">{role}</Typography>;
+      },
+    },
+    {
+      field: 'expiry',
+      headerName: 'Expiry',
+      width: 150,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Expiry</Typography>,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">
+            {dayjs(params.row.expiry).format('MMM DD, YYYY')}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: 'action',
+      headerName: '',
+      width: 110,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <Button variant="text" color="primary">
+            <MoreVertIcon color="disabled" />
+          </Button>
+        );
+      },
+    },
+  ];
 
   // const memoizeRows = React.useMemo(() => ROWS, [data]);
   // const memoizeColumns = React.useMemo(() => COLUMNS, []);
 
   return (
-    <Box>
-      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
-    </Box>
+    <Stack p={4}>
+      <AccountsTable
+        loading={loading}
+        rows={ROWS}
+        columns={columns}
+        pageSize={100}
+        autoHeight={true}
+      />
+    </Stack>
+    // <Box>
+    //   <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
+    // </Box>
   );
 };
 

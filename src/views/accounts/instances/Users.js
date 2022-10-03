@@ -7,15 +7,12 @@ import {
   DeleteMsg,
   SubmitBtn,
   FormSelect,
-  DeleteBtn,
   AccountsTable,
   AccountSelect,
 } from 'components/accounts';
-import GroupsIcon from '@mui/icons-material/Groups';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import AddIcon from '@mui/icons-material/Add';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { baseroles } from 'components/accounts/users/baseroles';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -24,6 +21,8 @@ import * as helpers from 'utils';
 import { grey } from '@mui/material/colors';
 import { hashMD5 } from 'utils/Md5Hash';
 import dayjs from 'dayjs';
+import { AccountsHeader } from 'components/accounts/ui/header';
+import { AccountsPopover } from 'components/accounts/ui/popover';
 
 const MySwal = withReactContent(Swal);
 
@@ -49,38 +48,13 @@ const CustomTable = ({
   instanceRoles,
   isOwner,
   loading,
+  search,
 }) => {
   const ROWS = data?.map((e) => {
-    const handleOnChange = (data) => {
-      const val = {
-        newRoleZUID: data.id,
-        userZUID: e.ZUID,
-        oldRoleZUID: e.role.ZUID,
-      };
-
-      handleUpdateRole(val);
-    };
-    const handleDeleteUser = () => {
-      const roleZUID = instanceRoles.find((x) => x.name === e.role.name)?.ZUID;
-      const data = { roleZUID, userZUID: e.ZUID };
-      const action = () => {
-        handleDeleteRole(data);
-      };
-      DeleteMsg({ action });
-    };
-
-    const action = isOwner ? (
-      <Box display={'flex'}>
-        <DeleteBtn onClick={handleDeleteUser} />
-      </Box>
-    ) : (
-      <>-</>
-    );
-
     return { ...e, id: e.ZUID };
   });
 
-  const columns = [
+  const COLUMNS = [
     {
       field: 'id',
       headerName: 'ID',
@@ -177,20 +151,56 @@ const CustomTable = ({
       editable: false,
       sortable: false,
       renderCell: (params) => {
+        const handleDeleteUser = () => {
+          const e = params.row;
+          const roleZUID = instanceRoles.find(
+            (x) => x.name === e.role.name,
+          )?.ZUID;
+          const data = { roleZUID, userZUID: e.ZUID };
+          const action = () => {
+            handleDeleteRole(data);
+          };
+          DeleteMsg({ action });
+        };
+
+        const action = [
+          { title: 'Delete User', action: isOwner ? handleDeleteUser : null },
+          {
+            title: 'Email',
+            url: () => window.open(`mailto:${params.row.email}`),
+          },
+        ];
+
         return (
-          <Button variant="text" color="primary">
-            <MoreVertIcon color="disabled" />
-          </Button>
+          <>
+            <AccountsPopover
+              title={
+                <Button variant="text" color="primary">
+                  <MoreVertIcon color="disabled" />
+                </Button>
+              }
+              id={'actions'}
+              items={action}
+              colorInvert={false}
+            />
+          </>
         );
       },
     },
   ];
+
+  const filteredRows = ROWS.filter(
+    (e) =>
+      e.firstName.toLowerCase().includes(search.toLowerCase()) ||
+      e.lastName.toLowerCase().includes(search.toLowerCase()),
+  );
+
   return (
     <Stack p={4}>
       <AccountsTable
         loading={loading}
-        rows={ROWS}
-        columns={columns}
+        rows={filteredRows}
+        columns={COLUMNS}
         pageSize={100}
         autoHeight={false}
       />
@@ -248,6 +258,7 @@ const Index = ({
   instanceZUID,
   loading,
 }) => {
+  const [search, setsearch] = React.useState('');
   const handleUpdateRole = (data) => {
     updateRole(data);
   };
@@ -273,6 +284,11 @@ const Index = ({
   const data = roles.filter((e) => {
     return helpers.validateEmail(e.email);
   });
+  const headerProps = {
+    title: 'Users',
+    description: 'Manage your users and their permissions',
+  };
+
   return (
     <Grid container>
       <Grid
@@ -282,49 +298,33 @@ const Index = ({
         py={3}
         sx={{ borderBottom: `1px solid ${grey[200]}` }}
       >
-        <Stack direction="row" justifyContent={'space-between'} width={1}>
-          <Stack direction="row" alignItems={'center'} gap={0.5}>
-            <Typography variant="h4">Users</Typography>
-            <HelpOutlineIcon color="disabled" />
-          </Stack>
-          <Stack direction={'row'} gap={2}>
-            <TextField
-              size="small"
-              placeholder=" Search Users"
-              InputProps={{
-                startAdornment: <SearchIcon color="disabled" />,
-              }}
-            />
-            <Button
-              variant="outlined"
-              onClick={() => {}}
-              color="inherit"
-              sx={{ gap: 1, borderColor: grey[300] }}
-            >
-              <GroupsIcon color="disabled" />
-              <Typography color={'GrayText'}>Create Role</Typography>
-            </Button>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={() =>
-                handleInviteUserModal(createInvite, baseroles, instanceZUID)
-              }
-              sx={{ gap: 1 }}
-            >
-              <AddIcon />
-              <Typography>Invite user</Typography>
-            </Button>
-          </Stack>
-        </Stack>
-        <Stack pt={2}>
-          <Typography variant="body2" color={'black'}>
-            Manage your users and their permissions
-          </Typography>
-        </Stack>
+        <AccountsHeader {...headerProps}>
+          <TextField
+            size="small"
+            placeholder=" Search Users"
+            value={search}
+            onChange={(e) => setsearch(e.target.value)}
+            InputProps={{
+              startAdornment: <SearchIcon color="disabled" />,
+            }}
+          />
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() =>
+              handleInviteUserModal(createInvite, baseroles, instanceZUID)
+            }
+            sx={{ gap: 1 }}
+          >
+            <AddIcon />
+            <Typography>Invite user</Typography>
+          </Button>
+        </AccountsHeader>
       </Grid>
       <Grid item xs={12}>
         <CustomTable
+          search={search}
+          setsearch={setsearch}
           data={data}
           handleUpdateRole={handleUpdateRole}
           handleDeleteRole={handleDeleteRole}
