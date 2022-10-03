@@ -13,6 +13,9 @@ import { AOverviewCards, OverviewTabs } from 'components/accounts';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { Group, Language } from '@mui/icons-material';
 import { purple } from '@mui/material/colors';
+import { Timeline } from '@mui/lab';
+import ZTimelineItem from 'components/accounts/dashboard/ui/ZTimelineItem';
+import ZInstanceTimelineItemContainer from 'components/accounts/dashboard/ui/ZInstanceTimelineItemContainer';
 
 export const Overview = ({
   instance,
@@ -24,6 +27,8 @@ export const Overview = ({
   audits,
   clearCache,
   usage,
+  isInstanceAuditLoading,
+  instanceAudit,
 }) => {
   const theme = useTheme();
 
@@ -175,7 +180,30 @@ export const Overview = ({
         </Grid>
       </Stack>
       <Grid container position={'relative'} sx={{ background: 'white' }}>
-        <Grid item xs={9}></Grid>
+        <Grid px={2} item xs={9}>
+          <Timeline sx={{ p: 0 }}>
+            {isInstanceAuditLoading
+              ? [...new Array(5)].map((i) => (
+                  <ZTimelineItem
+                    sx={{
+                      '::before': {
+                        content: 'none',
+                      },
+                      mt: 1,
+                    }}
+                    key={i}
+                    isLoading={isInstanceAuditLoading}
+                  />
+                ))
+              : instanceAudit?.map((audit, index) => (
+                  <ZInstanceTimelineItemContainer
+                    key={index}
+                    audit={audit}
+                    isInstanceAuditLoading={isInstanceAuditLoading}
+                  />
+                ))}
+          </Timeline>
+        </Grid>
         <Grid item xs={3}>
           <OverviewTabs {...tabProps} />
         </Grid>
