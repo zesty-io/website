@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import {
   accountsValidations,
   FormInput,
@@ -25,25 +26,6 @@ import { hashMD5 } from 'utils/Md5Hash';
 import dayjs from 'dayjs';
 
 const MySwal = withReactContent(Swal);
-
-const COLUMNS = [
-  {
-    id: 'name',
-    label: 'Name',
-  },
-  {
-    id: 'email',
-    label: 'email',
-  },
-  {
-    id: 'role',
-    label: 'role',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
 
 const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
   switch (role) {
@@ -87,14 +69,6 @@ const CustomTable = ({
       DeleteMsg({ action });
     };
 
-    const role = isOwner
-      ? RoleSwitcher({
-          role: e.role.name,
-          handleOnChange,
-          instanceRoles,
-        })
-      : e.role.name;
-
     const action = isOwner ? (
       <Box display={'flex'}>
         <DeleteBtn onClick={handleDeleteUser} />
@@ -118,6 +92,7 @@ const CustomTable = ({
       width: 300,
       editable: false,
       sortable: false,
+      renderHeader: () => <Typography variant="body1">Name</Typography>,
       renderCell: (params) => {
         const name = `${params.row.firstName} ${params.row.lastName}`;
         const email = `${params.row.email}`;
@@ -128,8 +103,8 @@ const CustomTable = ({
             <img
               src={profileUrl}
               alt="User"
-              height={35}
-              width={35}
+              height={40}
+              width={40}
               style={{ borderRadius: '50%' }}
             />
             <Stack>
@@ -142,11 +117,14 @@ const CustomTable = ({
         );
       },
     },
+
     {
       field: 'role',
       headerName: 'Role',
-      width: 150,
+      width: 250,
       editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Role</Typography>,
       renderCell: (params) => {
         const e = params.row;
         const handleOnChange = (data) => {
@@ -172,8 +150,9 @@ const CustomTable = ({
     {
       field: 'createdAt',
       headerName: 'Date Added',
-      width: 110,
+      width: 200,
       editable: false,
+      renderHeader: () => <Typography variant="body1">Date Added</Typography>,
       renderCell: (params) => {
         const date = dayjs(params.row.createdAt).format('MMM DD, YYYY');
         return <Typography variant="body2">{date}</Typography>;
@@ -182,13 +161,15 @@ const CustomTable = ({
     {
       field: 'lastLogin',
       headerName: 'Last Login',
-      width: 150,
+      width: 200,
       editable: false,
+      renderHeader: () => <Typography variant="body1">Last Login</Typography>,
       renderCell: (params) => {
         const date = dayjs(params.row.lastLogin).format('MMM DD, YYYY');
         return <Typography variant="body2">{date}</Typography>;
       },
     },
+
     {
       field: 'action',
       headerName: '',
@@ -196,19 +177,24 @@ const CustomTable = ({
       editable: false,
       sortable: false,
       renderCell: (params) => {
-        return <MoreVertIcon color="disabled" />;
+        return (
+          <Button variant="text" color="primary">
+            <MoreVertIcon color="disabled" />
+          </Button>
+        );
       },
     },
   ];
   return (
-    <>
+    <Stack p={4}>
       <AccountsTable
         loading={loading}
         rows={ROWS}
         columns={columns}
         pageSize={100}
+        autoHeight={false}
       />
-    </>
+    </Stack>
   );
 };
 
@@ -289,45 +275,54 @@ const Index = ({
   });
   return (
     <Grid container>
-      <Stack direction="row" justifyContent={'space-between'} width={1}>
-        <Stack direction="row" alignItems={'center'} gap={0.5}>
-          <Typography variant="h4">Users</Typography>
-          <HelpOutlineIcon color="disabled" />
+      <Grid
+        item
+        xs={12}
+        px={4}
+        py={3}
+        sx={{ borderBottom: `1px solid ${grey[200]}` }}
+      >
+        <Stack direction="row" justifyContent={'space-between'} width={1}>
+          <Stack direction="row" alignItems={'center'} gap={0.5}>
+            <Typography variant="h4">Users</Typography>
+            <HelpOutlineIcon color="disabled" />
+          </Stack>
+          <Stack direction={'row'} gap={2}>
+            <TextField
+              size="small"
+              placeholder=" Search Users"
+              InputProps={{
+                startAdornment: <SearchIcon color="disabled" />,
+              }}
+            />
+            <Button
+              variant="outlined"
+              onClick={() => {}}
+              color="inherit"
+              sx={{ gap: 1, borderColor: grey[300] }}
+            >
+              <GroupsIcon color="disabled" />
+              <Typography color={'GrayText'}>Create Role</Typography>
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() =>
+                handleInviteUserModal(createInvite, baseroles, instanceZUID)
+              }
+              sx={{ gap: 1 }}
+            >
+              <AddIcon />
+              <Typography>Invite user</Typography>
+            </Button>
+          </Stack>
         </Stack>
-        <Stack direction={'row'} gap={2}>
-          {/* <TextField
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">kg</InputAdornment>
-              ),
-            }}
-            size="small"
-            variant="filled"
-          /> */}
-          <Button
-            variant="outlined"
-            onClick={() =>
-              handleInviteUserModal(createInvite, baseroles, instanceZUID)
-            }
-            color="inherit"
-            sx={{ gap: 1, borderColor: grey[300] }}
-          >
-            <GroupsIcon color="disabled" />
-            <Typography color={'GrayText'}>Create Role</Typography>
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() =>
-              handleInviteUserModal(createInvite, baseroles, instanceZUID)
-            }
-            sx={{ gap: 1 }}
-          >
-            <AddIcon />
-            <Typography>Invite user</Typography>
-          </Button>
+        <Stack pt={2}>
+          <Typography variant="body2" color={'black'}>
+            Manage your users and their permissions
+          </Typography>
         </Stack>
-      </Stack>
+      </Grid>
       <Grid item xs={12}>
         <CustomTable
           data={data}

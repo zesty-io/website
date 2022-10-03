@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import { grey } from '@mui/material/colors';
 
 export const AccountsTable = ({
   rows,
@@ -12,7 +13,14 @@ export const AccountsTable = ({
   rowHeight = 70,
 }) => {
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box
+      sx={{
+        height: 600,
+        width: '100%',
+        border: `1px solid ${grey[200]}`,
+        borderRadius: '5px',
+      }}
+    >
       <DataGrid
         autoHeight={autoHeight}
         sx={{
@@ -22,8 +30,12 @@ export const AccountsTable = ({
           '&.MuiDataGrid-root': {
             border: true ? 'none' : '',
           },
-          '&.MuiDataGrid-root .MuiDataGrid-cell:focus': {
-            outline: 'none',
+          '&.MuiDataGrid-root  .MuiDataGrid-cell   ,&.MuiDataGrid-root .MuiDataGrid-columnHeader,':
+            {
+              outline: 'none',
+            },
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
           },
         }}
         rowHeight={rowHeight}

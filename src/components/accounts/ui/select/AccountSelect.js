@@ -25,7 +25,7 @@ export const AccountSelect = ({
   }, [value]);
 
   return (
-    <Box width={1}>
+    <Box width={150}>
       <FormControl fullWidth>
         <Select
           size="small"
