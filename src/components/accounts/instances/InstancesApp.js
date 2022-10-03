@@ -8,8 +8,6 @@ import {
   ListItemText,
   ListItemIcon,
   lighten,
-  Typography,
-  Divider,
   Tabs,
   Tab,
   Container,
@@ -98,13 +96,13 @@ const Index = ({ children }) => {
             />
           </Grid>
           <Grid item md={9} lg={10}>
-            <Container maxWidth={false}>
+            {/* <Container maxWidth={false}>
               <Typography py={2} variant="h5" color="text.secondary">
                 {currentPage ? capitalize(currentPage) : 'Overview'}
               </Typography>
             </Container>
-            <Divider sx={{ mb: 2 }} />
-            <Container maxWidth={false}>{children}</Container>
+            <Divider sx={{ mb: 2 }} /> */}
+            <Box maxWidth={true}>{children}</Box>
           </Grid>
         </Grid>
       ) : (
@@ -145,7 +143,7 @@ const Index = ({ children }) => {
 
 function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
   return (
-    <Box>
+    <Box px={1} py={1}>
       <List>
         {lists.map((list, index) => (
           <ListItem
@@ -155,7 +153,7 @@ function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
             selected={list.filename === currentPage}
             sx={(theme) => ({
               mb: 1,
-              borderRadius: '4px',
+              borderRadius: '5px',
               '&.Mui-selected': {
                 ' .MuiListItemIcon-root': {
                   color: theme.palette.primary.main,
@@ -166,7 +164,7 @@ function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
               },
             })}
           >
-            <ListItemButton color="warning">
+            <ListItemButton color="warning" sx={{ borderRadius: '5px' }}>
               <ListItemIcon>{list.icon}</ListItemIcon>
               <ListItemText primary={lang[langcode].tabs[list.filename]} />
             </ListItemButton>
