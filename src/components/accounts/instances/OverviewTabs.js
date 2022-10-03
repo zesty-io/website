@@ -49,15 +49,15 @@ const FieldComponent = ({
   return (
     <Stack sx={{ width: 1 }} spacing={0.5}>
       <Stack direction={'row'} textAlign="center" spacing={0.5}>
-        <Typography variant="text.body2">{label}</Typography>
+        <Typography>{label}</Typography>
         <Box sx={{ color: 'GrayText' }}>
           <InfoIcon fontSize="small" color="inherit" />
         </Box>
       </Stack>
       <TextField
-        sx={{
-          background: '#fff',
-        }}
+        sx={(theme) => ({
+          bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
+        })}
         value={value}
         InputProps={{
           endAdornment: (

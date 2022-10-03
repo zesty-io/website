@@ -161,7 +161,7 @@ export const Overview = ({
                 },
               })}
               onClick={handleClearCache}
-              startIcon={<CachedIcon sx={{ color: 'GrayText' }} />}
+              startIcon={<CachedIcon />}
             >
               Clear Cache
             </Button>
@@ -180,9 +180,7 @@ export const Overview = ({
                   color: 'black',
                 },
               })}
-              startIcon={
-                <CreditCardIcon color="inherit" sx={{ color: 'GrayText' }} />
-              }
+              startIcon={<CreditCardIcon />}
             >
               Review Billing
             </Button>
