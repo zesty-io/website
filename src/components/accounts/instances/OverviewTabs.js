@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import {
-  Button,
   Container,
   Grid,
   IconButton,
@@ -14,8 +13,6 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import dayjs from 'dayjs';
 import InfoIcon from '@mui/icons-material/Info';
-import CachedIcon from '@mui/icons-material/Cached';
-import { grey } from '@mui/material/colors';
 
 const FieldComponent = ({
   label = '',
@@ -52,15 +49,15 @@ const FieldComponent = ({
   return (
     <Stack sx={{ width: 1 }} spacing={0.5}>
       <Stack direction={'row'} textAlign="center" spacing={0.5}>
-        <Typography variant="text.body2">{label}</Typography>
+        <Typography>{label}</Typography>
         <Box sx={{ color: 'GrayText' }}>
           <InfoIcon fontSize="small" color="inherit" />
         </Box>
       </Stack>
       <TextField
-        sx={{
-          background: '#fff',
-        }}
+        sx={(theme) => ({
+          bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
+        })}
         value={value}
         InputProps={{
           endAdornment: (
@@ -137,15 +134,17 @@ const OverviewContent = ({ instance }) => {
 export const OverviewTabs = ({ instance, handleClearCache }) => {
   return (
     <Container
-      sx={{
+      sx={(theme) => ({
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
         pt: 4,
-        background: '#F2F4F7',
         width: '100%',
         height: '100%',
-      }}
+        [theme.breakpoints.up('lg')]: {
+          bgcolor: 'background.level2',
+        },
+      })}
     >
       <FieldComponent
         // copyToClipboard={copyToClipboard}
@@ -168,16 +167,6 @@ export const OverviewTabs = ({ instance, handleClearCache }) => {
         label={'Hash ID'}
         value={instance.randomHashID}
       />
-      <Button
-        variant="contained"
-        fullWidth
-        color="grey"
-        sx={{ border: `1px solid ${grey[400]}` }}
-        onClick={handleClearCache}
-      >
-        <CachedIcon sx={{ color: 'GrayText' }} />
-        <Typography ml={0.5}>Clear Cache</Typography>
-      </Button>
     </Container>
   );
 };

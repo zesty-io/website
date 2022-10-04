@@ -8,6 +8,7 @@ import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import ZActivityStream from './ui/ZActivityStream';
+import SideContent from './SideContent';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
@@ -44,8 +45,7 @@ const Dashboard = () => {
 
   const getAllTeams = async () => {
     const response = await ZestyAPI.getAllTeams();
-    !response.error && setTeams(response?.data);
-    response.error && setTeams([]);
+    setTeams(response?.data);
   };
 
   const handleSearchInstances = (value) => {
@@ -128,35 +128,62 @@ const Dashboard = () => {
           px: 3,
         })}
       >
-        <Stack py={2}>
-          <ZInstancesContainer
-            firstName={userInfo?.firstName}
-            instances={instances}
-            isInstancesLoading={isInstancesLoading}
-            isTogglingFavorites={isTogglingFavorites}
-            toggleFavorites={toggleFavorites}
-            instancesFavorites={instancesFavorites}
-          />
-        </Stack>
-        <Divider />
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid
-            py={2}
-            item
+            sx={{
+              height: { md: `calc(100vh - 66px)` },
+              position: { md: 'sticky' },
+              top: { md: '66px' },
+              overflowY: { md: 'auto' },
+              maxWidth: { md: '384px' },
+            }}
+            md={3}
+            lg={2}
             xs={12}
-            lg={9.5}
-            borderRight={`1px solid ${grey[400]}`}
+            item
           >
-            <ZActivityStream
-              instances={instances}
-              instancesFavorites={instancesFavorites}
+            <SideContent
+              instances={filteredInstances}
+              totalInstancesLimit={TOTAL_INSTANCES_LIMIT}
+              totalTeamsLimit={TOTAL_TEAMS_LIMIT}
+              unfilteredTotalInstances={instances?.length}
+              handleSearchInstances={handleSearchInstances}
+              teams={teams}
             />
           </Grid>
-          {isLG && (
-            <Grid p={2} item xs={12} lg={2.5}>
-              <ZMarketingAds marketingCards={marketingCards} />
+
+          <Grid xs={12} md={9} lg={10} item>
+            <Stack py={2}>
+              <ZInstancesContainer
+                firstName={userInfo?.firstName}
+                instances={instances}
+                isInstancesLoading={isInstancesLoading}
+                isTogglingFavorites={isTogglingFavorites}
+                toggleFavorites={toggleFavorites}
+                instancesFavorites={instancesFavorites}
+              />
+            </Stack>
+            <Divider />
+            <Grid container>
+              <Grid
+                py={2}
+                item
+                xs={12}
+                lg={9.5}
+                borderRight={`1px solid ${grey[400]}`}
+              >
+                <ZActivityStream
+                  instances={instances}
+                  instancesFavorites={instancesFavorites}
+                />
+              </Grid>
+              {isLG && (
+                <Grid p={2} item xs={12} lg={2.5}>
+                  <ZMarketingAds marketingCards={marketingCards} />
+                </Grid>
+              )}
             </Grid>
-          )}
+          </Grid>
         </Grid>
       </Container>
     </>

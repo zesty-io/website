@@ -18,7 +18,6 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
 import * as helpers from 'utils';
-import { grey } from '@mui/material/colors';
 import { hashMD5 } from 'utils/Md5Hash';
 import dayjs from 'dayjs';
 import { AccountsHeader } from 'components/accounts/ui/header';
@@ -48,7 +47,6 @@ const CustomTable = ({
   instanceRoles,
   isOwner,
   loading,
-  search,
 }) => {
   const ROWS = data?.map((e) => {
     return { ...e, id: e.ZUID };
@@ -63,7 +61,7 @@ const CustomTable = ({
     {
       field: 'name',
       headerName: 'Name',
-      width: 300,
+      width: 350,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Name</Typography>,
@@ -95,7 +93,7 @@ const CustomTable = ({
     {
       field: 'role',
       headerName: 'Role',
-      width: 250,
+      width: 350,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Role</Typography>,
@@ -124,7 +122,7 @@ const CustomTable = ({
     {
       field: 'createdAt',
       headerName: 'Date Added',
-      width: 200,
+      width: 250,
       editable: false,
       renderHeader: () => <Typography variant="body1">Date Added</Typography>,
       renderCell: (params) => {
@@ -135,7 +133,7 @@ const CustomTable = ({
     {
       field: 'lastLogin',
       headerName: 'Last Login',
-      width: 200,
+      width: 250,
       editable: false,
       renderHeader: () => <Typography variant="body1">Last Login</Typography>,
       renderCell: (params) => {
@@ -167,7 +165,7 @@ const CustomTable = ({
           { title: 'Delete User', action: isOwner ? handleDeleteUser : null },
           {
             title: 'Email',
-            url: () => window.open(`mailto:${params.row.email}`),
+            action: () => window.open(`mailto:${params.row.email}`),
           },
         ];
 
@@ -189,20 +187,14 @@ const CustomTable = ({
     },
   ];
 
-  const filteredRows = ROWS.filter(
-    (e) =>
-      e.firstName.toLowerCase().includes(search.toLowerCase()) ||
-      e.lastName.toLowerCase().includes(search.toLowerCase()),
-  );
-
   return (
     <Stack p={4}>
       <AccountsTable
         loading={loading}
-        rows={filteredRows}
+        rows={ROWS}
         columns={COLUMNS}
         pageSize={100}
-        autoHeight={false}
+        autoHeight={true}
       />
     </Stack>
   );
@@ -257,8 +249,9 @@ const Index = ({
   isOwner,
   instanceZUID,
   loading,
+  search,
+  setsearch,
 }) => {
-  const [search, setsearch] = React.useState('');
   const handleUpdateRole = (data) => {
     updateRole(data);
   };
@@ -284,6 +277,7 @@ const Index = ({
   const data = roles.filter((e) => {
     return helpers.validateEmail(e.email);
   });
+
   const headerProps = {
     title: 'Users',
     description: 'Manage your users and their permissions',
@@ -291,39 +285,30 @@ const Index = ({
 
   return (
     <Grid container>
-      <Grid
-        item
-        xs={12}
-        px={4}
-        py={3}
-        sx={{ borderBottom: `1px solid ${grey[200]}` }}
-      >
-        <AccountsHeader {...headerProps}>
-          <TextField
-            size="small"
-            placeholder=" Search Users"
-            value={search}
-            onChange={(e) => setsearch(e.target.value)}
-            InputProps={{
-              startAdornment: <SearchIcon color="disabled" />,
-            }}
-          />
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() =>
-              handleInviteUserModal(createInvite, baseroles, instanceZUID)
-            }
-            sx={{ gap: 1 }}
-          >
-            <AddIcon />
-            <Typography>Invite user</Typography>
-          </Button>
-        </AccountsHeader>
-      </Grid>
+      <AccountsHeader {...headerProps}>
+        <TextField
+          size="small"
+          placeholder=" Search Users"
+          value={search}
+          onChange={(e) => setsearch(e.target.value)}
+          InputProps={{
+            startAdornment: <SearchIcon color="disabled" />,
+          }}
+        />
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() =>
+            handleInviteUserModal(createInvite, baseroles, instanceZUID)
+          }
+          sx={{ gap: 1 }}
+        >
+          <AddIcon />
+          <Typography>Invite user</Typography>
+        </Button>
+      </AccountsHeader>
       <Grid item xs={12}>
         <CustomTable
-          search={search}
           setsearch={setsearch}
           data={data}
           handleUpdateRole={handleUpdateRole}

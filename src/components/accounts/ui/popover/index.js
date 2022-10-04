@@ -74,7 +74,10 @@ const Index = ({ title, id, items, colorInvert = false }) => {
             .map((p, i) => (
               <Grid item key={i} xs={items.length > 12 ? 6 : 12}>
                 <Button
-                  onClick={p.action}
+                  onClick={() => {
+                    handleClose();
+                    p.action();
+                  }}
                   fullWidth
                   sx={{
                     justifyContent: 'flex-start',
