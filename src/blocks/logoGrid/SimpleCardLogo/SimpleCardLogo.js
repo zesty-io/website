@@ -61,7 +61,10 @@ const SimpleCardLogo = ({
             {heading_text}
           </MuiMarkdown>
         )}
-        <Card variant={variant} sx={{ py: 2 }}>
+        <Card
+          variant={variant}
+          sx={{ py: 2, border: variant === 'outlined' ? 'none' : '' }}
+        >
           <CardContent>
             {!textOutside && (
               <MuiMarkdown

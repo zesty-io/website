@@ -10,12 +10,14 @@ import ZestyImage from 'blocks/Image/ZestyImage';
  * Static Assets Imports
  */
 
-const DigitalExperience = ({ content, FillerContent, theme }) => {
+const DigitalExperience = ({ content, FillerContent, theme, isDarkMode }) => {
   return (
     <Box
       sx={{
-        background: theme.palette.zesty.zestyWhite,
-        mt: 15,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyWhite,
+        mt: 20,
         py: 10,
         position: 'relative',
         overflow: 'hidden',

@@ -106,6 +106,7 @@ function Homepage({ content }) {
       <DigitalExperience {...pageData} />
       {/* <NewBenefits {...pageData} /> */}
       <AlternateColumns
+        {...pageData}
         column_data={alternateColumnsData}
         header_content={content.zesty_new_benefits}
         cta_link={content.middle_cta_button_link?.data[0].meta.web.uri}

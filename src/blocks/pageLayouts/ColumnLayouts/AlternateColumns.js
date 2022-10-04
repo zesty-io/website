@@ -16,15 +16,16 @@ const AlternateColumns = ({
   cta_link,
   cta_text,
   column_data,
+  isDarkMode,
 }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
 
   const COLORS = [
-    'rgba(73, 126, 233, 0.7)',
-    'rgba(239, 245, 255, 0.7)',
-    'rgba(27, 32, 44, 0.7)',
-    'rgba(239, 245, 255, 0.7)',
+    theme.palette.common.white,
+    theme.palette.zesty.zestyWhite,
+    theme.palette.zesty.zestyDarkBlue,
+    theme.palette.zesty.zestyWhite,
     // 'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(6, 187, 207, 0) 0%, #497EDF 0%)',
     // 'radial-gradient(51.39% 58.5% at 34.57% 50.71%, rgba(6, 187, 207, 0) 0%, #EFF5FF 100%)',
     // 'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(41, 48, 86, 1) 0%, #1B202C 100%)',
@@ -92,13 +93,15 @@ const AlternateColumns = ({
             variant="outlined"
             sx={{
               py: 20,
-              background: COLORS[idx],
+              background: isDarkMode
+                ? theme.palette.zesty.zestyDarkBlue
+                : COLORS[idx],
               border: 'none',
               borderRadius: 0,
             }}
           >
             <Container>
-              <Grid sx={{}} container spacing={5}>
+              <Grid container spacing={5}>
                 <Grid
                   sx={{
                     display: 'flex',
@@ -117,7 +120,7 @@ const AlternateColumns = ({
                       component={'h3'}
                       sx={{
                         color:
-                          idx === 2 || idx === 0
+                          idx === 2
                             ? theme.palette.common.white
                             : theme.palette.zesty.zestyZambezi,
                         textAlign: isMedium ? 'center' : 'text-left',
@@ -134,7 +137,7 @@ const AlternateColumns = ({
                             variant: 'h4',
                             component: 'h3',
                             color:
-                              idx === 2 || idx === 0
+                              idx === 2
                                 ? theme.palette.common.white
                                 : theme.palette.zesty.zestyZambezi,
                             textAlign: isMedium ? 'center' : 'text-left',
@@ -148,7 +151,7 @@ const AlternateColumns = ({
                             mt: 1,
                             component: 'p',
                             color:
-                              idx === 2 || idx === 0
+                              idx === 2
                                 ? theme.palette.common.white
                                 : theme.palette.zesty.zestyZambezi,
                             textAlign: isMedium ? 'center' : 'text-left',
@@ -173,7 +176,7 @@ const AlternateColumns = ({
                   <Box>
                     <ZestyImage
                       width={599}
-                      height={385}
+                      height={420}
                       alt={item.header}
                       style={{ width: '100%', maxWidth: 599, height: 'auto' }}
                       src={item?.image || FillerContent.photos[0].src}
