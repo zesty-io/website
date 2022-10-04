@@ -61,7 +61,7 @@ const CustomTable = ({
     {
       field: 'name',
       headerName: 'Name',
-      width: 300,
+      width: 350,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Name</Typography>,
@@ -93,7 +93,7 @@ const CustomTable = ({
     {
       field: 'role',
       headerName: 'Role',
-      width: 250,
+      width: 350,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Role</Typography>,
@@ -122,7 +122,7 @@ const CustomTable = ({
     {
       field: 'createdAt',
       headerName: 'Date Added',
-      width: 200,
+      width: 250,
       editable: false,
       renderHeader: () => <Typography variant="body1">Date Added</Typography>,
       renderCell: (params) => {
@@ -133,7 +133,7 @@ const CustomTable = ({
     {
       field: 'lastLogin',
       headerName: 'Last Login',
-      width: 200,
+      width: 250,
       editable: false,
       renderHeader: () => <Typography variant="body1">Last Login</Typography>,
       renderCell: (params) => {
@@ -165,7 +165,7 @@ const CustomTable = ({
           { title: 'Delete User', action: isOwner ? handleDeleteUser : null },
           {
             title: 'Email',
-            url: () => window.open(`mailto:${params.row.email}`),
+            action: () => window.open(`mailto:${params.row.email}`),
           },
         ];
 

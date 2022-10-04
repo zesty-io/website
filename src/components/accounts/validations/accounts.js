@@ -115,6 +115,7 @@ const forgotPassword = yup.object().shape({
 
 const domain = yup.object().shape({
   domain: yup.string().required('Domain is required'),
+  branch: yup.string().required('Branch is required'),
 });
 const updateTeam = yup.object().shape({
   name: yup.string().label('Team Name').required(),
