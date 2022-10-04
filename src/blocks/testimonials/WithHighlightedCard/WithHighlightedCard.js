@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-
+import MuiMarkdown from 'mui-markdown';
 import Container from 'components/Container';
 
 const mock = [
@@ -37,32 +37,56 @@ const mock = [
   },
 ];
 
-const WithHighlightedCard = () => {
+const WithHighlightedCard = ({ title, data }) => {
   const theme = useTheme();
+
+  const testimonialData = data.map((item) => {
+    return {
+      feedback: item.review,
+      name: item.reviewer_title,
+      title: item.title,
+    };
+  });
+
+  console.log(testimonialData);
 
   return (
     <Container>
-      <Box>
-        <Box marginBottom={4}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-              marginTop: theme.spacing(1),
+      <Box sx={{ mt: 15 }}>
+        <Box sx={{ my: 5 }}>
+          <MuiMarkdown
+            overrides={{
+              h1: {
+                component: Typography,
+                props: {
+                  component: 'h2',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'left !important',
+                    color: theme.palette.zesty.zestyOrange,
+                    fontWeight: 'bold',
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'left !important',
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  },
+                },
+              },
             }}
           >
-            Rated 5 out of 5 stars by our customers!
-          </Typography>
-          <Typography variant="h6" color={'text.secondary'}>
-            Companies from across the globe have had fantastic experiences using
-            theFront.
-            <br />
-            Here’s what they have to say.
-          </Typography>
+            {title}
+          </MuiMarkdown>
         </Box>
         <Grid container spacing={4}>
-          {mock.map((item, i) => (
+          {testimonialData.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box
                 width={1}

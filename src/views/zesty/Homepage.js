@@ -55,6 +55,7 @@ import FillerContent from 'components/globals/FillerContent';
 import { useEffect } from 'react';
 import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
 import MiddleCta from 'components/marketing/Homepage/MiddleCta';
+import { WithHighlightedCard } from 'blocks/testimonials';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -98,6 +99,7 @@ function Homepage({ content }) {
     <>
       <Hero {...pageData} />
       <SimpleCardLogo
+        variant="outlined"
         heading_text={content?.logo_heading}
         logoItems={content.homepage_logos.data}
       />
@@ -109,7 +111,7 @@ function Homepage({ content }) {
         cta_link={content.middle_cta_button_link?.data[0].meta.web.uri}
         cta_text={content.middle_cta_button_text}
       />
-      <Migration {...pageData} />
+      {/* <Migration {...pageData} /> */}
 
       <MiddleCta
         cta_text={content.middle_cta_text}
@@ -122,11 +124,12 @@ function Homepage({ content }) {
       />
       <Growth {...pageData} />
       <CaseStudies {...pageData} />
-      <Testimonials
+      {/* <Testimonials
         cta_text={content.testimonials_cta_text}
         cta_link={content.testimonial_cta_link}
         {...testimonialsData}
-      />
+      /> */}
+      <WithHighlightedCard {...testimonialsData} />
       <LogoSlider cta_text={content.marketplace_cta_text} {...pageData} />
       {/* <MiddleCta
         cta_text={content.bottom_cta_text}

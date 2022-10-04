@@ -21,10 +21,14 @@ const AlternateColumns = ({
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
 
   const COLORS = [
-    'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(6, 187, 207, 0) 0%, #497EDF 0%)',
-    'radial-gradient(51.39% 58.5% at 34.57% 50.71%, rgba(6, 187, 207, 0) 0%, #EFF5FF 100%)',
-    'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(41, 48, 86, 1) 0%, #1B202C 100%)',
-    'radial-gradient(51.39% 58.5% at 34.57% 50.71%, rgba(6, 187, 207, 0) 0%, #EFF5FF 100%)',
+    'rgba(73, 126, 233, 0.7)',
+    'rgba(239, 245, 255, 0.7)',
+    'rgba(27, 32, 44, 0.7)',
+    'rgba(239, 245, 255, 0.7)',
+    // 'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(6, 187, 207, 0) 0%, #497EDF 0%)',
+    // 'radial-gradient(51.39% 58.5% at 34.57% 50.71%, rgba(6, 187, 207, 0) 0%, #EFF5FF 100%)',
+    // 'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(41, 48, 86, 1) 0%, #1B202C 100%)',
+    // 'radial-gradient(51.39% 58.5% at 34.57% 50.71%, rgba(6, 187, 207, 0) 0%, #EFF5FF 100%)',
   ];
 
   return (
@@ -81,19 +85,19 @@ const AlternateColumns = ({
             text={cta_text || FillerContent.cta}
           />
         </Box>
-
-        <Box sx={{ mt: 10 }}>
-          {column_data.map((item, idx) => (
-            <Card
-              variant="outlined"
-              sx={{
-                p: 10,
-                my: 10,
-                borderRadius: 5,
-                background: COLORS[idx],
-                border: 'none',
-              }}
-            >
+      </Container>
+      <Box sx={{ mt: 10 }}>
+        {column_data.map((item, idx) => (
+          <Card
+            variant="outlined"
+            sx={{
+              py: 20,
+              background: COLORS[idx],
+              border: 'none',
+              borderRadius: 0,
+            }}
+          >
+            <Container>
               <Grid sx={{}} container spacing={5}>
                 <Grid
                   sx={{
@@ -177,10 +181,10 @@ const AlternateColumns = ({
                   </Box>
                 </Grid>
               </Grid>
-            </Card>
-          ))}
-        </Box>
-      </Container>
+            </Container>
+          </Card>
+        ))}
+      </Box>
     </Box>
   );
 };

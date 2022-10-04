@@ -15,7 +15,7 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
     <Box
       sx={{
         background: theme.palette.zesty.zestyWhite,
-        mt: 10,
+        mt: 15,
         py: 10,
         position: 'relative',
         overflow: 'hidden',
