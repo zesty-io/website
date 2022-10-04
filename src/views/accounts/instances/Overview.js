@@ -17,6 +17,7 @@ import { purple } from '@mui/material/colors';
 import { Timeline } from '@mui/lab';
 import ZTimelineItem from 'components/accounts/dashboard/ui/ZTimelineItem';
 import ZInstanceTimelineItemContainer from 'components/accounts/dashboard/ui/ZInstanceTimelineItemContainer';
+import * as helpers from 'utils';
 
 export const Overview = ({
   instance,
@@ -142,11 +143,15 @@ export const Overview = ({
   return (
     <Box>
       <Stack px={5} pt={2} pb={4} bgcolor="background.level2">
-        <Stack pb={4} direction={'row'} justifyContent={'space-between'}>
+        <Stack
+          pb={4}
+          direction={{ xs: 'column', md: 'row' }}
+          justifyContent="space-between"
+        >
           <Stack>
             <Typography variant="h4">Overview</Typography>
           </Stack>
-          <Stack direction={'row'} spacing={2}>
+          <Stack direction="row" spacing={2}>
             <Button
               variant="contained"
               color="inherit"
@@ -207,6 +212,27 @@ export const Overview = ({
       </Stack>
       <Grid container>
         <Grid px={2} item xs={12} lg={9}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            pt={2}
+            pr={2}
+          >
+            <Typography color="text.secondary">Activity Stream</Typography>
+            <Button
+              size="small"
+              variant="contained"
+              target="_blank"
+              href={`https://${instance.ZUID}.manager${
+                !helpers?.isProd ? '.dev' : ''
+              }.zesty.io/reports/activity-log/resources
+`}
+            >
+              Open Activity Log
+            </Button>
+          </Stack>
+
           <Timeline sx={{ p: 0 }}>
             {isInstanceAuditLoading
               ? [...new Array(5)].map((i) => (
@@ -226,6 +252,7 @@ export const Overview = ({
                     key={index}
                     audit={audit}
                     isInstanceAuditLoading={isInstanceAuditLoading}
+                    showEditInstance={false}
                   />
                 ))}
           </Timeline>
