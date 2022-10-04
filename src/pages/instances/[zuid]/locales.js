@@ -213,6 +213,7 @@ export default function Locales() {
     title: 'Locales',
     description: 'Manage your languages',
   };
+  console.log('::');
   return (
     <Grid container>
       <AccountsHeader {...headerProps}></AccountsHeader>
