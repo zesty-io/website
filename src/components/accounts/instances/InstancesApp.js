@@ -83,8 +83,11 @@ const Index = ({ children }) => {
               maxWidth: { md: '384px' },
               position: 'sticky',
               top: '60px',
-              height: `calc(100vh - 82px)`,
+              height: `calc(100vh - 46px)`,
               overflow: 'auto',
+              '::-webkit-scrollbar': {
+                display: 'none',
+              },
             }}
           >
             <InstanceHeader instance={instance} />
@@ -143,7 +146,7 @@ const Index = ({ children }) => {
 
 function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
   return (
-    <Box px={1} py={1}>
+    <Box px={1} py={1} pb={5}>
       <List>
         {lists.map((list, index) => (
           <ListItem

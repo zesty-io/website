@@ -11,7 +11,11 @@ import StorageIcon from '@mui/icons-material/Storage';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import dayjs from 'dayjs';
 
-const ZInstanceTimelineItemContainer = ({ audit, isInstanceAuditLoading }) => {
+const ZInstanceTimelineItemContainer = ({
+  audit,
+  isInstanceAuditLoading,
+  showEditInstance = true,
+}) => {
   const [isFetchingMsg, setIsFetchingMsg] = useState(false);
   const [newMessage, setNewMessage] = useState('');
   const { ZestyAPI } = useZestyStore((state) => state);
@@ -196,19 +200,21 @@ const ZInstanceTimelineItemContainer = ({ audit, isInstanceAuditLoading }) => {
                   </Button>
                 )}
 
-                <Button
-                  href={`/instances/${audit?.entityZUID}`}
-                  size="small"
-                  variant="outlined"
-                  color="primary"
-                  sx={{
-                    whiteSpace: {
-                      md: 'nowrap',
-                    },
-                  }}
-                >
-                  Edit Instance
-                </Button>
+                {showEditInstance && (
+                  <Button
+                    href={`/instances/${audit?.entityZUID}`}
+                    size="small"
+                    variant="outlined"
+                    color="primary"
+                    sx={{
+                      whiteSpace: {
+                        md: 'nowrap',
+                      },
+                    }}
+                  >
+                    Edit Instance
+                  </Button>
+                )}
               </Stack>
             </Stack>
           </ZTimelineItem>
