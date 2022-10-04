@@ -54,7 +54,6 @@ export default function InstanceHeader({ instance }) {
       </CardContent>
       <CardActions sx={{ pb: 2, px: 2 }}>
         <Button
-          size="small"
           color="primary"
           target="_blank"
           variant="contained"
@@ -69,7 +68,6 @@ export default function InstanceHeader({ instance }) {
           Open Manager
         </Button>
         <Button
-          size="small"
           variant="outlined"
           target="_blank"
           color="inherit"

@@ -105,7 +105,11 @@ const Index = ({ children }) => {
               </Typography>
             </Container>
             <Divider sx={{ mb: 2 }} /> */}
-            <Box maxWidth={true}>{children}</Box>
+            {currentPage !== '' ? (
+              <Container maxWidth={false}>{children}</Container>
+            ) : (
+              <Box>{children}</Box>
+            )}
           </Grid>
         </Grid>
       ) : (
