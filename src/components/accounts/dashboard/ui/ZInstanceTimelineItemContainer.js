@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ZTimelineItem from './ZTimelineItem';
-import * as helpers from 'utils';
 import { Button, Paper, Skeleton, Stack, Typography } from '@mui/material';
 import { useZestyStore } from 'store';
 import { InView } from 'react-intersection-observer';
@@ -10,6 +9,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import EditIcon from '@mui/icons-material/Edit';
 import StorageIcon from '@mui/icons-material/Storage';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import dayjs from 'dayjs';
 
 const ZInstanceTimelineItemContainer = ({ audit, isInstanceAuditLoading }) => {
   const [isFetchingMsg, setIsFetchingMsg] = useState(false);
@@ -145,7 +145,7 @@ const ZInstanceTimelineItemContainer = ({ audit, isInstanceAuditLoading }) => {
               },
               mt: 1,
             }}
-            title={`${helpers?.getTimeAgo(audit?.updatedAt)}`}
+            title={`${dayjs(audit?.updatedAt).fromNow()}`}
             timelineImage={audit?.screenshotURL}
             isLoading={isInstanceAuditLoading}
           >
@@ -182,6 +182,7 @@ const ZInstanceTimelineItemContainer = ({ audit, isInstanceAuditLoading }) => {
                 {audit?.meta?.url && (
                   <Button
                     href={audit?.meta?.url}
+                    target="_blank"
                     size="small"
                     variant="contained"
                     color="primary"

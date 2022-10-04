@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useZestyStore, getZestyAPI } from 'store';
 import { useRouter } from 'next/router';
 import { Overview } from 'views/accounts';
@@ -20,6 +20,62 @@ export default function OverviewPage() {
   const { zuid } = router.query;
   const dateEnd = dayjs().format('YYYY-MM-DD');
   const dateStart = '2022-08-30';
+
+  const [isInstanceAuditLoading, setIsInstanceAuditLoading] = useState(false);
+  const [instanceAudit, setInstanceAudit] = useState([]);
+  const uniqueIds = new Set();
+
+  const unique = (arr) => {
+    return arr.filter((element) => {
+      const isDuplicate = uniqueIds.has(
+        element.affectedZUID + element.meta.message,
+      );
+
+      uniqueIds.add(element.affectedZUID + element.meta.message);
+
+      if (!isDuplicate) {
+        return true;
+      }
+
+      return false;
+    });
+  };
+
+  const setResponseToAuditState = async (zuid, limit = 20) => {
+    const response = await ZestyAPI.getInstanceAuditInitZUID(limit, zuid);
+
+    if (!response?.error) {
+      const instanceAuditData = [...response?.data].map((audit) => {
+        return {
+          ...audit,
+          entityName: instance?.name,
+          totalActions: response?.data?.filter(
+            (c) =>
+              c.meta.message === audit.meta.message &&
+              c.affectedZUID === audit.affectedZUID,
+          )?.length,
+          screenshotURL: instance?.screenshotURL,
+        };
+      });
+      setInstanceAudit((prev) =>
+        [...prev, ...instanceAuditData].sort(
+          (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
+        ),
+      );
+    }
+  };
+
+  const getAudit = async () => {
+    if (typeof ZestyAPI?.getInstanceAuditInitZUID === 'function') {
+      setIsInstanceAuditLoading(true);
+      setInstanceAudit([]);
+
+      await setResponseToAuditState(instance.ZUID);
+
+      setInstanceAudit((prev) => unique(prev));
+      setIsInstanceAuditLoading(false);
+    }
+  };
 
   const handleGetInstanceSuccess = (res) => {
     console.log(res, 'succ upp');
@@ -154,13 +210,20 @@ export default function OverviewPage() {
     audits,
     clearCache,
     usage,
+    isInstanceAuditLoading,
+    instanceAudit,
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setZestyAPI(getZestyAPI(zuid));
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // this for initial getting of audit
+    getAudit();
+  }, [instance]);
+
+  useEffect(() => {
     if (router.isReady) {
       getPageData();
     }
