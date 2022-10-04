@@ -6,7 +6,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 import ApiIcon from '@mui/icons-material/Api';
 import WebhookIcon from '@mui/icons-material/Webhook';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import SettingsIcon from '@mui/icons-material/Settings';
+// import SettingsIcon from '@mui/icons-material/Settings';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 export const instanceTabs = [
@@ -58,12 +58,13 @@ export const instanceTabs = [
     label: 'Support',
     sort: 5,
   },
-  {
-    icon: <SettingsIcon fontSize="medium" />,
-    filename: 'billing',
-    label: 'Billing & Plan',
-    sort: 8,
-  },
+  // comment out for now
+  // {
+  //   icon: <SettingsIcon fontSize="large" />,
+  //   filename: 'billing',
+  //   label: 'Billing & Plan',
+  //   sort: 8,
+  // },
   {
     icon: <CreditCardIcon fontSize="medium" />,
     filename: 'settings',

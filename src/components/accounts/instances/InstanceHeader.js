@@ -54,17 +54,21 @@ export default function InstanceHeader({ instance }) {
       </CardContent>
       <CardActions sx={{ pb: 1, px: 2 }}>
         <Button
-          size="medium"
           color="primary"
           target="_blank"
           variant="contained"
+          fullWidth
           href={managerURl}
+          startIcon={<CreateIcon />}
+          sx={{
+            whiteSpace: {
+              md: 'nowrap',
+            },
+          }}
         >
-          <CreateIcon />
-          <Typography ml={1}>Open Manager</Typography>
+          Open Manager
         </Button>
         <Button
-          size="medium"
           variant="outlined"
           target="_blank"
           color="inherit"
