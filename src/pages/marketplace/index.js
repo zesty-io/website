@@ -68,7 +68,7 @@ export async function getServerSideProps({ res, req }) {
     setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
-  let extensionsURL = process.env.PRODUCTION
+  let extensionsURL = JSON.parse(process.env.PRODUCTION)
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
