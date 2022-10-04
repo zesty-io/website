@@ -1,8 +1,6 @@
-import { Button, Link, Stack } from '@mui/material';
-import CustomDataGrid from 'components/accounts/instances/CustomDataGrid';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useZestyStore } from 'store';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
 import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -10,8 +8,9 @@ import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
-import { FormSelect } from 'components/accounts';
+import { AccountsHeader, AccountsTable, FormSelect } from 'components/accounts';
 import { accountsValidations } from 'components/accounts/';
+import dayjs from 'dayjs';
 
 const MySwal = withReactContent(Swal);
 
@@ -34,36 +33,50 @@ export default function Locales() {
       headerName: 'Active',
       minWidth: 110,
       flex: 1,
+      renderHeader: () => <Typography variant="body1">Active</Typography>,
     },
     {
       field: 'code',
       headerName: 'Code',
       minWidth: 110,
       flex: 1,
+      renderHeader: () => <Typography variant="body1">Code</Typography>,
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
       minWidth: 200,
       flex: 1,
+      renderHeader: () => <Typography variant="body1">Created At</Typography>,
+      renderCell: (params) => {
+        const date = dayjs(params.row.createdAt).format('MMM DD, YYYY');
+        return <Typography variant="body2">{date}</Typography>;
+      },
     },
     {
       field: 'default',
       headerName: 'Default',
       minWidth: 110,
       flex: 1,
+      renderHeader: () => <Typography variant="body1">Default</Typography>,
     },
     {
       field: 'name',
       headerName: 'Name',
       minWidth: 300,
       flex: 1,
+      renderHeader: () => <Typography variant="body1">Name</Typography>,
     },
     {
       field: 'updatedAt',
       headerName: 'Updated At',
       minWidth: 200,
       flex: 1,
+      renderHeader: () => <Typography variant="body1">Updated At</Typography>,
+      renderCell: (params) => {
+        const date = dayjs(params.row.updatedAt).format('MMM DD, YYYY');
+        return <Typography variant="body2">{date}</Typography>;
+      },
     },
     {
       field: 'activate/deactivate',
@@ -196,9 +209,14 @@ export default function Locales() {
     );
   };
 
+  const headerProps = {
+    title: 'Locales',
+    description: 'Manage your languages',
+  };
   return (
-    <>
-      <Stack>
+    <Grid container>
+      <AccountsHeader {...headerProps}></AccountsHeader>
+      {/* <Stack>
         <Link
           alignSelf="start"
           color="primary"
@@ -230,15 +248,20 @@ export default function Locales() {
         >
           Add
         </Button>
-      </Stack>
+      </Stack> */}
 
-      <CustomDataGrid
-        columns={columns}
-        rows={rows}
-        pageSize={5}
-        isLoading={isLoading}
-      />
-    </>
+      <Grid item xs={12}>
+        <Stack p={4}>
+          <AccountsTable
+            loading={isLoading}
+            rows={rows}
+            columns={columns}
+            pageSize={100}
+            autoHeight={true}
+          />
+        </Stack>
+      </Grid>
+    </Grid>
   );
 }
 
