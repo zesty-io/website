@@ -11,6 +11,7 @@ export const AccountSelect = ({
   options = initialOptions,
   onChange = () => {},
   value = '',
+  width = 150,
 }) => {
   const [val, setVal] = React.useState(value);
   console.log(label);
@@ -25,7 +26,7 @@ export const AccountSelect = ({
   }, [value]);
 
   return (
-    <Box width={150}>
+    <Box width={width}>
       <FormControl fullWidth>
         <Select
           size="small"

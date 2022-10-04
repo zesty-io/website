@@ -28,7 +28,6 @@ const CustomTable = ({
   instanceUserWithRoles,
   cta,
 }) => {
-  console.log(instanceUserWithRoles, '99999');
   const ROWS = data?.map((e) => {
     return {
       ...e,
@@ -36,7 +35,6 @@ const CustomTable = ({
     };
   });
 
-  console.log(data, ':::');
   const COLUMNS = [
     {
       field: 'id',

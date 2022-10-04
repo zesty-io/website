@@ -1,7 +1,9 @@
 import React from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import DownloadIcon from '@mui/icons-material/Download';
 import {
-  AccountsSelect,
+  AccountSelect,
+  AccountsHeader,
   AccountsTextArea,
   AccountTextfield,
   ColorToggleButton,
@@ -10,6 +12,7 @@ import {
 } from 'components/accounts';
 import * as helper from 'utils';
 import SaveIcon from '@mui/icons-material/Save';
+import SearchIcon from '@mui/icons-material/Search';
 
 const COLUMNS = [
   {
@@ -121,33 +124,34 @@ const CustomTable = ({
       category: e.category,
       tips: e.tips || '-',
       action: (
-        <Box display={'flex'} gap={2}>
+        <Stack gap={2} direction="row" alignItems={'center'}>
           <ActionSwitcher
             data={e}
             arrToSubmit={arrToSubmit}
             setarrToSubmit={setarrToSubmit}
           />
 
-          <Button
-            onClick={() => handleClick(e)}
-            variant="contained"
-            color="primary"
-            sx={{ visibility: isDataChange ? 'visible' : 'hidden' }}
-          >
-            <SaveIcon size={20} sx={{ marginRight: '.3rem' }} />
-            Save
-          </Button>
-        </Box>
+          <Stack>
+            <Button
+              onClick={() => handleClick(e)}
+              variant="contained"
+              color="primary"
+              size="small"
+              sx={{ visibility: isDataChange ? 'visible' : 'hidden' }}
+            >
+              <SaveIcon fontSize="small" sx={{ marginRight: '.3rem' }} />
+              <Typography variant="body2">Save</Typography>
+            </Button>
+          </Stack>
+        </Stack>
       ),
     };
   });
 
-  // const memoizeRows = React.useMemo(() => ROWS, [data]);
-  // const memoizeColumns = React.useMemo(() => COLUMNS, []);
-
   return (
     <Box>
       <StickyTable
+        perPage={100}
         pagination={false}
         loading={loading}
         rows={ROWS}
@@ -157,13 +161,22 @@ const CustomTable = ({
   );
 };
 
-export const Settings = ({ settings = [], singleSettingsUpdate, loading }) => {
+export const Settings = ({
+  settings = [],
+  singleSettingsUpdate,
+  loading,
+  downloadTemplate,
+  instance_zuid,
+  token,
+}) => {
   const [arrToSubmit, setarrToSubmit] = React.useState([]);
   const [search, setsearch] = React.useState('');
   const [categories, setcategories] = React.useState('');
 
   const data = settings?.filter((e) => {
-    if (search || categories) {
+    if (!categories && search) {
+      return e.keyFriendly.toLowerCase().includes(search.toLowerCase());
+    } else if (search || categories) {
       return (
         e.keyFriendly.toLowerCase().includes(search.toLowerCase()) &&
         e.category === categories
@@ -178,55 +191,63 @@ export const Settings = ({ settings = [], singleSettingsUpdate, loading }) => {
     property: 'category',
   });
 
-  // OLd setting to be remove
-  // const updateSettings = async (data) => {
-  //   const dataToUpdate = data?.map(async (e) => {
-  //     const res = await ZestyAPI.updateSetting(e.ZUID, e);
-  //     console.log(res, 'Result');
-  //   });
-  //   await Promise.all(dataToUpdate);
-  //   await SuccessMsg({ title: 'Success' });
-  //   await setarrToSubmit([]);
-  // };
+  const handleOnchange = (data) => {
+    setcategories(data.value);
+  };
+  const headerProps = {
+    title: 'Settings',
+    description: `Manage your Settings`,
+  };
 
   return (
-    <Box>
-      <Box display={'flex'} alignItems="center">
+    <Grid container>
+      <AccountsHeader {...headerProps}>
         <TextField
-          id="outlined-basic"
-          label="Search..."
-          variant="outlined"
+          size="small"
+          placeholder=" Search Settings"
+          fullWidth
+          value={search}
           onChange={(e) => setsearch(e.target.value)}
+          InputProps={{
+            startAdornment: <SearchIcon color="disabled" />,
+          }}
         />
 
-        <AccountsSelect
+        <Stack>
+          <AccountSelect
+            options={dropdownList}
+            onChange={handleOnchange}
+            value={categories}
+            width={200}
+          />
+        </Stack>
+        {/* <AccountsSelect
           list={dropdownList}
           setterFn={setcategories}
           value={categories}
           setdirty={() => {}}
-        />
+        /> */}
 
-        {/* Old setting to be remove */}
-        {/* <Button
+        <Button
+          size="small"
           color="primary"
           variant="contained"
-          disabled={arrToSubmit.length === 0 ? true : false}
-          onClick={() =>
-            updateSettings(
-              helper.removeDupsInArrObj(arrToSubmit, 'keyFriendly'),
-            )
-          }
+          fullWidth
+          onClick={() => downloadTemplate(instance_zuid, token)}
         >
-          Save Changes
-        </Button> */}
-      </Box>
-      <CustomTable
-        loading={loading}
-        data={data}
-        arrToSubmit={arrToSubmit}
-        setarrToSubmit={setarrToSubmit}
-        singleSettingsUpdate={singleSettingsUpdate}
-      />
-    </Box>
+          <DownloadIcon fontSize="small" sx={{ mr: 1 }} />
+          <Typography variant="body1">Export as Template</Typography>
+        </Button>
+      </AccountsHeader>
+      <Grid item xs={12} px={4}>
+        <CustomTable
+          loading={loading}
+          data={data}
+          arrToSubmit={arrToSubmit}
+          setarrToSubmit={setarrToSubmit}
+          singleSettingsUpdate={singleSettingsUpdate}
+        />
+      </Grid>
+    </Grid>
   );
 };
