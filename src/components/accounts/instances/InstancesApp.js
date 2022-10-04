@@ -155,7 +155,6 @@ function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
             disablePadding
             selected={list.filename === currentPage}
             sx={(theme) => ({
-              mb: 1,
               borderRadius: '5px',
               '&.Mui-selected': {
                 ' .MuiListItemIcon-root': {

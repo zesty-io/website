@@ -52,11 +52,12 @@ export default function InstanceHeader({ instance }) {
           Last updated {dayjs(instance.updatedAt).fromNow()}
         </Typography>
       </CardContent>
-      <CardActions sx={{ pb: 2, px: 2 }}>
+      <CardActions sx={{ pb: 1, px: 2 }}>
         <Button
           color="primary"
           target="_blank"
           variant="contained"
+          fullWidth
           href={managerURl}
           startIcon={<CreateIcon />}
           sx={{

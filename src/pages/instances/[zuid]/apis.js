@@ -12,6 +12,7 @@ const MySwal = withReactContent(Swal);
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function ApisPage() {
+  const [search, setsearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const [tokens, settokens] = React.useState([]);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
@@ -181,8 +182,12 @@ export default function ApisPage() {
     res.error && handleUpdateSettingErr(res);
   };
 
+  const filteredTokens = data.filter((e) =>
+    e.name.toLowerCase().includes(search.toLowerCase()),
+  );
+
   const ApisProps = {
-    tokens: data,
+    tokens: filteredTokens,
     instanceRoles,
     isInstanceOwner,
     createToken,
@@ -193,6 +198,8 @@ export default function ApisPage() {
     arrToSubmit,
     setarrToSubmit,
     updateSetting,
+    search,
+    setsearch,
   };
   return <Apis {...ApisProps} />;
 }

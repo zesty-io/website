@@ -102,6 +102,7 @@ const RolesDescription = () => {
 };
 
 export default function UsersPage() {
+  const [search, setsearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const [users, setusers] = React.useState([]);
   const [pendingUsers, setpendingUsers] = React.useState([]);
@@ -262,25 +263,33 @@ export default function UsersPage() {
     userInfo,
   );
 
+  const filteredUsers = instanceUserWithRoles.filter(
+    (e) =>
+      e.firstName.toLowerCase().includes(search.toLowerCase()) ||
+      e.lastName.toLowerCase().includes(search.toLowerCase()),
+  );
+  const userProps = {
+    updateRole,
+    roles: filteredUsers,
+    deleteUserRole,
+    instanceRoles,
+    createInvite,
+    isOwner: isInstanceOwner,
+    instanceZUID: zuid,
+    loading,
+    search,
+    setsearch,
+  };
   return (
     <>
-      <Users
-        updateRole={updateRole}
-        roles={instanceUserWithRoles}
-        deleteUserRole={deleteUserRole}
-        instanceRoles={instanceRoles}
-        createInvite={createInvite}
-        isOwner={isInstanceOwner}
-        instanceZUID={zuid}
-        loading={loading}
-      />
-      <PendingTable
+      <Users {...userProps} />
+      {/* <PendingTable
         loading={loading}
         isInstanceOwner={isInstanceOwner}
         respondToInvite={respondToInvite}
         data={pendingUsers}
       />
-      <RolesDescription />
+      <RolesDescription /> */}
     </>
   );
 }

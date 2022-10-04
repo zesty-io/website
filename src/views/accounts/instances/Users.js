@@ -1,41 +1,29 @@
 import React from 'react';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import {
-  UsersSelect,
-  StickyTable,
   accountsValidations,
   FormInput,
   DeleteMsg,
   SubmitBtn,
   FormSelect,
-  DeleteBtn,
+  AccountsTable,
+  AccountSelect,
+  AccountsInput,
 } from 'components/accounts';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
+import AddIcon from '@mui/icons-material/Add';
 import { baseroles } from 'components/accounts/users/baseroles';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
 import * as helpers from 'utils';
+import { hashMD5 } from 'utils/Md5Hash';
+import dayjs from 'dayjs';
+import { AccountsHeader } from 'components/accounts/ui/header';
+import { AccountsPopover } from 'components/accounts/ui/popover';
 
 const MySwal = withReactContent(Swal);
-
-const COLUMNS = [
-  {
-    id: 'name',
-    label: 'Name',
-  },
-  {
-    id: 'email',
-    label: 'email',
-  },
-  {
-    id: 'role',
-    label: 'role',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
 
 const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
   switch (role) {
@@ -43,7 +31,7 @@ const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
       return <>{role}</>;
     default:
       return (
-        <UsersSelect
+        <AccountSelect
           options={instanceRoles}
           label="Role"
           onChange={handleOnChange}
@@ -61,58 +49,154 @@ const CustomTable = ({
   loading,
 }) => {
   const ROWS = data?.map((e) => {
-    const handleOnChange = (data) => {
-      const val = {
-        newRoleZUID: data.id,
-        userZUID: e.ZUID,
-        oldRoleZUID: e.role.ZUID,
-      };
-
-      handleUpdateRole(val);
-    };
-    const handleDeleteUser = () => {
-      const roleZUID = instanceRoles.find((x) => x.name === e.role.name)?.ZUID;
-      const data = { roleZUID, userZUID: e.ZUID };
-      const action = () => {
-        handleDeleteRole(data);
-      };
-      DeleteMsg({ action });
-    };
-
-    const role = isOwner
-      ? RoleSwitcher({
-          role: e.role.name,
-          handleOnChange,
-          instanceRoles,
-        })
-      : e.role.name;
-
-    const action = isOwner ? (
-      <Box display={'flex'}>
-        <DeleteBtn onClick={handleDeleteUser} />
-      </Box>
-    ) : (
-      <>-</>
-    );
-
-    return {
-      name: `${e.firstName} ${e.lastName}` || '-',
-      email: e.email || '-',
-      role,
-      action,
-    };
+    return { ...e, id: e.ZUID };
   });
 
-  // const memoizeRows = React.useMemo(() => ROWS, [data]);
-  // const memoizeColumns = React.useMemo(() => COLUMNS, []);
+  const COLUMNS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 350,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Name</Typography>,
+      renderCell: (params) => {
+        const name = `${params.row.firstName} ${params.row.lastName}`;
+        const email = `${params.row.email}`;
+        const profileUrl =
+          'https://www.gravatar.com/avatar/' + hashMD5(params.row?.email);
+        return (
+          <Stack direction="row" alignItems={'center'} gap={2}>
+            <img
+              src={profileUrl}
+              alt="User"
+              height={40}
+              width={40}
+              style={{ borderRadius: '50%' }}
+            />
+            <Stack>
+              <Typography variant="body2">{name}</Typography>
+              <Typography variant="caption" color={'GrayText'}>
+                {email}
+              </Typography>
+            </Stack>
+          </Stack>
+        );
+      },
+    },
+
+    {
+      field: 'role',
+      headerName: 'Role',
+      width: 350,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Role</Typography>,
+      renderCell: (params) => {
+        const e = params.row;
+        const handleOnChange = (data) => {
+          const val = {
+            newRoleZUID: data.id,
+            userZUID: e.ZUID,
+            oldRoleZUID: e.role.ZUID,
+          };
+
+          handleUpdateRole(val);
+        };
+
+        const role = isOwner
+          ? RoleSwitcher({
+              role: e.role.name,
+              handleOnChange,
+              instanceRoles,
+            })
+          : e.role.name;
+        return role;
+      },
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Date Added',
+      width: 250,
+      editable: false,
+      renderHeader: () => <Typography variant="body1">Date Added</Typography>,
+      renderCell: (params) => {
+        const date = dayjs(params.row.createdAt).format('MMM DD, YYYY');
+        return <Typography variant="body2">{date}</Typography>;
+      },
+    },
+    {
+      field: 'lastLogin',
+      headerName: 'Last Login',
+      width: 250,
+      editable: false,
+      renderHeader: () => <Typography variant="body1">Last Login</Typography>,
+      renderCell: (params) => {
+        const date = dayjs(params.row.lastLogin).format('MMM DD, YYYY');
+        return <Typography variant="body2">{date}</Typography>;
+      },
+    },
+
+    {
+      field: 'action',
+      headerName: '',
+      width: 110,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const handleDeleteUser = () => {
+          const e = params.row;
+          const roleZUID = instanceRoles.find(
+            (x) => x.name === e.role.name,
+          )?.ZUID;
+          const data = { roleZUID, userZUID: e.ZUID };
+          const action = () => {
+            handleDeleteRole(data);
+          };
+          DeleteMsg({ action });
+        };
+
+        const action = [
+          { title: 'Delete User', action: isOwner ? handleDeleteUser : null },
+          {
+            title: 'Email',
+            action: () => window.open(`mailto:${params.row.email}`),
+          },
+        ];
+
+        return (
+          <>
+            <AccountsPopover
+              title={
+                <Button variant="text" color="primary">
+                  <MoreVertIcon color="disabled" />
+                </Button>
+              }
+              id={'actions'}
+              items={action}
+              colorInvert={false}
+            />
+          </>
+        );
+      },
+    },
+  ];
 
   return (
-    <StickyTable
-      title={'Active Users'}
-      loading={loading}
-      rows={ROWS}
-      columns={COLUMNS}
-    />
+    <Stack p={4}>
+      <AccountsTable
+        loading={loading}
+        rows={ROWS}
+        columns={COLUMNS}
+        pageSize={100}
+        autoHeight={true}
+      />
+    </Stack>
   );
 };
 
@@ -165,6 +249,8 @@ const Index = ({
   isOwner,
   instanceZUID,
   loading,
+  search,
+  setsearch,
 }) => {
   const handleUpdateRole = (data) => {
     updateRole(data);
@@ -191,21 +277,35 @@ const Index = ({
   const data = roles.filter((e) => {
     return helpers.validateEmail(e.email);
   });
+
+  const headerProps = {
+    title: 'Users',
+    description: 'Manage your users and their permissions',
+  };
+
   return (
     <Grid container>
-      <Box sx={{ display: 'flex', width: '100%', justifyContent: 'end' }}>
+      <AccountsHeader {...headerProps}>
+        <AccountsInput
+          search={search}
+          setsearch={setsearch}
+          placeholder=" Seach users"
+        />
         <Button
           color="primary"
           variant="contained"
           onClick={() =>
             handleInviteUserModal(createInvite, baseroles, instanceZUID)
           }
+          sx={{ gap: 1 }}
         >
-          Invite user
+          <AddIcon />
+          <Typography>Invite user</Typography>
         </Button>
-      </Box>
+      </AccountsHeader>
       <Grid item xs={12}>
         <CustomTable
+          setsearch={setsearch}
           data={data}
           handleUpdateRole={handleUpdateRole}
           handleDeleteRole={handleDeleteRole}

@@ -132,6 +132,9 @@ const OverviewContent = ({ instance }) => {
 };
 
 export const OverviewTabs = ({ instance, handleClearCache }) => {
+  const copyToClipboard = (data) => {
+    navigator?.clipboard?.writeText(data);
+  };
   return (
     <Container
       sx={(theme) => ({
@@ -147,21 +150,21 @@ export const OverviewTabs = ({ instance, handleClearCache }) => {
       })}
     >
       <FieldComponent
-        // copyToClipboard={copyToClipboard}
+        copyToClipboard={copyToClipboard}
         // settext={settext}
         // text={text}
         label={'Instance ZUID'}
         value={instance.ZUID}
       />
       <FieldComponent
-        // copyToClipboard={copyToClipboard}
+        copyToClipboard={copyToClipboard}
         // settext={settext}
         // text={text}
         label={'Numeric ID'}
         value={instance.ID}
       />
       <FieldComponent
-        // copyToClipboard={copyToClipboard}
+        copyToClipboard={copyToClipboard}
         // settext={settext}
         // text={text}
         label={'Hash ID'}

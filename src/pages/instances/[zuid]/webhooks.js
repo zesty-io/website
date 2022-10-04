@@ -9,6 +9,7 @@ import axios from 'axios';
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function WebhooksPage() {
+  const [search, setsearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [webhooks, setWebhooks] = React.useState([]);
@@ -121,29 +122,57 @@ export default function WebhooksPage() {
       'Content-Type': contentType,
     };
 
-    try {
-      await axios
-        .get(URL, options)
-        .then(function (response) {
-          SuccessMsg({
-            html: `<Box><Box></Box>Status:${
-              response.status
-            }</Box> </br> <Box> <b>Response</b>: ${JSON.stringify(
-              response.data,
-            )}</Box><Box>`,
+    if (method === 'GET') {
+      try {
+        await axios
+          .get(URL, options)
+          .then(function (response) {
+            SuccessMsg({
+              html: `<Box><Box></Box>Status:${
+                response.status
+              }</Box> </br> <Box> <b>Response</b>: ${JSON.stringify(
+                response.data,
+              )}</Box><Box>`,
+            });
+          })
+          .catch(function (error) {
+            ErrorMsg({
+              title: error.code,
+              text: error.message,
+            });
           });
-        })
-        .catch(function (error) {
-          ErrorMsg({
-            title: error.code,
-            text: error.message,
-          });
+      } catch (error) {
+        ErrorMsg({
+          title: error.code,
+          text: error.message,
         });
-    } catch (error) {
-      ErrorMsg({
-        title: error.code,
-        text: error.message,
-      });
+      }
+    }
+    if (method === 'POST') {
+      try {
+        await axios
+          .post(URL, options)
+          .then(function (response) {
+            SuccessMsg({
+              html: `<Box><Box></Box>Status:${
+                response.status
+              }</Box> </br> <Box> <b>Response</b>: ${JSON.stringify(
+                response.data,
+              )}</Box><Box>`,
+            });
+          })
+          .catch(function (error) {
+            ErrorMsg({
+              title: error.code,
+              text: error.message,
+            });
+          });
+      } catch (error) {
+        ErrorMsg({
+          title: error.code,
+          text: error.message,
+        });
+      }
     }
   };
 
@@ -167,16 +196,17 @@ export default function WebhooksPage() {
     }
   }, [router.isReady]);
 
+  const webhooksProps = {
+    webhooks,
+    createWebhook,
+    deleteWebhook,
+    testWebhook,
+    isInstanceOwner,
+    loading,
+  };
   return (
     <>
-      <Webhooks
-        webhooks={webhooks}
-        createWebhook={createWebhook}
-        deleteWebhook={deleteWebhook}
-        testWebhook={testWebhook}
-        isInstanceOwner={isInstanceOwner}
-        loading={loading}
-      />
+      <Webhooks {...webhooksProps} />
     </>
   );
 }
