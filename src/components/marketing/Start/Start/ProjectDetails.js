@@ -17,7 +17,7 @@ import Image from 'next/image';
 import FillerContent from 'components/globals/FillerContent';
 
 // const repo = 'https://github.com/allenpigar/blog_template_acme';
-const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
+const baseUrl = `https://installer-xytrmaqk4a-uc.a.run.app/`;
 
 export const ProjectDetails = ({
   title,
