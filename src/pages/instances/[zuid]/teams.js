@@ -146,16 +146,14 @@ export default function TeamsPage() {
     ]);
     await setloading(false);
   };
+
   React.useEffect(() => {
     if (router.isReady) {
       getPageData();
     }
   }, [router.isReady]);
-  return (
-    <>
-      <Teams {...teamsProps} />
-    </>
-  );
+
+  return <Teams {...teamsProps} />;
 }
 
 TeamsPage.data = {

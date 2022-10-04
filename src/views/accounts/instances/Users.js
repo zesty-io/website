@@ -194,7 +194,7 @@ const CustomTable = ({
         rows={ROWS}
         columns={COLUMNS}
         pageSize={100}
-        autoHeight={false}
+        autoHeight={true}
       />
     </Stack>
   );

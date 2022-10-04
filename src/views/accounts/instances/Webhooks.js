@@ -72,7 +72,7 @@ const CustomTable = ({
     {
       field: 'method',
       headerName: 'Method',
-      width: 100,
+      width: 200,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Method</Typography>,
@@ -94,7 +94,7 @@ const CustomTable = ({
     {
       field: 'eventType',
       headerName: 'Event Type',
-      width: 100,
+      width: 200,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Event Type</Typography>,
@@ -109,7 +109,7 @@ const CustomTable = ({
     {
       field: 'action',
       headerName: '',
-      width: 110,
+      width: 150,
       editable: false,
       sortable: false,
       renderCell: (params) => {

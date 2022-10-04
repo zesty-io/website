@@ -106,7 +106,7 @@ const CustomTable = ({
     {
       field: 'token',
       headerName: 'Token',
-      width: 200,
+      width: 300,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Token</Typography>,
@@ -117,7 +117,7 @@ const CustomTable = ({
     {
       field: 'role',
       headerName: 'Role',
-      width: 150,
+      width: 300,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Role</Typography>,
@@ -129,7 +129,7 @@ const CustomTable = ({
     {
       field: 'expiry',
       headerName: 'Expiry',
-      width: 150,
+      width: 200,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Expiry</Typography>,

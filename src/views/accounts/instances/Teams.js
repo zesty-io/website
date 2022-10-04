@@ -1,9 +1,11 @@
-import { Box, Button, Link, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AddIcon from '@mui/icons-material/Add';
 import {
+  AccountsHeader,
+  AccountsPopover,
+  AccountsTable,
   accountsValidations,
-  BaseRolesTable,
-  CollapseTable,
-  DeleteBtn,
   DeleteMsg,
   FormSelect,
   SubmitBtn,
@@ -15,28 +17,6 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
-const COLUMNS = [
-  {
-    id: 'btn',
-    label: '',
-  },
-  {
-    id: 'name',
-    label: 'Team Name',
-  },
-  {
-    id: 'description',
-    label: 'Description',
-  },
-  {
-    id: 'zuid',
-    label: 'Zuid',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
 
 const CustomTable = ({
   loading,
@@ -48,32 +28,81 @@ const CustomTable = ({
 }) => {
   const ROWS = data?.map((e) => {
     return {
-      name: e.name || '-',
-      description: e.description || '-',
-      zuid: e.ZUID,
-      action: isInstanceOwner ? (
-        <Box display={'flex'}>
-          <DeleteBtn onClick={() => handleDeleteTeamModal(e)}>Delete</DeleteBtn>
-        </Box>
-      ) : (
-        '-'
-      ),
+      ...e,
+      id: e.ZUID,
     };
   });
 
-  // const memoizeRows = React.useMemo(() => ROWS, [data]);
-  // const memoizeColumns = React.useMemo(() => COLUMNS, []);
-
+  console.log(data, ':::');
+  const COLUMNS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 400,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Team Name</Typography>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.name}</Typography>;
+      },
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      width: 600,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Description</Typography>,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">{params.row.description}</Typography>
+        );
+      },
+    },
+    {
+      field: 'action',
+      headerName: '',
+      width: 110,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const data = params.row;
+        const action = [
+          {
+            title: 'Delete Team',
+            action: () => handleDeleteTeamModal({ ZUID: data.ZUID }),
+          },
+        ];
+        return (
+          <AccountsPopover
+            title={
+              <Button variant="text" color="primary">
+                <MoreVertIcon color="disabled" />
+              </Button>
+            }
+            id={'actions'}
+            items={action}
+            colorInvert={false}
+          />
+        );
+      },
+    },
+  ];
   return (
-    <Box>
-      <CollapseTable
-        instanceUserWithRoles={instanceUserWithRoles}
+    <Stack p={4}>
+      <AccountsTable
         loading={loading}
         rows={ROWS}
         columns={COLUMNS}
-        cta={cta}
+        pageSize={100}
+        autoHeight={true}
       />
-    </Box>
+    </Stack>
   );
 };
 
@@ -163,43 +192,44 @@ const Main = ({
     });
   };
 
+  const headerProps = {
+    title: 'Teams',
+    description: `Manage your Teams`,
+  };
   return (
-    <Box>
-      <Typography variant="p" fontSize={'medium'}>
-        By providing a team access you can allow an external group of users
-        access to manage your instance. For example: this can be used to provide
-        an agency with access to manage your website.{' '}
-        <Link href="/teams">Learn more about teams</Link>
-      </Typography>
-      <Box paddingY={2} display={'flex'} justifyContent={'space-between'}>
+    <Grid container>
+      <AccountsHeader {...headerProps}>
         {isInstanceOwner && (
           <Button
             color="primary"
             variant="contained"
             onClick={handleAddTeamModal}
           >
-            Add Team to Instance
+            <AddIcon />
+            <Typography>Add Team to Instance</Typography>
           </Button>
         )}
-      </Box>
-      <CustomTable
-        instanceUserWithRoles={instanceUserWithRoles}
-        loading={loading}
-        data={teams}
-        handleDeleteTeamModal={handleDeleteTeamModal}
-        isInstanceOwner={isInstanceOwner}
-        cta={
-          <Button
-            color="primary"
-            variant="outlined"
-            onClick={handleAddTeamModal}
-          >
-            Add Team
-          </Button>
-        }
-      />
-      <BaseRolesTable />
-    </Box>
+      </AccountsHeader>
+      <Grid item xs={12}>
+        <CustomTable
+          instanceUserWithRoles={instanceUserWithRoles}
+          loading={loading}
+          data={teams}
+          handleDeleteTeamModal={handleDeleteTeamModal}
+          isInstanceOwner={isInstanceOwner}
+          cta={
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={handleAddTeamModal}
+            >
+              Add Team
+            </Button>
+          }
+        />
+      </Grid>
+      {/* <BaseRolesTable /> */}
+    </Grid>
   );
 };
 

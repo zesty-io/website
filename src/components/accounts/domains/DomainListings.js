@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Link, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -54,7 +54,11 @@ export default function DomainListings({
         <Typography variant="body1">Stage Preview Domains</Typography>
       ),
       renderCell: (params) => {
-        return <Typography variant="body2">{params.row.domain}</Typography>;
+        return (
+          <Link variant="body2" href={`https://www.${params.row.domain}/`}>
+            {params.row.domain}
+          </Link>
+        );
       },
     },
     {
@@ -126,7 +130,11 @@ export default function DomainListings({
         <Typography variant="body1">Production Live Domains</Typography>
       ),
       renderCell: (params) => {
-        return <Typography variant="body2">{params.row.domain}</Typography>;
+        return (
+          <Link variant="body2" href={`https://www.${params.row.domain}/`}>
+            {params.row.domain}
+          </Link>
+        );
       },
     },
     {
