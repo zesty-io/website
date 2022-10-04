@@ -1,13 +1,18 @@
-import { Box, Button, Divider, Grid } from '@mui/material';
+import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import {
+  AccountsHeader,
+  AccountsPopover,
+  AccountsTable,
   accountsValidations,
   DeleteMsg,
-  DirectionStack,
   FormInput,
   FormSelect,
   StickyTable,
   SubmitBtn,
 } from 'components/accounts';
+
+import AddIcon from '@mui/icons-material/Add';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useFormik } from 'formik';
 import React from 'react';
 import Swal from 'sweetalert2';
@@ -15,29 +20,6 @@ import withReactContent from 'sweetalert2-react-content';
 import { accounts } from 'components/accounts/constants';
 
 const MySwal = withReactContent(Swal);
-
-const COLUMNS = [
-  {
-    id: 'URL',
-    label: 'URL',
-  },
-  {
-    id: 'method',
-    label: 'Method',
-  },
-  {
-    id: 'resource',
-    label: 'Resource',
-  },
-  {
-    id: 'eventAction',
-    label: 'Event Type',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
 
 const COLUMNS_VIEW = [
   {
@@ -64,52 +46,108 @@ const CustomTable = ({
   loading,
 }) => {
   const ROWS = data?.map((e) => {
-    const btns = [
-      <Button
-        onClick={() => handleViewWebhook(e)}
-        color="primary"
-        variant="contained"
-        fullWidth
-        type="submit"
-      >
-        View
-      </Button>,
-      <Button
-        onClick={() => handleTestWebhook(e)}
-        color="primary"
-        variant="contained"
-        fullWidth
-        type="submit"
-      >
-        Test
-      </Button>,
-      <Button
-        onClick={() => handleDeleteWebhookModal(e)}
-        color="error"
-        variant="contained"
-        fullWidth
-        type="submit"
-      >
-        Delete
-      </Button>,
-    ];
-
     return {
-      URL: e.URL || '-',
-      method: e.method,
-      resource: e.resource,
-      eventAction: eventActionSwitcher(e.eventAction) || '-',
-      action: isInstanceOwner ? <DirectionStack items={btns} /> : '-',
+      ...e,
+      id: e.ZUID,
     };
   });
 
-  // const memoizeRows = React.useMemo(() => ROWS, [data]);
-  // const memoizeColumns = React.useMemo(() => COLUMNS, []);
+  const COLUMNS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'url',
+      headerName: 'URL',
+      width: 600,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">URL</Typography>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.URL}</Typography>;
+      },
+    },
+    {
+      field: 'method',
+      headerName: 'Method',
+      width: 100,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Method</Typography>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.method}</Typography>;
+      },
+    },
+    {
+      field: 'resource',
+      headerName: 'Resource',
+      width: 200,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Resource</Typography>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.resource}</Typography>;
+      },
+    },
+    {
+      field: 'eventType',
+      headerName: 'Event Type',
+      width: 100,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <Typography variant="body1">Event Type</Typography>,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">
+            {eventActionSwitcher(params.row.eventAction)}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: 'action',
+      headerName: '',
+      width: 110,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const data = params.row;
+        const action = [
+          {
+            title: 'Delete Webhook',
+            action: () => handleDeleteWebhookModal(data),
+          },
+          { title: 'Test Webhook', action: () => handleTestWebhook(data) },
+          { title: 'View Webhook', action: () => handleViewWebhook(data) },
+        ];
+        return (
+          <AccountsPopover
+            title={
+              <Button variant="text" color="primary">
+                <MoreVertIcon color="disabled" />
+              </Button>
+            }
+            id={'actions'}
+            items={action}
+            colorInvert={false}
+          />
+        );
+      },
+    },
+  ];
 
   return (
-    <Box>
-      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
-    </Box>
+    <Stack p={4}>
+      <AccountsTable
+        loading={loading}
+        rows={ROWS}
+        columns={COLUMNS}
+        pageSize={100}
+        autoHeight={true}
+      />
+    </Stack>
   );
 };
 
@@ -250,25 +288,39 @@ export const Webhooks = ({
       showConfirmButton: false,
     });
   };
+
+  const headerProps = {
+    title: 'Webhooks',
+    description: `Manage your Webhook's`,
+  };
+
   return (
-    <Box>
-      {isInstanceOwner && (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleAddWebhookModal}
-        >
-          Create Webhooks
-        </Button>
-      )}
-      <CustomTable
-        loading={loading}
-        data={webhooks}
-        isInstanceOwner={isInstanceOwner}
-        handleDeleteWebhookModal={handleDeleteWebhookModal}
-        handleTestWebhook={handleTestWebhook}
-        handleViewWebhook={handleViewWebhook}
-      />
-    </Box>
+    <Grid container>
+      <AccountsHeader {...headerProps}>
+        {isInstanceOwner && (
+          <Button
+            onClick={handleAddWebhookModal}
+            color="primary"
+            variant="contained"
+            type="button"
+            sx={{ ml: 'auto' }}
+          >
+            <AddIcon />
+            <Typography>Create Webhooks</Typography>
+          </Button>
+        )}
+      </AccountsHeader>
+
+      <Grid item xs={12}>
+        <CustomTable
+          loading={loading}
+          data={webhooks}
+          isInstanceOwner={isInstanceOwner}
+          handleDeleteWebhookModal={handleDeleteWebhookModal}
+          handleTestWebhook={handleTestWebhook}
+          handleViewWebhook={handleViewWebhook}
+        />
+      </Grid>
+    </Grid>
   );
 };

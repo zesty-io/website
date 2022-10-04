@@ -9,6 +9,7 @@ import axios from 'axios';
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function WebhooksPage() {
+  const [search, setsearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [webhooks, setWebhooks] = React.useState([]);
@@ -167,16 +168,17 @@ export default function WebhooksPage() {
     }
   }, [router.isReady]);
 
+  const webhooksProps = {
+    webhooks,
+    createWebhook,
+    deleteWebhook,
+    testWebhook,
+    isInstanceOwner,
+    loading,
+  };
   return (
     <>
-      <Webhooks
-        webhooks={webhooks}
-        createWebhook={createWebhook}
-        deleteWebhook={deleteWebhook}
-        testWebhook={testWebhook}
-        isInstanceOwner={isInstanceOwner}
-        loading={loading}
-      />
+      <Webhooks {...webhooksProps} />
     </>
   );
 }
