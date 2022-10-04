@@ -54,7 +54,7 @@ export const Overview = ({
           <Group color="primary" />
         </Stack>
       ),
-      mainData: totalUsers,
+      mainData: totalUsers || '-',
       footerData: 1,
       footerTitle: 'User left in plan',
       chipColor: 'warning',
@@ -161,7 +161,7 @@ export const Overview = ({
                 },
               })}
               onClick={handleClearCache}
-              startIcon={<CachedIcon />}
+              startIcon={<CachedIcon color="disabled" />}
             >
               Clear Cache
             </Button>
@@ -180,7 +180,7 @@ export const Overview = ({
                   color: 'black',
                 },
               })}
-              startIcon={<CreditCardIcon />}
+              startIcon={<CreditCardIcon color="disabled" />}
             >
               Review Billing
             </Button>

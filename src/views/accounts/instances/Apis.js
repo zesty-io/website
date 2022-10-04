@@ -7,15 +7,14 @@ import {
   Link,
   Paper,
   Stack,
-  TextField,
   Typography,
 } from '@mui/material';
 
 import AddIcon from '@mui/icons-material/Add';
-import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
   AccountsHeader,
+  AccountsInput,
   AccountsPopover,
   AccountsTable,
   accountsValidations,
@@ -502,16 +501,11 @@ export const Apis = ({
   return (
     <Grid container>
       <AccountsHeader {...headerProps}>
-        <TextField
-          size="small"
-          placeholder=" Search Tokens"
-          value={search}
-          onChange={(e) => setsearch(e.target.value)}
-          InputProps={{
-            startAdornment: <SearchIcon color="disabled" />,
-          }}
+        <AccountsInput
+          search={search}
+          setsearch={setsearch}
+          placeholder=" Seach tokens"
         />
-
         {isInstanceOwner && (
           <Button
             onClick={handleCreateTokenModal}

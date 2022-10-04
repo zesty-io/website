@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import {
   accountsValidations,
   FormInput,
@@ -9,6 +8,7 @@ import {
   FormSelect,
   AccountsTable,
   AccountSelect,
+  AccountsInput,
 } from 'components/accounts';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
@@ -286,14 +286,10 @@ const Index = ({
   return (
     <Grid container>
       <AccountsHeader {...headerProps}>
-        <TextField
-          size="small"
-          placeholder=" Search Users"
-          value={search}
-          onChange={(e) => setsearch(e.target.value)}
-          InputProps={{
-            startAdornment: <SearchIcon color="disabled" />,
-          }}
+        <AccountsInput
+          search={search}
+          setsearch={setsearch}
+          placeholder=" Seach users"
         />
         <Button
           color="primary"

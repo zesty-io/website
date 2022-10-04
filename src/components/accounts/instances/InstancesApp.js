@@ -143,7 +143,7 @@ const Index = ({ children }) => {
 
 function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
   return (
-    <Box px={1} py={1}>
+    <Box px={1}>
       <List>
         {lists.map((list, index) => (
           <ListItem
@@ -152,7 +152,6 @@ function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
             disablePadding
             selected={list.filename === currentPage}
             sx={(theme) => ({
-              mb: 1,
               borderRadius: '5px',
               '&.Mui-selected': {
                 ' .MuiListItemIcon-root': {

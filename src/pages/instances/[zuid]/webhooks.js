@@ -122,29 +122,57 @@ export default function WebhooksPage() {
       'Content-Type': contentType,
     };
 
-    try {
-      await axios
-        .get(URL, options)
-        .then(function (response) {
-          SuccessMsg({
-            html: `<Box><Box></Box>Status:${
-              response.status
-            }</Box> </br> <Box> <b>Response</b>: ${JSON.stringify(
-              response.data,
-            )}</Box><Box>`,
+    if (method === 'GET') {
+      try {
+        await axios
+          .get(URL, options)
+          .then(function (response) {
+            SuccessMsg({
+              html: `<Box><Box></Box>Status:${
+                response.status
+              }</Box> </br> <Box> <b>Response</b>: ${JSON.stringify(
+                response.data,
+              )}</Box><Box>`,
+            });
+          })
+          .catch(function (error) {
+            ErrorMsg({
+              title: error.code,
+              text: error.message,
+            });
           });
-        })
-        .catch(function (error) {
-          ErrorMsg({
-            title: error.code,
-            text: error.message,
-          });
+      } catch (error) {
+        ErrorMsg({
+          title: error.code,
+          text: error.message,
         });
-    } catch (error) {
-      ErrorMsg({
-        title: error.code,
-        text: error.message,
-      });
+      }
+    }
+    if (method === 'POST') {
+      try {
+        await axios
+          .post(URL, options)
+          .then(function (response) {
+            SuccessMsg({
+              html: `<Box><Box></Box>Status:${
+                response.status
+              }</Box> </br> <Box> <b>Response</b>: ${JSON.stringify(
+                response.data,
+              )}</Box><Box>`,
+            });
+          })
+          .catch(function (error) {
+            ErrorMsg({
+              title: error.code,
+              text: error.message,
+            });
+          });
+      } catch (error) {
+        ErrorMsg({
+          title: error.code,
+          text: error.message,
+        });
+      }
     }
   };
 

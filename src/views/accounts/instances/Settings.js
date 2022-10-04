@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import {
   AccountSelect,
   AccountsHeader,
+  AccountsInput,
   AccountsTextArea,
   AccountTextfield,
   ColorToggleButton,
@@ -12,7 +13,6 @@ import {
 } from 'components/accounts';
 import * as helper from 'utils';
 import SaveIcon from '@mui/icons-material/Save';
-import SearchIcon from '@mui/icons-material/Search';
 
 const COLUMNS = [
   {
@@ -202,16 +202,13 @@ export const Settings = ({
   return (
     <Grid container>
       <AccountsHeader {...headerProps}>
-        <TextField
-          size="small"
-          placeholder=" Search Settings"
-          fullWidth
-          value={search}
-          onChange={(e) => setsearch(e.target.value)}
-          InputProps={{
-            startAdornment: <SearchIcon color="disabled" />,
-          }}
-        />
+        <Stack>
+          <AccountsInput
+            search={search}
+            setsearch={setsearch}
+            placeholder=" Seach settings"
+          />
+        </Stack>
 
         <Stack>
           <AccountSelect
