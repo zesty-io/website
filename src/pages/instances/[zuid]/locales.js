@@ -1,5 +1,4 @@
-import { Button, Link, Stack } from '@mui/material';
-import CustomDataGrid from 'components/accounts/instances/CustomDataGrid';
+import { Button, Grid, Link, Stack } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useZestyStore } from 'store';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
@@ -10,8 +9,9 @@ import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
-import { FormSelect } from 'components/accounts';
+import { AccountsHeader, AccountsTable, FormSelect } from 'components/accounts';
 import { accountsValidations } from 'components/accounts/';
+import { grey } from '@mui/material/colors';
 
 const MySwal = withReactContent(Swal);
 
@@ -197,48 +197,58 @@ export default function Locales() {
   };
 
   return (
-    <>
-      <Stack>
-        <Link
-          alignSelf="start"
-          color="primary"
-          underline="none"
-          href="https://zesty.org/getting-started/i18n-multi-language"
-        >
-          Locales Documentation
-        </Link>
-        <Link
-          alignSelf="start"
-          color="primary"
-          underline="none"
-          href="https://zesty.org/getting-started/i18n-multi-language#what-happens-when-a-new-language-is-added"
-        >
-          What happens when lang added?
-        </Link>
-        <Button
-          variant="contained"
-          color="success"
-          startIcon={<AddOutlinedIcon />}
-          sx={{ alignSelf: 'end', display: 'none' }}
-          onClick={() => {
-            MySwal.fire({
-              title: `Locale`,
-              showConfirmButton: false,
-              html: <InputLocale availableLocales={availableLocales} />,
-            });
-          }}
-        >
-          Add
-        </Button>
-      </Stack>
-
-      <CustomDataGrid
-        columns={columns}
-        rows={rows}
-        pageSize={5}
-        isLoading={isLoading}
-      />
-    </>
+    <Grid container>
+      <Grid
+        px={4}
+        py={3}
+        item
+        xs={12}
+        sx={{ borderBottom: `1px solid ${grey[200]}` }}
+      >
+        <AccountsHeader title="Locales" description="Monitor your locales." />
+      </Grid>
+      <Grid px={4} py={3} item xs={12}>
+        <Stack spacing={1} mb={2}>
+          <Link
+            alignSelf="start"
+            color="primary"
+            underline="none"
+            href="https://zesty.org/getting-started/i18n-multi-language"
+          >
+            Locales Documentation
+          </Link>
+          <Link
+            alignSelf="start"
+            color="primary"
+            underline="none"
+            href="https://zesty.org/getting-started/i18n-multi-language#what-happens-when-a-new-language-is-added"
+          >
+            What happens when lang added?
+          </Link>
+          <Button
+            variant="contained"
+            color="success"
+            startIcon={<AddOutlinedIcon />}
+            sx={{ alignSelf: 'end', display: 'none' }}
+            onClick={() => {
+              MySwal.fire({
+                title: `Locale`,
+                showConfirmButton: false,
+                html: <InputLocale availableLocales={availableLocales} />,
+              });
+            }}
+          >
+            Add
+          </Button>
+        </Stack>
+        <AccountsTable
+          columns={columns}
+          rows={rows}
+          pageSize={5}
+          loading={isLoading}
+        />
+      </Grid>
+    </Grid>
   );
 }
 
