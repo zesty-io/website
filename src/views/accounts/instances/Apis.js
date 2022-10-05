@@ -512,10 +512,9 @@ export const Apis = ({
             color="primary"
             variant="contained"
             type="button"
-            sx={{ ml: 'auto' }}
+            startIcon={<AddIcon />}
           >
-            <AddIcon />
-            <Typography>Create Token</Typography>
+            Create Token
           </Button>
         )}
       </AccountsHeader>

@@ -287,9 +287,9 @@ const Main = ({
             color="primary"
             variant="contained"
             onClick={handleAddTeamModal}
+            startIcon={<AddIcon />}
           >
-            <AddIcon />
-            <Typography ml={0.5}>Add Team to Instance</Typography>
+            Add Team to Instance
           </Button>
         )}
       </AccountsHeader>
