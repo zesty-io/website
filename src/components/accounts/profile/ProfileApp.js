@@ -108,7 +108,7 @@ const ProfileHeader = ({ userInfo }) => {
             height="100%"
             image={profileUrl}
             alt="screenshot"
-            sx={{ boxShadow: 1, borderRadius: '15px' }}
+            sx={{ boxShadow: 1, borderRadius: '8px' }}
           />
         </Stack>
       ) : (

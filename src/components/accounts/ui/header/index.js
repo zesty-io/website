@@ -29,7 +29,7 @@ const Index = ({ title, description, children }) => {
           mt={{ xs: 1, md: 0 }}
           alignItems="center"
           direction="row"
-          spacing={{ xs: 0, md: 1 }}
+          spacing={{ xs: 0, md: 2 }}
           flexWrap={{ xs: 'wrap', lg: 'nowrap' }}
         >
           {children}
