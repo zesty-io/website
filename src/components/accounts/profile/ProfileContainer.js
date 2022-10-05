@@ -1,8 +1,8 @@
-import AppBar from 'components/console/AppBar';
 import Main from 'layouts/Main/Main';
 import React from 'react';
 import { Container } from '@mui/material';
 import { ProfileApp } from './ProfileApp';
+import { AccountsAppbar } from 'components/console/AccountsAppbar';
 
 const Index = ({ children }) => {
   const renderChildren = () => {
@@ -11,7 +11,7 @@ const Index = ({ children }) => {
 
   return (
     <Main>
-      <AppBar />
+      <AccountsAppbar />
       <Container
         maxWidth={false}
         disableGutters
