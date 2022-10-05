@@ -17,6 +17,7 @@ import {
   AccountsInput,
   AccountsPopover,
   AccountsTable,
+  AccountsTableHead,
   accountsValidations,
   AccountTextfield,
   ColorToggleButton,
@@ -97,7 +98,7 @@ const CustomTable = ({
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Name</Typography>,
+      renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.name}</Typography>;
       },
@@ -108,7 +109,7 @@ const CustomTable = ({
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Token</Typography>,
+      renderHeader: () => <AccountsTableHead>Token</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.token}</Typography>;
       },
@@ -119,7 +120,7 @@ const CustomTable = ({
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Role</Typography>,
+      renderHeader: () => <AccountsTableHead>Role</AccountsTableHead>,
       renderCell: (params) => {
         const role = roles.find((x) => x.ZUID === params.row.roleZUID)?.name;
         return <Typography variant="body2">{role}</Typography>;
@@ -131,7 +132,7 @@ const CustomTable = ({
       width: 200,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Expiry</Typography>,
+      renderHeader: () => <AccountsTableHead>Expiry</AccountsTableHead>,
       renderCell: (params) => {
         return (
           <Typography variant="body2">

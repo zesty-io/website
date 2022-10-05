@@ -3,6 +3,7 @@ import {
   AccountsHeader,
   AccountsPopover,
   AccountsTable,
+  AccountsTableHead,
   accountsValidations,
   DeleteMsg,
   FormInput,
@@ -64,7 +65,7 @@ const CustomTable = ({
       width: 600,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">URL</Typography>,
+      renderHeader: () => <AccountsTableHead>URL</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.URL}</Typography>;
       },
@@ -75,7 +76,7 @@ const CustomTable = ({
       width: 200,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Method</Typography>,
+      renderHeader: () => <AccountsTableHead>Method</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.method}</Typography>;
       },
@@ -86,7 +87,7 @@ const CustomTable = ({
       width: 200,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Resource</Typography>,
+      renderHeader: () => <AccountsTableHead>Resource</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.resource}</Typography>;
       },
@@ -97,7 +98,7 @@ const CustomTable = ({
       width: 200,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Event Type</Typography>,
+      renderHeader: () => <AccountsTableHead>Event Type</AccountsTableHead>,
       renderCell: (params) => {
         return (
           <Typography variant="body2">

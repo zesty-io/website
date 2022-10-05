@@ -1,9 +1,10 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import { grey } from '@mui/material/colors';
 
 export const AccountsThemeToggler = () => {
   const theme = useTheme();
@@ -20,7 +21,7 @@ export const AccountsThemeToggler = () => {
         borderRadius: 1,
         minWidth: 'auto',
         padding: 0.7,
-        borderColor: alpha(theme.palette.divider, 0.2),
+        borderColor: grey[200],
       }}
     >
       {mode === 'light' ? (

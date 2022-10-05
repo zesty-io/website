@@ -4,13 +4,14 @@ import { DataGrid } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
 import { Stack, Typography } from '@mui/material';
 
-const NoResultsOverlay = () => {
-  return (
-    <Stack height="100%" alignItems="center" justifyContent="center">
-      <Typography variant="h5">No results</Typography>
-    </Stack>
-  );
-};
+// const NoResultsOverlay = () => {
+//   return (
+//     <Stack height="100%" alignItems="center" justifyContent="center">
+//       <Typography variant="h5">No results</Typography>
+//     </Stack>
+//   );
+// };
+
 const NoRowsOverlay = () => {
   return (
     <Stack height="100%" alignItems="center" justifyContent="center">
@@ -27,6 +28,7 @@ const Index = ({
   hideFooter = true,
   autoHeight = true,
   rowHeight = 70,
+  NoData = NoRowsOverlay,
 }) => {
   return (
     <Box
@@ -70,8 +72,8 @@ const Index = ({
         experimentalFeatures={{ newEditingApi: true }}
         hideFooter={hideFooter}
         components={{
-          NoResultsOverlay,
-          NoRowsOverlay,
+          // NoResultsOverlay,
+          NoRowsOverlay: NoData,
         }}
       />
     </Box>

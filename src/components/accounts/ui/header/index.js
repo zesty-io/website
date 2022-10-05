@@ -34,11 +34,3 @@ const Index = ({ title, description, children }) => {
   );
 };
 export const AccountsHeader = React.memo(Index);
-
-export const AccountsTableHead = ({ children }) => {
-  return (
-    <Typography variant="body1" color={'text.primary'}>
-      {children}
-    </Typography>
-  );
-};

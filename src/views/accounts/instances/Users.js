@@ -9,6 +9,7 @@ import {
   AccountsTable,
   AccountSelect,
   AccountsInput,
+  AccountsTableHead,
 } from 'components/accounts';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
@@ -20,10 +21,7 @@ import { useFormik } from 'formik';
 import * as helpers from 'utils';
 import { hashMD5 } from 'utils/Md5Hash';
 import dayjs from 'dayjs';
-import {
-  AccountsHeader,
-  AccountsTableHead,
-} from 'components/accounts/ui/header';
+import { AccountsHeader } from 'components/accounts/ui/header';
 import { AccountsPopover } from 'components/accounts/ui/popover';
 
 const MySwal = withReactContent(Swal);

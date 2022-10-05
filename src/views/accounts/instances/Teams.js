@@ -5,6 +5,7 @@ import {
   AccountsHeader,
   AccountsPopover,
   AccountsTable,
+  AccountsTableHead,
   accountsValidations,
   DeleteMsg,
   FormSelect,
@@ -47,7 +48,7 @@ const CustomTable = ({
       width: 400,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Team Name</Typography>,
+      renderHeader: () => <AccountsTableHead>Team Name</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.name}</Typography>;
       },
@@ -58,7 +59,7 @@ const CustomTable = ({
       width: 600,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Description</Typography>,
+      renderHeader: () => <AccountsTableHead>Description</AccountsTableHead>,
       renderCell: (params) => {
         return (
           <Typography variant="body2">{params.row.description}</Typography>
@@ -106,6 +107,7 @@ const CustomTable = ({
         columns={COLUMNS}
         pageSize={100}
         autoHeight={true}
+        NoData={cta}
       />
     </Stack>
   );
@@ -279,6 +281,13 @@ const Main = ({
     description: `Manage your Teams`,
   };
 
+  const Nodata = () => {
+    return (
+      <Stack height="100%" alignItems="center" justifyContent="center">
+        <Typography variant="h5">No Results</Typography>
+      </Stack>
+    );
+  };
   return (
     <Grid container>
       <AccountsHeader {...headerProps}>
@@ -301,20 +310,11 @@ const Main = ({
           data={teams}
           handleDeleteTeamModal={handleDeleteTeamModal}
           isInstanceOwner={isInstanceOwner}
-          cta={
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={handleAddTeamModal}
-            >
-              Add Team
-            </Button>
-          }
+          cta={Nodata}
         />
       </Grid>
       {/* <BaseRolesTable /> */}
     </Grid>
   );
 };
-
 export const Teams = React.memo(Main);
