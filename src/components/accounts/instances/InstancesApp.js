@@ -168,7 +168,7 @@ function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
             })}
           >
             <ListItemButton color="warning" sx={{ borderRadius: '5px' }}>
-              <ListItemIcon>{list.icon}</ListItemIcon>
+              <ListItemIcon sx={{ minWidth: 40 }}>{list.icon}</ListItemIcon>
               <ListItemText
                 primary={
                   <Typography variant="body1">

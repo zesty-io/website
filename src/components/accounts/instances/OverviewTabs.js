@@ -13,6 +13,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import dayjs from 'dayjs';
 import InfoIcon from '@mui/icons-material/Info';
+import { grey } from '@mui/material/colors';
 
 const FieldComponent = ({
   label = '',
@@ -57,6 +58,10 @@ const FieldComponent = ({
       <TextField
         sx={(theme) => ({
           bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
+          '& fieldset': {
+            border: `1px solid ${grey[200]}`,
+            borderRadius: '8px',
+          },
         })}
         value={value}
         InputProps={{
@@ -145,7 +150,7 @@ export const OverviewTabs = ({ instance, handleClearCache }) => {
         width: '100%',
         height: '100%',
         [theme.breakpoints.up('lg')]: {
-          bgcolor: 'background.level2',
+          bgcolor: theme.palette.grey[50],
         },
       })}
     >

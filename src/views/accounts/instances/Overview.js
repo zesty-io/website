@@ -142,7 +142,7 @@ export const Overview = ({
 
   return (
     <Box>
-      <Stack px={5} pt={2} pb={4} bgcolor="background.level2">
+      <Stack px={5} pt={2} pb={4} sx={{ background: theme.palette.grey[50] }}>
         <Stack
           pb={4}
           direction={{ xs: 'column', md: 'row' }}

@@ -302,7 +302,7 @@ const Index = ({
         <AccountsInput
           search={search}
           setsearch={setsearch}
-          placeholder=" Seach users"
+          placeholder=" Search users"
           width={250}
         />
         <Button

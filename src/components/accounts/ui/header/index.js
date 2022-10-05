@@ -15,7 +15,9 @@ const Index = ({ title, description, children }) => {
       <Stack>
         <Stack direction="row" justifyContent={'space-between'} width={1}>
           <Stack direction="row" alignItems={'center'} gap={0.5}>
-            <Typography variant="h4">{title}</Typography>
+            <Typography variant="h4" color={'text.primary'}>
+              {title}
+            </Typography>
             <HelpOutlineIcon color="disabled" />
           </Stack>
           <Stack direction={'row'} gap={2}>

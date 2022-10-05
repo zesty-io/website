@@ -40,24 +40,31 @@ export default function InstanceHeader({ instance }) {
           />
         </Stack>
       ) : (
-        <CardMedia
-          component="img"
-          height="100%"
-          image={FillerContent.image}
-          alt="screenshot"
-          sx={{ p: 2 }}
-        />
+        <Stack p={1.5}>
+          <CardMedia
+            component="img"
+            height="100%"
+            image={FillerContent.image}
+            alt="screenshot"
+            sx={{ boxShadow: 1, borderRadius: '15px' }}
+          />
+        </Stack>
       )}
 
       <CardContent>
-        <Typography gutterBottom variant="h4" component="div">
+        <Typography
+          gutterBottom
+          variant="h4"
+          color={'text.primary'}
+          component="div"
+        >
           {instance?.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Last updated {dayjs(instance.updatedAt).fromNow()}
         </Typography>
       </CardContent>
-      <CardActions sx={{ pb: 1, px: 2 }}>
+      <CardActions sx={{ pb: 2, px: 2 }}>
         <Button
           color="primary"
           target="_blank"

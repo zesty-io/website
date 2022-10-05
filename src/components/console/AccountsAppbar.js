@@ -61,11 +61,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
   }, [instanceZUID]);
 
   return (
-    <Box
-      sx={{
-        py: 1,
-      }}
-    >
+    <Box>
       <>
         <Box
           sx={{

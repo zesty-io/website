@@ -3,8 +3,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
-import { NavItem } from 'layouts/Main/components/Topbar/components';
 import { accounts } from 'components/accounts/constants';
+import { AccountsNavItem } from 'layouts/Main/components/Topbar/components/NavItem/AccountsNavItem';
 
 export const DeveloperDocMenu = ({}) => {
   const router = useRouter();
@@ -20,7 +20,7 @@ export const DeveloperDocMenu = ({}) => {
 
   return (
     <Box>
-      <NavItem
+      <AccountsNavItem
         title={'Documentation'}
         id={'documentation'}
         items={accounts.developerDocs}
