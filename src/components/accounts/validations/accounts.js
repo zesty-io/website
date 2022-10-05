@@ -35,6 +35,13 @@ const login = yup.object().shape({
     .min(8, 'Must be atleast 8 Characters*')
     .required('Password is required*'),
 });
+const addEmail = yup.object().shape({
+  email: yup
+    .string()
+    .email('Email is invalid format')
+    .required('Email is required*'),
+  name: yup.string().required('Description is required*'),
+});
 const email = yup.object().shape({
   name: yup
     .string()
@@ -153,4 +160,5 @@ export const accountsValidations = {
   forgotPassword,
   resetPassword,
   updateTeam,
+  addEmail,
 };

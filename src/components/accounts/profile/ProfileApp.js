@@ -14,8 +14,6 @@ import {
   ListItemIcon,
   ListItemText,
   lighten,
-  Divider,
-  capitalize,
   Container,
   Tabs,
   Tab,
@@ -174,13 +172,14 @@ const Index = ({ children }) => {
           </Grid>
 
           <Grid item md={9} lg={10}>
-            <Container maxWidth={false}>
+            {/* <Container maxWidth={false}>
               <Typography py={2} variant="h5" color="text.secondary">
                 {currentPage ? capitalize(currentPage) : 'Overview'}
               </Typography>
             </Container>
-            <Divider sx={{ mb: 2 }} />
-            <Container maxWidth={false}>{children}</Container>
+            <Divider sx={{ mb: 2 }} /> */}
+            {/* <Container maxWidth={false}>{children}</Container> */}
+            {children}
           </Grid>
         </Grid>
       ) : (
