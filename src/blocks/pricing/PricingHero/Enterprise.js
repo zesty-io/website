@@ -52,7 +52,6 @@ const Enterprise = ({ data }) => {
     },
   ];
 
-  console.log(data);
   return (
     <Box>
       <Card
@@ -134,7 +133,7 @@ const Enterprise = ({ data }) => {
             }}
             container
           >
-            <Grid xs={12} sm={6} lg={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Box
                 sx={{
                   display: 'flex',
@@ -147,21 +146,21 @@ const Enterprise = ({ data }) => {
                 ))}
               </Box>
             </Grid>
-            <Grid xs={12} sm={6} lg={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 {features.slice(3, 6).map((item, idx) => (
                   <FeatureItem key={idx} item={item?.feature} white />
                 ))}
               </Box>
             </Grid>
-            <Grid xs={12} sm={6} lg={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 {features.slice(6, 9).map((item, idx) => (
                   <FeatureItem key={idx} item={item?.feature} white />
                 ))}
               </Box>
             </Grid>
-            <Grid xs={12} sm={6} lg={3}>
+            <Grid item xs={12} sm={6} lg={3}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 {features.slice(9, 12).map((item, idx) => (
                   <FeatureItem key={idx} item={item?.feature} white />

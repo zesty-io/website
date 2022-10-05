@@ -31,7 +31,6 @@ const FreeCommunityPlan = ({ data }) => {
     },
   ];
 
-  console.log('community', data);
   const theme = useTheme();
   return (
     <Box>
