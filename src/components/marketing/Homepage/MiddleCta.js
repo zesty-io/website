@@ -32,6 +32,7 @@ const MiddleCta = ({
         sx={{
           background: theme.palette.zesty.zestyDarkBlueRadialGradient,
           py: 10,
+          mt: 15,
           borderRadius: 5,
         }}
       >
@@ -86,7 +87,8 @@ const MiddleCta = ({
               color="secondary"
               variant="outlined"
               sx={{
-                color: theme.palette.zesty.zetsyOrange,
+                color: theme.palette.common.white,
+                border: `1px solid ${theme.palette.common.white}`,
               }}
             >
               {cta_secondary_text || FillerContent.cta}

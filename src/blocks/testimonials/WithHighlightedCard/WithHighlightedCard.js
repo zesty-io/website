@@ -10,59 +10,62 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-
+import MuiMarkdown from 'mui-markdown';
 import Container from 'components/Container';
+import Star from '../../../../public/assets/images/homepage/star.svg';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
-const mock = [
-  {
-    feedback:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    name: 'Clara Bertoletti',
-    title: 'MUI lover',
-    avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
-  },
-  {
-    feedback:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    name: 'Jhon Anderson',
-    title: 'Senior Frontend Developer',
-    avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
-  },
-  {
-    feedback:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    name: 'Chary Smith',
-    title: 'SEO at Comoti',
-    avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-  },
-];
-
-const WithHighlightedCard = () => {
+const WithHighlightedCard = ({ title, data }) => {
   const theme = useTheme();
+
+  const testimonialData = data.map((item) => {
+    return {
+      feedback: item.review,
+      name: item.reviewer_name,
+      title: item.reviewer_title,
+      avatar: item.reviewer_headshot.data[0].url,
+      star_rating: parseInt(item.star_rating),
+    };
+  });
+
+  console.log(data);
 
   return (
     <Container>
-      <Box>
-        <Box marginBottom={4}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-              marginTop: theme.spacing(1),
+      <Box sx={{ mt: 15 }}>
+        <Box sx={{ my: 5 }}>
+          <MuiMarkdown
+            overrides={{
+              h1: {
+                component: Typography,
+                props: {
+                  component: 'h2',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'left !important',
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  variant: 'h6',
+                  sx: {
+                    textAlign: 'left !important',
+                    color: theme.palette.zesty.zestyZambezi,
+                  },
+                },
+              },
             }}
           >
-            Rated 5 out of 5 stars by our customers!
-          </Typography>
-          <Typography variant="h6" color={'text.secondary'}>
-            Companies from across the globe have had fantastic experiences using
-            theFront.
-            <br />
-            Here’s what they have to say.
-          </Typography>
+            {title}
+          </MuiMarkdown>
         </Box>
         <Grid container spacing={4}>
-          {mock.map((item, i) => (
+          {testimonialData.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box
                 width={1}
@@ -81,18 +84,15 @@ const WithHighlightedCard = () => {
                 >
                   <Box marginBottom={1}>
                     <Box display={'flex'} justifyContent={'flex-start'}>
-                      {[1, 2, 3, 4, 5].map((item) => (
-                        <Box key={item} color={theme.palette.secondary.main}>
-                          <svg
-                            width={18}
-                            height={18}
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>
-                        </Box>
+                      {[1, 2, 3, 4, 5].map(() => (
+                        <ZestyImage
+                          width={20}
+                          height={20}
+                          style={{ paddingLeft: 0.5, paddingRight: 0.5 }}
+                          loading="lazy"
+                          src={Star.src}
+                          alt="star rating"
+                        />
                       ))}
                     </Box>
                   </Box>

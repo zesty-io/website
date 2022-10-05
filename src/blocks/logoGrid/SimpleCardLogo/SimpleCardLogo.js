@@ -61,7 +61,10 @@ const SimpleCardLogo = ({
             {heading_text}
           </MuiMarkdown>
         )}
-        <Card sx={{ py: 2 }}>
+        <Card
+          variant={variant}
+          sx={{ py: 2, border: variant === 'outlined' ? 'none' : '' }}
+        >
           <CardContent>
             {!textOutside && (
               <MuiMarkdown
@@ -97,7 +100,7 @@ const SimpleCardLogo = ({
                 <Box key={index} sx={{ display: 'flex' }}>
                   <ZestyImage
                     width={150}
-                    height={50}
+                    height={45}
                     loading="lazy"
                     style={{
                       filter: isDarkMode
