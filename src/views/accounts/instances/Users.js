@@ -297,10 +297,9 @@ const Index = ({
           onClick={() =>
             handleInviteUserModal(createInvite, baseroles, instanceZUID)
           }
-          sx={{ gap: 1 }}
+          startIcon={<AddIcon />}
         >
-          <AddIcon />
-          <Typography>Invite user</Typography>
+          Invite user
         </Button>
       </AccountsHeader>
       <Grid item xs={12}>

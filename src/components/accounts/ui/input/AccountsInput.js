@@ -11,12 +11,12 @@ export const AccountsInput = ({
 }) => {
   return (
     <TextField
-      sx={{
+      sx={(theme) => ({
         width,
-        background: grey[50],
+        bgcolor: theme.palette.mode === 'light' ? grey[50] : '',
         borderRadius: '4px',
         '& fieldset': { border: 'none' },
-      }}
+      })}
       size="small"
       placeholder={placeholder}
       value={search}

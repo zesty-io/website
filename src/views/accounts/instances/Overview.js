@@ -10,7 +10,7 @@ import {
   Chip,
 } from '@mui/material';
 import { AOverviewCards, OverviewTabs } from 'components/accounts';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
+// import CreditCardIcon from '@mui/icons-material/CreditCard';
 import CachedIcon from '@mui/icons-material/Cached';
 import { Group, Language } from '@mui/icons-material';
 import { purple } from '@mui/material/colors';
@@ -170,7 +170,7 @@ export const Overview = ({
             >
               Clear Cache
             </Button>
-            <Button
+            {/* <Button
               onClick={() => {}}
               variant="contained"
               color="inherit"
@@ -188,7 +188,7 @@ export const Overview = ({
               startIcon={<CreditCardIcon color="disabled" />}
             >
               Review Billing
-            </Button>
+            </Button> */}
           </Stack>
         </Stack>
 

@@ -1,8 +1,7 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import {
   Container,
-  Grid,
   IconButton,
   InputAdornment,
   Stack,
@@ -11,20 +10,16 @@ import {
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import dayjs from 'dayjs';
 import InfoIcon from '@mui/icons-material/Info';
 
-const FieldComponent = ({
-  label = '',
-  value = '',
-  copyToClipboard = () => {},
-  copy = true,
-  settext = () => {},
-  text = '',
-}) => {
-  const handleClick = () => {
-    copyToClipboard(value);
-    settext(value);
+const FieldComponent = ({ label = '', value = '', copy = true }) => {
+  const [isCopied, setIsCopied] = useState(false);
+  const copyToClipboard = (text) => {
+    navigator?.clipboard?.writeText(text);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 300);
   };
 
   if (!copy) {
@@ -32,7 +27,7 @@ const FieldComponent = ({
       <Box sx={{ width: '15rem' }}>
         <Typography variant="text.body2">{label}</Typography>
         <Box
-          onClick={handleClick}
+          onClick={() => copyToClipboard(value)}
           sx={{
             borderRadius: '5px',
             display: 'flex',
@@ -64,10 +59,12 @@ const FieldComponent = ({
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
-                onClick={handleClick}
+                onClick={() => {
+                  copyToClipboard(value);
+                }}
                 edge="end"
               >
-                {text === value ? (
+                {isCopied ? (
                   <CheckCircleOutlineIcon color="inherit" />
                 ) : (
                   <ContentCopyIcon color="inherit" />
@@ -81,67 +78,14 @@ const FieldComponent = ({
   );
 };
 
-const OverviewContent = ({ instance }) => {
-  const [text, settext] = React.useState('');
-  const copyToClipboard = (data) => {
-    navigator?.clipboard?.writeText(data);
-  };
-  return (
-    <Box>
-      <Grid container spacing={4} mb={4}>
-        <Grid item xs={6}>
-          <FieldComponent
-            copyToClipboard={copyToClipboard}
-            settext={settext}
-            text={text}
-            label={'Instance Zuid'}
-            value={instance.ZUID}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <FieldComponent
-            settext={settext}
-            text={text}
-            copyToClipboard={() => {}}
-            label={'Created Date'}
-            copy={false}
-            value={dayjs(instance.createdAt).format('MMMM D, YYYY')}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <FieldComponent
-            settext={settext}
-            text={text}
-            copyToClipboard={copyToClipboard}
-            label={'Numeric Id'}
-            value={instance.ID}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <FieldComponent
-            copyToClipboard={copyToClipboard}
-            label={'Hash Id'}
-            value={instance.randomHashID}
-            settext={settext}
-            text={text}
-          />
-        </Grid>
-      </Grid>
-    </Box>
-  );
-};
-
-export const OverviewTabs = ({ instance, handleClearCache }) => {
-  const copyToClipboard = (data) => {
-    navigator?.clipboard?.writeText(data);
-  };
+export const OverviewTabs = ({ instance }) => {
   return (
     <Container
       sx={(theme) => ({
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
-        pt: 4,
+        py: 4,
         width: '100%',
         height: '100%',
         [theme.breakpoints.up('lg')]: {
@@ -149,27 +93,9 @@ export const OverviewTabs = ({ instance, handleClearCache }) => {
         },
       })}
     >
-      <FieldComponent
-        copyToClipboard={copyToClipboard}
-        // settext={settext}
-        // text={text}
-        label={'Instance ZUID'}
-        value={instance.ZUID}
-      />
-      <FieldComponent
-        copyToClipboard={copyToClipboard}
-        // settext={settext}
-        // text={text}
-        label={'Numeric ID'}
-        value={instance.ID}
-      />
-      <FieldComponent
-        copyToClipboard={copyToClipboard}
-        // settext={settext}
-        // text={text}
-        label={'Hash ID'}
-        value={instance.randomHashID}
-      />
+      <FieldComponent label="Instance ZUID" value={instance.ZUID} />
+      <FieldComponent label="Numeric ID" value={instance.ID} />
+      <FieldComponent label="Hash ID" value={instance.randomHashID} />
     </Container>
   );
 };
