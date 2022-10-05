@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../loading';
 import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { AccountsTableHead } from './AccountsTableHead';
 
 const Index = ({
   rows,
@@ -57,8 +58,12 @@ const Index = ({
               <TableRow>
                 {columns?.map((e) => {
                   return (
-                    <TableCell width={350} align="left">
-                      <Typography variant="body1">{e.label}</Typography>
+                    <TableCell
+                      width={350}
+                      align="left"
+                      sx={{ backgroundColor: grey[200], borderTop: '50px' }}
+                    >
+                      <AccountsTableHead>{e.label}</AccountsTableHead>
                     </TableCell>
                   );
                 })}

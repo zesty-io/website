@@ -26,11 +26,10 @@ export default function InstanceHeader({ instance }) {
         maxWidth: '100%',
         borderRadius: 0,
         boxShadow: 'none',
-        borderBottom: `1px solid ${grey[300]}`,
       }}
     >
       {instance?.screenshotURL ? (
-        <Stack p={1.5}>
+        <Stack py={2} pl={4} pr={2}>
           <CardMedia
             component="img"
             height="100%"
@@ -64,35 +63,51 @@ export default function InstanceHeader({ instance }) {
           Last updated {dayjs(instance.updatedAt).fromNow()}
         </Typography>
       </CardContent>
-      <CardActions sx={{ pb: 2, px: 2 }}>
-        <Button
-          color="primary"
-          target="_blank"
-          variant="contained"
-          fullWidth
-          href={managerURl}
-          startIcon={<CreateIcon />}
+      <CardActions
+        sx={{
+          px: 2,
+        }}
+      >
+        <Stack
+          width={1}
+          direction={'row'}
+          spacing={2}
           sx={{
-            whiteSpace: {
-              md: 'nowrap',
-            },
+            pb: 2,
+            borderBottom: `1px solid ${grey[200]}`,
           }}
         >
-          Open Manager
-        </Button>
-        <Button
-          variant="outlined"
-          target="_blank"
-          color="inherit"
-          href={webengineUrl}
-          sx={{
-            backgroundColor: '#fff',
-            borderColor: grey[300],
-            color: grey[500],
-          }}
-        >
-          <VisibilityIcon />
-        </Button>
+          <Button
+            color="primary"
+            target="_blank"
+            variant="contained"
+            fullWidth
+            title={managerURl}
+            href={managerURl}
+            startIcon={<CreateIcon />}
+            sx={{
+              whiteSpace: {
+                md: 'nowrap',
+              },
+            }}
+          >
+            Open Manager
+          </Button>
+          <Button
+            variant="outlined"
+            target="_blank"
+            color="inherit"
+            title={webengineUrl}
+            href={webengineUrl}
+            sx={{
+              backgroundColor: '#fff',
+              borderColor: grey[300],
+              color: grey[500],
+            }}
+          >
+            <VisibilityIcon />
+          </Button>
+        </Stack>
       </CardActions>
     </Card>
   );

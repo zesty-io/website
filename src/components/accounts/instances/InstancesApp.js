@@ -146,10 +146,11 @@ const Index = ({ children }) => {
 
 function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
   return (
-    <Box px={1} py={1} pb={5}>
+    <Box px={1} pb={5}>
       <List>
         {lists.map((list, index) => (
           <ListItem
+            title={lang[langcode].tabs[list.filename]}
             key={index}
             onClick={() => handleChange(list.filename)}
             disablePadding

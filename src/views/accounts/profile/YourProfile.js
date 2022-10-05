@@ -12,6 +12,7 @@ import {
   AccountsHeader,
   AccountsPopover,
   AccountsTable,
+  AccountsTableHead,
   EmailForm,
   ErrorMsg,
   FormInput,
@@ -40,7 +41,7 @@ const CustomTable = ({ emails, userInfo, deleteEmail, loading }) => {
       width: 400,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Email</Typography>,
+      renderHeader: () => <AccountsTableHead>Email</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.address}</Typography>;
       },
@@ -51,7 +52,7 @@ const CustomTable = ({ emails, userInfo, deleteEmail, loading }) => {
       width: 400,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Description</Typography>,
+      renderHeader: () => <AccountsTableHead>Description</AccountsTableHead>,
       renderCell: (params) => {
         return (
           <Typography variant="body2">{params.row.name || '-'}</Typography>
@@ -64,7 +65,7 @@ const CustomTable = ({ emails, userInfo, deleteEmail, loading }) => {
       width: 200,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Primary</Typography>,
+      renderHeader: () => <AccountsTableHead>Primary</AccountsTableHead>,
       renderCell: (params) => {
         const isPrimary =
           params?.row?.address === userInfo?.email ? (
@@ -81,7 +82,7 @@ const CustomTable = ({ emails, userInfo, deleteEmail, loading }) => {
       width: 200,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Verified</Typography>,
+      renderHeader: () => <AccountsTableHead>Verified</AccountsTableHead>,
       renderCell: (params) => {
         const isVerified = params.row.responseReceived ? (
           <CheckCircleIcon color="success" />

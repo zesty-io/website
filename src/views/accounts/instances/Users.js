@@ -27,6 +27,7 @@ import { AccountsPopover } from 'components/accounts/ui/popover';
 const MySwal = withReactContent(Swal);
 
 const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
+  console.log(instanceRoles, '::::');
   switch (role) {
     case 'Owner':
       return <Typography>{role}</Typography>;
@@ -72,7 +73,7 @@ const CustomTable = ({
         const profileUrl =
           'https://www.gravatar.com/avatar/' + hashMD5(params.row?.email);
         return (
-          <Stack direction="row" alignItems={'center'} gap={2}>
+          <Stack direction="row" alignItems={'center'} gap={4} pl={1}>
             <img
               src={profileUrl}
               alt="User"
@@ -98,7 +99,7 @@ const CustomTable = ({
       headerName: 'Role',
       width: 250,
       editable: false,
-      sortable: false,
+      sortable: true,
       renderHeader: () => <AccountsTableHead>Role</AccountsTableHead>,
       renderCell: (params) => {
         const e = params.row;
@@ -139,10 +140,10 @@ const CustomTable = ({
     },
     {
       field: 'lastLogin',
-      headerName: 'Last Login',
+      headerName: 'Last Active',
       width: 250,
       editable: false,
-      renderHeader: () => <AccountsTableHead>Last Login</AccountsTableHead>,
+      renderHeader: () => <AccountsTableHead>Last Active</AccountsTableHead>,
       renderCell: (params) => {
         const date = dayjs(params.row.lastLogin).format('MMM DD, YYYY');
         return (

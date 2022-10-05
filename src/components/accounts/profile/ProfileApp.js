@@ -17,6 +17,7 @@ import {
   Container,
   Tabs,
   Tab,
+  Stack,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
@@ -30,30 +31,34 @@ import { useTheme } from '@mui/material/styles';
 
 const ProfileNavigation = ({ lists, handleChange, currentPage = '' }) => {
   return (
-    <Box px={1} py={1} pb={5}>
+    <Box px={1} pb={5}>
       <List>
         {lists.map((list, index) => (
           <ListItem
+            title={list.label}
             key={index}
             onClick={() => handleChange(list.filename)}
             disablePadding
             selected={list.filename === currentPage}
             sx={(theme) => ({
-              mb: 1,
-              borderRadius: '4px',
+              mb: 0.5,
+              borderRadius: '5px',
+              color: theme.palette.text.secondary,
               '&.Mui-selected': {
                 ' .MuiListItemIcon-root': {
                   color: theme.palette.primary.main,
                 },
                 bgcolor: lighten(theme.palette.primary.light, 0.9),
-                color: theme.palette.primary.main,
                 pointerEvents: 'none',
+                color: theme.palette.primary.main,
               },
             })}
           >
             <ListItemButton color="warning">
-              <ListItemIcon>{list.icon}</ListItemIcon>
-              <ListItemText primary={list.label} />
+              <ListItemIcon sx={{ minWidth: 40 }}>{list.icon}</ListItemIcon>
+              <ListItemText
+                primary={<Typography variant="body1">{list.label}</Typography>}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -93,22 +98,24 @@ const ProfileHeader = ({ userInfo }) => {
         maxWidth: '100%',
         borderRadius: 0,
         boxShadow: 'none',
-        borderBottom: `1px solid ${grey[300]}`,
+        // borderBottom: `1px solid ${grey[300]}`,
       }}
     >
       {profileUrl ? (
-        <CardMedia
-          component="img"
-          height="100%"
-          sx={{ p: 5 }}
-          image={profileUrl}
-          alt="screenshot"
-        />
+        <Stack py={2} pl={4} pr={2}>
+          <CardMedia
+            component="img"
+            height="100%"
+            image={profileUrl}
+            alt="screenshot"
+            sx={{ boxShadow: 1, borderRadius: '15px' }}
+          />
+        </Stack>
       ) : (
         <Skeleton variant="rectangular" height="150px" />
       )}
 
-      <CardContent>
+      <CardContent sx={{ borderBottom: `1px solid ${grey[200]}` }}>
         <Typography gutterBottom variant="h5" component="div">
           {name}
         </Typography>
@@ -152,7 +159,7 @@ const Index = ({ children }) => {
             md={3}
             lg={2}
             sx={{
-              borderRight: `1px solid ${grey[300]}`,
+              // borderRight: `1px solid ${grey[300]}`,
               maxWidth: { md: '384px' },
               position: 'sticky',
               top: '60px',

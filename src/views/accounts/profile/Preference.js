@@ -5,6 +5,7 @@ import {
   AccountsHeader,
   AccountsSelect,
   AccountsTable,
+  AccountsTableHead,
   ErrorMsg,
   SuccessMsg,
 } from 'components/accounts';
@@ -92,7 +93,7 @@ export const Preference = () => {
       editable: false,
       sortable: false,
       renderHeader: () => (
-        <Typography variant="body1">Preference Name</Typography>
+        <AccountsTableHead>Preference Name</AccountsTableHead>
       ),
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.name}</Typography>;
@@ -104,7 +105,7 @@ export const Preference = () => {
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Description</Typography>,
+      renderHeader: () => <AccountsTableHead>Description</AccountsTableHead>,
       renderCell: (params) => {
         return (
           <Typography variant="body2">{params.row.description}</Typography>

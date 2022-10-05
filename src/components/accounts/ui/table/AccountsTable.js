@@ -42,9 +42,9 @@ const Index = ({
       <DataGrid
         autoHeight={autoHeight}
         sx={{
-          // '& .MuiDataGrid-columnHeaders': {
-          //   bgcolor: grey[50],
-          // },
+          '& .MuiDataGrid-columnHeaders': {
+            bgcolor: grey[50],
+          },
           '.MuiDataGrid-columnSeparator': {
             display: true ? 'none' : '',
           },

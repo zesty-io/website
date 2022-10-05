@@ -131,7 +131,7 @@ export default function DomainListings({
       editable: false,
       sortable: false,
       renderHeader: () => (
-        <Typography variant="body1">Production Live Domains</Typography>
+        <AccountsTableHead>Production Live Domains</AccountsTableHead>
       ),
       renderCell: (params) => {
         return (
@@ -147,7 +147,7 @@ export default function DomainListings({
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Branch</Typography>,
+      renderHeader: () => <AccountsTableHead>Branch</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.branch}</Typography>;
       },
@@ -158,7 +158,7 @@ export default function DomainListings({
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Created On</Typography>,
+      renderHeader: () => <AccountsTableHead>Created On</AccountsTableHead>,
       renderCell: (params) => {
         return (
           <Typography variant="body2">
