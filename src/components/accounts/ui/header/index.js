@@ -23,7 +23,7 @@ const Index = ({ title, description, children }) => {
           </Stack>
         </Stack>
         <Stack pt={2}>
-          <Typography variant="body2" color={'black'}>
+          <Typography variant="body2" color={'text.secondary'}>
             {description}
           </Typography>
         </Stack>

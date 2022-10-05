@@ -28,7 +28,7 @@ const MySwal = withReactContent(Swal);
 const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
   switch (role) {
     case 'Owner':
-      return <>{role}</>;
+      return <Typography>{role}</Typography>;
     default:
       return (
         <AccountSelect
@@ -61,7 +61,7 @@ const CustomTable = ({
     {
       field: 'name',
       headerName: 'Name',
-      width: 350,
+      width: 500,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Name</Typography>,
@@ -81,7 +81,7 @@ const CustomTable = ({
             />
             <Stack>
               <Typography variant="body2">{name}</Typography>
-              <Typography variant="caption" color={'GrayText'}>
+              <Typography variant="caption" color={'text.secondary'}>
                 {email}
               </Typography>
             </Stack>
@@ -93,7 +93,7 @@ const CustomTable = ({
     {
       field: 'role',
       headerName: 'Role',
-      width: 350,
+      width: 250,
       editable: false,
       sortable: false,
       renderHeader: () => <Typography variant="body1">Role</Typography>,
@@ -127,7 +127,11 @@ const CustomTable = ({
       renderHeader: () => <Typography variant="body1">Date Added</Typography>,
       renderCell: (params) => {
         const date = dayjs(params.row.createdAt).format('MMM DD, YYYY');
-        return <Typography variant="body2">{date}</Typography>;
+        return (
+          <Typography variant="body2" color={'text.secondary'}>
+            {date}
+          </Typography>
+        );
       },
     },
     {
@@ -138,14 +142,18 @@ const CustomTable = ({
       renderHeader: () => <Typography variant="body1">Last Login</Typography>,
       renderCell: (params) => {
         const date = dayjs(params.row.lastLogin).format('MMM DD, YYYY');
-        return <Typography variant="body2">{date}</Typography>;
+        return (
+          <Typography variant="body2" color={'text.secondary'}>
+            {date}
+          </Typography>
+        );
       },
     },
 
     {
       field: 'action',
       headerName: '',
-      width: 110,
+      width: 100,
       editable: false,
       sortable: false,
       renderCell: (params) => {

@@ -11,11 +11,10 @@ export const AccountsInput = ({
 }) => {
   return (
     <TextField
+      variant="outlined"
       sx={{
         width,
-        background: grey[50],
-        borderRadius: '4px',
-        '& fieldset': { border: 'none' },
+        '& fieldset': { border: `1px solid ${grey[400]}`, borderRadius: '8px' },
       }}
       size="small"
       placeholder={placeholder}
