@@ -13,7 +13,7 @@ import { AOverviewCards, OverviewTabs } from 'components/accounts';
 // import CreditCardIcon from '@mui/icons-material/CreditCard';
 import CachedIcon from '@mui/icons-material/Cached';
 import { Group, Language } from '@mui/icons-material';
-import { purple } from '@mui/material/colors';
+import { grey, purple } from '@mui/material/colors';
 import { Timeline } from '@mui/lab';
 import ZTimelineItem from 'components/accounts/dashboard/ui/ZTimelineItem';
 import ZInstanceTimelineItemContainer from 'components/accounts/dashboard/ui/ZInstanceTimelineItemContainer';
@@ -142,7 +142,7 @@ export const Overview = ({
 
   return (
     <Box>
-      <Stack px={5} pt={2} pb={4} bgcolor="background.level2">
+      <Stack px={5} pt={2} pb={4} sx={{ background: theme.palette.grey[50] }}>
         <Stack
           pb={4}
           direction={{ xs: 'column', md: 'row' }}
@@ -156,6 +156,7 @@ export const Overview = ({
               variant="contained"
               color="inherit"
               sx={(theme) => ({
+                border: `1px solid ${grey[200]}`,
                 bgcolor:
                   theme.palette.mode === 'light'
                     ? 'white'
@@ -175,6 +176,7 @@ export const Overview = ({
               variant="contained"
               color="inherit"
               sx={(theme) => ({
+                border: `1px solid ${grey[200]}`,
                 bgcolor:
                   theme.palette.mode === 'light'
                     ? 'white'

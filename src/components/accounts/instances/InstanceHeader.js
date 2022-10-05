@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Stack,
   Typography,
 } from '@mui/material';
 import React from 'react';
@@ -25,62 +26,88 @@ export default function InstanceHeader({ instance }) {
         maxWidth: '100%',
         borderRadius: 0,
         boxShadow: 'none',
-        borderBottom: `1px solid ${grey[300]}`,
       }}
     >
       {instance?.screenshotURL ? (
-        <CardMedia
-          component="img"
-          height="100%"
-          image={instance?.screenshotURL}
-          alt="screenshot"
-        />
+        <Stack py={2} pl={2} pr={2}>
+          <CardMedia
+            component="img"
+            height="150px"
+            image={instance?.screenshotURL}
+            alt="screenshot"
+            sx={{ boxShadow: 1, borderRadius: '8px' }}
+          />
+        </Stack>
       ) : (
-        <CardMedia
-          component="img"
-          height="100%"
-          image={FillerContent.image}
-          alt="screenshot"
-        />
+        <Stack p={1.5}>
+          <CardMedia
+            component="img"
+            height="150px"
+            image={FillerContent.image}
+            alt="screenshot"
+            sx={{ boxShadow: 1, borderRadius: '8px' }}
+          />
+        </Stack>
       )}
 
       <CardContent>
-        <Typography gutterBottom variant="h4" component="div">
+        <Typography
+          gutterBottom
+          variant="h4"
+          color={'text.primary'}
+          component="div"
+        >
           {instance?.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Last updated {dayjs(instance.updatedAt).fromNow()}
         </Typography>
       </CardContent>
-      <CardActions sx={{ pb: 1, px: 2 }}>
-        <Button
-          color="primary"
-          target="_blank"
-          variant="contained"
-          fullWidth
-          href={managerURl}
-          startIcon={<CreateIcon />}
+      <CardActions
+        sx={{
+          px: 2,
+        }}
+      >
+        <Stack
+          width={1}
+          direction={'row'}
+          spacing={2}
           sx={{
-            whiteSpace: {
-              md: 'nowrap',
-            },
+            pb: 2,
+            borderBottom: `1px solid ${grey[200]}`,
           }}
         >
-          Open Manager
-        </Button>
-        <Button
-          variant="outlined"
-          target="_blank"
-          color="inherit"
-          href={webengineUrl}
-          sx={{
-            backgroundColor: '#fff',
-            borderColor: grey[300],
-            color: grey[500],
-          }}
-        >
-          <VisibilityIcon />
-        </Button>
+          <Button
+            color="primary"
+            target="_blank"
+            variant="contained"
+            fullWidth
+            title={managerURl}
+            href={managerURl}
+            startIcon={<CreateIcon />}
+            sx={{
+              whiteSpace: {
+                md: 'nowrap',
+              },
+            }}
+          >
+            Open Manager
+          </Button>
+          <Button
+            variant="outlined"
+            target="_blank"
+            color="inherit"
+            title={webengineUrl}
+            href={webengineUrl}
+            sx={{
+              backgroundColor: '#fff',
+              borderColor: grey[300],
+              color: grey[500],
+            }}
+          >
+            <VisibilityIcon />
+          </Button>
+        </Stack>
       </CardActions>
     </Card>
   );

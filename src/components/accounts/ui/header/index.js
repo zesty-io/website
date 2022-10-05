@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { grey } from '@mui/material/colors';
+// import { grey } from '@mui/material/colors';
 
 const Index = ({ title, description, children }) => {
   return (
@@ -10,7 +10,7 @@ const Index = ({ title, description, children }) => {
       xs={12}
       px={4}
       py={3}
-      sx={{ borderBottom: `1px solid ${grey[200]}` }}
+      // sx={{ borderBottom: `1px solid ${grey[200]}` }}
     >
       <Stack direction={{ xs: 'column', md: 'row' }}>
         <Stack direction="column" justifyContent="space-between">
@@ -29,7 +29,7 @@ const Index = ({ title, description, children }) => {
           mt={{ xs: 1, md: 0 }}
           alignItems="center"
           direction="row"
-          spacing={{ xs: 0, md: 1 }}
+          spacing={{ xs: 0, md: 2 }}
           flexWrap={{ xs: 'wrap', lg: 'nowrap' }}
         >
           {children}

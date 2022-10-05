@@ -5,6 +5,7 @@ import {
   Grid,
   IconButton,
   InputAdornment,
+  Paper,
   TextField,
   Typography,
 } from '@mui/material';
@@ -13,6 +14,7 @@ import { Form, Formik, useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
 import {
+  AccountsHeader,
   Card2Fa,
   ErrorMsg,
   FormInput,
@@ -103,8 +105,10 @@ const ChangePassForm = ({
   setshowNewpass,
 }) => {
   return (
-    <Box>
-      <Typography variant="h4">Change Password</Typography>
+    <Paper boxShadow={4} sx={{ p: 4 }}>
+      <Typography variant="h5" pb={3}>
+        Change Password
+      </Typography>
       <Formik
         initialValues={{
           oldPassword: '',
@@ -215,7 +219,7 @@ const ChangePassForm = ({
           );
         }}
       </Formik>
-    </Box>
+    </Paper>
   );
 };
 
@@ -308,9 +312,14 @@ export const Security = ({ getUser }) => {
 
   const isAuthyEnable = userInfo?.authyEnabled;
 
+  const headerProps = {
+    title: 'Security',
+    description: `Manage your Authentication`,
+  };
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={6}>
+    <Grid container>
+      <AccountsHeader {...headerProps}></AccountsHeader>
+      <Grid item xs={6} px={4} pt={2}>
         <ChangePassForm
           handleSubmit={handleSubmit}
           showOldpass={showOldpass}
@@ -321,7 +330,7 @@ export const Security = ({ getUser }) => {
           setshowNewpass={setshowNewpass}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} px={4} pt={2}>
         <TwoFaForm
           formik={formik}
           isAuthyEnable={isAuthyEnable}

@@ -37,6 +37,7 @@ export const AOverviewCards = ({
           {mainData}
         </Typography>
         <Stack
+          visibility={'hidden'}
           direction={'row'}
           spacing={1}
           alignItems={'center'}

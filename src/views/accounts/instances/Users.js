@@ -9,6 +9,7 @@ import {
   AccountsTable,
   AccountSelect,
   AccountsInput,
+  AccountsTableHead,
 } from 'components/accounts';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
@@ -26,9 +27,10 @@ import { AccountsPopover } from 'components/accounts/ui/popover';
 const MySwal = withReactContent(Swal);
 
 const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
+  console.log(instanceRoles, '::::');
   switch (role) {
     case 'Owner':
-      return <>{role}</>;
+      return <Typography>{role}</Typography>;
     default:
       return (
         <AccountSelect
@@ -61,17 +63,17 @@ const CustomTable = ({
     {
       field: 'name',
       headerName: 'Name',
-      width: 350,
+      width: 500,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Name</Typography>,
+      renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
       renderCell: (params) => {
         const name = `${params.row.firstName} ${params.row.lastName}`;
         const email = `${params.row.email}`;
         const profileUrl =
           'https://www.gravatar.com/avatar/' + hashMD5(params.row?.email);
         return (
-          <Stack direction="row" alignItems={'center'} gap={2}>
+          <Stack direction="row" alignItems={'center'} gap={4} pl={1}>
             <img
               src={profileUrl}
               alt="User"
@@ -80,8 +82,10 @@ const CustomTable = ({
               style={{ borderRadius: '50%' }}
             />
             <Stack>
-              <Typography variant="body2">{name}</Typography>
-              <Typography variant="caption" color={'GrayText'}>
+              <Typography variant="body2" color={'text.primary'}>
+                {name}
+              </Typography>
+              <Typography variant="caption" color={'text.secondary'}>
                 {email}
               </Typography>
             </Stack>
@@ -93,10 +97,10 @@ const CustomTable = ({
     {
       field: 'role',
       headerName: 'Role',
-      width: 350,
+      width: 250,
       editable: false,
-      sortable: false,
-      renderHeader: () => <Typography variant="body1">Role</Typography>,
+      sortable: true,
+      renderHeader: () => <AccountsTableHead>Role</AccountsTableHead>,
       renderCell: (params) => {
         const e = params.row;
         const handleOnChange = (data) => {
@@ -124,28 +128,36 @@ const CustomTable = ({
       headerName: 'Date Added',
       width: 250,
       editable: false,
-      renderHeader: () => <Typography variant="body1">Date Added</Typography>,
+      renderHeader: () => <AccountsTableHead>Date Added</AccountsTableHead>,
       renderCell: (params) => {
         const date = dayjs(params.row.createdAt).format('MMM DD, YYYY');
-        return <Typography variant="body2">{date}</Typography>;
+        return (
+          <Typography variant="body2" color={'text.secondary'}>
+            {date}
+          </Typography>
+        );
       },
     },
     {
       field: 'lastLogin',
-      headerName: 'Last Login',
+      headerName: 'Last Active',
       width: 250,
       editable: false,
-      renderHeader: () => <Typography variant="body1">Last Login</Typography>,
+      renderHeader: () => <AccountsTableHead>Last Active</AccountsTableHead>,
       renderCell: (params) => {
         const date = dayjs(params.row.lastLogin).format('MMM DD, YYYY');
-        return <Typography variant="body2">{date}</Typography>;
+        return (
+          <Typography variant="body2" color={'text.secondary'}>
+            {date}
+          </Typography>
+        );
       },
     },
 
     {
       field: 'action',
       headerName: '',
-      width: 110,
+      width: 100,
       editable: false,
       sortable: false,
       renderCell: (params) => {
@@ -289,7 +301,8 @@ const Index = ({
         <AccountsInput
           search={search}
           setsearch={setsearch}
-          placeholder=" Seach users"
+          placeholder=" Search users"
+          width={250}
         />
         <Button
           color="primary"

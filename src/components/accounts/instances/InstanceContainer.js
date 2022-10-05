@@ -1,8 +1,8 @@
-import AppBar from 'components/console/AppBar';
 import Main from 'layouts/Main/Main';
 import React from 'react';
 import { Container } from '@mui/material';
 import { InstancesApp } from './InstancesApp';
+import { AccountsAppbar } from 'components/console/AccountsAppbar';
 
 const InstanceContainer = ({ children, isDashboard = false }) => {
   const renderChildren = () => {
@@ -15,7 +15,7 @@ const InstanceContainer = ({ children, isDashboard = false }) => {
 
   return (
     <Main>
-      <AppBar />
+      <AccountsAppbar />
       <Container
         maxWidth={false}
         disableGutters

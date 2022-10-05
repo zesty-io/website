@@ -1,15 +1,22 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useZestyStore } from 'store';
 import Swal from 'sweetalert2';
 import { hashMD5 } from 'utils/Md5Hash';
 import withReactContent from 'sweetalert2-react-content';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import AddIcon from '@mui/icons-material/Add';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import EditIcon from '@mui/icons-material/Edit';
 import {
+  AccountsHeader,
+  AccountsPopover,
+  AccountsTable,
+  AccountsTableHead,
   EmailForm,
   ErrorMsg,
   FormInput,
-  StickyTable,
+  SubmitBtn,
   SuccessMsg,
 } from 'components/accounts/ui';
 import { useFormik } from 'formik';
@@ -17,47 +24,117 @@ import { accountsValidations } from 'components/accounts';
 
 const MySwal = withReactContent(Swal);
 
-const COLUMNS = [
-  {
-    id: 'address',
-    label: 'Email',
-  },
-  {
-    id: 'description',
-    label: 'Description',
-  },
-  {
-    id: 'primary',
-    label: 'Primary',
-  },
-  {
-    id: 'verified',
-    label: 'Verified',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
-
-const CustomTable = ({ emails, userInfo, deleteEmail }) => {
+const CustomTable = ({ emails, userInfo, deleteEmail, loading }) => {
   const ROWS = emails?.map((e) => {
-    return {
-      address: e.address,
-      description: e.name,
-      primary:
-        e.address == userInfo?.email ? <CheckCircleIcon color="success" /> : '',
-      verified: e.responseReceived ? <CheckCircleIcon color="success" /> : '',
-      action: <Button onClick={() => deleteEmail(e.address)}>X</Button>,
-    };
+    return { ...e, id: e.verificationCode };
   });
-  const memoizeRows = React.useMemo(() => ROWS, [emails, userInfo]);
-  const memoizeColumns = React.useMemo(() => COLUMNS, []);
+
+  const COLUMNS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'address',
+      headerName: 'Email',
+      width: 400,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Email</AccountsTableHead>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.address}</Typography>;
+      },
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      width: 400,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Description</AccountsTableHead>,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">{params.row.name || '-'}</Typography>
+        );
+      },
+    },
+    {
+      field: 'primary',
+      headerName: 'Primary',
+      width: 200,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Primary</AccountsTableHead>,
+      renderCell: (params) => {
+        const isPrimary =
+          params?.row?.address === userInfo?.email ? (
+            <CheckCircleIcon color="success" />
+          ) : (
+            ''
+          );
+        return <Typography variant="body2">{isPrimary}</Typography>;
+      },
+    },
+    {
+      field: 'verified',
+      headerName: 'Verified',
+      width: 200,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Verified</AccountsTableHead>,
+      renderCell: (params) => {
+        const isVerified = params.row.responseReceived ? (
+          <CheckCircleIcon color="success" />
+        ) : (
+          ''
+        );
+        return <Typography variant="body2">{isVerified}</Typography>;
+      },
+    },
+    {
+      field: 'action',
+      headerName: '',
+      width: 100,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const data = params.row;
+        const isPrimary =
+          params?.row?.address === userInfo?.email ? true : false;
+        const action = [
+          { title: 'Delete Email', action: () => deleteEmail(data.address) },
+        ];
+        return (
+          <AccountsPopover
+            title={
+              <Button
+                sx={{ display: isPrimary ? 'none' : 'block' }}
+                variant="text"
+                color="primary"
+              >
+                <MoreVertIcon color="disabled" />
+              </Button>
+            }
+            id={'actions'}
+            items={action}
+            colorInvert={false}
+          />
+        );
+      },
+    },
+  ];
 
   return (
-    <Box>
-      <StickyTable rows={memoizeRows} columns={memoizeColumns} />
-    </Box>
+    <Stack p={4}>
+      <AccountsTable
+        loading={loading}
+        rows={ROWS}
+        columns={COLUMNS}
+        pageSize={100}
+        autoHeight={true}
+      />
+    </Stack>
   );
 };
 
@@ -65,22 +142,16 @@ const ProfileHeader = ({ userInfo }) => {
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
   return (
-    <Box
-      sx={{
-        display: 'flex',
-      }}
-      paddingX={4}
-      paddingY={4}
-    >
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Stack width={1}>
+      <Stack direction={'row'} width={1} justifyContent="center">
         <img src={profileUrl} alt="" width={100} height={100} />
         <Button href="https://en.gravatar.com/">Edit</Button>
-      </Box>
-    </Box>
+      </Stack>
+    </Stack>
   );
 };
 
-export const YourProfile = ({ getUser }) => {
+export const YourProfile = ({ getUser, loading, setloading }) => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
   const [emails, setemails] = React.useState([]);
 
@@ -114,9 +185,11 @@ export const YourProfile = ({ getUser }) => {
     ErrorMsg({ text: err.error });
   };
   const getUserEmails = async () => {
+    setloading(true);
     const res = await ZestyAPI.getUserEmails();
     !res.error && handleGetEmailsSuccess(res);
     res.error && handleGetEmailsErr(res);
+    setloading(false);
   };
   const deleteEmail = async (email) => {
     const res = await ZestyAPI.deleteUserEmail(email);
@@ -151,43 +224,32 @@ export const YourProfile = ({ getUser }) => {
   React.useEffect(() => {
     getUserEmails();
   }, []);
+  const headerProps = {
+    title: 'Profile',
+    description: `Manage your Profile`,
+  };
   return (
-    <Box paddingY={4}>
-      <Grid container gap={4}>
-        <Grid item>
-          <form noValidate onSubmit={formik.handleSubmit}>
-            <FormInput
-              name={'firstName'}
-              label={userInfo?.firstName}
-              formik={formik}
-            />
-            <FormInput
-              name={'lastName'}
-              label={userInfo?.lastName}
-              formik={formik}
-            />
-            <Button color="primary" variant="contained" fullWidth type="submit">
-              Submit
-            </Button>
-          </form>
-        </Grid>
-
-        <Grid item>
-          <ProfileHeader userInfo={userInfo} />
-        </Grid>
-      </Grid>
-
-      <Box>
-        <CustomTable
-          deleteEmail={deleteEmail}
-          userInfo={userInfo}
-          emails={emails}
-        />
-      </Box>
-      <Box>
+    <Grid container>
+      <AccountsHeader {...headerProps}>
         <Button
           color="primary"
           variant="contained"
+          onClick={() => {
+            MySwal.fire({
+              title: 'Edit Profile',
+              html: <EditProfile formik={formik} userInfo={userInfo} />,
+              showConfirmButton: false,
+            });
+          }}
+        >
+          <EditIcon />
+          <Typography ml={0.5} variant="body2">
+            Edit Profile
+          </Typography>
+        </Button>
+        <Button
+          color="primary"
+          variant="outlined"
           onClick={() => {
             MySwal.fire({
               title: 'Add Email Address',
@@ -196,9 +258,41 @@ export const YourProfile = ({ getUser }) => {
             });
           }}
         >
-          Add Email
+          <AddIcon />
+          <Typography ml={0.5} variant="body2">
+            Add Email
+          </Typography>
         </Button>
-      </Box>
-    </Box>
+      </AccountsHeader>
+      <Grid item xs={12}>
+        <CustomTable
+          loading={loading}
+          deleteEmail={deleteEmail}
+          userInfo={userInfo}
+          emails={emails}
+        />
+      </Grid>
+    </Grid>
+  );
+};
+
+const EditProfile = ({ formik, userInfo }) => {
+  return (
+    <Stack gap={4}>
+      <ProfileHeader userInfo={userInfo} />
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <FormInput
+          name={'firstName'}
+          label={userInfo?.firstName}
+          formik={formik}
+        />
+        <FormInput
+          name={'lastName'}
+          label={userInfo?.lastName}
+          formik={formik}
+        />
+        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+      </form>
+    </Stack>
   );
 };

@@ -8,7 +8,12 @@ import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
-import { AccountsHeader, AccountsTable, FormSelect } from 'components/accounts';
+import {
+  AccountsHeader,
+  AccountsTable,
+  AccountsTableHead,
+  FormSelect,
+} from 'components/accounts';
 import { accountsValidations } from 'components/accounts/';
 import dayjs from 'dayjs';
 
@@ -33,21 +38,21 @@ export default function Locales() {
       headerName: 'Active',
       minWidth: 110,
       flex: 1,
-      renderHeader: () => <Typography variant="body1">Active</Typography>,
+      renderHeader: () => <AccountsTableHead>Active</AccountsTableHead>,
     },
     {
       field: 'code',
       headerName: 'Code',
       minWidth: 110,
       flex: 1,
-      renderHeader: () => <Typography variant="body1">Code</Typography>,
+      renderHeader: () => <AccountsTableHead>Code</AccountsTableHead>,
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
       minWidth: 200,
       flex: 1,
-      renderHeader: () => <Typography variant="body1">Created At</Typography>,
+      renderHeader: () => <AccountsTableHead>Created At</AccountsTableHead>,
       renderCell: (params) => {
         const date = dayjs(params.row.createdAt).format('MMM DD, YYYY');
         return <Typography variant="body2">{date}</Typography>;
@@ -58,21 +63,21 @@ export default function Locales() {
       headerName: 'Default',
       minWidth: 110,
       flex: 1,
-      renderHeader: () => <Typography variant="body1">Default</Typography>,
+      renderHeader: () => <AccountsTableHead>Default</AccountsTableHead>,
     },
     {
       field: 'name',
       headerName: 'Name',
       minWidth: 300,
       flex: 1,
-      renderHeader: () => <Typography variant="body1">Name</Typography>,
+      renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
     },
     {
       field: 'updatedAt',
       headerName: 'Updated At',
       minWidth: 200,
       flex: 1,
-      renderHeader: () => <Typography variant="body1">Updated At</Typography>,
+      renderHeader: () => <AccountsTableHead>Updated At</AccountsTableHead>,
       renderCell: (params) => {
         const date = dayjs(params.row.updatedAt).format('MMM DD, YYYY');
         return <Typography variant="body2">{date}</Typography>;

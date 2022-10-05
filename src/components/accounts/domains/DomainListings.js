@@ -3,7 +3,11 @@ import { Link, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { AccountsPopover, AccountsTable } from 'components/accounts';
+import {
+  AccountsPopover,
+  AccountsTable,
+  AccountsTableHead,
+} from 'components/accounts';
 import dayjs from 'dayjs';
 
 export default function DomainListings({
@@ -51,7 +55,7 @@ export default function DomainListings({
       editable: false,
       sortable: false,
       renderHeader: () => (
-        <Typography variant="body1">Stage Preview Domains</Typography>
+        <AccountsTableHead>Stage Preview Domains</AccountsTableHead>
       ),
       renderCell: (params) => {
         return (
@@ -67,7 +71,7 @@ export default function DomainListings({
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Branch</Typography>,
+      renderHeader: () => <AccountsTableHead>Branch</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.branch}</Typography>;
       },
@@ -78,7 +82,7 @@ export default function DomainListings({
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Created On</Typography>,
+      renderHeader: () => <AccountsTableHead>Created On</AccountsTableHead>,
       renderCell: (params) => {
         return (
           <Typography variant="body2">
@@ -127,7 +131,7 @@ export default function DomainListings({
       editable: false,
       sortable: false,
       renderHeader: () => (
-        <Typography variant="body1">Production Live Domains</Typography>
+        <AccountsTableHead>Production Live Domains</AccountsTableHead>
       ),
       renderCell: (params) => {
         return (
@@ -143,7 +147,7 @@ export default function DomainListings({
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Branch</Typography>,
+      renderHeader: () => <AccountsTableHead>Branch</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.branch}</Typography>;
       },
@@ -154,7 +158,7 @@ export default function DomainListings({
       width: 300,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Created On</Typography>,
+      renderHeader: () => <AccountsTableHead>Created On</AccountsTableHead>,
       renderCell: (params) => {
         return (
           <Typography variant="body2">

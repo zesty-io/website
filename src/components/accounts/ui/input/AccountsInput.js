@@ -13,9 +13,9 @@ export const AccountsInput = ({
     <TextField
       sx={(theme) => ({
         width,
-        bgcolor: theme.palette.mode === 'light' ? grey[50] : '',
-        borderRadius: '4px',
-        '& fieldset': { border: 'none' },
+        bgcolor: theme.palette.mode === 'light' ? '' : '',
+        borderRadius: '8px',
+        '& fieldset': { border: `1px solid ${grey[200]}`, borderRadius: '8px' },
       })}
       size="small"
       placeholder={placeholder}

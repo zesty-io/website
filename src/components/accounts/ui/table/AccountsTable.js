@@ -2,6 +2,23 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
+import { Stack, Typography } from '@mui/material';
+
+// const NoResultsOverlay = () => {
+//   return (
+//     <Stack height="100%" alignItems="center" justifyContent="center">
+//       <Typography variant="h5">No results</Typography>
+//     </Stack>
+//   );
+// };
+
+const NoRowsOverlay = () => {
+  return (
+    <Stack height="100%" alignItems="center" justifyContent="center">
+      <Typography variant="h5">No results</Typography>
+    </Stack>
+  );
+};
 
 const Index = ({
   rows,
@@ -11,6 +28,7 @@ const Index = ({
   hideFooter = true,
   autoHeight = true,
   rowHeight = 70,
+  NoData = NoRowsOverlay,
 }) => {
   return (
     <Box
@@ -24,6 +42,9 @@ const Index = ({
       <DataGrid
         autoHeight={autoHeight}
         sx={{
+          '& .MuiDataGrid-columnHeaders': {
+            bgcolor: grey[50],
+          },
           '.MuiDataGrid-columnSeparator': {
             display: true ? 'none' : '',
           },
@@ -50,8 +71,13 @@ const Index = ({
         disableColumnMenu
         experimentalFeatures={{ newEditingApi: true }}
         hideFooter={hideFooter}
+        components={{
+          // NoResultsOverlay,
+          NoRowsOverlay: NoData,
+        }}
       />
     </Box>
   );
 };
+
 export const AccountsTable = React.memo(Index);

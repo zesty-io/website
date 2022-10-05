@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { grey } from '@mui/material/colors';
+import { Typography } from '@mui/material';
 
 const initialOptions = [{ value: '-', label: 'no data' }];
 
@@ -35,11 +37,20 @@ export const AccountSelect = ({
           value={val}
           fullWidth
           onChange={handleChange}
+          sx={{
+            borderRadius: '8px',
+            '& fieldset': {
+              border: `1px solid ${grey[200]}`,
+              borderRadius: '8px',
+            },
+          }}
         >
           {options.map((e) => {
             return (
               <MenuItem key={e.ZUID} value={e.value} id={e.ZUID} {...e}>
-                {e.label}
+                <Typography variant="body1" color={'text.primary'}>
+                  {e.label}
+                </Typography>
               </MenuItem>
             );
           })}

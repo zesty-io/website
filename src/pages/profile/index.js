@@ -8,6 +8,7 @@ export { default as getServerSideProps } from 'lib/protectedRouteGetServerSidePr
 export default function ProfilePage() {
   const { setuserInfo } = useZestyStore((state) => state);
   const { ZestyAPI } = useZestyStore((state) => state);
+  const [loading, setloading] = React.useState(false);
   const [userZUID, setuserZUID] = React.useState('');
 
   const handleVerifySuccess = (res) => {
@@ -33,9 +34,11 @@ export default function ProfilePage() {
   };
 
   const getUser = async (userZUID) => {
+    setloading(true);
     const res = await ZestyAPI.getUser(userZUID);
     !res.error && handleGetUserSuccess(res);
     res.error && handleGetUserError(res);
+    setloading(false);
   };
 
   React.useEffect(() => {
@@ -48,7 +51,11 @@ export default function ProfilePage() {
 
   return (
     <ProfileContainer>
-      <YourProfile getUser={() => getUser(userZUID)} />
+      <YourProfile
+        getUser={() => getUser(userZUID)}
+        loading={loading}
+        setloading={setloading}
+      />
     </ProfileContainer>
   );
 }
