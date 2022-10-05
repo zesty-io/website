@@ -304,10 +304,9 @@ export const Webhooks = ({
             color="primary"
             variant="contained"
             type="button"
-            sx={{ ml: 'auto' }}
+            startIcon={<AddIcon />}
           >
-            <AddIcon />
-            <Typography>Create Webhooks</Typography>
+            Create Webhooks
           </Button>
         )}
       </AccountsHeader>

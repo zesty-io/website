@@ -6,7 +6,7 @@ import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import DomainListings from 'components/accounts/domains/DomainListings';
 import DomainSettings from 'components/accounts/domains/DomainSettings';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import {
   AccountsHeader,
   accountsValidations,
@@ -210,11 +210,9 @@ export default function Domains() {
           onClick={handleAddDomain}
           color="primary"
           variant="contained"
-          type="button"
-          sx={{ ml: 'auto' }}
+          startIcon={<AddIcon />}
         >
-          <AddIcon />
-          <Typography>Add Domain</Typography>
+          Add Domain
         </Button>
       </AccountsHeader>
       <Grid item xs={12}>

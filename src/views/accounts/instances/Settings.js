@@ -226,14 +226,12 @@ export const Settings = ({
         /> */}
 
         <Button
-          size="small"
           color="primary"
           variant="contained"
-          fullWidth
           onClick={() => downloadTemplate(instance_zuid, token)}
+          startIcon={<DownloadIcon />}
         >
-          <DownloadIcon fontSize="small" sx={{ mr: 1 }} />
-          <Typography variant="body1">Export as Template</Typography>
+          Export as Template
         </Button>
       </AccountsHeader>
       <Grid item xs={12} px={4}>
