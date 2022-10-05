@@ -21,12 +21,14 @@ const WithHighlightedCard = ({ title, data }) => {
   const testimonialData = data.map((item) => {
     return {
       feedback: item.review,
-      name: item.reviewer_title,
-      title: item.title,
+      name: item.reviewer_name,
+      title: item.reviewer_title,
+      avatar: item.reviewer_headshot.data[0].url,
+      star_rating: parseInt(item.star_rating),
     };
   });
 
-  console.log(testimonialData);
+  console.log(data);
 
   return (
     <Container>
@@ -41,7 +43,7 @@ const WithHighlightedCard = ({ title, data }) => {
                   variant: 'h4',
                   sx: {
                     textAlign: 'left !important',
-                    color: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.zesty.zestyZambezi,
                     fontWeight: 'bold',
                   },
                 },
@@ -50,11 +52,10 @@ const WithHighlightedCard = ({ title, data }) => {
                 component: Typography,
                 props: {
                   component: 'p',
-                  variant: 'h4',
+                  variant: 'h6',
                   sx: {
                     textAlign: 'left !important',
                     color: theme.palette.zesty.zestyZambezi,
-                    fontWeight: 'bold',
                   },
                 },
               },

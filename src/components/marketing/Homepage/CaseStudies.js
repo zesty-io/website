@@ -118,7 +118,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   },
                 }}
               >
-                {content.case_study_card_1 || FillerContent.description}
+                {content.case_study_card_2 || FillerContent.description}
               </MuiMarkdown>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -151,7 +151,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   },
                 }}
               >
-                {content.case_study_card_1 || FillerContent.description}
+                {content.case_study_card_3 || FillerContent.description}
               </MuiMarkdown>
             </Grid>
           </Grid>
@@ -159,13 +159,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
 
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, mt: 10 }}>
           {content.g2_badges?.data.map((item, index) => (
-            <Box
-              data-aos-offset="200"
-              data-aos="fade-up"
-              data-aos-duration={`${500 * (index + 1)}`}
-              key={index}
-              sx={{ width: '100%', maxWidth: 171 }}
-            >
+            <Box key={index} sx={{ width: '100%', maxWidth: 171 }}>
               <ZestyImage
                 width={171}
                 height={192}
@@ -184,9 +178,6 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 component="a"
                 href={item.card_link.data[0].meta.web.uri}
                 target="_blank"
-                data-aos-offset="200"
-                data-aos="fade-up"
-                data-aos-duration={`${index + 1}000`}
                 sx={{
                   width: '100%',
                   maxWidth: 482,

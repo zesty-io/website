@@ -17,7 +17,7 @@ const DigitalExperience = ({ content, FillerContent, theme, isDarkMode }) => {
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
           : theme.palette.zesty.zestyWhite,
-        mt: 20,
+        mt: 10,
         py: 10,
         position: 'relative',
         overflow: 'hidden',
@@ -103,11 +103,7 @@ const DigitalExperience = ({ content, FillerContent, theme, isDarkMode }) => {
                 sm={12}
                 md={4}
               >
-                <Box
-                  data-aos-offset="200"
-                  data-aos="fade-up"
-                  data-aos-duration={`${500 * (index + 1)}`}
-                >
+                <Box>
                   <Card
                     component="a"
                     href={item.link?.data[0].meta.web.uri || FillerContent.href}
