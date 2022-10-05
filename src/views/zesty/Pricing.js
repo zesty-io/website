@@ -85,6 +85,10 @@ function Pricing({ content }) {
     setActive(!active);
   };
 
+  console.log(categories);
+  const pricingCompareTableData = content.tiers.data;
+  console.log(pricingCompareTableData);
+
   return (
     <>
       <PricingHero {...heroProps} />
@@ -97,7 +101,8 @@ function Pricing({ content }) {
         maxWidth={1400}
       />
 
-      <Container sx={{ mt: 10, maxWidth: 1400 }}>
+      {/* {Pricing Comparison Table} */}
+      {/* <Container sx={{ mt: 10, maxWidth: 1400 }}>
         <Card
           variant="outlined"
           sx={{
@@ -145,7 +150,7 @@ function Pricing({ content }) {
             </Box>
           )}
         </Card>
-      </Container>
+      </Container> */}
 
       <Box
         sx={{

@@ -27,6 +27,8 @@ const PricingCompareTable = ({ tiers, category = '', pricingLevers, id }) => {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+
+  console.log(tiers);
   return (
     <Box>
       <Accordion
