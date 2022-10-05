@@ -28,7 +28,6 @@ const PricingCompareTable = ({ tiers, category = '', pricingLevers, id }) => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  console.log(tiers);
   return (
     <Box>
       <Accordion
