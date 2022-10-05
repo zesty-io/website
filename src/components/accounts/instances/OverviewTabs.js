@@ -85,7 +85,7 @@ export const OverviewTabs = ({ instance }) => {
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
-        pt: 4,
+        py: 4,
         width: '100%',
         height: '100%',
         [theme.breakpoints.up('lg')]: {

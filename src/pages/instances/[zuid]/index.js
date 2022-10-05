@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Overview } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import dayjs from 'dayjs';
+import { isProd } from 'utils';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
@@ -162,7 +163,7 @@ export default function OverviewPage() {
     res.error && handleGetUserErr(res);
   };
   const getUsage = async (zuid, dateStart, dateEnd) => {
-    const res = await ZestyAPI.getUsage(zuid, dateStart, dateEnd);
+    const res = await ZestyAPI.getUsage(zuid, dateStart, dateEnd, isProd);
     !res.error && handleGetUsageSuccess(res);
     res.error && handleGetUsageErr(res);
   };
