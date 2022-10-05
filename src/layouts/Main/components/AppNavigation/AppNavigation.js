@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SingleNavItem from '../Topbar/components/NavItem/SingleNavItem';
-import { ComboBox } from 'components/globals/ComboBox';
-import ThemeModeToggler from 'components/globals/ThemeModeToggler';
-import { accounts, DeveloperDocMenu, ProfileMenu } from 'components/accounts';
+import {
+  accounts,
+  AccountsComboBox,
+  DeveloperDocMenu,
+  ProfileMenu,
+} from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
-import { Button, Link, Stack } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { grey } from '@mui/material/colors';
+import { Link, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 import { NavItem } from '../Topbar/components';
+import { AccountsThemeToggler } from 'components/globals/AccountsThemeToggler';
+import { AccountsSingleNavItem } from '../Topbar/components/NavItem/AccountsSingleNavItem';
 
 const navigationLinks = [
   {
@@ -77,8 +78,8 @@ const AppNavigation = ({
       <Link href="/">
         <img
           src="https://brand.zesty.io/zesty-io-logo.svg"
-          height={41}
-          width={41}
+          height={40}
+          width={40}
         />
       </Link>
 
@@ -105,28 +106,28 @@ const AppNavigation = ({
         <Stack
           direction="row"
           alignItems="center"
-          spacing={2}
+          spacing={8}
           display={{ xs: 'none', lg: 'flex' }}
           mr={2}
         >
           {navigationLinks.map((nav) => (
-            <SingleNavItem
+            <AccountsSingleNavItem
               key={nav.id}
               title={nav.title}
               url={nav.url}
               colorInvert={colorInvert}
             />
           ))}
-        </Stack>
-        <Stack direction="row" ml="auto" spacing={2} alignItems="center">
           <DeveloperDocMenu />
-          <ComboBox
+        </Stack>
+        <Stack direction="row" ml="auto" spacing={4} alignItems="center">
+          <AccountsComboBox
             instances={instances?.data}
             setCookies={handleComboxClick}
             instanceZUID={instanceZUID}
             size="small"
           />
-          <Button
+          {/* <Button
             color={
               (isAccounts && isLoggedIn) ||
               (isLoggedIn && window.location.pathname === '/')
@@ -142,8 +143,8 @@ const AppNavigation = ({
             }
           >
             Create Instance
-          </Button>
-          <ThemeModeToggler />
+          </Button> */}
+          <AccountsThemeToggler />
           <ProfileMenu
             userInfo={userInfo}
             profilePic={
@@ -155,19 +156,11 @@ const AppNavigation = ({
                   width={25}
                   style={{ borderRadius: '50%' }}
                 />
-                <ArrowDropDownIcon
-                  color={
-                    (isAccounts && isLoggedIn) ||
-                    (isLoggedIn && window.location.pathname === '/')
-                      ? 'primary'
-                      : 'secondary'
-                  }
-                  fontSize="medium"
-                />
+                <ArrowDropDownIcon color={'disabled'} fontSize="medium" />
               </Stack>
             }
           />
-          <Button
+          {/* <Button
             href="https://accounts.zesty.io/"
             variant="outlined"
             size="medium"
@@ -187,7 +180,7 @@ const AppNavigation = ({
             }}
           >
             Legacy Accounts
-          </Button>
+          </Button> */}
         </Stack>
       </Stack>
     </Stack>

@@ -11,6 +11,7 @@ import {
   Tabs,
   Tab,
   Container,
+  Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
@@ -19,7 +20,6 @@ import { instanceTabs } from 'components/accounts/instances/tabs';
 import { lang } from 'components/accounts/instances/lang';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { grey } from '@mui/material/colors';
 
 let capitalize = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
 
@@ -79,7 +79,7 @@ const Index = ({ children }) => {
             md={3}
             lg={2}
             sx={{
-              borderRight: `1px solid ${grey[300]}`,
+              // borderRight: `1px solid ${grey[300]}`,
               maxWidth: { md: '384px' },
               position: 'sticky',
               top: '60px',
@@ -156,19 +156,26 @@ function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
             selected={list.filename === currentPage}
             sx={(theme) => ({
               borderRadius: '5px',
+              color: theme.palette.text.secondary,
               '&.Mui-selected': {
                 ' .MuiListItemIcon-root': {
                   color: theme.palette.primary.main,
                 },
                 bgcolor: lighten(theme.palette.primary.light, 0.9),
-                color: theme.palette.primary.main,
                 pointerEvents: 'none',
+                color: theme.palette.primary.main,
               },
             })}
           >
             <ListItemButton color="warning" sx={{ borderRadius: '5px' }}>
               <ListItemIcon>{list.icon}</ListItemIcon>
-              <ListItemText primary={lang[langcode].tabs[list.filename]} />
+              <ListItemText
+                primary={
+                  <Typography variant="body1">
+                    {lang[langcode].tabs[list.filename]}
+                  </Typography>
+                }
+              />
             </ListItemButton>
           </ListItem>
         ))}

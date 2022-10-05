@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { grey } from '@mui/material/colors';
+// import { grey } from '@mui/material/colors';
 
 const Index = ({ title, description, children }) => {
   return (
@@ -10,7 +10,7 @@ const Index = ({ title, description, children }) => {
       xs={12}
       px={4}
       py={3}
-      sx={{ borderBottom: `1px solid ${grey[200]}` }}
+      // sx={{ borderBottom: `1px solid ${grey[200]}` }}
     >
       <Stack>
         <Stack direction="row" justifyContent={'space-between'} width={1}>
@@ -32,3 +32,11 @@ const Index = ({ title, description, children }) => {
   );
 };
 export const AccountsHeader = React.memo(Index);
+
+export const AccountsTableHead = ({ children }) => {
+  return (
+    <Typography variant="body1" color={'text.primary'}>
+      {children}
+    </Typography>
+  );
+};

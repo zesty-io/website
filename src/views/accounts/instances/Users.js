@@ -20,7 +20,10 @@ import { useFormik } from 'formik';
 import * as helpers from 'utils';
 import { hashMD5 } from 'utils/Md5Hash';
 import dayjs from 'dayjs';
-import { AccountsHeader } from 'components/accounts/ui/header';
+import {
+  AccountsHeader,
+  AccountsTableHead,
+} from 'components/accounts/ui/header';
 import { AccountsPopover } from 'components/accounts/ui/popover';
 
 const MySwal = withReactContent(Swal);
@@ -64,7 +67,7 @@ const CustomTable = ({
       width: 500,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Name</Typography>,
+      renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
       renderCell: (params) => {
         const name = `${params.row.firstName} ${params.row.lastName}`;
         const email = `${params.row.email}`;
@@ -80,7 +83,9 @@ const CustomTable = ({
               style={{ borderRadius: '50%' }}
             />
             <Stack>
-              <Typography variant="body2">{name}</Typography>
+              <Typography variant="body2" color={'text.primary'}>
+                {name}
+              </Typography>
               <Typography variant="caption" color={'text.secondary'}>
                 {email}
               </Typography>
@@ -96,7 +101,7 @@ const CustomTable = ({
       width: 250,
       editable: false,
       sortable: false,
-      renderHeader: () => <Typography variant="body1">Role</Typography>,
+      renderHeader: () => <AccountsTableHead>Role</AccountsTableHead>,
       renderCell: (params) => {
         const e = params.row;
         const handleOnChange = (data) => {
@@ -124,7 +129,7 @@ const CustomTable = ({
       headerName: 'Date Added',
       width: 250,
       editable: false,
-      renderHeader: () => <Typography variant="body1">Date Added</Typography>,
+      renderHeader: () => <AccountsTableHead>Date Added</AccountsTableHead>,
       renderCell: (params) => {
         const date = dayjs(params.row.createdAt).format('MMM DD, YYYY');
         return (
@@ -139,7 +144,7 @@ const CustomTable = ({
       headerName: 'Last Login',
       width: 250,
       editable: false,
-      renderHeader: () => <Typography variant="body1">Last Login</Typography>,
+      renderHeader: () => <AccountsTableHead>Last Login</AccountsTableHead>,
       renderCell: (params) => {
         const date = dayjs(params.row.lastLogin).format('MMM DD, YYYY');
         return (
@@ -298,6 +303,7 @@ const Index = ({
           search={search}
           setsearch={setsearch}
           placeholder=" Seach users"
+          width={250}
         />
         <Button
           color="primary"

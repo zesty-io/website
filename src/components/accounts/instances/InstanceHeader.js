@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Stack,
   Typography,
 } from '@mui/material';
 import React from 'react';
@@ -29,18 +30,22 @@ export default function InstanceHeader({ instance }) {
       }}
     >
       {instance?.screenshotURL ? (
-        <CardMedia
-          component="img"
-          height="100%"
-          image={instance?.screenshotURL}
-          alt="screenshot"
-        />
+        <Stack p={1.5}>
+          <CardMedia
+            component="img"
+            height="100%"
+            image={instance?.screenshotURL}
+            alt="screenshot"
+            sx={{ boxShadow: 1, borderRadius: '15px' }}
+          />
+        </Stack>
       ) : (
         <CardMedia
           component="img"
           height="100%"
           image={FillerContent.image}
           alt="screenshot"
+          sx={{ p: 2 }}
         />
       )}
 

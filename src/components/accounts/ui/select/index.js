@@ -3,6 +3,7 @@ export * from './UsersSelect';
 export * from './FormSelect';
 export * from './FormAutoComplete';
 export * from './AccountSelect';
+export * from './AccountsComboBox';
 import { FormControl, NativeSelect } from '@mui/material';
 import React from 'react';
 
