@@ -61,106 +61,100 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
   }, [instanceZUID]);
 
   return (
-    <Box
-      sx={{
-        py: 1,
-      }}
-    >
-      <>
-        <Box
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: isMobile ? 'left' : 'center',
+          flexDirection: isMobile ? 'column' : 'flex',
+          py: 2,
+          px: 4,
+          borderBottom: `1px solid ${grey[200]}`,
+          borderTop: `1px solid ${grey[200]}`,
+        }}
+      >
+        <Breadcrumbs
+          aria-label="breadcrumb"
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: isMobile ? 'left' : 'center',
-            flexDirection: isMobile ? 'column' : 'flex',
-            py: 2,
-            px: 4,
-            borderBottom: `1px solid ${grey[200]}`,
-            borderTop: `1px solid ${grey[200]}`,
+            alignItems: 'center',
           }}
         >
-          <Breadcrumbs
-            aria-label="breadcrumb"
+          <Link
+            underline="none"
+            color="inherit"
+            href={'/'}
             sx={{
               display: 'flex',
               alignItems: 'center',
             }}
           >
-            <Link
-              underline="none"
-              color="inherit"
-              href={'/'}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <HomeIcon sx={{ mr: 0.5, color: 'GrayText' }} />
-            </Link>
-            {pathnames?.map((url, index) => {
-              const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
-              const isLastItem = index === pathnames.length - 1;
-              let name = url.replaceAll('-', ' ');
-              if (url.match(/^8-.*$/)) {
-                name = instance.name;
-              }
-              return isLastItem ? (
-                <Link
-                  sx={{
-                    textTransform: 'capitalize',
-                    display: 'flex',
-                    alignItems: 'center',
-                    fontWeight: 'bold',
-                    px: 2,
-                    pointerEvents: 'none',
-                  }}
-                  underline="none"
-                  color="text.secondary"
-                  href={routeTo}
-                  aria-current="page"
-                  key={name}
-                >
-                  {name}
-                </Link>
-              ) : (
-                <Link
-                  underline="none"
-                  color="text.secondary"
-                  href={routeTo}
-                  key={index}
-                  sx={{
-                    textTransform: 'capitalize',
-                    display: 'flex',
-                    alignItems: 'center',
-                    px: 2,
-                  }}
-                >
-                  {name}
-                </Link>
-              );
-            })}
-          </Breadcrumbs>
-          {!loading && (
-            <Box>
-              {!verifySuccess ? (
-                <Button
-                  href="/login/"
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  sx={{ whiteSpace: 'nowrap' }}
-                >
-                  Sign in to Zesty.io
-                </Button>
-              ) : (
-                <Box
-                  sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
-                ></Box>
-              )}
-            </Box>
-          )}
-        </Box>
-      </>
-    </Box>
+            <HomeIcon sx={{ mr: 0.5, color: 'GrayText' }} />
+          </Link>
+          {pathnames?.map((url, index) => {
+            const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
+            const isLastItem = index === pathnames.length - 1;
+            let name = url.replaceAll('-', ' ');
+            if (url.match(/^8-.*$/)) {
+              name = instance.name;
+            }
+            return isLastItem ? (
+              <Link
+                sx={{
+                  textTransform: 'capitalize',
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontWeight: 'bold',
+                  px: 2,
+                  pointerEvents: 'none',
+                }}
+                underline="none"
+                color="text.secondary"
+                href={routeTo}
+                aria-current="page"
+                key={name}
+              >
+                {name}
+              </Link>
+            ) : (
+              <Link
+                underline="none"
+                color="text.secondary"
+                href={routeTo}
+                key={index}
+                sx={{
+                  textTransform: 'capitalize',
+                  display: 'flex',
+                  alignItems: 'center',
+                  px: 2,
+                }}
+              >
+                {name}
+              </Link>
+            );
+          })}
+        </Breadcrumbs>
+        {!loading && (
+          <Box>
+            {!verifySuccess ? (
+              <Button
+                href="/login/"
+                variant="contained"
+                color="primary"
+                size="small"
+                sx={{ whiteSpace: 'nowrap' }}
+              >
+                Sign in to Zesty.io
+              </Button>
+            ) : (
+              <Box
+                sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
+              ></Box>
+            )}
+          </Box>
+        )}
+      </Box>
+    </>
   );
 };

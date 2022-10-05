@@ -156,6 +156,7 @@ function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
             selected={list.filename === currentPage}
             sx={(theme) => ({
               borderRadius: '5px',
+              my: 1,
               color: theme.palette.text.secondary,
               '&.Mui-selected': {
                 ' .MuiListItemIcon-root': {

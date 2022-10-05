@@ -30,7 +30,7 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
   }, []);
 
   const hasActiveLink = () => items.find((i) => i.url === activeLink);
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  const linkColor = colorInvert ? 'common.white' : 'text.secondary';
 
   return (
     <Box>
