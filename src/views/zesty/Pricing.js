@@ -85,9 +85,7 @@ function Pricing({ content }) {
     setActive(!active);
   };
 
-  console.log(categories);
   const pricingCompareTableData = content.tiers.data;
-  console.log(pricingCompareTableData);
 
   return (
     <>
