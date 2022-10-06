@@ -263,11 +263,10 @@ export default function UsersPage() {
     userInfo,
   );
 
-  const filteredUsers = instanceUserWithRoles?.filter(
-    (e) =>
-      e.firstName.toLowerCase().includes(search.toLowerCase()) ||
-      e.lastName.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filteredUsers = instanceUserWithRoles.filter((e) => {
+    const name = `${e.firstName.toLowerCase()} ${e.lastName.toLowerCase()}`;
+    return name.includes(search.toLowerCase());
+  });
   const userProps = {
     updateRole,
     roles: filteredUsers,

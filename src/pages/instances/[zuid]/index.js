@@ -9,7 +9,9 @@ import { isProd } from 'utils';
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function OverviewPage() {
+  const [loading, setloading] = useState(false);
   const { setZestyAPI, userInfo, ZestyAPI } = useZestyStore((state) => state);
+  const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const [instance, setinstance] = React.useState({});
   const [users, setusers] = React.useState([]);
   const [locales, setlocales] = React.useState([]);
@@ -129,6 +131,12 @@ export default function OverviewPage() {
   const handleGetInstanceAuditErr = (res) => {
     console.log(res);
   };
+  const handleGetRolesSuccess = (res) => {
+    setInstanceUserWithRoles(res.data);
+  };
+  const handleGetRolesErr = (res) => {
+    console.log(res);
+  };
   const getInstanceAudit = async () => {
     const limit = '10';
     const res = await ZestyAPI.getInstanceAudit(limit);
@@ -168,6 +176,12 @@ export default function OverviewPage() {
     res.error && handleGetUsageErr(res);
   };
 
+  const getInstanceUserRoles = async () => {
+    const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
+    !res.error && handleGetRolesSuccess(res);
+    res.error && handleGetRolesErr(res);
+  };
+
   const purgeUrl = `${
     process.env.NEXT_PUBLIC_CLOUD_FUNCTIONS_DOMAIN ||
     'https://us-central1-zesty-prod.cloudfunctions.net'
@@ -190,6 +204,7 @@ export default function OverviewPage() {
   };
 
   const getPageData = async () => {
+    setloading(true);
     await Promise.all([
       getInstance(),
       getLocales(),
@@ -197,8 +212,10 @@ export default function OverviewPage() {
       getModels(),
       getUsers(),
       getInstanceAudit(),
+      getInstanceUserRoles(),
       getUsage(zuid, dateStart, dateEnd),
     ]);
+    setloading(false);
   };
 
   const overviewProps = {
@@ -213,6 +230,8 @@ export default function OverviewPage() {
     usage,
     isInstanceAuditLoading,
     instanceAudit,
+    instanceUserWithRoles,
+    loading,
   };
 
   useEffect(() => {

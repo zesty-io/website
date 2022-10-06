@@ -1,5 +1,6 @@
 import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
+import { hashMD5 } from './Md5Hash';
 
 const removeEmptyNodes = (nodes) => {
   return nodes.filter((node) => {
@@ -311,4 +312,9 @@ export const getTimeAgo = (date) => {
 
   const count = Math.floor(secondsAgo / divisor);
   return `${count} ${unit}${count > 1 ? 's' : ''} ago`;
+};
+
+export const gravatarImg = (userInfo = {}) => {
+  const res = 'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
+  return res;
 };

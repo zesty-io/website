@@ -32,6 +32,8 @@ export const Overview = ({
   usage,
   isInstanceAuditLoading,
   instanceAudit,
+  instanceUserWithRoles,
+  loading,
 }) => {
   const theme = useTheme();
 
@@ -132,13 +134,14 @@ export const Overview = ({
 
   const tabProps = {
     instance,
-    userInfo,
     teams,
     users,
     locales,
     models,
     audits,
     handleClearCache,
+    instanceUserWithRoles,
+    loading,
   };
 
   return (
@@ -230,6 +233,7 @@ export const Overview = ({
               mainData,
               footerTitle,
               chip,
+              loading,
             };
             return (
               <Grid item xs={12} lg={4}>

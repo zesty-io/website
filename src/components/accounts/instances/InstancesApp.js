@@ -24,6 +24,7 @@ import { useTheme } from '@mui/material/styles';
 let capitalize = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
 
 const Index = ({ children }) => {
+  const [loading, setloading] = React.useState(false);
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('md'));
   const langcode = 'en';
@@ -57,12 +58,16 @@ const Index = ({ children }) => {
   };
 
   const getInstance = async () => {
+    setloading(true);
     const res = await ZestyAPI.getInstance(zuid);
     setInstance(res.data);
+    setloading(false);
   };
 
   React.useEffect(() => {
-    if (router.isReady) getInstance();
+    if (router.isReady) {
+      getInstance();
+    }
   }, [router.isReady]);
 
   React.useEffect(() => {
@@ -90,7 +95,7 @@ const Index = ({ children }) => {
               },
             })}
           >
-            <InstanceHeader instance={instance} />
+            <InstanceHeader instance={instance} loading={loading} />
             <InstanceNavigation
               lists={instanceTabs}
               handleChange={handleChange}

@@ -38,10 +38,10 @@ export const AccountSelect = ({
           fullWidth
           onChange={handleChange}
           sx={{
-            borderRadius: '8px',
+            borderRadius: '6px',
             '& fieldset': {
               border: `1px solid ${grey[200]}`,
-              borderRadius: '8px',
+              borderRadius: '6px',
             },
           }}
         >

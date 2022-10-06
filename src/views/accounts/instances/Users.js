@@ -63,10 +63,11 @@ const CustomTable = ({
     {
       field: 'name',
       headerName: 'Name',
-      width: 500,
+      width: 450,
       editable: false,
-      sortable: false,
+      sortable: true,
       renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
+      valueGetter: (params) => params.row.firstName,
       renderCell: (params) => {
         const name = `${params.row.firstName} ${params.row.lastName}`;
         const email = `${params.row.email}`;
@@ -100,6 +101,7 @@ const CustomTable = ({
       width: 250,
       editable: false,
       sortable: true,
+      valueGetter: (params) => params.row.role.name,
       renderHeader: () => <AccountsTableHead>Role</AccountsTableHead>,
       renderCell: (params) => {
         const e = params.row;
@@ -174,6 +176,12 @@ const CustomTable = ({
         };
 
         const action = [
+          {
+            title: 'Email',
+            action: () => window.open(`mailto:${params.row.email}`),
+          },
+        ];
+        const actionOwner = [
           { title: 'Delete User', action: isOwner ? handleDeleteUser : null },
           {
             title: 'Email',
@@ -190,7 +198,7 @@ const CustomTable = ({
                 </Button>
               }
               id={'actions'}
-              items={action}
+              items={isOwner ? actionOwner : action}
               colorInvert={false}
             />
           </>
@@ -199,14 +207,17 @@ const CustomTable = ({
     },
   ];
 
+  const rows = React.useMemo(() => ROWS, [data, loading]);
+  const columns = React.useMemo(() => COLUMNS, [data, instanceRoles, loading]);
+
   return (
     <Stack p={4}>
       <AccountsTable
         loading={loading}
-        rows={ROWS}
-        columns={COLUMNS}
+        rows={rows}
+        columns={columns}
         pageSize={100}
-        autoHeight={true}
+        autoHeight={false}
       />
     </Stack>
   );
