@@ -89,7 +89,7 @@ const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
           }}
         ></TextField>
       ) : (
-        <Skeleton variant="rectangular" height={40} />
+        <Skeleton variant="rectangular" height={45} />
       )}
     </Stack>
   );
@@ -134,12 +134,12 @@ const DetailsComp = ({ header, img, title, subtitle, loading }) => {
 
 export const OverviewTabs = ({
   instance,
-  userInfo = {},
   instanceUserWithRoles = [],
   loading,
 }) => {
+  console.log(instanceUserWithRoles, instance, '444');
   const websiteCreator = instanceUserWithRoles?.find(
-    (e) => e?.ZUID === userInfo?.ZUID,
+    (e) => e?.ZUID === instance?.createdByUserZUID,
   );
   const name = `${websiteCreator?.firstName} ${websiteCreator?.lastName}`;
   const role = websiteCreator?.role?.name;
@@ -164,8 +164,8 @@ export const OverviewTabs = ({
   const details2Props = {
     header: 'Created On',
     img: <CalendarTodayIcon color="disabled" sx={{ mx: 1 }} />,
-    title: dayjs(instance.createdAt).format('MMM DD, YYYY'),
-    subtitle: dayjs(instance.createdAt).format('ddd, h:mm A UTC ZZ'),
+    title: dayjs(instance?.createdAt).format('MMM DD, YYYY'),
+    subtitle: dayjs(instance?.createdAt).format('ddd, h:mm A UTC ZZ'),
     loading,
   };
   return (
@@ -174,7 +174,7 @@ export const OverviewTabs = ({
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
-        py: 4,
+        py: 1,
         width: '100%',
         height: '100%',
         [theme.breakpoints.up('lg')]: {

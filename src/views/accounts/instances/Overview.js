@@ -133,7 +133,6 @@ export const Overview = ({
 
   const tabProps = {
     instance,
-    userInfo,
     teams,
     users,
     locales,
