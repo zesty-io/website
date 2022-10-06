@@ -162,8 +162,8 @@ const AppNavigation = ({
         >
           <Stack direction="row" alignItems="center" spacing={3}>
             <Chip
-              label={<Typography variant="body2">Beta</Typography>}
-              color="error"
+              label={<Typography variant="body2">BETA</Typography>}
+              color="info"
             />
             {navigationLinks.map((nav) => (
               <AccountsSingleNavItem
@@ -195,9 +195,7 @@ const AppNavigation = ({
                   size="small"
                   variant="contained"
                   startIcon={<AddIcon />}
-                  onClick={() =>
-                    router.push('https://accounts.zesty.io/instances/create')
-                  }
+                  onClick={() => router.push('/start/')}
                 >
                   Create Instance
                 </Button>
