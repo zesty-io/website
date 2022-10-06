@@ -92,7 +92,7 @@ const ZActivityStream = ({ instancesFavorites, instances }) => {
   return (
     <>
       <Typography variant="h6" color="text.secondary">
-        Team Activity
+        Latest Activity From Your Favorite Instances
       </Typography>
       {instancesFavorites?.length === 0 &&
       instances?.length > INSTANCE_LIMIT ? (

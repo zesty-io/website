@@ -78,17 +78,17 @@ const Index = ({ children }) => {
             item
             md={3}
             lg={2}
-            sx={{
+            sx={(theme) => ({
               // borderRight: `1px solid ${grey[300]}`,
               maxWidth: { md: '384px' },
               position: 'sticky',
-              top: '60px',
-              height: `calc(100vh - 46px)`,
+              top: `${theme.tabTop}px`,
+              height: `calc(100vh - ${theme.tabTop}px)`,
               overflow: 'auto',
               '::-webkit-scrollbar': {
                 display: 'none',
               },
-            }}
+            })}
           >
             <InstanceHeader instance={instance} />
             <InstanceNavigation
@@ -157,6 +157,7 @@ function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
             selected={list.filename === currentPage}
             sx={(theme) => ({
               borderRadius: '5px',
+              my: 1,
               color: theme.palette.text.secondary,
               '&.Mui-selected': {
                 ' .MuiListItemIcon-root': {

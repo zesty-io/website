@@ -69,9 +69,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
             justifyContent: 'space-between',
             alignItems: isMobile ? 'left' : 'center',
             flexDirection: isMobile ? 'column' : 'flex',
-            py: 2,
-            px: 4,
-            borderBottom: `1px solid ${grey[200]}`,
+            py: 1,
             borderTop: `1px solid ${grey[200]}`,
           }}
         >

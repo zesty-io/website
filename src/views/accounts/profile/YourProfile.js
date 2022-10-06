@@ -241,11 +241,9 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
               showConfirmButton: false,
             });
           }}
+          startIcon={<EditIcon />}
         >
-          <EditIcon />
-          <Typography ml={0.5} variant="body2">
-            Edit Profile
-          </Typography>
+          Edit Profile
         </Button>
         <Button
           color="primary"
@@ -257,11 +255,9 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
               showConfirmButton: false,
             });
           }}
+          startIcon={<AddIcon />}
         >
-          <AddIcon />
-          <Typography ml={0.5} variant="body2">
-            Add Email
-          </Typography>
+          Add Email
         </Button>
       </AccountsHeader>
       <Grid item xs={12}>

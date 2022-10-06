@@ -94,7 +94,7 @@ export const OverviewTabs = ({ instance }) => {
         width: '100%',
         height: '100%',
         [theme.breakpoints.up('lg')]: {
-          bgcolor: theme.palette.grey[50],
+          bgcolor: theme.palette.mode === 'light' ? theme.palette.grey[50] : '',
         },
       })}
     >

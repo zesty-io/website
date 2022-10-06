@@ -6,7 +6,7 @@ import EntityType from 'views/marketplace/EntityType';
 import Extension from 'views/marketplace/Extension';
 import Tag from 'views/marketplace/Tag';
 import CustomContainer from 'components/Container';
-import AppBar from 'components/console/AppBar';
+// import AppBar from 'components/console/AppBar';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import RegisterPage from 'components/marketplace/register';
@@ -44,7 +44,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:description" content={seoDescription} />
         </Head>
         <Main customRouting={props.navigationCustom}>
-          <AppBar url={router.asPath} />
+          {/* <AppBar url={router.asPath} /> */}
 
           <CustomContainer>
             <RegisterPage />
@@ -63,7 +63,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:description" content={seoDescription} />
         </Head>
         <Main customRouting={props.navigationCustom}>
-          <AppBar url={router.asPath} />
+          {/* <AppBar url={router.asPath} /> */}
           <CustomContainer>
             <InstalledPage />
           </CustomContainer>
@@ -81,7 +81,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:description" content={seoDescription} />
         </Head>
         <Main customRouting={props.navigationCustom}>
-          <AppBar url={router.asPath} />
+          {/* <AppBar url={router.asPath} /> */}
           <CustomContainer>
             <Extension {...props} />
           </CustomContainer>
@@ -98,7 +98,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        <AppBar url={router.asPath} />
+        {/* <AppBar url={router.asPath} /> */}
 
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}

@@ -181,7 +181,11 @@ const Index = ({
       filterOptions={filterOptions}
       id="virtualize-demo"
       onChange={handleChange}
-      sx={{ width, backgroundColor: theme.palette.common.white }}
+      sx={{
+        width,
+        backgroundColor:
+          theme.palette.mode === 'light' && theme.palette.common.white,
+      }}
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
