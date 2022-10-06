@@ -63,7 +63,7 @@ const CustomTable = ({
     {
       field: 'name',
       headerName: 'Name',
-      width: 500,
+      width: 450,
       editable: false,
       sortable: true,
       renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
@@ -176,6 +176,12 @@ const CustomTable = ({
         };
 
         const action = [
+          {
+            title: 'Email',
+            action: () => window.open(`mailto:${params.row.email}`),
+          },
+        ];
+        const actionOwner = [
           { title: 'Delete User', action: isOwner ? handleDeleteUser : null },
           {
             title: 'Email',
@@ -192,7 +198,7 @@ const CustomTable = ({
                 </Button>
               }
               id={'actions'}
-              items={action}
+              items={isOwner ? actionOwner : action}
               colorInvert={false}
             />
           </>

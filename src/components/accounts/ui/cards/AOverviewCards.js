@@ -18,8 +18,9 @@ export const AOverviewCards = ({
       sx={{
         p: 1,
         minWidth: 275,
-        border: `1px solid ${grey[100]}`,
+        border: `1px solid ${grey[200]}`,
         borderRadius: '8px',
+        boxShadow: 0,
       }}
     >
       <CardContent>

@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Skeleton,
   Stack,
   Typography,
 } from '@mui/material';
@@ -16,7 +17,40 @@ import CreateIcon from '@mui/icons-material/Create';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 dayjs.extend(relativeTime);
 
-export default function InstanceHeader({ instance }) {
+const Media = ({ loading = false, instance = {} }) => {
+  if (loading && !instance.screenshotURL) {
+    return (
+      <Skeleton
+        variant="rectangular"
+        height={160}
+        sx={{ borderRadius: '8px' }}
+      />
+    );
+  } else if (!loading && instance.screenshotURL) {
+    return (
+      <CardMedia
+        component="img"
+        height="160px"
+        width={1}
+        image={instance?.screenshotURL}
+        alt="screenshot"
+        sx={{ borderRadius: '8px', border: `1px solid ${grey[200]}` }}
+      />
+    );
+  } else {
+    return (
+      <CardMedia
+        component="img"
+        height="160px"
+        image={FillerContent.image}
+        alt="screenshot"
+        sx={{ borderRadius: '8px', border: `1px solid ${grey[200]}` }}
+      />
+    );
+  }
+};
+
+export default function InstanceHeader({ instance, loading }) {
   const webengineUrl = `https://${instance?.randomHashID}-dev.webengine.zesty.io`;
   const managerURl = `https://${instance?.ZUID}.manager.zesty.io`;
 
@@ -28,27 +62,9 @@ export default function InstanceHeader({ instance }) {
         boxShadow: 'none',
       }}
     >
-      {instance?.screenshotURL ? (
-        <Stack py={2} pl={2} pr={2}>
-          <CardMedia
-            component="img"
-            height="150px"
-            image={instance?.screenshotURL}
-            alt="screenshot"
-            sx={{ boxShadow: 1, borderRadius: '8px' }}
-          />
-        </Stack>
-      ) : (
-        <Stack p={1.5}>
-          <CardMedia
-            component="img"
-            height="150px"
-            image={FillerContent.image}
-            alt="screenshot"
-            sx={{ boxShadow: 1, borderRadius: '8px' }}
-          />
-        </Stack>
-      )}
+      <Stack py={2} pl={2} pr={2}>
+        <Media instance={instance} loading={loading} />
+      </Stack>
 
       <CardContent>
         <Typography
