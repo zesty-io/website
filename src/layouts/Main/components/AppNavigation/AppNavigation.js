@@ -181,7 +181,12 @@ const AppNavigation = ({
             {isLG && (
               <>
                 <Button
-                  color="primary"
+                  color={
+                    (isAccounts && isLoggedIn) ||
+                    (isLoggedIn && window.location.pathname === '/')
+                      ? 'primary'
+                      : 'secondary'
+                  }
                   size="small"
                   variant="contained"
                   startIcon={<AddIcon />}
@@ -221,7 +226,12 @@ const AppNavigation = ({
                 <IconButton
                   title="Create Instance"
                   href="https://accounts.zesty.io/instances/create"
-                  color="primary"
+                  color={
+                    (isAccounts && isLoggedIn) ||
+                    (isLoggedIn && window.location.pathname === '/')
+                      ? 'primary'
+                      : 'secondary'
+                  }
                 >
                   <AddIcon />
                 </IconButton>
