@@ -200,7 +200,7 @@ const Main = ({
   };
 
   const viewTeamMemberModals = (data) => {
-    const teamMembers = instanceUserWithRoles.filter(
+    const teamMembers = instanceUserWithRoles?.filter(
       (e) => e.teamZUID === data.ZUID,
     );
     const rows = teamMembers.map((e) => {

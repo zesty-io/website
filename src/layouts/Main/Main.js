@@ -19,7 +19,7 @@ import { getCookie, setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
 import { Container } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import { grey } from '@mui/material/colors';
+import { AccountsAppbar } from 'components/console/AccountsAppbar';
 
 const Main = ({
   children,
@@ -146,8 +146,7 @@ const Main = ({
           backgroundColor: bgColorSwitch(),
           py: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
-          borderBottom:
-            isLoggedIn && !isDashboard ? `1px solid ${grey[300]}` : 'none',
+          borderBottom: isLoggedIn && 'none',
         }}
         elevation={trigger ? 1 : 0}
       >
@@ -172,13 +171,16 @@ const Main = ({
             />
           )}
           {isLoggedIn && (
-            <AppNavigation
-              onSidebarOpen={handleSidebarOpen}
-              colorInvert={headerColorInvert && !trigger}
-              trigger={trigger}
-              userInfo={userInfo?.data}
-              loading={loading}
-            />
+            <>
+              <AppNavigation
+                onSidebarOpen={handleSidebarOpen}
+                colorInvert={headerColorInvert && !trigger}
+                trigger={trigger}
+                userInfo={userInfo?.data}
+                loading={loading}
+              />
+              <AccountsAppbar />
+            </>
           )}
         </Container>
       </AppBar>

@@ -17,6 +17,7 @@ import { grey, purple } from '@mui/material/colors';
 import { Timeline } from '@mui/lab';
 import ZTimelineItem from 'components/accounts/dashboard/ui/ZTimelineItem';
 import ZInstanceTimelineItemContainer from 'components/accounts/dashboard/ui/ZInstanceTimelineItemContainer';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import * as helpers from 'utils';
 
 export const Overview = ({
@@ -145,7 +146,14 @@ export const Overview = ({
 
   return (
     <Box>
-      <Stack px={5} pt={2} pb={4} sx={{ background: theme.palette.grey[50] }}>
+      <Stack
+        px={5}
+        pt={2}
+        pb={4}
+        sx={(theme) => ({
+          bgcolor: theme.palette.mode === 'light' ? theme.palette.grey[50] : '',
+        })}
+      >
         <Stack
           pb={4}
           direction={{ xs: 'column', md: 'row' }}
@@ -157,22 +165,41 @@ export const Overview = ({
           <Stack direction="row" spacing={2}>
             <Button
               variant="contained"
-              color="inherit"
+              color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
               sx={(theme) => ({
-                border: `1px solid ${grey[200]}`,
-                bgcolor:
-                  theme.palette.mode === 'light'
-                    ? 'white'
-                    : theme.palette.primary.main,
+                border:
+                  theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
+                bgcolor: theme.palette.mode === 'light' && 'white',
                 '&:hover': {
-                  bgcolor: 'white',
-                  color: 'black',
+                  bgcolor: theme.palette.mode === 'light' && 'white',
+                  color: theme.palette.mode === 'light' && 'black',
                 },
               })}
               onClick={handleClearCache}
               startIcon={<CachedIcon color="disabled" />}
             >
               Clear Cache
+            </Button>
+            <Button
+              variant="contained"
+              color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
+              href={`https://${instance.ZUID}.manager${
+                helpers?.isProd ? '' : '.dev'
+              }.zesty.io/reports/metrics`}
+              target="_blank"
+              sx={(theme) => ({
+                border:
+                  theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
+                bgcolor: theme.palette.mode === 'light' && 'white',
+                '&:hover': {
+                  bgcolor: theme.palette.mode === 'light' && 'white',
+                  color: theme.palette.mode === 'light' && 'black',
+                },
+              })}
+              onClick={handleClearCache}
+              startIcon={<AutoGraphIcon color="disabled" />}
+            >
+              View All Usage
             </Button>
             {/* <Button
               onClick={() => {}}

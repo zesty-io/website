@@ -137,11 +137,12 @@ export const OverviewTabs = ({
   instanceUserWithRoles = [],
   loading,
 }) => {
-  console.log(instanceUserWithRoles, instance, '444');
   const websiteCreator = instanceUserWithRoles?.find(
     (e) => e?.ZUID === instance?.createdByUserZUID,
   );
-  const name = `${websiteCreator?.firstName} ${websiteCreator?.lastName}`;
+  const name = `${websiteCreator?.firstName || '-'} ${
+    websiteCreator?.lastName || ''
+  }`;
   const role = websiteCreator?.role?.name;
 
   const userImg = (
@@ -178,7 +179,7 @@ export const OverviewTabs = ({
         width: '100%',
         height: '100%',
         [theme.breakpoints.up('lg')]: {
-          bgcolor: theme.palette.grey[50],
+          bgcolor: theme.palette.mode === 'light' ? theme.palette.grey[50] : '',
         },
       })}
     >
