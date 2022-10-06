@@ -88,7 +88,9 @@ export default function Page({ children }) {
       // only apply zesty/material in accounts paths
       theme={
         (isAccounts && isLoggedIn) ||
-        (isLoggedIn && window.location.pathname === '/')
+        (isLoggedIn &&
+          (window.location.pathname === '/' ||
+            window.location.pathname.startsWith('/marketplace')))
           ? getThemeAccounts(themeMode, themeToggler)
           : getTheme(themeMode, themeToggler)
       }
