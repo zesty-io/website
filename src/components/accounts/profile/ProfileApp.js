@@ -41,7 +41,7 @@ const ProfileNavigation = ({ lists, handleChange, currentPage = '' }) => {
             disablePadding
             selected={list.filename === currentPage}
             sx={(theme) => ({
-              mb: 0.5,
+              my: 1,
               borderRadius: '5px',
               color: theme.palette.text.secondary,
               '&.Mui-selected': {
@@ -162,8 +162,8 @@ const Index = ({ children }) => {
               // borderRight: `1px solid ${grey[300]}`,
               maxWidth: { md: '384px' },
               position: 'sticky',
-              top: '60px',
-              height: `calc(100vh - 46px)`,
+              top: '114px',
+              height: `calc(100vh - 114px)`,
               overflow: 'auto',
               '::-webkit-scrollbar': {
                 display: 'none',

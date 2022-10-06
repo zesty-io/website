@@ -42,11 +42,6 @@ export const AccountsNavItem = ({ title, id, items, colorInvert = false }) => {
       >
         <Typography
           fontWeight={400}
-          sx={{
-            '&:hover': {
-              fontWeight: 'bold',
-            },
-          }}
           color="text.secondary"
           variant="body1"
           mr={1}

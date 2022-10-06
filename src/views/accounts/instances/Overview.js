@@ -17,6 +17,7 @@ import { grey, purple } from '@mui/material/colors';
 import { Timeline } from '@mui/lab';
 import ZTimelineItem from 'components/accounts/dashboard/ui/ZTimelineItem';
 import ZInstanceTimelineItemContainer from 'components/accounts/dashboard/ui/ZInstanceTimelineItemContainer';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import * as helpers from 'utils';
 
 export const Overview = ({
@@ -142,7 +143,14 @@ export const Overview = ({
 
   return (
     <Box>
-      <Stack px={5} pt={2} pb={4} sx={{ background: theme.palette.grey[50] }}>
+      <Stack
+        px={5}
+        pt={2}
+        pb={4}
+        sx={(theme) => ({
+          bgcolor: theme.palette.mode === 'light' ? theme.palette.grey[50] : '',
+        })}
+      >
         <Stack
           pb={4}
           direction={{ xs: 'column', md: 'row' }}
@@ -170,6 +178,28 @@ export const Overview = ({
               startIcon={<CachedIcon color="disabled" />}
             >
               Clear Cache
+            </Button>
+            <Button
+              variant="contained"
+              color="inherit"
+              href={`https://${instance.ZUID}.manager${
+                helpers?.isProd ? '' : '.dev'
+              }.zesty.io/reports/metrics`}
+              target="_blank"
+              sx={(theme) => ({
+                bgcolor:
+                  theme.palette.mode === 'light'
+                    ? 'white'
+                    : theme.palette.primary.main,
+                '&:hover': {
+                  bgcolor: 'white',
+                  color: 'black',
+                },
+              })}
+              onClick={handleClearCache}
+              startIcon={<AutoGraphIcon color="disabled" />}
+            >
+              View All Usage
             </Button>
             {/* <Button
               onClick={() => {}}

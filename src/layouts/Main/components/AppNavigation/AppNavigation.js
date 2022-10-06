@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  accounts,
   AccountsComboBox,
   DeveloperDocMenu,
   ProfileMenu,
@@ -11,12 +10,29 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
-import { Link, Stack } from '@mui/material';
+import {
+  Button,
+  Collapse,
+  IconButton,
+  lighten,
+  Link,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Stack,
+  Typography,
+} from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
-import { NavItem } from '../Topbar/components';
 import { AccountsThemeToggler } from 'components/globals/AccountsThemeToggler';
 import { AccountsSingleNavItem } from '../Topbar/components/NavItem/AccountsSingleNavItem';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import MenuIcon from '@mui/icons-material/Menu';
+import AddIcon from '@mui/icons-material/Add';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { grey } from '@mui/material/colors';
 
 const navigationLinks = [
   {
@@ -38,6 +54,40 @@ const navigationLinks = [
     title: 'Marketplace',
     id: 'marketplace',
     url: '/marketplace/',
+  },
+];
+
+const mobileNavLinks = [
+  ...navigationLinks,
+  {
+    title: 'Profile',
+    id: 'profile',
+    url: '/profile/',
+  },
+  {
+    title: 'Security',
+    id: 'security',
+    url: '/profile/security/',
+  },
+  {
+    title: 'Preferences',
+    id: 'preferences',
+    url: '/profile/preferences/',
+  },
+  {
+    title: 'Create Instance',
+    id: 'createInstance',
+    url: 'https://accounts.zesty.io/instances/create',
+  },
+  {
+    title: 'Legacy Account',
+    id: 'legacyAccount',
+    url: 'https://accounts.zesty.io/',
+  },
+  {
+    title: 'Logout',
+    id: 'logout',
+    url: '/logout/',
   },
 ];
 
@@ -72,118 +122,192 @@ const AppNavigation = ({
   const isLoggedIn = useIsLoggedIn();
 
   const isAccounts = isProtectedRoute(window.location.pathname);
+  const theme = useTheme();
+  const isXL = useMediaQuery(theme.breakpoints.up('xl'));
+  const isLG = useMediaQuery(theme.breakpoints.up('lg'));
+  const isSM = useMediaQuery(theme.breakpoints.down('md'));
+  const isMD = useMediaQuery(theme.breakpoints.up('md'));
+  const [isToggle, setIsToggle] = useState(false);
+
+  useEffect(() => {
+    setIsToggle(false);
+  }, [isMD]);
 
   return (
-    <Stack direction="row">
-      <Link href="/">
-        <img
-          src="https://brand.zesty.io/zesty-io-logo.svg"
-          height={40}
-          width={40}
-        />
-      </Link>
+    <>
+      <Stack direction="row" alignItems={isSM && 'center'} py={1}>
+        <Link href="/">
+          <img
+            src="https://brand.zesty.io/zesty-io-logo.svg"
+            height={40}
+            width={40}
+          />
+        </Link>
+        {isSM && (
+          <Typography
+            variant="h6"
+            color="primary"
+            sx={{ width: '100%', textAlign: 'center' }}
+          >
+            Zesty.io
+          </Typography>
+        )}
 
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={2}
-        ml={4}
-        display={{ xs: 'flex', lg: 'none' }}
-      >
-        <NavItem
-          title={'Accounts'}
-          id={'accounts'}
-          items={accounts.leftNav}
-          colorInvert={false}
-        />
-      </Stack>
-      <Stack
-        direction="row"
-        width="100%"
-        ml={4}
-        display={{ xs: 'none', md: 'flex' }}
-      >
         <Stack
           direction="row"
-          alignItems="center"
-          spacing={8}
-          display={{ xs: 'none', lg: 'flex' }}
-          mr={2}
+          width="100%"
+          ml={2}
+          display={{ xs: 'none', md: 'flex' }}
         >
-          {navigationLinks.map((nav) => (
-            <AccountsSingleNavItem
-              key={nav.id}
-              title={nav.title}
-              url={nav.url}
-              colorInvert={colorInvert}
+          <Stack direction="row" alignItems="center" spacing={3}>
+            {navigationLinks.map((nav) => (
+              <AccountsSingleNavItem
+                key={nav.id}
+                title={nav.title}
+                url={nav.url}
+                colorInvert={colorInvert}
+              />
+            ))}
+            <DeveloperDocMenu />
+          </Stack>
+          <Stack direction="row" ml="auto" spacing={2} alignItems="center">
+            {isXL && (
+              <AccountsComboBox
+                instances={instances?.data}
+                setCookies={handleComboxClick}
+                instanceZUID={instanceZUID}
+              />
+            )}
+            {isLG && (
+              <>
+                <Button
+                  color={
+                    (isAccounts && isLoggedIn) ||
+                    (isLoggedIn && window.location.pathname === '/')
+                      ? 'primary'
+                      : 'secondary'
+                  }
+                  size="small"
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  onClick={() =>
+                    router.push('https://accounts.zesty.io/instances/create')
+                  }
+                >
+                  Create Instance
+                </Button>
+                <Button
+                  href="https://accounts.zesty.io/"
+                  variant="outlined"
+                  size="small"
+                  id="accounts-legacy"
+                  className="accounts-legacy-button"
+                  endIcon={<ExitToAppIcon />}
+                  sx={({ palette: { mode } }) => {
+                    const adjustedGrey =
+                      mode === 'light' ? grey[500] : grey[200];
+                    return {
+                      whiteSpace: 'nowrap',
+                      border: `1px solid ${adjustedGrey}`,
+                      color: adjustedGrey,
+                      '&.MuiButtonBase-root:hover': {
+                        border: `1px solid ${adjustedGrey}`,
+                      },
+                    };
+                  }}
+                >
+                  Legacy Accounts
+                </Button>
+              </>
+            )}
+
+            {isMD && !isLG && (
+              <>
+                <IconButton
+                  title="Create Instance"
+                  href="https://accounts.zesty.io/instances/create"
+                  color={
+                    (isAccounts && isLoggedIn) ||
+                    (isLoggedIn && window.location.pathname === '/')
+                      ? 'primary'
+                      : 'secondary'
+                  }
+                >
+                  <AddIcon />
+                </IconButton>
+                <IconButton
+                  title="Legacy Accounts"
+                  href="https://accounts.zesty.io/"
+                  sx={{ color: grey[500] }}
+                >
+                  <ExitToAppIcon />
+                </IconButton>
+              </>
+            )}
+
+            <AccountsThemeToggler />
+
+            <ProfileMenu
+              userInfo={userInfo}
+              profilePic={
+                <Stack direction="row">
+                  <img
+                    src={profileUrl}
+                    alt="User"
+                    height={25}
+                    width={25}
+                    style={{ borderRadius: '50%' }}
+                  />
+                  <ArrowDropDownIcon color={'disabled'} fontSize="medium" />
+                </Stack>
+              }
             />
-          ))}
-          <DeveloperDocMenu />
+          </Stack>
         </Stack>
-        <Stack direction="row" ml="auto" spacing={4} alignItems="center">
-          <AccountsComboBox
-            instances={instances?.data}
-            setCookies={handleComboxClick}
-            instanceZUID={instanceZUID}
-            size="small"
-          />
-          {/* <Button
-            color={
-              (isAccounts && isLoggedIn) ||
-              (isLoggedIn && window.location.pathname === '/')
-                ? 'primary'
-                : 'secondary'
-            }
-            size="medium"
-            variant="contained"
-            startIcon={<AddIcon />}
-            sx={{ whiteSpace: 'nowrap' }}
-            onClick={() =>
-              router.push('https://accounts.zesty.io/instances/create')
-            }
+        {isSM && (
+          <IconButton
+            onClick={() => setIsToggle((prev) => !prev)}
+            sx={{ ml: 'auto' }}
           >
-            Create Instance
-          </Button> */}
-          <AccountsThemeToggler />
-          <ProfileMenu
-            userInfo={userInfo}
-            profilePic={
-              <Stack direction="row">
-                <img
-                  src={profileUrl}
-                  alt="User"
-                  height={25}
-                  width={25}
-                  style={{ borderRadius: '50%' }}
-                />
-                <ArrowDropDownIcon color={'disabled'} fontSize="medium" />
-              </Stack>
-            }
-          />
-          {/* <Button
-            href="https://accounts.zesty.io/"
-            variant="outlined"
-            size="medium"
-            id="accounts-legacy"
-            className="accounts-legacy-button"
-            endIcon={<ExitToAppIcon />}
-            sx={({ palette: { mode } }) => {
-              const adjustedGrey = mode === 'light' ? grey[500] : grey[200];
-              return {
-                whiteSpace: 'nowrap',
-                border: `1px solid ${adjustedGrey}`,
-                color: adjustedGrey,
-                '&.MuiButtonBase-root:hover': {
-                  border: `1px solid ${adjustedGrey}`,
-                },
-              };
-            }}
-          >
-            Legacy Accounts
-          </Button> */}
-        </Stack>
+            <MenuIcon />
+          </IconButton>
+        )}
       </Stack>
-    </Stack>
+      <Collapse in={isToggle}>
+        <List>
+          {mobileNavLinks.map((list, index) => (
+            <ListItem
+              key={index}
+              href={list.url}
+              component="a"
+              disablePadding
+              selected={
+                list.url === '/' || list.url === '/profile/'
+                  ? list.url === router.asPath
+                  : router.asPath.startsWith(list.url)
+              }
+              sx={(theme) => ({
+                borderRadius: '5px',
+                my: 1,
+                color: theme.palette.text.secondary,
+                '&.Mui-selected': {
+                  ' .MuiListItemIcon-root': {
+                    color: theme.palette.primary.main,
+                  },
+                  bgcolor: lighten(theme.palette.primary.light, 0.9),
+                  pointerEvents: 'none',
+                  color: theme.palette.primary.main,
+                },
+              })}
+            >
+              <ListItemButton color="warning" sx={{ borderRadius: '5px' }}>
+                <ListItemText primary={list.title} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Collapse>
+    </>
   );
 };
 
