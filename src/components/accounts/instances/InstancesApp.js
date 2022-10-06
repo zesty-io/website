@@ -83,17 +83,17 @@ const Index = ({ children }) => {
             item
             md={3}
             lg={2}
-            sx={{
+            sx={(theme) => ({
               // borderRight: `1px solid ${grey[300]}`,
               maxWidth: { md: '384px' },
               position: 'sticky',
-              top: '114px',
-              height: `calc(100vh - 114px)`,
+              top: `${theme.tabTop}px`,
+              height: `calc(100vh - ${theme.tabTop}px)`,
               overflow: 'auto',
               '::-webkit-scrollbar': {
                 display: 'none',
               },
-            }}
+            })}
           >
             <InstanceHeader instance={instance} loading={loading} />
             <InstanceNavigation
