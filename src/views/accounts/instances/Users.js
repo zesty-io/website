@@ -65,8 +65,9 @@ const CustomTable = ({
       headerName: 'Name',
       width: 500,
       editable: false,
-      sortable: false,
+      sortable: true,
       renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
+      valueGetter: (params) => params.row.firstName,
       renderCell: (params) => {
         const name = `${params.row.firstName} ${params.row.lastName}`;
         const email = `${params.row.email}`;
@@ -100,6 +101,7 @@ const CustomTable = ({
       width: 250,
       editable: false,
       sortable: true,
+      valueGetter: (params) => params.row.role.name,
       renderHeader: () => <AccountsTableHead>Role</AccountsTableHead>,
       renderCell: (params) => {
         const e = params.row;
