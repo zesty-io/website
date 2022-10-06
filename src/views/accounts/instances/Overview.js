@@ -162,16 +162,14 @@ export const Overview = ({
           <Stack direction="row" spacing={2}>
             <Button
               variant="contained"
-              color="inherit"
+              color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
               sx={(theme) => ({
-                border: `1px solid ${grey[200]}`,
-                bgcolor:
-                  theme.palette.mode === 'light'
-                    ? 'white'
-                    : theme.palette.primary.main,
+                border:
+                  theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
+                bgcolor: theme.palette.mode === 'light' && 'white',
                 '&:hover': {
-                  bgcolor: 'white',
-                  color: 'black',
+                  bgcolor: theme.palette.mode === 'light' && 'white',
+                  color: theme.palette.mode === 'light' && 'black',
                 },
               })}
               onClick={handleClearCache}
@@ -181,19 +179,18 @@ export const Overview = ({
             </Button>
             <Button
               variant="contained"
-              color="inherit"
+              color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
               href={`https://${instance.ZUID}.manager${
                 helpers?.isProd ? '' : '.dev'
               }.zesty.io/reports/metrics`}
               target="_blank"
               sx={(theme) => ({
-                bgcolor:
-                  theme.palette.mode === 'light'
-                    ? 'white'
-                    : theme.palette.primary.main,
+                border:
+                  theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
+                bgcolor: theme.palette.mode === 'light' && 'white',
                 '&:hover': {
-                  bgcolor: 'white',
-                  color: 'black',
+                  bgcolor: theme.palette.mode === 'light' && 'white',
+                  color: theme.palette.mode === 'light' && 'black',
                 },
               })}
               onClick={handleClearCache}
