@@ -12,6 +12,7 @@ import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import {
   Button,
+  Chip,
   Collapse,
   IconButton,
   lighten,
@@ -160,6 +161,10 @@ const AppNavigation = ({
           display={{ xs: 'none', md: 'flex' }}
         >
           <Stack direction="row" alignItems="center" spacing={3}>
+            <Chip
+              label={<Typography variant="body2">BETA</Typography>}
+              color="info"
+            />
             {navigationLinks.map((nav) => (
               <AccountsSingleNavItem
                 key={nav.id}
@@ -190,9 +195,7 @@ const AppNavigation = ({
                   size="small"
                   variant="contained"
                   startIcon={<AddIcon />}
-                  onClick={() =>
-                    router.push('https://accounts.zesty.io/instances/create')
-                  }
+                  onClick={() => router.push('/start/')}
                 >
                   Create Instance
                 </Button>
