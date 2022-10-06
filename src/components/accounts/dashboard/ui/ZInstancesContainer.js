@@ -21,7 +21,11 @@ const ZInstancesContainer = ({
   return (
     <>
       <Typography mb={2} variant="h6" color="text.secondary">
-        {firstName ? dayTime() + firstName : <Skeleton width="150px" />}
+        {firstName ? (
+          dayTime() + firstName
+        ) : (
+          <Skeleton sx={{ mb: 2 }} width="150px" />
+        )}
       </Typography>
 
       <Grid container spacing={{ xs: 2, xl: 4 }}>

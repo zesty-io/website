@@ -145,7 +145,7 @@ const Main = ({
           boxShadow: hideNav ? '' : '',
           top: 0,
           backgroundColor: bgColorSwitch(),
-          py: 1,
+          pb: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
           borderBottom: isLoggedIn && `1px solid ${grey[200]}`,
         }}
