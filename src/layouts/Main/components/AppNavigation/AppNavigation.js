@@ -136,7 +136,7 @@ const AppNavigation = ({
   return (
     <>
       <Stack direction="row" alignItems={isSM && 'center'} py={1}>
-        <Link href="/">
+        <Link href="/" display="flex" alignItems="center">
           <img
             src="https://brand.zesty.io/zesty-io-logo.svg"
             height={40}
@@ -187,7 +187,6 @@ const AppNavigation = ({
                       ? 'primary'
                       : 'secondary'
                   }
-                  size="small"
                   variant="contained"
                   startIcon={<AddIcon />}
                   onClick={() =>
@@ -199,7 +198,6 @@ const AppNavigation = ({
                 <Button
                   href="https://accounts.zesty.io/"
                   variant="outlined"
-                  size="small"
                   id="accounts-legacy"
                   className="accounts-legacy-button"
                   endIcon={<ExitToAppIcon />}
@@ -254,8 +252,8 @@ const AppNavigation = ({
                   <img
                     src={profileUrl}
                     alt="User"
-                    height={25}
-                    width={25}
+                    height={30}
+                    width={30}
                     style={{ borderRadius: '50%' }}
                   />
                   <ArrowDropDownIcon color={'disabled'} fontSize="medium" />

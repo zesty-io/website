@@ -20,6 +20,7 @@ import { useZestyStore } from 'store';
 import { Container } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { AccountsAppbar } from 'components/console/AccountsAppbar';
+import { grey } from '@mui/material/colors';
 
 const Main = ({
   children,
@@ -146,7 +147,7 @@ const Main = ({
           backgroundColor: bgColorSwitch(),
           py: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
-          borderBottom: isLoggedIn && 'none',
+          borderBottom: isLoggedIn && `1px solid ${grey[200]}`,
         }}
         elevation={trigger ? 1 : 0}
       >
