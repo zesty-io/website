@@ -130,13 +130,13 @@ const Dashboard = () => {
       >
         <Grid container spacing={2}>
           <Grid
-            sx={{
-              height: { md: `calc(100vh - 66px)` },
+            sx={(theme) => ({
+              height: { md: `calc(100vh - ${theme.tabTop}px)` },
               position: { md: 'sticky' },
-              top: { md: '66px' },
+              top: { md: `${theme.tabTop}px` },
               overflowY: { md: 'auto' },
               maxWidth: { md: '384px' },
-            }}
+            })}
             md={3}
             lg={2}
             xs={12}
@@ -153,7 +153,7 @@ const Dashboard = () => {
           </Grid>
 
           <Grid xs={12} md={9} lg={10} item>
-            <Stack py={2}>
+            <Stack py={1}>
               <ZInstancesContainer
                 firstName={userInfo?.firstName}
                 instances={instances}
