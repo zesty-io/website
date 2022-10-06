@@ -80,8 +80,8 @@ const mobileNavLinks = [
     url: 'https://accounts.zesty.io/instances/create',
   },
   {
-    title: 'Legacy Account',
-    id: 'legacyAccount',
+    title: 'Legacy Accounts',
+    id: 'legacyAccounts',
     url: 'https://accounts.zesty.io/',
   },
   {
