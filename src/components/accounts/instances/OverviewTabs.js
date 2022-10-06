@@ -12,8 +12,12 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import InfoIcon from '@mui/icons-material/Info';
 import { grey } from '@mui/material/colors';
+import { gravatarImg } from 'utils';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import dayjs from 'dayjs';
+import Skeleton from '@mui/material/Skeleton';
 
-const FieldComponent = ({ label = '', value = '', copy = true }) => {
+const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
   const [isCopied, setIsCopied] = useState(false);
   const copyToClipboard = (text) => {
     navigator?.clipboard?.writeText(text);
@@ -44,46 +48,126 @@ const FieldComponent = ({ label = '', value = '', copy = true }) => {
 
   return (
     <Stack sx={{ width: 1 }} spacing={0.5}>
-      <Stack direction={'row'} textAlign="center" spacing={0.5}>
-        <Typography>{label}</Typography>
-        <Box sx={{ color: 'GrayText' }}>
-          <InfoIcon fontSize="small" color="inherit" />
-        </Box>
-      </Stack>
-      <TextField
-        sx={(theme) => ({
-          bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
-          '& fieldset': {
-            border: `1px solid ${grey[200]}`,
-            borderRadius: '8px',
-          },
-        })}
-        value={value}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={() => {
-                  copyToClipboard(value);
-                }}
-                edge="end"
-              >
-                {isCopied ? (
-                  <CheckCircleOutlineIcon color="inherit" />
-                ) : (
-                  <ContentCopyIcon color="inherit" />
-                )}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      ></TextField>
+      {!loading ? (
+        <Stack direction={'row'} textAlign="center" spacing={0.5}>
+          <Typography>{label}</Typography>
+          <Box sx={{ color: 'GrayText' }}>
+            <InfoIcon fontSize="small" color="inherit" />
+          </Box>
+        </Stack>
+      ) : (
+        <Skeleton variant="text" sx={{ fontSize: '14px' }} width={120} />
+      )}
+      {!loading ? (
+        <TextField
+          sx={(theme) => ({
+            bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
+            '& fieldset': {
+              border: `1px solid ${grey[200]}`,
+              borderRadius: '8px',
+            },
+          })}
+          value={value}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => {
+                    copyToClipboard(value);
+                  }}
+                  edge="end"
+                >
+                  {isCopied ? (
+                    <CheckCircleOutlineIcon color="inherit" />
+                  ) : (
+                    <ContentCopyIcon color="inherit" />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        ></TextField>
+      ) : (
+        <Skeleton variant="rectangular" height={40} />
+      )}
     </Stack>
   );
 };
 
-export const OverviewTabs = ({ instance }) => {
+const DetailsComp = ({ header, img, title, subtitle, loading }) => {
+  return (
+    <Stack spacing={1}>
+      <Typography variant="body2" color="text.primary">
+        {!loading ? (
+          header
+        ) : (
+          <Skeleton variant="text" sx={{ fontSize: '14px' }} width={70} />
+        )}
+      </Typography>
+      <Stack direction={'row'} gap={2} alignItems="center">
+        {!loading ? (
+          img
+        ) : (
+          <Skeleton variant="circular" width={40} height={40} />
+        )}
+        <Stack>
+          <Typography variant="body2" color="text.primary">
+            {!loading ? (
+              title
+            ) : (
+              <Skeleton variant="text" sx={{ fontSize: '14px' }} width={120} />
+            )}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {!loading ? (
+              subtitle
+            ) : (
+              <Skeleton variant="text" sx={{ fontSize: '14px' }} width={70} />
+            )}
+          </Typography>
+        </Stack>
+      </Stack>
+    </Stack>
+  );
+};
+
+export const OverviewTabs = ({
+  instance,
+  userInfo = {},
+  instanceUserWithRoles = [],
+  loading,
+}) => {
+  const websiteCreator = instanceUserWithRoles?.find(
+    (e) => e?.ZUID === userInfo?.ZUID,
+  );
+  const name = `${websiteCreator?.firstName} ${websiteCreator?.lastName}`;
+  const role = websiteCreator?.role?.name;
+
+  const userImg = (
+    <img
+      height={40}
+      width={40}
+      src={gravatarImg(websiteCreator)}
+      alt="Zesty User"
+      style={{ borderRadius: '50%' }}
+    />
+  );
+  const details1Props = {
+    header: 'Created By',
+    img: userImg,
+    title: name,
+    subtitle: role,
+    loading,
+  };
+
+  const details2Props = {
+    header: 'Created On',
+    img: <CalendarTodayIcon color="disabled" sx={{ mx: 1 }} />,
+    title: dayjs(instance.createdAt).format('MMM DD, YYYY'),
+    subtitle: dayjs(instance.createdAt).format('ddd, h:mm A UTC ZZ'),
+    loading,
+  };
   return (
     <Container
       sx={(theme) => ({
@@ -98,9 +182,24 @@ export const OverviewTabs = ({ instance }) => {
         },
       })}
     >
-      <FieldComponent label="Instance ZUID" value={instance.ZUID} />
-      <FieldComponent label="Numeric ID" value={instance.ID} />
-      <FieldComponent label="Hash ID" value={instance.randomHashID} />
+      <FieldComponent
+        loading={loading}
+        label="Instance ZUID"
+        value={instance.ZUID}
+      />
+      <FieldComponent
+        loading={loading}
+        label="Numeric ID"
+        value={instance.ID}
+      />
+      <FieldComponent
+        loading={loading}
+        label="Hash ID"
+        value={instance.randomHashID}
+      />
+
+      <DetailsComp {...details1Props} />
+      <DetailsComp {...details2Props} />
     </Container>
   );
 };
