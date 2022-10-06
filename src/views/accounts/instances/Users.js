@@ -201,14 +201,17 @@ const CustomTable = ({
     },
   ];
 
+  const rows = React.useMemo(() => ROWS, [data, loading]);
+  const columns = React.useMemo(() => COLUMNS, [data, instanceRoles, loading]);
+
   return (
     <Stack p={4}>
       <AccountsTable
         loading={loading}
-        rows={ROWS}
-        columns={COLUMNS}
+        rows={rows}
+        columns={columns}
         pageSize={100}
-        autoHeight={true}
+        autoHeight={false}
       />
     </Stack>
   );

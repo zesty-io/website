@@ -50,10 +50,10 @@ const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
     <Stack sx={{ width: 1 }} spacing={0.5}>
       {!loading ? (
         <Stack direction={'row'} textAlign="center" spacing={0.5}>
-          <Typography>{label}</Typography>
-          <Box sx={{ color: 'GrayText' }}>
-            <InfoIcon fontSize="small" color="inherit" />
-          </Box>
+          <Typography variant="body2" mr={0.5}>
+            {label}
+          </Typography>
+          <InfoIcon fontSize="small" color="disabled" />
         </Stack>
       ) : (
         <Skeleton variant="text" sx={{ fontSize: '14px' }} width={120} />

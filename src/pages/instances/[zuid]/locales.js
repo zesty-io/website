@@ -263,7 +263,7 @@ export default function Locales() {
             rows={rows}
             columns={columns}
             pageSize={100}
-            autoHeight={true}
+            autoHeight={false}
           />
         </Stack>
       </Grid>

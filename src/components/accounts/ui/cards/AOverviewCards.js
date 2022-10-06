@@ -44,7 +44,7 @@ export const AOverviewCards = ({
             )}
           </Box>
         </Stack>
-        <Typography variant="h2" component="div" py={2}>
+        <Typography variant="h2" component="div" color={'text.primary'} py={2}>
           {!loading ? mainData : <Skeleton variant="rectangular" height={70} />}
         </Typography>
         {!loading ? (
