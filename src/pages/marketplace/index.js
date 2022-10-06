@@ -18,16 +18,10 @@ import { useRouter } from 'next/router';
 
 // import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
 import MarketplaceContainer from 'components/marketplace/landing/MarketplaceContainer';
-import MarketplaceEntities from 'components/marketplace/MarketplaceEntities';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
 import Hero from 'components/marketplace/landing/Hero';
-<<<<<<< HEAD
 // import AppBar from 'components/console/AppBar';
-=======
-import AppBar from 'components/console/AppBar';
-import { TryRounded } from '@mui/icons-material';
->>>>>>> ecaa8082a7315dd6c8e98f33932c0d1e64beba4f
 
 const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
   const router = useRouter();

@@ -7,16 +7,11 @@ import { useTheme } from '@mui/material/styles';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { ComboBox } from 'components/globals/ComboBox';
 import { Button, useMediaQuery } from '@mui/material';
-<<<<<<< HEAD
-import { getCookie, setCookie } from 'cookies-next';
-=======
-import { hashMD5 } from 'utils/Md5Hash';
-import { getCookie, setCookies } from 'cookies-next';
-import Typography from '@mui/material/Typography';
->>>>>>> ecaa8082a7315dd6c8e98f33932c0d1e64beba4f
+import { getCookie, setCookie, setCookies } from 'cookies-next';
 import HomeIcon from '@mui/icons-material/Home';
 import Skeleton from '@mui/material/Skeleton';
 import { getUserAppSID } from 'utils';
+import { hashMD5 } from 'utils/Md5Hash';
 
 export default function AppBar({ url = window.location.pathname }) {
   const theme = useTheme();
@@ -51,13 +46,7 @@ export default function AppBar({ url = window.location.pathname }) {
   return (
     <Box
       sx={{
-<<<<<<< HEAD
         py: 1,
-=======
-        backgroundColor: theme.palette.background.level2,
-        padding: '12px 0rem',
-        marginTop: '10px',
->>>>>>> ecaa8082a7315dd6c8e98f33932c0d1e64beba4f
       }}
     >
       <Container>
@@ -97,12 +86,9 @@ export default function AppBar({ url = window.location.pathname }) {
                     textTransform: 'capitalize',
                     display: 'flex',
                     alignItems: 'center',
-<<<<<<< HEAD
                     fontWeight: 'bold',
                     px: 2,
                     pointerEvents: 'none',
-=======
->>>>>>> ecaa8082a7315dd6c8e98f33932c0d1e64beba4f
                   }}
                   underline="none"
                   color="text.secondary"

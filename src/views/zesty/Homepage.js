@@ -42,11 +42,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Hero from 'components/marketing/Homepage/Hero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
-import NewBenefits from 'components/marketing/Homepage/NewBenefits';
-import Migration from 'components/marketing/Homepage/Migration';
 import Growth from 'components/marketing/Homepage/Growth';
 import CaseStudies from 'components/marketing/Homepage/CaseStudies';
-import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
 import Bottom from 'components/marketing/Homepage/Bottom';
 
@@ -82,7 +79,7 @@ function Homepage({ content }) {
   };
 
   useEffect(() => {
-    AOS.init({
+    window.AOS.init({
       disable: isMedium,
     });
   }, [isMedium]);

@@ -1,7 +1,6 @@
 // prettier-ignore
-import { Accordion, AccordionDetails,AccordionSummary,Box,Button,
-  Chip,Divider,Grid,Link,Stack,Typography, Card, CardContent } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {  
+  Grid,Link,Typography, Card, CardContent, Button, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
@@ -9,17 +8,11 @@ import styled from '@emotion/styled';
 import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
 import { getCookie } from 'cookies-next';
 import { AppInstallerComp } from 'components/marketplace/AppInstallerComp';
-import {
-  ModuleInstaller,
-  ResourceLinkComp,
-} from 'components/marketplace/ResourceLinkComp';
+import { ResourceLinkComp } from 'components/marketplace/ResourceLinkComp';
 import LaunchIcon from '@mui/icons-material/Launch';
 import MuiMarkdown from 'mui-markdown';
-<<<<<<< HEAD
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
-=======
->>>>>>> ecaa8082a7315dd6c8e98f33932c0d1e64beba4f
 
 function showDetails(props) {
   return (
@@ -78,7 +71,6 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 };
 
 const InstallButton = ({ data, theme }) => {
-<<<<<<< HEAD
   const { workingInstance } = useZestyStore((state) => state);
 
   const router = useRouter();
@@ -99,17 +91,6 @@ const InstallButton = ({ data, theme }) => {
         variant="contained"
         color="secondary"
         fullWidth
-=======
-  if (data.app_zuid) {
-    return <AppInstallerComp data={data} />;
-  } else if (window.location.pathname.includes('/templates/')) {
-    return (
-      <Button
-        variant="contained"
-        color="secondary"
-        fullWidth
-        href={`/start/?template=${data.meta.zuid}`}
->>>>>>> ecaa8082a7315dd6c8e98f33932c0d1e64beba4f
       >
         Install {data.name}
       </Button>

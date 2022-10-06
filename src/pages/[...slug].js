@@ -19,7 +19,6 @@ export default function Slug(props) {
 
   return (
     <>
-      
       <Main
         model={props.meta.model_alternate_name}
         nav={props.navigationTree}
@@ -36,13 +35,8 @@ export default function Slug(props) {
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // does not display with npm run dev
-  res.setHeader(
-    'Cache-Control',
-    'public, maxage=60, must-revalidate'
-  );
-  res.setHeader(
-    'Surrogate-Control' , 'max-age=60'
-  )
+  res.setHeader('Cache-Control', 'public, maxage=60, must-revalidate');
+  res.setHeader('Surrogate-Control', 'max-age=60');
 
   // attempt to get page data relative to zesty
   const data = await fetchPage(req.url);

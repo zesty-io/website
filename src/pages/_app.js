@@ -1,8 +1,6 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Head from 'next/head';
 import Page from '../components/wrappers/Page';
-import Script from 'next/script';
 import ZestyHead from 'components/globals/ZestyHead';
 import { getCookie, setCookie } from 'cookies-next';
 
@@ -12,7 +10,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'react-image-lightbox/style.css';
 import 'aos/dist/aos.css';
 import '../../public/styles/custom.css';
-
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -25,9 +22,12 @@ export default function App({ Component, pageProps }) {
   let GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
   useEffect(() => {
-    const params = new Proxy(new URLSearchParams(window.location.search.toLowerCase()), {
-      get: (searchParams, prop) => searchParams.get(prop),
-    });
+    const params = new Proxy(
+      new URLSearchParams(window.location.search.toLowerCase()),
+      {
+        get: (searchParams, prop) => searchParams.get(prop),
+      },
+    );
     // referrer, stored in a cookie so its not lost as a user browses
     let refCookie = getCookie('referrer');
     if (undefined == refCookie) setCookie('referrer', document.referrer);
@@ -46,9 +46,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <React.Fragment>
-      {pageProps?.meta?.web &&
-        <ZestyHead content={pageProps} />
-      }
+      {pageProps?.meta?.web && <ZestyHead content={pageProps} />}
       <Page>
         <Component {...pageProps} />
       </Page>

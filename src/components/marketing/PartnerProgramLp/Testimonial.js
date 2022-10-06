@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Button, Grid, Card, Container } from '@mui/material';
+import { Box, Typography, Card, Container } from '@mui/material';
 import Star from '../../../../public/assets/images/homepage/star.svg';
 
 const Testimonial = ({

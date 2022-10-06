@@ -10,14 +10,8 @@ export default IndexPage;
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
-  res.setHeader(
-    'Cache-Control',
-    'public, max-age=60, must-revalidate'
-  );
-  res.setHeader(
-    'Surrogate-Control' , 'max-age=60'
-  )
-  
+  res.setHeader('Cache-Control', 'public, max-age=60, must-revalidate');
+  res.setHeader('Surrogate-Control', 'max-age=60');
 
   const data = await fetchPage(req.url);
 
