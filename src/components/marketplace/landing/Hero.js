@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MuiMarkdown from 'mui-markdown';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -165,7 +165,7 @@ const Hero = ({
                             component="img"
                             src={
                               item.image?.data[0].url ||
-                              FillerContent.logos[0].url
+                              FillterContent.logos[0].url
                             }
                           />
                         </Box>

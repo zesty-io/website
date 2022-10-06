@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -12,10 +11,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 
-function BlogCTA({ title, description, ctaBtn }) {
+function BlogCTA({ title , description, ctaBtn}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -26,11 +25,11 @@ function BlogCTA({ title, description, ctaBtn }) {
       .required('Email is required'),
     firstName: yup
       .string('Enter your first name')
-      // .firstName('Enter your first name')
+     // .firstName('Enter your first name')
       .required('First name is required'),
     lastName: yup
       .string('Enter your last name')
-      //  .lastName('Enter your last name')
+    //  .lastName('Enter your last name')
       .required('Last name is required'),
   });
 
@@ -38,33 +37,26 @@ function BlogCTA({ title, description, ctaBtn }) {
     initialValues: {
       email: '',
       firstName: '',
-      lastName: '',
+      lastName: ''
     },
     validationSchema: validationSchema,
-    onSubmit: () => {
-      // handleModal();
-      // alert(JSON.stringify(values, null, 2));
+    onSubmit: (values) => {
+     // handleModal();
+     // alert(JSON.stringify(values, null, 2));
     },
   });
   const handleModal = () => {
     if (formik.values.email !== '' && formik.isValid) {
-      if (formik.values.email !== '' && formik.isValid) {
-        fetch(
-          'https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe?email=' +
-            formik.values.email +
-            '&first_name=' +
-            formik.values.firstName +
-            '&last_name=' +
-            formik.values.lastName,
-          {
-            method: 'GET',
-          },
-        )
-          .then((res) => res.json())
-          .then(() => {
-            acSENT = true;
-          });
-      }
+
+        if (formik.values.email !== '' && formik.isValid) {
+          fetch('https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe?email='+formik.values.email+'&first_name='+formik.values.firstName+'&last_name='+formik.values.lastName, {
+            method: 'GET'
+          })
+            .then(res => res.json())
+            .then(data => {
+              acSENT = true;
+            });
+        }
 
       setOpen(!open);
     }
@@ -78,12 +70,9 @@ function BlogCTA({ title, description, ctaBtn }) {
       flexDirection={{ xs: 'column', md: 'row-reverse' }}
       sx={{ backgroundImage: 'none' }}
     >
-      <TransitionsModal
-        open={open}
-        setOpen={setOpen}
-        title="Thank you for subscribing!"
-        message="Check your email to confirm."
-      />
+      <TransitionsModal open={open} setOpen={setOpen}
+      title="Thank you for subscribing!"
+      message="Check your email to confirm."/>
       <Box
         sx={{
           width: { xs: 1, md: '50%' },
@@ -168,25 +157,21 @@ function BlogCTA({ title, description, ctaBtn }) {
                 fullWidth
                 value={formik.values.firstName}
                 onChange={formik.handleChange}
-                error={
-                  formik.touched.firstName && Boolean(formik.errors.firstName)
-                }
+                error={formik.touched.firstName && Boolean(formik.errors.firstName)}
                 helperText={formik.touched.firstName && formik.errors.firstName}
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Last Name "
-                variant="outlined"
-                name={'lastName'}
-                fullWidth
-                value={formik.values.lastName}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.lastName && Boolean(formik.errors.lastName)
-                }
-                helperText={formik.touched.lastName && formik.errors.lastName}
-              />
+              <Grid item xs={12}>
+                <TextField
+                  label="Last Name "
+                  variant="outlined"
+                  name={'lastName'}
+                  fullWidth
+                  value={formik.values.lastName}
+                  onChange={formik.handleChange}
+                  error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+                  helperText={formik.touched.lastName && formik.errors.lastName}
+                />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -201,6 +186,7 @@ function BlogCTA({ title, description, ctaBtn }) {
               />
             </Grid>
             <Grid item xs={12}>
+
               <Button
                 size={'large'}
                 color="secondary"

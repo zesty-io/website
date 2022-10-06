@@ -18,7 +18,7 @@ const Topbar = ({
   customRouting,
   colorInvert = false,
   trigger,
-  isAuthenticated,
+  isLogin,
   userInfo = {},
   loading = false,
 }) => {
@@ -114,7 +114,7 @@ const Topbar = ({
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
           <Box>
-            {!isAuthenticated ? (
+            {!isLogin ? (
               <Box display={'flex'}>
                 <Box marginLeft={4}>
                   <TryFreeButton variant="contained" component="a" />
@@ -128,7 +128,7 @@ const Topbar = ({
                     endIcon={<LoginIcon />}
                     fullWidth
                     component="a"
-                    href="/login/"
+                    href="https://accounts.zesty.io"
                   >
                     Login
                   </Button>

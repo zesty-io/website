@@ -5,7 +5,7 @@
  * Label: Login 
  * Name: login 
  * Model ZUID: 6-ccb9ca9fc1-06fhhc
- * File Created On: Fri Aug 26 2022 15:52:03 GMT+0800 (Taipei Standard Time)
+ * File Created On: Thu Sep 01 2022 00:10:37 GMT+0800 (Philippine Standard Time)
  * 
  * Model Fields:
  * 
@@ -27,12 +27,22 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-import React from 'react';
-import CustomLogin from 'components/console/Login';
-import { getCookie } from 'cookies-next';
-function Login({ content }) {
-  const APP_USER_EMAIL = getCookie('APP_USER_EMAIL');
-  return <CustomLogin content={content} userEmail={APP_USER_EMAIL} />;
-}
 
+import React  from 'react';
+
+function Login({content}) {
+    return (
+        <>
+            {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+            <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
+            <div>{content.meta.web.seo_meta_description}</div>
+            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
+                <h2>Accessible Zesty.io JSON Object</h2>
+                <pre>{JSON.stringify(content, null, 2)}</pre>
+            </div>
+            {/* End of Zesty.io output example */}
+        </>
+    );
+}
+  
 export default Login;

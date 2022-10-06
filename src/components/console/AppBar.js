@@ -4,23 +4,25 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
+import { ComboBox } from 'components/globals/ComboBox';
 import { Button, useMediaQuery } from '@mui/material';
+<<<<<<< HEAD
 import { getCookie, setCookie } from 'cookies-next';
+=======
+import { hashMD5 } from 'utils/Md5Hash';
+import { getCookie, setCookies } from 'cookies-next';
+import Typography from '@mui/material/Typography';
+>>>>>>> ecaa8082a7315dd6c8e98f33932c0d1e64beba4f
 import HomeIcon from '@mui/icons-material/Home';
-import { useZestyStore } from 'store';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import { useRouter } from 'next/router';
+import Skeleton from '@mui/material/Skeleton';
+import { getUserAppSID } from 'utils';
 
 export default function AppBar({ url = window.location.pathname }) {
-  const router = useRouter();
-  const { verifySuccess, ZestyAPI, loading, setworkingInstance } =
-    useZestyStore((state) => state);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const [instance, setinstance] = React.useState([]);
-  const isLoggedIn = useIsLoggedIn();
-  const { zuid } = router.query;
+  const userAppSID = getUserAppSID();
 
   // get param from url to look for instance
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -38,42 +40,27 @@ export default function AppBar({ url = window.location.pathname }) {
     .split('/')
     .filter((e) => e);
 
-  const handleGetInstanceSuccess = (res) => {
-    setinstance(res.data);
-  };
-  const handleGetInstanceError = (res) => {
-    setinstance(res.data);
-  };
+  const { verifySuccess, instances, userInfo, loading } = useFetchWrapper(
+    userAppSID,
+    instanceZUID,
+  );
 
-  const getInstance = async () => {
-    const res = await ZestyAPI.getInstance(zuid);
-    !res.error && handleGetInstanceSuccess(res);
-    res.error && handleGetInstanceError(res);
-  };
-
-  React.useEffect(() => {
-    if (router.isReady) {
-      getInstance();
-    }
-  }, [router.isReady, url]);
-  React.useEffect(() => {
-    setworkingInstance(instanceZUID);
-  }, [instanceZUID]);
+  const profileUrl =
+    'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.data?.email);
 
   return (
     <Box
       sx={{
+<<<<<<< HEAD
         py: 1,
+=======
+        backgroundColor: theme.palette.background.level2,
+        padding: '12px 0rem',
+        marginTop: '10px',
+>>>>>>> ecaa8082a7315dd6c8e98f33932c0d1e64beba4f
       }}
     >
-      <Container
-        maxWidth={isLoggedIn ? false : true}
-        sx={(theme) => ({
-          maxWidth: isLoggedIn
-            ? theme.breakpoints.values.xl2
-            : theme.breakpoints.values.lg,
-        })}
-      >
+      <Container>
         <Box
           sx={{
             display: 'flex',
@@ -103,25 +90,24 @@ export default function AppBar({ url = window.location.pathname }) {
             {pathnames?.map((url, index) => {
               const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
               const isLastItem = index === pathnames.length - 1;
-              let name = url.replaceAll('-', ' ');
-              if (url.match(/^8-.*$/)) {
-                name = instance.name;
-              }
+              const name = url.replaceAll('-', ' ');
               return isLastItem ? (
                 <Link
                   sx={{
                     textTransform: 'capitalize',
                     display: 'flex',
                     alignItems: 'center',
+<<<<<<< HEAD
                     fontWeight: 'bold',
                     px: 2,
                     pointerEvents: 'none',
+=======
+>>>>>>> ecaa8082a7315dd6c8e98f33932c0d1e64beba4f
                   }}
                   underline="none"
                   color="text.secondary"
                   href={routeTo}
                   aria-current="page"
-                  key={name}
                 >
                   {name}
                 </Link>
@@ -130,7 +116,6 @@ export default function AppBar({ url = window.location.pathname }) {
                   underline="none"
                   color="text.secondary"
                   href={routeTo}
-                  key={index}
                   sx={{
                     textTransform: 'capitalize',
                     display: 'flex',
@@ -143,13 +128,19 @@ export default function AppBar({ url = window.location.pathname }) {
               );
             })}
           </Breadcrumbs>
+          {loading && (
+            <Box sx={{ display: 'flex', gap: '1rem' }}>
+              <Skeleton variant="rectangular" width={270} height={50} />
+              <Skeleton variant="rectangular" width={50} height={50} />
+            </Box>
+          )}
           {!loading && (
             <Box>
               {!verifySuccess ? (
                 <Button
-                  href="/login/"
+                  href={`https://accounts.zesty.io/login`}
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   size="small"
                   sx={{ whiteSpace: 'nowrap' }}
                 >
@@ -158,7 +149,23 @@ export default function AppBar({ url = window.location.pathname }) {
               ) : (
                 <Box
                   sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
-                ></Box>
+                >
+                  <ComboBox
+                    instances={instances?.data}
+                    setCookies={setCookies}
+                    instanceZUID={instanceZUID}
+                  />
+                  <Box
+                    boxShadow={2}
+                    sx={{
+                      backgroundColor: theme.palette.common.white,
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img src={profileUrl} alt="" height={40} width={40} />
+                  </Box>
+                </Box>
               )}
             </Box>
           )}

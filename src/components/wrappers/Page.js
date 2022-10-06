@@ -58,9 +58,6 @@ export default function Page({ children }) {
     return null;
   }
 
-  const isLoggedIn = useIsLoggedIn();
-  const isAccounts = isProtectedRoute(window.location.pathname);
-
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');

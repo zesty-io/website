@@ -9,13 +9,14 @@
  *
  * Model Fields:
  *
- * title (text)
+  * title (text)
  * content (wysiwyg_advanced)
  * image (images)
  * customer_logo_heading (text)
  * main_headline (text)
  * main_description (wysiwyg_advanced)
  * og_image (images)
+
  *
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
  * images are objects {content.image_name.data[0].url}
@@ -52,7 +53,9 @@ import Bottom from 'components/marketing/Homepage/Bottom';
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
 import { useEffect } from 'react';
-import Dashboard from 'components/accounts/dashboard';
+import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
+import MiddleCta from 'components/marketing/Homepage/MiddleCta';
+import { WithHighlightedCard } from 'blocks/testimonials';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -79,29 +82,66 @@ function Homepage({ content }) {
   };
 
   useEffect(() => {
-    window.AOS.init({
+    AOS.init({
       disable: isMedium,
     });
   }, [isMedium]);
 
-  if (content?.zesty?.isAuthenticated) {
-    return <Dashboard />;
-  } else {
-    return (
-      <>
-        <Hero {...pageData} />
-        <SimpleCardLogo logoItems={content.homepage_logos.data} {...pageData} />
-        <DigitalExperience {...pageData} />
-        <NewBenefits {...pageData} />
-        <Migration {...pageData} />
-        <Growth {...pageData} />
-        <CaseStudies {...pageData} />
-        <Testimonials {...testimonialsData} />
-        <LogoSlider {...pageData} />
-        <Bottom {...pageData} />
-      </>
-    );
-  }
+  const alternateColumnsData = content.zesty_benefits_tiles.data.map((item) => {
+    return {
+      header: item.header,
+      content: item.benefit_content,
+      image: item.benefit_image.data[0].url,
+    };
+  });
+
+  return (
+    <>
+      <Hero {...pageData} />
+      <SimpleCardLogo
+        variant="outlined"
+        heading_text={content?.logo_heading}
+        logoItems={content.homepage_logos.data}
+      />
+      <DigitalExperience {...pageData} />
+      {/* <NewBenefits {...pageData} /> */}
+      <AlternateColumns
+        {...pageData}
+        column_data={alternateColumnsData}
+        header_content={content.zesty_new_benefits}
+        cta_link={content.middle_cta_button_link?.data[0].meta.web.uri}
+        cta_text={content.middle_cta_button_text}
+      />
+      {/* <Migration {...pageData} /> */}
+
+      <MiddleCta
+        cta_text={content.middle_cta_text}
+        cta_secondary_link={
+          content.middle_cta_secondary_cta_link.data[0].meta.web.uri
+        }
+        cta_secondary_text={content.middle_secondary_cta_text}
+        header_content={content.middle_cta_header}
+        {...pageData}
+      />
+      <Growth {...pageData} />
+      <CaseStudies {...pageData} />
+      {/* <Testimonials
+        cta_text={content.testimonials_cta_text}
+        cta_link={content.testimonial_cta_link}
+        {...testimonialsData}
+      /> */}
+      <WithHighlightedCard {...testimonialsData} />
+      <LogoSlider cta_text={content.marketplace_cta_text} {...pageData} />
+      {/* <MiddleCta
+        cta_text={content.bottom_cta_text}
+        cta_secondary_link={content.bottom_cta_secondary_link}
+        cta_secondary_text={content.bottom_cta_secondary_text}
+        header_content={content.bottom_cta_header}
+        {...pageData}
+      /> */}
+      <Bottom {...pageData} />
+    </>
+  );
 }
 
 export default Homepage;

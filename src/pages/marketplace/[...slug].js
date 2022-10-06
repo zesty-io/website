@@ -13,6 +13,7 @@ import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
 import { setCookie } from 'cookies-next';
 import { useTheme } from '@emotion/react';
+import { TitleBar } from 'components/marketplace/TitleBar';
 import MainApps from 'components/marketplace/landing/MainApps';
 
 const ALTNAME = {
@@ -162,7 +163,7 @@ export async function getServerSideProps({ req, res }) {
   }
 
   const data = await getMarketplaceData(req.url);
-  let extensionsURL = process.env.PRODUCTION
+  let extensionsURL = JSON.parse(process.env.PRODUCTION)
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 

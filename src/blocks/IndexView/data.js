@@ -210,7 +210,7 @@ const components = {
     },
     {
       title: 'Logo Grid',
-      description: "Displays a grid of your customers' or sponsors' logo.",
+      description: 'Displays a grid of your customers\' or sponsors\' logo.',
       snippet:
         'https://assets.maccarianagency.com/svg/snippets/logo-grid-snippet.svg',
       snippetDark:
@@ -253,7 +253,7 @@ const components = {
     {
       title: 'Team',
       description:
-        "Used to showcase your team, give your brand a face and gain customers' trust.",
+        'Used to showcase your team, give your brand a face and gain customers\' trust.',
       snippet:
         'https://assets.maccarianagency.com/svg/snippets/team-snippet.svg',
       snippetDark:
@@ -341,7 +341,7 @@ const components = {
     {
       title: 'Product Quick Views',
       description:
-        "Used to quickly explore a product's detail within a modal dialog.",
+        'Used to quickly explore a product\'s detail within a modal dialog.',
       snippet:
         'https://assets.maccarianagency.com/svg/snippets/product-quick-views-snippet.svg',
       snippetDark:

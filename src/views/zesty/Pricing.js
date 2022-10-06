@@ -31,23 +31,31 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+// Mui Imports
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import { Typography, Button, Card } from '@mui/material';
 
-import Container from 'components/Container';
+// Components Import
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+// import Container from 'components/Container';
+import Container from 'blocks/container/Container';
 import PricingHero from '../../blocks/pricing/PricingHero/PricingHero';
 import SupportBanner from '../../blocks/pricing/SupportBanner/SupportBanner';
 import PricingCompareTable from '../../blocks/pricing/PricingCompareTable/PricingCompareTable';
 import Faq from '../../blocks/pricing/Faq/Faq';
+import Plans from '../../blocks/pricing/Plans/Plans';
 import useFetch from 'components/hooks/useFetch';
+import FillerContent from 'components/globals/FillerContent';
 
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 function Pricing({ content }) {
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const heroProps = {
     title: content.title,
     subtitle: content.instance_definition,
@@ -72,38 +80,95 @@ function Pricing({ content }) {
     setCategories(cats);
   }, [pricingData]);
 
+  const [active, setActive] = useState(false);
+  const featuresHandler = () => {
+    setActive(!active);
+  };
+
+  const pricingCompareTableData = content.tiers.data;
+
   return (
     <>
       <PricingHero {...heroProps} />
-      <Box bgcolor={'alternate.main'}>
+      <SimpleCardLogo
+        heading_text={
+          content.logos_header || FillerContent.rich_text_sub_heading
+        }
+        variant=""
+        logoItems={content.logos.data}
+        maxWidth={1400}
+      />
+
+      {/* {Pricing Comparison Table} */}
+      {/* <Container sx={{ mt: 10, maxWidth: 1400 }}>
+        <Card
+          variant="outlined"
+          sx={{
+            background: theme.palette.alternate.main,
+          }}
+        >
+          <Box
+            sx={{
+              py: 5,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography
+              variant="h4"
+              sx={{
+                color: theme.palette.zesty.zestyZambezi,
+                fontWeight: 'bold',
+                textAlign: 'center',
+              }}
+            >
+              {content?.comparison_heading}
+            </Typography>
+            <Button
+              onClick={featuresHandler}
+              sx={{ mt: 2 }}
+              variant="contained"
+              color="secondary"
+            >
+              {active ? content.show_comparison_ : content.hide_comparison}
+            </Button>
+          </Box>
+          {active && (
+            <Box sx={{ mt: 4 }}>
+              {categories.map((cat, idx) => (
+                <PricingCompareTable
+                  id={idx}
+                  tiers={content.tiers.data}
+                  category={cat}
+                  pricingLevers={pricingData}
+                />
+              ))}
+            </Box>
+          )}
+        </Card>
+      </Container> */}
+
+      <Box
+        sx={{
+          mt: 10,
+          background: theme.palette.zesty.zestyPurple,
+          color: 'white',
+        }}
+      >
+        <SupportBanner text_content={content.banner_content} />
+      </Box>
+
+      {/* <Container></Container> */}
+      {/* <Container maxWidth={400} paddingY={'0 !important'}>
+        <Divider />
+      </Container> */}
+      <Box sx={{ py: 10 }}>
         <Container>
-          <SupportBanner text_content={content.banner_content} />
+          <Faq />
         </Container>
       </Box>
-      <Container>
-        {categories.map((cat) => (
-          <PricingCompareTable
-            tiers={content.tiers.data}
-            category={cat}
-            pricingLevers={pricingData}
-          />
-        ))}
-      </Container>
-      <Container maxWidth={400} paddingY={'0 !important'}>
-        <Divider />
-      </Container>
-      <Container>
-        <Faq />
-      </Container>
-
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      {/* <h1 dangerouslySetInnerHTML={{__html:content.meta.web.seo_meta_title}}></h1>
-            <div>{content.meta.web.seo_meta_description}</div>
-            <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-                <h2>Accessible Zesty.io JSON Object</h2>
-                <pre>{JSON.stringify(content, null, 2)}</pre>
-            </div>*/}
-      {/* End of Zesty.io output example */}
     </>
   );
 }

@@ -9,7 +9,7 @@ import CreditCardsIllustration from 'svg/illustrations/CreditCards';
 
 import Container from 'components/Container';
 
-const CtaWithIllustrationNoCta = ({ title, description, image }) => {
+const CtaWithIllustrationNoCta = ({title, description, image}) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -19,7 +19,7 @@ const CtaWithIllustrationNoCta = ({ title, description, image }) => {
     <Container py={1}>
       <Grid container spacing={4}>
         <Grid item xs={12} md={6} alignSelf={'center'}>
-          <Box>
+          <Box >
             <Box marginBottom={2}>
               <Typography
                 variant="h3"

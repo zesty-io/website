@@ -102,7 +102,6 @@ export const transformSearch = (arr) => {
             const name = q.children[0].content;
             const href = u.children[0].attributes[0].value;
             const name1 = q;
-            console.log(name1);
             if (q.tagName === 'a') {
               return { name, href };
             }
@@ -120,7 +119,9 @@ export const transformSearch = (arr) => {
   return result;
 };
 export const test = (arr) => {
+  let numbers = [1, 2, 3];
   let sum = arr.reduce((previousValue, currentValue) => {
+    // console.log(previousValue, currentValue, 4444);
     return { ...previousValue, test: currentValue.children };
   }, []);
   return sum;
@@ -134,7 +135,7 @@ export const strColorChanger = (str, word, color) => {
   return res;
 };
 
-export const isProd =
+const isProd =
   getCookie('PRODUCTION') === false || getCookie('PRODUCTION') === 'false'
     ? false
     : true;

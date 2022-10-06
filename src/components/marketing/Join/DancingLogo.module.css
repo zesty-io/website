@@ -1,40 +1,28 @@
-.hello,
-.still,
-.bouncing,
-.rollIn,
-.rollOut,
-.dancingLogo,
-.jiggle,
-.no,
-.sway,
-.shake,
-.party,
-.fadeIn,
-.enterScreen {
-  width: 150px;
-  -webkit-transition: all 1s ease;
-  transition: all 1s ease;
-  transform: rotate(0deg);
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  position: absolute;
-  left: 50%;
-  margin-left: -75px;
-  top: 25px;
+.hello, .still, .bouncing, .rollIn, .rollOut, .dancingLogo, .jiggle, .no, .sway,.shake,.party,.fadeIn,.enterScreen{
+    width: 150px;
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+    transform: rotate(0deg);
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s; 
+    -webkit-animation-fill-mode: both; 
+    animation-fill-mode: both; 
+    position: absolute;
+    left: 50%;
+    margin-left: -75px;
+    top: 25px;
 }
 
 .sway {
-  animation: sway 3.5s ease-in-out forwards infinite;
+    animation: sway 3.5s ease-in-out forwards infinite;
 }
 
 .party {
-  animation: sway 1s infinite, shake 1s infinite, bounce 1s infinite;
+    animation: sway 1s infinite, shake 1s infinite,bounce 1s infinite;
 }
 
 .shake {
-  animation: shake 3.5s ease-in-out forwards;
+    animation: shake 3.5s ease-in-out forwards ;
 }
 
 .enterScreen {
@@ -42,175 +30,118 @@
 }
 
 .hello {
-  transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 .still {
-  animation: none;
+    animation: none;
 }
 .dancingLogo {
-  width: 100px;
+    width: 100px;
 }
 .bouncing {
-  animation: bounce 1000ms infinite;
+    animation: bounce 1000ms infinite; 
 }
 .rollIn {
-  animation: rollIn 1500ms ease-out, spin 1500ms ease-out;
+    animation: rollIn 1500ms ease-out, spin 1500ms ease-out;
+    
 }
 .fadeIn {
   animation: fadein 1000ms ease-out;
+  
 }
 .rollOut {
-  animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite;
+    animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite;
 }
 
 .no {
-  animation: no 700ms linear infinite;
+    animation: no 700ms linear infinite;
+
 }
 
 .jiggle {
-  animation: jiggle 1000ms linear infinite;
+    animation: jiggle 1000ms linear infinite;
+
 }
 
 @keyframes no {
-  /* start at 0deg and this scale size.
+    /* start at 0deg and this scale size.
        scale size is repeated here to maintain smooth scaling */
-  0% {
-    transform: rotate(0deg) scale(1, 1);
+    0% {transform: rotate(0deg) scale(1,1);}
+    /* midway rotate 2deg right */
+    25% {transform: rotate(10deg) scale(1,1);}
+    /* end rotate -2deg left */
+    50% {transform: rotate(0deg) scale(1,1)}
+    75% {transform: rotate(-10deg) scale(1,1)}
+    100% {transform: rotate(0deg) scale(1,1)}
   }
-  /* midway rotate 2deg right */
-  25% {
-    transform: rotate(10deg) scale(1, 1);
-  }
-  /* end rotate -2deg left */
-  50% {
-    transform: rotate(0deg) scale(1, 1);
-  }
-  75% {
-    transform: rotate(-10deg) scale(1, 1);
-  }
-  100% {
-    transform: rotate(0deg) scale(1, 1);
-  }
-}
 
-@keyframes fadein {
-  /* start at 0deg and this scale size.
+  @keyframes fadein {
+    /* start at 0deg and this scale size.
        scale size is repeated here to maintain smooth scaling */
-  0% {
-    opacity: 0%;
+    0% {opacity: 0%;}
+    100% {opacity: 100%}
   }
-  100% {
-    opacity: 100%;
-  }
-}
 
-@keyframes enterFromTop {
-  /* start at 0deg and this scale size.
+  @keyframes enterFromTop {
+    /* start at 0deg and this scale size.
        scale size is repeated here to maintain smooth scaling */
-  0% {
-    top: -200px;
+    0% {top: -200px;}
+    100% {top: 25px}
   }
-  100% {
-    top: 25px;
-  }
-}
 
 @keyframes jiggle {
-  /* start at 0deg and this scale size.
+    /* start at 0deg and this scale size.
        scale size is repeated here to maintain smooth scaling */
-  0% {
-    transform: rotate(0deg) scale(1, 1);
+    0% {transform: rotate(0deg) scale(1,1);}
+    /* midway rotate 2deg right */
+    25% {transform: rotate(10deg) scale(1,1);}
+    /* end rotate -2deg left */
+    50% {transform: rotate(0deg) scale(1,1)}
+    75% {transform: rotate(-10deg) scale(1,1)}
+    100% {transform: rotate(0deg) scale(1,1)}
   }
-  /* midway rotate 2deg right */
-  25% {
-    transform: rotate(10deg) scale(1, 1);
-  }
-  /* end rotate -2deg left */
-  50% {
-    transform: rotate(0deg) scale(1, 1);
-  }
-  75% {
-    transform: rotate(-10deg) scale(1, 1);
-  }
-  100% {
-    transform: rotate(0deg) scale(1, 1);
-  }
-}
 
 @keyframes bounce {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-30px);
-  }
-  60% {
-    transform: translateY(-15px);
-  }
-}
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+    40% {transform: translateY(-30px);} 
+    60% {transform: translateY(-15px);} 
+ } 
 
-@keyframes sway {
-  0% {
-    transform: rotate(10deg);
-  }
-  50% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(10deg);
-  }
+ @keyframes sway{
+    0%{transform: rotate(10deg);}
+    50%{transform: rotate(-5deg)}
+    100%{transform: rotate(10deg);}
 }
 
 @keyframes shake {
-  10%,
-  90% {
-    transform: translate3d(-1px, 0, 0);
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
   }
 
-  20%,
-  80% {
-    transform: translate3d(2px, 0, 0);
+ @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(720deg); }
   }
 
-  30%,
-  50%,
-  70% {
-    transform: translate3d(-4px, 0, 0);
+  @keyframes moveLeftToRight {
+    0%   { left: -100px; }
+    100% { left: 100%; }
   }
 
-  40%,
-  60% {
-    transform: translate3d(4px, 0, 0);
+  @keyframes rollIn {
+    0%   { left: -100px; }
+    100% { left: 45%; }
   }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(720deg);
-  }
-}
-
-@keyframes moveLeftToRight {
-  0% {
-    left: -100px;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-@keyframes rollIn {
-  0% {
-    left: -100px;
-  }
-  100% {
-    left: 45%;
-  }
-}

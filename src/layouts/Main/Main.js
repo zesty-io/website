@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
@@ -7,10 +7,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
-
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import { getCookie } from 'cookies-next';
 
-// import Container from 'components/Container';
+import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
 
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
@@ -29,26 +29,21 @@ const Main = ({
   bgcolor = 'transparent',
   model = '',
 }) => {
-  const { setisAuthenticated, setisUser } = useZestyStore((state) => state);
-
-  // main should verify the user as boolean
   const router = useRouter();
 
-  // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  // const userAppSID = getUserAppSID();
-  const { verifySuccess, loading, userInfo } = useZestyStore((state) => state);
+  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const userAppSID = getUserAppSID();
 
-  const isLoggedIn = useIsLoggedIn();
+  const { verifySuccess, loading, userInfo } = useFetchWrapper(
+    userAppSID,
+    instanceZUID,
+  );
 
-  const isAuthenticated = verifySuccess.userZuid ? true : false;
-  let isUser = false;
+  const isLogin = verifySuccess.userZuid;
 
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
-  if (getCookie('APP_SID') || getCookie('DEV_APP_SID')) {
-    isUser = true;
-  }
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -112,30 +107,16 @@ const Main = ({
 
   return (
     <Box>
-      {isLoggedIn === false && (
-        <Box
-          id="topNavBox"
-          bgcolor={bgcolor}
-          position={'relative'}
-          zIndex={theme.zIndex.appBar}
-          display={router?.query?.slug?.[0] === 'login' && 'none'}
+      <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
+        <Container
+          paddingTop={
+            hideNav || isExplorePage ? '0px !important' : '8px !important'
+          }
+          paddingBottom={'0 !important'}
         >
-          <Container
-            maxWidth={isLoggedIn ? false : true}
-            sx={(theme) => ({
-              maxWidth: isLoggedIn
-                ? theme.breakpoints.values.xl2
-                : theme.breakpoints.values.lg,
-            })}
-            paddingTop={
-              hideNav || isExplorePage ? '0px !important' : '8px !important'
-            }
-            paddingBottom={'0 !important'}
-          >
-            <TopNav nav={nav} colorInvert={headerColorInvert} />
-          </Container>
-        </Box>
-      )}
+          <TopNav nav={nav} colorInvert={headerColorInvert} />
+        </Container>
+      </Box>
       <AppBar
         position={hideNav ? 'fixed' : 'sticky'}
         sx={{
@@ -192,18 +173,12 @@ const Main = ({
       />
       <main>
         {children}
-        <Divider
-          sx={{
-            display: router?.query?.slug?.[0] === 'login' && 'none',
-          }}
-        />
+        <Divider />
       </main>
-      {isLoggedIn == false && (
-        <Footer
-          colorInvert={colorInvert}
-          customRouting={hasRouting ? customRouting : []}
-        />
-      )}
+      <Footer
+        colorInvert={colorInvert}
+        customRouting={hasRouting ? customRouting : []}
+      />
     </Box>
   );
 };

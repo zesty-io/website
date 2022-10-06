@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import * as helper from 'utils';
 import * as Style from './styles';
-import { Box, useTheme } from '@mui/material';
+import { Box, Button, Link, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
 
 export const AccordionComp = ({ header, data }) => {

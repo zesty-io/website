@@ -167,9 +167,9 @@ const Index = ({
   const currentVal = memoizedInstances?.find((e) => e.ZUID === instanceZUID);
 
   const handleChange = (e, newValue) => {
-    setCookies(newValue?.value);
+    setCookies('ZESTY_WORKING_INSTANCE', newValue?.value);
     setlabel(newValue?.name);
-    // window.location.reload();
+    window.location.reload();
   };
 
   React.useEffect(() => {
@@ -192,17 +192,11 @@ const Index = ({
       options={OPTIONS}
       getOptionLabel={(option) => option.name}
       renderInput={(params) => {
-        return (
-          <TextField
-            {...params}
-            label={label || initialLabel || 'Select an instance'}
-          />
-        );
+        return <TextField {...params} label={label || 'Select an instance'} />;
       }}
       renderOption={(props, option) => {
         return [props, option.name];
       }}
-      {...props}
     />
   );
 };

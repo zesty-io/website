@@ -37,7 +37,7 @@ const mock = [
   },
 ];
 
-const ReviewsWithSimpleBoxes = ({ list = [], header }) => {
+const ReviewsWithSimpleBoxes = ({list=[], header}) => {
   const theme = useTheme();
 
   return (
