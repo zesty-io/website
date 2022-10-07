@@ -137,7 +137,7 @@ const AppNavigation = ({
   return (
     <>
       <Stack direction="row" alignItems={isSM && 'center'} py={1}>
-        <Link href="/">
+        <Link href="/" display="flex" alignItems="center">
           <img
             src="https://brand.zesty.io/zesty-io-logo.svg"
             height={40}
@@ -160,7 +160,7 @@ const AppNavigation = ({
           ml={2}
           display={{ xs: 'none', md: 'flex' }}
         >
-          <Stack direction="row" alignItems="center" spacing={3}>
+          <Stack direction="row" alignItems="center" spacing={{ xs: 1, xl: 2 }}>
             <Chip
               label={<Typography variant="body2">BETA</Typography>}
               color="info"
@@ -175,7 +175,12 @@ const AppNavigation = ({
             ))}
             <DeveloperDocMenu />
           </Stack>
-          <Stack direction="row" ml="auto" spacing={2} alignItems="center">
+          <Stack
+            direction="row"
+            ml="auto"
+            spacing={{ xs: 1, xl: 2 }}
+            alignItems="center"
+          >
             {isXL && (
               <AccountsComboBox
                 instances={instances?.data}
@@ -192,7 +197,6 @@ const AppNavigation = ({
                       ? 'primary'
                       : 'secondary'
                   }
-                  size="small"
                   variant="contained"
                   startIcon={<AddIcon />}
                   onClick={() => router.push('/start/')}
@@ -202,7 +206,6 @@ const AppNavigation = ({
                 <Button
                   href="https://accounts.zesty.io/"
                   variant="outlined"
-                  size="small"
                   id="accounts-legacy"
                   className="accounts-legacy-button"
                   endIcon={<ExitToAppIcon />}
@@ -257,8 +260,8 @@ const AppNavigation = ({
                   <img
                     src={profileUrl}
                     alt="User"
-                    height={25}
-                    width={25}
+                    height={30}
+                    width={30}
                     style={{ borderRadius: '50%' }}
                   />
                   <ArrowDropDownIcon color={'disabled'} fontSize="medium" />

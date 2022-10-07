@@ -196,7 +196,6 @@ export const Overview = ({
                   color: theme.palette.mode === 'light' && 'black',
                 },
               })}
-              onClick={handleClearCache}
               startIcon={<AutoGraphIcon color="disabled" />}
             >
               View All Usage
