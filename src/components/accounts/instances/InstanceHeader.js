@@ -15,6 +15,8 @@ import { grey } from '@mui/material/colors';
 import FillerContent from 'components/globals/FillerContent';
 import CreateIcon from '@mui/icons-material/Create';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import * as helpers from 'utils';
+
 dayjs.extend(relativeTime);
 
 const Media = ({ loading = false, instance = {} }) => {
@@ -52,7 +54,9 @@ const Media = ({ loading = false, instance = {} }) => {
 
 export default function InstanceHeader({ instance, loading }) {
   const webengineUrl = `https://${instance?.randomHashID}-dev.webengine.zesty.io`;
-  const managerURl = `https://${instance?.ZUID}.manager.zesty.io`;
+  const managerURl = `https://${instance?.ZUID}.manager${
+    helpers?.isProd ? '' : '.dev'
+  }.zesty.io/`;
 
   return (
     <Card

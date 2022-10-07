@@ -21,6 +21,8 @@ import { Container } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { AccountsAppbar } from 'components/console/AccountsAppbar';
 import { grey } from '@mui/material/colors';
+import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
+import AppFooter from './components/Footer/AppFooter';
 
 const Main = ({
   children,
@@ -34,6 +36,7 @@ const Main = ({
 
   // main should verify the user as boolean
   const router = useRouter();
+  const isAccounts = isProtectedRoute(window.location.pathname);
 
   // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   // const userAppSID = getUserAppSID();
@@ -100,6 +103,26 @@ const Main = ({
   };
 
   const isDashboard = window.location.pathname.split('/').filter((e) => e)[0];
+
+  const willShowMarketingFooter = () => {
+    if (isLoggedIn) {
+      if (isAccounts || router.pathname === '/') return false;
+
+      return true;
+    }
+
+    return true;
+  };
+
+  const willShowAppFooter = () => {
+    if (isLoggedIn) {
+      if (isAccounts || router.pathname === '/') return true;
+
+      return false;
+    }
+
+    return false;
+  };
 
   // store isUser isAuthenticated  in global state
   React.useEffect(() => {
@@ -195,16 +218,20 @@ const Main = ({
         {children}
         <Divider
           sx={{
-            display: router?.query?.slug?.[0] === 'login' && 'none',
+            display:
+              (router?.query?.slug?.[0] === 'login' || willShowAppFooter()) &&
+              'none',
           }}
         />
       </main>
-      {isLoggedIn == false && (
+      {willShowMarketingFooter() && (
         <Footer
           colorInvert={colorInvert}
           customRouting={hasRouting ? customRouting : []}
         />
       )}
+
+      {willShowAppFooter() && <AppFooter />}
     </Box>
   );
 };

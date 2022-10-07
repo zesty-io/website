@@ -34,6 +34,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { grey } from '@mui/material/colors';
+import * as helpers from 'utils';
+
+const legacyAccountsLink = `https://accounts${
+  helpers?.isProd ? '' : '.dev'
+}.zesty.io/`;
+
+const createInstanceLink = '/start';
 
 const navigationLinks = [
   {
@@ -78,12 +85,12 @@ const mobileNavLinks = [
   {
     title: 'Create Instance',
     id: 'createInstance',
-    url: 'https://accounts.zesty.io/instances/create',
+    url: createInstanceLink,
   },
   {
     title: 'Legacy Accounts',
     id: 'legacyAccounts',
-    url: 'https://accounts.zesty.io/',
+    url: legacyAccountsLink,
   },
   {
     title: 'Logout',
@@ -199,12 +206,12 @@ const AppNavigation = ({
                   }
                   variant="contained"
                   startIcon={<AddIcon />}
-                  onClick={() => router.push('/start/')}
+                  href={createInstanceLink}
                 >
                   Create Instance
                 </Button>
                 <Button
-                  href="https://accounts.zesty.io/"
+                  href={legacyAccountsLink}
                   variant="outlined"
                   id="accounts-legacy"
                   className="accounts-legacy-button"
@@ -231,7 +238,7 @@ const AppNavigation = ({
               <>
                 <IconButton
                   title="Create Instance"
-                  href="https://accounts.zesty.io/instances/create"
+                  href={createInstanceLink}
                   color={
                     (isAccounts && isLoggedIn) ||
                     (isLoggedIn && window.location.pathname === '/')
@@ -243,7 +250,7 @@ const AppNavigation = ({
                 </IconButton>
                 <IconButton
                   title="Legacy Accounts"
-                  href="https://accounts.zesty.io/"
+                  href={legacyAccountsLink}
                   sx={{ color: grey[500] }}
                 >
                   <ExitToAppIcon />

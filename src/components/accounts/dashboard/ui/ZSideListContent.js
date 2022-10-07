@@ -14,7 +14,7 @@ const ZSideListContent = ({
   const isSM = useMediaQuery(theme.breakpoints.down('md'));
   return (
     <Stack {...props}>
-      <Typography fontWeight="bold" color="text.primary" mb={2}>
+      <Typography fontWeight="bold" color="text.secondary" mb={2}>
         {label}
       </Typography>
       <Stack
