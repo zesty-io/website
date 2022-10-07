@@ -26,10 +26,6 @@ const AlternateColumns = ({
     theme.palette.zesty.zestyWhite,
     theme.palette.zesty.zestyDarkBlue,
     theme.palette.zesty.zestyWhite,
-    // 'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(6, 187, 207, 0) 0%, #497EDF 0%)',
-    // 'radial-gradient(51.39% 58.5% at 34.57% 50.71%, rgba(6, 187, 207, 0) 0%, #EFF5FF 100%)',
-    // 'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(41, 48, 86, 1) 0%, #1B202C 100%)',
-    // 'radial-gradient(51.39% 58.5% at 34.57% 50.71%, rgba(6, 187, 207, 0) 0%, #EFF5FF 100%)',
   ];
 
   return (
@@ -68,7 +64,7 @@ const AlternateColumns = ({
             },
           }}
         >
-          {header_content}
+          {header_content || FillerContent.rich_text}
         </MuiMarkdown>
 
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -88,7 +84,7 @@ const AlternateColumns = ({
         </Box>
       </Container>
       <Box sx={{ mt: 10 }}>
-        {column_data.map((item, idx) => (
+        {column_data?.map((item, idx) => (
           <Card
             variant="outlined"
             sx={{
@@ -159,7 +155,7 @@ const AlternateColumns = ({
                         },
                       }}
                     >
-                      {item.content || FillerContent.description}
+                      {item.content || FillerContent.rich_text}
                     </MuiMarkdown>
                   </Box>
                 </Grid>
@@ -177,7 +173,7 @@ const AlternateColumns = ({
                     <ZestyImage
                       width={599}
                       height={420}
-                      alt={item.header}
+                      alt={item?.header || ''}
                       style={{ width: '100%', maxWidth: 599, height: 'auto' }}
                       src={item?.image || FillerContent.photos[0].src}
                     />
