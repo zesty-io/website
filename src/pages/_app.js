@@ -58,7 +58,6 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   const isAuthenticated = JSON.parse(getCookie('isAuthenticated') || false);
-  console.log('Verify Success state isAuthenticated', isAuthenticated);
 
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const userAppSID = getUserAppSID();
