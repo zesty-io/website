@@ -26,7 +26,7 @@ const MySwal = withReactContent(Swal);
 
 const CustomTable = ({ emails, userInfo, deleteEmail, loading }) => {
   const ROWS = emails?.map((e) => {
-    return { ...e, id: e.verificationCode };
+    return { ...e, id: e.verificationCode || Math.random() };
   });
 
   const COLUMNS = [
