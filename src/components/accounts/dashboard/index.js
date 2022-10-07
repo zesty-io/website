@@ -153,7 +153,7 @@ const Dashboard = () => {
           </Grid>
 
           <Grid xs={12} md={9} lg={10} item>
-            <Stack>
+            <Stack pb={2}>
               <ZInstancesContainer
                 firstName={userInfo?.firstName}
                 instances={instances}
