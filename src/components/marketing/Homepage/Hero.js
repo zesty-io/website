@@ -19,7 +19,6 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
       <Box
         component="section"
         sx={{
-          // background: `url(${heroBackground.src})`,
           minHeight: 700,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
@@ -96,16 +95,13 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                   text={content.hero_button_left || FillerContent.cta}
                   variant="contained"
                   fullWidth={isMedium}
-                  // sx={{
-                  //   color: theme.palette.zesty.zestyOrange,
-                  //   background: 'white',
-                  //   fontWeight: 'bold',
-                  //   borderRadius: 1,
-                  // }}
                 />
                 <DemoCta
                   fullWidth={isMedium}
-                  href={content.hero_button_right_link?.data[0].meta.web.uri}
+                  href={
+                    content.hero_button_right_link?.data[0].meta.web.uri ||
+                    FillerContent.href
+                  }
                   text={content.hero_button_right || FillerContent.cta}
                 />
               </Box>
@@ -118,7 +114,10 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                   style={{ width: '100%', maxWidth: 846, height: 'auto' }}
                   width={846}
                   height={576}
-                  src={content.header_graphic?.data[0].url}
+                  src={
+                    content.header_graphic?.data[0].url ||
+                    FillerContent.photos[0].src
+                  }
                 />
               </Box>
             </Grid>
