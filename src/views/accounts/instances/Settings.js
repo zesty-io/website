@@ -50,6 +50,12 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
     setarrToSubmit([...arrToSubmit, data]);
   };
 
+  const selectOptions = OPTIONS(options, ';')?.map((e) => {
+    const value = e.value.split(':')[0];
+    const label = e.label.split(':')[1];
+    return { value, label };
+  });
+  console.log(selectOptions, '8888');
   switch (dataType) {
     case 'checkbox':
       return (
@@ -77,7 +83,7 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
           <SettingsSelect
             value={value}
             name={data?.keyFriendly}
-            options={OPTIONS(options, ';')}
+            options={selectOptions}
             handleAdd={handleAdd}
           />
         </>
