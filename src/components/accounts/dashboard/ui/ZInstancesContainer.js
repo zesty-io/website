@@ -48,6 +48,9 @@ const ZInstancesContainer = ({
                       ? '.webengine.zesty.io'
                       : '.preview.dev.zesty.io'
                   }`}
+                  managerLink={`https://${instance?.ZUID}.manager${
+                    helpers?.isProd ? '' : '.dev'
+                  }.zesty.io/`}
                   isFavorite={instancesFavorites?.find(
                     (c) => c === instance.ZUID,
                   )}

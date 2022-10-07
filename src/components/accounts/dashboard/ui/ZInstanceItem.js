@@ -5,6 +5,7 @@ import {
   Typography,
   Stack,
   Skeleton,
+  Button,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
@@ -18,6 +19,7 @@ const ZInstanceItem = ({
   isInvite,
   previewLink,
   zuidLink,
+  managerLink,
   toggleFavorites,
   isLoading,
   isTogglingFavorites,
@@ -70,29 +72,35 @@ const ZInstanceItem = ({
           )}
         </IconButton>
       </Stack>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        p={1}
-      >
+      <Stack direction="row" alignItems="center" p={1}>
         {isLoading ? (
           <Skeleton width="85%" />
         ) : (
-          <Link
-            underline="none"
-            href={previewLink}
-            target="_blank"
-            color="primary"
-            sx={{
-              ':hover': {
-                textDecoration: 'underline',
-                cursor: 'pointer',
-              },
-            }}
-          >
-            Preview
-          </Link>
+          <Stack mr="auto" direction="row" alignItems="center" spacing={1}>
+            <Button
+              size="small"
+              variant="contained"
+              href={managerLink}
+              target="_blank"
+            >
+              Open Manager
+            </Button>
+
+            <Link
+              underline="none"
+              href={previewLink}
+              target="_blank"
+              color="primary"
+              sx={{
+                ':hover': {
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                },
+              }}
+            >
+              Preview
+            </Link>
+          </Stack>
         )}
 
         {isLoading ? (

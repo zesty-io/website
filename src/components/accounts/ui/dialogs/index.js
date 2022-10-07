@@ -42,7 +42,7 @@ export const TokenPrompt = ({ token = '' }) => {
     <Box>
       <Box paddingBottom={4}>
         <Typography variant="p" fontSize={'small'}>
-          Once this modal is closed you will not be able to retrive the access
+          Once this modal is closed you will not be able to retrieve the access
           token again. Access tokens are secrets which should be stored
           securely. Anyone who has the token will be able to make API requests
           to this instance at the selected role & permissions level.
