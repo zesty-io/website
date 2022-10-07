@@ -60,6 +60,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
     setworkingInstance(instanceZUID);
   }, [instanceZUID]);
 
+  console.log({ router });
   return (
     <Box
       sx={{
@@ -99,7 +100,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
           />
         </Link>
 
-        {router.asPath === '/' && (
+        {router.pathname === '/' && (
           <Link
             href="/"
             sx={{
