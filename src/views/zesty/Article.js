@@ -85,9 +85,10 @@ function Article({ content }) {
     }
   };
 
+  const isAccountsPage = content?.zesty?.isAuthenticated ? true : false;
   return (
     <>
-      <Box>
+      <Box pt={isAccountsPage ? 13 : 0}>
         <HeroJarallax
           articleDate={content.date || FillerContent.date}
           title={content?.title || FillerContent.header}

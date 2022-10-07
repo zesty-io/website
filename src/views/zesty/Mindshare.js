@@ -80,9 +80,15 @@ function Mindshare({ content }) {
     evt.preventDefault();
   };
 
+  const isAccountsPage = content?.zesty?.isAuthenticated ? true : false;
+
   return (
     <>
-      <Box bgcolor={'alternate.main'} position={'relative'}>
+      <Box
+        bgcolor={'alternate.main'}
+        position={'relative'}
+        pt={isAccountsPage ? 13 : 0}
+      >
         <HeroWithBackgroundAndFullSearchBar
           image={content.hero_image?.data[0]?.url || FillerContent.image}
           title={content.title || FillerContent.header}
