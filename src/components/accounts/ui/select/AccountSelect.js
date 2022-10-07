@@ -16,7 +16,6 @@ export const AccountSelect = ({
   width = 150,
 }) => {
   const [val, setVal] = React.useState(value);
-  console.log(label);
 
   const handleChange = (event, data) => {
     setVal(event.target.value);
@@ -46,10 +45,15 @@ export const AccountSelect = ({
           }}
         >
           {options.map((e) => {
+            const label = e.label.replace('_', ' ').replace('-', ' ');
             return (
               <MenuItem key={e.ZUID} value={e.value} id={e.ZUID} {...e}>
-                <Typography variant="body1" color={'text.primary'}>
-                  {e.label}
+                <Typography
+                  variant="body1"
+                  color={'text.primary'}
+                  textTransform={'capitalize'}
+                >
+                  {label}
                 </Typography>
               </MenuItem>
             );

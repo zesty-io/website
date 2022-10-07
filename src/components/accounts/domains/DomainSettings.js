@@ -1,31 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { useZestyStore } from 'store';
 import HttpSettings from 'components/accounts/domains/HttpSettings';
 import { ErrorMsg, SuccessMsg } from '../ui';
 
-export default function DomainSettings() {
-  const [settings, setsettings] = useState([]);
+export default function DomainSettings({ settings, getSettings }) {
   const { ZestyAPI } = useZestyStore((state) => state);
-
-  const getSettings = async () => {
-    try {
-      const res = await ZestyAPI.getSettings();
-      const data = res?.data?.filter(
-        (setting) =>
-          setting.key === 'site_protocol' ||
-          setting.key === 'always_redirect_to_https' ||
-          setting.key === 'preferred_domain_prefix',
-      );
-
-      setsettings(data);
-    } catch (error) {
-      console.log(
-        '🚀 ~ file: domains.js ~ line 71 ~ getSettings ~ error',
-        error,
-      );
-    }
-  };
 
   const updateSettingSucc = (res) => {
     console.log(res);

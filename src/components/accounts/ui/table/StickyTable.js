@@ -92,7 +92,12 @@ const Index = ({
                         }
                         return (
                           <TableCell>
-                            <Typography variant="body2">{value}</Typography>
+                            <Typography
+                              variant="body2"
+                              textTransform={'capitalize'}
+                            >
+                              {value.replace('_', ' ').replace('-', ' ')}
+                            </Typography>
                           </TableCell>
                         );
                       })}

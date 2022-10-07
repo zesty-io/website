@@ -71,13 +71,16 @@ export default function Domains() {
   const { zuid } = router.query;
 
   const getSettings = async () => {
-    // currently receives bad request return -
-    // looks like it has to do with fetchwrapper formatted url possibly not receiving zuid
-    // Bad Request: dial tcp :3306: connect: connection refused'
-    // undefined in url: https://undefined.api.zesty.io/v1/env/settings
     try {
       const res = await ZestyAPI.getSettings();
-      console.log('🚀 ~ file: domains.js ~ line 69 ~ getSettings ~ res', res);
+      const data = res?.data?.filter(
+        (setting) =>
+          setting.key === 'site_protocol' ||
+          setting.key === 'always_redirect_to_https' ||
+          setting.key === 'preferred_domain_prefix',
+      );
+
+      setsettings(data);
     } catch (error) {
       console.log(
         '🚀 ~ file: domains.js ~ line 71 ~ getSettings ~ error',
@@ -201,8 +204,13 @@ export default function Domains() {
     getInstanceDomains,
     deleteDomain,
     loading,
+    settings,
   };
 
+  const domainSettingProps = {
+    getSettings,
+    settings,
+  };
   return (
     <Grid container>
       <AccountsHeader {...headerProps}>
@@ -219,7 +227,7 @@ export default function Domains() {
         <DomainListings {...domainListingProps} />
       </Grid>
       <Grid item xs={12}>
-        <DomainSettings />
+        <DomainSettings {...domainSettingProps} />
       </Grid>
     </Grid>
   );
