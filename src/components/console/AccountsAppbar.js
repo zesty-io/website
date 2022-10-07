@@ -85,7 +85,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
         <Link
           underline="none"
           color="inherit"
-          href={'/'}
+          href="/"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -101,6 +101,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
 
         {router.asPath === '/' && (
           <Link
+            href="/"
             sx={{
               textTransform: 'capitalize',
               display: 'flex',
