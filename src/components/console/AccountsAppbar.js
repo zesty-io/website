@@ -60,7 +60,6 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
     setworkingInstance(instanceZUID);
   }, [instanceZUID]);
 
-  console.log({ router });
   return (
     <Box
       sx={{
