@@ -206,7 +206,7 @@ const AppNavigation = ({
                   }
                   variant="contained"
                   startIcon={<AddIcon />}
-                  onClick={() => router.push(createInstanceLink)}
+                  href={createInstanceLink}
                 >
                   Create Instance
                 </Button>
@@ -238,7 +238,7 @@ const AppNavigation = ({
               <>
                 <IconButton
                   title="Create Instance"
-                  onClick={() => router.push(createInstanceLink)}
+                  href={createInstanceLink}
                   color={
                     (isAccounts && isLoggedIn) ||
                     (isLoggedIn && window.location.pathname === '/')
