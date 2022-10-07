@@ -23,6 +23,7 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
     getPlanData('Business'),
     getPlanData('Business Plus'),
   ];
+
   const enterprise = getPlanData('Enterprise');
 
   return (

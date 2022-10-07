@@ -39,7 +39,7 @@ const SimpleCardLogo = ({
 
   return (
     <Box component="section">
-      <Container>
+      <Container sx={{ maxWidth: maxWidth }}>
         {textOutside && (
           <MuiMarkdown
             overrides={{
