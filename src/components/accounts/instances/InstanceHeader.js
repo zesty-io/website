@@ -67,17 +67,25 @@ export default function InstanceHeader({ instance, loading }) {
       </Stack>
 
       <CardContent>
-        <Typography
-          gutterBottom
-          variant="h4"
-          color={'text.primary'}
-          component="div"
-        >
-          {instance?.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Last updated {dayjs(instance.updatedAt).fromNow()}
-        </Typography>
+        {!loading ? (
+          <Typography
+            gutterBottom
+            variant="h4"
+            color={'text.primary'}
+            component="div"
+          >
+            {instance?.name}
+          </Typography>
+        ) : (
+          <Skeleton variant="rectangular" height={40} />
+        )}
+        {!loading ? (
+          <Typography variant="body2" color="text.secondary">
+            Last updated {dayjs(instance.updatedAt).fromNow()}
+          </Typography>
+        ) : (
+          <Skeleton variant="text" height={30} />
+        )}
       </CardContent>
       <CardActions
         sx={{
