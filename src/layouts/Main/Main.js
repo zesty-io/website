@@ -218,7 +218,9 @@ const Main = ({
         {children}
         <Divider
           sx={{
-            display: router?.query?.slug?.[0] === 'login' && 'none',
+            display:
+              (router?.query?.slug?.[0] === 'login' || willShowAppFooter()) &&
+              'none',
           }}
         />
       </main>
