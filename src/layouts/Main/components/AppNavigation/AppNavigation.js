@@ -160,7 +160,7 @@ const AppNavigation = ({
           ml={2}
           display={{ xs: 'none', md: 'flex' }}
         >
-          <Stack direction="row" alignItems="center" spacing={3}>
+          <Stack direction="row" alignItems="center" spacing={{ xs: 1, xl: 2 }}>
             <Chip
               label={<Typography variant="body2">BETA</Typography>}
               color="info"
@@ -175,7 +175,12 @@ const AppNavigation = ({
             ))}
             <DeveloperDocMenu />
           </Stack>
-          <Stack direction="row" ml="auto" spacing={2} alignItems="center">
+          <Stack
+            direction="row"
+            ml="auto"
+            spacing={{ xs: 1, xl: 2 }}
+            alignItems="center"
+          >
             {isXL && (
               <AccountsComboBox
                 instances={instances?.data}
