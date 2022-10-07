@@ -72,10 +72,14 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
       }}
     >
       <Breadcrumbs
+        maxItems={5}
         aria-label="breadcrumb"
         sx={{
           display: 'flex',
           alignItems: 'center',
+          '& .MuiBreadcrumbs-separator': {
+            opacity: '.4',
+          },
         }}
       >
         <Link
