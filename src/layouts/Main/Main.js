@@ -21,6 +21,7 @@ import { Container } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { AccountsAppbar } from 'components/console/AccountsAppbar';
 import { grey } from '@mui/material/colors';
+import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 
 const Main = ({
   children,
@@ -34,6 +35,7 @@ const Main = ({
 
   // main should verify the user as boolean
   const router = useRouter();
+  const isAccounts = isProtectedRoute(router.pathname);
 
   // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   // const userAppSID = getUserAppSID();
@@ -199,7 +201,7 @@ const Main = ({
           }}
         />
       </main>
-      {isLoggedIn == false && (
+      {(isLoggedIn == false || !isAccounts) && (
         <Footer
           colorInvert={colorInvert}
           customRouting={hasRouting ? customRouting : []}
