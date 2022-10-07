@@ -59,8 +59,6 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                     h1: {
                       component: Typography,
                       props: {
-                        'data-aos': 'fade-up',
-                        'data-aos-duration': '1000',
                         component: 'h1',
                         variant: 'h3',
                         sx: {
@@ -71,8 +69,6 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                     p: {
                       component: Typography,
                       props: {
-                        'data-aos': 'fade-up',
-                        'data-aos-duration': '1500',
                         component: 'p',
                         variant: 'h6',
                         sx: {
@@ -89,8 +85,6 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
               </Box>
 
               <Box
-                data-aos="fade-up"
-                data-aos-duration="2500"
                 sx={{
                   mt: 4,
                   display: 'flex',
@@ -124,7 +118,6 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                   style={{ width: '100%', maxWidth: 846, height: 'auto' }}
                   width={846}
                   height={576}
-                  attributes={{ 'data-aos': 'fade-up' }}
                   src={content.header_graphic?.data[0].url}
                 />
               </Box>
