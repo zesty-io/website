@@ -85,7 +85,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
         <Link
           underline="none"
           color="inherit"
-          href={'/'}
+          href="/"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -98,6 +98,26 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
             }}
           />
         </Link>
+
+        {router.pathname === '/' && (
+          <Link
+            href="/"
+            sx={{
+              textTransform: 'capitalize',
+              display: 'flex',
+              alignItems: 'center',
+              px: 2,
+              opacity: '.4',
+              pointerEvents: 'none',
+            }}
+            underline="none"
+            color="text.secondary"
+            aria-current="page"
+          >
+            Dashboard
+          </Link>
+        )}
+
         {pathnames?.map((url, index) => {
           const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
           const isLastItem = index === pathnames.length - 1;
