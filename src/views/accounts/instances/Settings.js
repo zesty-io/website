@@ -55,7 +55,7 @@ const ActionSwitcher = ({ data, setarrToSubmit, arrToSubmit }) => {
     const label = e.label.split(':')[1];
     return { value, label };
   });
-  console.log(selectOptions, '8888');
+
   switch (dataType) {
     case 'checkbox':
       return (
