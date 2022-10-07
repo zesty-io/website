@@ -46,9 +46,11 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
   };
 
   const getInstance = async () => {
-    const res = await ZestyAPI.getInstance(zuid);
-    !res.error && handleGetInstanceSuccess(res);
-    res.error && handleGetInstanceError(res);
+    if (zuid) {
+      const res = await ZestyAPI.getInstance(zuid);
+      !res.error && handleGetInstanceSuccess(res);
+      res.error && handleGetInstanceError(res);
+    }
   };
 
   React.useEffect(() => {
