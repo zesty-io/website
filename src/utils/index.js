@@ -188,6 +188,7 @@ export const generateUniqDropdown = ({ data, property = 'category' }) => {
         ),
     );
   const res = [{ value: '', label: 'All Categories' }, ...dropdownList];
+  console.log(data, '44::');
   return res;
 };
 

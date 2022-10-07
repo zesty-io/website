@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
+import { LoadingButton } from '@mui/lab';
+
 import {
   AccountSelect,
   AccountsHeader,
@@ -169,6 +171,7 @@ export const Settings = ({
   instance_zuid,
   token,
 }) => {
+  const [loadingDL, setloadingDL] = React.useState(false);
   const [arrToSubmit, setarrToSubmit] = React.useState([]);
   const [search, setsearch] = React.useState('');
   const [categories, setcategories] = React.useState('');
@@ -206,7 +209,7 @@ export const Settings = ({
           <AccountsInput
             search={search}
             setsearch={setsearch}
-            placeholder=" Seach settings"
+            placeholder=" Search settings"
           />
         </Stack>
 
@@ -218,21 +221,16 @@ export const Settings = ({
             width={200}
           />
         </Stack>
-        {/* <AccountsSelect
-          list={dropdownList}
-          setterFn={setcategories}
-          value={categories}
-          setdirty={() => {}}
-        /> */}
 
-        <Button
+        <LoadingButton
+          loading={loadingDL}
           color="primary"
           variant="contained"
-          onClick={() => downloadTemplate(instance_zuid, token)}
+          onClick={() => downloadTemplate(instance_zuid, token, setloadingDL)}
           startIcon={<DownloadIcon />}
         >
           Export as Template
-        </Button>
+        </LoadingButton>
       </AccountsHeader>
       <Grid item xs={12} px={4}>
         <CustomTable
