@@ -7,11 +7,13 @@ import { Button, useMediaQuery } from '@mui/material';
 import { getCookie, setCookie } from 'cookies-next';
 import HomeIcon from '@mui/icons-material/Home';
 import { useZestyStore } from 'store';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { useRouter } from 'next/router';
 import { grey } from '@mui/material/colors';
 
-export const AccountsAppbar = ({ url = window.location.pathname }) => {
+export const AccountsAppbar = ({
+  url = window.location.pathname,
+  colorInvert = false,
+}) => {
   const router = useRouter();
   const { verifySuccess, ZestyAPI, loading, setworkingInstance } =
     useZestyStore((state) => state);
@@ -19,8 +21,8 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   const [instance, setinstance] = React.useState([]);
-  const isLoggedIn = useIsLoggedIn();
   const { zuid } = router.query;
+  const linkColor = colorInvert ? 'common.white' : 'text.secondary';
 
   // get param from url to look for instance
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -81,6 +83,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
           alignItems: 'center',
           '& .MuiBreadcrumbs-separator': {
             opacity: '.4',
+            color: linkColor,
           },
         }}
       >
@@ -113,7 +116,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
               pointerEvents: 'none',
             }}
             underline="none"
-            color="text.secondary"
+            color={linkColor}
             aria-current="page"
           >
             Dashboard
@@ -138,7 +141,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
                 pointerEvents: 'none',
               }}
               underline="none"
-              color="text.secondary"
+              color={linkColor}
               href={routeTo}
               aria-current="page"
               key={name}
@@ -148,7 +151,7 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
           ) : (
             <Link
               underline="none"
-              color="text.secondary"
+              color={linkColor}
               href={routeTo}
               key={index}
               sx={{

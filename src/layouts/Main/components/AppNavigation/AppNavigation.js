@@ -180,7 +180,7 @@ const AppNavigation = ({
                 colorInvert={colorInvert}
               />
             ))}
-            <DeveloperDocMenu />
+            <DeveloperDocMenu colorInvert={colorInvert} />
           </Stack>
           <Stack
             direction="row"
@@ -207,6 +207,9 @@ const AppNavigation = ({
                   variant="contained"
                   startIcon={<AddIcon />}
                   href={createInstanceLink}
+                  sx={{
+                    whiteSpace: 'nowrap',
+                  }}
                 >
                   Create Instance
                 </Button>

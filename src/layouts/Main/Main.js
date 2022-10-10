@@ -203,7 +203,7 @@ const Main = ({
                 userInfo={userInfo?.data}
                 loading={loading}
               />
-              <AccountsAppbar />
+              <AccountsAppbar colorInvert={headerColorInvert && !trigger} />
             </>
           )}
         </Container>

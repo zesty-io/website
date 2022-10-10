@@ -10,7 +10,7 @@ export const AccountsSingleNavItem = ({ title, url, colorInvert = false }) => {
     <Button
       size="large"
       sx={{
-        color: 'text.secondary',
+        color: colorInvert ? 'common.white' : 'text.secondary',
         bgcolor: hasActiveLink && grey[50],
         pointerEvents: hasActiveLink && 'none',
         '&:hover': {
