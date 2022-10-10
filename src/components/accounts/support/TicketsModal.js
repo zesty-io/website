@@ -3,11 +3,23 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PopupBox from './PopupBox';
-
-const TicketsModal = (details) => {
+import { useRouter } from 'next/router';
+const TicketsModal = ({ instanceZUID, ticket, viewModal }) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [details, setTicket] = React.useState([]);
 
+  const handleRoute = (ticketNumber) => {
+    const currentPath = router.asPath; // to get current route
+    router.push(`${currentPath}/${ticketNumber}`);
+  };
+
+  const currentTicket = (item) => {
+    setOpen(true);
+    setTicket(item);
+    handleRoute(item);
+  };
+  const router = useRouter();
   return (
     <>
       <Button
@@ -18,11 +30,15 @@ const TicketsModal = (details) => {
           fontWeight: 700,
         }}
         startIcon={<RemoveRedEyeIcon />}
-        onClick={() => setOpen(true)}
+        onClick={() => currentTicket(ticket.ticketNumber)}
       >
         Click to open the popup
       </Button>
-      <PopupBox open={open} onClose={() => setOpen(false)} details={details} />
+      <PopupBox
+        open={viewModal}
+        onClose={() => setOpen(false)}
+        ticket={ticket}
+      />
     </>
   );
 };

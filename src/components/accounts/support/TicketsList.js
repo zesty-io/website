@@ -1,22 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Link, Box } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
+import { Box, Button } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Support from '@mui/icons-material/Support';
-import TicketsModal from 'components/accounts/support/TicketsModal';
-
 import Container from 'components/Container';
+import { useRouter } from 'next/router';
 
 const mock = [
   {
     title: 'Themeable',
-    subtitle:
-      'Customize any part of our components to match your design needs.',
+    ticketNumber: 498,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     icon: (
@@ -39,8 +36,7 @@ const mock = [
   },
   {
     title: 'Light and dark UI',
-    subtitle:
-      'Optimized for multiple color modes. Use light or dark, your choice.',
+    ticketNumber: 116,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     icon: (
@@ -63,8 +59,7 @@ const mock = [
   },
   {
     title: 'Composable',
-    subtitle:
-      'Designed with composition in mind. Compose new components with ease.',
+    ticketNumber: 362,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     icon: (
@@ -87,8 +82,7 @@ const mock = [
   },
   {
     title: 'Developer experience',
-    subtitle:
-      'Guaranteed to boost your productivity when building your app or website.',
+    ticketNumber: 840,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     icon: (
@@ -111,7 +105,7 @@ const mock = [
   },
   {
     title: 'Continuous updates',
-    subtitle: 'We continually deploy improvements and new updates to theFront.',
+    ticketNumber: 224,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     icon: (
@@ -134,8 +128,7 @@ const mock = [
   },
   {
     title: 'Free support',
-    subtitle:
-      '6 months of free technical support to help you build your website faster.',
+    ticketNumber: 892,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     icon: (
@@ -157,13 +150,28 @@ const mock = [
     ),
   },
 ];
-const TicketsList = ({ instance }) => {
+
+const TicketsList = ({ instanceName, instanceZUID }) => {
   const theme = useTheme();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [details, setTicket] = React.useState([]);
+
+  const handleRoute = (ticketNumber) => {
+    const currentPath = router.asPath; // to get current route
+    router.push(`${currentPath}/${ticketNumber}`);
+  };
+
+  const currentTicket = (item) => {
+    setOpen(true);
+    setTicket(item);
+    handleRoute(item);
+  };
   return (
     <Box bgcolor="alternate.main">
       <Container maxWidth={1200}>
         <Typography variant="h5" mb={3} color="text.secondary">
-          Tickets for Instance: {instance}
+          Tickets for Instance: {instanceName}
         </Typography>
 
         <List
@@ -176,46 +184,45 @@ const TicketsList = ({ instance }) => {
           }}
         >
           {mock.map((item, i) => (
-            <Link href="#" color="inherit" underline="none">
-              <ListItem sx={{ alignItems: 'unset' }} key={i}>
-                <Box
-                  display={'flex'}
-                  flexDirection={'column'}
-                  alignItems={'center'}
-                >
-                  <ListItemIcon sx={{ minWidth: 'auto' }}>
-                    <Box
-                      component={Avatar}
-                      width={50}
-                      height={50}
-                      marginBottom={2}
-                      bgcolor={theme.palette.primary.main}
-                      color={theme.palette.background.paper}
-                    >
-                      <Support />
-                    </Box>
-                  </ListItemIcon>
+            <ListItem sx={{ alignItems: 'unset' }} key={i}>
+              <Box
+                display={'flex'}
+                flexDirection={'column'}
+                alignItems={'center'}
+              >
+                <ListItemIcon sx={{ minWidth: 'auto' }}>
                   <Box
-                    display={i === mock.length - 1 ? 'none' : 'flex'}
-                    flex={'1 1 0%'}
-                    borderRight={`1px solid ${theme.palette.divider}`}
-                  />
-                </Box>
-                <Box marginLeft={2}>
-                  <ListItemText
-                    primary={item.title}
-                    secondary={item.subtitle}
-                    primaryTypographyProps={{ fontWeight: 700 }}
-                  />
-                  <Box marginTop={2}>
-                    <Typography variant={'subtitle2'}>
-                      {item.description}
-                    </Typography>
+                    width={50}
+                    height={50}
+                    marginBottom={2}
+                    bgcolor={theme.palette.primary.main}
+                    color={theme.palette.background.paper}
+                  >
+                    <Support />
                   </Box>
-                  <TicketsModal {...item} />
+                </ListItemIcon>
+                <Box
+                  display={i === mock.length - 1 ? 'none' : 'flex'}
+                  flex={'1 1 0%'}
+                  borderRight={`1px solid ${theme.palette.divider}`}
+                />
+              </Box>
+              <Box marginLeft={2}>
+                <ListItemText
+                  primary={item.title}
+                  secondary={`#${item.ticketNumber}`}
+                  primaryTypographyProps={{ fontWeight: 700 }}
+                />
+                <Box marginTop={2}>
+                  <Typography variant={'subtitle2'}>
+                    {item.description}
+                  </Typography>
                 </Box>
-              </ListItem>
-            </Link>
+                <Button onClick={() => currentTicket(item.ticketNumber)}>
+                  View Ticket
+                </Button>
+              </Box>
+            </ListItem>
           ))}
         </List>
       </Container>

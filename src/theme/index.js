@@ -6,7 +6,7 @@ import {
   light as lightAccounts,
   dark as darkAccounts,
 } from './paletteAccounts';
-
+import { theme } from '@zesty-io/material';
 const getTheme = (mode, themeToggler) =>
   responsiveFontSizes(
     createTheme({

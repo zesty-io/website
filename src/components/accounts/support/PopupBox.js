@@ -29,7 +29,7 @@ const PopupBox = ({ onClose, open, details }) => {
         <CloseIcon
           sx={{
             position: 'absolute',
-            right: '10%',
+            right: '5%',
             top: '10%',
             cursor: 'pointer',
           }}
@@ -41,13 +41,13 @@ const PopupBox = ({ onClose, open, details }) => {
           align={'left'}
           marginBottom={4}
         >
-          {details.title}
+          test
         </Typography>
         <Typography variant={'span'} color={'gray'} align={'left'}>
-          {details.subtitle}
+          test
         </Typography>
         <Typography variant={'p'} align={'left'} marginY={3}>
-          {details.description}
+          test
         </Typography>
       </Box>
     </Dialog>
