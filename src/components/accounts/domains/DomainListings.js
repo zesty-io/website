@@ -30,6 +30,10 @@ export default function DomainListings({
   }, [instanceDomains?.length, zuid, instance?.ZUID]);
 
   const siteProtocol = settings?.find((e) => e.key === 'site_protocol')?.value;
+  const preferredWWW =
+    settings?.find((e) => e.key === 'preferred_domain_prefix')?.value === '1'
+      ? 'www.'
+      : '';
 
   const ROWS_LIVE_DOMAINS = liveDomains?.map((e) => {
     return {
@@ -66,7 +70,7 @@ export default function DomainListings({
             variant="body2"
             target={'_blank'}
             rel="noreferrer"
-            href={`${siteProtocol}://${params.row.domain}/`}
+            href={`${siteProtocol}://${preferredWWW}${params.row.domain}/`}
           >
             {params.row.domain}
           </Link>
@@ -126,6 +130,7 @@ export default function DomainListings({
       },
     },
   ];
+  console.log(settings, '44::');
   const COLUMNS_LIVE_DOMAINS = [
     {
       field: 'id',
@@ -147,7 +152,7 @@ export default function DomainListings({
             variant="body2"
             target={'_blank'}
             rel="noreferrer"
-            href={`${siteProtocol}://${params.row.domain}/`}
+            href={`${siteProtocol}://${preferredWWW}${params.row.domain}/`}
           >
             {params.row.domain}
           </Link>
