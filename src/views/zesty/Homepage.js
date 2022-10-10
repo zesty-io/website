@@ -53,6 +53,7 @@ import { useEffect } from 'react';
 import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
 import MiddleCta from 'components/marketing/Homepage/MiddleCta';
 import { WithHighlightedCard } from 'blocks/testimonials';
+import Dashboard from 'components/accounts/dashboard';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -94,6 +95,9 @@ function Homepage({ content }) {
     },
   );
 
+  if (content?.zesty?.isAuthenticated) {
+    return <Dashboard />;
+  }
   return (
     <>
       <Hero {...pageData} />
