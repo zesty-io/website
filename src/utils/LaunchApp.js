@@ -5,7 +5,8 @@ import { isProd } from 'utils';
 
 const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
 
-export const downloadTemplate = async (instance_zuid, token) => {
+export const downloadTemplate = async (instance_zuid, token, setloading) => {
+  setloading(true);
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
@@ -26,15 +27,18 @@ export const downloadTemplate = async (instance_zuid, token) => {
       .then((response) => {
         const blob = new Blob([response.data], { type: 'application/zip' });
         FileSaver.saveAs(blob, `${instance_zuid}`);
+        setloading(false);
       })
       .catch((error) => {
         console.log(error);
+        setloading(false);
         ErrorMsg({
           title: error.message,
           text: error?.response.data?.message,
         });
       });
   } catch (error) {
+    setloading(false);
     ErrorMsg({
       title: error.message,
       text: error?.response.data?.message,

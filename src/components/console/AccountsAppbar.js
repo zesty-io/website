@@ -46,9 +46,11 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
   };
 
   const getInstance = async () => {
-    const res = await ZestyAPI.getInstance(zuid);
-    !res.error && handleGetInstanceSuccess(res);
-    res.error && handleGetInstanceError(res);
+    if (zuid) {
+      const res = await ZestyAPI.getInstance(zuid);
+      !res.error && handleGetInstanceSuccess(res);
+      res.error && handleGetInstanceError(res);
+    }
   };
 
   React.useEffect(() => {
@@ -61,100 +63,125 @@ export const AccountsAppbar = ({ url = window.location.pathname }) => {
   }, [instanceZUID]);
 
   return (
-    <Box>
-      <>
-        <Box
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: isMobile ? 'left' : 'center',
+        flexDirection: isMobile ? 'column' : 'flex',
+        pt: 1,
+        borderTop: `1px solid ${grey[200]}`,
+      }}
+    >
+      <Breadcrumbs
+        maxItems={5}
+        aria-label="breadcrumb"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          '& .MuiBreadcrumbs-separator': {
+            opacity: '.4',
+          },
+        }}
+      >
+        <Link
+          underline="none"
+          color="inherit"
+          href="/"
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: isMobile ? 'left' : 'center',
-            flexDirection: isMobile ? 'column' : 'flex',
-            py: 1,
-            borderTop: `1px solid ${grey[200]}`,
+            alignItems: 'center',
           }}
         >
-          <Breadcrumbs
-            aria-label="breadcrumb"
+          <HomeIcon
             sx={{
+              mr: 0.5,
+              color: grey[500],
+            }}
+          />
+        </Link>
+
+        {router.pathname === '/' && (
+          <Link
+            href="/"
+            sx={{
+              textTransform: 'capitalize',
               display: 'flex',
               alignItems: 'center',
+              px: 2,
+              opacity: '.4',
+              pointerEvents: 'none',
             }}
+            underline="none"
+            color="text.secondary"
+            aria-current="page"
           >
+            Dashboard
+          </Link>
+        )}
+
+        {pathnames?.map((url, index) => {
+          const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
+          const isLastItem = index === pathnames.length - 1;
+          let name = url.replaceAll('-', ' ');
+          if (url.match(/^8-.*$/)) {
+            name = instance.name;
+          }
+          return isLastItem ? (
             <Link
-              underline="none"
-              color="inherit"
-              href={'/'}
               sx={{
+                textTransform: 'capitalize',
                 display: 'flex',
                 alignItems: 'center',
+                px: 2,
+                opacity: '.4',
+                pointerEvents: 'none',
+              }}
+              underline="none"
+              color="text.secondary"
+              href={routeTo}
+              aria-current="page"
+              key={name}
+            >
+              {name}
+            </Link>
+          ) : (
+            <Link
+              underline="none"
+              color="text.secondary"
+              href={routeTo}
+              key={index}
+              sx={{
+                textTransform: 'capitalize',
+                display: 'flex',
+                alignItems: 'center',
+                px: 2,
               }}
             >
-              <HomeIcon sx={{ mr: 0.5, color: 'GrayText' }} />
+              {name}
             </Link>
-            {pathnames?.map((url, index) => {
-              const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
-              const isLastItem = index === pathnames.length - 1;
-              let name = url.replaceAll('-', ' ');
-              if (url.match(/^8-.*$/)) {
-                name = instance.name;
-              }
-              return isLastItem ? (
-                <Link
-                  sx={{
-                    textTransform: 'capitalize',
-                    display: 'flex',
-                    alignItems: 'center',
-                    fontWeight: 'bold',
-                    px: 2,
-                    pointerEvents: 'none',
-                  }}
-                  underline="none"
-                  color="text.secondary"
-                  href={routeTo}
-                  aria-current="page"
-                  key={name}
-                >
-                  {name}
-                </Link>
-              ) : (
-                <Link
-                  underline="none"
-                  color="text.secondary"
-                  href={routeTo}
-                  key={index}
-                  sx={{
-                    textTransform: 'capitalize',
-                    display: 'flex',
-                    alignItems: 'center',
-                    px: 2,
-                  }}
-                >
-                  {name}
-                </Link>
-              );
-            })}
-          </Breadcrumbs>
-          {!loading && (
-            <Box>
-              {!verifySuccess ? (
-                <Button
-                  href="/login/"
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  sx={{ whiteSpace: 'nowrap' }}
-                >
-                  Sign in to Zesty.io
-                </Button>
-              ) : (
-                <Box
-                  sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
-                ></Box>
-              )}
-            </Box>
+          );
+        })}
+      </Breadcrumbs>
+      {!loading && (
+        <Box>
+          {!verifySuccess ? (
+            <Button
+              href="/login/"
+              variant="contained"
+              color="primary"
+              size="small"
+              sx={{ whiteSpace: 'nowrap' }}
+            >
+              Sign in to Zesty.io
+            </Button>
+          ) : (
+            <Box
+              sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
+            ></Box>
           )}
         </Box>
-      </>
+      )}
     </Box>
   );
 };

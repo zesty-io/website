@@ -34,6 +34,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { grey } from '@mui/material/colors';
+import * as helpers from 'utils';
+
+const legacyAccountsLink = `https://accounts${
+  helpers?.isProd ? '' : '.dev'
+}.zesty.io/`;
+
+const createInstanceLink = '/start';
 
 const navigationLinks = [
   {
@@ -78,12 +85,12 @@ const mobileNavLinks = [
   {
     title: 'Create Instance',
     id: 'createInstance',
-    url: 'https://accounts.zesty.io/instances/create',
+    url: createInstanceLink,
   },
   {
     title: 'Legacy Accounts',
     id: 'legacyAccounts',
-    url: 'https://accounts.zesty.io/',
+    url: legacyAccountsLink,
   },
   {
     title: 'Logout',
@@ -137,7 +144,7 @@ const AppNavigation = ({
   return (
     <>
       <Stack direction="row" alignItems={isSM && 'center'} py={1}>
-        <Link href="/">
+        <Link href="/" display="flex" alignItems="center">
           <img
             src="https://brand.zesty.io/zesty-io-logo.svg"
             height={40}
@@ -160,7 +167,7 @@ const AppNavigation = ({
           ml={2}
           display={{ xs: 'none', md: 'flex' }}
         >
-          <Stack direction="row" alignItems="center" spacing={3}>
+          <Stack direction="row" alignItems="center" spacing={{ xs: 1, xl: 2 }}>
             <Chip
               label={<Typography variant="body2">BETA</Typography>}
               color="info"
@@ -175,7 +182,12 @@ const AppNavigation = ({
             ))}
             <DeveloperDocMenu />
           </Stack>
-          <Stack direction="row" ml="auto" spacing={2} alignItems="center">
+          <Stack
+            direction="row"
+            ml="auto"
+            spacing={{ xs: 1, xl: 2 }}
+            alignItems="center"
+          >
             {isXL && (
               <AccountsComboBox
                 instances={instances?.data}
@@ -192,17 +204,15 @@ const AppNavigation = ({
                       ? 'primary'
                       : 'secondary'
                   }
-                  size="small"
                   variant="contained"
                   startIcon={<AddIcon />}
-                  onClick={() => router.push('/start/')}
+                  href={createInstanceLink}
                 >
                   Create Instance
                 </Button>
                 <Button
-                  href="https://accounts.zesty.io/"
+                  href={legacyAccountsLink}
                   variant="outlined"
-                  size="small"
                   id="accounts-legacy"
                   className="accounts-legacy-button"
                   endIcon={<ExitToAppIcon />}
@@ -228,7 +238,7 @@ const AppNavigation = ({
               <>
                 <IconButton
                   title="Create Instance"
-                  href="https://accounts.zesty.io/instances/create"
+                  href={createInstanceLink}
                   color={
                     (isAccounts && isLoggedIn) ||
                     (isLoggedIn && window.location.pathname === '/')
@@ -240,7 +250,7 @@ const AppNavigation = ({
                 </IconButton>
                 <IconButton
                   title="Legacy Accounts"
-                  href="https://accounts.zesty.io/"
+                  href={legacyAccountsLink}
                   sx={{ color: grey[500] }}
                 >
                   <ExitToAppIcon />
@@ -257,8 +267,8 @@ const AppNavigation = ({
                   <img
                     src={profileUrl}
                     alt="User"
-                    height={25}
-                    width={25}
+                    height={30}
+                    width={30}
                     style={{ borderRadius: '50%' }}
                   />
                   <ArrowDropDownIcon color={'disabled'} fontSize="medium" />

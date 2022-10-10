@@ -128,7 +128,7 @@ const Dashboard = () => {
           px: 3,
         })}
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={2} mt={1}>
           <Grid
             sx={(theme) => ({
               height: { md: `calc(100vh - ${theme.tabTop}px)` },
@@ -153,7 +153,7 @@ const Dashboard = () => {
           </Grid>
 
           <Grid xs={12} md={9} lg={10} item>
-            <Stack py={1}>
+            <Stack pb={2}>
               <ZInstancesContainer
                 firstName={userInfo?.firstName}
                 instances={instances}

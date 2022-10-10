@@ -18,6 +18,7 @@ export default function DomainListings({
   getInstanceDomains,
   deleteDomain,
   loading,
+  settings = [],
 }) {
   const router = useRouter();
 
@@ -27,6 +28,8 @@ export default function DomainListings({
     // access necessary endpoints
     getInstanceDomains();
   }, [instanceDomains?.length, zuid, instance?.ZUID]);
+
+  const siteProtocol = settings?.find((e) => e.key === 'site_protocol')?.value;
 
   const ROWS_LIVE_DOMAINS = liveDomains?.map((e) => {
     return {
@@ -59,7 +62,12 @@ export default function DomainListings({
       ),
       renderCell: (params) => {
         return (
-          <Link variant="body2" href={`https://www.${params.row.domain}/`}>
+          <Link
+            variant="body2"
+            target={'_blank'}
+            rel="noreferrer"
+            href={`${siteProtocol}://${params.row.domain}/`}
+          >
             {params.row.domain}
           </Link>
         );
@@ -135,7 +143,12 @@ export default function DomainListings({
       ),
       renderCell: (params) => {
         return (
-          <Link variant="body2" href={`https://www.${params.row.domain}/`}>
+          <Link
+            variant="body2"
+            target={'_blank'}
+            rel="noreferrer"
+            href={`${siteProtocol}://${params.row.domain}/`}
+          >
             {params.row.domain}
           </Link>
         );
