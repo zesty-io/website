@@ -29,9 +29,11 @@ const Index = ({
   autoHeight = true,
   rowHeight = 70,
   NoData = NoRowsOverlay,
+  showTable = true,
 }) => {
   return (
     <Box
+      display={showTable ? 'block' : 'none'}
       sx={{
         height: autoHeight ? 'auto' : 600,
         width: '100%',
