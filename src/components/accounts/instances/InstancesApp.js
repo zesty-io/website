@@ -95,7 +95,11 @@ const Index = ({ children }) => {
               },
             })}
           >
-            <InstanceHeader instance={instance} loading={loading} />
+            <InstanceHeader
+              ZestyAPI={ZestyAPI}
+              instance={instance}
+              loading={loading}
+            />
             <InstanceNavigation
               lists={instanceTabs}
               handleChange={handleChange}
@@ -104,18 +108,12 @@ const Index = ({ children }) => {
             />
           </Grid>
           <Grid item md={9} lg={10}>
-            {/* <Container maxWidth={false}>
-              <Typography py={2} variant="h5" color="text.secondary">
-                {currentPage ? capitalize(currentPage) : 'Overview'}
-              </Typography>
-            </Container>
-            <Divider sx={{ mb: 2 }} /> */}
             <Box>{children}</Box>
           </Grid>
         </Grid>
       ) : (
         <Container>
-          <InstanceHeader instance={instance} />
+          <InstanceHeader ZestyAPI={ZestyAPI} instance={instance} />
           <Tabs
             value={tabValue}
             onChange={handleTabChange}

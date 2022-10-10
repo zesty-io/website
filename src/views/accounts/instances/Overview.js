@@ -200,26 +200,6 @@ export const Overview = ({
             >
               View All Usage
             </Button>
-            {/* <Button
-              onClick={() => {}}
-              variant="contained"
-              color="inherit"
-              sx={(theme) => ({
-                border: `1px solid ${grey[200]}`,
-                bgcolor:
-                  theme.palette.mode === 'light'
-                    ? 'white'
-                    : theme.palette.primary.main,
-
-                '&:hover': {
-                  bgcolor: 'white',
-                  color: 'black',
-                },
-              })}
-              startIcon={<CreditCardIcon color="disabled" />}
-            >
-              Review Billing
-            </Button> */}
           </Stack>
         </Stack>
 
@@ -265,29 +245,33 @@ export const Overview = ({
             </Button>
           </Stack>
 
-          <Timeline sx={{ p: 0 }}>
-            {isInstanceAuditLoading
-              ? [...new Array(5)].map((i) => (
-                  <ZTimelineItem
-                    sx={{
-                      '::before': {
-                        content: 'none',
-                      },
-                      mt: 1,
-                    }}
-                    key={i}
-                    isLoading={isInstanceAuditLoading}
-                  />
-                ))
-              : instanceAudit?.map((audit, index) => (
-                  <ZInstanceTimelineItemContainer
-                    key={index}
-                    audit={audit}
-                    isInstanceAuditLoading={isInstanceAuditLoading}
-                    showEditInstance={false}
-                  />
-                ))}
-          </Timeline>
+          {instanceAudit?.length === 0 ? (
+            <Typography variant="h6">No Resources Found.</Typography>
+          ) : (
+            <Timeline sx={{ p: 0 }}>
+              {isInstanceAuditLoading
+                ? [...new Array(5)].map((i) => (
+                    <ZTimelineItem
+                      sx={{
+                        '::before': {
+                          content: 'none',
+                        },
+                        mt: 1,
+                      }}
+                      key={i}
+                      isLoading={isInstanceAuditLoading}
+                    />
+                  ))
+                : instanceAudit?.map((audit, index) => (
+                    <ZInstanceTimelineItemContainer
+                      key={index}
+                      audit={audit}
+                      isInstanceAuditLoading={isInstanceAuditLoading}
+                      showEditInstance={false}
+                    />
+                  ))}
+            </Timeline>
+          )}
         </Grid>
         <Grid item xs={12} lg={3}>
           <OverviewTabs {...tabProps} />
