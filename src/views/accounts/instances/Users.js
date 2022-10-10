@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import {
   accountsValidations,
@@ -274,6 +275,8 @@ const Index = ({
   loading,
   search,
   setsearch,
+  respondToInvite,
+  pendingUsers,
 }) => {
   const handleUpdateRole = (data) => {
     updateRole(data);
@@ -337,7 +340,122 @@ const Index = ({
           loading={loading}
         />
       </Grid>
+      <Grid item xs={12}>
+        <PendingTable
+          setsearch={setsearch}
+          data={pendingUsers}
+          instanceRoles={instanceRoles}
+          respondToInvite={respondToInvite}
+          isOwner={isOwner}
+          loading={loading}
+        />
+      </Grid>
     </Grid>
   );
 };
 export const Users = React.memo(Index);
+
+const PendingTable = ({
+  data,
+  instanceRoles,
+  isOwner,
+  loading,
+  respondToInvite,
+}) => {
+  const ROWS = data?.map((e) => {
+    return { ...e, id: uuidv4() };
+  });
+
+  const COLUMNS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'name',
+      headerName: 'Pending Users',
+      width: 300,
+      editable: false,
+      sortable: true,
+      renderHeader: () => <AccountsTableHead>Pending Users</AccountsTableHead>,
+      valueGetter: (params) => params.row.firstName,
+      renderCell: (params) => {
+        const name = params.row.name || '-';
+        const email = `${params.row.email}`;
+        const profileUrl =
+          'https://www.gravatar.com/avatar/' + hashMD5(params.row?.email);
+        return (
+          <Stack direction="row" alignItems={'center'} gap={4} pl={1}>
+            <img
+              src={profileUrl}
+              alt="User"
+              height={40}
+              width={40}
+              style={{ borderRadius: '50%' }}
+            />
+            <Stack>
+              <Typography variant="body2" color={'text.primary'}>
+                {name}
+              </Typography>
+              <Typography variant="caption" color={'text.secondary'}>
+                {email}
+              </Typography>
+            </Stack>
+          </Stack>
+        );
+      },
+    },
+
+    {
+      field: 'action',
+      headerName: '',
+      width: 100,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const e = params.row;
+        const action = [
+          {
+            title: 'Cancel Invite',
+            action: () => respondToInvite(e, 'cancel'),
+          },
+        ];
+
+        return (
+          <>
+            <AccountsPopover
+              title={
+                <Button variant="text" color="primary">
+                  <MoreVertIcon color="disabled" />
+                </Button>
+              }
+              id={'actions'}
+              items={action}
+              colorInvert={false}
+            />
+          </>
+        );
+      },
+    },
+  ];
+
+  const rows = React.useMemo(() => ROWS, [data, loading]);
+  const columns = React.useMemo(() => COLUMNS, [data, instanceRoles, loading]);
+  const showTable = rows.length === 0 ? false : true;
+
+  return (
+    <Stack width={1}>
+      <Stack py={4} px={4} sx={{ width: '30vw' }}>
+        <AccountsTable
+          showTable={showTable}
+          loading={loading}
+          rows={rows}
+          columns={columns}
+          pageSize={100}
+          autoHeight={true}
+        />
+      </Stack>
+    </Stack>
+  );
+};
