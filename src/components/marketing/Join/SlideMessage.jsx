@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Stack, Button, Box, Grid } from '@mui/material';
+import { Container, Stack, Button, Box, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 export const SlideMessage = ({

@@ -18,7 +18,7 @@ const Growth = ({
 }) => {
   const flexOrder = ['flex-end', 'center', 'flex-start'];
   return (
-    <Box component={'section'} sx={{ py: 5, position: 'relative' }}>
+    <Box component={'section'} sx={{ py: 15, position: 'relative' }}>
       <Box
         sx={{
           display: isExtraLarge && 'none',
@@ -28,14 +28,11 @@ const Growth = ({
         }}
         component="img"
         loading="lazy"
-        src={content.growth_background?.data[0].url}
+        src={content?.growth_background?.data[0].url || ''}
         alt="timeline guide"
       />
       <Container>
         <Box
-          data-aos="fade-right"
-          data-aos-delay="50"
-          data-aos-offset="700"
           sx={{
             width: '100%',
             maxWidth: isExtraLarge ? '100%' : 639,
@@ -50,7 +47,7 @@ const Growth = ({
                   variant: 'h3',
                   component: 'h2',
                   sx: {
-                    color: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.zesty.zestyZambezi,
                     fontWeight: 'bold',
                   },
                 },
@@ -58,7 +55,7 @@ const Growth = ({
               p: {
                 component: Typography,
                 props: {
-                  variant: 'h4',
+                  variant: 'h6',
                   component: 'p',
                   sx: {
                     color: theme.palette.zesty.zestyZambezi,
@@ -69,7 +66,7 @@ const Growth = ({
               },
             }}
           >
-            {content.growth_title_and_description || FillerContent.description}
+            {content.growth_title_and_description || FillerContent.rich_text}
           </MuiMarkdown>
         </Box>
 
@@ -82,13 +79,9 @@ const Growth = ({
             gap: 4,
           }}
         >
-          {content.growth_cards?.data.map((item, index) => (
+          {content?.growth_cards?.data.map((item, index) => (
             <Box
               key={index}
-              data-aos-delay="150"
-              data-aos-offset="400"
-              data-aos="fade-up"
-              data-aos-duration={`${index + 1}000`}
               sx={{
                 display: 'flex',
                 justifyContent: isExtraLarge ? 'center' : flexOrder[index],
@@ -114,7 +107,10 @@ const Growth = ({
                     height={147}
                     style={{ width: '100%', height: 'auto' }}
                     loading="lazy"
-                    src={item.icon_image?.data[0].url}
+                    src={
+                      item.icon_image?.data[0].url ||
+                      FillerContent.photos[0].src
+                    }
                     l
                     alt={item.feature_name || ''}
                   />
@@ -128,7 +124,7 @@ const Growth = ({
                       fontWeight: 'bold',
                     }}
                   >
-                    {item.feature_name}
+                    {item.feature_name || FillerContent.description}
                   </Typography>
                   <Typography
                     component="p"
@@ -139,7 +135,7 @@ const Growth = ({
                       mt: 1,
                     }}
                   >
-                    {item.content}
+                    {item.content || FillerContent.description}
                   </Typography>
                 </Box>
               </Card>

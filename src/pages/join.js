@@ -255,6 +255,7 @@ export default function Join(props) {
       >
         {/* <SwiperSlide > 
                   
+
                     <SlideMessage 
                         message={firstMessage} 
                         buttonText={firstButton} 

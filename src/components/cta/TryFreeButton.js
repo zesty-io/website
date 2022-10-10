@@ -68,7 +68,6 @@ export default function TryFreeButton({
   sx = {},
 }) {
   const theme = useTheme();
-  console.log(theme, mock);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -95,7 +94,7 @@ export default function TryFreeButton({
         className="tryButton"
         id="start-button"
         fullWidth={fullWidth}
-        // href="https://accounts.zesty.io/signup"
+        //href="https://accounts.zesty.io/signup"
         size={size}
         sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}
         onClick={(e) => handleClick(e)}

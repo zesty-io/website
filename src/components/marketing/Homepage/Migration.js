@@ -16,7 +16,7 @@ import 'swiper/css/navigation';
 
 const Migration = ({ content, FillerContent, theme, isLarge }) => {
   return (
-    <Box component="section" sx={{ py: 10 }}>
+    <Box component="section" sx={{ pb: 10 }}>
       <Container>
         <Grid container spacing={2}>
           <Grid
@@ -46,40 +46,6 @@ const Migration = ({ content, FillerContent, theme, isLarge }) => {
                 margin: isLarge ? 'auto' : 0,
               }}
             >
-              {/* Card Oval and Circle Design */}
-              {/* <Box
-            sx={{
-              height: 133,
-              width: 133,
-              background: '#9AB3DF',
-              position: 'absolute',
-              borderRadius: '50%',
-              top: 50,
-              right: isLarge ? -85 : -70,
-            }}
-          /> */}
-              {/* <Box
-            sx={{
-              height: 42,
-              width: 42,
-              background: '#9AB3DF',
-              position: 'absolute',
-              borderRadius: '50%',
-              top: 230,
-              right: isLarge ? -30 : -20,
-            }}
-          /> */}
-              {/* <Box
-            sx={{
-              height: 79,
-              width: 200,
-              border: `10px solid #B9F8FF `,
-              position: 'absolute',
-              borderRadius: 80,
-              bottom: -25,
-              left: -50,
-            }}
-          /> */}
               <MuiMarkdown
                 overrides={{
                   h2: {
@@ -90,7 +56,7 @@ const Migration = ({ content, FillerContent, theme, isLarge }) => {
                       component: 'h1',
                       variant: 'h3',
                       fontWeight: 'bold',
-                      color: theme.palette.zesty.zestyOrange,
+                      color: theme.palette.zesty.zestyZambezi,
                       lineHeight: 1,
                     },
                   },

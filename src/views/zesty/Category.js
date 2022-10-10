@@ -68,7 +68,6 @@ function Category({ content }) {
     },
   ]);
 
-  const error = 'Error';
   // use effect pull in news articles
   useEffect(() => {
     try {
@@ -86,7 +85,7 @@ function Category({ content }) {
 
       fetchNews();
     } catch (err) {
-      console.error(`Could Not Find Results: ${error}`);
+      console.error(`Could Not Find Results: ${err}`);
     }
   }, []);
 

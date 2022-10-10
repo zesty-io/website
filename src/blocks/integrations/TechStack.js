@@ -1,10 +1,29 @@
 // MUI Imports
 import { Box, Container, Typography, Grid, Button } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import FillerContent from 'components/globals/FillerContent';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
-// Local Assets Imports
+const TechStack = ({
+  text_content,
+  logos,
+  cta_text,
+  cta_link,
+  textHighlight,
+}) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-const TechStack = ({ theme, isMobile, content, FillerContent }) => {
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(text_content);
+
+  if (!isRichText) {
+    text_content = `<h2>${text_content}</h2>`;
+  }
+
   return (
     <Box component="section" sx={{ px: 4 }}>
       <Box
@@ -22,11 +41,10 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                   span: {
                     component: Typography,
                     props: {
-                      variant: 'h3',
                       component: 'span',
                       sx: {
-                        fontWeight: 'bold',
-                        fontWeight: 'regular',
+                        fontWeight: 'inherit',
+                        fontSize: 'inherit',
                         color: theme.palette.zesty.zestyOrange,
                       },
                     },
@@ -37,6 +55,7 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                       variant: 'h4',
                       component: 'h3',
                       sx: {
+                        fontWeight: 500,
                         color: theme.palette.zesty.zestyZambezi,
                       },
                     },
@@ -67,17 +86,20 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                   },
                 }}
               >
-                {content.integrations_description || FillerContent.description}
+                {text_content.replace(
+                  textHighlight,
+                  `<span>${textHighlight}</span>`,
+                )}
               </MuiMarkdown>
 
               <Box sx={{ width: '100%', mt: 4 }}>
-                {content.integration_link?.data && (
+                {cta_link && (
                   <Button
                     component={'a'}
                     target="_blank"
                     fullWidth={isMobile}
                     variant="contained"
-                    href={content.integration_link.data[0].meta.web.uri}
+                    href={cta_link || FillerContent.href}
                     sx={{
                       background: theme.palette.zesty.zestyOrange,
                       color: theme.palette.common.white,
@@ -85,7 +107,7 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                     }}
                     size="large"
                   >
-                    {content.integrations_button || FillerContent.description}
+                    {cta_text || FillerContent.cta}
                   </Button>
                 )}
               </Box>
@@ -117,13 +139,14 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                     display: isMobile ? 'none' : 'block',
                   }}
                 />
-                {content.integrations_logos?.data.map((item, idx) => {
+                {logos?.map((item, idx) => {
                   return (
                     <>
-                      <Box
+                      <ZestyImage
                         key={idx}
-                        sx={{ height: 88, width: 'auto' }}
-                        component="img"
+                        width={88}
+                        height={88}
+                        style={{ height: 88, width: 'auto' }}
                         alt="integration logo's"
                         src={item.logo.data[0].url}
                       />

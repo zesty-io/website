@@ -25,7 +25,8 @@ const Bottom = ({
     <Box
       component="section"
       sx={{
-        background: `url(${content.bottom_cta_background?.data[0].url}?width=1920)`,
+        mt: 5,
+        background: theme.palette.zesty.zestyDarkBlueRadialGradient,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
@@ -52,7 +53,9 @@ const Bottom = ({
                 height={519}
                 style={{ width: '100%', maxWidth: 951, height: 'auto' }}
                 loading="lazy"
-                src={`${content.bottom_cta_graphic?.data[0].url}?width=951`}
+                src={`${
+                  content?.bottom_cta_graphic?.data[0].url || ''
+                }?width=951`}
                 alt="zesty.io"
               />
             </Box>
@@ -76,7 +79,7 @@ const Bottom = ({
                       variant: 'h3',
                       component: 'span',
                       sx: {
-                        color: theme.palette.zesty.zestyOrange,
+                        color: theme.palette.common.white,
                         fontWeight: 'inherit',
                         textAlign: 'inherit',
                       },
@@ -85,9 +88,6 @@ const Bottom = ({
                   h2: {
                     component: Typography,
                     props: {
-                      'data-aos-offset': '200',
-                      'data-aos': 'fade-up',
-                      'data-aos-duration': '1000',
                       variant: 'h3',
                       component: 'h2',
                       sx: {
@@ -100,9 +100,6 @@ const Bottom = ({
                   p: {
                     component: Typography,
                     props: {
-                      'data-aos-offset': '200',
-                      'data-aos': 'fade-up',
-                      'data-aos-duration': '1500',
                       variant: 'h6',
                       component: 'p',
                       sx: {
@@ -115,13 +112,10 @@ const Bottom = ({
                 }}
               >
                 {content.bottom_cta_title_and_description ||
-                  FillerContent.description}
+                  FillerContent.rich_text}
               </MuiMarkdown>
 
               <Box
-                data-aos-offset="200"
-                data-aos="fade-up"
-                data-aos-duration="1500"
                 sx={{
                   mt: 4,
                   display: 'flex',
@@ -141,7 +135,10 @@ const Bottom = ({
                 />
                 <DemoCta
                   fullWidth={isMedium}
-                  href={content.footer_button_link_2?.data[0].meta.web.uri}
+                  href={
+                    content.footer_button_link_2?.data[0].meta.web.uri ||
+                    FillerContent.href
+                  }
                   text={content.footer_button_text_2 || FillerContent.cta}
                   sx={{
                     color: theme.palette.common.white,
