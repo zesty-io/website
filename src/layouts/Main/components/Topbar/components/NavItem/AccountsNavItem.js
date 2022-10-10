@@ -29,7 +29,7 @@ export const AccountsNavItem = ({ title, id, items, colorInvert = false }) => {
   }, []);
 
   const hasActiveLink = () => items.find((i) => i.url === activeLink);
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  const linkColor = colorInvert ? 'common.white' : 'text.secondary';
 
   return (
     <Box>
@@ -40,12 +40,7 @@ export const AccountsNavItem = ({ title, id, items, colorInvert = false }) => {
         sx={{ cursor: 'pointer' }}
         onClick={(e) => handleClick(e, id)}
       >
-        <Typography
-          fontWeight={400}
-          color="text.secondary"
-          variant="body1"
-          mr={1}
-        >
+        <Typography fontWeight={400} color={linkColor} variant="body1" mr={1}>
           {title}
         </Typography>
         <ExpandMoreIcon
