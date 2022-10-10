@@ -215,7 +215,7 @@ const Features = ({
                       alt={e.feature_name}
                     />
                     <Typography
-                      component={'p'}
+                      component={'h3'}
                       variant={'p'}
                       sx={{
                         py: 2,
@@ -230,7 +230,7 @@ const Features = ({
                       {e?.feature_name}
                     </Typography>
                     <Typography
-                      component={'h2'}
+                      component={'p'}
                       variant={'p'}
                       sx={{
                         textAlign: center ? 'center' : 'left',

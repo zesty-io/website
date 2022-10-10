@@ -267,7 +267,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                   },
                 }}
               >
-                {content.about_zesty_dxp}
+                {content.about_zesty_dxp || FillerContent.rich_text}
               </MuiMarkdown>
             </Box>
           </Grid>

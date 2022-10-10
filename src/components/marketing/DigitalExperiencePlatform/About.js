@@ -69,7 +69,10 @@ const About = ({ content, theme, isMobile, FillerContent }) => {
               mt: 2,
             }}
           >
-            <TryFreeButton variant="contained" />
+            <TryFreeButton
+              text={content.middle_cta_text || FillerContent.cta}
+              variant="contained"
+            />
           </Box>
         </Box>
 
