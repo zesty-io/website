@@ -20,6 +20,7 @@ import zesty from '../../../../public/assets/images/zesty.svg';
  * Components Import
  */
 import ZestyImage from 'blocks/Image/ZestyImage';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 /**
  *
@@ -34,6 +35,7 @@ import ZestyImage from 'blocks/Image/ZestyImage';
  * @param {boolean} center - center card items including logo, title and description
  * @param {string} card_name_color - card name title color default is zestyOrange
  * @param {string} header_color - header title color default is zestyDarkText
+ * @param {string} cta_button_text - call to action text hidden if empty
  *
  */
 
@@ -49,6 +51,7 @@ const Features = ({
   icon_width = 67,
   icon_height = 60,
   center = false,
+  cta_button_text = '',
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -249,6 +252,19 @@ const Features = ({
             );
           })}
         </Box>
+
+        {cta_button_text && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              mt: 10,
+            }}
+          >
+            <TryFreeButton text={cta_button_text} variant="contained" />
+          </Box>
+        )}
       </Container>
     </Box>
   );
