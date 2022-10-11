@@ -170,6 +170,7 @@ export const InstancesDashboard = () => {
     const res = await ZestyAPI.respondToInvite(data.inviteZUID, action);
     !res.error && handleRespondToInviteSuccess(res);
     res.error && handleRespondToInviteError(res);
+    await getPageData();
   };
   const getAllEcosystem = async () => {
     const res = await ZestyAPI.getALLEcosystems();
@@ -177,7 +178,6 @@ export const InstancesDashboard = () => {
     res.error && handleGetAllEcosystemError(res);
   };
 
-  console.log(initialFavorites, 44444);
   const favoritesList = instances
     ?.filter((instance) => initialFavorites?.includes(instance?.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
