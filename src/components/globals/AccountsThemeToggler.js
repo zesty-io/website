@@ -16,7 +16,8 @@ export const AccountsThemeToggler = () => {
       variant={'outlined'}
       onClick={() => themeToggler()}
       aria-label="Dark mode toggler"
-      color={mode === 'light' ? 'primary' : 'secondary'}
+      color={mode === 'light' ? 'inherit' : 'primary'}
+      title={mode === 'light' ? 'Dark Mode' : 'Light Mode'}
       sx={{
         borderRadius: 1,
         minWidth: 'auto',

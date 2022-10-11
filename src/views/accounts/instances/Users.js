@@ -397,7 +397,7 @@ const PendingTable = ({
               style={{ borderRadius: '50%' }}
             />
             <Stack>
-              <Typography variant="body2" color={'text.primary'}>
+              <Typography title={name} variant="body2" color={'text.primary'}>
                 {name}
               </Typography>
               <Typography variant="caption" color={'text.secondary'}>
