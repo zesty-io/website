@@ -136,6 +136,9 @@ const Dashboard = () => {
               top: { md: `${theme.tabTop}px` },
               overflowY: { md: 'auto' },
               maxWidth: { md: '384px' },
+              '::-webkit-scrollbar': {
+                display: 'none',
+              },
             })}
             md={3}
             lg={2}
