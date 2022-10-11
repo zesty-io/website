@@ -111,10 +111,12 @@ function TechnologyOverview({ content }) {
       <GetStarted {...pageData} />
       <Features {...pageData} />
       <HeadlessApi {...pageData} />
-      <TechStack {...techStackData} {...pageData} />
+      <Box sx={{ py: 10 }}>
+        <TechStack {...techStackData} {...pageData} />
+      </Box>
       <TopBrands
         backgroundColor={theme.palette.common.white}
-        sx={{ py: 10 }}
+        sx={{ py: isMobile ? 10 : 25 }}
         title={content.case_study_header}
         {...pageData}
       />
