@@ -62,20 +62,34 @@ const CustomTable = ({
     {
       field: 'url',
       headerName: 'URL',
-      width: 600,
+      minWidth: 500,
+      flex: 1,
       editable: false,
-      sortable: false,
+      sortable: true,
+      valueGetter: (params) => params.row.URL,
       renderHeader: () => <AccountsTableHead>URL</AccountsTableHead>,
       renderCell: (params) => {
-        return <Typography variant="body2">{params.row.URL}</Typography>;
+        return (
+          <Typography
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+            title={params.row.URL}
+            variant="body2"
+          >
+            {params.row.URL}
+          </Typography>
+        );
       },
     },
     {
       field: 'method',
       headerName: 'Method',
-      width: 200,
+      width: 150,
       editable: false,
-      sortable: false,
+      sortable: true,
+      valueGetter: (params) => params.row.method,
       renderHeader: () => <AccountsTableHead>Method</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.method}</Typography>;
@@ -84,9 +98,10 @@ const CustomTable = ({
     {
       field: 'resource',
       headerName: 'Resource',
-      width: 200,
+      width: 150,
       editable: false,
-      sortable: false,
+      sortable: true,
+      valueGetter: (params) => params.row.resource,
       renderHeader: () => <AccountsTableHead>Resource</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.resource}</Typography>;
@@ -95,9 +110,10 @@ const CustomTable = ({
     {
       field: 'eventType',
       headerName: 'Event Type',
-      width: 200,
+      width: 150,
       editable: false,
-      sortable: false,
+      sortable: true,
+      valueGetter: (params) => params.row.eventAction,
       renderHeader: () => <AccountsTableHead>Event Type</AccountsTableHead>,
       renderCell: (params) => {
         return (
@@ -110,7 +126,7 @@ const CustomTable = ({
     {
       field: 'action',
       headerName: '',
-      width: 150,
+      width: 100,
       editable: false,
       sortable: false,
       renderCell: (params) => {
