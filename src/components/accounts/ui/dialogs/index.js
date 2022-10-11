@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { light } from 'theme/paletteAccounts';
 
 const MySwal = withReactContent(Swal);
 
@@ -14,8 +15,8 @@ export const SuccessMsg = ({
     icon: 'success',
     html,
     title,
-    showConfirmButton: true,
     timer: 2500,
+    confirmButtonColor: light.primary.main,
   }).then(() => action());
 };
 
@@ -30,6 +31,7 @@ export const ErrorMsg = ({
     title,
     html,
     text,
+    confirmButtonColor: light.zesty.zestyRose,
     //   footer: '<a href="">Why do I have this issue?</a>',
   });
 };

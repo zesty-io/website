@@ -61,6 +61,7 @@ const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
       {!loading ? (
         <TextField
           sx={(theme) => ({
+            borderRadius: '8px',
             bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
             '& fieldset': {
               border: `1px solid ${grey[200]}`,

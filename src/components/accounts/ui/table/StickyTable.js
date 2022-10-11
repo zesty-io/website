@@ -90,14 +90,23 @@ const Index = ({
                             </TableCell>
                           );
                         }
+
+                        if (typeof value === 'string') {
+                          return (
+                            <TableCell>
+                              <Typography
+                                variant="body2"
+                                textTransform={'capitalize'}
+                              >
+                                {value?.replace('_', ' ')?.replace('-', ' ')}
+                              </Typography>
+                            </TableCell>
+                          );
+                        }
+
                         return (
                           <TableCell>
-                            <Typography
-                              variant="body2"
-                              textTransform={'capitalize'}
-                            >
-                              {value.replace('_', ' ').replace('-', ' ')}
-                            </Typography>
+                            {JSON.stringify(value, null, 4)}
                           </TableCell>
                         );
                       })}
