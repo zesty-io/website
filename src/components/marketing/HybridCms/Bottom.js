@@ -33,7 +33,7 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
   return (
     <Box
       mb={10}
-      paddingY={isMobile ? 5 : 10}
+      paddingY={isMobile ? 5 : 20}
       sx={{
         position: 'relative',
         background: theme.palette.zesty.zestyLightRedOrange,

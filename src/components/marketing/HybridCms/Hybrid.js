@@ -9,7 +9,7 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
   return (
-    <Box paddingY={isMobile ? 4 : 0} sx={{ position: 'relative' }}>
+    <Box paddingY={isMobile ? 4 : 10} sx={{ position: 'relative' }}>
       <Container
         sx={{
           display: 'flex',

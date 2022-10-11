@@ -36,7 +36,7 @@ const TopBrands = ({
 
   return (
     <Box sx={sx} component="section">
-      <Box component="section" sx={{ background: backgroundColor, py: 15 }}>
+      <Box component="section" sx={{ background: backgroundColor, py: 20 }}>
         <Container>
           <Box>
             <Typography
