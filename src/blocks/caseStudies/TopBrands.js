@@ -36,47 +36,44 @@ const TopBrands = ({
 
   return (
     <Box sx={sx} component="section">
-      <Box>
-        <Typography
-          sx={{
-            color: theme.palette.zesty.zestyZambezi,
-            fontWeight: 'bold',
-            '& span': {
-              color: 'inherit',
-            },
-            color: theme.palette.zesty.zestyZambezi,
-            textAlign: 'center',
-          }}
-          variant="h4"
-          component="h2"
-        >
-          <MuiMarkdown
-            overrides={{
-              strong: {
-                component: Typography,
-                props: {
-                  component: 'strong',
-                  sx: {
-                    fontSize: 'inherit',
-                    fontWeight: 'inherit',
-                    color: theme.palette.zesty.zestyOrange,
-                  },
-                },
-              },
-            }}
-          >
-            {title?.replaceAll(
-              textHighlight,
-              `<strong>${textHighlight}</strong>`,
-            ) || FillerContent.header}
-          </MuiMarkdown>
-        </Typography>
-      </Box>
-      <Box
-        component="section"
-        sx={{ background: backgroundColor, py: 5, mt: 5 }}
-      >
+      <Box component="section" sx={{ background: backgroundColor, py: 15 }}>
         <Container>
+          <Box>
+            <Typography
+              sx={{
+                color: theme.palette.zesty.zestyZambezi,
+                fontWeight: 'bold',
+                '& span': {
+                  color: 'inherit',
+                },
+                color: theme.palette.zesty.zestyZambezi,
+                textAlign: 'center',
+              }}
+              variant="h4"
+              component="h2"
+            >
+              <MuiMarkdown
+                overrides={{
+                  strong: {
+                    component: Typography,
+                    props: {
+                      component: 'strong',
+                      sx: {
+                        fontSize: 'inherit',
+                        fontWeight: 'inherit',
+                        color: theme.palette.zesty.zestyOrange,
+                      },
+                    },
+                  },
+                }}
+              >
+                {title?.replaceAll(
+                  textHighlight,
+                  `<strong>${textHighlight}</strong>`,
+                ) || FillerContent.header}
+              </MuiMarkdown>
+            </Typography>
+          </Box>
           <Grid container>
             <Grid
               sx={{

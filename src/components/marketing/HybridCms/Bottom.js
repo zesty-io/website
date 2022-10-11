@@ -36,7 +36,6 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
       paddingY={isMobile ? 5 : 10}
       sx={{
         position: 'relative',
-
         background: theme.palette.zesty.zestyLightRedOrange,
       }}
     >
@@ -125,7 +124,7 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
                     fullWidth={isMobile}
                     sx={{ textDecoration: 'underline' }}
                   >
-                    {content.bottom_cta_secondary}
+                    {content.bottom_cta_secondary || FillerContent.cta}
                     <ArrowRightAltIcon />
                   </Button>
                 </Box>
