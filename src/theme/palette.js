@@ -71,8 +71,8 @@ export const light = {
     zestyGray99: '#FCFCFC',
     zestyTealGradient2:
       'linear-gradient(269.83deg, #06BBCF 0.13%, #C6E9ED 104.87%);',
-    zestyTealGradient:
-      'linear-gradient(180deg, rgba(15,172,185,1) 45%, rgba(255,255,255,1) 100%)',
+    zestyBackgroundBlueGradient:
+      'linear-gradient(180deg, #D6E8F5 45%, rgba(255,255,255,1) 100%)',
     zestyBlueGradient:
       'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%)',
     zestyOrangeLinear: 'linear-gradient(90deg, #FF5D0A 8.16%, #F7951D 91.84%)',

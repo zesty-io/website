@@ -3,8 +3,8 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 // Local Assets Imports
-import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
-import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
+// import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
+// import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
 import curve from '../../../public/assets/images/headless-cms/curve.svg';
 import curve_dark from '../../../public/assets/images/headless-cms/curve-dark.svg';
 import curve_mobile from '../../../public/assets/images/headless-cms/curve-mobile.svg';
@@ -22,11 +22,10 @@ const TimeLine = ({
         background: theme.palette.zesty.zestyDarkBlue,
         mt: 25,
         position: 'relative',
-        borderRadius: 5,
       }}
       component="section"
     >
-      <Box
+      {/* <Box
         sx={{
           position: 'absolute',
           left: 0,
@@ -36,7 +35,7 @@ const TimeLine = ({
         component="img"
         alt=""
         src={chevron_left.src}
-      />
+      /> */}
       <Container>
         <Box
           sx={{
@@ -56,7 +55,7 @@ const TimeLine = ({
           }
         />
 
-        <Box
+        {/* <Box
           sx={{
             position: 'absolute',
             right: 0,
@@ -66,7 +65,7 @@ const TimeLine = ({
           component="img"
           alt=""
           src={chevron_right.src}
-        />
+        /> */}
         <Box sx={{ color: 'white', mt: -5 }}>
           <Box sx={{ position: 'relative' }} component="ul">
             {/* Content One */}
