@@ -47,6 +47,7 @@ export default function SettingsPage() {
     const res = await ZestyAPI.updateSetting(e.ZUID, e);
     !res.error && handleSingleSettingUpdateSuccess(res);
     res.error && handleSingleSettingUpdateError(res);
+    await getPageData();
   };
 
   const getPageData = async () => {
@@ -61,16 +62,14 @@ export default function SettingsPage() {
   }, [router.isReady]);
 
   return (
-    <>
-      <Settings
-        loading={loading}
-        settings={settings}
-        singleSettingsUpdate={singleSettingsUpdate}
-        token={userAppSID}
-        instance_zuid={zuid}
-        downloadTemplate={downloadTemplate}
-      />
-    </>
+    <Settings
+      loading={loading}
+      settings={settings}
+      singleSettingsUpdate={singleSettingsUpdate}
+      token={userAppSID}
+      instance_zuid={zuid}
+      downloadTemplate={downloadTemplate}
+    />
   );
 }
 
