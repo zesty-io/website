@@ -64,7 +64,8 @@ const CustomTable = ({
     {
       field: 'name',
       headerName: 'Name',
-      width: 450,
+      minWidth: 350,
+      flex: 1,
       editable: false,
       sortable: true,
       renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
@@ -340,7 +341,7 @@ const Index = ({
           loading={loading}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <PendingTable
           setsearch={setsearch}
           data={pendingUsers}
@@ -375,7 +376,8 @@ const PendingTable = ({
     {
       field: 'name',
       headerName: 'Pending Users',
-      width: 300,
+      minWidth: 300,
+      flex: 1,
       editable: false,
       sortable: true,
       renderHeader: () => <AccountsTableHead>Pending Users</AccountsTableHead>,
@@ -395,7 +397,7 @@ const PendingTable = ({
               style={{ borderRadius: '50%' }}
             />
             <Stack>
-              <Typography variant="body2" color={'text.primary'}>
+              <Typography title={name} variant="body2" color={'text.primary'}>
                 {name}
               </Typography>
               <Typography variant="caption" color={'text.secondary'}>
@@ -446,7 +448,7 @@ const PendingTable = ({
 
   return (
     <Stack width={1}>
-      <Stack py={4} px={4} sx={{ width: '30vw' }}>
+      <Stack py={4} px={4} sx={{ width: 1 }}>
         <AccountsTable
           showTable={showTable}
           loading={loading}
