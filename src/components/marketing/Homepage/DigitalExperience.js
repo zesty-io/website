@@ -81,7 +81,7 @@ const DigitalExperience = ({ content, FillerContent, theme, isDarkMode }) => {
             },
           }}
         >
-          {content.product_title_and_description}
+          {content.product_title_and_description || FillerContent.rich_text}
         </MuiMarkdown>
 
         <Box>
@@ -93,7 +93,7 @@ const DigitalExperience = ({ content, FillerContent, theme, isDarkMode }) => {
             spacing={2}
             container
           >
-            {content.product_options?.data.map((item, index) => (
+            {content.product_options?.data?.map((item, index) => (
               <Grid
                 key={index}
                 sx={{
@@ -132,9 +132,12 @@ const DigitalExperience = ({ content, FillerContent, theme, isDarkMode }) => {
                           width={294}
                           height={179}
                           style={{ width: '100%', maxWidth: 294 }}
-                          alt={item.product_name}
+                          alt={item.product_name || ''}
                           loading="lazy"
-                          src={item.graphic?.data[0].url}
+                          src={
+                            item.graphic?.data[0].url ||
+                            FillerContent.photos[0].src
+                          }
                         />
                       </Box>
 

@@ -14,11 +14,12 @@ import MuiMarkdown from 'mui-markdown';
 import Container from 'components/Container';
 import Star from '../../../../public/assets/images/homepage/star.svg';
 import ZestyImage from 'blocks/Image/ZestyImage';
+import FillerContent from 'components/globals/FillerContent';
 
 const WithHighlightedCard = ({ title, data }) => {
   const theme = useTheme();
 
-  const testimonialData = data.map((item) => {
+  const testimonialData = data?.map((item) => {
     return {
       feedback: item.review,
       name: item.reviewer_name,
@@ -27,8 +28,6 @@ const WithHighlightedCard = ({ title, data }) => {
       star_rating: parseInt(item.star_rating),
     };
   });
-
-  console.log(data);
 
   return (
     <Container>
@@ -61,11 +60,11 @@ const WithHighlightedCard = ({ title, data }) => {
               },
             }}
           >
-            {title}
+            {title || FillerContent.rich_text}
           </MuiMarkdown>
         </Box>
         <Grid container spacing={4}>
-          {testimonialData.map((item, i) => (
+          {testimonialData?.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box
                 width={1}
@@ -101,19 +100,21 @@ const WithHighlightedCard = ({ title, data }) => {
                       i === 1 ? theme.palette.common.white : 'text.secondary'
                     }
                   >
-                    {item.feedback}
+                    {item.feedback || FillerContent.description}
                   </Typography>
                 </CardContent>
                 <Box flexGrow={1} />
                 <CardActions sx={{ paddingBottom: 2 }}>
                   <ListItem component="div" disableGutters sx={{ padding: 0 }}>
                     <ListItemAvatar>
-                      <Avatar src={item.avatar} />
+                      <Avatar
+                        src={item.avatar || FillerContent.photos[0].src}
+                      />
                     </ListItemAvatar>
                     <ListItemText
                       sx={{ margin: 0 }}
-                      primary={item.name}
-                      secondary={item.title}
+                      primary={item.name || FillerContent.description}
+                      secondary={item.title || FillerContent.description}
                       primaryTypographyProps={{
                         color:
                           i === 1 ? theme.palette.common.white : 'text.primary',

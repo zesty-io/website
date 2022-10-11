@@ -28,7 +28,7 @@ const Growth = ({
         }}
         component="img"
         loading="lazy"
-        src={content.growth_background?.data[0].url}
+        src={content?.growth_background?.data[0].url || ''}
         alt="timeline guide"
       />
       <Container>
@@ -66,7 +66,7 @@ const Growth = ({
               },
             }}
           >
-            {content.growth_title_and_description || FillerContent.description}
+            {content.growth_title_and_description || FillerContent.rich_text}
           </MuiMarkdown>
         </Box>
 
@@ -79,7 +79,7 @@ const Growth = ({
             gap: 4,
           }}
         >
-          {content.growth_cards?.data.map((item, index) => (
+          {content?.growth_cards?.data.map((item, index) => (
             <Box
               key={index}
               sx={{
@@ -107,7 +107,10 @@ const Growth = ({
                     height={147}
                     style={{ width: '100%', height: 'auto' }}
                     loading="lazy"
-                    src={item.icon_image?.data[0].url}
+                    src={
+                      item.icon_image?.data[0].url ||
+                      FillerContent.photos[0].src
+                    }
                     l
                     alt={item.feature_name || ''}
                   />
@@ -121,7 +124,7 @@ const Growth = ({
                       fontWeight: 'bold',
                     }}
                   >
-                    {item.feature_name}
+                    {item.feature_name || FillerContent.description}
                   </Typography>
                   <Typography
                     component="p"
@@ -132,7 +135,7 @@ const Growth = ({
                       mt: 1,
                     }}
                   >
-                    {item.content}
+                    {item.content || FillerContent.description}
                   </Typography>
                 </Box>
               </Card>
