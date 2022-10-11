@@ -145,7 +145,13 @@ const ProfileHeader = ({ userInfo }) => {
     <Stack width={1}>
       <Stack direction={'row'} width={1} justifyContent="center">
         <img src={profileUrl} alt="" width={100} height={100} />
-        <Button href="https://en.gravatar.com/">Edit</Button>
+        <Button
+          target={'_blank'}
+          rel={`noreferrer`}
+          href="https://en.gravatar.com/"
+        >
+          Edit
+        </Button>
       </Stack>
     </Stack>
   );
@@ -209,25 +215,14 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
     res.error && updateUsernameError(res);
   };
 
-  const formik = useFormik({
-    validationSchema: accountsValidations.userName,
-    initialValues: {
-      firstName: userInfo?.firstName,
-      lastName: userInfo?.lastName,
-    },
-    onSubmit: async (values) => {
-      await updateUsername(values);
-      formik.resetForm();
-    },
-  });
-
-  React.useEffect(() => {
-    getUserEmails();
-  }, []);
   const headerProps = {
     title: 'Profile',
     description: `Manage your Profile`,
   };
+
+  React.useEffect(() => {
+    getUserEmails();
+  }, []);
   return (
     <Grid container>
       <AccountsHeader {...headerProps}>
@@ -237,7 +232,9 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
           onClick={() => {
             MySwal.fire({
               title: 'Edit Profile',
-              html: <EditProfile formik={formik} userInfo={userInfo} />,
+              html: (
+                <EditProfile onSubmit={updateUsername} userInfo={userInfo} />
+              ),
               showConfirmButton: false,
             });
           }}
@@ -272,21 +269,25 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
   );
 };
 
-const EditProfile = ({ formik, userInfo }) => {
+const EditProfile = ({ onSubmit, userInfo }) => {
+  const formik = useFormik({
+    validationSchema: accountsValidations.userName,
+    initialValues: {
+      firstName: userInfo?.firstName,
+      lastName: userInfo?.lastName,
+    },
+    onSubmit: async (values) => {
+      await onSubmit(values);
+      formik.resetForm();
+    },
+  });
+
   return (
     <Stack gap={4}>
       <ProfileHeader userInfo={userInfo} />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput
-          name={'firstName'}
-          label={userInfo?.firstName}
-          formik={formik}
-        />
-        <FormInput
-          name={'lastName'}
-          label={userInfo?.lastName}
-          formik={formik}
-        />
+        <FormInput name={'firstName'} label="First Name" formik={formik} />
+        <FormInput name={'lastName'} label="Last Name" formik={formik} />
         <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
       </form>
     </Stack>
