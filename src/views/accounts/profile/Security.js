@@ -36,9 +36,9 @@ const TwoFaForm = ({ formik, isAuthyEnable, disableAuthy, userInfo = {} }) => {
           <form noValidate onSubmit={formik.handleSubmit}>
             <Typography variant="h6">Phone number for 2FA</Typography>
             <Box display={'flex'} gap={2} marginY={1}>
-              <Box sx={{ width: '7rem' }}>
+              <Box sx={{ width: '7.5rem' }}>
                 <FormInput
-                  label={'Area Code'}
+                  label={'Country Code'}
                   name={'areaCode'}
                   formik={formik}
                 />
