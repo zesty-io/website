@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [filteredInstances, setFilteredInstances] = useState([]);
   const [instancesFavorites, setInstancesFavorites] = useState([]);
   const [isTogglingFavorites, setIsTogglingFavorites] = useState(false);
+  const [initialRender, setInitialRender] = useState(false);
   const [teams, setTeams] = useState([]);
   const [marketingCards, setMarketingCards] = useState([]);
   const theme = useTheme();
@@ -39,7 +40,9 @@ const Dashboard = () => {
       prefs: JSON.stringify(prefs),
     };
     const res = await ZestyAPI.updateUser(userInfo.ZUID, body, '');
-    setInstancesFavorites(JSON.parse(res?.data?.prefs)?.favorite_sites);
+    setInstancesFavorites(
+      JSON.parse(res?.data?.prefs)?.favorite_sites?.filter((c) => c !== null),
+    );
     setIsTogglingFavorites(false);
   };
 
@@ -67,9 +70,9 @@ const Dashboard = () => {
     }
 
     if (favorites?.length <= INSTANCE_CARD_LIMIT) {
-      instancesWOutFavoritesData = instances
-        .filter((c) => !favorites.includes(c.ZUID))
-        ?.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
+      instancesWOutFavoritesData = instances.filter(
+        (c) => !favorites.includes(c.ZUID),
+      );
     }
 
     return [...instacesFavoritesData, ...instancesWOutFavoritesData];
@@ -80,6 +83,14 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    if (userInfo && Object.keys(userInfo).length !== 0) {
+      setInstancesFavorites(
+        JSON.parse(userInfo?.prefs)?.favorite_sites?.filter((c) => c !== null),
+      );
+    }
+  }, [userInfo]);
+
+  useEffect(() => {
     const getInstances = async () => {
       const favorites = JSON.parse(userInfo?.prefs)?.favorite_sites?.filter(
         (c) => c !== null,
@@ -88,20 +99,13 @@ const Dashboard = () => {
       setIsInstanceLoading(true);
       const res = await ZestyAPI.getInstances();
       setInstances([...(await getInitialInstances(res?.data, favorites))]);
+      setInitialRender(true);
       setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LIMIT));
       setIsInstanceLoading(false);
     };
 
     if (userInfo && Object.keys(userInfo).length !== 0) {
       getInstances();
-    }
-  }, [userInfo]);
-
-  useEffect(() => {
-    if (userInfo && Object.keys(userInfo).length !== 0) {
-      setInstancesFavorites(
-        JSON.parse(userInfo?.prefs)?.favorite_sites?.filter((c) => c !== null),
-      );
     }
   }, [userInfo]);
 
@@ -117,6 +121,15 @@ const Dashboard = () => {
     };
     getMarketingCards();
   }, []);
+
+  useEffect(() => {
+    const runSettingInstances = async () => {
+      setInstances([
+        ...(await getInitialInstances(instances, instancesFavorites)),
+      ]);
+    };
+    runSettingInstances();
+  }, [instancesFavorites]);
 
   return (
     <>
@@ -159,7 +172,7 @@ const Dashboard = () => {
             <Stack pb={2}>
               <ZInstancesContainer
                 firstName={userInfo?.firstName}
-                instances={instances}
+                instances={instances?.slice(0, 3)}
                 isInstancesLoading={isInstancesLoading}
                 isTogglingFavorites={isTogglingFavorites}
                 toggleFavorites={toggleFavorites}
@@ -178,6 +191,7 @@ const Dashboard = () => {
                 <ZActivityStream
                   instances={instances}
                   instancesFavorites={instancesFavorites}
+                  initialRender={initialRender}
                 />
               </Grid>
               {isLG && (

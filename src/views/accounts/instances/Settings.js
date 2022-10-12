@@ -294,7 +294,7 @@ export const Settings = ({
           Export as Template
         </LoadingButton>
       </AccountsHeader>
-      <Grid item xs={12} px={4}>
+      <Grid item xs={12}>
         <CustomTable
           loading={loading}
           data={data}
