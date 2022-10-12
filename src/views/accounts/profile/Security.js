@@ -7,6 +7,7 @@ import { AccountsHeader, FormInput } from '../../../components/accounts/ui';
 import { accountsValidations } from '../../../components/accounts/validations';
 import { useSnackbar } from 'notistack';
 import { notistackMessage } from 'utils';
+import { useState } from 'react';
 
 const url =
   'https://seeklogo.com/images/A/authy-logo-5598145895-seeklogo.com.png?v=637714439950000000';
@@ -15,6 +16,7 @@ export const Security = ({ getUser }) => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
   const isAuthyEnable = userInfo?.authyEnabled;
   const { enqueueSnackbar } = useSnackbar();
+  const [isDisablingAuthy, setIsDisablingAuthy] = useState(false);
 
   const handleSubmit = async ({ oldPassword, newPassword }) => {
     const userZUID = userInfo.ZUID;
@@ -72,18 +74,19 @@ export const Security = ({ getUser }) => {
       enqueueSnackbar,
       {
         message: 'Successfully enabled authy!',
+        callback: async () => await getUser(),
       },
       response,
     );
-
-    await getUser();
   };
 
   const disableAuthy = async () => {
+    setIsDisablingAuthy(true);
     const userZUID = userInfo.ZUID;
     const body = {
       authyEnabled: false,
     };
+
     const response = await ZestyAPI.updateUser(userZUID, body);
     await notistackMessage(
       enqueueSnackbar,
@@ -92,7 +95,7 @@ export const Security = ({ getUser }) => {
       },
       response,
     );
-
+    setIsDisablingAuthy(false);
     await getUser();
   };
 
@@ -184,14 +187,14 @@ export const Security = ({ getUser }) => {
                       />
                     </Stack>
 
-                    <Button
+                    <LoadingButton
                       variant="contained"
-                      disabled={formik.isSubmitting}
+                      loading={formik.isSubmitting}
                       fullWidth
                       type="submit"
                     >
                       Enable Two Factor Authentication
-                    </Button>
+                    </LoadingButton>
                   </>
                 ) : (
                   <>
@@ -200,14 +203,15 @@ export const Security = ({ getUser }) => {
                       {userInfo?.authyPhoneNumber}
                     </Typography>
 
-                    <Button
+                    <LoadingButton
                       variant="contained"
                       fullWidth
                       type="submit"
+                      loading={isDisablingAuthy}
                       onClick={disableAuthy}
                     >
                       Disable Two Factor Authentication
-                    </Button>
+                    </LoadingButton>
                   </>
                 )}
               </Stack>
