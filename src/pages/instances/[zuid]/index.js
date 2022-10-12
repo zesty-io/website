@@ -22,7 +22,7 @@ export default function OverviewPage() {
   const router = useRouter();
   const { zuid } = router.query;
   const dateEnd = dayjs().format('YYYY-MM-DD');
-  const dateStart = '2022-08-30';
+  const dateStart = dayjs().startOf('month').format('YYYY-MM-DD');
 
   const [isInstanceAuditLoading, setIsInstanceAuditLoading] = useState(false);
   const [instanceAudit, setInstanceAudit] = useState([]);
