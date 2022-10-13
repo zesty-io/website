@@ -2,8 +2,9 @@
  * MUI Imports
  */
 
-import { Box, Container, Link, Typography, Grid } from '@mui/material';
+import { Box, Container, Typography, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
+import FillerContent from 'components/globals/FillerContent';
 
 const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
   const FillerImage =
