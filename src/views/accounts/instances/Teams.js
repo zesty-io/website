@@ -8,6 +8,7 @@ import {
   AccountsTableHead,
   accountsValidations,
   DeleteMsg,
+  ErrorMsg,
   FormSelect,
   SubmitBtn,
 } from 'components/accounts';
@@ -16,7 +17,8 @@ import { useFormik } from 'formik';
 import React from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { hashMD5 } from 'utils/Md5Hash';
+import { useZestyStore } from 'store';
+import { gravatarImg } from 'utils';
 
 const MySwal = withReactContent(Swal);
 
@@ -25,8 +27,6 @@ const CustomTable = ({
   loading,
   data,
   handleDeleteTeamModal,
-  isInstanceOwner,
-  instanceUserWithRoles,
   cta,
 }) => {
   const ROWS = data?.map((e) => {
@@ -172,6 +172,7 @@ const Main = ({
   allTeams,
   instanceUserWithRoles,
 }) => {
+  const { ZestyAPI } = useZestyStore((state) => state);
   const handleAddTeamToInstance = async (data) => {
     await addTeamToInstance(data);
     await getAllInstancesTeams();
@@ -199,11 +200,8 @@ const Main = ({
     });
   };
 
-  const viewTeamMemberModals = (data) => {
-    const teamMembers = instanceUserWithRoles?.filter(
-      (e) => e.teamZUID === data.ZUID,
-    );
-    const rows = teamMembers.map((e) => {
+  const getTeamMembersSuccess = (res) => {
+    const rows = res?.data?.map((e) => {
       return { ...e, id: e.ZUID };
     });
 
@@ -223,8 +221,7 @@ const Main = ({
         renderCell: (params) => {
           const name = `${params.row.firstName} ${params.row.lastName}`;
           const email = `${params.row.email}`;
-          const profileUrl =
-            'https://www.gravatar.com/avatar/' + hashMD5(params.row?.email);
+          const profileUrl = gravatarImg(params?.row);
           return (
             <Stack direction="row" alignItems={'center'} gap={2}>
               <img
@@ -241,20 +238,6 @@ const Main = ({
                 </Typography>
               </Stack>
             </Stack>
-          );
-        },
-      },
-
-      {
-        field: 'role',
-        headerName: 'Role',
-        width: 100,
-        editable: false,
-        sortable: false,
-        renderHeader: () => <Typography variant="body1">Role</Typography>,
-        renderCell: (params) => {
-          return (
-            <Typography variant="body2">{params.row.role.name}</Typography>
           );
         },
       },
@@ -276,6 +259,26 @@ const Main = ({
       showConfirmButton: false,
     });
   };
+
+  const getTeamMembersError = (res) => {
+    ErrorMsg({ title: res.error });
+  };
+
+  const getTeamMembers = async (teamZUID) => {
+    const res = await ZestyAPI.getTeamMembers(teamZUID);
+    !res.error && getTeamMembersSuccess(res);
+    res.error && getTeamMembersError(res);
+  };
+
+  const viewTeamMemberModals = async (data) => {
+    await getTeamMembers(data.ZUID);
+
+    // old members
+    // const teamMembers = instanceUserWithRoles?.filter(
+    //   (e) => e.teamZUID === data.ZUID,
+    // );
+  };
+
   const headerProps = {
     title: 'Teams',
     description: `Manage your Teams`,
