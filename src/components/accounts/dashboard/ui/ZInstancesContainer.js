@@ -35,7 +35,7 @@ const ZInstancesContainer = ({
                 <ZInstanceItem isLoading={isInstancesLoading} />
               </Grid>
             ))
-          : instances?.slice(0, 3)?.map((instance, index) => (
+          : instances?.map((instance, index) => (
               <Grid key={index} item xs={12} md={4}>
                 <ZInstanceItem
                   isTogglingFavorites={isTogglingFavorites}

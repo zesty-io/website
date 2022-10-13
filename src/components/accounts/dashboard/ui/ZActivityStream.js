@@ -7,7 +7,7 @@ import ZTimelineItem from './ZTimelineItem';
 
 const INSTANCE_LIMIT = 3;
 
-const ZActivityStream = ({ instancesFavorites, instances }) => {
+const ZActivityStream = ({ instancesFavorites, instances, initialRender }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [instanceAudit, setInstanceAudit] = useState([]);
   const [isInstanceAuditLoading, setIsInstanceAuditLoading] = useState(false);
@@ -67,10 +67,14 @@ const ZActivityStream = ({ instancesFavorites, instances }) => {
         instances?.length > INSTANCE_LIMIT &&
         instancesFavorites?.length > 0
       ) {
+        let count = 0;
         for (let instance of instances?.filter((ins) =>
-          instancesFavorites?.find((iFav) => iFav === ins.ZUID),
+          instancesFavorites.includes(ins.ZUID),
         )) {
+          if (count >= 3) break;
+
           await setResponseToAuditState(instance.ZUID);
+          count++;
         }
       }
 
@@ -81,8 +85,8 @@ const ZActivityStream = ({ instancesFavorites, instances }) => {
 
   useEffect(() => {
     // this for initial getting of audit
-    getAudit();
-  }, [instances]);
+    if (initialRender) getAudit();
+  }, [initialRender]);
 
   useEffect(() => {
     // this is for triggering getting of audit when user togglesFavorites and instances length > 3

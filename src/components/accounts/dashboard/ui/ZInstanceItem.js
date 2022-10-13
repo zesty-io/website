@@ -1,6 +1,5 @@
 import {
   IconButton,
-  Link,
   Paper,
   Typography,
   Stack,
@@ -148,20 +147,9 @@ const ZInstanceItem = ({
               Open Manager
             </Button>
 
-            <Link
-              underline="none"
-              href={previewLink}
-              target="_blank"
-              color="primary"
-              sx={{
-                ':hover': {
-                  textDecoration: 'underline',
-                  cursor: 'pointer',
-                },
-              }}
-            >
+            <Button href={previewLink} target="_blank">
               Preview
-            </Link>
+            </Button>
           </Stack>
         )}
 
