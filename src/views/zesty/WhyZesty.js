@@ -35,11 +35,14 @@ import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { Container, filledInputClasses, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useTheme } from '@emotion/react';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
 import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import SingleRowHero from 'blocks/zesty/Hero/SingleRowHero';
+import Benefits from 'components/marketing/WhyZesty/Benefits';
 
 const OverviewProcessComp = ({ content, image }) => {
   return (
@@ -83,7 +86,11 @@ const OverviewProcessComp = ({ content, image }) => {
 function WhyZesty({ content }) {
   const theme = useTheme();
 
-  const { data: allArticles, isPending, error } = useFetch(
+  const {
+    data: allArticles,
+    isPending,
+    error,
+  } = useFetch(
     `/-/all-articles-hydrated.json?limit=3`,
     content.zestyProductionMode,
   );
@@ -120,19 +127,44 @@ function WhyZesty({ content }) {
       FillerContent.href,
   };
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
+
+  const pageData = {
+    theme,
+    isMobile,
+    isDarkMode,
+    content,
+    FillerContent,
+  };
+
+  console.log(content);
+
   return (
     <>
       {/* Header */}
-      <Box
+      {/* <Box
         position={'relative'}
         sx={{
           backgroundColor: theme.palette.alternate.main,
         }}
       >
         <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
-      </Box>
+      </Box> */}
 
       {/* Overview of process */}
+      <SingleRowHero
+        eyebrow={content.header_title_main}
+        header={content.header_title}
+        description={content.header_description}
+        cta_left={content.cta_left.data[0].button_text}
+        cta_left_link={content.cta_left.data[0].external_link}
+        cta_right={content.cta_right.data[0].button_text}
+        cta_right_link={content.cta_right.data[0].external_link}
+      />
+
+      <Benefits {...pageData} />
+
       <OverviewProcessComp
         image={
           (content.overview_of_process_image.data &&

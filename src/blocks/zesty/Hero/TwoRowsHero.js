@@ -25,6 +25,15 @@ const TwoRowsHero = ({
   isMobile,
 }) => {
   const theme = useTheme();
+
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(header);
+
+  if (!isRichText && header) {
+    header = `<h1>${header}</h1>`;
+  }
+
   return (
     <Box component="section" sx={{ py: 10 }}>
       <Container
@@ -58,7 +67,7 @@ const TwoRowsHero = ({
                 component: Typography,
                 props: {
                   variant: 'h3',
-                  component: 'h1',
+                  component: 'h2',
                   sx: {
                     fontWeight: 'bold',
                     color: theme.palette.zesty.zestyOrange,
