@@ -21,6 +21,7 @@ const Hero = ({
   isTablet,
   theme,
   secondaryCtaLink,
+  isDarkMode,
 }) => {
   return (
     <Box
@@ -28,7 +29,9 @@ const Hero = ({
       paddingBottom={isTablet ? 10 : 25}
       sx={{
         position: 'relative',
-        background: gradientBg,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyWhite,
       }}
     >
       <Container>
@@ -48,7 +51,7 @@ const Hero = ({
                 sx={{
                   position: 'absolute',
                   left: '-10vw',
-                  top: '-5vh',
+                  top: '-10vh',
                   display: isTablet ? 'none' : 'flex',
                   width: '630px',
                 }}
@@ -61,21 +64,21 @@ const Hero = ({
                 />
               </Box>
               <Typography
-                component={'h2'}
-                variant={'h4'}
+                component={'h1'}
+                variant={'h5'}
                 fontWeight={600}
                 sx={{
-                  color: theme.palette.common.white,
+                  color: theme.palette.zesty.zestyZambezi,
                   fontWeight: 500,
                 }}
               >
                 {eyebrow}
               </Typography>
               <Typography
-                component={'h1'}
+                component={'h2'}
                 variant={'h3'}
                 sx={{
-                  color: theme.palette.common.white,
+                  color: theme.palette.zesty.zestyZambezi,
                   fontWeight: 'bold',
                 }}
               >
@@ -86,13 +89,13 @@ const Hero = ({
                 component={'p'}
                 variant={'h6'}
                 sx={{
-                  color: theme.palette.common.white,
+                  color: theme.palette.zesty.zestyZambezi,
                   fontWeight: 500,
                 }}
               >
                 {subHeader}
               </Typography>
-              <Box sx={{ display: isTablet ? 'block' : 'flex' }}>
+              <Box sx={{ display: isTablet ? 'block' : 'flex', gap: 1 }}>
                 <Box sx={{ width: isTablet ? '100%' : '10rem' }}>
                   <TryFreeButton
                     fullWidth={true}
@@ -112,7 +115,7 @@ const Hero = ({
                     padding: '.6rem 4rem',
                     whiteSpace: 'nowrap',
                     gap: 1,
-                    color: theme.palette.common.white,
+                    color: theme.palette.zesty.zestyOrange,
                   }}
                 >
                   {secondaryCta} <ArrowRightAltIcon />

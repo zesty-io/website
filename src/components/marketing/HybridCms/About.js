@@ -15,11 +15,18 @@ import headlessCmsBg from '../../../../public/assets/images/dxp_headless_bg.svg'
 import MuiMarkdown from 'mui-markdown';
 
 import { Box, Container, Typography } from '@mui/material';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const About = ({ content, isMobile, theme, FillerContent }) => {
   const swooshBg = headlessCmsBg.src;
   return (
-    <Box sx={{ position: 'relative', pb: 4 }}>
+    <Box
+      sx={{
+        position: 'relative',
+        py: 15,
+        background: theme.palette.zesty.zestyBackgroundBlue,
+      }}
+    >
       <Box
         sx={{
           zIndex: '0',
@@ -31,10 +38,9 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
           width: '100%',
         }}
       >
-        <Box
+        <ZestyImage
           component="img"
-          zIndex={0}
-          sx={{ width: '100%' }}
+          style={{ width: '100%', zIndex: 0 }}
           src={swooshBg || FillerContent.dashboard_image}
           alt="bg"
         />
@@ -61,7 +67,7 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
                         component: 'span',
                         variant: 'h6',
                         sx: {
-                          color: theme.palette.zesty.zestyOrange,
+                          color: theme.palette.zesty.zestyZambezi,
                         },
                       },
                     },
@@ -72,7 +78,7 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
                         variant: 'h4',
                         sx: {
                           textAlign: isMobile ? 'center' : 'left',
-                          color: theme.palette.zesty.zestyOrange,
+                          color: theme.palette.zesty.zestyZambezi,
                           fontWeight: 'bold',
                         },
                       },

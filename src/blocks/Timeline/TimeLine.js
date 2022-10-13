@@ -41,7 +41,7 @@ const TimeLine = ({
           sx={{
             position: 'absolute',
 
-            ml: isMobile ? 5 : 4.2,
+            ml: isMobile ? 0 : -0.9,
             mt: -14.4,
           }}
           component="img"
@@ -55,19 +55,8 @@ const TimeLine = ({
           }
         />
 
-        {/* <Box
-          sx={{
-            position: 'absolute',
-            right: 0,
-            top: '5%',
-            width: isMobile ? 264 : 'auto',
-          }}
-          component="img"
-          alt=""
-          src={chevron_right.src}
-        /> */}
         <Box sx={{ color: 'white', mt: -5 }}>
-          <Box sx={{ position: 'relative' }} component="ul">
+          <Box sx={{ position: 'relative' }}>
             {/* Content One */}
             <Box
               sx={{
@@ -88,7 +77,7 @@ const TimeLine = ({
                     h2: {
                       component: Typography,
                       props: {
-                        component: 'h2',
+                        component: 'h3',
                         variant: 'h3',
                         sx: {
                           textAlign: isMobile ? 'center' : 'left',
@@ -152,7 +141,6 @@ const TimeLine = ({
                     top: isMobile ? '32%' : '22%',
                   },
                 }}
-                component="li"
               >
                 <Grid container spacing={2}>
                   <Grid

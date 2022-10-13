@@ -3,16 +3,15 @@
  */
 
 import { Box, Container, Link, Typography, Grid } from '@mui/material';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import MuiMarkdown from 'mui-markdown';
 
 const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
   const FillerImage =
     content.middle_solution_1_graphic?.data[0]?.url ||
     FillerContent.dashboard_image;
-  const bracketImg =
-    content.dxp_background_images?.data[0]?.url ||
-    FillerContent.dashboard_image;
+  // const bracketImg =
+  //   content.dxp_background_images?.data[0]?.url ||
+  //   FillerContent.dashboard_image;
   const arr = [
     {
       text: content.middle_solution_1_description,
@@ -91,7 +90,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
           borderRadius: '50px 0 0 0',
         }}
       />
-      <Box
+      {/* <Box
         sx={{
           zIndex: '10',
           position: 'absolute',
@@ -101,8 +100,8 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
         }}
       >
         <img src={bracketImg} alt="bg" />
-      </Box>
-      <Box
+      </Box> */}
+      {/* <Box
         sx={{
           zIndex: '10',
           position: 'absolute',
@@ -113,7 +112,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
         }}
       >
         <img src={bracketImg} alt="bg" />
-      </Box>
+      </Box> */}
       <Box
         sx={{
           background: theme.palette.zesty.zestyBackgroundBlue,

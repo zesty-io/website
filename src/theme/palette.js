@@ -137,7 +137,6 @@ export const dark = {
     zestyGreen: '#75BF43',
     zestyBlue: '#497edf',
     zestyTeal: '#6a9293',
-    zestyWhite: '#eff5ff',
     bulmaBlue: '#336fdb',
     zestyLightBlue: '#C3CDDF',
     zestyFieldBlue: '#C7D4EA',

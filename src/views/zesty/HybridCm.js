@@ -110,7 +110,7 @@ function HybridCm({ content }) {
   }, []);
 
   const timelineData = {
-    header: content.hybrid_cms_features_header,
+    header: content.hybrid_cms_features_header || FillerContent.rich_text,
     data: [
       {
         description: content.hybrid_cms_feature_1 || FillerContent.description,
@@ -146,7 +146,7 @@ function HybridCm({ content }) {
       <Hybrid {...pageData} />
       <TimeLine timelineData={timelineData} {...pageData} />
       <TopBrands
-        sx={{ pt: 5 }}
+        backgroundColor={theme.palette.zesty.zestyBackgroundBlue}
         title={content.case_study_title}
         {...pageData}
       />
