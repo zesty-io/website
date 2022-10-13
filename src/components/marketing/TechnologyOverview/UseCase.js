@@ -17,9 +17,33 @@ import connectionMobile from '../../../../public/assets/images/headless-cms/conn
 
 const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (
-    <Box sx={{ pt: 10 }} component="section">
+    <Box sx={{ pt: 15, mb: -25 }} component="section">
       <Container>
         {/* Features Cards Start */}
+        <Box sx={{ pb: 10 }}>
+          <Typography
+            sx={{
+              fontWeight: 'bold',
+              textAlign: 'center',
+              color: theme.palette.zesty.zestyZambezi,
+            }}
+            variant={'h4'}
+            component={'h3'}
+          >
+            {content.use_case_header || FillerContent.description}
+          </Typography>
+          <Typography
+            sx={{
+              textAlign: 'center',
+              color: theme.palette.zesty.zestyZambezi,
+              mt: 2,
+            }}
+            variant={'h6'}
+            component={'p'}
+          >
+            {content.use_cases_text || FillerContent.description}
+          </Typography>
+        </Box>
         <Grid sx={{ justifyContent: 'center' }} container spacing={2}>
           {content.use_cases_tiles.data.map((item, idx) => (
             <Grid item sm={6} md={3}>
@@ -99,7 +123,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
         </Box>
 
         {/* Image One */}
-        <Box>
+        {/* <Box>
           <Box
             component="img"
             alt="use case graphic"
@@ -111,63 +135,71 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
             }}
             src={content.use_cases_graphic.data[0].url}
           />
-        </Box>
+        </Box> */}
 
         {/* Headless CMS Explained Start */}
-
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            pt: 10,
-          }}
-        >
-          <MuiMarkdown
-            overrides={{
-              h2: {
-                component: 'h2',
-                props: {
-                  style: {
-                    fontSize: isMobile ? 18 : 32,
-                    color: theme.palette.zesty.zestyZambezi,
-                    textAlign: 'center',
-                  },
-                },
-              },
-              p: {
-                component: 'p',
-                props: {
-                  style: {
-                    textAlign: 'center',
-                    color: theme.palette.zesty.zestyZambezi,
-                    mt: 4,
-                    fontSize: isMobile ? 16 : 20,
-                  },
-                },
-              },
-            }}
-          >
-            {content.headless_cms_explained || FillerContent.description}
-          </MuiMarkdown>
-        </Box>
-
-        {/* Image Two */}
-        <Box sx={{ mt: 4 }}>
-          <Box
-            component="img"
-            alt="headless cms explained"
-            style={{
-              display: 'block',
-              margin: 'auto',
-              width: '100%',
-              maxWidth: isMobile ? '100%' : 824,
-            }}
-            src={content.headless_cms_explained_image.data[0].url}
-          />
-        </Box>
       </Container>
+
+      <Box sx={{ background: theme.palette.zesty.zestyWhite, py: 15 }}>
+        <Container>
+          <Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <MuiMarkdown
+                overrides={{
+                  h2: {
+                    component: 'h2',
+                    props: {
+                      style: {
+                        fontSize: isMobile ? 18 : 32,
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                      },
+                    },
+                  },
+                  p: {
+                    component: 'p',
+                    props: {
+                      style: {
+                        textAlign: 'center',
+                        color: theme.palette.zesty.zestyZambezi,
+                        mt: 4,
+                        fontSize: isMobile ? 16 : 20,
+                      },
+                    },
+                  },
+                }}
+              >
+                {content.headless_cms_explained || FillerContent.description}
+              </MuiMarkdown>
+            </Box>
+
+            {/* Image Two */}
+            <Box sx={{ mt: 4 }}>
+              <Box
+                component="img"
+                alt="headless cms explained"
+                style={{
+                  display: 'block',
+                  margin: 'auto',
+                  width: '100%',
+                  maxWidth: isMobile ? '100%' : 824,
+                }}
+                src={
+                  content.headless_cms_explained_image.data[0].url ||
+                  FillerContent.photos[0].src
+                }
+              />
+            </Box>
+          </Box>
+        </Container>
+      </Box>
     </Box>
   );
 };

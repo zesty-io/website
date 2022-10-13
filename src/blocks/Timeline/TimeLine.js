@@ -22,7 +22,6 @@ const TimeLine = ({
         background: theme.palette.zesty.zestyDarkBlue,
         mt: 25,
         position: 'relative',
-        borderRadius: 5,
       }}
       component="section"
     >
@@ -55,18 +54,7 @@ const TimeLine = ({
               : curve.src
           }
         />
-        {/* 
-        <Box
-          sx={{
-            position: 'absolute',
-            right: 0,
-            top: '5%',
-            width: isMobile ? 264 : 'auto',
-          }}
-          component="img"
-          alt=""
-          src={chevron_right.src}
-        /> */}
+
         <Box sx={{ color: 'white', mt: -5 }}>
           <Box sx={{ position: 'relative' }}>
             {/* Content One */}
