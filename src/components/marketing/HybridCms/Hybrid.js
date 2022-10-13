@@ -5,10 +5,11 @@
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
   return (
-    <Box paddingY={isMobile ? 4 : 0} sx={{ position: 'relative' }}>
+    <Box paddingY={isMobile ? 4 : 10} sx={{ position: 'relative' }}>
       <Container
         sx={{
           display: 'flex',
@@ -46,6 +47,19 @@ const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
           >
             {content.hybrid_interface || FillerContent.header}
           </MuiMarkdown>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              mt: 2,
+            }}
+          >
+            <TryFreeButton
+              text={content.hybrid_interface_cta_text}
+              variant="contained"
+            />
+          </Box>
         </Box>
         <Box data-aos="fade-right">
           <Box

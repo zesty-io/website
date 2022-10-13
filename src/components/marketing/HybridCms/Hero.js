@@ -19,14 +19,13 @@ const Hero = ({
   bgImage = FillerContent.dashboard_image,
   primaryCta = 'Try Free',
   secondaryCta = 'Try Free',
-
   isMobile,
   theme,
 }) => {
   return (
     <Box
       paddingTop={isMobile ? 4 : 15}
-      paddingBottom={isMobile ? 4 : 25}
+      paddingBottom={isMobile ? 4 : 15}
       sx={{
         position: 'relative',
         textAlign: 'center',
@@ -63,7 +62,7 @@ const Hero = ({
             />
           </Box>
           <Typography
-            component={'h2'}
+            component={'h1'}
             variant={'h4'}
             sx={{
               color: theme.palette.zesty.zestyOrange,
@@ -73,7 +72,7 @@ const Hero = ({
             {eyebrow}
           </Typography>
           <Typography
-            component={'h1'}
+            component={'h2'}
             variant={'h3'}
             sx={{
               color: theme.palette.zesty.zestyZambezi,
@@ -84,7 +83,7 @@ const Hero = ({
           </Typography>
           <Typography
             paddingY={2}
-            component={'h3'}
+            component={'p'}
             variant={'p'}
             sx={{
               color: theme.palette.zesty.zestyZambezi,
