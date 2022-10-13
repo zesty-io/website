@@ -49,7 +49,7 @@ export const SelectTemplate = ({
     ...templates,
   ];
   return (
-    <Box pt={12} px={10}>
+    <Box py={12} px={10}>
       <Box pb={8} pt={4}>
         <Typography variant="h4">{title}</Typography>
         <Typography variant="body1" color="text.secondary">
@@ -68,7 +68,7 @@ export const SelectTemplate = ({
             onClick: () => handleSelectTemplate(e),
           };
           return (
-            <Grid item xs={6} lg={4}>
+            <Grid item xs={12} md={6} xl={4} xl2={2}>
               <ImgMediaCard {...cardProps} />
             </Grid>
           );
@@ -84,8 +84,10 @@ export default function ImgMediaCard({ name, subtitle, img, onClick }) {
   return (
     <Card
       sx={{
-        maxWidth: 350,
         cursor: 'pointer',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
         ':hover': {
           boxShadow: 20,
         },
@@ -119,7 +121,7 @@ export default function ImgMediaCard({ name, subtitle, img, onClick }) {
           {subtitle}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ mt: 'auto' }}>
         <Button size="small" variant="text" color="secondary">
           Get Started
         </Button>
