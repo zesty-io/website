@@ -15,6 +15,7 @@ import { useState } from 'react';
  * Helpers Imports
  */
 import * as helper from 'utils';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Solution = ({ content, theme, isMobile, FillerContent }) => {
   const [active, setactive] = useState(0);
@@ -102,6 +103,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                   variant: 'h4',
                   component: 'h2',
                   sx: {
+                    mt: 5,
                     color: theme.palette.zesty.zestyZambezi,
                     textAlign: 'center',
                     fontWeight: 'bold',
@@ -210,7 +212,13 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                           cursor: 'pointer',
                         }}
                       >
-                        <img src={e.icon} alt="" width={50} />
+                        <ZestyImage
+                          src={e.icon}
+                          alt=""
+                          width={50}
+                          height={50}
+                          style={{ filter: 'grayscale(100%)' }}
+                        />
                         <Typography
                           component={'p'}
                           variant={'p'}
@@ -232,26 +240,38 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
           </Grid>
         </Box>
 
-        <div data-aos="zoom-in">
+        <Box data-aos="zoom-in" sx={{ py: 10 }}>
           <Grid item xs={12} md={9}>
-            <Box
-              paddingTop={isMobile ? 10 : 10}
-              paddingBottom={10}
-              sx={{
-                textAlign: 'center',
-                color: theme.palette.zesty.zestyZambezi,
-                fontSize: isMobile ? '1rem' : '1.5rem',
-              }}
-              dangerouslySetInnerHTML={{
-                __html: helper.strColorChanger(
-                  content.about_zesty_dxp,
-                  'Zesty',
-                  theme.palette.zesty.zestyOrange,
-                ),
-              }}
-            ></Box>
+            <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
+              <MuiMarkdown
+                overrides={{
+                  h2: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h4',
+                      fontWeight: 'bold',
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h6',
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
+                      mt: 2,
+                    },
+                  },
+                }}
+              >
+                {content.about_zesty_dxp || FillerContent.rich_text}
+              </MuiMarkdown>
+            </Box>
           </Grid>
-        </div>
+        </Box>
       </Container>
     </Box>
   );

@@ -21,7 +21,7 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
 
   return (
     <Box paddingY={isMobile ? 0 : 20} sx={{ position: 'relative' }}>
-      <Box
+      {/* <Box
         sx={{
           zIndex: '10',
           position: 'absolute',
@@ -31,7 +31,7 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
         }}
       >
         <img src={bgImgage} alt="bg" />
-      </Box>
+      </Box> */}
       <Container>
         <Grid container spacing={2}>
           <Grid
@@ -82,7 +82,7 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
                       content.bottom_cta_description ||
                         FillerContent.description,
                       'Digital Experiences',
-                      theme.palette.zesty.zestyOrange,
+                      theme.palette.zesty.zestyZambezi,
                     ),
                   }}
                 />

@@ -39,9 +39,11 @@ import HeadlessApi from '../../components/marketing/TechnologyOverview/HeadlessA
 import TopBrands from '../../blocks/caseStudies/TopBrands';
 import Articles from '../../blocks/blog/Articles/Articles';
 import TechStack from '../../blocks/integrations/TechStack';
+import Growth from 'blocks/zesty/Growth/Growth';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 function TechnologyOverview({ content }) {
   const theme = useTheme();
@@ -57,7 +59,7 @@ function TechnologyOverview({ content }) {
   };
 
   const timelineData = {
-    header: content.how_it_works_header,
+    header: content.how_it_works_header || FillerContent.description,
     data: [
       {
         description: content.step_1_description || FillerContent.description,
@@ -85,16 +87,40 @@ function TechnologyOverview({ content }) {
     cta_link: content.integration_link.data[0].meta.web.uri,
   };
 
+  const growthData = {
+    titleAndDescription:
+      content.growth_title_and_description || FillerContent.rich_text,
+    cards: content?.growth_cards?.data,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_cta_graphic?.data[0].url || '',
+    titleAndDescription:
+      content.bottom_cta_title_and_description || FillerContent.rich_text,
+    cta_text: content.bottom_cta_text || FillerContent.cta,
+    secondary_cta_text: content.bottom_secondary_cta_text || FillerContent.cta,
+    secondary_cta_link: content.bottom_secondary_cta_link || FillerContent.href,
+  };
+
   return (
     <Box>
       <Hero {...pageData} />
       <UseCase {...pageData} />
       <TimeLine timelineData={timelineData} {...pageData} />
+      <Growth {...growthData} />
       <GetStarted {...pageData} />
       <Features {...pageData} />
       <HeadlessApi {...pageData} />
-      <TechStack {...techStackData} {...pageData} />
-      <TopBrands title={content.case_study_header} {...pageData} />
+      <Box sx={{ py: 10 }}>
+        <TechStack {...techStackData} {...pageData} />
+      </Box>
+      <TopBrands
+        backgroundColor={theme.palette.common.white}
+        sx={{ py: isMobile ? 10 : 25 }}
+        title={content.case_study_header}
+        {...pageData}
+      />
+      <Bottom {...bottomData} />
       <Articles
         title={content.articles_header}
         articles={content.articles?.data}

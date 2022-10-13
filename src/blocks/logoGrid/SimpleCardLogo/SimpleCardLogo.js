@@ -58,12 +58,16 @@ const SimpleCardLogo = ({
               },
             }}
           >
-            {heading_text || FillerContent.rich_text}
+            {heading_text}
           </MuiMarkdown>
         )}
         <Card
           variant={variant}
-          sx={{ py: 2, border: variant === 'outlined' ? 'none' : '' }}
+          sx={{
+            py: 2,
+            border: variant === 'outlined' ? 'none' : '',
+            background: 'transparent',
+          }}
         >
           <CardContent>
             {!textOutside && (
@@ -84,7 +88,7 @@ const SimpleCardLogo = ({
                   },
                 }}
               >
-                {heading_text || FillerContent.rich_text}
+                {heading_text}
               </MuiMarkdown>
             )}
             <Box

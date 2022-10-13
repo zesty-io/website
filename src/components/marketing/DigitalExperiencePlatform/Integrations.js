@@ -2,6 +2,8 @@
  * MUI Imports
  */
 import { Box, Container, Grid, Typography } from '@mui/material';
+import ZestyImage from 'blocks/Image/ZestyImage';
+import TryFreeButton from 'components/cta/TryFreeButton';
 /**
  * Helpers Imports
  */
@@ -26,11 +28,13 @@ const Integrations = ({
           <Grid sx={{ margin: 'auto' }} item sm={12} md={6}>
             <Box data-aos="fade-right">
               <Box>
-                <Box
-                  component={'img'}
+                <ZestyImage
+                  width={537}
+                  heght={447}
                   src={content.integrations_graphic.data[0].url}
-                  sx={{
+                  style={{
                     width: '100%',
+                    height: 'auto',
                   }}
                 />
               </Box>
@@ -63,8 +67,7 @@ const Integrations = ({
                 <Box
                   sx={{ position: 'absolute', top: '-10rem', zIndex: '2000' }}
                 >
-                  <Box
-                    component="img"
+                  <ZestyImage
                     src={
                       content.integrations_airplane_graphic?.data[0]?.url ||
                       FillerContent.logos[0].url
@@ -90,25 +93,15 @@ const Integrations = ({
                     ),
                   }}
                 />
-                {/* <Box>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    fullWidth={isTablet}
-                    href={
-                      content.integrations_button_link?.data[0]?.meta?.web
-                        ?.uri || FillerContent.href
+                <Box>
+                  <TryFreeButton
+                    text={
+                      content.limitless_integration_cta_text ||
+                      FillerContent.cta
                     }
-                    sx={{
-                      backgroundColor: theme.palette.zesty.zestyOrange,
-                      color: theme.palette.common.white,
-                      padding: '.6rem 4rem',
-                      fontSize: '16px',
-                    }}
-                  >
-                    {content.integrations_button_text || FillerContent.cta}
-                  </Button>
-                </Box> */}
+                    variant="contained"
+                  />
+                </Box>
               </div>
             </Box>
           </Grid>
