@@ -17,6 +17,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import FillerContent from 'components/globals/FillerContent';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const ZInstanceItem = ({
   title,
@@ -60,13 +61,22 @@ const ZInstanceItem = ({
           </ListItemIcon>
           <ListItemText primary={title} secondary={secondaryTitle} />
         </ListItemButton>
-        {isInvite && (
+        {isInvite ? (
           <Stack direction="row">
             <IconButton color="success" onClick={acceptInvite}>
               <CheckCircleIcon fontSize="small" />
             </IconButton>
             <IconButton color="error" onClick={declineInvite}>
               <NotInterestedIcon color="error" fontSize="small" />
+            </IconButton>
+          </Stack>
+        ) : (
+          <Stack direction="row">
+            <IconButton href={previewLink} target="_blank">
+              <VisibilityIcon />
+            </IconButton>
+            <IconButton href={zuidLink}>
+              <SettingsIcon />
             </IconButton>
           </Stack>
         )}
