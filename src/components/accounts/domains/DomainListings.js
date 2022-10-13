@@ -58,9 +58,11 @@ export default function DomainListings({
     {
       field: 'domain',
       headerName: 'Domain',
-      width: 500,
+      minWidth: 500,
       editable: false,
-      sortable: false,
+      sortable: true,
+      flex: 1,
+      valueGetter: (params) => params.row.domain,
       renderHeader: () => (
         <AccountsTableHead>Stage Preview Domains</AccountsTableHead>
       ),
@@ -80,7 +82,7 @@ export default function DomainListings({
     {
       field: 'branch',
       headerName: 'Branch',
-      width: 300,
+      width: 250,
       editable: false,
       sortable: false,
       renderHeader: () => <AccountsTableHead>Branch</AccountsTableHead>,
@@ -142,7 +144,9 @@ export default function DomainListings({
       headerName: 'Domain',
       width: 500,
       editable: false,
-      sortable: false,
+      sortable: true,
+      flex: 1,
+      valueGetter: (params) => params.row.domain,
       renderHeader: () => (
         <AccountsTableHead>Production Live Domains</AccountsTableHead>
       ),
@@ -162,7 +166,7 @@ export default function DomainListings({
     {
       field: 'branch',
       headerName: 'Branch',
-      width: 300,
+      width: 250,
       editable: false,
       sortable: false,
       renderHeader: () => <AccountsTableHead>Branch</AccountsTableHead>,

@@ -95,9 +95,11 @@ const CustomTable = ({
     {
       field: 'name',
       headerName: 'Name',
-      width: 300,
+      minWidth: 300,
       editable: false,
-      sortable: false,
+      sortable: true,
+      flex: 1,
+      valueGetter: (params) => params.row.name,
       renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
       renderCell: (params) => {
         return <Typography variant="body2">{params.row.name}</Typography>;
@@ -129,7 +131,7 @@ const CustomTable = ({
     {
       field: 'expiry',
       headerName: 'Expiry',
-      width: 200,
+      width: 150,
       editable: false,
       sortable: false,
       renderHeader: () => <AccountsTableHead>Expiry</AccountsTableHead>,

@@ -176,7 +176,7 @@ export const Security = ({ getUser }) => {
                   <>
                     <Stack direction="row" spacing={1}>
                       <FormInput
-                        label="Area Code"
+                        label="Country Code"
                         name="areaCode"
                         formik={formik}
                       />
