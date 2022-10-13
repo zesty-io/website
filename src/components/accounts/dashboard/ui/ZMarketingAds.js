@@ -26,14 +26,19 @@ const ZMarketingAds = ({ marketingCards }) => {
             direction="row"
             justifyContent={card[1].read_all_url && 'space-between'}
             alignSelf={!card[1].read_all_url && 'center'}
+            spacing={1}
           >
-            <Button href={card[1].url} variant="contained" color="primary">
-              {card[0] === 'marketing'
-                ? 'Marketer Button Content'
-                : 'Read Article'}
+            <Button
+              sx={{ whiteSpace: 'nowrap' }}
+              href={card[1].url}
+              variant="contained"
+              color="primary"
+            >
+              {card[0] === 'marketing' ? card[1]?.cta_text : 'Read Article'}
             </Button>
             {card[1].read_all_url && (
               <Button
+                sx={{ whiteSpace: 'nowrap' }}
                 href={card[1].read_all_url}
                 variant="outlined"
                 color="primary"
