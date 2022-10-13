@@ -100,7 +100,7 @@ const CustomTable = ({
     {
       field: 'role',
       headerName: 'Role',
-      width: 250,
+      width: 220,
       editable: false,
       sortable: true,
       valueGetter: (params) => params.row.role.name,
@@ -130,7 +130,7 @@ const CustomTable = ({
     {
       field: 'createdAt',
       headerName: 'Date Added',
-      width: 250,
+      width: 220,
       editable: false,
       renderHeader: () => <AccountsTableHead>Date Added</AccountsTableHead>,
       renderCell: (params) => {
@@ -145,7 +145,7 @@ const CustomTable = ({
     {
       field: 'lastLogin',
       headerName: 'Last Active',
-      width: 250,
+      width: 220,
       editable: false,
       renderHeader: () => <AccountsTableHead>Last Active</AccountsTableHead>,
       renderCell: (params) => {
