@@ -4,6 +4,8 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 // Components Imports
 import TryFreeButton from '../../cta/TryFreeButton';
+import ZestyImage from 'blocks/Image/ZestyImage';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 
 const Hero = ({ theme, isMobile, content, FillerContent }) => (
   <Box
@@ -18,7 +20,7 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
     }}
     component={'section'}
     style={{
-      background: theme.palette.zesty.zestyTealGradient,
+      background: theme.palette.zesty.zestyBackgroundBlueGradient,
     }}
   >
     <Box
@@ -54,23 +56,23 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
               }}
             >
               <Typography
-                color={theme.palette.common.white}
-                variant="h4"
+                color={theme.palette.zesty.zestyZambezi}
+                variant="h5"
                 component={'h1'}
                 sx={{ fontWeight: 'bold' }}
               >
-                {content.header_eyebrow}
+                {content.header_eyebrow || FillerContent.description}
               </Typography>
               <Typography
-                color={theme.palette.common.white}
+                color={theme.palette.zesty.zestyZambezi}
                 sx={{ fontWeight: 'bold' }}
                 variant="h3"
                 component={'h2'}
               >
-                {content.title}
+                {content.title || FillerContent.description}
               </Typography>
               <Typography
-                color={theme.palette.common.white}
+                color={theme.palette.zesty.zestyZambezi}
                 variant="h6"
                 component={'h3'}
               >
@@ -85,7 +87,10 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
                   size="large"
                 />
                 <Button
-                  href={content.cta_right_url.data[0].meta.web.uri}
+                  href={
+                    content.cta_right_url.data[0].meta.web.uri ||
+                    FillerContent.href
+                  }
                   component="a"
                   fullWidth={isMobile}
                   endIcon={<ArrowRightAltIcon />}
@@ -94,7 +99,7 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
                       background: 'transparent',
                     },
                     textDecoration: 'underline',
-                    color: theme.palette.common.white,
+                    color: theme.palette.zesty.zestyZambezi,
                     px: 6,
                     my: isMobile && 3,
                   }}
@@ -117,28 +122,31 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
           md={6}
         >
           <Box sx={{ display: 'flex' }}>
-            <Box
-              component="img"
+            <ZestyImage
+              width={542}
+              height={364}
               alt="header image"
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: 'auto' }}
               src={content.header_image.data[0].url}
             />
           </Box>
         </Grid>
-        <Typography
+
+        <Box
           sx={{
-            textAlign: 'center',
             position: isMobile ? 'relative' : 'absolute',
             pt: isMobile ? 10 : 0,
             px: isMobile ? 1 : 2,
             bottom: 0,
-            color: theme.palette.zesty.zestyZambezi,
           }}
-          variant={'h6'}
-          component={'p'}
         >
-          {content.use_cases_text || FillerContent.description}
-        </Typography>
+          <Box sx={{ py: 5 }}>
+            <SimpleCardLogo
+              variant="outlined"
+              logoItems={content?.logos?.data || []}
+            />
+          </Box>
+        </Box>
       </Grid>
     </Container>
   </Box>

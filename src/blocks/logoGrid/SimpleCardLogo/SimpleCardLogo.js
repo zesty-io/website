@@ -63,7 +63,11 @@ const SimpleCardLogo = ({
         )}
         <Card
           variant={variant}
-          sx={{ py: 2, border: variant === 'outlined' ? 'none' : '' }}
+          sx={{
+            py: 2,
+            border: variant === 'outlined' ? 'none' : '',
+            background: 'transparent',
+          }}
         >
           <CardContent>
             {!textOutside && (
@@ -105,17 +109,20 @@ const SimpleCardLogo = ({
                     style={{
                       filter: isDarkMode
                         ? `${
-                            item.customer_name === 'Phoenix Suns'
+                            item?.customer_name === 'Phoenix Suns'
                               ? ''
                               : 'brightness(0%)'
                           } invert(1)`
                         : '',
                     }}
-                    alt={item.customer_name || ''}
+                    alt={item?.customer_name || ''}
                     src={
-                      item.customer_name === 'Phoenix Suns' && isDarkMode
+                      item?.customer_name === 'Phoenix Suns' && isDarkMode
                         ? sunsDarkLogoUrl
-                        : `${item.customer_logo?.data[0].url}`
+                        : `${
+                            item.customer_logo?.data[0].url ||
+                            FillerContent.logos[0].url
+                          }`
                     }
                   />
                 </Box>

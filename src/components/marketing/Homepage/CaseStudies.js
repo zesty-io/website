@@ -13,10 +13,6 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
     <Box
       component="section"
       sx={{
-        // background: `url(${content.case_studies_background.data[0].url})`,
-        // backgroundSize: 'cover',
-        // backgroundPosition: 'center',
-        // backgroundRepeat: 'no-repeat',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
           : theme.palette.zesty.zestyWhite,
@@ -85,7 +81,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   },
                 }}
               >
-                {content.case_study_card_1 || FillerContent.description}
+                {content.case_study_card_1 || FillerContent.rich_text}
               </MuiMarkdown>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -118,7 +114,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   },
                 }}
               >
-                {content.case_study_card_2 || FillerContent.description}
+                {content.case_study_card_2 || FillerContent.rich_text}
               </MuiMarkdown>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -151,20 +147,20 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   },
                 }}
               >
-                {content.case_study_card_3 || FillerContent.description}
+                {content.case_study_card_3 || FillerContent.rich_text}
               </MuiMarkdown>
             </Grid>
           </Grid>
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, mt: 10 }}>
-          {content.g2_badges?.data.map((item, index) => (
+          {content?.g2_badges?.data.map((item, index) => (
             <Box key={index} sx={{ width: '100%', maxWidth: 171 }}>
               <ZestyImage
                 width={171}
                 height={192}
                 loading="lazy"
-                src={item.url}
+                src={item.url || FillerContent.photos[0].src}
                 alt={item.type || ''}
               />
             </Box>
@@ -172,11 +168,11 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
         </Box>
 
         <Grid sx={{ mt: 8 }} container spacing={4}>
-          {content.case_study_cards?.data.map((item, index) => (
+          {content?.case_study_cards?.data.map((item, index) => (
             <Grid key={index} item sm={12} md={4}>
               <Card
                 component="a"
-                href={item.card_link.data[0].meta.web.uri}
+                href={item.card_link.data[0].meta.web.uri || FillerContent.href}
                 target="_blank"
                 sx={{
                   width: '100%',
@@ -194,8 +190,8 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   height={233}
                   style={{ width: '100%', maxWidth: 482, height: 'auto' }}
                   loading="lazy"
-                  src={item.image?.data[0].url}
-                  alt={item.title}
+                  src={item.image?.data[0].url || FillerContent.photos[0].src}
+                  alt={item.title || ''}
                 />
 
                 <Box
@@ -212,8 +208,10 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                         style={{ width: '100%', maxWidth: 194, height: 'auto' }}
                         component="img"
                         loading="lazy"
-                        src={item.logo?.data[0].url}
-                        alt={item.title}
+                        src={
+                          item.logo?.data[0].url || FillerContent.photos[0].src
+                        }
+                        alt={item.title || ''}
                       />
                     </Box>
 

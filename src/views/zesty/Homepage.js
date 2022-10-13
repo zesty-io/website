@@ -42,13 +42,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Hero from 'components/marketing/Homepage/Hero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
-import NewBenefits from 'components/marketing/Homepage/NewBenefits';
-import Migration from 'components/marketing/Homepage/Migration';
-import Growth from 'components/marketing/Homepage/Growth';
+import Growth from 'blocks/zesty/Growth/Growth';
 import CaseStudies from 'components/marketing/Homepage/CaseStudies';
-import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
-import Bottom from 'components/marketing/Homepage/Bottom';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -87,13 +84,32 @@ function Homepage({ content }) {
     });
   }, [isMedium]);
 
-  const alternateColumnsData = content.zesty_benefits_tiles.data.map((item) => {
-    return {
-      header: item.header,
-      content: item.benefit_content,
-      image: item.benefit_image.data[0].url,
-    };
-  });
+  const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
+    (item) => {
+      return {
+        header: item.header,
+        content: item.benefit_content,
+        image: item.benefit_image.data[0].url,
+      };
+    },
+  );
+
+  const growthData = {
+    background: content?.growth_background?.data[0].url || '',
+    titleAndDescription:
+      content.growth_title_and_description || FillerContent.rich_text,
+    cards: content?.growth_cards?.data,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_cta_graphic?.data[0].url || '',
+    titleAndDescription:
+      content.bottom_cta_title_and_description || FillerContent.rich_text,
+    cta_text: content.footer_button_text_1 || FillerContent.cta,
+    secondary_cta_text: content.footer_button_text_2 || FillerContent.cta,
+    secondary_cta_link:
+      content.footer_button_link_2?.data[0].meta.web.uri || FillerContent.href,
+  };
 
   return (
     <>
@@ -101,10 +117,9 @@ function Homepage({ content }) {
       <SimpleCardLogo
         variant="outlined"
         heading_text={content?.logo_heading}
-        logoItems={content.homepage_logos.data}
+        logoItems={content?.homepage_logos.data}
       />
       <DigitalExperience {...pageData} />
-      {/* <NewBenefits {...pageData} /> */}
       <AlternateColumns
         {...pageData}
         column_data={alternateColumnsData}
@@ -112,8 +127,6 @@ function Homepage({ content }) {
         cta_link={content.middle_cta_button_link?.data[0].meta.web.uri}
         cta_text={content.middle_cta_button_text}
       />
-      {/* <Migration {...pageData} /> */}
-
       <MiddleCta
         cta_text={content.middle_cta_text}
         cta_secondary_link={
@@ -123,23 +136,11 @@ function Homepage({ content }) {
         header_content={content.middle_cta_header}
         {...pageData}
       />
-      <Growth {...pageData} />
+      <Growth {...growthData} />
       <CaseStudies {...pageData} />
-      {/* <Testimonials
-        cta_text={content.testimonials_cta_text}
-        cta_link={content.testimonial_cta_link}
-        {...testimonialsData}
-      /> */}
       <WithHighlightedCard {...testimonialsData} />
       <LogoSlider cta_text={content.marketplace_cta_text} {...pageData} />
-      {/* <MiddleCta
-        cta_text={content.bottom_cta_text}
-        cta_secondary_link={content.bottom_cta_secondary_link}
-        cta_secondary_text={content.bottom_cta_secondary_text}
-        header_content={content.bottom_cta_header}
-        {...pageData}
-      /> */}
-      <Bottom {...pageData} />
+      <Bottom {...bottomData} />
     </>
   );
 }

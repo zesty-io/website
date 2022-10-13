@@ -3,32 +3,39 @@
  */
 
 import { Box, Typography, Card } from '@mui/material';
-
 import MuiMarkdown from 'mui-markdown';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+/**
+ * Helpers Imports
+ */
+import FillerContent from 'components/globals/FillerContent';
+
+/**
+ * Components Imports
+ */
 import Container from 'blocks/container/Container';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
-const Growth = ({
-  content,
-  FillerContent,
-  theme,
-  isMedium,
-  isLarge,
-  isExtraLarge,
-}) => {
+const Growth = ({ background, titleAndDescription, cards }) => {
+  const theme = useTheme();
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
+
   const flexOrder = ['flex-end', 'center', 'flex-start'];
   return (
     <Box component={'section'} sx={{ py: 15, position: 'relative' }}>
-      <Box
-        sx={{
+      <ZestyImage
+        style={{
           display: isExtraLarge && 'none',
           position: 'absolute',
           width: '100%',
           maxWidth: 1400,
         }}
-        component="img"
         loading="lazy"
-        src={content?.growth_background?.data[0].url || ''}
+        src={
+          'https://kfg6bckb.media.zestyio.com/Zesty-growth.svg' || background
+        }
         alt="timeline guide"
       />
       <Container>
@@ -66,7 +73,7 @@ const Growth = ({
               },
             }}
           >
-            {content.growth_title_and_description || FillerContent.rich_text}
+            {titleAndDescription || ''}
           </MuiMarkdown>
         </Box>
 
@@ -79,7 +86,7 @@ const Growth = ({
             gap: 4,
           }}
         >
-          {content?.growth_cards?.data.map((item, index) => (
+          {cards?.map((item, index) => (
             <Box
               key={index}
               sx={{

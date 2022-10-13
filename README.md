@@ -247,12 +247,12 @@ For more details you can browse to `src/theme` directory for complete list of th
 
 To auto set the instance zuid, you can pass the query param `?instanceZUID=8-xyz-xyz` to any page in the zesty.io website. This will auto set `ZESTY_WORKING_INSTANCE` and overwrite.
 
-_Available cookies_ 
- 
-- ZESTY_WORKING_INSTANCE - instance zuid for checking support, marketplace, docs, etc. 
+_Available cookies_
+
+- ZESTY_WORKING_INSTANCE - instance zuid for checking support, marketplace, docs, etc.
 - APP_SID - auth token
 
-# Github Data Fetching For Roadmap 
+# Github Data Fetching For Roadmap
 
 ## Requirements
 
@@ -347,3 +347,41 @@ npm run test
 - Build time takes about 5 minutes
 - Auto deployment run through cloud run and cloud build integration with github
 - This occurs in the zesty-dev google cloud project
+
+# Component Error Handling
+
+Given that our website receives data from a Zesty CMS, the marketing team or developer may occasionally attempt to make changes and might unintentionally delete content. This will fail reaching the specific object data from the CMS and the TypeError is born.
+
+##### Server Error
+
+`TypeError: Cannot read property 'title' of undefined`
+
+Let’s take a look of ways how can we avoid a webpage from crashing in production?
+
+### Ternary Operator Checks + Fallback Content
+
+A best practice when attempting to retrieve object data from Zesty CMS is to carry out tests before to rendering the data and add fallback content in the event that the data is undefined or missing from Zesty CMS.
+
+##### Example
+
+`content.title ? content.title : 'fallback title';`
+
+Here, we're attempting to determine whether the `content.title` object is empty; if it is, "fallback title" will be displayed on the screen.
+
+Another way of writing the above statement is to use logical OR operator
+
+`content.title || 'fallback title';`
+
+### Test against production environment
+
+Zesty CMS gives you the option to work on `stage` and `production` endpoints when you are developing locally. You may switch between the two endpoints by changing your local env file.
+
+##### Example Env
+
+`Production=true` - Only returns data from the production endpoint that have been published by the zesty CMS
+
+`Production=false` - only receives data that is saved or in a draft state but has not yet been published when using the staging endpoint
+
+Most of the time when developing a website, you will use the staging endpoint and consume data that has not yet been published or in draft state. This will allow you to test the general functionality of the website using the CMS data without breaking the live or production site.
+
+However, switching the env variable from staging to production is another excellent way to guarantee that your website won't break when you publish it to production. This will give you the ability to test the website using the production data, and if everything works perfectly, you're good to send your site to live.

@@ -15,8 +15,15 @@ import chevron_right from '../../../../public/assets/images/headless-cms/chevron
 
 const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (
-    <Box component="section" sx={{ position: 'relative' }}>
-      <Box
+    <Box
+      component="section"
+      sx={{
+        py: 15,
+        position: 'relative',
+        background: theme.palette.zesty.zestyBackgroundBlue,
+      }}
+    >
+      {/* <Box
         sx={{
           position: 'absolute',
           right: 0,
@@ -26,7 +33,7 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
         component="img"
         alt=""
         src={chevron_right.src}
-      />
+      /> */}
       <Container sx={{ position: 'relative', zIndex: 10 }}>
         <Box>
           <MuiMarkdown
@@ -35,7 +42,7 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
                 component: Typography,
                 props: {
                   variant: 'h3',
-                  component: 'h2',
+                  component: 'h3',
                   sx: {
                     mt: isMobile ? 5 : 0,
                     color: theme.palette.zesty.zestyOrange,
@@ -48,7 +55,7 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
               p: {
                 component: Typography,
                 props: {
-                  variant: 'h4',
+                  variant: 'h6',
                   component: 'h3',
                   sx: {
                     mt: 2,

@@ -64,7 +64,7 @@ const MiddleCta = ({
               },
             }}
           >
-            {header_content || FillerContent.header}
+            {header_content || FillerContent.rich_text}
           </MuiMarkdown>
           <Box
             sx={{
@@ -76,7 +76,7 @@ const MiddleCta = ({
             }}
           >
             <TryFreeButton
-              text={cta_text}
+              text={cta_text || FillerContent.cta}
               variant="contained"
               color="secondary"
             />

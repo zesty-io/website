@@ -4,23 +4,36 @@
 
 import { Box, Typography, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
-import ZestyImage from 'blocks/Image/ZestyImage';
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+/**
+ * Helpers Imports
+ */
+import FillerContent from 'components/globals/FillerContent';
 /**
  * Components Imports
  */
 import Container from 'blocks/container/Container';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import DemoCta from 'components/cta/DemoCta';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Bottom = ({
-  content,
-  FillerContent,
-  theme,
-  isMedium,
-  isSmall,
-  isExtraLarge,
+  graphic,
+  titleAndDescription,
+  cta_text,
+  secondary_cta_text,
+  secondary_cta_link,
 }) => {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
+  const isDarkMode = theme.palette.mode === 'dark';
+
   return (
     <Box
       component="section"
@@ -41,8 +54,6 @@ const Bottom = ({
         <Grid container spacing={2}>
           <Grid sm={12} md={7}>
             <Box
-              data-aos-offset="200"
-              data-aos="fade-up"
               sx={{
                 width: isExtraLarge ? '100%' : 950,
                 mt: isExtraLarge ? 0 : -12.5,
@@ -53,7 +64,7 @@ const Bottom = ({
                 height={519}
                 style={{ width: '100%', maxWidth: 951, height: 'auto' }}
                 loading="lazy"
-                src={`${content.bottom_cta_graphic?.data[0].url}?width=951`}
+                src={`${graphic || ''}?width=951`}
                 alt="zesty.io"
               />
             </Box>
@@ -86,9 +97,6 @@ const Bottom = ({
                   h2: {
                     component: Typography,
                     props: {
-                      'data-aos-offset': '200',
-                      'data-aos': 'fade-up',
-                      'data-aos-duration': '1000',
                       variant: 'h3',
                       component: 'h2',
                       sx: {
@@ -101,9 +109,6 @@ const Bottom = ({
                   p: {
                     component: Typography,
                     props: {
-                      'data-aos-offset': '200',
-                      'data-aos': 'fade-up',
-                      'data-aos-duration': '1500',
                       variant: 'h6',
                       component: 'p',
                       sx: {
@@ -115,14 +120,10 @@ const Bottom = ({
                   },
                 }}
               >
-                {content.bottom_cta_title_and_description ||
-                  FillerContent.description}
+                {titleAndDescription || FillerContent.rich_text}
               </MuiMarkdown>
 
               <Box
-                data-aos-offset="200"
-                data-aos="fade-up"
-                data-aos-duration="1500"
                 sx={{
                   mt: 4,
                   display: 'flex',
@@ -131,7 +132,7 @@ const Bottom = ({
                 }}
               >
                 <TryFreeButton
-                  text={content.footer_button_text_1 || FillerContent.cta}
+                  text={cta_text || FillerContent.cta}
                   variant="contained"
                   color="secondary"
                   fullWidth={isMedium}
@@ -142,8 +143,8 @@ const Bottom = ({
                 />
                 <DemoCta
                   fullWidth={isMedium}
-                  href={content.footer_button_link_2?.data[0].meta.web.uri}
-                  text={content.footer_button_text_2 || FillerContent.cta}
+                  href={secondary_cta_link || FillerContent.href}
+                  text={secondary_cta_text || FillerContent.cta}
                   sx={{
                     color: theme.palette.common.white,
                     fontWeight: 'bold',
