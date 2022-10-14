@@ -1,7 +1,6 @@
 import {
   Button,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   IconButton,
@@ -78,14 +77,21 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
         boxShadow: 'none',
       }}
     >
-      <Stack py={2} pl={2} pr={2}>
+      <Stack pt={1} pl={2} pr={2}>
         <Media instance={instance} loading={loading} />
       </Stack>
 
-      <CardContent>
+      <CardContent
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+          padding: '16px',
+        }}
+      >
         {!loading ? (
           isEditing ? (
-            <Stack mb={2} spacing={1} direction="row" alignItems="center">
+            <Stack spacing={1} direction="row" alignItems="center">
               <TextField
                 value={instanceName}
                 onChange={(e) => setInstanceName(e.target.value)}
@@ -114,18 +120,15 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
             </Stack>
           ) : (
             <Stack
-              mb={2}
-              spacing={1}
               direction="row"
               alignItems="center"
               onMouseOver={() => setShowEdit(true)}
               onMouseLeave={() => setShowEdit(false)}
             >
               <Typography
+                nowrap
                 variant="h4"
                 color={'text.primary'}
-                component="div"
-                display="flex"
                 alignItems="center"
               >
                 {instanceName}
@@ -147,53 +150,53 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
         ) : (
           <Skeleton variant="text" height={30} />
         )}
-      </CardContent>
-      <CardActions
-        sx={{
-          px: 2,
-        }}
-      >
+
         <Stack
           width={1}
           direction={'row'}
-          spacing={2}
           sx={{
+            pt: 1,
             pb: 2,
             borderBottom: `1px solid ${grey[200]}`,
           }}
         >
-          <Button
-            color="primary"
-            target="_blank"
-            variant="contained"
-            fullWidth
-            title={managerURl}
-            href={managerURl}
-            startIcon={<CreateIcon />}
-            sx={{
-              whiteSpace: {
-                md: 'nowrap',
-              },
-            }}
-          >
-            Open Manager
-          </Button>
-          <Button
-            variant="outlined"
-            target="_blank"
-            color="inherit"
-            title={webengineUrl}
-            href={webengineUrl}
-            sx={{
-              backgroundColor: '#fff',
-              borderColor: grey[300],
-              color: grey[500],
-            }}
-          >
-            <VisibilityIcon />
-          </Button>
+          <Stack direction={'row'} gap="8px">
+            <Button
+              color="primary"
+              target="_blank"
+              size="small"
+              fullWidth
+              variant="contained"
+              title={managerURl}
+              href={managerURl}
+              startIcon={<CreateIcon sx={{ fontSize: '20px' }} />}
+              sx={{
+                whiteSpace: {
+                  md: 'nowrap',
+                },
+              }}
+            >
+              Open Manager
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              target="_blank"
+              color="inherit"
+              title={webengineUrl}
+              href={webengineUrl}
+              sx={{
+                backgroundColor: '#fff',
+                borderColor: grey[300],
+                color: grey[500],
+                minWidth: 38,
+              }}
+            >
+              <VisibilityIcon />
+            </Button>
+          </Stack>
         </Stack>
-      </CardActions>
+      </CardContent>
     </Card>
   );
 }

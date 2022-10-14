@@ -145,7 +145,11 @@ export const Overview = ({
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        width: { md: 1, xl: `calc(100vw - 255px)` },
+      }}
+    >
       <Stack
         px={5}
         pt={2}

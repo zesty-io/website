@@ -1,6 +1,5 @@
 import Card from '@mui/material/Card';
 import React from 'react';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Box, Skeleton, Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
@@ -18,14 +17,15 @@ export const AOverviewCards = ({
       sx={{
         minWidth: 275,
         padding: '16px',
+        gap: '8px',
+
         border: `1px solid ${grey[200]}`,
         borderRadius: '8px',
         boxShadow: 0,
       }}
     >
-      <CardContent
+      <Stack
         sx={{
-          gap: '8px',
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -65,7 +65,7 @@ export const AOverviewCards = ({
         ) : (
           <Skeleton variant="text" height={40} />
         )}
-      </CardContent>
+      </Stack>
     </Card>
   );
 };
