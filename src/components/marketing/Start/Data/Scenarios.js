@@ -174,6 +174,7 @@ const Scenario2 = ({
     >
       <SwiperSlide>
         <SelectTemplate
+          token={token}
           production={props.production}
           handleSelectTemplate={handleSelectTemplate}
           title="What kind of project do you want to build?"
@@ -320,7 +321,6 @@ const Scenario4 = ({
   settoken,
   setscenario,
   currentStep,
-
   firstName,
   lastName,
   role,
