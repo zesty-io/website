@@ -6,13 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import InfoIcon from '@mui/icons-material/Info';
-import { List, ListItem, ListSubheader, Stack } from '@mui/material';
-
-const bulletList = [
-  'See whats happening at Zesty on our awesome blog',
-  'Read more about our software',
-  'Go back to previous page you were on',
-];
+import { Stack } from '@mui/material';
 
 export const ErrorPage = ({ errorCode = '404' }) => {
   const theme = useTheme();
@@ -63,28 +57,6 @@ export const ErrorPage = ({ errorCode = '404' }) => {
                   Thank you for your patience while we put the pieces back
                   together.
                 </Typography>
-
-                <List sx={{ listStyleType: 'disc' }}>
-                  <Typography color={'text.primary'} variant="body1" pb={2}>
-                    In the meantime you can...
-                  </Typography>
-                  <ListSubheader></ListSubheader>
-                  {bulletList.map((e) => {
-                    return (
-                      <ListItem
-                        sx={{
-                          display: 'list-item',
-                          ml: 3,
-                          p: 0,
-                        }}
-                      >
-                        <Typography color={'text.primary'} variant="body1">
-                          {e}
-                        </Typography>
-                      </ListItem>
-                    );
-                  })}
-                </List>
               </Stack>
             </Box>
             <Box
