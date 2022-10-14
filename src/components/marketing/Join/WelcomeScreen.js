@@ -1,21 +1,19 @@
-import React, {useEffect} from 'react'
-import {Box} from '@mui/material'
+/* eslint-disable no-undef */
+import React, { useEffect } from 'react';
+import { Box } from '@mui/material';
 export const WelcomeScreen = ({
-  firstname, 
-  lastname, 
+  firstname,
+  lastname,
   email,
-  role, 
-  projectType, 
-  userZUID=false, 
-  dateCreated, 
-  children
+  role,
+  projectType,
+  userZUID = false,
+  dateCreated,
+  children,
 }) => {
-
   useEffect(() => {
-    console.log("Attempting to register user for Onboarding");
-    if (
-      window.pendo && userZUID != false
-    ) {
+    console.log('Attempting to register user for Onboarding');
+    if (window.pendo && userZUID != false) {
       let visitor = {
         id: userZUID,
         email: email,
@@ -30,18 +28,13 @@ export const WelcomeScreen = ({
         creationdate: dateCreated,
       };
 
-      console.log("Registering User for Onboarding:",visitor);
+      console.log('Registering User for Onboarding:', visitor);
       pendo.initialize({
-        visitor: visitor
+        visitor: visitor,
       });
     }
     //Check if pendo is running correctly open browser console and run pendo.validateInstall()
-  },[userZUID]);
+  }, [userZUID]);
 
-  return (
-    <Box sx={{height: '400px'}}>
-         
-        {children}
-    </Box>
-  )
-}
+  return <Box sx={{ height: '400px' }}>{children}</Box>;
+};

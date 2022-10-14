@@ -160,6 +160,7 @@ const Features = ({
               `<span>${textHighlight}</span>`,
             )}
           </MuiMarkdown>
+
           <Typography
             variant="h6"
             component="h2"
@@ -173,7 +174,20 @@ const Features = ({
           >
             {feature_description || ''}
           </Typography>
+
+          {cta_button_text && (
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <TryFreeButton text={cta_button_text} variant="contained" />
+            </Box>
+          )}
         </Box>
+
         <Box
           sx={{
             display: 'flex',
@@ -252,19 +266,6 @@ const Features = ({
             );
           })}
         </Box>
-
-        {cta_button_text && (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              mt: 10,
-            }}
-          >
-            <TryFreeButton text={cta_button_text} variant="contained" />
-          </Box>
-        )}
       </Container>
     </Box>
   );

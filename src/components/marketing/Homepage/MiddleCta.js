@@ -2,10 +2,9 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, Grid, Button } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
-import ZestyImage from 'blocks/Image/ZestyImage';
 /**
  * Static Assets Imports
  */
@@ -14,7 +13,6 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import TryFreeButton from 'components/cta/TryFreeButton';
-import DemoCta from 'components/cta/DemoCta';
 import ArrowRightAlt from '@mui/icons-material/ArrowRightAlt';
 
 const MiddleCta = ({

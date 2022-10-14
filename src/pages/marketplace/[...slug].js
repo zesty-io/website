@@ -6,14 +6,13 @@ import EntityType from 'views/marketplace/EntityType';
 import Extension from 'views/marketplace/Extension';
 import Tag from 'views/marketplace/Tag';
 import CustomContainer from 'components/Container';
-import AppBar from 'components/console/AppBar';
+// import AppBar from 'components/console/AppBar';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useTheme } from '@emotion/react';
-import { TitleBar } from 'components/marketplace/TitleBar';
 import MainApps from 'components/marketplace/landing/MainApps';
 
 const ALTNAME = {
@@ -45,7 +44,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:description" content={seoDescription} />
         </Head>
         <Main customRouting={props.navigationCustom}>
-          <AppBar url={router.asPath} />
+          {/* <AppBar url={router.asPath} /> */}
 
           <CustomContainer>
             <RegisterPage />
@@ -64,7 +63,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:description" content={seoDescription} />
         </Head>
         <Main customRouting={props.navigationCustom}>
-          <AppBar url={router.asPath} />
+          {/* <AppBar url={router.asPath} /> */}
           <CustomContainer>
             <InstalledPage />
           </CustomContainer>
@@ -82,7 +81,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:description" content={seoDescription} />
         </Head>
         <Main customRouting={props.navigationCustom}>
-          <AppBar url={router.asPath} />
+          {/* <AppBar url={router.asPath} /> */}
           <CustomContainer>
             <Extension {...props} />
           </CustomContainer>
@@ -99,7 +98,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        <AppBar url={router.asPath} />
+        {/* <AppBar url={router.asPath} /> */}
 
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}
@@ -159,11 +158,11 @@ export async function getServerSideProps({ req, res }) {
 
   // set instance zuid cookie
   if (req.query?.instanceZUID) {
-    setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
+    setCookie('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
   const data = await getMarketplaceData(req.url);
-  let extensionsURL = JSON.parse(process.env.PRODUCTION)
+  let extensionsURL = process.env.PRODUCTION
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
