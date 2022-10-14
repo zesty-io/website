@@ -11,7 +11,7 @@ import MuiMarkdown from 'mui-markdown';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Local Assets Imports
-import chevron_right from '../../../../public/assets/images/headless-cms/chevron-right.svg';
+// import chevron_right from '../../../../public/assets/images/headless-cms/chevron-right.svg';
 
 const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (

@@ -9,7 +9,7 @@ import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import { useRouter } from 'next/router';
 import { Skeleton } from '@mui/material';
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
 import { Typography } from '@mui/material';
 
@@ -18,7 +18,7 @@ const Topbar = ({
   customRouting,
   colorInvert = false,
   trigger,
-  isLogin,
+  isAuthenticated,
   userInfo = {},
   loading = false,
 }) => {
@@ -50,10 +50,10 @@ const Topbar = ({
 
   React.useEffect(() => {
     if (userInfo) {
-      setCookies('APP_USER_ZUID', userInfo?.ZUID);
-      setCookies('APP_USER_EMAIL', userInfo?.email);
-      setCookies('APP_USER_FIRST_NAME', userInfo?.firstName);
-      setCookies('APP_USER_LAST_NAME', userInfo?.lastName);
+      setCookie('APP_USER_ZUID', userInfo?.ZUID);
+      setCookie('APP_USER_EMAIL', userInfo?.email);
+      setCookie('APP_USER_FIRST_NAME', userInfo?.firstName);
+      setCookie('APP_USER_LAST_NAME', userInfo?.lastName);
     }
   }, [userInfo]);
 
@@ -114,7 +114,7 @@ const Topbar = ({
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
           <Box>
-            {!isLogin ? (
+            {!isAuthenticated ? (
               <Box display={'flex'}>
                 <Box marginLeft={4}>
                   <TryFreeButton variant="contained" component="a" />
@@ -128,7 +128,7 @@ const Topbar = ({
                     endIcon={<LoginIcon />}
                     fullWidth
                     component="a"
-                    href="https://accounts.zesty.io"
+                    href="/login/"
                   >
                     Login
                   </Button>

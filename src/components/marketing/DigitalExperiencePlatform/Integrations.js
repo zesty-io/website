@@ -1,17 +1,7 @@
 /**
  * MUI Imports
  */
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  Link,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import TryFreeButton from 'components/cta/TryFreeButton';
 /**

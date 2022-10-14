@@ -59,11 +59,12 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+import { Box } from '@mui/material';
 import React from 'react';
 
 function DxpEcommerce({ content }) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  // const theme = useTheme();
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return <Box sx={{ overflowX: 'hidden' }}></Box>;
 }

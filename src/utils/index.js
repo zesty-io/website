@@ -1,4 +1,6 @@
 import { getCookie } from 'cookies-next';
+import dayjs from 'dayjs';
+import { hashMD5 } from './Md5Hash';
 
 const removeEmptyNodes = (nodes) => {
   return nodes.filter((node) => {
@@ -100,6 +102,7 @@ export const transformSearch = (arr) => {
             const name = q.children[0].content;
             const href = u.children[0].attributes[0].value;
             const name1 = q;
+            console.log(name1);
             if (q.tagName === 'a') {
               return { name, href };
             }
@@ -117,9 +120,7 @@ export const transformSearch = (arr) => {
   return result;
 };
 export const test = (arr) => {
-  let numbers = [1, 2, 3];
   let sum = arr.reduce((previousValue, currentValue) => {
-    // console.log(previousValue, currentValue, 4444);
     return { ...previousValue, test: currentValue.children };
   }, []);
   return sum;
@@ -133,7 +134,7 @@ export const strColorChanger = (str, word, color) => {
   return res;
 };
 
-const isProd =
+export const isProd =
   getCookie('PRODUCTION') === false || getCookie('PRODUCTION') === 'false'
     ? false
     : true;
@@ -165,4 +166,156 @@ export const getUserAppSID = () => {
   } else {
     return prod;
   }
+};
+
+export function canUseDOM() {
+  return !!(
+    typeof window !== 'undefined' &&
+    window.document &&
+    window.document.createElement
+  );
+}
+export const generateUniqDropdown = ({ data, property = 'category' }) => {
+  const dropdownList = data
+    .map((e) => {
+      return { value: e[property], label: e[property] };
+    })
+    .filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) => t.value === value.value && t.label === value.label,
+        ),
+    );
+  const res = [{ value: '', label: 'All Categories' }, ...dropdownList];
+
+  return res;
+};
+
+export const removeDupsInArrObj = (arr, property) =>
+  Object.values(
+    arr.reduce((acum, item) => {
+      acum[item[property]] = item;
+      return acum;
+    }, {}),
+  );
+
+export const isInstanceOwner = (userWithRoles, userInfo) => {
+  const currentRole = userWithRoles?.find((e) => e.ZUID === userInfo?.ZUID)
+    ?.role?.name;
+  const isStaff = userInfo?.staff;
+
+  if (currentRole === 'Owner' || currentRole === 'Admin' || isStaff) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const isJsonString = (str) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
+
+export const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    );
+};
+
+export const notistackMessage = async (
+  enqueueSnackbar,
+  successProps,
+  response,
+  options = {
+    hideSuccessMessage: false,
+  },
+) => {
+  if (
+    (response?.status >= 200 && response?.status <= 299) ||
+    (response?.code >= 200 && response?.code <= 299)
+  ) {
+    if (successProps.callback !== undefined) await successProps?.callback();
+
+    if (!options?.hideSuccessMessage) {
+      enqueueSnackbar(successProps?.message, {
+        variant: 'success',
+      });
+    }
+  } else {
+    enqueueSnackbar(response?.message || response?.error, {
+      variant: 'error',
+    });
+  }
+};
+
+export const parseCookie = (str) =>
+  str
+    .split(';')
+    .map((v) => v.split('='))
+    .reduce((acc, v) => {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      return acc;
+    }, {});
+
+export const getIsAuthenticated = (res) => {
+  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
+  let isAuthenticated = JSON.parse(
+    parseCookie(getHeaderCookie)?.isAuthenticated || false,
+  );
+
+  return isAuthenticated;
+};
+
+export const OPTIONS = (options, separator) => {
+  const res = options?.split(separator).map((e) => {
+    return { value: e, label: e };
+  });
+  return res;
+};
+
+export const getTimeAgo = (date) => {
+  // reference: https://stackoverflow.com/a/72973090
+  const MINUTE = 60;
+  const HOUR = MINUTE * 60;
+  const DAY = HOUR * 24;
+  const WEEK = DAY * 7;
+  const MONTH = DAY * 30;
+  const YEAR = DAY * 365;
+  const secondsAgo = dayjs().diff(date, 'seconds');
+
+  if (secondsAgo < MINUTE) {
+    return secondsAgo + ` second${secondsAgo !== 1 ? 's' : ''} ago`;
+  }
+
+  let divisor;
+  let unit = '';
+
+  if (secondsAgo < HOUR) {
+    [divisor, unit] = [MINUTE, 'minute'];
+  } else if (secondsAgo < DAY) {
+    [divisor, unit] = [HOUR, 'hour'];
+  } else if (secondsAgo < WEEK) {
+    [divisor, unit] = [DAY, 'day'];
+  } else if (secondsAgo < MONTH) {
+    [divisor, unit] = [WEEK, 'week'];
+  } else if (secondsAgo < YEAR) {
+    [divisor, unit] = [MONTH, 'month'];
+  } else {
+    [divisor, unit] = [YEAR, 'year'];
+  }
+
+  const count = Math.floor(secondsAgo / divisor);
+  return `${count} ${unit}${count > 1 ? 's' : ''} ago`;
+};
+
+export const gravatarImg = (userInfo = {}) => {
+  const res = 'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
+  return res;
 };

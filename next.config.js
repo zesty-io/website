@@ -14,8 +14,16 @@ module.exports = {
       auth: '',
       src_dir: '/src',
     },
-    eslint: {
-      ignoreDuringBuilds: true,
-    },
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  images: {
+    domains: [
+      'be93523bd41e2e475e74-e4edef19ad51123442eaceed55c78461.ssl.cf2.rackcdn.com',
+      '39ntbr6g.media.zestyio.com',
+      'kfg6bckb.media.zestyio.com',
+    ],
+  },
+  swcMinify: true,
 };

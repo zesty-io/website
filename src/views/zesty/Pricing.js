@@ -35,8 +35,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import { Typography, Button, Card } from '@mui/material';
 
 // Components Import
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
@@ -44,9 +42,7 @@ import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import Container from 'blocks/container/Container';
 import PricingHero from '../../blocks/pricing/PricingHero/PricingHero';
 import SupportBanner from '../../blocks/pricing/SupportBanner/SupportBanner';
-import PricingCompareTable from '../../blocks/pricing/PricingCompareTable/PricingCompareTable';
 import Faq from '../../blocks/pricing/Faq/Faq';
-import Plans from '../../blocks/pricing/Plans/Plans';
 import useFetch from 'components/hooks/useFetch';
 import FillerContent from 'components/globals/FillerContent';
 

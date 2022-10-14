@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -28,24 +28,26 @@ export default function SubscribeCTA({
       email: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-     
-    },
+    onSubmit: (values) => {},
   });
 
   const handleModal = () => {
     if (formik.values.email !== '' && formik.isValid) {
-
-        if (formik.values.email !== '' && formik.isValid) {
-          fetch('https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe?email='+formik.values.email, {
-            method: 'GET'
-          })
-            .then(res => res.json())
-            .then(data => {
-              dataLayer.push({'event': 'emailSubscribeSubmitted', value: "1"});
-              acSENT = true;
-            });
-        }
+      if (formik.values.email !== '' && formik.isValid) {
+        fetch(
+          'https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe?email=' +
+            formik.values.email,
+          {
+            method: 'GET',
+          },
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            dataLayer.push({ event: 'emailSubscribeSubmitted', value: '1' });
+            // eslint-disable-next-line no-undef
+            acSENT = true;
+          });
+      }
 
       setOpen(!open);
     }
@@ -53,9 +55,12 @@ export default function SubscribeCTA({
 
   return (
     <Box display="flex" flexDirection={'column'} justifyContent={'center'}>
-      <TransitionsModal open={open} setOpen={setOpen}
-      title="Thank you for subscribing!"
-      message="Check your email to confirm."/>
+      <TransitionsModal
+        open={open}
+        setOpen={setOpen}
+        title="Thank you for subscribing!"
+        message="Check your email to confirm."
+      />
       <Box marginBottom={2}>
         <Typography variant="body1" component="p">
           {text}
