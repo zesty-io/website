@@ -5,7 +5,6 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 // Components Imports
 import TryFreeButton from '../../cta/TryFreeButton';
 import ZestyImage from 'blocks/Image/ZestyImage';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 
 const Hero = ({ theme, isMobile, content, FillerContent }) => (
   <Box
