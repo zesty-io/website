@@ -12,7 +12,6 @@ import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import {
   Button,
-  Chip,
   Collapse,
   IconButton,
   lighten,
@@ -168,10 +167,6 @@ const AppNavigation = ({
           display={{ xs: 'none', md: 'flex' }}
         >
           <Stack direction="row" alignItems="center" spacing={{ xs: 1, xl: 2 }}>
-            <Chip
-              label={<Typography variant="body2">BETA</Typography>}
-              color="info"
-            />
             {navigationLinks.map((nav) => (
               <AccountsSingleNavItem
                 key={nav.id}
