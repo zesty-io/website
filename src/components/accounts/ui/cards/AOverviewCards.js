@@ -46,12 +46,12 @@ export const AOverviewCards = ({
             )}
           </Box>
         </Stack>
-        <Typography variant="h2" color={'text.primary'}>
+        <Typography variant="h2" color={'text.primary'} noWrap>
           {!loading ? mainData : <Skeleton variant="rectangular" height={70} />}
         </Typography>
         {!loading ? (
           <Stack
-            // visibility={'hidden'}
+            visibility={'hidden'}
             direction={'row'}
             spacing={1}
             alignItems={'center'}
