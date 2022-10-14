@@ -16,22 +16,23 @@ export const AOverviewCards = ({
   return (
     <Card
       sx={{
-        p: 1,
         minWidth: 275,
+        padding: '16px',
         border: `1px solid ${grey[200]}`,
         borderRadius: '8px',
         boxShadow: 0,
       }}
     >
-      <CardContent>
+      <CardContent
+        sx={{
+          gap: '8px',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <Stack direction={'row'} justifyContent={'space-between'}>
           {!loading ? (
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              variant="h6"
-              gutterBottom
-            >
+            <Typography color="text.secondary" variant="h6" gutterBottom>
               {title}
             </Typography>
           ) : (
@@ -45,12 +46,12 @@ export const AOverviewCards = ({
             )}
           </Box>
         </Stack>
-        <Typography variant="h2" component="div" color={'text.primary'} py={2}>
+        <Typography variant="h2" color={'text.primary'}>
           {!loading ? mainData : <Skeleton variant="rectangular" height={70} />}
         </Typography>
         {!loading ? (
           <Stack
-            visibility={'hidden'}
+            // visibility={'hidden'}
             direction={'row'}
             spacing={1}
             alignItems={'center'}
