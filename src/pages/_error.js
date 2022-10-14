@@ -1,13 +1,16 @@
+import slackNotify from 'components/marketing/Start/slackNotify';
 import React from 'react';
+import { ErrorPage } from 'views/error';
 
 const Error = ({ statusCode }) => {
-  return (
-    <>
-      {statusCode
-        ? `An ${statusCode} error occurred on server`
-        : 'An error occurred on client'}
-    </>
-  );
+  const page = window.location.pathname;
+  const errormsg = `You have error in Accounts on page ${page}`;
+
+  React.useEffect(() => {
+    slackNotify(errormsg);
+  }, []);
+
+  return <ErrorPage errorCode={statusCode} />;
 };
 
 Error.getInitialProps = ({ res, err }) => {
