@@ -20,7 +20,7 @@ const TimeLine = ({
     <Box
       sx={{
         background: theme.palette.zesty.zestyDarkBlue,
-        mt: 25,
+        mt: 10,
         position: 'relative',
       }}
       component="section"
@@ -71,7 +71,7 @@ const TimeLine = ({
               }}
               component="li"
             >
-              <Box sx={{ ml: 4, mt: isMobile ? 0 : 15 }}>
+              <Box sx={{ ml: 4, mt: isMobile ? 0 : 10 }}>
                 <MuiMarkdown
                   overrides={{
                     h2: {
@@ -109,14 +109,14 @@ const TimeLine = ({
               </Box>
             </Box>
             {/* Content Loop */}
-            {timelineData.data.map((item) => (
+            {timelineData.data.map((item, index) => (
               <Box
                 sx={{
                   py: isMobile ? 3 : 0,
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
-                  minHeight: 400,
+                  minHeight: index === 3 ? 600 : 400,
                   listStyleType: 'none',
                   borderLeft: `2px solid ${
                     isMobile
@@ -142,7 +142,7 @@ const TimeLine = ({
                   },
                 }}
               >
-                <Grid container spacing={2}>
+                <Grid sx={{ mt: index === 3 ? -10 : 0 }} container spacing={2}>
                   <Grid
                     sx={{
                       display: 'flex',

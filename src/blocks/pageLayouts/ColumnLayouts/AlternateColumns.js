@@ -143,9 +143,29 @@ const AlternateColumns = ({
                         p: {
                           component: Typography,
                           props: {
-                            variant: 'h5',
+                            variant: 'h6',
                             mt: 1,
                             component: 'p',
+                            color:
+                              idx === 2
+                                ? theme.palette.common.white
+                                : theme.palette.zesty.zestyZambezi,
+                            textAlign: isMedium ? 'center' : 'text-left',
+                          },
+                        },
+                        
+                        ul: {
+                          component: Typography,
+                          props: {
+                            mt: 2,
+                            component: 'ul',
+                          },
+                        },
+                        li: {
+                          component: Typography,
+                          props: {
+                            variant: 'h6',
+                            component: 'li',
                             color:
                               idx === 2
                                 ? theme.palette.common.white
