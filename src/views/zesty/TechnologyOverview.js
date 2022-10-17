@@ -25,7 +25,7 @@
  */
 
 // MUI Imports
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -40,6 +40,7 @@ import TopBrands from '../../blocks/caseStudies/TopBrands';
 import Articles from '../../blocks/blog/Articles/Articles';
 import TechStack from '../../blocks/integrations/TechStack';
 import Growth from 'blocks/zesty/Growth/Growth';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -105,18 +106,29 @@ function TechnologyOverview({ content }) {
   return (
     <Box>
       <Hero {...pageData} />
+      <Container sx={{ pb: 15 }}>
+        <SimpleCardLogo
+          variant="outlined"
+          logoItems={content?.logos?.data || []}
+        />
+      </Container>
       <UseCase {...pageData} />
       <TimeLine timelineData={timelineData} {...pageData} />
-      <Growth {...growthData} />
+      <Box sx={{ py: 5 }}>
+        <Growth {...growthData} />s
+      </Box>
       <GetStarted {...pageData} />
       <Features {...pageData} />
       <HeadlessApi {...pageData} />
-      <Box sx={{ py: 10 }}>
-        <TechStack {...techStackData} {...pageData} />
+      <Box sx={{ pt: 10 }}>
+        <TechStack
+          background={theme.palette.common.white}
+          {...techStackData}
+          {...pageData}
+        />
       </Box>
       <TopBrands
         backgroundColor={theme.palette.common.white}
-        sx={{ py: isMobile ? 10 : 25 }}
         title={content.case_study_header}
         {...pageData}
       />

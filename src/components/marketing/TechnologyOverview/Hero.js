@@ -5,7 +5,6 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 // Components Imports
 import TryFreeButton from '../../cta/TryFreeButton';
 import ZestyImage from 'blocks/Image/ZestyImage';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 
 const Hero = ({ theme, isMobile, content, FillerContent }) => (
   <Box
@@ -13,8 +12,8 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
       overflow: 'hidden',
       position: 'relative',
       mt: 2,
-      pt: isMobile ? 10 : 25,
-      minHeight: 900,
+      pt: isMobile ? 10 : 0,
+      py: 15,
       display: 'flex',
       justifyContent: 'center',
     }}
@@ -56,8 +55,8 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
               }}
             >
               <Typography
-                color={theme.palette.zesty.zestyZambezi}
-                variant="h5"
+                color={theme.palette.zesty.zestyOrange}
+                variant="h6"
                 component={'h1'}
                 sx={{ fontWeight: 'bold' }}
               >
@@ -131,22 +130,6 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
             />
           </Box>
         </Grid>
-
-        <Box
-          sx={{
-            position: isMobile ? 'relative' : 'absolute',
-            pt: isMobile ? 10 : 0,
-            px: isMobile ? 1 : 2,
-            bottom: 0,
-          }}
-        >
-          <Box sx={{ py: 5 }}>
-            <SimpleCardLogo
-              variant="outlined"
-              logoItems={content?.logos?.data || []}
-            />
-          </Box>
-        </Box>
       </Grid>
     </Container>
   </Box>

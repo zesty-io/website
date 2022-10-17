@@ -51,7 +51,7 @@ const Growth = ({ background, titleAndDescription, cards }) => {
               h2: {
                 component: Typography,
                 props: {
-                  variant: 'h3',
+                  variant: 'h4',
                   component: 'h2',
                   sx: {
                     color: theme.palette.zesty.zestyZambezi,
@@ -127,7 +127,7 @@ const Growth = ({ background, titleAndDescription, cards }) => {
                     component="h3"
                     variant="h4"
                     sx={{
-                      color: theme.palette.zesty.zestyDarkText,
+                      color: theme.palette.zesty.zestyZambezi,
                       fontWeight: 'bold',
                     }}
                   >

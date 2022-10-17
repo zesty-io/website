@@ -22,6 +22,7 @@ export const SelectTemplate = ({
   title,
   description,
   production,
+  token,
 }) => {
   const [templates, settemplates] = React.useState([]);
 
@@ -31,11 +32,9 @@ export const SelectTemplate = ({
     await axios
       .get(url)
       .then((e) => {
-        console.log(e.data, 444);
         settemplates(e.data);
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
       });
   };
@@ -44,10 +43,19 @@ export const SelectTemplate = ({
     getAllTemplates();
   }, []);
 
-  const newTemplate = [
-    { name: 'Blank', subtitle: 'Start with an empty instance', github_url: '' },
-    ...templates,
-  ];
+  const isLogin = token ? true : false;
+
+  const newTemplate = isLogin
+    ? [
+        {
+          name: 'Blank',
+          subtitle: 'Start with an empty instance',
+          github_url: 'https://github.com/zesty-io/template-blank',
+        },
+        ...templates,
+      ]
+    : templates;
+
   return (
     <Box py={12} px={10}>
       <Box pb={8} pt={4}>
