@@ -22,9 +22,7 @@ export function ZestyView(props) {
   // inside the component's function just before the return statement
   React.useEffect(() => {
     if (props.content.zestyProductionMode !== true) {
-      if (!props?.content?.zesty?.isAuthenticated) {
-        initLiveEditor(props.content);
-      }
+      initLiveEditor(props.content);
     }
   }, []);
   return (
