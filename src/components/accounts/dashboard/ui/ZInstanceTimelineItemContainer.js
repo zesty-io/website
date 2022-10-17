@@ -178,29 +178,29 @@ const ZInstanceTimelineItemContainer = ({
               <Stack direction="row" spacing={2} alignItems="center">
                 <Stack>{getIcon(audit?.meta?.uri)}</Stack>
                 <Stack>
-                  <Typography>
-                    <Typography component="span" color="primary">
-                      {audit?.entityName}
-                    </Typography>{' '}
-                    {newMessage || audit?.meta?.message}
-                  </Typography>
-
                   {isFetchingMsg ? (
                     <Skeleton width="100%" />
                   ) : (
-                    <Stack sx={{ wordBreak: 'break-word' }}>
-                      <Typography variant="caption">
-                        {getResourceGroup(audit?.meta?.uri)
-                          ? `In ${getResourceGroup(audit?.meta?.uri)} by `
-                          : 'by '}
-                        <Typography
-                          component="span"
-                          variant="caption"
-                          color="primary"
-                        >{`${audit?.firstName} ${audit?.lastName}`}</Typography>
-                      </Typography>
-                    </Stack>
+                    <Typography>
+                      <Typography component="span" color="primary">
+                        {audit?.entityName}
+                      </Typography>{' '}
+                      {newMessage || audit?.meta?.message}
+                    </Typography>
                   )}
+
+                  <Stack sx={{ wordBreak: 'break-word' }}>
+                    <Typography variant="caption">
+                      {getResourceGroup(audit?.meta?.uri)
+                        ? `In ${getResourceGroup(audit?.meta?.uri)} by `
+                        : 'by '}
+                      <Typography
+                        component="span"
+                        variant="caption"
+                        color="primary"
+                      >{`${audit?.firstName} ${audit?.lastName}`}</Typography>
+                    </Typography>
+                  </Stack>
                 </Stack>
               </Stack>
               <Stack
