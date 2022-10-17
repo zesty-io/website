@@ -3,7 +3,7 @@ import { Container, Stack, Box, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea } from '@mui/material';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 function random_boolean(seed) {
   return seed < 0.5;
@@ -32,7 +32,7 @@ function ActionAreaCard({
             ...cardStyles,
           }}
         >
-          <Image
+          {/* <Image
             alt={answer}
             src={asset}
             height={200}
@@ -42,15 +42,15 @@ function ActionAreaCard({
             style={{
               ...imageStyles,
             }}
-          />
-          {/* <Box
+          /> */}
+          <Box
             component="img"
             src={asset}
             alt={answer}
             sx={{
               ...imageStyles,
             }}
-          /> */}
+          />
         </Box>
 
         <CardContent>
