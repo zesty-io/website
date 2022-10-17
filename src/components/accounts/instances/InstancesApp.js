@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Grid,
   List,
   ListItem,
   ListItemButton,
@@ -78,14 +77,9 @@ const Index = ({ children }) => {
   return (
     <Box>
       {isLG ? (
-        <Grid container>
-          <Grid
-            item
-            md={3}
-            lg={2}
+        <Box sx={{ display: 'grid', gridTemplateColumns: '240px 1fr' }}>
+          <Box
             sx={(theme) => ({
-              // borderRight: `1px solid ${grey[300]}`,
-              maxWidth: { md: '240px' },
               position: 'sticky',
               top: `${theme.tabTop}px`,
               height: `calc(100vh - ${theme.tabTop}px)`,
@@ -106,11 +100,9 @@ const Index = ({ children }) => {
               currentPage={currentPage}
               langcode={langcode}
             />
-          </Grid>
-          <Grid item md={9} lg={10}>
-            <Box>{children}</Box>
-          </Grid>
-        </Grid>
+          </Box>
+          <Box>{children}</Box>
+        </Box>
       ) : (
         <Container>
           <InstanceHeader ZestyAPI={ZestyAPI} instance={instance} />
