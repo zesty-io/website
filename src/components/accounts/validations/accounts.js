@@ -18,6 +18,25 @@ const userName = yup.object().shape({
     .required('Name is required'),
 });
 
+const signUp = yup.object().shape({
+  firstName: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('First Name is required*'),
+  lastName: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('Last Name is required*'),
+  password: yup
+    .string()
+    .min(8, 'Must be atleast 8 Characters*')
+    .required('Password is required*'),
+  email: yup
+    .string()
+    .required('Email address is required*')
+    .matches(emailRegex, 'Must be a valid email address*'),
+});
+
 const invite = yup.object().shape({
   email: yup
     .string()
@@ -161,4 +180,5 @@ export const accountsValidations = {
   resetPassword,
   updateTeam,
   addEmail,
+  signUp,
 };
