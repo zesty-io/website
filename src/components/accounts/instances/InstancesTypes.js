@@ -25,28 +25,16 @@ const InstancesGrid = ({
       dataLength={collectect?.length}
       next={fetchData}
       hasMore={true}
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'start',
-        gap: '2rem',
-      }}
     >
-      {collectect?.map((instance) => {
-        return (
-          <Stack
-            direction={'column'}
-            sx={{
-              width: { xs: 1, lg: '30vw', xl: 440 },
-              display: 'flex',
-              flexWrap: 'wrap',
-            }}
-          >
-            {renderInstances('grid', instance)}
-          </Stack>
-        );
-      })}
+      <Grid container spacing={2}>
+        {collectect?.map((instance, index) => {
+          return (
+            <Grid key={index} item xs={12} sm={6} md={4} lg={3} xl2={2}>
+              {renderInstances('grid', instance)}
+            </Grid>
+          );
+        })}
+      </Grid>
     </InfiniteScroll>
   );
 };
