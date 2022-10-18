@@ -4,7 +4,8 @@ import { ErrorPage } from 'views/error';
 
 const Error = ({ statusCode }) => {
   const page = window.location.pathname;
-  const errormsg = `You have error in Accounts on page ${page}`;
+  const host = window.location.host;
+  const errormsg = `You have error in ${host} on page ${page}`;
 
   React.useEffect(() => {
     slackNotify(errormsg);
