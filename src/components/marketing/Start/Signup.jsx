@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import * as React from 'react';
 
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import {
   Container,
   Grid,
@@ -28,6 +27,7 @@ import {
   FormInput,
   SubmitBtn,
 } from 'components/accounts';
+import { EmailOutlined } from '@mui/icons-material';
 
 export const Signup = ({
   message = 'What team are you from?',
@@ -170,7 +170,7 @@ export const Signup = ({
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <AlternateEmailIcon />
+                          <EmailOutlined />
                         </InputAdornment>
                       ),
                     }}
