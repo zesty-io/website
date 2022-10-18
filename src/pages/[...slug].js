@@ -51,8 +51,6 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
     },
   };
 
-  console.log(data);
-
   // This section holds data settings for fetching Github Data
   if (req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
     data.github_data = await githubFetch({
