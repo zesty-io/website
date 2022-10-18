@@ -33,7 +33,7 @@ import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
-import { Container, filledInputClasses, Grid, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 

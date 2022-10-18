@@ -11,8 +11,8 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 const SidebarNav = ({ customRouting }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
-  let path = (window && window.location) ? window.location.pathname : '';
-  const hasActiveLink = (url) => (path == url);
+  let path = window && window.location ? window.location.pathname : '';
+  const hasActiveLink = (url) => path == url;
   return (
     <Box>
       <Box width={1} paddingX={2} paddingY={1}>
@@ -27,8 +27,8 @@ const SidebarNav = ({ customRouting }) => {
             component={'img'}
             src={
               mode === 'light'
-              ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
-              : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+                ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
             }
             height={1}
             width={1}
@@ -36,32 +36,31 @@ const SidebarNav = ({ customRouting }) => {
         </Box>
       </Box>
       <Box paddingX={2} paddingY={2}>
-      {customRouting.map(route => (
+        {customRouting.map((route) => (
           <Box>
             {/* Items with Children */}
-            {route.parentZUID == null && route.children.length > 0 &&
+            {route.parentZUID == null && route.children.length > 0 && (
               <NavItem
                 title={route.title}
                 id={route.zuid}
                 items={route.children}
               />
-            }
+            )}
             {/* Single Items */}
-            {route.parentZUID == null && route.children.length == 0 &&
-              <Typography sx={{mt: 1, mb: 1}}>
-                <Link href={route.url}
+            {route.parentZUID == null && route.children.length == 0 && (
+              <Typography sx={{ mt: 1, mb: 1 }}>
+                <Link
+                  href={route.url}
                   fontWeight={hasActiveLink(route.url) ? 600 : 400}
                   color={hasActiveLink(route.url) ? 'primary' : 'text.primary'}
                   underline="none"
-                  >
+                >
                   {route.title}
                 </Link>
               </Typography>
-            }
+            )}
           </Box>
         ))}
-
-       
 
         <Box marginTop={2}>
           <Button
@@ -69,13 +68,13 @@ const SidebarNav = ({ customRouting }) => {
             variant="outlined"
             fullWidth
             component="a"
-            href="https://accounts.zesty.io"
+            href="/login"
           >
             Login
           </Button>
         </Box>
         <Box marginTop={1}>
-          <TryFreeButton 
+          <TryFreeButton
             size={'large'}
             variant="contained"
             color="primary"
@@ -83,7 +82,6 @@ const SidebarNav = ({ customRouting }) => {
             component="a"
             target="blank"
           />
-         
         </Box>
       </Box>
     </Box>

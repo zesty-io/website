@@ -2,9 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography, Grid, Container } from '@mui/material';
-import TryFreeButton from 'components/cta/TryFreeButton';
-import DemoCta from 'components/cta/DemoCta';
+import { Box, Typography, Container } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import ZestyImage from 'blocks/Image/ZestyImage';
 

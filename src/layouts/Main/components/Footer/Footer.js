@@ -35,8 +35,12 @@ const Footer = ({ customRouting, colorInvert = false }) => {
 
   return (
     <Box
+      component="footer"
       display={hideNav ? 'none' : 'flex'}
-      sx={{ background: backgroundColor }}
+      sx={{
+        background: backgroundColor,
+        display: router?.query?.slug?.[0] === 'login' && 'none',
+      }}
     >
       <Container paddingY={2}>
         <Grid

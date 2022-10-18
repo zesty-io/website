@@ -42,10 +42,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Hero from 'components/marketing/Homepage/Hero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
-import Growth from 'components/marketing/Homepage/Growth';
+import Growth from 'blocks/zesty/Growth/Growth';
 import CaseStudies from 'components/marketing/Homepage/CaseStudies';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
-import Bottom from 'components/marketing/Homepage/Bottom';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -53,6 +53,7 @@ import { useEffect } from 'react';
 import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
 import MiddleCta from 'components/marketing/Homepage/MiddleCta';
 import { WithHighlightedCard } from 'blocks/testimonials';
+import Dashboard from 'components/accounts/dashboard';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -79,7 +80,7 @@ function Homepage({ content }) {
   };
 
   useEffect(() => {
-    AOS.init({
+    window.AOS.init({
       disable: isMedium,
     });
   }, [isMedium]);
@@ -93,6 +94,26 @@ function Homepage({ content }) {
       };
     },
   );
+
+  if (content?.zesty?.isAuthenticated) {
+    return <Dashboard />;
+  }
+  const growthData = {
+    background: content?.growth_background?.data[0].url || '',
+    titleAndDescription:
+      content.growth_title_and_description || FillerContent.rich_text,
+    cards: content?.growth_cards?.data,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_cta_graphic?.data[0].url || '',
+    titleAndDescription:
+      content.bottom_cta_title_and_description || FillerContent.rich_text,
+    cta_text: content.footer_button_text_1 || FillerContent.cta,
+    secondary_cta_text: content.footer_button_text_2 || FillerContent.cta,
+    secondary_cta_link:
+      content.footer_button_link_2?.data[0].meta.web.uri || FillerContent.href,
+  };
 
   return (
     <>
@@ -119,11 +140,11 @@ function Homepage({ content }) {
         header_content={content.middle_cta_header}
         {...pageData}
       />
-      <Growth {...pageData} />
+      <Growth {...growthData} />
       <CaseStudies {...pageData} />
       <WithHighlightedCard {...testimonialsData} />
       <LogoSlider cta_text={content.marketplace_cta_text} {...pageData} />
-      <Bottom {...pageData} />
+      <Bottom {...bottomData} />
     </>
   );
 }

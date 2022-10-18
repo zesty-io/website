@@ -3,19 +3,7 @@
  * */
 
 import React from 'react';
-import {
-  Box,
-  Button,
-  Card,
-  cardClasses,
-  Container,
-  Divider,
-  Grid,
-  Link,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
 /**
  * Helper Imports
@@ -33,10 +21,9 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
   return (
     <Box
       mb={10}
-      paddingY={isMobile ? 5 : 10}
+      pt={20}
       sx={{
         position: 'relative',
-
         background: theme.palette.zesty.zestyLightRedOrange,
       }}
     >
@@ -125,7 +112,7 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
                     fullWidth={isMobile}
                     sx={{ textDecoration: 'underline' }}
                   >
-                    {content.bottom_cta_secondary}
+                    {content.bottom_cta_secondary || FillerContent.cta}
                     <ArrowRightAltIcon />
                   </Button>
                 </Box>

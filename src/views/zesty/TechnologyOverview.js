@@ -25,7 +25,7 @@
  */
 
 // MUI Imports
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -39,9 +39,12 @@ import HeadlessApi from '../../components/marketing/TechnologyOverview/HeadlessA
 import TopBrands from '../../blocks/caseStudies/TopBrands';
 import Articles from '../../blocks/blog/Articles/Articles';
 import TechStack from '../../blocks/integrations/TechStack';
+import Growth from 'blocks/zesty/Growth/Growth';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 function TechnologyOverview({ content }) {
   const theme = useTheme();
@@ -57,7 +60,7 @@ function TechnologyOverview({ content }) {
   };
 
   const timelineData = {
-    header: content.how_it_works_header,
+    header: content.how_it_works_header || FillerContent.description,
     data: [
       {
         description: content.step_1_description || FillerContent.description,
@@ -85,16 +88,51 @@ function TechnologyOverview({ content }) {
     cta_link: content.integration_link.data[0].meta.web.uri,
   };
 
+  const growthData = {
+    titleAndDescription:
+      content.growth_title_and_description || FillerContent.rich_text,
+    cards: content?.growth_cards?.data,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_cta_graphic?.data[0].url || '',
+    titleAndDescription:
+      content.bottom_cta_title_and_description || FillerContent.rich_text,
+    cta_text: content.bottom_cta_text || FillerContent.cta,
+    secondary_cta_text: content.bottom_secondary_cta_text || FillerContent.cta,
+    secondary_cta_link: content.bottom_secondary_cta_link || FillerContent.href,
+  };
+
   return (
     <Box>
       <Hero {...pageData} />
+      <Container sx={{ pb: 15 }}>
+        <SimpleCardLogo
+          variant="outlined"
+          logoItems={content?.logos?.data || []}
+        />
+      </Container>
       <UseCase {...pageData} />
       <TimeLine timelineData={timelineData} {...pageData} />
+      <Box sx={{ py: 5 }}>
+        <Growth {...growthData} />s
+      </Box>
       <GetStarted {...pageData} />
       <Features {...pageData} />
       <HeadlessApi {...pageData} />
-      <TechStack {...techStackData} {...pageData} />
-      <TopBrands title={content.case_study_header} {...pageData} />
+      <Box sx={{ pt: 10 }}>
+        <TechStack
+          background={theme.palette.common.white}
+          {...techStackData}
+          {...pageData}
+        />
+      </Box>
+      <TopBrands
+        backgroundColor={theme.palette.common.white}
+        title={content.case_study_header}
+        {...pageData}
+      />
+      <Bottom {...bottomData} />
       <Articles
         title={content.articles_header}
         articles={content.articles?.data}

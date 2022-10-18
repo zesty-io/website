@@ -9,7 +9,6 @@ import Divider from '@mui/material/Divider';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
 import SubscribeCTA from 'components/cta/SubscribeCTA';
-import { useTheme, alpha } from '@mui/material/styles';
 
 const Hero = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
   const LeftSide = () => (

@@ -12,6 +12,7 @@ const TechStack = ({
   cta_text,
   cta_link,
   textHighlight,
+  background,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -28,9 +29,11 @@ const TechStack = ({
     <Box component="section" sx={{ px: 4 }}>
       <Box
         sx={{
-          background: theme.palette.zesty.zestySeaShell,
+          background: background
+            ? background
+            : theme.palette.zesty.zestySeaShell,
           borderRadius: 10,
-          py: 10,
+          py: 15,
         }}
       >
         <Container>
@@ -38,33 +41,23 @@ const TechStack = ({
             <Grid item sm={12} md={6}>
               <MuiMarkdown
                 overrides={{
-                  span: {
-                    component: Typography,
-                    props: {
-                      component: 'span',
-                      sx: {
-                        fontWeight: 'inherit',
-                        fontSize: 'inherit',
-                        color: theme.palette.zesty.zestyOrange,
-                      },
-                    },
-                  },
                   h2: {
                     component: Typography,
                     props: {
-                      variant: 'h4',
+                      variant: 'h5',
                       component: 'h3',
                       sx: {
+                        fontWeight: 'bold',
                         fontWeight: 500,
-                        color: theme.palette.zesty.zestyZambezi,
+                        color: theme.palette.zesty.zestyOrange,
                       },
                     },
                   },
                   h3: {
                     component: Typography,
                     props: {
-                      variant: 'h3',
-                      component: 'h2',
+                      variant: 'h4',
+                      component: 'h4',
                       sx: {
                         mt: 2,
                         fontWeight: 'bold',
@@ -76,7 +69,7 @@ const TechStack = ({
                   p: {
                     component: Typography,
                     props: {
-                      variant: 'h5',
+                      variant: 'h6',
                       component: 'p',
                       sx: {
                         mt: 2,
