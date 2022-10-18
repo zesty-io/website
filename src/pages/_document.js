@@ -51,25 +51,29 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-          <noscript>
-            <iframe
-              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-              height="0"
-              width="0"
-              style={{ display: 'none', visibility: 'hidden' }}
-            ></iframe>
-          </noscript>
+          {!isAuthenticated && (
+            <noscript>
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+                height="0"
+                width="0"
+                style={{ display: 'none', visibility: 'hidden' }}
+              ></iframe>
+            </noscript>
+          )}
 
           {/* Zoominfo */}
-          <noscript>
-            <img
-              src="https://ws.zoominfo.com/pixel/62cc55bc7b3465008f482d68"
-              width="1"
-              height="1"
-              style={{ display: 'none' }}
-              alt="websights"
-            />
-          </noscript>
+          {!isAuthenticated && (
+            <noscript>
+              <img
+                src="https://ws.zoominfo.com/pixel/62cc55bc7b3465008f482d68"
+                width="1"
+                height="1"
+                style={{ display: 'none' }}
+                alt="websights"
+              />
+            </noscript>
+          )}
           <Main />
           <NextScript />
         </body>
