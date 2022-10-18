@@ -3,9 +3,11 @@ import useFetch from 'components/hooks/useFetch';
 import MuiMarkdown from 'mui-markdown';
 import { Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const SiteBanner = ({ children }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [bannerContent, setBannerContent] = useState([]);
 
   let zestyURL = process.env.zesty.production
@@ -33,11 +35,11 @@ const SiteBanner = ({ children }) => {
           textAlign={'center'}
           alignItems="center"
           sx={{ background: theme.palette.zesty.zestyBanner }}
-          direction="row"
+          direction={isMobile ? 'column' : 'row'}
         >
           <Stack
             sx={{
-              background: theme.palette.zesty.zestyBanner2,
+              background: theme.palette.zesty.zestyOrange,
               borderRadius: '5px',
               px: 1,
               mr: 1,
@@ -53,6 +55,7 @@ const SiteBanner = ({ children }) => {
                 p: {
                   component: Typography,
                   props: {
+                    mt: isMobile ? 1 : 0,
                     variant: 'body1',
                     color: theme.palette.common.white,
                   },
