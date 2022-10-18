@@ -12,17 +12,16 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 // import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
-
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
-
 import { getCookie, setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container, Stack, Typography } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { AccountsAppbar } from 'components/console/AccountsAppbar';
 import { grey } from '@mui/material/colors';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 import AppFooter from './components/Footer/AppFooter';
+import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
 
 const Main = ({
   children,
@@ -136,7 +135,7 @@ const Main = ({
 
   return (
     <Box>
-      {isLoggedIn === false && <SiteBanner></SiteBanner>}
+      {isLoggedIn === false && <SiteBanner />}
       {isLoggedIn === false && (
         <Box
           id="topNavBox"
@@ -247,31 +246,3 @@ Main.propTypes = {
 };
 
 export default Main;
-
-const SiteBanner = ({
-  children = (
-    <Typography variant="body1" color={'white'}>
-      See how Zesty works in the 12-minute demo video. Watch now.
-    </Typography>
-  ),
-}) => {
-  return (
-    <Stack
-      px={{ xs: 2 }}
-      py={1.5}
-      justifyContent={'center'}
-      justifyItems="center"
-      textAlign={'center'}
-      alignItems="center"
-      sx={{ background: '#1B253F' }}
-      direction="row"
-    >
-      <Stack sx={{ background: '#30B3B0', borderRadius: '5px', px: 1, mr: 1 }}>
-        <Typography variant="caption" color={'white'}>
-          NEW
-        </Typography>
-      </Stack>
-      {children}
-    </Stack>
-  );
-};

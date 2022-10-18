@@ -41,6 +41,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   res.setHeader('Surrogate-Control', 'max-age=60');
 
   // attempt to get page data relative to zesty
+
   let data = await fetchPage(resolvedUrl);
 
   data = {
@@ -49,6 +50,8 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       isAuthenticated,
     },
   };
+
+  console.log(data);
 
   // This section holds data settings for fetching Github Data
   if (req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
