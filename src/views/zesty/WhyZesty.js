@@ -25,7 +25,7 @@
  */
 
 import React from 'react';
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+//import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
 import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
 import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
 import WithBorderedCardsAndBrandColor from 'blocks/stats/WithBorderedCardsAndBrandColor/WithBorderedCardsAndBrandColor.js';
@@ -142,17 +142,6 @@ function WhyZesty({ content }) {
 
   return (
     <>
-      {/* Header */}
-      {/* <Box
-        position={'relative'}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-        }}
-      >
-        <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
-      </Box> */}
-
-      {/* Overview of process */}
       <SingleRowHero
         eyebrow={content.header_title_main}
         header={content.header_title}

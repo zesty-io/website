@@ -13,6 +13,7 @@ const DemoCta = ({
   href = '/demos/video',
   target = '_blank',
   variant = '',
+  color = 'primary',
 }) => {
   return (
     <Button
@@ -22,6 +23,7 @@ const DemoCta = ({
       component="a"
       href={href}
       target={target}
+      color={color}
     >
       {text}
       {icon && <ArrowRightAlt sx={{ ml: 1 }} />}

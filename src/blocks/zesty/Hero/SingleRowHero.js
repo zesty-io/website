@@ -24,7 +24,7 @@ const TwoRowsHero = ({
   const theme = useTheme();
 
   return (
-    <Box component="section" sx={{ py: 10 }}>
+    <Box component="section" sx={{ pt: 15, pb:8 }}>
       <Container
         sx={{
           display: 'flex',
@@ -40,7 +40,7 @@ const TwoRowsHero = ({
           }}
         >
           <Typography
-            component={'span'}
+            component={'h1'}
             variant={'h6'}
             sx={{
               color: theme.palette.zesty.zestyZambezi,
