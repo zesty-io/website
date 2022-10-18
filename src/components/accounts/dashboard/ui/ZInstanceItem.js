@@ -87,7 +87,7 @@ const ZInstanceItem = ({
   return (
     <Stack
       component={Paper}
-      sx={{ border: `1px solid ${grey[400]}`, ...sx }}
+      sx={{ width: '100%', border: `1px solid ${grey[400]}`, ...sx }}
       {...props}
     >
       <Stack
@@ -99,7 +99,7 @@ const ZInstanceItem = ({
         {isLoading ? (
           <Skeleton width="85%" />
         ) : (
-          <Typography variant="h6" noWrap>
+          <Typography width={1} variant="h6" noWrap>
             {title}
           </Typography>
         )}

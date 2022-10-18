@@ -30,7 +30,7 @@ const InstancesGrid = ({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'start',
-        gap: '1rem',
+        gap: '2rem',
       }}
     >
       {collectect?.map((instance) => {
@@ -38,11 +38,10 @@ const InstancesGrid = ({
           <Stack
             direction={'column'}
             sx={{
-              width: '27rem',
+              width: { xs: 1, lg: '30vw', xl: 440 },
               display: 'flex',
               flexWrap: 'wrap',
             }}
-            spacing={2}
           >
             {renderInstances('grid', instance)}
           </Stack>
