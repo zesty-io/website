@@ -4,6 +4,7 @@ import MuiMarkdown from 'mui-markdown';
 import { Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import FillerContent from 'components/globals/FillerContent';
 
 const SiteBanner = ({ children }) => {
   const theme = useTheme();
@@ -70,7 +71,8 @@ const SiteBanner = ({ children }) => {
                 },
               }}
             >
-              {bannerContent.data[0].content.banner_content}
+              {bannerContent.data[0].content.banner_content ||
+                FillerContent.description}
             </MuiMarkdown>
           )}
           {children}
