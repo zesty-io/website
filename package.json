@@ -135,5 +135,11 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "overrides": {
+    "react-virtualized": {
+      "react": "17.0.2",
+      "react-dom": "17.0.2"
+    }
   }
 }
