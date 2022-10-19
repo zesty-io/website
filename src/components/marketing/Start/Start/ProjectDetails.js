@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   CircularProgress,
+  Stack,
   TextField,
   Typography,
 } from '@mui/material';
@@ -13,7 +14,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 import Checkbox from '@mui/material/Checkbox';
 import LaunchIcon from '@mui/icons-material/Launch';
 import { resourceStart } from '../Data/Resources';
-import Image from 'next/image';
 import FillerContent from 'components/globals/FillerContent';
 
 // const repo = 'https://github.com/allenpigar/blog_template_acme';
@@ -130,15 +130,12 @@ export const ProjectDetails = ({
 
   return (
     <Box sx={{ height: '100vh', width: '100%', position: 'relative' }}>
-      <Box sx={{}}>
-        <Image
+      <Stack sx={{ objectFit: 'fill' }}>
+        <img
           src={placard_image || FillerContent.image}
           alt="Picture of the author"
-          width={500}
-          height={500}
-          layout="fill"
         />
-      </Box>
+      </Stack>
       <Box
         px={10}
         sx={{
