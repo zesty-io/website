@@ -75,7 +75,8 @@ const SideContent = ({
         <List disablePadding>
           {teams?.length === 0
             ? 'No Teams Found.'
-            : teams
+            : Array.isArray(teams) &&
+              teams
                 ?.slice(0, totalTeamsLimit)
                 ?.map((team, index) => (
                   <ZMyListItem

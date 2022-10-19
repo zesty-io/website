@@ -1,6 +1,7 @@
-import { Grid, List, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import ZInstanceItem from '../dashboard/ui/ZInstanceItem';
+import VirtualizedMUIGrid from 'mui-virtualized-grid';
 
 const InstancesTypes = ({
   view,
@@ -38,27 +39,48 @@ const InstancesTypes = ({
         </Typography>
 
         {view === 'list' ? (
-          <List>
-            {lists?.map((instance) => {
-              return renderInstances('list', instance);
-            })}
-          </List>
+          <Stack>
+            <VirtualizedMUIGrid
+              columns={1}
+              variant="List"
+              sx={{ background: 'red' }}
+              containerHeight={lists.length <= 4 ? '30vh' : '50vh'}
+              data={lists}
+              renderItem={(data) => {
+                return renderInstances('list', data);
+              }}
+              rowHeight={76}
+              spacing={1}
+            />
+          </Stack>
         ) : (
-          <Grid container spacing={2}>
-            {isLoading
-              ? [...new Array(12)].map((i) => (
-                  <Grid key={i} item xs={12} sm={6} md={4} lg={3} xl2={2}>
-                    <ZInstanceItem isLoading={isLoading} />
-                  </Grid>
-                ))
-              : lists?.map((instance, index) => {
+          <>
+            {isLoading ? (
+              <Grid container spacing={2}>
+                {[...new Array(12)].map((i) => {
                   return (
-                    <Grid key={index} item xs={12} sm={6} md={4} lg={3} xl2={2}>
-                      {renderInstances('grid', instance)}
+                    <Grid key={i} item xs={12} sm={6} md={4} lg={3} xl2={2}>
+                      <ZInstanceItem isLoading={isLoading} />
                     </Grid>
                   );
                 })}
-          </Grid>
+              </Grid>
+            ) : (
+              <Stack sx={{ pt: 1 }}>
+                <VirtualizedMUIGrid
+                  columns={4}
+                  variant="Grid"
+                  containerHeight={lists.length <= 4 ? 350 : '65vh'}
+                  data={lists}
+                  renderItem={(data) => {
+                    return renderInstances('grid', data);
+                  }}
+                  rowHeight={350}
+                  spacing={2}
+                />
+              </Stack>
+            )}
+          </>
         )}
       </Stack>
     )

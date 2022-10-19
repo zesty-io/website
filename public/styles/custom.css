@@ -5,9 +5,11 @@ html {
 h1 span {
   color: #497edf;
 }
+
 h2 span {
   color: #497edf;
 }
+
 .wysiwyg .css-j485j-MuiAvatar-root {
   position: relative;
   display: -webkit-box;
@@ -45,3 +47,14 @@ h2 span {
   margin-right: 10px;
 }
 
+
+div[class*='OdsVirtualizedMUIGrid-root'] {
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+div[class*='OdsVirtualizedMUIGrid-root']::-webkit-scrollbar {
+
+  display: none;
+}
