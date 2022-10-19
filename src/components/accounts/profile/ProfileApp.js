@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Box,
   Typography,
-  Grid,
   Card,
   CardMedia,
   Skeleton,
@@ -31,39 +30,40 @@ import { useTheme } from '@mui/material/styles';
 
 const ProfileNavigation = ({ lists, handleChange, currentPage = '' }) => {
   return (
-    <Box px={1} pb={5}>
-      <List>
-        {lists.map((list, index) => (
-          <ListItem
-            title={list.label}
-            key={index}
-            onClick={() => handleChange(list.filename)}
-            disablePadding
-            selected={list.filename === currentPage}
-            sx={(theme) => ({
-              my: 1,
-              borderRadius: '5px',
-              color: theme.palette.text.secondary,
-              '&.Mui-selected': {
-                ' .MuiListItemIcon-root': {
-                  color: theme.palette.primary.main,
-                },
-                bgcolor: lighten(theme.palette.primary.light, 0.9),
-                pointerEvents: 'none',
+    <List sx={{ padding: '0 8px 0 8px' }}>
+      {lists.map((list, index) => (
+        <ListItem
+          title={list.label}
+          key={index}
+          onClick={() => handleChange(list.filename)}
+          disablePadding
+          selected={list.filename === currentPage}
+          sx={(theme) => ({
+            borderRadius: '5px',
+            my: 0.2,
+            color: theme.palette.text.secondary,
+            '&.Mui-selected': {
+              ' .MuiListItemIcon-root': {
                 color: theme.palette.primary.main,
               },
-            })}
+              bgcolor: lighten(theme.palette.primary.light, 0.9),
+              pointerEvents: 'none',
+              color: theme.palette.primary.main,
+            },
+          })}
+        >
+          <ListItemButton
+            color="warning"
+            sx={{ borderRadius: '5px', padding: '6px 12px' }}
           >
-            <ListItemButton color="warning">
-              <ListItemIcon sx={{ minWidth: 40 }}>{list.icon}</ListItemIcon>
-              <ListItemText
-                primary={<Typography variant="body1">{list.label}</Typography>}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+            <ListItemIcon sx={{ minWidth: 35 }}>{list.icon}</ListItemIcon>
+            <ListItemText
+              primary={<Typography variant="body3">{list.label}</Typography>}
+            />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
   );
 };
 const profileTabs = [
@@ -102,7 +102,7 @@ const ProfileHeader = ({ userInfo }) => {
       }}
     >
       {profileUrl ? (
-        <Stack py={2} pl={4} pr={2}>
+        <Stack p={2}>
           <CardMedia
             component="img"
             height="100%"
@@ -153,14 +153,9 @@ const Index = ({ children }) => {
   return (
     <Box>
       {isLG ? (
-        <Grid container>
-          <Grid
-            item
-            md={3}
-            lg={2}
+        <Box sx={{ display: 'grid', gridTemplateColumns: '240px 1fr' }}>
+          <Box
             sx={(theme) => ({
-              // borderRight: `1px solid ${grey[300]}`,
-              maxWidth: { md: '384px' },
               position: 'sticky',
               top: `${theme.tabTop}px`,
               height: `calc(100vh - ${theme.tabTop}px)`,
@@ -176,19 +171,9 @@ const Index = ({ children }) => {
               handleChange={handleChange}
               currentPage={currentPage}
             />
-          </Grid>
-
-          <Grid item md={9} lg={10}>
-            {/* <Container maxWidth={false}>
-              <Typography py={2} variant="h5" color="text.secondary">
-                {currentPage ? capitalize(currentPage) : 'Overview'}
-              </Typography>
-            </Container>
-            <Divider sx={{ mb: 2 }} /> */}
-            {/* <Container maxWidth={false}>{children}</Container> */}
-            {children}
-          </Grid>
-        </Grid>
+          </Box>
+          <Box>{children}</Box>
+        </Box>
       ) : (
         <Container>
           <ProfileHeader userInfo={userInfo} />

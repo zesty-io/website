@@ -38,13 +38,11 @@ const Bottom = ({
     <Box
       component="section"
       sx={{
-        mt: 5,
         background: theme.palette.zesty.zestyDarkBlueRadialGradient,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
         height: '100%',
-        height: isSmall ? 500 : isMedium ? 850 : isExtraLarge ? 550 : 399,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -55,14 +53,22 @@ const Bottom = ({
           <Grid sm={12} md={7}>
             <Box
               sx={{
-                width: isExtraLarge ? '100%' : 950,
-                mt: isExtraLarge ? 0 : -12.5,
+                position: 'relative',
+                minHeight: isMedium ? 400 : 519,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <ZestyImage
                 width={951}
                 height={519}
-                style={{ width: '100%', maxWidth: 951, height: 'auto' }}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  position: isLarge ? 'inherit' : 'absolute',
+                  bottom: isLarge ? 0 : -37,
+                }}
                 loading="lazy"
                 src={`${graphic || ''}?width=951`}
                 alt="zesty.io"
@@ -79,13 +85,13 @@ const Bottom = ({
             sm={12}
             md={5}
           >
-            <Box sx={{ width: '100%', maxWidth: 501 }}>
+            <Box sx={{ width: '100%', maxWidth: 501, pb: isMedium ? 10 : 0 }}>
               <MuiMarkdown
                 overrides={{
                   span: {
                     component: Typography,
                     props: {
-                      variant: 'h3',
+                      variant: 'h4',
                       component: 'span',
                       sx: {
                         color: theme.palette.common.white,
@@ -97,7 +103,7 @@ const Bottom = ({
                   h2: {
                     component: Typography,
                     props: {
-                      variant: 'h3',
+                      variant: 'h4',
                       component: 'h2',
                       sx: {
                         textAlign: isMedium ? 'center' : 'left',

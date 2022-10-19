@@ -60,9 +60,13 @@ const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
       )}
       {!loading ? (
         <TextField
+          disabled
           sx={(theme) => ({
             borderRadius: '8px',
             bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
+            '& .MuiInputBase-input.Mui-disabled': {
+              WebkitTextFillColor: 'black',
+            },
             '& fieldset': {
               border: `1px solid ${grey[200]}`,
               borderRadius: '8px',

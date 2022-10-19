@@ -31,7 +31,6 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
           <Main />
           <NextScript />
         </body>

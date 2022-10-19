@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Grid,
   List,
   ListItem,
   ListItemButton,
@@ -78,14 +77,9 @@ const Index = ({ children }) => {
   return (
     <Box>
       {isLG ? (
-        <Grid container>
-          <Grid
-            item
-            md={3}
-            lg={2}
+        <Box sx={{ display: 'grid', gridTemplateColumns: '240px 1fr' }}>
+          <Box
             sx={(theme) => ({
-              // borderRight: `1px solid ${grey[300]}`,
-              maxWidth: { md: '384px' },
               position: 'sticky',
               top: `${theme.tabTop}px`,
               height: `calc(100vh - ${theme.tabTop}px)`,
@@ -106,11 +100,9 @@ const Index = ({ children }) => {
               currentPage={currentPage}
               langcode={langcode}
             />
-          </Grid>
-          <Grid item md={9} lg={10}>
-            <Box>{children}</Box>
-          </Grid>
-        </Grid>
+          </Box>
+          <Box>{children}</Box>
+        </Box>
       ) : (
         <Container>
           <InstanceHeader ZestyAPI={ZestyAPI} instance={instance} />
@@ -149,43 +141,44 @@ const Index = ({ children }) => {
 
 function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
   return (
-    <Box px={1} pb={5}>
-      <List>
-        {lists.map((list, index) => (
-          <ListItem
-            title={lang[langcode].tabs[list.filename]}
-            key={index}
-            onClick={() => handleChange(list.filename)}
-            disablePadding
-            selected={list.filename === currentPage}
-            sx={(theme) => ({
-              borderRadius: '5px',
-              my: 1,
-              color: theme.palette.text.secondary,
-              '&.Mui-selected': {
-                ' .MuiListItemIcon-root': {
-                  color: theme.palette.primary.main,
-                },
-                bgcolor: lighten(theme.palette.primary.light, 0.9),
-                pointerEvents: 'none',
+    <List sx={{ padding: '0 8px 0 8px' }}>
+      {lists.map((list, index) => (
+        <ListItem
+          title={lang[langcode].tabs[list.filename]}
+          key={index}
+          onClick={() => handleChange(list.filename)}
+          disablePadding
+          selected={list.filename === currentPage}
+          sx={(theme) => ({
+            borderRadius: '5px',
+            my: 0.2,
+            color: theme.palette.text.secondary,
+            '&.Mui-selected': {
+              ' .MuiListItemIcon-root': {
                 color: theme.palette.primary.main,
               },
-            })}
+              bgcolor: lighten(theme.palette.primary.light, 0.9),
+              pointerEvents: 'none',
+              color: theme.palette.primary.main,
+            },
+          })}
+        >
+          <ListItemButton
+            color="warning"
+            sx={{ borderRadius: '5px', padding: '6px 12px' }}
           >
-            <ListItemButton color="warning" sx={{ borderRadius: '5px' }}>
-              <ListItemIcon sx={{ minWidth: 40 }}>{list.icon}</ListItemIcon>
-              <ListItemText
-                primary={
-                  <Typography variant="body1">
-                    {lang[langcode].tabs[list.filename]}
-                  </Typography>
-                }
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+            <ListItemIcon sx={{ minWidth: 35 }}>{list.icon}</ListItemIcon>
+            <ListItemText
+              primary={
+                <Typography variant="body3">
+                  {lang[langcode].tabs[list.filename]}
+                </Typography>
+              }
+            />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
   );
 }
 export const InstancesApp = React.memo(Index);

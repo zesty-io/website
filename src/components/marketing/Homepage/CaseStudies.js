@@ -160,6 +160,7 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 width={171}
                 height={192}
                 loading="lazy"
+                style={{ width: '100%', height: 'auto' }}
                 src={item.url || FillerContent.photos[0].src}
                 alt={item.type || ''}
               />

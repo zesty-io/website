@@ -18,7 +18,8 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
     <Box
       component="section"
       sx={{
-        py: 15,
+        pt: 15,
+        pb: 20,
         position: 'relative',
         background: theme.palette.zesty.zestyBackgroundBlue,
       }}
@@ -41,11 +42,11 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
               h2: {
                 component: Typography,
                 props: {
-                  variant: 'h3',
-                  component: 'h3',
+                  variant: 'h4',
+                  component: 'h2',
                   sx: {
                     mt: isMobile ? 5 : 0,
-                    color: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.zesty.zestyZambezi,
                     fontWeight: 'bold',
                     letterSpacing: 0.2,
                     textAlign: 'center',

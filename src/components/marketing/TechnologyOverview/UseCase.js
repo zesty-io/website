@@ -17,7 +17,7 @@ import connectionMobile from '../../../../public/assets/images/headless-cms/conn
 
 const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (
-    <Box sx={{ pt: 15, mb: -25 }} component="section">
+    <Box sx={{ pb: 10, mb: -20 }} component="section">
       <Container>
         {/* Features Cards Start */}
         <Box sx={{ pb: 10 }}>
