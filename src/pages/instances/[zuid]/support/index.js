@@ -1,48 +1,42 @@
-import React from 'react';
-import { useZestyStore, getZestyAPI } from 'store';
+import { useEffect, useState, React } from 'react';
 import { useRouter } from 'next/router';
 import { Box } from '@mui/material';
-import TicketsList from 'components/accounts/support/TicketsList';
+import { TicketsTable } from 'components/accounts/support';
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function Support() {
   const router = useRouter();
-  // const { userInfo, workingInstance } = useZestyStore((state) => state);
   const { zuid } = router.query;
+  const [instance, setinstance] = useState(null);
+  const [instanceTickets, setTickets] = useState([]);
 
-  const { setZestyAPI, userInfo, ZestyAPI } = useZestyStore((state) => state);
-  const [instance, setinstance] = React.useState({});
+  const fetchTickets = async () => {
+    setTickets([]);
+    const tickets = await fetch(
+      'https://support-m3rbwjxm5q-uc.a.run.app/?instance=' + zuid,
+      {
+        method: 'GET',
+      },
+    )
+      .then((tickets) => tickets.json())
+      .then((tickets) => {
+        const allTickets = tickets.data?.map((t) => ({
+          ...t,
+          number: t.ticketNumber,
+        }));
+        setTickets(allTickets);
+      });
+  };
 
-  const handleGetInstanceSuccess = (res) => {
-    setinstance(res.data);
-  };
-  const handleGetInstanceErr = (res) => {
-    setinstance('There was an error getting this isntance');
-  };
-
-  const getInstance = async () => {
-    const res = await ZestyAPI.getInstance(zuid);
-    !res.error && handleGetInstanceSuccess(res);
-    res.error && handleGetInstanceErr(res);
-  };
-  const getPageData = async () => {
-    await Promise.all([getInstance()]);
-  };
-  React.useEffect(() => {
-    setZestyAPI(getZestyAPI(zuid));
+  useEffect(() => {
+    setinstance(zuid);
+    fetchTickets();
   }, []);
-  React.useEffect(() => {
-    if (router.isReady) {
-      getPageData();
-    }
-  }, [router.isReady]);
   return (
     <>
       <Box>
-        <TicketsList
-          instanceName={instance.name}
-          instanceZUID={instance.ZUID}
-        />
+        Instance: {instance}
+        <TicketsTable instanceZUID={instance} tickets={instanceTickets} />
         {/* <Typography variant="h4" mb={3} color="text.secondary">
         User ZUID: {userInfo?.ZUID} User Email: {userInfo?.email}
       </Typography> */}
