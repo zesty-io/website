@@ -166,7 +166,7 @@ const Demo = ({ content }) => {
         <SimpleCardLogo
           variant="outlined"
           heading_text={content?.logos_h2}
-          logoItems={content?.logos.data}
+          logoItems={content?.logos?.data}
         />
 
         <DarkBlueCta
