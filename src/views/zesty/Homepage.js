@@ -51,9 +51,9 @@ import Bottom from 'blocks/zesty/Bottom/Bottom';
 import FillerContent from 'components/globals/FillerContent';
 import { useEffect } from 'react';
 import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
-import MiddleCta from 'components/marketing/Homepage/MiddleCta';
 import { WithHighlightedCard } from 'blocks/testimonials';
 import Dashboard from 'components/accounts/dashboard';
+import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -127,23 +127,23 @@ function Homepage({ content }) {
       <AlternateColumns
         {...pageData}
         column_data={alternateColumnsData}
-        header_content={content.zesty_new_benefits}
-        cta_link={content.middle_cta_button_link?.data[0].meta.web.uri}
-        cta_text={content.middle_cta_button_text}
+        header_content={content?.zesty_new_benefits}
+        cta_link={content?.middle_cta_button_link?.data[0].meta.web.uri}
+        cta_text={content?.middle_cta_button_text}
       />
-      <MiddleCta
-        cta_text={content.middle_cta_text}
+      <DarkBlueCta
+        cta_text={content?.middle_cta_text}
         cta_secondary_link={
-          content.middle_cta_secondary_cta_link.data[0].meta.web.uri
+          content?.middle_cta_secondary_cta_link?.data[0].meta.web.uri
         }
-        cta_secondary_text={content.middle_secondary_cta_text}
-        header_content={content.middle_cta_header}
+        cta_secondary_text={content?.middle_secondary_cta_text}
+        header_content={content?.middle_cta_header}
         {...pageData}
       />
       <Growth {...growthData} />
       <CaseStudies {...pageData} />
       <WithHighlightedCard {...testimonialsData} />
-      <LogoSlider cta_text={content.marketplace_cta_text} {...pageData} />
+      <LogoSlider cta_text={content?.marketplace_cta_text} {...pageData} />
       <Bottom {...bottomData} />
     </>
   );

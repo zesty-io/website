@@ -26,148 +26,157 @@
 import { React } from 'react';
 
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-
 import Typography from '@mui/material/Typography';
-
 import FillerContent from 'components/globals/FillerContent';
-import Container from 'components/wrappers/FullWidthContainer';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
+import MuiMarkdown from 'mui-markdown';
+import ZestyImage from 'blocks/Image/ZestyImage';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { Avatar, Grid, Box, Container } from '@mui/material';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 
 const Demo = ({ content }) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   return (
-    <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
-      <Box
-        display={'flex'}
-        flexDirection={{ xs: 'column', md: 'row' }}
-        position={'relative'}
-      >
-        <Box
-          width={1}
-          order={{ xs: 2, md: 1 }}
-          display={'flex'}
-          alignItems={'center'}
-        >
-          <Container>
-            <Box marginBottom={4}>
-              <Typography
-                sx={{
-                  textTransform: 'uppercase',
-                  fontWeight: 'medium',
-                }}
-                gutterBottom
-                color={'text.secondary'}
-              >
-                {content.header_title}
-              </Typography>
-              <Typography
-                variant="h4"
-                sx={{
-                  fontWeight: 700,
-                }}
-              >
-                {content.callout_title}
-              </Typography>
-              <Typography color="text.secondary">
-                {content.header_description}
-              </Typography>
-            </Box>
-            {/* <Form
-              eyebrow={content.header_title}
-                title={content.callout_title}
-                subtitle={content.header_description}
-                ctaButtonText={content.callout_button_text}
-              /> */}
-            {/* 
-            removed in place to 
-            
-            <StandardFormWithSelect
-              leadDetail="Demo Sign Up"
-              selectedValue={2}
-              hideSelect={true}
-              modalTitle="Thank you for submitting your request."
-              modalMessage="Our team will be in touch soon to schedule a demo with you."
-              phoneNumber={true}
-            /> */}
-            <ZohoFormEmbed height="600px" formURL="" />
-          </Container>
-        </Box>
-        <Box
+    <Container sx={{ sm: 1, md: 1236, py: 15 }}>
+      <Grid container>
+        <Grid
           sx={{
-            flex: { xs: '0 0 100%', md: '0 0 50%' },
-            position: 'relative',
-            maxWidth: { xs: '100%', md: '50%' },
-            order: { xs: 1, md: 2 },
-            minHeight: { xs: 'auto', md: 'calc(100vh - 58px)' },
+            px: 4,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
+          item
+          xs={12}
+          md={6}
         >
-          <Box
-            sx={{
-              width: { xs: 1, md: '50vw' },
-              height: '100%',
-              position: 'relative',
-            }}
-          >
+          <Box>
+            <Box>
+              <MuiMarkdown
+                overrides={{
+                  h1: {
+                    component: Typography,
+                    props: {
+                      variant: 'h3',
+                      fontWeight: 'bold',
+                      component: 'h1',
+                      color: theme.palette.zesty.zestyZambezi,
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h6',
+                      component: 'p',
+                      lineHeight: 1.2,
+                      mt: 2,
+                      color: theme.palette.zesty.zestyZambezi,
+                    },
+                  },
+                }}
+              >
+                {content?.demo_description}
+              </MuiMarkdown>
+            </Box>
+
             <Box
               sx={{
-                width: '100%',
-                height: '100%',
-                overflow: 'hidden',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: isMobile ? 'center' : 'flex-start',
+                gap: 2,
+                mt: 4,
               }}
             >
-              <Box
-                sx={{
-                  overflow: 'hidden',
-                  left: '0%',
-                  width: 1,
-                  height: 1,
-                  position: { xs: 'relative', md: 'absolute' },
-                  clipPath: {
-                    xs: 'none',
-                    md: 'polygon(10% 0%, 100% 0, 100% 100%, 0% 100%)',
-                  },
-                  shapeOutside: {
-                    xs: 'none',
-                    md: 'polygon(10% 0%, 100% 0, 100% 100%, 0% 100%)',
-                  },
-                }}
-              >
-                <Box
-                  sx={{
-                    height: { xs: 'auto', md: 1 },
-                    '& img': {
-                      objectFit: 'cover',
-                    },
-                    '& .lazy-load-image-loaded': {
-                      height: 1,
-                      width: 1,
-                    },
-                  }}
-                >
-                  <Box
-                    component={LazyLoadImage}
-                    effect="blur"
-                    src={
-                      content.callout_image.data[0]?.url || FillerContent.image
-                    }
-                    height={{ xs: 'auto', md: 1 }}
-                    maxHeight={{ xs: 300, md: 1 }}
-                    width={1}
-                    maxWidth={1}
-                    sx={{
-                      filter:
-                        theme.palette.mode === 'dark'
-                          ? 'brightness(0.7)'
-                          : 'none',
-                    }}
+              {content?.g2_badges?.data.map((item, index) => (
+                <Box key={index}>
+                  <ZestyImage
+                    width={100}
+                    height={120}
+                    style={{ width: 'auto', height: 'auto' }}
+                    src={item?.badge_image?.data[0].url || FillerContent.href}
                   />
                 </Box>
-              </Box>
+              ))}
+            </Box>
+
+            <Box sx={{ my: 4 }}>
+              {content?.testimonial.data.map((item) => (
+                <Box>
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    sx={{
+                      lineHeight: 1.2,
+                      fontStyle: 'italic',
+                      color: theme.palette.zestyZambezi,
+                    }}
+                  >
+                    {item?.review}
+                  </Typography>
+
+                  <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
+                    <Avatar
+                      src={
+                        item?.reviewer_headshot?.data[0]?.url ||
+                        FillerContent.photos[0].src
+                      }
+                      alt={item?.reviewer_name}
+                    />
+                    <Box>
+                      <Typography
+                        variant="body1"
+                        component="p"
+                        sx={{
+                          lineHeight: 1.2,
+                          color: theme.palette.zestyZambezi,
+                        }}
+                      >
+                        {item?.reviewer_name}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        component="p"
+                        sx={{
+                          lineHeight: 1.2,
+                          color: theme.palette.zestyZambezi,
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        {item?.reviewer_title}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              ))}
             </Box>
           </Box>
-        </Box>
+        </Grid>
+        <Grid sx={{ mt: isMobile ? 4 : 0 }} item xs={12} md={6}>
+          <Box>
+            <ZohoFormEmbed height="620px" formURL="" />
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Box sx={{ mt: 10 }}>
+        <SimpleCardLogo
+          variant="outlined"
+          heading_text={content?.logos_h2}
+          logoItems={content?.logos.data}
+        />
+
+        <DarkBlueCta
+          cta_text={content?.cta_button}
+          cta_secondary_link={
+            content?.cta_button_secondary_link?.data[0].meta.web.uri
+          }
+          cta_secondary_text={content?.cta_button_secondary}
+          header_content={content?.bottom_cta}
+        />
       </Box>
     </Container>
   );
