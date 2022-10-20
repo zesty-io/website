@@ -319,3 +319,11 @@ export const gravatarImg = (userInfo = {}) => {
   const res = 'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
   return res;
 };
+
+export const isMatch = (values, matchValue) => {
+  for (let i = 0; i < values.length; i++) {
+    if (values[i]?.toString().toLowerCase().includes(matchValue)) return true;
+  }
+
+  return false;
+};
