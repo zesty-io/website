@@ -12,7 +12,11 @@ export default async function getServerSideProps({ req, res, resolvedUrl }) {
   }
 
   return {
-    props: {},
+    props: {
+      zesty: {
+        isAuthenticated,
+      },
+    },
   };
 }
 

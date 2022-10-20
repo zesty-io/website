@@ -133,6 +133,14 @@ const Main = ({
     }
   }, [isAuthenticated, isUser]);
 
+  React.useEffect(() => {
+    if (Object.keys(userInfo?.data || {}) !== 0) {
+      setCookie('APP_USER_ZUID', userInfo?.ZUID);
+      setCookie('APP_USER_EMAIL', userInfo?.email);
+      setCookie('APP_USER_FIRST_NAME', userInfo?.firstName);
+      setCookie('APP_USER_LAST_NAME', userInfo?.lastName);
+    }
+  }, [userInfo]);
   return (
     <Box>
       {isLoggedIn === false && <SiteBanner />}

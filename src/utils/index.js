@@ -319,3 +319,7 @@ export const gravatarImg = (userInfo = {}) => {
   const res = 'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
   return res;
 };
+
+export const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
