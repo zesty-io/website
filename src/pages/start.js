@@ -264,6 +264,7 @@ export default function Start(props) {
     currentStep,
     firstName,
     lastName,
+    email,
     role,
     userObject,
     welcomeMessage,
