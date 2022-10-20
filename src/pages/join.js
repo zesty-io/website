@@ -316,7 +316,7 @@ export default function Join(props) {
           <WelcomeScreen
             firstname={firstName}
             lastname={lastName}
-            email={firstName}
+            email={email}
             role={role}
             projectType={projectType}
             userZUID={userObject?.data?.ZUID}
