@@ -21,6 +21,8 @@ const SimpleCardLogo = ({
   logoItems = FillerContent.logos,
   heading_text = '',
   textOutside = false,
+  maxWidth = 1500,
+  variant = 'elevation',
 }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -37,7 +39,7 @@ const SimpleCardLogo = ({
 
   return (
     <Box component="section">
-      <Container>
+      <Container sx={{ maxWidth: maxWidth }}>
         {textOutside && (
           <MuiMarkdown
             overrides={{
@@ -59,7 +61,14 @@ const SimpleCardLogo = ({
             {heading_text}
           </MuiMarkdown>
         )}
-        <Card sx={{ py: 2 }}>
+        <Card
+          variant={variant}
+          sx={{
+            py: 2,
+            border: variant === 'outlined' ? 'none' : '',
+            background: 'transparent',
+          }}
+        >
           <CardContent>
             {!textOutside && (
               <MuiMarkdown
@@ -95,22 +104,25 @@ const SimpleCardLogo = ({
                 <Box key={index} sx={{ display: 'flex' }}>
                   <ZestyImage
                     width={150}
-                    height={50}
+                    height={45}
                     loading="lazy"
                     style={{
                       filter: isDarkMode
                         ? `${
-                            item.customer_name === 'Phoenix Suns'
+                            item?.customer_name === 'Phoenix Suns'
                               ? ''
                               : 'brightness(0%)'
                           } invert(1)`
                         : '',
                     }}
-                    alt={item.customer_name || ''}
+                    alt={item?.customer_name || ''}
                     src={
-                      item.customer_name === 'Phoenix Suns' && isDarkMode
+                      item?.customer_name === 'Phoenix Suns' && isDarkMode
                         ? sunsDarkLogoUrl
-                        : `${item.customer_logo?.data[0].url}`
+                        : `${
+                            item.customer_logo?.data[0].url ||
+                            FillerContent.logos[0].url
+                          }`
                     }
                   />
                 </Box>

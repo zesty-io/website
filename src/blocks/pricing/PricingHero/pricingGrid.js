@@ -15,14 +15,21 @@ const pricingGrid = ({ data }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
-  console.log(data);
+
+  const pricingGridData = data.filter((item) => item != undefined);
 
   return (
     <>
       <Box>
         <Grid container spacing={2}>
-          {data.map((item, idx) => (
-            <Grid key={idx} item xs={12} md={6} lg={3}>
+          {pricingGridData.map((item, idx) => (
+            <Grid
+              key={idx}
+              item
+              xs={12}
+              md={pricingGridData.length === 3 ? 4 : 6}
+              lg={pricingGridData.length === 3 ? 4 : 3}
+            >
               <Card
                 sx={{
                   py: 4,
@@ -74,6 +81,7 @@ const pricingGrid = ({ data }) => {
                   <Typography
                     variant="body1"
                     sx={{
+                      minHeight: isMedium ? 0 : isLarge ? 75 : 0,
                       color: theme.palette.zesty.zestyZambezi,
                       textAlign: 'center',
                     }}
@@ -165,12 +173,10 @@ const pricingGrid = ({ data }) => {
                       {item?.includes_header}
                     </Typography>
                   </Box>
-                  <FeatureItem item={item?.support} />
-                  <FeatureItem item={item?.feature1} />
-                  <FeatureItem item={item?.feature2} />
-                  <FeatureItem item={item?.feature3} />
-                  <FeatureItem item={item?.feature4} />
-                  <FeatureItem item={item?.feature5} />
+
+                  {item?.features_included?.data.map((item, index) => (
+                    <FeatureItem key={index} item={item.title} />
+                  ))}
                 </Box>
               </Card>
             </Grid>

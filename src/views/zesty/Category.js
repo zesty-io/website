@@ -27,7 +27,7 @@
  */
 import React, { useEffect, useState } from 'react';
 
-import { FullScreenHeroWithImageSlider, SlashImageHero } from 'blocks/heroes';
+import { SlashImageHero } from 'blocks/heroes';
 import { Breadcrumb } from 'blocks/progressSteps';
 import { Result } from 'blocks/formLayouts';
 import { CtaWithInputField } from 'blocks/cta';
@@ -37,7 +37,6 @@ import { useTheme, alpha } from '@mui/material/styles';
 import FillerContent from 'components/globals/FillerContent';
 
 import Container from 'components/Container';
-import { Typography } from '@mui/material';
 
 function Category({ content }) {
   const theme = useTheme();
@@ -86,7 +85,7 @@ function Category({ content }) {
 
       fetchNews();
     } catch (err) {
-      console.error(`Could Not Find Results: ${error}`);
+      console.error(`Could Not Find Results: ${err}`);
     }
   }, []);
 

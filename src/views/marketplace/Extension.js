@@ -1,20 +1,16 @@
 // prettier-ignore
-import { Accordion, AccordionDetails,AccordionSummary,Box,Button,
-  Chip,Divider,Grid,Link,Stack,Typography, Card, CardContent } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {Box,Button,Grid,Link,Typography, Card, CardContent } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
 import styled from '@emotion/styled';
 import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
-import { getCookie } from 'cookies-next';
 import { AppInstallerComp } from 'components/marketplace/AppInstallerComp';
-import {
-  ModuleInstaller,
-  ResourceLinkComp,
-} from 'components/marketplace/ResourceLinkComp';
+import { ResourceLinkComp } from 'components/marketplace/ResourceLinkComp';
 import LaunchIcon from '@mui/icons-material/Launch';
 import MuiMarkdown from 'mui-markdown';
+import { useZestyStore } from 'store';
+import { useRouter } from 'next/router';
 
 function showDetails(props) {
   return (
@@ -73,8 +69,30 @@ const YoutubeEmbed = ({ youtubeHash }) => {
 };
 
 const InstallButton = ({ data, theme }) => {
+  const { workingInstance } = useZestyStore((state) => state);
+
+  const router = useRouter();
+  const isTemplate = data.meta.web.uri.includes('template') ? true : false;
+  const handleTemplate = () => {
+    router.push({
+      pathname: `/start/`,
+      query: { template: data?.meta?.zuid },
+    });
+  };
+
   if (data.app_zuid) {
     return <AppInstallerComp data={data} />;
+  } else if (isTemplate) {
+    return (
+      <Button
+        onClick={handleTemplate}
+        variant="contained"
+        color="secondary"
+        fullWidth
+      >
+        Install {data.name}
+      </Button>
+    );
   } else if (data.github_url && !data.app_zuid && !data.resource_link) {
     return (
       <ExtensionsIntaller
@@ -84,7 +102,7 @@ const InstallButton = ({ data, theme }) => {
         fullWidth
         extensionName={data?.name}
         githubUrl={data?.github_url}
-        instance={getCookie('ZESTY_WORKING_INSTANCE')}
+        instance={workingInstance}
       />
     );
   } else if (data.resource_link) {

@@ -166,11 +166,17 @@ function DigitalExperiencePlatform({ content }) {
       <Solution {...PageData} />
       <About {...PageData} />
       <Middle {...PageData} />
-
-      <Features features_header={content.features_header} data={feature_data} />
+      <Features
+        cta_button_text={content.feature_cta_text}
+        textHighlight=""
+        card_name_color={theme.palette.zesty.zestyZambezi}
+        features_header={content.features_header}
+        data={feature_data}
+      />
       <Integrations {...PageData} />
       <Implementation {...PageData} />
       <TopBrands
+        backgroundColor={theme.palette.zesty.zestyBackgroundBlue}
         sx={{ pt: 4 }}
         title={content.case_study_header}
         {...PageData}

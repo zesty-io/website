@@ -2,10 +2,9 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, Grid, Button } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
-import ZestyImage from 'blocks/Image/ZestyImage';
 /**
  * Static Assets Imports
  */
@@ -14,7 +13,6 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import TryFreeButton from 'components/cta/TryFreeButton';
-import DemoCta from 'components/cta/DemoCta';
 import ArrowRightAlt from '@mui/icons-material/ArrowRightAlt';
 
 const MiddleCta = ({
@@ -30,9 +28,9 @@ const MiddleCta = ({
     <Box component="section">
       <Container
         sx={{
-          background:
-            'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(41, 48, 86, 1) 0%, #1B202C 100%)',
+          background: theme.palette.zesty.zestyDarkBlueRadialGradient,
           py: 10,
+          mt: 15,
           borderRadius: 5,
         }}
       >
@@ -64,7 +62,7 @@ const MiddleCta = ({
               },
             }}
           >
-            {header_content}
+            {header_content || FillerContent.rich_text}
           </MuiMarkdown>
           <Box
             sx={{
@@ -76,7 +74,7 @@ const MiddleCta = ({
             }}
           >
             <TryFreeButton
-              text={cta_text}
+              text={cta_text || FillerContent.cta}
               variant="contained"
               color="secondary"
             />
@@ -87,10 +85,11 @@ const MiddleCta = ({
               color="secondary"
               variant="outlined"
               sx={{
-                color: theme.palette.zesty.zetsyOrange,
+                color: theme.palette.common.white,
+                border: `1px solid ${theme.palette.common.white}`,
               }}
             >
-              {cta_secondary_text}
+              {cta_secondary_text || FillerContent.cta}
               <ArrowRightAlt sx={{ ml: 1 }} />
             </Button>
           </Box>

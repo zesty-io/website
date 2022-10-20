@@ -7,7 +7,7 @@ import { fetchPage } from 'lib/api';
 /**
  * React Imports
  */
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -18,12 +18,10 @@ import { useRouter } from 'next/router';
 
 // import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
 import MarketplaceContainer from 'components/marketplace/landing/MarketplaceContainer';
-import MarketplaceEntities from 'components/marketplace/MarketplaceEntities';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
 import Hero from 'components/marketplace/landing/Hero';
-import AppBar from 'components/console/AppBar';
-import { TryRounded } from '@mui/icons-material';
+// import AppBar from 'components/console/AppBar';
 
 const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
   const router = useRouter();
@@ -31,7 +29,7 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
     seoDescription = props.meta.web.seo_meta_description;
 
   useEffect(() => {
-    setCookies('PRODUCTION', props.zestyProductionMode);
+    setCookie('PRODUCTION', props.zestyProductionMode);
   }, [props]);
 
   return (
@@ -42,7 +40,7 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        <AppBar url={router.asPath} />
+        {/* <AppBar url={router.asPath} /> */}
         <MarketplaceProvider inititalEntities={marketEntities}>
           <Hero
             {...props}
@@ -65,7 +63,7 @@ export async function getServerSideProps({ res, req }) {
 
   // set instance zuid cookie
   if (req.query?.instanceZUID) {
-    setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
+    setCookie('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
   let extensionsURL = process.env.PRODUCTION

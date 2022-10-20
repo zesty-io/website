@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 /**
  * MUI Imports
  */
@@ -16,8 +17,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 const LogoSlider = ({ content, FillerContent, theme, isMedium, cta_text }) => {
-  const slideOne = [content.integrations_logos?.data];
-  const slideTwo = [content.integrations_logos_2?.data];
+  const slideOne = [content?.integrations_logos?.data];
+  const slideTwo = [content?.integrations_logos_2?.data];
 
   /**
    * It creates an array of length repeats, and then maps each element to the original array
@@ -32,7 +33,9 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, cta_text }) => {
       component="section"
       sx={{
         py: 10,
-        background: `url(${content.integrations_background?.data[0].url})`,
+        background: `url(${
+          content?.integrations_background?.data[0].url || ''
+        })`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -70,7 +73,7 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, cta_text }) => {
           },
         }}
       >
-        {content.integration_title_and_description || FillerContent.description}
+        {content?.integration_title_and_description || FillerContent.rich_text}
       </MuiMarkdown>
 
       {cta_text && (
@@ -84,12 +87,12 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, cta_text }) => {
           <Button
             target="_blank"
             sx={{ mt: 2 }}
-            variant="contained"
+            variant="outlined"
             color="secondary"
             component="a"
             href="/marketplace/"
           >
-            {cta_text}
+            {cta_text || FillerContent.cta}
           </Button>
         </Box>
       )}
@@ -106,7 +109,7 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, cta_text }) => {
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}
                   loading="lazy"
                   src={item.logo?.data[0].url || FillerContent.logos[0].url}
-                  alt={item.name}
+                  alt={item.name || ''}
                 />
               ))}
             </Marquee>
@@ -123,7 +126,7 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, cta_text }) => {
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}
                   loading="lazy"
                   src={item.logo?.data[0].url || FillerContent.logos[0].url}
-                  alt={item.name}
+                  alt={item.name || ''}
                 />
               ))}
             </Marquee>

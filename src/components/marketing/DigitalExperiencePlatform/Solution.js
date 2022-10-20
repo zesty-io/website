@@ -15,6 +15,7 @@ import { useState } from 'react';
  * Helpers Imports
  */
 import * as helper from 'utils';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Solution = ({ content, theme, isMobile, FillerContent }) => {
   const [active, setactive] = useState(0);
@@ -24,30 +25,42 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
     {
       id: 0,
       name: 'personalize',
-      icon: content.solutions_icon_1?.data[0]?.url || FillerContent.logos[0].url,
+      icon:
+        content.solutions_icon_1?.data[0]?.url || FillerContent.logos[0].url,
       text: content.solution_1_description || FillerContent.description,
-      subText: content.solution_1_description?.match(headerRegex)[1] || FillerContent.description,
-      img: content.solution_1_graphic.data[0]?.url || FillerContent.logos[0].url,
+      subText:
+        content.solution_1_description?.match(headerRegex)[1] ||
+        FillerContent.description,
+      img:
+        content.solution_1_graphic.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
       href: '',
     },
     {
       id: 1,
       name: 'ecom',
-      icon: content.solutions_icon_2?.data[0]?.url || FillerContent.logos[0].url,
+      icon:
+        content.solutions_icon_2?.data[0]?.url || FillerContent.logos[0].url,
       text: content.solution_2_description || FillerContent.description,
-      subText: content.solution_2_description?.match(headerRegex)[1]  || FillerContent.description,
-      img: content.solution_2_graphic?.data[0]?.url || FillerContent.logos[0].url,
+      subText:
+        content.solution_2_description?.match(headerRegex)[1] ||
+        FillerContent.description,
+      img:
+        content.solution_2_graphic?.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
       href: '',
     },
     {
       id: 2,
       name: 'distribution',
-      icon: content.solutions_icon_3?.data[0]?.url || FillerContent.logos[0].url,
+      icon:
+        content.solutions_icon_3?.data[0]?.url || FillerContent.logos[0].url,
       text: content.solution_3_description || FillerContent.description,
-      subText: content.solution_3_description?.match(headerRegex)[1] || FillerContent.description,
-      img: content.solution_3_graphic.data[0]?.url || FillerContent.logos[0].url,
+      subText:
+        content.solution_3_description?.match(headerRegex)[1] ||
+        FillerContent.description,
+      img:
+        content.solution_3_graphic.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
       href: '',
     },
@@ -56,8 +69,11 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
       name: 'innovate',
       icon: content.solutions_icon_4.data[0]?.url || FillerContent.logos[0].url,
       text: content.solution_4_description || FillerContent.description,
-      subText: content.solution_4_description?.match(headerRegex)[1] || FillerContent.description,
-      img: content.solution_4_graphic.data[0]?.url || FillerContent.logos[0].url,
+      subText:
+        content.solution_4_description?.match(headerRegex)[1] ||
+        FillerContent.description,
+      img:
+        content.solution_4_graphic.data[0]?.url || FillerContent.logos[0].url,
       ctaName: 'Learn More',
       href: '',
     },
@@ -87,6 +103,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                   variant: 'h4',
                   component: 'h2',
                   sx: {
+                    mt: 5,
                     color: theme.palette.zesty.zestyZambezi,
                     textAlign: 'center',
                     fontWeight: 'bold',
@@ -95,7 +112,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
               },
             }}
           >
-            {content.solutions_h2|| FillerContent.description}
+            {content.solutions_h2 || FillerContent.description}
           </MuiMarkdown>
         </Box>
 
@@ -109,7 +126,10 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                     style={{ display: active === 0 ? 'block' : 'none' }}
                   >
                     <Box
-                      src={content[`solution_1_graphic`].data[0].url || FillerContent.logos[0].url}
+                      src={
+                        content[`solution_1_graphic`].data[0].url ||
+                        FillerContent.logos[0].url
+                      }
                       alt=""
                       component="img"
                       sx={{
@@ -123,7 +143,10 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                   >
                     <Box
                       width={imgWidth}
-                      src={content[`solution_2_graphic`].data[0].url || FillerContent.logos[0].url}
+                      src={
+                        content[`solution_2_graphic`].data[0].url ||
+                        FillerContent.logos[0].url
+                      }
                       alt=""
                       component="img"
                       sx={{
@@ -137,7 +160,10 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                   >
                     <Box
                       width={imgWidth}
-                      src={content[`solution_3_graphic`].data[0].url || FillerContent.logos[0].url}
+                      src={
+                        content[`solution_3_graphic`].data[0].url ||
+                        FillerContent.logos[0].url
+                      }
                       alt=""
                       component="img"
                       sx={{
@@ -151,7 +177,10 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                   >
                     <Box
                       width={imgWidth}
-                      src={content[`solution_4_graphic`].data[0].url || FillerContent.logos[0].url}
+                      src={
+                        content[`solution_4_graphic`].data[0].url ||
+                        FillerContent.logos[0].url
+                      }
                       alt=""
                       component="img"
                       sx={{
@@ -183,7 +212,13 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                           cursor: 'pointer',
                         }}
                       >
-                        <img src={e.icon} alt="" width={50} />
+                        <ZestyImage
+                          src={e.icon}
+                          alt=""
+                          width={50}
+                          height={50}
+                          style={{ filter: 'grayscale(100%)' }}
+                        />
                         <Typography
                           component={'p'}
                           variant={'p'}
@@ -205,26 +240,38 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
           </Grid>
         </Box>
 
-        <div data-aos="zoom-in">
+        <Box data-aos="zoom-in" sx={{ py: 10 }}>
           <Grid item xs={12} md={9}>
-            <Box
-              paddingTop={isMobile ? 10 : 10}
-              paddingBottom={10}
-              sx={{
-                textAlign: 'center',
-                color: theme.palette.zesty.zestyZambezi,
-                fontSize: isMobile ? '1rem' : '1.5rem',
-              }}
-              dangerouslySetInnerHTML={{
-                __html: helper.strColorChanger(
-                  content.about_zesty_dxp,
-                  'Zesty',
-                  theme.palette.zesty.zestyOrange,
-                ),
-              }}
-            ></Box>
+            <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
+              <MuiMarkdown
+                overrides={{
+                  h2: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h4',
+                      fontWeight: 'bold',
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h6',
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
+                      mt: 2,
+                    },
+                  },
+                }}
+              >
+                {content.about_zesty_dxp || FillerContent.rich_text}
+              </MuiMarkdown>
+            </Box>
           </Grid>
-        </div>
+        </Box>
       </Container>
     </Box>
   );
@@ -260,9 +307,8 @@ const CustomCard = ({ data, theme }) => {
             ),
           }}
         />
-        {
-          data.href && (
-            <Link
+        {data.href && (
+          <Link
             href={data.href}
             underline="always"
             paddingTop={4}
@@ -276,8 +322,7 @@ const CustomCard = ({ data, theme }) => {
           >
             {data.ctaName} <ArrowRightAltIcon />
           </Link>
-          )
-        }
+        )}
       </Box>
     </Card>
   );

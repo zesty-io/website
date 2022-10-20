@@ -51,7 +51,7 @@ export default function Onboarding({ role }) {
               Start your Instance
             </Button>
             <Divider orientation="vertical" flexItem />
-            
+
             <Button
               color="secondary"
               variant="outlined"

@@ -14,7 +14,7 @@ const Hero = ({ title, subTitle, image }) => {
         backgroundImage: `url(${image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        marginTop: -13,
+        marginTop: -15,
         paddingTop: 13,
         '&:after': {
           position: 'absolute',

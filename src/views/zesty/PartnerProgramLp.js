@@ -54,10 +54,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 /**
  * Components Imports
  */
-import { SlashImageHero } from 'blocks/heroes';
 import Hero from 'components/marketing/PartnerProgramLp/Hero';
 import WhyZesty from 'components/marketing/PartnerProgramLp/WhyZesty';
-import WithDarkBackgroundAndSimpleDescriptionBox from 'blocks/logoGrid/WithDarkBackgroundAndSimpleDescriptionBox/WithDarkBackgroundAndSimpleDescriptionBox';
 import Benefits from 'components/marketing/PartnerProgramLp/Benefits';
 import Testimonial from 'components/marketing/PartnerProgramLp/Testimonial';
 import Bottom from 'components/marketing/PartnerProgramLp/Bottom';

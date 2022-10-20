@@ -18,10 +18,8 @@ import { useTheme } from '@mui/material';
  * Components Imports
  */
 
-import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper';
+import { useSwiper, useSwiperSlide } from 'swiper/react';
 import DemoCta from 'components/cta/DemoCta';
-import ZestyImage from 'blocks/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';

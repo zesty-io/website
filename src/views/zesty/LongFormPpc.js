@@ -60,15 +60,13 @@ import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustration
 import NewsletterWithImage from 'components/marketing/LongFormPpc/NewsletterWithImage';
 import SimpleCentered from 'components/marketing/LongFormPpc/SimpleCentered';
 import BgDecorations from 'components/marketing/LongFormPpc/BgDecorations';
-import ContactUsForm from 'components/marketing/LongFormPpc/ContactUsForm';
 import TechStack from 'blocks/integrations/TechStack';
 import Hero from 'components/marketing/LongFormPpc/Hero';
 import Features from 'blocks/features/Features/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
-import PpcShortForm from 'components/marketing/LongFormPpc/PpcShortForm';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
-import { Container, Grid, Paper, Divider } from '@mui/material';
+import { Container, Grid, Divider } from '@mui/material';
 
 function LongFormPpc({ content }) {
   const router = useRouter();
@@ -133,6 +131,13 @@ function LongFormPpc({ content }) {
 
       return acc;
     }, []) || [];
+
+  const techStackData = {
+    text_content: content.integrations_description,
+    logos: content.integrations_logos?.data,
+    cta_text: content.intergration_cta_text || FillerContent.cta,
+    cta_link: content.integration_cta_link || FillerContent.href,
+  };
 
   return (
     <>
@@ -222,13 +227,10 @@ function LongFormPpc({ content }) {
         />
       </Box>
 
-      {router.asPath.includes('/ppc/headless-cms/') ? null : (
-        <TechStack
-          FillerContent={FillerContent}
-          content={content}
-          theme={theme}
-          isMobile={isMobile}
-        />
+      {router.asPath.includes('/ppc/headless-cms/') ? (
+        <></>
+      ) : (
+        <TechStack {...techStackData} content={content} />
       )}
 
       {/* Form */}
