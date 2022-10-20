@@ -41,7 +41,7 @@ const Faq = () => {
   const { data: faqsData } = useFetch(`/-/gql/faqs.json`);
 
   return (
-    <Box>
+    <Box sx={{ px: 4 }}>
       <Box marginBottom={4}>
         <Typography fontWeight={700} variant={'h4'} align={'center'}>
           Frequently asked questions

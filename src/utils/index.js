@@ -1,4 +1,6 @@
 import { getCookie } from 'cookies-next';
+import dayjs from 'dayjs';
+import { hashMD5 } from './Md5Hash';
 
 const removeEmptyNodes = (nodes) => {
   return nodes.filter((node) => {
@@ -186,6 +188,7 @@ export const generateUniqDropdown = ({ data, property = 'category' }) => {
         ),
     );
   const res = [{ value: '', label: 'All Categories' }, ...dropdownList];
+
   return res;
 };
 
@@ -250,4 +253,69 @@ export const notistackMessage = async (
       variant: 'error',
     });
   }
+};
+
+export const parseCookie = (str) =>
+  str
+    .split(';')
+    .map((v) => v.split('='))
+    .reduce((acc, v) => {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      return acc;
+    }, {});
+
+export const getIsAuthenticated = (res) => {
+  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
+  let isAuthenticated = JSON.parse(
+    parseCookie(getHeaderCookie)?.isAuthenticated || false,
+  );
+
+  return isAuthenticated;
+};
+
+export const OPTIONS = (options, separator) => {
+  const res = options?.split(separator).map((e) => {
+    return { value: e, label: e };
+  });
+  return res;
+};
+
+export const getTimeAgo = (date) => {
+  // reference: https://stackoverflow.com/a/72973090
+  const MINUTE = 60;
+  const HOUR = MINUTE * 60;
+  const DAY = HOUR * 24;
+  const WEEK = DAY * 7;
+  const MONTH = DAY * 30;
+  const YEAR = DAY * 365;
+  const secondsAgo = dayjs().diff(date, 'seconds');
+
+  if (secondsAgo < MINUTE) {
+    return secondsAgo + ` second${secondsAgo !== 1 ? 's' : ''} ago`;
+  }
+
+  let divisor;
+  let unit = '';
+
+  if (secondsAgo < HOUR) {
+    [divisor, unit] = [MINUTE, 'minute'];
+  } else if (secondsAgo < DAY) {
+    [divisor, unit] = [HOUR, 'hour'];
+  } else if (secondsAgo < WEEK) {
+    [divisor, unit] = [DAY, 'day'];
+  } else if (secondsAgo < MONTH) {
+    [divisor, unit] = [WEEK, 'week'];
+  } else if (secondsAgo < YEAR) {
+    [divisor, unit] = [MONTH, 'month'];
+  } else {
+    [divisor, unit] = [YEAR, 'year'];
+  }
+
+  const count = Math.floor(secondsAgo / divisor);
+  return `${count} ${unit}${count > 1 ? 's' : ''} ago`;
+};
+
+export const gravatarImg = (userInfo = {}) => {
+  const res = 'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
+  return res;
 };

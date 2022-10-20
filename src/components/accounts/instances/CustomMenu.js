@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Box } from '@mui/material';
 
 const StyledMenu = styled((props) => <Menu elevation={0} {...props} />)(
   ({ theme }) => ({
@@ -55,15 +54,15 @@ export default function CustomMenu({
   };
 
   return (
-    <Box sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
+    <>
       <Button
         variant="outlined"
         onClick={handleClickMenu}
         startIcon={startIcon}
         endIcon={<KeyboardArrowDownIcon />}
-        color="secondary"
+        color="primary"
         fullWidth
-        sx={{ whiteSpace: 'nowrap', height: '100%' }}
+        sx={{ whiteSpace: 'nowrap' }}
         {...props}
       >
         {menuName}
@@ -82,6 +81,6 @@ export default function CustomMenu({
           </MenuItem>
         ))}
       </StyledMenu>
-    </Box>
+    </>
   );
 }

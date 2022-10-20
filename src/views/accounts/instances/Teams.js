@@ -1,10 +1,14 @@
-import { Box, Button, Link, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AddIcon from '@mui/icons-material/Add';
 import {
+  AccountsHeader,
+  AccountsPopover,
+  AccountsTable,
+  AccountsTableHead,
   accountsValidations,
-  BaseRolesTable,
-  CollapseTable,
-  DeleteBtn,
   DeleteMsg,
+  ErrorMsg,
   FormSelect,
   SubmitBtn,
 } from 'components/accounts';
@@ -13,59 +17,99 @@ import { useFormik } from 'formik';
 import React from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { useZestyStore } from 'store';
+import { gravatarImg } from 'utils';
 
 const MySwal = withReactContent(Swal);
-const COLUMNS = [
-  {
-    id: 'btn',
-    label: '',
-  },
-  {
-    id: 'name',
-    label: 'Team Name',
-  },
-  {
-    id: 'description',
-    label: 'Description',
-  },
-  {
-    id: 'zuid',
-    label: 'Zuid',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
 
 const CustomTable = ({
+  viewTeamMemberModals,
   loading,
   data,
   handleDeleteTeamModal,
-  isInstanceOwner,
+  cta,
 }) => {
   const ROWS = data?.map((e) => {
     return {
-      name: e.name || '-',
-      description: e.description || '-',
-      zuid: e.ZUID,
-      action: isInstanceOwner ? (
-        <Box display={'flex'}>
-          <DeleteBtn onClick={() => handleDeleteTeamModal(e)}>Delete</DeleteBtn>
-        </Box>
-      ) : (
-        '-'
-      ),
+      ...e,
+      id: e.ZUID,
     };
   });
 
-  // const memoizeRows = React.useMemo(() => ROWS, [data]);
-  // const memoizeColumns = React.useMemo(() => COLUMNS, []);
-
+  const COLUMNS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 400,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Team Name</AccountsTableHead>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.name}</Typography>;
+      },
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      width: 600,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Description</AccountsTableHead>,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">{params.row.description}</Typography>
+        );
+      },
+    },
+    {
+      field: 'action',
+      headerName: '',
+      width: 110,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const data = params.row;
+        const action = [
+          {
+            title: 'View Team Members',
+            action: () => viewTeamMemberModals(data),
+          },
+          {
+            title: 'Delete Team',
+            action: () => handleDeleteTeamModal({ ZUID: data.ZUID }),
+          },
+        ];
+        return (
+          <AccountsPopover
+            title={
+              <Button variant="text" color="primary">
+                <MoreVertIcon color="disabled" />
+              </Button>
+            }
+            id={'actions'}
+            items={action}
+            colorInvert={false}
+          />
+        );
+      },
+    },
+  ];
   return (
-    <Box>
-      <CollapseTable loading={loading} rows={ROWS} columns={COLUMNS} />
-    </Box>
+    <Stack p={4}>
+      <AccountsTable
+        loading={loading}
+        rows={ROWS}
+        columns={COLUMNS}
+        pageSize={100}
+        autoHeight={false}
+        NoData={cta}
+      />
+    </Stack>
   );
 };
 
@@ -126,7 +170,9 @@ const Main = ({
   instanceRoles,
   loading,
   allTeams,
+  instanceUserWithRoles,
 }) => {
+  const { ZestyAPI } = useZestyStore((state) => state);
   const handleAddTeamToInstance = async (data) => {
     await addTeamToInstance(data);
     await getAllInstancesTeams();
@@ -154,34 +200,124 @@ const Main = ({
     });
   };
 
+  const getTeamMembersSuccess = (res) => {
+    const rows = res?.data?.map((e) => {
+      return { ...e, id: e.ZUID };
+    });
+
+    const COLUMNS = [
+      {
+        field: 'id',
+        headerName: 'ID',
+        hide: true,
+      },
+      {
+        field: 'name',
+        headerName: 'Name',
+        width: 270,
+        editable: false,
+        sortable: false,
+        renderHeader: () => <Typography variant="body1">Name</Typography>,
+        renderCell: (params) => {
+          const name = `${params.row.firstName} ${params.row.lastName}`;
+          const email = `${params.row.email}`;
+          const profileUrl = gravatarImg(params?.row);
+          return (
+            <Stack direction="row" alignItems={'center'} gap={2}>
+              <img
+                src={profileUrl}
+                alt="User"
+                height={40}
+                width={40}
+                style={{ borderRadius: '50%' }}
+              />
+              <Stack textAlign={'left'}>
+                <Typography variant="body2">{name}</Typography>
+                <Typography variant="caption" color={'GrayText'}>
+                  {email}
+                </Typography>
+              </Stack>
+            </Stack>
+          );
+        },
+      },
+    ];
+
+    MySwal.fire({
+      title: 'Team Members',
+      html: (
+        <Stack p={4}>
+          <AccountsTable
+            loading={false}
+            rows={rows}
+            columns={COLUMNS}
+            pageSize={100}
+            autoHeight={true}
+          />
+        </Stack>
+      ),
+      showConfirmButton: false,
+    });
+  };
+
+  const getTeamMembersError = (res) => {
+    ErrorMsg({ title: res.error });
+  };
+
+  const getTeamMembers = async (teamZUID) => {
+    const res = await ZestyAPI.getTeamMembers(teamZUID);
+    !res.error && getTeamMembersSuccess(res);
+    res.error && getTeamMembersError(res);
+  };
+
+  const viewTeamMemberModals = async (data) => {
+    await getTeamMembers(data.ZUID);
+
+    // old members
+    // const teamMembers = instanceUserWithRoles?.filter(
+    //   (e) => e.teamZUID === data.ZUID,
+    // );
+  };
+
+  const headerProps = {
+    title: 'Teams',
+    description: `Manage your Teams`,
+  };
+
+  const Nodata = () => {
+    return (
+      <Stack height="100%" alignItems="center" justifyContent="center">
+        <Typography variant="h5">No Results</Typography>
+      </Stack>
+    );
+  };
   return (
-    <Box>
-      <Typography variant="p" fontSize={'medium'}>
-        By providing a team access you can allow an external group of users
-        access to manage your instance. For example: this can be used to provide
-        an agency with access to manage your website.{' '}
-        <Link href="/teams">Learn more about teams</Link>
-      </Typography>
-      <Box paddingY={2} display={'flex'} justifyContent={'space-between'}>
+    <Grid container>
+      <AccountsHeader {...headerProps}>
         {isInstanceOwner && (
           <Button
-            color="secondary"
+            color="primary"
             variant="contained"
             onClick={handleAddTeamModal}
+            startIcon={<AddIcon />}
           >
             Add Team to Instance
           </Button>
         )}
-      </Box>
-      <CustomTable
-        loading={loading}
-        data={teams}
-        handleDeleteTeamModal={handleDeleteTeamModal}
-        isInstanceOwner={isInstanceOwner}
-      />
-      <BaseRolesTable />
-    </Box>
+      </AccountsHeader>
+      <Grid item xs={12}>
+        <CustomTable
+          viewTeamMemberModals={viewTeamMemberModals}
+          instanceUserWithRoles={instanceUserWithRoles}
+          loading={loading}
+          data={teams}
+          handleDeleteTeamModal={handleDeleteTeamModal}
+          isInstanceOwner={isInstanceOwner}
+          cta={Nodata}
+        />
+      </Grid>
+      {/* <BaseRolesTable /> */}
+    </Grid>
   );
 };
-
 export const Teams = React.memo(Main);

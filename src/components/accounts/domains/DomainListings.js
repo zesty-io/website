@@ -1,138 +1,243 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
-import { Container } from '@mui/system';
-import { useZestyStore } from 'store';
+import React, { useEffect } from 'react';
+import { Link, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import DomainTable from 'components/accounts/domains/DomainTable';
 import Button from '@mui/material/Button';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import { useTheme } from '@mui/material';
-import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {
+  AccountsPopover,
+  AccountsTable,
+  AccountsTableHead,
+} from 'components/accounts';
+import dayjs from 'dayjs';
 
-// domain btn
-const AddDomainBtn = ({ onclick, variant, text, branch }) => {
-  const theme = useTheme();
-  return (
-    <Button
-      variant={variant}
-      startIcon={<AddRoundedIcon fontSize="small" />}
-      size="small"
-      style={{ backgroundColor: theme.palette.zesty.zestyGreen }}
-      p={0}
-      onClick={() => {
-        onclick(branch);
-      }}
-    >
-      <Typography variant="body2" fontSize={'small'}>
-        {text}
-      </Typography>
-    </Button>
-  );
-};
-
-export default function DomainListings() {
-  const { ZestyAPI, isAuthenticated, instance } = useZestyStore(
-    (state) => state,
-  );
-
-  const [instanceDomains, setinstanceDomains] = useState([]);
-  const [devDomains, setdevDomains] = useState([]);
-  const [liveDomains, setliveDomains] = useState([]);
-
-  const [domain, setdomain] = useState('');
-  const [branch, setbranch] = useState('');
-  // const [open, setOpen] = useState(false);
-
+export default function DomainListings({
+  liveDomains,
+  instance,
+  instanceDomains,
+  devDomains,
+  getInstanceDomains,
+  deleteDomain,
+  loading,
+  settings = [],
+}) {
   const router = useRouter();
 
   const { zuid } = router.query;
 
-  const handleDeleteDomainSuccess = (res) => {
-    console.log(res, 'succ delete');
-    SuccessMsg({ title: 'Domain Successfully Deleted' });
-  };
-  const handleDeleteDomainError = (err) => {
-    console.log(err, 'error delete');
-    ErrorMsg({ text: err.error });
-  };
-
-  const handleCreateDomainSuccess = (res) => {
-    console.log(res, 'succ create');
-    SuccessMsg({ title: 'Domain Successfully Added' });
-  };
-  const handleCreateDomainError = (err) => {
-    console.log(err, 'error create');
-    ErrorMsg({ text: err.error });
-  };
-
-  const getInstanceDomains = async () => {
-    try {
-      const res = await ZestyAPI.getAllDomain(zuid);
-
-      const live =
-        res?.data?.filter((domain) => domain.branch === 'live') || [];
-      const preview =
-        res?.data?.filter((domain) => domain.branch === 'dev') || [];
-      const obj = {
-        ZUID: instance?.randomHashID,
-        branch: 'webengine',
-        domain: `${instance?.randomHashID}-dev.webengine.zesty.io`,
-        createdAt: 'default',
-      };
-      setinstanceDomains(res.data);
-      setliveDomains(live);
-      setdevDomains([obj, ...preview]);
-    } catch (error) {
-      console.log(
-        '🚀 ~ file: DomainListings.js ~ line 50 ~ getInstanceDomains ~ error',
-        error,
-      );
-    }
-  };
-
-  const createDomain = async () => {
-    // fetchwrapper needs update to accept an object with domain and branch
-    // OR accept a third parameter for branch
-    const res = await ZestyAPI.createDomain(zuid, domain);
-    !res.error && handleCreateDomainSuccess(res);
-    res.error && handleCreateDomainError(res);
-  };
-
-  // pass domainZUID through on click
-  const deleteDomain = async (domainZUID) => {
-    const res = await ZestyAPI.deleteDomain(zuid, domainZUID);
-    !res.error && handleDeleteDomainSuccess(res);
-    res.error && handleDeleteDomainError(res);
-  };
-
-  // tested - working
-  const handleDeleteDomain = (domainZUID) => {
-    deleteDomain(domainZUID);
-    const filtered = instanceDomains.filter((dom) => dom.ZUID !== domainZUID);
-    setinstanceDomains(filtered);
-  };
-
-  // handle add domain
-  const handleAddDomain = (branch) => {
-    console.log(
-      '🚀 ~ file: DomainListings.js ~ line 94 ~ handleAddDomain ~ branch',
-      branch,
-    );
-    // setOpen(true);
-  };
-  // close domain dialog
-  const handleClose = () => {
-    // setOpen(false);
-  };
-
   useEffect(() => {
     // access necessary endpoints
     getInstanceDomains();
-  }, [instanceDomains.length, zuid, instance.ZUID]);
+  }, [instanceDomains?.length, zuid, instance?.ZUID]);
+
+  const siteProtocol = settings?.find((e) => e.key === 'site_protocol')?.value;
+  const preferredWWW =
+    settings?.find((e) => e.key === 'preferred_domain_prefix')?.value === '1'
+      ? 'www.'
+      : '';
+
+  const ROWS_LIVE_DOMAINS = liveDomains?.map((e) => {
+    return {
+      ...e,
+      id: e.ZUID || Math.random(),
+    };
+  });
+
+  const ROWS_DEV_DOMAINS = devDomains?.map((e) => {
+    return {
+      ...e,
+      id: e.ZUID || Math.random(),
+    };
+  });
+
+  const COLUMNS_DEV_DOMAINS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'domain',
+      headerName: 'Domain',
+      minWidth: 500,
+      editable: false,
+      sortable: true,
+      flex: 1,
+      valueGetter: (params) => params.row.domain,
+      renderHeader: () => (
+        <AccountsTableHead>Stage Preview Domains</AccountsTableHead>
+      ),
+      renderCell: (params) => {
+        return (
+          <Link
+            variant="body2"
+            target={'_blank'}
+            rel="noreferrer"
+            href={`${siteProtocol}://${preferredWWW}${params.row.domain}/`}
+          >
+            {params.row.domain}
+          </Link>
+        );
+      },
+    },
+    {
+      field: 'branch',
+      headerName: 'Branch',
+      width: 250,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Branch</AccountsTableHead>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.branch}</Typography>;
+      },
+    },
+    {
+      field: 'createAt',
+      headerName: 'Created On',
+      width: 300,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Created On</AccountsTableHead>,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">
+            {dayjs(params.row.createdAt).format('MMM DD, YYYY')}
+          </Typography>
+        );
+      },
+    },
+
+    {
+      field: 'action',
+      headerName: '',
+      width: 110,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const data = params.row;
+        const action = [
+          { title: 'Delete Domain', action: () => deleteDomain(data.ZUID) },
+        ];
+        return (
+          <AccountsPopover
+            title={
+              <Button variant="text" color="primary">
+                <MoreVertIcon color="disabled" />
+              </Button>
+            }
+            id={'actions'}
+            items={action}
+            colorInvert={false}
+          />
+        );
+      },
+    },
+  ];
+  console.log(settings, '44::');
+  const COLUMNS_LIVE_DOMAINS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'domain',
+      headerName: 'Domain',
+      width: 500,
+      editable: false,
+      sortable: true,
+      flex: 1,
+      valueGetter: (params) => params.row.domain,
+      renderHeader: () => (
+        <AccountsTableHead>Production Live Domains</AccountsTableHead>
+      ),
+      renderCell: (params) => {
+        return (
+          <Link
+            variant="body2"
+            target={'_blank'}
+            rel="noreferrer"
+            href={`${siteProtocol}://${preferredWWW}${params.row.domain}/`}
+          >
+            {params.row.domain}
+          </Link>
+        );
+      },
+    },
+    {
+      field: 'branch',
+      headerName: 'Branch',
+      width: 250,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Branch</AccountsTableHead>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.branch}</Typography>;
+      },
+    },
+    {
+      field: 'createAt',
+      headerName: 'Created On',
+      width: 300,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Created On</AccountsTableHead>,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">
+            {dayjs(params.row.createdAt).format('MMM DD, YYYY')}
+          </Typography>
+        );
+      },
+    },
+
+    {
+      field: 'action',
+      headerName: '',
+      width: 110,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const data = params.row;
+        const action = [
+          { title: 'Delete Domain', action: () => deleteDomain(data.ZUID) },
+        ];
+        return (
+          <AccountsPopover
+            title={
+              <Button variant="text" color="primary">
+                <MoreVertIcon color="disabled" />
+              </Button>
+            }
+            id={'actions'}
+            items={action}
+            colorInvert={false}
+          />
+        );
+      },
+    },
+  ];
 
   return (
-    <Container>
-      <Box m={5}>
+    <>
+      <Stack p={4}>
+        <AccountsTable
+          loading={loading}
+          rows={ROWS_LIVE_DOMAINS}
+          columns={COLUMNS_LIVE_DOMAINS}
+          pageSize={100}
+          autoHeight={true}
+        />
+      </Stack>
+      <Stack p={4}>
+        <AccountsTable
+          loading={loading}
+          rows={ROWS_DEV_DOMAINS}
+          columns={COLUMNS_DEV_DOMAINS}
+          pageSize={100}
+          autoHeight={true}
+        />
+      </Stack>
+      {/* <Box>
         <Grid
           container
           justifyContent="space-between"
@@ -152,13 +257,14 @@ export default function DomainListings() {
           </Grid>
         </Grid>
         <DomainTable
+          deleteDomain={deleteDomain}
           rows={liveDomains}
           caption={
             'Production Live domains will only display live published content'
           }
         />
-      </Box>
-      <Box m={5}>
+      </Box> */}
+      {/* <Box>
         <Grid
           container
           justifyContent="space-between"
@@ -178,12 +284,13 @@ export default function DomainListings() {
           </Grid>
         </Grid>
         <DomainTable
+          deleteDomain={deleteDomain}
           rows={devDomains}
           caption={
             'Stage Preview & Webengine domains provide a preview of current published content along with any new saved drafts of content that is not yet live'
           }
         />
-      </Box>
-    </Container>
+      </Box> */}
+    </>
   );
 }

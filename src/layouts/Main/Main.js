@@ -15,10 +15,14 @@ import TopNav from 'components/globals/TopNav';
 
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
 
-import { getCookie, setCookies } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
 import { Container } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { AccountsAppbar } from 'components/console/AccountsAppbar';
+import { grey } from '@mui/material/colors';
+import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
+import AppFooter from './components/Footer/AppFooter';
 
 const Main = ({
   children,
@@ -32,6 +36,7 @@ const Main = ({
 
   // main should verify the user as boolean
   const router = useRouter();
+  const isAccounts = isProtectedRoute(window.location.pathname);
 
   // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   // const userAppSID = getUserAppSID();
@@ -66,7 +71,7 @@ const Main = ({
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 38,
+    threshold: 5,
   });
 
   // check if from ppc short form page then change color of logo and nav
@@ -97,13 +102,35 @@ const Main = ({
     }
   };
 
+  const isDashboard = window.location.pathname.split('/').filter((e) => e)[0];
+
+  const willShowMarketingFooter = () => {
+    if (isLoggedIn) {
+      if (isAccounts || router.pathname === '/') return false;
+
+      return true;
+    }
+
+    return true;
+  };
+
+  const willShowAppFooter = () => {
+    if (isLoggedIn) {
+      if (isAccounts || router.pathname === '/') return true;
+
+      return false;
+    }
+
+    return false;
+  };
+
   // store isUser isAuthenticated  in global state
   React.useEffect(() => {
     if (isAuthenticated) {
       setisAuthenticated(isAuthenticated);
       setisUser(isUser);
-      setCookies('isAuthenticated', isAuthenticated);
-      setCookies('isUser', isUser);
+      setCookie('isAuthenticated', isAuthenticated);
+      setCookie('isUser', isUser);
     }
   }, [isAuthenticated, isUser]);
 
@@ -143,6 +170,7 @@ const Main = ({
           backgroundColor: bgColorSwitch(),
           py: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
+          borderBottom: isLoggedIn && `1px solid ${grey[200]}`,
         }}
         elevation={trigger ? 1 : 0}
       >
@@ -167,13 +195,16 @@ const Main = ({
             />
           )}
           {isLoggedIn && (
-            <AppNavigation
-              onSidebarOpen={handleSidebarOpen}
-              colorInvert={headerColorInvert && !trigger}
-              trigger={trigger}
-              userInfo={userInfo?.data}
-              loading={loading}
-            />
+            <>
+              <AppNavigation
+                onSidebarOpen={handleSidebarOpen}
+                colorInvert={headerColorInvert && !trigger}
+                trigger={trigger}
+                userInfo={userInfo?.data}
+                loading={loading}
+              />
+              <AccountsAppbar colorInvert={headerColorInvert && !trigger} />
+            </>
           )}
         </Container>
       </AppBar>
@@ -187,16 +218,20 @@ const Main = ({
         {children}
         <Divider
           sx={{
-            display: router?.query?.slug?.[0] === 'login' && 'none',
+            display:
+              (router?.query?.slug?.[0] === 'login' || willShowAppFooter()) &&
+              'none',
           }}
         />
       </main>
-      {isLoggedIn == false && (
+      {willShowMarketingFooter() && (
         <Footer
           colorInvert={colorInvert}
           customRouting={hasRouting ? customRouting : []}
         />
       )}
+
+      {willShowAppFooter() && <AppFooter />}
     </Box>
   );
 };

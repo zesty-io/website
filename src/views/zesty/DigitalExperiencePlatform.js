@@ -148,16 +148,35 @@ function DigitalExperiencePlatform({ content }) {
     isLarge,
   };
 
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const feature_data =
+    content?.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Hero {...HeroProps} />
       <Solution {...PageData} />
       <About {...PageData} />
       <Middle {...PageData} />
-      <Features {...PageData} />
+      <Features
+        cta_button_text={content.feature_cta_text}
+        textHighlight=""
+        card_name_color={theme.palette.zesty.zestyZambezi}
+        features_header={content.features_header}
+        data={feature_data}
+      />
       <Integrations {...PageData} />
       <Implementation {...PageData} />
       <TopBrands
+        backgroundColor={theme.palette.zesty.zestyBackgroundBlue}
         sx={{ pt: 4 }}
         title={content.case_study_header}
         {...PageData}

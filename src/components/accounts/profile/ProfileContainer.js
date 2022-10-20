@@ -1,4 +1,3 @@
-import AppBar from 'components/console/AppBar';
 import Main from 'layouts/Main/Main';
 import React from 'react';
 import { Container } from '@mui/material';
@@ -11,7 +10,6 @@ const Index = ({ children }) => {
 
   return (
     <Main>
-      <AppBar />
       <Container
         maxWidth={false}
         disableGutters

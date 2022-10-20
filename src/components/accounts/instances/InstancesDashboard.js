@@ -22,7 +22,6 @@ import StarIcon from '@mui/icons-material/Star';
 import EmailIcon from '@mui/icons-material/Email';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import { ComboBox } from 'components/globals/ComboBox';
-import { LaunchInstance } from './LaunchInstance';
 
 const orderByItems = [
   {
@@ -148,10 +147,10 @@ export const InstancesDashboard = () => {
 
   const toggleFavorites = async (data) => {
     setloading(true);
-    const isExist = initialFavorites.find((e) => e === data.ZUID);
+    const isExist = initialFavorites?.find((e) => e === data.ZUID);
     const favorite_sites = [
       ...JSON.parse(userInfo?.prefs)?.favorite_sites,
-      data.ZUID,
+      data?.ZUID,
     ];
     const filterdFavorite = initialFavorites?.filter((e) => e !== data.ZUID);
     const prefs = JSON.parse(userInfo?.prefs);
@@ -171,6 +170,7 @@ export const InstancesDashboard = () => {
     const res = await ZestyAPI.respondToInvite(data.inviteZUID, action);
     !res.error && handleRespondToInviteSuccess(res);
     res.error && handleRespondToInviteError(res);
+    await getPageData();
   };
   const getAllEcosystem = async () => {
     const res = await ZestyAPI.getALLEcosystems();
@@ -179,11 +179,11 @@ export const InstancesDashboard = () => {
   };
 
   const favoritesList = instances
-    ?.filter((instance) => initialFavorites.includes(instance?.ZUID))
+    ?.filter((instance) => initialFavorites?.includes(instance?.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
 
   const instancesList = instances
-    ?.filter((instance) => !initialFavorites.includes(instance?.ZUID))
+    ?.filter((instance) => !initialFavorites?.includes(instance?.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
 
   const handleSelectEcosystem = (ZUID) => {
@@ -227,7 +227,7 @@ export const InstancesDashboard = () => {
 
   React.useEffect(() => {
     if (userInfo && Object.keys(userInfo).length !== 0) {
-      setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites);
+      setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites || []);
     }
   }, [userInfo]);
   React.useEffect(() => {
@@ -267,7 +267,7 @@ export const InstancesDashboard = () => {
           size="medium"
           variant="outlined"
           fullWidth
-          color="secondary"
+          color="primary"
           onChange={(e) => handleSearch(e.target.value)}
         />
         <Box display="flex" gap={2} sx={{ height: { xs: 'auto', sm: '100%' } }}>
@@ -279,7 +279,7 @@ export const InstancesDashboard = () => {
           <ToggleButtonGroup
             value={view}
             exclusive
-            color="secondary"
+            color="primary"
             onChange={handleChangeView}
             sx={{ ml: 'auto', height: '100%' }}
           >
@@ -290,11 +290,6 @@ export const InstancesDashboard = () => {
               <FormatListBulletedOutlinedIcon />
             </ToggleButton>
           </ToggleButtonGroup>
-          <LaunchInstance
-            onClick={() =>
-              router.push('https://accounts.zesty.io/instances/create')
-            }
-          ></LaunchInstance>
         </Box>
       </Stack>
 
@@ -306,7 +301,7 @@ export const InstancesDashboard = () => {
             display={'flex'}
             alignItems={'center'}
           >
-            <EmailIcon fontSize="large" color="secondary" /> Invites
+            <EmailIcon fontSize="large" color="primary" /> Invites
           </Typography>
         }
         view={view}
@@ -327,7 +322,7 @@ export const InstancesDashboard = () => {
             display={'flex'}
             alignItems={'center'}
           >
-            <StarIcon fontSize="large" color="secondary" /> Favorites
+            <StarIcon fontSize="large" color="primary" /> Favorites
           </Typography>
         }
         view={view}
@@ -345,7 +340,7 @@ export const InstancesDashboard = () => {
             display={'flex'}
             alignItems={'center'}
           >
-            <WidgetsIcon fontSize="large" color="secondary" />
+            <WidgetsIcon fontSize="large" color="primary" />
             Instances
           </Typography>
         }

@@ -58,7 +58,7 @@ const mock = [
 ];
 
 export default function TryFreeButton({
-  text = 'Try Free',
+  text = 'Start Now',
   target = 'blank',
   fullWidth = false,
   component = 'button',
@@ -68,11 +68,10 @@ export default function TryFreeButton({
   sx = {},
 }) {
   const theme = useTheme();
-  console.log(theme, mock);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
-    location.href = '/join/';
+    location.href = '/start/';
 
     // uncomment this to bring the dropdown back
     //setAnchorEl(event.target);
@@ -93,8 +92,9 @@ export default function TryFreeButton({
         component={component}
         target={target}
         className="tryButton"
+        id="start-button"
         fullWidth={fullWidth}
-        // href="https://accounts.zesty.io/signup"
+        //href="https://accounts.zesty.io/signup"
         size={size}
         sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}
         onClick={(e) => handleClick(e)}

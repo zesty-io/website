@@ -5,8 +5,10 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { deleteCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
+import * as helpers from 'utils';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
@@ -17,6 +19,10 @@ const logout = () => {
   useEffect(() => {
     const logout = async () => {
       await ZestyAPI.logout();
+      deleteCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', {
+        domain: '.zesty.io',
+      });
+      deleteCookie('ZESTY_WORKING_INSTANCE', {});
       window.location.replace('/login/');
     };
 
@@ -39,10 +45,10 @@ const logout = () => {
         px={5}
       >
         <Stack>
-          <Typography variant="h3" mb={3} color="secondary">
+          <Typography variant="h3" mb={3} color="primary">
             Signing Out of Zesty.io
           </Typography>
-          <LinearProgress color="secondary" />
+          <LinearProgress color="primary" />
         </Stack>
       </Box>
     </Container>

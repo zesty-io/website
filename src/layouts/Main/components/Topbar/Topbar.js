@@ -9,7 +9,7 @@ import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import { useRouter } from 'next/router';
 import { Skeleton } from '@mui/material';
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
 import { Typography } from '@mui/material';
 
@@ -50,10 +50,10 @@ const Topbar = ({
 
   React.useEffect(() => {
     if (userInfo) {
-      setCookies('APP_USER_ZUID', userInfo?.ZUID);
-      setCookies('APP_USER_EMAIL', userInfo?.email);
-      setCookies('APP_USER_FIRST_NAME', userInfo?.firstName);
-      setCookies('APP_USER_LAST_NAME', userInfo?.lastName);
+      setCookie('APP_USER_ZUID', userInfo?.ZUID);
+      setCookie('APP_USER_EMAIL', userInfo?.email);
+      setCookie('APP_USER_FIRST_NAME', userInfo?.firstName);
+      setCookie('APP_USER_LAST_NAME', userInfo?.lastName);
     }
   }, [userInfo]);
 
@@ -72,27 +72,16 @@ const Topbar = ({
         width={{ xs: 100, md: 150 }}
         paddingTop={isDxpTemplatePage ? 4 : 0}
       >
-        {/* if user not logged in show full logo  */}
-        {!firstName && (
-          <Box
-            component={'img'}
-            src={
-              changeLogoColor()
-                ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
-                : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
-            }
-            height={1}
-            width={1}
-          />
-        )}
-        {firstName && (
-          <Box
-            component={'img'}
-            src="https://brand.zesty.io/zesty-io-logo.svg"
-            height={41}
-            width={41}
-          />
-        )}
+        <img
+          alt="zesty.io"
+          src={
+            changeLogoColor()
+              ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+              : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+          }
+          height={42}
+          width={150}
+        />
       </Box>
       <Box
         sx={{ display: { xs: 'none', md: hideNav ? 'none' : 'flex' } }}
@@ -139,7 +128,7 @@ const Topbar = ({
                     endIcon={<LoginIcon />}
                     fullWidth
                     component="a"
-                    href="https://accounts.zesty.io"
+                    href="/login/"
                   >
                     Login
                   </Button>

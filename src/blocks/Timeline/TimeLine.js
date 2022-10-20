@@ -3,8 +3,8 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
 // Local Assets Imports
-import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
-import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
+// import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
+// import chevron_left from '../../../public/assets/images/headless-cms/chevron-left.svg';
 import curve from '../../../public/assets/images/headless-cms/curve.svg';
 import curve_dark from '../../../public/assets/images/headless-cms/curve-dark.svg';
 import curve_mobile from '../../../public/assets/images/headless-cms/curve-mobile.svg';
@@ -20,13 +20,12 @@ const TimeLine = ({
     <Box
       sx={{
         background: theme.palette.zesty.zestyDarkBlue,
-        mt: 25,
+        mt: 10,
         position: 'relative',
-        borderRadius: 5,
       }}
       component="section"
     >
-      <Box
+      {/* <Box
         sx={{
           position: 'absolute',
           left: 0,
@@ -36,13 +35,13 @@ const TimeLine = ({
         component="img"
         alt=""
         src={chevron_left.src}
-      />
+      /> */}
       <Container>
         <Box
           sx={{
             position: 'absolute',
 
-            ml: isMobile ? 5 : 4.2,
+            ml: isMobile ? 0 : -0.9,
             mt: -14.4,
           }}
           component="img"
@@ -56,19 +55,8 @@ const TimeLine = ({
           }
         />
 
-        <Box
-          sx={{
-            position: 'absolute',
-            right: 0,
-            top: '5%',
-            width: isMobile ? 264 : 'auto',
-          }}
-          component="img"
-          alt=""
-          src={chevron_right.src}
-        />
         <Box sx={{ color: 'white', mt: -5 }}>
-          <Box sx={{ position: 'relative' }} component="ul">
+          <Box sx={{ position: 'relative' }}>
             {/* Content One */}
             <Box
               sx={{
@@ -83,13 +71,13 @@ const TimeLine = ({
               }}
               component="li"
             >
-              <Box sx={{ ml: 4, mt: isMobile ? 0 : 15 }}>
+              <Box sx={{ ml: 4, mt: isMobile ? 0 : 10 }}>
                 <MuiMarkdown
                   overrides={{
                     h2: {
                       component: Typography,
                       props: {
-                        component: 'h2',
+                        component: 'h3',
                         variant: 'h3',
                         sx: {
                           textAlign: isMobile ? 'center' : 'left',
@@ -121,14 +109,14 @@ const TimeLine = ({
               </Box>
             </Box>
             {/* Content Loop */}
-            {timelineData.data.map((item) => (
+            {timelineData.data.map((item, index) => (
               <Box
                 sx={{
                   py: isMobile ? 3 : 0,
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
-                  minHeight: 400,
+                  minHeight: index === 3 ? 600 : 400,
                   listStyleType: 'none',
                   borderLeft: `2px solid ${
                     isMobile
@@ -153,9 +141,8 @@ const TimeLine = ({
                     top: isMobile ? '32%' : '22%',
                   },
                 }}
-                component="li"
               >
-                <Grid container spacing={2}>
+                <Grid sx={{ mt: index === 3 ? -10 : 0 }} container spacing={2}>
                   <Grid
                     sx={{
                       display: 'flex',

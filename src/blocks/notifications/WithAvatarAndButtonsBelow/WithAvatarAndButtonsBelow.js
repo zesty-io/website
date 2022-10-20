@@ -47,7 +47,7 @@ const WithAvatarAndButtonsBelow = () => {
                       >
                         Ali Connors
                       </Typography>
-                      {" — I'll be in your neighborhood doing errands this…"}
+                      {' — I\'ll be in your neighborhood doing errands this…'}
                     </React.Fragment>
                   }
                 />

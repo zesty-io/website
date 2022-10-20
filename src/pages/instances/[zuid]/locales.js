@@ -1,8 +1,6 @@
-import { Button, Link, Stack } from '@mui/material';
-import CustomDataGrid from 'components/accounts/instances/CustomDataGrid';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useZestyStore } from 'store';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
 import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -10,8 +8,14 @@ import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
-import { FormSelect } from 'components/accounts';
+import {
+  AccountsHeader,
+  AccountsTable,
+  AccountsTableHead,
+  FormSelect,
+} from 'components/accounts';
 import { accountsValidations } from 'components/accounts/';
+import dayjs from 'dayjs';
 
 const MySwal = withReactContent(Swal);
 
@@ -34,36 +38,50 @@ export default function Locales() {
       headerName: 'Active',
       minWidth: 110,
       flex: 1,
+      renderHeader: () => <AccountsTableHead>Active</AccountsTableHead>,
     },
     {
       field: 'code',
       headerName: 'Code',
       minWidth: 110,
       flex: 1,
+      renderHeader: () => <AccountsTableHead>Code</AccountsTableHead>,
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
       minWidth: 200,
       flex: 1,
+      renderHeader: () => <AccountsTableHead>Created At</AccountsTableHead>,
+      renderCell: (params) => {
+        const date = dayjs(params.row.createdAt).format('MMM DD, YYYY');
+        return <Typography variant="body2">{date}</Typography>;
+      },
     },
     {
       field: 'default',
       headerName: 'Default',
       minWidth: 110,
       flex: 1,
+      renderHeader: () => <AccountsTableHead>Default</AccountsTableHead>,
     },
     {
       field: 'name',
       headerName: 'Name',
       minWidth: 300,
       flex: 1,
+      renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
     },
     {
       field: 'updatedAt',
       headerName: 'Updated At',
       minWidth: 200,
       flex: 1,
+      renderHeader: () => <AccountsTableHead>Updated At</AccountsTableHead>,
+      renderCell: (params) => {
+        const date = dayjs(params.row.updatedAt).format('MMM DD, YYYY');
+        return <Typography variant="body2">{date}</Typography>;
+      },
     },
     {
       field: 'activate/deactivate',
@@ -196,12 +214,18 @@ export default function Locales() {
     );
   };
 
+  const headerProps = {
+    title: 'Locales',
+    description: 'Manage your languages',
+  };
+  console.log('::');
   return (
-    <>
-      <Stack>
+    <Grid container>
+      <AccountsHeader {...headerProps}></AccountsHeader>
+      {/* <Stack>
         <Link
           alignSelf="start"
-          color="secondary"
+          color="primary"
           underline="none"
           href="https://zesty.org/getting-started/i18n-multi-language"
         >
@@ -209,7 +233,7 @@ export default function Locales() {
         </Link>
         <Link
           alignSelf="start"
-          color="secondary"
+          color="primary"
           underline="none"
           href="https://zesty.org/getting-started/i18n-multi-language#what-happens-when-a-new-language-is-added"
         >
@@ -219,7 +243,7 @@ export default function Locales() {
           variant="contained"
           color="success"
           startIcon={<AddOutlinedIcon />}
-          sx={{ alignSelf: 'end' }}
+          sx={{ alignSelf: 'end', display: 'none' }}
           onClick={() => {
             MySwal.fire({
               title: `Locale`,
@@ -230,15 +254,20 @@ export default function Locales() {
         >
           Add
         </Button>
-      </Stack>
+      </Stack> */}
 
-      <CustomDataGrid
-        columns={columns}
-        rows={rows}
-        pageSize={5}
-        isLoading={isLoading}
-      />
-    </>
+      <Grid item xs={12}>
+        <Stack p={4}>
+          <AccountsTable
+            loading={isLoading}
+            rows={rows}
+            columns={columns}
+            pageSize={100}
+            autoHeight={false}
+          />
+        </Stack>
+      </Grid>
+    </Grid>
   );
 }
 

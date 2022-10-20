@@ -4,17 +4,19 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import createEmotionServer from '@emotion/server/create-instance';
+import { getCookie } from 'cookies-next';
 
 const getCache = () => {
   const cache = createCache({ key: 'css', prepend: true });
   cache.compat = true;
-
   return cache;
 };
 
 export default class MyDocument extends Document {
   render() {
-    // taga manager / google analytics tags
+    const { isAuthenticated } = this.props;
+
+    // tag manager / google analytics tags
     let GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
     const fetchUrl =
@@ -26,49 +28,52 @@ export default class MyDocument extends Document {
           <script src={fetchUrl} />
           <link
             rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Mulish"
+          />
+          <link
+            rel="stylesheet"
             href="https://unpkg.com/aos@next/dist/aos.css"
           />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
-
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
-          />
-
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GTM_ID}', {
-              page_path: window.location.pathname,
-            });
+          {!isAuthenticated && (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${GTM_ID}');
           `,
-            }}
-          />
+              }}
+            />
+          )}
         </Head>
         <body>
           <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-          <noscript>
-            <iframe
-              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-              height="0"
-              width="0"
-              style={{ display: 'none', visibility: 'hidden' }}
-            ></iframe>
-          </noscript>
+          {!isAuthenticated && (
+            <noscript>
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+                height="0"
+                width="0"
+                style={{ display: 'none', visibility: 'hidden' }}
+              ></iframe>
+            </noscript>
+          )}
 
           {/* Zoominfo */}
-          <noscript>
-            <img
-              src="https://ws.zoominfo.com/pixel/62cc55bc7b3465008f482d68"
-              width="1"
-              height="1"
-              style={{ display: 'none' }}
-              alt="websights"
-            />
-          </noscript>
+          {!isAuthenticated && (
+            <noscript>
+              <img
+                src="https://ws.zoominfo.com/pixel/62cc55bc7b3465008f482d68"
+                width="1"
+                height="1"
+                style={{ display: 'none' }}
+                alt="websights"
+              />
+            </noscript>
+          )}
           <Main />
           <NextScript />
         </body>
@@ -107,6 +112,7 @@ MyDocument.getInitialProps = async (ctx) => {
 
   const cache = getCache();
   const { extractCriticalToChunks } = createEmotionServer(cache);
+  const isAuthenticated = getCookie('isAuthenticated', ctx);
 
   ctx.renderPage = () =>
     originalRenderPage({
@@ -132,6 +138,7 @@ MyDocument.getInitialProps = async (ctx) => {
 
   return {
     ...initialProps,
+    isAuthenticated,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: [
       ...React.Children.toArray(initialProps.styles),

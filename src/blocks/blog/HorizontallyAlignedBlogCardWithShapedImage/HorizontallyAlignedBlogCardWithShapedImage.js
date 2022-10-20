@@ -10,6 +10,7 @@ import Chip from '@mui/material/Chip';
 
 import Container from 'components/Container';
 
+
 const HorizontallyAlignedBlogCardWithShapedImage = ({
   featuredLink,
   featuredImage,
@@ -21,17 +22,18 @@ const HorizontallyAlignedBlogCardWithShapedImage = ({
   featuredAuthorLink,
 }) => {
   const theme = useTheme();
-  function makeDate(date) {
-    var d = new Date(date);
-    var options = {
-      year: 'numeric',
-      month: 'long',
-    };
-    var n = d.toLocaleDateString('en-US', options);
+        function makeDate(date) {
+          var d = new Date(date);
+          var options = {
+            year: 'numeric',
+            month: 'long',
+          };
+          var n = d.toLocaleDateString('en-US', options);
 
-    var replace = n.replace(new RegExp(',', 'g'), ' ');
-    return replace;
-  }
+          var replace = n.replace(new RegExp(',', 'g'), ' ');
+          return replace;
+        }
+
 
   return (
     <Container paddingTop={'0 !important'}>

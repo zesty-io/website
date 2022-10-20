@@ -114,9 +114,29 @@ function LongFormPpc({ content }) {
       zestyLink(content.navigationTree, FillerContent.contact_zuid),
     cta_left_text: content.cta_left_text || '',
     cta_left_url:
-      (content.cta_left_url === '0' && '/join') ||
+      (content.cta_left_url === '0' && '/join/') ||
       content.cta_left_url?.data[0]?.meta.web.uri ||
-      '/join',
+      '/join/',
+  };
+
+  console.log(content);
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const feature_data =
+    content?.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const techStackData = {
+    text_content: content.integrations_description,
+    logos: content.integrations_logos?.data,
+    cta_text: content.intergration_cta_text || FillerContent.cta,
+    cta_link: content.integration_cta_link || FillerContent.href,
   };
 
   return (
@@ -185,11 +205,9 @@ function LongFormPpc({ content }) {
         />
       ) : (
         <Features
-          FillerContent={FillerContent}
-          isDarkMode={isDarkMode}
+          features_header={content.features_header}
+          data={feature_data}
           content={content}
-          theme={theme}
-          isMobile={isMobile}
         />
       )}
 
@@ -209,13 +227,10 @@ function LongFormPpc({ content }) {
         />
       </Box>
 
-      {router.asPath.includes('/ppc/headless-cms/') ? null : (
-        <TechStack
-          FillerContent={FillerContent}
-          content={content}
-          theme={theme}
-          isMobile={isMobile}
-        />
+      {router.asPath.includes('/ppc/headless-cms/') ? (
+        <></>
+      ) : (
+        <TechStack {...techStackData} content={content} />
       )}
 
       {/* Form */}

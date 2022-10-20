@@ -1,4 +1,3 @@
-import AppBar from 'components/console/AppBar';
 import Main from 'layouts/Main/Main';
 import React from 'react';
 import { Container } from '@mui/material';
@@ -15,7 +14,6 @@ const InstanceContainer = ({ children, isDashboard = false }) => {
 
   return (
     <Main>
-      <AppBar />
       <Container
         maxWidth={false}
         disableGutters

@@ -5,16 +5,14 @@
 import { Box, Typography, Card, Button, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Container from 'blocks/container/Container';
+import MuiMarkdown from 'mui-markdown';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
   return (
     <Box
       component="section"
       sx={{
-        // background: `url(${content.case_studies_background.data[0].url})`,
-        // backgroundSize: 'cover',
-        // backgroundPosition: 'center',
-        // backgroundRepeat: 'no-repeat',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
           : theme.palette.zesty.zestyWhite,
@@ -45,26 +43,125 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 ? theme.palette.common.white
                 : theme.palette.zesty.zestyDarkText,
               textAlign: 'center',
-              mt: 2,
             }}
           >
             {content.case_studies_header || FillerContent.description}
           </Typography>
         </Box>
 
+        <Box sx={{ mt: 8 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
+              <MuiMarkdown
+                overrides={{
+                  h2: {
+                    component: Typography,
+                    props: {
+                      variant: 'h3',
+                      component: 'h2',
+                      sx: {
+                        color: theme.palette.zesty.zestyDarkText,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h6',
+                      component: 'p',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                        lineHeight: 1.2,
+                        mt: 2,
+                      },
+                    },
+                  },
+                }}
+              >
+                {content.case_study_card_1 || FillerContent.rich_text}
+              </MuiMarkdown>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <MuiMarkdown
+                overrides={{
+                  h2: {
+                    component: Typography,
+                    props: {
+                      variant: 'h3',
+                      component: 'h2',
+                      sx: {
+                        color: theme.palette.zesty.zestyDarkText,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h6',
+                      component: 'p',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                        lineHeight: 1.2,
+                        mt: 2,
+                      },
+                    },
+                  },
+                }}
+              >
+                {content.case_study_card_2 || FillerContent.rich_text}
+              </MuiMarkdown>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <MuiMarkdown
+                overrides={{
+                  h2: {
+                    component: Typography,
+                    props: {
+                      variant: 'h3',
+                      component: 'h2',
+                      sx: {
+                        color: theme.palette.zesty.zestyDarkText,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h6',
+                      component: 'p',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                        lineHeight: 1.2,
+                        mt: 2,
+                      },
+                    },
+                  },
+                }}
+              >
+                {content.case_study_card_3 || FillerContent.rich_text}
+              </MuiMarkdown>
+            </Grid>
+          </Grid>
+        </Box>
+
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, mt: 10 }}>
-          {content.g2_badges?.data.map((item, index) => (
-            <Box
-              data-aos-offset="200"
-              data-aos="fade-up"
-              data-aos-duration={`${500 * (index + 1)}`}
-              key={index}
-              sx={{ width: '100%', maxWidth: 171 }}
-            >
-              <Box
-                sx={{ width: '100%' }}
-                component="img"
-                src={item.url}
+          {content?.g2_badges?.data.map((item, index) => (
+            <Box key={index} sx={{ width: '100%', maxWidth: 171 }}>
+              <ZestyImage
+                width={171}
+                height={192}
+                loading="lazy"
+                style={{ width: '100%', height: 'auto' }}
+                src={item.url || FillerContent.photos[0].src}
                 alt={item.type || ''}
               />
             </Box>
@@ -72,15 +169,12 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
         </Box>
 
         <Grid sx={{ mt: 8 }} container spacing={4}>
-          {content.case_study_cards?.data.map((item, index) => (
+          {content?.case_study_cards?.data.map((item, index) => (
             <Grid key={index} item sm={12} md={4}>
               <Card
                 component="a"
-                href={item.card_link.data[0].meta.web.uri}
+                href={item.card_link.data[0].meta.web.uri || FillerContent.href}
                 target="_blank"
-                data-aos-offset="200"
-                data-aos="fade-up"
-                data-aos-duration={`${index + 1}000`}
                 sx={{
                   width: '100%',
                   maxWidth: 482,
@@ -92,11 +186,13 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                   textDecoration: 'none',
                 }}
               >
-                <Box
-                  sx={{ width: '100%' }}
-                  component="img"
-                  src={item.image?.data[0].url}
-                  alt={item.title}
+                <ZestyImage
+                  width={482}
+                  height={233}
+                  style={{ width: '100%', maxWidth: 482, height: 'auto' }}
+                  loading="lazy"
+                  src={item.image?.data[0].url || FillerContent.photos[0].src}
+                  alt={item.title || ''}
                 />
 
                 <Box
@@ -107,11 +203,16 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                 >
                   <Box>
                     <Box sx={{ width: '100%', maxWidth: 150 }}>
-                      <Box
-                        sx={{ width: '100%' }}
+                      <ZestyImage
+                        width={194}
+                        height={60}
+                        style={{ width: '100%', maxWidth: 194, height: 'auto' }}
                         component="img"
-                        src={item.logo?.data[0].url}
-                        alt={item.title}
+                        loading="lazy"
+                        src={
+                          item.logo?.data[0].url || FillerContent.photos[0].src
+                        }
+                        alt={item.title || ''}
                       />
                     </Box>
 

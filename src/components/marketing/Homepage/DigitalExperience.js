@@ -5,15 +5,18 @@
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import Container from 'blocks/container/Container';
+import ZestyImage from 'blocks/Image/ZestyImage';
 /**
  * Static Assets Imports
  */
 
-const DigitalExperience = ({ content, FillerContent, theme }) => {
+const DigitalExperience = ({ content, FillerContent, theme, isDarkMode }) => {
   return (
     <Box
       sx={{
-        background: theme.palette.zesty.zestyGray99,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyWhite,
         mt: 10,
         py: 10,
         position: 'relative',
@@ -26,17 +29,7 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
         component="img"
         src={content.bracket_background?.data[0].url}
       /> */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: -550,
-          left: '25%',
-          width: '100%',
-          maxWidth: 919,
-        }}
-        component="img"
-        src={content.triangles_background_1?.data[0].url}
-      />
+
       <Container>
         <MuiMarkdown
           overrides={{
@@ -88,7 +81,7 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
             },
           }}
         >
-          {content.product_title_and_description}
+          {content.product_title_and_description || FillerContent.rich_text}
         </MuiMarkdown>
 
         <Box>
@@ -100,7 +93,7 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
             spacing={2}
             container
           >
-            {content.product_options?.data.map((item, index) => (
+            {content.product_options?.data?.map((item, index) => (
               <Grid
                 key={index}
                 sx={{
@@ -110,11 +103,7 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
                 sm={12}
                 md={4}
               >
-                <Box
-                  data-aos-offset="200"
-                  data-aos="fade-up"
-                  data-aos-duration={`${500 * (index + 1)}`}
-                >
+                <Box>
                   <Card
                     component="a"
                     href={item.link?.data[0].meta.web.uri || FillerContent.href}
@@ -139,12 +128,15 @@ const DigitalExperience = ({ content, FillerContent, theme }) => {
                           alignItems: 'center',
                         }}
                       >
-                        <Box
-                          component="img"
-                          sx={{ width: '100%', maxWidth: 334, height: 179 }}
+                        <ZestyImage
+                          width={294}
+                          height={179}
+                          style={{ width: '100%', maxWidth: 294 }}
+                          alt={item.product_name || ''}
+                          loading="lazy"
                           src={
                             item.graphic?.data[0].url ||
-                            FillerContent.photos[0].url
+                            FillerContent.photos[0].src
                           }
                         />
                       </Box>

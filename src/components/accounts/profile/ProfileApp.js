@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Box,
   Typography,
-  Grid,
   Card,
   CardMedia,
   Skeleton,
@@ -14,11 +13,10 @@ import {
   ListItemIcon,
   ListItemText,
   lighten,
-  Divider,
-  capitalize,
   Container,
   Tabs,
   Tab,
+  Stack,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
@@ -32,35 +30,40 @@ import { useTheme } from '@mui/material/styles';
 
 const ProfileNavigation = ({ lists, handleChange, currentPage = '' }) => {
   return (
-    <Box>
-      <List>
-        {lists.map((list, index) => (
-          <ListItem
-            key={index}
-            onClick={() => handleChange(list.filename)}
-            disablePadding
-            selected={list.filename === currentPage}
-            sx={(theme) => ({
-              mb: 1,
-              borderRadius: '4px',
-              '&.Mui-selected': {
-                ' .MuiListItemIcon-root': {
-                  color: theme.palette.secondary.main,
-                },
-                bgcolor: lighten(theme.palette.secondary.light, 0.9),
-                color: theme.palette.secondary.main,
-                pointerEvents: 'none',
+    <List sx={{ padding: '0 8px 0 8px' }}>
+      {lists.map((list, index) => (
+        <ListItem
+          title={list.label}
+          key={index}
+          onClick={() => handleChange(list.filename)}
+          disablePadding
+          selected={list.filename === currentPage}
+          sx={(theme) => ({
+            borderRadius: '5px',
+            my: 0.2,
+            color: theme.palette.text.secondary,
+            '&.Mui-selected': {
+              ' .MuiListItemIcon-root': {
+                color: theme.palette.primary.main,
               },
-            })}
+              bgcolor: lighten(theme.palette.primary.light, 0.9),
+              pointerEvents: 'none',
+              color: theme.palette.primary.main,
+            },
+          })}
+        >
+          <ListItemButton
+            color="warning"
+            sx={{ borderRadius: '5px', padding: '6px 12px' }}
           >
-            <ListItemButton color="warning">
-              <ListItemIcon>{list.icon}</ListItemIcon>
-              <ListItemText primary={list.label} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+            <ListItemIcon sx={{ minWidth: 35 }}>{list.icon}</ListItemIcon>
+            <ListItemText
+              primary={<Typography variant="body3">{list.label}</Typography>}
+            />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
   );
 };
 const profileTabs = [
@@ -68,7 +71,7 @@ const profileTabs = [
     icon: <InfoOutlinedIcon />,
     filename: '',
     label: 'Your Profile',
-    sort: 0,
+    sort: 2,
   },
   {
     icon: <LockIcon />,
@@ -78,9 +81,9 @@ const profileTabs = [
   },
   {
     icon: <DataObject />,
-    filename: 'preference',
+    filename: 'preferences',
     label: 'Preferences',
-    sort: 4,
+    sort: 3,
   },
 ];
 
@@ -95,22 +98,24 @@ const ProfileHeader = ({ userInfo }) => {
         maxWidth: '100%',
         borderRadius: 0,
         boxShadow: 'none',
-        borderBottom: `1px solid ${grey[300]}`,
+        // borderBottom: `1px solid ${grey[300]}`,
       }}
     >
       {profileUrl ? (
-        <CardMedia
-          component="img"
-          height="100%"
-          sx={{ p: 5 }}
-          image={profileUrl}
-          alt="screenshot"
-        />
+        <Stack p={2}>
+          <CardMedia
+            component="img"
+            height="100%"
+            image={profileUrl}
+            alt="screenshot"
+            sx={{ boxShadow: 1, borderRadius: '8px' }}
+          />
+        </Stack>
       ) : (
         <Skeleton variant="rectangular" height="150px" />
       )}
 
-      <CardContent>
+      <CardContent sx={{ borderBottom: `1px solid ${grey[200]}` }}>
         <Typography gutterBottom variant="h5" component="div">
           {name}
         </Typography>
@@ -148,19 +153,17 @@ const Index = ({ children }) => {
   return (
     <Box>
       {isLG ? (
-        <Grid container>
-          <Grid
-            item
-            md={3}
-            lg={2}
-            sx={{
-              borderRight: `1px solid ${grey[300]}`,
-              maxWidth: { md: '384px' },
+        <Box sx={{ display: 'grid', gridTemplateColumns: '240px 1fr' }}>
+          <Box
+            sx={(theme) => ({
               position: 'sticky',
-              top: '60px',
-              height: `calc(100vh - 82px)`,
+              top: `${theme.tabTop}px`,
+              height: `calc(100vh - ${theme.tabTop}px)`,
               overflow: 'auto',
-            }}
+              '::-webkit-scrollbar': {
+                display: 'none',
+              },
+            })}
           >
             <ProfileHeader userInfo={userInfo} />
             <ProfileNavigation
@@ -168,18 +171,9 @@ const Index = ({ children }) => {
               handleChange={handleChange}
               currentPage={currentPage}
             />
-          </Grid>
-
-          <Grid item md={9} lg={10}>
-            <Container maxWidth={false}>
-              <Typography py={2} variant="h5" color="text.secondary">
-                {currentPage ? capitalize(currentPage) : 'Overview'}
-              </Typography>
-            </Container>
-            <Divider sx={{ mb: 2 }} />
-            <Container maxWidth={false}>{children}</Container>
-          </Grid>
-        </Grid>
+          </Box>
+          <Box>{children}</Box>
+        </Box>
       ) : (
         <Container>
           <ProfileHeader userInfo={userInfo} />
@@ -187,8 +181,8 @@ const Index = ({ children }) => {
             value={tabValue}
             onChange={handleTabChange}
             aria-label="icon position tabs example"
-            indicatorColor="secondary"
-            textColor="secondary"
+            indicatorColor="primary"
+            textColor="primary"
             variant="scrollable"
             scrollButtons="auto"
             sx={{

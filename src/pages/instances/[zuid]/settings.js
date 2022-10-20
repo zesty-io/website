@@ -3,13 +3,14 @@ import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Settings } from 'views/accounts/instances';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import { downloadTemplate } from 'utils/LaunchApp';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function SettingsPage() {
   const [loading, setloading] = React.useState(false);
   const [settings, setsettings] = React.useState([]);
-  const { ZestyAPI } = useZestyStore((state) => state);
+  const { ZestyAPI, userAppSID } = useZestyStore((state) => state);
   const router = useRouter();
   const { zuid } = router.query;
 
@@ -46,13 +47,12 @@ export default function SettingsPage() {
     const res = await ZestyAPI.updateSetting(e.ZUID, e);
     !res.error && handleSingleSettingUpdateSuccess(res);
     res.error && handleSingleSettingUpdateError(res);
+    await getPageData();
   };
 
   const getPageData = async () => {
     await setloading(true);
-    await getUsers();
-    await getInstanceUserRoles();
-    await getSettings();
+    await Promise.all([getUsers(), getInstanceUserRoles(), getSettings()]);
     await setloading(false);
   };
   React.useEffect(() => {
@@ -66,6 +66,9 @@ export default function SettingsPage() {
       loading={loading}
       settings={settings}
       singleSettingsUpdate={singleSettingsUpdate}
+      token={userAppSID}
+      instance_zuid={zuid}
+      downloadTemplate={downloadTemplate}
     />
   );
 }

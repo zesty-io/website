@@ -6,6 +6,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import DemoCta from 'components/cta/DemoCta';
 import MuiMarkdown from 'mui-markdown';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 /**
  * Static Assets Imports
@@ -16,9 +17,9 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
   return (
     <>
       <Box
+        data-testid="HomePageHero"
         component="section"
         sx={{
-          // background: `url(${heroBackground.src})`,
           minHeight: 700,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
@@ -58,8 +59,6 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                     h1: {
                       component: Typography,
                       props: {
-                        'data-aos': 'fade-up',
-                        'data-aos-duration': '1000',
                         component: 'h1',
                         variant: 'h3',
                         sx: {
@@ -70,8 +69,6 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                     p: {
                       component: Typography,
                       props: {
-                        'data-aos': 'fade-up',
-                        'data-aos-duration': '1500',
                         component: 'p',
                         variant: 'h6',
                         sx: {
@@ -88,8 +85,6 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
               </Box>
 
               <Box
-                data-aos="fade-up"
-                data-aos-duration="2500"
                 sx={{
                   mt: 4,
                   display: 'flex',
@@ -101,26 +96,25 @@ const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
                   text={content.hero_button_left || FillerContent.cta}
                   variant="contained"
                   fullWidth={isMedium}
-                  // sx={{
-                  //   color: theme.palette.zesty.zestyOrange,
-                  //   background: 'white',
-                  //   fontWeight: 'bold',
-                  //   borderRadius: 1,
-                  // }}
                 />
                 <DemoCta
                   fullWidth={isMedium}
-                  href={content.hero_button_right_link?.data[0].meta.web.uri}
+                  href={
+                    content.hero_button_right_link?.data[0].meta.web.uri ||
+                    FillerContent.href
+                  }
                   text={content.hero_button_right || FillerContent.cta}
                 />
               </Box>
             </Grid>
             <Grid item sm={12} md={6}>
               <Box>
-                <Box
-                  data-aos="fade-up"
-                  sx={{ width: '100%', maxWidth: 846 }}
-                  component="img"
+                <ZestyImage
+                  alt="hero image"
+                  loading="eager"
+                  style={{ width: '100%', maxWidth: 846, height: 'auto' }}
+                  width={846}
+                  height={576}
                   src={
                     content.header_graphic?.data[0].url ||
                     FillerContent.photos[0].src

@@ -2,7 +2,7 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, Grid } from '@mui/material';
+import { Box, Typography, Card, Grid, Button } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -22,6 +22,7 @@ import Star from '../../../../public/assets/images/homepage/star.svg';
 
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -31,10 +32,18 @@ import Container from 'blocks/container/Container';
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
 
-const Testimonials = ({ title, data }) => {
+const Testimonials = ({ title, data, cta_text, cta_link }) => {
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const backgroundUrl = 'https://kfg6bckb.media.zestyio.com/testimonials.svg';
+
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(title);
+
+  if (!isRichText) {
+    title = `<p>${title}</p>`;
+  }
 
   return (
     <Box
@@ -75,6 +84,7 @@ const Testimonials = ({ title, data }) => {
                       component: 'h2',
                       variant: 'h4',
                       sx: {
+                        textAlign: 'left !important',
                         color: theme.palette.zesty.zestyOrange,
                         fontWeight: 'bold',
                       },
@@ -86,6 +96,7 @@ const Testimonials = ({ title, data }) => {
                       component: 'p',
                       variant: 'h4',
                       sx: {
+                        textAlign: 'left !important',
                         color: theme.palette.zesty.zestyZambezi,
                         fontWeight: 'bold',
                       },
@@ -95,6 +106,25 @@ const Testimonials = ({ title, data }) => {
               >
                 {title}
               </MuiMarkdown>
+
+              {cta_text && (
+                <Box
+                  sx={{
+                    mt: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    href={cta_link}
+                    component={'a'}
+                    variant="outlined"
+                    color="secondary"
+                  >
+                    {cta_text}
+                  </Button>
+                </Box>
+              )}
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
@@ -137,9 +167,10 @@ const Testimonials = ({ title, data }) => {
                       }}
                     >
                       <Box sx={{ width: 75, height: 71, margin: 'auto' }}>
-                        <Box
-                          sx={{ width: '100%' }}
-                          component="img"
+                        <ZestyImage
+                          width={75}
+                          height={71}
+                          loading="lazy"
                           src={HeartQuote.src}
                           alt="heart quote"
                         />
@@ -176,9 +207,11 @@ const Testimonials = ({ title, data }) => {
                         }}
                       >
                         {[1, 2, 3, 4, 5].map(() => (
-                          <Box
-                            sx={{ px: 0.5 }}
-                            component="img"
+                          <ZestyImage
+                            width={20}
+                            height={20}
+                            style={{ paddingLeft: 0.5, paddingRight: 0.5 }}
+                            loading="lazy"
                             src={Star.src}
                             alt="star rating"
                           />

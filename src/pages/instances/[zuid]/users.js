@@ -2,64 +2,60 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Users } from 'views/accounts';
-import {
-  BaseRolesTable,
-  ErrorMsg,
-  StickyTable,
-  SuccessMsg,
-} from 'components/accounts';
-import { Button } from '@mui/material';
+import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import { Button, Grid, Paper, Stack, Typography } from '@mui/material';
+import { baseroles } from 'components/accounts/users/baseroles';
 import * as helpers from 'utils';
+import { grey } from '@mui/material/colors';
+import { docData } from 'components/accounts/users/docData';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
-const COLUMNS_PENDING = [
-  {
-    id: 'email',
-    label: 'Email',
-  },
-  {
-    id: 'name',
-    label: 'Name',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
-
-const PendingTable = ({
-  data = [],
-  respondToInvite,
-  isInstanceOwner,
-  loading,
-}) => {
-  const newData = data.map((e) => {
-    return {
-      ...e,
-      action: isInstanceOwner ? (
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => respondToInvite(e, 'cancel')}
-        >
-          Cancel Invite
-        </Button>
-      ) : (
-        '-'
-      ),
-    };
-  });
+const RolesDescription = () => {
   return (
-    <StickyTable
-      title="Pending Users"
-      loading={loading}
-      rows={newData}
-      columns={COLUMNS_PENDING}
-    />
+    <Grid container spacing={2}>
+      <Grid item xs={12} md={6}>
+        <Paper sx={{ my: 2, p: 3, border: `1px solid ${grey[400]}` }}>
+          <Typography variant="h6" mb={3} color="text.secondary">
+            Roles and Permissions
+          </Typography>
+          {baseroles.map((role) => (
+            <Stack key={role.ZUID} px={2} spacing={1} mb={2}>
+              <Typography fontWeight="bolder">{role.label}</Typography>
+              <Typography>{role.desc}</Typography>
+            </Stack>
+          ))}
+        </Paper>
+      </Grid>
+      <Grid item xs={12} md={6} height="100%">
+        <Paper sx={{ my: 2, p: 3, border: `1px solid ${grey[400]}` }}>
+          <Typography variant="h6" mb={3} color="text.secondary">
+            Users
+          </Typography>
+          {docData.map((doc) => (
+            <Stack key={doc.id} px={2} spacing={1} mb={2}>
+              <Typography fontWeight="bolder">{doc.title}</Typography>
+              <Typography>{doc.desc}</Typography>
+              <Button
+                color="primary"
+                endIcon={<ArrowForwardIcon />}
+                href={doc.link}
+                target="_blank"
+                sx={{ alignSelf: 'start' }}
+              >
+                Learn More
+              </Button>
+            </Stack>
+          ))}
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
+
 export default function UsersPage() {
+  const [search, setsearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const [users, setusers] = React.useState([]);
   const [pendingUsers, setpendingUsers] = React.useState([]);
@@ -200,10 +196,13 @@ export default function UsersPage() {
   };
   const getPageData = async () => {
     await setloading(true);
-    await getUsers();
-    await getInstanceUserRoles();
-    await getInstanceRoles();
-    await getInstancePendingUsers();
+
+    await Promise.all([
+      getUsers(),
+      getInstanceUserRoles(),
+      getInstanceRoles(),
+      getInstancePendingUsers(),
+    ]);
     await setloading(false);
   };
   React.useEffect(() => {
@@ -217,27 +216,30 @@ export default function UsersPage() {
     userInfo,
   );
 
-  console.log(users, pendingUsers, 'user data');
-
+  const filteredUsers = instanceUserWithRoles?.filter((e) => {
+    const name = `${e?.firstName?.toLowerCase() || '-'} ${
+      e?.lastName?.toLowerCase() || '-'
+    }`;
+    return name?.includes(search?.toLowerCase());
+  });
+  const userProps = {
+    updateRole,
+    roles: filteredUsers,
+    deleteUserRole,
+    instanceRoles,
+    createInvite,
+    isOwner: isInstanceOwner,
+    instanceZUID: zuid,
+    loading,
+    search,
+    setsearch,
+    respondToInvite,
+    pendingUsers,
+  };
   return (
     <>
-      <Users
-        updateRole={updateRole}
-        roles={instanceUserWithRoles}
-        deleteUserRole={deleteUserRole}
-        instanceRoles={instanceRoles}
-        createInvite={createInvite}
-        isOwner={isInstanceOwner}
-        instanceZUID={zuid}
-        loading={loading}
-      />
-      <PendingTable
-        loading={loading}
-        isInstanceOwner={isInstanceOwner}
-        respondToInvite={respondToInvite}
-        data={pendingUsers}
-      />
-      <BaseRolesTable />
+      <Users {...userProps} />
+      {/* <RolesDescription /> */}
     </>
   );
 }

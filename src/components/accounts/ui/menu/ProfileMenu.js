@@ -7,8 +7,8 @@ import { grey } from '@mui/material/colors';
 
 const dropdown = [
   { link: '/profile/', label: 'Profile' },
-  { link: '/profile/security', label: 'Security' },
-  { link: '/profile/preference', label: 'Preferences' },
+  { link: '/profile/security/', label: 'Security' },
+  { link: '/profile/preferences/', label: 'Preferences' },
 ];
 
 const signOut = [{ link: '/logout', label: 'Logout' }];
@@ -48,19 +48,20 @@ export const ProfileMenu = ({ profilePic, userInfo }) => {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        sx={{ mt: 2, py: 0 }}
       >
-        <Box padding={2} sx={{ borderBottom: `1px solid ${grey[300]}` }}>
+        <Box p={2} sx={{ borderBottom: `1px solid ${grey[300]}` }}>
           <Typography>Logged in as </Typography>
           <Typography variant="p" sx={{ fontWeight: '800' }}>
             {userInfo?.email}
           </Typography>
         </Box>
-        <Box paddingY={1}>
+        <Box>
           {dropdown.map((e) => (
             <MenuItem onClick={() => handleClose(e.link)}>{e.label}</MenuItem>
           ))}
         </Box>
-        <Box sx={{ borderTop: `1px solid ${grey[300]}` }} paddingY={1}>
+        <Box sx={{ borderTop: `1px solid ${grey[300]}` }}>
           {signOut.map((e) => (
             <MenuItem onClick={() => handleClose(e.link)}>{e.label}</MenuItem>
           ))}
