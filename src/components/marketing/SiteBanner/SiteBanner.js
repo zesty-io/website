@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import useFetch from 'components/hooks/useFetch';
 import MuiMarkdown from 'mui-markdown';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
+import CloseIcon from '@mui/icons-material/Close';
+import { getCookie, setCookie } from 'cookies-next';
 
 const SiteBanner = ({ children }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [isDismissed, setIsDismissed] = useState(
+    getCookie('SITE_BANNER_DISMISSED'),
+  );
   const [bannerContent, setBannerContent] = useState([]);
 
   let zestyURL = process.env.zesty.production
@@ -24,9 +29,15 @@ const SiteBanner = ({ children }) => {
     setBannerContent(response);
   }, [response]);
 
+  // Dismissed banner on click and set session cookie
+  const CloseButtonHandler = () => {
+    setCookie('SITE_BANNER_DISMISSED', true);
+    setIsDismissed(true);
+  };
+
   return (
     <>
-      {bannerContent.length != 0 && (
+      {bannerContent.length != 0 && !isDismissed && (
         <Stack
           px={{ xs: 2 }}
           py={1.5}
@@ -35,9 +46,26 @@ const SiteBanner = ({ children }) => {
           justifyItems="center"
           textAlign={'center'}
           alignItems="center"
-          sx={{ background: theme.palette.zesty.zestyBanner }}
+          sx={{
+            background: theme.palette.zesty.zestyBanner,
+            position: 'relative',
+          }}
           direction={isMobile ? 'column' : 'row'}
         >
+          <Box
+            onClick={() => CloseButtonHandler()}
+            sx={{
+              position: 'absolute',
+              right: 10,
+              top: isMobile ? 5 : '25%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              cursor: 'pointer',
+            }}
+          >
+            <CloseIcon sx={{ color: theme.palette.common.white }} />
+          </Box>
           <Stack
             sx={{
               background: theme.palette.zesty.zestyOrange,
