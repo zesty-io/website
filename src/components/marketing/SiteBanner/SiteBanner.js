@@ -99,7 +99,7 @@ const SiteBanner = ({ children }) => {
                 },
               }}
             >
-              {bannerContent.data[0].content.banner_content ||
+              {bannerContent?.data[0]?.content?.banner_content ||
                 FillerContent.description}
             </MuiMarkdown>
           )}
