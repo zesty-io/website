@@ -71,7 +71,7 @@ const ZInstanceItem = ({
             </IconButton>
           </Stack>
         ) : (
-          <Stack direction="row">
+          <Stack direction={{ xs: 'column', sm: 'row' }}>
             <IconButton href={previewLink} target="_blank">
               <VisibilityIcon />
             </IconButton>
