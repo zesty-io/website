@@ -42,6 +42,8 @@ export default function ZohoFormEmbed({
     if (utm_term) {
       demoFormEmbedLink += '&utm_term=' + utm_term;
     }
+
+    console.log(window.dataLayer);
   });
   return (
     <Card sx={{ width: '100%', maxWidth: width, margin: 'auto' }}>
