@@ -155,7 +155,7 @@ const Features = ({
               },
             }}
           >
-            {features_header.replace(
+            {features_header?.replace(
               textHighlight,
               `<span>${textHighlight}</span>`,
             )}
@@ -199,7 +199,7 @@ const Features = ({
             zIndex: '1000',
           }}
         >
-          {data.map((e, i) => {
+          {data?.map((e, i) => {
             return (
               <div key={i}>
                 <Card

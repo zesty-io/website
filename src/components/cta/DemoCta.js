@@ -39,6 +39,7 @@ const DemoCta = ({
       href={href}
       target={target}
       onClick={handleClick}
+      color={color}
     >
       {text}
       {icon && <ArrowRightAlt sx={{ ml: 1 }} />}

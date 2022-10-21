@@ -132,6 +132,7 @@ function Homepage({ content }) {
         cta_text={content?.middle_cta_button_text}
       />
       <DarkBlueCta
+        sx={{ mt: 15 }}
         cta_text={content?.middle_cta_text}
         cta_secondary_link={
           content?.middle_cta_secondary_cta_link?.data[0].meta.web.uri

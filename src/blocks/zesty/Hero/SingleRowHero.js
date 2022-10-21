@@ -10,6 +10,7 @@ import { useTheme } from '@mui/material/styles';
  * */
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import FillerContent from 'components/globals/FillerContent';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const TwoRowsHero = ({
   eyebrow = FillerContent.header,
@@ -20,6 +21,7 @@ const TwoRowsHero = ({
   cta_right = FillerContent.cta,
   cta_right_link = FillerContent.href,
   isMobile,
+  image
 }) => {
   const theme = useTheme();
 
@@ -117,6 +119,20 @@ const TwoRowsHero = ({
             </Button>
           </Box>
         </Box>
+
+          <Box sx={{ mt: 5, width:"100%", maxWidth:900, mx:'auto' }}>
+            <ZestyImage
+              width={928}
+              height={495}
+              style={{ width: '100%', height: 'auto' }}
+              src={
+                image || FillerContent.photos[0].src
+              }
+              alt="why zesty image"
+            />
+          </Box>
+
+
       </Container>
     </Box>
   );

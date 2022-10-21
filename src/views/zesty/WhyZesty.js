@@ -33,64 +33,23 @@ import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js
 import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
 import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
-import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import WYSIWYGRender from 'components/globals/WYSIWYGRender';
-
 import FillerContent from 'components/globals/FillerContent';
 import useFetch from 'components/hooks/useFetch';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import SingleRowHero from 'blocks/zesty/Hero/SingleRowHero';
-import Benefits from 'components/marketing/WhyZesty/Benefits';
-
-const OverviewProcessComp = ({ content, image }) => {
-  return (
-    <Container sx={{ padding: '2rem' }}>
-      <Grid container justify="center">
-        <Box justifyContent="center" alignItems="center">
-          <Typography
-            variant="h5"
-            alignItems={'center'}
-            sx={{ textAlign: 'center' }}
-            gutterBottom
-          >
-            <WYSIWYGRender
-              rich_text={content || FillerContent.rich_text}
-            ></WYSIWYGRender>
-          </Typography>
-          <Container>
-            {image && (
-              <Box
-                component={'img'}
-                src={image}
-                alt={FillerContent.header}
-                width={1}
-                height={1}
-                sx={{
-                  objectFit: 'cover',
-                  borderRadius: '1rem',
-                  justifyContent: 'center',
-                }}
-              />
-            )}
-          </Container>
-        </Box>
-      </Grid>
-    </Container>
-  );
-};
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
+import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
+import Features from 'blocks/features/Features/Features';
 
 /* ------------------------------------------------------------------- */
 
 function WhyZesty({ content }) {
   const theme = useTheme();
 
-  const {
-    data: allArticles,
-    isPending,
-    error,
-  } = useFetch(
+  const { data: allArticles, isPending } = useFetch(
     `/-/all-articles-hydrated.json?limit=3`,
     content.zestyProductionMode,
   );
@@ -140,6 +99,17 @@ function WhyZesty({ content }) {
 
   console.log(content);
 
+  const feature_data =
+    content.key_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
   return (
     <>
       <SingleRowHero
@@ -150,9 +120,17 @@ function WhyZesty({ content }) {
         cta_left_link={content.cta_left.data[0].external_link}
         cta_right={content.cta_right.data[0].button_text}
         cta_right_link={content.cta_right.data[0].external_link}
+        image={content.header_image.data[0].url}
       />
 
-      <Benefits {...pageData} />
+      <Box sx={{ py: 5 }}>
+        <SimpleCardLogo
+          logoItems={content?.client_logos.data}
+          heading_text={content.logos_h2}
+          maxWidth={1300}
+          variant="outlined"
+        />
+      </Box>
 
       <OverviewProcessComp
         image={
@@ -164,7 +142,7 @@ function WhyZesty({ content }) {
       />
 
       {/* Benefits */}
-      {content.benefits?.data?.map((e, i) => {
+      {content.benefits?.data?.slice(0, 2).map((e, i) => {
         return (
           <FeaturesWithMobileScreenshot
             index={i}
@@ -177,6 +155,45 @@ function WhyZesty({ content }) {
           />
         );
       })}
+
+      <DarkBlueCta
+        sx={{ my: 15 }}
+        header_content={content.middle_cta}
+        cta_text={content.middle_cta_primary}
+        cta_secondary_text={content.middle_cta_secondary}
+        cta_secondary_link={
+          content.middle_cta_secondary_link.data[0].meta.web.uri
+        }
+      />
+
+      {/* Benefits */}
+      {content.benefits?.data?.slice(0, 2).map((e, i) => {
+        return (
+          <FeaturesWithMobileScreenshot
+            index={i}
+            content={e.benefit_content || FillerContent.rich_text}
+            header={e.header || FillerContent.header}
+            image={
+              (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
+              FillerContent.image
+            }
+          />
+        );
+      })}
+
+      {/* Missing Case Study
+      ==========================
+      ==========================  */}
+
+      <Box sx={{ mt: 4 }}>
+        <Features
+          header_size={32}
+          textHighlight={'Workflow management'}
+          data={feature_data}
+          features_header={content.key_features_text}
+          card_name_color={theme.palette.zesty.zestyZambezi}
+        />
+      </Box>
 
       {/* HYBRID VS HEADLESS */}
       <Box
