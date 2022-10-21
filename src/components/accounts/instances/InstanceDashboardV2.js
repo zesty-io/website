@@ -6,6 +6,7 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
+  Typography,
 } from '@mui/material';
 import ZInstanceItem from 'components/accounts/dashboard/ui/ZInstanceItem';
 import React, { useEffect, useState } from 'react';
@@ -60,7 +61,7 @@ const InstanceDashboardV2 = () => {
       handleSetInstancesList(debounceSearch, favorites);
       handleSetFavoritesInstancesList(debounceSearch, favorites);
     },
-    400,
+    500,
   );
 
   const handleSetInvitesList = (value) => {
@@ -380,6 +381,13 @@ const InstanceDashboardV2 = () => {
           <CircularProgress />
         </Stack>
       )}
+
+      {search === debounceSearch &&
+        instancesList?.length === 0 &&
+        favoritesInstancesList?.length === 0 &&
+        invitesList?.length === 0 && (
+          <Typography variant="h6">No Instances Found.</Typography>
+        )}
     </Container>
   );
 };

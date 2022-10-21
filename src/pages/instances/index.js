@@ -17,7 +17,7 @@ export default function Instances() {
   return (
     <>
       <ZestyAccountsHead title={'Accounts: Instances'} />
-      <InstancesDashboardV2 />;
+      <InstancesDashboardV2 />
     </>
   );
 }
