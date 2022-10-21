@@ -2,7 +2,7 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Users } from 'views/accounts';
-import { ErrorMsg, StickyTable, SuccessMsg } from 'components/accounts';
+import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import { Button, Grid, Paper, Stack, Typography } from '@mui/material';
 import { baseroles } from 'components/accounts/users/baseroles';
 import * as helpers from 'utils';
@@ -11,53 +11,6 @@ import { docData } from 'components/accounts/users/docData';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
-
-const COLUMNS_PENDING = [
-  {
-    id: 'email',
-    label: 'Email',
-  },
-  {
-    id: 'name',
-    label: 'Name',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
-
-const PendingTable = ({
-  data = [],
-  respondToInvite,
-  isInstanceOwner,
-  loading,
-}) => {
-  const newData = data.map((e) => {
-    return {
-      ...e,
-      action: isInstanceOwner ? (
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => respondToInvite(e, 'cancel')}
-        >
-          Cancel Invite
-        </Button>
-      ) : (
-        '-'
-      ),
-    };
-  });
-  return (
-    <StickyTable
-      title="Pending Users"
-      loading={loading}
-      rows={newData}
-      columns={COLUMNS_PENDING}
-    />
-  );
-};
 
 const RolesDescription = () => {
   return (
@@ -102,6 +55,7 @@ const RolesDescription = () => {
 };
 
 export default function UsersPage() {
+  const [search, setsearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const [users, setusers] = React.useState([]);
   const [pendingUsers, setpendingUsers] = React.useState([]);
@@ -262,25 +216,30 @@ export default function UsersPage() {
     userInfo,
   );
 
+  const filteredUsers = instanceUserWithRoles?.filter((e) => {
+    const name = `${e?.firstName?.toLowerCase() || '-'} ${
+      e?.lastName?.toLowerCase() || '-'
+    }`;
+    return name?.includes(search?.toLowerCase());
+  });
+  const userProps = {
+    updateRole,
+    roles: filteredUsers,
+    deleteUserRole,
+    instanceRoles,
+    createInvite,
+    isOwner: isInstanceOwner,
+    instanceZUID: zuid,
+    loading,
+    search,
+    setsearch,
+    respondToInvite,
+    pendingUsers,
+  };
   return (
     <>
-      <Users
-        updateRole={updateRole}
-        roles={instanceUserWithRoles}
-        deleteUserRole={deleteUserRole}
-        instanceRoles={instanceRoles}
-        createInvite={createInvite}
-        isOwner={isInstanceOwner}
-        instanceZUID={zuid}
-        loading={loading}
-      />
-      <PendingTable
-        loading={loading}
-        isInstanceOwner={isInstanceOwner}
-        respondToInvite={respondToInvite}
-        data={pendingUsers}
-      />
-      <RolesDescription />
+      <Users {...userProps} />
+      {/* <RolesDescription /> */}
     </>
   );
 }

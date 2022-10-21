@@ -9,13 +9,14 @@
  *
  * Model Fields:
  *
- * title (text)
+  * title (text)
  * content (wysiwyg_advanced)
  * image (images)
  * customer_logo_heading (text)
  * main_headline (text)
  * main_description (wysiwyg_advanced)
  * og_image (images)
+
  *
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
  * images are objects {content.image_name.data[0].url}
@@ -41,18 +42,18 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Hero from 'components/marketing/Homepage/Hero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
-import NewBenefits from 'components/marketing/Homepage/NewBenefits';
-import Migration from 'components/marketing/Homepage/Migration';
-import Growth from 'components/marketing/Homepage/Growth';
+import Growth from 'blocks/zesty/Growth/Growth';
 import CaseStudies from 'components/marketing/Homepage/CaseStudies';
-import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
-import Bottom from 'components/marketing/Homepage/Bottom';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
 import { useEffect } from 'react';
+import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
+import { WithHighlightedCard } from 'blocks/testimonials';
 import Dashboard from 'components/accounts/dashboard';
+import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -84,24 +85,68 @@ function Homepage({ content }) {
     });
   }, [isMedium]);
 
+  const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
+    (item) => {
+      return {
+        header: item.header,
+        content: item.benefit_content,
+        image: item.benefit_image.data[0].url,
+      };
+    },
+  );
+
   if (content?.zesty?.isAuthenticated) {
     return <Dashboard />;
-  } else {
-    return (
-      <>
-        <Hero {...pageData} />
-        <SimpleCardLogo logoItems={content.homepage_logos.data} {...pageData} />
-        <DigitalExperience {...pageData} />
-        <NewBenefits {...pageData} />
-        <Migration {...pageData} />
-        <Growth {...pageData} />
-        <CaseStudies {...pageData} />
-        <Testimonials {...testimonialsData} />
-        <LogoSlider {...pageData} />
-        <Bottom {...pageData} />
-      </>
-    );
   }
+  const growthData = {
+    background: content?.growth_background?.data[0].url || '',
+    titleAndDescription:
+      content.growth_title_and_description || FillerContent.rich_text,
+    cards: content?.growth_cards?.data,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_cta_graphic?.data[0].url || '',
+    titleAndDescription:
+      content.bottom_cta_title_and_description || FillerContent.rich_text,
+    cta_text: content.footer_button_text_1 || FillerContent.cta,
+    secondary_cta_text: content.footer_button_text_2 || FillerContent.cta,
+    secondary_cta_link:
+      content.footer_button_link_2?.data[0].meta.web.uri || FillerContent.href,
+  };
+
+  return (
+    <>
+      <Hero {...pageData} />
+      <SimpleCardLogo
+        variant="outlined"
+        heading_text={content?.logo_heading}
+        logoItems={content?.homepage_logos.data}
+      />
+      <DigitalExperience {...pageData} />
+      <AlternateColumns
+        {...pageData}
+        column_data={alternateColumnsData}
+        header_content={content?.zesty_new_benefits}
+        cta_link={content?.middle_cta_button_link?.data[0].meta.web.uri}
+        cta_text={content?.middle_cta_button_text}
+      />
+      <DarkBlueCta
+        cta_text={content?.middle_cta_text}
+        cta_secondary_link={
+          content?.middle_cta_secondary_cta_link?.data[0].meta.web.uri
+        }
+        cta_secondary_text={content?.middle_secondary_cta_text}
+        header_content={content?.middle_cta_header}
+        {...pageData}
+      />
+      <Growth {...growthData} />
+      <CaseStudies {...pageData} />
+      <WithHighlightedCard {...testimonialsData} />
+      <LogoSlider cta_text={content?.marketplace_cta_text} {...pageData} />
+      <Bottom {...bottomData} />
+    </>
+  );
 }
 
 export default Homepage;

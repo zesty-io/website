@@ -4,7 +4,7 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 const Articles = ({ theme, articles, FillerContent, title }) => {
   return (
-    <Box sx={{ py: 10 }} component="section">
+    <Box sx={{ pt: 15, pb: 20 }} component="section">
       <Container>
         <Box
           sx={{
@@ -25,7 +25,7 @@ const Articles = ({ theme, articles, FillerContent, title }) => {
           />
           <Typography
             sx={{ fontWeight: 'bold', color: theme.palette.zesty.zestyZambezi }}
-            variant="h3"
+            variant="h4"
             component="h2"
           >
             {title || FillerContent.header}

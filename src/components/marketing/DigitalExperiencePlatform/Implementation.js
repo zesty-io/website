@@ -13,6 +13,7 @@ import { useState } from 'react';
  * Helpers Imports
  */
 import * as helper from 'utils';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Implementation = ({
   content,
@@ -67,7 +68,7 @@ const Implementation = ({
             sx={{
               color: isDarkMode
                 ? theme.palette.zesty.zestyDarkBlue
-                : theme.palette.secondary.darkCharcoal,
+                : theme.palette.zesty.zestyZambezi,
               fontSize: isMobile ? '22px' : '32px',
               py: 10,
               textAlign: 'center',
@@ -75,7 +76,7 @@ const Implementation = ({
             dangerouslySetInnerHTML={{
               __html: helper.strColorChanger(
                 content.implementing_header || FillerContent.description,
-                'Digital Experience',
+                '',
                 theme.palette.zesty.zestyOrange,
               ),
             }}
@@ -111,7 +112,7 @@ const Implementation = ({
                 }`,
               }}
             >
-              <img
+              <ZestyImage
                 src={
                   content.headless_cms_toggle_graphic?.data[0].url ||
                   FillerContent.logos[0].url

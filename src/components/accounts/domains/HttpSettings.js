@@ -112,7 +112,7 @@ export default function HttpSettings({ settings, updateSetting }) {
                 <Button
                   size="small"
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   onClick={() => handleUpdateSetting(setting)}
                 >
                   Save

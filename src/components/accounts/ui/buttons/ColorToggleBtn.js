@@ -2,7 +2,7 @@ import * as React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-export const ColorToggleButton = ({ value, options, handleAdd }) => {
+export const ColorToggleButton = React.memo(({ value, options, handleAdd }) => {
   const [alignment, setAlignment] = React.useState(value);
 
   const handleChange = (_event, newAlignment) => {
@@ -34,11 +34,10 @@ export const ColorToggleButton = ({ value, options, handleAdd }) => {
     <>
       <ToggleButtonGroup
         color="primary"
-        value={value || alignment}
+        value={alignment}
         exclusive
         onChange={handleChange}
       >
-        {JSON.stringify(alignment)}
         {options?.map((e) => {
           return (
             <ToggleButton value={e.value}>{switchVal(e.value)}</ToggleButton>
@@ -47,4 +46,4 @@ export const ColorToggleButton = ({ value, options, handleAdd }) => {
       </ToggleButtonGroup>
     </>
   );
-};
+});

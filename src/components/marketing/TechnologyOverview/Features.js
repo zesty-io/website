@@ -11,12 +11,20 @@ import MuiMarkdown from 'mui-markdown';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Local Assets Imports
-import chevron_right from '../../../../public/assets/images/headless-cms/chevron-right.svg';
+// import chevron_right from '../../../../public/assets/images/headless-cms/chevron-right.svg';
 
 const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
   return (
-    <Box component="section" sx={{ position: 'relative' }}>
-      <Box
+    <Box
+      component="section"
+      sx={{
+        pt: 15,
+        pb: 20,
+        position: 'relative',
+        background: theme.palette.zesty.zestyBackgroundBlue,
+      }}
+    >
+      {/* <Box
         sx={{
           position: 'absolute',
           right: 0,
@@ -26,7 +34,7 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
         component="img"
         alt=""
         src={chevron_right.src}
-      />
+      /> */}
       <Container sx={{ position: 'relative', zIndex: 10 }}>
         <Box>
           <MuiMarkdown
@@ -34,11 +42,11 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
               h2: {
                 component: Typography,
                 props: {
-                  variant: 'h3',
+                  variant: 'h4',
                   component: 'h2',
                   sx: {
                     mt: isMobile ? 5 : 0,
-                    color: theme.palette.zesty.zestyOrange,
+                    color: theme.palette.zesty.zestyZambezi,
                     fontWeight: 'bold',
                     letterSpacing: 0.2,
                     textAlign: 'center',
@@ -48,7 +56,7 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
               p: {
                 component: Typography,
                 props: {
-                  variant: 'h4',
+                  variant: 'h6',
                   component: 'h3',
                   sx: {
                     mt: 2,

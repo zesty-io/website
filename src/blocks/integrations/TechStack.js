@@ -1,17 +1,39 @@
 // MUI Imports
 import { Box, Container, Typography, Grid, Button } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import FillerContent from 'components/globals/FillerContent';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
-// Local Assets Imports
+const TechStack = ({
+  text_content,
+  logos,
+  cta_text,
+  cta_link,
+  textHighlight,
+  background,
+}) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-const TechStack = ({ theme, isMobile, content, FillerContent }) => {
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(text_content);
+
+  if (!isRichText) {
+    text_content = `<h2>${text_content}</h2>`;
+  }
+
   return (
     <Box component="section" sx={{ px: 4 }}>
       <Box
         sx={{
-          background: theme.palette.zesty.zestySeaShell,
+          background: background
+            ? background
+            : theme.palette.zesty.zestySeaShell,
           borderRadius: 10,
-          py: 10,
+          py: 15,
         }}
       >
         <Container>
@@ -19,33 +41,23 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
             <Grid item sm={12} md={6}>
               <MuiMarkdown
                 overrides={{
-                  span: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      component: 'span',
-                      sx: {
-                        fontWeight: 'bold',
-                        fontWeight: 'regular',
-                        color: theme.palette.zesty.zestyOrange,
-                      },
-                    },
-                  },
                   h2: {
                     component: Typography,
                     props: {
-                      variant: 'h4',
+                      variant: 'h5',
                       component: 'h3',
                       sx: {
-                        color: theme.palette.zesty.zestyZambezi,
+                        fontWeight: 'bold',
+                        fontWeight: 500,
+                        color: theme.palette.zesty.zestyOrange,
                       },
                     },
                   },
                   h3: {
                     component: Typography,
                     props: {
-                      variant: 'h3',
-                      component: 'h2',
+                      variant: 'h4',
+                      component: 'h4',
                       sx: {
                         mt: 2,
                         fontWeight: 'bold',
@@ -57,7 +69,7 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                   p: {
                     component: Typography,
                     props: {
-                      variant: 'h5',
+                      variant: 'h6',
                       component: 'p',
                       sx: {
                         mt: 2,
@@ -67,17 +79,20 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                   },
                 }}
               >
-                {content.integrations_description || FillerContent.description}
+                {text_content.replace(
+                  textHighlight,
+                  `<span>${textHighlight}</span>`,
+                )}
               </MuiMarkdown>
 
               <Box sx={{ width: '100%', mt: 4 }}>
-                {content.integration_link?.data && (
+                {cta_link && (
                   <Button
                     component={'a'}
                     target="_blank"
                     fullWidth={isMobile}
                     variant="contained"
-                    href={content.integration_link.data[0].meta.web.uri}
+                    href={cta_link || FillerContent.href}
                     sx={{
                       background: theme.palette.zesty.zestyOrange,
                       color: theme.palette.common.white,
@@ -85,7 +100,7 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                     }}
                     size="large"
                   >
-                    {content.integrations_button || FillerContent.description}
+                    {cta_text || FillerContent.cta}
                   </Button>
                 )}
               </Box>
@@ -117,13 +132,14 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                     display: isMobile ? 'none' : 'block',
                   }}
                 />
-                {content.integrations_logos?.data.map((item, idx) => {
+                {logos?.map((item, idx) => {
                   return (
                     <>
-                      <Box
+                      <ZestyImage
                         key={idx}
-                        sx={{ height: 88, width: 'auto' }}
-                        component="img"
+                        width={88}
+                        height={88}
+                        style={{ height: 88, width: 'auto' }}
                         alt="integration logo's"
                         src={item.logo.data[0].url}
                       />

@@ -1,37 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { Container } from '@mui/system';
 import { useZestyStore } from 'store';
-import { useRouter } from 'next/router';
 import HttpSettings from 'components/accounts/domains/HttpSettings';
 import { ErrorMsg, SuccessMsg } from '../ui';
 
-export default function DomainSettings() {
-  const [settings, setsettings] = useState([]);
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
-
-  const router = useRouter();
-
-  const { zuid } = router.query;
-
-  const getSettings = async () => {
-    try {
-      const res = await ZestyAPI.getSettings();
-      const data = res?.data?.filter(
-        (setting) =>
-          setting.key === 'site_protocol' ||
-          setting.key === 'always_redirect_to_https' ||
-          setting.key === 'preferred_domain_prefix',
-      );
-
-      setsettings(data);
-    } catch (error) {
-      console.log(
-        '🚀 ~ file: domains.js ~ line 71 ~ getSettings ~ error',
-        error,
-      );
-    }
-  };
+export default function DomainSettings({ settings, getSettings }) {
+  const { ZestyAPI } = useZestyStore((state) => state);
 
   const updateSettingSucc = (res) => {
     console.log(res);
@@ -69,23 +43,21 @@ export default function DomainSettings() {
   }, []);
 
   return (
-    <Container>
-      <Box m={5}>
-        <Grid container mb={2}>
-          <Grid item xs={12} sm={6} p={2}>
-            <Typography variant="h5">Domain Settings</Typography>
-            <HttpSettings settings={settings} updateSetting={updateSetting} />
-          </Grid>
-          <Grid item xs={12} sm={6} p={2}>
-            <Typography variant="h5" pb={2}>
-              Custom Domain DNS Configuration
-            </Typography>
-            <Typography variant="body2" pb={2}>
-              {` It's easy to launch your instance with Zesty.io. Simply set your domain, configure your DNS, and then confirm your site is live.`}
-            </Typography>
-          </Grid>
+    <Box px={2}>
+      <Grid container mb={2}>
+        <Grid item xs={12} sm={6} p={2}>
+          <Typography variant="h5">Domain Settings</Typography>
+          <HttpSettings settings={settings} updateSetting={updateSetting} />
         </Grid>
-      </Box>
-    </Container>
+        <Grid item xs={12} sm={6} p={2}>
+          <Typography variant="h5" pb={2}>
+            Custom Domain DNS Configuration
+          </Typography>
+          <Typography variant="body2" pb={2}>
+            {` It's easy to launch your instance with Zesty.io. Simply set your domain, configure your DNS, and then confirm your site is live.`}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

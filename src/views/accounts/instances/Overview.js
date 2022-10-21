@@ -6,20 +6,19 @@ import {
   Typography,
   useTheme,
   Button,
+  Stack,
+  Chip,
 } from '@mui/material';
-import { OverviewTabs } from 'components/accounts';
-import dayjs from 'dayjs';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import BarChartIcon from '@mui/icons-material/BarChart';
-const NoData = () => {
-  return (
-    <Box position={'relative'}>
-      <Typography variant="h4" sx={{ textAlign: 'center', paddingTop: '3rem' }}>
-        No Data
-      </Typography>
-    </Box>
-  );
-};
+import { AOverviewCards, OverviewTabs } from 'components/accounts';
+// import CreditCardIcon from '@mui/icons-material/CreditCard';
+import CachedIcon from '@mui/icons-material/Cached';
+import { Group, Language } from '@mui/icons-material';
+import { grey, purple } from '@mui/material/colors';
+import { Timeline } from '@mui/lab';
+import ZTimelineItem from 'components/accounts/dashboard/ui/ZTimelineItem';
+import ZInstanceTimelineItemContainer from 'components/accounts/dashboard/ui/ZInstanceTimelineItemContainer';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import * as helpers from 'utils';
 
 export const Overview = ({
   instance,
@@ -30,143 +29,254 @@ export const Overview = ({
   models,
   audits,
   clearCache,
+  usage,
+  isInstanceAuditLoading,
+  instanceAudit,
+  instanceUserWithRoles,
+  loading,
 }) => {
+  const theme = useTheme();
+
+  const handleClearCache = () => {
+    clearCache();
+  };
+
+  const { TotalGBs, TotalRequests } = usage?.MediaConsumption || {};
+  const totalUsers = users?.length || [];
+
+  const newArr = [
+    {
+      title: 'Users',
+      logo: (
+        <Stack
+          sx={{
+            bgcolor: lighten(theme.palette.primary.light, 0.9),
+            borderRadius: '50px',
+            p: 1,
+          }}
+        >
+          <Group color="primary" />
+        </Stack>
+      ),
+      mainData: totalUsers || '-',
+      footerData: 1,
+      footerTitle: 'User left in plan',
+      chipColor: 'warning',
+      chip: (
+        <Chip
+          label={'1'}
+          variant="contained"
+          sx={{
+            bgcolor: lighten(theme.palette.warning.main, 0.6),
+            color: theme.palette.warning.main,
+          }}
+        />
+      ),
+    },
+    {
+      title: 'Bandwidth',
+      logo: (
+        <Stack
+          sx={{
+            bgcolor: lighten(theme.palette.info.main, 0.9),
+            borderRadius: '50px',
+            p: 1,
+          }}
+        >
+          <Language color="info" />
+        </Stack>
+      ),
+      mainData: `${TotalGBs?.toFixed(2) || '-'} GB`,
+      footerData: '2.5 GB',
+      footerTitle: 'Exceeded from plan',
+      chipColor: 'error',
+      chip: (
+        <Chip
+          label={'2.5 GB'}
+          variant="contained"
+          sx={{
+            bgcolor: lighten(theme.palette.error.main, 0.6),
+            color: theme.palette.error.main,
+          }}
+        />
+      ),
+    },
+    {
+      title: 'API Requests',
+      logo: (
+        <Stack
+          color={'purple'}
+          sx={{
+            bgcolor: lighten(purple[500], 0.9),
+            borderRadius: '50px',
+            p: 1,
+          }}
+        >
+          <Language color="inherit" />
+        </Stack>
+      ),
+      mainData: TotalRequests || '-',
+      footerData: '10K',
+      footerTitle: 'Request left in plan',
+      chipColor: 'success',
+      chip: (
+        <Chip
+          label={'10K'}
+          variant="contained"
+          sx={{
+            bgcolor: lighten(theme.palette.success.main, 0.5),
+            color: theme.palette.success.main,
+          }}
+        />
+      ),
+    },
+  ];
+
   const tabProps = {
     instance,
-    userInfo,
     teams,
     users,
     locales,
     models,
     audits,
+    handleClearCache,
+    instanceUserWithRoles,
+    loading,
   };
 
-  const theme = useTheme();
-  const teamsLength = teams.length || '0';
-  const localesLength = locales.length || '0';
-  const modelsLength = models.length || '0';
-  const usersLength = users.length || '0';
-  const handleClearCache = () => {
-    clearCache();
-  };
   return (
-    <>
-      <Box paddingY={2} display="flex" justifyContent={'space-between'}>
-        <Box>
-          <Typography variant="h4">{instance?.name}</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Last Updated at:
-            {dayjs(instance.updatedAt).format(' MMMM D, YYYY')}
-          </Typography>
-        </Box>
-        <Button
-          onClick={handleClearCache}
-          variant="contained"
-          color="primary"
-          size="small"
+    <Box>
+      <Stack
+        px={5}
+        pt={2}
+        pb={4}
+        sx={(theme) => ({
+          bgcolor: theme.palette.mode === 'light' ? theme.palette.grey[50] : '',
+        })}
+      >
+        <Stack
+          pb={4}
+          direction={{ xs: 'column', md: 'row' }}
+          justifyContent="space-between"
         >
-          Clear Instance Cache
-        </Button>
-      </Box>
-      <Box position={'relative'}>
-        <OverviewTabs {...tabProps} />
-        <Grid container>
-          <Grid
-            item
-            sx={{
-              boxShadow: 1,
-              borderRadius: '5px',
-              overflow: 'hidden',
-            }}
-            xs={4}
-          >
-            <Box
-              paddingY={1}
-              paddingX={2}
-              sx={{ background: lighten(theme.palette.primary.light, 0.9) }}
+          <Stack>
+            <Typography variant="h4">Overview</Typography>
+          </Stack>
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="contained"
+              color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
+              sx={(theme) => ({
+                border:
+                  theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
+                bgcolor: theme.palette.mode === 'light' && 'white',
+                '&:hover': {
+                  bgcolor: theme.palette.mode === 'light' && 'white',
+                  color: theme.palette.mode === 'light' && 'black',
+                },
+              })}
+              onClick={handleClearCache}
+              startIcon={<CachedIcon color="disabled" />}
             >
-              <Typography
-                variant="h6"
-                alignItems={'center'}
-                display={'flex'}
-                gap={1}
-                color={'primary'}
-              >
-                <AccessTimeIcon /> Your Latest Edits
-              </Typography>
-            </Box>
-            {audits.length === 0 ? (
-              <NoData />
-            ) : (
-              audits.slice(0, 5).map((e) => {
-                return (
-                  <Box paddingY={1} paddingX={2}>
-                    <Typography variant="subtitle2">
-                      {e.meta.message}
-                    </Typography>
-                  </Box>
-                );
-              })
-            )}
-          </Grid>
-          <Grid item xs={2} />
-
-          <Grid
-            sx={{
-              boxShadow: 1,
-              borderRadius: '5px',
-              overflow: 'hidden',
-            }}
-            item
-            xs={4}
-          >
-            <Box
-              paddingY={1}
-              paddingX={2}
-              sx={{ background: lighten(theme.palette.primary.light, 0.9) }}
+              Clear Cache
+            </Button>
+            <Button
+              variant="contained"
+              color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
+              href={`https://${instance.ZUID}.manager${
+                helpers?.isProd ? '' : '.dev'
+              }.zesty.io/reports/metrics`}
+              target="_blank"
+              sx={(theme) => ({
+                border:
+                  theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
+                bgcolor: theme.palette.mode === 'light' && 'white',
+                '&:hover': {
+                  bgcolor: theme.palette.mode === 'light' && 'white',
+                  color: theme.palette.mode === 'light' && 'black',
+                },
+              })}
+              startIcon={<AutoGraphIcon color="disabled" />}
             >
-              <Typography
-                variant="h6"
-                alignItems={'center'}
-                display={'flex'}
-                gap={1}
-                color="primary"
-              >
-                <BarChartIcon /> Statistics
-              </Typography>
-            </Box>
-            <Grid container paddingY={2} paddingX={4}>
-              <Grid item xs={9}>
-                <Typography variant="h5">Total users</Typography>
-              </Grid>
+              View All Usage
+            </Button>
+          </Stack>
+        </Stack>
 
-              <Grid item xs={3}>
-                {usersLength}
+        <Grid container spacing={4}>
+          {newArr.map((e) => {
+            const { title, logo, mainData, footerTitle, chip } = e;
+            const cardprops = {
+              title,
+              logo,
+              mainData,
+              footerTitle,
+              chip,
+              loading,
+            };
+            return (
+              <Grid item xs={12} lg={4}>
+                <AOverviewCards {...cardprops} />
               </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5">Total content models</Typography>
-              </Grid>
-
-              <Grid item xs={3}>
-                {modelsLength}
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5">Total locales</Typography>
-              </Grid>
-              <Grid item xs={3}>
-                {localesLength}
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h5">Total teams</Typography>
-              </Grid>
-
-              <Grid item xs={3}>
-                {teamsLength}
-              </Grid>
-            </Grid>
-          </Grid>
+            );
+          })}
         </Grid>
-      </Box>
-    </>
+      </Stack>
+      <Grid container>
+        <Grid px={2} item xs={12} lg={9}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            pt={2}
+            pr={2}
+          >
+            <Typography color="text.secondary">Activity Stream</Typography>
+            <Button
+              size="small"
+              variant="contained"
+              target="_blank"
+              href={`https://${instance.ZUID}.manager${
+                !helpers?.isProd ? '.dev' : ''
+              }.zesty.io/reports/activity-log/resources
+`}
+            >
+              Open Activity Log
+            </Button>
+          </Stack>
+
+          {instanceAudit?.length === 0 ? (
+            <Typography variant="h6">No Resources Found.</Typography>
+          ) : (
+            <Timeline sx={{ p: 0 }}>
+              {isInstanceAuditLoading
+                ? [...new Array(5)].map((i) => (
+                    <ZTimelineItem
+                      sx={{
+                        '::before': {
+                          content: 'none',
+                        },
+                        mt: 1,
+                      }}
+                      key={i}
+                      isLoading={isInstanceAuditLoading}
+                    />
+                  ))
+                : instanceAudit?.map((audit, index) => (
+                    <ZInstanceTimelineItemContainer
+                      key={index}
+                      audit={audit}
+                      isInstanceAuditLoading={isInstanceAuditLoading}
+                      showEditInstance={false}
+                    />
+                  ))}
+            </Timeline>
+          )}
+        </Grid>
+        <Grid item xs={12} lg={3}>
+          <OverviewTabs {...tabProps} />
+        </Grid>
+      </Grid>
+    </Box>
   );
 };

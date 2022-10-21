@@ -63,7 +63,6 @@ export default function AppBar({ url = window.location.pathname }) {
   return (
     <Box
       sx={{
-        backgroundColor: theme.palette.background.level2,
         py: 1,
       }}
     >
@@ -81,7 +80,6 @@ export default function AppBar({ url = window.location.pathname }) {
             justifyContent: 'space-between',
             alignItems: isMobile ? 'left' : 'center',
             flexDirection: isMobile ? 'column' : 'flex',
-            gap: isMobile ? '1rem' : '0',
           }}
         >
           <Breadcrumbs
@@ -92,7 +90,7 @@ export default function AppBar({ url = window.location.pathname }) {
             }}
           >
             <Link
-              underline="hover"
+              underline="none"
               color="inherit"
               href={'/'}
               sx={{
@@ -100,7 +98,7 @@ export default function AppBar({ url = window.location.pathname }) {
                 alignItems: 'center',
               }}
             >
-              <HomeIcon sx={{ mr: 0.5 }} />
+              <HomeIcon sx={{ mr: 0.5, color: 'GrayText' }} />
             </Link>
             {pathnames?.map((url, index) => {
               const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
@@ -116,9 +114,11 @@ export default function AppBar({ url = window.location.pathname }) {
                     display: 'flex',
                     alignItems: 'center',
                     fontWeight: 'bold',
+                    px: 2,
+                    pointerEvents: 'none',
                   }}
-                  underline="hover"
-                  color="text.primary"
+                  underline="none"
+                  color="text.secondary"
                   href={routeTo}
                   aria-current="page"
                   key={name}
@@ -127,14 +127,15 @@ export default function AppBar({ url = window.location.pathname }) {
                 </Link>
               ) : (
                 <Link
-                  underline="hover"
-                  color="inherit"
+                  underline="none"
+                  color="text.secondary"
                   href={routeTo}
                   key={index}
                   sx={{
                     textTransform: 'capitalize',
                     display: 'flex',
                     alignItems: 'center',
+                    px: 2,
                   }}
                 >
                   {name}

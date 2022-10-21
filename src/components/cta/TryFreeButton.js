@@ -68,12 +68,18 @@ export default function TryFreeButton({
   sx = {},
 }) {
   const theme = useTheme();
-  console.log(theme, mock);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     location.href = '/join/';
 
+    // Track Button Click by pushing item to the data layer
+    window.dataLayer.push({
+      event: 'btn_click',
+      buttonText: text,
+      currentPage: window.location.href,
+      targetPage: '/join/',
+    });
     // uncomment this to bring the dropdown back
     //setAnchorEl(event.target);
 
@@ -95,7 +101,7 @@ export default function TryFreeButton({
         className="tryButton"
         id="start-button"
         fullWidth={fullWidth}
-        // href="https://accounts.zesty.io/signup"
+        //href="https://accounts.zesty.io/signup"
         size={size}
         sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}
         onClick={(e) => handleClick(e)}

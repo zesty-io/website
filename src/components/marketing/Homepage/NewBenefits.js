@@ -18,10 +18,8 @@ import { useTheme } from '@mui/material';
  * Components Imports
  */
 
-import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper';
+import { useSwiper, useSwiperSlide } from 'swiper/react';
 import DemoCta from 'components/cta/DemoCta';
-import ZestyImage from 'blocks/Image/ZestyImage';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -42,7 +40,7 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
               component: Typography,
               props: {
                 component: 'h2',
-                variant: 'h4',
+                variant: 'h3',
                 sx: {
                   color: theme.palette.zesty.zestyDarkText,
                   fontWeight: 'bold',
@@ -83,7 +81,7 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
           />
         </Box>
 
-        <Box sx={{ mt: 5 }}>
+        {/* <Box sx={{ mt: 5 }}>
           <Swiper
             breakpoints={{
               640: {
@@ -192,7 +190,7 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
               <SwiperButtonNext />
             </Box>
           </Swiper>
-        </Box>
+        </Box> */}
       </Container>
     </Box>
   );

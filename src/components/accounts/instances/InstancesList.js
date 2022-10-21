@@ -186,29 +186,42 @@ export const InstancesList = ({
                     onClick={() => handleRedirect(instance.ZUID)}
                   />
 
-                  <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    p={1}
-                  >
-                    <Link
-                      underline="none"
-                      href={`https://${instance?.randomHashID}-dev${
-                        helpers?.isProd
-                          ? '.webengine.zesty.io'
-                          : '.preview.dev.zesty.io'
-                      }`}
-                      target="_blank"
-                      color="primary"
-                      sx={{
-                        ':hover': {
-                          textDecoration: 'underline',
-                        },
-                      }}
+                  <Stack direction="row" alignItems="center" p={1}>
+                    <Stack
+                      mr="auto"
+                      direction="row"
+                      alignItems="center"
+                      spacing={1}
                     >
-                      Preview
-                    </Link>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        href={`https://${instance?.ZUID}.manager${
+                          helpers?.isProd ? '' : '.dev'
+                        }.zesty.io/`}
+                        target="_blank"
+                      >
+                        Open Manager
+                      </Button>
+                      <Link
+                        underline="none"
+                        href={`https://${instance?.randomHashID}-dev${
+                          helpers?.isProd
+                            ? '.webengine.zesty.io'
+                            : '.preview.dev.zesty.io'
+                        }`}
+                        target="_blank"
+                        color="primary"
+                        sx={{
+                          ':hover': {
+                            textDecoration: 'underline',
+                          },
+                        }}
+                      >
+                        Preview
+                      </Link>
+                    </Stack>
+
                     <IconButton
                       onClick={() => {
                         router.push(`/instances/${instance.ZUID}`);

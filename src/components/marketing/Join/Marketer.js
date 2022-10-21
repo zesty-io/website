@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as React from 'react';
 import {
   Typography,
@@ -257,7 +258,13 @@ const MarketerDocumentation = () => (
     </CardContent>
 
     <List dense={false}>
-      <ListItemButton href="https://zesty.org/tools/next.js-integration/zesty-content-object">
+      <ListItemButton
+        onClick={(event) =>
+          handleClick(
+            'https://zesty.org/tools/next.js-integration/zesty-content-object',
+          )
+        }
+      >
         <ListItemIcon>
           <ArticleIcon />
         </ListItemIcon>
@@ -268,7 +275,13 @@ const MarketerDocumentation = () => (
           }
         />
       </ListItemButton>
-      <ListItemButton href="https://zesty.org/tools/next.js-integration/custom-integrations">
+      <ListItemButton
+        onClick={(event) =>
+          handleClick(
+            'https://zesty.org/tools/next.js-integration/custom-integrations',
+          )
+        }
+      >
         <ListItemIcon>
           <ArticleIcon />
         </ListItemIcon>

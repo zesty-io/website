@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useZestyStore } from 'store';
 import { Security } from 'views/accounts/profile/Security';
 import { ProfileContainer } from 'components/accounts';
@@ -6,49 +6,30 @@ import { ProfileContainer } from 'components/accounts';
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function SecurityPage() {
-  const { setuserInfo } = useZestyStore((state) => state);
-  const { ZestyAPI } = useZestyStore((state) => state);
-  const [userZUID, setuserZUID] = React.useState('');
-
-  const handleVerifySuccess = (res) => {
-    setuserZUID(res.meta.userZuid);
-  };
-
-  const handleVerifyError = (res) => {
-    console.log(res, 'err');
-  };
-
-  const handleGetUserSuccess = (res) => {
-    setuserInfo(res?.data);
-  };
-
-  const handleGetUserError = (res) => {
-    console.log(res, 'err');
-  };
-
-  const verify = async () => {
-    const res = await ZestyAPI.verify();
-    !res.error && handleVerifySuccess(res);
-    res.error && handleVerifyError(res);
-  };
+  const { setuserInfo, ZestyAPI } = useZestyStore((state) => state);
+  const [userZUID, setuserZUID] = useState('');
 
   const getUser = async (userZUID) => {
-    const res = await ZestyAPI.getUser(userZUID);
-    !res.error && handleGetUserSuccess(res);
-    res.error && handleGetUserError(res);
+    const userInfoResponse = await ZestyAPI.getUser(userZUID);
+    setuserInfo(userInfoResponse?.data);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const verify = async () => {
+      const verifyResponse = await ZestyAPI.verify();
+      setuserZUID(verifyResponse.meta.userZuid);
+    };
+
     verify();
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     userZUID && getUser(userZUID);
   }, [userZUID]);
 
   return (
     <ProfileContainer>
-      <Security getUser={() => getUser(userZUID)} />
+      <Security getUser={async () => await getUser(userZUID)} />
     </ProfileContainer>
   );
 }

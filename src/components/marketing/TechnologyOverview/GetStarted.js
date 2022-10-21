@@ -18,7 +18,7 @@ const GetStarted = ({
   return (
     <Box
       component="section"
-      sx={{ position: 'relative', mt: 15, minHeight: 610 }}
+      sx={{ position: 'relative', pb: 15, minHeight: 610 }}
     >
       <Box
         sx={{
