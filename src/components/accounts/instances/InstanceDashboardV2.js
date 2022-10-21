@@ -191,8 +191,8 @@ const InstanceDashboardV2 = () => {
     const res = await ZestyAPI.updateUser(userInfo.ZUID, body, '');
     const newFavorites = JSON.parse(res?.data?.prefs)?.favorite_sites;
     setFavorites(newFavorites);
-    handleSetFavoritesInstancesList(search, newFavorites);
-    handleSetInstancesList(search, newFavorites);
+    handleSetFavoritesInstancesList(debounceSearch, newFavorites);
+    handleSetInstancesList(debounceSearch, newFavorites);
 
     setIsTogglingFavorites(false);
   };
@@ -257,26 +257,26 @@ const InstanceDashboardV2 = () => {
   }, [userInfo]);
 
   useEffect(() => {
-    handleSetInstancesList(search, favorites);
-    handleSetFavoritesInstancesList(search, favorites);
-    handleSetInvitesList(search, favorites);
+    handleSetInstancesList(debounceSearch, favorites);
+    handleSetFavoritesInstancesList(debounceSearch, favorites);
+    handleSetInvitesList(debounceSearch, favorites);
   }, [selectedEcosystem, favorites]);
 
   useEffect(() => {
     if (orderByValue === 'asc') {
       setInstancesList(
-        instancesList.sort((a, b) => a.name.localeCompare(b.name)),
+        instancesList.sort((a, b) => a?.name?.localeCompare(b?.name)),
       );
       setFavoritesInstancesList(
-        favoritesInstancesList.sort((a, b) => a.name.localeCompare(b.name)),
+        favoritesInstancesList.sort((a, b) => a?.name?.localeCompare(b?.name)),
       );
     }
     if (orderByValue === 'desc') {
       setInstancesList(
-        instancesList.sort((a, b) => b.name.localeCompare(a.name)),
+        instancesList.sort((a, b) => b?.name?.localeCompare(a?.name)),
       );
       setFavoritesInstancesList(
-        favoritesInstancesList.sort((a, b) => b.name.localeCompare(a.name)),
+        favoritesInstancesList.sort((a, b) => b?.name?.localeCompare(a?.name)),
       );
     }
     reset();
