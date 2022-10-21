@@ -32,7 +32,7 @@ const Scenario1 = ({
   signUpSuccess,
   setscenario,
   currentStep,
-
+  email,
   firstName,
   lastName,
   role,
@@ -101,7 +101,7 @@ const Scenario1 = ({
         <WelcomeScreen
           firstname={firstName}
           lastname={lastName}
-          email={firstName}
+          email={email}
           role={role}
           projectType={projectType}
           userZUID={userObject?.data?.ZUID}
@@ -152,6 +152,7 @@ const Scenario2 = ({
   setscenario,
   currentStep,
 
+  email,
   firstName,
   lastName,
   role,
@@ -227,7 +228,7 @@ const Scenario3 = ({
   signUpSuccess,
   setscenario,
   currentStep,
-
+  email,
   firstName,
   lastName,
   role,
@@ -272,7 +273,7 @@ const Scenario3 = ({
         <WelcomeScreen
           firstname={firstName}
           lastname={lastName}
-          email={firstName}
+          email={email}
           role={role}
           projectType={projectType}
           userZUID={userObject?.data?.ZUID}

@@ -5,10 +5,10 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Stack,
   Typography,
 } from '@mui/material';
 import React from 'react';
-import Image from 'next/image';
 import nextjs from '../../../../../public/assets/images/join/nextjs.png';
 import parsely from '../../../../../public/assets/images/join/parsely.png';
 import nextParsely from '../../../../../public/assets/images/join/nextParsely.png';
@@ -23,15 +23,12 @@ export const ChooseTechStack = ({
   const placard_image = template?.placard_image?.data[0]?.url;
   return (
     <Box sx={{ height: '100vh', width: '100%', position: 'relative' }}>
-      <Box sx={{}}>
-        <Image
+      <Stack sx={{ objectFit: 'fill' }}>
+        <img
           src={placard_image || FillerContent.image}
           alt="Picture of the author"
-          width={500}
-          height={500}
-          layout="fill"
         />
-      </Box>
+      </Stack>
       <Box
         px={10}
         sx={{

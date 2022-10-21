@@ -31,7 +31,6 @@ import { NavigationStart } from 'components/marketing/Start/NavigationStart';
 import { NavStartData } from 'components/marketing/Start/Data/NavStartData';
 import { useZestyStore } from 'store';
 import { Scenarios } from 'components/marketing/Start/Data/Scenarios';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 
 // zoho lead post function
@@ -69,8 +68,8 @@ const getTemplate = async (zuid, setrepository, isProduction) => {
     });
 };
 export default function Start(props) {
-  const router = useRouter();
-  const templateId = router.query.template;
+  const params = new URLSearchParams(window.location.search);
+  const templateId = params?.toString()?.split('=')[1];
   const isTemplate = templateId ? true : false;
   const [isLogin, setisLogin] = useState('');
   const { userAppSID } = useZestyStore();
@@ -265,6 +264,7 @@ export default function Start(props) {
     currentStep,
     firstName,
     lastName,
+    email,
     role,
     userObject,
     welcomeMessage,

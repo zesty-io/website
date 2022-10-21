@@ -19,6 +19,7 @@ import { instanceTabs } from 'components/accounts/instances/tabs';
 import { lang } from 'components/accounts/instances/lang';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 let capitalize = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
 
@@ -69,13 +70,11 @@ const Index = ({ children }) => {
     }
   }, [router.isReady]);
 
-  React.useEffect(() => {
-    document.title =
-      instance.name + ` Instance - ${currentPage} - Zesty.io Console`;
-  }, [instance, currentPage]);
+  const title = instance.name + ` Instance - ${currentPage} - Zesty.io Console`;
 
   return (
     <Box>
+      <ZestyAccountsHead title={title} />
       {isLG ? (
         <Box sx={{ display: 'grid', gridTemplateColumns: '240px 1fr' }}>
           <Box
