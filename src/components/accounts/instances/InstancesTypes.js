@@ -76,7 +76,7 @@ const InstancesTypes = ({
                         height={height}
                         width={width}
                         scrollTop={scrollTop}
-                        rowHeight={80}
+                        rowHeight={cache.rowHeight}
                         rowCount={lists?.length}
                         overscanRowCount={10}
                         rowRenderer={({ index, key, style, parent }) => {

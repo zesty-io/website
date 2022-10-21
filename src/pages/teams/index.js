@@ -6,11 +6,11 @@ import AddTeam from 'components/accounts/teams/AddTeam';
 import ManageTeam from 'components/accounts/teams/ManageTeam';
 import { useZestyStore } from 'store';
 import TeamInvites from 'components/accounts/teams/TeamInvites';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 const Teams = () => {
-  document.title = 'Accounts: Teams';
   const {
     ZestyAPI,
     verifySuccess: { userZuid },
@@ -39,6 +39,7 @@ const Teams = () => {
 
   return (
     <TeamsContainer>
+      <ZestyAccountsHead title={'Accounts: Teams'} />
       <Box p={3}>
         <Typography
           display="flex"

@@ -57,11 +57,21 @@ const InstanceDashboardV2 = () => {
       setInvitesList(
         initialInvites
           ?.filter((e) => e.ecoZUID === selectedEcosystem)
-          ?.filter((c) => c?.name?.toLowerCase().includes(value)),
+          ?.filter((c) =>
+            helpers.isMatch(
+              [c?.name, c?.ID, c?.ZUID, c?.randomHashID, c?.domain],
+              value,
+            ),
+          ),
       );
     } else {
       setInvitesList(
-        initialInvites?.filter((c) => c?.name?.toLowerCase().includes(value)),
+        initialInvites?.filter((c) =>
+          helpers.isMatch(
+            [c?.name, c?.ID, c?.ZUID, c?.randomHashID, c?.domain],
+            value,
+          ),
+        ),
       );
     }
   };
@@ -72,13 +82,23 @@ const InstanceDashboardV2 = () => {
         initialInstances
           ?.filter((e) => e.ecoZUID === selectedEcosystem)
           ?.filter((instance) => !newFavorites?.includes(instance?.ZUID))
-          ?.filter((c) => c?.name?.toLowerCase().includes(value)),
+          ?.filter((c) =>
+            helpers.isMatch(
+              [c?.name, c?.ID, c?.ZUID, c?.randomHashID, c?.domain],
+              value,
+            ),
+          ),
       );
     } else {
       setInstancesList(
         initialInstances
           ?.filter((instance) => !newFavorites?.includes(instance?.ZUID))
-          ?.filter((c) => c?.name?.toLowerCase().includes(value)),
+          ?.filter((c) =>
+            helpers.isMatch(
+              [c?.name, c?.ID, c?.ZUID, c?.randomHashID, c?.domain],
+              value,
+            ),
+          ),
       );
     }
   };
@@ -89,13 +109,23 @@ const InstanceDashboardV2 = () => {
         initialInstances
           ?.filter((e) => e.ecoZUID === selectedEcosystem)
           ?.filter((instance) => newFavorites?.includes(instance?.ZUID))
-          ?.filter((c) => c?.name?.toLowerCase().includes(value)),
+          ?.filter((c) =>
+            helpers.isMatch(
+              [c?.name, c?.ID, c?.ZUID, c?.randomHashID, c?.domain],
+              value,
+            ),
+          ),
       );
     } else {
       setFavoritesInstancesList(
         initialInstances
           ?.filter((instance) => newFavorites?.includes(instance?.ZUID))
-          ?.filter((c) => c?.name?.toLowerCase().includes(value)),
+          ?.filter((c) =>
+            helpers.isMatch(
+              [c?.name, c?.ID, c?.ZUID, c?.randomHashID, c?.domain],
+              value,
+            ),
+          ),
       );
     }
   };
@@ -263,7 +293,7 @@ const InstanceDashboardV2 = () => {
           }}
         />
         <TextField
-          label="Search by instance name"
+          label="Search an instances"
           InputProps={{
             endAdornment: (
               <InputAdornment position="start">

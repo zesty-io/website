@@ -53,7 +53,16 @@ const Dashboard = () => {
 
   const handleSearchInstances = (value) => {
     const filterInstances = [...instances]?.filter((instance) =>
-      instance?.name.toLowerCase().includes(value),
+      helpers.isMatch(
+        [
+          instance?.name,
+          instance?.ID,
+          instance?.ZUID,
+          instance?.randomHashID,
+          instance?.domain,
+        ],
+        value,
+      ),
     );
 
     setFilteredInstances([...filterInstances].slice(0, TOTAL_INSTANCES_LIMIT));

@@ -91,54 +91,51 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
       >
         {!loading ? (
           isEditing ? (
-            <Stack spacing={1} direction="row" alignItems="center">
+            <Stack spacing={1} direction="column" alignItems="center">
               <TextField
                 value={instanceName}
                 onChange={(e) => setInstanceName(e.target.value)}
               />
-              <IconButton
-                onClick={async () => {
-                  const name = instanceName.trim();
-                  await ZestyAPI.updateInstance(instance?.ZUID, {
-                    name,
-                  });
-                  setIsEditing(false);
-                  setInstanceName(name);
-                }}
-              >
-                <CheckCircleIcon color="success" />
-              </IconButton>
-              <IconButton
-                onClick={async () => {
-                  const response = await ZestyAPI.getInstance(instance?.ZUID);
-                  setIsEditing(false);
-                  setInstanceName(response?.data?.name);
-                }}
-              >
-                <CancelIcon color="error" />
-              </IconButton>
+              <Stack direction="row">
+                <IconButton
+                  onClick={async () => {
+                    const name = instanceName.trim();
+                    await ZestyAPI.updateInstance(instance?.ZUID, {
+                      name,
+                    });
+                    setIsEditing(false);
+                    setShowEdit(false);
+                    setInstanceName(name);
+                  }}
+                >
+                  <CheckCircleIcon color="success" />
+                </IconButton>
+                <IconButton
+                  onClick={async () => {
+                    const response = await ZestyAPI.getInstance(instance?.ZUID);
+                    setIsEditing(false);
+                    setShowEdit(false);
+                    setInstanceName(response?.data?.name);
+                  }}
+                >
+                  <CancelIcon color="error" />
+                </IconButton>
+              </Stack>
             </Stack>
           ) : (
-            <Stack
-              direction="row"
-              alignItems="center"
+            <Typography
+              variant="h4"
+              color="text.primary"
               onMouseOver={() => setShowEdit(true)}
               onMouseLeave={() => setShowEdit(false)}
             >
-              <Typography
-                nowrap
-                variant="h4"
-                color={'text.primary'}
-                alignItems="center"
-              >
-                {instanceName}
-              </Typography>
+              {instanceName}
               {showEdit && (
                 <IconButton onClick={() => setIsEditing(true)}>
                   <EditIcon />
                 </IconButton>
               )}
-            </Stack>
+            </Typography>
           )
         ) : (
           <Skeleton variant="rectangular" height={40} />
