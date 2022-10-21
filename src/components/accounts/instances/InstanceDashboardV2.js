@@ -1,4 +1,5 @@
 import {
+  CircularProgress,
   Container,
   InputAdornment,
   Stack,
@@ -23,6 +24,7 @@ import { ComboBox } from 'components/globals/ComboBox';
 import { useSnackbar } from 'notistack';
 import { notistackMessage } from 'utils';
 import InstancesTypes from './InstancesTypes';
+import useDebounce from 'components/hooks/useDebounce';
 
 const orderByItems = [
   {
@@ -51,6 +53,15 @@ const InstanceDashboardV2 = () => {
   const [orderByValue, setOrderByValue, reset] = useDropdown();
   const [ecosystem, setEcosystem] = useState([]);
   const [selectedEcosystem, setSelectedEcosystem] = useState(null);
+  const debounceSearch = useDebounce(
+    search,
+    () => {
+      handleSetInvitesList(debounceSearch);
+      handleSetInstancesList(debounceSearch, favorites);
+      handleSetFavoritesInstancesList(debounceSearch, favorites);
+    },
+    400,
+  );
 
   const handleSetInvitesList = (value) => {
     if (selectedEcosystem) {
@@ -292,6 +303,7 @@ const InstanceDashboardV2 = () => {
             },
           }}
         />
+
         <TextField
           label="Search an instances"
           InputProps={{
@@ -309,9 +321,6 @@ const InstanceDashboardV2 = () => {
           onChange={(e) => {
             const value = e.target.value?.toLowerCase();
             setSearch(value);
-            handleSetFavoritesInstancesList(value, favorites);
-            handleSetInstancesList(value, favorites);
-            handleSetInvitesList(value, favorites);
           }}
         />
         <Stack direction="row" spacing={2} alignItems="stretch">
@@ -337,32 +346,40 @@ const InstanceDashboardV2 = () => {
         </Stack>
       </Stack>
 
-      <InstancesTypes
-        title="Invites"
-        icon={<EmailIcon color="primary" />}
-        view={view}
-        lists={invitesList}
-        isLoading={isInstancesLoading}
-        renderInstances={renderInstances}
-      />
+      {search === debounceSearch ? (
+        <>
+          <InstancesTypes
+            title="Invites"
+            icon={<EmailIcon color="primary" />}
+            view={view}
+            lists={invitesList}
+            isLoading={isInstancesLoading}
+            renderInstances={renderInstances}
+          />
 
-      <InstancesTypes
-        title="Favorites"
-        icon={<StarIcon color="primary" />}
-        view={view}
-        lists={favoritesInstancesList}
-        isLoading={isInstancesLoading}
-        renderInstances={renderInstances}
-      />
+          <InstancesTypes
+            title="Favorites"
+            icon={<StarIcon color="primary" />}
+            view={view}
+            lists={favoritesInstancesList}
+            isLoading={isInstancesLoading}
+            renderInstances={renderInstances}
+          />
 
-      <InstancesTypes
-        title="Instances"
-        icon={<WidgetsIcon color="primary" />}
-        view={view}
-        lists={instancesList}
-        isLoading={isInstancesLoading}
-        renderInstances={renderInstances}
-      />
+          <InstancesTypes
+            title="Instances"
+            icon={<WidgetsIcon color="primary" />}
+            view={view}
+            lists={instancesList}
+            isLoading={isInstancesLoading}
+            renderInstances={renderInstances}
+          />
+        </>
+      ) : (
+        <Stack py={4} alignItems="center">
+          <CircularProgress />
+        </Stack>
+      )}
     </Container>
   );
 };
