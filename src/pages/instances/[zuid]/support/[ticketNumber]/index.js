@@ -10,7 +10,7 @@ export default function ticketItem() {
   const { zuid } = router.query;
   const ticketID = router.query.ticketNumber;
 
-  const { setZestyAPI, userInfo, ZestyAPI } = useZestyStore((state) => state);
+  const { ZestyAPI } = useZestyStore((state) => state);
   const [instance, setinstance] = useState({});
   const [ticket, setTicket] = useState([]);
   const fetchTicket = async () => {
@@ -23,7 +23,8 @@ export default function ticketItem() {
     )
       .then((currentTicket) => currentTicket.json())
       .then((currentTicket) => {
-        setTicket(currentTicket.data);
+        // setTicket(currentTicket.data);
+        setTicket(currentTicket.ticket);
       });
   };
   const handleGetInstanceSuccess = (res) => {
@@ -88,11 +89,11 @@ export default function ticketItem() {
                 align={'left'}
                 marginBottom={4}
               >
-                {ticket.subject}
+                {ticket?.subject}
               </Typography>
               <Typography
                 variant={'p'}
-                dangerouslySetInnerHTML={{ __html: ticket.description }}
+                dangerouslySetInnerHTML={{ __html: ticket?.description }}
               ></Typography>
             </Stack>
           </Card>
