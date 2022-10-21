@@ -22,7 +22,7 @@
     "fix-lint": "eslint . --ext=js --fix",
     "commit": " git add . && cz",
     "check-types": "tsc --pretty --noEmit",
-    "check-format": "prettier --check .",
+    "check-rmat": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
     "test-all": "npm run check-format && npm run check-lint "
