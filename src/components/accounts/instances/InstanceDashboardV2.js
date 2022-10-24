@@ -1,10 +1,12 @@
 import {
+  CircularProgress,
   Container,
   InputAdornment,
   Stack,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
+  Typography,
 } from '@mui/material';
 import ZInstanceItem from 'components/accounts/dashboard/ui/ZInstanceItem';
 import React, { useEffect, useState } from 'react';
@@ -23,6 +25,7 @@ import { ComboBox } from 'components/globals/ComboBox';
 import { useSnackbar } from 'notistack';
 import { notistackMessage } from 'utils';
 import InstancesTypes from './InstancesTypes';
+import useDebounce from 'components/hooks/useDebounce';
 
 const orderByItems = [
   {
@@ -51,6 +54,15 @@ const InstanceDashboardV2 = () => {
   const [orderByValue, setOrderByValue, reset] = useDropdown();
   const [ecosystem, setEcosystem] = useState([]);
   const [selectedEcosystem, setSelectedEcosystem] = useState(null);
+  const debounceSearch = useDebounce(
+    search,
+    () => {
+      handleSetInvitesList(debounceSearch);
+      handleSetInstancesList(debounceSearch, favorites);
+      handleSetFavoritesInstancesList(debounceSearch, favorites);
+    },
+    500,
+  );
 
   const handleSetInvitesList = (value) => {
     if (selectedEcosystem) {
@@ -180,8 +192,8 @@ const InstanceDashboardV2 = () => {
     const res = await ZestyAPI.updateUser(userInfo.ZUID, body, '');
     const newFavorites = JSON.parse(res?.data?.prefs)?.favorite_sites;
     setFavorites(newFavorites);
-    handleSetFavoritesInstancesList(search, newFavorites);
-    handleSetInstancesList(search, newFavorites);
+    handleSetFavoritesInstancesList(debounceSearch, newFavorites);
+    handleSetInstancesList(debounceSearch, newFavorites);
 
     setIsTogglingFavorites(false);
   };
@@ -246,26 +258,26 @@ const InstanceDashboardV2 = () => {
   }, [userInfo]);
 
   useEffect(() => {
-    handleSetInstancesList(search, favorites);
-    handleSetFavoritesInstancesList(search, favorites);
-    handleSetInvitesList(search, favorites);
+    handleSetInstancesList(debounceSearch, favorites);
+    handleSetFavoritesInstancesList(debounceSearch, favorites);
+    handleSetInvitesList(debounceSearch, favorites);
   }, [selectedEcosystem, favorites]);
 
   useEffect(() => {
     if (orderByValue === 'asc') {
       setInstancesList(
-        instancesList.sort((a, b) => a.name.localeCompare(b.name)),
+        instancesList.sort((a, b) => a?.name?.localeCompare(b?.name)),
       );
       setFavoritesInstancesList(
-        favoritesInstancesList.sort((a, b) => a.name.localeCompare(b.name)),
+        favoritesInstancesList.sort((a, b) => a?.name?.localeCompare(b?.name)),
       );
     }
     if (orderByValue === 'desc') {
       setInstancesList(
-        instancesList.sort((a, b) => b.name.localeCompare(a.name)),
+        instancesList.sort((a, b) => b?.name?.localeCompare(a?.name)),
       );
       setFavoritesInstancesList(
-        favoritesInstancesList.sort((a, b) => b.name.localeCompare(a.name)),
+        favoritesInstancesList.sort((a, b) => b?.name?.localeCompare(a?.name)),
       );
     }
     reset();
@@ -292,6 +304,7 @@ const InstanceDashboardV2 = () => {
             },
           }}
         />
+
         <TextField
           label="Search an instances"
           InputProps={{
@@ -309,9 +322,6 @@ const InstanceDashboardV2 = () => {
           onChange={(e) => {
             const value = e.target.value?.toLowerCase();
             setSearch(value);
-            handleSetFavoritesInstancesList(value, favorites);
-            handleSetInstancesList(value, favorites);
-            handleSetInvitesList(value, favorites);
           }}
         />
         <Stack direction="row" spacing={2} alignItems="stretch">
@@ -337,32 +347,47 @@ const InstanceDashboardV2 = () => {
         </Stack>
       </Stack>
 
-      <InstancesTypes
-        title="Invites"
-        icon={<EmailIcon color="primary" />}
-        view={view}
-        lists={invitesList}
-        isLoading={isInstancesLoading}
-        renderInstances={renderInstances}
-      />
+      {search === debounceSearch ? (
+        <>
+          <InstancesTypes
+            title="Invites"
+            icon={<EmailIcon color="primary" />}
+            view={view}
+            lists={invitesList}
+            isLoading={isInstancesLoading}
+            renderInstances={renderInstances}
+          />
 
-      <InstancesTypes
-        title="Favorites"
-        icon={<StarIcon color="primary" />}
-        view={view}
-        lists={favoritesInstancesList}
-        isLoading={isInstancesLoading}
-        renderInstances={renderInstances}
-      />
+          <InstancesTypes
+            title="Favorites"
+            icon={<StarIcon color="primary" />}
+            view={view}
+            lists={favoritesInstancesList}
+            isLoading={isInstancesLoading}
+            renderInstances={renderInstances}
+          />
 
-      <InstancesTypes
-        title="Instances"
-        icon={<WidgetsIcon color="primary" />}
-        view={view}
-        lists={instancesList}
-        isLoading={isInstancesLoading}
-        renderInstances={renderInstances}
-      />
+          <InstancesTypes
+            title="Instances"
+            icon={<WidgetsIcon color="primary" />}
+            view={view}
+            lists={instancesList}
+            isLoading={isInstancesLoading}
+            renderInstances={renderInstances}
+          />
+        </>
+      ) : (
+        <Stack py={4} alignItems="center">
+          <CircularProgress />
+        </Stack>
+      )}
+
+      {search === debounceSearch &&
+        instancesList?.length === 0 &&
+        favoritesInstancesList?.length === 0 &&
+        invitesList?.length === 0 && (
+          <Typography variant="h6">No Instances Found.</Typography>
+        )}
     </Container>
   );
 };
