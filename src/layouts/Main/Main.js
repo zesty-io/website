@@ -188,8 +188,8 @@ const Main = ({
             maxWidth: isLoggedIn
               ? theme.breakpoints.values.xl2
               : theme.breakpoints.values.lg,
+            paddingY: isExplorePage ? 2 : 1,
           })}
-          paddingY={isExplorePage ? 2 : 1}
         >
           {!isLoggedIn && (
             <Topbar

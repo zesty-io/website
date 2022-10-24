@@ -204,7 +204,7 @@ export const Overview = ({
         </Stack>
 
         <Grid container spacing={4}>
-          {newArr.map((e) => {
+          {newArr.map((e, index) => {
             const { title, logo, mainData, footerTitle, chip } = e;
             const cardprops = {
               title,
@@ -215,7 +215,7 @@ export const Overview = ({
               loading,
             };
             return (
-              <Grid item xs={12} lg={4}>
+              <Grid key={index} item xs={12} lg={4}>
                 <AOverviewCards {...cardprops} />
               </Grid>
             );

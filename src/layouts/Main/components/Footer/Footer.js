@@ -129,8 +129,8 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                 marginTop: isMobile ? 0 : 4,
               }}
             >
-              {customRouting.map((route) => (
-                <>
+              {customRouting.map((route, index) => (
+                <React.Fragment key={index}>
                   {route.parentZUID == null && route.children.length > 0 && (
                     <Grid
                       item
@@ -172,7 +172,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                         ))}
                     </Grid>
                   )}
-                </>
+                </React.Fragment>
               ))}
             </Grid>
           </Grid>
