@@ -26,76 +26,22 @@
 
 import React from 'react';
 //import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
-import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
 import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
-import WithBorderedCardsAndBrandColor from 'blocks/stats/WithBorderedCardsAndBrandColor/WithBorderedCardsAndBrandColor.js';
-import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js';
-import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
-import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
-import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import { Box } from '@mui/system';
 import FillerContent from 'components/globals/FillerContent';
-import useFetch from 'components/hooks/useFetch';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import SingleRowHero from 'blocks/zesty/Hero/SingleRowHero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import Features from 'blocks/features/Features/Features';
+import { WithHighlightedCard } from 'blocks/testimonials';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 /* ------------------------------------------------------------------- */
 
 function WhyZesty({ content }) {
   const theme = useTheme();
-
-  const { data: allArticles, isPending } = useFetch(
-    `/-/all-articles-hydrated.json?limit=3`,
-    content.zestyProductionMode,
-  );
-
-  let overview_text =
-    undefined !== content.hybrid_vs_headless_content
-      ? content.hybrid_vs_headless_content
-      : 'Failed to load content.';
-  let image_url =
-    undefined !== content.hybrid_vs_headless_image
-      ? content.hybrid_vs_headless_image
-      : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
-
-  const headerProps = {
-    mainTitle: content.header_title_main || FillerContent.header,
-    title: content.header_title || FillerContent.header,
-    image:
-      (content.header_image?.data && content.header_image?.data[0]?.url) ||
-      FillerContent.image,
-    description: content.header_description || FillerContent.description,
-    cta_left:
-      (content.cta_left.data && content.cta_left?.data[0]?.button_text) ||
-      FillerContent.cta,
-    cta_right:
-      (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
-      FillerContent.cta,
-    cta_left_url:
-      (content.cta_left?.data &&
-        content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
-      FillerContent.href,
-    cta_right_url:
-      (content.cta_right.data &&
-        content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
-      FillerContent.href,
-  };
-
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const isDarkMode = theme.palette.mode === 'dark';
-
-  const pageData = {
-    theme,
-    isMobile,
-    isDarkMode,
-    content,
-    FillerContent,
-  };
 
   console.log(content);
 
@@ -110,6 +56,21 @@ function WhyZesty({ content }) {
       return acc;
     }, []) || [];
 
+  const testimonialsData = {
+    title: content.testimonial_title,
+    data: content.testimonials?.data,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_cta_image?.data[0].url || '',
+    titleAndDescription: content.bottom_cta_text || FillerContent.rich_text,
+    cta_text: content.bottom_cta_primary || FillerContent.cta,
+    secondary_cta_text: content.bottom_cta_secondary || FillerContent.cta,
+    secondary_cta_link:
+      content.bottom_cta_secondary_link?.data[0].meta.web.uri ||
+      FillerContent.href,
+  };
+
   return (
     <>
       <SingleRowHero
@@ -122,7 +83,6 @@ function WhyZesty({ content }) {
         cta_right_link={content.cta_right.data[0].external_link}
         image={content.header_image.data[0].url}
       />
-
       <Box sx={{ py: 5 }}>
         <SimpleCardLogo
           logoItems={content?.client_logos.data}
@@ -131,7 +91,6 @@ function WhyZesty({ content }) {
           variant="outlined"
         />
       </Box>
-
       <OverviewProcessComp
         image={
           (content.overview_of_process_image.data &&
@@ -140,7 +99,6 @@ function WhyZesty({ content }) {
         }
         content={content.overview_of_process_text || FillerContent.rich_text}
       />
-
       {/* Benefits */}
       {content.benefits?.data?.slice(0, 2).map((e, i) => {
         return (
@@ -155,7 +113,6 @@ function WhyZesty({ content }) {
           />
         );
       })}
-
       <DarkBlueCta
         sx={{ my: 15 }}
         header_content={content.middle_cta}
@@ -165,7 +122,6 @@ function WhyZesty({ content }) {
           content.middle_cta_secondary_link.data[0].meta.web.uri
         }
       />
-
       {/* Benefits */}
       {content.benefits?.data?.slice(0, 2).map((e, i) => {
         return (
@@ -180,11 +136,9 @@ function WhyZesty({ content }) {
           />
         );
       })}
-
       {/* Missing Case Study
       ==========================
       ==========================  */}
-
       <Box sx={{ mt: 4 }}>
         <Features
           header_size={32}
@@ -194,74 +148,10 @@ function WhyZesty({ content }) {
           card_name_color={theme.palette.zesty.zestyZambezi}
         />
       </Box>
-
-      {/* HYBRID VS HEADLESS */}
-      <Box
-        position={'relative'}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-        }}
-      >
-        <FeaturesWithIllustration
-          wysiwyig_type="icon-box"
-          rich_text={overview_text}
-          image_url={image_url}
-        />
+      <Box sx={{ mb: 15 }}>
+        <WithHighlightedCard {...testimonialsData} />
       </Box>
-
-      {/* PROOF POINTS */}
-      <WithBorderedCardsAndBrandColor
-        cards={content.proof_points.data || FillerContent.emptyList}
-        content={content.proof_points_content || FillerContent.rich_text}
-      />
-
-      {/* CASE STUDY */}
-      <Box
-        position={'relative'}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-          marginBottom: '4rem',
-        }}
-      >
-        {content.case_study?.data?.map((e) => (
-          <CtaWithCoverImage
-            key={e.title || FillerContent.header}
-            title={e.title || FillerContent.header}
-            summary={e.summary || FillerContent.description}
-            cta={e.cta || FillerContent.cta}
-            cta_url={e.link || FillerContent.href}
-            image={
-              (e.image?.data && e.image?.data[0].url) || FillerContent.image
-            }
-          />
-        ))}
-      </Box>
-
-      {/* Industry Insights > Latest Blogs articles */}
-      {isPending ? (
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <CircularProgressWithLabel />
-        </Box>
-      ) : (
-        <VerticallyAlignedBlogCardsWithShapedImage
-          title={'Industry Insights'}
-          description={
-            'Stay up-to-date with the latest in digital experience, content management and more.'
-          }
-          popularArticles={allArticles}
-          ctaBtn="Read more"
-          ctaUrl={/mindshare/}
-        />
-      )}
-
-      {/* FINAL CTA */}
-      <CtaWithInputField
-        title={'Subscribe to the zestiest newsletter in the industry'}
-        description={
-          'Get the latest from the Zesty team, from whitepapers to product updates.'
-        }
-        cta={'Subscribe'}
-      />
+      <Bottom {...bottomData} />
     </>
   );
 }
