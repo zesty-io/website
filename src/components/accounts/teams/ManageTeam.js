@@ -319,8 +319,8 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
               <List>
                 {teamMembers
                   ?.filter((member) => member.admin)
-                  .map((member) => (
-                    <ListItem disablePadding key={member.ID}>
+                  .map((member, index) => (
+                    <ListItem disablePadding key={index}>
                       <Stack width="100%" direction="row" alignItems="center">
                         <LockIcon fontSize=".7rem" />
                         <Typography ml={1}>{member.email}</Typography>
@@ -348,8 +348,8 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
                           sx={{ my: 2 }}
                         />
                       ))
-                    : filteredMembers?.map((member) => (
-                        <ListItem disablePadding key={member.ZUID}>
+                    : filteredMembers?.map((member, index) => (
+                        <ListItem disablePadding key={index}>
                           <Stack
                             width="100%"
                             direction="row"
@@ -390,8 +390,8 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
                 </Typography>
               ) : (
                 <List disablePadding>
-                  {instances?.map((instance) => (
-                    <ListItem disablePadding key={instance.ZUID}>
+                  {instances?.map((instance, index) => (
+                    <ListItem disablePadding key={index}>
                       <Link
                         underline="none"
                         href={`/instances/${instance.ZUID}`}
