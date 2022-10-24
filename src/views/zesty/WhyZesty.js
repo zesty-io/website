@@ -43,8 +43,6 @@ import Bottom from 'blocks/zesty/Bottom/Bottom';
 function WhyZesty({ content }) {
   const theme = useTheme();
 
-  console.log(content);
-
   const feature_data =
     content.key_features?.data.reduce((acc, item) => {
       acc.push({
