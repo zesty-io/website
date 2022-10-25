@@ -16,6 +16,7 @@ const INSTANCE_CARD_LIMIT = 3;
 
 const Dashboard = () => {
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
+  const [initialInstances, setInitialInstances] = useState([]);
   const [instances, setInstances] = useState([]);
   const [isInstancesLoading, setIsInstanceLoading] = useState(false);
   const [filteredInstances, setFilteredInstances] = useState([]);
@@ -52,7 +53,7 @@ const Dashboard = () => {
   };
 
   const handleSearchInstances = (value) => {
-    const filterInstances = [...instances]?.filter((instance) =>
+    const filterInstances = [...initialInstances]?.filter((instance) =>
       helpers.isMatch(
         [
           instance?.name,
@@ -110,6 +111,7 @@ const Dashboard = () => {
       setInstances([...(await getInitialInstances(res?.data, favorites))]);
       setInitialRender(true);
       setFilteredInstances([...res?.data].slice(0, TOTAL_INSTANCES_LIMIT));
+      setInitialInstances([...res?.data]);
       setIsInstanceLoading(false);
     };
 
@@ -171,7 +173,7 @@ const Dashboard = () => {
               instances={filteredInstances}
               totalInstancesLimit={TOTAL_INSTANCES_LIMIT}
               totalTeamsLimit={TOTAL_TEAMS_LIMIT}
-              unfilteredTotalInstances={instances?.length}
+              unfilteredTotalInstances={initialInstances?.length}
               handleSearchInstances={handleSearchInstances}
               teams={teams}
             />
