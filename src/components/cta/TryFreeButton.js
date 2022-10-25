@@ -73,6 +73,13 @@ export default function TryFreeButton({
   const handleClick = (event) => {
     location.href = '/join/';
 
+    // Track Button Click by pushing item to the data layer
+    window.dataLayer.push({
+      event: 'btn_click',
+      buttonText: text,
+      currentPage: window.location.href,
+      targetPage: '/join/',
+    });
     // uncomment this to bring the dropdown back
     //setAnchorEl(event.target);
 

@@ -320,6 +320,14 @@ export const gravatarImg = (userInfo = {}) => {
   return res;
 };
 
+export const isMatch = (values, matchValue) => {
+  for (let i = 0; i < values.length; i++) {
+    if (values[i]?.toString().toLowerCase().includes(matchValue)) return true;
+  }
+
+  return false;
+};
+
 export const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };

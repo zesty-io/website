@@ -16,10 +16,10 @@ const AlternateColumns = ({
   cta_link,
   cta_text,
   column_data,
-  isDarkMode,
 }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const COLORS = [
     theme.palette.common.white,

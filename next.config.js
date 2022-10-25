@@ -25,5 +25,6 @@ module.exports = {
       'kfg6bckb.media.zestyio.com',
     ],
   },
+
   swcMinify: true,
 };
