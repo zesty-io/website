@@ -42,7 +42,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
         display: router?.query?.slug?.[0] === 'login' && 'none',
       }}
     >
-      <Container paddingY={2}>
+      <Container sx={{ paddingY: 2 }}>
         <Grid
           container
           marginTop={3}

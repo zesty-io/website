@@ -153,16 +153,15 @@ const Main = ({
           display={router?.query?.slug?.[0] === 'login' && 'none'}
         >
           <Container
-            maxWidth={isLoggedIn ? false : true}
+            maxWidth={isLoggedIn ? false : ''}
             sx={(theme) => ({
+              paddingTop:
+                hideNav || isExplorePage ? '0px !important' : '8px !important',
+              paddingBottom: '0 !important',
               maxWidth: isLoggedIn
                 ? theme.breakpoints.values.xl2
                 : theme.breakpoints.values.lg,
             })}
-            paddingTop={
-              hideNav || isExplorePage ? '0px !important' : '8px !important'
-            }
-            paddingBottom={'0 !important'}
           >
             <TopNav nav={nav} colorInvert={headerColorInvert} />
           </Container>
@@ -183,7 +182,7 @@ const Main = ({
         elevation={trigger ? 1 : 0}
       >
         <Container
-          maxWidth={isLoggedIn ? false : true}
+          maxWidth={isLoggedIn ? false : ''}
           sx={(theme) => ({
             maxWidth: isLoggedIn
               ? theme.breakpoints.values.xl2

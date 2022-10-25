@@ -194,8 +194,9 @@ const Index = ({ children }) => {
           >
             {profileTabs
               .sort((a, b) => a.sort - b.sort)
-              .map((tab) => (
+              .map((tab, index) => (
                 <Tab
+                  key={index}
                   icon={tab.icon}
                   value={tab.filename}
                   iconPosition="start"
