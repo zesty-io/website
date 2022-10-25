@@ -6,16 +6,16 @@ export async function docsLookup(ctx) {
   // setup default path
   let markdownFilePath = 'homepage.md';
   // some file structures have a README.md as the index, this will be use to check that
-  let markdownFilePathREADME = 'README.md';
+  // let markdownFilePathREADME = 'README.md';
   // split url
   data.urlPath = ctx.resolvedUrl;
 
   if (data.urlPath !== '/docs/') {
     // remove /docs/, the trailing foward slash, and  and make new string with .md reference
     markdownFilePath = data.urlPath.replace('/docs/', '').replace(/\/$/, '.md');
-    markdownFilePathREADME = data.urlPath
-      .replace('/docs/', '')
-      .replace(/\/$/, 'README.md');
+    // markdownFilePathREADME = data.urlPath
+    //   .replace('/docs/', '')
+    //   .replace(/\/$/, 'README.md');
   }
 
   // table of contents

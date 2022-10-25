@@ -2,17 +2,13 @@ import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
-
 import Container from 'components/Container';
 
-const ColorSection = ({ title, subtitle, image, children }) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-
+const ColorSection = ({
+  //  title, subtitle,
+  image,
+  children,
+}) => {
   const LeftSide = ({ children }) => (
     // transition removed: data-aos={isMd ? 'fade-right' : 'fade-up'}
     <>{children}</>

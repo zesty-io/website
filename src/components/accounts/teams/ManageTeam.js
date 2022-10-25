@@ -159,7 +159,7 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.updateTeam,
     initialValues,
-    onSubmit: async (values) => {
+    onSubmit: async () => {
       setIsUpdating(true);
       const name = formik.values.name,
         description = formik.values.description;
@@ -189,7 +189,7 @@ const ManageTeam = ({ teamZUID, name, description, getAllTeams, isOwner }) => {
     initialValues: {
       email: '',
     },
-    onSubmit: async (values) => {
+    onSubmit: async () => {
       setIsInviting(true);
       const response = await ZestyAPI.createTeamInvite({
         admin: false,

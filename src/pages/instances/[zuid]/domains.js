@@ -60,8 +60,8 @@ export default function Domains() {
   const [devDomains, setdevDomains] = useState([]);
   const [liveDomains, setliveDomains] = useState([]);
   const [settings, setsettings] = useState([]);
-  const [domain, setdomain] = useState('');
-  const [branch, setbranch] = useState('');
+  // const [domain, setdomain] = useState('');
+  const [branch] = useState('');
   const { ZestyAPI } = useZestyStore((state) => state);
 
   const { instance } = useZestyStore((state) => state);
@@ -89,23 +89,23 @@ export default function Domains() {
     }
   };
 
-  const updateSetting = async (settingZUID) => {
-    // will need to get a single setting by zuid to have the accurate body to pass for update:
-    // GET single setting not in fetchwarpper: https://instances-api.zesty.org/#e728c7a2-eb7d-476f-b493-232eb7ef2ef3
-    // can use the getSettings endpoint but will need to filter our the needed body to process
-    const body = null;
-    try {
-      // get settings body object, destructure object and update value key with new value
-      const res = await ZestyAPI.updateSetting(settingZUID, body);
+  // const updateSetting = async (settingZUID) => {
+  //   // will need to get a single setting by zuid to have the accurate body to pass for update:
+  //   // GET single setting not in fetchwarpper: https://instances-api.zesty.org/#e728c7a2-eb7d-476f-b493-232eb7ef2ef3
+  //   // can use the getSettings endpoint but will need to filter our the needed body to process
+  //   const body = null;
+  //   try {
+  //     // get settings body object, destructure object and update value key with new value
+  //     const res = await ZestyAPI.updateSetting(settingZUID, body);
 
-      console.log('🚀 ~ file: domains.js ~ line 82 ~ updateSetting ~ res', res);
-    } catch (error) {
-      console.log(
-        '🚀 ~ file: domains.js ~ line 84 ~ updateSetting ~ error',
-        error,
-      );
-    }
-  };
+  //     console.log('🚀 ~ file: domains.js ~ line 82 ~ updateSetting ~ res', res);
+  //   } catch (error) {
+  //     console.log(
+  //       '🚀 ~ file: domains.js ~ line 84 ~ updateSetting ~ error',
+  //       error,
+  //     );
+  //   }
+  // };
 
   const getPageData = async () => {
     await setloading(true);

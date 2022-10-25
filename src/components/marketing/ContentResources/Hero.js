@@ -10,7 +10,12 @@ import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
 import SubscribeCTA from 'components/cta/SubscribeCTA';
 
-const Hero = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
+const Hero = ({
+  theme,
+  // isMedium, isDarkMode,
+  content,
+  FillerContent,
+}) => {
   const LeftSide = () => (
     <Box>
       <Box marginBottom={2}>

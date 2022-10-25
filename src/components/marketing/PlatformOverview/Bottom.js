@@ -17,8 +17,8 @@ const Bottom = ({
   FillerContent,
   theme,
   isMedium,
-  isSmall,
-  isExtraLarge,
+  // isSmall,
+  // isExtraLarge,
 }) => {
   return (
     <Box

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export async function middleware(request, ev) {
+export async function middleware(request) {
   const response = NextResponse.next();
   const isAuthenticated = await isUserAuthenticated(request);
 

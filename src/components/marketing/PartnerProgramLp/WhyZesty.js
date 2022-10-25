@@ -5,7 +5,12 @@ import React from 'react';
 import { Box, Typography, Grid, Container } from '@mui/material';
 import MuiMarkdown from 'mui-markdown';
 
-const WhyZesty = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
+const WhyZesty = ({
+  theme,
+  //  isMobile, isDarkMode,
+  content,
+  FillerContent,
+}) => {
   return (
     <Box
       component="section"

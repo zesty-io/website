@@ -15,8 +15,8 @@ import Container from 'blocks/container/Container';
 
 const GatedContentCard = ({
   theme,
-  isMedium,
-  isDarkMode,
+  // isMedium,
+  // isDarkMode,
   content,
   FillerContent,
 }) => {

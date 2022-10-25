@@ -1,5 +1,4 @@
 // MUI Imports
-import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/globals/FillerContent';
 import { Box } from '@mui/material';
 // Components Imports
@@ -7,8 +6,6 @@ import { Box } from '@mui/material';
 import HeroWithFormAndBackgroundGradient from 'blocks/heroes/HeroWithFormAndBackgroundGradient';
 
 const PpcShortForm = ({ content }) => {
-  const theme = useTheme();
-
   const formContent = {
     leadDetail: 'Adwords',
     businessType: 'Direct',

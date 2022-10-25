@@ -7,7 +7,13 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 import DemoCta from 'components/cta/DemoCta';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
-const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
+const Hero = ({
+  content,
+  FillerContent,
+  theme,
+  isMedium,
+  //  isSmall
+}) => {
   return (
     <>
       <Box

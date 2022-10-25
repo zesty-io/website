@@ -9,11 +9,10 @@ import axios from 'axios';
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function WebhooksPage() {
-  const [search, setsearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [webhooks, setWebhooks] = React.useState([]);
-  const [resourcesOption, setResourcesOption] = React.useState([]);
+  const [, setResourcesOption] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
 
   const router = useRouter();

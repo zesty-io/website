@@ -16,8 +16,8 @@ import Container from 'blocks/container/Container';
 
 const ArticlesCard = ({
   theme,
-  isMedium,
-  isDarkMode,
+  // isMedium,
+  // isDarkMode,
   content,
   FillerContent,
 }) => {

@@ -51,7 +51,6 @@ import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import FillerContent from 'components/globals/FillerContent';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import React from 'react';
-import { useRouter } from 'next/router';
 import MuiMarkdown from 'mui-markdown';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
@@ -212,7 +211,12 @@ const ContactUsForm = ({ theme, content, formContent }) => {
   );
 };
 
-const ContactUs = ({ title, description, content, formContent }) => {
+const ContactUs = ({
+  title,
+  description,
+  // content,
+  formContent,
+}) => {
   const theme = useTheme();
 
   return (
@@ -259,8 +263,8 @@ const ContactUs = ({ title, description, content, formContent }) => {
 
 function GatedContentPage({ content }) {
   const theme = useTheme();
-  const router = useRouter();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  // const router = useRouter();
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const formContent = {
     leadDetail: 'CMSW - Media',

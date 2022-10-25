@@ -118,17 +118,17 @@ ListboxComponent.propTypes = {
   children: PropTypes.node,
 };
 
-function random(length) {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
+// function random(length) {
+//   const characters =
+//     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//   let result = '';
 
-  for (let i = 0; i < length; i += 1) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
+//   for (let i = 0; i < length; i += 1) {
+//     result += characters.charAt(Math.floor(Math.random() * characters.length));
+//   }
 
-  return result;
-}
+//   return result;
+// }
 
 const StyledPopper = styled(Popper)({
   [`& .${autocompleteClasses.listbox}`]: {
@@ -150,11 +150,11 @@ const Index = ({
   setCookies,
   instanceZUID,
   width = 300,
-  initialLabel,
+  // initialLabel,
   ...props
 }) => {
-  const theme = useTheme();
-  const [label, setlabel] = React.useState('');
+  // const theme = useTheme();
+  const [, setlabel] = React.useState('');
   const memoizedInstances = React.useMemo(() => {
     return instances;
   }, [instances]);

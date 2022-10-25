@@ -15,7 +15,13 @@ import connectionSmall from '../../../../public/assets/images/headless-cms/conne
 import connection from '../../../../public/assets/images/headless-cms/connection.svg';
 import connectionMobile from '../../../../public/assets/images/headless-cms/connection-mobile.svg';
 
-const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
+const UseCase = ({
+  theme,
+  isMobile,
+  // isDarkMode,
+  content,
+  FillerContent,
+}) => {
   return (
     <Box sx={{ pb: 10, mb: -20 }} component="section">
       <Container>

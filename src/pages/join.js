@@ -1,6 +1,5 @@
 // REact and MUI Imports
 import { React, useState, useRef, useCallback } from 'react';
-import { useTheme } from '@emotion/react';
 import { Box, Grid, Typography } from '@mui/material';
 
 // confetti
@@ -43,24 +42,24 @@ import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
 import Onboarding from 'components/marketing/Join/Onboarding';
 
 // messages
-const firstMessage = (
-  <Box paddingY={4} sx={{ textAlign: 'center' }}>
-    <Typography variant="h4" gutterBottom>
-      Hello!
-    </Typography>
-    <Typography variant="h6">
-      We are excited for you to explore Zesty.
-    </Typography>
-    <Box paddingY={1}>
-      <Typography variant="p">
-        {' '}
-        To help onboard you, can we ask two questions?
-      </Typography>
-    </Box>
-  </Box>
-);
+// const firstMessage = (
+//   <Box paddingY={4} sx={{ textAlign: 'center' }}>
+//     <Typography variant="h4" gutterBottom>
+//       Hello!
+//     </Typography>
+//     <Typography variant="h6">
+//       We are excited for you to explore Zesty.
+//     </Typography>
+//     <Box paddingY={1}>
+//       <Typography variant="p">
+//         {' '}
+//         To help onboard you, can we ask two questions?
+//       </Typography>
+//     </Box>
+//   </Box>
+// );
 
-const firstButton = `Yes, let's go!`;
+// const firstButton = `Yes, let's go!`;
 
 // zoho lead post function
 
@@ -86,7 +85,7 @@ const postToZOHO = async (payloadJSON) => {
 // Join component
 
 export default function Join(props) {
-  const theme = useTheme();
+  // const theme = useTheme();
   const { height, width } = getWindowDimensions();
   const isProduction = props.production;
 
@@ -100,10 +99,10 @@ export default function Join(props) {
   const [userObject, setUserObject] = useState({});
   const sliderRef = useRef(null);
 
-  const handlePrev = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slidePrev();
-  }, []);
+  // const handlePrev = useCallback(() => {
+  //   if (!sliderRef.current) return;
+  //   sliderRef.current.swiper.slidePrev();
+  // }, []);
 
   // moves user forward a slide in the onboard process
   const handleNext = useCallback(() => {
@@ -210,18 +209,18 @@ export default function Join(props) {
   };
 
   // leaves the onboard program
-  const handleExit = () => {
-    window.location = '/';
-  };
+  // const handleExit = () => {
+  //   window.location = '/';
+  // };
 
-  const handleInvite = () => {
-    alert('Invite Friends');
-  };
+  // const handleInvite = () => {
+  //   alert('Invite Friends');
+  // };
 
-  const handlePrompt = () => {
-    setCurrentAnimation('bouncing');
-    handleNext();
-  };
+  // const handlePrompt = () => {
+  //   setCurrentAnimation('bouncing');
+  //   handleNext();
+  // };
 
   // modifies the logo animation
   const handleAnimation = (ani) => {

@@ -8,7 +8,12 @@ import MuiMarkdown from 'mui-markdown';
  * Components Imports
  */
 
-const CaseStudies = ({ theme, isMedium, content, FillerContent }) => {
+const CaseStudies = ({
+  theme,
+  // isMedium,
+  content,
+  FillerContent,
+}) => {
   return (
     <Box component="section">
       <Container sx={{ height: '100%', py: 10 }}>

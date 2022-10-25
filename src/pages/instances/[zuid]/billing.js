@@ -6,8 +6,8 @@ import { ComingSoon } from 'components/accounts';
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function Billing() {
-  const [users, setusers] = React.useState([]);
-  const [roles, setroles] = React.useState([]);
+  const [, setusers] = React.useState([]);
+  const [, setroles] = React.useState([]);
   const { ZestyAPI } = useZestyStore((state) => state);
 
   const router = useRouter();

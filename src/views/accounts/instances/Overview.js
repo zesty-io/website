@@ -22,7 +22,7 @@ import * as helpers from 'utils';
 
 export const Overview = ({
   instance,
-  userInfo,
+  // userInfo,
   teams,
   users,
   locales,

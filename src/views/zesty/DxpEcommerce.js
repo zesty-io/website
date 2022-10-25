@@ -62,10 +62,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
 
-function DxpEcommerce({ content }) {
-  // const theme = useTheme();
-  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+function DxpEcommerce() {
   return <Box sx={{ overflowX: 'hidden' }}></Box>;
 }
 

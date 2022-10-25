@@ -13,7 +13,13 @@ import ZestyImage from 'blocks/Image/ZestyImage';
  */
 // import heroBackground from '../../../../public/assets/images/homepage/hero_background.svg';
 
-const Hero = ({ content, FillerContent, theme, isMedium, isSmall }) => {
+const Hero = ({
+  content,
+  FillerContent,
+  theme,
+  isMedium,
+  //  isSmall
+}) => {
   return (
     <>
       <Box

@@ -7,7 +7,13 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 import MuiMarkdown from 'mui-markdown';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
-const Integration = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const Integration = ({
+  content,
+  FillerContent,
+  theme,
+  isMedium,
+  // isLarge
+}) => {
   return (
     <>
       <Box sx={{ mt: 5 }} component="section">

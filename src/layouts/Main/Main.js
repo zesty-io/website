@@ -102,7 +102,7 @@ const Main = ({
     }
   };
 
-  const isDashboard = window.location.pathname.split('/').filter((e) => e)[0];
+  // const isDashboard = window.location.pathname.split('/').filter((e) => e)[0];
 
   const willShowMarketingFooter = () => {
     if (isLoggedIn) {
