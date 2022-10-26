@@ -28,7 +28,10 @@ export default function ZestyHead({ content }) {
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
       <meta property="og:title" content={content.meta.web.seo_meta_title} />
-      <meta name="description" value={content.meta.web.seo_meta_description} />
+      <meta
+        name="description"
+        content={content.meta.web.seo_meta_description}
+      />
       <meta
         property="og:description"
         content={content.meta.web.seo_meta_description}
