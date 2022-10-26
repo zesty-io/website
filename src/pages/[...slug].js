@@ -41,6 +41,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   res.setHeader('Surrogate-Control', 'max-age=60');
 
   // attempt to get page data relative to zesty
+
   let data = await fetchPage(resolvedUrl);
 
   data = {
