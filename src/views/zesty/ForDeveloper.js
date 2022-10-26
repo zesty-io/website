@@ -105,6 +105,7 @@ function ForDeveloper({ content }) {
     isLarge,
     isExtraLarge,
     isDarkMode,
+    FillerContent
   };
 
   const heroProps = {
@@ -238,7 +239,9 @@ function ForDeveloper({ content }) {
   return (
     <>
       <Hero {...heroProps} />
+      <Box sx={{ mb: isSmall ? 7 : 10 }}>
       <ContainerWithBackground {...nextJsProps} sx={{ mb: 7 }} />
+      </Box>
       <Features {...whyZestyProps} />
       <ContainerWithBackground {...nodeSDKProps} sx={{ mb: 7 }} />
       <ZestyDrives {...zestyDrivesProps} />

@@ -18,7 +18,7 @@ const Support = ({ theme, eyebrow, titleAndDescription, isSmall, isLarge }) => {
             background: theme.palette.zesty.zestyDarkBlue,
             borderRadius: isSmall ? 0 : 5,
             p: isSmall ? 4 : 17,
-            py: 10,
+            py: isSmall ? 10 : 15,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -31,7 +31,7 @@ const Support = ({ theme, eyebrow, titleAndDescription, isSmall, isLarge }) => {
           <Box>
             <Typography
               variant="h4"
-              component="h2"
+              component="h3"
               sx={{
                 color: theme.palette.zesty.zestyWhite,
                 fontWeight: 'bold',
@@ -45,7 +45,7 @@ const Support = ({ theme, eyebrow, titleAndDescription, isSmall, isLarge }) => {
                 h2: {
                   component: Typography,
                   props: {
-                    component: 'h1',
+                    component: 'h2',
                     variant: 'h3',
                     sx: {
                       color: theme.palette.zesty.zestyOrange,

@@ -8,6 +8,7 @@ import { Box, Typography, Card, Grid } from '@mui/material';
  */
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Documentation = ({
   theme,
@@ -35,7 +36,7 @@ const Documentation = ({
             h2: {
               component: Typography,
               props: {
-                component: 'h3',
+                component: 'h2',
                 variant: 'h4',
                 sx: {
                   color: isDarkMode
@@ -75,12 +76,14 @@ const Documentation = ({
                 }}
               >
                 <Box sx={{ textAlign: 'center' }}>
-                  <Box
-                    sx={{ width: '100', maxWidth: 78 }}
-                    component="img"
-                    src={item.graphic?.data[0].url}
-                    alt={item.icon_name}
-                  />
+                 <ZestyImage
+                  alt={item.title}
+                  loading="lazy"
+                  style={{ width: '100%', maxWiheightdth: 'auto', height: 75 }}
+                  width={75}
+                  height={75}
+                  src={item.graphic?.data[0].url}
+                 />
                 </Box>
                 <Box sx={{ mt: 5 }}>
                   <Typography

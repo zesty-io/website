@@ -69,7 +69,7 @@ const TechStack = ({
                     component: Typography,
                     props: {
                       variant: 'h3',
-                      component: 'h4',
+                      component: 'h2',
                       sx: {
                         fontWeight: 700,
                         color: theme.palette.zesty.zestyOrange,

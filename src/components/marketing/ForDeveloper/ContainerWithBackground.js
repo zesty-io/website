@@ -31,7 +31,7 @@ const ContainerWithBackground = ({
             background: theme.palette.zesty.zestyDarkBlue,
             borderRadius: isSmall ? 0 : 5,
             p: 4,
-            py: isSmall ? 8 : 15,
+            py: isSmall ? 10 : 15,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -61,7 +61,7 @@ const ContainerWithBackground = ({
                 <Box>
                   <Typography
                     variant="h4"
-                    component="h2"
+                    component="h3"
                     sx={{
                       color: theme.palette.zesty.zestyWhite,
                       fontWeight: 'bold',
@@ -75,7 +75,7 @@ const ContainerWithBackground = ({
                       h2: {
                         component: Typography,
                         props: {
-                          component: 'h1',
+                          component: 'h2',
                           variant: 'h3',
                           sx: {
                             color: theme.palette.zesty.zestyOrange,
@@ -128,7 +128,7 @@ const ContainerWithBackground = ({
             <Grid item sm={12} md={6}>
               <Box>
                 <ZestyImage
-                  alt="hero image"
+                  alt={eyebrow}
                   loading="eager"
                   style={{ width: '100%', maxWidth: '769', height: 'auto' }}
                   width={769}
