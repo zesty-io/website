@@ -159,7 +159,7 @@ function WhyZesty({ content }) {
         </Container>
         {/* Benefits */}
         <Box sx={{ mt: 10 }}>
-          {content.benefits?.data?.slice(0, 2).map((e, i) => {
+          {content.benefits?.data?.slice(2, 4).map((e, i) => {
             return (
               <FeaturesWithMobileScreenshot
                 text_color={i === 0 ? theme.palette.common.white : ''}
