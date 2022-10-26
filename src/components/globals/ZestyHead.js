@@ -11,6 +11,7 @@ export default function ZestyHead({ content }) {
     : 'https://kfg6bckb-dev.webengine.zesty.io';
 
   const canonicalURL = site + router.asPath;
+  const isPPCPage = router?.asPath?.split('/')?.filter((e) => e)[0] === 'ppc';
 
   // default OG image
   let ogimage =
@@ -27,6 +28,7 @@ export default function ZestyHead({ content }) {
   }
   return (
     <Head>
+      {' '}
       <title>{content.meta.web.seo_meta_title}</title>
       <link
         rel="icon"
@@ -47,7 +49,7 @@ export default function ZestyHead({ content }) {
         content={content.meta.web.seo_meta_description}
       />
       <meta property="og:image" content={ogimage} />
-
+      {isPPCPage && <meta name="robots" content="noindex"></meta>}
       <link
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"
