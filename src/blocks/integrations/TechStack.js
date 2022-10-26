@@ -65,7 +65,17 @@ const TechStack = ({
                       },
                     },
                   },
-
+                  h4: {
+                    component: Typography,
+                    props: {
+                      variant: 'h3',
+                      component: 'h4',
+                      sx: {
+                        fontWeight: 700,
+                        color: theme.palette.zesty.zestyOrange,
+                      },
+                    },
+                  },
                   p: {
                     component: Typography,
                     props: {
