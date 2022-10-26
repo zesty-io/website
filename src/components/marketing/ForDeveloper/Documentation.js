@@ -21,7 +21,7 @@ const Documentation = ({
     <Box component="section">
       <Container
         sx={{
-          py: isSmall ? 15 : 6,
+          py: isSmall ? 10 : 6,
           mt: isSmall ? 0 : 10,
           mb: isSmall ? 0 : 20,
           background: isDarkMode
@@ -57,7 +57,7 @@ const Documentation = ({
           container
           spacing={2}
         >
-          {documentations.data.map((item, index) => (
+          {documentations?.data?.map((item, index) => (
             <Grid item sm={12} md={4} key={index} sx={{ width: '100%' }}>
               <Card
                 component="a"

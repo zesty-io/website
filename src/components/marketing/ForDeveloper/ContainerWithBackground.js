@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 
 /**
  * Components Imports
@@ -9,6 +9,7 @@ import { Box, Typography, Grid, Button } from '@mui/material';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'mui-markdown';
 import ZestyImage from 'blocks/Image/ZestyImage';
+import DemoCta from 'components/cta/DemoCta';
 
 const ContainerWithBackground = ({
   theme,
@@ -20,10 +21,11 @@ const ContainerWithBackground = ({
   isSmall,
   isMedium,
   isLarge,
+  sx = {}
 }) => {
   return (
     <Box component="section">
-      <Container sx={isSmall ? { px: 0, py: 7 } : { py: 7 }}>
+      <Container sx={{ px: isSmall && 0, my: isSmall ? 0 : 4}}>
         <Box
           sx={{
             background: theme.palette.zesty.zestyDarkBlue,
@@ -36,6 +38,7 @@ const ContainerWithBackground = ({
             flexDirection: isLarge ? 'column' : 'row',
             gap: 2,
             boxShadow: '4px 4px 31px rgba(73, 73, 73, 0.64)',
+           
           }}
         >
           <Grid
@@ -107,43 +110,19 @@ const ContainerWithBackground = ({
                 }}
               ></Box>
               <Box display={'flex'} sx={{ mt: isSmall ? 0 : 5 }}>
-                <Button
+                <DemoCta
+                  href={primaryCtaLink}
+                  text={primaryCta}
                   sx={{
-                    border: `1px solid ${theme.palette.common.white}`,
-                    color: theme.palette.common.zestyOrange,
+                    mt: 4,
+                    color: theme.palette.zesty.zestyOrange,
                     background: theme.palette.zesty.white,
                     '&:hover': {
                       background: theme.palette.zesty.zestyOrange,
                       color: theme.palette.zesty.white,
-                      border: `1px solid ${theme.palette.zesty.zestyOrange}`,
                     },
                   }}
-                  color="secondary"
-                  variant="outlined"
-                  size={'large'}
-                  href={primaryCtaLink}
-                  target="_blank"
-                  endIcon={
-                    <Box
-                      component={'svg'}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      width={24}
-                      height={24}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </Box>
-                  }
-                >
-                  {primaryCta}
-                </Button>
+                />
               </Box>
             </Grid>
             <Grid item sm={12} md={6}>

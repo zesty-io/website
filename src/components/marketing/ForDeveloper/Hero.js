@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 
 /**
  * Components Imports
@@ -32,6 +32,7 @@ const Hero = ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        mb: 10,
       }}
     >
       <Box
@@ -106,15 +107,17 @@ const Hero = ({
                 text={primaryCta}
                 href={primaryCtaLink}
               />
-              <Button
+              <DemoCta
+                icon={false}
+                sx={{
+                  fontWeight: 800,
+                }}
+                target="_self"
                 variant="outlined"
                 color="secondary"
-                component="a"
-                sx={{ fontWeight: 800 }}
+                text={secondaryCta}
                 href={secondaryCtaLink}
-              >
-                {secondaryCta}
-              </Button>
+              />
             </Box>
           </Grid>
           <Grid item sm={12} md={6}>

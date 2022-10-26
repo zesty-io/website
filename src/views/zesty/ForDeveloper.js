@@ -68,7 +68,7 @@ import React from 'react';
 /**
  * MUI Imports
  */
-import { useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery, useTheme, Box } from '@mui/material';
 
 /**
  * Helper Imports
@@ -81,13 +81,13 @@ import FillerContent from 'components/globals/FillerContent';
  */
 import Hero from 'components/marketing/ForDeveloper/Hero';
 import ContainerWithBackground from 'components/marketing/ForDeveloper/ContainerWithBackground';
-import WhyZesty from 'components/marketing/ForDeveloper/WhyZesty';
+import Features from 'blocks/features/Features/Features';
 import ZestyDrives from 'components/marketing/ForDeveloper/ZestyDrives';
 import Support from 'components/marketing/ForDeveloper/Support';
 import Documentation from 'components/marketing/ForDeveloper/Documentation';
-import Integrations from 'components/marketing/ForDeveloper/Integrations';
+import TechStack from 'blocks/integrations/TechStack';
 import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
-import Bottom from 'components/marketing/ForDeveloper/Bottom';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 import HowZestyWorks from 'components/marketing/ForDeveloper/HowZestyWorks';
 
 function ForDeveloper({ content }) {
@@ -145,14 +145,16 @@ function ForDeveloper({ content }) {
     }, []) || [];
 
   const whyZestyProps = {
+    background: 'zesty',
     header_size: 32,
-    title_eyebrow: content.why_zesty_eyebrow || FillerContent.header,
+    textHighlight: content.why_zesty_eyebrow || FillerContent.header,
+    features_header: content.why_zesty_text || FillerContent.header,
     cta_button_text: content.middle_cta_button_text || FillerContent.cta,
     cta_button_link:
       content.middle_cta_button_link.data[0].meta.web.uri || FillerContent.href,
     card_name_color: theme.palette.zesty.zestyZambezi,
+    icon_width: 60,
     data: whyZestyFeaturesData,
-    features_header: content.why_zesty_text,
     ...pageProps,
   };
 
@@ -187,9 +189,10 @@ function ForDeveloper({ content }) {
 
   const integrationsProps = {
     text_content: content.integrations_text,
-    logos: content.integrations_graphic?.data[0]?.url,
-    cta_button_text: content.integrations_button_text || FillerContent.cta,
-    cta_button_link: content.integrations_button_link || FillerContent.href,
+    // logos: content.integrations_graphic?.data[0]?.url,
+    logos: content.integrations_logo?.data,
+    cta_text: content.integrations_button_text || FillerContent.cta,
+    cta_link: content.integrations_button_link || FillerContent.href,
     ...pageProps,
   };
 
@@ -206,7 +209,7 @@ function ForDeveloper({ content }) {
 
   const documentationProps = {
     header: content.docs_text || FillerContent.header,
-    documentations: content.dev_docs || FillerContent.rich_text,
+    documentations: content.dev_docs,
     ...pageProps,
   };
 
@@ -222,6 +225,7 @@ function ForDeveloper({ content }) {
     secondary_cta_text: content.footer_button_2 || FillerContent.cta,
     secondary_cta_link:
       content.footer_button_2_link?.data[0].meta.web.uri || FillerContent.href,
+    backgroundColor: theme.palette.zesty.zestyTealGradient2,
     ...pageProps,
   };
 
@@ -234,15 +238,17 @@ function ForDeveloper({ content }) {
   return (
     <>
       <Hero {...heroProps} />
-      <ContainerWithBackground {...nextJsProps} />
-      <WhyZesty {...whyZestyProps} />
-      <ContainerWithBackground {...nodeSDKProps} />
+      <ContainerWithBackground {...nextJsProps} sx={{ mb: 7 }} />
+      <Features {...whyZestyProps} />
+      <ContainerWithBackground {...nodeSDKProps} sx={{ mb: 7 }} />
       <ZestyDrives {...zestyDrivesProps} />
-      <Integrations {...integrationsProps} />
+      <TechStack {...integrationsProps} />
       <Support {...supportProps} />
       <Documentation {...documentationProps} />
       <Testimonials {...testimonialsProps} />
-      <Bottom {...bottomProps} />
+      <Box sx={{ mt: isSmall ? 15 : 20 }}>
+        <Bottom {...bottomProps} />
+      </Box>
       <HowZestyWorks {...howZestyWorksProps} />
     </>
   );

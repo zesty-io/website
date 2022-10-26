@@ -81,7 +81,7 @@ const Features = ({
     >
       <Box
         sx={{
-          zIndex: '10',
+          zIndex: '-10',
           position: 'absolute',
           left: 0,
           bottom: 0,
@@ -94,7 +94,7 @@ const Features = ({
       </Box>
       <Box
         sx={{
-          zIndex: '10',
+          zIndex: '-10',
           position: 'absolute',
           left: 0,
           bottom: 0,
@@ -178,6 +178,7 @@ const Features = ({
           {cta_button_text && (
             <Box
               sx={{
+                mt: 5,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -199,7 +200,7 @@ const Features = ({
             zIndex: '1000',
           }}
         >
-          {data.map((e, i) => {
+          {data?.map((e, i) => {
             return (
               <div key={i}>
                 <Card

@@ -50,7 +50,7 @@ const ZestyDrives = ({
       paddingBottom={isSmall ? 0 : 15}
       sx={{
         position: 'relative',
-        mt: isSmall ? 0 : 5,
+        mt: 7,
         zIndex: '500',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
@@ -108,10 +108,10 @@ const ZestyDrives = ({
         >
           {data.map((e, i) => {
             return (
-              <div key={i}>
                 <Card
+                  key={i}
                   sx={{
-                    width: isSmall ? 'auto' : '23rem',
+                    width: isSmall ? '100%' : '23rem',
                     minHeight: 200,
                     padding: '3rem 2rem',
                     background: theme.palette.common.white,
@@ -160,7 +160,6 @@ const ZestyDrives = ({
                     </Typography>
                   </Box>
                 </Card>
-              </div>
             );
           })}
         </Box>

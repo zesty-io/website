@@ -13,6 +13,7 @@ const DemoCta = ({
   href = '/demos/video',
   target = '_blank',
   variant = '',
+  color = "primary"
 }) => {
   const handleClick = () => {
     location.href = href;
@@ -38,6 +39,7 @@ const DemoCta = ({
       href={href}
       target={target}
       onClick={handleClick}
+      color={color}
     >
       {text}
       {icon && <ArrowRightAlt sx={{ ml: 1 }} />}
