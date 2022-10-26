@@ -1,7 +1,17 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { isProd } from 'utils';
 
 export default function ZestyHead({ content }) {
+  const router = useRouter();
+
+  const site = isProd
+    ? 'https://www.zesty.io'
+    : 'https://kfg6bckb-dev.webengine.zesty.io';
+
+  const canonicalURL = site + router.asPath;
+
   // default OG image
   let ogimage =
     'https://kfg6bckb.media.zestyio.com/zesty-share-image-generic.png?width=1200';
@@ -46,6 +56,7 @@ export default function ZestyHead({ content }) {
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Mulish"
       />
+      <link rel="canonical" href={canonicalURL} />
     </Head>
   );
 }
