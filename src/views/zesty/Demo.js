@@ -170,7 +170,7 @@ const Demo = ({ content }) => {
         />
 
         <DarkBlueCta
-          sx={{ mt: 15 }}
+          sx={{ mt: 15, py: 10 }}
           cta_text={content?.cta_button}
           cta_secondary_link={
             content?.cta_button_secondary_link?.data[0].meta.web.uri

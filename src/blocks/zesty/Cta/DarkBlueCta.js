@@ -24,7 +24,7 @@ const DarkBlueCta = ({
   return (
     <Box component="section">
       <Container
-        sx={{...sx, background:theme.palette.zesty.zestyDarkBlueRadialGradient, py:10, borderRadius:5}}
+        sx={{...sx, background:theme.palette.zesty.zestyDarkBlueRadialGradient, borderRadius:5}}
       >
         <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
           <MuiMarkdown

@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
+import MuiMarkdown from'mui-markdown';
 import { useMediaQuery } from '@mui/material';
 
 const FeaturesWithMobileScreenshot = ({
@@ -16,17 +17,19 @@ const FeaturesWithMobileScreenshot = ({
   image,
   index,
   feature_list_h1,
+  background_color = "",
+  text_color = ''
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Container paddingY={0}>
+    <Container sx={{background: background_color ? background_color : '', borderRadius:5, my:10}}  >
       {feature_list_h1 && (
         <Typography
           variant="p"
           component="h2"
-          color="text.primary"
           sx={{
+            color: text_color ? text_color : theme.palette.zesty.zestyZambezi,
             fontWeight: '700',
             textAlign: 'center',
             fontSize: '32px',
@@ -42,6 +45,7 @@ const FeaturesWithMobileScreenshot = ({
         }
         container
         spacing={4}
+        paddingX={4}
       >
         <Grid
           item
@@ -50,18 +54,31 @@ const FeaturesWithMobileScreenshot = ({
           xs={12}
           md={6}
           order={{ xs: 3, sm: 2 }}
+
         >
           <Box>
             <Box marginBottom={2}>
-              <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
+              <Typography variant={'h4'} sx={{ fontWeight: 700,    color: text_color ? text_color : theme.palette.zesty.zestyZambezi, }} gutterBottom>
                 {header}
               </Typography>
             </Box>
             <Grid container order={{ sm: 2, md: 1 }}>
-              <WYSIWYGRender
+              <MuiMarkdown overrides={{
+                p: {
+                  component: Typography,
+                  props: {
+                    sx: {
+                       color: text_color ? text_color : theme.palette.zesty.zestyZambezi,
+                    }
+                  }
+                }
+              }}>
+                {content || FillerContent.rich_text}
+              </MuiMarkdown>
+              {/* <WYSIWYGRender
                 customClass="circle-icons"
                 rich_text={content || FillerContent.rich_text}
-              ></WYSIWYGRender>
+              ></WYSIWYGRender> */}
             </Grid>
           </Box>
         </Grid>

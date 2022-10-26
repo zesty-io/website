@@ -25,23 +25,31 @@
  */
 
 import React from 'react';
-//import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
 import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
 import { Box } from '@mui/system';
 import FillerContent from 'components/globals/FillerContent';
 import { useTheme } from '@mui/material/styles';
-import SingleRowHero from 'blocks/zesty/Hero/SingleRowHero';
+//import SingleRowHero from 'blocks/zesty/Hero/SingleRowHero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
+//import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import Features from 'blocks/features/Features/Features';
 import { WithHighlightedCard } from 'blocks/testimonials';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
+import Container from 'components/Container';
 
 /* ------------------------------------------------------------------- */
 
 function WhyZesty({ content }) {
   const theme = useTheme();
+
+  const COLORS = [
+    theme.palette.common.white,
+    theme.palette.zesty.zestyWhite,
+    theme.palette.zesty.zestyBlue,
+    theme.palette.zesty.zestyWhite,
+  ];
 
   const feature_data =
     content.key_features?.data.reduce((acc, item) => {
@@ -69,9 +77,41 @@ function WhyZesty({ content }) {
       FillerContent.href,
   };
 
+  const headerProps = {
+    mainTitle: content.header_title_main || FillerContent.header,
+    title: content.header_title || FillerContent.header,
+    image:
+      (content.header_image?.data && content.header_image?.data[0]?.url) ||
+      FillerContent.image,
+    description: content.header_description || FillerContent.description,
+    cta_left:
+      (content.cta_left.data && content.cta_left?.data[0]?.button_text) ||
+      FillerContent.cta,
+    cta_right:
+      (content.cta_right?.data && content.cta_right?.data[0]?.button_text) ||
+      FillerContent.cta,
+    cta_left_url:
+      (content.cta_left?.data &&
+        content.cta_left?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      FillerContent.href,
+    cta_right_url:
+      (content.cta_right.data &&
+        content.cta_right?.data[0]?.internal_link?.data[0]?.meta?.web?.url) ||
+      FillerContent.href,
+  };
+
   return (
     <>
-      <SingleRowHero
+      <Box
+        position={'relative'}
+        sx={{
+          backgroundColor: theme.palette.alternate.main,
+        }}
+      >
+        <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+      </Box>
+
+      {/* <SingleRowHero
         eyebrow={content.header_title_main}
         header={content.header_title}
         description={content.header_description}
@@ -80,65 +120,66 @@ function WhyZesty({ content }) {
         cta_right={content.cta_right.data[0].button_text}
         cta_right_link={content.cta_right.data[0].external_link}
         image={content.header_image.data[0].url}
-      />
-      <Box sx={{ py: 5 }}>
-        <SimpleCardLogo
-          logoItems={content?.client_logos.data}
-          heading_text={content.logos_h2}
-          maxWidth={1300}
-          variant="outlined"
-        />
-      </Box>
-      <OverviewProcessComp
+      /> */}
+
+      {/* <OverviewProcessComp
         image={
           (content.overview_of_process_image.data &&
             content.overview_of_process_image.data[0].url) ||
           ''
         }
         content={content.overview_of_process_text || FillerContent.rich_text}
-      />
+      /> */}
       {/* Benefits */}
-      {content.benefits?.data?.slice(0, 2).map((e, i) => {
-        return (
-          <FeaturesWithMobileScreenshot
-            index={i}
-            content={e.benefit_content || FillerContent.rich_text}
-            header={e.header || FillerContent.header}
-            image={
-              (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
-              FillerContent.image
+      <Box sx={{ pt: 15 }}>
+        {content.benefits?.data?.slice(0, 2).map((e, i) => {
+          return (
+            <FeaturesWithMobileScreenshot
+              background_color={COLORS[i]}
+              index={i}
+              content={e.benefit_content || FillerContent.rich_text}
+              header={e.header || FillerContent.header}
+              image={
+                (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
+                FillerContent.image
+              }
+            />
+          );
+        })}
+        <Container paddingY={0}>
+          <DarkBlueCta
+            sx={{ py: 15 }}
+            header_content={content.middle_cta}
+            cta_text={content.middle_cta_primary}
+            cta_secondary_text={content.middle_cta_secondary}
+            cta_secondary_link={
+              content.middle_cta_secondary_link.data[0].meta.web.uri
             }
           />
-        );
-      })}
-      <DarkBlueCta
-        sx={{ my: 15 }}
-        header_content={content.middle_cta}
-        cta_text={content.middle_cta_primary}
-        cta_secondary_text={content.middle_cta_secondary}
-        cta_secondary_link={
-          content.middle_cta_secondary_link.data[0].meta.web.uri
-        }
-      />
-      {/* Benefits */}
-      {content.benefits?.data?.slice(0, 2).map((e, i) => {
-        return (
-          <FeaturesWithMobileScreenshot
-            index={i}
-            content={e.benefit_content || FillerContent.rich_text}
-            header={e.header || FillerContent.header}
-            image={
-              (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
-              FillerContent.image
-            }
-          />
-        );
-      })}
+        </Container>
+        {/* Benefits */}
+        {content.benefits?.data?.slice(0, 2).map((e, i) => {
+          return (
+            <FeaturesWithMobileScreenshot
+              text_color={i === 0 ? theme.palette.common.white : ''}
+              background_color={COLORS[2 + i]}
+              index={i}
+              content={e.benefit_content || FillerContent.rich_text}
+              header={e.header || FillerContent.header}
+              image={
+                (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
+                FillerContent.image
+              }
+            />
+          );
+        })}
+      </Box>
       {/* Missing Case Study
       ==========================
       ==========================  */}
       <Box sx={{ mt: 4 }}>
         <Features
+          background_color={theme.palette.zesty.zestyBackgroundBlue}
           header_size={32}
           textHighlight={'Workflow management'}
           data={feature_data}
@@ -146,9 +187,19 @@ function WhyZesty({ content }) {
           card_name_color={theme.palette.zesty.zestyZambezi}
         />
       </Box>
-      <Box sx={{ mb: 15 }}>
+      <Box sx={{ my: 10 }}>
         <WithHighlightedCard {...testimonialsData} />
       </Box>
+
+      <Box sx={{ pb: 15 }}>
+        <SimpleCardLogo
+          logoItems={content?.client_logos.data}
+          heading_text={content.logos_h2}
+          maxWidth={1300}
+          variant="outlined"
+        />
+      </Box>
+
       <Bottom {...bottomData} />
     </>
   );
