@@ -32,7 +32,8 @@ const DarkBlueCta = ({
               h2: {
                 component: Typography,
                 props: {
-                  variant: 'h3',
+                  variant: 'h4',
+                  component:'h2',
                   sx: {
                     color: theme.palette.common.white,
                     fontWeight: 'bold',

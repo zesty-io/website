@@ -35,7 +35,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                 color={
                   isDarkMode
                     ? theme.palette.zesty.zestyWhite
-                    : theme.palette.zesty.zestyGrey
+                    : theme.palette.zesty.zestyOrange
                 }
                 gutterBottom
                 sx={{ fontWeight: 400, fontSize: '20px' }}

@@ -32,7 +32,7 @@ import FillerContent from 'components/globals/FillerContent';
 import { useTheme } from '@mui/material/styles';
 //import SingleRowHero from 'blocks/zesty/Hero/SingleRowHero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-//import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
+import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import Features from 'blocks/features/Features/Features';
 import { WithHighlightedCard } from 'blocks/testimonials';
@@ -45,8 +45,8 @@ function WhyZesty({ content }) {
   const theme = useTheme();
 
   const COLORS = [
-    theme.palette.common.white,
     theme.palette.zesty.zestyWhite,
+    theme.palette.common.white,
     theme.palette.zesty.zestyBlue,
     theme.palette.zesty.zestyWhite,
   ];
@@ -122,16 +122,16 @@ function WhyZesty({ content }) {
         image={content.header_image.data[0].url}
       /> */}
 
-      {/* <OverviewProcessComp
+      <OverviewProcessComp
         image={
           (content.overview_of_process_image.data &&
             content.overview_of_process_image.data[0].url) ||
           ''
         }
         content={content.overview_of_process_text || FillerContent.rich_text}
-      /> */}
+      />
       {/* Benefits */}
-      <Box sx={{ pt: 15 }}>
+      <Box sx={{ mt: 15 }}>
         {content.benefits?.data?.slice(0, 2).map((e, i) => {
           return (
             <FeaturesWithMobileScreenshot
@@ -158,29 +158,31 @@ function WhyZesty({ content }) {
           />
         </Container>
         {/* Benefits */}
-        {content.benefits?.data?.slice(0, 2).map((e, i) => {
-          return (
-            <FeaturesWithMobileScreenshot
-              text_color={i === 0 ? theme.palette.common.white : ''}
-              background_color={COLORS[2 + i]}
-              index={i}
-              content={e.benefit_content || FillerContent.rich_text}
-              header={e.header || FillerContent.header}
-              image={
-                (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
-                FillerContent.image
-              }
-            />
-          );
-        })}
+        <Box sx={{ mt: 10 }}>
+          {content.benefits?.data?.slice(0, 2).map((e, i) => {
+            return (
+              <FeaturesWithMobileScreenshot
+                text_color={i === 0 ? theme.palette.common.white : ''}
+                background_color={COLORS[2 + i]}
+                index={i}
+                content={e.benefit_content || FillerContent.rich_text}
+                header={e.header || FillerContent.header}
+                image={
+                  (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
+                  FillerContent.image
+                }
+              />
+            );
+          })}
+        </Box>
       </Box>
       {/* Missing Case Study
       ==========================
       ==========================  */}
-      <Box sx={{ mt: 4 }}>
+      <Box>
         <Features
           background_color={theme.palette.zesty.zestyBackgroundBlue}
-          header_size={32}
+          header_size={48}
           textHighlight={'Workflow management'}
           data={feature_data}
           features_header={content.key_features_text}

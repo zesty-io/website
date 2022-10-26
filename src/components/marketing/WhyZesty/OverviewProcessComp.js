@@ -1,23 +1,47 @@
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import FillerContent from 'components/globals/FillerContent';
+import MuiMarkdown from 'mui-markdown';
+import { useTheme } from '@mui/material/styles';
 
 const OverviewProcessComp = ({ content, image }) => {
+  const theme = useTheme();
+
   return (
-    <Container sx={{ py: 10 }}>
+    <Container sx={{ pt: 15 }}>
       <Grid container justify="center">
         <Box justifyContent="center" alignItems="center">
-          <Typography
-            variant="h5"
-            alignItems={'center'}
-            sx={{ textAlign: 'center' }}
-            gutterBottom
+          <MuiMarkdown
+            overrides={{
+              h2: {
+                component: Typography,
+                props: {
+                  variant: 'h4',
+                  component: 'h2',
+                  sx: {
+                    color: theme.palette.zesty.zestyZambezi,
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h6',
+                  component: 'p',
+                  sx: {
+                    color: theme.palette.zesty.zestyZambezi,
+                    textAlign: 'center',
+                    lineHeight: 1.2,
+                    mt: 2,
+                  },
+                },
+              },
+            }}
           >
-            <WYSIWYGRender
-              rich_text={content || FillerContent.rich_text}
-            ></WYSIWYGRender>
-          </Typography>
+            {content || FillerContent.rich_text}
+          </MuiMarkdown>
           <Container>
             {image && (
               <Box

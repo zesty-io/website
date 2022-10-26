@@ -23,8 +23,9 @@ const FeaturesWithMobileScreenshot = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Container sx={{background: background_color ? background_color : '', borderRadius:5, my:10}}  >
-      {feature_list_h1 && (
+    <Box sx={{background: background_color ? background_color : '',  py:5}}  >
+      <Container>
+          {feature_list_h1 && (
         <Typography
           variant="p"
           component="h2"
@@ -67,6 +68,15 @@ const FeaturesWithMobileScreenshot = ({
                 p: {
                   component: Typography,
                   props: {
+                    sx: {
+                       color: text_color ? text_color : theme.palette.zesty.zestyZambezi,
+                    }
+                  }
+                },
+                li: {
+                  component: Typography,
+                  props: {
+                    component:'li',
                     sx: {
                        color: text_color ? text_color : theme.palette.zesty.zestyZambezi,
                     }
@@ -116,7 +126,8 @@ const FeaturesWithMobileScreenshot = ({
           />
         </Grid>
       </Grid>
-    </Container>
+        </Container>
+    </Box>
   );
 };
 
