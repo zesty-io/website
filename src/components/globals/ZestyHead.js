@@ -1,12 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { isProd } from 'utils';
 
 export default function ZestyHead({ content }) {
   const router = useRouter();
 
-  const site = isProd
+  const site = content.zestyProductionMode
     ? 'https://www.zesty.io'
     : 'https://kfg6bckb-dev.webengine.zesty.io';
 
