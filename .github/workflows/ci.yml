@@ -23,3 +23,15 @@ jobs:
         run: npm run build
       - name: Run test
         run: npm run test
+      - name: Write the cypress.env.json file 📝
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
+      - name: e2e test
+        run: npm run test:e2e:ci
+
+      - name: Save screenshots 🖼
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
