@@ -81,6 +81,7 @@ const Main = ({
   const isCapterraPage = router.asPath.includes('/capterra');
   const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isExplorePage = router.asPath.includes('/ppc/explore/');
+  const isLoginPage = router.asPath.includes('/login/');
   // override over invert based on pages that we know have a dark image heading
 
   const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
@@ -143,7 +144,8 @@ const Main = ({
   }, [userInfo]);
   return (
     <Box>
-      {isLoggedIn === false && <SiteBanner />}
+      {isLoggedIn === false && !isLoginPage && <SiteBanner />}
+
       {isLoggedIn === false && (
         <Box
           id="topNavBox"
