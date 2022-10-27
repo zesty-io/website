@@ -3,7 +3,7 @@
  * */
 
 import React from 'react';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MuiMarkdown from 'mui-markdown';
 
@@ -35,7 +35,7 @@ const TwoRowsHero = ({
   }
 
   return (
-    <Box component="section" sx={{ py: 10 }}>
+    <Stack component="section" sx={{ py: 10 }}>
       <Container
         sx={{
           display: 'flex',
@@ -159,7 +159,7 @@ const TwoRowsHero = ({
           </Box>
         )}
       </Container>
-    </Box>
+    </Stack>
   );
 };
 

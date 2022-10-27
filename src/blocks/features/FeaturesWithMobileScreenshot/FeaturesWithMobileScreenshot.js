@@ -85,10 +85,7 @@ const FeaturesWithMobileScreenshot = ({
               }}>
                 {content || FillerContent.rich_text}
               </MuiMarkdown>
-              {/* <WYSIWYGRender
-                customClass="circle-icons"
-                rich_text={content || FillerContent.rich_text}
-              ></WYSIWYGRender> */}
+
             </Grid>
           </Box>
         </Grid>

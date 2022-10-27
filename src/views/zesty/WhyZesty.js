@@ -30,7 +30,6 @@ import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScre
 import { Box } from '@mui/system';
 import FillerContent from 'components/globals/FillerContent';
 import { useTheme } from '@mui/material/styles';
-//import SingleRowHero from 'blocks/zesty/Hero/SingleRowHero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
@@ -111,17 +110,6 @@ function WhyZesty({ content }) {
         <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
       </Box>
 
-      {/* <SingleRowHero
-        eyebrow={content.header_title_main}
-        header={content.header_title}
-        description={content.header_description}
-        cta_left={content.cta_left.data[0].button_text}
-        cta_left_link={content.cta_left.data[0].external_link}
-        cta_right={content.cta_right.data[0].button_text}
-        cta_right_link={content.cta_right.data[0].external_link}
-        image={content.header_image.data[0].url}
-      /> */}
-
       <OverviewProcessComp
         image={
           (content.overview_of_process_image.data &&
@@ -153,7 +141,8 @@ function WhyZesty({ content }) {
             cta_text={content.middle_cta_primary}
             cta_secondary_text={content.middle_cta_secondary}
             cta_secondary_link={
-              content.middle_cta_secondary_link.data[0].meta.web.uri
+              content?.middle_cta_secondary_link?.data[0].meta.web.uri ||
+              FillerContent.href
             }
           />
         </Container>
@@ -195,7 +184,7 @@ function WhyZesty({ content }) {
 
       <Box sx={{ pb: 15 }}>
         <SimpleCardLogo
-          logoItems={content?.client_logos.data}
+          logoItems={content?.client_logos?.data}
           heading_text={content.logos_h2}
           maxWidth={1300}
           variant="outlined"
