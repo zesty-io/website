@@ -32,6 +32,7 @@ import { NavStartData } from 'components/marketing/Start/Data/NavStartData';
 import { useZestyStore } from 'store';
 import { Scenarios } from 'components/marketing/Start/Data/Scenarios';
 import axios from 'axios';
+import { getIsAuthenticated } from 'utils';
 
 // zoho lead post function
 
@@ -365,6 +366,15 @@ export async function getServerSideProps({ res }) {
         : false,
   };
 
+  const isAuthenticated = getIsAuthenticated(res);
+
   // Pass data to the page via props
-  return { props: data };
+  return {
+    props: {
+      ...data,
+      zesty: {
+        isAuthenticated,
+      },
+    },
+  };
 }
