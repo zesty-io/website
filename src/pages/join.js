@@ -41,6 +41,7 @@ import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
 
 // onboarding
 import Onboarding from 'components/marketing/Join/Onboarding';
+import { getIsAuthenticated } from 'utils';
 
 // messages
 const firstMessage = (
@@ -357,6 +358,15 @@ export async function getServerSideProps({ res }) {
         : false,
   };
 
+  const isAuthenticated = getIsAuthenticated(res);
+
   // Pass data to the page via props
-  return { props: data };
+  return {
+    props: {
+      ...data,
+      zesty: {
+        isAuthenticated,
+      },
+    },
+  };
 }
