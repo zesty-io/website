@@ -14,14 +14,30 @@ const DemoCta = ({
   target = '_blank',
   variant = '',
 }) => {
+  const handleClick = () => {
+    location.href = href;
+
+    // Track Button Click by pushing item to the data layer
+    window.dataLayer.push({
+      event: 'btn_click',
+      buttonText: text,
+      currentPage: window.location.href,
+      targetPage: href,
+    });
+    // uncomment this to bring the dropdown back
+    //setAnchorEl(event.target);
+
+    //setOpen(true);
+  };
+
   return (
     <Button
       variant={variant}
       fullWidth={fullWidth}
       sx={sx}
-      component="a"
       href={href}
       target={target}
+      onClick={handleClick}
     >
       {text}
       {icon && <ArrowRightAlt sx={{ ml: 1 }} />}

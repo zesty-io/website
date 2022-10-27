@@ -12,17 +12,16 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 // import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
-
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
-
 import { getCookie, setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { AccountsAppbar } from 'components/console/AccountsAppbar';
 import { grey } from '@mui/material/colors';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 import AppFooter from './components/Footer/AppFooter';
+import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
 
 const Main = ({
   children,
@@ -134,8 +133,17 @@ const Main = ({
     }
   }, [isAuthenticated, isUser]);
 
+  React.useEffect(() => {
+    if (Object.keys(userInfo?.data || {}) !== 0) {
+      setCookie('APP_USER_ZUID', userInfo?.ZUID);
+      setCookie('APP_USER_EMAIL', userInfo?.email);
+      setCookie('APP_USER_FIRST_NAME', userInfo?.firstName);
+      setCookie('APP_USER_LAST_NAME', userInfo?.lastName);
+    }
+  }, [userInfo]);
   return (
     <Box>
+      {isLoggedIn === false && <SiteBanner />}
       {isLoggedIn === false && (
         <Box
           id="topNavBox"
@@ -184,15 +192,17 @@ const Main = ({
           paddingY={isExplorePage ? 2 : 1}
         >
           {!isLoggedIn && (
-            <Topbar
-              onSidebarOpen={handleSidebarOpen}
-              customRouting={hasRouting ? customRouting : []}
-              colorInvert={headerColorInvert && !trigger}
-              trigger={trigger}
-              isAuthenticated={isAuthenticated}
-              userInfo={userInfo?.data}
-              loading={loading}
-            />
+            <Stack>
+              <Topbar
+                onSidebarOpen={handleSidebarOpen}
+                customRouting={hasRouting ? customRouting : []}
+                colorInvert={headerColorInvert && !trigger}
+                trigger={trigger}
+                isAuthenticated={isAuthenticated}
+                userInfo={userInfo?.data}
+                loading={loading}
+              />
+            </Stack>
           )}
           {isLoggedIn && (
             <>

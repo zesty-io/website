@@ -137,7 +137,7 @@ const FeaturesWithMobileScreenshot = ({
                 : FillerContent.mobileImage.dark
             }
             alt={header || FillerContent.header}
-            sx={{
+            style={{
               marginBottom: isMobile ? '3rem' : '1rem',
               objectFit: 'contain',
               borderRadius: '2rem',

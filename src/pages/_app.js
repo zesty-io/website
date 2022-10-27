@@ -16,6 +16,7 @@ import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { SnackbarProvider } from 'notistack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import usePeriodicVerify from 'components/hooks/usePeriodicVerify';
+import Head from 'next/head';
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -65,6 +66,13 @@ export default function App({ Component, pageProps }) {
 
   const Layout = layouts[Component.data?.container];
 
+  const isAuthenticatedFromProps =
+    pageProps?.zesty?.isAuthenticated ||
+    (pageProps?.zesty?.isAuthenticated === undefined && true);
+  const GTM_ID = !isAuthenticatedFromProps
+    ? process.env.NEXT_PUBLIC_GTM_ID
+    : undefined;
+
   // this will run to if the user is logged in to keep the session alive!
   usePeriodicVerify();
 
@@ -79,8 +87,43 @@ export default function App({ Component, pageProps }) {
     <React.Fragment>
       {pageProps?.meta?.web && <ZestyHead content={pageProps} />}
 
+      <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${GTM_ID}');
+          `,
+          }}
+        />
+      </Head>
+
       <SnackbarProvider autoHideDuration={2500} preventDuplicate maxSnack={3}>
         <Page>
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            ></iframe>
+          </noscript>
+
+          {/* Zoominfo */}
+          {!isAuthenticatedFromProps && (
+            <noscript>
+              <img
+                src="https://ws.zoominfo.com/pixel/62cc55bc7b3465008f482d68"
+                width="1"
+                height="1"
+                style={{ display: 'none' }}
+                alt="websights"
+              />
+            </noscript>
+          )}
           {Layout === undefined ? (
             <Component {...pageProps} />
           ) : (

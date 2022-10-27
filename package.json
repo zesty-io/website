@@ -95,6 +95,7 @@
     "react-lazy-load-image-component": "^1.5.4",
     "react-player": "^2.10.0",
     "react-slick": "^0.28.1",
+    "react-virtualized": "^9.22.3",
     "react-visibility-sensor": "^5.1.1",
     "react-window": "^1.8.7",
     "shortid": "^2.2.16",
@@ -147,6 +148,10 @@
     }
   },
   "overrides": {
+    "react-virtualized": {
+      "react": "17.0.2",
+      "react-dom": "17.0.2"
+    },
     "cypress-plugin-snapshots": {
       "cypress": "7.7.0"
     }
