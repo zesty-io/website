@@ -7,26 +7,22 @@ import getTheme, { getThemeAccounts } from 'theme';
 import AOS from 'aos';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-
-function canUseDOM() {
-  return !!(
-    typeof window !== 'undefined' &&
-    window.document &&
-    window.document.createElement
-  );
-}
+import { useRouter } from 'next/router';
 
 export const useDarkMode = () => {
   // set the initial theme from localstorage or 'light'
   const [themeMode, setTheme] = useState(
-    window.localStorage.getItem('themeMode') || 'light',
+    (typeof window !== 'undefined' &&
+      window.localStorage.getItem('themeMode')) ||
+      'light',
   );
 
   const [mountedComponent, setMountedComponent] = useState(false);
 
   const setMode = (mode) => {
     try {
-      window.localStorage.setItem('themeMode', mode);
+      if (typeof window !== 'undefined')
+        window.localStorage.setItem('themeMode', mode);
     } catch {
       /* do nothing */
     }
@@ -40,8 +36,10 @@ export const useDarkMode = () => {
 
   useEffect(() => {
     try {
-      const localTheme = window.localStorage.getItem('themeMode');
-      localTheme ? setTheme(localTheme) : setMode('light');
+      if (typeof window !== 'undefined') {
+        const localTheme = window.localStorage.getItem('themeMode');
+        localTheme ? setTheme(localTheme) : setMode('light');
+      }
     } catch {
       setMode('light');
     }
@@ -53,13 +51,9 @@ export const useDarkMode = () => {
 };
 
 export default function Page({ children }) {
-  //check if client can access the DOM
-  if (!canUseDOM()) {
-    return null;
-  }
-
+  const router = useRouter();
   const isLoggedIn = useIsLoggedIn();
-  const isAccounts = isProtectedRoute(window.location.pathname);
+  const isAccounts = isProtectedRoute(router.pathname);
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -87,8 +81,7 @@ export default function Page({ children }) {
     <ThemeProvider
       // only apply zesty/material in accounts paths
       theme={
-        (isAccounts && isLoggedIn) ||
-        (isLoggedIn && window.location.pathname === '/')
+        (isAccounts && isLoggedIn) || (isLoggedIn && router.pathname === '/')
           ? getThemeAccounts(themeMode, themeToggler)
           : getTheme(themeMode, themeToggler)
       }

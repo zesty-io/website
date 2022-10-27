@@ -13,7 +13,7 @@ const DemoCta = ({
   href = '/demos/video',
   target = '_blank',
   variant = '',
-  color = "primary"
+  color = 'primary',
 }) => {
   const handleClick = () => {
     location.href = href;

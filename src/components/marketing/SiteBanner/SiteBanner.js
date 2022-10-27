@@ -47,7 +47,7 @@ const SiteBanner = ({ children }) => {
           textAlign={'center'}
           alignItems="center"
           sx={{
-            background: theme.palette.zesty.zestyBanner,
+            background: theme.palette.zesty?.zestyBanner,
             position: 'relative',
           }}
           direction={isMobile ? 'column' : 'row'}
@@ -68,7 +68,7 @@ const SiteBanner = ({ children }) => {
           </Box>
           <Stack
             sx={{
-              background: theme.palette.zesty.zestyOrange,
+              background: theme.palette.zesty?.zestyOrange,
               borderRadius: '5px',
               px: 1,
               mr: 1,

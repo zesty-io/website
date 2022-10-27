@@ -35,7 +35,7 @@ const Main = ({
 
   // main should verify the user as boolean
   const router = useRouter();
-  const isAccounts = isProtectedRoute(window.location.pathname);
+  const isAccounts = isProtectedRoute(router.pathname);
 
   // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   // const userAppSID = getUserAppSID();
@@ -100,8 +100,6 @@ const Main = ({
       return bgcolor;
     }
   };
-
-  const isDashboard = window.location.pathname.split('/').filter((e) => e)[0];
 
   const willShowMarketingFooter = () => {
     if (isLoggedIn) {
