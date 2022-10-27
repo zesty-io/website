@@ -2,6 +2,8 @@
   "defaultCommandTimeout": 20000,
   "video": false,
   "env": {
+    "email": "zestytest@zesty.io",
+    "password": "Testtest123",
     "cypress-plugin-snapshots": {
       "autoCleanUp": false,
       "autopassNewSnapshots": true,
