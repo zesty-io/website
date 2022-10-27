@@ -132,6 +132,13 @@ function LongFormPpc({ content }) {
       return acc;
     }, []) || [];
 
+  const techStackData = {
+    text_content: content.integrations_description,
+    logos: content.integrations_logos?.data,
+    cta_text: content.intergration_cta_text || FillerContent.cta,
+    cta_link: content.integration_cta_link || FillerContent.href,
+  };
+
   return (
     <>
       {/* HERO */}
@@ -220,13 +227,10 @@ function LongFormPpc({ content }) {
         />
       </Box>
 
-      {router.asPath.includes('/ppc/headless-cms/') ? null : (
-        <TechStack
-          FillerContent={FillerContent}
-          content={content}
-          theme={theme}
-          isMobile={isMobile}
-        />
+      {router.asPath.includes('/ppc/headless-cms/') ? (
+        <></>
+      ) : (
+        <TechStack {...techStackData} content={content} />
       )}
 
       {/* Form */}

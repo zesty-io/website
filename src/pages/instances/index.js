@@ -1,11 +1,12 @@
 import React from 'react';
 import { useZestyStore } from 'store';
-import { InstancesDashboard } from 'components/accounts/instances/InstancesDashboard';
+import InstancesDashboardV2 from 'components/accounts/instances/InstanceDashboardV2';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
+
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function Instances() {
-  document.title = 'Accounts: Instances';
   const { instances } = useFetchWrapper();
   const { setInstances } = useZestyStore((state) => state);
 
@@ -13,7 +14,12 @@ export default function Instances() {
     setInstances(instances);
   }, [instances]);
 
-  return <InstancesDashboard />;
+  return (
+    <>
+      <ZestyAccountsHead title={'Accounts: Instances'} />
+      <InstancesDashboardV2 />
+    </>
+  );
 }
 
 Instances.data = {

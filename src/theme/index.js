@@ -102,6 +102,7 @@ export const getThemeAccounts = (mode, themeToggler) =>
           xl2: 2500,
         },
       },
+      tabTop: 114,
       themeToggler,
     }),
   );

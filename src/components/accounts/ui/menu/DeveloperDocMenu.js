@@ -3,10 +3,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
-import { NavItem } from 'layouts/Main/components/Topbar/components';
 import { accounts } from 'components/accounts/constants';
+import { AccountsNavItem } from 'layouts/Main/components/Topbar/components/NavItem/AccountsNavItem';
 
-export const DeveloperDocMenu = ({}) => {
+export const DeveloperDocMenu = ({ colorInvert }) => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -20,11 +20,11 @@ export const DeveloperDocMenu = ({}) => {
 
   return (
     <Box>
-      <NavItem
-        title={'Documentation'}
-        id={'documentation'}
+      <AccountsNavItem
+        title="Documentation"
+        id="documentation"
         items={accounts.developerDocs}
-        colorInvert={false}
+        colorInvert={colorInvert}
       />
 
       <Menu

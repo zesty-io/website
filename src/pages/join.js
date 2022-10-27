@@ -255,6 +255,7 @@ export default function Join(props) {
       >
         {/* <SwiperSlide > 
                   
+
                     <SlideMessage 
                         message={firstMessage} 
                         buttonText={firstButton} 
@@ -315,7 +316,7 @@ export default function Join(props) {
           <WelcomeScreen
             firstname={firstName}
             lastname={lastName}
-            email={firstName}
+            email={email}
             role={role}
             projectType={projectType}
             userZUID={userObject?.data?.ZUID}

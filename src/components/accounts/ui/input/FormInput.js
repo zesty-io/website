@@ -20,6 +20,7 @@ const Index = ({
   hasNoLabel = false,
   hasHelperText = true,
   hasError = true,
+  customLabelVariant = 'h6',
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -46,7 +47,9 @@ const Index = ({
   };
   return (
     <Box width={props.fullWidth ? '100%' : 'auto'} mb={boxGutterBottom ? 1 : 0}>
-      {customLabel && <Typography variant="h6">{customLabel}</Typography>}
+      {customLabel && (
+        <Typography variant={customLabelVariant}>{customLabel}</Typography>
+      )}
       {type !== 'password' ? (
         <TextField
           {...defaultProps}

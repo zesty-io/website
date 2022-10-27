@@ -1,6 +1,7 @@
 import { TextareaAutosize } from '@mui/material';
+import React from 'react';
 
-export const AccountsTextArea = ({ name, value, handleAdd }) => {
+const Index = ({ name, value, handleAdd }) => {
   const handleChange = (event) => {
     handleAdd(event.target.value);
   };
@@ -11,8 +12,9 @@ export const AccountsTextArea = ({ name, value, handleAdd }) => {
       aria-label="minimum height"
       minRows={3}
       placeholder={name}
-      style={{ width: 200 }}
+      sx={{ width: 1 }}
       onChange={handleChange}
     />
   );
 };
+export const AccountsTextArea = React.memo(Index);

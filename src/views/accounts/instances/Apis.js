@@ -9,16 +9,22 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+
+import AddIcon from '@mui/icons-material/Add';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
+  AccountsHeader,
+  AccountsInput,
+  AccountsPopover,
+  AccountsTable,
+  AccountsTableHead,
   accountsValidations,
   AccountTextfield,
   ColorToggleButton,
-  DeleteBtn,
   DeleteMsg,
   FormInput,
   FormSelect,
   SettingsSelect,
-  StickyTable,
   SubmitBtn,
 } from 'components/accounts';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
@@ -27,33 +33,9 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useFormik } from 'formik';
 import dayjs from 'dayjs';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
 import * as helpers from 'utils';
 
 const MySwal = withReactContent(Swal);
-
-const COLUMNS = [
-  {
-    id: 'name',
-    label: 'Name',
-  },
-  {
-    id: 'token',
-    label: 'Token',
-  },
-  {
-    id: 'role',
-    label: 'Role',
-  },
-  {
-    id: 'expiry',
-    label: 'Expires',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
 
 const CreateTokenForm = ({ onSubmit, options }) => {
   const formik = useFormik({
@@ -95,39 +77,110 @@ const CustomTable = ({
   isInstanceOwner,
   loading,
 }) => {
+  console.log(data, ':::');
   const ROWS = data?.map((e) => {
     const role = roles.find((x) => x.ZUID === e.roleZUID)?.name;
     return {
-      name: e.name || '-',
-      token: e.token || '-',
-      role: role || '-',
-      expiry: dayjs(e.expiry).format('MMMM D, YYYY') || '-',
-      action: isInstanceOwner ? (
-        <Box display={'flex'} gap={4}>
-          <Button
-            onClick={() => handleUpdateToken(e)}
-            color="info"
-            variant="contained"
-            type="button"
-          >
-            <AutorenewIcon color="inherit" sx={{ marginRight: 1 }} />
-            Renew
-          </Button>
-          <DeleteBtn onClick={() => handleDeleteToken(e)}> </DeleteBtn>
-        </Box>
-      ) : (
-        '-'
-      ),
+      ...e,
+      id: e.ZUID,
     };
   });
 
-  // const memoizeRows = React.useMemo(() => ROWS, [data]);
-  // const memoizeColumns = React.useMemo(() => COLUMNS, []);
+  const COLUMNS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      minWidth: 300,
+      editable: false,
+      sortable: true,
+      flex: 1,
+      valueGetter: (params) => params.row.name,
+      renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.name}</Typography>;
+      },
+    },
+    {
+      field: 'token',
+      headerName: 'Token',
+      width: 300,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Token</AccountsTableHead>,
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.token}</Typography>;
+      },
+    },
+    {
+      field: 'role',
+      headerName: 'Role',
+      width: 300,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Role</AccountsTableHead>,
+      renderCell: (params) => {
+        const role = roles.find((x) => x.ZUID === params.row.roleZUID)?.name;
+        return <Typography variant="body2">{role}</Typography>;
+      },
+    },
+    {
+      field: 'expiry',
+      headerName: 'Expiry',
+      width: 150,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Expiry</AccountsTableHead>,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">
+            {dayjs(params.row.expiry).format('MMM DD, YYYY')}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: 'action',
+      headerName: '',
+      width: 110,
+      editable: false,
+      sortable: false,
+      renderCell: (params) => {
+        const data = params.row;
+        const action = [
+          { title: 'Delete Token', action: () => handleDeleteToken(data) },
+          { title: 'Renew Token', action: () => handleUpdateToken(data) },
+        ];
+        return (
+          <AccountsPopover
+            title={
+              <Button variant="text" color="primary">
+                <MoreVertIcon color="disabled" />
+              </Button>
+            }
+            id={'actions'}
+            items={action}
+            colorInvert={false}
+          />
+        );
+      },
+    },
+  ];
 
   return (
-    <Box>
-      <StickyTable loading={loading} rows={ROWS} columns={COLUMNS} />
-    </Box>
+    <Stack p={4}>
+      <AccountsTable
+        loading={loading}
+        rows={ROWS}
+        columns={COLUMNS}
+        pageSize={100}
+        autoHeight={false}
+      />
+    </Stack>
   );
 };
 
@@ -353,74 +406,6 @@ const ApiSettings = ({
   );
 };
 
-export const Apis = ({
-  tokens,
-  instanceRoles,
-  isInstanceOwner,
-  createToken,
-  deleteToken,
-  updateToken,
-  loading,
-  settings,
-  arrToSubmit,
-  setarrToSubmit,
-  updateSetting,
-}) => {
-  const handleCreateTokenModal = () => {
-    MySwal.fire({
-      title: 'Create Token',
-      html: <CreateTokenForm onSubmit={createToken} options={instanceRoles} />,
-      showConfirmButton: false,
-    });
-  };
-  const handleDeleteToken = (data) => {
-    const val = { tokenZUID: data.ZUID };
-    const action = () => {
-      deleteToken(val);
-    };
-    DeleteMsg({ title: 'Delete this token?', action });
-  };
-  const handleUpdateToken = (data) => {
-    const val = { tokenZUID: data.ZUID };
-    updateToken(val);
-  };
-  return (
-    <Stack>
-      <ApiDescription />
-      <Stack spacing={1}></Stack>
-      <Stack direction="row" width="100%" my={1}>
-        {isInstanceOwner && (
-          <Button
-            onClick={handleCreateTokenModal}
-            color="primary"
-            variant="contained"
-            type="button"
-            sx={{ ml: 'auto' }}
-          >
-            Create Token
-          </Button>
-        )}
-      </Stack>
-
-      <CustomTable
-        loading={loading}
-        isInstanceOwner={isInstanceOwner}
-        data={tokens}
-        roles={instanceRoles}
-        handleDeleteToken={handleDeleteToken}
-        handleUpdateToken={handleUpdateToken}
-      />
-      <ApiSettings
-        settings={settings}
-        arrToSubmit={arrToSubmit}
-        setarrToSubmit={setarrToSubmit}
-        updateSetting={updateSetting}
-      />
-      <ApiDocs />
-    </Stack>
-  );
-};
-
 const ApiDocs = () => {
   return (
     <Paper sx={{ padding: 4, marginBottom: 4 }}>
@@ -476,3 +461,85 @@ const apiDocsArr = [
     url: 'https://zesty.org/services/web-engine/modes#headless-mode-headless',
   },
 ];
+
+export const Apis = ({
+  tokens,
+  instanceRoles,
+  isInstanceOwner,
+  createToken,
+  deleteToken,
+  updateToken,
+  loading,
+  settings,
+  arrToSubmit,
+  setarrToSubmit,
+  updateSetting,
+  search,
+  setsearch,
+}) => {
+  const handleCreateTokenModal = () => {
+    MySwal.fire({
+      title: 'Create Token',
+      html: <CreateTokenForm onSubmit={createToken} options={instanceRoles} />,
+      showConfirmButton: false,
+    });
+  };
+  const handleDeleteToken = (data) => {
+    const val = { tokenZUID: data.ZUID };
+    const action = () => {
+      deleteToken(val);
+    };
+    DeleteMsg({ title: 'Delete this token?', action });
+  };
+  const handleUpdateToken = (data) => {
+    const val = { tokenZUID: data.ZUID };
+    updateToken(val);
+  };
+
+  const headerProps = {
+    title: 'Apis',
+    description: `Manage your API's`,
+  };
+
+  return (
+    <Grid container>
+      <AccountsHeader {...headerProps}>
+        <AccountsInput
+          search={search}
+          setsearch={setsearch}
+          placeholder=" Seach tokens"
+        />
+        {isInstanceOwner && (
+          <Button
+            onClick={handleCreateTokenModal}
+            color="primary"
+            variant="contained"
+            type="button"
+            startIcon={<AddIcon />}
+          >
+            Create Token
+          </Button>
+        )}
+      </AccountsHeader>
+
+      <Grid item xs={12}>
+        <CustomTable
+          loading={loading}
+          isInstanceOwner={isInstanceOwner}
+          data={tokens}
+          roles={instanceRoles}
+          handleDeleteToken={handleDeleteToken}
+          handleUpdateToken={handleUpdateToken}
+        />
+      </Grid>
+      {/* <ApiDescription /> */}
+      {/* <ApiSettings
+        settings={settings}
+        arrToSubmit={arrToSubmit}
+        setarrToSubmit={setarrToSubmit}
+        updateSetting={updateSetting}
+      /> */}
+      {/* <ApiDocs /> */}
+    </Grid>
+  );
+};

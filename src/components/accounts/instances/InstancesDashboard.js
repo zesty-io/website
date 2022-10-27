@@ -147,20 +147,20 @@ export const InstancesDashboard = () => {
 
   const toggleFavorites = async (data) => {
     setloading(true);
-    const isExist = initialFavorites.find((e) => e === data.ZUID);
+    const isExist = initialFavorites?.find((e) => e === data.ZUID);
     const favorite_sites = [
-      ...JSON.parse(userInfo.prefs).favorite_sites,
-      data.ZUID,
+      ...JSON.parse(userInfo?.prefs)?.favorite_sites,
+      data?.ZUID,
     ];
-    const filterdFavorite = initialFavorites.filter((e) => e !== data.ZUID);
-    const prefs = JSON.parse(userInfo.prefs);
+    const filterdFavorite = initialFavorites?.filter((e) => e !== data.ZUID);
+    const prefs = JSON.parse(userInfo?.prefs);
     prefs.favorite_sites = !isExist ? favorite_sites : filterdFavorite;
     const body = {
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
+      firstName: userInfo?.firstName,
+      lastName: userInfo?.lastName,
       prefs: JSON.stringify(prefs),
     };
-    const res = await ZestyAPI.updateUser(userInfo.ZUID, body, '');
+    const res = await ZestyAPI.updateUser(userInfo?.ZUID, body, '');
     !res.error && handleUpdateUserSuccess(res);
     res.error && handleUpdateUserError(res);
     await getPageData();
@@ -170,6 +170,7 @@ export const InstancesDashboard = () => {
     const res = await ZestyAPI.respondToInvite(data.inviteZUID, action);
     !res.error && handleRespondToInviteSuccess(res);
     res.error && handleRespondToInviteError(res);
+    await getPageData();
   };
   const getAllEcosystem = async () => {
     const res = await ZestyAPI.getALLEcosystems();
@@ -178,11 +179,11 @@ export const InstancesDashboard = () => {
   };
 
   const favoritesList = instances
-    ?.filter((instance) => initialFavorites.includes(instance?.ZUID))
+    ?.filter((instance) => initialFavorites?.includes(instance?.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
 
   const instancesList = instances
-    ?.filter((instance) => !initialFavorites.includes(instance?.ZUID))
+    ?.filter((instance) => !initialFavorites?.includes(instance?.ZUID))
     ?.filter((inst) => inst?.name?.toLowerCase().includes(search));
 
   const handleSelectEcosystem = (ZUID) => {
@@ -226,7 +227,7 @@ export const InstancesDashboard = () => {
 
   React.useEffect(() => {
     if (userInfo && Object.keys(userInfo).length !== 0) {
-      setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites);
+      setinitialFavorites(JSON.parse(userInfo?.prefs)?.favorite_sites || []);
     }
   }, [userInfo]);
   React.useEffect(() => {

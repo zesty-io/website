@@ -1,14 +1,10 @@
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import { Skeleton } from '@mui/material';
 
 export const LoadingSpinner = () => {
   return (
     <Box paddingY={2}>
-      <Box paddingY={1}>
-        <Skeleton variant="text" width={200} height={40} />
-      </Box>
       <Box
         paddingTop={2}
         sx={{
@@ -20,12 +16,6 @@ export const LoadingSpinner = () => {
           boxShadow: 1,
         }}
       >
-        <Box display={'flex'} gap={20} paddingX={6} paddingTop={2}>
-          <Skeleton variant="text" width={200} height={30} />
-          <Skeleton variant="text" width={300} height={30} />
-          <Skeleton variant="text" width={80} height={30} />
-          <Skeleton variant="text" width={100} height={30} />
-        </Box>
         <Box
           sx={{
             display: 'flex',

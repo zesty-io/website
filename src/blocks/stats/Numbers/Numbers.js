@@ -3,15 +3,13 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-const Numbers = ({ stats }) => {
+const Numbers = ({stats}) => {
   // order stats
-  const order = () => {
-    stats = stats.sort(
-      (a, b) => parseInt(a.sort_order) - parseInt(b.sort_order),
-    );
-  };
+  const order = () =>{
+    stats = stats.sort((a, b)=> parseInt(a.sort_order) - parseInt(b.sort_order))
+  }
   order();
-
+  
   return (
     <Box>
       <Grid container spacing={2}>

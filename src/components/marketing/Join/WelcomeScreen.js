@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 export const WelcomeScreen = ({
@@ -28,7 +29,7 @@ export const WelcomeScreen = ({
       };
 
       console.log('Registering User for Onboarding:', visitor);
-      window.pendo.initialize({
+      pendo.initialize({
         visitor: visitor,
       });
     }

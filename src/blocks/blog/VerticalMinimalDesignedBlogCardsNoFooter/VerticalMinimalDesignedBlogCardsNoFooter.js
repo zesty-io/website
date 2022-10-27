@@ -50,11 +50,9 @@ const VerticalMinimalDesignedBlogCardsNoFooter = ({ cards }) => {
   const theme = useTheme();
 
   // order cards
-  const order = () => {
-    cards = cards.sort(
-      (a, b) => parseInt(a.sort_order) - parseInt(b.sort_order),
-    );
-  };
+  const order = () =>{
+    cards = cards.sort((a, b)=> parseInt(a.sort_order) - parseInt(b.sort_order))
+  }
   order();
 
   return (
@@ -104,7 +102,7 @@ const VerticalMinimalDesignedBlogCardsNoFooter = ({ cards }) => {
                 </Box>
                 <Box flexGrow={1} />
                 <Box padding={2} display={'flex'} flexDirection={'column'}>
-                  <Box marginBottom={2}>
+                <Box marginBottom={2}>
                     <Divider />
                   </Box>
                   <Box
