@@ -24,7 +24,6 @@ const Support = ({ theme, eyebrow, titleAndDescription, isSmall, isLarge }) => {
             justifyContent: 'center',
             flexDirection: isLarge ? 'column' : 'row',
             gap: 2,
-
             boxShadow: '4px 4px 31px rgba(73, 73, 73, 0.64)',
           }}
         >
@@ -69,9 +68,9 @@ const Support = ({ theme, eyebrow, titleAndDescription, isSmall, isLarge }) => {
                   component: Typography,
                   props: {
                     component: 'span',
-                    variant: isSmall ? 'h5' : 'h4',
+                    variant: 'h6',
                     sx: {
-                      color: theme.palette.common.white,
+                      color: theme.palette.zesty.zestyWhite,
                       mt: 5,
                     },
                   },
@@ -91,13 +90,12 @@ const Support = ({ theme, eyebrow, titleAndDescription, isSmall, isLarge }) => {
                   props: {
                     component: 'li',
                     sx: {
-                      color: theme.palette.zesty.zestyOrange,
                       listStyle: 'none !important',
                       mb: 3,
                       '&:before': {
                         content: `"✓"`,
+                        color: theme.palette.zesty.zestyOrange,
                         fontWeight: 800,
-                        fontSize: isSmall ? 20 : 32,
                         mr: 2,
                       },
                     },

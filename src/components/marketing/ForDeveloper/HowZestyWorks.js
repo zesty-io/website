@@ -52,7 +52,7 @@ const HowZestyWorks = ({
               <Box>
                 <Typography
                   component="h2"
-                  variant="h3"
+                  variant="h4"
                   sx={{
                     fontWeight: 'bold',
                     color: theme.palette.zesty.zestyZambezi,

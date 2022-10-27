@@ -7,16 +7,19 @@ import { Box, Typography, Grid } from '@mui/material';
  * Components Imports
  */
 import DemoCta from 'components/cta/DemoCta';
+import TryFreeButton from 'components/cta/TryFreeButton';
 import MuiMarkdown from 'mui-markdown';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Hero = ({
+  eyebrow,
   header,
   mainImage,
   primaryCta,
   primaryCtaLink,
   secondaryCta,
   secondaryCtaLink,
+  isDarkMode,
   theme,
   isSmall,
   isMedium,
@@ -58,6 +61,19 @@ const Hero = ({
             sm={12}
             md={6}
           >
+            <Typography
+                component={'h1'}
+                variant="p"
+                color={
+                  isDarkMode
+                    ? theme.palette.zesty.zestyWhite
+                    : theme.palette.zesty.zestyGrey
+                }
+                gutterBottom
+                sx={{ fontWeight: 400, fontSize: '20px' }}
+              >
+                {eyebrow}
+              </Typography>
             <MuiMarkdown
               overrides={{
                 h1: {
@@ -94,19 +110,11 @@ const Hero = ({
                 gap: 2,
               }}
             >
-              <DemoCta
-                icon={false}
-                sx={{
-                  background: theme.palette.zesty.zestyOrange,
-                  color: theme.palette.common.white,
-                  '&:hover': {
-                    background: theme.palette.zesty.zestyRed,
-                  },
-                }}
-                target="_self"
-                text={primaryCta}
-                href={primaryCtaLink}
-              />
+              <TryFreeButton
+                  text={primaryCta}
+                  variant="contained"
+                  fullWidth={isMedium}
+                />
               <DemoCta
                 icon={false}
                 sx={{

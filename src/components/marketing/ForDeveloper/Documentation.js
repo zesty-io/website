@@ -24,7 +24,6 @@ const Documentation = ({
         sx={{
           py: isSmall ? 10 : 6,
           mt: isSmall ? 0 : 10,
-          mb: isSmall ? 0 : 20,
           background: isDarkMode
             ? theme.palette.zesty.zestyDarkBlue
             : theme.palette.zesty.zestyBackgroundBlue,
