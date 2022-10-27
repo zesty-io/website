@@ -15,6 +15,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '16.x'
+      - name: Setup custom host for mylocal
+        run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
       - name: Install NPM dependencies build test
         run: npm ci
       - name: Check format and linters
