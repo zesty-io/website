@@ -12,17 +12,16 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 // import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
-
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
-
 import { getCookie, setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { AccountsAppbar } from 'components/console/AccountsAppbar';
 import { grey } from '@mui/material/colors';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 import AppFooter from './components/Footer/AppFooter';
+import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
 
 const Main = ({
   children,
@@ -82,6 +81,7 @@ const Main = ({
   const isCapterraPage = router.asPath.includes('/capterra');
   const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isExplorePage = router.asPath.includes('/ppc/explore/');
+  const isLoginPage = router.asPath.includes('/login/');
   // override over invert based on pages that we know have a dark image heading
 
   const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
@@ -144,6 +144,8 @@ const Main = ({
   }, [userInfo]);
   return (
     <Box>
+      {isLoggedIn === false && !isLoginPage && <SiteBanner />}
+
       {isLoggedIn === false && (
         <Box
           id="topNavBox"
@@ -192,15 +194,17 @@ const Main = ({
           paddingY={isExplorePage ? 2 : 1}
         >
           {!isLoggedIn && (
-            <Topbar
-              onSidebarOpen={handleSidebarOpen}
-              customRouting={hasRouting ? customRouting : []}
-              colorInvert={headerColorInvert && !trigger}
-              trigger={trigger}
-              isAuthenticated={isAuthenticated}
-              userInfo={userInfo?.data}
-              loading={loading}
-            />
+            <Stack>
+              <Topbar
+                onSidebarOpen={handleSidebarOpen}
+                customRouting={hasRouting ? customRouting : []}
+                colorInvert={headerColorInvert && !trigger}
+                trigger={trigger}
+                isAuthenticated={isAuthenticated}
+                userInfo={userInfo?.data}
+                loading={loading}
+              />
+            </Stack>
           )}
           {isLoggedIn && (
             <>

@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
 
-export async function middleware(request, ev) {
+export async function middleware(request) {
   // https redirect
+
   if (
-    process.env.PRODUCTION === 'true' &&
+    JSON.parse(process.env.PRODUCTION) &&
     !request.nextUrl.origin.includes('localhost') &&
-    request.headers.get('x-forwarded-proto') !== 'https'
+    (request.headers.get('x-forwarded-proto') !== 'https' ||
+      request.headers.get('referer')?.split(':')[0] !== 'https')
   ) {
     return NextResponse.redirect(
       `https://${request.headers.get('host')}${request.nextUrl.pathname}`,
