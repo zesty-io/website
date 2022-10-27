@@ -18,7 +18,7 @@ import { useZestyStore } from 'store';
 import { useTheme } from '@mui/material/styles';
 
 const ForgotPassword = () => {
-  document.title = 'Forgot Password';
+  // document.title = 'Forgot Password';
 
   const theme = useTheme();
   const [loading, setLoading] = useState(false);
