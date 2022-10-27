@@ -1,9 +1,21 @@
 import { NextResponse } from 'next/server';
 
-export async function middleware(request) {
+export async function middleware(request, _ev) {
+  // https redirect
+  if (
+    process.env.PRODUCTION === 'true' &&
+    !request.nextUrl.origin.includes('localhost') &&
+    request.headers.get('x-forwarded-proto') !== 'https'
+  ) {
+    return NextResponse.redirect(
+      `https://${request.headers.get('host')}${request.nextUrl.pathname}`,
+      301,
+    );
+  }
+
+  // auth checking
   const response = NextResponse.next();
   const isAuthenticated = await isUserAuthenticated(request);
-
   response.cookies.set('isAuthenticated', isAuthenticated);
   return response;
 }

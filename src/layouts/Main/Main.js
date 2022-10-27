@@ -12,17 +12,16 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 // import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
-
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
-
 import { getCookie, setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { AccountsAppbar } from 'components/console/AccountsAppbar';
 import { grey } from '@mui/material/colors';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 import AppFooter from './components/Footer/AppFooter';
+import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
 
 const Main = ({
   children,
@@ -144,6 +143,7 @@ const Main = ({
   }, [userInfo]);
   return (
     <Box>
+      {isLoggedIn === false && <SiteBanner />}
       {isLoggedIn === false && (
         <Box
           id="topNavBox"
@@ -191,15 +191,17 @@ const Main = ({
           })}
         >
           {!isLoggedIn && (
-            <Topbar
-              onSidebarOpen={handleSidebarOpen}
-              customRouting={hasRouting ? customRouting : []}
-              colorInvert={headerColorInvert && !trigger}
-              trigger={trigger}
-              isAuthenticated={isAuthenticated}
-              userInfo={userInfo?.data}
-              loading={loading}
-            />
+            <Stack>
+              <Topbar
+                onSidebarOpen={handleSidebarOpen}
+                customRouting={hasRouting ? customRouting : []}
+                colorInvert={headerColorInvert && !trigger}
+                trigger={trigger}
+                isAuthenticated={isAuthenticated}
+                userInfo={userInfo?.data}
+                loading={loading}
+              />
+            </Stack>
           )}
           {isLoggedIn && (
             <>
