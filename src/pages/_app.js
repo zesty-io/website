@@ -17,7 +17,7 @@ import { SnackbarProvider } from 'notistack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import usePeriodicVerify from 'components/hooks/usePeriodicVerify';
 import Head from 'next/head';
-import CookiesProvider from 'components/hooks/CookiesProvider';
+import CookiesProvider from 'components/context/CookiesProvider';
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};

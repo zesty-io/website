@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
-import { CookiesContext } from './CookiesProvider';
+import { CookiesContext } from '../context/CookiesProvider';
 
 const useIsLoggedIn = () => {
   const { ZestyAPI } = useZestyStore((state) => state);
