@@ -108,58 +108,58 @@ const ZestyDrives = ({
         >
           {data.map((e, i) => {
             return (
-                <Card
-                  key={i}
+              <Card
+                key={i}
+                sx={{
+                  width: isSmall ? '100%' : '23rem',
+                  minHeight: 200,
+                  padding: '3rem 2rem',
+                  background: theme.palette.common.white,
+                  py: 2,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Box
                   sx={{
-                    width: isSmall ? '100%' : '23rem',
                     minHeight: 200,
-                    padding: '3rem 2rem',
-                    background: theme.palette.common.white,
-                    py: 2,
+                    height: '100%',
                     display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    justifyContent: center ? 'center' : 'flex-start',
+                    flexDirection: 'column',
+                    alignItems: center ? 'center' : 'flex-start',
                   }}
                 >
-                  <Box
+                  <Typography
+                    component={'h3'}
+                    variant={'h3'}
                     sx={{
-                      minHeight: 200,
-                      height: '100%',
-                      display: 'flex',
-                      justifyContent: center ? 'center' : 'flex-start',
-                      flexDirection: 'column',
-                      alignItems: center ? 'center' : 'flex-start',
+                      py: 2,
+                      color: theme.palette.zesty.zestyBlue,
+                      fontWeight: 800,
+                      textAlign: center ? 'center' : 'left',
                     }}
                   >
-                    <Typography
-                      component={'h3'}
-                      variant={'h3'}
-                      sx={{
-                        py: 2,
-                        color: theme.palette.zesty.zestyBlue,
-                        fontWeight: 800,
-                        textAlign: center ? 'center' : 'left',
-                      }}
-                    >
-                      {e?.feature_name}
-                    </Typography>
-                    <Typography
-                      component={'p'}
-                      variant={'p'}
-                      sx={{
-                        textAlign: center ? 'center' : 'left',
-                        color: isDarkMode
-                          ? theme.palette.zesty.zestyDarkBlue
-                          : theme.palette.secondary.darkCharcoal,
-                        fontSize: '16px',
-                        fontWeight: 400,
-                        mt: 2,
-                      }}
-                    >
-                      {e?.content}
-                    </Typography>
-                  </Box>
-                </Card>
+                    {e?.feature_name}
+                  </Typography>
+                  <Typography
+                    component={'p'}
+                    variant={'p'}
+                    sx={{
+                      textAlign: center ? 'center' : 'left',
+                      color: isDarkMode
+                        ? theme.palette.zesty.zestyDarkBlue
+                        : theme.palette.secondary.darkCharcoal,
+                      fontSize: '16px',
+                      fontWeight: 400,
+                      mt: 2,
+                    }}
+                  >
+                    {e?.content}
+                  </Typography>
+                </Box>
+              </Card>
             );
           })}
         </Box>

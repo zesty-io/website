@@ -21,11 +21,11 @@ const ContainerWithBackground = ({
   isSmall,
   isMedium,
   isLarge,
-  sx = {}
+  sx = {},
 }) => {
   return (
     <Box component="section">
-      <Container sx={{ px: isSmall && 0, my: isSmall ? 0 : 4}}>
+      <Container sx={{ px: isSmall && 0, my: isSmall ? 0 : 4 }}>
         <Box
           sx={{
             background: theme.palette.zesty.zestyDarkBlue,
@@ -38,7 +38,6 @@ const ContainerWithBackground = ({
             flexDirection: isLarge ? 'column' : 'row',
             gap: 2,
             boxShadow: '4px 4px 31px rgba(73, 73, 73, 0.64)',
-           
           }}
         >
           <Grid

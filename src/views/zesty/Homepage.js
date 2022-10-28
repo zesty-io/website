@@ -54,6 +54,7 @@ import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns'
 import { WithHighlightedCard } from 'blocks/testimonials';
 import Dashboard from 'components/accounts/dashboard';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
+import AOS from 'aos';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -80,7 +81,7 @@ function Homepage({ content }) {
   };
 
   useEffect(() => {
-    window.AOS.init({
+    AOS.init({
       disable: isMedium,
     });
   }, [isMedium]);

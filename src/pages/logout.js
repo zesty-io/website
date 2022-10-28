@@ -13,7 +13,6 @@ import * as helpers from 'utils';
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 const logout = () => {
-  document.title = 'Accounts: Logout';
   const { ZestyAPI } = useZestyStore((state) => state);
 
   useEffect(() => {
