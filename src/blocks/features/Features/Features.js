@@ -3,11 +3,10 @@
  */
 import { Box, Card, Container, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 /**
  * Helpers Imports
  */
-import * as helper from 'utils';
 import FillerContent from 'components/globals/FillerContent';
 
 /**
@@ -114,42 +113,44 @@ const Features = ({
       <Container>
         <Box sx={{ py: 10 }}>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'p',
-                  component: 'h2',
-                  sx: {
-                    color: header_color
-                      ? header_color
-                      : theme.palette.zesty.zestyDarkText,
-                    fontSize: isMobile ? 24 : header_size,
-                    textAlign: 'center',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'p',
+                    component: 'h2',
+                    sx: {
+                      color: header_color
+                        ? header_color
+                        : theme.palette.zesty.zestyDarkText,
+                      fontSize: isMobile ? 24 : header_size,
+                      textAlign: 'center',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  component: 'p',
-                  sx: {
-                    textAlign: 'center',
-                    color: isDarkMode
-                      ? theme.palette.zesty.zestyDarkBlue
-                      : theme.palette.zesty.zestyZambezi,
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: {
+                      textAlign: 'center',
+                      color: isDarkMode
+                        ? theme.palette.zesty.zestyDarkBlue
+                        : theme.palette.zesty.zestyZambezi,
+                    },
                   },
                 },
-              },
-              span: {
-                component: Typography,
-                props: {
-                  variant: 'p',
-                  component: 'span',
-                  sx: {
-                    fontSize: 'inherit',
-                    color: theme.palette.zesty.zestyOrange,
+                span: {
+                  component: Typography,
+                  props: {
+                    variant: 'p',
+                    component: 'span',
+                    sx: {
+                      fontSize: 'inherit',
+                      color: theme.palette.zesty.zestyOrange,
+                    },
                   },
                 },
               },

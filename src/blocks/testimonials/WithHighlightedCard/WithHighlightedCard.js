@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'components/Container';
 import Star from '../../../../public/assets/images/homepage/star.svg';
 import ZestyImage from 'blocks/Image/ZestyImage';
@@ -34,27 +34,29 @@ const WithHighlightedCard = ({ title, data }) => {
       <Box sx={{ mt: 15 }}>
         <Box sx={{ my: 5 }}>
           <MuiMarkdown
-            overrides={{
-              h1: {
-                component: Typography,
-                props: {
-                  component: 'h2',
-                  variant: 'h4',
-                  sx: {
-                    textAlign: 'left !important',
-                    color: theme.palette.zesty.zestyZambezi,
-                    fontWeight: 'bold',
+            options={{
+              overrides: {
+                h1: {
+                  component: Typography,
+                  props: {
+                    component: 'h2',
+                    variant: 'h4',
+                    sx: {
+                      textAlign: 'left !important',
+                      color: theme.palette.zesty.zestyZambezi,
+                      fontWeight: 'bold',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  component: 'p',
-                  variant: 'h6',
-                  sx: {
-                    textAlign: 'left !important',
-                    color: theme.palette.zesty.zestyZambezi,
+                p: {
+                  component: Typography,
+                  props: {
+                    component: 'p',
+                    variant: 'h6',
+                    sx: {
+                      textAlign: 'left !important',
+                      color: theme.palette.zesty.zestyZambezi,
+                    },
                   },
                 },
               },

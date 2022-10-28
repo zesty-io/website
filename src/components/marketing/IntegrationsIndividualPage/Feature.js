@@ -3,7 +3,7 @@
  */
 import { Box, Typography, Grid } from '@mui/material';
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { useRouter } from 'next/router';
 
 /**
@@ -112,39 +112,41 @@ const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
                 >
                   <Box>
                     <MuiMarkdown
-                      overrides={{
-                        h2: {
-                          component: Typography,
-                          props: {
-                            variant: 'h4',
-                            component: 'h2',
-                            fontWeight: 900,
-                            position: 'relative',
-                            sx: {
-                              color: theme.palette.zesty.zestyOrange,
-                              '&:before': {
-                                visibility: isMedium ? 'hidden' : 'visible',
-                                content: '""',
-                                height: 21,
-                                width: 21,
-                                display: 'block',
-                                background: theme.palette.zesty.zestyOrange,
-                                position: 'absolute',
-                                borderRadius: 100,
-                                left: -83,
-                                top: 10,
+                      options={{
+                        overrides: {
+                          h2: {
+                            component: Typography,
+                            props: {
+                              variant: 'h4',
+                              component: 'h2',
+                              fontWeight: 900,
+                              position: 'relative',
+                              sx: {
+                                color: theme.palette.zesty.zestyOrange,
+                                '&:before': {
+                                  visibility: isMedium ? 'hidden' : 'visible',
+                                  content: '""',
+                                  height: 21,
+                                  width: 21,
+                                  display: 'block',
+                                  background: theme.palette.zesty.zestyOrange,
+                                  position: 'absolute',
+                                  borderRadius: 100,
+                                  left: -83,
+                                  top: 10,
+                                },
                               },
                             },
                           },
-                        },
-                        p: {
-                          component: Typography,
-                          props: {
-                            variant: 'h6',
-                            component: 'p',
-                            color: theme.palette.common.white,
-                            lineHeight: 1.5,
-                            mt: 2,
+                          p: {
+                            component: Typography,
+                            props: {
+                              variant: 'h6',
+                              component: 'p',
+                              color: theme.palette.common.white,
+                              lineHeight: 1.5,
+                              mt: 2,
+                            },
                           },
                         },
                       }}

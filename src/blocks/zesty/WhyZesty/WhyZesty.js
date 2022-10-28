@@ -3,7 +3,7 @@
  */
 
 import { Box, Grid, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 import ZestyImage from '../../Image/ZestyImage';
 const WhyZesty = ({ header, FillerContent, theme, isMedium, whyZestyData }) => {
@@ -17,29 +17,31 @@ const WhyZesty = ({ header, FillerContent, theme, isMedium, whyZestyData }) => {
       <Container>
         <Box>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h3',
-                  component: 'h2',
-                  sx: {
-                    color: theme.palette.zesty.zestyOrange,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h3',
+                    component: 'h2',
+                    sx: {
+                      color: theme.palette.zesty.zestyOrange,
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  component: 'p',
-                  sx: {
-                    mt: 2,
-                    lineHeight: 1.2,
-                    textAlign: 'center',
-                    color: theme.palette.zesty.zestyZambezi,
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: {
+                      mt: 2,
+                      lineHeight: 1.2,
+                      textAlign: 'center',
+                      color: theme.palette.zesty.zestyZambezi,
+                    },
                   },
                 },
               },
@@ -63,25 +65,27 @@ const WhyZesty = ({ header, FillerContent, theme, isMedium, whyZestyData }) => {
                 md={6}
               >
                 <MuiMarkdown
-                  overrides={{
-                    h3: {
-                      component: Typography,
-                      props: {
-                        variant: 'h4',
-                        component: 'h3',
-                        color: theme.palette.zesty.zestyOrange,
-                        textAlign: isMedium ? 'center' : 'text-left',
-                        fontWeight: 'bold',
+                  options={{
+                    overrides: {
+                      h3: {
+                        component: Typography,
+                        props: {
+                          variant: 'h4',
+                          component: 'h3',
+                          color: theme.palette.zesty.zestyOrange,
+                          textAlign: isMedium ? 'center' : 'text-left',
+                          fontWeight: 'bold',
+                        },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        variant: 'h5',
-                        mt: 1,
-                        component: 'p',
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: isMedium ? 'center' : 'text-left',
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'h5',
+                          mt: 1,
+                          component: 'p',
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: isMedium ? 'center' : 'text-left',
+                        },
                       },
                     },
                   }}
