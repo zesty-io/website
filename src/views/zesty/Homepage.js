@@ -49,7 +49,6 @@ import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
-import { useEffect } from 'react';
 import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
 import { WithHighlightedCard } from 'blocks/testimonials';
 import Dashboard from 'components/accounts/dashboard';
@@ -79,12 +78,11 @@ function Homepage({ content }) {
     data: content.testimonials?.data,
   };
 
-  useEffect(() => {
-    typeof window !== 'undefined' &&
-      window.AOS.init({
-        disable: isMedium,
-      });
-  }, [isMedium]);
+  // useEffect(() => {
+  //   window.AOS.init({
+  //     disable: isMedium,
+  //   });
+  // }, [isMedium]);
 
   const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
     (item) => {
