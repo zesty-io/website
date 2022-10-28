@@ -3,7 +3,7 @@
  */
 
 import { Box, Typography, Grid } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -39,7 +39,9 @@ const Bottom = ({
     <Box
       component="section"
       sx={{
-        background: backgroundColor ? backgroundColor : theme.palette.zesty.zestyDarkBlueRadialGradient,
+        background: backgroundColor
+          ? backgroundColor
+          : theme.palette.zesty.zestyDarkBlueRadialGradient,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
@@ -88,40 +90,42 @@ const Bottom = ({
           >
             <Box sx={{ width: '100%', maxWidth: 501, pb: isMedium ? 10 : 0 }}>
               <MuiMarkdown
-                overrides={{
-                  span: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'span',
-                      sx: {
-                        color: theme.palette.common.white,
-                        fontWeight: 'inherit',
-                        textAlign: 'inherit',
+                options={{
+                  overrides: {
+                    span: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'span',
+                        sx: {
+                          color: theme.palette.common.white,
+                          fontWeight: 'inherit',
+                          textAlign: 'inherit',
+                        },
                       },
                     },
-                  },
-                  h2: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'h2',
-                      sx: {
-                        textAlign: isMedium ? 'center' : 'left',
-                        color: theme.palette.common.white,
-                        fontWeight: 'bold',
+                    h2: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'h2',
+                        sx: {
+                          textAlign: isMedium ? 'center' : 'left',
+                          color: theme.palette.common.white,
+                          fontWeight: 'bold',
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h6',
-                      component: 'p',
-                      sx: {
-                        textAlign: isMedium ? 'center' : 'left',
-                        mt: 1,
-                        color: theme.palette.common.white,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h6',
+                        component: 'p',
+                        sx: {
+                          textAlign: isMedium ? 'center' : 'left',
+                          mt: 1,
+                          color: theme.palette.common.white,
+                        },
                       },
                     },
                   },

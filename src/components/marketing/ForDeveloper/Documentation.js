@@ -7,7 +7,7 @@ import { Box, Typography, Card, Grid } from '@mui/material';
  * Components Imports
  */
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const Documentation = ({
   theme,
@@ -31,18 +31,20 @@ const Documentation = ({
         }}
       >
         <MuiMarkdown
-          overrides={{
-            h2: {
-              component: Typography,
-              props: {
-                component: 'h3',
-                variant: 'h4',
-                sx: {
-                  color: isDarkMode
-                    ? theme.palette.common.white
-                    : theme.palette.zesty.zestyDarkText,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
+          options={{
+            overrides: {
+              h2: {
+                component: Typography,
+                props: {
+                  component: 'h3',
+                  variant: 'h4',
+                  sx: {
+                    color: isDarkMode
+                      ? theme.palette.common.white
+                      : theme.palette.zesty.zestyDarkText,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                  },
                 },
               },
             },

@@ -32,6 +32,7 @@ import { NavStartData } from 'components/marketing/Start/Data/NavStartData';
 import { useZestyStore } from 'store';
 import { Scenarios } from 'components/marketing/Start/Data/Scenarios';
 import axios from 'axios';
+import { getIsAuthenticated } from 'utils';
 
 // zoho lead post function
 
@@ -68,7 +69,9 @@ const getTemplate = async (zuid, setrepository, isProduction) => {
     });
 };
 export default function Start(props) {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(
+    typeof window !== 'undefined' && window.location.search,
+  );
   const templateId = params?.toString()?.split('=')[1];
   const isTemplate = templateId ? true : false;
   const [isLogin, setisLogin] = useState('');
@@ -364,6 +367,8 @@ export async function getServerSideProps({ req, res }) {
         ? true
         : false,
   };
+
+  const isAuthenticated = getIsAuthenticated(res);
 
   // Pass data to the page via props
   return {

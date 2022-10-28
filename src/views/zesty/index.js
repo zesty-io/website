@@ -45,6 +45,10 @@ import SubNav2022 from './SubNav2022';
 import NavigationFlyout from './NavigationFlyout';
 import Resource from './Resource';
 import PartnerProgramFeature from './PartnerProgramFeature';
+import PricingTierFeature from './PricingTierFeature';
+import G2Badge from './G2Badge';
+import WebsiteBanner from './WebsiteBanner';
+import ABTestDataSet from './ABTestDataSet';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -59,6 +63,7 @@ import GatedContentPage from './GatedContentPage';
 import ThankYouPage from './ThankYouPage';
 import ForIndustryPage from './ForIndustryPage';
 import ForPersonasPage from './ForPersonasPage';
+import QuizLandingPage from './QuizLandingPage';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -115,6 +120,8 @@ import ContentResource from './ContentResource';
 import PartnerProgramDirectory from './PartnerProgramDirectory';
 import Login from './Login';
 import UngatedDemoVideoForAd from './UngatedDemoVideoForAd';
+import AccountsDashboardMarketing from './AccountsDashboardMarketing';
+import ABLandingPage from './ABLandingPage';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -164,6 +171,10 @@ export {
   NavigationFlyout,
   Resource,
   PartnerProgramFeature,
+  PricingTierFeature,
+  G2Badge,
+  WebsiteBanner,
+  ABTestDataSet,
   Category,
   Article,
   Tag,
@@ -178,6 +189,7 @@ export {
   ThankYouPage,
   ForIndustryPage,
   ForPersonasPage,
+  QuizLandingPage,
   Homepage,
   SimplePage,
   Mindshare,
@@ -234,6 +246,8 @@ export {
   PartnerProgramDirectory,
   Login,
   UngatedDemoVideoForAd,
+  AccountsDashboardMarketing,
+  ABLandingPage,
   Footer,
   Header,
 };

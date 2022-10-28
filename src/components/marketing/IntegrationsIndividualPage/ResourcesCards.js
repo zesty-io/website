@@ -3,7 +3,7 @@
  */
 import { Box, Typography, Grid, Card } from '@mui/material';
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const ResourcesCards = ({ theme, content, FillerContent, isDarkMode }) => {
   return (
@@ -25,14 +25,16 @@ const ResourcesCards = ({ theme, content, FillerContent, isDarkMode }) => {
           variant="h3"
         >
           <MuiMarkdown
-            overrides={{
-              strong: {
-                component: Typography,
-                props: {
-                  color: theme.palette.zesty.zestyOrange,
-                  fontSize: 'inherit',
-                  fontWeight: 'inherit',
-                  display: 'inline',
+            options={{
+              overrides: {
+                strong: {
+                  component: Typography,
+                  props: {
+                    color: theme.palette.zesty.zestyOrange,
+                    fontSize: 'inherit',
+                    fontWeight: 'inherit',
+                    display: 'inline',
+                  },
                 },
               },
             }}

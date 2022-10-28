@@ -29,7 +29,7 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import FillerContent from 'components/globals/FillerContent';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Avatar, Grid, Box, Container } from '@mui/material';
@@ -56,24 +56,26 @@ const Demo = ({ content }) => {
           <Box>
             <Box>
               <MuiMarkdown
-                overrides={{
-                  h1: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      fontWeight: 'bold',
-                      component: 'h1',
-                      color: theme.palette.zesty.zestyZambezi,
+                options={{
+                  overrides: {
+                    h1: {
+                      component: Typography,
+                      props: {
+                        variant: 'h3',
+                        fontWeight: 'bold',
+                        component: 'h1',
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h6',
-                      component: 'p',
-                      lineHeight: 1.2,
-                      mt: 2,
-                      color: theme.palette.zesty.zestyZambezi,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h6',
+                        component: 'p',
+                        lineHeight: 1.2,
+                        mt: 2,
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
                     },
                   },
                 }}
@@ -170,6 +172,7 @@ const Demo = ({ content }) => {
         />
 
         <DarkBlueCta
+          sx={{ mt: 15, py: 10 }}
           cta_text={content?.cta_button}
           cta_secondary_link={
             content?.cta_button_secondary_link?.data[0].meta.web.uri

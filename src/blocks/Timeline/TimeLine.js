@@ -1,6 +1,6 @@
 // MUI imports
 import { Box, Container, Grid, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 // Local Assets Imports
 // import chevron_right from '../../../public/assets/images/headless-cms/chevron-right.svg';
@@ -73,32 +73,34 @@ const TimeLine = ({
             >
               <Box sx={{ ml: 4, mt: isMobile ? 0 : 10 }}>
                 <MuiMarkdown
-                  overrides={{
-                    h2: {
-                      component: Typography,
-                      props: {
-                        component: 'h3',
-                        variant: 'h3',
-                        sx: {
-                          textAlign: isMobile ? 'center' : 'left',
-                          fontWeight: 'bold',
-                          background: theme.palette.zesty.zestyOrangeLinear,
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          backgroundClip: 'text',
-                          color: 'transparent',
+                  options={{
+                    overrides: {
+                      h2: {
+                        component: Typography,
+                        props: {
+                          component: 'h3',
+                          variant: 'h3',
+                          sx: {
+                            textAlign: isMobile ? 'center' : 'left',
+                            fontWeight: 'bold',
+                            background: theme.palette.zesty.zestyOrangeLinear,
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            color: 'transparent',
+                          },
                         },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        variant: 'h4',
-                        component: 'p',
-                        sx: {
-                          marginTop: 2,
-                          textAlign: isMobile ? 'center' : 'left',
-                          fontSize: isMobile ? 25 : 32,
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'h4',
+                          component: 'p',
+                          sx: {
+                            marginTop: 2,
+                            textAlign: isMobile ? 'center' : 'left',
+                            fontSize: isMobile ? 25 : 32,
+                          },
                         },
                       },
                     },
@@ -155,30 +157,32 @@ const TimeLine = ({
                   >
                     <Box sx={{ ml: 4 }}>
                       <MuiMarkdown
-                        overrides={{
-                          h3: {
-                            component: Typography,
-                            props: {
-                              variant: 'h4',
-                              component: 'h2',
-                              sx: {
-                                fontWeight: 'bold',
-                                background:
-                                  theme.palette.zesty.zestyOrangeLinear,
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text',
-                                color: 'transparent',
+                        options={{
+                          overrides: {
+                            h3: {
+                              component: Typography,
+                              props: {
+                                variant: 'h4',
+                                component: 'h2',
+                                sx: {
+                                  fontWeight: 'bold',
+                                  background:
+                                    theme.palette.zesty.zestyOrangeLinear,
+                                  WebkitBackgroundClip: 'text',
+                                  WebkitTextFillColor: 'transparent',
+                                  backgroundClip: 'text',
+                                  color: 'transparent',
+                                },
                               },
                             },
-                          },
-                          p: {
-                            component: Typography,
-                            props: {
-                              variant: 'h4',
-                              component: 'p',
-                              sx: {
-                                mt: 2,
+                            p: {
+                              component: Typography,
+                              props: {
+                                variant: 'h4',
+                                component: 'p',
+                                sx: {
+                                  mt: 2,
+                                },
                               },
                             },
                           },

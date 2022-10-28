@@ -4,7 +4,7 @@ import React from 'react';
  * MUI Imports
  */
 import { Box, Typography, Grid, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Benefits = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
@@ -40,16 +40,18 @@ const Benefits = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
       <Box>
         <Box>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h4',
-                  component: 'h2',
-                  sx: {
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    color: theme.palette.zesty.zestyZambezi,
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                      color: theme.palette.zesty.zestyZambezi,
+                    },
                   },
                 },
               },
@@ -91,27 +93,29 @@ const Benefits = ({ theme, isMedium, isDarkMode, content, FillerContent }) => {
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                   <MuiMarkdown
-                    overrides={{
-                      h3: {
-                        component: Typography,
-                        props: {
-                          variant: 'h4',
-                          component: 'h2',
-                          sx: {
-                            fontWeight: 'bold',
-                            color: theme.palette.zesty.zestyZambezi,
+                    options={{
+                      overrides: {
+                        h3: {
+                          component: Typography,
+                          props: {
+                            variant: 'h4',
+                            component: 'h2',
+                            sx: {
+                              fontWeight: 'bold',
+                              color: theme.palette.zesty.zestyZambezi,
+                            },
                           },
                         },
-                      },
-                      p: {
-                        component: Typography,
-                        props: {
-                          variant: 'h6',
-                          component: 'p',
-                          sx: {
-                            lineHeight: 1.2,
-                            mt: 2,
-                            color: theme.palette.zesty.zestyZambezi,
+                        p: {
+                          component: Typography,
+                          props: {
+                            variant: 'h6',
+                            component: 'p',
+                            sx: {
+                              lineHeight: 1.2,
+                              mt: 2,
+                              color: theme.palette.zesty.zestyZambezi,
+                            },
                           },
                         },
                       },

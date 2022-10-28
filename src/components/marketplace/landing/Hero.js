@@ -3,7 +3,7 @@
  */
 import { Box, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 /**
@@ -104,14 +104,16 @@ const Hero = ({
                   </Typography>
 
                   <MuiMarkdown
-                    overrides={{
-                      p: {
-                        component: Typography,
-                        props: {
-                          variant: 'h6',
-                          component: 'p',
-                          sx: {
-                            color: theme.palette.common.white,
+                    options={{
+                      overrides: {
+                        p: {
+                          component: Typography,
+                          props: {
+                            variant: 'h6',
+                            component: 'p',
+                            sx: {
+                              color: theme.palette.common.white,
+                            },
                           },
                         },
                       },

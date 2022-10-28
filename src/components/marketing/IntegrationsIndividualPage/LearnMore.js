@@ -3,7 +3,7 @@
  */
 import { Box, Typography, Card, Grid } from '@mui/material';
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const LearnMore = ({ theme, content, FillerContent, isDarkMode, isSmall }) => {
   const cardData = [
@@ -49,15 +49,17 @@ const LearnMore = ({ theme, content, FillerContent, isDarkMode, isSmall }) => {
           }}
         >
           <MuiMarkdown
-            overrides={{
-              strong: {
-                component: Typography,
-                props: {
-                  sx: {
-                    color: theme.palette.zesty.zestyOrange,
-                    fontSize: 'inherit',
-                    fontWeight: 'inherit',
-                    display: 'inherit',
+            options={{
+              overrides: {
+                strong: {
+                  component: Typography,
+                  props: {
+                    sx: {
+                      color: theme.palette.zesty.zestyOrange,
+                      fontSize: 'inherit',
+                      fontWeight: 'inherit',
+                      display: 'inherit',
+                    },
                   },
                 },
               },

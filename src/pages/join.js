@@ -41,6 +41,7 @@ import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
 
 // onboarding
 import Onboarding from 'components/marketing/Join/Onboarding';
+import { getIsAuthenticated } from 'utils';
 
 // messages
 const firstMessage = (
@@ -356,6 +357,8 @@ export async function getServerSideProps({ req, res }) {
         ? true
         : false,
   };
+
+  const isAuthenticated = getIsAuthenticated(res);
 
   // Pass data to the page via props
   return {
