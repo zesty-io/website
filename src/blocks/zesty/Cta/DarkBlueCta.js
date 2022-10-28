@@ -15,18 +15,15 @@ const DarkBlueCta = ({
   cta_text,
   cta_secondary_text,
   cta_secondary_link,
+  sx
+
 }) => {
   const theme = useTheme();
 
   return (
     <Box component="section">
       <Container
-        sx={{
-          background: theme.palette.zesty.zestyDarkBlueRadialGradient,
-          py: 10,
-          mt: 15,
-          borderRadius: 5,
-        }}
+        sx={{ ...sx, background: theme.palette.zesty.zestyDarkBlueRadialGradient, borderRadius: 5 }}
       >
         <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
           <MuiMarkdown
@@ -35,27 +32,28 @@ const DarkBlueCta = ({
                 h2: {
                   component: Typography,
                   props: {
-                    variant: 'h3',
+                    variant: 'h4',
+                    component: 'h2',
                     sx: {
                       color: theme.palette.common.white,
                       fontWeight: 'bold',
                       textAlign: 'center',
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    variant: 'h6',
-                    sx: {
-                      color: theme.palette.common.white,
-                      textAlign: 'center',
-                      lineHeight: 1.2,
-                      mt: 2,
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h6',
+                      sx: {
+                        color: theme.palette.common.white,
+                        textAlign: 'center',
+                        lineHeight: 1.2,
+                        mt: 2,
+                      },
                     },
                   },
                 },
-              },
+              }
             }}
           >
             {header_content || FillerContent.rich_text}

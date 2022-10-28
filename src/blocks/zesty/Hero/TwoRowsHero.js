@@ -3,7 +3,7 @@
  * */
 
 import React from 'react';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MuiMarkdown from 'markdown-to-jsx';
 
@@ -25,8 +25,17 @@ const TwoRowsHero = ({
   isMobile,
 }) => {
   const theme = useTheme();
+
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(header);
+
+  if (!isRichText && header) {
+    header = `<h1>${header}</h1>`;
+  }
+
   return (
-    <Box component="section" sx={{ py: 10 }}>
+    <Stack component="section" sx={{ py: 10 }}>
       <Container
         sx={{
           display: 'flex',
@@ -54,36 +63,37 @@ const TwoRowsHero = ({
           </Typography>
           <MuiMarkdown
             options={{
+
               overrides: {
                 h1: {
                   component: Typography,
                   props: {
                     variant: 'h3',
-                    component: 'h1',
+                    component: 'h2',
                     sx: {
                       fontWeight: 'bold',
                       color: theme.palette.zesty.zestyOrange,
                       textAlign: 'center',
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    variant: 'h6',
-                    component: 'p',
-                    sx: {
-                      mt: 2,
-                      lineHeight: 1.2,
-                      maxWidth: 850,
-                      marginLeft: 'auto',
-                      marginRight: 'auto',
-                      color: theme.palette.zesty.zestyZambezi,
-                      textAlign: 'center',
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h6',
+                      component: 'p',
+                      sx: {
+                        mt: 2,
+                        lineHeight: 1.2,
+                        maxWidth: 850,
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                      },
                     },
                   },
                 },
-              },
+              }
             }}
           >
             {header}
@@ -152,7 +162,7 @@ const TwoRowsHero = ({
           </Box>
         )}
       </Container>
-    </Box>
+    </Stack>
   );
 };
 

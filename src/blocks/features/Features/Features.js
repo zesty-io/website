@@ -35,6 +35,7 @@ import TryFreeButton from 'components/cta/TryFreeButton';
  * @param {string} card_name_color - card name title color default is zestyOrange
  * @param {string} header_color - header title color default is zestyDarkText
  * @param {string} cta_button_text - call to action text hidden if empty
+ * @param {string} background_color - override default section container background
  *
  */
 
@@ -51,6 +52,7 @@ const Features = ({
   icon_height = 60,
   center = false,
   cta_button_text = '',
+  background_color = ""
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -75,7 +77,7 @@ const Features = ({
         zIndex: '500',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
-          : theme.palette.common.white,
+          : background_color ? background_color : theme.palette.common.white,
       }}
     >
       <Box
@@ -156,7 +158,7 @@ const Features = ({
               },
             }}
           >
-            {features_header.replace(
+            {features_header?.replace(
               textHighlight,
               `<span>${textHighlight}</span>`,
             )}
