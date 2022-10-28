@@ -80,9 +80,10 @@ function Homepage({ content }) {
   };
 
   useEffect(() => {
-    window.AOS.init({
-      disable: isMedium,
-    });
+    typeof window !== 'undefined' &&
+      window.AOS.init({
+        disable: isMedium,
+      });
   }, [isMedium]);
 
   const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
