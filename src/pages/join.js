@@ -44,6 +44,9 @@ import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
 import Onboarding from 'components/marketing/Join/Onboarding';
 import { getIsAuthenticated } from 'utils';
 
+// zesty componenets
+//import LogoSlider from 'components/marketing/Homepage/LogoSlider';
+
 // messages
 const firstMessage = (
   <Box paddingY={4}>
