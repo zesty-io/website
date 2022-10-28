@@ -86,7 +86,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <CookiesProvider value={pageProps?.cookies}>
-      {pageProps?.meta?.web && <ZestyHead content={pageProps?.zesty} />}
+      {pageProps?.meta?.web && <ZestyHead content={pageProps} />}
 
       <Head>
         <script
