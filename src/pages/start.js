@@ -68,7 +68,9 @@ const getTemplate = async (zuid, setrepository, isProduction) => {
     });
 };
 export default function Start(props) {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(
+    typeof window !== 'undefined' && window.location.search,
+  );
   const templateId = params?.toString()?.split('=')[1];
   const isTemplate = templateId ? true : false;
   const [isLogin, setisLogin] = useState('');
