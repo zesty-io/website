@@ -54,6 +54,7 @@ import { WithHighlightedCard } from 'blocks/testimonials';
 import Dashboard from 'components/accounts/dashboard';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import AOS from 'aos';
+import { useEffect } from 'react';
 
 function Homepage({ content }) {
   const theme = useTheme();
