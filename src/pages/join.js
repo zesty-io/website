@@ -46,7 +46,7 @@ import { getIsAuthenticated } from 'utils';
 
 // messages
 const firstMessage = (
-  <Box paddingY={4} sx={{ textAlign: 'center' }}>
+  <Box paddingY={4}>
     <Typography variant="h4" gutterBottom>
       Hello!
     </Typography>
@@ -63,7 +63,7 @@ const firstMessage = (
 );
 
 const firstButton = `Yes, let's go!`;
-
+const firstImage = `https://kfg6bckb.media.zestyio.com/homepageHero.png`;
 // zoho lead post function
 
 const postToZOHO = async (payloadJSON) => {
@@ -101,7 +101,7 @@ export default function Join(props) {
   const [currentAnimation, setCurrentAnimation] = useState('enterScreen'); // set starting animation
   const [userObject, setUserObject] = useState({});
   const sliderRef = useRef(null);
-  let abmessage, abbuttontext;
+  let abmessage, abbuttontext, abimage;
 
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
@@ -126,7 +126,7 @@ export default function Join(props) {
   // ab message
   if (props.campaign !== false) {
     abmessage = (
-      <Box paddingY={4} sx={{ textAlign: 'center' }}>
+      <Box paddingY={4}>
         <Typography variant="h4" gutterBottom>
           {props.ab.title}
         </Typography>
@@ -138,10 +138,14 @@ export default function Join(props) {
         </Box>
       </Box>
     );
-    abbuttontext = "Let's Start Building";
+    abbuttontext = props.abcta_button_text
+      ? props.abcta_button_text
+      : `Let's get Started!`;
+    abimage = props.ab.header_image ? props.ab.header_image : firstImage;
   } else {
     abmessage = firstMessage;
     abbuttontext = firstButton;
+    abimage = firstImage;
   }
 
   // captures the user question
@@ -282,6 +286,7 @@ export default function Join(props) {
           <SwiperSlide>
             <SlideMessage
               message={abmessage}
+              image={abimage}
               buttonText={abbuttontext}
               answerCallBack={handlePrompt}
               hoverAnimation={handleAnimation}
