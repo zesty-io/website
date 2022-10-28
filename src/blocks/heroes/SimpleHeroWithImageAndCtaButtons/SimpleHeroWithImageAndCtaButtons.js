@@ -35,7 +35,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                 color={
                   isDarkMode
                     ? theme.palette.zesty.zestyWhite
-                    : theme.palette.zesty.zestyGrey
+                    : theme.palette.zesty.zestyOrange
                 }
                 gutterBottom
                 sx={{ fontWeight: 400, fontSize: '20px' }}
@@ -45,7 +45,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
               <Typography
                 variant="h2"
                 color="text.primary"
-                sx={{ fontWeight: 700 }}
+                sx={{ fontWeight: 700, color: theme.palette.zesty.zestyZambezi }}
               >
                 {title || FillerContent.header}
                 <br />
