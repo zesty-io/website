@@ -3,7 +3,7 @@
  */
 import { Box, Typography, Button } from '@mui/material';
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import CodeBlock from 'components/cta/CodeBlock';
 import DemoCta from 'components/cta/DemoCta';
 
@@ -19,30 +19,32 @@ const Bottom = ({ theme, content, FillerContent, isLarge, isMedium }) => {
     >
       <Container>
         <MuiMarkdown
-          overrides={{
-            h2: {
-              component: Typography,
-              props: {
-                component: 'h2',
-                variant: 'h2',
-                sx: {
-                  color: theme.palette.common.white,
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  pt: 10,
+          options={{
+            overrides: {
+              h2: {
+                component: Typography,
+                props: {
+                  component: 'h2',
+                  variant: 'h2',
+                  sx: {
+                    color: theme.palette.common.white,
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    pt: 10,
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                component: 'p',
-                variant: 'h5',
-                sx: {
-                  color: theme.palette.common.white,
-                  textAlign: 'center',
-                  fontWeight: 500,
-                  pt: 2,
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  variant: 'h5',
+                  sx: {
+                    color: theme.palette.common.white,
+                    textAlign: 'center',
+                    fontWeight: 500,
+                    pt: 2,
+                  },
                 },
               },
             },

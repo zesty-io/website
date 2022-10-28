@@ -1,9 +1,8 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
 import FillerContent from 'components/globals/FillerContent';
 
@@ -40,8 +39,7 @@ const WithDarkBackgroundAndSimpleDescriptionBox = ({ content, theme }) => {
       title: 'Google Ad Manager',
       subtitle:
         'A very simple and modern template with a very harmonious color scheme. Also the additional plugins like the statistics are great and fit perfectly into the overall picture.',
-      icon:
-        'https://assets.maccarianagency.com/svg/logos/google-ad-manager.svg',
+      icon: 'https://assets.maccarianagency.com/svg/logos/google-ad-manager.svg',
     },
     {
       title: 'Atlassian',
@@ -58,29 +56,31 @@ const WithDarkBackgroundAndSimpleDescriptionBox = ({ content, theme }) => {
           <Box marginBottom={4}>
             <Box>
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      component: 'h2',
-                      variant: 'h4',
-                      sx: {
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                        color: theme.palette.common.white,
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        component: 'h2',
+                        variant: 'h4',
+                        sx: {
+                          textAlign: 'center',
+                          fontWeight: 'bold',
+                          color: theme.palette.common.white,
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      component: 'p',
-                      variant: 'h6',
-                      sx: {
-                        textAlign: 'center',
-                        color: theme.palette.common.white,
-                        lineHeight: 1.2,
-                        mt: 2,
+                    p: {
+                      component: Typography,
+                      props: {
+                        component: 'p',
+                        variant: 'h6',
+                        sx: {
+                          textAlign: 'center',
+                          color: theme.palette.common.white,
+                          lineHeight: 1.2,
+                          mt: 2,
+                        },
                       },
                     },
                   },

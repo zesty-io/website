@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import MuiMardown from 'mui-markdown';
+import MuiMardown from 'markdown-to-jsx';
 
 /**
  * React Imports
@@ -172,17 +172,19 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
                 {item.name}
               </Typography>
               <MuiMardown
-                overrides={{
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'subtitle2',
-                      component: 'p',
-                      sx: {
-                        px: 4,
-                        color: item.isActive
-                          ? ''
-                          : theme.palette.zesty.zestyLightText,
+                options={{
+                  overrides: {
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'subtitle2',
+                        component: 'p',
+                        sx: {
+                          px: 4,
+                          color: item.isActive
+                            ? ''
+                            : theme.palette.zesty.zestyLightText,
+                        },
                       },
                     },
                   },

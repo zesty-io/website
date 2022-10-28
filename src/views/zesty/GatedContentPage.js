@@ -52,7 +52,7 @@ import FillerContent from 'components/globals/FillerContent';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import React from 'react';
 import { useRouter } from 'next/router';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
 const FeaturesWithMobileScreenshot = ({
@@ -272,21 +272,23 @@ function GatedContentPage({ content }) {
     ctaText: FillerContent.cta,
     modalTitle: (
       <MuiMarkdown
-        overrides={{
-          h2: {
-            component: Typography,
-            props: {
-              variant: 'h6',
-              component: 'h2',
+        options={{
+          overrides: {
+            h2: {
+              component: Typography,
+              props: {
+                variant: 'h6',
+                component: 'h2',
+              },
             },
-          },
-          p: {
-            component: Typography,
-            props: {
-              variant: 'subtitle1',
-              component: 'p',
-              sx: {
-                mt: 2,
+            p: {
+              component: Typography,
+              props: {
+                variant: 'subtitle1',
+                component: 'p',
+                sx: {
+                  mt: 2,
+                },
               },
             },
           },

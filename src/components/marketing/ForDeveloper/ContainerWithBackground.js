@@ -7,7 +7,7 @@ import { Box, Typography, Grid } from '@mui/material';
  * Components Imports
  */
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import DemoCta from 'components/cta/DemoCta';
 
@@ -70,27 +70,29 @@ const ContainerWithBackground = ({
                   </Typography>
 
                   <MuiMarkdown
-                    overrides={{
-                      h2: {
-                        component: Typography,
-                        props: {
-                          component: 'h1',
-                          variant: 'h3',
-                          sx: {
-                            color: theme.palette.zesty.zestyOrange,
-                            fontWeight: 800,
-                            mt: 2,
+                    options={{
+                      overrides: {
+                        h2: {
+                          component: Typography,
+                          props: {
+                            component: 'h1',
+                            variant: 'h3',
+                            sx: {
+                              color: theme.palette.zesty.zestyOrange,
+                              fontWeight: 800,
+                              mt: 2,
+                            },
                           },
                         },
-                      },
-                      p: {
-                        component: Typography,
-                        props: {
-                          component: 'p',
-                          variant: 'h6',
-                          sx: {
-                            color: theme.palette.zesty.zestyWhite,
-                            mt: 5,
+                        p: {
+                          component: Typography,
+                          props: {
+                            component: 'p',
+                            variant: 'h6',
+                            sx: {
+                              color: theme.palette.zesty.zestyWhite,
+                              mt: 5,
+                            },
                           },
                         },
                       },

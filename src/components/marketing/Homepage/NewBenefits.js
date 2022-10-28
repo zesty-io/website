@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
 import { useTheme } from '@mui/material';
 
@@ -35,28 +35,30 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
     >
       <Container>
         <MuiMarkdown
-          overrides={{
-            h2: {
-              component: Typography,
-              props: {
-                component: 'h2',
-                variant: 'h3',
-                sx: {
-                  color: theme.palette.zesty.zestyDarkText,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
+          options={{
+            overrides: {
+              h2: {
+                component: Typography,
+                props: {
+                  component: 'h2',
+                  variant: 'h3',
+                  sx: {
+                    color: theme.palette.zesty.zestyDarkText,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                component: 'p',
-                variant: 'h6',
-                sx: {
-                  mt: 2,
-                  color: theme.palette.zesty.zestyZambezi,
-                  textAlign: 'center',
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  variant: 'h6',
+                  sx: {
+                    mt: 2,
+                    color: theme.palette.zesty.zestyZambezi,
+                    textAlign: 'center',
+                  },
                 },
               },
             },

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useFetch from 'components/hooks/useFetch';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { Stack, Typography, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -80,21 +80,23 @@ const SiteBanner = ({ children }) => {
           </Stack>
           {bannerContent.length != 0 && (
             <MuiMarkdown
-              overrides={{
-                p: {
-                  component: Typography,
-                  props: {
-                    mt: isMobile ? 1 : 0,
-                    variant: 'body1',
-                    color: theme.palette.common.white,
+              options={{
+                overrides: {
+                  p: {
+                    component: Typography,
+                    props: {
+                      mt: isMobile ? 1 : 0,
+                      variant: 'body1',
+                      color: theme.palette.common.white,
+                    },
                   },
-                },
-                a: {
-                  component: Typography,
-                  props: {
-                    component: 'a',
-                    variant: 'body1',
-                    color: theme.palette.common.white,
+                  a: {
+                    component: Typography,
+                    props: {
+                      component: 'a',
+                      variant: 'body1',
+                      color: theme.palette.common.white,
+                    },
                   },
                 },
               }}

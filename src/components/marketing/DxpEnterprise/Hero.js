@@ -3,7 +3,7 @@
  */
 
 import { Box, Grid, Typography, Button } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Local Assets Imports
@@ -50,15 +50,17 @@ const Hero = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                 component="h1"
               >
                 <MuiMarkdown
-                  overrides={{
-                    strong: {
-                      component: Typography,
-                      props: {
-                        component: 'strong',
-                        sx: {
-                          fontSize: 'inherit',
-                          fontWeight: 'inherit',
-                          color: theme.palette.zesty.zestyOrange,
+                  options={{
+                    overrides: {
+                      strong: {
+                        component: Typography,
+                        props: {
+                          component: 'strong',
+                          sx: {
+                            fontSize: 'inherit',
+                            fontWeight: 'inherit',
+                            color: theme.palette.zesty.zestyOrange,
+                          },
                         },
                       },
                     },
