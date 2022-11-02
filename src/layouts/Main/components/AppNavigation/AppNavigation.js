@@ -24,7 +24,7 @@ import {
   Typography,
 } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
+import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
 import { AccountsThemeToggler } from 'components/globals/AccountsThemeToggler';
 import { AccountsSingleNavItem } from '../Topbar/components/NavItem/AccountsSingleNavItem';
 import { useTheme } from '@mui/material/styles';

@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
 import getTheme, { getThemeAccounts } from 'theme';
 import AOS from 'aos';
-import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
+import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 export const useDarkMode = () => {

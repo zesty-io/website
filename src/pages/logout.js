@@ -10,7 +10,7 @@ import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
 import * as helpers from 'utils';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const logout = () => {
   const { ZestyAPI } = useZestyStore((state) => state);

@@ -5,7 +5,7 @@ import { Users } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 // const RolesDescription = () => {
 //   return (
