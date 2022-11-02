@@ -23,7 +23,7 @@ import { SlideMessage } from 'components/marketing/Join/SlideMessage';
 
 // zoho object
 import { zohoPostObject } from 'components/marketing/Join/zohoPostObject.js';
-import { setCookie } from 'cookies-next';
+import { getCookies, setCookie } from 'cookies-next';
 
 // pendo
 import { pendoScript } from 'components/marketing/Join/pendoScript.js';
@@ -372,7 +372,7 @@ export default function Join(props) {
   );
 }
 
-export async function getServerSideProps({ res, query }) {
+export async function getServerSideProps({ req, res, query }) {
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
@@ -403,7 +403,6 @@ export async function getServerSideProps({ res, query }) {
         ? true
         : false,
   };
-
   const isAuthenticated = getIsAuthenticated(res);
 
   // Pass data to the page via props
@@ -412,6 +411,7 @@ export async function getServerSideProps({ res, query }) {
       ...data,
       ab: abdata,
       campaign: campaign,
+      cookies: getCookies({ req, res }),
       zesty: {
         isAuthenticated,
       },
