@@ -47,24 +47,24 @@ import { getIsAuthenticated } from 'utils';
 //import LogoSlider from 'components/marketing/Homepage/LogoSlider';
 
 // messages
-// const firstMessage = (
-//   <Box paddingY={4} sx={{ textAlign: 'center' }}>
-//     <Typography variant="h4" gutterBottom>
-//       Hello!
-//     </Typography>
-//     <Typography variant="h6">
-//       We are excited for you to explore Zesty.
-//     </Typography>
-//     <Box paddingY={1}>
-//       <Typography variant="p">
-//         {' '}
-//         To help onboard you, can we ask two questions?
-//       </Typography>
-//     </Box>
-//   </Box>
-// );
+const firstMessage = (
+  <Box paddingY={4} sx={{ textAlign: 'center' }}>
+    <Typography variant="h4" gutterBottom>
+      Hello!
+    </Typography>
+    <Typography variant="h6">
+      We are excited for you to explore Zesty.
+    </Typography>
+    <Box paddingY={1}>
+      <Typography variant="p">
+        {' '}
+        To help onboard you, can we ask two questions?
+      </Typography>
+    </Box>
+  </Box>
+);
 
-// const firstButton = `Yes, let's go!`;
+const firstButton = `Yes, let's go!`;
 const firstImage = `https://kfg6bckb.media.zestyio.com/homepageHero.png`;
 // zoho lead post function
 
@@ -248,10 +248,10 @@ export default function Join(props) {
   //   alert('Invite Friends');
   // };
 
-  // const handlePrompt = () => {
-  //   setCurrentAnimation('bouncing');
-  //   handleNext();
-  // };
+  const handlePrompt = () => {
+    setCurrentAnimation('bouncing');
+    handleNext();
+  };
 
   // modifies the logo animation
   const handleAnimation = (ani) => {
