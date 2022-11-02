@@ -3,7 +3,7 @@ import { useZestyStore } from 'store';
 import { Security } from 'views/accounts/profile/Security';
 import { ProfileContainer } from 'components/accounts';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function SecurityPage() {
   const { setuserInfo, ZestyAPI } = useZestyStore((state) => state);

@@ -6,7 +6,7 @@ import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
 import axios from 'axios';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function WebhooksPage() {
   const [loading, setloading] = React.useState(false);

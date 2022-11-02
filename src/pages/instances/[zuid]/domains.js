@@ -18,7 +18,7 @@ import {
 } from 'components/accounts';
 import { useFormik } from 'formik';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const MySwal = withReactContent(Swal);
 

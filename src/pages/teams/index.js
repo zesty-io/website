@@ -8,7 +8,7 @@ import { useZestyStore } from 'store';
 import TeamInvites from 'components/accounts/teams/TeamInvites';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const Teams = () => {
   const {

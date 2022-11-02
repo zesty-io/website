@@ -4,7 +4,7 @@ import InstancesDashboardV2 from 'components/accounts/instances/InstanceDashboar
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function Instances() {
   const { instances } = useFetchWrapper();

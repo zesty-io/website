@@ -19,7 +19,7 @@ import { Container, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { AccountsAppbar } from 'components/console/AccountsAppbar';
 import { grey } from '@mui/material/colors';
-import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
+import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
 import AppFooter from './components/Footer/AppFooter';
 import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
 
