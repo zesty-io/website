@@ -63,7 +63,6 @@ const TwoRowsHero = ({
           </Typography>
           <MuiMarkdown
             options={{
-
               overrides: {
                 h1: {
                   component: Typography,
@@ -76,24 +75,25 @@ const TwoRowsHero = ({
                       textAlign: 'center',
                     },
                   },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h6',
-                      component: 'p',
-                      sx: {
-                        mt: 2,
-                        lineHeight: 1.2,
-                        maxWidth: 850,
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: 'center',
-                      },
+                },
+
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: {
+                      mt: 2,
+                      lineHeight: 1.2,
+                      maxWidth: 850,
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
                     },
                   },
                 },
-              }
+              },
             }}
           >
             {header}
