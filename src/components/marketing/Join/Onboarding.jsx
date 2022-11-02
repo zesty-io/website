@@ -6,7 +6,6 @@ import {
   Container,
   Typography,
   Stack,
-  Chip,
 } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -43,9 +42,7 @@ export default function Onboarding({ role }) {
             <Button
               variant="contained"
               color={'secondary'}
-              onClick={() =>
-                handleClick('https://accounts.zesty.io/instances/create')
-              }
+              onClick={() => handleClick('/start/')}
               startIcon={<RocketLaunchIcon />}
             >
               Start your Instance

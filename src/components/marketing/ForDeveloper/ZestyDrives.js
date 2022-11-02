@@ -2,7 +2,7 @@
  * MUI Imports
  */
 import { Box, Card, Container, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Local Assets
@@ -71,18 +71,20 @@ const ZestyDrives = ({
       <Container maxWidth="false">
         <Box sx={{ py: isSmall ? 5 : 10 }}>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'p',
-                  component: 'h2',
-                  sx: {
-                    color: header_color
-                      ? header_color
-                      : theme.palette.zesty.zestyDarkText,
-                    fontSize: isSmall ? 24 : header_size,
-                    textAlign: 'center',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'p',
+                    component: 'h2',
+                    sx: {
+                      color: header_color
+                        ? header_color
+                        : theme.palette.zesty.zestyDarkText,
+                      fontSize: isSmall ? 24 : header_size,
+                      textAlign: 'center',
+                    },
                   },
                 },
               },
@@ -108,58 +110,58 @@ const ZestyDrives = ({
         >
           {data.map((e, i) => {
             return (
-                <Card
-                  key={i}
+              <Card
+                key={i}
+                sx={{
+                  width: isSmall ? '100%' : '23rem',
+                  minHeight: 200,
+                  padding: '3rem 2rem',
+                  background: theme.palette.common.white,
+                  py: 2,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Box
                   sx={{
-                    width: isSmall ? '100%' : '23rem',
                     minHeight: 200,
-                    padding: '3rem 2rem',
-                    background: theme.palette.common.white,
-                    py: 2,
+                    height: '100%',
                     display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    justifyContent: center ? 'center' : 'flex-start',
+                    flexDirection: 'column',
+                    alignItems: center ? 'center' : 'flex-start',
                   }}
                 >
-                  <Box
+                  <Typography
+                    component={'h3'}
+                    variant={'h3'}
                     sx={{
-                      minHeight: 200,
-                      height: '100%',
-                      display: 'flex',
-                      justifyContent: center ? 'center' : 'flex-start',
-                      flexDirection: 'column',
-                      alignItems: center ? 'center' : 'flex-start',
+                      py: 2,
+                      color: theme.palette.zesty.zestyBlue,
+                      fontWeight: 800,
+                      textAlign: center ? 'center' : 'left',
                     }}
                   >
-                    <Typography
-                      component={'h3'}
-                      variant={'h3'}
-                      sx={{
-                        py: 2,
-                        color: theme.palette.zesty.zestyBlue,
-                        fontWeight: 800,
-                        textAlign: center ? 'center' : 'left',
-                      }}
-                    >
-                      {e?.feature_name}
-                    </Typography>
-                    <Typography
-                      component={'p'}
-                      variant={'p'}
-                      sx={{
-                        textAlign: center ? 'center' : 'left',
-                        color: isDarkMode
-                          ? theme.palette.zesty.zestyDarkBlue
-                          : theme.palette.secondary.darkCharcoal,
-                        fontSize: '16px',
-                        fontWeight: 400,
-                        mt: 2,
-                      }}
-                    >
-                      {e?.content}
-                    </Typography>
-                  </Box>
-                </Card>
+                    {e?.feature_name}
+                  </Typography>
+                  <Typography
+                    component={'p'}
+                    variant={'p'}
+                    sx={{
+                      textAlign: center ? 'center' : 'left',
+                      color: isDarkMode
+                        ? theme.palette.zesty.zestyDarkBlue
+                        : theme.palette.secondary.darkCharcoal,
+                      fontSize: '16px',
+                      fontWeight: 400,
+                      mt: 2,
+                    }}
+                  >
+                    {e?.content}
+                  </Typography>
+                </Box>
+              </Card>
             );
           })}
         </Box>

@@ -2,6 +2,7 @@ import React from 'react';
 import Slug from './[...slug]';
 import { fetchPage } from '../lib/api';
 import { getIsAuthenticated } from 'utils';
+import { getCookies } from 'cookies-next';
 
 function IndexPage(content) {
   return <Slug {...content} />;
@@ -42,5 +43,5 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // its usage is for marketplace
   res.setHeader('set-cookie', `PRODUCTION=${process.env.PRODUCTION}`);
   // Pass data to the page via props
-  return { props: data };
+  return { props: { ...data, cookies: getCookies({ req, res }) } };
 }

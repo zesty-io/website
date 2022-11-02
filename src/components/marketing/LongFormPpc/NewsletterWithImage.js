@@ -12,7 +12,7 @@ import {
   Typography,
   Container,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/globals/FillerContent';
 
@@ -29,35 +29,37 @@ const NewsletterWithImage = ({ image, header, testimonial }) => {
               <Grid item xs={12}>
                 <MuiMarkdown
                   style={{ width: '100%' }}
-                  overrides={{
-                    h2: {
-                      component: Typography,
-                      props: {
-                        variant: 'h4',
-                        component: 'h2',
-                        sx: {
-                          color: theme.palette.common.white,
-                          fontWeight: 'bold',
-                          lineHeight: 1.2,
+                  options={{
+                    overrides: {
+                      h2: {
+                        component: Typography,
+                        props: {
+                          variant: 'h4',
+                          component: 'h2',
+                          sx: {
+                            color: theme.palette.common.white,
+                            fontWeight: 'bold',
+                            lineHeight: 1.2,
+                          },
                         },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        variant: 'h6',
-                        component: 'p',
-                        sx: { color: theme.palette.common.white },
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'h6',
+                          component: 'p',
+                          sx: { color: theme.palette.common.white },
+                        },
                       },
-                    },
-                    ul: {
-                      component: Typography,
-                      props: {
-                        component: 'ul',
-                        sx: {
-                          paddingLeft: 2,
-                          mt: 3,
-                          color: theme.palette.common.white,
+                      ul: {
+                        component: Typography,
+                        props: {
+                          component: 'ul',
+                          sx: {
+                            paddingLeft: 2,
+                            mt: 3,
+                            color: theme.palette.common.white,
+                          },
                         },
                       },
                     },

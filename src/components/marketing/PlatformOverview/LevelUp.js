@@ -2,7 +2,7 @@
  * MUI Imports
  */
 import { Box, Grid, Card, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Components Imports
@@ -26,38 +26,40 @@ const LevelUp = ({ theme, isMedium, content, FillerContent }) => {
     >
       <Container sx={{ height: '100%', transform: 'skew(0deg, -10deg)' }}>
         <MuiMarkdown
-          overrides={{
-            h2: {
-              component: Typography,
-              props: {
-                component: 'h2',
-                variant: 'h4',
-                sx: {
-                  textAlign: 'center',
+          options={{
+            overrides: {
+              h2: {
+                component: Typography,
+                props: {
+                  component: 'h2',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'center',
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                component: 'p',
-                variant: 'h6',
-                sx: {
-                  mt: 2,
-                  textAlign: 'center',
-                  color: theme.palette.zesty.zestyZambezi,
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  variant: 'h6',
+                  sx: {
+                    mt: 2,
+                    textAlign: 'center',
+                    color: theme.palette.zesty.zestyZambezi,
+                  },
                 },
               },
-            },
-            a: {
-              component: Typography,
-              props: {
-                component: 'a',
-                variant: 'h6',
-                sx: {
-                  mt: 2,
-                  textAlign: 'center',
-                  color: theme.palette.zesty.zestyOrange,
+              a: {
+                component: Typography,
+                props: {
+                  component: 'a',
+                  variant: 'h6',
+                  sx: {
+                    mt: 2,
+                    textAlign: 'center',
+                    color: theme.palette.zesty.zestyOrange,
+                  },
                 },
               },
             },

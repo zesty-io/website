@@ -30,8 +30,8 @@ const Footer = ({ customRouting, colorInvert = false }) => {
   const { mode } = theme.palette;
   const backgroundColor =
     mode === 'light' && !colorInvert
-      ? theme.palette.zesty.zestyWhiteBlue
-      : theme.palette.zesty.zestyDarkBlue;
+      ? theme.palette.zesty?.zestyWhiteBlue
+      : theme.palette.zesty?.zestyDarkBlue;
 
   return (
     <Box

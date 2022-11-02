@@ -23,7 +23,7 @@ import { WelcomeScreen } from 'components/marketing/Join/WelcomeScreen';
 
 // zoho object
 import { zohoPostObject } from 'components/marketing/Join/zohoPostObject.js';
-import { setCookie } from 'cookies-next';
+import { getCookies, setCookie } from 'cookies-next';
 
 // pendo
 import { pendoScript } from 'components/marketing/Join/pendoScript.js';
@@ -41,6 +41,7 @@ import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
 
 // onboarding
 import Onboarding from 'components/marketing/Join/Onboarding';
+import { getIsAuthenticated } from 'utils';
 
 // messages
 const firstMessage = (
@@ -344,7 +345,7 @@ export default function Join(props) {
   );
 }
 
-export async function getServerSideProps({ res }) {
+export async function getServerSideProps({ req, res }) {
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
@@ -357,6 +358,13 @@ export async function getServerSideProps({ res }) {
         : false,
   };
 
+  const isAuthenticated = getIsAuthenticated(res);
+
   // Pass data to the page via props
-  return { props: data };
+  return {
+    props: {
+      ...data,
+      cookies: getCookies({ req, res }),
+    },
+  };
 }

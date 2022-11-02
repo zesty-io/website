@@ -7,7 +7,7 @@ import { Box, Typography, Grid } from '@mui/material';
  * Components Imports
  */
 import DemoCta from 'components/cta/DemoCta';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Hero = ({
@@ -59,26 +59,28 @@ const Hero = ({
             md={6}
           >
             <MuiMarkdown
-              overrides={{
-                h1: {
-                  component: Typography,
-                  props: {
-                    component: 'h1',
-                    variant: 'h3',
-                    sx: {
-                      color: theme.palette.zesty.zestyDarkText,
-                      fontWeight: 800,
+              options={{
+                overrides: {
+                  h1: {
+                    component: Typography,
+                    props: {
+                      component: 'h1',
+                      variant: 'h3',
+                      sx: {
+                        color: theme.palette.zesty.zestyDarkText,
+                        fontWeight: 800,
+                      },
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    component: 'p',
-                    variant: 'h6',
-                    sx: {
-                      mt: 4,
-                      color: theme.palette.text.secondary,
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        mt: 4,
+                        color: theme.palette.text.secondary,
+                      },
                     },
                   },
                 },

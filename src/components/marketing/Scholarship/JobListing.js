@@ -4,7 +4,7 @@
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Box, Grid, Container, Typography, Button } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import FillerContent from 'components/globals/FillerContent';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
@@ -76,23 +76,25 @@ const JobListing = ({
 
           <Box sx={{ pt: 4 }}>
             <MuiMarkdown
-              overrides={{
-                h2: {
-                  component: Typography,
-                  props: {
-                    variant: 'h5',
-                    component: 'h2',
-                    sx: {
-                      fontWeight: 'bold',
-                      py: 2,
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      variant: 'h5',
+                      component: 'h2',
+                      sx: {
+                        fontWeight: 'bold',
+                        py: 2,
+                      },
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    variant: 'body1',
-                    component: 'h2',
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'body1',
+                      component: 'h2',
+                    },
                   },
                 },
               }}

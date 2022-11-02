@@ -6,7 +6,7 @@ import FillerContent from 'components/globals/FillerContent';
 import { Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { useRouter } from 'next/router';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const Headline = ({
   title,
@@ -34,23 +34,25 @@ const Headline = ({
 
       <Grid item xs={12} md={isMobile ? 12 : 9}>
         <MuiMarkdown
-          overrides={{
-            li: {
-              component: Typography,
-              props: {
-                component: 'li',
-                sx: {
-                  color: 'white',
-                  ml: -2.5,
+          options={{
+            overrides: {
+              li: {
+                component: Typography,
+                props: {
+                  component: 'li',
+                  sx: {
+                    color: 'white',
+                    ml: -2.5,
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                component: 'p',
-                sx: {
-                  color: 'white',
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  sx: {
+                    color: 'white',
+                  },
                 },
               },
             },

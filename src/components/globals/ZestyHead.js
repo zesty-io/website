@@ -1,7 +1,17 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 export default function ZestyHead({ content }) {
+  const router = useRouter();
+
+  const site = content.zestyProductionMode
+    ? 'https://www.zesty.io'
+    : 'https://kfg6bckb-dev.webengine.zesty.io';
+
+  const canonicalURL = site + router.asPath;
+  const isPPCPage = router?.asPath?.split('/')?.filter((e) => e)[0] === 'ppc';
+
   // default OG image
   let ogimage =
     'https://kfg6bckb.media.zestyio.com/zesty-share-image-generic.png?width=1200';
@@ -17,7 +27,8 @@ export default function ZestyHead({ content }) {
   }
   return (
     <Head>
-      <title>{content.meta.web.seo_meta_title}</title>
+      {' '}
+      <title>{content.meta?.web?.seo_meta_title}</title>
       <link
         rel="icon"
         href="https://brand.zesty.io/favicon.png"
@@ -27,14 +38,17 @@ export default function ZestyHead({ content }) {
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
-      <meta property="og:title" content={content.meta.web.seo_meta_title} />
-      <meta name="description" value={content.meta.web.seo_meta_description} />
+      <meta property="og:title" content={content.meta?.web?.seo_meta_title} />
+      <meta
+        name="description"
+        content={content.meta?.web.seo_meta_description}
+      />
       <meta
         property="og:description"
-        content={content.meta.web.seo_meta_description}
+        content={content.meta?.web.seo_meta_description}
       />
       <meta property="og:image" content={ogimage} />
-
+      {isPPCPage && <meta name="robots" content="noindex"></meta>}
       <link
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"
@@ -43,6 +57,7 @@ export default function ZestyHead({ content }) {
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Mulish"
       />
+      <link rel="canonical" href={canonicalURL} />
     </Head>
   );
 }

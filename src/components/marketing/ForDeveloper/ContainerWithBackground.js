@@ -7,7 +7,7 @@ import { Box, Typography, Grid } from '@mui/material';
  * Components Imports
  */
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import DemoCta from 'components/cta/DemoCta';
 
@@ -21,11 +21,11 @@ const ContainerWithBackground = ({
   isSmall,
   isMedium,
   isLarge,
-  sx = {}
+  sx = {},
 }) => {
   return (
     <Box component="section">
-      <Container sx={{ px: isSmall && 0, my: isSmall ? 0 : 4}}>
+      <Container sx={{ px: isSmall && 0, my: isSmall ? 0 : 4 }}>
         <Box
           sx={{
             background: theme.palette.zesty.zestyDarkBlue,
@@ -38,7 +38,6 @@ const ContainerWithBackground = ({
             flexDirection: isLarge ? 'column' : 'row',
             gap: 2,
             boxShadow: '4px 4px 31px rgba(73, 73, 73, 0.64)',
-           
           }}
         >
           <Grid
@@ -71,27 +70,29 @@ const ContainerWithBackground = ({
                   </Typography>
 
                   <MuiMarkdown
-                    overrides={{
-                      h2: {
-                        component: Typography,
-                        props: {
-                          component: 'h1',
-                          variant: 'h3',
-                          sx: {
-                            color: theme.palette.zesty.zestyOrange,
-                            fontWeight: 800,
-                            mt: 2,
+                    options={{
+                      overrides: {
+                        h2: {
+                          component: Typography,
+                          props: {
+                            component: 'h1',
+                            variant: 'h3',
+                            sx: {
+                              color: theme.palette.zesty.zestyOrange,
+                              fontWeight: 800,
+                              mt: 2,
+                            },
                           },
                         },
-                      },
-                      p: {
-                        component: Typography,
-                        props: {
-                          component: 'p',
-                          variant: 'h6',
-                          sx: {
-                            color: theme.palette.zesty.zestyWhite,
-                            mt: 5,
+                        p: {
+                          component: Typography,
+                          props: {
+                            component: 'p',
+                            variant: 'h6',
+                            sx: {
+                              color: theme.palette.zesty.zestyWhite,
+                              mt: 5,
+                            },
                           },
                         },
                       },

@@ -70,7 +70,9 @@ const Index = ({ children }) => {
     }
   }, [router.isReady]);
 
-  const title = instance.name + ` Instance - ${currentPage} - Zesty.io Console`;
+  const title =
+    instance?.name ||
+    'Loading' + ` Instance - ${currentPage} - Zesty.io Console`;
 
   return (
     <Box>
