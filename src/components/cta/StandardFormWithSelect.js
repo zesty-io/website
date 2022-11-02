@@ -44,7 +44,7 @@ const getLeadObjectZOHO = (
   businessType,
   leadSource = 'Website',
 ) => {
-  let acLeadtype = 'Marketing Website';
+  // let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
   // possible values
   // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
@@ -97,7 +97,7 @@ const postToZOHO = async (payloadJSON) => {
     },
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(() => {
       // google data
       dataLayer.push({ event: 'formCaptureSuccess', value: '1' });
     })
@@ -186,7 +186,7 @@ const subscribeToZoho = async (payload) => {
     },
   )
     .then((res) => res.json())
-    .then((data) => {
+    .then(() => {
       dataLayer.push({ event: 'emailSubscribeSubmitted', value: '1' });
       acSENT = true;
     });
@@ -195,8 +195,8 @@ const subscribeToZoho = async (payload) => {
 function StandardFormWithSelect({
   selectedValue = 0,
   hideSelect = false,
-  hideMessage = true,
-  defaultMessage = '',
+  // hideMessage = true,
+  // defaultMessage = '',
   leadDetail = 'Contact Us',
   leadSource = 'Website',
   businessType = 'Direct',
@@ -213,7 +213,7 @@ function StandardFormWithSelect({
   validationType = '',
   ctaButton = 'Submit',
   downloadLink = '',
-  onClickBtn = null,
+  // onClickBtn = null,
   phoneNumber = false,
   capterraTracking = null,
   cmsModel,

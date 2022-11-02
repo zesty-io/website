@@ -1,16 +1,9 @@
-import {
-  Box,
-  Container,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Container, Typography, useTheme } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import React from 'react';
 
 export const TitleBar = ({ name, description }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Container disableGutters>
       <Box

@@ -26,34 +26,33 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
 
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   /************************************************
    * Sorting Handlers
    */
 
-  const [isAsc, setIsAsc] = useState(false);
+  // const [isAsc, setIsAsc] = useState(false);
   /**
    * It sorts the list of entities by name, and then reverses the list if it's already sorted
    */
-  const handleSort = () => {
-    const list = [...marketEntities].sort((a, b) => {
-      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-      if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-      return 0;
-    });
+  // const handleSort = () => {
+  //   const list = [...marketEntities].sort((a, b) => {
+  //     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+  //     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+  //     return 0;
+  //   });
 
-    setEntities(isAsc ? list : list.reverse());
-    setIsAsc(!isAsc);
-  };
+  //   setEntities(isAsc ? list : list.reverse());
+  //   setIsAsc(!isAsc);
+  // };
 
   /************************************************
    * Filter  Handlers
    */
-  const [open, setOpen] = useState(false);
-  const onHoverHandler = () => setOpen(true);
-  const onMouseLeave = () => setOpen(false);
+  // const [open, setOpen] = useState(false);
+  // const onHoverHandler = () => setOpen(true);
+  // const onMouseLeave = () => setOpen(false);
 
   /************************************************
    * Search  Handlers
@@ -77,8 +76,8 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
    */
 
   /* Creating a new array of objects from the marketTags array. */
-  const [tags, setTags] = useState(
-    marketTags.map((item, idx) => {
+  const [tags] = useState(
+    marketTags.map((item) => {
       return {
         uri: item.uri || item.meta.web.uri,
         isActive: router.asPath === item.uri ? true : false,
@@ -93,8 +92,8 @@ const Filters = ({ marketEntityTypes, marketTags, marketEntities }) => {
 
   /* Creating a new array of objects from the marketEntityTypes array. */
 
-  const [entityTypes, setEntityTypes] = useState(
-    marketEntityTypes.map((item, idx) => {
+  const [entityTypes] = useState(
+    marketEntityTypes.map((item) => {
       return {
         isActive: router.asPath === item.uri ? true : false,
         name: item.name,

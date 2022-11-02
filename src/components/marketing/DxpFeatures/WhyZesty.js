@@ -6,7 +6,12 @@ import { Box, Typography, Container } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
-const WhyZesty = ({ content, FillerContent, theme, isMedium, isSmall }) => {
+const WhyZesty = ({
+  content,
+  //  FillerContent,
+  theme,
+  // isMedium, isSmall
+}) => {
   return (
     <>
       <Box component="section" sx={{ pb: 7 }}>

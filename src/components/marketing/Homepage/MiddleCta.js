@@ -22,7 +22,7 @@ const MiddleCta = ({
   cta_secondary_link,
   FillerContent,
   theme,
-  isLarge,
+  // isLarge,
 }) => {
   return (
     <Box component="section">

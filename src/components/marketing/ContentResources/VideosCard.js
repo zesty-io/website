@@ -6,9 +6,9 @@ import Container from 'blocks/container/Container';
 import ReactPlayer from 'react-player';
 
 const VideosCard = ({
-  theme,
+  // theme,
   isMedium,
-  isDarkMode,
+  // isDarkMode,
   content,
   FillerContent,
 }) => {

@@ -9,7 +9,7 @@ const rl = require('readline').createInterface({
 });
 
 async function ask(question) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     rl.question(question, (input) => resolve(input));
   });
 }
@@ -111,38 +111,38 @@ module.exports = {
       src_dir: '', // leave blank for /src as default
     };
   }
-  let missingValues = false;
+  // let missingValues = false;
   // enter
   if (nextJSConfig.env.zesty.instance_zuid == '') {
     nextJSConfig.env.zesty.instance_zuid = await ask(
       'Enter the Content Instance ZUID: ',
     );
 
-    missingValues = true;
+    // missingValues = true;
   }
   if (nextJSConfig.env.zesty.stage == '') {
     nextJSConfig.env.zesty.stage = await ask(
       'Enter Stage Domain e.g. (https://xyz-dev.webengine.zesty.io): ',
     );
-    missingValues = true;
+    // missingValues = true;
   }
   if (nextJSConfig.env.zesty.production == '') {
     nextJSConfig.env.zesty.production = await ask(
       'Enter Production Domain  e.g. (https://www.acme.com): ',
     );
-    missingValues = true;
+    // missingValues = true;
   }
   if (nextJSConfig.env.zesty.stage_password == '') {
     nextJSConfig.env.zesty.stage_password = await ask(
       'Enter Stage Password (hit enter for none): ',
     );
-    missingValues = true;
+    // missingValues = true;
   }
   if (nextJSConfig.env.zesty.src_dir == '') {
     nextJSConfig.env.zesty.src_dir = await ask(
       'Enter source directory (hit enter if root): ',
     );
-    missingValues = true;
+    // missingValues = true;
   }
 
   // update the config
@@ -342,7 +342,7 @@ async function checkNetworkConnectionsAndModes(config) {
 async function createFiles(config) {
   let success = true; // success until fail
 
-  let pageDirectory = process.cwd() + config.src_dir + '/pages';
+  // let pageDirectory = process.cwd() + config.src_dir + '/pages';
   let zestyModelsDirectory = process.cwd() + config.src_dir + '/views/zesty';
 
   // mkdir ${src_dir}/components

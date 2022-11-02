@@ -12,7 +12,13 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
  * Components Imports
  */
 
-const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
+const Hero = ({
+  theme,
+  isMobile,
+  //  isDarkMode,
+  content,
+  FillerContent,
+}) => {
   const LeftSide = () => (
     <Box sx={{ py: 10, px: 2 }}>
       <Box

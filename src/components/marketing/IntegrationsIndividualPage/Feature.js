@@ -12,12 +12,18 @@ import { useRouter } from 'next/router';
 import Line from '../../../../public/assets/images/IntegrationIndividualPage/line.svg';
 import Chevron from '../../../../public/assets/images/IntegrationIndividualPage/chevron.svg';
 
-const Feature = ({ theme, content, FillerContent, isMedium, isDarkMode }) => {
+const Feature = ({
+  theme,
+  content,
+  FillerContent,
+  isMedium,
+  //  isDarkMode
+}) => {
   const router = useRouter();
   const isNextCms = router.asPath.includes('/integrations/nextjs-cms/');
-  const isTeamBenefits = router.asPath.includes(
-    '/integrations/nextjs-team-benefits/',
-  );
+  // const isTeamBenefits = router.asPath.includes(
+  //   '/integrations/nextjs-team-benefits/',
+  // );
 
   const featureData = [
     {

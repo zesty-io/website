@@ -12,7 +12,7 @@ const TopCompanies = ({
   theme,
   content,
   FillerContent,
-  isLarge,
+  // isLarge,
   isExtraLarge,
   isDarkMode,
 }) => {

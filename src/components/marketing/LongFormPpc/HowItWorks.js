@@ -1,6 +1,5 @@
 // MUI Imports
-import { Box, Grid, Container, Typography, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Box, Grid, Container, Typography } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 
 // Components Imports
@@ -11,10 +10,10 @@ const HowItWorks = ({
   header,
   images,
 }) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
+  // const theme = useTheme();
+  // const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+  //   defaultMatches: true,
+  // });
   const styleSx = {
     position: 'relative',
     '&::after': {

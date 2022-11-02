@@ -75,11 +75,11 @@ const initialValues = {
 const FormComp = React.memo(
   ({
     ZestyAPI,
-    instanceZUID,
-    userAppSID,
+    // instanceZUID,
+    // userAppSID,
     verifyLoading,
     verifySuccess,
-    title = 'Register',
+    // title = 'Register',
   }) => {
     const [modal, setmodal] = React.useState(false);
     const [error, seterror] = React.useState('');
@@ -88,7 +88,7 @@ const FormComp = React.memo(
 
     const isLogin = verifySuccess?.userZuid ? true : false;
 
-    const handleRegisterSuccess = (data) => {
+    const handleRegisterSuccess = () => {
       setmodal(true);
       setsucces('App successfully registered');
       setloading(false);

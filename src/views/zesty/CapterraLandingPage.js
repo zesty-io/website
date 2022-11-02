@@ -110,7 +110,12 @@ const ContactUsForm = ({ theme, content, formContent }) => {
   );
 };
 
-const ContactUs = ({ title, description, content, formContent }) => {
+const ContactUs = ({
+  title,
+  description,
+  // content,
+  formContent,
+}) => {
   const theme = useTheme();
 
   return (
@@ -152,7 +157,11 @@ const ContactUs = ({ title, description, content, formContent }) => {
     </Box>
   );
 };
-const SimpleCentered = ({ header, description, cards = [] }) => {
+const SimpleCentered = ({
+  header,
+  // description,
+  cards = [],
+}) => {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

@@ -58,7 +58,7 @@ function Mindshare({ content }) {
   const {
     data: allArticles,
     isPending,
-    error,
+    // error,
   } = useFetch(
     '/-/all-articles-hydrated.json?limit=140',
     content.zestyProductionMode,
@@ -72,11 +72,11 @@ function Mindshare({ content }) {
       )
     : FillerContent.missingDataArray;
 
-  const onSearchHandler = (evt, value) => {
+  const onSearchHandler = (evt) => {
     evt.preventDefault();
     setSearchQuery(evt.target.value);
   };
-  const onSubmit = (evt, value) => {
+  const onSubmit = (evt) => {
     evt.preventDefault();
   };
 

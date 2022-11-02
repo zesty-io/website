@@ -37,10 +37,9 @@ const MarketplaceSinglePageContainer = ({
   marketEntityTypes,
   ...props
 }) => {
-  const { entities, setEntities } = useContext(MarketplaceContext);
+  const { setEntities } = useContext(MarketplaceContext);
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('md'));
-  const [isAsc, setIsAsc] = useState(false);
   const [search, setSearch] = useState('');
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const value = useDebounce(search, handleSearch);
@@ -53,16 +52,16 @@ const MarketplaceSinglePageContainer = ({
     );
   }
 
-  function handleSort() {
-    const list = [...entities].sort((a, b) => {
-      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-      if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-      return 0;
-    });
+  // function handleSort() {
+  //   const list = [...entities].sort((a, b) => {
+  //     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+  //     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+  //     return 0;
+  //   });
 
-    setEntities(isAsc ? list : list.reverse());
-    setIsAsc(!isAsc);
-  }
+  //   setEntities(isAsc ? list : list.reverse());
+  //   setIsAsc(!isAsc);
+  // }
 
   useEffect(() => {
     if (isSm) setIsOpenDrawer(false);

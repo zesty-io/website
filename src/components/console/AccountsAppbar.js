@@ -147,7 +147,7 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
               color={linkColor}
               href={routeTo}
               aria-current="page"
-              key={name}
+              key={index}
             >
               {name}
             </Link>

@@ -1,6 +1,5 @@
 // REact and MUI Imports
 import { React, useState, useRef, useCallback } from 'react';
-import { useTheme } from '@emotion/react';
 import { Box, Grid, Typography } from '@mui/material';
 
 // confetti
@@ -91,7 +90,6 @@ const postToZOHO = async (payloadJSON) => {
 // Join component
 
 export default function Join(props) {
-  const theme = useTheme();
   const { height, width } = getWindowDimensions();
   const isProduction = props.production;
 
@@ -106,10 +104,10 @@ export default function Join(props) {
   const sliderRef = useRef(null);
   let abmessage, abbuttontext, abimage;
 
-  const handlePrev = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slidePrev();
-  }, []);
+  // const handlePrev = useCallback(() => {
+  //   if (!sliderRef.current) return;
+  //   sliderRef.current.swiper.slidePrev();
+  // }, []);
 
   // moves user forward a slide in the onboard process
   const handleNext = useCallback(() => {
@@ -241,13 +239,13 @@ export default function Join(props) {
   };
 
   // leaves the onboard program
-  const handleExit = () => {
-    window.location = '/';
-  };
+  // const handleExit = () => {
+  //   window.location = '/';
+  // };
 
-  const handleInvite = () => {
-    alert('Invite Friends');
-  };
+  // const handleInvite = () => {
+  //   alert('Invite Friends');
+  // };
 
   const handlePrompt = () => {
     setCurrentAnimation('bouncing');
@@ -405,7 +403,6 @@ export async function getServerSideProps({ req, res, query }) {
         ? true
         : false,
   };
-
   const isAuthenticated = getIsAuthenticated(res);
 
   // Pass data to the page via props
@@ -415,6 +412,9 @@ export async function getServerSideProps({ req, res, query }) {
       ab: abdata,
       campaign: campaign,
       cookies: getCookies({ req, res }),
+      zesty: {
+        isAuthenticated,
+      },
     },
   };
 }

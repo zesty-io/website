@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React from 'react';
 
-export const ResourceLinkComp = ({ data, theme }) => {
+export const ResourceLinkComp = ({ data }) => {
   const openInNewTab = () => {
     window.open(data?.resource_link, '_blank').focus();
   };

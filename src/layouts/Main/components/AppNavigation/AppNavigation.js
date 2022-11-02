@@ -99,10 +99,10 @@ const mobileNavLinks = [
 ];
 
 const AppNavigation = ({
-  onSidebarOpen,
+  // onSidebarOpen,
   colorInvert = false,
-  loading = false,
-  trigger,
+  // loading = false,
+  // trigger,
 }) => {
   const router = useRouter();
   const [pathname, setPathname] = useState('');

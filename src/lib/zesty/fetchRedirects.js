@@ -1,13 +1,14 @@
 /* eslint-disable no-undef */
 // fetchRedirects, get the list of all redirects set in the content manager, loads into next.config.js
 async function fetchZestyRedirects() {
+  let zestyURL = '';
   try {
     let productionMode =
       undefined === process.env.PRODUCTION || process.env.PRODUCTION === 'true'
         ? true
         : false;
 
-    let zestyURL = productionMode
+    zestyURL = productionMode
       ? process.env.zesty.production
       : process.env.zesty.stage;
     zestyURL = zestyURL.replace(/\/$/, '');

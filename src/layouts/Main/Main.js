@@ -13,7 +13,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 // import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
-import { getCookie, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
 import { Container, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -31,8 +31,6 @@ const Main = ({
   bgcolor = 'transparent',
   model = '',
 }) => {
-  const { setisAuthenticated, setisUser } = useZestyStore((state) => state);
-
   // main should verify the user as boolean
   const router = useRouter();
   const [pathname, setPathname] = useState('');
@@ -40,16 +38,16 @@ const Main = ({
 
   // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   // const userAppSID = getUserAppSID();
-  const { verifySuccess, loading, userInfo } = useZestyStore((state) => state);
+  const { _verifySuccess, loading, userInfo } = useZestyStore((state) => state);
 
-  let isUser = false;
+  // let isUser = false;
 
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
-  if (getCookie('APP_SID') || getCookie('DEV_APP_SID')) {
-    isUser = true;
-  }
+  // if (getCookie('APP_SID') || getCookie('DEV_APP_SID')) {
+  //   isUser = true;
+  // }
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -149,14 +147,13 @@ const Main = ({
           <Container
             maxWidth={isLoggedIn ? false : ''}
             sx={(theme) => ({
+              paddingTop:
+                hideNav || isExplorePage ? '0px !important' : '8px !important',
+              paddingBottom: '0 !important',
               maxWidth: isLoggedIn
                 ? theme.breakpoints.values.xl2
                 : theme.breakpoints.values.lg,
             })}
-            paddingTop={
-              hideNav || isExplorePage ? '0px !important' : '8px !important'
-            }
-            paddingBottom={'0 !important'}
           >
             <TopNav nav={nav} colorInvert={headerColorInvert} />
           </Container>
@@ -182,8 +179,8 @@ const Main = ({
             maxWidth: isLoggedIn
               ? theme.breakpoints.values.xl2
               : theme.breakpoints.values.lg,
+            paddingY: isExplorePage ? 2 : 1,
           })}
-          paddingY={isExplorePage ? 2 : 1}
         >
           {!isLoggedIn && (
             <Stack>

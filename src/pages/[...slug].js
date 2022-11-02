@@ -5,13 +5,10 @@ import { githubFetch } from 'lib/githubFetch';
 
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
-import { useTheme } from '@emotion/react';
 import { getIsAuthenticated } from 'utils';
 import { getCookies } from 'cookies-next';
 
 export default function Slug(props) {
-  const theme = useTheme();
-
   // for homepage navigation
   // const isDarkMode = theme.palette.mode === 'dark';
   let bgcolor = 'transparent';

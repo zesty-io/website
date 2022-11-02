@@ -12,8 +12,8 @@ const Growth = ({
   content,
   FillerContent,
   theme,
-  isMedium,
-  isLarge,
+  // isMedium,
+  // isLarge,
   isExtraLarge,
 }) => {
   const flexOrder = ['flex-end', 'center', 'flex-start'];

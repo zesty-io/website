@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
 
 export default function Languages() {
-  const { ZestyAPI, isAuthenticated } = useZestyStore((state) => state);
-  const [webhooks, setWebhooks] = React.useState([]);
+  const { ZestyAPI } = useZestyStore((state) => state);
+  const [, setWebhooks] = React.useState([]);
 
   const router = useRouter();
 

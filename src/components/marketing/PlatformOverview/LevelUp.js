@@ -8,7 +8,12 @@ import MuiMarkdown from 'markdown-to-jsx';
  * Components Imports
  */
 
-const LevelUp = ({ theme, isMedium, content, FillerContent }) => {
+const LevelUp = ({
+  theme,
+  // isMedium,
+  content,
+  FillerContent,
+}) => {
   return (
     <Box
       component="section"

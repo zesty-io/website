@@ -15,7 +15,7 @@ export const ProjectDetails = ({ repository }) => {
   const [instance_zuid, setinstance_zuid] = React.useState('');
   const [token, settoken] = React.useState('');
   // const [repository, setrepository] = React.useState(repo);
-  const [github_key, setgithub_key] = React.useState('');
+  const [github_key] = React.useState('');
   const APP_SID = getCookie('APP_SID');
 
   const handleSuccessCreate = async (res) => {

@@ -9,7 +9,7 @@ import { Typography } from '@mui/material';
 const initialOptions = [{ value: '-', label: 'no data' }];
 
 export const AccountSelect = ({
-  label = 'no label',
+  // label = 'no label',
   options = initialOptions,
   onChange = () => {},
   value = '',

@@ -33,6 +33,7 @@ import { useZestyStore } from 'store';
 import { Scenarios } from 'components/marketing/Start/Data/Scenarios';
 import axios from 'axios';
 import { getIsAuthenticated } from 'utils';
+// import { getIsAuthenticated } from 'utils';
 
 // zoho lead post function
 
@@ -375,6 +376,9 @@ export async function getServerSideProps({ req, res }) {
     props: {
       ...data,
       cookies: getCookies({ req, res }),
+      zesty: {
+        isAuthenticated,
+      },
     },
   };
 }

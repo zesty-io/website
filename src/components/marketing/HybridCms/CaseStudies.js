@@ -115,7 +115,7 @@ const CaseStudies = ({ content, theme, isMobile, FillerContent }) => {
               background: 'transparent',
             }}
           >
-            {content.case_studies?.data?.map((e, i) => {
+            {content.case_studies?.data?.map((e) => {
               return (
                 <CustomButton
                   active={active?.title === e?.title ? true : false}

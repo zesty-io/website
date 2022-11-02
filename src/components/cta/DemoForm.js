@@ -38,34 +38,34 @@ const validationSchema = yup.object({
 });
 
 // zoho lead object
-const getLeadObjectZOHO = (obj, roles) => {
-  let acLeadtype = 'Marketing Website';
-  let acRole = 'Marketer';
-  return {
-    First_Name: obj.firstName,
-    Last_Name: obj.lastName,
-    Email: obj.email,
-    Inquiry_Reason: obj.select,
-    Message: obj.message,
-    // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
-    // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
-    // "Current_CMS": acCMS,
-    // "How_Using_Zesty_io": acHow,
-    // "Website": document.querySelector('#ac-url').value,
-    Lead_Source: 'Website',
-    // "Description": document.querySelector('#ac-description').value,
-    Role: roles,
-    // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
-    Lead_Source_Detail: 'Demo Sign Up',
-    Business_Type: 'Direct',
-    Lead_Status: 'Not Contacted',
-  };
-};
+// const getLeadObjectZOHO = (obj, roles) => {
+//   let acLeadtype = 'Marketing Website';
+//   let acRole = 'Marketer';
+//   return {
+//     First_Name: obj.firstName,
+//     Last_Name: obj.lastName,
+//     Email: obj.email,
+//     Inquiry_Reason: obj.select,
+//     Message: obj.message,
+//     // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
+//     // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
+//     // "Current_CMS": acCMS,
+//     // "How_Using_Zesty_io": acHow,
+//     // "Website": document.querySelector('#ac-url').value,
+//     Lead_Source: 'Website',
+//     // "Description": document.querySelector('#ac-description').value,
+//     Role: roles,
+//     // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
+//     Lead_Source_Detail: 'Demo Sign Up',
+//     Business_Type: 'Direct',
+//     Lead_Status: 'Not Contacted',
+//   };
+// };
 
 const Form = ({
-  eyebrow = 'Missing Text',
-  title = 'Missing Text',
-  subtitle = 'Missing Text',
+  // eyebrow = 'Missing Text',
+  // title = 'Missing Text',
+  // subtitle = 'Missing Text',
   ctaButtonText = 'Missing Text',
 }) => {
   const initialValues = {
@@ -88,7 +88,7 @@ const Form = ({
   };
 
   const { marketers, developers, managers } = state;
-  const error = [marketers, developers, managers].filter((v) => v).length !== 2;
+  // const error = [marketers, developers, managers].filter((v) => v).length !== 2;
   const onSubmit = (values) => {
     return values;
   };

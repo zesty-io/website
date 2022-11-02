@@ -25,7 +25,7 @@ export default function TransitionsModal({
   open,
   setOpen,
 }) {
-  const handleOpen = () => setOpen(true);
+  // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (

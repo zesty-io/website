@@ -2,32 +2,34 @@
  * React Imports
  */
 
-import { useEffect, useState } from 'react';
 /**
  * MUI Imports
  */
 
 import { Box, Typography } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+// import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+// import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
-import { useTheme } from '@mui/material';
+// import { useTheme } from '@mui/material';
 
 /**
  * Components Imports
  */
 
-import { useSwiper, useSwiperSlide } from 'swiper/react';
 import DemoCta from 'components/cta/DemoCta';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
-  const [activeSlide, setActiveSlide] = useState();
-
+const NewBenefits = ({
+  content,
+  FillerContent,
+  theme,
+  _isLarge,
+  _isMedium,
+}) => {
   return (
     <Box
       component="section"
@@ -200,95 +202,95 @@ const NewBenefits = ({ content, FillerContent, theme, isLarge, isMedium }) => {
 
 export default NewBenefits;
 
-const SwiperButtonNext = ({ children }) => {
-  const theme = useTheme();
-  const swiper = useSwiper();
+// const SwiperButtonNext = ({ children }) => {
+//   const theme = useTheme();
+//   const swiper = useSwiper();
 
-  return (
-    <>
-      <Box
-        sx={{
-          width: 38,
-          height: 38,
-          cursor: 'pointer',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          border: `1px solid ${theme.palette.zesty.zestyZambezi}`,
-          borderRadius: '50%',
-        }}
-        onClick={() => {
-          swiper.slideNext();
-        }}
-      >
-        <ArrowForwardIosIcon
-          sx={{ width: '100%', color: theme.palette.zesty.zestyZambezi }}
-        />
-      </Box>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <Box
+//         sx={{
+//           width: 38,
+//           height: 38,
+//           cursor: 'pointer',
+//           display: 'flex',
+//           justifyContent: 'center',
+//           alignItems: 'center',
+//           border: `1px solid ${theme.palette.zesty.zestyZambezi}`,
+//           borderRadius: '50%',
+//         }}
+//         onClick={() => {
+//           swiper.slideNext();
+//         }}
+//       >
+//         <ArrowForwardIosIcon
+//           sx={{ width: '100%', color: theme.palette.zesty.zestyZambezi }}
+//         />
+//       </Box>
+//     </>
+//   );
+// };
 
-const SwiperButtonPrev = ({ children }) => {
-  const theme = useTheme();
-  const swiper = useSwiper();
-  return (
-    <>
-      <Box
-        sx={{
-          width: 38,
-          height: 38,
-          cursor: 'pointer',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          border: `1px solid ${theme.palette.zesty.zestyZambezi}`,
-          borderRadius: '50%',
-        }}
-        onClick={() => {
-          swiper.slidePrev();
-        }}
-      >
-        <ArrowBackIosNewIcon
-          sx={{ width: '100%', color: theme.palette.zesty.zestyZambezi }}
-        />
-      </Box>
-    </>
-  );
-};
+// const SwiperButtonPrev = ({ children }) => {
+//   const theme = useTheme();
+//   const swiper = useSwiper();
+//   return (
+//     <>
+//       <Box
+//         sx={{
+//           width: 38,
+//           height: 38,
+//           cursor: 'pointer',
+//           display: 'flex',
+//           justifyContent: 'center',
+//           alignItems: 'center',
+//           border: `1px solid ${theme.palette.zesty.zestyZambezi}`,
+//           borderRadius: '50%',
+//         }}
+//         onClick={() => {
+//           swiper.slidePrev();
+//         }}
+//       >
+//         <ArrowBackIosNewIcon
+//           sx={{ width: '100%', color: theme.palette.zesty.zestyZambezi }}
+//         />
+//       </Box>
+//     </>
+//   );
+// };
 
-const SlideWrapper = ({ children, item, index, setActiveSlide, isLarge }) => {
-  const swiperSlide = useSwiperSlide();
+// const SlideWrapper = ({ children, item, _index, setActiveSlide, isLarge }) => {
+//   const swiperSlide = useSwiperSlide();
 
-  useEffect(() => {
-    if (swiperSlide.isNext) {
-      setActiveSlide(item);
-    }
-  }, [swiperSlide]);
+//   useEffect(() => {
+//     if (swiperSlide.isNext) {
+//       setActiveSlide(item);
+//     }
+//   }, [swiperSlide]);
 
-  return (
-    <>
-      <Box
-        className="new-benefits-slide-wrapper"
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          img: {
-            opacity: isLarge ? 1 : !swiperSlide.isNext ? 0.1 : 1,
-            filter: isLarge
-              ? 'grayscale(0%)'
-              : !swiperSlide.isNext
-              ? 'grayscale(100%)'
-              : 'grayscale(0%)',
-            transition: 'opacity 1.5s ease',
-          },
-          '.slide-description': {
-            display: !swiperSlide.isNext ? 'none' : 'flex',
-          },
-        }}
-      >
-        {children}
-      </Box>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <Box
+//         className="new-benefits-slide-wrapper"
+//         sx={{
+//           display: 'flex',
+//           justifyContent: 'center',
+//           img: {
+//             opacity: isLarge ? 1 : !swiperSlide.isNext ? 0.1 : 1,
+//             filter: isLarge
+//               ? 'grayscale(0%)'
+//               : !swiperSlide.isNext
+//               ? 'grayscale(100%)'
+//               : 'grayscale(0%)',
+//             transition: 'opacity 1.5s ease',
+//           },
+//           '.slide-description': {
+//             display: !swiperSlide.isNext ? 'none' : 'flex',
+//           },
+//         }}
+//       >
+//         {children}
+//       </Box>
+//     </>
+//   );
+// };

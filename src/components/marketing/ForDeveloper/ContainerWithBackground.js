@@ -21,7 +21,7 @@ const ContainerWithBackground = ({
   isSmall,
   isMedium,
   isLarge,
-  sx = {},
+  _sx = {},
 }) => {
   return (
     <Box component="section">
