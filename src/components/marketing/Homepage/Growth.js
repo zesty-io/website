@@ -4,7 +4,7 @@
 
 import { Box, Typography, Card } from '@mui/material';
 
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
@@ -40,27 +40,29 @@ const Growth = ({
           }}
         >
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h3',
-                  component: 'h2',
-                  sx: {
-                    color: theme.palette.zesty.zestyZambezi,
-                    fontWeight: 'bold',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h3',
+                    component: 'h2',
+                    sx: {
+                      color: theme.palette.zesty.zestyZambezi,
+                      fontWeight: 'bold',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  component: 'p',
-                  sx: {
-                    color: theme.palette.zesty.zestyZambezi,
-                    lineHeight: 1.2,
-                    mt: 2,
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: {
+                      color: theme.palette.zesty.zestyZambezi,
+                      lineHeight: 1.2,
+                      mt: 2,
+                    },
                   },
                 },
               },

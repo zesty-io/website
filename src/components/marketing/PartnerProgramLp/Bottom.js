@@ -3,7 +3,7 @@ import React from 'react';
  * MUI Imports
  */
 import { Box, Typography, Grid, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
 const Bottom = ({
@@ -23,27 +23,29 @@ const Bottom = ({
             md={6}
           >
             <MuiMarkdown
-              overrides={{
-                h2: {
-                  component: Typography,
-                  props: {
-                    component: 'h2',
-                    variant: 'h4',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
-                      fontWeight: 'bold',
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h4',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        fontWeight: 'bold',
+                      },
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    component: 'p',
-                    variant: 'h6',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
-                      mt: 2,
-                      lineHeight: 1.2,
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        mt: 2,
+                        lineHeight: 1.2,
+                      },
                     },
                   },
                 },

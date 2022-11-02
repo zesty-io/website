@@ -2,7 +2,7 @@
  * MUI Imports
  */
 import { Box, Grid, Card, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Components Imports
@@ -18,29 +18,31 @@ const CaseStudies = ({
     <Box component="section">
       <Container sx={{ height: '100%', py: 10 }}>
         <MuiMarkdown
-          overrides={{
-            span: {
-              component: Typography,
-              props: {
-                component: 'span',
-                variant: 'h4',
-                sx: {
-                  textAlign: 'center',
-                  color: theme.palette.zesty.zestyDarkText,
-                  fontWeight: 'inherit',
+          options={{
+            overrides: {
+              span: {
+                component: Typography,
+                props: {
+                  component: 'span',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'center',
+                    color: theme.palette.zesty.zestyDarkText,
+                    fontWeight: 'inherit',
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
+              p: {
+                component: Typography,
 
-              props: {
-                component: 'h2',
-                variant: 'h4',
-                sx: {
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  color: theme.palette.zesty.zestyDarkText,
+                props: {
+                  component: 'h2',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    color: theme.palette.zesty.zestyDarkText,
+                  },
                 },
               },
             },

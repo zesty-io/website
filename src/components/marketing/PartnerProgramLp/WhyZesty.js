@@ -3,7 +3,7 @@ import React from 'react';
  * MUI Imports
  */
 import { Box, Typography, Grid, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const WhyZesty = ({
   theme,
@@ -52,27 +52,29 @@ const WhyZesty = ({
           >
             <Box>
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      component: 'h2',
-                      variant: 'h4',
-                      sx: {
-                        fontWeight: 'bold',
-                        color: theme.palette.zesty.zestyZambezi,
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        component: 'h2',
+                        variant: 'h4',
+                        sx: {
+                          fontWeight: 'bold',
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      component: 'p',
-                      variant: 'h6',
-                      sx: {
-                        color: theme.palette.zesty.zestyZambezi,
-                        lineHeight: 1.2,
-                        mt: 2,
+                    p: {
+                      component: Typography,
+                      props: {
+                        component: 'p',
+                        variant: 'h6',
+                        sx: {
+                          color: theme.palette.zesty.zestyZambezi,
+                          lineHeight: 1.2,
+                          mt: 2,
+                        },
                       },
                     },
                   },

@@ -4,7 +4,7 @@
 
 import { Box, Grid, Typography, Container, Button } from '@mui/material';
 import TryFreeButton from 'components/cta/TryFreeButton';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 const Integration = ({
@@ -60,37 +60,39 @@ const Integration = ({
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                   <MuiMarkdown
-                    overrides={{
-                      span: {
-                        component: Typography,
-                        props: {
-                          sx: {
-                            color: theme.palette.zesty.zestyOrange,
-                            fontSize: 'inherit',
-                            fontWeight: 'inherit',
-                            lineHeight: 'inherit',
+                    options={{
+                      overrides: {
+                        span: {
+                          component: Typography,
+                          props: {
+                            sx: {
+                              color: theme.palette.zesty.zestyOrange,
+                              fontSize: 'inherit',
+                              fontWeight: 'inherit',
+                              lineHeight: 'inherit',
+                            },
                           },
                         },
-                      },
-                      h2: {
-                        component: Typography,
-                        props: {
-                          variant: 'h3',
-                          component: 'h2',
-                          fontWeight: 'bold',
-                          color: theme.palette.zesty.zestyZambezi,
-                          lineHeight: 1,
-                          textAlign: isMedium ? 'center' : 'text-left',
+                        h2: {
+                          component: Typography,
+                          props: {
+                            variant: 'h3',
+                            component: 'h2',
+                            fontWeight: 'bold',
+                            color: theme.palette.zesty.zestyZambezi,
+                            lineHeight: 1,
+                            textAlign: isMedium ? 'center' : 'text-left',
+                          },
                         },
-                      },
-                      p: {
-                        component: Typography,
-                        props: {
-                          variant: 'h6',
-                          mt: 2,
-                          component: 'p',
-                          color: theme.palette.zesty.zestyZambezi,
-                          textAlign: isMedium ? 'center' : 'text-left',
+                        p: {
+                          component: Typography,
+                          props: {
+                            variant: 'h6',
+                            mt: 2,
+                            component: 'p',
+                            color: theme.palette.zesty.zestyZambezi,
+                            textAlign: isMedium ? 'center' : 'text-left',
+                          },
                         },
                       },
                     }}

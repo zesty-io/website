@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import SubscribeCTA from 'components/cta/SubscribeCTA';
 
 const Hero = ({
@@ -20,27 +20,29 @@ const Hero = ({
     <Box>
       <Box marginBottom={2}>
         <MuiMarkdown
-          overrides={{
-            h1: {
-              component: Typography,
-              props: {
-                variant: 'h2',
-                component: 'h1',
-                sx: {
-                  color: theme.palette.text.primary,
-                  fontWeight: 'bold',
+          options={{
+            overrides: {
+              h1: {
+                component: Typography,
+                props: {
+                  variant: 'h2',
+                  component: 'h1',
+                  sx: {
+                    color: theme.palette.text.primary,
+                    fontWeight: 'bold',
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                variant: 'h6',
-                component: 'p',
-                sx: {
-                  color: theme.palette.zesty.zestyZambezi,
-                  lineHeight: 1.2,
-                  mt: 2,
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h6',
+                  component: 'p',
+                  sx: {
+                    color: theme.palette.zesty.zestyZambezi,
+                    lineHeight: 1.2,
+                    mt: 2,
+                  },
                 },
               },
             },

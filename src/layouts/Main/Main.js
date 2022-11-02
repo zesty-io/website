@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
@@ -13,7 +13,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 // import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
-import { getCookie, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
 import { Container, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -31,27 +31,23 @@ const Main = ({
   bgcolor = 'transparent',
   model = '',
 }) => {
-  const { setisAuthenticated, setisUser } = useZestyStore((state) => state);
-
   // main should verify the user as boolean
   const router = useRouter();
-  const isAccounts = isProtectedRoute(window.location.pathname);
+  const [pathname, setPathname] = useState('');
+  const isAccounts = isProtectedRoute(pathname);
 
   // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   // const userAppSID = getUserAppSID();
-  const { verifySuccess, loading, userInfo } = useZestyStore((state) => state);
+  const { _verifySuccess, loading, userInfo } = useZestyStore((state) => state);
 
-  const isLoggedIn = useIsLoggedIn();
-
-  const isAuthenticated = verifySuccess.userZuid ? true : false;
-  let isUser = false;
+  // let isUser = false;
 
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
 
-  if (getCookie('APP_SID') || getCookie('DEV_APP_SID')) {
-    isUser = true;
-  }
+  // if (getCookie('APP_SID') || getCookie('DEV_APP_SID')) {
+  //   isUser = true;
+  // }
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -81,11 +77,13 @@ const Main = ({
   const isCapterraPage = router.asPath.includes('/capterra');
   const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isExplorePage = router.asPath.includes('/ppc/explore/');
+  const isLoginPage = router.asPath.includes('/login/');
   // override over invert based on pages that we know have a dark image heading
 
   const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
+  const isLoggedIn = useIsLoggedIn();
 
-  let pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
+  const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;
 
@@ -101,11 +99,9 @@ const Main = ({
     }
   };
 
-  // const isDashboard = window.location.pathname.split('/').filter((e) => e)[0];
-
   const willShowMarketingFooter = () => {
     if (isLoggedIn) {
-      if (isAccounts || router.pathname === '/') return false;
+      if (isAccounts || pathname === '/') return false;
 
       return true;
     }
@@ -115,7 +111,7 @@ const Main = ({
 
   const willShowAppFooter = () => {
     if (isLoggedIn) {
-      if (isAccounts || router.pathname === '/') return true;
+      if (isAccounts || pathname === '/') return true;
 
       return false;
     }
@@ -123,17 +119,7 @@ const Main = ({
     return false;
   };
 
-  // store isUser isAuthenticated  in global state
-  React.useEffect(() => {
-    if (isAuthenticated) {
-      setisAuthenticated(isAuthenticated);
-      setisUser(isUser);
-      setCookie('isAuthenticated', isAuthenticated);
-      setCookie('isUser', isUser);
-    }
-  }, [isAuthenticated, isUser]);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (Object.keys(userInfo?.data || {}) !== 0) {
       setCookie('APP_USER_ZUID', userInfo?.ZUID);
       setCookie('APP_USER_EMAIL', userInfo?.email);
@@ -141,9 +127,15 @@ const Main = ({
       setCookie('APP_USER_LAST_NAME', userInfo?.lastName);
     }
   }, [userInfo]);
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
+
   return (
-    <Box>
-      {isLoggedIn === false && <SiteBanner />}
+    <>
+      {isLoggedIn === false && !isLoginPage && <SiteBanner />}
+
       {isLoggedIn === false && (
         <Box
           id="topNavBox"
@@ -197,7 +189,7 @@ const Main = ({
                 customRouting={hasRouting ? customRouting : []}
                 colorInvert={headerColorInvert && !trigger}
                 trigger={trigger}
-                isAuthenticated={isAuthenticated}
+                isAuthenticated={isLoggedIn}
                 userInfo={userInfo?.data}
                 loading={loading}
               />
@@ -241,7 +233,7 @@ const Main = ({
       )}
 
       {willShowAppFooter() && <AppFooter />}
-    </Box>
+    </>
   );
 };
 

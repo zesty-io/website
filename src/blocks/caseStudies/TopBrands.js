@@ -11,7 +11,7 @@ import {
   Card,
   Link,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const TopBrands = ({
   theme,
@@ -53,15 +53,17 @@ const TopBrands = ({
               component="h2"
             >
               <MuiMarkdown
-                overrides={{
-                  strong: {
-                    component: Typography,
-                    props: {
-                      component: 'strong',
-                      sx: {
-                        fontSize: 'inherit',
-                        fontWeight: 'inherit',
-                        color: theme.palette.zesty.zestyOrange,
+                options={{
+                  overrides: {
+                    strong: {
+                      component: Typography,
+                      props: {
+                        component: 'strong',
+                        sx: {
+                          fontSize: 'inherit',
+                          fontWeight: 'inherit',
+                          color: theme.palette.zesty.zestyOrange,
+                        },
                       },
                     },
                   },
@@ -179,16 +181,18 @@ const TopBrands = ({
                       </Box>
 
                       <MuiMarkdown
-                        overrides={{
-                          p: {
-                            component: Typography,
-                            props: {
-                              variant: 'h6',
-                              component: 'p',
-                              sx: {
-                                color: theme.palette.zesty.zestyZambezi,
-                                letterSpacing: 0,
-                                lineHeight: '25px',
+                        options={{
+                          overrides: {
+                            p: {
+                              component: Typography,
+                              props: {
+                                variant: 'h6',
+                                component: 'p',
+                                sx: {
+                                  color: theme.palette.zesty.zestyZambezi,
+                                  letterSpacing: 0,
+                                  lineHeight: '25px',
+                                },
                               },
                             },
                           },

@@ -1,6 +1,6 @@
 // MUI Imports
 import { Box, Grid, Container, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 // Components Imports
 import FeatureGridWithBackgrounds from 'blocks/features/FeatureGridWithBackgrounds';
@@ -10,6 +10,10 @@ const HowItWorks = ({
   header,
   images,
 }) => {
+  // const theme = useTheme();
+  // const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+  //   defaultMatches: true,
+  // });
   const styleSx = {
     position: 'relative',
     '&::after': {
@@ -29,23 +33,25 @@ const HowItWorks = ({
         <Box position={'relative'} zIndex={2}>
           <Grid item xs={12} md={9}>
             <MuiMarkdown
-              overrides={{
-                h2: {
-                  component: Typography,
-                  props: {
-                    variant: 'h4',
-                    component: 'h2',
-                    sx: {
-                      fontWeight: 'bold',
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      variant: 'h4',
+                      component: 'h2',
+                      sx: {
+                        fontWeight: 'bold',
+                      },
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    variant: 'h6',
-                    component: 'p',
-                    sx: { lineHeight: 1.5, mt: 2 },
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h6',
+                      component: 'p',
+                      sx: { lineHeight: 1.5, mt: 2 },
+                    },
                   },
                 },
               }}

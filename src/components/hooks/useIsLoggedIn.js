@@ -1,13 +1,14 @@
-import { getCookie } from 'cookies-next';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
+import { CookiesContext } from '../context/CookiesProvider';
 
 const useIsLoggedIn = () => {
   const { ZestyAPI } = useZestyStore((state) => state);
+  const cookies = useContext(CookiesContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    JSON.parse(cookies?.isAuthenticated || false),
+  );
 
-  // isLoggedIn initial value is (isAuthenticated value from cookie).
-  // Then it will start checking after the set INTERVAL_VALUE TIMES
-  const [isLoggedIn, setIsLoggedIn] = useState(getCookie('isAuthenticated'));
   useEffect(() => {
     const verify = async () => {
       const response = await ZestyAPI.verify();

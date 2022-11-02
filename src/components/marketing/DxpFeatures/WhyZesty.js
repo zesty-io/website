@@ -3,7 +3,7 @@
  */
 
 import { Box, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const WhyZesty = ({
@@ -17,29 +17,31 @@ const WhyZesty = ({
       <Box component="section" sx={{ pb: 7 }}>
         <Container>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h4',
-                  component: 'h2',
-                  sx: {
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    color: theme.palette.zesty.zetsyDarkText,
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                      color: theme.palette.zesty.zetsyDarkText,
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  component: 'p',
-                  sx: {
-                    lineHeight: 1.2,
-                    textAlign: 'center',
-                    color: theme.palette.zesty.zestyZambezi,
-                    mt: 2,
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: {
+                      lineHeight: 1.2,
+                      textAlign: 'center',
+                      color: theme.palette.zesty.zestyZambezi,
+                      mt: 2,
+                    },
                   },
                 },
               },

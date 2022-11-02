@@ -26,76 +26,55 @@
 
 import React from 'react';
 import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
-import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
 import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
-import WithBorderedCardsAndBrandColor from 'blocks/stats/WithBorderedCardsAndBrandColor/WithBorderedCardsAndBrandColor.js';
-import CtaWithCoverImage from 'blocks/cta/CtaWithCoverImage/CtaWithCoverImage.js';
-import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage/VerticallyAlignedBlogCardsWithShapedImage.js';
-import CtaWithInputField from 'blocks/cta/CtaWithInputField/CtaWithInputField.js';
-import CircularProgressWithLabel from '@mui/material/CircularProgress';
-import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useTheme } from '@emotion/react';
-import WYSIWYGRender from 'components/globals/WYSIWYGRender';
-
 import FillerContent from 'components/globals/FillerContent';
-import useFetch from 'components/hooks/useFetch';
-
-const OverviewProcessComp = ({ content, image }) => {
-  return (
-    <Container sx={{ padding: '2rem' }}>
-      <Grid container justify="center">
-        <Box justifyContent="center" alignItems="center">
-          <Typography
-            variant="h5"
-            alignItems={'center'}
-            sx={{ textAlign: 'center' }}
-            gutterBottom
-          >
-            <WYSIWYGRender
-              rich_text={content || FillerContent.rich_text}
-            ></WYSIWYGRender>
-          </Typography>
-          <Container>
-            {image && (
-              <Box
-                component={'img'}
-                src={image}
-                alt={FillerContent.header}
-                width={1}
-                height={1}
-                sx={{
-                  objectFit: 'cover',
-                  borderRadius: '1rem',
-                  justifyContent: 'center',
-                }}
-              />
-            )}
-          </Container>
-        </Box>
-      </Grid>
-    </Container>
-  );
-};
+import { useTheme } from '@mui/material/styles';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
+import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
+import Features from 'blocks/features/Features/Features';
+import { WithHighlightedCard } from 'blocks/testimonials';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
+import Container from 'components/Container';
 
 /* ------------------------------------------------------------------- */
 
 function WhyZesty({ content }) {
   const theme = useTheme();
 
-  const { data: allArticles, isPending } = useFetch(
-    `/-/all-articles-hydrated.json?limit=3`,
-    content.zestyProductionMode,
-  );
+  const COLORS = [
+    theme.palette.zesty.zestyWhite,
+    theme.palette.common.white,
+    theme.palette.zesty.zestyBlue,
+    theme.palette.zesty.zestyWhite,
+  ];
 
-  let overview_text =
-    undefined !== content.hybrid_vs_headless_content
-      ? content.hybrid_vs_headless_content
-      : 'Failed to load content.';
-  let image_url =
-    undefined !== content.hybrid_vs_headless_image
-      ? content.hybrid_vs_headless_image
-      : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
+  const feature_data =
+    content.key_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const testimonialsData = {
+    title: content.testimonial_title,
+    data: content.testimonials?.data,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_cta_image?.data[0].url || '',
+    titleAndDescription: content.bottom_cta_text || FillerContent.rich_text,
+    cta_text: content.bottom_cta_primary || FillerContent.cta,
+    secondary_cta_text: content.bottom_cta_secondary || FillerContent.cta,
+    secondary_cta_link:
+      content.bottom_cta_secondary_link?.data[0].meta.web.uri ||
+      FillerContent.href,
+  };
 
   const headerProps = {
     mainTitle: content.header_title_main || FillerContent.header,
@@ -122,7 +101,6 @@ function WhyZesty({ content }) {
 
   return (
     <>
-      {/* Header */}
       <Box
         position={'relative'}
         sx={{
@@ -132,7 +110,6 @@ function WhyZesty({ content }) {
         <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
       </Box>
 
-      {/* Overview of process */}
       <OverviewProcessComp
         image={
           (content.overview_of_process_image.data &&
@@ -141,89 +118,80 @@ function WhyZesty({ content }) {
         }
         content={content.overview_of_process_text || FillerContent.rich_text}
       />
-
       {/* Benefits */}
-      {content.benefits?.data?.map((e, i) => {
-        return (
-          <FeaturesWithMobileScreenshot
-            index={i}
-            content={e.benefit_content || FillerContent.rich_text}
-            header={e.header || FillerContent.header}
-            image={
-              (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
-              FillerContent.image
+      <Box sx={{ mt: 15 }}>
+        {content.benefits?.data?.slice(0, 2).map((e, i) => {
+          return (
+            <FeaturesWithMobileScreenshot
+              background_color={COLORS[i]}
+              index={i}
+              content={e.benefit_content || FillerContent.rich_text}
+              header={e.header || FillerContent.header}
+              image={
+                (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
+                FillerContent.image
+              }
+            />
+          );
+        })}
+        <Container paddingY={0}>
+          <DarkBlueCta
+            sx={{ py: 15 }}
+            header_content={content.middle_cta}
+            cta_text={content.middle_cta_primary}
+            cta_secondary_text={content.middle_cta_secondary}
+            cta_secondary_link={
+              content?.middle_cta_secondary_link?.data[0].meta.web.uri ||
+              FillerContent.href
             }
           />
-        );
-      })}
-
-      {/* HYBRID VS HEADLESS */}
-      <Box
-        position={'relative'}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-        }}
-      >
-        <FeaturesWithIllustration
-          wysiwyig_type="icon-box"
-          rich_text={overview_text}
-          image_url={image_url}
-        />
-      </Box>
-
-      {/* PROOF POINTS */}
-      <WithBorderedCardsAndBrandColor
-        cards={content.proof_points.data || FillerContent.emptyList}
-        content={content.proof_points_content || FillerContent.rich_text}
-      />
-
-      {/* CASE STUDY */}
-      <Box
-        position={'relative'}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-          marginBottom: '4rem',
-        }}
-      >
-        {content.case_study?.data?.map((e) => (
-          <CtaWithCoverImage
-            key={e.title || FillerContent.header}
-            title={e.title || FillerContent.header}
-            summary={e.summary || FillerContent.description}
-            cta={e.cta || FillerContent.cta}
-            cta_url={e.link || FillerContent.href}
-            image={
-              (e.image?.data && e.image?.data[0].url) || FillerContent.image
-            }
-          />
-        ))}
-      </Box>
-
-      {/* Industry Insights > Latest Blogs articles */}
-      {isPending ? (
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <CircularProgressWithLabel />
+        </Container>
+        {/* Benefits */}
+        <Box sx={{ mt: 10 }}>
+          {content.benefits?.data?.slice(2, 4).map((e, i) => {
+            return (
+              <FeaturesWithMobileScreenshot
+                text_color={i === 0 ? theme.palette.common.white : ''}
+                background_color={COLORS[2 + i]}
+                index={i}
+                content={e.benefit_content || FillerContent.rich_text}
+                header={e.header || FillerContent.header}
+                image={
+                  (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
+                  FillerContent.image
+                }
+              />
+            );
+          })}
         </Box>
-      ) : (
-        <VerticallyAlignedBlogCardsWithShapedImage
-          title={'Industry Insights'}
-          description={
-            'Stay up-to-date with the latest in digital experience, content management and more.'
-          }
-          popularArticles={allArticles}
-          ctaBtn="Read more"
-          ctaUrl={/mindshare/}
+      </Box>
+      {/* Missing Case Study
+      ==========================
+      ==========================  */}
+      <Box>
+        <Features
+          background_color={theme.palette.zesty.zestyBackgroundBlue}
+          header_size={48}
+          textHighlight={'Workflow management'}
+          data={feature_data}
+          features_header={content.key_features_text}
+          card_name_color={theme.palette.zesty.zestyZambezi}
         />
-      )}
+      </Box>
+      <Box sx={{ my: 10 }}>
+        <WithHighlightedCard {...testimonialsData} />
+      </Box>
 
-      {/* FINAL CTA */}
-      <CtaWithInputField
-        title={'Subscribe to the zestiest newsletter in the industry'}
-        description={
-          'Get the latest from the Zesty team, from whitepapers to product updates.'
-        }
-        cta={'Subscribe'}
-      />
+      <Box sx={{ pb: 15 }}>
+        <SimpleCardLogo
+          logoItems={content?.client_logos?.data}
+          heading_text={content.logos_h2}
+          maxWidth={1300}
+          variant="outlined"
+        />
+      </Box>
+
+      <Bottom {...bottomData} />
     </>
   );
 }

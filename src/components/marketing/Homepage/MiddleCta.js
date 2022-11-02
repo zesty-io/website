@@ -3,7 +3,7 @@
  */
 
 import { Box, Typography, Button } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
 /**
  * Static Assets Imports
@@ -36,27 +36,29 @@ const MiddleCta = ({
       >
         <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h3',
-                  sx: {
-                    color: theme.palette.common.white,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h3',
+                    sx: {
+                      color: theme.palette.common.white,
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  sx: {
-                    color: theme.palette.common.white,
-                    textAlign: 'center',
-                    lineHeight: 1.2,
-                    mt: 2,
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    sx: {
+                      color: theme.palette.common.white,
+                      textAlign: 'center',
+                      lineHeight: 1.2,
+                      mt: 2,
+                    },
                   },
                 },
               },

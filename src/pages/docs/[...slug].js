@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Main from 'layouts/Main';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';

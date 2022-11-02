@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'components/Container';
 import Star from '../../../../public/assets/images/homepage/star.svg';
 import ZestyImage from 'blocks/Image/ZestyImage';
@@ -18,6 +18,16 @@ import FillerContent from 'components/globals/FillerContent';
 
 const WithHighlightedCard = ({ title, data }) => {
   const theme = useTheme();
+
+
+    // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(title);
+
+  if (!isRichText && title) {
+    title = `<h1>${title}</h1>`;
+  }
+
 
   const testimonialData = data?.map((item) => {
     return {
@@ -31,30 +41,32 @@ const WithHighlightedCard = ({ title, data }) => {
 
   return (
     <Container>
-      <Box sx={{ mt: 15 }}>
-        <Box sx={{ my: 5 }}>
+      <Box>
+        <Box>
           <MuiMarkdown
-            overrides={{
-              h1: {
-                component: Typography,
-                props: {
-                  component: 'h2',
-                  variant: 'h4',
-                  sx: {
-                    textAlign: 'left !important',
-                    color: theme.palette.zesty.zestyZambezi,
-                    fontWeight: 'bold',
+            options={{
+              overrides: {
+                h1: {
+                  component: Typography,
+                  props: {
+                    component: 'h2',
+                    variant: 'h4',
+                    sx: {
+                      textAlign: 'left !important',
+                      color: theme.palette.zesty.zestyZambezi,
+                      fontWeight: 'bold',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  component: 'p',
-                  variant: 'h6',
-                  sx: {
-                    textAlign: 'left !important',
-                    color: theme.palette.zesty.zestyZambezi,
+                p: {
+                  component: Typography,
+                  props: {
+                    component: 'p',
+                    variant: 'h6',
+                    sx: {
+                      textAlign: 'left !important',
+                      color: theme.palette.zesty.zestyZambezi,
+                    },
                   },
                 },
               },
@@ -63,7 +75,7 @@ const WithHighlightedCard = ({ title, data }) => {
             {title || FillerContent.rich_text}
           </MuiMarkdown>
         </Box>
-        <Grid container spacing={4}>
+        <Grid sx={{mt:2}} container spacing={4}>
           {testimonialData?.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box

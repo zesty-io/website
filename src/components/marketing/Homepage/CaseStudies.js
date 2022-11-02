@@ -5,7 +5,7 @@
 import { Box, Typography, Card, Button, Grid } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
@@ -53,29 +53,31 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      component: 'h2',
-                      sx: {
-                        color: theme.palette.zesty.zestyDarkText,
-                        fontWeight: 'bold',
-                        textAlign: 'center',
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        variant: 'h3',
+                        component: 'h2',
+                        sx: {
+                          color: theme.palette.zesty.zestyDarkText,
+                          fontWeight: 'bold',
+                          textAlign: 'center',
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h6',
-                      component: 'p',
-                      sx: {
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: 'center',
-                        lineHeight: 1.2,
-                        mt: 2,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h6',
+                        component: 'p',
+                        sx: {
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: 'center',
+                          lineHeight: 1.2,
+                          mt: 2,
+                        },
                       },
                     },
                   },
@@ -86,29 +88,31 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
             </Grid>
             <Grid item xs={12} md={4}>
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      component: 'h2',
-                      sx: {
-                        color: theme.palette.zesty.zestyDarkText,
-                        fontWeight: 'bold',
-                        textAlign: 'center',
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        variant: 'h3',
+                        component: 'h2',
+                        sx: {
+                          color: theme.palette.zesty.zestyDarkText,
+                          fontWeight: 'bold',
+                          textAlign: 'center',
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h6',
-                      component: 'p',
-                      sx: {
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: 'center',
-                        lineHeight: 1.2,
-                        mt: 2,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h6',
+                        component: 'p',
+                        sx: {
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: 'center',
+                          lineHeight: 1.2,
+                          mt: 2,
+                        },
                       },
                     },
                   },
@@ -119,29 +123,31 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
             </Grid>
             <Grid item xs={12} md={4}>
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      component: 'h2',
-                      sx: {
-                        color: theme.palette.zesty.zestyDarkText,
-                        fontWeight: 'bold',
-                        textAlign: 'center',
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        variant: 'h3',
+                        component: 'h2',
+                        sx: {
+                          color: theme.palette.zesty.zestyDarkText,
+                          fontWeight: 'bold',
+                          textAlign: 'center',
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h6',
-                      component: 'p',
-                      sx: {
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: 'center',
-                        lineHeight: 1.2,
-                        mt: 2,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h6',
+                        component: 'p',
+                        sx: {
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: 'center',
+                          lineHeight: 1.2,
+                          mt: 2,
+                        },
                       },
                     },
                   },

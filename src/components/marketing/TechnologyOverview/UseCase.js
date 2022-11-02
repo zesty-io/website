@@ -7,7 +7,7 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Local  Assets Imports
@@ -158,25 +158,27 @@ const UseCase = ({
               }}
             >
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: 'h2',
-                    props: {
-                      style: {
-                        fontSize: isMobile ? 18 : 32,
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: 'center',
+                options={{
+                  overrides: {
+                    h2: {
+                      component: 'h2',
+                      props: {
+                        style: {
+                          fontSize: isMobile ? 18 : 32,
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: 'center',
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: 'p',
-                    props: {
-                      style: {
-                        textAlign: 'center',
-                        color: theme.palette.zesty.zestyZambezi,
-                        mt: 4,
-                        fontSize: isMobile ? 16 : 20,
+                    p: {
+                      component: 'p',
+                      props: {
+                        style: {
+                          textAlign: 'center',
+                          color: theme.palette.zesty.zestyZambezi,
+                          mt: 4,
+                          fontSize: isMobile ? 16 : 20,
+                        },
                       },
                     },
                   },

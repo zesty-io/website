@@ -3,11 +3,10 @@
  */
 import { Box, Card, Container, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 /**
  * Helpers Imports
  */
-import * as helper from 'utils';
 import FillerContent from 'components/globals/FillerContent';
 
 /**
@@ -36,6 +35,7 @@ import TryFreeButton from 'components/cta/TryFreeButton';
  * @param {string} card_name_color - card name title color default is zestyOrange
  * @param {string} header_color - header title color default is zestyDarkText
  * @param {string} cta_button_text - call to action text hidden if empty
+ * @param {string} background_color - override default section container background
  *
  */
 
@@ -52,6 +52,7 @@ const Features = ({
   icon_height = 60,
   center = false,
   cta_button_text = '',
+  background_color = ""
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -76,12 +77,12 @@ const Features = ({
         zIndex: '500',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
-          : theme.palette.common.white,
+          : background_color ? background_color : theme.palette.common.white,
       }}
     >
       <Box
         sx={{
-          zIndex: '10',
+          zIndex: '-10',
           position: 'absolute',
           left: 0,
           bottom: 0,
@@ -94,7 +95,7 @@ const Features = ({
       </Box>
       <Box
         sx={{
-          zIndex: '10',
+          zIndex: '-10',
           position: 'absolute',
           left: 0,
           bottom: 0,
@@ -114,48 +115,50 @@ const Features = ({
       <Container>
         <Box sx={{ py: 10 }}>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'p',
-                  component: 'h2',
-                  sx: {
-                    color: header_color
-                      ? header_color
-                      : theme.palette.zesty.zestyDarkText,
-                    fontSize: isMobile ? 24 : header_size,
-                    textAlign: 'center',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'p',
+                    component: 'h2',
+                    sx: {
+                      color: header_color
+                        ? header_color
+                        : theme.palette.zesty.zestyDarkText,
+                      fontSize: isMobile ? 24 : header_size,
+                      textAlign: 'center',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  component: 'p',
-                  sx: {
-                    textAlign: 'center',
-                    color: isDarkMode
-                      ? theme.palette.zesty.zestyDarkBlue
-                      : theme.palette.zesty.zestyZambezi,
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: {
+                      textAlign: 'center',
+                      color: isDarkMode
+                        ? theme.palette.zesty.zestyDarkBlue
+                        : theme.palette.zesty.zestyZambezi,
+                    },
                   },
                 },
-              },
-              span: {
-                component: Typography,
-                props: {
-                  variant: 'p',
-                  component: 'span',
-                  sx: {
-                    fontSize: 'inherit',
-                    color: theme.palette.zesty.zestyOrange,
+                span: {
+                  component: Typography,
+                  props: {
+                    variant: 'p',
+                    component: 'span',
+                    sx: {
+                      fontSize: 'inherit',
+                      color: theme.palette.zesty.zestyOrange,
+                    },
                   },
                 },
               },
             }}
           >
-            {features_header.replace(
+            {features_header?.replace(
               textHighlight,
               `<span>${textHighlight}</span>`,
             )}
@@ -178,6 +181,7 @@ const Features = ({
           {cta_button_text && (
             <Box
               sx={{
+                mt: 5,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -199,7 +203,7 @@ const Features = ({
             zIndex: '1000',
           }}
         >
-          {data.map((e, i) => {
+          {data?.map((e, i) => {
             return (
               <div key={i}>
                 <Card

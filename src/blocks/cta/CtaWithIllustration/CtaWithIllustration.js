@@ -9,7 +9,7 @@ import CreditCardsIllustration from 'svg/illustrations/CreditCards';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const CtaWithIllustration = ({
   title,
@@ -40,36 +40,38 @@ const CtaWithIllustration = ({
         >
           {isDemoPage ? (
             <MuiMarkdown
-              overrides={{
-                h2: {
-                  component: Typography,
-                  props: {
-                    component: 'h2',
-                    variant: 'h3',
-                    sx: {
-                      fontWeight: 'bold',
-                      color: theme.palette.zesty.zestyZambezi,
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h3',
+                      sx: {
+                        fontWeight: 'bold',
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    component: 'h2',
-                    variant: 'h6',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
-                      mt: 2,
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h6',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        mt: 2,
+                      },
                     },
                   },
-                },
-                li: {
-                  component: Typography,
-                  props: {
-                    component: 'li',
-                    variant: 'h6',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
+                  li: {
+                    component: Typography,
+                    props: {
+                      component: 'li',
+                      variant: 'h6',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
                     },
                   },
                 },

@@ -6,7 +6,7 @@ import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
 import { AppInstallerComp } from 'components/marketplace/AppInstallerComp';
 import { ResourceLinkComp } from 'components/marketplace/ResourceLinkComp';
 import LaunchIcon from '@mui/icons-material/Launch';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 
@@ -233,25 +233,27 @@ const Extension = (props) => {
                 }}
               >
                 <MuiMarkdown
-                  overrides={{
-                    p: {
-                      component: Typography,
-                      props: {
-                        sx: {
-                          color: theme.palette.zesty.zestyZambezi,
+                  options={{
+                    overrides: {
+                      p: {
+                        component: Typography,
+                        props: {
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
+                          variant: 'h5',
+                          component: 'p',
                         },
-                        variant: 'h5',
-                        component: 'p',
                       },
-                    },
-                    img: {
-                      component: Box,
-                      props: {
-                        component: 'img',
-                        sx: {
-                          width: '100%',
-                          maxWidth: 900,
-                          color: theme.palette.zesty.zestyZambezi,
+                      img: {
+                        component: Box,
+                        props: {
+                          component: 'img',
+                          sx: {
+                            width: '100%',
+                            maxWidth: 900,
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
                         },
                       },
                     },

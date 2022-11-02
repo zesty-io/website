@@ -1,385 +1,380 @@
-/**
- * Zesty.io Content Model Component
- * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
- * 
- * Label: Gated Content Pages 
- * Name: gated_content_pages 
- * Model ZUID: 6-fe91d19b97-20jq6m
- * File Created On: Sun May 01 2022 13:45:46 GMT+0800 (Philippine Standard Time)
- * 
- * Model Fields:
- * 
-  * hero_h1 (text)
- * form_title (text)
- * hero_description_box (wysiwyg_basic)
- * section_1_h1 (text)
- * section_1_boxes (one_to_many)
- * section_2_content (wysiwyg_basic)
- * section_2_image (images)
- * section_3_content (wysiwyg_basic)
- * section_3_image (images)
- * bottom_form_title (text)
- * bottom_form_background_image (images)
- * hero_background_image (images)
- * additional_resources_boxes (one_to_many)
- * additional_resources_header (text)
-
- * 
- * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
- * images are objects {content.image_name.data[0].url}
- * 
- * This file is expected to be customized; because of that, it is not overwritten by the integration script.
- * Model and field changes in Zesty.io will not be reflected in this comment.
- * 
- * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-fe91d19b97-20jq6m
- * 
- * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
- * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
- */
-
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
-import { VerticallyAlignedBlogCardsWithShapedImage } from 'blocks/blog';
-import { HeroWithFormAndBackgroundGradient } from 'blocks/heroes';
-import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
-import FillerContent from 'components/globals/FillerContent';
-import WYSIWYGRender from 'components/globals/WYSIWYGRender';
+// REact and MUI Imports
+import { useState, useRef, useCallback } from 'react';
+import { useTheme } from '@emotion/react';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
-import MuiMarkdown from 'mui-markdown';
-import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
-const FeaturesWithMobileScreenshot = ({
-  header,
-  content,
-  image,
-  index,
-  feature_list_h1,
-}) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+// confetti
+import Confetti from 'react-confetti';
+import getWindowDimensions from 'components/marketing/Start/getWindowDimensions';
 
-  return (
-    <Container>
-      {feature_list_h1 && (
-        <Typography
-          variant="p"
-          component="h2"
-          color="text.primary"
-          sx={{
-            fontWeight: '700',
-            textAlign: 'center',
-            fontSize: '32px',
-          }}
-        >
-          {feature_list_h1 || FillerContent.header}
-        </Typography>
-      )}
-      <Grid
-        display={'flex'}
-        flexDirection={
-          isMobile ? 'column' : index !== 1 ? 'row' : 'row-reverse'
-        }
-        container
-        spacing={isMobile ? 0 : 4}
-      >
-        <Grid
-          item
-          container
-          alignItems={'center'}
-          xs={12}
-          md={6}
-          order={{ xs: 3, sm: 2 }}
-        >
-          <Box>
-            <Box marginBottom={2}>
-              <Typography variant={'h4'} sx={{ fontWeight: 700 }} gutterBottom>
-                {header}
-              </Typography>
-            </Box>
-            <Grid container order={{ sm: 2, md: 1 }}>
-              <WYSIWYGRender
-                customClass="circle-icons"
-                rich_text={content || FillerContent.rich_text}
-              ></WYSIWYGRender>
-            </Grid>
-          </Box>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{
-            backgroundColor: 'none',
-            backgroundImage: '',
-            backgroundSize: '100% 100%',
-            backgroundRepeat: 'no-repeat',
-            display: 'flex',
-            // alignItems: 'center',
-            justifyContent: isMobile ? 'center' : 'start',
-            marginTop: isMobile ? '1rem' : '4rem',
-          }}
-          order={{ sm: 1, md: 2 }}
-        >
-          <img
-            height={isMobile ? 200 : 320}
-            src={
-              image
-                ? image
-                : theme.palette.mode === 'light'
-                ? FillerContent.mobileImage.light
-                : FillerContent.mobileImage.dark
-            }
-            alt={header || FillerContent.header}
-            style={{
-              marginBottom: isMobile ? '3rem' : '1rem',
-              objectFit: 'contain',
-              borderRadius: '2rem',
-              transform: isMobile ? 'scale(.80)' : 'scale(.70)',
-              filter: theme.palette.mode === 'dark' ? 'brightness(1)' : 'none',
-            }}
-          />
-        </Grid>
-      </Grid>
-    </Container>
-  );
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+// zoho object
+import { zohoPostObject } from 'components/marketing/Start/zohoPostObject.js';
+import { getCookie, getCookies, setCookie } from 'cookies-next';
+
+// pendo
+import { pendoScript } from 'components/marketing/Start/pendoScript.js';
+
+// slack post function
+import slackQuestionPost from 'components/marketing/Start/slackQuestionPost.js';
+import slackNotify from 'components/marketing/Start/slackNotify.js';
+
+// google analytics
+import * as ga from 'lib/ga';
+
+import { NavigationStart } from 'components/marketing/Start/NavigationStart';
+import { NavStartData } from 'components/marketing/Start/Data/NavStartData';
+import { useZestyStore } from 'store';
+import { Scenarios } from 'components/marketing/Start/Data/Scenarios';
+import axios from 'axios';
+// import { getIsAuthenticated } from 'utils';
+
+// zoho lead post function
+
+const postToZOHO = async (payloadJSON) => {
+  dataLayer.push({ event: 'SignupLead', value: '1' });
+  try {
+    let res = await fetch(
+      'https://us-central1-zesty-prod.cloudfunctions.net/zoho',
+      {
+        method: 'POST',
+        body: JSON.stringify(payloadJSON),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return await res.json();
+  } catch (error) {
+    throw new Error(`HTTP error: ${error}`);
+  }
 };
 
-const ContactUsForm = ({ theme, content, formContent }) => {
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const form_description = '   ';
-
-  return (
-    <Box
-      marginTop={isMobile ? 4 : 14}
-      height={'auto'}
-      position={'relative'}
-      sx={{
-        backgroundColor: theme.palette.alternate.main,
-        background: `url(${
-          (content.bottom_form_background_image?.data &&
-            content.bottom_form_background_image?.data[0]?.url) ||
-          FillerContent.image
-        }) no-repeat center`,
-        backgroundSize: 'cover',
-      }}
-    >
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          width: 1,
-          height: 1,
-          backgroundColor: theme.palette.primary.main,
-          backgroundImage: `linear-gradient(315deg, ${theme.palette.primary.main} 0%, #000000 74%)`,
-          opacity: '0.8',
-          zIndex: 1,
-        }}
-      />
-
-      <Box
-        id="contact-us"
-        sx={{
-          position: 'relative',
-          padding: isMobile ? '5rem 0' : '12rem 0',
-          zIndex: 2,
-        }}
-      >
-        {content.zoho_form_link ? (
-          <ZohoFormEmbed
-            formURL={content.zoho_form_link || ''}
-            height="455px"
-          />
-        ) : (
-          <ContactUs
-            title={content.bottom_form_title || FillerContent.header}
-            description={form_description || FillerContent.description}
-            content={content}
-            formContent={formContent}
-          />
-        )}
-      </Box>
-    </Box>
-  );
+const getTemplate = async (zuid, setrepository, isProduction) => {
+  const url = isProduction
+    ? `https://39ntbr6g-dev.webengine.zesty.io/data/entity.json?zuid=${zuid}`
+    : `https://extensions.zesty.io/data/entity.json?zuid=${zuid}`;
+  await axios
+    .get(url)
+    .then(function (response) {
+      setrepository(response.data[0]);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 };
-
-const ContactUs = ({
-  title,
-  description,
-  // content,
-  formContent,
-}) => {
-  const theme = useTheme();
-
-  return (
-    <Box
-      sx={{
-        background: theme.palette.common.white,
-        paddingTop: '3rem',
-        paddingBottom: '1rem',
-        borderRadius: '15px',
-        paddingX: '3rem',
-      }}
-      maxWidth={600}
-      margin={'0 auto'}
-    >
-      <Box marginBottom={4}>
-        <Typography
-          variant={'p'}
-          component="h2"
-          sx={{
-            fontSize: '1.7rem',
-            fontWeight: 700,
-            color: theme.palette.common.black,
-          }}
-          align={'center'}
-          gutterBottom
-        >
-          {title}
-        </Typography>
-        <Typography
-          sx={{
-            color: theme.palette.common.black,
-          }}
-          align={'center'}
-        >
-          {description}
-        </Typography>
-      </Box>
-      <Box paddingBottom={6} textAlign="left">
-        <StandardFormWithSelect {...formContent} />
-      </Box>
-    </Box>
+export default function Start(props) {
+  const params = new URLSearchParams(
+    typeof window !== 'undefined' && window.location.search,
   );
-};
-
-function GatedContentPage({ content }) {
+  const templateId = params?.toString()?.split('=')[1];
+  const isTemplate = templateId ? true : false;
+  const [isLogin, setisLogin] = useState('');
+  const { userAppSID } = useZestyStore();
   const theme = useTheme();
-  // const router = useRouter();
-  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { height, width } = getWindowDimensions();
+  const isProduction = props.production;
+  const [token, settoken] = useState(userAppSID);
 
-  const formContent = {
-    leadDetail: 'CMSW - Media',
-    businessType: 'Direct',
-    leadSource: 'CMS Wire',
-    selectedValue: 2,
-    hideSelect: true,
-    hideMessage: true,
-    ctaText: FillerContent.cta,
-    modalTitle: (
-      <MuiMarkdown
-        overrides={{
-          h2: {
-            component: Typography,
-            props: {
-              variant: 'h6',
-              component: 'h2',
-            },
-          },
-          p: {
-            component: Typography,
-            props: {
-              variant: 'subtitle1',
-              component: 'p',
-              sx: {
-                mt: 2,
-              },
-            },
-          },
-        }}
-      >
-        {content.thank_you_pop_up || FillerContent.description}
-      </MuiMarkdown>
-    ),
-    modalMessage: '',
-    displayMsgUnderButton: ' ',
-    additionalTextfield: { company: true, jobTitle: true },
-    buttonFullWidth: true,
-    hidePrivacySection: true,
-    messageLabel: '',
-    validationType: 'dxp',
-    bottomCheckbox: true,
-    bottomCheckboxLabel: 'Sign me up for Zesty newsletters insights',
-    ctaButton: 'Download Now',
-    downloadLink:
-      content.contentdownload?.data && content.contentdownload?.data[0]?.url,
-    phoneNumber: true,
-    cmsModel: 'Gated Content Page',
-    zohoFormLink: content.zoho_form_link || '',
+  const [scenario, setscenario] = React.useState(null);
+  const [repository, setrepository] = useState();
+  const [instanceZUID, setinstanceZUID] = useState('');
+
+  // state values for form capture
+  const [role, setRole] = useState('Developer');
+  const [email, setEmail] = useState('..still capturing email');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [projectType, setProjectType] = useState('website');
+  const [currentAnimation, setCurrentAnimation] = useState('enterScreen'); // set starting animation
+  const [userObject, setUserObject] = useState({});
+  const sliderRef = useRef(null);
+
+  // state values for left guide
+  const [title, setTitle] = useState(`Let's begin your Zesty Journey`);
+  const [description, setDescription] = useState(
+    'We are here to guide you every step fo the way.',
+  );
+  const [steps, setSteps] = useState(5);
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const handlePrev = useCallback(() => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slidePrev();
+  }, [currentStep]);
+
+  // moves user forward a slide in the onboard process
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    sliderRef.current.swiper.slideNext();
+    setCurrentAnimation('still');
+  }, []);
+
+  // captures the user question
+  const handleAnswers = async (question, answer, store = false) => {
+    ga.event({
+      action: 'click',
+      params: {
+        question: question,
+        answer: answer,
+      },
+    });
+    if (store !== false) {
+      if (store == 'role') {
+        setRole(answer);
+        setCookie('persona', answer);
+      }
+      if (store == 'projectType') {
+        setProjectType(answer);
+      }
+    }
+
+    setCurrentAnimation('jiggle');
+    handleNext();
+    setCurrentStep(currentStep + 1);
+    if (isProduction === true) {
+      await slackQuestionPost(question, answer, email);
+    }
   };
 
+  const handleSelectTemplate = (repository) => {
+    setrepository(repository);
+    handleNext();
+    setCurrentStep(currentStep + 1);
+  };
+  const hanldeChooseTechStack = () => {
+    window.location.replace(`/instances/${instanceZUID}`);
+  };
+  const stringifyLead = (obj) => {
+    let str = '';
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        str += key + ': ' + obj[key] + '\n';
+      }
+    }
+    return str;
+  };
+  // creates a zesty user and send data into ZOHO leads
+  const signUpSuccess = async (userDetails, creationObect) => {
+    // send user forward visually, then capture their data
+    handleNext();
+    setCurrentAnimation('party');
+    setCurrentStep(currentStep + 1);
+
+    // store email and user to state
+    setEmail(userDetails.email);
+    setFirstName(userDetails.firstName);
+    setLastName(userDetails.lastName);
+    setUserObject(creationObect);
+
+    // notify the team in slack
+    if (isProduction === true) {
+      await slackNotify(`Captured: ${userDetails.email}`);
+    }
+    // map additional userDetails for zoho object
+    userDetails.message = `Project type: ${projectType}`;
+    // instantiate zoho object
+    userDetails.user = true;
+    // setup zoho object
+    let zohoLeadObject = zohoPostObject(
+      userDetails,
+      'Trial',
+      'Trial',
+      'Unknown',
+      'Website',
+      role,
+      creationObect.data.ZUID,
+    );
+    // zoho capture backup
+    if (isProduction === true) {
+      slackNotify(
+        `ZOHO lead slack fallback info: \n ${stringifyLead(zohoLeadObject)}`,
+      );
+    }
+    // post lead to zoho
+    if (isProduction === true) {
+      let zohoData = await postToZOHO(zohoLeadObject);
+      let zoholeadlink =
+        'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/';
+      await slackNotify(
+        `View lead for ${userDetails.email} on ZOHO @ ${zoholeadlink}${zohoData.data[0].details.id}`,
+      );
+    } else {
+      console.log('post object not sent', zohoLeadObject);
+    }
+
+    // welcome screen auto skip!
+    setTimeout(() => {
+      handleNext();
+    }, 5000);
+  };
+
+  // modifies the logo animation
+  const handleAnimation = (ani) => {
+    setCurrentAnimation(ani);
+  };
+
+  const nagivationProps = {
+    scenario,
+    theme,
+    handlePrev,
+    currentStep,
+    steps,
+    title,
+    description,
+  };
+
+  const welcomeMessage = (
+    <Box paddingY={4} sx={{ textAlign: 'center' }}>
+      <Stack pt={8} justifyContent={'center'} width={1} alignItems={'center'}>
+        <img
+          src="https://brand.zesty.io/zesty-io-logo.svg"
+          alt=""
+          height={200}
+          width={200}
+        />
+      </Stack>
+      <Typography variant="h4" gutterBottom pt={4} pb={4}>
+        Welcome to Zesty {firstName}!
+      </Typography>
+    </Box>
+  );
+  const scenarioProps = {
+    sliderRef,
+    isProduction,
+    props,
+    handleSelectTemplate,
+    repository,
+    handleNext,
+    token,
+    setCurrentStep,
+    hanldeChooseTechStack,
+    setinstanceZUID,
+    settoken,
+    handleAnswers,
+    handleAnimation,
+    projectType,
+    signUpSuccess,
+    setscenario,
+    currentStep,
+    firstName,
+    lastName,
+    email,
+    role,
+    userObject,
+    welcomeMessage,
+  };
+
+  React.useEffect(() => {
+    setisLogin(getCookie('APP_SID'));
+  }, [isTemplate]);
+
+  React.useEffect(() => {
+    if (templateId) {
+      getTemplate(templateId, setrepository, isProduction);
+    }
+  }, [templateId]);
+
+  const ScenarioSwitch = () => {
+    console.log(isTemplate, isLogin, scenario, ':::');
+    if (!isTemplate && isLogin) {
+      return <Scenarios.Scenario2 {...scenarioProps} />;
+    } else if (isTemplate && !isLogin) {
+      return <Scenarios.Scenario3 {...scenarioProps} />;
+    } else if (isTemplate && isLogin) {
+      return <Scenarios.Scenario4 {...scenarioProps} />;
+    } else if (!isTemplate && !isLogin) {
+      return <Scenarios.Scenario1 {...scenarioProps} />;
+    } else {
+      return <Scenarios.Scenario1 {...scenarioProps} />;
+    }
+  };
+
+  React.useEffect(() => {
+    setDescription(
+      NavStartData(scenario).find((e) => e.step.id === currentStep)
+        ?.description,
+    );
+    setTitle(
+      NavStartData(scenario).find((e) => e.step.id === currentStep)?.title,
+    );
+  }, [currentStep, scenario]);
+
+  React.useEffect(() => {
+    if (scenario === 1) setSteps(5);
+    if (scenario === 2) setSteps(3);
+    if (scenario === 3) setSteps(3);
+    if (scenario === 4) setSteps(2);
+  }, [scenario]);
+
   return (
-    <>
-      {/* Hero section */}
-      <HeroWithFormAndBackgroundGradient
-        headelineTitle={content.hero_h1 || FillerContent.header}
-        description={content.hero_description_box || FillerContent.description}
-        imageCollection={[]}
-        backgroundImage={
-          content?.hero_background_image?.data &&
-          content?.hero_background_image?.data[0]?.url
-        }
-        form_title={content.form_title || FillerContent.header}
-        formContent={formContent}
-      />
-
-      {/* section */}
-      <Box id="content-management" paddingTop={6}>
-        <FeaturesWithMobileScreenshot
-          index={0}
-          header={'   ' || FillerContent.header}
-          content={content.section_2_content || FillerContent.rich_text}
-          image={
-            (content?.section_2_image?.data &&
-              content?.section_2_image?.data[0]?.url) ||
-            FillerContent.image
-          }
-        />
-      </Box>
-
-      {/* section */}
-      <Box id="digital-asset-management" paddingTop={6}>
-        <FeaturesWithMobileScreenshot
-          index={1}
-          header={'  ' || FillerContent.header}
-          content={content.section_3_content || FillerContent.rich_text}
-          image={
-            (content?.section_3_image?.data &&
-              content?.section_3_image?.data[0]?.url) ||
-            FillerContent.image
-          }
-        />
-      </Box>
-
-      {/* form */}
-      <ContactUsForm
-        theme={theme}
-        content={content}
-        formContent={formContent}
-      />
-
-      {/* Industry Insights > Latest Blogs articles */}
-      <Box paddingY={8}>
-        <VerticallyAlignedBlogCardsWithShapedImage
-          title={content.additional_resources_header || FillerContent.header}
-          description={undefined}
-          popularArticles={content.additional_resources_boxes.data}
-          ctaBtn={undefined}
-          ctaUrl={/mindshare/}
-          titlePosition="center"
-          titleVariant="h4"
-        />
-      </Box>
-    </>
+    <Box
+      sx={{
+        background: theme.palette.zesty.zestyDarkBlue,
+        position: 'relative',
+      }}
+    >
+      <Grid container height={1}>
+        {/* Navigation Description Guide */}
+        <NavigationStart {...nagivationProps} /> {/* Slider Expereince  */}
+        <Grid item xs={0} md={3}></Grid>
+        <Grid
+          item
+          xs={12}
+          md={9}
+          height={1}
+          sx={{
+            background: theme.palette.common.white,
+            borderTopLeftRadius: '120px',
+            overflow: 'hidden',
+          }}
+        >
+          {pendoScript}
+          {currentAnimation == 'party' && (
+            <Confetti
+              width={width}
+              height={height}
+              numberOfPieces={333}
+              recycle={false}
+              confettiSource={{ x: width / 2 - 100, y: 0, w: 200, h: 200 }}
+              onConfettiComplete={() => setCurrentAnimation('still')}
+            />
+          )}
+          {ScenarioSwitch()}
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
-export default GatedContentPage;
+export async function getServerSideProps({ req, res }) {
+  // does not display with npm run dev
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=600, stale-while-revalidate=3600',
+  );
+  let data = {
+    production:
+      process.env.PRODUCTION == 'true' || process.env.PRODUCTION === true
+        ? true
+        : false,
+  };
+
+  // const isAuthenticated = getIsAuthenticated(res);
+
+  // Pass data to the page via props
+  return {
+    props: {
+      ...data,
+      cookies: getCookies({ req, res }),
+    },
+  };
+}

@@ -2,7 +2,7 @@
  * MUI Imports
  */
 import { Box, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 /**
  * Components Imports
  */
@@ -48,14 +48,16 @@ const TopCompanies = ({
         variant="h3"
       >
         <MuiMarkdown
-          overrides={{
-            strong: {
-              component: Typography,
-              props: {
-                color: theme.palette.zesty.zestyOrange,
-                fontSize: 'inherit',
-                fontWeight: 'inherit',
-                display: 'inline',
+          options={{
+            overrides: {
+              strong: {
+                component: Typography,
+                props: {
+                  color: theme.palette.zesty.zestyOrange,
+                  fontSize: 'inherit',
+                  fontWeight: 'inherit',
+                  display: 'inline',
+                },
               },
             },
           }}

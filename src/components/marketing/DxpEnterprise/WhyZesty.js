@@ -3,7 +3,7 @@
  */
 
 import { Box, Grid, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Local Assets Imports
@@ -72,25 +72,27 @@ const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
                 md={6}
               >
                 <MuiMarkdown
-                  overrides={{
-                    h3: {
-                      component: Typography,
-                      props: {
-                        variant: 'h4',
-                        component: 'h3',
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: isMedium ? 'center' : 'text-left',
-                        fontWeight: 'bold',
+                  options={{
+                    overrides: {
+                      h3: {
+                        component: Typography,
+                        props: {
+                          variant: 'h4',
+                          component: 'h3',
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: isMedium ? 'center' : 'text-left',
+                          fontWeight: 'bold',
+                        },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        variant: 'h5',
-                        mt: 1,
-                        component: 'p',
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: isMedium ? 'center' : 'text-left',
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'h5',
+                          mt: 1,
+                          component: 'p',
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: isMedium ? 'center' : 'text-left',
+                        },
                       },
                     },
                   }}
