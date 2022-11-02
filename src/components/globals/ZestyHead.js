@@ -28,7 +28,7 @@ export default function ZestyHead({ content }) {
   return (
     <Head>
       {' '}
-      <title>{content.meta.web.seo_meta_title}</title>
+      <title>{content.meta?.web?.seo_meta_title}</title>
       <link
         rel="icon"
         href="https://brand.zesty.io/favicon.png"
@@ -38,14 +38,14 @@ export default function ZestyHead({ content }) {
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
-      <meta property="og:title" content={content.meta.web.seo_meta_title} />
+      <meta property="og:title" content={content.meta?.web?.seo_meta_title} />
       <meta
         name="description"
-        content={content.meta.web.seo_meta_description}
+        content={content.meta?.web.seo_meta_description}
       />
       <meta
         property="og:description"
-        content={content.meta.web.seo_meta_description}
+        content={content.meta?.web.seo_meta_description}
       />
       <meta property="og:image" content={ogimage} />
       {isPPCPage && <meta name="robots" content="noindex"></meta>}

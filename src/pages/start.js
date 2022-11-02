@@ -15,7 +15,7 @@ import 'swiper/css/navigation';
 
 // zoho object
 import { zohoPostObject } from 'components/marketing/Start/zohoPostObject.js';
-import { getCookie, setCookie } from 'cookies-next';
+import { getCookie, getCookies, setCookie } from 'cookies-next';
 
 // pendo
 import { pendoScript } from 'components/marketing/Start/pendoScript.js';
@@ -355,7 +355,7 @@ export default function Start(props) {
   );
 }
 
-export async function getServerSideProps({ res }) {
+export async function getServerSideProps({ req, res }) {
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
@@ -374,9 +374,7 @@ export async function getServerSideProps({ res }) {
   return {
     props: {
       ...data,
-      zesty: {
-        isAuthenticated,
-      },
+      cookies: getCookies({ req, res }),
     },
   };
 }

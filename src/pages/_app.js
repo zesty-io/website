@@ -17,6 +17,7 @@ import { SnackbarProvider } from 'notistack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import usePeriodicVerify from 'components/hooks/usePeriodicVerify';
 import Head from 'next/head';
+import CookiesProvider from 'components/context/CookiesProvider';
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -84,7 +85,7 @@ export default function App({ Component, pageProps }) {
   }, [verifySuccess, instances, userInfo, loading]);
 
   return (
-    <React.Fragment>
+    <CookiesProvider value={pageProps?.cookies}>
       {pageProps?.meta?.web && <ZestyHead content={pageProps} />}
 
       <Head>
@@ -133,7 +134,7 @@ export default function App({ Component, pageProps }) {
           )}
         </Page>
       </SnackbarProvider>
-    </React.Fragment>
+    </CookiesProvider>
   );
 }
 

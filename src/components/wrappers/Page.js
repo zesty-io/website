@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -7,55 +7,38 @@ import getTheme, { getThemeAccounts } from 'theme';
 import AOS from 'aos';
 import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import { useRouter } from 'next/router';
 
 export const useDarkMode = () => {
-  // set the initial theme from localstorage or 'light'
-  const [themeMode, setTheme] = useState(
-    (typeof window !== 'undefined' &&
-      window.localStorage.getItem('themeMode')) ||
-      'light',
-  );
-
-  const [mountedComponent, setMountedComponent] = useState(false);
-
-  const setMode = (mode) => {
-    try {
-      if (typeof window !== 'undefined')
-        window.localStorage.setItem('themeMode', mode);
-    } catch {
-      /* do nothing */
-    }
-
-    setTheme(mode);
-  };
+  const [themeMode, setThemeMode] = useState('light');
 
   const themeToggler = () => {
-    themeMode === 'light' ? setMode('dark') : setMode('light');
+    const theme = themeMode === 'light' ? 'dark' : 'light';
+    window.localStorage.setItem('themeMode', theme);
+    setThemeMode(theme);
   };
 
   useEffect(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        const localTheme = window.localStorage.getItem('themeMode');
-        localTheme ? setTheme(localTheme) : setMode('light');
-      }
-    } catch {
-      setMode('light');
-    }
-
-    setMountedComponent(true);
+    window.localStorage.setItem(
+      'themeMode',
+      window.localStorage.getItem('themeMode') || themeMode,
+    );
+    setThemeMode(window.localStorage.getItem('themeMode'));
   }, []);
 
-  return [themeMode, themeToggler, mountedComponent];
+  return [themeMode, themeToggler];
 };
 
 export default function Page({ children }) {
-  const router = useRouter();
+  const [pathname, setPathname] = useState('');
   const isLoggedIn = useIsLoggedIn();
-  const isAccounts = isProtectedRoute(router.pathname);
+  const isAccounts = isProtectedRoute(pathname);
+  const [themeMode, themeToggler] = useDarkMode();
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
+
+  useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
@@ -71,17 +54,15 @@ export default function Page({ children }) {
     });
   }, []);
 
-  const [themeMode, themeToggler, mountedComponent] = useDarkMode();
-
   useEffect(() => {
     AOS.refresh();
-  }, [mountedComponent, themeMode]);
+  }, [themeMode]);
 
   return (
     <ThemeProvider
       // only apply zesty/material in accounts paths
       theme={
-        (isAccounts && isLoggedIn) || (isLoggedIn && router.pathname === '/')
+        (isAccounts && isLoggedIn) || (isLoggedIn && pathname === '/')
           ? getThemeAccounts(themeMode, themeToggler)
           : getTheme(themeMode, themeToggler)
       }
