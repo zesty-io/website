@@ -8,7 +8,7 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 
 const TechStack = ({
   headerColor,
-  headerFontWeight,
+  headerFontWeight = 500,
   text_content,
   logos,
   cta_text,
@@ -49,7 +49,7 @@ const TechStack = ({
                       variant: 'h4',
                       component: 'h2',
                       sx: {
-                        fontWeight: headerFontWeight ? headerFontWeight : 500,
+                        fontWeight: headerFontWeight,
                         color: headerColor ? headerColor : theme.palette.zesty.zestyOrange,
                       },
                     },

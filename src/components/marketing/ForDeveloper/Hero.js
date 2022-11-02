@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, Stack } from '@mui/material';
 
 /**
  * Components Imports
@@ -62,18 +62,18 @@ const Hero = ({
             md={6}
           >
             <Typography
-                component={'h1'}
-                variant="p"
-                color={
-                  isDarkMode
-                    ? theme.palette.zesty.zestyWhite
-                    : theme.palette.zesty.zestyGrey
-                }
-                gutterBottom
-                sx={{ fontWeight: 400, fontSize: '20px' }}
-              >
-                {eyebrow}
-              </Typography>
+              component={'h1'}
+              variant="p"
+              color={
+                isDarkMode
+                  ? theme.palette.zesty.zestyWhite
+                  : theme.palette.zesty.zestyGrey
+              }
+              gutterBottom
+              sx={{ fontWeight: 400, fontSize: '20px' }}
+            >
+              {eyebrow}
+            </Typography>
             <MuiMarkdown
               overrides={{
                 h1: {
@@ -102,7 +102,7 @@ const Hero = ({
             >
               {header}
             </MuiMarkdown>
-            <Box
+            <Stack
               sx={{
                 mt: 4,
                 display: 'flex',
@@ -111,10 +111,10 @@ const Hero = ({
               }}
             >
               <TryFreeButton
-                  text={primaryCta}
-                  variant="contained"
-                  fullWidth={isMedium}
-                />
+                text={primaryCta}
+                variant="contained"
+                fullWidth={isMedium}
+              />
               <DemoCta
                 icon={false}
                 sx={{
@@ -126,7 +126,7 @@ const Hero = ({
                 text={secondaryCta}
                 href={secondaryCtaLink}
               />
-            </Box>
+            </Stack>
           </Grid>
           <Grid item sm={12} md={6}>
             <Box>

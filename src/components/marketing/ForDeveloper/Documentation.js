@@ -75,14 +75,18 @@ const Documentation = ({
                 }}
               >
                 <Box sx={{ textAlign: 'center' }}>
-                 <ZestyImage
-                  alt={item.title}
-                  loading="lazy"
-                  style={{ width: '100%', maxWiheightdth: 'auto', height: 75 }}
-                  width={75}
-                  height={75}
-                  src={item.graphic?.data[0].url}
-                 />
+                  <ZestyImage
+                    alt={item.title}
+                    loading="lazy"
+                    style={{
+                      width: '100%',
+                      maxWiheightdth: 'auto',
+                      height: 75,
+                    }}
+                    width={75}
+                    height={75}
+                    src={item.graphic?.data[0].url}
+                  />
                 </Box>
                 <Box sx={{ mt: 5 }}>
                   <Typography

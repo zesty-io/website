@@ -83,7 +83,6 @@ import Hero from 'components/marketing/ForDeveloper/Hero';
 import ContainerWithBackground from 'components/marketing/ForDeveloper/ContainerWithBackground';
 import Features from 'blocks/features/Features/Features';
 import ZestyDrives from 'components/marketing/ForDeveloper/ZestyDrives';
-import Support from 'components/marketing/ForDeveloper/Support';
 import Documentation from 'components/marketing/ForDeveloper/Documentation';
 import TechStack from 'blocks/integrations/TechStack';
 import { WithHighlightedCard } from 'blocks/testimonials';
@@ -105,7 +104,7 @@ function ForDeveloper({ content }) {
     isLarge,
     isExtraLarge,
     isDarkMode,
-    FillerContent
+    FillerContent,
   };
 
   const heroProps = {
@@ -200,11 +199,6 @@ function ForDeveloper({ content }) {
   const supportProps = {
     eyebrow: content.support_eyebrow || FillerContent.header,
     titleAndDescription: content.support_text || FillerContent.rich_text,
-    mainImage:
-      content.nextjs_graphic?.data[0]?.url || FillerContent.photos[0].src,
-    primaryCta: content.footer_button_2 || FillerContent.cta,
-    primaryCtaLink:
-      content.footer_button_2_link.data[0].meta.web.uri || FillerContent.href,
     ...pageProps,
   };
 
@@ -238,14 +232,14 @@ function ForDeveloper({ content }) {
   return (
     <>
       <Hero {...heroProps} />
-      <Box sx={{ mb: isSmall ? 7 : 5 }}>
-      <ContainerWithBackground {...nextJsProps} sx={{ mb: 7 }} />
+      <Box sx={{ mb: 7 }}>
+        <ContainerWithBackground {...nextJsProps} />
       </Box>
       <Features {...whyZestyProps} />
-      <ContainerWithBackground {...nodeSDKProps} sx={{ mb: 7 }} />
+      <ContainerWithBackground {...nodeSDKProps} />
       <ZestyDrives {...zestyDrivesProps} />
       <TechStack {...integrationsProps} />
-      <Support {...supportProps} />
+      <ContainerWithBackground {...supportProps} />
       <Documentation {...documentationProps} />
       <WithHighlightedCard {...testimonialsProps} />
       <Box sx={{ mt: isSmall ? 15 : 20 }}>
