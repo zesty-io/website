@@ -31,7 +31,6 @@ const Main = ({
   bgcolor = 'transparent',
   model = '',
 }) => {
-  console.log('test2');
   // main should verify the user as boolean
   const router = useRouter();
   const [pathname, setPathname] = useState('');
