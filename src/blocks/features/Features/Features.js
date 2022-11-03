@@ -83,7 +83,7 @@ const Features = ({
     >
       <Box
         sx={{
-          zIndex: '10',
+          zIndex: '-10',
           position: 'absolute',
           left: 0,
           bottom: 0,
@@ -96,7 +96,7 @@ const Features = ({
       </Box>
       <Box
         sx={{
-          zIndex: '10',
+          zIndex: '-10',
           position: 'absolute',
           left: 0,
           bottom: 0,
@@ -162,8 +162,54 @@ const Features = ({
               `<span>${textHighlight}</span>`,
             )}
           </MuiMarkdown>
-
-          <Typography
+          
+          <MuiMarkdown
+            overrides={{
+              h2: {
+                component: Typography,
+                props: {
+                  variant: 'h4',
+                  component: 'h2',
+                  sx: {
+                    color: header_color
+                      ? header_color
+                      : theme.palette.zesty.zestyDarkText,
+                    fontSize: isMobile ? 24 : header_size,
+                    textAlign: 'center',
+                    fontWeight: 700,
+                    mt: 2,
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h6',
+                  component: 'p',
+                  sx: {
+                    textAlign: 'center',
+                    color: isDarkMode
+                      ? theme.palette.zesty.zestyDarkBlue
+                      : theme.palette.zesty.zestyZambezi,
+                  },
+                },
+              },
+              span: {
+                component: Typography,
+                props: {
+                  variant: 'p',
+                  component: 'span',
+                  sx: {
+                    fontSize: 'inherit',
+                    color: theme.palette.zesty.zestyOrange,
+                  },
+                },
+              },
+            }}
+          >
+            {feature_description || ''}
+          </MuiMarkdown>
+          {/* <Typography
             variant="h6"
             component="h2"
             sx={{
@@ -175,11 +221,12 @@ const Features = ({
             }}
           >
             {feature_description || ''}
-          </Typography>
+          </Typography> */}
 
           {cta_button_text && (
             <Box
               sx={{
+                mt: 5,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
