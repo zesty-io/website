@@ -26,6 +26,7 @@ const Bottom = ({
   cta_text,
   secondary_cta_text,
   secondary_cta_link,
+  backgroundColor,
 }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
@@ -38,7 +39,7 @@ const Bottom = ({
     <Box
       component="section"
       sx={{
-        background: theme.palette.zesty.zestyDarkBlueRadialGradient,
+        background: backgroundColor ? backgroundColor : theme.palette.zesty.zestyDarkBlueRadialGradient,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
