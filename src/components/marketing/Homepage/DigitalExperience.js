@@ -3,7 +3,7 @@
  */
 
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
 import ZestyImage from 'blocks/Image/ZestyImage';
 /**
@@ -32,50 +32,52 @@ const DigitalExperience = ({ content, FillerContent, theme, isDarkMode }) => {
 
       <Container>
         <MuiMarkdown
-          overrides={{
-            span: {
-              component: Typography,
-              props: {
-                variant: 'h3',
-                component: 'span',
-                sx: {
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  textDecoration: 'underline',
-                  textDecorationColor: theme.palette.zesty.zestyOrange,
-                  textUnderlinePosition: 'under',
-                  color: 'inherit',
+          options={{
+            overrides: {
+              span: {
+                component: Typography,
+                props: {
+                  variant: 'h3',
+                  component: 'span',
+                  sx: {
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    textDecoration: 'underline',
+                    textDecorationColor: theme.palette.zesty.zestyOrange,
+                    textUnderlinePosition: 'under',
+                    color: 'inherit',
+                  },
                 },
               },
-            },
-            h2: {
-              component: Typography,
-              props: {
-                variant: 'h3',
-                component: 'h2',
-                sx: {
-                  width: '100%',
-                  maxWidth: 700,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  color: theme.palette.zesty.zestyDarkText,
-                  margin: 'auto',
+              h2: {
+                component: Typography,
+                props: {
+                  variant: 'h3',
+                  component: 'h2',
+                  sx: {
+                    width: '100%',
+                    maxWidth: 700,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    color: theme.palette.zesty.zestyDarkText,
+                    margin: 'auto',
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                variant: 'h6',
-                component: 'p',
-                sx: {
-                  pt: 4,
-                  width: '100%',
-                  maxWidth: 700,
-                  lineHeight: 1.2,
-                  textAlign: 'center',
-                  color: theme.palette.zesty.zestyZambezi,
-                  margin: 'auto',
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h6',
+                  component: 'p',
+                  sx: {
+                    pt: 4,
+                    width: '100%',
+                    maxWidth: 700,
+                    lineHeight: 1.2,
+                    textAlign: 'center',
+                    color: theme.palette.zesty.zestyZambezi,
+                    margin: 'auto',
+                  },
                 },
               },
             },

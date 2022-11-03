@@ -37,8 +37,12 @@ export const DeveloperDocMenu = ({ colorInvert }) => {
         }}
       >
         <Box paddingY={1}>
-          {accounts.developerDocs.map((e) => (
-            <MenuItem title={e.label} onClick={() => handleClose(e.link)}>
+          {accounts.developerDocs.map((e, index) => (
+            <MenuItem
+              key={index}
+              title={e.label}
+              onClick={() => handleClose(e.link)}
+            >
               {e.label}
             </MenuItem>
           ))}

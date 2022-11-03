@@ -1,7 +1,7 @@
 // Mui Import
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/globals/FillerContent';
 
@@ -42,17 +42,19 @@ const SimpleCardLogo = ({
       <Container sx={{ maxWidth: maxWidth }}>
         {textOutside && (
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h4',
-                  component: 'h2',
-                  sx: {
-                    color: theme.palette.zesty.zestyZambezi,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    mb: 4,
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      color: theme.palette.zesty.zestyZambezi,
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                      mb: 4,
+                    },
                   },
                 },
               },
@@ -72,17 +74,19 @@ const SimpleCardLogo = ({
           <CardContent>
             {!textOutside && (
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'h2',
-                      sx: {
-                        color: theme.palette.zesty.zestyZambezi,
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                        mb: 4,
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'h2',
+                        sx: {
+                          color: theme.palette.zesty.zestyZambezi,
+                          fontWeight: 'bold',
+                          textAlign: 'center',
+                          mb: 4,
+                        },
                       },
                     },
                   },

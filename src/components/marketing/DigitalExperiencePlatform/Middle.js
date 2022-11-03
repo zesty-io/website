@@ -3,7 +3,7 @@
  */
 
 import { Box, Container, Typography, Grid } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import FillerContent from 'components/globals/FillerContent';
 
 const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
@@ -217,34 +217,36 @@ const RevealComponent = ({
           >
             <Box>
               <MuiMarkdown
-                overrides={{
-                  h3: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'h3',
-                      sx: {
-                        background: theme.palette.zesty.zestyOrangeLinear,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        color: 'transparent',
-                        ml: isMobile ? 5 : 0,
+                options={{
+                  overrides: {
+                    h3: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'h3',
+                        sx: {
+                          background: theme.palette.zesty.zestyOrangeLinear,
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          color: 'transparent',
+                          ml: isMobile ? 5 : 0,
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'p',
-                      sx: {
-                        ml: isMobile ? 5 : 0,
-                        color: theme.palette.common.white,
-                        lineHeight: 1,
-                        marginTop: 2,
-                        textAlign: 'left',
-                        fontSize: isMobile ? 25 : 32,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'p',
+                        sx: {
+                          ml: isMobile ? 5 : 0,
+                          color: theme.palette.common.white,
+                          lineHeight: 1,
+                          marginTop: 2,
+                          textAlign: 'left',
+                          fontSize: isMobile ? 25 : 32,
+                        },
                       },
                     },
                   },

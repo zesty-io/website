@@ -1,7 +1,7 @@
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import FillerContent from 'components/globals/FillerContent';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { useTheme } from '@mui/material/styles';
 
 const OverviewProcessComp = ({ content, image }) => {
@@ -12,29 +12,31 @@ const OverviewProcessComp = ({ content, image }) => {
       <Grid container justify="center">
         <Box justifyContent="center" alignItems="center">
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h4',
-                  component: 'h2',
-                  sx: {
-                    color: theme.palette.zesty.zestyZambezi,
-                    textAlign: 'center',
-                    fontWeight: 'bold',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  component: 'p',
-                  sx: {
-                    color: theme.palette.zesty.zestyZambezi,
-                    textAlign: 'center',
-                    lineHeight: 1.2,
-                    mt: 2,
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: {
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
+                      lineHeight: 1.2,
+                      mt: 2,
+                    },
                   },
                 },
               },

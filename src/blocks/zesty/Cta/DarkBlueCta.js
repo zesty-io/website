@@ -3,7 +3,7 @@
  */
 
 import { Box, Typography, Button } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
 import { useTheme } from '@mui/material/styles';
 import TryFreeButton from 'components/cta/TryFreeButton';
@@ -15,41 +15,46 @@ const DarkBlueCta = ({
   cta_text,
   cta_secondary_text,
   cta_secondary_link,
-  sx
-
+  sx,
 }) => {
   const theme = useTheme();
-
 
   return (
     <Box component="section">
       <Container
-        sx={{...sx, background:theme.palette.zesty.zestyDarkBlueRadialGradient, borderRadius:5}}
+        sx={{
+          ...sx,
+          background: theme.palette.zesty.zestyDarkBlueRadialGradient,
+          borderRadius: 5,
+        }}
       >
         <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h4',
-                  component:'h2',
-                  sx: {
-                    color: theme.palette.common.white,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      color: theme.palette.common.white,
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  sx: {
-                    color: theme.palette.common.white,
-                    textAlign: 'center',
-                    lineHeight: 1.2,
-                    mt: 2,
+
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    sx: {
+                      color: theme.palette.common.white,
+                      textAlign: 'center',
+                      lineHeight: 1.2,
+                      mt: 2,
+                    },
                   },
                 },
               },

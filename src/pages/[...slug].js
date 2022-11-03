@@ -5,12 +5,10 @@ import { githubFetch } from 'lib/githubFetch';
 
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
-import { useTheme } from '@emotion/react';
 import { getIsAuthenticated } from 'utils';
+import { getCookies } from 'cookies-next';
 
 export default function Slug(props) {
-  const theme = useTheme();
-
   // for homepage navigation
   // const isDarkMode = theme.palette.mode === 'dark';
   let bgcolor = 'transparent';
@@ -75,5 +73,5 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   }
 
   // Pass data to the page via props
-  return { props: data };
+  return { props: { ...data, cookies: getCookies({ req, res }) } };
 }

@@ -24,7 +24,7 @@ import {
   Typography,
 } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import { isProtectedRoute } from 'lib/protectedRouteGetServerSideProps';
+import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
 import { AccountsThemeToggler } from 'components/globals/AccountsThemeToggler';
 import { AccountsSingleNavItem } from '../Topbar/components/NavItem/AccountsSingleNavItem';
 import { useTheme } from '@mui/material/styles';
@@ -99,22 +99,18 @@ const mobileNavLinks = [
 ];
 
 const AppNavigation = ({
-  onSidebarOpen,
+  // onSidebarOpen,
   colorInvert = false,
-  loading = false,
-  trigger,
+  // loading = false,
+  // trigger,
 }) => {
   const router = useRouter();
+  const [pathname, setPathname] = useState('');
   const { instances, setworkingInstance, userInfo } = useZestyStore(
     (state) => state,
   );
-
+  const [isMarketplace, setIsMarketplace] = useState(false);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-
-  const isMarketplace =
-    window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
-      ? true
-      : false;
 
   const handleComboxClick = (zuid) => {
     setCookie('ZESTY_WORKING_INSTANCE', zuid);
@@ -127,14 +123,23 @@ const AppNavigation = ({
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
 
   const isLoggedIn = useIsLoggedIn();
-
-  const isAccounts = isProtectedRoute(window.location.pathname);
+  const isAccounts = isProtectedRoute(pathname);
   const theme = useTheme();
   const isXL = useMediaQuery(theme.breakpoints.up('xl'));
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
   const isSM = useMediaQuery(theme.breakpoints.down('md'));
   const isMD = useMediaQuery(theme.breakpoints.up('md'));
   const [isToggle, setIsToggle] = useState(false);
+
+  useEffect(() => {
+    setIsMarketplace(
+      window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
+        ? true
+        : false,
+    );
+
+    setPathname(window.location.pathname);
+  }, []);
 
   useEffect(() => {
     setIsToggle(false);
@@ -195,7 +200,7 @@ const AppNavigation = ({
                 <Button
                   color={
                     (isAccounts && isLoggedIn) ||
-                    (isLoggedIn && window.location.pathname === '/')
+                    (isLoggedIn && pathname === '/')
                       ? 'primary'
                       : 'secondary'
                   }
@@ -239,7 +244,7 @@ const AppNavigation = ({
                   href={createInstanceLink}
                   color={
                     (isAccounts && isLoggedIn) ||
-                    (isLoggedIn && window.location.pathname === '/')
+                    (isLoggedIn && pathname === '/')
                       ? 'primary'
                       : 'secondary'
                   }

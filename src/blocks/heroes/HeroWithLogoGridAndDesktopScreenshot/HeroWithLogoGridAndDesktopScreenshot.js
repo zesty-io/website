@@ -1,11 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import LaptopSkeletonIllustration from 'svg/illustrations/LaptopSkeleton';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
@@ -32,27 +31,29 @@ const Hero = ({ header_title_and_description, video_link = '' }) => {
             <Grid item container alignItems={'center'} xs={12} md={5}>
               <Box>
                 <MuiMarkdown
-                  overrides={{
-                    h1: {
-                      component: Typography,
-                      props: {
-                        component: 'h1',
-                        variant: 'h3',
-                        sx: {
-                          color: theme.palette.zesty.zestyZambezi,
-                          fontWeight: 'bold',
+                  options={{
+                    overrides: {
+                      h1: {
+                        component: Typography,
+                        props: {
+                          component: 'h1',
+                          variant: 'h3',
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                            fontWeight: 'bold',
+                          },
                         },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        component: 'p',
-                        variant: 'h6',
-                        sx: {
-                          color: theme.palette.zesty.zestyZambezi,
-                          fontWeight: 500,
-                          mt: 2,
+                      p: {
+                        component: Typography,
+                        props: {
+                          component: 'p',
+                          variant: 'h6',
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                            fontWeight: 500,
+                            mt: 2,
+                          },
                         },
                       },
                     },
@@ -82,7 +83,7 @@ const Hero = ({ header_title_and_description, video_link = '' }) => {
                     }}
                     src={link}
                     title="YouTube video player"
-                    frameborder="0"
+                    // frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                   ></iframe>

@@ -40,7 +40,7 @@ const eventActionSwitcher = (event) => {
 
 const CustomTable = ({
   data,
-  isInstanceOwner,
+  // isInstanceOwner,
   handleDeleteWebhookModal,
   handleTestWebhook,
   handleViewWebhook,

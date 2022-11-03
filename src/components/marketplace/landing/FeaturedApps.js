@@ -17,7 +17,7 @@ import { MarketplaceContext } from '../MarketplaceContext';
 import { useRouter } from 'next/router';
 
 const FeaturedApps = ({ featuredApps }) => {
-  const { entities, isSearching } = useContext(MarketplaceContext);
+  const { isSearching } = useContext(MarketplaceContext);
   const router = useRouter();
 
   /************************************************

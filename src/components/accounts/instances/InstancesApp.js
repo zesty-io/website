@@ -21,7 +21,7 @@ import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
-let capitalize = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
+// let capitalize = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
 
 const Index = ({ children }) => {
   const [loading, setloading] = React.useState(false);
@@ -70,7 +70,9 @@ const Index = ({ children }) => {
     }
   }, [router.isReady]);
 
-  const title = instance.name + ` Instance - ${currentPage} - Zesty.io Console`;
+  const title =
+    instance?.name ||
+    'Loading' + ` Instance - ${currentPage} - Zesty.io Console`;
 
   return (
     <Box>
@@ -122,8 +124,9 @@ const Index = ({ children }) => {
           >
             {instanceTabs
               .sort((a, b) => a.sort - b.sort)
-              .map((tab) => (
+              .map((tab, index) => (
                 <Tab
+                  key={index}
                   icon={tab.icon}
                   value={tab.filename}
                   iconPosition="start"

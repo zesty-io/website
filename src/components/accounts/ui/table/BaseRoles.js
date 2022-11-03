@@ -4,7 +4,7 @@ import { grey } from '@mui/material/colors';
 import { docData } from 'components/accounts/users/docData';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-export const BaseRolesTable = ({ title = 'Base Roles in Zesty.io' }) => {
+export const BaseRolesTable = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={6}>

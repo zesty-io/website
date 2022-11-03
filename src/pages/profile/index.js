@@ -3,7 +3,7 @@ import { useZestyStore } from 'store';
 import { YourProfile } from 'views/accounts/profile/YourProfile';
 import { ProfileContainer } from 'components/accounts';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function ProfilePage() {
   const { setuserInfo } = useZestyStore((state) => state);

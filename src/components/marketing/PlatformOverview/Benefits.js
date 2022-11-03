@@ -2,7 +2,7 @@
  * MUI Imports
  */
 import { Box, Grid, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Components Imports
@@ -62,15 +62,17 @@ const Benefits = ({ theme, isMedium, content, FillerContent }) => {
                 </Typography>
                 <Box sx={{ mt: 2 }}>
                   <MuiMarkdown
-                    overrides={{
-                      p: {
-                        component: Typography,
-                        props: {
-                          component: 'p',
-                          variant: 'h6',
-                          sx: {
-                            lineHeight: 1.2,
-                            color: theme.palette.zesty.zestyZambezi,
+                    options={{
+                      overrides: {
+                        p: {
+                          component: Typography,
+                          props: {
+                            component: 'p',
+                            variant: 'h6',
+                            sx: {
+                              lineHeight: 1.2,
+                              color: theme.palette.zesty.zestyZambezi,
+                            },
                           },
                         },
                       },

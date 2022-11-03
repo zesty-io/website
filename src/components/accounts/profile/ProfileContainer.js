@@ -4,10 +4,11 @@ import { Container } from '@mui/material';
 import { ProfileApp } from './ProfileApp';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { capitalizeFirstLetter } from 'utils';
+import { useRouter } from 'next/router';
 
 const Index = ({ children }) => {
-  const path =
-    window.location.pathname.split('/')?.filter((e) => e)[1] || 'Profile';
+  const router = useRouter();
+  const path = router?.pathname?.split('/')?.filter((e) => e)[1] || 'Profile';
   const renderChildren = () => {
     return <ProfileApp>{children}</ProfileApp>;
   };

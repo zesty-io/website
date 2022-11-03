@@ -26,7 +26,7 @@ const ExtensionsIntaller = ({
         'https://us-central1-zesty-dev.cloudfunctions.net/installExtension',
         requestOptions,
       );
-      const data = await response.json();
+      await response.json();
     } catch (error) {
       console.error('There was an error!', error);
     }

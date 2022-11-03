@@ -51,20 +51,18 @@ function onlyUnique(value, index, self) {
 }
 function Pricing({ content }) {
   const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
   const heroProps = {
     title: content.title,
     subtitle: content.instance_definition,
     tiers: content.tiers.data,
   };
 
-  const [categories, setCategories] = useState([]);
+  const [, setCategories] = useState([]);
 
-  const {
-    data: pricingData,
-    isPending,
-    error,
-  } = useFetch(`/-/pricing-levers.json`, content.zestyProductionMode);
+  const { data: pricingData } = useFetch(
+    `/-/pricing-levers.json`,
+    content.zestyProductionMode,
+  );
 
   useEffect(() => {
     let leverCategories = [];
@@ -76,12 +74,12 @@ function Pricing({ content }) {
     setCategories(cats);
   }, [pricingData]);
 
-  const [active, setActive] = useState(false);
-  const featuresHandler = () => {
-    setActive(!active);
-  };
+  // const [active, setActive] = useState(false);
+  // const featuresHandler = () => {
+  //   setActive(!active);
+  // };
 
-  const pricingCompareTableData = content.tiers.data;
+  // const pricingCompareTableData = content.tiers.data;
 
   return (
     <>

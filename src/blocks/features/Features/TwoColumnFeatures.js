@@ -10,11 +10,10 @@ import {
   Button,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 /**
  * Helpers Imports
  */
-import * as helper from 'utils';
 import FillerContent from 'components/globals/FillerContent';
 
 /**
@@ -84,43 +83,45 @@ const TwoColumnFeatures = ({
             >
               <Box sx={{ pl: 5 }}>
                 <MuiMarkdown
-                  overrides={{
-                    h2: {
-                      component: Typography,
-                      props: {
-                        variant: 'p',
-                        component: 'h2',
-                        sx: {
-                          textAlign: isLarge ? 'center' : 'left',
-                          fontSize: isMobile ? 24 : header_size,
-                          color: isDarkMode
-                            ? theme.palette.zesty.zestyDarkBlue
-                            : theme.palette.zesty.zestyDarkText,
+                  options={{
+                    overrides: {
+                      h2: {
+                        component: Typography,
+                        props: {
+                          variant: 'p',
+                          component: 'h2',
+                          sx: {
+                            textAlign: isLarge ? 'center' : 'left',
+                            fontSize: isMobile ? 24 : header_size,
+                            color: isDarkMode
+                              ? theme.palette.zesty.zestyDarkBlue
+                              : theme.palette.zesty.zestyDarkText,
+                          },
                         },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        variant: 'h6',
-                        component: 'p',
-                        sx: {
-                          textAlign: isLarge ? 'center' : 'left',
-                          color: isDarkMode
-                            ? theme.palette.zesty.zestyDarkBlue
-                            : theme.palette.zesty.zestyZambezi,
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'h6',
+                          component: 'p',
+                          sx: {
+                            textAlign: isLarge ? 'center' : 'left',
+                            color: isDarkMode
+                              ? theme.palette.zesty.zestyDarkBlue
+                              : theme.palette.zesty.zestyZambezi,
+                          },
                         },
                       },
-                    },
-                    span: {
-                      component: Typography,
-                      props: {
-                        variant: 'p',
-                        component: 'span',
-                        sx: {
-                          textAlign: isLarge ? 'center' : 'left',
-                          fontSize: 'inherit',
-                          color: theme.palette.zesty.zestyOrange,
+                      span: {
+                        component: Typography,
+                        props: {
+                          variant: 'p',
+                          component: 'span',
+                          sx: {
+                            textAlign: isLarge ? 'center' : 'left',
+                            fontSize: 'inherit',
+                            color: theme.palette.zesty.zestyOrange,
+                          },
                         },
                       },
                     },

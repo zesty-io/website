@@ -7,25 +7,22 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { useFormik } from 'formik';
 import {
   AccountsHeader,
   AccountsTable,
   AccountsTableHead,
-  FormSelect,
 } from 'components/accounts';
-import { accountsValidations } from 'components/accounts/';
 import dayjs from 'dayjs';
 
 const MySwal = withReactContent(Swal);
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function Locales() {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [isLoading, setIsLoading] = useState(true);
   const [rows, setRows] = useState([]);
-  const [availableLocales, setAvailableLocales] = useState({});
+  const [, setAvailableLocales] = useState({});
   const { enqueueSnackbar } = useSnackbar();
   const columns = useMemo(() => [
     {
@@ -170,7 +167,7 @@ export default function Locales() {
 
   const getAllLocales = async () => {
     const locales = await ZestyAPI.getAllLocales();
-    let data = Object.entries(locales?.data)?.map(([key, value]) => ({
+    let data = Object.entries(locales?.data)?.map(([key]) => ({
       id: key,
       value: key,
       label: `${locales?.data[key]} - ${key}`,
@@ -184,35 +181,35 @@ export default function Locales() {
     getAllLocales();
   }, []);
 
-  const InputLocale = ({ availableLocales }) => {
-    const formik = useFormik({
-      initialValues: {
-        locale: '',
-      },
-      validationSchema: accountsValidations.localeSchema,
-      onSubmit: async (values) => {
-        MySwal.close();
-        const response = await ZestyAPI.addLocale(values.locale);
-        if (response.error) {
-          enqueueSnackbar(response.error, { variant: 'error' });
-        } else {
-          enqueueSnackbar('Successfully Added Locale', { variant: 'success' });
-          getLocales();
-        }
-        formik.resetForm();
-      },
-    });
+  // const InputLocale = ({ availableLocales }) => {
+  //   const formik = useFormik({
+  //     initialValues: {
+  //       locale: '',
+  //     },
+  //     validationSchema: accountsValidations.localeSchema,
+  //     onSubmit: async (values) => {
+  //       MySwal.close();
+  //       const response = await ZestyAPI.addLocale(values.locale);
+  //       if (response.error) {
+  //         enqueueSnackbar(response.error, { variant: 'error' });
+  //       } else {
+  //         enqueueSnackbar('Successfully Added Locale', { variant: 'success' });
+  //         getLocales();
+  //       }
+  //       formik.resetForm();
+  //     },
+  //   });
 
-    return (
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <FormSelect name="locale" options={availableLocales} formik={formik} />
+  //   return (
+  //     <form noValidate onSubmit={formik.handleSubmit}>
+  //       <FormSelect name="locale" options={availableLocales} formik={formik} />
 
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Submit
-        </Button>
-      </form>
-    );
-  };
+  //       <Button color="primary" variant="contained" fullWidth type="submit">
+  //         Submit
+  //       </Button>
+  //     </form>
+  //   );
+  // };
 
   const headerProps = {
     title: 'Locales',

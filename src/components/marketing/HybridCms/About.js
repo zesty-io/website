@@ -12,7 +12,7 @@ import headlessCmsBg from '../../../../public/assets/images/dxp_headless_bg.svg'
 /**
  * Components Imports
  */
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 import { Box, Container, Typography } from '@mui/material';
 import ZestyImage from 'blocks/Image/ZestyImage';
@@ -60,38 +60,40 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
             <Box data-aos="fade-left">
               <Box sx={{ position: 'relative' }}>
                 <MuiMarkdown
-                  overrides={{
-                    span: {
-                      component: Typography,
-                      props: {
-                        component: 'span',
-                        variant: 'h6',
-                        sx: {
-                          color: theme.palette.zesty.zestyZambezi,
+                  options={{
+                    overrides: {
+                      span: {
+                        component: Typography,
+                        props: {
+                          component: 'span',
+                          variant: 'h6',
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
                         },
                       },
-                    },
-                    h2: {
-                      component: Typography,
-                      props: {
-                        component: 'h2',
-                        variant: 'h4',
-                        sx: {
-                          textAlign: isMobile ? 'center' : 'left',
-                          color: theme.palette.zesty.zestyZambezi,
-                          fontWeight: 'bold',
+                      h2: {
+                        component: Typography,
+                        props: {
+                          component: 'h2',
+                          variant: 'h4',
+                          sx: {
+                            textAlign: isMobile ? 'center' : 'left',
+                            color: theme.palette.zesty.zestyZambezi,
+                            fontWeight: 'bold',
+                          },
                         },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        component: 'p',
-                        variant: 'h6',
-                        sx: {
-                          textAlign: isMobile ? 'center' : 'left',
-                          mt: 2,
-                          color: theme.palette.zesty.zestyZambezi,
+                      p: {
+                        component: Typography,
+                        props: {
+                          component: 'p',
+                          variant: 'h6',
+                          sx: {
+                            textAlign: isMobile ? 'center' : 'left',
+                            mt: 2,
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
                         },
                       },
                     },

@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
 
-const Hero = ({title, subtitle, description, cta, ctaHref}) => {
+const Hero = ({ title, subtitle, description, cta, ctaHref }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,

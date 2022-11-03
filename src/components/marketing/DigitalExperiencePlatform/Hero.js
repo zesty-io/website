@@ -17,7 +17,7 @@ const Hero = ({
   bgImage,
   primaryCta = 'Try Free',
   secondaryCta = 'Try Free',
-  gradientBg,
+  // gradientBg,
   isTablet,
   theme,
   secondaryCtaLink,
