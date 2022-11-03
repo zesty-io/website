@@ -45,7 +45,7 @@ import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns'
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import TwoColumnHeroWithImage from 'blocks/zesty/Hero/TwoColumnHeroWithImage';
 import FillerContent from 'components/globals/FillerContent';
-// import { WithCompanyLogo } from 'blocks/testimonials';
+import { WithCompanyLogo } from 'blocks/testimonials';
 
 function ABLandingPage({ content }) {
   const theme = useTheme();
@@ -76,7 +76,6 @@ function ABLandingPage({ content }) {
       return acc;
     }, []) || [];
 
-  console.log(content);
   return (
     <Stack>
       <TwoColumnHeroWithImage {...headerProps} />
@@ -95,25 +94,34 @@ function ABLandingPage({ content }) {
       />
       <DarkBlueCta
         sx={{ mt: 15, py: 10 }}
-        cta_text={content?.middle_cta_button}
-        header_content={content?.middle_cta_text}
+        cta_text={content?.middle_cta_button || FillerContent.cta}
+        header_content={content?.middle_cta_text || FillerContent.header}
       />
       <Features
         header_size={48}
         data={feature_data}
-        features_header={content.features_title}
+        features_header={content.features_title || FillerContent.header}
         card_name_color={theme.palette.zesty.zestyZambezi}
       />
 
-      {/* <WithCompanyLogo
-        header={content.testimonial_title}
-        content={content.testimonial}
-      /> */}
+      <WithCompanyLogo
+        header={content.testimonial_title || FillerContent.description}
+        content={
+          content.testimonial.data[0].review || FillerContent.description
+        }
+        name={
+          content.testimonial.data[0].reviewer_name || FillerContent.description
+        }
+        title={
+          content.testimonial.data[0].reviewer_title ||
+          FillerContent.description
+        }
+      />
 
       <DarkBlueCta
         sx={{ my: 15, py: 10 }}
-        cta_text={content?.middle_cta_button}
-        header_content={content?.bottom_cta}
+        cta_text={content?.middle_cta_button || FillerContent.cta}
+        header_content={content?.bottom_cta || FillerContent.description}
       />
     </Stack>
   );
