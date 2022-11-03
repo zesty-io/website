@@ -49,14 +49,6 @@ export default function ZestyHead({ content }) {
       />
       <meta property="og:image" content={ogimage} />
       {isPPCPage && <meta name="robots" content="noindex"></meta>}
-      <link
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet"
-      />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Mulish"
-      />
       <link rel="canonical" href={canonicalURL} />
     </Head>
   );
