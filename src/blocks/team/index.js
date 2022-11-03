@@ -1,4 +1,3 @@
-
 export { default as TeamWithCircledPhotos } from './TeamWithCircledPhotos';
 export { default as WithOverlappedCards } from './WithOverlappedCards';
 export { default as WithLargeImagesAndSocialIcons } from './WithLargeImagesAndSocialIcons';

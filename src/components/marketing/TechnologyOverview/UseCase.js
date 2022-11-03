@@ -7,7 +7,7 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Local  Assets Imports
@@ -15,7 +15,13 @@ import connectionSmall from '../../../../public/assets/images/headless-cms/conne
 import connection from '../../../../public/assets/images/headless-cms/connection.svg';
 import connectionMobile from '../../../../public/assets/images/headless-cms/connection-mobile.svg';
 
-const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
+const UseCase = ({
+  theme,
+  isMobile,
+  // isDarkMode,
+  content,
+  FillerContent,
+}) => {
   return (
     <Box sx={{ pb: 10, mb: -20 }} component="section">
       <Container>
@@ -152,25 +158,27 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
               }}
             >
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: 'h2',
-                    props: {
-                      style: {
-                        fontSize: isMobile ? 18 : 32,
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: 'center',
+                options={{
+                  overrides: {
+                    h2: {
+                      component: 'h2',
+                      props: {
+                        style: {
+                          fontSize: isMobile ? 18 : 32,
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: 'center',
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: 'p',
-                    props: {
-                      style: {
-                        textAlign: 'center',
-                        color: theme.palette.zesty.zestyZambezi,
-                        mt: 4,
-                        fontSize: isMobile ? 16 : 20,
+                    p: {
+                      component: 'p',
+                      props: {
+                        style: {
+                          textAlign: 'center',
+                          color: theme.palette.zesty.zestyZambezi,
+                          mt: 4,
+                          fontSize: isMobile ? 16 : 20,
+                        },
                       },
                     },
                   },

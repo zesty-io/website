@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
@@ -18,28 +18,30 @@ const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
       >
         <Box sx={{ mt: 10 }} data-aos="zoom-in">
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  component: 'h2',
-                  variant: 'h4',
-                  sx: {
-                    textAlign: 'center',
-                    color: theme.palette.zesty.zestyZambezi,
-                    fontWeight: 'bold',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    component: 'h2',
+                    variant: 'h4',
+                    sx: {
+                      textAlign: 'center',
+                      color: theme.palette.zesty.zestyZambezi,
+                      fontWeight: 'bold',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  component: 'p',
-                  variant: 'h6',
-                  sx: {
-                    textAlign: 'center',
-                    mt: 2,
-                    color: theme.palette.zesty.zestyZambezi,
+                p: {
+                  component: Typography,
+                  props: {
+                    component: 'p',
+                    variant: 'h6',
+                    sx: {
+                      textAlign: 'center',
+                      mt: 2,
+                      color: theme.palette.zesty.zestyZambezi,
+                    },
                   },
                 },
               },

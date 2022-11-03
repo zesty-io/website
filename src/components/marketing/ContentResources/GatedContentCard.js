@@ -10,13 +10,13 @@ import {
   CardContent,
   Grid,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
 
 const GatedContentCard = ({
   theme,
-  isMedium,
-  isDarkMode,
+  // isMedium,
+  // isDarkMode,
   content,
   FillerContent,
 }) => {

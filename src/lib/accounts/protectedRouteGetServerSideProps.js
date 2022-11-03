@@ -1,3 +1,4 @@
+import { getCookies } from 'cookies-next';
 import { getIsAuthenticated } from 'utils';
 
 export default async function getServerSideProps({ req, res, resolvedUrl }) {
@@ -16,6 +17,7 @@ export default async function getServerSideProps({ req, res, resolvedUrl }) {
       zesty: {
         isAuthenticated,
       },
+      cookies: getCookies({ req, res }),
     },
   };
 }

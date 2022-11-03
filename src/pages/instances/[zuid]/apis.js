@@ -9,7 +9,7 @@ import * as helpers from 'utils';
 
 const MySwal = withReactContent(Swal);
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function ApisPage() {
   const [search, setsearch] = React.useState('');

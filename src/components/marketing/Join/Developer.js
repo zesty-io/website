@@ -18,7 +18,7 @@ import Twitter from '../../../../public/assets/images/join/twitter.svg';
 import Github from '../../../../public/assets/images/join/github.svg';
 
 const Developer = ({
-  DiscordCard,
+  // DiscordCard,
   YoutubeCard,
   DeveloperGuideCard,
   CaseStudiesCard,

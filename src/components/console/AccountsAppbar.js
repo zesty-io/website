@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
@@ -10,10 +10,10 @@ import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { grey } from '@mui/material/colors';
 
-export const AccountsAppbar = ({
-  url = window.location.pathname,
-  colorInvert = false,
-}) => {
+export const AccountsAppbar = ({ colorInvert = false }) => {
+  const [url, setUrl] = useState('');
+  const [locationSearch, setLocationSearch] = useState('');
+  const [pathname, setPathname] = useState('');
   const router = useRouter();
   const { verifySuccess, ZestyAPI, loading, setworkingInstance } =
     useZestyStore((state) => state);
@@ -25,7 +25,7 @@ export const AccountsAppbar = ({
   const linkColor = colorInvert ? 'common.white' : 'text.secondary';
 
   // get param from url to look for instance
-  const params = new Proxy(new URLSearchParams(window.location.search), {
+  const params = new Proxy(new URLSearchParams(locationSearch), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
 
@@ -58,6 +58,9 @@ export const AccountsAppbar = ({
   React.useEffect(() => {
     if (router.isReady) {
       getInstance();
+      setUrl(window.location.pathname);
+      setLocationSearch(window.location.search);
+      setPathname(window.location.pathname);
     }
   }, [router.isReady, url]);
   React.useEffect(() => {
@@ -104,7 +107,7 @@ export const AccountsAppbar = ({
           />
         </Link>
 
-        {router.pathname === '/' && (
+        {pathname === '/' && (
           <Link
             href="/"
             sx={{
@@ -144,7 +147,7 @@ export const AccountsAppbar = ({
               color={linkColor}
               href={routeTo}
               aria-current="page"
-              key={name}
+              key={index}
             >
               {name}
             </Link>

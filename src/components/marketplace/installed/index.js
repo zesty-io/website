@@ -3,7 +3,6 @@ import { getCookie } from 'cookies-next';
 import BasicTable from './table';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import TransitionsModal from 'blocks/modal/modal';
-import { getUserAppSID } from 'utils';
 import { useZestyStore } from 'store';
 
 const customContainer = {
@@ -22,18 +21,17 @@ const index = () => {
   const [loading, setloading] = React.useState(false);
   const [installedApps, setinstalledApps] = React.useState([]);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = getUserAppSID();
 
   const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
   const getInstalledAppSuccess = (res) => {
     setloading(false);
     setinstalledApps(res);
   };
-  const getInstalledAppError = (error) => {
+  const getInstalledAppError = () => {
     setloading(false);
   };
 
-  const deleteAppSucc = (data) => {
+  const deleteAppSucc = () => {
     setloading(false);
     setmodal(true);
     setsucces('App Successfully Deleted');

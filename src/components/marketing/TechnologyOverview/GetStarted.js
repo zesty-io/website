@@ -1,6 +1,6 @@
 // MUI imports
 import { Box, Grid, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 // Local Assets Imports
 import s_curve from '../../../../public/assets/images/headless-cms/sCurve.svg';
@@ -61,33 +61,35 @@ const GetStarted = ({
         >
           <Box>
             <MuiMarkdown
-              overrides={{
-                h2: {
-                  component: Typography,
-                  props: {
-                    variant: 'h4',
-                    component: 'h2',
-                    sx: {
-                      textAlign: isMobile ? 'center' : 'left',
-                      letterSpacing: 1,
-                      background: theme.palette.zesty.zestyOrangeLinear,
-                      WebkitBackgroundClip: 'text',
-                      color: 'transparent',
-                      fontWeight: 'bold',
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      variant: 'h4',
+                      component: 'h2',
+                      sx: {
+                        textAlign: isMobile ? 'center' : 'left',
+                        letterSpacing: 1,
+                        background: theme.palette.zesty.zestyOrangeLinear,
+                        WebkitBackgroundClip: 'text',
+                        color: 'transparent',
+                        fontWeight: 'bold',
+                      },
                     },
                   },
-                },
-                span: {
-                  component: Typography,
-                  props: {
-                    variant: 'h4',
-                    component: 'h4',
-                    sx: {
-                      ml: isMobile ? 1 : 0,
-                      fontWeight: 'bold',
-                      color: isDarkMode
-                        ? theme.palette.common.white
-                        : theme.palette.zesty.zestyZambezi,
+                  span: {
+                    component: Typography,
+                    props: {
+                      variant: 'h4',
+                      component: 'h4',
+                      sx: {
+                        ml: isMobile ? 1 : 0,
+                        fontWeight: 'bold',
+                        color: isDarkMode
+                          ? theme.palette.common.white
+                          : theme.palette.zesty.zestyZambezi,
+                      },
                     },
                   },
                 },

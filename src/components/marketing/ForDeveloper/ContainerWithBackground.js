@@ -7,7 +7,7 @@ import { Box, Typography, Grid, Stack } from '@mui/material';
  * Components Imports
  */
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import DemoCta from 'components/cta/DemoCta';
 
@@ -65,63 +65,65 @@ const ContainerWithBackground = ({
                 {eyebrow}
               </Typography>
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      component: 'h2',
-                      variant: 'h3',
-                      sx: {
-                        color: theme.palette.zesty.zestyOrange,
-                        fontWeight: 800,
-                        mt: 2,
-                      },
-                    },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      component: 'p',
-                      variant: 'h6',
-                      sx: {
-                        color: theme.palette.zesty.zestyWhite,
-                        mt: 5,
-                      },
-                    },
-                  },
-                  span: {
-                    component: Typography,
-                    props: {
-                      component: 'span',
-                      variant: 'h6',
-                      sx: {
-                        color: theme.palette.zesty.zestyWhite,
-                        mt: 5,
-                      },
-                    },
-                  },
-                  ul: {
-                    component: Typography,
-                    props: {
-                      component: 'ul',
-                      sx: {
-                        mt: 5,
-                        paddingInlineStart: 0,
-                      },
-                    },
-                  },
-                  li: {
-                    component: Typography,
-                    props: {
-                      component: 'li',
-                      sx: {
-                        listStyle: 'none !important',
-                        mb: 3,
-                        '&:before': {
-                          content: `"✓"`,
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        component: 'h2',
+                        variant: 'h3',
+                        sx: {
                           color: theme.palette.zesty.zestyOrange,
                           fontWeight: 800,
-                          mr: 2,
+                          mt: 2,
+                        },
+                      },
+                    },
+                    p: {
+                      component: Typography,
+                      props: {
+                        component: 'p',
+                        variant: 'h6',
+                        sx: {
+                          color: theme.palette.zesty.zestyWhite,
+                          mt: 5,
+                        },
+                      },
+                    },
+                    span: {
+                      component: Typography,
+                      props: {
+                        component: 'span',
+                        variant: 'h6',
+                        sx: {
+                          color: theme.palette.zesty.zestyWhite,
+                          mt: 5,
+                        },
+                      },
+                    },
+                    ul: {
+                      component: Typography,
+                      props: {
+                        component: 'ul',
+                        sx: {
+                          mt: 5,
+                          paddingInlineStart: 0,
+                        },
+                      },
+                    },
+                    li: {
+                      component: Typography,
+                      props: {
+                        component: 'li',
+                        sx: {
+                          listStyle: 'none !important',
+                          mb: 3,
+                          '&:before': {
+                            content: `"✓"`,
+                            color: theme.palette.zesty.zestyOrange,
+                            fontWeight: 800,
+                            mr: 2,
+                          },
                         },
                       },
                     },

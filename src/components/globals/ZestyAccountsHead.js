@@ -22,15 +22,6 @@ export const ZestyAccountsHead = ({
       <meta name="description" value={description} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogimage} />
-
-      <link
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet"
-      />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Mulish"
-      />
     </Head>
   );
 };

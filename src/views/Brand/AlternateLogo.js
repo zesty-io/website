@@ -15,7 +15,7 @@ export default function AlternateLogo({
   svg,
   dark = false,
   name = '',
-  description = '',
+  // description = '',
 }) {
   const theme = useTheme();
 

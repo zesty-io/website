@@ -7,7 +7,7 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Local Assets Imports
@@ -38,31 +38,33 @@ const Features = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
       <Container sx={{ position: 'relative', zIndex: 10 }}>
         <Box>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h4',
-                  component: 'h2',
-                  sx: {
-                    mt: isMobile ? 5 : 0,
-                    color: theme.palette.zesty.zestyZambezi,
-                    fontWeight: 'bold',
-                    letterSpacing: 0.2,
-                    textAlign: 'center',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      mt: isMobile ? 5 : 0,
+                      color: theme.palette.zesty.zestyZambezi,
+                      fontWeight: 'bold',
+                      letterSpacing: 0.2,
+                      textAlign: 'center',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  component: 'h3',
-                  sx: {
-                    mt: 2,
-                    textAlign: 'center',
-                    color: theme.palette.zesty.zestyZambezi,
-                    letterSpacing: 0.2,
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'h3',
+                    sx: {
+                      mt: 2,
+                      textAlign: 'center',
+                      color: theme.palette.zesty.zestyZambezi,
+                      letterSpacing: 0.2,
+                    },
                   },
                 },
               },

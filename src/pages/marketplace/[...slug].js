@@ -2,17 +2,12 @@ import MarketplaceSinglePageContainer from 'components/marketplace/MarketplaceSi
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from 'layouts/Main/Main';
 import { fetchPage } from 'lib/api';
-import EntityType from 'views/marketplace/EntityType';
 import Extension from 'views/marketplace/Extension';
-import Tag from 'views/marketplace/Tag';
 import CustomContainer from 'components/Container';
-// import AppBar from 'components/console/AppBar';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
 import { setCookie } from 'cookies-next';
-import { useTheme } from '@emotion/react';
 import MainApps from 'components/marketplace/landing/MainApps';
 
 const ALTNAME = {
@@ -21,17 +16,15 @@ const ALTNAME = {
   EXTENSION: 'Extension',
 };
 
-const renderMarketplaceViewByAltName = (altName) => {
-  if (altName === ALTNAME.TAG) {
-    return <Tag />;
-  } else if (altName === ALTNAME.ENTITY_TYPE) {
-    return <EntityType />;
-  }
-};
+// const renderMarketplaceViewByAltName = (altName) => {
+//   if (altName === ALTNAME.TAG) {
+//     return <Tag />;
+//   } else if (altName === ALTNAME.ENTITY_TYPE) {
+//     return <EntityType />;
+//   }
+// };
 
 const slug = ({ marketEntityTypes, marketTags, ...props }) => {
-  const theme = useTheme();
-  const router = useRouter();
   const seoTitle = props?.meta?.web?.seo_meta_title,
     seoDescription = props?.meta?.web?.seo_meta_description;
 
@@ -44,8 +37,6 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:description" content={seoDescription} />
         </Head>
         <Main customRouting={props.navigationCustom}>
-          {/* <AppBar url={router.asPath} /> */}
-
           <CustomContainer>
             <RegisterPage />
           </CustomContainer>
@@ -63,7 +54,6 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:description" content={seoDescription} />
         </Head>
         <Main customRouting={props.navigationCustom}>
-          {/* <AppBar url={router.asPath} /> */}
           <CustomContainer>
             <InstalledPage />
           </CustomContainer>
@@ -81,7 +71,6 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:description" content={seoDescription} />
         </Head>
         <Main customRouting={props.navigationCustom}>
-          {/* <AppBar url={router.asPath} /> */}
           <CustomContainer>
             <Extension {...props} />
           </CustomContainer>
@@ -98,8 +87,6 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        {/* <AppBar url={router.asPath} /> */}
-
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}
         >

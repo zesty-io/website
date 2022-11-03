@@ -27,7 +27,6 @@
 import React from 'react';
 // mui
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
 // container component
 import Container from 'components/Container';
 // blocks
@@ -37,7 +36,6 @@ import { VerticalMinimalDesignedBlogCardsNoFooter } from 'blocks/blog';
 import FillerContent from 'components/globals/FillerContent';
 
 function DeveloperResource({ content }) {
-  const theme = useTheme();
   return (
     <>
       <Box>

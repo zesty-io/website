@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import React, { useState } from 'react';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Popover from '@mui/material/Popover';
@@ -9,53 +8,6 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
 import CodeBlock from './CodeBlock';
-
-const mock = [
-  {
-    title: 'Themeable',
-    subtitle:
-      'Customize any part of our components to match your design needs.',
-    icon: (
-      <svg
-        height={24}
-        width={24}
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: 'Light and dark UI',
-    subtitle:
-      'Optimized for multiple color modes. Use light or dark, your choice.',
-    icon: (
-      <svg
-        height={24}
-        width={24}
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-        />
-      </svg>
-    ),
-  },
-];
 
 export default function TryFreeButton({
   text = 'Start Now',
@@ -67,10 +19,10 @@ export default function TryFreeButton({
   variant = 'secondary',
   sx = {},
 }) {
-  const theme = useTheme();
+  // const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const handleClick = (event) => {
+  const handleClick = () => {
     location.href = '/join/';
 
     // Track Button Click by pushing item to the data layer
