@@ -21,6 +21,14 @@ const AlternateColumns = ({
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(header_content);
+
+  if (!isRichText && header_content) {
+    header_content = `<h2>${header_content}</h2>`;
+  }
+
   const COLORS = [
     theme.palette.common.white,
     theme.palette.zesty.zestyWhite,
@@ -42,7 +50,7 @@ const AlternateColumns = ({
               component: Typography,
               props: {
                 component: 'h2',
-                variant: 'h3',
+                variant: 'h4',
                 sx: {
                   color: theme.palette.zesty.zestyDarkText,
                   fontWeight: 'bold',
@@ -67,23 +75,25 @@ const AlternateColumns = ({
           {header_content || FillerContent.rich_text}
         </MuiMarkdown>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <DemoCta
-            icon={false}
-            href={cta_link || FillerContent.href}
-            sx={{
-              mt: 4,
-              background: theme.palette.zesty.zestyOrange,
-              color: theme.palette.common.white,
-              '&:hover': {
+        {cta_text && (
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <DemoCta
+              icon={false}
+              href={cta_link || FillerContent.href}
+              sx={{
+                mt: 4,
                 background: theme.palette.zesty.zestyOrange,
-              },
-            }}
-            text={cta_text || FillerContent.cta}
-          />
-        </Box>
+                color: theme.palette.common.white,
+                '&:hover': {
+                  background: theme.palette.zesty.zestyOrange,
+                },
+              }}
+              text={cta_text || FillerContent.cta}
+            />
+          </Box>
+        )}
       </Container>
-      <Box sx={{ mt: 10 }}>
+      <Box>
         {column_data?.map((item, idx) => (
           <Card
             variant="outlined"

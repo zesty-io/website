@@ -43,10 +43,9 @@ import Features from 'blocks/features/Features/Features';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
-// import SimpleCta from 'blocks/zesty/Cta/SimpleCta';
 import TwoColumnHeroWithImage from 'blocks/zesty/Hero/TwoColumnHeroWithImage';
 import FillerContent from 'components/globals/FillerContent';
-import { WithCompanyLogo } from 'blocks/testimonials';
+// import { WithCompanyLogo } from 'blocks/testimonials';
 
 function ABLandingPage({ content }) {
   const theme = useTheme();
@@ -97,11 +96,7 @@ function ABLandingPage({ content }) {
       <DarkBlueCta
         sx={{ mt: 15, py: 10 }}
         cta_text={content?.middle_cta_button}
-        cta_secondary_link={
-          content?.middle_cta_secondary_cta_link?.data[0].meta.web.uri
-        }
-        cta_secondary_text={content?.middle_cta_button}
-        header_content={content?.middle_cta_header}
+        header_content={content?.middle_cta_text}
       />
       <Features
         header_size={48}
@@ -110,9 +105,15 @@ function ABLandingPage({ content }) {
         card_name_color={theme.palette.zesty.zestyZambezi}
       />
 
-      <WithCompanyLogo
+      {/* <WithCompanyLogo
         header={content.testimonial_title}
         content={content.testimonial}
+      /> */}
+
+      <DarkBlueCta
+        sx={{ my: 15, py: 10 }}
+        cta_text={content?.middle_cta_button}
+        header_content={content?.bottom_cta}
       />
     </Stack>
   );

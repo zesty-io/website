@@ -73,20 +73,23 @@ const DarkBlueCta = ({
               variant="contained"
               color="secondary"
             />
-            <Button
-              component="a"
-              target={'_blank'}
-              href={cta_secondary_link || FillerContent.href}
-              color="secondary"
-              variant="outlined"
-              sx={{
-                color: theme.palette.common.white,
-                border: `1px solid ${theme.palette.common.white}`,
-              }}
-            >
-              {cta_secondary_text || FillerContent.cta}
-              <ArrowRightAlt sx={{ ml: 1 }} />
-            </Button>
+
+            {cta_secondary_text && (
+              <Button
+                component="a"
+                target={'_blank'}
+                href={cta_secondary_link || FillerContent.href}
+                color="secondary"
+                variant="outlined"
+                sx={{
+                  color: theme.palette.common.white,
+                  border: `1px solid ${theme.palette.common.white}`,
+                }}
+              >
+                {cta_secondary_text || FillerContent.cta}
+                <ArrowRightAlt sx={{ ml: 1 }} />
+              </Button>
+            )}
           </Box>
         </Box>
       </Container>
