@@ -12,7 +12,7 @@
 
 # production
 /build
-/src/blocks
+# /src/blocks
 /public
 *.yaml
 

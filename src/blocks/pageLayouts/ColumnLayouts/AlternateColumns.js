@@ -153,7 +153,7 @@ const AlternateColumns = ({
                             textAlign: isMedium ? 'center' : 'text-left',
                           },
                         },
-                        
+
                         ul: {
                           component: Typography,
                           props: {
@@ -191,10 +191,10 @@ const AlternateColumns = ({
                 >
                   <Box>
                     <ZestyImage
-                      width={599}
-                      height={420}
+                      width={600}
+                      height={350}
                       alt={item?.header || ''}
-                      style={{ width: '100%', maxWidth: 599, height: 'auto' }}
+                      style={{ width: '100%', maxWidth: 600, height: 'auto' }}
                       src={item?.image || FillerContent.photos[0].src}
                     />
                   </Box>

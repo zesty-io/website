@@ -53,7 +53,7 @@ const Features = ({
   icon_height = 60,
   center = false,
   cta_button_text = '',
-  background_color = ""
+  background_color = '',
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -78,7 +78,9 @@ const Features = ({
         zIndex: '500',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
-          : background_color ? background_color : theme.palette.common.white,
+          : background_color
+          ? background_color
+          : theme.palette.common.white,
       }}
     >
       <Box

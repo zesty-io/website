@@ -19,15 +19,13 @@ import FillerContent from 'components/globals/FillerContent';
 const WithHighlightedCard = ({ title, data }) => {
   const theme = useTheme();
 
-
-    // check if features_header richtext if not convert it to richtext format for consistency
+  // check if features_header richtext if not convert it to richtext format for consistency
   const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
   const isRichText = htmlCheck.test(title);
 
   if (!isRichText && title) {
     title = `<h1>${title}</h1>`;
   }
-
 
   const testimonialData = data?.map((item) => {
     return {
@@ -73,7 +71,7 @@ const WithHighlightedCard = ({ title, data }) => {
             {title || FillerContent.rich_text}
           </MuiMarkdown>
         </Box>
-        <Grid sx={{mt:2}} container spacing={4}>
+        <Grid sx={{ mt: 2 }} container spacing={4}>
           {testimonialData?.map((item, i) => (
             <Grid item xs={12} md={4} key={i}>
               <Box

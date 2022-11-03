@@ -37,29 +37,84 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+import { useTheme } from '@mui/material/styles';
+import { Stack } from '@mui/material';
+import Features from 'blocks/features/Features/Features';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
+import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
+// import SimpleCta from 'blocks/zesty/Cta/SimpleCta';
+import TwoColumnHeroWithImage from 'blocks/zesty/Hero/TwoColumnHeroWithImage';
+import FillerContent from 'components/globals/FillerContent';
+import { WithCompanyLogo } from 'blocks/testimonials';
 
 function ABLandingPage({ content }) {
+  const theme = useTheme();
+  const headerProps = {
+    title: content?.title || FillerContent.header,
+    description: content?.description || FillerContent.rich_text,
+    image: content?.header_image?.data[0].url || FillerContent.photos[0].src,
+    primaryCta: content.cta_button_text || '',
+    secondaryCta: content.cta_secondary_text || '',
+  };
+
+  const alternateColumnsData = content.benefits_sections?.data?.map((item) => {
+    return {
+      header: item.header,
+      content: item.benefit_content,
+      image: item.benefit_image.data[0].url,
+    };
+  });
+
+  const feature_data =
+    content.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
+  console.log(content);
   return (
-    <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
-    </>
+    <Stack>
+      <TwoColumnHeroWithImage {...headerProps} />
+      <SimpleCardLogo
+        invertLogo={false}
+        heading_text={content?.logo_bar_title}
+        logoItems={content?.logo_bar.data}
+        variant={'outlined'}
+        maxWidth={1280}
+      />
+      <AlternateColumns
+        column_data={alternateColumnsData}
+        header_content={content?.benefits_title}
+        cta_link={content?.middle_cta_button_link?.data[0].meta.web.uri}
+        cta_text={content?.middle_cta_button_text}
+      />
+      <DarkBlueCta
+        sx={{ mt: 15, py: 10 }}
+        cta_text={content?.middle_cta_button}
+        cta_secondary_link={
+          content?.middle_cta_secondary_cta_link?.data[0].meta.web.uri
+        }
+        cta_secondary_text={content?.middle_cta_button}
+        header_content={content?.middle_cta_header}
+      />
+      <Features
+        header_size={48}
+        data={feature_data}
+        features_header={content.features_title}
+        card_name_color={theme.palette.zesty.zestyZambezi}
+      />
+
+      <WithCompanyLogo
+        header={content.testimonial_title}
+        content={content.testimonial}
+      />
+    </Stack>
   );
 }
 

@@ -40,8 +40,7 @@ const WithDarkBackgroundAndSimpleDescriptionBox = ({ content, theme }) => {
       title: 'Google Ad Manager',
       subtitle:
         'A very simple and modern template with a very harmonious color scheme. Also the additional plugins like the statistics are great and fit perfectly into the overall picture.',
-      icon:
-        'https://assets.maccarianagency.com/svg/logos/google-ad-manager.svg',
+      icon: 'https://assets.maccarianagency.com/svg/logos/google-ad-manager.svg',
     },
     {
       title: 'Atlassian',

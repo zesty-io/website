@@ -15,16 +15,18 @@ const DarkBlueCta = ({
   cta_text,
   cta_secondary_text,
   cta_secondary_link,
-  sx
-
+  sx,
 }) => {
   const theme = useTheme();
-
 
   return (
     <Box component="section">
       <Container
-        sx={{...sx, background:theme.palette.zesty.zestyDarkBlueRadialGradient, borderRadius:5}}
+        sx={{
+          ...sx,
+          background: theme.palette.zesty.zestyDarkBlueRadialGradient,
+          borderRadius: 5,
+        }}
       >
         <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
           <MuiMarkdown
@@ -33,7 +35,7 @@ const DarkBlueCta = ({
                 component: Typography,
                 props: {
                   variant: 'h4',
-                  component:'h2',
+                  component: 'h2',
                   sx: {
                     color: theme.palette.common.white,
                     fontWeight: 'bold',

@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Chip from '@mui/material/Chip';
 
-
 const SearchBox = ({ chipsTitle, onSearchHandler, searchQuery, onSubmit }) => {
   return (
     <Box>
