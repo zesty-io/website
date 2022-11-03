@@ -63,9 +63,9 @@ const getLeadObjectZOHO = (obj, roles) => {
 };
 
 const Form = ({
-  eyebrow = 'Missing Text',
-  title = 'Missing Text',
-  subtitle = 'Missing Text',
+  // eyebrow = 'Missing Text',
+  // title = 'Missing Text',
+  // subtitle = 'Missing Text',
   ctaButtonText = 'Missing Text',
 }) => {
   const initialValues = {
@@ -88,7 +88,7 @@ const Form = ({
   };
 
   const { marketers, developers, managers } = state;
-  const error = [marketers, developers, managers].filter((v) => v).length !== 2;
+  // const error = [marketers, developers, managers].filter((v) => v).length !== 2;
   const onSubmit = (values) => {
     return values;
   };

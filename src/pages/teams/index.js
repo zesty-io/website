@@ -8,7 +8,7 @@ import { useZestyStore } from 'store';
 import TeamInvites from 'components/accounts/teams/TeamInvites';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const Teams = () => {
   const {
@@ -62,8 +62,8 @@ const Teams = () => {
               (invite) =>
                 !invite.accepted && !invite.declined && !invite.cancelled,
             )
-            .map((invite) => (
-              <Grid key={invite.ZUID} item xs={12} md={6} lg={4}>
+            .map((invite, index) => (
+              <Grid key={index} item xs={12} md={6} lg={4}>
                 <TeamInvites
                   teamZUID={invite.teamZUID}
                   teamInviteZUID={invite.ZUID}
@@ -77,8 +77,8 @@ const Teams = () => {
 
           {teams
             ?.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
-            .map((team) => (
-              <Grid key={team.ZUID} item xs={12} md={6} lg={4}>
+            .map((team, index) => (
+              <Grid key={index} item xs={12} md={6} lg={4}>
                 <ManageTeam
                   teamZUID={team.ZUID}
                   name={team.name}

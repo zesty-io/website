@@ -5,7 +5,7 @@
 import React from 'react';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  *  Components Imports
@@ -62,32 +62,35 @@ const TwoRowsHero = ({
             {eyebrow}
           </Typography>
           <MuiMarkdown
-            overrides={{
-              h1: {
-                component: Typography,
-                props: {
-                  variant: 'h3',
-                  component: 'h2',
-                  sx: {
-                    fontWeight: 'bold',
-                    color: theme.palette.zesty.zestyOrange,
-                    textAlign: 'center',
+            options={{
+              overrides: {
+                h1: {
+                  component: Typography,
+                  props: {
+                    variant: 'h3',
+                    component: 'h2',
+                    sx: {
+                      fontWeight: 'bold',
+                      color: theme.palette.zesty.zestyOrange,
+                      textAlign: 'center',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  variant: 'h6',
-                  component: 'p',
-                  sx: {
-                    mt: 2,
-                    lineHeight: 1.2,
-                    maxWidth: 850,
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    color: theme.palette.zesty.zestyZambezi,
-                    textAlign: 'center',
+
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: {
+                      mt: 2,
+                      lineHeight: 1.2,
+                      maxWidth: 850,
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
+                    },
                   },
                 },
               },

@@ -1,6 +1,6 @@
 // MUI Imports
 import { Box, Container, Typography, Grid, Button } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
@@ -42,49 +42,53 @@ const TechStack = ({
           <Grid container spacing={2}>
             <Grid item sm={12} md={6}>
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'h2',
-                      sx: {
-                        fontWeight: headerFontWeight,
-                        color: headerColor ? headerColor : theme.palette.zesty.zestyOrange,
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'h2',
+                        sx: {
+                          fontWeight: headerFontWeight,
+                          color: headerColor
+                            ? headerColor
+                            : theme.palette.zesty.zestyOrange,
+                        },
                       },
                     },
-                  },
-                  h3: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'h3',
-                      sx: {
-                        mt: 2,
-                        fontWeight: 'bold',
-                        color: theme.palette.zesty.zestyZambezi,
+                    h3: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'h3',
+                        sx: {
+                          mt: 2,
+                          fontWeight: 'bold',
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
                       },
                     },
-                  },
-                  h4: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      component: 'h2',
-                      sx: {
-                        fontWeight: 700,
-                        color: theme.palette.zesty.zestyOrange,
+                    h4: {
+                      component: Typography,
+                      props: {
+                        variant: 'h3',
+                        component: 'h2',
+                        sx: {
+                          fontWeight: 700,
+                          color: theme.palette.zesty.zestyOrange,
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h6',
-                      component: 'p',
-                      sx: {
-                        mt: 2,
-                        color: theme.palette.zesty.zestyZambezi,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h6',
+                        component: 'p',
+                        sx: {
+                          mt: 2,
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
                       },
                     },
                   },

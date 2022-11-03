@@ -1,10 +1,9 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import FillerContent from 'components/globals/FillerContent';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { Typography } from '@mui/material';
 
 const SupportBanner = ({ text_content }) => {
@@ -27,22 +26,24 @@ const SupportBanner = ({ text_content }) => {
           }}
         /> */}
         <MuiMarkdown
-          overrides={{
-            h3: {
-              component: Typography,
-              props: {
-                variant: 'h5',
-                component: 'h3',
-                sx: {
-                  fontWeight: 'bold',
+          options={{
+            overrides: {
+              h3: {
+                component: Typography,
+                props: {
+                  variant: 'h5',
+                  component: 'h3',
+                  sx: {
+                    fontWeight: 'bold',
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                variant: 'h6',
-                component: 'h4',
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h6',
+                  component: 'h4',
+                },
               },
             },
           }}

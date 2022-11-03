@@ -19,6 +19,8 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'import', 'unused-imports'],
   rules: {
+    'require-jsdoc': 0,
+    'valid-jsdoc': 0,
     'no-undef': 'error',
     'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
     'unused-imports/no-unused-imports': 'error',

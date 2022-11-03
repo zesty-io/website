@@ -48,14 +48,14 @@ function Category({ content }) {
   const [categoryArr, setCategoryArr] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
   // search states
-  const [searchedArticles, setSearchedArticles] = useState([]);
+  // const [searchedArticles, setSearchedArticles] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
   const [term, setTerm] = useState('');
   const [notFound, setNotFound] = useState(false);
   const [hideLoad, setHideLoad] = useState(false);
   // current page for pagination
   const [page, setPage] = useState(0);
-  const [breadcrumb, setBreadcrumb] = useState([
+  const [breadcrumb] = useState([
     {
       href: `/mindshare/`,
       title: `Blog`,

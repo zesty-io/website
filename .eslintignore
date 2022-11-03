@@ -12,11 +12,11 @@
 
 # production
 /build
+/src/blocks
 
 /public
 
 /test
-/src/blocks
 # misc
 .DS_Store
 .env.local

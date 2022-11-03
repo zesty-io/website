@@ -6,7 +6,11 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-const Index = ({ title, id, items, colorInvert = false }) => {
+const Index = ({
+  title,
+  id,
+  items, //colorInvert = false
+}) => {
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,8 +31,8 @@ const Index = ({ title, id, items, colorInvert = false }) => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
 
-  const hasActiveLink = () => items.find((i) => i.url === activeLink);
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  // const hasActiveLink = () => items.find((i) => i.url === activeLink);
+  // const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
   return (
     <Box>

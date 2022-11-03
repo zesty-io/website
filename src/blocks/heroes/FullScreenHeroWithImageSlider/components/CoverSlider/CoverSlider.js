@@ -2,7 +2,9 @@ import React from 'react';
 import Box from '@mui/material/Box';
 
 const CoverSlider = (props) => {
-  let img = props?.main_image ? props.main_image.data[0].url : `https://assets.maccarianagency.com/backgrounds/img3.jpg`
+  let img = props?.main_image
+    ? props.main_image.data[0].url
+    : `https://assets.maccarianagency.com/backgrounds/img3.jpg`;
   return (
     <Box
       sx={{

@@ -13,7 +13,7 @@ const Integrations = ({
   content,
   theme,
   isMobile,
-  isTablet,
+  // isTablet,
   FillerContent,
 }) => {
   return (

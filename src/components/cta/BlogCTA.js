@@ -41,7 +41,7 @@ function BlogCTA({ title, description, ctaBtn }) {
       lastName: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: () => {
       // handleModal();
       // alert(JSON.stringify(values, null, 2));
     },
@@ -61,7 +61,7 @@ function BlogCTA({ title, description, ctaBtn }) {
           },
         )
           .then((res) => res.json())
-          .then((data) => {
+          .then(() => {
             acSENT = true;
           });
       }

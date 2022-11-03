@@ -3,7 +3,7 @@
  */
 
 import { Box, Typography, Card, Grid } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
 import ZestyImage from 'blocks/Image/ZestyImage';
 /**
@@ -47,30 +47,32 @@ const Migration = ({ content, FillerContent, theme, isLarge }) => {
               }}
             >
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      'data-aos': 'zoom-in-up',
-                      'data-aos-duration': '1000',
-                      component: 'h1',
-                      variant: 'h3',
-                      fontWeight: 'bold',
-                      color: theme.palette.zesty.zestyZambezi,
-                      lineHeight: 1,
-                    },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      'data-aos-duration': '1500',
-                      'data-aos': 'zoom-in-up',
-                      component: 'p',
-                      variant: 'h6',
-                      sx: {
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        'data-aos': 'zoom-in-up',
+                        'data-aos-duration': '1000',
+                        component: 'h1',
+                        variant: 'h3',
+                        fontWeight: 'bold',
                         color: theme.palette.zesty.zestyZambezi,
-                        lineHeight: 1.2,
-                        mt: 2,
+                        lineHeight: 1,
+                      },
+                    },
+                    p: {
+                      component: Typography,
+                      props: {
+                        'data-aos-duration': '1500',
+                        'data-aos': 'zoom-in-up',
+                        component: 'p',
+                        variant: 'h6',
+                        sx: {
+                          color: theme.palette.zesty.zestyZambezi,
+                          lineHeight: 1.2,
+                          mt: 2,
+                        },
                       },
                     },
                   },

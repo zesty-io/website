@@ -5,14 +5,20 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
  */
 import { Box, Typography, Button } from '@mui/material';
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 /**
  * Components Imports
  */
 
-const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
+const Hero = ({
+  theme,
+  isMobile,
+  //  isDarkMode,
+  content,
+  FillerContent,
+}) => {
   const LeftSide = () => (
     <Box sx={{ py: 10, px: 2 }}>
       <Box
@@ -20,38 +26,40 @@ const Hero = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
         marginBottom={2}
       >
         <MuiMarkdown
-          overrides={{
-            span: {
-              component: Typography,
-              props: {
-                component: 'span',
-                sx: {
-                  fontSize: 'inherit',
-                  color: theme.palette.zesty.zestyZambezi,
-                  fontWeight: 'inherit',
+          options={{
+            overrides: {
+              span: {
+                component: Typography,
+                props: {
+                  component: 'span',
+                  sx: {
+                    fontSize: 'inherit',
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'inherit',
+                  },
                 },
               },
-            },
-            h1: {
-              component: Typography,
-              props: {
-                variant: 'h2',
-                component: 'h1',
-                sx: {
-                  color: theme.palette.zesty.zestyZambezi,
-                  fontWeight: 'bold',
+              h1: {
+                component: Typography,
+                props: {
+                  variant: 'h2',
+                  component: 'h1',
+                  sx: {
+                    color: theme.palette.zesty.zestyZambezi,
+                    fontWeight: 'bold',
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                variant: 'h6',
-                component: 'p',
-                sx: {
-                  color: theme.palette.zesty.zestyZambezi,
-                  lineHeight: 1.2,
-                  mt: 2,
+              p: {
+                component: Typography,
+                props: {
+                  variant: 'h6',
+                  component: 'p',
+                  sx: {
+                    color: theme.palette.zesty.zestyZambezi,
+                    lineHeight: 1.2,
+                    mt: 2,
+                  },
                 },
               },
             },

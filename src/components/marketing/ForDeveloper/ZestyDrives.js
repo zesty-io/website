@@ -2,7 +2,7 @@
  * MUI Imports
  */
 import { Box, Card, Container, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  *
@@ -55,18 +55,20 @@ const ZestyDrives = ({
       <Container maxWidth="false">
         <Box sx={{ py: isSmall ? 5 : 10 }}>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h4',
-                  component: 'h2',
-                  sx: {
-                    color: header_color
-                      ? header_color
-                      : theme.palette.zesty.zestyDarkText,
-                    textAlign: 'center',
-                    fontWeight: 700,
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      color: header_color
+                        ? header_color
+                        : theme.palette.zesty.zestyDarkText,
+                      textAlign: 'center',
+                      fontWeight: 700,
+                    },
                   },
                 },
               },

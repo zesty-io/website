@@ -4,7 +4,7 @@
  */
 
 import { Box, Typography, Button } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Components Imports
@@ -46,28 +46,30 @@ const LogoSlider = ({ content, FillerContent, theme, isMedium, cta_text }) => {
       }}
     >
       <MuiMarkdown
-        overrides={{
-          h2: {
-            component: Typography,
-            props: {
-              variant: 'h3',
-              component: 'h2',
-              sx: {
-                color: theme.palette.zesty.zestyDarkText,
-                fontWeight: 'bold',
-                textAlign: 'center',
+        options={{
+          overrides: {
+            h2: {
+              component: Typography,
+              props: {
+                variant: 'h3',
+                component: 'h2',
+                sx: {
+                  color: theme.palette.zesty.zestyDarkText,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                },
               },
             },
-          },
-          p: {
-            component: Typography,
-            props: {
-              variant: 'h6',
-              component: 'p',
-              sx: {
-                mt: 1,
-                color: theme.palette.zesty.zestyZambezi,
-                textAlign: 'center',
+            p: {
+              component: Typography,
+              props: {
+                variant: 'h6',
+                component: 'p',
+                sx: {
+                  mt: 1,
+                  color: theme.palette.zesty.zestyZambezi,
+                  textAlign: 'center',
+                },
               },
             },
           },

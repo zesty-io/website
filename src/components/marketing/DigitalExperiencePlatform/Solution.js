@@ -4,7 +4,7 @@
 import { Box, Container, Grid, Typography, Card, Link } from '@mui/material';
 import ZoomMui from '@mui/material/Zoom';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * React Imports
@@ -85,28 +85,30 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
       <Container>
         <Box paddingBottom={isMobile ? 10 : 10} sx={{}}>
           <MuiMarkdown
-            overrides={{
-              span: {
-                component: Typography,
-                props: {
-                  component: 'span',
-                  sx: {
-                    fontSize: 'inherit',
-                    fontWeight: 'inherit',
-                    color: theme.palette.zesty.zestyOrange,
+            options={{
+              overrides: {
+                span: {
+                  component: Typography,
+                  props: {
+                    component: 'span',
+                    sx: {
+                      fontSize: 'inherit',
+                      fontWeight: 'inherit',
+                      color: theme.palette.zesty.zestyOrange,
+                    },
                   },
                 },
-              },
-              h2: {
-                component: Typography,
-                props: {
-                  variant: 'h4',
-                  component: 'h2',
-                  sx: {
-                    mt: 5,
-                    color: theme.palette.zesty.zestyZambezi,
-                    textAlign: 'center',
-                    fontWeight: 'bold',
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      mt: 5,
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    },
                   },
                 },
               },
@@ -244,25 +246,27 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
           <Grid item xs={12} md={9}>
             <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
               <MuiMarkdown
-                overrides={{
-                  h2: {
-                    component: Typography,
-                    props: {
-                      component: 'h2',
-                      variant: 'h4',
-                      fontWeight: 'bold',
-                      color: theme.palette.zesty.zestyZambezi,
-                      textAlign: 'center',
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        component: 'h2',
+                        variant: 'h4',
+                        fontWeight: 'bold',
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                      },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      component: 'p',
-                      variant: 'h6',
-                      color: theme.palette.zesty.zestyZambezi,
-                      textAlign: 'center',
-                      mt: 2,
+                    p: {
+                      component: Typography,
+                      props: {
+                        component: 'p',
+                        variant: 'h6',
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                        mt: 2,
+                      },
                     },
                   },
                 }}

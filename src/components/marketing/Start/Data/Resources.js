@@ -1,4 +1,4 @@
-export const resourceStart = ({ template }) => {
+export const resourceStart = () => {
   return [
     { label: 'Live Demo', url: '#' },
     { label: 'Read Schema', url: '#' },

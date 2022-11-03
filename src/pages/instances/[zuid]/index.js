@@ -6,7 +6,7 @@ import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import dayjs from 'dayjs';
 import { isProd } from 'utils';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function OverviewPage() {
   const [loading, setloading] = useState(false);

@@ -57,13 +57,17 @@ export const ProfileMenu = ({ profilePic, userInfo }) => {
           </Typography>
         </Box>
         <Box>
-          {dropdown.map((e) => (
-            <MenuItem onClick={() => handleClose(e.link)}>{e.label}</MenuItem>
+          {dropdown.map((e, index) => (
+            <MenuItem key={index} onClick={() => handleClose(e.link)}>
+              {e.label}
+            </MenuItem>
           ))}
         </Box>
         <Box sx={{ borderTop: `1px solid ${grey[300]}` }}>
-          {signOut.map((e) => (
-            <MenuItem onClick={() => handleClose(e.link)}>{e.label}</MenuItem>
+          {signOut.map((e, index) => (
+            <MenuItem key={index} onClick={() => handleClose(e.link)}>
+              {e.label}
+            </MenuItem>
           ))}
         </Box>
       </Menu>

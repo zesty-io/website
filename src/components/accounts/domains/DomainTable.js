@@ -14,7 +14,7 @@ export default function DomainTable({ rows, caption, deleteDomain }) {
   return (
     <TableContainer component={Paper} sx={{ boxShadow: 1 }}>
       <Table sx={{ minWidth: 450 }} aria-label="caption table">
-        <caption sx={{ borderTop: 1 }}>{caption}</caption>
+        <caption style={{ borderTop: 1 }}>{caption}</caption>
         <TableHead>
           <TableRow>
             <TableCell>Domain</TableCell>
