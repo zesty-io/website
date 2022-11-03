@@ -1,22 +1,25 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, Stack } from '@mui/material';
 
 /**
  * Components Imports
  */
 import DemoCta from 'components/cta/DemoCta';
+import TryFreeButton from 'components/cta/TryFreeButton';
 import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Hero = ({
+  eyebrow,
   header,
   mainImage,
   primaryCta,
   primaryCtaLink,
   secondaryCta,
   secondaryCtaLink,
+  isDarkMode,
   theme,
   isSmall,
   isMedium,
@@ -58,6 +61,19 @@ const Hero = ({
             sm={12}
             md={6}
           >
+            <Typography
+              component={'h1'}
+              variant="p"
+              color={
+                isDarkMode
+                  ? theme.palette.zesty.zestyWhite
+                  : theme.palette.zesty.zestyGrey
+              }
+              gutterBottom
+              sx={{ fontWeight: 400, fontSize: '20px' }}
+            >
+              {eyebrow}
+            </Typography>
             <MuiMarkdown
               options={{
                 overrides: {
@@ -88,7 +104,7 @@ const Hero = ({
             >
               {header}
             </MuiMarkdown>
-            <Box
+            <Stack
               sx={{
                 mt: 4,
                 display: 'flex',
@@ -96,18 +112,10 @@ const Hero = ({
                 gap: 2,
               }}
             >
-              <DemoCta
-                icon={false}
-                sx={{
-                  background: theme.palette.zesty.zestyOrange,
-                  color: theme.palette.common.white,
-                  '&:hover': {
-                    background: theme.palette.zesty.zestyRed,
-                  },
-                }}
-                target="_self"
+              <TryFreeButton
                 text={primaryCta}
-                href={primaryCtaLink}
+                variant="contained"
+                fullWidth={isMedium}
               />
               <DemoCta
                 icon={false}
@@ -120,7 +128,7 @@ const Hero = ({
                 text={secondaryCta}
                 href={secondaryCtaLink}
               />
-            </Box>
+            </Stack>
           </Grid>
           <Grid item sm={12} md={6}>
             <Box>

@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, Stack } from '@mui/material';
 
 /**
  * Components Imports
@@ -19,19 +19,17 @@ const ContainerWithBackground = ({
   primaryCtaLink,
   mainImage,
   isSmall,
-  isMedium,
   isLarge,
-  _sx = {},
 }) => {
   return (
-    <Box component="section">
-      <Container sx={{ px: isSmall && 0, my: isSmall ? 0 : 4 }}>
+    <Stack component="section">
+      <Container sx={isSmall ? { p: 0 } : { py: 4 }}>
         <Box
           sx={{
             background: theme.palette.zesty.zestyDarkBlue,
             borderRadius: isSmall ? 0 : 5,
-            p: 4,
-            py: isSmall ? 8 : 15,
+            px: isSmall ? 4 : 17,
+            py: isSmall ? 10 : 15,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -54,94 +52,120 @@ const ContainerWithBackground = ({
               }}
               item
               sm={12}
-              md={6}
+              md={mainImage ? 6 : 12}
             >
-              <Box>
-                <Box>
-                  <Typography
-                    variant="h4"
-                    component="h2"
-                    sx={{
-                      color: theme.palette.zesty.zestyWhite,
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {eyebrow}
-                  </Typography>
-
-                  <MuiMarkdown
-                    options={{
-                      overrides: {
-                        h2: {
-                          component: Typography,
-                          props: {
-                            component: 'h1',
-                            variant: 'h3',
-                            sx: {
-                              color: theme.palette.zesty.zestyOrange,
-                              fontWeight: 800,
-                              mt: 2,
-                            },
-                          },
-                        },
-                        p: {
-                          component: Typography,
-                          props: {
-                            component: 'p',
-                            variant: 'h6',
-                            sx: {
-                              color: theme.palette.zesty.zestyWhite,
-                              mt: 5,
-                            },
-                          },
+              <Typography
+                variant="h4"
+                component="h3"
+                sx={{
+                  color: theme.palette.zesty.zestyWhite,
+                  fontWeight: 'bold',
+                }}
+              >
+                {eyebrow}
+              </Typography>
+              <MuiMarkdown
+                overrides={{
+                  h2: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h3',
+                      sx: {
+                        color: theme.palette.zesty.zestyOrange,
+                        fontWeight: 800,
+                        mt: 2,
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        color: theme.palette.zesty.zestyWhite,
+                        mt: 5,
+                      },
+                    },
+                  },
+                  span: {
+                    component: Typography,
+                    props: {
+                      component: 'span',
+                      variant: 'h6',
+                      sx: {
+                        color: theme.palette.zesty.zestyWhite,
+                        mt: 5,
+                      },
+                    },
+                  },
+                  ul: {
+                    component: Typography,
+                    props: {
+                      component: 'ul',
+                      sx: {
+                        mt: 5,
+                        paddingInlineStart: 0,
+                      },
+                    },
+                  },
+                  li: {
+                    component: Typography,
+                    props: {
+                      component: 'li',
+                      sx: {
+                        listStyle: 'none !important',
+                        mb: 3,
+                        '&:before': {
+                          content: `"✓"`,
+                          color: theme.palette.zesty.zestyOrange,
+                          fontWeight: 800,
+                          mr: 2,
                         },
                       },
-                    }}
-                  >
-                    {titleAndDescription}
-                  </MuiMarkdown>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  mt: 4,
-                  display: 'flex',
-                  flexDirection: isMedium ? 'column' : 'row',
-                  gap: 2,
-                }}
-              ></Box>
-              <Box display={'flex'} sx={{ mt: isSmall ? 0 : 5 }}>
-                <DemoCta
-                  href={primaryCtaLink}
-                  text={primaryCta}
-                  sx={{
-                    mt: 4,
-                    color: theme.palette.zesty.zestyOrange,
-                    background: theme.palette.zesty.white,
-                    '&:hover': {
-                      background: theme.palette.zesty.zestyOrange,
-                      color: theme.palette.zesty.white,
                     },
-                  }}
-                />
-              </Box>
+                  },
+                }}
+              >
+                {titleAndDescription}
+              </MuiMarkdown>
+              {primaryCta && (
+                <Box display={'flex'} sx={{ mt: isSmall ? 0 : 5 }}>
+                  <DemoCta
+                    href={primaryCtaLink}
+                    text={primaryCta}
+                    sx={{
+                      mt: 4,
+                      color: theme.palette.zesty.zestyOrange,
+                      background: theme.palette.zesty.white,
+                      '&:hover': {
+                        background: theme.palette.zesty.zestyOrange,
+                        color: theme.palette.zesty.white,
+                      },
+                    }}
+                  />
+                </Box>
+              )}
             </Grid>
-            <Grid item sm={12} md={6}>
-              <Box>
-                <ZestyImage
-                  alt="hero image"
-                  loading="eager"
-                  style={{ width: '100%', maxWidth: '769', height: 'auto' }}
-                  width={769}
-                  height={389}
-                  src={mainImage}
-                />
-              </Box>
-            </Grid>
+            {mainImage && (
+              <Grid item sm={12} md={6}>
+                <Box>
+                  <ZestyImage
+                    alt={eyebrow}
+                    loading="eager"
+                    style={{ width: '100%', maxWidth: '769', height: 'auto' }}
+                    width={769}
+                    height={389}
+                    src={mainImage}
+                  />
+                </Box>
+              </Grid>
+            )}
           </Grid>
         </Box>
       </Container>
-    </Box>
+    </Stack>
   );
 };
 

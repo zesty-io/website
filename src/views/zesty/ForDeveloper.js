@@ -83,10 +83,9 @@ import Hero from 'components/marketing/ForDeveloper/Hero';
 import ContainerWithBackground from 'components/marketing/ForDeveloper/ContainerWithBackground';
 import Features from 'blocks/features/Features/Features';
 import ZestyDrives from 'components/marketing/ForDeveloper/ZestyDrives';
-import Support from 'components/marketing/ForDeveloper/Support';
 import Documentation from 'components/marketing/ForDeveloper/Documentation';
 import TechStack from 'blocks/integrations/TechStack';
-import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
+import { WithHighlightedCard } from 'blocks/testimonials';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
 import HowZestyWorks from 'components/marketing/ForDeveloper/HowZestyWorks';
 
@@ -105,6 +104,7 @@ function ForDeveloper({ content }) {
     isLarge,
     isExtraLarge,
     isDarkMode,
+    FillerContent,
   };
 
   const heroProps = {
@@ -113,8 +113,6 @@ function ForDeveloper({ content }) {
     mainImage:
       content.header_graphic?.data[0]?.url || FillerContent.photos[0].src,
     primaryCta: content.header_button_text || FillerContent.cta,
-    primaryCtaLink:
-      content.header_button_link.data[0].meta.web.uri || FillerContent.href,
     secondaryCta: content.header_button_text_2 || FillerContent.cta,
     secondaryCtaLink:
       content.header_button_link_2.data[0].meta.web.uri || FillerContent.href,
@@ -148,7 +146,8 @@ function ForDeveloper({ content }) {
     background: 'zesty',
     header_size: 32,
     textHighlight: content.why_zesty_eyebrow || FillerContent.header,
-    features_header: content.why_zesty_text || FillerContent.header,
+    features_header: content.why_zesty_eyebrow || FillerContent.header,
+    feature_description: content.why_zesty_text || FillerContent.header,
     cta_button_text: content.middle_cta_button_text || FillerContent.cta,
     cta_button_link:
       content.middle_cta_button_link.data[0].meta.web.uri || FillerContent.href,
@@ -189,8 +188,9 @@ function ForDeveloper({ content }) {
 
   const integrationsProps = {
     text_content: content.integrations_text,
-    // logos: content.integrations_graphic?.data[0]?.url,
     logos: content.integrations_logo?.data,
+    headerColor: theme.palette.zesty.zestyZambezi,
+    headerFontWeight: 700,
     cta_text: content.integrations_button_text || FillerContent.cta,
     cta_link: content.integrations_button_link || FillerContent.href,
     ...pageProps,
@@ -199,11 +199,6 @@ function ForDeveloper({ content }) {
   const supportProps = {
     eyebrow: content.support_eyebrow || FillerContent.header,
     titleAndDescription: content.support_text || FillerContent.rich_text,
-    mainImage:
-      content.nextjs_graphic?.data[0]?.url || FillerContent.photos[0].src,
-    primaryCta: content.footer_button_2 || FillerContent.cta,
-    primaryCtaLink:
-      content.footer_button_2_link.data[0].meta.web.uri || FillerContent.href,
     ...pageProps,
   };
 
@@ -225,7 +220,6 @@ function ForDeveloper({ content }) {
     secondary_cta_text: content.footer_button_2 || FillerContent.cta,
     secondary_cta_link:
       content.footer_button_2_link?.data[0].meta.web.uri || FillerContent.href,
-    backgroundColor: theme.palette.zesty.zestyTealGradient2,
     ...pageProps,
   };
 
@@ -238,14 +232,16 @@ function ForDeveloper({ content }) {
   return (
     <>
       <Hero {...heroProps} />
-      <ContainerWithBackground {...nextJsProps} sx={{ mb: 7 }} />
+      <Box sx={{ mb: 7 }}>
+        <ContainerWithBackground {...nextJsProps} />
+      </Box>
       <Features {...whyZestyProps} />
-      <ContainerWithBackground {...nodeSDKProps} sx={{ mb: 7 }} />
+      <ContainerWithBackground {...nodeSDKProps} />
       <ZestyDrives {...zestyDrivesProps} />
       <TechStack {...integrationsProps} />
-      <Support {...supportProps} />
+      <ContainerWithBackground {...supportProps} />
       <Documentation {...documentationProps} />
-      <Testimonials {...testimonialsProps} />
+      <WithHighlightedCard {...testimonialsProps} />
       <Box sx={{ mt: isSmall ? 15 : 20 }}>
         <Bottom {...bottomProps} />
       </Box>

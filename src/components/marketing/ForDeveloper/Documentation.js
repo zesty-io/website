@@ -8,6 +8,7 @@ import { Box, Typography, Card, Grid } from '@mui/material';
  */
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'markdown-to-jsx';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Documentation = ({
   theme,
@@ -23,7 +24,6 @@ const Documentation = ({
         sx={{
           py: isSmall ? 10 : 6,
           mt: isSmall ? 0 : 10,
-          mb: isSmall ? 0 : 20,
           background: isDarkMode
             ? theme.palette.zesty.zestyDarkBlue
             : theme.palette.zesty.zestyBackgroundBlue,
@@ -31,20 +31,18 @@ const Documentation = ({
         }}
       >
         <MuiMarkdown
-          options={{
-            overrides: {
-              h2: {
-                component: Typography,
-                props: {
-                  component: 'h3',
-                  variant: 'h4',
-                  sx: {
-                    color: isDarkMode
-                      ? theme.palette.common.white
-                      : theme.palette.zesty.zestyDarkText,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                  },
+          overrides={{
+            h2: {
+              component: Typography,
+              props: {
+                component: 'h2',
+                variant: 'h4',
+                sx: {
+                  color: isDarkMode
+                    ? theme.palette.common.white
+                    : theme.palette.zesty.zestyDarkText,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
                 },
               },
             },
@@ -77,11 +75,17 @@ const Documentation = ({
                 }}
               >
                 <Box sx={{ textAlign: 'center' }}>
-                  <Box
-                    sx={{ width: '100', maxWidth: 78 }}
-                    component="img"
+                  <ZestyImage
+                    alt={item.title}
+                    loading="lazy"
+                    style={{
+                      width: '100%',
+                      maxWiheightdth: 'auto',
+                      height: 75,
+                    }}
+                    width={75}
+                    height={75}
                     src={item.graphic?.data[0].url}
-                    alt={item.icon_name}
                   />
                 </Box>
                 <Box sx={{ mt: 5 }}>
