@@ -31,18 +31,20 @@ const Documentation = ({
         }}
       >
         <MuiMarkdown
-          overrides={{
-            h2: {
-              component: Typography,
-              props: {
-                component: 'h2',
-                variant: 'h4',
-                sx: {
-                  color: isDarkMode
-                    ? theme.palette.common.white
-                    : theme.palette.zesty.zestyDarkText,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
+          options={{
+            overrides: {
+              h2: {
+                component: Typography,
+                props: {
+                  component: 'h2',
+                  variant: 'h4',
+                  sx: {
+                    color: isDarkMode
+                      ? theme.palette.common.white
+                      : theme.palette.zesty.zestyDarkText,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                  },
                 },
               },
             },
