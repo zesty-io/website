@@ -2,7 +2,7 @@
  * MUI Imports
  */
 import { Box, Card, Container, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'mui-markdown-jsx';
 
 /**
  *
