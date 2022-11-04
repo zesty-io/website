@@ -6,7 +6,7 @@ Zesty.io NextJS Marketing Website
 </h1>
 <i>
 
-## Marketing Website using NextJS and Zesty.io Headless CMS
+Marketing Website using NextJS and Zesty.io Headless CMS
 
 </i>
 
@@ -22,13 +22,13 @@ Zesty.io NextJS Marketing Website
 
 </div>
 
-## Getting Started
+## ⚡ Getting Started
 
-Node and NPM need to be installed. From your command line.
+Requires `node version ^16.x.x` and `npm version ^8.x.x`
 
 Create a file at the root `.env.local` with `PRODUCTION=false` as the file contents
 
-```bash
+```jsx
 git clone git@github.com:zesty-io/website.git
 
 cd website
