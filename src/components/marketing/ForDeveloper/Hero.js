@@ -16,7 +16,6 @@ const Hero = ({
   header,
   mainImage,
   primaryCta,
-  primaryCtaLink,
   secondaryCta,
   secondaryCtaLink,
   isDarkMode,
