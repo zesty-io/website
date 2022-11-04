@@ -208,8 +208,9 @@ const Testimonials = ({ title, data, cta_text, cta_link }) => {
                           mt: 4,
                         }}
                       >
-                        {[1, 2, 3, 4, 5].map(() => (
+                        {[1, 2, 3, 4, 5].map((_item,index) => (
                           <ZestyImage
+                            key={index}
                             width={20}
                             height={20}
                             style={{ paddingLeft: 0.5, paddingRight: 0.5 }}
