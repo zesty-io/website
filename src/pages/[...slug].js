@@ -50,7 +50,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   };
 
   // This section holds data settings for fetching Github Data
-  if (req.url == '/roadmap/' && process.env.GITHUB_AUTH) {
+  if (req.url.includes('/roadmap/') && process.env.GITHUB_AUTH) {
     data.github_data = await githubFetch({
       organization: `"Zesty-io"`,
       projectNumber: data.project_number,
