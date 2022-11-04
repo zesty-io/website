@@ -1,6 +1,11 @@
-<img src="https://brand.zesty.io/zesty-io-logo.svg" width="150">
+<p align="center">
 
-# Zesty.io NextJS Marketing Website
+<img src="https://brand.zesty.io/zesty-io-logo.svg" width="150">
+</p>
+
+<h1 align="center">
+Zesty.io NextJS Marketing Website
+</h1>
 
 Marketing Website using NextJS and Zesty.io Headless CMS
 
