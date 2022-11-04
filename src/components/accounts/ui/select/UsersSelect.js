@@ -11,6 +11,7 @@ export const UsersSelect = ({
   options = initialOptions,
   onChange = () => {},
   value = '',
+  testId = '',
 }) => {
   const [val, setVal] = React.useState(value);
 
@@ -31,13 +32,20 @@ export const UsersSelect = ({
           displayEmpty
           labelId="demo-simple-select-label"
           id="demo-simple-select"
+          data-testid={testId}
           value={val}
           label={label}
           onChange={handleChange}
         >
           {options.map((e) => {
             return (
-              <MenuItem key={e.ZUID} value={e.value} id={e.ZUID} {...e}>
+              <MenuItem
+                data-testid={e.label}
+                key={e.ZUID}
+                value={e.value}
+                id={e.ZUID}
+                {...e}
+              >
                 {e.label}
               </MenuItem>
             );

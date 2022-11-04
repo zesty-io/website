@@ -8,7 +8,12 @@ module.exports = {
     Zesty: true,
     dataLayer: true,
   },
-  extends: ['plugin:react/recommended', 'google', 'prettier'],
+  extends: [
+    'plugin:react/recommended',
+    'google',
+    'prettier',
+    'plugin:cypress/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
