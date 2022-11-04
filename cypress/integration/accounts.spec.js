@@ -11,6 +11,8 @@ describe('Accounts', () => {
     cy.get("input[name='email']").should('exist').type(email);
     cy.get("input[name='password']").should('exist').type(password);
     cy.get("button[type='submit']").should('exist').click();
+
+    cy.wait(3000);
     cy.get("[data-testid='instancesContainer']", { timeout: 30000 }).should(
       'exist',
     );
@@ -18,7 +20,7 @@ describe('Accounts', () => {
     cy.get("input[placeholder='Search an Instances']", { timeout: 30000 })
       .should('exist')
       .type('zesty.pw');
-    cy.wait(1000);
+    cy.wait(3000);
     cy.get("[data-testid='zesty.pw']", { timeout: 30000 })
       .should('exist')
       .click();
