@@ -37,7 +37,6 @@ export default function Page({ children }) {
   const isAccounts = isProtectedRoute(pathname);
   const [themeMode, themeToggler] = useDarkMode();
 
-  console.log({ isLoggedIn });
   const { setuserInfo } = useZestyStore((state) => state);
   const { userInfo } = useFetchWrapper(isLoggedIn);
 

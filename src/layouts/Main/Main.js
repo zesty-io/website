@@ -35,23 +35,12 @@ const Main = ({
   const router = useRouter();
   const [pathname, setPathname] = useState('');
   const isAccounts = isProtectedRoute(pathname);
-
-  // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  // const userAppSID = getUserAppSID();
-  const { _verifySuccess, loading, userInfo } = useZestyStore((state) => state);
-
-  // let isUser = false;
-
+  const { loading, userInfo } = useZestyStore((state) => state);
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
-
-  // if (getCookie('APP_SID') || getCookie('DEV_APP_SID')) {
-  //   isUser = true;
-  // }
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleSidebarOpen = () => {
@@ -68,10 +57,6 @@ const Main = ({
     disableHysteresis: true,
     threshold: 5,
   });
-
-  // check if from ppc short form page then change color of logo and nav
-  // const isPpcShortPage =
-  //   router.asPath === zestyLink(nav, '7-f8d2b2fb82-vgg2t4');
 
   const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
   const isCapterraPage = router.asPath.includes('/capterra');
