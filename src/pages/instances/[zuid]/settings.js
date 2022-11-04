@@ -5,7 +5,7 @@ import { Settings } from 'views/accounts/instances';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import { downloadTemplate } from 'utils/LaunchApp';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function SettingsPage() {
   const [loading, setloading] = React.useState(false);

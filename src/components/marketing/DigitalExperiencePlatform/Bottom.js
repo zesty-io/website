@@ -15,9 +15,9 @@ import * as helper from 'utils';
 import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
-  const bgImgage =
-    content.bottom_page_background_image?.data[0]?.url ||
-    FillerContent.dashboard_image;
+  // const bgImgage =
+  //   content.bottom_page_background_image?.data[0]?.url ||
+  //   FillerContent.dashboard_image;
 
   return (
     <Box paddingY={isMobile ? 0 : 20} sx={{ position: 'relative' }}>

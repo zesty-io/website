@@ -131,14 +131,12 @@ const ProfileHeader = ({ userInfo }) => {
 const Index = ({ children }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('md'));
-  const { userInfo } = useZestyStore((state) => state);
-  const currentPage =
-    location.pathname.split('/').length > 2
-      ? location.pathname.split('/')[2]
-      : '';
-  const [tabValue, setTabValue] = useState(currentPage);
   const router = useRouter();
 
+  const currentPage =
+    router.pathname.split('/').length > 2 ? router.pathname.split('/')[2] : '';
+  const { userInfo } = useZestyStore((state) => state);
+  const [tabValue, setTabValue] = useState(currentPage);
   const handleChange = (newValue) => {
     setTabValue(newValue);
     router.push({
@@ -194,8 +192,9 @@ const Index = ({ children }) => {
           >
             {profileTabs
               .sort((a, b) => a.sort - b.sort)
-              .map((tab) => (
+              .map((tab, index) => (
                 <Tab
+                  key={index}
                   icon={tab.icon}
                   value={tab.filename}
                   iconPosition="start"

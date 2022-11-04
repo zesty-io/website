@@ -40,14 +40,14 @@ const ZInstancesContainer = ({
                 <ZInstanceItem isLoading={isInstancesLoading} />
               </Grid>
             ))
-          : instances?.map((instance, index) => (
-              <Grid key={index} item xs={12} md={4}>
+          : instances?.map((instance) => (
+              <Grid key={instance?.ZUID} item xs={12} md={4}>
                 <ZInstanceItem
                   isTogglingFavorites={isTogglingFavorites}
                   isLoading={isInstancesLoading}
                   image={instance?.screenshotURL}
                   title={instance?.name}
-                  zuidLink={`/instances/${instance.ZUID}`}
+                  zuidLink={`/instances/${instance.ZUID}/`}
                   previewLink={`https://${instance?.randomHashID}-dev${
                     helpers?.isProd
                       ? '.webengine.zesty.io'

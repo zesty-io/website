@@ -4,7 +4,7 @@
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Box, Grid, Typography, Container, Card } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import FillerContent from 'components/globals/FillerContent';
 
 // Components Import
@@ -37,28 +37,30 @@ const AlternateColumns = ({
     >
       <Container>
         <MuiMarkdown
-          overrides={{
-            h2: {
-              component: Typography,
-              props: {
-                component: 'h2',
-                variant: 'h3',
-                sx: {
-                  color: theme.palette.zesty.zestyDarkText,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
+          options={{
+            overrides: {
+              h2: {
+                component: Typography,
+                props: {
+                  component: 'h2',
+                  variant: 'h3',
+                  sx: {
+                    color: theme.palette.zesty.zestyDarkText,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
-              props: {
-                component: 'p',
-                variant: 'h6',
-                sx: {
-                  mt: 2,
-                  color: theme.palette.zesty.zestyZambezi,
-                  textAlign: 'center',
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  variant: 'h6',
+                  sx: {
+                    mt: 2,
+                    color: theme.palette.zesty.zestyZambezi,
+                    textAlign: 'center',
+                  },
                 },
               },
             },
@@ -125,52 +127,55 @@ const AlternateColumns = ({
                     >
                       {item.header || FillerContent.header}
                     </Typography>
+
                     <MuiMarkdown
-                      overrides={{
-                        h3: {
-                          component: Typography,
-                          props: {
-                            variant: 'h4',
-                            component: 'h3',
-                            color:
-                              idx === 2
-                                ? theme.palette.common.white
-                                : theme.palette.zesty.zestyZambezi,
-                            textAlign: isMedium ? 'center' : 'text-left',
-                            fontWeight: 'bold',
+                      options={{
+                        overrides: {
+                          h3: {
+                            component: Typography,
+                            props: {
+                              variant: 'h4',
+                              component: 'h3',
+                              color:
+                                idx === 2
+                                  ? theme.palette.common.white
+                                  : theme.palette.zesty.zestyZambezi,
+                              textAlign: isMedium ? 'center' : 'text-left',
+                              fontWeight: 'bold',
+                            },
                           },
-                        },
-                        p: {
-                          component: Typography,
-                          props: {
-                            variant: 'h6',
-                            mt: 1,
-                            component: 'p',
-                            color:
-                              idx === 2
-                                ? theme.palette.common.white
-                                : theme.palette.zesty.zestyZambezi,
-                            textAlign: isMedium ? 'center' : 'text-left',
+                          p: {
+                            component: Typography,
+                            props: {
+                              variant: 'h6',
+                              mt: 1,
+                              component: 'p',
+                              color:
+                                idx === 2
+                                  ? theme.palette.common.white
+                                  : theme.palette.zesty.zestyZambezi,
+                              textAlign: isMedium ? 'center' : 'text-left',
+                            },
                           },
-                        },
-                        
-                        ul: {
-                          component: Typography,
-                          props: {
-                            mt: 2,
-                            component: 'ul',
+
+                          ul: {
+                            component: Typography,
+                            props: {
+                              mt: 2,
+                              component: 'ul',
+                            },
                           },
-                        },
-                        li: {
-                          component: Typography,
-                          props: {
-                            variant: 'h6',
-                            component: 'li',
-                            color:
-                              idx === 2
-                                ? theme.palette.common.white
-                                : theme.palette.zesty.zestyZambezi,
-                            textAlign: isMedium ? 'center' : 'text-left',
+                          li: {
+                            component: Typography,
+                            props: {
+                              variant: 'h6',
+                              component: 'li',
+                              color:
+                                idx === 2
+                                  ? theme.palette.common.white
+                                  : theme.palette.zesty.zestyZambezi,
+                              textAlign: isMedium ? 'center' : 'text-left',
+                            },
                           },
                         },
                       }}

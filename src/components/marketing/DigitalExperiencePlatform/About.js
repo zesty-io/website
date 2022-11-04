@@ -4,7 +4,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import TryFreeButton from 'components/cta/TryFreeButton';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const About = ({ content, theme, isMobile, FillerContent }) => {
   return (
@@ -19,39 +19,41 @@ const About = ({ content, theme, isMobile, FillerContent }) => {
         <Box sx={{ pb: 10 }}>
           <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
             <MuiMarkdown
-              overrides={{
-                span: {
-                  component: Typography,
-                  props: {
-                    component: 'span',
-                    sx: {
-                      fontSize: 'inherit',
-                      fontWeight: 'inherit',
-                      color: theme.palette.zesty.zestyOrange,
+              options={{
+                overrides: {
+                  span: {
+                    component: Typography,
+                    props: {
+                      component: 'span',
+                      sx: {
+                        fontSize: 'inherit',
+                        fontWeight: 'inherit',
+                        color: theme.palette.zesty.zestyOrange,
+                      },
                     },
                   },
-                },
-                h2: {
-                  component: Typography,
-                  props: {
-                    variant: 'h4',
-                    component: 'h2',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
-                      textAlign: 'center',
-                      fontWeight: 'bold',
+                  h2: {
+                    component: Typography,
+                    props: {
+                      variant: 'h4',
+                      component: 'h2',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                      },
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    variant: 'h6',
-                    component: 'p',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
-                      textAlign: 'center',
-                      mt: 2,
+                  p: {
+                    component: Typography,
+                    props: {
+                      variant: 'h6',
+                      component: 'p',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                        mt: 2,
+                      },
                     },
                   },
                 },

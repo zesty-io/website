@@ -149,13 +149,13 @@ const ZInstanceTimelineItemContainer = ({
   return (
     <InView
       triggerOnce
-      onChange={(inView, entry) => {
+      onChange={(inView) => {
         if (inView) {
           getData(audit);
         }
       }}
     >
-      {({ inView, ref, entry }) => (
+      {({ ref }) => (
         <Stack ref={ref}>
           <ZTimelineItem
             sx={{

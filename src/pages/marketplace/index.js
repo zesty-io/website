@@ -10,7 +10,6 @@ import { fetchPage } from 'lib/api';
 import { setCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 /**
  * Components Imports
@@ -23,8 +22,7 @@ import Main from '../../layouts/Main';
 import Hero from 'components/marketplace/landing/Hero';
 // import AppBar from 'components/console/AppBar';
 
-const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
-  const router = useRouter();
+const Marketplace = ({ marketEntities, marketEntityTypes, ...props }) => {
   const seoTitle = props.meta.web.seo_meta_title,
     seoDescription = props.meta.web.seo_meta_description;
 
@@ -40,7 +38,6 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        {/* <AppBar url={router.asPath} /> */}
         <MarketplaceProvider inititalEntities={marketEntities}>
           <Hero
             {...props}
@@ -66,7 +63,7 @@ export async function getServerSideProps({ res, req }) {
     setCookie('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
-  let extensionsURL = process.env.PRODUCTION
+  let extensionsURL = process.PRODUCTION
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 

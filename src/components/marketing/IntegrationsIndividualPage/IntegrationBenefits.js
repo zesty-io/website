@@ -33,7 +33,7 @@ const IntegrationBenefits = ({ theme, content, FillerContent, isDarkMode }) => {
 
         <Grid sx={{ mt: 5 }} container spacing={2}>
           {content.integration_benefits.data.map((item, index) => (
-            <Grid item sm={12} md={4}>
+            <Grid key={index} item sm={12} md={4}>
               <Card
                 sx={{
                   py: 5,

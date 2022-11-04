@@ -24,13 +24,13 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Mulish"
           />
+
           <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
-            href="https://unpkg.com/aos@next/dist/aos.css"
           />
         </Head>
         <body>
-          <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
           <Main />
           <NextScript />
         </body>

@@ -1,6 +1,6 @@
 // MUI Imports
 import { Box, Container, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import TryFreeButton from 'components/cta/TryFreeButton';
 
 const HeadlessApi = ({ theme, isMobile, content, FillerContent }) => {
@@ -16,32 +16,34 @@ const HeadlessApi = ({ theme, isMobile, content, FillerContent }) => {
         <Container>
           <Box>
             <MuiMarkdown
-              overrides={{
-                h2: {
-                  component: Typography,
-                  props: {
-                    sx: {
-                      mt: isMobile ? 5 : 0,
-                      color: theme.palette.zesty.zestyZambezi,
-                      fontWeight: 'bold',
-                      letterSpacing: 0.2,
-                      textAlign: 'center',
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      sx: {
+                        mt: isMobile ? 5 : 0,
+                        color: theme.palette.zesty.zestyZambezi,
+                        fontWeight: 'bold',
+                        letterSpacing: 0.2,
+                        textAlign: 'center',
+                      },
+                      variant: 'h4',
+                      component: 'h2',
                     },
-                    variant: 'h4',
-                    component: 'h2',
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    sx: {
-                      mt: 2,
-                      textAlign: 'center',
-                      color: theme.palette.zesty.zestyZambezi,
-                      letterSpacing: 0.2,
+                  p: {
+                    component: Typography,
+                    props: {
+                      sx: {
+                        mt: 2,
+                        textAlign: 'center',
+                        color: theme.palette.zesty.zestyZambezi,
+                        letterSpacing: 0.2,
+                      },
+                      variant: 'h6',
+                      component: 'p',
                     },
-                    variant: 'h6',
-                    component: 'p',
                   },
                 },
               }}

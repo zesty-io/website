@@ -15,7 +15,7 @@ import 'swiper/css/navigation';
 
 // zoho object
 import { zohoPostObject } from 'components/marketing/Start/zohoPostObject.js';
-import { getCookie, setCookie } from 'cookies-next';
+import { getCookie, getCookies, setCookie } from 'cookies-next';
 
 // pendo
 import { pendoScript } from 'components/marketing/Start/pendoScript.js';
@@ -32,6 +32,8 @@ import { NavStartData } from 'components/marketing/Start/Data/NavStartData';
 import { useZestyStore } from 'store';
 import { Scenarios } from 'components/marketing/Start/Data/Scenarios';
 import axios from 'axios';
+import { getIsAuthenticated } from 'utils';
+// import { getIsAuthenticated } from 'utils';
 
 // zoho lead post function
 
@@ -68,7 +70,9 @@ const getTemplate = async (zuid, setrepository, isProduction) => {
     });
 };
 export default function Start(props) {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(
+    typeof window !== 'undefined' && window.location.search,
+  );
   const templateId = params?.toString()?.split('=')[1];
   const isTemplate = templateId ? true : false;
   const [isLogin, setisLogin] = useState('');
@@ -352,7 +356,7 @@ export default function Start(props) {
   );
 }
 
-export async function getServerSideProps({ res }) {
+export async function getServerSideProps({ req, res }) {
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
@@ -365,6 +369,16 @@ export async function getServerSideProps({ res }) {
         : false,
   };
 
+  const isAuthenticated = getIsAuthenticated(res);
+
   // Pass data to the page via props
-  return { props: data };
+  return {
+    props: {
+      ...data,
+      cookies: getCookies({ req, res }),
+      zesty: {
+        isAuthenticated,
+      },
+    },
+  };
 }
