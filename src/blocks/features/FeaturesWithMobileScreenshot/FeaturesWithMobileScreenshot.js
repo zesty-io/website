@@ -73,27 +73,6 @@ const FeaturesWithMobileScreenshot = ({
               </Box>
               <Grid container order={{ sm: 2, md: 1 }}>
                 <MuiMarkdown
-<<<<<<< HEAD
-                  overrides={{
-                    p: {
-                      component: Typography,
-                      props: {
-                        sx: {
-                          color: text_color
-                            ? text_color
-                            : theme.palette.zesty.zestyZambezi,
-                        },
-                      },
-                    },
-                    li: {
-                      component: Typography,
-                      props: {
-                        component: 'li',
-                        sx: {
-                          color: text_color
-                            ? text_color
-                            : theme.palette.zesty.zestyZambezi,
-=======
                   options={{
                     overrides: {
                       p: {
@@ -115,7 +94,6 @@ const FeaturesWithMobileScreenshot = ({
                               ? text_color
                               : theme.palette.zesty.zestyZambezi,
                           },
->>>>>>> stage
                         },
                       },
                     },

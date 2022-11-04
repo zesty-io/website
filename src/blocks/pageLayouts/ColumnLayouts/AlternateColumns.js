@@ -167,15 +167,6 @@ const AlternateColumns = ({
                               textAlign: isMedium ? 'center' : 'text-left',
                             },
                           },
-<<<<<<< HEAD
-                        },
-
-                        ul: {
-                          component: Typography,
-                          props: {
-                            mt: 2,
-                            component: 'ul',
-=======
 
                           ul: {
                             component: Typography,
@@ -183,7 +174,6 @@ const AlternateColumns = ({
                               mt: 2,
                               component: 'ul',
                             },
->>>>>>> stage
                           },
                           li: {
                             component: Typography,
