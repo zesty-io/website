@@ -35,7 +35,7 @@ jobs:
           echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
 
       - name: Run E2E test
-        run: npm run test:e2e:ci
+        run: npm run test:e2e:ci:prod
 
       - name: Save screenshots 🖼
         uses: actions/upload-artifact@v3
