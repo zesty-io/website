@@ -15,7 +15,7 @@ describe('Accounts', () => {
       'exist',
     );
 
-    cy.get("input[placeholder='Search an Instances']")
+    cy.get("input[placeholder='Search an Instances']", { timeout: 30000 })
       .should('exist')
       .type('zesty.pw');
     cy.wait(1000);

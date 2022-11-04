@@ -6,7 +6,7 @@ on:
     branches: [stage,accounts,production]
   workflow_dispatch:
 jobs:
-  build:
+  end-to-end-tests:
     runs-on: ubuntu-latest
     env:
       PRODUCTION: 'false'
@@ -33,6 +33,10 @@ jobs:
       - name: Write the cypress.env.json file 📝
         run: |
           echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
+
+      - name: set env for cypress 
+        run: |
+          echo 'PRODUCTION=true' > .env
 
       - name: Run E2E test
         run: npm run test:e2e:ci:prod
