@@ -1,4 +1,4 @@
-name: Zesty Website CI/E2E Dev
+name: Zesty Website E2E Dev
 on:
   push:
     branches: [stage,accounts,production]

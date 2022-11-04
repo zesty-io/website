@@ -7,7 +7,7 @@ describe('Accounts', () => {
   beforeEach('start', () => {
     cy.visit('http://test.zesty.io:3000/login/');
   });
-  it('Test users login and navigation on accounts ', () => {
+  it('Test users login on accounts ', () => {
     cy.get("input[name='email']").should('exist').type(email);
     cy.get("input[name='password']").should('exist').type(password);
     cy.get("button[type='submit']").should('exist').click();
