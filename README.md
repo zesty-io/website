@@ -1,13 +1,26 @@
-<p align="center">
+<div align="center">
 
 <img src="https://brand.zesty.io/zesty-io-logo.svg" width="150">
-</p>
-
-<h1 align="center">
+<h1>
 Zesty.io NextJS Marketing Website
 </h1>
+<i>
 
-Marketing Website using NextJS and Zesty.io Headless CMS
+## Marketing Website using NextJS and Zesty.io Headless CMS
+
+</i>
+
+<a href="https://github.com/zesty-io/website/stargazers"><img src="https://img.shields.io/github/stars/zesty-io/website?style=flat-square" alt="Stars Badge"/></a>
+<a href="https://github.com/zesty-io/website/pulls"><img src="https://img.shields.io/github/issues-pr/zesty-io/website?style=flat-square" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/zesty-io/website/issues"><img src="https://img.shields.io/github/issues/zesty-io/website?style=flat-square" alt="Issues Badge"/></a>
+<a href="https://github.com/zesty-io/website/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/zesty-io/website?color=2b9348&&style=flat-square"></a>
+<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zesty-io/website?color=2b9348&&style=flat-square" alt="License Badge"/></a>
+<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/github/package-json/dependency-version/zesty-io/website/react?style=flat-square" alt="License Badge"/></a>
+<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/github/package-json/dependency-version/zesty-io/website/next?style=flat-square" alt="License Badge"/></a>
+
+<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/badge/MUI-%230081CB.svg?style=flat-square&logo=mui&logoColor=white" alt="License Badge"/></a>
+
+</div>
 
 ## Getting Started
 
@@ -16,9 +29,9 @@ Node and NPM need to be installed. From your command line.
 Create a file at the root `.env.local` with `PRODUCTION=false` as the file contents
 
 ```bash
-git clone git@github.com:zesty-io/nextjs-website.git
+git clone git@github.com:zesty-io/website.git
 
-cd nextjs-website
+cd website
 
 npm install
 
