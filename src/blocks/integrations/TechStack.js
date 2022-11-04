@@ -7,6 +7,8 @@ import FillerContent from 'components/globals/FillerContent';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const TechStack = ({
+  headerColor,
+  headerFontWeight = 500,
   text_content,
   logos,
   cta_text,
@@ -45,12 +47,13 @@ const TechStack = ({
                     h2: {
                       component: Typography,
                       props: {
-                        variant: 'h5',
-                        component: 'h3',
+                        variant: 'h4',
+                        component: 'h2',
                         sx: {
-                          fontWeight: 'bold',
-                          fontWeight: 500,
-                          color: theme.palette.zesty.zestyOrange,
+                          fontWeight: headerFontWeight,
+                          color: headerColor
+                            ? headerColor
+                            : theme.palette.zesty.zestyOrange,
                         },
                       },
                     },
@@ -58,7 +61,7 @@ const TechStack = ({
                       component: Typography,
                       props: {
                         variant: 'h4',
-                        component: 'h4',
+                        component: 'h3',
                         sx: {
                           mt: 2,
                           fontWeight: 'bold',
@@ -70,7 +73,7 @@ const TechStack = ({
                       component: Typography,
                       props: {
                         variant: 'h3',
-                        component: 'h4',
+                        component: 'h2',
                         sx: {
                           fontWeight: 700,
                           color: theme.palette.zesty.zestyOrange,

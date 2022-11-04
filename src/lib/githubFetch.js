@@ -1,5 +1,5 @@
 export async function githubFetch(settings) {
-  const TOKEN = process.env.NEXT_PUBLIC_GITHUB_AUTH;
+  const TOKEN = process.env.GITHUB_AUTH;
   const ENDPOINT = 'https://api.github.com/graphql';
 
   const HEADERS = {

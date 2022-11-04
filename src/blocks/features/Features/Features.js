@@ -52,7 +52,7 @@ const Features = ({
   icon_height = 60,
   center = false,
   cta_button_text = '',
-  background_color = ""
+  background_color = '',
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -77,7 +77,9 @@ const Features = ({
         zIndex: '500',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
-          : background_color ? background_color : theme.palette.common.white,
+          : background_color
+          ? background_color
+          : theme.palette.common.white,
       }}
     >
       <Box
@@ -164,7 +166,55 @@ const Features = ({
             )}
           </MuiMarkdown>
 
-          <Typography
+          <MuiMarkdown
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    variant: 'h4',
+                    component: 'h2',
+                    sx: {
+                      color: header_color
+                        ? header_color
+                        : theme.palette.zesty.zestyDarkText,
+                      fontSize: isMobile ? 24 : header_size,
+                      textAlign: 'center',
+                      fontWeight: 700,
+                      mt: 2,
+                    },
+                  },
+                },
+                p: {
+                  component: Typography,
+                  props: {
+                    variant: 'h6',
+                    component: 'p',
+                    sx: {
+                      textAlign: 'center',
+                      color: isDarkMode
+                        ? theme.palette.zesty.zestyDarkBlue
+                        : theme.palette.zesty.zestyZambezi,
+                    },
+                  },
+                },
+                span: {
+                  component: Typography,
+                  props: {
+                    variant: 'p',
+                    component: 'span',
+                    sx: {
+                      fontSize: 'inherit',
+                      color: theme.palette.zesty.zestyOrange,
+                    },
+                  },
+                },
+              },
+            }}
+          >
+            {feature_description || ''}
+          </MuiMarkdown>
+          {/* <Typography
             variant="h6"
             component="h2"
             sx={{
@@ -176,7 +226,7 @@ const Features = ({
             }}
           >
             {feature_description || ''}
-          </Typography>
+          </Typography> */}
 
           {cta_button_text && (
             <Box

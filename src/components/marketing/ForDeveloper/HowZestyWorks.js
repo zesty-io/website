@@ -4,9 +4,11 @@
 
 import { Box, Typography, Card, Grid } from '@mui/material';
 import Container from 'blocks/container/Container';
+
 /**
- * Static Assets Imports
+ * Components Imports
  */
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const HowZestyWorks = ({
   header,
@@ -49,8 +51,8 @@ const HowZestyWorks = ({
             >
               <Box>
                 <Typography
-                  component="h3"
-                  variant="h3"
+                  component="h2"
+                  variant="h4"
                   sx={{
                     fontWeight: 'bold',
                     color: theme.palette.zesty.zestyZambezi,
@@ -66,7 +68,6 @@ const HowZestyWorks = ({
                   component="a"
                   href="#"
                   sx={{
-                    minHeight: 300,
                     width: '100%',
                     margin: 'auto',
                     position: 'relative',
@@ -74,23 +75,17 @@ const HowZestyWorks = ({
                     textDecoration: 'none',
                   }}
                 >
-                  <Box
-                    sx={{
-                      background: theme.palette.zesty.zestyDarkBlue,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      minHeight: 240,
-                    }}
-                  >
-                    <Box
-                      sx={{ width: '100' }}
-                      component="img"
-                      src={
-                        item.page_graphic?.data[0].url ||
-                        FillerContent.photos[0].src
-                      }
-                    />
-                  </Box>
+                  <ZestyImage
+                    alt={item.page_title || FillerContent.description}
+                    loading="lazy"
+                    style={{ width: '100%' }}
+                    width={475}
+                    height="auto"
+                    src={
+                      item.page_graphic?.data[0].url ||
+                      FillerContent.photos[0].src
+                    }
+                  />
 
                   <Box
                     sx={{
@@ -102,12 +97,12 @@ const HowZestyWorks = ({
                     }}
                   >
                     <Typography
-                      component="p"
+                      component="h3"
                       variant="h4"
                       sx={{
                         fontWeight: 'bold',
                         textDecoration: 'none',
-                        // color: theme.palette.zesty.zestyZambezi,
+                        mt: -2,
                         color: theme.palette.zesty.zestyDarkText,
                       }}
                     >

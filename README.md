@@ -256,10 +256,10 @@ _Available cookies_
 
 ## Requirements
 
-Must create `.env` file and add `NEXT_PUBLIC_GITHUB_AUTH`
+Must create `.env` file and add `GITHUB_AUTH`
 
 ```
-NEXT_PUBLIC_GITHUB_AUTH="Personal Auth Token"
+GITHUB_AUTH="Personal Auth Token"
 ```
 
 Github `Personal Auth Token` can be generated from https://github.com/settings/tokens

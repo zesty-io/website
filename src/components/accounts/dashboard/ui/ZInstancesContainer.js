@@ -42,7 +42,7 @@ const ZInstancesContainer = ({
                   isLoading={isInstancesLoading}
                   image={instance?.screenshotURL}
                   title={instance?.name}
-                  zuidLink={`/instances/${instance.ZUID}`}
+                  zuidLink={`/instances/${instance.ZUID}/`}
                   previewLink={`https://${instance?.randomHashID}-dev${
                     helpers?.isProd
                       ? '.webengine.zesty.io'

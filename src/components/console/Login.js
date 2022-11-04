@@ -252,7 +252,7 @@ const Login = ({ content, userEmail }) => {
 
                   <Link
                     alignSelf="start"
-                    href={`${ZestyAPI?.authAPIURL}/azure/login`}
+                    href={`https://auth.api.zesty.io/azure/login`}
                   >
                     <img src={msLogin?.src} alt="Microsoft Single Sign On" />
                   </Link>

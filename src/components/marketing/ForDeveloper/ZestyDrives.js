@@ -5,11 +5,6 @@ import { Box, Card, Container, Typography } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 
 /**
- * Local Assets
- */
-import s_curve from '../../../../public/assets/images/headless-cms/sCurve.svg';
-
-/**
  *
  * @param {array} data - array items that is needed to loop through cards
  * @param {string} features_header - string header text
@@ -50,24 +45,13 @@ const ZestyDrives = ({
       paddingBottom={isSmall ? 0 : 15}
       sx={{
         position: 'relative',
-        mt: 7,
+        mt: 5,
         zIndex: '500',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
           : theme.palette.common.white,
       }}
     >
-      <Box
-        sx={{
-          position: 'absolute',
-          margin: 'auto',
-          display: 'block',
-          width: '100%',
-        }}
-        component="img"
-        alt=""
-        src={s_curve.src}
-      />
       <Container maxWidth="false">
         <Box sx={{ py: isSmall ? 5 : 10 }}>
           <MuiMarkdown
@@ -76,14 +60,14 @@ const ZestyDrives = ({
                 h2: {
                   component: Typography,
                   props: {
-                    variant: 'p',
+                    variant: 'h4',
                     component: 'h2',
                     sx: {
                       color: header_color
                         ? header_color
                         : theme.palette.zesty.zestyDarkText,
-                      fontSize: isSmall ? 24 : header_size,
                       textAlign: 'center',
+                      fontWeight: 700,
                     },
                   },
                 },
@@ -108,7 +92,7 @@ const ZestyDrives = ({
             zIndex: '1000',
           }}
         >
-          {data.map((e, i) => {
+          {data?.map((e, i) => {
             return (
               <Card
                 key={i}
