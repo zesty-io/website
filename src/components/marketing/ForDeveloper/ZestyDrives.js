@@ -24,7 +24,6 @@ import MuiMarkdown from 'markdown-to-jsx';
 const ZestyDrives = ({
   data,
   features_header,
-  header_size = 48,
   header_color,
   textHighlight = 'Zesty',
   center = false,
