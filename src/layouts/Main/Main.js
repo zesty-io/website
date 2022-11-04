@@ -82,7 +82,6 @@ const Main = ({
 
   const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
   const isLoggedIn = useIsLoggedIn();
-
   const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;

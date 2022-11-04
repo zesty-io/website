@@ -194,10 +194,7 @@ const RegisterPage = ({}) => {
   const userAppSID = getUserAppSID();
 
   const ZestyAPI = useZestyStore((state) => state.ZestyAPI);
-  const { verifySuccess, loading: verifyLoading } = useFetchWrapper(
-    userAppSID,
-    instanceZUID,
-  );
+  const { verifySuccess, loading: verifyLoading } = useFetchWrapper();
   const FormProps = {
     ZestyAPI,
     instanceZUID,

@@ -7,6 +7,9 @@ import getTheme, { getThemeAccounts } from 'theme';
 import AOS from 'aos';
 import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import usePeriodicVerify from 'components/hooks/usePeriodicVerify';
+import { useZestyStore } from 'store';
+import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 
 export const useDarkMode = () => {
   const [themeMode, setThemeMode] = useState('light');
@@ -34,9 +37,20 @@ export default function Page({ children }) {
   const isAccounts = isProtectedRoute(pathname);
   const [themeMode, themeToggler] = useDarkMode();
 
+  console.log({ isLoggedIn });
+  const { setuserInfo } = useZestyStore((state) => state);
+  const { userInfo } = useFetchWrapper(isLoggedIn);
+
+  // this will run to if the user is logged in to keep the session alive!
+  usePeriodicVerify(isLoggedIn);
+
   useEffect(() => {
     setPathname(window.location.pathname);
   }, []);
+
+  useEffect(() => {
+    setuserInfo(userInfo.data);
+  }, [userInfo]);
 
   useEffect(() => {
     // Remove the server-side injected CSS.
