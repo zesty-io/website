@@ -41,4 +41,4 @@ tags:
   - $_SERVICE_NAME
 # higher cpu added to help build node nextjs faster, smaller machine can timeout (10 minutes)
 options:
-  machineType: 'N1_HIGHCPU_8'
+  machineType: 'E2_HIGHCPU_8'
