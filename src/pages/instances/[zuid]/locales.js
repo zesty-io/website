@@ -157,21 +157,25 @@ export default function Locales() {
     setRows([]);
     setIsLoading(true);
     const locales = await ZestyAPI.getLocales('all');
-    const newLocales = locales?.data?.map((c) => ({
-      ...c,
-      id: c.ID,
-    }));
+    const newLocales =
+      !locales?.error &&
+      locales?.data?.map((c) => ({
+        ...c,
+        id: c.ID,
+      }));
     setIsLoading(false);
     setRows(newLocales);
   };
 
   const getAllLocales = async () => {
     const locales = await ZestyAPI.getAllLocales();
-    let data = Object.entries(locales?.data)?.map(([key]) => ({
-      id: key,
-      value: key,
-      label: `${locales?.data[key]} - ${key}`,
-    }));
+    let data =
+      !locales?.error &&
+      Object.entries(locales?.data)?.map(([key]) => ({
+        id: key,
+        value: key,
+        label: `${locales?.data[key]} - ${key}`,
+      }));
 
     setAvailableLocales(data);
   };

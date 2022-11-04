@@ -6,12 +6,7 @@ import { Box, Typography, Grid, Container } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
-const Bottom = ({
-  theme,
-  // isMedium, isDarkMode,
-  content,
-  FillerContent,
-}) => {
+const Bottom = ({ theme, content, FillerContent }) => {
   return (
     <Box id="form" sx={{}}>
       <Container sx={{ py: 5 }}>

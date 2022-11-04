@@ -20,7 +20,7 @@
     "test": "jest --forceExit",
     "dev-test": "jest --watch --silent",
     "fix-lint": "eslint . --ext=js --fix",
-    "commit": " git add . && git commit -m 'test'",
+    "commit": " git add . && git commit -m ' '",
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
