@@ -10,12 +10,11 @@ Marketing Website using NextJS and Zesty.io Headless CMS
 
 </i>
 
-<a href="https://github.com/zesty-io/website/stargazers"><img src="https://img.shields.io/github/stars/zesty-io/website?style=flat-square" alt="Stars Badge"/></a>
-<a href="https://github.com/zesty-io/website/pulls"><img src="https://img.shields.io/github/issues-pr/zesty-io/website?style=flat-square" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/zesty-io/website/issues"><img src="https://img.shields.io/github/issues/zesty-io/website?style=flat-square" alt="Issues Badge"/></a>
-<a href="https://github.com/zesty-io/website/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/zesty-io/website?color=2b9348&&style=flat-square"></a>
-<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zesty-io/website?color=2b9348&&style=flat-square" alt="License Badge"/></a>
-<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/github/package-json/dependency-version/zesty-io/website/react?style=flat-square" alt="License Badge"/></a>
+<a href="https://github.com/zesty-io/website/stargazers"><img src="https://img.shields.io/github/stars/zesty-io/website?style=flat-square&&color=F4CE01" alt="Stars Badge"/></a>
+<a href="https://github.com/zesty-io/website/pulls"><img src="https://img.shields.io/github/issues-pr/zesty-io/website?style=flat-square&&color=4DC71F" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/zesty-io/website/issues"><img src="https://img.shields.io/github/issues/zesty-io/website?style=flat-square&&color=F88304" alt="Issues Badge"/></a>
+<a href="https://github.com/zesty-io/website/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/zesty-io/website?color=9B1FE9&&style=flat-square"></a>
+<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/github/package-json/dependency-version/zesty-io/website/react?style=flat-square&&color=5ED3F3" alt="License Badge"/></a>
 <a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/github/package-json/dependency-version/zesty-io/website/next?style=flat-square" alt="License Badge"/></a>
 
 <a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/badge/MUI-%230081CB.svg?style=flat-square&logo=mui&logoColor=white" alt="License Badge"/></a>
@@ -41,7 +40,7 @@ npm run dev
 
 ```
 
-## Syncing Zesty.io Models to Next JS
+## 💡 Syncing Zesty.io Models to Next JS
 
 From the command line at the root of the project run:
 
@@ -51,7 +50,7 @@ node scripts/zesty-nextjs.js
 
 This will create new files where needed, but will not overwrite existing files.
 
-## AutoDeploy
+## 💡 AutoDeploy
 
 Any push or merge to the `dev`,`stage`, or `production` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
 
@@ -63,22 +62,22 @@ dev: https://zesty-dev-website-m3rbwjxm5q-uc.a.run.app/
 stage: https://kfg6bckb-dev.webengine.zesty.io OR https://zesty-website-m3rbwjxm5q-uc.a.run.app/
 production: https://www.zesty.io OR https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
 
-## Contribution
+## 💡 Contribution
 
 1. Create a branch
 2. Make change locally commit
 3. Test your changes with `npm run build`
 4. If build succeeds, create pull request against `stage` (our stage)
 
-## Deployment to Production
+## 💡 Deployment to Production
 
 After a successfull deploy to `stage` create PR from `stage` to `production`, upon merge a production build will trigger.
 
-## CTA Components and Forms
+## 💡 CTA Components and Forms
 
 Please use these core CTA components through your views. These forms already have validation setup and connect to our remote services.
 
-### Try Button
+### 💡 Try Button
 
 A button that trigger a dropdown guiding both a developer and marketers option
 
