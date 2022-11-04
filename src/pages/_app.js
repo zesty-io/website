@@ -70,9 +70,10 @@ export default function App({ Component, pageProps }) {
   const isAuthenticatedFromProps =
     pageProps?.zesty?.isAuthenticated ||
     (pageProps?.zesty?.isAuthenticated === undefined && true);
-  const GTM_ID = !isAuthenticatedFromProps
-    ? process.env.NEXT_PUBLIC_GTM_ID
-    : undefined;
+  let gtm = process.env.GTM_ID
+    ? process.env.GTM_ID
+    : process.env.NEXT_PUBLIC_GTM_ID;
+  const GTM_ID = !isAuthenticatedFromProps ? gtm : undefined;
 
   // this will run to if the user is logged in to keep the session alive!
   usePeriodicVerify();
