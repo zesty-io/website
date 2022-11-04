@@ -17,18 +17,24 @@ jobs:
           node-version: '16.x'
       - name: Setup custom host for mylocal
         run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
-      - name: Install NPM dependencies build test
+
+      - name: Install dependencies 
         run: npm ci
+
       - name: Check format and linters
         run: npm run test-all
-      - name: Run build
+
+      - name: Build Project 
         run: npm run build
-      - name: Run test
+
+      - name: Run Unit test
         run: npm run test
+
       - name: Write the cypress.env.json file 📝
         run: |
           echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
-      - name: e2e test
+
+      - name: Run E2E test
         run: npm run test:e2e:ci
 
       - name: Save screenshots 🖼
