@@ -3,7 +3,7 @@ on:
   push:
     branches: [stage,accounts,production]
   pull_request:
-    branches: [stage,accounts,feat/profile]
+    branches: [stage,accounts,production]
   workflow_dispatch:
 jobs:
   build:
