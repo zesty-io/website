@@ -2,6 +2,7 @@ import { Link, ListItem } from '@mui/material';
 import React from 'react';
 
 const ZMyListItem = ({ logo, link, name, sx, ...props }) => {
+  console.log('');
   return (
     <ListItem
       alignItems="center"
