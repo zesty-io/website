@@ -17,47 +17,47 @@ describe('Accounts', () => {
       'exist',
     );
 
-    cy.get("input[placeholder='Search an Instances']", { timeout: 30000 })
-      .should('exist')
-      .type('zesty.pw');
+    // cy.get("input[placeholder='Search an Instances']", { timeout: 30000 })
+    //   .should('exist')
+    //   .type('zesty.pw');
 
-    cy.visit('http://test.zesty.io:3000/instances/8-f48cf3a682-7fthvk/');
+    // cy.visit('http://test.zesty.io:3000/instances/8-f48cf3a682-7fthvk/');
 
-    cy.get("[data-testid='Overview']", { timeout: 30000 }).should('exist');
+    // cy.get("[data-testid='Overview']", { timeout: 30000 }).should('exist');
 
-    cy.get("[data-testid='Users-Nav']", { timeout: 30000 })
-      .should('exist')
-      .click();
-    cy.get("[data-testid='Users']", { timeout: 30000 }).should('exist');
+    // cy.get("[data-testid='Users-Nav']", { timeout: 30000 })
+    //   .should('exist')
+    //   .click();
+    // cy.get("[data-testid='Users']", { timeout: 30000 }).should('exist');
 
-    cy.get("[data-testid='Teams-Nav']", { timeout: 30000 })
-      .should('exist')
-      .click();
-    cy.get("[data-testid='Teams']", { timeout: 30000 }).should('exist');
+    // cy.get("[data-testid='Teams-Nav']", { timeout: 30000 })
+    //   .should('exist')
+    //   .click();
+    // cy.get("[data-testid='Teams']", { timeout: 30000 }).should('exist');
 
-    cy.get("[data-testid='Domains-Nav']", { timeout: 30000 })
-      .should('exist')
-      .click();
-    cy.get("[data-testid='Domain']", { timeout: 30000 }).should('exist');
+    // cy.get("[data-testid='Domains-Nav']", { timeout: 30000 })
+    //   .should('exist')
+    //   .click();
+    // cy.get("[data-testid='Domain']", { timeout: 30000 }).should('exist');
 
-    cy.get("[data-testid='Locales-Nav']", { timeout: 30000 })
-      .should('exist')
-      .click();
-    cy.get("[data-testid='Locales']", { timeout: 30000 }).should('exist');
+    // cy.get("[data-testid='Locales-Nav']", { timeout: 30000 })
+    //   .should('exist')
+    //   .click();
+    // cy.get("[data-testid='Locales']", { timeout: 30000 }).should('exist');
 
-    cy.get("[data-testid='APIs-Nav']", { timeout: 30000 })
-      .should('exist')
-      .click();
-    cy.get("[data-testid='Apis']", { timeout: 30000 }).should('exist');
+    // cy.get("[data-testid='APIs-Nav']", { timeout: 30000 })
+    //   .should('exist')
+    //   .click();
+    // cy.get("[data-testid='Apis']", { timeout: 30000 }).should('exist');
 
-    cy.get("[data-testid='Webhooks-Nav']", { timeout: 30000 })
-      .should('exist')
-      .click();
-    cy.get("[data-testid='Webhooks']", { timeout: 30000 }).should('exist');
+    // cy.get("[data-testid='Webhooks-Nav']", { timeout: 30000 })
+    //   .should('exist')
+    //   .click();
+    // cy.get("[data-testid='Webhooks']", { timeout: 30000 }).should('exist');
 
-    cy.get("[data-testid='Settings-Nav']", { timeout: 30000 })
-      .should('exist')
-      .click();
-    cy.get("[data-testid='Settings']", { timeout: 30000 }).should('exist');
+    // cy.get("[data-testid='Settings-Nav']", { timeout: 30000 })
+    //   .should('exist')
+    //   .click();
+    // cy.get("[data-testid='Settings']", { timeout: 30000 }).should('exist');
   });
 });
