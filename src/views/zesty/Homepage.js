@@ -53,6 +53,8 @@ import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns'
 import { WithHighlightedCard } from 'blocks/testimonials';
 import Dashboard from 'components/accounts/dashboard';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
+import AOS from 'aos';
+import { useEffect } from 'react';
 
 function Homepage({ content }) {
   const theme = useTheme();
@@ -78,11 +80,11 @@ function Homepage({ content }) {
     data: content.testimonials?.data,
   };
 
-  // useEffect(() => {
-  //   window.AOS.init({
-  //     disable: isMedium,
-  //   });
-  // }, [isMedium]);
+  useEffect(() => {
+    AOS.init({
+      disable: isMedium,
+    });
+  }, [isMedium]);
 
   const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
     (item) => {

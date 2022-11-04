@@ -32,8 +32,8 @@ export const ProjectDetails = ({
   const { ZestyAPI } = useZestyStore((state) => state);
   const [loading, setloading] = React.useState(false);
   const [name, setname] = React.useState('');
-  const [ecoZUID, setecoZUID] = React.useState('');
-  const [github_key, setgithub_key] = React.useState('');
+  const [ecoZUID] = React.useState('');
+  const [github_key] = React.useState('');
   const repository = template?.github_url;
   console.log(template, 'repo2');
 

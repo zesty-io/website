@@ -238,7 +238,7 @@ const DocumentationComp = () => {
   );
 };
 
-function Demo({ content }) {
+function Demo() {
   return (
     <>
       <Container>

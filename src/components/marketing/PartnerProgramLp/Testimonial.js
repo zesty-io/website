@@ -6,8 +6,8 @@ import Star from '../../../../public/assets/images/homepage/star.svg';
 
 const Testimonial = ({
   theme,
-  isMedium,
-  isDarkMode,
+  // isMedium,
+  // isDarkMode,
   content,
   FillerContent,
 }) => {

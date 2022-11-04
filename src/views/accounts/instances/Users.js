@@ -359,7 +359,7 @@ export const Users = React.memo(Index);
 const PendingTable = ({
   data,
   instanceRoles,
-  isOwner,
+  // isOwner,
   loading,
   respondToInvite,
 }) => {

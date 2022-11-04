@@ -3,7 +3,7 @@
  */
 
 import { Box, Typography, Card, Grid, Button } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useTheme } from '@mui/material';
@@ -77,28 +77,30 @@ const Testimonials = ({ title, data, cta_text, cta_link }) => {
           >
             <Box sx={{ width: '100%', maxWidth: 450 }}>
               <MuiMarkdown
-                overrides={{
-                  h1: {
-                    component: Typography,
-                    props: {
-                      component: 'h2',
-                      variant: 'h4',
-                      sx: {
-                        textAlign: 'left !important',
-                        color: theme.palette.zesty.zestyOrange,
-                        fontWeight: 'bold',
+                options={{
+                  overrides: {
+                    h1: {
+                      component: Typography,
+                      props: {
+                        component: 'h2',
+                        variant: 'h4',
+                        sx: {
+                          textAlign: 'left !important',
+                          color: theme.palette.zesty.zestyOrange,
+                          fontWeight: 'bold',
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      component: 'p',
-                      variant: 'h4',
-                      sx: {
-                        textAlign: 'left !important',
-                        color: theme.palette.zesty.zestyZambezi,
-                        fontWeight: 'bold',
+                    p: {
+                      component: Typography,
+                      props: {
+                        component: 'p',
+                        variant: 'h4',
+                        sx: {
+                          textAlign: 'left !important',
+                          color: theme.palette.zesty.zestyZambezi,
+                          fontWeight: 'bold',
+                        },
                       },
                     },
                   },
@@ -206,8 +208,9 @@ const Testimonials = ({ title, data, cta_text, cta_link }) => {
                           mt: 4,
                         }}
                       >
-                        {[1, 2, 3, 4, 5].map(() => (
+                        {[1, 2, 3, 4, 5].map((_item,index) => (
                           <ZestyImage
+                            key={index}
                             width={20}
                             height={20}
                             style={{ paddingLeft: 0.5, paddingRight: 0.5 }}

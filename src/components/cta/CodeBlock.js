@@ -1,7 +1,6 @@
 import React from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { useTheme } from '@emotion/react';
 import Icon from '@mui/material/Icon';
 
 export default function CodeBlock({
@@ -15,7 +14,6 @@ export default function CodeBlock({
   const [copyWords, setCopyWords] = React.useState('Click to Copy');
   const [icon, setIcon] = React.useState('content_copy');
 
-  const theme = useTheme('dark');
   return (
     <Paper
       onMouseEnter={() => setShowCopy(true)}

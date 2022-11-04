@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { useMediaQuery } from '@mui/material';
 
 const FeaturesWithMobileScreenshot = ({
@@ -73,6 +73,7 @@ const FeaturesWithMobileScreenshot = ({
               </Box>
               <Grid container order={{ sm: 2, md: 1 }}>
                 <MuiMarkdown
+<<<<<<< HEAD
                   overrides={{
                     p: {
                       component: Typography,
@@ -92,6 +93,29 @@ const FeaturesWithMobileScreenshot = ({
                           color: text_color
                             ? text_color
                             : theme.palette.zesty.zestyZambezi,
+=======
+                  options={{
+                    overrides: {
+                      p: {
+                        component: Typography,
+                        props: {
+                          sx: {
+                            color: text_color
+                              ? text_color
+                              : theme.palette.zesty.zestyZambezi,
+                          },
+                        },
+                      },
+                      li: {
+                        component: Typography,
+                        props: {
+                          component: 'li',
+                          sx: {
+                            color: text_color
+                              ? text_color
+                              : theme.palette.zesty.zestyZambezi,
+                          },
+>>>>>>> stage
                         },
                       },
                     },

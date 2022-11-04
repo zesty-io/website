@@ -113,7 +113,7 @@ const Topbar = ({
         ))}
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
-          <Box>
+          <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
             {!isAuthenticated ? (
               <Box display={'flex'}>
                 <Box marginLeft={4}>

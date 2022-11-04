@@ -225,7 +225,7 @@ const InstanceDashboardV2 = () => {
       image: instance?.screenshotURL,
       title: instance?.name,
       secondaryTitle: `Updated ${instance.updatedAt}`,
-      zuidLink: `/instances/${instance.ZUID}`,
+      zuidLink: `/instances/${instance.ZUID}/`,
       previewLink: `https://${instance?.randomHashID}-dev${
         helpers?.isProd ? '.webengine.zesty.io' : '.preview.dev.zesty.io'
       }`,

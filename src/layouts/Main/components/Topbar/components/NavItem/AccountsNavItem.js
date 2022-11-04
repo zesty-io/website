@@ -28,7 +28,7 @@ export const AccountsNavItem = ({ title, id, items, colorInvert = false }) => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
 
-  const hasActiveLink = () => items.find((i) => i.url === activeLink);
+  // const hasActiveLink = () => items.find((i) => i.url === activeLink);
   const linkColor = colorInvert ? 'common.white' : 'text.secondary';
 
   return (

@@ -47,7 +47,7 @@ const OPTIONS = (options, separator) => {
 // domain setting toggle
 const SettingsToggle = ({
   data,
-  updateSetting,
+  // updateSetting,
   arrToSubmit,
   setarrToSubmit,
 }) => {

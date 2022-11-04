@@ -60,9 +60,9 @@ const HeroWithIllustrationAndCta = ({
   description = '',
   image,
   button_left_text,
-  button_left_link,
+  // button_left_link,
   hero_button_right,
-  button_right_link,
+  // button_right_link,
   content,
 }) => {
   const theme = useTheme();
@@ -371,7 +371,7 @@ const FeaturesWithMobileScreenshot = ({
                 : FillerContent.mobileImage.dark
             }
             alt={header || FillerContent.header}
-            sx={{
+            style={{
               marginBottom: isMobile ? '3rem' : '1rem',
               objectFit: 'contain',
               borderRadius: '2rem',
@@ -398,7 +398,7 @@ const switchName = (id) => {
 };
 const Stories = ({ clientInfo, eyeBrow, clientTitle }) => {
   const theme = useTheme();
-  const { mode } = theme.palette;
+  // const { mode } = theme.palette;
   const router = useRouter();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -561,7 +561,12 @@ const ContactUsForm = ({ theme, content, formContent }) => {
   );
 };
 
-const ContactUs = ({ title, description, content, formContent }) => {
+const ContactUs = ({
+  title,
+  description,
+  // content,
+  formContent,
+}) => {
   const theme = useTheme();
 
   return (

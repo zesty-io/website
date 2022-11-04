@@ -12,8 +12,8 @@
 
 # production
 /build
-# /src/blocks
 /public
+/src/blocks
 *.yaml
 
 # misc

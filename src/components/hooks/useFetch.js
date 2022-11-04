@@ -25,6 +25,7 @@ const useFetch = (url, production = true) => {
     try {
       fetchData();
     } catch (error) {
+      setError(error);
       console.error(`Could Not Find Results: ${error}`);
     } finally {
       setIsPending(false);

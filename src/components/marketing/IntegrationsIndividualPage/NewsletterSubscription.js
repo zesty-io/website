@@ -3,7 +3,6 @@
  */
 import { Box, Typography, Button } from '@mui/material';
 import Container from 'blocks/container/Container';
-import { useFormik } from 'formik';
 
 /**
  * Static Imports
@@ -13,20 +12,20 @@ import Plane from '../../../../public/assets/images/IntegrationIndividualPage/pl
 
 const NewsLetterSubscription = ({
   theme,
-  content,
-  FillerContent,
-  isLarge,
+  // content,
+  // FillerContent,
+  // isLarge,
   isExtraLarge,
-  isMedium,
+  // isMedium,
   isSmall,
 }) => {
-  const formik = useFormik({
-    onSubmit,
-  });
+  // const formik = useFormik({
+  //   onSubmit,
+  // });
 
-  const onSubmit = (values) => {
-    return values;
-  };
+  // const onSubmit = (values) => {
+  //   return values;
+  // };
 
   return (
     <Box component="section">

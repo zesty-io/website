@@ -80,9 +80,7 @@ const SimpleHeroWithCta = ({
 }) => {
   const router = useRouter();
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
+
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (

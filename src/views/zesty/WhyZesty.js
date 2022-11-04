@@ -42,10 +42,11 @@ import Container from 'components/Container';
 
 function WhyZesty({ content }) {
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const COLORS = [
     theme.palette.zesty.zestyWhite,
-    theme.palette.common.white,
+    theme.palette.zesty.pureWhite,
     theme.palette.zesty.zestyBlue,
     theme.palette.zesty.zestyWhite,
   ];
@@ -104,7 +105,9 @@ function WhyZesty({ content }) {
       <Box
         position={'relative'}
         sx={{
-          backgroundColor: theme.palette.alternate.main,
+          backgroundColor: isDarkMode
+            ? theme.palette.zesty.zestyBlue
+            : theme.palette.alternate.main,
         }}
       >
         <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
