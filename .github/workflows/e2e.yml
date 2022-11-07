@@ -6,7 +6,7 @@ on:
     branches: [production]
   workflow_dispatch:
 jobs:
-  unit-tests:
+  e2e-test:
     runs-on: ubuntu-latest
     env:
       PRODUCTION: 'false'
