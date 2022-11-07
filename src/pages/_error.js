@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ErrorPage } from 'views/error';
 import * as helper from 'utils';
 
@@ -93,7 +93,8 @@ const slackError = async ({
 };
 
 const Error = ({ statusCode }) => {
-  const page = window.location.pathname;
+  const [pathname, setPathname] = useState('');
+  const page = pathname;
   const user = `${getCookie('APP_USER_FIRST_NAME') || 'NA'} ${getCookie(
     'APP_USER_LAST_NAME',
   )}`;
@@ -103,7 +104,11 @@ const Error = ({ statusCode }) => {
   const userZUID = getCookie('APP_USER_ZUID') || 'NA';
   const time = dayjs().format('MMM DD, YYYY @HH:mm:ss');
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
+
+  useEffect(() => {
     helper.isProd &&
       slackError({
         url,
