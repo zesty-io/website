@@ -41,9 +41,7 @@ const Login = ({ content, userEmail }) => {
       domain: '.zesty.io',
     });
     MySwal.close();
-    setCookie('isAuthenticated', true, {
-      domain: '.zesty.io',
-    });
+    setCookie('isAuthenticated', true);
 
     window.location.replace('/');
   };
