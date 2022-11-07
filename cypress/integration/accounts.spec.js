@@ -24,7 +24,7 @@ describe('Accounts', () => {
     cy.visit('http://test.zesty.io:3000/instances/8-f48cf3a682-7fthvk/');
     cy.wait(3000);
 
-    cy.get("[data-testid='Overview']", { timeout: 30000 }).should('exist');
+    // cy.get("[data-testid='Overview']", { timeout: 30000 }).should('exist');
 
     cy.get("[data-testid='Users-Nav']", { timeout: 30000 })
       .should('exist')
