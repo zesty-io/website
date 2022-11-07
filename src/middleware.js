@@ -18,7 +18,9 @@ export async function middleware(request) {
   // auth checking
   const response = NextResponse.next();
   const isAuthenticated = await isUserAuthenticated(request);
-  response.cookies.set('isAuthenticated', isAuthenticated);
+  response.cookies.set('isAuthenticated', isAuthenticated, {
+    domain: '.zesty.io',
+  });
   return response;
 }
 
