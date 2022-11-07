@@ -3,7 +3,7 @@ on:
   push:
     branches: [production]
   pull_request:
-    branches: [production,stage]
+    branches: [production]
   workflow_dispatch:
 jobs:
   unit-tests:
