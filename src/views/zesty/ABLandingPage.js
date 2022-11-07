@@ -37,6 +37,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Stack } from '@mui/material';
 import Features from 'blocks/features/Features/Features';
@@ -46,16 +47,112 @@ import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import TwoColumnHeroWithImage from 'blocks/zesty/Hero/TwoColumnHeroWithImage';
 import FillerContent from 'components/globals/FillerContent';
 import { WithCompanyLogo } from 'blocks/testimonials';
+import { useRouter } from 'next/router';
 
 function ABLandingPage({ content }) {
   const theme = useTheme();
-  const headerProps = {
+  const router = useRouter();
+  const [heroContent, setHeroContent] = useState({
     title: content?.title || FillerContent.header,
     description: content?.description || FillerContent.rich_text,
     image: content?.header_image?.data[0].url || FillerContent.photos[0].src,
-    primaryCta: content.cta_button_text || '',
-    secondaryCta: content.cta_secondary_text || '',
-  };
+    primaryCta: content?.cta_button_text || '',
+    secondaryCta: content?.cta_secondary_text || '',
+  });
+  const [featureData, setFeatureData] = useState({
+    data:
+      content.features?.data.reduce((acc, item) => {
+        acc.push({
+          icon_image: item?.icon_image?.data[0].url,
+          feature_name: item?.feature_name,
+          content: item?.content,
+        });
+
+        return acc;
+      }, []) || [],
+    header: content?.features_title || FillerContent.header,
+    card_name_color: theme.palette.zesty.zestyZambezi,
+  });
+  const [testimonialData, setTestimonialData] = useState({
+    header: content?.testimonial_title || FillerContent.description,
+    content: content?.testimonial?.data[0]?.review || FillerContent.description,
+    name:
+      content?.testimonial?.data[0]?.reviewer_name || FillerContent.description,
+    title:
+      content?.testimonial?.data[0]?.reviewer_title ||
+      FillerContent.description,
+  });
+
+  useEffect(() => {
+    const filteredContent = content.datasets.data.filter(
+      (item) => item.unique_identifier === router.query.unique_identifier,
+    )[0];
+
+    /**********************************************
+     * Set Dynamic hero content if set on cms
+     ***********************************************/
+    if (!!filteredContent) {
+      setHeroContent({
+        title: filteredContent?.title || content?.title || FillerContent.header,
+        description:
+          filteredContent?.description ||
+          content?.description ||
+          FillerContent?.rich_text,
+        image:
+          filteredContent?.header_image?.data[0].url ||
+          content?.header_image?.data[0].url ||
+          FillerContent.photos[0].src,
+        primaryCta:
+          filteredContent?.cta_button_text || content.cta_button_text || '',
+        secondaryCta:
+          filteredContent?.cta_secondary_text ||
+          content.cta_secondary_text ||
+          '',
+      });
+
+      /**********************************************
+       * Set FeatureData  content if set on cms
+       ***********************************************/
+      setFeatureData({
+        data:
+          filteredContent.features?.data?.reduce((acc, item) => {
+            acc.push({
+              icon_image: item?.icon_image?.data[0].url,
+              feature_name: item?.feature_name,
+              content: item?.content,
+            });
+
+            return acc;
+          }, []) ||
+          featureData.data ||
+          [],
+        header:
+          filteredContent.features_title ||
+          featureData.header ||
+          FillerContent.header,
+        card_name_color: theme.palette.zesty.zestyZambezi,
+      });
+
+      setTestimonialData({
+        header:
+          filteredContent?.testimonial_title ||
+          testimonialData.header ||
+          FillerContent.description,
+        content:
+          filteredContent?.testimonial?.data[0]?.review ||
+          testimonialData.content ||
+          FillerContent.description,
+        name:
+          filteredContent?.testimonial?.data[0]?.reviewer_name ||
+          testimonialData.name ||
+          FillerContent.description,
+        title:
+          filteredContent?.testimonial?.data[0]?.reviewer_title ||
+          testimonialData.title ||
+          FillerContent.description,
+      });
+    }
+  });
 
   const alternateColumnsData = content.benefits_sections?.data?.map((item) => {
     return {
@@ -65,20 +162,9 @@ function ABLandingPage({ content }) {
     };
   });
 
-  const feature_data =
-    content.features?.data.reduce((acc, item) => {
-      acc.push({
-        icon_image: item.icon_image?.data[0].url,
-        feature_name: item.feature_name,
-        content: item.content,
-      });
-
-      return acc;
-    }, []) || [];
-
   return (
     <Stack>
-      <TwoColumnHeroWithImage {...headerProps} />
+      <TwoColumnHeroWithImage {...heroContent} />
       <SimpleCardLogo
         invertLogo={false}
         heading_text={content?.logo_bar_title}
@@ -99,23 +185,16 @@ function ABLandingPage({ content }) {
       />
       <Features
         header_size={48}
-        data={feature_data}
-        features_header={content.features_title || FillerContent.header}
-        card_name_color={theme.palette.zesty.zestyZambezi}
+        data={featureData.data}
+        features_header={featureData.header}
+        card_name_color={featureData.card_name_color}
       />
 
       <WithCompanyLogo
-        header={content.testimonial_title || FillerContent.description}
-        content={
-          content.testimonial.data[0].review || FillerContent.description
-        }
-        name={
-          content.testimonial.data[0].reviewer_name || FillerContent.description
-        }
-        title={
-          content.testimonial.data[0].reviewer_title ||
-          FillerContent.description
-        }
+        header={testimonialData.header}
+        content={testimonialData.content}
+        name={testimonialData.name}
+        title={testimonialData.title}
       />
 
       <DarkBlueCta

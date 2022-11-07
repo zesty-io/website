@@ -98,6 +98,7 @@ const AlternateColumns = ({
       <Box>
         {column_data?.map((item, idx) => (
           <Card
+            key={idx}
             variant="outlined"
             sx={{
               py: 20,

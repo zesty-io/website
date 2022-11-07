@@ -26,6 +26,7 @@ const TwoColumnHeroWithImage = ({
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
 
+
   return (
     <Container>
       <Grid sx={{ py: 10 }} container spacing={4}>
