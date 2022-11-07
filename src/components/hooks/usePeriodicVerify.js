@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
 import { useZestyStore } from 'store';
-import useIsLoggedIn from './useIsLoggedIn';
 
-const INTERVAL_VALUE = 180 * 1000; // 180secs
-const usePeriodicVerify = () => {
+const INTERVAL_VALUE = 300 * 1000; // 300secs
+const usePeriodicVerify = (isLoggedIn) => {
   const { ZestyAPI } = useZestyStore((state) => state);
-  const isLoggedIn = useIsLoggedIn();
 
   useEffect(() => {
     let interval;

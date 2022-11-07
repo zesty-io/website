@@ -7,7 +7,7 @@ import { fetchPage } from 'lib/api';
 /**
  * React Imports
  */
-import { setCookie } from 'cookies-next';
+import { getCookies, setCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 
@@ -78,6 +78,7 @@ export async function getServerSideProps({ res, req }) {
       marketEntityTypes: await entityTypes.json(),
       ...data,
       navigationCustom: navigationCustom,
+      cookies: getCookies({ req, res }),
     },
   };
 }
