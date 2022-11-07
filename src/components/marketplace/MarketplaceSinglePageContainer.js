@@ -43,6 +43,7 @@ const MarketplaceSinglePageContainer = ({
   const [search, setSearch] = useState('');
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const value = useDebounce(search, handleSearch);
+  const [pathname, setPathname] = useState('');
 
   function handleSearch() {
     setEntities(
@@ -66,6 +67,10 @@ const MarketplaceSinglePageContainer = ({
   useEffect(() => {
     if (isSm) setIsOpenDrawer(false);
   }, [isSm]);
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
 
   return (
     <CustomContainer>
@@ -92,7 +97,7 @@ const MarketplaceSinglePageContainer = ({
           )}
         </Grid>
         <Grid item xs={12} md={9}>
-          {window.location.pathname !== '/marketplace/' && (
+          {pathname !== '/marketplace/' && (
             <TitleBar name={props?.name} description={props?.description} />
           )}
           <Stack

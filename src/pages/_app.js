@@ -10,12 +10,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'react-image-lightbox/style.css';
 import 'aos/dist/aos.css';
 import '../../public/styles/custom.css';
-import { useZestyStore } from 'store';
-import { getUserAppSID } from 'utils';
-import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
 import { SnackbarProvider } from 'notistack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
-import usePeriodicVerify from 'components/hooks/usePeriodicVerify';
 import Head from 'next/head';
 import CookiesProvider from 'components/context/CookiesProvider';
 
@@ -55,34 +51,14 @@ export default function App({ Component, pageProps }) {
     if (params.persona) setCookie('persona', params.persona);
   }, []);
 
-  let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = getUserAppSID();
-  const { setverifySuccess, setInstances, setuserInfo, setloading } =
-    useZestyStore((state) => state);
-
-  const { verifySuccess, instances, userInfo, loading } = useFetchWrapper(
-    userAppSID,
-    instanceZUID,
-  );
-
   const Layout = layouts[Component.data?.container];
-
   const isAuthenticatedFromProps =
     pageProps?.zesty?.isAuthenticated ||
     (pageProps?.zesty?.isAuthenticated === undefined && true);
-  const GTM_ID = !isAuthenticatedFromProps
-    ? process.env.NEXT_PUBLIC_GTM_ID
-    : undefined;
-
-  // this will run to if the user is logged in to keep the session alive!
-  usePeriodicVerify();
-
-  React.useEffect(() => {
-    setverifySuccess(verifySuccess);
-    setInstances(instances);
-    setuserInfo(userInfo.data);
-    setloading(loading);
-  }, [verifySuccess, instances, userInfo, loading]);
+  let gtm = process.env.GTM_ID
+    ? process.env.GTM_ID
+    : process.env.NEXT_PUBLIC_GTM_ID;
+  const GTM_ID = !isAuthenticatedFromProps ? gtm : undefined;
 
   return (
     <CookiesProvider value={pageProps?.cookies}>
