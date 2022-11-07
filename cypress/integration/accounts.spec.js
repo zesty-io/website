@@ -22,6 +22,7 @@ describe('Accounts', () => {
       .type('zesty.pw');
 
     cy.visit('http://test.zesty.io:3000/instances/8-f48cf3a682-7fthvk/');
+    cy.wait(3000);
 
     cy.get("[data-testid='Overview']", { timeout: 30000 }).should('exist');
 
