@@ -21,6 +21,14 @@ const AlternateColumns = ({
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(header_content);
+
+  if (!isRichText && header_content) {
+    header_content = `<h2>${header_content}</h2>`;
+  }
+
   const COLORS = [
     theme.palette.common.white,
     theme.palette.zesty.zestyWhite,
@@ -69,25 +77,28 @@ const AlternateColumns = ({
           {header_content || FillerContent.rich_text}
         </MuiMarkdown>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <DemoCta
-            icon={false}
-            href={cta_link || FillerContent.href}
-            sx={{
-              mt: 4,
-              background: theme.palette.zesty.zestyOrange,
-              color: theme.palette.common.white,
-              '&:hover': {
+        {cta_text && (
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <DemoCta
+              icon={false}
+              href={cta_link || FillerContent.href}
+              sx={{
+                mt: 4,
                 background: theme.palette.zesty.zestyOrange,
-              },
-            }}
-            text={cta_text || FillerContent.cta}
-          />
-        </Box>
+                color: theme.palette.common.white,
+                '&:hover': {
+                  background: theme.palette.zesty.zestyOrange,
+                },
+              }}
+              text={cta_text || FillerContent.cta}
+            />
+          </Box>
+        )}
       </Container>
-      <Box sx={{ mt: 10 }}>
+      <Box>
         {column_data?.map((item, idx) => (
           <Card
+            key={idx}
             variant="outlined"
             sx={{
               py: 20,
@@ -196,10 +207,10 @@ const AlternateColumns = ({
                 >
                   <Box>
                     <ZestyImage
-                      width={599}
-                      height={420}
+                      width={600}
+                      height={350}
                       alt={item?.header || ''}
-                      style={{ width: '100%', maxWidth: 599, height: 'auto' }}
+                      style={{ width: '100%', maxWidth: 600, height: 'auto' }}
                       src={item?.image || FillerContent.photos[0].src}
                     />
                   </Box>
