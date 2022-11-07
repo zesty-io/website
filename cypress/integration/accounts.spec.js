@@ -21,10 +21,14 @@ describe('Accounts', () => {
       .should('exist')
       .type('zesty.pw');
 
-    cy.visit('http://test.zesty.io:3000/instances/8-f48cf3a682-7fthvk/');
-    cy.wait(3000);
+    cy.wait(5000);
 
-    // cy.get("[data-testid='Overview']", { timeout: 30000 }).should('exist');
+    cy.get("[data-testid='zesty.pw']", { timeout: 30000 })
+      .should('exist')
+      .click();
+    // cy.visit('http://test.zesty.io:3000/instances/8-f48cf3a682-7fthvk/');
+
+    cy.get("[data-testid='Overview']", { timeout: 30000 }).should('exist');
 
     cy.get("[data-testid='Users-Nav']", { timeout: 30000 })
       .should('exist')
