@@ -21,6 +21,7 @@ const logout = () => {
       deleteCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', {
         domain: '.zesty.io',
       });
+      deleteCookie('isAuthenticated', { domain: '.zesty.io' });
       deleteCookie('ZESTY_WORKING_INSTANCE', {});
       window.location.replace('/login/');
     };
