@@ -34,7 +34,7 @@ const WithHighlightedCard = ({ title, data }) => {
       feedback: item.review,
       name: item.reviewer_name,
       title: item.reviewer_title,
-      avatar: item.reviewer_headshot.data[0].url,
+      avatar: item.reviewer_headshot?.data[0].url,
       star_rating: parseInt(item.star_rating),
     };
   });
