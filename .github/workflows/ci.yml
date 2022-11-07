@@ -6,7 +6,7 @@ on:
     branches: [stage,accounts,production,dev]
   workflow_dispatch:
 jobs:
-  unit-tests:
+  build-check:
     runs-on: ubuntu-latest
     env:
       PRODUCTION: 'false'
