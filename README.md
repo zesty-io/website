@@ -440,7 +440,7 @@ Accounts is instances, profile, teams, dashboard. To working on the accounts app
 
 # End to end test using Cypress
 
-Cypress test files are located in `src/cypress/integration/*.spec.js`
+Cypress test files are located in `root/cypress/integration/*.spec.js`
 
 ## Running Cypress Tests
 
