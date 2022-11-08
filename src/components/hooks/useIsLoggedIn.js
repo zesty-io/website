@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { CookiesContext } from '../context/CookiesProvider';
+import { AuthContext } from '../context/AuthProvider';
 
 const useIsLoggedIn = () => {
-  const cookies = useContext(CookiesContext);
+  const cookies = useContext(AuthContext);
   return JSON.parse(cookies?.isAuthenticated || false);
 };
 

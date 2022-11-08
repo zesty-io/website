@@ -86,6 +86,10 @@ function Homepage({ content }) {
     });
   }, [isMedium]);
 
+  if (content?.zesty?.isAuthenticated) {
+    return <Dashboard />;
+  }
+
   const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
     (item) => {
       return {
@@ -96,9 +100,6 @@ function Homepage({ content }) {
     },
   );
 
-  if (content?.zesty?.isAuthenticated) {
-    return <Dashboard />;
-  }
   const growthData = {
     background: content?.growth_background?.data[0].url || '',
     titleAndDescription:
