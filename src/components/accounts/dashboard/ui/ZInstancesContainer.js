@@ -20,7 +20,12 @@ const ZInstancesContainer = ({
   };
   return (
     <>
-      <Typography mb={2} variant="h6" color="text.secondary">
+      <Typography
+        mb={2}
+        variant="h6"
+        color="text.secondary"
+        data-testid="instancesContainer"
+      >
         {firstName ? (
           dayTime() + firstName
         ) : (

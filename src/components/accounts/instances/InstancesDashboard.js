@@ -97,7 +97,7 @@ export const InstancesDashboard = () => {
   const handleGetInstancesError = (res) => {
     console.log(res);
     if (res.error === 'invalid session') {
-      setCookie('isAuthenticated', 'false');
+      setCookie('isAuthenticated', false);
     }
   };
   const getInstances = async () => {

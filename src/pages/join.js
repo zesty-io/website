@@ -23,7 +23,7 @@ import { SlideMessage } from 'components/marketing/Join/SlideMessage';
 
 // zoho object
 import { zohoPostObject } from 'components/marketing/Join/zohoPostObject.js';
-import { getCookies, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 
 // pendo
 import { pendoScript } from 'components/marketing/Join/pendoScript.js';
@@ -411,7 +411,6 @@ export async function getServerSideProps({ req, res, query }) {
       ...data,
       ab: abdata,
       campaign: campaign,
-      cookies: getCookies({ req, res }),
       zesty: {
         isAuthenticated,
       },

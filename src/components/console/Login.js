@@ -42,7 +42,7 @@ const Login = ({ content, userEmail }) => {
     });
     MySwal.close();
     setCookie('isAuthenticated', true);
-    setCookie('isUser', true);
+
     window.location.replace('/');
   };
 
