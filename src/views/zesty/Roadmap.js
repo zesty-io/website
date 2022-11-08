@@ -45,12 +45,12 @@ function Roadmap({ content }) {
 
   // Hold Discussions data
   const discussions =
-    content.github_data.data.organization.repository.discussions.nodes;
+    content?.github_data?.data?.organization.repository.discussions.nodes;
 
   // Hold Categories pulled from github active discussions
   const categories = Array.from(
     new Set(
-      content.github_data.data.organization.repository.discussions.edges.map(
+      content?.github_data?.data?.organization.repository.discussions.edges.map(
         (category) => category.node.category.name,
       ),
     ),
@@ -59,14 +59,14 @@ function Roadmap({ content }) {
   // Hold category icons from github categories
   const categoryIcons = Array.from(
     new Set(
-      content.github_data.data.organization.repository.discussions.edges.map(
+      content?.github_data?.data?.organization.repository.discussions.edges.map(
         (category) => category.node.category.emojiHTML,
       ),
     ),
   );
 
   // Hold content for projects cards
-  const projectData = content.github_data.data.organization.project.columns;
+  const projectData = content?.github_data?.data?.organization.project.columns;
 
   return (
     <>
@@ -92,7 +92,7 @@ function Roadmap({ content }) {
         {/* Kanban Cards */}
 
         <Grid sx={{ mt: 6 }} container spacing={2}>
-          {projectData.nodes.map((board, idx) => (
+          {projectData?.nodes.map((board, idx) => (
             <Grid key={idx} item xs={12} md={4}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <CircleIcon color={iconColor[idx]} />

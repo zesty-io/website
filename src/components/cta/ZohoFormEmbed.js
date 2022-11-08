@@ -8,7 +8,7 @@ import { getCookie } from 'cookies-next';
 
 export default function ZohoFormEmbed({
   formURL = '',
-  height = '600px',
+  height = 600,
   width = 500,
 }) {
   let demoFormEmbedLink =
@@ -49,7 +49,7 @@ export default function ZohoFormEmbed({
         sx={{
           width: '100%',
           maxWidth: width,
-          height: height,
+          height: parseInt(height),
           border: 0,
         }}
         id="leadframe"

@@ -6,10 +6,12 @@ npm-debug.log
 .next
 .vscode
 .github
+cypress
 
 # local env files
 .env.local
 .env
+
 
 .eslintcache
 *.md

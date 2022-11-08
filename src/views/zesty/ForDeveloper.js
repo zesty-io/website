@@ -242,7 +242,7 @@ function ForDeveloper({ content }) {
       <ContainerWithBackground {...supportProps} />
       <Documentation {...documentationProps} />
       <WithHighlightedCard {...testimonialsProps} />
-      <Box sx={{ mt: isSmall ? 15 : 20 }}>
+      <Box sx={{ mt: 10 }}>
         <Bottom {...bottomProps} />
       </Box>
       <HowZestyWorks {...howZestyWorksProps} />

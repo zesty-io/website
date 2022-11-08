@@ -24,7 +24,6 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import { React } from 'react';
-
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import FillerContent from 'components/globals/FillerContent';
@@ -80,7 +79,7 @@ const Demo = ({ content }) => {
                   },
                 }}
               >
-                {content?.demo_description}
+                {content?.demo_description || FillerContent.description}
               </MuiMarkdown>
             </Box>
 
@@ -106,8 +105,8 @@ const Demo = ({ content }) => {
             </Box>
 
             <Box sx={{ my: 4 }}>
-              {content?.testimonial.data.map((item) => (
-                <Box>
+              {content?.testimonial?.data.map((item, index) => (
+                <Box key={index}>
                   <Typography
                     variant="body1"
                     component="p"
@@ -117,7 +116,7 @@ const Demo = ({ content }) => {
                       color: theme.palette.zestyZambezi,
                     }}
                   >
-                    {item?.review}
+                    {item?.review || FillerContent.description}
                   </Typography>
 
                   <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
@@ -126,7 +125,7 @@ const Demo = ({ content }) => {
                         item?.reviewer_headshot?.data[0]?.url ||
                         FillerContent.photos[0].src
                       }
-                      alt={item?.reviewer_name}
+                      alt={item?.reviewer_name || ''}
                     />
                     <Box>
                       <Typography
@@ -137,7 +136,7 @@ const Demo = ({ content }) => {
                           color: theme.palette.zestyZambezi,
                         }}
                       >
-                        {item?.reviewer_name}
+                        {item?.reviewer_name || FillerContent.description}
                       </Typography>
                       <Typography
                         variant="body1"
@@ -148,7 +147,7 @@ const Demo = ({ content }) => {
                           fontWeight: 'bold',
                         }}
                       >
-                        {item?.reviewer_title}
+                        {item?.reviewer_title || FillerContent.description}
                       </Typography>
                     </Box>
                   </Box>
@@ -159,7 +158,10 @@ const Demo = ({ content }) => {
         </Grid>
         <Grid sx={{ mt: isMobile ? 4 : 0 }} item xs={12} md={6}>
           <Box>
-            <ZohoFormEmbed height="620px" formURL="" />
+            <ZohoFormEmbed
+              height={content.form_height || 600}
+              formURL={content.form_link || ''}
+            />
           </Box>
         </Grid>
       </Grid>

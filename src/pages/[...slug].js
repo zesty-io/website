@@ -6,7 +6,6 @@ import { githubFetch } from 'lib/githubFetch';
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
 import { getIsAuthenticated } from 'utils';
-import { getCookies } from 'cookies-next';
 
 export default function Slug(props) {
   // for homepage navigation
@@ -50,7 +49,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   };
 
   // This section holds data settings for fetching Github Data
-  if (req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
+  if (req.url.includes('/roadmap/') && process.env.GITHUB_AUTH) {
     data.github_data = await githubFetch({
       organization: `"Zesty-io"`,
       projectNumber: data.project_number,
@@ -73,5 +72,5 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   }
 
   // Pass data to the page via props
-  return { props: { ...data, cookies: getCookies({ req, res }) } };
+  return { props: { ...data } };
 }

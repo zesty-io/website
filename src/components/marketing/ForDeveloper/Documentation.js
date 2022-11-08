@@ -19,11 +19,11 @@ const Documentation = ({
   isDarkMode,
 }) => {
   return (
-    <Box component="section">
+    <Box component="section" sx={isSmall && { mb: 10 }}>
       <Container
         sx={{
           py: isSmall ? 10 : 6,
-          mt: isSmall ? 0 : 10,
+          my: isSmall ? 0 : 10,
           background: isDarkMode
             ? theme.palette.zesty.zestyDarkBlue
             : theme.palette.zesty.zestyBackgroundBlue,
