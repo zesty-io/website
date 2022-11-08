@@ -27,7 +27,7 @@ Requires `node version ^16.x.x` and `npm version ^8.x.x`
 
 Create a file at the root `.env.local` with `PRODUCTION=false` as the file contents
 
-```jsx
+```bash
 git clone git@github.com:zesty-io/website.git
 
 cd website
