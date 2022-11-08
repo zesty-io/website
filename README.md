@@ -440,22 +440,68 @@ Accounts is instances, profile, teams, dashboard. To working on the accounts app
 
 # End to end test using Cypress
 
-Cypress test files are located in root/cypress/integration `*.spec.js`
+Cypress test files are located in `src/cypress/integration/*.spec.js`
 
 ## Running Cypress Tests
 
-Create `cypress.env.json` in root directory
+Create `cypress.json` in root directory with the ff config
+
+<details>
+<summary>
+sample cypress config
+</summary>
 
 ```jsx
 
 {
-  "email": "zestytest@zesty.io",
-  "pass": "Test***********"
+  {
+  "defaultCommandTimeout": 20000,
+  "video": false,
+  "env": {
+    "user": {
+      "email": "your_email@zesty.io",
+      "password": "your_password"
+    },
+    "cypress-plugin-snapshots": {
+      "autoCleanUp": false,
+      "autopassNewSnapshots": true,
+      "diffLines": 3,
+      "excludeFields": [],
+      "ignoreExtraArrayItems": false,
+      "ignoreExtraFields": false,
+      "normalizeJson": true,
+      "prettier": true,
+      "imageConfig": {
+        "createDiffImage": true,
+        "resizeDevicePixelRatio": true,
+        "threshold": 0.01,
+        "thresholdType": "percent"
+      },
+      "screenshotConfig": {
+        "blackout": [],
+        "capture": "fullPage",
+        "clip": null,
+        "disableTimersAndAnimations": true,
+        "log": false,
+        "scale": false,
+        "timeout": 30000
+      },
+      "serverEnabled": true,
+      "serverHost": "localhost",
+      "serverPort": 2121,
+      "updateSnapshots": false,
+      "backgroundBlend": "difference"
+    }
+  },
+  "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"],
+  "viewportWidth": 1280,
+  "viewportHeight": 720
+}
 }
 
 ```
 
-then run the ff commands below
+</details>
 
 ### Headlessly
 
