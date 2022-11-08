@@ -106,11 +106,12 @@ const AppNavigation = ({
 }) => {
   const router = useRouter();
   const [pathname, setPathname] = useState('');
-  const { instances, setworkingInstance, userInfo } = useZestyStore(
+  const { ZestyAPI, setworkingInstance, userInfo } = useZestyStore(
     (state) => state,
   );
   const [isMarketplace, setIsMarketplace] = useState(false);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const [instances, setinstances] = useState([]);
 
   const handleComboxClick = (zuid) => {
     setCookie('ZESTY_WORKING_INSTANCE', zuid);
@@ -131,6 +132,11 @@ const AppNavigation = ({
   const isMD = useMediaQuery(theme.breakpoints.up('md'));
   const [isToggle, setIsToggle] = useState(false);
 
+  const getInstances = async () => {
+    const res = await ZestyAPI.getInstances();
+    !res.error && setinstances(res);
+    res.error && setinstances([]);
+  };
   useEffect(() => {
     setIsMarketplace(
       window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
@@ -145,6 +151,11 @@ const AppNavigation = ({
     setIsToggle(false);
   }, [isMD]);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      getInstances();
+    }
+  }, [isLoggedIn]);
   return (
     <>
       <Stack direction="row" alignItems={isSM && 'center'} py={1}>
