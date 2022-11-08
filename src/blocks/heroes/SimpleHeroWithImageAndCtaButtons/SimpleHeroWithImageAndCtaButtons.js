@@ -47,7 +47,10 @@ const SimpleHeroWithImageAndCtaButtons = ({
               <Typography
                 variant="h2"
                 color="text.primary"
-                sx={{ fontWeight: 700, color: theme.palette.zesty.zestyZambezi }}
+                sx={{
+                  fontWeight: 700,
+                  color: theme.palette.zesty.zestyZambezi,
+                }}
               >
                 {title || FillerContent.header}
                 <br />
