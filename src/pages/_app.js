@@ -13,7 +13,7 @@ import '../../public/styles/custom.css';
 import { SnackbarProvider } from 'notistack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import Head from 'next/head';
-import CookiesProvider from 'components/context/CookiesProvider';
+import AuthProvider from 'components/context/AuthProvider';
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -61,7 +61,7 @@ export default function App({ Component, pageProps }) {
   const GTM_ID = !isAuthenticatedFromProps ? gtm : undefined;
 
   return (
-    <CookiesProvider value={pageProps?.cookies}>
+    <AuthProvider value={pageProps?.zesty}>
       {pageProps?.meta?.web && <ZestyHead content={pageProps} />}
 
       <Head>
@@ -110,7 +110,7 @@ export default function App({ Component, pageProps }) {
           )}
         </Page>
       </SnackbarProvider>
-    </CookiesProvider>
+    </AuthProvider>
   );
 }
 

@@ -7,9 +7,10 @@ import CustomContainer from 'components/Container';
 import Head from 'next/head';
 import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
-import { getCookies, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import MainApps from 'components/marketplace/landing/MainApps';
 import { useEffect, useState } from 'react';
+import { getIsAuthenticated } from 'utils';
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -136,6 +137,8 @@ export const getMarketplaceData = async (url) => {
 };
 
 export async function getServerSideProps({ req, res }) {
+  const isAuthenticated = getIsAuthenticated(res);
+
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=600, stale-while-revalidate=3600',
@@ -171,7 +174,9 @@ export async function getServerSideProps({ req, res }) {
       marketEntityTypes: await entityTypes.json(),
       marketTags: await tags.json(),
       navigationCustom: navigationCustom,
-      cookies: getCookies({ req, res }),
+      zesty: {
+        isAuthenticated,
+      },
     },
   };
 }
