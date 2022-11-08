@@ -1,4 +1,4 @@
-name: Pull Request Stats
+name: Zesty Website PR Stats
 
 on: [pull_request]
 
