@@ -8,7 +8,9 @@ const Index = ({ title, description, children }) => {
       <Stack direction={{ xs: 'column', md: 'row' }}>
         <Stack direction="column" justifyContent="space-between">
           <Stack direction="row" alignItems="center" mb={1} spacing={1}>
-            <Typography variant="h4">{title}</Typography>
+            <Typography variant="h4" data-testid={title}>
+              {title}
+            </Typography>
             <HelpOutlineIcon color="disabled" />
           </Stack>
           <Stack>

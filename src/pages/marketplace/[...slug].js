@@ -9,6 +9,8 @@ import RegisterPage from 'components/marketplace/register';
 import InstalledPage from 'components/marketplace/installed';
 import { setCookie } from 'cookies-next';
 import MainApps from 'components/marketplace/landing/MainApps';
+import { useEffect, useState } from 'react';
+import { getIsAuthenticated } from 'utils';
 
 const ALTNAME = {
   TAG: 'Tag',
@@ -16,19 +18,16 @@ const ALTNAME = {
   EXTENSION: 'Extension',
 };
 
-// const renderMarketplaceViewByAltName = (altName) => {
-//   if (altName === ALTNAME.TAG) {
-//     return <Tag />;
-//   } else if (altName === ALTNAME.ENTITY_TYPE) {
-//     return <EntityType />;
-//   }
-// };
-
 const slug = ({ marketEntityTypes, marketTags, ...props }) => {
+  const [pathname, setPathname] = useState('');
   const seoTitle = props?.meta?.web?.seo_meta_title,
     seoDescription = props?.meta?.web?.seo_meta_description;
 
-  if (window.location.pathname === '/marketplace/register/') {
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
+
+  if (pathname === '/marketplace/register/') {
     return (
       <>
         <Head>
@@ -45,7 +44,7 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
     );
   }
 
-  if (window.location.pathname === '/marketplace/installed/') {
+  if (pathname === '/marketplace/installed/') {
     return (
       <>
         <Head>
@@ -138,6 +137,8 @@ export const getMarketplaceData = async (url) => {
 };
 
 export async function getServerSideProps({ req, res }) {
+  const isAuthenticated = getIsAuthenticated(res);
+
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=600, stale-while-revalidate=3600',
@@ -173,6 +174,9 @@ export async function getServerSideProps({ req, res }) {
       marketEntityTypes: await entityTypes.json(),
       marketTags: await tags.json(),
       navigationCustom: navigationCustom,
+      zesty: {
+        isAuthenticated,
+      },
     },
   };
 }

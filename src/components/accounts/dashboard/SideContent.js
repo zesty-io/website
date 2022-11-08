@@ -31,6 +31,7 @@ const SideContent = ({
         }
         topAction={
           <TextField
+            data-testid="searchInstanceDashboard"
             size="small"
             color="primary"
             placeholder="Search an Instances"
