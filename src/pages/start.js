@@ -356,7 +356,7 @@ export default function Start(props) {
   );
 }
 
-export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps({ res }) {
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
