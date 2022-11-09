@@ -64,79 +64,54 @@ export default function UsersPage() {
 
   const handleRespondToInviteSuccess = (res) => {
     setusers(res.data);
-    console.log(res);
-  };
-  const handleRespondToInviteErr = (res) => {
-    console.log(res);
   };
   const handleGetUserSuccess = (res) => {
     setusers(res.data);
-    console.log(res);
-  };
-  const handleGetUserErr = (res) => {
-    console.log(res);
   };
 
   const handleGetInstancePendingUsersSuccess = (res) => {
     setpendingUsers(res.data);
-    console.log(res);
-  };
-  const handlegetInstancePendingUsersErr = (res) => {
-    console.log(res);
   };
   const handleGetRolesSuccess = (res) => {
     setInstanceUserWithRoles(res.data);
   };
-  const handleGetRolesErr = (res) => {
-    console.log(res);
-  };
-  const handleUpdateRoleSuccess = (res) => {
-    console.log(res, 'succ upp');
+  const handleUpdateRoleSuccess = () => {
     SuccessMsg({ title: 'Role Successfully Updated' });
   };
   const handleUpdateRoleErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
-  const handleDeleteRoleSuccess = (res) => {
-    console.log(res, 'succ upp');
+  const handleDeleteRoleSuccess = () => {
     SuccessMsg({ title: 'User role successfully Deleted' });
   };
   const handleDeleteRoleErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
 
   const handleGetInstanceRolesSuccess = (res) => {
-    console.log(res, 'succ upp');
     const data = res.data.map((e) => {
       return { ...e, value: e.name, label: e.name };
     });
     setInstanceRoles(data);
   };
   const handleGetInstanceRolesErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
 
-  const handleCreateInviteSuccess = (res) => {
-    console.log(res, 'succ upp');
+  const handleCreateInviteSuccess = () => {
     SuccessMsg({ title: 'User Successfully invited' });
   };
   const handleCreateInviteErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
   const getUsers = async () => {
     const res = await ZestyAPI.getInstanceUsers(zuid);
     !res.error && handleGetUserSuccess(res);
-    res.error && handleGetUserErr(res);
   };
 
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
     !res.error && handleGetRolesSuccess(res);
-    res.error && handleGetRolesErr(res);
   };
 
   const updateRole = async (data) => {
@@ -168,13 +143,11 @@ export default function UsersPage() {
   const getInstancePendingUsers = async () => {
     const res = await ZestyAPI.getInstancePendingUsers(zuid);
     !res.error && handleGetInstancePendingUsersSuccess(res);
-    res.error && handlegetInstancePendingUsersErr(res);
   };
 
   const respondToInvite = async (data, action) => {
     const res = await ZestyAPI.respondToInvite(data.inviteZUID, action);
     !res.error && handleRespondToInviteSuccess(res);
-    res.error && handleRespondToInviteErr(res);
     await getPageData();
   };
   const createInvite = async (data) => {

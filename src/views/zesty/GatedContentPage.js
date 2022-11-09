@@ -284,7 +284,6 @@ export default function Start(props) {
   }, [templateId]);
 
   const ScenarioSwitch = () => {
-    console.log(isTemplate, isLogin, scenario, ':::');
     if (!isTemplate && isLogin) {
       return <Scenarios.Scenario2 {...scenarioProps} />;
     } else if (isTemplate && !isLogin) {

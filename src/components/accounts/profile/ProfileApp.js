@@ -98,7 +98,6 @@ const ProfileHeader = ({ userInfo }) => {
         maxWidth: '100%',
         borderRadius: 0,
         boxShadow: 'none',
-        // borderBottom: `1px solid ${grey[300]}`,
       }}
     >
       {profileUrl ? (

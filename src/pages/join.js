@@ -372,7 +372,7 @@ export default function Join(props) {
   );
 }
 
-export async function getServerSideProps({ req, res, query }) {
+export async function getServerSideProps({ res, query }) {
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',

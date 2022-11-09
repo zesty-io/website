@@ -60,14 +60,9 @@ const getTemplate = async (zuid, setrepository, isProduction) => {
   const url = isProduction
     ? `https://39ntbr6g-dev.webengine.zesty.io/data/entity.json?zuid=${zuid}`
     : `https://extensions.zesty.io/data/entity.json?zuid=${zuid}`;
-  await axios
-    .get(url)
-    .then(function (response) {
-      setrepository(response.data[0]);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  await axios.get(url).then(function (response) {
+    setrepository(response.data[0]);
+  });
 };
 export default function Start(props) {
   const params = new URLSearchParams(
@@ -285,7 +280,6 @@ export default function Start(props) {
   }, [templateId]);
 
   const ScenarioSwitch = () => {
-    console.log(isTemplate, isLogin, scenario, ':::');
     if (!isTemplate && isLogin) {
       return <Scenarios.Scenario2 {...scenarioProps} />;
     } else if (isTemplate && !isLogin) {
