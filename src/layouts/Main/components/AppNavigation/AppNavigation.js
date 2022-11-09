@@ -267,7 +267,7 @@ const AppNavigation = ({
             <ProfileMenu
               userInfo={userInfo}
               profilePic={
-                <Stack direction="row">
+                <Stack direction="row" data-testid="user-avatar">
                   <img
                     src={profileUrl}
                     alt="User"

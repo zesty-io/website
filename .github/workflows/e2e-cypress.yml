@@ -9,7 +9,7 @@ jobs:
   end-to-end-tests-cypress:
     runs-on: ubuntu-latest
     env:
-      PRODUCTION: 'false'
+      PRODUCTION: 'true'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -27,10 +27,6 @@ jobs:
       - name: Write the cypress.env.json file 📝
         run: |
           echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
-
-      - name: set env for cypress 
-        run: |
-          echo 'PRODUCTION=true' > .env
 
       - name: Run E2E test
         run: npm run test:e2e:ci:prod

@@ -199,6 +199,7 @@ const Index = ({ children }) => {
                   value={tab.filename}
                   iconPosition="start"
                   label={tab.label}
+                  data-testid={tab.label}
                 />
               ))}
           </Tabs>

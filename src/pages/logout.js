@@ -43,6 +43,7 @@ const logout = () => {
         alignItems="center"
         height="100%"
         px={5}
+        data-testid="signout-page"
       >
         <Stack>
           <Typography variant="h3" mb={3} color="primary">
