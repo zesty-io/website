@@ -3,7 +3,7 @@
 
 const { email, password } = Cypress.env('user');
 
-describe('E2E Accounts', () => {
+describe('E2E accounts: Navigate user', () => {
   beforeEach('Login', () => {
     cy.visit('http://test.zesty.io:3000/login/');
     cy.get("input[name='email']").should('exist').type(email);
@@ -63,5 +63,34 @@ describe('E2E Accounts', () => {
       .should('exist')
       .click();
     cy.get("[data-testid='Settings']", { timeout: 30000 }).should('exist');
+
+    cy.get("[data-testid='user-avatar']", { timeout: 30000 })
+      .should('exist')
+      .click();
+
+    cy.get("[data-testid='Profile-dropdown']", { timeout: 30000 })
+      .should('exist')
+      .click();
+
+    cy.wait(3000);
+    cy.get("[data-testid='Profile']", { timeout: 30000 }).should('exist');
+
+    cy.get("[title='Security']", { timeout: 30000 }).should('exist').click();
+
+    cy.get("[data-testid='Security']", { timeout: 30000 }).should('exist');
+
+    cy.get("[title='Preferences']", { timeout: 30000 }).should('exist').click();
+
+    cy.get("[data-testid='Preference']", { timeout: 30000 }).should('exist');
+
+    cy.get("[data-testid='user-avatar']", { timeout: 30000 })
+      .should('exist')
+      .click();
+
+    cy.get("[data-testid='Logout-dropdown']", { timeout: 30000 })
+      .should('exist')
+      .click();
+
+    cy.get("[data-testid='signout-page']", { timeout: 30000 }).should('exist');
   });
 });
