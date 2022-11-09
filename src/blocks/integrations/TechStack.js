@@ -149,7 +149,6 @@ const TechStack = ({
                 />
                 {logos?.map((item, idx) => {
                   return (
-                    <>
                       <ZestyImage
                         key={idx}
                         width={88}
@@ -158,7 +157,6 @@ const TechStack = ({
                         alt="integration logo's"
                         src={item.logo?.data[0].url}
                       />
-                    </>
                   );
                 })}
               </Box>
