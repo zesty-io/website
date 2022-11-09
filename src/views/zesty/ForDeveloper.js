@@ -150,7 +150,8 @@ function ForDeveloper({ content }) {
     feature_description: content.why_zesty_text || FillerContent.header,
     cta_button_text: content.middle_cta_button_text || FillerContent.cta,
     cta_button_link:
-      content.middle_cta_button_link.data[0].meta.web.uri || FillerContent.href,
+      content.middle_cta_button_link?.data[0].meta.web.uri ||
+      FillerContent.href,
     card_name_color: theme.palette.zesty.zestyZambezi,
     icon_width: 60,
     data: whyZestyFeaturesData,
