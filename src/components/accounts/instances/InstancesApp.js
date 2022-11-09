@@ -168,6 +168,7 @@ function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
           <ListItemButton
             color="warning"
             sx={{ borderRadius: '5px', padding: '6px 12px' }}
+            data-testid={lang[langcode].tabs[list.filename] + '-Nav'}
           >
             <ListItemIcon sx={{ minWidth: 35 }}>{list.icon}</ListItemIcon>
             <ListItemText

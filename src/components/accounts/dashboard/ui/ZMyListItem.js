@@ -2,6 +2,7 @@ import { Link, ListItem } from '@mui/material';
 import React from 'react';
 
 const ZMyListItem = ({ logo, link, name, sx, ...props }) => {
+  console.log('');
   return (
     <ListItem
       alignItems="center"
@@ -11,6 +12,7 @@ const ZMyListItem = ({ logo, link, name, sx, ...props }) => {
     >
       <img src={logo} height={16} width={16} />
       <Link
+        data-testid={name}
         href={link}
         underline="none"
         color="text.primary"

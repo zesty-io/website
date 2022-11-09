@@ -52,18 +52,29 @@ export const ProfileMenu = ({ profilePic, userInfo }) => {
       >
         <Box p={2} sx={{ borderBottom: `1px solid ${grey[300]}` }}>
           <Typography>Logged in as </Typography>
-          <Typography variant="p" sx={{ fontWeight: '800' }}>
+          <Typography
+            variant="p"
+            sx={{ fontWeight: '800' }}
+            data-testid={userInfo?.email}
+          >
             {userInfo?.email}
           </Typography>
         </Box>
         <Box>
           {dropdown.map((e, index) => (
-            <MenuItem key={index} onClick={() => handleClose(e.link)}>
+            <MenuItem
+              key={index}
+              onClick={() => handleClose(e.link)}
+              data-testid={`${e.label}-dropdown`}
+            >
               {e.label}
             </MenuItem>
           ))}
         </Box>
-        <Box sx={{ borderTop: `1px solid ${grey[300]}` }}>
+        <Box
+          sx={{ borderTop: `1px solid ${grey[300]}` }}
+          data-testid={`Logout-dropdown`}
+        >
           {signOut.map((e, index) => (
             <MenuItem key={index} onClick={() => handleClose(e.link)}>
               {e.label}

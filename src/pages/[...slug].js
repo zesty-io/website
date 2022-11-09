@@ -6,7 +6,6 @@ import { githubFetch } from 'lib/githubFetch';
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
 import { getIsAuthenticated } from 'utils';
-import { getCookies } from 'cookies-next';
 
 export default function Slug(props) {
   // for homepage navigation
@@ -73,5 +72,5 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   }
 
   // Pass data to the page via props
-  return { props: { ...data, cookies: getCookies({ req, res }) } };
+  return { props: { ...data } };
 }

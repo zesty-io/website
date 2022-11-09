@@ -20,7 +20,7 @@ import MarketplaceContainer from 'components/marketplace/landing/MarketplaceCont
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
 import Hero from 'components/marketplace/landing/Hero';
-// import AppBar from 'components/console/AppBar';
+import { getIsAuthenticated } from 'utils';
 
 const Marketplace = ({ marketEntities, marketEntityTypes, ...props }) => {
   const seoTitle = props.meta.web.seo_meta_title,
@@ -53,6 +53,8 @@ const Marketplace = ({ marketEntities, marketEntityTypes, ...props }) => {
 };
 
 export async function getServerSideProps({ res, req }) {
+  const isAuthenticated = getIsAuthenticated(res);
+
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=600, stale-while-revalidate=3600',
@@ -78,6 +80,9 @@ export async function getServerSideProps({ res, req }) {
       marketEntityTypes: await entityTypes.json(),
       ...data,
       navigationCustom: navigationCustom,
+      zesty: {
+        isAuthenticated,
+      },
     },
   };
 }
