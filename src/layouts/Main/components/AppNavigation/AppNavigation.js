@@ -23,7 +23,6 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
 import { AccountsThemeToggler } from 'components/globals/AccountsThemeToggler';
 import { AccountsSingleNavItem } from '../Topbar/components/NavItem/AccountsSingleNavItem';
@@ -123,7 +122,6 @@ const AppNavigation = ({
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
 
-  const isLoggedIn = useIsLoggedIn();
   const isAccounts = isProtectedRoute(pathname);
   const theme = useTheme();
   const isXL = useMediaQuery(theme.breakpoints.up('xl'));
@@ -152,10 +150,8 @@ const AppNavigation = ({
   }, [isMD]);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      getInstances();
-    }
-  }, [isLoggedIn]);
+    getInstances();
+  }, []);
   return (
     <>
       <Stack direction="row" alignItems={isSM && 'center'} py={1}>
@@ -210,10 +206,7 @@ const AppNavigation = ({
               <>
                 <Button
                   color={
-                    (isAccounts && isLoggedIn) ||
-                    (isLoggedIn && pathname === '/')
-                      ? 'primary'
-                      : 'secondary'
+                    isAccounts || pathname === '/' ? 'primary' : 'secondary'
                   }
                   variant="contained"
                   startIcon={<AddIcon />}
@@ -254,10 +247,7 @@ const AppNavigation = ({
                   title="Create Instance"
                   href={createInstanceLink}
                   color={
-                    (isAccounts && isLoggedIn) ||
-                    (isLoggedIn && pathname === '/')
-                      ? 'primary'
-                      : 'secondary'
+                    isAccounts || pathname === '/' ? 'primary' : 'secondary'
                   }
                 >
                   <AddIcon />
