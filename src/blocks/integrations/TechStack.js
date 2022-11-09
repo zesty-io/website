@@ -156,7 +156,7 @@ const TechStack = ({
                         height={88}
                         style={{ height: 88, width: 'auto' }}
                         alt="integration logo's"
-                        src={item.logo.data[0].url}
+                        src={item.logo?.data[0].url}
                       />
                     </>
                   );
