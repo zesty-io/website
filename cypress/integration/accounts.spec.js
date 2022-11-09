@@ -3,15 +3,15 @@
 
 const { email, password } = Cypress.env('user');
 
-describe('Accounts', () => {
-  beforeEach('start', () => {
+describe('E2E Accounts', () => {
+  beforeEach('Login', () => {
     cy.visit('http://test.zesty.io:3000/login/');
-  });
-  it('Test users login on accounts ', () => {
     cy.get("input[name='email']").should('exist').type(email);
     cy.get("input[name='password']").should('exist').type(password);
     cy.get("button[type='submit']").should('exist').click();
+  });
 
+  it('Test user navigation in Accounts', () => {
     cy.wait(3000);
     cy.get("[data-testid='instancesContainer']", { timeout: 30000 }).should(
       'exist',
@@ -26,7 +26,6 @@ describe('Accounts', () => {
     cy.get("[data-testid='zesty.pw']", { timeout: 30000 })
       .should('exist')
       .click();
-    // cy.visit('http://test.zesty.io:3000/instances/8-f48cf3a682-7fthvk/');
 
     cy.get("[data-testid='Overview']", { timeout: 30000 }).should('exist');
 
