@@ -23,7 +23,6 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
 import { AccountsThemeToggler } from 'components/globals/AccountsThemeToggler';
 import { AccountsSingleNavItem } from '../Topbar/components/NavItem/AccountsSingleNavItem';
@@ -106,11 +105,12 @@ const AppNavigation = ({
 }) => {
   const router = useRouter();
   const [pathname, setPathname] = useState('');
-  const { instances, setworkingInstance, userInfo } = useZestyStore(
+  const { ZestyAPI, setworkingInstance, userInfo } = useZestyStore(
     (state) => state,
   );
   const [isMarketplace, setIsMarketplace] = useState(false);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  const [instances, setinstances] = useState([]);
 
   const handleComboxClick = (zuid) => {
     setCookie('ZESTY_WORKING_INSTANCE', zuid);
@@ -122,7 +122,6 @@ const AppNavigation = ({
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
 
-  const isLoggedIn = useIsLoggedIn();
   const isAccounts = isProtectedRoute(pathname);
   const theme = useTheme();
   const isXL = useMediaQuery(theme.breakpoints.up('xl'));
@@ -131,6 +130,11 @@ const AppNavigation = ({
   const isMD = useMediaQuery(theme.breakpoints.up('md'));
   const [isToggle, setIsToggle] = useState(false);
 
+  const getInstances = async () => {
+    const res = await ZestyAPI.getInstances();
+    !res.error && setinstances(res);
+    res.error && setinstances([]);
+  };
   useEffect(() => {
     setIsMarketplace(
       window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
@@ -145,6 +149,9 @@ const AppNavigation = ({
     setIsToggle(false);
   }, [isMD]);
 
+  useEffect(() => {
+    getInstances();
+  }, []);
   return (
     <>
       <Stack direction="row" alignItems={isSM && 'center'} py={1}>
@@ -199,10 +206,7 @@ const AppNavigation = ({
               <>
                 <Button
                   color={
-                    (isAccounts && isLoggedIn) ||
-                    (isLoggedIn && pathname === '/')
-                      ? 'primary'
-                      : 'secondary'
+                    isAccounts || pathname === '/' ? 'primary' : 'secondary'
                   }
                   variant="contained"
                   startIcon={<AddIcon />}
@@ -243,10 +247,7 @@ const AppNavigation = ({
                   title="Create Instance"
                   href={createInstanceLink}
                   color={
-                    (isAccounts && isLoggedIn) ||
-                    (isLoggedIn && pathname === '/')
-                      ? 'primary'
-                      : 'secondary'
+                    isAccounts || pathname === '/' ? 'primary' : 'secondary'
                   }
                 >
                   <AddIcon />
@@ -266,7 +267,7 @@ const AppNavigation = ({
             <ProfileMenu
               userInfo={userInfo}
               profilePic={
-                <Stack direction="row">
+                <Stack direction="row" data-testid="user-avatar">
                   <img
                     src={profileUrl}
                     alt="User"

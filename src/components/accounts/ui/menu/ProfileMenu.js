@@ -65,13 +65,16 @@ export const ProfileMenu = ({ profilePic, userInfo }) => {
             <MenuItem
               key={index}
               onClick={() => handleClose(e.link)}
-              data-testid={e.label}
+              data-testid={`${e.label}-dropdown`}
             >
               {e.label}
             </MenuItem>
           ))}
         </Box>
-        <Box sx={{ borderTop: `1px solid ${grey[300]}` }}>
+        <Box
+          sx={{ borderTop: `1px solid ${grey[300]}` }}
+          data-testid={`Logout-dropdown`}
+        >
           {signOut.map((e, index) => (
             <MenuItem key={index} onClick={() => handleClose(e.link)}>
               {e.label}
