@@ -22,7 +22,7 @@ const getTestingRoutes = async () => {
 describe('ZESTY WEBSITE', () => {
   test('***FETCH ALL ROUTES***', async () => {
     const routes = await getTestingRoutes();
-    const newroutes = routes.slice(0, 100);
+    const newroutes = routes.slice(0, 20);
     const successRoutes = [];
     const errorRoutes = [];
     const url = !isDev ? prodURL : stageURL;
