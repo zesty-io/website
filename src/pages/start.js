@@ -275,7 +275,7 @@ export default function Start(props) {
   };
 
   React.useEffect(() => {
-    setisLogin(getCookie('APP_SID'));
+    setisLogin(getCookie('APP_SID') || getCookie('DEV_APP_SID'));
   }, [isTemplate]);
 
   React.useEffect(() => {
@@ -318,6 +318,7 @@ export default function Start(props) {
 
   return (
     <Box
+      data-testid="start-page"
       sx={{
         background: theme.palette.zesty.zestyDarkBlue,
         position: 'relative',
