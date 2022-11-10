@@ -45,6 +45,7 @@ const Scenario1 = ({
 
   return (
     <Swiper
+      data-testid="scenario1"
       ref={sliderRef}
       autoHeight={false}
       navigation={false}
@@ -164,6 +165,7 @@ const Scenario2 = ({
   }, []);
   return (
     <Swiper
+      data-testid="scenario2"
       ref={sliderRef}
       autoHeight={false}
       navigation={false}
@@ -240,6 +242,7 @@ const Scenario3 = ({
   }, []);
   return (
     <Swiper
+      data-testid="scenario3"
       ref={sliderRef}
       autoHeight={false}
       navigation={false}
@@ -334,6 +337,7 @@ const Scenario4 = ({
 
   return (
     <Swiper
+      data-testid="scenario4"
       ref={sliderRef}
       autoHeight={false}
       navigation={false}

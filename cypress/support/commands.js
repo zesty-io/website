@@ -27,11 +27,10 @@
 const { email, password } = Cypress.env('user');
 
 Cypress.Commands.add('loginTestUser', () => {
-  cy.visit('http://test.zesty.io:3000/login/');
+  cy.visit('/login/');
   cy.get("input[name='email']").should('exist').type(email);
   cy.get("input[name='password']").should('exist').type(password);
   cy.get("button[type='submit']").should('exist').click();
-
   cy.get("[data-testid='instancesContainer']", { timeout: 30000 }).should(
     'exist',
   );
@@ -39,8 +38,12 @@ Cypress.Commands.add('loginTestUser', () => {
   cy.clearCookies();
   cy.reload();
 
-  cy.visit('http://test.zesty.io:3000/login/');
+  cy.visit('/login/');
   cy.get("input[name='email']").should('exist').type(email);
   cy.get("input[name='password']").should('exist').type(password);
   cy.get("button[type='submit']").should('exist').click();
+
+  cy.get("[data-testid='instancesContainer']", { timeout: 30000 }).should(
+    'exist',
+  );
 });
