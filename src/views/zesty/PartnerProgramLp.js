@@ -75,8 +75,6 @@ function PartnerProgramLp({ content }) {
     FillerContent,
   };
 
-  console.log(content);
-
   const feature_data =
     content.features?.data.reduce((acc, item) => {
       acc.push({

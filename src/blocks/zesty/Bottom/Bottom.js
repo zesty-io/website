@@ -53,7 +53,7 @@ const Bottom = ({
     >
       <Container>
         <Grid container spacing={2}>
-          <Grid sm={12} md={7}>
+          <Grid item sm={12} md={7}>
             <Box
               sx={{
                 position: 'relative',
@@ -79,6 +79,7 @@ const Bottom = ({
             </Box>
           </Grid>
           <Grid
+            item
             sx={{
               display: 'flex',
               justifyContent: 'center',

@@ -65,7 +65,8 @@ const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
             borderRadius: '8px',
             bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
             '& .MuiInputBase-input.Mui-disabled': {
-              WebkitTextFillColor: 'black',
+              WebkitTextFillColor:
+                theme.palette.mode === 'light' ? 'black' : 'white',
             },
             '& fieldset': {
               border: `1px solid ${grey[200]}`,

@@ -26,16 +26,11 @@ export default function WebhooksPage() {
     setWebhooks(data);
   };
 
-  const handleGetWebhooksError = (res) => {
-    console.log(res.error);
-  };
-  const handleCreateWebhooksSuccess = (res) => {
-    console.log(res.data);
+  const handleCreateWebhooksSuccess = () => {
     SuccessMsg({ title: 'Webhook Created Succesfully' });
   };
 
   const handleCreateWebhooksError = (res) => {
-    console.log(res.error);
     ErrorMsg({ text: res.error });
   };
   const handleSearchItemsSuccess = (res) => {
@@ -49,10 +44,6 @@ export default function WebhooksPage() {
     setResourcesOption(options);
   };
 
-  const handleSearchItemsError = (res) => {
-    console.log(res.error);
-  };
-
   const handleGetInstanceUserWithRolesSucc = (res) => {
     setInstanceUserWithRoles(res.data);
   };
@@ -60,8 +51,7 @@ export default function WebhooksPage() {
     ErrorMsg({ text: res.error });
   };
 
-  const handleDeleteWebhookSuccess = (res) => {
-    console.log(res);
+  const handleDeleteWebhookSuccess = () => {
     SuccessMsg({ title: 'Webhook Successfully Deleted' });
   };
   const handleDeleteWebhookError = (res) => {
@@ -70,7 +60,6 @@ export default function WebhooksPage() {
   const getWebhooks = async () => {
     const res = await ZestyAPI.retrieveWebhookForInstance(zuid);
     !res.error && handleGetWebhooksSuccess(res);
-    res.error && handleGetWebhooksError(res);
   };
 
   const createWebhook = async (data) => {
@@ -94,7 +83,6 @@ export default function WebhooksPage() {
     const params = ``;
     const res = await ZestyAPI.searchItems(params);
     !res.error && handleSearchItemsSuccess(res);
-    res.error && handleSearchItemsError(res);
   };
 
   const getInstanceUserWithRoles = async () => {
@@ -180,13 +168,13 @@ export default function WebhooksPage() {
     userInfo,
   );
   const getPageData = async () => {
-    await setloading(true);
+    setloading(true);
     await Promise.all([
       getWebhooks(),
       searhcItems(),
       getInstanceUserWithRoles(),
     ]);
-    await setloading(false);
+    setloading(false);
   };
 
   React.useEffect(() => {

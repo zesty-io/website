@@ -28,19 +28,14 @@ export default function ApisPage() {
   const handleGetInstanceTokenSuccess = (res) => {
     settokens(res.data);
   };
-  const handleGetInstanceTokenError = (res) => {
-    console.log(res);
-  };
 
   const handleGetInstanceRolesSuccess = (res) => {
-    console.log(res, 'succ upp');
     const data = res.data.map((e) => {
       return { ...e, value: e.name, label: e.name };
     });
     setInstanceRoles(data);
   };
   const handleGetInstanceRolesErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
   const handleGetInstanceUserWithRolesSucc = (res) => {
@@ -61,16 +56,14 @@ export default function ApisPage() {
     ErrorMsg({ text: res.error });
   };
 
-  const handleDeleteTokenSucc = (res) => {
-    console.log(res);
+  const handleDeleteTokenSucc = () => {
     SuccessMsg({ title: 'Token Successfully Deleted' });
   };
   const handleDeleteTokenErr = (res) => {
     ErrorMsg({ text: res.error });
   };
 
-  const handleUpdateTokenSucc = (res) => {
-    console.log(res);
+  const handleUpdateTokenSucc = () => {
     SuccessMsg({ title: 'Token Successfully Updated' });
   };
   const handleUpdateTokenErr = (res) => {
@@ -93,27 +86,20 @@ export default function ApisPage() {
     });
     setsettings(data);
   };
-  const handleGetSettingsErr = (res) => {
-    console.log(res);
-  };
 
-  const handleUpdateSettingSucc = (res) => {
-    console.log(res);
+  const handleUpdateSettingSucc = () => {
     SuccessMsg({ title: 'Settings Updated' });
   };
   const handleUpdateSettingErr = (error) => {
-    console.log(error);
     ErrorMsg({ title: error.error });
   };
   const getInstanceTokens = async () => {
     const res = await ZestyAPI.getInstanceToken(zuid);
     !res.error && handleGetInstanceTokenSuccess(res);
-    res.error && handleGetInstanceTokenError(res);
   };
   const getSettings = async () => {
     const res = await ZestyAPI.getSettings();
     !res.error && handleGetSettingsSucc(res);
-    res.error && handleGetSettingsErr(res);
   };
 
   const getInstanceRoles = async () => {

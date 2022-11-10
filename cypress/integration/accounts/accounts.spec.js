@@ -1,14 +1,9 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
 /// <reference types="cypress" />
 
-const { email, password } = Cypress.env('user');
-
 describe('E2E accounts: Navigate user', () => {
   beforeEach('Login', () => {
-    cy.visit('http://test.zesty.io:3000/login/');
-    cy.get("input[name='email']").should('exist').type(email);
-    cy.get("input[name='password']").should('exist').type(password);
-    cy.get("button[type='submit']").should('exist').click();
+    cy.loginTestUser();
   });
 
   it('Test user navigation in Accounts', () => {

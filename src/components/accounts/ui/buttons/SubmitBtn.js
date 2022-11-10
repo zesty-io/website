@@ -7,6 +7,7 @@ export const SubmitBtn = ({ disabled = false, loading = false, children }) => {
   return (
     <ThemeProvider theme={theme}>
       <LoadingButton
+        data-testid="submitButton"
         color={'primary'}
         disabled={loading || disabled}
         loading={loading}

@@ -22,16 +22,13 @@ const CustomEmailForm = ({ formik }) => {
 export const EmailForm = ({ getUserEmails }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
 
-  const handleAddEmailSuccess = (data) => {
-    console.log(data, 'succ');
+  const handleAddEmailSuccess = () => {
     SuccessMsg({ title: 'Email Added' });
   };
   const handleAddEmailErr = (err) => {
-    console.log(err, 'err');
     ErrorMsg({ text: err.error });
   };
   const addEmail = async ({ name, email }) => {
-    console.log(email, name);
     const res = await ZestyAPI.addUnverifiedEmail(name, email);
     !res.error && handleAddEmailSuccess(res);
     res.error && handleAddEmailErr(res);

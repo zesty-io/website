@@ -30,7 +30,6 @@ export const downloadTemplate = async (instance_zuid, token, setloading) => {
         setloading(false);
       })
       .catch((error) => {
-        console.log(error);
         setloading(false);
         ErrorMsg({
           title: error.message,
@@ -57,7 +56,6 @@ export const getTemplate = async (zuid, setData) => {
       return response;
     })
     .catch((error) => {
-      console.log(error);
       return error;
     });
 };

@@ -52,7 +52,7 @@ const UseCase = ({
         </Box>
         <Grid sx={{ justifyContent: 'center' }} container spacing={2}>
           {content.use_cases_tiles.data.map((item, idx) => (
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} key={idx}>
               <Card
                 sx={{
                   borderRadius: 3,

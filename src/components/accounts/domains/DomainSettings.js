@@ -7,12 +7,10 @@ import { ErrorMsg, SuccessMsg } from '../ui';
 export default function DomainSettings({ settings, getSettings }) {
   const { ZestyAPI } = useZestyStore((state) => state);
 
-  const updateSettingSucc = (res) => {
-    console.log(res);
+  const updateSettingSucc = () => {
     SuccessMsg({ title: 'Settings Updated' });
   };
   const updateSettingErr = (err) => {
-    console.log(err);
     ErrorMsg({ title: err.error });
   };
 
@@ -22,18 +20,9 @@ export default function DomainSettings({ settings, getSettings }) {
       const res = await ZestyAPI.updateSetting(data.ZUID, data);
       !res.error && updateSettingSucc(res);
       res.error && updateSettingErr(res);
-      // const res = await ZestyAPI.updateSetting(settingZUID);
       await getSettings();
-      console.log(
-        '🚀 ~ file: DomainListings.js ~ line 79 ~ updateSetting ~ res',
-        res,
-      );
     } catch (error) {
       updateSettingErr(error);
-      console.log(
-        '🚀 ~ file: DomainListings.js ~ line 81 ~ updateSetting ~ error',
-        error,
-      );
     }
   };
 

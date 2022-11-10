@@ -9,9 +9,8 @@ export const NavigationStart = ({
   steps,
   title,
   description,
-  scenario,
+  // scenario,
 }) => {
-  console.log(scenario);
   return (
     <Grid
       item

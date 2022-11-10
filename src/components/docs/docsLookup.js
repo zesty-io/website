@@ -32,7 +32,6 @@ export async function docsLookup(ctx) {
   try {
     // docs data
     let url = `https://raw.githubusercontent.com/zesty-io/zesty-org/master/${markdownFilePath}`;
-    console.log(url);
     let res = await fetch(url);
     data.markdown = await res.text();
   } catch (err) {
