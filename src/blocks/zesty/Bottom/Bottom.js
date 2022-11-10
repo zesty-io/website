@@ -153,6 +153,7 @@ const Bottom = ({
                     borderRadius: 1,
                   }}
                 />
+                {secondary_cta_text && 
                 <DemoCta
                   fullWidth={isMedium}
                   href={secondary_cta_link || FillerContent.href}
@@ -161,7 +162,8 @@ const Bottom = ({
                     color: theme.palette.common.white,
                     fontWeight: 'bold',
                   }}
-                />
+                />}
+                
               </Box>
             </Box>
           </Grid>
