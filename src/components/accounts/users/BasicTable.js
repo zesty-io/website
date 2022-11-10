@@ -15,7 +15,6 @@ function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
-  console.log(row);
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -34,41 +33,6 @@ function Row(props) {
         <TableCell align="right">{row.firstName}</TableCell>
         <TableCell align="right">{row.lastName}</TableCell>
       </TableRow>
-      {/* <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow> */}
     </React.Fragment>
   );
 }
@@ -91,9 +55,8 @@ Row.propTypes = {
   }).isRequired,
 };
 
-export default function CollapsibleTable({ users = [], roles }) {
+export default function CollapsibleTable({ users = [] }) {
   const rows = users;
-  console.log(roles);
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">

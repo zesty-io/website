@@ -610,7 +610,6 @@ const ContactUs = ({
 };
 
 function ExploreZesty({ content }) {
-  console.log('explore content', content);
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

@@ -65,7 +65,7 @@ const BrandHistory = () => {
                 flexDirection={'column'}
                 alignItems={'center'}
               >
-                <img width={80} height={80} marginBottom={2} src={item.icon} />
+                <img width={80} height={80} src={item.icon} style={{marginBottom:'16px'}} />
                 <Typography
                   variant={'h6'}
                   gutterBottom

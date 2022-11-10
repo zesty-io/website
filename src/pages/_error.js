@@ -82,14 +82,7 @@ const slackError = async ({
     ],
   };
 
-  await axios
-    .post(slackErrorUrl, payload, { headers })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  await axios.post(slackErrorUrl, payload, { headers });
 };
 
 const Error = ({ statusCode }) => {

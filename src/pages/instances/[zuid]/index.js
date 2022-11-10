@@ -81,105 +81,72 @@ export default function OverviewPage() {
   };
 
   const handleGetInstanceSuccess = (res) => {
-    console.log(res, 'succ upp');
     setinstance(res.data);
-  };
-  const handleGetInstanceErr = (res) => {
-    console.log(res);
   };
 
   const handleGetlocalesSucc = (res) => {
-    console.log(res, 'succ upp');
     setlocales(res.data);
-  };
-  const handleGetlocalesErr = (error) => {
-    console.log(error, 'succ upp');
   };
 
   const handleGetAllInstancesTeamsSuccess = (res) => {
     setteams(res.data);
   };
-  const handleGetAllInstancesTeamsError = (err) => {
-    console.log(err);
-  };
+
   const handleGetModelsSucc = (res) => {
     setmodels(res.data);
-  };
-  const handleGetModelsErr = (res) => {
-    console.log(res);
   };
 
   const handleGetUserSuccess = (res) => {
     setusers(res.data);
-    console.log(res);
   };
-  const handleGetUserErr = (res) => {
-    console.log(res);
-  };
+
   const handleGetUsageSuccess = (res) => {
     setusage(res);
-    console.log(res);
-  };
-  const handleGetUsageErr = (res) => {
-    console.log(res);
   };
 
   const handleGetInstanceAuditSucc = (res) => {
     setaudits(res.data);
-    console.log(res);
   };
-  const handleGetInstanceAuditErr = (res) => {
-    console.log(res);
-  };
+
   const handleGetRolesSuccess = (res) => {
     setInstanceUserWithRoles(res.data);
   };
-  const handleGetRolesErr = (res) => {
-    console.log(res);
-  };
+
   const getInstanceAudit = async () => {
     const limit = '10';
     const res = await ZestyAPI.getInstanceAudit(limit);
     !res.error && handleGetInstanceAuditSucc(res);
-    res.error && handleGetInstanceAuditErr(res);
   };
   const getInstance = async () => {
     const res = await ZestyAPI.getInstance(zuid);
     !res.error && handleGetInstanceSuccess(res);
-    res.error && handleGetInstanceErr(res);
   };
 
   const getAllInstancesTeams = async () => {
     const res = await ZestyAPI.getAllInstancesTeams(zuid);
     !res.error && handleGetAllInstancesTeamsSuccess(res);
-    res.error && handleGetAllInstancesTeamsError(res);
   };
   const getLocales = async () => {
     const res = await ZestyAPI.getLocales('all');
     !res.error && handleGetlocalesSucc(res);
-    res.error && handleGetlocalesErr(res);
   };
   const getModels = async () => {
     const res = await ZestyAPI.getModels();
     !res.error && handleGetModelsSucc(res);
-    res.error && handleGetModelsErr(res);
   };
 
   const getUsers = async () => {
     const res = await ZestyAPI.getInstanceUsers(zuid);
     !res.error && handleGetUserSuccess(res);
-    res.error && handleGetUserErr(res);
   };
   const getUsage = async (zuid, dateStart, dateEnd) => {
     const res = await ZestyAPI.getUsage(zuid, dateStart, dateEnd, isProd);
     !res.error && handleGetUsageSuccess(res);
-    res.error && handleGetUsageErr(res);
   };
 
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
     !res.error && handleGetRolesSuccess(res);
-    res.error && handleGetRolesErr(res);
   };
 
   const purgeUrl = `${

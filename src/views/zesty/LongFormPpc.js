@@ -102,7 +102,6 @@ function LongFormPpc({ content }) {
       '/join/',
   };
 
-  console.log(content);
   /* Taking the data from the content model and converting it into a format that the Features component can use. */
   const feature_data =
     content?.features?.data.reduce((acc, item) => {

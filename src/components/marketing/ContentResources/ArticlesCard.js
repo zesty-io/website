@@ -31,8 +31,9 @@ const ArticlesCard = ({
         {content.section_header_2 || FillerContent.description}
       </Typography>
       <Grid container spacing={2}>
-        {content.highlighted_articles?.data.map((item) => (
+        {content.highlighted_articles?.data.map((item, index) => (
           <Grid
+            key={index}
             component="a"
             target={'_blank'}
             href={item.meta.web.uri || FillerContent.href}

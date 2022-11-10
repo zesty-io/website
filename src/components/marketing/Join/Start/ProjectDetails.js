@@ -59,16 +59,13 @@ export const ProjectDetails = ({ repository }) => {
         .post(url, body, {
           headers,
         })
-        .then(async (response) => {
+        .then(async () => {
           SuccessMsg({
             title: 'Install Ok',
             action: opentTabs,
           });
-
-          console.log(response.data, 44444);
         })
         .catch((error) => {
-          console.log(error);
           ErrorMsg({
             title: error.message,
             text: error?.response.data?.message,

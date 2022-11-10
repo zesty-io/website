@@ -59,8 +59,8 @@ const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
         </Box>
 
         <Box sx={{ mt: 5 }}>
-          {whyZestyData.map((item) => (
-            <Grid sx={{ my: 5 }} container spacing={2}>
+          {whyZestyData.map((item, idx) => (
+            <Grid key={idx} sx={{ my: 5 }} container spacing={2}>
               <Grid
                 sx={{
                   display: 'flex',

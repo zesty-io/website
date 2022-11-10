@@ -148,6 +148,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
         {arr?.map((e, i) => {
           return (
             <RevealComponent
+              key={i}
               isMobile={isMobile}
               index={i}
               text={e.text}
