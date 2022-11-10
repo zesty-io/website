@@ -15,7 +15,6 @@ export default function Languages() {
   const getWebhooks = async () => {
     const res = await ZestyAPI.retrieveWebhookForInstance(zuid);
     setWebhooks(res.data);
-    console.log(res.data);
   };
   React.useEffect(() => {
     getWebhooks();

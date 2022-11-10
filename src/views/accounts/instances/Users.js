@@ -28,7 +28,6 @@ import { AccountsPopover } from 'components/accounts/ui/popover';
 const MySwal = withReactContent(Swal);
 
 const RoleSwitcher = ({ role, handleOnChange, instanceRoles }) => {
-  console.log(instanceRoles, '::::');
   switch (role) {
     case 'Owner':
       return <Typography>{role}</Typography>;

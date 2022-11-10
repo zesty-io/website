@@ -34,9 +34,7 @@ export const SelectTemplate = ({
       .then((e) => {
         settemplates(e.data);
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .catch(function () {});
   };
 
   React.useEffect(() => {

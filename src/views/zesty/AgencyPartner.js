@@ -109,8 +109,6 @@ function AgencyPartner({ content }) {
     cta_link: content.looking_button_link,
   };
 
-  console.log(content);
-
   return (
     <>
       <TwoRowsHero

@@ -58,8 +58,9 @@ const Testimonial = ({
             </Typography>
 
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-              {new Array(5).fill(1).map(() => (
+              {new Array(5).fill().map((i, index) => (
                 <Box
+                  key={index}
                   sx={{ display: 'inline-block' }}
                   component="img"
                   src={Star.src}

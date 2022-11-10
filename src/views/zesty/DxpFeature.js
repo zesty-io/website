@@ -76,8 +76,6 @@ function DxpFeature({ content }) {
     FillerContent,
   };
 
-  console.log(content);
-
   const feature_data =
     content.section_1_features?.data.reduce((acc, item) => {
       acc.push({

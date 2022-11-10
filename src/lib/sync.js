@@ -425,7 +425,6 @@ async function createFiles(config) {
     exit();
   }
 
-  //console.log(data.models)
   return success;
 }
 
