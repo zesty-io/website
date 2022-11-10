@@ -8,28 +8,19 @@ import MuiMarkdown from 'markdown-to-jsx';
  */
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 
-const TopCompanies = ({
-  theme,
-  content,
-  FillerContent,
-  // isLarge,
-  isExtraLarge,
-  isDarkMode,
-}) => {
+const TopCompanies = ({ theme, content, FillerContent, isDarkMode }) => {
   return (
     <Box
       component="section"
       sx={{
-        mt: 5,
-        pt: isExtraLarge ? 0 : 5,
-        py: isExtraLarge ? 5 : 0,
+        pt: 10,
+        pb: 15,
         background: `url(${
           content.logos_background && content.logos_background?.data[0].url
         })`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        height: isExtraLarge ? '' : 200,
       }}
     >
       <Typography
@@ -67,6 +58,7 @@ const TopCompanies = ({
       </Typography>
       <Box sx={{}}>
         <SimpleCardLogo
+          background={theme.palette.common.white}
           logoItems={content.logos.data}
           FillerContent={FillerContent}
           isDarkMode={isDarkMode}
