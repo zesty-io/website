@@ -141,7 +141,11 @@ const Main = ({
                 : theme.breakpoints.values.lg,
             })}
           >
-            <TopNav nav={nav} colorInvert={headerColorInvert} />
+            <TopNav
+              hideNav={hideNav}
+              nav={nav}
+              colorInvert={headerColorInvert}
+            />
           </Container>
         </Box>
       )}
@@ -171,6 +175,7 @@ const Main = ({
           {!isLoggedIn && (
             <Stack>
               <Topbar
+                hideNav={hideNav}
                 onSidebarOpen={handleSidebarOpen}
                 customRouting={hasRouting ? customRouting : []}
                 colorInvert={headerColorInvert && !trigger}
