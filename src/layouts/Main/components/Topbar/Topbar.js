@@ -31,8 +31,10 @@ const Topbar = ({
   const isCapterraPage = router.asPath.includes('/capterra');
   const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
+  const isDiscover = router.asPath.includes('/discover/');
 
-  const hideNav = isPpcPage || isCapterraPage || isDxpTemplatePage;
+  const hideNav =
+    isPpcPage || isCapterraPage || isDxpTemplatePage || isDiscover;
 
   // for changing the logo color base on pages
   // affected pages dxp, capterra, ppc, ppc long , ppc short ,ppc explore
