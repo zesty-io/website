@@ -19,7 +19,7 @@ const Documentation = ({
   isDarkMode,
 }) => {
   return (
-    <Box component="section" sx={isSmall && { mb: 10 }}>
+    <Box component="section" sx={{ mb: isSmall && 10 }}>
       <Container
         sx={{
           py: isSmall ? 10 : 6,

@@ -73,8 +73,8 @@ const LearnMore = ({ theme, content, FillerContent, isDarkMode, isSmall }) => {
         </Typography>
 
         <Grid sx={{ mt: 5 }} container spacing={2}>
-          {cardData.map((item) => (
-            <Grid item xs={12} md={4}>
+          {cardData.map((item, index) => (
+            <Grid key={index} item xs={12} md={4}>
               <Card sx={{ minHeight: 244 }}>
                 <Box
                   component="a"
