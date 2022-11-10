@@ -40,8 +40,8 @@ const Articles = ({ theme, articles, FillerContent, title }) => {
           />
         </Box>
         <Grid container spacing={4} sx={{ mt: 4 }}>
-          {articles.map((item) => (
-            <Grid item xs={12} sm={6} lg={4}>
+          {articles.map((item,idx) => (
+            <Grid key={idx} item xs={12} sm={6} lg={4}>
               <Box
                 sx={{
                   backgroundImage: `url(${

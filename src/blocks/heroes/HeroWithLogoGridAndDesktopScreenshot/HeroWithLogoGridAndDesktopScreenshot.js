@@ -85,7 +85,7 @@ const Hero = ({ header_title_and_description, video_link = '' }) => {
                     title="YouTube video player"
                     // frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
+                    allowFullScreen
                   ></iframe>
                 </Box>
               </Box>

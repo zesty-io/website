@@ -62,7 +62,6 @@ const CustomTable = ({
   // isInstanceOwner,
   loading,
 }) => {
-  console.log(data, ':::');
   const ROWS = data?.map((e) => {
     // const role = roles.find((x) => x.ZUID === e.roleZUID)?.name;
     return {

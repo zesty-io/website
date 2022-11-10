@@ -199,7 +199,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
                 <Box>
                   {cardData.map((e, i) => {
                     return i === active ? (
-                      <CustomCard data={e} theme={theme} />
+                      <CustomCard key={i} data={e} theme={theme} />
                     ) : (
                       <Box
                         key={i}

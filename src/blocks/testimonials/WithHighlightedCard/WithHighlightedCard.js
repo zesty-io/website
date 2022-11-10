@@ -93,8 +93,9 @@ const WithHighlightedCard = ({ title, data }) => {
                 >
                   <Box marginBottom={1}>
                     <Box display={'flex'} justifyContent={'flex-start'}>
-                      {[1, 2, 3, 4, 5].map(() => (
+                      {[1, 2, 3, 4, 5].map((i) => (
                         <ZestyImage
+                          key={i}
                           width={20}
                           height={20}
                           style={{ paddingLeft: 0.5, paddingRight: 0.5 }}

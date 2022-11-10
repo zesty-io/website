@@ -101,8 +101,7 @@ export const transformSearch = (arr) => {
           return u.children.map((q) => {
             const name = q.children[0].content;
             const href = u.children[0].attributes[0].value;
-            const name1 = q;
-            console.log(name1);
+            // const name1 = q;
             if (q.tagName === 'a') {
               return { name, href };
             }

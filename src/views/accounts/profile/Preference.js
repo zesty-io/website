@@ -30,12 +30,10 @@ export const Preference = () => {
   const [teamOptions, setTeamOptions] = React.useState();
   const [instance_layout, setInstance_layout] = React.useState();
 
-  const handleSaveSuccess = (data) => {
-    console.log(data, 'succ');
+  const handleSaveSuccess = () => {
     SuccessMsg({ title: 'Success' });
   };
   const handleSaveErr = (err) => {
-    console.log(err, 'err');
     ErrorMsg({ text: err.error });
   };
   const handleSave = async (userInfo) => {

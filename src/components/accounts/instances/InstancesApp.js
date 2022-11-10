@@ -21,8 +21,6 @@ import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
-// let capitalize = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
-
 const Index = ({ children }) => {
   const [loading, setloading] = React.useState(false);
   const theme = useTheme();
