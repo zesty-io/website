@@ -26,7 +26,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
   const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const { mode } = theme.palette;
   const backgroundColor =
     mode === 'light' && !colorInvert
@@ -145,7 +145,6 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                         variant={'p'}
                         sx={{
                           textAlign: isMobile ? 'center' : 'left',
-                          display: 'block',
                         }}
                       >
                         {route.title}
