@@ -1,7 +1,13 @@
 /**
  * MUI Imports
  */
-import { Box, Card, Container, Typography, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Card,
+  Container as ContainerMUI,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MuiMarkdown from 'markdown-to-jsx';
 /**
@@ -20,6 +26,7 @@ import zesty from '../../../../public/assets/images/zesty.svg';
  */
 import ZestyImage from 'blocks/Image/ZestyImage';
 import TryFreeButton from 'components/cta/TryFreeButton';
+import Container from 'blocks/container/Container';
 
 /**
  *
@@ -41,7 +48,7 @@ import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Features = ({
   data,
-  features_header,
+  features_header = '',
   header_size = 48,
   header_color,
   card_name_color,
@@ -53,6 +60,7 @@ const Features = ({
   center = false,
   cta_button_text = '',
   background_color = '',
+  isFullWidthSection = true,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -68,6 +76,28 @@ const Features = ({
   if (!isRichText && features_header) {
     features_header = `<h2>${features_header}</h2>`;
   }
+
+  const ConditionalContainer = ({ condition, children }) =>
+    condition ? (
+      <ContainerMUI>{children}</ContainerMUI>
+    ) : (
+      <Container sx={isMobile ? { p: 0 } : { pb: isFullWidthSection ? 20 : 0 }}>
+        <Box
+          sx={{
+            background: isDarkMode
+              ? theme.palette.zesty.zestyDarkBlue
+              : background_color,
+            borderRadius: isMobile ? 0 : 5,
+            px: isMobile ? 4 : 17,
+            pb: isMobile ? 10 : 15,
+            pt: isMobile ? 0 : 4,
+          }}
+        >
+          {children}
+        </Box>
+      </Container>
+    );
+
   return (
     <Box
       component="section"
@@ -77,7 +107,7 @@ const Features = ({
         zIndex: '500',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
-          : background_color
+          : background_color && isFullWidthSection
           ? background_color
           : theme.palette.common.white,
       }}
@@ -114,7 +144,7 @@ const Features = ({
           />
         )}
       </Box>
-      <Container>
+      <ConditionalContainer condition={isFullWidthSection}>
         <Box sx={{ py: 10 }}>
           <MuiMarkdown
             options={{
@@ -141,7 +171,7 @@ const Features = ({
                     sx: {
                       textAlign: 'center',
                       color: isDarkMode
-                        ? theme.palette.zesty.zestyDarkBlue
+                        ? theme.palette.common.white
                         : theme.palette.zesty.zestyZambezi,
                     },
                   },
@@ -320,7 +350,7 @@ const Features = ({
             );
           })}
         </Box>
-      </Container>
+      </ConditionalContainer>
     </Box>
   );
 };
