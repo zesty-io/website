@@ -146,7 +146,7 @@ const Main = ({
         </Box>
       )}
       <AppBar
-        position={hideNav ? 'fixed' : 'sticky'}
+        position={isDiscover ? 'sticky' : hideNav ? 'fixed' : 'sticky'}
         sx={{
           outline: 'none',
           border: 'none',
