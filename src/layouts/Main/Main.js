@@ -151,6 +151,7 @@ const Main = ({
         </Box>
       )}
       <AppBar
+        data-testid="mainNav"
         position={isDiscover ? 'sticky' : hideNav ? 'fixed' : 'sticky'}
         sx={{
           outline: 'none',
