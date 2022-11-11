@@ -124,6 +124,7 @@ const Main = ({
 
       {isLoggedIn === false && (
         <Box
+          data-testid="topBar"
           id="topNavBox"
           bgcolor={bgcolor}
           position={'relative'}
