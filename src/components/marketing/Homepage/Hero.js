@@ -23,7 +23,7 @@ const Hero = ({
   return (
     <>
       <Box
-        data-testid="HomePageHero"
+        data-testid="homePageHero"
         component="section"
         sx={{
           minHeight: 700,

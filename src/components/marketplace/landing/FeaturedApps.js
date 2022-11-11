@@ -33,10 +33,11 @@ const FeaturedApps = ({ featuredApps }) => {
         hidden={isSearching || router.asPath !== '/marketplace/'}
         sx={{
           pt: 10,
+          px: 4,
         }}
         component="section"
       >
-        <Box sx={{ width: '100%', maxWidth: 1600, margin: 'auto', px: 4 }}>
+        <Box sx={{ width: '100%', maxWidth: 1600, margin: 'auto' }}>
           <Typography
             variant="h6"
             component="p"
@@ -54,7 +55,7 @@ const FeaturedApps = ({ featuredApps }) => {
                 key={idx}
                 sx={{ margin: 'auto' }}
                 item
-                sm={12}
+                xs={12}
                 md={6}
                 lg={4}
               >
