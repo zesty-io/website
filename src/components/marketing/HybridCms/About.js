@@ -17,14 +17,16 @@ import MuiMarkdown from 'markdown-to-jsx';
 import { Box, Container, Typography } from '@mui/material';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
-const About = ({ content, isMobile, theme, FillerContent }) => {
+const About = ({ isDarkMode, content, isMobile, theme, FillerContent }) => {
   const swooshBg = headlessCmsBg.src;
   return (
     <Box
       sx={{
         position: 'relative',
         py: 15,
-        background: theme.palette.zesty.zestyBackgroundBlue,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyBackgroundBlue,
       }}
     >
       <Box

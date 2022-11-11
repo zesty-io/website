@@ -45,13 +45,14 @@ const Hero = ({
             display: 'flex',
             justifyContent: 'center',
             flexDirection: 'column',
+            position: 'relative',
           }}
         >
           <Box
             sx={{
               position: 'absolute',
-              left: '15rem',
-              top: '2rem',
+              left: '15%',
+              top: -50,
               display: isMobile ? 'none' : 'flex',
             }}
           >

@@ -114,8 +114,6 @@ function TechnologyOverview({ content }) {
       return acc;
     }, []) || [];
 
-  console.log(feature_data);
-
   return (
     <Box>
       <Hero {...pageData} />
