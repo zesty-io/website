@@ -24,11 +24,13 @@ const AppCard = ({ name, image, meta, meta_description }) => {
           },
           margin: 'auto',
           width: '100%',
-          maxWidth: 560,
           minHeight: 160,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          border:
+            theme.palette.mode === 'light' &&
+            `1px solid ${theme.palette.common.grey}`,
         }}
       >
         <CardContent sx={{ px: 4 }}>
