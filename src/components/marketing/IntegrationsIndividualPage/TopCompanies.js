@@ -58,7 +58,8 @@ const TopCompanies = ({ theme, content, FillerContent, isDarkMode }) => {
       </Typography>
       <Box sx={{}}>
         <SimpleCardLogo
-          background={theme.palette.common.white}
+          variant={isDarkMode ? 'outlined' : 'elevation'}
+          background={isDarkMode ? 'transparent' : theme.palette.common.white}
           logoItems={content.logos.data}
           FillerContent={FillerContent}
           isDarkMode={isDarkMode}
