@@ -63,9 +63,11 @@ const Main = ({
   const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isExplorePage = router.asPath.includes('/ppc/explore/');
   const isLoginPage = router.asPath.includes('/login/');
+  const isDiscover = router.asPath.includes('/discover/');
   // override over invert based on pages that we know have a dark image heading
 
-  const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
+  const hideNav =
+    isPpcShortPage || isCapterraPage || isDxpTemplatePage || isDiscover;
   const isLoggedIn = useIsLoggedIn();
   const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
   const headerColorInvert =
@@ -140,13 +142,17 @@ const Main = ({
                 : theme.breakpoints.values.lg,
             })}
           >
-            <TopNav nav={nav} colorInvert={headerColorInvert} />
+            <TopNav
+              hideNav={hideNav}
+              nav={nav}
+              colorInvert={headerColorInvert}
+            />
           </Container>
         </Box>
       )}
       <AppBar
         data-testid="mainNav"
-        position={hideNav ? 'fixed' : 'sticky'}
+        position={isDiscover ? 'sticky' : hideNav ? 'fixed' : 'sticky'}
         sx={{
           outline: 'none',
           border: 'none',
@@ -171,6 +177,7 @@ const Main = ({
           {!isLoggedIn && (
             <Stack>
               <Topbar
+                hideNav={hideNav}
                 onSidebarOpen={handleSidebarOpen}
                 customRouting={hasRouting ? customRouting : []}
                 colorInvert={headerColorInvert && !trigger}
