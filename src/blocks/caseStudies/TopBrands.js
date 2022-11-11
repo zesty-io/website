@@ -15,13 +15,13 @@ import MuiMarkdown from 'markdown-to-jsx';
 
 const TopBrands = ({
   theme,
-  title,
+  title = FillerContent.header,
   content,
   isMobile,
   isDarkMode,
   FillerContent,
   backgroundColor = '#FFFCFB',
-  textHighlight,
+  textHighlight = "Zesty",
   sx,
 }) => {
   const caseStudies = [...(content.case_studies.data || [])];
@@ -69,10 +69,9 @@ const TopBrands = ({
                   },
                 }}
               >
-                {title?.replaceAll(
-                  textHighlight,
-                  `<strong>${textHighlight}</strong>`,
-                ) || FillerContent.header}
+                {
+                   title
+                }
               </MuiMarkdown>
             </Typography>
           </Box>

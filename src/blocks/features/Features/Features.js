@@ -244,19 +244,7 @@ const Features = ({
           >
             {feature_description || ''}
           </MuiMarkdown>
-          {/* <Typography
-            variant="h6"
-            component="h2"
-            sx={{
-              mt: 2,
-              textAlign: 'center',
-              color: isDarkMode
-                ? theme.palette.zesty.zestyDarkBlue
-                : theme.palette.zesty.zestyZambezi,
-            }}
-          >
-            {feature_description || ''}
-          </Typography> */}
+
 
           {cta_button_text && (
             <Box
