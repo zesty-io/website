@@ -26,7 +26,6 @@
  */
 
 import React, { useState } from 'react';
-
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
@@ -335,7 +334,7 @@ function Mindshare({ content }) {
           ></path>
         </Box>
       </Box>
-      <Container>
+      <Container zIndex={3} position="relative">
         {/* CTA */}
         <Newsletter
           title={content.cta_title}
