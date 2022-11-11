@@ -38,7 +38,7 @@ const MainApps = () => {
             width: '100%',
             maxWidth: 1600,
             margin: 'auto',
-            px: isLanding ? 4 : 0,
+            px: 0,
           }}
         >
           <Typography
