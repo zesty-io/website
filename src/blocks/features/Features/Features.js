@@ -104,7 +104,7 @@ const Features = ({
       paddingBottom={isMobile ? 20 : 20}
       sx={{
         position: 'relative',
-        zIndex: '500',
+        zIndex: '20',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
           : background_color && isFullWidthSection

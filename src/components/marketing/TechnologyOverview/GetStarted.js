@@ -21,18 +21,18 @@ const GetStarted = ({
       component="section"
       sx={{ position: 'relative', pb: 15, minHeight: 610 }}
     >
-      <Box
-        sx={{
-          position: 'absolute',
-          margin: 'auto',
-          display: 'block',
-          width: '100%',
-        }}
-        component="img"
-        alt=""
-        src={s_curve.src}
-      />
-      <Container>
+      <Container sx={{ position: 'relative' }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            margin: 'auto',
+            display: 'block',
+            zIndex: 30,
+          }}
+          component="img"
+          alt=""
+          src={s_curve.src}
+        />
         <Grid container spacing={2}>
           <Grid order={{ sm: 2, md: 1 }} item sm={12} md={6}>
             <Box
