@@ -145,6 +145,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                         variant={'p'}
                         sx={{
                           textAlign: isMobile ? 'center' : 'left',
+                          display: 'block',
                         }}
                       >
                         {route.title}

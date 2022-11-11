@@ -35,6 +35,7 @@ const Gallery = ({ photos }) => {
           cols={3}
           rowHeight={isMd ? 300 : 200}
           gap={isMd ? 16 : 4}
+          sx={{overflow:'hidden'}}
         >
           {photos.map((item, i) => (
             <ImageListItem key={i} cols={i % 3 == 0 ? 1 : 2} rows={1}>
