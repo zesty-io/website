@@ -87,7 +87,7 @@ const About = ({ content, theme, isMobile, FillerContent }) => {
             zIndex: '1000',
           }}
         >
-          <Box data-aos="zoom-in">
+          <Box>
             <ZestyImage
               src={
                 content.about_dxp_graphic.data[0].url ||

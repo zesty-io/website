@@ -214,7 +214,6 @@ const RevealComponent = ({
               flexDirection: 'column',
               justifyContent: 'center',
             }}
-            data-aos="zoom-out-left"
           >
             <Box>
               <MuiMarkdown
@@ -281,7 +280,7 @@ const RevealComponent = ({
           sm={12}
           md={6}
         >
-          <Box data-aos="zoom-out-right">
+          <Box>
             <Box
               component="img"
               src={img}
