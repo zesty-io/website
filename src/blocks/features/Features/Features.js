@@ -64,6 +64,7 @@ const Features = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isWideScreen = useMediaQuery(theme.breakpoints.between(2000,99999))
   const isDarkMode = theme.palette.mode === 'dark';
 
   const bracketImg = chevronLeft.src || FillerContent.dashboard_image;
@@ -138,7 +139,7 @@ const Features = ({
         {background === 'zesty' && (
           <Box
             component="img"
-            sx={{ width: '100%', maxWidth: 1920 }}
+            sx={{ width: '100%', maxWidth: 1920, display: isWideScreen ? 'none' : "block" }}
             src={zestyImg}
             alt="bg"
           />

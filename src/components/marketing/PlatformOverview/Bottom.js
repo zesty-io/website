@@ -17,6 +17,7 @@ const Bottom = ({
   FillerContent,
   theme,
   isMedium,
+  isDarkMode,
   // isSmall,
   // isExtraLarge,
 }) => {
@@ -26,7 +27,9 @@ const Bottom = ({
       sx={{
         mt: 10,
         py: 5,
-        background: `url(${content.background_orange?.data[1].url}?width=1920)`,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : `url(${content.background_orange?.data[1].url}?width=1920)`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
