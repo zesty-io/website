@@ -3,21 +3,9 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { zestyLink } from 'lib/zestyLink';
-import { useRouter } from 'next/router';
-
 import ThemeModeToggler from './ThemeModeToggler';
 
-const TopNav = ({ nav, colorInvert = false }) => {
-  const router = useRouter();
-
-  //check if page is from ppc or capterra for hiding of footer and nav
-  const isPpcShortPage = router.asPath.includes('ppc');
-  const isCapterraPage = router.asPath.includes('/capterra');
-  const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
-  // override over invert based on pages that we know have a dark image heading
-
-  const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
-
+const TopNav = ({ hideNav, nav, colorInvert = false }) => {
   return (
     <Box
       display={hideNav ? 'none' : 'flex'}

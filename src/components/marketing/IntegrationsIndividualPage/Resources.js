@@ -7,7 +7,7 @@ import Container from 'blocks/container/Container';
 const Resources = ({ theme, content, FillerContent, isLarge }) => {
   return (
     <Box component="section">
-      <Container sx={{ py: 5 }}>
+      <Container sx={{ py: 15 }}>
         <Box
           sx={{
             background: theme.palette.zesty.zestyDarkBlue,
