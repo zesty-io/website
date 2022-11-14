@@ -84,7 +84,7 @@ const TopBrands = ({
               }}
               item
               order={{ xs: 2, md: 1 }}
-              sm={12}
+              xs={12}
               md={3}
             >
               <Box
