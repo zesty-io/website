@@ -14,7 +14,6 @@ import { useState } from 'react';
 /**
  * Helpers Imports
  */
-import * as helper from 'utils';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Solution = ({ content, theme, isMobile, FillerContent }) => {
@@ -121,7 +120,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
         <Box>
           <Grid container spacing={5}>
             <Grid item sm={12} md={6}>
-              <Box data-aos="fade-right">
+              <Box>
                 <Box>
                   <ZoomMui
                     in={active === 0}
@@ -195,7 +194,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
             </Grid>
 
             <Grid item sm={12} md={6}>
-              <Box data-aos="fade-left">
+              <Box>
                 <Box>
                   {cardData.map((e, i) => {
                     return i === active ? (
@@ -242,7 +241,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
           </Grid>
         </Box>
 
-        <Box data-aos="zoom-in" sx={{ py: 10 }}>
+        <Box sx={{ py: 10 }}>
           <Grid item xs={12} md={9}>
             <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
               <MuiMarkdown
@@ -296,21 +295,33 @@ const CustomCard = ({ data, theme }) => {
         <img src={data.icon} alt="" width={50} />
       </Box>
       <Box>
-        <Typography
-          component={'p'}
-          variant={'p'}
-          sx={{
-            color: theme.palette.secondary.darkCharcoal,
-            textAlign: 'left',
+        <MuiMarkdown
+          options={{
+            overrides: {
+              h3: {
+                component: Typography,
+                props: {
+                  component: 'h3',
+                  variant: 'h6',
+                  sx: {
+                    color: theme.palette.zesty.zestyOrange,
+                    fontWeight: 'bold',
+                  },
+                },
+              },
+              p: {
+                component: Typography,
+                props: {
+                  component: 'p',
+                  variant: 'body1',
+                },
+              },
+            },
           }}
-          dangerouslySetInnerHTML={{
-            __html: helper.strColorChanger(
-              data.text,
-              data.subText,
-              theme.palette.zesty.zestyOrange,
-            ),
-          }}
-        />
+        >
+          {data.text}
+        </MuiMarkdown>
+
         {data.href && (
           <Link
             href={data.href}

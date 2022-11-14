@@ -34,11 +34,25 @@ const Hero = ({
           : theme.palette.zesty.zestyWhite,
       }}
     >
-      <Container>
+      <Container sx={{ position: 'relative' }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: -150,
+            left: 100,
+            display: isTablet ? 'none' : 'flex',
+          }}
+        >
+          <Box
+            component="img"
+            src={bgImage}
+            alt="Zesty.io background image"
+            sx={{ height: '100%', width: '100%', objectFit: 'cover' }}
+          />
+        </Box>
         <Grid container>
           <Grid item sm={12} md={6}>
             <Box
-              data-aos="zoom-in"
               sx={{
                 background: '',
                 display: 'flex',
@@ -47,22 +61,6 @@ const Hero = ({
                 flexDirection: 'column',
               }}
             >
-              <Box
-                sx={{
-                  position: 'absolute',
-                  left: '-10vw',
-                  top: '-10vh',
-                  display: isTablet ? 'none' : 'flex',
-                  width: '630px',
-                }}
-              >
-                <Box
-                  component="img"
-                  src={bgImage}
-                  alt="Zesty.io background image"
-                  sx={{ height: '100%', width: '100%', objectFit: 'cover' }}
-                />
-              </Box>
               <Typography
                 component={'h1'}
                 variant={'h5'}
@@ -125,7 +123,7 @@ const Hero = ({
           </Grid>
 
           <Grid item sm={12} md={6}>
-            <Box data-aos="zoom-in">
+            <Box>
               <Box component="img" sx={{ width: '100%' }} src={mainImage} />
             </Box>
           </Grid>

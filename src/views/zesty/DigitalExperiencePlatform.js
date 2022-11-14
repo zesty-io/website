@@ -81,15 +81,11 @@ import { Box, useMediaQuery, useTheme } from '@mui/material';
  * React Imports
  */
 
-import { useEffect } from 'react';
-
 /**
  * Helper Imports
  */
 
 import FillerContent from 'components/globals/FillerContent';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 /**
  * Components Import
@@ -101,8 +97,8 @@ import Middle from 'components/marketing/DigitalExperiencePlatform/Middle';
 import Features from 'blocks/features/Features/Features';
 import Integrations from 'components/marketing/DigitalExperiencePlatform/Integrations';
 import Implementation from 'components/marketing/DigitalExperiencePlatform/Implementation';
-import Bottom from 'components/marketing/DigitalExperiencePlatform/Bottom';
 import TopBrands from '../../blocks/caseStudies/TopBrands';
+import Bottom from 'components/marketing/DigitalExperiencePlatform/Bottom';
 
 function DigitalExperiencePlatform({ content }) {
   const theme = useTheme();
@@ -132,12 +128,6 @@ function DigitalExperiencePlatform({ content }) {
     isTablet,
   };
 
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-    });
-  }, []);
-
   const PageData = {
     content,
     theme,
@@ -161,7 +151,7 @@ function DigitalExperiencePlatform({ content }) {
     }, []) || [];
 
   return (
-    <Box sx={{ overflowX: 'hidden' }}>
+    <Box>
       <Hero {...HeroProps} />
       <Solution {...PageData} />
       <About {...PageData} />
@@ -176,7 +166,11 @@ function DigitalExperiencePlatform({ content }) {
       <Integrations {...PageData} />
       <Implementation {...PageData} />
       <TopBrands
-        backgroundColor={theme.palette.zesty.zestyBackgroundBlue}
+        backgroundColor={
+          isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.zesty.zestyBackgroundBlue
+        }
         sx={{ pt: 4 }}
         title={content.case_study_header}
         {...PageData}

@@ -22,20 +22,21 @@ const Hero = ({ theme, isMobile, content, FillerContent }) => (
       background: theme.palette.zesty.zestyBackgroundBlueGradient,
     }}
   >
-    <Box
-      component="img"
-      alt="zesty.io logo"
-      style={{
-        position: 'absolute',
-        left: isMobile ? '' : '10%',
-        top: 100,
-        width: 594,
-        height: 603,
-        opacity: 0.1,
-      }}
-      src={'https://brand.zesty.io/zesty-io-logo-light.png'}
-    />
     <Container sx={{ position: 'relative' }}>
+      <Box
+        component="img"
+        alt="zesty.io logo"
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: -120,
+          width: 594,
+          height: 603,
+          opacity: 0.1,
+        }}
+        src={'https://brand.zesty.io/zesty-io-logo-light.png'}
+      />
+
       <Grid container spacing={2}>
         <Grid item sm={12} md={6}>
           <Box
