@@ -72,7 +72,7 @@ const Persona = ({
               <Grid key={index} item xs={12} md={4}>
                 <Card
                   component="a"
-                  href="#"
+                  href={item.page_link?.data[0]?.meta?.web?.url || FillerContent.href}
                   sx={{
                     width: '100%',
                     margin: 'auto',
