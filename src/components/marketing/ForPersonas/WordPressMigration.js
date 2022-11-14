@@ -1,7 +1,14 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Grid, Stack, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Grid,
+  Stack,
+  useMediaQuery,
+  Container,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 /**
@@ -12,7 +19,6 @@ import FillerContent from 'components/globals/FillerContent';
 /**
  * Components Imports
  */
-import Container from 'blocks/container/Container';
 import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import DemoCta from 'components/cta/DemoCta';
@@ -54,7 +60,7 @@ const WordPressMigration = ({
                       component: Typography,
                       props: {
                         component: 'h2',
-                        variant: 'h3',
+                        variant: 'h4',
                         sx: {
                           color: theme.palette.zesty.zestyZambezi,
                           fontWeight: 700,
@@ -69,6 +75,7 @@ const WordPressMigration = ({
                         sx: {
                           color: theme.palette.zesty.zestyZambezi,
                           mt: 5,
+                          pr: isSmall ? 0 : 10,
                         },
                       },
                     },

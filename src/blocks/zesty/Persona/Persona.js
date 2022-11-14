@@ -109,7 +109,7 @@ const Persona = ({
                         fontWeight: 'bold',
                         textDecoration: 'none',
                         mt: -2,
-                        color: theme.palette.zesty.zestyDarkText,
+                        color: theme.palette.zesty.zestyZambezi,
                       }}
                     >
                       {item.page_title || FillerContent.description}

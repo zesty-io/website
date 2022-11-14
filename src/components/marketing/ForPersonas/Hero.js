@@ -67,47 +67,49 @@ const Hero = ({
           >
             {headerEyebrow || FillerContent.header}
           </Typography>
-          <MuiMarkdown
-            options={{
-              overrides: {
-                h1: {
-                  component: Typography,
-                  props: {
-                    component: 'h2',
-                    variant: 'h3',
-                    sx: {
-                      fontWeight: 700,
-                      color: theme.palette.zesty.zestyZambezi,
+          <Box sx={{ px: isSmall ? 0 : 10 }}>
+            <MuiMarkdown
+              options={{
+                overrides: {
+                  h1: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h3',
+                      sx: {
+                        fontWeight: 700,
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
+                    },
+                  },
+                  h3: {
+                    component: Typography,
+                    props: {
+                      component: 'h3',
+                      variant: 'h4',
+                      sx: {
+                        fontWeight: 700,
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      my: 2.5,
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
                     },
                   },
                 },
-                h3: {
-                  component: Typography,
-                  props: {
-                    component: 'h3',
-                    variant: 'h4',
-                    sx: {
-                      fontWeight: 700,
-                      color: theme.palette.zesty.zestyZambezi,
-                    },
-                  },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    my: 2.5,
-                    component: 'p',
-                    variant: 'h6',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
-                    },
-                  },
-                },
-              },
-            }}
-          >
-            {description || FillerContent.description}
-          </MuiMarkdown>
+              }}
+            >
+              {description || FillerContent.description}
+            </MuiMarkdown>
+          </Box>
           <Box
             sx={{
               display: isSmall ? 'block' : 'flex',
