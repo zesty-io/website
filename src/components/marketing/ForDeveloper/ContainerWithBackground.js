@@ -79,6 +79,18 @@ const ContainerWithBackground = ({
                         },
                       },
                     },
+                    h3: {
+                      component: Typography,
+                      props: {
+                        component: 'h2',
+                        variant: 'h4',
+                        sx: {
+                          color: theme.palette.zesty.zestyOrange,
+                          fontWeight: 800,
+                          mt: 2,
+                        },
+                      },
+                    },
                     p: {
                       component: Typography,
                       props: {
@@ -86,7 +98,7 @@ const ContainerWithBackground = ({
                         variant: 'h6',
                         sx: {
                           color: theme.palette.zesty.zestyWhite,
-                          mt: 5,
+                          my: 5,
                         },
                       },
                     },
@@ -133,7 +145,7 @@ const ContainerWithBackground = ({
                 {titleAndDescription}
               </MuiMarkdown>
               {primaryCta && (
-                <Box display={'flex'} sx={{ mt: isSmall ? 0 : 5 }}>
+                <Box display={'flex'}>
                   <DemoCta
                     href={primaryCtaLink}
                     text={primaryCta}

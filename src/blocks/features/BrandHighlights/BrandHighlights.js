@@ -65,10 +65,10 @@ const BrandHighlights = ({
     <Grid container spacing={4}>
       {brandHighlights.map((item, index) => (
         <Grid
+          key={index}
           item
           xs={12}
           sm={6}
-          key={index}
           data-aos="fade-up"
           data-aos-delay={index * 100}
           data-aos-offset={100}
@@ -97,7 +97,7 @@ const BrandHighlights = ({
                 >
                   {item.title}
                 </Typography>
-                <Typography color="text.secondary" dangerouslyI>
+                <Typography color="text.secondary">
                   {item.subtitle}
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
@@ -167,7 +167,7 @@ const BrandHighlights = ({
       <Grid item xs={12} md={6}>
         <LeftSide />
       </Grid>
-      <Grid item container alignItems={'center'} xs={12} md={6}>
+      <Grid item alignItems={'center'} xs={12} md={6}>
         <RightSide />
       </Grid>
     </Grid>

@@ -148,6 +148,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
         {arr?.map((e, i) => {
           return (
             <RevealComponent
+              key={i}
               isMobile={isMobile}
               index={i}
               text={e.text}
@@ -213,7 +214,6 @@ const RevealComponent = ({
               flexDirection: 'column',
               justifyContent: 'center',
             }}
-            data-aos="zoom-out-left"
           >
             <Box>
               <MuiMarkdown
@@ -280,7 +280,7 @@ const RevealComponent = ({
           sm={12}
           md={6}
         >
-          <Box data-aos="zoom-out-right">
+          <Box>
             <Box
               component="img"
               src={img}

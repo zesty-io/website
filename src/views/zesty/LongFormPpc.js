@@ -75,7 +75,6 @@ function LongFormPpc({ content }) {
     return <ExploreZesty content={content} />;
   }
   const theme = useTheme();
-  // const isDarkMode = theme.palette.mode === 'dark';
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const scrollToContactUs = () => {
@@ -83,22 +82,6 @@ function LongFormPpc({ content }) {
       .getElementById('contact-us')
       .scrollIntoView({ behavior: 'smooth' });
   };
-
-  // const formContent = {
-  //   leadDetail: 'Adwords',
-  //   businessType: 'Direct',
-  //   leadSource: 'Advertisement',
-  //   selectedValue: 2,
-  //   hideSelect: true,
-  //   hideMessage: true,
-  //   ctaText: content.cta_footer_cta || FillerContent.cta,
-  //   modalTitle: 'Thank you for submitting your information.',
-  //   modalMessage: 'Our team will be in touch soon to discuss next steps.',
-  //   displayMsgUnderButton: ' ',
-  //   additionalTextfield: { company: true, jobTitle: true },
-  //   customButtonStyle: { display: 'flex', justifyContent: 'center' },
-  //   phoneNumber: true,
-  // };
 
   const headerProps = {
     title: content.title || FillerContent.header,
@@ -119,7 +102,6 @@ function LongFormPpc({ content }) {
       '/join/',
   };
 
-  console.log(content);
   /* Taking the data from the content model and converting it into a format that the Features component can use. */
   const feature_data =
     content?.features?.data.reduce((acc, item) => {

@@ -18,7 +18,13 @@ import { Navigation, Pagination, Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
+const PowerHeadless = ({
+  theme,
+  isMedium,
+  isDarkMode,
+  content,
+  FillerContent,
+}) => {
   return (
     <Box component="section" sx={{ pt: 20 }}>
       <Container sx={{ height: '100%' }}>
@@ -95,13 +101,12 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
       <Box
         sx={{
           mt: isMedium ? 0 : 10,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          background: `url(${content.background_orange.data[0].url}?width=1731)`,
+          background: isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.zesty.zestySeaShell,
           minHeight: 655,
         }}
       >

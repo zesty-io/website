@@ -12,7 +12,6 @@ export const WelcomeScreen = ({
   children,
 }) => {
   useEffect(() => {
-    console.log('Attempting to register user for Onboarding');
     if (window.pendo && userZUID != false) {
       let visitor = {
         id: userZUID,
@@ -28,7 +27,6 @@ export const WelcomeScreen = ({
         creationdate: dateCreated,
       };
 
-      console.log('Registering User for Onboarding:', visitor);
       pendo.initialize({
         visitor: visitor,
       });

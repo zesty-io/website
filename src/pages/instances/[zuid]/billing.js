@@ -17,13 +17,11 @@ export default function Billing() {
   const getUsers = async () => {
     const res = await ZestyAPI.getInstanceUsers(zuid);
     setusers(res.data);
-    console.log(res);
   };
 
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
     setroles(res.data);
-    console.log(res);
   };
   React.useEffect(() => {
     if (router.isReady) {

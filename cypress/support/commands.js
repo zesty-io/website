@@ -23,3 +23,27 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+const { email, password } = Cypress.env('user');
+
+Cypress.Commands.add('loginTestUser', () => {
+  cy.visit('/login/');
+  cy.get("input[name='email']").should('exist').type(email);
+  cy.get("input[name='password']").should('exist').type(password);
+  cy.get("button[type='submit']").should('exist').click();
+  cy.get("[data-testid='instancesContainer']", { timeout: 30000 }).should(
+    'exist',
+  );
+
+  cy.clearCookies();
+  cy.reload();
+
+  cy.visit('/login/');
+  cy.get("input[name='email']").should('exist').type(email);
+  cy.get("input[name='password']").should('exist').type(password);
+  cy.get("button[type='submit']").should('exist').click();
+
+  cy.get("[data-testid='instancesContainer']", { timeout: 30000 }).should(
+    'exist',
+  );
+});

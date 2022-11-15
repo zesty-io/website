@@ -14,6 +14,8 @@ import ZestyImage from 'blocks/Image/ZestyImage';
  * @param {array} logoItems - array of logo items
  * @param {string} heading_text - logo heading text
  * @param {boolean} textOutside - determine if heading text will appear outside the card or inside
+ * @param {boolean} invertLogo - invert logo color on darkmode default true
+ * @param {string} background - background color default to transparent
  *
  */
 
@@ -23,6 +25,8 @@ const SimpleCardLogo = ({
   textOutside = false,
   maxWidth = 1500,
   variant = 'elevation',
+  invertLogo = true,
+  background ="transparent"
 }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -68,7 +72,7 @@ const SimpleCardLogo = ({
           sx={{
             py: 2,
             border: variant === 'outlined' ? 'none' : '',
-            background: 'transparent',
+            background: background,
           }}
         >
           <CardContent>
@@ -111,13 +115,14 @@ const SimpleCardLogo = ({
                     height={45}
                     loading="lazy"
                     style={{
-                      filter: isDarkMode
-                        ? `${
-                            item?.customer_name === 'Phoenix Suns'
-                              ? ''
-                              : 'brightness(0%)'
-                          } invert(1)`
-                        : '',
+                      filter:
+                        invertLogo && isDarkMode
+                          ? `${
+                              item?.customer_name === 'Phoenix Suns'
+                                ? ''
+                                : 'brightness(0%)'
+                            } invert(1)`
+                          : '',
                     }}
                     alt={item?.customer_name || ''}
                     src={

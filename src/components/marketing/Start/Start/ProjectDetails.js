@@ -35,7 +35,6 @@ export const ProjectDetails = ({
   const [ecoZUID] = React.useState('');
   const [github_key] = React.useState('');
   const repository = template?.github_url;
-  console.log(template, 'repo2');
 
   const handleSuccessCreate = async (res) => {
     setinstanceZUID(res.data.ZUID);
@@ -94,7 +93,7 @@ export const ProjectDetails = ({
         .post(url, body, {
           headers,
         })
-        .then(async (response) => {
+        .then(async () => {
           // SuccessMsg({
           //   title: 'Install Ok',
 
@@ -104,10 +103,8 @@ export const ProjectDetails = ({
           opentTabs({ instance_zuid, randomHashID });
           handleNext();
           setCurrentStep(currentStep + 1);
-          console.log(response.data);
         })
         .catch((error) => {
-          console.log(error);
           ErrorMsg({
             title: error.message,
             text: error?.response.data?.message,

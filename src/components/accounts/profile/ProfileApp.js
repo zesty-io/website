@@ -98,7 +98,6 @@ const ProfileHeader = ({ userInfo }) => {
         maxWidth: '100%',
         borderRadius: 0,
         boxShadow: 'none',
-        // borderBottom: `1px solid ${grey[300]}`,
       }}
     >
       {profileUrl ? (
@@ -199,6 +198,7 @@ const Index = ({ children }) => {
                   value={tab.filename}
                   iconPosition="start"
                   label={tab.label}
+                  data-testid={tab.label}
                 />
               ))}
           </Tabs>

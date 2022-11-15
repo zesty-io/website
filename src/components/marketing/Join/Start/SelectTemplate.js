@@ -23,12 +23,10 @@ export const SelectTemplate = ({ handleSelectTemplate }) => {
     await axios
       .get(url)
       .then((e) => {
-        console.log(e.data, 444);
         settemplates(e.data);
       })
-      .catch(function (error) {
+      .catch(function () {
         // handle error
-        console.log(error);
       });
   };
 

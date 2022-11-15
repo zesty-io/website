@@ -185,78 +185,13 @@ export default function Locales() {
     getAllLocales();
   }, []);
 
-  // const InputLocale = ({ availableLocales }) => {
-  //   const formik = useFormik({
-  //     initialValues: {
-  //       locale: '',
-  //     },
-  //     validationSchema: accountsValidations.localeSchema,
-  //     onSubmit: async (values) => {
-  //       MySwal.close();
-  //       const response = await ZestyAPI.addLocale(values.locale);
-  //       if (response.error) {
-  //         enqueueSnackbar(response.error, { variant: 'error' });
-  //       } else {
-  //         enqueueSnackbar('Successfully Added Locale', { variant: 'success' });
-  //         getLocales();
-  //       }
-  //       formik.resetForm();
-  //     },
-  //   });
-
-  //   return (
-  //     <form noValidate onSubmit={formik.handleSubmit}>
-  //       <FormSelect name="locale" options={availableLocales} formik={formik} />
-
-  //       <Button color="primary" variant="contained" fullWidth type="submit">
-  //         Submit
-  //       </Button>
-  //     </form>
-  //   );
-  // };
-
   const headerProps = {
     title: 'Locales',
     description: 'Manage your languages',
   };
-  console.log('::');
   return (
     <Grid container>
       <AccountsHeader {...headerProps}></AccountsHeader>
-      {/* <Stack>
-        <Link
-          alignSelf="start"
-          color="primary"
-          underline="none"
-          href="https://zesty.org/getting-started/i18n-multi-language"
-        >
-          Locales Documentation
-        </Link>
-        <Link
-          alignSelf="start"
-          color="primary"
-          underline="none"
-          href="https://zesty.org/getting-started/i18n-multi-language#what-happens-when-a-new-language-is-added"
-        >
-          What happens when lang added?
-        </Link>
-        <Button
-          variant="contained"
-          color="success"
-          startIcon={<AddOutlinedIcon />}
-          sx={{ alignSelf: 'end', display: 'none' }}
-          onClick={() => {
-            MySwal.fire({
-              title: `Locale`,
-              showConfirmButton: false,
-              html: <InputLocale availableLocales={availableLocales} />,
-            });
-          }}
-        >
-          Add
-        </Button>
-      </Stack> */}
-
       <Grid item xs={12}>
         <Stack p={4}>
           <AccountsTable

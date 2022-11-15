@@ -132,7 +132,7 @@ export default function DomainListings({
       },
     },
   ];
-  console.log(settings, '44::');
+
   const COLUMNS_LIVE_DOMAINS = [
     {
       field: 'id',

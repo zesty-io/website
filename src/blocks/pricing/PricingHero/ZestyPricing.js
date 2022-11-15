@@ -27,8 +27,6 @@ const zestyPricing = ({ title, subtitle, tiers = [] }) => {
     setPricingOption(newPricingOption);
   };
 
-  console.log(tiers);
-
   return <Box>Tetst</Box>;
 };
 
