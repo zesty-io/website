@@ -53,6 +53,45 @@ const brandHighlights = [
   },
 ];
 
+
+const brandHighlightsDarkMode = [
+  {
+    color: colors.yellow[500],
+    title: 'Vertical Logo',
+    subtitle:
+      'Vertical logo, the go-to variation for standard design applications.',
+    width: 1,
+    assetUrl: 'https://brand.zesty.io/zesty-io-logo-vertical-light-color.svg',
+    assetUrlPng: 'https://brand.zesty.io/zesty-io-logo-vertical-light-color.png',
+  },
+  {
+    color: colors.yellow[500],
+    title: 'Brand Mark',
+    subtitle: 'Individual brand mark used in minimal environments.',
+    width: 3,
+    assetUrl: 'https://brand.zesty.io/zesty-io-logo-light.svg',
+    assetUrlPng: 'https://brand.zesty.io/zesty-io-logo-light.png',
+  },
+  {
+    color: colors.yellow[500],
+    title: 'Horizontal Logo',
+    width: 1,
+    subtitle:
+      'Horizontal logo used in environments that do not allow the vertical logo to work.',
+    assetUrl: 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg',
+    assetUrlPng: 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.png',
+  },
+  {
+    color: colors.yellow[500],
+    title: 'Brand Name',
+    width: 1,
+    subtitle:
+      'Brand name without the brand mark is used in envirnoments without spacing to acommodate the brand mark.',
+    assetUrl: 'https://brand.zesty.io/zesty-io.svg',
+    assetUrlPng: 'https://brand.zesty.io/zesty-io-light.png',
+  },
+];
+
 const BrandHighlights = ({
   eyebrowText = 'The Zesty.io Brand',
   title = 'Main Title',
@@ -60,10 +99,11 @@ const BrandHighlights = ({
   brandPackageURL = 'https://kfg6bckb.media.zestyio.com/ZestyBrandPackage.zip',
 }) => {
   const theme = useTheme();
+  const brands = theme.palette.mode === 'light' ? brandHighlights : brandHighlightsDarkMode
 
   const LeftSide = () => (
     <Grid container spacing={4}>
-      {brandHighlights.map((item, index) => (
+      {brands.map((item, index) => (
         <Grid
           key={index}
           item
@@ -85,7 +125,7 @@ const BrandHighlights = ({
               <Box display={'flex'} flexDirection={'column'}>
                 <Box marginBottom={2} marginX={item.width * 1} borderRadius={2}>
                   <img
-                    src={item.assetUrl}
+                    src={item.assetUrlPng}
                     alt="Zesty.io Brand Mark"
                     width="100%"
                   />
