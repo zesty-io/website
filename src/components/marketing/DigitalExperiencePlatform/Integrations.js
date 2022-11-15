@@ -52,7 +52,7 @@ const Integrations = ({
               sx={{
                 display: 'flex',
                 position: 'relative',
-                zIndex: '1000',
+                zIndex: theme.zIndex.banner,
               }}
             >
               <Box
@@ -60,9 +60,7 @@ const Integrations = ({
                   display: isMobile ? 'none' : '',
                 }}
               >
-                <Box
-                  sx={{ position: 'absolute', top: '-10rem', zIndex: '2000' }}
-                >
+                <Box sx={{ position: 'absolute', top: '-10rem', zIndex: '-1' }}>
                   <ZestyImage
                     src={
                       content.integrations_airplane_graphic?.data[0]?.url ||
