@@ -69,6 +69,7 @@ import { Box, useTheme, useMediaQuery } from '@mui/material';
  * Components Imports
  */
 import Hero from 'components/marketing/ForPersonas/Hero';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import Benefits from 'blocks/benefits/Benefits';
 import Features from 'blocks/features/Features/Features';
 import ContainerWithBackground from 'components/marketing/ForPersonas/ContainerWithBackground';
@@ -190,6 +191,11 @@ function ForPersonasPage({ content }) {
   return (
     <>
       <Hero {...heroProps} />
+      <SimpleCardLogo
+        variant="outlined"
+        heading_text={content?.client_logo_title}
+        logoItems={content?.client_logos?.data}
+      />
       <Benefits {...benefitsProps} />
       <Features {...numbersProps} />
       <ContainerWithBackground {...howItWorksProps} />
