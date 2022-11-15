@@ -2,6 +2,7 @@
  * MUI Imports
  */
 
+
 import { useTheme } from '@mui/material/styles';
 import { Box, Typography, Card, Button, Grid, useMediaQuery } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
@@ -27,13 +28,7 @@ const CaseStudyCards = ({ caseStudiesHeader, g2BadgesData, caseStudiesData, case
   return (
     <Box
       component="section"
-      sx={{
-        background:!isDarkMode ? `url(${
-          caseStudiesBackground || ''
-        })` : '',
-        backgroundSize: '110%',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center top',
+      sx={{ background: theme.palette.zesty.zestyWhite,
         py: isSmall ? 10:15,
         mt: 10
       }}
