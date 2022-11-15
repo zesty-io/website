@@ -14,7 +14,7 @@ const Hero = ({ title, subTitle, image }) => {
         backgroundImage: `url(${image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        marginTop: -13,
+        marginTop: -15,
         paddingTop: 13,
         '&:after': {
           position: 'absolute',
@@ -50,7 +50,7 @@ const Hero = ({ title, subTitle, image }) => {
                 color: theme.palette.common.white,
               }}
             >
-              {title }
+              {title}
             </Typography>
           </Box>
           <Box>
@@ -61,7 +61,7 @@ const Hero = ({ title, subTitle, image }) => {
                 color: theme.palette.common.white,
               }}
             >
-              {subTitle }
+              {subTitle}
             </Typography>
           </Box>
         </Box>

@@ -25,7 +25,7 @@
  */
 
 // MUI Imports
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -34,14 +34,17 @@ import Hero from '../../components/marketing/TechnologyOverview/Hero';
 import UseCase from '../../components/marketing/TechnologyOverview/UseCase';
 import TimeLine from '../../blocks/Timeline/TimeLine';
 import GetStarted from '../../components/marketing/TechnologyOverview/GetStarted';
-import Features from '../../components/marketing/TechnologyOverview/Features';
+import Features from 'blocks/features/Features/Features';
 import HeadlessApi from '../../components/marketing/TechnologyOverview/HeadlessApi';
 import TopBrands from '../../blocks/caseStudies/TopBrands';
 import Articles from '../../blocks/blog/Articles/Articles';
 import TechStack from '../../blocks/integrations/TechStack';
+import Growth from 'blocks/zesty/Growth/Growth';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 function TechnologyOverview({ content }) {
   const theme = useTheme();
@@ -57,7 +60,7 @@ function TechnologyOverview({ content }) {
   };
 
   const timelineData = {
-    header: content.how_it_works_header,
+    header: content.how_it_works_header || FillerContent.description,
     data: [
       {
         description: content.step_1_description || FillerContent.description,
@@ -78,16 +81,85 @@ function TechnologyOverview({ content }) {
     ],
   };
 
+  const techStackData = {
+    text_content: content.integrations_description,
+    logos: content.integrations_logos?.data,
+    cta_text: content.integrations_button,
+    cta_link: content.integration_link.data[0].meta.web.uri,
+  };
+
+  const growthData = {
+    titleAndDescription:
+      content.growth_title_and_description || FillerContent.rich_text,
+    cards: content?.growth_cards?.data,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_cta_graphic?.data[0].url || '',
+    titleAndDescription:
+      content.bottom_cta_title_and_description || FillerContent.rich_text,
+    cta_text: content.bottom_cta_text || FillerContent.cta,
+    secondary_cta_text: content.bottom_secondary_cta_text || FillerContent.cta,
+    secondary_cta_link: content.bottom_secondary_cta_link || FillerContent.href,
+  };
+
+  const feature_data =
+    content.features_tiles?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
   return (
     <Box>
       <Hero {...pageData} />
+      <Container sx={{ pb: 15 }}>
+        <SimpleCardLogo
+          variant="outlined"
+          logoItems={content?.logos?.data || []}
+        />
+      </Container>
       <UseCase {...pageData} />
       <TimeLine timelineData={timelineData} {...pageData} />
+      <Box sx={{ py: 5 }}>
+        <Growth {...growthData} />s
+      </Box>
       <GetStarted {...pageData} />
-      <Features {...pageData} />
+
+      <Features
+        header_size={48}
+        data={feature_data}
+        features_header={
+          content.custom_headless_description || FillerContent.description
+        }
+        card_name_color={theme.palette.zesty.zestyOrange}
+      />
       <HeadlessApi {...pageData} />
-      <TechStack {...pageData} />
-      <TopBrands title={content.case_study_header} {...pageData} />
+      <Box sx={{ pt: 10 }}>
+        <TechStack
+          background={
+            isDarkMode
+              ? theme.palette.zesty.zestyDarkBlue
+              : theme.palette.common.white
+          }
+          {...techStackData}
+          {...pageData}
+        />
+      </Box>
+      <TopBrands
+        backgroundColor={
+          isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.common.whitee
+        }
+        title={content.case_study_header || FillerContent.header}
+        {...pageData}
+      />
+      <Bottom {...bottomData} />
       <Articles
         title={content.articles_header}
         articles={content.articles?.data}

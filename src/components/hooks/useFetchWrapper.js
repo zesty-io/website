@@ -1,24 +1,16 @@
-import React from 'react';
-import { fetchWrapperOptions } from 'utils';
+import { useState, useEffect } from 'react';
+import { useZestyStore } from 'store';
 
 const getStatus = (status) => {
   if (status / 100 === 2) return true;
   return false;
 };
-export const useFetchWrapper = (userAppSID, instanceZUID) => {
-  const [verifySuccess, setverifySuccess] = React.useState('');
-  const [verifyFailed, setverifyFailed] = React.useState('');
-  const [instances, setinstances] = React.useState([]);
-  const [models, setmodels] = React.useState('');
-  const [views, setviews] = React.useState('');
-  const [userInfo, setuserInfo] = React.useState('');
-  const [loading, setloading] = React.useState(false);
-
-  const ZestyAPI = new Zesty.FetchWrapper(
-    instanceZUID,
-    userAppSID,
-    fetchWrapperOptions(),
-  );
+export const useFetchWrapper = (isLoggedIn) => {
+  const [verifySuccess, setverifySuccess] = useState('');
+  const [verifyFailed, setverifyFailed] = useState('');
+  const [userInfo, setuserInfo] = useState('');
+  const [loading, setloading] = useState(false);
+  const { ZestyAPI } = useZestyStore((state) => state);
 
   const verifyUser = async () => {
     setloading(true);
@@ -28,24 +20,6 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
     setloading(false);
   };
 
-  const getInstances = async () => {
-    setloading(true);
-    const res = await ZestyAPI.getInstances();
-    !res.error && setinstances(res);
-    res.error && console.log(res, 'instance failed');
-    setloading(false);
-  };
-  const getModels = async () => {
-    const res = await ZestyAPI.getModels();
-    !res.error && setmodels(res);
-    res.error && console.log(res, 'models failed');
-  };
-  const getViews = async () => {
-    const res = await ZestyAPI.getViews();
-    !res.error && setviews(res);
-    res.error && console.log(res, 'views failed');
-  };
-
   const getUserInfo = async () => {
     setloading(true);
     const res = await ZestyAPI.getUser(verifySuccess?.userZuid);
@@ -53,14 +27,13 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
     setloading(false);
   };
 
-  React.useEffect(() => {
-    verifyUser();
-    getInstances();
-    // getModels();
-    // getViews();
+  useEffect(() => {
+    if (isLoggedIn) {
+      verifyUser();
+    }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     verifySuccess && getUserInfo();
   }, [verifySuccess]);
 
@@ -68,9 +41,6 @@ export const useFetchWrapper = (userAppSID, instanceZUID) => {
     loading,
     verifyFailed,
     verifySuccess,
-    models,
-    instances,
-    views,
     userInfo,
   };
 };

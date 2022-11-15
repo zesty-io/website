@@ -15,6 +15,11 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
   }
 
   let inlineStyles = `
+        p iframe {
+          width: 100%;
+          maxWidth: 900px;
+          height: 400px;
+        }
         .wysiwyg ul {
             padding-left: 0px;
             margin-left: 0px;
@@ -30,6 +35,18 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
         .wysiwyg , .wysiwyg  p {
           color: ${theme.palette.text.secondary};
+          font-size: 1.1rem;
+          line-height: 150%;
+        }
+        .wysiwyg , .wysiwyg  h2 {
+          color: ${theme.palette.text.secondary};
+          font-size: 26px;
+          line-height: 120%;
+        }
+        .wysiwyg , .wysiwyg  h3 {
+          color: ${theme.palette.text.secondary};
+          font-size: 22px;
+          line-height: 120%;
         }
         .wysiwyg strong, .wysiwyg h1, .wysiwyg h2, .wysiwyg h3,.wysiwyg h4,.wysiwyg h5,.wysiwyg h6 {
           color: ${theme.palette.text.primary} !important;
@@ -146,13 +163,13 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
 
 
-        @media only screen and (max-width: 600px) {
-          .wysiwyg table tr{
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-          }
-        }
+        // @media only screen and (max-width: 600px) {
+        //   .wysiwyg table tr{
+        //       display: flex;
+        //       flex-direction: column;
+        //       align-items: center;
+        //   }
+        // }
 
        .wysiwyg.normal-bullets ul li{
             list-style-type: disc;

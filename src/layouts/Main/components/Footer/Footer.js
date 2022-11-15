@@ -30,15 +30,19 @@ const Footer = ({ customRouting, colorInvert = false }) => {
   const { mode } = theme.palette;
   const backgroundColor =
     mode === 'light' && !colorInvert
-      ? theme.palette.zesty.zestyWhiteBlue
-      : theme.palette.zesty.zestyDarkBlue;
+      ? theme.palette.zesty?.zestyWhiteBlue
+      : theme.palette.zesty?.zestyDarkBlue;
 
   return (
     <Box
+      component="footer"
       display={hideNav ? 'none' : 'flex'}
-      sx={{ background: backgroundColor }}
+      sx={{
+        background: backgroundColor,
+        display: router?.query?.slug?.[0] === 'login' && 'none',
+      }}
     >
-      <Container paddingY={2}>
+      <Container sx={{ paddingY: 2 }}>
         <Grid
           container
           marginTop={3}
@@ -49,19 +53,21 @@ const Footer = ({ customRouting, colorInvert = false }) => {
           <Grid item xs={6} md={2}>
             <Box
               display={'flex'}
-              justifyContent={'space-between'}
+              justifyContent={'center'}
               alignItems={'center'}
               width={1}
               flexDirection={{ xs: 'column', sm: 'row' }}
             >
-              <Box
-                component={'img'}
+              <img
+                width={150}
+                height={150}
+                alt="zesty.io logo"
                 src={
                   mode === 'light' && !colorInvert
                     ? 'https://brand.zesty.io/zesty-io-logo-vertical.svg'
                     : 'https://brand.zesty.io/zesty-io-logo-vertical-light-color.svg'
                 }
-                sx={{
+                style={{
                   marginLeft: isMobile ? 2 : 0,
                 }}
               />
@@ -69,6 +75,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
             <Grid item marginTop={3} paddingBottom={2} xs={12} align={'center'}>
               <Container>
                 <Box
+                  aria-label="twitter"
                   component="a"
                   href="https://twitter.com/zestyio"
                   color="#1DA1F2"
@@ -79,6 +86,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                 </Box>
                 <Box
                   component="a"
+                  aria-label="youtube"
                   href="https://www.youtube.com/c/Zestyio"
                   color="#FF0000"
                   target="_blank"
@@ -87,6 +95,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                   <YouTubeIcon />
                 </Box>
                 <Box
+                  aria-label="facebook"
                   component="a"
                   href="https://www.facebook.com/zestyio"
                   color="#4267B2"
@@ -96,6 +105,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                   <FacebookIcon />
                 </Box>
                 <Box
+                  aria-label="linkedin"
                   component="a"
                   href="https://www.linkedin.com/company/zesty-io/"
                   color="#0e76a8"
@@ -119,8 +129,8 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                 marginTop: isMobile ? 0 : 4,
               }}
             >
-              {customRouting.map((route) => (
-                <>
+              {customRouting.map((route, index) => (
+                <React.Fragment key={index}>
                   {route.parentZUID == null && route.children.length > 0 && (
                     <Grid
                       item
@@ -132,9 +142,10 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                     >
                       <Typography
                         marginBottom={1}
-                        variant={'h6'}
+                        variant={'p'}
                         sx={{
                           textAlign: isMobile ? 'center' : 'left',
+                          display: 'block',
                         }}
                       >
                         {route.title}
@@ -162,7 +173,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
                         ))}
                     </Grid>
                   )}
-                </>
+                </React.Fragment>
               ))}
             </Grid>
           </Grid>
@@ -198,6 +209,7 @@ const Footer = ({ customRouting, colorInvert = false }) => {
               align={'center'}
               variant={'subtitle2'}
               color="text.secondary"
+              component="p"
               gutterBottom
             >
               &copy; Zesty.io Platform, Inc. All Rights Reserved.

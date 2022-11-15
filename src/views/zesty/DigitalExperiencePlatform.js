@@ -81,15 +81,11 @@ import { Box, useMediaQuery, useTheme } from '@mui/material';
  * React Imports
  */
 
-import { useEffect } from 'react';
-
 /**
  * Helper Imports
  */
 
 import FillerContent from 'components/globals/FillerContent';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 /**
  * Components Import
@@ -101,8 +97,8 @@ import Middle from 'components/marketing/DigitalExperiencePlatform/Middle';
 import Features from 'blocks/features/Features/Features';
 import Integrations from 'components/marketing/DigitalExperiencePlatform/Integrations';
 import Implementation from 'components/marketing/DigitalExperiencePlatform/Implementation';
-import Bottom from 'components/marketing/DigitalExperiencePlatform/Bottom';
 import TopBrands from '../../blocks/caseStudies/TopBrands';
+import Bottom from 'components/marketing/DigitalExperiencePlatform/Bottom';
 
 function DigitalExperiencePlatform({ content }) {
   const theme = useTheme();
@@ -132,12 +128,6 @@ function DigitalExperiencePlatform({ content }) {
     isTablet,
   };
 
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-    });
-  }, []);
-
   const PageData = {
     content,
     theme,
@@ -148,16 +138,39 @@ function DigitalExperiencePlatform({ content }) {
     isLarge,
   };
 
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const feature_data =
+    content?.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
   return (
-    <Box sx={{ overflowX: 'hidden' }}>
+    <Box>
       <Hero {...HeroProps} />
       <Solution {...PageData} />
       <About {...PageData} />
       <Middle {...PageData} />
-      <Features {...PageData} />
+      <Features
+        cta_button_text={content.feature_cta_text}
+        textHighlight=""
+        card_name_color={theme.palette.zesty.zestyZambezi}
+        features_header={content.features_header}
+        data={feature_data}
+      />
       <Integrations {...PageData} />
       <Implementation {...PageData} />
       <TopBrands
+        backgroundColor={
+          isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.zesty.zestyBackgroundBlue
+        }
         sx={{ pt: 4 }}
         title={content.case_study_header}
         {...PageData}

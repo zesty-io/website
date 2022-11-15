@@ -76,6 +76,7 @@ import Articles from '../../blocks/blog/Articles/Articles';
 function HybridCm({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isXL = useMediaQuery(theme.breakpoints.between(2000, 99999));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const HeroProps = {
@@ -101,6 +102,7 @@ function HybridCm({ content }) {
     isDarkMode,
     content,
     FillerContent,
+    isXL,
   };
 
   React.useEffect(() => {
@@ -110,7 +112,7 @@ function HybridCm({ content }) {
   }, []);
 
   const timelineData = {
-    header: content.hybrid_cms_features_header,
+    header: content.hybrid_cms_features_header || FillerContent.rich_text,
     data: [
       {
         description: content.hybrid_cms_feature_1 || FillerContent.description,
@@ -146,7 +148,11 @@ function HybridCm({ content }) {
       <Hybrid {...pageData} />
       <TimeLine timelineData={timelineData} {...pageData} />
       <TopBrands
-        sx={{ pt: 5 }}
+        backgroundColor={
+          isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.zesty.zestyBackgroundBlue
+        }
         title={content.case_study_title}
         {...pageData}
       />

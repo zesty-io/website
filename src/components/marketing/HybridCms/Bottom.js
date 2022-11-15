@@ -3,25 +3,7 @@
  * */
 
 import React from 'react';
-import {
-  Box,
-  Button,
-  Card,
-  cardClasses,
-  Container,
-  Divider,
-  Grid,
-  Link,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
-
-/**
- * Helper Imports
- */
-
-import * as helper from 'utils';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
 /**
  * Components Imports
@@ -33,10 +15,9 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
   return (
     <Box
       mb={10}
-      paddingY={isMobile ? 5 : 10}
+      pt={20}
       sx={{
         position: 'relative',
-
         background: theme.palette.zesty.zestyLightRedOrange,
       }}
     >
@@ -52,7 +33,7 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-right">
+            <Box>
               <Box>
                 <Box
                   component="img"
@@ -80,7 +61,7 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-left">
+            <Box>
               <Box>
                 <Typography
                   component={'h2'}
@@ -90,14 +71,9 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
                     color: theme.palette.zesty.zestyZambezi,
                     textAlign: isMobile ? 'center' : 'left',
                   }}
-                  dangerouslySetInnerHTML={{
-                    __html: helper.strColorChanger(
-                      content.bottom_cta_header || FillerContent.header,
-                      'Hybrid CMS',
-                      theme.palette.zesty.zestyOrange,
-                    ),
-                  }}
-                />
+                >
+                  {content.bottom_cta_header || FillerContent.header}
+                </Typography>
                 <Box
                   sx={{
                     mt: 2,
@@ -125,7 +101,7 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
                     fullWidth={isMobile}
                     sx={{ textDecoration: 'underline' }}
                   >
-                    {content.bottom_cta_secondary}
+                    {content.bottom_cta_secondary || FillerContent.cta}
                     <ArrowRightAltIcon />
                   </Button>
                 </Box>

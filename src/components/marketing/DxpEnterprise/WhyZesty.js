@@ -3,13 +3,19 @@
  */
 
 import { Box, Grid, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Local Assets Imports
  */
 import MiddelBackground from '../../../../public/assets/images/dxp-enterprise/middle-background.svg';
-const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
+const WhyZesty = ({
+  content,
+  isWideScreen,
+  FillerContent,
+  theme,
+  isMedium,
+}) => {
   const whyZestyData = [
     {
       text: content.why_zesty_1 || FillerContent.description,
@@ -36,9 +42,10 @@ const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
   return (
     <Box
       sx={{
-        backgroundImage: `url(${MiddelBackground.src})`,
+        backgroundImage: isWideScreen ? '' : `url(${MiddelBackground.src})`,
         backgroundRepeat: 'no-repeat',
-        py: 10,
+
+        py: 15,
       }}
       component="section"
     >
@@ -58,8 +65,8 @@ const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
         </Box>
 
         <Box sx={{ mt: 5 }}>
-          {whyZestyData.map((item) => (
-            <Grid sx={{ my: 5 }} container spacing={2}>
+          {whyZestyData.map((item, idx) => (
+            <Grid key={idx} sx={{ my: 5 }} container spacing={2}>
               <Grid
                 sx={{
                   display: 'flex',
@@ -71,25 +78,27 @@ const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
                 md={6}
               >
                 <MuiMarkdown
-                  overrides={{
-                    h3: {
-                      component: Typography,
-                      props: {
-                        variant: 'h4',
-                        component: 'h3',
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: isMedium ? 'center' : 'text-left',
-                        fontWeight: 'bold',
+                  options={{
+                    overrides: {
+                      h3: {
+                        component: Typography,
+                        props: {
+                          variant: 'h4',
+                          component: 'h3',
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: isMedium ? 'center' : 'text-left',
+                          fontWeight: 'bold',
+                        },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        variant: 'h5',
-                        mt: 1,
-                        component: 'p',
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: isMedium ? 'center' : 'text-left',
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'h5',
+                          mt: 1,
+                          component: 'p',
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: isMedium ? 'center' : 'text-left',
+                        },
                       },
                     },
                   }}

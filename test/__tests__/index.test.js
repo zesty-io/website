@@ -22,20 +22,39 @@ const getTestingRoutes = async () => {
 describe('ZESTY WEBSITE', () => {
   test('***FETCH ALL ROUTES***', async () => {
     const routes = await getTestingRoutes();
-    const newroutes = routes.slice(0, 10);
-    const list = [];
+    const newroutes = routes.slice(0, 20);
+    const successRoutes = [];
+    const errorRoutes = [];
     const url = !isDev ? prodURL : stageURL;
+    // const url = stageURL;
 
-    for await (const element of newroutes) {
+    const promises = newroutes.map(async (element) => {
       const response = await fetch(url + element.uri, {
         method: 'GET',
         redirect: 'manual',
         follow: 0,
       });
-      list.push({ Route: url + element.uri, Status: response.status });
-      expect(response.status).not.toBe(2200);
-    }
 
-    console.table(list);
+      if (response.status === 200 || response.status === 201) {
+        successRoutes.push({
+          Route: url + element.uri,
+          Status: response.status,
+        });
+      } else {
+        errorRoutes.push({
+          Route: url + element.uri,
+          Status: response.status,
+        });
+      }
+
+      expect(response.status).not.toBe(2200);
+    });
+
+    await Promise.all(promises);
+
+    console.table('✅✅✅ SUCCESS ROUTES ✅✅✅');
+    console.table(successRoutes);
+    console.table('❌❌❌ ERROR ROUTES ❌❌❌');
+    console.table(errorRoutes);
   }, 300000);
 });

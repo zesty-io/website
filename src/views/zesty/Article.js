@@ -47,7 +47,6 @@ import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleV
 import CtaWithInputField from 'blocks/cta/CtaWithInputField';
 
 import Container from 'components/Container';
-import SideBarCTA from 'components/cta/SideBarCTA';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import useFetch from 'components/hooks/useFetch';
 
@@ -57,14 +56,17 @@ function Article({ content }) {
     defaultMatches: true,
   });
 
-  const simliarTags = content.tags?.data[0]?.meta?.zuid;
+  const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
 
   const { data: latestArticles, isPending: latestPending } = useFetch(
     '/-/all-articles-hydrated.json?limit=5',
     content.zestyProductionMode,
   );
 
-  const { data: tagArticles, isPending: tagsPending } = useFetch(
+  const {
+    data: tagArticles,
+    //  isPending: tagsPending
+  } = useFetch(
     `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
     content.zestyProductionMode,
   );
@@ -73,8 +75,9 @@ function Article({ content }) {
   let cleanOutErrorHydrating;
 
   // Check if "Error hydrating" is being injected and clean out
+  // Skip if wysiwyg is empty to avoid error
   const validateWysiwyg = () => {
-    if (content.article.includes('Error hydrating')) {
+    if (content.article?.includes('Error hydrating')) {
       cleanOutErrorHydrating = content?.article.replaceAll(
         removeErrorHandlingString,
         '',

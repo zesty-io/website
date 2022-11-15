@@ -11,17 +11,17 @@ import {
   Card,
   Link,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const TopBrands = ({
   theme,
-  title,
+  title = FillerContent.header,
   content,
   isMobile,
   isDarkMode,
   FillerContent,
   backgroundColor = '#FFFCFB',
-  textHighlight,
+  textHighlight = "Zesty",
   sx,
 }) => {
   const caseStudies = [...(content.case_studies.data || [])];
@@ -36,47 +36,45 @@ const TopBrands = ({
 
   return (
     <Box sx={sx} component="section">
-      <Box>
-        <Typography
-          sx={{
-            color: theme.palette.zesty.zestyZambezi,
-            fontWeight: 'bold',
-            '& span': {
-              color: 'inherit',
-            },
-            color: theme.palette.zesty.zestyZambezi,
-            textAlign: 'center',
-          }}
-          variant="h4"
-          component="h2"
-        >
-          <MuiMarkdown
-            overrides={{
-              strong: {
-                component: Typography,
-                props: {
-                  component: 'strong',
-                  sx: {
-                    fontSize: 'inherit',
-                    fontWeight: 'inherit',
-                    color: theme.palette.zesty.zestyOrange,
-                  },
-                },
-              },
-            }}
-          >
-            {title?.replaceAll(
-              textHighlight,
-              `<strong>${textHighlight}</strong>`,
-            ) || FillerContent.header}
-          </MuiMarkdown>
-        </Typography>
-      </Box>
-      <Box
-        component="section"
-        sx={{ background: backgroundColor, py: 5, mt: 5 }}
-      >
+      <Box component="section" sx={{ background: backgroundColor, py: 20 }}>
         <Container>
+          <Box>
+            <Typography
+              sx={{
+                color: theme.palette.zesty.zestyZambezi,
+                fontWeight: 'bold',
+                '& span': {
+                  color: 'inherit',
+                },
+                color: theme.palette.zesty.zestyZambezi,
+                textAlign: 'center',
+              }}
+              variant="h4"
+              component="h2"
+            >
+              <MuiMarkdown
+                options={{
+                  overrides: {
+                    strong: {
+                      component: Typography,
+                      props: {
+                        component: 'strong',
+                        sx: {
+                          fontSize: 'inherit',
+                          fontWeight: 'inherit',
+                          color: theme.palette.zesty.zestyOrange,
+                        },
+                      },
+                    },
+                  },
+                }}
+              >
+                {
+                   title
+                }
+              </MuiMarkdown>
+            </Typography>
+          </Box>
           <Grid container>
             <Grid
               sx={{
@@ -86,7 +84,7 @@ const TopBrands = ({
               }}
               item
               order={{ xs: 2, md: 1 }}
-              sm={12}
+              xs={12}
               md={3}
             >
               <Box
@@ -182,16 +180,18 @@ const TopBrands = ({
                       </Box>
 
                       <MuiMarkdown
-                        overrides={{
-                          p: {
-                            component: Typography,
-                            props: {
-                              variant: 'h6',
-                              component: 'p',
-                              sx: {
-                                color: theme.palette.zesty.zestyZambezi,
-                                letterSpacing: 0,
-                                lineHeight: '25px',
+                        options={{
+                          overrides: {
+                            p: {
+                              component: Typography,
+                              props: {
+                                variant: 'h6',
+                                component: 'p',
+                                sx: {
+                                  color: theme.palette.zesty.zestyZambezi,
+                                  letterSpacing: 0,
+                                  lineHeight: '25px',
+                                },
                               },
                             },
                           },

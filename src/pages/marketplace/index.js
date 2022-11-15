@@ -7,10 +7,9 @@ import { fetchPage } from 'lib/api';
 /**
  * React Imports
  */
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 /**
  * Components Imports
@@ -18,20 +17,17 @@ import { useRouter } from 'next/router';
 
 // import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
 import MarketplaceContainer from 'components/marketplace/landing/MarketplaceContainer';
-import MarketplaceEntities from 'components/marketplace/MarketplaceEntities';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from '../../layouts/Main';
 import Hero from 'components/marketplace/landing/Hero';
-import AppBar from 'components/console/AppBar';
-import { TryRounded } from '@mui/icons-material';
+import { getIsAuthenticated } from 'utils';
 
-const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
-  const router = useRouter();
+const Marketplace = ({ marketEntities, marketEntityTypes, ...props }) => {
   const seoTitle = props.meta.web.seo_meta_title,
     seoDescription = props.meta.web.seo_meta_description;
 
   useEffect(() => {
-    setCookies('PRODUCTION', props.zestyProductionMode);
+    setCookie('PRODUCTION', props.zestyProductionMode);
   }, [props]);
 
   return (
@@ -42,7 +38,6 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
         <meta property="og:description" content={seoDescription} />
       </Head>
       <Main customRouting={props.navigationCustom}>
-        <AppBar url={router.asPath} />
         <MarketplaceProvider inititalEntities={marketEntities}>
           <Hero
             {...props}
@@ -50,7 +45,7 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
             marketTags={props.featured_tags.data}
             marketEntityTypes={marketEntityTypes}
           />
-          <MarketplaceContainer />
+          <MarketplaceContainer {...props} />
         </MarketplaceProvider>
       </Main>
     </>
@@ -58,6 +53,8 @@ const Marketplace = ({ marketEntities, marketEntityTypes, env, ...props }) => {
 };
 
 export async function getServerSideProps({ res, req }) {
+  const isAuthenticated = getIsAuthenticated(res);
+
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=600, stale-while-revalidate=3600',
@@ -65,10 +62,10 @@ export async function getServerSideProps({ res, req }) {
 
   // set instance zuid cookie
   if (req.query?.instanceZUID) {
-    setCookies('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
+    setCookie('ZESTY_WORKING_INSTANCE', req.query.instanceZUID);
   }
 
-  let extensionsURL = process.env.PRODUCTION
+  let extensionsURL = process.PRODUCTION
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
@@ -83,6 +80,9 @@ export async function getServerSideProps({ res, req }) {
       marketEntityTypes: await entityTypes.json(),
       ...data,
       navigationCustom: navigationCustom,
+      zesty: {
+        isAuthenticated,
+      },
     },
   };
 }

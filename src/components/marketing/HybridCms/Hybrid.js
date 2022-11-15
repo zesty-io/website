@@ -4,41 +4,44 @@
 
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
+import TryFreeButton from 'components/cta/TryFreeButton';
 
 const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
   return (
-    <Box paddingY={isMobile ? 4 : 0} sx={{ position: 'relative' }}>
+    <Box paddingY={isMobile ? 4 : 15} sx={{ position: 'relative' }}>
       <Container
         sx={{
           display: 'flex',
           flexDirection: 'column',
         }}
       >
-        <Box sx={{ mt: 10 }} data-aos="zoom-in">
+        <Box sx={{ mt: 10 }}>
           <MuiMarkdown
-            overrides={{
-              h2: {
-                component: Typography,
-                props: {
-                  component: 'h2',
-                  variant: 'h4',
-                  sx: {
-                    textAlign: 'center',
-                    color: theme.palette.zesty.zestyZambezi,
-                    fontWeight: 'bold',
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    component: 'h2',
+                    variant: 'h4',
+                    sx: {
+                      textAlign: 'center',
+                      color: theme.palette.zesty.zestyZambezi,
+                      fontWeight: 'bold',
+                    },
                   },
                 },
-              },
-              p: {
-                component: Typography,
-                props: {
-                  component: 'p',
-                  variant: 'h6',
-                  sx: {
-                    textAlign: 'center',
-                    mt: 2,
-                    color: theme.palette.zesty.zestyZambezi,
+                p: {
+                  component: Typography,
+                  props: {
+                    component: 'p',
+                    variant: 'h6',
+                    sx: {
+                      textAlign: 'center',
+                      mt: 2,
+                      color: theme.palette.zesty.zestyZambezi,
+                    },
                   },
                 },
               },
@@ -46,8 +49,21 @@ const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
           >
             {content.hybrid_interface || FillerContent.header}
           </MuiMarkdown>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              mt: 2,
+            }}
+          >
+            <TryFreeButton
+              text={content.hybrid_interface_cta_text}
+              variant="contained"
+            />
+          </Box>
         </Box>
-        <Box data-aos="fade-right">
+        <Box>
           <Box
             paddingY={isMobile ? 1 : 0}
             sx={{

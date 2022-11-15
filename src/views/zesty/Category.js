@@ -27,7 +27,7 @@
  */
 import React, { useEffect, useState } from 'react';
 
-import { FullScreenHeroWithImageSlider, SlashImageHero } from 'blocks/heroes';
+import { SlashImageHero } from 'blocks/heroes';
 import { Breadcrumb } from 'blocks/progressSteps';
 import { Result } from 'blocks/formLayouts';
 import { CtaWithInputField } from 'blocks/cta';
@@ -37,7 +37,6 @@ import { useTheme, alpha } from '@mui/material/styles';
 import FillerContent from 'components/globals/FillerContent';
 
 import Container from 'components/Container';
-import { Typography } from '@mui/material';
 
 function Category({ content }) {
   const theme = useTheme();
@@ -49,14 +48,14 @@ function Category({ content }) {
   const [categoryArr, setCategoryArr] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
   // search states
-  const [searchedArticles, setSearchedArticles] = useState([]);
+  // const [searchedArticles, setSearchedArticles] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
   const [term, setTerm] = useState('');
   const [notFound, setNotFound] = useState(false);
   const [hideLoad, setHideLoad] = useState(false);
   // current page for pagination
   const [page, setPage] = useState(0);
-  const [breadcrumb, setBreadcrumb] = useState([
+  const [breadcrumb] = useState([
     {
       href: `/mindshare/`,
       title: `Blog`,
@@ -86,7 +85,7 @@ function Category({ content }) {
 
       fetchNews();
     } catch (err) {
-      console.error(`Could Not Find Results: ${error}`);
+      console.error(`Could Not Find Results: ${err}`);
     }
   }, []);
 
@@ -229,7 +228,7 @@ function Category({ content }) {
             d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
           ></path>
         </Box>
-        <Container>
+        <Container position="relative" zIndex={3}>
           <CtaWithInputField
             title={'Subscribe to the zestiest newsletter in the industry'}
             description={

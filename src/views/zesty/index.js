@@ -35,6 +35,20 @@ import PricingLever from './PricingLever';
 import PpcZestyKeyAttribute from './PpcZestyKeyAttribute';
 import BrandAsset from './BrandAsset';
 import IntegrationsBenefit from './IntegrationsBenefit';
+import UseCase from './UseCase';
+import IntegrationsLogo from './IntegrationsLogo';
+import EcommCorePillar from './EcommCorePillar';
+import DxSolutionsCard from './DxSolutionsCard';
+import ZestyProduct from './ZestyProduct';
+import PersonaPagesLink from './PersonaPagesLink';
+import SubNav2022 from './SubNav2022';
+import NavigationFlyout from './NavigationFlyout';
+import Resource from './Resource';
+import PartnerProgramFeature from './PartnerProgramFeature';
+import PricingTierFeature from './PricingTierFeature';
+import G2Badge from './G2Badge';
+import WebsiteBanner from './WebsiteBanner';
+import ABTestDataSet from './ABTestDataSet';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -47,6 +61,9 @@ import PpcShortForm from './PpcShortForm';
 import IntegrationsIndividualPage from './IntegrationsIndividualPage';
 import GatedContentPage from './GatedContentPage';
 import ThankYouPage from './ThankYouPage';
+import ForIndustryPage from './ForIndustryPage';
+import ForPersonasPage from './ForPersonasPage';
+import QuizLandingPage from './QuizLandingPage';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -82,93 +99,155 @@ import DxpEnterprise from './DxpEnterprise';
 import DxpBenefit from './DxpBenefit';
 import DxpFeature from './DxpFeature';
 import HeadlessCmsFeature from './HeadlessCmsFeature';
+import HeadlessCmsMultiLang from './HeadlessCmsMultiLang';
+import HeadlessDam from './HeadlessDam';
+import ComposableDxp from './ComposableDxp';
+import ScalableCm from './ScalableCm';
+import HeadlessSeo from './HeadlessSeo';
+import HeadlessMultiSite from './HeadlessMultiSite';
+import HeadlessBlogProductPage from './HeadlessBlogProductPage';
+import HeadlessLocalization from './HeadlessLocalization';
+import RoiCalculator from './RoiCalculator';
+import PartnerProgramLp from './PartnerProgramLp';
+import UseCase2 from './UseCase2';
+import ForDeveloper from './ForDeveloper';
+import Scholarship from './Scholarship';
+import DemoVideo from './DemoVideo';
+import DigitalGovernance from './DigitalGovernance';
+import CdnHosting from './CdnHosting';
+import HeadlessMobile from './HeadlessMobile';
+import ContentResource from './ContentResource';
+import PartnerProgramDirectory from './PartnerProgramDirectory';
+import Login from './Login';
+import UngatedDemoVideoForAd from './UngatedDemoVideoForAd';
+import AccountsDashboardMarketing from './AccountsDashboardMarketing';
+import ABLandingPage from './ABLandingPage';
 import Header from './Header';
 import Footer from './Footer';
 
 export {
-
-    Clipping,
-    Widget,
-    MarketingAnnoucement,
-    Review,
-    MainNavigation,
-    PersonaContent,
-    CustomerBrand,
-    CustomerHighlight,
-    LandingPageVariation,
-    TeamMember,
-    Feature,
-    PricingTier,
-    Partner,
-    Hero,
-    PlatformSection,
-    NewNavigation,
-    DeveloperResourceCard,
-    ClientCard,
-    AgencyPartnerCard,
-    AboutStat,
-    JobListing,
-    EventHost,
-    NewsArticleAuthor,
-    DemoPageItem,
-    Cta,
-    Benefit,
-    ProofPoint,
-    PlatformOverviewCard,
-    FeaturesTile,
-    TechnologyBenefit,
-    Faq,
-    PricingLever,
-    PpcZestyKeyAttribute,
-    BrandAsset,
-    IntegrationsBenefit,
-    Category,
-    Article,
-    Tag,
-    Author,
-    LandingPage,
-    ProductExplainer,
-    Event,
-    LongFormPpc,
-    PpcShortForm,
-    IntegrationsIndividualPage,
-    GatedContentPage,
-    ThankYouPage,
-    Homepage,
-    SimplePage,
-    Mindshare,
-    MindshareAuthor,
-    About,
-    SalesPeople,
-    Pricing,
-    Ourpartner,
-    HeroHompage,
-    WhyZesty,
-    PlatformOverview,
-    TechnologyOverview,
-    CaseStudy,
-    AgencyPartner,
-    Client,
-    Contact,
-    Career,
-    DeveloperResource,
-    EventsAndWebinar,
-    Demo,
-    Ppc,
-    Brand,
-    Integration,
-    CapterraLandingPage,
-    ScaleToNewHeightsLp,
-    HybridCm,
-    DigitalExperiencePlatform,
-    HeadlessEcommerce,
-    DxpEcommerce,
-    Roadmap,
-    HeadlessCmsEnterprise,
-    DxpEnterprise,
-    DxpBenefit,
-    DxpFeature,
-    HeadlessCmsFeature,
-    Footer,
-    Header
-}
+  Clipping,
+  Widget,
+  MarketingAnnoucement,
+  Review,
+  MainNavigation,
+  PersonaContent,
+  CustomerBrand,
+  CustomerHighlight,
+  LandingPageVariation,
+  TeamMember,
+  Feature,
+  PricingTier,
+  Partner,
+  Hero,
+  PlatformSection,
+  NewNavigation,
+  DeveloperResourceCard,
+  ClientCard,
+  AgencyPartnerCard,
+  AboutStat,
+  JobListing,
+  EventHost,
+  NewsArticleAuthor,
+  DemoPageItem,
+  Cta,
+  Benefit,
+  ProofPoint,
+  PlatformOverviewCard,
+  FeaturesTile,
+  TechnologyBenefit,
+  Faq,
+  PricingLever,
+  PpcZestyKeyAttribute,
+  BrandAsset,
+  IntegrationsBenefit,
+  UseCase,
+  IntegrationsLogo,
+  EcommCorePillar,
+  DxSolutionsCard,
+  ZestyProduct,
+  PersonaPagesLink,
+  SubNav2022,
+  NavigationFlyout,
+  Resource,
+  PartnerProgramFeature,
+  PricingTierFeature,
+  G2Badge,
+  WebsiteBanner,
+  ABTestDataSet,
+  Category,
+  Article,
+  Tag,
+  Author,
+  LandingPage,
+  ProductExplainer,
+  Event,
+  LongFormPpc,
+  PpcShortForm,
+  IntegrationsIndividualPage,
+  GatedContentPage,
+  ThankYouPage,
+  ForIndustryPage,
+  ForPersonasPage,
+  QuizLandingPage,
+  Homepage,
+  SimplePage,
+  Mindshare,
+  MindshareAuthor,
+  About,
+  SalesPeople,
+  Pricing,
+  Ourpartner,
+  HeroHompage,
+  WhyZesty,
+  PlatformOverview,
+  TechnologyOverview,
+  CaseStudy,
+  AgencyPartner,
+  Client,
+  Contact,
+  Career,
+  DeveloperResource,
+  EventsAndWebinar,
+  Demo,
+  Ppc,
+  Brand,
+  Integration,
+  CapterraLandingPage,
+  ScaleToNewHeightsLp,
+  HybridCm,
+  DigitalExperiencePlatform,
+  HeadlessEcommerce,
+  DxpEcommerce,
+  Roadmap,
+  HeadlessCmsEnterprise,
+  DxpEnterprise,
+  DxpBenefit,
+  DxpFeature,
+  HeadlessCmsFeature,
+  HeadlessCmsMultiLang,
+  HeadlessDam,
+  ComposableDxp,
+  ScalableCm,
+  HeadlessSeo,
+  HeadlessMultiSite,
+  HeadlessBlogProductPage,
+  HeadlessLocalization,
+  RoiCalculator,
+  PartnerProgramLp,
+  UseCase2,
+  ForDeveloper,
+  Scholarship,
+  DemoVideo,
+  DigitalGovernance,
+  CdnHosting,
+  HeadlessMobile,
+  ContentResource,
+  PartnerProgramDirectory,
+  Login,
+  UngatedDemoVideoForAd,
+  AccountsDashboardMarketing,
+  ABLandingPage,
+  Footer,
+  Header,
+};

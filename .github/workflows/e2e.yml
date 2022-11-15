@@ -1,0 +1,28 @@
+name: Zesty Website E2E Test
+on:
+  push:
+    branches: [production]
+  pull_request:
+    branches: [production]
+  workflow_dispatch:
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+    env:
+      PRODUCTION: 'false'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+      - name: Setup custom host for mylocal
+        run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
+
+      - name: Install dependencies 
+        run: npm ci
+
+      - name: Build Project 
+        run: npm run build
+
+      - name: Website routes E2E test 
+        run: npm run test

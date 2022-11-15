@@ -16,8 +16,8 @@ import { useContext } from 'react';
 import { MarketplaceContext } from '../MarketplaceContext';
 import { useRouter } from 'next/router';
 
-const FeaturedApps = () => {
-  const { entities, isSearching } = useContext(MarketplaceContext);
+const FeaturedApps = ({ featuredApps }) => {
+  const { isSearching } = useContext(MarketplaceContext);
   const router = useRouter();
 
   /************************************************
@@ -33,10 +33,11 @@ const FeaturedApps = () => {
         hidden={isSearching || router.asPath !== '/marketplace/'}
         sx={{
           pt: 10,
+          px: 4,
         }}
         component="section"
       >
-        <Box sx={{ width: '100%', maxWidth: 1600, margin: 'auto', px: 4 }}>
+        <Box sx={{ width: '100%', maxWidth: 1600, margin: 'auto' }}>
           <Typography
             variant="h6"
             component="p"
@@ -49,12 +50,12 @@ const FeaturedApps = () => {
             Featured Apps
           </Typography>
           <Grid container spacing={2}>
-            {entities.slice(0, 3).map((item, idx) => (
+            {featuredApps?.data.map((item, idx) => (
               <Grid
                 key={idx}
                 sx={{ margin: 'auto' }}
                 item
-                sm={12}
+                xs={12}
                 md={6}
                 lg={4}
               >

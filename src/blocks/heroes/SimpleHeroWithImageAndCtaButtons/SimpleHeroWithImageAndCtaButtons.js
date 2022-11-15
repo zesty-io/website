@@ -9,6 +9,8 @@ import Grid from '@mui/material/Grid';
 import Container from 'components/Container';
 import FillerContent from 'components/globals/FillerContent';
 import TryFreeButton from 'components/cta/TryFreeButton';
+import DemoCta from 'components/cta/DemoCta';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const SimpleHeroWithImageAndCtaButtons = ({
   mainTitle,
@@ -35,7 +37,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                 color={
                   isDarkMode
                     ? theme.palette.zesty.zestyWhite
-                    : theme.palette.zesty.zestyGrey
+                    : theme.palette.zesty.zestyOrange
                 }
                 gutterBottom
                 sx={{ fontWeight: 400, fontSize: '20px' }}
@@ -45,7 +47,10 @@ const SimpleHeroWithImageAndCtaButtons = ({
               <Typography
                 variant="h2"
                 color="text.primary"
-                sx={{ fontWeight: 700 }}
+                sx={{
+                  fontWeight: 700,
+                  color: theme.palette.zesty.zestyZambezi,
+                }}
               >
                 {title || FillerContent.header}
                 <br />
@@ -58,6 +63,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
             </Box>
             <Box
               display="flex"
+              sx={{gap:2}}
               flexDirection={{ xs: 'column', sm: 'row' }}
               alignItems={{ xs: 'stretched', sm: 'flex-start' }}
             >
@@ -68,36 +74,8 @@ const SimpleHeroWithImageAndCtaButtons = ({
                 color="secondary"
               ></TryFreeButton>
 
-              <Box
-                href={cta_right_url || FillerContent.href}
-                component={Button}
-                color={
-                  isDarkMode
-                    ? theme.palette.zesty.zestyBlue
-                    : theme.palette.zesty.zestyOrange
-                }
-                size="large"
-                marginTop={{ xs: 2, sm: 0 }}
-                marginLeft={{ sm: 2 }}
-                endIcon={
-                  <Box
-                    component={'svg'}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    width={24}
-                    height={24}
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </Box>
-                }
-              >
-                {cta_right || FillerContent.cta}
-              </Box>
+              <DemoCta sx={{color: theme.palette.zesty.zestyOrange}} text={cta_right || FillerContent.cta} href={cta_right_url || FillerContent.href}/>
+
             </Box>
           </Box>
         </Grid>
@@ -109,22 +87,14 @@ const SimpleHeroWithImageAndCtaButtons = ({
           xs={12}
           md={6}
         >
-          <Box
-            component={'img'}
-            height={1}
-            width={1}
-            src={
-              image || 'https://assets.maccarianagency.com/backgrounds/img8.jpg'
-            }
-            alt="..."
-            maxWidth={600}
-            maxHeight={500}
-            sx={{
-              objectFit: 'contain',
-              filter:
-                theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
-            }}
-          />
+
+          <ZestyImage 
+          src={image || 'https://assets.maccarianagency.com/backgrounds/img8.jpg'}
+          width={600}
+          height={350} 
+          style={{width:"100%", height:"auto", objectFit: 'contain'}}  
+          alt="why zesty"/>
+
         </Grid>
       </Grid>
     </Container>

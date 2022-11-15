@@ -8,7 +8,6 @@ import createEmotionServer from '@emotion/server/create-instance';
 const getCache = () => {
   const cache = createCache({ key: 'css', prepend: true });
   cache.compat = true;
-
   return cache;
 };
 
@@ -23,31 +22,15 @@ export default class MyDocument extends Document {
           <script src={fetchUrl} />
           <link
             rel="stylesheet"
-            href="https://unpkg.com/aos@next/dist/aos.css"
+            href="https://fonts.googleapis.com/css?family=Mulish"
+          />
+
+          <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
           />
         </Head>
         <body>
-          <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-          <script>AOS.init();</script>
-          <noscript>
-            <iframe
-              src="https://www.googletagmanager.com/ns.html?id=GTM-MSPH3C8"
-              height="0"
-              width="0"
-              style={{ display: 'none', visibility: 'hidden' }}
-            ></iframe>
-          </noscript>
-
-          {/* Zoominfo */}
-          <noscript>
-            <img
-              src="https://ws.zoominfo.com/pixel/62cc55bc7b3465008f482d68"
-              width="1"
-              height="1"
-              style={{ display: 'none' }}
-              alt="websights"
-            />
-          </noscript>
           <Main />
           <NextScript />
         </body>
@@ -90,11 +73,12 @@ MyDocument.getInitialProps = async (ctx) => {
   ctx.renderPage = () =>
     originalRenderPage({
       // Take precedence over the CacheProvider in our custom _app.js
-      enhanceComponent: (Component) => (props) => (
-        <CacheProvider value={cache}>
-          <Component {...props} />
-        </CacheProvider>
-      ),
+      enhanceComponent: (Component) => (props) =>
+        (
+          <CacheProvider value={cache}>
+            <Component {...props} />
+          </CacheProvider>
+        ),
     });
 
   const initialProps = await Document.getInitialProps(ctx);

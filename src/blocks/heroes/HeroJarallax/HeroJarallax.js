@@ -49,7 +49,7 @@ const HeroJarallax = ({
       position={'relative'}
       minHeight={{ xs: 400, sm: 500, md: 650 }}
       display={'flex'}
-      marginTop={-13}
+      marginTop={-15}
       paddingTop={13}
       alignItems={'center'}
       id="agency__portfolio-item--js-scroll"
@@ -89,6 +89,7 @@ const HeroJarallax = ({
         <Box>
           <Typography
             variant="h3"
+            component="h1"
             sx={{
               fontWeight: 400,
               color: 'common.white',

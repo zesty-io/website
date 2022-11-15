@@ -9,16 +9,17 @@ import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import { useRouter } from 'next/router';
 import { Skeleton } from '@mui/material';
-import { setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
 import { Typography } from '@mui/material';
 
 const Topbar = ({
+  hideNav,
   onSidebarOpen,
   customRouting,
   colorInvert = false,
   trigger,
-  isLogin,
+  isAuthenticated,
   userInfo = {},
   loading = false,
 }) => {
@@ -27,12 +28,9 @@ const Topbar = ({
   const router = useRouter();
 
   //check if page is from ppc for hiding of footer and nav
-  const isPpcPage = router.asPath.includes('/ppc');
   const isCapterraPage = router.asPath.includes('/capterra');
   const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
-
-  const hideNav = isPpcPage || isCapterraPage || isDxpTemplatePage;
 
   // for changing the logo color base on pages
   // affected pages dxp, capterra, ppc, ppc long , ppc short ,ppc explore
@@ -50,10 +48,10 @@ const Topbar = ({
 
   React.useEffect(() => {
     if (userInfo) {
-      setCookies('APP_USER_ZUID', userInfo?.ZUID);
-      setCookies('APP_USER_EMAIL', userInfo?.email);
-      setCookies('APP_USER_FIRST_NAME', userInfo?.firstName);
-      setCookies('APP_USER_LAST_NAME', userInfo?.lastName);
+      setCookie('APP_USER_ZUID', userInfo?.ZUID);
+      setCookie('APP_USER_EMAIL', userInfo?.email);
+      setCookie('APP_USER_FIRST_NAME', userInfo?.firstName);
+      setCookie('APP_USER_LAST_NAME', userInfo?.lastName);
     }
   }, [userInfo]);
 
@@ -97,15 +95,15 @@ const Topbar = ({
         width={{ xs: 100, md: 150 }}
         paddingTop={isDxpTemplatePage ? 4 : 0}
       >
-        <Box
-          component={'img'}
+        <img
+          alt="zesty.io"
           src={
             changeLogoColor()
               ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
               : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
           }
-          height={1}
-          width={1}
+          height={42}
+          width={150}
         />
       </Box>
       <Box
@@ -142,8 +140,8 @@ const Topbar = ({
         ))}
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
-          <Box>
-            {!isLogin ? (
+          <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
+            {!isAuthenticated ? (
               <Box display={'flex'}>
                 <Box marginLeft={4}>
                   <TryFreeButton variant="contained" component="a" />
@@ -157,7 +155,7 @@ const Topbar = ({
                     endIcon={<LoginIcon />}
                     fullWidth
                     component="a"
-                    href="https://accounts.zesty.io"
+                    href="/login/"
                   >
                     Login
                   </Button>

@@ -1,7 +1,7 @@
 /**
  * MUI Imports
  */
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 /**
@@ -9,22 +9,27 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
  */
 import FillerContent from 'components/globals/FillerContent';
 
-/**
- * React Imports
- */
-import { useRouter } from 'next/router';
-
-const MainCard = ({ name, image, uri, meta_description }) => {
+const MainCard = ({
+  name,
+  image,
+  uri,
+  meta_description,
+  available,
+  recommended,
+  meta,
+}) => {
   /**
    * Theme Settings
    */
   const theme = useTheme();
-  const router = useRouter();
+
+  const landingPage = uri;
+  const productPage = meta?.web.uri;
 
   return (
     <Box
       component={'a'}
-      href={uri || FillerContent.href}
+      href={uri || meta.web.uri || FillerContent.href}
       sx={{
         textDecoration: 'none',
         background: 'red',
@@ -37,13 +42,48 @@ const MainCard = ({ name, image, uri, meta_description }) => {
           },
           width: '100%',
           margin: 'auto',
-          minHeight: 260,
+          minHeight: 300,
           display: 'flex',
-
+          position: 'relative',
           alignItems: 'center',
+          border:
+            theme.palette.mode === 'light' &&
+            `1px solid ${theme.palette.common.grey}`,
         }}
       >
         <CardContent sx={{ width: '100%' }}>
+          {available != 1 && (
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 5,
+                right: 10,
+                mt: 1,
+                width: '100%',
+                maxWidth: 115,
+                height: 22,
+                p: 1,
+                background: theme.palette.zesty.zestyGray99,
+                border: `1px solid ${theme.palette.common.grey}`,
+                borderRadius: 47,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 1,
+              }}
+            >
+              <Typography
+                sx={{
+                  textAlign: 'center',
+                  color: theme.palette.zesty.zestyLightText,
+                  fontSize: 11,
+                }}
+              >
+                Coming Soon
+              </Typography>
+            </Box>
+          )}
+
           <Box>
             <Box
               sx={{
@@ -64,9 +104,9 @@ const MainCard = ({ name, image, uri, meta_description }) => {
                   component="img"
                   alt=""
                   src={
-                    router.asPath !== '/marketplace/'
-                      ? image.data[0].url
-                      : image || FillerContent.logos[0].url
+                    (landingPage && image) ||
+                    (productPage && image.data[0].url) ||
+                    FillerContent.logos[0].url
                   }
                 />
               </Box>
@@ -105,41 +145,45 @@ const MainCard = ({ name, image, uri, meta_description }) => {
                   variant="body1"
                   component="p"
                 >
-                  {meta_description || FillerContent.description}
+                  {meta_description ||
+                    meta?.web.seo_meta_description ||
+                    FillerContent.description}
                 </Typography>
 
-                <Box
-                  sx={{
-                    mt: 1,
-                    width: '100%',
-                    maxWidth: 115,
-                    height: 22,
-                    p: 1,
-                    background: theme.palette.zesty.zestyGray99,
-                    border: `1px solid ${theme.palette.common.grey}`,
-                    borderRadius: 47,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                  }}
-                >
+                {recommended == 1 && (
                   <Box
-                    component="img"
                     sx={{
-                      width: 13,
-                      height: 13,
-                    }}
-                    src="https://brand.zesty.io/zesty-io-logo.svg"
-                  />
-                  <Typography
-                    sx={{
-                      color: theme.palette.zesty.zestyLightText,
-                      fontSize: 11,
+                      mt: 1,
+                      width: '100%',
+                      maxWidth: 115,
+                      height: 22,
+                      p: 1,
+                      background: theme.palette.zesty.zestyGray99,
+                      border: `1px solid ${theme.palette.common.grey}`,
+                      borderRadius: 47,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1,
                     }}
                   >
-                    Recommended
-                  </Typography>
-                </Box>
+                    <Box
+                      component="img"
+                      sx={{
+                        width: 13,
+                        height: 13,
+                      }}
+                      src="https://brand.zesty.io/zesty-io-logo.svg"
+                    />
+                    <Typography
+                      sx={{
+                        color: theme.palette.zesty.zestyLightText,
+                        fontSize: 11,
+                      }}
+                    >
+                      Recommended
+                    </Typography>
+                  </Box>
+                )}
               </Box>
             </Box>
           </Box>

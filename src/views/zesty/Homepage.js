@@ -30,89 +30,122 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
-import Box from '@mui/material/Box';
+/**
+ * MUI Imports
+ */
 import { useTheme } from '@mui/material/styles';
-import HeroWithIllustrationAndCta from 'blocks/heroes/HeroWithIllustrationAndCta/HeroWithIllustrationAndCta';
-import WithSwiperAndBrandBackgroundColor from 'blocks/logoGrid/WithSwiperAndBrandBackgroundColor';
-import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration';
-import WithOverlappedCards from 'blocks/team/WithOverlappedCards';
-import ReviewsWithSimpleBoxes from 'blocks/testimonials/ReviewsWithSimpleBoxes';
-import VerticallyAlignedBlogCardsWithShapedImage from 'blocks/blog/VerticallyAlignedBlogCardsWithShapedImage';
-import CtaWithInputField from 'blocks/cta/CtaWithInputField';
-import Stories from 'blocks/portfolioGrid/Stories/Stories';
-import Container from 'components/Container';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+/**
+ * Components Imports
+ */
+import Hero from 'components/marketing/Homepage/Hero';
+import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
+import Growth from 'blocks/zesty/Growth/Growth';
+import CaseStudies from 'components/marketing/Homepage/CaseStudies';
+import LogoSlider from 'components/marketing/Homepage/LogoSlider';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
+
+// Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
-import useFetch from 'components/hooks/useFetch';
+import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
+import { WithHighlightedCard } from 'blocks/testimonials';
+import Dashboard from 'components/accounts/dashboard';
+import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
+import AOS from 'aos';
+import { useEffect } from 'react';
 
 function Homepage({ content }) {
   const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
+  const isDarkMode = theme.palette.mode === 'dark';
 
-  //  const { data: reviewsData, isPending: reviewPending  } = useFetch(`/-/reviews.json`);
-  const { data: allArticles, isPending: articlesPending, error } = useFetch(
-    `/-/all-articles-hydrated.json?limit=3`,
-    content.zestyProductionMode,
+  const pageData = {
+    theme,
+    isSmall,
+    isMedium,
+    isLarge,
+    isExtraLarge,
+    isDarkMode,
+    content,
+    FillerContent,
+  };
+
+  const testimonialsData = {
+    title: content.testimonials_content,
+    data: content.testimonials?.data,
+  };
+
+  useEffect(() => {
+    AOS.init({
+      disable: isMedium,
+    });
+  }, [isMedium]);
+
+  if (content?.zesty?.isAuthenticated) {
+    return <Dashboard />;
+  }
+
+  const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
+    (item) => {
+      return {
+        header: item.header,
+        content: item.benefit_content,
+        image: item.benefit_image.data[0].url,
+      };
+    },
   );
 
-  let image_url = content?.zesty_benefits_image
-    ? content.zesty_benefits_image.data[0].url
-    : 'https://pzcvtc6b.media.zestyio.com/content-management.png';
-  const heroProps = {
-    title: content.title,
-    description: content.content || '',
-    subtitle: content.simple_intro_text,
-    image: content.main_image?.data[0].url || FillerContent.image,
-    button_left_text: content.hero_button_left || FillerContent.header,
+  const growthData = {
+    background: content?.growth_background?.data[0].url || '',
+    titleAndDescription:
+      content.growth_title_and_description || FillerContent.rich_text,
+    cards: content?.growth_cards?.data,
+  };
 
-    button_left_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
-    hero_button_right: content.hero_button_right || FillerContent.header,
-    button_right_link:
-      content.hero_hero_button_left_link?.data[0]?.url || FillerContent.header,
+  const bottomData = {
+    graphic: content?.bottom_cta_graphic?.data[0].url || '',
+    titleAndDescription:
+      content.bottom_cta_title_and_description || FillerContent.rich_text,
+    cta_text: content.footer_button_text_1 || FillerContent.cta,
+    secondary_cta_text: content.footer_button_text_2 || FillerContent.cta,
+    secondary_cta_link:
+      content.footer_button_link_2?.data[0].meta.web.uri || FillerContent.href,
   };
 
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <HeroWithIllustrationAndCta {...heroProps} />
-      <WithSwiperAndBrandBackgroundColor logos={content.homepage_logos?.data} />
-      <FeaturesWithIllustration
-        rich_text={content.zesty_benefits}
-        image_url={image_url}
-        wysiwyig_type=""
+      <Hero {...pageData} />
+      <SimpleCardLogo
+        variant="outlined"
+        heading_text={content?.logo_heading}
+        logoItems={content?.homepage_logos.data}
       />
-      <Box bgcolor={'alternate.main'}>
-        <Container>
-          <Stories
-            eyeBrow={content.case_studies_eyebrow || FillerContent.header}
-            clientTitle={content.case_studies_header || FillerContent.header}
-            clientInfo={content.case_study_cards?.data || []}
-          />
-        </Container>
-        <ReviewsWithSimpleBoxes
-          header={content.testimonials_content}
-          list={content.testimonials?.data || []}
-        />
-      </Box>
-      {/* Latest Articles */}
-      <Box sx={{ pt: 4 }}>
-        <VerticallyAlignedBlogCardsWithShapedImage
-          title={'Industry Insights'}
-          description={
-            'Stay up-to-date with the latest in digital experience, content management and more.'
-          }
-          ctaBtn={'View More' || FillerContent.cta}
-          ctaUrl="/mindshare/"
-          popularArticles={allArticles || FillerContent.missingDataArray}
-        />
-      </Box>
-      <CtaWithInputField
-        title={'Subscribe to the zestiest newsletter in the industry'}
-        description={
-          'Get the latest from the Zesty team, from whitepapers to product updates.'
+      <DigitalExperience {...pageData} />
+      <AlternateColumns
+        column_data={alternateColumnsData}
+        header_content={content?.zesty_new_benefits}
+        cta_link={content?.middle_cta_button_link?.data[0].meta.web.uri}
+        cta_text={content?.middle_cta_button_text}
+      />
+      <DarkBlueCta
+        sx={{ mt: 15, py: 10 }}
+        cta_text={content?.middle_cta_text}
+        cta_secondary_link={
+          content?.middle_cta_secondary_cta_link?.data[0].meta.web.uri
         }
-        cta={'Subscribe'}
+        cta_secondary_text={content?.middle_secondary_cta_text}
+        header_content={content?.middle_cta_header}
       />
+      <Growth {...growthData} />
+      <CaseStudies {...pageData} />
+      <WithHighlightedCard {...testimonialsData} />
+      <LogoSlider cta_text={content?.marketplace_cta_text} {...pageData} />
+      <Bottom {...bottomData} />
     </>
   );
 }

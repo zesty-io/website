@@ -1,80 +1,40 @@
 // prettier-ignore
-import { Accordion, AccordionDetails,AccordionSummary,Box,Button,
-  Chip,Divider,Grid,Link,Stack,Typography, Card, CardContent } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {Box,Button,Grid,Link,Typography, Card, CardContent } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
-import styled from '@emotion/styled';
 import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
-import { getCookie } from 'cookies-next';
 import { AppInstallerComp } from 'components/marketplace/AppInstallerComp';
-import {
-  ModuleInstaller,
-  ResourceLinkComp,
-} from 'components/marketplace/ResourceLinkComp';
+import { ResourceLinkComp } from 'components/marketplace/ResourceLinkComp';
 import LaunchIcon from '@mui/icons-material/Launch';
-import MuiMarkdown from 'mui-markdown';
-
-function showDetails(props) {
-  return (
-    <>
-      <Typography>Author: {props?.author?.data?.[0]?.name}</Typography>
-      <Typography>
-        Github: <Link href={props?.github_url}>{props?.github_url}</Link>
-      </Typography>
-      <Typography>
-        Type:{' '}
-        <Link
-          href={props?.meta?.web?.uri?.replace(props?.meta?.web?.fragment, '')}
-        >
-          Entity Type
-        </Link>
-      </Typography>
-      <Typography>
-        Published: {new Date(`${props?.meta?.createdAt}`).toLocaleDateString()}
-      </Typography>
-    </>
-  );
-}
-
-const StyledYoutubeEmbed = styled('div')`
-  overflow: hidden;
-  padding-bottom: 56.25%;
-  position: relative;
-  height: 0;
-  margin: 1rem 0;
-
-  & iframe {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-  }
-`;
-
-const YoutubeEmbed = ({ youtubeHash }) => {
-  return (
-    youtubeHash && (
-      <StyledYoutubeEmbed>
-        <iframe
-          width="853"
-          height="480"
-          src={`https://www.youtube.com/embed/${youtubeHash}`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          title="Embedded youtube"
-        />
-      </StyledYoutubeEmbed>
-    )
-  );
-};
+import MuiMarkdown from 'markdown-to-jsx';
+import { useZestyStore } from 'store';
+import { useRouter } from 'next/router';
 
 const InstallButton = ({ data, theme }) => {
+  const { workingInstance } = useZestyStore((state) => state);
+
+  const router = useRouter();
+  const isTemplate = data.meta.web.uri.includes('template') ? true : false;
+  const handleTemplate = () => {
+    router.push({
+      pathname: `/start/`,
+      query: { template: data?.meta?.zuid },
+    });
+  };
+
   if (data.app_zuid) {
     return <AppInstallerComp data={data} />;
+  } else if (isTemplate) {
+    return (
+      <Button
+        onClick={handleTemplate}
+        variant="contained"
+        color="secondary"
+        fullWidth
+      >
+        Install {data.name}
+      </Button>
+    );
   } else if (data.github_url && !data.app_zuid && !data.resource_link) {
     return (
       <ExtensionsIntaller
@@ -84,7 +44,7 @@ const InstallButton = ({ data, theme }) => {
         fullWidth
         extensionName={data?.name}
         githubUrl={data?.github_url}
-        instance={getCookie('ZESTY_WORKING_INSTANCE')}
+        instance={workingInstance}
       />
     );
   } else if (data.resource_link) {
@@ -110,7 +70,7 @@ const InstallButton = ({ data, theme }) => {
 
 const Extension = (props) => {
   const theme = useTheme();
-  const isSM = useMediaQuery(theme.breakpoints.down('md'));
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const links = [
     {
@@ -127,7 +87,6 @@ const Extension = (props) => {
     },
   ];
 
-  console.log(props);
   return (
     <>
       <Box sx={{ py: 5 }}>
@@ -175,6 +134,23 @@ const Extension = (props) => {
             </Box>
 
             <Box sx={{ mt: 5 }}>
+              {props.available != 1 && (
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    color: theme.palette.common.white,
+                    py: 2,
+                    my: 4,
+                    background: theme.palette.zesty.zestyGray99,
+                    border: `1px solid ${theme.palette.common.grey}`,
+                    borderRadius: 2,
+                  }}
+                >
+                  <Typography sx={{ color: theme.palette.zesty.zestyOrange }}>
+                    Coming Soon!
+                  </Typography>
+                </Box>
+              )}
               <Typography
                 variant="h5"
                 component="p"
@@ -201,15 +177,28 @@ const Extension = (props) => {
                 }}
               >
                 <MuiMarkdown
-                  overrides={{
-                    p: {
-                      component: Typography,
-                      props: {
-                        sx: {
-                          color: theme.palette.zesty.zestyZambezi,
+                  options={{
+                    overrides: {
+                      p: {
+                        component: Typography,
+                        props: {
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
+                          variant: 'h5',
+                          component: 'p',
                         },
-                        variant: 'h5',
-                        component: 'p',
+                      },
+                      img: {
+                        component: Box,
+                        props: {
+                          component: 'img',
+                          sx: {
+                            width: '100%',
+                            maxWidth: 900,
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
+                        },
                       },
                     },
                   }}
@@ -219,7 +208,7 @@ const Extension = (props) => {
               </Box>
             </Box>
           </Grid>
-          <Grid item sm={12} md={4}>
+          <Grid sx={{ width: '100%' }} item sm={12} md={4}>
             <Box>
               <InstallButton data={props} theme={theme} />
               <Box
@@ -228,7 +217,11 @@ const Extension = (props) => {
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 4,
-                  border: `1px solid ${theme.palette.common.grey}`,
+                  border: `1px solid ${
+                    isDarkMode
+                      ? theme.palette.common.white
+                      : theme.palette.common.grey
+                  }`,
                   borderRadius: 2,
                   background: theme.palette.background.paper,
                   mt: 2,
@@ -287,7 +280,11 @@ const Extension = (props) => {
                   p: 5,
                   display: 'flex',
                   flexDirection: 'column',
-                  border: `1px solid ${theme.palette.common.grey}`,
+                  border: `1px solid ${
+                    isDarkMode
+                      ? theme.palette.common.white
+                      : theme.palette.common.grey
+                  }`,
                   borderRadius: 2,
                   background: theme.palette.background.paper,
                   mt: 2,
@@ -336,7 +333,11 @@ const Extension = (props) => {
                   p: 5,
                   display: 'flex',
                   flexDirection: 'column',
-                  border: `1px solid ${theme.palette.common.grey}`,
+                  border: `1px solid ${
+                    isDarkMode
+                      ? theme.palette.common.white
+                      : theme.palette.common.grey
+                  }`,
                   borderRadius: 2,
                   background: theme.palette.background.paper,
                   mt: 2,

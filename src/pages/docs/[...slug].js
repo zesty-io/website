@@ -1,19 +1,15 @@
 import React from 'react';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Main from 'layouts/Main';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import { docsLookup } from 'components/docs/docsLookup';
 import MarkdownIt from 'markdown-it';
-import { useTheme } from '@mui/material/styles';
 import AppBar from 'components/console/AppBar';
 import Head from 'next/head';
 import { parse } from 'himalaya';
 import * as helper from 'utils';
 import { AccordionMui } from 'components/marketing/Accordion';
-import { SimpleHeroWithSearchBox } from 'blocks/heroes';
 
 const zestyImage =
   'https://kfg6bckb.media.zestyio.com/zesty-share-image-generic.png?width=1200';
@@ -39,26 +35,26 @@ const muiContentOverrides = {
   },
 };
 // design change to mui for the table of contents
-const muiTOCOverrides = {
-  h1: {
-    component: 'h1',
-    props: {
-      style: { fontSize: '1em', marginLeft: '10px' },
-    },
-  },
-  h2: {
-    component: 'h2',
-    props: {
-      style: { fontSize: '1em', marginLeft: '10px' },
-    },
-  },
-  li: {
-    component: 'li',
-    props: {
-      style: { listStyle: 'none', paddingLeft: '0px', marginLeft: '0px' },
-    },
-  },
-};
+// const muiTOCOverrides = {
+//   h1: {
+//     component: 'h1',
+//     props: {
+//       style: { fontSize: '1em', marginLeft: '10px' },
+//     },
+//   },
+//   h2: {
+//     component: 'h2',
+//     props: {
+//       style: { fontSize: '1em', marginLeft: '10px' },
+//     },
+//   },
+//   li: {
+//     component: 'li',
+//     props: {
+//       style: { listStyle: 'none', paddingLeft: '0px', marginLeft: '0px' },
+//     },
+//   },
+// };
 
 // extractMetaFromMarkdown
 function extractMetaFromMarkdown(gitbookMarkdown) {
@@ -89,7 +85,7 @@ const cleanMarkdownURLS = (tocMarkdown) =>
 const drawerWidth = 240;
 
 export default function Docs(props) {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   //get table of contents
   let toc = props.toc;
@@ -113,14 +109,14 @@ export default function Docs(props) {
   // string gitbook meta
   markdown = stripGitbookMeta(markdown);
 
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  // const { window } = props;
+  // const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  // const handleDrawerToggle = () => {
+  //   setMobileOpen(!mobileOpen);
+  // };
+  // const container =
+  //   window !== undefined ? () => window().document.body : undefined;
 
   // conversion of md to html to json in accordion
   const md = new MarkdownIt();

@@ -12,34 +12,45 @@ import headlessCmsBg from '../../../../public/assets/images/dxp_headless_bg.svg'
 /**
  * Components Imports
  */
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 import { Box, Container, Typography } from '@mui/material';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
-const About = ({ content, isMobile, theme, FillerContent }) => {
+const About = ({
+  isDarkMode,
+  content,
+  isMobile,
+  isXL,
+  theme,
+  FillerContent,
+}) => {
   const swooshBg = headlessCmsBg.src;
   return (
-    <Box sx={{ position: 'relative', pb: 4 }}>
+    <Box
+      sx={{
+        position: 'relative',
+        py: 15,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyBackgroundBlue,
+      }}
+    >
       <Box
         sx={{
-          zIndex: '0',
+          display: isXL ? 'none' : 'block',
           position: 'absolute',
-          right: 0,
-          bottom: '-30vw',
-          display: isMobile ? 'none' : 'flex',
-
           width: '100%',
         }}
       >
-        <Box
+        <ZestyImage
           component="img"
-          zIndex={0}
-          sx={{ width: '100%' }}
+          style={{ width: '100%', zIndex: 0 }}
           src={swooshBg || FillerContent.dashboard_image}
           alt="bg"
         />
       </Box>
-      <Container>
+      <Container sx={{ position: 'relative' }}>
         <Grid container spacing={2}>
           <Grid
             sx={{
@@ -51,41 +62,43 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-left">
+            <Box>
               <Box sx={{ position: 'relative' }}>
                 <MuiMarkdown
-                  overrides={{
-                    span: {
-                      component: Typography,
-                      props: {
-                        component: 'span',
-                        variant: 'h6',
-                        sx: {
-                          color: theme.palette.zesty.zestyOrange,
+                  options={{
+                    overrides: {
+                      span: {
+                        component: Typography,
+                        props: {
+                          component: 'span',
+                          variant: 'h6',
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
                         },
                       },
-                    },
-                    h2: {
-                      component: Typography,
-                      props: {
-                        component: 'h2',
-                        variant: 'h4',
-                        sx: {
-                          textAlign: isMobile ? 'center' : 'left',
-                          color: theme.palette.zesty.zestyOrange,
-                          fontWeight: 'bold',
+                      h2: {
+                        component: Typography,
+                        props: {
+                          component: 'h2',
+                          variant: 'h4',
+                          sx: {
+                            textAlign: isMobile ? 'center' : 'left',
+                            color: theme.palette.zesty.zestyZambezi,
+                            fontWeight: 'bold',
+                          },
                         },
                       },
-                    },
-                    p: {
-                      component: Typography,
-                      props: {
-                        component: 'p',
-                        variant: 'h6',
-                        sx: {
-                          textAlign: isMobile ? 'center' : 'left',
-                          mt: 2,
-                          color: theme.palette.zesty.zestyZambezi,
+                      p: {
+                        component: Typography,
+                        props: {
+                          component: 'p',
+                          variant: 'h6',
+                          sx: {
+                            textAlign: isMobile ? 'center' : 'left',
+                            mt: 2,
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
                         },
                       },
                     },
@@ -106,7 +119,7 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-right">
+            <Box>
               <Box>
                 <Box
                   component="img"

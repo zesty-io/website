@@ -2,17 +2,17 @@
  * MUI Imports
  */
 
-import { Box, Container, Link, Typography, Grid } from '@mui/material';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import MuiMarkdown from 'mui-markdown';
+import { Box, Container, Typography, Grid } from '@mui/material';
+import MuiMarkdown from 'markdown-to-jsx';
+import FillerContent from 'components/globals/FillerContent';
 
 const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
   const FillerImage =
     content.middle_solution_1_graphic?.data[0]?.url ||
     FillerContent.dashboard_image;
-  const bracketImg =
-    content.dxp_background_images?.data[0]?.url ||
-    FillerContent.dashboard_image;
+  // const bracketImg =
+  //   content.dxp_background_images?.data[0]?.url ||
+  //   FillerContent.dashboard_image;
   const arr = [
     {
       text: content.middle_solution_1_description,
@@ -91,7 +91,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
           borderRadius: '50px 0 0 0',
         }}
       />
-      <Box
+      {/* <Box
         sx={{
           zIndex: '10',
           position: 'absolute',
@@ -101,8 +101,8 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
         }}
       >
         <img src={bracketImg} alt="bg" />
-      </Box>
-      <Box
+      </Box> */}
+      {/* <Box
         sx={{
           zIndex: '10',
           position: 'absolute',
@@ -113,7 +113,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
         }}
       >
         <img src={bracketImg} alt="bg" />
-      </Box>
+      </Box> */}
       <Box
         sx={{
           background: theme.palette.zesty.zestyBackgroundBlue,
@@ -148,6 +148,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
         {arr?.map((e, i) => {
           return (
             <RevealComponent
+              key={i}
               isMobile={isMobile}
               index={i}
               text={e.text}
@@ -213,38 +214,39 @@ const RevealComponent = ({
               flexDirection: 'column',
               justifyContent: 'center',
             }}
-            data-aos="zoom-out-left"
           >
             <Box>
               <MuiMarkdown
-                overrides={{
-                  h3: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'h3',
-                      sx: {
-                        background: theme.palette.zesty.zestyOrangeLinear,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        color: 'transparent',
-                        ml: isMobile ? 5 : 0,
+                options={{
+                  overrides: {
+                    h3: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'h3',
+                        sx: {
+                          background: theme.palette.zesty.zestyOrangeLinear,
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          color: 'transparent',
+                          ml: isMobile ? 5 : 0,
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'p',
-                      sx: {
-                        ml: isMobile ? 5 : 0,
-                        color: theme.palette.common.white,
-                        lineHeight: 1,
-                        marginTop: 2,
-                        textAlign: 'left',
-                        fontSize: isMobile ? 25 : 32,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'p',
+                        sx: {
+                          ml: isMobile ? 5 : 0,
+                          color: theme.palette.common.white,
+                          lineHeight: 1,
+                          marginTop: 2,
+                          textAlign: 'left',
+                          fontSize: isMobile ? 25 : 32,
+                        },
                       },
                     },
                   },
@@ -278,7 +280,7 @@ const RevealComponent = ({
           sm={12}
           md={6}
         >
-          <Box data-aos="zoom-out-right">
+          <Box>
             <Box
               component="img"
               src={img}

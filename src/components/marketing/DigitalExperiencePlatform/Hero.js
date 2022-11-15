@@ -17,10 +17,11 @@ const Hero = ({
   bgImage,
   primaryCta = 'Try Free',
   secondaryCta = 'Try Free',
-  gradientBg,
+  // gradientBg,
   isTablet,
   theme,
   secondaryCtaLink,
+  isDarkMode,
 }) => {
   return (
     <Box
@@ -28,14 +29,30 @@ const Hero = ({
       paddingBottom={isTablet ? 10 : 25}
       sx={{
         position: 'relative',
-        background: gradientBg,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyWhite,
       }}
     >
-      <Container>
+      <Container sx={{ position: 'relative' }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: -150,
+            left: 100,
+            display: isTablet ? 'none' : 'flex',
+          }}
+        >
+          <Box
+            component="img"
+            src={bgImage}
+            alt="Zesty.io background image"
+            sx={{ height: '100%', width: '100%', objectFit: 'cover' }}
+          />
+        </Box>
         <Grid container>
           <Grid item sm={12} md={6}>
             <Box
-              data-aos="zoom-in"
               sx={{
                 background: '',
                 display: 'flex',
@@ -44,38 +61,22 @@ const Hero = ({
                 flexDirection: 'column',
               }}
             >
-              <Box
-                sx={{
-                  position: 'absolute',
-                  left: '-10vw',
-                  top: '-5vh',
-                  display: isTablet ? 'none' : 'flex',
-                  width: '630px',
-                }}
-              >
-                <Box
-                  component="img"
-                  src={bgImage}
-                  alt="Zesty.io background image"
-                  sx={{ height: '100%', width: '100%', objectFit: 'cover' }}
-                />
-              </Box>
               <Typography
-                component={'h2'}
-                variant={'h4'}
+                component={'h1'}
+                variant={'h5'}
                 fontWeight={600}
                 sx={{
-                  color: theme.palette.common.white,
+                  color: theme.palette.zesty.zestyZambezi,
                   fontWeight: 500,
                 }}
               >
                 {eyebrow}
               </Typography>
               <Typography
-                component={'h1'}
+                component={'h2'}
                 variant={'h3'}
                 sx={{
-                  color: theme.palette.common.white,
+                  color: theme.palette.zesty.zestyZambezi,
                   fontWeight: 'bold',
                 }}
               >
@@ -86,13 +87,13 @@ const Hero = ({
                 component={'p'}
                 variant={'h6'}
                 sx={{
-                  color: theme.palette.common.white,
+                  color: theme.palette.zesty.zestyZambezi,
                   fontWeight: 500,
                 }}
               >
                 {subHeader}
               </Typography>
-              <Box sx={{ display: isTablet ? 'block' : 'flex' }}>
+              <Box sx={{ display: isTablet ? 'block' : 'flex', gap: 1 }}>
                 <Box sx={{ width: isTablet ? '100%' : '10rem' }}>
                   <TryFreeButton
                     fullWidth={true}
@@ -112,7 +113,7 @@ const Hero = ({
                     padding: '.6rem 4rem',
                     whiteSpace: 'nowrap',
                     gap: 1,
-                    color: theme.palette.common.white,
+                    color: theme.palette.zesty.zestyOrange,
                   }}
                 >
                   {secondaryCta} <ArrowRightAltIcon />
@@ -122,7 +123,7 @@ const Hero = ({
           </Grid>
 
           <Grid item sm={12} md={6}>
-            <Box data-aos="zoom-in">
+            <Box>
               <Box component="img" sx={{ width: '100%' }} src={mainImage} />
             </Box>
           </Grid>

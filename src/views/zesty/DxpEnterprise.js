@@ -65,6 +65,7 @@ function DxpEnterprise({ content }) {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isWideScreen = useMediaQuery(theme.breakpoints.between(2000, 99999));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const pageData = {
@@ -73,17 +74,39 @@ function DxpEnterprise({ content }) {
     theme,
     isMedium,
     isLarge,
+    isWideScreen,
     isDarkMode,
   };
+
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const feature_data =
+    content?.features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
 
   return (
     <>
       <Hero {...pageData} />
-      <Features textHighlight={'Zesty’s enterprise'} {...pageData} />
+      <Features
+        textHighlight="Zesty’s enterprise"
+        features_header={content.features_header}
+        data={feature_data}
+        header_size={32}
+      />
       <WhyZesty {...pageData} />
       <TopBrands
         textHighlight={'our customers'}
-        backgroundColor={theme.palette.common.white}
+        backgroundColor={
+          isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.common.white
+        }
         title={content.case_studies_title || FillerContent.description}
         {...pageData}
       />

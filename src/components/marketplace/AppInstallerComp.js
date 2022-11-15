@@ -2,22 +2,20 @@ import { Button } from '@mui/material';
 import React from 'react';
 import { getCookie } from 'cookies-next';
 import { CircularProgress } from '@mui/material';
-import { fetchWrapperOptions, getUserAppSID } from 'utils';
 import { useZestyStore } from 'store';
 
-export const AppInstallerComp = ({ data, theme }) => {
+export const AppInstallerComp = ({ data }) => {
   const [installedApps, setinstalledApps] = React.useState([]);
   const [loading, setloading] = React.useState(false);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const userAppSID = getUserAppSID();
   const appZUID = data?.app_zuid;
 
   let ZestyAPI = useZestyStore((state) => state.ZestyAPI);
-  const installAppSuccess = async (res) => {
+  const installAppSuccess = async () => {
     setloading(false);
     await getAllInstalledApps();
   };
-  const installAppError = async (error) => {
+  const installAppError = async () => {
     setloading(false);
     await getAllInstalledApps();
   };
@@ -27,7 +25,7 @@ export const AppInstallerComp = ({ data, theme }) => {
       setinstalledApps(res);
     }
   };
-  const getInstalledAppError = (error) => {};
+  const getInstalledAppError = () => {};
 
   const getAllInstalledApps = async () => {
     setloading(true);
