@@ -9,7 +9,13 @@ import MuiMarkdown from 'markdown-to-jsx';
  * Local Assets Imports
  */
 import MiddelBackground from '../../../../public/assets/images/dxp-enterprise/middle-background.svg';
-const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
+const WhyZesty = ({
+  content,
+  isWideScreen,
+  FillerContent,
+  theme,
+  isMedium,
+}) => {
   const whyZestyData = [
     {
       text: content.why_zesty_1 || FillerContent.description,
@@ -36,7 +42,7 @@ const WhyZesty = ({ content, FillerContent, theme, isMedium }) => {
   return (
     <Box
       sx={{
-        backgroundImage: `url(${MiddelBackground.src})`,
+        backgroundImage: isWideScreen ? '' : `url(${MiddelBackground.src})`,
         backgroundRepeat: 'no-repeat',
 
         py: 15,

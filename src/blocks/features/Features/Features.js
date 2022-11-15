@@ -64,6 +64,7 @@ const Features = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isWideScreen = useMediaQuery(theme.breakpoints.between(2000,99999))
   const isDarkMode = theme.palette.mode === 'dark';
 
   const bracketImg = chevronLeft.src || FillerContent.dashboard_image;
@@ -104,7 +105,7 @@ const Features = ({
       paddingBottom={isMobile ? 20 : 20}
       sx={{
         position: 'relative',
-        zIndex: '500',
+        zIndex: '20',
         background: isDarkMode
           ? theme.palette.zesty.zestyDarkBlue
           : background_color && isFullWidthSection
@@ -138,7 +139,7 @@ const Features = ({
         {background === 'zesty' && (
           <Box
             component="img"
-            sx={{ width: '100%', maxWidth: 1920 }}
+            sx={{ width: '100%', maxWidth: 1920, display: isWideScreen ? 'none' : "block" }}
             src={zestyImg}
             alt="bg"
           />
@@ -244,19 +245,7 @@ const Features = ({
           >
             {feature_description || ''}
           </MuiMarkdown>
-          {/* <Typography
-            variant="h6"
-            component="h2"
-            sx={{
-              mt: 2,
-              textAlign: 'center',
-              color: isDarkMode
-                ? theme.palette.zesty.zestyDarkBlue
-                : theme.palette.zesty.zestyZambezi,
-            }}
-          >
-            {feature_description || ''}
-          </Typography> */}
+
 
           {cta_button_text && (
             <Box

@@ -129,7 +129,7 @@ const SimpleCardLogo = ({
                       item?.customer_name === 'Phoenix Suns' && isDarkMode
                         ? sunsDarkLogoUrl
                         : `${
-                            item.customer_logo?.data[0].url ||
+                            item.customer_logo?.data[0]?.url ||
                             FillerContent.logos[0].url
                           }`
                     }
