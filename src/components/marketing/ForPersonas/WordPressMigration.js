@@ -34,8 +34,8 @@ const WordPressMigration = ({
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Stack component="section" sx={{ py: 15 }}>
-      <Container>
+    <Stack component="section" sx={{ py: isSmall ? 10 : 15 }}>
+      <Container sx={{ px: isSmall ? 4 : 0 }}>
         <Grid
           justifyContent="center"
           alignItems="center"
