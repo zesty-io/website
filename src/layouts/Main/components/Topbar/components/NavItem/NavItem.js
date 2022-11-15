@@ -2,7 +2,7 @@
  * React Imports
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
@@ -14,18 +14,18 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Grow from '@mui/material/Grow';
-import { useMediaQuery } from '@mui/material';
+// import { useMediaQuery } from '@mui/material';
 
 /**
  *  Components Imports
  */
 import LeftGridLinks from './LeftGridLinks';
-import RightGridLinks from './RightGridLinks';
+// import RightGridLinks from './RightGridLinks';
 import FeaturedLinks from './FeaturedLinks';
 
 const NavItem = ({ navHandler, activeNav, title, id }) => {
   const theme = useTheme();
-  const isLg = useMediaQuery(theme.breakpoints.down('lg'));
+  // const isLg = useMediaQuery(theme.breakpoints.down('lg'));
 
   return (
     <Box>
