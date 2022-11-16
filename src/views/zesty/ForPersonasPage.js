@@ -66,6 +66,11 @@ import React from 'react';
 import { Box, useTheme, useMediaQuery } from '@mui/material';
 
 /**
+ * Helpers Imports
+ */
+import FillerContent from 'components/globals/FillerContent';
+
+/**
  * Components Imports
  */
 import Hero from 'components/marketing/ForPersonas/Hero';
@@ -117,7 +122,10 @@ function ForPersonasPage({ content }) {
     headerEyebrow: content.header_eyebrow,
     description: content.header_text,
     mainImage: content.header_graphic?.data[0]?.url,
-    primaryCta: content.header_button_text,
+    primaryCta: content.header_button_text || FillerContent.link,
+    primaryCtaLink:
+      (content.header_button_link == 0 && '/join/') ||
+      content.header_button_link?.data[0].meta.web.uri,
     cta_left: content.header_button_text,
   };
 

@@ -37,7 +37,7 @@ const SimpleCardLogo = ({
   const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
   const isRichText = htmlCheck.test(heading_text);
 
-  if (!isRichText && heading_text) {
+  if (!isRichText && heading_text != '') {
     heading_text = `<h2>${heading_text}</h2>`;
   }
 
