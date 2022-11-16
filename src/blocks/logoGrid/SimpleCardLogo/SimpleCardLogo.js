@@ -111,28 +111,21 @@ const SimpleCardLogo = ({
               {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
                   <ZestyImage
-                    width={150}
-                    height={45}
                     loading="lazy"
                     style={{
+                      width:"100%",
+                      height:"auto",
                       filter:
                         invertLogo && isDarkMode
                           ? `${
                               item?.customer_name === 'Phoenix Suns'
-                                ? ''
+                                ? 'invert(0)'
                                 : 'brightness(0%)'
                             } invert(1)`
                           : '',
                     }}
                     alt={item?.customer_name || ''}
-                    src={
-                      item?.customer_name === 'Phoenix Suns' && isDarkMode
-                        ? sunsDarkLogoUrl
-                        : `${
-                            item.customer_logo?.data[0]?.url ||
-                            FillerContent.logos[0].url
-                          }`
-                    }
+                    src={item.customer_logo?.data[0]?.url || FillerContent.logos[0].url }
                   />
                 </Box>
               ))}
