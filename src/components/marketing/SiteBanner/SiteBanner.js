@@ -49,6 +49,7 @@ const SiteBanner = ({ children }) => {
           sx={{
             background: theme.palette.zesty?.zestyBanner,
             position: 'relative',
+            zIndex: theme.zIndex.banner,
           }}
           direction={isMobile ? 'column' : 'row'}
         >

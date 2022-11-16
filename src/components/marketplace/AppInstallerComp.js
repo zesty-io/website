@@ -1,8 +1,7 @@
-import { Button } from '@mui/material';
 import React from 'react';
 import { getCookie } from 'cookies-next';
-import { CircularProgress } from '@mui/material';
 import { useZestyStore } from 'store';
+import { LoadingButton } from '@mui/lab';
 
 export const AppInstallerComp = ({ data }) => {
   const [installedApps, setinstalledApps] = React.useState([]);
@@ -52,23 +51,20 @@ export const AppInstallerComp = ({ data }) => {
   }, [ZestyAPI]);
 
   return (
-    <Button
+    <LoadingButton
       variant="contained"
       color="secondary"
       sx={{ mt: 2 }}
       fullWidth
       onClick={InstallApp}
       disabled={disabledBtn}
+      loading={loading}
     >
-      {loading ? (
-        <CircularProgress color="inherit" size={28} thickness={5} />
-      ) : !instanceZUID ? (
-        'Please Select an Instance to continue'
-      ) : isInstalled ? (
-        'App Installed '
-      ) : (
-        'Install ' + data?.name
-      )}
-    </Button>
+      {!instanceZUID
+        ? 'Please Select an Instance to continue'
+        : isInstalled
+        ? 'App Installed '
+        : 'Install ' + data?.name}
+    </LoadingButton>
   );
 };

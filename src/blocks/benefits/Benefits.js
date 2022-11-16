@@ -36,7 +36,7 @@ const Benefits = ({
   return (
     <Box
       sx={{
-        py: isSmall ? 5 : 10,
+        pt: isSmall ? 5 : 15,
       }}
       component="section"
     >
@@ -91,7 +91,7 @@ const Benefits = ({
         </MuiMarkdown>
         <Box sx={{ mt: 5 }}>
           {data?.map((item, i) => (
-            <Grid sx={{ my: 5 }} container spacing={3}>
+            <Grid sx={{ my: isSmall ? 5 : 0 }} container spacing={3}>
               <Grid
                 sx={{
                   display: 'flex',
