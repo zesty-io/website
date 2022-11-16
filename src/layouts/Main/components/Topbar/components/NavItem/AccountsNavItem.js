@@ -44,7 +44,7 @@ export const AccountsNavItem = ({ title, id, items, colorInvert = false }) => {
           {title}
         </Typography>
         <ExpandMoreIcon
-          color="disabled"
+          color={theme.palette.mode === 'light' ? 'disabled' : 'inherit'}
           sx={{
             marginLeft: theme.spacing(1 / 4),
             width: 16,
