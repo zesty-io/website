@@ -87,7 +87,7 @@ import Documentation from 'components/marketing/ForDeveloper/Documentation';
 import TechStack from 'blocks/integrations/TechStack';
 import { WithHighlightedCard } from 'blocks/testimonials';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
-import HowZestyWorks from 'components/marketing/ForDeveloper/HowZestyWorks';
+import Persona from 'blocks/zesty/Persona/Persona';
 
 function ForDeveloper({ content }) {
   const theme = useTheme();
@@ -224,10 +224,9 @@ function ForDeveloper({ content }) {
     ...pageProps,
   };
 
-  const howZestyWorksProps = {
+  const personaProps = {
     header: content.zesty_for_the_team || FillerContent.description,
     teamLinks: content.zesty_for_the_team_links || FillerContent.rich_text,
-    ...pageProps,
   };
 
   return (
@@ -246,7 +245,7 @@ function ForDeveloper({ content }) {
       <Box sx={{ mt: 10 }}>
         <Bottom {...bottomProps} />
       </Box>
-      <HowZestyWorks {...howZestyWorksProps} />
+      <Persona {...personaProps} />
     </>
   );
 }
