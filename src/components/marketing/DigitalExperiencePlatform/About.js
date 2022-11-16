@@ -84,7 +84,7 @@ const About = ({ content, theme, isMobile, FillerContent }) => {
             justifyItems: 'center',
             justifyContent: 'center',
             position: 'relative',
-            zIndex: '1000',
+            zIndex: theme.zIndex.banner,
           }}
         >
           <Box>

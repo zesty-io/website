@@ -126,7 +126,7 @@ function TechnologyOverview({ content }) {
       <UseCase {...pageData} />
       <TimeLine timelineData={timelineData} {...pageData} />
       <Box sx={{ py: 5 }}>
-        <Growth {...growthData} />s
+        <Growth {...growthData} />
       </Box>
       <GetStarted {...pageData} />
 
