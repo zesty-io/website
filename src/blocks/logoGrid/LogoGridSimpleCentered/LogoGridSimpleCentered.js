@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import Container from 'components/Container';
-import FillerContent from 'components/globals/FillerContent';
 import { useMediaQuery } from '@mui/material';
 
 const mock = [
@@ -59,7 +58,21 @@ const LogoGridSimpleCentered = ({ title, imageCollection, description }) => {
         >
           {images?.map((item, i) => (
             <Box marginTop={2} key={i}>
-              <Box component="img" src={item} alt="..." />
+              <Box
+                component="img"
+                src={item}
+                alt="..."
+                sx={{
+                  filter:
+                    theme.palette.mode !== 'light'
+                      ? `${
+                          imageCollection[i]?.customer_name === 'Phoenix Suns'
+                            ? 'invert(0)'
+                            : 'brightness(0%)'
+                        } invert(1)`
+                      : '',
+                }}
+              />
             </Box>
           ))}
         </Box>
