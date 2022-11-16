@@ -88,7 +88,7 @@ const Topbar = ({
         {customRouting.map((route) => (
           <Box key={route.zuid}>
             {route.parentZUID == null && route.children.length > 0 && (
-              <Box marginLeft={4}>
+              <Box marginLeft={3}>
                 <NavItem
                   title={route.title}
                   id={route.zuid}
@@ -98,7 +98,7 @@ const Topbar = ({
               </Box>
             )}
             {route.parentZUID == null && route.children.length == 0 && (
-              <Box marginLeft={4}>
+              <Box marginLeft={3}>
                 <SingleNavItem
                   title={route.title}
                   id={route.zuid}
@@ -111,13 +111,13 @@ const Topbar = ({
         ))}
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
-          <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
+          <Box>
             {!isAuthenticated ? (
               <Box display={'flex'}>
-                <Box marginLeft={4}>
+                <Box ml={4} sx={{ display: { xs: 'none', lg: 'block' } }}>
                   <TryFreeButton variant="contained" component="a" />
                 </Box>
-                <Box marginLeft={2}>
+                <Box ml={2}>
                   <Button
                     size={'medium'}
                     variant="text"
