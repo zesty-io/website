@@ -36,7 +36,7 @@ const Benefits = ({
   return (
     <Box
       sx={{
-        pt: isSmall ? 5 : 15,
+        py: isSmall ? 5 : 15,
       }}
       component="section"
     >
@@ -91,7 +91,7 @@ const Benefits = ({
         </MuiMarkdown>
         <Box sx={{ mt: 5 }}>
           {data?.map((item, i) => (
-            <Grid sx={{ my: isSmall ? 5 : 0 }} container spacing={3}>
+            <Grid sx={{ my: isSmall ? 5 : 10 }} container spacing={3}>
               <Grid
                 sx={{
                   display: 'flex',
@@ -178,14 +178,13 @@ const Benefits = ({
                 md={6}
               >
                 <ZestyImage
-                  alt={item?.feature_name || FillerContent.description}
+                  alt={item?.header || FillerContent.description}
                   loading="lazy"
                   style={{
                     width: '100%',
-                    maxWidth: '600', 
+                    maxWidth: '500', 
                   }}
-                  width={600}
-                  height={isSmall ? 250 : 500}
+                  width={500}
                   src={item?.icon_image || FillerContent.photos[0].src}
                 />
               </Grid>
