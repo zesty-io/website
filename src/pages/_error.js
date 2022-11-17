@@ -88,6 +88,7 @@ const slackError = async ({
 const Error = ({ statusCode }) => {
   const [pathname, setPathname] = useState('');
   const [url, setUrl] = useState('');
+  const [navigator, setNavigator] = useState('');
   const page = pathname;
   const user = `${getCookie('APP_USER_FIRST_NAME') || 'NA'} ${getCookie(
     'APP_USER_LAST_NAME',
@@ -101,6 +102,7 @@ const Error = ({ statusCode }) => {
   useEffect(() => {
     setPathname(window.location.pathname);
     setUrl(window.location.host);
+    setNavigator(window.navigator);
   }, []);
 
   useEffect(() => {
