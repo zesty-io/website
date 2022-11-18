@@ -2,6 +2,7 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { ComingSoon } from 'components/accounts';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -30,9 +31,9 @@ export default function Billing() {
     }
   }, [router.isReady]);
 
-  return <ComingSoon />;
+  return (
+    <InstanceContainer>
+      <ComingSoon />
+    </InstanceContainer>
+  );
 }
-
-Billing.data = {
-  container: 'InstanceContainer',
-};

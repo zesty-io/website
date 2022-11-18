@@ -13,6 +13,7 @@ import {
   AccountsTableHead,
 } from 'components/accounts';
 import dayjs from 'dayjs';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 const MySwal = withReactContent(Swal);
 
@@ -190,23 +191,21 @@ export default function Locales() {
     description: 'Manage your languages',
   };
   return (
-    <Grid container>
-      <AccountsHeader {...headerProps}></AccountsHeader>
-      <Grid item xs={12}>
-        <Stack p={4}>
-          <AccountsTable
-            loading={isLoading}
-            rows={rows}
-            columns={columns}
-            pageSize={100}
-            autoHeight={false}
-          />
-        </Stack>
+    <InstanceContainer>
+      <Grid container>
+        <AccountsHeader {...headerProps}></AccountsHeader>
+        <Grid item xs={12}>
+          <Stack p={4}>
+            <AccountsTable
+              loading={isLoading}
+              rows={rows}
+              columns={columns}
+              pageSize={100}
+              autoHeight={false}
+            />
+          </Stack>
+        </Grid>
       </Grid>
-    </Grid>
+    </InstanceContainer>
   );
 }
-
-Locales.data = {
-  container: 'InstanceContainer',
-};
