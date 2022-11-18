@@ -14,7 +14,7 @@ import {
 /**
  *  Components Imports
  * */
-import TryFreeButton from 'components/cta/TryFreeButton';
+import DemoCta from 'components/cta/DemoCta';
 import FillerContent from 'components/globals/FillerContent';
 import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
@@ -24,6 +24,7 @@ const Hero = ({
   description = FillerContent.header,
   mainImage,
   primaryCta = 'Try Free',
+  primaryCtaLink = '/join/',
 }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
@@ -119,11 +120,16 @@ const Hero = ({
             }}
           >
             <Box sx={{ width: isSmall ? '100%' : '10rem' }}>
-              <TryFreeButton
-                fullWidth={true}
-                text={primaryCta}
+              <DemoCta
+                icon={false}
+                sx={{
+                  width: '10rem',
+                }}
+                target="_self"
                 variant="contained"
-                component="a"
+                color="secondary"
+                text={primaryCta}
+                href={primaryCtaLink}
               />
             </Box>
           </Box>
@@ -141,12 +147,12 @@ const Hero = ({
               alt="hero image"
               loading="eager"
               style={{
-                maxWidth: '600',
+                maxWidth: 800,
                 width: '100%',
+                height: 'auto',
                 position: 'relative',
               }}
-              width={600}
-              height={isSmall ? 250 : 500}
+              width={800}
               src={mainImage}
             />
           </Box>

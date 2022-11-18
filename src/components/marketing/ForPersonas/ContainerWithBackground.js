@@ -113,6 +113,17 @@ const ContainerWithBackground = ({
                           },
                         },
                       },
+                      a: {
+                        component: Typography,
+                        props: {
+                          component: 'a',
+                          variant: 'h6',
+                          sx: {
+                            color: theme.palette.zesty.zestyWhite,
+                            mt: 5,
+                          },
+                        },
+                      },
                       span: {
                         component: Typography,
                         props: {
@@ -138,8 +149,10 @@ const ContainerWithBackground = ({
                         component: Typography,
                         props: {
                           component: 'li',
+                          variant: 'h6',
                           sx: {
                             listStyle: 'none !important',
+                            color: theme.palette.zesty.zestyWhite,
                             mb: 3,
                             '&:before': {
                               content: `"✓"`,

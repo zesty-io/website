@@ -97,7 +97,7 @@ const Implementation = ({
                 padding: isMobile ? '1rem 1rem' : '1rem 5rem',
                 gap: '1rem',
                 position: 'relative',
-                zIndex: '1000',
+                zIndex: theme.zIndex.banner,
                 cursor: 'pointer',
                 color: headless
                   ? theme.palette.zesty.zestyTealDark
@@ -138,7 +138,7 @@ const Implementation = ({
                 alignItems: 'center',
                 padding: isMobile ? '1rem 1rem' : '1rem 5rem',
                 position: 'relative',
-                zIndex: '1000',
+                zIndex: theme.zIndex.banner,
                 gap: '1rem',
                 borderBottom: `4px solid ${
                   hybrid ? theme.palette.zesty.zestyTealDark : 'transparent'
