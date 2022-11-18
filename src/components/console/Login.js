@@ -304,8 +304,7 @@ const Login = ({ content, userEmail }) => {
                   <Stack
                     direction={{ xs: 'column', xl: 'row' }}
                     alignItems={'center'}
-                    justifyContent="space-between"
-                    px={4}
+                    justifyContent="space-evenly"
                     gap={2}
                   >
                     <Stack mx={0}>
