@@ -178,7 +178,6 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
           {content?.case_study_cards?.data.map((item, index) => (
             <Grid key={index} item sm={12} md={4}>
               <Card
-                component="a"
                 href={item.card_link.data[0].meta.web.uri || FillerContent.href}
                 target="_blank"
                 sx={{
@@ -212,7 +211,14 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                       <ZestyImage
                         width={194}
                         height={60}
-                        style={{ width: '100%', maxWidth: 194, height: 'auto' }}
+                        style={{
+                          width: '100%',
+                          maxWidth: 194,
+                          height: 'auto',
+                          filter:
+                            theme.palette.mode !== 'light' &&
+                            'brightness(0) invert(1)',
+                        }}
                         component="img"
                         loading="lazy"
                         src={
@@ -242,7 +248,6 @@ const CaseStudies = ({ content, FillerContent, theme, isDarkMode }) => {
                           background: 'transparent',
                         },
                       }}
-                      component="a"
                       href={
                         item.card_link?.data[0].meta.web.uri ||
                         FillerContent.cta

@@ -15,7 +15,7 @@ import 'swiper/css/navigation';
 
 // zoho object
 import { zohoPostObject } from 'components/marketing/Start/zohoPostObject.js';
-import { getCookie, getCookies, setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 
 // pendo
 import { pendoScript } from 'components/marketing/Start/pendoScript.js';
@@ -60,14 +60,9 @@ const getTemplate = async (zuid, setrepository, isProduction) => {
   const url = isProduction
     ? `https://39ntbr6g-dev.webengine.zesty.io/data/entity.json?zuid=${zuid}`
     : `https://extensions.zesty.io/data/entity.json?zuid=${zuid}`;
-  await axios
-    .get(url)
-    .then(function (response) {
-      setrepository(response.data[0]);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  await axios.get(url).then(function (response) {
+    setrepository(response.data[0]);
+  });
 };
 export default function Start(props) {
   const params = new URLSearchParams(
@@ -275,7 +270,7 @@ export default function Start(props) {
   };
 
   React.useEffect(() => {
-    setisLogin(getCookie('APP_SID'));
+    setisLogin(getCookie('APP_SID') || getCookie('DEV_APP_SID'));
   }, [isTemplate]);
 
   React.useEffect(() => {
@@ -285,7 +280,6 @@ export default function Start(props) {
   }, [templateId]);
 
   const ScenarioSwitch = () => {
-    console.log(isTemplate, isLogin, scenario, ':::');
     if (!isTemplate && isLogin) {
       return <Scenarios.Scenario2 {...scenarioProps} />;
     } else if (isTemplate && !isLogin) {
@@ -318,6 +312,7 @@ export default function Start(props) {
 
   return (
     <Box
+      data-testid="start-page"
       sx={{
         background: theme.palette.zesty.zestyDarkBlue,
         position: 'relative',
@@ -356,7 +351,7 @@ export default function Start(props) {
   );
 }
 
-export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps({ res }) {
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
@@ -375,7 +370,6 @@ export async function getServerSideProps({ req, res }) {
   return {
     props: {
       ...data,
-      cookies: getCookies({ req, res }),
       zesty: {
         isAuthenticated,
       },

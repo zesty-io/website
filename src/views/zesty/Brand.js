@@ -87,13 +87,13 @@ function Brand({ content }) {
       >
         <Container paddingTop={0}>
           <Grid container spacing={4}>
-            <Grid item container alignItems={'center'} xs={12} md={8}>
+            <Grid item alignItems={'center'} xs={12} md={8}>
               <Box data-aos={isMd ? 'fade-right' : 'fade-up'}>
                 <LeftSide />
               </Box>
             </Grid>
             <Hidden mdDown>
-              <Grid item container alignItems={'center'} xs={12} md={4}>
+              <Grid item alignItems={'center'} xs={12} md={4}>
                 <img
                   src="https://brand.zesty.io/zesty-io-logo-vertical-light-color.svg"
                   alt="Zesty.io Vertical Logo"
@@ -194,8 +194,8 @@ function Brand({ content }) {
             Color System
           </Typography>
           <Grid container spacing={2}>
-            {BrandData.colors.map((color) => (
-              <Grid item spacing={3} xs={6} sm={6} md={3}>
+            {BrandData.colors.map((color, index) => (
+              <Grid key={index} item xs={6} sm={6} md={3}>
                 <ColorBlock name={color.name} hex={color.hex}></ColorBlock>
               </Grid>
             ))}
@@ -208,8 +208,8 @@ function Brand({ content }) {
             Alternate Logo Options
           </Typography>
           <Grid container spacing={2}>
-            {BrandData.alternateLogos.map((logo) => (
-              <Grid item spacing={3} xs={12} sm={12} md={4}>
+            {BrandData.alternateLogos.map((logo, index) => (
+              <Grid key={index} item xs={12} sm={12} md={4}>
                 <AlternateLogo {...logo}></AlternateLogo>
               </Grid>
             ))}

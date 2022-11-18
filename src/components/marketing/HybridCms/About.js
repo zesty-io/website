@@ -17,24 +17,29 @@ import MuiMarkdown from 'markdown-to-jsx';
 import { Box, Container, Typography } from '@mui/material';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
-const About = ({ content, isMobile, theme, FillerContent }) => {
+const About = ({
+  isDarkMode,
+  content,
+  isMobile,
+  isXL,
+  theme,
+  FillerContent,
+}) => {
   const swooshBg = headlessCmsBg.src;
   return (
     <Box
       sx={{
         position: 'relative',
         py: 15,
-        background: theme.palette.zesty.zestyBackgroundBlue,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.zesty.zestyBackgroundBlue,
       }}
     >
       <Box
         sx={{
-          zIndex: '0',
+          display: isXL ? 'none' : 'block',
           position: 'absolute',
-          right: 0,
-          bottom: '-30vw',
-          display: isMobile ? 'none' : 'flex',
-
           width: '100%',
         }}
       >
@@ -45,7 +50,7 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
           alt="bg"
         />
       </Box>
-      <Container>
+      <Container sx={{ position: 'relative' }}>
         <Grid container spacing={2}>
           <Grid
             sx={{
@@ -57,7 +62,7 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-left">
+            <Box>
               <Box sx={{ position: 'relative' }}>
                 <MuiMarkdown
                   options={{
@@ -114,7 +119,7 @@ const About = ({ content, isMobile, theme, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-right">
+            <Box>
               <Box>
                 <Box
                   component="img"

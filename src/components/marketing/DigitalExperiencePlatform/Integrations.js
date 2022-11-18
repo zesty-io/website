@@ -4,10 +4,7 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import TryFreeButton from 'components/cta/TryFreeButton';
-/**
- * Helpers Imports
- */
-import * as helper from 'utils';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const Integrations = ({
   content,
@@ -26,7 +23,7 @@ const Integrations = ({
       <Container>
         <Grid container spacing={2}>
           <Grid sx={{ margin: 'auto' }} item sm={12} md={6}>
-            <Box data-aos="fade-right">
+            <Box>
               <Box>
                 <ZestyImage
                   width={537}
@@ -55,18 +52,15 @@ const Integrations = ({
               sx={{
                 display: 'flex',
                 position: 'relative',
-                zIndex: '1000',
+                zIndex: theme.zIndex.banner,
               }}
             >
               <Box
                 sx={{
                   display: isMobile ? 'none' : '',
                 }}
-                data-aos="flip-right"
               >
-                <Box
-                  sx={{ position: 'absolute', top: '-10rem', zIndex: '2000' }}
-                >
+                <Box sx={{ position: 'absolute', top: '-10rem', zIndex: '-1' }}>
                   <ZestyImage
                     src={
                       content.integrations_airplane_graphic?.data[0]?.url ||
@@ -76,23 +70,26 @@ const Integrations = ({
                   />
                 </Box>
               </Box>
-              <div data-aos="fade-left">
-                <Typography
-                  component={'p'}
-                  variant={'p'}
-                  sx={{
-                    color: theme.palette.secondary.darkCharcoal,
-                    textAlign: 'left',
+              <div>
+                <MuiMarkdown
+                  options={{
+                    overrides: {
+                      h2: {
+                        component: Typography,
+                        props: {
+                          component: 'h2',
+                          variant: 'h4',
+                          sx: {
+                            color: theme.palette.zesty.zestyOrange,
+                          },
+                        },
+                      },
+                    },
                   }}
-                  dangerouslySetInnerHTML={{
-                    __html: helper.strColorChanger(
-                      content.integrations_description ||
-                        FillerContent.description,
-                      'Limitless Integrations for Limitless Reach',
-                      theme.palette.zesty.zestyOrange,
-                    ),
-                  }}
-                />
+                >
+                  {content.integrations_description ||
+                    FillerContent.description}
+                </MuiMarkdown>
                 <Box>
                   <TryFreeButton
                     text={

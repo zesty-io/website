@@ -30,8 +30,9 @@ const GatedContentCard = ({
         {content.section_header_1 || FillerContent.header}
       </Typography>
       <Grid container spacing={2}>
-        {content.gated_content_pages?.data.map((item) => (
+        {content.gated_content_pages?.data.map((item, index) => (
           <Grid
+            key={index}
             component="a"
             target={'_blank'}
             href={item.meta.web.uri || FillerContent.href}

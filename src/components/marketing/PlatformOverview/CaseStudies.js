@@ -55,7 +55,6 @@ const CaseStudies = ({
           {content.case_studies?.data.map((item, index) => (
             <Grid key={index} item xs={12} md={4}>
               <Card
-                component="a"
                 href={item.card_link.data[0].meta.web.uri || FillerContent.href}
                 sx={{
                   minHeight: 450,

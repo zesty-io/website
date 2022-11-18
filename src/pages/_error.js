@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ErrorPage } from 'views/error';
 import * as helper from 'utils';
 
@@ -82,28 +82,30 @@ const slackError = async ({
     ],
   };
 
-  await axios
-    .post(slackErrorUrl, payload, { headers })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  await axios.post(slackErrorUrl, payload, { headers });
 };
 
 const Error = ({ statusCode }) => {
-  const page = window.location.pathname;
+  const [pathname, setPathname] = useState('');
+  const [url, setUrl] = useState('');
+  const [navigator, setNavigator] = useState('');
+  const page = pathname;
   const user = `${getCookie('APP_USER_FIRST_NAME') || 'NA'} ${getCookie(
     'APP_USER_LAST_NAME',
   )}`;
-  const url = window.location.host;
+
   const userAgent = navigator.userAgent || '-';
   const email = getCookie('APP_USER_EMAIL') || 'NA';
   const userZUID = getCookie('APP_USER_ZUID') || 'NA';
   const time = dayjs().format('MMM DD, YYYY @HH:mm:ss');
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setPathname(window.location.pathname);
+    setUrl(window.location.host);
+    setNavigator(window.navigator);
+  }, []);
+
+  useEffect(() => {
     helper.isProd &&
       slackError({
         url,

@@ -6,12 +6,6 @@ import React from 'react';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
 /**
- * Helper Imports
- */
-
-import * as helper from 'utils';
-
-/**
  * Components Imports
  */
 import TryFreeButton from 'components/cta/TryFreeButton';
@@ -39,7 +33,7 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-right">
+            <Box>
               <Box>
                 <Box
                   component="img"
@@ -67,7 +61,7 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-left">
+            <Box>
               <Box>
                 <Typography
                   component={'h2'}
@@ -77,14 +71,9 @@ const Bottom = ({ content, theme, isMobile, FillerContent }) => {
                     color: theme.palette.zesty.zestyZambezi,
                     textAlign: isMobile ? 'center' : 'left',
                   }}
-                  dangerouslySetInnerHTML={{
-                    __html: helper.strColorChanger(
-                      content.bottom_cta_header || FillerContent.header,
-                      'Hybrid CMS',
-                      theme.palette.zesty.zestyOrange,
-                    ),
-                  }}
-                />
+                >
+                  {content.bottom_cta_header || FillerContent.header}
+                </Typography>
                 <Box
                   sx={{
                     mt: 2,

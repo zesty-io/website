@@ -44,7 +44,7 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-right">
+            <Box>
               <Box
                 component="img"
                 src={
@@ -67,7 +67,7 @@ const Bottom = ({ content, theme, isMobile, isTablet, FillerContent }) => {
             sm={12}
             md={6}
           >
-            <Box data-aos="fade-left">
+            <Box>
               <Box sx={{ position: 'relative' }}>
                 <Typography
                   component={'h2'}

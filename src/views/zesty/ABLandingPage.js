@@ -84,8 +84,8 @@ function ABLandingPage({ content }) {
   });
 
   useEffect(() => {
-    const filteredContent = content.datasets.data.filter(
-      (item) => item.unique_identifier === router.query.unique_identifier,
+    const filteredContent = content?.datasets?.data.filter(
+      (item) => item.unique_identifier === router.query.UTM_campaign,
     )[0];
 
     /**********************************************

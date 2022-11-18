@@ -87,7 +87,7 @@ import Documentation from 'components/marketing/ForDeveloper/Documentation';
 import TechStack from 'blocks/integrations/TechStack';
 import { WithHighlightedCard } from 'blocks/testimonials';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
-import HowZestyWorks from 'components/marketing/ForDeveloper/HowZestyWorks';
+import Persona from 'blocks/zesty/Persona/Persona';
 
 function ForDeveloper({ content }) {
   const theme = useTheme();
@@ -150,7 +150,8 @@ function ForDeveloper({ content }) {
     feature_description: content.why_zesty_text || FillerContent.header,
     cta_button_text: content.middle_cta_button_text || FillerContent.cta,
     cta_button_link:
-      content.middle_cta_button_link.data[0].meta.web.uri || FillerContent.href,
+      content.middle_cta_button_link?.data[0].meta.web.uri ||
+      FillerContent.href,
     card_name_color: theme.palette.zesty.zestyZambezi,
     icon_width: 60,
     data: whyZestyFeaturesData,
@@ -223,10 +224,9 @@ function ForDeveloper({ content }) {
     ...pageProps,
   };
 
-  const howZestyWorksProps = {
+  const personaProps = {
     header: content.zesty_for_the_team || FillerContent.description,
     teamLinks: content.zesty_for_the_team_links || FillerContent.rich_text,
-    ...pageProps,
   };
 
   return (
@@ -245,7 +245,7 @@ function ForDeveloper({ content }) {
       <Box sx={{ mt: 10 }}>
         <Bottom {...bottomProps} />
       </Box>
-      <HowZestyWorks {...howZestyWorksProps} />
+      <Persona {...personaProps} />
     </>
   );
 }

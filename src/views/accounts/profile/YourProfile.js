@@ -161,33 +161,27 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
   const [emails, setemails] = React.useState([]);
 
-  const updateUsernameSuccess = async (data) => {
+  const updateUsernameSuccess = async () => {
     await getUser();
-    console.log(data, 'success');
     SuccessMsg({ title: 'Update Success' });
   };
 
   const updateUsernameError = async (err) => {
     await getUser();
-    console.log(err, 'err');
     ErrorMsg({ text: err?.error });
   };
 
-  const handleDeleteEmailSuccess = (data) => {
-    console.log(data, 'succ');
+  const handleDeleteEmailSuccess = () => {
     SuccessMsg({ title: 'Email Deleted ' });
   };
   const handleDeleteEmailErr = (err) => {
-    console.log(err, 'err');
     ErrorMsg({ text: err.error });
   };
 
   const handleGetEmailsSuccess = (data) => {
-    console.log(data, 'succ');
     setemails(data.data);
   };
   const handleGetEmailsErr = (err) => {
-    console.log(err, 'err');
     ErrorMsg({ text: err.error });
   };
   const getUserEmails = async () => {

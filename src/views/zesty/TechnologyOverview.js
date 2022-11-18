@@ -34,7 +34,7 @@ import Hero from '../../components/marketing/TechnologyOverview/Hero';
 import UseCase from '../../components/marketing/TechnologyOverview/UseCase';
 import TimeLine from '../../blocks/Timeline/TimeLine';
 import GetStarted from '../../components/marketing/TechnologyOverview/GetStarted';
-import Features from '../../components/marketing/TechnologyOverview/Features';
+import Features from 'blocks/features/Features/Features';
 import HeadlessApi from '../../components/marketing/TechnologyOverview/HeadlessApi';
 import TopBrands from '../../blocks/caseStudies/TopBrands';
 import Articles from '../../blocks/blog/Articles/Articles';
@@ -103,6 +103,17 @@ function TechnologyOverview({ content }) {
     secondary_cta_link: content.bottom_secondary_cta_link || FillerContent.href,
   };
 
+  const feature_data =
+    content.features_tiles?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.icon_image?.data[0].url,
+        feature_name: item.feature_name,
+        content: item.content,
+      });
+
+      return acc;
+    }, []) || [];
+
   return (
     <Box>
       <Hero {...pageData} />
@@ -115,21 +126,37 @@ function TechnologyOverview({ content }) {
       <UseCase {...pageData} />
       <TimeLine timelineData={timelineData} {...pageData} />
       <Box sx={{ py: 5 }}>
-        <Growth {...growthData} />s
+        <Growth {...growthData} />
       </Box>
       <GetStarted {...pageData} />
-      <Features {...pageData} />
+
+      <Features
+        header_size={48}
+        data={feature_data}
+        features_header={
+          content.custom_headless_description || FillerContent.description
+        }
+        card_name_color={theme.palette.zesty.zestyOrange}
+      />
       <HeadlessApi {...pageData} />
       <Box sx={{ pt: 10 }}>
         <TechStack
-          background={theme.palette.common.white}
+          background={
+            isDarkMode
+              ? theme.palette.zesty.zestyDarkBlue
+              : theme.palette.common.white
+          }
           {...techStackData}
           {...pageData}
         />
       </Box>
       <TopBrands
-        backgroundColor={theme.palette.common.white}
-        title={content.case_study_header}
+        backgroundColor={
+          isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.common.whitee
+        }
+        title={content.case_study_header || FillerContent.header}
         {...pageData}
       />
       <Bottom {...bottomData} />

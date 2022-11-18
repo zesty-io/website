@@ -2,22 +2,28 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, Grid } from '@mui/material';
-import Container from 'blocks/container/Container';
+import { Box, Typography, Card, Grid, useMediaQuery, useTheme} from '@mui/material';
+
+/**
+ * Helpers Imports
+ */
+import FillerContent from 'components/globals/FillerContent';
 
 /**
  * Components Imports
  */
 import ZestyImage from 'blocks/Image/ZestyImage';
+import Container from 'blocks/container/Container';
 
-const HowZestyWorks = ({
+
+const Persona = ({
   header,
   teamLinks,
-  FillerContent,
-  theme,
-  isSmall,
-  isDarkMode,
 }) => {
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
+    const isDarkMode = theme.palette.mode === 'dark';
+    
   return (
     <Box
       sx={{
@@ -58,7 +64,7 @@ const HowZestyWorks = ({
                     color: theme.palette.zesty.zestyZambezi,
                   }}
                 >
-                  {header}
+                  {header || FillerContent.header}
                 </Typography>
               </Box>
             </Grid>
@@ -66,7 +72,7 @@ const HowZestyWorks = ({
               <Grid key={index} item xs={12} md={4}>
                 <Card
                   component="a"
-                  href="#"
+                  href={item.page_link?.data[0]?.meta?.web?.url || FillerContent.href}
                   sx={{
                     width: '100%',
                     margin: 'auto',
@@ -103,7 +109,7 @@ const HowZestyWorks = ({
                         fontWeight: 'bold',
                         textDecoration: 'none',
                         mt: -2,
-                        color: theme.palette.zesty.zestyDarkText,
+                        color: theme.palette.zesty.zestyZambezi,
                       }}
                     >
                       {item.page_title || FillerContent.description}
@@ -119,4 +125,4 @@ const HowZestyWorks = ({
   );
 };
 
-export default HowZestyWorks;
+export default Persona;

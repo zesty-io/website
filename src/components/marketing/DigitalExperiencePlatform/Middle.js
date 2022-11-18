@@ -138,7 +138,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
               textAlign: 'center',
               fontSize: isMobile ? '28px' : '48px',
               position: 'relative',
-              zIndex: '1000',
+              zIndex: theme.zIndex.banner,
               textTransform: 'capitalize',
             }}
           >
@@ -148,6 +148,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
         {arr?.map((e, i) => {
           return (
             <RevealComponent
+              key={i}
               isMobile={isMobile}
               index={i}
               text={e.text}
@@ -179,7 +180,7 @@ const RevealComponent = ({
         display: 'flex',
         flexDirection: isMobile ? 'column' : reverse ? 'row-reverse' : 'row',
         position: 'relative',
-        zIndex: '1000',
+        zIndex: theme.zIndex.banner,
         gap: isMobile ? '4rem' : '0',
       }}
     >
@@ -213,7 +214,6 @@ const RevealComponent = ({
               flexDirection: 'column',
               justifyContent: 'center',
             }}
-            data-aos="zoom-out-left"
           >
             <Box>
               <MuiMarkdown
@@ -280,7 +280,7 @@ const RevealComponent = ({
           sm={12}
           md={6}
         >
-          <Box data-aos="zoom-out-right">
+          <Box>
             <Box
               component="img"
               src={img}

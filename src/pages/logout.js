@@ -21,6 +21,7 @@ const logout = () => {
       deleteCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', {
         domain: '.zesty.io',
       });
+      deleteCookie('isAuthenticated');
       deleteCookie('ZESTY_WORKING_INSTANCE', {});
       window.location.replace('/login/');
     };
@@ -42,6 +43,7 @@ const logout = () => {
         alignItems="center"
         height="100%"
         px={5}
+        data-testid="signout-page"
       >
         <Stack>
           <Typography variant="h3" mb={3} color="primary">

@@ -113,6 +113,7 @@ const TimeLine = ({
             {/* Content Loop */}
             {timelineData.data.map((item, index) => (
               <Box
+                key={index}
                 sx={{
                   py: isMobile ? 3 : 0,
                   display: 'flex',

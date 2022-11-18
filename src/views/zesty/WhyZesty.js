@@ -126,6 +126,7 @@ function WhyZesty({ content }) {
         {content.benefits?.data?.slice(0, 2).map((e, i) => {
           return (
             <FeaturesWithMobileScreenshot
+              key={i}
               background_color={COLORS[i]}
               index={i}
               content={e.benefit_content || FillerContent.rich_text}
@@ -154,6 +155,7 @@ function WhyZesty({ content }) {
           {content.benefits?.data?.slice(2, 4).map((e, i) => {
             return (
               <FeaturesWithMobileScreenshot
+                key={i}
                 text_color={i === 0 ? theme.palette.common.white : ''}
                 background_color={COLORS[2 + i]}
                 index={i}

@@ -15,6 +15,7 @@ import ZestyImage from 'blocks/Image/ZestyImage';
  * @param {string} heading_text - logo heading text
  * @param {boolean} textOutside - determine if heading text will appear outside the card or inside
  * @param {boolean} invertLogo - invert logo color on darkmode default true
+ * @param {string} background - background color default to transparent
  *
  */
 
@@ -25,6 +26,7 @@ const SimpleCardLogo = ({
   maxWidth = 1500,
   variant = 'elevation',
   invertLogo = true,
+  background ="transparent"
 }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -35,7 +37,7 @@ const SimpleCardLogo = ({
   const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
   const isRichText = htmlCheck.test(heading_text);
 
-  if (!isRichText && heading_text) {
+  if (!isRichText && heading_text != '') {
     heading_text = `<h2>${heading_text}</h2>`;
   }
 
@@ -70,7 +72,7 @@ const SimpleCardLogo = ({
           sx={{
             py: 2,
             border: variant === 'outlined' ? 'none' : '',
-            background: 'transparent',
+            background: background,
           }}
         >
           <CardContent>
@@ -109,28 +111,21 @@ const SimpleCardLogo = ({
               {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
                   <ZestyImage
-                    width={150}
-                    height={45}
                     loading="lazy"
                     style={{
+                      width:"100%",
+                      height:"auto",
                       filter:
                         invertLogo && isDarkMode
                           ? `${
                               item?.customer_name === 'Phoenix Suns'
-                                ? ''
+                                ? 'invert(0)'
                                 : 'brightness(0%)'
                             } invert(1)`
                           : '',
                     }}
                     alt={item?.customer_name || ''}
-                    src={
-                      item?.customer_name === 'Phoenix Suns' && isDarkMode
-                        ? sunsDarkLogoUrl
-                        : `${
-                            item.customer_logo?.data[0].url ||
-                            FillerContent.logos[0].url
-                          }`
-                    }
+                    src={item.customer_logo?.data[0]?.url || FillerContent.logos[0].url }
                   />
                 </Box>
               ))}

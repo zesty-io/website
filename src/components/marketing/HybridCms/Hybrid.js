@@ -16,7 +16,7 @@ const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
           flexDirection: 'column',
         }}
       >
-        <Box sx={{ mt: 10 }} data-aos="zoom-in">
+        <Box sx={{ mt: 10 }}>
           <MuiMarkdown
             options={{
               overrides: {
@@ -63,7 +63,7 @@ const Hybrid = ({ content, theme, isMobile, FillerContent }) => {
             />
           </Box>
         </Box>
-        <Box data-aos="fade-right">
+        <Box>
           <Box
             paddingY={isMobile ? 1 : 0}
             sx={{

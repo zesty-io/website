@@ -74,6 +74,8 @@ export const light = {
       'linear-gradient(269.83deg, #06BBCF 0.13%, #C6E9ED 104.87%);',
     zestyBackgroundBlueGradient:
       'linear-gradient(180deg, #D6E8F5 45%, rgba(255,255,255,1) 100%)',
+    zestyBackgroundOrangeGradient:
+      'linear-gradient(180deg, rgba(255, 93, 10, 0.21) 0%, rgba(255, 255, 255, 0) 100%);',
     zestyBlueGradient:
       'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%)',
     zestyOrangeLinear: 'linear-gradient(90deg, #FF5D0A 8.16%, #F7951D 91.84%)',
@@ -89,6 +91,8 @@ export const light = {
     lightPink: '#FFF6F1',
     zestyDarkBlueRadialGradient:
       'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(41, 48, 86, 1) 0%, #1B202C 100%)',
+    zestyOrangeRadialGradient:
+      'radial-gradient(51.39% 48.5% at 64.57% 50.71%, rgba(248, 177, 150, 0.4) 0%, #fff 100%)',
     zestyLightOrange: '#FFEDE4',
     zestyPurple: '#293056',
     zestyBanner: '#1B253F',
@@ -165,5 +169,6 @@ export const dark = {
     zestyTealWhite: '#1AE8FF',
     zestyLightText: '#a1a1a1',
     zestyLightOrange: '#2B252A',
+    zestyBanner: '#1B253F',
   },
 };

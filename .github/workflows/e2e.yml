@@ -1,12 +1,12 @@
-name: Zesty Website E2E Dev
+name: Zesty Website E2E Test
 on:
   push:
-    branches: [stage,accounts,production,dev]
+    branches: [production]
   pull_request:
-    branches: [stage,accounts,production,dev]
+    branches: [production]
   workflow_dispatch:
 jobs:
-  end-to-end-tests:
+  e2e-test:
     runs-on: ubuntu-latest
     env:
       PRODUCTION: 'false'
@@ -24,20 +24,5 @@ jobs:
       - name: Build Project 
         run: npm run build
 
-      - name: Write the cypress.env.json file 📝
-        run: |
-          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
-
-      - name: set env for cypress 
-        run: |
-          echo 'PRODUCTION=true' > .env
-
-      - name: Run E2E test
-        run: npm run test:e2e:ci:prod
-
-      - name: Save screenshots 🖼
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+      - name: Website routes E2E test 
+        run: npm run test

@@ -3,7 +3,7 @@
  */
 import { Box, Card, Container, Typography, Grid } from '@mui/material';
 import ZoomMui from '@mui/material/Zoom';
-
+import MuiMarkdown from 'markdown-to-jsx';
 /**
  * React Imports
  */
@@ -12,7 +12,6 @@ import { useState } from 'react';
 /**
  * Helpers Imports
  */
-import * as helper from 'utils';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Implementation = ({
@@ -31,7 +30,9 @@ const Implementation = ({
     <Box
       paddingY={isMobile ? 4 : 15}
       sx={{
-        background: theme.palette.common.white,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : theme.palette.common.white,
         position: 'relative',
       }}
     >
@@ -69,18 +70,12 @@ const Implementation = ({
               color: isDarkMode
                 ? theme.palette.zesty.zestyDarkBlue
                 : theme.palette.zesty.zestyZambezi,
-              fontSize: isMobile ? '22px' : '32px',
               py: 10,
               textAlign: 'center',
             }}
-            dangerouslySetInnerHTML={{
-              __html: helper.strColorChanger(
-                content.implementing_header || FillerContent.description,
-                '',
-                theme.palette.zesty.zestyOrange,
-              ),
-            }}
-          />
+          >
+            {content.implementing_header || FillerContent.description}
+          </Typography>
         </Box>
         <Box
           sx={{
@@ -102,7 +97,7 @@ const Implementation = ({
                 padding: isMobile ? '1rem 1rem' : '1rem 5rem',
                 gap: '1rem',
                 position: 'relative',
-                zIndex: '1000',
+                zIndex: theme.zIndex.banner,
                 cursor: 'pointer',
                 color: headless
                   ? theme.palette.zesty.zestyTealDark
@@ -143,7 +138,7 @@ const Implementation = ({
                 alignItems: 'center',
                 padding: isMobile ? '1rem 1rem' : '1rem 5rem',
                 position: 'relative',
-                zIndex: '1000',
+                zIndex: theme.zIndex.banner,
                 gap: '1rem',
                 borderBottom: `4px solid ${
                   hybrid ? theme.palette.zesty.zestyTealDark : 'transparent'
@@ -203,45 +198,31 @@ const Implementation = ({
               sm={12}
               md={6}
             >
-              <div data-aos="zoom-in">
+              <div>
                 <ZoomMui in={headless ? headless : hybrid}>
                   <Box>
-                    <Typography
-                      component={'p'}
-                      variant={'p'}
-                      sx={{
-                        color: isDarkMode
-                          ? theme.palette.zesty.zestyDarkBlue
-                          : theme.palette.secondary.darkCharcoal,
-                        textAlign: 'left',
-                        fontSize: '1.2rem',
+                    <MuiMarkdown
+                      options={{
+                        overrides: {
+                          p: {
+                            component: Typography,
+                            props: {
+                              component: 'p',
+                              variant: 'h6',
+                              sx: {
+                                color: theme.palette.zesty.zestyZambezi,
+                              },
+                            },
+                          },
+                        },
                       }}
-                      dangerouslySetInnerHTML={{
-                        __html: helper.strColorChanger(
-                          headless
-                            ? content.headless_cms_description ||
-                                FillerContent.description
-                            : content.hybrid_cms_description ||
-                                FillerContent.description,
-                          'Personalize at scale with Data',
-                          theme.palette.zesty.zestyOrange,
-                        ),
-                      }}
-                    />
-                    {/* <Box>
-                      <Link
-                        href="#"
-                        underline="always"
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '.5rem',
-                          color: theme.palette.zesty.zestyTealDark,
-                        }}
-                      >
-                        Learn More <ArrowRightAltIcon />
-                      </Link>
-                    </Box> */}
+                    >
+                      {headless
+                        ? content.headless_cms_description ||
+                          FillerContent.description
+                        : content.hybrid_cms_description ||
+                          FillerContent.description}
+                    </MuiMarkdown>
                   </Box>
                 </ZoomMui>
               </div>

@@ -34,3 +34,5 @@ yarn-error.log*
 .eslintcache
 cypress.env.json
 cypress.json
+
+cypress/integration/__image_snapshots__

@@ -14,6 +14,7 @@ import SingleNavItem from './components/NavItem/SingleNavItem.js';
 import { Typography } from '@mui/material';
 
 const Topbar = ({
+  hideNav,
   onSidebarOpen,
   customRouting,
   colorInvert = false,
@@ -27,12 +28,9 @@ const Topbar = ({
   const router = useRouter();
 
   //check if page is from ppc for hiding of footer and nav
-  const isPpcPage = router.asPath.includes('/ppc');
   const isCapterraPage = router.asPath.includes('/capterra');
   const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
-
-  const hideNav = isPpcPage || isCapterraPage || isDxpTemplatePage;
 
   // for changing the logo color base on pages
   // affected pages dxp, capterra, ppc, ppc long , ppc short ,ppc explore
@@ -90,7 +88,7 @@ const Topbar = ({
         {customRouting.map((route) => (
           <Box key={route.zuid}>
             {route.parentZUID == null && route.children.length > 0 && (
-              <Box marginLeft={4}>
+              <Box marginLeft={3}>
                 <NavItem
                   title={route.title}
                   id={route.zuid}
@@ -100,7 +98,7 @@ const Topbar = ({
               </Box>
             )}
             {route.parentZUID == null && route.children.length == 0 && (
-              <Box marginLeft={4}>
+              <Box marginLeft={3}>
                 <SingleNavItem
                   title={route.title}
                   id={route.zuid}
@@ -113,13 +111,13 @@ const Topbar = ({
         ))}
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
-          <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
+          <Box>
             {!isAuthenticated ? (
               <Box display={'flex'}>
-                <Box marginLeft={4}>
+                <Box ml={4} sx={{ display: { xs: 'none', lg: 'block' } }}>
                   <TryFreeButton variant="contained" component="a" />
                 </Box>
-                <Box marginLeft={2}>
+                <Box ml={2}>
                   <Button
                     size={'medium'}
                     variant="text"

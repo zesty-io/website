@@ -25,9 +25,13 @@ const Growth = ({ background, titleAndDescription, cards }) => {
   const flexOrder = ['flex-end', 'center', 'flex-start'];
   return (
     <Box component={'section'} sx={{ py: 15, position: 'relative' }}>
-      <ZestyImage
+
+      <Container sx={{position: 'relative'}}>
+        <ZestyImage
         style={{
           display: isExtraLarge && 'none',
+          left:-100,
+          top:-100,
           position: 'absolute',
           width: '100%',
           maxWidth: 1400,
@@ -38,7 +42,6 @@ const Growth = ({ background, titleAndDescription, cards }) => {
         }
         alt="timeline guide"
       />
-      <Container>
         <Box
           sx={{
             width: '100%',
