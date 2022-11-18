@@ -13,13 +13,13 @@ const Bottom = ({
   FillerContent,
 }) => {
   return (
-    <Box id="form" sx={{}}>
+    <Box id="form">
       <Container sx={{ py: 5 }}>
         <Grid container spacing={2}>
           <Grid
             sx={{ display: 'flex', alignItems: 'center' }}
             item
-            sm={12}
+            xs={12}
             md={6}
           >
             <MuiMarkdown
@@ -54,8 +54,12 @@ const Bottom = ({
               {content.cta_description || FillerContent.description}
             </MuiMarkdown>
           </Grid>
-          <Grid item sm={12} md={6}>
-            <ZohoFormEmbed height="620px" formURL={content.form_link || ''} />
+          <Grid item xs={12} md={6}>
+            <ZohoFormEmbed
+              height="620px"
+              width="100%"
+              formURL={content.form_link || ''}
+            />
           </Grid>
         </Grid>
       </Container>

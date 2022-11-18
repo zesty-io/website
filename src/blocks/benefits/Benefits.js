@@ -23,19 +23,20 @@ import ZestyImage from 'blocks/Image/ZestyImage';
  *
  */
 
-const FeatureList = ({
+const Benefits = ({
   header,
   headerColor,
   data,
 }) => {
   const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   return (
     <Box
       sx={{
-        py: 15,
+        py: isSmall ? 5 : 15,
       }}
       component="section"
     >
@@ -47,7 +48,7 @@ const FeatureList = ({
                 component: Typography,
                 props: {
                   component: 'h2',
-                  variant: 'h3',
+                  variant: 'h4',
                   sx: {
                     color: headerColor
                       ? headerColor
@@ -90,7 +91,7 @@ const FeatureList = ({
         </MuiMarkdown>
         <Box sx={{ mt: 5 }}>
           {data?.map((item, i) => (
-            <Grid sx={{ my: 5 }} container spacing={3}>
+            <Grid sx={{ my: isSmall ? 5 : 10 }} container spacing={3}>
               <Grid
                 sx={{
                   display: 'flex',
@@ -103,7 +104,7 @@ const FeatureList = ({
               >
                 <Typography
                   component="h3"
-                  variant="h4"
+                  variant="h5"
                   color={
                     isDarkMode
                       ? theme.palette.zesty.zestyWhite
@@ -114,37 +115,76 @@ const FeatureList = ({
                     textAlign: isMedium ? 'center' : 'left',
                   }}
                 >
-                  {item?.feature_name || FillerContent.header}
+                  {item?.header || FillerContent.header}
                 </Typography>
-                <Typography
-                  component="p"
-                  variant="h6"
-                  color={theme.palette.zesty.zestyZambezi}
-                  sx={{ textAlign: isMedium ? 'center' : 'left', mt: 3 }}
-                >
-                  {item?.content || FillerContent.description}
-                </Typography>
+                 <MuiMarkdown
+                    options={{
+                      overrides: {
+                        h2: {
+                          component: Typography,
+                          props: {
+                            component: 'h2',
+                            variant: 'h3',
+                            sx: {
+                              color: headerColor
+                                ? headerColor
+                                : theme.palette.zesty.zestyZambezi,
+                              fontWeight: 'bold',
+                              textAlign: ' center',
+                            },
+                          },
+                        },
+                        span: {
+                          component: Typography,
+                          props: {
+                            component: 'h2',
+                            variant: 'h3',
+                            sx: {
+                              color: headerColor
+                                ? headerColor
+                                : theme.palette.zesty.zestyZambezi,
+                              fontWeight: 'bold',
+                              textAlign: ' center',
+                            },
+                          },
+                        },
+                        p: {
+                          component: Typography,
+                          props: {
+                            mt: 2,
+                            component: 'p',
+                            variant: 'h6',
+                            sx: {
+                              color: theme.palette.zesty.zestyZambezi,
+                             textAlign: isMedium ? 'center' : 'left', mt: 3 
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    {item?.content  || FillerContent.description}
+                  </MuiMarkdown>
               </Grid>
               <Grid
                 sx={{
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  margin: '0 auto',
                 }}
                 item
                 sm={12}
                 md={6}
               >
                 <ZestyImage
-                  alt={item?.feature_name || FillerContent.description}
+                  alt={item?.header || FillerContent.description}
                   loading="lazy"
                   style={{
                     width: '100%',
-                    maxWidth: '600',
-                    height: 'auto',
+                    maxWidth: '500', 
                   }}
-                  width={600}
-                  height={500}
+                  width={500}
                   src={item?.icon_image || FillerContent.photos[0].src}
                 />
               </Grid>
@@ -156,4 +196,4 @@ const FeatureList = ({
   );
 };
 
-export default FeatureList;
+export default Benefits;

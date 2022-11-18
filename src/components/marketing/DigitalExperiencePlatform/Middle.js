@@ -138,7 +138,7 @@ const Middle = ({ content, theme, isMobile, isTablet, FillerContent }) => {
               textAlign: 'center',
               fontSize: isMobile ? '28px' : '48px',
               position: 'relative',
-              zIndex: '1000',
+              zIndex: theme.zIndex.banner,
               textTransform: 'capitalize',
             }}
           >
@@ -180,7 +180,7 @@ const RevealComponent = ({
         display: 'flex',
         flexDirection: isMobile ? 'column' : reverse ? 'row-reverse' : 'row',
         position: 'relative',
-        zIndex: '1000',
+        zIndex: theme.zIndex.banner,
         gap: isMobile ? '4rem' : '0',
       }}
     >
