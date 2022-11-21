@@ -1,7 +1,7 @@
 // REact and MUI Imports
 import { React, useState, useRef, useCallback } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
-
+import { Box, Grid, Typography, useTheme } from '@mui/material';
+import Head from 'next/head';
 // confetti
 import Confetti from 'react-confetti';
 import getWindowDimensions from 'components/marketing/Join/getWindowDimensions';
@@ -90,6 +90,7 @@ const postToZOHO = async (payloadJSON) => {
 // Join component
 
 export default function Join(props) {
+  const theme = useTheme();
   const { height, width } = getWindowDimensions();
   const isProduction = props.production;
 
@@ -258,100 +259,123 @@ export default function Join(props) {
   };
 
   // sx={{background: theme.palette.zesty.zestyDarkBlue}}
-  return (
-    <Box>
-      {pendoScript}
-      {currentAnimation == 'party' && (
-        <Confetti
-          width={width}
-          height={height}
-          numberOfPieces={333}
-          recycle={false}
-          confettiSource={{ x: width / 2 - 100, y: 0, w: 200, h: 200 }}
-          onConfettiComplete={() => setCurrentAnimation('still')}
-        />
-      )}
-      <DancingLogo animation={currentAnimation} />
 
-      <Swiper
-        ref={sliderRef}
-        autoHeight={false}
-        navigation={false}
-        pagination={{ clickable: false, draggable: false, type: 'none' }}
-        scrollbar={{ draggable: false }}
-        modules={[Pagination, Navigation]}
-        // remove this when testing
-        allowTouchMove={isProduction === true ? false : true}
-      >
-        {props.campaign && (
+  // Hard coded values no zesty model for this page
+  const seoTitle = 'Start your first project with Zesty.io';
+  const seoDescription =
+    'Create an account with Zesty.io to start your first instance free';
+
+  return (
+    <>
+      <Head>
+        <title>{seoTitle}</title>
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
+      </Head>
+      <Box>
+        {pendoScript}
+        {currentAnimation == 'party' && (
+          <Confetti
+            width={width}
+            height={height}
+            numberOfPieces={333}
+            recycle={false}
+            confettiSource={{ x: width / 2 - 100, y: 0, w: 200, h: 200 }}
+            onConfettiComplete={() => setCurrentAnimation('still')}
+          />
+        )}
+        <DancingLogo animation={currentAnimation} />
+        <Typography
+          variant="h6"
+          component="h1"
+          sx={{
+            textAlign: 'center',
+            pb: 10,
+            color: theme.palette.text.primary,
+          }}
+        >
+          Start your Zesty.io project
+        </Typography>
+
+        <Swiper
+          ref={sliderRef}
+          autoHeight={false}
+          navigation={false}
+          pagination={{ clickable: false, draggable: false, type: 'none' }}
+          scrollbar={{ draggable: false }}
+          modules={[Pagination, Navigation]}
+          // remove this when testing
+          allowTouchMove={isProduction === true ? false : true}
+        >
+          {props.campaign && (
+            <SwiperSlide>
+              <SlideMessage
+                message={abmessage}
+                image={abimage}
+                buttonText={abbuttontext}
+                answerCallBack={handlePrompt}
+                hoverAnimation={handleAnimation}
+              />
+            </SwiperSlide>
+          )}
+          {/* Question 1  */}
           <SwiperSlide>
-            <SlideMessage
-              message={abmessage}
-              image={abimage}
-              buttonText={abbuttontext}
-              answerCallBack={handlePrompt}
+            <Grid container>
+              <Grid item lg={12} md={12} xs={12}>
+                <SlideQuestions
+                  question={RoleQuestions.question}
+                  why={RoleQuestions.why}
+                  answers={RoleQuestions.answers}
+                  answerCallBack={handleAnswers}
+                  hoverAnimation={handleAnimation}
+                  storeValue="role"
+                />
+              </Grid>
+            </Grid>
+          </SwiperSlide>
+          {/* Question 2  */}
+          <SwiperSlide>
+            <SlideQuestions
+              question={ProjectQuestions.question}
+              why={ProjectQuestions.why}
+              answers={ProjectQuestions.answers}
+              answerCallBack={handleAnswers}
               hoverAnimation={handleAnimation}
+              storeValue="projectType"
             />
           </SwiperSlide>
-        )}
-        {/* Question 1  */}
-        <SwiperSlide>
-          <Grid container>
-            <Grid item lg={12} md={12} xs={12}>
-              <SlideQuestions
-                question={RoleQuestions.question}
-                why={RoleQuestions.why}
-                answers={RoleQuestions.answers}
-                answerCallBack={handleAnswers}
-                hoverAnimation={handleAnimation}
-                storeValue="role"
-              />
-            </Grid>
-          </Grid>
-        </SwiperSlide>
-        {/* Question 2  */}
-        <SwiperSlide>
-          <SlideQuestions
-            question={ProjectQuestions.question}
-            why={ProjectQuestions.why}
-            answers={ProjectQuestions.answers}
-            answerCallBack={handleAnswers}
-            hoverAnimation={handleAnimation}
-            storeValue="projectType"
-          />
-        </SwiperSlide>
-        {/* Signup  */}
-        <SwiperSlide>
-          <Signup
-            message={
-              <Box>
-                <Box sx={{ fontWeight: 'bold' }} display="inline">
-                  Awesome!
-                </Box>{' '}
-                {`Let's start on your`}
-                <Box sx={{ fontWeight: 'bold' }} display="inline">
-                  {projectType}
-                </Box>{' '}
-                project.
-              </Box>
-            }
-            callback={signUpSuccess}
-            production={isProduction}
-          />
-        </SwiperSlide>
-        {/* Welcome  */}
-        <SwiperSlide>
-          <WelcomeScreen
-            firstname={firstName}
-            lastname={lastName}
-            email={email}
-            role={role}
-            projectType={projectType}
-            userZUID={userObject?.data?.ZUID}
-            dateCreated={new Date().toUTCString()}
-          >
-            {welcomeMessage}
-            {/* <SlideMessage 
+          {/* Signup  */}
+          <SwiperSlide>
+            <Signup
+              message={
+                <Box>
+                  <Box sx={{ fontWeight: 'bold' }} display="inline">
+                    Awesome!
+                  </Box>{' '}
+                  {`Let's start on your`}
+                  <Box sx={{ fontWeight: 'bold' }} display="inline">
+                    {projectType}
+                  </Box>{' '}
+                  project.
+                </Box>
+              }
+              callback={signUpSuccess}
+              production={isProduction}
+            />
+          </SwiperSlide>
+          {/* Welcome  */}
+          <SwiperSlide>
+            <WelcomeScreen
+              firstname={firstName}
+              lastname={lastName}
+              email={email}
+              role={role}
+              projectType={projectType}
+              userZUID={userObject?.data?.ZUID}
+              dateCreated={new Date().toUTCString()}
+            >
+              {welcomeMessage}
+              {/* <SlideMessage 
                             message={welcomeMessage}
                             buttonText={`Let's go!`} 
                             // exitButtonText={'Wait, let me invite my team.'}
@@ -361,14 +385,15 @@ export default function Join(props) {
                             exitButtonText={''}
                             
                         /> */}
-          </WelcomeScreen>
-        </SwiperSlide>
-        {/* Onboarding */}
-        <SwiperSlide>
-          <Onboarding role={role} />
-        </SwiperSlide>
-      </Swiper>
-    </Box>
+            </WelcomeScreen>
+          </SwiperSlide>
+          {/* Onboarding */}
+          <SwiperSlide>
+            <Onboarding role={role} />
+          </SwiperSlide>
+        </Swiper>
+      </Box>
+    </>
   );
 }
 
