@@ -10,8 +10,8 @@ const FeaturedLinks = () => {
   const theme = useTheme();
   return (
     <Grid container spacing={2} sx={{ mt: 2 }}>
-      {data.map(() => (
-        <Grid item sm={12} md={data.length > 2 ? 6 : 12}>
+      {data.map((item, idx) => (
+        <Grid key={idx} item sm={12} md={data.length > 2 ? 6 : 12}>
           <Box
             sx={{
               mt: 4,

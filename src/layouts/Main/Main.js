@@ -118,8 +118,6 @@ const Main = ({
     setPathname(window.location.pathname);
   }, []);
 
-  console.log(customRouting);
-
   return (
     <>
       {isLoggedIn === false && !isLoginPage && <SiteBanner />}

@@ -17,7 +17,6 @@ import { setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
 import { Container, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
 import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
 
 const MarketingMain = ({
@@ -27,11 +26,10 @@ const MarketingMain = ({
   colorInvert = false,
   bgcolor = 'transparent',
   model = '',
+  flyoutNavigation,
 }) => {
   // main should verify the user as boolean
   const router = useRouter();
-  const [pathname, setPathname] = useState('');
-  const isAccounts = isProtectedRoute(pathname);
   const { loading, userInfo } = useZestyStore((state) => state);
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
@@ -91,9 +89,7 @@ const MarketingMain = ({
     }
   }, [userInfo]);
 
-  useEffect(() => {
-    setPathname(window.location.pathname);
-  }, []);
+  console.log(flyoutNavigation);
 
   return (
     <>

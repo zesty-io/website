@@ -35,6 +35,7 @@ export default function Slug(props) {
           model={props?.meta?.model_alternate_name}
           nav={props?.navigationTree}
           customRouting={props?.navigationCustom}
+          flyoutNavigation={props?.flyoutNavigation}
           url={props?.meta?.web?.uri}
           bgcolor={bgcolor}
         >

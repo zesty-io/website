@@ -60,6 +60,7 @@ export async function fetchPage(
     data.navigationTree = await buildJSONTreeFromNavigation(zestyURL);
     // custom nav tree building
     data.navigationCustom = await customNavigation(zestyURL);
+    data.flyoutNavigation = await newNavigationWithFlyout(zestyURL);
   }
   return data;
 }
@@ -164,6 +165,19 @@ async function buildJSONTreeFromNavigation(zestyURL) {
     return reducedData;
   } catch (err) {
     console.log(err);
+    return [];
+  }
+}
+
+async function newNavigationWithFlyout(zestyURL) {
+  const flyoutNavigationJSON = zestyURL + '/-/instant/6-faf387aeac-f9btpx.json';
+
+  try {
+    const resp = await fetch(flyoutNavigationJSON);
+    let flyoutNavigationData = await resp.json();
+    return flyoutNavigationData;
+  } catch (error) {
+    console.log(error);
     return [];
   }
 }

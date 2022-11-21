@@ -50,8 +50,9 @@ const LeftGridLinks = () => {
             gap: 4,
           }}
         >
-          {[1, 2, 3, 4, 5, 6].map(() => (
+          {[1, 2, 3, 4, 5, 6].map((item, idx) => (
             <Box
+              key={idx}
               variant="body1"
               href="#"
               sx={{
@@ -138,8 +139,9 @@ const LeftGridLinks = () => {
             gap: 4,
           }}
         >
-          {[1, 2, 3, 4].map(() => (
+          {[1, 2, 3, 4].map((index, idx) => (
             <Box
+              key={idx}
               variant="body1"
               href="#"
               sx={{
