@@ -16,14 +16,14 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Imports
  */
 import Container from 'blocks/container/Container';
-import TryFreeButton from 'components/cta/TryFreeButton';
 import DemoCta from 'components/cta/DemoCta';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Bottom = ({
   graphic,
   titleAndDescription,
-  cta_text,
+  cta_text = 'Try Free',
+  cta_button_link = '/join/',
   secondary_cta_text,
   secondary_cta_link,
   backgroundColor,
@@ -143,16 +143,14 @@ const Bottom = ({
                   gap: 2,
                 }}
               >
-                <TryFreeButton
-                  text={cta_text || FillerContent.cta}
+              <DemoCta
+                  icon={false}
+                  target="_self"
                   variant="contained"
                   color="secondary"
-                  fullWidth={isMedium}
-                  sx={{
-                    fontWeight: 'bold',
-                    borderRadius: 1,
-                  }}
-                />
+                  text={cta_text}
+                  href={cta_button_link}
+              />
                 {secondary_cta_text && 
                 <DemoCta
                   fullWidth={isMedium}
