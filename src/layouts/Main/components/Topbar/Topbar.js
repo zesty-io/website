@@ -113,7 +113,7 @@ const Topbar = ({
         {customRouting.map((route) => (
           <Box key={route.zuid}>
             {route.parentZUID == null && route.children.length > 0 && (
-              <Box marginLeft={4}>
+              <Box marginLeft={3}>
                 <NavItem
                   activeNav={
                     activeNav.filter((item) => item.isActive === true)[0]
@@ -127,7 +127,7 @@ const Topbar = ({
               </Box>
             )}
             {route.parentZUID == null && route.children.length == 0 && (
-              <Box marginLeft={4}>
+              <Box marginLeft={3}>
                 <SingleNavItem
                   title={route.title}
                   id={route.zuid}

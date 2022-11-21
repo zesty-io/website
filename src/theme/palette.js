@@ -171,5 +171,6 @@ export const dark = {
     zestyTealWhite: '#1AE8FF',
     zestyLightText: '#a1a1a1',
     zestyLightOrange: '#2B252A',
+    zestyBanner: '#1B253F',
   },
 };
