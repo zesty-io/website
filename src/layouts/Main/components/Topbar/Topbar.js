@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import { Skeleton } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
-import { Typography } from '@mui/material';
 
 const Topbar = ({
   hideNav,
@@ -19,7 +18,6 @@ const Topbar = ({
   customRouting,
   colorInvert = false,
   trigger,
-  isAuthenticated,
   userInfo = {},
   loading = false,
 }) => {
@@ -41,12 +39,7 @@ const Topbar = ({
     return mode === 'light' && !colorInvert;
   };
 
-  const firstName = userInfo?.firstName;
-  const openAccountInstances = () => {
-    window.open('https://accounts.zesty.io/instances', '_blank').focus();
-  };
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (userInfo) {
       setCookie('APP_USER_ZUID', userInfo?.ZUID);
       setCookie('APP_USER_EMAIL', userInfo?.email);
@@ -79,21 +72,23 @@ const Topbar = ({
 
   return (
     <Box
-      display={'flex'}
-      justifyContent={'space-between'}
-      alignItems={'center'}
-      width={1}
       sx={{
         position: 'relative',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: 1,
       }}
     >
       <Box
-        display={'flex'}
+        sx={{
+          display: 'flex',
+          pt: isDxpTemplatePage ? 4 : 0,
+        }}
         component="a"
         href="/"
         title="Zesty.io Platform"
         width={{ xs: 100, md: 150 }}
-        paddingTop={isDxpTemplatePage ? 4 : 0}
       >
         <img
           alt="zesty.io"
@@ -107,8 +102,13 @@ const Topbar = ({
         />
       </Box>
       <Box
-        sx={{ display: { xs: 'none', md: hideNav ? 'none' : 'flex' } }}
-        alignItems={'center'}
+        sx={{
+          display: {
+            xs: 'none',
+            md: hideNav ? 'none' : 'flex',
+            alignItems: 'center',
+          },
+        }}
       >
         {customRouting.map((route) => (
           <Box key={route.zuid}>
@@ -141,45 +141,25 @@ const Topbar = ({
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
           <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
-            {!isAuthenticated ? (
-              <Box display={'flex'}>
-                <Box marginLeft={4}>
-                  <TryFreeButton variant="contained" component="a" />
-                </Box>
-                <Box marginLeft={2}>
-                  <Button
-                    size={'medium'}
-                    variant="text"
-                    color="primary"
-                    sx={{ fontWeight: 'bold' }}
-                    endIcon={<LoginIcon />}
-                    fullWidth
-                    component="a"
-                    href="/login/"
-                  >
-                    Login
-                  </Button>
-                </Box>
+            <Box display={'flex'}>
+              <Box marginLeft={4}>
+                <TryFreeButton variant="contained" component="a" />
               </Box>
-            ) : (
-              <Box paddingLeft={4}>
-                <Typography
-                  color={theme.palette.primary.dark}
-                  fontWeight={'bold'}
+              <Box marginLeft={2}>
+                <Button
+                  size={'medium'}
+                  variant="text"
+                  color="primary"
+                  sx={{ fontWeight: 'bold' }}
+                  endIcon={<LoginIcon />}
+                  fullWidth
+                  component="a"
+                  href="/login/"
                 >
-                  Welcome back,{' '}
-                  <span
-                    style={{
-                      color: theme.palette.zesty.zestyOrange,
-                      cursor: 'pointer',
-                    }}
-                    onClick={openAccountInstances}
-                  >
-                    {firstName}!
-                  </span>
-                </Typography>
+                  Login
+                </Button>
               </Box>
-            )}
+            </Box>
           </Box>
         )}
       </Box>
