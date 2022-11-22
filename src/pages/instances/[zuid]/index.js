@@ -5,6 +5,7 @@ import { Overview } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import dayjs from 'dayjs';
 import { isProd } from 'utils';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -216,9 +217,9 @@ export default function OverviewPage() {
     }
   }, [router.isReady]);
 
-  return <Overview {...overviewProps} />;
+  return (
+    <InstanceContainer>
+      <Overview {...overviewProps} />
+    </InstanceContainer>
+  );
 }
-
-OverviewPage.data = {
-  container: 'InstanceContainer',
-};

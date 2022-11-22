@@ -215,6 +215,7 @@ const Main = ({
             display:
               (router?.query?.slug?.[0] === 'login' || willShowAppFooter()) &&
               'none',
+            mt: 5,
           }}
         />
       </main>

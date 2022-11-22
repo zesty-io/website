@@ -53,17 +53,6 @@ const MarketplaceSinglePageContainer = ({
     );
   }
 
-  // function handleSort() {
-  //   const list = [...entities].sort((a, b) => {
-  //     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-  //     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-  //     return 0;
-  //   });
-
-  //   setEntities(isAsc ? list : list.reverse());
-  //   setIsAsc(!isAsc);
-  // }
-
   useEffect(() => {
     if (isSm) setIsOpenDrawer(false);
   }, [isSm]);

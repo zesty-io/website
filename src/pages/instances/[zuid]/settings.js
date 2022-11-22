@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Settings } from 'views/accounts/instances';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import { downloadTemplate } from 'utils/LaunchApp';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -54,17 +55,15 @@ export default function SettingsPage() {
   }, [router.isReady]);
 
   return (
-    <Settings
-      loading={loading}
-      settings={settings}
-      singleSettingsUpdate={singleSettingsUpdate}
-      token={userAppSID}
-      instance_zuid={zuid}
-      downloadTemplate={downloadTemplate}
-    />
+    <InstanceContainer>
+      <Settings
+        loading={loading}
+        settings={settings}
+        singleSettingsUpdate={singleSettingsUpdate}
+        token={userAppSID}
+        instance_zuid={zuid}
+        downloadTemplate={downloadTemplate}
+      />
+    </InstanceContainer>
   );
 }
-
-SettingsPage.data = {
-  container: 'InstanceContainer',
-};

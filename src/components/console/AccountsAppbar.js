@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
@@ -55,7 +55,7 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (router.isReady) {
       getInstance();
       setUrl(window.location.pathname);
@@ -63,7 +63,8 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
       setPathname(window.location.pathname);
     }
   }, [router.isReady, url]);
-  React.useEffect(() => {
+
+  useEffect(() => {
     setworkingInstance(instanceZUID);
   }, [instanceZUID]);
 
