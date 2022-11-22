@@ -190,6 +190,9 @@ function ForPersonasPage({ content }) {
     graphic: content?.footer_cta_graphic?.data[0].url,
     titleAndDescription: content.footer_cta,
     cta_text: content.footer_button_text,
+    cta_button_link:
+      (content.footer_button_link == 0 && '/join/') ||
+      content.footer_button_link?.data[0].meta.web.uri,
   };
 
   const personaProps = {
