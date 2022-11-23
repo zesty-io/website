@@ -330,7 +330,7 @@ const Login = ({ content, userEmail }) => {
             <Stack direction="row" justifyContent="center" alignItems="center">
               <Typography variant="subtitle2">
                 {`Don't have an account yet? `}
-                <Link href="#" color="secondary">
+                <Link href="/join/" color="secondary">
                   Try for free!
                 </Link>
               </Typography>

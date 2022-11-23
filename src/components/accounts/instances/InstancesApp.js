@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   List,
@@ -22,15 +22,16 @@ import { useTheme } from '@mui/material/styles';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 const Index = ({ children }) => {
-  const [loading, setloading] = React.useState(false);
+  const [loading, setloading] = useState(false);
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('md'));
   const langcode = 'en';
+  const [location, setLocation] = useState('');
   const currentPage =
-    location.pathname.split('/').length > 2
-      ? location.pathname.split('/')[3]
+    location?.pathname?.split('/').length > 2
+      ? location?.pathname?.split('/')[3]
       : '';
-  const [tabValue, setTabValue] = React.useState(currentPage);
+  const [tabValue, setTabValue] = useState(currentPage);
   const router = useRouter();
   const { ZestyAPI, instance, setInstance } = useZestyStore((state) => state);
   const { zuid } = router.query;
@@ -62,7 +63,11 @@ const Index = ({ children }) => {
     setloading(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setLocation(window.location);
+  }, []);
+
+  useEffect(() => {
     if (router.isReady) {
       getInstance();
     }
