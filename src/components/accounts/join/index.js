@@ -13,6 +13,7 @@ import { Swiper } from 'swiper/react';
 import { Onboarding } from './Onboarding';
 import { zohoPostObject } from 'components/marketing/Start/zohoPostObject';
 import { grey } from '@mui/material/colors';
+import { setCookie } from 'cookies-next';
 
 const roleList = [
   { label: 'Marketer', value: 'marketer' },
@@ -51,7 +52,7 @@ const TextBox = ({ collections, setcollections }) => {
         sx={{
           background: grey[100],
           height: '10rem',
-          width: '30rem',
+          width: '30vw',
           overflow: 'auto',
           flexWrap: 'wrap',
         }}
@@ -106,13 +107,21 @@ const postToZOHO = async (payloadJSON) => {
 
 const Index = ({ content }) => {
   const { zestyProductionMode } = content || {};
-  const { userInfo, ZestyAPI } = useZestyStore();
+  const {
+    userInfo,
+    ZestyAPI,
+    role,
+    setrole,
+    project,
+    setproject,
+    projectName,
+    setprojectName,
+    emails,
+    setemails,
+    template,
+    settemplate,
+  } = useZestyStore();
   const sliderRef = React.useRef(null);
-  const [role, setrole] = React.useState('');
-  const [project, setproject] = React.useState('');
-  const [projectName, setprojectName] = React.useState('');
-  const [emails, setemails] = React.useState([]);
-  const [template, settemplate] = React.useState('');
 
   const updateUser = async (role) => {
     const userZUID = userInfo.ZUID;
@@ -231,6 +240,7 @@ const Index = ({ content }) => {
                   variant="contained"
                   onClick={() => {
                     handleNext();
+                    setCookie('projectName', projectName);
                   }}
                 >
                   Next
@@ -279,7 +289,7 @@ const Index = ({ content }) => {
               <SelectTemplate
                 project={project}
                 handleSelectTemplate={async (e) => {
-                  // zestyProductionMode && (await postToZOHO(zohoLeadObject));
+                  zestyProductionMode && (await postToZOHO(zohoLeadObject));
                   settemplate(e);
                   handleNext();
                 }}
@@ -289,7 +299,7 @@ const Index = ({ content }) => {
 
             <SwiperSlide>
               <SwipeCompContainer>
-                <Onboarding role={role} />
+                <Onboarding template={template} />
               </SwipeCompContainer>
             </SwiperSlide>
           </Swiper>
