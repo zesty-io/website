@@ -55,8 +55,12 @@ import Dashboard from 'components/accounts/dashboard';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import AOS from 'aos';
 import { useEffect } from 'react';
+import dayjs from 'dayjs';
+import { useZestyStore } from 'store';
+import { Join } from 'components/accounts/join';
 
 function Homepage({ content }) {
+  const { userInfo } = useZestyStore();
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
@@ -86,10 +90,6 @@ function Homepage({ content }) {
     });
   }, [isMedium]);
 
-  if (content?.zesty?.isAuthenticated) {
-    return <Dashboard />;
-  }
-
   const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
     (item) => {
       return {
@@ -116,6 +116,31 @@ function Homepage({ content }) {
     secondary_cta_link:
       content.footer_button_link_2?.data[0].meta.web.uri || FillerContent.href,
   };
+
+  // accounts/join app
+  let isNewUser = null;
+  let hasPersona = null;
+  let ssoLaunchVsUserCreated = null;
+  const ssoLaunchDate = dayjs('2022-11-18');
+  const userCreatedDate = dayjs(userInfo?.createdAt);
+  if (typeof userInfo?.prefs === 'string') {
+    const obj = JSON.parse(userInfo?.prefs);
+    hasPersona = obj.hasOwnProperty('persona') ? true : false;
+  }
+  if (userInfo) {
+    ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
+  }
+  if (ssoLaunchVsUserCreated > 0 && !hasPersona) {
+    isNewUser = true;
+  }
+
+  if (isNewUser) {
+    return <Join content={content} />;
+  }
+
+  if (content?.zesty?.isAuthenticated) {
+    return <Dashboard />;
+  }
 
   return (
     <>
