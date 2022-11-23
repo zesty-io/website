@@ -107,6 +107,7 @@ const postToZOHO = async (payloadJSON) => {
 
 const Index = ({ content }) => {
   const { zestyProductionMode } = content || {};
+  const [zohoLeadObject, setzohoLeadObject] = React.useState('');
   const {
     userInfo,
     ZestyAPI,
@@ -142,15 +143,21 @@ const Index = ({ content }) => {
     role !== 'developer'
       ? projectList.filter((e) => e.value !== 'headless project')
       : projectList;
-  const zohoLeadObject = zohoPostObject(
-    userInfo,
-    'Trial',
-    'Trial',
-    'Unknown',
-    'Website',
-    role,
-    userInfo.ZUID,
-  );
+  React.useEffect(() => {
+    if (role) {
+      const obj = zohoPostObject(
+        userInfo,
+        'Trial',
+        'Trial',
+        'Unknown',
+        'Website',
+        role,
+        userInfo.ZUID,
+      );
+      setzohoLeadObject(obj);
+    }
+  }, [role, userInfo]);
+
   return (
     <Container
       maxWidth={false}
