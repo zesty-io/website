@@ -130,7 +130,7 @@ function Homepage({ content }) {
   if (userInfo) {
     ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
   }
-  if (ssoLaunchVsUserCreated > 0 && !hasPersona) {
+  if (ssoLaunchVsUserCreated > 0 && hasPersona) {
     isNewUser = true;
   }
 

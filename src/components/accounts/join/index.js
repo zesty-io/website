@@ -15,6 +15,8 @@ import { zohoPostObject } from 'components/marketing/Start/zohoPostObject';
 import { grey } from '@mui/material/colors';
 import { setCookie } from 'cookies-next';
 
+import { ResourcesCard } from './ResourceCard';
+
 const roleList = [
   { label: 'Marketer', value: 'marketer' },
   { label: 'Developer', value: 'developer' },
@@ -71,14 +73,14 @@ const TextBox = ({ collections, setcollections }) => {
     </form>
   );
 };
-const SwipeCompContainer = ({ children }) => {
+const SwipeCompContainer = ({ children, pt = 14 }) => {
   return (
     <Stack
       width={1}
       justifyContent="center"
       textAlign={'center'}
       alignItems="center"
-      pt={14}
+      pt={pt}
       spacing={4}
     >
       {children}
@@ -182,7 +184,7 @@ const Index = ({ content }) => {
             pagination={{ clickable: false, draggable: false, type: 'none' }}
             scrollbar={{ draggable: false }}
             modules={[Pagination, Navigation]}
-            allowTouchMove={zestyProductionMode}
+            allowTouchMove={!zestyProductionMode}
           >
             <SwiperSlide>
               <SwipeCompContainer>
@@ -319,7 +321,11 @@ const Index = ({ content }) => {
               ? theme.palette.zesty.zestyDarkerBlue
               : theme.palette.secondary.main
           }
-        ></Grid>
+        >
+          <SwipeCompContainer pt={22}>
+            <ResourcesCard />
+          </SwipeCompContainer>
+        </Grid>
       </Grid>
     </Container>
   );
