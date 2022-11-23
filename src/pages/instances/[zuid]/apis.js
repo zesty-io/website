@@ -6,6 +6,7 @@ import { ErrorMsg, SuccessMsg, TokenPrompt } from 'components/accounts';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import * as helpers from 'utils';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 const MySwal = withReactContent(Swal);
 
@@ -187,9 +188,9 @@ export default function ApisPage() {
     search,
     setsearch,
   };
-  return <Apis {...ApisProps} />;
+  return (
+    <InstanceContainer>
+      <Apis {...ApisProps} />
+    </InstanceContainer>
+  );
 }
-
-ApisPage.data = {
-  container: 'InstanceContainer',
-};

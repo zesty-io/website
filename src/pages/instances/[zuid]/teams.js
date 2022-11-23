@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Teams } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -140,9 +141,9 @@ export default function TeamsPage() {
     }
   }, [router.isReady]);
 
-  return <Teams {...teamsProps} />;
+  return (
+    <InstanceContainer>
+      <Teams {...teamsProps} />
+    </InstanceContainer>
+  );
 }
-
-TeamsPage.data = {
-  container: 'InstanceContainer',
-};

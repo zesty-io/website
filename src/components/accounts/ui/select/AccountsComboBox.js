@@ -171,7 +171,6 @@ const Index = ({
   const handleChange = (e, newValue) => {
     setCookies(newValue?.value);
     setlabel(newValue?.name);
-    // window.location.reload();
   };
 
   React.useEffect(() => {

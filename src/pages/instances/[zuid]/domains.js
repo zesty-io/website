@@ -17,6 +17,7 @@ import {
   SuccessMsg,
 } from 'components/accounts';
 import { useFormik } from 'formik';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -189,27 +190,25 @@ export default function Domains() {
     settings,
   };
   return (
-    <Grid container>
-      <AccountsHeader {...headerProps}>
-        <Button
-          onClick={handleAddDomain}
-          color="primary"
-          variant="contained"
-          startIcon={<AddIcon />}
-        >
-          Add Domain
-        </Button>
-      </AccountsHeader>
-      <Grid item xs={12}>
-        <DomainListings {...domainListingProps} />
+    <InstanceContainer>
+      <Grid container>
+        <AccountsHeader {...headerProps}>
+          <Button
+            onClick={handleAddDomain}
+            color="primary"
+            variant="contained"
+            startIcon={<AddIcon />}
+          >
+            Add Domain
+          </Button>
+        </AccountsHeader>
+        <Grid item xs={12}>
+          <DomainListings {...domainListingProps} />
+        </Grid>
+        <Grid item xs={12}>
+          <DomainSettings {...domainSettingProps} />
+        </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <DomainSettings {...domainSettingProps} />
-      </Grid>
-    </Grid>
+    </InstanceContainer>
   );
 }
-
-Domains.data = {
-  container: 'InstanceContainer',
-};
