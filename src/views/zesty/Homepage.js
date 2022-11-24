@@ -121,8 +121,8 @@ function Homepage({ content }) {
   };
 
   // this is an array the key values that checks users
-  // let prefChecks = ['persona'];
-  let prefChecks = [''];
+  let prefChecks = ['persona'];
+  // let prefChecks = [''];
   // accounts/join app
   let missingPrefs = false;
   let ssoLaunchVsUserCreated = null;
@@ -135,16 +135,19 @@ function Homepage({ content }) {
         missingPrefs = true;
       }
     });
+  } else if (!userInfo?.prefs) {
+    missingPrefs = true;
   }
 
-  if (loading) {
-    return <AccountPageloading title={'Zesty.io'} />;
-  } else if (userInfo) {
+  if (userInfo) {
     ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
   }
 
-  // check if new user and doesnt have persona selected
-  if (ssoLaunchVsUserCreated > 0 && missingPrefs) {
+  console.log(missingPrefs, ssoLaunchVsUserCreated, 4444);
+  if (loading) {
+    return <AccountPageloading title={'Zesty.io'} />;
+  } // check if new user and doesnt have persona selected
+  else if (ssoLaunchVsUserCreated > 0 && missingPrefs) {
     return <Join content={content} />;
     // check if existing user without a persona
   } else if (missingPrefs) {
