@@ -1,12 +1,6 @@
 import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
-import postmanIcon from '../../../../public/images/postmanIcon.svg';
-import graphQLIcon from '../../../../public/images/graphQLIcon.svg';
-import starCheckIcon from '../../../../public/images/starCheckIcon.svg';
-import slackIcon from '../../../../public/images/slackIcon.svg';
-import youtubeIcon from '../../../../public/images/youtubeIcon.svg';
-import discordIcon from '../../../../public/images/discordIcon.svg';
 import {
   Box,
   ListItemButton,
@@ -14,6 +8,19 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+
+const postmanIcon =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/postmanIcon.svg';
+const graphQLIcon =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/graphQLIcon.svg';
+const starCheckIcon =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/starCheckIcon.svg';
+const slackIcon =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/slackIcon.svg';
+const youtubeIcon =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/youtubeIcon.svg';
+const discordIcon =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/discordIcon.svg';
 
 export const ResourcesCard = () => {
   const handleNavigation = (url) => {
@@ -78,7 +85,7 @@ export const ResourcesCard = () => {
         onClick={() => handleNavigation('https://instances-api.zesty.org/')}
       >
         <ListItemIcon sx={{ minWidth: '36px' }}>
-          <img src={postmanIcon.src} />
+          <img src={postmanIcon} />
         </ListItemIcon>
         <ListItemText
           primary="Instance API Docs"
@@ -94,7 +101,7 @@ export const ResourcesCard = () => {
         }
       >
         <ListItemIcon sx={{ minWidth: '36px' }}>
-          <img src={graphQLIcon.src} />
+          <img src={graphQLIcon} />
         </ListItemIcon>
         <ListItemText
           primary="GraphQL Docs"
@@ -130,7 +137,7 @@ export const ResourcesCard = () => {
         }
       >
         <ListItemIcon sx={{ minWidth: '36px' }}>
-          <img src={starCheckIcon.src} />
+          <img src={starCheckIcon} />
         </ListItemIcon>
         <ListItemText
           primary="Release Notes"
@@ -156,7 +163,7 @@ export const ResourcesCard = () => {
           <img
             width="24px"
             height="24px"
-            src={slackIcon.src}
+            src={slackIcon}
             onClick={() =>
               handleNavigation(
                 'https://join.slack.com/t/zestyiodevs/shared_invite/zt-1jv3ct6k4-uuDM5ZNLy3NgK2FCzK~xuw',
@@ -166,13 +173,13 @@ export const ResourcesCard = () => {
           <img
             width="24px"
             height="24px"
-            src={youtubeIcon.src}
+            src={youtubeIcon}
             onClick={() =>
               handleNavigation('https://www.youtube.com/c/Zestyio/videos')
             }
           />
           <img
-            src={discordIcon.src}
+            src={discordIcon}
             onClick={() => handleNavigation('https://discord.gg/uqDqeX8RXE')}
             width="24px"
             height="24px"
