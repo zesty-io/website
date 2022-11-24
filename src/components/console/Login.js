@@ -304,8 +304,7 @@ const Login = ({ content, userEmail }) => {
                   <Stack
                     direction={{ xs: 'column', xl: 'row' }}
                     alignItems={'center'}
-                    justifyContent="space-between"
-                    px={4}
+                    justifyContent="space-evenly"
                     gap={2}
                   >
                     <Stack mx={0}>
@@ -331,7 +330,7 @@ const Login = ({ content, userEmail }) => {
             <Stack direction="row" justifyContent="center" alignItems="center">
               <Typography variant="subtitle2">
                 {`Don't have an account yet? `}
-                <Link href="#" color="secondary">
+                <Link href="/join/" color="secondary">
                   Try for free!
                 </Link>
               </Typography>

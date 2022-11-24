@@ -11,7 +11,6 @@ import 'react-image-lightbox/style.css';
 import 'aos/dist/aos.css';
 import '../../public/styles/custom.css';
 import { SnackbarProvider } from 'notistack';
-import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import Head from 'next/head';
 import AuthProvider from 'components/context/AuthProvider';
 
@@ -20,12 +19,6 @@ if (process.env.NODE_ENV === 'production') {
   console.error = () => {};
   console.debug = () => {};
 }
-
-// add your layout component here as an object, then on your specific pages
-// set an object of data with a container object to automatically set your layout
-const layouts = {
-  InstanceContainer,
-};
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -51,7 +44,6 @@ export default function App({ Component, pageProps }) {
     if (params.persona) setCookie('persona', params.persona);
   }, []);
 
-  const Layout = layouts[Component.data?.container];
   const isAuthenticatedFromProps =
     pageProps?.zesty?.isAuthenticated ||
     (pageProps?.zesty?.isAuthenticated === undefined && true);
@@ -101,13 +93,7 @@ export default function App({ Component, pageProps }) {
               />
             </noscript>
           )}
-          {Layout === undefined ? (
-            <Component {...pageProps} />
-          ) : (
-            <Layout {...Component.data.props}>
-              <Component {...pageProps} />
-            </Layout>
-          )}
+          <Component {...pageProps} />
         </Page>
       </SnackbarProvider>
     </AuthProvider>

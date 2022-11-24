@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import { Skeleton } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
-import { Typography } from '@mui/material';
 
 const Topbar = ({
   hideNav,
@@ -19,9 +18,9 @@ const Topbar = ({
   customRouting,
   colorInvert = false,
   trigger,
-  isAuthenticated,
   userInfo = {},
   loading = false,
+  flyoutNavigation: data,
 }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -41,12 +40,7 @@ const Topbar = ({
     return mode === 'light' && !colorInvert;
   };
 
-  const firstName = userInfo?.firstName;
-  const openAccountInstances = () => {
-    window.open('https://accounts.zesty.io/instances', '_blank').focus();
-  };
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (userInfo) {
       setCookie('APP_USER_ZUID', userInfo?.ZUID);
       setCookie('APP_USER_EMAIL', userInfo?.email);
@@ -55,20 +49,58 @@ const Topbar = ({
     }
   }, [userInfo]);
 
+  // Sort the navigation data array to match with the sorting on the cms
+  const flyoutNavigation = data.sort((item1, item2) =>
+    item1.sort_order > item2.sort_order
+      ? 1
+      : item1.sort_order < item2.sort_order
+      ? -1
+      : 0,
+  );
+
+  /**
+   * Navigation Handler
+   */
+  const [activeNav, setActiveNav] = useState(
+    flyoutNavigation
+      .filter((route) => route.link === null)
+      .map((url) => {
+        return { id: url.meta.zuid, isActive: false };
+      }),
+  );
+
+  const navHandler = (e, id) => {
+    setActiveNav((current) =>
+      current.map((obj) => {
+        if (obj.id === id) {
+          return { ...obj, isActive: !obj.isActive };
+        }
+        return { ...obj, isActive: false };
+      }),
+    );
+  };
+
+  console.log(flyoutNavigation);
+
   return (
     <Box
-      display={'flex'}
-      justifyContent={'space-between'}
-      alignItems={'center'}
-      width={1}
+      sx={{
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: 1,
+      }}
     >
       <Box
-        display={'flex'}
+        sx={{
+          display: 'flex',
+          pt: isDxpTemplatePage ? 4 : 0,
+        }}
         component="a"
         href="/"
         title="Zesty.io Platform"
         width={{ xs: 100, md: 150 }}
-        paddingTop={isDxpTemplatePage ? 4 : 0}
       >
         <img
           alt="zesty.io"
@@ -82,27 +114,35 @@ const Topbar = ({
         />
       </Box>
       <Box
-        sx={{ display: { xs: 'none', md: hideNav ? 'none' : 'flex' } }}
-        alignItems={'center'}
+        sx={{
+          display: {
+            xs: 'none',
+            md: hideNav ? 'none' : 'flex',
+            alignItems: 'center',
+          },
+        }}
       >
-        {customRouting.map((route) => (
-          <Box key={route.zuid}>
-            {route.parentZUID == null && route.children.length > 0 && (
+        {flyoutNavigation.map((route) => (
+          <Box key={route.meta.zuid}>
+            {route.link === null && (
               <Box marginLeft={3}>
                 <NavItem
-                  title={route.title}
-                  id={route.zuid}
-                  items={route.children}
+                  activeNav={
+                    activeNav.filter((item) => item.isActive === true)[0]
+                  }
+                  navHandler={navHandler}
+                  route={route}
+                  id={route.meta.zuid}
                   colorInvert={colorInvert}
                 />
               </Box>
             )}
-            {route.parentZUID == null && route.children.length == 0 && (
+            {route.link != null && (
               <Box marginLeft={3}>
                 <SingleNavItem
-                  title={route.title}
-                  id={route.zuid}
-                  url={route.url}
+                  title={route.nav_title}
+                  id={route.meta.zuid}
+                  url={route.link}
                   colorInvert={colorInvert}
                 />
               </Box>
@@ -111,46 +151,26 @@ const Topbar = ({
         ))}
         {loading && <Skeleton variant="rectangular" width={180} height={30} />}
         {!loading && (
-          <Box>
-            {!isAuthenticated ? (
-              <Box display={'flex'}>
-                <Box ml={4} sx={{ display: { xs: 'none', lg: 'block' } }}>
-                  <TryFreeButton variant="contained" component="a" />
-                </Box>
-                <Box ml={2}>
-                  <Button
-                    size={'medium'}
-                    variant="text"
-                    color="primary"
-                    sx={{ fontWeight: 'bold' }}
-                    endIcon={<LoginIcon />}
-                    fullWidth
-                    component="a"
-                    href="/login/"
-                  >
-                    Login
-                  </Button>
-                </Box>
+          <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
+            <Box display={'flex'}>
+              <Box marginLeft={4}>
+                <TryFreeButton variant="contained" component="a" />
               </Box>
-            ) : (
-              <Box paddingLeft={4}>
-                <Typography
-                  color={theme.palette.primary.dark}
-                  fontWeight={'bold'}
+              <Box marginLeft={2}>
+                <Button
+                  size={'medium'}
+                  variant="text"
+                  color="primary"
+                  sx={{ fontWeight: 'bold' }}
+                  endIcon={<LoginIcon />}
+                  fullWidth
+                  component="a"
+                  href="/login/"
                 >
-                  Welcome back,{' '}
-                  <span
-                    style={{
-                      color: theme.palette.zesty.zestyOrange,
-                      cursor: 'pointer',
-                    }}
-                    onClick={openAccountInstances}
-                  >
-                    {firstName}!
-                  </span>
-                </Typography>
+                  Login
+                </Button>
               </Box>
-            )}
+            </Box>
           </Box>
         )}
       </Box>

@@ -40,6 +40,8 @@ export const light = {
     level1: '#f5f5f5',
     level3: '#F5F7FB',
     lightPeach: '#FFFBF9',
+    smokeWhite: '#FDFDFD',
+    smokeWhiteLevel2: '#DFDFDF',
   },
   zesty: {
     zestyDarkerBlue: '#293056',

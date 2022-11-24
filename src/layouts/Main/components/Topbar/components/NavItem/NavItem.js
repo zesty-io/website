@@ -1,36 +1,30 @@
-import React, { useState, useEffect } from 'react';
+/**
+ * React Imports
+ */
+
+import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { alpha, useTheme } from '@mui/material/styles';
-import Popover from '@mui/material/Popover';
+
+/**
+ * MUI Imports
+ */
+import { Card, Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Grow from '@mui/material/Grow';
+// import { useMediaQuery } from '@mui/material';
 
-const NavItem = ({ title, id, items, colorInvert = false }) => {
+/**
+ *  Components Imports
+ */
+import LeftGridLinks from './LeftGridLinks';
+import RightGridLinks from './RightGridLinks';
+
+const NavItem = ({ navHandler, activeNav, id, route }) => {
   const theme = useTheme();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [openedPopoverId, setOpenedPopoverId] = useState(null);
-
-  const handleClick = (event, popoverId) => {
-    setAnchorEl(event.target);
-    setOpenedPopoverId(popoverId);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-    setOpenedPopoverId(null);
-  };
-
-  const [activeLink, setActiveLink] = useState('');
-  useEffect(() => {
-    setActiveLink(window && window.location ? window.location.pathname : '');
-  }, []);
-
-  const hasActiveLink = () => items.find((i) => i.url === activeLink);
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  // const isLg = useMediaQuery(theme.breakpoints.down('lg'));
 
   return (
     <Box>
@@ -39,104 +33,83 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
         alignItems={'center'}
         aria-describedby={id}
         sx={{ cursor: 'pointer' }}
-        onClick={(e) => handleClick(e, id)}
+        onClick={(e) => navHandler(e, id)}
       >
         <Typography
-          fontWeight={openedPopoverId === id || hasActiveLink() ? 700 : 400}
-          color={linkColor}
+          sx={{
+            fontWeight: activeNav?.id === id ? 700 : 400,
+            color:
+              activeNav?.id === id
+                ? theme.palette.zesty.zestyOrange
+                : 'text.primary',
+          }}
         >
-          {title}
+          {route?.nav_title || ''}
         </Typography>
         <ExpandMoreIcon
           sx={{
             marginLeft: theme.spacing(1 / 4),
             width: 16,
             height: 16,
-            transform: openedPopoverId === id ? 'rotate(180deg)' : 'none',
-            color: linkColor,
+            transform: activeNav?.id === id ? 'rotate(180deg)' : 'none',
+            color:
+              activeNav?.id === id
+                ? theme.palette.zesty.zestyOrange
+                : 'text.primary',
           }}
         />
       </Box>
-      <Popover
-        elevation={3}
-        id={id}
-        open={openedPopoverId === id}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        disableScrollLock={true}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        sx={{
-          '.MuiPaper-root': {
-            maxWidth: items.length > 12 ? 350 : 250,
-            padding: 2,
-            marginTop: 2,
-            borderTopRightRadius: 0,
-            borderTopLeftRadius: 0,
-            borderBottomRightRadius: 8,
-            borderBottomLeftRadius: 8,
-            borderTop: `3px solid ${theme.palette.primary.main}`,
-          },
-        }}
+      <Grow
+        style={{ transformOrigin: '0 0 0' }}
+        {...(activeNav?.id === id ? { timeout: 500 } : {})}
+        in={activeNav?.id === id}
       >
-        <Grid container spacing={0.5}>
-          {items
-            .sort((a, b) => parseFloat(a.sort) - parseFloat(b.sort))
-            .map((p, i) => (
-              <Grid item key={i} xs={items.length > 12 ? 6 : 12}>
-                <Button
-                  component={'a'}
-                  href={p.url}
-                  fullWidth
-                  sx={{
-                    justifyContent: 'flex-start',
-                    color:
-                      activeLink === p.url
-                        ? theme.palette.primary.main
-                        : theme.palette.text.primary,
-                    backgroundColor:
-                      activeLink === p.url
-                        ? alpha(theme.palette.primary.main, 0.1)
-                        : 'transparent',
-                    fontWeight: activeLink === p.url ? 600 : 400,
-                  }}
-                >
-                  {p.title}
-                  {p.isNew && (
-                    <Box
-                      padding={0.5}
-                      display={'inline-flex'}
-                      borderRadius={1}
-                      bgcolor={'primary.main'}
-                      marginLeft={2}
-                    >
-                      <Typography
-                        variant={'caption'}
-                        sx={{ color: 'common.white', lineHeight: 1 }}
-                      >
-                        new
-                      </Typography>
-                    </Box>
-                  )}
-                </Button>
-              </Grid>
-            ))}
-        </Grid>
-      </Popover>
+        <Card
+          sx={{
+            mt: 4,
+            width: '100%',
+            maxWidth: 1076,
+            position: 'absolute',
+            left: '50%',
+            transform: 'translate(-50%, 0) !important',
+            borderTop: `3px solid ${theme.palette.zesty.zestyOrange}`,
+            borderRadius: 1,
+            minHeight: 495,
+          }}
+        >
+          {/* Outer Grid */}
+          <Grid container>
+            <Grid
+              sx={{ p: 5, background: theme.palette.background.smokeWhite }}
+              item
+              sm={12}
+              md={7}
+            >
+              {/* InnerGrid */}
+              <LeftGridLinks route={route} />
+            </Grid>
+            <Grid
+              sx={{
+                p: 5,
+                borderLeft: `1px solid ${theme.palette.background.smokeWhiteLevel2}`,
+              }}
+              item
+              sm={12}
+              md={5}
+            >
+              <RightGridLinks route={route} />
+              {/* <FeaturedLinks /> */}
+            </Grid>
+          </Grid>
+        </Card>
+      </Grow>
     </Box>
   );
 };
 
 NavItem.propTypes = {
-  title: PropTypes.string.isRequired,
+  route: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
-  items: PropTypes.array.isRequired,
   colorInvert: PropTypes.bool,
 };
 
