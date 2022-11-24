@@ -5,13 +5,34 @@
 import { Box, Typography, Grid } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import { useTheme } from '@mui/material/styles';
-const FeaturedLinks = () => {
-  const data = [1, 2];
+const FeaturedLinks = ({ route }) => {
+  const data = [1, 2, 3, 4];
   const theme = useTheme();
+
+  // const callOutData = route.map((item) => {
+  //   return {
+  //     label: item.callout_1_label,
+  //     link: item.callout_1_link,
+  //     image: item.callout_image_1,
+  //   };
+  // });
+
+  const callOutData = new Array(4)
+    .fill('')
+    .map((item, index) => {
+      return {
+        label: route[`callout_${index + 1}_label`],
+        link: route[`callout_${index + 1}_link`],
+        image: route[`callout_image_${index + 1}`],
+      };
+    })
+    .filter((item) => item.label != undefined);
+
+  console.log(callOutData);
   return (
-    <Grid container spacing={2} sx={{ mt: 2 }}>
-      {data.map((item, idx) => (
-        <Grid key={idx} item sm={12} md={data.length > 2 ? 6 : 12}>
+    <Grid container spacing={2}>
+      {callOutData.map((item, idx) => (
+        <Grid key={idx} item sm={12} md={callOutData.length > 2 ? 6 : 12}>
           <Box
             sx={{
               mt: 4,
@@ -19,12 +40,12 @@ const FeaturedLinks = () => {
               textDecoration: 'none',
               '&:hover': {
                 color: theme.palette.zesty.zestyZambezi,
-                textDecoration: 'underline',
                 textUnderlinePosition: 'under',
               },
             }}
+            target="_blank"
             component="a"
-            href="#"
+            href={item?.link?.data?.meta?.web?.uri || FillerContent.href}
           >
             <Box
               sx={{
@@ -35,17 +56,17 @@ const FeaturedLinks = () => {
                 mb: 2,
               }}
               component="img"
-              src={FillerContent.photos[0].src}
+              src={item?.image?.data[0].url || FillerContent.photos[0].src}
             />
             <Typography
               variant="body1"
               component="span"
               sx={{
-                fontWeight: ' bold',
+                fontWeight: 500,
                 color: theme.palette.zesty.zestyZambezi,
               }}
             >
-              Case Study Title
+              {item.label}
             </Typography>
           </Box>
         </Grid>
