@@ -46,6 +46,7 @@ import Growth from 'blocks/zesty/Growth/Growth';
 import CaseStudies from 'components/marketing/Homepage/CaseStudies';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
+import { AccountPageloading } from 'components/accounts/ui/loading';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -61,13 +62,14 @@ import { Join } from 'components/accounts/join';
 import { PersonalizationSurvey } from 'components/accounts/join/PersonalizationSurvey';
 
 function Homepage({ content }) {
-  const { userInfo } = useZestyStore();
+  const { userInfo, loading } = useZestyStore();
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
   const isDarkMode = theme.palette.mode === 'dark';
+  console.log(userInfo, 4444);
 
   const pageData = {
     theme,
@@ -134,7 +136,10 @@ function Homepage({ content }) {
       }
     });
   }
-  if (userInfo) {
+
+  if (loading) {
+    return <AccountPageloading title={'Zesty.io'} />;
+  } else if (userInfo) {
     ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
   }
 
