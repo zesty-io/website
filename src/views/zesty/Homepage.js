@@ -56,10 +56,7 @@ import Dashboard from 'components/accounts/dashboard';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import AOS from 'aos';
 import { useEffect } from 'react';
-import dayjs from 'dayjs';
 import { useZestyStore } from 'store';
-import { Join } from 'components/accounts/join';
-import { PersonalizationSurvey } from 'components/accounts/join/PersonalizationSurvey';
 
 function Homepage({ content }) {
   const { userInfo, loading } = useZestyStore();
@@ -120,43 +117,12 @@ function Homepage({ content }) {
       content.footer_button_link_2?.data[0].meta.web.uri || FillerContent.href,
   };
 
-  // this is an array the key values that checks users
-  let prefChecks = ['persona'];
-  // let prefChecks = [''];
-  // accounts/join app
-  let missingPrefs = false;
-  let ssoLaunchVsUserCreated = null;
-  const ssoLaunchDate = dayjs('2022-11-18');
-  const userCreatedDate = dayjs(userInfo?.createdAt);
-  if (typeof userInfo?.prefs === 'string') {
-    const obj = JSON.parse(userInfo?.prefs);
-    prefChecks.forEach((element) => {
-      if (!obj.hasOwnProperty(element)) {
-        missingPrefs = true;
-      }
-    });
-  } else if (!userInfo?.prefs) {
-    missingPrefs = true;
-  }
-
-  if (userInfo) {
-    ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
-  }
-
-  console.log(missingPrefs, ssoLaunchVsUserCreated, 4444);
   if (loading) {
     return <AccountPageloading title={'Zesty.io'} />;
-  } // check if new user and doesnt have persona selected
-  else if (ssoLaunchVsUserCreated > 0 && missingPrefs) {
-    return <Join content={content} />;
-    // check if existing user without a persona
-  } else if (missingPrefs) {
-    // load onboard ask 1 question what your persona question
-    // personalizationSurvey component
-    return <PersonalizationSurvey content={content} />;
-    // otherwise default to dashboard
-  } else if (content?.zesty?.isAuthenticated) {
-    return <Dashboard />;
+  }
+
+  if (content?.zesty?.isAuthenticated) {
+    return <Dashboard content={content} />;
   }
 
   return (

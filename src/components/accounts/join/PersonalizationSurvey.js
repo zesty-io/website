@@ -56,11 +56,11 @@ const Index = ({ content }) => {
   }, []);
 
   const visitor = {
-    id: userInfo.zuid,
-    email: userInfo.email,
-    firstName: userInfo.firstname,
-    lastName: userInfo.lastname,
-    full_name: `${userInfo.firstname} ${userInfo.lastname}`,
+    id: userInfo?.zuid,
+    email: userInfo?.email,
+    firstName: userInfo?.firstname,
+    lastName: userInfo?.lastname,
+    full_name: `${userInfo?.firstname} ${userInfo?.lastname}`,
     personajoin: role,
     projecttype: project,
     staff: 0,
