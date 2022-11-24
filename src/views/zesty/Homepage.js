@@ -117,28 +117,36 @@ function Homepage({ content }) {
       content.footer_button_link_2?.data[0].meta.web.uri || FillerContent.href,
   };
 
+  // this is an array the key values that checks users
+  let prefChecks = ['persona'];
+  // let prefChecks = [''];
   // accounts/join app
-  let isNewUser = null;
-  let hasPersona = null;
+  let missingPrefs = false;
   let ssoLaunchVsUserCreated = null;
   const ssoLaunchDate = dayjs('2022-11-18');
   const userCreatedDate = dayjs(userInfo?.createdAt);
   if (typeof userInfo?.prefs === 'string') {
     const obj = JSON.parse(userInfo?.prefs);
-    hasPersona = obj.hasOwnProperty('persona') ? true : false;
+    prefChecks.forEach((element) => {
+      if (!obj.hasOwnProperty(element)) {
+        missingPrefs = true;
+      }
+    });
   }
   if (userInfo) {
     ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
   }
-  if (ssoLaunchVsUserCreated > 0 && !hasPersona) {
-    isNewUser = true;
-  }
 
-  if (isNewUser) {
+  // check if new user and doesnt have persona selected
+  if (ssoLaunchVsUserCreated > 0 && missingPrefs) {
     return <Join content={content} />;
-  }
-
-  if (content?.zesty?.isAuthenticated) {
+    // check if existing user without a persona
+  } else if (missingPrefs) {
+    // load onboard ask 1 question what your persona question
+    // personalizationSurvey component
+    return <Join content={content} />;
+    // otherwise default to dashboard
+  } else if (content?.zesty?.isAuthenticated) {
     return <Dashboard />;
   }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Grid, Stack, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
-import { SelectTemplate } from './SelectTemplate';
 
 import { SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
@@ -16,6 +15,7 @@ import { grey } from '@mui/material/colors';
 import { setCookie } from 'cookies-next';
 
 import { ResourcesCard } from './ResourceCard';
+import { pendoScript } from 'components/marketing/Start/pendoScript';
 
 const roleList = [
   { label: 'Marketer', value: 'marketer' },
@@ -82,6 +82,7 @@ const SwipeCompContainer = ({ children, pt = 14 }) => {
       alignItems="center"
       pt={pt}
       spacing={4}
+      height={200}
     >
       {children}
     </Stack>
@@ -121,8 +122,6 @@ const Index = ({ content }) => {
     setprojectName,
     emails,
     setemails,
-    template,
-    settemplate,
   } = useZestyStore();
   const sliderRef = React.useRef(null);
 
@@ -145,6 +144,19 @@ const Index = ({ content }) => {
     role !== 'developer'
       ? projectList.filter((e) => e.value !== 'headless project')
       : projectList;
+
+  const visitor = {
+    id: userInfo.zuid,
+    email: userInfo.email,
+    firstName: userInfo.firstname,
+    lastName: userInfo.lastname,
+    full_name: `${userInfo.firstname} ${userInfo.lastname}`,
+    personajoin: role,
+    projecttype: project,
+    staff: 0,
+    creationdate: new Date().toUTCString(),
+  };
+
   React.useEffect(() => {
     if (role) {
       const obj = zohoPostObject(
@@ -168,13 +180,14 @@ const Index = ({ content }) => {
         maxWidth: theme.breakpoints.values.xl2,
       })}
     >
+      {pendoScript}
       <Grid container>
-        <Grid item xs={6} px={10} py={10}>
+        <Grid item xs={12} md={8} px={10} py={10}>
           <Typography variant="p" color={'text.primary'}>
             Hey, <b>{userInfo?.firstName}</b>
           </Typography>
           <Typography variant="h6" color={'text.primary'}>
-            {`Let's get your instance customized`}
+            {`Let's customize your experiences.`}
           </Typography>
 
           <Swiper
@@ -185,7 +198,10 @@ const Index = ({ content }) => {
             scrollbar={{ draggable: false }}
             modules={[Pagination, Navigation]}
             allowTouchMove={!zestyProductionMode}
+            style={{ height: '50vh' }}
+            direction={'vertical'}
           >
+            {/* 1st question */}
             <SwiperSlide>
               <SwipeCompContainer>
                 <Typography variant="h3" color="text.secondary">
@@ -199,6 +215,9 @@ const Index = ({ content }) => {
                         variant="contained"
                         onClick={async () => {
                           await updateUser(e.value);
+                          await window.pendo.initialize({
+                            visitor,
+                          });
                           setrole(e.value);
                           handleNext();
                         }}
@@ -210,6 +229,8 @@ const Index = ({ content }) => {
                 </Stack>
               </SwipeCompContainer>
             </SwiperSlide>
+
+            {/* 2nd Question */}
             <SwiperSlide>
               <SwipeCompContainer>
                 <Typography variant="h3" color="text.secondary">
@@ -221,7 +242,10 @@ const Index = ({ content }) => {
                       <LoadingButton
                         color="primary"
                         variant="contained"
-                        onClick={() => {
+                        onClick={async () => {
+                          if (zestyProductionMode) {
+                            await postToZOHO(zohoLeadObject);
+                          }
                           setproject(e.value);
                           handleNext();
                         }}
@@ -233,6 +257,8 @@ const Index = ({ content }) => {
                 </Stack>
               </SwipeCompContainer>
             </SwiperSlide>
+
+            {/* 3rd Question */}
             <SwiperSlide>
               <SwipeCompContainer>
                 <Typography variant="h3" color="text.secondary">
@@ -256,6 +282,8 @@ const Index = ({ content }) => {
                 </LoadingButton>
               </SwipeCompContainer>
             </SwiperSlide>
+
+            {/* 4th Question */}
             <SwiperSlide>
               <SwipeCompContainer>
                 <Typography variant="h3" color="text.secondary">
@@ -294,28 +322,18 @@ const Index = ({ content }) => {
               </SwipeCompContainer>
             </SwiperSlide>
 
-            <SwiperSlide>
-              <SelectTemplate
-                project={project}
-                handleSelectTemplate={async (e) => {
-                  zestyProductionMode && (await postToZOHO(zohoLeadObject));
-                  settemplate(e);
-                  handleNext();
-                }}
-                production={zestyProductionMode}
-              />
-            </SwiperSlide>
-
+            {/* 5th Question */}
             <SwiperSlide>
               <SwipeCompContainer>
-                <Onboarding template={template} />
+                <Onboarding />
               </SwipeCompContainer>
             </SwiperSlide>
           </Swiper>
         </Grid>
         <Grid
           item
-          xs={6}
+          xs={0}
+          md={4}
           bgcolor={(theme) =>
             theme.palette.mode === 'light'
               ? theme.palette.zesty.zestyDarkerBlue
