@@ -23,6 +23,7 @@ export const ResourcesCard = () => {
   return (
     <Box
       sx={{
+        display: { xs: 'none', md: 'block' },
         width: 400,
         backgroundColor: 'common.white',
         border: (theme) => `1px solid ${theme.palette.border}`,

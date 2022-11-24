@@ -204,7 +204,7 @@ const Index = ({ content }) => {
             {/* 1st question */}
             <SwiperSlide>
               <SwipeCompContainer>
-                <Typography variant="h3" color="text.secondary">
+                <Typography variant="h4" color="text.secondary">
                   What is your role?
                 </Typography>
                 <Stack direction={'row'} spacing={4}>
@@ -233,7 +233,7 @@ const Index = ({ content }) => {
             {/* 2nd Question */}
             <SwiperSlide>
               <SwipeCompContainer>
-                <Typography variant="h3" color="text.secondary">
+                <Typography variant="h4" color="text.secondary">
                   What are you creating today?
                 </Typography>
                 <Stack direction={'row'} spacing={4}>
@@ -261,7 +261,7 @@ const Index = ({ content }) => {
             {/* 3rd Question */}
             <SwiperSlide>
               <SwipeCompContainer>
-                <Typography variant="h3" color="text.secondary">
+                <Typography variant="h4" color="text.secondary">
                   Project Name?
                 </Typography>
                 <TextField
@@ -286,7 +286,7 @@ const Index = ({ content }) => {
             {/* 4th Question */}
             <SwiperSlide>
               <SwipeCompContainer>
-                <Typography variant="h3" color="text.secondary">
+                <Typography variant="h4" color="text.secondary">
                   Who else will be working on <b>{projectName}</b>?
                 </Typography>
                 <TextBox collections={emails} setcollections={setemails} />
@@ -334,15 +334,21 @@ const Index = ({ content }) => {
           item
           xs={0}
           md={4}
+          display={{ sm: 'none', md: 'flex' }}
+          width={1}
+          justifyContent={'center'}
+          justifyItems="center"
+          alignContent="center"
+          alignItems={'center'}
           bgcolor={(theme) =>
             theme.palette.mode === 'light'
               ? theme.palette.zesty.zestyDarkerBlue
               : theme.palette.secondary.main
           }
         >
-          <SwipeCompContainer pt={22}>
+          <Stack>
             <ResourcesCard />
-          </SwipeCompContainer>
+          </Stack>
         </Grid>
       </Grid>
     </Container>

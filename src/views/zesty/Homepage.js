@@ -118,8 +118,8 @@ function Homepage({ content }) {
   };
 
   // this is an array the key values that checks users
-  let prefChecks = ['persona'];
-  // let prefChecks = [''];
+  // let prefChecks = ['persona'];
+  let prefChecks = [''];
   // accounts/join app
   let missingPrefs = false;
   let ssoLaunchVsUserCreated = null;
