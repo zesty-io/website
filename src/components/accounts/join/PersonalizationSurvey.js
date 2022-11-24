@@ -41,10 +41,10 @@ const Index = ({ content }) => {
   const sliderRef = React.useRef(null);
 
   const updateUser = async (role) => {
-    const userZUID = userInfo.ZUID;
+    const userZUID = userInfo?.ZUID;
     const body = {
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
+      firstName: userInfo?.firstName,
+      lastName: userInfo?.lastName,
       prefs: JSON.stringify({ persona: role }),
     };
     await ZestyAPI.updateUser(userZUID, body);
