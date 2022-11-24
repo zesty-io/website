@@ -20,6 +20,7 @@ const Topbar = ({
   trigger,
   userInfo = {},
   loading = false,
+  flyoutNavigation: data,
 }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -48,14 +49,23 @@ const Topbar = ({
     }
   }, [userInfo]);
 
+  // Sort the navigation data array to match with the sorting on the cms
+  const flyoutNavigation = data.sort((item1, item2) =>
+    item1.sort_order > item2.sort_order
+      ? 1
+      : item1.sort_order < item2.sort_order
+      ? -1
+      : 0,
+  );
+
   /**
    * Navigation Handler
    */
   const [activeNav, setActiveNav] = useState(
-    customRouting
-      .filter((route) => route.children.length > 0)
+    flyoutNavigation
+      .filter((route) => route.link === null)
       .map((url) => {
-        return { id: url.zuid, isActive: false };
+        return { id: url.meta.zuid, isActive: false };
       }),
   );
 
@@ -69,6 +79,8 @@ const Topbar = ({
       }),
     );
   };
+
+  console.log(flyoutNavigation);
 
   return (
     <Box
@@ -110,28 +122,27 @@ const Topbar = ({
           },
         }}
       >
-        {customRouting.map((route) => (
-          <Box key={route.zuid}>
-            {route.parentZUID == null && route.children.length > 0 && (
+        {flyoutNavigation.map((route) => (
+          <Box key={route.meta.zuid}>
+            {route.link === null && (
               <Box marginLeft={3}>
                 <NavItem
                   activeNav={
                     activeNav.filter((item) => item.isActive === true)[0]
                   }
                   navHandler={navHandler}
-                  title={route.title}
-                  id={route.zuid}
-                  items={route.children}
+                  route={route}
+                  id={route.meta.zuid}
                   colorInvert={colorInvert}
                 />
               </Box>
             )}
-            {route.parentZUID == null && route.children.length == 0 && (
+            {route.link != null && (
               <Box marginLeft={3}>
                 <SingleNavItem
-                  title={route.title}
-                  id={route.zuid}
-                  url={route.url}
+                  title={route.nav_title}
+                  id={route.meta.zuid}
+                  url={route.link}
                   colorInvert={colorInvert}
                 />
               </Box>

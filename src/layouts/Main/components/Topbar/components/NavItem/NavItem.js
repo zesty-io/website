@@ -20,10 +20,9 @@ import Grow from '@mui/material/Grow';
  *  Components Imports
  */
 import LeftGridLinks from './LeftGridLinks';
-// import RightGridLinks from './RightGridLinks';
-import FeaturedLinks from './FeaturedLinks';
+import RightGridLinks from './RightGridLinks';
 
-const NavItem = ({ navHandler, activeNav, title, id }) => {
+const NavItem = ({ navHandler, activeNav, id, route }) => {
   const theme = useTheme();
   // const isLg = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -45,7 +44,7 @@ const NavItem = ({ navHandler, activeNav, title, id }) => {
                 : 'text.primary',
           }}
         >
-          {title}
+          {route?.nav_title || ''}
         </Typography>
         <ExpandMoreIcon
           sx={{
@@ -86,18 +85,8 @@ const NavItem = ({ navHandler, activeNav, title, id }) => {
               sm={12}
               md={7}
             >
-              <Typography
-                variant="caption"
-                component="p"
-                sx={{
-                  color: theme.palette.zesty.zestyLightGrey,
-                  fontWeight: 'bold',
-                }}
-              >
-                Product Overview
-              </Typography>
               {/* InnerGrid */}
-              <LeftGridLinks />
+              <LeftGridLinks route={route} />
             </Grid>
             <Grid
               sx={{
@@ -108,18 +97,8 @@ const NavItem = ({ navHandler, activeNav, title, id }) => {
               sm={12}
               md={5}
             >
-              <Typography
-                variant="caption"
-                component="p"
-                sx={{
-                  color: theme.palette.zesty.zestyLightGrey,
-                  fontWeight: 'bold',
-                }}
-              >
-                Features
-              </Typography>
-              {/* <RightGridLinks /> */}
-              <FeaturedLinks />
+              <RightGridLinks route={route} />
+              {/* <FeaturedLinks /> */}
             </Grid>
           </Grid>
         </Card>
@@ -129,9 +108,8 @@ const NavItem = ({ navHandler, activeNav, title, id }) => {
 };
 
 NavItem.propTypes = {
-  title: PropTypes.string.isRequired,
+  route: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
-  items: PropTypes.array.isRequired,
   colorInvert: PropTypes.bool,
 };
 

@@ -89,8 +89,6 @@ const MarketingMain = ({
     }
   }, [userInfo]);
 
-  console.log(flyoutNavigation);
-
   return (
     <>
       {isLoggedIn === false && !isLoginPage && <SiteBanner />}
@@ -137,6 +135,7 @@ const MarketingMain = ({
             <Topbar
               hideNav={hideNav}
               onSidebarOpen={handleSidebarOpen}
+              flyoutNavigation={flyoutNavigation}
               customRouting={hasRouting ? customRouting : []}
               colorInvert={headerColorInvert && !trigger}
               trigger={trigger}

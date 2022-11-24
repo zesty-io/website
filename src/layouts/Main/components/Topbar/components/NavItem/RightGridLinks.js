@@ -2,21 +2,35 @@
  * MUI Imports
  */
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { useMediaQuery } from '@mui/material';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
-const RightGridLinks = () => {
+const RightGridLinks = ({ route }) => {
+  console.log(route);
   const theme = useTheme();
 
   const isLg = useMediaQuery(theme.breakpoints.down('lg'));
 
+  // Sort the sub-navigation data array to match with the sorting on the cms
+  const sortData = (data) => {
+    if (!data) return [];
+    data.sort((item1, item2) =>
+      item1?.sort_order > item2?.sort_order
+        ? 1
+        : item1?.sort_order < item2?.sort_order
+        ? -1
+        : 0,
+    );
+
+    return data;
+  };
+
   return (
     <>
       <Box sx={{ mt: 2 }}>
-        <Box
+        {/* <Box
           href="#"
           variant="h6"
           component="a"
@@ -37,9 +51,20 @@ const RightGridLinks = () => {
         >
           DXP
           <ArrowRightAltIcon />
-        </Box>
+        </Box> */}
       </Box>
-
+      <Typography
+        variant="caption"
+        component="p"
+        sx={{
+          color: theme.palette.zesty.zestyLightGrey,
+          fontWeight: 'bold',
+          mb: 2,
+          height: 20,
+        }}
+      >
+        {route?.column_three_title || ''}
+      </Typography>
       <Box
         sx={{
           mt: 4,
@@ -48,13 +73,13 @@ const RightGridLinks = () => {
           gap: 4,
         }}
       >
-        {[1, 2, 3].map(() => (
+        {sortData(route?.column_3_items_if_needed?.data).map((item) => (
           <Box
             variant="body1"
-            href="#"
+            href={item.external_link_if_needed}
             sx={{
               fontSize: isLg ? 14 : 'inherit',
-              fontWeight: 900,
+              fontWeight: 500,
               textDecoration: 'none',
               color: theme.palette.zesty.zestyZambezi,
               gap: 0.5,
@@ -68,71 +93,12 @@ const RightGridLinks = () => {
             }}
             component="a"
           >
-            <TrendingUpIcon
-              sx={{ background: '#C7F9FF', borderRadius: 1, p: 0.3 }}
+            <ZestyImage
+              width={22}
+              height={22}
+              src={item?.icon_image?.data[0].url}
             />
-            DXP Benefits
-          </Box>
-        ))}
-      </Box>
-
-      <Box sx={{ mt: 4 }}>
-        <Box
-          href="#"
-          variant="h6"
-          component="a"
-          sx={{
-            fontWeight: 900,
-            fontSize: isLg ? 14 : 'inherit',
-            pb: 0.5,
-            display: 'flex',
-            alignItems: 'center',
-            textDecoration: 'none',
-            color: theme.palette.zesty.zestyZambezi,
-            '&:hover': {
-              color: theme.palette.zesty.zestyOrange,
-              textDecoration: 'underline',
-              textUnderlinePosition: 'under',
-            },
-          }}
-        >
-          Headless CMS
-          <ArrowRightAltIcon />
-        </Box>
-      </Box>
-
-      <Box
-        sx={{
-          mt: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 4,
-        }}
-      >
-        {[1, 2, 3].map(() => (
-          <Box
-            variant="body1"
-            href="#"
-            sx={{
-              fontSize: isLg ? 14 : 'inherit',
-              fontWeight: 900,
-              textDecoration: 'none',
-              color: theme.palette.zesty.zestyZambezi,
-              gap: 0.5,
-              display: 'flex',
-              alignItems: 'center',
-              '&:hover': {
-                color: theme.palette.zesty.zestyOrange,
-                textDecoration: 'underline',
-                textUnderlinePosition: 'under',
-              },
-            }}
-            component="a"
-          >
-            <TrendingUpIcon
-              sx={{ background: '#C7F9FF', borderRadius: 1, p: 0.3 }}
-            />
-            DXP Benefits
+            {item.nav_item_name || ''}
           </Box>
         ))}
       </Box>

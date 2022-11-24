@@ -170,11 +170,12 @@ async function buildJSONTreeFromNavigation(zestyURL) {
 }
 
 async function newNavigationWithFlyout(zestyURL) {
-  const flyoutNavigationJSON = zestyURL + '/-/instant/6-faf387aeac-f9btpx.json';
+  const flyoutNavigationJSON = zestyURL + '//-/flyoutnavigation.json';
 
   try {
     const resp = await fetch(flyoutNavigationJSON);
-    let flyoutNavigationData = await resp.json();
+    const flyoutNavigationData = await resp.json();
+
     return flyoutNavigationData;
   } catch (error) {
     console.log(error);

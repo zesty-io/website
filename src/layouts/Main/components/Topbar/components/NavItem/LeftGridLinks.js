@@ -2,45 +2,45 @@
  * MUI Imports
  */
 
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { useMediaQuery } from '@mui/material';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
-const LeftGridLinks = () => {
+const LeftGridLinks = ({ route }) => {
   const theme = useTheme();
 
   const isLg = useMediaQuery(theme.breakpoints.down('lg'));
+
+  // Sort the sub-navigation data array to match with the sorting on the cms
+  const sortData = (data) => {
+    data.sort((item1, item2) =>
+      item1.sort_order > item2.sort_order
+        ? 1
+        : item1.sort_order < item2.sort_order
+        ? -1
+        : 0,
+    );
+
+    return data;
+  };
 
   return (
     <Grid sx={{ mt: 2 }} container>
       <Grid item sm={12} md={6}>
         {/* Header */}
-        <Box>
-          <Box
-            href="#"
-            variant="h6"
-            component="a"
-            sx={{
-              fontWeight: 900,
-              fontSize: isLg ? 14 : 'inherit',
-              pb: 0.5,
-              display: 'flex',
-              alignItems: 'center',
-              textDecoration: 'none',
-              color: theme.palette.zesty.zestyZambezi,
-              '&:hover': {
-                color: theme.palette.zesty.zestyOrange,
-                textDecoration: 'underline',
-                textUnderlinePosition: 'under',
-              },
-            }}
-          >
-            Digital Experience Platform
-            <ArrowRightAltIcon />
-          </Box>
-        </Box>
+        <Typography
+          variant="caption"
+          component="p"
+          sx={{
+            color: theme.palette.zesty.zestyLightGrey,
+            fontWeight: 'bold',
+            mb: 2,
+            height: 20,
+          }}
+        >
+          {route?.column_one_title || ''}
+        </Typography>
 
         <Box
           sx={{
@@ -50,14 +50,14 @@ const LeftGridLinks = () => {
             gap: 4,
           }}
         >
-          {[1, 2, 3, 4, 5, 6].map((item, idx) => (
+          {sortData(route?.column_1_items.data).map((item) => (
             <Box
-              key={idx}
+              key={item.meta.zuid}
               variant="body1"
-              href="#"
+              href={item.external_link_if_needed}
               sx={{
                 fontSize: isLg ? 14 : 'inherit',
-                fontWeight: 900,
+                fontWeight: 500,
                 textDecoration: 'none',
                 color: theme.palette.zesty.zestyZambezi,
                 gap: 0.5,
@@ -71,15 +71,17 @@ const LeftGridLinks = () => {
               }}
               component="a"
             >
-              <TrendingUpIcon
-                sx={{ background: '#C7F9FF', borderRadius: 1, p: 0.3 }}
+              <ZestyImage
+                width={22}
+                height={22}
+                src={item?.icon_image?.data[0].url}
               />
-              DXP Benefits
+              {item.nav_item_name || ''}
             </Box>
           ))}
         </Box>
 
-        <Box
+        {/* <Box
           variant="overline"
           href="#"
           sx={{
@@ -102,34 +104,23 @@ const LeftGridLinks = () => {
         >
           Compare what solution is right for you
           <ArrowRightAltIcon />
-        </Box>
+        </Box> */}
       </Grid>
       <Grid item sm={12} md={6}>
         {/* Header */}
-        <Box>
-          <Box
-            href="#"
-            variant="h6"
-            component="a"
-            sx={{
-              fontSize: isLg ? 14 : 'inherit',
-              fontWeight: 900,
-              pb: 0.5,
-              display: 'flex',
-              alignItems: 'center',
-              textDecoration: 'none',
-              color: theme.palette.zesty.zestyZambezi,
-              '&:hover': {
-                color: theme.palette.zesty.zestyOrange,
-                textDecoration: 'underline',
-                textUnderlinePosition: 'under',
-              },
-            }}
-          >
-            Headless CMS
-            <ArrowRightAltIcon />
-          </Box>
-        </Box>
+
+        <Typography
+          variant="caption"
+          component="p"
+          sx={{
+            color: theme.palette.zesty.zestyLightGrey,
+            fontWeight: 'bold',
+            mb: 2,
+            height: 20,
+          }}
+        >
+          {route?.column_two_title || ''}
+        </Typography>
 
         <Box
           sx={{
@@ -139,14 +130,14 @@ const LeftGridLinks = () => {
             gap: 4,
           }}
         >
-          {[1, 2, 3, 4].map((index, idx) => (
+          {sortData(route?.column_2_items.data).map((item) => (
             <Box
-              key={idx}
+              key={item.meta.zuid}
               variant="body1"
-              href="#"
+              href={item.external_link_if_needed}
               sx={{
                 fontSize: isLg ? 14 : 'inherit',
-                fontWeight: 900,
+                fontWeight: 500,
                 textDecoration: 'none',
                 color: theme.palette.zesty.zestyZambezi,
                 gap: 0.5,
@@ -160,38 +151,14 @@ const LeftGridLinks = () => {
               }}
               component="a"
             >
-              <TrendingUpIcon
-                sx={{ background: '#FFE6D9', borderRadius: 1, p: 0.3 }}
+              <ZestyImage
+                width={22}
+                height={22}
+                src={item?.icon_image?.data[0].url}
               />
-              DXP Benefits
+              {item.nav_item_name || ''}
             </Box>
           ))}
-        </Box>
-
-        <Box>
-          <Box
-            href="#"
-            variant="h6"
-            component="a"
-            sx={{
-              mt: 4,
-              fontWeight: 900,
-              pb: 0.5,
-              display: 'flex',
-              alignItems: 'center',
-              textDecoration: 'none',
-              fontSize: isLg ? 14 : 'inherit',
-              color: theme.palette.zesty.zestyZambezi,
-              '&:hover': {
-                color: theme.palette.zesty.zestyOrange,
-                textDecoration: 'underline',
-                textUnderlinePosition: 'under',
-              },
-            }}
-          >
-            Hybrid CMS
-            <ArrowRightAltIcon />
-          </Box>
         </Box>
       </Grid>
     </Grid>
