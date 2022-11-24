@@ -58,6 +58,7 @@ import { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useZestyStore } from 'store';
 import { Join } from 'components/accounts/join';
+import { PersonalizationSurvey } from 'components/accounts/join/PersonalizationSurvey';
 
 function Homepage({ content }) {
   const { userInfo } = useZestyStore();
@@ -144,7 +145,7 @@ function Homepage({ content }) {
   } else if (missingPrefs) {
     // load onboard ask 1 question what your persona question
     // personalizationSurvey component
-    return <Join content={content} />;
+    return <PersonalizationSurvey content={content} />;
     // otherwise default to dashboard
   } else if (content?.zesty?.isAuthenticated) {
     return <Dashboard />;
