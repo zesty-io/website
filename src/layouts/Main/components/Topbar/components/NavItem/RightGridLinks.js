@@ -68,6 +68,7 @@ const RightGridLinks = ({ route }) => {
                   color: theme.palette.zesty.zestyOrange,
                   textDecoration: 'underline',
                   textUnderlinePosition: 'under',
+                  fontWeight: 'bold',
                 },
               }}
               component="a"

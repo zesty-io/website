@@ -67,6 +67,7 @@ const LeftGridLinks = ({ route }) => {
                   color: theme.palette.zesty.zestyOrange,
                   textDecoration: 'underline',
                   textUnderlinePosition: 'under',
+                  fontWeight: 'bold',
                 },
               }}
               component="a"
@@ -147,6 +148,7 @@ const LeftGridLinks = ({ route }) => {
                   color: theme.palette.zesty.zestyOrange,
                   textDecoration: 'underline',
                   textUnderlinePosition: 'under',
+                  fontWeight: 'bold',
                 },
               }}
               component="a"
