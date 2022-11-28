@@ -20,7 +20,7 @@ const Topbar = ({
   trigger,
   userInfo = {},
   loading = false,
-  flyoutNavigation: data,
+  flyoutNavigation: data = [],
 }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
