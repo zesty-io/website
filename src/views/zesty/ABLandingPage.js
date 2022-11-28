@@ -50,7 +50,6 @@ import { WithCompanyLogo } from 'blocks/testimonials';
 import { useRouter } from 'next/router';
 
 function ABLandingPage({ content }) {
-  console.log(content);
   const theme = useTheme();
   const router = useRouter();
   const [heroContent, setHeroContent] = useState({

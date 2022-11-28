@@ -6,16 +6,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import { useTheme } from '@mui/material/styles';
 const FeaturedLinks = ({ route }) => {
-  const data = [1, 2, 3, 4];
   const theme = useTheme();
-
-  // const callOutData = route.map((item) => {
-  //   return {
-  //     label: item.callout_1_label,
-  //     link: item.callout_1_link,
-  //     image: item.callout_image_1,
-  //   };
-  // });
 
   const callOutData = new Array(4)
     .fill('')
@@ -28,7 +19,6 @@ const FeaturedLinks = ({ route }) => {
     })
     .filter((item) => item.label != undefined);
 
-  console.log(callOutData);
   return (
     <Grid container spacing={2}>
       {callOutData.map((item, idx) => (

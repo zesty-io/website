@@ -51,8 +51,9 @@ const RightGridLinks = ({ route }) => {
             gap: 4,
           }}
         >
-          {sortData(route?.column_3_items_if_needed?.data).map((item) => (
+          {sortData(route?.column_3_items_if_needed?.data).map((item, idx) => (
             <Box
+              key={idx}
               variant="body1"
               href={item.external_link_if_needed}
               sx={{
