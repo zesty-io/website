@@ -107,7 +107,8 @@ const Dashboard = ({ content = {} }) => {
         missingPrefs = true;
       }
     });
-  } else if (!userInfo?.prefs) {
+  }
+  if (!userInfo?.prefs) {
     missingPrefs = true;
   }
 

@@ -262,6 +262,34 @@ const Index = ({ content }) => {
             <SwiperSlide>
               <SwipeCompContainer>
                 <Typography variant="h4" color="text.secondary">
+                  What type of project is this?
+                </Typography>
+                <Stack direction={'row'} spacing={4}>
+                  <LoadingButton
+                    color="primary"
+                    variant="contained"
+                    onClick={async () => {
+                      handleNext();
+                    }}
+                  >
+                    Personal
+                  </LoadingButton>
+                  <LoadingButton
+                    color="primary"
+                    variant="contained"
+                    onClick={async () => {
+                      handleNext();
+                    }}
+                  >
+                    Business
+                  </LoadingButton>
+                </Stack>
+              </SwipeCompContainer>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <SwipeCompContainer>
+                <Typography variant="h4" color="text.secondary">
                   Project Name?
                 </Typography>
                 <TextField
