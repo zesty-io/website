@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { Skeleton } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
+import ClickAwayListener from '@mui/base/ClickAwayListener';
 
 const Topbar = ({
   hideNav,
@@ -80,121 +81,125 @@ const Topbar = ({
     );
   };
 
-  console.log(flyoutNavigation);
-
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: 1,
-      }}
-    >
+    <ClickAwayListener onClickAway={navHandler}>
       <Box
         sx={{
+          position: 'relative',
           display: 'flex',
-          pt: isDxpTemplatePage ? 4 : 0,
-        }}
-        component="a"
-        href="/"
-        title="Zesty.io Platform"
-        width={{ xs: 100, md: 150 }}
-      >
-        <img
-          alt="zesty.io"
-          src={
-            changeLogoColor()
-              ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
-              : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
-          }
-          height={42}
-          width={150}
-        />
-      </Box>
-      <Box
-        sx={{
-          display: {
-            xs: 'none',
-            md: hideNav ? 'none' : 'flex',
-            alignItems: 'center',
-          },
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: 1,
         }}
       >
-        {flyoutNavigation.map((route) => (
-          <Box key={route.meta.zuid}>
-            {route.link === null && (
-              <Box marginLeft={3}>
-                <NavItem
-                  activeNav={
-                    activeNav.filter((item) => item.isActive === true)[0]
-                  }
-                  navHandler={navHandler}
-                  route={route}
-                  id={route.meta.zuid}
-                  colorInvert={colorInvert}
-                />
-              </Box>
-            )}
-            {route.link != null && (
-              <Box marginLeft={3}>
-                <SingleNavItem
-                  title={route.nav_title}
-                  id={route.meta.zuid}
-                  url={route.link}
-                  colorInvert={colorInvert}
-                />
-              </Box>
-            )}
-          </Box>
-        ))}
-        {loading && <Skeleton variant="rectangular" width={180} height={30} />}
-        {!loading && (
-          <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
-            <Box display={'flex'}>
-              <Box marginLeft={4}>
-                <TryFreeButton variant="contained" component="a" />
-              </Box>
-              <Box marginLeft={2}>
-                <Button
-                  size={'medium'}
-                  variant="text"
-                  color="primary"
-                  sx={{ fontWeight: 'bold' }}
-                  endIcon={<LoginIcon />}
-                  fullWidth
-                  component="a"
-                  href="/login/"
-                >
-                  Login
-                </Button>
+        <Box
+          sx={{
+            display: 'flex',
+            pt: isDxpTemplatePage ? 4 : 0,
+          }}
+          component="a"
+          href="/"
+          title="Zesty.io Platform"
+          width={{ xs: 100, md: 150 }}
+        >
+          <img
+            alt="zesty.io"
+            src={
+              changeLogoColor()
+                ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+            }
+            height={42}
+            width={150}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            display: {
+              xs: 'none',
+              md: hideNav ? 'none' : 'flex',
+              alignItems: 'center',
+            },
+          }}
+        >
+          {flyoutNavigation.map((route) => (
+            <Box key={route.meta.zuid}>
+              {route.link === null && (
+                <Box marginLeft={3}>
+                  <NavItem
+                    activeNav={
+                      activeNav.filter((item) => item.isActive === true)[0]
+                    }
+                    navHandler={navHandler}
+                    route={route}
+                    id={route.meta.zuid}
+                    colorInvert={colorInvert}
+                  />
+                </Box>
+              )}
+              {route.link != null && (
+                <Box marginLeft={3}>
+                  <SingleNavItem
+                    title={route.nav_title}
+                    id={route.meta.zuid}
+                    url={route.link}
+                    colorInvert={colorInvert}
+                  />
+                </Box>
+              )}
+            </Box>
+          ))}
+          {loading && (
+            <Skeleton variant="rectangular" width={180} height={30} />
+          )}
+          {!loading && (
+            <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
+              <Box display={'flex'}>
+                <Box marginLeft={4}>
+                  <TryFreeButton variant="contained" component="a" />
+                </Box>
+                <Box marginLeft={2}>
+                  <Button
+                    size={'medium'}
+                    variant="text"
+                    color="primary"
+                    sx={{ fontWeight: 'bold' }}
+                    endIcon={<LoginIcon />}
+                    fullWidth
+                    component="a"
+                    href="/login/"
+                  >
+                    Login
+                  </Button>
+                </Box>
               </Box>
             </Box>
+          )}
+        </Box>
+
+        {!hideNav && (
+          <Box
+            sx={{ display: { xs: 'block', md: 'none' } }}
+            alignItems={'center'}
+          >
+            <Button
+              onClick={() => onSidebarOpen()}
+              aria-label="Menu"
+              variant={'outlined'}
+              sx={{
+                borderRadius: 2,
+                minWidth: 'auto',
+                padding: 1,
+                borderColor: alpha(theme.palette.divider, 0.2),
+              }}
+            >
+              <MenuIcon />
+            </Button>
           </Box>
         )}
       </Box>
-      {!hideNav && (
-        <Box
-          sx={{ display: { xs: 'block', md: 'none' } }}
-          alignItems={'center'}
-        >
-          <Button
-            onClick={() => onSidebarOpen()}
-            aria-label="Menu"
-            variant={'outlined'}
-            sx={{
-              borderRadius: 2,
-              minWidth: 'auto',
-              padding: 1,
-              borderColor: alpha(theme.palette.divider, 0.2),
-            }}
-          >
-            <MenuIcon />
-          </Button>
-        </Box>
-      )}
-    </Box>
+    </ClickAwayListener>
   );
 };
 
