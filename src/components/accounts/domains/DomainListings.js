@@ -67,14 +67,16 @@ export default function DomainListings({
         <AccountsTableHead>Stage Preview Domains</AccountsTableHead>
       ),
       renderCell: (params) => {
+        const url = `${siteProtocol}://${preferredWWW}${params.row.domain}/`;
         return (
           <Link
+            title={url}
             variant="body2"
             target={'_blank'}
             rel="noreferrer"
-            href={`${siteProtocol}://${preferredWWW}${params.row.domain}/`}
+            href={url}
           >
-            {params.row.domain}
+            {url}
           </Link>
         );
       },
@@ -151,14 +153,16 @@ export default function DomainListings({
         <AccountsTableHead>Production Live Domains</AccountsTableHead>
       ),
       renderCell: (params) => {
+        const url = `${siteProtocol}://${preferredWWW}${params.row.domain}/`;
         return (
           <Link
+            title={url}
             variant="body2"
             target={'_blank'}
             rel="noreferrer"
-            href={`${siteProtocol}://${preferredWWW}${params.row.domain}/`}
+            href={url}
           >
-            {params.row.domain}
+            {url}
           </Link>
         );
       },
