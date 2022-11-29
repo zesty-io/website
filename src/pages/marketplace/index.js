@@ -29,7 +29,10 @@ const MainWrapper = ({ nav, children }) => {
   return isLoggedIn ? (
     <Main customRouting={nav.customRouting}>{children}</Main>
   ) : (
-    <MarketingMain flyoutNavigation={nav.flyoutNavigation}>
+    <MarketingMain
+      customRouting={nav.navigationCustom}
+      flyoutNavigation={nav.flyoutNavigation}
+    >
       {children}
     </MarketingMain>
   );
@@ -42,8 +45,6 @@ const Marketplace = ({ marketEntities, marketEntityTypes, nav, ...props }) => {
   useEffect(() => {
     setCookie('PRODUCTION', props.zestyProductionMode);
   }, [props]);
-
-  console.log(nav);
 
   return (
     <>
