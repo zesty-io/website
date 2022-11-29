@@ -11,6 +11,7 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 const LinkWithIcons = ({ item }) => {
   const theme = useTheme();
   const isLg = useMediaQuery(theme.breakpoints.down('lg'));
+  const isDarkMode = theme.palette.mode === 'dark';
 
   return (
     <>
@@ -22,7 +23,9 @@ const LinkWithIcons = ({ item }) => {
             fontSize: isLg ? 14 : 'inherit',
             fontWeight: 500,
             textDecoration: 'none',
-            color: theme.palette.zesty.zestyZambezi,
+            color: isDarkMode
+              ? theme.palette.common.white
+              : theme.palette.zesty.zestyZambezi,
             gap: 0.5,
             display: 'flex',
             alignItems: 'center',

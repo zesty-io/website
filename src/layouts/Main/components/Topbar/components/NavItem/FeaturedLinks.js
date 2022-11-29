@@ -8,7 +8,7 @@ import { useTheme } from '@mui/material/styles';
 import ZestyImage from 'blocks/Image/ZestyImage';
 const FeaturedLinks = ({ route }) => {
   const theme = useTheme();
-
+  const isDarkMode = theme.palette.mode === 'dark';
   /* creating an array of 4 items, then mapping over each item and returning an object with the
 label, link, and image. */
   const callOutData = new Array(4)
@@ -60,7 +60,9 @@ label, link, and image. */
               component="span"
               sx={{
                 fontWeight: 700,
-                color: theme.palette.zesty.zestyZambezi,
+                color: isDarkMode
+                  ? theme.palette.common.white
+                  : theme.palette.zesty.zestyZambezi,
               }}
             >
               {item?.label || ''}
