@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Grid, Stack, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
-
+import Script from 'next/script';
 import { SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
 import 'swiper/css';
@@ -13,7 +13,6 @@ import { Onboarding } from './Onboarding';
 import { zohoPostObject } from 'components/marketing/Start/zohoPostObject';
 import { grey } from '@mui/material/colors';
 import { setCookie } from 'cookies-next';
-
 import { ResourcesCard } from './ResourceCard';
 import { pendoScript } from 'components/marketing/Start/pendoScript';
 
@@ -158,6 +157,20 @@ const Index = ({ content }) => {
     creationdate: new Date().toUTCString(),
   };
 
+  const gtag_report_conversion = (url) => {
+    const callback = () => {
+      if (typeof url != undefined) {
+        window.location = url;
+      }
+    };
+
+    window.gtag('event', 'conversion', {
+      send_to: 'AW-955374362/-JA1CJv2g4MYEJq2x8cD',
+      event_callback: callback,
+    });
+    return false;
+  };
+
   React.useEffect(() => {
     if (role) {
       const obj = zohoPostObject(
@@ -173,6 +186,10 @@ const Index = ({ content }) => {
     }
   }, [role, userInfo]);
 
+  React.useEffect(() => {
+    gtag_report_conversion();
+  }, []);
+
   return (
     <Container
       maxWidth={false}
@@ -181,6 +198,21 @@ const Index = ({ content }) => {
         maxWidth: theme.breakpoints.values.xl2,
       })}
     >
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'AW-955374362');
+
+        `}
+      </Script>
+
       {pendoScript}
       <Grid container>
         <Grid item xs={12} md={8} px={10} py={10}>
@@ -297,30 +329,32 @@ const Index = ({ content }) => {
                   </Typography>
                   <Stack direction={'row'} spacing={4}>
                     <form action="submit">
-                      <TextField
-                        placeholder=""
-                        // value={projectName}
-                        // onChange={(e) => setprojectName(e.currentTarget.value)}
-                      />
-                      <TextField
-                        placeholder=""
-                        // value={projectName}
-                        // onChange={(e) => setprojectName(e.currentTarget.value)}
-                      />
-                      <TextField
-                        placeholder=""
-                        // value={projectName}
-                        // onChange={(e) => setprojectName(e.currentTarget.value)}
-                      />
-                      <LoadingButton
-                        color="primary"
-                        variant="contained"
-                        onClick={async () => {
-                          handleNext();
-                        }}
-                      >
-                        Submit
-                      </LoadingButton>
+                      <Stack>
+                        <TextField
+                          placeholder=""
+                          // value={projectName}
+                          // onChange={(e) => setprojectName(e.currentTarget.value)}
+                        />
+                        <TextField
+                          placeholder=""
+                          // value={projectName}
+                          // onChange={(e) => setprojectName(e.currentTarget.value)}
+                        />
+                        <TextField
+                          placeholder=""
+                          // value={projectName}
+                          // onChange={(e) => setprojectName(e.currentTarget.value)}
+                        />
+                        <LoadingButton
+                          color="primary"
+                          variant="contained"
+                          onClick={async () => {
+                            handleNext();
+                          }}
+                        >
+                          Submit
+                        </LoadingButton>
+                      </Stack>
                     </form>
                   </Stack>
                 </SwipeCompContainer>
