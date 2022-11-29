@@ -49,7 +49,7 @@ import Container from 'blocks/container/Container';
 const Features = ({
   data,
   features_header = '',
-  header_size = 48,
+  header_size = 32,
   header_color,
   card_name_color,
   feature_description,
@@ -102,7 +102,7 @@ const Features = ({
   return (
     <Box
       component="section"
-      paddingBottom={isMobile ? 20 : 20}
+      paddingBottom={isMobile ? 10 : 15}
       sx={{
         position: 'relative',
         zIndex: '20',
@@ -311,7 +311,7 @@ const Features = ({
                         py: 2,
                         color: card_name_color
                           ? card_name_color
-                          : theme.palette.zesty.zestyOrange,
+                          : theme.palette.zesty.zestyZambezi,
                         fontWeight: 500,
                         fontSize: '20px',
                         textAlign: center ? 'center' : 'left',

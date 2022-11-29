@@ -89,7 +89,7 @@ function Pricing({ content }) {
           content.logos_header || FillerContent.rich_text_sub_heading
         }
         variant=""
-        logoItems={content.logos.data}
+        logoItems={content.logos?.data}
         maxWidth={1400}
       />
 

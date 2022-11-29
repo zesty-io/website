@@ -39,7 +39,7 @@ import FillerContent from 'components/globals/FillerContent';
 import TwoRowsHero from 'blocks/zesty/Hero/TwoRowsHero';
 import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
 import WhyZesty from 'blocks/zesty/WhyZesty/WhyZesty';
-import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
+import { WithHighlightedCard } from 'blocks/testimonials';
 import Features from 'blocks/features/Features/Features';
 import TechStack from 'blocks/integrations/TechStack';
 import Bottom from 'components/marketing/AgencyPartner.js/Bottom';
@@ -67,22 +67,22 @@ function AgencyPartner({ content }) {
     {
       text: content.why_zesty_1 || FillerContent.description,
       image:
-        content.why_zesty_1_image.data[0]?.url || FillerContent.photos[0].url,
+        content.why_zesty_1_image?.data[0]?.url || FillerContent.photos[0].url,
     },
     {
       text: content.why_zesty_2 || FillerContent.description,
       image:
-        content.why_zesty_2_image.data[0]?.url || FillerContent.photos[0].url,
+        content.why_zesty_2_image?.data[0]?.url || FillerContent.photos[0].url,
     },
     {
       text: content.why_zesty_3 || FillerContent.description,
       image:
-        content.why_zesty_3_image.data[0]?.url || FillerContent.photos[0].url,
+        content.why_zesty_3_image?.data[0]?.url || FillerContent.photos[0].url,
     },
     {
       text: content.why_zesty_4 || FillerContent.description,
       image:
-        content.why_zesty_4_image.data[0]?.url || FillerContent.photos[0].url,
+        content.why_zesty_4_image?.data[0]?.url || FillerContent.photos[0].url,
     },
   ];
 
@@ -118,7 +118,7 @@ function AgencyPartner({ content }) {
         primaryCta_link={content.cta_button_primary_link}
         secondaryCta={content.cta_button_secondary}
         secondaryCta_link={content.cta_button_secondary_link}
-        heroImage={content.header_image.data[0].url}
+        heroImage={content.header_image?.data[0]?.url}
       />
       <SimpleCardLogo logoItems={content.client_logos.data} {...pageData} />
       <WhyZesty
@@ -126,12 +126,13 @@ function AgencyPartner({ content }) {
         {...pageData}
         whyZestyData={whyZestyData}
       />
-      <Testimonials {...testimonialsData} />
+      <WithHighlightedCard {...testimonialsData} />
       <Features
         background="zesty"
         header_size={32}
         textHighlight={'Workflow management'}
         data={feature_data}
+        background_color={theme.palette.zesty.zestyBackgroundBlue}
         features_header={content.features_title}
       />
       <TechStack textHighlight="agency partner?" {...techStackData} />

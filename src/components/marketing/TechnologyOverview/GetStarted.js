@@ -26,7 +26,7 @@ const GetStarted = ({
           sx={{
             position: 'absolute',
             margin: 'auto',
-            display: 'block',
+            display: isMobile ? 'none' : 'block',
             zIndex: 30,
           }}
           component="img"

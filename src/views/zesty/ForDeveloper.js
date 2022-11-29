@@ -79,11 +79,11 @@ import FillerContent from 'components/globals/FillerContent';
 /**
  * Components Imports
  */
-import Hero from 'components/marketing/ForDeveloper/Hero';
+import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
 import ContainerWithBackground from 'components/marketing/ForDeveloper/ContainerWithBackground';
 import Features from 'blocks/features/Features/Features';
 import ZestyDrives from 'components/marketing/ForDeveloper/ZestyDrives';
-import Documentation from 'components/marketing/ForDeveloper/Documentation';
+import CardsInContainer from 'blocks/cards/CardsInContainer';
 import TechStack from 'blocks/integrations/TechStack';
 import { WithHighlightedCard } from 'blocks/testimonials';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
@@ -108,16 +108,12 @@ function ForDeveloper({ content }) {
   };
 
   const heroProps = {
-    eyebrow: content.header_eyebrow || FillerContent.header,
-    header: content.header_text || FillerContent.rich_text,
-    mainImage:
-      content.header_graphic?.data[0]?.url || FillerContent.photos[0].src,
-    primaryCta: content.header_button_text || FillerContent.cta,
-    secondaryCta: content.header_button_text_2 || FillerContent.cta,
-    secondaryCtaLink:
-      content.header_button_link_2.data[0].meta.web.uri || FillerContent.href,
-    theme,
-    ...pageProps,
+    mainTitle: content.header_eyebrow,
+    title: content.header_text,
+    image: content.header_graphic?.data && content.header_graphic?.data[0]?.url,
+    cta_left: content.header_button_text,
+    cta_right: content.header_button_text_2,
+    cta_right_url: content.header_button_link_2?.data[0]?.meta?.web?.url,
   };
 
   const nextJsProps = {
@@ -131,16 +127,33 @@ function ForDeveloper({ content }) {
   };
 
   /* Taking the data from the content model and converting it into a format that the Features component can use. */
-  const whyZestyFeaturesData =
-    content.why_zesty?.data.reduce((acc, item) => {
-      acc.push({
-        icon_image: item.icon_image?.data[0].url,
-        feature_name: item.feature_name,
-        content: item.content,
-      });
+  const docData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.graphic?.data[0].url,
+          title: item.title,
+          url: item.link || FillerContent.href,
+        });
 
-      return acc;
-    }, []) || [];
+        return acc;
+      }, []) || []
+    );
+  };
+
+  const featuresData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.icon_image && item.icon_image?.data[0]?.url,
+          feature_name: item.feature_name,
+          content: item.content,
+        });
+
+        return acc;
+      }, []) || []
+    );
+  };
 
   const whyZestyProps = {
     background: 'zesty',
@@ -154,7 +167,7 @@ function ForDeveloper({ content }) {
       FillerContent.href,
     card_name_color: theme.palette.zesty.zestyZambezi,
     icon_width: 60,
-    data: whyZestyFeaturesData,
+    data: featuresData(content.why_zesty),
     ...pageProps,
   };
 
@@ -168,21 +181,11 @@ function ForDeveloper({ content }) {
     ...pageProps,
   };
 
-  const zestyDrivesData =
-    content.numbers?.data.reduce((acc, item) => {
-      acc.push({
-        feature_name: item.feature_name,
-        content: item.content,
-      });
-
-      return acc;
-    }, []) || [];
-
   const zestyDrivesProps = {
     header_size: 32,
     textHighlight: '',
     card_name_color: theme.palette.zesty.zestyZambezi,
-    data: zestyDrivesData,
+    data: featuresData(content.numbers),
     features_header: content.numbers_title,
     ...pageProps,
   };
@@ -204,9 +207,8 @@ function ForDeveloper({ content }) {
   };
 
   const documentationProps = {
-    header: content.docs_text || FillerContent.header,
-    documentations: content.dev_docs,
-    ...pageProps,
+    title: content.docs_text,
+    data: docData(content.dev_docs),
   };
 
   const testimonialsProps = {
@@ -231,7 +233,7 @@ function ForDeveloper({ content }) {
 
   return (
     <>
-      <Hero {...heroProps} />
+      <SimpleHeroWithImageAndCtaButtonsPage {...heroProps} />
       <Box sx={{ mb: 7 }}>
         <ContainerWithBackground {...nextJsProps} />
       </Box>
@@ -240,11 +242,11 @@ function ForDeveloper({ content }) {
       <ZestyDrives {...zestyDrivesProps} />
       <TechStack {...integrationsProps} />
       <ContainerWithBackground {...supportProps} />
-      <Documentation {...documentationProps} />
-      <WithHighlightedCard {...testimonialsProps} />
-      <Box sx={{ mt: 10 }}>
-        <Bottom {...bottomProps} />
+      <CardsInContainer {...documentationProps} />
+      <Box sx={{ my: 10 }}>
+        <WithHighlightedCard {...testimonialsProps} />
       </Box>
+      <Bottom {...bottomProps} />
       <Persona {...personaProps} />
     </>
   );
