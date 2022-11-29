@@ -59,14 +59,13 @@ import { useEffect } from 'react';
 import { useZestyStore } from 'store';
 
 function Homepage({ content }) {
-  const { userInfo, loading } = useZestyStore();
+  const { loading } = useZestyStore();
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
   const isDarkMode = theme.palette.mode === 'dark';
-  console.log(userInfo, 4444);
 
   const pageData = {
     theme,

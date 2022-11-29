@@ -109,6 +109,7 @@ const postToZOHO = async (payloadJSON) => {
 };
 
 const Index = ({ content }) => {
+  const [projectType, setprojectType] = React.useState('');
   const { zestyProductionMode } = content || {};
   const [zohoLeadObject, setzohoLeadObject] = React.useState('');
   const {
@@ -278,6 +279,7 @@ const Index = ({ content }) => {
                     color="primary"
                     variant="contained"
                     onClick={async () => {
+                      setprojectType('business');
                       handleNext();
                     }}
                   >
@@ -287,6 +289,43 @@ const Index = ({ content }) => {
               </SwipeCompContainer>
             </SwiperSlide>
 
+            {projectType === 'business' && (
+              <SwiperSlide>
+                <SwipeCompContainer>
+                  <Typography variant="h4" color="text.secondary">
+                    Business
+                  </Typography>
+                  <Stack direction={'row'} spacing={4}>
+                    <form action="submit">
+                      <TextField
+                        placeholder=""
+                        // value={projectName}
+                        // onChange={(e) => setprojectName(e.currentTarget.value)}
+                      />
+                      <TextField
+                        placeholder=""
+                        // value={projectName}
+                        // onChange={(e) => setprojectName(e.currentTarget.value)}
+                      />
+                      <TextField
+                        placeholder=""
+                        // value={projectName}
+                        // onChange={(e) => setprojectName(e.currentTarget.value)}
+                      />
+                      <LoadingButton
+                        color="primary"
+                        variant="contained"
+                        onClick={async () => {
+                          handleNext();
+                        }}
+                      >
+                        Submit
+                      </LoadingButton>
+                    </form>
+                  </Stack>
+                </SwipeCompContainer>
+              </SwiperSlide>
+            )}
             <SwiperSlide>
               <SwipeCompContainer>
                 <Typography variant="h4" color="text.secondary">
