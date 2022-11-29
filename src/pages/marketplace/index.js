@@ -18,17 +18,32 @@ import Head from 'next/head';
 // import MarketplaceContainer from 'components/marketplace/MarketplaceContainer';
 import MarketplaceContainer from 'components/marketplace/landing/MarketplaceContainer';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
-import Main from '../../layouts/Main';
+import MarketingMain from '../../layouts/Main/MarketingMain';
 import Hero from 'components/marketplace/landing/Hero';
 import { getIsAuthenticated } from 'utils';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import Main from '../../layouts/Main/Main';
 
-const Marketplace = ({ marketEntities, marketEntityTypes, ...props }) => {
+const MainWrapper = ({ nav, children }) => {
+  const isLoggedIn = useIsLoggedIn();
+  return isLoggedIn ? (
+    <Main customRouting={nav.customRouting}>{children}</Main>
+  ) : (
+    <MarketingMain flyoutNavigation={nav.flyoutNavigation}>
+      {children}
+    </MarketingMain>
+  );
+};
+
+const Marketplace = ({ marketEntities, marketEntityTypes, nav, ...props }) => {
   const seoTitle = props.meta.web.seo_meta_title,
     seoDescription = props.meta.web.seo_meta_description;
 
   useEffect(() => {
     setCookie('PRODUCTION', props.zestyProductionMode);
   }, [props]);
+
+  console.log(nav);
 
   return (
     <>
@@ -37,7 +52,7 @@ const Marketplace = ({ marketEntities, marketEntityTypes, ...props }) => {
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
       </Head>
-      <Main customRouting={props.navigationCustom}>
+      <MainWrapper nav={nav}>
         <MarketplaceProvider inititalEntities={marketEntities}>
           <Hero
             {...props}
@@ -47,7 +62,7 @@ const Marketplace = ({ marketEntities, marketEntityTypes, ...props }) => {
           />
           <MarketplaceContainer {...props} />
         </MarketplaceProvider>
-      </Main>
+      </MainWrapper>
     </>
   );
 };
@@ -72,14 +87,14 @@ export async function getServerSideProps({ res, req }) {
   const entities = await fetch(`${extensionsURL}/-/gql/extensions.json`);
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
   const data = await getMarketplaceData(req.url);
-  const navigationCustom = (await fetchPage('/')).navigationCustom;
+  const navigationCustom = await fetchPage('/');
 
   return {
     props: {
       marketEntities: await entities.json(),
       marketEntityTypes: await entityTypes.json(),
       ...data,
-      navigationCustom: navigationCustom,
+      nav: navigationCustom,
       zesty: {
         isAuthenticated,
       },

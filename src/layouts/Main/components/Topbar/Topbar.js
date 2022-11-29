@@ -60,7 +60,7 @@ const Topbar = ({
   );
 
   /**
-   * Navigation Handler
+   * Hold navigation state and track which flyout is active
    */
   const [activeNav, setActiveNav] = useState(
     flyoutNavigation
@@ -70,6 +70,9 @@ const Topbar = ({
       }),
   );
 
+  /**
+   * Mutate navigation state to set new active flyout or close it once clickawayhandler is triggered
+   */
   const navHandler = (e, id) => {
     setActiveNav((current) =>
       current.map((obj) => {
@@ -125,7 +128,8 @@ const Topbar = ({
         >
           {flyoutNavigation.map((route) => (
             <Box key={route.meta.zuid}>
-              {route.link === null && (
+              {/* If link in the cms is empty and column one is not equal to zero it must be a parent navigation with flyout navigation */}
+              {route.link === null && route.column_1_items.length != 0 && (
                 <Box marginLeft={3}>
                   <NavItem
                     activeNav={
@@ -138,7 +142,8 @@ const Topbar = ({
                   />
                 </Box>
               )}
-              {route.link != null && (
+              {/* if link is set in the cms and column one items is empty its a single item navigation without flyout */}
+              {route.link != null && !route.column_1_items && (
                 <Box marginLeft={3}>
                   <SingleNavItem
                     title={route.nav_title}
