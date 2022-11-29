@@ -16,6 +16,7 @@ const AlternateColumns = ({
   cta_link,
   cta_text,
   column_data,
+  alternateColors,
 }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
@@ -44,38 +45,40 @@ const AlternateColumns = ({
       component="section"
     >
       <Container>
-        <MuiMarkdown
-          options={{
-            overrides: {
-              h2: {
-                component: Typography,
-                props: {
-                  component: 'h2',
-                  variant: 'h3',
-                  sx: {
-                    color: theme.palette.zesty.zestyDarkText,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
+        {header_content && (
+          <MuiMarkdown
+            options={{
+              overrides: {
+                h2: {
+                  component: Typography,
+                  props: {
+                    component: 'h2',
+                    variant: 'h4',
+                    sx: {
+                      color: theme.palette.zesty.zestyDarkText,
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    },
+                  },
+                },
+                p: {
+                  component: Typography,
+                  props: {
+                    component: 'p',
+                    variant: 'h6',
+                    sx: {
+                      mt: 2,
+                      color: theme.palette.zesty.zestyZambezi,
+                      textAlign: 'center',
+                    },
                   },
                 },
               },
-              p: {
-                component: Typography,
-                props: {
-                  component: 'p',
-                  variant: 'h6',
-                  sx: {
-                    mt: 2,
-                    color: theme.palette.zesty.zestyZambezi,
-                    textAlign: 'center',
-                  },
-                },
-              },
-            },
-          }}
-        >
-          {header_content || FillerContent.rich_text}
-        </MuiMarkdown>
+            }}
+          >
+            {header_content || FillerContent.rich_text}
+          </MuiMarkdown>
+        )}
 
         {cta_text && (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -104,6 +107,8 @@ const AlternateColumns = ({
               py: 20,
               background: isDarkMode
                 ? theme.palette.zesty.zestyDarkBlue
+                : alternateColors
+                ? alternateColors[idx].backgroundColor
                 : COLORS[idx],
               border: 'none',
               borderRadius: 0,
@@ -124,20 +129,22 @@ const AlternateColumns = ({
                   order={{ sm: idx % 2 ? 1 : 0 }}
                 >
                   <Box>
-                    <Typography
-                      variant={'h4'}
-                      component={'h3'}
-                      sx={{
-                        color:
-                          idx === 2
+                    {item.header && (
+                      <Typography
+                        variant={'h4'}
+                        component={'h3'}
+                        sx={{
+                          color: alternateColors
+                            ? alternateColors[idx].textColor
+                            : idx === 2
                             ? theme.palette.common.white
                             : theme.palette.zesty.zestyZambezi,
-                        textAlign: isMedium ? 'center' : 'text-left',
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      {item.header || FillerContent.header}
-                    </Typography>
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        {item.header || FillerContent.header}
+                      </Typography>
+                    )}
 
                     <MuiMarkdown
                       options={{
@@ -147,11 +154,11 @@ const AlternateColumns = ({
                             props: {
                               variant: 'h4',
                               component: 'h3',
-                              color:
-                                idx === 2
-                                  ? theme.palette.common.white
-                                  : theme.palette.zesty.zestyZambezi,
-                              textAlign: isMedium ? 'center' : 'text-left',
+                              color: alternateColors
+                                ? alternateColors[idx].textColor
+                                : idx === 2
+                                ? theme.palette.common.white
+                                : theme.palette.zesty.zestyZambezi,
                               fontWeight: 'bold',
                             },
                           },
@@ -161,14 +168,13 @@ const AlternateColumns = ({
                               variant: 'h6',
                               mt: 1,
                               component: 'p',
-                              color:
-                                idx === 2
-                                  ? theme.palette.common.white
-                                  : theme.palette.zesty.zestyZambezi,
-                              textAlign: isMedium ? 'center' : 'text-left',
+                              color: alternateColors
+                                ? alternateColors[idx].textColor
+                                : idx === 2
+                                ? theme.palette.common.white
+                                : theme.palette.zesty.zestyZambezi,
                             },
                           },
-
                           ul: {
                             component: Typography,
                             props: {
@@ -181,11 +187,11 @@ const AlternateColumns = ({
                             props: {
                               variant: 'h6',
                               component: 'li',
-                              color:
-                                idx === 2
-                                  ? theme.palette.common.white
-                                  : theme.palette.zesty.zestyZambezi,
-                              textAlign: isMedium ? 'center' : 'text-left',
+                              color: alternateColors
+                                ? alternateColors[idx].textColor
+                                : idx === 2
+                                ? theme.palette.common.white
+                                : theme.palette.zesty.zestyZambezi,
                             },
                           },
                         },

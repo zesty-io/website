@@ -167,10 +167,9 @@ function ForPersonasPage({ content }) {
   };
 
   const caseStudiesProps = {
-    caseStudiesHeader: content.case_studies_title,
+    header: content.case_studies_title,
     g2BadgesData: content.g2_badges?.data,
     caseStudiesData: content.case_studies?.data,
-    caseStudiesBackground: content?.case_studies_image_background?.data[0].url,
   };
   const wordpressMigrationProps = {
     titleAndDescription: content.wordpress_migration_header,

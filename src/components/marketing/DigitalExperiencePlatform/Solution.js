@@ -241,7 +241,7 @@ const Solution = ({ content, theme, isMobile, FillerContent }) => {
           </Grid>
         </Box>
 
-        <Box sx={{ py: 10 }}>
+        <Box sx={{ pt: 10 }}>
           <Grid item xs={12} md={9}>
             <Box sx={{ width: '100%', maxWidth: 1000, margin: 'auto' }}>
               <MuiMarkdown

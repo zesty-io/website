@@ -21,6 +21,8 @@ const SimpleVerticalBlogCards = ({
   cta_url,
   title,
   description,
+  isCtaButton = true,
+  gridMd = 6,
 }) => {
   const theme = useTheme();
   const cardList = cards || FillerContent.simpleCards;
@@ -69,7 +71,7 @@ const SimpleVerticalBlogCards = ({
         </Box>
         <Grid container spacing={4}>
           {cardList?.map((item, i) => (
-            <Grid item xs={12} md={6} key={i}>
+            <Grid item xs={12} md={gridMd} key={i}>
               <Box
                 component={'a'}
                 href={
@@ -147,26 +149,27 @@ const SimpleVerticalBlogCards = ({
           justifyContent={'center'}
           marginTop={{ xs: 2, md: 4 }}
         >
-          {cta_url ? (
-            <Button
-              href={cta_url || '/mindshare'}
-              component={Button}
-              variant="contained"
-              color="secondary"
-              size="large"
-              marginLeft={2}
-            >
-              {cta || 'Read More'}
-            </Button>
-          ) : (
-            <TryFreeButton
-              component={'a'}
-              variant="contained"
-              size="large"
-              fullWidth={isMd ? false : true}
-              text={cta || 'View pages'}
-            />
-          )}
+          {isCtaButton &&
+            (cta_url ? (
+              <Button
+                href={cta_url || '/mindshare'}
+                component={Button}
+                variant="contained"
+                color="secondary"
+                size="large"
+                marginLeft={2}
+              >
+                {cta || 'Read More'}
+              </Button>
+            ) : (
+              <TryFreeButton
+                component={'a'}
+                variant="contained"
+                size="large"
+                fullWidth={isMd ? false : true}
+                text={cta || 'View pages'}
+              />
+            ))}
         </Box>
       </Box>
     </Container>

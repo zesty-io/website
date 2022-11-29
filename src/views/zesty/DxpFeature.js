@@ -43,6 +43,7 @@
 /**
  * MUI Imports
  */
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Features from 'blocks/features/Features/Features';
@@ -55,7 +56,7 @@ import Hero from 'components/marketing/DxpFeatures/Hero';
 // Components Imports
 import WhyZesty from 'components/marketing/DxpFeatures/WhyZesty';
 import Bottom from 'components/marketing/DxpFeatures/Bottom';
-import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
+import { WithHighlightedCard } from 'blocks/testimonials';
 
 function DxpFeature({ content }) {
   const theme = useTheme();
@@ -141,7 +142,9 @@ function DxpFeature({ content }) {
         cta_url={content.section_3_cta_link}
       />
       <WhyZesty {...pageData} />
-      <Testimonials {...testimonialsData} />
+      <Box sx={{ my: 5 }}>
+        <WithHighlightedCard {...testimonialsData} />
+      </Box>
       <Bottom {...pageData} />
     </>
   );

@@ -20,3 +20,4 @@ export { default as FullScreenHeroWithLogoGrid } from './FullScreenHeroWithLogoG
 export { default as SimpleHeroWithImageAndCtaButtons } from './SimpleHeroWithImageAndCtaButtons';
 export { default as HeroWithGeometricImages } from './HeroWithGeometricImages';
 export { default as SlashImageHero } from './SlashImageHero';
+export { default as SlashImageHeroWithCta } from './SlashImageHeroWithCta';

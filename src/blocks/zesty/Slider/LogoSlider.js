@@ -57,7 +57,7 @@ const LogoSlider = ({ titleAndDescription, integrations_logos, integrations_logo
             h2: {
               component: Typography,
               props: {
-                variant: 'h3',
+                variant: 'h4',
                 component: 'h2',
                 sx: {
                   color: theme.palette.zesty.zestyDarkText,
@@ -72,7 +72,7 @@ const LogoSlider = ({ titleAndDescription, integrations_logos, integrations_logo
                 variant: 'h6',
                 component: 'p',
                 sx: {
-                  mt: 1,
+                  mt: 2,
                   color: theme.palette.zesty.zestyZambezi,
                   textAlign: 'center',
                 },
@@ -116,7 +116,7 @@ const LogoSlider = ({ titleAndDescription, integrations_logos, integrations_logo
                   key={index}
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}
                   loading="lazy"
-                  src={item?.logo?.data[0].url || FillerContent.logos[0].url}
+                  src={item?.logo?.data[0]?.url || FillerContent.logos[0].url}
                   alt={item?.name || ''}
                 />
               ))}
@@ -133,7 +133,7 @@ const LogoSlider = ({ titleAndDescription, integrations_logos, integrations_logo
                   key={index}
                   style={{ height: isMedium ? 70 : 127, width: '100%' }}
                   loading="lazy"
-                  src={item?.logo?.data[0].url || FillerContent.logos[0].url}
+                  src={item?.logo?.data[0]?.url || FillerContent.logos[0].url}
                   alt={item?.name || ''}
                 />
               ))}
