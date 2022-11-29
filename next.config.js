@@ -3,9 +3,9 @@ const zestyConfig = require('./zesty.config.json');
 
 module.exports = {
   trailingSlash: true,
-  // async redirects() {
-  //   return await fetchZestyRedirects(zestyConfig);
-  // },
+  async redirects() {
+    return await fetchZestyRedirects(zestyConfig);
+  },
   env: {
     zesty: zestyConfig,
   },
