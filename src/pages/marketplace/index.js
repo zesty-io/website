@@ -46,8 +46,6 @@ const Marketplace = ({ marketEntities, marketEntityTypes, nav, ...props }) => {
     setCookie('PRODUCTION', props.zestyProductionMode);
   }, [props]);
 
-  console.log(nav);
-
   return (
     <>
       <Head>
