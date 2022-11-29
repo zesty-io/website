@@ -77,7 +77,7 @@ const NavItem = ({ navHandler, activeNav, id, route }) => {
             minHeight: 495,
           }}
         >
-          {/* Outer Grid */}
+          {/* Grid container that holds left and rigt column of the flyout navigation*/}
           <Grid container>
             <Grid
               sx={{ p: 5, background: theme.palette.background.smokeWhite }}
@@ -85,7 +85,6 @@ const NavItem = ({ navHandler, activeNav, id, route }) => {
               sm={12}
               md={7}
             >
-              {/* InnerGrid */}
               <LeftGridLinks route={route} />
             </Grid>
             <Grid
@@ -98,7 +97,6 @@ const NavItem = ({ navHandler, activeNav, id, route }) => {
               md={5}
             >
               <RightGridLinks route={route} />
-              {/* <FeaturedLinks /> */}
             </Grid>
           </Grid>
         </Card>

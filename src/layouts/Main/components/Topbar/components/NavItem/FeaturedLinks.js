@@ -5,27 +5,33 @@
 import { Box, Typography, Grid } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import { useTheme } from '@mui/material/styles';
+import ZestyImage from 'blocks/Image/ZestyImage';
 const FeaturedLinks = ({ route }) => {
   const theme = useTheme();
 
+  /* creating an array of 4 items, then mapping over each item and returning an object with the
+label, link, and image. */
   const callOutData = new Array(4)
     .fill('')
-    .map((item, index) => {
+    .map((_item, index) => {
       return {
         label: route[`callout_${index + 1}_label`],
-        link: route[`callout_${index + 1}_link`],
-        image: route[`callout_image_${index + 1}`],
+        link:
+          route[`callout_${index + 1}_link`]?.data[0]?.meta.web.uri ||
+          route.callout_1_external_link_if_needed,
+        image:
+          route[`callout_image_${index + 1}`]?.data[0]?.url ||
+          route[`callout_${index + 1}_link`]?.data[0]?.hero_image?.data[0]?.url,
       };
     })
     .filter((item) => item.label != undefined);
 
   return (
     <Grid container spacing={2}>
-      {callOutData.map((item, idx) => (
+      {callOutData?.map((item, idx) => (
         <Grid key={idx} item sm={12} md={callOutData.length > 2 ? 6 : 12}>
           <Box
             sx={{
-              mt: 4,
               display: 'block',
               textDecoration: 'none',
               '&:hover': {
@@ -35,28 +41,29 @@ const FeaturedLinks = ({ route }) => {
             }}
             target="_blank"
             component="a"
-            href={item?.link?.data?.meta?.web?.uri || FillerContent.href}
+            href={item.link || FillerContent.href}
           >
-            <Box
-              sx={{
+            <ZestyImage
+              width={369}
+              height={184}
+              style={{
                 width: '100%',
-                maxWidth: 300,
-                borderRadius: 3,
+                height: 'auto',
+                borderRadius: 20,
                 display: 'block',
-                mb: 2,
+                marginBottom: 10,
               }}
-              component="img"
-              src={item?.image?.data[0].url || FillerContent.photos[0].src}
+              src={item?.image || FillerContent.photos[0].src}
             />
             <Typography
               variant="body1"
               component="span"
               sx={{
-                fontWeight: 500,
+                fontWeight: 700,
                 color: theme.palette.zesty.zestyZambezi,
               }}
             >
-              {item.label}
+              {item?.label || ''}
             </Typography>
           </Box>
         </Grid>
