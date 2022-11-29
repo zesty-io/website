@@ -10,7 +10,7 @@ import { Box, Button, Divider, Container, Stack } from '@mui/material';
 // import Manager from './Manager';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
-export const Onboarding = ({ template }) => {
+export const Onboarding = () => {
   const handleClick = (url) => {
     window.open(url, '_blank');
   };
@@ -35,9 +35,7 @@ export const Onboarding = ({ template }) => {
             <Button
               variant="contained"
               color={'secondary'}
-              onClick={() =>
-                handleClick(`/start/?template=${template?.meta?.zuid}`)
-              }
+              onClick={() => handleClick(`/start/`)}
               startIcon={<RocketLaunchIcon />}
             >
               Start your Instance

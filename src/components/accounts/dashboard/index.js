@@ -9,12 +9,15 @@ import { useTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import ZActivityStream from './ui/ZActivityStream';
 import SideContent from './SideContent';
+import dayjs from 'dayjs';
+import { Join } from '../join';
+import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
 const INSTANCE_CARD_LIMIT = 3;
 
-const Dashboard = () => {
+const Dashboard = ({ content = {} }) => {
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [initialInstances, setInitialInstances] = useState([]);
   const [instances, setInstances] = useState([]);
@@ -88,6 +91,40 @@ const Dashboard = () => {
 
     return [...instacesFavoritesData, ...instancesWOutFavoritesData];
   };
+
+  // this is an array the key values that checks users
+  let prefChecks = ['persona'];
+  // let prefChecks = [''];
+  // accounts/join app
+  let missingPrefs = false;
+  let ssoLaunchVsUserCreated = null;
+  const ssoLaunchDate = dayjs('2022-11-18');
+  const userCreatedDate = dayjs(userInfo?.createdAt);
+  if (typeof userInfo?.prefs === 'string') {
+    const obj = JSON.parse(userInfo?.prefs);
+    prefChecks.forEach((element) => {
+      if (!obj.hasOwnProperty(element)) {
+        missingPrefs = true;
+      }
+    });
+  }
+  if (!userInfo?.prefs) {
+    missingPrefs = true;
+  }
+
+  if (userInfo) {
+    ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
+  }
+  // check if new user and doesnt have persona selected
+  if (ssoLaunchVsUserCreated > 0 && missingPrefs) {
+    return <Join content={content} />;
+    // check if existing user without a persona
+  } else if (missingPrefs) {
+    // load onboard ask 1 question what your persona question
+    // personalizationSurvey component
+    return <PersonalizationSurvey content={content} />;
+    // otherwise default to dashboard
+  }
 
   useEffect(() => {
     getAllTeams();

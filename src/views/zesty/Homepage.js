@@ -46,6 +46,7 @@ import Growth from 'blocks/zesty/Growth/Growth';
 import CaseStudies from 'components/marketing/Homepage/CaseStudies';
 import LogoSlider from 'components/marketing/Homepage/LogoSlider';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
+import { AccountPageloading } from 'components/accounts/ui/loading';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -55,12 +56,10 @@ import Dashboard from 'components/accounts/dashboard';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import AOS from 'aos';
 import { useEffect } from 'react';
-import dayjs from 'dayjs';
 import { useZestyStore } from 'store';
-import { Join } from 'components/accounts/join';
 
 function Homepage({ content }) {
-  const { userInfo } = useZestyStore();
+  const { loading } = useZestyStore();
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
@@ -117,29 +116,12 @@ function Homepage({ content }) {
       content.footer_button_link_2?.data[0].meta.web.uri || FillerContent.href,
   };
 
-  // accounts/join app
-  let isNewUser = null;
-  let hasPersona = null;
-  let ssoLaunchVsUserCreated = null;
-  const ssoLaunchDate = dayjs('2022-11-18');
-  const userCreatedDate = dayjs(userInfo?.createdAt);
-  if (typeof userInfo?.prefs === 'string') {
-    const obj = JSON.parse(userInfo?.prefs);
-    hasPersona = obj.hasOwnProperty('persona') ? true : false;
-  }
-  if (userInfo) {
-    ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
-  }
-  if (ssoLaunchVsUserCreated > 0 && !hasPersona) {
-    isNewUser = true;
-  }
-
-  if (isNewUser) {
-    return <Join content={content} />;
+  if (loading) {
+    return <AccountPageloading title={'Zesty.io'} />;
   }
 
   if (content?.zesty?.isAuthenticated) {
-    return <Dashboard />;
+    return <Dashboard content={content} />;
   }
 
   return (
