@@ -160,7 +160,7 @@ const Index = ({ content }) => {
   const gtag_report_conversion = (url) => {
     const callback = () => {
       if (typeof url != undefined) {
-        window.location = url;
+        url = window.location;
       }
     };
 
