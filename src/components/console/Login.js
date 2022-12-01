@@ -85,7 +85,12 @@ const LinkComponent = ({
           color: textColor,
         }}
       >
-        <Typography fontWeight={'500'} color={textColor} whiteSpace={'nowrap'}>
+        <Typography
+          fontWeight={'500'}
+          mr={6}
+          color={textColor}
+          whiteSpace={'nowrap'}
+        >
           {title}
         </Typography>
       </Stack>
