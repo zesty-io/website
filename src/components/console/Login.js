@@ -438,11 +438,26 @@ const Login = ({ content, userEmail }) => {
           </Stack>
 
           <Stack px={10} pb={5}>
-            <img
-              src={content?.image?.data[0]?.url}
-              width="100%"
-              height="100%"
-            />
+            {content?.image?.data[0]?.url.includes('mp4') ? (
+              <Stack
+                component={'video'}
+                width={1}
+                autoPlay={true}
+                muted={true}
+                loop={true}
+                alt="Zesty.io Media"
+                title="Zesty.io Media"
+              >
+                <source src={content?.image?.data[0]?.url} type="video/mp4" />
+              </Stack>
+            ) : (
+              <img
+                src={content?.image?.data[0]?.url}
+                alt="Zesty.io Media"
+                width="100%"
+                height="100%"
+              />
+            )}
           </Stack>
         </Stack>
       </Grid>
