@@ -32,10 +32,17 @@ import { grey } from '@mui/material/colors';
 const MySwal = withReactContent(Swal);
 const googleLogo =
   'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=';
+const githubLogo =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/GitHub-Mark-Light-32px.png';
 
 const LinkComponent = ({
   image = googleLogo,
   title = 'Sign in with Google',
+  bodyColor = '#fff',
+  logoColor = '#fff',
+  textColor = '#333333',
+  borderColor = grey[500],
+
   href,
 }) => {
   const router = useRouter();
@@ -48,26 +55,37 @@ const LinkComponent = ({
       direction={'row'}
       gap={1}
       alignItems="center"
+      width={1}
       sx={{
-        border: `1px solid ${grey[500]}`,
+        borderRadius: '3px',
+        border: `1px solid ${borderColor}`,
         cursor: 'pointer',
-        background: '#fff',
+        background: bodyColor,
+        '&:hover': {
+          filter: 'contrast(120%)',
+          boxShadow: 2,
+        },
       }}
-      py={1}
-      px={2}
     >
-      <Stack>
-        <img src={image} alt={title} height={'20px'} width="20px" />
-      </Stack>
       <Stack
+        p={1}
+        bgcolor={logoColor}
+        alignItems={'center'}
+        justifyItems="center"
         sx={{
-          width: '10rem',
-          '&:hover': {
-            opacity: 0.7,
-          },
+          borderRadius: '3px 0 0 3px',
         }}
       >
-        <Typography fontWeight={'500'} color={grey[700]} whiteSpace={'nowrap'}>
+        <img src={image} alt={title} height={'24px'} width="24px" />
+      </Stack>
+      <Stack
+        width={1}
+        textAlign="center"
+        sx={{
+          color: textColor,
+        }}
+      >
+        <Typography fontWeight={'500'} color={textColor} whiteSpace={'nowrap'}>
           {title}
         </Typography>
       </Stack>
@@ -86,6 +104,9 @@ const Login = ({ content, userEmail }) => {
   const googleUrl = zestyProductionMode
     ? 'https://auth.api.zesty.io/google/login'
     : 'https://auth.api.dev.zesty.io/google/login';
+  const githubUrl = zestyProductionMode
+    ? 'https://auth.api.zesty.io/github/login'
+    : 'https://auth.api.dev.zesty.io/github/login';
 
   const handleCookieAndRedirect = (sysID) => {
     setCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', sysID, {
@@ -302,23 +323,33 @@ const Login = ({ content, userEmail }) => {
                   <Divider sx={{ py: 2 }}>Or</Divider>
 
                   <Stack
-                    direction={{ xs: 'column', xl: 'row' }}
+                    direction={'column'}
                     alignItems={'center'}
                     justifyContent="space-evenly"
                     gap={2}
                   >
-                    <Stack mx={0}>
-                      <LinkComponent
-                        image={msLogo.src}
-                        title="Sign in with Microsoft"
-                        href={`https://auth.api.zesty.io/azure/login`}
-                      />
-                    </Stack>
+                    <LinkComponent
+                      image={msLogo.src}
+                      title="Sign in with Microsoft"
+                      href={`https://auth.api.zesty.io/azure/login`}
+                    />
 
                     <LinkComponent
                       image={googleLogo}
                       title="Sign in with Google"
                       href={googleUrl}
+                      bodyColor="#4584F8"
+                      textColor="#fff"
+                      borderColor="#4584F8"
+                    />
+                    <LinkComponent
+                      image={githubLogo}
+                      title="Sign in with Github"
+                      href={githubUrl}
+                      bodyColor="#23282C"
+                      logoColor="#23282C"
+                      borderColor="#23282C"
+                      textColor="#fff"
                     />
                   </Stack>
                 </Stack>
