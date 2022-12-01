@@ -40,18 +40,18 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  * Components Imports
  */
 // import Hero from 'components/marketing/Homepage/Hero';
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
 import Growth from 'blocks/zesty/Growth/Growth';
-import CaseStudyCards from 'blocks/caseStudies/CaseStudyCards';
+import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
 import LogoSlider from 'blocks/zesty/Slider/LogoSlider';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
-import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
-import { WithHighlightedCard } from 'blocks/testimonials';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
 import Dashboard from 'components/accounts/dashboard';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import AOS from 'aos';
@@ -91,6 +91,21 @@ function Homepage({ content }) {
     return <Dashboard />;
   }
 
+  const getData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.graphic?.data[0].url,
+          title: item.product_name,
+          content: item.product_description,
+          url: item.link?.data[0]?.meta?.web?.uri || FillerContent.href,
+        });
+
+        return acc;
+      }, []) || []
+    );
+  };
+
   const heroProps = {
     mainTitle: content.header_title_main,
     title: content.header_title_and_description || FillerContent.header,
@@ -107,6 +122,14 @@ function Homepage({ content }) {
       (content.hero_button_right_link.data &&
         content.hero_button_right_link?.data[0]?.meta?.web?.url) ||
       FillerContent.href,
+  };
+
+  const digitalExperienceProps = {
+    title: content.product_title_and_description,
+    data: getData(content.product_options),
+    itemTitleColor: theme.palette.zesty.zestyOrange,
+    imageWidth: 294,
+    imageHeight: 179,
   };
 
   const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
@@ -167,14 +190,13 @@ function Homepage({ content }) {
 
   return (
     <>
-      {/* <Hero {...pageData} /> */}
-      <SimpleHeroWithImageAndCtaButtonsPage {...heroProps} />
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <SimpleCardLogo
         variant="outlined"
         heading_text={content?.logo_heading}
         logoItems={content?.homepage_logos.data}
       />
-      <DigitalExperience {...pageData} />
+      <CardsInContainer {...digitalExperienceProps} />
       <AlternateColumns
         column_data={alternateColumnsData}
         header_content={content?.zesty_new_benefits}

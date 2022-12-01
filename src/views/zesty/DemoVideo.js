@@ -30,7 +30,7 @@
 
 import { HeroWithLogoGridAndDesktopScreenshot } from 'blocks/heroes';
 import { CtaWithIllustration } from 'blocks/cta';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 
 function DemoVideo({ content }) {
   return (

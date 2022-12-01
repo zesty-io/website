@@ -46,7 +46,7 @@
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Features from 'blocks/features/Features/Features';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import TwoColumnFeatures from 'blocks/features/Features/TwoColumnFeatures';
 
 // Helpers Imports
@@ -56,7 +56,7 @@ import Hero from 'components/marketing/DxpFeatures/Hero';
 // Components Imports
 import WhyZesty from 'components/marketing/DxpFeatures/WhyZesty';
 import Bottom from 'components/marketing/DxpFeatures/Bottom';
-import { WithHighlightedCard } from 'blocks/testimonials';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
 
 function DxpFeature({ content }) {
   const theme = useTheme();

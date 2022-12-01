@@ -65,12 +65,12 @@ import FillerContent from 'components/globals/FillerContent';
 /*
  * Components Imports
  */
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import About from 'components/marketing/HybridCms/About';
 import CenteredContents from 'blocks/contentBlocks/CenteredContents';
-import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
 import Bottom from 'components/marketing/HybridCms/Bottom';
-import CaseStudyCards from 'blocks/caseStudies/CaseStudyCards';
+import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 
 function HybridCm({ content }) {
@@ -160,7 +160,7 @@ function HybridCm({ content }) {
 
   return (
     <>
-      <SimpleHeroWithImageAndCtaButtonsPage {...heroProps} />
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <About {...pageData} />
       <CenteredContents {...hybridProps} />
       {/* <TimeLine timelineData={timelineData} {...pageData} /> */}

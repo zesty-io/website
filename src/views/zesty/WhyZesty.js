@@ -25,16 +25,16 @@
  */
 
 import React from 'react';
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
-import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
 import { Box } from '@mui/system';
 import FillerContent from 'components/globals/FillerContent';
 import { useTheme } from '@mui/material/styles';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
-import Features from 'blocks/features/Features/Features';
-import { WithHighlightedCard } from 'blocks/testimonials';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
 import Container from 'components/Container';
 
@@ -142,7 +142,7 @@ function WhyZesty({ content }) {
             : theme.palette.alternate.main,
         }}
       >
-        <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+        <SimpleHeroWithImageAndCtaButtons {...headerProps} />
       </Box>
 
       <OverviewProcessComp

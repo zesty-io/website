@@ -30,17 +30,17 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Components Imports
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import UseCase from '../../components/marketing/TechnologyOverview/UseCase';
-import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
 import GetStarted from '../../components/marketing/TechnologyOverview/GetStarted';
-import Features from 'blocks/features/Features/Features';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import CenteredContents from 'blocks/contentBlocks/CenteredContents';
-import CaseStudyCards from 'blocks/caseStudies/CaseStudyCards';
+import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 import TechStack from '../../blocks/integrations/TechStack';
 import Growth from 'blocks/zesty/Growth/Growth';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -139,7 +139,7 @@ function TechnologyOverview({ content }) {
 
   return (
     <Box>
-      <SimpleHeroWithImageAndCtaButtonsPage {...heroProps} />
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <Container sx={{ pb: 15 }}>
         <SimpleCardLogo
           variant="outlined"

@@ -21,13 +21,19 @@ import ZestyImage from 'blocks/Image/ZestyImage';
  * Component Imports
  */
 import TryFreeButton from 'components/cta/TryFreeButton';
+import DemoCta from 'components/cta/DemoCta';
+import CodeBlock from 'components/cta/CodeBlock';
 
 const CenteredContents = ({
   header,
   primaryCtaText,
+  secondaryCtaText,
+  secondaryCtaUrl,
   mainImage,
   mainImageWidth = 800,
   backgroundColor,
+  isDarkBackground = false,
+  isCodeBlock = false,
 }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
@@ -35,7 +41,12 @@ const CenteredContents = ({
   return (
     <Box
       paddingY={isSmall ? 4 : 10}
-      sx={{ position: 'relative', background: backgroundColor }}
+      sx={{
+        position: 'relative',
+        background: isDarkBackground
+          ? theme.palette.zesty.zestyDarkBlue
+          : backgroundColor,
+      }}
     >
       <Container
         sx={{
@@ -44,7 +55,7 @@ const CenteredContents = ({
         }}
       >
         <Box sx={{ mt: 10 }}>
-          <Box sx={{px:10}}>
+          <Box sx={{ px: 10 }}>
             <MuiMarkdown
               options={{
                 overrides: {
@@ -66,7 +77,9 @@ const CenteredContents = ({
                       variant: 'h4',
                       sx: {
                         textAlign: 'center',
-                        color: theme.palette.zesty.zestyZambezi,
+                        color: isDarkBackground
+                          ? theme.palette.common.white
+                          : theme.palette.zesty.zestyZambezi,
                         fontWeight: 'bold',
                       },
                     },
@@ -79,7 +92,9 @@ const CenteredContents = ({
                       sx: {
                         textAlign: 'center',
                         mt: 2,
-                        color: theme.palette.zesty.zestyZambezi,
+                        color: isDarkBackground
+                          ? theme.palette.common.white
+                          : theme.palette.zesty.zestyZambezi,
                       },
                     },
                   },
@@ -88,19 +103,63 @@ const CenteredContents = ({
             >
               {header || FillerContent.header}
             </MuiMarkdown>
+
+            {isCodeBlock && (
+              <Box
+                sx={{
+                  border: `1px solid ${theme.palette.common.white}`,
+                  borderRadius: 1,
+                  width: '100%',
+                  maxWidth: 470,
+                  margin: 'auto',
+                  filter: 'drop-shadow(4px 4px 30px rgba(176, 176, 176, 0.25))',
+                  mt: 2,
+                }}
+              >
+                <CodeBlock />
+              </Box>
+            )}
           </Box>
-          {primaryCtaText && (
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                mt: 2,
-              }}
-            >
-              <TryFreeButton text={primaryCtaText} variant="contained" />
-            </Box>
-          )}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: isSmall ? 'column' : 'row',
+              justifyContent: 'center',
+              gap: 1,
+              mt: 4,
+            }}
+          >
+            {primaryCtaText && (
+              <TryFreeButton
+                fullWidth={true}
+                text={primaryCtaText}
+                variant="contained"
+                size="large"
+                color="secondary"
+                sx={{
+                  width: '100%',
+                  maxWidth: isSmall ? '100%' : 174,
+                  fontWeight: 'bold',
+                }}
+              ></TryFreeButton>
+            )}
+
+            {secondaryCtaText && (
+              <DemoCta
+                icon={false}
+                fullWidth={isSmall}
+                sx={{
+                  width: '100%',
+                  maxWidth: isSmall ? '100%' : 174,
+                  fontWeight: 'bold',
+                  color: theme.palette.zesty.zestyOrange,
+                  background: theme.palette.common.white,
+                }}
+                text={secondaryCtaText || FillerContent.cta}
+                href={secondaryCtaUrl || FillerContent.href}
+              />
+            )}
+          </Box>
         </Box>
         <Box
           sx={{

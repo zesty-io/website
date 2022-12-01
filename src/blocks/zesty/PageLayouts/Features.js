@@ -158,7 +158,7 @@ const Features = ({
                     sx: {
                       color: header_color
                         ? header_color
-                        : theme.palette.zesty.zestyDarkText,
+                        : theme.palette.zesty.zestyZambezi,
                       fontSize: isMobile ? 24 : header_size,
                       textAlign: 'center',
                     },
@@ -311,7 +311,7 @@ const Features = ({
                         py: 2,
                         color: card_name_color
                           ? card_name_color
-                          : theme.palette.zesty.zestyZambezi,
+                          : theme.palette.zesty.zestyDarkBlue,
                         fontWeight: 500,
                         fontSize: '20px',
                         textAlign: center ? 'center' : 'left',

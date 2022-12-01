@@ -79,13 +79,13 @@ import FillerContent from 'components/globals/FillerContent';
 /**
  * Components Imports
  */
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import ContainerWithBackground from 'components/marketing/ForDeveloper/ContainerWithBackground';
-import Features from 'blocks/features/Features/Features';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import ZestyDrives from 'components/marketing/ForDeveloper/ZestyDrives';
-import CardsInContainer from 'blocks/cards/CardsInContainer';
+import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
 import TechStack from 'blocks/integrations/TechStack';
-import { WithHighlightedCard } from 'blocks/testimonials';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
 import Persona from 'blocks/zesty/Persona/Persona';
 
@@ -233,7 +233,7 @@ function ForDeveloper({ content }) {
 
   return (
     <>
-      <SimpleHeroWithImageAndCtaButtonsPage {...heroProps} />
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <Box sx={{ mb: 7 }}>
         <ContainerWithBackground {...nextJsProps} />
       </Box>

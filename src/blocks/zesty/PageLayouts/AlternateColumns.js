@@ -104,7 +104,7 @@ const AlternateColumns = ({
             key={idx}
             variant="outlined"
             sx={{
-              py: 20,
+              py: 10,
               background: isDarkMode
                 ? theme.palette.zesty.zestyDarkBlue
                 : alternateColors
