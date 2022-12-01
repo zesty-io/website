@@ -47,7 +47,7 @@ import Container from 'blocks/container/Container';
  */
 
 const Features = ({
-  data,
+  data = FillerContent.featuresCards,
   features_header = '',
   header_size = 32,
   header_color,
@@ -74,8 +74,8 @@ const Features = ({
   const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
   const isRichText = htmlCheck.test(features_header);
 
-  if (!isRichText && features_header != '') {
-    features_header = `<h2>${features_header}</h2>`;
+  if (!isRichText ) {
+    features_header = `<h2>${features_header || FillerContent.header}</h2>`;
   }
 
   const ConditionalContainer = ({ condition, children }) =>
@@ -194,7 +194,7 @@ const Features = ({
             {features_header?.replace(
               textHighlight,
               `<span>${textHighlight}</span>`,
-            )}
+            ) }
           </MuiMarkdown>
 
           <MuiMarkdown
@@ -243,7 +243,7 @@ const Features = ({
               },
             }}
           >
-            {feature_description || ''}
+            {feature_description || `<p>${FillerContent.description}</p>`}
           </MuiMarkdown>
 
 
