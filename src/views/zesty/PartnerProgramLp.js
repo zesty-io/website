@@ -59,8 +59,8 @@ import WhyZesty from 'components/marketing/PartnerProgramLp/WhyZesty';
 import Benefits from 'components/marketing/PartnerProgramLp/Benefits';
 import Testimonial from 'blocks/testimonials/SingleTestimonial';
 import Bottom from 'components/marketing/PartnerProgramLp/Bottom';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-import Features from 'blocks/features/Features/Features';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import Features from 'blocks/zesty/PageLayouts/Features';
 
 function PartnerProgramLp({ content }) {
   const theme = useTheme();

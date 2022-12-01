@@ -37,10 +37,10 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Imports
  */
 import TwoRowsHero from 'blocks/zesty/Hero/TwoRowsHero';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import WhyZesty from 'blocks/zesty/WhyZesty/WhyZesty';
-import { WithHighlightedCard } from 'blocks/testimonials';
-import Features from 'blocks/features/Features/Features';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import TechStack from 'blocks/integrations/TechStack';
 import Bottom from 'components/marketing/AgencyPartner.js/Bottom';
 

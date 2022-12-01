@@ -90,14 +90,14 @@ import FillerContent from 'components/globals/FillerContent';
 /**
  * Components Import
  */
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import Solution from 'components/marketing/DigitalExperiencePlatform/Solution';
 import CenteredContents from 'blocks/contentBlocks/CenteredContents';
-import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
-import Features from 'blocks/features/Features/Features';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import Integrations from 'components/marketing/DigitalExperiencePlatform/Integrations';
 import Implementation from 'components/marketing/DigitalExperiencePlatform/Implementation';
-import CaseStudyCards from 'blocks/caseStudies/CaseStudyCards';
+import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
 import Bottom from 'components/marketing/DigitalExperiencePlatform/Bottom';
 
 function DigitalExperiencePlatform({ content }) {
@@ -178,7 +178,7 @@ function DigitalExperiencePlatform({ content }) {
 
   return (
     <Box>
-      <SimpleHeroWithImageAndCtaButtonsPage {...heroProps} />
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <Solution {...PageData} />
       <CenteredContents {...aboutProps} />
       <AlternateColumns {...middleData} />

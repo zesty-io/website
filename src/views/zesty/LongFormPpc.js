@@ -55,14 +55,14 @@ import FillerContent from 'components/globals/FillerContent';
 
 // Components Imports
 
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustrationAndSearchBar';
 import NewsletterWithImage from 'components/marketing/LongFormPpc/NewsletterWithImage';
 import SimpleCentered from 'components/marketing/LongFormPpc/SimpleCentered';
 import BgDecorations from 'components/marketing/LongFormPpc/BgDecorations';
 import TechStack from 'blocks/integrations/TechStack';
 import Hero from 'components/marketing/LongFormPpc/Hero';
-import Features from 'blocks/features/Features/Features';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';

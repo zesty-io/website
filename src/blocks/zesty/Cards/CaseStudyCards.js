@@ -23,7 +23,7 @@ import FillerContent from 'components/globals/FillerContent';
  */
 import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
-import SimpleStats from 'blocks/stats/SimpleStats';
+import SimpleStats from 'blocks/zesty/Growth/SimpleStats';
 
 const CaseStudyCards = ({
   header,

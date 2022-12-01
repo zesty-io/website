@@ -43,15 +43,16 @@ import { useTheme } from '@mui/material/styles';
 /**
  * Fillers Imports
  */
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import FillerContent from 'components/globals/FillerContent';
 import Resources from 'components/marketing/IntegrationsIndividualPage/Resources';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-import CardsInContainer from 'blocks/cards/CardsInContainer';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
 import Feature from 'components/marketing/IntegrationsIndividualPage/Feature';
 import ResourcesCards from 'components/marketing/IntegrationsIndividualPage/ResourcesCards';
-import { WithHighlightedCard } from 'blocks/testimonials';
-import Bottom from 'components/marketing/IntegrationsIndividualPage/Bottom';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
+// import Bottom from 'components/marketing/IntegrationsIndividualPage/Bottom';
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
 
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
@@ -94,6 +95,7 @@ function IntegrationsIndividualPage({ content }) {
   const integrationBenefitsProps = {
     title: content.integration_benefits_h2,
     data: benefitsData(content.integration_benefits),
+    isFullWidthSection: false,
   };
 
   const cardData = [
@@ -117,9 +119,21 @@ function IntegrationsIndividualPage({ content }) {
     },
   ];
 
+  const bottomProps = {
+    header: content.bottom_cta,
+    primaryCtaText: content.cta_primary_text,
+    secondaryCtaText: content.bottom_cta_button_2_text,
+    secondaryCtaUrl: content.bottom_cta_button_2_link,
+    mainImage: content.bottom_graphic?.data[0]?.url,
+    mainImageWidth: 1000,
+    isDarkBackground: true,
+    isCodeBlock: true,
+  };
+
   const learnMoreProps = {
     title: content.learn_more_title,
     data: cardData,
+    isFullWidthSection: false,
   };
 
   const headerProps = {
@@ -138,7 +152,7 @@ function IntegrationsIndividualPage({ content }) {
 
   return (
     <>
-      <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+      <SimpleHeroWithImageAndCtaButtons {...headerProps} />
       <Resources {...pageData} />
       <SimpleCardLogo
         heading_text={content?.logos_title}
@@ -148,7 +162,8 @@ function IntegrationsIndividualPage({ content }) {
       <Feature {...pageData} />
       <ResourcesCards {...pageData} />
       <WithHighlightedCard {...testimonialsData} />
-      <Bottom {...pageData} />
+      {/* <Bottom {...pageData} /> */}
+      <CenteredContents {...bottomProps} />
       <CardsInContainer {...learnMoreProps} />
       {/* <NewsLetterSubscription {...pageData} /> */}
     </>

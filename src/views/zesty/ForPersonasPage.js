@@ -74,13 +74,13 @@ import FillerContent from 'components/globals/FillerContent';
  * Components Imports
  */
 import Hero from 'components/marketing/ForPersonas/Hero';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import Benefits from 'blocks/benefits/Benefits';
-import Features from 'blocks/features/Features/Features';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import ContainerWithBackground from 'components/marketing/ForPersonas/ContainerWithBackground';
 import WordPressMigration from 'components/marketing/ForPersonas/WordPressMigration';
-import { WithHighlightedCard } from 'blocks/testimonials';
-import CaseStudyCards from 'blocks/caseStudies/CaseStudyCards';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
+import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
 import TechStack from 'blocks/integrations/TechStack';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
 import Persona from 'blocks/zesty/Persona/Persona';
