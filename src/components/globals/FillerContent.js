@@ -6,7 +6,8 @@ export default {
   image: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
   cta: 'Missing CTA Info',
   date: 'Missing Date',
-  description: 'Missing Description info',
+  description:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
   href: 'https://www.zesty.io/',
   missingDataArray: ['Missing', 'Data', 'In', 'The', 'Manager', 'UI'],
   contact_zuid: '7-cec987fcf5-9bht2z',
@@ -278,6 +279,11 @@ export default {
     {
       title: 'Missing Content Edit in CMS ',
       subtitle: 'Missong Content Edit in CMS',
+      icon_image:
+        'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
+      feature_name: 'Feature One',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
       icon: (
         <svg
           height={24}
@@ -299,6 +305,11 @@ export default {
     {
       title: 'Missing Content Edit in CMS ',
       subtitle: 'Missong Content Edit in CMS',
+      icon_image:
+        'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
+      feature_name: 'Feature Two',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
       icon: (
         <svg
           height={24}
@@ -320,6 +331,11 @@ export default {
     {
       title: 'Missing Content Edit in CMS ',
       subtitle: 'Missong Content Edit in CMS',
+      feature_name: 'Feature Three',
+      icon_image:
+        'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
       icon: (
         <svg
           height={24}
@@ -341,6 +357,11 @@ export default {
     {
       title: 'Missing Content Edit in CMS ',
       subtitle: 'Missong Content Edit in CMS',
+      feature_name: 'Feature Four',
+      icon_image:
+        'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
       icon: (
         <svg
           height={24}
@@ -362,6 +383,11 @@ export default {
     {
       title: 'Missing Content Edit in CMS ',
       subtitle: 'Missong Content Edit in CMS',
+      feature_name: 'Feature Five',
+      icon_image:
+        'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
       icon: (
         <svg
           height={24}
@@ -383,6 +409,11 @@ export default {
     {
       title: 'Missing Content Edit in CMS ',
       subtitle: 'Missong Content Edit in CMS',
+      icon_image:
+        'https://zestyio.media.zestyio.com/zesty-io-logo.H1bLZABR2x.png',
+      feature_name: 'Feature Six',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
       icon: (
         <svg
           height={24}

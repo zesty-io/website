@@ -111,6 +111,7 @@ const SimpleCardLogo = ({
               {logoItems?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex' }}>
                   <ZestyImage
+                  
                     loading="lazy"
                     style={{
                       width:"100%",
@@ -125,7 +126,7 @@ const SimpleCardLogo = ({
                           : '',
                     }}
                     alt={item?.customer_name || ''}
-                    src={item.customer_logo?.data[0]?.url || FillerContent.logos[0].url }
+                    src={item.customer_logo?.data[0]?.url || FillerContent.logos[index].url }
                   />
                 </Box>
               ))}
