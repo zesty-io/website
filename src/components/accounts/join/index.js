@@ -27,6 +27,37 @@ const projectList = [
   { label: 'Headless Project', value: 'headless project' },
 ];
 
+const projectTypeList = [
+  { label: 'Personal', value: 'personal' },
+  { label: 'Business', value: 'business' },
+];
+
+const Questionaire = ({ title = 'no title', data = [], onClick }) => {
+  const handleClick = (data) => {
+    onClick(data);
+  };
+  return (
+    <SwipeCompContainer>
+      <Typography variant="h4" color="text.secondary">
+        {title}
+      </Typography>
+      <Stack direction={'row'} spacing={4}>
+        {data?.map((e) => {
+          return (
+            <LoadingButton
+              color="primary"
+              variant="contained"
+              onClick={() => handleClick(e)}
+            >
+              {e?.label}
+            </LoadingButton>
+          );
+        })}
+      </Stack>
+    </SwipeCompContainer>
+  );
+};
+
 const TextBox = ({ collections, setcollections }) => {
   const [email, setemail] = React.useState('');
 
@@ -72,6 +103,7 @@ const TextBox = ({ collections, setcollections }) => {
     </form>
   );
 };
+
 const SwipeCompContainer = ({ children, pt = 14 }) => {
   return (
     <Stack
@@ -205,6 +237,11 @@ const Index = ({ content }) => {
     setproject(e.value);
     handleNext();
   };
+
+  const handleProjectType = async (e) => {
+    setprojectType(e.value);
+    handleNext();
+  };
   return (
     <Container
       maxWidth={false}
@@ -269,32 +306,11 @@ const Index = ({ content }) => {
 
             {/* 3rd Question */}
             <SwiperSlide>
-              <SwipeCompContainer>
-                <Typography variant="h4" color="text.secondary">
-                  What type of project is this?
-                </Typography>
-                <Stack direction={'row'} spacing={4}>
-                  <LoadingButton
-                    color="primary"
-                    variant="contained"
-                    onClick={async () => {
-                      handleNext();
-                    }}
-                  >
-                    Personal
-                  </LoadingButton>
-                  <LoadingButton
-                    color="primary"
-                    variant="contained"
-                    onClick={async () => {
-                      setprojectType('business');
-                      handleNext();
-                    }}
-                  >
-                    Business
-                  </LoadingButton>
-                </Stack>
-              </SwipeCompContainer>
+              <Questionaire
+                title="What type of project is this?"
+                data={projectTypeList}
+                onClick={handleProjectType}
+              />
             </SwiperSlide>
 
             {projectType === 'business' && (
@@ -433,29 +449,3 @@ const Index = ({ content }) => {
 };
 
 export const Join = React.memo(Index);
-
-const Questionaire = ({ title = 'no title', data = [], onClick }) => {
-  const handleClick = (data) => {
-    onClick(data);
-  };
-  return (
-    <SwipeCompContainer>
-      <Typography variant="h4" color="text.secondary">
-        {title}
-      </Typography>
-      <Stack direction={'row'} spacing={4}>
-        {data.map((e) => {
-          return (
-            <LoadingButton
-              color="primary"
-              variant="contained"
-              onClick={() => handleClick(e)}
-            >
-              {e.label}
-            </LoadingButton>
-          );
-        })}
-      </Stack>
-    </SwipeCompContainer>
-  );
-};
