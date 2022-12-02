@@ -190,6 +190,21 @@ const Index = ({ content }) => {
     gtag_report_conversion();
   }, []);
 
+  const handleRole = async (e) => {
+    await updateUser(e.value);
+    await window.pendo.initialize({
+      visitor,
+    });
+    setrole(e.value);
+    handleNext();
+  };
+  const handleProject = async (e) => {
+    if (zestyProductionMode) {
+      await postToZOHO(zohoLeadObject);
+    }
+    setproject(e.value);
+    handleNext();
+  };
   return (
     <Container
       maxWidth={false}
@@ -236,59 +251,20 @@ const Index = ({ content }) => {
           >
             {/* 1st question */}
             <SwiperSlide>
-              <SwipeCompContainer>
-                <Typography variant="h4" color="text.secondary">
-                  What is your role?
-                </Typography>
-                <Stack direction={'row'} spacing={4}>
-                  {roleList.map((e) => {
-                    return (
-                      <LoadingButton
-                        color="primary"
-                        variant="contained"
-                        onClick={async () => {
-                          await updateUser(e.value);
-                          await window.pendo.initialize({
-                            visitor,
-                          });
-                          setrole(e.value);
-                          handleNext();
-                        }}
-                      >
-                        {e.label}
-                      </LoadingButton>
-                    );
-                  })}
-                </Stack>
-              </SwipeCompContainer>
+              <Questionaire
+                title="What is your role?"
+                data={roleList}
+                onClick={handleRole}
+              />
             </SwiperSlide>
 
             {/* 2nd Question */}
             <SwiperSlide>
-              <SwipeCompContainer>
-                <Typography variant="h4" color="text.secondary">
-                  What are you creating today?
-                </Typography>
-                <Stack direction={'row'} spacing={4}>
-                  {newProjectList.map((e) => {
-                    return (
-                      <LoadingButton
-                        color="primary"
-                        variant="contained"
-                        onClick={async () => {
-                          if (zestyProductionMode) {
-                            await postToZOHO(zohoLeadObject);
-                          }
-                          setproject(e.value);
-                          handleNext();
-                        }}
-                      >
-                        {e.label}
-                      </LoadingButton>
-                    );
-                  })}
-                </Stack>
-              </SwipeCompContainer>
+              <Questionaire
+                title="What are you creating today?"
+                data={newProjectList}
+                onClick={handleProject}
+              />
             </SwiperSlide>
 
             {/* 3rd Question */}
@@ -457,3 +433,29 @@ const Index = ({ content }) => {
 };
 
 export const Join = React.memo(Index);
+
+const Questionaire = ({ title = 'no title', data = [], onClick }) => {
+  const handleClick = (data) => {
+    onClick(data);
+  };
+  return (
+    <SwipeCompContainer>
+      <Typography variant="h4" color="text.secondary">
+        {title}
+      </Typography>
+      <Stack direction={'row'} spacing={4}>
+        {data.map((e) => {
+          return (
+            <LoadingButton
+              color="primary"
+              variant="contained"
+              onClick={() => handleClick(e)}
+            >
+              {e.label}
+            </LoadingButton>
+          );
+        })}
+      </Stack>
+    </SwipeCompContainer>
+  );
+};
