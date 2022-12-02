@@ -78,7 +78,7 @@ const NavItem = ({ navHandler, activeNav, id, route }) => {
           }}
         >
           {/* Grid container that holds left and rigt column of the flyout navigation*/}
-          <Grid container>
+          <Grid sx={{ minHeight: 495 }} container>
             <Grid
               sx={{ p: 5, background: theme.palette.background.smokeWhite }}
               item
