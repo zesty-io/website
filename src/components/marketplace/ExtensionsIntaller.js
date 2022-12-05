@@ -11,7 +11,7 @@ const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
   const [finishInstall, setFinishInstall] = React.useState(false);
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
   let ZestyAPI = useZestyStore((state) => state.ZestyAPI);
-  const url = 'https://installer-xytrmaqk4a-uc.a.run.app/';
+  const url = 'https://installer-xytrmaqk4a-uc.a.run.app';
 
   const getModuleSchema = async () => {
     const response = await fetch(`${url}/schema`, {
