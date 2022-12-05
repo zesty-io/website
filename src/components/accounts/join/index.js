@@ -1,5 +1,12 @@
 import React from 'react';
-import { Container, Grid, Stack, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
 import Script from 'next/script';
@@ -16,16 +23,211 @@ import { setCookie } from 'cookies-next';
 import { ResourcesCard } from './ResourceCard';
 import { pendoScript } from 'components/marketing/Start/pendoScript';
 
+const frameworkList = [
+  { label: 'Parsely/Zesty', value: 'parsely' },
+  { label: 'NextJs', value: 'nextjs' },
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Nuxt', value: 'nuxt' },
+  { label: 'PHP/Laravel', value: 'php' },
+  { label: 'HTML/jQuery', value: 'html' },
+  { label: 'NodeJS', value: 'nodejs' },
+  { label: 'Hugo', value: 'hugo' },
+  { label: 'Gatsby', value: 'gatsby' },
+  { label: 'Svelte', value: 'svelte' },
+  { label: 'Remix', value: 'remix' },
+  { label: 'Astro', value: 'astro' },
+  { label: 'Other', value: 'other' },
+];
+
+const componentsSystemList = [
+  { label: 'Bootstrap', value: 'bootstrap' },
+  { label: 'Material UI', value: 'material ui' },
+  { label: 'Tailwind', value: 'tailwind' },
+  { label: 'Bulma', value: 'bulma' },
+  { label: 'Foundation', value: 'foundation' },
+  { label: 'Chakra UI', value: 'chakra ui' },
+  { label: 'Other', value: 'other' },
+];
+
 const roleList = [
-  { label: 'Marketer', value: 'marketer' },
-  { label: 'Developer', value: 'developer' },
-  { label: 'Business Lead', value: 'business lead' },
+  { label: 'Marketer', value: 'marketer', type: 'influencer' },
+  { label: 'Developer', value: 'developer', type: 'influencer' },
+  { label: 'Content Creator', value: 'content creator', type: 'influencer' },
+  { label: 'Business Lead', value: 'business lead', type: 'decision-maker' },
+  {
+    label: 'Development Leader',
+    value: 'development leader',
+    type: 'decision-maker',
+  },
+  {
+    label: 'Marketing Leader',
+    value: 'marketing leader',
+    type: 'decision-maker',
+  },
+  {
+    label: 'Project Manager',
+    value: 'project manager',
+    type: 'decision-maker',
+  },
+  {
+    label: 'Product Manager',
+    value: 'product manager',
+    type: 'decision-maker',
+  },
 ];
-const projectList = [
-  { label: 'Website', value: 'website' },
+
+const goalsList = [
+  { label: 'Personalization', value: 'personalization' },
+  { label: 'SEO', value: 'seo' },
+  { label: 'Marketing Autonomy', value: 'marketing autonomy' },
+  { label: 'A/B Testing', value: 'a/b testing' },
+  { label: 'Multi-site', value: 'multi-site' },
+  { label: 'Multi-lang(globalization)', value: 'multi-lang' },
+  { label: 'Product Activation', value: 'product activation' },
+  { label: 'Developer Flexibility', value: 'developer flexibility' },
+];
+const devProjects = [
   { label: 'App', value: 'app' },
-  { label: 'Headless Project', value: 'headless project' },
+  { label: 'Headless Website', value: 'headless website' },
+  { label: 'Hybrid Website', value: 'hybrid website' },
+  { label: 'Other Headless Project', value: 'other headless project' },
 ];
+const nonDevProjects = [
+  { label: 'Website', value: 'website' },
+  { label: 'Blog', value: 'blog' },
+  { label: 'App', value: 'app' },
+];
+
+const projectTypeList = [
+  { label: 'Personal', value: 'personal' },
+  { label: 'Business', value: 'business' },
+];
+
+const Questionaire = ({ title = 'no title', data = [], onClick }) => {
+  const handleClick = (data) => {
+    onClick(data);
+  };
+  return (
+    <SwipeCompContainer>
+      <Typography variant="h4" color="text.secondary">
+        {title}
+      </Typography>
+      <Stack
+        direction={'row'}
+        spacing={4}
+        gap={2}
+        justifyContent="center"
+        sx={{
+          width: '50vw',
+          overflow: 'auto',
+          flexWrap: 'wrap',
+        }}
+        flexWrap
+      >
+        {data?.map((e) => {
+          return (
+            <LoadingButton
+              color="primary"
+              variant="contained"
+              onClick={() => handleClick(e)}
+            >
+              <Typography whiteSpace={'nowrap'} width={1}>
+                {e?.label}
+              </Typography>
+            </LoadingButton>
+          );
+        })}
+      </Stack>
+    </SwipeCompContainer>
+  );
+};
+
+const DemoForm = ({ onSubmit = () => {} }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit();
+  };
+  return (
+    <Stack>
+      <Typography variant="h3">Demo Form</Typography>
+      <form action="submit" onSubmit={handleSubmit}>
+        <Stack gap={2}>
+          <TextField label="Phone number" />
+          <TextField label="Company" />
+          <TextField label="Project Description" />
+          <Button variant="contained">Submit</Button>
+        </Stack>
+      </form>
+    </Stack>
+  );
+};
+
+const CompanyDetails = ({ projectName, setprojectName, onClick }) => {
+  const handleClick = () => {
+    onClick();
+  };
+  return (
+    <SwipeCompContainer>
+      <Typography variant="h4" color="text.secondary">
+        {`What is your company's name?`}
+      </Typography>
+      <TextField
+        placeholder="Project name"
+        value={projectName}
+        onChange={(e) => setprojectName(e.currentTarget.value)}
+      />
+      <LoadingButton
+        disabled={!projectName}
+        color="primary"
+        variant="contained"
+        onClick={handleClick}
+      >
+        Next
+      </LoadingButton>
+    </SwipeCompContainer>
+  );
+};
+
+const InviteTeam = ({ emails, setemails, handleNext }) => {
+  return (
+    <SwipeCompContainer>
+      <Typography variant="h4" color="text.secondary">
+        Invite your Team
+      </Typography>
+      <TextBox collections={emails} setcollections={setemails} />
+      <Stack direction="row" spacing={4}>
+        <LoadingButton
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            handleNext();
+          }}
+        >
+          Lets go
+        </LoadingButton>
+        <LoadingButton
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            handleNext();
+          }}
+        >
+          Copy invite link
+        </LoadingButton>
+        <LoadingButton
+          color="primary"
+          variant="outlined"
+          onClick={() => {
+            handleNext();
+          }}
+        >
+          Skip
+        </LoadingButton>
+      </Stack>
+    </SwipeCompContainer>
+  );
+};
 
 const TextBox = ({ collections, setcollections }) => {
   const [email, setemail] = React.useState('');
@@ -72,6 +274,7 @@ const TextBox = ({ collections, setcollections }) => {
     </form>
   );
 };
+
 const SwipeCompContainer = ({ children, pt = 14 }) => {
   return (
     <Stack
@@ -108,6 +311,10 @@ const postToZOHO = async (payloadJSON) => {
 };
 
 const Index = ({ content }) => {
+  const [framework, setframework] = React.useState('');
+  const [componentSystem, setcomponentSystem] = React.useState('');
+  const [goal, setgoal] = React.useState('');
+  const [roleType, setroleType] = React.useState('');
   const [projectType, setprojectType] = React.useState('');
   const { zestyProductionMode } = content || {};
   const [zohoLeadObject, setzohoLeadObject] = React.useState('');
@@ -140,11 +347,6 @@ const Index = ({ content }) => {
     sliderRef.current.swiper.slideNext();
   }, []);
 
-  const newProjectList =
-    role !== 'developer'
-      ? projectList.filter((e) => e.value !== 'headless project')
-      : projectList;
-
   const visitor = {
     id: userInfo.zuid,
     email: userInfo.email,
@@ -170,6 +372,50 @@ const Index = ({ content }) => {
     });
     return false;
   };
+
+  const handleRole = async (e) => {
+    // await updateUser(e.value);
+    // await window.pendo.initialize({
+    //   visitor,
+    // });
+    setrole(e.value);
+    setroleType(e.type);
+    handleNext();
+  };
+  const handleProject = async (e) => {
+    // if (zestyProductionMode) {
+    //   await postToZOHO(zohoLeadObject);
+    // }
+    setproject(e.value);
+    handleNext();
+  };
+
+  const handleProjectType = async (e) => {
+    setprojectType(e.value);
+    handleNext();
+  };
+
+  const handleGoals = async (e) => {
+    setgoal(e.value);
+    handleNext();
+  };
+  const handlePrefFramework = async (e) => {
+    setframework(e.value);
+    handleNext();
+  };
+  const handlePrefCompSystem = async (e) => {
+    setcomponentSystem(e.value);
+    handleNext();
+  };
+  const handleCompanyDetails = async (e) => {
+    handleNext();
+    setCookie('projectName', projectName);
+  };
+
+  const handleDemoForm = async (e) => {};
+
+  const isDeveloper = role === 'developer' ? true : false;
+  const isBusiness = projectType === 'business' ? true : false;
 
   React.useEffect(() => {
     if (role) {
@@ -198,6 +444,7 @@ const Index = ({ content }) => {
         maxWidth: theme.breakpoints.values.xl2,
       })}
     >
+      {JSON.stringify(role)}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
         strategy="afterInteractive"
@@ -234,196 +481,84 @@ const Index = ({ content }) => {
             style={{ height: '50vh' }}
             direction={'vertical'}
           >
-            {/* 1st question */}
             <SwiperSlide>
-              <SwipeCompContainer>
-                <Typography variant="h4" color="text.secondary">
-                  What is your role?
-                </Typography>
-                <Stack direction={'row'} spacing={4}>
-                  {roleList.map((e) => {
-                    return (
-                      <LoadingButton
-                        color="primary"
-                        variant="contained"
-                        onClick={async () => {
-                          await updateUser(e.value);
-                          await window.pendo.initialize({
-                            visitor,
-                          });
-                          setrole(e.value);
-                          handleNext();
-                        }}
-                      >
-                        {e.label}
-                      </LoadingButton>
-                    );
-                  })}
-                </Stack>
-              </SwipeCompContainer>
+              <Questionaire
+                title="What is your role?"
+                data={roleList}
+                onClick={handleRole}
+              />
             </SwiperSlide>
 
-            {/* 2nd Question */}
-            <SwiperSlide>
-              <SwipeCompContainer>
-                <Typography variant="h4" color="text.secondary">
-                  What are you creating today?
-                </Typography>
-                <Stack direction={'row'} spacing={4}>
-                  {newProjectList.map((e) => {
-                    return (
-                      <LoadingButton
-                        color="primary"
-                        variant="contained"
-                        onClick={async () => {
-                          if (zestyProductionMode) {
-                            await postToZOHO(zohoLeadObject);
-                          }
-                          setproject(e.value);
-                          handleNext();
-                        }}
-                      >
-                        {e.label}
-                      </LoadingButton>
-                    );
-                  })}
-                </Stack>
-              </SwipeCompContainer>
-            </SwiperSlide>
-
-            {/* 3rd Question */}
-            <SwiperSlide>
-              <SwipeCompContainer>
-                <Typography variant="h4" color="text.secondary">
-                  What type of project is this?
-                </Typography>
-                <Stack direction={'row'} spacing={4}>
-                  <LoadingButton
-                    color="primary"
-                    variant="contained"
-                    onClick={async () => {
-                      handleNext();
-                    }}
-                  >
-                    Personal
-                  </LoadingButton>
-                  <LoadingButton
-                    color="primary"
-                    variant="contained"
-                    onClick={async () => {
-                      setprojectType('business');
-                      handleNext();
-                    }}
-                  >
-                    Business
-                  </LoadingButton>
-                </Stack>
-              </SwipeCompContainer>
-            </SwiperSlide>
-
-            {projectType === 'business' && (
+            {roleType === 'decision-maker' && (
               <SwiperSlide>
-                <SwipeCompContainer>
-                  <Typography variant="h4" color="text.secondary">
-                    Business
-                  </Typography>
-                  <Stack direction={'row'} spacing={4}>
-                    <form action="submit">
-                      <Stack>
-                        <TextField
-                          placeholder=""
-                          // value={projectName}
-                          // onChange={(e) => setprojectName(e.currentTarget.value)}
-                        />
-                        <TextField
-                          placeholder=""
-                          // value={projectName}
-                          // onChange={(e) => setprojectName(e.currentTarget.value)}
-                        />
-                        <TextField
-                          placeholder=""
-                          // value={projectName}
-                          // onChange={(e) => setprojectName(e.currentTarget.value)}
-                        />
-                        <LoadingButton
-                          color="primary"
-                          variant="contained"
-                          onClick={async () => {
-                            handleNext();
-                          }}
-                        >
-                          Submit
-                        </LoadingButton>
-                      </Stack>
-                    </form>
-                  </Stack>
-                </SwipeCompContainer>
+                <DemoForm onSubmit={handleDemoForm} />
               </SwiperSlide>
             )}
+
             <SwiperSlide>
-              <SwipeCompContainer>
-                <Typography variant="h4" color="text.secondary">
-                  Project Name?
-                </Typography>
-                <TextField
-                  placeholder="Project name"
-                  value={projectName}
-                  onChange={(e) => setprojectName(e.currentTarget.value)}
+              <Questionaire
+                title="What are you creating today?"
+                data={isDeveloper ? devProjects : nonDevProjects}
+                onClick={handleProject}
+              />
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <Questionaire
+                title="Who is this project for?"
+                data={projectTypeList}
+                onClick={handleProjectType}
+              />
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <Questionaire
+                title="What are your most important goals?"
+                data={goalsList}
+                onClick={handleGoals}
+              />
+            </SwiperSlide>
+
+            {isDeveloper && (
+              <SwiperSlide>
+                <Questionaire
+                  title="Preferred Framework"
+                  data={frameworkList}
+                  onClick={handlePrefFramework}
                 />
-                <LoadingButton
-                  disabled={!projectName}
-                  color="primary"
-                  variant="contained"
-                  onClick={() => {
-                    handleNext();
-                    setCookie('projectName', projectName);
-                  }}
-                >
-                  Next
-                </LoadingButton>
-              </SwipeCompContainer>
-            </SwiperSlide>
+              </SwiperSlide>
+            )}
 
-            {/* 4th Question */}
-            <SwiperSlide>
-              <SwipeCompContainer>
-                <Typography variant="h4" color="text.secondary">
-                  Who else will be working on <b>{projectName}</b>?
-                </Typography>
-                <TextBox collections={emails} setcollections={setemails} />
-                <Stack direction="row" spacing={4}>
-                  <LoadingButton
-                    color="primary"
-                    variant="contained"
-                    onClick={() => {
-                      handleNext();
-                    }}
-                  >
-                    Lets go
-                  </LoadingButton>
-                  <LoadingButton
-                    color="primary"
-                    variant="contained"
-                    onClick={() => {
-                      handleNext();
-                    }}
-                  >
-                    Copy invite link
-                  </LoadingButton>
-                  <LoadingButton
-                    color="primary"
-                    variant="outlined"
-                    onClick={() => {
-                      handleNext();
-                    }}
-                  >
-                    Skip
-                  </LoadingButton>
-                </Stack>
-              </SwipeCompContainer>
-            </SwiperSlide>
+            {isDeveloper && (
+              <SwiperSlide>
+                <Questionaire
+                  title="Preferred Component System"
+                  data={componentsSystemList}
+                  onClick={handlePrefCompSystem}
+                />
+              </SwiperSlide>
+            )}
 
-            {/* 5th Question */}
+            {isBusiness && (
+              <SwiperSlide>
+                <CompanyDetails
+                  projectName={projectName}
+                  setprojectName={setprojectName}
+                  onClick={handleCompanyDetails}
+                />
+              </SwiperSlide>
+            )}
+
+            {isBusiness && (
+              <SwiperSlide>
+                <InviteTeam
+                  emails={emails}
+                  setemails={setemails}
+                  handleNext={handleNext}
+                />
+              </SwiperSlide>
+            )}
+
             <SwiperSlide>
               <SwipeCompContainer>
                 <Onboarding />
