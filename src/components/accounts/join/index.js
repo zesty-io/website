@@ -332,12 +332,13 @@ const Index = ({ content }) => {
   } = useZestyStore();
   const sliderRef = React.useRef(null);
 
-  const updateUser = async (role) => {
+  const updateUser = async (preference, role) => {
     const userZUID = userInfo.ZUID;
+    const prefs = userInfo?.prefs && JSON.parse(userInfo?.prefs);
     const body = {
       firstName: userInfo.firstName,
       lastName: userInfo.lastName,
-      prefs: JSON.stringify({ persona: role }),
+      prefs: JSON.stringify({ ...prefs, [preference]: role }),
     };
     await ZestyAPI.updateUser(userZUID, body);
   };
@@ -374,7 +375,7 @@ const Index = ({ content }) => {
   };
 
   const handleRole = async (e) => {
-    // await updateUser(e.value);
+    await updateUser('persona', e.value);
     // await window.pendo.initialize({
     //   visitor,
     // });
@@ -383,6 +384,7 @@ const Index = ({ content }) => {
     handleNext();
   };
   const handleProject = async (e) => {
+    await updateUser('project', e.value);
     // if (zestyProductionMode) {
     //   await postToZOHO(zohoLeadObject);
     // }
@@ -391,23 +393,29 @@ const Index = ({ content }) => {
   };
 
   const handleProjectType = async (e) => {
+    await updateUser('projectType', e.value);
     setprojectType(e.value);
     handleNext();
   };
 
   const handleGoals = async (e) => {
+    await updateUser('goal', e.value);
     setgoal(e.value);
     handleNext();
   };
   const handlePrefFramework = async (e) => {
+    await updateUser('preferred_framework', e.value);
     setframework(e.value);
     handleNext();
   };
   const handlePrefCompSystem = async (e) => {
+    await updateUser('preferred_component_system', e.value);
     setcomponentSystem(e.value);
     handleNext();
   };
   const handleCompanyDetails = async (e) => {
+    // await updateUser('projectName', e.value);
+
     handleNext();
     setCookie('projectName', projectName);
   };
