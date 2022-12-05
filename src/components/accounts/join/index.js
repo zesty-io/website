@@ -1,5 +1,12 @@
 import React from 'react';
-import { Container, Grid, Stack, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
 import Script from 'next/script';
@@ -28,6 +35,8 @@ const frameworkList = [
   { label: 'Hugo', value: 'hugo' },
   { label: 'Gatsby', value: 'gatsby' },
   { label: 'Svelte', value: 'svelte' },
+  { label: 'Remix', value: 'remix' },
+  { label: 'Astro', value: 'astro' },
   { label: 'Other', value: 'other' },
 ];
 
@@ -37,6 +46,7 @@ const componentsSystemList = [
   { label: 'Tailwind', value: 'tailwind' },
   { label: 'Bulma', value: 'bulma' },
   { label: 'Foundation', value: 'foundation' },
+  { label: 'Chakra UI', value: 'chakra ui' },
   { label: 'Other', value: 'other' },
 ];
 
@@ -77,13 +87,13 @@ const goalsList = [
   { label: 'Product Activation', value: 'product activation' },
   { label: 'Developer Flexibility', value: 'developer flexibility' },
 ];
-const nonDevsProjects = [
+const devProjects = [
   { label: 'App', value: 'app' },
   { label: 'Headless Website', value: 'headless website' },
   { label: 'Hybrid Website', value: 'hybrid website' },
   { label: 'Other Headless Project', value: 'other headless project' },
 ];
-const devProjects = [
+const nonDevProjects = [
   { label: 'Website', value: 'website' },
   { label: 'Blog', value: 'blog' },
   { label: 'App', value: 'app' },
@@ -103,7 +113,18 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
       <Typography variant="h4" color="text.secondary">
         {title}
       </Typography>
-      <Stack direction={'row'} spacing={4}>
+      <Stack
+        direction={'row'}
+        spacing={4}
+        gap={2}
+        justifyContent="center"
+        sx={{
+          width: '50vw',
+          overflow: 'auto',
+          flexWrap: 'wrap',
+        }}
+        flexWrap
+      >
         {data?.map((e) => {
           return (
             <LoadingButton
@@ -111,7 +132,9 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
               variant="contained"
               onClick={() => handleClick(e)}
             >
-              {e?.label}
+              <Typography whiteSpace={'nowrap'} width={1}>
+                {e?.label}
+              </Typography>
             </LoadingButton>
           );
         })}
@@ -120,8 +143,24 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
   );
 };
 
-const DemoForm = () => {
-  return <Stack>DEMO FORM</Stack>;
+const DemoForm = ({ onSubmit = () => {} }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit();
+  };
+  return (
+    <Stack>
+      <Typography variant="h3">Demo Form</Typography>
+      <form action="submit" onSubmit={handleSubmit}>
+        <Stack gap={2}>
+          <TextField label="Phone number" />
+          <TextField label="Company" />
+          <TextField label="Project Description" />
+          <Button variant="contained">Submit</Button>
+        </Stack>
+      </form>
+    </Stack>
+  );
 };
 
 const CompanyDetails = ({ projectName, setprojectName, onClick }) => {
@@ -347,7 +386,7 @@ const Index = ({ content }) => {
     // if (zestyProductionMode) {
     //   await postToZOHO(zohoLeadObject);
     // }
-    // setproject(e.value);
+    setproject(e.value);
     handleNext();
   };
 
@@ -373,6 +412,8 @@ const Index = ({ content }) => {
     setCookie('projectName', projectName);
   };
 
+  const handleDemoForm = async (e) => {};
+
   const isDeveloper = role === 'developer' ? true : false;
   const isBusiness = projectType === 'business' ? true : false;
 
@@ -394,6 +435,7 @@ const Index = ({ content }) => {
   React.useEffect(() => {
     gtag_report_conversion();
   }, []);
+
   return (
     <Container
       maxWidth={false}
@@ -402,6 +444,7 @@ const Index = ({ content }) => {
         maxWidth: theme.breakpoints.values.xl2,
       })}
     >
+      {JSON.stringify(role)}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
         strategy="afterInteractive"
@@ -448,14 +491,14 @@ const Index = ({ content }) => {
 
             {roleType === 'decision-maker' && (
               <SwiperSlide>
-                <DemoForm />
+                <DemoForm onSubmit={handleDemoForm} />
               </SwiperSlide>
             )}
 
             <SwiperSlide>
               <Questionaire
                 title="What are you creating today?"
-                data={isDeveloper ? devProjects : nonDevsProjects}
+                data={isDeveloper ? devProjects : nonDevProjects}
                 onClick={handleProject}
               />
             </SwiperSlide>
