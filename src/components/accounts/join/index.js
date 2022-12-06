@@ -334,13 +334,17 @@ const Index = ({ content }) => {
 
   const updateUser = async (preference, role) => {
     const userZUID = userInfo.ZUID;
-    const prefs = userInfo?.prefs && JSON.parse(userInfo?.prefs);
-    const body = {
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      prefs: JSON.stringify({ ...prefs, [preference]: role }),
-    };
-    await ZestyAPI.updateUser(userZUID, body);
+    const res = await ZestyAPI.getUser(userZUID);
+    if (!res.error) {
+      const { firstName, lastName, prefs } = res?.data || {};
+      const newPrefs = prefs && JSON.parse(prefs);
+      const body = {
+        firstName,
+        lastName,
+        prefs: JSON.stringify({ ...newPrefs, [preference]: role }),
+      };
+      await ZestyAPI.updateUser(userZUID, body);
+    }
   };
 
   const handleNext = React.useCallback(() => {
@@ -452,7 +456,6 @@ const Index = ({ content }) => {
         maxWidth: theme.breakpoints.values.xl2,
       })}
     >
-      {JSON.stringify(role)}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
         strategy="afterInteractive"
