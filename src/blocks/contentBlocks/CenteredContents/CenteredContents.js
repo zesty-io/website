@@ -101,7 +101,7 @@ const CenteredContents = ({
                 },
               }}
             >
-              {header || FillerContent.header}
+              {header || FillerContent.headerAndDescription}
             </MuiMarkdown>
 
             {isCodeBlock && (

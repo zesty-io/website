@@ -71,7 +71,6 @@ const SimpleHeroWithImageAndCtaButtons = ({
       component={'section'}
     >
       <Container>
-
         {bgImage && (
           <Box
             sx={{
@@ -95,7 +94,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
             />
           </Box>
         )}
-        
+
         <Grid container spacing={4} sx={{ zIndex: 100 }}>
           <Grid item container xs={12} md={6} alignItems={'center'}>
             <Box marginBottom={2}>
@@ -160,7 +159,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                   },
                 }}
               >
-                {title || FillerContent.header}
+                {title || FillerContent.rich_text_2}
               </MuiMarkdown>
             </Box>
 
@@ -250,11 +249,9 @@ const SimpleHeroWithImageAndCtaButtons = ({
             xs={12}
             md={6}
           >
-            {image ? (
+            {!video ? (
               <ZestyImage
-                src={
-                  image || FillerContent.image
-                }
+                src={image || FillerContent.image}
                 width={600}
                 height={350}
                 style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
@@ -274,7 +271,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                     iframe: {
                       borderRadius: 5,
                     },
-                    width: '100%'
+                    width: '100%',
                   }}
                 >
                   <ReactPlayer
@@ -298,10 +295,11 @@ const SimpleHeroWithImageAndCtaButtons = ({
                     borderRadius: 4,
                   }}
                 >
-                  <Box
-                    sx={{ width: 150, height: 90 }}
-                    component="img"
+                  <ZestyImage
                     src={integrationLogo || FillerContent.logos[0].url}
+                    width={150}
+                    height={90}
+                    alt={mainTitle || 'Zesty.io integration'}
                   />
                 </Box>
               </>

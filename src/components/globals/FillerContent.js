@@ -3,11 +3,17 @@ export default {
   rich_text_sub_heading: '<h2>Missing Content, Edit in CMS</h2>',
   rich_text:
     '<h1>Missing Content, Edit in CMS</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nonne igitur tibi videntur, inquit, mala? Quam ob rem tandem, inquit, non satisfacit? <a href="http://loripsum.net/" target="_blank">Quare conare, quaeso.</a> Cupiditates non Epicuri divisione finiebat, sed sua satietate. Praeclarae mortes sunt imperatoriae; Duo Reges: constructio interrete. Atqui reperies, inquit, in hoc quidem pertinacem; <i>Nos cum te, M.</i> </p><dl><dt><dfn>Nihil sane.</dfn></dt><dd>Quae cum praeponunt, ut sit aliqua rerum selectio, naturam videntur sequi;</dd><dt><dfn>Non semper, inquam;</dfn></dt><dd>Aufidio, praetorio, erudito homine, oculis capto, saepe audiebam, cum se lucis magis quam utilitatis desiderio moveri diceret.</dd><dt><dfn>Equidem e Cn.</dfn></dt><dd>Nec hoc ille non vidit, sed verborum magnificentia est et gloria delectatus.</dd></dl><h2>Sed residamus, inquit, si placet.</h2><p>Tum mihi Piso: Quid ergo? Nonne videmus quanta perturbatio rerum omnium consequatur, quanta confusio? Ea possunt paria non esse. Quis hoc dicit? <a href="http://loripsum.net/" target="_blank">Cave putes quicquam esse verius.</a> </p>',
+  rich_text_2:
+    '<h1>Missing Content, Edit in CMS</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nonne igitur tibi videntur, inquit, mala? Quam ob rem tandem, inquit, non satisfacit? <a href="http://loripsum.net/" target="_blank">Quare conare, quaeso.</a> Cupiditates non Epicuri divisione finiebat, sed sua satietate. Praeclarae mortes sunt imperatoriae; Duo Reges: constructio interrete. Atqui reperies, inquit, in hoc quidem pertinacem; <i>Nos cum te, M.</i> </p>',
+  headerAndDescription:
+    '<h2>Missing Content, Edit in CMS</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nonne igitur tibi videntur, inquit, mala? Quam ob rem tandem, inquit, non satisfacit? <a href="http://loripsum.net/" target="_blank">Quare conare, quaeso.</a> Cupiditates non Epicuri divisione finiebat, sed sua satietate</p>',
   image: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
   cta: 'Missing CTA Info',
   date: 'Missing Date',
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
+  longDescription:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique. Sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique. Ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
   href: 'https://www.zesty.io/',
   missingDataArray: ['Missing', 'Data', 'In', 'The', 'Manager', 'UI'],
   contact_zuid: '7-cec987fcf5-9bht2z',
@@ -433,7 +439,65 @@ export default {
       ),
     },
   ],
+  simpleContents: [
+    {
+      header: 'Missing Content, Edit in CMS',
+      content:
+        '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.</p>',
+      image: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+    },
+    {
+      header: 'Missing Content, Edit in CMS',
+      content:
+        '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.</p>',
+      image: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+    },
+    {
+      header: 'Missing Content, Edit in CMS',
+      content:
+        '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.</p>',
+      image: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+    },
+    {
+      header: 'Missing Content, Edit in CMS',
+      content:
+        '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.</p>',
+      image: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+    },
+  ],
+  growth: [
+    {
+      feature_name: 'Missing Content, Edit in CMS',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
+      image: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+    },
+    {
+      feature_name: 'Missing Content, Edit in CMS',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
+      image: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+    },
+    {
+      feature_name: 'Missing Content, Edit in CMS',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pulvinar viverra augue et tristique.',
+      image: 'https://kfg6bckb.media.zestyio.com/behind-the-brand-backdrop.png',
+    },
+  ],
   testimonialCard: [
+    {
+      feedback: 'Missing Content',
+      name: 'Missing Content',
+      title: 'Missing Content',
+      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
+    },
+    {
+      feedback: 'Missing Content',
+      name: 'Missing Content',
+      title: 'Missing Content',
+      avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
+    },
     {
       feedback: 'Missing Content',
       name: 'Missing Content',

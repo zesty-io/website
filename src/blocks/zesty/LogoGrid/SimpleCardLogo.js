@@ -109,7 +109,7 @@ const SimpleCardLogo = ({
               }}
             >
               {logoItems?.map((item, index) => (
-                <Box key={index} sx={{ display: 'flex' }}>
+                <Box key={index} sx={{ display: 'flex', width: 150 }}>
                   <ZestyImage
                   
                     loading="lazy"
