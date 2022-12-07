@@ -45,10 +45,10 @@ export const zohoPostObject = (
       ? obj.newsletter_signup
       : 'unknown',
     Lead_Source: getCookie('utm_source') ? getCookie('utm_source') : leadSource,
-    // Captured_URL:
-    //   window.location.href.match(/localhost/gi) == null
-    //     ? window.location.href
-    //     : 'https://www.testcapurl.com',
+    Captured_URL:
+      window.location.href.match(/localhost/gi) == null
+        ? window.location.href
+        : 'https://www.testcapurl.com',
     UTM_Campaign: getCookie('utm_campaign')
       ? getCookie('utm_campaign')
       : 'unknown',
@@ -74,5 +74,6 @@ export const zohoPostObject = (
     Goal: obj?.goal,
     Preferred_Framework: obj?.preferred_framework,
     Preferred_Component_System: obj?.preferred_component_system,
+    Project_Description: obj?.projectDescription,
   };
 };

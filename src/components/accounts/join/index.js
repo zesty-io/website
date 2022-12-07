@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Container,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Container, Grid, Stack, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
 import Script from 'next/script';
@@ -21,6 +14,9 @@ import { zohoPostObject } from './zohoPostObject';
 import { grey } from '@mui/material/colors';
 import { ResourcesCard } from './ResourceCard';
 import { pendoScript } from 'components/marketing/Start/pendoScript';
+import { FormInput, SubmitBtn, SuccessMsg } from '../ui';
+import { useFormik } from 'formik';
+import { accountsValidations } from '../validations';
 
 const frameworkList = [
   { label: 'Parsely/Zesty', value: 'parsely' },
@@ -143,19 +139,36 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
 };
 
 const DemoForm = ({ onSubmit = () => {} }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit();
-  };
+  const formik = useFormik({
+    validationSchema: accountsValidations.demoForm,
+    initialValues: {
+      company: '',
+      projectDescription: '',
+      phoneNumber: '',
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      onSubmit(values);
+      formik.resetForm();
+    },
+  });
   return (
     <Stack>
       <Typography variant="h3">Demo Form</Typography>
-      <form action="submit" onSubmit={handleSubmit}>
+      <form noValidate onSubmit={formik.handleSubmit}>
         <Stack gap={2}>
-          <TextField label="Phone number" />
-          <TextField label="Company" />
-          <TextField label="Project Description" />
-          <Button variant="contained">Submit</Button>
+          <FormInput label="Company" name={'company'} formik={formik} />
+          <FormInput
+            label="Project Description"
+            name={'projectDescription'}
+            formik={formik}
+          />
+          <FormInput
+            label="Phone Number"
+            name={'phoneNumber'}
+            formik={formik}
+          />
+          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
         </Stack>
       </form>
     </Stack>
@@ -290,8 +303,9 @@ const SwipeCompContainer = ({ children, pt = 14 }) => {
   );
 };
 
-const handleZoho = async (obj) => {
+const handleZoho = async (obj, callback = () => {}) => {
   await postToZOHO(obj);
+  await callback();
 };
 const postToZOHO = async (payloadJSON) => {
   dataLayer.push({ event: 'SignupLead', value: '1' });
@@ -308,7 +322,8 @@ const postToZOHO = async (payloadJSON) => {
     );
     return await res.json();
   } catch (error) {
-    throw new Error(`HTTP error: ${error}`);
+    console.log(error);
+    // throw new Error(`HTTP error: ${error}`);
   }
 };
 
@@ -319,7 +334,6 @@ const Index = ({ content }) => {
   const [roleType, setroleType] = React.useState('');
   const [projectType, setprojectType] = React.useState('');
   const { zestyProductionMode } = content || {};
-  const [zohoLeadObject, setzohoLeadObject] = React.useState('');
   const {
     userInfo,
     ZestyAPI,
@@ -333,6 +347,10 @@ const Index = ({ content }) => {
     setcompany,
     emails,
     setemails,
+    phoneNumber,
+    setphoneNumber,
+    projectDescription,
+    setprojectDescription,
   } = useZestyStore();
   const sliderRef = React.useRef(null);
 
@@ -348,11 +366,6 @@ const Index = ({ content }) => {
         prefs: JSON.stringify({ ...newPrefs, [preference]: val }),
       };
       await ZestyAPI.updateUser(userZUID, body);
-      // await postToZOHO(zohoLeadObject);
-
-      // if (zestyProductionMode) {
-      //   await postToZOHO(zohoLeadObject);
-      // }
     }
   };
 
@@ -430,7 +443,18 @@ const Index = ({ content }) => {
     // setCookie('projectName', projectName);
   };
 
-  const handleDemoForm = async (e) => {};
+  const handleDemoForm = (e) => {
+    setprojectDescription(e?.projectDescription);
+    setcompany(e?.company);
+    setphoneNumber(e?.phoneNumber);
+
+    SuccessMsg({
+      title: 'Success',
+      action: () => {
+        window.location.reload();
+      },
+    });
+  };
 
   const isDeveloper = role === 'developer' ? true : false;
   const isBusiness = projectType === 'business' ? true : false;
@@ -444,6 +468,8 @@ const Index = ({ content }) => {
     preferred_framework,
     preferred_component_system,
     role,
+    phoneNumber,
+    projectDescription,
   };
 
   React.useEffect(() => {
@@ -467,6 +493,7 @@ const Index = ({ content }) => {
     preferred_framework,
     preferred_component_system,
     role,
+    phoneNumber,
   ]);
 
   React.useEffect(() => {

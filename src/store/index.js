@@ -53,5 +53,9 @@ export const useZestyStore = create((set) => {
     setemails: (data) => set(() => ({ emails: data })),
     company: '',
     setcompany: (data) => set(() => ({ company: data })),
+    phoneNumber: '',
+    setphoneNumber: (data) => set(() => ({ phoneNumber: data })),
+    projectDescription: '',
+    setprojectDescription: (data) => set(() => ({ projectDescription: data })),
   };
 });
