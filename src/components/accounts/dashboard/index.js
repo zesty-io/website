@@ -12,6 +12,7 @@ import SideContent from './SideContent';
 import dayjs from 'dayjs';
 import { Join } from '../join';
 import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
+import { AccountPageloading } from '../ui';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
@@ -108,6 +109,11 @@ const Dashboard = ({ content = {} }) => {
       }
     });
   }
+
+  if (!userInfo || Object.keys(userInfo)?.length === 0) {
+    return <AccountPageloading title={'Zesty.io'} />;
+  }
+
   if (!userInfo?.prefs) {
     missingPrefs = true;
   }
@@ -119,7 +125,8 @@ const Dashboard = ({ content = {} }) => {
   if (ssoLaunchVsUserCreated > 0 && missingPrefs) {
     return <Join content={content} />;
     // check if existing user without a persona
-  } else if (missingPrefs) {
+  }
+  if (missingPrefs) {
     // load onboard ask 1 question what your persona question
     // personalizationSurvey component
     return <PersonalizationSurvey content={content} />;
