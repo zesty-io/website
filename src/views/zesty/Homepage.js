@@ -59,22 +59,7 @@ import { useEffect } from 'react';
 
 function Homepage({ content }) {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
-  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
-  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
-  const isDarkMode = theme.palette.mode === 'dark';
-
-  const pageData = {
-    theme,
-    isSmall,
-    isMedium,
-    isLarge,
-    isExtraLarge,
-    isDarkMode,
-    content,
-    FillerContent,
-  };
 
   const testimonialsData = {
     title: content.testimonials_content,

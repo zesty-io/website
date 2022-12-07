@@ -81,7 +81,7 @@ const LogoSlider = ({ titleAndDescription, integrations_logos, integrations_logo
           },
         }}
       >
-        {titleAndDescription || FillerContent.rich_text}
+        {titleAndDescription || FillerContent.headerAndDescription}
       </MuiMarkdown>
 
       {cta_text && (

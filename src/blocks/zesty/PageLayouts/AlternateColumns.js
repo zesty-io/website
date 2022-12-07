@@ -12,10 +12,11 @@ import DemoCta from 'components/cta/DemoCta';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const AlternateColumns = ({
+  isHeaderEnabled = true,
   header_content,
   cta_link,
   cta_text,
-  column_data,
+  column_data = FillerContent.simpleContents,
   alternateColors,
 }) => {
   const theme = useTheme();
@@ -40,12 +41,12 @@ const AlternateColumns = ({
   return (
     <Box
       sx={{
-        pt: 15,
+        pt: header_content && 15,
       }}
       component="section"
     >
       <Container>
-        {header_content && (
+        {isHeaderEnabled && (
           <MuiMarkdown
             options={{
               overrides: {
@@ -76,9 +77,9 @@ const AlternateColumns = ({
               },
             }}
           >
-            {header_content || FillerContent.rich_text}
+            {header_content || FillerContent.headerAndDescription}
           </MuiMarkdown>
-        )}
+         )} 
 
         {cta_text && (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -214,7 +215,7 @@ const AlternateColumns = ({
                   <Box>
                     <ZestyImage
                       width={600}
-                      height={350}
+                      // height={350}
                       alt={item?.header || ''}
                       style={{ width: '100%', maxWidth: 600, height: 'auto' }}
                       src={item?.image || FillerContent.photos[0].src}

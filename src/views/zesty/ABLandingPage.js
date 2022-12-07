@@ -184,7 +184,6 @@ function ABLandingPage({ content }) {
         header_content={content?.middle_cta_text || FillerContent.header}
       />
       <Features
-        header_size={48}
         data={featureData.data}
         features_header={featureData.header}
         card_name_color={featureData.card_name_color}

@@ -156,6 +156,7 @@ function WhyZesty({ content }) {
       {/* Benefits */}
       <Box sx={{ mt: 15 }}>
         <AlternateColumns
+          isHeaderEnabled={false}
           column_data={alternateColumnsData}
           alternateColors={COLORS.slice(0, 2)}
         />
@@ -175,6 +176,7 @@ function WhyZesty({ content }) {
         <Box sx={{ mt: 10 }}>
           <AlternateColumns
             column_data={alternateColumnsData2}
+            isHeaderEnabled={false}
             header_content={content?.content}
             cta_link={content?.middle_cta_button_link?.data[0].meta.web.uri}
             cta_text={content?.middle_cta_button_text}

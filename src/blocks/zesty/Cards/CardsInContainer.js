@@ -21,7 +21,7 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 
 const CardsInContainer = ({
   title,
-  data,
+  data = FillerContent.featuresCards,
   imageWidth = 78,
   imageHeight,
   itemTitleColor,
@@ -104,11 +104,11 @@ const CardsInContainer = ({
               },
             }}
           >
-            {title || FillerContent.description}
+            {title || FillerContent.header}
           </MuiMarkdown>
-          <Grid sx={{ mt: 5 }} container spacing={2}>
-            {data.map((item, index) => (
-              <Grid key={index} item sm={12} md={4} sx={{ width: '100%' }}>
+          <Grid sx={{ mt: 5 }} container spacing={5}>
+            {data?.map((item, index) => (
+              <Grid key={index} item sm={12} md={4}>
                 <Card
                   component={item.url && 'a'}
                   target={item.url && '_blank'}
@@ -118,7 +118,6 @@ const CardsInContainer = ({
                     px: 2,
                     minHeight: item.content ? 355 : 244,
                     textDecoration: 'none',
-                    maxWidth: 426,
                     margin: 'auto',
                     position: 'relative',
                     display: 'block',

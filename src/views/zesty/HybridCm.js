@@ -165,7 +165,6 @@ function HybridCm({ content }) {
       <CenteredContents {...hybridProps} />
       {/* <TimeLine timelineData={timelineData} {...pageData} /> */}
       <AlternateColumns alternateColors={COLORS} {...timelineData} />
-
       <CaseStudyCards {...caseStudiesProps} />
       <Bottom {...pageData} />
       <SimpleVerticalBlogCards

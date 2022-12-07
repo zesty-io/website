@@ -30,7 +30,7 @@ const CaseStudyCards = ({
   description,
   statsData,
   g2BadgesData,
-  caseStudiesData,
+  caseStudiesData = FillerContent.platformCard,
   caseStudiesBackground,
 }) => {
   const theme = useTheme();
@@ -97,7 +97,7 @@ const CaseStudyCards = ({
               },
             }}
           >
-            {header || FillerContent.header}
+            {header || FillerContent.headerAndDescription}
           </MuiMarkdown>
           {description && (
             <MuiMarkdown

@@ -60,7 +60,7 @@ const DarkBlueCta = ({
               },
             }}
           >
-            {header_content || FillerContent.rich_text}
+            {header_content || FillerContent.headerAndDescription}
           </MuiMarkdown>
           <Box
             sx={{
