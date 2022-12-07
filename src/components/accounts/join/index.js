@@ -175,28 +175,31 @@ const DemoForm = ({ onSubmit = () => {} }) => {
   );
 };
 
-const CompanyDetails = ({ projectName, setprojectName, onClick }) => {
-  const handleClick = () => {
-    onClick();
-  };
+const CompanyDetails = ({ onSubmit }) => {
+  const formik = useFormik({
+    validationSchema: accountsValidations.companyDetails,
+    initialValues: {
+      company: '',
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      onSubmit(values);
+      formik.resetForm();
+    },
+  });
+
   return (
     <SwipeCompContainer>
       <Typography variant="h4" color="text.secondary">
         {`What is your company's name?`}
       </Typography>
-      <TextField
-        placeholder="Project name"
-        value={projectName}
-        onChange={(e) => setprojectName(e.currentTarget.value)}
-      />
-      <LoadingButton
-        disabled={!projectName}
-        color="primary"
-        variant="contained"
-        onClick={handleClick}
-      >
-        Next
-      </LoadingButton>
+
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <Stack gap={2}>
+          <FormInput label="Company" name={'company'} formik={formik} />
+          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        </Stack>
+      </form>
     </SwipeCompContainer>
   );
 };
@@ -436,9 +439,10 @@ const Index = ({ content }) => {
     setcomponentSystem(e.value);
     handleNext();
   };
-  const handleCompanyDetails = async () => {
-    setcompany(projectName);
-    await updateUser('company', company);
+  const handleCompanyDetails = async (e) => {
+    // console.log(e, 4444);
+    setcompany(e.company);
+    await updateUser('company', e.company);
     handleNext();
     // setCookie('projectName', projectName);
   };
@@ -603,11 +607,7 @@ const Index = ({ content }) => {
 
             {isBusiness && (
               <SwiperSlide>
-                <CompanyDetails
-                  projectName={projectName}
-                  setprojectName={setprojectName}
-                  onClick={handleCompanyDetails}
-                />
+                <CompanyDetails onSubmit={handleCompanyDetails} />
               </SwiperSlide>
             )}
 

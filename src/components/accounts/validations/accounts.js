@@ -118,6 +118,9 @@ const demoForm = yup.object().shape({
   projectDescription: yup.string(),
   phoneNumber: yup.number().required('Phone Number is required*'),
 });
+const companyDetails = yup.object().shape({
+  company: yup.string().required('Company is Required*'),
+});
 
 const localeSchema = yup.object().shape({
   locale: yup.string().required('This is required'),
@@ -188,4 +191,5 @@ export const accountsValidations = {
   addEmail,
   signUp,
   demoForm,
+  companyDetails,
 };
