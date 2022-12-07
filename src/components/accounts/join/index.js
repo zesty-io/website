@@ -17,9 +17,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Swiper } from 'swiper/react';
 import { Onboarding } from './Onboarding';
-import { zohoPostObject } from 'components/marketing/Start/zohoPostObject';
+import { zohoPostObject } from './zohoPostObject';
 import { grey } from '@mui/material/colors';
-import { setCookie } from 'cookies-next';
 import { ResourcesCard } from './ResourceCard';
 import { pendoScript } from 'components/marketing/Start/pendoScript';
 
@@ -291,6 +290,9 @@ const SwipeCompContainer = ({ children, pt = 14 }) => {
   );
 };
 
+const handleZoho = async (obj) => {
+  await postToZOHO(obj);
+};
 const postToZOHO = async (payloadJSON) => {
   dataLayer.push({ event: 'SignupLead', value: '1' });
   try {
@@ -311,8 +313,8 @@ const postToZOHO = async (payloadJSON) => {
 };
 
 const Index = ({ content }) => {
-  const [framework, setframework] = React.useState('');
-  const [componentSystem, setcomponentSystem] = React.useState('');
+  const [preferred_framework, setframework] = React.useState('');
+  const [preferred_component_system, setcomponentSystem] = React.useState('');
   const [goal, setgoal] = React.useState('');
   const [roleType, setroleType] = React.useState('');
   const [projectType, setprojectType] = React.useState('');
@@ -327,12 +329,14 @@ const Index = ({ content }) => {
     setproject,
     projectName,
     setprojectName,
+    company,
+    setcompany,
     emails,
     setemails,
   } = useZestyStore();
   const sliderRef = React.useRef(null);
 
-  const updateUser = async (preference, role) => {
+  const updateUser = async (preference, val) => {
     const userZUID = userInfo.ZUID;
     const res = await ZestyAPI.getUser(userZUID);
     if (!res.error) {
@@ -341,9 +345,14 @@ const Index = ({ content }) => {
       const body = {
         firstName,
         lastName,
-        prefs: JSON.stringify({ ...newPrefs, [preference]: role }),
+        prefs: JSON.stringify({ ...newPrefs, [preference]: val }),
       };
       await ZestyAPI.updateUser(userZUID, body);
+      // await postToZOHO(zohoLeadObject);
+
+      // if (zestyProductionMode) {
+      //   await postToZOHO(zohoLeadObject);
+      // }
     }
   };
 
@@ -379,37 +388,34 @@ const Index = ({ content }) => {
   };
 
   const handleRole = async (e) => {
-    await updateUser('persona', e.value);
     // await window.pendo.initialize({
     //   visitor,
     // });
     setrole(e.value);
     setroleType(e.type);
+    await updateUser('persona', e.value);
     handleNext();
   };
   const handleProject = async (e) => {
-    await updateUser('project', e.value);
-    // if (zestyProductionMode) {
-    //   await postToZOHO(zohoLeadObject);
-    // }
     setproject(e.value);
+    await updateUser('project', e.value);
     handleNext();
   };
 
   const handleProjectType = async (e) => {
-    await updateUser('projectType', e.value);
     setprojectType(e.value);
+    await updateUser('projectType', e.value);
     handleNext();
   };
 
   const handleGoals = async (e) => {
-    await updateUser('goal', e.value);
     setgoal(e.value);
+    await updateUser('goal', e.value);
     handleNext();
   };
   const handlePrefFramework = async (e) => {
-    await updateUser('preferred_framework', e.value);
     setframework(e.value);
+    await updateUser('preferred_framework', e.value);
     handleNext();
   };
   const handlePrefCompSystem = async (e) => {
@@ -417,11 +423,11 @@ const Index = ({ content }) => {
     setcomponentSystem(e.value);
     handleNext();
   };
-  const handleCompanyDetails = async (e) => {
-    // await updateUser('projectName', e.value);
-
+  const handleCompanyDetails = async () => {
+    setcompany(projectName);
+    await updateUser('company', company);
     handleNext();
-    setCookie('projectName', projectName);
+    // setCookie('projectName', projectName);
   };
 
   const handleDemoForm = async (e) => {};
@@ -429,20 +435,39 @@ const Index = ({ content }) => {
   const isDeveloper = role === 'developer' ? true : false;
   const isBusiness = projectType === 'business' ? true : false;
 
+  const zohoObj = {
+    ...userInfo,
+    project,
+    projectType,
+    goal,
+    company,
+    preferred_framework,
+    preferred_component_system,
+    role,
+  };
+
   React.useEffect(() => {
-    if (role) {
-      const obj = zohoPostObject(
-        userInfo,
-        'Trial',
-        'Trial',
-        'Unknown',
-        'Website',
-        role,
-        userInfo.ZUID,
-      );
-      setzohoLeadObject(obj);
+    const obj = zohoPostObject(
+      zohoObj,
+      'Trial',
+      'Trial',
+      'Unknown',
+      'Website',
+      role,
+      userInfo.ZUID,
+    );
+    if (zestyProductionMode) {
+      handleZoho(obj);
     }
-  }, [role, userInfo]);
+  }, [
+    project,
+    projectType,
+    goal,
+    company,
+    preferred_framework,
+    preferred_component_system,
+    role,
+  ]);
 
   React.useEffect(() => {
     gtag_report_conversion();
@@ -480,7 +505,6 @@ const Index = ({ content }) => {
           <Typography variant="h6" color={'text.primary'}>
             {`Let's customize your experiences.`}
           </Typography>
-
           <Swiper
             ref={sliderRef}
             autoHeight={false}
