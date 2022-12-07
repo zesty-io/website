@@ -122,7 +122,7 @@ export const AppInstallerComp = ({ data }) => {
         fullWidth
         onClick={InstallApp}
         disabled={disabledBtn}
-        loading={loading || (isInstalled && selectInstance) || !instanceName}
+        loading={loading || (isInstalled && selectInstance)}
       >
         {!appSID
           ? 'Please Login to continue'
