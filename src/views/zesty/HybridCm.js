@@ -69,7 +69,7 @@ import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithIm
 import About from 'components/marketing/HybridCms/About';
 import CenteredContents from 'blocks/contentBlocks/CenteredContents';
 import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
-import Bottom from 'components/marketing/HybridCms/Bottom';
+import ImageWithContentsCta from 'blocks/zesty/Cta/ImageWithContentsCta';
 import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
 import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleVerticalBlogCards';
 
@@ -152,6 +152,13 @@ function HybridCm({ content }) {
     mainImage: content.hybrid_interface_graphic?.data[0]?.url,
   };
 
+  const bottomProps = {
+    mainImage: content.bottom_cta_graphic.data[0].url,
+    header: content.bottom_cta_header,
+    primaryCtaText: content.bottom_cta_primary,
+    secondaryCtaText: content.bottom_cta_secondary,
+  };
+
   const caseStudiesProps = {
     header: content.case_study_title,
     g2BadgesData: content.g2_badges?.data,
@@ -166,7 +173,7 @@ function HybridCm({ content }) {
       {/* <TimeLine timelineData={timelineData} {...pageData} /> */}
       <AlternateColumns alternateColors={COLORS} {...timelineData} />
       <CaseStudyCards {...caseStudiesProps} />
-      <Bottom {...pageData} />
+      <ImageWithContentsCta {...bottomProps} sx={{ pt: 20, pb: 10 }} />
       <SimpleVerticalBlogCards
         cards={content.related_content_articles?.data}
         title={content.related_content_header}

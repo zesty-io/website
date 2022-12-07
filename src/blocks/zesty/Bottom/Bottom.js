@@ -65,7 +65,7 @@ const Bottom = ({
             >
               <ZestyImage
                 width={951}
-                // height={519}
+                height={519}
                 style={{
                   width: '100%',
                   height: 'auto',

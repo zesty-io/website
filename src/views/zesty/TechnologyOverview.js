@@ -33,7 +33,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import UseCase from '../../components/marketing/TechnologyOverview/UseCase';
 import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
-import GetStarted from '../../components/marketing/TechnologyOverview/GetStarted';
 import Features from 'blocks/zesty/PageLayouts/Features';
 import CenteredContents from 'blocks/contentBlocks/CenteredContents';
 import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
@@ -41,6 +40,7 @@ import SimpleVerticalBlogCards from 'blocks/blog/SimpleVerticalBlogCards/SimpleV
 import TechStack from '../../blocks/integrations/TechStack';
 import Growth from 'blocks/zesty/Growth/Growth';
 import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import ImageWithContentsCta from 'blocks/zesty/Cta/ImageWithContentsCta';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -111,6 +111,14 @@ function TechnologyOverview({ content }) {
     mainImageWidth: 1000,
   };
 
+  const getStartedProps = {
+    mainImage: content.get_started_graphic.data[0].url,
+    header: content.get_started_header,
+    primaryCtaText: content.bottom_cta_primary,
+    secondaryCtaText: content.bottom_cta_secondary,
+    isSCurveBackground: true,
+  };
+
   const caseStudiesProps = {
     header: content.case_study_header,
     g2BadgesData: content.g2_badges?.data,
@@ -151,7 +159,7 @@ function TechnologyOverview({ content }) {
       <Box sx={{ py: 5 }}>
         <Growth {...growthData} />
       </Box>
-      <GetStarted {...pageData} />
+      <ImageWithContentsCta sx={{ pb: 20 }} />
       <Features
         data={feature_data}
         features_header={
