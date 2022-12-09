@@ -32,9 +32,8 @@
 
 import React from 'react';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
+import { Grid, Divider, Avatar, ListItemText, Box } from '@mui/material';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -87,6 +86,12 @@ function Article({ content }) {
       return content.article;
     }
   };
+  const authorImage =
+    content.author?.data[0]?.headshot?.data[0]?.url || FillerContent.image;
+  const authorName = content.author?.data[0]?.name || FillerContent.header;
+  const authorDate = content.date || FillerContent.date;
+  const authorLink =
+    content.author?.data[0]?.meta?.web?.uri || FillerContent.href;
 
   return (
     <>
@@ -103,15 +108,10 @@ function Article({ content }) {
               ? content.hero_image.data[0].url
               : FillerContent.image
           }
-          authorImage={
-            content.author?.data[0]?.headshot?.data[0]?.url ||
-            FillerContent.image
-          }
-          authorName={content.author?.data[0]?.name || FillerContent.header}
-          authorDate={content.date || FillerContent.date}
-          featuredAuthorLink={
-            content.author?.data[0]?.meta?.web?.uri || FillerContent.href
-          }
+          authorImage={authorImage}
+          authorName={authorName}
+          authorDate={authorDate}
+          featuredAuthorLink={authorLink}
         />
         <Container>
           <Grid container spacing={4}>
@@ -120,6 +120,35 @@ function Article({ content }) {
                 customClass="normal-bullets"
                 rich_text={validateWysiwyg() || FillerContent.rich_text}
               ></WYSIWYGRender>
+              <Divider sx={{ mt: 5 }} />
+              <Container position={'relative'} zIndex={2}>
+                <Box
+                  display={'flex'}
+                  alignItems={'center'}
+                  component={'a'}
+                  href={authorLink}
+                  sx={{
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Avatar
+                    sx={{ width: 60, height: 60, marginRight: 2 }}
+                    src={authorImage}
+                  />
+                  <ListItemText
+                    sx={{ margin: 0 }}
+                    primary={authorName}
+                    secondary={authorDate}
+                    primaryTypographyProps={{
+                      variant: 'h6',
+                      sx: { color: 'common.black' },
+                    }}
+                    secondaryTypographyProps={{
+                      sx: { color: 'rgba(0,0,0,.8)' },
+                    }}
+                  />
+                </Box>
+              </Container>
 
               <BlogCTA
                 title={'Insights in your inbox'}
@@ -146,6 +175,7 @@ function Article({ content }) {
             </Grid>
           </Grid>
         </Container>
+
         <Box
           component={'svg'}
           preserveAspectRatio="none"

@@ -271,6 +271,11 @@ export default function Join(props) {
         <title>{seoTitle}</title>
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
+        <link
+          rel="icon"
+          href="https://brand.zesty.io/favicon.png"
+          type="image/png"
+        />
       </Head>
       <Box>
         {pendoScript}
