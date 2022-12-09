@@ -24,6 +24,7 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           padding: 10px 20px 10px 40px;
           backgorund: #e7e7e7;
           margin: 0px;
+          overflow: scroll;
         }
         .wysiwyg blockquote.code {
           
