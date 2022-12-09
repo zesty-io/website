@@ -325,7 +325,7 @@ const postToZOHO = async (payloadJSON) => {
     );
     return await res.json();
   } catch (error) {
-    console.log(error);
+    console.warn(error);
     // throw new Error(`HTTP error: ${error}`);
   }
 };
@@ -404,9 +404,9 @@ const Index = ({ content }) => {
   };
 
   const handleRole = async (e) => {
-    // await window.pendo.initialize({
-    //   visitor,
-    // });
+    await window.pendo.initialize({
+      visitor,
+    });
     setrole(e.value);
     setroleType(e.type);
     await updateUser('persona', e.value);
