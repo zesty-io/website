@@ -12,7 +12,6 @@ import { Swiper } from 'swiper/react';
 import { Onboarding } from './Onboarding';
 import { zohoPostObject } from './zohoPostObject';
 import { grey } from '@mui/material/colors';
-import { ResourcesCard } from './ResourceCard';
 import { pendoScript } from 'components/marketing/Start/pendoScript';
 import { FormInput, SubmitBtn, SuccessMsg } from '../ui';
 import { useFormik } from 'formik';
@@ -354,6 +353,7 @@ const Index = ({ content }) => {
     setphoneNumber,
     projectDescription,
     setprojectDescription,
+    setprefs,
   } = useZestyStore();
   const sliderRef = React.useRef(null);
 
@@ -369,6 +369,7 @@ const Index = ({ content }) => {
         prefs: JSON.stringify({ ...newPrefs, [preference]: val }),
       };
       await ZestyAPI.updateUser(userZUID, body);
+      setprefs(newPrefs);
     }
   };
 
@@ -529,7 +530,7 @@ const Index = ({ content }) => {
 
       {pendoScript}
       <Grid container>
-        <Grid item xs={12} md={8} px={10} py={10}>
+        <Grid item xs={12} px={10} py={10}>
           <Typography variant="p" color={'text.primary'}>
             Hey, <b>{userInfo?.firstName}</b>
           </Typography>
@@ -628,7 +629,7 @@ const Index = ({ content }) => {
             </SwiperSlide>
           </Swiper>
         </Grid>
-        <Grid
+        {/* <Grid
           item
           xs={0}
           md={4}
@@ -647,7 +648,7 @@ const Index = ({ content }) => {
           <Stack>
             <ResourcesCard />
           </Stack>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
   );
