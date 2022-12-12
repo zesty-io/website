@@ -41,6 +41,8 @@ export const useZestyStore = create((set) => {
     setloading: (data) => set(() => ({ loading: data })),
     userInfo: {},
     setuserInfo: (data) => set(() => ({ userInfo: data })),
+    prefs: {},
+    setprefs: (data) => set(() => ({ prefs: data })),
 
     // new user data
     role: '',
