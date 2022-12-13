@@ -448,10 +448,13 @@ const Index = ({ content }) => {
     // setCookie('projectName', projectName);
   };
 
-  const handleDemoForm = (e) => {
+  const handleDemoForm = async (e) => {
     setprojectDescription(e?.projectDescription);
     setcompany(e?.company);
     setphoneNumber(e?.phoneNumber);
+    await updateUser('company', e.company);
+    await updateUser('phoneNumber', e.phoneNumber);
+    await updateUser('projectDescription', e.projectDescription);
 
     SuccessMsg({
       title: 'Success',

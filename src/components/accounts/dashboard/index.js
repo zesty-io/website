@@ -238,6 +238,7 @@ const Dashboard = ({ content = {} }) => {
     runSettingInstances();
   }, [instancesFavorites]);
 
+  // return <OnboardingQuestions content={content} />;
   if (newUserHasInvite) {
     return <PreferenceQuestions content={content} />;
   } else if (isNewUser && !isDecisionMaker) {
