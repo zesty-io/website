@@ -197,7 +197,8 @@ const Features = ({
             ) }
           </MuiMarkdown>
 
-          <MuiMarkdown
+
+{feature_description &&      <MuiMarkdown
             options={{
               overrides: {
                 h2: {
@@ -244,7 +245,8 @@ const Features = ({
             }}
           >
             {feature_description || `<p>${FillerContent.description}</p>`}
-          </MuiMarkdown>
+          </MuiMarkdown> }
+     
 
 
           {cta_button_text && (
