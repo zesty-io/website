@@ -107,6 +107,7 @@ function Homepage({ content }) {
       (content.hero_button_right_link.data &&
         content.hero_button_right_link?.data[0]?.meta?.web?.url) ||
       FillerContent.href,
+    dataTestId: 'homePageHero',
   };
 
   const digitalExperienceProps = {

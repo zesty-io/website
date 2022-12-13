@@ -55,6 +55,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
   bgImage = false,
   isDarkBackground = false,
   isCodeBlock = false,
+  dataTestId = '',
 }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
@@ -64,6 +65,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
 
   return (
     <Box
+      data-testid={dataTestId}
       sx={{
         background: backgroundColor,
         py: isSmall ? 5 : 10,
