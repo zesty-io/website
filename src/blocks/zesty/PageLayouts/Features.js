@@ -47,9 +47,9 @@ import Container from 'blocks/container/Container';
  */
 
 const Features = ({
-  data,
+  data = FillerContent.featuresCards,
   features_header = '',
-  header_size = 48,
+  header_size = 32,
   header_color,
   card_name_color,
   feature_description,
@@ -74,8 +74,8 @@ const Features = ({
   const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
   const isRichText = htmlCheck.test(features_header);
 
-  if (!isRichText && features_header != '') {
-    features_header = `<h2>${features_header}</h2>`;
+  if (!isRichText ) {
+    features_header = `<h2>${features_header || FillerContent.header}</h2>`;
   }
 
   const ConditionalContainer = ({ condition, children }) =>
@@ -102,7 +102,7 @@ const Features = ({
   return (
     <Box
       component="section"
-      paddingBottom={isMobile ? 20 : 20}
+      paddingBottom={isMobile ? 10 : 15}
       sx={{
         position: 'relative',
         zIndex: '20',
@@ -158,7 +158,7 @@ const Features = ({
                     sx: {
                       color: header_color
                         ? header_color
-                        : theme.palette.zesty.zestyDarkText,
+                        : theme.palette.zesty.zestyZambezi,
                       fontSize: isMobile ? 24 : header_size,
                       textAlign: 'center',
                     },
@@ -194,7 +194,7 @@ const Features = ({
             {features_header?.replace(
               textHighlight,
               `<span>${textHighlight}</span>`,
-            )}
+            ) }
           </MuiMarkdown>
 
           <MuiMarkdown
@@ -243,7 +243,7 @@ const Features = ({
               },
             }}
           >
-            {feature_description || ''}
+            {feature_description || `<p>${FillerContent.description}</p>`}
           </MuiMarkdown>
 
 
@@ -311,7 +311,7 @@ const Features = ({
                         py: 2,
                         color: card_name_color
                           ? card_name_color
-                          : theme.palette.zesty.zestyOrange,
+                          : theme.palette.zesty.zestyDarkBlue,
                         fontWeight: 500,
                         fontSize: '20px',
                         textAlign: center ? 'center' : 'left',

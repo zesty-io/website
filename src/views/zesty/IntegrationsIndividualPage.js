@@ -41,22 +41,18 @@ import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 /**
- * Components Imports
- */
-import Hero from 'components/marketing/IntegrationsIndividualPage/Hero';
-
-/**
  * Fillers Imports
  */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import FillerContent from 'components/globals/FillerContent';
 import Resources from 'components/marketing/IntegrationsIndividualPage/Resources';
-import TopCompanies from 'components/marketing/IntegrationsIndividualPage/TopCompanies';
-import IntegrationBenefits from 'components/marketing/IntegrationsIndividualPage/IntegrationBenefits';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
 import Feature from 'components/marketing/IntegrationsIndividualPage/Feature';
 import ResourcesCards from 'components/marketing/IntegrationsIndividualPage/ResourcesCards';
-import Testimonials from 'blocks/testimonials/TestimonialsSlider/Testimonials';
-import Bottom from 'components/marketing/IntegrationsIndividualPage/Bottom';
-import LearnMore from 'components/marketing/IntegrationsIndividualPage/LearnMore';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
+// import Bottom from 'components/marketing/IntegrationsIndividualPage/Bottom';
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
 
 function IntegrationsIndividualPage({ content }) {
   const theme = useTheme();
@@ -82,17 +78,93 @@ function IntegrationsIndividualPage({ content }) {
     data: content.testimonials_carousel?.data,
   };
 
+  const benefitsData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.graphic_icon?.data[0].url,
+          title: item.title,
+          content: item.description,
+        });
+
+        return acc;
+      }, []) || []
+    );
+  };
+
+  const integrationBenefitsProps = {
+    title: content.integration_benefits_h2,
+    data: benefitsData(content.integration_benefits),
+    isFullWidthSection: false,
+  };
+
+  const cardData = [
+    {
+      title: content.page_1 || FillerContent.description,
+      icon_image:
+        content.page_1_graphic?.data[0]?.url || FillerContent.photos[0].src,
+      url: content.page_1_link?.data[0]?.meta?.web?.uri || FillerContent.href,
+    },
+    {
+      title: content.page_2 || FillerContent.description,
+      icon_image:
+        content.page_2_graphic?.data[0]?.url || FillerContent.photos[0].src,
+      url: content.page_2_link?.data[0]?.meta?.web?.uri || FillerContent.href,
+    },
+    {
+      title: content.page_3 || FillerContent.description,
+      icon_image:
+        content.page_3_graphic?.data[0]?.url || FillerContent.photos[0].src,
+      url: content.page_3_link?.data[0]?.meta?.web?.uri || FillerContent.href,
+    },
+  ];
+
+  const bottomProps = {
+    header: content.bottom_cta,
+    primaryCtaText: content.cta_primary_text,
+    secondaryCtaText: content.bottom_cta_button_2_text,
+    secondaryCtaUrl: content.bottom_cta_button_2_link,
+    mainImage: content.bottom_graphic?.data[0]?.url,
+    mainImageWidth: 1000,
+    isDarkBackground: true,
+    isCodeBlock: true,
+  };
+
+  const learnMoreProps = {
+    title: content.learn_more_title,
+    data: cardData,
+    isFullWidthSection: false,
+  };
+
+  const headerProps = {
+    title: content.hero_h1 || FillerContent.header,
+    video: content.video_link || FillerContent.image,
+    description: content.hero_description || FillerContent.description,
+    integrationLogo: content.next_js_logo?.data[0]?.url,
+    cta_left: content.cta_primary_text || FillerContent.cta,
+    cta_right: content.cta_secondary_text || FillerContent.cta,
+    cta_right_url:
+      content.secondary_cta_link?.data[0]?.meta?.web?.uri || FillerContent.href,
+    backgroundColor: theme.palette.zesty.zestyDarkBlue,
+    isDarkBackground: true,
+    isCodeBlock: true,
+  };
+
   return (
     <>
-      <Hero {...pageData} />
+      <SimpleHeroWithImageAndCtaButtons {...headerProps} />
       <Resources {...pageData} />
-      <TopCompanies {...pageData} />
-      <IntegrationBenefits {...pageData} />
+      <SimpleCardLogo
+        heading_text={content?.logos_title}
+        logoItems={content?.logos?.data}
+      />
+      <CardsInContainer {...integrationBenefitsProps} />
       <Feature {...pageData} />
       <ResourcesCards {...pageData} />
-      <Testimonials {...testimonialsData} />
-      <Bottom {...pageData} />
-      <LearnMore {...pageData} />
+      <WithHighlightedCard {...testimonialsData} />
+      {/* <Bottom {...pageData} /> */}
+      <CenteredContents {...bottomProps} />
+      <CardsInContainer {...learnMoreProps} />
       {/* <NewsLetterSubscription {...pageData} /> */}
     </>
   );

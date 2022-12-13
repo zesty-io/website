@@ -44,7 +44,7 @@ import { Box } from '@mui/material';
  * Helpers Import
  */
 import FillerContent from 'components/globals/FillerContent';
-import Hero from 'components/marketing/ContentResources/Hero';
+import { SlashImageHeroWithCta } from 'blocks/heroes';
 import React from 'react';
 import GatedContentCard from 'components/marketing/ContentResources/GatedContentCard';
 import ArticlesCard from 'components/marketing/ContentResources/ArticlesCard';
@@ -66,7 +66,13 @@ function ContentResource({ content }) {
   return (
     <>
       <Box bgcolor={'alternate.main'}>
-        <Hero {...pageData} />
+        <SlashImageHeroWithCta
+          title={content.title_and_description || FillerContent.header}
+          mainImage={
+            content.header_image?.data[0]?.url ||
+            FillerContent.category_fallback_image
+          }
+        />
       </Box>
       <GatedContentCard {...pageData} />
       <ArticlesCard {...pageData} />
