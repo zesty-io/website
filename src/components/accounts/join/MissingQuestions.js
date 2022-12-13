@@ -329,7 +329,8 @@ const postToZOHO = async (payloadJSON) => {
   }
 };
 
-const Index = ({ content }) => {
+const Index = ({ content, missingUserPrefs = [] }) => {
+  console.log(missingUserPrefs, 66666);
   const [preferred_framework, setframework] = React.useState('');
   const [preferred_component_system, setcomponentSystem] = React.useState('');
   const [goal, setgoal] = React.useState('');
@@ -501,6 +502,18 @@ const Index = ({ content }) => {
     phoneNumber,
   ]);
 
+  const hasPersona = missingUserPrefs.includes('persona');
+  const hasProject = missingUserPrefs.includes('project');
+  const hasProjectType = missingUserPrefs.includes('projectType');
+  const hasGoal = missingUserPrefs.includes('goal');
+  const hasPreferredFramework = missingUserPrefs.includes(
+    'preferred_framework',
+  );
+  const hasPreferredComponentSystem = missingUserPrefs.includes(
+    'preferred_component_system',
+  );
+  const hasCompany = missingUserPrefs.includes('company');
+  console.log(hasPersona, 6666);
   React.useEffect(() => {
     gtag_report_conversion();
   }, []);
@@ -513,6 +526,7 @@ const Index = ({ content }) => {
         maxWidth: theme.breakpoints.values.xl2,
       })}
     >
+      <h1>MISSING PREFS</h1>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
         strategy="afterInteractive"
@@ -548,13 +562,15 @@ const Index = ({ content }) => {
             style={{ height: '50vh' }}
             direction={'vertical'}
           >
-            <SwiperSlide>
-              <Questionaire
-                title="What is your role?"
-                data={roleList}
-                onClick={handleRole}
-              />
-            </SwiperSlide>
+            {hasPersona && (
+              <SwiperSlide>
+                <Questionaire
+                  title="What is your role?"
+                  data={roleList}
+                  onClick={handleRole}
+                />
+              </SwiperSlide>
+            )}
 
             {roleType === 'decision-maker' && (
               <SwiperSlide>
@@ -562,31 +578,37 @@ const Index = ({ content }) => {
               </SwiperSlide>
             )}
 
-            <SwiperSlide>
-              <Questionaire
-                title="What are you creating today?"
-                data={isDeveloper ? devProjects : nonDevProjects}
-                onClick={handleProject}
-              />
-            </SwiperSlide>
+            {hasProject && (
+              <SwiperSlide>
+                <Questionaire
+                  title="What are you creating today?"
+                  data={isDeveloper ? devProjects : nonDevProjects}
+                  onClick={handleProject}
+                />
+              </SwiperSlide>
+            )}
 
-            <SwiperSlide>
-              <Questionaire
-                title="Who is this project for?"
-                data={projectTypeList}
-                onClick={handleProjectType}
-              />
-            </SwiperSlide>
+            {hasProjectType && (
+              <SwiperSlide>
+                <Questionaire
+                  title="Who is this project for?"
+                  data={projectTypeList}
+                  onClick={handleProjectType}
+                />
+              </SwiperSlide>
+            )}
 
-            <SwiperSlide>
-              <Questionaire
-                title="What are your most important goals?"
-                data={goalsList}
-                onClick={handleGoals}
-              />
-            </SwiperSlide>
+            {hasGoal && (
+              <SwiperSlide>
+                <Questionaire
+                  title="What are your most important goals?"
+                  data={goalsList}
+                  onClick={handleGoals}
+                />
+              </SwiperSlide>
+            )}
 
-            {isDeveloper && (
+            {(isDeveloper || hasPreferredFramework) && (
               <SwiperSlide>
                 <Questionaire
                   title="Preferred Framework"
@@ -596,7 +618,7 @@ const Index = ({ content }) => {
               </SwiperSlide>
             )}
 
-            {isDeveloper && (
+            {(isDeveloper || hasPreferredComponentSystem) && (
               <SwiperSlide>
                 <Questionaire
                   title="Preferred Component System"
@@ -606,7 +628,7 @@ const Index = ({ content }) => {
               </SwiperSlide>
             )}
 
-            {isBusiness && (
+            {(isBusiness || hasCompany) && (
               <SwiperSlide>
                 <CompanyDetails onSubmit={handleCompanyDetails} />
               </SwiperSlide>
@@ -654,4 +676,4 @@ const Index = ({ content }) => {
   );
 };
 
-export const Join = React.memo(Index);
+export const MissingQuestions = React.memo(Index);

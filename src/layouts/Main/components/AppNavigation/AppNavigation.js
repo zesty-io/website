@@ -135,6 +135,10 @@ const AppNavigation = ({
     !res.error && setinstances(res);
     res.error && setinstances([]);
   };
+
+  const userPrefs =
+    typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
+
   useEffect(() => {
     setIsMarketplace(
       window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
@@ -202,7 +206,7 @@ const AppNavigation = ({
                 instanceZUID={instanceZUID}
               />
             )}
-            {isLG && (
+            {isLG && Object.keys(userPrefs).length !== 0 && (
               <>
                 <Button
                   color={
