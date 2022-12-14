@@ -113,6 +113,15 @@ const twoFactorAuth = yup.object().shape({
   phoneNumber: yup.string().required('Phone Number is required*'),
 });
 
+const demoForm = yup.object().shape({
+  company: yup.string().required('Company is Required*'),
+  projectDescription: yup.string(),
+  phoneNumber: yup.number().required('Phone Number is required*'),
+});
+const companyDetails = yup.object().shape({
+  company: yup.string().required('Company is Required*'),
+});
+
 const localeSchema = yup.object().shape({
   locale: yup.string().required('This is required'),
 });
@@ -181,4 +190,6 @@ export const accountsValidations = {
   updateTeam,
   addEmail,
   signUp,
+  demoForm,
+  companyDetails,
 };

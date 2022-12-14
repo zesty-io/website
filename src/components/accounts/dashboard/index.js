@@ -9,12 +9,19 @@ import { useTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import ZActivityStream from './ui/ZActivityStream';
 import SideContent from './SideContent';
+import dayjs from 'dayjs';
+import { OnboardingQuestions } from '../join/OnboardingQuestions';
+import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
+import { AccountPageloading } from '../ui';
+import { PreferenceQuestions } from '../join/PreferenceQuestions';
+import { MissingQuestions } from '../join/MissingQuestions';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
 const INSTANCE_CARD_LIMIT = 3;
 
-const Dashboard = () => {
+const Dashboard = ({ content = {} }) => {
+  const [invites, setinvites] = useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [initialInstances, setInitialInstances] = useState([]);
   const [instances, setInstances] = useState([]);
@@ -48,9 +55,11 @@ const Dashboard = () => {
   };
 
   const getAllTeams = async () => {
+    setIsInstanceLoading(true);
     const response = await ZestyAPI.getAllTeams();
     !response.error && setTeams(response?.data);
     response.error && setTeams([]);
+    setIsInstanceLoading(false);
   };
 
   const handleSearchInstances = (value) => {
@@ -88,6 +97,92 @@ const Dashboard = () => {
 
     return [...instacesFavoritesData, ...instancesWOutFavoritesData];
   };
+
+  // this is an array the key values that checks users
+  const prefChecks = [
+    'persona',
+    'project',
+    'projectType',
+    'goal',
+    'preferred_framework',
+    'preferred_component_system',
+    'company',
+  ];
+  const decisionMakers = [
+    'product manager',
+    'project manager',
+    'marketing leader',
+    'development leader',
+    'business leader',
+  ];
+  // const prefChecks = [''];
+  // accounts/join app
+  // let missingPrefs = false;
+  let ssoLaunchVsUserCreated = null;
+  const ssoLaunchDate = dayjs('2022-11-18');
+  const userCreatedDate = dayjs(userInfo?.createdAt);
+
+  const userPrefs =
+    typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
+
+  const existingUserPrefs = Object.keys(userPrefs);
+
+  const isDecisionMaker = decisionMakers.includes(userPrefs?.persona);
+
+  const missingUserPrefs = prefChecks
+    .filter((x) => !existingUserPrefs.includes(x))
+    .concat(existingUserPrefs.filter((x) => !prefChecks.includes(x)));
+
+  // if (typeof userInfo?.prefs === 'string') {
+  //   const obj = JSON.parse(userInfo?.prefs);
+  //   prefChecks.forEach((element) => {
+  //     if (!obj.hasOwnProperty(element)) {
+  //       missingPrefs = true;
+  //     }
+  //   });
+  // }
+
+  if (!userInfo || Object.keys(userInfo)?.length === 0) {
+    return <AccountPageloading title={'Zesty.io'} />;
+  }
+
+  // if (!userInfo?.prefs) {
+  //   missingPrefs = true;
+  // }
+
+  if (Object.keys(userInfo).length > 0) {
+    ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
+  }
+
+  const isNewUser =
+    Object.keys(userPrefs).length === 0 && ssoLaunchVsUserCreated > 0
+      ? true
+      : false;
+  const newUserHasInvite =
+    invites?.length > 0 && ssoLaunchVsUserCreated > 0 ? true : false;
+
+  const getAllInvitedInstances = async () => {
+    setIsInstanceLoading(true);
+    const res = await ZestyAPI.getAllInvitedInstances();
+    if (Array.isArray(res?.data) && res?.status === 200) {
+      setinvites(res?.data);
+    } else {
+      setinvites([]);
+    }
+    setIsInstanceLoading(false);
+  };
+
+  // check if new user and doesnt have persona selected
+  // if (missingPrefs) {
+  //   // load onboard ask 1 question what your persona question
+  //   // personalizationSurvey component
+  //   return <PersonalizationSurvey content={content} />;
+  //   // otherwise default to dashboard
+  // }
+
+  useEffect(() => {
+    getAllInvitedInstances();
+  }, []);
 
   useEffect(() => {
     getAllTeams();
@@ -142,6 +237,19 @@ const Dashboard = () => {
     };
     runSettingInstances();
   }, [instancesFavorites]);
+
+  // return <OnboardingQuestions content={content} />;
+  if (newUserHasInvite) {
+    return <PreferenceQuestions content={content} />;
+  } else if (isNewUser && !isDecisionMaker) {
+    return <OnboardingQuestions content={content} />;
+  } else if (missingUserPrefs?.length > 0 && !isDecisionMaker) {
+    return (
+      <MissingQuestions content={content} missingUserPrefs={missingUserPrefs} />
+    );
+  } else if (missingUserPrefs[0] === 'persona') {
+    return <PersonalizationSurvey content={content} />;
+  }
 
   return (
     <>
