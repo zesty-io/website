@@ -198,12 +198,14 @@ const AppNavigation = ({
             ml="auto"
             spacing={{ xs: 1, xl: 2 }}
             alignItems="center"
+            pl={isXL ? 0 : 1}
           >
-            {isXL && (
+            {!isSM && (
               <AccountsComboBox
                 instances={instances?.data}
                 setCookies={handleComboxClick}
                 instanceZUID={instanceZUID}
+                width={isXL ? 300 : 150}
               />
             )}
             {isLG && Object.keys(userPrefs).length !== 0 && (
@@ -212,6 +214,7 @@ const AppNavigation = ({
                   color={
                     isAccounts || pathname === '/' ? 'primary' : 'secondary'
                   }
+                  size={isXL ? 'large' : 'small'}
                   variant="contained"
                   startIcon={<AddIcon />}
                   href={createInstanceLink}
@@ -222,6 +225,7 @@ const AppNavigation = ({
                   Create Instance
                 </Button>
                 <Button
+                  size={isXL ? 'large' : 'small'}
                   href={legacyAccountsLink}
                   variant="outlined"
                   id="accounts-legacy"

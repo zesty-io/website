@@ -49,6 +49,7 @@ import PricingTierFeature from './PricingTierFeature';
 import G2Badge from './G2Badge';
 import WebsiteBanner from './WebsiteBanner';
 import ABTestDataSet from './ABTestDataSet';
+import Stat from './Stat';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -175,6 +176,7 @@ export {
   G2Badge,
   WebsiteBanner,
   ABTestDataSet,
+  Stat,
   Category,
   Article,
   Tag,

@@ -124,17 +124,18 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
             </Stack>
           ) : (
             <Typography
-              variant="h4"
+              variant="h5"
               color="text.primary"
               onMouseOver={() => setShowEdit(true)}
               onMouseLeave={() => setShowEdit(false)}
             >
               {instanceName}
-              {showEdit && (
-                <IconButton onClick={() => setIsEditing(true)}>
-                  <EditIcon />
-                </IconButton>
-              )}
+              <IconButton
+                sx={{ visibility: showEdit ? 'visible' : 'hidden' }}
+                onClick={() => setIsEditing(true)}
+              >
+                <EditIcon />
+              </IconButton>
             </Typography>
           )
         ) : (
