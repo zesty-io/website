@@ -15,7 +15,6 @@ import Checkbox from '@mui/material/Checkbox';
 import LaunchIcon from '@mui/icons-material/Launch';
 import { resourceStart } from '../Data/Resources';
 import FillerContent from 'components/globals/FillerContent';
-import { deleteCookie, getCookie } from 'cookies-next';
 
 // const repo = 'https://github.com/allenpigar/blog_template_acme';
 const baseUrl = `https://installer-xytrmaqk4a-uc.a.run.app/`;
@@ -32,7 +31,7 @@ export const ProjectDetails = ({
 }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
   const [loading, setloading] = React.useState(false);
-  const [name, setname] = React.useState(getCookie('projectName') || '');
+  const [name, setname] = React.useState('');
   const [ecoZUID] = React.useState('');
   const [github_key] = React.useState('');
   const repository = template?.github_url;
@@ -121,12 +120,6 @@ export const ProjectDetails = ({
     setloading(false);
   };
   const placard_image = template?.placard_image?.data[0]?.url;
-
-  React.useEffect(() => {
-    return () => {
-      deleteCookie('projectName');
-    };
-  }, []);
 
   if (loading) {
     return <Loader />;
