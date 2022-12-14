@@ -1,10 +1,15 @@
 /**
  * MUI Imports
  */
-
-
 import { useTheme } from '@mui/material/styles';
-import { Box, Typography, Card, Button, Grid, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Card,
+  Button,
+  Grid,
+  useMediaQuery,
+} from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Container from 'blocks/container/Container';
 
@@ -16,11 +21,18 @@ import FillerContent from 'components/globals/FillerContent';
 /**
  * Components Imports
  */
-
 import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
+import SimpleStats from 'blocks/zesty/Growth/SimpleStats';
 
-const CaseStudyCards = ({ caseStudiesHeader, g2BadgesData, caseStudiesData, caseStudiesBackground }) => {
+const CaseStudyCards = ({
+  header,
+  description,
+  statsData,
+  g2BadgesData,
+  caseStudiesData = FillerContent.platformCard,
+  caseStudiesBackground,
+}) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const isDarkMode = theme.palette.mode === 'dark';
@@ -28,12 +40,14 @@ const CaseStudyCards = ({ caseStudiesHeader, g2BadgesData, caseStudiesData, case
   return (
     <Box
       component="section"
-      sx={{ background: theme.palette.zesty.zestyWhite,
-        py: isSmall ? 10:15,
-        mt: 10
+      sx={{
+        background: caseStudiesBackground
+          ? caseStudiesBackground
+          : theme.palette.zesty.zestyWhite,
+        py: isSmall ? 10 : 15,
       }}
     >
-      <Container >
+      <Container>
         <Box>
           <MuiMarkdown
             options={{
@@ -83,31 +97,61 @@ const CaseStudyCards = ({ caseStudiesHeader, g2BadgesData, caseStudiesData, case
               },
             }}
           >
-            {caseStudiesHeader || FillerContent.header}
+            {header || FillerContent.headerAndDescription}
           </MuiMarkdown>
+          {description && (
+            <MuiMarkdown
+              options={{
+                overrides: {
+                  span: {
+                    component: Typography,
+                    props: {
+                      mt: 2,
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        color: isDarkMode
+                          ? theme.palette.common.white
+                          : theme.palette.zesty.zestyDarkText,
+                        textAlign: ' center',
+                      },
+                    },
+                  },
+                },
+              }}
+            >
+              {description || FillerContent.header}
+            </MuiMarkdown>
+          )}
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 5, mt: 10 }}>
-          {g2BadgesData?.map((item, index) => (
-            <Box key={index} sx={{ width: '100%', maxWidth: 171 }}>
-              <ZestyImage
-                width={171}
-                height={192}
-                loading="lazy"
-                style={{ width: '100%', height: 'auto' }}
-                src={item.url || FillerContent.photos[0].src}
-                alt={item.type || ''}
-              />
-            </Box>
-          ))}
-        </Box>
+        {statsData && <SimpleStats statsData={statsData} />}
 
-        <Grid sx={{ mt: 8 }} container spacing={4}>
+        {g2BadgesData && (
+          <Box
+            sx={{ display: 'flex', justifyContent: 'center', gap: 5, mt: 10 }}
+          >
+            {g2BadgesData?.map((item, index) => (
+              <Box key={index} sx={{ width: '100%', maxWidth: 171 }}>
+                <ZestyImage
+                  width={171}
+                  height={192}
+                  loading="lazy"
+                  style={{ width: '100%', height: 'auto' }}
+                  src={item.url || FillerContent.photos[0].src}
+                  alt={item.type || ''}
+                />
+              </Box>
+            ))}
+          </Box>
+        )}
+        
+        <Grid sx={{ mt: 5 }} container spacing={4}>
           {caseStudiesData?.map((item, index) => (
             <Grid key={index} item sm={12} md={4}>
               <Card
                 component="a"
-                href={item.card_link.data[0].meta.web.uri || FillerContent.href}
+                href={item.card_link?.data[0]?.meta?.web?.uri || FillerContent.href}
                 target="_blank"
                 sx={{
                   width: '100%',
@@ -125,10 +169,9 @@ const CaseStudyCards = ({ caseStudiesHeader, g2BadgesData, caseStudiesData, case
                   height={233}
                   style={{ width: '100%', maxWidth: 482, height: 'auto' }}
                   loading="lazy"
-                  src={item.image?.data[0].url || FillerContent.photos[0].src}
+                  src={item.image?.data[0]?.url || FillerContent.photos[0].src}
                   alt={item.title || ''}
                 />
-
                 <Box
                   sx={{
                     p: 2,
@@ -144,7 +187,7 @@ const CaseStudyCards = ({ caseStudiesHeader, g2BadgesData, caseStudiesData, case
                         component="img"
                         loading="lazy"
                         src={
-                          item.logo?.data[0].url || FillerContent.photos[0].src
+                          item.logo?.data[0]?.url || FillerContent.photos[0].src
                         }
                         alt={item.title || ''}
                       />
@@ -172,7 +215,7 @@ const CaseStudyCards = ({ caseStudiesHeader, g2BadgesData, caseStudiesData, case
                       }}
                       component="a"
                       href={
-                        item.card_link?.data[0].meta.web.uri ||
+                        item.card_link?.data[0]?.meta?.web?.uri ||
                         FillerContent.cta
                       }
                       target="_blank"

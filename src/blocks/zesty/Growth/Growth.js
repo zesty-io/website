@@ -18,7 +18,7 @@ import FillerContent from 'components/globals/FillerContent';
 import Container from 'blocks/container/Container';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
-const Growth = ({ background, titleAndDescription, cards }) => {
+const Growth = ({ background, titleAndDescription, cards = FillerContent.growth }) => {
   const theme = useTheme();
   const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
 
@@ -78,7 +78,7 @@ const Growth = ({ background, titleAndDescription, cards }) => {
               },
             }}
           >
-            {titleAndDescription || ''}
+            {titleAndDescription || FillerContent.headerAndDescription}
           </MuiMarkdown>
         </Box>
 

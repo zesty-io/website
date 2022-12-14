@@ -7,13 +7,17 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import MuiMarkdown from 'markdown-to-jsx';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Local  Assets Imports
 import connectionSmall from '../../../../public/assets/images/headless-cms/connection-small.svg';
 import connection from '../../../../public/assets/images/headless-cms/connection.svg';
 import connectionMobile from '../../../../public/assets/images/headless-cms/connection-mobile.svg';
+
+/**
+ * Component Imports
+ */
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
 
 const UseCase = ({
   theme,
@@ -22,8 +26,14 @@ const UseCase = ({
   content,
   FillerContent,
 }) => {
+  const useCaseProps = {
+    header: content.headless_cms_explained,
+    mainImage: content.headless_cms_explained_image?.data[0]?.url,
+    backgroundColor: theme.palette.zesty.zestyWhite,
+  };
+
   return (
-    <Box sx={{ pb: 10, mb: -20 }} component="section">
+    <Box sx={{ pb: 10, mb: -10 }} component="section">
       <Container>
         {/* Features Cards Start */}
         <Box sx={{ pb: 10 }}>
@@ -145,69 +155,7 @@ const UseCase = ({
 
         {/* Headless CMS Explained Start */}
       </Container>
-
-      <Box sx={{ background: theme.palette.zesty.zestyWhite, py: 15 }}>
-        <Container>
-          <Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <MuiMarkdown
-                options={{
-                  overrides: {
-                    h2: {
-                      component: 'h2',
-                      props: {
-                        style: {
-                          fontSize: isMobile ? 18 : 32,
-                          color: theme.palette.zesty.zestyZambezi,
-                          textAlign: 'center',
-                        },
-                      },
-                    },
-                    p: {
-                      component: 'p',
-                      props: {
-                        style: {
-                          textAlign: 'center',
-                          color: theme.palette.zesty.zestyZambezi,
-                          mt: 4,
-                          fontSize: isMobile ? 16 : 20,
-                        },
-                      },
-                    },
-                  },
-                }}
-              >
-                {content.headless_cms_explained || FillerContent.description}
-              </MuiMarkdown>
-            </Box>
-
-            {/* Image Two */}
-            <Box sx={{ mt: 4 }}>
-              <Box
-                component="img"
-                alt="headless cms explained"
-                style={{
-                  display: 'block',
-                  margin: 'auto',
-                  width: '100%',
-                  maxWidth: isMobile ? '100%' : 824,
-                }}
-                src={
-                  content.headless_cms_explained_image.data[0].url ||
-                  FillerContent.photos[0].src
-                }
-              />
-            </Box>
-          </Box>
-        </Container>
-      </Box>
+      <CenteredContents {...useCaseProps} />
     </Box>
   );
 };
