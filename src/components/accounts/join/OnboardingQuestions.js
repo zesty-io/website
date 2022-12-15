@@ -17,87 +17,6 @@ import { FormInput, SubmitBtn, SuccessMsg } from '../ui';
 import { useFormik } from 'formik';
 import { accountsValidations } from '../validations';
 
-const frameworkList = [
-  { label: 'Parsely/Zesty', value: 'parsely' },
-  { label: 'NextJs', value: 'nextjs' },
-  { label: 'React', value: 'react' },
-  { label: 'Vue', value: 'vue' },
-  { label: 'Nuxt', value: 'nuxt' },
-  { label: 'PHP/Laravel', value: 'php' },
-  { label: 'HTML/jQuery', value: 'html' },
-  { label: 'NodeJS', value: 'nodejs' },
-  { label: 'Hugo', value: 'hugo' },
-  { label: 'Gatsby', value: 'gatsby' },
-  { label: 'Svelte', value: 'svelte' },
-  { label: 'Remix', value: 'remix' },
-  { label: 'Astro', value: 'astro' },
-  { label: 'Other', value: 'other' },
-];
-
-const componentsSystemList = [
-  { label: 'Bootstrap', value: 'bootstrap' },
-  { label: 'Material UI', value: 'material ui' },
-  { label: 'Tailwind', value: 'tailwind' },
-  { label: 'Bulma', value: 'bulma' },
-  { label: 'Foundation', value: 'foundation' },
-  { label: 'Chakra UI', value: 'chakra ui' },
-  { label: 'Other', value: 'other' },
-];
-
-const roleList = [
-  { label: 'Marketer', value: 'marketer', type: 'influencer' },
-  { label: 'Developer', value: 'developer', type: 'influencer' },
-  { label: 'Content Creator', value: 'content creator', type: 'influencer' },
-  { label: 'Business Lead', value: 'business lead', type: 'decision-maker' },
-  {
-    label: 'Development Leader',
-    value: 'development leader',
-    type: 'decision-maker',
-  },
-  {
-    label: 'Marketing Leader',
-    value: 'marketing leader',
-    type: 'decision-maker',
-  },
-  {
-    label: 'Project Manager',
-    value: 'project manager',
-    type: 'decision-maker',
-  },
-  {
-    label: 'Product Manager',
-    value: 'product manager',
-    type: 'decision-maker',
-  },
-];
-
-const goalsList = [
-  { label: 'Personalization', value: 'personalization' },
-  { label: 'SEO', value: 'seo' },
-  { label: 'Marketing Autonomy', value: 'marketing autonomy' },
-  { label: 'A/B Testing', value: 'a/b testing' },
-  { label: 'Multi-site', value: 'multi-site' },
-  { label: 'Multi-lang(globalization)', value: 'multi-lang' },
-  { label: 'Product Activation', value: 'product activation' },
-  { label: 'Developer Flexibility', value: 'developer flexibility' },
-];
-const devProjects = [
-  { label: 'App', value: 'app' },
-  { label: 'Headless Website', value: 'headless website' },
-  { label: 'Hybrid Website', value: 'hybrid website' },
-  { label: 'Other Headless Project', value: 'other headless project' },
-];
-const nonDevProjects = [
-  { label: 'Website', value: 'website' },
-  { label: 'Blog', value: 'blog' },
-  { label: 'App', value: 'app' },
-];
-
-const projectTypeList = [
-  { label: 'Personal', value: 'personal' },
-  { label: 'Business', value: 'business' },
-];
-
 const Questionaire = ({ title = 'no title', data = [], onClick }) => {
   const handleClick = (data) => {
     onClick(data);
@@ -137,6 +56,31 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
   );
 };
 
+const ProjectNameForm = ({ onSubmit = () => {} }) => {
+  const formik = useFormik({
+    validationSchema: accountsValidations.projectName,
+    initialValues: {
+      projectName: '',
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      onSubmit(values);
+      formik.resetForm();
+    },
+  });
+  return (
+    <Stack>
+      <Typography variant="h3">What is your project name?</Typography>
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <Stack gap={2}>
+          <FormInput label="projectName" name={'projectName'} formik={formik} />
+          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        </Stack>
+      </form>
+    </Stack>
+  );
+};
+
 const DemoForm = ({ onSubmit = () => {} }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.demoForm,
@@ -157,6 +101,7 @@ const DemoForm = ({ onSubmit = () => {} }) => {
       <form noValidate onSubmit={formik.handleSubmit}>
         <Stack gap={2}>
           <FormInput label="Company" name={'company'} formik={formik} />
+          {/* // convert to  text area */}
           <FormInput
             label="Project Description"
             name={'projectDescription'}
@@ -329,7 +274,16 @@ const postToZOHO = async (payloadJSON) => {
   }
 };
 
-const Index = ({ content }) => {
+const Index = ({
+  content,
+  devProjects,
+  nonDevProjects,
+  projectTypeList,
+  frameworkList,
+  componentsSystemList,
+  roleList,
+  goalsList,
+}) => {
   const [preferred_framework, setframework] = React.useState('');
   const [preferred_component_system, setcomponentSystem] = React.useState('');
   const [goal, setgoal] = React.useState('');
@@ -415,7 +369,12 @@ const Index = ({ content }) => {
   };
   const handleProject = async (e) => {
     setproject(e.value);
-    await updateUser('project', e.value);
+    await updateUser('projectType', e.value);
+    handleNext();
+  };
+  const handleProjectName = async (e) => {
+    setprojectName(e.projectName);
+    await updateUser('projectName', e.value);
     handleNext();
   };
 
@@ -459,14 +418,15 @@ const Index = ({ content }) => {
     SuccessMsg({
       title: 'Success',
       action: () => {
-        window.location.reload();
+        // window.location.reload();
       },
     });
   };
 
-  const isDeveloper = role === 'developer' ? true : false;
-  const isBusiness = projectType === 'business' ? true : false;
+  const isDeveloper = role === 'Developer' ? true : false;
+  const isBusiness = projectType === 'Business' ? true : false;
 
+  // send emails in zoho
   const zohoObj = {
     ...userInfo,
     project,
@@ -478,6 +438,8 @@ const Index = ({ content }) => {
     role,
     phoneNumber,
     projectDescription,
+    emails,
+    projectName,
   };
 
   React.useEffect(() => {
@@ -502,6 +464,7 @@ const Index = ({ content }) => {
     preferred_component_system,
     role,
     phoneNumber,
+    projectName,
   ]);
 
   React.useEffect(() => {
@@ -560,6 +523,12 @@ const Index = ({ content }) => {
               />
             </SwiperSlide>
 
+            <SwiperSlide>
+              <ProjectNameForm onSubmit={handleProjectName} />
+            </SwiperSlide>
+
+            {/* // add project name question  */}
+
             {roleType === 'decision-maker' && (
               <SwiperSlide>
                 <DemoForm onSubmit={handleDemoForm} />
@@ -582,9 +551,15 @@ const Index = ({ content }) => {
               />
             </SwiperSlide>
 
+            {isBusiness && (
+              <SwiperSlide>
+                <CompanyDetails onSubmit={handleCompanyDetails} />
+              </SwiperSlide>
+            )}
+
             <SwiperSlide>
               <Questionaire
-                title="What are your most important goals?"
+                title="What is your top priority?"
                 data={goalsList}
                 onClick={handleGoals}
               />
@@ -612,12 +587,6 @@ const Index = ({ content }) => {
 
             {isBusiness && (
               <SwiperSlide>
-                <CompanyDetails onSubmit={handleCompanyDetails} />
-              </SwiperSlide>
-            )}
-
-            {isBusiness && (
-              <SwiperSlide>
                 <InviteTeam
                   emails={emails}
                   setemails={setemails}
@@ -633,26 +602,6 @@ const Index = ({ content }) => {
             </SwiperSlide>
           </Swiper>
         </Grid>
-        {/* <Grid
-          item
-          xs={0}
-          md={4}
-          display={{ sm: 'none', md: 'flex' }}
-          width={1}
-          justifyContent={'center'}
-          justifyItems="center"
-          alignContent="center"
-          alignItems={'center'}
-          bgcolor={(theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.zesty.zestyDarkerBlue
-              : theme.palette.secondary.main
-          }
-        >
-          <Stack>
-            <ResourcesCard />
-          </Stack>
-        </Grid> */}
       </Grid>
     </Container>
   );

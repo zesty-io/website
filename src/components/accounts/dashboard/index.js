@@ -15,12 +15,23 @@ import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
 import { AccountPageloading } from '../ui';
 import { PreferenceQuestions } from '../join/PreferenceQuestions';
 import { MissingQuestions } from '../join/MissingQuestions';
+import { joinAppConstants } from '../join/constants';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
 const INSTANCE_CARD_LIMIT = 3;
 
 const Dashboard = ({ content = {} }) => {
+  const {
+    devProjects,
+    nonDevProjects,
+    projectTypeList,
+    frameworkList,
+    componentsSystemList,
+    roleList,
+    goalsList,
+  } = joinAppConstants;
+
   const [invites, setinvites] = useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [initialInstances, setInitialInstances] = useState([]);
@@ -108,13 +119,7 @@ const Dashboard = ({ content = {} }) => {
     'preferred_component_system',
     'company',
   ];
-  const decisionMakers = [
-    'product manager',
-    'project manager',
-    'marketing leader',
-    'development leader',
-    'business leader',
-  ];
+
   // const prefChecks = [''];
   // accounts/join app
   // let missingPrefs = false;
@@ -127,7 +132,8 @@ const Dashboard = ({ content = {} }) => {
 
   const existingUserPrefs = Object.keys(userPrefs);
 
-  const isDecisionMaker = decisionMakers.includes(userPrefs?.persona);
+  const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
+  const isDecisionMaker = roleType === 'decision-maker' ? true : false;
 
   const missingUserPrefs = prefChecks
     .filter((x) => !existingUserPrefs.includes(x))
@@ -172,13 +178,16 @@ const Dashboard = ({ content = {} }) => {
     setIsInstanceLoading(false);
   };
 
-  // check if new user and doesnt have persona selected
-  // if (missingPrefs) {
-  //   // load onboard ask 1 question what your persona question
-  //   // personalizationSurvey component
-  //   return <PersonalizationSurvey content={content} />;
-  //   // otherwise default to dashboard
-  // }
+  const onBoardingQuestionProps = {
+    content,
+    devProjects,
+    nonDevProjects,
+    projectTypeList,
+    frameworkList,
+    componentsSystemList,
+    roleList,
+    goalsList,
+  };
 
   useEffect(() => {
     getAllInvitedInstances();
@@ -238,13 +247,16 @@ const Dashboard = ({ content = {} }) => {
     runSettingInstances();
   }, [instancesFavorites]);
 
-  // return <OnboardingQuestions content={content} />;
+  //* for testing only
+  // return <OnboardingQuestions {...onBoardingQuestionProps} />;
+
   if (newUserHasInvite) {
     return <PreferenceQuestions content={content} />;
   } else if (isNewUser && !isDecisionMaker) {
-    return <OnboardingQuestions content={content} />;
+    return <OnboardingQuestions {...onBoardingQuestionProps} />;
   } else if (missingUserPrefs?.length > 0 && !isDecisionMaker) {
     return (
+      //TODO: update missing questions
       <MissingQuestions content={content} missingUserPrefs={missingUserPrefs} />
     );
   } else if (missingUserPrefs[0] === 'persona') {
