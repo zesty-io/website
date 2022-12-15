@@ -9,10 +9,12 @@ import { Box, Button, Divider, Container, Stack } from '@mui/material';
 // import Marketer from './Marketer';
 // import Manager from './Manager';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import { LoadingButton } from '@mui/lab';
 
-export const Onboarding = () => {
+export const Onboarding = ({ instanceUrl = '', loading = false }) => {
   const handleClick = (url) => {
     window.open(url, '_blank');
+    window.location.reload();
   };
   // const cards = {
   //   DiscordCard,
@@ -31,6 +33,7 @@ export const Onboarding = () => {
             alignItems="center"
             spacing={2}
             justifyContent="center"
+            mb={2}
           >
             <Button
               variant="contained"
@@ -50,6 +53,16 @@ export const Onboarding = () => {
               Connect with Specialist
             </Button>
           </Stack>
+
+          <LoadingButton
+            loading={loading}
+            variant="contained"
+            color={'primary'}
+            onClick={() => handleClick(instanceUrl)}
+            startIcon={<RocketLaunchIcon />}
+          >
+            Go to your Instance
+          </LoadingButton>
         </Box>
         {/* <Box paddingY={3}>
           <Divider>

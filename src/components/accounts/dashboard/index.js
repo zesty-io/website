@@ -112,8 +112,9 @@ const Dashboard = ({ content = {} }) => {
   // this is an array the key values that checks users
   const prefChecks = [
     'persona',
-    'project',
+    'projectName',
     'projectType',
+    'userType',
     'goal',
     'preferred_framework',
     'preferred_component_system',
@@ -290,6 +291,9 @@ const Dashboard = ({ content = {} }) => {
 
   //* for testing only
   // return <OnboardingQuestions {...onBoardingQuestionProps} />;
+  // if (!content.zestyProductionMode) {
+  //   return <OnboardingQuestions {...onBoardingQuestionProps} />;
+  // }
 
   if (newUserHasInvite) {
     return <PreferenceQuestions content={content} />;

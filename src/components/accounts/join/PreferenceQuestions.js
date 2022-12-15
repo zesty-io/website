@@ -515,7 +515,7 @@ const Index = ({
         maxWidth: theme.breakpoints.values.xl2,
       })}
     >
-      <h1>on boarding</h1>
+      <h1>Preference</h1>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
         strategy="afterInteractive"

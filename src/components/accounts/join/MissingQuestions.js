@@ -16,7 +16,13 @@ import { pendoScript } from 'components/marketing/Start/pendoScript';
 import { FormInput, SubmitBtn, SuccessMsg } from '../ui';
 import { useFormik } from 'formik';
 import { accountsValidations } from '../validations';
+import { getCookie } from 'cookies-next';
+import axios from 'axios';
+import { ToolBox } from './ToolBox';
+import { isProd } from 'utils';
 
+const repository = 'https://github.com/zesty-io/template-nextjs-marketing';
+const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
 const Questionaire = ({ title = 'no title', data = [], onClick }) => {
   const handleClick = (data) => {
     onClick(data);
@@ -63,21 +69,28 @@ const ProjectNameForm = ({ onSubmit = () => {} }) => {
       projectName: '',
     },
     onSubmit: async (values) => {
-      console.log(values);
       onSubmit(values);
       formik.resetForm();
     },
   });
   return (
-    <Stack>
-      <Typography variant="h3">What is your project name?</Typography>
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <Stack gap={2}>
-          <FormInput label="projectName" name={'projectName'} formik={formik} />
-          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
-        </Stack>
-      </form>
-    </Stack>
+    <SwipeCompContainer>
+      <Stack gap={2}>
+        <Typography variant="h4" color="text.secondary">
+          What is your project name?
+        </Typography>
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <Stack gap={2}>
+            <FormInput
+              label="Project Name"
+              name={'projectName'}
+              formik={formik}
+            />
+            <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+          </Stack>
+        </form>
+      </Stack>
+    </SwipeCompContainer>
   );
 };
 
@@ -90,35 +103,36 @@ const DemoForm = ({ onSubmit = () => {} }) => {
       phoneNumber: '',
     },
     onSubmit: async (values) => {
-      console.log(values);
       onSubmit(values);
       formik.resetForm();
     },
   });
   return (
-    <Stack>
-      <Typography variant="h3">Demo Form</Typography>
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <Stack gap={2}>
-          <FormInput label="Company" name={'company'} formik={formik} />
-          {/* // convert to  text area */}
-          <FormInput
-            label="Project Description"
-            name={'projectDescription'}
-            formik={formik}
-            multiline={true}
-            rows={5}
-            maxRows={4}
-          />
-          <FormInput
-            label="Phone Number"
-            name={'phoneNumber'}
-            formik={formik}
-          />
-          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
-        </Stack>
-      </form>
-    </Stack>
+    <SwipeCompContainer>
+      <Stack width={'50vw'}>
+        <Typography variant="h3">Demo Form</Typography>
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <Stack gap={2}>
+            <FormInput label="Company" name={'company'} formik={formik} />
+            {/* // convert to  text area */}
+            <FormInput
+              label="Project Description"
+              name={'projectDescription'}
+              formik={formik}
+              multiline={true}
+              rows={5}
+              maxRows={4}
+            />
+            <FormInput
+              label="Phone Number"
+              name={'phoneNumber'}
+              formik={formik}
+            />
+            <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+          </Stack>
+        </form>
+      </Stack>
+    </SwipeCompContainer>
   );
 };
 
@@ -129,7 +143,6 @@ const CompanyDetails = ({ onSubmit }) => {
       company: '',
     },
     onSubmit: async (values) => {
-      console.log(values);
       onSubmit(values);
       formik.resetForm();
     },
@@ -261,16 +274,17 @@ const TextBox = ({ collections, setcollections, handleNext }) => {
   );
 };
 
-const SwipeCompContainer = ({ children, pt = 14 }) => {
+const SwipeCompContainer = ({ children, pt = 0 }) => {
   return (
     <Stack
       width={1}
       justifyContent="center"
+      justifyItems={'center'}
       textAlign={'center'}
       alignItems="center"
       pt={pt}
       spacing={4}
-      height={200}
+      height={1}
     >
       {children}
     </Stack>
@@ -303,14 +317,14 @@ const postToZOHO = async (payloadJSON) => {
 
 const Index = ({
   content,
-  hasCompany = false,
-  hasProjectName = false,
-  hasGoal = false,
-  hasPersona = false,
-  hasPreferredComponentSystem = false,
-  hasPreferredFramework = false,
-  hasUserType = false,
-  hasProjectType = false,
+  // hasCompany = false,
+  // hasGoal = false,
+  // hasPersona = false,
+  // hasProjectName = false,
+  // hasPreferredComponentSystem = false,
+  // hasPreferredFramework = false,
+  // hasUserType = false,
+  // hasProjectType = false,
   devProjects = [],
   nonDevProjects = [],
   userTypeList = [],
@@ -318,11 +332,22 @@ const Index = ({
   componentsSystemList = [],
   roleList = [],
   goalsList = [],
+
+  hasCompany,
+  hasGoal,
+  hasPersona,
+  hasProjectName,
+  hasPreferredComponentSystem,
+  hasPreferredFramework,
+  hasUserType,
+  hasProjectType,
 }) => {
+  const token = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
   const [preferred_framework, setframework] = React.useState('');
   const [preferred_component_system, setcomponentSystem] = React.useState('');
   const [goal, setgoal] = React.useState('');
   const [roleType, setroleType] = React.useState('');
+  const [instance_zuid, setinstance_zuid] = React.useState('');
   const { zestyProductionMode } = content || {};
   const {
     userInfo,
@@ -346,6 +371,54 @@ const Index = ({
     setprefs,
   } = useZestyStore();
   const sliderRef = React.useRef(null);
+
+  const handleSuccessCreate = async (res) => {
+    setinstance_zuid(res.data.ZUID);
+    await handleInstall(res.data.ZUID);
+  };
+
+  // const opentTabs = () => {
+  //   window.open(`https://${instance_zuid}.manager.zesty.io/`, '_blank');
+  //   window.open(`https://${domain}`, '_blank');
+  // };
+  const handleErrCreate = (res) => {
+    console.error(res);
+  };
+
+  const handleCreateInstance = async (name) => {
+    const res = await ZestyAPI.createInstance(name, '');
+    !res.error && handleSuccessCreate(res);
+    res.error && handleErrCreate(res);
+  };
+
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  };
+  const handleInstall = async (instance_zuid) => {
+    const url = `${baseUrl}/install`;
+    const body = {
+      repository,
+      github_key: '',
+      instance_zuid,
+      token,
+    };
+
+    try {
+      await axios
+        .post(url, body, {
+          headers,
+        })
+        .then((e) => {
+          console.log(e);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const updateUser = async (preference, val) => {
     const userZUID = userInfo.ZUID;
@@ -401,6 +474,12 @@ const Index = ({
     setrole(e.value);
     setroleType(e.type);
     await updateUser('persona', e.value);
+
+    if (!isDeveloper) {
+      await updateUser('preferred_framework', '');
+      await updateUser('preferred_component_system', '');
+    }
+
     handleNext();
   };
   const handleProject = async (e) => {
@@ -410,13 +489,18 @@ const Index = ({
   };
   const handleProjectName = async (e) => {
     setprojectName(e.projectName);
-    await updateUser('projectName', e.value);
+    await updateUser('projectName', e.projectName);
+    await handleCreateInstance(e.projectName);
     handleNext();
   };
 
   const handleUserType = async (e) => {
     setuserType(e.value);
     await updateUser('userType', e.value);
+
+    if (!isBusiness) {
+      await updateUser('company', '');
+    }
     handleNext();
   };
 
@@ -513,9 +597,12 @@ const Index = ({
       disableGutters
       sx={(theme) => ({
         maxWidth: theme.breakpoints.values.xl2,
+        position: 'relative',
       })}
     >
-      <h1>on boarding</h1>
+      {!zestyProductionMode && (
+        <ToolBox title="MISSING QUESTIONS" role={role} userType={userType} />
+      )}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
         strategy="afterInteractive"
@@ -548,7 +635,7 @@ const Index = ({
             scrollbar={{ draggable: false }}
             modules={[Pagination, Navigation]}
             allowTouchMove={!zestyProductionMode}
-            style={{ height: '50vh' }}
+            style={{ height: '50vh', background: '#fff' }}
             direction={'vertical'}
           >
             {hasPersona && (
@@ -560,7 +647,6 @@ const Index = ({
                 />
               </SwiperSlide>
             )}
-
             {roleType !== 'decision-maker' && hasProjectName && (
               <SwiperSlide>
                 <ProjectNameForm onSubmit={handleProjectName} />
@@ -573,7 +659,7 @@ const Index = ({
               </SwiperSlide>
             )}
 
-            {hasProjectName && (
+            {hasProjectType && (
               <SwiperSlide>
                 <Questionaire
                   title="What are you creating today?"
@@ -593,7 +679,7 @@ const Index = ({
               </SwiperSlide>
             )}
 
-            {isBusiness && hasCompany && (
+            {(isBusiness || hasCompany) && (
               <SwiperSlide>
                 <CompanyDetails onSubmit={handleCompanyDetails} />
               </SwiperSlide>
@@ -601,7 +687,6 @@ const Index = ({
 
             {hasGoal && (
               <SwiperSlide>
-                {' '}
                 <Questionaire
                   title="What is your top priority?"
                   data={goalsList}
@@ -610,7 +695,7 @@ const Index = ({
               </SwiperSlide>
             )}
 
-            {isDeveloper && hasPreferredFramework && (
+            {(isDeveloper || hasPreferredFramework) && (
               <SwiperSlide>
                 <Questionaire
                   title="Preferred Framework"
@@ -620,7 +705,7 @@ const Index = ({
               </SwiperSlide>
             )}
 
-            {isDeveloper && hasPreferredComponentSystem && (
+            {(isDeveloper || hasPreferredComponentSystem) && (
               <SwiperSlide>
                 <Questionaire
                   title="Preferred Component System"
@@ -642,7 +727,9 @@ const Index = ({
 
             <SwiperSlide>
               <SwipeCompContainer>
-                <Onboarding />
+                <Onboarding
+                  instanceUrl={`https://${instance_zuid}.manager.zesty.io/`}
+                />
               </SwipeCompContainer>
             </SwiperSlide>
           </Swiper>
