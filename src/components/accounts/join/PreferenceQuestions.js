@@ -17,87 +17,6 @@ import { FormInput, SubmitBtn, SuccessMsg } from '../ui';
 import { useFormik } from 'formik';
 import { accountsValidations } from '../validations';
 
-const frameworkList = [
-  { label: 'Parsely/Zesty', value: 'parsely' },
-  { label: 'NextJs', value: 'nextjs' },
-  { label: 'React', value: 'react' },
-  { label: 'Vue', value: 'vue' },
-  { label: 'Nuxt', value: 'nuxt' },
-  { label: 'PHP/Laravel', value: 'php' },
-  { label: 'HTML/jQuery', value: 'html' },
-  { label: 'NodeJS', value: 'nodejs' },
-  { label: 'Hugo', value: 'hugo' },
-  { label: 'Gatsby', value: 'gatsby' },
-  { label: 'Svelte', value: 'svelte' },
-  { label: 'Remix', value: 'remix' },
-  { label: 'Astro', value: 'astro' },
-  { label: 'Other', value: 'other' },
-];
-
-const componentsSystemList = [
-  { label: 'Bootstrap', value: 'bootstrap' },
-  { label: 'Material UI', value: 'material ui' },
-  { label: 'Tailwind', value: 'tailwind' },
-  { label: 'Bulma', value: 'bulma' },
-  { label: 'Foundation', value: 'foundation' },
-  { label: 'Chakra UI', value: 'chakra ui' },
-  { label: 'Other', value: 'other' },
-];
-
-const roleList = [
-  { label: 'Marketer', value: 'marketer', type: 'influencer' },
-  { label: 'Developer', value: 'developer', type: 'influencer' },
-  { label: 'Content Creator', value: 'content creator', type: 'influencer' },
-  { label: 'Business Lead', value: 'business lead', type: 'decision-maker' },
-  {
-    label: 'Development Leader',
-    value: 'development leader',
-    type: 'decision-maker',
-  },
-  {
-    label: 'Marketing Leader',
-    value: 'marketing leader',
-    type: 'decision-maker',
-  },
-  {
-    label: 'Project Manager',
-    value: 'project manager',
-    type: 'decision-maker',
-  },
-  {
-    label: 'Product Manager',
-    value: 'product manager',
-    type: 'decision-maker',
-  },
-];
-
-const goalsList = [
-  { label: 'Personalization', value: 'personalization' },
-  { label: 'SEO', value: 'seo' },
-  { label: 'Marketing Autonomy', value: 'marketing autonomy' },
-  { label: 'A/B Testing', value: 'a/b testing' },
-  { label: 'Multi-site', value: 'multi-site' },
-  { label: 'Multi-lang(globalization)', value: 'multi-lang' },
-  { label: 'Product Activation', value: 'product activation' },
-  { label: 'Developer Flexibility', value: 'developer flexibility' },
-];
-const devProjects = [
-  { label: 'App', value: 'app' },
-  { label: 'Headless Website', value: 'headless website' },
-  { label: 'Hybrid Website', value: 'hybrid website' },
-  { label: 'Other Headless Project', value: 'other headless project' },
-];
-const nonDevProjects = [
-  { label: 'Website', value: 'website' },
-  { label: 'Blog', value: 'blog' },
-  { label: 'App', value: 'app' },
-];
-
-const projectTypeList = [
-  { label: 'Personal', value: 'personal' },
-  { label: 'Business', value: 'business' },
-];
-
 const Questionaire = ({ title = 'no title', data = [], onClick }) => {
   const handleClick = (data) => {
     onClick(data);
@@ -137,6 +56,31 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
   );
 };
 
+const ProjectNameForm = ({ onSubmit = () => {} }) => {
+  const formik = useFormik({
+    validationSchema: accountsValidations.projectName,
+    initialValues: {
+      projectName: '',
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      onSubmit(values);
+      formik.resetForm();
+    },
+  });
+  return (
+    <Stack>
+      <Typography variant="h3">What is your project name?</Typography>
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <Stack gap={2}>
+          <FormInput label="projectName" name={'projectName'} formik={formik} />
+          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        </Stack>
+      </form>
+    </Stack>
+  );
+};
+
 const DemoForm = ({ onSubmit = () => {} }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.demoForm,
@@ -157,10 +101,14 @@ const DemoForm = ({ onSubmit = () => {} }) => {
       <form noValidate onSubmit={formik.handleSubmit}>
         <Stack gap={2}>
           <FormInput label="Company" name={'company'} formik={formik} />
+          {/* // convert to  text area */}
           <FormInput
             label="Project Description"
             name={'projectDescription'}
             formik={formik}
+            multiline={true}
+            rows={5}
+            maxRows={4}
           />
           <FormInput
             label="Phone Number"
@@ -209,41 +157,16 @@ const InviteTeam = ({ emails, setemails, handleNext }) => {
       <Typography variant="h4" color="text.secondary">
         Invite your Team
       </Typography>
-      <TextBox collections={emails} setcollections={setemails} />
-      <Stack direction="row" spacing={4}>
-        <LoadingButton
-          color="primary"
-          variant="contained"
-          onClick={() => {
-            handleNext();
-          }}
-        >
-          Lets go
-        </LoadingButton>
-        <LoadingButton
-          color="primary"
-          variant="contained"
-          onClick={() => {
-            handleNext();
-          }}
-        >
-          Copy invite link
-        </LoadingButton>
-        <LoadingButton
-          color="primary"
-          variant="outlined"
-          onClick={() => {
-            handleNext();
-          }}
-        >
-          Skip
-        </LoadingButton>
-      </Stack>
+      <TextBox
+        collections={emails}
+        setcollections={setemails}
+        handleNext={handleNext}
+      />
     </SwipeCompContainer>
   );
 };
 
-const TextBox = ({ collections, setcollections }) => {
+const TextBox = ({ collections, setcollections, handleNext }) => {
   const [email, setemail] = React.useState('');
 
   const handleSubmit = (e) => {
@@ -253,14 +176,33 @@ const TextBox = ({ collections, setcollections }) => {
       setemail('');
     }
   };
+  const handleClick = () => {
+    if (email) {
+      setcollections([...collections, email]);
+      setemail('');
+    }
+    handleNext();
+  };
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
-        placeholder="Email"
-        size="small"
-        onChange={(e) => setemail(e.currentTarget.value)}
-        value={email}
-      />
+      <Stack
+        direction={'row'}
+        gap={2}
+        alignItems="center"
+        justifyContent={'center'}
+        width={1}
+      >
+        <TextField
+          placeholder="Email"
+          size="small"
+          onChange={(e) => setemail(e.currentTarget.value)}
+          value={email}
+        />
+
+        <LoadingButton type="submit" color="primary" variant="contained">
+          Add
+        </LoadingButton>
+      </Stack>
 
       <Stack
         mt={2}
@@ -284,6 +226,36 @@ const TextBox = ({ collections, setcollections }) => {
             </Stack>
           );
         })}
+      </Stack>
+
+      <Stack direction="row" spacing={4}>
+        <LoadingButton
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            handleClick();
+          }}
+        >
+          Lets go
+        </LoadingButton>
+        <LoadingButton
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            handleClick();
+          }}
+        >
+          Copy invite link
+        </LoadingButton>
+        <LoadingButton
+          color="primary"
+          variant="outlined"
+          onClick={() => {
+            handleClick();
+          }}
+        >
+          Skip
+        </LoadingButton>
       </Stack>
     </form>
   );
@@ -329,20 +301,38 @@ const postToZOHO = async (payloadJSON) => {
   }
 };
 
-const Index = ({ content }) => {
+const Index = ({
+  content,
+  // hasCompany = false,
+  // hasGoal = false,
+  // hasPersona = false,
+  // hasProjectName = false,
+  // hasPreferredComponentSystem = false,
+  // hasPreferredFramework = false,
+  // hasUserType = false,
+  // hasProjectType = false,
+  devProjects = [],
+  nonDevProjects = [],
+  userTypeList = [],
+  frameworkList = [],
+  componentsSystemList = [],
+  roleList = [],
+  goalsList = [],
+}) => {
   const [preferred_framework, setframework] = React.useState('');
   const [preferred_component_system, setcomponentSystem] = React.useState('');
   const [goal, setgoal] = React.useState('');
   const [roleType, setroleType] = React.useState('');
-  const [projectType, setprojectType] = React.useState('');
   const { zestyProductionMode } = content || {};
   const {
     userInfo,
     ZestyAPI,
     role,
     setrole,
-    project,
-    setproject,
+    userType,
+    setuserType,
+    projectType,
+    setprojectType,
     projectName,
     setprojectName,
     company,
@@ -385,7 +375,7 @@ const Index = ({ content }) => {
     lastName: userInfo.lastname,
     full_name: `${userInfo.firstname} ${userInfo.lastname}`,
     personajoin: role,
-    projecttype: project,
+    projecttype: projectType,
     staff: 0,
     creationdate: new Date().toUTCString(),
   };
@@ -414,14 +404,19 @@ const Index = ({ content }) => {
     handleNext();
   };
   const handleProject = async (e) => {
-    setproject(e.value);
-    await updateUser('project', e.value);
+    setprojectType(e.value);
+    await updateUser('projectType', e.value);
+    handleNext();
+  };
+  const handleProjectName = async (e) => {
+    setprojectName(e.projectName);
+    await updateUser('projectName', e.value);
     handleNext();
   };
 
-  const handleProjectType = async (e) => {
-    setprojectType(e.value);
-    await updateUser('projectType', e.value);
+  const handleUserType = async (e) => {
+    setuserType(e.value);
+    await updateUser('userType', e.value);
     handleNext();
   };
 
@@ -448,10 +443,13 @@ const Index = ({ content }) => {
     // setCookie('projectName', projectName);
   };
 
-  const handleDemoForm = (e) => {
+  const handleDemoForm = async (e) => {
     setprojectDescription(e?.projectDescription);
     setcompany(e?.company);
     setphoneNumber(e?.phoneNumber);
+    await updateUser('company', e.company);
+    await updateUser('phoneNumber', e.phoneNumber);
+    await updateUser('projectDescription', e.projectDescription);
 
     SuccessMsg({
       title: 'Success',
@@ -461,13 +459,13 @@ const Index = ({ content }) => {
     });
   };
 
-  const isDeveloper = role === 'developer' ? true : false;
-  const isBusiness = projectType === 'business' ? true : false;
+  const isDeveloper = role === 'Developer' ? true : false;
+  const isBusiness = userType === 'Business' ? true : false;
 
   const zohoObj = {
     ...userInfo,
-    project,
     projectType,
+    userType,
     goal,
     company,
     preferred_framework,
@@ -475,6 +473,8 @@ const Index = ({ content }) => {
     role,
     phoneNumber,
     projectDescription,
+    emails,
+    projectName,
   };
 
   React.useEffect(() => {
@@ -491,14 +491,16 @@ const Index = ({ content }) => {
       handleZoho(obj);
     }
   }, [
-    project,
     projectType,
+    userType,
     goal,
     company,
     preferred_framework,
     preferred_component_system,
     role,
     phoneNumber,
+    projectName,
+    emails,
   ]);
 
   React.useEffect(() => {
@@ -513,7 +515,7 @@ const Index = ({ content }) => {
         maxWidth: theme.breakpoints.values.xl2,
       })}
     >
-      <h1>Preference question</h1>
+      <h1>Preference</h1>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
         strategy="afterInteractive"
@@ -557,6 +559,12 @@ const Index = ({ content }) => {
               />
             </SwiperSlide>
 
+            {roleType !== 'decision-maker' && (
+              <SwiperSlide>
+                <ProjectNameForm onSubmit={handleProjectName} />
+              </SwiperSlide>
+            )}
+
             {roleType === 'decision-maker' && (
               <SwiperSlide>
                 <DemoForm onSubmit={handleDemoForm} />
@@ -574,14 +582,20 @@ const Index = ({ content }) => {
             <SwiperSlide>
               <Questionaire
                 title="Who is this project for?"
-                data={projectTypeList}
-                onClick={handleProjectType}
+                data={userTypeList}
+                onClick={handleUserType}
               />
             </SwiperSlide>
 
+            {isBusiness && (
+              <SwiperSlide>
+                <CompanyDetails onSubmit={handleCompanyDetails} />
+              </SwiperSlide>
+            )}
+
             <SwiperSlide>
               <Questionaire
-                title="What are your most important goals?"
+                title="What is your top priority?"
                 data={goalsList}
                 onClick={handleGoals}
               />
@@ -609,12 +623,6 @@ const Index = ({ content }) => {
 
             {isBusiness && (
               <SwiperSlide>
-                <CompanyDetails onSubmit={handleCompanyDetails} />
-              </SwiperSlide>
-            )}
-
-            {isBusiness && (
-              <SwiperSlide>
                 <InviteTeam
                   emails={emails}
                   setemails={setemails}
@@ -630,26 +638,6 @@ const Index = ({ content }) => {
             </SwiperSlide>
           </Swiper>
         </Grid>
-        {/* <Grid
-          item
-          xs={0}
-          md={4}
-          display={{ sm: 'none', md: 'flex' }}
-          width={1}
-          justifyContent={'center'}
-          justifyItems="center"
-          alignContent="center"
-          alignItems={'center'}
-          bgcolor={(theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.zesty.zestyDarkerBlue
-              : theme.palette.secondary.main
-          }
-        >
-          <Stack>
-            <ResourcesCard />
-          </Stack>
-        </Grid> */}
       </Grid>
     </Container>
   );

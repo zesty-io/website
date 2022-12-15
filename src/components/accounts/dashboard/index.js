@@ -15,12 +15,23 @@ import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
 import { AccountPageloading } from '../ui';
 import { PreferenceQuestions } from '../join/PreferenceQuestions';
 import { MissingQuestions } from '../join/MissingQuestions';
+import { joinAppConstants } from '../join/constants';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
 const INSTANCE_CARD_LIMIT = 3;
 
 const Dashboard = ({ content = {} }) => {
+  const {
+    devProjects,
+    nonDevProjects,
+    userTypeList,
+    frameworkList,
+    componentsSystemList,
+    roleList,
+    goalsList,
+  } = joinAppConstants;
+
   const [invites, setinvites] = useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [initialInstances, setInitialInstances] = useState([]);
@@ -101,20 +112,15 @@ const Dashboard = ({ content = {} }) => {
   // this is an array the key values that checks users
   const prefChecks = [
     'persona',
-    'project',
+    'projectName',
     'projectType',
+    'userType',
     'goal',
     'preferred_framework',
     'preferred_component_system',
     'company',
   ];
-  const decisionMakers = [
-    'product manager',
-    'project manager',
-    'marketing leader',
-    'development leader',
-    'business leader',
-  ];
+
   // const prefChecks = [''];
   // accounts/join app
   // let missingPrefs = false;
@@ -127,11 +133,25 @@ const Dashboard = ({ content = {} }) => {
 
   const existingUserPrefs = Object.keys(userPrefs);
 
-  const isDecisionMaker = decisionMakers.includes(userPrefs?.persona);
+  const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
+  const isDecisionMaker = roleType === 'decision-maker' ? true : false;
 
   const missingUserPrefs = prefChecks
     .filter((x) => !existingUserPrefs.includes(x))
     .concat(existingUserPrefs.filter((x) => !prefChecks.includes(x)));
+
+  const hasPersona = missingUserPrefs.includes('persona');
+  const hasProjectName = missingUserPrefs.includes('projectName');
+  const hasUserType = missingUserPrefs.includes('userType');
+  const hasProjectType = missingUserPrefs.includes('projectType');
+  const hasGoal = missingUserPrefs.includes('goal');
+  const hasPreferredFramework = missingUserPrefs.includes(
+    'preferred_framework',
+  );
+  const hasPreferredComponentSystem = missingUserPrefs.includes(
+    'preferred_component_system',
+  );
+  const hasCompany = missingUserPrefs.includes('company');
 
   // if (typeof userInfo?.prefs === 'string') {
   //   const obj = JSON.parse(userInfo?.prefs);
@@ -172,14 +192,45 @@ const Dashboard = ({ content = {} }) => {
     setIsInstanceLoading(false);
   };
 
-  // check if new user and doesnt have persona selected
-  // if (missingPrefs) {
-  //   // load onboard ask 1 question what your persona question
-  //   // personalizationSurvey component
-  //   return <PersonalizationSurvey content={content} />;
-  //   // otherwise default to dashboard
-  // }
+  const onBoardingQuestionProps = {
+    content,
+    // check for missing prefs
+    hasCompany,
+    hasGoal,
+    hasPersona,
+    hasProjectName,
+    hasPreferredComponentSystem,
+    hasPreferredFramework,
+    hasUserType,
+    hasProjectType,
+    // constants
+    devProjects,
+    nonDevProjects,
+    userTypeList,
+    frameworkList,
+    componentsSystemList,
+    roleList,
+    goalsList,
+  };
 
+  const missingQuestionProps = {
+    content,
+    devProjects,
+    nonDevProjects,
+    userTypeList,
+    frameworkList,
+    componentsSystemList,
+    roleList,
+    goalsList,
+    hasCompany,
+    hasGoal,
+    hasPersona,
+    hasProjectName,
+    hasPreferredComponentSystem,
+    hasPreferredFramework,
+    hasUserType,
+    hasProjectType,
+  };
   useEffect(() => {
     getAllInvitedInstances();
   }, []);
@@ -238,15 +289,18 @@ const Dashboard = ({ content = {} }) => {
     runSettingInstances();
   }, [instancesFavorites]);
 
-  // return <OnboardingQuestions content={content} />;
+  //* for testing only
+  // return <OnboardingQuestions {...onBoardingQuestionProps} />;
+  // if (!content.zestyProductionMode) {
+  //   return <OnboardingQuestions {...onBoardingQuestionProps} />;
+  // }
+
   if (newUserHasInvite) {
     return <PreferenceQuestions content={content} />;
   } else if (isNewUser && !isDecisionMaker) {
-    return <OnboardingQuestions content={content} />;
+    return <OnboardingQuestions {...onBoardingQuestionProps} />;
   } else if (missingUserPrefs?.length > 0 && !isDecisionMaker) {
-    return (
-      <MissingQuestions content={content} missingUserPrefs={missingUserPrefs} />
-    );
+    return <MissingQuestions {...missingQuestionProps} />;
   } else if (missingUserPrefs[0] === 'persona') {
     return <PersonalizationSurvey content={content} />;
   }

@@ -69,11 +69,13 @@ export const zohoPostObject = (
     // JOIN APP
     Role: getCookie('persona') ? getCookie('persona') : obj?.role,
     Company: obj?.company ? obj.company : '',
-    Project: obj?.project,
+    User_Type: obj?.userType,
     Project_Type: obj?.projectType,
     Goal: obj?.goal,
     Preferred_Framework: obj?.preferred_framework,
     Preferred_Component_System: obj?.preferred_component_system,
     Project_Description: obj?.projectDescription,
+    Invited_Users: obj?.emails,
+    Project_Name: obj?.projectName,
   };
 };
