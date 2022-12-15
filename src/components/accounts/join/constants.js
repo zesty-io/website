@@ -78,14 +78,14 @@ const nonDevProjects = [
   { label: 'App', value: 'App or IoT' },
 ];
 
-const projectTypeList = [
+const userTypeList = [
   { label: 'Personal', value: 'Personal' },
   { label: 'Business', value: 'Business' },
 ];
 export const joinAppConstants = {
   devProjects,
   nonDevProjects,
-  projectTypeList,
+  userTypeList,
   frameworkList,
   componentsSystemList,
   roleList,

@@ -69,9 +69,8 @@ export const zohoPostObject = (
     // JOIN APP
     Role: getCookie('persona') ? getCookie('persona') : obj?.role,
     Company: obj?.company ? obj.company : '',
-    //TODO: updating naming conventions
-    User_Type: obj?.projectType,
-    Project_Type: obj?.project,
+    User_Type: obj?.userType,
+    Project_Type: obj?.projectType,
     Goal: obj?.goal,
     Preferred_Framework: obj?.preferred_framework,
     Preferred_Component_System: obj?.preferred_component_system,

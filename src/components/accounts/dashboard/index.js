@@ -25,7 +25,7 @@ const Dashboard = ({ content = {} }) => {
   const {
     devProjects,
     nonDevProjects,
-    projectTypeList,
+    userTypeList,
     frameworkList,
     componentsSystemList,
     roleList,
@@ -139,6 +139,19 @@ const Dashboard = ({ content = {} }) => {
     .filter((x) => !existingUserPrefs.includes(x))
     .concat(existingUserPrefs.filter((x) => !prefChecks.includes(x)));
 
+  const hasPersona = missingUserPrefs.includes('persona');
+  const hasProjectName = missingUserPrefs.includes('projectName');
+  const hasUserType = missingUserPrefs.includes('userType');
+  const hasProjectType = missingUserPrefs.includes('projectType');
+  const hasGoal = missingUserPrefs.includes('goal');
+  const hasPreferredFramework = missingUserPrefs.includes(
+    'preferred_framework',
+  );
+  const hasPreferredComponentSystem = missingUserPrefs.includes(
+    'preferred_component_system',
+  );
+  const hasCompany = missingUserPrefs.includes('company');
+
   // if (typeof userInfo?.prefs === 'string') {
   //   const obj = JSON.parse(userInfo?.prefs);
   //   prefChecks.forEach((element) => {
@@ -180,15 +193,43 @@ const Dashboard = ({ content = {} }) => {
 
   const onBoardingQuestionProps = {
     content,
+    // check for missing prefs
+    hasCompany,
+    hasGoal,
+    hasPersona,
+    hasProjectName,
+    hasPreferredComponentSystem,
+    hasPreferredFramework,
+    hasUserType,
+    hasProjectType,
+    // constants
     devProjects,
     nonDevProjects,
-    projectTypeList,
+    userTypeList,
     frameworkList,
     componentsSystemList,
     roleList,
     goalsList,
   };
 
+  const missingQuestionProps = {
+    content,
+    devProjects,
+    nonDevProjects,
+    userTypeList,
+    frameworkList,
+    componentsSystemList,
+    roleList,
+    goalsList,
+    hasCompany,
+    hasGoal,
+    hasPersona,
+    hasProjectName,
+    hasPreferredComponentSystem,
+    hasPreferredFramework,
+    hasUserType,
+    hasProjectType,
+  };
   useEffect(() => {
     getAllInvitedInstances();
   }, []);
@@ -255,10 +296,7 @@ const Dashboard = ({ content = {} }) => {
   } else if (isNewUser && !isDecisionMaker) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
   } else if (missingUserPrefs?.length > 0 && !isDecisionMaker) {
-    return (
-      //TODO: update missing questions
-      <MissingQuestions content={content} missingUserPrefs={missingUserPrefs} />
-    );
+    return <MissingQuestions {...missingQuestionProps} />;
   } else if (missingUserPrefs[0] === 'persona') {
     return <PersonalizationSurvey content={content} />;
   }

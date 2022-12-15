@@ -47,8 +47,10 @@ export const useZestyStore = create((set) => {
     // new user data
     role: '',
     setrole: (data) => set(() => ({ role: data })),
-    project: '',
-    setproject: (data) => set(() => ({ project: data })),
+    userType: '',
+    setuserType: (data) => set(() => ({ userType: data })),
+    projectType: '',
+    setprojectType: (data) => set(() => ({ projectType: data })),
     projectName: '',
     setprojectName: (data) => set(() => ({ projectName: data })),
     emails: [],
