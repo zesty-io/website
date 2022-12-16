@@ -163,7 +163,7 @@ function JoinPageContent({ content }) {
                   },
                 }}
               >
-                {content?.demo_description || FillerContent.description}
+                {content?.title_and_description || FillerContent.description}
               </MuiMarkdown>
             </Box>
 
