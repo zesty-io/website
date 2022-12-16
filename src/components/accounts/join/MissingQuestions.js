@@ -505,6 +505,7 @@ const Index = ({
     if (e.value !== 'Developer') {
       await updateUser('preferred_framework', '');
       await updateUser('preferred_component_system', '');
+      await updateUser('userInvited', '');
     }
 
     handleNext();
