@@ -61,5 +61,7 @@ export const useZestyStore = create((set) => {
     setphoneNumber: (data) => set(() => ({ phoneNumber: data })),
     projectDescription: '',
     setprojectDescription: (data) => set(() => ({ projectDescription: data })),
+    userInvited: '',
+    setuserInvited: (data) => set(() => ({ userInvited: data })),
   };
 });

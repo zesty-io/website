@@ -30,6 +30,7 @@ const Dashboard = ({ content = {} }) => {
     componentsSystemList,
     roleList,
     goalsList,
+    inviteUserList,
   } = joinAppConstants;
 
   const [invites, setinvites] = useState([]);
@@ -119,6 +120,7 @@ const Dashboard = ({ content = {} }) => {
     'preferred_framework',
     'preferred_component_system',
     'company',
+    'userInvited',
   ];
 
   // const prefChecks = [''];
@@ -157,6 +159,7 @@ const Dashboard = ({ content = {} }) => {
     'preferred_component_system',
   );
   const hasCompany = missingUserPrefs.includes('company');
+  const hasUserInvited = missingUserPrefs.includes('userInvited');
 
   // if (typeof userInfo?.prefs === 'string') {
   //   const obj = JSON.parse(userInfo?.prefs);
@@ -208,6 +211,7 @@ const Dashboard = ({ content = {} }) => {
     hasPreferredFramework,
     hasUserType,
     hasProjectType,
+    hasUserInvited,
     // constants
     devProjects,
     nonDevProjects,
@@ -216,6 +220,7 @@ const Dashboard = ({ content = {} }) => {
     componentsSystemList,
     roleList,
     goalsList,
+    inviteUserList,
   };
 
   const missingQuestionProps = {
@@ -234,7 +239,9 @@ const Dashboard = ({ content = {} }) => {
     hasPreferredComponentSystem,
     hasPreferredFramework,
     hasUserType,
+    hasUserInvited,
     hasProjectType,
+    inviteUserList,
   };
   useEffect(() => {
     getAllInvitedInstances();

@@ -21,7 +21,10 @@ import { getCookie } from 'cookies-next';
 import axios from 'axios';
 import { ToolBox } from './ToolBox';
 import { isProd } from 'utils';
+// import { handlePostToSlack } from './services';
 
+const slackInviteUrl =
+  'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
 const repository = 'https://github.com/zesty-io/template-nextjs-marketing';
 const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
 const Questionaire = ({ title = 'no title', data = [], onClick }) => {
@@ -360,6 +363,9 @@ const Index = ({
   hasPreferredFramework,
   hasUserType,
   hasProjectType,
+  hasUserInvited,
+
+  inviteUserList = [],
 }) => {
   const token = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
   const [preferred_framework, setframework] = React.useState('');
@@ -388,6 +394,8 @@ const Index = ({
     projectDescription,
     setprojectDescription,
     setprefs,
+    // userInvited,
+    setuserInvited,
   } = useZestyStore();
   const sliderRef = React.useRef(null);
 
@@ -543,6 +551,15 @@ const Index = ({
     await updateUser('company', e.company);
     handleNext();
     // setCookie('projectName', projectName);
+  };
+
+  const handleInviteUser = async (e) => {
+    setuserInvited(e.value);
+    await updateUser('userInvited', e.value);
+    if (e.value === 'Yes') {
+      // await handlePostToSlack(userInfo?.email, slackInviteUrl);
+    }
+    handleNext();
   };
 
   const handleDemoForm = async (e) => {
@@ -747,6 +764,16 @@ const Index = ({
                   title="Preferred Component System"
                   data={componentsSystemList}
                   onClick={handlePrefCompSystem}
+                />
+              </SwiperSlide>
+            )}
+
+            {(isDeveloper || hasUserInvited) && (
+              <SwiperSlide>
+                <Questionaire
+                  title="Would you like to join our Developer Slack Community"
+                  data={inviteUserList}
+                  onClick={handleInviteUser}
                 />
               </SwiperSlide>
             )}
