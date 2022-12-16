@@ -60,7 +60,7 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
   );
 };
 
-const ProjectNameForm = ({ onSubmit = () => {} }) => {
+const ProjectNameForm = ({ onSubmit = () => {}, loading = false }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.projectName,
     initialValues: {
@@ -85,7 +85,10 @@ const ProjectNameForm = ({ onSubmit = () => {} }) => {
               formik={formik}
             />
             <Stack width={'5rem'}>
-              <SubmitBtn loading={formik.isSubmitting} endIcon={<DoneIcon />}>
+              <SubmitBtn
+                loading={loading || formik.isSubmitting}
+                endIcon={<DoneIcon />}
+              >
                 OK
               </SubmitBtn>
             </Stack>
@@ -359,6 +362,8 @@ const Index = ({
   const [roleType, setroleType] = React.useState('');
   const [instance_zuid, setinstance_zuid] = React.useState('');
   const { zestyProductionMode } = content || {};
+  const [createInstanceLoading, setcreateInstanceLoading] =
+    React.useState(false);
   const {
     userInfo,
     ZestyAPI,
@@ -498,9 +503,11 @@ const Index = ({
     handleNext();
   };
   const handleProjectName = async (e) => {
+    setcreateInstanceLoading(true);
     setprojectName(e.projectName);
     await updateUser('projectName', e.projectName);
     await handleCreateInstance(e.projectName);
+    setcreateInstanceLoading(false);
     handleNext();
   };
 
@@ -674,7 +681,10 @@ const Index = ({
 
             {roleType !== 'decision-maker' && (
               <SwiperSlide>
-                <ProjectNameForm onSubmit={handleProjectName} />
+                <ProjectNameForm
+                  onSubmit={handleProjectName}
+                  loading={createInstanceLoading}
+                />
               </SwiperSlide>
             )}
 
