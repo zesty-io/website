@@ -16,6 +16,7 @@ import { AccountPageloading } from '../ui';
 import { PreferenceQuestions } from '../join/PreferenceQuestions';
 import { MissingQuestions } from '../join/MissingQuestions';
 import { joinAppConstants } from '../join/constants';
+import { ToolBox } from '../join/ToolBox';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
@@ -327,6 +328,7 @@ const Dashboard = ({ content = {} }) => {
           px: 3,
         })}
       >
+        {!content.zestyProductionMode && <ToolBox title="" />}
         <Grid container spacing={2} mt={1}>
           <Grid
             sx={(theme) => ({

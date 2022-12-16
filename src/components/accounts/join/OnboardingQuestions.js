@@ -19,9 +19,8 @@ import { useFormik } from 'formik';
 import { accountsValidations } from '../validations';
 import { getCookie } from 'cookies-next';
 import axios from 'axios';
-import { ToolBox } from './ToolBox';
 import { isProd } from 'utils';
-// import { handlePostToSlack } from './services';
+import { handlePostToSlack } from './services';
 
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
@@ -554,7 +553,8 @@ const Index = ({
     setuserInvited(e.value);
     await updateUser('userInvited', e.value);
     if (e.value === 'Yes') {
-      // await handlePostToSlack(userInfo?.email, slackInviteUrl);
+      zestyProductionMode &&
+        (await handlePostToSlack(userInfo?.email, slackInviteUrl));
     }
     handleNext();
   };
@@ -632,9 +632,6 @@ const Index = ({
         position: 'relative',
       })}
     >
-      {!zestyProductionMode && (
-        <ToolBox title="On Boarding" role={role} userType={userType} />
-      )}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
         strategy="afterInteractive"
