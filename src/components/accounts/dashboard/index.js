@@ -294,7 +294,6 @@ const Dashboard = ({ content = {} }) => {
   // if (!content.zestyProductionMode) {
   //   return <OnboardingQuestions {...onBoardingQuestionProps} />;
   // }
-  console.log('test');
 
   if (newUserHasInvite) {
     return <PreferenceQuestions content={content} />;
