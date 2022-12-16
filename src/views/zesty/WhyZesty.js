@@ -25,16 +25,16 @@
  */
 
 import React from 'react';
-import SimpleHeroWithImageAndCtaButtonsPage from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons/SimpleHeroWithImageAndCtaButtons.js';
-import FeaturesWithMobileScreenshot from 'blocks/features/FeaturesWithMobileScreenshot/FeaturesWithMobileScreenshot.js';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
 import { Box } from '@mui/system';
 import FillerContent from 'components/globals/FillerContent';
 import { useTheme } from '@mui/material/styles';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import OverviewProcessComp from 'components/marketing/WhyZesty/OverviewProcessComp';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
-import Features from 'blocks/features/Features/Features';
-import { WithHighlightedCard } from 'blocks/testimonials';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
 import Container from 'components/Container';
 
@@ -45,10 +45,22 @@ function WhyZesty({ content }) {
   const isDarkMode = theme.palette.mode === 'dark';
 
   const COLORS = [
-    theme.palette.zesty.zestyWhite,
-    theme.palette.zesty.pureWhite,
-    theme.palette.zesty.zestyBlue,
-    theme.palette.zesty.zestyWhite,
+    {
+      backgroundColor: theme.palette.zesty.zestyWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
+    {
+      backgroundColor: theme.palette.zesty.pureWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
+    {
+      backgroundColor: theme.palette.zesty.zestyBlue,
+      textColor: theme.palette.common.white,
+    },
+    {
+      backgroundColor: theme.palette.zesty.zestyWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
   ];
 
   const feature_data =
@@ -100,6 +112,26 @@ function WhyZesty({ content }) {
       FillerContent.href,
   };
 
+  const alternateColumnsData = content.benefits?.data
+    ?.slice(0, 2)
+    .map((item) => {
+      return {
+        header: item.header,
+        content: item.benefit_content,
+        image: item.benefit_image.data[0].url,
+      };
+    });
+
+  const alternateColumnsData2 = content.benefits?.data
+    ?.slice(2, 4)
+    .map((item) => {
+      return {
+        header: item.header,
+        content: item.benefit_content,
+        image: item.benefit_image.data[0].url,
+      };
+    });
+
   return (
     <>
       <Box
@@ -110,7 +142,7 @@ function WhyZesty({ content }) {
             : theme.palette.alternate.main,
         }}
       >
-        <SimpleHeroWithImageAndCtaButtonsPage {...headerProps} />
+        <SimpleHeroWithImageAndCtaButtons {...headerProps} />
       </Box>
 
       <OverviewProcessComp
@@ -123,21 +155,11 @@ function WhyZesty({ content }) {
       />
       {/* Benefits */}
       <Box sx={{ mt: 15 }}>
-        {content.benefits?.data?.slice(0, 2).map((e, i) => {
-          return (
-            <FeaturesWithMobileScreenshot
-              key={i}
-              background_color={COLORS[i]}
-              index={i}
-              content={e.benefit_content || FillerContent.rich_text}
-              header={e.header || FillerContent.header}
-              image={
-                (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
-                FillerContent.image
-              }
-            />
-          );
-        })}
+        <AlternateColumns
+          isHeaderEnabled={false}
+          column_data={alternateColumnsData}
+          alternateColors={COLORS.slice(0, 2)}
+        />
         <Container paddingY={0}>
           <DarkBlueCta
             sx={{ py: 15 }}
@@ -152,22 +174,14 @@ function WhyZesty({ content }) {
         </Container>
         {/* Benefits */}
         <Box sx={{ mt: 10 }}>
-          {content.benefits?.data?.slice(2, 4).map((e, i) => {
-            return (
-              <FeaturesWithMobileScreenshot
-                key={i}
-                text_color={i === 0 ? theme.palette.common.white : ''}
-                background_color={COLORS[2 + i]}
-                index={i}
-                content={e.benefit_content || FillerContent.rich_text}
-                header={e.header || FillerContent.header}
-                image={
-                  (e.benefit_image?.data && e.benefit_image?.data[0]?.url) ||
-                  FillerContent.image
-                }
-              />
-            );
-          })}
+          <AlternateColumns
+            column_data={alternateColumnsData2}
+            isHeaderEnabled={false}
+            header_content={content?.content}
+            cta_link={content?.middle_cta_button_link?.data[0].meta.web.uri}
+            cta_text={content?.middle_cta_button_text}
+            alternateColors={COLORS.slice(2, 4)}
+          />
         </Box>
       </Box>
       {/* Missing Case Study
@@ -176,7 +190,6 @@ function WhyZesty({ content }) {
       <Box>
         <Features
           background_color={theme.palette.zesty.zestyBackgroundBlue}
-          header_size={48}
           textHighlight={'Workflow management'}
           data={feature_data}
           features_header={content.key_features_text}

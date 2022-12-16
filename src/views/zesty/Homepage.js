@@ -39,18 +39,19 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 /**
  * Components Imports
  */
-import Hero from 'components/marketing/Homepage/Hero';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-import DigitalExperience from 'components/marketing/Homepage/DigitalExperience';
+// import Hero from 'components/marketing/Homepage/Hero';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
 import Growth from 'blocks/zesty/Growth/Growth';
-import CaseStudies from 'components/marketing/Homepage/CaseStudies';
-import LogoSlider from 'components/marketing/Homepage/LogoSlider';
+import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
+import LogoSlider from 'blocks/zesty/Slider/LogoSlider';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
-import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
-import { WithHighlightedCard } from 'blocks/testimonials';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
 import Dashboard from 'components/accounts/dashboard';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import AOS from 'aos';
@@ -58,22 +59,7 @@ import { useEffect } from 'react';
 
 function Homepage({ content }) {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
-  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
-  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
-  const isDarkMode = theme.palette.mode === 'dark';
-
-  const pageData = {
-    theme,
-    isSmall,
-    isMedium,
-    isLarge,
-    isExtraLarge,
-    isDarkMode,
-    content,
-    FillerContent,
-  };
 
   const testimonialsData = {
     title: content.testimonials_content,
@@ -90,42 +76,113 @@ function Homepage({ content }) {
     return <Dashboard />;
   }
 
+  const getData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.graphic?.data[0].url,
+          title: item.product_name,
+          content: item.product_description,
+          url: item.link?.data[0]?.meta?.web?.uri || FillerContent.href,
+        });
+
+        return acc;
+      }, []) || []
+    );
+  };
+
+  const heroProps = {
+    mainTitle: content.header_title_main,
+    title: content.header_title_and_description || FillerContent.header,
+    image:
+      (content.header_graphic?.data && content.header_graphic?.data[0]?.url) ||
+      FillerContent.image,
+    cta_left: content.hero_button_left || FillerContent.cta,
+    cta_right: content.hero_button_right || FillerContent.cta,
+    cta_left_url:
+      (content.hero_button_left_link?.data &&
+        content.hero_button_left_link?.data[0]?.meta?.web?.url) ||
+      FillerContent.href,
+    cta_right_url:
+      (content.hero_button_right_link.data &&
+        content.hero_button_right_link?.data[0]?.meta?.web?.url) ||
+      FillerContent.href,
+    dataTestId: 'homePageHero',
+  };
+
+  const digitalExperienceProps = {
+    title: content.product_title_and_description,
+    data: getData(content.product_options),
+    itemTitleColor: theme.palette.zesty.zestyOrange,
+    imageWidth: 294,
+    imageHeight: 179,
+  };
+
   const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
     (item) => {
       return {
         header: item.header,
         content: item.benefit_content,
-        image: item.benefit_image.data[0].url,
+        image: item.benefit_image?.data[0]?.url,
       };
     },
   );
 
   const growthData = {
-    background: content?.growth_background?.data[0].url || '',
+    background: content?.growth_background?.data[0]?.url || '',
     titleAndDescription:
       content.growth_title_and_description || FillerContent.rich_text,
     cards: content?.growth_cards?.data,
   };
 
+  const statsData = [
+    {
+      stats: content.case_study_card_1 || FillerContent.description,
+    },
+    {
+      stats: content.case_study_card_2 || FillerContent.description,
+    },
+    {
+      stats: content.case_study_card_3 || FillerContent.description,
+    },
+  ];
+
+  const caseStudiesProps = {
+    header: content.case_studies_eyebrow,
+    description: content.case_studies_header,
+    statsData: statsData,
+    g2BadgesData: content.g2_badges?.data,
+    caseStudiesData: content.case_study_cards?.data,
+  };
+
+  const logoSliderData = {
+    titleAndDescription: content?.integration_title_and_description,
+    integrations_logos: content?.integrations_logos?.data,
+    integrations_logos_2: content?.integrations_logos_2?.data,
+    cta_text: content.marketplace_cta_text,
+    integrationsBackground: content.integrations_background?.data[0]?.url,
+  };
+
   const bottomData = {
-    graphic: content?.bottom_cta_graphic?.data[0].url || '',
+    graphic: content?.bottom_cta_graphic?.data[0]?.url || '',
     titleAndDescription:
       content.bottom_cta_title_and_description || FillerContent.rich_text,
     cta_text: content.footer_button_text_1 || FillerContent.cta,
     secondary_cta_text: content.footer_button_text_2 || FillerContent.cta,
     secondary_cta_link:
-      content.footer_button_link_2?.data[0].meta.web.uri || FillerContent.href,
+      content.footer_button_link_2?.data[0]?.meta?.web?.uri ||
+      FillerContent.href,
   };
 
   return (
     <>
-      <Hero {...pageData} />
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <SimpleCardLogo
         variant="outlined"
         heading_text={content?.logo_heading}
         logoItems={content?.homepage_logos.data}
       />
-      <DigitalExperience {...pageData} />
+      <CardsInContainer {...digitalExperienceProps} />
       <AlternateColumns
         column_data={alternateColumnsData}
         header_content={content?.zesty_new_benefits}
@@ -142,9 +199,9 @@ function Homepage({ content }) {
         header_content={content?.middle_cta_header}
       />
       <Growth {...growthData} />
-      <CaseStudies {...pageData} />
+      <CaseStudyCards {...caseStudiesProps} />
       <WithHighlightedCard {...testimonialsData} />
-      <LogoSlider cta_text={content?.marketplace_cta_text} {...pageData} />
+      <LogoSlider {...logoSliderData} />
       <Bottom {...bottomData} />
     </>
   );

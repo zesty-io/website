@@ -26,8 +26,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import React, { useEffect, useState } from 'react';
-
-import { SlashImageHero } from 'blocks/heroes';
+import { SlashImageHeroWithCta } from 'blocks/heroes';
 import { Breadcrumb } from 'blocks/progressSteps';
 import { Result } from 'blocks/formLayouts';
 import { CtaWithInputField } from 'blocks/cta';
@@ -172,10 +171,10 @@ function Category({ content }) {
         }}
       >
         <Box position={'relative'} zIndex={3}>
-          <SlashImageHero
+          <SlashImageHeroWithCta
             title={content.category || FillerContent.header}
             description={content.description || FillerContent.description}
-            image={
+            mainImage={
               content.header_image?.data[0]?.url ||
               FillerContent.category_fallback_image
             }

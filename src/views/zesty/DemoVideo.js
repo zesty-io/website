@@ -30,17 +30,16 @@
 
 import { HeroWithLogoGridAndDesktopScreenshot } from 'blocks/heroes';
 import { CtaWithIllustration } from 'blocks/cta';
-import { LogoGridSimpleCentered } from 'blocks/logoGrid';
-import FillerContent from 'components/globals/FillerContent';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 
 function DemoVideo({ content }) {
   return (
     <>
       <HeroWithLogoGridAndDesktopScreenshot {...content} />
       <CtaWithIllustration isDemoPage={true} {...content} />
-      <LogoGridSimpleCentered
-        title={content.logos_title || FillerContent.header}
-        imageCollection={content.client_logos?.data || [FillerContent.image]}
+      <SimpleCardLogo
+        heading_text={content?.logos_title}
+        logoItems={content?.client_logos?.data}
       />
     </>
   );

@@ -1,16 +1,24 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Card, Container } from '@mui/material';
+import { Box, Typography, Card, Container, useTheme } from '@mui/material';
 import Star from '../../../../public/assets/images/homepage/star.svg';
 
-const Testimonial = ({
-  theme,
+/**
+ * Helpers Imports
+ */
+import FillerContent from 'components/globals/FillerContent';
+import MuiMarkdown from 'markdown-to-jsx';
+
+const SingleTestimonial = ({
+  title,
+  testimonialData,
   // isMedium,
   // isDarkMode,
   content,
-  FillerContent,
 }) => {
+    const theme = useTheme();
+
   return (
     <Box sx={{ background: theme.palette.zesty.zestyWhite }}>
       <Container sx={{ py: 5 }}>
@@ -25,7 +33,7 @@ const Testimonial = ({
               color: theme.palette.zesty.zestyZambezi,
             }}
           >
-            {content.testimonial_title || FillerContent.description}
+            {title || FillerContent.description}
           </Typography>
 
           <Card
@@ -44,7 +52,7 @@ const Testimonial = ({
                 color: theme.palette.zesty.zestyZambezi,
               }}
             >
-              {content.testimonial.data[0].title}
+              {testimonialData?.data[0]?.title || FillerContent.header}
             </Typography>
             <Typography
               variant="h6"
@@ -54,7 +62,7 @@ const Testimonial = ({
                 mt: 2,
               }}
             >
-              {content.testimonial.data[0].review}
+              {testimonialData?.data[0]?.review || FillerContent.description}
             </Typography>
 
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
@@ -77,7 +85,7 @@ const Testimonial = ({
                 mt: 2,
               }}
             >
-              {content.testimonial.data[0].reviewer_title}
+              {testimonialData?.data[0]?.reviewer_title || FillerContent.description}
             </Typography>
           </Card>
         </Box>
@@ -86,4 +94,4 @@ const Testimonial = ({
   );
 };
 
-export default Testimonial;
+export default SingleTestimonial;

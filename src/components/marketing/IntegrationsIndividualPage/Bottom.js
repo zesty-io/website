@@ -1,11 +1,13 @@
 /**
  * MUI Imports
  */
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Container from 'blocks/container/Container';
 import MuiMarkdown from 'markdown-to-jsx';
 import CodeBlock from 'components/cta/CodeBlock';
 import DemoCta from 'components/cta/DemoCta';
+import TryFreeButton from 'components/cta/TryFreeButton';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Bottom = ({ theme, content, FillerContent, isLarge, isMedium }) => {
   return (
@@ -13,7 +15,7 @@ const Bottom = ({ theme, content, FillerContent, isLarge, isMedium }) => {
       sx={{
         mt: 10,
         background: theme.palette.zesty.zestyDarkBlue,
-        height: isMedium ? 850 : isLarge ? 1030 : 1005,
+        height: isMedium ? 800 : isLarge ? 1030 : 976,
       }}
       component="section"
     >
@@ -25,7 +27,7 @@ const Bottom = ({ theme, content, FillerContent, isLarge, isMedium }) => {
                 component: Typography,
                 props: {
                   component: 'h2',
-                  variant: 'h2',
+                  variant: 'h4',
                   sx: {
                     color: theme.palette.common.white,
                     textAlign: 'center',
@@ -38,7 +40,7 @@ const Bottom = ({ theme, content, FillerContent, isLarge, isMedium }) => {
                 component: Typography,
                 props: {
                   component: 'p',
-                  variant: 'h5',
+                  variant: 'h6',
                   sx: {
                     color: theme.palette.common.white,
                     textAlign: 'center',
@@ -77,21 +79,18 @@ const Bottom = ({ theme, content, FillerContent, isLarge, isMedium }) => {
               mt: 4,
             }}
           >
-            <Button
+            <TryFreeButton
+              fullWidth={true}
+              text={content.cta_primary_text}
+              variant="contained"
+              size="large"
+              color="secondary"
               sx={{
                 width: '100%',
                 maxWidth: isMedium ? '100%' : 174,
                 fontWeight: 'bold',
               }}
-              target="_blank"
-              fullWidth={true}
-              href={content.cta_primary_link || FillerContent.href}
-              component="a"
-              variant="contained"
-              color={'secondary'}
-            >
-              {content.cta_primary_text || FillerContent.cta}
-            </Button>
+            ></TryFreeButton>
 
             <DemoCta
               icon={false}
@@ -113,15 +112,15 @@ const Bottom = ({ theme, content, FillerContent, isLarge, isMedium }) => {
           sx={{
             width: '100%',
             maxWidth: 920,
-            height: 565,
             margin: 'auto',
             mt: 10,
           }}
         >
-          <Box
-            sx={{ width: '100%' }}
-            component="img"
-            src={content.bottom_graphic?.data[0].url}
+          <ZestyImage
+            src={content.bottom_graphic?.data[0].url || FillerContent.image}
+            width={920}
+            height={620}
+            style={{ width: '100%', height: 'auto' }}
           />
         </Box>
       </Container>
