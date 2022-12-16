@@ -4,6 +4,7 @@ import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
 import Script from 'next/script';
 import { SwiperSlide } from 'swiper/react';
+import DoneIcon from '@mui/icons-material/Done';
 import { Pagination, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -13,7 +14,7 @@ import { Onboarding } from './Onboarding';
 import { zohoPostObject } from './zohoPostObject';
 import { grey } from '@mui/material/colors';
 import { pendoScript } from 'components/marketing/Start/pendoScript';
-import { FormInput, SubmitBtn, SuccessMsg } from '../ui';
+import { FormInput, JoinAppBtn, SubmitBtn, SuccessMsg } from '../ui';
 import { useFormik } from 'formik';
 import { accountsValidations } from '../validations';
 import { getCookie } from 'cookies-next';
@@ -34,8 +35,9 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
       </Typography>
       <Stack
         direction={'row'}
-        spacing={4}
-        gap={2}
+        spacing={2}
+        gap={1}
+        py={1}
         justifyContent="center"
         sx={{
           width: '50vw',
@@ -46,15 +48,11 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
       >
         {data?.map((e) => {
           return (
-            <LoadingButton
-              color="primary"
-              variant="contained"
-              onClick={() => handleClick(e)}
-            >
+            <JoinAppBtn onClick={() => handleClick(e)} startIcon={e?.icon}>
               <Typography whiteSpace={'nowrap'} width={1}>
                 {e?.label}
               </Typography>
-            </LoadingButton>
+            </JoinAppBtn>
           );
         })}
       </Stack>
@@ -86,7 +84,11 @@ const ProjectNameForm = ({ onSubmit = () => {} }) => {
               name={'projectName'}
               formik={formik}
             />
-            <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+            <Stack width={'5rem'}>
+              <SubmitBtn loading={formik.isSubmitting} endIcon={<DoneIcon />}>
+                OK
+              </SubmitBtn>
+            </Stack>
           </Stack>
         </form>
       </Stack>
@@ -95,6 +97,7 @@ const ProjectNameForm = ({ onSubmit = () => {} }) => {
 };
 
 const DemoForm = ({ onSubmit = () => {} }) => {
+  const [loading, setloading] = React.useState(false);
   const formik = useFormik({
     validationSchema: accountsValidations.demoForm,
     initialValues: {
@@ -103,14 +106,21 @@ const DemoForm = ({ onSubmit = () => {} }) => {
       phoneNumber: '',
     },
     onSubmit: async (values) => {
+      setloading(true);
       onSubmit(values);
       formik.resetForm();
+
+      setTimeout(() => {
+        setloading(false);
+      }, 3000);
     },
   });
   return (
     <SwipeCompContainer>
-      <Stack width={'50vw'}>
-        <Typography variant="h3">Demo Form</Typography>
+      <Stack width={'40vw'}>
+        <Typography variant="h3" color={'GrayText'}>
+          Demo Form
+        </Typography>
         <form noValidate onSubmit={formik.handleSubmit}>
           <Stack gap={2}>
             <FormInput label="Company" name={'company'} formik={formik} />
@@ -128,7 +138,12 @@ const DemoForm = ({ onSubmit = () => {} }) => {
               name={'phoneNumber'}
               formik={formik}
             />
-            <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+
+            <Stack width={'5rem'}>
+              <SubmitBtn loading={loading} endIcon={<DoneIcon />}>
+                OK
+              </SubmitBtn>
+            </Stack>
           </Stack>
         </form>
       </Stack>
@@ -157,7 +172,11 @@ const CompanyDetails = ({ onSubmit }) => {
       <form noValidate onSubmit={formik.handleSubmit}>
         <Stack gap={2}>
           <FormInput label="Company" name={'company'} formik={formik} />
-          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+          <Stack width={'5rem'}>
+            <SubmitBtn loading={formik.isSubmitting} endIcon={<DoneIcon />}>
+              OK
+            </SubmitBtn>
+          </Stack>
         </Stack>
       </form>
     </SwipeCompContainer>
@@ -610,13 +629,13 @@ const Index = ({
 
       {pendoScript}
       <Grid container>
-        <Grid item xs={12} px={10} py={10}>
-          <Typography variant="p" color={'text.primary'}>
+        <Grid item xs={12} px={10} py={4}>
+          {/* <Typography variant="p" color={'text.primary'}>
             Hey, <b>{userInfo?.firstName}</b>
           </Typography>
           <Typography variant="h6" color={'text.primary'}>
             {`Let's customize your experiences.`}
-          </Typography>
+          </Typography> */}
           <Swiper
             ref={sliderRef}
             autoHeight={false}
@@ -625,9 +644,26 @@ const Index = ({
             scrollbar={{ draggable: false }}
             modules={[Pagination, Navigation]}
             allowTouchMove={!zestyProductionMode}
-            style={{ height: '50vh', background: '#fff' }}
+            style={{
+              height: '70vh',
+              position: 'relative',
+            }}
             direction={'vertical'}
           >
+            <Stack
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                height: '70vh',
+                width: '100%',
+                backgroundImage: `url('https://brand.zesty.io/zesty-io-logo.png')`,
+                backgroundRepeat: `no-repeat, repeat`,
+                backgroundSize: `400px`,
+                backgroundPosition: 'center',
+                opacity: '.05',
+              }}
+            ></Stack>
             <SwiperSlide>
               <Questionaire
                 title="What is your role?"
