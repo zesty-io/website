@@ -131,7 +131,12 @@ const Dashboard = ({ content = {} }) => {
   const userPrefs =
     typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
 
-  const existingUserPrefs = Object.keys(userPrefs);
+  // prefs of old users need to be remove
+  const defaultPrefs = ['favorite_sites', 'instance_layout', 'teamOptions'];
+  // remove default prefs for existing/old users
+  const existingUserPrefs = Object.keys(userPrefs).filter(
+    (e) => !defaultPrefs.includes(e),
+  );
 
   const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
   const isDecisionMaker = roleType === 'decision-maker' ? true : false;
