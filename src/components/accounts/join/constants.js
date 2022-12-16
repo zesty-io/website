@@ -20,6 +20,9 @@ import MoreIcon from '@mui/icons-material/More';
 import JavascriptIcon from '@mui/icons-material/Javascript';
 import CssIcon from '@mui/icons-material/Css';
 
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
+
 const frameworkList = [
   { label: 'Parsely/Zesty', value: 'parsely', icon: <JavascriptIcon /> },
   { label: 'NextJs', value: 'nextjs', icon: <JavascriptIcon /> },
@@ -152,6 +155,11 @@ const userTypeList = [
   { label: 'Personal', value: 'Personal', icon: <PersonIcon /> },
   { label: 'Business', value: 'Business', icon: <LocalGroceryStoreIcon /> },
 ];
+
+const inviteUserList = [
+  { label: 'Yes', value: 'Yes', icon: <CheckIcon /> },
+  { label: 'No', value: 'No', icon: <ClearIcon /> },
+];
 export const joinAppConstants = {
   devProjects,
   nonDevProjects,
@@ -160,4 +168,5 @@ export const joinAppConstants = {
   componentsSystemList,
   roleList,
   goalsList,
+  inviteUserList,
 };
