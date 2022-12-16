@@ -639,12 +639,12 @@ const Index = ({
       {pendoScript}
       <Grid container>
         <Grid item xs={12} px={10} py={4}>
-          {/* <Typography variant="p" color={'text.primary'}>
+          <Typography variant="p" color={'text.primary'}>
             Hey, <b>{userInfo?.firstName}</b>
           </Typography>
           <Typography variant="h6" color={'text.primary'}>
             {`Let's customize your experiences.`}
-          </Typography> */}
+          </Typography>
           <Swiper
             ref={sliderRef}
             autoHeight={false}
