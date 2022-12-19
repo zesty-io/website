@@ -1,13 +1,11 @@
 // REact and MUI Imports
 import { React, useState, useRef, useCallback } from 'react';
-import { Box, Grid, Typography, useTheme } from '@mui/material';
+import { Box, Stack, Typography, useTheme } from '@mui/material';
 import Head from 'next/head';
 // confetti
 import Confetti from 'react-confetti';
 import getWindowDimensions from 'components/marketing/Join/getWindowDimensions';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -15,10 +13,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 // import slides
-import { SlideQuestions } from 'components/marketing/Join/SlideQuestions';
-import { DancingLogo } from 'components/marketing/Join/DancingLogo';
-import { Signup } from 'components/marketing/Join/Signup';
-import { WelcomeScreen } from 'components/marketing/Join/WelcomeScreen';
 import { SlideMessage } from 'components/marketing/Join/SlideMessage';
 
 // zoho object
@@ -36,11 +30,11 @@ import slackNotify from 'components/marketing/Join/slackNotify.js';
 import * as ga from 'lib/ga';
 
 // questions data
-import RoleQuestions from 'components/marketing/Join/Data/RoleQuestions';
-import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
+// import RoleQuestions from 'components/marketing/Join/Data/RoleQuestions';
+// import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
 
-// onboarding
-import Onboarding from 'components/marketing/Join/Onboarding';
+// // onboarding
+// import Onboarding from 'components/marketing/Join/Onboarding';
 import { getIsAuthenticated } from 'utils';
 
 // zesty componenets
@@ -289,7 +283,22 @@ export default function Join(props) {
             onConfettiComplete={() => setCurrentAnimation('still')}
           />
         )}
-        <DancingLogo animation={currentAnimation} />
+        <Stack
+          my={4}
+          width={1}
+          sx={{
+            justifyItems: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <img
+            src="https://brand.zesty.io/zesty-io-logo-horizontal.png"
+            alt="Zesty.io Logo"
+            height={100}
+          />
+        </Stack>
+        {/* <DancingLogo animation={currentAnimation} />
         <Typography
           variant="h6"
           component="h1"
@@ -300,103 +309,14 @@ export default function Join(props) {
           }}
         >
           Start your Zesty.io project
-        </Typography>
-
-        <Swiper
-          ref={sliderRef}
-          autoHeight={false}
-          navigation={false}
-          pagination={{ clickable: false, draggable: false, type: 'none' }}
-          scrollbar={{ draggable: false }}
-          modules={[Pagination, Navigation]}
-          // remove this when testing
-          allowTouchMove={isProduction === true ? false : true}
-        >
-          {props.campaign && (
-            <SwiperSlide>
-              <SlideMessage
-                message={abmessage}
-                image={abimage}
-                buttonText={abbuttontext}
-                answerCallBack={handlePrompt}
-                hoverAnimation={handleAnimation}
-              />
-            </SwiperSlide>
-          )}
-          {/* Question 1  */}
-          <SwiperSlide>
-            <Grid container>
-              <Grid item lg={12} md={12} xs={12}>
-                <SlideQuestions
-                  question={RoleQuestions.question}
-                  why={RoleQuestions.why}
-                  answers={RoleQuestions.answers}
-                  answerCallBack={handleAnswers}
-                  hoverAnimation={handleAnimation}
-                  storeValue="role"
-                />
-              </Grid>
-            </Grid>
-          </SwiperSlide>
-          {/* Question 2  */}
-          <SwiperSlide>
-            <SlideQuestions
-              question={ProjectQuestions.question}
-              why={ProjectQuestions.why}
-              answers={ProjectQuestions.answers}
-              answerCallBack={handleAnswers}
-              hoverAnimation={handleAnimation}
-              storeValue="projectType"
-            />
-          </SwiperSlide>
-          {/* Signup  */}
-          <SwiperSlide>
-            <Signup
-              message={
-                <Box>
-                  <Box sx={{ fontWeight: 'bold' }} display="inline">
-                    Awesome!
-                  </Box>{' '}
-                  {`Let's start on your`}
-                  <Box sx={{ fontWeight: 'bold' }} display="inline">
-                    {projectType}
-                  </Box>{' '}
-                  project.
-                </Box>
-              }
-              callback={signUpSuccess}
-              production={isProduction}
-            />
-          </SwiperSlide>
-          {/* Welcome  */}
-          <SwiperSlide>
-            <WelcomeScreen
-              firstname={firstName}
-              lastname={lastName}
-              email={email}
-              role={role}
-              projectType={projectType}
-              userZUID={userObject?.data?.ZUID}
-              dateCreated={new Date().toUTCString()}
-            >
-              {welcomeMessage}
-              {/* <SlideMessage 
-                            message={welcomeMessage}
-                            buttonText={`Let's go!`} 
-                            // exitButtonText={'Wait, let me invite my team.'}
-                            exitButtonAction={handleInvite}
-                            answerCallBack={handlePrompt} 
-                            hoverAnimation={handleAnimation}
-                            exitButtonText={''}
-                            
-                        /> */}
-            </WelcomeScreen>
-          </SwiperSlide>
-          {/* Onboarding */}
-          <SwiperSlide>
-            <Onboarding role={role} />
-          </SwiperSlide>
-        </Swiper>
+        </Typography> */}
+        <SlideMessage
+          message={abmessage}
+          image={abimage}
+          buttonText={abbuttontext}
+          answerCallBack={handlePrompt}
+          hoverAnimation={handleAnimation}
+        />
       </Box>
     </>
   );
