@@ -37,7 +37,7 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 // Components Import
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 // import Container from 'components/Container';
 import Container from 'blocks/container/Container';
 import PricingHero from '../../blocks/pricing/PricingHero/PricingHero';
@@ -89,7 +89,7 @@ function Pricing({ content }) {
           content.logos_header || FillerContent.rich_text_sub_heading
         }
         variant=""
-        logoItems={content.logos.data}
+        logoItems={content.logos?.data}
         maxWidth={1400}
       />
 

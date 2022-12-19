@@ -91,7 +91,7 @@ const Benefits = ({
         </MuiMarkdown>
         <Box sx={{ mt: 5 }}>
           {data?.map((item, i) => (
-            <Grid sx={{ my: isSmall ? 5 : 10 }} container spacing={3}>
+            <Grid key={i} sx={{ my: isSmall ? 5 : 10 }} container spacing={3}>
               <Grid
                 sx={{
                   display: 'flex',

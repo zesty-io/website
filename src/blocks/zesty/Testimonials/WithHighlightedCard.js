@@ -16,7 +16,7 @@ import Star from '../../../../public/assets/images/homepage/star.svg';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import FillerContent from 'components/globals/FillerContent';
 
-const WithHighlightedCard = ({ title, data }) => {
+const WithHighlightedCard = ({ title, data = FillerContent.platformCard }) => {
   const theme = useTheme();
 
   // check if features_header richtext if not convert it to richtext format for consistency
@@ -70,7 +70,7 @@ const WithHighlightedCard = ({ title, data }) => {
               },
             }}
           >
-            {title || FillerContent.rich_text}
+            {title || FillerContent.headerAndDescription}
           </MuiMarkdown>
         </Box>
         <Grid sx={{ mt: 2 }} container spacing={4}>
@@ -111,7 +111,7 @@ const WithHighlightedCard = ({ title, data }) => {
                       i === 1 ? theme.palette.common.white : 'text.secondary'
                     }
                   >
-                    {item.feedback || FillerContent.description}
+                    {item.feedback || FillerContent.longDescription}
                   </Typography>
                 </CardContent>
                 <Box flexGrow={1} />
@@ -124,8 +124,8 @@ const WithHighlightedCard = ({ title, data }) => {
                     </ListItemAvatar>
                     <ListItemText
                       sx={{ margin: 0 }}
-                      primary={item.name || FillerContent.description}
-                      secondary={item.title || FillerContent.description}
+                      primary={item.name || FillerContent.header}
+                      secondary={item.title || FillerContent.header}
                       primaryTypographyProps={{
                         color:
                           i === 1 ? theme.palette.common.white : 'text.primary',

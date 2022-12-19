@@ -20,6 +20,23 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           maxWidth: 900px;
           height: 400px;
         }
+        .wysiwyg blockquote {
+          padding: 10px 20px 10px 40px;
+          backgorund: #e7e7e7;
+          margin: 0px;
+          overflow: scroll;
+        }
+        .wysiwyg blockquote.code {
+          
+          border-radius: 5px;
+          border: 2px #333 solid;
+          background: black;
+          
+        }
+        .wysiwyg blockquote.code p code {
+          color: limegreen !important;
+          font-weight: bold;
+        }
         .wysiwyg ul {
             padding-left: 0px;
             margin-left: 0px;
