@@ -106,8 +106,9 @@ function JoinPageContent({ content }) {
     !signUpResponse?.data?.ZUID && handleSignUpError(signUpResponse);
   };
 
+  console.log(content, 4444);
   return (
-    <Container sx={{ sm: 1, md: 1236 }}>
+    <Stack sx={{ sm: 1, md: 1236, background: theme.palette.zesty.zestyWhite }}>
       <Stack
         my={4}
         width={1}
@@ -118,153 +119,143 @@ function JoinPageContent({ content }) {
         }}
       >
         <img
-          src="https://brand.zesty.io/zesty-io-logo.svg"
+          src="https://brand.zesty.io/zesty-io-logo-horizontal.png"
           alt="Zesty.io Logo"
-          height={200}
-          width={200}
+          height={100}
         />
       </Stack>
-      <Grid container>
-        <Grid
-          sx={{
-            px: 4,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          item
-          xs={12}
-          md={6}
-        >
-          <Box>
+      <Container>
+        <Grid container boxShadow={1} bgcolor={'#fff'}>
+          <Grid
+            sx={{
+              px: 4,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            item
+            xs={12}
+            md={6}
+          >
             <Box>
-              <MuiMarkdown
-                options={{
-                  overrides: {
-                    h1: {
-                      component: Typography,
-                      props: {
-                        variant: 'h3',
-                        fontWeight: 'bold',
-                        component: 'h1',
-                        color: theme.palette.zesty.zestyZambezi,
+              <Box>
+                <MuiMarkdown
+                  options={{
+                    overrides: {
+                      h1: {
+                        component: Typography,
+                        props: {
+                          variant: 'h3',
+                          fontWeight: 'bold',
+                          component: 'h1',
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
+                      },
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'h6',
+                          component: 'p',
+                          lineHeight: 1.2,
+                          mt: 2,
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
                       },
                     },
-                    p: {
-                      component: Typography,
-                      props: {
-                        variant: 'h6',
-                        component: 'p',
-                        lineHeight: 1.2,
-                        mt: 2,
-                        color: theme.palette.zesty.zestyZambezi,
-                      },
-                    },
-                  },
+                  }}
+                >
+                  {content?.title_and_description || FillerContent.description}
+                </MuiMarkdown>
+              </Box>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: isMobile ? 'center' : 'flex-start',
+                  gap: 2,
+                  mt: 4,
                 }}
               >
-                {content?.title_and_description || FillerContent.description}
-              </MuiMarkdown>
-            </Box>
-
-            <Box
-              sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: isMobile ? 'center' : 'flex-start',
-                gap: 2,
-                mt: 4,
-              }}
-            >
-              {content?.g2_badges?.data.map((item, index) => (
-                <Box key={index}>
-                  <ZestyImage
-                    width={100}
-                    height={120}
-                    style={{ width: 'auto', height: 'auto' }}
-                    src={item?.badge_image?.data[0].url || FillerContent.href}
-                  />
-                </Box>
-              ))}
-            </Box>
-
-            <Box sx={{ my: 4 }}>
-              {content?.testimonial?.data.map((item, index) => (
-                <Box key={index}>
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    sx={{
-                      lineHeight: 1.2,
-                      fontStyle: 'italic',
-                      color: theme.palette.zestyZambezi,
-                    }}
-                  >
-                    {item?.review || FillerContent.description}
-                  </Typography>
-
-                  <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
-                    <Avatar
-                      src={
-                        item?.reviewer_headshot?.data[0]?.url ||
-                        FillerContent.photos[0].src
-                      }
-                      alt={item?.reviewer_name || ''}
+                {content?.g2_badges?.data.map((item, index) => (
+                  <Box key={index}>
+                    <ZestyImage
+                      width={100}
+                      height={120}
+                      style={{ width: 'auto', height: 'auto' }}
+                      src={item?.badge_image?.data[0].url || FillerContent.href}
                     />
-                    <Box>
-                      <Typography
-                        variant="body1"
-                        component="p"
-                        sx={{
-                          lineHeight: 1.2,
-                          color: theme.palette.zestyZambezi,
-                        }}
-                      >
-                        {item?.reviewer_name || FillerContent.description}
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        component="p"
-                        sx={{
-                          lineHeight: 1.2,
-                          color: theme.palette.zestyZambezi,
-                          fontWeight: 'bold',
-                        }}
-                      >
-                        {item?.reviewer_title || FillerContent.description}
-                      </Typography>
+                  </Box>
+                ))}
+              </Box>
+
+              <Box sx={{ my: 4 }}>
+                {content?.testimonial?.data.map((item, index) => (
+                  <Box key={index}>
+                    <Typography
+                      variant="body1"
+                      component="p"
+                      sx={{
+                        lineHeight: 1.2,
+                        fontStyle: 'italic',
+                        color: theme.palette.zestyZambezi,
+                      }}
+                    >
+                      {item?.review || FillerContent.description}
+                    </Typography>
+
+                    <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
+                      <Avatar
+                        src={
+                          item?.reviewer_headshot?.data[0]?.url ||
+                          FillerContent.photos[0].src
+                        }
+                        alt={item?.reviewer_name || ''}
+                      />
+                      <Box>
+                        <Typography
+                          variant="body1"
+                          component="p"
+                          sx={{
+                            lineHeight: 1.2,
+                            color: theme.palette.zestyZambezi,
+                          }}
+                        >
+                          {item?.reviewer_name || FillerContent.description}
+                        </Typography>
+                        <Typography
+                          variant="body1"
+                          component="p"
+                          sx={{
+                            lineHeight: 1.2,
+                            color: theme.palette.zestyZambezi,
+                            fontWeight: 'bold',
+                          }}
+                        >
+                          {item?.reviewer_title || FillerContent.description}
+                        </Typography>
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
-              ))}
+                ))}
+              </Box>
             </Box>
-          </Box>
+          </Grid>
+          <Grid sx={{ mt: isMobile ? 4 : 0 }} item xs={12} md={6}>
+            <Box px={6} py={5}>
+              <CustomForm onSubmit={handleSignUp} />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid sx={{ mt: isMobile ? 4 : 0 }} item xs={12} md={6}>
-          <Box boxShadow={1} px={6} py={5}>
-            <CustomForm onSubmit={handleSignUp} />
-          </Box>
-        </Grid>
-      </Grid>
-
-      <Box sx={{ mt: 10 }}>
+      </Container>
+      <Box sx={{ my: 10 }}>
         <SimpleCardLogo
           variant="outlined"
           heading_text={content?.logos_h2}
           logoItems={content?.logos?.data}
         />
-
-        {/* <DarkBlueCta
-          sx={{ mt: 15, py: 10 }}
-          cta_text={content?.cta_button}
-          cta_secondary_link={
-            content?.cta_button_secondary_link?.data[0].meta.web.uri
-          }
-          cta_secondary_text={content?.cta_button_secondary}
-          header_content={content?.bottom_cta}
-        /> */}
       </Box>
-    </Container>
+    </Stack>
   );
 }
 
