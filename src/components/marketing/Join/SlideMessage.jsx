@@ -9,8 +9,8 @@ import {
   InputAdornment,
   useMediaQuery,
   IconButton,
-  Link,
 } from '@mui/material';
+import ZestyImage from 'blocks/Image/ZestyImage';
 import { useTheme } from '@mui/material/styles';
 import { useFormik } from 'formik';
 import msLogo from '../../../../public/assets/images/microsoft/microsoft_logo.svg';
@@ -19,8 +19,6 @@ const googleLogo =
 
 const googleUrl = 'https://auth.api.zesty.io/google/login';
 
-import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
-// import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import {
   accountsValidations,
   ErrorMsg,
@@ -39,10 +37,7 @@ import { useRouter } from 'next/router';
 
 export const SlideMessage = ({
   message = 'What team are you from?',
-  buttonText,
-  answerCallBack,
   hoverAnimation,
-  image = '',
   exitButtonText = '',
   exitButtonAction = {},
 }) => {
@@ -115,71 +110,123 @@ export const SlideMessage = ({
     return e;
   });
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Grid item lg={12} md={12} xs={12}>
-        <Container sx={{ padding: '1em' }}>
-          <Grid container paddingX={4}>
-            <Grid item lg={6} md={6} xs={12}>
-              {message}
-              <Box paddingY={2} sx={{ textAlign: 'center' }}>
-                <Stack
-                  direction="row"
-                  alignItems="left"
-                  spacing={2}
-                  justifyContent="left"
-                >
-                  {exitButtonText !== '' && (
-                    <Button
-                      size="large"
-                      sx={{
-                        color: theme.palette.common.grey,
-                        fontSize: '2rem',
-                      }}
-                      variant="text"
-                      onClick={() => exitButtonAction()}
-                      onMouseOver={() => hoverAnimation('no')}
-                    >
-                      {exitButtonText}
-                    </Button>
-                  )}
-                </Stack>
-              </Box>
+    <Container>
+      <Grid
+        container
+        direction="row"
+        sx={{ background: '#fff', borderRadius: '5px' }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item lg={12} md={12} xs={12}>
+          <Grid container>
+            <Grid item lg={7} md={7} xs={12}>
+              <Container sx={{ py: 1 }}>
+                {message}
+                <Box paddingY={2} sx={{ textAlign: 'center' }}>
+                  <Stack
+                    direction="row"
+                    alignItems="left"
+                    spacing={2}
+                    justifyContent="left"
+                  >
+                    {exitButtonText !== '' && (
+                      <Button
+                        size="large"
+                        sx={{
+                          color: theme.palette.common.grey,
+                          fontSize: '2rem',
+                        }}
+                        variant="text"
+                        onClick={() => exitButtonAction()}
+                        onMouseOver={() => hoverAnimation('no')}
+                      >
+                        {exitButtonText}
+                      </Button>
+                    )}
+                  </Stack>
+                </Box>
+              </Container>
             </Grid>
-            <Grid item lg={6} md={6} xs={12}>
-              <Stack
-                direction={{ xs: 'column', xl: 'row' }}
-                alignItems={'center'}
-                justifyContent="space-evenly"
-                gap={2}
-              >
-                <Stack mx={0}>
+            <Grid
+              item
+              lg={5}
+              md={5}
+              xs={12}
+              sx={{
+                background: theme.palette.zesty.zestyWhite,
+                borderRadius: '0px 5px 5px 0px',
+              }}
+            >
+              <Container sx={{ py: 4 }}>
+                <Typography
+                  variant="h5"
+                  color="black"
+                  textAlign={'center'}
+                  fontWeight={'bold'}
+                  sx={{ mb: 3 }}
+                >
+                  Start with Single Sign-on
+                  {/* Create your free account */}
+                </Typography>
+                <Stack
+                  direction={{ xs: 'column', xl: 'row' }}
+                  alignItems={'center'}
+                  justifyContent="space-evenly"
+                  gap={2}
+                  sx={{ m: 3 }}
+                >
+                  <LinkComponent
+                    image={googleLogo}
+                    title="Login with Google"
+                    href={googleUrl}
+                  />
+
                   <LinkComponent
                     image={msLogo.src}
-                    title="Sign in with Microsoft"
+                    title="Login with Microsoft"
                     href={`https://auth.api.zesty.io/azure/login`}
                   />
                 </Stack>
 
-                <LinkComponent
-                  image={googleLogo}
-                  title="Sign in with Google"
-                  href={googleUrl}
-                />
-              </Stack>
-              <CustomForm onSubmit={handleSignUp} />
+                <CustomForm onSubmit={handleSignUp} />
+              </Container>
             </Grid>
           </Grid>
-
-          <Box sx={{ my: 10 }}>
-            <SimpleCardLogo
-              variant="outlined"
-              heading_text={''}
-              logoItems={logoList}
-            />
-          </Box>
-        </Container>
+        </Grid>
       </Grid>
-    </Grid>
+      <Box sx={{ mt: 5, pl: 5 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: 3,
+            pb: 20,
+          }}
+        >
+          {logos?.map((item, index) => (
+            <Box
+              key={index}
+              sx={{ display: 'flex', flex: 1, alignItems: 'center' }}
+            >
+              <ZestyImage
+                loading="lazy"
+                style={{
+                  width: 'auto',
+                  maxWidth: '120px',
+                  maxHeight: '50px',
+                  filter: 'grayscale(1)',
+                }}
+                alt={item?.customer_name || ''}
+                src={item.customer_logo?.data[0]?.url}
+              />
+            </Box>
+          ))}
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
@@ -206,21 +253,25 @@ const CustomForm = ({ onSubmit = () => {} }) => {
   return (
     <form noValidate onSubmit={formik.handleSubmit}>
       <Typography
-        variant="h4"
-        color="GrayText"
+        variant="h5"
+        color="black"
         textAlign={'center'}
         fontWeight={'bold'}
+        sx={{ mb: 2, pt: 1 }}
       >
-        Create your free account
+        Or, start with a new account
+        {/* Create your free account */}
       </Typography>
-      <Box pt={4} pb={2} gap={4} display="flex" width={1} sx={{}}>
-        <Box width={1}>
+      <Box pb={2} gap={4} display="flex" width={1}>
+        <Box width={1} sx={{ pb: 0 }}>
           <FormInput
             customLabelVariant="body1"
             color="secondary"
             name={'firstName'}
+            size="small"
             customLabel="First Name"
             formik={formik}
+            style={{ background: '#fff' }}
           />
         </Box>
         <Box width={1}>
@@ -228,19 +279,23 @@ const CustomForm = ({ onSubmit = () => {} }) => {
             customLabelVariant="body1"
             color="secondary"
             name={'lastName'}
+            size="small"
             customLabel="Last Name"
             formik={formik}
+            style={{ background: '#fff' }}
           />
         </Box>
       </Box>
-      <Box pb={2}>
+      <Box pb={0}>
         <FormInput
           customLabelVariant="body1"
           color="secondary"
           name="email"
+          size="small"
           customLabel="Email Address"
           formik={formik}
           placeholder="e.g john@zesty.io"
+          style={{ background: '#fff' }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -255,6 +310,8 @@ const CustomForm = ({ onSubmit = () => {} }) => {
           customLabelVariant="body1"
           color="secondary"
           name="password"
+          size="small"
+          style={{ background: '#fff' }}
           type={showPassword ? 'text' : 'password'}
           customLabel="Password"
           formik={formik}
@@ -280,14 +337,6 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         />
       </Stack>
       <Stack alignItems={'center'}>
-        <Stack my={3}>
-          <Typography variant="body2" color="GrayText">
-            Already a customer?{' '}
-            <Link href="/login/" variant="body2" color={'#5B667D'}>
-              Sign in
-            </Link>
-          </Typography>
-        </Stack>
         <Stack width={'10rem'}>
           <LoadingButton
             type="submit"
@@ -295,7 +344,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
             color="secondary"
             loading={formik.isSubmitting}
           >
-            <Typography variant="body1">Sign Up</Typography>
+            <Typography variant="body1">Create Account</Typography>
           </LoadingButton>
         </Stack>
       </Stack>
@@ -305,7 +354,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
 
 const LinkComponent = ({
   image = googleLogo,
-  title = 'Sign in with Google',
+  title = 'Join with Google',
   href,
 }) => {
   const router = useRouter();
@@ -320,6 +369,7 @@ const LinkComponent = ({
       alignItems="center"
       sx={{
         border: `1px solid ${grey[500]}`,
+        borderRadius: '5px',
         cursor: 'pointer',
         background: '#fff',
       }}
@@ -331,7 +381,6 @@ const LinkComponent = ({
       </Stack>
       <Stack
         sx={{
-          width: '10rem',
           '&:hover': {
             opacity: 0.7,
           },

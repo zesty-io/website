@@ -1,11 +1,7 @@
 // REact and MUI Imports
-import { React, useState, useRef, useCallback } from 'react';
+import { React } from 'react';
 import { Box, Stack, Typography, useTheme } from '@mui/material';
 import Head from 'next/head';
-// confetti
-import Confetti from 'react-confetti';
-import getWindowDimensions from 'components/marketing/Join/getWindowDimensions';
-// Import Swiper React components
 
 // Import Swiper styles
 import 'swiper/css';
@@ -15,30 +11,10 @@ import 'swiper/css/navigation';
 // import slides
 import { SlideMessage } from 'components/marketing/Join/SlideMessage';
 
-// zoho object
-import { zohoPostObject } from 'components/marketing/Join/zohoPostObject.js';
-import { setCookie } from 'cookies-next';
-
-// pendo
-import { pendoScript } from 'components/marketing/Join/pendoScript.js';
-
-// slack post function
-import slackQuestionPost from 'components/marketing/Join/slackQuestionPost.js';
-import slackNotify from 'components/marketing/Join/slackNotify.js';
-
 // google analytics
-import * as ga from 'lib/ga';
+// import * as ga from 'lib/ga';
 
-// questions data
-// import RoleQuestions from 'components/marketing/Join/Data/RoleQuestions';
-// import ProjectQuestions from 'components/marketing/Join/Data/ProjectQuestions';
-
-// // onboarding
-// import Onboarding from 'components/marketing/Join/Onboarding';
 import { getIsAuthenticated } from 'utils';
-
-// zesty componenets
-//import LogoSlider from 'components/marketing/Homepage/LogoSlider';
 
 // messages
 const firstMessage = (
@@ -60,64 +36,12 @@ const firstMessage = (
 
 const firstButton = `Yes, let's go!`;
 const firstImage = `https://kfg6bckb.media.zestyio.com/homepageHero.png`;
-// zoho lead post function
-
-const postToZOHO = async (payloadJSON) => {
-  dataLayer.push({ event: 'SignupLead', value: '1' });
-  try {
-    let res = await fetch(
-      'https://us-central1-zesty-prod.cloudfunctions.net/zoho',
-      {
-        method: 'POST',
-        body: JSON.stringify(payloadJSON),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
-    return await res.json();
-  } catch (error) {
-    throw new Error(`HTTP error: ${error}`);
-  }
-};
 
 // Join component
 
 export default function Join(props) {
   const theme = useTheme();
-  const { height, width } = getWindowDimensions();
-  const isProduction = props.production;
-
-  // state values for form capture
-  const [role, setRole] = useState('Developer');
-  const [email, setEmail] = useState('..still capturing email');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [projectType, setProjectType] = useState('website');
-  const [currentAnimation, setCurrentAnimation] = useState('enterScreen'); // set starting animation
-  const [userObject, setUserObject] = useState({});
-  const sliderRef = useRef(null);
   let abmessage, abbuttontext, abimage;
-
-  // const handlePrev = useCallback(() => {
-  //   if (!sliderRef.current) return;
-  //   sliderRef.current.swiper.slidePrev();
-  // }, []);
-
-  // moves user forward a slide in the onboard process
-  const handleNext = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slideNext();
-    setCurrentAnimation('still');
-  }, []);
-
-  const welcomeMessage = (
-    <Box paddingY={4} sx={{ textAlign: 'center' }}>
-      <Typography variant="h4" gutterBottom>
-        Welcome to Zesty {firstName}!
-      </Typography>
-    </Box>
-  );
 
   // ab message
   if (props.campaign !== false) {
@@ -144,114 +68,6 @@ export default function Join(props) {
     abimage = firstImage;
   }
 
-  // captures the user question
-  const handleAnswers = async (question, answer, store = false) => {
-    ga.event({
-      action: 'click',
-      params: {
-        question: question,
-        answer: answer,
-      },
-    });
-    if (store !== false) {
-      if (store == 'role') {
-        setRole(answer);
-        setCookie('persona', answer);
-      }
-      if (store == 'projectType') {
-        setProjectType(answer);
-      }
-    }
-
-    setCurrentAnimation('jiggle');
-    handleNext();
-    if (isProduction === true) {
-      await slackQuestionPost(question, answer, email);
-    }
-  };
-
-  const stringifyLead = (obj) => {
-    let str = '';
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        str += key + ': ' + obj[key] + '\n';
-      }
-    }
-    return str;
-  };
-  // creates a zesty user and send data into ZOHO leads
-  const signUpSuccess = async (userDetails, creationObect) => {
-    // send user forward visually, then capture their data
-    handleNext();
-    setCurrentAnimation('party');
-
-    // store email and user to state
-    setEmail(userDetails.email);
-    setFirstName(userDetails.firstName);
-    setLastName(userDetails.lastName);
-    setUserObject(creationObect);
-
-    // notify the team in slack
-    if (isProduction === true) {
-      await slackNotify(`Captured: ${userDetails.email}`);
-    }
-    // map additional userDetails for zoho object
-    userDetails.message = `Project type: ${projectType}`;
-    // instantiate zoho object
-    userDetails.user = true;
-    // setup zoho object
-    let zohoLeadObject = zohoPostObject(
-      userDetails,
-      'Trial',
-      'Trial',
-      'Unknown',
-      'Website',
-      role,
-      creationObect.data.ZUID,
-    );
-    // zoho capture backup
-    if (isProduction === true) {
-      slackNotify(
-        `ZOHO lead slack fallback info: \n ${stringifyLead(zohoLeadObject)}`,
-      );
-    }
-    // post lead to zoho
-    if (isProduction === true) {
-      let zohoData = await postToZOHO(zohoLeadObject);
-      let zoholeadlink =
-        'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/';
-      await slackNotify(
-        `View lead for ${userDetails.email} on ZOHO @ ${zoholeadlink}${zohoData.data[0].details.id}`,
-      );
-    } else {
-      console.log('post object not sent', zohoLeadObject);
-    }
-
-    // welcome screen auto skip!
-    setTimeout(() => {
-      handleNext();
-    }, 5000);
-  };
-
-  // leaves the onboard program
-  // const handleExit = () => {
-  //   window.location = '/';
-  // };
-
-  // const handleInvite = () => {
-  //   alert('Invite Friends');
-  // };
-
-  const handlePrompt = () => {
-    setCurrentAnimation('bouncing');
-    handleNext();
-  };
-
-  // modifies the logo animation
-  const handleAnimation = (ani) => {
-    setCurrentAnimation(ani);
-  };
-
   // sx={{background: theme.palette.zesty.zestyDarkBlue}}
 
   // Hard coded values no zesty model for this page
@@ -271,20 +87,9 @@ export default function Join(props) {
           type="image/png"
         />
       </Head>
-      <Box>
-        {pendoScript}
-        {currentAnimation == 'party' && (
-          <Confetti
-            width={width}
-            height={height}
-            numberOfPieces={333}
-            recycle={false}
-            confettiSource={{ x: width / 2 - 100, y: 0, w: 200, h: 200 }}
-            onConfettiComplete={() => setCurrentAnimation('still')}
-          />
-        )}
+      <Box sx={{ background: theme.palette.zesty.zestyFieldBlue }}>
         <Stack
-          my={4}
+          py={4}
           width={1}
           sx={{
             justifyItems: 'center',
@@ -295,27 +100,14 @@ export default function Join(props) {
           <img
             src="https://brand.zesty.io/zesty-io-logo-horizontal.png"
             alt="Zesty.io Logo"
-            height={100}
+            height={80}
           />
         </Stack>
-        {/* <DancingLogo animation={currentAnimation} />
-        <Typography
-          variant="h6"
-          component="h1"
-          sx={{
-            textAlign: 'center',
-            pb: 10,
-            color: theme.palette.text.primary,
-          }}
-        >
-          Start your Zesty.io project
-        </Typography> */}
+
         <SlideMessage
           message={abmessage}
           image={abimage}
           buttonText={abbuttontext}
-          answerCallBack={handlePrompt}
-          hoverAnimation={handleAnimation}
         />
       </Box>
     </>
