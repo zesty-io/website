@@ -57,7 +57,6 @@ export default function App({ Component, pageProps }) {
   return (
     <AuthProvider value={pageProps?.zesty}>
       {pageProps?.meta?.web && <ZestyHead content={pageProps} />}
-
       <Head>
         <script
           dangerouslySetInnerHTML={{
@@ -71,7 +70,9 @@ export default function App({ Component, pageProps }) {
           }}
         />
       </Head>
-
+      {JSON.stringify(process.env.NEXT_PUBLIC_GTM_ID)}
+      sldkf
+      {JSON.stringify(process.env.GTM_ID)}
       <SnackbarProvider autoHideDuration={2500} preventDuplicate maxSnack={3}>
         <Page>
           <noscript>
