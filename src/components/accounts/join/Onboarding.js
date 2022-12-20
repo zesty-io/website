@@ -29,7 +29,7 @@ export const Onboarding = ({ instanceUrl = '', loading = false }) => {
       <Container>
         <Box paddingY={3}>
           {loading ? (
-            <Stack>
+            <Stack my={1}>
               <Typography variant="h5" color="primary">
                 You instance is being created{' '}
               </Typography>
@@ -38,7 +38,7 @@ export const Onboarding = ({ instanceUrl = '', loading = false }) => {
               </Typography>
             </Stack>
           ) : (
-            <Stack>
+            <Stack my={1}>
               <Typography variant="h2" color="primary">
                 Success
               </Typography>

@@ -319,7 +319,6 @@ const Dashboard = ({ content = {} }) => {
   // 3 if no preferences return personalization survey
   // 4 if has instances has invites ignore
 
-  console.log(initialInstances, invites, isUserMissingPrefs, 555);
   //* if newuser dont have invites and dont have instances show onboarding
   if (
     initialInstances?.length === 0 &&

@@ -29,6 +29,7 @@ import { getCookie } from 'cookies-next';
 import axios from 'axios';
 import { isProd } from 'utils';
 import { handlePostToSlack } from './services';
+import slackNotify from 'components/marketing/Start/slackNotify';
 
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
@@ -463,22 +464,33 @@ const Index = ({
       token,
     };
 
+    await slackNotify(
+      `${role}  ${userInfo.firstName} ${userInfo.lastName}  ${userInfo.email} is creating new project:${projectName}  (${instance_zuid}) `,
+    );
+
+    // after install make the 1st instance favorite
     try {
       await axios
         .post(url, body, {
           headers,
         })
-        .then((e) => {
-          console.log(e);
+        .then((data) => {
+          console.log(data);
           setinstallLoading(false);
         })
-        .catch((error) => {
+        .catch(async (error) => {
           console.error(error);
+          await slackNotify(
+            `${userInfo.email} had a template installation failure.`,
+          );
           setinstallLoading(false);
         });
     } catch (error) {
       console.error(error);
       setinstallLoading(false);
+      await slackNotify(
+        `${userInfo.email} had a template installation failure.`,
+      );
     }
   };
 
