@@ -104,6 +104,7 @@ const ImageWithContentsCta = ({
                         component: 'h2',
                         sx: {
                           textAlign: isSmall ? 'center' : 'left',
+                          letterSpacing: 1,
                           background: theme.palette.zesty.zestyOrangeLinear,
                           WebkitBackgroundClip: 'text',
                           color: 'transparent',

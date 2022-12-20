@@ -56,7 +56,7 @@ const AlternateColumns = ({
                     component: 'h2',
                     variant: 'h4',
                     sx: {
-                      color: theme.palette.zesty.zestyZambezi,
+                      color: theme.palette.zesty.zestyDarkText,
                       fontWeight: 'bold',
                       textAlign: 'center',
                     },
@@ -132,7 +132,7 @@ const AlternateColumns = ({
                   <Box>
                     {item.header && (
                       <Typography
-                        variant={'h5'}
+                        variant={'h4'}
                         component={'h3'}
                         sx={{
                           color: alternateColors
@@ -153,7 +153,7 @@ const AlternateColumns = ({
                           h3: {
                             component: Typography,
                             props: {
-                              variant: 'h5',
+                              variant: 'h4',
                               component: 'h3',
                               color: alternateColors
                                 ? alternateColors[idx].textColor
@@ -167,7 +167,7 @@ const AlternateColumns = ({
                             component: Typography,
                             props: {
                               variant: 'h6',
-                              mt: 3,
+                              mt: 1,
                               component: 'p',
                               color: alternateColors
                                 ? alternateColors[idx].textColor

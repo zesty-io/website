@@ -124,6 +124,8 @@ import Login from './Login';
 import UngatedDemoVideoForAd from './UngatedDemoVideoForAd';
 import AccountsDashboardMarketing from './AccountsDashboardMarketing';
 import ABLandingPage from './ABLandingPage';
+import JoinPageContent from './JoinPageContent';
+import ParsleyFeaturesPage from './ParsleyFeaturesPage';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -252,6 +254,8 @@ export {
   UngatedDemoVideoForAd,
   AccountsDashboardMarketing,
   ABLandingPage,
+  JoinPageContent,
+  ParsleyFeaturesPage,
   Footer,
   Header,
 };
