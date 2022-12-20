@@ -114,6 +114,7 @@ export default function Join(props) {
           message={abmessage}
           image={abimage}
           buttonText={abbuttontext}
+          demo={props.demo}
         />
       </Box>
     </>
@@ -128,6 +129,7 @@ export async function getServerSideProps({ res, query }) {
   );
   let abdata = {};
   let campaign = query.UTM_Campaign ? query.UTM_Campaign : false;
+  let demoForm = query.demo ? true : false;
 
   if (campaign) {
     const abres = await fetch(
@@ -159,6 +161,7 @@ export async function getServerSideProps({ res, query }) {
       ...data,
       ab: abdata,
       campaign: campaign,
+      demo: demoForm,
       zesty: {
         isAuthenticated,
       },

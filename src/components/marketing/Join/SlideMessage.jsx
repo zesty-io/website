@@ -8,8 +8,12 @@ import {
   InputAdornment,
   useMediaQuery,
   IconButton,
+  Tabs,
+  Tab,
 } from '@mui/material';
+import PropTypes from 'prop-types';
 import ZestyImage from 'blocks/Image/ZestyImage';
+import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 import { useTheme } from '@mui/material/styles';
 import { useFormik } from 'formik';
 import msLogo from '../../../../public/assets/images/microsoft/microsoft_logo.svg';
@@ -34,16 +38,51 @@ import axios from 'axios';
 import { grey } from '@mui/material/colors';
 import { useRouter } from 'next/router';
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box>{children}</Box>}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 export const SlideMessage = ({
   message = 'What team are you from?',
-  hoverAnimation,
-  exitButtonText = '',
-  exitButtonAction = {},
+  demo = false,
 }) => {
   const theme = useTheme();
   const { ZestyAPI } = useZestyStore();
   const [logos, setlogos] = React.useState([]);
   const [reviews, setreviews] = React.useState([]);
+
+  // check for query param of "demo" and set to 1
+  const startingtab = demo ? 1 : 0;
+  const [tabValue, setTabValue] = React.useState(startingtab);
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const handleSignUp = async (e) => {
     const { firstName, lastName, email, password } = e;
@@ -149,38 +188,54 @@ export const SlideMessage = ({
                 borderRadius: '0px 5px 5px 0px',
               }}
             >
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs
+                  value={tabValue}
+                  onChange={handleTabChange}
+                  aria-label="options to start zesty"
+                >
+                  <Tab label="Self Onboarding" {...a11yProps(0)} />
+                  <Tab label="Guided Demo" {...a11yProps(1)} />
+                </Tabs>
+              </Box>
+
               <Container sx={{ py: 4 }}>
-                <Typography
-                  variant="h5"
-                  color="black"
-                  textAlign={'center'}
-                  fontWeight={'bold'}
-                  sx={{ mb: 3 }}
-                >
-                  Start with Single Sign-on
-                  {/* Create your free account */}
-                </Typography>
-                <Stack
-                  direction={{ xs: 'column', xl: 'row' }}
-                  alignItems={'center'}
-                  justifyContent="space-evenly"
-                  gap={2}
-                  sx={{ m: 3 }}
-                >
-                  <LinkComponent
-                    image={googleLogo}
-                    title="Login with Google"
-                    href={googleUrl}
-                  />
+                <TabPanel value={tabValue} index={0}>
+                  <Typography
+                    variant="h5"
+                    color="black"
+                    textAlign={'center'}
+                    fontWeight={'bold'}
+                    sx={{ mb: 3 }}
+                  >
+                    Start with Single Sign-on
+                    {/* Create your free account */}
+                  </Typography>
+                  <Stack
+                    direction={{ xs: 'column', xl: 'row' }}
+                    alignItems={'center'}
+                    justifyContent="space-evenly"
+                    gap={2}
+                    sx={{ m: 3 }}
+                  >
+                    <LinkComponent
+                      image={googleLogo}
+                      title="Login with Google"
+                      href={googleUrl}
+                    />
 
-                  <LinkComponent
-                    image={msLogo.src}
-                    title="Login with Microsoft"
-                    href={`https://auth.api.zesty.io/azure/login`}
-                  />
-                </Stack>
+                    <LinkComponent
+                      image={msLogo.src}
+                      title="Login with Microsoft"
+                      href={`https://auth.api.zesty.io/azure/login`}
+                    />
+                  </Stack>
 
-                <CustomForm onSubmit={handleSignUp} />
+                  <CustomForm onSubmit={handleSignUp} />
+                </TabPanel>
+                <TabPanel value={tabValue} index={1}>
+                  <ZohoFormEmbed />
+                </TabPanel>
               </Container>
             </Grid>
           </Grid>
