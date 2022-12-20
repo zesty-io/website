@@ -400,6 +400,7 @@ const Index = ({
   const [goal, setgoal] = React.useState('');
   const [roleType, setroleType] = React.useState('');
   const [instance_zuid, setinstance_zuid] = React.useState('');
+  const [installLoading, setinstallLoading] = React.useState(false);
   const { zestyProductionMode } = content || {};
   const [createInstanceLoading, setcreateInstanceLoading] =
     React.useState(false);
@@ -453,6 +454,7 @@ const Index = ({
     Authorization: `Bearer ${token}`,
   };
   const handleInstall = async (instance_zuid) => {
+    setinstallLoading(true);
     const url = `${baseUrl}/install`;
     const body = {
       repository,
@@ -468,12 +470,15 @@ const Index = ({
         })
         .then((e) => {
           console.log(e);
+          setinstallLoading(false);
         })
         .catch((error) => {
           console.error(error);
+          setinstallLoading(false);
         });
     } catch (error) {
       console.error(error);
+      setinstallLoading(false);
     }
   };
 
@@ -838,6 +843,7 @@ const Index = ({
             <SwiperSlide>
               <SwipeCompContainer>
                 <Onboarding
+                  loading={installLoading}
                   instanceUrl={`https://${instance_zuid}.manager.zesty.io/`}
                 />
               </SwipeCompContainer>
