@@ -13,6 +13,7 @@ import '../../public/styles/custom.css';
 import { SnackbarProvider } from 'notistack';
 import Head from 'next/head';
 import AuthProvider from 'components/context/AuthProvider';
+import Script from 'next/script';
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -58,7 +59,7 @@ export default function App({ Component, pageProps }) {
     <AuthProvider value={pageProps?.zesty}>
       {pageProps?.meta?.web && <ZestyHead content={pageProps} />}
       <Head>
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
