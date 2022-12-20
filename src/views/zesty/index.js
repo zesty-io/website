@@ -6,6 +6,7 @@ import MarketingAnnoucement from './MarketingAnnoucement';
 import Review from './Review';
 import MainNavigation from './MainNavigation';
 import PersonaContent from './PersonaContent';
+import Chat from './Chat';
 import CustomerBrand from './CustomerBrand';
 import CustomerHighlight from './CustomerHighlight';
 import LandingPageVariation from './LandingPageVariation';
@@ -135,6 +136,7 @@ export {
   Review,
   MainNavigation,
   PersonaContent,
+  Chat,
   CustomerBrand,
   CustomerHighlight,
   LandingPageVariation,
