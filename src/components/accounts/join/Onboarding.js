@@ -31,7 +31,7 @@ export const Onboarding = ({ instanceUrl = '', loading = false }) => {
           {loading ? (
             <Stack my={1}>
               <Typography variant="h5" color="primary">
-                You instance is being created{' '}
+                YouR instance is being created.{' '}
               </Typography>
               <Typography variant="h6" color={'primary'}>
                 This process may take up to 60 seconds.

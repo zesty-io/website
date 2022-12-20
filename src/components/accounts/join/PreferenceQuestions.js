@@ -538,7 +538,7 @@ const Index = ({
             Hey, <b>{userInfo?.firstName}</b>
           </Typography>
           <Typography variant="h6" color={'text.primary'}>
-            {`Let's customize your experiences.`}
+            {`Let's customize your Zesty experience.`}
           </Typography>
           <Swiper
             ref={sliderRef}
