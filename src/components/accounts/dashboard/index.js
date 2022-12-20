@@ -16,6 +16,7 @@ import { AccountPageloading } from '../ui';
 // import { MissingQuestions } from '../join/MissingQuestions';
 import { joinAppConstants } from '../join/constants';
 import { ToolBox } from '../join/ToolBox';
+import { pendoScript } from 'components/marketing/Join/pendoScript';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
@@ -345,6 +346,7 @@ const Dashboard = ({ content = {} }) => {
           px: 3,
         })}
       >
+        {pendoScript}
         {!content.zestyProductionMode && <ToolBox title="" />}
         <Grid container spacing={2} mt={1}>
           <Grid

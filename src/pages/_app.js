@@ -50,7 +50,9 @@ export default function App({ Component, pageProps }) {
   let gtm = process.env.GTM_ID
     ? process.env.GTM_ID
     : process.env.NEXT_PUBLIC_GTM_ID;
-  const GTM_ID = !isAuthenticatedFromProps ? gtm : undefined;
+
+  // const GTM_ID = !isAuthenticatedFromProps ? gtm : undefined;
+  const GTM_ID = gtm; // remove this to always run, we need ot setup rules in GTM to ignore accounts sales popsup
 
   return (
     <AuthProvider value={pageProps?.zesty}>

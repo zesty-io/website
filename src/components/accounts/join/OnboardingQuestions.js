@@ -21,7 +21,6 @@ import { Swiper } from 'swiper/react';
 import { Onboarding } from './Onboarding';
 import { zohoPostObject } from './zohoPostObject';
 import { grey } from '@mui/material/colors';
-import { pendoScript } from 'components/marketing/Start/pendoScript';
 import { FormInput, JoinAppBtn, SubmitBtn, SuccessMsg } from '../ui';
 import { useFormik } from 'formik';
 import { accountsValidations } from '../validations';
@@ -30,6 +29,7 @@ import axios from 'axios';
 import { isProd } from 'utils';
 import { handlePostToSlack } from './services';
 import slackNotify from 'components/marketing/Start/slackNotify';
+import { pendoScript } from 'components/marketing/Join/pendoScript';
 
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
@@ -469,6 +469,7 @@ const Index = ({
     );
 
     // after install make the 1st instance favorite
+    await updateUser('favorite_sites', [instance_zuid]);
     try {
       await axios
         .post(url, body, {
@@ -523,7 +524,7 @@ const Index = ({
     firstName: userInfo.firstname,
     lastName: userInfo.lastname,
     full_name: `${userInfo.firstname} ${userInfo.lastname}`,
-    personajoin: role,
+    personaJoin: role,
     projecttype: projectType,
     staff: 0,
     creationdate: new Date().toUTCString(),
@@ -697,6 +698,7 @@ const Index = ({
         position: 'relative',
       })}
     >
+      {pendoScript}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-955374362"
         strategy="afterInteractive"
@@ -712,7 +714,6 @@ const Index = ({
         `}
       </Script>
 
-      {pendoScript}
       <Grid container>
         <Grid item xs={12} px={10} py={4}>
           <Typography variant="p" color={'text.primary'}>
