@@ -47,7 +47,13 @@ export default function Join(props) {
   if (props.campaign !== false) {
     abmessage = (
       <Box paddingY={4}>
-        <Typography variant="h4" gutterBottom>
+        <Typography
+          variant="h4"
+          color="black"
+          textAlign={'left'}
+          fontWeight={'bold'}
+          sx={{ mb: 2 }}
+        >
           {props.ab.title}
         </Typography>
         <Box paddingY={1}>

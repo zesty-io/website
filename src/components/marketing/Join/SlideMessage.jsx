@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Container,
   Stack,
-  Button,
   Box,
   Grid,
   Typography,
@@ -90,11 +89,9 @@ export const SlideMessage = ({
   };
 
   const getLogos = async () => {
-    await axios
-      .get('https://kfg6bckb-dev.webengine.zesty.io/-/logos.json')
-      .then((e) => {
-        setlogos(e.data);
-      });
+    await axios.get('https://www.zesty.io/-/logos.json').then((e) => {
+      setlogos(e.data);
+    });
   };
   const getReviews = async () => {
     await axios.get('https://www.zesty.io/-/reviews.json').then((e) => {
@@ -106,9 +103,6 @@ export const SlideMessage = ({
     getReviews();
   }, []);
 
-  const logoList = logos?.slice(0, 6)?.map((e) => {
-    return e;
-  });
   return (
     <Container>
       <Grid
@@ -120,34 +114,31 @@ export const SlideMessage = ({
       >
         <Grid item lg={12} md={12} xs={12}>
           <Grid container>
-            <Grid item lg={7} md={7} xs={12}>
-              <Container sx={{ py: 1 }}>
-                {message}
-                <Box paddingY={2} sx={{ textAlign: 'center' }}>
-                  <Stack
-                    direction="row"
-                    alignItems="left"
-                    spacing={2}
-                    justifyContent="left"
-                  >
-                    {exitButtonText !== '' && (
-                      <Button
-                        size="large"
-                        sx={{
-                          color: theme.palette.common.grey,
-                          fontSize: '2rem',
-                        }}
-                        variant="text"
-                        onClick={() => exitButtonAction()}
-                        onMouseOver={() => hoverAnimation('no')}
-                      >
-                        {exitButtonText}
-                      </Button>
-                    )}
-                  </Stack>
-                </Box>
+            {/* left side with custom text */}
+            <Grid
+              item
+              lg={7}
+              md={7}
+              xs={12}
+              sx={{ display: 'flex', flexDirection: 'column' }}
+            >
+              {/* Custom message */}
+              <Container sx={{ py: 1, flex: 3 }}>{message}</Container>
+
+              {/* Review */}
+              <Container sx={{ flex: 1 }}>
+                <Typography
+                  sx={{ fontStyle: 'italic', fontSize: '12px', mb: 1 }}
+                >
+                  {reviews.length > 0 && reviews[0].review.review}
+                </Typography>
+                <Typography sx={{ fontWeight: 'bold', fontSize: '12px' }}>
+                  &mdash;
+                  {reviews.length > 0 && reviews[0].review.reviewer_title}
+                </Typography>
               </Container>
             </Grid>
+            {/* right sign with signons */}
             <Grid
               item
               lg={5}
