@@ -6,13 +6,17 @@ export const JoinAppBtn = ({
   onClick,
   endIcon = <></>,
   startIcon = <></>,
+  disabled = false,
+  testId = '',
 }) => {
   return (
     <LoadingButton
+      disabled={disabled}
       endIcon={endIcon}
       startIcon={startIcon}
       variant="contained"
       onClick={onClick}
+      data-testid={testId}
       sx={{
         bgcolor: '#fff',
         border: `1px solid #ff5d0a`,

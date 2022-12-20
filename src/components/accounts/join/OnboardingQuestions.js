@@ -1,5 +1,13 @@
 import React from 'react';
-import { Container, Grid, Stack, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Container,
+  Grid,
+  LinearProgress,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
 import Script from 'next/script';
@@ -26,7 +34,13 @@ const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
 const repository = 'https://github.com/zesty-io/template-nextjs-marketing';
 const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
-const Questionaire = ({ title = 'no title', data = [], onClick }) => {
+
+const Questionaire = ({
+  title = 'no title',
+  data = [],
+  onClick,
+  loading = false,
+}) => {
   const handleClick = (data) => {
     onClick(data);
   };
@@ -48,9 +62,20 @@ const Questionaire = ({ title = 'no title', data = [], onClick }) => {
         }}
         flexWrap
       >
+        <Box
+          sx={{ width: '100%', visibility: !loading ? 'hidden' : 'visible' }}
+          mb={2}
+        >
+          <LinearProgress color="primary" />
+        </Box>
         {data?.map((e) => {
           return (
-            <JoinAppBtn onClick={() => handleClick(e)} startIcon={e?.icon}>
+            <JoinAppBtn
+              disabled={loading}
+              onClick={() => handleClick(e)}
+              startIcon={e?.icon}
+              testId={e?.value}
+            >
               <Typography whiteSpace={'nowrap'} width={1}>
                 {e?.label}
               </Typography>
@@ -156,7 +181,7 @@ const DemoForm = ({ onSubmit = () => {} }) => {
   );
 };
 
-const CompanyDetails = ({ onSubmit }) => {
+const CompanyDetails = ({ onSubmit, loading }) => {
   const formik = useFormik({
     validationSchema: accountsValidations.companyDetails,
     initialValues: {
@@ -178,7 +203,10 @@ const CompanyDetails = ({ onSubmit }) => {
         <Stack gap={2}>
           <FormInput label="Company" name={'company'} formik={formik} />
           <Stack width={'5rem'}>
-            <SubmitBtn loading={formik.isSubmitting} endIcon={<DoneIcon />}>
+            <SubmitBtn
+              loading={formik.isSubmitting || loading}
+              endIcon={<DoneIcon />}
+            >
               OK
             </SubmitBtn>
           </Stack>
@@ -265,7 +293,14 @@ const TextBox = ({ collections, setcollections, handleNext }) => {
         })}
       </Stack>
 
-      <Stack direction="row" spacing={4}>
+      <Stack
+        direction="row"
+        spacing={4}
+        alignItems="center"
+        width={1}
+        justifyContent="center"
+        mt={2}
+      >
         <LoadingButton
           color="primary"
           variant="contained"
@@ -358,6 +393,7 @@ const Index = ({
   goalsList = [],
   inviteUserList = [],
 }) => {
+  const [loading, setloading] = React.useState(false);
   const token = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
   const [preferred_framework, setframework] = React.useState('');
   const [preferred_component_system, setcomponentSystem] = React.useState('');
@@ -460,6 +496,8 @@ const Index = ({
   const handleNext = React.useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slideNext();
+
+    setloading(false);
   }, []);
 
   const visitor = {
@@ -489,6 +527,7 @@ const Index = ({
   };
 
   const handleRole = async (e) => {
+    setloading(true);
     await window.pendo.initialize({
       visitor,
     });
@@ -505,11 +544,13 @@ const Index = ({
     handleNext();
   };
   const handleProject = async (e) => {
+    setloading(true);
     setprojectType(e.value);
     await updateUser('projectType', e.value);
     handleNext();
   };
   const handleProjectName = async (e) => {
+    setloading(true);
     setcreateInstanceLoading(true);
     setprojectName(e.projectName);
     await updateUser('projectName', e.projectName);
@@ -519,6 +560,7 @@ const Index = ({
   };
 
   const handleUserType = async (e) => {
+    setloading(true);
     setuserType(e.value);
     await updateUser('userType', e.value);
 
@@ -529,27 +571,32 @@ const Index = ({
   };
 
   const handleGoals = async (e) => {
+    setloading(true);
     setgoal(e.value);
     await updateUser('goal', e.value);
     handleNext();
   };
   const handlePrefFramework = async (e) => {
+    setloading(true);
     setframework(e.value);
     await updateUser('preferred_framework', e.value);
     handleNext();
   };
   const handlePrefCompSystem = async (e) => {
+    setloading(true);
     await updateUser('preferred_component_system', e.value);
     setcomponentSystem(e.value);
     handleNext();
   };
   const handleCompanyDetails = async (e) => {
+    setloading(true);
     setcompany(e.company);
     await updateUser('company', e.company);
     handleNext();
   };
 
   const handleInviteUser = async (e) => {
+    setloading(true);
     setuserInvited(e.value);
     await updateUser('userInvited', e.value);
     if (e.value === 'Yes') {
@@ -560,6 +607,7 @@ const Index = ({
   };
 
   const handleDemoForm = async (e) => {
+    setloading(true);
     setprojectDescription(e?.projectDescription);
     setcompany(e?.company);
     setphoneNumber(e?.phoneNumber);
@@ -689,6 +737,7 @@ const Index = ({
                 title="What is your role?"
                 data={roleList}
                 onClick={handleRole}
+                loading={loading}
               />
             </SwiperSlide>
 
@@ -712,6 +761,7 @@ const Index = ({
                 title="What are you creating today?"
                 data={isDeveloper ? devProjects : nonDevProjects}
                 onClick={handleProject}
+                loading={loading}
               />
             </SwiperSlide>
 
@@ -720,12 +770,16 @@ const Index = ({
                 title="Who is this project for?"
                 data={userTypeList}
                 onClick={handleUserType}
+                loading={loading}
               />
             </SwiperSlide>
 
             {isBusiness && (
               <SwiperSlide>
-                <CompanyDetails onSubmit={handleCompanyDetails} />
+                <CompanyDetails
+                  onSubmit={handleCompanyDetails}
+                  loading={loading}
+                />
               </SwiperSlide>
             )}
 
@@ -734,6 +788,7 @@ const Index = ({
                 title="What is your top priority?"
                 data={goalsList}
                 onClick={handleGoals}
+                loading={loading}
               />
             </SwiperSlide>
 
@@ -743,6 +798,7 @@ const Index = ({
                   title="Preferred Framework"
                   data={frameworkList}
                   onClick={handlePrefFramework}
+                  loading={loading}
                 />
               </SwiperSlide>
             )}
@@ -753,6 +809,7 @@ const Index = ({
                   title="Preferred Component System"
                   data={componentsSystemList}
                   onClick={handlePrefCompSystem}
+                  loading={loading}
                 />
               </SwiperSlide>
             )}
@@ -763,6 +820,7 @@ const Index = ({
                   title="Would you like to join our Developer Slack Community"
                   data={inviteUserList}
                   onClick={handleInviteUser}
+                  loading={loading}
                 />
               </SwiperSlide>
             )}

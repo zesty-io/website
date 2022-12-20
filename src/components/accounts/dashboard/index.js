@@ -357,7 +357,7 @@ const Dashboard = ({ content = {} }) => {
           px: 3,
         })}
       >
-        {content.zestyProductionMode && <ToolBox title="" />}
+        {!content.zestyProductionMode && <ToolBox title="" />}
         <Grid container spacing={2} mt={1}>
           <Grid
             sx={(theme) => ({
