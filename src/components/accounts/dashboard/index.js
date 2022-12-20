@@ -13,8 +13,8 @@ import dayjs from 'dayjs';
 import { OnboardingQuestions } from '../join/OnboardingQuestions';
 import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
 import { AccountPageloading } from '../ui';
-import { PreferenceQuestions } from '../join/PreferenceQuestions';
-import { MissingQuestions } from '../join/MissingQuestions';
+// import { PreferenceQuestions } from '../join/PreferenceQuestions';
+// import { MissingQuestions } from '../join/MissingQuestions';
 import { joinAppConstants } from '../join/constants';
 import { ToolBox } from '../join/ToolBox';
 
@@ -141,8 +141,8 @@ const Dashboard = ({ content = {} }) => {
     (e) => !defaultPrefs.includes(e),
   );
 
-  const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
-  const isDecisionMaker = roleType === 'decision-maker' ? true : false;
+  // const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
+  // const isDecisionMaker = roleType === 'decision-maker' ? true : false;
 
   const missingUserPrefs = prefChecks
     .filter((x) => !existingUserPrefs.includes(x))
@@ -187,8 +187,8 @@ const Dashboard = ({ content = {} }) => {
     Object.keys(userPrefs).length === 0 && ssoLaunchVsUserCreated > 0
       ? true
       : false;
-  const newUserHasInvite =
-    invites?.length > 0 && ssoLaunchVsUserCreated > 0 ? true : false;
+  // const newUserHasInvite =
+  //   invites?.length > 0 && ssoLaunchVsUserCreated > 0 ? true : false;
 
   const getAllInvitedInstances = async () => {
     setIsInstanceLoading(true);
@@ -224,7 +224,28 @@ const Dashboard = ({ content = {} }) => {
     inviteUserList,
   };
 
-  const missingQuestionProps = {
+  // const missingQuestionProps = {
+  //   content,
+  //   devProjects,
+  //   nonDevProjects,
+  //   userTypeList,
+  //   frameworkList,
+  //   componentsSystemList,
+  //   roleList,
+  //   goalsList,
+  //   hasCompany,
+  //   hasGoal,
+  //   hasPersona,
+  //   hasProjectName,
+  //   hasPreferredComponentSystem,
+  //   hasPreferredFramework,
+  //   hasUserType,
+  //   hasUserInvited,
+  //   hasProjectType,
+  //   inviteUserList,
+  // };
+
+  const personalizationProps = {
     content,
     devProjects,
     nonDevProjects,
@@ -244,6 +265,7 @@ const Dashboard = ({ content = {} }) => {
     hasProjectType,
     inviteUserList,
   };
+
   useEffect(() => {
     getAllInvitedInstances();
   }, []);
@@ -302,22 +324,29 @@ const Dashboard = ({ content = {} }) => {
     runSettingInstances();
   }, [instancesFavorites]);
 
-  //* for testing only
+  //! for testing only
   // return <OnboardingQuestions {...onBoardingQuestionProps} />;
-  // if (!content.zestyProductionMode) {
+
+  //! old check
+  // if (newUserHasInvite) {
+  //   return <PreferenceQuestions content={content} />;
+  // } else if (isNewUser && !isDecisionMaker) {
   //   return <OnboardingQuestions {...onBoardingQuestionProps} />;
+  // } else if (missingUserPrefs?.length > 0 && !isDecisionMaker) {
+  //   return <MissingQuestions {...missingQuestionProps} />;
+  // } else if (missingUserPrefs[0] === 'persona') {
+  //   return <PersonalizationSurvey content={content} />;
   // }
 
-  if (newUserHasInvite) {
-    return <PreferenceQuestions content={content} />;
-  } else if (isNewUser && !isDecisionMaker) {
+  //* if newuser dont have invites and dont have instances show onboarding
+  if (instances?.length === 0 && invites?.length === 0 && isNewUser) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
-  } else if (missingUserPrefs?.length > 0 && !isDecisionMaker) {
-    return <MissingQuestions {...missingQuestionProps} />;
-  } else if (missingUserPrefs[0] === 'persona') {
-    return <PersonalizationSurvey content={content} />;
+    //* if old user and has missing preference
+  } else if (missingUserPrefs.find((e) => e === 'persona') ? true : false) {
+    return <PersonalizationSurvey {...personalizationProps} />;
   }
 
+  //* else show dashboard
   return (
     <>
       <Container
