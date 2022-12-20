@@ -183,10 +183,7 @@ const Dashboard = ({ content = {} }) => {
     ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
   }
 
-  const isNewUser =
-    Object.keys(userPrefs).length === 0 && ssoLaunchVsUserCreated > 0
-      ? true
-      : false;
+  const isUserMissingPrefs = Object.keys(userPrefs).length === 0 ? true : false;
   // const newUserHasInvite =
   //   invites?.length > 0 && ssoLaunchVsUserCreated > 0 ? true : false;
 
@@ -339,7 +336,7 @@ const Dashboard = ({ content = {} }) => {
   // }
 
   //* if newuser dont have invites and dont have instances show onboarding
-  if (instances?.length === 0 && invites?.length === 0 && isNewUser) {
+  if (instances?.length === 0 && invites?.length === 0 && isUserMissingPrefs) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
     //* if old user and has missing preference
   } else if (missingUserPrefs.find((e) => e === 'persona') ? true : false) {
