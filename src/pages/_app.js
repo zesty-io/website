@@ -71,9 +71,6 @@ export default function App({ Component, pageProps }) {
           }}
         />
       </Head>
-      {JSON.stringify(process.env.NEXT_PUBLIC_GTM_ID)}
-      sldkf
-      {JSON.stringify(process.env.GTM_ID)}
       <SnackbarProvider autoHideDuration={2500} preventDuplicate maxSnack={3}>
         <Page>
           <noscript>
