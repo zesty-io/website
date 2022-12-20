@@ -148,7 +148,12 @@ export const SlideMessage = ({
       <Grid
         container
         direction="row"
-        sx={{ background: '#fff', borderRadius: '5px' }}
+        sx={{
+          background: '#fff',
+          borderRadius: '5px',
+          border: `1px #eee solid`,
+          boxShadow: `0px 0px 15px rgba(0,0,0,0.1)`,
+        }}
         justifyContent="center"
         alignItems="center"
       >
@@ -212,8 +217,11 @@ export const SlideMessage = ({
                   onChange={handleTabChange}
                   aria-label="options to start zesty"
                 >
-                  <Tab label="Self Onboarding" {...a11yProps(0)} />
-                  <Tab label="Guided Demo" {...a11yProps(1)} />
+                  <Tab label="For Developers" {...a11yProps(0)} />
+                  <Tab
+                    label="For Marketers, Writers  &amp; Leaders"
+                    {...a11yProps(1)}
+                  />
                 </Tabs>
               </Box>
 
@@ -238,13 +246,13 @@ export const SlideMessage = ({
                   >
                     <LinkComponent
                       image={googleLogo}
-                      title="Login with Google"
+                      title="Google"
                       href={googleUrl}
                     />
 
                     <LinkComponent
                       image={msLogo.src}
-                      title="Login with Microsoft"
+                      title="Microsoft"
                       href={`https://auth.api.zesty.io/azure/login`}
                     />
                   </Stack>
@@ -323,7 +331,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         fontWeight={'bold'}
         sx={{ mb: 2, pt: 1 }}
       >
-        Or, start with a new account
+        Or start with a new account
         {/* Create your free account */}
       </Typography>
       <Box pb={0} gap={4} display="flex" width={1}>

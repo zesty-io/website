@@ -7,7 +7,7 @@ import Head from 'next/head';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { lighten } from '@mui/material';
+// import { lighten } from '@mui/material';
 // import slides
 import { SlideMessage } from 'components/marketing/Join/SlideMessage';
 // import WYSIWYGRender from 'components/globals/WYSIWYGRender';
@@ -59,6 +59,11 @@ export default function Join(props) {
         </Typography>
         <Box paddingY={1}>
           <Typography
+            sx={{
+              li: {
+                marginBottom: 1,
+              },
+            }}
             variant="body"
             dangerouslySetInnerHTML={{ __html: props.ab.description }}
           ></Typography>
@@ -96,11 +101,12 @@ export default function Join(props) {
       </Head>
       <Box
         sx={{
-          background: lighten(theme.palette.zesty.lightBlue, 0.7),
-          background: `linear-gradient(${lighten(
-            theme.palette.zesty.lightBlue,
-            0.7,
-          )}, ${theme.palette.zesty.lightBlue})`,
+          background: '#fff',
+          // background: lighten(theme.palette.zesty.lightBlue, 0.7),
+          // background: `linear-gradient(${lighten(
+          //   theme.palette.zesty.lightBlue,
+          //   0.7,
+          // )}, ${theme.palette.zesty.lightBlue})`,
         }}
       >
         <Stack
