@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Divider, Container, Stack } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 // import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
 // import CardMedia from '@mui/material/CardMedia';
@@ -28,32 +28,22 @@ export const Onboarding = ({ instanceUrl = '', loading = false }) => {
     <>
       <Container>
         <Box paddingY={3}>
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={2}
-            justifyContent="center"
-            mb={2}
-          >
-            <Button
-              variant="contained"
-              color={'secondary'}
-              onClick={() => handleClick(`/start/`)}
-              startIcon={<RocketLaunchIcon />}
-            >
-              Start your Instance
-            </Button>
-            <Divider orientation="vertical" flexItem />
-
-            <Button
-              color="secondary"
-              variant="outlined"
-              onClick={() => handleClick('https://www.zesty.io/meet/')}
-            >
-              Connect with Specialist
-            </Button>
-          </Stack>
-
+          {loading ? (
+            <Stack>
+              <Typography variant="h5" color="primary">
+                You instance is being created{' '}
+              </Typography>
+              <Typography variant="h6" color={'primary'}>
+                This process may take up to 60 seconds.
+              </Typography>
+            </Stack>
+          ) : (
+            <Stack>
+              <Typography variant="h2" color="primary">
+                Success
+              </Typography>
+            </Stack>
+          )}
           <LoadingButton
             loading={loading}
             variant="contained"
