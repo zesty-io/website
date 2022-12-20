@@ -7,7 +7,7 @@ import Head from 'next/head';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
+import { lighten } from '@mui/material';
 // import slides
 import { SlideMessage } from 'components/marketing/Join/SlideMessage';
 
@@ -93,7 +93,15 @@ export default function Join(props) {
           type="image/png"
         />
       </Head>
-      <Box sx={{ background: theme.palette.zesty.zestyFieldBlue }}>
+      <Box
+        sx={{
+          background: lighten(theme.palette.zesty.lightBlue, 0.7),
+          background: `linear-gradient(${lighten(
+            theme.palette.zesty.lightBlue,
+            0.7,
+          )}, ${theme.palette.zesty.lightBlue})`,
+        }}
+      >
         <Stack
           py={4}
           width={1}

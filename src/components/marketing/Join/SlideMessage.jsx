@@ -8,6 +8,7 @@ import {
   InputAdornment,
   useMediaQuery,
   IconButton,
+  Divider,
   Tabs,
   Tab,
 } from '@mui/material';
@@ -165,17 +166,34 @@ export const SlideMessage = ({
               <Container sx={{ py: 1, flex: 3 }}>{message}</Container>
 
               {/* Review */}
-              <Container sx={{ flex: 1 }}>
-                <Typography
-                  sx={{ fontStyle: 'italic', fontSize: '12px', mb: 1 }}
-                >
-                  {reviews.length > 0 && reviews[0].review.review}
-                </Typography>
-                <Typography sx={{ fontWeight: 'bold', fontSize: '12px' }}>
-                  &mdash;
-                  {reviews.length > 0 && reviews[0].review.reviewer_title}
-                </Typography>
-              </Container>
+              {reviews.length > 0 && (
+                <Container sx={{ flex: 1 }}>
+                  <Divider sx={{ mb: 2 }} />
+                  <Typography
+                    sx={{ fontStyle: 'italic', fontSize: '12px', mb: 1 }}
+                  >
+                    {reviews[0].review.review}
+                  </Typography>
+
+                  <Stack direction="row" alignContent="center">
+                    <ZestyImage
+                      src={reviews[0].review.image}
+                      style={{
+                        maxWidth: '50px',
+                        maxHeight: '50px',
+                        borderRadius: '100%',
+                      }}
+                    />
+
+                    <Typography sx={{ fontSize: '12px', ml: 2 }}>
+                      <Typography sx={{ fontWeight: 'bold' }}>
+                        {reviews[0].review.name}
+                      </Typography>
+                      {reviews[0].review.reviewer_title}
+                    </Typography>
+                  </Stack>
+                </Container>
+              )}
             </Grid>
             {/* right sign with signons */}
             <Grid
