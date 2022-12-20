@@ -240,9 +240,9 @@ export const SlideMessage = ({
                   <Stack
                     direction={{ xs: 'column', xl: 'row' }}
                     alignItems={'center'}
-                    justifyContent="space-evenly"
+                    justifyContent="center"
                     gap={2}
-                    sx={{ m: 2 }}
+                    sx={{ m: 0 }}
                   >
                     <LinkComponent
                       image={googleLogo}
@@ -329,7 +329,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         color="black"
         textAlign={'center'}
         fontWeight={'bold'}
-        sx={{ mb: 2, pt: 1 }}
+        sx={{ mb: 1, pt: 2 }}
       >
         or start a new account
         {/* Create your free account */}
