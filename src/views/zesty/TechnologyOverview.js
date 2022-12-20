@@ -159,7 +159,7 @@ function TechnologyOverview({ content }) {
       <Box sx={{ py: 5 }}>
         <Growth {...growthData} />
       </Box>
-      <ImageWithContentsCta {...getStartedProps} sx={{ pb: 20 }} />
+      <ImageWithContentsCta sx={{ pb: 20 }} />
       <Features
         data={feature_data}
         features_header={

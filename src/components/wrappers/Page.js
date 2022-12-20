@@ -37,8 +37,8 @@ export default function Page({ children }) {
   const isAccounts = isProtectedRoute(pathname);
   const [themeMode, themeToggler] = useDarkMode();
 
-  const { setuserInfo } = useZestyStore((state) => state);
-  const { userInfo } = useFetchWrapper(isLoggedIn);
+  const { setuserInfo, setloading } = useZestyStore((state) => state);
+  const { userInfo, loading } = useFetchWrapper(isLoggedIn);
 
   // this will run to if the user is logged in to keep the session alive!
   usePeriodicVerify(isLoggedIn);
@@ -50,6 +50,10 @@ export default function Page({ children }) {
   useEffect(() => {
     setuserInfo(userInfo.data);
   }, [userInfo]);
+
+  useEffect(() => {
+    setloading(loading);
+  }, [loading]);
 
   useEffect(() => {
     // Remove the server-side injected CSS.

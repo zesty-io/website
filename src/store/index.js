@@ -41,5 +41,27 @@ export const useZestyStore = create((set) => {
     setloading: (data) => set(() => ({ loading: data })),
     userInfo: {},
     setuserInfo: (data) => set(() => ({ userInfo: data })),
+    prefs: {},
+    setprefs: (data) => set(() => ({ prefs: data })),
+
+    // new user data
+    role: '',
+    setrole: (data) => set(() => ({ role: data })),
+    userType: '',
+    setuserType: (data) => set(() => ({ userType: data })),
+    projectType: '',
+    setprojectType: (data) => set(() => ({ projectType: data })),
+    projectName: '',
+    setprojectName: (data) => set(() => ({ projectName: data })),
+    emails: [],
+    setemails: (data) => set(() => ({ emails: data })),
+    company: '',
+    setcompany: (data) => set(() => ({ company: data })),
+    phoneNumber: '',
+    setphoneNumber: (data) => set(() => ({ phoneNumber: data })),
+    projectDescription: '',
+    setprojectDescription: (data) => set(() => ({ projectDescription: data })),
+    userInvited: '',
+    setuserInvited: (data) => set(() => ({ userInvited: data })),
   };
 });
