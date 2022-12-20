@@ -234,7 +234,7 @@ export const SlideMessage = ({
                     fontWeight={'bold'}
                     sx={{ mb: 2 }}
                   >
-                    Start with Single Sign-on
+                    Start with single sign-on
                     {/* Create your free account */}
                   </Typography>
                   <Stack
@@ -246,13 +246,13 @@ export const SlideMessage = ({
                   >
                     <LinkComponent
                       image={googleLogo}
-                      title="Google"
+                      title="Google Login"
                       href={googleUrl}
                     />
 
                     <LinkComponent
                       image={msLogo.src}
-                      title="Microsoft"
+                      title="Microsoft Login"
                       href={`https://auth.api.zesty.io/azure/login`}
                     />
                   </Stack>
@@ -331,7 +331,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         fontWeight={'bold'}
         sx={{ mb: 2, pt: 1 }}
       >
-        Or start with a new account
+        or start a new account
         {/* Create your free account */}
       </Typography>
       <Box pb={0} gap={4} display="flex" width={1}>
@@ -440,6 +440,7 @@ const LinkComponent = ({
       gap={1}
       alignItems="center"
       sx={{
+        minWidth: '150px',
         border: `1px solid ${grey[500]}`,
         borderRadius: '5px',
         cursor: 'pointer',
