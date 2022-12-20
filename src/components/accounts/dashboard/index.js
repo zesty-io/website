@@ -9,7 +9,6 @@ import { useTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import ZActivityStream from './ui/ZActivityStream';
 import SideContent from './SideContent';
-import dayjs from 'dayjs';
 import { OnboardingQuestions } from '../join/OnboardingQuestions';
 import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
 import { AccountPageloading } from '../ui';
@@ -124,26 +123,21 @@ const Dashboard = ({ content = {} }) => {
     'userInvited',
   ];
 
-  // const prefChecks = [''];
-  // accounts/join app
-  // let missingPrefs = false;
-  let ssoLaunchVsUserCreated = null;
-  const ssoLaunchDate = dayjs('2022-11-18');
-  const userCreatedDate = dayjs(userInfo?.createdAt);
-
+  // parse user prefs JSON string otherwise undefined
+  // this is use determine if we run the preference component
   const userPrefs =
     typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
 
-  // prefs of old users need to be remove
+  // prefs of old users need to be ignored
   const defaultPrefs = ['favorite_sites', 'instance_layout', 'teamOptions'];
-  // remove default prefs for existing/old users
+  // preference that trigger the missing preferences component
+  const missingPreferences = ['persona'];
+  // ignore default prefs for existing/old users
   const existingUserPrefs = Object.keys(userPrefs).filter(
     (e) => !defaultPrefs.includes(e),
   );
 
-  // const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
-  // const isDecisionMaker = roleType === 'decision-maker' ? true : false;
-
+  // checking
   const missingUserPrefs = prefChecks
     .filter((x) => !existingUserPrefs.includes(x))
     .concat(existingUserPrefs.filter((x) => !prefChecks.includes(x)));
@@ -162,27 +156,11 @@ const Dashboard = ({ content = {} }) => {
   const hasCompany = missingUserPrefs.includes('company');
   const hasUserInvited = missingUserPrefs.includes('userInvited');
 
-  // if (typeof userInfo?.prefs === 'string') {
-  //   const obj = JSON.parse(userInfo?.prefs);
-  //   prefChecks.forEach((element) => {
-  //     if (!obj.hasOwnProperty(element)) {
-  //       missingPrefs = true;
-  //     }
-  //   });
-  // }
-
   if (!userInfo || Object.keys(userInfo)?.length === 0) {
     return <AccountPageloading title={'Zesty.io'} />;
   }
 
-  // if (!userInfo?.prefs) {
-  //   missingPrefs = true;
-  // }
-
-  if (Object.keys(userInfo).length > 0) {
-    ssoLaunchVsUserCreated = userCreatedDate.diff(ssoLaunchDate, 'hours');
-  }
-
+  // the user dont have preferences we use this boolean to launch preference component
   const isUserMissingPrefs = Object.keys(userPrefs).length === 0 ? true : false;
   // const newUserHasInvite =
   //   invites?.length > 0 && ssoLaunchVsUserCreated > 0 ? true : false;
@@ -335,11 +313,25 @@ const Dashboard = ({ content = {} }) => {
   //   return <PersonalizationSurvey content={content} />;
   // }
 
+  // 1 if no instances and no invites and no preferences
+  // return onboarding questions w/ preferences === true
+  // 2 if no instances and no invites return onboarding question w/ preferences === false
+  // 3 if no preferences return personalization survey
+  // 4 if has instances has invites ignore
+
+  console.log(initialInstances, invites, isUserMissingPrefs, 555);
   //* if newuser dont have invites and dont have instances show onboarding
-  if (instances?.length === 0 && invites?.length === 0 && isUserMissingPrefs) {
+  if (
+    initialInstances?.length === 0 &&
+    invites?.length === 0 &&
+    isUserMissingPrefs
+  ) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
     //* if old user and has missing preference
-  } else if (missingUserPrefs.find((e) => e === 'persona') ? true : false) {
+  } else if (
+    // this logic need to be refactored when more preference check are added
+    missingUserPrefs.find((e) => e === missingPreferences[0]) ? true : false
+  ) {
     return <PersonalizationSurvey {...personalizationProps} />;
   }
 
