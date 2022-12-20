@@ -160,7 +160,7 @@ export const SlideMessage = ({
               lg={7}
               md={7}
               xs={12}
-              sx={{ display: 'flex', flexDirection: 'column' }}
+              sx={{ display: 'flex', flexDirection: 'column', p: 4 }}
             >
               {/* Custom message */}
               <Container sx={{ py: 1, flex: 3 }}>{message}</Container>
@@ -217,14 +217,14 @@ export const SlideMessage = ({
                 </Tabs>
               </Box>
 
-              <Container sx={{ py: 4 }}>
+              <Container sx={{ py: 3 }}>
                 <TabPanel value={tabValue} index={0}>
                   <Typography
                     variant="h5"
                     color="black"
                     textAlign={'center'}
                     fontWeight={'bold'}
-                    sx={{ mb: 3 }}
+                    sx={{ mb: 2 }}
                   >
                     Start with Single Sign-on
                     {/* Create your free account */}
@@ -234,7 +234,7 @@ export const SlideMessage = ({
                     alignItems={'center'}
                     justifyContent="space-evenly"
                     gap={2}
-                    sx={{ m: 3 }}
+                    sx={{ m: 2 }}
                   >
                     <LinkComponent
                       image={googleLogo}
@@ -259,7 +259,7 @@ export const SlideMessage = ({
           </Grid>
         </Grid>
       </Grid>
-      <Box sx={{ mt: 5, pl: 5 }}>
+      <Box sx={{ mt: 3, pl: 5 }}>
         <Box
           sx={{
             display: 'flex',
@@ -281,7 +281,7 @@ export const SlideMessage = ({
                   width: 'auto',
                   maxWidth: '120px',
                   maxHeight: '50px',
-                  filter: 'grayscale(1)',
+                  filter: 'brightness(0%)',
                 }}
                 alt={item?.customer_name || ''}
                 src={item.customer_logo?.data[0]?.url}
@@ -326,7 +326,7 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         Or, start with a new account
         {/* Create your free account */}
       </Typography>
-      <Box pb={2} gap={4} display="flex" width={1}>
+      <Box pb={0} gap={4} display="flex" width={1}>
         <Box width={1} sx={{ pb: 0 }}>
           <FormInput
             customLabelVariant="body1"

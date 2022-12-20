@@ -10,6 +10,7 @@ import 'swiper/css/navigation';
 import { lighten } from '@mui/material';
 // import slides
 import { SlideMessage } from 'components/marketing/Join/SlideMessage';
+// import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 
 // google analytics
 // import * as ga from 'lib/ga';
@@ -46,13 +47,13 @@ export default function Join(props) {
   // ab message
   if (props.campaign !== false) {
     abmessage = (
-      <Box paddingY={4}>
+      <Box>
         <Typography
           variant="h4"
           color="black"
           textAlign={'left'}
           fontWeight={'bold'}
-          sx={{ mb: 2 }}
+          sx={{ mb: 0 }}
         >
           {props.ab.title}
         </Typography>
@@ -114,7 +115,7 @@ export default function Join(props) {
           <img
             src="https://brand.zesty.io/zesty-io-logo-horizontal.png"
             alt="Zesty.io Logo"
-            height={80}
+            height={70}
           />
         </Stack>
 
