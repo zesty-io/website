@@ -122,7 +122,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                     span: {
                       component: Typography,
                       props: {
-                        component: 'h2',
+                        component: mainTitle ? 'h2' : 'h1',
                         variant: 'h3',
                         sx: {
                           fontWeight: 700,
@@ -135,7 +135,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                     h1: {
                       component: Typography,
                       props: {
-                        component: 'h2',
+                        component: mainTitle ? 'h2' : 'h1',
                         variant: 'h3',
                         sx: {
                           fontWeight: 700,
