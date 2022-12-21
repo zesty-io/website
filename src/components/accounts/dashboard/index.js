@@ -320,6 +320,11 @@ const Dashboard = ({ content = {} }) => {
   // 3 if no preferences return personalization survey
   // 4 if has instances has invites ignore
 
+  const hasMissingPrefs =
+    missingUserPrefs?.filter((value) => missingPreferences?.includes(value))
+      ?.length !== 0
+      ? true
+      : false;
   //* if newuser dont have invites and dont have instances show onboarding
   if (
     initialInstances?.length === 0 &&
@@ -328,10 +333,7 @@ const Dashboard = ({ content = {} }) => {
   ) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
     //* if old user and has missing preference
-  } else if (
-    // this logic need to be refactored when more preference check are added
-    missingUserPrefs.find((e) => e === missingPreferences[0]) ? true : false
-  ) {
+  } else if (hasMissingPrefs) {
     return <PersonalizationSurvey {...personalizationProps} />;
   }
 
@@ -347,7 +349,7 @@ const Dashboard = ({ content = {} }) => {
         })}
       >
         {pendoScript}
-        {!content.zestyProductionMode && <ToolBox title="" />}
+        {content.zestyProductionMode && <ToolBox title="" />}
         <Grid container spacing={2} mt={1}>
           <Grid
             sx={(theme) => ({
