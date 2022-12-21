@@ -47,6 +47,7 @@ import Growth from 'blocks/zesty/Growth/Growth';
 import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
 import LogoSlider from 'blocks/zesty/Slider/LogoSlider';
 import Bottom from 'blocks/zesty/Bottom/Bottom';
+import { AccountPageloading } from 'components/accounts/ui/loading';
 
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
@@ -56,8 +57,10 @@ import Dashboard from 'components/accounts/dashboard';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import AOS from 'aos';
 import { useEffect } from 'react';
+import { useZestyStore } from 'store';
 
 function Homepage({ content }) {
+  const { loading } = useZestyStore();
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -71,10 +74,6 @@ function Homepage({ content }) {
       disable: isMedium,
     });
   }, [isMedium]);
-
-  if (content?.zesty?.isAuthenticated) {
-    return <Dashboard />;
-  }
 
   const getData = (dataArray) => {
     return (
@@ -173,6 +172,14 @@ function Homepage({ content }) {
       content.footer_button_link_2?.data[0]?.meta?.web?.uri ||
       FillerContent.href,
   };
+
+  if (loading) {
+    return <AccountPageloading title={'Zesty.io'} />;
+  }
+
+  if (content?.zesty?.isAuthenticated) {
+    return <Dashboard content={content} />;
+  }
 
   return (
     <>
