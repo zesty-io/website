@@ -6,6 +6,7 @@ import { LoadingButton } from '@mui/lab';
 import Confetti from 'react-confetti';
 
 import { StickyTable } from 'components/accounts';
+import slackNotify from 'components/marketing/Start/slackNotify';
 
 export const Onboarding = ({
   instanceUrl = '',
@@ -21,9 +22,31 @@ export const Onboarding = ({
   preferred_component_system,
   zohoLeadLink,
 }) => {
-  const handleClick = (url) => {
-    window.open(url, '_blank');
-    window.location.reload();
+  const handleClick = async (url) => {
+    await postUserSummary();
+    await window.open(url, '_blank');
+    await window.location.reload();
+  };
+
+  const postUserSummary = async () => {
+    const msg = `:rotating_light: *New User Summary* :rotating_light:
+----- Basic Details ------
+Name: *${userInfo?.firstName}* *${userInfo?.lastName}*
+Email: ${userInfo?.email}
+Persona: *${role || '-'}*
+Type: *${userType || '-'}*
+Project Name: *${projectName || '-'}*
+Project ZUID: *${instance_zuid || '-'}*
+---- Extra Details ----
+Project Goal: *${goal || '-'}*
+Project Type: *${projectType || '-'}* 
+Favorite Framework: *${preferred_framework || '-'}* 
+Favorite Component Sytem: *${preferred_component_system || '-'}*
+---links---
+Manager Link: ${instanceUrl}
+Zoho Lead: ${zohoLeadLink}`;
+
+    await slackNotify(msg);
   };
 
   const newUserSummaryProps = {
@@ -40,27 +63,22 @@ export const Onboarding = ({
     preferred_component_system,
     zohoLeadLink,
   };
+
   return (
     <>
       {!loading && <Confetti numberOfPieces={350} width={1920} height={1080} />}
       <Container>
-        <Box paddingY={3}>
+        <Box paddingY={2}>
           {loading ? (
             <Stack my={1}>
-              <Typography variant="h5" color="primary">
+              <Typography variant="h6" color="primary">
                 Your instance is being created.{' '}
               </Typography>
-              <Typography variant="h6" color={'primary'}>
+              <Typography variant="p" color={'primary'}>
                 This process may take up to 60 seconds.
               </Typography>
             </Stack>
-          ) : (
-            <Stack my={1}>
-              <Typography variant="h4" color="primary">
-                Instance successfully created
-              </Typography>
-            </Stack>
-          )}
+          ) : null}
           <LoadingButton
             loading={loading}
             variant="contained"
@@ -168,8 +186,8 @@ const NewUserSummary = ({
   ];
 
   return (
-    <Stack sx={{ width: '50vw' }}>
-      <Typography variant="h4" color="gray" fontWeight={'500'}>
+    <Stack sx={{ width: '70vw' }}>
+      <Typography variant="h5" color="gray" fontWeight={'500'}>
         New user Summary
       </Typography>
       <Stack direction={'row'} gap={2}>
@@ -179,20 +197,18 @@ const NewUserSummary = ({
           rows={basicDetails}
           columns={COLUMNS_VIEW_BASIC}
         />
-        <Stack>
-          <StickyTable
-            perPage={100}
-            pagination={false}
-            rows={extraDetails}
-            columns={COLUMNS_VIEW_EXTRA}
-          />
-          <StickyTable
-            perPage={100}
-            pagination={false}
-            rows={linksDetails}
-            columns={COLUMNS_VIEW_LINKS}
-          />
-        </Stack>
+        <StickyTable
+          perPage={100}
+          pagination={false}
+          rows={extraDetails}
+          columns={COLUMNS_VIEW_EXTRA}
+        />
+        <StickyTable
+          perPage={100}
+          pagination={false}
+          rows={linksDetails}
+          columns={COLUMNS_VIEW_LINKS}
+        />
       </Stack>
     </Stack>
   );
