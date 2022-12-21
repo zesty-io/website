@@ -431,22 +431,18 @@ const Index = ({
 
   const sliderRef = React.useRef(null);
 
-  const handleSuccessCreate = async (res) => {
+  const handleSuccessCreate = async (res, name) => {
     setinstance_zuid(res.data.ZUID);
-    await handleInstall(res.data.ZUID);
+    await handleInstall(res.data.ZUID, name);
   };
 
-  // const opentTabs = () => {
-  //   window.open(`https://${instance_zuid}.manager.zesty.io/`, '_blank');
-  //   window.open(`https://${domain}`, '_blank');
-  // };
   const handleErrCreate = (res) => {
     console.error(res);
   };
 
   const handleCreateInstance = async (name) => {
     const res = await ZestyAPI.createInstance(name, '');
-    !res.error && handleSuccessCreate(res);
+    !res.error && handleSuccessCreate(res, name);
     res.error && handleErrCreate(res);
   };
 
@@ -454,7 +450,7 @@ const Index = ({
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
-  const handleInstall = async (instance_zuid) => {
+  const handleInstall = async (instance_zuid, name) => {
     setinstallLoading(true);
     const url = `${baseUrl}/install`;
     const body = {
@@ -465,7 +461,7 @@ const Index = ({
     };
 
     await slackNotify(
-      `${role}  ${userInfo.firstName} ${userInfo.lastName}  ${userInfo.email} is creating new project:${projectName}  (${instance_zuid}) `,
+      `${role}  ${userInfo.firstName} ${userInfo.lastName}  ${userInfo.email} is creating New Project: *${name}* (${instance_zuid}) `,
     );
 
     // after install make the 1st instance favorite
