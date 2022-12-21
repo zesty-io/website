@@ -29,7 +29,7 @@ export const ToolBox = ({ title = '', role = '', userType = '' }) => {
       const body = {
         firstName,
         lastName,
-        prefs: JSON.stringify(data),
+        prefs: data && JSON.stringify(data),
       };
       await ZestyAPI.updateUser(userZUID, body);
       setTimeout(() => {
