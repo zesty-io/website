@@ -31,6 +31,8 @@ import { handlePostToSlack } from './services';
 import slackNotify from 'components/marketing/Start/slackNotify';
 import { pendoScript } from 'components/marketing/Join/pendoScript';
 
+const zoholeadUrl =
+  'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/';
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
 const repository = 'https://github.com/zesty-io/template-nextjs-marketing';
@@ -351,10 +353,6 @@ const SwipeCompContainer = ({ children, pt = 0 }) => {
   );
 };
 
-const handleZoho = async (obj, callback = () => {}) => {
-  await postToZOHO(obj);
-  await callback();
-};
 const postToZOHO = async (payloadJSON) => {
   dataLayer.push({ event: 'SignupLead', value: '1' });
   try {
@@ -394,6 +392,7 @@ const Index = ({
   goalsList = [],
   inviteUserList = [],
 }) => {
+  const [zohoLeadLink, setzohoLeadLink] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const token = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
   const [preferred_framework, setframework] = React.useState('');
@@ -431,22 +430,24 @@ const Index = ({
 
   const sliderRef = React.useRef(null);
 
-  const handleSuccessCreate = async (res) => {
-    setinstance_zuid(res.data.ZUID);
-    await handleInstall(res.data.ZUID);
+  const handleZoho = async (obj, callback = () => {}) => {
+    const zohoData = await postToZOHO(obj);
+    setzohoLeadLink(`${zoholeadUrl}${zohoData?.data[0]?.details?.id}`);
+    await callback();
   };
 
-  // const opentTabs = () => {
-  //   window.open(`https://${instance_zuid}.manager.zesty.io/`, '_blank');
-  //   window.open(`https://${domain}`, '_blank');
-  // };
+  const handleSuccessCreate = async (res, name) => {
+    setinstance_zuid(res.data.ZUID);
+    await handleInstall(res.data.ZUID, name);
+  };
+
   const handleErrCreate = (res) => {
     console.error(res);
   };
 
   const handleCreateInstance = async (name) => {
     const res = await ZestyAPI.createInstance(name, '');
-    !res.error && handleSuccessCreate(res);
+    !res.error && handleSuccessCreate(res, name);
     res.error && handleErrCreate(res);
   };
 
@@ -454,7 +455,7 @@ const Index = ({
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
-  const handleInstall = async (instance_zuid) => {
+  const handleInstall = async (instance_zuid, name) => {
     setinstallLoading(true);
     const url = `${baseUrl}/install`;
     const body = {
@@ -465,7 +466,7 @@ const Index = ({
     };
 
     await slackNotify(
-      `${role}  ${userInfo.firstName} ${userInfo.lastName}  ${userInfo.email} is creating new project:${projectName}  (${instance_zuid}) `,
+      `${role}  ${userInfo.firstName} ${userInfo.lastName}  ${userInfo.email} is creating New Project: *${name}* (${instance_zuid}) `,
     );
 
     // after install make the 1st instance favorite
@@ -657,6 +658,21 @@ const Index = ({
     projectDescription,
     emails,
     projectName,
+  };
+
+  const onBoardingProps = {
+    userInfo,
+    role,
+    projectType,
+    projectName,
+    instance_zuid,
+    goal,
+    userType,
+    preferred_framework,
+    preferred_component_system,
+    loading: installLoading,
+    instanceUrl: `https://${instance_zuid}.manager.zesty.io/`,
+    zohoLeadLink,
   };
 
   React.useEffect(() => {
@@ -855,10 +871,7 @@ const Index = ({
 
             <SwiperSlide>
               <SwipeCompContainer>
-                <Onboarding
-                  loading={installLoading}
-                  instanceUrl={`https://${instance_zuid}.manager.zesty.io/`}
-                />
+                <Onboarding {...onBoardingProps} />
               </SwipeCompContainer>
             </SwiperSlide>
           </Swiper>
