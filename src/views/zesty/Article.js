@@ -50,7 +50,6 @@ import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import useFetch from 'components/hooks/useFetch';
 
 function Article({ content }) {
-  console.log(content.article);
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
