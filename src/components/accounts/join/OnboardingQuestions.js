@@ -31,6 +31,8 @@ import { handlePostToSlack } from './services';
 import slackNotify from 'components/marketing/Start/slackNotify';
 import { pendoScript } from 'components/marketing/Join/pendoScript';
 
+const zoholeadUrl =
+  'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/';
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
 const repository = 'https://github.com/zesty-io/template-nextjs-marketing';
@@ -351,10 +353,6 @@ const SwipeCompContainer = ({ children, pt = 0 }) => {
   );
 };
 
-const handleZoho = async (obj, callback = () => {}) => {
-  await postToZOHO(obj);
-  await callback();
-};
 const postToZOHO = async (payloadJSON) => {
   dataLayer.push({ event: 'SignupLead', value: '1' });
   try {
@@ -394,6 +392,7 @@ const Index = ({
   goalsList = [],
   inviteUserList = [],
 }) => {
+  const [zohoLeadLink, setzohoLeadLink] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const token = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
   const [preferred_framework, setframework] = React.useState('');
@@ -430,6 +429,12 @@ const Index = ({
   } = useZestyStore();
 
   const sliderRef = React.useRef(null);
+
+  const handleZoho = async (obj, callback = () => {}) => {
+    const zohoData = await postToZOHO(obj);
+    setzohoLeadLink(`${zoholeadUrl}${zohoData?.data[0]?.details?.id}`);
+    await callback();
+  };
 
   const handleSuccessCreate = async (res, name) => {
     setinstance_zuid(res.data.ZUID);
@@ -655,6 +660,21 @@ const Index = ({
     projectName,
   };
 
+  const onBoardingProps = {
+    userInfo,
+    role,
+    projectType,
+    projectName,
+    instance_zuid,
+    goal,
+    userType,
+    preferred_framework,
+    preferred_component_system,
+    loading: installLoading,
+    instanceUrl: `https://${instance_zuid}.manager.zesty.io/`,
+    zohoLeadLink,
+  };
+
   React.useEffect(() => {
     const obj = zohoPostObject(
       zohoObj,
@@ -851,10 +871,7 @@ const Index = ({
 
             <SwiperSlide>
               <SwipeCompContainer>
-                <Onboarding
-                  loading={installLoading}
-                  instanceUrl={`https://${instance_zuid}.manager.zesty.io/`}
-                />
+                <Onboarding {...onBoardingProps} />
               </SwipeCompContainer>
             </SwiperSlide>
           </Swiper>

@@ -1,29 +1,43 @@
 import * as React from 'react';
-import { Box, Container, Stack, Typography } from '@mui/material';
-// import Card from '@mui/material/Card';
-// import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
-// import { CardActionArea } from '@mui/material';
-// import { useTheme } from '@mui/material/styles';
-// import Developer from './Developer';
-// import Marketer from './Marketer';
-// import Manager from './Manager';
+import { Box, Container, Link, Stack, Typography } from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { LoadingButton } from '@mui/lab';
 
-export const Onboarding = ({ instanceUrl = '', loading = false }) => {
+import { StickyTable } from 'components/accounts';
+
+export const Onboarding = ({
+  instanceUrl = '',
+  loading = false,
+  userInfo,
+  role,
+  projectType,
+  projectName,
+  instance_zuid,
+  goal,
+  userType,
+  preferred_framework,
+  preferred_component_system,
+  zohoLeadLink,
+}) => {
   const handleClick = (url) => {
     window.open(url, '_blank');
     window.location.reload();
   };
-  // const cards = {
-  //   DiscordCard,
-  //   YoutubeCard,
-  //   DeveloperGuideCard,
-  //   CaseStudiesCard,
-  //   TrainingVideoCard,
-  // };
 
+  const newUserSummaryProps = {
+    instanceUrl,
+    loading,
+    userInfo,
+    role,
+    projectType,
+    projectName,
+    instance_zuid,
+    goal,
+    userType,
+    preferred_framework,
+    preferred_component_system,
+    zohoLeadLink,
+  };
   return (
     <>
       <Container>
@@ -39,8 +53,8 @@ export const Onboarding = ({ instanceUrl = '', loading = false }) => {
             </Stack>
           ) : (
             <Stack my={1}>
-              <Typography variant="h2" color="primary">
-                Success
+              <Typography variant="h4" color="primary">
+                Instance successfully created
               </Typography>
             </Stack>
           )}
@@ -54,193 +68,108 @@ export const Onboarding = ({ instanceUrl = '', loading = false }) => {
             Go to your Instance
           </LoadingButton>
         </Box>
-        {/* <Box paddingY={3}>
-          <Divider>
-            <Chip label="More Resources" />
-          </Divider>
-        </Box> */}
-        {/* {role == 'Marketer' && <Marketer {...cards} />}
-        {role == 'Developer' && <Developer {...cards} />}
-        {role == 'Manager' && <Manager {...cards} />} */}
+        <Stack alignItems={'center'}>
+          <NewUserSummary {...newUserSummaryProps} />
+        </Stack>
       </Container>
     </>
   );
 };
 
-// const ScheduleOnboardingSpecialist = ({
-//   link = 'https://www.zesty.io/meet/',
-//   handleClick,
-// }) => (
-//   <Card sx={{ marginBottom: '16px' }}>
-//     <CardActionArea onClick={() => handleClick(link)}>
-//       <CardMedia
-//         component="img"
-//         height="140"
-//         image="/assets/images/onboarding/discord.png"
-//         alt="discord header"
-//       />
-//       <CardContent>
-//         <Typography gutterBottom variant="h5" component="div">
-//           Community Chat
-//         </Typography>
-//         <Typography variant="body2" color="text.secondary">
-//           Intereact with the community and Zesty.io developers. Ask questions,
-//           share ideas and projects. Click here to be invited.
-//         </Typography>
-//       </CardContent>
-//     </CardActionArea>
-//   </Card>
-// );
+const NewUserSummary = ({
+  instanceUrl,
+  loading,
+  userInfo = {},
+  role,
+  projectType,
+  projectName,
+  instance_zuid,
+  goal,
+  userType,
+  preferred_framework,
+  preferred_component_system,
+  zohoLeadLink,
+}) => {
+  const COLUMNS_VIEW_BASIC = [
+    {
+      id: 'key',
+      label: 'Basic Details',
+    },
+    {
+      id: 'value',
+      label: '  ',
+    },
+  ];
 
-// const DiscordCard = ({ handleClick }) => (
-//   <Card sx={{ marginBottom: '16px' }}>
-//     <CardActionArea
-//       onClick={() => handleClick('https://discord.gg/KYYDy8qYBY')}
-//     >
-//       <CardMedia
-//         component="img"
-//         height="90"
-//         image="/assets/images/onboarding/discord.png"
-//         alt="discord header"
-//       />
-//       <CardContent>
-//         <Typography gutterBottom variant="h5" component="div">
-//           Community Chat
-//         </Typography>
-//         <Typography variant="body2" color="text.secondary">
-//           Intereact with the community and Zesty.io developers. Ask questions,
-//           share ideas and projects. Click here to be invited.
-//         </Typography>
-//       </CardContent>
-//     </CardActionArea>
-//   </Card>
-// );
+  const COLUMNS_VIEW_EXTRA = [
+    {
+      id: 'key',
+      label: 'Extra Details',
+    },
+    {
+      id: 'value',
+      label: '  ',
+    },
+  ];
+  const name = `${userInfo?.firstName} ${userInfo?.lastName}`;
+  const basicDetails = [
+    { key: userInfo?.firstName && 'Name', value: name },
+    { key: userInfo?.email && 'Email', value: userInfo?.email },
+    { key: role && 'Persona', value: role },
+    { key: userType && 'Type', value: userType },
+    { key: projectName && 'Project name', value: projectName },
+    { key: instance_zuid && 'Project ZUID', value: instance_zuid },
+  ];
 
-// const YoutubeCard = ({ handleClick }) => {
-//   const theme = useTheme();
-//   return (
-//     <Card sx={{}}>
-//       <CardActionArea
-//         onClick={() =>
-//           handleClick('https://www.youtube.com/watch?v=Y2cux28b9q0')
-//         }
-//       >
-//         <CardMedia
-//           component="img"
-//           height="90"
-//           image="/assets/images/onboarding/next-js-zesty-docs-header.png"
-//           alt="youtube header"
-//         />
-//         <CardContent>
-//           <Typography
-//             variant="h6"
-//             sx={{ color: theme.palette.zesty.zestyDarkText }}
-//             component="p"
-//           >
-//             Start with Next.js in 10 minutes
-//           </Typography>
-//           <Typography
-//             variant="body2"
-//             sx={{ color: theme.palette.zesty.zestyZambezi }}
-//           >
-//             Watch this quick tutorial to see how to leverage the command line
-//             with Zesty and Next.js
-//           </Typography>
-//         </CardContent>
-//       </CardActionArea>
-//     </Card>
-//   );
-// };
+  const extraDetails = [
+    { key: goal && 'Project Goal', value: goal },
+    { key: projectName && 'Project Type', value: projectType },
+    {
+      key: preferred_framework && 'Favorite Framework',
+      value: preferred_framework,
+    },
+    {
+      key: preferred_component_system && 'Favorite Component System',
+      value: preferred_component_system,
+    },
+  ];
 
-// const CaseStudiesCard = ({ developer, marketer, handleClick }) => {
-//   const theme = useTheme();
-//   return (
-//     <Card sx={{}}>
-//       <CardActionArea
-//         onClick={() => handleClick('https://www.zesty.io/clients/')}
-//       >
-//         {marketer && (
-//           <CardMedia
-//             component="img"
-//             height="140"
-//             image="/assets/images/join/casestudies.png"
-//             alt="youtube header"
-//           />
-//         )}
+  const linksDetails = [
+    {
+      key: instanceUrl && 'Manager Link',
+      value: <Link href={instanceUrl}>{instanceUrl}</Link>,
+    },
+    {
+      key: zohoLeadLink && 'ZOHO Lead',
+      value: <Link href={zohoLeadLink}>Zoho Lead Link</Link>,
+    },
+  ];
 
-//         <CardContent>
-//           <Typography
-//             variant="h6"
-//             sx={{ color: theme.palette.zesty.zestyDarkText }}
-//             component="p"
-//           >
-//             Case studies
-//           </Typography>
-//           <Typography
-//             variant="body2"
-//             sx={{ color: theme.palette.zesty.zestyZambezi }}
-//           >
-//             See what others have created with Zesty
-//           </Typography>
-//         </CardContent>
-//       </CardActionArea>
-//     </Card>
-//   );
-// };
-
-// const DeveloperGuideCard = ({ handleClick }) => {
-//   const theme = useTheme();
-//   return (
-//     <Card sx={{}}>
-//       <CardActionArea onClick={() => handleClick('https://www.zesty.org')}>
-//         <CardContent>
-//           <Typography
-//             variant="h6"
-//             sx={{ color: theme.palette.zesty.zestyDarkText }}
-//             component="p"
-//           >
-//             Developer guides
-//           </Typography>
-//           <Typography
-//             variant="body2"
-//             sx={{ color: theme.palette.zesty.zestyZambezi }}
-//           >
-//             Access the quick start guide, plus in-depth guides to the Zesty
-//             platform
-//           </Typography>
-//         </CardContent>
-//       </CardActionArea>
-//     </Card>
-//   );
-// };
-// const TrainingVideoCard = ({ handleClick }) => {
-//   const theme = useTheme();
-//   return (
-//     <Card sx={{}}>
-//       <CardActionArea
-//         onClick={() =>
-//           handleClick(
-//             'https://www.youtube.com/playlist?list=PLExwmKy69_tBEDIzllYm81ELok4YGEshr',
-//           )
-//         }
-//       >
-//         <CardContent>
-//           <Typography
-//             variant="h6"
-//             sx={{ color: theme.palette.zesty.zestyDarkText }}
-//             component="p"
-//           >
-//             Training Videos
-//           </Typography>
-//           <Typography
-//             variant="body2"
-//             sx={{ color: theme.palette.zesty.zestyZambezi }}
-//           >
-//             escription would be: Watch our series of training videos to get
-//             started on Zesty
-//           </Typography>
-//         </CardContent>
-//       </CardActionArea>
-//     </Card>
-//   );
-// };
+  return (
+    <Stack sx={{ width: '50vw' }}>
+      <Typography variant="h4" color="secondary">
+        New user Summary
+      </Typography>
+      <Stack direction={'row'} gap={2}>
+        <StickyTable
+          perPage={100}
+          pagination={false}
+          rows={basicDetails}
+          columns={COLUMNS_VIEW_BASIC}
+        />
+        <StickyTable
+          perPage={100}
+          pagination={false}
+          rows={extraDetails}
+          columns={COLUMNS_VIEW_EXTRA}
+        />
+        <StickyTable
+          perPage={100}
+          pagination={false}
+          rows={linksDetails}
+          columns={COLUMNS_VIEW_EXTRA}
+        />
+      </Stack>
+    </Stack>
+  );
+};

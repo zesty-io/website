@@ -57,6 +57,9 @@ const Index = ({
             <TableHead>
               <TableRow>
                 {columns?.map((e) => {
+                  if (!e.label) {
+                    return null;
+                  }
                   return (
                     <TableCell
                       width={350}
@@ -77,6 +80,9 @@ const Index = ({
                     <TableRow hover>
                       {columns?.map((column) => {
                         const value = row[column.id];
+                        if (!value) {
+                          return null;
+                        }
 
                         // Check if JSX ELEMENT ex Buttons etc
                         if (React.isValidElement(value)) {
