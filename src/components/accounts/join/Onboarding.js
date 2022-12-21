@@ -3,6 +3,8 @@ import { Box, Container, Link, Stack, Typography } from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { LoadingButton } from '@mui/lab';
 
+import Confetti from 'react-confetti';
+
 import { StickyTable } from 'components/accounts';
 
 export const Onboarding = ({
@@ -40,6 +42,7 @@ export const Onboarding = ({
   };
   return (
     <>
+      {!loading && <Confetti numberOfPieces={350} width={1920} height={1080} />}
       <Container>
         <Box paddingY={3}>
           {loading ? (
@@ -62,6 +65,7 @@ export const Onboarding = ({
             loading={loading}
             variant="contained"
             color={'primary'}
+            size={'large'}
             onClick={() => handleClick(instanceUrl)}
             startIcon={<RocketLaunchIcon />}
           >
@@ -111,6 +115,16 @@ const NewUserSummary = ({
       label: '  ',
     },
   ];
+  const COLUMNS_VIEW_LINKS = [
+    {
+      id: 'key',
+      label: 'Links',
+    },
+    {
+      id: 'value',
+      label: '  ',
+    },
+  ];
   const name = `${userInfo?.firstName} ${userInfo?.lastName}`;
   const basicDetails = [
     { key: userInfo?.firstName && 'Name', value: name },
@@ -137,17 +151,25 @@ const NewUserSummary = ({
   const linksDetails = [
     {
       key: instanceUrl && 'Manager Link',
-      value: <Link href={instanceUrl}>{instanceUrl}</Link>,
+      value: (
+        <Link href={instanceUrl} target="_blank" rel="noopener noreferrer">
+          {instanceUrl}
+        </Link>
+      ),
     },
     {
       key: zohoLeadLink && 'ZOHO Lead',
-      value: <Link href={zohoLeadLink}>Zoho Lead Link</Link>,
+      value: (
+        <Link href={zohoLeadLink} target="_blank" rel="noopener noreferrer">
+          Zoho Lead Link
+        </Link>
+      ),
     },
   ];
 
   return (
     <Stack sx={{ width: '50vw' }}>
-      <Typography variant="h4" color="secondary">
+      <Typography variant="h4" color="gray" fontWeight={'500'}>
         New user Summary
       </Typography>
       <Stack direction={'row'} gap={2}>
@@ -157,18 +179,20 @@ const NewUserSummary = ({
           rows={basicDetails}
           columns={COLUMNS_VIEW_BASIC}
         />
-        <StickyTable
-          perPage={100}
-          pagination={false}
-          rows={extraDetails}
-          columns={COLUMNS_VIEW_EXTRA}
-        />
-        <StickyTable
-          perPage={100}
-          pagination={false}
-          rows={linksDetails}
-          columns={COLUMNS_VIEW_EXTRA}
-        />
+        <Stack>
+          <StickyTable
+            perPage={100}
+            pagination={false}
+            rows={extraDetails}
+            columns={COLUMNS_VIEW_EXTRA}
+          />
+          <StickyTable
+            perPage={100}
+            pagination={false}
+            rows={linksDetails}
+            columns={COLUMNS_VIEW_LINKS}
+          />
+        </Stack>
       </Stack>
     </Stack>
   );
