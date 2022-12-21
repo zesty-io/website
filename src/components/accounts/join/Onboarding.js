@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Container, Link, Stack, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { LoadingButton } from '@mui/lab';
 
@@ -133,16 +133,16 @@ const NewUserSummary = ({
       label: '  ',
     },
   ];
-  const COLUMNS_VIEW_LINKS = [
-    {
-      id: 'key',
-      label: 'Links',
-    },
-    {
-      id: 'value',
-      label: '  ',
-    },
-  ];
+  // const COLUMNS_VIEW_LINKS = [
+  //   {
+  //     id: 'key',
+  //     label: 'Links',
+  //   },
+  //   {
+  //     id: 'value',
+  //     label: '  ',
+  //   },
+  // ];
   const name = `${userInfo?.firstName} ${userInfo?.lastName}`;
   const basicDetails = [
     { key: userInfo?.firstName && 'Name', value: name },
@@ -166,24 +166,24 @@ const NewUserSummary = ({
     },
   ];
 
-  const linksDetails = [
-    {
-      key: instanceUrl && 'Manager Link',
-      value: (
-        <Link href={instanceUrl} target="_blank" rel="noopener noreferrer">
-          {instanceUrl}
-        </Link>
-      ),
-    },
-    {
-      key: zohoLeadLink && 'ZOHO Lead',
-      value: (
-        <Link href={zohoLeadLink} target="_blank" rel="noopener noreferrer">
-          Zoho Lead Link
-        </Link>
-      ),
-    },
-  ];
+  // const linksDetails = [
+  //   {
+  //     key: instanceUrl && 'Manager Link',
+  //     value: (
+  //       <Link href={instanceUrl} target="_blank" rel="noopener noreferrer">
+  //         {instanceUrl}
+  //       </Link>
+  //     ),
+  //   },
+  //   {
+  //     key: zohoLeadLink && 'ZOHO Lead',
+  //     value: (
+  //       <Link href={zohoLeadLink} target="_blank" rel="noopener noreferrer">
+  //         Zoho Lead Link
+  //       </Link>
+  //     ),
+  //   },
+  // ];
 
   return (
     <Stack sx={{ width: '70vw' }}>
@@ -203,12 +203,12 @@ const NewUserSummary = ({
           rows={extraDetails}
           columns={COLUMNS_VIEW_EXTRA}
         />
-        <StickyTable
+        {/* <StickyTable
           perPage={100}
           pagination={false}
           rows={linksDetails}
           columns={COLUMNS_VIEW_LINKS}
-        />
+        /> */}
       </Stack>
     </Stack>
   );
