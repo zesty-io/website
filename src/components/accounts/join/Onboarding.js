@@ -44,19 +44,19 @@ export const Onboarding = ({
     <>
       {!loading && <Confetti numberOfPieces={350} width={1920} height={1080} />}
       <Container>
-        <Box paddingY={3}>
+        <Box paddingY={2}>
           {loading ? (
             <Stack my={1}>
-              <Typography variant="h5" color="primary">
+              <Typography variant="h6" color="primary">
                 Your instance is being created.{' '}
               </Typography>
-              <Typography variant="h6" color={'primary'}>
+              <Typography variant="p" color={'primary'}>
                 This process may take up to 60 seconds.
               </Typography>
             </Stack>
           ) : (
             <Stack my={1}>
-              <Typography variant="h4" color="primary">
+              <Typography variant="h5" color="primary">
                 Instance successfully created
               </Typography>
             </Stack>
@@ -169,7 +169,7 @@ const NewUserSummary = ({
 
   return (
     <Stack sx={{ width: '50vw' }}>
-      <Typography variant="h4" color="gray" fontWeight={'500'}>
+      <Typography variant="h5" color="gray" fontWeight={'500'}>
         New user Summary
       </Typography>
       <Stack direction={'row'} gap={2}>
