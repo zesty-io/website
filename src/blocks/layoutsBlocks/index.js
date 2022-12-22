@@ -7,16 +7,14 @@ import SimpleCta from './Cta/SimpleCta'
 import Growth from './Growth/Growth'
 import SimpleStats from './Growth/SimpleStats'
 import SimpleHeroWithImageAndCtaButtons from './Hero/SimpleHeroWithImageAndCtaButtons'
-import TwoColumnHeroWithImage from './Hero/TwoColumnHeroWithImage'
 import TwoRowsHero from './Hero/TwoRowsHero'
 import SimpleCardLogo from './LogoGrid/SimpleCardLogo'
 import AlternateColumns from './PageLayouts/AlternateColumns'
 import Features from './PageLayouts/Features'
 import Persona from './Persona/Persona'
-import ParsleyOverview from './products/ParsleyOverview'
 import LogoSlider from './Slider/LogoSlider'
 import Testimonials from './Testimonials/Testimonials'
 import WhyZesty from './WhyZesty/WhyZesty'
 
 
-export {Bottom, CardsInContainer,CaseStudyCards,DarkBlueCta,ImageWithContentsCta,SimpleCta,Growth,SimpleStats,SimpleHeroWithImageAndCtaButtons, TwoColumnHeroWithImage,TwoRowsHero,SimpleCardLogo,AlternateColumns,Features,Persona,ParsleyOverview,LogoSlider,Testimonials,WhyZesty}
+export {Bottom, CardsInContainer,CaseStudyCards,DarkBlueCta,ImageWithContentsCta,SimpleCta,Growth,SimpleStats,SimpleHeroWithImageAndCtaButtons,TwoRowsHero,SimpleCardLogo,AlternateColumns,Features,Persona,LogoSlider,Testimonials,WhyZesty}

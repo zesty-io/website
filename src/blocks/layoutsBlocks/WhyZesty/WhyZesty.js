@@ -4,9 +4,13 @@
 
 import { Box, Grid, Typography, Container } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
+import { useTheme } from '@mui/material/styles';
+import FillerContent from 'components/globals/FillerContent';
+
 
 import ZestyImage from '../../Image/ZestyImage';
-const WhyZesty = ({ header, FillerContent, theme, isMedium, whyZestyData }) => {
+const WhyZesty = ({ header,   isMedium, whyZestyData }) => {
+  const theme = useTheme()
   return (
     <Box
       sx={{
@@ -47,12 +51,12 @@ const WhyZesty = ({ header, FillerContent, theme, isMedium, whyZestyData }) => {
               },
             }}
           >
-            {header}
+            {header || FillerContent.rich_text}
           </MuiMarkdown>
         </Box>
 
         <Box sx={{ mt: 10 }}>
-          {whyZestyData.map((item, index) => (
+          {whyZestyData?.map((item, index) => (
             <Grid sx={{ my: 5 }} key={index} container spacing={2}>
               <Grid
                 sx={{
