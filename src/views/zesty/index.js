@@ -129,8 +129,10 @@ import Chat from './Chat';
 import LayoutsTestPage from './LayoutsTestPage';
 import Header from './Header';
 import Footer from './Footer';
+import DefaultPageComponent from './DefaultPageComponent';
 
 export {
+  DefaultPageComponent,
   Clipping,
   Widget,
   MarketingAnnoucement,

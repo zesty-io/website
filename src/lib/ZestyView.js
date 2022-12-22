@@ -11,7 +11,9 @@ export function ZestyView(props) {
   }
 
   // get data in initial load
-  const Component = Zesty[props.content.meta.model_alternate_name];
+  const Component =
+    Zesty[props.content.meta.model_alternate_name] ||
+    Zesty['DefaultPageComponent'];
 
   // outside the component near imports
   const initLiveEditor = async (data) => {

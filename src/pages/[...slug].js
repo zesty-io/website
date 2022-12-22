@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, createContext } from 'react';
 
 import { fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
@@ -6,7 +6,9 @@ import { githubFetch } from 'lib/githubFetch';
 import { ZestyView } from 'lib/ZestyView';
 import Main from 'layouts/Main';
 import { getIsAuthenticated } from 'utils';
+//
 
+export const GlobalContext = createContext();
 export default function Slug(props) {
   // for homepage navigation
   // const isDarkMode = theme.palette.mode === 'dark';
@@ -17,15 +19,17 @@ export default function Slug(props) {
 
   return (
     <>
-      <Main
-        model={props?.meta?.model_alternate_name}
-        nav={props?.navigationTree}
-        customRouting={props?.navigationCustom}
-        url={props?.meta?.web?.uri}
-        bgcolor={bgcolor}
-      >
-        <ZestyView content={props} />
-      </Main>
+      <GlobalContext.Provider value={props}>
+        <Main
+          model={props?.meta?.model_alternate_name}
+          nav={props?.navigationTree}
+          customRouting={props?.navigationCustom}
+          url={props?.meta?.web?.uri}
+          bgcolor={bgcolor}
+        >
+          <ZestyView content={props} />
+        </Main>
+      </GlobalContext.Provider>
     </>
   );
 }
@@ -70,6 +74,28 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       },
     };
   }
+
+  // Holds the layout components object
+  const layoutComponentObject =
+    data.meta.layout.json['layout:root:column:0'].children;
+  // Convert objects to array
+  const componentsArray = Object.values(layoutComponentObject);
+
+  // loop each object and fetch data based on the defined zuid
+  for await (const component of componentsArray) {
+    console.log(component);
+
+    try {
+      // Layouts Data Fetching
+      const resp = await fetch(
+        `https://kfg6bckb-dev.webengine.zesty.io/-/instant/${component.contentZuid}.json`,
+      );
+
+      data[component.name] = await resp.json();
+    } catch (error) {}
+  }
+
+  console.log(data);
 
   // Pass data to the page via props
   return { props: { ...data } };
