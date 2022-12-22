@@ -7,6 +7,7 @@ import withReactContent from 'sweetalert2-react-content';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { joinAppConstants } from 'components/accounts/join/constants';
 import EditIcon from '@mui/icons-material/Edit';
 import {
   AccountsHeader,
@@ -16,6 +17,7 @@ import {
   EmailForm,
   ErrorMsg,
   FormInput,
+  FormSelect,
   SubmitBtn,
   SuccessMsg,
 } from 'components/accounts/ui';
@@ -198,13 +200,13 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
     await getUserEmails();
   };
   const updateUsername = async (values) => {
-    const userZUID = userInfo.ZUID;
+    const newPrefs = userInfo?.prefs && JSON.parse(userInfo?.prefs);
     const body = {
       firstName: values.firstName,
       lastName: values.lastName,
-      prefs: userInfo.prefs,
+      prefs: JSON.stringify({ ...newPrefs, ['persona']: values?.persona }),
     };
-    const res = await ZestyAPI.updateUser(userZUID, body);
+    const res = await ZestyAPI.updateUser(userInfo.ZUID, body);
     !res.error && updateUsernameSuccess(res);
     res.error && updateUsernameError(res);
   };
@@ -264,11 +266,14 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
 };
 
 const EditProfile = ({ onSubmit, userInfo }) => {
+  const userPrefs =
+    typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
   const formik = useFormik({
     validationSchema: accountsValidations.userName,
     initialValues: {
       firstName: userInfo?.firstName,
       lastName: userInfo?.lastName,
+      persona: userPrefs?.persona,
     },
     onSubmit: async (values) => {
       await onSubmit(values);
@@ -280,9 +285,17 @@ const EditProfile = ({ onSubmit, userInfo }) => {
     <Stack gap={4}>
       <ProfileHeader userInfo={userInfo} />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput name={'firstName'} label="First Name" formik={formik} />
-        <FormInput name={'lastName'} label="Last Name" formik={formik} />
-        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        <Stack gap={2}>
+          <FormInput name={'firstName'} label="First Name" formik={formik} />
+          <FormInput name={'lastName'} label="Last Name" formik={formik} />
+          <FormSelect
+            label="Role"
+            name={'persona'}
+            formik={formik}
+            options={joinAppConstants.roleList}
+          />
+          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        </Stack>
       </form>
     </Stack>
   );
