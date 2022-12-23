@@ -12,7 +12,6 @@ export const AccountsSingleNavItem = ({ title, url, colorInvert = false }) => {
       sx={{
         color: colorInvert ? 'common.white' : 'text.secondary',
         bgcolor: hasActiveLink && grey[300],
-        pointerEvents: hasActiveLink && 'none',
         '&:hover': {
           bgcolor: grey[300],
         },

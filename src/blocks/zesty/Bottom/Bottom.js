@@ -73,7 +73,7 @@ const Bottom = ({
                   bottom: isLarge ? 0 : -37,
                 }}
                 loading="lazy"
-                src={`${graphic || ''}?width=951`}
+                src={`${graphic || FillerContent.image}?width=951`}
                 alt="zesty.io"
               />
             </Box>
@@ -132,7 +132,7 @@ const Bottom = ({
                   },
                 }}
               >
-                {titleAndDescription || FillerContent.rich_text}
+                {titleAndDescription || FillerContent.headerAndDescription}
               </MuiMarkdown>
 
               <Box

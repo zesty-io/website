@@ -16,6 +16,7 @@ const userName = yup.object().shape({
     .string()
     .min(2, 'Must be atleast 2 Characters')
     .required('Name is required'),
+  persona: yup.string(),
 });
 
 const signUp = yup.object().shape({
@@ -113,6 +114,18 @@ const twoFactorAuth = yup.object().shape({
   phoneNumber: yup.string().required('Phone Number is required*'),
 });
 
+const demoForm = yup.object().shape({
+  company: yup.string().required('Company is Required*'),
+  projectDescription: yup.string(),
+  phoneNumber: yup.number().required('Phone Number is required*'),
+});
+const companyDetails = yup.object().shape({
+  company: yup.string().required('Company is Required*'),
+});
+
+const projectName = yup.object().shape({
+  projectName: yup.string().required('Project name is required*'),
+});
 const localeSchema = yup.object().shape({
   locale: yup.string().required('This is required'),
 });
@@ -181,4 +194,7 @@ export const accountsValidations = {
   updateTeam,
   addEmail,
   signUp,
+  demoForm,
+  companyDetails,
+  projectName,
 };

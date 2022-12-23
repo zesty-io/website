@@ -1,10 +1,11 @@
 // MUI Imports
-import { Box, Container, Typography, Grid, Button } from '@mui/material';
+import { Box, Container, Typography, Grid } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
 import ZestyImage from 'blocks/Image/ZestyImage';
+import DemoCta from 'components/cta/DemoCta';
 
 const TechStack = ({
   headerColor,
@@ -17,7 +18,7 @@ const TechStack = ({
   background,
 }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   // check if features_header richtext if not convert it to richtext format for consistency
   const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
@@ -99,26 +100,22 @@ const TechStack = ({
                   `<span>${textHighlight}</span>`,
                 )}
               </MuiMarkdown>
-
-              <Box sx={{ width: '100%', mt: 4 }}>
-                {cta_link && (
-                  <Button
-                    component={'a'}
-                    target="_blank"
+              {cta_link && (
+                <Box sx={{ width: '100%', mt: 4 }}>
+                  <DemoCta
+                    icon={false}
                     fullWidth={isMobile}
                     variant="contained"
-                    href={cta_link || FillerContent.href}
                     sx={{
                       background: theme.palette.zesty.zestyOrange,
-                      color: theme.palette.common.white,
                       px: 6,
+                      fontWeight: 'bold'
                     }}
-                    size="large"
-                  >
-                    {cta_text || FillerContent.cta}
-                  </Button>
-                )}
-              </Box>
+                    text={cta_text || FillerContent.cta}
+                    href={cta_link || FillerContent.href}
+                  />
+                </Box>
+              )}
             </Grid>
             <Grid
               sx={{
@@ -149,14 +146,14 @@ const TechStack = ({
                 />
                 {logos?.map((item, idx) => {
                   return (
-                      <ZestyImage
-                        key={idx}
-                        width={88}
-                        height={88}
-                        style={{ height: 88, width: 'auto' }}
-                        alt="integration logo's"
-                        src={item.logo?.data[0].url}
-                      />
+                    <ZestyImage
+                      key={idx}
+                      width={88}
+                      height={88}
+                      style={{ height: 88, width: 'auto' }}
+                      alt="integration logo's"
+                      src={item.logo?.data[0].url}
+                    />
                   );
                 })}
               </Box>
