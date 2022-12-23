@@ -658,6 +658,7 @@ const Index = ({
     projectDescription,
     emails,
     projectName,
+    instance_zuid,
   };
 
   const onBoardingProps = {

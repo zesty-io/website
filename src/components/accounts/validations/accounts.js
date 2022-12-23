@@ -16,6 +16,7 @@ const userName = yup.object().shape({
     .string()
     .min(2, 'Must be atleast 2 Characters')
     .required('Name is required'),
+  persona: yup.string(),
 });
 
 const signUp = yup.object().shape({
