@@ -12,13 +12,15 @@ const ComponentSelector = (props) => {
   // Map component from react-auto-layout to nextjs component
   const Component = zestyBlocks[componentName];
 
-  console.log(ctx[props.data.name]);
+  console.log(ctx[props.data.name.toLowerCase()]);
 
   // check if ther's an error hydrating data
 
-  if (!ctx[props.data.name].message) {
+  if (props.data.name.toLowerCase() in ctx) {
     // Read the context and grab component data
-    const { content } = ctx[props.data.name]?.data[0];
+    const content = ctx[props.data.name.toLowerCase()]?.data[0];
+
+    console.log('content', content);
     return <Component {...content} />;
   }
 

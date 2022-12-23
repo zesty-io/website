@@ -47,7 +47,7 @@ import Container from 'blocks/container/Container';
  */
 
 const Features = ({
-  data = FillerContent.featuresCards,
+  features_data = FillerContent.featuresCards,
   features_header = '',
   header_size = 32,
   header_color,
@@ -55,8 +55,6 @@ const Features = ({
   feature_description,
   textHighlight = 'Zesty',
   background = '', // options "zesty" || "chevron"
-  icon_width = 67,
-  icon_height = 60,
   center = false,
   cta_button_text = '',
   background_color = '',
@@ -274,11 +272,11 @@ const Features = ({
             zIndex: '1000',
           }}
         >
-          {data?.map((e, i) => {
+          {features_data?.data?.map((e, i) => {
             return (
               <div key={i}>
                 <Card
-                  sx={{
+                    sx={{
                     width: '20rem',
                     minHeight: 320,
                     padding: '3rem 2rem',
@@ -301,9 +299,9 @@ const Features = ({
                   >
                     <ZestyImage
                       loading="lazy"
-                      width={icon_width}
-                      height={icon_height}
-                      src={e?.icon_image}
+                      width={67}
+                      height={60}
+                      src={e?.icon_image.data[0].url}
                       alt={e.feature_name}
                     />
                     <Typography

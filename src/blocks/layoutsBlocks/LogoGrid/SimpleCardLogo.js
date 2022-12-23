@@ -11,23 +11,24 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 
 /**
  *
- * @param {array} logoItems - array of logo items
+ * @param {array} logo_items - array of logo items
  * @param {string} heading_text - logo heading text
- * @param {boolean} textOutside - determine if heading text will appear outside the card or inside
+ * @param {boolean} text_outside - determine if heading text will appear outside the card or inside
  * @param {boolean} invertLogo - invert logo color on darkmode default true
  * @param {string} background - background color default to transparent
  *
  */
 
 const SimpleCardLogo = ({
-  logoItems = FillerContent.logos,
+  logo_items = FillerContent.logos,
   heading_text = '',
-  textOutside = false,
+  text_outside = 0,
   maxWidth = 1500,
-  variant = 'contained',
+  variant = 'elevation',
   invertLogo = true,
   background ="transparent"
 }) => {
+  console.log('test',  text_outside)
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
   const sunsDarkLogoUrl =
@@ -41,10 +42,18 @@ const SimpleCardLogo = ({
     heading_text = `<h2>${heading_text}</h2>`;
   }
 
+  const checkTruthy = (content) => {
+    if(content === '0') {
+      return false
+    } else {
+      return true
+    }
+  }
+
   return (
     <Box component="section">
       <Container sx={{ maxWidth: maxWidth }}>
-        {textOutside && (
+        {checkTruthy(text_outside) && (
           <MuiMarkdown
             options={{
               overrides: {
@@ -76,7 +85,7 @@ const SimpleCardLogo = ({
           }}
         >
           <CardContent>
-            {!textOutside && (
+            {!checkTruthy(text_outside) && (
               <MuiMarkdown
                 options={{
                   overrides: {
@@ -108,7 +117,7 @@ const SimpleCardLogo = ({
                 gap: 3,
               }}
             >
-              {logoItems?.map((item, index) => (
+              {logo_items?.data?.map((item, index) => (
                 <Box key={index} sx={{ display: 'flex', width: 150 }}>
                   <ZestyImage
                   

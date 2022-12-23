@@ -75,27 +75,42 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
     };
   }
 
-  // Holds the layout components object
-  const layoutComponentObject =
-    data.meta.layout.json['layout:root:column:0'].children;
-  // Convert objects to array
-  const componentsArray = Object.values(layoutComponentObject);
+  // let productionMode =
+  //   undefined === process.env.PRODUCTION || process.env.PRODUCTION === 'true'
+  //     ? true
+  //     : false;
+  // let zestyURL = productionMode
+  //   ? process.env.zesty.production
+  //   : process.env.zesty.stage;
 
-  // loop each object and fetch data based on the defined zuid
-  for await (const component of componentsArray) {
-    console.log(component);
+  // /**
+  //  * React Auto Layout Serverside Request Implementation
+  //  */
 
-    try {
-      // Layouts Data Fetching
-      const resp = await fetch(
-        `https://kfg6bckb-dev.webengine.zesty.io/-/instant/${component.contentZuid}.json`,
-      );
+  // // outer try-catch to avoid errors on pages that don't use layouts
+  // try {
+  //   // Holds the layout components object
+  //   const layoutComponentObject =
+  //     data.meta.layout.json['layout:root:column:0'].children;
+  //   // Convert objects to array
+  //   const componentsArray = Object.values(layoutComponentObject);
 
-      data[component.name] = await resp.json();
-    } catch (error) {}
-  }
-
-  console.log(data);
+  //   // loop each object and fetch data based on the defined zuid
+  //   for await (const component of componentsArray) {
+  //     try {
+  //       // Layouts Data Fetching
+  //       const resp = await fetch(
+  //         `${zestyURL}/-/instant/${component.hydrationResource}.json`,
+  //       );
+  //       // append the data to the global content props
+  //       data[component.name] = await resp.json();
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // } catch (error) {
+  //   console.info('Layout is not initialize on this page');
+  // }
 
   // Pass data to the page via props
   return { props: { ...data } };

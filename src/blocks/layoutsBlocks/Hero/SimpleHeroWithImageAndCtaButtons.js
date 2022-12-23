@@ -45,7 +45,6 @@ const SimpleHeroWithImageAndCtaButtons = ({
   title,
   description,
   cta_left,
-  cta_left_url,
   cta_right,
   cta_right_url,
   backgroundColor = '',
@@ -56,9 +55,6 @@ const SimpleHeroWithImageAndCtaButtons = ({
   isDarkBackground = false,
   isCodeBlock = false,
   dataTestId = '',
-
-
-  title_description
 }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
@@ -164,7 +160,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                   },
                 }}
               >
-                {title_description || FillerContent.rich_text_2}
+                {title || FillerContent.rich_text_2}
               </MuiMarkdown>
             </Box>
 
@@ -256,7 +252,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
           >
             {!video ? (
               <ZestyImage
-                src={image?.data[0].url || FillerContent.image}
+                src={image?.data[0]?.url || FillerContent.image}
                 width={600}
                 height={350}
                 style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
