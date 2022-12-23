@@ -23,8 +23,29 @@ import {
 } from 'components/accounts/ui';
 import { useFormik } from 'formik';
 import { accountsValidations } from 'components/accounts';
+import { zohoPostObject } from 'components/accounts/join/zohoPostObject';
 
 const MySwal = withReactContent(Swal);
+
+const postToZOHO = async (payloadJSON) => {
+  dataLayer.push({ event: 'SignupLead', value: '1' });
+  try {
+    let res = await fetch(
+      'https://us-central1-zesty-prod.cloudfunctions.net/zoho',
+      {
+        method: 'POST',
+        body: JSON.stringify(payloadJSON),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return await res.json();
+  } catch (error) {
+    console.warn(error);
+    // throw new Error(`HTTP error: ${error}`);
+  }
+};
 
 const CustomTable = ({ emails, userInfo, deleteEmail, loading }) => {
   const ROWS = emails?.map((e) => {
@@ -201,11 +222,51 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
   };
   const updateUsername = async (values) => {
     const newPrefs = userInfo?.prefs && JSON.parse(userInfo?.prefs);
+    const {
+      projectType,
+      userType,
+      goal,
+      company,
+      preferred_framework,
+      preferred_component_system,
+      projectName,
+      projectDescription,
+      instance_zuid,
+      phoneNumber,
+    } = newPrefs || {};
+
+    const zohoObj = {
+      ...userInfo,
+      projectType,
+      userType,
+      goal,
+      company,
+      preferred_framework,
+      preferred_component_system,
+      role: values?.persona,
+      phoneNumber,
+      projectDescription,
+      emails,
+      projectName,
+      instance_zuid,
+    };
+
+    const obj = zohoPostObject(
+      zohoObj,
+      'Trial',
+      'Trial',
+      'Unknown',
+      'Website',
+      '',
+      userInfo.ZUID,
+    );
+
     const body = {
       firstName: values.firstName,
       lastName: values.lastName,
       prefs: JSON.stringify({ ...newPrefs, ['persona']: values?.persona }),
     };
+    await postToZOHO(obj);
     const res = await ZestyAPI.updateUser(userInfo.ZUID, body);
     !res.error && updateUsernameSuccess(res);
     res.error && updateUsernameError(res);
