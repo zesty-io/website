@@ -77,5 +77,6 @@ export const zohoPostObject = (
     Project_Description: obj?.projectDescription,
     Invited_Users: obj?.emails,
     Project_Name: obj?.projectName,
+    Instance_ZUID: obj?.instance_zuid,
   };
 };

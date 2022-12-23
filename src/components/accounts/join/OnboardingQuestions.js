@@ -30,6 +30,7 @@ import { isProd } from 'utils';
 import { handlePostToSlack } from './services';
 import slackNotify from 'components/marketing/Start/slackNotify';
 import { pendoScript } from 'components/marketing/Join/pendoScript';
+import dayjs from 'dayjs';
 
 const zoholeadUrl =
   'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/';
@@ -658,6 +659,7 @@ const Index = ({
     projectDescription,
     emails,
     projectName,
+    instance_zuid,
   };
 
   const onBoardingProps = {
@@ -675,6 +677,8 @@ const Index = ({
     zohoLeadLink,
   };
 
+  const isExistingZestyUser =
+    dayjs().diff(userInfo?.createdAt, 'hours') > 48 ? true : false;
   React.useEffect(() => {
     const obj = zohoPostObject(
       zohoObj,
@@ -685,10 +689,11 @@ const Index = ({
       role,
       userInfo.ZUID,
     );
-    if (zestyProductionMode) {
+    if (!isExistingZestyUser) {
       handleZoho(obj);
     }
   }, [
+    isExistingZestyUser,
     projectType,
     userType,
     goal,
@@ -701,6 +706,16 @@ const Index = ({
     emails,
   ]);
 
+  const handleInviteEmails = async () => {
+    if (emails?.length !== 0) {
+      await slackNotify(
+        `*${userInfo?.firstName} ${userInfo?.lastName}* ${
+          userInfo?.email
+        } invited ${JSON.stringify(emails)}`,
+      );
+    }
+    handleNext();
+  };
   React.useEffect(() => {
     gtag_report_conversion();
   }, []);
@@ -864,7 +879,7 @@ const Index = ({
                 <InviteTeam
                   emails={emails}
                   setemails={setemails}
-                  handleNext={handleNext}
+                  handleNext={handleInviteEmails}
                 />
               </SwiperSlide>
             )}

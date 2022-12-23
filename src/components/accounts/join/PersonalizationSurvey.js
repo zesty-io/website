@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import dayjs from 'dayjs';
 import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
 import Script from 'next/script';
@@ -642,6 +643,8 @@ const Index = ({
     projectName,
   };
 
+  const isExistingZestyUser =
+    dayjs().diff(userInfo?.createdAt, 'hours') > 48 ? true : false;
   React.useEffect(() => {
     const obj = zohoPostObject(
       zohoObj,
@@ -652,10 +655,11 @@ const Index = ({
       role,
       userInfo.ZUID,
     );
-    if (zestyProductionMode) {
+    if (!isExistingZestyUser) {
       handleZoho(obj);
     }
   }, [
+    isExistingZestyUser,
     projectType,
     userType,
     goal,
