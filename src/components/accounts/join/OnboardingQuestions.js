@@ -30,6 +30,7 @@ import { isProd } from 'utils';
 import { handlePostToSlack } from './services';
 import slackNotify from 'components/marketing/Start/slackNotify';
 import { pendoScript } from 'components/marketing/Join/pendoScript';
+import dayjs from 'dayjs';
 
 const zoholeadUrl =
   'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/';
@@ -676,6 +677,8 @@ const Index = ({
     zohoLeadLink,
   };
 
+  const isExistingZestyUser =
+    dayjs().diff(userInfo?.createdAt, 'hours') > 48 ? true : false;
   React.useEffect(() => {
     const obj = zohoPostObject(
       zohoObj,
@@ -686,10 +689,11 @@ const Index = ({
       role,
       userInfo.ZUID,
     );
-    if (zestyProductionMode) {
+    if (!isExistingZestyUser) {
       handleZoho(obj);
     }
   }, [
+    isExistingZestyUser,
     projectType,
     userType,
     goal,
