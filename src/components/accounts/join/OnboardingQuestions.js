@@ -702,6 +702,16 @@ const Index = ({
     emails,
   ]);
 
+  const handleInviteEmails = async () => {
+    if (emails?.length !== 0) {
+      await slackNotify(
+        `*${userInfo?.firstName} ${userInfo?.lastName}* ${
+          userInfo?.email
+        } invited ${JSON.stringify(emails)}`,
+      );
+    }
+    handleNext();
+  };
   React.useEffect(() => {
     gtag_report_conversion();
   }, []);
@@ -865,7 +875,7 @@ const Index = ({
                 <InviteTeam
                   emails={emails}
                   setemails={setemails}
-                  handleNext={handleNext}
+                  handleNext={handleInviteEmails}
                 />
               </SwiperSlide>
             )}
