@@ -20,6 +20,16 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
           maxWidth: 900px;
           height: 400px;
         }
+        .wysiwyg > pre  {
+          padding:20px;
+          background:#F5F2F0;
+          width:100%;
+          maxWidth:900px;
+          overflow:auto;
+          font-size:14px;
+          border-radius:10px;
+        }
+
         .wysiwyg blockquote {
           padding: 10px 20px 10px 40px;
           backgorund: #e7e7e7;

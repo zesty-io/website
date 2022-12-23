@@ -180,7 +180,7 @@ const InstanceDashboardV2 = () => {
   const toggleFavorites = async (zuid) => {
     setIsTogglingFavorites(true);
     const isExisting = favorites?.find((e) => e === zuid);
-    const favoritesSites = [...favorites, zuid];
+    const favoritesSites = favorites ? [...favorites, zuid] : [];
     const filteredFavorites = favorites?.filter((e) => e !== zuid);
     const prefs = JSON.parse(userInfo.prefs);
     prefs.favorite_sites = !isExisting ? favoritesSites : filteredFavorites;
