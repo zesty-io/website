@@ -72,7 +72,7 @@ Zoho Lead: ${zohoLeadLink}`;
           {loading ? (
             <Stack my={1}>
               <Typography variant="h6" color="primary">
-                Your instance is being created.{' '}
+                Your demo instance is being created.{' '}
               </Typography>
               <Typography variant="p" color={'primary'}>
                 This process may take up to 60 seconds.
