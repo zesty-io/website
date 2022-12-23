@@ -21,15 +21,26 @@ import { getIsAuthenticated } from 'utils';
 const firstMessage = (
   <Box paddingY={4}>
     <Typography variant="h4" gutterBottom>
-      Hello!
+      Join Today
     </Typography>
     <Typography variant="h6">
-      We are excited for you to explore Zesty.
+      Build websites and headless applications with Zesty.io
     </Typography>
     <Box paddingY={1}>
-      <Typography variant="p">
-        {' '}
-        To help onboard you, can we ask two questions?
+      <Typography>
+        <p>
+          Publish to infinite channels, from web to mobile to digital
+          signage.&nbsp;
+        </p>
+        <ul>
+          <li>Get started with our free community plan</li>
+          <li>Enterprise capabilities for bigger projects</li>
+          <li>Visual editing tools for the non-developers</li>
+          <li>
+            Robust APIs, A/B testing, webhooks, layouts, and on-page editing
+          </li>
+          <li>Integrates to your stack!</li>
+        </ul>
       </Typography>
     </Box>
   </Box>
