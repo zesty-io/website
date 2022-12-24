@@ -326,11 +326,7 @@ const Dashboard = ({ content = {} }) => {
       ? true
       : false;
   //* if newuser dont have invites and dont have instances show onboarding
-  if (
-    initialInstances?.length === 0 &&
-    invites?.length === 0 &&
-    isUserMissingPrefs
-  ) {
+  if (initialInstances?.length === 0 && invites?.length === 0) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
     //* if old user and has missing preference
   } else if (hasMissingPrefs) {
