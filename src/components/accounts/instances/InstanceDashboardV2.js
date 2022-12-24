@@ -365,7 +365,7 @@ const InstanceDashboardV2 = () => {
             icon={<EmailIcon color="primary" />}
             view={view}
             lists={invitesList}
-            isloading={isInstancesLoading}
+            isLoading={isInstancesLoading}
             renderInstances={renderInstances}
           />
 
