@@ -36,7 +36,7 @@ const Dashboard = ({ content = {} }) => {
 
   const [invites, setinvites] = useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
-  const [initialInstances, setInitialInstances] = useState([]);
+  const [initialInstances, setInitialInstances] = useState(undefined);
   const [instances, setInstances] = useState([]);
   const [isInstancesLoading, setIsInstanceLoading] = useState(false);
   const [filteredInstances, setFilteredInstances] = useState([]);
