@@ -17,36 +17,285 @@ import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import HPlusMobiledataIcon from '@mui/icons-material/HPlusMobiledata';
 import MoreIcon from '@mui/icons-material/More';
 
-import JavascriptIcon from '@mui/icons-material/Javascript';
-import CssIcon from '@mui/icons-material/Css';
-
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 
 const frameworkList = [
-  { label: 'Parsely/Zesty', value: 'parsely', icon: <JavascriptIcon /> },
-  { label: 'NextJs', value: 'nextjs', icon: <JavascriptIcon /> },
-  { label: 'React', value: 'react', icon: <JavascriptIcon /> },
-  { label: 'Vue', value: 'vue', icon: <JavascriptIcon /> },
-  { label: 'Nuxt', value: 'nuxt', icon: <JavascriptIcon /> },
-  { label: 'PHP/Laravel', value: 'php', icon: <JavascriptIcon /> },
-  { label: 'HTML/jQuery', value: 'html', icon: <JavascriptIcon /> },
-  { label: 'NodeJS', value: 'nodejs', icon: <JavascriptIcon /> },
-  { label: 'Hugo', value: 'hugo', icon: <JavascriptIcon /> },
-  { label: 'Gatsby', value: 'gatsby', icon: <JavascriptIcon /> },
-  { label: 'Svelte', value: 'svelte', icon: <JavascriptIcon /> },
-  { label: 'Remix', value: 'remix', icon: <JavascriptIcon /> },
-  { label: 'Astro', value: 'astro', icon: <JavascriptIcon /> },
-  { label: 'Other', value: 'other', icon: <>j</> },
+  {
+    label: 'Parsely/Zesty',
+    value: 'parsely',
+
+    icon: (
+      <img width={'24px'} src={'https://brand.zesty.io/zesty-io-logo.png'} />
+    ),
+  },
+  {
+    label: 'NextJs',
+    value: 'nextjs',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/next-js-icon-logo-EE302D5DBD-seeklogo.com.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'React',
+    value: 'react',
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/React-icon.svg.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Vue',
+    value: 'vue',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/Vue.js_Logo_2.svg.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Angular',
+    value: 'angular',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/4373284_angular_logo_logos_icon.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Nuxt',
+    value: 'nuxt',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/Nuxt-js.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'PHP/Laravel',
+    value: 'php',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/32px-Laravel.svg.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'HTML/jQuery',
+    value: 'html',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/HTML5_logo_and_wordmark.svg.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'NodeJS',
+    value: 'nodejs',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/node%20logo%20green.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Hugo',
+    value: 'hugo',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/hugo.svg'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Gatsby',
+    value: 'gatsby',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/file_type_gatsby_icon_130583.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Svelte',
+    value: 'svelte',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/Svelte_logo_by_gengns.svg.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Remix',
+    value: 'remix',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/remix.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Astro',
+    value: 'astro',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/astro.svg'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Other',
+    value: 'other',
+    icon: <></>,
+  },
 ];
 
 const componentsSystemList = [
-  { label: 'Bootstrap', value: 'bootstrap', icon: <CssIcon /> },
-  { label: 'Material UI', value: 'material ui', icon: <CssIcon /> },
-  { label: 'Tailwind', value: 'tailwind', icon: <CssIcon /> },
-  { label: 'Bulma', value: 'bulma', icon: <CssIcon /> },
-  { label: 'Foundation', value: 'foundation', icon: <CssIcon /> },
-  { label: 'Chakra UI', value: 'chakra ui', icon: <CssIcon /> },
+  {
+    label: 'Bootstrap',
+    value: 'bootstrap',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/Bootstrap_logo.svg.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Material UI',
+    value: 'material ui',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/mui.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Tailwind Css',
+    value: 'tailwind',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/Tailwind_CSS_Logo.svg.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Bulma',
+    value: 'bulma',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/bulma.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Ant Design',
+    value: 'ant design',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/ant-design-logo-EAB6B3D5D9-seeklogo.com.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Foundation',
+    value: 'foundation',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/HTML5_logo_and_wordmark.svg.png'
+        }
+      />
+    ),
+  },
+  {
+    label: 'Chakra UI',
+    value: 'chakra ui',
+
+    icon: (
+      <img
+        width={'24px'}
+        src={
+          'https://storage.googleapis.com/assets.zesty.io/website/images/join-app-logos/chakra-ui_title2-400x400.png'
+        }
+      />
+    ),
+  },
   { label: 'Other', value: 'other', icon: <></> },
 ];
 
