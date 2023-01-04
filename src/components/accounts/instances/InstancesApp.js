@@ -24,7 +24,13 @@ import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 const Index = ({ children }) => {
   const [loading, setloading] = useState(false);
   const theme = useTheme();
-  const isLG = useMediaQuery(theme.breakpoints.up('md'));
+  let isLG = true;
+  if (typeof window !== 'undefined') {
+    isLG = useMediaQuery(theme.breakpoints.up('md'), {
+      noSsr: true,
+    });
+  }
+
   const langcode = 'en';
   const [location, setLocation] = useState('');
   const currentPage =
