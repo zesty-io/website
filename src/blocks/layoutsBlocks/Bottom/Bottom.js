@@ -20,10 +20,10 @@ import DemoCta from 'components/cta/DemoCta';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const Bottom = ({
-  graphic,
-  titleAndDescription,
-  cta_text = 'Try Free',
-  cta_button_link = '/join/',
+  image,
+  title_and_descritpion,
+  primary_cta_text = 'Try Free',
+  primary_cta_link = '/join/',
   secondary_cta_text,
   secondary_cta_link,
   backgroundColor,
@@ -73,7 +73,7 @@ const Bottom = ({
                   bottom: isLarge ? 0 : -37,
                 }}
                 loading="lazy"
-                src={`${graphic || FillerContent.image}?width=951`}
+                src={`${image?.data[0].url || FillerContent.image}?width=951`}
                 alt="zesty.io"
               />
             </Box>
@@ -132,7 +132,7 @@ const Bottom = ({
                   },
                 }}
               >
-                {titleAndDescription || FillerContent.headerAndDescription}
+                {title_and_descritpion || FillerContent.headerAndDescription}
               </MuiMarkdown>
 
               <Box
@@ -148,8 +148,8 @@ const Bottom = ({
                   target="_self"
                   variant="contained"
                   color="secondary"
-                  text={cta_text}
-                  href={cta_button_link}
+                  text={primary_cta_text}
+                  href={primary_cta_link}
               />
                 {secondary_cta_text && 
                 <DemoCta

@@ -18,7 +18,7 @@ import FillerContent from 'components/globals/FillerContent';
 import Container from 'blocks/container/Container';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
-const Growth = ({ background, titleAndDescription, cards = FillerContent.growth }) => {
+const Growth = ({  title_and_description, cards = FillerContent.growth }) => {
   const theme = useTheme();
   const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
 
@@ -38,7 +38,7 @@ const Growth = ({ background, titleAndDescription, cards = FillerContent.growth 
         }}
         loading="lazy"
         src={
-          'https://kfg6bckb.media.zestyio.com/Zesty-growth.svg' || background
+          'https://kfg6bckb.media.zestyio.com/Zesty-growth.svg' 
         }
         alt="timeline guide"
       />
@@ -78,20 +78,20 @@ const Growth = ({ background, titleAndDescription, cards = FillerContent.growth 
               },
             }}
           >
-            {titleAndDescription || FillerContent.headerAndDescription}
+            {title_and_description || FillerContent.headerAndDescription}
           </MuiMarkdown>
         </Box>
 
         <Box
           sx={{
-            mt: 4,
+            mt: -2,
             display: isExtraLarge ? 'flex' : 'row',
             flexWrap: 'wrap',
             justifyContent: 'center',
             gap: 4,
           }}
         >
-          {cards?.map((item, index) => (
+          {cards?.data?.map((item, index) => (
             <Box
               key={index}
               sx={{
@@ -113,11 +113,11 @@ const Growth = ({ background, titleAndDescription, cards = FillerContent.growth 
                   gap: 2,
                 }}
               >
-                <Box sx={{ width: '100%', maxWidth: 153 }}>
+                <Box sx={{ width: '100%', maxWidth: 107 }}>
                   <ZestyImage
-                    width={157}
-                    height={147}
-                    style={{ width: '100%', height: 'auto' }}
+                    width={97}
+                    height={87}
+                    style={{ width: '100%',maxWidth:97, height: 'auto' }}
                     loading="lazy"
                     src={
                       item.icon_image?.data[0].url ||
