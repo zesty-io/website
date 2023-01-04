@@ -30,21 +30,20 @@ import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const ImageWithContentsCta = ({
-  mainImage,
+  main_image,
   header,
-  primaryCtaText,
-  secondaryCtaText,
-  secondaryCtaUrl,
-  isSCurveBackground = false,
-  sx = {},
+  primary_cta_text,
+  secondary_cta_text,
+  secondary_cta_link,
+  isscurvebackground = false,
 }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const isDarkMode = theme.palette.mode === 'dark';
   return (
-    <Box sx={sx} component="section">
+    <Box sx={{py:10,my:15}} component="section">
       <Container sx={{ position: 'relative' }}>
-        {isSCurveBackground && (
+        {isscurvebackground && (
           <ZestyImage
             style={{
               position: 'absolute',
@@ -78,7 +77,7 @@ const ImageWithContentsCta = ({
                 height: 'auto',
               }}
               loading="lazy"
-              src={mainImage || FillerContent.photos[0].src}
+              src={main_image?.data[0].url || FillerContent.photos[0].src}
               alt={header || 'Zesty.io'}
             />
           </Grid>
@@ -143,16 +142,16 @@ const ImageWithContentsCta = ({
                 <Box sx={{ width: isSmall ? '100%' : '10rem' }}>
                   <TryFreeButton
                     fullWidth={true}
-                    text={primaryCtaText}
+                    text={primary_cta_text}
                     variant="contained"
                     component="a"
                   />
                 </Box>
-                {secondaryCtaText && (
+                {secondary_cta_text && (
                   <DemoCta
                     sx={{ color: theme.palette.zesty.zestyOrange }}
-                    text={secondaryCtaText || FillerContent.cta}
-                    href={secondaryCtaUrl || FillerContent.href}
+                    text={secondary_cta_text || FillerContent.cta}
+                    href={secondary_cta_link || FillerContent.href}
                   />
                 )}
               </Box>

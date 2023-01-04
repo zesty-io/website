@@ -26,11 +26,9 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 import SimpleStats from 'blocks/zesty/Growth/SimpleStats';
 
 const CaseStudyCards = ({
-  header,
-  description,
-  statsData,
-  g2BadgesData,
-  caseStudiesData = FillerContent.platformCard,
+  title_and_description,
+  g2_badges,
+  casestudiesdata = FillerContent.platformCard,
   caseStudiesBackground,
 }) => {
   const theme = useTheme();
@@ -97,41 +95,15 @@ const CaseStudyCards = ({
               },
             }}
           >
-            {header || FillerContent.headerAndDescription}
+            {title_and_description || FillerContent.title_and_descriptionAndDescription}
           </MuiMarkdown>
-          {description && (
-            <MuiMarkdown
-              options={{
-                overrides: {
-                  span: {
-                    component: Typography,
-                    props: {
-                      mt: 2,
-                      component: 'p',
-                      variant: 'h6',
-                      sx: {
-                        color: isDarkMode
-                          ? theme.palette.common.white
-                          : theme.palette.zesty.zestyDarkText,
-                        textAlign: ' center',
-                      },
-                    },
-                  },
-                },
-              }}
-            >
-              {description || FillerContent.header}
-            </MuiMarkdown>
-          )}
         </Box>
 
-        {statsData && <SimpleStats statsData={statsData} />}
-
-        {g2BadgesData && (
+        {g2_badges?.data && (
           <Box
             sx={{ display: 'flex', justifyContent: 'center', gap: 5, mt: 10 }}
           >
-            {g2BadgesData?.map((item, index) => (
+            {g2_badges?.data?.map((item, index) => (
               <Box key={index} sx={{ width: '100%', maxWidth: 171 }}>
                 <ZestyImage
                   width={171}
@@ -147,11 +119,11 @@ const CaseStudyCards = ({
         )}
         
         <Grid sx={{ mt: 5 }} container spacing={4}>
-          {caseStudiesData?.map((item, index) => (
+          {casestudiesdata?.data.map((item, index) => (
             <Grid key={index} item sm={12} md={4}>
               <Card
                 component="a"
-                href={item.card_link?.data[0]?.meta?.web?.uri || FillerContent.href}
+                href={item.link || FillerContent.href}
                 target="_blank"
                 sx={{
                   width: '100%',

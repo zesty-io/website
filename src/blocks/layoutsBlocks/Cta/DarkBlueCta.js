@@ -15,7 +15,7 @@ const DarkBlueCta = ({
   cta_text,
   cta_secondary_text,
   cta_secondary_link,
-  sx,
+
 }) => {
   const theme = useTheme();
 
@@ -23,7 +23,8 @@ const DarkBlueCta = ({
     <Box component="section">
       <Container
         sx={{
-          ...sx,
+          py:10,
+          my:15,
           background: theme.palette.zesty.zestyDarkBlueRadialGradient,
           borderRadius: 5,
         }}

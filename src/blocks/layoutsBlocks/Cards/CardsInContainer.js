@@ -20,23 +20,19 @@ import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 
 const CardsInContainer = ({
-  title,
+  title_and_description,
   data = FillerContent.featuresCards,
-  imageWidth = 78,
-  imageHeight,
-  itemTitleColor,
+  itemtitlecolor,
   isFullWidthSection = true,
 }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const titleColor = itemTitleColor
-    ? itemTitleColor
+  const titleColor = itemtitlecolor
+    ? itemtitlecolor
     : theme.palette.zesty.zestyZambezi;
 
-  // check if features_header richtext if not convert it to richtext format for consistency
-  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
-  const isRichText = htmlCheck.test(title);
+  
 
   return (
     <Box
@@ -73,16 +69,16 @@ const CardsInContainer = ({
                 span: {
                   component: Typography,
                   props: {
-                    component: isRichText ? 'span' : 'h2',
+                    component: 'span',
                     variant: 'h4',
                     sx: {
                       color: theme.palette.zesty.zestyZambezi,
                       fontWeight: 'bold',
                       textAlign: 'center',
-                      textDecoration: isRichText && 'underline',
+                      textDecoration: 'underline',
                       textDecorationColor:
-                        isRichText && theme.palette.zesty.zestyOrange,
-                      textUnderlinePosition: isRichText && 'under',
+                        theme.palette.zesty.zestyOrange,
+                      textUnderlinePosition: 'under',
                     },
                   },
                 },
@@ -104,10 +100,10 @@ const CardsInContainer = ({
               },
             }}
           >
-            {title || FillerContent.header}
+            {title_and_description || FillerContent.header}
           </MuiMarkdown>
           <Grid sx={{ mt: 5 }} container spacing={5}>
-            {data?.map((item, index) => (
+            {data?.data?.map((item, index) => (
               <Grid key={index} item sm={12} md={4}>
                 <Card
                   component={item.url && 'a'}
@@ -130,11 +126,11 @@ const CardsInContainer = ({
                     }}
                   >
                     <ZestyImage
-                      height={imageHeight}
-                      style={{ width: '100', maxWidth: imageWidth }}
-                      alt={item.title || ''}
+                      height={294}
+                      style={{ width: '100%', maxWidth:294, height:179 }}
+                      alt={item.product_name || ''}
                       loading="lazy"
-                      src={item.icon_image || FillerContent.photos[0].src}
+                      src={item.graphic.data[0].url || FillerContent.photos[0].src}
                     />
                   </Box>
                   <Box sx={{ mt: 5 }}>
@@ -147,9 +143,9 @@ const CardsInContainer = ({
                         textAlign: 'center',
                       }}
                     >
-                      {item.title || FillerContent.description}
+                      {item.product_name || FillerContent.description}
                     </Typography>
-                    {item.content && (
+                    {item.product_description && (
                       <Typography
                         variant="h6"
                         component="p"
@@ -159,7 +155,7 @@ const CardsInContainer = ({
                           mt: 2,
                         }}
                       >
-                        {item.content || FillerContent.description}
+                        {item.product_description || FillerContent.description}
                       </Typography>
                     )}
                   </Box>
