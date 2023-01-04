@@ -436,7 +436,6 @@ const Index = ({
     handleNext();
   };
   const handleCompanyDetails = async (e) => {
-    // console.log(e, 4444);
     setcompany(e.company);
     await updateUser('company', e.company);
     handleNext();
