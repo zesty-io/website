@@ -65,6 +65,8 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
     helpers?.isProd ? '' : '.dev'
   }.zesty.io/`;
 
+  const isLoading = Object.keys(instance).length === 0 ? true : loading;
+
   useEffect(() => {
     setInstanceName(instance?.name);
   }, [instance?.name]);
@@ -78,7 +80,7 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
       }}
     >
       <Stack pt={1} pl={2} pr={2}>
-        <Media instance={instance} loading={loading} />
+        <Media instance={instance} loading={isLoading} />
       </Stack>
 
       <CardContent
@@ -89,7 +91,7 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
           padding: '16px',
         }}
       >
-        {!loading ? (
+        {!isLoading ? (
           isEditing ? (
             <Stack spacing={1} direction="column" alignItems="center">
               <TextField
@@ -126,6 +128,14 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
             <Typography
               variant="h5"
               color="text.primary"
+              sx={{
+                width: '100%',
+                display: 'block',
+                maxHeight: '4rem',
+                wordBreak: 'break-word',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
               onMouseOver={() => setShowEdit(true)}
               onMouseLeave={() => setShowEdit(false)}
             >
@@ -139,9 +149,9 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
             </Typography>
           )
         ) : (
-          <Skeleton variant="rectangular" height={40} />
+          <Skeleton variant="rectangular" height={55} />
         )}
-        {!loading ? (
+        {!isLoading ? (
           <Typography variant="body2" color="text.secondary">
             Last updated {dayjs(instance.updatedAt).fromNow()}
           </Typography>
@@ -160,7 +170,7 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
         >
           <Stack direction={'row'} gap="8px">
             <LoadingButton
-              loading={!instance?.ZUID}
+              loading={isLoading}
               color="primary"
               target="_blank"
               size="small"
@@ -178,7 +188,7 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
               Open Manager
             </LoadingButton>
             <LoadingButton
-              loading={!instance?.ZUID}
+              loading={isLoading}
               size="small"
               variant="outlined"
               target="_blank"
