@@ -227,7 +227,7 @@ export const Overview = ({
               mainData,
               footerTitle,
               chip,
-              loading,
+              loading: usage?.status === 200 && users ? loading : true,
             };
             return (
               <Grid key={index} item xs={12} lg={4}>
