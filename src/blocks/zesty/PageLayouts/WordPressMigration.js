@@ -74,7 +74,7 @@ const WordPressMigration = ({
                         variant: 'h6',
                         sx: {
                           color: theme.palette.zesty.zestyZambezi,
-                          mt: 5,
+                          mt: 2,
                           pr: isSmall ? 0 : 10,
                         },
                       },

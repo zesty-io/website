@@ -26,6 +26,9 @@ const CardsInContainer = ({
   imageHeight,
   itemTitleColor,
   isFullWidthSection = true,
+  backgroundColor,
+  marginTop = 10,
+  marginBottom = 0,
 }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -42,8 +45,12 @@ const CardsInContainer = ({
     <Box
       component="section"
       sx={{
-        mt: 15,
-        background: isFullWidthSection && theme.palette.zesty.zestyWhite,
+        mt: marginTop,
+        mb: marginBottom,
+        background:
+          isFullWidthSection && backgroundColor
+            ? backgroundColor
+            : theme.palette.zesty.zestyWhite,
       }}
     >
       <Container
@@ -55,60 +62,78 @@ const CardsInContainer = ({
         }
       >
         <Box sx={{ py: 10 }}>
-          <MuiMarkdown
-            options={{
-              overrides: {
-                h2: {
-                  component: Typography,
-                  props: {
-                    component: 'h2',
-                    variant: 'h4',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
-                      fontWeight: 'bold',
-                      textAlign: 'center',
+          {title && (
+            <MuiMarkdown
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h4',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                      },
+                    },
+                  },
+                  span: {
+                    component: Typography,
+                    props: {
+                      component: isRichText ? 'span' : 'h2',
+                      variant: 'h4',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        textDecoration: isRichText && 'underline',
+                        textDecorationColor:
+                          isRichText && theme.palette.zesty.zestyOrange,
+                        textUnderlinePosition: isRichText && 'under',
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                        width: '100%',
+                        maxWidth: 700,
+                        margin: 'auto',
+                        mt: 2,
+                      },
                     },
                   },
                 },
-                span: {
-                  component: Typography,
-                  props: {
-                    component: isRichText ? 'span' : 'h2',
-                    variant: 'h4',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                      textDecoration: isRichText && 'underline',
-                      textDecorationColor:
-                        isRichText && theme.palette.zesty.zestyOrange,
-                      textUnderlinePosition: isRichText && 'under',
-                    },
-                  },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    component: 'p',
-                    variant: 'h6',
-                    sx: {
-                      color: theme.palette.zesty.zestyZambezi,
-                      textAlign: 'center',
-                      width: '100%',
-                      maxWidth: 700,
-                      margin: 'auto',
-                      mt: 2,
-                    },
-                  },
-                },
-              },
+              }}
+            >
+              {title || FillerContent.header}
+            </MuiMarkdown>
+          )}
+          <Grid
+            sx={{
+              mt: title && 5,
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyItems: 'center',
+              justifyContent: 'center',
             }}
+            container
+            spacing={5}
           >
-            {title || FillerContent.header}
-          </MuiMarkdown>
-          <Grid sx={{ mt: 5 }} container spacing={5}>
             {data?.map((item, index) => (
-              <Grid key={index} item sm={12} md={4}>
+              <Grid
+                key={index}
+                item
+                sm={12}
+                md={4}
+                sx={{ display: 'table', width: '100%' }}
+              >
                 <Card
                   component={item.url && 'a'}
                   target={item.url && '_blank'}
@@ -116,12 +141,12 @@ const CardsInContainer = ({
                   sx={{
                     py: 5,
                     px: 2,
-                    minHeight: item.content ? 355 : 244,
                     textDecoration: 'none',
                     margin: 'auto',
                     position: 'relative',
-                    display: 'block',
                     textDecoration: 'none',
+                    borderLeft: `7px solid ${item.borderColor}`,
+                    display: 'table-cell',
                   }}
                 >
                   <Box
@@ -137,30 +162,72 @@ const CardsInContainer = ({
                       src={item.icon_image || FillerContent.photos[0].src}
                     />
                   </Box>
-                  <Box sx={{ mt: 5 }}>
-                    <Typography
-                      variant="h5"
-                      component="h3"
-                      sx={{
-                        fontWeight: 'bold',
-                        color: titleColor,
-                        textAlign: 'center',
+                  <Box sx={{ mt: 5, textAlign: 'center' }}>
+                    <MuiMarkdown
+                      options={{
+                        overrides: {
+                          h3: {
+                            component: Typography,
+                            props: {
+                              component: 'h3',
+                              variant: 'h5',
+                              sx: {
+                                color: theme.palette.zesty.zestyZambezi,
+                                fontWeight: 'bold',
+                              },
+                            },
+                          },
+                          span: {
+                            component: Typography,
+                            props: {
+                              component: 'h3',
+                              variant: 'h5',
+                              sx: {
+                                color: titleColor,
+                                fontWeight: 'bold',
+                              },
+                            },
+                          },
+                          p: {
+                            component: Typography,
+                            props: {
+                              component: 'p',
+                              variant: 'h6',
+                              sx: {
+                                color: theme.palette.zesty.zestyZambezi,
+                                width: '100%',
+                                maxWidth: 700,
+                                margin: 'auto',
+                                mt: 2,
+                              },
+                            },
+                          },
+                        },
                       }}
                     >
-                      {item.title || FillerContent.description}
-                    </Typography>
+                      {item.title || FillerContent.header}
+                    </MuiMarkdown>
                     {item.content && (
-                      <Typography
-                        variant="h6"
-                        component="p"
-                        sx={{
-                          textAlign: 'center',
-                          color: theme.palette.zesty.zestyZambezi,
-                          mt: 2,
+                      <MuiMarkdown
+                        options={{
+                          overrides: {
+                            p: {
+                              component: Typography,
+                              props: {
+                                variant: 'h6',
+                                component: 'p',
+                                sx: {
+                                  textAlign: 'center',
+                                  color: theme.palette.zesty.zestyZambezi,
+                                  mt: 2,
+                                },
+                              },
+                            },
+                          },
                         }}
                       >
                         {item.content || FillerContent.description}
-                      </Typography>
+                      </MuiMarkdown>
                     )}
                   </Box>
                 </Card>

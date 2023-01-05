@@ -36,7 +36,7 @@ const Dashboard = ({ content = {} }) => {
 
   const [invites, setinvites] = useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
-  const [initialInstances, setInitialInstances] = useState([]);
+  const [initialInstances, setInitialInstances] = useState(undefined);
   const [instances, setInstances] = useState([]);
   const [isInstancesLoading, setIsInstanceLoading] = useState(false);
   const [filteredInstances, setFilteredInstances] = useState([]);
@@ -326,11 +326,7 @@ const Dashboard = ({ content = {} }) => {
       ? true
       : false;
   //* if newuser dont have invites and dont have instances show onboarding
-  if (
-    initialInstances?.length === 0 &&
-    invites?.length === 0 &&
-    isUserMissingPrefs
-  ) {
+  if (initialInstances?.length === 0 && invites?.length === 0) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
     //* if old user and has missing preference
   } else if (hasMissingPrefs) {

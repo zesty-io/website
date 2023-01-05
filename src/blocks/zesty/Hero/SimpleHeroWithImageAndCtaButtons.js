@@ -167,17 +167,38 @@ const SimpleHeroWithImageAndCtaButtons = ({
 
             {description && (
               <Box marginBottom={3}>
-                <Typography
-                  variant="h6"
-                  component="p"
-                  sx={{
-                    color: isDarkBackground
-                      ? theme.palette.common.white
-                      : theme.palette.zesty.zestyZambezi,
+                <MuiMarkdown
+                  options={{
+                    overrides: {
+                      p: {
+                        component: Typography,
+                        props: {
+                          variant: 'h6',
+                          component: 'p',
+                          sx: {
+                            color: isDarkBackground
+                              ? theme.palette.common.white
+                              : theme.palette.zesty.zestyZambezi,
+                          },
+                        },
+                      },
+                      span: {
+                        component: Typography,
+                        props: {
+                          variant: 'h6',
+                          component: 'p',
+                          sx: {
+                            color: isDarkBackground
+                              ? theme.palette.common.white
+                              : theme.palette.zesty.zestyZambezi,
+                          },
+                        },
+                      },
+                    },
                   }}
                 >
                   {description || FillerContent.description}
-                </Typography>
+                </MuiMarkdown>
               </Box>
             )}
 
@@ -220,27 +241,28 @@ const SimpleHeroWithImageAndCtaButtons = ({
                 size="large"
                 color="secondary"
               ></TryFreeButton>
-              {isDarkBackground ? (
-                <DemoCta
-                  icon={false}
-                  fullWidth={isMedium}
-                  sx={{
-                    width: '100%',
-                    maxWidth: isMedium ? '100%' : 174,
-                    fontWeight: 'bold',
-                    color: theme.palette.zesty.zestyOrange,
-                    background: theme.palette.common.white,
-                  }}
-                  text={cta_right || FillerContent.cta}
-                  href={cta_right_url || FillerContent.href}
-                />
-              ) : (
-                <DemoCta
-                  sx={{ color: theme.palette.zesty.zestyOrange }}
-                  text={cta_right || FillerContent.cta}
-                  href={cta_right_url || FillerContent.href}
-                />
-              )}
+              {cta_right &&
+                (isDarkBackground ? (
+                  <DemoCta
+                    icon={false}
+                    fullWidth={isMedium}
+                    sx={{
+                      width: '100%',
+                      maxWidth: isMedium ? '100%' : 174,
+                      fontWeight: 'bold',
+                      color: theme.palette.zesty.zestyOrange,
+                      background: theme.palette.common.white,
+                    }}
+                    text={cta_right || FillerContent.cta}
+                    href={cta_right_url || FillerContent.href}
+                  />
+                ) : (
+                  <DemoCta
+                    sx={{ color: theme.palette.zesty.zestyOrange }}
+                    text={cta_right || FillerContent.cta}
+                    href={cta_right_url || FillerContent.href}
+                  />
+                ))}
             </Box>
           </Grid>
           <Grid
@@ -256,7 +278,7 @@ const SimpleHeroWithImageAndCtaButtons = ({
                 src={image || FillerContent.image}
                 width={600}
                 height={350}
-                style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+                style={{ width: '100%', height: 'auto', objectFit: 'contain'}}
                 alt={
                   mainTitle ||
                   'Visual content management for any digital channel'

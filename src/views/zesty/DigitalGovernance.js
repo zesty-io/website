@@ -39,28 +39,79 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme, useMediaQuery } from '@mui/material';
+
+/**
+ * Components Imports
+ */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import HeadingAndDescription from 'blocks/zesty/HeadingAndDescription/HeadingAndDescription';
+import Benefits from 'blocks/benefits/Benefits';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 function DigitalGovernance({ content }) {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const heroProps = {
+    title: content.header,
+    image: content.header_graphic?.data[0]?.url,
+    cta_left: content.cta_button_text,
+    cta_right: content.header_secondary_cta?.data[0]?.button_text,
+    cta_right_url:
+      content.header_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    backgroundColor: theme.palette.zesty.zestyBackgroundOrangeGradient,
+  };
+
+  const whatIsDigitalGovernanceProps = {
+    heading: content.what_is,
+    marginTop: 5,
+  };
+
+  const benefitData = [
+    {
+      content: content.why_1,
+      icon_image: content.why_1_graphic?.data[0].url,
+    },
+    {
+      content: content.why_2,
+      icon_image: content.why_2_graphic?.data[0].url,
+    },
+    {
+      content: content.why_3,
+      icon_image: content.why_3_graphic?.data[0].url,
+    },
+  ];
+
+  const benefitProps = {
+    header: content.why_header,
+    data: benefitData,
+    marginTop: 20,
+  };
+
+  const bottomProps = {
+    graphic: content?.get_started_graphic?.data[0]?.url,
+    titleAndDescription: content.get_started,
+    cta_text: content.bottom_primary_cta?.data[0]?.button_text,
+    cta_button_link: content.bottom_primary_cta?.data[0]?.external_link,
+    secondary_cta_text: content.bottom_secondary_cta?.data[0]?.button_text,
+    secondary_cta_link:
+      content.bottom_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    graphicBottom: -30,
+    marginTop: !isSmall && -20,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <HeadingAndDescription {...whatIsDigitalGovernanceProps} />
+      <Benefits {...benefitProps} />
+      <Bottom {...bottomProps} />
     </>
   );
 }

@@ -32,9 +32,10 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 const ImageWithContentsCta = ({
   mainImage,
   header,
+  headerColor,
   primaryCtaText,
   secondaryCtaText,
-  secondaryCtaUrl,
+  secondaryCtaLink,
   isSCurveBackground = false,
   sx = {},
 }) => {
@@ -93,7 +94,7 @@ const ImageWithContentsCta = ({
             sm={12}
             md={6}
           >
-            <Box>
+            <Box sx={{ml: isSmall ? 0 : 5}}>
               <MuiMarkdown
                 options={{
                   overrides: {
@@ -104,8 +105,7 @@ const ImageWithContentsCta = ({
                         component: 'h2',
                         sx: {
                           textAlign: isSmall ? 'center' : 'left',
-                          letterSpacing: 1,
-                          background: theme.palette.zesty.zestyOrangeLinear,
+                          background: headerColor ? headerColor : theme.palette.zesty.zestyOrangeLinear,
                           WebkitBackgroundClip: 'text',
                           color: 'transparent',
                           fontWeight: 'bold',
@@ -153,7 +153,7 @@ const ImageWithContentsCta = ({
                   <DemoCta
                     sx={{ color: theme.palette.zesty.zestyOrange }}
                     text={secondaryCtaText || FillerContent.cta}
-                    href={secondaryCtaUrl || FillerContent.href}
+                    href={secondaryCtaLink || FillerContent.href}
                   />
                 )}
               </Box>

@@ -64,28 +64,250 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material/styles';
+
+/**
+ * Components Imports
+ */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
+import HeadlessVsTraditionalCms from 'components/marketing/DxpBenefits/HeadlessVsTraditionalCms';
+import TabContent from 'blocks/zesty/TabContent/TabContent.js';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
 
 function DxpBenefit({ content }) {
+  const theme = useTheme();
+
+  const COLORS = [
+    {
+      backgroundColor: theme.palette.zesty.pureWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
+    {
+      backgroundColor: theme.palette.zesty.pureWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
+  ];
+
+  const heroProps = {
+    title: content.h1_title,
+    description: content.hero_description,
+    image: content.hero_graphic?.data[0]?.url,
+    cta_left: content.primary_cta_text,
+    cta_right: content.secondary_cta?.data[0]?.button_text,
+    cta_right_url:
+      content.secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web?.url,
+  };
+
+  const headlessCmsProps = {
+    header: content.what_is,
+    mainImage: content.what_is_graphic?.data[0]?.url,
+    backgroundColor: theme.palette.zesty.zestyWhite,
+    marginTop: 5,
+  };
+
+  const alternateColumnsData = [
+    {
+      content: content.benefit_1,
+      image: content.benefit_1_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_2,
+      image: content.benefit_2_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_3,
+      image: content.benefit_3_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_4,
+      image: content.benefit_4_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_5,
+      image: content.benefit_5_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_6,
+      image: content.benefit_6_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_7,
+      image: content.benefit_7_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_8,
+      image: content.benefit_8_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_9,
+      image: content.benefit_9_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_10,
+      image: content.benefit_10_graphic?.data[0].url,
+    },
+  ];
+
+  const whatCanDoProps = {
+    header_content: content?.benefit_title_and_description,
+    column_data: alternateColumnsData,
+  };
+
+  const comparisonData = [
+    {
+      content: content.comparison_1,
+    },
+    {
+      content: content.comparison_2,
+    },
+    {
+      content: content.comparison_3,
+    },
+    {
+      content: content.comparison_4,
+    },
+    {
+      content: content.comparison_5,
+    },
+  ];
+
+  const vsProps = {
+    header: content.comparison_graphic_title,
+    data: comparisonData,
+  };
+
+  const headerRegex = /\>(.*?)\</;
+
+  const tabData = [
+    {
+      id: 0,
+      icon:
+        content.business_type_1_icon?.data[0]?.url ||
+        FillerContent.logos[0].url,
+      text: content.business_type_1 || FillerContent.description,
+      subText:
+        content.business_type_1?.match(headerRegex)[1] ||
+        FillerContent.description,
+      img: content.business_type_1_graphic,
+      ctaName: 'Learn More',
+      href: '',
+    },
+    {
+      id: 1,
+      icon:
+        content.business_type_2_icon?.data[0]?.url ||
+        FillerContent.logos[0].url,
+      text: content.business_type_2 || FillerContent.description,
+      subText:
+        content.business_type_2?.match(headerRegex)[1] ||
+        FillerContent.description,
+      img: content.business_type_2_graphic,
+      ctaName: 'Learn More',
+      href: '',
+    },
+    {
+      id: 2,
+      icon:
+        content.business_type_3_icon?.data[0]?.url ||
+        FillerContent.logos[0].url,
+      text: content.business_type_3 || FillerContent.description,
+      subText:
+        content.business_type_3?.match(headerRegex)[1] ||
+        FillerContent.description,
+      img: content.business_type_3_graphic,
+      ctaName: 'Learn More',
+      href: '',
+    },
+    {
+      id: 3,
+      icon:
+        content.business_type_4_icon?.data[0]?.url ||
+        FillerContent.logos[0].url,
+      text: content.business_type_4 || FillerContent.description,
+      subText:
+        content.business_type_4?.match(headerRegex)[1] ||
+        FillerContent.description,
+      img: content.business_type_4_graphic,
+      ctaName: 'Learn More',
+      href: '',
+    },
+  ];
+
+  const businessTypeProps = {
+    header: content.businesses_title,
+    data: tabData,
+    marginTop: 10,
+  };
+
+  const splitParagraph = (p, start, deleteCount) => {
+    var paragraph;
+    if (p) {
+      paragraph = (
+        p.split('</p>').splice(start, deleteCount).join('</p>') + '</p>'
+      ).replace(/\<\/p> *\<\/p>/g, '</p>');
+    }
+
+    return paragraph;
+  };
+
+  const splitHeader = (p, start, deleteCount) => {
+    var paragraph;
+    if (p) {
+      paragraph = (
+        p.split('</h2>').splice(start, deleteCount).join('</h2>') + '</h2>'
+      ).replace(/\<\/h2> *\<\/h2>/g, '</h2>');
+    }
+
+    return paragraph;
+  };
+
+  const whyZestyData = [
+    {
+      content: splitParagraph(content.why_zesty, 0, 1),
+      image: content.why_zesty_graphic?.data[0].url,
+    },
+    {
+      content: splitParagraph(content.why_zesty, 1, 3),
+      image: content.why_zesty_graphic?.data[1].url,
+    },
+  ];
+
+  const whyZestyProps = {
+    header_content: splitHeader(content.why_zesty, 0, 1),
+    column_data: whyZestyData,
+    alternateColors: COLORS,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_graphic?.data[0]?.url,
+    titleAndDescription: content.bottom_content,
+    cta_text: content.bottom_primary_cta?.data[0]?.button_text,
+    cta_button_link: content.bottom_primary_cta?.data[0]?.external_link,
+    secondary_cta_text: content.bottom_secondary_cta?.data[0]?.button_text,
+    secondary_cta_link:
+      content.bottom_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    graphicBottom: -22,
+    marginTop: 5,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <CenteredContents {...headlessCmsProps} />
+      <AlternateColumns {...whatCanDoProps} />
+      <HeadlessVsTraditionalCms {...vsProps} />
+      <TabContent {...businessTypeProps} />
+      <AlternateColumns {...whyZestyProps} />
+      <Bottom {...bottomData} />
     </>
   );
 }

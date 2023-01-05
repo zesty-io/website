@@ -37,28 +37,94 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme, useMediaQuery } from '@mui/material';
+
+/**
+ * Components Imports
+ */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 function ScalableCm({ content }) {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const heroProps = {
+    title: content.header_title_and_description,
+    image: content.header_graphic?.data[0]?.url,
+    cta_left: content.header_primary_cta?.data[0]?.button_text,
+    cta_right: content.header_secondary_cta?.data[0]?.button_text,
+    cta_right_url:
+      content.header_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    backgroundColor: theme.palette.zesty.zestyBackgroundBlueGradient,
+  };
+
+  const alternateColumnsData = [
+    {
+      content: content.benefit_1,
+      image: content.benefit_1_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_2,
+      image: content.benefit_2_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_3,
+      image: content.benefit_3_graphic?.data[0].url,
+    },
+  ];
+
+  const benefitsProps = {
+    header_content: content?.benefits_title,
+    column_data: alternateColumnsData,
+    cta_link: content?.middle_cta_button_link?.data[0].meta.web.uri,
+    cta_text: content?.middle_cta_button_text,
+  };
+
+  const featuresData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.icon_image && item.icon_image?.data[0]?.url,
+          feature_name: item.feature_name,
+          content: item.content,
+        });
+
+        return acc;
+      }, []) || []
+    );
+  };
+
+  const whyZestyProps = {
+    features_header: content.why_zesty,
+    background_color: theme.palette.zesty.zestyWhite,
+    data: featuresData(content.features_tiles),
+  };
+
+  const bottomProps = {
+    graphic: content?.background_graphic_header?.data[0]?.url,
+    titleAndDescription: content.bottom_cta,
+    cta_text: content.bottom_primary_cta?.data[0]?.button_text,
+    cta_button_link: content.bottom_primary_cta?.data[0]?.external_link,
+    secondary_cta_text: content.bottom_secondary_cta?.data[0]?.button_text,
+    secondary_cta_link:
+      content.bottom_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    graphicBottom: -42,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <AlternateColumns {...benefitsProps} />
+      <Features {...whyZestyProps} />
+      <Bottom {...bottomProps} />
     </>
   );
 }
