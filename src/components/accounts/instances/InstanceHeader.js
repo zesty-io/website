@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardContent,
   CardMedia,
@@ -20,6 +19,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import * as helpers from 'utils';
+import { LoadingButton } from '@mui/lab';
 
 dayjs.extend(relativeTime);
 
@@ -159,13 +159,14 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
           }}
         >
           <Stack direction={'row'} gap="8px">
-            <Button
+            <LoadingButton
+              loading={!instance?.ZUID}
               color="primary"
               target="_blank"
               size="small"
               fullWidth
               variant="contained"
-              title={managerURl}
+              title={'Open Manager'}
               href={managerURl}
               startIcon={<CreateIcon sx={{ fontSize: '20px' }} />}
               sx={{
@@ -175,23 +176,27 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
               }}
             >
               Open Manager
-            </Button>
-            <Button
+            </LoadingButton>
+            <LoadingButton
+              loading={!instance?.ZUID}
               size="small"
               variant="outlined"
               target="_blank"
               color="inherit"
-              title={webengineUrl}
+              title={'Preview'}
               href={webengineUrl}
               sx={{
                 backgroundColor: '#fff',
                 borderColor: grey[300],
                 color: grey[500],
                 minWidth: 38,
+                '&:hover': {
+                  boxShadow: 1,
+                },
               }}
             >
               <VisibilityIcon />
-            </Button>
+            </LoadingButton>
           </Stack>
         </Stack>
       </CardContent>
