@@ -74,16 +74,16 @@ function DigitalGovernance({ content }) {
 
   const benefitData = [
     {
-      content: content.why_1,
-      icon_image: content.why_1_graphic?.data[0].url,
+      content: content?.why_1,
+      icon_image: content?.why_1_graphic?.data[0]?.url,
     },
     {
-      content: content.why_2,
-      icon_image: content.why_2_graphic?.data[0].url,
+      content: content?.why_2,
+      icon_image: content?.why_2_graphic?.data[0]?.url,
     },
     {
-      content: content.why_3,
-      icon_image: content.why_3_graphic?.data[0].url,
+      content: content?.why_3,
+      icon_image: content?.why_3_graphic?.data[0]?.url,
     },
   ];
 

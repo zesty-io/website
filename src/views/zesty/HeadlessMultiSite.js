@@ -90,16 +90,16 @@ function HeadlessMultiSite({ content }) {
 
   const whyChooseData = [
     {
-      title: content.why_1,
-      icon_image: content.why_1_graphic?.data[0].url,
+      title: content?.why_1,
+      icon_image: content?.why_1_graphic?.data[0]?.url,
     },
     {
-      title: content.why_2,
-      icon_image: content.why_2_graphic?.data[0].url,
+      title: content?.why_2,
+      icon_image: content?.why_2_graphic?.data[0]?.url,
     },
     {
-      title: content.why_3,
-      icon_image: content.why_3_graphic?.data[0].url,
+      title: content?.why_3,
+      icon_image: content?.why_3_graphic?.data[0]?.url,
     },
   ];
 
@@ -113,38 +113,38 @@ function HeadlessMultiSite({ content }) {
 
   const alternateColumnsData = [
     {
-      content: content.what_1,
-      image: content.what_1_graphic?.data[0].url,
+      content: content?.what_1,
+      image: content?.what_1_graphic?.data[0]?.url,
     },
     {
-      content: content.what_2,
-      image: content.what_2_graphic?.data[0].url,
+      content: content?.what_2,
+      image: content?.what_2_graphic?.data[0]?.url,
     },
     {
-      content: content.what_3,
-      image: content.what_3_graphic?.data[0].url,
+      content: content?.what_3,
+      image: content?.what_3_graphic?.data[0]?.url,
     },
   ];
 
   const whatCanDoProps = {
     header_content: content?.what_header,
     column_data: alternateColumnsData,
-    cta_link: content?.middle_cta_button_link?.data[0].meta.web.uri,
+    cta_link: content?.middle_cta_button_link?.data[0]?.meta.web.uri,
     cta_text: content?.middle_cta_button_text,
   };
 
   const growthData = [
     {
-      feature_name: content.how_3,
-      icon_image: content.how_3_graphic,
+      feature_name: content?.how_3,
+      icon_image: content?.how_3_graphic,
     },
     {
-      feature_name: content.how_2,
-      icon_image: content.how_2_graphic,
+      feature_name: content?.how_2,
+      icon_image: content?.how_2_graphic,
     },
     {
-      feature_name: content.how_1,
-      icon_image: content.how_1_graphic,
+      feature_name: content?.how_1,
+      icon_image: content?.how_1_graphic,
     },
   ];
 
@@ -163,7 +163,7 @@ function HeadlessMultiSite({ content }) {
     return (
       dataArray?.data?.reduce((acc, item) => {
         acc.push({
-          icon_image: item.icon_image?.data[0].url,
+          icon_image: item.icon_image?.data[0]?.url,
           feature_name: item.feature_name,
           content: item.content,
         });

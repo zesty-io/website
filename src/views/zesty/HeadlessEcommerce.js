@@ -110,16 +110,16 @@ function HeadlessEcommerce({ content }) {
 
   const benefitsData = [
     {
-      content: content.benefit_1,
-      icon_image: content.benefit_1_graphic?.data[0].url,
+      content: content?.benefit_1,
+      icon_image: content?.benefit_1_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_2,
-      icon_image: content.benefit_2_graphic?.data[0].url,
+      content: content?.benefit_2,
+      icon_image: content?.benefit_2_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_3,
-      icon_image: content.benefit_3_graphic?.data[0].url,
+      content: content?.benefit_3,
+      icon_image: content?.benefit_3_graphic?.data[0]?.url,
     },
   ];
 
@@ -142,7 +142,7 @@ function HeadlessEcommerce({ content }) {
     return (
       dataArray?.data?.reduce((acc, item) => {
         acc.push({
-          icon_image: item.icon_image?.data[0].url,
+          icon_image: item.icon_image?.data[0]?.url,
           feature_name: item.feature_name,
           content: item.content,
         });
@@ -160,7 +160,7 @@ function HeadlessEcommerce({ content }) {
   };
 
   const bottomProps = {
-    mainImage: content.bottom_cta_graphic.data[0].url,
+    mainImage: content.bottom_cta_graphic.data[0]?.url,
     header: content.bottom_cta_description,
     headerColor: theme.palette.zesty.zestyZambezi,
     primaryCtaText: content.bottom_cta_primary,

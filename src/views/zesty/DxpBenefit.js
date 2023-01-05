@@ -115,44 +115,44 @@ function DxpBenefit({ content }) {
 
   const alternateColumnsData = [
     {
-      content: content.benefit_1,
-      image: content.benefit_1_graphic?.data[0].url,
+      content: content?.benefit_1,
+      image: content?.benefit_1_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_2,
-      image: content.benefit_2_graphic?.data[0].url,
+      content: content?.benefit_2,
+      image: content?.benefit_2_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_3,
-      image: content.benefit_3_graphic?.data[0].url,
+      content: content?.benefit_3,
+      image: content?.benefit_3_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_4,
-      image: content.benefit_4_graphic?.data[0].url,
+      content: content?.benefit_4,
+      image: content?.benefit_4_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_5,
-      image: content.benefit_5_graphic?.data[0].url,
+      content: content?.benefit_5,
+      image: content?.benefit_5_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_6,
-      image: content.benefit_6_graphic?.data[0].url,
+      content: content?.benefit_6,
+      image: content?.benefit_6_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_7,
-      image: content.benefit_7_graphic?.data[0].url,
+      content: content?.benefit_7,
+      image: content?.benefit_7_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_8,
-      image: content.benefit_8_graphic?.data[0].url,
+      content: content?.benefit_8,
+      image: content?.benefit_8_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_9,
-      image: content.benefit_9_graphic?.data[0].url,
+      content: content?.benefit_9,
+      image: content?.benefit_9_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_10,
-      image: content.benefit_10_graphic?.data[0].url,
+      content: content?.benefit_10,
+      image: content?.benefit_10_graphic?.data[0]?.url,
     },
   ];
 
@@ -271,12 +271,12 @@ function DxpBenefit({ content }) {
 
   const whyZestyData = [
     {
-      content: splitParagraph(content.why_zesty, 0, 1),
-      image: content.why_zesty_graphic?.data[0].url,
+      content: splitParagraph(content?.why_zesty, 0, 1),
+      image: content?.why_zesty_graphic?.data[0]?.url,
     },
     {
-      content: splitParagraph(content.why_zesty, 1, 3),
-      image: content.why_zesty_graphic?.data[1].url,
+      content: splitParagraph(content?.why_zesty, 1, 3),
+      image: content?.why_zesty_graphic?.data[1]?.url,
     },
   ];
 

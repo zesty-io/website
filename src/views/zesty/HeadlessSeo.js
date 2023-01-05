@@ -80,7 +80,7 @@ function HeadlessSeo({ content }) {
   const aboutData = [
     {
       content: content.explanation_paragraph,
-      icon_image: content.explanation_graphic?.data[0].url,
+      icon_image: content.explanation_graphic?.data[0]?.url,
     },
   ];
 
@@ -91,18 +91,18 @@ function HeadlessSeo({ content }) {
 
   const benefitsData = [
     {
-      title: content.benefit_1,
-      icon_image: content.benefit_1_graphic?.data[0].url,
+      title: content?.benefit_1,
+      icon_image: content?.benefit_1_graphic?.data[0]?.url,
       borderColor: theme.palette.zesty.zestyBlue,
     },
     {
-      title: content.benefit_2,
-      icon_image: content.benefit_2_graphic?.data[0].url,
+      title: content?.benefit_2,
+      icon_image: content?.benefit_2_graphic?.data[0]?.url,
       borderColor: theme.palette.zesty.zestyOrange,
     },
     {
-      title: content.benefit_3,
-      icon_image: content.benefit_3_graphic?.data[0].url,
+      title: content?.benefit_3,
+      icon_image: content?.benefit_3_graphic?.data[0]?.url,
       borderColor: theme.palette.zesty.zestyTealWhite,
     },
   ];
@@ -119,20 +119,20 @@ function HeadlessSeo({ content }) {
 
   const whyZestyData = [
     {
-      content: content.why_zesty_1,
-      image: content.why_zesty_1_graphic?.data[0].url,
+      content: content?.why_zesty_1,
+      image: content?.why_zesty_1_graphic?.data[0]?.url,
     },
     {
-      content: content.why_zesty_2,
-      image: content.why_zesty_2_graphic?.data[0].url,
+      content: content?.why_zesty_2,
+      image: content?.why_zesty_2_graphic?.data[0]?.url,
     },
     {
-      content: content.why_zesty_3,
-      image: content.why_zesty_3_graphic?.data[0].url,
+      content: content?.why_zesty_3,
+      image: content?.why_zesty_3_graphic?.data[0]?.url,
     },
     {
-      content: content.why_zesty_4,
-      image: content.why_zesty_4_graphic?.data[0].url,
+      content: content?.why_zesty_4,
+      image: content?.why_zesty_4_graphic?.data[0]?.url,
     },
   ];
 
@@ -160,12 +160,12 @@ function HeadlessSeo({ content }) {
   };
 
   const bottomData = {
-    graphic: content?.bottom_graphic?.data[0].url,
+    graphic: content?.bottom_graphic?.data[0]?.url,
     titleAndDescription: content.bottom_cta || FillerContent.rich_text,
     cta_text: content.bottom_cta_text || FillerContent.cta,
     secondary_cta_text: content.bottom_cta_secondary_text || FillerContent.cta,
     secondary_cta_link:
-      content.bottom_cta_secondary_url?.data[0].meta.web.uri ||
+      content.bottom_cta_secondary_url?.data[0]?.meta.web.uri ||
       FillerContent.href,
     graphicBottom: -32,
   };

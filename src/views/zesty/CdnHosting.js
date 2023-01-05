@@ -76,20 +76,20 @@ function CdnHosting({ content }) {
 
   const benefitData = [
     {
-      content: content.benefit_1,
-      icon_image: content.benefit_1_graphic?.data[0].url,
+      content: content?.benefit_1,
+      icon_image: content?.benefit_1_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_2,
-      icon_image: content.benefit_2_graphic?.data[0].url,
+      content: content?.benefit_2,
+      icon_image: content?.benefit_2_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_3,
-      icon_image: content.benefit_3_graphic?.data[0].url,
+      content: content?.benefit_3,
+      icon_image: content?.benefit_3_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_4,
-      icon_image: content.benefit_4_graphic?.data[0].url,
+      content: content?.benefit_4,
+      icon_image: content?.benefit_4_graphic?.data[0]?.url,
     },
   ];
 

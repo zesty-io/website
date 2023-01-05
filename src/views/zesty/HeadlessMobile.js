@@ -67,18 +67,18 @@ function HeadlessMobile({ content }) {
 
   const alternateColumnsData = [
     {
-      content: content.benefit_1,
-      icon_image: content.benefit_1_graphic?.data[0].url,
+      content: content?.benefit_1,
+      icon_image: content?.benefit_1_graphic?.data[0]?.url,
     },
 
     {
-      content: content.benefit_2,
-      icon_image: content.benefit_2_graphic?.data[0].url,
+      content: content?.benefit_2,
+      icon_image: content?.benefit_2_graphic?.data[0]?.url,
     },
 
     {
-      content: content.benefit_3,
-      icon_image: content.benefit_3_graphic?.data[0].url,
+      content: content?.benefit_3,
+      icon_image: content?.benefit_3_graphic?.data[0]?.url,
     },
   ];
 
@@ -94,7 +94,7 @@ function HeadlessMobile({ content }) {
     return (
       dataArray?.data?.reduce((acc, item) => {
         acc.push({
-          icon_image: item.icon_image?.data[0].url,
+          icon_image: item.icon_image?.data[0]?.url,
           feature_name: item.feature_name,
           content: item.content,
         });

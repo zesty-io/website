@@ -67,23 +67,23 @@ function ScalableCm({ content }) {
 
   const alternateColumnsData = [
     {
-      content: content.benefit_1,
-      image: content.benefit_1_graphic?.data[0].url,
+      content: content?.benefit_1,
+      image: content?.benefit_1_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_2,
-      image: content.benefit_2_graphic?.data[0].url,
+      content: content?.benefit_2,
+      image: content?.benefit_2_graphic?.data[0]?.url,
     },
     {
-      content: content.benefit_3,
-      image: content.benefit_3_graphic?.data[0].url,
+      content: content?.benefit_3,
+      image: content?.benefit_3_graphic?.data[0]?.url,
     },
   ];
 
   const benefitsProps = {
     header_content: content?.benefits_title,
     column_data: alternateColumnsData,
-    cta_link: content?.middle_cta_button_link?.data[0].meta.web.uri,
+    cta_link: content?.middle_cta_button_link?.data[0]?.meta.web.uri,
     cta_text: content?.middle_cta_button_text,
   };
 

@@ -70,24 +70,24 @@ function HeadlessCmsMultiLang({ content }) {
 
   const alternateColumnsData = [
     {
-      content: content.solution_1,
-      image: content.solution_1_graphic?.data[0].url,
+      content: content?.solution_1,
+      image: content?.solution_1_graphic?.data[0]?.url,
     },
     {
-      content: content.solution_2,
-      image: content.solution_2_graphic?.data[0].url,
+      content: content?.solution_2,
+      image: content?.solution_2_graphic?.data[0]?.url,
     },
     {
-      content: content.solution_3,
-      image: content.solution_3_graphic?.data[0].url,
+      content: content?.solution_3,
+      image: content?.solution_3_graphic?.data[0]?.url,
     },
     {
-      content: content.solution_4,
-      image: content.solution_4_graphic?.data[0].url,
+      content: content?.solution_4,
+      image: content?.solution_4_graphic?.data[0]?.url,
     },
     {
-      content: content.solution_5,
-      image: content.solution_5_graphic?.data[0].url,
+      content: content?.solution_5,
+      image: content?.solution_5_graphic?.data[0]?.url,
     },
   ];
 

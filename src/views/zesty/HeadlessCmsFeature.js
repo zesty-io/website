@@ -91,16 +91,16 @@ function HeadlessCmsFeature({ content }) {
 
   const alternateColumnsData = [
     {
-      content: content.what_section_1,
-      image: content.what_section_1_graphic?.data[0].url,
+      content: content?.what_section_1,
+      image: content?.what_section_1_graphic?.data[0]?.url,
     },
     {
-      content: content.what_section_2,
-      image: content.what_section_2_graphic?.data[0].url,
+      content: content?.what_section_2,
+      image: content?.what_section_2_graphic?.data[0]?.url,
     },
     {
-      content: content.what_section_3,
-      image: content.what_section_3_graphic?.data[0].url,
+      content: content?.what_section_3,
+      image: content?.what_section_3_graphic?.data[0]?.url,
     },
   ];
 

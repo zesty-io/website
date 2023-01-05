@@ -95,16 +95,6 @@ const TabContent = ({ header, data, marginTop = 0 }) => {
                             width: '100%',
                           }}
                         />
-                         {/* <ZestyImage
-                          // loading="lazy"
-                          width={550}
-                          eight={371.29}
-                           src={
-                            e.img?.data[0].url ||
-                            FillerContent.logos[0].url
-                          }
-                          alt=""
-                        /> */}
                       </ZoomMui>
                     );
                   })}
@@ -115,7 +105,7 @@ const TabContent = ({ header, data, marginTop = 0 }) => {
             <Grid item sm={12} md={6}>
               <Box>
                 <Box>
-                  {data.map((e, i) => {
+                  {data?.map((e, i) => {
                     return i === active ? (
                       <CustomCard key={i} data={e} theme={theme} />
                     ) : (
@@ -133,7 +123,7 @@ const TabContent = ({ header, data, marginTop = 0 }) => {
                         }}
                       >
                         <ZestyImage
-                          src={e.icon}
+                          src={e?.icon}
                           alt=""
                           width={50}
                           height={50}

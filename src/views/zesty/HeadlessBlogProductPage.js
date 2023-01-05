@@ -68,20 +68,20 @@ function HeadlessBlogProductPage({ content }) {
 
   const howZestyData = [
     {
-      content: content.how_1,
-      icon_image: content.how_1_graphic?.data[0].url,
+      content: content?.how_1,
+      icon_image: content?.how_1_graphic?.data[0]?.url,
     },
     {
-      content: content.how_2,
-      icon_image: content.how_2_graphic?.data[0].url,
+      content: content?.how_2,
+      icon_image: content?.how_2_graphic?.data[0]?.url,
     },
     {
-      content: content.how_3,
-      icon_image: content.how_3_graphic?.data[0].url,
+      content: content?.how_3,
+      icon_image: content?.how_3_graphic?.data[0]?.url,
     },
     {
-      content: content.how_4,
-      icon_image: content.how_4_graphic?.data[0].url,
+      content: content?.how_4,
+      icon_image: content?.how_4_graphic?.data[0]?.url,
     },
   ];
 
