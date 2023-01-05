@@ -9,13 +9,12 @@ import DemoCta from 'components/cta/DemoCta';
 
 const TechStack = ({
   headerColor,
-  headerFontWeight = 500,
   text_content,
   logos,
   cta_text,
   cta_link,
   textHighlight,
-  background,
+  backgroundColor,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -29,16 +28,17 @@ const TechStack = ({
   }
 
   return (
-    <Box component="section" sx={{ px: 4 }}>
-      <Box
-        sx={{
-          background: background
-            ? background
-            : theme.palette.zesty.zestySeaShell,
-          borderRadius: 10,
-          py: 15,
-        }}
-      >
+    <Box
+      component="section"
+      sx={{
+        px: 4,
+        background: backgroundColor
+          ? backgroundColor
+          : theme.palette.zesty.zestySeaShell,
+        py: 15,
+      }}
+    >
+      <Box sx={{}}>
         <Container>
           <Grid container spacing={2}>
             <Grid item sm={12} md={6}>
@@ -51,10 +51,10 @@ const TechStack = ({
                         variant: 'h4',
                         component: 'h2',
                         sx: {
-                          fontWeight: headerFontWeight,
+                          fontWeight: 'bold',
                           color: headerColor
                             ? headerColor
-                            : theme.palette.zesty.zestyOrange,
+                            : theme.palette.zesty.zestyZambezi,
                         },
                       },
                     },
@@ -109,7 +109,7 @@ const TechStack = ({
                     sx={{
                       background: theme.palette.zesty.zestyOrange,
                       px: 6,
-                      fontWeight: 'bold'
+                      fontWeight: 'bold',
                     }}
                     text={cta_text || FillerContent.cta}
                     href={cta_link || FillerContent.href}
