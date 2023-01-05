@@ -99,11 +99,7 @@ const Index = ({ children }) => {
               },
             })}
           >
-            <InstanceHeader
-              ZestyAPI={ZestyAPI}
-              instance={instance}
-              loading={loading}
-            />
+            <InstanceHeader ZestyAPI={ZestyAPI} instance={instance} />
             <InstanceNavigation
               lists={instanceTabs}
               handleChange={handleChange}
