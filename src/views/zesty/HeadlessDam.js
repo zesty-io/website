@@ -141,7 +141,7 @@ function HeadlessDam({ content }) {
   };
 
   const bottomData = {
-    graphic: content?.get_started_graphic?.data[0]?.url || '',
+    graphic: content?.get_started_graphic?.data[0]?.url,
     titleAndDescription: content.get_started,
     cta_text: content.get_started_cta?.data[0]?.button_text,
     cta_button_link: content.get_started_cta?.data[0]?.external_link,

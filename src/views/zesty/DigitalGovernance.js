@@ -103,7 +103,6 @@ function DigitalGovernance({ content }) {
       content.bottom_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
         ?.url,
     graphicBottom: -30,
-    marginTop: !isSmall && -20,
   };
 
   return (

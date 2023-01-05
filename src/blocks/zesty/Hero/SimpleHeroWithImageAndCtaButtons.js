@@ -145,6 +145,19 @@ const SimpleHeroWithImageAndCtaButtons = ({
                         },
                       },
                     },
+                    h2: {
+                      component: Typography,
+                      props: {
+                        component: mainTitle ? 'h2' : 'h1',
+                        variant: 'h3',
+                        sx: {
+                          fontWeight: 700,
+                          color: isDarkBackground
+                            ? theme.palette.common.white
+                            : theme.palette.zesty.zestyZambezi,
+                        },
+                      },
+                    },
                     p: {
                       component: Typography,
                       props: {

@@ -38,9 +38,7 @@ const Benefits = ({
 
   return (
     <Box
-      sx={{
-        py: isSmall ? 5 : marginTop,
-      }}
+      sx={{ mt: marginTop }}
       component="section"
     >
       <Box

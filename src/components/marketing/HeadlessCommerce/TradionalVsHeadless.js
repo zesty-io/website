@@ -33,7 +33,7 @@ const TradionalVsHeadless = ({
   return (
     <Box
       sx={{
-        pt: 15,
+        mt: 15,
       }}
       component="section"
     >
