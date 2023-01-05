@@ -20,6 +20,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import * as helpers from 'utils';
 import { LoadingButton } from '@mui/lab';
+import { useZestyStore } from 'store';
 
 dayjs.extend(relativeTime);
 
@@ -56,7 +57,8 @@ const Media = ({ loading = false, instance = {} }) => {
   }
 };
 
-export default function InstanceHeader({ ZestyAPI, instance, loading }) {
+export default function InstanceHeader({ ZestyAPI }) {
+  const { instance } = useZestyStore((e) => e);
   const [instanceName, setInstanceName] = useState(instance?.name);
   const [showEdit, setShowEdit] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -65,7 +67,7 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
     helpers?.isProd ? '' : '.dev'
   }.zesty.io/`;
 
-  const isLoading = Object.keys(instance).length === 0 ? true : loading;
+  const isLoading = Object.keys(instance).length === 0 ? true : false;
 
   useEffect(() => {
     setInstanceName(instance?.name);
