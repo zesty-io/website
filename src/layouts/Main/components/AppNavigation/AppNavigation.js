@@ -139,6 +139,8 @@ const AppNavigation = ({
   const userPrefs =
     typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
 
+  const isNewUser = Object.keys(userPrefs).length === 0 ? true : false;
+
   useEffect(() => {
     setIsMarketplace(
       window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
@@ -200,7 +202,7 @@ const AppNavigation = ({
             alignItems="center"
             pl={isXL ? 0 : 1}
           >
-            {!isSM && (
+            {!isSM && !isNewUser && (
               <AccountsComboBox
                 instances={instances?.data}
                 setCookies={handleComboxClick}
@@ -211,6 +213,7 @@ const AppNavigation = ({
             {isLG && Object.keys(userPrefs).length !== 0 && (
               <>
                 <Button
+                  title="Create Instance"
                   color={
                     isAccounts || pathname === '/' ? 'primary' : 'secondary'
                   }
