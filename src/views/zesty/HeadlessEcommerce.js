@@ -57,28 +57,135 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material/styles';
+
+/**
+ * Components Imports
+ */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
+import TradionalVsHeadless from 'components/marketing/HeadlessCommerce/TradionalVsHeadless';
+import Benefits from 'blocks/benefits/Benefits';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import ImageWithContentsCta from 'blocks/zesty/Cta/ImageWithContentsCta';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
 
 function HeadlessEcommerce({ content }) {
+  const theme = useTheme();
+
+  const heroProps = {
+    mainTitle: content.header_eyebrow,
+    title: content.header_h1,
+    description: content.header_description,
+    image:
+      (content.header_graphic?.data && content.header_graphic?.data[0]?.url) ||
+      FillerContent.image,
+    cta_left: content.header_cta_button_primary || FillerContent.cta,
+    cta_right: content.header_cta_button_secondary || FillerContent.cta,
+    cta_right_url: content.header_cta_link_secondary?.data[0]?.meta?.web?.url,
+    backgroundColor: theme.palette.zesty.zestyOrangeRadialGradient,
+  };
+
+  const implementingSeoProps = {
+    header: content.headless_cms_benefit_description,
+    mainImage: content.headless_cms_benefit_graphic?.data[0]?.url,
+  };
+
+  const tradionalVsHeadlessProps = {
+    header: content.traditional_v_headless_description,
+    traditionalImage: content.traditional_graphic?.data[0]?.url,
+    traditionalDescription: content.traditional_description,
+    headlessImage: content.headless_graphic?.data[0]?.url,
+    headlessDescription: content.headless_description,
+    primaryCtaText: content.traditional_v_headless_cta,
+    primaryCtaLink:
+      content.traditional_v_headless_link?.data[0]?.meta?.web?.url,
+  };
+
+  const benefitsData = [
+    {
+      content: content.benefit_1,
+      icon_image: content.benefit_1_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_2,
+      icon_image: content.benefit_2_graphic?.data[0].url,
+    },
+    {
+      content: content.benefit_3,
+      icon_image: content.benefit_3_graphic?.data[0].url,
+    },
+  ];
+
+  const benefitsProps = {
+    header: content.headless_ecomm_benefits_header,
+    data: benefitsData,
+  };
+
+  const integrationLogo =
+    content.integration_logos?.data.reduce((acc, item) => {
+      acc.push({
+        customer_logo: item.logo,
+      });
+
+      return acc;
+    }, []) || [];
+
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const featuresData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.icon_image?.data[0].url,
+          feature_name: item.feature_name,
+          content: item.content,
+        });
+
+        return acc;
+      }, []) || []
+    );
+  };
+
+  const whyZestyProps = {
+    features_header: content.why_zesty_description,
+    data: featuresData(content.why_zesty_ecomm_cards),
+    background_color: theme.palette.zesty.zestyWhite,
+    marginTop: 15,
+  };
+
+  const bottomProps = {
+    mainImage: content.bottom_cta_graphic.data[0].url,
+    header: content.bottom_cta_description,
+    headerColor: theme.palette.zesty.zestyZambezi,
+    primaryCtaText: content.bottom_cta_primary,
+    secondaryCtaText: content.bottom_cta_secondary,
+    secondaryCtaLink:
+      content.bottom_cta_secondary_link?.data[0]?.meta?.web?.url,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <CenteredContents {...implementingSeoProps} />
+      <TradionalVsHeadless {...tradionalVsHeadlessProps} />
+      <Benefits {...benefitsProps} />
+      <SimpleCardLogo
+        heading_text={content?.ecomm_integrations_header}
+        logoItems={integrationLogo}
+      />
+      <Features {...whyZestyProps} />
+      <SimpleCardLogo
+        heading_text={content?.customers}
+        logoItems={content.customer_logos.data}
+        marginTop={10}
+      />
+      <ImageWithContentsCta {...bottomProps} sx={{ mt: 10 }} />
     </>
   );
 }
