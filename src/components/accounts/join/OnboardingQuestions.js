@@ -433,7 +433,9 @@ const Index = ({
 
   const handleZoho = async (obj, callback = () => {}) => {
     const zohoData = await postToZOHO(obj);
-    setzohoLeadLink(`${zoholeadUrl}${zohoData?.data[0]?.details?.id}`);
+    setzohoLeadLink(
+      `${zoholeadUrl}${zohoData?.data && zohoData?.data[0]?.details?.id}`,
+    );
     await callback();
   };
 
