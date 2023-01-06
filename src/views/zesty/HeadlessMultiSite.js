@@ -51,28 +51,154 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material/styles';
+
+/**
+ * Components Imports
+ */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import WhatIsMultiSite from 'components/marketing/HeadlessMultiSite/WhatIsMultiSite';
+import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import Growth from 'blocks/zesty/Growth/Growth';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
 
 function HeadlessMultiSite({ content }) {
+  const theme = useTheme();
+
+  const heroProps = {
+    title: content.header_title_description,
+    description: content.header_description,
+    image: content.header_graphic?.data[0]?.url,
+    cta_left: content.primary_cta_text || FillerContent.cta,
+    cta_right: content.secondary_cta?.data[0]?.button_text || FillerContent.cta,
+    cta_right_url:
+      content.secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web?.url,
+    backgroundColor: theme.palette.zesty.zestyOrangeRadialGradient,
+  };
+
+  const whatIsMultiSiteProps = {
+    content: content.what_is_multi_site,
+  };
+
+  const whyChooseData = [
+    {
+      title: content?.why_1,
+      icon_image: content?.why_1_graphic?.data[0]?.url,
+    },
+    {
+      title: content?.why_2,
+      icon_image: content?.why_2_graphic?.data[0]?.url,
+    },
+    {
+      title: content?.why_3,
+      icon_image: content?.why_3_graphic?.data[0]?.url,
+    },
+  ];
+
+  const whyChooseProps = {
+    title: content.why_zesty_title,
+    data: whyChooseData,
+    imageWidth: 300,
+    imageHeight: 187.73,
+    marginTop: 15,
+  };
+
+  const alternateColumnsData = [
+    {
+      content: content?.what_1,
+      image: content?.what_1_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.what_2,
+      image: content?.what_2_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.what_3,
+      image: content?.what_3_graphic?.data[0]?.url,
+    },
+  ];
+
+  const whatCanDoProps = {
+    header_content: content?.what_header,
+    column_data: alternateColumnsData,
+    cta_link: content?.middle_cta_button_link?.data[0]?.meta.web.uri,
+    cta_text: content?.middle_cta_button_text,
+  };
+
+  const growthData = [
+    {
+      feature_name: content?.how_3,
+      icon_image: content?.how_3_graphic,
+    },
+    {
+      feature_name: content?.how_2,
+      icon_image: content?.how_2_graphic,
+    },
+    {
+      feature_name: content?.how_1,
+      icon_image: content?.how_1_graphic,
+    },
+  ];
+
+  const growthProps = {
+    background: content?.growth_background?.data[0]?.url || '',
+    titleAndDescription: content.how_title || FillerContent.rich_text,
+    cards: growthData,
+    cardWidth: 450,
+    iconWidth: 236,
+    isIconOnTop: true,
+    marginTop: 10,
+  };
+
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const featuresData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.icon_image?.data[0]?.url,
+          feature_name: item.feature_name,
+          content: item.content,
+        });
+
+        return acc;
+      }, []) || []
+    );
+  };
+
+  const whyZestyProps = {
+    features_header: content.features_title,
+    data: featuresData(content.features),
+    background: 'zesty',
+  };
+
+  const bottomData = {
+    graphic: content?.footer_graphic?.data[0]?.url,
+    titleAndDescription: content.footer_cta_text,
+    cta_text: content.footer_primary_cta?.data[0]?.button_text,
+    secondary_cta_text: content.footer_secondary_cta?.data[0]?.button_text,
+    secondary_cta_link:
+      content.footer_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    graphicBottom: -33,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <WhatIsMultiSite {...whatIsMultiSiteProps} />
+      <CardsInContainer {...whyChooseProps} />
+      <AlternateColumns {...whatCanDoProps} />
+      <Growth {...growthProps} />
+      <Features {...whyZestyProps} />
+      <Bottom {...bottomData} />
     </>
   );
 }

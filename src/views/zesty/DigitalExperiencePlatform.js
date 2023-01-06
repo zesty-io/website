@@ -98,7 +98,7 @@ import Features from 'blocks/zesty/PageLayouts/Features';
 import Integrations from 'components/marketing/DigitalExperiencePlatform/Integrations';
 import Implementation from 'components/marketing/DigitalExperiencePlatform/Implementation';
 import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
-import Bottom from 'components/marketing/DigitalExperiencePlatform/Bottom';
+import ImageWithContentsCta from 'blocks/zesty/Cta/ImageWithContentsCta';
 
 function DigitalExperiencePlatform({ content }) {
   const theme = useTheme();
@@ -176,6 +176,14 @@ function DigitalExperiencePlatform({ content }) {
     caseStudiesData: content.case_studies?.data,
   };
 
+  const bottomProps = {
+    mainImage: content.bottom_cta_graphic.data[0].url,
+    header: content.bottom_cta_description,
+    headerColor: theme.palette.zesty.zestyZambezi,
+    primaryCtaText: content.bottom_cta_button_primary,
+    secondaryCtaText: content.bottom_cta_button_secondary,
+  };
+
   return (
     <Box>
       <SimpleHeroWithImageAndCtaButtons {...heroProps} />
@@ -192,7 +200,7 @@ function DigitalExperiencePlatform({ content }) {
       <Integrations {...PageData} />
       <Implementation {...PageData} />
       <CaseStudyCards {...caseStudiesProps} />
-      <Bottom {...PageData} />
+      <ImageWithContentsCta {...bottomProps} sx={{ mt: 10 }} />
     </Box>
   );
 }

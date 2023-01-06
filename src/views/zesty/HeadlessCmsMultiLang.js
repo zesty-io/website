@@ -39,28 +39,103 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material';
+
+/**
+ * Components Imports
+ */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 function HeadlessCmsMultiLang({ content }) {
+  const theme = useTheme();
+
+  const heroProps = {
+    mainTitle: content.hero_h1,
+    title: content.hero_title_and_description,
+    description: content.hero_description,
+    image: content.hero_graphic?.data[0]?.url,
+    cta_left: content.header_primary_cta?.data[0]?.button_text,
+    cta_right: content.header_secondary_cta?.data[0]?.button_text,
+    cta_right_url:
+      content.header_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    backgroundColor: theme.palette.zesty.zestyBackgroundBlueGradient,
+  };
+
+  const alternateColumnsData = [
+    {
+      content: content?.solution_1,
+      image: content?.solution_1_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.solution_2,
+      image: content?.solution_2_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.solution_3,
+      image: content?.solution_3_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.solution_4,
+      image: content?.solution_4_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.solution_5,
+      image: content?.solution_5_graphic?.data[0]?.url,
+    },
+  ];
+
+  const benefitsProps = {
+    // header_content: content.what_they_can_do_header,
+    isHeaderEnabled: false,
+    column_data: alternateColumnsData,
+  };
+
+  /* Taking the data from the content model and converting it into a format that the Features component can use. */
+  const featuresData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.icon_image?.data[0].url,
+          feature_name: item.feature_name,
+          content: item.content,
+        });
+
+        return acc;
+      }, []) || []
+    );
+  };
+
+  const benefitsSection1 = {
+    features_header: content.why_zesty_title,
+    data: featuresData(content.why_tiles),
+  };
+
+  const bottomProps = {
+    graphic: content?.bottom_graphic?.data[0]?.url,
+    titleAndDescription: content.bottom_cta,
+    cta_text: content.bottom_primary_cta?.data[0]?.button_text,
+    cta_button_link: content.bottom_primary_cta?.data[0]?.external_link,
+    secondary_cta_text: content.bottom_secondary_cta?.data[0]?.button_text,
+    secondary_cta_link:
+      content.bottom_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    graphicBottom: -34,
+    marginTop: 10,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <AlternateColumns {...benefitsProps} />
+      <Features {...benefitsSection1} />
+      <Bottom {...bottomProps} />
     </>
   );
 }

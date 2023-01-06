@@ -47,28 +47,137 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material/styles';
+
+/**
+ * Components Imports
+ */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
+import Benefits from 'blocks/benefits/Benefits';
+import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
 
 function HeadlessSeo({ content }) {
+  const theme = useTheme();
+
+  const heroProps = {
+    title: content.header,
+    image:
+      (content.header_graphic?.data && content.header_graphic?.data[0]?.url) ||
+      FillerContent.image,
+    cta_left: content.cta_text,
+    backgroundColor: theme.palette.zesty.zestyBackgroundOrangeGradient,
+  };
+
+  const aboutData = [
+    {
+      content: content.explanation_paragraph,
+      icon_image: content.explanation_graphic?.data[0]?.url,
+    },
+  ];
+
+  const aboutProps = {
+    data: aboutData,
+    marginTop: 0,
+  };
+
+  const benefitsData = [
+    {
+      title: content?.benefit_1,
+      icon_image: content?.benefit_1_graphic?.data[0]?.url,
+      borderColor: theme.palette.zesty.zestyBlue,
+    },
+    {
+      title: content?.benefit_2,
+      icon_image: content?.benefit_2_graphic?.data[0]?.url,
+      borderColor: theme.palette.zesty.zestyOrange,
+    },
+    {
+      title: content?.benefit_3,
+      icon_image: content?.benefit_3_graphic?.data[0]?.url,
+      borderColor: theme.palette.zesty.zestyTealWhite,
+    },
+  ];
+
+  const benefitsProps = {
+    title: content.benefits_header,
+    data: benefitsData,
+    itemTitleColor: theme.palette.zesty.zestyOrange,
+    imageWidth: 294,
+    imageHeight: 179,
+    backgroundColor: theme.palette.zesty.pureWhite,
+    marginTop: 0,
+  };
+
+  const whyZestyData = [
+    {
+      content: content?.why_zesty_1,
+      image: content?.why_zesty_1_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.why_zesty_2,
+      image: content?.why_zesty_2_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.why_zesty_3,
+      image: content?.why_zesty_3_graphic?.data[0]?.url,
+    },
+    {
+      content: content?.why_zesty_4,
+      image: content?.why_zesty_4_graphic?.data[0]?.url,
+    },
+  ];
+
+  const whyZestyProps = {
+    header_content: content.why_zesty,
+    column_data: whyZestyData,
+  };
+
+  const splitParagraph = (p, start, deleteCount) => {
+    var paragraph;
+    if (p) {
+      paragraph = (
+        p.split('</p>').splice(start, deleteCount).join('</p>') + '</p>'
+      ).replace(/\<\/p> *\<\/p>/g, '</p>');
+    }
+
+    return paragraph;
+  };
+
+  const implementingSeoProps = {
+    header: splitParagraph(content.implementing, 0, 1),
+    bottomContent: splitParagraph(content.implementing, 1, 1),
+    mainImage: content.implementing_graphic?.data[0]?.url,
+    backgroundColor: theme.palette.zesty.zestyOrangeRadialGradient,
+  };
+
+  const bottomData = {
+    graphic: content?.bottom_graphic?.data[0]?.url,
+    titleAndDescription: content.bottom_cta || FillerContent.rich_text,
+    cta_text: content.bottom_cta_text || FillerContent.cta,
+    secondary_cta_text: content.bottom_cta_secondary_text || FillerContent.cta,
+    secondary_cta_link:
+      content.bottom_cta_secondary_url?.data[0]?.meta.web.uri ||
+      FillerContent.href,
+    graphicBottom: -32,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <Benefits {...aboutProps} />
+      <CardsInContainer {...benefitsProps} />
+      <AlternateColumns {...whyZestyProps} />
+      <CenteredContents {...implementingSeoProps} />
+      <Bottom {...bottomData} />
     </>
   );
 }
