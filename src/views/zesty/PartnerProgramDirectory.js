@@ -27,28 +27,106 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material';
+
+/**
+ * Components Imports
+ */
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import Features from 'blocks/zesty/PageLayouts/Features';
 
 function PartnerProgramDirectory({ content }) {
+  const theme = useTheme();
+
+  let zestyURL = content.zestyProductionMode
+    ? process.env.zesty.production
+    : process.env.zesty.stage;
+
+  const [partnersArr, setPartnersArr] = useState([]);
+  const [hideLoad, setHideLoad] = useState(false);
+  // current page for pagination
+  const [page, setPage] = useState(0);
+
+  // use effect pull partners
+  useEffect(() => {
+    try {
+      const fetchPartners = async () => {
+        const url = `${zestyURL}/-/all-agency-partners.json?page=${page}&limit=9`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const partners = await response.json();
+        setHideLoad(false);
+        setPartnersArr(partners);
+      };
+
+      fetchPartners();
+    } catch (err) {
+      console.error(`Could Not Find Results: ${err}`);
+    }
+  }, []);
+
+  // load more on click
+  const handleOnClick = async () => {
+    try {
+      setPage((page += 9));
+      const url = `${zestyURL}/-/all-agency-partners.json?page=${page}&limit=9`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      const data = await response.json();
+      if (!data.length) {
+        // add conditional rendering to hide the load more button
+        setHideLoad(true);
+      }
+      setPartnersArr([...partnersArr, ...data]);
+    } catch (error) {
+      console.error(`Could Not Find Results: ${error}`);
+    }
+  };
+
+  const heroProps = {
+    title: content.header_title_and_description,
+    image: content.header_graphic?.data[0]?.url,
+    cta_left: content.header_primary_cta_text,
+    cta_right: content.header_secondary_cta?.data[0]?.button_text,
+    cta_right_url:
+      content.header_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+  };
+
+  const partnersData =
+    partnersArr?.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.image,
+        feature_name: item.title,
+        content: item.description,
+        link: item.link,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const allPartnersProps = {
+    features_header: content.features_title,
+    isHeaderEnabled: false,
+    data: partnersData,
+    background_color: theme.palette.zesty.zestyWhite,
+    hideLoad: hideLoad,
+    onClick: handleOnClick,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <Features {...allPartnersProps} />
     </>
   );
 }
