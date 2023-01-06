@@ -14,7 +14,7 @@ export default function OverviewPage() {
   const { setZestyAPI, userInfo, ZestyAPI } = useZestyStore((state) => state);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const [instance, setinstance] = React.useState({});
-  const [users, setusers] = React.useState([]);
+  const [users, setusers] = React.useState(undefined);
   const [locales, setlocales] = React.useState([]);
   const [teams, setteams] = React.useState([]);
   const [usage, setusage] = React.useState({});
