@@ -30,7 +30,7 @@ export const AOverviewCards = ({
           flexDirection: 'column',
         }}
       >
-        <Stack direction={'row'} justifyContent={'space-between'}>
+        <Stack pb={1} direction={'row'} justifyContent={'space-between'}>
           {!loading ? (
             <Typography color="text.secondary" variant="h6" gutterBottom>
               {title}

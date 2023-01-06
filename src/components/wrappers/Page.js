@@ -10,6 +10,7 @@ import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import usePeriodicVerify from 'components/hooks/usePeriodicVerify';
 import { useZestyStore } from 'store';
 import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
+import { useRouter } from 'next/router';
 
 export const useDarkMode = () => {
   const [themeMode, setThemeMode] = useState('light');
@@ -32,7 +33,8 @@ export const useDarkMode = () => {
 };
 
 export default function Page({ children }) {
-  const [pathname, setPathname] = useState('');
+  const { asPath } = useRouter();
+  const [pathname, setPathname] = useState(asPath);
   const isLoggedIn = useIsLoggedIn();
   const isAccounts = isProtectedRoute(pathname);
   const [themeMode, themeToggler] = useDarkMode();

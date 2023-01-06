@@ -106,7 +106,6 @@ function JoinPageContent({ content }) {
     !signUpResponse?.data?.ZUID && handleSignUpError(signUpResponse);
   };
 
-  console.log(content, 4444);
   return (
     <Stack sx={{ sm: 1, md: 1236, background: theme.palette.zesty.zestyWhite }}>
       <Stack

@@ -8,13 +8,14 @@ import {
   Button,
   Stack,
   Chip,
+  Skeleton,
 } from '@mui/material';
 import { AOverviewCards, OverviewTabs } from 'components/accounts';
 // import CreditCardIcon from '@mui/icons-material/CreditCard';
 import CachedIcon from '@mui/icons-material/Cached';
 import { Group, Language } from '@mui/icons-material';
 import { grey, purple } from '@mui/material/colors';
-import { Timeline } from '@mui/lab';
+import { LoadingButton, Timeline } from '@mui/lab';
 import ZTimelineItem from 'components/accounts/dashboard/ui/ZTimelineItem';
 import ZInstanceTimelineItemContainer from 'components/accounts/dashboard/ui/ZInstanceTimelineItemContainer';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
@@ -165,43 +166,55 @@ export const Overview = ({
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2}>
-            <Button
-              variant="contained"
-              color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
-              sx={(theme) => ({
-                border:
-                  theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
-                bgcolor: theme.palette.mode === 'light' && 'white',
-                '&:hover': {
+            {loading ? (
+              <Skeleton variant="rounded" width={150} height={'auto'} />
+            ) : (
+              <Button
+                variant="contained"
+                title="Clear Cache"
+                color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
+                sx={(theme) => ({
+                  border:
+                    theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
                   bgcolor: theme.palette.mode === 'light' && 'white',
-                  color: theme.palette.mode === 'light' && 'black',
-                },
-              })}
-              onClick={handleClearCache}
-              startIcon={<CachedIcon color="disabled" />}
-            >
-              Clear Cache
-            </Button>
-            <Button
-              variant="contained"
-              color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
-              href={`https://${instance.ZUID}.manager${
-                helpers?.isProd ? '' : '.dev'
-              }.zesty.io/reports/metrics`}
-              target="_blank"
-              sx={(theme) => ({
-                border:
-                  theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
-                bgcolor: theme.palette.mode === 'light' && 'white',
-                '&:hover': {
+                  '&:hover': {
+                    bgcolor: theme.palette.mode === 'light' && 'white',
+                    color: theme.palette.mode === 'light' && 'black',
+                    boxShadow: 1,
+                  },
+                })}
+                onClick={handleClearCache}
+                startIcon={<CachedIcon color="disabled" />}
+              >
+                Clear Cache
+              </Button>
+            )}
+            {loading ? (
+              <Skeleton variant="rounded" width={150} height={'auto'} />
+            ) : (
+              <Button
+                title="View All Usage"
+                variant="contained"
+                color={theme.palette.mode === 'light' ? 'inherit' : 'primary'}
+                href={`https://${instance.ZUID}.manager${
+                  helpers?.isProd ? '' : '.dev'
+                }.zesty.io/reports/metrics`}
+                target="_blank"
+                sx={(theme) => ({
+                  border:
+                    theme.palette.mode === 'light' && `1px solid ${grey[200]}`,
                   bgcolor: theme.palette.mode === 'light' && 'white',
-                  color: theme.palette.mode === 'light' && 'black',
-                },
-              })}
-              startIcon={<AutoGraphIcon color="disabled" />}
-            >
-              View All Usage
-            </Button>
+                  '&:hover': {
+                    bgcolor: theme.palette.mode === 'light' && 'white',
+                    color: theme.palette.mode === 'light' && 'black',
+                    boxShadow: 1,
+                  },
+                })}
+                startIcon={<AutoGraphIcon color="disabled" />}
+              >
+                View All Usage
+              </Button>
+            )}
           </Stack>
         </Stack>
 
@@ -214,7 +227,7 @@ export const Overview = ({
               mainData,
               footerTitle,
               chip,
-              loading,
+              loading: usage?.status === 200 && users ? loading : true,
             };
             return (
               <Grid key={index} item xs={12} lg={4}>
@@ -234,17 +247,19 @@ export const Overview = ({
             pr={2}
           >
             <Typography color="text.secondary">Activity Stream</Typography>
-            <Button
+            <LoadingButton
+              loading={!instance?.ZUID}
               size="small"
               variant="contained"
               target="_blank"
+              title="Open Activity Log"
               href={`https://${instance.ZUID}.manager${
                 !helpers?.isProd ? '.dev' : ''
               }.zesty.io/reports/activity-log/resources
 `}
             >
               Open Activity Log
-            </Button>
+            </LoadingButton>
           </Stack>
 
           {instanceAudit?.length === 0 ? (

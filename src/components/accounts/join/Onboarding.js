@@ -7,6 +7,7 @@ import Confetti from 'react-confetti';
 
 import { StickyTable } from 'components/accounts';
 import slackNotify from 'components/marketing/Start/slackNotify';
+import { useSwiperSlide } from 'swiper/react';
 
 export const Onboarding = ({
   instanceUrl = '',
@@ -22,8 +23,8 @@ export const Onboarding = ({
   preferred_component_system,
   zohoLeadLink,
 }) => {
+  const swiperSlide = useSwiperSlide();
   const handleClick = async (url) => {
-    await postUserSummary();
     await window.open(url, '_blank');
     await window.location.reload();
   };
@@ -63,6 +64,11 @@ Zoho Lead: ${zohoLeadLink}`;
     preferred_component_system,
     zohoLeadLink,
   };
+  React.useEffect(async () => {
+    if (swiperSlide.isActive && zohoLeadLink) {
+      await postUserSummary();
+    }
+  }, [swiperSlide.isActive, zohoLeadLink]);
 
   return (
     <>

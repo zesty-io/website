@@ -774,7 +774,7 @@ const Index = ({
                 left: 0,
                 height: '70vh',
                 width: '100%',
-                backgroundImage: `url('https://brand.zesty.io/zesty-io-logo.png')`,
+                backgroundImage: `url('https://brand.zesty.io/zesty-io-logo.svg')`,
                 backgroundRepeat: `no-repeat, repeat`,
                 backgroundSize: `400px`,
                 backgroundPosition: 'center',
