@@ -161,8 +161,10 @@ const Dashboard = ({ content = {} }) => {
     return <AccountPageloading title={'Zesty.io'} />;
   }
 
+  const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
+  const isDecisionMaker = roleType === 'decision-maker' ? true : false;
   // the user dont have preferences we use this boolean to launch preference component
-  const isUserMissingPrefs = Object.keys(userPrefs).length === 0 ? true : false;
+  // const isUserMissingPrefs = Object.keys(userPrefs).length === 0 ? true : false;
   // const newUserHasInvite =
   //   invites?.length > 0 && ssoLaunchVsUserCreated > 0 ? true : false;
 
@@ -326,7 +328,11 @@ const Dashboard = ({ content = {} }) => {
       ? true
       : false;
   //* if newuser dont have invites and dont have instances show onboarding
-  if (initialInstances?.length === 0 && invites?.length === 0) {
+  if (
+    initialInstances?.length === 0 &&
+    invites?.length === 0 &&
+    !isDecisionMaker
+  ) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
     //* if old user and has missing preference
   } else if (hasMissingPrefs) {

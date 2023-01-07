@@ -36,7 +36,7 @@ const zoholeadUrl =
   'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/';
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
-const repository = 'https://github.com/zesty-io/template-nextjs-marketing';
+const repository = 'https://github.com/zesty-io/template-bootstrap5-starter';
 const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
 
 const Questionaire = ({
@@ -433,7 +433,9 @@ const Index = ({
 
   const handleZoho = async (obj, callback = () => {}) => {
     const zohoData = await postToZOHO(obj);
-    setzohoLeadLink(`${zoholeadUrl}${zohoData?.data[0]?.details?.id}`);
+    setzohoLeadLink(
+      `${zoholeadUrl}${zohoData?.data && zohoData?.data[0]?.details?.id}`,
+    );
     await callback();
   };
 
