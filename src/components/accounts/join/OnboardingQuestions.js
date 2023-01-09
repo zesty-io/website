@@ -401,6 +401,7 @@ const Index = ({
   const [goal, setgoal] = React.useState('');
   const [roleType, setroleType] = React.useState('');
   const [instance_zuid, setinstance_zuid] = React.useState('');
+  const [instanceRandomHashID, setinstanceRandomHashID] = React.useState('');
   const [installLoading, setinstallLoading] = React.useState(false);
   const { zestyProductionMode } = content || {};
   const [createInstanceLoading, setcreateInstanceLoading] =
@@ -441,6 +442,7 @@ const Index = ({
 
   const handleSuccessCreate = async (res, name) => {
     setinstance_zuid(res.data.ZUID);
+    setinstanceRandomHashID(res.data.randomHashID);
     await handleInstall(res.data.ZUID, name);
   };
 
@@ -522,18 +524,6 @@ const Index = ({
     setloading(false);
   }, []);
 
-  const visitor = {
-    id: userInfo.zuid,
-    email: userInfo.email,
-    firstName: userInfo.firstname,
-    lastName: userInfo.lastname,
-    full_name: `${userInfo.firstname} ${userInfo.lastname}`,
-    personaJoin: role,
-    projecttype: projectType,
-    staff: 0,
-    creationdate: new Date().toUTCString(),
-  };
-
   const gtag_report_conversion = (url) => {
     const callback = () => {
       if (typeof url != undefined) {
@@ -548,8 +538,20 @@ const Index = ({
     return false;
   };
 
+  const visitor = {
+    id: userInfo.ZUID,
+    email: userInfo.email,
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    full_name: `${userInfo.firstName} ${userInfo.lastName}`,
+    personaJoin: role,
+    projecttype: projectType,
+    staff: 0,
+    creationdate: new Date().toUTCString(),
+  };
   const handleRole = async (e) => {
     setloading(true);
+    visitor.personaJoin = e.value;
     await window.pendo.initialize({
       visitor,
     });
@@ -568,6 +570,10 @@ const Index = ({
   const handleProject = async (e) => {
     setloading(true);
     setprojectType(e.value);
+    visitor.projecttype = e.value;
+    await window.pendo.initialize({
+      visitor,
+    });
     await updateUser('projectType', e.value);
     handleNext();
   };
@@ -675,7 +681,8 @@ const Index = ({
     preferred_framework,
     preferred_component_system,
     loading: installLoading,
-    instanceUrl: `https://${instance_zuid}.manager.zesty.io/`,
+    instanceUrl: `https://${instanceRandomHashID}-dev.webengine.zesty.io`,
+    managerUrl: `https://${instance_zuid}.manager.zesty.io/`,
     zohoLeadLink,
   };
 

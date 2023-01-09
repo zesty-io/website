@@ -22,6 +22,7 @@ export const Onboarding = ({
   preferred_framework,
   preferred_component_system,
   zohoLeadLink,
+  managerUrl,
 }) => {
   const swiperSlide = useSwiperSlide();
   const handleClick = async (url) => {
@@ -44,7 +45,7 @@ Project Type: *${projectType || '-'}*
 Favorite Framework: *${preferred_framework || '-'}* 
 Favorite Component Sytem: *${preferred_component_system || '-'}*
 ---links---
-Manager Link: ${instanceUrl}
+Manager Link: ${managerUrl}
 Zoho Lead: ${zohoLeadLink}`;
 
     await slackNotify(msg);
