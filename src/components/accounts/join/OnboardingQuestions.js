@@ -401,6 +401,7 @@ const Index = ({
   const [goal, setgoal] = React.useState('');
   const [roleType, setroleType] = React.useState('');
   const [instance_zuid, setinstance_zuid] = React.useState('');
+  const [instanceRandomHashID, setinstanceRandomHashID] = React.useState('');
   const [installLoading, setinstallLoading] = React.useState(false);
   const { zestyProductionMode } = content || {};
   const [createInstanceLoading, setcreateInstanceLoading] =
@@ -441,6 +442,7 @@ const Index = ({
 
   const handleSuccessCreate = async (res, name) => {
     setinstance_zuid(res.data.ZUID);
+    setinstanceRandomHashID(res.data.randomHashID);
     await handleInstall(res.data.ZUID, name);
   };
 
@@ -679,7 +681,8 @@ const Index = ({
     preferred_framework,
     preferred_component_system,
     loading: installLoading,
-    instanceUrl: `https://${instance_zuid}.manager.zesty.io/`,
+    instanceUrl: `https://${instanceRandomHashID}-dev.webengine.zesty.io`,
+    managerUrl: `https://${instance_zuid}.manager.zesty.io/`,
     zohoLeadLink,
   };
 
