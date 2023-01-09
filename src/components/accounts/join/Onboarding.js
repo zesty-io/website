@@ -91,7 +91,7 @@ Zoho Lead: ${zohoLeadLink}`;
             variant="contained"
             color={'primary'}
             size={'large'}
-            onClick={() => handleClick(instanceUrl)}
+            onClick={() => handleClick(`${managerUrl}/content/home`)}
             startIcon={<RocketLaunchIcon />}
           >
             Go to your Instance
