@@ -522,18 +522,6 @@ const Index = ({
     setloading(false);
   }, []);
 
-  const visitor = {
-    id: userInfo.zuid,
-    email: userInfo.email,
-    firstName: userInfo.firstname,
-    lastName: userInfo.lastname,
-    full_name: `${userInfo.firstname} ${userInfo.lastname}`,
-    personaJoin: role,
-    projecttype: projectType,
-    staff: 0,
-    creationdate: new Date().toUTCString(),
-  };
-
   const gtag_report_conversion = (url) => {
     const callback = () => {
       if (typeof url != undefined) {
@@ -548,8 +536,20 @@ const Index = ({
     return false;
   };
 
+  const visitor = {
+    id: userInfo.ZUID,
+    email: userInfo.email,
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    full_name: `${userInfo.firstName} ${userInfo.lastName}`,
+    personaJoin: role,
+    projecttype: projectType,
+    staff: 0,
+    creationdate: new Date().toUTCString(),
+  };
   const handleRole = async (e) => {
     setloading(true);
+    visitor.personaJoin = e.value;
     await window.pendo.initialize({
       visitor,
     });
@@ -568,6 +568,10 @@ const Index = ({
   const handleProject = async (e) => {
     setloading(true);
     setprojectType(e.value);
+    visitor.projecttype = e.value;
+    await window.pendo.initialize({
+      visitor,
+    });
     await updateUser('projectType', e.value);
     handleNext();
   };
