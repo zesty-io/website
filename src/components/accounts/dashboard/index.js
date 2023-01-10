@@ -36,7 +36,7 @@ const Dashboard = ({ content = {} }) => {
 
   const [invites, setinvites] = useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
-  const [initialInstances, setInitialInstances] = useState([]);
+  const [initialInstances, setInitialInstances] = useState(undefined);
   const [instances, setInstances] = useState([]);
   const [isInstancesLoading, setIsInstanceLoading] = useState(false);
   const [filteredInstances, setFilteredInstances] = useState([]);
@@ -161,8 +161,10 @@ const Dashboard = ({ content = {} }) => {
     return <AccountPageloading title={'Zesty.io'} />;
   }
 
+  const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
+  const isDecisionMaker = roleType === 'decision-maker' ? true : false;
   // the user dont have preferences we use this boolean to launch preference component
-  const isUserMissingPrefs = Object.keys(userPrefs).length === 0 ? true : false;
+  // const isUserMissingPrefs = Object.keys(userPrefs).length === 0 ? true : false;
   // const newUserHasInvite =
   //   invites?.length > 0 && ssoLaunchVsUserCreated > 0 ? true : false;
 
@@ -320,18 +322,20 @@ const Dashboard = ({ content = {} }) => {
   // 3 if no preferences return personalization survey
   // 4 if has instances has invites ignore
 
+  const hasMissingPrefs =
+    missingUserPrefs?.filter((value) => missingPreferences?.includes(value))
+      ?.length !== 0
+      ? true
+      : false;
   //* if newuser dont have invites and dont have instances show onboarding
   if (
     initialInstances?.length === 0 &&
     invites?.length === 0 &&
-    isUserMissingPrefs
+    !isDecisionMaker
   ) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
     //* if old user and has missing preference
-  } else if (
-    // this logic need to be refactored when more preference check are added
-    missingUserPrefs.find((e) => e === missingPreferences[0]) ? true : false
-  ) {
+  } else if (hasMissingPrefs) {
     return <PersonalizationSurvey {...personalizationProps} />;
   }
 

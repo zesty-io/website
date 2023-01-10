@@ -26,6 +26,8 @@ import CodeBlock from 'components/cta/CodeBlock';
 
 const CenteredContents = ({
   header,
+  headerColor,
+  bottomContent,
   primaryCtaText,
   secondaryCtaText,
   secondaryCtaUrl,
@@ -34,12 +36,14 @@ const CenteredContents = ({
   backgroundColor,
   isDarkBackground = false,
   isCodeBlock = false,
+  marginTop = 10,
 }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box
+      component="section"
       paddingY={isSmall ? 4 : 10}
       sx={{
         position: 'relative',
@@ -54,8 +58,8 @@ const CenteredContents = ({
           flexDirection: 'column',
         }}
       >
-        <Box sx={{ mt: 10 }}>
-          <Box sx={{ px: 10 }}>
+        <Box sx={{ mt: marginTop }}>
+          <Box sx={{ px: !isSmall && 10 }}>
             <MuiMarkdown
               options={{
                 overrides: {
@@ -70,6 +74,22 @@ const CenteredContents = ({
                       },
                     },
                   },
+                  h1: {
+                    component: Typography,
+                    props: {
+                      component: 'h1',
+                      variant: 'h3',
+                      sx: {
+                        textAlign: 'center',
+                        color: isDarkBackground
+                          ? theme.palette.common.white
+                          : headerColor
+                          ? headerColor
+                          : theme.palette.zesty.zestyZambezi,
+                        fontWeight: 'bold',
+                      },
+                    },
+                  },
                   h2: {
                     component: Typography,
                     props: {
@@ -79,6 +99,8 @@ const CenteredContents = ({
                         textAlign: 'center',
                         color: isDarkBackground
                           ? theme.palette.common.white
+                          : headerColor
+                          ? headerColor
                           : theme.palette.zesty.zestyZambezi,
                         fontWeight: 'bold',
                       },
@@ -164,8 +186,9 @@ const CenteredContents = ({
         <Box
           sx={{
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'center',
-            justifyItems: 'center',
+            alignItems: 'center',
             py: isSmall ? 10 : 5,
           }}
         >
@@ -181,6 +204,30 @@ const CenteredContents = ({
             width={mainImageWidth}
             src={mainImage || FillerContent.photos[0].src}
           />
+          {bottomContent && (
+            <MuiMarkdown
+              options={{
+                overrides: {
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        textAlign: 'center',
+                        my: 5,
+                        color: isDarkBackground
+                          ? theme.palette.common.white
+                          : theme.palette.zesty.zestyZambezi,
+                      },
+                    },
+                  },
+                },
+              }}
+            >
+              {bottomContent || FillerContent.headerAndDescription}
+            </MuiMarkdown>
+          )}
         </Box>
       </Container>
     </Box>

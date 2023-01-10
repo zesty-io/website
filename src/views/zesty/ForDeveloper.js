@@ -223,6 +223,7 @@ function ForDeveloper({ content }) {
     secondary_cta_text: content.footer_button_2 || FillerContent.cta,
     secondary_cta_link:
       content.footer_button_2_link?.data[0].meta.web.uri || FillerContent.href,
+    graphicBottom: -18,
     ...pageProps,
   };
 

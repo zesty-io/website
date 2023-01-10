@@ -18,6 +18,7 @@ const AlternateColumns = ({
   cta_text,
   column_data = FillerContent.simpleContents,
   alternateColors,
+  paddingYContent = 10,
 }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
@@ -36,6 +37,12 @@ const AlternateColumns = ({
     theme.palette.zesty.zestyWhite,
     theme.palette.zesty.zestyDarkBlue,
     theme.palette.zesty.zestyWhite,
+    theme.palette.common.white,
+    theme.palette.zesty.zestyWhite,
+    theme.palette.zesty.zestyDarkBlue,
+    theme.palette.common.white,
+    theme.palette.zesty.zestyWhite,
+    theme.palette.common.white,
   ];
 
   return (
@@ -56,7 +63,7 @@ const AlternateColumns = ({
                     component: 'h2',
                     variant: 'h4',
                     sx: {
-                      color: theme.palette.zesty.zestyDarkText,
+                      color: theme.palette.zesty.zestyZambezi,
                       fontWeight: 'bold',
                       textAlign: 'center',
                     },
@@ -105,7 +112,7 @@ const AlternateColumns = ({
             key={idx}
             variant="outlined"
             sx={{
-              py: 10,
+              py: paddingYContent,
               background: isDarkMode
                 ? theme.palette.zesty.zestyDarkBlue
                 : alternateColors
@@ -132,12 +139,12 @@ const AlternateColumns = ({
                   <Box>
                     {item.header && (
                       <Typography
-                        variant={'h4'}
+                        variant={'h5'}
                         component={'h3'}
                         sx={{
                           color: alternateColors
                             ? alternateColors[idx].textColor
-                            : idx === 2
+                            : idx === 2 || idx === 6
                             ? theme.palette.common.white
                             : theme.palette.zesty.zestyZambezi,
                           fontWeight: 'bold',
@@ -150,14 +157,40 @@ const AlternateColumns = ({
                     <MuiMarkdown
                       options={{
                         overrides: {
-                          h3: {
+                          h2: {
                             component: Typography,
                             props: {
-                              variant: 'h4',
+                              variant: 'h5',
                               component: 'h3',
                               color: alternateColors
                                 ? alternateColors[idx].textColor
-                                : idx === 2
+                                : idx === 2 || idx === 6
+                                ? theme.palette.common.white
+                                : theme.palette.zesty.zestyZambezi,
+                              fontWeight: 'bold',
+                            },
+                          },
+                          h3: {
+                            component: Typography,
+                            props: {
+                              variant: 'h5',
+                              component: 'h3',
+                              color: alternateColors
+                                ? alternateColors[idx].textColor
+                                : idx === 2 || idx === 6
+                                ? theme.palette.common.white
+                                : theme.palette.zesty.zestyZambezi,
+                              fontWeight: 'bold',
+                            },
+                          },
+                          span: {
+                            component: Typography,
+                            props: {
+                              variant: 'h5',
+                              component: 'h3',
+                              color: alternateColors
+                                ? alternateColors[idx].textColor
+                                : idx === 2 || idx === 6
                                 ? theme.palette.common.white
                                 : theme.palette.zesty.zestyZambezi,
                               fontWeight: 'bold',
@@ -167,11 +200,11 @@ const AlternateColumns = ({
                             component: Typography,
                             props: {
                               variant: 'h6',
-                              mt: 1,
+                              mt: 3,
                               component: 'p',
                               color: alternateColors
                                 ? alternateColors[idx].textColor
-                                : idx === 2
+                                : idx === 2 || idx === 6
                                 ? theme.palette.common.white
                                 : theme.palette.zesty.zestyZambezi,
                             },
@@ -190,7 +223,7 @@ const AlternateColumns = ({
                               component: 'li',
                               color: alternateColors
                                 ? alternateColors[idx].textColor
-                                : idx === 2
+                                : idx === 2 || idx === 6
                                 ? theme.palette.common.white
                                 : theme.palette.zesty.zestyZambezi,
                             },

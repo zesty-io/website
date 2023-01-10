@@ -26,7 +26,8 @@ const SimpleCardLogo = ({
   maxWidth = 1500,
   variant = 'contained',
   invertLogo = true,
-  background ="transparent"
+  background ="transparent",
+  marginTop = 0,
 }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -42,7 +43,7 @@ const SimpleCardLogo = ({
   }
 
   return (
-    <Box component="section">
+    <Box component="section" sx={{mt: marginTop}}>
       <Container sx={{ maxWidth: maxWidth }}>
         {textOutside && (
           <MuiMarkdown

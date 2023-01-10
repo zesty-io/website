@@ -343,7 +343,6 @@ const CustomForm = ({ onSubmit = () => {} }) => {
             size="small"
             customLabel="First Name"
             formik={formik}
-            style={{ background: '#fff' }}
           />
         </Box>
         <Box width={1}>
@@ -354,7 +353,6 @@ const CustomForm = ({ onSubmit = () => {} }) => {
             size="small"
             customLabel="Last Name"
             formik={formik}
-            style={{ background: '#fff' }}
           />
         </Box>
       </Box>
@@ -367,11 +365,12 @@ const CustomForm = ({ onSubmit = () => {} }) => {
           customLabel="Email Address"
           formik={formik}
           placeholder="e.g john@zesty.io"
-          style={{ background: '#fff' }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <EmailOutlined />
+                <Stack>
+                  <EmailOutlined />
+                </Stack>
               </InputAdornment>
             ),
           }}
@@ -383,7 +382,6 @@ const CustomForm = ({ onSubmit = () => {} }) => {
           color="secondary"
           name="password"
           size="small"
-          style={{ background: '#fff' }}
           type={showPassword ? 'text' : 'password'}
           customLabel="Password"
           formik={formik}

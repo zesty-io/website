@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import dayjs from 'dayjs';
 import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
 import Script from 'next/script';
@@ -32,7 +33,7 @@ import { handlePostToSlack } from './services';
 
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
-const repository = 'https://github.com/zesty-io/template-nextjs-marketing';
+const repository = 'https://github.com/zesty-io/template-bootstrap5-starter';
 const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
 
 const Questionaire = ({
@@ -642,6 +643,8 @@ const Index = ({
     projectName,
   };
 
+  const isExistingZestyUser =
+    dayjs().diff(userInfo?.createdAt, 'hours') > 48 ? true : false;
   React.useEffect(() => {
     const obj = zohoPostObject(
       zohoObj,
@@ -652,10 +655,11 @@ const Index = ({
       role,
       userInfo.ZUID,
     );
-    if (zestyProductionMode) {
+    if (!isExistingZestyUser) {
       handleZoho(obj);
     }
   }, [
+    isExistingZestyUser,
     projectType,
     userType,
     goal,

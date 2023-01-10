@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardContent,
   CardMedia,
@@ -20,6 +19,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import * as helpers from 'utils';
+import { LoadingButton } from '@mui/lab';
+import { useZestyStore } from 'store';
 
 dayjs.extend(relativeTime);
 
@@ -56,7 +57,8 @@ const Media = ({ loading = false, instance = {} }) => {
   }
 };
 
-export default function InstanceHeader({ ZestyAPI, instance, loading }) {
+export default function InstanceHeader({ ZestyAPI }) {
+  const { instance } = useZestyStore((e) => e);
   const [instanceName, setInstanceName] = useState(instance?.name);
   const [showEdit, setShowEdit] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -64,6 +66,8 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
   const managerURl = `https://${instance?.ZUID}.manager${
     helpers?.isProd ? '' : '.dev'
   }.zesty.io/`;
+
+  const isLoading = Object.keys(instance).length === 0 ? true : false;
 
   useEffect(() => {
     setInstanceName(instance?.name);
@@ -78,7 +82,7 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
       }}
     >
       <Stack pt={1} pl={2} pr={2}>
-        <Media instance={instance} loading={loading} />
+        <Media instance={instance} loading={isLoading} />
       </Stack>
 
       <CardContent
@@ -89,7 +93,7 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
           padding: '16px',
         }}
       >
-        {!loading ? (
+        {!isLoading ? (
           isEditing ? (
             <Stack spacing={1} direction="column" alignItems="center">
               <TextField
@@ -126,6 +130,14 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
             <Typography
               variant="h5"
               color="text.primary"
+              sx={{
+                width: '100%',
+                display: 'block',
+                maxHeight: '4rem',
+                wordBreak: 'break-word',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
               onMouseOver={() => setShowEdit(true)}
               onMouseLeave={() => setShowEdit(false)}
             >
@@ -139,9 +151,9 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
             </Typography>
           )
         ) : (
-          <Skeleton variant="rectangular" height={40} />
+          <Skeleton variant="rectangular" height={55} />
         )}
-        {!loading ? (
+        {!isLoading ? (
           <Typography variant="body2" color="text.secondary">
             Last updated {dayjs(instance.updatedAt).fromNow()}
           </Typography>
@@ -159,13 +171,14 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
           }}
         >
           <Stack direction={'row'} gap="8px">
-            <Button
+            <LoadingButton
+              loading={isLoading}
               color="primary"
               target="_blank"
               size="small"
               fullWidth
               variant="contained"
-              title={managerURl}
+              title={'Open Manager'}
               href={managerURl}
               startIcon={<CreateIcon sx={{ fontSize: '20px' }} />}
               sx={{
@@ -175,23 +188,27 @@ export default function InstanceHeader({ ZestyAPI, instance, loading }) {
               }}
             >
               Open Manager
-            </Button>
-            <Button
+            </LoadingButton>
+            <LoadingButton
+              loading={isLoading}
               size="small"
               variant="outlined"
               target="_blank"
               color="inherit"
-              title={webengineUrl}
+              title={'Preview'}
               href={webengineUrl}
               sx={{
                 backgroundColor: '#fff',
                 borderColor: grey[300],
                 color: grey[500],
                 minWidth: 38,
+                '&:hover': {
+                  boxShadow: 1,
+                },
               }}
             >
               <VisibilityIcon />
-            </Button>
+            </LoadingButton>
           </Stack>
         </Stack>
       </CardContent>

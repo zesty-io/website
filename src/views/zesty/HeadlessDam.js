@@ -36,28 +36,138 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
+/**
+ * MUI Imports
+ */
+import { useTheme } from '@mui/material/styles';
+
+/**
+ * Components Imports
+ */
+// import Hero from 'components/marketing/Homepage/Hero';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import TechStack from 'blocks/integrations/TechStack';
+import Bottom from 'blocks/zesty/Bottom/Bottom';
+
+// Helpers Imports
+import FillerContent from 'components/globals/FillerContent';
 
 function HeadlessDam({ content }) {
+  const theme = useTheme();
+
+  const heroProps = {
+    mainTitle: content.hero_h1,
+    title: content.hero_description,
+    image:
+      (content.hero_graphic?.data && content.hero_graphic?.data[0]?.url) ||
+      FillerContent.image,
+    cta_left: content.hero_primary_cta_text,
+    cta_right: content.hero_secondary_cta?.data[0]?.button_text,
+    cta_right_url:
+      content.hero_secondary_cta?.data[0]?.internal_link?.data[0]?.meta?.web
+        ?.url,
+    backgroundColor: theme.palette.zesty.zestyBackgroundBlueGradient,
+  };
+
+  const COLORS = [
+    {
+      backgroundColor: theme.palette.zesty.pureWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
+    {
+      backgroundColor: theme.palette.zesty.pureWhite,
+      textColor: theme.palette.zesty.zestyZambezi,
+    },
+  ];
+
+  const splitParagraph = (p, start, deleteCount) => {
+    var paragraph;
+    if (p) {
+      paragraph = (
+        p.split('</p>').splice(start, deleteCount).join('</p>') + '</p>'
+      ).replace(/\<\/p> *\<\/p>/g, '</p>');
+    }
+    return paragraph;
+  };
+
+  const integrateProps = [
+    {
+      content: splitParagraph(content.section_1_description, 0, 1),
+      image: content.section_1_description_graphic?.data[0]?.url,
+    },
+    {
+      content: splitParagraph(content.section_1_description, 1, 1),
+      image: content.section_1_description_graphic?.data[1]?.url,
+    },
+  ];
+
+  const getData = (dataArray) => {
+    return (
+      dataArray?.data?.reduce((acc, item) => {
+        acc.push({
+          icon_image: item.icon_image?.data[0].url,
+          title: item.feature_name,
+          content: item.content,
+        });
+
+        return acc;
+      }, []) || []
+    );
+  };
+
+  const whyIntegrateProps = {
+    title: content.why_zesty_header,
+    data: getData(content.features),
+    imageWidth: 115,
+    imageHeight: 115,
+    marginTop: 0,
+  };
+
+  const howItWorksProps = {
+    header: content.how_it_works,
+    mainImage: content.how_it_works_graphic?.data[0]?.url,
+    backgroundColor: theme.palette.zesty.zestyOrangeRadialGradient,
+  };
+
+  const integrationLogosProps = {
+    text_content: content.integrate,
+    cta_text: content.integrations_cta?.data[0]?.button_text,
+    cta_link: content.integrations_cta?.data[0]?.external_link,
+    logos: content.integrations_logo?.data,
+  };
+
+  const bottomData = {
+    graphic: content?.get_started_graphic?.data[0]?.url,
+    titleAndDescription: content.get_started,
+    cta_text: content.get_started_cta?.data[0]?.button_text,
+    cta_button_link: content.get_started_cta?.data[0]?.external_link,
+    secondary_cta_text: content.get_started_secondary_cta?.data[0]?.button_text,
+    secondary_cta_link:
+      content.get_started_secondary_cta?.data[0]?.internal_link?.data[0]?.meta
+        ?.web?.url,
+    graphicBottom: 3,
+  };
+
   return (
     <>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      <h1
-        dangerouslySetInnerHTML={{ __html: content.meta.web.seo_meta_title }}
-      ></h1>
-      <div>{content.meta.web.seo_meta_description}</div>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
-      >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      <AlternateColumns
+        header_content={content.section_1_header}
+        column_data={integrateProps}
+        alternateColors={COLORS.slice(0, 2)}
+      />
+      <CardsInContainer {...whyIntegrateProps} />
+      <CenteredContents {...howItWorksProps} />
+      <SimpleCardLogo
+        heading_text={content?.logos_header}
+        logoItems={content?.logos?.data}
+      />
+      <TechStack {...integrationLogosProps} />
+      <Bottom {...bottomData} />
     </>
   );
 }

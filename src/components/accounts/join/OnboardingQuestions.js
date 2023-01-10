@@ -30,10 +30,13 @@ import { isProd } from 'utils';
 import { handlePostToSlack } from './services';
 import slackNotify from 'components/marketing/Start/slackNotify';
 import { pendoScript } from 'components/marketing/Join/pendoScript';
+import dayjs from 'dayjs';
 
+const zoholeadUrl =
+  'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/';
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
-const repository = 'https://github.com/zesty-io/template-nextjs-marketing';
+const repository = 'https://github.com/zesty-io/template-bootstrap5-starter';
 const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
 
 const Questionaire = ({
@@ -351,10 +354,6 @@ const SwipeCompContainer = ({ children, pt = 0 }) => {
   );
 };
 
-const handleZoho = async (obj, callback = () => {}) => {
-  await postToZOHO(obj);
-  await callback();
-};
 const postToZOHO = async (payloadJSON) => {
   dataLayer.push({ event: 'SignupLead', value: '1' });
   try {
@@ -394,6 +393,7 @@ const Index = ({
   goalsList = [],
   inviteUserList = [],
 }) => {
+  const [zohoLeadLink, setzohoLeadLink] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const token = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
   const [preferred_framework, setframework] = React.useState('');
@@ -401,6 +401,7 @@ const Index = ({
   const [goal, setgoal] = React.useState('');
   const [roleType, setroleType] = React.useState('');
   const [instance_zuid, setinstance_zuid] = React.useState('');
+  const [instanceRandomHashID, setinstanceRandomHashID] = React.useState('');
   const [installLoading, setinstallLoading] = React.useState(false);
   const { zestyProductionMode } = content || {};
   const [createInstanceLoading, setcreateInstanceLoading] =
@@ -431,22 +432,27 @@ const Index = ({
 
   const sliderRef = React.useRef(null);
 
-  const handleSuccessCreate = async (res) => {
-    setinstance_zuid(res.data.ZUID);
-    await handleInstall(res.data.ZUID);
+  const handleZoho = async (obj, callback = () => {}) => {
+    const zohoData = await postToZOHO(obj);
+    setzohoLeadLink(
+      `${zoholeadUrl}${zohoData?.data && zohoData?.data[0]?.details?.id}`,
+    );
+    await callback();
   };
 
-  // const opentTabs = () => {
-  //   window.open(`https://${instance_zuid}.manager.zesty.io/`, '_blank');
-  //   window.open(`https://${domain}`, '_blank');
-  // };
+  const handleSuccessCreate = async (res, name) => {
+    setinstance_zuid(res.data.ZUID);
+    setinstanceRandomHashID(res.data.randomHashID);
+    await handleInstall(res.data.ZUID, name);
+  };
+
   const handleErrCreate = (res) => {
     console.error(res);
   };
 
   const handleCreateInstance = async (name) => {
     const res = await ZestyAPI.createInstance(name, '');
-    !res.error && handleSuccessCreate(res);
+    !res.error && handleSuccessCreate(res, name);
     res.error && handleErrCreate(res);
   };
 
@@ -454,7 +460,7 @@ const Index = ({
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
-  const handleInstall = async (instance_zuid) => {
+  const handleInstall = async (instance_zuid, name) => {
     setinstallLoading(true);
     const url = `${baseUrl}/install`;
     const body = {
@@ -465,7 +471,7 @@ const Index = ({
     };
 
     await slackNotify(
-      `${role}  ${userInfo.firstName} ${userInfo.lastName}  ${userInfo.email} is creating new project:${projectName}  (${instance_zuid}) `,
+      `${role}  ${userInfo.firstName} ${userInfo.lastName}  ${userInfo.email} is creating New Project: *${name}* (${instance_zuid}) `,
     );
 
     // after install make the 1st instance favorite
@@ -518,18 +524,6 @@ const Index = ({
     setloading(false);
   }, []);
 
-  const visitor = {
-    id: userInfo.zuid,
-    email: userInfo.email,
-    firstName: userInfo.firstname,
-    lastName: userInfo.lastname,
-    full_name: `${userInfo.firstname} ${userInfo.lastname}`,
-    personaJoin: role,
-    projecttype: projectType,
-    staff: 0,
-    creationdate: new Date().toUTCString(),
-  };
-
   const gtag_report_conversion = (url) => {
     const callback = () => {
       if (typeof url != undefined) {
@@ -544,8 +538,20 @@ const Index = ({
     return false;
   };
 
+  const visitor = {
+    id: userInfo.ZUID,
+    email: userInfo.email,
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    full_name: `${userInfo.firstName} ${userInfo.lastName}`,
+    personaJoin: role,
+    projecttype: projectType,
+    staff: 0,
+    creationdate: new Date().toUTCString(),
+  };
   const handleRole = async (e) => {
     setloading(true);
+    visitor.personaJoin = e.value;
     await window.pendo.initialize({
       visitor,
     });
@@ -564,6 +570,10 @@ const Index = ({
   const handleProject = async (e) => {
     setloading(true);
     setprojectType(e.value);
+    visitor.projecttype = e.value;
+    await window.pendo.initialize({
+      visitor,
+    });
     await updateUser('projectType', e.value);
     handleNext();
   };
@@ -657,8 +667,27 @@ const Index = ({
     projectDescription,
     emails,
     projectName,
+    instance_zuid,
   };
 
+  const onBoardingProps = {
+    userInfo,
+    role,
+    projectType,
+    projectName,
+    instance_zuid,
+    goal,
+    userType,
+    preferred_framework,
+    preferred_component_system,
+    loading: installLoading,
+    instanceUrl: `https://${instanceRandomHashID}-dev.webengine.zesty.io`,
+    managerUrl: `https://${instance_zuid}.manager.zesty.io/`,
+    zohoLeadLink,
+  };
+
+  const isExistingZestyUser =
+    dayjs().diff(userInfo?.createdAt, 'hours') > 48 ? true : false;
   React.useEffect(() => {
     const obj = zohoPostObject(
       zohoObj,
@@ -669,10 +698,11 @@ const Index = ({
       role,
       userInfo.ZUID,
     );
-    if (zestyProductionMode) {
+    if (!isExistingZestyUser) {
       handleZoho(obj);
     }
   }, [
+    isExistingZestyUser,
     projectType,
     userType,
     goal,
@@ -685,6 +715,16 @@ const Index = ({
     emails,
   ]);
 
+  const handleInviteEmails = async () => {
+    if (emails?.length !== 0) {
+      await slackNotify(
+        `*${userInfo?.firstName} ${userInfo?.lastName}* ${
+          userInfo?.email
+        } invited ${JSON.stringify(emails)}`,
+      );
+    }
+    handleNext();
+  };
   React.useEffect(() => {
     gtag_report_conversion();
   }, []);
@@ -743,7 +783,7 @@ const Index = ({
                 left: 0,
                 height: '70vh',
                 width: '100%',
-                backgroundImage: `url('https://brand.zesty.io/zesty-io-logo.png')`,
+                backgroundImage: `url('https://brand.zesty.io/zesty-io-logo.svg')`,
                 backgroundRepeat: `no-repeat, repeat`,
                 backgroundSize: `400px`,
                 backgroundPosition: 'center',
@@ -848,17 +888,14 @@ const Index = ({
                 <InviteTeam
                   emails={emails}
                   setemails={setemails}
-                  handleNext={handleNext}
+                  handleNext={handleInviteEmails}
                 />
               </SwiperSlide>
             )}
 
             <SwiperSlide>
               <SwipeCompContainer>
-                <Onboarding
-                  loading={installLoading}
-                  instanceUrl={`https://${instance_zuid}.manager.zesty.io/`}
-                />
+                <Onboarding {...onBoardingProps} />
               </SwipeCompContainer>
             </SwiperSlide>
           </Swiper>
