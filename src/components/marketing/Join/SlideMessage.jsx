@@ -17,13 +17,9 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 import { useTheme } from '@mui/material/styles';
 import { useFormik } from 'formik';
-import msLogo from '../../../../public/assets/images/microsoft/microsoft_logo.svg';
-const googleLogo =
-  'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=';
-
-const googleUrl = 'https://auth.api.zesty.io/google/login';
 
 import {
+  accounts,
   accountsValidations,
   ErrorMsg,
   FormInput,
@@ -237,23 +233,36 @@ export const SlideMessage = ({
                     Start with single sign-on
                     {/* Create your free account */}
                   </Typography>
+
                   <Stack
-                    direction={{ xs: 'column', xl: 'row' }}
+                    direction={'column'}
                     alignItems={'center'}
-                    justifyContent="center"
-                    gap={2}
-                    sx={{ m: 0 }}
+                    justifyContent="space-evenly"
+                    gap={1}
+                    width={1}
                   >
                     <LinkComponent
-                      image={googleLogo}
-                      title="Google Login"
-                      href={googleUrl}
+                      image={accounts.sso.google.logo}
+                      title="Sign in with Google"
+                      href={accounts.sso.google.url}
+                      bodyColor="#4584F8"
+                      textColor="#fff"
+                      borderColor="#4584F8"
+                    />
+                    <LinkComponent
+                      image={accounts.sso.github.logo}
+                      title="Sign in with Github"
+                      href={accounts.sso.github.url}
+                      bodyColor="#23282C"
+                      logoColor="#23282C"
+                      borderColor="#23282C"
+                      textColor="#fff"
                     />
 
                     <LinkComponent
-                      image={msLogo.src}
-                      title="Microsoft Login"
-                      href={`https://auth.api.zesty.io/azure/login`}
+                      image={accounts.sso.microsoft.logo}
+                      title="Sign in with Microsoft"
+                      href={accounts.sso.microsoft.url}
                     />
                   </Stack>
 
@@ -423,8 +432,13 @@ const CustomForm = ({ onSubmit = () => {} }) => {
 };
 
 const LinkComponent = ({
-  image = googleLogo,
-  title = 'Join with Google',
+  image = accounts.logos.google,
+  title = 'Sign in with Google',
+  bodyColor = '#fff',
+  logoColor = '#fff',
+  textColor = '#333333',
+  borderColor = grey[500],
+
   href,
 }) => {
   const router = useRouter();
@@ -437,27 +451,42 @@ const LinkComponent = ({
       direction={'row'}
       gap={1}
       alignItems="center"
+      width={1}
       sx={{
-        minWidth: '150px',
-        border: `1px solid ${grey[500]}`,
-        borderRadius: '5px',
+        borderRadius: '3px',
+        border: `1px solid ${borderColor}`,
         cursor: 'pointer',
-        background: '#fff',
+        background: bodyColor,
+        '&:hover': {
+          filter: 'contrast(120%)',
+          boxShadow: 2,
+        },
       }}
-      py={1}
-      px={2}
     >
-      <Stack>
-        <img src={image} alt={title} height={'20px'} width="20px" />
-      </Stack>
       <Stack
+        p={1}
+        bgcolor={logoColor}
+        alignItems={'center'}
+        justifyItems="center"
         sx={{
-          '&:hover': {
-            opacity: 0.7,
-          },
+          borderRadius: '3px 0 0 3px',
         }}
       >
-        <Typography fontWeight={'500'} color={grey[700]} whiteSpace={'nowrap'}>
+        <img src={image} alt={title} height={'24px'} width="24px" />
+      </Stack>
+      <Stack
+        width={1}
+        textAlign="center"
+        sx={{
+          color: textColor,
+        }}
+      >
+        <Typography
+          fontWeight={'500'}
+          mr={6}
+          color={textColor}
+          whiteSpace={'nowrap'}
+        >
           {title}
         </Typography>
       </Stack>
