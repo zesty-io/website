@@ -729,6 +729,12 @@ const Index = ({
     gtag_report_conversion();
   }, []);
 
+  React.useEffect(() => {
+    window.pendo.initialize({
+      visitor,
+    });
+  }, []);
+
   return (
     <Container
       maxWidth={false}
