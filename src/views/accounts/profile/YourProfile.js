@@ -7,6 +7,7 @@ import withReactContent from 'sweetalert2-react-content';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { joinAppConstants } from 'components/accounts/join/constants';
 import EditIcon from '@mui/icons-material/Edit';
 import {
   AccountsHeader,
@@ -16,13 +17,35 @@ import {
   EmailForm,
   ErrorMsg,
   FormInput,
+  FormSelect,
   SubmitBtn,
   SuccessMsg,
 } from 'components/accounts/ui';
 import { useFormik } from 'formik';
 import { accountsValidations } from 'components/accounts';
+import { zohoPostObject } from 'components/accounts/join/zohoPostObject';
 
 const MySwal = withReactContent(Swal);
+
+const postToZOHO = async (payloadJSON) => {
+  dataLayer.push({ event: 'SignupLead', value: '1' });
+  try {
+    let res = await fetch(
+      'https://us-central1-zesty-prod.cloudfunctions.net/zoho',
+      {
+        method: 'POST',
+        body: JSON.stringify(payloadJSON),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return await res.json();
+  } catch (error) {
+    console.warn(error);
+    // throw new Error(`HTTP error: ${error}`);
+  }
+};
 
 const CustomTable = ({ emails, userInfo, deleteEmail, loading }) => {
   const ROWS = emails?.map((e) => {
@@ -198,13 +221,53 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
     await getUserEmails();
   };
   const updateUsername = async (values) => {
-    const userZUID = userInfo.ZUID;
+    const newPrefs = userInfo?.prefs && JSON.parse(userInfo?.prefs);
+    const {
+      projectType,
+      userType,
+      goal,
+      company,
+      preferred_framework,
+      preferred_component_system,
+      projectName,
+      projectDescription,
+      instance_zuid,
+      phoneNumber,
+    } = newPrefs || {};
+
+    const zohoObj = {
+      ...userInfo,
+      projectType,
+      userType,
+      goal,
+      company,
+      preferred_framework,
+      preferred_component_system,
+      role: values?.persona,
+      phoneNumber,
+      projectDescription,
+      emails,
+      projectName,
+      instance_zuid,
+    };
+
+    const obj = zohoPostObject(
+      zohoObj,
+      'Trial',
+      'Trial',
+      'Unknown',
+      'Website',
+      '',
+      userInfo.ZUID,
+    );
+
     const body = {
       firstName: values.firstName,
       lastName: values.lastName,
-      prefs: userInfo.prefs,
+      prefs: JSON.stringify({ ...newPrefs, ['persona']: values?.persona }),
     };
-    const res = await ZestyAPI.updateUser(userZUID, body);
+    await postToZOHO(obj);
+    const res = await ZestyAPI.updateUser(userInfo.ZUID, body);
     !res.error && updateUsernameSuccess(res);
     res.error && updateUsernameError(res);
   };
@@ -264,11 +327,14 @@ export const YourProfile = ({ getUser, loading, setloading }) => {
 };
 
 const EditProfile = ({ onSubmit, userInfo }) => {
+  const userPrefs =
+    typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
   const formik = useFormik({
     validationSchema: accountsValidations.userName,
     initialValues: {
       firstName: userInfo?.firstName,
       lastName: userInfo?.lastName,
+      persona: userPrefs?.persona,
     },
     onSubmit: async (values) => {
       await onSubmit(values);
@@ -280,9 +346,17 @@ const EditProfile = ({ onSubmit, userInfo }) => {
     <Stack gap={4}>
       <ProfileHeader userInfo={userInfo} />
       <form noValidate onSubmit={formik.handleSubmit}>
-        <FormInput name={'firstName'} label="First Name" formik={formik} />
-        <FormInput name={'lastName'} label="Last Name" formik={formik} />
-        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        <Stack gap={2}>
+          <FormInput name={'firstName'} label="First Name" formik={formik} />
+          <FormInput name={'lastName'} label="Last Name" formik={formik} />
+          <FormSelect
+            label="Role"
+            name={'persona'}
+            formik={formik}
+            options={joinAppConstants.roleList}
+          />
+          <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
+        </Stack>
       </form>
     </Stack>
   );

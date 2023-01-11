@@ -55,14 +55,14 @@ import FillerContent from 'components/globals/FillerContent';
 
 // Components Imports
 
-import LogoGridSimpleCentered from 'blocks/logoGrid/LogoGridSimpleCentered';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustrationAndSearchBar';
 import NewsletterWithImage from 'components/marketing/LongFormPpc/NewsletterWithImage';
 import SimpleCentered from 'components/marketing/LongFormPpc/SimpleCentered';
 import BgDecorations from 'components/marketing/LongFormPpc/BgDecorations';
 import TechStack from 'blocks/integrations/TechStack';
 import Hero from 'components/marketing/LongFormPpc/Hero';
-import Features from 'blocks/features/Features/Features';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
@@ -106,7 +106,7 @@ function LongFormPpc({ content }) {
   const feature_data =
     content?.features?.data.reduce((acc, item) => {
       acc.push({
-        icon_image: item.icon_image.data[0].url,
+        icon_image: item.icon_image?.data[0]?.url,
         feature_name: item.feature_name,
         content: item.content,
       });
@@ -154,9 +154,10 @@ function LongFormPpc({ content }) {
 
       {/* Who Zesty works with */}
       <Box sx={{ py: 10 }}>
-        <LogoGridSimpleCentered
-          title={content.logos_h3 || FillerContent.header}
-          imageCollection={content.logos?.data || [FillerContent.image]}
+        <SimpleCardLogo
+          logoItems={content?.logos?.data}
+          heading_text={content.logos_h3}
+          maxWidth={1300}
         />
       </Box>
 
@@ -168,7 +169,7 @@ function LongFormPpc({ content }) {
           }
           image={
             (content._what_is_image?.data &&
-              content._what_is_image?.data[0].url) ||
+              content._what_is_image?.data[0]?.url) ||
             FillerContent.image
           }
         />

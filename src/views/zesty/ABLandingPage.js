@@ -40,9 +40,9 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Stack } from '@mui/material';
-import Features from 'blocks/features/Features/Features';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-import AlternateColumns from 'blocks/pageLayouts/ColumnLayouts/AlternateColumns';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 import TwoColumnHeroWithImage from 'blocks/zesty/Hero/TwoColumnHeroWithImage';
 import FillerContent from 'components/globals/FillerContent';
@@ -184,7 +184,6 @@ function ABLandingPage({ content }) {
         header_content={content?.middle_cta_text || FillerContent.header}
       />
       <Features
-        header_size={48}
         data={featureData.data}
         features_header={featureData.header}
         card_name_color={featureData.card_name_color}

@@ -32,7 +32,7 @@ import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Avatar, Grid, Box, Container } from '@mui/material';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 
 const Demo = ({ content }) => {

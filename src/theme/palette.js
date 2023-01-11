@@ -134,6 +134,7 @@ export const dark = {
   background: {
     paper: '#1a202c',
     default: '#1a202c',
+    dark: 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))',
     level2: '#3c465e',
     level1: '#2D3748',
   },

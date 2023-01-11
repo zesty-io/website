@@ -9,14 +9,34 @@ import { useTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import ZActivityStream from './ui/ZActivityStream';
 import SideContent from './SideContent';
+import { OnboardingQuestions } from '../join/OnboardingQuestions';
+import { PersonalizationSurvey } from '../join/PersonalizationSurvey';
+import { AccountPageloading } from '../ui';
+// import { PreferenceQuestions } from '../join/PreferenceQuestions';
+// import { MissingQuestions } from '../join/MissingQuestions';
+import { joinAppConstants } from '../join/constants';
+import { ToolBox } from '../join/ToolBox';
+import { pendoScript } from 'components/marketing/Join/pendoScript';
 
 const TOTAL_INSTANCES_LIMIT = 10;
 const TOTAL_TEAMS_LIMIT = 5;
 const INSTANCE_CARD_LIMIT = 3;
 
-const Dashboard = () => {
+const Dashboard = ({ content = {} }) => {
+  const {
+    devProjects,
+    nonDevProjects,
+    userTypeList,
+    frameworkList,
+    componentsSystemList,
+    roleList,
+    goalsList,
+    inviteUserList,
+  } = joinAppConstants;
+
+  const [invites, setinvites] = useState([]);
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
-  const [initialInstances, setInitialInstances] = useState([]);
+  const [initialInstances, setInitialInstances] = useState(undefined);
   const [instances, setInstances] = useState([]);
   const [isInstancesLoading, setIsInstanceLoading] = useState(false);
   const [filteredInstances, setFilteredInstances] = useState([]);
@@ -48,9 +68,11 @@ const Dashboard = () => {
   };
 
   const getAllTeams = async () => {
+    setIsInstanceLoading(true);
     const response = await ZestyAPI.getAllTeams();
     !response.error && setTeams(response?.data);
     response.error && setTeams([]);
+    setIsInstanceLoading(false);
   };
 
   const handleSearchInstances = (value) => {
@@ -88,6 +110,143 @@ const Dashboard = () => {
 
     return [...instacesFavoritesData, ...instancesWOutFavoritesData];
   };
+
+  // this is an array the key values that checks users
+  const prefChecks = [
+    'persona',
+    'projectName',
+    'projectType',
+    'userType',
+    'goal',
+    'preferred_framework',
+    'preferred_component_system',
+    'company',
+    'userInvited',
+  ];
+
+  // parse user prefs JSON string otherwise undefined
+  // this is use determine if we run the preference component
+  const userPrefs =
+    typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
+
+  // prefs of old users need to be ignored
+  const defaultPrefs = ['favorite_sites', 'instance_layout', 'teamOptions'];
+  // preference that trigger the missing preferences component
+  const missingPreferences = ['persona'];
+  // ignore default prefs for existing/old users
+  const existingUserPrefs = Object.keys(userPrefs).filter(
+    (e) => !defaultPrefs.includes(e),
+  );
+
+  // checking
+  const missingUserPrefs = prefChecks
+    .filter((x) => !existingUserPrefs.includes(x))
+    .concat(existingUserPrefs.filter((x) => !prefChecks.includes(x)));
+
+  const hasPersona = missingUserPrefs.includes('persona');
+  const hasProjectName = missingUserPrefs.includes('projectName');
+  const hasUserType = missingUserPrefs.includes('userType');
+  const hasProjectType = missingUserPrefs.includes('projectType');
+  const hasGoal = missingUserPrefs.includes('goal');
+  const hasPreferredFramework = missingUserPrefs.includes(
+    'preferred_framework',
+  );
+  const hasPreferredComponentSystem = missingUserPrefs.includes(
+    'preferred_component_system',
+  );
+  const hasCompany = missingUserPrefs.includes('company');
+  const hasUserInvited = missingUserPrefs.includes('userInvited');
+
+  if (!userInfo || Object.keys(userInfo)?.length === 0) {
+    return <AccountPageloading title={'Zesty.io'} />;
+  }
+
+  const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
+  const isDecisionMaker = roleType === 'decision-maker' ? true : false;
+  // the user dont have preferences we use this boolean to launch preference component
+  // const isUserMissingPrefs = Object.keys(userPrefs).length === 0 ? true : false;
+  // const newUserHasInvite =
+  //   invites?.length > 0 && ssoLaunchVsUserCreated > 0 ? true : false;
+
+  const getAllInvitedInstances = async () => {
+    setIsInstanceLoading(true);
+    const res = await ZestyAPI.getAllInvitedInstances();
+    if (Array.isArray(res?.data) && res?.status === 200) {
+      setinvites(res?.data);
+    } else {
+      setinvites([]);
+    }
+    setIsInstanceLoading(false);
+  };
+
+  const onBoardingQuestionProps = {
+    content,
+    // check for missing prefs
+    hasCompany,
+    hasGoal,
+    hasPersona,
+    hasProjectName,
+    hasPreferredComponentSystem,
+    hasPreferredFramework,
+    hasUserType,
+    hasProjectType,
+    hasUserInvited,
+    // constants
+    devProjects,
+    nonDevProjects,
+    userTypeList,
+    frameworkList,
+    componentsSystemList,
+    roleList,
+    goalsList,
+    inviteUserList,
+  };
+
+  // const missingQuestionProps = {
+  //   content,
+  //   devProjects,
+  //   nonDevProjects,
+  //   userTypeList,
+  //   frameworkList,
+  //   componentsSystemList,
+  //   roleList,
+  //   goalsList,
+  //   hasCompany,
+  //   hasGoal,
+  //   hasPersona,
+  //   hasProjectName,
+  //   hasPreferredComponentSystem,
+  //   hasPreferredFramework,
+  //   hasUserType,
+  //   hasUserInvited,
+  //   hasProjectType,
+  //   inviteUserList,
+  // };
+
+  const personalizationProps = {
+    content,
+    devProjects,
+    nonDevProjects,
+    userTypeList,
+    frameworkList,
+    componentsSystemList,
+    roleList,
+    goalsList,
+    hasCompany,
+    hasGoal,
+    hasPersona,
+    hasProjectName,
+    hasPreferredComponentSystem,
+    hasPreferredFramework,
+    hasUserType,
+    hasUserInvited,
+    hasProjectType,
+    inviteUserList,
+  };
+
+  useEffect(() => {
+    getAllInvitedInstances();
+  }, []);
 
   useEffect(() => {
     getAllTeams();
@@ -143,6 +302,44 @@ const Dashboard = () => {
     runSettingInstances();
   }, [instancesFavorites]);
 
+  //! for testing only
+  // return <OnboardingQuestions {...onBoardingQuestionProps} />;
+
+  //! old check
+  // if (newUserHasInvite) {
+  //   return <PreferenceQuestions content={content} />;
+  // } else if (isNewUser && !isDecisionMaker) {
+  //   return <OnboardingQuestions {...onBoardingQuestionProps} />;
+  // } else if (missingUserPrefs?.length > 0 && !isDecisionMaker) {
+  //   return <MissingQuestions {...missingQuestionProps} />;
+  // } else if (missingUserPrefs[0] === 'persona') {
+  //   return <PersonalizationSurvey content={content} />;
+  // }
+
+  // 1 if no instances and no invites and no preferences
+  // return onboarding questions w/ preferences === true
+  // 2 if no instances and no invites return onboarding question w/ preferences === false
+  // 3 if no preferences return personalization survey
+  // 4 if has instances has invites ignore
+
+  const hasMissingPrefs =
+    missingUserPrefs?.filter((value) => missingPreferences?.includes(value))
+      ?.length !== 0
+      ? true
+      : false;
+  //* if newuser dont have invites and dont have instances show onboarding
+  if (
+    initialInstances?.length === 0 &&
+    invites?.length === 0 &&
+    !isDecisionMaker
+  ) {
+    return <OnboardingQuestions {...onBoardingQuestionProps} />;
+    //* if old user and has missing preference
+  } else if (hasMissingPrefs) {
+    return <PersonalizationSurvey {...personalizationProps} />;
+  }
+
+  //* else show dashboard
   return (
     <>
       <Container
@@ -153,6 +350,8 @@ const Dashboard = () => {
           px: 3,
         })}
       >
+        {pendoScript}
+        {!content.zestyProductionMode && <ToolBox title="" />}
         <Grid container spacing={2} mt={1}>
           <Grid
             sx={(theme) => ({

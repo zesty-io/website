@@ -90,15 +90,15 @@ import FillerContent from 'components/globals/FillerContent';
 /**
  * Components Import
  */
-import Hero from 'components/marketing/DigitalExperiencePlatform/Hero';
+import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
 import Solution from 'components/marketing/DigitalExperiencePlatform/Solution';
-import About from 'components/marketing/DigitalExperiencePlatform/About';
-import Middle from 'components/marketing/DigitalExperiencePlatform/Middle';
-import Features from 'blocks/features/Features/Features';
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
+import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import Integrations from 'components/marketing/DigitalExperiencePlatform/Integrations';
 import Implementation from 'components/marketing/DigitalExperiencePlatform/Implementation';
-import TopBrands from '../../blocks/caseStudies/TopBrands';
-import Bottom from 'components/marketing/DigitalExperiencePlatform/Bottom';
+import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
+import ImageWithContentsCta from 'blocks/zesty/Cta/ImageWithContentsCta';
 
 function DigitalExperiencePlatform({ content }) {
   const theme = useTheme();
@@ -107,25 +107,39 @@ function DigitalExperiencePlatform({ content }) {
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const isDarkMode = theme.palette.mode === 'dark';
 
-  const HeroProps = {
-    eyebrow: content.header_eyebrow || FillerContent.header,
-    header: content.header_h1 || FillerContent.header,
-    subHeader: content.header_description || FillerContent.description,
-    mainImage:
-      content.header_graphic?.data[0]?.url || FillerContent.logos[0].url,
-    primaryCta: content.header_cta_primary || FillerContent.cta,
-    secondaryCta: content.header_cta_secondary || FillerContent.cta,
-    secondaryCtaLink:
-      content.header_cta_secondary_link.data[0].meta.web.uri ||
-      FillerContent.href,
-    gradientBg: theme.palette.zesty.zestyBlueGradient,
-    bgImage:
-      content.header_background_image?.data[1]?.url ||
-      FillerContent.logos[0].url,
-    isMobile,
-    theme,
-    FillerContent,
-    isTablet,
+  const heroProps = {
+    mainTitle: content.header_eyebrow,
+    title: content.header_h1,
+    description: content.header_description,
+    image: content.header_graphic?.data && content.header_graphic?.data[0]?.url,
+    cta_left: content.header_cta_primary,
+    cta_right: content.header_cta_secondary,
+    cta_right_url: content.header_cta_secondary_link?.data[0]?.meta?.web?.url,
+    backgroundColor: isDarkMode
+      ? theme.palette.zesty.zestyDarkBlue
+      : theme.palette.zesty.zestyWhite,
+  };
+
+  const middleData = {
+    header_content: content.middle_solutions_header,
+    column_data: [
+      {
+        content: content.middle_solution_1_description,
+        image: content.middle_solution_1_graphic?.data[0]?.url,
+      },
+      {
+        content: content.middle_solution_2_description,
+        image: content.middle_solution_2_graphic?.data[0]?.url,
+      },
+      {
+        content: content.middle_solution_3_description,
+        image: content.middle_solution_3_graphic?.data[0]?.url,
+      },
+      {
+        content: content.middle_solution_4_description,
+        image: content.middle_solution_4_graphic?.data[0]?.url,
+      },
+    ],
   };
 
   const PageData = {
@@ -150,12 +164,32 @@ function DigitalExperiencePlatform({ content }) {
       return acc;
     }, []) || [];
 
+  const aboutProps = {
+    header: content.about_dxp,
+    primaryCtaText: content.middle_cta_text,
+    mainImage: content.about_dxp_graphic?.data[0]?.url,
+  };
+
+  const caseStudiesProps = {
+    header: content.case_study_header,
+    g2BadgesData: content.g2_badges?.data,
+    caseStudiesData: content.case_studies?.data,
+  };
+
+  const bottomProps = {
+    mainImage: content.bottom_cta_graphic.data[0].url,
+    header: content.bottom_cta_description,
+    headerColor: theme.palette.zesty.zestyZambezi,
+    primaryCtaText: content.bottom_cta_button_primary,
+    secondaryCtaText: content.bottom_cta_button_secondary,
+  };
+
   return (
     <Box>
-      <Hero {...HeroProps} />
+      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <Solution {...PageData} />
-      <About {...PageData} />
-      <Middle {...PageData} />
+      <CenteredContents {...aboutProps} />
+      <AlternateColumns {...middleData} />
       <Features
         cta_button_text={content.feature_cta_text}
         textHighlight=""
@@ -165,17 +199,8 @@ function DigitalExperiencePlatform({ content }) {
       />
       <Integrations {...PageData} />
       <Implementation {...PageData} />
-      <TopBrands
-        backgroundColor={
-          isDarkMode
-            ? theme.palette.zesty.zestyDarkBlue
-            : theme.palette.zesty.zestyBackgroundBlue
-        }
-        sx={{ pt: 4 }}
-        title={content.case_study_header}
-        {...PageData}
-      />
-      <Bottom {...PageData} />
+      <CaseStudyCards {...caseStudiesProps} />
+      <ImageWithContentsCta {...bottomProps} sx={{ mt: 10 }} />
     </Box>
   );
 }

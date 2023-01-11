@@ -52,9 +52,11 @@ const Index = ({
       )}
       {type !== 'password' ? (
         <TextField
+          FormHelperTextProps={{ style: { background: 'transparent' } }}
           {...defaultProps}
           {...props}
           sx={{
+            '& .MuiInputBase-root': { background: '#fff' },
             '& .MuiOutlinedInput-root:hover': {
               '& > fieldset': {
                 border: '1px solid #c4c4c4',
@@ -64,7 +66,9 @@ const Index = ({
         />
       ) : (
         <TextField
+          FormHelperTextProps={{ style: { background: 'transparent' } }}
           sx={{
+            '& .MuiInputBase-root': { background: '#fff' },
             '& .MuiOutlinedInput-root:hover': {
               '& > fieldset': {
                 border: '1px solid #c4c4c4',

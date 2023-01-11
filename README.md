@@ -510,3 +510,7 @@ sample cypress config
 ### Visually
 
 `npm run dev` in 1st terminal and `npm run cy:open` in 2nd terminal then click the test you want to run.
+
+## Uploading Assets
+
+To upload assets for your projects put them on the CDN, do not put them in the repository. Assets can be uploaded at https://console.cloud.google.com/storage/browser/assets.zesty.io?project=zesty-prod , upload to the respective folder that match your project name, for example, the SVGs and PNG that are being commited to website should be moved into this storage bucket under the website folder, once they are uploaded they accessible from https://assets.zesty.io e.g. https://assets.zesty.io/website/assets/images/dxp_bottom_bg.svg

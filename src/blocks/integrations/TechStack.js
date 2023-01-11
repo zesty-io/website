@@ -1,23 +1,23 @@
 // MUI Imports
-import { Box, Container, Typography, Grid, Button } from '@mui/material';
+import { Box, Container, Typography, Grid } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
 import ZestyImage from 'blocks/Image/ZestyImage';
+import DemoCta from 'components/cta/DemoCta';
 
 const TechStack = ({
   headerColor,
-  headerFontWeight = 500,
   text_content,
   logos,
   cta_text,
   cta_link,
   textHighlight,
-  background,
+  backgroundColor,
 }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   // check if features_header richtext if not convert it to richtext format for consistency
   const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
@@ -28,16 +28,17 @@ const TechStack = ({
   }
 
   return (
-    <Box component="section" sx={{ px: 4 }}>
-      <Box
-        sx={{
-          background: background
-            ? background
-            : theme.palette.zesty.zestySeaShell,
-          borderRadius: 10,
-          py: 15,
-        }}
-      >
+    <Box
+      component="section"
+      sx={{
+        px: 4,
+        background: backgroundColor
+          ? backgroundColor
+          : theme.palette.zesty.zestySeaShell,
+        py: 15,
+      }}
+    >
+      <Box sx={{}}>
         <Container>
           <Grid container spacing={2}>
             <Grid item sm={12} md={6}>
@@ -50,10 +51,10 @@ const TechStack = ({
                         variant: 'h4',
                         component: 'h2',
                         sx: {
-                          fontWeight: headerFontWeight,
+                          fontWeight: 'bold',
                           color: headerColor
                             ? headerColor
-                            : theme.palette.zesty.zestyOrange,
+                            : theme.palette.zesty.zestyZambezi,
                         },
                       },
                     },
@@ -99,26 +100,22 @@ const TechStack = ({
                   `<span>${textHighlight}</span>`,
                 )}
               </MuiMarkdown>
-
-              <Box sx={{ width: '100%', mt: 4 }}>
-                {cta_link && (
-                  <Button
-                    component={'a'}
-                    target="_blank"
+              {cta_link && (
+                <Box sx={{ width: '100%', mt: 4 }}>
+                  <DemoCta
+                    icon={false}
                     fullWidth={isMobile}
                     variant="contained"
-                    href={cta_link || FillerContent.href}
                     sx={{
                       background: theme.palette.zesty.zestyOrange,
-                      color: theme.palette.common.white,
                       px: 6,
+                      fontWeight: 'bold',
                     }}
-                    size="large"
-                  >
-                    {cta_text || FillerContent.cta}
-                  </Button>
-                )}
-              </Box>
+                    text={cta_text || FillerContent.cta}
+                    href={cta_link || FillerContent.href}
+                  />
+                </Box>
+              )}
             </Grid>
             <Grid
               sx={{
@@ -149,14 +146,14 @@ const TechStack = ({
                 />
                 {logos?.map((item, idx) => {
                   return (
-                      <ZestyImage
-                        key={idx}
-                        width={88}
-                        height={88}
-                        style={{ height: 88, width: 'auto' }}
-                        alt="integration logo's"
-                        src={item.logo?.data[0].url}
-                      />
+                    <ZestyImage
+                      key={idx}
+                      width={88}
+                      height={88}
+                      style={{ height: 88, width: 'auto' }}
+                      alt="integration logo's"
+                      src={item.logo?.data[0].url}
+                    />
                   );
                 })}
               </Box>

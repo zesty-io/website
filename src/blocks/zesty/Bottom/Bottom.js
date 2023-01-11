@@ -27,6 +27,8 @@ const Bottom = ({
   secondary_cta_text,
   secondary_cta_link,
   backgroundColor,
+  graphicBottom = -37,
+  marginTop = 0,
 }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
@@ -49,6 +51,7 @@ const Bottom = ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        mt: marginTop
       }}
     >
       <Container>
@@ -70,10 +73,11 @@ const Bottom = ({
                   width: '100%',
                   height: 'auto',
                   position: isLarge ? 'inherit' : 'absolute',
-                  bottom: isLarge ? 0 : -37,
+                  zIndex: 99,
+                  bottom: isLarge || !graphic ? 0 : graphicBottom,
                 }}
                 loading="lazy"
-                src={`${graphic || ''}?width=951`}
+                src={`${graphic || FillerContent.image}?width=951`}
                 alt="zesty.io"
               />
             </Box>
@@ -132,7 +136,7 @@ const Bottom = ({
                   },
                 }}
               >
-                {titleAndDescription || FillerContent.rich_text}
+                {titleAndDescription || FillerContent.headerAndDescription}
               </MuiMarkdown>
 
               <Box

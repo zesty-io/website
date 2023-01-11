@@ -26,6 +26,7 @@ import { useSnackbar } from 'notistack';
 import { notistackMessage } from 'utils';
 import InstancesTypes from './InstancesTypes';
 import useDebounce from 'components/hooks/useDebounce';
+import { useRouter } from 'next/router';
 
 const orderByItems = [
   {
@@ -39,6 +40,7 @@ const orderByItems = [
 ];
 
 const InstanceDashboardV2 = () => {
+  const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { ZestyAPI, userInfo } = useZestyStore((state) => state);
   const [favorites, setFavorites] = useState([]);
@@ -156,6 +158,7 @@ const InstanceDashboardV2 = () => {
     const response = await ZestyAPI.getAllInvitedInstances();
     setInitialInvites([...response?.data]);
     setInvitesList([...response?.data]);
+    return response?.data;
   };
 
   const respondToInvite = async (inviteZUID, action) => {
@@ -180,7 +183,7 @@ const InstanceDashboardV2 = () => {
   const toggleFavorites = async (zuid) => {
     setIsTogglingFavorites(true);
     const isExisting = favorites?.find((e) => e === zuid);
-    const favoritesSites = [...favorites, zuid];
+    const favoritesSites = favorites ? [...favorites, zuid] : [];
     const filteredFavorites = favorites?.filter((e) => e !== zuid);
     const prefs = JSON.parse(userInfo.prefs);
     prefs.favorite_sites = !isExisting ? favoritesSites : filteredFavorites;
@@ -202,6 +205,14 @@ const InstanceDashboardV2 = () => {
     setIsInstancesLoading(true);
     const res = await ZestyAPI.getInstances();
     setInitialInstances([...res?.data]);
+
+    // if no instance and no invites, push the user to the dashboard for onboarding
+    if (res?.data.length === 0) {
+      const invites = await getAllInvitedInstances();
+      if (invites && invites.length == 0) {
+        router.push('/');
+      }
+    }
 
     setInstancesList(
       [...res?.data]?.filter(

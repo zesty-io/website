@@ -6,6 +6,7 @@ import MarketingAnnoucement from './MarketingAnnoucement';
 import Review from './Review';
 import MainNavigation from './MainNavigation';
 import PersonaContent from './PersonaContent';
+import Chat from './Chat';
 import CustomerBrand from './CustomerBrand';
 import CustomerHighlight from './CustomerHighlight';
 import LandingPageVariation from './LandingPageVariation';
@@ -49,6 +50,7 @@ import PricingTierFeature from './PricingTierFeature';
 import G2Badge from './G2Badge';
 import WebsiteBanner from './WebsiteBanner';
 import ABTestDataSet from './ABTestDataSet';
+import Stat from './Stat';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -122,6 +124,8 @@ import Login from './Login';
 import UngatedDemoVideoForAd from './UngatedDemoVideoForAd';
 import AccountsDashboardMarketing from './AccountsDashboardMarketing';
 import ABLandingPage from './ABLandingPage';
+import JoinPageContent from './JoinPageContent';
+import ParsleyFeaturesPage from './ParsleyFeaturesPage';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -132,6 +136,7 @@ export {
   Review,
   MainNavigation,
   PersonaContent,
+  Chat,
   CustomerBrand,
   CustomerHighlight,
   LandingPageVariation,
@@ -175,6 +180,7 @@ export {
   G2Badge,
   WebsiteBanner,
   ABTestDataSet,
+  Stat,
   Category,
   Article,
   Tag,
@@ -248,6 +254,8 @@ export {
   UngatedDemoVideoForAd,
   AccountsDashboardMarketing,
   ABLandingPage,
+  JoinPageContent,
+  ParsleyFeaturesPage,
   Footer,
   Header,
 };
