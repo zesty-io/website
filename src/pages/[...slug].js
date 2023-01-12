@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, createContext } from 'react';
 
 import { fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
@@ -8,7 +8,9 @@ import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import Main from 'layouts/Main';
 
 import { getIsAuthenticated } from 'utils';
+//
 
+export const GlobalContext = createContext();
 export default function Slug(props) {
   const isLoggedIn = useIsLoggedIn();
   // for homepage navigation
@@ -86,6 +88,43 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       },
     };
   }
+
+  // let productionMode =
+  //   undefined === process.env.PRODUCTION || process.env.PRODUCTION === 'true'
+  //     ? true
+  //     : false;
+  // let zestyURL = productionMode
+  //   ? process.env.zesty.production
+  //   : process.env.zesty.stage;
+
+  // /**
+  //  * React Auto Layout Serverside Request Implementation
+  //  */
+
+  // // outer try-catch to avoid errors on pages that don't use layouts
+  // try {
+  //   // Holds the layout components object
+  //   const layoutComponentObject =
+  //     data.meta.layout.json['layout:root:column:0'].children;
+  //   // Convert objects to array
+  //   const componentsArray = Object.values(layoutComponentObject);
+
+  //   // loop each object and fetch data based on the defined zuid
+  //   for await (const component of componentsArray) {
+  //     try {
+  //       // Layouts Data Fetching
+  //       const resp = await fetch(
+  //         `${zestyURL}/-/instant/${component.hydrationResource}.json`,
+  //       );
+  //       // append the data to the global content props
+  //       data[component.name] = await resp.json();
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // } catch (error) {
+  //   console.info('Layout is not initialize on this page');
+  // }
 
   // Pass data to the page via props
   return { props: { ...data } };

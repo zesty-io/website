@@ -6,7 +6,6 @@ import MarketingAnnoucement from './MarketingAnnoucement';
 import Review from './Review';
 import MainNavigation from './MainNavigation';
 import PersonaContent from './PersonaContent';
-import Chat from './Chat';
 import CustomerBrand from './CustomerBrand';
 import CustomerHighlight from './CustomerHighlight';
 import LandingPageVariation from './LandingPageVariation';
@@ -126,17 +125,20 @@ import AccountsDashboardMarketing from './AccountsDashboardMarketing';
 import ABLandingPage from './ABLandingPage';
 import JoinPageContent from './JoinPageContent';
 import ParsleyFeaturesPage from './ParsleyFeaturesPage';
+import Chat from './Chat';
+import LayoutsTestPage from './LayoutsTestPage';
 import Header from './Header';
 import Footer from './Footer';
+import DefaultPageComponent from './DefaultPageComponent';
 
 export {
+  DefaultPageComponent,
   Clipping,
   Widget,
   MarketingAnnoucement,
   Review,
   MainNavigation,
   PersonaContent,
-  Chat,
   CustomerBrand,
   CustomerHighlight,
   LandingPageVariation,
@@ -256,6 +258,8 @@ export {
   ABLandingPage,
   JoinPageContent,
   ParsleyFeaturesPage,
+  Chat,
+  LayoutsTestPage,
   Footer,
   Header,
 };

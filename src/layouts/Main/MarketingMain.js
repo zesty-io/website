@@ -151,7 +151,6 @@ const MarketingMain = ({
         open={open}
         variant="temporary"
         flyoutNavigation={flyoutNavigation}
-        customRouting={hasRouting ? customRouting : []}
       />
       <main>
         {children}
