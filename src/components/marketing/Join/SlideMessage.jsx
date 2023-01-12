@@ -6,7 +6,6 @@ import {
   Grid,
   Typography,
   InputAdornment,
-  useMediaQuery,
   IconButton,
   Divider,
   Tabs,
@@ -19,10 +18,10 @@ import { useTheme } from '@mui/material/styles';
 import { useFormik } from 'formik';
 
 import {
-  accounts,
   accountsValidations,
   ErrorMsg,
   FormInput,
+  SSOGroupBtns,
   SuccessMsg,
 } from 'components/accounts';
 import LockIcon from '@mui/icons-material/Lock';
@@ -32,8 +31,6 @@ import { useZestyStore } from 'store';
 import { setCookie } from 'cookies-next';
 import { isProd } from 'utils';
 import axios from 'axios';
-import { grey } from '@mui/material/colors';
-import { useRouter } from 'next/router';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,7 +77,6 @@ export const SlideMessage = ({
     setTabValue(newValue);
   };
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const handleSignUp = async (e) => {
     const { firstName, lastName, email, password } = e;
     await createZestyUser(firstName, lastName, email, password);
@@ -234,37 +230,7 @@ export const SlideMessage = ({
                     {/* Create your free account */}
                   </Typography>
 
-                  <Stack
-                    direction={'column'}
-                    alignItems={'center'}
-                    justifyContent="space-evenly"
-                    gap={1}
-                    width={1}
-                  >
-                    <LinkComponent
-                      image={accounts.sso.google.logo}
-                      title="Sign in with Google"
-                      href={accounts.sso.google.url}
-                      bodyColor="#4584F8"
-                      textColor="#fff"
-                      borderColor="#4584F8"
-                    />
-                    <LinkComponent
-                      image={accounts.sso.github.logo}
-                      title="Sign in with Github"
-                      href={accounts.sso.github.url}
-                      bodyColor="#23282C"
-                      logoColor="#23282C"
-                      borderColor="#23282C"
-                      textColor="#fff"
-                    />
-
-                    <LinkComponent
-                      image={accounts.sso.microsoft.logo}
-                      title="Sign in with Microsoft"
-                      href={accounts.sso.microsoft.url}
-                    />
-                  </Stack>
+                  <SSOGroupBtns />
 
                   <CustomForm onSubmit={handleSignUp} />
                 </TabPanel>
@@ -428,68 +394,5 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         </Stack>
       </Stack>
     </form>
-  );
-};
-
-const LinkComponent = ({
-  image = accounts.logos.google,
-  title = 'Sign in with Google',
-  bodyColor = '#fff',
-  logoColor = '#fff',
-  textColor = '#333333',
-  borderColor = grey[500],
-
-  href,
-}) => {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push(href);
-  };
-  return (
-    <Stack
-      onClick={handleClick}
-      direction={'row'}
-      gap={1}
-      alignItems="center"
-      width={1}
-      sx={{
-        borderRadius: '3px',
-        border: `1px solid ${borderColor}`,
-        cursor: 'pointer',
-        background: bodyColor,
-        '&:hover': {
-          filter: 'contrast(120%)',
-          boxShadow: 2,
-        },
-      }}
-    >
-      <Stack
-        p={1}
-        bgcolor={logoColor}
-        alignItems={'center'}
-        justifyItems="center"
-        sx={{
-          borderRadius: '3px 0 0 3px',
-        }}
-      >
-        <img src={image} alt={title} height={'24px'} width="24px" />
-      </Stack>
-      <Stack
-        width={1}
-        textAlign="center"
-        sx={{
-          color: textColor,
-        }}
-      >
-        <Typography
-          fontWeight={'500'}
-          mr={6}
-          color={textColor}
-          whiteSpace={'nowrap'}
-        >
-          {title}
-        </Typography>
-      </Stack>
-    </Stack>
   );
 };
