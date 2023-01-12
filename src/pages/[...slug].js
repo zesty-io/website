@@ -41,10 +41,17 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
 
   let data = await fetchPage(resolvedUrl);
 
+  const sso = {
+    githubUrl: process.env.GITHUB_SSO_URL,
+    googleUrl: process.env.GOOGLE_SSO_URL,
+    msUrl: process.env.MS_SSO_URL,
+  };
+
   data = {
     ...data,
     zesty: {
       isAuthenticated,
+      sso,
     },
   };
 

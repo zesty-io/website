@@ -137,6 +137,7 @@ export default function Join(props) {
         </Stack>
 
         <SlideMessage
+          content={props}
           message={abmessage}
           image={abimage}
           buttonText={abbuttontext}
@@ -181,6 +182,11 @@ export async function getServerSideProps({ res, query }) {
   };
   const isAuthenticated = getIsAuthenticated(res);
 
+  const sso = {
+    githubUrl: process.env.GITHUB_SSO_URL,
+    googleUrl: process.env.GOOGLE_SSO_URL,
+    msUrl: process.env.MS_SSO_URL,
+  };
   // Pass data to the page via props
   return {
     props: {
@@ -190,6 +196,7 @@ export async function getServerSideProps({ res, query }) {
       demo: demoForm,
       zesty: {
         isAuthenticated,
+        sso,
       },
     },
   };
