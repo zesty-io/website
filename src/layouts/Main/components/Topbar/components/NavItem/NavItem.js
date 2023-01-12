@@ -43,6 +43,7 @@ const NavItem = ({ navHandler, activeNav, id, route }) => {
                 ? theme.palette.zesty.zestyOrange
                 : 'text.primary',
           }}
+          title={route?.nav_title || ''}
         >
           {route?.nav_title || ''}
         </Typography>

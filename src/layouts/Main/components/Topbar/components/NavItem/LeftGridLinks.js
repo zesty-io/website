@@ -2,15 +2,13 @@
  * MUI Imports
  */
 
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useMediaQuery } from '@mui/material';
 import LinkWithIcons from './LinkWithIcons';
 
 const LeftGridLinks = ({ route }) => {
   const theme = useTheme();
-
-  const isLg = useMediaQuery(theme.breakpoints.down('lg'));
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   // Sort the sub-navigation data array to match with the sorting on the cms
   const sortData = (data) => {
@@ -26,7 +24,7 @@ const LeftGridLinks = ({ route }) => {
   };
 
   return (
-    <Grid sx={{ mt: 2 }} container>
+    <Grid sx={{ mt: 2 }} direction={isSmall ? 'column' : 'row'} container>
       <Grid item sm={12} md={6}>
         {/* Header */}
         <Typography
@@ -57,18 +55,21 @@ const LeftGridLinks = ({ route }) => {
       </Grid>
       <Grid item sm={12} md={6}>
         {/* Header */}
-        <Typography
-          variant="caption"
-          component="p"
-          sx={{
-            color: theme.palette.zesty.zestyLightGrey,
-            fontWeight: 'bold',
-            mb: 2,
-            height: 20,
-          }}
-        >
-          {route?.column_two_title || ''}
-        </Typography>
+        {(route?.column_two_title || !isSmall) && (
+          <Typography
+            variant="caption"
+            component="p"
+            sx={{
+              color: theme.palette.zesty.zestyLightGrey,
+              fontWeight: 'bold',
+              mt: isSmall && 5,
+              mb: 2,
+              height: 20,
+            }}
+          >
+            {route?.column_two_title || ''}
+          </Typography>
+        )}
 
         <Box
           sx={{

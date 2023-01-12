@@ -124,6 +124,14 @@ const Topbar = ({
               md: hideNav ? 'none' : 'flex',
               alignItems: 'center',
             },
+            'a::before, p::before': {
+              display: 'block',
+              content: 'attr(title)',
+              fontWeight: 'bold',
+              height: 0,
+              overflow: 'hidden',
+              visibility: 'hidden',
+            },
           }}
         >
           {flyoutNavigation.map((route) => (

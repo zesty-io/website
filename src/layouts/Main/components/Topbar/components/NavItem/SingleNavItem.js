@@ -18,6 +18,7 @@ const SingleNavItem = ({ title, url, colorInvert = false }) => {
           fontWeight: '700',
         },
       }}
+      title={title}
     >
       {title}
     </Link>

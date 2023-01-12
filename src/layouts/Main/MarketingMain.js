@@ -150,6 +150,7 @@ const MarketingMain = ({
         onClose={handleSidebarClose}
         open={open}
         variant="temporary"
+        flyoutNavigation={flyoutNavigation}
         customRouting={hasRouting ? customRouting : []}
       />
       <main>
