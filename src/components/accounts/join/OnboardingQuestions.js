@@ -634,6 +634,16 @@ const Index = ({
     handleNext();
   };
 
+  const postUserSummary = async () => {
+    const msg = `:rotating_light: *New User Summary* :rotating_light:
+----- Basic Details ------
+Name: *${userInfo?.firstName}* *${userInfo?.lastName}*
+Email: ${userInfo?.email}
+Persona: *${role || '-'}*`;
+
+    await slackNotify(msg);
+  };
+
   const handleDemoForm = async (e) => {
     setloading(true);
     setprojectDescription(e?.projectDescription);
@@ -642,6 +652,7 @@ const Index = ({
     await updateUser('company', e.company);
     await updateUser('phoneNumber', e.phoneNumber);
     await updateUser('projectDescription', e.projectDescription);
+    await postUserSummary();
 
     SuccessMsg({
       title: 'Success',
