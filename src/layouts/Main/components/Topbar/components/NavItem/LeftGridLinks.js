@@ -2,15 +2,14 @@
  * MUI Imports
  */
 
-
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-
 import LinkWithIcons from './LinkWithIcons';
 
 const LeftGridLinks = ({ route }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+
   // Sort the sub-navigation data array to match with the sorting on the cms
   const sortData = (data) => {
     data.sort((item1, item2) =>
@@ -71,7 +70,6 @@ const LeftGridLinks = ({ route }) => {
             {route?.column_two_title || ''}
           </Typography>
         )}
-
 
         <Box
           sx={{

@@ -66,7 +66,6 @@
     "@sweetalert2/theme-material-ui": "^5.0.11",
     "@zesty-io/live-editor": "^2.0.22",
     "@zesty-io/material": "^0.2.5",
-    "@zesty-io/react-autolayout": "^1.0.0-beta.6",
     "aos": "^2.3.4",
     "axios": "^0.27.2",
     "card-validator": "^8.1.1",
