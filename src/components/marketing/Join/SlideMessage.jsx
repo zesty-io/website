@@ -64,6 +64,7 @@ function a11yProps(index) {
 export const SlideMessage = ({
   message = 'What team are you from?',
   demo = false,
+  content = {},
 }) => {
   const theme = useTheme();
   const { ZestyAPI } = useZestyStore();
@@ -230,7 +231,7 @@ export const SlideMessage = ({
                     {/* Create your free account */}
                   </Typography>
 
-                  <SSOGroupBtns />
+                  <SSOGroupBtns content={content} />
 
                   <CustomForm onSubmit={handleSignUp} />
                 </TabPanel>

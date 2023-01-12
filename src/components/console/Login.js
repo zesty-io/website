@@ -253,7 +253,7 @@ const Login = ({ content, userEmail }) => {
                   </LoadingButton>
                   <Divider sx={{ py: 2 }}>Or</Divider>
 
-                  <SSOGroupBtns />
+                  <SSOGroupBtns content={content} />
                 </Stack>
               </form>
             </Stack>
