@@ -3,7 +3,7 @@ import { accounts } from 'components/accounts/constants';
 import React from 'react';
 import { SSOBtn } from './SSOBtn';
 
-const Index = () => {
+const Index = ({ content = {} }) => {
   return (
     <Stack
       direction={'column'}
@@ -15,7 +15,7 @@ const Index = () => {
       <SSOBtn
         image={accounts.sso.google.logo}
         title="Sign in with Google"
-        href={accounts.sso.google.url}
+        href={content?.zesty?.sso?.googleUrl}
         bodyColor="#4584F8"
         textColor="#fff"
         borderColor="#4584F8"
@@ -23,7 +23,7 @@ const Index = () => {
       <SSOBtn
         image={accounts.sso.github.logo}
         title="Sign in with Github"
-        href={accounts.sso.github.url}
+        href={content?.zesty?.sso?.githubUrl}
         bodyColor="#23282C"
         logoColor="#23282C"
         borderColor="#23282C"
@@ -32,8 +32,8 @@ const Index = () => {
 
       <SSOBtn
         image={accounts.sso.microsoft.logo}
+        href={content?.zesty?.sso?.msUrl}
         title="Sign in with Microsoft"
-        href={accounts.sso.microsoft.url}
       />
     </Stack>
   );
