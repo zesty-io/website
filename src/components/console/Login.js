@@ -7,7 +7,11 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { accounts, accountsValidations, FormInput } from 'components/accounts';
+import {
+  accountsValidations,
+  FormInput,
+  SSOGroupBtns,
+} from 'components/accounts';
 import { setCookie } from 'cookies-next';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useFormik } from 'formik';
@@ -25,73 +29,8 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { notistackMessage } from 'utils';
-import { useRouter } from 'next/router';
-import { grey } from '@mui/material/colors';
 
 const MySwal = withReactContent(Swal);
-
-const LinkComponent = ({
-  image = accounts.logos.google,
-  title = 'Sign in with Google',
-  bodyColor = '#fff',
-  logoColor = '#fff',
-  textColor = '#333333',
-  borderColor = grey[500],
-
-  href,
-}) => {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push(href);
-  };
-  return (
-    <Stack
-      onClick={handleClick}
-      direction={'row'}
-      gap={1}
-      alignItems="center"
-      width={1}
-      sx={{
-        borderRadius: '3px',
-        border: `1px solid ${borderColor}`,
-        cursor: 'pointer',
-        background: bodyColor,
-        '&:hover': {
-          filter: 'contrast(120%)',
-          boxShadow: 2,
-        },
-      }}
-    >
-      <Stack
-        p={1}
-        bgcolor={logoColor}
-        alignItems={'center'}
-        justifyItems="center"
-        sx={{
-          borderRadius: '3px 0 0 3px',
-        }}
-      >
-        <img src={image} alt={title} height={'24px'} width="24px" />
-      </Stack>
-      <Stack
-        width={1}
-        textAlign="center"
-        sx={{
-          color: textColor,
-        }}
-      >
-        <Typography
-          fontWeight={'500'}
-          mr={6}
-          color={textColor}
-          whiteSpace={'nowrap'}
-        >
-          {title}
-        </Typography>
-      </Stack>
-    </Stack>
-  );
-};
 
 const Login = ({ content, userEmail }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
@@ -314,36 +253,7 @@ const Login = ({ content, userEmail }) => {
                   </LoadingButton>
                   <Divider sx={{ py: 2 }}>Or</Divider>
 
-                  <Stack
-                    direction={'column'}
-                    alignItems={'center'}
-                    justifyContent="space-evenly"
-                    gap={2}
-                  >
-                    <LinkComponent
-                      image={accounts.sso.google.logo}
-                      title="Sign in with Google"
-                      href={accounts.sso.google.url}
-                      bodyColor="#4584F8"
-                      textColor="#fff"
-                      borderColor="#4584F8"
-                    />
-                    <LinkComponent
-                      image={accounts.sso.github.logo}
-                      title="Sign in with Github"
-                      href={accounts.sso.github.url}
-                      bodyColor="#23282C"
-                      logoColor="#23282C"
-                      borderColor="#23282C"
-                      textColor="#fff"
-                    />
-
-                    <LinkComponent
-                      image={accounts.sso.microsoft.logo}
-                      title="Sign in with Microsoft"
-                      href={accounts.sso.microsoft.url}
-                    />
-                  </Stack>
+                  <SSOGroupBtns />
                 </Stack>
               </form>
             </Stack>
