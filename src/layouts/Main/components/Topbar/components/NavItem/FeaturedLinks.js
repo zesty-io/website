@@ -17,7 +17,7 @@ label, link, and image. */
       return {
         label: route[`callout_${index + 1}_label`],
         link:
-          route[`callout_${index + 1}_link`]?.data[0]?.meta.web.uri ||
+          route[`callout_${index + 1}_link`]?.data[0]?.meta?.web?.uri ||
           route.callout_1_external_link_if_needed,
         image:
           route[`callout_image_${index + 1}`]?.data[0]?.url ||

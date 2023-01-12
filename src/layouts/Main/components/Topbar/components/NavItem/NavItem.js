@@ -22,9 +22,10 @@ import Grow from '@mui/material/Grow';
 import LeftGridLinks from './LeftGridLinks';
 import RightGridLinks from './RightGridLinks';
 
-const NavItem = ({ navHandler, activeNav, id, route }) => {
+const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
   const theme = useTheme();
-  // const isLg = useMediaQuery(theme.breakpoints.down('lg'));
+
+  const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
   return (
     <Box>
@@ -41,7 +42,7 @@ const NavItem = ({ navHandler, activeNav, id, route }) => {
             color:
               activeNav?.id === id
                 ? theme.palette.zesty.zestyOrange
-                : 'text.primary',
+                : linkColor,
           }}
           title={route?.nav_title || ''}
         >
@@ -56,7 +57,7 @@ const NavItem = ({ navHandler, activeNav, id, route }) => {
             color:
               activeNav?.id === id
                 ? theme.palette.zesty.zestyOrange
-                : 'text.primary',
+                : linkColor,
           }}
         />
       </Box>
