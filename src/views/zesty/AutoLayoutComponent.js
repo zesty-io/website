@@ -2,7 +2,7 @@ import React from 'react';
 import { AutoLayout } from '@zesty-io/react-autolayout';
 import ComponentSelector from 'components/marketing/AppLayouts/ComponentSelector';
 
-function DefaultPageComponent({ content }) {
+function AutoLayoutComponent({ content }) {
   return (
     <>
       <AutoLayout
@@ -15,4 +15,4 @@ function DefaultPageComponent({ content }) {
   );
 }
 
-export default DefaultPageComponent;
+export default AutoLayoutComponent;

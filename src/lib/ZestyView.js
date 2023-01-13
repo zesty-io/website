@@ -31,9 +31,9 @@ export function ZestyView(props) {
    * npm run sync must be run! otherwise it default back to auto layout component
    */
   const Component = hasLayoutContent()
-    ? Zesty['DefaultPageComponent']
+    ? Zesty['AutoLayoutComponent']
     : Zesty[props.content.meta.model_alternate_name] ||
-      Zesty['DefaultPageComponent'];
+      Zesty['AutoLayoutComponent'];
 
   // outside the component near imports
   const initLiveEditor = async (data) => {
