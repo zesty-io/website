@@ -10,10 +10,30 @@ export function ZestyView(props) {
     return <ErrorPage statusCode={404} />;
   }
 
-  // get data in initial load
-  const Component =
-    Zesty[props.content.meta.model_alternate_name] ||
-    Zesty['DefaultPageComponent'];
+  /**
+   * @description check if layout is active and has content in the cms
+   * @returns boolean
+   */
+  const hasLayoutContent = () => {
+    if (!props.content.meta.layout) return false;
+    if (
+      JSON.stringify(
+        props.content.meta.layout?.json['layout:root:column:0']?.children,
+      ) === '{}'
+    )
+      return false;
+    return true;
+  };
+
+  /**
+   * 1.) If layouts has content inside the cms always default to autolayout component
+   * 2.) If layouts don't have content inside cms it renders the component from zesty > view
+   * npm run sync must be run! otherwise it default back to auto layout component
+   */
+  const Component = hasLayoutContent()
+    ? Zesty['DefaultPageComponent']
+    : Zesty[props.content.meta.model_alternate_name] ||
+      Zesty['DefaultPageComponent'];
 
   // outside the component near imports
   const initLiveEditor = async (data) => {
