@@ -213,12 +213,6 @@ const CaseStudyCards = ({
                           background: 'transparent',
                         },
                       }}
-                      component="a"
-                      href={
-                        item.card_link?.data[0]?.meta?.web?.uri ||
-                        FillerContent.cta
-                      }
-                      target="_blank"
                     >
                       {item.cta || 'Learn more'}
                       <ArrowRightAltIcon sx={{ ml: 1 }} />

@@ -2,12 +2,15 @@ import { React } from 'react';
 
 import { fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
-
+import MarketingMain from 'layouts/Main/MarketingMain';
 import { ZestyView } from 'lib/ZestyView';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import Main from 'layouts/Main';
+
 import { getIsAuthenticated } from 'utils';
 
 export default function Slug(props) {
+  const isLoggedIn = useIsLoggedIn();
   // for homepage navigation
   // const isDarkMode = theme.palette.mode === 'dark';
   let bgcolor = 'transparent';
@@ -17,15 +20,28 @@ export default function Slug(props) {
 
   return (
     <>
-      <Main
-        model={props?.meta?.model_alternate_name}
-        nav={props?.navigationTree}
-        customRouting={props?.navigationCustom}
-        url={props?.meta?.web?.uri}
-        bgcolor={bgcolor}
-      >
-        <ZestyView content={props} />
-      </Main>
+      {isLoggedIn ? (
+        <Main
+          model={props?.meta?.model_alternate_name}
+          nav={props?.navigationTree}
+          customRouting={props?.navigationCustom}
+          url={props?.meta?.web?.uri}
+          bgcolor={bgcolor}
+        >
+          <ZestyView content={props} />
+        </Main>
+      ) : (
+        <MarketingMain
+          model={props?.meta?.model_alternate_name}
+          nav={props?.navigationTree}
+          customRouting={props?.navigationCustom}
+          flyoutNavigation={props?.flyoutNavigation}
+          url={props?.meta?.web?.uri}
+          bgcolor={bgcolor}
+        >
+          <ZestyView content={props} />
+        </MarketingMain>
+      )}
     </>
   );
 }
@@ -41,10 +57,17 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
 
   let data = await fetchPage(resolvedUrl);
 
+  const sso = {
+    githubUrl: process.env.GITHUB_SSO_URL,
+    googleUrl: process.env.GOOGLE_SSO_URL,
+    msUrl: process.env.MS_SSO_URL,
+  };
+
   data = {
     ...data,
     zesty: {
       isAuthenticated,
+      sso,
     },
   };
 

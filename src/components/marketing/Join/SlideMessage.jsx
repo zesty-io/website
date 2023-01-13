@@ -6,7 +6,6 @@ import {
   Grid,
   Typography,
   InputAdornment,
-  useMediaQuery,
   IconButton,
   Divider,
   Tabs,
@@ -17,16 +16,12 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 import { useTheme } from '@mui/material/styles';
 import { useFormik } from 'formik';
-import msLogo from '../../../../public/assets/images/microsoft/microsoft_logo.svg';
-const googleLogo =
-  'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=';
-
-const googleUrl = 'https://auth.api.zesty.io/google/login';
 
 import {
   accountsValidations,
   ErrorMsg,
   FormInput,
+  SSOGroupBtns,
   SuccessMsg,
 } from 'components/accounts';
 import LockIcon from '@mui/icons-material/Lock';
@@ -36,8 +31,6 @@ import { useZestyStore } from 'store';
 import { setCookie } from 'cookies-next';
 import { isProd } from 'utils';
 import axios from 'axios';
-import { grey } from '@mui/material/colors';
-import { useRouter } from 'next/router';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,6 +64,7 @@ function a11yProps(index) {
 export const SlideMessage = ({
   message = 'What team are you from?',
   demo = false,
+  content = {},
 }) => {
   const theme = useTheme();
   const { ZestyAPI } = useZestyStore();
@@ -84,7 +78,6 @@ export const SlideMessage = ({
     setTabValue(newValue);
   };
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const handleSignUp = async (e) => {
     const { firstName, lastName, email, password } = e;
     await createZestyUser(firstName, lastName, email, password);
@@ -237,25 +230,8 @@ export const SlideMessage = ({
                     Start with single sign-on
                     {/* Create your free account */}
                   </Typography>
-                  <Stack
-                    direction={{ xs: 'column', xl: 'row' }}
-                    alignItems={'center'}
-                    justifyContent="center"
-                    gap={2}
-                    sx={{ m: 0 }}
-                  >
-                    <LinkComponent
-                      image={googleLogo}
-                      title="Google Login"
-                      href={googleUrl}
-                    />
 
-                    <LinkComponent
-                      image={msLogo.src}
-                      title="Microsoft Login"
-                      href={`https://auth.api.zesty.io/azure/login`}
-                    />
-                  </Stack>
+                  <SSOGroupBtns content={content} />
 
                   <CustomForm onSubmit={handleSignUp} />
                 </TabPanel>
@@ -419,48 +395,5 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         </Stack>
       </Stack>
     </form>
-  );
-};
-
-const LinkComponent = ({
-  image = googleLogo,
-  title = 'Join with Google',
-  href,
-}) => {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push(href);
-  };
-  return (
-    <Stack
-      onClick={handleClick}
-      direction={'row'}
-      gap={1}
-      alignItems="center"
-      sx={{
-        minWidth: '150px',
-        border: `1px solid ${grey[500]}`,
-        borderRadius: '5px',
-        cursor: 'pointer',
-        background: '#fff',
-      }}
-      py={1}
-      px={2}
-    >
-      <Stack>
-        <img src={image} alt={title} height={'20px'} width="20px" />
-      </Stack>
-      <Stack
-        sx={{
-          '&:hover': {
-            opacity: 0.7,
-          },
-        }}
-      >
-        <Typography fontWeight={'500'} color={grey[700]} whiteSpace={'nowrap'}>
-          {title}
-        </Typography>
-      </Stack>
-    </Stack>
   );
 };
