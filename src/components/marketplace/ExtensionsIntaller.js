@@ -48,7 +48,7 @@ const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
 
   const getInstanceSchema = async () => {
     const res = await ZestyAPI.getModels();
-    var obj = { 0: 'Root' };
+    let obj = { 0: 'Root' };
     !res.error &&
       res.data.forEach((item) => {
         obj[item.ZUID] = item.label;
@@ -56,7 +56,7 @@ const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
     return obj;
   };
   const getInstances = async () => {
-    var obj = {};
+    let obj = {};
     instances.data.forEach((instance) => {
       obj[instance.ZUID] = instance.name;
     });
@@ -122,7 +122,7 @@ const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
       const { value: zuid } = await selectParent();
       if (zuid) {
         setLoading(true);
-        var requestOptions = {
+        let requestOptions = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
