@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import { Skeleton } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
-import { Typography } from '@mui/material';
+import ClickAwayListener from '@mui/base/ClickAwayListener';
 
 const Topbar = ({
   hideNav,
@@ -19,9 +19,9 @@ const Topbar = ({
   customRouting,
   colorInvert = false,
   trigger,
-  isAuthenticated,
   userInfo = {},
   loading = false,
+  flyoutNavigation: data = [],
 }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -41,12 +41,7 @@ const Topbar = ({
     return mode === 'light' && !colorInvert;
   };
 
-  const firstName = userInfo?.firstName;
-  const openAccountInstances = () => {
-    window.open('https://accounts.zesty.io/instances', '_blank').focus();
-  };
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (userInfo) {
       setCookie('APP_USER_ZUID', userInfo?.ZUID);
       setCookie('APP_USER_EMAIL', userInfo?.email);
@@ -55,69 +50,129 @@ const Topbar = ({
     }
   }, [userInfo]);
 
+  // Sort the navigation data array to match with the sorting on the cms
+  const flyoutNavigation = data.sort((item1, item2) =>
+    item1.sort_order > item2.sort_order
+      ? 1
+      : item1.sort_order < item2.sort_order
+      ? -1
+      : 0,
+  );
+
+  /**
+   * Hold navigation state and track which flyout is active
+   */
+  const [activeNav, setActiveNav] = useState(
+    flyoutNavigation
+      .filter((route) => route.link === null)
+      .map((url) => {
+        return { id: url.meta.zuid, isActive: false };
+      }),
+  );
+
+  /**
+   * Mutate navigation state to set new active flyout or close it once clickawayhandler is triggered
+   */
+  const navHandler = (e, id) => {
+    setActiveNav((current) =>
+      current.map((obj) => {
+        if (obj.id === id) {
+          return { ...obj, isActive: !obj.isActive };
+        }
+        return { ...obj, isActive: false };
+      }),
+    );
+  };
+
   return (
-    <Box
-      display={'flex'}
-      justifyContent={'space-between'}
-      alignItems={'center'}
-      width={1}
-    >
+    <ClickAwayListener onClickAway={navHandler}>
       <Box
-        display={'flex'}
-        component="a"
-        href="/"
-        title="Zesty.io Platform"
-        width={{ xs: 100, md: 150 }}
-        paddingTop={isDxpTemplatePage ? 4 : 0}
+        sx={{
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: 1,
+        }}
       >
-        <img
-          alt="zesty.io"
-          src={
-            changeLogoColor()
-              ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
-              : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
-          }
-          height={42}
-          width={150}
-        />
-      </Box>
-      <Box
-        sx={{ display: { xs: 'none', md: hideNav ? 'none' : 'flex' } }}
-        alignItems={'center'}
-      >
-        {customRouting.map((route) => (
-          <Box key={route.zuid}>
-            {route.parentZUID == null && route.children.length > 0 && (
-              <Box marginLeft={3}>
-                <NavItem
-                  title={route.title}
-                  id={route.zuid}
-                  items={route.children}
-                  colorInvert={colorInvert}
-                />
-              </Box>
-            )}
-            {route.parentZUID == null && route.children.length == 0 && (
-              <Box marginLeft={3}>
-                <SingleNavItem
-                  title={route.title}
-                  id={route.zuid}
-                  url={route.url}
-                  colorInvert={colorInvert}
-                />
-              </Box>
-            )}
-          </Box>
-        ))}
-        {loading && <Skeleton variant="rectangular" width={180} height={30} />}
-        {!loading && (
-          <Box>
-            {!isAuthenticated ? (
+        <Box
+          sx={{
+            display: 'flex',
+            pt: isDxpTemplatePage ? 4 : 0,
+          }}
+          component="a"
+          href="/"
+          title="Zesty.io Platform"
+          width={{ xs: 100, md: 150 }}
+        >
+          <img
+            alt="zesty.io"
+            src={
+              changeLogoColor()
+                ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
+                : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
+            }
+            height={42}
+            width={150}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            display: {
+              xs: 'none',
+              md: hideNav ? 'none' : 'flex',
+              alignItems: 'center',
+            },
+            'a::before, p::before': {
+              display: 'block',
+              content: 'attr(title)',
+              fontWeight: 'bold',
+              height: 0,
+              overflow: 'hidden',
+              visibility: 'hidden',
+            },
+          }}
+        >
+          {flyoutNavigation.map((route) => (
+            <Box key={route.meta.zuid}>
+              {/* If link in the cms is empty and column one is not equal to zero it must be a parent navigation with flyout navigation */}
+              {route.link === null && route.column_1_items.length != 0 && (
+                <Box marginLeft={3}>
+                  <NavItem
+                    activeNav={
+                      activeNav.filter((item) => item.isActive === true)[0]
+                    }
+                    navHandler={navHandler}
+                    route={route}
+                    id={route.meta.zuid}
+                    colorInvert={colorInvert}
+                  />
+                </Box>
+              )}
+              {/* if link is set in the cms and column one items is empty its a single item navigation without flyout */}
+              {route.link != null && !route.column_1_items && (
+                <Box marginLeft={3}>
+                  <SingleNavItem
+                    title={route.nav_title}
+                    id={route.meta.zuid}
+                    url={route.link}
+                    colorInvert={colorInvert}
+                  />
+                </Box>
+              )}
+            </Box>
+          ))}
+          {loading && (
+            <Skeleton variant="rectangular" width={180} height={30} />
+          )}
+          {!loading && (
+            <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
               <Box display={'flex'}>
-                <Box ml={4} sx={{ display: { xs: 'none', lg: 'block' } }}>
+                <Box marginLeft={4}>
                   <TryFreeButton variant="contained" component="a" />
                 </Box>
-                <Box ml={2}>
+                <Box marginLeft={2}>
                   <Button
                     size={'medium'}
                     variant="text"
@@ -132,49 +187,32 @@ const Topbar = ({
                   </Button>
                 </Box>
               </Box>
-            ) : (
-              <Box paddingLeft={4}>
-                <Typography
-                  color={theme.palette.primary.dark}
-                  fontWeight={'bold'}
-                >
-                  Welcome back,{' '}
-                  <span
-                    style={{
-                      color: theme.palette.zesty.zestyOrange,
-                      cursor: 'pointer',
-                    }}
-                    onClick={openAccountInstances}
-                  >
-                    {firstName}!
-                  </span>
-                </Typography>
-              </Box>
-            )}
+            </Box>
+          )}
+        </Box>
+
+        {!hideNav && (
+          <Box
+            sx={{ display: { xs: 'block', md: 'none' } }}
+            alignItems={'center'}
+          >
+            <Button
+              onClick={() => onSidebarOpen()}
+              aria-label="Menu"
+              variant={'outlined'}
+              sx={{
+                borderRadius: 2,
+                minWidth: 'auto',
+                padding: 1,
+                borderColor: alpha(theme.palette.divider, 0.2),
+              }}
+            >
+              <MenuIcon />
+            </Button>
           </Box>
         )}
       </Box>
-      {!hideNav && (
-        <Box
-          sx={{ display: { xs: 'block', md: 'none' } }}
-          alignItems={'center'}
-        >
-          <Button
-            onClick={() => onSidebarOpen()}
-            aria-label="Menu"
-            variant={'outlined'}
-            sx={{
-              borderRadius: 2,
-              minWidth: 'auto',
-              padding: 1,
-              borderColor: alpha(theme.palette.divider, 0.2),
-            }}
-          >
-            <MenuIcon />
-          </Button>
-        </Box>
-      )}
-    </Box>
+    </ClickAwayListener>
   );
 };
 
