@@ -4,7 +4,16 @@ import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import { SidebarNav } from './components';
 
-const Sidebar = ({ customRouting, open, variant, onClose }) => {
+const Sidebar = ({ open, variant, onClose, flyoutNavigation: data = [] }) => {
+  // Sort the navigation data array to match with the sorting on the cms
+  const flyoutNavigation = data.sort((item1, item2) =>
+    item1.sort_order > item2.sort_order
+      ? 1
+      : item1.sort_order < item2.sort_order
+      ? -1
+      : 0,
+  );
+
   return (
     <Drawer
       anchor="left"
@@ -24,7 +33,7 @@ const Sidebar = ({ customRouting, open, variant, onClose }) => {
           padding: 1,
         }}
       >
-        <SidebarNav customRouting={customRouting} />
+        <SidebarNav flyoutNavigation={flyoutNavigation} />
       </Box>
     </Drawer>
   );
@@ -34,7 +43,6 @@ Sidebar.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool.isRequired,
   variant: PropTypes.string.isRequired,
-  customRouting: PropTypes.array.isRequired,
 };
 
 export default Sidebar;

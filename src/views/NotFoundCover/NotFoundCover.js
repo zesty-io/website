@@ -6,7 +6,7 @@ import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Main from 'layouts/Main';
+import MarketingMain from 'layouts/Main/MarketingMain';
 import Container from 'components/Container';
 
 const NotFoundCover = () => {
@@ -16,7 +16,7 @@ const NotFoundCover = () => {
   });
 
   return (
-    <Main>
+    <MarketingMain>
       <Box
         sx={{
           width: 1,
@@ -154,7 +154,7 @@ const NotFoundCover = () => {
           </Box>
         </Container>
       </Box>
-    </Main>
+    </MarketingMain>
   );
 };
 
