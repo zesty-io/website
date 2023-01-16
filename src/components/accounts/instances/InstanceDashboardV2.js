@@ -291,7 +291,7 @@ const InstanceDashboardV2 = () => {
         favoritesInstancesList.sort((a, b) => b?.name?.localeCompare(a?.name)),
       );
     }
-    reset();
+    // reset();
   }, [orderByValue]);
 
   return (
@@ -373,7 +373,12 @@ const InstanceDashboardV2 = () => {
             title="Favorites"
             icon={<StarIcon color="primary" />}
             view={view}
-            lists={favoritesInstancesList}
+            lists={favoritesInstancesList.sort((a, b) => {
+              if (!orderByValue) {
+                return a?.createdAt?.localeCompare(b?.createdAt);
+              }
+              return a;
+            })}
             isLoading={isInstancesLoading}
             renderInstances={renderInstances}
           />
@@ -382,7 +387,12 @@ const InstanceDashboardV2 = () => {
             title="Instances"
             icon={<WidgetsIcon color="primary" />}
             view={view}
-            lists={instancesList}
+            lists={instancesList.sort((a, b) => {
+              if (!orderByValue) {
+                return a?.createdAt?.localeCompare(b?.createdAt);
+              }
+              return a;
+            })}
             isLoading={isInstancesLoading}
             renderInstances={renderInstances}
           />
