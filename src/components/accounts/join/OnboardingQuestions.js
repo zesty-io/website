@@ -37,7 +37,7 @@ const zoholeadUrl =
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
 const repository = 'https://github.com/zesty-io/template-bootstrap5-starter';
-const baseUrl = `https://installer-xytrmaqk4a-uc.a.run.app/`;
+const baseUrl = `https://templating.api.zesty.io/`;
 
 const Questionaire = ({
   title = 'no title',
