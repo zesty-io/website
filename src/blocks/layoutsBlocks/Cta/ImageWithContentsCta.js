@@ -124,6 +124,19 @@ const ImageWithContentsCta = ({
                         },
                       },
                     },
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h6',
+                        component: 'p',
+                        sx: {
+                          mt: 2,
+                          color: isDarkMode
+                            ? theme.palette.common.white
+                            : theme.palette.zesty.zestyZambezi,
+                        },
+                      },
+                    },
                   },
                 }}
               >

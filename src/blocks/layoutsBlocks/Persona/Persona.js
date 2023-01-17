@@ -8,6 +8,7 @@ import { Box, Typography, Card, Grid, useMediaQuery, useTheme} from '@mui/materi
  * Helpers Imports
  */
 import FillerContent from 'components/globals/FillerContent';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Components Imports
@@ -18,7 +19,7 @@ import Container from 'blocks/container/Container';
 
 const Persona = ({
   header,
-  teamLinks,
+  persona_data,
 }) => {
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
@@ -55,20 +56,27 @@ const Persona = ({
               sm={12}
               md={4}
             >
-              <Box>
-                <Typography
-                  component="h2"
-                  variant="h4"
-                  sx={{
-                    fontWeight: 'bold',
-                    color: theme.palette.zesty.zestyZambezi,
-                  }}
-                >
-                  {header || FillerContent.header}
-                </Typography>
-              </Box>
+                <MuiMarkdown
+                    options={{
+                      overrides: {
+                        h2: {
+                          component: Typography,
+                          props: {
+                              component:"h2",
+                              variant:"h4",
+                            sx: {
+                              fontWeight: 'bold',
+                              color: theme.palette.zesty.zestyZambezi,
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  >
+                          {header || FillerContent.header}
+                  </MuiMarkdown>
             </Grid>
-            {teamLinks?.data?.map((item, index) => (
+            {persona_data?.data?.map((item, index) => (
               <Grid key={index} item xs={12} md={4}>
                 <Card
                   component="a"

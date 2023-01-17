@@ -16,23 +16,15 @@ import ZestyImage from '../../Image/ZestyImage';
 
 const TwoRowsHero = ({
   eyebrow = FillerContent.header,
-  header = FillerContent.header,
-  heroImage,
-  primaryCta = 'Try Free',
-  primaryCta_link = FillerContent.href,
-  secondaryCta = 'Try Free',
-  secondaryCta_link = FillerContent.href,
+  title_and_description = FillerContent.header,
+  image,
+  primary_cta_text = 'Try Free',
+  primary_cta_link = FillerContent.href,
+  secondary_cta_text = 'Try Free',
+  secondary_cta_link = FillerContent.href,
   isMobile,
 }) => {
   const theme = useTheme();
-
-  // check if features_header richtext if not convert it to richtext format for consistency
-  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
-  const isRichText = htmlCheck.test(header);
-
-  if (!isRichText && header) {
-    header = `<h1>${header}</h1>`;
-  }
 
   return (
     <Stack component="section" sx={{ py: 10 }}>
@@ -64,7 +56,7 @@ const TwoRowsHero = ({
           <MuiMarkdown
             options={{
               overrides: {
-                h1: {
+                h2: {
                   component: Typography,
                   props: {
                     variant: 'h3',
@@ -84,7 +76,6 @@ const TwoRowsHero = ({
                     component: 'p',
                     sx: {
                       mt: 2,
-                      lineHeight: 1.2,
                       maxWidth: 850,
                       marginLeft: 'auto',
                       marginRight: 'auto',
@@ -96,7 +87,7 @@ const TwoRowsHero = ({
               },
             }}
           >
-            {header}
+            {title_and_description}
           </MuiMarkdown>
           <Box
             sx={{
@@ -114,32 +105,32 @@ const TwoRowsHero = ({
                 color="secondary"
                 variant="contained"
                 component="a"
-                href={primaryCta_link}
+                href={primary_cta_link}
                 target="_blank"
               >
-                {primaryCta}
+                {primary_cta_text}
               </Button>
             </Box>
             <Button
               component="a"
               target="_blank"
-              href={secondaryCta_link}
+              href={secondary_cta_link}
               variant="outlined"
               color="secondary"
               fullWidth={isMobile ? true : false}
               sx={{
-                display: secondaryCta ? 'flex' : 'none',
+                display: secondary_cta_text ? 'flex' : 'none',
                 alignItems: 'center',
                 gap: '.5rem',
               }}
             >
-              {secondaryCta}
+              {secondary_cta_text}
               <ArrowRightAltIcon />
             </Button>
           </Box>
         </Box>
 
-        {heroImage && (
+        {image && (
           <Box
             sx={{
               mt: 4,
@@ -152,7 +143,7 @@ const TwoRowsHero = ({
               alt="agency partner"
               width={1024}
               height={513}
-              src={heroImage}
+              src={image?.data[0]?.url}
               style={{
                 maxWidth: 900,
                 width: '100%',

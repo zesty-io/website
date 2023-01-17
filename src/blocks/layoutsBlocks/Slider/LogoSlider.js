@@ -22,12 +22,12 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const LogoSlider = ({ titleAndDescription, integrations_logos, integrations_logos_2, integrationsBackground, cta_text }) => {
+const LogoSlider = ({ titleanddescription, integrations_logos, integrations_logos_2, integrationsBackground, cta_text }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
-  const slideOne = [integrations_logos];
-  const slideTwo = [integrations_logos_2];
+  const slideOne = [integrations_logos.data];
+  const slideTwo = [integrations_logos_2.data];
 
   /**
    * It creates an array of length repeats, and then maps each element to the original array
@@ -81,7 +81,7 @@ const LogoSlider = ({ titleAndDescription, integrations_logos, integrations_logo
           },
         }}
       >
-        {titleAndDescription || FillerContent.headerAndDescription}
+        {titleanddescription || FillerContent.headerAndDescription}
       </MuiMarkdown>
 
       {cta_text && (

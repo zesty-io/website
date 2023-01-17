@@ -9,7 +9,7 @@ import FillerContent from 'components/globals/FillerContent';
 
 
 import ZestyImage from '../../Image/ZestyImage';
-const WhyZesty = ({ header,   isMedium, whyZestyData }) => {
+const WhyZesty = ({ header, isMedium, whyzestydata }) => {
   const theme = useTheme()
   return (
     <Box
@@ -56,13 +56,13 @@ const WhyZesty = ({ header,   isMedium, whyZestyData }) => {
         </Box>
 
         <Box sx={{ mt: 10 }}>
-          {whyZestyData?.map((item, index) => (
+          {whyzestydata?.data?.map((item, index) => (
             <Grid sx={{ my: 5 }} key={index} container spacing={2}>
               <Grid
                 sx={{
                   display: 'flex',
                   justifyContent: 'center',
-                  alignItems: 'center',
+                  flexDirection: 'column',
                 }}
                 item
                 sm={12}
@@ -71,31 +71,77 @@ const WhyZesty = ({ header,   isMedium, whyZestyData }) => {
                 <MuiMarkdown
                   options={{
                     overrides: {
-                      h3: {
+                     h3: {
                         component: Typography,
                         props: {
-                          variant: 'h4',
+                           variant: 'h5',
                           component: 'h3',
-                          color: theme.palette.zesty.zestyOrange,
-                          textAlign: isMedium ? 'center' : 'text-left',
-                          fontWeight: 'bold',
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                            fontWeight: 'bold',
+                          },
                         },
                       },
-                      p: {
+                      span: {
                         component: Typography,
                         props: {
-                          variant: 'h5',
-                          mt: 1,
-                          component: 'p',
-                          color: theme.palette.zesty.zestyZambezi,
-                          textAlign: isMedium ? 'center' : 'text-left',
+                           variant: 'h5',
+                          component: 'h3',
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                            fontWeight: 'bold',
+                          },
                         },
                       },
                     },
                   }}
                 >
-                  {item.text}
+                  {item.header}
                 </MuiMarkdown>
+                <MuiMarkdown
+                    options={{
+                      overrides: {
+                        h2: {
+                          component: Typography,
+                          props: {
+                            component: 'h2',
+                            variant: 'h3',
+                            sx: {
+                              color: theme.palette.zesty.zestyZambezi,
+                              fontWeight: 'bold',
+                              textAlign: ' center',
+                            },
+                          },
+                        },
+                        span: {
+                          component: Typography,
+                          props: {
+                            component: 'h2',
+                            variant: 'h3',
+                            sx: {
+                              color: theme.palette.zesty.zestyZambezi,
+                              fontWeight: 'bold',
+                              textAlign: ' center',
+                            },
+                          },
+                        },
+                        p: {
+                          component: Typography,
+                          props: {
+                            mt: 2,
+                            component: 'p',
+                            variant: 'h6',
+                            sx: {
+                              color: theme.palette.zesty.zestyZambezi,
+                             textAlign: isMedium ? 'center' : 'left', mt: 3 
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    {item?.benefit_content  || FillerContent.description}
+                  </MuiMarkdown>
               </Grid>
               <Grid
                 sx={{
@@ -112,8 +158,8 @@ const WhyZesty = ({ header,   isMedium, whyZestyData }) => {
                     style={{ width: '100%', maxWidth: 599, height: 'auto' }}
                     width={533}
                     height={349}
-                    alt={item.text}
-                    src={item.image}
+                    alt={item.header}
+                    src={item.benefit_image?.data[0]?.url}
                   />
                 </Box>
               </Grid>

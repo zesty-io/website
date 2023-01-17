@@ -18,7 +18,19 @@ import FillerContent from 'components/globals/FillerContent';
  */
 import MuiMarkdown from 'markdown-to-jsx';
 
-const SimpleStats = ({ statsData }) => {
+const SimpleStats = ({ stat_one, stat_two, stat_three }) => {
+
+  const statsData = [
+    {
+      stats: stat_one || FillerContent.headerAndDescription,
+    },
+    {
+      stats: stat_two || FillerContent.headerAndDescription,
+    },
+    {
+      stats: stat_three || FillerContent.headerAndDescription,
+    },
+  ]
   const theme = useTheme();
   return (
     <Box sx={{ mt: 8 }}>

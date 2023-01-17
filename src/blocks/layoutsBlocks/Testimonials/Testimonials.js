@@ -27,7 +27,7 @@ const WithHighlightedCard = ({ title, data = FillerContent.platformCard }) => {
     title = `<h1>${title}</h1>`;
   }
 
-  const testimonialData = data?.map((item) => {
+  const testimonialData = data?.data?.map((item) => {
     return {
       feedback: item.review,
       name: item.reviewer_name,

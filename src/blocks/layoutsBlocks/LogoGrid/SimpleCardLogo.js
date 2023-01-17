@@ -28,7 +28,7 @@ const SimpleCardLogo = ({
   invertLogo = true,
   background ="transparent"
 }) => {
-  console.log('test',  text_outside)
+
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
   const sunsDarkLogoUrl =

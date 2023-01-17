@@ -13,23 +13,15 @@ import ZestyImage from 'blocks/Image/ZestyImage';
 
 const AlternateColumns = ({
   isHeaderEnabled = true,
-  header_content,
+  title_and_description,
   cta_link,
   cta_text,
-  column_data = FillerContent.simpleContents,
+  column_data = FillerContent.titleAndDescription,
   alternateColors,
 }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
-
-  // check if features_header richtext if not convert it to richtext format for consistency
-  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
-  const isRichText = htmlCheck.test(header_content);
-
-  if (!isRichText && header_content) {
-    header_content = `<h2>${header_content}</h2>`;
-  }
 
   const COLORS = [
     theme.palette.common.white,
@@ -41,7 +33,7 @@ const AlternateColumns = ({
   return (
     <Box
       sx={{
-        pt: header_content && 15,
+        pt: title_and_description && 15,
       }}
       component="section"
     >
@@ -77,7 +69,7 @@ const AlternateColumns = ({
               },
             }}
           >
-            {header_content || FillerContent.headerAndDescription}
+            {title_and_description || FillerContent.headerAndDescription}
           </MuiMarkdown>
          )} 
 
@@ -100,7 +92,7 @@ const AlternateColumns = ({
         )}
       </Container>
       <Box>
-        {column_data?.map((item, idx) => (
+        {column_data.data?.map((item, idx) => (
           <Card
             key={idx}
             variant="outlined"
@@ -198,7 +190,7 @@ const AlternateColumns = ({
                         },
                       }}
                     >
-                      {item.content || FillerContent.rich_text}
+                      {item.benefit_content || FillerContent.rich_text}
                     </MuiMarkdown>
                   </Box>
                 </Grid>
@@ -218,7 +210,7 @@ const AlternateColumns = ({
                       // height={350}
                       alt={item?.header || ''}
                       style={{ width: '100%', maxWidth: 600, height: 'auto' }}
-                      src={item?.image || FillerContent.photos[0].src}
+                      src={item?.benefit_image?.data[0]?.url || FillerContent.photos[0].src}
                     />
                   </Box>
                 </Grid>
