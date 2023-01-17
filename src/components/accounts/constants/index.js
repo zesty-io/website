@@ -101,6 +101,8 @@ const sso = {
   },
 };
 
+const templateUrl = 'https://templating.api.zesty.io/';
+
 export const accounts = {
   eventActionOptions,
   contentTypeOptions,
@@ -109,4 +111,5 @@ export const accounts = {
   developerDocs,
   leftNav,
   sso,
+  templateUrl,
 };

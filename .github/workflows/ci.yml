@@ -1,7 +1,5 @@
 name: Zesty Website CI Dev
 on:
-  push:
-    branches: [stage,accounts,production,dev]
   pull_request:
     branches: [stage,accounts,production,dev]
   workflow_dispatch:
