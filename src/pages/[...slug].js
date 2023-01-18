@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, createContext  } from 'react';
 
 import { fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
@@ -9,6 +9,8 @@ import Main from 'layouts/Main';
 
 import { getIsAuthenticated } from 'utils';
 
+
+export const GlobalContext = createContext();
 export default function Slug(props) {
   const isLoggedIn = useIsLoggedIn();
   // for homepage navigation
@@ -20,6 +22,7 @@ export default function Slug(props) {
 
   return (
     <>
+     <GlobalContext.Provider value={props}>
       {isLoggedIn ? (
         <Main
           model={props?.meta?.model_alternate_name}
@@ -42,6 +45,7 @@ export default function Slug(props) {
           <ZestyView content={props} />
         </MarketingMain>
       )}
+      </GlobalContext.Provider>
     </>
   );
 }
