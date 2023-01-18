@@ -1,12 +1,11 @@
 import { Box, Button, TextField } from '@mui/material';
 import axios from 'axios';
-import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import { accounts, ErrorMsg, SuccessMsg } from 'components/accounts';
 import { getCookie } from 'cookies-next';
 import React from 'react';
 import { useZestyStore } from 'store';
 
-// const repo = 'https://github.com/allenpigar/blog_template_acme';
-const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
+const baseUrl = accounts.templateUrl;
 export const ProjectDetails = ({ repository }) => {
   const [domain, setdomain] = React.useState('');
   const { ZestyAPI } = useZestyStore((state) => state);
