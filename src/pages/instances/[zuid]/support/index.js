@@ -2,7 +2,8 @@ import { useEffect, useState, React } from 'react';
 import { useRouter } from 'next/router';
 import { Box } from '@mui/material';
 import { TicketsTable } from 'components/accounts/support';
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function Support() {
   const router = useRouter();
@@ -34,13 +35,13 @@ export default function Support() {
   }, []);
   return (
     <>
-      <Box>
+      <InstanceContainer>
         Instance: {instance}
         <TicketsTable instanceZUID={instance} tickets={instanceTickets} />
         {/* <Typography variant="h4" mb={3} color="text.secondary">
         User ZUID: {userInfo?.ZUID} User Email: {userInfo?.email}
       </Typography> */}
-      </Box>
+      </InstanceContainer>
     </>
   );
 }
