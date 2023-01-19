@@ -1,6 +1,6 @@
 import { useEffect, useState, React } from 'react';
 import { useRouter } from 'next/router';
-import { Box } from '@mui/material';
+
 import { TicketsTable } from 'components/accounts/support';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
