@@ -1,4 +1,4 @@
-import { React, createContext  } from 'react';
+import { React, createContext } from 'react';
 
 import { fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
@@ -8,7 +8,6 @@ import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import Main from 'layouts/Main';
 
 import { getIsAuthenticated } from 'utils';
-
 
 export const GlobalContext = createContext();
 export default function Slug(props) {
@@ -22,29 +21,29 @@ export default function Slug(props) {
 
   return (
     <>
-     <GlobalContext.Provider value={props}>
-      {isLoggedIn ? (
-        <Main
-          model={props?.meta?.model_alternate_name}
-          nav={props?.navigationTree}
-          customRouting={props?.navigationCustom}
-          url={props?.meta?.web?.uri}
-          bgcolor={bgcolor}
-        >
-          <ZestyView content={props} />
-        </Main>
-      ) : (
-        <MarketingMain
-          model={props?.meta?.model_alternate_name}
-          nav={props?.navigationTree}
-          customRouting={props?.navigationCustom}
-          flyoutNavigation={props?.flyoutNavigation}
-          url={props?.meta?.web?.uri}
-          bgcolor={bgcolor}
-        >
-          <ZestyView content={props} />
-        </MarketingMain>
-      )}
+      <GlobalContext.Provider value={props}>
+        {isLoggedIn ? (
+          <Main
+            model={props?.meta?.model_alternate_name}
+            nav={props?.navigationTree}
+            customRouting={props?.navigationCustom}
+            url={props?.meta?.web?.uri}
+            bgcolor={bgcolor}
+          >
+            <ZestyView content={props} />
+          </Main>
+        ) : (
+          <MarketingMain
+            model={props?.meta?.model_alternate_name}
+            nav={props?.navigationTree}
+            customRouting={props?.navigationCustom}
+            flyoutNavigation={props?.flyoutNavigation}
+            url={props?.meta?.web?.uri}
+            bgcolor={bgcolor}
+          >
+            <ZestyView content={props} />
+          </MarketingMain>
+        )}
       </GlobalContext.Provider>
     </>
   );
