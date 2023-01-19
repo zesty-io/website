@@ -13,11 +13,11 @@ import FillerContent from 'components/globals/FillerContent';
 
 const Hero = ({
   title,
-  subtitle,
+  // subtitle,
   description,
   image,
   cta_right_text,
-  cta_right_url,
+  // cta_right_url,
   scrollToContactUs,
   cta_left_text,
   cta_left_url,

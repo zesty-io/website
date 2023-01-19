@@ -24,171 +24,119 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import React from 'react';
-
+/**
+ * MUI Imports
+ */
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
-import HeroNotTyped from '../../blocks/heroes/HeroNotTyped';
-import Partners from '../../blocks/logoGrid/Partners';
-import Main from '../../blocks/portfolioGrid/Main/Main';
-import Typography from '@mui/material/Typography';
+// Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
-import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
-import Button from '@mui/material/Button';
-import { zestyLink } from 'lib/zestyLink';
 
-import Container from 'components/Container';
-import { useMediaQuery } from '@mui/material';
+/**
+ * Components Imports
+ */
+import TwoRowsHero from 'blocks/zesty/Hero/TwoRowsHero';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import WhyZesty from 'blocks/zesty/WhyZesty/WhyZesty';
+import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
+import Features from 'blocks/zesty/PageLayouts/Features';
+import TechStack from 'blocks/integrations/TechStack';
+import Bottom from 'components/marketing/AgencyPartner.js/Bottom';
 
 function AgencyPartner({ content }) {
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
+  const isSmall = useMediaQuery(theme.breakpoints.down('sx'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
+  const isDarkMode = theme.palette.mode === 'dark';
+
+  const pageData = {
+    theme,
+    isSmall,
+    isMedium,
+    isLarge,
+    isExtraLarge,
+    isDarkMode,
+    content,
+    FillerContent,
+  };
+
+  const whyZestyData = [
+    {
+      text: content.why_zesty_1 || FillerContent.description,
+      image:
+        content.why_zesty_1_image?.data[0]?.url || FillerContent.photos[0].url,
+    },
+    {
+      text: content.why_zesty_2 || FillerContent.description,
+      image:
+        content.why_zesty_2_image?.data[0]?.url || FillerContent.photos[0].url,
+    },
+    {
+      text: content.why_zesty_3 || FillerContent.description,
+      image:
+        content.why_zesty_3_image?.data[0]?.url || FillerContent.photos[0].url,
+    },
+    {
+      text: content.why_zesty_4 || FillerContent.description,
+      image:
+        content.why_zesty_4_image?.data[0]?.url || FillerContent.photos[0].url,
+    },
+  ];
+
+  const testimonialsData = {
+    title: content.testimonial_title,
+    data: content.testimonials?.data,
+  };
+
+  const feature_data =
+    content.partner_program_features?.data.reduce((acc, item) => {
+      acc.push({
+        icon_image: item.graphic?.data[0].url,
+        feature_name: item.title,
+        content: item.description,
+      });
+
+      return acc;
+    }, []) || [];
+
+  const techStackData = {
+    text_content: content.looking_for_partner,
+    logos: content.partner_logos?.data,
+    cta_text: content.looking_button,
+    cta_link: content.looking_button_link,
+  };
 
   return (
     <>
-      <Container>
-        <HeroNotTyped
-          title={content.title || FillerContent.header}
-          description={content.header_description || FillerContent.description}
-        />
-      </Container>
-      <Container paddingY={'0 !important'}>
-        <Partners logoPartners={content.header_logos.data} />
-      </Container>
-
-      <Container>
-        <Box>
-          <Typography
-            variant="h4"
-            color="text.primary"
-            align={'center'}
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-            }}
-          >
-            {content.cta_header_title || FillerContent.header}
-          </Typography>
-          <Typography
-            variant="h6"
-            component="p"
-            color="text.secondary"
-            sx={{ fontWeight: 400 }}
-            align={'center'}
-          >
-            {content.cta_header_description || FillerContent.description}
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection={{ xs: 'column', sm: 'row' }}
-            alignItems={{ xs: 'stretched', sm: 'flex-start' }}
-            justifyContent={'center'}
-            marginTop={4}
-          >
-            <Button
-              component={'a'}
-              href={'#signup'}
-              variant="contained"
-              color="secondary"
-              size="large"
-              fullWidth={isMd ? false : true}
-            >
-              {content.cta_header_left || FillerContent.cta}
-            </Button>
-
-            <Box
-              marginTop={{ xs: 2, sm: 0 }}
-              marginLeft={{ sm: 2 }}
-              width={{ xs: '100%', md: 'auto' }}
-            >
-              <Button
-                component={'a'}
-                href={zestyLink(content.navigationTree, '7-cec987fcf5-9bht2z')}
-                variant="outlined"
-                color="secondary"
-                size="large"
-                fullWidth={isMd ? false : true}
-              >
-                {content.cta_header_right || FillerContent.cta}
-              </Button>
-            </Box>
-          </Box>
-        </Box>
-      </Container>
-
-      <Container>
-        <Main
-          partnerCards={
-            content.agency_partners_cards.data || FillerContent.missingDataArray
-          }
-        />
-      </Container>
-      <Box
-        position={'relative'}
-        marginTop={{ xs: 4, md: 6 }}
-        sx={{
-          backgroundColor: theme.palette.alternate.main,
-        }}
-      >
-        <Box
-          component={'svg'}
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1920 100.1"
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            transform: 'translateY(-50%)',
-            zIndex: 2,
-            width: 1,
-          }}
-        >
-          <path
-            fill={theme.palette.alternate.main}
-            d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
-          ></path>
-        </Box>
-        <Container>
-          <Box id="signup">
-            <Box marginBottom={4}>
-              <Typography
-                fontWeight={700}
-                variant={'h4'}
-                align={'center'}
-                gutterBottom
-              >
-                {content.cta_footer_title || FillerContent.title}
-              </Typography>
-              <Typography
-                variant={'h6'}
-                component={'p'}
-                color={'text.secondary'}
-                align={'center'}
-              >
-                {content.cta_footer_description || FillerContent.description}
-              </Typography>
-            </Box>
-
-            <StandardFormWithSelect
-              leadDetail="Agency Partner Sign Up"
-              businessType="Partner"
-              selectedValue={1}
-              hideSelect={true}
-              hideMessage={true}
-              ctaText={content.cta_footer_cta || FillerContent.cta}
-              modalTitle="Thank you for submitting your agency information."
-              modalMessage="Our team will be in touch soon to discuss next steps."
-            />
-          </Box>
-        </Container>
-      </Box>
+      <TwoRowsHero
+        header={content.header_title_and_description}
+        eyebrow={content.title}
+        primaryCta={content.cta_button_primary}
+        primaryCta_link={content.cta_button_primary_link}
+        secondaryCta={content.cta_button_secondary}
+        secondaryCta_link={content.cta_button_secondary_link}
+        heroImage={content.header_image?.data[0]?.url}
+      />
+      <SimpleCardLogo logoItems={content.client_logos.data} {...pageData} />
+      <WhyZesty
+        header={content.why_zesty_}
+        {...pageData}
+        whyZestyData={whyZestyData}
+      />
+      <WithHighlightedCard {...testimonialsData} />
+      <Features
+        background="zesty"
+        header_size={32}
+        textHighlight={'Workflow management'}
+        data={feature_data}
+        background_color={theme.palette.zesty.zestyBackgroundBlue}
+        features_header={content.features_title}
+      />
+      <TechStack textHighlight="agency partner?" {...techStackData} />
+      <Bottom {...pageData} />
     </>
   );
 }

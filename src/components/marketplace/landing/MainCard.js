@@ -46,6 +46,9 @@ const MainCard = ({
           display: 'flex',
           position: 'relative',
           alignItems: 'center',
+          border:
+            theme.palette.mode === 'light' &&
+            `1px solid ${theme.palette.common.grey}`,
         }}
       >
         <CardContent sx={{ width: '100%' }}>

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { React, useState } from 'react';
 
 import { useFormik } from 'formik';
@@ -43,9 +42,9 @@ export default function SubscribeCTA({
           },
         )
           .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
+          .then(() => {
             dataLayer.push({ event: 'emailSubscribeSubmitted', value: '1' });
+            // eslint-disable-next-line no-undef
             acSENT = true;
           });
       }

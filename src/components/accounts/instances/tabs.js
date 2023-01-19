@@ -1,71 +1,72 @@
-import SettingsIcon from '@mui/icons-material/Settings';
-import PhishingIcon from '@mui/icons-material/Phishing';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import Public from '@mui/icons-material/Public';
-import DataObject from '@mui/icons-material/DataObject';
-import FolderShared from '@mui/icons-material/FolderShared';
-import SupportIcon from '@mui/icons-material/Support';
-import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import TranslateIcon from '@mui/icons-material/Translate';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import PeopleIcon from '@mui/icons-material/People';
+import GroupsIcon from '@mui/icons-material/Groups';
+import LanguageIcon from '@mui/icons-material/Language';
+import ApiIcon from '@mui/icons-material/Api';
+import WebhookIcon from '@mui/icons-material/Webhook';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+// import SettingsIcon from '@mui/icons-material/Settings';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 export const instanceTabs = [
   {
-    icon: <InfoOutlinedIcon />,
+    icon: <AutoGraphIcon fontSize="medium" />,
     filename: '',
     label: 'Overview',
     sort: 0,
   },
   {
-    icon: <GroupAddIcon />,
+    icon: <PeopleIcon fontSize="medium" />,
     filename: 'users',
     label: 'Users',
     sort: 1,
   },
   {
-    icon: <FolderShared />,
+    icon: <GroupsIcon fontSize="medium" />,
     filename: 'teams',
     label: 'Teams',
     sort: 2,
   },
   {
-    icon: <Public />,
+    icon: <LanguageIcon fontSize="medium" />,
     filename: 'domains',
     label: 'Domains',
     sort: 3,
   },
   {
-    icon: <TranslateIcon />,
+    icon: <TranslateIcon fontSize="medium" />,
     filename: 'locales',
     label: 'Locales',
     sort: 3,
   },
   {
-    icon: <DataObject />,
+    icon: <ApiIcon fontSize="medium" />,
     filename: 'apis',
     label: 'APIs & Tokens',
     sort: 4,
   },
   {
-    icon: <PhishingIcon />,
+    icon: <WebhookIcon fontSize="medium" />,
     filename: 'webhooks',
     label: 'Webhooks',
     sort: 6,
   },
   {
-    icon: <SupportIcon />,
+    icon: <SupportAgentIcon fontSize="medium" />,
     filename: 'support',
     label: 'Support',
     sort: 5,
   },
+  // comment out for now
+  // {
+  //   icon: <SettingsIcon fontSize="large" />,
+  //   filename: 'billing',
+  //   label: 'Billing & Plan',
+  //   sort: 8,
+  // },
   {
-    icon: <CreditCardOutlinedIcon />,
-    filename: 'billing',
-    label: 'Billing & Plan',
-    sort: 8,
-  },
-  {
-    icon: <SettingsIcon />,
+    icon: <CreditCardIcon fontSize="medium" />,
     filename: 'settings',
     label: 'Settings',
     sort: 7,

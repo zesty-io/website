@@ -26,7 +26,6 @@
  */
 
 import React, { useState } from 'react';
-
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import CircularProgressWithLabel from '@mui/material/CircularProgress';
@@ -58,7 +57,7 @@ function Mindshare({ content }) {
   const {
     data: allArticles,
     isPending,
-    error,
+    // error,
   } = useFetch(
     '/-/all-articles-hydrated.json?limit=140',
     content.zestyProductionMode,
@@ -72,11 +71,11 @@ function Mindshare({ content }) {
       )
     : FillerContent.missingDataArray;
 
-  const onSearchHandler = (evt, value) => {
+  const onSearchHandler = (evt) => {
     evt.preventDefault();
     setSearchQuery(evt.target.value);
   };
-  const onSubmit = (evt, value) => {
+  const onSubmit = (evt) => {
     evt.preventDefault();
   };
 
@@ -335,7 +334,7 @@ function Mindshare({ content }) {
           ></path>
         </Box>
       </Box>
-      <Container>
+      <Container zIndex={3} position="relative">
         {/* CTA */}
         <Newsletter
           title={content.cta_title}

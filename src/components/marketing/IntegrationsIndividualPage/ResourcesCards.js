@@ -3,7 +3,8 @@
  */
 import { Box, Typography, Grid, Card } from '@mui/material';
 import Container from 'blocks/container/Container';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
+import ZestyImage from 'blocks/Image/ZestyImage';
 
 const ResourcesCards = ({ theme, content, FillerContent, isDarkMode }) => {
   return (
@@ -22,17 +23,19 @@ const ResourcesCards = ({ theme, content, FillerContent, isDarkMode }) => {
             },
           }}
           component="h2"
-          variant="h3"
+          variant="h4"
         >
           <MuiMarkdown
-            overrides={{
-              strong: {
-                component: Typography,
-                props: {
-                  color: theme.palette.zesty.zestyOrange,
-                  fontSize: 'inherit',
-                  fontWeight: 'inherit',
-                  display: 'inline',
+            options={{
+              overrides: {
+                strong: {
+                  component: Typography,
+                  props: {
+                    color: theme.palette.zesty.zestyOrange,
+                    fontSize: 'inherit',
+                    fontWeight: 'inherit',
+                    display: 'inline',
+                  },
                 },
               },
             }}
@@ -58,13 +61,12 @@ const ResourcesCards = ({ theme, content, FillerContent, isDarkMode }) => {
                         minHeight: 240,
                       }}
                     >
-                      <Box
-                        sx={{ width: '100' }}
-                        component="img"
+                      <ZestyImage
                         src={
                           item.graphic?.data[0].url ||
                           FillerContent.photos[0].src
                         }
+                        style={{ maxWidth: '100', height: 'auto' }}
                       />
                     </Box>
 

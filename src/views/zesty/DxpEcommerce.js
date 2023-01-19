@@ -62,7 +62,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
 
-function DxpEcommerce({ content }) {
+function DxpEcommerce() {
   return <Box sx={{ overflowX: 'hidden' }}></Box>;
 }
 

@@ -26,8 +26,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import React, { useEffect, useState } from 'react';
-
-import { SlashImageHero } from 'blocks/heroes';
+import { SlashImageHeroWithCta } from 'blocks/heroes';
 import { Breadcrumb } from 'blocks/progressSteps';
 import { Result } from 'blocks/formLayouts';
 import { CtaWithInputField } from 'blocks/cta';
@@ -48,14 +47,14 @@ function Category({ content }) {
   const [categoryArr, setCategoryArr] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
   // search states
-  const [searchedArticles, setSearchedArticles] = useState([]);
+  // const [searchedArticles, setSearchedArticles] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
   const [term, setTerm] = useState('');
   const [notFound, setNotFound] = useState(false);
   const [hideLoad, setHideLoad] = useState(false);
   // current page for pagination
   const [page, setPage] = useState(0);
-  const [breadcrumb, setBreadcrumb] = useState([
+  const [breadcrumb] = useState([
     {
       href: `/mindshare/`,
       title: `Blog`,
@@ -68,7 +67,6 @@ function Category({ content }) {
     },
   ]);
 
-  const error = 'Error';
   // use effect pull in news articles
   useEffect(() => {
     try {
@@ -86,7 +84,7 @@ function Category({ content }) {
 
       fetchNews();
     } catch (err) {
-      console.error(`Could Not Find Results: ${error}`);
+      console.error(`Could Not Find Results: ${err}`);
     }
   }, []);
 
@@ -173,10 +171,10 @@ function Category({ content }) {
         }}
       >
         <Box position={'relative'} zIndex={3}>
-          <SlashImageHero
+          <SlashImageHeroWithCta
             title={content.category || FillerContent.header}
             description={content.description || FillerContent.description}
-            image={
+            mainImage={
               content.header_image?.data[0]?.url ||
               FillerContent.category_fallback_image
             }
@@ -229,7 +227,7 @@ function Category({ content }) {
             d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
           ></path>
         </Box>
-        <Container>
+        <Container position="relative" zIndex={3}>
           <CtaWithInputField
             title={'Subscribe to the zestiest newsletter in the industry'}
             description={

@@ -3,42 +3,11 @@ import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Settings } from 'views/accounts/instances';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  Typography,
-} from '@mui/material';
-import DownloadIcon from '@mui/icons-material/Download';
 import { downloadTemplate } from 'utils/LaunchApp';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
-const DownloadCard = ({ token, instance_zuid }) => {
-  return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Export as template
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          variant="contained"
-          onClick={() => downloadTemplate(instance_zuid, token)}
-        >
-          <DownloadIcon fontSize="small" sx={{ mr: 1 }} /> Download
-        </Button>
-      </CardActions>
-    </Card>
-  );
-};
 export default function SettingsPage() {
   const [loading, setloading] = React.useState(false);
   const [settings, setsettings] = React.useState([]);
@@ -47,44 +16,37 @@ export default function SettingsPage() {
   const { zuid } = router.query;
 
   const getUsers = async () => {
-    const res = await ZestyAPI.getInstanceUsers(zuid);
-    console.log(res);
+    await ZestyAPI.getInstanceUsers(zuid);
   };
 
   const handleGetSettingSuccess = (res) => {
     setsettings(res.data);
   };
-  const handleGetSettingError = (err) => {
-    console.log(err);
-  };
-  const handleSingleSettingUpdateSuccess = (res) => {
-    console.log(res);
+  const handleSingleSettingUpdateSuccess = () => {
     SuccessMsg({ title: 'Settings Updated' });
   };
   const handleSingleSettingUpdateError = (err) => {
-    console.log(err);
     ErrorMsg({ title: err.error });
   };
   const getSettings = async () => {
     const res = await ZestyAPI.getSettings();
     !res.error && handleGetSettingSuccess(res);
-    res.error && handleGetSettingError(res);
   };
   const getInstanceUserRoles = async () => {
-    const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
-    console.log(res);
+    await ZestyAPI.getInstanceUsersWithRoles(zuid);
   };
 
   const singleSettingsUpdate = async (e) => {
     const res = await ZestyAPI.updateSetting(e.ZUID, e);
     !res.error && handleSingleSettingUpdateSuccess(res);
     res.error && handleSingleSettingUpdateError(res);
+    await getPageData();
   };
 
   const getPageData = async () => {
-    await setloading(true);
+    setloading(true);
     await Promise.all([getUsers(), getInstanceUserRoles(), getSettings()]);
-    await setloading(false);
+    setloading(false);
   };
   React.useEffect(() => {
     if (router.isReady) {
@@ -93,19 +55,15 @@ export default function SettingsPage() {
   }, [router.isReady]);
 
   return (
-    <>
+    <InstanceContainer>
       <Settings
         loading={loading}
         settings={settings}
         singleSettingsUpdate={singleSettingsUpdate}
+        token={userAppSID}
+        instance_zuid={zuid}
+        downloadTemplate={downloadTemplate}
       />
-      {settings.length !== 0 && (
-        <DownloadCard token={userAppSID} instance_zuid={zuid} />
-      )}
-    </>
+    </InstanceContainer>
   );
 }
-
-SettingsPage.data = {
-  container: 'InstanceContainer',
-};

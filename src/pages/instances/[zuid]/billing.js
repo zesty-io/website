@@ -2,12 +2,13 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { ComingSoon } from 'components/accounts';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function Billing() {
-  const [users, setusers] = React.useState([]);
-  const [roles, setroles] = React.useState([]);
+  const [, setusers] = React.useState([]);
+  const [, setroles] = React.useState([]);
   const { ZestyAPI } = useZestyStore((state) => state);
 
   const router = useRouter();
@@ -17,13 +18,11 @@ export default function Billing() {
   const getUsers = async () => {
     const res = await ZestyAPI.getInstanceUsers(zuid);
     setusers(res.data);
-    console.log(res);
   };
 
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
     setroles(res.data);
-    console.log(res);
   };
   React.useEffect(() => {
     if (router.isReady) {
@@ -32,9 +31,9 @@ export default function Billing() {
     }
   }, [router.isReady]);
 
-  return <ComingSoon />;
+  return (
+    <InstanceContainer>
+      <ComingSoon />
+    </InstanceContainer>
+  );
 }
-
-Billing.data = {
-  container: 'InstanceContainer',
-};

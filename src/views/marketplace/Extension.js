@@ -1,76 +1,40 @@
 // prettier-ignore
 import {Box,Button,Grid,Link,Typography, Card, CardContent } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import FillerContent from 'components/globals/FillerContent';
-import styled from '@emotion/styled';
 import ExtensionsIntaller from 'components/marketplace/ExtensionsIntaller';
 import { AppInstallerComp } from 'components/marketplace/AppInstallerComp';
 import { ResourceLinkComp } from 'components/marketplace/ResourceLinkComp';
 import LaunchIcon from '@mui/icons-material/Launch';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { useZestyStore } from 'store';
-
-function showDetails(props) {
-  return (
-    <>
-      <Typography>Author: {props?.author?.data?.[0]?.name}</Typography>
-      <Typography>
-        Github: <Link href={props?.github_url}>{props?.github_url}</Link>
-      </Typography>
-      <Typography>
-        Type:{' '}
-        <Link
-          href={props?.meta?.web?.uri?.replace(props?.meta?.web?.fragment, '')}
-        >
-          Entity Type
-        </Link>
-      </Typography>
-      <Typography>
-        Published: {new Date(`${props?.meta?.createdAt}`).toLocaleDateString()}
-      </Typography>
-    </>
-  );
-}
-
-const StyledYoutubeEmbed = styled('div')`
-  overflow: hidden;
-  padding-bottom: 56.25%;
-  position: relative;
-  height: 0;
-  margin: 1rem 0;
-
-  & iframe {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-  }
-`;
-
-const YoutubeEmbed = ({ youtubeHash }) => {
-  return (
-    youtubeHash && (
-      <StyledYoutubeEmbed>
-        <iframe
-          width="853"
-          height="480"
-          src={`https://www.youtube.com/embed/${youtubeHash}`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          title="Embedded youtube"
-        />
-      </StyledYoutubeEmbed>
-    )
-  );
-};
+import { useRouter } from 'next/router';
 
 const InstallButton = ({ data, theme }) => {
   const { workingInstance } = useZestyStore((state) => state);
+
+  const router = useRouter();
+  const isTemplate = data.meta.web.uri.includes('template') ? true : false;
+  const handleTemplate = () => {
+    router.push({
+      pathname: `/start/`,
+      query: { template: data?.meta?.zuid },
+    });
+  };
+
   if (data.app_zuid) {
     return <AppInstallerComp data={data} />;
+  } else if (isTemplate) {
+    return (
+      <Button
+        onClick={handleTemplate}
+        variant="contained"
+        color="secondary"
+        fullWidth
+      >
+        Install {data.name}
+      </Button>
+    );
   } else if (data.github_url && !data.app_zuid && !data.resource_link) {
     return (
       <ExtensionsIntaller
@@ -106,7 +70,6 @@ const InstallButton = ({ data, theme }) => {
 
 const Extension = (props) => {
   const theme = useTheme();
-  const isSM = useMediaQuery(theme.breakpoints.down('md'));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const links = [
@@ -214,25 +177,27 @@ const Extension = (props) => {
                 }}
               >
                 <MuiMarkdown
-                  overrides={{
-                    p: {
-                      component: Typography,
-                      props: {
-                        sx: {
-                          color: theme.palette.zesty.zestyZambezi,
+                  options={{
+                    overrides: {
+                      p: {
+                        component: Typography,
+                        props: {
+                          sx: {
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
+                          variant: 'h5',
+                          component: 'p',
                         },
-                        variant: 'h5',
-                        component: 'p',
                       },
-                    },
-                    img: {
-                      component: Box,
-                      props: {
-                        component: 'img',
-                        sx: {
-                          width: '100%',
-                          maxWidth: 900,
-                          color: theme.palette.zesty.zestyZambezi,
+                      img: {
+                        component: Box,
+                        props: {
+                          component: 'img',
+                          sx: {
+                            width: '100%',
+                            maxWidth: 900,
+                            color: theme.palette.zesty.zestyZambezi,
+                          },
                         },
                       },
                     },

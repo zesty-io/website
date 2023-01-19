@@ -7,7 +7,11 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { accountsValidations, FormInput } from 'components/accounts';
+import {
+  accountsValidations,
+  FormInput,
+  SSOGroupBtns,
+} from 'components/accounts';
 import { setCookie } from 'cookies-next';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useFormik } from 'formik';
@@ -24,7 +28,6 @@ import LoginIcon from '@mui/icons-material/Login';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import msLogin from '../../../public/assets/images/ms-symbollockup_signin_light.svg';
 import { notistackMessage } from 'utils';
 
 const MySwal = withReactContent(Swal);
@@ -42,7 +45,7 @@ const Login = ({ content, userEmail }) => {
     });
     MySwal.close();
     setCookie('isAuthenticated', true);
-    setCookie('isUser', true);
+
     window.location.replace('/');
   };
 
@@ -250,12 +253,7 @@ const Login = ({ content, userEmail }) => {
                   </LoadingButton>
                   <Divider sx={{ py: 2 }}>Or</Divider>
 
-                  <Link
-                    alignSelf="start"
-                    href={`${ZestyAPI?.authAPIURL}/azure/login`}
-                  >
-                    <img src={msLogin?.src} alt="Microsoft Single Sign On" />
-                  </Link>
+                  <SSOGroupBtns content={content} />
                 </Stack>
               </form>
             </Stack>
@@ -265,7 +263,7 @@ const Login = ({ content, userEmail }) => {
             <Stack direction="row" justifyContent="center" alignItems="center">
               <Typography variant="subtitle2">
                 {`Don't have an account yet? `}
-                <Link href="#" color="secondary">
+                <Link href="/join/" color="secondary">
                   Try for free!
                 </Link>
               </Typography>
@@ -342,11 +340,26 @@ const Login = ({ content, userEmail }) => {
           </Stack>
 
           <Stack px={10} pb={5}>
-            <img
-              src={content?.image?.data[0]?.url}
-              width="100%"
-              height="100%"
-            />
+            {content?.image?.data[0]?.url.includes('mp4') ? (
+              <Stack
+                component={'video'}
+                width={1}
+                autoPlay={true}
+                muted={true}
+                loop={true}
+                alt="Zesty.io Media"
+                title="Zesty.io Media"
+              >
+                <source src={content?.image?.data[0]?.url} type="video/mp4" />
+              </Stack>
+            ) : (
+              <img
+                src={content?.image?.data[0]?.url}
+                alt="Zesty.io Media"
+                width="100%"
+                height="100%"
+              />
+            )}
           </Stack>
         </Stack>
       </Grid>

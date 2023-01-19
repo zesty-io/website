@@ -17,7 +17,6 @@ import { useState } from 'react';
 import { useZestyStore } from 'store';
 
 const ResetPasswordConfirm = ({ address, token }) => {
-  document.title = 'Reset Password Confirmation';
   const { ZestyAPI } = useZestyStore((state) => state);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState({});

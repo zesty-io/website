@@ -55,14 +55,14 @@ import FillerContent from 'components/globals/FillerContent';
 
 // Components Imports
 
-import LogoGridSimpleCentered from 'blocks/logoGrid/LogoGridSimpleCentered';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
 import HeroWithIllustrationAndSearchBar from 'blocks/heroes/HeroWithIllustrationAndSearchBar';
 import NewsletterWithImage from 'components/marketing/LongFormPpc/NewsletterWithImage';
 import SimpleCentered from 'components/marketing/LongFormPpc/SimpleCentered';
 import BgDecorations from 'components/marketing/LongFormPpc/BgDecorations';
 import TechStack from 'blocks/integrations/TechStack';
 import Hero from 'components/marketing/LongFormPpc/Hero';
-import Features from 'blocks/features/Features/Features';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import SimpleHeroWithCta from 'components/marketing/LongFormPpc/SimpleHeroWithCta';
 import HowItWorks from 'components/marketing/LongFormPpc/HowItWorks';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
@@ -75,29 +75,12 @@ function LongFormPpc({ content }) {
     return <ExploreZesty content={content} />;
   }
   const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const scrollToContactUs = () => {
     document
       .getElementById('contact-us')
       .scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const formContent = {
-    leadDetail: 'Adwords',
-    businessType: 'Direct',
-    leadSource: 'Advertisement',
-    selectedValue: 2,
-    hideSelect: true,
-    hideMessage: true,
-    ctaText: content.cta_footer_cta || FillerContent.cta,
-    modalTitle: 'Thank you for submitting your information.',
-    modalMessage: 'Our team will be in touch soon to discuss next steps.',
-    displayMsgUnderButton: ' ',
-    additionalTextfield: { company: true, jobTitle: true },
-    customButtonStyle: { display: 'flex', justifyContent: 'center' },
-    phoneNumber: true,
   };
 
   const headerProps = {
@@ -119,18 +102,24 @@ function LongFormPpc({ content }) {
       '/join/',
   };
 
-  console.log(content);
   /* Taking the data from the content model and converting it into a format that the Features component can use. */
   const feature_data =
     content?.features?.data.reduce((acc, item) => {
       acc.push({
-        icon_image: item.icon_image.data[0].url,
+        icon_image: item.icon_image?.data[0]?.url,
         feature_name: item.feature_name,
         content: item.content,
       });
 
       return acc;
     }, []) || [];
+
+  const techStackData = {
+    text_content: content.integrations_description,
+    logos: content.integrations_logos?.data,
+    cta_text: content.intergration_cta_text || FillerContent.cta,
+    cta_link: content.integration_cta_link || FillerContent.href,
+  };
 
   return (
     <>
@@ -165,9 +154,10 @@ function LongFormPpc({ content }) {
 
       {/* Who Zesty works with */}
       <Box sx={{ py: 10 }}>
-        <LogoGridSimpleCentered
-          title={content.logos_h3 || FillerContent.header}
-          imageCollection={content.logos?.data || [FillerContent.image]}
+        <SimpleCardLogo
+          logoItems={content?.logos?.data}
+          heading_text={content.logos_h3}
+          maxWidth={1300}
         />
       </Box>
 
@@ -179,7 +169,7 @@ function LongFormPpc({ content }) {
           }
           image={
             (content._what_is_image?.data &&
-              content._what_is_image?.data[0].url) ||
+              content._what_is_image?.data[0]?.url) ||
             FillerContent.image
           }
         />
@@ -220,13 +210,10 @@ function LongFormPpc({ content }) {
         />
       </Box>
 
-      {router.asPath.includes('/ppc/headless-cms/') ? null : (
-        <TechStack
-          FillerContent={FillerContent}
-          content={content}
-          theme={theme}
-          isMobile={isMobile}
-        />
+      {router.asPath.includes('/ppc/headless-cms/') ? (
+        <></>
+      ) : (
+        <TechStack {...techStackData} content={content} />
       )}
 
       {/* Form */}

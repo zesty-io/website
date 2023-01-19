@@ -1,94 +1,121 @@
 // MUI Imports
-import { Box, Container, Typography, Grid, Button } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import { Box, Container, Typography, Grid } from '@mui/material';
+import MuiMarkdown from 'markdown-to-jsx';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import FillerContent from 'components/globals/FillerContent';
+import ZestyImage from 'blocks/Image/ZestyImage';
+import DemoCta from 'components/cta/DemoCta';
 
-// Local Assets Imports
+const TechStack = ({
+  headerColor,
+  text_content,
+  logos,
+  cta_text,
+  cta_link,
+  textHighlight,
+  backgroundColor,
+}) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-const TechStack = ({ theme, isMobile, content, FillerContent }) => {
+  // check if features_header richtext if not convert it to richtext format for consistency
+  const htmlCheck = new RegExp('<("[^"]*"|\'[^\']*\'|[^\'">])*>');
+  const isRichText = htmlCheck.test(text_content);
+
+  if (!isRichText) {
+    text_content = `<h2>${text_content}</h2>`;
+  }
+
   return (
-    <Box component="section" sx={{ px: 4 }}>
-      <Box
-        sx={{
-          background: theme.palette.zesty.zestySeaShell,
-          borderRadius: 10,
-          py: 10,
-        }}
-      >
+    <Box
+      component="section"
+      sx={{
+        px: 4,
+        background: backgroundColor
+          ? backgroundColor
+          : theme.palette.zesty.zestySeaShell,
+        py: 15,
+      }}
+    >
+      <Box sx={{}}>
         <Container>
           <Grid container spacing={2}>
             <Grid item sm={12} md={6}>
               <MuiMarkdown
-                overrides={{
-                  span: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      component: 'span',
-                      sx: {
-                        fontWeight: 'bold',
-                        fontWeight: 'regular',
-                        color: theme.palette.zesty.zestyOrange,
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'h2',
+                        sx: {
+                          fontWeight: 'bold',
+                          color: headerColor
+                            ? headerColor
+                            : theme.palette.zesty.zestyZambezi,
+                        },
                       },
                     },
-                  },
-                  h2: {
-                    component: Typography,
-                    props: {
-                      variant: 'h4',
-                      component: 'h3',
-                      sx: {
-                        color: theme.palette.zesty.zestyZambezi,
+                    h3: {
+                      component: Typography,
+                      props: {
+                        variant: 'h4',
+                        component: 'h3',
+                        sx: {
+                          mt: 2,
+                          fontWeight: 'bold',
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
                       },
                     },
-                  },
-                  h3: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      component: 'h2',
-                      sx: {
-                        mt: 2,
-                        fontWeight: 'bold',
-                        color: theme.palette.zesty.zestyZambezi,
+                    h4: {
+                      component: Typography,
+                      props: {
+                        variant: 'h3',
+                        component: 'h2',
+                        sx: {
+                          fontWeight: 700,
+                          color: theme.palette.zesty.zestyOrange,
+                        },
                       },
                     },
-                  },
-
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h5',
-                      component: 'p',
-                      sx: {
-                        mt: 2,
-                        color: theme.palette.zesty.zestyZambezi,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h6',
+                        component: 'p',
+                        sx: {
+                          mt: 2,
+                          color: theme.palette.zesty.zestyZambezi,
+                        },
                       },
                     },
                   },
                 }}
               >
-                {content.integrations_description || FillerContent.description}
+                {text_content.replace(
+                  textHighlight,
+                  `<span>${textHighlight}</span>`,
+                )}
               </MuiMarkdown>
-
-              <Box sx={{ width: '100%', mt: 4 }}>
-                {content.integration_link?.data && (
-                  <Button
-                    component={'a'}
-                    target="_blank"
+              {cta_link && (
+                <Box sx={{ width: '100%', mt: 4 }}>
+                  <DemoCta
+                    icon={false}
                     fullWidth={isMobile}
                     variant="contained"
-                    href={content.integration_link.data[0].meta.web.uri}
                     sx={{
                       background: theme.palette.zesty.zestyOrange,
-                      color: theme.palette.common.white,
                       px: 6,
+                      fontWeight: 'bold',
                     }}
-                    size="large"
-                  >
-                    {content.integrations_button || FillerContent.description}
-                  </Button>
-                )}
-              </Box>
+                    text={cta_text || FillerContent.cta}
+                    href={cta_link || FillerContent.href}
+                  />
+                </Box>
+              )}
             </Grid>
             <Grid
               sx={{
@@ -117,17 +144,16 @@ const TechStack = ({ theme, isMobile, content, FillerContent }) => {
                     display: isMobile ? 'none' : 'block',
                   }}
                 />
-                {content.integrations_logos?.data.map((item, idx) => {
+                {logos?.map((item, idx) => {
                   return (
-                    <>
-                      <Box
-                        key={idx}
-                        sx={{ height: 88, width: 'auto' }}
-                        component="img"
-                        alt="integration logo's"
-                        src={item.logo.data[0].url}
-                      />
-                    </>
+                    <ZestyImage
+                      key={idx}
+                      width={88}
+                      height={88}
+                      style={{ height: 88, width: 'auto' }}
+                      alt="integration logo's"
+                      src={item.logo?.data[0].url}
+                    />
                   );
                 })}
               </Box>

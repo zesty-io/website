@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '@mui/material/Container';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
@@ -11,19 +11,21 @@ import { useZestyStore } from 'store';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { useRouter } from 'next/router';
 
-export default function AppBar({ url = window.location.pathname }) {
+export default function AppBar() {
+  const [url, setUrl] = useState('');
+  const [locationSearch, setLocationSearch] = useState('');
   const router = useRouter();
   const { verifySuccess, ZestyAPI, loading, setworkingInstance } =
     useZestyStore((state) => state);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const [instance, setinstance] = React.useState([]);
+  const [instance, setinstance] = useState([]);
   const isLoggedIn = useIsLoggedIn();
   const { zuid } = router.query;
 
   // get param from url to look for instance
-  const params = new Proxy(new URLSearchParams(window.location.search), {
+  const params = new Proxy(new URLSearchParams(locationSearch), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
 
@@ -51,19 +53,21 @@ export default function AppBar({ url = window.location.pathname }) {
     res.error && handleGetInstanceError(res);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (router.isReady) {
       getInstance();
+      setUrl(window.location.pathname);
+      setLocationSearch(window.location.search);
     }
   }, [router.isReady, url]);
-  React.useEffect(() => {
+
+  useEffect(() => {
     setworkingInstance(instanceZUID);
   }, [instanceZUID]);
 
   return (
     <Box
       sx={{
-        backgroundColor: theme.palette.background.level2,
         py: 1,
       }}
     >
@@ -81,7 +85,6 @@ export default function AppBar({ url = window.location.pathname }) {
             justifyContent: 'space-between',
             alignItems: isMobile ? 'left' : 'center',
             flexDirection: isMobile ? 'column' : 'flex',
-            gap: isMobile ? '1rem' : '0',
           }}
         >
           <Breadcrumbs
@@ -92,7 +95,7 @@ export default function AppBar({ url = window.location.pathname }) {
             }}
           >
             <Link
-              underline="hover"
+              underline="none"
               color="inherit"
               href={'/'}
               sx={{
@@ -100,7 +103,7 @@ export default function AppBar({ url = window.location.pathname }) {
                 alignItems: 'center',
               }}
             >
-              <HomeIcon sx={{ mr: 0.5 }} />
+              <HomeIcon sx={{ mr: 0.5, color: 'GrayText' }} />
             </Link>
             {pathnames?.map((url, index) => {
               const routeTo = `/${pathnames.slice(0, index + 1).join('/')}/`;
@@ -116,9 +119,11 @@ export default function AppBar({ url = window.location.pathname }) {
                     display: 'flex',
                     alignItems: 'center',
                     fontWeight: 'bold',
+                    px: 2,
+                    pointerEvents: 'none',
                   }}
-                  underline="hover"
-                  color="text.primary"
+                  underline="none"
+                  color="text.secondary"
                   href={routeTo}
                   aria-current="page"
                   key={name}
@@ -127,14 +132,15 @@ export default function AppBar({ url = window.location.pathname }) {
                 </Link>
               ) : (
                 <Link
-                  underline="hover"
-                  color="inherit"
+                  underline="none"
+                  color="text.secondary"
                   href={routeTo}
                   key={index}
                   sx={{
                     textTransform: 'capitalize',
                     display: 'flex',
                     alignItems: 'center',
+                    px: 2,
                   }}
                 >
                   {name}

@@ -10,13 +10,13 @@ import {
   CardContent,
   Grid,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import Container from 'blocks/container/Container';
 
 const GatedContentCard = ({
   theme,
-  isMedium,
-  isDarkMode,
+  // isMedium,
+  // isDarkMode,
   content,
   FillerContent,
 }) => {
@@ -30,8 +30,9 @@ const GatedContentCard = ({
         {content.section_header_1 || FillerContent.header}
       </Typography>
       <Grid container spacing={2}>
-        {content.gated_content_pages?.data.map((item) => (
+        {content.gated_content_pages?.data.map((item, index) => (
           <Grid
+            key={index}
             component="a"
             target={'_blank'}
             href={item.meta.web.uri || FillerContent.href}

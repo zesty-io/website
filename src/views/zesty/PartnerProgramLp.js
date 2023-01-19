@@ -54,13 +54,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 /**
  * Components Imports
  */
-import Hero from 'components/marketing/PartnerProgramLp/Hero';
+import { SlashImageHeroWithCta } from 'blocks/heroes';
 import WhyZesty from 'components/marketing/PartnerProgramLp/WhyZesty';
 import Benefits from 'components/marketing/PartnerProgramLp/Benefits';
-import Testimonial from 'components/marketing/PartnerProgramLp/Testimonial';
+import Testimonial from 'blocks/testimonials/SingleTestimonial';
 import Bottom from 'components/marketing/PartnerProgramLp/Bottom';
-import SimpleCardLogo from 'blocks/logoGrid/SimpleCardLogo/SimpleCardLogo';
-import Features from 'blocks/features/Features/Features';
+import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+import Features from 'blocks/zesty/PageLayouts/Features';
 
 function PartnerProgramLp({ content }) {
   const theme = useTheme();
@@ -75,7 +75,18 @@ function PartnerProgramLp({ content }) {
     FillerContent,
   };
 
-  console.log(content);
+  const heroProps = {
+    title: content.header_text,
+    cta_left: content.button_text,
+    cta_right: content.watch_demo_cta_button,
+    cta_right_url: content.watch_demo_cta_button_link?.data[0]?.meta.web.uri,
+    mainImage: content.header_graphic?.data[0]?.url,
+  };
+
+  const testimonialProps = {
+    title: content.testimonial_title,
+    testimonialData: content.testimonial,
+  };
 
   const feature_data =
     content.features?.data.reduce((acc, item) => {
@@ -90,17 +101,18 @@ function PartnerProgramLp({ content }) {
 
   return (
     <>
-      <Hero {...pageData} />
+      <SlashImageHeroWithCta {...heroProps} />
       <Box sx={{ py: 10 }}>
         <SimpleCardLogo
+          variant="outlined"
           heading_text={content.logos_title}
-          logoItems={content.logos.data}
+          logoItems={content.logos?.data}
           {...pageData}
         />
       </Box>
       <WhyZesty {...pageData} />
       <Benefits {...pageData} />
-      <Testimonial {...pageData} />
+      <Testimonial {...testimonialProps} />
       <Features
         header_color={theme.palette.zesty.zestyZambezi}
         header_size={48}

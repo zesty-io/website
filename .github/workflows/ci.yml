@@ -1,12 +1,10 @@
 name: Zesty Website CI Dev
 on:
-  push:
-    branches: [stage,accounts,production]
   pull_request:
-    branches: [stage,accounts,feat/profile]
+    branches: [stage,accounts,production,dev]
   workflow_dispatch:
 jobs:
-  build:
+  build-check:
     runs-on: ubuntu-latest
     env:
       PRODUCTION: 'false'
@@ -15,11 +13,14 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '16.x'
-      - name: Install NPM dependencies build test
+      - name: Setup custom host for mylocal
+        run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
+
+      - name: Install dependencies 
         run: npm ci
+
       - name: Check format and linters
         run: npm run test-all
-      - name: Run build
+
+      - name: Build Project 
         run: npm run build
-      - name: Run test
-        run: npm run test

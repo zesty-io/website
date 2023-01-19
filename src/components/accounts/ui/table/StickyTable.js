@@ -1,5 +1,4 @@
 import React from 'react';
-import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../loading';
 import { Box, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
+import { AccountsTableHead } from './AccountsTableHead';
 
 const Index = ({
   rows,
@@ -50,23 +51,22 @@ const Index = ({
       <Box paddingY={1}>
         <Typography variant="h5">{title}</Typography>
       </Box>
-      <Paper sx={{ width: '100%', overflow: 'hidden', padding: '1rem 0' }}>
+      <Box sx={{ border: `1px solid ${grey[200]}`, borderRadius: '5px' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
                 {columns?.map((e) => {
+                  if (!e.label) {
+                    return null;
+                  }
                   return (
                     <TableCell
-                      width={'10rem'}
+                      width={350}
                       align="left"
-                      sx={{
-                        fontWeight: 'bold',
-                        textTransform: 'capitalize',
-                        fontSize: '14px',
-                      }}
+                      sx={{ backgroundColor: grey[200], borderTop: '50px' }}
                     >
-                      {e.label}
+                      <AccountsTableHead>{e.label}</AccountsTableHead>
                     </TableCell>
                   );
                 })}
@@ -80,6 +80,9 @@ const Index = ({
                     <TableRow hover>
                       {columns?.map((column) => {
                         const value = row[column.id];
+                        if (!value) {
+                          return null;
+                        }
 
                         // Check if JSX ELEMENT ex Buttons etc
                         if (React.isValidElement(value)) {
@@ -93,7 +96,25 @@ const Index = ({
                             </TableCell>
                           );
                         }
-                        return <TableCell>{value}</TableCell>;
+
+                        if (typeof value === 'string') {
+                          return (
+                            <TableCell>
+                              <Typography
+                                variant="body2"
+                                textTransform={'capitalize'}
+                              >
+                                {value?.replace('_', ' ')?.replace('-', ' ')}
+                              </Typography>
+                            </TableCell>
+                          );
+                        }
+
+                        return (
+                          <TableCell>
+                            {JSON.stringify(value, null, 4)}
+                          </TableCell>
+                        );
                       })}
                     </TableRow>
                   );
@@ -112,7 +133,7 @@ const Index = ({
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         )}
-      </Paper>
+      </Box>
     </Box>
   );
 };

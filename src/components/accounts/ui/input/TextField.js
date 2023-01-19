@@ -1,6 +1,7 @@
 const { Box, TextField } = require('@mui/material');
+import React from 'react';
 
-export const AccountTextfield = ({ name, value, handleAdd }) => {
+const Index = ({ name, value, handleAdd }) => {
   const handleChange = (event) => {
     handleAdd(event.target.value);
   };
@@ -14,12 +15,15 @@ export const AccountTextfield = ({ name, value, handleAdd }) => {
       autoComplete="off"
     >
       <TextField
+        size="small"
         defaultValue={value}
         id="outlined-basic"
         onChange={handleChange}
-        label={name}
+        placeholder={name}
         variant="outlined"
       />
     </Box>
   );
 };
+
+export const AccountTextfield = React.memo(Index);

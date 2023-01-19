@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Local  Assets Imports
@@ -15,14 +14,55 @@ import connectionSmall from '../../../../public/assets/images/headless-cms/conne
 import connection from '../../../../public/assets/images/headless-cms/connection.svg';
 import connectionMobile from '../../../../public/assets/images/headless-cms/connection-mobile.svg';
 
-const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
+/**
+ * Component Imports
+ */
+import CenteredContents from 'blocks/contentBlocks/CenteredContents';
+
+const UseCase = ({
+  theme,
+  isMobile,
+  // isDarkMode,
+  content,
+  FillerContent,
+}) => {
+  const useCaseProps = {
+    header: content.headless_cms_explained,
+    mainImage: content.headless_cms_explained_image?.data[0]?.url,
+    backgroundColor: theme.palette.zesty.zestyWhite,
+  };
+
   return (
-    <Box sx={{ pt: 10 }} component="section">
+    <Box sx={{ pb: 10, mb: -10 }} component="section">
       <Container>
         {/* Features Cards Start */}
+        <Box sx={{ pb: 10 }}>
+          <Typography
+            sx={{
+              fontWeight: 'bold',
+              textAlign: 'center',
+              color: theme.palette.zesty.zestyZambezi,
+            }}
+            variant={'h4'}
+            component={'h3'}
+          >
+            {content.use_case_header || FillerContent.description}
+          </Typography>
+          <Typography
+            sx={{
+              textAlign: 'center',
+              color: theme.palette.zesty.zestyZambezi,
+              mt: 2,
+            }}
+            variant={'h6'}
+            component={'p'}
+          >
+            {content.use_cases_text || FillerContent.description}
+          </Typography>
+        </Box>
         <Grid sx={{ justifyContent: 'center' }} container spacing={2}>
           {content.use_cases_tiles.data.map((item, idx) => (
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} key={idx}>
               <Card
                 sx={{
                   borderRadius: 3,
@@ -99,7 +139,7 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
         </Box>
 
         {/* Image One */}
-        <Box>
+        {/* <Box>
           <Box
             component="img"
             alt="use case graphic"
@@ -111,63 +151,11 @@ const UseCase = ({ theme, isMobile, isDarkMode, content, FillerContent }) => {
             }}
             src={content.use_cases_graphic.data[0].url}
           />
-        </Box>
+        </Box> */}
 
         {/* Headless CMS Explained Start */}
-
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            pt: 10,
-          }}
-        >
-          <MuiMarkdown
-            overrides={{
-              h2: {
-                component: 'h2',
-                props: {
-                  style: {
-                    fontSize: isMobile ? 18 : 32,
-                    color: theme.palette.zesty.zestyZambezi,
-                    textAlign: 'center',
-                  },
-                },
-              },
-              p: {
-                component: 'p',
-                props: {
-                  style: {
-                    textAlign: 'center',
-                    color: theme.palette.zesty.zestyZambezi,
-                    mt: 4,
-                    fontSize: isMobile ? 16 : 20,
-                  },
-                },
-              },
-            }}
-          >
-            {content.headless_cms_explained || FillerContent.description}
-          </MuiMarkdown>
-        </Box>
-
-        {/* Image Two */}
-        <Box sx={{ mt: 4 }}>
-          <Box
-            component="img"
-            alt="headless cms explained"
-            style={{
-              display: 'block',
-              margin: 'auto',
-              width: '100%',
-              maxWidth: isMobile ? '100%' : 824,
-            }}
-            src={content.headless_cms_explained_image.data[0].url}
-          />
-        </Box>
       </Container>
+      <CenteredContents {...useCaseProps} />
     </Box>
   );
 };

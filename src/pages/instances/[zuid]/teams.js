@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 import { Teams } from 'views/accounts';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function TeamsPage() {
   const [teams, setteams] = React.useState([]);
@@ -25,48 +26,36 @@ export default function TeamsPage() {
     setInstanceRoles(data);
   };
   const handleGetInstanceRolesErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
   const handleGetAllInstancesTeamsSuccess = (res) => {
     setteams(res.data);
   };
   const handleGetAllInstancesTeamsError = (err) => {
-    console.log(err);
     ErrorMsg({ text: err.error });
   };
-  const handleAddTeamToInstanceSuccess = (res) => {
-    console.log(res);
+  const handleAddTeamToInstanceSuccess = () => {
     SuccessMsg({ title: 'Team Succesfully Added' });
   };
   const handleAddTeamToInstanceError = (err) => {
-    console.log(err);
     ErrorMsg({ text: err.error });
   };
 
-  const handleDeleteTeamToInstanceSuccess = (res) => {
-    console.log(res);
+  const handleDeleteTeamToInstanceSuccess = () => {
     SuccessMsg({ title: 'Team Successfully Deleted' });
   };
   const handleDeleteTeamToInstanceError = (err) => {
-    console.log(err);
     ErrorMsg({ text: err.error });
   };
 
-  const handleCreateTeamInviteSuccess = (res) => {
-    console.log(res);
+  const handleCreateTeamInviteSuccess = () => {
     SuccessMsg({ title: 'Success' });
   };
   const handleCreateTeamInviteError = (err) => {
-    console.log(err);
     ErrorMsg({ text: err.error });
   };
   const handleGetAllTeamsSuccess = (res) => {
-    console.log(res);
     setallTeams(res.data);
-  };
-  const handleGetAllTeamsError = (res) => {
-    console.log(res);
   };
 
   const handleGetInstanceUserWithRolesSucc = (res) => {
@@ -85,7 +74,6 @@ export default function TeamsPage() {
   const getAllTeams = async () => {
     const res = await ZestyAPI.getAllTeams();
     !res.error && handleGetAllTeamsSuccess(res);
-    res.error && handleGetAllTeamsError(res);
   };
   const getInstanceRoles = async () => {
     const res = await ZestyAPI.getInstanceRoles(zuid);
@@ -137,27 +125,25 @@ export default function TeamsPage() {
   };
 
   const getPageData = async () => {
-    await setloading(true);
+    setloading(true);
     await Promise.all([
       getAllInstancesTeams(),
       getInstanceUserWithRoles(),
       getInstanceRoles(),
       getAllTeams(),
     ]);
-    await setloading(false);
+    setloading(false);
   };
+
   React.useEffect(() => {
     if (router.isReady) {
       getPageData();
     }
   }, [router.isReady]);
+
   return (
-    <>
+    <InstanceContainer>
       <Teams {...teamsProps} />
-    </>
+    </InstanceContainer>
   );
 }
-
-TeamsPage.data = {
-  container: 'InstanceContainer',
-};

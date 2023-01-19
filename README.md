@@ -1,19 +1,36 @@
-<img src="https://brand.zesty.io/zesty-io-logo.svg" width="150">
+<div align="center">
 
-# Zesty.io NextJS Marketing Website
+<img src="https://brand.zesty.io/zesty-io-logo.svg" width="150">
+<h1>
+Zesty.io NextJS Marketing Website
+</h1>
+<i>
 
 Marketing Website using NextJS and Zesty.io Headless CMS
 
-## Getting Started
+</i>
 
-Node and NPM need to be installed. From your command line.
+<a href="https://github.com/zesty-io/website/stargazers"><img src="https://img.shields.io/github/stars/zesty-io/website?style=flat-square&&color=F4CE01" alt="Stars Badge"/></a>
+<a href="https://github.com/zesty-io/website/pulls"><img src="https://img.shields.io/github/issues-pr/zesty-io/website?style=flat-square&&color=4DC71F" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/zesty-io/website/issues"><img src="https://img.shields.io/github/issues/zesty-io/website?style=flat-square&&color=F88304" alt="Issues Badge"/></a>
+<a href="https://github.com/zesty-io/website/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/zesty-io/website?color=9B1FE9&&style=flat-square"></a>
+<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/github/package-json/dependency-version/zesty-io/website/react?style=flat-square&&color=5ED3F3" alt="License Badge"/></a>
+<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/github/package-json/dependency-version/zesty-io/website/next?style=flat-square" alt="License Badge"/></a>
+
+<a href="https://github.com/zesty-io/website/blob/master/LICENSE"><img src="https://img.shields.io/badge/MUI-%230081CB.svg?style=flat-square&logo=mui&logoColor=white" alt="License Badge"/></a>
+
+</div>
+
+## ⚡ Getting Started
+
+Requires `node version ^16.x.x` and `npm version ^8.x.x`
 
 Create a file at the root `.env.local` with `PRODUCTION=false` as the file contents
 
 ```bash
-git clone git@github.com:zesty-io/nextjs-website.git
+git clone git@github.com:zesty-io/website.git
 
-cd nextjs-website
+cd website
 
 npm install
 
@@ -23,7 +40,7 @@ npm run dev
 
 ```
 
-## Syncing Zesty.io Models to Next JS
+## 💡 Syncing Zesty.io Models to Next JS
 
 From the command line at the root of the project run:
 
@@ -33,7 +50,7 @@ node scripts/zesty-nextjs.js
 
 This will create new files where needed, but will not overwrite existing files.
 
-## AutoDeploy
+## 💡 AutoDeploy
 
 Any push or merge to the `dev`,`stage`, or `production` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
 
@@ -45,22 +62,22 @@ dev: https://zesty-dev-website-m3rbwjxm5q-uc.a.run.app/
 stage: https://kfg6bckb-dev.webengine.zesty.io OR https://zesty-website-m3rbwjxm5q-uc.a.run.app/
 production: https://www.zesty.io OR https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
 
-## Contribution
+## 💡 Contribution
 
 1. Create a branch
 2. Make change locally commit
 3. Test your changes with `npm run build`
 4. If build succeeds, create pull request against `stage` (our stage)
 
-## Deployment to Production
+## 💡 Deployment to Production
 
 After a successfull deploy to `stage` create PR from `stage` to `production`, upon merge a production build will trigger.
 
-## CTA Components and Forms
+## 💡 CTA Components and Forms
 
 Please use these core CTA components through your views. These forms already have validation setup and connect to our remote services.
 
-### Try Button
+### 💡 Try Button
 
 A button that trigger a dropdown guiding both a developer and marketers option
 
@@ -256,10 +273,10 @@ _Available cookies_
 
 ## Requirements
 
-Must create `.env` file and add `NEXT_PUBLIC_GITHUB_AUTH`
+Must create `.env` file and add `GITHUB_AUTH`
 
 ```
-NEXT_PUBLIC_GITHUB_AUTH="Personal Auth Token"
+GITHUB_AUTH="Personal Auth Token"
 ```
 
 Github `Personal Auth Token` can be generated from https://github.com/settings/tokens
@@ -375,6 +392,44 @@ npm run test
 - Auto deployment run through cloud run and cloud build integration with github
 - This occurs in the zesty-dev google cloud project
 
+# Component Error Handling
+
+Given that our website receives data from a Zesty CMS, the marketing team or developer may occasionally attempt to make changes and might unintentionally delete content. This will fail reaching the specific object data from the CMS and the TypeError is born.
+
+##### Server Error
+
+`TypeError: Cannot read property 'title' of undefined`
+
+Let’s take a look of ways how can we avoid a webpage from crashing in production?
+
+### Ternary Operator Checks + Fallback Content
+
+A best practice when attempting to retrieve object data from Zesty CMS is to carry out tests before to rendering the data and add fallback content in the event that the data is undefined or missing from Zesty CMS.
+
+##### Example
+
+`content.title ? content.title : 'fallback title';`
+
+Here, we're attempting to determine whether the `content.title` object is empty; if it is, "fallback title" will be displayed on the screen.
+
+Another way of writing the above statement is to use logical OR operator
+
+`content.title || 'fallback title';`
+
+### Test against production environment
+
+Zesty CMS gives you the option to work on `stage` and `production` endpoints when you are developing locally. You may switch between the two endpoints by changing your local env file.
+
+##### Example Env
+
+`Production=true` - Only returns data from the production endpoint that have been published by the zesty CMS
+
+`Production=false` - only receives data that is saved or in a draft state but has not yet been published when using the staging endpoint
+
+Most of the time when developing a website, you will use the staging endpoint and consume data that has not yet been published or in draft state. This will allow you to test the general functionality of the website using the CMS data without breaking the live or production site.
+
+However, switching the env variable from staging to production is another excellent way to guarantee that your website won't break when you publish it to production. This will give you the ability to test the website using the production data, and if everything works perfectly, you're good to send your site to live.
+
 # Accounts
 
 Accounts is instances, profile, teams, dashboard. To working on the accounts apps locally, follow these steps.
@@ -382,3 +437,80 @@ Accounts is instances, profile, teams, dashboard. To working on the accounts app
 1. You need to edit your ETC hosts files to use a domain like `test.zesty.io` to avoid CORS errors. To access your `localhost` see this thread for windows users https://github.com/zesty-io/manager-ui/discussions/1240
 2. Run `npm run dev` check your `test.zesty.io` domain, if that resolves to your next.js page, great, if not, googlefu
 3. Log into accounts.dev.zesty.io, refresh your localhost or test.zesty.io site
+
+# End to end test using Cypress
+
+Cypress test files are located in `root/cypress/integration/*.spec.js`
+
+## Running Cypress Tests
+
+Create `cypress.json` in root directory with the ff config
+
+<details>
+<summary>
+sample cypress config
+</summary>
+
+```jsx
+
+{
+  {
+  "defaultCommandTimeout": 20000,
+  "video": false,
+  "env": {
+    "user": {
+      "email": "your_email@zesty.io",
+      "password": "your_password"
+    },
+    "cypress-plugin-snapshots": {
+      "autoCleanUp": false,
+      "autopassNewSnapshots": true,
+      "diffLines": 3,
+      "excludeFields": [],
+      "ignoreExtraArrayItems": false,
+      "ignoreExtraFields": false,
+      "normalizeJson": true,
+      "prettier": true,
+      "imageConfig": {
+        "createDiffImage": true,
+        "resizeDevicePixelRatio": true,
+        "threshold": 0.01,
+        "thresholdType": "percent"
+      },
+      "screenshotConfig": {
+        "blackout": [],
+        "capture": "fullPage",
+        "clip": null,
+        "disableTimersAndAnimations": true,
+        "log": false,
+        "scale": false,
+        "timeout": 30000
+      },
+      "serverEnabled": true,
+      "serverHost": "localhost",
+      "serverPort": 2121,
+      "updateSnapshots": false,
+      "backgroundBlend": "difference"
+    }
+  },
+  "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"],
+  "viewportWidth": 1280,
+  "viewportHeight": 720
+}
+}
+
+```
+
+</details>
+
+### Headlessly
+
+`npm run test:e2e:ci`
+
+### Visually
+
+`npm run dev` in 1st terminal and `npm run cy:open` in 2nd terminal then click the test you want to run.
+
+## Uploading Assets
+
+To upload assets for your projects put them on the CDN, do not put them in the repository. Assets can be uploaded at https://console.cloud.google.com/storage/browser/assets.zesty.io?project=zesty-prod , upload to the respective folder that match your project name, for example, the SVGs and PNG that are being commited to website should be moved into this storage bucket under the website folder, once they are uploaded they accessible from https://assets.zesty.io e.g. https://assets.zesty.io/website/assets/images/dxp_bottom_bg.svg

@@ -13,7 +13,7 @@ const SideContent = ({
   teams,
 }) => {
   return (
-    <Stack p={3} pl={1} spacing={2} pr={{ xs: 0, md: 3 }}>
+    <Stack p={3} pt={0} pl={1} spacing={2} pr={{ xs: 0, md: 3 }}>
       <ZSideListContent
         label="Your Instances"
         bottomAction={
@@ -31,6 +31,7 @@ const SideContent = ({
         }
         topAction={
           <TextField
+            data-testid="searchInstanceDashboard"
             size="small"
             color="primary"
             placeholder="Search an Instances"

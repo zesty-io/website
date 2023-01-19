@@ -23,6 +23,7 @@ const getTheme = (mode, themeToggler) =>
       zIndex: {
         appBar: 1000,
         drawer: 1300,
+        banner: 999,
       },
       breakpoints: {
         values: {
@@ -102,6 +103,7 @@ export const getThemeAccounts = (mode, themeToggler) =>
           xl2: 2500,
         },
       },
+      tabTop: 114,
       themeToggler,
     }),
   );

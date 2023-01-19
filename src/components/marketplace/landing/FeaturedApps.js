@@ -17,10 +17,13 @@ import { MarketplaceContext } from '../MarketplaceContext';
 import { useRouter } from 'next/router';
 
 const FeaturedApps = ({ featuredApps }) => {
-  const { entities, isSearching } = useContext(MarketplaceContext);
+  const { isSearching } = useContext(MarketplaceContext);
   const router = useRouter();
 
-  // Theme settings
+  /************************************************
+   * Theme Settings
+   */
+
   const theme = useTheme();
   const isExtraSmall = useMediaQuery(theme.breakpoints.between('xs', 600));
 
@@ -30,10 +33,11 @@ const FeaturedApps = ({ featuredApps }) => {
         hidden={isSearching || router.asPath !== '/marketplace/'}
         sx={{
           pt: 10,
+          px: 4,
         }}
         component="section"
       >
-        <Box sx={{ width: '100%', maxWidth: 1600, margin: 'auto', px: 4 }}>
+        <Box sx={{ width: '100%', maxWidth: 1600, margin: 'auto' }}>
           <Typography
             variant="h6"
             component="p"
@@ -51,7 +55,7 @@ const FeaturedApps = ({ featuredApps }) => {
                 key={idx}
                 sx={{ margin: 'auto' }}
                 item
-                sm={12}
+                xs={12}
                 md={6}
                 lg={4}
               >

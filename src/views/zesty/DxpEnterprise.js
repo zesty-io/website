@@ -56,7 +56,7 @@ import FillerContent from 'components/globals/FillerContent';
  * Component Imports
  */
 import Hero from 'components/marketing/DxpEnterprise/Hero';
-import Features from 'blocks/features/Features/Features';
+import Features from 'blocks/zesty/PageLayouts/Features';
 import WhyZesty from 'components/marketing/DxpEnterprise/WhyZesty';
 import Integration from 'components/marketing/DxpEnterprise/Integration';
 import TopBrands from 'blocks/caseStudies/TopBrands';
@@ -65,6 +65,7 @@ function DxpEnterprise({ content }) {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
+  const isWideScreen = useMediaQuery(theme.breakpoints.between(2000, 99999));
   const isDarkMode = theme.palette.mode === 'dark';
 
   const pageData = {
@@ -73,6 +74,7 @@ function DxpEnterprise({ content }) {
     theme,
     isMedium,
     isLarge,
+    isWideScreen,
     isDarkMode,
   };
 
@@ -100,7 +102,11 @@ function DxpEnterprise({ content }) {
       <WhyZesty {...pageData} />
       <TopBrands
         textHighlight={'our customers'}
-        backgroundColor={theme.palette.common.white}
+        backgroundColor={
+          isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.common.white
+        }
         title={content.case_studies_title || FillerContent.description}
         {...pageData}
       />

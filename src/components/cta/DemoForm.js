@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import { useFormik } from 'formik';
@@ -42,14 +41,11 @@ const validationSchema = yup.object({
 const getLeadObjectZOHO = (obj, roles) => {
   let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
-  console.log(acRole, acLeadtype);
-
-  // Select is not Defined
   return {
     First_Name: obj.firstName,
     Last_Name: obj.lastName,
     Email: obj.email,
-    Inquiry_Reason: select,
+    Inquiry_Reason: obj.select,
     Message: obj.message,
     // "Country": country.options[country.selectedIndex].getAttribute('data-countryCode'),
     // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
@@ -67,9 +63,9 @@ const getLeadObjectZOHO = (obj, roles) => {
 };
 
 const Form = ({
-  eyebrow = 'Missing Text',
-  title = 'Missing Text',
-  subtitle = 'Missing Text',
+  // eyebrow = 'Missing Text',
+  // title = 'Missing Text',
+  // subtitle = 'Missing Text',
   ctaButtonText = 'Missing Text',
 }) => {
   const initialValues = {
@@ -92,8 +88,7 @@ const Form = ({
   };
 
   const { marketers, developers, managers } = state;
-  const error = [marketers, developers, managers].filter((v) => v).length !== 2;
-  console.log(error);
+  // const error = [marketers, developers, managers].filter((v) => v).length !== 2;
   const onSubmit = (values) => {
     return values;
   };

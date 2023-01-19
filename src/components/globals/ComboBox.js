@@ -116,17 +116,17 @@ ListboxComponent.propTypes = {
   children: PropTypes.node,
 };
 
-function random(length) {
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
+// function random(length) {
+//   const characters =
+//     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//   let result = '';
 
-  for (let i = 0; i < length; i += 1) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
+//   for (let i = 0; i < length; i += 1) {
+//     result += characters.charAt(Math.floor(Math.random() * characters.length));
+//   }
 
-  return result;
-}
+//   return result;
+// }
 
 const StyledPopper = styled(Popper)({
   [`& .${autocompleteClasses.listbox}`]: {
@@ -144,7 +144,7 @@ const filterOptions = createFilterOptions({
 });
 
 const Index = ({
-  instances,
+  instances = [],
   setCookies,
   instanceZUID,
   width = 300,
@@ -169,7 +169,6 @@ const Index = ({
   const handleChange = (e, newValue) => {
     setCookies(newValue?.value);
     setlabel(newValue?.name);
-    // window.location.reload();
   };
 
   React.useEffect(() => {
@@ -181,7 +180,11 @@ const Index = ({
       filterOptions={filterOptions}
       id="virtualize-demo"
       onChange={handleChange}
-      sx={{ width, backgroundColor: theme.palette.common.white }}
+      sx={{
+        width,
+        backgroundColor:
+          theme.palette.mode === 'light' && theme.palette.common.white,
+      }}
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}

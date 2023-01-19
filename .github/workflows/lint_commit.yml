@@ -1,4 +1,4 @@
-name: global:lint_commit_messages
+name: Zesty Website Commit Check
 
 on: [pull_request]
 

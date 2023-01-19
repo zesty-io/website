@@ -2,16 +2,15 @@
  * MUI Imports
  */
 import { Box, Container, Grid, Typography } from '@mui/material';
-/**
- * Helpers Imports
- */
-import * as helper from 'utils';
+import ZestyImage from 'blocks/Image/ZestyImage';
+import TryFreeButton from 'components/cta/TryFreeButton';
+import MuiMarkdown from 'markdown-to-jsx';
 
 const Integrations = ({
   content,
   theme,
   isMobile,
-  isTablet,
+  // isTablet,
   FillerContent,
 }) => {
   return (
@@ -24,13 +23,15 @@ const Integrations = ({
       <Container>
         <Grid container spacing={2}>
           <Grid sx={{ margin: 'auto' }} item sm={12} md={6}>
-            <Box data-aos="fade-right">
+            <Box>
               <Box>
-                <Box
-                  component={'img'}
+                <ZestyImage
+                  width={537}
+                  heght={447}
                   src={content.integrations_graphic.data[0].url}
-                  sx={{
+                  style={{
                     width: '100%',
+                    height: 'auto',
                   }}
                 />
               </Box>
@@ -51,20 +52,16 @@ const Integrations = ({
               sx={{
                 display: 'flex',
                 position: 'relative',
-                zIndex: '1000',
+                zIndex: theme.zIndex.banner,
               }}
             >
               <Box
                 sx={{
                   display: isMobile ? 'none' : '',
                 }}
-                data-aos="flip-right"
               >
-                <Box
-                  sx={{ position: 'absolute', top: '-10rem', zIndex: '2000' }}
-                >
-                  <Box
-                    component="img"
+                <Box sx={{ position: 'absolute', top: '-10rem', zIndex: '-1' }}>
+                  <ZestyImage
                     src={
                       content.integrations_airplane_graphic?.data[0]?.url ||
                       FillerContent.logos[0].url
@@ -73,42 +70,35 @@ const Integrations = ({
                   />
                 </Box>
               </Box>
-              <div data-aos="fade-left">
-                <Typography
-                  component={'p'}
-                  variant={'p'}
-                  sx={{
-                    color: theme.palette.secondary.darkCharcoal,
-                    textAlign: 'left',
+              <div>
+                <MuiMarkdown
+                  options={{
+                    overrides: {
+                      h2: {
+                        component: Typography,
+                        props: {
+                          component: 'h2',
+                          variant: 'h4',
+                          sx: {
+                            color: theme.palette.zesty.zestyOrange,
+                          },
+                        },
+                      },
+                    },
                   }}
-                  dangerouslySetInnerHTML={{
-                    __html: helper.strColorChanger(
-                      content.integrations_description ||
-                        FillerContent.description,
-                      'Limitless Integrations for Limitless Reach',
-                      theme.palette.zesty.zestyOrange,
-                    ),
-                  }}
-                />
-                {/* <Box>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    fullWidth={isTablet}
-                    href={
-                      content.integrations_button_link?.data[0]?.meta?.web
-                        ?.uri || FillerContent.href
+                >
+                  {content.integrations_description ||
+                    FillerContent.description}
+                </MuiMarkdown>
+                <Box>
+                  <TryFreeButton
+                    text={
+                      content.limitless_integration_cta_text ||
+                      FillerContent.cta
                     }
-                    sx={{
-                      backgroundColor: theme.palette.zesty.zestyOrange,
-                      color: theme.palette.common.white,
-                      padding: '.6rem 4rem',
-                      fontSize: '16px',
-                    }}
-                  >
-                    {content.integrations_button_text || FillerContent.cta}
-                  </Button>
-                </Box> */}
+                    variant="contained"
+                  />
+                </Box>
               </div>
             </Box>
           </Grid>

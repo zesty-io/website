@@ -40,6 +40,8 @@ export const light = {
     level1: '#f5f5f5',
     level3: '#F5F7FB',
     lightPeach: '#FFFBF9',
+    smokeWhite: '#FDFDFD',
+    smokeWhiteLevel2: '#DFDFDF',
   },
   zesty: {
     zestyDarkerBlue: '#293056',
@@ -70,8 +72,12 @@ export const light = {
     whiteGray: '#F4F6FB',
     lightBlue: '#D9E2F4',
     zestyGray99: '#FCFCFC',
-    zestyTealGradient:
-      'linear-gradient(180deg, rgba(15,172,185,1) 45%, rgba(255,255,255,1) 100%)',
+    zestyTealGradient2:
+      'linear-gradient(269.83deg, #06BBCF 0.13%, #C6E9ED 104.87%);',
+    zestyBackgroundBlueGradient:
+      'linear-gradient(180deg, #D6E8F5 45%, rgba(255,255,255,1) 100%)',
+    zestyBackgroundOrangeGradient:
+      'linear-gradient(180deg, rgba(255, 93, 10, 0.21) 0%, rgba(255, 255, 255, 0) 100%);',
     zestyBlueGradient:
       'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%)',
     zestyOrangeLinear: 'linear-gradient(90deg, #FF5D0A 8.16%, #F7951D 91.84%)',
@@ -85,6 +91,14 @@ export const light = {
     zestyLightOrange: '#F5F1F1',
     zestyDarkText: '#2D3748',
     lightPink: '#FFF6F1',
+    zestyDarkBlueRadialGradient:
+      'radial-gradient(51.39% 58.5% at 64.57% 50.71%, rgba(41, 48, 86, 1) 0%, #1B202C 100%)',
+    zestyOrangeRadialGradient:
+      'radial-gradient(51.39% 48.5% at 64.57% 50.71%, rgba(248, 177, 150, 0.4) 0%, #fff 100%)',
+    zestyLightOrange: '#FFEDE4',
+    zestyPurple: '#293056',
+    zestyBanner: '#1B253F',
+    zestyBanner2: '#30B3B0',
   },
 };
 
@@ -120,6 +134,7 @@ export const dark = {
   background: {
     paper: '#1a202c',
     default: '#1a202c',
+    dark: 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))',
     level2: '#3c465e',
     level1: '#2D3748',
   },
@@ -131,9 +146,8 @@ export const dark = {
     zestyRed: 'rgb(230,74,23)',
     devTheme: '#77b250',
     zestyGreen: '#75BF43',
-    zestyBlue: '#497edf',
+    zestyBlue: '#1B1F2C',
     zestyTeal: '#6a9293',
-    zestyWhite: '#eff5ff',
     bulmaBlue: '#336fdb',
     zestyLightBlue: '#C3CDDF',
     zestyFieldBlue: '#C7D4EA',
@@ -150,7 +164,7 @@ export const dark = {
     parsleyGreen: '#96C45B',
     headerColor: '#CFDCFF',
     white: '#E5EAF9',
-    pureWhite: '#ffffff',
+    pureWhite: '#1B1F2C',
     lightBlue: '#D9E2F4',
     zestyOrangeLinear: 'linear-gradient(90deg, #FF5D0A 8.16%, #F7951D 91.84%)',
     zestyBlue2: '#2196F3',
@@ -158,5 +172,6 @@ export const dark = {
     zestyTealWhite: '#1AE8FF',
     zestyLightText: '#a1a1a1',
     zestyLightOrange: '#2B252A',
+    zestyBanner: '#1B253F',
   },
 };

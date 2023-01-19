@@ -2,8 +2,8 @@
  * MUI Imports
  */
 
-import { Box, Typography, Card, Grid } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import { Box, Typography, Card, Grid, Button } from '@mui/material';
+import MuiMarkdown from 'markdown-to-jsx';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useTheme } from '@mui/material';
@@ -32,7 +32,7 @@ import Container from 'blocks/container/Container';
 // Helpers Imports
 import FillerContent from 'components/globals/FillerContent';
 
-const Testimonials = ({ title, data }) => {
+const Testimonials = ({ title, data, cta_text, cta_link }) => {
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.down('lg'));
   const backgroundUrl = 'https://kfg6bckb.media.zestyio.com/testimonials.svg';
@@ -77,26 +77,30 @@ const Testimonials = ({ title, data }) => {
           >
             <Box sx={{ width: '100%', maxWidth: 450 }}>
               <MuiMarkdown
-                overrides={{
-                  h1: {
-                    component: Typography,
-                    props: {
-                      component: 'h2',
-                      variant: 'h4',
-                      sx: {
-                        color: theme.palette.zesty.zestyOrange,
-                        fontWeight: 'bold',
+                options={{
+                  overrides: {
+                    h1: {
+                      component: Typography,
+                      props: {
+                        component: 'h2',
+                        variant: 'h4',
+                        sx: {
+                          textAlign: 'left !important',
+                          color: theme.palette.zesty.zestyOrange,
+                          fontWeight: 'bold',
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      component: 'p',
-                      variant: 'h4',
-                      sx: {
-                        color: theme.palette.zesty.zestyZambezi,
-                        fontWeight: 'bold',
+                    p: {
+                      component: Typography,
+                      props: {
+                        component: 'p',
+                        variant: 'h4',
+                        sx: {
+                          textAlign: 'left !important',
+                          color: theme.palette.zesty.zestyZambezi,
+                          fontWeight: 'bold',
+                        },
                       },
                     },
                   },
@@ -104,6 +108,25 @@ const Testimonials = ({ title, data }) => {
               >
                 {title}
               </MuiMarkdown>
+
+              {cta_text && (
+                <Box
+                  sx={{
+                    mt: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    href={cta_link}
+                    component={'a'}
+                    variant="outlined"
+                    color="secondary"
+                  >
+                    {cta_text}
+                  </Button>
+                </Box>
+              )}
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
@@ -185,8 +208,9 @@ const Testimonials = ({ title, data }) => {
                           mt: 4,
                         }}
                       >
-                        {[1, 2, 3, 4, 5].map(() => (
+                        {[1, 2, 3, 4, 5].map((_item,index) => (
                           <ZestyImage
+                            key={index}
                             width={20}
                             height={20}
                             style={{ paddingLeft: 0.5, paddingRight: 0.5 }}

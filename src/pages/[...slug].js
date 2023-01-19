@@ -1,16 +1,17 @@
-import { React } from 'react';
+import { React, createContext } from 'react';
 
 import { fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
-
+import MarketingMain from 'layouts/Main/MarketingMain';
 import { ZestyView } from 'lib/ZestyView';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import Main from 'layouts/Main';
-import { useTheme } from '@emotion/react';
+
 import { getIsAuthenticated } from 'utils';
 
+export const GlobalContext = createContext();
 export default function Slug(props) {
-  const theme = useTheme();
-
+  const isLoggedIn = useIsLoggedIn();
   // for homepage navigation
   // const isDarkMode = theme.palette.mode === 'dark';
   let bgcolor = 'transparent';
@@ -20,15 +21,30 @@ export default function Slug(props) {
 
   return (
     <>
-      <Main
-        model={props?.meta?.model_alternate_name}
-        nav={props?.navigationTree}
-        customRouting={props?.navigationCustom}
-        url={props?.meta?.web?.uri}
-        bgcolor={bgcolor}
-      >
-        <ZestyView content={props} />
-      </Main>
+      <GlobalContext.Provider value={props}>
+        {isLoggedIn ? (
+          <Main
+            model={props?.meta?.model_alternate_name}
+            nav={props?.navigationTree}
+            customRouting={props?.navigationCustom}
+            url={props?.meta?.web?.uri}
+            bgcolor={bgcolor}
+          >
+            <ZestyView content={props} />
+          </Main>
+        ) : (
+          <MarketingMain
+            model={props?.meta?.model_alternate_name}
+            nav={props?.navigationTree}
+            customRouting={props?.navigationCustom}
+            flyoutNavigation={props?.flyoutNavigation}
+            url={props?.meta?.web?.uri}
+            bgcolor={bgcolor}
+          >
+            <ZestyView content={props} />
+          </MarketingMain>
+        )}
+      </GlobalContext.Provider>
     </>
   );
 }
@@ -41,17 +57,25 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   res.setHeader('Surrogate-Control', 'max-age=60');
 
   // attempt to get page data relative to zesty
+
   let data = await fetchPage(resolvedUrl);
+
+  const sso = {
+    githubUrl: process.env.GITHUB_SSO_URL,
+    googleUrl: process.env.GOOGLE_SSO_URL,
+    msUrl: process.env.MS_SSO_URL,
+  };
 
   data = {
     ...data,
     zesty: {
       isAuthenticated,
+      sso,
     },
   };
 
   // This section holds data settings for fetching Github Data
-  if (req.url == '/roadmap/' && process.env.NEXT_PUBLIC_GITHUB_AUTH) {
+  if (req.url.includes('/roadmap/') && process.env.GITHUB_AUTH) {
     data.github_data = await githubFetch({
       organization: `"Zesty-io"`,
       projectNumber: data.project_number,
@@ -74,5 +98,5 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   }
 
   // Pass data to the page via props
-  return { props: data };
+  return { props: { ...data } };
 }

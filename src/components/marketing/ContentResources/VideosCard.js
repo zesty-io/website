@@ -6,9 +6,9 @@ import Container from 'blocks/container/Container';
 import ReactPlayer from 'react-player';
 
 const VideosCard = ({
-  theme,
+  // theme,
   isMedium,
-  isDarkMode,
+  // isDarkMode,
   content,
   FillerContent,
 }) => {
@@ -33,8 +33,9 @@ const VideosCard = ({
         {content.section_header_3 || FillerContent.header}
       </Typography>
       <Grid container spacing={2}>
-        {data.map((item) => (
+        {data.map((item, index) => (
           <Grid
+            key={index}
             sx={{
               textDecoration: 'none',
             }}

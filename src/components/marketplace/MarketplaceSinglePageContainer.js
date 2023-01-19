@@ -16,7 +16,7 @@ import MarketplaceSidebar from './MarketplaceSidebar';
 import CustomContainer from 'components/Container';
 import { TitleBar } from './TitleBar';
 
-// for refactor
+//for refactor
 const marketManage = [
   {
     lang_id: '1',
@@ -37,13 +37,13 @@ const MarketplaceSinglePageContainer = ({
   marketEntityTypes,
   ...props
 }) => {
-  const { entities, setEntities } = useContext(MarketplaceContext);
+  const { setEntities } = useContext(MarketplaceContext);
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('md'));
-  const [isAsc, setIsAsc] = useState(false);
   const [search, setSearch] = useState('');
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const value = useDebounce(search, handleSearch);
+  const [pathname, setPathname] = useState('');
 
   function handleSearch() {
     setEntities(
@@ -53,20 +53,13 @@ const MarketplaceSinglePageContainer = ({
     );
   }
 
-  function handleSort() {
-    const list = [...entities].sort((a, b) => {
-      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-      if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-      return 0;
-    });
-
-    setEntities(isAsc ? list : list.reverse());
-    setIsAsc(!isAsc);
-  }
-
   useEffect(() => {
     if (isSm) setIsOpenDrawer(false);
   }, [isSm]);
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
 
   return (
     <CustomContainer>
@@ -93,7 +86,7 @@ const MarketplaceSinglePageContainer = ({
           )}
         </Grid>
         <Grid item xs={12} md={9}>
-          {window.location.pathname !== '/marketplace/' && (
+          {pathname !== '/marketplace/' && (
             <TitleBar name={props?.name} description={props?.description} />
           )}
           <Stack

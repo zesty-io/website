@@ -2,108 +2,16 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { Users } from 'views/accounts';
-import { ErrorMsg, StickyTable, SuccessMsg } from 'components/accounts';
-import { Button, Grid, Paper, Stack, Typography } from '@mui/material';
-import { baseroles } from 'components/accounts/users/baseroles';
+import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import * as helpers from 'utils';
-import { grey } from '@mui/material/colors';
-import { docData } from 'components/accounts/users/docData';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
-
-const COLUMNS_PENDING = [
-  {
-    id: 'email',
-    label: 'Email',
-  },
-  {
-    id: 'name',
-    label: 'Name',
-  },
-  {
-    id: 'action',
-    label: 'Action',
-  },
-];
-
-const PendingTable = ({
-  data = [],
-  respondToInvite,
-  isInstanceOwner,
-  loading,
-}) => {
-  const newData = data.map((e) => {
-    return {
-      ...e,
-      action: isInstanceOwner ? (
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => respondToInvite(e, 'cancel')}
-        >
-          Cancel Invite
-        </Button>
-      ) : (
-        '-'
-      ),
-    };
-  });
-  return (
-    <StickyTable
-      title="Pending Users"
-      loading={loading}
-      rows={newData}
-      columns={COLUMNS_PENDING}
-    />
-  );
-};
-
-const RolesDescription = () => {
-  return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} md={6}>
-        <Paper sx={{ my: 2, p: 3, border: `1px solid ${grey[400]}` }}>
-          <Typography variant="h6" mb={3} color="text.secondary">
-            Roles and Permissions
-          </Typography>
-          {baseroles.map((role) => (
-            <Stack key={role.ZUID} px={2} spacing={1} mb={2}>
-              <Typography fontWeight="bolder">{role.label}</Typography>
-              <Typography>{role.desc}</Typography>
-            </Stack>
-          ))}
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={6} height="100%">
-        <Paper sx={{ my: 2, p: 3, border: `1px solid ${grey[400]}` }}>
-          <Typography variant="h6" mb={3} color="text.secondary">
-            Users
-          </Typography>
-          {docData.map((doc) => (
-            <Stack key={doc.id} px={2} spacing={1} mb={2}>
-              <Typography fontWeight="bolder">{doc.title}</Typography>
-              <Typography>{doc.desc}</Typography>
-              <Button
-                color="primary"
-                endIcon={<ArrowForwardIcon />}
-                href={doc.link}
-                target="_blank"
-                sx={{ alignSelf: 'start' }}
-              >
-                Learn More
-              </Button>
-            </Stack>
-          ))}
-        </Paper>
-      </Grid>
-    </Grid>
-  );
-};
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function UsersPage() {
+  const [search, setsearch] = React.useState('');
   const [loading, setloading] = React.useState(false);
-  const [users, setusers] = React.useState([]);
+  const [, setusers] = React.useState([]);
   const [pendingUsers, setpendingUsers] = React.useState([]);
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const [instanceRoles, setInstanceRoles] = React.useState([]);
@@ -115,79 +23,54 @@ export default function UsersPage() {
 
   const handleRespondToInviteSuccess = (res) => {
     setusers(res.data);
-    console.log(res);
-  };
-  const handleRespondToInviteErr = (res) => {
-    console.log(res);
   };
   const handleGetUserSuccess = (res) => {
     setusers(res.data);
-    console.log(res);
-  };
-  const handleGetUserErr = (res) => {
-    console.log(res);
   };
 
   const handleGetInstancePendingUsersSuccess = (res) => {
     setpendingUsers(res.data);
-    console.log(res);
-  };
-  const handlegetInstancePendingUsersErr = (res) => {
-    console.log(res);
   };
   const handleGetRolesSuccess = (res) => {
     setInstanceUserWithRoles(res.data);
   };
-  const handleGetRolesErr = (res) => {
-    console.log(res);
-  };
-  const handleUpdateRoleSuccess = (res) => {
-    console.log(res, 'succ upp');
+  const handleUpdateRoleSuccess = () => {
     SuccessMsg({ title: 'Role Successfully Updated' });
   };
   const handleUpdateRoleErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
-  const handleDeleteRoleSuccess = (res) => {
-    console.log(res, 'succ upp');
+  const handleDeleteRoleSuccess = () => {
     SuccessMsg({ title: 'User role successfully Deleted' });
   };
   const handleDeleteRoleErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
 
   const handleGetInstanceRolesSuccess = (res) => {
-    console.log(res, 'succ upp');
     const data = res.data.map((e) => {
       return { ...e, value: e.name, label: e.name };
     });
     setInstanceRoles(data);
   };
   const handleGetInstanceRolesErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
 
-  const handleCreateInviteSuccess = (res) => {
-    console.log(res, 'succ upp');
+  const handleCreateInviteSuccess = () => {
     SuccessMsg({ title: 'User Successfully invited' });
   };
   const handleCreateInviteErr = (res) => {
-    console.log(res);
     ErrorMsg({ text: res.error });
   };
   const getUsers = async () => {
     const res = await ZestyAPI.getInstanceUsers(zuid);
     !res.error && handleGetUserSuccess(res);
-    res.error && handleGetUserErr(res);
   };
 
   const getInstanceUserRoles = async () => {
     const res = await ZestyAPI.getInstanceUsersWithRoles(zuid);
     !res.error && handleGetRolesSuccess(res);
-    res.error && handleGetRolesErr(res);
   };
 
   const updateRole = async (data) => {
@@ -219,13 +102,11 @@ export default function UsersPage() {
   const getInstancePendingUsers = async () => {
     const res = await ZestyAPI.getInstancePendingUsers(zuid);
     !res.error && handleGetInstancePendingUsersSuccess(res);
-    res.error && handlegetInstancePendingUsersErr(res);
   };
 
   const respondToInvite = async (data, action) => {
     const res = await ZestyAPI.respondToInvite(data.inviteZUID, action);
     !res.error && handleRespondToInviteSuccess(res);
-    res.error && handleRespondToInviteErr(res);
     await getPageData();
   };
   const createInvite = async (data) => {
@@ -241,7 +122,7 @@ export default function UsersPage() {
     await getPageData();
   };
   const getPageData = async () => {
-    await setloading(true);
+    setloading(true);
 
     await Promise.all([
       getUsers(),
@@ -249,7 +130,7 @@ export default function UsersPage() {
       getInstanceRoles(),
       getInstancePendingUsers(),
     ]);
-    await setloading(false);
+    setloading(false);
   };
   React.useEffect(() => {
     if (router.isReady) {
@@ -262,29 +143,29 @@ export default function UsersPage() {
     userInfo,
   );
 
+  const filteredUsers = instanceUserWithRoles?.filter((e) => {
+    const name = `${e?.firstName?.toLowerCase() || '-'} ${
+      e?.lastName?.toLowerCase() || '-'
+    }`;
+    return name?.includes(search?.toLowerCase());
+  });
+  const userProps = {
+    updateRole,
+    roles: filteredUsers,
+    deleteUserRole,
+    instanceRoles,
+    createInvite,
+    isOwner: isInstanceOwner,
+    instanceZUID: zuid,
+    loading,
+    search,
+    setsearch,
+    respondToInvite,
+    pendingUsers,
+  };
   return (
-    <>
-      <Users
-        updateRole={updateRole}
-        roles={instanceUserWithRoles}
-        deleteUserRole={deleteUserRole}
-        instanceRoles={instanceRoles}
-        createInvite={createInvite}
-        isOwner={isInstanceOwner}
-        instanceZUID={zuid}
-        loading={loading}
-      />
-      <PendingTable
-        loading={loading}
-        isInstanceOwner={isInstanceOwner}
-        respondToInvite={respondToInvite}
-        data={pendingUsers}
-      />
-      <RolesDescription />
-    </>
+    <InstanceContainer>
+      <Users {...userProps} />
+    </InstanceContainer>
   );
 }
-
-UsersPage.data = {
-  container: 'InstanceContainer',
-};

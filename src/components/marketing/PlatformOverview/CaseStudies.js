@@ -2,40 +2,47 @@
  * MUI Imports
  */
 import { Box, Grid, Card, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Components Imports
  */
 
-const CaseStudies = ({ theme, isMedium, content, FillerContent }) => {
+const CaseStudies = ({
+  theme,
+  // isMedium,
+  content,
+  FillerContent,
+}) => {
   return (
     <Box component="section">
       <Container sx={{ height: '100%', py: 10 }}>
         <MuiMarkdown
-          overrides={{
-            span: {
-              component: Typography,
-              props: {
-                component: 'span',
-                variant: 'h4',
-                sx: {
-                  textAlign: 'center',
-                  color: theme.palette.zesty.zestyDarkText,
-                  fontWeight: 'inherit',
+          options={{
+            overrides: {
+              span: {
+                component: Typography,
+                props: {
+                  component: 'span',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'center',
+                    color: theme.palette.zesty.zestyDarkText,
+                    fontWeight: 'inherit',
+                  },
                 },
               },
-            },
-            p: {
-              component: Typography,
+              p: {
+                component: Typography,
 
-              props: {
-                component: 'h2',
-                variant: 'h4',
-                sx: {
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  color: theme.palette.zesty.zestyDarkText,
+                props: {
+                  component: 'h2',
+                  variant: 'h4',
+                  sx: {
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    color: theme.palette.zesty.zestyDarkText,
+                  },
                 },
               },
             },
@@ -48,7 +55,6 @@ const CaseStudies = ({ theme, isMedium, content, FillerContent }) => {
           {content.case_studies?.data.map((item, index) => (
             <Grid key={index} item xs={12} md={4}>
               <Card
-                component="a"
                 href={item.card_link.data[0].meta.web.uri || FillerContent.href}
                 sx={{
                   minHeight: 450,

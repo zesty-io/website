@@ -3,7 +3,7 @@
  */
 
 import { Box, Typography, Grid } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Components Imports
@@ -17,8 +17,9 @@ const Bottom = ({
   FillerContent,
   theme,
   isMedium,
-  isSmall,
-  isExtraLarge,
+  isDarkMode,
+  // isSmall,
+  // isExtraLarge,
 }) => {
   return (
     <Box
@@ -26,7 +27,9 @@ const Bottom = ({
       sx={{
         mt: 10,
         py: 5,
-        background: `url(${content.background_orange?.data[1].url}?width=1920)`,
+        background: isDarkMode
+          ? theme.palette.zesty.zestyDarkBlue
+          : `url(${content.background_orange?.data[1].url}?width=1920)`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top',
@@ -60,40 +63,42 @@ const Bottom = ({
           >
             <Box sx={{ width: '100%' }}>
               <MuiMarkdown
-                overrides={{
-                  span: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      component: 'span',
-                      sx: {
-                        color: theme.palette.common.white,
-                        fontWeight: 'inherit',
-                        textAlign: 'inherit',
+                options={{
+                  overrides: {
+                    span: {
+                      component: Typography,
+                      props: {
+                        variant: 'h3',
+                        component: 'span',
+                        sx: {
+                          color: theme.palette.common.white,
+                          fontWeight: 'inherit',
+                          textAlign: 'inherit',
+                        },
                       },
                     },
-                  },
-                  h2: {
-                    component: Typography,
-                    props: {
-                      variant: 'h3',
-                      component: 'h2',
-                      sx: {
-                        textAlign: isMedium ? 'center' : 'left',
-                        color: theme.palette.common.white,
-                        fontWeight: 'bold',
+                    h2: {
+                      component: Typography,
+                      props: {
+                        variant: 'h3',
+                        component: 'h2',
+                        sx: {
+                          textAlign: isMedium ? 'center' : 'left',
+                          color: theme.palette.common.white,
+                          fontWeight: 'bold',
+                        },
                       },
                     },
-                  },
-                  p: {
-                    component: Typography,
-                    props: {
-                      variant: 'h6',
-                      component: 'p',
-                      sx: {
-                        textAlign: isMedium ? 'center' : 'left',
-                        mt: 1,
-                        color: theme.palette.common.white,
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'h6',
+                        component: 'p',
+                        sx: {
+                          textAlign: isMedium ? 'center' : 'left',
+                          mt: 1,
+                          color: theme.palette.common.white,
+                        },
                       },
                     },
                   },

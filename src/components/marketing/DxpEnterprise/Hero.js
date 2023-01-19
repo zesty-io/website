@@ -3,13 +3,20 @@
  */
 
 import { Box, Grid, Typography, Button } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 
 /**
  * Local Assets Imports
  */
 import HeroBackground from '../../../../public/assets/images/dxp-enterprise/hero-background.svg';
-const Hero = ({ content, FillerContent, theme, isMedium, isLarge }) => {
+const Hero = ({
+  content,
+  FillerContent,
+  isWideScreen,
+  theme,
+  isMedium,
+  isLarge,
+}) => {
   return (
     <>
       <Box
@@ -22,7 +29,7 @@ const Hero = ({ content, FillerContent, theme, isMedium, isLarge }) => {
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'bottom',
           minHeight: 700,
-          backgroundImage: `url(${HeroBackground.src})`,
+          backgroundImage: isWideScreen ? '' : `url(${HeroBackground.src})`,
         }}
       >
         <Box sx={{ width: '100%', maxWidth: 1500, px: 4 }}>
@@ -50,24 +57,23 @@ const Hero = ({ content, FillerContent, theme, isMedium, isLarge }) => {
                 component="h1"
               >
                 <MuiMarkdown
-                  overrides={{
-                    strong: {
-                      component: Typography,
-                      props: {
-                        component: 'strong',
-                        sx: {
-                          fontSize: 'inherit',
-                          fontWeight: 'inherit',
-                          color: theme.palette.zesty.zestyOrange,
+                  options={{
+                    overrides: {
+                      strong: {
+                        component: Typography,
+                        props: {
+                          component: 'strong',
+                          sx: {
+                            fontSize: 'inherit',
+                            fontWeight: 'inherit',
+                            color: theme.palette.zesty.zestyOrange,
+                          },
                         },
                       },
                     },
                   }}
                 >
-                  {content.h1_title?.replaceAll(
-                    'enterprise solution',
-                    `<strong>enterprise solution</strong>`,
-                  ) || FillerContent.header}
+                  {content.h1_title || FillerContent.header}
                 </MuiMarkdown>
               </Typography>
 

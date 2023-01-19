@@ -16,6 +16,26 @@ const userName = yup.object().shape({
     .string()
     .min(2, 'Must be atleast 2 Characters')
     .required('Name is required'),
+  persona: yup.string(),
+});
+
+const signUp = yup.object().shape({
+  firstName: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('First Name is required*'),
+  lastName: yup
+    .string()
+    .min(2, 'Must be atleast 2 Characters')
+    .required('Last Name is required*'),
+  password: yup
+    .string()
+    .min(8, 'Must be atleast 8 Characters*')
+    .required('Password is required*'),
+  email: yup
+    .string()
+    .required('Email address is required*')
+    .matches(emailRegex, 'Must be a valid email address*'),
 });
 
 const invite = yup.object().shape({
@@ -34,6 +54,13 @@ const login = yup.object().shape({
     .string()
     .min(8, 'Must be atleast 8 Characters*')
     .required('Password is required*'),
+});
+const addEmail = yup.object().shape({
+  email: yup
+    .string()
+    .email('Email is invalid format')
+    .required('Email is required*'),
+  name: yup.string().required('Description is required*'),
 });
 const email = yup.object().shape({
   name: yup
@@ -87,6 +114,18 @@ const twoFactorAuth = yup.object().shape({
   phoneNumber: yup.string().required('Phone Number is required*'),
 });
 
+const demoForm = yup.object().shape({
+  company: yup.string().required('Company is Required*'),
+  projectDescription: yup.string(),
+  phoneNumber: yup.number().required('Phone Number is required*'),
+});
+const companyDetails = yup.object().shape({
+  company: yup.string().required('Company is Required*'),
+});
+
+const projectName = yup.object().shape({
+  projectName: yup.string().required('Project name is required*'),
+});
 const localeSchema = yup.object().shape({
   locale: yup.string().required('This is required'),
 });
@@ -115,6 +154,7 @@ const forgotPassword = yup.object().shape({
 
 const domain = yup.object().shape({
   domain: yup.string().required('Domain is required'),
+  branch: yup.string().required('Branch is required'),
 });
 const updateTeam = yup.object().shape({
   name: yup.string().label('Team Name').required(),
@@ -152,4 +192,9 @@ export const accountsValidations = {
   forgotPassword,
   resetPassword,
   updateTeam,
+  addEmail,
+  signUp,
+  demoForm,
+  companyDetails,
+  projectName,
 };

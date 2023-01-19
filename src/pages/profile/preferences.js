@@ -3,7 +3,7 @@ import { useZestyStore } from 'store';
 import { Preference } from 'views/accounts/profile/Preference';
 import { ProfileContainer } from 'components/accounts';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function PreferencePage() {
   const { setuserInfo } = useZestyStore((state) => state);
@@ -14,28 +14,18 @@ export default function PreferencePage() {
     setuserZUID(res.meta.userZuid);
   };
 
-  const handleVerifyError = (res) => {
-    console.log(res, 'err');
-  };
-
   const handleGetUserSuccess = (res) => {
     setuserInfo(res?.data);
-  };
-
-  const handleGetUserError = (res) => {
-    console.log(res, 'err');
   };
 
   const verify = async () => {
     const res = await ZestyAPI.verify();
     !res.error && handleVerifySuccess(res);
-    res.error && handleVerifyError(res);
   };
 
   const getUser = async (userZUID) => {
     const res = await ZestyAPI.getUser(userZUID);
     !res.error && handleGetUserSuccess(res);
-    res.error && handleGetUserError(res);
   };
 
   React.useEffect(() => {

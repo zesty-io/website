@@ -1,10 +1,12 @@
 import React from 'react';
-import { Box, Button } from '@mui/material';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import { useZestyStore } from 'store';
 import {
+  AccountsHeader,
   AccountsSelect,
+  AccountsTable,
+  AccountsTableHead,
   ErrorMsg,
-  StickyTable,
   SuccessMsg,
 } from 'components/accounts';
 
@@ -28,12 +30,10 @@ export const Preference = () => {
   const [teamOptions, setTeamOptions] = React.useState();
   const [instance_layout, setInstance_layout] = React.useState();
 
-  const handleSaveSuccess = (data) => {
-    console.log(data, 'succ');
+  const handleSaveSuccess = () => {
     SuccessMsg({ title: 'Success' });
   };
   const handleSaveErr = (err) => {
-    console.log(err, 'err');
     ErrorMsg({ text: err.error });
   };
   const handleSave = async (userInfo) => {
@@ -49,33 +49,9 @@ export const Preference = () => {
     setdirty(false);
   };
 
-  const COLUMNS = [
-    {
-      id: 'name',
-      label: 'Preferences Name',
-    },
-    {
-      id: 'description',
-      label: 'Description',
-    },
-    {
-      id: 'action',
-      label: (
-        <Button
-          fullWidth
-          variant="contained"
-          disabled={!dirty}
-          onClick={() => handleSave(userInfo)}
-          color="primary"
-        >
-          Save
-        </Button>
-      ),
-    },
-  ];
-
   const ROWS = [
     {
+      id: 1,
       name: 'Manage Teams',
       description: 'Show or Hide Teams',
       action: (
@@ -88,6 +64,7 @@ export const Preference = () => {
       ),
     },
     {
+      id: 2,
       name: 'Instance View',
       description: 'Grid or List View',
       action: (
@@ -101,20 +78,86 @@ export const Preference = () => {
     },
   ];
 
-  const memoizeRows = React.useMemo(() => ROWS, [instance_layout, teamOptions]);
-  const memoizeColumns = React.useMemo(
-    () => COLUMNS,
-    [userInfo, teamOptions, instance_layout, dirty],
-  );
+  const COLUMNS = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'name',
+      headerName: 'Preference Name',
+      width: 300,
+      editable: false,
+      sortable: false,
+      renderHeader: () => (
+        <AccountsTableHead>Preference Name</AccountsTableHead>
+      ),
+      renderCell: (params) => {
+        return <Typography variant="body2">{params.row.name}</Typography>;
+      },
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      width: 300,
+      editable: false,
+      sortable: false,
+      renderHeader: () => <AccountsTableHead>Description</AccountsTableHead>,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">{params.row.description}</Typography>
+        );
+      },
+    },
+    {
+      field: 'action',
+      headerName: '',
+      width: 200,
+      editable: false,
+      sortable: false,
+      renderHeader: () => (
+        <Stack width={1} pl={6}>
+          <Button
+            fullWidth
+            variant="contained"
+            disabled={!dirty}
+            onClick={() => handleSave(userInfo)}
+            color="primary"
+          >
+            Save
+          </Button>
+        </Stack>
+      ),
+      renderCell: (params) => {
+        return params.row.action;
+      },
+    },
+  ];
 
   React.useEffect(() => {
     setTeamOptions(prefs?.teamOptions);
     setInstance_layout(prefs?.instance_layout);
   }, [prefs?.teamOptions, prefs?.instance_layout]);
 
+  const headerProps = {
+    title: 'Preference',
+    description: `Manage your Preference`,
+  };
   return (
-    <Box>
-      <StickyTable rows={memoizeRows} columns={memoizeColumns} />
-    </Box>
+    <Grid container>
+      <AccountsHeader {...headerProps}></AccountsHeader>
+      <Grid item xs={12}>
+        <Stack p={4}>
+          <AccountsTable
+            loading={false}
+            rows={ROWS}
+            columns={COLUMNS}
+            pageSize={100}
+            autoHeight={true}
+          />
+        </Stack>
+      </Grid>
+    </Grid>
   );
 };

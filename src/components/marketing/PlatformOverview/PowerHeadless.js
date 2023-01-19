@@ -2,7 +2,7 @@
  * MUI Imports
  */
 import { Box, Grid, Typography, Container } from '@mui/material';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import { useTheme } from '@mui/material/styles';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -18,7 +18,13 @@ import { Navigation, Pagination, Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
+const PowerHeadless = ({
+  theme,
+  isMedium,
+  isDarkMode,
+  content,
+  FillerContent,
+}) => {
   return (
     <Box component="section" sx={{ pt: 20 }}>
       <Container sx={{ height: '100%' }}>
@@ -32,53 +38,55 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
             sx={{ width: '100%', width: 700, margin: isMedium ? 'auto' : 0 }}
           >
             <MuiMarkdown
-              overrides={{
-                span: {
-                  component: Typography,
-                  props: {
-                    component: 'span',
-                    variant: 'h4',
-                    sx: {
-                      color: theme.palette.zesty.zestyOrange,
-                      fontSize: 'inherit',
-                      fontWeight: 'inherit',
+              options={{
+                overrides: {
+                  span: {
+                    component: Typography,
+                    props: {
+                      component: 'span',
+                      variant: 'h4',
+                      sx: {
+                        color: theme.palette.zesty.zestyOrange,
+                        fontSize: 'inherit',
+                        fontWeight: 'inherit',
+                      },
                     },
                   },
-                },
-                h2: {
-                  component: Typography,
-                  props: {
-                    component: 'h2',
-                    variant: 'h4',
-                    sx: {
-                      textAlign: isMedium ? 'center' : 'left',
-                      fontWeight: 'bold',
-                      color: theme.palette.zesty.zestyDarkText,
+                  h2: {
+                    component: Typography,
+                    props: {
+                      component: 'h2',
+                      variant: 'h4',
+                      sx: {
+                        textAlign: isMedium ? 'center' : 'left',
+                        fontWeight: 'bold',
+                        color: theme.palette.zesty.zestyDarkText,
+                      },
                     },
                   },
-                },
-                p: {
-                  component: Typography,
-                  props: {
-                    component: 'p',
-                    variant: 'h6',
-                    sx: {
-                      mt: 2,
-                      textAlign: isMedium ? 'center' : 'left',
-                      lineHeight: 1.2,
-                      color: theme.palette.zesty.zestyZambezi,
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'p',
+                      variant: 'h6',
+                      sx: {
+                        mt: 2,
+                        textAlign: isMedium ? 'center' : 'left',
+                        lineHeight: 1.2,
+                        color: theme.palette.zesty.zestyZambezi,
+                      },
                     },
                   },
-                },
-                a: {
-                  component: Typography,
-                  props: {
-                    component: 'a',
-                    variant: 'h6',
-                    sx: {
-                      mt: 2,
-                      textAlign: isMedium ? 'center' : 'left',
-                      color: theme.palette.zesty.zestyOrange,
+                  a: {
+                    component: Typography,
+                    props: {
+                      component: 'a',
+                      variant: 'h6',
+                      sx: {
+                        mt: 2,
+                        textAlign: isMedium ? 'center' : 'left',
+                        color: theme.palette.zesty.zestyOrange,
+                      },
                     },
                   },
                 },
@@ -93,13 +101,12 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
       <Box
         sx={{
           mt: isMedium ? 0 : 10,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          background: `url(${content.background_orange.data[0].url}?width=1731)`,
+          background: isDarkMode
+            ? theme.palette.zesty.zestyDarkBlue
+            : theme.palette.zesty.zestySeaShell,
           minHeight: 655,
         }}
       >
@@ -147,14 +154,16 @@ const PowerHeadless = ({ theme, isMedium, content, FillerContent }) => {
                         {item.header}
                       </Typography>
                       <MuiMarkdown
-                        overrides={{
-                          p: {
-                            component: Typography,
-                            variant: 'h6',
-                            props: {
-                              sx: {
-                                textAlign: isMedium ? 'center' : 'text-left',
-                                color: theme.palette.zesty.zestyZambezi,
+                        options={{
+                          overrides: {
+                            p: {
+                              component: Typography,
+                              variant: 'h6',
+                              props: {
+                                sx: {
+                                  textAlign: isMedium ? 'center' : 'text-left',
+                                  color: theme.palette.zesty.zestyZambezi,
+                                },
                               },
                             },
                           },

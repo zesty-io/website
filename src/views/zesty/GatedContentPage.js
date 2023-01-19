@@ -1,15 +1,15 @@
 /**
  * Zesty.io Content Model Component
  * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
- * 
- * Label: Gated Content Pages 
- * Name: gated_content_pages 
+ *
+ * Label: Gated Content Pages
+ * Name: gated_content_pages
  * Model ZUID: 6-fe91d19b97-20jq6m
  * File Created On: Sun May 01 2022 13:45:46 GMT+0800 (Philippine Standard Time)
- * 
+ *
  * Model Fields:
- * 
-  * hero_h1 (text)
+ *
+ * hero_h1 (text)
  * form_title (text)
  * hero_description_box (wysiwyg_basic)
  * section_1_h1 (text)
@@ -23,16 +23,15 @@
  * hero_background_image (images)
  * additional_resources_boxes (one_to_many)
  * additional_resources_header (text)
-
- * 
+ *
  * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
  * images are objects {content.image_name.data[0].url}
- * 
+ *
  * This file is expected to be customized; because of that, it is not overwritten by the integration script.
  * Model and field changes in Zesty.io will not be reflected in this comment.
- * 
+ *
  * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-fe91d19b97-20jq6m
- * 
+ *
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
@@ -51,8 +50,7 @@ import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import FillerContent from 'components/globals/FillerContent';
 import WYSIWYGRender from 'components/globals/WYSIWYGRender';
 import React from 'react';
-import { useRouter } from 'next/router';
-import MuiMarkdown from 'mui-markdown';
+import MuiMarkdown from 'markdown-to-jsx';
 import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 
 const FeaturesWithMobileScreenshot = ({
@@ -137,7 +135,7 @@ const FeaturesWithMobileScreenshot = ({
                 : FillerContent.mobileImage.dark
             }
             alt={header || FillerContent.header}
-            sx={{
+            style={{
               marginBottom: isMobile ? '3rem' : '1rem',
               objectFit: 'contain',
               borderRadius: '2rem',
@@ -259,8 +257,6 @@ const ContactUs = ({ title, description, content, formContent }) => {
 
 function GatedContentPage({ content }) {
   const theme = useTheme();
-  const router = useRouter();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const formContent = {
     leadDetail: 'CMSW - Media',
@@ -272,21 +268,23 @@ function GatedContentPage({ content }) {
     ctaText: FillerContent.cta,
     modalTitle: (
       <MuiMarkdown
-        overrides={{
-          h2: {
-            component: Typography,
-            props: {
-              variant: 'h6',
-              component: 'h2',
+        options={{
+          overrides: {
+            h2: {
+              component: Typography,
+              props: {
+                variant: 'h6',
+                component: 'h2',
+              },
             },
-          },
-          p: {
-            component: Typography,
-            props: {
-              variant: 'subtitle1',
-              component: 'p',
-              sx: {
-                mt: 2,
+            p: {
+              component: Typography,
+              props: {
+                variant: 'subtitle1',
+                component: 'p',
+                sx: {
+                  mt: 2,
+                },
               },
             },
           },
@@ -369,7 +367,7 @@ function GatedContentPage({ content }) {
           description={undefined}
           popularArticles={content.additional_resources_boxes.data}
           ctaBtn={undefined}
-          ctaUrl={/mindshare/}
+          ctaUrl={'/mindshare/'}
           titlePosition="center"
           titleVariant="h4"
         />

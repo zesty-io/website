@@ -1,24 +1,15 @@
 import React from 'react';
-import { useZestyStore } from 'store';
-import { InstancesDashboard } from 'components/accounts/instances/InstancesDashboard';
-import { useFetchWrapper } from 'components/hooks/useFetchWrapper';
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+import InstancesDashboardV2 from 'components/accounts/instances/InstanceDashboardV2';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
+import InstanceContainer from 'components/accounts/instances/InstanceContainer';
+
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 export default function Instances() {
-  document.title = 'Accounts: Instances';
-  const { instances } = useFetchWrapper();
-  const { setInstances } = useZestyStore((state) => state);
-
-  React.useEffect(() => {
-    setInstances(instances);
-  }, [instances]);
-
-  return <InstancesDashboard />;
+  return (
+    <InstanceContainer isDashboard>
+      <ZestyAccountsHead title={'Accounts: Instances'} />
+      <InstancesDashboardV2 />
+    </InstanceContainer>
+  );
 }
-
-Instances.data = {
-  container: 'InstanceContainer',
-  props: {
-    isDashboard: true,
-  },
-};

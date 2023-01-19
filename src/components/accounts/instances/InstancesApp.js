@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
-  Grid,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   ListItemIcon,
   lighten,
-  Typography,
-  Divider,
   Tabs,
   Tab,
   Container,
+  Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
@@ -21,19 +19,25 @@ import { instanceTabs } from 'components/accounts/instances/tabs';
 import { lang } from 'components/accounts/instances/lang';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { grey } from '@mui/material/colors';
-
-let capitalize = (s) => (s = s.charAt(0).toUpperCase() + s.slice(1));
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 const Index = ({ children }) => {
+  const [loading, setloading] = useState(false);
   const theme = useTheme();
-  const isLG = useMediaQuery(theme.breakpoints.up('md'));
+  let isLG = true;
+  if (typeof window !== 'undefined') {
+    isLG = useMediaQuery(theme.breakpoints.up('md'), {
+      noSsr: true,
+    });
+  }
+
   const langcode = 'en';
+  const [location, setLocation] = useState('');
   const currentPage =
-    location.pathname.split('/').length > 2
-      ? location.pathname.split('/')[3]
+    location?.pathname?.split('/').length > 2
+      ? location?.pathname?.split('/')[3]
       : '';
-  const [tabValue, setTabValue] = React.useState(currentPage);
+  const [tabValue, setTabValue] = useState(currentPage);
   const router = useRouter();
   const { ZestyAPI, instance, setInstance } = useZestyStore((state) => state);
   const { zuid } = router.query;
@@ -59,57 +63,55 @@ const Index = ({ children }) => {
   };
 
   const getInstance = async () => {
+    setloading(true);
     const res = await ZestyAPI.getInstance(zuid);
     setInstance(res.data);
+    setloading(false);
   };
 
-  React.useEffect(() => {
-    if (router.isReady) getInstance();
+  useEffect(() => {
+    setLocation(window.location);
+  }, []);
+
+  useEffect(() => {
+    if (router.isReady) {
+      getInstance();
+    }
   }, [router.isReady]);
 
-  React.useEffect(() => {
-    document.title =
-      instance.name + ` Instance - ${currentPage} - Zesty.io Console`;
-  }, [instance, currentPage]);
+  const title =
+    instance?.name ||
+    'Loading' + ` Instance - ${currentPage} - Zesty.io Console`;
 
   return (
     <Box>
+      <ZestyAccountsHead title={title} />
       {isLG ? (
-        <Grid container>
-          <Grid
-            item
-            md={3}
-            lg={2}
-            sx={{
-              borderRight: `1px solid ${grey[300]}`,
-              maxWidth: { md: '384px' },
+        <Box sx={{ display: 'grid', gridTemplateColumns: '240px 1fr' }}>
+          <Box
+            sx={(theme) => ({
               position: 'sticky',
-              top: '60px',
-              height: `calc(100vh - 82px)`,
+              top: `${theme.tabTop}px`,
+              height: `calc(100vh - ${theme.tabTop}px)`,
               overflow: 'auto',
-            }}
+              '::-webkit-scrollbar': {
+                display: 'none',
+              },
+            })}
           >
-            <InstanceHeader instance={instance} />
+            <InstanceHeader ZestyAPI={ZestyAPI} instance={instance} />
             <InstanceNavigation
               lists={instanceTabs}
               handleChange={handleChange}
               currentPage={currentPage}
               langcode={langcode}
             />
-          </Grid>
-          <Grid item md={9} lg={10}>
-            <Container maxWidth={false}>
-              <Typography py={2} variant="h5" color="text.secondary">
-                {currentPage ? capitalize(currentPage) : 'Overview'}
-              </Typography>
-            </Container>
-            <Divider sx={{ mb: 2 }} />
-            <Container maxWidth={false}>{children}</Container>
-          </Grid>
-        </Grid>
+          </Box>
+          <Box>{children}</Box>
+        </Box>
       ) : (
         <Container>
-          <InstanceHeader instance={instance} />
+          <InstanceHeader ZestyAPI={ZestyAPI} instance={instance} />
           <Tabs
             value={tabValue}
             onChange={handleTabChange}
@@ -127,8 +129,9 @@ const Index = ({ children }) => {
           >
             {instanceTabs
               .sort((a, b) => a.sort - b.sort)
-              .map((tab) => (
+              .map((tab, index) => (
                 <Tab
+                  key={index}
                   icon={tab.icon}
                   value={tab.filename}
                   iconPosition="start"
@@ -145,35 +148,45 @@ const Index = ({ children }) => {
 
 function InstanceNavigation({ lists, handleChange, currentPage, langcode }) {
   return (
-    <Box>
-      <List>
-        {lists.map((list, index) => (
-          <ListItem
-            key={index}
-            onClick={() => handleChange(list.filename)}
-            disablePadding
-            selected={list.filename === currentPage}
-            sx={(theme) => ({
-              mb: 1,
-              borderRadius: '4px',
-              '&.Mui-selected': {
-                ' .MuiListItemIcon-root': {
-                  color: theme.palette.primary.main,
-                },
-                bgcolor: lighten(theme.palette.primary.light, 0.9),
+    <List sx={{ padding: '0 8px 0 8px' }}>
+      {lists.map((list, index) => (
+        <ListItem
+          title={lang[langcode].tabs[list.filename]}
+          key={index}
+          onClick={() => handleChange(list.filename)}
+          disablePadding
+          selected={list.filename === currentPage}
+          sx={(theme) => ({
+            borderRadius: '5px',
+            my: 0.2,
+            color: theme.palette.text.secondary,
+            '&.Mui-selected': {
+              ' .MuiListItemIcon-root': {
                 color: theme.palette.primary.main,
-                pointerEvents: 'none',
               },
-            })}
+              bgcolor: lighten(theme.palette.primary.light, 0.9),
+              pointerEvents: 'none',
+              color: theme.palette.primary.main,
+            },
+          })}
+        >
+          <ListItemButton
+            color="warning"
+            sx={{ borderRadius: '5px', padding: '6px 12px' }}
+            data-testid={lang[langcode].tabs[list.filename] + '-Nav'}
           >
-            <ListItemButton color="warning">
-              <ListItemIcon>{list.icon}</ListItemIcon>
-              <ListItemText primary={lang[langcode].tabs[list.filename]} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+            <ListItemIcon sx={{ minWidth: 35 }}>{list.icon}</ListItemIcon>
+            <ListItemText
+              primary={
+                <Typography variant="body3">
+                  {lang[langcode].tabs[list.filename]}
+                </Typography>
+              }
+            />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
   );
 }
 export const InstancesApp = React.memo(Index);

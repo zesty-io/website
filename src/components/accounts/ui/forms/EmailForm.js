@@ -1,8 +1,9 @@
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { accountsValidations } from 'components/accounts/validations';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useZestyStore } from 'store';
+import { SubmitBtn } from '../buttons';
 import { ErrorMsg, SuccessMsg } from '../dialogs';
 import { FormInput } from '../input';
 
@@ -12,9 +13,7 @@ const CustomEmailForm = ({ formik }) => {
       <form noValidate onSubmit={formik.handleSubmit}>
         <FormInput name={'email'} formik={formik} />
         <FormInput name={'name'} label="Description" formik={formik} />
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Submit
-        </Button>
+        <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
       </form>
     </Box>
   );
@@ -23,16 +22,13 @@ const CustomEmailForm = ({ formik }) => {
 export const EmailForm = ({ getUserEmails }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
 
-  const handleAddEmailSuccess = (data) => {
-    console.log(data, 'succ');
+  const handleAddEmailSuccess = () => {
     SuccessMsg({ title: 'Email Added' });
   };
   const handleAddEmailErr = (err) => {
-    console.log(err, 'err');
     ErrorMsg({ text: err.error });
   };
   const addEmail = async ({ name, email }) => {
-    console.log(email, name);
     const res = await ZestyAPI.addUnverifiedEmail(name, email);
     !res.error && handleAddEmailSuccess(res);
     res.error && handleAddEmailErr(res);
@@ -40,7 +36,7 @@ export const EmailForm = ({ getUserEmails }) => {
   };
 
   const formik = useFormik({
-    validationSchema: accountsValidations.email,
+    validationSchema: accountsValidations.addEmail,
     initialValues: {
       name: '',
       email: '',

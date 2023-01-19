@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
@@ -12,14 +12,16 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 // import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
-
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
-
-import { getCookie, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { AccountsAppbar } from 'components/console/AccountsAppbar';
 import { grey } from '@mui/material/colors';
+import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
+import AppFooter from './components/Footer/AppFooter';
+import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
 
 const Main = ({
   children,
@@ -29,30 +31,16 @@ const Main = ({
   bgcolor = 'transparent',
   model = '',
 }) => {
-  const { setisAuthenticated, setisUser } = useZestyStore((state) => state);
-
   // main should verify the user as boolean
   const router = useRouter();
-
-  // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  // const userAppSID = getUserAppSID();
-  const { verifySuccess, loading, userInfo } = useZestyStore((state) => state);
-
-  const isLoggedIn = useIsLoggedIn();
-
-  const isAuthenticated = verifySuccess.userZuid ? true : false;
-  let isUser = false;
-
+  const [pathname, setPathname] = useState('');
+  const isAccounts = isProtectedRoute(pathname);
+  const { loading, userInfo } = useZestyStore((state) => state);
   const hasRouting = customRouting !== undefined ? true : false;
   const theme = useTheme();
-
-  if (getCookie('APP_SID') || getCookie('DEV_APP_SID')) {
-    isUser = true;
-  }
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleSidebarOpen = () => {
@@ -70,19 +58,18 @@ const Main = ({
     threshold: 5,
   });
 
-  // check if from ppc short form page then change color of logo and nav
-  // const isPpcShortPage =
-  //   router.asPath === zestyLink(nav, '7-f8d2b2fb82-vgg2t4');
-
   const isPpcShortPage = router.asPath.includes('ppc' && '-demo');
   const isCapterraPage = router.asPath.includes('/capterra');
   const isDxpTemplatePage = router.asPath.includes('/dxp-rfp-template/');
   const isExplorePage = router.asPath.includes('/ppc/explore/');
+  const isLoginPage = router.asPath.includes('/login/');
+  const isDiscover = router.asPath.includes('/discover/');
   // override over invert based on pages that we know have a dark image heading
 
-  const hideNav = isPpcShortPage || isCapterraPage || isDxpTemplatePage;
-
-  let pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
+  const hideNav =
+    isPpcShortPage || isCapterraPage || isDxpTemplatePage || isDiscover;
+  const isLoggedIn = useIsLoggedIn();
+  const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;
 
@@ -98,22 +85,46 @@ const Main = ({
     }
   };
 
-  const isDashboard = window.location.pathname.split('/').filter((e) => e)[0];
+  const willShowMarketingFooter = () => {
+    if (isLoggedIn) {
+      if (isAccounts || pathname === '/') return false;
 
-  // store isUser isAuthenticated  in global state
-  React.useEffect(() => {
-    if (isAuthenticated) {
-      setisAuthenticated(isAuthenticated);
-      setisUser(isUser);
-      setCookie('isAuthenticated', isAuthenticated);
-      setCookie('isUser', isUser);
+      return true;
     }
-  }, [isAuthenticated, isUser]);
+
+    return true;
+  };
+
+  const willShowAppFooter = () => {
+    if (isLoggedIn) {
+      if (isAccounts || pathname === '/') return true;
+
+      return false;
+    }
+
+    return false;
+  };
+
+  useEffect(() => {
+    if (Object.keys(userInfo?.data || {}) !== 0) {
+      setCookie('APP_USER_ZUID', userInfo?.ZUID);
+      setCookie('APP_USER_EMAIL', userInfo?.email);
+      setCookie('APP_USER_FIRST_NAME', userInfo?.firstName);
+      setCookie('APP_USER_LAST_NAME', userInfo?.lastName);
+    }
+  }, [userInfo]);
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
 
   return (
-    <Box>
+    <>
+      {isLoggedIn === false && !isLoginPage && <SiteBanner />}
+
       {isLoggedIn === false && (
         <Box
+          data-testid="topBar"
           id="topNavBox"
           bgcolor={bgcolor}
           position={'relative'}
@@ -121,23 +132,27 @@ const Main = ({
           display={router?.query?.slug?.[0] === 'login' && 'none'}
         >
           <Container
-            maxWidth={isLoggedIn ? false : true}
+            maxWidth={isLoggedIn ? false : ''}
             sx={(theme) => ({
+              paddingTop:
+                hideNav || isExplorePage ? '0px !important' : '8px !important',
+              paddingBottom: '0 !important',
               maxWidth: isLoggedIn
                 ? theme.breakpoints.values.xl2
                 : theme.breakpoints.values.lg,
             })}
-            paddingTop={
-              hideNav || isExplorePage ? '0px !important' : '8px !important'
-            }
-            paddingBottom={'0 !important'}
           >
-            <TopNav nav={nav} colorInvert={headerColorInvert} />
+            <TopNav
+              hideNav={hideNav}
+              nav={nav}
+              colorInvert={headerColorInvert}
+            />
           </Container>
         </Box>
       )}
       <AppBar
-        position={hideNav ? 'fixed' : 'sticky'}
+        data-testid="mainNav"
+        position={isDiscover ? 'sticky' : hideNav ? 'fixed' : 'sticky'}
         sx={{
           outline: 'none',
           border: 'none',
@@ -146,39 +161,44 @@ const Main = ({
           backgroundColor: bgColorSwitch(),
           py: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
-          borderBottom:
-            isLoggedIn && !isDashboard ? `1px solid ${grey[300]}` : 'none',
+          borderBottom: isLoggedIn && `1px solid ${grey[200]}`,
         }}
         elevation={trigger ? 1 : 0}
       >
         <Container
-          maxWidth={isLoggedIn ? false : true}
+          maxWidth={isLoggedIn ? false : ''}
           sx={(theme) => ({
             maxWidth: isLoggedIn
               ? theme.breakpoints.values.xl2
               : theme.breakpoints.values.lg,
+            paddingY: isExplorePage ? 2 : 1,
           })}
-          paddingY={isExplorePage ? 2 : 1}
         >
           {!isLoggedIn && (
-            <Topbar
-              onSidebarOpen={handleSidebarOpen}
-              customRouting={hasRouting ? customRouting : []}
-              colorInvert={headerColorInvert && !trigger}
-              trigger={trigger}
-              isAuthenticated={isAuthenticated}
-              userInfo={userInfo?.data}
-              loading={loading}
-            />
+            <Stack>
+              <Topbar
+                hideNav={hideNav}
+                onSidebarOpen={handleSidebarOpen}
+                customRouting={hasRouting ? customRouting : []}
+                colorInvert={headerColorInvert && !trigger}
+                trigger={trigger}
+                isAuthenticated={isLoggedIn}
+                userInfo={userInfo?.data}
+                loading={loading}
+              />
+            </Stack>
           )}
           {isLoggedIn && (
-            <AppNavigation
-              onSidebarOpen={handleSidebarOpen}
-              colorInvert={headerColorInvert && !trigger}
-              trigger={trigger}
-              userInfo={userInfo?.data}
-              loading={loading}
-            />
+            <>
+              <AppNavigation
+                onSidebarOpen={handleSidebarOpen}
+                colorInvert={headerColorInvert && !trigger}
+                trigger={trigger}
+                userInfo={userInfo?.data}
+                loading={loading}
+              />
+              <AccountsAppbar colorInvert={headerColorInvert && !trigger} />
+            </>
           )}
         </Container>
       </AppBar>
@@ -192,17 +212,22 @@ const Main = ({
         {children}
         <Divider
           sx={{
-            display: router?.query?.slug?.[0] === 'login' && 'none',
+            display:
+              (router?.query?.slug?.[0] === 'login' || willShowAppFooter()) &&
+              'none',
+            mt: 5,
           }}
         />
       </main>
-      {isLoggedIn == false && (
+      {willShowMarketingFooter() && (
         <Footer
           colorInvert={colorInvert}
           customRouting={hasRouting ? customRouting : []}
         />
       )}
-    </Box>
+
+      {willShowAppFooter() && <AppFooter />}
+    </>
   );
 };
 

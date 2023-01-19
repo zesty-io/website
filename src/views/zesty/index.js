@@ -6,6 +6,7 @@ import MarketingAnnoucement from './MarketingAnnoucement';
 import Review from './Review';
 import MainNavigation from './MainNavigation';
 import PersonaContent from './PersonaContent';
+import Chat from './Chat';
 import CustomerBrand from './CustomerBrand';
 import CustomerHighlight from './CustomerHighlight';
 import LandingPageVariation from './LandingPageVariation';
@@ -45,6 +46,11 @@ import SubNav2022 from './SubNav2022';
 import NavigationFlyout from './NavigationFlyout';
 import Resource from './Resource';
 import PartnerProgramFeature from './PartnerProgramFeature';
+import PricingTierFeature from './PricingTierFeature';
+import G2Badge from './G2Badge';
+import WebsiteBanner from './WebsiteBanner';
+import ABTestDataSet from './ABTestDataSet';
+import Stat from './Stat';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -59,6 +65,7 @@ import GatedContentPage from './GatedContentPage';
 import ThankYouPage from './ThankYouPage';
 import ForIndustryPage from './ForIndustryPage';
 import ForPersonasPage from './ForPersonasPage';
+import QuizLandingPage from './QuizLandingPage';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -115,16 +122,23 @@ import ContentResource from './ContentResource';
 import PartnerProgramDirectory from './PartnerProgramDirectory';
 import Login from './Login';
 import UngatedDemoVideoForAd from './UngatedDemoVideoForAd';
+import AccountsDashboardMarketing from './AccountsDashboardMarketing';
+import ABLandingPage from './ABLandingPage';
+import JoinPageContent from './JoinPageContent';
+import ParsleyFeaturesPage from './ParsleyFeaturesPage';
 import Header from './Header';
 import Footer from './Footer';
+import AutoLayoutComponent from './AutoLayoutComponent';
 
 export {
+  AutoLayoutComponent,
   Clipping,
   Widget,
   MarketingAnnoucement,
   Review,
   MainNavigation,
   PersonaContent,
+  Chat,
   CustomerBrand,
   CustomerHighlight,
   LandingPageVariation,
@@ -164,6 +178,11 @@ export {
   NavigationFlyout,
   Resource,
   PartnerProgramFeature,
+  PricingTierFeature,
+  G2Badge,
+  WebsiteBanner,
+  ABTestDataSet,
+  Stat,
   Category,
   Article,
   Tag,
@@ -178,6 +197,7 @@ export {
   ThankYouPage,
   ForIndustryPage,
   ForPersonasPage,
+  QuizLandingPage,
   Homepage,
   SimplePage,
   Mindshare,
@@ -234,6 +254,10 @@ export {
   PartnerProgramDirectory,
   Login,
   UngatedDemoVideoForAd,
+  AccountsDashboardMarketing,
+  ABLandingPage,
+  JoinPageContent,
+  ParsleyFeaturesPage,
   Footer,
   Header,
 };

@@ -9,12 +9,10 @@ import { FormInput } from '../ui/input';
 export const TwoFactorAuth = () => {
   const { userInfo, ZestyAPI } = useZestyStore((state) => state);
 
-  const handleTwoFactorSuccess = (data) => {
-    console.log(data, 'succ');
+  const handleTwoFactorSuccess = () => {
     SuccessMsg({ title: 'Success' });
   };
   const handleTwoFactorErr = (err) => {
-    console.log(err, 'err');
     ErrorMsg({ text: err.error });
   };
 

@@ -11,6 +11,7 @@ const ZMyListItem = ({ logo, link, name, sx, ...props }) => {
     >
       <img src={logo} height={16} width={16} />
       <Link
+        data-testid={name}
         href={link}
         underline="none"
         color="text.primary"

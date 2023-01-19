@@ -6,11 +6,11 @@ import AddTeam from 'components/accounts/teams/AddTeam';
 import ManageTeam from 'components/accounts/teams/ManageTeam';
 import { useZestyStore } from 'store';
 import TeamInvites from 'components/accounts/teams/TeamInvites';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
-export { default as getServerSideProps } from 'lib/protectedRouteGetServerSideProps';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const Teams = () => {
-  document.title = 'Accounts: Teams';
   const {
     ZestyAPI,
     verifySuccess: { userZuid },
@@ -39,6 +39,7 @@ const Teams = () => {
 
   return (
     <TeamsContainer>
+      <ZestyAccountsHead title={'Accounts: Teams'} />
       <Box p={3}>
         <Typography
           display="flex"
@@ -61,8 +62,8 @@ const Teams = () => {
               (invite) =>
                 !invite.accepted && !invite.declined && !invite.cancelled,
             )
-            .map((invite) => (
-              <Grid key={invite.ZUID} item xs={12} md={6} lg={4}>
+            .map((invite, index) => (
+              <Grid key={index} item xs={12} md={6} lg={4}>
                 <TeamInvites
                   teamZUID={invite.teamZUID}
                   teamInviteZUID={invite.ZUID}
@@ -76,8 +77,8 @@ const Teams = () => {
 
           {teams
             ?.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
-            .map((team) => (
-              <Grid key={team.ZUID} item xs={12} md={6} lg={4}>
+            .map((team, index) => (
+              <Grid key={index} item xs={12} md={6} lg={4}>
                 <ManageTeam
                   teamZUID={team.ZUID}
                   name={team.name}
