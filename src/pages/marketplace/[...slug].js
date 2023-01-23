@@ -35,7 +35,10 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:title" content={seoTitle} />
           <meta property="og:description" content={seoDescription} />
         </Head>
-        <Main customRouting={props.navigationCustom}>
+        <Main
+          customRouting={props.navigationCustom}
+          flyoutNavigation={props.flyoutNavigation}
+        >
           <CustomContainer>
             <RegisterPage />
           </CustomContainer>
@@ -52,7 +55,10 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:title" content={seoTitle} />
           <meta property="og:description" content={seoDescription} />
         </Head>
-        <Main customRouting={props.navigationCustom}>
+        <Main
+          customRouting={props.navigationCustom}
+          flyoutNavigation={props.flyoutNavigation}
+        >
           <CustomContainer>
             <InstalledPage />
           </CustomContainer>
@@ -69,7 +75,10 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
           <meta property="og:title" content={seoTitle} />
           <meta property="og:description" content={seoDescription} />
         </Head>
-        <Main customRouting={props.navigationCustom}>
+        <Main
+          customRouting={props.navigationCustom}
+          flyoutNavigation={props.flyoutNavigation}
+        >
           <CustomContainer>
             <Extension {...props} />
           </CustomContainer>
@@ -85,7 +94,10 @@ const slug = ({ marketEntityTypes, marketTags, ...props }) => {
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
       </Head>
-      <Main customRouting={props.navigationCustom}>
+      <Main
+        customRouting={props.navigationCustom}
+        flyoutNavigation={props.flyoutNavigation}
+      >
         <MarketplaceProvider
           inititalEntities={props.categoryEntities || props.typesEntities}
         >
@@ -157,6 +169,7 @@ export async function getServerSideProps({ req, res }) {
   const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
   const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
   const navigationCustom = (await fetchPage('/')).navigationCustom;
+  const flyoutNavigation = (await fetchPage('/')).flyoutNavigation;
 
   // partial fix for register page not rendering
   const isRegisterPage = req.url === '/marketplace/register/';
@@ -174,6 +187,7 @@ export async function getServerSideProps({ req, res }) {
       marketEntityTypes: await entityTypes.json(),
       marketTags: await tags.json(),
       navigationCustom: navigationCustom,
+      flyoutNavigation: flyoutNavigation,
       zesty: {
         isAuthenticated,
       },
