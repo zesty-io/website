@@ -200,7 +200,6 @@ export const Usage = ({ zuid, usage, loading }) => {
     setcurrentpage(value);
   };
 
-  console.log(dateList.length, 444);
   return (
     <Grid container>
       <AccountsHeader {...headerProps}></AccountsHeader>
