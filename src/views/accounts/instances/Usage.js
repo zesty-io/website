@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CircularProgress,
@@ -111,14 +112,41 @@ const MetricReports = ({ dateList = [], zuid, loading }) => {
   );
 };
 
-const ReportCard = ({ title = '', data = 0, type = '' }) => {
+const ReportCard = ({ title = '', data = 0, type = '', limit = 0 }) => {
   return (
     <Card sx={{ py: 4, borderRadius: '20px' }}>
       <Typography variant="h4" textAlign={'center'} mb={2}>
         {title}
       </Typography>
-      <Typography variant="h6" textAlign={'center'}>
+      <Typography variant="h3" textAlign={'center'}>
         {type === 'request' ? data : `${data?.toFixed(2)}GB`}
+      </Typography>
+      <Stack px={20}>
+        <Stack
+          sx={{
+            width: '100%',
+            height: '1rem',
+            background: grey[200],
+            borderRadius: '10px',
+            overflow: 'hidden',
+            alignItems: 'flex-start',
+            position: 'relative',
+          }}
+        >
+          <Box
+            sx={{
+              height: '1rem',
+              width: `${(Number(data) / limit) * 100}%`,
+              background: '#FF5D0A',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+            }}
+          ></Box>
+        </Stack>
+      </Stack>
+      <Typography variant="h6" textAlign={'center'}>
+        / {limit} {type} monthly limit
       </Typography>
     </Card>
   );
@@ -128,11 +156,13 @@ const ThisMonthReport = ({ usage, loading }) => {
     {
       title: 'Total Requests',
       data: usage?.MediaConsumption?.TotalRequests,
+      limit: 200000,
       type: 'request',
     },
     {
       title: 'Throughput/Bandwidth',
       data: usage?.MediaConsumption?.TotalGBs,
+      limit: 200,
       type: 'GB',
     },
   ];
@@ -152,7 +182,12 @@ const ThisMonthReport = ({ usage, loading }) => {
           {arr.map((e) => {
             return (
               <Grid item xs={6}>
-                <ReportCard title={e.title} data={e.data} type={e.type} />
+                <ReportCard
+                  title={e.title}
+                  data={e.data}
+                  type={e.type}
+                  limit={e.limit}
+                />
               </Grid>
             );
           })}
