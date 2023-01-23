@@ -130,7 +130,7 @@ const Growth = ({  title_and_description, cards = FillerContent.growth }) => {
                 <Box>
                   <Typography
                     component="h3"
-                    variant="h4"
+                    variant="h5"
                     sx={{
                       color: theme.palette.zesty.zestyZambezi,
                       fontWeight: 'bold',
@@ -144,7 +144,7 @@ const Growth = ({  title_and_description, cards = FillerContent.growth }) => {
                     sx={{
                       color: theme.palette.zesty.zestyZambezi,
                       lineHeight: 1.2,
-                      mt: 1,
+                      mt: 2,
                     }}
                   >
                     {item.content || FillerContent.description}

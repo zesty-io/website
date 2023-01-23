@@ -4,6 +4,7 @@
 import { useTheme } from '@mui/material/styles';
 import {
   Box,
+  Container,
   Typography,
   Grid,
 } from '@mui/material';
@@ -34,6 +35,7 @@ const SimpleStats = ({ stat_one, stat_two, stat_three }) => {
   const theme = useTheme();
   return (
     <Box sx={{ mt: 8 }}>
+      <Container>
       <Grid container spacing={2}>
         {statsData?.map((item, index) => (
           <Grid item key={index} xs={12} md={4}>
@@ -73,6 +75,7 @@ const SimpleStats = ({ stat_one, stat_two, stat_three }) => {
           </Grid>
         ))}
       </Grid>
+      </Container>
     </Box>
   );
 };
