@@ -9,9 +9,9 @@ import {
   Button,
   Grid,
   useMediaQuery,
+  Container
 } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import Container from 'blocks/container/Container';
 
 /**
  * Helper Imports
@@ -23,7 +23,6 @@ import FillerContent from 'components/globals/FillerContent';
  */
 import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
-import SimpleStats from 'blocks/zesty/Growth/SimpleStats';
 
 const CaseStudyCards = ({
   title_and_description,
