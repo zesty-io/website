@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   CircularProgress,
@@ -17,7 +16,6 @@ import {
 } from 'components/accounts';
 import dayjs from 'dayjs';
 import LaunchIcon from '@mui/icons-material/Launch';
-import { grey } from '@mui/material/colors';
 
 const getMonthDates = ({ start = '', end = '' }) => {
   const FORMAT = 'YYYY-MM-DD';
@@ -70,7 +68,8 @@ const ReportCard = ({ title = '', data = 0, type = '', limit = 0 }) => {
       <Typography variant="h3" textAlign={'center'}>
         {type === 'request' ? data : `${data?.toFixed(2)}GB`}
       </Typography>
-      <Stack px={20}>
+      {/*  FOR FUTURE REFERENCE */}
+      {/* <Stack px={20}>
         <Stack
           sx={{
             width: '100%',
@@ -93,10 +92,10 @@ const ReportCard = ({ title = '', data = 0, type = '', limit = 0 }) => {
             }}
           ></Box>
         </Stack>
-      </Stack>
-      <Typography variant="h6" textAlign={'center'}>
+      </Stack> */}
+      {/* <Typography variant="h6" textAlign={'center'}>
         / {limit} {type} monthly limit
-      </Typography>
+      </Typography> */}
     </Card>
   );
 };
@@ -117,9 +116,9 @@ const ThisMonthReport = ({ usage, loading }) => {
   ];
   return (
     <Stack width={1} px={4}>
-      <Stack width={1}>
+      {/* <Stack width={1}>
         <Typography variant="h5">This month to date</Typography>
-      </Stack>
+      </Stack> */}
       {loading ? (
         <Stack width={1} alignItems="center" py={10}>
           <CircularProgress />
@@ -207,10 +206,10 @@ const CustomTable = ({ data, loading, zuid = '' }) => {
     <Stack p={4}>
       <Stack width={1}>
         <Typography variant="h5" mb={2}>
-          Metric Reports
+          Download Monthly Usage Reports
         </Typography>
       </Stack>
-      <Stack px={10}>
+      <Stack px={0}>
         <AccountsTable
           loading={loading}
           rows={ROWS}
