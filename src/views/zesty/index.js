@@ -128,8 +128,10 @@ import JoinPageContent from './JoinPageContent';
 import ParsleyFeaturesPage from './ParsleyFeaturesPage';
 import Header from './Header';
 import Footer from './Footer';
+import AutoLayoutComponent from './AutoLayoutComponent';
 
 export {
+  AutoLayoutComponent,
   Clipping,
   Widget,
   MarketingAnnoucement,
