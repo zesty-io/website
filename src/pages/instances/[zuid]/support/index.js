@@ -33,6 +33,8 @@ export default function Support() {
     setinstance(zuid);
     fetchTickets();
   }, []);
+
+  console.log(instanceTickets);
   return (
     <>
       <InstanceContainer>
