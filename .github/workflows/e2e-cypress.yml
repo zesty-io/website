@@ -1,7 +1,5 @@
 name: Zesty Website E2E Cypress 
 on:
-  push:
-    branches: [stage,accounts,production,dev]
   pull_request:
     branches: [stage,accounts,production,dev]
   workflow_dispatch:
@@ -9,7 +7,7 @@ jobs:
   end-to-end-tests-cypress:
     runs-on: ubuntu-latest
     env:
-      PRODUCTION: 'false'
+      PRODUCTION: 'true'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1

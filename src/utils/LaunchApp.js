@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { ErrorMsg } from 'components/accounts';
+import { accounts, ErrorMsg } from 'components/accounts';
 import FileSaver from 'file-saver';
 import { isProd } from 'utils';
 
-const baseUrl = `https://installer-m3rbwjxm5q-uc.a.run.app`;
+const baseUrl = accounts.templateUrl;
 
 export const downloadTemplate = async (instance_zuid, token, setloading) => {
   setloading(true);

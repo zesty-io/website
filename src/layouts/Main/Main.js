@@ -30,6 +30,7 @@ const Main = ({
   colorInvert = false,
   bgcolor = 'transparent',
   model = '',
+  flyoutNavigation,
 }) => {
   // main should verify the user as boolean
   const router = useRouter();
@@ -179,6 +180,7 @@ const Main = ({
               <Topbar
                 hideNav={hideNav}
                 onSidebarOpen={handleSidebarOpen}
+                flyoutNavigation={flyoutNavigation}
                 customRouting={hasRouting ? customRouting : []}
                 colorInvert={headerColorInvert && !trigger}
                 trigger={trigger}
@@ -206,6 +208,7 @@ const Main = ({
         onClose={handleSidebarClose}
         open={open}
         variant="temporary"
+        flyoutNavigation={flyoutNavigation}
         customRouting={hasRouting ? customRouting : []}
       />
       <main>
