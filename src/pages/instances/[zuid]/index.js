@@ -11,13 +11,14 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 
 export default function OverviewPage() {
   const [loading, setloading] = useState(false);
-  const { setZestyAPI, userInfo, ZestyAPI } = useZestyStore((state) => state);
+  const { setZestyAPI, userInfo, ZestyAPI, usage, setusage } = useZestyStore(
+    (state) => state,
+  );
   const [instanceUserWithRoles, setInstanceUserWithRoles] = React.useState([]);
   const [instance, setinstance] = React.useState({});
   const [users, setusers] = React.useState(undefined);
   const [locales, setlocales] = React.useState([]);
   const [teams, setteams] = React.useState([]);
-  const [usage, setusage] = React.useState({});
   const [models, setmodels] = React.useState([]);
   const [audits, setaudits] = React.useState([]);
   const router = useRouter();
