@@ -5,11 +5,11 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { isProd } from 'utils';
-import { accounts } from 'components/accounts';
+
 const CustomSwal = withReactContent(Swal);
 const InstanceSwal = withReactContent(Swal);
 
-const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
+const ExtensionsIntaller = ({ extensionName, githubUrl, data }) => {
   const [loading, setLoading] = React.useState(false);
   const [finishInstall, setFinishInstall] = React.useState(false);
   const { setworkingInstance } = useZestyStore((state) => state);
@@ -19,9 +19,10 @@ const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
     (e) => e.ZUID === instanceZUID,
   )?.name;
   let ZestyAPI = useZestyStore((state) => state.ZestyAPI);
-  const url = isProd
-    ? accounts.templateUrl
-    : 'https://installer-m3rbwjxm5q-uc.a.run.app';
+  const url = data?.zesty?.templateUrl;
+  // const url = isProd
+  //   ? accounts.templateUrl
+  //   : 'https://installer-m3rbwjxm5q-uc.a.run.app';
   const appSID = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
 
   const getInstanceRaw = async () => {
