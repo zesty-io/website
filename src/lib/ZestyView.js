@@ -16,13 +16,13 @@ export function ZestyView(props) {
    */
   const hasLayoutContent = () => {
     if (!props.content.meta.layout) return false;
-    if (
+    else if (
+      props.content.meta.layout?.json !== null &&
       JSON.stringify(
         props.content.meta.layout?.json['layout:root:column:0']?.children,
       ) === '{}'
     )
-      return false;
-    return true;
+      return true;
   };
 
   /**
