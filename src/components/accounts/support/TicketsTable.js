@@ -105,7 +105,7 @@ const TicketsTable = ({ tickets }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tickets.map((item, i) => (
+            {tickets?.map((item, i) => (
               <TableRow
                 hover={true}
                 onClick={() => handleRoute(item.id)}

@@ -17,6 +17,7 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import ZestyImage from 'blocks/Image/ZestyImage';
+import TextareaAutosize from '@mui/base/TextareaAutosize';
 
 export default function ticketItem() {
   const theme = useTheme();
@@ -70,8 +71,6 @@ export default function ticketItem() {
   }, []);
 
   console.log('ticket', ticket);
-
-  console.log('loading', loading);
 
   return (
     <>
@@ -132,19 +131,12 @@ export default function ticketItem() {
                     </Typography>
 
                     <Typography
+                      component="p"
                       variant={'p'}
                       dangerouslySetInnerHTML={{
                         __html: ticket?.ticket?.description,
                       }}
                     ></Typography>
-
-                    <Chip
-                      sx={{ mt: -3, px: 1 }}
-                      color="info"
-                      size="small"
-                      variant="outlined"
-                      label={`#${ticket?.ticket?.ticketNumber}`}
-                    />
                   </>
                 )}
               </Box>
@@ -155,8 +147,17 @@ export default function ticketItem() {
                     <Skeleton width={100} sx={{ fontSize: '1rem' }} />
                   </>
                 ) : (
-                  <>
+                  <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                     <Chip
+                      sx={{ px: 1 }}
+                      color="info"
+                      size="small"
+                      variant="outlined"
+                      label={`#${ticket?.ticket?.ticketNumber}`}
+                    />
+
+                    <Chip
+                      size="small"
                       sx={{ px: 1 }}
                       variant="contained"
                       label={`${ticket?.ticket?.status}`}
@@ -166,7 +167,7 @@ export default function ticketItem() {
                           : 'default'
                       }
                     />
-                  </>
+                  </Box>
                 )}
               </Box>
             </Stack>
@@ -174,53 +175,209 @@ export default function ticketItem() {
             <Box sx={{ mt: 5 }}>
               <Grid container spacing={2}>
                 <Grid item sx={12} md={8}>
-                  <Card sx={{ p: 4 }}>
-                    {ticket?.thread?.data?.map((item) => {
-                      const start = item.summary.indexOf('----');
-                      const end = item.summary.indexOf('----', start + 1);
-                      const date = item?.summary?.match(
-                        /On\s\w{3},\s\d{2}\s\w{3}\s\d{4}\s\d{2}:\d{2}:\d{2}/,
-                      );
+                  <Card
+                    sx={{
+                      p: 4,
+                      borderRadius: 5,
+                    }}
+                  >
+                    {loading &&
+                      [1, 2, 3, 4, 5].map((item) => (
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            gap: 1,
+                            py: 1,
+                            alignItems: 'flex-end',
+                            justifyContent:
+                              item % 2 ? 'flex-end' : 'flex-start',
+                          }}
+                        >
+                          {item % 2 ? (
+                            <>
+                              <Skeleton
+                                variant="rectangular"
+                                sx={{
+                                  fontSize: '2.5rem',
+                                  borderTopLeftRadius: 10,
+                                  borderTopRightRadius: 10,
+                                  borderBottomLeftRadius: 10,
+                                }}
+                                width={400}
+                              />
+                              <Skeleton
+                                variant="circular"
+                                sx={{ fontSize: '1rem' }}
+                                width={20}
+                              />
+                            </>
+                          ) : (
+                            <>
+                              <Skeleton
+                                variant="circular"
+                                sx={{ fontSize: '1rem' }}
+                                width={20}
+                              />
+                              <Skeleton
+                                variant="rectangular"
+                                sx={{
+                                  fontSize: '2.5rem',
+                                  borderTopLeftRadius: 10,
+                                  borderTopRightRadius: 10,
+                                  borderBottomRightRadius: 10,
+                                }}
+                                width={400}
+                              />
+                            </>
+                          )}
+                        </Box>
+                      ))}
 
-                      console.log(date);
+                    <Box>
+                      {ticket?.thread?.data
+                        ?.slice(0)
+                        .reverse()
+                        .map((item) => {
+                          const start = item.summary.indexOf('----');
+                          const end = item.summary.indexOf('----', start + 1);
+                          const date = item?.summary?.match(
+                            /On\s[A-Za-z]{3},\s\d{2}\s[A-Za-z]{3}\s\d{4}\s\d{2}:\d{2}:\d{2}\s[+-]\d{4}/,
+                          );
 
-                      return (
-                        <>
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              gap: 2,
-                              alignItems: 'center',
-                            }}
+                          console.log(date);
+
+                          return (
+                            <Box key={item.id} sx={{ py: 1 }}>
+                              {item.author.type === 'AGENT' ? (
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    gap: 1,
+                                    alignItems: 'flex-end',
+                                  }}
+                                >
+                                  <ZestyImage
+                                    alt={'author'}
+                                    src={`https://ui-avatars.com/api/?name=${item.author.firstName}+${item.author.lastName}&rounded=true&size=35`}
+                                  />
+
+                                  <Stack>
+                                    <Typography
+                                      sx={{
+                                        display: 'block',
+                                        background:
+                                          theme.palette.zesty.zestyZambezi,
+                                        color: theme.palette.common.white,
+                                        p: 2,
+                                        borderTopLeftRadius: 10,
+                                        borderTopRightRadius: 10,
+                                        borderBottomRightRadius: 10,
+                                      }}
+                                      variant={'p'}
+                                      component="p"
+                                      dangerouslySetInnerHTML={{
+                                        __html: item?.summary.slice(0, start),
+                                      }}
+                                    ></Typography>
+
+                                    <Typography
+                                      component="p"
+                                      sx={{
+                                        fontSize: 10,
+                                      }}
+                                      variant={'p'}
+                                      dangerouslySetInnerHTML={{
+                                        __html: date,
+                                      }}
+                                    ></Typography>
+                                  </Stack>
+                                </Box>
+                              ) : (
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    gap: 1,
+                                    alignItems: 'flex-end',
+                                    justifyContent: 'flex-end',
+                                  }}
+                                >
+                                  <Stack>
+                                    <Typography
+                                      sx={{
+                                        display: 'block',
+                                        background:
+                                          theme.palette.zesty.zestyOrange,
+                                        color: theme.palette.common.white,
+                                        p: 2,
+                                        borderTopLeftRadius: 10,
+                                        borderTopRightRadius: 10,
+                                        borderBottomLeftRadius: 10,
+                                      }}
+                                      variant={'p'}
+                                      component="p"
+                                      dangerouslySetInnerHTML={{
+                                        __html: item?.summary.slice(0, start),
+                                      }}
+                                    ></Typography>
+
+                                    <Typography
+                                      component="p"
+                                      sx={{ fontSize: 12 }}
+                                      variant={'p'}
+                                      dangerouslySetInnerHTML={{
+                                        __html: date,
+                                      }}
+                                    ></Typography>
+                                  </Stack>
+
+                                  <ZestyImage
+                                    alt={'author'}
+                                    src={`https://ui-avatars.com/api/?name=${item.author.firstName}+${item.author.lastName}&rounded=true&size=35`}
+                                  />
+                                </Box>
+                              )}
+                            </Box>
+                          );
+                        })}
+                    </Box>
+
+                    <Box
+                      sx={{
+                        mt: 2,
+                        py: 2,
+                      }}
+                    >
+                      <Box component="form">
+                        <TextareaAutosize
+                          minRows={3}
+                          aria-label="Message..."
+                          placeholder="Write your response...."
+                          style={{
+                            outline: 'none',
+                            width: '100%',
+                            border: 'none',
+                            padding: 15,
+                          }}
+                        />
+
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
+                            mt: 1,
+                          }}
+                        >
+                          <Button
+                            sx={{ px: 2 }}
+                            variant="contained"
+                            type="submit"
                           >
-                            <ZestyImage
-                              alt={'author'}
-                              src={`https://ui-avatars.com/api/?name=${item.author.firstName}+${item.author.lastName}&rounded=true&size=35`}
-                            />
-
-                            <Stack>
-                              <Typography
-                                sx={{ display: 'block' }}
-                                variant={'p'}
-                                component="p"
-                                dangerouslySetInnerHTML={{
-                                  __html: item?.summary.slice(0, start),
-                                }}
-                              ></Typography>
-
-                              <Typography
-                                component="p"
-                                sx={{ fontSize: 12 }}
-                                variant={'p'}
-                                dangerouslySetInnerHTML={{
-                                  __html: date,
-                                }}
-                              ></Typography>
-                            </Stack>
-                          </Box>
-                        </>
-                      );
-                    })}
+                            Send
+                          </Button>
+                        </Box>
+                      </Box>
+                    </Box>
                   </Card>
                 </Grid>
                 <Grid item sx={12} md={4}>
