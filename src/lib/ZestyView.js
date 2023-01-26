@@ -15,7 +15,6 @@ export function ZestyView(props) {
    * @returns boolean
    */
   const hasLayoutContent = () => {
-    console.log(props.content.meta.layout);
     // Layout is not active
     if (!props.content.meta.layout) return false;
 
