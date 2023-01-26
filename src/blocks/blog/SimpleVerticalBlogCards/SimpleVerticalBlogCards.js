@@ -77,7 +77,7 @@ const SimpleVerticalBlogCards = ({
                 href={
                   item?.link ||
                   item?.path ||
-                  item.card_link?.data[0]?.meta?.web?.uri ||
+                  item.meta?.web?.uri ||
                   FillerContent.href
                 }
                 display={'block'}

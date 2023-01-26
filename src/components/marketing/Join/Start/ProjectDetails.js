@@ -1,11 +1,14 @@
 import { Box, Button, TextField } from '@mui/material';
 import axios from 'axios';
-import { accounts, ErrorMsg, SuccessMsg } from 'components/accounts';
+import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import { getCookie } from 'cookies-next';
 import React from 'react';
 import { useZestyStore } from 'store';
 
-const baseUrl = accounts.templateUrl;
+//* TODO
+// Unused component for deletion
+const baseUrl = 'https://templating.api.zesty.io/';
+
 export const ProjectDetails = ({ repository }) => {
   const [domain, setdomain] = React.useState('');
   const { ZestyAPI } = useZestyStore((state) => state);
