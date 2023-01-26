@@ -15,14 +15,22 @@ export function ZestyView(props) {
    * @returns boolean
    */
   const hasLayoutContent = () => {
+    console.log(props.content.meta.layout);
+    // Layout is not active
     if (!props.content.meta.layout) return false;
-    else if (
-      props.content.meta.layout?.json !== null &&
+
+    // Layout is active but no json object
+    if (props.content.meta.layout?.json === null) return false;
+
+    // Layout is active but no components selected
+    if (
       JSON.stringify(
         props.content.meta.layout?.json['layout:root:column:0']?.children,
       ) === '{}'
     )
-      return true;
+      return false;
+    // return only true if the layout is active and has components
+    return true;
   };
 
   /**
