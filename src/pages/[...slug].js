@@ -71,6 +71,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
     zesty: {
       isAuthenticated,
       sso,
+      templateUrl: process.env.TEMPLATE_URL,
     },
   };
 

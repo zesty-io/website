@@ -45,6 +45,7 @@ const InstallButton = ({ data, theme }) => {
         extensionName={data?.name}
         githubUrl={data?.github_url}
         instance={workingInstance}
+        data={data}
       />
     );
   } else if (data.resource_link) {

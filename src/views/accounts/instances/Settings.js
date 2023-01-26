@@ -232,6 +232,7 @@ export const Settings = ({
   downloadTemplate,
   instance_zuid,
   token,
+  content,
 }) => {
   const [loadingDL, setloadingDL] = React.useState(false);
   const [arrToSubmit, setarrToSubmit] = React.useState([]);
@@ -288,7 +289,9 @@ export const Settings = ({
           loading={loadingDL}
           color="primary"
           variant="contained"
-          onClick={() => downloadTemplate(instance_zuid, token, setloadingDL)}
+          onClick={() =>
+            downloadTemplate(instance_zuid, token, setloadingDL, content)
+          }
           startIcon={<DownloadIcon />}
         >
           Export as Template
