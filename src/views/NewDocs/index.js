@@ -6,11 +6,11 @@ import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import { Grid, Stack, TextField, Typography } from '@mui/material';
+import { Grid, Stack, Tab, Tabs, TextField, Typography } from '@mui/material';
 
 import INSTANCE_DATA from './instance.data.json';
-// import ACCOUNTS_DATA from './accounts.data.json';
-// import AUTH_DATA from './auth.data.json';
+import ACCOUNTS_DATA from './accounts.data.json';
+import AUTH_DATA from './auth.data.json';
 
 const title = 'Docs page';
 const description = 'Docs page';
@@ -105,7 +105,43 @@ const FolderTreeView = ({ data = {}, header = '', onClick = () => {} }) => {
   );
 };
 
+const DOCS_DATA = [
+  {
+    label: 'Authentication API',
+    value: 'Authentication API',
+  },
+  {
+    label: 'Instance API',
+    value: 'Instance API',
+  },
+  {
+    label: 'Accounts API',
+    value: 'Accounts API',
+  },
+];
 const Main = () => {
+  const [value, setValue] = React.useState('Instance API');
+  const [treeData, settreeData] = React.useState({});
+
+  const handleChange = (_event, newValue) => {
+    setValue(newValue);
+
+    const getTreeData = (newValue) => {
+      switch (newValue) {
+        case 'Authentication API':
+          return settreeData(AUTH_DATA);
+        case 'Instance API':
+          return settreeData(INSTANCE_DATA);
+        case 'Accounts API':
+          return settreeData(ACCOUNTS_DATA);
+
+        default:
+          return settreeData(AUTH_DATA);
+      }
+    };
+
+    getTreeData(newValue);
+  };
   return (
     <MainWrapper customRouting={[]}>
       <Head>
@@ -115,18 +151,23 @@ const Main = () => {
         <meta property="og:description" content={description} />
         <meta property="og:image" content={ogimage} />
       </Head>
+
+      <Stack sx={{ width: '100%' }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor="secondary"
+          indicatorColor="secondary"
+          aria-label="secondary tabs example"
+        >
+          {DOCS_DATA.map((e) => {
+            return <Tab value={e.value} label={e.label} />;
+          })}
+        </Tabs>
+      </Stack>
       <Grid container>
         <Grid item xs={2}>
-          <Stack
-            sx={{
-              height: '80vh',
-              overflow: 'auto',
-            }}
-          >
-            <FolderTreeView data={INSTANCE_DATA} header="Instance API" />
-            {/* <FolderTreeView data={ACCOUNTS_DATA} header="Accounts API" />
-      <FolderTreeView data={AUTH_DATA} header="Authentication API" /> */}
-          </Stack>
+          <FolderTreeView data={treeData} header="" />
         </Grid>
         <Grid item xs={10}></Grid>
       </Grid>
