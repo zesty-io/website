@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, Stack } from '@mui/material';
 import { useRouter } from 'next/router';
-import Container from 'components/Container';
 import { AccountsTable, AccountsTableHead } from 'components/accounts';
 
 const mock = [
@@ -156,7 +155,7 @@ const TicketsTable = () => {
   ]);
 
   return (
-    <Container>
+    <Stack p={4}>
       <AccountsTable
         loading={isLoading}
         rows={instanceTickets}
@@ -165,7 +164,7 @@ const TicketsTable = () => {
         autoHeight={false}
         hasGridToolbar={true}
       />
-    </Container>
+    </Stack>
   );
 };
 
