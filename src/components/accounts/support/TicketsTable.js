@@ -1,48 +1,47 @@
-import { React } from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import React, { useMemo, useState } from 'react';
+import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import Container from 'components/Container';
+import { AccountsTable, AccountsTableHead } from 'components/accounts';
 
 const mock = [
   {
+    id: 1,
     contact: { firstName: 'Clara Bertoletti' },
     subject: 'Regional Paradigm Technician',
     status: 'Active',
     ticketNumber: 116,
   },
   {
+    id: 2,
     contact: { firstName: 'Jhon Anderson' },
     subject: 'Product Developer',
     status: 'Active',
     ticketNumber: 253,
   },
   {
+    id: 3,
     contact: { firstName: 'Chary Smith' },
     subject: 'Senior Sales Manager',
     status: 'Active',
     ticketNumber: 834,
   },
   {
+    id: 4,
     contact: { firstName: 'Clara Bertoletti' },
     subject: 'Senior JavaScript Developer',
     status: 'Active',
     ticketNumber: 343,
   },
   {
+    id: 5,
     contact: { firstName: 'Jhon Anderson' },
     subject: 'Accounting Assistant',
     status: 'Active',
     ticketNumber: 893,
   },
   {
+    id: 6,
     contact: { firstName: 'Chary Smith' },
     subject: 'Senior Executive',
     status: 'Active',
@@ -51,118 +50,95 @@ const mock = [
 ];
 
 const TicketsTable = ({ tickets }) => {
-  const theme = useTheme();
   const router = useRouter();
-  const handleRoute = (ticketNumber) => {
-    const currentPath = router.asPath; // to get current route
-    router.push(`${currentPath}/${ticketNumber}`);
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [rows, setRows] = useState(tickets);
+
+  const columns = useMemo(() => [
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'contact',
+      headerName: 'Name',
+      minWidth: 300,
+      flex: 1,
+      renderHeader: () => <AccountsTableHead>Name</AccountsTableHead>,
+      renderCell: (params) => {
+        return (
+          <Typography variant={'p'} fontWeight={700}>
+            {params?.row?.contact.firstName} {params?.row?.contact.lastName}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: 'subject',
+      headerName: 'Subject',
+      minWidth: 400,
+      flex: 1,
+      renderHeader: () => <AccountsTableHead>Subject</AccountsTableHead>,
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+      minWidth: 110,
+      flex: 1,
+      renderHeader: () => <AccountsTableHead>Status</AccountsTableHead>,
+      renderCell: (params) => {
+        return (
+          <Typography
+            color={
+              params?.row?.status === 'Active' ? 'green' : 'text.secondary'
+            }
+            variant={'p'}
+            fontWeight={params?.row?.status === 'Active' ? 700 : 400}
+          >
+            {params?.row?.status}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: 'ticketNumber',
+      headerName: 'Ticket #',
+      minWidth: 110,
+      flex: 1,
+      renderHeader: () => <AccountsTableHead>Ticket #</AccountsTableHead>,
+    },
+    {
+      field: 'view',
+      headerName: '',
+      sortable: false,
+      flex: 1,
+      minWidth: 80,
+      renderCell: (params) => {
+        const handleRoute = (ticketNumber) => {
+          const currentPath = router.asPath; // to get current route
+          router.push(`${currentPath}/${ticketNumber}`);
+        };
+
+        return (
+          <Button title="View" onClick={() => handleRoute(params?.row?.id)}>
+            <Typography variant={'p'}>View</Typography>
+          </Button>
+        );
+      },
+    },
+  ]);
 
   return (
     <Container>
-      <Typography variant={'h4'} fontWeight={700}></Typography>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 750 }} aria-label="simple table">
-          <TableHead sx={{ bgcolor: 'alternate.dark' }}>
-            <TableRow>
-              <TableCell>
-                <Typography
-                  variant={'caption'}
-                  fontWeight={700}
-                  sx={{ textTransform: 'uppercase' }}
-                >
-                  Name
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant={'caption'}
-                  fontWeight={700}
-                  sx={{ textTransform: 'uppercase' }}
-                >
-                  subject
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant={'caption'}
-                  fontWeight={700}
-                  sx={{ textTransform: 'uppercase' }}
-                >
-                  Status
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  variant={'caption'}
-                  fontWeight={700}
-                  sx={{ textTransform: 'uppercase' }}
-                >
-                  Ticket #
-                </Typography>
-              </TableCell>
-              <TableCell />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tickets?.map((item, i) => (
-              <TableRow
-                hover={true}
-                onClick={() => handleRoute(item.id)}
-                key={i}
-                sx={{
-                  '&:last-child td, &:last-child th': { border: 0 },
-                  '&:nth-of-type(2n)': { bgcolor: 'alternate.main' },
-                  cursor: 'pointer',
-                }}
-              >
-                <TableCell component="th" scope="row">
-                  <Typography variant={'subsubject2'} fontWeight={700}>
-                    {item.contact.firstName} {item.contact.lastName}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color={'text.secondary'} variant={'subsubject2'}>
-                    {item.subject}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    variant={'caption'}
-                    fontWeight={700}
-                    sx={{
-                      bgcolor: alpha(theme.palette.success.light, 0.1),
-                      color: theme.palette.success.dark,
-                      paddingX: 1.5,
-                      paddingY: 0.5,
-                      borderRadius: 4,
-                      display: 'inline',
-                    }}
-                  >
-                    {item.status}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color={'text.secondary'} variant={'subsubject2'}>
-                    {item.ticketNumber}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    color={'green'}
-                    variant={'subsubject2'}
-                    fontWeight={700}
-                    sx={{ cursor: 'pointer' }}
-                    onClick={() => handleRoute(item.id)}
-                  >
-                    View
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <AccountsTable
+        loading={isLoading}
+        rows={rows}
+        columns={columns}
+        pageSize={100}
+        autoHeight={false}
+        hasGridToolbar={true}
+      />
     </Container>
   );
 };

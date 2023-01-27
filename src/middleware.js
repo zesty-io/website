@@ -23,7 +23,7 @@ export async function middleware(request) {
 }
 
 const isUserAuthenticated = async (request) => {
-  let isProd = request.cookies.get('PRODUCTION') || true;
+  let isProd = JSON.parse(request.cookies.get('PRODUCTION') || true);
 
   const verifyUrl = !isProd
     ? 'https://auth.api.dev.zesty.io/verify'
