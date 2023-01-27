@@ -3,7 +3,12 @@ import Docs from './[...slug]';
 import { docsLookup } from 'components/docs/docsLookup';
 
 function DocsIndex(content) {
-  return <Docs {...content} />;
+  const [loaded, setloaded] = React.useState(false);
+  React.useEffect(() => {
+    setloaded(true);
+  }, []);
+
+  return loaded && <Docs {...content} />;
 }
 
 export default DocsIndex;
