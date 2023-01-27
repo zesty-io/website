@@ -11,29 +11,9 @@ export default function Support() {
   const { zuid } = router.query;
   // const [search, setsearch] = useState('');
   const [instance, setinstance] = useState(null);
-  const [instanceTickets, setTickets] = useState([]);
-
-  const fetchTickets = async () => {
-    setTickets([]);
-    const tickets = await fetch(
-      'https://support-m3rbwjxm5q-uc.a.run.app/?instance=' + zuid,
-      {
-        method: 'GET',
-      },
-    )
-      .then((tickets) => tickets.json())
-      .then((tickets) => {
-        const allTickets = tickets.data?.map((t) => ({
-          ...t,
-          number: t.ticketNumber,
-        }));
-        setTickets(allTickets);
-      });
-  };
 
   useEffect(() => {
     setinstance(zuid);
-    fetchTickets();
   }, []);
 
   const headerProps = {
@@ -54,7 +34,7 @@ export default function Support() {
           <CreateTicket instanceZUID={instance} />
         </AccountsHeader>
         <Grid item xs={12}>
-          <TicketsTable instanceZUID={instance} tickets={instanceTickets} />
+          <TicketsTable instanceZUID={instance} />
         </Grid>
       </Grid>
       {/* <Typography variant="h4" mb={3} color="text.secondary">

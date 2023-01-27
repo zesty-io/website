@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import Container from 'components/Container';
@@ -49,10 +49,36 @@ const mock = [
   },
 ];
 
-const TicketsTable = ({ tickets }) => {
+const TicketsTable = () => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [rows, setRows] = useState(tickets);
+  const { zuid } = router.query;
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [instanceTickets, setTickets] = useState([]);
+
+  const fetchTickets = async () => {
+    setTickets([]);
+    const tickets = await fetch(
+      'https://support-m3rbwjxm5q-uc.a.run.app/?instance=' + zuid,
+      {
+        method: 'GET',
+      },
+    )
+      .then((tickets) => tickets.json())
+      .then((tickets) => {
+        const allTickets = tickets.data?.map((t) => ({
+          ...t,
+          number: t.ticketNumber,
+        }));
+        setTickets(allTickets);
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchTickets();
+  }, []);
 
   const columns = useMemo(() => [
     {
@@ -133,7 +159,7 @@ const TicketsTable = ({ tickets }) => {
     <Container>
       <AccountsTable
         loading={isLoading}
-        rows={rows}
+        rows={instanceTickets}
         columns={columns}
         pageSize={100}
         autoHeight={false}
