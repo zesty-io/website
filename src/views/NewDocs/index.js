@@ -1,16 +1,31 @@
 import { TreeItem, TreeView } from '@mui/lab';
 import MainWrapper from 'layouts/Main';
-import Head from 'next/head';
 import Fuse from 'fuse.js';
 import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import { Grid, Stack, Tab, Tabs, TextField, Typography } from '@mui/material';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 import INSTANCE_DATA from './instance.data.json';
 import ACCOUNTS_DATA from './accounts.data.json';
 import AUTH_DATA from './auth.data.json';
+
+const DOCS_DATA = [
+  {
+    label: 'Instance API',
+    value: 'Instance API',
+  },
+  {
+    label: 'Accounts API',
+    value: 'Accounts API',
+  },
+  {
+    label: 'Authentication API',
+    value: 'Authentication API',
+  },
+];
 
 const title = 'Docs page';
 const description = 'Docs page';
@@ -105,23 +120,27 @@ const FolderTreeView = ({ data = {}, header = '', onClick = () => {} }) => {
   );
 };
 
-const DOCS_DATA = [
-  {
-    label: 'Authentication API',
-    value: 'Authentication API',
-  },
-  {
-    label: 'Instance API',
-    value: 'Instance API',
-  },
-  {
-    label: 'Accounts API',
-    value: 'Accounts API',
-  },
-];
+const DocsTabs = ({ value, onChange, data = [] }) => {
+  return (
+    <Stack sx={{ width: '100%' }}>
+      <Tabs
+        value={value}
+        onChange={onChange}
+        textColor="secondary"
+        indicatorColor="secondary"
+        aria-label="secondary tabs example"
+      >
+        {Array.isArray(data) &&
+          data.map((e) => {
+            return <Tab value={e.value} label={e.label} />;
+          })}
+      </Tabs>
+    </Stack>
+  );
+};
 const Main = () => {
   const [value, setValue] = React.useState('Instance API');
-  const [treeData, settreeData] = React.useState({});
+  const [treeData, settreeData] = React.useState(INSTANCE_DATA);
 
   const handleChange = (_event, newValue) => {
     setValue(newValue);
@@ -142,29 +161,16 @@ const Main = () => {
 
     getTreeData(newValue);
   };
+
   return (
     <MainWrapper customRouting={[]}>
-      <Head>
-        <title>{title}</title>
-        <meta property="og:title" content={title} />
-        <meta name="description" value={description} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={ogimage} />
-      </Head>
+      <ZestyAccountsHead
+        title={title}
+        description={description}
+        ogimage={ogimage}
+      />
 
-      <Stack sx={{ width: '100%' }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          textColor="secondary"
-          indicatorColor="secondary"
-          aria-label="secondary tabs example"
-        >
-          {DOCS_DATA.map((e) => {
-            return <Tab value={e.value} label={e.label} />;
-          })}
-        </Tabs>
-      </Stack>
+      <DocsTabs value={value} onChange={handleChange} data={DOCS_DATA} />
       <Grid container>
         <Grid item xs={2}>
           <FolderTreeView data={treeData} header="" />
