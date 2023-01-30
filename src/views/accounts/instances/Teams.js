@@ -9,6 +9,7 @@ import {
   accountsValidations,
   DeleteMsg,
   ErrorMsg,
+  FormInput,
   FormSelect,
   SubmitBtn,
 } from 'components/accounts';
@@ -28,6 +29,7 @@ const CustomTable = ({
   data,
   handleDeleteTeamModal,
   cta,
+  handleAddTeamMemberModal,
 }) => {
   const ROWS = data?.map((e) => {
     return {
@@ -36,6 +38,9 @@ const CustomTable = ({
     };
   });
 
+  const handleAddTeamMembers = (data) => {
+    handleAddTeamMemberModal(data);
+  };
   const COLUMNS = [
     {
       field: 'id',
@@ -76,6 +81,10 @@ const CustomTable = ({
         const data = params.row;
         const action = [
           {
+            title: 'Add Team Members',
+            action: () => handleAddTeamMembers(data),
+          },
+          {
             title: 'View Team Members',
             action: () => viewTeamMemberModals(data),
           },
@@ -110,6 +119,35 @@ const CustomTable = ({
         NoData={cta}
       />
     </Stack>
+  );
+};
+
+const AddUserToTeamForm = ({ onSubmit, data }) => {
+  const formik = useFormik({
+    validationSchema: accountsValidations.addTeamMember,
+    initialValues: {
+      email: '',
+    },
+    onSubmit: async (values) => {
+      const newVal = {
+        teamZUID: data.ZUID,
+        admin: false,
+        inviteeEmail: values.email,
+      };
+      await onSubmit(newVal);
+      formik.resetForm();
+    },
+  });
+
+  return (
+    <Box paddingY={4}>
+      <form noValidate onSubmit={formik.handleSubmit}>
+        <FormInput label="Email" name={'email'} formik={formik} />
+        <SubmitBtn loading={formik.isSubmitting} disabled={formik.isSubmitting}>
+          Submit
+        </SubmitBtn>
+      </form>
+    </Box>
   );
 };
 
@@ -171,6 +209,7 @@ const Main = ({
   loading,
   allTeams,
   instanceUserWithRoles,
+  createTeamInvite,
 }) => {
   const { ZestyAPI } = useZestyStore((state) => state);
   const handleAddTeamToInstance = async (data) => {
@@ -196,6 +235,14 @@ const Main = ({
           allTeams={allTeams}
         />
       ),
+      showConfirmButton: false,
+    });
+  };
+
+  const handleAddTeamMemberModal = (data) => {
+    MySwal.fire({
+      title: 'Add Team Members',
+      html: <AddUserToTeamForm onSubmit={createTeamInvite} data={data} />,
       showConfirmButton: false,
     });
   };
@@ -307,6 +354,7 @@ const Main = ({
       </AccountsHeader>
       <Grid item xs={12}>
         <CustomTable
+          handleAddTeamMemberModal={handleAddTeamMemberModal}
           viewTeamMemberModals={viewTeamMemberModals}
           instanceUserWithRoles={instanceUserWithRoles}
           loading={loading}
