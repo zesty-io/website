@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import { Grid } from '@mui/material';
 import { CreateTicket, TicketsTable } from 'components/accounts/support';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
-import { AccountsHeader } from 'components/accounts';
+import { AccountsHeader, AccountsInput } from 'components/accounts';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export default function Support() {
   const router = useRouter();
   const { zuid } = router.query;
-  // const [search, setsearch] = useState('');
+  const [search, setsearch] = useState('');
   const [instance, setinstance] = useState(null);
 
   useEffect(() => {
@@ -21,25 +21,28 @@ export default function Support() {
     description: `Manage your Tickets`,
   };
 
+  const ticketsTableProps = {
+    instanceZUID: instance,
+    search,
+    setsearch,
+  };
+
   return (
     <InstanceContainer>
       <Grid container>
         <AccountsHeader {...headerProps}>
-          {/* <AccountsInput
-              search={search}
-              setsearch={setsearch}
-              placeholder=" Search users"
-              width={250}
-            /> */}
+          <AccountsInput
+            search={search}
+            setsearch={setsearch}
+            placeholder=" Search subjects, ticket #"
+            width={250}
+          />
           <CreateTicket instanceZUID={instance} />
         </AccountsHeader>
         <Grid item xs={12}>
-          <TicketsTable instanceZUID={instance} />
+          <TicketsTable {...ticketsTableProps} />
         </Grid>
       </Grid>
-      {/* <Typography variant="h4" mb={3} color="text.secondary">
-        User ZUID: {userInfo?.ZUID} User Email: {userInfo?.email}
-      </Typography> */}
     </InstanceContainer>
   );
 }
