@@ -179,6 +179,10 @@ export default function ticketItem() {
                     sx={{
                       p: 4,
                       borderRadius: 5,
+                      minHeight: 300,
+                      maxHeight: 700,
+                      overflowX: 'hidden',
+                      overflowY: 'auto',
                     }}
                   >
                     {loading &&
@@ -258,7 +262,7 @@ export default function ticketItem() {
 
                           return (
                             <Box key={item.threadId} sx={{ py: 1 }}>
-                              {false ? (
+                              {item.author.type === 'AGENT' ? (
                                 <Box
                                   sx={{
                                     display: 'flex',
@@ -268,7 +272,7 @@ export default function ticketItem() {
                                 >
                                   <ZestyImage
                                     alt={'author'}
-                                    src={`https://ui-avatars.com/api/?name=${item.author.firstName}+${item.author.lastName}&rounded=true&size=35`}
+                                    src={`https://ui-avatars.com/api/?name=${item?.author?.firstName}+${item?.author?.lastName}&rounded=true&size=35`}
                                   />
 
                                   <Stack>
@@ -286,7 +290,7 @@ export default function ticketItem() {
                                       variant={'p'}
                                       component="p"
                                       dangerouslySetInnerHTML={{
-                                        __html: item?.summary.slice(0, start),
+                                        __html: content,
                                       }}
                                     ></Typography>
                                   </Stack>
@@ -329,42 +333,43 @@ export default function ticketItem() {
                           );
                         })}
                     </Box>
+                  </Card>
 
-                    <Box
-                      sx={{
-                        mt: 2,
-                        py: 2,
-                      }}
-                    >
-                      <Box component="form">
-                        <TextareaAutosize
-                          minRows={3}
-                          aria-label="Message..."
-                          placeholder="Write your response...."
-                          style={{
-                            outline: 'none',
-                            width: '100%',
-                            border: 'none',
-                            padding: 15,
-                          }}
-                        />
+                  <Card
+                    sx={{
+                      p: 4,
+                      borderRadius: 5,
+                      mt: 2,
+                    }}
+                  >
+                    <Box component="form">
+                      <TextareaAutosize
+                        minRows={2}
+                        aria-label="Message..."
+                        placeholder="Write your response...."
+                        style={{
+                          outline: 'none',
+                          width: '100%',
+                          border: 'none',
+                          padding: 15,
+                        }}
+                      />
 
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                            alignItems: 'center',
-                            mt: 1,
-                          }}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'flex-end',
+                          alignItems: 'center',
+                          mt: 1,
+                        }}
+                      >
+                        <Button
+                          sx={{ px: 2 }}
+                          variant="contained"
+                          type="submit"
                         >
-                          <Button
-                            sx={{ px: 2 }}
-                            variant="contained"
-                            type="submit"
-                          >
-                            Send
-                          </Button>
-                        </Box>
+                          Send
+                        </Button>
                       </Box>
                     </Box>
                   </Card>
