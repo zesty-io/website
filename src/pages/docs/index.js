@@ -1,19 +1,10 @@
 import React from 'react';
-import Docs from './[...slug]';
-import { docsLookup } from 'components/docs/docsLookup';
+import { NewDocs } from 'views/NewDocs';
 
-function DocsIndex(content) {
-  const [loaded, setloaded] = React.useState(false);
-  React.useEffect(() => {
-    setloaded(true);
-  }, []);
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
-  return loaded && <Docs {...content} />;
-}
+const NewDocsPage = () => {
+  return <NewDocs />;
+};
 
-export default DocsIndex;
-
-// This gets called on every request
-export async function getServerSideProps(ctx) {
-  return docsLookup(ctx);
-}
+export default NewDocsPage;
