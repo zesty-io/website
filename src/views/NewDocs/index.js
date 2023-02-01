@@ -48,7 +48,6 @@ const FolderTreeView = ({ data = {}, header = '', onClick = () => {} }) => {
   const newData = data?.item || [];
 
   const handleClick = (item) => {
-    console.log(item, 555);
     onClick(item);
   };
 
@@ -138,11 +137,12 @@ const DocsTabs = ({ value, onChange, data = [] }) => {
     </Stack>
   );
 };
+
 const Main = () => {
   const [value, setValue] = React.useState('Instance API');
   const [treeData, settreeData] = React.useState(INSTANCE_DATA);
 
-  const handleChange = (_event, newValue) => {
+  const handleChange = (_, newValue) => {
     setValue(newValue);
 
     const getTreeData = (newValue) => {
