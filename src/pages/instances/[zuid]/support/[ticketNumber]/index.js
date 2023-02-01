@@ -234,21 +234,31 @@ export default function ticketItem() {
                       ))}
 
                     <Box>
-                      {ticket?.thread?.data
+                      {ticket?.threadContent
                         ?.slice(0)
                         .reverse()
                         .map((item) => {
-                          const start = item.summary.indexOf('----');
-                          const end = item.summary.indexOf('----', start + 1);
-                          const date = item?.summary?.match(
-                            /On\s[A-Za-z]{3},\s\d{2}\s[A-Za-z]{3}\s\d{4}\s\d{2}:\d{2}:\d{2}\s[+-]\d{4}/,
-                          );
+                          const start = item.content.indexOf('----');
+                          // const end = item.summary.indexOf('----', start + 1);
 
-                          console.log(date);
+                          // Regex to match with HTML Breaks
+                          const HTMLBreak = /<br\s*\/?>/gi;
+
+                          // Regex to match img path
+                          const IMAGESource = /src="(\/api.*?)"/g;
+
+                          // Grab only text contents and remove replies
+                          const content = item?.content
+                            .slice(0, start)
+                            .replace(HTMLBreak, '')
+                            .replace(
+                              IMAGESource,
+                              `src="https://desk.zoho.com$1"`,
+                            );
 
                           return (
-                            <Box key={item.id} sx={{ py: 1 }}>
-                              {item.author.type === 'AGENT' ? (
+                            <Box key={item.threadId} sx={{ py: 1 }}>
+                              {false ? (
                                 <Box
                                   sx={{
                                     display: 'flex',
@@ -279,17 +289,6 @@ export default function ticketItem() {
                                         __html: item?.summary.slice(0, start),
                                       }}
                                     ></Typography>
-
-                                    <Typography
-                                      component="p"
-                                      sx={{
-                                        fontSize: 10,
-                                      }}
-                                      variant={'p'}
-                                      dangerouslySetInnerHTML={{
-                                        __html: date,
-                                      }}
-                                    ></Typography>
                                   </Stack>
                                 </Box>
                               ) : (
@@ -314,25 +313,15 @@ export default function ticketItem() {
                                         borderBottomLeftRadius: 10,
                                       }}
                                       variant={'p'}
-                                      component="p"
                                       dangerouslySetInnerHTML={{
-                                        __html: item?.summary.slice(0, start),
-                                      }}
-                                    ></Typography>
-
-                                    <Typography
-                                      component="p"
-                                      sx={{ fontSize: 12 }}
-                                      variant={'p'}
-                                      dangerouslySetInnerHTML={{
-                                        __html: date,
+                                        __html: content,
                                       }}
                                     ></Typography>
                                   </Stack>
 
                                   <ZestyImage
                                     alt={'author'}
-                                    src={`https://ui-avatars.com/api/?name=${item.author.firstName}+${item.author.lastName}&rounded=true&size=35`}
+                                    src={`https://ui-avatars.com/api/?name=${item?.author?.firstName}+${item?.author?.lastName}&rounded=true&size=35`}
                                   />
                                 </Box>
                               )}
