@@ -1,10 +1,10 @@
 import React from 'react';
-import { NewDocs } from 'views/NewDocs';
+import { Docs } from 'views/Docs';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
-const NewDocsPage = () => {
-  return <NewDocs />;
+const DocsPage = () => {
+  return <Docs />;
 };
 
-export default NewDocsPage;
+export default DocsPage;

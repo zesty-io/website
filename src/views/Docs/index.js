@@ -143,6 +143,7 @@ const Main = () => {
   const [treeData, settreeData] = React.useState(INSTANCE_DATA);
 
   const handleChange = (_, newValue) => {
+    console.log(newValue, 44444);
     setValue(newValue);
 
     const getTreeData = (newValue) => {
@@ -181,4 +182,4 @@ const Main = () => {
   );
 };
 
-export const NewDocs = React.memo(Main);
+export const Docs = React.memo(Main);

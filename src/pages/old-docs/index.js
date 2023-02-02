@@ -1,5 +1,5 @@
 import React from 'react';
-import Docs from './[...slug]';
+import OldDocs from './[...slug]';
 import { docsLookup } from 'components/docs/docsLookup';
 
 function DocsIndex(content) {
@@ -8,7 +8,7 @@ function DocsIndex(content) {
     setloaded(true);
   }, []);
 
-  return loaded && <Docs {...content} />;
+  return loaded && <OldDocs {...content} />;
 }
 
 export default DocsIndex;
