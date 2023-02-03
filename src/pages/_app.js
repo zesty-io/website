@@ -14,6 +14,8 @@ import { SnackbarProvider } from 'notistack';
 import Head from 'next/head';
 import AuthProvider from 'components/context/AuthProvider';
 
+import '/public/styles/app.css';
+
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
   console.error = () => {};

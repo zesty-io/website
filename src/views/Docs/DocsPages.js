@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
 
 const CodeBlock = dynamic(() =>
-  import('./CodeBlock', { loading: () => 'loading....' }).then(
+  import('./CodeBlock', { loading: () => <>loading </> }).then(
     (mod) => mod.CodeBlock,
   ),
 );
@@ -68,7 +68,7 @@ const Main = ({ data }) => {
             <Typography variant="body1" fontWeight={'400'}>
               {e?.description}
             </Typography>
-            <b>{<ShowPage data={e.item} />}</b>
+            <b>{<DocsPages data={e.item} />}</b>
           </Stack>
         );
       } else {
@@ -99,4 +99,4 @@ const Main = ({ data }) => {
     });
   return <Stack ref={ref}>{result}</Stack>;
 };
-export const ShowPage = React.memo(Main);
+export const DocsPages = React.memo(Main);

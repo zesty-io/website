@@ -53,10 +53,16 @@ const GetTree = ({ data = [], handleClick = () => {} }) => {
 const Main = ({ data = {}, header = '' }) => {
   const handleClick = (item) => {
     //this will scroll to id
+
+    // const element = document.getElementById(item?.name);
+    // const y = element.getBoundingClientRect().top + window.pageYOffset + 2000;
+
+    // window.scrollTo({ top: y, behavior: 'smooth' });
+
     document.getElementById(item?.name)?.scrollIntoView({
       behavior: 'smooth',
-      block: 'center',
-      inline: 'nearest',
+      // block: 'start',
+      // inline: 'nearest',
     });
   };
 

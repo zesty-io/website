@@ -1,18 +1,30 @@
-import MainWrapper from 'layouts/Main';
 import React from 'react';
+import MainWrapper from 'layouts/Main';
+import dynamic from 'next/dynamic';
 import Fuse from 'fuse.js';
 import { Stack, useScrollTrigger } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
-
-import { ShowPage } from './ShowPage';
-import { FolderTreeView } from './FolderTreeView';
 import { grey } from '@mui/material/colors';
-import { DocsComboBox } from './DocsComboBox';
-import { SearchComponent } from './SearchComponent';
 
 import INSTANCE_DATA from './instance.data.json';
 import ACCOUNTS_DATA from './accounts.data.json';
 import AUTH_DATA from './auth.data.json';
+
+const DocsComboBox = dynamic(() =>
+  import('./DocsComboBox').then((mod) => mod.DocsComboBox),
+);
+
+const SearchComponent = dynamic(() =>
+  import('./SearchComponent').then((mod) => mod.SearchComponent),
+);
+
+const FolderTreeView = dynamic(() =>
+  import('./FolderTreeView').then((mod) => mod.FolderTreeView),
+);
+
+const DocsPages = dynamic(() =>
+  import('./DocsPages').then((mod) => mod.DocsPages),
+);
 
 const options = {
   includeScore: true,
@@ -75,7 +87,7 @@ const LeftNav = React.memo(
 const DocsView = React.memo(({ data = [] }) => {
   return (
     <Stack width={1} pl={54} pr={4}>
-      <ShowPage data={data} />
+      <DocsPages data={data} />
     </Stack>
   );
 });
