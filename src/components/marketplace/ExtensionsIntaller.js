@@ -21,7 +21,7 @@ const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
   let ZestyAPI = useZestyStore((state) => state.ZestyAPI);
   const url = isProd
     ? accounts.templateUrl
-    : 'https://installer-m3rbwjxm5q-uc.a.run.app';
+    : 'https://templating.api.dev.zesty.io';
   const appSID = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
 
   const getInstanceRaw = async () => {
@@ -51,16 +51,22 @@ const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
     const res = await ZestyAPI.getModels();
     let obj = { 0: 'Root' };
     !res.error &&
-      res.data.forEach((item) => {
-        obj[item.ZUID] = item.label;
-      });
+      res.data
+        .filter((item) => item.type !== 'dataset')
+        .forEach((item) => {
+          obj[item.ZUID] = item.label;
+        });
     return obj;
   };
   const getInstances = async () => {
     let obj = {};
-    instances.data.forEach((instance) => {
-      obj[instance.ZUID] = instance.name;
-    });
+    instances.data
+      .sort((a, b) => {
+        return a.name > b.name ? 1 : b.name > a.name ? -1 : 0;
+      })
+      .forEach((instance) => {
+        obj[instance.ZUID] = instance.name;
+      });
     return obj;
   };
 
