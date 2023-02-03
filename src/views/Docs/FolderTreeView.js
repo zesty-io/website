@@ -1,30 +1,12 @@
-import { Link, Stack, TextField, Typography } from '@mui/material';
+import { Link, Stack, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-import Fuse from 'fuse.js';
 import { TreeItem, TreeView } from '@mui/lab';
 import React from 'react';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
-const options = {
-  includeScore: true,
-  useExtendedSearch: true,
-  includeMatches: true,
-  ignoreLocation: true,
-  findAllMatches: true,
-  threshold: 0,
-  isCaseSensitive: false,
-  minMatchCharLength: 1,
-  keys: ['name', 'item.name', 'item.item.name'],
-};
-
 const Main = ({ data = {}, header = '' }) => {
-  const [search, setsearch] = React.useState('');
-  const newData = data?.item || [];
-
   const handleClick = (item) => {
-    console.log(item, 444);
-
     //this will scroll to id
     document.getElementById(item?.name)?.scrollIntoView({
       behavior: 'smooth',
@@ -78,15 +60,6 @@ const Main = ({ data = {}, header = '' }) => {
     return result;
   };
 
-  const fuse = new Fuse(newData, options);
-  const searchResult = fuse.search(search || '');
-  const treeData =
-    searchResult.length !== 0 && search.length !== 0
-      ? searchResult[0].item.item
-      : searchResult.length === 0 && search.length === 0
-      ? newData
-      : [];
-
   return (
     <Stack
       width={1}
@@ -96,16 +69,6 @@ const Main = ({ data = {}, header = '' }) => {
         overflowX: 'hidden',
       }}
     >
-      <Stack px={4} py={2}>
-        <TextField
-          id="outlined-basic"
-          label="Search"
-          variant="outlined"
-          value={search}
-          onChange={(e) => setsearch(e.currentTarget.value)}
-        />
-      </Stack>
-
       <Typography variant="h5">{header}</Typography>
       <Stack pl={2}>
         <TreeView
@@ -122,7 +85,7 @@ const Main = ({ data = {}, header = '' }) => {
             overflowY: 'auto',
           }}
         >
-          {getTree(treeData)}
+          {getTree(data)}
         </TreeView>
       </Stack>
     </Stack>

@@ -1,15 +1,30 @@
 import MainWrapper from 'layouts/Main';
 import React from 'react';
+import Fuse from 'fuse.js';
 import { Stack, useScrollTrigger } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
-import INSTANCE_DATA from './instance.data.json';
-import ACCOUNTS_DATA from './accounts.data.json';
-import AUTH_DATA from './auth.data.json';
 import { ShowPage } from './ShowPage';
 import { FolderTreeView } from './FolderTreeView';
 import { grey } from '@mui/material/colors';
 import { DocsComboBox } from './DocsComboBox';
+import { SearchComponent } from './SearchComponent';
+
+import INSTANCE_DATA from './instance.data.json';
+import ACCOUNTS_DATA from './accounts.data.json';
+import AUTH_DATA from './auth.data.json';
+
+const options = {
+  includeScore: true,
+  useExtendedSearch: true,
+  includeMatches: true,
+  ignoreLocation: true,
+  findAllMatches: true,
+  threshold: 0,
+  isCaseSensitive: false,
+  minMatchCharLength: 1,
+  keys: ['name', 'item.name', 'item.item.name'],
+};
 
 const DOCS_DATA = [
   {
@@ -30,9 +45,44 @@ const title = 'Docs page';
 const description = 'Docs page';
 const ogimage = 'Docs page';
 
+const LeftNav = React.memo(
+  ({ trigger, handleChange, setsearch, search, newTreeData }) => {
+    return (
+      <Stack
+        sx={{
+          position: 'fixed',
+          top: trigger ? '8rem' : '8rem',
+          bgcolor: '#fff',
+          height: '100%',
+          borderRight: `1px solid ${grey[200]}`,
+          width: '20vw',
+        }}
+      >
+        <Stack px={4} spacing={2} py={3}>
+          <DocsComboBox onChange={handleChange} options={DOCS_DATA} />
+          <SearchComponent search={search} onChange={setsearch} />
+        </Stack>
+        <FolderTreeView
+          data={newTreeData}
+          search={search}
+          setsearch={setsearch}
+        />
+      </Stack>
+    );
+  },
+);
+
+const DocsView = React.memo(({ data = [] }) => {
+  return (
+    <Stack width={1} pl={54} pr={4}>
+      <ShowPage data={data} />
+    </Stack>
+  );
+});
+
 const Main = () => {
+  const [search, setsearch] = React.useState('');
   const [treeData, settreeData] = React.useState(INSTANCE_DATA);
-  const [limitter, setlimitter] = React.useState(3);
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
@@ -48,39 +98,36 @@ const Main = () => {
     }
   };
 
-  React.useEffect(() => {
-    setlimitter(10);
-  }, [trigger]);
+  const fuse = new Fuse(treeData.item, options);
+  const searchResult = fuse.search(search || '');
+  const newTreeData =
+    searchResult.length !== 0 && search.length !== 0
+      ? searchResult[0].item.item
+      : searchResult.length === 0 && search.length === 0
+      ? treeData.item
+      : [];
 
-  React.useEffect(() => {
-    console.log(limitter, trigger, 444);
-  }, [limitter, trigger]);
+  const pageHeaderProps = {
+    title,
+    description,
+    ogimage,
+  };
+  const leftNavProps = {
+    trigger,
+    handleChange,
+    setsearch,
+    search,
+    newTreeData,
+  };
+
   return (
     <MainWrapper customRouting={[]}>
-      <ZestyAccountsHead
-        title={title}
-        description={description}
-        ogimage={ogimage}
-      />
-
-      <Stack position={'relative'}>
-        <Stack
-          sx={{
-            pt: 2,
-            position: 'fixed',
-            top: trigger ? '4.5rem' : '7rem',
-            bgcolor: '#fff',
-            height: '100%',
-            borderRight: `1px solid ${grey[200]}`,
-          }}
-        >
-          <DocsComboBox onChange={handleChange} options={DOCS_DATA} />
-          <FolderTreeView data={treeData} header="" />
-        </Stack>
-        <Stack width={1} pl={54} pr={4}>
-          <ShowPage data={treeData.item} />
-        </Stack>
-      </Stack>
+      {/* page header  */}
+      <ZestyAccountsHead {...pageHeaderProps} />
+      {/* left navigation tree */}
+      <LeftNav {...leftNavProps} />
+      {/* main docs view page  */}
+      <DocsView data={treeData.item} />
     </MainWrapper>
   );
 };

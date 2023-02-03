@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { Stack } from '@mui/material';
 
 const Main = ({ options, onChange }) => {
   const handleChange = (_, newValue) => {
@@ -8,14 +9,18 @@ const Main = ({ options, onChange }) => {
   };
 
   return (
-    <Autocomplete
-      disablePortal
-      onChange={handleChange}
-      id="combo-box-demo"
-      options={options}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Docs" />}
-    />
+    <Stack width={1}>
+      <Autocomplete
+        disablePortal
+        onChange={handleChange}
+        id="combo-box-demo"
+        options={options}
+        sx={{ width: '100%' }}
+        renderInput={(params) => (
+          <TextField {...params} label="Docs" color="secondary" />
+        )}
+      />
+    </Stack>
   );
 };
 
