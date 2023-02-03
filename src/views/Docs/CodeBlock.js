@@ -4,12 +4,7 @@ import { Stack, Typography } from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-const Main = ({
-  title = 'no title',
-  className = 'lang-js',
-  children,
-  lang = 'JavaScript',
-}) => {
+const Main = ({ title = 'no title', children, lang = 'JavaScript' }) => {
   return (
     <Stack
       className=""

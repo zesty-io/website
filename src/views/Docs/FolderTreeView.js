@@ -5,6 +5,51 @@ import React from 'react';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
+const GetTree = ({ data = [], handleClick = () => {} }) => {
+  const result = Array.isArray(data)
+    ? data.map((e) => {
+        if (Array.isArray(e.item)) {
+          const res = e.item.map((x) => {
+            return { ...x, scroll: true };
+          });
+          return (
+            <TreeItem
+              nodeId={uuidv4()}
+              label={<Typography py={1}>{e.name}</Typography>}
+              onClick={() => handleClick(e)}
+            >
+              <GetTree data={res} handleClick={handleClick} />
+            </TreeItem>
+          );
+        } else {
+          return (
+            <TreeItem
+              nodeId={uuidv4()}
+              label={
+                <Link
+                  href={`#${e.name}`}
+                  variant="p"
+                  color={'inherit'}
+                  sx={{
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Typography py={1}>{e.name}</Typography>
+                </Link>
+              }
+              onClick={() => handleClick(e)}
+              sx={{
+                whiteSpace: 'nowrap',
+              }}
+            ></TreeItem>
+          );
+        }
+      })
+    : console.error('Not array');
+
+  return result;
+};
+
 const Main = ({ data = {}, header = '' }) => {
   const handleClick = (item) => {
     //this will scroll to id
@@ -13,51 +58,6 @@ const Main = ({ data = {}, header = '' }) => {
       block: 'center',
       inline: 'nearest',
     });
-  };
-
-  const getTree = (data = []) => {
-    const result = Array.isArray(data)
-      ? data.map((e) => {
-          if (Array.isArray(e.item)) {
-            const res = e.item.map((x) => {
-              return { ...x, scroll: true };
-            });
-            return (
-              <TreeItem
-                nodeId={uuidv4()}
-                label={<Typography py={1}>{e.name}</Typography>}
-                onClick={() => handleClick(e)}
-              >
-                {getTree(res)}
-              </TreeItem>
-            );
-          } else {
-            return (
-              <TreeItem
-                nodeId={uuidv4()}
-                label={
-                  <Link
-                    href={`#${e.name}`}
-                    variant="p"
-                    color={'inherit'}
-                    sx={{
-                      textDecoration: 'none',
-                    }}
-                  >
-                    <Typography py={1}>{e.name}</Typography>
-                  </Link>
-                }
-                onClick={() => handleClick(e)}
-                sx={{
-                  whiteSpace: 'nowrap',
-                }}
-              ></TreeItem>
-            );
-          }
-        })
-      : console.error('Not array');
-
-    return result;
   };
 
   return (
@@ -85,7 +85,7 @@ const Main = ({ data = {}, header = '' }) => {
             overflowY: 'auto',
           }}
         >
-          {getTree(data)}
+          <GetTree data={data} handleClick={handleClick} />
         </TreeView>
       </Stack>
     </Stack>

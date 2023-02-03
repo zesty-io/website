@@ -46,7 +46,7 @@ const description = 'Docs page';
 const ogimage = 'Docs page';
 
 const LeftNav = React.memo(
-  ({ trigger, handleChange, setsearch, search, newTreeData }) => {
+  ({ trigger, onChangeDropdown, setsearch, search, newTreeData }) => {
     return (
       <Stack
         sx={{
@@ -59,7 +59,7 @@ const LeftNav = React.memo(
         }}
       >
         <Stack px={4} spacing={2} py={3}>
-          <DocsComboBox onChange={handleChange} options={DOCS_DATA} />
+          <DocsComboBox onChange={onChangeDropdown} options={DOCS_DATA} />
           <SearchComponent search={search} onChange={setsearch} />
         </Stack>
         <FolderTreeView
@@ -89,7 +89,7 @@ const Main = () => {
     threshold: 5,
   });
 
-  const handleChange = (data) => {
+  const onChangeDropdown = (data) => {
     window.scrollTo(0, 0);
     if (data?.value) {
       settreeData(data?.value);
@@ -114,7 +114,7 @@ const Main = () => {
   };
   const leftNavProps = {
     trigger,
-    handleChange,
+    onChangeDropdown,
     setsearch,
     search,
     newTreeData,
