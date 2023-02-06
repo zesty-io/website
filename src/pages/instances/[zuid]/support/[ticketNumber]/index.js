@@ -263,6 +263,17 @@ export default function ticketItem() {
                               `src="https://desk.zoho.com$1"`,
                             );
 
+                          const options = {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          };
+                          const date = new Date(Date.parse(item.createdTime));
+                          const responseDate = `${date.toLocaleDateString(
+                            'en-US',
+                            options,
+                          )}  ${date.toLocaleTimeString()}`;
+
                           return (
                             <Box key={item.threadId} sx={{ py: 1 }}>
                               {item.author.type === 'AGENT' ? (
@@ -296,17 +307,30 @@ export default function ticketItem() {
                                         __html: content,
                                       }}
                                     ></Typography>
-                                    <Typography
-                                      variant="caption1"
-                                      sx={{
-                                        color: theme.palette.zesty.zestyGrey,
-                                        fontSize: 12,
-                                        mt: 0.5,
-                                      }}
-                                    >
-                                      {item?.author?.firstName}{' '}
-                                      {item?.author?.lastName}
-                                    </Typography>
+                                    <Box sx={{ display: 'flex', gap: 1 }}>
+                                      <Typography
+                                        variant="caption1"
+                                        sx={{
+                                          color: theme.palette.zesty.zestyGrey,
+                                          fontSize: 12,
+                                          mt: 0.5,
+                                        }}
+                                      >
+                                        {item?.author?.firstName}{' '}
+                                        {item?.author?.lastName}
+                                      </Typography>
+
+                                      <Typography
+                                        variant="caption1"
+                                        sx={{
+                                          color: theme.palette.zesty.zestyGrey,
+                                          fontSize: 12,
+                                          mt: 0.5,
+                                        }}
+                                      >
+                                        {responseDate}
+                                      </Typography>
+                                    </Box>
                                   </Stack>
                                 </Box>
                               ) : (
