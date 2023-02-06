@@ -10,7 +10,7 @@ export async function docsLookup(ctx) {
   // split url
   data.urlPath = ctx.resolvedUrl;
 
-  if (data.urlPath !== '/docs/') {
+  if (data.urlPath !== '/old-docs/') {
     // remove /docs/, the trailing foward slash, and  and make new string with .md reference
     markdownFilePath = data.urlPath.replace('/docs/', '').replace(/\/$/, '.md');
     markdownFilePathREADME = data.urlPath
