@@ -18,6 +18,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 export default function ticketItem() {
   const theme = useTheme();
@@ -174,7 +175,7 @@ export default function ticketItem() {
 
             <Box sx={{ mt: 5 }}>
               <Grid container spacing={2}>
-                <Grid item sx={12} md={8}>
+                <Grid item xs={12}>
                   <Card
                     sx={{
                       p: 4,
@@ -206,8 +207,9 @@ export default function ticketItem() {
                                   borderTopLeftRadius: 10,
                                   borderTopRightRadius: 10,
                                   borderBottomLeftRadius: 10,
+                                  width: '100%',
+                                  maxWidth: 700,
                                 }}
-                                width={400}
                               />
                               <Skeleton
                                 variant="circular"
@@ -229,8 +231,9 @@ export default function ticketItem() {
                                   borderTopLeftRadius: 10,
                                   borderTopRightRadius: 10,
                                   borderBottomRightRadius: 10,
+                                  width: '100%',
+                                  maxWidth: 700,
                                 }}
-                                width={400}
                               />
                             </>
                           )}
@@ -293,6 +296,17 @@ export default function ticketItem() {
                                         __html: content,
                                       }}
                                     ></Typography>
+                                    <Typography
+                                      variant="caption1"
+                                      sx={{
+                                        color: theme.palette.zesty.zestyGrey,
+                                        fontSize: 12,
+                                        mt: 0.5,
+                                      }}
+                                    >
+                                      {item?.author?.firstName}{' '}
+                                      {item?.author?.lastName}
+                                    </Typography>
                                   </Stack>
                                 </Box>
                               ) : (
@@ -361,8 +375,10 @@ export default function ticketItem() {
                           justifyContent: 'flex-end',
                           alignItems: 'center',
                           mt: 1,
+                          gap: 1,
                         }}
                       >
+                        <AttachFileIcon sx={{ cursor: 'pointer' }} />
                         <Button
                           sx={{ px: 2 }}
                           variant="contained"
@@ -374,9 +390,9 @@ export default function ticketItem() {
                     </Box>
                   </Card>
                 </Grid>
-                <Grid item sx={12} md={4}>
+                {/* <Grid item sx={12} md={4}>
                   <Card variant="outlined">test</Card>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Box>
           </Card>
