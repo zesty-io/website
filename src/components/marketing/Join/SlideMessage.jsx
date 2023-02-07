@@ -227,7 +227,7 @@ export const SlideMessage = ({
                     fontWeight={'bold'}
                     sx={{ mb: 2 }}
                   >
-                    Start with single sign-on
+                    Build on Zesty for Free
                     {/* Create your free account */}
                   </Typography>
 
@@ -383,14 +383,14 @@ const CustomForm = ({ onSubmit = () => {} }) => {
         />
       </Stack>
       <Stack alignItems={'center'}>
-        <Stack width={'10rem'}>
+        <Stack width={'14rem'}>
           <LoadingButton
             type="submit"
             variant="contained"
             color="secondary"
             loading={formik.isSubmitting}
           >
-            <Typography variant="body1">Create Account</Typography>
+            <Typography variant="body1">Get Started for Free</Typography>
           </LoadingButton>
         </Stack>
       </Stack>
