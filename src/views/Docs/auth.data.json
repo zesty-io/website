@@ -1,0 +1,376 @@
+{
+  "info": {
+    "_postman_id": "a2e82fb7-4cfe-4be3-9707-ffe80ab25990",
+    "name": "Authentication API",
+    "description": "Auth API is used to authenticate users with Zesty.io, which returns a token that grants to access  services like Instances API, Accounts API, and Media API. Auth was setup as a stand alone service so it can connect to many services in our infrastructure. \n\nPermissions are managed at the service level, for example, to manage permissions on instances, you would use the [Accounts API](https://accounts-api.zesty.io) to do so",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25492819"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "pm.environment.set(\"APP_SID\", jsonData.meta.token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "email",
+              "value": "{{useremail}}",
+              "description": "User account email address",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "{{userpassword}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://auth.api.zesty.io/login",
+          "protocol": "https",
+          "host": ["auth", "api", "zesty", "io"],
+          "path": ["login"],
+          "query": [
+            {
+              "key": "email",
+              "value": "",
+              "disabled": true
+            },
+            {
+              "key": "password",
+              "value": "",
+              "disabled": true
+            }
+          ]
+        },
+        "description": "Log-in by authenticating a user with a user email and password. Five (5) failed login attempts will prevent login for 5 minutues."
+      },
+      "response": [
+        {
+          "name": "Login",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/x-www-form-urlencoded",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "{{useremail}}",
+                  "description": "typically the user's email address",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "{{userpassword}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://auth.api.zesty.io/login",
+              "protocol": "https",
+              "host": ["auth", "api", "zesty", "io"],
+              "path": ["login"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "APP_SID=fbd14e83d047f68e1a2be0a77b8097661c48f4d5; Domain=.zesty.io; Path=/; Secure"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "214"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"d6-okNZQ0QY6DjxvgkZYLjAEIkIBLo\""
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 10 Sep 2019 17:16:13 GMT"
+            },
+            {
+              "key": "Via",
+              "value": "1.1 google"
+            },
+            {
+              "key": "Alt-Svc",
+              "value": "clear"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Logged in successfully.\",\n    \"status\": \"OK\",\n    \"data\": {\n        \"data\": \"zyxzyxzyzxzyxzxyzxzyxzyx\"\n    },\n    \"meta\": {\n        \"userZuid\": \"5-xyzxyz-xy4zxy4z\",\n        \"token\": \"xyxyxyxyxyxxyxyxxyxyxxyxy\"\n    },\n    \"code\": 200\n}"
+        }
+      ]
+    },
+    {
+      "name": "Two Factor Authentication (2FA)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{APP_SID}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "token",
+              "value": "{{mfaToken}}",
+              "description": "the two factor token you get from Authy",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://auth.api.zesty.io/verify-2fa",
+          "protocol": "https",
+          "host": ["auth", "api", "zesty", "io"],
+          "path": ["verify-2fa"]
+        },
+        "description": "Two Factor Authentication (2FA) provides an additional layer of security. 2FA involves issuing a [One Time Password (OTP)](https://www.twilio.com/docs/authy/api/one-time-passwords).\n\nWith 2FA logging in means both the user credentials and access to a physical device which will issue a OTP is required. We use [authy.com](https://authy.com/) for handling 2FA and issuing OTP.\n\nAfter a standard login with user credentials entering a OTP will be required. This can also be done manually via the Authy app or their [OneTouch](https://www.twilio.com/authy/features/push) feature. Once a valid OTP is provide login will finish and  application access will be granted.\n"
+      },
+      "response": [
+        {
+          "name": "Two Factor Authentication",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "APP_SID cookie session value",
+                "key": "Authorization",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "Bearer {{session_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "token",
+                  "value": "{{mfaToken}}",
+                  "description": "the two factor token you get from Authy",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://auth.api.zesty.io/verify-2fa",
+              "protocol": "https",
+              "host": ["auth", "api", "zesty", "io"],
+              "path": ["verify-2fa"]
+            }
+          },
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Verify",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{APP_SID}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://auth.api.zesty.io/verify",
+          "protocol": "https",
+          "host": ["auth", "api", "zesty", "io"],
+          "path": ["verify"]
+        },
+        "description": "Applications can use this API to periodically verify a session token is still valid. \n\nTokens expire 20 minutes from last login or API usage. Everytime verify or an API call is run the session extends 20 minutes."
+      },
+      "response": [
+        {
+          "name": "Verify",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{session_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://auth.api.zesty.io/verify",
+              "protocol": "https",
+              "host": ["auth", "api", "zesty", "io"],
+              "path": ["verify"]
+            }
+          },
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": "{\n    \"message\": \"Session valid\",\n    \"status\": \"OK\",\n    \"data\": 1234456,\n    \"meta\": {\n        \"userZuid\": \"5-xyz-xy4zxy3z\"\n    },\n    \"code\": 200\n}"
+        }
+      ]
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{APP_SID}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://auth.api.zesty.io/logout",
+          "protocol": "https",
+          "host": ["auth", "api", "zesty", "io"],
+          "path": ["logout"]
+        },
+        "description": "Sending a session token to this API will invalidate the provided token."
+      },
+      "response": [
+        {
+          "name": "Logout",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{session_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://auth.api.zesty.io/logout",
+              "protocol": "https",
+              "host": ["auth", "api", "zesty", "io"],
+              "path": ["logout"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "DEV_APP_SID=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "49"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"31-AQH2haVUtdERLKUKWvJ/eEguS7k\""
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 10 Sep 2019 18:42:52 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"\",\n    \"status\": \"OK\",\n    \"meta\": {},\n    \"code\": 200\n}"
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ]
+}

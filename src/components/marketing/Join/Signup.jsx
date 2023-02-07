@@ -1,14 +1,12 @@
 import * as React from 'react';
 import {
   Container,
-  Stack,
   Grid,
   OutlinedInput,
   FormHelperText,
   IconButton,
   Button,
   InputLabel,
-  FilledInput,
   InputAdornment,
   Box,
   TextField,
@@ -176,8 +174,8 @@ export const Signup = ({
               {message}
             </Typography>
             <Typography variant="p">
-              You'll need to create a Zesty account. We don't sell or giveaway
-              your information.
+              {`You'll need to create a Zesty account. We don't sell or giveaway
+              your information.`}
             </Typography>
           </Box>
           <Box component="form" noValidate autoComplete="off" paddingX={15}>
