@@ -21,7 +21,7 @@ import { getIsAuthenticated } from 'utils';
 const firstMessage = (
   <Box paddingY={4}>
     <Typography variant="h4" gutterBottom>
-      A Powerfull Free CMS
+      A Powerful, Free CMS
     </Typography>
     <Typography variant="h6">
       Build websites and headless applications with Zesty.io
