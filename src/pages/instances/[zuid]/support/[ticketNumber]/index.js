@@ -19,6 +19,7 @@ import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { getCookie } from 'cookies-next';
 
 export default function ticketItem() {
   const theme = useTheme();
@@ -35,9 +36,13 @@ export default function ticketItem() {
     setTicket([]);
     setLoading(true);
     const ticket = await fetch(
-      'https://support-m3rbwjxm5q-uc.a.run.app/?ticketID=' + ticketID,
+      'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/' +
+        ticketID,
       {
         method: 'GET',
+        headers: {
+          authorization: `Bearer ${getCookie('APP_SID')} `,
+        },
       },
     )
       .then((currentTicket) => currentTicket.json())
@@ -49,7 +54,6 @@ export default function ticketItem() {
       });
   };
   const handleGetInstanceSuccess = (res) => {
-    console.log(res, 'succ upp');
     setinstance(res.data);
   };
   const handleGetInstanceErr = (res) => {
