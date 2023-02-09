@@ -60,7 +60,7 @@ const Main = ({ data }) => {
     data.map((e) => {
       if (Array.isArray(e.item)) {
         return (
-          <Stack bgcolor={'#fff'} py={4}>
+          <Stack py={4}>
             <Typography variant="h4" fontWeight={'800'} id={e.name} pb={2}>
               {e.name}
             </Typography>
@@ -73,13 +73,7 @@ const Main = ({ data }) => {
         );
       } else {
         return (
-          <Grid
-            container
-            bgcolor={'#fff'}
-            direction="row"
-            py={2}
-            minHeight={'30vh'}
-          >
+          <Grid container direction="row" py={2} minHeight={'55vh'}>
             <Grid item xs={6} width={1}>
               <Stack direction={'row'} alignItems="center">
                 {iconMethod(e.request.method)}
@@ -89,14 +83,16 @@ const Main = ({ data }) => {
               </Stack>
             </Grid>
             <Grid item xs={6} width={1}>
-              {inView && (
-                <CodeBlock title={e.name}>{e.request.url.raw}</CodeBlock>
-              )}
+              {inView && <CodeBlock title={e.name} data={e} />}
             </Grid>
           </Grid>
         );
       }
     });
-  return <Stack ref={ref}>{result}</Stack>;
+  return (
+    <Stack ref={ref} bgcolor="#fff">
+      {result}
+    </Stack>
+  );
 };
 export const DocsPages = React.memo(Main);
