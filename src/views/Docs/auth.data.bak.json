@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "3e462c09-4dca-4400-a45a-b7beb2fbaaac",
+    "_postman_id": "a2e82fb7-4cfe-4be3-9707-ffe80ab25990",
     "name": "Authentication API",
     "description": "Auth API is used to authenticate users with Zesty.io, which returns a token that grants to access  services like Instances API, Accounts API, and Media API. Auth was setup as a stand alone service so it can connect to many services in our infrastructure. \n\nPermissions are managed at the service level, for example, to manage permissions on instances, you would use the [Accounts API](https://accounts-api.zesty.io) to do so",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -36,14 +36,13 @@
           "formdata": [
             {
               "key": "email",
-              "value": "{{user_email}}",
+              "value": "{{useremail}}",
               "description": "User account email address",
               "type": "text"
             },
             {
               "key": "password",
-              "value": "{{user_password}}",
-              "description": "User account password",
+              "value": "{{userpassword}}",
               "type": "text"
             }
           ]
@@ -66,7 +65,7 @@
             }
           ]
         },
-        "description": "Log-in by authenticating a user with a user email and password. Five (5) failed login attempts will prevent login for 5 minutes."
+        "description": "Log-in by authenticating a user with a user email and password. Five (5) failed login attempts will prevent login for 5 minutues."
       },
       "response": [
         {
@@ -76,6 +75,8 @@
             "header": [
               {
                 "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
                 "value": "application/x-www-form-urlencoded",
                 "disabled": true
               }
@@ -85,14 +86,13 @@
               "formdata": [
                 {
                   "key": "email",
-                  "value": "{{user_email}}",
-                  "description": "User account email address",
+                  "value": "{{useremail}}",
+                  "description": "typically the user's email address",
                   "type": "text"
                 },
                 {
                   "key": "password",
-                  "value": "{{user_password}}",
-                  "description": "User account password",
+                  "value": "{{userpassword}}",
                   "type": "text"
                 }
               ]
@@ -191,9 +191,11 @@
             "method": "GET",
             "header": [
               {
+                "description": "APP_SID cookie session value",
                 "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "description": "APP_SID cookie session value"
+                "name": "Content-Type",
+                "type": "text",
+                "value": "Bearer {{session_token}}"
               }
             ],
             "body": {
@@ -202,7 +204,7 @@
                 {
                   "key": "token",
                   "value": "{{mfaToken}}",
-                  "description": "This is the token generated from Authy app",
+                  "description": "the two factor token you get from Authy",
                   "type": "text"
                 }
               ]
@@ -252,7 +254,8 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer {{token}}"
+                "value": "Bearer {{session_token}}",
+                "type": "text"
               }
             ],
             "url": {
@@ -300,7 +303,8 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer {{token}}"
+                "value": "Bearer {{session_token}}",
+                "type": "text"
               }
             ],
             "url": {
@@ -353,16 +357,6 @@
       ]
     }
   ],
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{token}}",
-        "type": "string"
-      }
-    ]
-  },
   "event": [
     {
       "listen": "prerequest",
