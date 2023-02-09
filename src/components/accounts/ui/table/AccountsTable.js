@@ -31,6 +31,7 @@ const Index = ({
   NoData = NoRowsOverlay,
   showTable = true,
   hasGridToolbar = false,
+  sortModel = [],
 }) => {
   return (
     <Box
@@ -80,6 +81,7 @@ const Index = ({
           NoRowsOverlay: NoData,
           Toolbar: hasGridToolbar && GridToolbar,
         }}
+        // sortModel={sortModel}
         componentsProps={{
           toolbar: {
             printOptions: { disableToolbarButton: true },

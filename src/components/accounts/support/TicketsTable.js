@@ -1,41 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Button, Typography, Stack } from '@mui/material';
-import { useRouter } from 'next/router';
 import { AccountsTable, AccountsTableHead } from 'components/accounts';
+import { useRouter } from 'next/router';
 
-const TicketsTable = ({ search, setsearch }) => {
+const TicketsTable = ({ setsearch, filteredTicket, isLoading }) => {
   const router = useRouter();
-  const { zuid } = router.query;
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [instanceTickets, setTickets] = useState([]);
-
-  const filteredTicket = instanceTickets.filter(
-    (e) =>
-      e.subject.toLowerCase().includes(search.toLowerCase()) ||
-      e.ticketNumber.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  const fetchTickets = async () => {
-    setTickets([]);
-    await fetch('https://support-m3rbwjxm5q-uc.a.run.app/?instance=' + zuid, {
-      method: 'GET',
-    })
-      .then((tickets) => tickets.json())
-      .then((tickets) => {
-        const allTickets = tickets.data?.map((t) => ({
-          ...t,
-          number: t.ticketNumber,
-        }));
-        setTickets(allTickets);
-        setIsLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    fetchTickets();
-  }, []);
 
   const CustomTable = ({ data = [], loading }) => {
     const ROWS = data?.map((e) => {
@@ -130,6 +99,12 @@ const TicketsTable = ({ search, setsearch }) => {
         pageSize={100}
         autoHeight={false}
         hasGridToolbar={true}
+        // sortModel={[
+        //   {
+        //     field: 'ticketNumber',
+        //     sort: 'desc',
+        //   },
+        // ]}
       />
     );
   };

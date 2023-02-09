@@ -1,5 +1,4 @@
-import { React } from 'react';
-import {} from 'next/router';
+import React from 'react';
 import { useZestyStore } from 'store';
 
 import { Box, Button, Typography } from '@mui/material';
@@ -9,6 +8,8 @@ import withReactContent from 'sweetalert2-react-content';
 import AddIcon from '@mui/icons-material/Add';
 import { accountsValidations, FormInput, SubmitBtn } from 'components/accounts';
 import { useFormik } from 'formik';
+import { ErrorMsg, SuccessMsg } from 'components/accounts';
+import { getCookie } from 'cookies-next';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -17,12 +18,12 @@ const MySwal = withReactContent(Swal);
 const CustomForm = ({ onSubmit, instanceZUID }) => {
   const { userInfo } = useZestyStore((state) => state);
   const formik = useFormik({
-    validationSchema: accountsValidations.subject,
+    validationSchema: accountsValidations.createTicket,
 
     initialValues: {
       subject: '',
-      message: '',
-      branch: '',
+      description: '',
+      instanceZUID: instanceZUID,
     },
     onSubmit: async (values) => {
       await onSubmit(values);
@@ -40,36 +41,56 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
           Instance ZUID: {instanceZUID}
         </Typography>
         <FormInput name={'subject'} formik={formik} />
-        <FormInput name={'message'} formik={formik} multiline={true} />
+        <FormInput name={'description'} formik={formik} multiline={true} />
         <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
       </form>
     </Box>
   );
 };
 
-const submitCreateTicket = async (data) => {
-  const { domain, branch } = data;
-  // fetchwrapper needs update to accept an object with domain and branch
-  // OR accept a third parameter for branch
-  // const res = await ZestyAPI.createDomain(zuid, domain, branch);
-  // !res.error && handleCreateDomainSuccess(res);
-  // res.error && handleCreateDomainError(res);
-  // await getInstanceDomains();
-};
+const CreateTicket = ({ getPageData, instanceZUID }) => {
+  const APP_SID = getCookie('APP_SID');
 
-const CreateTicket = ({ tickets, instanceZUID }) => {
+  const handleCreateInviteSuccess = () => {
+    SuccessMsg({ title: 'Ticket Successfully created' });
+  };
+  const handleCreateInviteErr = (res) => {
+    ErrorMsg({ text: res.error });
+  };
+
+  const submitCreateTicket = async (data) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${APP_SID}`,
+      },
+      body: JSON.stringify(data),
+    };
+
+    await fetch(
+      'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/',
+      requestOptions,
+    )
+      .then((response) => response.json())
+      .then(() => {
+        handleCreateInviteSuccess();
+      })
+      .catch((error) => {
+        handleCreateInviteErr(error);
+      });
+    await getPageData();
+  };
+
   const handleCreateTicket = () => {
     MySwal.fire({
       title: 'Create a Ticket',
       html: (
         <CustomForm onSubmit={submitCreateTicket} instanceZUID={instanceZUID} />
       ),
+      width: 700,
       showConfirmButton: false,
     });
-    console.log(
-      '🚀 ~ file: DomainListings.js ~ line 94 ~ handleCreateTicket ~ branch',
-      //   branch,
-    );
   };
 
   return (
