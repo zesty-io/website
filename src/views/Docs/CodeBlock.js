@@ -1,9 +1,17 @@
 import React from 'react';
-import { Stack, Tab, Tabs, Typography } from '@mui/material';
+import {
+  Button,
+  Menu,
+  MenuItem,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+} from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { getCookie } from 'cookies-next';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { langTransformer } from './helper';
 
 const tabs = [
   { label: 'Request', value: 'request' },
@@ -39,11 +47,29 @@ const CodeBlockTabs = React.memo(({ setvalue = () => {}, value }) => {
   );
 });
 
-const Main = ({ title = 'no title', lang = 'JavaScript', data = {} }) => {
+const LANGUAGE_LIST = [
+  {
+    label: 'Javascript Fetch',
+    value: 'Javascript Fetch',
+  },
+  {
+    label: 'Javascript Axios',
+    value: 'Javascript Axios',
+  },
+];
+
+const Main = ({ title = 'no title', data = {} }) => {
   const [codeBlockData, setcodeBlockData] = React.useState('');
   const [isCopied, setIsCopied] = React.useState(false);
   const [currentTab, setcurrentTab] = React.useState('request');
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
+  const [currentLang, setcurrentLang] = React.useState('Javascript Fetch');
+
+  const { request, response } = langTransformer({
+    data,
+    lang: currentLang,
+  });
+
   const copyToClipboard = (text) => {
     navigator?.clipboard?.writeText(text);
     setIsCopied(true);
@@ -52,57 +78,13 @@ const Main = ({ title = 'no title', lang = 'JavaScript', data = {} }) => {
     }, 300);
   };
 
-  const hasFormData = data?.request?.body?.mode === 'formdata' ? true : false;
-  const hasToken = data?.request?.auth?.type === 'bearer' ? true : false;
-  console.log(data, 44444);
-
-  const headers = [
-    {
-      key: 'Content-Type',
-      value: 'application/json',
-    },
-  ];
-
-  hasToken &&
-    headers.push({
-      key: 'Authorization',
-      value: `Bearer ${getCookie('APP_SID') || 'Not Authenticated'}`,
-    });
-  const requestData = `
-  ${hasFormData ? `const body = new FormData();` : ''}
-  ${
-    hasFormData
-      ? data.request.body.formdata
-          .map((e) => {
-            return `body.append('${e.key}', '${e.value}')\n`;
-          })
-          .join('  ')
-      : ''
-  }
-  const options = {
-    method: '${data.request.method}',
-    headers: {
-      ${headers
-        .map((e) => {
-          return `${e.key} : '${e.value}',\n`;
-        })
-        .join('      ')}
-    },
-    body: JSON.stringify(body),
-  };
-  await fetch('${data.request.url.raw}', options)
-  .then(response => response.json())
-  .catch(error => console.log('error', error));
-  `;
-
-  const responseData = data.response ? `${data?.response[0]?.body}` : `{}`;
   React.useEffect(() => {
     if (currentTab === 'response') {
-      setcodeBlockData(responseData);
+      setcodeBlockData(response);
     } else {
-      setcodeBlockData(requestData);
+      setcodeBlockData(request);
     }
-  }, [currentTab]);
+  }, [currentTab, currentLang]);
 
   return (
     <Stack
@@ -122,11 +104,11 @@ const Main = ({ title = 'no title', lang = 'JavaScript', data = {} }) => {
       >
         <Typography>{title}</Typography>
 
-        <Stack direction={'row'} spacing={2} title="Click to copy">
-          <Typography>{lang}</Typography>
+        <Stack direction={'row'} title="Click to copy">
+          <LangMenu setvalue={setcurrentLang} value={currentLang} />
         </Stack>
       </Stack>
-      <Stack direction={'row'}>
+      <Stack direction={'row'} px={1}>
         <CodeBlockTabs setvalue={setcurrentTab} value={currentTab} />
       </Stack>
 
@@ -135,6 +117,7 @@ const Main = ({ title = 'no title', lang = 'JavaScript', data = {} }) => {
           maxHeight: '40vh',
           position: 'relative',
           cursor: 'pointer',
+          overflow: 'auto',
         }}
         onMouseOver={() => setshowCopyBtn(true)}
         onMouseLeave={() => setshowCopyBtn(false)}
@@ -180,3 +163,47 @@ const Main = ({ title = 'no title', lang = 'JavaScript', data = {} }) => {
 };
 
 export const CodeBlock = React.memo(Main);
+
+const LangMenu = React.memo(({ setvalue, value }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = (e) => {
+    setAnchorEl(null);
+    if (e.value) {
+      setvalue(e.value);
+    }
+  };
+
+  return (
+    <div>
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        color="secondary"
+      >
+        <Typography color={'#fff'} whiteSpace="nowrap">
+          Language: {value}
+        </Typography>
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        {LANGUAGE_LIST.map((e) => {
+          return <MenuItem onClick={() => handleClose(e)}>{e.label}</MenuItem>;
+        })}
+      </Menu>
+    </div>
+  );
+});
