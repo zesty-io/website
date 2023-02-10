@@ -92,23 +92,13 @@ const DocsView = React.memo(({ data = [] }) => {
   );
 });
 
-const Main = ({ data = [] }) => {
+const Main = ({ data = [], treeData, onChangeDropdown }) => {
   const [search, setsearch] = React.useState('');
-  const [treeData, settreeData] = React.useState(INSTANCE_DATA);
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 5,
   });
-
-  const onChangeDropdown = (data) => {
-    window.scrollTo(0, 0);
-    if (data?.value) {
-      settreeData(data?.value);
-    } else {
-      settreeData(INSTANCE_DATA);
-    }
-  };
 
   const fuse = new Fuse(treeData.item, options);
   const searchResult = fuse.search(search || '');
