@@ -114,6 +114,7 @@ const Scenario1 = ({
 
       <SwiperSlide>
         <ProjectDetails
+          props={props}
           title={'Project Details'}
           description="You can change these details after"
           template={repository}
@@ -188,6 +189,7 @@ const Scenario2 = ({
       </SwiperSlide>
       <SwiperSlide>
         <ProjectDetails
+          props={props}
           title={'Project Details'}
           description="You can change these details after"
           template={repository}
@@ -236,6 +238,7 @@ const Scenario3 = ({
   role,
   userObject,
   welcomeMessage,
+  props,
 }) => {
   React.useEffect(() => {
     setscenario(3);
@@ -287,6 +290,7 @@ const Scenario3 = ({
       </SwiperSlide>
       <SwiperSlide>
         <ProjectDetails
+          props={props}
           title={'Project Details'}
           description="You can change these details after"
           template={repository}
@@ -330,6 +334,7 @@ const Scenario4 = ({
   // role,
   // userObject,
   // welcomeMessage,
+  props,
 }) => {
   React.useEffect(() => {
     setscenario(4);
@@ -349,6 +354,7 @@ const Scenario4 = ({
     >
       <SwiperSlide>
         <ProjectDetails
+          props={props}
           title={'Project Details'}
           description="You can change these details after"
           template={repository}

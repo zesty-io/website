@@ -210,7 +210,7 @@ const ContactUsForm = ({ theme, content, formContent }) => {
   );
 };
 
-const ContactUs = ({ title, description, content, formContent }) => {
+const ContactUs = ({ title, description, _content, formContent }) => {
   const theme = useTheme();
 
   return (

@@ -1,4 +1,4 @@
-const { fetchZestyRedirects } = require('./src/lib/zesty/fetchRedirects');
+// const { fetchZestyRedirects } = require('./src/lib/zesty/fetchRedirects');
 const zestyConfig = require('./zesty.config.json');
 
 module.exports = {

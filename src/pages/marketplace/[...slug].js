@@ -190,6 +190,7 @@ export async function getServerSideProps({ req, res }) {
       flyoutNavigation: flyoutNavigation,
       zesty: {
         isAuthenticated,
+        templateUrl: process.env.TEMPLATE_URL,
       },
     },
   };

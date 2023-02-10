@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import axios from 'axios';
-import { accounts, ErrorMsg } from 'components/accounts';
+import { ErrorMsg } from 'components/accounts';
 import React from 'react';
 import { useZestyStore } from 'store';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -18,7 +18,6 @@ import FillerContent from 'components/globals/FillerContent';
 import { deleteCookie, getCookie } from 'cookies-next';
 
 // const repo = 'https://github.com/allenpigar/blog_template_acme';
-const baseUrl = accounts.templateUrl;
 
 export const ProjectDetails = ({
   title,
@@ -29,7 +28,9 @@ export const ProjectDetails = ({
   template,
   setinstanceZUID,
   currentStep,
+  props,
 }) => {
+  const baseUrl = props?.zesty?.templateUrl;
   const { ZestyAPI } = useZestyStore((state) => state);
   const [loading, setloading] = React.useState(false);
   const [name, setname] = React.useState(getCookie('projectName') || '');
