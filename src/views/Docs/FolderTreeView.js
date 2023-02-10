@@ -1,9 +1,11 @@
 import { Link, Stack, Typography } from '@mui/material';
+
 import { v4 as uuidv4 } from 'uuid';
 import { TreeItem, TreeView } from '@mui/lab';
 import React from 'react';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import { useRouter } from 'next/router';
 
 const GetTree = ({ data = [], handleClick = () => {} }) => {
   const result = Array.isArray(data)
@@ -12,22 +14,26 @@ const GetTree = ({ data = [], handleClick = () => {} }) => {
           const res = e.item.map((x) => {
             return { ...x, scroll: true };
           });
+          const id = uuidv4();
           return (
             <TreeItem
-              nodeId={uuidv4()}
+              expanded={true}
+              nodeId={id}
               label={<Typography py={1}>{e.name}</Typography>}
-              onClick={() => handleClick(e)}
+              onClick={() => handleClick(e, id)}
             >
               <GetTree data={res} handleClick={handleClick} />
             </TreeItem>
           );
         } else {
+          const id = uuidv4();
           return (
             <TreeItem
-              nodeId={uuidv4()}
+              expanded={true}
+              nodeId={id}
               label={
                 <Link
-                  href={`#${e.name}`}
+                  // href={`/docs${e.name}`}
                   variant="p"
                   color={'inherit'}
                   sx={{
@@ -37,7 +43,7 @@ const GetTree = ({ data = [], handleClick = () => {} }) => {
                   <Typography py={1}>{e.name}</Typography>
                 </Link>
               }
-              onClick={() => handleClick(e)}
+              onClick={() => handleClick(e, id)}
               sx={{
                 whiteSpace: 'nowrap',
               }}
@@ -51,19 +57,10 @@ const GetTree = ({ data = [], handleClick = () => {} }) => {
 };
 
 const Main = ({ data = {}, header = '' }) => {
-  const handleClick = (item) => {
-    //this will scroll to id
-
-    // const element = document.getElementById(item?.name);
-    // const y = element.getBoundingClientRect().top + window.pageYOffset + 2000;
-
-    // window.scrollTo({ top: y, behavior: 'smooth' });
-
-    document.getElementById(item?.name)?.scrollIntoView({
-      behavior: 'smooth',
-      // block: 'start',
-      // inline: 'nearest',
-    });
+  const router = useRouter();
+  const handleClick = (item, x) => {
+    router.push('/docs' + item.name);
+    console.log(x, 444444444444444444444);
   };
 
   return (
@@ -78,6 +75,7 @@ const Main = ({ data = {}, header = '' }) => {
       <Typography variant="h5">{header}</Typography>
       <Stack pl={2}>
         <TreeView
+          expanded={['a47673f6-ff52-4d2c-8853-9fb90aa65bf0']}
           aria-label="file system navigator"
           defaultCollapseIcon={
             <FolderIcon color="secondary" fontSize="large" />

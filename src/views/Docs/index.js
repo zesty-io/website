@@ -92,7 +92,7 @@ const DocsView = React.memo(({ data = [] }) => {
   );
 });
 
-const Main = () => {
+const Main = ({ data = [] }) => {
   const [search, setsearch] = React.useState('');
   const [treeData, settreeData] = React.useState(INSTANCE_DATA);
 
@@ -132,6 +132,7 @@ const Main = () => {
     newTreeData,
   };
 
+  console.log(data, 4444);
   return (
     <MainWrapper customRouting={[]}>
       {/* page header  */}
@@ -139,7 +140,7 @@ const Main = () => {
       {/* left navigation tree */}
       <LeftNav {...leftNavProps} />
       {/* main docs view page  */}
-      <DocsView data={treeData.item} />
+      <DocsView data={data} />
     </MainWrapper>
   );
 };
