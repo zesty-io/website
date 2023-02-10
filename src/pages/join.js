@@ -53,6 +53,7 @@ const firstImage = `https://kfg6bckb.media.zestyio.com/homepageHero.png`;
 
 export default function Join(props) {
   const theme = useTheme();
+  console.log(theme);
   let abmessage, abbuttontext, abimage;
 
   // ab message

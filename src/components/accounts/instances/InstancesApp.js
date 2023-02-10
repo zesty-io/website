@@ -22,7 +22,7 @@ import { useTheme } from '@mui/material/styles';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 const Index = ({ children }) => {
-  const [loading, setloading] = useState(false);
+  const [_loading, setloading] = useState(false);
   const theme = useTheme();
   let isLG = true;
   if (typeof window !== 'undefined') {
