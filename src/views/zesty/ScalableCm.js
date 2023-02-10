@@ -40,7 +40,7 @@
 /**
  * MUI Imports
  */
-import { useTheme, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material';
 
 /**
  * Components Imports
@@ -52,7 +52,6 @@ import Bottom from 'blocks/zesty/Bottom/Bottom';
 
 function ScalableCm({ content }) {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   const heroProps = {
     title: content.header_title_and_description,

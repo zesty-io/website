@@ -18,6 +18,7 @@ export async function docsLookup(ctx) {
       .replace(/\/$/, 'README.md');
   }
 
+  console.log(markdownFilePathREADME);
   // table of contents
   try {
     let url =

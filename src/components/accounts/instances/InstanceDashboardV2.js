@@ -53,7 +53,7 @@ const InstanceDashboardV2 = () => {
   const [isTogglingFavorites, setIsTogglingFavorites] = useState(false);
   const [search, setSearch] = useState('');
   const [view, setView] = useState('grid');
-  const [orderByValue, setOrderByValue, reset] = useDropdown();
+  const [orderByValue, setOrderByValue, _reset] = useDropdown();
   const [ecosystem, setEcosystem] = useState([]);
   const [selectedEcosystem, setSelectedEcosystem] = useState(null);
   const debounceSearch = useDebounce(

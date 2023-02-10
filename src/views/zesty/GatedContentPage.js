@@ -211,6 +211,7 @@ const ContactUsForm = ({ theme, content, formContent }) => {
 };
 
 const ContactUs = ({ title, description, content, formContent }) => {
+  console.log(content);
   const theme = useTheme();
 
   return (
