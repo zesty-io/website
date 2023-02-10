@@ -20,11 +20,11 @@ export const zohoPostObject = (
   leadDetail = false,
   businessType = 'Unknown',
   leadSource = 'Website',
-  role = 'Marketer',
+  _role = 'Marketer',
   userZUID = '',
   // trialStatus='Active'
 ) => {
-  console.log(role);
+  // console.log(role);
   // logic to override lead source detail, or default to utm_medium, or empty if nothing
   // if (leadDetail != false) {
   //   leadDetail = leadDetail;

@@ -59,8 +59,8 @@ const getMonthDates = ({ start = '', end = '' }) => {
   return dateList;
 };
 
-const ReportCard = ({ title = '', data = 0, type = '', limit = 0 }) => {
-  console.log(limit);
+const ReportCard = ({ title = '', data = 0, type = '', _limit = 0 }) => {
+  // console.log(limit);
   return (
     <Card sx={{ py: 4, borderRadius: '20px' }}>
       <Typography variant="h4" textAlign={'center'} mb={2}>

@@ -1,6 +1,6 @@
 // REact and MUI Imports
 import { React } from 'react';
-import { Box, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import Head from 'next/head';
 
 // Import Swiper styles
@@ -52,8 +52,8 @@ const firstImage = `https://kfg6bckb.media.zestyio.com/homepageHero.png`;
 // Join component
 
 export default function Join(props) {
-  const theme = useTheme();
-  console.log(theme);
+  // const theme = useTheme();
+  // console.log(theme);
   let abmessage, abbuttontext, abimage;
 
   // ab message
