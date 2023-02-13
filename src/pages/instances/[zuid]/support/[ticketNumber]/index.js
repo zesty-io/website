@@ -17,8 +17,8 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import ZestyImage from 'blocks/Image/ZestyImage';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
+// import TextareaAutosize from '@mui/base/TextareaAutosize';
+// import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { getCookie } from 'cookies-next';
 
 export default function ticketItem() {
@@ -35,23 +35,28 @@ export default function ticketItem() {
   const fetchTicket = async () => {
     setTicket([]);
     setLoading(true);
-    const ticket = await fetch(
-      'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/' +
-        ticketID,
-      {
-        method: 'GET',
-        headers: {
-          authorization: `Bearer ${getCookie('APP_SID')} `,
+
+    try {
+      const ticket = await fetch(
+        'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/' +
+          ticketID,
+        {
+          method: 'GET',
+          headers: {
+            authorization: `Bearer ${getCookie('APP_SID')} `,
+          },
         },
-      },
-    )
-      .then((currentTicket) => currentTicket.json())
-      .then((currentTicket) => {
-        setTicket(currentTicket);
-        if (currentTicket.length != 0) {
-          setLoading(false);
-        }
-      });
+      )
+        .then((currentTicket) => currentTicket.json())
+        .then((currentTicket) => {
+          setTicket(currentTicket);
+          if (currentTicket.length != 0) {
+            setLoading(false);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleGetInstanceSuccess = (res) => {
     setinstance(res.data);
@@ -249,7 +254,7 @@ export default function ticketItem() {
                         ?.slice(0)
                         .reverse()
                         .map((item) => {
-                          const start = item.content.indexOf('----');
+                          const start = item.content?.indexOf('----');
                           // const end = item.summary.indexOf('----', start + 1);
 
                           // Regex to match with HTML Breaks
@@ -260,7 +265,7 @@ export default function ticketItem() {
 
                           // Grab only text contents and remove replies
                           const content = item?.content
-                            .slice(0, start)
+                            ?.slice(0, start)
                             .replace(HTMLBreak, '')
                             .replace(
                               IMAGESource,
@@ -280,7 +285,7 @@ export default function ticketItem() {
 
                           return (
                             <Box key={item.threadId} sx={{ py: 1 }}>
-                              {item.author.type === 'AGENT' ? (
+                              {item?.author?.type === 'AGENT' ? (
                                 <Box
                                   sx={{
                                     display: 'flex',
@@ -377,7 +382,15 @@ export default function ticketItem() {
                     </Box>
                   </Card>
 
-                  <Card
+                  <Typography
+                    variant="caption"
+                    sx={{ mt: 2, color: theme.palette.zesty.zestyZambezi }}
+                  >
+                    Ticket correspondence is sent via email
+                  </Typography>
+
+                  {/* Hide Response Box  */}
+                  {/* <Card
                     sx={{
                       p: 4,
                       borderRadius: 5,
@@ -416,11 +429,8 @@ export default function ticketItem() {
                         </Button>
                       </Box>
                     </Box>
-                  </Card>
+                  </Card> */}
                 </Grid>
-                {/* <Grid item sx={12} md={4}>
-                  <Card variant="outlined">test</Card>
-                </Grid> */}
               </Grid>
             </Box>
           </Card>
