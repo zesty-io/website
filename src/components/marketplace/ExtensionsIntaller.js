@@ -5,11 +5,11 @@ import React from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { isProd } from 'utils';
-import { accounts } from 'components/accounts';
+
 const CustomSwal = withReactContent(Swal);
 const InstanceSwal = withReactContent(Swal);
 
-const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
+const ExtensionsIntaller = ({ extensionName, githubUrl, data }) => {
   const [loading, setLoading] = React.useState(false);
   const [finishInstall, setFinishInstall] = React.useState(false);
   const { setworkingInstance } = useZestyStore((state) => state);
@@ -19,9 +19,10 @@ const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
     (e) => e.ZUID === instanceZUID,
   )?.name;
   let ZestyAPI = useZestyStore((state) => state.ZestyAPI);
-  const url = isProd
-    ? accounts.templateUrl
-    : 'https://installer-m3rbwjxm5q-uc.a.run.app';
+
+  // TEMPLATE URL can be access in env files
+  const url = data?.zesty?.templateUrl;
+
   const appSID = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
 
   const getInstanceRaw = async () => {
@@ -51,16 +52,22 @@ const ExtensionsIntaller = ({ extensionName, githubUrl }) => {
     const res = await ZestyAPI.getModels();
     let obj = { 0: 'Root' };
     !res.error &&
-      res.data.forEach((item) => {
-        obj[item.ZUID] = item.label;
-      });
+      res.data
+        .filter((item) => item.type !== 'dataset')
+        .forEach((item) => {
+          obj[item.ZUID] = item.label;
+        });
     return obj;
   };
   const getInstances = async () => {
     let obj = {};
-    instances.data.forEach((instance) => {
-      obj[instance.ZUID] = instance.name;
-    });
+    instances.data
+      .sort((a, b) => {
+        return a.name > b.name ? 1 : b.name > a.name ? -1 : 0;
+      })
+      .forEach((instance) => {
+        obj[instance.ZUID] = instance.name;
+      });
     return obj;
   };
 

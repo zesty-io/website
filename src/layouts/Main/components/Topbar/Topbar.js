@@ -16,7 +16,7 @@ import ClickAwayListener from '@mui/base/ClickAwayListener';
 const Topbar = ({
   hideNav,
   onSidebarOpen,
-  customRouting,
+  // customRouting,
   colorInvert = false,
   trigger,
   userInfo = {},

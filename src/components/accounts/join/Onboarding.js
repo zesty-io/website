@@ -106,8 +106,8 @@ Zoho Lead: ${zohoLeadLink}`;
 };
 
 const NewUserSummary = ({
-  instanceUrl,
-  loading,
+  // instanceUrl,
+  // loading,
   userInfo = {},
   role,
   projectType,
@@ -117,7 +117,7 @@ const NewUserSummary = ({
   userType,
   preferred_framework,
   preferred_component_system,
-  zohoLeadLink,
+  // zohoLeadLink,
 }) => {
   const COLUMNS_VIEW_BASIC = [
     {

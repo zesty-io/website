@@ -8,6 +8,7 @@ import WebhookIcon from '@mui/icons-material/Webhook';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 // import SettingsIcon from '@mui/icons-material/Settings';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 
 export const instanceTabs = [
   {
@@ -35,28 +36,34 @@ export const instanceTabs = [
     sort: 3,
   },
   {
+    icon: <LeaderboardIcon fontSize="medium" />,
+    filename: 'usage',
+    label: 'Usage',
+    sort: 4,
+  },
+  {
     icon: <TranslateIcon fontSize="medium" />,
     filename: 'locales',
     label: 'Locales',
-    sort: 3,
+    sort: 5,
   },
   {
     icon: <ApiIcon fontSize="medium" />,
     filename: 'apis',
     label: 'APIs & Tokens',
-    sort: 4,
+    sort: 6,
   },
   {
     icon: <WebhookIcon fontSize="medium" />,
     filename: 'webhooks',
     label: 'Webhooks',
-    sort: 6,
+    sort: 7,
   },
   {
     icon: <SupportAgentIcon fontSize="medium" />,
     filename: 'support',
     label: 'Support',
-    sort: 5,
+    sort: 8,
   },
   // comment out for now
   // {

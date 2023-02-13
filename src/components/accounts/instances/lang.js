@@ -5,6 +5,7 @@ export const lang = {
       users: 'Users',
       teams: 'Teams',
       domains: 'Domains',
+      usage: 'Usage',
       support: 'Support',
       apis: 'APIs',
       webhooks: 'Webhooks',

@@ -98,6 +98,7 @@ export async function getServerSideProps({ res, req }) {
       nav: navigationCustom,
       zesty: {
         isAuthenticated,
+        templateUrl: process.env.TEMPLATE_URL,
       },
     },
   };

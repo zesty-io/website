@@ -1,11 +1,15 @@
 import axios from 'axios';
-import { accounts, ErrorMsg } from 'components/accounts';
+import { ErrorMsg } from 'components/accounts';
 import FileSaver from 'file-saver';
 import { isProd } from 'utils';
 
-const baseUrl = accounts.templateUrl;
-
-export const downloadTemplate = async (instance_zuid, token, setloading) => {
+export const downloadTemplate = async (
+  instance_zuid,
+  token,
+  setloading,
+  content,
+) => {
+  const baseUrl = content?.zesty?.templateUrl;
   setloading(true);
   const headers = {
     'Content-Type': 'application/json',

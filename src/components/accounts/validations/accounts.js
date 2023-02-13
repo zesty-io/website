@@ -91,6 +91,9 @@ const teams = yup.object().shape({
     .min(2, 'Must be atleast 2 Characters')
     .required('Description is required'),
 });
+const addTeamMember = yup.object().shape({
+  email: yup.string().required('Email is required'),
+});
 const password = yup.object().shape({
   oldPassword: yup
     .string()
@@ -209,4 +212,5 @@ export const accountsValidations = {
   companyDetails,
   projectName,
   createTicket,
+  addTeamMember,
 };

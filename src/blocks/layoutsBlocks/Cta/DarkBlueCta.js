@@ -2,9 +2,8 @@
  * MUI Imports
  */
 
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Container } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
-import Container from 'blocks/container/Container';
 import { useTheme } from '@mui/material/styles';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import ArrowRightAlt from '@mui/icons-material/ArrowRightAlt';
