@@ -52,7 +52,6 @@ function Ai({ content }) {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
-  console.log(content);
   return (
     <>
       <Container>
