@@ -1,6 +1,6 @@
 // REact and MUI Imports
 import { React } from 'react';
-import { Box, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import Head from 'next/head';
 
 // Import Swiper styles
@@ -21,7 +21,7 @@ import { getIsAuthenticated } from 'utils';
 const firstMessage = (
   <Box paddingY={4}>
     <Typography variant="h4" gutterBottom>
-      Join Today
+      A Powerful, Free CMS
     </Typography>
     <Typography variant="h6">
       Build websites and headless applications with Zesty.io
@@ -52,7 +52,8 @@ const firstImage = `https://kfg6bckb.media.zestyio.com/homepageHero.png`;
 // Join component
 
 export default function Join(props) {
-  const theme = useTheme();
+  // const theme = useTheme();
+  // console.log(theme);
   let abmessage, abbuttontext, abimage;
 
   // ab message

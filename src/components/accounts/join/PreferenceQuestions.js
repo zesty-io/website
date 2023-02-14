@@ -63,7 +63,7 @@ const ProjectNameForm = ({ onSubmit = () => {} }) => {
       projectName: '',
     },
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       onSubmit(values);
       formik.resetForm();
     },
@@ -90,7 +90,7 @@ const DemoForm = ({ onSubmit = () => {} }) => {
       phoneNumber: '',
     },
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       onSubmit(values);
       formik.resetForm();
     },
@@ -129,7 +129,7 @@ const CompanyDetails = ({ onSubmit }) => {
       company: '',
     },
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       onSubmit(values);
       formik.resetForm();
     },

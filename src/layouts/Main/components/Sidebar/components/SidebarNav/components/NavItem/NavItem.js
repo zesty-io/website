@@ -15,7 +15,7 @@ const NavItem = ({ title, items, expanded, onChange }) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [activeLink, setActiveLink] = useState('');
+  const [_activeLink, setActiveLink] = useState('');
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
