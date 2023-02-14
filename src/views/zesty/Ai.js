@@ -79,19 +79,21 @@ function Ai({ content }) {
             {content.subheader || FillerContent.header}
           </Typography>
 
-          <CardMedia
-            allow="accelerometer"
-            title="Zesty ai video intro"
-            autoplay={true}
-            sx={{
-              border: 'none',
-              borderRadius: 2,
-              minHeight: isSmall ? 400 : 600,
-              mt: 10,
-            }}
-            src={content.youtube_embed}
-            component={'iframe'}
-          ></CardMedia>
+          {content.youtube_embed && (
+            <CardMedia
+              allow="accelerometer"
+              title="Zesty ai video intro"
+              autoplay={true}
+              sx={{
+                border: 'none',
+                borderRadius: 2,
+                minHeight: isSmall ? 400 : 600,
+                mt: 10,
+              }}
+              src={content.youtube_embed}
+              component={'iframe'}
+            ></CardMedia>
+          )}
         </Box>
       </Container>
 
