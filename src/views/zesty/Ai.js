@@ -28,7 +28,14 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import { Container, Grid, Typography, useTheme } from '@mui/material';
+import {
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import BoltIcon from '@mui/icons-material/Bolt';
@@ -38,37 +45,55 @@ import FillerContent from 'components/globals/FillerContent';
 
 function Ai({ content }) {
   const [hovered, setHovered] = useState();
+
   const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   console.log(content);
   return (
     <>
-      <Box component="section" sx={{ py: 15 }}>
-        <Typography
-          component="h1"
-          variant="h3"
-          sx={{
-            fontWeight: 'bold',
-            color: theme.palette.zesty.zestyOrange,
-            textAlign: 'center',
-          }}
-        >
-          {content.header_text || FillerContent.header}
-        </Typography>
+      <Container>
+        <Box component="section" sx={{ py: 15 }}>
+          <Typography
+            component="h1"
+            variant="h3"
+            sx={{
+              fontWeight: 'bold',
+              color: theme.palette.zesty.zestyOrange,
+              textAlign: 'center',
+            }}
+          >
+            {content.header_text || FillerContent.header}
+          </Typography>
 
-        <Typography
-          component="h2"
-          variant="h6"
-          sx={{
-            mt: 1,
-            color: theme.palette.zesty.zestyZambezi,
-            textAlign: 'center',
-            fontWeight: 'bold',
-          }}
-        >
-          {content.subheader || FillerContent.header}
-        </Typography>
-      </Box>
+          <Typography
+            component="h2"
+            variant="h6"
+            sx={{
+              mt: 1,
+              color: theme.palette.zesty.zestyZambezi,
+              textAlign: 'center',
+              fontWeight: 'bold',
+            }}
+          >
+            {content.subheader || FillerContent.header}
+          </Typography>
+
+          <CardMedia
+            allow="accelerometer"
+            title="Zesty ai video intro"
+            autoplay={true}
+            sx={{
+              border: 'none',
+              borderRadius: 2,
+              minHeight: isSmall ? 400 : 600,
+              mt: 10,
+            }}
+            src={content.youtube_embed}
+            component={'iframe'}
+          ></CardMedia>
+        </Box>
+      </Container>
 
       <Box
         component="section"
