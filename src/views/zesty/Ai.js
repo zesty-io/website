@@ -29,6 +29,7 @@
  */
 
 import {
+  Button,
   CardMedia,
   Container,
   Grid,
@@ -42,6 +43,8 @@ import BoltIcon from '@mui/icons-material/Bolt';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import FillerContent from 'components/globals/FillerContent';
+import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
+import MuiMarkdown from 'markdown-to-jsx';
 
 function Ai({ content }) {
   const [hovered, setHovered] = useState();
@@ -78,6 +81,24 @@ function Ai({ content }) {
           >
             {content.subheader || FillerContent.header}
           </Typography>
+
+          <Button
+            href="#join-waitlist"
+            component="a"
+            variant="contained"
+            color="secondary"
+            size="large"
+            sx={{
+              margin: 'auto',
+              display: 'block',
+              mt: 2,
+              width: '100%',
+              maxWidth: 200,
+              textAlign: 'center',
+            }}
+          >
+            {content.cta_text || FillerContent.cta}
+          </Button>
 
           {content.youtube_embed && (
             <CardMedia
@@ -150,7 +171,7 @@ function Ai({ content }) {
                         border: `3px solid ${theme.palette.zesty.zestyOrange}`,
                       },
                       borderRadius: 2,
-                      minHeight: 400,
+                      minHeight: isSmall ? 300 : 400,
                     }}
                   >
                     {!hovered === undefined ||
@@ -167,15 +188,35 @@ function Ai({ content }) {
                       ))}
 
                     {hovered !== undefined && hovered === idx && (
-                      <Typography
-                        variant="h5"
-                        sx={{
-                          fontWeight: 'bold',
-                          color: theme.palette.zesty.zestyZambezi,
-                        }}
-                      >
-                        {item.flipped_card_text || FillerContent.description}
-                      </Typography>
+                      <>
+                        <Typography
+                          variant="h5"
+                          sx={{
+                            fontWeight: 'bold',
+                            color: theme.palette.zesty.zestyZambezi,
+                          }}
+                        >
+                          {item.flipped_card_text || FillerContent.description}
+                        </Typography>
+
+                        <Button
+                          href="#join-waitlist"
+                          component="a"
+                          variant="contained"
+                          color="secondary"
+                          size="large"
+                          sx={{
+                            margin: 'auto',
+                            display: 'block',
+                            mt: 15,
+                            width: '100%',
+                            maxWidth: 200,
+                            textAlign: 'center',
+                          }}
+                        >
+                          {content.cta_text || FillerContent.cta}
+                        </Button>
+                      </>
                     )}
                   </Box>
                 </Grid>
@@ -263,6 +304,48 @@ function Ai({ content }) {
             ))}
           </Grid>
         </Container>
+      </Box>
+
+      <Box component="section" sx={{ py: 15 }}>
+        <Box id="join-waitlist" sx={{ mb: 5 }}>
+          {content.form_text_and_description && (
+            <MuiMarkdown
+              options={{
+                overrides: {
+                  h2: {
+                    component: Typography,
+                    props: {
+                      component: 'h3',
+                      variant: 'h4',
+                      sx: {
+                        fontWeight: 'bold',
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                      },
+                    },
+                  },
+                  p: {
+                    component: Typography,
+                    props: {
+                      component: 'h4',
+                      variant: 'h6',
+                      sx: {
+                        mt: 1,
+                        color: theme.palette.zesty.zestyZambezi,
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                      },
+                    },
+                  },
+                },
+              }}
+            >
+              {content.form_text_and_description || FillerContent.rich_text}
+            </MuiMarkdown>
+          )}
+        </Box>
+
+        <ZohoFormEmbed height={280} formURL={content.zoho_form_link} />
       </Box>
     </>
   );
