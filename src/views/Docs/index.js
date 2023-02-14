@@ -100,14 +100,15 @@ const Main = ({ data = [], treeData, onChangeDropdown }) => {
     threshold: 5,
   });
 
-  const fuse = new Fuse(treeData.item, options);
-  const searchResult = fuse.search(search || '');
-  const newTreeData =
-    searchResult.length !== 0 && search.length !== 0
-      ? searchResult[0].item.item
-      : searchResult.length === 0 && search.length === 0
-      ? treeData.item
-      : [];
+  // const fuse = new Fuse(treeData.item, options);
+  // const searchResult = fuse.search(search || '');
+  // const newTreeData =
+  //   searchResult.length !== 0 && search.length !== 0
+  //     ? searchResult[0].item.item
+  //     : searchResult.length === 0 && search.length === 0
+  //     ? treeData.item
+  //     : [];
+  const newTreeData = treeData;
 
   const pageHeaderProps = {
     title,
