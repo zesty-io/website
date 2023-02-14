@@ -6,7 +6,6 @@ import MarketingAnnoucement from './MarketingAnnoucement';
 import Review from './Review';
 import MainNavigation from './MainNavigation';
 import PersonaContent from './PersonaContent';
-import Chat from './Chat';
 import CustomerBrand from './CustomerBrand';
 import CustomerHighlight from './CustomerHighlight';
 import LandingPageVariation from './LandingPageVariation';
@@ -51,6 +50,25 @@ import G2Badge from './G2Badge';
 import WebsiteBanner from './WebsiteBanner';
 import ABTestDataSet from './ABTestDataSet';
 import Stat from './Stat';
+import SimpleherowithimageandctabuttonsData from './SimpleherowithimageandctabuttonsData';
+import Simplecardlogo from './Simplecardlogo';
+import LayoutsFeature from './LayoutsFeature';
+import LayoutsComponentParent from './LayoutsComponentParent';
+import Bottom from './Bottom';
+import Cardsincontainer from './Cardsincontainer';
+import Casestudycard from './Casestudycard';
+import Darkbluecta from './Darkbluecta';
+import Imagewithcontentscta from './Imagewithcontentscta';
+import Growth from './Growth';
+import Simplestat from './Simplestat';
+import Tworowshero from './Tworowshero';
+import Alternatecolumn from './Alternatecolumn';
+import Persona from './Persona';
+
+import Testimonial from './Testimonial';
+import LogoSlider from './LogoSlider';
+import AiExample from './AiExample';
+import SellingPoint from './SellingPoint';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -126,19 +144,20 @@ import AccountsDashboardMarketing from './AccountsDashboardMarketing';
 import ABLandingPage from './ABLandingPage';
 import JoinPageContent from './JoinPageContent';
 import ParsleyFeaturesPage from './ParsleyFeaturesPage';
+import Chat from './Chat';
+import LayoutsTestPage from './LayoutsTestPage';
+import LayoutsTestPage2 from './LayoutsTestPage2';
+import Ai from './Ai';
 import Header from './Header';
 import Footer from './Footer';
-import AutoLayoutComponent from './AutoLayoutComponent';
 
 export {
-  AutoLayoutComponent,
   Clipping,
   Widget,
   MarketingAnnoucement,
   Review,
   MainNavigation,
   PersonaContent,
-  Chat,
   CustomerBrand,
   CustomerHighlight,
   LandingPageVariation,
@@ -183,6 +202,24 @@ export {
   WebsiteBanner,
   ABTestDataSet,
   Stat,
+  SimpleherowithimageandctabuttonsData,
+  Simplecardlogo,
+  LayoutsFeature,
+  LayoutsComponentParent,
+  Bottom,
+  Cardsincontainer,
+  Casestudycard,
+  Darkbluecta,
+  Imagewithcontentscta,
+  Growth,
+  Simplestat,
+  Tworowshero,
+  Alternatecolumn,
+  Persona,
+  Testimonial,
+  LogoSlider,
+  AiExample,
+  SellingPoint,
   Category,
   Article,
   Tag,
@@ -258,6 +295,10 @@ export {
   ABLandingPage,
   JoinPageContent,
   ParsleyFeaturesPage,
+  Chat,
+  LayoutsTestPage,
+  LayoutsTestPage2,
+  Ai,
   Footer,
   Header,
 };

@@ -31,14 +31,12 @@ import { handlePostToSlack } from './services';
 import slackNotify from 'components/marketing/Start/slackNotify';
 import { pendoScript } from 'components/marketing/Join/pendoScript';
 import dayjs from 'dayjs';
-import { accounts } from '../constants';
 
 const zoholeadUrl =
   'https://one.zoho.com/zohoone/zestyio/home/cxapp/crm/org749642405/tab/Leads/';
 const slackInviteUrl =
   'https://us-central1-zesty-prod.cloudfunctions.net/getSlackInvite';
 const repository = 'https://github.com/zesty-io/template-bootstrap5-starter';
-const baseUrl = accounts.templateUrl;
 
 const Questionaire = ({
   title = 'no title',
@@ -394,6 +392,7 @@ const Index = ({
   goalsList = [],
   inviteUserList = [],
 }) => {
+  const baseUrl = content?.zesty?.templateUrl;
   const [zohoLeadLink, setzohoLeadLink] = React.useState('');
   const [loading, setloading] = React.useState(false);
   const token = isProd ? getCookie('APP_SID') : getCookie('DEV_APP_SID');
