@@ -43,14 +43,31 @@ import BoltIcon from '@mui/icons-material/Bolt';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import FillerContent from 'components/globals/FillerContent';
-import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 import MuiMarkdown from 'markdown-to-jsx';
+
+import BetaSignupCta from 'components/cta/BetaSignupCTA';
+import { accountsValidations } from 'components/accounts';
+import { useFormik } from 'formik';
 
 function Ai({ content }) {
   const [hovered, setHovered] = useState();
 
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const formik = useFormik({
+    validationSchema: accountsValidations.domain,
+
+    initialValues: {
+      domain: '',
+      branch: '',
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      // await onSubmit(values);
+      // formik.resetForm();
+    },
+  });
 
   return (
     <>
@@ -344,7 +361,15 @@ function Ai({ content }) {
           )}
         </Box>
 
-        <ZohoFormEmbed height={280} formURL={content.zoho_form_link} />
+        <Box sx={{ mt: 10 }}>
+          <Container>
+            <BetaSignupCta
+              displayMsgUnderButton=""
+              hidePrivacySection
+              leadDetail="AI Announce Invite"
+            />
+          </Container>
+        </Box>
       </Box>
     </>
   );
