@@ -7,6 +7,8 @@ import AUTH_DATA from '../../views/Docs/auth.data.json';
 import { useRouter } from 'next/router';
 import { transFormMainData } from 'views/Docs/helper';
 
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
+
 const VALID_URLS = ['/accounts', '/instances', '/authentication'];
 
 const initialTreeData = (url, data) => {
@@ -15,7 +17,8 @@ const initialTreeData = (url, data) => {
   }
 };
 
-export default function DocsPage({ url }) {
+export default function DocsPage() {
+  let url = typeof window !== 'undefined' && window.location.pathname;
   url = url && url?.replace('/docs', '').replace(/\/$/, '');
   const router = useRouter();
   const mainCollection = [INSTANCE_DATA, ACCOUNTS_DATA, AUTH_DATA];
@@ -91,10 +94,10 @@ export default function DocsPage({ url }) {
   return <Docs {...docsProps} />;
 }
 
-export async function getServerSideProps({ resolvedUrl }) {
-  let url = resolvedUrl;
+// export async function getServerSideProps({ resolvedUrl }) {
+//   let url = resolvedUrl;
 
-  return {
-    props: { url },
-  };
-}
+//   return {
+//     props: { url },
+//   };
+// }
