@@ -148,22 +148,3 @@ export const transFormMainData = (mainCollection) => {
   });
   return result;
 };
-
-export const getPageData = (data, mainData = [], url) => {
-  let item = [];
-  if (!url) {
-    item = mainData[0];
-  }
-  if (data?.url === url) {
-    item = data;
-  }
-  (data?.item ?? data)?.forEach((e) => {
-    if (e.url === url) {
-      item = e;
-    } else {
-      getPageData(e.item);
-    }
-  });
-
-  return item;
-};

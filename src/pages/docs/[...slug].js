@@ -5,7 +5,7 @@ import INSTANCE_DATA from '../../views/Docs/instance.data.json';
 import ACCOUNTS_DATA from '../../views/Docs/accounts.data.json';
 import AUTH_DATA from '../../views/Docs/auth.data.json';
 import { useRouter } from 'next/router';
-import { getPageData, transFormMainData } from 'views/Docs/helper';
+import { transFormMainData } from 'views/Docs/helper';
 
 const VALID_URLS = ['/accounts', '/instances', '/authentication'];
 
@@ -22,7 +22,27 @@ export default function DocsPage({ url }) {
   const mainData = transFormMainData(mainCollection);
   const [treeData, settreeData] = React.useState(mainData[0]);
   const parentUrl = url && '/' + url?.split('/').filter((e) => e)[0];
-  const pageData = getPageData(treeData, mainData, url);
+
+  let item = [];
+  const getPageData = (data, mainData = []) => {
+    if (!url) {
+      return (item = mainData[0]);
+    }
+    if (data?.url === url) {
+      item = data;
+    }
+    (data?.item ?? data)?.forEach((e) => {
+      if (e.url === url) {
+        item = e;
+      } else {
+        getPageData(e?.item);
+      }
+    });
+
+    return item;
+  };
+
+  const pageData = getPageData(treeData, mainData);
 
   const DOCS_DATA_DROPDOWN = [
     {
@@ -51,14 +71,21 @@ export default function DocsPage({ url }) {
   console.log(pageData, treeData, 3333333, url, parentUrl);
 
   const docsProps = {
+    // data of pages
+    // pagedata is dependent on treedata
     pageData,
-    onChangeDropdown,
+    // treedata is the data of the sidebar
     treeData,
+    onChangeDropdown,
     dropdownData: DOCS_DATA_DROPDOWN,
   };
 
   React.useEffect(() => {
-    settreeData(initialTreeData(parentUrl, mainData));
+    if (!url) {
+      settreeData(mainData[0]);
+    } else {
+      settreeData(initialTreeData(parentUrl, mainData));
+    }
   }, [url]);
 
   return <Docs {...docsProps} />;
