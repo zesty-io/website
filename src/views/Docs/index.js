@@ -1,10 +1,10 @@
 import React from 'react';
 import MainWrapper from 'layouts/Main';
 import dynamic from 'next/dynamic';
-import Fuse from 'fuse.js';
 import { Stack, useScrollTrigger } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
+import { LangSelector } from './LangSelector';
 
 const DocsComboBox = dynamic(() =>
   import('./DocsComboBox').then((mod) => mod.DocsComboBox),
@@ -22,21 +22,31 @@ const DocsPages = dynamic(() =>
   import('./DocsPages').then((mod) => mod.DocsPages),
 );
 
-const options = {
-  includeScore: true,
-  useExtendedSearch: true,
-  includeMatches: true,
-  ignoreLocation: true,
-  findAllMatches: true,
-  threshold: 0,
-  isCaseSensitive: false,
-  minMatchCharLength: 1,
-  keys: ['name', 'item.name', 'item.item.name'],
-};
+// const options = {
+//   includeScore: true,
+//   useExtendedSearch: true,
+//   includeMatches: true,
+//   ignoreLocation: true,
+//   findAllMatches: true,
+//   threshold: 0,
+//   isCaseSensitive: false,
+//   minMatchCharLength: 1,
+//   keys: ['name', 'item.name', 'item.item.name'],
+// };
 
 const title = 'Docs page';
 const description = 'Docs page';
 const ogimage = 'Docs page';
+const LANGUAGE_LIST = [
+  {
+    label: 'Javascript Fetch',
+    value: 'Javascript Fetch',
+  },
+  {
+    label: 'Javascript Axios',
+    value: 'Javascript Axios',
+  },
+];
 
 const LeftNav = React.memo(
   ({
@@ -47,6 +57,7 @@ const LeftNav = React.memo(
     newTreeData,
     dropdownData,
   }) => {
+    const [currentLang, setcurrentLang] = React.useState('Javascript Fetch');
     return (
       <Stack
         sx={{
@@ -59,6 +70,11 @@ const LeftNav = React.memo(
         }}
       >
         <Stack px={4} spacing={2} py={3}>
+          <LangSelector
+            value={currentLang}
+            setvalue={setcurrentLang}
+            options={LANGUAGE_LIST}
+          />
           <DocsComboBox onChange={onChangeDropdown} options={dropdownData} />
           <SearchComponent search={search} onChange={setsearch} />
         </Stack>
@@ -80,7 +96,7 @@ const DocsView = React.memo(({ data = [] }) => {
   );
 });
 
-const Main = ({ data = [], treeData, onChangeDropdown, dropdownData }) => {
+const Main = ({ pageData = [], treeData, onChangeDropdown, dropdownData }) => {
   const [search, setsearch] = React.useState('');
 
   const trigger = useScrollTrigger({
@@ -112,7 +128,6 @@ const Main = ({ data = [], treeData, onChangeDropdown, dropdownData }) => {
     dropdownData,
   };
 
-  console.log(newTreeData, 4444);
   return (
     <MainWrapper customRouting={[]}>
       {/* page header  */}
@@ -120,7 +135,7 @@ const Main = ({ data = [], treeData, onChangeDropdown, dropdownData }) => {
       {/* left navigation tree */}
       <LeftNav {...leftNavProps} />
       {/* main docs view page  */}
-      {/* <DocsView data={data} /> */}
+      <DocsView data={pageData} />
     </MainWrapper>
   );
 };

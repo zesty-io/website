@@ -53,7 +53,7 @@ const GetTree = ({ data = [], handleClick = () => {} }) => {
 const Main = ({ data = {}, header = '' }) => {
   const router = useRouter();
   const handleClick = (item) => {
-    // router.push('/docs' + item.url);
+    router.push('/docs' + item.url);
 
     console.log('/docs/' + item.url, 444444444444444444444);
   };
