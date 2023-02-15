@@ -92,6 +92,7 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
   return { request: langSwitcher(lang), response: responseData };
 };
 
+// todo convert to recursive FN //
 export const transFormMainData = (mainCollection) => {
   mainCollection = mainCollection.map((e) => {
     return {
@@ -146,4 +147,23 @@ export const transFormMainData = (mainCollection) => {
     return { ...e, item: res };
   });
   return result;
+};
+
+export const getPageData = (data, mainData = [], url) => {
+  let item = [];
+  if (!url) {
+    item = mainData[0];
+  }
+  if (data?.url === url) {
+    item = data;
+  }
+  (data?.item ?? data)?.forEach((e) => {
+    if (e.url === url) {
+      item = e;
+    } else {
+      getPageData(e.item);
+    }
+  });
+
+  return item;
 };

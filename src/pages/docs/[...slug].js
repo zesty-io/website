@@ -5,7 +5,7 @@ import INSTANCE_DATA from '../../views/Docs/instance.data.json';
 import ACCOUNTS_DATA from '../../views/Docs/accounts.data.json';
 import AUTH_DATA from '../../views/Docs/auth.data.json';
 import { useRouter } from 'next/router';
-import { transFormMainData } from 'views/Docs/helper';
+import { getPageData, transFormMainData } from 'views/Docs/helper';
 
 const VALID_URLS = ['/accounts', '/instances', '/authentication'];
 
@@ -16,9 +16,13 @@ const initialTreeData = (url, data) => {
 };
 
 export default function DocsPage({ url }) {
+  url = url && url?.replace('/docs', '').replace(/\/$/, '');
   const router = useRouter();
   const mainCollection = [INSTANCE_DATA, ACCOUNTS_DATA, AUTH_DATA];
   const mainData = transFormMainData(mainCollection);
+  const [treeData, settreeData] = React.useState(mainData[0]);
+  const parentUrl = url && '/' + url?.split('/').filter((e) => e)[0];
+  const pageData = getPageData(treeData, mainData, url);
 
   const DOCS_DATA_DROPDOWN = [
     {
@@ -35,44 +39,7 @@ export default function DocsPage({ url }) {
     },
   ];
 
-  const [treeData, settreeData] = React.useState(mainData[0]);
-  url = url && url.replace('/docs', '').replace(/\/$/, '');
-  let item = [];
-  const getPageData = (data) => {
-    if (!url) {
-      item = mainData[0];
-    }
-    if (data?.url === url) {
-      item = data;
-    }
-    (data?.item ?? data)?.forEach((e) => {
-      if (e.url === url) {
-        item = e;
-      } else {
-        getPageData(e.item);
-      }
-    });
-
-    return item;
-  };
-
-  // for initial data
-  let match = false;
-  VALID_URLS.forEach((e) => {
-    if (e === url) {
-      match = true;
-    }
-  });
-
-  React.useEffect(() => {
-    if (match) {
-      settreeData(initialTreeData(url, mainData));
-    } else {
-    }
-  }, [match, url]);
-
   const onChangeDropdown = (data) => {
-    console.log(data);
     window.scrollTo(0, 0);
     if (data?.value) {
       router.push(`/docs` + data.value.parent);
@@ -81,15 +48,19 @@ export default function DocsPage({ url }) {
     }
   };
 
-  const pageData = getPageData(treeData);
+  console.log(pageData, treeData, 3333333, url, parentUrl);
 
-  console.log(pageData, treeData, 3333333, url);
   const docsProps = {
     pageData,
     onChangeDropdown,
     treeData,
     dropdownData: DOCS_DATA_DROPDOWN,
   };
+
+  React.useEffect(() => {
+    settreeData(initialTreeData(parentUrl, mainData));
+  }, [url]);
+
   return <Docs {...docsProps} />;
 }
 
