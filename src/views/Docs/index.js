@@ -6,10 +6,6 @@ import { Stack, useScrollTrigger } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
 
-import INSTANCE_DATA from './instance.data.json';
-import ACCOUNTS_DATA from './accounts.data.json';
-import AUTH_DATA from './auth.data.json';
-
 const DocsComboBox = dynamic(() =>
   import('./DocsComboBox').then((mod) => mod.DocsComboBox),
 );
@@ -38,27 +34,19 @@ const options = {
   keys: ['name', 'item.name', 'item.item.name'],
 };
 
-const DOCS_DATA = [
-  {
-    label: 'Instance API',
-    value: INSTANCE_DATA,
-  },
-  {
-    label: 'Accounts API',
-    value: ACCOUNTS_DATA,
-  },
-  {
-    label: 'Authentication API',
-    value: AUTH_DATA,
-  },
-];
-
 const title = 'Docs page';
 const description = 'Docs page';
 const ogimage = 'Docs page';
 
 const LeftNav = React.memo(
-  ({ trigger, onChangeDropdown, setsearch, search, newTreeData }) => {
+  ({
+    trigger,
+    onChangeDropdown,
+    setsearch,
+    search,
+    newTreeData,
+    dropdownData,
+  }) => {
     return (
       <Stack
         sx={{
@@ -71,7 +59,7 @@ const LeftNav = React.memo(
         }}
       >
         <Stack px={4} spacing={2} py={3}>
-          <DocsComboBox onChange={onChangeDropdown} options={DOCS_DATA} />
+          <DocsComboBox onChange={onChangeDropdown} options={dropdownData} />
           <SearchComponent search={search} onChange={setsearch} />
         </Stack>
         <FolderTreeView
@@ -92,7 +80,7 @@ const DocsView = React.memo(({ data = [] }) => {
   );
 });
 
-const Main = ({ data = [], treeData, onChangeDropdown }) => {
+const Main = ({ data = [], treeData, onChangeDropdown, dropdownData }) => {
   const [search, setsearch] = React.useState('');
 
   const trigger = useScrollTrigger({
@@ -108,7 +96,7 @@ const Main = ({ data = [], treeData, onChangeDropdown }) => {
   //     : searchResult.length === 0 && search.length === 0
   //     ? treeData.item
   //     : [];
-  const newTreeData = treeData;
+  const newTreeData = treeData?.item;
 
   const pageHeaderProps = {
     title,
@@ -121,9 +109,10 @@ const Main = ({ data = [], treeData, onChangeDropdown }) => {
     setsearch,
     search,
     newTreeData,
+    dropdownData,
   };
 
-  console.log(data, 4444);
+  console.log(newTreeData, 4444);
   return (
     <MainWrapper customRouting={[]}>
       {/* page header  */}
@@ -131,7 +120,7 @@ const Main = ({ data = [], treeData, onChangeDropdown }) => {
       {/* left navigation tree */}
       <LeftNav {...leftNavProps} />
       {/* main docs view page  */}
-      <DocsView data={data} />
+      {/* <DocsView data={data} /> */}
     </MainWrapper>
   );
 };
