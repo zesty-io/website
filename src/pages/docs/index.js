@@ -1,5 +1,5 @@
 import React from 'react';
-import { Docs } from 'views/Docs';
+import Docs from './[...slug]';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 

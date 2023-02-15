@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "3e462c09-4dca-4400-a45a-b7beb2fbaaac",
+    "_postman_id": "a2e82fb7-4cfe-4be3-9707-ffe80ab25990",
     "name": "Authentication API",
     "description": "Auth API is used to authenticate users with Zesty.io, which returns a token that grants to access  services like Instances API, Accounts API, and Media API. Auth was setup as a stand alone service so it can connect to many services in our infrastructure. \n\nPermissions are managed at the service level, for example, to manage permissions on instances, you would use the [Accounts API](https://accounts-api.zesty.io) to do so",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -22,13 +22,16 @@
           "script": {
             "exec": [
               "var jsonData = JSON.parse(responseBody);",
-              "pm.environment.set(\"APP_SID\", jsonData.meta.token);"
+              "pm.environment.set(\"token\", jsonData.meta.token);"
             ],
             "type": "text/javascript"
           }
         }
       ],
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "POST",
         "header": [],
         "body": {

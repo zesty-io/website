@@ -1,8 +1,35 @@
 import React from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
+import MuiMarkdown from 'markdown-to-jsx';
 import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
 
+const muiContentOverrides = {
+  h1: {
+    component: 'h1',
+    props: {
+      style: { fontSize: '2em' },
+    },
+  },
+  h2: {
+    component: 'h2',
+    props: {
+      style: { fontSize: '1.5em' },
+    },
+  },
+  p: {
+    component: 'p',
+    props: {
+      style: { fontSize: '5px' },
+    },
+  },
+  img: {
+    component: 'img',
+    props: {
+      style: { width: '80%', margin: '10px 10%' },
+    },
+  },
+};
 const CodeBlock = dynamic(() =>
   import('./CodeBlock', { loading: () => <>loading </> }).then(
     (mod) => mod.CodeBlock,
@@ -55,19 +82,22 @@ const Main = ({ data }) => {
     threshold: 0,
   });
 
+  console.log(data, 7777);
   const result =
-    Array.isArray(data) &&
-    data.map((e) => {
+    Array.isArray(data.item) &&
+    data.item.map((e) => {
       if (Array.isArray(e.item)) {
         return (
           <Stack py={4}>
             <Typography variant="h4" fontWeight={'800'} id={e.name} pb={2}>
               {e.name}
             </Typography>
-
-            <Typography variant="body1" fontWeight={'400'}>
-              {e?.description}
-            </Typography>
+            <MuiMarkdown
+              inlineCodeColor="dodgerblue"
+              overrides={muiContentOverrides}
+            >
+              {e?.description || ''}
+            </MuiMarkdown>
             <b>{<DocsPages data={e.item} />}</b>
           </Stack>
         );
@@ -91,6 +121,12 @@ const Main = ({ data }) => {
     });
   return (
     <Stack ref={ref} bgcolor="#fff">
+      <Typography variant="h4" id={data.name}>
+        {data.name}
+      </Typography>
+      <MuiMarkdown inlineCodeColor="dodgerblue" overrides={muiContentOverrides}>
+        {data?.description || ''}
+      </MuiMarkdown>
       {result}
     </Stack>
   );

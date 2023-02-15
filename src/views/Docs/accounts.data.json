@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "c771897f-77bc-4f5c-a5da-6ea1bdf205cc",
+    "_postman_id": "4a324d73-787c-4cef-af04-6b465655f0a0",
     "name": "Accounts API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "25492819"
@@ -31,7 +31,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Instance with database defaults\",\n  \"ecoZUID\": \"35-e0aff1d7f5-hr6cww\"\n}"
+              "raw": "{\n  \"name\": \"Test Instance with database defaults\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances",
@@ -39,7 +39,7 @@
               "host": ["{{accounts_api_url}}"],
               "path": ["{{accounts_api_version}}", "instances"]
             },
-            "description": "Gets a single instance"
+            "description": "Creates an instance."
           },
           "response": []
         },
@@ -73,7 +73,7 @@
               "host": ["{{accounts_api_url}}"],
               "path": ["{{accounts_api_version}}", "instances"]
             },
-            "description": "Gets a single instance"
+            "description": "Creates an instance with an ecosystem."
           },
           "response": []
         },
@@ -126,7 +126,7 @@
                 "{{instance_zuid}}"
               ]
             },
-            "description": "Gets a single instance by it's ZUID"
+            "description": "Gets a single instance by its ZUID"
           },
           "response": []
         },
@@ -212,7 +212,7 @@
                 "users"
               ]
             },
-            "description": "Gets a single instance's users"
+            "description": "Gets a single instance's users."
           },
           "response": []
         },
@@ -320,7 +320,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n        \n        \"ecoID\": 26054,\n        \"ecoZUID\": {{ecosystem_zuid}},\n        \"randomHashID\": \"1xdz3j0p\",\n        \"domain\": \"voyagerpreprod.zesty.dev\",\n        \"name\": \"Voyager_PreProd\",\n        \"planID\": 17,\n        \"cancelledReason\": null,\n        \"createdByUserZUID\": \"5-defe88c2be-v0k4hd\",\n        \"prefs\": null,\n        \"useTLS\": false,\n        \"blueprintID\": 1,\n        \"blueprintZUID\": \"14-64329e0-555644\",\n        \"requiresTwoFactor\": 0,\n        \"legacy\": false,\n        \"screenshotURL\": null,\n        \"createdAt\": \"2022-07-29T00:44:09Z\",\n        \"updatedAt\": \"2022-07-29T00:44:10Z\"\n    }"
+              "raw": "{\n    \"name\": \"Updated Instance Name\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{instance_zuid}}",
@@ -332,24 +332,22 @@
                 "{{instance_zuid}}"
               ]
             },
-            "description": "Update permissions for a given user and content instance. Takes one of following values for thea query param `action`.\n- `updateEcosystem`\n- `updateDomain`\n- `updateBlueprint`\n- `purgeCache`"
+            "description": "Update permissions for a given user and content instance. Takes one of following values for the query param `action`.\n\n- `updateEcosystem`\n- `updateDomain`\n- `updateBlueprint`\n- `purgeCache`"
           },
           "response": [
             {
-              "name": "Update Instance and Purge Cache",
+              "name": "Update Instance Ecosystem",
               "originalRequest": {
                 "method": "PUT",
                 "header": [
                   {
                     "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "",
+                  "raw": "{\n\t\"ecoZUID\": \"{{ecosystem_zuid}}\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -357,7 +355,7 @@
                   }
                 },
                 "url": {
-                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{instance_zuid}}?action=purgeCache",
+                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{instance_zuid}}?action=updateEcosystem",
                   "protocol": "{{protocol}}",
                   "host": ["{{accounts_api_url}}"],
                   "path": [
@@ -368,8 +366,8 @@
                   "query": [
                     {
                       "key": "action",
-                      "value": "purgeCache",
-                      "description": "Purges Cache"
+                      "value": "updateEcosystem",
+                      "description": "Update an Instance's Ecosystem"
                     }
                   ]
                 }
@@ -386,14 +384,12 @@
                 "header": [
                   {
                     "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n\t\"ecoZUID\": \"{{ecosystem_zuid}}\"\n}",
+                  "raw": "{\n\t\"domain\": \"{{domain_name}}\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -468,7 +464,7 @@
               "body": null
             },
             {
-              "name": "Update Instance Ecosystem",
+              "name": "Update Instance and Purge Cache",
               "originalRequest": {
                 "method": "PUT",
                 "header": [
@@ -481,7 +477,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n\t\"domain\": \"{{domain_name}}\"\n}",
+                  "raw": "",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -489,7 +485,7 @@
                   }
                 },
                 "url": {
-                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{instance_zuid}}?action=updateEcosystem",
+                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{instance_zuid}}?action=purgeCache",
                   "protocol": "{{protocol}}",
                   "host": ["{{accounts_api_url}}"],
                   "path": [
@@ -500,8 +496,8 @@
                   "query": [
                     {
                       "key": "action",
-                      "value": "updateEcosystem",
-                      "description": "Update an Instance's Ecosystem"
+                      "value": "purgeCache",
+                      "description": "Purges Cache"
                     }
                   ]
                 }
@@ -535,7 +531,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"zuid\": \"{{blueprint_zuid}}\"\n}"
+              "raw": "{\n    \"blueprintZUID\": \"{{blueprint_zuid}}\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{instance_zuid}}/blueprints",
@@ -577,13 +573,13 @@
               "raw": ""
             },
             "url": {
-              "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{site_zuid}}?action=purgeCache",
+              "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{instance_zuid}}?action=purgeCache",
               "protocol": "{{protocol}}",
               "host": ["{{accounts_api_url}}"],
               "path": [
                 "{{accounts_api_version}}",
                 "instances",
-                "{{site_zuid}}"
+                "{{instance_zuid}}"
               ],
               "query": [
                 {
@@ -647,14 +643,12 @@
                 "header": [
                   {
                     "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n\t\"domain\": \"{{domain_name}}\"\n}",
+                  "raw": "{\n    \"ecoZUID\": \"{{ecosystem_zuid}}\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -691,14 +685,12 @@
                 "header": [
                   {
                     "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n\t\"ecoZUID\": \"{{ecosystem_zuid}}\"\n}",
+                  "raw": "{\n    \"domain\": \"{{domain_name}}\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -871,7 +863,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"domain\": \"{{domain_name}}\"\n}"
+              "raw": "{\n  \"domain\": \"{{domain_name}}\",\n  \"branch\": \"live\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{instance_zuid}}/domains/{{domain_zuid}}",
@@ -1088,7 +1080,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"firstName\":\"first\", \n    \"lastName\":\"last\", \n    \"email\":\"test@email.com\",\n    \"password\": \"password\"\n}"
+              "raw": "{\n    \"firstName\":\"First Name\", \n    \"lastName\":\"Last Name\", \n    \"email\":\"test@example.com\",\n    \"password\": \"password\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/users",
@@ -1124,7 +1116,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{}"
+              "raw": "{\r\n\t\"oldPassword\": \"old_password\",\r\n\t\"password\": \"new_password\"\r\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/users/{{user_zuid}}?action=updatePassword",
@@ -1142,43 +1134,6 @@
             "description": "Update a user"
           },
           "response": [
-            {
-              "name": "Update User to enable to 2FA",
-              "originalRequest": {
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/users/{{user_zuid}}?action=enableAuthy",
-                  "protocol": "{{protocol}}",
-                  "host": ["{{accounts_api_url}}"],
-                  "path": [
-                    "{{accounts_api_version}}",
-                    "users",
-                    "{{user_zuid}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "action",
-                      "value": "enableAuthy",
-                      "description": "Registers the user with Authy for 2FA"
-                    }
-                  ]
-                }
-              },
-              "_postman_previewlanguage": null,
-              "header": null,
-              "cookie": [],
-              "body": null
-            },
             {
               "name": "Update User Password",
               "originalRequest": {
@@ -1257,6 +1212,43 @@
               ],
               "cookie": [],
               "body": ""
+            },
+            {
+              "name": "Update User to enable to 2FA",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/users/{{user_zuid}}?action=enableAuthy",
+                  "protocol": "{{protocol}}",
+                  "host": ["{{accounts_api_url}}"],
+                  "path": [
+                    "{{accounts_api_version}}",
+                    "users",
+                    "{{user_zuid}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "enableAuthy",
+                      "description": "Registers the user with Authy for 2FA"
+                    }
+                  ]
+                }
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
             }
           ]
         },
@@ -1320,7 +1312,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"First Last\",\n  \"address\": \"{{email_address}}\"\n}"
+              "raw": "{\n  \"name\": \"Firstname Lastname\",\n  \"address\": \"{{email_address}}\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/users/emails",
@@ -1573,7 +1565,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"firstName\":\"First\", \n    \"lastName\":\"Last\", \n    \"email\": \"{{email_address}}\"\n}"
+              "raw": "{\n    \"firstName\":\"Firstname\", \n    \"lastName\":\"Lastname\", \n    \"email\": \"{{email_address}}\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/companies/{{company_zuid}}",
@@ -1743,39 +1735,6 @@
           },
           "response": [
             {
-              "name": "Cancel an Invite",
-              "originalRequest": {
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/invites/{{invite_zuid}}?action=cancel",
-                  "protocol": "{{protocol}}",
-                  "host": ["{{accounts_api_url}}"],
-                  "path": [
-                    "{{accounts_api_version}}",
-                    "invites",
-                    "{{invite_zuid}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "action",
-                      "value": "cancel",
-                      "description": "Cancel an invite; you must have sufficient privilege to perform this."
-                    }
-                  ]
-                }
-              },
-              "_postman_previewlanguage": null,
-              "header": null,
-              "cookie": [],
-              "body": null
-            },
-            {
               "name": "Accept an Invite",
               "originalRequest": {
                 "method": "PUT",
@@ -1832,6 +1791,39 @@
                       "key": "action",
                       "value": "decline",
                       "description": "Decline an invite."
+                    }
+                  ]
+                }
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            },
+            {
+              "name": "Cancel an Invite",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/invites/{{invite_zuid}}?action=cancel",
+                  "protocol": "{{protocol}}",
+                  "host": ["{{accounts_api_url}}"],
+                  "path": [
+                    "{{accounts_api_version}}",
+                    "invites",
+                    "{{invite_zuid}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "action",
+                      "value": "cancel",
+                      "description": "Cancel an invite. You must have a sufficient privilege to perform this action."
                     }
                   ]
                 }
@@ -2148,7 +2140,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"Name\": \"Example Team Name\"\n}"
+              "raw": "{\n  \"name\": \"Example Team Name\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/teams",
@@ -2184,7 +2176,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"Defenders\"\n}"
+              "raw": "{\n    \"name\": \"Example New Team Name\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/teams/{{team_zuid}}",
@@ -2341,7 +2333,7 @@
                 "teams"
               ]
             },
-            "description": "Gets a all Teams associated with the Instance."
+            "description": "Gets all Teams associated with the Instance."
           },
           "response": []
         },
@@ -2429,6 +2421,9 @@
       "item": [
         {
           "name": "Get Team Invite",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "auth": {
               "type": "bearer",
@@ -2554,7 +2549,7 @@
               "raw": ""
             },
             "url": {
-              "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/teams/invites/{{team_invite_zuid}}?action=accept&=decline&=cancel",
+              "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/teams/invites/{{team_invite_zuid}}?action=accept",
               "protocol": "{{protocol}}",
               "host": ["{{accounts_api_url}}"],
               "path": [
@@ -2568,16 +2563,6 @@
                   "key": "action",
                   "value": "accept",
                   "description": "Accept an invite"
-                },
-                {
-                  "key": "",
-                  "value": "decline",
-                  "description": "Decline an invite"
-                },
-                {
-                  "key": "",
-                  "value": "cancel",
-                  "description": "Cancel an invite; you must have sufficient privilege to perform this"
                 }
               ]
             },
@@ -2661,7 +2646,7 @@
                     {
                       "key": "action",
                       "value": "cancel",
-                      "description": "Cancel an invite. You must have sufficient privilege to perform this"
+                      "description": "Cancel an invite. You must have sufficient privilege to perform this action."
                     }
                   ]
                 }
@@ -3243,7 +3228,7 @@
                 "{{resource_zuid}}"
               ]
             },
-            "description": "Gets granular role by its role and resource ZUID"
+            "description": "Gets granular role by its role and resource ZUID.\n\nStartFragment\n\nYou can pass content models (schemas), instances, and item ZUID as the resource ZUID.\n\nEndFragment"
           },
           "response": []
         },
@@ -3274,7 +3259,7 @@
                 "{{resource_zuid}}"
               ]
             },
-            "description": "Deletes a granular role by its role and resource ZUID"
+            "description": "Deletes a granular role by its role and resource ZUID.\n\nStartFragment\n\nYou can pass content models (schemas), instances, and item ZUID as the resource ZUID.\n\nEndFragme"
           },
           "response": []
         },
@@ -3333,7 +3318,7 @@
                 "granulars"
               ]
             },
-            "description": "Updates the granular roles for the give role ZUID. The resource ZUID for each granular permission must be included in the body of each update."
+            "description": "Updates the granular roles for the give role ZUID. The resource ZUID for each granular permission must be included in the body of each update.\n\nStartFragment\n\nYou can pass content models (schemas), instances, and item ZUID as the resource ZUID.\n\nEndFragmen"
           },
           "response": []
         },
@@ -3362,7 +3347,7 @@
                 "granulars"
               ]
             },
-            "description": "Adds a granular role to the role with the given role ZUID."
+            "description": "Adds a granular role to the role with the given role ZUID.\n\nStartFragment\n\nIn the body content, you can pass content models (schemas), instances, and item ZUID as the resource ZUID.\n\nEndFragment"
           },
           "response": []
         }
@@ -3465,7 +3450,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n\t\"name\": \"updated_name\",\n\t\"description\": \"updated description\"\n}\t",
+              "raw": "{\n\t\"name\": \"Updated Ecosystem Name\",\n\t\"description\": \"Updated description\"\n}\t",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3598,7 +3583,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": \"6-dec282ffc1-q0wb2p\",\n\t\"resource\": \"items\",\n\t\"eventAction\": 1,\n\t\"method\": \"GET\",\n\t\"URL\": \"https://hooks.zapier.com/hooks/catch/6583555/ba20wae/\",\n\t\"contentType\": \"application/json\",\n\t\"body\": {\n        \"text\":\" this is the body\"\n    }\n}",
+              "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": \"{{content_model_zuid}}\",\n\t\"resource\": \"items\",\n\t\"eventAction\": 1,\n\t\"method\": \"GET\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"body\": {\n        \"text\":\" this is the body\"\n    }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3614,142 +3599,6 @@
             "description": "To create a webhook on a given instance, the user must have the following permissions on the instance:\n- Admin\n- Owner\n- Developer\n \nBody params:\n\n| field name | required\t| type |description |\n|------------|----------|------|------------|\n| `scopedResource` | yes | string | Scoped Resource refers to the service in which to listen in on webhooks. |\n| `parentResourceZUID` | no | string | Refers to a specific parent resource's ZUID. |\n| `resource` | yes | string | Refers to the ZUID or the name of a resource. |\n| `eventAction` | yes | number | The action on the resource which will trigger the webhook. |\n| `method` | yes | string | The HTTP request method that is made by the webhook. |\n| `URL` | yes | string | Destination URL for the webhook to send payload to. |\n| `contentType` | yes | string | The value used to set the HTTP header `Content-type` for the webhook request |\n| `authorization` | no | string | The Bearer token value used to set the HTTP header `Auhorization`. \n| `body` | yes | JSON | The payload body being sent to the destination URL.|\n\n\nPossible values for `scopedResource` are:\n- an instance ZUID\n- `accounts`\n\n\n**`parentResourceZUID`** \n\nIf `scopedResource` is an instance ZUID, possible values for `parentResourceZUID` are:\n- content model ZUID\n \nIf `scopedResource` is `accounts`, possible values for `parentResourceZUID` are:\n- instance ZUID\n\n\n**`resource`**\n\nIf `scopedResource` is an instance ZUID, possible values for `resource` are:\n- `models`\n- `items`\n- `publishings`\n- `fields`\n- `headtags`\n- `views`\n- `stylesheets`\n- `scripts`\n- `redirects`\n- `langs`\n- `leads`\nor its corresponding ZUIDs \n\n\nIf `scopedResource` is `accounts`, possible values for `resource` are:\n- `instances`\n- `users`\n- `invites`\n- `roles`\n- `granulars`\n- `domains`\nor its corresponding ZUIDs\n\nPossible Values for `eventAction`\n- Create: 1 \n- Update: 2\n- Delete: 3\n- Publish: 4\n- Unpublish: 5\n- UndoDelete: 6\n\n\nPossible Values for `method`\n- `POST` \n- `GET`\n\n\nPossible Values for `contentType`\n- `application/json` \n- `application/x-www-form-urlencoded`"
           },
           "response": [
-            {
-              "name": "Create Webhook to handle adding domain to an instance",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": null,\n\t\"resource\": \"domains\",\n\t\"eventAction\": 1,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Instance domain has been added\"\n\t}\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/webhooks",
-                  "protocol": "{{protocol}}",
-                  "host": ["{{accounts_api_url}}"],
-                  "path": ["{{accounts_api_version}}", "webhooks"]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": "JSON",
-              "header": [
-                {
-                  "key": "Date",
-                  "value": "Fri, 13 Dec 2019 21:42:36 GMT"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "598"
-                },
-                {
-                  "key": "Access-Control-Allow-Credentials",
-                  "value": "true"
-                },
-                {
-                  "key": "Access-Control-Allow-Headers",
-                  "value": "Cookie, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, X-Auth"
-                },
-                {
-                  "key": "Access-Control-Allow-Methods",
-                  "value": "PUT, POST, GET, PATCH, DELETE, OPTIONS"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": ""
-                },
-                {
-                  "key": "Via",
-                  "value": "1.1 google"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T21:50:37.138860515Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 1,\n        \"parentResourceZUID\": null,\n        \"resource\": \"domains\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Instance domain has been added\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T21:50:37.132868933Z\",\n        \"updatedAt\": \"2019-12-13T21:50:37.132875689Z\"\n    }\n}"
-            },
-            {
-              "name": "Create Webhook listening for Instance Role Generation",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": \"{{instance_zuid}}\",\n\t\"resource\": \"roles\",\n\t\"eventAction\": 1,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Role for instance has been generated\"\n\t}\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/webhooks",
-                  "protocol": "{{protocol}}",
-                  "host": ["{{accounts_api_url}}"],
-                  "path": ["{{accounts_api_version}}", "webhooks"]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": "JSON",
-              "header": [
-                {
-                  "key": "Date",
-                  "value": "Fri, 13 Dec 2019 00:18:44 GMT"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "623"
-                },
-                {
-                  "key": "Access-Control-Allow-Credentials",
-                  "value": "true"
-                },
-                {
-                  "key": "Access-Control-Allow-Headers",
-                  "value": "Cookie, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, X-Auth"
-                },
-                {
-                  "key": "Access-Control-Allow-Methods",
-                  "value": "PUT, POST, GET, PATCH, DELETE, OPTIONS"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": ""
-                },
-                {
-                  "key": "Via",
-                  "value": "1.1 google"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T00:56:08.894466158Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 1,\n        \"parentResourceZUID\": \"{{instance_zuid}}\",\n        \"resource\": \"roles\",\n        \"method\": \"POST\",\n    \t\"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Role for instance has been generated\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T00:56:08.881785817Z\",\n        \"updatedAt\": \"2019-12-13T00:56:08.881811583Z\"\n    }\n}"
-            },
             {
               "name": "Create webhook to look for Item Unpublish for a content model",
               "originalRequest": {
@@ -3784,70 +3633,6 @@
               "header": null,
               "cookie": [],
               "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-16T23:42:29.611489864Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 5,\n        \"parentResourceZUID\": \"{{collection_zuid}}\",\n        \"resource\": \"items\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Unpublish event {{collection_zuid}} for item has been triggered\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-16T23:42:29.603760232Z\",\n        \"updatedAt\": \"2019-12-16T23:42:29.603767566Z\"\n    }\n}"
-            },
-            {
-              "name": "Create Webhook Specific Content Model Item Publish ",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": \"{{collection_zuid}}\",\n\t\"resource\": \"items\",\n\t\"eventAction\": 4,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Publish event {{collection_zuid}} for item has been triggered\"\n\t}\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/webhooks",
-                  "protocol": "{{protocol}}",
-                  "host": ["{{accounts_api_url}}"],
-                  "path": ["{{accounts_api_version}}", "webhooks"]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": "JSON",
-              "header": [
-                {
-                  "key": "Access-Control-Allow-Credentials",
-                  "value": "true"
-                },
-                {
-                  "key": "Access-Control-Allow-Headers",
-                  "value": "Cookie, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, X-Auth"
-                },
-                {
-                  "key": "Access-Control-Allow-Methods",
-                  "value": "PUT, POST, GET, PATCH, DELETE, OPTIONS"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": ""
-                },
-                {
-                  "key": "Date",
-                  "value": "Thu, 12 Dec 2019 22:38:24 GMT"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "635"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain; charset=utf-8"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T21:50:37.138860515Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 4,\n        \"parentResourceZUID\": \"{{collection_zuid}}\",\n        \"resource\": \"items\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Publish event {{collection_zuid}} for item has been triggered\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T21:50:37.132868933Z\",\n        \"updatedAt\": \"2019-12-13T21:50:37.132875689Z\"\n    }\n}"
             },
             {
               "name": "Create webhook to look for item creation for a specific content model",
@@ -3914,7 +3699,7 @@
               "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-12T22:38:24.863808495Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n    \t\"scopedResource\": \"{{instance_zuid}}\",\n\t\t\"parentResourceZUID\": \"{{collection_zuid}}\",\n        \"eventAction\": 1,\n        \"resource\": \"items\",\n        \"method\": \"POST\",\n       \t\"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"New {{collection_zuid}} item created\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-12T22:38:24.749605126Z\",\n        \"updatedAt\": \"2019-12-12T22:38:24.74961072Z\"\n    }\n}"
             },
             {
-              "name": "Create Webhook to handle domain update",
+              "name": "Create Webhook Specific Content Model Item Publish ",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -3927,7 +3712,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": null,\n\t\"resource\": \"domains\",\n\t\"eventAction\": 2,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Instance domain has been updated\"\n\t}\n}",
+                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": \"{{collection_zuid}}\",\n\t\"resource\": \"items\",\n\t\"eventAction\": 4,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Publish event {{collection_zuid}} for item has been triggered\"\n\t}\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3946,18 +3731,6 @@
               "_postman_previewlanguage": "JSON",
               "header": [
                 {
-                  "key": "Date",
-                  "value": "Fri, 13 Dec 2019 21:38:00 GMT"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "580"
-                },
-                {
                   "key": "Access-Control-Allow-Credentials",
                   "value": "true"
                 },
@@ -3974,80 +3747,20 @@
                   "value": ""
                 },
                 {
-                  "key": "Via",
-                  "value": "1.1 google"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T21:42:36.316903727Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 2,\n        \"parentResourceZUID\": null,\n        \"resource\": \"domains\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Instance domain has been updated\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T21:42:36.309766223Z\",\n        \"updatedAt\": \"2019-12-13T21:42:36.309775775Z\"\n    }\n}"
-            },
-            {
-              "name": "Create Webhook to listen on invite creation",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": null,\n\t\"resource\": \"invites\",\n\t\"eventAction\": 1,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Invite created\"\n\t}\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/webhooks",
-                  "protocol": "{{protocol}}",
-                  "host": ["{{accounts_api_url}}"],
-                  "path": ["{{accounts_api_version}}", "webhooks"]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": "JSON",
-              "header": [
-                {
                   "key": "Date",
-                  "value": "Fri, 13 Dec 2019 21:20:58 GMT"
+                  "value": "Thu, 12 Dec 2019 22:38:24 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "635"
                 },
                 {
                   "key": "Content-Type",
                   "value": "text/plain; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "590"
-                },
-                {
-                  "key": "Access-Control-Allow-Credentials",
-                  "value": "true"
-                },
-                {
-                  "key": "Access-Control-Allow-Headers",
-                  "value": "Cookie, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, X-Auth"
-                },
-                {
-                  "key": "Access-Control-Allow-Methods",
-                  "value": "PUT, POST, GET, PATCH, DELETE, OPTIONS"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": ""
-                },
-                {
-                  "key": "Via",
-                  "value": "1.1 google"
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T21:38:00.947854465Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 1,\n        \"parentResourceZUID\": null,\n        \"resource\": \"invites\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Invite created\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T21:38:00.940145987Z\",\n        \"updatedAt\": \"2019-12-13T21:38:00.940153199Z\"\n    }\n}"
+              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T21:50:37.138860515Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 4,\n        \"parentResourceZUID\": \"{{collection_zuid}}\",\n        \"resource\": \"items\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Publish event {{collection_zuid}} for item has been triggered\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T21:50:37.132868933Z\",\n        \"updatedAt\": \"2019-12-13T21:50:37.132875689Z\"\n    }\n}"
             },
             {
               "name": "Create Webhook for User Role Update",
@@ -4118,6 +3831,74 @@
               "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T00:18:44.977620437Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 2,\n        \"parentResourceZUID\": \"{{user_zuid}}\",\n        \"resource\": \"roles\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Role for user {{user_zuid}} has been updated\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T00:18:44.971926604Z\",\n        \"updatedAt\": \"2019-12-13T00:18:44.971932097Z\"\n    }\n}"
             },
             {
+              "name": "Create Webhook listening for Instance Role Generation",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": \"{{instance_zuid}}\",\n\t\"resource\": \"roles\",\n\t\"eventAction\": 1,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Role for instance has been generated\"\n\t}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/webhooks",
+                  "protocol": "{{protocol}}",
+                  "host": ["{{accounts_api_url}}"],
+                  "path": ["{{accounts_api_version}}", "webhooks"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Dec 2019 00:18:44 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "623"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Cookie, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, X-Auth"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "PUT, POST, GET, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": ""
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 google"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T00:56:08.894466158Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 1,\n        \"parentResourceZUID\": \"{{instance_zuid}}\",\n        \"resource\": \"roles\",\n        \"method\": \"POST\",\n    \t\"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Role for instance has been generated\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T00:56:08.881785817Z\",\n        \"updatedAt\": \"2019-12-13T00:56:08.881811583Z\"\n    }\n}"
+            },
+            {
               "name": "Create Webhook to handle invite responses",
               "originalRequest": {
                 "method": "POST",
@@ -4184,6 +3965,210 @@
               ],
               "cookie": [],
               "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T21:20:58.235232598Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{wehook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 2,\n        \"parentResourceZUID\": null,\n        \"resource\": \"invites\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Invite response received\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T21:20:58.224616391Z\",\n        \"updatedAt\": \"2019-12-13T21:20:58.224622904Z\"\n    }\n}"
+            },
+            {
+              "name": "Create Webhook to listen on invite creation",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": null,\n\t\"resource\": \"invites\",\n\t\"eventAction\": 1,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Invite created\"\n\t}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/webhooks",
+                  "protocol": "{{protocol}}",
+                  "host": ["{{accounts_api_url}}"],
+                  "path": ["{{accounts_api_version}}", "webhooks"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Dec 2019 21:20:58 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "590"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Cookie, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, X-Auth"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "PUT, POST, GET, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": ""
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 google"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T21:38:00.947854465Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 1,\n        \"parentResourceZUID\": null,\n        \"resource\": \"invites\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Invite created\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T21:38:00.940145987Z\",\n        \"updatedAt\": \"2019-12-13T21:38:00.940153199Z\"\n    }\n}"
+            },
+            {
+              "name": "Create Webhook to handle domain update",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": null,\n\t\"resource\": \"domains\",\n\t\"eventAction\": 2,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Instance domain has been updated\"\n\t}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/webhooks",
+                  "protocol": "{{protocol}}",
+                  "host": ["{{accounts_api_url}}"],
+                  "path": ["{{accounts_api_version}}", "webhooks"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Dec 2019 21:38:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "580"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Cookie, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, X-Auth"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "PUT, POST, GET, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": ""
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 google"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T21:42:36.316903727Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 2,\n        \"parentResourceZUID\": null,\n        \"resource\": \"domains\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Instance domain has been updated\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T21:42:36.309766223Z\",\n        \"updatedAt\": \"2019-12-13T21:42:36.309775775Z\"\n    }\n}"
+            },
+            {
+              "name": "Create Webhook to handle adding domain to an instance",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"scopedResource\": \"{{instance_zuid}}\",\n\t\"parentResourceZUID\": null,\n\t\"resource\": \"domains\",\n\t\"eventAction\": 1,\n\t\"method\": \"POST\",\n\t\"URL\": \"{{webhook_url}}\",\n\t\"contentType\": \"application/json\",\n\t\"authorization\": \"\",\n\t\"body\": {\n\t\t\"text\": \"Instance domain has been added\"\n\t}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/webhooks",
+                  "protocol": "{{protocol}}",
+                  "host": ["{{accounts_api_url}}"],
+                  "path": ["{{accounts_api_version}}", "webhooks"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "JSON",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Dec 2019 21:42:36 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "598"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Cookie, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, X-Auth"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "PUT, POST, GET, PATCH, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": ""
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 google"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"_meta\": {\n        \"timestamp\": \"2019-12-13T21:50:37.138860515Z\",\n        \"totalResults\": 1,\n        \"start\": 0,\n        \"offset\": 0,\n        \"limit\": 1\n    },\n    \"data\": {\n        \"ZUID\": \"{{webhook_zuid}}\",\n        \"scopedResource\": \"{{instance_zuid}}\",\n        \"eventAction\": 1,\n        \"parentResourceZUID\": null,\n        \"resource\": \"domains\",\n        \"method\": \"POST\",\n        \"URL\": \"{{webhook_url}}\",\n        \"contentType\": \"application/json\",\n        \"authorization\": \"\",\n        \"body\": {\n            \"text\": \"Instance domain has been added\"\n        },\n        \"createdByUserZUID\": \"{{user_zuid}}\",\n        \"description\": null,\n        \"createdAt\": \"2019-12-13T21:50:37.132868933Z\",\n        \"updatedAt\": \"2019-12-13T21:50:37.132875689Z\"\n    }\n}"
             }
           ]
         },
@@ -4304,7 +4289,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n\t\"roleZUID\": \"30-aa95a59bbe-j3s9m1\",\n\t\"name\": \"Wei's Cyberpunk Character Sheets\"\n}"
+              "raw": "{\n\t\"roleZUID\": \"{{role_zuid}}\",\n\t\"name\": \"Example Token Name\"\n}"
             },
             "url": {
               "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/tokens",
@@ -4347,13 +4332,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{site_zuid}}/tokens",
+              "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/instances/{{instance_zuid}}/tokens",
               "protocol": "{{protocol}}",
               "host": ["{{accounts_api_url}}"],
               "path": [
                 "{{accounts_api_version}}",
                 "instances",
-                "{{site_zuid}}",
+                "{{instance_zuid}}",
                 "tokens"
               ]
             }
@@ -4381,39 +4366,6 @@
             "description": "Updates a single token by its ZUID. The optional query param `action` can be one of the following values:\n- `renew`"
           },
           "response": [
-            {
-              "name": "Update Token",
-              "originalRequest": {
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n\t\"name\": \"Updated token name\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/tokens",
-                  "protocol": "{{protocol}}",
-                  "host": ["{{accounts_api_url}}"],
-                  "path": ["{{accounts_api_version}}", "tokens"]
-                }
-              },
-              "_postman_previewlanguage": null,
-              "header": null,
-              "cookie": [],
-              "body": null
-            },
             {
               "name": "Renew Token",
               "originalRequest": {
@@ -4447,6 +4399,39 @@
                       "description": "Renews the token"
                     }
                   ]
+                }
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            },
+            {
+              "name": "Update Token",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"name\": \"Updated token name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{protocol}}://{{accounts_api_url}}/{{accounts_api_version}}/tokens",
+                  "protocol": "{{protocol}}",
+                  "host": ["{{accounts_api_url}}"],
+                  "path": ["{{accounts_api_version}}", "tokens"]
                 }
               },
               "_postman_previewlanguage": null,
@@ -5380,7 +5365,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"appZUID\": \"80-e88f85feec-7rs7sx\"\n}",
+              "raw": "{\n    \"appZUID\": \"80-abcd-1234\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6498,7 +6483,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{APP_SID}}",
+        "value": "{{token}}",
         "type": "string"
       }
     ]

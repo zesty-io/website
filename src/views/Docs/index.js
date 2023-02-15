@@ -1,14 +1,10 @@
 import React from 'react';
 import MainWrapper from 'layouts/Main';
 import dynamic from 'next/dynamic';
-import Fuse from 'fuse.js';
 import { Stack, useScrollTrigger } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
-
-import INSTANCE_DATA from './instance.data.json';
-import ACCOUNTS_DATA from './accounts.data.json';
-import AUTH_DATA from './auth.data.json';
+import { LangSelector } from './LangSelector';
 
 const DocsComboBox = dynamic(() =>
   import('./DocsComboBox').then((mod) => mod.DocsComboBox),
@@ -26,39 +22,42 @@ const DocsPages = dynamic(() =>
   import('./DocsPages').then((mod) => mod.DocsPages),
 );
 
-const options = {
-  includeScore: true,
-  useExtendedSearch: true,
-  includeMatches: true,
-  ignoreLocation: true,
-  findAllMatches: true,
-  threshold: 0,
-  isCaseSensitive: false,
-  minMatchCharLength: 1,
-  keys: ['name', 'item.name', 'item.item.name'],
-};
-
-const DOCS_DATA = [
-  {
-    label: 'Instance API',
-    value: INSTANCE_DATA,
-  },
-  {
-    label: 'Accounts API',
-    value: ACCOUNTS_DATA,
-  },
-  {
-    label: 'Authentication API',
-    value: AUTH_DATA,
-  },
-];
+// const options = {
+//   includeScore: true,
+//   useExtendedSearch: true,
+//   includeMatches: true,
+//   ignoreLocation: true,
+//   findAllMatches: true,
+//   threshold: 0,
+//   isCaseSensitive: false,
+//   minMatchCharLength: 1,
+//   keys: ['name', 'item.name', 'item.item.name'],
+// };
 
 const title = 'Docs page';
 const description = 'Docs page';
 const ogimage = 'Docs page';
+const LANGUAGE_LIST = [
+  {
+    label: 'Javascript Fetch',
+    value: 'Javascript Fetch',
+  },
+  {
+    label: 'Javascript Axios',
+    value: 'Javascript Axios',
+  },
+];
 
 const LeftNav = React.memo(
-  ({ trigger, onChangeDropdown, setsearch, search, newTreeData }) => {
+  ({
+    trigger,
+    onChangeDropdown,
+    setsearch,
+    search,
+    newTreeData,
+    dropdownData,
+  }) => {
+    const [currentLang, setcurrentLang] = React.useState('Javascript Fetch');
     return (
       <Stack
         sx={{
@@ -71,7 +70,12 @@ const LeftNav = React.memo(
         }}
       >
         <Stack px={4} spacing={2} py={3}>
-          <DocsComboBox onChange={onChangeDropdown} options={DOCS_DATA} />
+          <LangSelector
+            value={currentLang}
+            setvalue={setcurrentLang}
+            options={LANGUAGE_LIST}
+          />
+          <DocsComboBox onChange={onChangeDropdown} options={dropdownData} />
           <SearchComponent search={search} onChange={setsearch} />
         </Stack>
         <FolderTreeView
@@ -92,32 +96,23 @@ const DocsView = React.memo(({ data = [] }) => {
   );
 });
 
-const Main = () => {
+const Main = ({ pageData = [], treeData, onChangeDropdown, dropdownData }) => {
   const [search, setsearch] = React.useState('');
-  const [treeData, settreeData] = React.useState(INSTANCE_DATA);
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 5,
   });
 
-  const onChangeDropdown = (data) => {
-    window.scrollTo(0, 0);
-    if (data?.value) {
-      settreeData(data?.value);
-    } else {
-      settreeData(INSTANCE_DATA);
-    }
-  };
-
-  const fuse = new Fuse(treeData.item, options);
-  const searchResult = fuse.search(search || '');
-  const newTreeData =
-    searchResult.length !== 0 && search.length !== 0
-      ? searchResult[0].item.item
-      : searchResult.length === 0 && search.length === 0
-      ? treeData.item
-      : [];
+  // const fuse = new Fuse(treeData.item, options);
+  // const searchResult = fuse.search(search || '');
+  // const newTreeData =
+  //   searchResult.length !== 0 && search.length !== 0
+  //     ? searchResult[0].item.item
+  //     : searchResult.length === 0 && search.length === 0
+  //     ? treeData.item
+  //     : [];
+  const newTreeData = treeData?.item;
 
   const pageHeaderProps = {
     title,
@@ -130,6 +125,7 @@ const Main = () => {
     setsearch,
     search,
     newTreeData,
+    dropdownData,
   };
 
   return (
@@ -139,7 +135,7 @@ const Main = () => {
       {/* left navigation tree */}
       <LeftNav {...leftNavProps} />
       {/* main docs view page  */}
-      <DocsView data={treeData.item} />
+      <DocsView data={pageData} />
     </MainWrapper>
   );
 };
