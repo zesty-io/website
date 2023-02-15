@@ -8,7 +8,7 @@ import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
-export default function SettingsPage() {
+export default function SettingsPage(content) {
   const [loading, setloading] = React.useState(false);
   const [settings, setsettings] = React.useState([]);
   const { ZestyAPI, userAppSID } = useZestyStore((state) => state);
@@ -57,6 +57,7 @@ export default function SettingsPage() {
   return (
     <InstanceContainer>
       <Settings
+        content={content}
         loading={loading}
         settings={settings}
         singleSettingsUpdate={singleSettingsUpdate}
