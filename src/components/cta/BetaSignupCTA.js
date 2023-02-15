@@ -2,35 +2,31 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-
 import { useFormik } from 'formik';
-import * as yup from 'yup';
-
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
-
-import TransitionsModal from './TransitionModal';
-import { inputLabelClasses } from '@mui/material/InputLabel';
-import { styled } from '@mui/material/styles';
 import { getCookie } from 'cookies-next';
-
 import { accountsValidations } from 'components/accounts';
+
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  RedditShareButton,
+  TwitterShareButton,
+} from 'react-share';
+
+import {
+  FacebookIcon,
+  LinkedinIcon,
+  RedditIcon,
+  TwitterIcon,
+} from 'react-share';
 /**
  * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
  * Note, if a custom field need to be added speak to todd.sabo@zesty.io
  * For testing new changes, please work with katie.moser@zesty.io
  */
-
-// for hiding of ellipis in message in mobile
-const StyledTextField = styled(TextField)({
-  [`& .${inputLabelClasses.outlined}`]: {
-    whiteSpace: 'normal',
-  },
-});
 
 /* validation for form component */
 
@@ -43,13 +39,7 @@ const getLeadObjectZOHO = (
 ) => {
   // let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
-  // possible values
-  // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
-  // "Current_CMS": acCMS,
-  // "How_Using_Zesty_io": acHow,
-  // "Website": document.querySelector('#ac-url').value,
-  // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
-  // zoho and google click id https://help.zoho.com/portal/en/kb/crm/integrations/google/google-ads/articles/configure-google-ads-crm-integration#Step_2_Add_hidden_element_in_your_web_forms
+
   return {
     First_Name: obj.firstName,
     Last_Name: obj.lastName,
@@ -86,7 +76,7 @@ const getLeadObjectZOHO = (
 };
 
 const postToZOHO = async (payloadJSON) => {
-  fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
+  return fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
     method: 'POST',
     body: JSON.stringify(payloadJSON),
     headers: {
@@ -94,85 +84,15 @@ const postToZOHO = async (payloadJSON) => {
     },
   })
     .then((res) => res.json())
-    .then(() => {
+    .then((data) => {
       // google data
       dataLayer.push({ event: 'formCaptureSuccess', value: '1' });
+      return data;
     })
     .catch((error) => {
       throw new Error(`HTTP error: ${error}`);
     });
 };
-const phoneRegExp =
-  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-
-const validationSchema = yup.object({
-  firstName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  lastName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your last name'),
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
-  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-  message: yup.string().trim().required('Please specify your message'),
-});
-
-const validationSchemaForPpc = yup.object({
-  firstName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  lastName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your last name'),
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
-  company: yup.string().trim().required('Please specify your company'),
-  jobTitle: yup.string().trim().required('Please specify your job title'),
-  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-});
-
-const validationSchemaForDxp = yup.object({
-  firstName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  lastName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your last name'),
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
-  newsletter_signup: yup.boolean(),
-  company: yup.string().trim().required('Please specify your company'),
-  jobTitle: yup.string().trim().required('Please specify your job title'),
-  phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-});
 
 const subscribeToZoho = async (payload) => {
   const { Email, First_Name, Last_Name } = payload;
@@ -190,48 +110,19 @@ const subscribeToZoho = async (payload) => {
 };
 
 function BetaSignupCta({
-  selectedValue = 0,
-  hideSelect = false,
-  // hideMessage = true,
-  // defaultMessage = '',
   leadDetail = 'Contact Us',
   leadSource = 'Website',
   businessType = 'Direct',
-  modalTitle = 'Thank you',
-  modalMessage = 'Have a great day.',
-  displayMsgUnderButton = `We'll get back to you in 1-2 business days.`,
   additionalTextfield = {},
   buttonFullWidth = false,
-  hidePrivacySection = false,
-  messageLabel = 'Message',
-  customButtonStyle = { display: 'flex', justifyContent: 'initial' },
-  bottomCheckbox = false,
-  bottomCheckboxLabel = '',
-  validationType = '',
   ctaButton = 'Submit',
   downloadLink = '',
-  // onClickBtn = null,
   phoneNumber = false,
   capterraTracking = null,
-  cmsModel,
+  meta,
 }) {
-  const theme = useTheme();
-
-  const [open, setOpen] = useState(false);
-
-  let inquiryReasons = [
-    'General',
-    'Agency Sign Up',
-    'Request a Demo',
-    'Support',
-    'Billing',
-    'Press Relations',
-  ];
-  const [selectValue, setSelectValue] = useState(inquiryReasons[selectedValue]);
-
-  const handleChange = (event) => {
-    setSelectValue(event.target.value);
-  };
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const initialValues = {
     firstName: '',
@@ -245,14 +136,13 @@ function BetaSignupCta({
   };
 
   const onSubmit = async (values) => {
-    console.log('test');
     // download link
+    setLoading(true);
     downloadLink && window.open(downloadLink, '_blank');
     capterraTracking && capterraTracking();
 
     let payload = await getLeadObjectZOHO(
       values,
-      selectValue,
       leadDetail,
       businessType,
       leadSource,
@@ -265,186 +155,186 @@ function BetaSignupCta({
       await subscribeToZoho(payload);
     }
 
-    cmsModel === 'Gated Content Page'
-      ? setOpen(true)
-      : (window.location = '/ppc/thank-you/');
-
+    setLoading(false);
+    setIsFormSubmitted(true);
     return values;
   };
 
   const formik = useFormik({
     initialValues,
-    validationSchema:
-      validationType === 'dxp'
-        ? validationSchemaForDxp
-        : additionalTextfield.company
-        ? validationSchemaForPpc
-        : accountsValidations.BetaSignupSchema,
+    validationSchema: accountsValidations.BetaSignupSchema,
     onSubmit,
   });
 
   return (
     <Box>
-      <form noValidate onSubmit={formik.handleSubmit}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              sx={{ height: 54 }}
-              label="First name"
-              variant="outlined"
-              color="primary"
-              size="medium"
-              name="firstName"
-              fullWidth
-              value={formik.values.firstName}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
-              helperText={formik.touched.firstName && formik.errors.firstName}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              sx={{ height: 54 }}
-              label="Last name"
-              variant="outlined"
-              color="primary"
-              size="medium"
-              name="lastName"
-              fullWidth
-              value={formik.values.lastName}
-              onChange={formik.handleChange}
-              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-              helperText={formik.touched.lastName && formik.errors.lastName}
-            />
-          </Grid>
-          {additionalTextfield.company && (
-            <Grid item xs={12}>
+      {!isFormSubmitted ? (
+        <form noValidate onSubmit={formik.handleSubmit}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 sx={{ height: 54 }}
-                label="Company"
-                type="text"
+                label="First name"
                 variant="outlined"
                 color="primary"
                 size="medium"
-                name="company"
+                name="firstName"
                 fullWidth
-                value={formik.values.company}
-                onChange={formik.handleChange}
-                error={formik.touched.company && Boolean(formik.errors.company)}
-                helperText={formik.touched.company && formik.errors.company}
-              />
-            </Grid>
-          )}
-          <Grid item xs={12}>
-            <TextField
-              sx={{ height: 54 }}
-              label="Email"
-              type="email"
-              variant="outlined"
-              color="primary"
-              size="medium"
-              name="email"
-              fullWidth
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
-          </Grid>
-          {phoneNumber && (
-            <Grid item xs={12}>
-              <TextField
-                sx={{ height: 54 }}
-                label="Phone Number"
-                type="tel"
-                variant="outlined"
-                color="primary"
-                size="medium"
-                name="phoneNumber"
-                fullWidth
-                value={formik.values.phoneNumber}
+                value={formik.values.firstName}
                 onChange={formik.handleChange}
                 error={
-                  formik.touched.phoneNumber &&
-                  Boolean(formik.errors.phoneNumber)
+                  formik.touched.firstName && Boolean(formik.errors.firstName)
                 }
-                helperText={
-                  formik.touched.phoneNumber && formik.errors.phoneNumber
-                }
+                helperText={formik.touched.firstName && formik.errors.firstName}
               />
             </Grid>
-          )}
-          {additionalTextfield.jobTitle && (
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 sx={{ height: 54 }}
-                label="Job Title"
-                type="test"
+                label="Last name"
                 variant="outlined"
                 color="primary"
                 size="medium"
-                name="jobTitle"
+                name="lastName"
                 fullWidth
-                value={formik.values.jobTitle}
+                value={formik.values.lastName}
                 onChange={formik.handleChange}
                 error={
-                  formik.touched.jobTitle && Boolean(formik.errors.jobTitle)
+                  formik.touched.lastName && Boolean(formik.errors.lastName)
                 }
-                helperText={formik.touched.jobTitle && formik.errors.jobTitle}
+                helperText={formik.touched.lastName && formik.errors.lastName}
               />
             </Grid>
-          )}
-          {/* logic to hide the select */}
+            {additionalTextfield.company && (
+              <Grid item xs={12}>
+                <TextField
+                  sx={{ height: 54 }}
+                  label="Company"
+                  type="text"
+                  variant="outlined"
+                  color="primary"
+                  size="medium"
+                  name="company"
+                  fullWidth
+                  value={formik.values.company}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.company && Boolean(formik.errors.company)
+                  }
+                  helperText={formik.touched.company && formik.errors.company}
+                />
+              </Grid>
+            )}
+            <Grid item xs={12}>
+              <TextField
+                sx={{ height: 54 }}
+                label="Email"
+                type="email"
+                variant="outlined"
+                color="primary"
+                size="medium"
+                name="email"
+                fullWidth
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+            </Grid>
+            {phoneNumber && (
+              <Grid item xs={12}>
+                <TextField
+                  sx={{ height: 54 }}
+                  label="Phone Number"
+                  type="tel"
+                  variant="outlined"
+                  color="primary"
+                  size="medium"
+                  name="phoneNumber"
+                  fullWidth
+                  value={formik.values.phoneNumber}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.phoneNumber &&
+                    Boolean(formik.errors.phoneNumber)
+                  }
+                  helperText={
+                    formik.touched.phoneNumber && formik.errors.phoneNumber
+                  }
+                />
+              </Grid>
+            )}
+            {additionalTextfield.jobTitle && (
+              <Grid item xs={12}>
+                <TextField
+                  sx={{ height: 54 }}
+                  label="Job Title"
+                  type="test"
+                  variant="outlined"
+                  color="primary"
+                  size="medium"
+                  name="jobTitle"
+                  fullWidth
+                  value={formik.values.jobTitle}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.jobTitle && Boolean(formik.errors.jobTitle)
+                  }
+                  helperText={formik.touched.jobTitle && formik.errors.jobTitle}
+                />
+              </Grid>
+            )}
 
-          <input value={leadDetail} name="inquiryReason" type="hidden" />
+            <input value={leadDetail} name="inquiryReason" type="hidden" />
 
-          <Grid item xs={12}>
-            <Button
-              fullWidth={buttonFullWidth}
-              sx={{ height: 54, minWidth: 150 }}
-              variant="contained"
-              color="secondary"
-              className="contactButton"
-              size="medium"
-              type="submit"
-            >
-              {ctaButton}
-            </Button>
+            <Grid item xs={12}>
+              <Button
+                fullWidth={buttonFullWidth}
+                sx={{ height: 54, minWidth: 150 }}
+                variant="contained"
+                color="secondary"
+                className="contactButton"
+                size="medium"
+                type="submit"
+              >
+                {loading ? 'Submitting...' : ctaButton}
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Typography color="text.secondary">
-              {displayMsgUnderButton}
-            </Typography>
-          </Grid>
-          <Grid display={hidePrivacySection ? 'none' : 'block'} item xs={12}>
-            <Divider />
-          </Grid>
-          <Grid display={hidePrivacySection ? 'none' : 'block'} item xs={12}>
-            <Box style={customButtonStyle}>
-              <Typography component="p" variant="body2" align="left">
-                By clicking on "submit" you agree to our{' '}
-                <Box
-                  component="a"
-                  href="/legal/privacy-policy/"
-                  color={theme.palette.text.primary}
-                  fontWeight={'700'}
-                >
-                  Privacy Policy
-                </Box>
-                .
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </form>
-      <TransitionsModal
-        title={modalTitle}
-        message={modalMessage}
-        open={open}
-        setOpen={setOpen}
-      />
+        </form>
+      ) : (
+        <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center' }}>
+          <FacebookShareButton
+            quote={meta.web.seo_meta_title}
+            title={meta.web.seo_meta_title}
+            url={meta?.web?.url}
+          >
+            <FacebookIcon round />
+          </FacebookShareButton>
+          <LinkedinShareButton
+            source={meta?.web?.url}
+            summary={meta.web.seo_meta_description}
+            title={meta.web.seo_meta_title}
+            url={meta?.web?.url}
+          >
+            <LinkedinIcon round />
+          </LinkedinShareButton>
+
+          <TwitterShareButton
+            title={meta.web.seo_meta_title}
+            url={meta?.web?.url}
+          >
+            <TwitterIcon round />
+          </TwitterShareButton>
+
+          <RedditShareButton
+            title={meta.web.seo_meta_title}
+            url={meta?.web?.url}
+          >
+            <RedditIcon round />
+          </RedditShareButton>
+        </Box>
+      )}
     </Box>
   );
 }
