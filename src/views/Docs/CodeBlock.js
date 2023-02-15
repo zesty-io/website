@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Menu,
-  MenuItem,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from '@mui/material';
+import { Stack, Tab, Tabs, Typography } from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -46,17 +38,6 @@ const CodeBlockTabs = React.memo(({ setvalue = () => {}, value }) => {
     </Stack>
   );
 });
-
-const LANGUAGE_LIST = [
-  {
-    label: 'Javascript Fetch',
-    value: 'Javascript Fetch',
-  },
-  {
-    label: 'Javascript Axios',
-    value: 'Javascript Axios',
-  },
-];
 
 const Main = ({ title = 'no title', data = {} }) => {
   const [codeBlockData, setcodeBlockData] = React.useState('');
@@ -103,10 +84,6 @@ const Main = ({ title = 'no title', data = {} }) => {
         alignItems="center"
       >
         <Typography>{title}</Typography>
-
-        <Stack direction={'row'} title="Click to copy">
-          <LangMenu setvalue={setcurrentLang} value={currentLang} />
-        </Stack>
       </Stack>
       <Stack direction={'row'} px={1}>
         <CodeBlockTabs setvalue={setcurrentTab} value={currentTab} />
@@ -163,47 +140,3 @@ const Main = ({ title = 'no title', data = {} }) => {
 };
 
 export const CodeBlock = React.memo(Main);
-
-const LangMenu = React.memo(({ setvalue, value }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = (e) => {
-    setAnchorEl(null);
-    if (e.value) {
-      setvalue(e.value);
-    }
-  };
-
-  return (
-    <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        color="secondary"
-      >
-        <Typography color={'#fff'} whiteSpace="nowrap">
-          Language: {value}
-        </Typography>
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        {LANGUAGE_LIST.map((e) => {
-          return <MenuItem onClick={() => handleClose(e)}>{e.label}</MenuItem>;
-        })}
-      </Menu>
-    </div>
-  );
-});

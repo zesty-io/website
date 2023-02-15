@@ -91,3 +91,79 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
 
   return { request: langSwitcher(lang), response: responseData };
 };
+
+// todo convert to recursive FN //
+export const transFormMainData = (mainCollection) => {
+  mainCollection = mainCollection.map((e) => {
+    return {
+      ...e,
+      parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
+      url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
+    };
+  });
+
+  // const testCollect = (data) =>{
+  // const newCollection = data?.map((e) => {
+  //   const res = e.item.map((q) => {
+  //     return { ...q, parent: e.parent || e.name, url: e.parent + q.name };
+  //   });
+  //   return { ...e, item: res };
+  // });
+
+  // return newCollection
+
+  // }
+  const newCollection = mainCollection?.map((e) => {
+    const res = e.item.map((q) => {
+      return { ...q, parent: e.parent || e.name, url: e.parent + q.name };
+    });
+    return { ...e, item: res };
+  });
+
+  const newColletion1 = newCollection.map((e) => {
+    const res = e.item.map((q) => {
+      const res2 = q?.item?.map((w) => {
+        return { ...w, parent: q.name, url: e.parent + w.name };
+      });
+      return { ...q, item: res2 };
+    });
+    return { ...e, item: res };
+  });
+
+  const result = newColletion1.map((e) => {
+    const res = e.item.map((q) => {
+      const res2 = q?.item?.map((w) => {
+        const res3 = w?.item?.map((y) => {
+          return {
+            ...y,
+            parent: w?.name,
+            // url: e.parent + w.name,
+          };
+        });
+        return { ...w, item: res3 };
+      });
+      return { ...q, item: res2 };
+    });
+    return { ...e, item: res };
+  });
+  return result;
+};
+
+export const getPageData = (data, mainData = [], url) => {
+  let item = [];
+  if (!url) {
+    item = mainData[0];
+  }
+  if (data?.url === url) {
+    item = data;
+  }
+  (data?.item ?? data)?.forEach((e) => {
+    if (e.url === url) {
+      item = e;
+    } else {
+      getPageData(e.item);
+    }
+  });
+
+  return item;
+};
