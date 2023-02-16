@@ -14,7 +14,7 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
   hasToken &&
     headers.push({
       key: 'Authorization',
-      value: `Bearer ${getCookie('APP_SID') || 'Not Authenticated'}`,
+      value: `Bearer ${getCookie('APP_SID') || 'YOUR_API_KEY'}`,
     });
 
   const requestFetch = `
@@ -44,7 +44,20 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
   .catch(error => console.log('error', error));
   `;
 
-  const requestAxios = `
+  const responseData = data.response ? `${data?.response[0]?.body}` : `{}`;
+
+  const langSwitcher = (lang) => {
+    switch (lang) {
+      case 'Javascript Fetch':
+        return fetchRequest;
+      default:
+        return requestFetch;
+    }
+  };
+
+  console.log(data, 343434);
+  const fetchRequest = `
+  const request = async () => {
   ${hasFormData ? `const body = new FormData();` : ''}
   ${
     hasFormData
@@ -55,39 +68,24 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
           .join('  ')
       : ''
   }
-  const config = {
+  const endpoint = '${data.request.url.raw}'
+
+  const res = await fetch(endpoint, {
     method: '${data.request.method}',
-    url: '${data.request.url.raw}',
-    data: JSON.stringify(body),
     headers: {
       ${headers
         .map((e) => {
-          return `${e.key} : '${e.value}',\n`;
+          return `${e.key} : '${e.value}'\n`;
         })
         .join('      ')}
     },
-  };
-   await axios(config)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    ${data.request.body ? 'body: JSON.stringify(body)' : ''}
+  })
+  const data = await res.json();
+  return data;
+}
+
   `;
-
-  const responseData = data.response ? `${data?.response[0]?.body}` : `{}`;
-
-  const langSwitcher = (lang) => {
-    switch (lang) {
-      case 'Javascript Fetch':
-        return requestFetch;
-      case 'Javascript Axios':
-        return requestAxios;
-      default:
-        return requestFetch;
-    }
-  };
 
   return { request: langSwitcher(lang), response: responseData };
 };

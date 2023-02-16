@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 const GetTree = ({ data = [], handleClick = () => {} }) => {
   const result = Array.isArray(data)
     ? data.map((e) => {
+        const name = e.name.replaceAll(' ', '-');
         if (Array.isArray(e.item)) {
           const res = e.item.map((x) => {
             return { ...x, scroll: true };
@@ -15,7 +16,7 @@ const GetTree = ({ data = [], handleClick = () => {} }) => {
           return (
             <TreeItem
               expanded={true}
-              nodeId={e.name}
+              nodeId={name}
               label={<Typography py={1}>{e.name}</Typography>}
               onClick={() => handleClick(e)}
             >
@@ -25,10 +26,10 @@ const GetTree = ({ data = [], handleClick = () => {} }) => {
         } else {
           return (
             <TreeItem
-              nodeId={e.name}
+              nodeId={name}
               label={
                 <Link
-                  href={`#${e.name}`}
+                  href={`#${name}`}
                   variant="p"
                   color={'inherit'}
                   sx={{
@@ -54,8 +55,6 @@ const Main = ({ data = {}, header = '' }) => {
   const router = useRouter();
   const handleClick = (item) => {
     router.push('/docs' + item.url);
-
-    console.log('/docs/' + item.url, 444444444444444444444);
   };
 
   return (

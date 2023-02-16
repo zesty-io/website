@@ -128,7 +128,7 @@ const Main = ({ title = 'no title', data = {} }) => {
           style={coldarkDark}
           wrapLongLines={false}
           customStyle={{
-            fontSize: '12px',
+            fontSize: '13px',
             fontWeight: 400,
           }}
         >
