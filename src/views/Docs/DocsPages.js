@@ -1,8 +1,12 @@
 import React from 'react';
-import { Grid, Stack, Typography } from '@mui/material';
+import { Grid, Link, Stack, Typography } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
+import { base16AteliersulphurpoolLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import { getCookie } from 'cookies-next';
 
 const muiContentOverrides = {
   h1: {
@@ -82,15 +86,16 @@ const Main = ({ data }) => {
     threshold: 0,
   });
 
-  console.log(data, 7777);
   const result =
     Array.isArray(data.item) &&
     data.item.map((e) => {
+      const name = e?.name?.replaceAll(' ', '-');
+      const hasBody = e?.request?.body ? true : false;
       if (Array.isArray(e.item)) {
         return (
           <Stack py={4}>
-            <Typography variant="h4" fontWeight={'800'} id={e.name} pb={2}>
-              {e.name}
+            <Typography variant="h4" fontWeight={'800'} id={name} pb={2}>
+              {e?.name}
             </Typography>
             <MuiMarkdown
               inlineCodeColor="dodgerblue"
@@ -103,32 +108,86 @@ const Main = ({ data }) => {
         );
       } else {
         return (
-          <Grid container direction="row" py={2} minHeight={'55vh'}>
+          <Grid container direction="row" py={2} minHeight={'55vh'} spacing={2}>
             <Grid item xs={6} width={1}>
-              <Stack direction={'row'} alignItems="center">
-                {iconMethod(e.request.method)}
-                <Typography variant="h5" id={e.name}>
-                  {e.name}
+              <Stack direction={'column'}>
+                <Stack direction={'row'} pb={2} alignItems="center">
+                  {iconMethod(e.request.method)}
+                  <Typography variant="h5" id={name}>
+                    {e?.name}
+                  </Typography>
+                  <Link href={`#${name}`}>
+                    <InsertLinkIcon
+                      fontSize="large"
+                      sx={{ ml: 1 }}
+                      color="secondary"
+                    />
+                  </Link>
+                </Stack>
+
+                <Typography variant="p" id={name}>
+                  {e?.request?.description}
                 </Typography>
+              </Stack>
+              <Stack>
+                <CodeBlocks header="URL Endpoint">
+                  {e.request.url.raw}
+                </CodeBlocks>
+                <CodeBlocks header="Authentication Header">{`Bearer ${
+                  getCookie('APP_SID') || 'YOUR_API_KEY'
+                }`}</CodeBlocks>
+                {hasBody && (
+                  <CodeBlocks header="Request Body">
+                    {e?.request?.body?.raw}
+                  </CodeBlocks>
+                )}
               </Stack>
             </Grid>
             <Grid item xs={6} width={1}>
-              {inView && <CodeBlock title={e.name} data={e} />}
+              {inView && <CodeBlock title={name} data={e} />}
             </Grid>
           </Grid>
         );
       }
     });
   return (
-    <Stack ref={ref} bgcolor="#fff">
-      <Typography variant="h4" id={data.name}>
-        {data.name}
-      </Typography>
-      <MuiMarkdown inlineCodeColor="dodgerblue" overrides={muiContentOverrides}>
-        {data?.description || ''}
-      </MuiMarkdown>
+    <Stack ref={ref} bgcolor="#fff" pt={2}>
+      <Grid container pb={4}>
+        <Grid item xs={6}>
+          <Typography variant="h4" id={data.name}>
+            {data.name}
+          </Typography>
+          <MuiMarkdown
+            inlineCodeColor="dodgerblue"
+            overrides={muiContentOverrides}
+          >
+            {data?.description || ''}
+          </MuiMarkdown>
+        </Grid>
+        <Grid item xs={6}></Grid>
+      </Grid>
       {result}
     </Stack>
   );
 };
 export const DocsPages = React.memo(Main);
+
+const CodeBlocks = React.memo(({ children, header = '' }) => {
+  return (
+    <Stack py={1}>
+      <Typography variant="h6">{header}</Typography>
+      <SyntaxHighlighter
+        showLineNumbers={false}
+        language="javascript"
+        style={base16AteliersulphurpoolLight}
+        wrapLongLines={false}
+        customStyle={{
+          fontSize: '13px',
+          fontWeight: 400,
+        }}
+      >
+        {children}
+      </SyntaxHighlighter>
+    </Stack>
+  );
+});
