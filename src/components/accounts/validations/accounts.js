@@ -179,6 +179,26 @@ const resetPassword = yup.object().shape({
     .oneOf([yup.ref('newPassword')], 'Your passwords do not match.'),
 });
 
+const BetaSignupSchema = yup.object({
+  firstName: yup
+    .string()
+    .trim()
+    .min(2, 'Please enter a valid name')
+    .max(50, 'Please enter a valid name')
+    .required('Please specify your first name'),
+  lastName: yup
+    .string()
+    .trim()
+    .min(2, 'Please enter a valid name')
+    .max(50, 'Please enter a valid name')
+    .required('Please specify your last name'),
+  email: yup
+    .string()
+    .trim()
+    .email('Please enter a valid email address')
+    .required('Email is required.'),
+});
+
 export const accountsValidations = {
   domain,
   email,
@@ -201,4 +221,5 @@ export const accountsValidations = {
   companyDetails,
   projectName,
   addTeamMember,
+  BetaSignupSchema,
 };
