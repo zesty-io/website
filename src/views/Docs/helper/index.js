@@ -17,33 +17,6 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
       value: `Bearer ${getCookie('APP_SID') || 'YOUR_API_KEY'}`,
     });
 
-  const requestFetch = `
-  ${hasFormData ? `const body = new FormData();` : ''}
-  ${
-    hasFormData
-      ? data.request.body.formdata
-          .map((e) => {
-            return `body.append('${e.key}', '${e.value}')\n`;
-          })
-          .join('  ')
-      : ''
-  }
-  const options = {
-    method: '${data.request.method}',
-    headers: {
-      ${headers
-        .map((e) => {
-          return `${e.key} : '${e.value}',\n`;
-        })
-        .join('      ')}
-    },
-    body: JSON.stringify(body),
-  };
-  await fetch('${data.request.url.raw}', options)
-  .then(response => response.json())
-  .catch(error => console.log('error', error));
-  `;
-
   const responseData = data.response ? `${data?.response[0]?.body}` : `{}`;
 
   const langSwitcher = (lang) => {
@@ -51,14 +24,16 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
       case 'Javascript Fetch':
         return fetchRequest;
       default:
-        return requestFetch;
+        return fetchRequest;
     }
   };
 
   console.log(data, 343434);
-  const fetchRequest = `
-  const request = async () => {
-  ${hasFormData ? `const body = new FormData();` : ''}
+  const getBody = (data) => {
+    switch (data?.request?.body?.mode) {
+      case 'formdata':
+        return `
+  const body = new FormData();
   ${
     hasFormData
       ? data.request.body.formdata
@@ -68,8 +43,17 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
           .join('  ')
       : ''
   }
+      `;
+      case 'raw':
+        return `const body = ${data?.request?.body?.raw}`;
+      default:
+        return ``;
+    }
+  };
+  const fetchRequest = `
+  const request = async () => {
   const endpoint = '${data.request.url.raw}'
-
+  ${getBody(data)}
   const res = await fetch(endpoint, {
     method: '${data.request.method}',
     headers: {
@@ -79,12 +63,11 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
         })
         .join('      ')}
     },
-    ${data.request.body ? 'body: JSON.stringify(body)' : ''}
+    ${data.request.body ? 'body: JSON.stringify(body)' : '\0'}
   })
   const data = await res.json();
   return data;
 }
-
   `;
 
   return { request: langSwitcher(lang), response: responseData };
