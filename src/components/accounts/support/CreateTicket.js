@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useZestyStore } from 'store';
 
 import { Box, Button, Typography } from '@mui/material';
@@ -16,6 +16,7 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 const MySwal = withReactContent(Swal);
 
 const CustomForm = ({ onSubmit, instanceZUID }) => {
+  const [file, setFile] = useState();
   const { userInfo } = useZestyStore((state) => state);
   const formik = useFormik({
     validationSchema: accountsValidations.createTicket,
@@ -26,14 +27,22 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
       instanceZUID: instanceZUID,
     },
     onSubmit: async (values) => {
+      if (file) {
+        values.file = file;
+      }
+
       await onSubmit(values);
-      formik.resetForm();
+      // formik.resetForm();
     },
   });
 
   return (
     <Box paddingY={4}>
-      <form noValidate onSubmit={formik.handleSubmit}>
+      <form
+        encType="multipart/form-data"
+        noValidate
+        onSubmit={formik.handleSubmit}
+      >
         <Typography variant="p" component="p" textAlign={'left'} sx={{ mb: 1 }}>
           User email: {userInfo?.email}
         </Typography>
@@ -42,6 +51,14 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
         </Typography>
         <FormInput name={'subject'} formik={formik} />
         <FormInput name={'description'} formik={formik} multiline={true} />
+        <input
+          id="file"
+          name="file"
+          type="file"
+          onChange={(event) => {
+            setFile(event.currentTarget.files[0]);
+          }}
+        />
         <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
       </form>
     </Box>
@@ -59,6 +76,31 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
   };
 
   const submitCreateTicket = async (data) => {
+    // const formData = new FormData();
+    // formData.append('file', data.file);
+    // // formData.append('subject', data.subject);
+    // // formData.append('description', data.description);
+
+    // // formData.append('instanceZUID', instanceZUID);
+
+    // console.log(formData.get('file'));
+
+    console.log(data);
+
+    // await fetch(
+    //   'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/upload',
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //       Authorization: `Bearer ${APP_SID}`,
+    //     },
+    //     body: formData,
+    //   },
+    // )
+    //   .then((resp) => resp.json())
+    //   .then((data) => console.log(data));
+
     const requestOptions = {
       method: 'POST',
       headers: {

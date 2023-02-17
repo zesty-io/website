@@ -182,11 +182,11 @@ const resetPassword = yup.object().shape({
 const createTicket = yup.object().shape({
   subject: yup
     .string()
-    .min(2, 'Must be atleast 2 Characters')
+    .min(2, 'Must be at least 2 characters')
     .required('Subject is required'),
   description: yup
     .string()
-    .min(2, 'Must be atleast 2 Characters')
+    .min(2, 'Must be at least 2 characters')
     .required('Description is required'),
 });
 
