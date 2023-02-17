@@ -6,6 +6,7 @@ import ACCOUNTS_DATA from '../../views/Docs/accounts.data.json';
 import AUTH_DATA from '../../views/Docs/auth.data.json';
 import { useRouter } from 'next/router';
 import { transFormMainData } from 'views/Docs/helper';
+import { useZestyStore } from 'store';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -18,6 +19,9 @@ const initialTreeData = (url, data) => {
 };
 
 export default function DocsPage(props) {
+  const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
+    (e) => e,
+  );
   let url = typeof window !== 'undefined' && window.location.pathname;
   url = url && url?.replace('/docs', '').replace(/\/$/, '');
   const router = useRouter();
@@ -74,7 +78,6 @@ export default function DocsPage(props) {
   console.log(pageData, treeData, 3333333, url, parentUrl);
 
   const docsProps = {
-    algoliaCreds: props.algolia,
     // data of pages
     // pagedata is dependent on treedata
     pageData,
@@ -91,6 +94,12 @@ export default function DocsPage(props) {
       settreeData(initialTreeData(parentUrl, mainData));
     }
   }, [url]);
+
+  React.useEffect(() => {
+    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaAppId(props.algolia.appId);
+    setalgoliaIndex(props.algolia.index);
+  }, []);
 
   return <Docs {...docsProps} />;
 }

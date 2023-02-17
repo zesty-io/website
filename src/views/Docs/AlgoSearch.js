@@ -1,39 +1,44 @@
-import { Stack } from '@mui/material';
+import { Link, Stack } from '@mui/material';
 import algoliasearch from 'algoliasearch';
 import {
   InstantSearch,
   Hits,
   SearchBox,
   // Pagination,
-  Highlight,
+  // Highlight,
   // ClearRefinements,
   // RefinementList,
-  // Configure,
+  Configure,
 } from 'react-instantsearch-dom';
+import { useZestyStore } from 'store';
 
-export const AlgoSearch = ({ algoliaCreds }) => {
-  const { apiKey, appId, index } = algoliaCreds;
+export const AlgoSearch = () => {
+  const {
+    algoliaApiKey: apiKey,
+    algoliaAppId: appId,
+    algoliaIndex: index,
+  } = useZestyStore((e) => e);
   const searchClient = algoliasearch(appId, apiKey);
   return (
     <Stack>
       <InstantSearch indexName={index} searchClient={searchClient}>
         <SearchBox placeholder="search here" />
+        <Configure hitsPerPage={8} />
         <Hits hitComponent={Hit} />
       </InstantSearch>
     </Stack>
   );
 };
-function Hit(props) {
+const Hit = (props) => {
   return (
-    <div>
-      <img src={props.hit.image} align="left" alt={props.hit.name} />
-      <div className="hit-name">
+    <Stack>
+      <Link href={'/docs/' + props.hit.url}>{props.hit.name}</Link>
+      {/* <Stack className="hit-name">
         <Highlight attribute="name" hit={props.hit} />
-      </div>
-      <div className="hit-description">
-        <Highlight attribute="description" hit={props.hit} />
-      </div>
-      <div className="hit-price">${props.hit.price}</div>
-    </div>
+      </Stack> */}
+      {/* <Stack className="hit-description">
+        <Highlight attribute="url" hit={props.hit} />
+      </Stack> */}
+    </Stack>
   );
-}
+};
