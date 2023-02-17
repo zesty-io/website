@@ -4,15 +4,16 @@ import dynamic from 'next/dynamic';
 import { Stack, useScrollTrigger } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
-import { LangSelector } from './LangSelector';
+import { AlgoSearch } from './AlgoSearch';
+import { SearchModal } from './SearchModal';
 
 const DocsComboBox = dynamic(() =>
   import('./DocsComboBox').then((mod) => mod.DocsComboBox),
 );
 
-const SearchComponent = dynamic(() =>
-  import('./SearchComponent').then((mod) => mod.SearchComponent),
-);
+// const SearchComponent = dynamic(() =>
+//   import('./SearchComponent').then((mod) => mod.SearchComponent),
+// );
 
 const FolderTreeView = dynamic(() =>
   import('./FolderTreeView').then((mod) => mod.FolderTreeView),
@@ -37,27 +38,21 @@ const DocsPages = dynamic(() =>
 const title = 'Docs page';
 const description = 'Docs page';
 const ogimage = 'Docs page';
-const LANGUAGE_LIST = [
-  {
-    label: 'Javascript Fetch',
-    value: 'Javascript Fetch',
-  },
-  {
-    label: 'Javascript Axios',
-    value: 'Javascript Axios',
-  },
-];
+
+// const LANGUAGE_LIST = [
+//   {
+//     label: 'Javascript Fetch',
+//     value: 'Javascript Fetch',
+//   },
+//   {
+//     label: 'Javascript Axios',
+//     value: 'Javascript Axios',
+//   },
+// ];
 
 const LeftNav = React.memo(
-  ({
-    trigger,
-    onChangeDropdown,
-    setsearch,
-    search,
-    newTreeData,
-    dropdownData,
-  }) => {
-    const [currentLang, setcurrentLang] = React.useState('Javascript Fetch');
+  ({ trigger, onChangeDropdown, newTreeData, dropdownData }) => {
+    // const [currentLang, setcurrentLang] = React.useState('Javascript Fetch');
     return (
       <Stack
         sx={{
@@ -70,19 +65,17 @@ const LeftNav = React.memo(
         }}
       >
         <Stack px={4} spacing={2} py={3}>
-          <LangSelector
+          {/* <LangSelector
             value={currentLang}
             setvalue={setcurrentLang}
             options={LANGUAGE_LIST}
-          />
+          /> */}
+          <SearchModal>
+            <AlgoSearch />
+          </SearchModal>
           <DocsComboBox onChange={onChangeDropdown} options={dropdownData} />
-          <SearchComponent search={search} onChange={setsearch} />
         </Stack>
-        <FolderTreeView
-          data={newTreeData}
-          search={search}
-          setsearch={setsearch}
-        />
+        <FolderTreeView data={newTreeData} />
       </Stack>
     );
   },
@@ -97,21 +90,11 @@ const DocsView = React.memo(({ data = [] }) => {
 });
 
 const Main = ({ pageData = [], treeData, onChangeDropdown, dropdownData }) => {
-  const [search, setsearch] = React.useState('');
-
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 5,
   });
 
-  // const fuse = new Fuse(treeData.item, options);
-  // const searchResult = fuse.search(search || '');
-  // const newTreeData =
-  //   searchResult.length !== 0 && search.length !== 0
-  //     ? searchResult[0].item.item
-  //     : searchResult.length === 0 && search.length === 0
-  //     ? treeData.item
-  //     : [];
   const newTreeData = treeData?.item;
 
   const pageHeaderProps = {
@@ -122,8 +105,6 @@ const Main = ({ pageData = [], treeData, onChangeDropdown, dropdownData }) => {
   const leftNavProps = {
     trigger,
     onChangeDropdown,
-    setsearch,
-    search,
     newTreeData,
     dropdownData,
   };

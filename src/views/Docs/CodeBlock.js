@@ -44,7 +44,7 @@ const Main = ({ title = 'no title', data = {} }) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const [currentTab, setcurrentTab] = React.useState('request');
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
-  const [currentLang, setcurrentLang] = React.useState('Javascript Fetch');
+  const [currentLang, _setcurrentLang] = React.useState('Javascript Fetch');
 
   const { request, response } = langTransformer({
     data,

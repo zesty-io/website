@@ -17,6 +17,11 @@ export default async function getServerSideProps({ res, resolvedUrl }) {
         isAuthenticated,
         templateUrl: process.env.TEMPLATE_URL,
       },
+      algolia: {
+        apiKey: process.env.ALGOLIA_APIKEY,
+        appId: process.env.ALGOLIA_APPID,
+        index: process.env.ALGOLIA_INDEX,
+      },
     },
   };
 }
