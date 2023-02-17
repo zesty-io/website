@@ -5,6 +5,7 @@ import { Stack, useScrollTrigger } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
 import { LangSelector } from './LangSelector';
+import { AlgoSearch } from './AlgoSearch';
 
 const DocsComboBox = dynamic(() =>
   import('./DocsComboBox').then((mod) => mod.DocsComboBox),
@@ -96,7 +97,13 @@ const DocsView = React.memo(({ data = [] }) => {
   );
 });
 
-const Main = ({ pageData = [], treeData, onChangeDropdown, dropdownData }) => {
+const Main = ({
+  algoliaCreds,
+  pageData = [],
+  treeData,
+  onChangeDropdown,
+  dropdownData,
+}) => {
   const [search, setsearch] = React.useState('');
 
   const trigger = useScrollTrigger({
@@ -130,6 +137,7 @@ const Main = ({ pageData = [], treeData, onChangeDropdown, dropdownData }) => {
 
   return (
     <MainWrapper customRouting={[]}>
+      <AlgoSearch algoliaCreds={algoliaCreds} />
       {/* page header  */}
       <ZestyAccountsHead {...pageHeaderProps} />
       {/* left navigation tree */}

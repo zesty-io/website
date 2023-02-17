@@ -83,19 +83,29 @@ export const transFormMainData = (mainCollection) => {
     };
   });
 
-  // const testCollect = (data) =>{
-  // const newCollection = data?.map((e) => {
-  //   const res = e.item.map((q) => {
-  //     return { ...q, parent: e.parent || e.name, url: e.parent + q.name };
+  // const test2 = (data, parent = null, base = null) => { (data?.item || data)?.forEach((e) => {
+  //     if (e.request && e.name) {
+  //       return (e['testt'] = `${}${parent}/#${e.name}`);
+  //     } else if (e.item || e.name) {
+  //       e['testt'] = `${parent}${e.name}`;
+  //       return test2(e.item, e.name, data.name);
+  //     } else if (e.name) {
+  //     }
   //   });
-  //   return { ...e, item: res };
-  // });
+  // };
+  // console.log(test2(mainCollection, null, null), 77777777);
 
-  // return newCollection
-
-  // }
+  // console.log(mainCollection, 7777);
   const newCollection = mainCollection?.map((e) => {
     const res = e.item.map((q) => {
+      if (q.request) {
+        return {
+          ...q,
+          parent: e.parent || e.name,
+          url: e.parent + '/#' + q.name.replaceAll(' ', '-'),
+        };
+      }
+
       return { ...q, parent: e.parent || e.name, url: e.parent + q.name };
     });
     return { ...e, item: res };
@@ -104,6 +114,13 @@ export const transFormMainData = (mainCollection) => {
   const newColletion1 = newCollection.map((e) => {
     const res = e.item.map((q) => {
       const res2 = q?.item?.map((w) => {
+        if (w.request) {
+          return {
+            ...w,
+            parent: q.name,
+            url: `${e.parent}${q.name}/#${w.name.replaceAll(' ', '-')}`,
+          };
+        }
         return { ...w, parent: q.name, url: e.parent + w.name };
       });
       return { ...q, item: res2 };
@@ -118,7 +135,7 @@ export const transFormMainData = (mainCollection) => {
           return {
             ...y,
             parent: w?.name,
-            // url: e.parent + w.name,
+            url: e.parent + `${w.name}/#${y.name.replaceAll(' ', '-')}`,
           };
         });
         return { ...w, item: res3 };

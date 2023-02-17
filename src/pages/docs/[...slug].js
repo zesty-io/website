@@ -17,7 +17,7 @@ const initialTreeData = (url, data) => {
   }
 };
 
-export default function DocsPage() {
+export default function DocsPage(props) {
   let url = typeof window !== 'undefined' && window.location.pathname;
   url = url && url?.replace('/docs', '').replace(/\/$/, '');
   const router = useRouter();
@@ -74,6 +74,7 @@ export default function DocsPage() {
   console.log(pageData, treeData, 3333333, url, parentUrl);
 
   const docsProps = {
+    algoliaCreds: props.algolia,
     // data of pages
     // pagedata is dependent on treedata
     pageData,
