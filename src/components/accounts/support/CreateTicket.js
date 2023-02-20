@@ -10,7 +10,7 @@ import { accountsValidations, FormInput, SubmitBtn } from 'components/accounts';
 import { useFormik } from 'formik';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import { getCookie } from 'cookies-next';
-
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const MySwal = withReactContent(Swal);
@@ -36,6 +36,8 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
     },
   });
 
+  console.log(file);
+
   return (
     <Box paddingY={4}>
       <form
@@ -51,14 +53,39 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
         </Typography>
         <FormInput name={'subject'} formik={formik} />
         <FormInput name={'description'} formik={formik} multiline={true} />
-        <input
-          id="file"
-          name="file"
-          type="file"
-          onChange={(event) => {
-            setFile(event.currentTarget.files[0]);
+
+        <Box
+          sx={{
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            py: 2,
           }}
-        />
+          component="label"
+          htmlFor="file"
+        >
+          <AttachFileIcon />
+          <Typography variant="caption">
+            {file ? file.name : 'Attachment (optional)'}
+          </Typography>
+          <input
+            accept=".png,.jpg"
+            style={{ display: 'none' }}
+            id="file"
+            name="file"
+            type="file"
+            onChange={(event) => {
+              const file = event.currentTarget.files[0];
+              const regex = /\.(png|jpg)$/;
+              if (regex.test(file.name)) {
+                setFile(file);
+              } else {
+                alert('Invalid file type');
+              }
+            }}
+          />
+        </Box>
+
         <SubmitBtn loading={formik.isSubmitting}>Submit</SubmitBtn>
       </form>
     </Box>
@@ -74,6 +101,20 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
   };
   const handleCreateInviteErr = (res) => {
     ErrorMsg({ text: res.error });
+  };
+
+  const createTicketRequest = async (requestOptions) => {
+    await fetch(
+      'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/',
+      requestOptions,
+    )
+      .then((response) => response.json())
+      .then(() => {
+        handleCreateInviteSuccess();
+      })
+      .catch((error) => {
+        handleCreateInviteErr(error);
+      });
   };
 
   const submitCreateTicket = async (data) => {
@@ -97,22 +138,19 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
       )
         .then((resp) => resp.json())
         .then((data) => setAttachmentId([data.id]));
+
+      data.uploads = attachmentId;
+      requestOptions.headers['Content-Type'] = 'application/json';
+      requestOptions.body = JSON.stringify(data);
+
+      await createTicketRequest(requestOptions);
     }
-    data.uploads = attachmentId;
+
     requestOptions.headers['Content-Type'] = 'application/json';
     requestOptions.body = JSON.stringify(data);
 
-    await fetch(
-      'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/',
-      requestOptions,
-    )
-      .then((response) => response.json())
-      .then(() => {
-        handleCreateInviteSuccess();
-      })
-      .catch((error) => {
-        handleCreateInviteErr(error);
-      });
+    await createTicketRequest(requestOptions);
+
     await getPageData();
   };
 
