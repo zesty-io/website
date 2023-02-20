@@ -67,6 +67,7 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
 
 const CreateTicket = ({ getPageData, instanceZUID }) => {
   const APP_SID = getCookie('APP_SID');
+  const [attachmentId, setAttachmentId] = useState();
 
   const handleCreateInviteSuccess = () => {
     SuccessMsg({ title: 'Ticket Successfully created' });
@@ -76,39 +77,30 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
   };
 
   const submitCreateTicket = async (data) => {
-    // const formData = new FormData();
-    // formData.append('file', data.file);
-    // // formData.append('subject', data.subject);
-    // // formData.append('description', data.description);
-
-    // // formData.append('instanceZUID', instanceZUID);
-
-    // console.log(formData.get('file'));
-
-    console.log(data);
-
-    // await fetch(
-    //   'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/upload',
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //       Authorization: `Bearer ${APP_SID}`,
-    //     },
-    //     body: formData,
-    //   },
-    // )
-    //   .then((resp) => resp.json())
-    //   .then((data) => console.log(data));
+    const formData = new FormData();
+    formData.append('file', data.file);
 
     const requestOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${APP_SID}`,
       },
-      body: JSON.stringify(data),
     };
+
+    if (data.file) {
+      await fetch(
+        'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/upload',
+        {
+          ...requestOptions,
+          body: formData,
+        },
+      )
+        .then((resp) => resp.json())
+        .then((data) => setAttachmentId([data.id]));
+    }
+    data.uploads = attachmentId;
+    requestOptions.headers['Content-Type'] = 'application/json';
+    requestOptions.body = JSON.stringify(data);
 
     await fetch(
       'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/',
