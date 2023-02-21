@@ -1,43 +1,15 @@
 import React from 'react';
-import { Stack, Tab, Tabs, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { langTransformer } from './helper';
+import { DocsTabs } from './DocsTabs';
 
 const tabs = [
   { label: 'Request', value: 'request' },
   { label: 'Response', value: 'response' },
 ];
-const CodeBlockTabs = React.memo(({ setvalue = () => {}, value }) => {
-  const handleChange = (_, newValue) => {
-    setvalue(newValue);
-  };
-
-  return (
-    <Stack sx={{ width: '100%', marginBottom: 0, bgcolor: '' }}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        aria-label="Tabs"
-        indicatorColor="secondary"
-        textColor="secondary"
-        variant="scrollable"
-        scrollButtons="auto"
-        sx={{
-          '.MuiTabs-scrollButtons.Mui-disabled': {
-            opacity: 0.3,
-          },
-          mb: -0.5,
-        }}
-      >
-        {tabs.map((e) => {
-          return <Tab color="secondary" label={e.label} value={e.value} />;
-        })}
-      </Tabs>
-    </Stack>
-  );
-});
 
 const Main = ({ title = 'no title', data = {} }) => {
   const [codeBlockData, setcodeBlockData] = React.useState('');
@@ -86,7 +58,7 @@ const Main = ({ title = 'no title', data = {} }) => {
         <Typography>{title}</Typography>
       </Stack>
       <Stack direction={'row'} px={1}>
-        <CodeBlockTabs setvalue={setcurrentTab} value={currentTab} />
+        <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
       </Stack>
 
       <div

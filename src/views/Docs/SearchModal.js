@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Chip, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { grey } from '@mui/material/colors';
 
 const style = {
   position: 'absolute',
@@ -24,15 +25,24 @@ export const SearchModal = ({ children }) => {
   return (
     <div>
       <TextField
-        placeholder="Search"
+        placeholder="Search..."
         onClick={handleOpen}
+        onChange={(e) => {
+          e.target.value = '';
+          handleOpen();
+        }}
         size="small"
         color="secondary"
-        disabled
+        sx={{ cursor: 'text' }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="start">
-              <Chip variant="outlined" label="Ctrl+K" />
+              <Chip
+                size="small"
+                variant="outlined"
+                label="Ctrl+K"
+                sx={{ color: grey[500] }}
+              />
             </InputAdornment>
           ),
           startAdornment: (

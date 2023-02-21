@@ -9,6 +9,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { grey } from '@mui/material/colors';
+import { useRouterCheck } from 'utils';
 
 export const AccountsAppbar = ({ colorInvert = false }) => {
   const [url, setUrl] = useState('');
@@ -23,6 +24,7 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
   const [instance, setinstance] = React.useState([]);
   const { zuid } = router.query;
   const linkColor = colorInvert ? 'common.white' : 'text.secondary';
+  const isDocsPage = useRouterCheck('docs');
 
   // get param from url to look for instance
   const params = new Proxy(new URLSearchParams(locationSearch), {
@@ -68,6 +70,10 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
     setworkingInstance(instanceZUID);
   }, [instanceZUID]);
 
+  // prevent render of breadcrumbs if docs page
+  if (isDocsPage) {
+    return <></>;
+  }
   return (
     <Box
       sx={{

@@ -72,5 +72,8 @@ export const useZestyStore = create((set) => {
     setalgoliaAppId: (data) => set(() => ({ algoliaAppId: data })),
     algoliaIndex: '',
     setalgoliaIndex: (data) => set(() => ({ algoliaIndex: data })),
+    // docs
+    mainData: [],
+    setmainData: (data) => set(() => ({ mainData: data })),
   };
 });

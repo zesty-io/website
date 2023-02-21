@@ -1,6 +1,5 @@
 import React from 'react';
 import { Docs } from 'views/Docs';
-
 // import INSTANCE_DATA from '../../views/Docs/instance.data.json';
 // import ACCOUNTS_DATA from '../../views/Docs/accounts.data.json';
 // import AUTH_DATA from '../../views/Docs/auth.data.json';
@@ -20,27 +19,31 @@ const initialTreeData = (url, data) => {
 
 export default function DocsPage(props) {
   const router = useRouter();
-  const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
-    (e) => e,
-  );
+  const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex, setmainData } =
+    useZestyStore((e) => e);
   let url = router.asPath;
   url = url && url?.replace('/docs', '').replace(/\/$/, '');
   // const mainCollection = [INSTANCE_DATA, ACCOUNTS_DATA, AUTH_DATA];
   const mainCollection = props.docs.data;
   const mainData = transFormMainData(mainCollection);
-  const [treeData, settreeData] = React.useState(mainData[0]);
+  const [treeData, settreeData] = React.useState(mainData[2]);
   const parentUrl = url && '/' + url?.split('/').filter((e) => e)[0];
 
   let item = [];
   const getPageData = (data, mainData = []) => {
+    const currentUrl = url?.split('#')[0].replace(/\/$/, '');
+    // to be  removed or change
     if (!url) {
       return (item = mainData[0]);
     }
-    if (data?.url === url) {
-      item = data;
+    if (data?.url === currentUrl) {
+      return (item = data);
     }
+    // compares the current url vs the treedata url's
+    // if match it will set the item or pagedata
+    // remove hash and trailing slash
     (data?.item ?? data)?.forEach((e) => {
-      if (e.url === url) {
+      if (e.url === currentUrl) {
         item = e;
       } else {
         getPageData(e?.item);
@@ -52,22 +55,6 @@ export default function DocsPage(props) {
 
   const pageData = getPageData(treeData, mainData);
 
-  const DOCS_DATA_DROPDOWN = (data) => {
-    const res = data.map((e) => {
-      return { label: e.info.name, value: e };
-    });
-    return res;
-  };
-
-  const onChangeDropdown = (data) => {
-    window.scrollTo(0, 0);
-    if (data?.value) {
-      router.push(`/docs` + data.value.parent);
-    } else {
-      router.push(`/docs` + '/instances');
-    }
-  };
-
   console.log(pageData, treeData, 3333333, url, parentUrl);
 
   const docsProps = {
@@ -76,8 +63,6 @@ export default function DocsPage(props) {
     pageData,
     // treedata is the data of the sidebar
     treeData,
-    onChangeDropdown,
-    dropdownData: DOCS_DATA_DROPDOWN(mainData),
   };
 
   React.useEffect(() => {
@@ -92,6 +77,12 @@ export default function DocsPage(props) {
     setalgoliaApiKey(props.algolia.apiKey);
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
+  }, []);
+
+  React.useEffect(() => {
+    if (mainData.length !== 0) {
+      setmainData(mainData);
+    }
   }, []);
 
   return <Docs {...docsProps} />;
