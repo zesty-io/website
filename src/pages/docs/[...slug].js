@@ -1,9 +1,9 @@
 import React from 'react';
 import { Docs } from 'views/Docs';
 
-import INSTANCE_DATA from '../../views/Docs/instance.data.json';
-import ACCOUNTS_DATA from '../../views/Docs/accounts.data.json';
-import AUTH_DATA from '../../views/Docs/auth.data.json';
+// import INSTANCE_DATA from '../../views/Docs/instance.data.json';
+// import ACCOUNTS_DATA from '../../views/Docs/accounts.data.json';
+// import AUTH_DATA from '../../views/Docs/auth.data.json';
 import { useRouter } from 'next/router';
 import { transFormMainData } from 'views/Docs/helper';
 import { useZestyStore } from 'store';
@@ -19,13 +19,14 @@ const initialTreeData = (url, data) => {
 };
 
 export default function DocsPage(props) {
+  const router = useRouter();
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
     (e) => e,
   );
-  let url = typeof window !== 'undefined' && window.location.pathname;
+  let url = router.asPath;
   url = url && url?.replace('/docs', '').replace(/\/$/, '');
-  const router = useRouter();
-  const mainCollection = [INSTANCE_DATA, ACCOUNTS_DATA, AUTH_DATA];
+  // const mainCollection = [INSTANCE_DATA, ACCOUNTS_DATA, AUTH_DATA];
+  const mainCollection = props.docs.data;
   const mainData = transFormMainData(mainCollection);
   const [treeData, settreeData] = React.useState(mainData[0]);
   const parentUrl = url && '/' + url?.split('/').filter((e) => e)[0];
@@ -51,20 +52,12 @@ export default function DocsPage(props) {
 
   const pageData = getPageData(treeData, mainData);
 
-  const DOCS_DATA_DROPDOWN = [
-    {
-      label: 'Instance API',
-      value: mainData[0],
-    },
-    {
-      label: 'Accounts API',
-      value: mainData[1],
-    },
-    {
-      label: 'Authentication API',
-      value: mainData[2],
-    },
-  ];
+  const DOCS_DATA_DROPDOWN = (data) => {
+    const res = data.map((e) => {
+      return { label: e.info.name, value: e };
+    });
+    return res;
+  };
 
   const onChangeDropdown = (data) => {
     window.scrollTo(0, 0);
@@ -84,7 +77,7 @@ export default function DocsPage(props) {
     // treedata is the data of the sidebar
     treeData,
     onChangeDropdown,
-    dropdownData: DOCS_DATA_DROPDOWN,
+    dropdownData: DOCS_DATA_DROPDOWN(mainData),
   };
 
   React.useEffect(() => {
