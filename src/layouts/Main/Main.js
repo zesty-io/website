@@ -65,6 +65,7 @@ const Main = ({
   const isExplorePage = router.asPath.includes('/ppc/explore/');
   const isLoginPage = router.asPath.includes('/login/');
   const isDiscover = router.asPath.includes('/discover/');
+  const isDocsPage = router.asPath.includes('/docs/');
   // override over invert based on pages that we know have a dark image heading
 
   const hideNav =
@@ -121,7 +122,7 @@ const Main = ({
 
   return (
     <>
-      {isLoggedIn === false && !isLoginPage && <SiteBanner />}
+      {isLoggedIn === false && !isLoginPage && !isDocsPage && <SiteBanner />}
 
       {isLoggedIn === false && (
         <Box
