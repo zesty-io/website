@@ -17,7 +17,7 @@ const Main = ({ options, onChange, width = 1 }) => {
         options={options}
         sx={{ width: '100%' }}
         renderInput={(params) => (
-          <TextField {...params} label="Docs" color="secondary" size="small" />
+          <TextField {...params} color="secondary" size="small" />
         )}
       />
     </Stack>

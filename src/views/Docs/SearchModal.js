@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import { Chip, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -10,11 +11,11 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 600,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
+  // border: '2px solid #000',
+  boxShadow: 2,
+  p: 2,
 };
 
 export const SearchModal = ({ children }) => {
@@ -57,6 +58,13 @@ export const SearchModal = ({ children }) => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
       >
         <Box sx={style}>{children}</Box>
       </Modal>
