@@ -1,9 +1,13 @@
-import INSTANCE_DATA from '../../views/Docs/instance.data.json';
-import ACCOUNTS_DATA from '../../views/Docs/accounts.data.json';
-import AUTH_DATA from '../../views/Docs/auth.data.json';
-
 import algoliasearch from 'algoliasearch';
+import axios from 'axios';
 import { transFormMainData } from 'views/Docs/helper';
+
+const POSTMAN_JSON_DATA = [
+  'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/instances-api.json',
+  'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/auth-api.json',
+  'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/accounts-api.json',
+  // 'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/media-api.json',
+];
 
 const APPID = process.env.ALGOLIA_APPID;
 const APIKEY = process.env.ALGOLIA_APIKEY;
@@ -12,8 +16,17 @@ const addToAlgolia = async () => {
   const client = algoliasearch(APPID, APIKEY);
   const index = client.initIndex(INDEX);
 
-  const mainCollection = [INSTANCE_DATA, ACCOUNTS_DATA, AUTH_DATA];
-  const mainData = transFormMainData(mainCollection);
+  const mainCollection = [];
+  const getPostmanData = async () => {
+    for (const url of POSTMAN_JSON_DATA) {
+      await axios.get(url).then((e) => {
+        mainCollection.push(e.data);
+      });
+    }
+  };
+
+  await getPostmanData();
+  const mainData = await transFormMainData(mainCollection);
 
   let arr1 = [];
   const refactorCollection = (data) => {
@@ -33,9 +46,10 @@ const addToAlgolia = async () => {
     return arr1;
   };
 
-  const objects = refactorCollection(mainData);
+  const objects = await refactorCollection(mainData);
 
-  index
+  // console.log(objects, 44444444444);
+  await index
     .replaceAllObjects(objects, {
       autoGenerateObjectIDIfNotExist: true,
     })

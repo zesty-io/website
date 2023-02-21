@@ -1,9 +1,11 @@
-import { Link, Stack } from '@mui/material';
+import { InputAdornment, Link, Stack, TextField } from '@mui/material';
 import algoliasearch from 'algoliasearch';
+import SearchIcon from '@mui/icons-material/Search';
 import {
+  connectSearchBox,
   InstantSearch,
   Hits,
-  SearchBox,
+  // SearchBox,
   // Pagination,
   // Highlight,
   // ClearRefinements,
@@ -11,6 +13,29 @@ import {
   Configure,
 } from 'react-instantsearch-dom';
 import { useZestyStore } from 'store';
+
+const SearchBoxMui = ({ currentRefinement, _isSearchStalled, refine }) => (
+  <form noValidate action="" role="search">
+    <TextField
+      placeholder="Search..."
+      value={currentRefinement}
+      onChange={(event) => refine(event.currentTarget.value)}
+      size="small"
+      color="secondary"
+      fullWidth
+      sx={{ cursor: 'text' }}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <SearchIcon />
+          </InputAdornment>
+        ),
+      }}
+    />
+  </form>
+);
+
+const CustomSearchBox = connectSearchBox(SearchBoxMui);
 
 export const AlgoSearch = () => {
   const {
@@ -22,7 +47,7 @@ export const AlgoSearch = () => {
   return (
     <Stack>
       <InstantSearch indexName={index} searchClient={searchClient}>
-        <SearchBox placeholder="search here" />
+        <CustomSearchBox />
         <Configure hitsPerPage={8} />
         <Hits hitComponent={Hit} />
       </InstantSearch>

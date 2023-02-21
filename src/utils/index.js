@@ -1,5 +1,6 @@
 import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/router';
 import { hashMD5 } from './Md5Hash';
 
 const removeEmptyNodes = (nodes) => {
@@ -329,4 +330,14 @@ export const isMatch = (values, matchValue) => {
 
 export const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export const useRouterCheck = (route) => {
+  const router = useRouter();
+  const url = router.asPath.split('/').filter((e) => e)[0];
+  if (url === route) {
+    return true;
+  } else {
+    return false;
+  }
 };

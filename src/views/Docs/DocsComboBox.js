@@ -3,13 +3,13 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Stack } from '@mui/material';
 
-const Main = ({ options, onChange }) => {
+const Main = ({ options, onChange, width = 1 }) => {
   const handleChange = (_, newValue) => {
     onChange(newValue);
   };
 
   return (
-    <Stack width={1}>
+    <Stack width={width}>
       <Autocomplete
         disablePortal
         onChange={handleChange}
@@ -17,7 +17,7 @@ const Main = ({ options, onChange }) => {
         options={options}
         sx={{ width: '100%' }}
         renderInput={(params) => (
-          <TextField {...params} label="Docs" color="secondary" />
+          <TextField {...params} color="secondary" size="small" />
         )}
       />
     </Stack>

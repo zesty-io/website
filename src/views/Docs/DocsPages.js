@@ -91,6 +91,8 @@ const Main = ({ data }) => {
     data.item.map((e) => {
       const name = e?.name?.replaceAll(' ', '-');
       const hasBody = e?.request?.body ? true : false;
+      const hasEndpoint = e?.request?.body?.raw ? true : false;
+      const endpoint = e?.request?.body?.raw;
       if (Array.isArray(e.item)) {
         return (
           <Stack py={4}>
@@ -130,9 +132,9 @@ const Main = ({ data }) => {
                 </Typography>
               </Stack>
               <Stack>
-                <CodeBlocks header="URL Endpoint">
-                  {e.request.url.raw}
-                </CodeBlocks>
+                {hasEndpoint && (
+                  <CodeBlocks header="URL Endpoint">{endpoint}</CodeBlocks>
+                )}
                 <CodeBlocks header="Authentication Header">{`Bearer ${
                   getCookie('APP_SID') || 'YOUR_API_KEY'
                 }`}</CodeBlocks>
