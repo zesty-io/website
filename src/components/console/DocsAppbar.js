@@ -12,7 +12,7 @@ import { DocsTabs } from 'views/Docs/DocsTabs';
 import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
-  { label: 'Guides', value: 'guides' },
+  { label: 'Api', value: 'api' },
   { label: 'Support', value: 'support' },
   { label: 'Reference', value: 'reference' },
   { label: 'Resources', value: 'resources' },
@@ -22,7 +22,7 @@ export const DocsAppbar = React.memo(() => {
   const { instances, setworkingInstance, workingInstance } = useZestyStore();
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
-  const [currentTab, setcurrentTab] = React.useState('guides');
+  const [currentTab, setcurrentTab] = React.useState('api');
   const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
