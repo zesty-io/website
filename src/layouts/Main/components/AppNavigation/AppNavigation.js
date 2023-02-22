@@ -227,7 +227,7 @@ const AppNavigation = ({
                 >
                   Create Instance
                 </Button>
-                <Button
+                {/* <Button
                   size={isXL ? 'large' : 'small'}
                   href={legacyAccountsLink}
                   variant="outlined"
@@ -248,7 +248,7 @@ const AppNavigation = ({
                   }}
                 >
                   Legacy Accounts
-                </Button>
+                </Button> */}
               </>
             )}
 
