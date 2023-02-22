@@ -1,5 +1,3 @@
-import { useEffect, useState, React } from 'react';
-import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import {
   Box,
@@ -9,8 +7,6 @@ import {
   Button,
   Stack,
   useTheme,
-  Chip,
-  Skeleton,
   Grid,
 } from '@mui/material';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
@@ -19,68 +15,11 @@ import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import ZestyImage from 'blocks/Image/ZestyImage';
 // import TextareaAutosize from '@mui/base/TextareaAutosize';
 // import AttachFileIcon from '@mui/icons-material/AttachFile';
-import { getCookie } from 'cookies-next';
 
-export default function ticketItem() {
+export default function ticketItem(props) {
+  const { ticket: ticketData, threadContent } = props.ticket;
   const theme = useTheme();
   const router = useRouter();
-  // const { userInfo, workingInstance } = useZestyStore((state) => state);
-  const { zuid } = router.query;
-  const ticketID = router.query.ticketNumber;
-
-  const { setZestyAPI, userInfo, ZestyAPI } = useZestyStore((state) => state);
-  const [instance, setinstance] = useState({});
-  const [ticket, setTicket] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const fetchTicket = async () => {
-    setTicket([]);
-    setLoading(true);
-
-    try {
-      const ticket = await fetch(
-        'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/' +
-          ticketID,
-        {
-          method: 'GET',
-          headers: {
-            authorization: `Bearer ${getCookie('APP_SID')} `,
-          },
-        },
-      )
-        .then((currentTicket) => currentTicket.json())
-        .then((currentTicket) => {
-          setTicket(currentTicket);
-          if (currentTicket.length != 0) {
-            setLoading(false);
-          }
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleGetInstanceSuccess = (res) => {
-    setinstance(res.data);
-  };
-  const handleGetInstanceErr = (res) => {
-    setinstance('There was an error getting this isntance');
-  };
-
-  const getInstance = async () => {
-    const res = await ZestyAPI.getInstance(zuid);
-    !res.error && handleGetInstanceSuccess(res);
-    res.error && handleGetInstanceErr(res);
-  };
-  const getPageData = async () => {
-    await Promise.all([getInstance()]);
-  };
-  // React.useEffect(() => {
-  //   setZestyAPI(getZestyAPI(zuid));
-  // }, []);
-  useEffect(() => {
-    fetchTicket();
-  }, []);
-
-  console.log('ticket', ticket);
 
   return (
     <>
@@ -113,72 +52,22 @@ export default function ticketItem() {
 
             <Stack direction={'row'} sx={{ mt: 2 }} spacing={2}>
               <Box>
-                {loading ? (
-                  <>
-                    <Skeleton
-                      width={400}
-                      variant="text"
-                      sx={{ fontSize: '1rem' }}
-                    />
+                <Typography
+                  sx={{ color: theme.palette.zesty.zesyZambezi }}
+                  variant={'h5'}
+                  fontWeight={700}
+                  align={'left'}
+                >
+                  {ticketData.subject}
+                </Typography>
 
-                    <Skeleton
-                      width={200}
-                      variant="text"
-                      sx={{ fontSize: '1rem' }}
-                    />
-
-                    <Skeleton width={100} sx={{ fontSize: '1rem' }} />
-                  </>
-                ) : (
-                  <>
-                    <Typography
-                      sx={{ color: theme.palette.zesty.zesyZambezi }}
-                      variant={'h5'}
-                      fontWeight={700}
-                      align={'left'}
-                    >
-                      {ticket?.ticket?.subject}
-                    </Typography>
-
-                    <Typography
-                      component="p"
-                      variant={'p'}
-                      dangerouslySetInnerHTML={{
-                        __html: ticket?.ticket?.description,
-                      }}
-                    ></Typography>
-                  </>
-                )}
-              </Box>
-
-              <Box>
-                {loading ? (
-                  <>
-                    <Skeleton width={100} sx={{ fontSize: '1rem' }} />
-                  </>
-                ) : (
-                  <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                    <Chip
-                      sx={{ px: 1 }}
-                      color="info"
-                      size="small"
-                      variant="outlined"
-                      label={`#${ticket?.ticket?.ticketNumber}`}
-                    />
-
-                    <Chip
-                      size="small"
-                      sx={{ px: 1 }}
-                      variant="contained"
-                      label={`${ticket?.ticket?.status}`}
-                      color={
-                        ticket?.ticket?.status === 'Open'
-                          ? 'success'
-                          : 'default'
-                      }
-                    />
-                  </Box>
-                )}
+                <Typography
+                  component="p"
+                  variant={'p'}
+                  dangerouslySetInnerHTML={{
+                    __html: ticketData.description,
+                  }}
+                ></Typography>
               </Box>
             </Stack>
 
@@ -195,68 +84,15 @@ export default function ticketItem() {
                       overflowY: 'auto',
                     }}
                   >
-                    {loading &&
-                      [1, 2, 3, 4, 5].map((item) => (
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            gap: 1,
-                            py: 1,
-                            alignItems: 'flex-end',
-                            justifyContent:
-                              item % 2 ? 'flex-end' : 'flex-start',
-                          }}
-                        >
-                          {item % 2 ? (
-                            <>
-                              <Skeleton
-                                variant="rectangular"
-                                sx={{
-                                  fontSize: '2.5rem',
-                                  borderTopLeftRadius: 10,
-                                  borderTopRightRadius: 10,
-                                  borderBottomLeftRadius: 10,
-                                  width: '100%',
-                                  maxWidth: 700,
-                                }}
-                              />
-                              <Skeleton
-                                variant="circular"
-                                sx={{ fontSize: '1rem' }}
-                                width={20}
-                              />
-                            </>
-                          ) : (
-                            <>
-                              <Skeleton
-                                variant="circular"
-                                sx={{ fontSize: '1rem' }}
-                                width={20}
-                              />
-                              <Skeleton
-                                variant="rectangular"
-                                sx={{
-                                  fontSize: '2.5rem',
-                                  borderTopLeftRadius: 10,
-                                  borderTopRightRadius: 10,
-                                  borderBottomRightRadius: 10,
-                                  width: '100%',
-                                  maxWidth: 700,
-                                }}
-                              />
-                            </>
-                          )}
-                        </Box>
-                      ))}
-
                     <Box>
-                      {ticket?.threadContent
+                      {threadContent
                         ?.slice(0)
                         .reverse()
                         .map((item) => {
                           const start = item.content?.indexOf('----');
-                          // const end = item.summary.indexOf('----', start + 1);
+                          //const end = item.summary.indexOf('----', start + 1);
 
+                          const attachment = item.attachments.length > 0;
                           // Regex to match with HTML Breaks
                           const HTMLBreak = /<br\s*\/?>/gi;
 
@@ -265,13 +101,14 @@ export default function ticketItem() {
 
                           // Grab only text contents and remove replies
                           const content = item?.content
-                            ?.slice(0, start)
+                            .slice(0, start)
                             .replace(HTMLBreak, '')
                             .replace(
                               IMAGESource,
                               `src="https://desk.zoho.com$1"`,
                             );
 
+                          console.log(content);
                           const options = {
                             year: 'numeric',
                             month: 'short',
@@ -316,7 +153,7 @@ export default function ticketItem() {
                                         __html: content,
                                       }}
                                     ></Typography>
-                                    <Box sx={{ display: 'flex', gap: 1 }}>
+                                    <Box sx={{ display: 'flex' }}>
                                       <Typography
                                         variant="caption1"
                                         sx={{
@@ -326,7 +163,7 @@ export default function ticketItem() {
                                         }}
                                       >
                                         {item?.author?.firstName}{' '}
-                                        {item?.author?.lastName}
+                                        {item?.author?.lastName}{' '}
                                       </Typography>
 
                                       <Typography
@@ -351,17 +188,33 @@ export default function ticketItem() {
                                     justifyContent: 'flex-end',
                                   }}
                                 >
-                                  <Stack>
+                                  <Stack
+                                    sx={{
+                                      background:
+                                        theme.palette.zesty.zestyOrange,
+                                      color: theme.palette.common.white,
+                                      p: 2,
+                                      borderTopLeftRadius: 10,
+                                      borderTopRightRadius: 10,
+                                      borderBottomLeftRadius: 10,
+                                    }}
+                                  >
+                                    {attachment && (
+                                      <ZestyImage
+                                        style={{
+                                          borderRadius: 10,
+                                          width: '100%',
+                                          maxWidth: 700,
+                                        }}
+                                        alt="test"
+                                        src={item?.attachments[0]?.previewurl}
+                                      />
+                                    )}
+
                                     <Typography
                                       sx={{
                                         display: 'block',
-                                        background:
-                                          theme.palette.zesty.zestyOrange,
-                                        color: theme.palette.common.white,
-                                        p: 2,
-                                        borderTopLeftRadius: 10,
-                                        borderTopRightRadius: 10,
-                                        borderBottomLeftRadius: 10,
+                                        mt: attachment ? 2 : 0,
                                       }}
                                       variant={'p'}
                                       dangerouslySetInnerHTML={{

@@ -137,13 +137,15 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
         },
       )
         .then((resp) => resp.json())
-        .then((data) => setAttachmentId([data.id]));
+        .then(async (respData) => {
+          data.uploads = [respData.id];
+          requestOptions.headers['Content-Type'] = 'application/json';
+          requestOptions.body = JSON.stringify(data);
 
-      data.uploads = attachmentId;
-      requestOptions.headers['Content-Type'] = 'application/json';
-      requestOptions.body = JSON.stringify(data);
+          await createTicketRequest(requestOptions);
+        });
 
-      await createTicketRequest(requestOptions);
+      return;
     }
 
     requestOptions.headers['Content-Type'] = 'application/json';

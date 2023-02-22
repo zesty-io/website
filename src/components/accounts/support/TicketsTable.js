@@ -79,7 +79,7 @@ const TicketsTable = ({ setsearch, filteredTicket, isLoading }) => {
         renderCell: (params) => {
           const handleRoute = (ticketNumber) => {
             const currentPath = router.asPath; // to get current route
-            router.push(`${currentPath}/${ticketNumber}`);
+            router.push(`${currentPath}${ticketNumber}`);
           };
 
           return (
@@ -99,12 +99,6 @@ const TicketsTable = ({ setsearch, filteredTicket, isLoading }) => {
         pageSize={100}
         autoHeight={false}
         hasGridToolbar={true}
-        // sortModel={[
-        //   {
-        //     field: 'ticketNumber',
-        //     sort: 'desc',
-        //   },
-        // ]}
       />
     );
   };
