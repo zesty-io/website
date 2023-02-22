@@ -1,6 +1,10 @@
 import React from 'react';
 import { Grid, Link, Stack, Typography } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import remarkGfm from 'remark-gfm';
+import ReactMarkdown from 'react-markdown';
 import { base16AteliersulphurpoolLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import dynamic from 'next/dynamic';
@@ -82,6 +86,7 @@ const iconMethod = (method) => {
 };
 
 const Main = ({ data }) => {
+  const [showToken, setshowToken] = React.useState(false);
   const { ref, inView } = useInView({
     threshold: 0,
   });
@@ -90,9 +95,12 @@ const Main = ({ data }) => {
     Array.isArray(data.item) &&
     data.item.map((e) => {
       const name = e?.name?.replaceAll(' ', '-');
-      const hasBody = e?.request?.body ? true : false;
+      const hasBody = e?.request?.body?.mode === 'raw' ? true : false;
       const hasEndpoint = e?.request?.body?.raw ? true : false;
       const endpoint = e?.request?.body?.raw;
+      const desc = e?.request?.description;
+      const token = getCookie('APP_SID');
+
       if (Array.isArray(e.item)) {
         return (
           <Stack py={4}>
@@ -127,17 +135,37 @@ const Main = ({ data }) => {
                   </Link>
                 </Stack>
 
-                <Typography variant="p" id={name}>
-                  {e?.request?.description}
-                </Typography>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {desc}
+                </ReactMarkdown>
               </Stack>
               <Stack>
                 {hasEndpoint && (
                   <CodeBlocks header="URL Endpoint">{endpoint}</CodeBlocks>
                 )}
-                <CodeBlocks header="Authentication Header">{`Bearer ${
-                  getCookie('APP_SID') || 'YOUR_API_KEY'
-                }`}</CodeBlocks>
+                <CodeBlocks
+                  header="Authentication Header"
+                  endProps={
+                    token && (
+                      <Stack
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          setshowToken(!showToken);
+                        }}
+                      >
+                        {showToken ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                      </Stack>
+                    )
+                  }
+                >
+                  {`Bearer ${
+                    showToken && token
+                      ? getCookie('APP_SID')
+                      : !showToken && token
+                      ? '*******************************'
+                      : 'YOUR_APP_SID'
+                  } `}
+                </CodeBlocks>
                 {hasBody && (
                   <CodeBlocks header="Request Body">
                     {e?.request?.body?.raw}
@@ -159,12 +187,9 @@ const Main = ({ data }) => {
           <Typography variant="h4" id={data.name}>
             {data.name}
           </Typography>
-          <MuiMarkdown
-            inlineCodeColor="dodgerblue"
-            overrides={muiContentOverrides}
-          >
-            {data?.description || ''}
-          </MuiMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {data?.description}
+          </ReactMarkdown>
         </Grid>
         <Grid item xs={6}></Grid>
       </Grid>
@@ -174,22 +199,34 @@ const Main = ({ data }) => {
 };
 export const DocsPages = React.memo(Main);
 
-const CodeBlocks = React.memo(({ children, header = '' }) => {
-  return (
-    <Stack py={1}>
-      <Typography variant="h6">{header}</Typography>
-      <SyntaxHighlighter
-        showLineNumbers={false}
-        language="javascript"
-        style={base16AteliersulphurpoolLight}
-        wrapLongLines={false}
-        customStyle={{
-          fontSize: '13px',
-          fontWeight: 400,
-        }}
-      >
-        {children}
-      </SyntaxHighlighter>
-    </Stack>
-  );
-});
+const CodeBlocks = React.memo(
+  ({ children, header = '', endProps = undefined }) => {
+    return (
+      <Stack py={1}>
+        <Typography variant="h6">{header}</Typography>
+        <Stack position={'relative'}>
+          <SyntaxHighlighter
+            showLineNumbers={false}
+            language="javascript"
+            style={base16AteliersulphurpoolLight}
+            wrapLongLines={false}
+            customStyle={{
+              fontSize: '13px',
+              fontWeight: 400,
+            }}
+          >
+            {children}
+          </SyntaxHighlighter>
+          {endProps && (
+            <Stack
+              position={'absolute'}
+              sx={{ top: '50%', right: 5, transform: 'translate(0,-50%)' }}
+            >
+              {endProps}
+            </Stack>
+          )}
+        </Stack>
+      </Stack>
+    );
+  },
+);

@@ -1,5 +1,8 @@
 import { Stack, useMediaQuery, useTheme } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { AccountsComboBox } from 'components/accounts';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useZestyStore } from 'store';
@@ -16,6 +19,9 @@ const tabs = [
 ];
 
 export const DocsAppbar = React.memo(() => {
+  const { instances, setworkingInstance, workingInstance } = useZestyStore();
+  const isLoggedIn = useIsLoggedIn();
+  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
   const [currentTab, setcurrentTab] = React.useState('guides');
   const router = useRouter();
   const theme = useTheme();
@@ -36,6 +42,10 @@ export const DocsAppbar = React.memo(() => {
       return { label: e.info.name, value: e };
     });
     return res;
+  };
+  const handleComboBox = (instanceZUID) => {
+    setCookie('ZESTY_WORKING_INSTANCE', instanceZUID);
+    setworkingInstance(instanceZUID);
   };
   return (
     <Stack
@@ -59,7 +69,17 @@ export const DocsAppbar = React.memo(() => {
         <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
       </Stack>
 
-      <Stack>
+      <Stack direction={'row'} spacing={2}>
+        {isLoggedIn && (
+          <AccountsComboBox
+            instances={instances.data}
+            setCookies={handleComboBox}
+            instanceZUID={instanceZUID}
+            placeholder={
+              instances?.data?.find((e) => e.ZUID === instanceZUID)?.name
+            }
+          />
+        )}
         <SearchModal>
           <AlgoSearch />
         </SearchModal>

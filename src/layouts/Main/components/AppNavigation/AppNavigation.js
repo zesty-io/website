@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  AccountsComboBox,
-  DeveloperDocMenu,
-  ProfileMenu,
-} from 'components/accounts';
+import { DeveloperDocMenu, ProfileMenu } from 'components/accounts';
 import { useZestyStore } from 'store';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { hashMD5 } from 'utils/Md5Hash';
-import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import {
   Button,
@@ -105,20 +100,18 @@ const AppNavigation = ({
 }) => {
   const router = useRouter();
   const [pathname, setPathname] = useState('');
-  const { ZestyAPI, setworkingInstance, userInfo } = useZestyStore(
-    (state) => state,
-  );
-  const [isMarketplace, setIsMarketplace] = useState(false);
-  const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
-  const [instances, setinstances] = useState([]);
+  const { ZestyAPI, userInfo, setInstances } = useZestyStore((state) => state);
+  // const [isMarketplace, setIsMarketplace] = useState(false);
+  // const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  // const [instances, setinstances] = useState([]);
 
-  const handleComboxClick = (zuid) => {
-    setCookie('ZESTY_WORKING_INSTANCE', zuid);
-    if (!isMarketplace) {
-      setworkingInstance(zuid);
-      window.location.href = `/instances/${zuid}/`;
-    }
-  };
+  // const handleComboxClick = (zuid) => {
+  //   setCookie('ZESTY_WORKING_INSTANCE', zuid);
+  //   if (!isMarketplace) {
+  //     setworkingInstance(zuid);
+  //     window.location.href = `/instances/${zuid}/`;
+  //   }
+  // };
   const profileUrl =
     'https://www.gravatar.com/avatar/' + hashMD5(userInfo?.email);
 
@@ -132,21 +125,21 @@ const AppNavigation = ({
 
   const getInstances = async () => {
     const res = await ZestyAPI.getInstances();
-    !res.error && setinstances(res);
-    res.error && setinstances([]);
+    !res.error && setInstances(res);
+    res.error && setInstances([]);
   };
 
   const userPrefs =
     typeof userInfo?.prefs === 'string' && JSON.parse(userInfo?.prefs);
 
-  const isNewUser = Object.keys(userPrefs).length === 0 ? true : false;
+  // const isNewUser = Object.keys(userPrefs).length === 0 ? true : false;
 
   useEffect(() => {
-    setIsMarketplace(
-      window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
-        ? true
-        : false,
-    );
+    // setIsMarketplace(
+    //   window.location.pathname.split('/').filter((e) => e)[0] === 'marketplace'
+    //     ? true
+    //     : false,
+    // );
 
     setPathname(window.location.pathname);
   }, []);
@@ -202,14 +195,14 @@ const AppNavigation = ({
             alignItems="center"
             pl={isXL ? 0 : 1}
           >
-            {!isSM && !isNewUser && (
+            {/* {!isSM && !isNewUser && (
               <AccountsComboBox
                 instances={instances?.data}
                 setCookies={handleComboxClick}
                 instanceZUID={instanceZUID}
                 width={isXL ? 300 : 150}
               />
-            )}
+            )} */}
             {isLG && Object.keys(userPrefs).length !== 0 && (
               <>
                 <Button
@@ -227,7 +220,7 @@ const AppNavigation = ({
                 >
                   Create Instance
                 </Button>
-                <Button
+                {/* <Button
                   size={isXL ? 'large' : 'small'}
                   href={legacyAccountsLink}
                   variant="outlined"
@@ -248,7 +241,7 @@ const AppNavigation = ({
                   }}
                 >
                   Legacy Accounts
-                </Button>
+                </Button> */}
               </>
             )}
 
