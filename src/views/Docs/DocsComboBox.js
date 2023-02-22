@@ -5,7 +5,7 @@ import { Stack } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useRouter } from 'next/router';
 function capitalize(s) {
-  return s[0].toUpperCase() + s.slice(1);
+  return s && s[0]?.toUpperCase() + s.slice(1);
 }
 
 const Main = ({ options, onChange, width = 1 }) => {
@@ -30,7 +30,7 @@ const Main = ({ options, onChange, width = 1 }) => {
             {...params}
             color="secondary"
             size="small"
-            placeholder={capitalize(res)}
+            placeholder={capitalize(res) || 'Docs'}
             InputProps={{
               ...params.InputProps,
               startAdornment: <LanguageIcon color="disabled" sx={{ ml: 1 }} />,
