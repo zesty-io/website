@@ -1,6 +1,8 @@
 import React from 'react';
 import { Grid, Link, Stack, Typography } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
+import remarkGfm from 'remark-gfm';
+import ReactMarkdown from 'react-markdown';
 import { base16AteliersulphurpoolLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import dynamic from 'next/dynamic';
@@ -93,6 +95,7 @@ const Main = ({ data }) => {
       const hasBody = e?.request?.body ? true : false;
       const hasEndpoint = e?.request?.body?.raw ? true : false;
       const endpoint = e?.request?.body?.raw;
+      const desc = e?.request?.description;
       if (Array.isArray(e.item)) {
         return (
           <Stack py={4}>
@@ -127,9 +130,9 @@ const Main = ({ data }) => {
                   </Link>
                 </Stack>
 
-                <Typography variant="p" id={name}>
-                  {e?.request?.description}
-                </Typography>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {desc}
+                </ReactMarkdown>
               </Stack>
               <Stack>
                 {hasEndpoint && (
@@ -159,12 +162,9 @@ const Main = ({ data }) => {
           <Typography variant="h4" id={data.name}>
             {data.name}
           </Typography>
-          <MuiMarkdown
-            inlineCodeColor="dodgerblue"
-            overrides={muiContentOverrides}
-          >
-            {data?.description || ''}
-          </MuiMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {data?.description}
+          </ReactMarkdown>
         </Grid>
         <Grid item xs={6}></Grid>
       </Grid>
