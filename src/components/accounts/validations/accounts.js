@@ -179,6 +179,17 @@ const resetPassword = yup.object().shape({
     .oneOf([yup.ref('newPassword')], 'Your passwords do not match.'),
 });
 
+const createTicket = yup.object().shape({
+  subject: yup
+    .string()
+    .min(2, 'Must be at least 2 characters')
+    .required('Subject is required'),
+  description: yup
+    .string()
+    .min(2, 'Must be at least 2 characters')
+    .required('Description is required'),
+});
+
 const BetaSignupSchema = yup.object({
   firstName: yup
     .string()
@@ -220,6 +231,7 @@ export const accountsValidations = {
   demoForm,
   companyDetails,
   projectName,
+  createTicket,
   addTeamMember,
   BetaSignupSchema,
 };

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getIsAuthenticated } from 'utils';
+import fetchTicketThread from 'lib/supportPortal/fetchTicketThreads';
 
 const POSTMAN_JSON_DATA = [
   'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/instances-api.json',
@@ -22,8 +23,20 @@ const getMainCollection = async () => {
   return mainCollection;
 };
 
-export default async function getServerSideProps({ res, resolvedUrl }) {
+export default async function getServerSideProps({
+  res,
+  resolvedUrl,
+  query,
+  req,
+}) {
   const isAuthenticated = getIsAuthenticated(res);
+
+  let ticket = {};
+
+  if (!!query && query.ticketNumber) {
+    ticket = await fetchTicketThread(query, req);
+  }
+
   const mainCollections = await getMainCollection();
 
   if (!isAuthenticated && isProtectedRoute(resolvedUrl)) {
@@ -36,6 +49,7 @@ export default async function getServerSideProps({ res, resolvedUrl }) {
 
   return {
     props: {
+      ticket,
       zesty: {
         isAuthenticated,
         templateUrl: process.env.TEMPLATE_URL,
