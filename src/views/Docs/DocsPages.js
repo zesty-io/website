@@ -96,8 +96,9 @@ const Main = ({ data }) => {
     data.item.map((e) => {
       const name = e?.name?.replaceAll(' ', '-');
       const hasBody = e?.request?.body?.mode === 'raw' ? true : false;
-      const hasEndpoint = e?.request?.body?.raw ? true : false;
-      const endpoint = e?.request?.url;
+      const hasEndpoint =
+        e?.request?.url || e?.request?.url?.raw ? true : false;
+      const endpoint = e?.request?.url?.raw || e?.request?.url || '';
       const desc = e?.request?.description;
       const token = getCookie('APP_SID');
 
