@@ -103,7 +103,7 @@ export const Overview = ({
       ),
     },
     {
-      title: 'API Requests',
+      title: 'CDN Requests',
       logo: (
         <Stack
           color={'purple'}

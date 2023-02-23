@@ -81,6 +81,8 @@ export const light = {
     zestyBlueGradient:
       'linear-gradient(180deg, rgba(31,93,207,1) 45%, rgba(112,152,224,1) 70%, rgba(255,255,255,1) 100%)',
     zestyOrangeLinear: 'linear-gradient(90deg, #FF5D0A 8.16%, #F7951D 91.84%)',
+    zestyOrangeLinearLight:
+      'linear-gradient(160deg, #FF5D0A 5.16%, #F7951D 55.84%)',
     zestyZambezi: '#5b5b5b',
     zestyLightRedOrange: '#FFFCFB',
     zestyAzure: '#faffff',
