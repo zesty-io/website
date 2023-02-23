@@ -101,7 +101,6 @@ export default function ticketItem(props) {
 
                           // Grab only text contents and remove replies
                           const content = item?.content
-                            .slice(0, start)
                             .replace(HTMLBreak, '')
                             .replace(
                               IMAGESource,
