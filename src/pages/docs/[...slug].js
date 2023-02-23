@@ -1,8 +1,5 @@
 import React from 'react';
 import { Docs } from 'views/Docs';
-// import INSTANCE_DATA from '../../views/Docs/instance.data.json';
-// import ACCOUNTS_DATA from '../../views/Docs/accounts.data.json';
-// import AUTH_DATA from '../../views/Docs/auth.data.json';
 import { useRouter } from 'next/router';
 import { transFormMainData } from 'views/Docs/helper';
 import { useZestyStore } from 'store';
@@ -54,8 +51,6 @@ export default function DocsPage(props) {
   };
 
   const pageData = getPageData(treeData, mainData);
-
-  console.log(pageData, treeData, 3333333, url, parentUrl);
 
   const docsProps = {
     // data of pages
