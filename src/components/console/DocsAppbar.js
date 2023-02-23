@@ -21,7 +21,7 @@ export const DocsAppbar = React.memo(() => {
   const { instances, setworkingInstance, workingInstance } = useZestyStore();
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
-  const [currentTab, setcurrentTab] = React.useState('api');
+  const [currentTab, setcurrentTab] = React.useState('api-reference');
   const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
