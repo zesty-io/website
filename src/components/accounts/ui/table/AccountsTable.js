@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
 import { Stack, Typography } from '@mui/material';
 
@@ -30,6 +30,8 @@ const Index = ({
   rowHeight = 70,
   NoData = NoRowsOverlay,
   showTable = true,
+  hasGridToolbar = false,
+  sortModel = [],
 }) => {
   return (
     <Box
@@ -73,9 +75,18 @@ const Index = ({
         disableColumnMenu
         experimentalFeatures={{ newEditingApi: true }}
         hideFooter={hideFooter}
+        disableColumnSelector
+        disableDensitySelector
         components={{
-          // NoResultsOverlay,
           NoRowsOverlay: NoData,
+          Toolbar: hasGridToolbar && GridToolbar,
+        }}
+        // sortModel={sortModel}
+        componentsProps={{
+          toolbar: {
+            printOptions: { disableToolbarButton: true },
+            csvOptions: { disableToolbarButton: true },
+          },
         }}
       />
     </Box>

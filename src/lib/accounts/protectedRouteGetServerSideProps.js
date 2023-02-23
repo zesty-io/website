@@ -1,7 +1,18 @@
+import fetchTicketThread from 'lib/supportPortal/fetchTicketThreads';
 import { getIsAuthenticated } from 'utils';
 
-export default async function getServerSideProps({ res, resolvedUrl }) {
+export default async function getServerSideProps({
+  res,
+  resolvedUrl,
+  query,
+  req,
+}) {
   const isAuthenticated = getIsAuthenticated(res);
+  let ticket = {};
+
+  if (!!query && query.ticketNumber) {
+    ticket = await fetchTicketThread(query, req);
+  }
 
   if (!isAuthenticated && isProtectedRoute(resolvedUrl)) {
     return {
@@ -13,6 +24,7 @@ export default async function getServerSideProps({ res, resolvedUrl }) {
 
   return {
     props: {
+      ticket,
       zesty: {
         isAuthenticated,
         templateUrl: process.env.TEMPLATE_URL,
