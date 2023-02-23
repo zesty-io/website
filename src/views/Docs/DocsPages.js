@@ -97,7 +97,7 @@ const Main = ({ data }) => {
       const name = e?.name?.replaceAll(' ', '-');
       const hasBody = e?.request?.body?.mode === 'raw' ? true : false;
       const hasEndpoint = e?.request?.body?.raw ? true : false;
-      const endpoint = e?.request?.body?.raw;
+      const endpoint = e?.request?.url;
       const desc = e?.request?.description;
       const token = getCookie('APP_SID');
 

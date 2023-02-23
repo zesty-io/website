@@ -52,7 +52,7 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
   };
   const fetchRequest = `
   const request = async () => {
-  const endpoint = '${data.request.url.raw}'
+  const endpoint = '${data?.request?.url?.raw || data?.request?.url}'
   ${getBody(data)}
   const res = await fetch(endpoint, {
     method: '${data.request.method}',
