@@ -12,7 +12,7 @@ import { DocsTabs } from 'views/Docs/DocsTabs';
 import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
-  { label: 'Api', value: 'api' },
+  { label: 'API Reference', value: 'api-reference' },
   { label: 'Support', value: 'support' },
   { label: 'Reference', value: 'reference' },
   { label: 'Resources', value: 'resources' },
@@ -47,6 +47,12 @@ export const DocsAppbar = React.memo(() => {
     setCookie('ZESTY_WORKING_INSTANCE', instanceZUID);
     setworkingInstance(instanceZUID);
   };
+  const handleTabs = (e) => {
+    const firstChildUrl = router?.query?.slug[0];
+    const url = `/docs/${firstChildUrl}/${e}`;
+    setcurrentTab(e);
+    router.push(url);
+  };
   return (
     <Stack
       direction={'row'}
@@ -66,7 +72,7 @@ export const DocsAppbar = React.memo(() => {
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN(mainData)}
         />
-        <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
+        <DocsTabs setvalue={handleTabs} value={currentTab} tabs={tabs} />
       </Stack>
 
       <Stack direction={'row'} spacing={2}>
