@@ -210,12 +210,13 @@ const AppNavigation = ({
                   color={
                     isAccounts || pathname === '/' ? 'primary' : 'secondary'
                   }
-                  size={isXL ? 'large' : 'small'}
+                  size={'small'}
                   variant="contained"
                   startIcon={<AddIcon />}
                   href={createInstanceLink}
                   sx={{
                     whiteSpace: 'nowrap',
+                    height: '2.3rem',
                   }}
                 >
                   Create Instance
