@@ -21,7 +21,7 @@ import {
   Configure,
 } from 'react-instantsearch-dom';
 import { useZestyStore } from 'store';
-import aa from 'search-insights';
+
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 const SearchBoxMui = ({ currentRefinement, _isSearchStalled, refine }) => (
@@ -54,11 +54,6 @@ export const AlgoSearch = () => {
     algoliaIndex: index,
   } = useZestyStore((e) => e);
 
-  aa('init', {
-    appId: appId,
-    apiKey: apiKey,
-    useCookie: true,
-  });
   const searchClient = algoliasearch(appId, apiKey);
 
   return (
