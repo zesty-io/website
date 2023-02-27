@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MainWrapper from 'layouts/Main';
 import dynamic from 'next/dynamic';
-import { Stack, useScrollTrigger } from '@mui/material';
+import {
+  Box,
+  InputAdornment,
+  Stack,
+  TextField,
+  useScrollTrigger,
+} from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
+import SearchIcon from '@mui/icons-material/Search';
 
 const FolderTreeView = dynamic(() =>
   import('./FolderTreeView').then((mod) => mod.FolderTreeView),
@@ -18,6 +25,23 @@ const description = 'Docs page';
 const ogimage = 'Docs page';
 
 const LeftNav = React.memo(({ trigger, newTreeData }) => {
+  const [filteredData, setFilteredData] = useState();
+  const filterData = (e) => {
+    const searchTerms = e.target.value;
+    const filtered = newTreeData.filter((item) => {
+      return (
+        item.name?.toLowerCase().includes(searchTerms.toLowerCase()) ||
+        item.description?.toLowerCase().includes(searchTerms.toLowerCase())
+      );
+    });
+
+    setFilteredData(filtered);
+  };
+
+  useEffect(() => {
+    setFilteredData(newTreeData);
+  }, [newTreeData]);
+
   return (
     <Stack
       sx={{
@@ -29,7 +53,29 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
         width: '20vw',
       }}
     >
-      <FolderTreeView data={newTreeData} />
+      <Box
+        sx={{
+          px: 2,
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <TextField
+          onChange={filterData}
+          size="small"
+          color="secondary"
+          placeholder="Search"
+          sx={{ my: 2 }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box>
+      <FolderTreeView data={filteredData || newTreeData} />
     </Stack>
   );
 });

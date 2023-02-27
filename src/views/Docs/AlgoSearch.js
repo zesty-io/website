@@ -1,10 +1,18 @@
-import { InputAdornment, Link, Stack, TextField } from '@mui/material';
+import {
+  Box,
+  InputAdornment,
+  Link,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import algoliasearch from 'algoliasearch';
 import SearchIcon from '@mui/icons-material/Search';
 import {
   connectSearchBox,
   InstantSearch,
   Hits,
+
   // SearchBox,
   // Pagination,
   // Highlight,
@@ -13,6 +21,8 @@ import {
   Configure,
 } from 'react-instantsearch-dom';
 import { useZestyStore } from 'store';
+import aa from 'search-insights';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 const SearchBoxMui = ({ currentRefinement, _isSearchStalled, refine }) => (
   <form noValidate action="" role="search">
@@ -43,27 +53,65 @@ export const AlgoSearch = () => {
     algoliaAppId: appId,
     algoliaIndex: index,
   } = useZestyStore((e) => e);
+
+  aa('init', {
+    appId: appId,
+    apiKey: apiKey,
+    useCookie: true,
+  });
   const searchClient = algoliasearch(appId, apiKey);
+
   return (
     <Stack>
       <InstantSearch indexName={index} searchClient={searchClient}>
         <CustomSearchBox />
-        <Configure hitsPerPage={8} />
+        <Configure clickAnalytics hitsPerPage={8} />
+        <Box sx={{ my: 2 }}>
+          <Typography
+            sx={{ color: (theme) => theme.palette.zesty.zestyZambezi, px: 2 }}
+            variant="caption"
+          >
+            Search Results
+          </Typography>
+        </Box>
         <Hits hitComponent={Hit} />
       </InstantSearch>
     </Stack>
   );
 };
 const Hit = (props) => {
+  const { hit } = props;
+
   return (
-    <Stack>
-      <Link href={'/docs/' + props.hit.url}>{props.hit.name}</Link>
-      {/* <Stack className="hit-name">
-        <Highlight attribute="name" hit={props.hit} />
-      </Stack> */}
-      {/* <Stack className="hit-description">
-        <Highlight attribute="url" hit={props.hit} />
-      </Stack> */}
+    <Stack divider direction={'row'} spacingY={4}>
+      <Link
+        sx={{ textDecoration: 'none', width: '100%' }}
+        variant="text"
+        href={`/docs/${hit.url}`}
+      >
+        <Box
+          sx={{
+            px: 2,
+            display: 'flex',
+            justifyContent: 'space-between',
+            color: (theme) => theme.palette.zesty.zestyZambezi,
+            py: 1,
+            my: 1,
+            borderRadius: 2,
+            '&:hover': {
+              background: (theme) => theme.palette.zesty.zestyLightOrange,
+            },
+          }}
+        >
+          <Typography
+            sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
+          >
+            {hit.name}
+          </Typography>
+
+          <ArrowOutwardIcon />
+        </Box>
+      </Link>
     </Stack>
   );
 };
