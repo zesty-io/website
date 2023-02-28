@@ -11,6 +11,7 @@ import {
   // ClearRefinements,
   // RefinementList,
   Configure,
+  Index,
 } from 'react-instantsearch-dom';
 import { useZestyStore } from 'store';
 
@@ -48,8 +49,19 @@ export const AlgoSearch = () => {
     <Stack>
       <InstantSearch indexName={index} searchClient={searchClient}>
         <CustomSearchBox />
-        <Configure hitsPerPage={8} />
-        <Hits hitComponent={Hit} />
+
+        <Index indexName={index}>
+          <h2>index: Docs</h2>
+
+          <Configure hitsPerPage={8} />
+          <Hits hitComponent={Hit} />
+        </Index>
+
+        <Index indexName="zesty-org">
+          <h2>index: zesty-org</h2>
+          <Configure hitsPerPage={8} />
+          <Hits hitComponent={Hit} />
+        </Index>
       </InstantSearch>
     </Stack>
   );
