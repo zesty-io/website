@@ -19,6 +19,7 @@ import {
   // ClearRefinements,
   // RefinementList,
   Configure,
+  Index,
 } from 'react-instantsearch-dom';
 import { useZestyStore } from 'store';
 
@@ -60,16 +61,37 @@ export const AlgoSearch = () => {
     <Stack>
       <InstantSearch indexName={index} searchClient={searchClient}>
         <CustomSearchBox />
-        <Configure clickAnalytics hitsPerPage={8} />
-        <Box sx={{ my: 2 }}>
-          <Typography
-            sx={{ color: (theme) => theme.palette.zesty.zestyZambezi, px: 2 }}
-            variant="caption"
-          >
-            Search Results
-          </Typography>
-        </Box>
-        <Hits hitComponent={Hit} />
+
+        <Index indexName={index}>
+          <Box sx={{ px: 2, py: 2 }}>
+            <Typography
+              variant="body1"
+              sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
+              component="h2"
+            >
+              Docs
+            </Typography>
+          </Box>
+
+          <Configure hitsPerPage={8} />
+          <Hits hitComponent={Hit} />
+        </Index>
+
+        <Index indexName="zesty-org">
+          <Box sx={{ px: 2, py: 2 }}>
+            {' '}
+            <Typography
+              variant="body1"
+              sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
+              component="h2"
+            >
+              Zesty Org
+            </Typography>
+          </Box>
+
+          <Configure hitsPerPage={8} />
+          <Hits hitComponent={Hit} />
+        </Index>
       </InstantSearch>
     </Stack>
   );
@@ -80,8 +102,18 @@ const Hit = (props) => {
   return (
     <Stack divider direction={'row'} spacingY={4}>
       <Link
-        sx={{ textDecoration: 'none', width: '100%' }}
-        variant="text"
+        component={'a'}
+        elevation={0}
+        sx={{
+          textDecoration: 'none',
+          borderRadius: 2,
+          width: '100%',
+          my: 0.2,
+          '&:hover': {
+            boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
+          },
+        }}
+        variant="outlined"
         href={`/docs/${hit.url}`}
       >
         <Box
@@ -93,9 +125,6 @@ const Hit = (props) => {
             py: 1,
             my: 1,
             borderRadius: 2,
-            '&:hover': {
-              background: (theme) => theme.palette.zesty.zestyLightOrange,
-            },
           }}
         >
           <Typography
@@ -104,7 +133,9 @@ const Hit = (props) => {
             {hit.name}
           </Typography>
 
-          <ArrowOutwardIcon />
+          <ArrowOutwardIcon
+            sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
+          />
         </Box>
       </Link>
     </Stack>
