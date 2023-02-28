@@ -32,13 +32,19 @@ const addToAlgolia = async () => {
   const refactorCollection = (data) => {
     (data?.item || data)?.forEach((e) => {
       if (e.item || e.name) {
-        arr1.push({ name: e.name, description: e.description, url: e.url });
+        arr1.push({
+          name: e.name,
+          description: e.description,
+          url: e.url,
+          category: e?.url?.split('/')?.filter((e) => e)[0],
+        });
         return refactorCollection(e.item);
       } else if (e.name) {
         return arr1.push({
           name: e.name,
           description: e.description,
           url: e.url,
+          category: e?.url?.split('/')?.filter((e) => e)[0],
         });
       }
     });
@@ -48,7 +54,6 @@ const addToAlgolia = async () => {
 
   const objects = await refactorCollection(mainData);
 
-  // console.log(objects, 44444444444);
   await index
     .replaceAllObjects(objects, {
       autoGenerateObjectIDIfNotExist: true,
