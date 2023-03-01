@@ -85,7 +85,9 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
 
 const DocsView = React.memo(({ data = [] }) => {
   return (
-    <Stack sx={{ width: '100%', px: 4, justifyContent: 'center ' }}>
+    <Stack
+      sx={{ width: '100%', maxWidth: 1920, px: 4, justifyContent: 'center ' }}
+    >
       <DocsPages data={data} />
     </Stack>
   );

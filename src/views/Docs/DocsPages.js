@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Link, Stack, Typography } from '@mui/material';
+import { Box, Grid, Link, Stack, Typography } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -94,6 +94,7 @@ const Main = ({ data }) => {
   const result =
     Array.isArray(data.item) &&
     data.item.map((e) => {
+      // Get data from postman collection
       const name = e?.name?.replaceAll(' ', '-');
       const hasBody = e?.request?.body?.mode === 'raw' ? true : false;
       const hasEndpoint =
@@ -103,34 +104,47 @@ const Main = ({ data }) => {
       const token = getCookie('APP_SID');
 
       if (Array.isArray(e.item)) {
+        console.log(e);
         return (
           <Stack py={4}>
-            <Typography variant="h4" fontWeight={'800'} id={name} pb={2}>
+            <Typography
+              sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
+              variant="h5"
+              fontWeight={'600'}
+              id={name}
+            >
               {e?.name}
             </Typography>
-            <MuiMarkdown
-              inlineCodeColor="dodgerblue"
-              overrides={muiContentOverrides}
-            >
-              {e?.description || ''}
-            </MuiMarkdown>
+            <Box sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}>
+              <MuiMarkdown
+                inlineCodeColor="dodgerblue"
+                overrides={muiContentOverrides}
+              >
+                {e?.description || ''}
+              </MuiMarkdown>
+            </Box>
             <b>{<DocsPages data={e.item} />}</b>
           </Stack>
         );
       } else {
         return (
           <Grid container direction="row" minHeight={'50vh'} spacing={4}>
-            <Grid item xs={6} width={1}>
+            <Grid
+              sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
+              item
+              xs={6}
+              width={1}
+            >
               <Stack direction={'column'}>
                 <Stack direction={'row'} pb={2} alignItems="center">
                   {iconMethod(e.request.method)}
-                  <Typography variant="h5" id={name}>
+                  <Typography sx={{ fontWeight: '600' }} variant="h6" id={name}>
                     {e?.name}
                   </Typography>
                   <Link href={`#${name}`}>
                     <InsertLinkIcon
-                      fontSize="large"
-                      sx={{ ml: 1 }}
+                      fontSize="medium"
+                      sx={{ mt: 1, ml: 1 }}
                       color="secondary"
                     />
                   </Link>
@@ -185,12 +199,18 @@ const Main = ({ data }) => {
     <Stack ref={ref} bgcolor="#fff" pt={2}>
       <Grid container pb={4}>
         <Grid item xs={6}>
-          <Typography variant="h4" id={data.name}>
+          <Typography
+            sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
+            variant="h4"
+            id={data.name}
+          >
             {data.name}
           </Typography>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {data?.description}
-          </ReactMarkdown>
+          <Box sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {data?.description}
+            </ReactMarkdown>
+          </Box>
         </Grid>
         <Grid item xs={6}></Grid>
       </Grid>
@@ -204,7 +224,7 @@ const CodeBlocks = React.memo(
   ({ children, header = '', endProps = undefined }) => {
     return (
       <Stack py={1}>
-        <Typography variant="h6">{header}</Typography>
+        <Typography variant="body1">{header}</Typography>
         <Stack position={'relative'}>
           <SyntaxHighlighter
             showLineNumbers={false}
