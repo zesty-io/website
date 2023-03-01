@@ -9,7 +9,8 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 const VALID_URLS = ['/accounts', '/instances', '/authentication'];
 
 const initialTreeData = (url, data) => {
-  if (VALID_URLS.includes(url)) {
+  const url1 = '/' + url.split('/').filter((e) => e)[0];
+  if (VALID_URLS.includes(url1)) {
     return data.find((e) => e.url === url);
   }
 };
@@ -24,7 +25,14 @@ export default function DocsPage(props) {
   const mainCollection = props.docs.data;
   const mainData = transFormMainData(mainCollection);
   const [treeData, settreeData] = React.useState(mainData[2]);
-  const parentUrl = url && '/' + url?.split('/').filter((e) => e)[0];
+  // const parentUrl = url && '/' + url?.split('/').filter((e) => e)[0];
+  const parentUrl =
+    '/' +
+    url
+      ?.split('/')
+      .filter((e) => e)
+      .slice(0, 2)
+      .join('/');
 
   let item = [];
   const getPageData = (data, mainData = []) => {

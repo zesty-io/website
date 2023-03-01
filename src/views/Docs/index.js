@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { Stack, useScrollTrigger } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
+import { useRouter } from 'next/router';
 
 const FolderTreeView = dynamic(() =>
   import('./FolderTreeView').then((mod) => mod.FolderTreeView),
@@ -43,6 +44,7 @@ const DocsView = React.memo(({ data = [] }) => {
 });
 
 const Main = ({ pageData = [], treeData }) => {
+  const router = useRouter();
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 5,
@@ -59,6 +61,15 @@ const Main = ({ pageData = [], treeData }) => {
     trigger,
     newTreeData,
   };
+
+  const isHomeDocsRoute =
+    router.asPath.split('/').filter((e) => e)?.length === 1 ? true : false;
+  // prevent null data when user go to /docs
+  React.useEffect(() => {
+    if (isHomeDocsRoute) {
+      router.replace('/docs/instances/api-reference');
+    }
+  }, [isHomeDocsRoute]);
 
   return (
     <MainWrapper customRouting={[]}>
