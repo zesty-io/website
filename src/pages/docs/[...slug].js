@@ -82,11 +82,3 @@ export default function DocsPage(props) {
 
   return <Docs {...docsProps} />;
 }
-
-// export async function getServerSideProps({ resolvedUrl }) {
-//   let url = resolvedUrl;
-
-//   return {
-//     props: { url },
-//   };
-// }

@@ -42,15 +42,18 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
     setFilteredData(newTreeData);
   }, [newTreeData]);
 
+  console.log(trigger);
+
   return (
     <Stack
       sx={{
-        position: 'fixed',
+        position: 'sticky',
         top: trigger ? '11rem' : '11rem',
         bgcolor: '#fff',
         height: '100%',
         borderRight: `1px solid ${grey[200]}`,
-        width: '20vw',
+        height: '100vh',
+        minWidth: 320,
       }}
     >
       <Box
@@ -82,7 +85,7 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
 
 const DocsView = React.memo(({ data = [] }) => {
   return (
-    <Stack width={1} pl={54} pr={4}>
+    <Stack sx={{ width: '100%', px: 4, justifyContent: 'center ' }}>
       <DocsPages data={data} />
     </Stack>
   );
@@ -110,10 +113,12 @@ const Main = ({ pageData = [], treeData }) => {
     <MainWrapper customRouting={[]}>
       {/* page header  */}
       <ZestyAccountsHead {...pageHeaderProps} />
-      {/* left navigation tree */}
-      <LeftNav {...leftNavProps} />
-      {/* main docs view page  */}
-      <DocsView data={pageData} />
+      <Stack direction={'row'}>
+        {/* left navigation tree */}
+        <LeftNav {...leftNavProps} />
+        {/* main docs view page  */}
+        <DocsView data={pageData} />
+      </Stack>
     </MainWrapper>
   );
 };

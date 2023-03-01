@@ -119,7 +119,7 @@ const Main = ({ data }) => {
         );
       } else {
         return (
-          <Grid container direction="row" py={2} minHeight={'55vh'} spacing={2}>
+          <Grid container direction="row" minHeight={'50vh'} spacing={4}>
             <Grid item xs={6} width={1}>
               <Stack direction={'column'}>
                 <Stack direction={'row'} pb={2} alignItems="center">
