@@ -13,15 +13,16 @@ import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
   { label: 'API Reference', value: 'api-reference' },
-  { label: 'Resources', value: 'resources' },
+  // { label: 'Resources', value: 'resources' },
 ];
 
 export const DocsAppbar = React.memo(() => {
+  const router = useRouter();
+  const initialTab = router.asPath.split('/').filter((e) => e)[2];
   const { instances, setworkingInstance, workingInstance } = useZestyStore();
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
-  const [currentTab, setcurrentTab] = React.useState('api-reference');
-  const router = useRouter();
+  const [currentTab, setcurrentTab] = React.useState(initialTab);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { mainData } = useZestyStore((state) => state);
@@ -31,7 +32,8 @@ export const DocsAppbar = React.memo(() => {
     if (data?.value) {
       router.push(`/docs` + data.value.parent);
     } else {
-      router.push(`/docs` + '/instances');
+      // fallback data when user click x
+      router.push(`/docs` + '/instances/api-reference');
     }
   };
 

@@ -78,8 +78,10 @@ export const transFormMainData = (mainCollection) => {
   mainCollection = mainCollection.map((e) => {
     return {
       ...e,
-      parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
-      url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
+      // parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
+      // url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
+      parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
+      url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
     };
   });
 
