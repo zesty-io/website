@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Link, Stack, Typography } from '@mui/material';
+import { Box, Grid, Link, Stack, Typography, useTheme } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -31,6 +31,7 @@ const muiContentOverrides = {
       style: { fontSize: '5px' },
     },
   },
+
   img: {
     component: 'img',
     props: {
@@ -86,6 +87,8 @@ const iconMethod = (method) => {
 };
 
 const Main = ({ data }) => {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const [showToken, setshowToken] = React.useState(false);
   const { ref, inView } = useInView({
     threshold: 0,
@@ -104,18 +107,17 @@ const Main = ({ data }) => {
       const token = getCookie('APP_SID');
 
       if (Array.isArray(e.item)) {
-        console.log(e);
         return (
           <Stack py={4}>
             <Typography
-              sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
+              sx={{ color: theme.palette.zesty.zestyZambezi }}
               variant="h5"
               fontWeight={'600'}
               id={name}
             >
               {e?.name}
             </Typography>
-            <Box sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}>
+            <Box sx={{ color: theme.palette.zesty.zestyZambezi }}>
               <MuiMarkdown
                 inlineCodeColor="dodgerblue"
                 overrides={muiContentOverrides}
@@ -129,13 +131,11 @@ const Main = ({ data }) => {
       } else {
         return (
           <Grid container direction="row" minHeight={'50vh'} spacing={4}>
-            <Grid
-              sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
-              item
-              xs={6}
-              width={1}
-            >
-              <Stack direction={'column'}>
+            <Grid item xs={6} width={1}>
+              <Stack
+                sx={{ color: theme.palette.zesty.zestyZambezi }}
+                direction={'column'}
+              >
                 <Stack direction={'row'} pb={2} alignItems="center">
                   {iconMethod(e.request.method)}
                   <Typography sx={{ fontWeight: '600' }} variant="h6" id={name}>
@@ -196,7 +196,13 @@ const Main = ({ data }) => {
       }
     });
   return (
-    <Stack ref={ref} bgcolor="#fff" pt={2}>
+    <Stack
+      ref={ref}
+      sx={{
+        background: isDarkMode ? 'theme.palette.zesty.zestyDarkBlue' : 'white',
+      }}
+      pt={2}
+    >
       <Grid container pb={4}>
         <Grid item xs={6}>
           <Typography

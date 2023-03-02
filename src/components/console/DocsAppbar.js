@@ -23,6 +23,7 @@ export const DocsAppbar = React.memo(() => {
   const [currentTab, setcurrentTab] = React.useState('api-reference');
   const router = useRouter();
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { mainData } = useZestyStore((state) => state);
 
@@ -60,8 +61,9 @@ export const DocsAppbar = React.memo(() => {
         px: 2,
         py: 1,
         alignItems: isMobile ? 'left' : 'center',
-        borderTop: `1px solid ${grey[200]}`,
+        borderTop: isDarkMode ? ' ' : `1px solid ${grey[200]}`,
         bgcolor: '#fff',
+        background: isDarkMode ? theme.palette.zesty.zestyDarkBlue : 'white',
       }}
     >
       <Stack pt={1} direction="row" spacing={2}>

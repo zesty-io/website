@@ -7,6 +7,7 @@ import {
   Stack,
   TextField,
   useScrollTrigger,
+  useTheme,
 } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
@@ -25,6 +26,8 @@ const description = 'Docs page';
 const ogimage = 'Docs page';
 
 const LeftNav = React.memo(({ trigger, newTreeData }) => {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const [filteredData, setFilteredData] = useState();
   const filterData = (e) => {
     const searchTerms = e.target.value;
@@ -51,9 +54,10 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
         top: trigger ? '11rem' : '11rem',
         bgcolor: '#fff',
         height: '100%',
-        borderRight: `1px solid ${grey[200]}`,
+        borderRight: isDarkMode ? '' : `1px solid ${grey[200]}`,
+        background: isDarkMode ? theme.palette.zesty.zestyDarkBlue : 'white',
         height: '100vh',
-        minWidth: 320,
+        minWidth: 330,
       }}
     >
       <Box
@@ -84,9 +88,17 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
 });
 
 const DocsView = React.memo(({ data = [] }) => {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   return (
     <Stack
-      sx={{ width: '100%', maxWidth: 1920, px: 4, justifyContent: 'center ' }}
+      sx={{
+        width: '100%',
+        maxWidth: 1920,
+        px: 4,
+        justifyContent: 'center ',
+        background: isDarkMode ? 'theme.palette.zesty.zestyDarkBlue' : 'white',
+      }}
     >
       <DocsPages data={data} />
     </Stack>
