@@ -75,5 +75,8 @@ export const useZestyStore = create((set) => {
     // docs
     mainData: [],
     setmainData: (data) => set(() => ({ mainData: data })),
+
+    language: 'Javascript',
+    setlanguage: (data) => set(() => ({ language: data })),
   };
 });
