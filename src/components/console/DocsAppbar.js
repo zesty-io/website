@@ -1,4 +1,4 @@
-import { Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { AccountsComboBox } from 'components/accounts';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -8,6 +8,7 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { DocsComboBox } from 'views/Docs/DocsComboBox';
+import { DocsPopover } from 'views/Docs/DocsPopover';
 import { DocsTabs } from 'views/Docs/DocsTabs';
 import { SearchModal } from 'views/Docs/SearchModal';
 
@@ -19,7 +20,13 @@ const tabs = [
 export const DocsAppbar = React.memo(() => {
   const router = useRouter();
   const initialTab = router.asPath.split('/').filter((e) => e)[2];
-  const { instances, setworkingInstance, workingInstance } = useZestyStore();
+  const {
+    instances,
+    setworkingInstance,
+    workingInstance,
+    language,
+    setlanguage,
+  } = useZestyStore();
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
   const [currentTab, setcurrentTab] = React.useState(initialTab);
@@ -86,6 +93,19 @@ export const DocsAppbar = React.memo(() => {
             }
           />
         )}
+
+        <Stack direction={'row'} spacing={1} alignItems="center">
+          <Typography color={'black'}>Language:</Typography>{' '}
+          <DocsPopover
+            value={language}
+            setvalue={setlanguage}
+            items={[
+              { label: 'Javascript', value: 'Javascript' },
+              { label: 'Golang', value: 'Golang' },
+            ]}
+          />
+        </Stack>
+
         <SearchModal>
           <AlgoSearch />
         </SearchModal>
