@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PopupBox from './PopupBox';
 import { useRouter } from 'next/router';
-const TicketsModal = ({ instanceZUID, ticket, viewModal }) => {
+const TicketsModal = ({ ticket, viewModal }) => {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
-  const [details, setTicket] = React.useState([]);
 
   const handleRoute = (ticketNumber) => {
     const currentPath = router.asPath; // to get current route
@@ -15,8 +13,6 @@ const TicketsModal = ({ instanceZUID, ticket, viewModal }) => {
   };
 
   const currentTicket = (item) => {
-    setOpen(true);
-    setTicket(item);
     handleRoute(item);
   };
   const router = useRouter();
@@ -34,11 +30,7 @@ const TicketsModal = ({ instanceZUID, ticket, viewModal }) => {
       >
         Click to open the popup
       </Button>
-      <PopupBox
-        open={viewModal}
-        onClose={() => setOpen(false)}
-        ticket={ticket}
-      />
+      <PopupBox open={viewModal} onClose={() => {}} ticket={ticket} />
     </>
   );
 };
