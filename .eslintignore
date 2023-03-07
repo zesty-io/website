@@ -31,3 +31,4 @@ yarn.lock
 cloudbuild.yaml
 cloudbuildProduction.yaml
 Dockerfile
+pnpm-lock.yaml

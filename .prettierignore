@@ -34,3 +34,4 @@ Dockerfile
 # instance app
 
 /src/views/InstancesApp
+pnpm-lock.yaml

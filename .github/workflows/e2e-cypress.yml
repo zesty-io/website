@@ -9,25 +9,31 @@ jobs:
     env:
       PRODUCTION: 'true'
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Setup custom host for mylocal
         run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
 
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 6.0.2
+
       - name: Install dependencies 
-        run: npm ci
+        run: pnpm install
 
       - name: Build Project 
-        run: npm run build
+        run: pnpm run build
 
       - name: Write the cypress.env.json file 📝
         run: |
           echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
 
       - name: Run E2E test
-        run: npm run test:e2e:ci:prod
+        run: pnpm run test:e2e:ci:prod
 
       - name: Save screenshots 🖼
         uses: actions/upload-artifact@v3
