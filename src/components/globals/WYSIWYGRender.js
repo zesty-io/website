@@ -77,6 +77,7 @@ export default function WYSIWYGRender({ rich_text, customClass = '' }) {
         }
         .wysiwyg strong, .wysiwyg h1, .wysiwyg h2, .wysiwyg h3,.wysiwyg h4,.wysiwyg h5,.wysiwyg h6 {
           color: ${theme.palette.text.primary} !important;
+          line-height:1;
         }
 
         @media only screen and (max-width: 600px) {

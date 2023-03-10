@@ -43,8 +43,8 @@ import BoltIcon from '@mui/icons-material/Bolt';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import FillerContent from 'components/globals/FillerContent';
-import ZohoFormEmbed from 'components/cta/ZohoFormEmbed';
 import MuiMarkdown from 'markdown-to-jsx';
+import BetaSignupCta from 'components/cta/BetaSignupCTA';
 
 function Ai({ content }) {
   const [hovered, setHovered] = useState();
@@ -52,7 +52,6 @@ function Ai({ content }) {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
-  console.log(content);
   return (
     <>
       <Container>
@@ -307,45 +306,54 @@ function Ai({ content }) {
       </Box>
 
       <Box component="section" sx={{ py: 15 }}>
-        <Box id="join-waitlist" sx={{ mb: 5 }}>
-          {content.form_text_and_description && (
-            <MuiMarkdown
-              options={{
-                overrides: {
-                  h2: {
-                    component: Typography,
-                    props: {
-                      component: 'h3',
-                      variant: 'h4',
-                      sx: {
-                        fontWeight: 'bold',
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: 'center',
+        <Container>
+          <Box id="join-waitlist" sx={{ mb: 5 }}>
+            {content.form_text_and_description && (
+              <MuiMarkdown
+                options={{
+                  overrides: {
+                    h2: {
+                      component: Typography,
+                      props: {
+                        component: 'h3',
+                        variant: 'h4',
+                        sx: {
+                          fontWeight: 'bold',
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: 'center',
+                        },
+                      },
+                    },
+                    p: {
+                      component: Typography,
+                      props: {
+                        component: 'h4',
+                        variant: 'h6',
+                        sx: {
+                          mt: 1,
+                          color: theme.palette.zesty.zestyZambezi,
+                          textAlign: 'center',
+                          fontWeight: 'bold',
+                        },
                       },
                     },
                   },
-                  p: {
-                    component: Typography,
-                    props: {
-                      component: 'h4',
-                      variant: 'h6',
-                      sx: {
-                        mt: 1,
-                        color: theme.palette.zesty.zestyZambezi,
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                      },
-                    },
-                  },
-                },
-              }}
-            >
-              {content.form_text_and_description || FillerContent.rich_text}
-            </MuiMarkdown>
-          )}
-        </Box>
+                }}
+              >
+                {content.form_text_and_description || FillerContent.rich_text}
+              </MuiMarkdown>
+            )}
+          </Box>
+        </Container>
 
-        <ZohoFormEmbed height={280} formURL={content.zoho_form_link} />
+        <Box sx={{ mt: 10, width: '100%', maxWidth: 700, margin: 'auto' }}>
+          <BetaSignupCta
+            {...content}
+            displayMsgUnderButton=""
+            hidePrivacySection
+            leadDetail="AI Announce Invite"
+          />
+        </Box>
       </Box>
     </>
   );
