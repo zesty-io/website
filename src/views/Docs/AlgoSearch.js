@@ -77,7 +77,7 @@ export const AlgoSearch = () => {
           <Hits hitComponent={Hit} />
         </Index>
 
-        {/* <Index indexName="zesty-org">
+        <Index indexName="zesty-org">
           <Box sx={{ px: 2, py: 2 }}>
             <Typography
               variant="body1"
@@ -90,7 +90,7 @@ export const AlgoSearch = () => {
 
           <Configure hitsPerPage={8} />
           <Hits hitComponent={Hit} />
-        </Index> */}
+        </Index>
       </InstantSearch>
     </Stack>
   );
