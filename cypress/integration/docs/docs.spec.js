@@ -2,12 +2,13 @@
 /// <reference types="cypress" />
 
 const testurl =
-  'http://test.zesty.io:3000/docs/accounts/instances/domains/#Create-Domain';
+  'http://test.zesty.io:3000/docs/accounts/api-reference/instances/domains/#Create-Domain';
 
 const testUrl1 =
-  'http://test.zesty.io:3000/docs/instances/web/redirects/#Delete-Redirect';
+  'http://test.zesty.io:3000/docs/instances/api-reference/web/redirects/#Delete-Redirect';
 
-const testUrl2 = 'http://test.zesty.io:3000/docs/authentication/#Verify';
+const testUrl2 =
+  'http://test.zesty.io:3000/docs/authentication/api-reference/#Verify';
 
 describe('DOCS url test', () => {
   it('test docs/accounts route', () => {

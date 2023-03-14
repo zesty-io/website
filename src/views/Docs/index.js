@@ -127,6 +127,15 @@ const Main = ({ pageData = [], treeData }) => {
     newTreeData,
   };
 
+  const isHomeDocsRoute =
+    router.asPath.split('/').filter((e) => e)?.length === 1 ? true : false;
+  // prevent null data when user go to /docs
+  React.useEffect(() => {
+    if (isHomeDocsRoute) {
+      router.replace('/docs/instances/api-reference');
+    }
+  }, [isHomeDocsRoute]);
+
   return (
     <MainWrapper customRouting={[]}>
       {/* page header  */}
@@ -1615,4 +1624,3 @@ const serviceTree = [
     ],
   },
 ];
-// create a script that will format the actualData array of objects similar to exampleOutput items code below
