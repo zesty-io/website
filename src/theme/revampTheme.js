@@ -12,6 +12,16 @@ const revampTheme = (mode, themeToggler) => {
         lg2: 1440,
       },
     },
+    components: {
+      MuiButton: {
+        variants: [
+          {
+            props: { size: 'extraLarge' },
+            style: { padding: '11px 22px' },
+          },
+        ],
+      },
+    },
     themeToggler,
   });
 };

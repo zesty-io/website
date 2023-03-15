@@ -1,21 +1,30 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import media from '../../assets/media.png';
-import acorns from '../../assets/acorns.jpg';
-import bjs from '../../assets/bjs.jpg';
-import phoenixSuns from '../../assets/phoenixSuns.jpg';
-import rocketLeague from '../../assets/rocketLeague.jpg';
-import singlife from '../../assets/singlife.jpg';
-import sony from '../../assets/sony.jpg';
+import acorns from '../../assets/acornsHero.svg';
+import bjs from '../../assets/bjsHero.svg';
+import phoenixSuns from '../../assets/phoenixSunsHero.svg';
+import rocketLeague from '../../assets/rocketLeagueHero.svg';
+import singlife from '../../assets/singlifeHero.svg';
+import sony from '../../assets/sonyHero.svg';
 import circle from '../../assets/Ellipse.svg';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 const Hero = ({
   header = 'Digital Asset Management made easy',
   subtitle = 'Manage and distribute all your assets and understand how they’re performing all from one place.',
   primaryBtn = 'Start Now for FREE',
+  primaryBtnLink = '#',
   secondaryBtn = 'Schedule Demo',
+  secondaryBtnLink = '#',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
 }) => {
+  const theme = useTheme();
+  const isLg = useMediaQuery(theme.breakpoints.up('lg'), {
+    defaultMatches: true,
+  });
+
   return (
     <Box sx={{ position: 'relative', overflow: 'hidden' }}>
       <Grid
@@ -74,17 +83,19 @@ const Hero = ({
               }}
             >
               <Button
+                href={primaryBtnLink}
                 variant="contained"
                 color="primary"
-                size="large"
+                size={isLg ? 'extraLarge' : 'large'}
                 sx={{ textTransform: 'none' }}
               >
                 {primaryBtn}
               </Button>
               <Button
+                href={secondaryBtnLink}
                 variant="outlined"
                 color="primary"
-                size="large"
+                size={isLg ? 'extraLarge' : 'large'}
                 sx={{ textTransform: 'none' }}
               >
                 {secondaryBtn}
@@ -111,12 +122,12 @@ const Hero = ({
               rowGap="24px"
               columnGap="20px"
             >
-              <img src={sony.src} width="96px" height="32px" />
-              <img src={rocketLeague.src} width="96px" height="32px" />
-              <img src={acorns.src} width="96px" height="32px" />
-              <img src={bjs.src} width="35px" height="32px" />
-              <img src={singlife.src} width="103.34px" height="32px" />
-              <img src={phoenixSuns.src} width="31.63px" height="32px" />
+              <img src={sony.src} width="91px" height="32px" />
+              <img src={rocketLeague.src} width="88.35px" height="32px" />
+              <img src={singlife.src} width="102.12px" height="32px" />
+              <img src={acorns.src} width="94px" height="32px" />
+              <img src={bjs.src} width="36.48px" height="32px" />
+              <img src={phoenixSuns.src} width="31.59px" height="32px" />
             </Stack>
           </Stack>
         </Grid>

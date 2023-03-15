@@ -13,7 +13,9 @@ const BlackHero = ({
   header = 'The future proof CMS for enterprise of any size',
   subtitle = 'Create, distribute, and optimize content at SCALE with fewer resources in less time with the Zesty Hybrid Headless CMS. ',
   primaryBtn = 'Start Now',
+  primaryBtnLink = '#',
   secondaryBtn = 'Contact Sales',
+  secondaryBtnLink = '#',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
 }) => {
   return (
@@ -33,7 +35,10 @@ const BlackHero = ({
             fontWeight: {
               xs: 600,
             },
-            fontSize: '12px',
+            fontSize: {
+              xs: '12px',
+              sm2: '14px',
+            },
             lineHeight: '20px',
             letterSpacing: '1px',
             mb: {
@@ -51,6 +56,9 @@ const BlackHero = ({
           fontSize={{ xs: 36, sm2: 52 }}
           lineHeight={{ xs: '44px', sm2: '56px' }}
           mb={{ xs: 2, sm2: '24px' }}
+          width={{
+            lg: '640px',
+          }}
           color="white"
         >
           {header}
@@ -62,6 +70,12 @@ const BlackHero = ({
             fontSize: '18px',
             lineHeight: '28px',
             color: 'grey.50',
+            width: {
+              sm2: '592px',
+            },
+            margin: {
+              sm2: '0 auto',
+            },
           }}
         >
           {subtitle}
@@ -69,8 +83,8 @@ const BlackHero = ({
       </Stack>
 
       <Stack
-        spacing={1}
-        mb={4}
+        spacing="12px"
+        mb={6}
         width={{ xs: '100%', sm2: 'auto' }}
         direction={{
           xs: 'column',
@@ -78,18 +92,20 @@ const BlackHero = ({
         }}
       >
         <Button
+          href={primaryBtnLink}
           variant="contained"
           color="primary"
-          size="large"
+          size="extraLarge"
           fullWidth
           sx={{ textTransform: 'none', width: { sm2: 'auto' } }}
         >
           {primaryBtn}
         </Button>
         <Button
+          href={secondaryBtnLink}
           variant="outlined"
           color="primary"
-          size="large"
+          size="extraLarge"
           fullWidth
           sx={{ textTransform: 'none', width: { sm2: 'auto' } }}
         >
@@ -97,7 +113,13 @@ const BlackHero = ({
         </Button>
       </Stack>
 
-      <Typography fontSize="12px" lineHeight="12px" mb={3} color="grey.50">
+      <Typography
+        fontSize="12px"
+        lineHeight="12px"
+        mb={3}
+        color="grey.50"
+        letterSpacing="1px"
+      >
         {subtitle2}
       </Typography>
 
@@ -110,12 +132,12 @@ const BlackHero = ({
         justifyContent="center"
         alignItems="center"
       >
-        <img src={sony.src} width="90.6px" height="16px" />
-        <img src={rocketLeague.src} width="90.7px" height="32px" />
-        <img src={singlife.src} width="103.34px" height="32px" />
-        <img src={acorns.src} width="96px" height="32px" />
-        <img src={bjs.src} width="36.46px" height="32px" />
-        <img src={phoenixSuns.src} width="31.63px" height="32px" />
+        <img src={rocketLeague.src} width="88.35px" height="32px" />
+        <img src={singlife.src} width="102.12px" height="32px" />
+        <img src={sony.src} width="91px" height="32px" />
+        <img src={acorns.src} width="94px" height="32px" />
+        <img src={bjs.src} width="36.48px" height="32px" />
+        <img src={phoenixSuns.src} width="31.59px" height="32px" />
       </Stack>
       <Stack>
         <img

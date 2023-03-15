@@ -10,13 +10,13 @@ import Hero from 'revamp/ui/Hero';
 import BlackHero from 'revamp/ui/BlackHero';
 import revampTheme from 'theme/revampTheme';
 
-const components = ['hero', 'blackHero'];
+const components = ['Hero', 'Black Hero'];
 const revamp = () => {
   const [component, setComponent] = useState('');
 
   const renderComponent = () => {
-    if (component === 'hero') return <Hero />;
-    if (component === 'blackHero') return <BlackHero />;
+    if (component === 'Hero') return <Hero />;
+    if (component === 'Black Hero') return <BlackHero />;
 
     return 'Please select a component';
   };
