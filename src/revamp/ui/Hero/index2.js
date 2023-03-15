@@ -57,7 +57,6 @@ const Hero2 = ({
         </Typography>
 
         <Typography
-          color="text.secondary"
           sx={{
             fontWeight: 400,
             fontSize: '18px',
@@ -98,7 +97,7 @@ const Hero2 = ({
         </Button>
       </Stack>
 
-      <Typography fontSize="12px" lineHeight="12px" mb={3}>
+      <Typography fontSize="12px" lineHeight="12px" mb={3} color="grey.50">
         {subtitle2}
       </Typography>
 
