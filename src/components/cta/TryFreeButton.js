@@ -10,7 +10,7 @@ import Icon from '@mui/material/Icon';
 import CodeBlock from './CodeBlock';
 
 export default function TryFreeButton({
-  text = 'Start Now',
+  text = 'Request Demo',
   target = 'blank',
   fullWidth = false,
   component = 'button',
