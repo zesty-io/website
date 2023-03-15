@@ -22,7 +22,7 @@ export default class MyDocument extends Document {
           <script src={fetchUrl} />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Mulish"
+            href="https://fonts.googleapis.com/css?family=Mulish:wght@400;500;600;700;800;900"
           />
 
           <link

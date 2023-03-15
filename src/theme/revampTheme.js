@@ -17,7 +17,12 @@ const revampTheme = (mode, themeToggler) => {
         variants: [
           {
             props: { size: 'extraLarge' },
-            style: { padding: '11px 22px' },
+            style: {
+              padding: '11px 22px',
+              letterSpacing: '.46px',
+              fontSize: '15px',
+              lineHeight: '26px',
+            },
           },
         ],
       },
