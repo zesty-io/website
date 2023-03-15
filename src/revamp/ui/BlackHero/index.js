@@ -1,14 +1,14 @@
 import { Button, Stack, Typography } from '@mui/material';
 import schemaPic from '../../assets/schema.png';
-import acorns from '../../assets/acorns.png';
-import bjs from '../../assets/bjs.png';
-import phoenixSuns from '../../assets/phoenixSuns.png';
-import rocketLeague from '../../assets/rocketLeague.png';
-import singlife from '../../assets/singlife.png';
-import sony from '../../assets/sony.png';
+import acorns from '../../assets/acorns.svg';
+import bjs from '../../assets/bjs.svg';
+import phoenixSuns from '../../assets/phoenixSuns.svg';
+import rocketLeague from '../../assets/rocketLeague.svg';
+import singlife from '../../assets/singlife.svg';
+import sony from '../../assets/sony.svg';
 import React from 'react';
 
-const Hero2 = ({
+const BlackHero = ({
   title = 'Unify your team with',
   header = 'The future proof CMS for enterprise of any size',
   subtitle = 'Create, distribute, and optimize content at SCALE with fewer resources in less time with the Zesty Hybrid Headless CMS. ',
@@ -129,4 +129,4 @@ const Hero2 = ({
   );
 };
 
-export default Hero2;
+export default BlackHero;

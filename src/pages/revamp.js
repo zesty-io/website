@@ -7,16 +7,16 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import Hero from 'revamp/ui/Hero';
-import Hero2 from 'revamp/ui/Hero/index2';
+import BlackHero from 'revamp/ui/BlackHero';
 import revampTheme from 'theme/revampTheme';
 
-const components = ['hero', 'hero2'];
+const components = ['hero', 'blackHero'];
 const revamp = () => {
   const [component, setComponent] = useState('');
 
   const renderComponent = () => {
     if (component === 'hero') return <Hero />;
-    if (component === 'hero2') return <Hero2 />;
+    if (component === 'blackHero') return <BlackHero />;
 
     return 'Please select a component';
   };
@@ -26,15 +26,15 @@ const revamp = () => {
       {renderComponent()}
 
       <FormControl fullWidth sx={{ mt: 4 }}>
-        <InputLabel id="demo-simple-select-label">Component</InputLabel>
+        <InputLabel>Component</InputLabel>
         <Select
           value={component}
           label="Component"
           onChange={(e) => setComponent(e.target.value)}
         >
-          {components.map((asdf, index) => (
-            <MenuItem key={index} value={asdf}>
-              {asdf}
+          {components.map((c, index) => (
+            <MenuItem key={index} value={c}>
+              {c}
             </MenuItem>
           ))}
         </Select>
