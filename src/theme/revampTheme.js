@@ -9,7 +9,17 @@ const revampTheme = (mode, themeToggler) => {
       values: {
         ...theme.breakpoints.values,
         sm2: 768,
-        lg2: 1280,
+        lg2: 1440,
+      },
+    },
+    components: {
+      MuiButton: {
+        variants: [
+          {
+            props: { size: 'extraLarge' },
+            style: { padding: '11px 22px' },
+          },
+        ],
       },
     },
     themeToggler,

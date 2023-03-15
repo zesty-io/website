@@ -1,25 +1,27 @@
 import { Button, Stack, Typography } from '@mui/material';
 import schemaPic from '../../assets/schema.png';
-import acorns from '../../assets/acorns.png';
-import bjs from '../../assets/bjs.png';
-import phoenixSuns from '../../assets/phoenixSuns.png';
-import rocketLeague from '../../assets/rocketLeague.png';
-import singlife from '../../assets/singlife.png';
-import sony from '../../assets/sony.png';
+import acorns from '../../assets/acorns.svg';
+import bjs from '../../assets/bjs.svg';
+import phoenixSuns from '../../assets/phoenixSuns.svg';
+import rocketLeague from '../../assets/rocketLeague.svg';
+import singlife from '../../assets/singlife.svg';
+import sony from '../../assets/sony.svg';
 import React from 'react';
 
-const Hero2 = ({
+const BlackHero = ({
   title = 'Unify your team with',
   header = 'The future proof CMS for enterprise of any size',
   subtitle = 'Create, distribute, and optimize content at SCALE with fewer resources in less time with the Zesty Hybrid Headless CMS. ',
   primaryBtn = 'Start Now',
+  primaryBtnLink = '#',
   secondaryBtn = 'Contact Sales',
+  secondaryBtnLink = '#',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
 }) => {
   return (
     <Stack
-      py={{ xs: 4, sm2: 6, lg2: 10 }}
-      px={{ xs: 2, sm2: 4, lg2: 14 }}
+      py={{ xs: 4, sm2: 6, lg: 10 }}
+      px={{ xs: 2, sm2: 4, lg: 14 }}
       alignItems="center"
       justifyContent="center"
       textAlign="center"
@@ -33,7 +35,10 @@ const Hero2 = ({
             fontWeight: {
               xs: 600,
             },
-            fontSize: '12px',
+            fontSize: {
+              xs: '12px',
+              sm2: '14px',
+            },
             lineHeight: '20px',
             letterSpacing: '1px',
             mb: {
@@ -51,6 +56,9 @@ const Hero2 = ({
           fontSize={{ xs: 36, sm2: 52 }}
           lineHeight={{ xs: '44px', sm2: '56px' }}
           mb={{ xs: 2, sm2: '24px' }}
+          width={{
+            lg: '640px',
+          }}
           color="white"
         >
           {header}
@@ -62,6 +70,12 @@ const Hero2 = ({
             fontSize: '18px',
             lineHeight: '28px',
             color: 'grey.50',
+            width: {
+              sm2: '592px',
+            },
+            margin: {
+              sm2: '0 auto',
+            },
           }}
         >
           {subtitle}
@@ -69,8 +83,8 @@ const Hero2 = ({
       </Stack>
 
       <Stack
-        spacing={1}
-        mb={4}
+        spacing="12px"
+        mb={6}
         width={{ xs: '100%', sm2: 'auto' }}
         direction={{
           xs: 'column',
@@ -78,18 +92,20 @@ const Hero2 = ({
         }}
       >
         <Button
+          href={primaryBtnLink}
           variant="contained"
           color="primary"
-          size="large"
+          size="extraLarge"
           fullWidth
           sx={{ textTransform: 'none', width: { sm2: 'auto' } }}
         >
           {primaryBtn}
         </Button>
         <Button
+          href={secondaryBtnLink}
           variant="outlined"
           color="primary"
-          size="large"
+          size="extraLarge"
           fullWidth
           sx={{ textTransform: 'none', width: { sm2: 'auto' } }}
         >
@@ -97,7 +113,13 @@ const Hero2 = ({
         </Button>
       </Stack>
 
-      <Typography fontSize="12px" lineHeight="12px" mb={3} color="grey.50">
+      <Typography
+        fontSize="12px"
+        lineHeight="12px"
+        mb={3}
+        color="grey.50"
+        letterSpacing="1px"
+      >
         {subtitle2}
       </Typography>
 
@@ -110,12 +132,12 @@ const Hero2 = ({
         justifyContent="center"
         alignItems="center"
       >
-        <img src={sony.src} width="90.6px" height="16px" />
-        <img src={rocketLeague.src} width="90.7px" height="32px" />
-        <img src={singlife.src} width="103.34px" height="32px" />
-        <img src={acorns.src} width="96px" height="32px" />
-        <img src={bjs.src} width="36.46px" height="32px" />
-        <img src={phoenixSuns.src} width="31.63px" height="32px" />
+        <img src={rocketLeague.src} width="88.35px" height="32px" />
+        <img src={singlife.src} width="102.12px" height="32px" />
+        <img src={sony.src} width="91px" height="32px" />
+        <img src={acorns.src} width="94px" height="32px" />
+        <img src={bjs.src} width="36.48px" height="32px" />
+        <img src={phoenixSuns.src} width="31.59px" height="32px" />
       </Stack>
       <Stack>
         <img
@@ -129,4 +151,4 @@ const Hero2 = ({
   );
 };
 
-export default Hero2;
+export default BlackHero;
