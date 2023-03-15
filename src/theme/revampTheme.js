@@ -9,7 +9,7 @@ const revampTheme = (mode, themeToggler) => {
       values: {
         ...theme.breakpoints.values,
         sm2: 768,
-        lg2: 1280,
+        lg2: 1440,
       },
     },
     themeToggler,

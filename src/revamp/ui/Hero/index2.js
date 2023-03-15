@@ -18,8 +18,8 @@ const Hero2 = ({
 }) => {
   return (
     <Stack
-      py={{ xs: 4, sm2: 6, lg2: 10 }}
-      px={{ xs: 2, sm2: 4, lg2: 14 }}
+      py={{ xs: 4, sm2: 6, lg: 10 }}
+      px={{ xs: 2, sm2: 4, lg: 14 }}
       alignItems="center"
       justifyContent="center"
       textAlign="center"
