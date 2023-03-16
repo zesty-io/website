@@ -64,6 +64,7 @@ const Stats = ({
       <Stack
         width="100%"
         order={isSm2 ? 2 : 1}
+        height="100%"
         mb={{
           xs: 4,
           sm2: 6,
