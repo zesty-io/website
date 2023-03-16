@@ -86,6 +86,7 @@ const Hero = ({
                 href={primaryBtnLink}
                 variant="contained"
                 color="primary"
+                disableElevation
                 size={isLg ? 'extraLarge' : 'large'}
                 sx={{ textTransform: 'none' }}
               >
@@ -150,7 +151,6 @@ const Hero = ({
             left: '40%',
             width: '100%',
             height: '100%',
-            transform: 'rotate(32deg)',
           },
           [theme.breakpoints.up('lg2')]: {
             position: 'absolute',
@@ -158,7 +158,6 @@ const Hero = ({
             left: '35%',
             width: '100%',
             height: '100%',
-            transform: 'rotate(32deg)',
           },
           [theme.breakpoints.up('xl')]: {
             position: 'absolute',
@@ -166,7 +165,6 @@ const Hero = ({
             left: '35%',
             width: '100%',
             height: '100%',
-            transform: 'rotate(32deg)',
           },
           [theme.breakpoints.down('lg')]: {
             display: 'none',

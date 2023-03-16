@@ -93,6 +93,7 @@ const BlackHero = ({
       >
         <Button
           href={primaryBtnLink}
+          disableElevation
           variant="contained"
           color="primary"
           size="extraLarge"
@@ -144,7 +145,7 @@ const BlackHero = ({
           src={schemaPic.src}
           width="100%"
           height="100%"
-          style={{ objectFit: 'contain' }}
+          style={{ objectFit: 'contain', borderRadius: '8px' }}
         />
       </Stack>
     </Stack>
