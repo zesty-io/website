@@ -20,8 +20,8 @@ const BlackHero = ({
 }) => {
   return (
     <Stack
-      py={{ xs: 4, sm2: 6, lg: 10 }}
-      px={{ xs: 2, sm2: 4, lg: 14 }}
+      py={{ xs: 4, tablet: 6, lg: 10 }}
+      px={{ xs: 2, tablet: 4, lg: 14 }}
       alignItems="center"
       justifyContent="center"
       textAlign="center"
@@ -37,13 +37,13 @@ const BlackHero = ({
             },
             fontSize: {
               xs: '12px',
-              sm2: '14px',
+              tablet: '14px',
             },
             lineHeight: '20px',
             letterSpacing: '1px',
             mb: {
               xs: '4px',
-              sm2: '12px',
+              tablet: '12px',
             },
           }}
         >
@@ -53,9 +53,9 @@ const BlackHero = ({
           py={0}
           variant="h1"
           fontWeight={800}
-          fontSize={{ xs: 36, sm2: 52 }}
-          lineHeight={{ xs: '44px', sm2: '56px' }}
-          mb={{ xs: 2, sm2: '24px' }}
+          fontSize={{ xs: 36, tablet: 52 }}
+          lineHeight={{ xs: '44px', tablet: '56px' }}
+          mb={{ xs: 2, tablet: '24px' }}
           width={{
             lg: '640px',
           }}
@@ -71,10 +71,10 @@ const BlackHero = ({
             lineHeight: '28px',
             color: 'grey.50',
             width: {
-              sm2: '592px',
+              tablet: '592px',
             },
             margin: {
-              sm2: '0 auto',
+              tablet: '0 auto',
             },
           }}
         >
@@ -85,10 +85,10 @@ const BlackHero = ({
       <Stack
         spacing="12px"
         mb={6}
-        width={{ xs: '100%', sm2: 'auto' }}
+        width={{ xs: '100%', tablet: 'auto' }}
         direction={{
           xs: 'column',
-          sm2: 'row',
+          tablet: 'row',
         }}
       >
         <Button
@@ -98,7 +98,7 @@ const BlackHero = ({
           color="primary"
           size="extraLarge"
           fullWidth
-          sx={{ textTransform: 'none', width: { sm2: 'auto' } }}
+          sx={{ textTransform: 'none', width: { tablet: 'auto' } }}
         >
           {primaryBtn}
         </Button>
@@ -108,7 +108,7 @@ const BlackHero = ({
           color="primary"
           size="extraLarge"
           fullWidth
-          sx={{ textTransform: 'none', width: { sm2: 'auto' } }}
+          sx={{ textTransform: 'none', width: { tablet: 'auto' } }}
         >
           {secondaryBtn}
         </Button>

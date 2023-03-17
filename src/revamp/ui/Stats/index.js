@@ -38,7 +38,7 @@ const Stats = ({
   subHeading = 'At Zesty, we are committed to creating best-in-class technology and our dedication to excellence has been recognized by G2, who have consistently named us a high performer.',
 }) => {
   const theme = useTheme();
-  const isSm2 = useMediaQuery(theme.breakpoints.up('sm2'), {
+  const isTablet = useMediaQuery(theme.breakpoints.up('tablet'), {
     defaultMatches: true,
   });
 
@@ -49,7 +49,7 @@ const Stats = ({
           py: 4,
           px: 2,
         },
-        [theme.breakpoints.up('sm2')]: {
+        [theme.breakpoints.up('tablet')]: {
           py: 6,
           px: 4,
         },
@@ -63,12 +63,12 @@ const Stats = ({
     >
       <Stack
         width="100%"
-        order={isSm2 ? 2 : 1}
+        order={isTablet ? 2 : 1}
         height="100%"
         mb={{
           xs: 4,
-          sm2: 6,
-          lg2: '0px',
+          tablet: 6,
+          desktopWide: '0px',
         }}
         sx={{
           background:
@@ -79,7 +79,7 @@ const Stats = ({
           p={{
             xs: '24px 32px',
             lg: '119.5px 22.64px',
-            lg2: '24px 32px',
+            desktopWide: '24px 32px',
           }}
           margin="0 auto"
         >
@@ -93,7 +93,7 @@ const Stats = ({
                 width: '100%',
                 height: '100%',
               },
-              [theme.breakpoints.up('sm2')]: {
+              [theme.breakpoints.up('tablet')]: {
                 width: '410.71px',
                 height: '317px',
               },
@@ -107,11 +107,11 @@ const Stats = ({
         </Box>
       </Stack>
 
-      <Stack width="100%" order={isSm2 ? 1 : 2}>
+      <Stack width="100%" order={isTablet ? 1 : 2}>
         <Stack
           mb={{
             xs: 4,
-            sm2: 6,
+            tablet: 6,
             lg: 4,
           }}
         >
@@ -122,7 +122,7 @@ const Stats = ({
             color="primary"
             fontWeight={600}
             sx={(theme) => ({
-              [theme.breakpoints.up('sm2')]: {
+              [theme.breakpoints.up('tablet')]: {
                 fontSize: '14px',
                 lineHeight: '20px',
               },
@@ -135,7 +135,7 @@ const Stats = ({
             variant="h2"
             fontWeight={800}
             sx={(theme) => ({
-              [theme.breakpoints.up('sm2')]: {
+              [theme.breakpoints.up('tablet')]: {
                 fontSize: '36px',
                 lineHeight: '44px',
               },
@@ -156,11 +156,11 @@ const Stats = ({
             {subHeading}
           </Typography>
         </Stack>
-        <Stack mb={{ xs: 4, sm2: 2 }}>
+        <Stack mb={{ xs: 4, tablet: 2 }}>
           <Grid container columnSpacing={4} rowGap={4}>
             {statsArray.map((stat) => {
               return (
-                <Grid item xs={12} sm2={6}>
+                <Grid item xs={12} tablet={6}>
                   <Stack direction="row" columnGap={3}>
                     <Stack
                       display="flex"
@@ -176,7 +176,7 @@ const Stats = ({
                         fontWeight={600}
                         mb="4px"
                         sx={(theme) => ({
-                          [theme.breakpoints.up('sm2')]: {
+                          [theme.breakpoints.up('tablet')]: {
                             fontSize: '32px',
                             lineHeight: '40px',
                           },
