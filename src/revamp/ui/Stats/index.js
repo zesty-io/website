@@ -1,9 +1,10 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import contentStats from '../../assets/contentStats.svg';
-import statsIcon1 from '../../assets/statsIcon1.svg';
-import statsIcon2 from '../../assets/statsIcon2.svg';
-import statsIcon3 from '../../assets/statsIcon3.svg';
-import statsIcon4 from '../../assets/statsIcon4.svg';
+
+import CloudRoundedIcon from '@mui/icons-material/CloudRounded';
+import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
+import ApiRoundedIcon from '@mui/icons-material/ApiRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
@@ -13,22 +14,22 @@ const statsArray = [
   {
     title: '2.5X',
     subtitle: 'Faster deployments with collaborative tools.',
-    icon: statsIcon1.src,
+    icon: <CloudRoundedIcon color="primary" />,
   },
   {
     title: '99.99%',
     subtitle: 'Industry leading Uptime that ensures you deliver',
-    icon: statsIcon2.src,
+    icon: <CodeRoundedIcon color="primary" />,
   },
   {
     title: '7+',
     subtitle: 'Endpoint formats and APIs to deliver content.',
-    icon: statsIcon3.src,
+    icon: <ApiRoundedIcon color="primary" />,
   },
   {
     title: '15X',
     subtitle: 'Faster content production with our AI tool.',
-    icon: statsIcon4.src,
+    icon: <EditRoundedIcon color="primary" />,
   },
 ];
 
@@ -161,14 +162,16 @@ const Stats = ({
             {statsArray.map((stat) => {
               return (
                 <Grid item xs={12} tablet={6}>
-                  <Stack direction="row" columnGap={3}>
+                  <Stack alignItems="center" direction="row" columnGap={3}>
                     <Stack
                       display="flex"
                       alignItems="center"
                       justifyContent="center"
                       mb="4px"
+                      p="12px"
+                      bgcolor="deepOrange.50"
                     >
-                      <img src={stat.icon} width="48px" height="48px" />
+                      {stat.icon}
                     </Stack>
                     <Stack>
                       <Typography

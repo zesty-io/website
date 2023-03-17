@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { alpha, createTheme } from '@mui/material/styles';
 import { theme } from '@zesty-io/material';
 
 const revampTheme = (mode, themeToggler) => {
@@ -26,6 +26,24 @@ const revampTheme = (mode, themeToggler) => {
             },
           },
         ],
+      },
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            color: alpha(theme.palette.grey[900], 0.4),
+            '&.MuiButtonBase-root': {
+              minHeight: '0 !important',
+              p: 1,
+              borderRadius: '8px',
+              '&:hover': {
+                backgroundColor: theme.palette.grey[100],
+              },
+              '&.Mui-selected': {
+                backgroundColor: theme.palette.deepOrange[50],
+              },
+            },
+          },
+        },
       },
     },
     themeToggler,
