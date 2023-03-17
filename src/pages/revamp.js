@@ -10,9 +10,16 @@ import Hero from 'revamp/ui/Hero';
 import BlackHero from 'revamp/ui/BlackHero';
 import Stats from 'revamp/ui/Stats';
 import SingleTestimonial from 'revamp/ui/SingleTestimonial';
+import TabsSection from 'revamp/ui/TabsSection';
 import revampTheme from 'theme/revampTheme';
 
-const components = ['Hero', 'Black Hero', 'Stats', 'Single Testimonial'];
+const components = [
+  'Hero',
+  'Black Hero',
+  'Stats',
+  'Single Testimonial',
+  'Tabs Section',
+];
 const revamp = () => {
   const [component, setComponent] = useState('');
 
@@ -21,6 +28,7 @@ const revamp = () => {
     if (component === 'Black Hero') return <BlackHero />;
     if (component === 'Stats') return <Stats />;
     if (component === 'Single Testimonial') return <SingleTestimonial />;
+    if (component === 'Tabs Section') return <TabsSection />;
 
     return 'Please select a component';
   };
