@@ -29,8 +29,8 @@ const Hero = ({
     <Box sx={{ position: 'relative', overflow: 'hidden' }}>
       <Grid
         container
-        px={{ xs: 2, sm2: 4, lg: 14 }}
-        py={{ xs: 4, sm2: 6, lg: 8 }}
+        px={{ xs: 2, tablet: 4, lg: 14 }}
+        py={{ xs: 4, tablet: 6, lg: 8 }}
         spacing={{ lg: 8 }}
         position="relative"
       >
@@ -53,9 +53,9 @@ const Hero = ({
                 py={0}
                 variant="h2"
                 fontWeight={800}
-                fontSize={{ xs: 36, sm2: '52px' }}
-                lineHeight={{ xs: '44px', sm2: '56px' }}
-                mb={{ xs: 2, sm2: '20px', lg: '4px', lg2: '12px' }}
+                fontSize={{ xs: 36, tablet: '52px' }}
+                lineHeight={{ xs: '44px', tablet: '56px' }}
+                mb={{ xs: 2, tablet: '20px', lg: '4px', desktopWide: '12px' }}
               >
                 {header}
               </Typography>
@@ -64,7 +64,7 @@ const Hero = ({
                 color="text.secondary"
                 variant="body1"
                 sx={(theme) => ({
-                  [theme.breakpoints.up('sm2')]: {
+                  [theme.breakpoints.up('tablet')]: {
                     fontSize: '18px',
                     lineHeight: '28px',
                   },
@@ -79,7 +79,7 @@ const Hero = ({
               mb={4}
               direction={{
                 xs: 'column',
-                sm2: 'row',
+                tablet: 'row',
               }}
             >
               <Button
@@ -152,7 +152,7 @@ const Hero = ({
             width: '100%',
             height: '100%',
           },
-          [theme.breakpoints.up('lg2')]: {
+          [theme.breakpoints.up('desktopWide')]: {
             position: 'absolute',
             top: '-18%',
             left: '35%',

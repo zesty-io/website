@@ -8,8 +8,9 @@ const revampTheme = (mode, themeToggler) => {
     breakpoints: {
       values: {
         ...theme.breakpoints.values,
-        sm2: 768,
-        lg2: 1440,
+        mobile: 375,
+        tablet: 768,
+        desktopWide: 1440,
       },
     },
     components: {

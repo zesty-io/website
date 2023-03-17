@@ -9,9 +9,10 @@ import React, { useState } from 'react';
 import Hero from 'revamp/ui/Hero';
 import BlackHero from 'revamp/ui/BlackHero';
 import Stats from 'revamp/ui/Stats';
+import SingleTestimonial from 'revamp/ui/SingleTestimonial';
 import revampTheme from 'theme/revampTheme';
 
-const components = ['Hero', 'Black Hero', 'Stats'];
+const components = ['Hero', 'Black Hero', 'Stats', 'Single Testimonial'];
 const revamp = () => {
   const [component, setComponent] = useState('');
 
@@ -19,6 +20,7 @@ const revamp = () => {
     if (component === 'Hero') return <Hero />;
     if (component === 'Black Hero') return <BlackHero />;
     if (component === 'Stats') return <Stats />;
+    if (component === 'Single Testimonial') return <SingleTestimonial />;
 
     return 'Please select a component';
   };
