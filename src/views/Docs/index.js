@@ -338,7 +338,7 @@ const serviceTree = [
           {
             name: 'Instance Settings Drawer',
             url: '/accounts/ui/instance-settings-drawer',
-            objectId: '-M8TRF46BqSosWKdCYYR',
+            objectId: '-M8TRF46BqSosWKdCYYR ',
             item: [],
           },
           {
