@@ -15,7 +15,7 @@ import { SearchModal } from 'views/Docs/SearchModal';
 const tabs = [
   { label: 'API Reference', value: 'api-reference' },
   { label: 'Resources', value: 'resources' },
-  { label: 'Services', value: 'services' },
+  // { label: 'Services', value: 'services' },
 ];
 
 export const DocsAppbar = React.memo(() => {
