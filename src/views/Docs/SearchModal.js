@@ -13,9 +13,9 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 600,
   bgcolor: 'background.paper',
-  // border: '2px solid #000',
   boxShadow: 2,
   p: 2,
+  borderRadius: 4,
 };
 
 export const SearchModal = ({ children }) => {
