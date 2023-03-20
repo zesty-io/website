@@ -21,15 +21,12 @@ const TabSchema = ({
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
   const isTablet = useMediaQuery(theme.breakpoints.up('tablet'));
-  const isBetweenTabletAndLG = useMediaQuery(
-    theme.breakpoints.between('tablet', 'lg'),
-  );
 
   return (
     <Stack borderRadius="16px" bgcolor="grey.900">
       <Stack
         direction={isLG ? 'row' : 'column'}
-        columnGap={isLG ? 8 : 1}
+        columnGap={!isLG ? 1 : 0}
         justifyContent="center"
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
@@ -48,43 +45,36 @@ const TabSchema = ({
           <Box
             component="img"
             src={schema.src}
-            mb={{
-              xs: 3,
-              mobile: 6,
-              lg: 0,
-            }}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
                 width: '279px',
                 height: '200px',
+                mb: 3,
               },
               [theme.breakpoints.up('mobile')]: {
                 width: '100%',
                 height: '100%',
               },
               [theme.breakpoints.up('tablet')]: {
-                width: '100%',
-                height: '420px',
+                // width: '608px',
+                // height: '420px',
+                mb: 6,
               },
               [theme.breakpoints.up('lg')]: {
                 width: '540px',
                 height: '420px',
+                mb: 0,
               },
               [theme.breakpoints.up('desktopWide')]: {
-                width: '100%',
+                width: '780px',
                 height: '420px',
               },
             })}
           />
         </Stack>
 
-        <Stack
-          order={isLG ? 1 : 2}
-          justifyContent="center"
-          alignItems={isBetweenTabletAndLG ? 'center' : 'normal'}
-          width={{ desktopWide: '420px' }}
-        >
+        <Stack order={isLG ? 1 : 2} justifyContent="center" mr={isLG ? 8 : 0}>
           <Typography
             variant="h2"
             fontWeight={800}
