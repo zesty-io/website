@@ -83,6 +83,7 @@ const TabSchema = ({
           order={isLG ? 1 : 2}
           justifyContent="center"
           alignItems={isBetweenTabletAndLG ? 'center' : 'normal'}
+          width={{ desktopWide: '420px' }}
         >
           <Typography
             variant="h2"
