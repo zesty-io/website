@@ -13,37 +13,37 @@ import TabSchema from './TabSchema';
 const tabLists = [
   {
     name: 'Schema',
-    icon: <SchemaRoundedIcon />,
+    icon: <SchemaRoundedIcon sx={{ fontSize: '20px' }} />,
     component: <TabSchema />,
   },
   {
     name: 'Content',
-    icon: <EditRoundedIcon />,
+    icon: <EditRoundedIcon sx={{ fontSize: '20px' }} />,
     component: 'Content',
   },
   {
     name: 'Media',
-    icon: <ImageRoundedIcon />,
+    icon: <ImageRoundedIcon sx={{ fontSize: '20px' }} />,
     component: 'Media',
   },
   {
     name: 'AI Assistant',
-    icon: <PsychologyAltRoundedIcon />,
+    icon: <PsychologyAltRoundedIcon sx={{ fontSize: '20px' }} />,
     component: 'AI Assistant',
   },
   {
     name: 'Localization',
-    icon: <TranslateRoundedIcon />,
+    icon: <TranslateRoundedIcon sx={{ fontSize: '20px' }} />,
     component: 'Localization',
   },
   {
     name: 'APIs',
-    icon: <ApiRoundedIcon />,
+    icon: <ApiRoundedIcon sx={{ fontSize: '20px' }} />,
     component: 'APIs',
   },
   {
     name: 'A/B Testing',
-    icon: <ScienceRoundedIcon />,
+    icon: <ScienceRoundedIcon sx={{ fontSize: '20px' }} />,
     component: 'A/B Testing',
   },
 ];
@@ -68,6 +68,10 @@ const TabsSection = ({
           px: 4,
           py: 6,
         },
+        [theme.breakpoints.up('lg')]: {
+          px: 3,
+          py: 8,
+        },
       })}
     >
       <Typography
@@ -76,6 +80,7 @@ const TabsSection = ({
         mb={3}
         textAlign="center"
         width={{ lg: '640px', margin: '0 auto 24px auto' }}
+        letterSpacing="-0.02em"
         sx={(theme) => ({
           [theme.breakpoints.up('tablet')]: {
             fontSize: '44px',
@@ -97,7 +102,8 @@ const TabsSection = ({
             '.MuiTabs-flexContainer': {
               flexWrap: 'wrap',
               justifyContent: 'center',
-              gap: '4px',
+              gap: '16px',
+              padding: '8px',
             },
           }}
           onChange={handleChange}

@@ -38,16 +38,23 @@ const TabSchema = ({
           [theme.breakpoints.up('tablet')]: {
             p: 6,
           },
+          [theme.breakpoints.up('lg')]: {
+            py: 10,
+            px: 8,
+          },
         })}
       >
         <Stack order={isLG ? 2 : 1}>
           <Box
             component="img"
             src={schema.src}
-            mb={3}
+            mb={{
+              xs: 3,
+              mobile: 6,
+              lg: 0,
+            }}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
-                // bgcolor: 'white',
                 objectFit: 'contain',
                 width: '279px',
                 height: '200px',
@@ -65,7 +72,7 @@ const TabSchema = ({
                 height: '420px',
               },
               [theme.breakpoints.up('desktopWide')]: {
-                width: '780px',
+                width: '100%',
                 height: '420px',
               },
             })}
@@ -82,6 +89,7 @@ const TabSchema = ({
             fontWeight={800}
             color="white"
             mb={3}
+            letterSpacing="-0.02em"
             sx={(theme) => ({
               [theme.breakpoints.up('lg')]: {
                 fontSize: '44px',
