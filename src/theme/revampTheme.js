@@ -33,7 +33,10 @@ const revampTheme = (mode, themeToggler) => {
             color: alpha(theme.palette.grey[900], 0.4),
             '&.MuiButtonBase-root': {
               minHeight: '0 !important',
-              p: 1,
+              padding: '8px',
+              fontSize: '14px',
+              lineHeight: '20px',
+              fontWeight: '400',
               borderRadius: '8px',
               '&:hover': {
                 backgroundColor: theme.palette.grey[100],
