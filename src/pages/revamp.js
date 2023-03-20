@@ -11,6 +11,7 @@ import BlackHero from 'revamp/ui/BlackHero';
 import Stats from 'revamp/ui/Stats';
 import SingleTestimonial from 'revamp/ui/SingleTestimonial';
 import TabsSection from 'revamp/ui/TabsSection';
+import GridFeature from 'revamp/ui/GridFeature';
 import revampTheme from 'theme/revampTheme';
 
 const components = [
@@ -19,6 +20,7 @@ const components = [
   'Stats',
   'Single Testimonial',
   'Tabs Section',
+  'Grid Feature',
 ];
 const revamp = () => {
   const [component, setComponent] = useState('');
@@ -29,6 +31,7 @@ const revamp = () => {
     if (component === 'Stats') return <Stats />;
     if (component === 'Single Testimonial') return <SingleTestimonial />;
     if (component === 'Tabs Section') return <TabsSection />;
+    if (component === 'Grid Feature') return <GridFeature />;
 
     return 'Please select a component';
   };
