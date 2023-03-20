@@ -14,7 +14,7 @@ import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
   { label: 'API Reference', value: 'api-reference' },
-  { label: 'Resources', value: 'resources' },
+  // { label: 'Resources', value: 'resources' },
   // { label: 'Services', value: 'services' },
 ];
 
