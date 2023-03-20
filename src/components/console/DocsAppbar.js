@@ -1,4 +1,4 @@
-import { Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { AccountsComboBox } from 'components/accounts';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -8,21 +8,31 @@ import React from 'react';
 import { useZestyStore } from 'store';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { DocsComboBox } from 'views/Docs/DocsComboBox';
+import { DocsPopover } from 'views/Docs/DocsPopover';
 import { DocsTabs } from 'views/Docs/DocsTabs';
 import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
   { label: 'API Reference', value: 'api-reference' },
   { label: 'Resources', value: 'resources' },
+  // { label: 'Services', value: 'services' },
 ];
 
 export const DocsAppbar = React.memo(() => {
-  const { instances, setworkingInstance, workingInstance } = useZestyStore();
+  const router = useRouter();
+  const initialTab = router.asPath.split('/').filter((e) => e)[2];
+  const {
+    instances,
+    setworkingInstance,
+    workingInstance,
+    language,
+    setlanguage,
+  } = useZestyStore();
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
-  const [currentTab, setcurrentTab] = React.useState('api-reference');
-  const router = useRouter();
+  const [currentTab, setcurrentTab] = React.useState(initialTab);
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { mainData } = useZestyStore((state) => state);
 
@@ -31,7 +41,8 @@ export const DocsAppbar = React.memo(() => {
     if (data?.value) {
       router.push(`/docs` + data.value.parent);
     } else {
-      router.push(`/docs` + '/instances');
+      // fallback data when user click x
+      router.push(`/docs` + '/instances/api-reference');
     }
   };
 
@@ -46,8 +57,10 @@ export const DocsAppbar = React.memo(() => {
     setworkingInstance(instanceZUID);
   };
   const handleTabs = (e) => {
-    const firstChildUrl = router?.query?.slug[0];
+    console.log(router?.query.slug);
+    const firstChildUrl = router?.query.slug ? router?.query?.slug[0] : '';
     const url = `/docs/${firstChildUrl}/${e}`;
+
     setcurrentTab(e);
     router.push(url);
   };
@@ -60,8 +73,9 @@ export const DocsAppbar = React.memo(() => {
         px: 2,
         py: 1,
         alignItems: isMobile ? 'left' : 'center',
-        borderTop: `1px solid ${grey[200]}`,
+        borderTop: isDarkMode ? ' ' : `1px solid ${grey[200]}`,
         bgcolor: '#fff',
+        background: isDarkMode ? theme.palette.zesty.zestyDarkBlue : 'white',
       }}
     >
       <Stack pt={1} direction="row" spacing={2}>
@@ -84,6 +98,19 @@ export const DocsAppbar = React.memo(() => {
             }
           />
         )}
+
+        <Stack direction={'row'} spacing={1} alignItems="center">
+          <Typography color={'black'}>Language:</Typography>{' '}
+          <DocsPopover
+            value={language}
+            setvalue={setlanguage}
+            items={[
+              { label: 'Javascript', value: 'Javascript' },
+              { label: 'Golang', value: 'Golang' },
+            ]}
+          />
+        </Stack>
+
         <SearchModal>
           <AlgoSearch />
         </SearchModal>

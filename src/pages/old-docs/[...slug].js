@@ -103,11 +103,13 @@ export default function Docs(props) {
   const imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/;
   const image = replaceImages(props.markdown)?.match(imageRegex);
   const ogimage = image ? image[0] : zestyImage;
+  const partials = /\{%|%\}/g;
 
   // replace image references to work without gitbook
   let markdown = replaceImages(props.markdown);
   // string gitbook meta
   markdown = stripGitbookMeta(markdown);
+  // markdown = markdown.replace(partials, '```');
 
   // const { window } = props;
   // const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -122,6 +124,8 @@ export default function Docs(props) {
   const md = new MarkdownIt();
   const htmlNav = md.render(cleanMarkdownURLS(toc));
   const accordionData = helper.removeWhitespace(parse(htmlNav));
+
+  console.log(markdown);
 
   return (
     <Main customRouting={props.navigationCustom}>

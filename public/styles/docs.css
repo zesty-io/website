@@ -20,3 +20,13 @@ code {
   border-radius:4px;
   font-size: 14px;
 }
+
+.ais-Hits-list {
+  margin:0;
+  padding:0;
+}
+
+.ais-Hits-item {
+  list-style-type: none;
+}
+
