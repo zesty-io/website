@@ -1,19 +1,18 @@
 import { Stack, Tab, Typography } from '@mui/material';
-import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
-import PsychologyAltRoundedIcon from '@mui/icons-material/PsychologyAltRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import ApiRoundedIcon from '@mui/icons-material/ApiRounded';
 import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
-import React, { useState } from 'react';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { Database, Brain } from '@zesty-io/material';
 import TabSchema from './TabSchema';
+import React, { useState } from 'react';
 
 const tabLists = [
   {
     name: 'Schema',
-    icon: <SchemaRoundedIcon sx={{ fontSize: '20px' }} />,
+    icon: <Database sx={{ fontSize: '20px' }} />,
     component: <TabSchema />,
   },
   {
@@ -28,7 +27,7 @@ const tabLists = [
   },
   {
     name: 'AI Assistant',
-    icon: <PsychologyAltRoundedIcon sx={{ fontSize: '20px' }} />,
+    icon: <Brain sx={{ fontSize: '20px' }} />,
     component: 'AI Assistant',
   },
   {
