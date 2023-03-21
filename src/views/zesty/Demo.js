@@ -69,7 +69,7 @@ const Demo = ({ content }) => {
                     p: {
                       component: Typography,
                       props: {
-                        variant: 'h6',
+                        variant: 'body1',
                         component: 'p',
                         lineHeight: 1.2,
                         mt: 2,
@@ -82,7 +82,6 @@ const Demo = ({ content }) => {
                 {content?.demo_description || FillerContent.description}
               </MuiMarkdown>
             </Box>
-
             <Box
               sx={{
                 display: 'flex',
@@ -103,7 +102,6 @@ const Demo = ({ content }) => {
                 </Box>
               ))}
             </Box>
-
             <Box sx={{ my: 4 }}>
               {content?.testimonial?.data.map((item, index) => (
                 <Box key={index}>
@@ -165,7 +163,6 @@ const Demo = ({ content }) => {
           </Box>
         </Grid>
       </Grid>
-
       <Box sx={{ mt: 10 }}>
         <SimpleCardLogo
           variant="outlined"
