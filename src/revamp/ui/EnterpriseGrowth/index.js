@@ -113,7 +113,7 @@ const EnterpriseGrowth = ({
           {supportingText}
         </Typography>
       </Stack>
-      <Stack direction="row" spacing="12px" mb={6}>
+      <Stack direction="row" spacing="12px" mb={{ xs: 6, tablet: 8, lg: 10 }}>
         <Button variant="contained" size="extraLarge">
           {primaryBtn}
         </Button>
@@ -128,13 +128,13 @@ const EnterpriseGrowth = ({
         gradient={false}
         speed={30}
         style={{
-          marginBottom: isXS
-            ? '48px'
+          marginBottom: isLG
+            ? '80px'
             : isTablet
             ? '64px'
-            : isLG
-            ? '80px'
-            : '0px',
+            : isXS
+            ? '48px'
+            : '48px',
         }}
         mb={{ xs: 6, tablet: 8, lg: 10 }}
       >
@@ -207,6 +207,12 @@ const EnterpriseGrowth = ({
                 color="white"
                 fontWeight={800}
                 mb={3}
+                sx={(theme) => ({
+                  [theme.breakpoints.up('tablet')]: {
+                    fontSize: '32px',
+                    lineHeight: '40px',
+                  },
+                })}
               >
                 {c.description}
               </Typography>
