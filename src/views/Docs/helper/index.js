@@ -1,6 +1,13 @@
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { getCookie } from 'cookies-next';
+import { transFormEndpoint } from 'utils';
 
-export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
+export const langTransformer = ({
+  data = {},
+  lang = 'fetch',
+  instanceZUID = '',
+}) => {
+  const isLoggedIn = useIsLoggedIn();
   const hasFormData = data?.request?.body?.mode === 'formdata' ? true : false;
   const hasToken = data?.request?.auth?.type === 'bearer' ? true : false;
   const hasBody = data?.request?.body ? true : false;
@@ -52,9 +59,16 @@ export const langTransformer = ({ data = {}, lang = 'fetch' }) => {
         return ``;
     }
   };
+  const rawEndpoint = data?.request?.url?.raw || data?.request?.url;
+  const { endpoint } = transFormEndpoint({
+    url: rawEndpoint,
+    instanceZUID,
+    isLoggedIn,
+  });
+
   const fetchRequest = `
   const request = async () => {
-  const endpoint = '${data?.request?.url?.raw || data?.request?.url}'
+  const endpoint = '${endpoint}'
   ${getBody(data)}
   const res = await fetch(endpoint, {
     method: '${data.request.method}',
@@ -88,9 +102,9 @@ import (
 func main() {
 	client := &http.Client{}
   ${getGobody}
-	req, err := http.NewRequest('${data.request.method}', '${
-    data?.request?.url?.raw || data?.request?.url
-  }' ${hasBody ? ',data' : 'nil'})
+	req, err := http.NewRequest('${data.request.method}', '${endpoint}' ${
+    hasBody ? ',data' : 'nil'
+  })
 	if err != nil {
 		log.Fatal(err)
 	}

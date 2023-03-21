@@ -341,3 +341,24 @@ export const useRouterCheck = (route) => {
     return false;
   }
 };
+
+export const transFormEndpoint = ({
+  url = '',
+  instanceZUID = '',
+  isLoggedIn = false,
+}) => {
+  const showEndpoint =
+    isLoggedIn && instanceZUID.startsWith('8-') && instanceZUID ? true : false;
+  const appUserZuid = getCookie('APP_USER_ZUID');
+  const res = url
+    .replaceAll('{{protocol}}', 'https')
+    .replaceAll('{{accounts_api_url}}', 'accounts-api.zesty.org')
+    .replaceAll('{{instances_api_url}}', 'instances-api.zesty.org')
+    .replaceAll('{{accounts_api_version}}', 'v1')
+    .replaceAll('{{instances_api_version}}', 'v1')
+    .replaceAll('{{api_version}}', 'v1')
+    .replaceAll('{{instance_zuid}}', instanceZUID)
+    .replaceAll('{{user_zuid}}', appUserZuid)
+    .replaceAll('{{site_zuid}}', instanceZUID);
+  return { endpoint: showEndpoint ? res : url };
+};
