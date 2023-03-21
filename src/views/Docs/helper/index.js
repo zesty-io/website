@@ -1,4 +1,3 @@
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { getCookie } from 'cookies-next';
 import { transFormEndpoint } from 'utils';
 
@@ -7,7 +6,6 @@ export const langTransformer = ({
   lang = 'fetch',
   instanceZUID = '',
 }) => {
-  const isLoggedIn = useIsLoggedIn();
   const hasFormData = data?.request?.body?.mode === 'formdata' ? true : false;
   const hasToken = data?.request?.auth?.type === 'bearer' ? true : false;
   const hasBody = data?.request?.body ? true : false;
@@ -63,7 +61,6 @@ export const langTransformer = ({
   const { endpoint } = transFormEndpoint({
     url: rawEndpoint,
     instanceZUID,
-    isLoggedIn,
   });
 
   const fetchRequest = `
