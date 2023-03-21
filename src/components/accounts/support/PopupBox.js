@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 
-const PopupBox = ({ onClose, open, details }) => {
+const PopupBox = ({ onClose, open }) => {
   return (
     <Dialog
       onClose={onClose}

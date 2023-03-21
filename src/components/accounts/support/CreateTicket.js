@@ -94,7 +94,6 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
 
 const CreateTicket = ({ getPageData, instanceZUID }) => {
   const APP_SID = getCookie('APP_SID');
-  const [attachmentId, setAttachmentId] = useState();
 
   const handleCreateInviteSuccess = () => {
     SuccessMsg({ title: 'Ticket Successfully created' });

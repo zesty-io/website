@@ -31,7 +31,6 @@ const Index = ({
   NoData = NoRowsOverlay,
   showTable = true,
   hasGridToolbar = false,
-  sortModel = [],
 }) => {
   return (
     <Box

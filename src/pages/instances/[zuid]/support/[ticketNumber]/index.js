@@ -89,7 +89,6 @@ export default function ticketItem(props) {
                         ?.slice(0)
                         .reverse()
                         .map((item) => {
-                          const start = item.content?.indexOf('----');
                           //const end = item.summary.indexOf('----', start + 1);
 
                           const attachment = item.attachments.length > 0;

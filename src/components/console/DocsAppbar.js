@@ -14,7 +14,8 @@ import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
   { label: 'API Reference', value: 'api-reference' },
-  // { label: 'Resources', value: 'resources' },
+  { label: 'Resources', value: 'resources' },
+  // { label: 'Services', value: 'services' },
 ];
 
 export const DocsAppbar = React.memo(() => {
@@ -31,6 +32,7 @@ export const DocsAppbar = React.memo(() => {
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
   const [currentTab, setcurrentTab] = React.useState(initialTab);
   const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { mainData } = useZestyStore((state) => state);
 
@@ -55,8 +57,10 @@ export const DocsAppbar = React.memo(() => {
     setworkingInstance(instanceZUID);
   };
   const handleTabs = (e) => {
-    const firstChildUrl = router?.query?.slug[0];
+    console.log(router?.query.slug);
+    const firstChildUrl = router?.query.slug ? router?.query?.slug[0] : '';
     const url = `/docs/${firstChildUrl}/${e}`;
+
     setcurrentTab(e);
     router.push(url);
   };
@@ -69,8 +73,9 @@ export const DocsAppbar = React.memo(() => {
         px: 2,
         py: 1,
         alignItems: isMobile ? 'left' : 'center',
-        borderTop: `1px solid ${grey[200]}`,
+        borderTop: isDarkMode ? ' ' : `1px solid ${grey[200]}`,
         bgcolor: '#fff',
+        background: isDarkMode ? theme.palette.zesty.zestyDarkBlue : 'white',
       }}
     >
       <Stack pt={1} direction="row" spacing={2}>
