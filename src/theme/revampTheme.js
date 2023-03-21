@@ -15,6 +15,9 @@ const revampTheme = (mode, themeToggler) => {
     },
     components: {
       MuiButton: {
+        defaultProps: {
+          disableElevation: true,
+        },
         variants: [
           {
             props: { size: 'extraLarge' },
