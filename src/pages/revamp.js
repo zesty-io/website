@@ -15,6 +15,7 @@ import GridFeature from 'revamp/ui/GridFeature';
 import FeatureTwoCTA from 'revamp/ui/FeatureTwoCTA';
 import FeatureStatistics from 'revamp/ui/FeatureStatistics';
 import FeatureTestimonial from 'revamp/ui/FeatureTestimonial';
+import EnterpriseGrowth from 'revamp/ui/EnterpriseGrowth';
 import revampTheme from 'theme/revampTheme';
 
 const components = [
@@ -27,6 +28,7 @@ const components = [
   'Feature Two CTA',
   'Feature Statistics',
   'Feature Testimonial',
+  'Enterprise Growth',
 ];
 const revamp = () => {
   const [component, setComponent] = useState('');
@@ -41,6 +43,7 @@ const revamp = () => {
     if (component === 'Feature Two CTA') return <FeatureTwoCTA />;
     if (component === 'Feature Statistics') return <FeatureStatistics />;
     if (component === 'Feature Testimonial') return <FeatureTestimonial />;
+    if (component === 'Enterprise Growth') return <EnterpriseGrowth />;
 
     return 'Please select a component';
   };

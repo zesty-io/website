@@ -97,7 +97,7 @@ const BlackHero = ({
           color="primary"
           size="extraLarge"
           fullWidth
-          sx={{ textTransform: 'none', width: { tablet: 'auto' } }}
+          sx={{ width: { tablet: 'auto' } }}
         >
           {primaryBtn}
         </Button>
@@ -107,7 +107,7 @@ const BlackHero = ({
           color="primary"
           size="extraLarge"
           fullWidth
-          sx={{ textTransform: 'none', width: { tablet: 'auto' } }}
+          sx={{ width: { tablet: 'auto' } }}
         >
           {secondaryBtn}
         </Button>
