@@ -87,7 +87,6 @@ const Hero = ({
                 variant="contained"
                 color="primary"
                 size={isLg ? 'extraLarge' : 'large'}
-                sx={{ textTransform: 'none' }}
               >
                 {primaryBtn}
               </Button>
@@ -96,7 +95,6 @@ const Hero = ({
                 variant="outlined"
                 color="primary"
                 size={isLg ? 'extraLarge' : 'large'}
-                sx={{ textTransform: 'none' }}
               >
                 {secondaryBtn}
               </Button>

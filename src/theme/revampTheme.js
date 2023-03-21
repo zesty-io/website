@@ -18,6 +18,11 @@ const revampTheme = (mode, themeToggler) => {
         defaultProps: {
           disableElevation: true,
         },
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+          },
+        },
         variants: [
           {
             props: { size: 'extraLarge' },

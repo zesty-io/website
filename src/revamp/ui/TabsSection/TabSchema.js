@@ -103,14 +103,12 @@ const TabSchema = ({
               variant="contained"
               size={isTablet ? 'extraLarge' : 'medium'}
               color="primary"
-              sx={{ textTransform: 'none' }}
             >
               {primaryBtn}
             </Button>
             <Button
               variant="outlined"
               size={isTablet ? 'extraLarge' : 'medium'}
-              sx={{ textTransform: 'none' }}
             >
               {secondaryBtn}
             </Button>

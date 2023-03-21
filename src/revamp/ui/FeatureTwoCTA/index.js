@@ -66,18 +66,10 @@ const FeatureTwoCTA = ({
           </Link>
         </Typography>
         <Stack direction="row" columnGap={2}>
-          <Button
-            variant="contained"
-            size="extraLarge"
-            sx={{ textTransform: 'none' }}
-          >
+          <Button variant="contained" size="extraLarge">
             {primaryBtn}
           </Button>
-          <Button
-            variant="outlined"
-            size="extraLarge"
-            sx={{ textTransform: 'none' }}
-          >
+          <Button variant="outlined" size="extraLarge">
             {secondaryBtn}
           </Button>
         </Stack>
