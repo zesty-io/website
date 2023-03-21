@@ -342,7 +342,13 @@ export const useRouterCheck = (route) => {
   }
 };
 
-export const transFormEndpoint = ({ url = '', instanceZUID = '' }) => {
+export const transFormEndpoint = ({
+  url = '',
+  instanceZUID = '',
+  isLoggedIn = false,
+}) => {
+  const showEndpoint =
+    isLoggedIn && instanceZUID.startsWith('8-') && instanceZUID ? true : false;
   const appUserZuid = getCookie('APP_USER_ZUID');
   const res = url
     .replaceAll('{{protocol}}', 'https')
@@ -354,5 +360,5 @@ export const transFormEndpoint = ({ url = '', instanceZUID = '' }) => {
     .replaceAll('{{instance_zuid}}', instanceZUID)
     .replaceAll('{{user_zuid}}', appUserZuid)
     .replaceAll('{{site_zuid}}', instanceZUID);
-  return { endpoint: res };
+  return { endpoint: showEndpoint ? res : url };
 };
