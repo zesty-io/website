@@ -12,6 +12,7 @@ import Stats from 'revamp/ui/Stats';
 import SingleTestimonial from 'revamp/ui/SingleTestimonial';
 import TabsSection from 'revamp/ui/TabsSection';
 import GridFeature from 'revamp/ui/GridFeature';
+import FeatureTwoCTA from 'revamp/ui/FeatureTwoCTA';
 import revampTheme from 'theme/revampTheme';
 
 const components = [
@@ -21,6 +22,7 @@ const components = [
   'Single Testimonial',
   'Tabs Section',
   'Grid Feature',
+  'Feature Two CTA',
 ];
 const revamp = () => {
   const [component, setComponent] = useState('');
@@ -32,6 +34,7 @@ const revamp = () => {
     if (component === 'Single Testimonial') return <SingleTestimonial />;
     if (component === 'Tabs Section') return <TabsSection />;
     if (component === 'Grid Feature') return <GridFeature />;
+    if (component === 'Feature Two CTA') return <FeatureTwoCTA />;
 
     return 'Please select a component';
   };
