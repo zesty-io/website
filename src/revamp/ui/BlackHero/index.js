@@ -93,7 +93,6 @@ const BlackHero = ({
       >
         <Button
           href={primaryBtnLink}
-          disableElevation
           variant="contained"
           color="primary"
           size="extraLarge"

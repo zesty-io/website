@@ -36,7 +36,7 @@ const FeatureTwoCTA = ({
         mr={{ lg: 8 }}
         py={{ desktopWide: 6 }}
       >
-        <Typography color="primary" mb="12px">
+        <Typography variant="body2" fontWeight={600} color="primary" mb="12px">
           {overline}
         </Typography>
         <Typography

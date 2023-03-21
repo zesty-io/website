@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 import featureContent from 'revamp/assets/featureContent.jpg';
 import rocketLeague from 'revamp/assets/rocketLeagueHero.svg';
 import React from 'react';
@@ -37,7 +37,7 @@ const FeatureTestimonial = ({
         mr={{ lg: 8 }}
         py={{ desktopWide: '53.5px' }}
       >
-        <Typography color="primary" mb="12px">
+        <Typography variant="body2" fontWeight={600} color="primary" mb="12px">
           {overline}
         </Typography>
         <Typography
@@ -59,10 +59,12 @@ const FeatureTestimonial = ({
           color="text.secondary"
           fontSize="18px"
           lineHeight="28px"
-          mb={{ xs: 3, lg: '65px' }}
+          mb={{ xs: 3, lg: 4 }}
         >
           {supportingText}
         </Typography>
+
+        <Divider sx={{ background: 'grey.100', mb: { xs: 3, lg: 4 } }} />
 
         <Stack spacing={2}>
           <Typography fontSize="18px" lineHeight="28px" color="text.secondary">
@@ -77,7 +79,7 @@ const FeatureTestimonial = ({
           src={image}
           sx={(theme) => ({
             [theme.breakpoints.up('xs')]: {
-              objectFit: 'cover',
+              objectFit: 'contain',
               maxWidth: '100%',
               height: '100%',
             },

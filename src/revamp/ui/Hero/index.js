@@ -86,7 +86,6 @@ const Hero = ({
                 href={primaryBtnLink}
                 variant="contained"
                 color="primary"
-                disableElevation
                 size={isLg ? 'extraLarge' : 'large'}
                 sx={{ textTransform: 'none' }}
               >

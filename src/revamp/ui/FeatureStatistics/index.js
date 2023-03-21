@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 import featureContent from 'revamp/assets/featureContent.jpg';
 import React from 'react';
 
@@ -36,7 +36,7 @@ const FeatureStatistics = ({
         mr={{ lg: 8 }}
         py={{ lg: '61.5px', desktopWide: '95.5px' }}
       >
-        <Typography color="primary" mb="12px">
+        <Typography fontWeight={600} variant="body2" color="primary" mb="12px">
           {overline}
         </Typography>
         <Typography
@@ -58,10 +58,12 @@ const FeatureStatistics = ({
           color="text.secondary"
           fontSize="18px"
           lineHeight="28px"
-          mb={{ xs: 3, lg: '65px' }}
+          mb={{ xs: 3, lg: 4 }}
         >
           {supportingText}
         </Typography>
+
+        <Divider sx={{ background: 'grey.100', mb: { xs: 3, lg: 4 } }} />
 
         <Stack direction="row" spacing={3} alignItems="center">
           <Typography
@@ -90,7 +92,7 @@ const FeatureStatistics = ({
           src={image}
           sx={(theme) => ({
             [theme.breakpoints.up('xs')]: {
-              objectFit: 'cover',
+              objectFit: 'contain',
               maxWidth: '100%',
               height: '100%',
             },
