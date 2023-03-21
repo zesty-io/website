@@ -123,7 +123,7 @@ const EnterpriseGrowth = ({
       </Stack>
 
       <Marquee
-        direction="right"
+        direction="left"
         pauseOnHover
         gradient={false}
         speed={30}
