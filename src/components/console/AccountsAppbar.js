@@ -3,26 +3,39 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import { Button, useMediaQuery } from '@mui/material';
+import { Button, Stack, useMediaQuery } from '@mui/material';
 import { getCookie, setCookie } from 'cookies-next';
 import HomeIcon from '@mui/icons-material/Home';
 import { useZestyStore } from 'store';
 import { useRouter } from 'next/router';
 import { grey } from '@mui/material/colors';
+import { useRouterCheck } from 'utils';
+import { AccountsComboBox } from 'components/accounts';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 export const AccountsAppbar = ({ colorInvert = false }) => {
   const [url, setUrl] = useState('');
   const [locationSearch, setLocationSearch] = useState('');
   const [pathname, setPathname] = useState('');
   const router = useRouter();
-  const { verifySuccess, ZestyAPI, loading, setworkingInstance } =
-    useZestyStore((state) => state);
+  const isMarketplace = useRouterCheck('marketplace');
+  const isLoggedIn = useIsLoggedIn();
+
+  const {
+    instances,
+    verifySuccess,
+    ZestyAPI,
+    loading,
+    setworkingInstance,
+    workingInstance,
+  } = useZestyStore((state) => state);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE');
+  let instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
   const [instance, setinstance] = React.useState([]);
   const { zuid } = router.query;
   const linkColor = colorInvert ? 'common.white' : 'text.secondary';
+  const isDocsPage = useRouterCheck('docs');
 
   // get param from url to look for instance
   const params = new Proxy(new URLSearchParams(locationSearch), {
@@ -55,6 +68,14 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
     }
   };
 
+  const handleComboBox = (instanceZUID) => {
+    setCookie('ZESTY_WORKING_INSTANCE', instanceZUID);
+    setworkingInstance(instanceZUID);
+    if (!isMarketplace) {
+      window.location.href = `/instances/${instanceZUID}/`;
+    }
+  };
+
   useEffect(() => {
     if (router.isReady) {
       getInstance();
@@ -68,9 +89,15 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
     setworkingInstance(instanceZUID);
   }, [instanceZUID]);
 
+  // prevent render of breadcrumbs if docs page
+  if (isDocsPage) {
+    return <></>;
+  }
   return (
     <Box
+      width={1}
       sx={{
+        bgcolor: '#fff',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: isMobile ? 'left' : 'center',
@@ -83,6 +110,7 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
         maxItems={5}
         aria-label="breadcrumb"
         sx={{
+          width: 1,
           display: 'flex',
           alignItems: 'center',
           '& .MuiBreadcrumbs-separator': {
@@ -170,6 +198,25 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
           );
         })}
       </Breadcrumbs>
+      <Stack
+        width={1}
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'end',
+        }}
+      >
+        {isLoggedIn && (
+          <AccountsComboBox
+            instances={instances.data}
+            setCookies={handleComboBox}
+            instanceZUID={instanceZUID}
+            placeholder={
+              instances?.data?.find((e) => e.ZUID === instanceZUID)?.name
+            }
+          />
+        )}
+      </Stack>
       {!loading && (
         <Box>
           {!verifySuccess ? (

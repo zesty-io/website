@@ -150,10 +150,9 @@ const Index = ({
   setCookies,
   instanceZUID,
   width = 300,
-  // initialLabel,
+  placeholder = 'Select Instance',
   ...props
 }) => {
-  // const theme = useTheme();
   const [, setlabel] = React.useState('');
   const memoizedInstances = React.useMemo(() => {
     return instances;
@@ -193,6 +192,7 @@ const Index = ({
       ListboxComponent={ListboxComponent}
       options={OPTIONS}
       getOptionLabel={(option) => option.name}
+      autoHighlight
       renderInput={(params) => {
         return (
           <TextField
@@ -204,7 +204,7 @@ const Index = ({
                 borderRadius: '8px',
               },
             }}
-            placeholder="Search instances"
+            placeholder={placeholder}
             InputProps={{
               ...params.InputProps,
               startAdornment: <SearchIcon color="disabled" sx={{ ml: 1 }} />,

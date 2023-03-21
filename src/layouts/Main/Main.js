@@ -10,7 +10,6 @@ import AppBar from '@mui/material/AppBar';
 
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 
-// import Container from 'components/Container';
 import TopNav from 'components/globals/TopNav';
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
 import { setCookie } from 'cookies-next';
@@ -22,6 +21,8 @@ import { grey } from '@mui/material/colors';
 import { isProtectedRoute } from 'lib/accounts/protectedRouteGetServerSideProps';
 import AppFooter from './components/Footer/AppFooter';
 import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
+import { useRouterCheck } from 'utils';
+import { DocsAppbar } from 'components/console/DocsAppbar';
 
 const Main = ({
   children,
@@ -65,6 +66,7 @@ const Main = ({
   const isExplorePage = router.asPath.includes('/ppc/explore/');
   const isLoginPage = router.asPath.includes('/login/');
   const isDiscover = router.asPath.includes('/discover/');
+  const isDocsPage = useRouterCheck('docs');
   // override over invert based on pages that we know have a dark image heading
 
   const hideNav =
@@ -121,7 +123,7 @@ const Main = ({
 
   return (
     <>
-      {isLoggedIn === false && !isLoginPage && <SiteBanner />}
+      {isLoggedIn === false && !isLoginPage && !isDocsPage && <SiteBanner />}
 
       {isLoggedIn === false && (
         <Box
@@ -162,7 +164,7 @@ const Main = ({
           backgroundColor: bgColorSwitch(),
           py: 1,
           display: router?.query?.slug?.[0] === 'login' && 'none',
-          borderBottom: isLoggedIn && `1px solid ${grey[200]}`,
+          borderBottom: (isLoggedIn || isDocsPage) && `1px solid ${grey[200]}`,
         }}
         elevation={trigger ? 1 : 0}
       >
@@ -203,6 +205,8 @@ const Main = ({
             </>
           )}
         </Container>
+
+        {isDocsPage && <DocsAppbar />}
       </AppBar>
       <Sidebar
         onClose={handleSidebarClose}

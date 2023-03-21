@@ -1,0 +1,32 @@
+tr {
+  border-top: 1px solid #c6cbd1;
+  background: #fff;
+}
+
+th{
+    text-transform: capitalize;
+}
+
+th,
+td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+
+code {
+  background-color: #F2F2F2;
+  padding: 2px 8px;
+  border-radius:4px;
+  font-size: 14px;
+}
+
+.ais-Hits-list {
+  margin:0;
+  padding:0;
+}
+
+.ais-Hits-item {
+  list-style-type: none;
+}
+
