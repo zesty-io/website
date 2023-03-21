@@ -1,4 +1,4 @@
-import { Button, Grid, Stack, Typography } from '@mui/material';
+import { Button, Grid, Link, Stack, Typography } from '@mui/material';
 import android from 'revamp/assets/code/Android.svg';
 import angular from 'revamp/assets/code/Angular.svg';
 import flutter from 'revamp/assets/code/Flutter.svg';
@@ -122,7 +122,7 @@ const cardLists = [
 const GridFeature = ({
   overline = 'SETUP, EASY-PEASY!',
   heading = 'Hassle-free setup with APIs that integrate with all frameworks',
-  supportingText = `With Zesty you’re not constrained to using one kind of API. You can use any of our APIs (GraphQL, REST, GET, and Instant JSON) with any framework of your choice. And they all come with web-hooks and site generators. Check them out in our documentation.`,
+  supportingText = `With Zesty you’re not constrained to using one kind of API. You can use any of our APIs (GraphQL, REST, GET, and Instant JSON) with any framework of your choice. And they all come with web-hooks and site generators. Check them out in our `,
   featureLists = cardLists,
 }) => {
   const theme = useTheme();
@@ -175,7 +175,10 @@ const GridFeature = ({
           {heading}
         </Typography>
         <Typography color="text.secondary" fontSize="18px" lineHeight="28px">
-          {supportingText}
+          {supportingText}{' '}
+          <Link href="#" color="info.main" underline="none">
+            documentation
+          </Link>
         </Typography>
       </Stack>
       <Grid container columnSpacing={4} rowSpacing={isTablet ? 6 : 3} mb={6}>
