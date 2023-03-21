@@ -342,13 +342,7 @@ export const useRouterCheck = (route) => {
   }
 };
 
-export const transFormEndpoint = ({
-  url = '',
-  instanceZUID = '',
-  isLoggedIn = false,
-}) => {
-  const showEndpoint =
-    isLoggedIn && instanceZUID.startsWith('8-') && instanceZUID ? true : false;
+export const transFormEndpoint = ({ url = '', instanceZUID = '' }) => {
   const appUserZuid = getCookie('APP_USER_ZUID');
   const res = url
     .replaceAll('{{protocol}}', 'https')
@@ -357,8 +351,15 @@ export const transFormEndpoint = ({
     .replaceAll('{{accounts_api_version}}', 'v1')
     .replaceAll('{{instances_api_version}}', 'v1')
     .replaceAll('{{api_version}}', 'v1')
-    .replaceAll('{{instance_zuid}}', instanceZUID)
+    .replaceAll(
+      '{{instance_zuid}}',
+      instanceZUID.startsWith('8-') ? instanceZUID : '8-xxxxxxxxx',
+    )
     .replaceAll('{{user_zuid}}', appUserZuid)
-    .replaceAll('{{site_zuid}}', instanceZUID);
-  return { endpoint: showEndpoint ? res : url };
+    .replaceAll(
+      '{{site_zuid}}',
+
+      instanceZUID.startsWith('8-') ? instanceZUID : '8-xxxxxxxxx',
+    );
+  return { endpoint: res };
 };
