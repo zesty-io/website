@@ -1,15 +1,23 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
-import featureContent from 'revamp/assets/featureContent.jpg';
+import featureContent from 'revamp/assets/featureBPT.jpg';
 import rocketLeague from 'revamp/assets/rocketLeagueHero.svg';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import React from 'react';
 
-const FeatureTestimonial = ({
+const listItems = [
+  'Tortor interdum condimentum nunc molestie quam',
+  'Tortor interdum condimentum nunc molestie quam',
+  'Tortor interdum condimentum nunc molestie quam',
+];
+
+const FeatureBulletWithTestimonials = ({
   overline = 'SETUP, EASY-PEASY!',
   heading = 'Hassle-free setup with APIs that integrate with all frameworks',
   supportingText = `With Zesty’s Media experience, you can enter file descriptions to be used as alt text as soon as you upload an image. Thus ensuring your images are more accessible.`,
   image = featureContent.src,
   testimonial = `“Media insights show us what assets are being requested the most and help inform what content we need to focus on and invest in improving”`,
   testimonialLogo = rocketLeague.src,
+  lists = listItems,
 }) => {
   return (
     <Stack
@@ -59,10 +67,19 @@ const FeatureTestimonial = ({
           color="text.secondary"
           fontSize="18px"
           lineHeight="28px"
-          mb={{ xs: 3, lg: 4 }}
+          mb={{ xs: '12px' }}
         >
           {supportingText}
         </Typography>
+
+        <Stack rowGap="16px" mb={{ xs: 3, lg: 4 }}>
+          {lists.map((list) => (
+            <Stack direction="row" columnGap="12px" key={list}>
+              <CheckRoundedIcon color="primary" />
+              <Typography color="text.secondary">{list}</Typography>
+            </Stack>
+          ))}
+        </Stack>
 
         <Divider sx={{ background: 'grey.100', mb: { xs: 3, lg: 4 } }} />
 
@@ -110,4 +127,4 @@ const FeatureTestimonial = ({
   );
 };
 
-export default FeatureTestimonial;
+export default FeatureBulletWithTestimonials;
