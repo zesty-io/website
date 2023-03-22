@@ -23,6 +23,19 @@ export const SearchModal = ({ children, sx }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // handle open on ctrl+k
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.key === 'k') {
+        handleOpen();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <div>
       <TextField
