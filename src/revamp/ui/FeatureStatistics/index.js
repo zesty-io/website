@@ -96,10 +96,10 @@ const FeatureStatistics = ({
               maxWidth: '100%',
               height: '100%',
             },
-            [theme.breakpoints.up('mobile')]: {
-              maxWidth: '704px',
-              height: '343px',
-            },
+            // [theme.breakpoints.up('mobile')]: {
+            //   maxWidth: '704px',
+            //   height: '343px',
+            // },
             [theme.breakpoints.up('tablet')]: {
               maxWidth: '100%',
               height: '420px',

@@ -16,6 +16,8 @@ import FeatureTwoCTA from 'revamp/ui/FeatureTwoCTA';
 import FeatureStatistics from 'revamp/ui/FeatureStatistics';
 import FeatureTestimonial from 'revamp/ui/FeatureTestimonial';
 import EnterpriseGrowth from 'revamp/ui/EnterpriseGrowth';
+import LightHero from 'revamp/ui/LightHero';
+import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonials';
 import revampTheme from 'theme/revampTheme';
 
 const components = [
@@ -29,6 +31,8 @@ const components = [
   'Feature Statistics',
   'Feature Testimonial',
   'Enterprise Growth',
+  'Feature Bullet Points with Testimonial',
+  'Light Hero',
 ];
 const revamp = () => {
   const [component, setComponent] = useState('');
@@ -44,6 +48,9 @@ const revamp = () => {
     if (component === 'Feature Statistics') return <FeatureStatistics />;
     if (component === 'Feature Testimonial') return <FeatureTestimonial />;
     if (component === 'Enterprise Growth') return <EnterpriseGrowth />;
+    if (component === 'Feature Bullet Points with Testimonial')
+      return <FeatureBulletWithTestimonials />;
+    if (component === 'Light Hero') return <LightHero />;
 
     return 'Please select a component';
   };

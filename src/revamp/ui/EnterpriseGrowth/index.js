@@ -72,15 +72,16 @@ const EnterpriseGrowth = ({
       <Stack
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
-            py: 4,
+            pt: 4,
             px: 2,
           },
           [theme.breakpoints.up('tablet')]: {
-            py: 6,
+            pt: 6,
             px: 4,
           },
           [theme.breakpoints.up('lg')]: {
-            p: 14,
+            pt: 14,
+            px: 14,
           },
         })}
       >
@@ -121,25 +122,27 @@ const EnterpriseGrowth = ({
             {secondaryBtn}
           </Button>
         </Stack>
+      </Stack>
 
-        <Marquee
-          direction="left"
-          pauseOnHover
-          gradient={false}
-          speed={30}
-          style={{
-            marginBottom: isLG
-              ? '80px'
-              : isTablet
-              ? '64px'
-              : isXS
-              ? '48px'
-              : '48px',
-          }}
-          mb={{ xs: 6, tablet: 8, lg: 10 }}
-        >
-          <Stack direction="row" spacing={6}>
-            {logos.map((logo, index) => (
+      <Marquee
+        direction="left"
+        pauseOnHover
+        gradient={false}
+        speed={30}
+        style={{
+          marginBottom: isLG
+            ? '80px'
+            : isTablet
+            ? '64px'
+            : isXS
+            ? '48px'
+            : '48px',
+        }}
+        mb={{ xs: 6, tablet: 8, lg: 10 }}
+      >
+        <Stack direction="row" spacing={6}>
+          {[...Array(5)].map((c) =>
+            logos.map((logo, index) => (
               <Box
                 key={index}
                 component="img"
@@ -147,28 +150,50 @@ const EnterpriseGrowth = ({
                 src={logo}
                 sx={{
                   objectFit: 'contain',
-                  mr: logos.length - 1 === index ? '48px !important' : 0,
+                  mr: logos.length - 1 === index ? '24px !important' : 0,
                 }}
               />
-            ))}
-          </Stack>
-        </Marquee>
+            )),
+          )}
+        </Stack>
+      </Marquee>
+
+      <Stack
+        sx={(theme) => ({
+          [theme.breakpoints.up('xs')]: {
+            pageBreakInside: 4,
+            px: 2,
+          },
+          [theme.breakpoints.up('tablet')]: {
+            pb: 6,
+            px: 4,
+          },
+          [theme.breakpoints.up('lg')]: {
+            px: 14,
+            pb: 14,
+          },
+        })}
+      >
         <Typography
           variant="h2"
           letterSpacing="-0.02em"
-          fontWeight={600}
+          fontWeight={800}
           mb={6}
           color="white"
           sx={(theme) => ({
             [theme.breakpoints.up('tablet')]: {
-              fontSize: '44px',
-              lineHeight: '48px',
-              fontWeight: 800,
+              fontSize: '36px',
+              lineHeight: '44px',
               mb: 8,
+            },
+            [theme.breakpoints.up('lg')]: {
+              mb: 10,
+              width: '640px',
             },
           })}
         >
-          Read our success stories below
+          See how high growth businesses like yours built success on our
+          platform
         </Typography>
 
         <Grid container spacing={{ xs: 3, tablet: 4, lg: 8 }}>
