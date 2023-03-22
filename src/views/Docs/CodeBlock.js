@@ -13,7 +13,7 @@ const tabs = [
 ];
 
 const Main = ({ title = 'no title', data = {} }) => {
-  const { language } = useZestyStore((e) => e);
+  const { language, workingInstance } = useZestyStore((e) => e);
   const [codeBlockData, setcodeBlockData] = React.useState('');
   const [isCopied, setIsCopied] = React.useState(false);
   const [currentTab, setcurrentTab] = React.useState('request');
@@ -22,6 +22,7 @@ const Main = ({ title = 'no title', data = {} }) => {
   const { request, response } = langTransformer({
     data,
     lang: language,
+    instanceZUID: workingInstance,
   });
 
   const copyToClipboard = (text) => {

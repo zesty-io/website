@@ -34,6 +34,7 @@ export default function DocsPage(props) {
       .slice(0, 2)
       .join('/');
 
+  // main logic that will populate the data in the page
   let item = [];
   const getPageData = (data, mainData = []) => {
     const currentUrl = url?.split('#')[0].replace(/\/$/, '');
@@ -41,12 +42,14 @@ export default function DocsPage(props) {
     if (!url) {
       return (item = mainData[0]);
     }
+    // data.info getter from 1st tier
     if (data?.url === currentUrl) {
-      return (item = data);
+      return (item = data.info);
     }
     // compares the current url vs the treedata url's
     // if match it will set the item or pagedata
     // remove hash and trailing slash
+    // getter for 2nd and 3rd tiers
     (data?.item ?? data)?.forEach((e) => {
       if (e.url === currentUrl) {
         item = e;

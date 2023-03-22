@@ -11,6 +11,8 @@ import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import { getCookie } from 'cookies-next';
+import { transFormEndpoint } from 'utils';
+import { useZestyStore } from 'store';
 
 const muiContentOverrides = {
   h1: {
@@ -89,6 +91,7 @@ const iconMethod = (method) => {
 const Main = ({ data }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
+  const workingInstance = useZestyStore((e) => e.workingInstance);
   const [showToken, setshowToken] = React.useState(false);
   const { ref, inView } = useInView({
     threshold: 0,
@@ -102,7 +105,11 @@ const Main = ({ data }) => {
       const hasBody = e?.request?.body?.mode === 'raw' ? true : false;
       const hasEndpoint =
         e?.request?.url || e?.request?.url?.raw ? true : false;
-      const endpoint = e?.request?.url?.raw || e?.request?.url || '';
+      const rawEndpoint = e?.request?.url?.raw || e?.request?.url || '';
+      const { endpoint } = transFormEndpoint({
+        url: rawEndpoint,
+        instanceZUID: workingInstance,
+      });
       const desc = e?.request?.description;
       const token = getCookie('APP_SID');
 
@@ -130,7 +137,7 @@ const Main = ({ data }) => {
         );
       } else {
         return (
-          <Grid container direction="row" minHeight={'50vh'} spacing={4}>
+          <Grid container direction="row" minHeight={'50vh'} spacing={4} py={4}>
             <Grid item xs={6} width={1}>
               <Stack
                 sx={{ color: theme.palette.zesty.zestyZambezi }}
