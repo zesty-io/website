@@ -18,7 +18,7 @@ const style = {
   borderRadius: 4,
 };
 
-export const SearchModal = ({ children }) => {
+export const SearchModal = ({ children, sx }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -34,7 +34,7 @@ export const SearchModal = ({ children }) => {
         }}
         size="small"
         color="secondary"
-        sx={{ cursor: 'text' }}
+        sx={{ cursor: 'text', ...sx }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="start">
