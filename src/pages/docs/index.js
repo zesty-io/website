@@ -4,6 +4,7 @@ import { useZestyStore } from 'store';
 import MainWrapper from 'layouts/Main';
 import {
   Box,
+  Button,
   Card,
   Container,
   Grid,
@@ -11,7 +12,6 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import Link from 'next/link';
 import { SearchModal } from 'views/Docs/SearchModal';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
 
@@ -93,8 +93,8 @@ const DocsPage = (props) => {
               textAlign: 'center',
             }}
           >
-            Find guides, code samples. Api reference, and more to learn about
-            zesty.io
+            Explore guides, code samples, API references, and more to learn
+            about Zesty
           </Typography>
 
           <SearchModal sx={{ width: isMedium ? 300 : 500 }}>
@@ -127,13 +127,26 @@ const DocsPage = (props) => {
                     <Typography
                       sx={{
                         mt: 2,
-                        minHeight: 150,
+                        minHeight: 200,
                         color: theme.palette.zesty.zestyZambezi,
                       }}
                     >
                       {item.description}
                     </Typography>
-                    <Link href="">Learn more</Link>
+                    <Button
+                      component={'a'}
+                      href={item.link}
+                      variant="outlined"
+                      color="secondary"
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: theme.palette.zesty.zestyOrange,
+                          color: theme.palette.common.white,
+                        },
+                      }}
+                    >
+                      Learn more
+                    </Button>
                   </Card>
                 </Grid>
               ))}
@@ -149,37 +162,38 @@ export default DocsPage;
 
 const cardData = [
   {
-    title: 'Api reference',
-    description: 'Lorem ipsum t volutpat. Integer at',
-    link: '/docs',
-  },
-  {
-    title: 'Api reference',
+    title: 'Instances API',
     description:
-      'Lorem ipsum dolm rhoncus lectus in turpis. Aliquam erat volutpat. Integer at',
-    link: '/docs',
+      'A collection of available REST endpoints scoped to your unique instance.',
+    link: 'docs/instances/api-reference/',
   },
   {
-    title: 'Api reference',
+    title: 'Authentication API',
     description:
-      'Lorem ipsum dolor sie sit amet lectus pretium venenatis. Aliquam rhoncus lectus in turpis. Aliquam erat volutpat. Integer at',
-    link: '/docs',
+      'Auth API is used to authenticate users with Zesty.io, which returns a token that grants to access services like Instances API, Accounts API, and Media API. Auth was setup as a stand alone service so it can connect to many services in our infrastructure.',
+    link: '/docs/authentication/api-reference/',
   },
   {
-    title: 'Api reference',
-    description: 'Lorem ipsun turpis. Aliquam erat volutpat. Integer at',
-    link: '/docs',
-  },
-  {
-    title: 'Api reference',
+    title: 'Accounts API',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at ante sit amet lectus pretium venenatis. Aliquam rhoncus lectus in turpis. Aliquam erat volutpat. Integer at',
-    link: '/docs',
+      'API used to control management of users, roles, instances, and teams.',
+    link: '/docs/accounts/api-reference/',
   },
   {
-    title: 'Api reference',
+    title: 'Guides',
     description:
-      'Lorem ipsum dolor sitretium venenatis. Aliquam rhoncus lectus in turpis. Aliquam erat volutpat. Integer at',
-    link: '/docs',
+      'Zesty.org is the knowledge base for the Zesty.io CMS Platform. Learn the intricacies of Zesty.io content technology and how to implement websites, headless CMS apps, and marketing components.',
+    link: 'https://www.zesty.org',
+  },
+  {
+    title: 'Next.js',
+    description: 'Quick start Next.js v12 with Zesty.io as a data source',
+    link: 'https://github.com/zesty-io/nextjs-starter',
+  },
+  {
+    title: 'Parsley',
+    description:
+      'Zesty’s in-house templating language, Parsley, provides powerful programming capabilities to manage your content.',
+    link: 'http://parsley.zesty.io/',
   },
 ];
