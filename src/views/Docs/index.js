@@ -3,15 +3,16 @@ import MainWrapper from 'layouts/Main';
 import dynamic from 'next/dynamic';
 import {
   Box,
-  InputAdornment,
+  //InputAdornment,
   Stack,
-  TextField,
+  //TextField,
+  Typography,
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
-import SearchIcon from '@mui/icons-material/Search';
+//import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from 'next/router';
 
 const FolderTreeView = dynamic(() =>
@@ -27,26 +28,29 @@ const description = 'Docs page';
 const ogimage = 'Docs page';
 
 const LeftNav = React.memo(({ trigger, newTreeData }) => {
+  const router = useRouter();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
   const [filteredData, setFilteredData] = useState();
-  const filterData = (e) => {
-    const searchTerms = e.target.value;
-    const filtered = newTreeData.filter((item) => {
-      return (
-        item.name?.toLowerCase().includes(searchTerms.toLowerCase()) ||
-        item.description?.toLowerCase().includes(searchTerms.toLowerCase())
-      );
-    });
+  const title = router.asPath.split('/').filter((e) => e)[1];
 
-    setFilteredData(filtered);
-  };
+  // const filterData = (e) => {
+  //   const searchTerms = e.target.value;
+  //   const filtered = newTreeData.filter((item) => {
+  //     return (
+  //       item.name?.toLowerCase().includes(searchTerms.toLowerCase()) ||
+  //       item.description?.toLowerCase().includes(searchTerms.toLowerCase())
+  //     );
+  //   });
+
+  //   setFilteredData(filtered);
+  // };
 
   useEffect(() => {
     setFilteredData(newTreeData);
   }, [newTreeData]);
 
-  console.log(trigger);
+  console.log(newTreeData);
 
   return (
     <Stack
@@ -68,7 +72,21 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
           alignItems: 'center',
         }}
       >
-        <TextField
+        <Typography
+          sx={{
+            my: 2,
+            fontWeight: 'bold',
+            color: theme.palette.zesty.zestyZambezi,
+          }}
+          variant="h6"
+        >
+          {
+            // capitalize title first letter
+            title.charAt(0).toUpperCase() + title.slice(1)
+          }{' '}
+          API
+        </Typography>
+        {/* <TextField
           onChange={filterData}
           size="small"
           color="secondary"
@@ -81,7 +99,7 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
               </InputAdornment>
             ),
           }}
-        />
+        /> */}
       </Box>
       <FolderTreeView data={filteredData || newTreeData} />
     </Stack>
@@ -97,7 +115,6 @@ const DocsView = React.memo(({ data = [] }) => {
         width: '100%',
         maxWidth: 1920,
         px: 4,
-        justifyContent: 'center ',
         background: isDarkMode ? 'theme.palette.zesty.zestyDarkBlue' : 'white',
       }}
     >
