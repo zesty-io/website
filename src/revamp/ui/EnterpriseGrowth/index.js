@@ -128,7 +128,7 @@ const EnterpriseGrowth = ({
         direction="left"
         pauseOnHover
         gradient={false}
-        speed={30}
+        speed={10}
         style={{
           marginBottom: isLG
             ? '80px'
