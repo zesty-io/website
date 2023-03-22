@@ -68,168 +68,169 @@ const EnterpriseGrowth = ({
   const isTablet = useMediaQuery(theme.breakpoints.up('tablet'));
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
   return (
-    <Stack
-      bgcolor="grey.900"
-      sx={(theme) => ({
-        [theme.breakpoints.up('xs')]: {
-          py: 4,
-          px: 2,
-        },
-        [theme.breakpoints.up('tablet')]: {
-          py: 6,
-          px: 4,
-        },
-        [theme.breakpoints.up('lg')]: {
-          p: 14,
-        },
-      })}
-    >
-      <Stack mb={5} width={{ lg: '560px' }}>
-        <Typography
-          color="primary"
-          variant="body2"
-          fontWeight={600}
-          letterSpacing="1px"
-          mb="12px"
-        >
-          {overline}
-        </Typography>
-        <Typography
-          color="white"
-          variant="h1"
-          fontWeight={800}
-          letterSpacing="-0.02em"
-          mb={3}
-          sx={(theme) => ({
-            [theme.breakpoints.up('tablet')]: {
-              fontSize: '52px',
-              lineHeight: '56px',
-            },
-          })}
-        >
-          {heading}
-        </Typography>
-        <Typography fontSize="18px" lineHeight="28px" color="grey.50">
-          {supportingText}
-        </Typography>
-      </Stack>
-      <Stack direction="row" spacing="12px" mb={{ xs: 6, tablet: 8, lg: 10 }}>
-        <Button variant="contained" size="extraLarge">
-          {primaryBtn}
-        </Button>
-        <Button variant="outlined" size="extraLarge">
-          {secondaryBtn}
-        </Button>
-      </Stack>
-
-      <Marquee
-        direction="left"
-        pauseOnHover
-        gradient={false}
-        speed={30}
-        style={{
-          marginBottom: isLG
-            ? '80px'
-            : isTablet
-            ? '64px'
-            : isXS
-            ? '48px'
-            : '48px',
-        }}
-        mb={{ xs: 6, tablet: 8, lg: 10 }}
-      >
-        <Stack direction="row" spacing={6}>
-          {logos.map((logo, index) => (
-            <Box
-              key={index}
-              component="img"
-              height="40px"
-              src={logo}
-              sx={{
-                objectFit: 'contain',
-                mr: logos.length - 1 === index ? '48px !important' : 0,
-              }}
-            />
-          ))}
-        </Stack>
-      </Marquee>
-      <Typography
-        variant="h2"
-        letterSpacing="-0.02em"
-        fontWeight={600}
-        mb={6}
-        color="white"
+    <Stack bgcolor="grey.900">
+      <Stack
         sx={(theme) => ({
+          [theme.breakpoints.up('xs')]: {
+            py: 4,
+            px: 2,
+          },
           [theme.breakpoints.up('tablet')]: {
-            fontSize: '44px',
-            lineHeight: '48px',
-            fontWeight: 800,
-            mb: 8,
+            py: 6,
+            px: 4,
+          },
+          [theme.breakpoints.up('lg')]: {
+            p: 14,
           },
         })}
       >
-        Read our success stories below
-      </Typography>
+        <Stack mb={5} width={{ lg: '560px' }}>
+          <Typography
+            color="primary"
+            variant="body2"
+            fontWeight={600}
+            letterSpacing="1px"
+            mb="12px"
+          >
+            {overline}
+          </Typography>
+          <Typography
+            color="white"
+            variant="h1"
+            fontWeight={800}
+            letterSpacing="-0.02em"
+            mb={3}
+            sx={(theme) => ({
+              [theme.breakpoints.up('tablet')]: {
+                fontSize: '52px',
+                lineHeight: '56px',
+              },
+            })}
+          >
+            {heading}
+          </Typography>
+          <Typography fontSize="18px" lineHeight="28px" color="grey.50">
+            {supportingText}
+          </Typography>
+        </Stack>
+        <Stack direction="row" spacing="12px" mb={{ xs: 6, tablet: 8, lg: 10 }}>
+          <Button variant="contained" size="extraLarge">
+            {primaryBtn}
+          </Button>
+          <Button variant="outlined" size="extraLarge">
+            {secondaryBtn}
+          </Button>
+        </Stack>
 
-      <Grid container spacing={{ xs: 3, tablet: 4, lg: 8 }}>
-        {caseStudiesList.map((c, index) => (
-          <Grid item xs={12} lg={6} key={index}>
-            <Stack
-              sx={{ cursor: 'pointer' }}
-              onClick={() => (window.location.href = 'https://google.com')}
-            >
+        <Marquee
+          direction="left"
+          pauseOnHover
+          gradient={false}
+          speed={30}
+          style={{
+            marginBottom: isLG
+              ? '80px'
+              : isTablet
+              ? '64px'
+              : isXS
+              ? '48px'
+              : '48px',
+          }}
+          mb={{ xs: 6, tablet: 8, lg: 10 }}
+        >
+          <Stack direction="row" spacing={6}>
+            {logos.map((logo, index) => (
               <Box
+                key={index}
                 component="img"
-                width="100%"
-                height="auto"
-                src={c.mainImage}
+                height="40px"
+                src={logo}
                 sx={{
                   objectFit: 'contain',
-                  marginBottom: '24px',
-                  borderRadius: '6px',
+                  mr: logos.length - 1 === index ? '48px !important' : 0,
                 }}
               />
+            ))}
+          </Stack>
+        </Marquee>
+        <Typography
+          variant="h2"
+          letterSpacing="-0.02em"
+          fontWeight={600}
+          mb={6}
+          color="white"
+          sx={(theme) => ({
+            [theme.breakpoints.up('tablet')]: {
+              fontSize: '44px',
+              lineHeight: '48px',
+              fontWeight: 800,
+              mb: 8,
+            },
+          })}
+        >
+          Read our success stories below
+        </Typography>
 
-              <Box
-                component="img"
-                height={{ xs: '32px', tablet: '64px' }}
-                src={c.logo}
-                sx={{
-                  objectFit: 'contain',
-                  alignSelf: 'start',
-                  marginBottom: '12px',
-                }}
-              />
-
-              <Typography
-                variant="h4"
-                letterSpacing="-0.02em"
-                color="white"
-                fontWeight={800}
-                mb={3}
-                sx={(theme) => ({
-                  [theme.breakpoints.up('tablet')]: {
-                    fontSize: '32px',
-                    lineHeight: '40px',
-                  },
-                })}
-              >
-                {c.description}
-              </Typography>
-
-              <Link
+        <Grid container spacing={{ xs: 3, tablet: 4, lg: 8 }}>
+          {caseStudiesList.map((c, index) => (
+            <Grid item xs={12} lg={6} key={index}>
+              <Stack
                 sx={{ cursor: 'pointer' }}
-                lineHeight="24px"
-                underline="none"
-                alignSelf="start"
-                href="https://google.com"
+                onClick={() => (window.location.href = 'https://google.com')}
               >
-                Read Case Study
-              </Link>
-            </Stack>
-          </Grid>
-        ))}
-      </Grid>
+                <Box
+                  component="img"
+                  width="100%"
+                  height="auto"
+                  src={c.mainImage}
+                  sx={{
+                    objectFit: 'contain',
+                    marginBottom: '24px',
+                    borderRadius: '6px',
+                  }}
+                />
+
+                <Box
+                  component="img"
+                  height={{ xs: '32px', tablet: '64px' }}
+                  src={c.logo}
+                  sx={{
+                    objectFit: 'contain',
+                    alignSelf: 'start',
+                    marginBottom: '12px',
+                  }}
+                />
+
+                <Typography
+                  variant="h4"
+                  letterSpacing="-0.02em"
+                  color="white"
+                  fontWeight={800}
+                  mb={3}
+                  sx={(theme) => ({
+                    [theme.breakpoints.up('tablet')]: {
+                      fontSize: '32px',
+                      lineHeight: '40px',
+                    },
+                  })}
+                >
+                  {c.description}
+                </Typography>
+
+                <Link
+                  sx={{ cursor: 'pointer' }}
+                  lineHeight="24px"
+                  underline="none"
+                  alignSelf="start"
+                  href="https://google.com"
+                >
+                  Read Case Study
+                </Link>
+              </Stack>
+            </Grid>
+          ))}
+        </Grid>
+      </Stack>
     </Stack>
   );
 };
