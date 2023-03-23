@@ -165,7 +165,7 @@ const cardData = [
     title: 'Instances API',
     description:
       'A collection of available REST endpoints scoped to your unique instance.',
-    link: 'docs/instances/api-reference/',
+    link: '/docs/instances/api-reference/',
   },
   {
     title: 'Authentication API',

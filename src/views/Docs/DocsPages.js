@@ -13,6 +13,7 @@ import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import { getCookie } from 'cookies-next';
 import { transFormEndpoint } from 'utils';
 import { useZestyStore } from 'store';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 const muiContentOverrides = {
   h1: {
@@ -90,6 +91,7 @@ const iconMethod = (method) => {
 
 const Main = ({ data }) => {
   const theme = useTheme();
+  const isLoggedIn = useIsLoggedIn();
   const isDarkMode = theme.palette.mode === 'dark';
   const workingInstance = useZestyStore((e) => e.workingInstance);
   const [showToken, setshowToken] = React.useState(false);
@@ -109,6 +111,7 @@ const Main = ({ data }) => {
       const { endpoint } = transFormEndpoint({
         url: rawEndpoint,
         instanceZUID: workingInstance,
+        isLoggedIn,
       });
       const desc = e?.request?.description;
       const token = getCookie('APP_SID');

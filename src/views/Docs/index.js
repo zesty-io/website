@@ -23,9 +23,9 @@ const DocsPages = dynamic(() =>
   import('./DocsPages').then((mod) => mod.DocsPages),
 );
 
-const title = 'Docs page';
-const description = 'Docs page';
-const ogimage = 'Docs page';
+const title = 'Zesty.io-Documentation';
+const description = 'Zesty.io-Documentation';
+const ogimage = 'Zesty.io-Documentation';
 
 const LeftNav = React.memo(({ trigger, newTreeData }) => {
   const router = useRouter();
