@@ -18,6 +18,7 @@ import FeatureTestimonial from 'revamp/ui/FeatureTestimonial';
 import EnterpriseGrowth from 'revamp/ui/EnterpriseGrowth';
 import LightHero from 'revamp/ui/LightHero';
 import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonials';
+import CaseStudyHero from 'revamp/ui/CaseStudyHero';
 import revampTheme from 'theme/revampTheme';
 
 const components = [
@@ -33,6 +34,7 @@ const components = [
   'Enterprise Growth',
   'Feature Bullet Points with Testimonial',
   'Light Hero',
+  'Case Study Hero',
 ];
 const revamp = () => {
   const [component, setComponent] = useState('');
@@ -51,6 +53,7 @@ const revamp = () => {
     if (component === 'Feature Bullet Points with Testimonial')
       return <FeatureBulletWithTestimonials />;
     if (component === 'Light Hero') return <LightHero />;
+    if (component === 'Case Study Hero') return <CaseStudyHero />;
 
     return 'Please select a component';
   };
