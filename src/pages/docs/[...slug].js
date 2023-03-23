@@ -42,6 +42,25 @@ export default function DocsPage(props) {
     if (!url) {
       return (item = mainData[0]);
     }
+
+    // exeption in authentication collection
+    // authentication collection doesnt have tiers or subfolders
+    if (
+      data?.url === currentUrl &&
+      currentUrl === '/authentication/api-reference'
+    ) {
+      // insert the info inside the data.item
+      const newItem = [
+        {
+          ...data.info,
+          request: {},
+          item: [],
+        },
+        ...data.item,
+      ];
+      const newData = { ...data, item: newItem };
+      return (item = newData);
+    }
     // data.info getter from 1st tier
     if (data?.url === currentUrl) {
       return (item = data.info);
@@ -58,6 +77,7 @@ export default function DocsPage(props) {
       }
     });
 
+    console.log(item, 55555);
     return item;
   };
 
