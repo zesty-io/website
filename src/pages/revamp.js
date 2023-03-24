@@ -21,6 +21,7 @@ import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonia
 import CaseStudyHero from 'revamp/ui/CaseStudyHero';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
+import HomePage from 'revamp/ui/HomePage';
 
 const components = [
   'Hero',
@@ -37,6 +38,7 @@ const components = [
   'Light Hero',
   'Case Study Hero',
   'Blog Hero',
+  'Home Page',
 ];
 const revamp = () => {
   const [component, setComponent] = useState('');
@@ -57,6 +59,7 @@ const revamp = () => {
     if (component === 'Light Hero') return <LightHero />;
     if (component === 'Case Study Hero') return <CaseStudyHero />;
     if (component === 'Blog Hero') return <BlogHero />;
+    if (component === 'Home Page') return <HomePage />;
 
     return 'Please select a component';
   };

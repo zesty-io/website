@@ -146,6 +146,10 @@ const GridFeature = ({
           px: 14,
           py: 8,
         },
+        [theme.breakpoints.up('xl')]: {
+          maxWidth: theme.maxWidth,
+          mx: 'auto',
+        },
       })}
     >
       <Stack

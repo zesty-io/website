@@ -26,7 +26,15 @@ const CaseStudyHero = ({
   statsLists = stats,
 }) => {
   return (
-    <Stack direction="column">
+    <Stack
+      direction="column"
+      sx={(theme) => ({
+        [theme.breakpoints.up('xl')]: {
+          maxWidth: theme.maxWidth,
+          mx: 'auto',
+        },
+      })}
+    >
       <Stack direction={{ xs: 'column', lg: 'row' }}>
         <Stack
           sx={(theme) => ({

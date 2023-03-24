@@ -83,6 +83,11 @@ const EnterpriseGrowth = ({
             pt: 14,
             px: 14,
           },
+          [theme.breakpoints.up('xl')]: {
+            maxWidth: theme.maxWidth,
+            mx: 'auto',
+            width: '100%',
+          },
         })}
       >
         <Stack mb={5} width={{ lg: '560px' }}>
@@ -161,7 +166,8 @@ const EnterpriseGrowth = ({
       <Stack
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
-            pageBreakInside: 4,
+            maxWidth: theme.maxWidth,
+            mx: 'auto',
             px: 2,
           },
           [theme.breakpoints.up('tablet')]: {

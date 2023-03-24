@@ -60,7 +60,13 @@ const Stats = ({
           px: 14,
           py: 8,
         },
+        [theme.breakpoints.up('xl')]: {
+          maxWidth: theme.maxWidth,
+          mx: 'auto',
+        },
       })}
+      maxWidth={theme.maxWidth}
+      mx="auto"
     >
       <Stack
         width="100%"

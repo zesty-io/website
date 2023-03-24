@@ -57,6 +57,7 @@ const revampTheme = (mode, themeToggler) => {
         },
       },
     },
+    maxWidth: 1440,
     themeToggler,
   });
 };
