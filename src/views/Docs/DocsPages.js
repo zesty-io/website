@@ -250,6 +250,7 @@ const CodeBlocks = React.memo(
             customStyle={{
               fontSize: '13px',
               fontWeight: 400,
+              padding: '20px 10px 20px 10px',
             }}
           >
             {children}

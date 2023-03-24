@@ -12,7 +12,6 @@ import { DocsPopover } from 'views/Docs/DocsPopover';
 import { DocsTabs } from 'views/Docs/DocsTabs';
 import { SearchModal } from 'views/Docs/SearchModal';
 
-console.log('test');
 const tabs = [
   { label: 'API Reference', value: 'api-reference' },
   // { label: 'Resources', value: 'resources' },
