@@ -73,6 +73,10 @@ const TabsSection = ({
           px: 3,
           py: 8,
         },
+        [theme.breakpoints.up('xl')]: {
+          mx: 'auto',
+          maxWidth: theme.maxWidth,
+        },
       })}
     >
       <Typography
