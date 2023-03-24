@@ -5,6 +5,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { langTransformer } from './helper';
 import { DocsTabs } from './DocsTabs';
+import { useZestyStore } from 'store';
 
 const tabs = [
   { label: 'Request', value: 'request' },
@@ -12,15 +13,15 @@ const tabs = [
 ];
 
 const Main = ({ title = 'no title', data = {} }) => {
+  const { language } = useZestyStore((e) => e);
   const [codeBlockData, setcodeBlockData] = React.useState('');
   const [isCopied, setIsCopied] = React.useState(false);
   const [currentTab, setcurrentTab] = React.useState('request');
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
-  const [currentLang, _setcurrentLang] = React.useState('Javascript Fetch');
 
   const { request, response } = langTransformer({
     data,
-    lang: currentLang,
+    lang: language,
   });
 
   const copyToClipboard = (text) => {
@@ -37,7 +38,7 @@ const Main = ({ title = 'no title', data = {} }) => {
     } else {
       setcodeBlockData(request);
     }
-  }, [currentTab, currentLang]);
+  }, [currentTab, language]);
 
   return (
     <Stack
