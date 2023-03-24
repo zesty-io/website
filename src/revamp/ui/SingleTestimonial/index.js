@@ -39,6 +39,10 @@ const SingleTestimonial = ({
           py: 8,
           px: 14,
         },
+        [theme.breakpoints.up('xl')]: {
+          maxWidth: theme.maxWidth,
+          mx: 'auto',
+        },
       })}
     >
       <Stack

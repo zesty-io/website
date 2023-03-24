@@ -38,6 +38,10 @@ const BlogHero = ({
             px: 46,
             py: 6,
           },
+          [theme.breakpoints.up('xl')]: {
+            maxWidth: theme.maxWidth,
+            mx: 'auto',
+          },
         })}
       >
         <Typography
@@ -92,6 +96,10 @@ const BlogHero = ({
             objectFit: 'contain',
             width: '100%',
             height: '100%',
+          },
+          [theme.breakpoints.up('xl')]: {
+            maxWidth: theme.maxWidth,
+            mx: 'auto',
           },
         })}
       />

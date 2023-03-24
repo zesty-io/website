@@ -5,45 +5,47 @@ import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import ApiRoundedIcon from '@mui/icons-material/ApiRounded';
 import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Database, Brain } from '@zesty-io/material';
+// import { Database, Brain } from '@zesty-io/material/';
+import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
+import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
 import TabSchema from './TabSchema';
 import React, { useState } from 'react';
 
 const tabLists = [
   {
     name: 'Schema',
-    icon: <Database sx={{ fontSize: '20px' }} />,
+    icon: <SchemaRoundedIcon sx={{ fontSize: '20px' }} />,
     component: <TabSchema />,
   },
   {
     name: 'Content',
     icon: <EditRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: 'Content',
+    component: <TabSchema header="Content" />,
   },
   {
     name: 'Media',
     icon: <ImageRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: 'Media',
+    component: <TabSchema header="Media" />,
   },
   {
     name: 'AI Assistant',
-    icon: <Brain sx={{ fontSize: '20px' }} />,
-    component: 'AI Assistant',
+    icon: <PsychologyRoundedIcon sx={{ fontSize: '20px' }} />,
+    component: <TabSchema header="AI Assistant" />,
   },
   {
     name: 'Localization',
     icon: <TranslateRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: 'Localization',
+    component: <TabSchema header="Localization" />,
   },
   {
     name: 'APIs',
     icon: <ApiRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: 'APIs',
+    component: <TabSchema header="APIs" />,
   },
   {
     name: 'A/B Testing',
     icon: <ScienceRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: 'A/B Testing',
+    component: <TabSchema header="A/B Testing" />,
   },
 ];
 
@@ -114,11 +116,11 @@ const TabsSection = ({
               value={tab.name}
               iconPosition="start"
               icon={tab.icon}
-              sx={{ textTransform: 'none' }}
+              // icon={tab.icon}
+              // sx={{ textTransform: 'none' }}
             />
           ))}
         </TabList>
-
         {tabLists.map((tab) => (
           <TabPanel key={tab.name} sx={{ p: 0, pt: 3 }} value={tab.name}>
             {tab.component}
