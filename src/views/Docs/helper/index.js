@@ -8,7 +8,10 @@ export const langTransformer = ({
 }) => {
   const hasFormData = data?.request?.body?.mode === 'formdata' ? true : false;
   const hasToken = data?.request?.auth?.type === 'bearer' ? true : false;
-  const hasBody = data?.request?.body ? true : false;
+  const hasBody =
+    data?.request?.body?.mode === 'raw' && data?.request?.body?.raw
+      ? true
+      : false;
 
   const headers = [
     {

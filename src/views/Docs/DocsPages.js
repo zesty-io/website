@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Grid, Link, Stack, Typography, useTheme } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import remarkGfm from 'remark-gfm';
@@ -104,7 +105,10 @@ const Main = ({ data }) => {
     data.item.map((e) => {
       // Get data from postman collection
       const name = e?.name?.replaceAll(' ', '-');
-      const hasBody = e?.request?.body?.mode === 'raw' ? true : false;
+      const hasBody =
+        e?.request?.body?.mode === 'raw' && e?.request?.body?.raw
+          ? true
+          : false;
       const hasEndpoint =
         e?.request?.url || e?.request?.url?.raw ? true : false;
       const rawEndpoint = e?.request?.url?.raw || e?.request?.url || '';
@@ -168,6 +172,21 @@ const Main = ({ data }) => {
                 {hasEndpoint && (
                   <CodeBlocks header="URL Endpoint">{endpoint}</CodeBlocks>
                 )}
+                {!isLoggedIn && (
+                  <Stack
+                    width={1}
+                    bgcolor="#FDF0D5"
+                    p={1}
+                    direction="row"
+                    spacing={1}
+                  >
+                    <WarningAmberIcon color="warning" />
+                    <Typography variant="button" color={'gray'}>
+                      Please <Link href="/login">sign in</Link> to view your
+                      token
+                    </Typography>
+                  </Stack>
+                )}
                 <CodeBlocks
                   header="Authentication Header"
                   endProps={
@@ -184,7 +203,7 @@ const Main = ({ data }) => {
                   }
                 >
                   {`Bearer ${
-                    showToken && token
+                    showToken && token && isLoggedIn
                       ? getCookie('APP_SID')
                       : !showToken && token
                       ? '*******************************'
