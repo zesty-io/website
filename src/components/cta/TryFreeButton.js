@@ -10,7 +10,7 @@ import Icon from '@mui/material/Icon';
 import CodeBlock from './CodeBlock';
 
 export default function TryFreeButton({
-  text = 'Start Now',
+  text = 'Request Demo',
   target = 'blank',
   fullWidth = false,
   component = 'button',
@@ -23,14 +23,14 @@ export default function TryFreeButton({
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = () => {
-    location.href = '/join/';
+    location.href = '/demo/';
 
     // Track Button Click by pushing item to the data layer
     window.dataLayer.push({
       event: 'btn_click',
       buttonText: text,
       currentPage: window.location.href,
-      targetPage: '/join/',
+      targetPage: '/demo/',
     });
     // uncomment this to bring the dropdown back
     //setAnchorEl(event.target);
