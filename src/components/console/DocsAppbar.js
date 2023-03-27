@@ -1,4 +1,11 @@
-import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Breadcrumbs,
+  Link,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { AccountsComboBox } from 'components/accounts';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -21,6 +28,7 @@ const tabs = [
 export const DocsAppbar = React.memo(() => {
   const router = useRouter();
   const initialTab = router.asPath.split('/').filter((e) => e)[2];
+  const currentPath = router.asPath.split('/').filter((e) => e)[1];
   const {
     instances,
     setworkingInstance,
@@ -80,25 +88,32 @@ export const DocsAppbar = React.memo(() => {
     >
       <Stack pt={1} direction="row" spacing={2}>
         <DocsComboBox
-          width={'20rem'}
+          width={'30rem'}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN(mainData)}
         />
+
+        <Breadcrumbs
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '60%',
+          }}
+        >
+          <Link color="GrayText" underline="hover" href="/docs">
+            Docs
+          </Link>
+          <Typography color="GrayText">
+            {currentPath.charAt(0).toUpperCase() +
+              currentPath.slice(1) +
+              ' API'}
+          </Typography>
+        </Breadcrumbs>
+
         <DocsTabs setvalue={handleTabs} value={currentTab} tabs={tabs} />
       </Stack>
 
       <Stack direction={'row'} spacing={2}>
-        {isLoggedIn && (
-          <AccountsComboBox
-            instances={instances.data}
-            setCookies={handleComboBox}
-            instanceZUID={instanceZUID}
-            placeholder={
-              instances?.data?.find((e) => e.ZUID === instanceZUID)?.name
-            }
-          />
-        )}
-
         <Stack direction={'row'} spacing={1} alignItems="center">
           <Typography color={'black'}>Language:</Typography>{' '}
           <DocsPopover
@@ -110,6 +125,17 @@ export const DocsAppbar = React.memo(() => {
             ]}
           />
         </Stack>
+
+        {isLoggedIn && (
+          <AccountsComboBox
+            instances={instances.data}
+            setCookies={handleComboBox}
+            instanceZUID={instanceZUID}
+            placeholder={
+              instances?.data?.find((e) => e.ZUID === instanceZUID)?.name
+            }
+          />
+        )}
 
         <SearchModal>
           <AlgoSearch />

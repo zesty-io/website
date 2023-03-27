@@ -16,7 +16,7 @@ const TopNav = ({ hideNav, nav, colorInvert = false }) => {
         <Link
           underline="none"
           component="a"
-          href="https://www.zesty.org"
+          href="/docs"
           color={colorInvert ? 'common.white' : 'text.primary'}
         >
           Docs
