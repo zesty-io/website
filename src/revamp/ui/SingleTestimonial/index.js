@@ -1,15 +1,18 @@
-import witnessImage from '../../assets/witness.svg';
-import witnessLogo from '../../assets/witnessLogo.svg';
 import { Box, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
+const witnessImage =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/witness.svg',
+  witnessLogo =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/witnessLogo.svg';
+
 const SingleTestimonial = ({
-  witness = witnessImage.src,
+  witness = witnessImage,
   name = 'Dan Hakimzadeh',
   role = 'Senior Web Developer',
-  logo = witnessLogo.src,
+  logo = witnessLogo,
   header = `"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt`,
   quote = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   

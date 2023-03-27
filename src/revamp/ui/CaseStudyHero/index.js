@@ -1,7 +1,10 @@
 import { Box, Chip, Divider, Stack, Typography } from '@mui/material';
-import singlife from 'revamp/assets/singlifeHero.svg';
-import singlifeCS from 'revamp/assets/singlifeCS.jpg';
 import React from 'react';
+
+const singlife =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeHero.svg',
+  singlifeCS =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeCS.jpg';
 
 const stats = [
   {
@@ -20,7 +23,7 @@ const stats = [
 
 const CaseStudyHero = ({
   overline = 'CASE STUDIES / SINGLIFE',
-  logo = singlife.src,
+  logo = singlife,
   heading = 'Why Digital Insurer Singlife’s team switched to Zesty for their global expansion',
   description = 'Engineers fixing typos. Content updates taking weeks. Singlife knew their website process wasn’t sustainable — so they turned to Zesty for a flexible yet powerful solution.',
   statsLists = stats,
@@ -142,7 +145,7 @@ const CaseStudyHero = ({
         <Stack width={{ lg: '40%' }}>
           <Box
             component="img"
-            src={singlifeCS.src}
+            src={singlifeCS}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',

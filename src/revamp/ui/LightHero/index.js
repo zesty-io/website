@@ -1,11 +1,19 @@
 import { Button, Stack, Typography } from '@mui/material';
-import schemaPic from '../../assets/schema.png';
-import acorns from '../../assets/acornsHero.svg';
-import bjs from '../../assets/bjsHero.svg';
-import phoenixSuns from '../../assets/phoenixSunsHero.svg';
-import rocketLeague from '../../assets/rocketLeagueHero.svg';
-import singlife from '../../assets/singlifeHero.svg';
-import sony from '../../assets/sonyHero.svg';
+const schemaPic =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/schema.png',
+  acorns =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acornsHero.svg',
+  bjs =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bjsHero.svg',
+  phoenixSuns =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/phoenixSunsHero.svg',
+  rocketLeague =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/rocketLeagueHero.svg',
+  singlife =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeHero.svg',
+  sony =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/sonyHero.svg';
+
 import React from 'react';
 
 const LightHero = ({
@@ -17,6 +25,7 @@ const LightHero = ({
   secondaryBtn = 'Contact Sales',
   secondaryBtnLink = '#',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
+  media = schemaPic,
 }) => {
   return (
     <Stack
@@ -132,16 +141,16 @@ const LightHero = ({
         justifyContent="center"
         alignItems="center"
       >
-        <img src={sony.src} width="91px" height="32px" />
-        <img src={rocketLeague.src} width="88.35px" height="32px" />
-        <img src={singlife.src} width="102.12px" height="32px" />
-        <img src={acorns.src} width="94px" height="32px" />
-        <img src={bjs.src} width="36.48px" height="32px" />
-        <img src={phoenixSuns.src} width="31.59px" height="32px" />
+        <img src={sony} width="91px" height="32px" />
+        <img src={rocketLeague} width="88.35px" height="32px" />
+        <img src={singlife} width="102.12px" height="32px" />
+        <img src={acorns} width="94px" height="32px" />
+        <img src={bjs} width="36.48px" height="32px" />
+        <img src={phoenixSuns} width="31.59px" height="32px" />
       </Stack>
       <Stack>
         <img
-          src={schemaPic.src}
+          src={media}
           width="100%"
           height="100%"
           style={{ objectFit: 'contain' }}

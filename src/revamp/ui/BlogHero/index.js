@@ -6,16 +6,19 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import authorImage from 'revamp/assets/zosh.svg';
 import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
-import articleFrame from 'revamp/assets/articleFrame.jpg';
 import React from 'react';
+
+const authorImage =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/zosh.svg',
+  articleFrame =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/articleFrame.jpg';
 
 const BlogHero = ({
   overline = 'PRODUCT ANNOUNCMENT',
   heading = 'Announcing the New Zesty Media App Experience',
   author = 'Zoshua Colah',
-  image = authorImage.src,
+  image = authorImage,
   supportingText = 'October 20, 2021',
 }) => {
   return (
@@ -90,7 +93,7 @@ const BlogHero = ({
       </Stack>
       <Box
         component="img"
-        src={articleFrame.src}
+        src={articleFrame}
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
             objectFit: 'contain',

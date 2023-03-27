@@ -1,14 +1,14 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import contentStats from '../../assets/contentStats.svg';
-
 import CloudRoundedIcon from '@mui/icons-material/CloudRounded';
 import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import ApiRoundedIcon from '@mui/icons-material/ApiRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-
 import React from 'react';
+
+const contentStats =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/contentStats.svg';
 
 const statsArray = [
   {
@@ -92,7 +92,7 @@ const Stats = ({
         >
           <Box
             component="img"
-            src={contentStats.src}
+            src={contentStats}
             style={{ objectFit: 'contain' }}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {

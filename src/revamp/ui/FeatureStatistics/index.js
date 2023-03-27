@@ -1,12 +1,14 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
-import featureContent from 'revamp/assets/featureContent.jpg';
 import React from 'react';
+
+const featureContent =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/featureContent.jpg';
 
 const FeatureStatistics = ({
   overline = 'SETUP, EASY-PEASY!',
   heading = 'Hassle-free setup with APIs that integrate with all frameworks',
   supportingText = `With Zesty’s Media experience, you can enter file descriptions to be used as alt text as soon as you upload an image. Thus ensuring your images are more accessible.`,
-  image = featureContent.src,
+  image = featureContent,
   statsTitle = '5x',
   statsDescription = 'Faster More Secure\nUploads than most traditional DAMs',
 }) => {
