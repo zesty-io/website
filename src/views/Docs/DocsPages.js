@@ -168,24 +168,26 @@ const Main = ({ data }) => {
                   {desc}
                 </ReactMarkdown>
               </Stack>
-              <Stack>
+
+              <Stack py={2}>
+                {!isLoggedIn && (
+                  <WarningMsg>
+                    <Typography variant="button" color={'gray'}>
+                      Please <Link href="/login">sign in</Link> to view your
+                      instance’s unique identifier
+                    </Typography>
+                  </WarningMsg>
+                )}
                 {hasEndpoint && (
                   <CodeBlocks header="URL Endpoint">{endpoint}</CodeBlocks>
                 )}
                 {!isLoggedIn && (
-                  <Stack
-                    width={1}
-                    bgcolor="#FDF0D5"
-                    p={1}
-                    direction="row"
-                    spacing={1}
-                  >
-                    <WarningAmberIcon color="warning" />
+                  <WarningMsg>
                     <Typography variant="button" color={'gray'}>
                       Please <Link href="/login">sign in</Link> to view your
                       token
                     </Typography>
-                  </Stack>
+                  </WarningMsg>
                 )}
                 <CodeBlocks
                   header="Authentication Header"
@@ -289,3 +291,18 @@ const CodeBlocks = React.memo(
 );
 
 // create a function that return largest sum
+
+const WarningMsg = ({
+  children = (
+    <Typography variant="button" color={'gray'}>
+      Please <Link href="/login">sign in</Link> to view your token
+    </Typography>
+  ),
+}) => {
+  return (
+    <Stack width={1} bgcolor="#FDF0D5" p={1} direction="row" spacing={1}>
+      <WarningAmberIcon color="warning" />
+      {children}
+    </Stack>
+  );
+};
