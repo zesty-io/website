@@ -17,6 +17,7 @@ const LightHero = ({
   secondaryBtn = 'Contact Sales',
   secondaryBtnLink = '#',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
+  media = schemaPic.src,
 }) => {
   return (
     <Stack
@@ -141,7 +142,7 @@ const LightHero = ({
       </Stack>
       <Stack>
         <img
-          src={schemaPic.src}
+          src={media}
           width="100%"
           height="100%"
           style={{ objectFit: 'contain' }}
