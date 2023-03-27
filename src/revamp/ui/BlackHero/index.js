@@ -1,12 +1,20 @@
 import { Button, Stack, Typography } from '@mui/material';
-import schemaPic from '../../assets/schema.png';
-import acorns from '../../assets/acorns.svg';
-import bjs from '../../assets/bjs.svg';
-import phoenixSuns from '../../assets/phoenixSuns.svg';
-import rocketLeague from '../../assets/rocketLeague.svg';
-import singlife from '../../assets/singlife.svg';
-import sony from '../../assets/sony.svg';
 import React from 'react';
+
+const schemaPic =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/schema.png',
+  acorns =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acorns.svg',
+  bjs =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bjs.svg',
+  phoenixSuns =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/phoenixSuns.svg',
+  rocketLeague =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/rocketLeague.svg',
+  singlife =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlife.svg',
+  sony =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/sony.svg';
 
 const BlackHero = ({
   title = 'Unify your team with',
@@ -132,16 +140,16 @@ const BlackHero = ({
         justifyContent="center"
         alignItems="center"
       >
-        <img src={rocketLeague.src} width="88.35px" height="32px" />
-        <img src={singlife.src} width="102.12px" height="32px" />
-        <img src={sony.src} width="91px" height="32px" />
-        <img src={acorns.src} width="94px" height="32px" />
-        <img src={bjs.src} width="36.48px" height="32px" />
-        <img src={phoenixSuns.src} width="31.59px" height="32px" />
+        <img src={rocketLeague} width="88.35px" height="32px" />
+        <img src={singlife} width="102.12px" height="32px" />
+        <img src={sony} width="91px" height="32px" />
+        <img src={acorns} width="94px" height="32px" />
+        <img src={bjs} width="36.48px" height="32px" />
+        <img src={phoenixSuns} width="31.59px" height="32px" />
       </Stack>
       <Stack>
         <img
-          src={schemaPic.src}
+          src={schemaPic}
           width="100%"
           height="100%"
           style={{ objectFit: 'contain', borderRadius: '8px' }}

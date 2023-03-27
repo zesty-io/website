@@ -1,10 +1,13 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
-import schema from 'revamp/assets/schema.png';
+
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 import React from 'react';
+
+const schema =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/schema.png';
 
 const listItems = [
   'Tortor interdum condimentum nunc molestie quam',
@@ -44,7 +47,7 @@ const TabSchema = ({
         <Stack order={isLG ? 2 : 1}>
           <Box
             component="img"
-            src={schema.src}
+            src={schema}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',

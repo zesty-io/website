@@ -1,6 +1,8 @@
 import { Box, Button, Link, Stack, Typography } from '@mui/material';
-import featureContent from 'revamp/assets/featureContent.jpg';
 import React from 'react';
+
+const featureContent =
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/featureContent.jpg';
 
 const FeatureTwoCTA = ({
   overline = 'SETUP, EASY-PEASY!',
@@ -8,7 +10,7 @@ const FeatureTwoCTA = ({
   supportingText = `With Zesty you’re not constrained to using one kind of API. You can use any of our APIs (GraphQL, REST, GET, and Instant JSON) with any framework of your choice. And they all come with web-hooks and site generators. Check them out in our `,
   primaryBtn = 'Find a Partner',
   secondaryBtn = 'Talk to Sales',
-  image = featureContent.src,
+  image = featureContent,
 }) => {
   return (
     <Stack

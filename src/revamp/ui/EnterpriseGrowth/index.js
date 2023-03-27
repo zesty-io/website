@@ -1,55 +1,64 @@
 import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
-import alphaUniverse from 'revamp/assets/enterprise/alphaUniverse.jpg';
-import sonyLogo from 'revamp/assets/enterprise/sonyLogo.svg';
-import React from 'react';
+
 import Marquee from 'react-fast-marquee';
-import rocketLeague from 'revamp/assets/greyLogos/Rocket League Logo.svg';
-import singlife from 'revamp/assets/greyLogos/Singlife Logo.svg';
-import acorns from 'revamp/assets/greyLogos/Acorns Logo.svg';
-import bjs from 'revamp/assets/greyLogos/BJs Logo.svg';
-import suns from 'revamp/assets/greyLogos/Suns.svg';
-import wattpad from 'revamp/assets/greyLogos/Wattpad-logo-vector 1.svg';
-import cornershop from 'revamp/assets/greyLogos/Logo_de_Cornershop 1.svg';
-import petdesk from 'revamp/assets/greyLogos/Petdesk.png';
-import jackpocket from 'revamp/assets/greyLogos/Jackpocket.svg';
-import sony from 'revamp/assets/greyLogos/Sony Logo.svg';
+
+// import alphaUniverse from 'revamp/assets/enterprise/alphaUniverse.jpg';
+// import sonyLogo from 'revamp/assets/enterprise/sonyLogo.svg';
+// import rocketLeague from 'revamp/assets/greyLogos/Rocket League Logo.svg';
+// import singlife from 'revamp/assets/greyLogos/Singlife Logo.svg';
+// import acorns from 'revamp/assets/greyLogos/Acorns Logo.svg';
+// import bjs from 'revamp/assets/greyLogos/BJs Logo.svg';
+// import suns from 'revamp/assets/greyLogos/Suns.svg';
+// import wattpad from 'revamp/assets/greyLogos/Wattpad-logo-vector 1.svg';
+// import cornershop from 'revamp/assets/greyLogos/Logo_de_Cornershop 1.svg';
+// import petdesk from 'revamp/assets/greyLogos/Petdesk.png';
+// import jackpocket from 'revamp/assets/greyLogos/Jackpocket.svg';
+// import sony from 'revamp/assets/greyLogos/Sony Logo.svg';
+
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import React from 'react';
+
+const alphaUniverse =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/alphaUniverse.jpg',
+  sonyLogo =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/sonyLogo.svg';
+
 const logos = [
-  rocketLeague.src,
-  singlife.src,
-  acorns.src,
-  bjs.src,
-  suns.src,
-  wattpad.src,
-  cornershop.src,
-  petdesk.src,
-  jackpocket.src,
-  sony.src,
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Rocket League Logo.svg',
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Singlife Logo.svg',
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Acorns Logo.svg',
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/BJs Logo.svg',
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Suns.svg',
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Wattpad-logo-vector 1.svg',
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Logo_de_Cornershop 1.svg',
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Petdesk.png',
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Jackpocket.svg',
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Sony Logo.svg',
 ];
 
 const caseStudies = [
   {
-    mainImage: alphaUniverse.src,
-    logo: sonyLogo.src,
+    mainImage: alphaUniverse,
+    logo: sonyLogo,
     description:
       'Sony was able to launch 2.25x faster to market than originally estimated',
   },
   {
-    mainImage: alphaUniverse.src,
-    logo: sonyLogo.src,
+    mainImage: alphaUniverse,
+    logo: sonyLogo,
     description:
       'Sony was able to launch 2.25x faster to market than originally estimated',
   },
   {
-    mainImage: alphaUniverse.src,
-    logo: sonyLogo.src,
+    mainImage: alphaUniverse,
+    logo: sonyLogo,
     description:
       'Sony was able to launch 2.25x faster to market than originally estimated',
   },
   {
-    mainImage: alphaUniverse.src,
-    logo: sonyLogo.src,
+    mainImage: alphaUniverse,
+    logo: sonyLogo,
     description:
       'Sony was able to launch 2.25x faster to market than originally estimated',
   },
