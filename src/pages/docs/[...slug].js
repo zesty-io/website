@@ -77,7 +77,7 @@ export default function DocsPage(props) {
       }
     });
 
-    console.log(item, 55555);
+    // console.log(item, 55555);
     return item;
   };
 

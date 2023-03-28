@@ -50,7 +50,7 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
     setFilteredData(newTreeData);
   }, [newTreeData]);
 
-  console.log(newTreeData);
+  // console.log(newTreeData);
 
   return (
     <Stack
