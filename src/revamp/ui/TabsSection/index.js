@@ -104,7 +104,7 @@ const tabLists = [
 ];
 
 const TabsSection = ({
-  header = 'Enterprise grade features readily available for everyone',
+  header = 'Enterprise grade features  available for everyone out-of-the-box.',
 }) => {
   const [value, setValue] = useState('Schema');
 
