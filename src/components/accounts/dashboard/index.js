@@ -157,10 +157,6 @@ const Dashboard = ({ content = {} }) => {
   const hasCompany = missingUserPrefs.includes('company');
   const hasUserInvited = missingUserPrefs.includes('userInvited');
 
-  if (!userInfo || Object.keys(userInfo)?.length === 0) {
-    return <AccountPageloading title={'Zesty.io'} />;
-  }
-
   const roleType = roleList.find((e) => e.value === userPrefs?.persona)?.type;
   const isDecisionMaker = roleType === 'decision-maker' ? true : false;
   // the user dont have preferences we use this boolean to launch preference component
@@ -321,6 +317,10 @@ const Dashboard = ({ content = {} }) => {
   // 2 if no instances and no invites return onboarding question w/ preferences === false
   // 3 if no preferences return personalization survey
   // 4 if has instances has invites ignore
+
+  if (!userInfo || Object.keys(userInfo)?.length === 0) {
+    return <AccountPageloading title={'Zesty.io'} />;
+  }
 
   const hasMissingPrefs =
     missingUserPrefs?.filter((value) => missingPreferences?.includes(value))
