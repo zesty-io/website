@@ -4,19 +4,19 @@ import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 const witnessImage =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/witness.svg',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Ben.png',
   witnessLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/witnessLogo.svg';
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bluePixelLogo.svg';
 
 const SingleTestimonial = ({
   witness = witnessImage,
-  name = 'Dan Hakimzadeh',
-  role = 'Senior Web Developer',
+  name = 'Ben Johnson',
+  role = 'Director of Technology Operations',
   logo = witnessLogo,
-  header = `"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt`,
-  quote = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  
-  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint o ccaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
+  header = `Our team uses Zesty to support creative, complex campaigns for enterprise clients with global audiences.`,
+  quote = `"We’ve worked with several different brands using Zesty, and the reason we keep coming back to use them is consistency. The platform is reliable, the support is available 24/7, and our suggestions for feature additions actually help drive product direction. 
+
+When working with clients like Sony, we need to be using secure, enterprise-grade software that’s still agile enough to allow us to move quickly with the market. Zesty allows us to do that, and after over seven years of partnership, we’re excited to continue growing with an amazing technology partner.”`,
 }) => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.up('tablet'), {
