@@ -2,19 +2,6 @@ import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
 
 import Marquee from 'react-fast-marquee';
 
-// import alphaUniverse from 'revamp/assets/enterprise/alphaUniverse.jpg';
-// import sonyLogo from 'revamp/assets/enterprise/sonyLogo.svg';
-// import rocketLeague from 'revamp/assets/greyLogos/Rocket League Logo.svg';
-// import singlife from 'revamp/assets/greyLogos/Singlife Logo.svg';
-// import acorns from 'revamp/assets/greyLogos/Acorns Logo.svg';
-// import bjs from 'revamp/assets/greyLogos/BJs Logo.svg';
-// import suns from 'revamp/assets/greyLogos/Suns.svg';
-// import wattpad from 'revamp/assets/greyLogos/Wattpad-logo-vector 1.svg';
-// import cornershop from 'revamp/assets/greyLogos/Logo_de_Cornershop 1.svg';
-// import petdesk from 'revamp/assets/greyLogos/Petdesk.png';
-// import jackpocket from 'revamp/assets/greyLogos/Jackpocket.svg';
-// import sony from 'revamp/assets/greyLogos/Sony Logo.svg';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';

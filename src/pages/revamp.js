@@ -23,6 +23,7 @@ import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
 import HomePage from 'revamp/ui/HomePage';
 import HomePage2 from 'revamp/ui/HomePage2';
+import BlogPage from 'revamp/ui/BlogPage';
 
 const components = [
   'Hero',
@@ -41,6 +42,7 @@ const components = [
   'Blog Hero',
   'Home Page',
   'Home Page 2',
+  'Blog Page',
 ];
 const revamp = () => {
   const [component, setComponent] = useState('');
@@ -63,6 +65,7 @@ const revamp = () => {
     if (component === 'Blog Hero') return <BlogHero />;
     if (component === 'Home Page') return <HomePage />;
     if (component === 'Home Page 2') return <HomePage2 />;
+    if (component === 'Blog Page') return <BlogPage />;
 
     return 'Please select a component';
   };
