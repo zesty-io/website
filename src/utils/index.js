@@ -341,3 +341,33 @@ export const useRouterCheck = (route) => {
     return false;
   }
 };
+
+export const transFormEndpoint = ({
+  url = '',
+  instanceZUID = '',
+  isLoggedIn = false,
+}) => {
+  const appUserZuid = getCookie('APP_USER_ZUID');
+  const validateZuid = () => {
+    if (instanceZUID.startsWith('8-') && isLoggedIn) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const res = url
+    .replaceAll('{{protocol}}', 'https')
+    .replaceAll('{{accounts_api_url}}', 'accounts-api.zesty.org')
+    .replaceAll('{{instances_api_url}}', 'instances-api.zesty.org')
+    .replaceAll('{{accounts_api_version}}', 'v1')
+    .replaceAll('{{instances_api_version}}', 'v1')
+    .replaceAll('{{api_version}}', 'v1')
+    .replaceAll(
+      '{{instance_zuid}}',
+      validateZuid() ? instanceZUID : '8-xxxxxxxxx',
+    )
+    .replaceAll('{{user_zuid}}', appUserZuid)
+    .replaceAll('{{link_zuid}}', '7-xxxxxxxxxx')
+    .replaceAll('{{site_zuid}}', validateZuid() ? instanceZUID : '8-xxxxxxxxx');
+  return { endpoint: res };
+};
