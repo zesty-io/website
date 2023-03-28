@@ -19,7 +19,9 @@ const TabSchema = ({
   header = 'Digital Asset Management made easy',
   lists = listItems,
   primaryBtn = 'Start Now',
+  primaryBtnLink = '#',
   secondaryBtn = 'Learn More',
+  secondaryBtnLink = '#',
 }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
@@ -106,12 +108,14 @@ const TabSchema = ({
               variant="contained"
               size={isTablet ? 'extraLarge' : 'medium'}
               color="primary"
+              href={primaryBtnLink}
             >
               {primaryBtn}
             </Button>
             <Button
               variant="outlined"
               size={isTablet ? 'extraLarge' : 'medium'}
+              href={secondaryBtnLink}
             >
               {secondaryBtn}
             </Button>

@@ -15,27 +15,72 @@ const tabLists = [
   {
     name: 'Schema',
     icon: <SchemaRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: <TabSchema />,
+    component: (
+      <TabSchema
+        header="Model content the way you want"
+        lists={[
+          'Create models for pages or headless content',
+          '14+ field types including content relationships',
+          'Field validation rules to ensure data quality',
+        ]}
+      />
+    ),
   },
   {
     name: 'Content',
     icon: <EditRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: <TabSchema header="Content" />,
+    component: (
+      <TabSchema
+        header="Write content the way you feel best"
+        lists={[
+          'Customize content types to suit your needs',
+          'Preview edits in real time with Duo Mode',
+          'Easy organization and search for easy management',
+        ]}
+      />
+    ),
   },
   {
     name: 'Media',
     icon: <ImageRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: <TabSchema header="Media" />,
+    component: (
+      <TabSchema
+        header="All your media in one central place"
+        lists={[
+          'Manage pictures, gifs, video, documents, and more',
+          'Automated image optimization and alt tags',
+          'Edit image color, size, crop, and more instantly',
+        ]}
+      />
+    ),
   },
   {
     name: 'AI Assistant',
     icon: <PsychologyRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: <TabSchema header="AI Assistant" />,
+    component: (
+      <TabSchema
+        header="Up to 15X Faster Content Production with AI"
+        lists={[
+          'Write virtually anything using our ChatGPT powered AI assistant',
+          'Regenerate and refine content as needed',
+          'Preview AI created content instantly',
+        ]}
+      />
+    ),
   },
   {
     name: 'Localization',
     icon: <TranslateRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: <TabSchema header="Localization" />,
+    component: (
+      <TabSchema
+        header="Reach your audience in any language"
+        lists={[
+          'Over 100+ locales supported',
+          'Use API or manual translation services',
+          'Manage SEO metadata in multiple languages',
+        ]}
+      />
+    ),
   },
   {
     name: 'APIs',
@@ -45,7 +90,16 @@ const tabLists = [
   {
     name: 'A/B Testing',
     icon: <ScienceRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: <TabSchema header="A/B Testing" />,
+    component: (
+      <TabSchema
+        header="A/B through Z Content Testing"
+        lists={[
+          'Create multivariate testing out-of-the-box',
+          'A/B test content on webpages, apps, and more',
+          'Integrate with your existing analytics provider',
+        ]}
+      />
+    ),
   },
 ];
 
