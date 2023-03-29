@@ -68,9 +68,17 @@ import Stats from 'revamp/ui/Stats';
 import EnterpriseGrowth from 'revamp/ui/EnterpriseGrowth';
 import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonials';
 import BlackHero from 'revamp/ui/BlackHero';
+import { useEffect, useState } from 'react';
 
 function Homepage({ content }) {
   const { loading } = useZestyStore();
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    if (new Date().getTime() % 2 === 0) setIsDark(false);
+    else setIsDark(true);
+  }, []);
+
   // const theme = useTheme();
   // const isMedium = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -221,7 +229,7 @@ function Homepage({ content }) {
       <LogoSlider {...logoSliderData} />
       <Bottom {...bottomData} /> */}
       <ThemeProvider theme={() => revampTheme('light')}>
-        {new Date().getTime() % 2 === 0 ? <Hero /> : <BlackHero />}
+        {!isDark ? <Hero /> : <BlackHero />}
         <TabsSection />
         <GridFeature />
         <SingleTestimonial />

@@ -50,7 +50,7 @@ const tabLists = [
         lists={[
           'Manage pictures, gifs, video, documents, and more',
           'Automated image optimization and alt tags',
-          'Edit image color, size, crop, and more instantly',
+          'Programmatically modify image color, size, crop, and more instantly',
         ]}
         image="https://storage.googleapis.com/assets.zesty.io/website/images/assets/media.png"
       />
@@ -96,7 +96,7 @@ const tabLists = [
     icon: <ScienceRoundedIcon sx={{ fontSize: '20px' }} />,
     component: (
       <TabSection
-        header="A/B through Z Content Testing"
+        header="Increase conversions with A/B Testing"
         lists={[
           'Create multivariate testing out-of-the-box',
           'A/B test content on webpages, apps, and more',
