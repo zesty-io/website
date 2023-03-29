@@ -95,6 +95,7 @@ const Main = ({ data }) => {
   const isLoggedIn = useIsLoggedIn();
   const isDarkMode = theme.palette.mode === 'dark';
   const workingInstance = useZestyStore((e) => e.workingInstance);
+  const contentModel = useZestyStore((e) => e.contentModel);
   const [showToken, setshowToken] = React.useState(false);
   const { ref, inView } = useInView({
     threshold: 0,
@@ -115,6 +116,7 @@ const Main = ({ data }) => {
       const { endpoint } = transFormEndpoint({
         url: rawEndpoint,
         instanceZUID: workingInstance,
+        contentModelZUID: contentModel,
         isLoggedIn,
       });
       const desc = e?.request?.description;
