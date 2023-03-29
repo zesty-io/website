@@ -1,10 +1,10 @@
-import { getCookie } from 'cookies-next';
 import { transFormEndpoint } from 'utils';
 
 export const langTransformer = ({
   data = {},
   lang = 'fetch',
   instanceZUID = '',
+  token = '',
 }) => {
   const hasFormData = data?.request?.body?.mode === 'formdata' ? true : false;
   const hasToken = data?.request?.auth?.type === 'bearer' ? true : false;
@@ -20,10 +20,10 @@ export const langTransformer = ({
     },
   ];
 
-  hasToken &&
+  (hasToken || token) &&
     headers.push({
       key: 'Authorization',
-      value: `Bearer ${getCookie('APP_SID') || 'YOUR_API_KEY'}`,
+      value: `Bearer ${token || 'YOUR_API_KEY'}`,
     });
 
   const responseData = data.response ? `${data?.response[0]?.body}` : `{}`;

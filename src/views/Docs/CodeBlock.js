@@ -6,6 +6,7 @@ import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { langTransformer } from './helper';
 import { DocsTabs } from './DocsTabs';
 import { useZestyStore } from 'store';
+import { getCookie } from 'cookies-next';
 
 const tabs = [
   { label: 'Request', value: 'request' },
@@ -13,6 +14,7 @@ const tabs = [
 ];
 
 const Main = ({ title = 'no title', data = {} }) => {
+  const token = getCookie('APP_SID');
   const { language, workingInstance } = useZestyStore((e) => e);
   const [codeBlockData, setcodeBlockData] = React.useState('');
   const [isCopied, setIsCopied] = React.useState(false);
@@ -23,6 +25,7 @@ const Main = ({ title = 'no title', data = {} }) => {
     data,
     lang: language,
     instanceZUID: workingInstance,
+    token,
   });
 
   const copyToClipboard = (text) => {
