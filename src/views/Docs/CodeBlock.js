@@ -7,6 +7,7 @@ import { langTransformer } from './helper';
 import { DocsTabs } from './DocsTabs';
 import { useZestyStore } from 'store';
 import { getCookie } from 'cookies-next';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 const tabs = [
   { label: 'Request', value: 'request' },
@@ -20,12 +21,14 @@ const Main = ({ title = 'no title', data = {} }) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const [currentTab, setcurrentTab] = React.useState('request');
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
+  const isLoggedIn = useIsLoggedIn();
 
   const { request, response } = langTransformer({
     data,
     lang: language,
     instanceZUID: workingInstance,
     token,
+    isLoggedIn,
   });
 
   const copyToClipboard = (text) => {

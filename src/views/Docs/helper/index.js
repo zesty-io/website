@@ -5,6 +5,7 @@ export const langTransformer = ({
   lang = 'fetch',
   instanceZUID = '',
   token = '',
+  isLoggedIn = false,
 }) => {
   const hasFormData = data?.request?.body?.mode === 'formdata' ? true : false;
   const hasToken = data?.request?.auth?.type === 'bearer' ? true : false;
@@ -64,6 +65,7 @@ export const langTransformer = ({
   const { endpoint } = transFormEndpoint({
     url: rawEndpoint,
     instanceZUID,
+    isLoggedIn,
   });
 
   const fetchRequest = `

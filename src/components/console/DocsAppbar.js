@@ -80,6 +80,7 @@ export const DocsAppbar = React.memo(() => {
   const selectInstance = async (instanceZUID) => {
     setCookie('ZESTY_WORKING_INSTANCE', instanceZUID);
     setworkingInstance(instanceZUID);
+    window.location.reload();
   };
 
   const selectContentModel = (id) => {
