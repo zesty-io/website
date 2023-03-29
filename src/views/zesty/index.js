@@ -148,6 +148,7 @@ import LayoutsTestPage from './LayoutsTestPage';
 import LayoutsTestPage2 from './LayoutsTestPage2';
 import Ai from './Ai';
 import Homepagerevamp from './Homepagerevamp';
+import Blogtest from './Blogtest';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -300,6 +301,7 @@ export {
   LayoutsTestPage2,
   Ai,
   Homepagerevamp,
+  Blogtest,
   Footer,
   Header,
 };
