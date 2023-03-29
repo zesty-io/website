@@ -348,7 +348,6 @@ export const transFormEndpoint = ({
   isLoggedIn = false,
   contentModelZUID = '',
 }) => {
-  console.log(contentModelZUID, 44466);
   const appUserZuid = getCookie('APP_USER_ZUID');
   const validateZuid = (arg) => {
     if (arg && isLoggedIn) {
