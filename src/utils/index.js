@@ -346,10 +346,12 @@ export const transFormEndpoint = ({
   url = '',
   instanceZUID = '',
   isLoggedIn = false,
+  contentModelZUID = '',
 }) => {
+  console.log(contentModelZUID, 44466);
   const appUserZuid = getCookie('APP_USER_ZUID');
-  const validateZuid = () => {
-    if (instanceZUID.startsWith('8-') && isLoggedIn) {
+  const validateZuid = (arg) => {
+    if (arg && isLoggedIn) {
       return true;
     } else {
       return false;
@@ -364,10 +366,23 @@ export const transFormEndpoint = ({
     .replaceAll('{{api_version}}', 'v1')
     .replaceAll(
       '{{instance_zuid}}',
-      validateZuid() ? instanceZUID : '8-xxxxxxxxx',
+      validateZuid(instanceZUID.startsWith('8-'))
+        ? instanceZUID
+        : '8-xxxxxxxxx',
     )
     .replaceAll('{{user_zuid}}', appUserZuid)
     .replaceAll('{{link_zuid}}', '7-xxxxxxxxxx')
-    .replaceAll('{{site_zuid}}', validateZuid() ? instanceZUID : '8-xxxxxxxxx');
+    .replaceAll(
+      '{{site_zuid}}',
+      validateZuid(instanceZUID.startsWith('8-'))
+        ? instanceZUID
+        : '8-xxxxxxxxx',
+    )
+    .replaceAll(
+      '{{content_model_zuid}}',
+      validateZuid(contentModelZUID.length !== 0 ? true : false)
+        ? contentModelZUID
+        : '6-xxxxxxxxx',
+    );
   return { endpoint: res };
 };

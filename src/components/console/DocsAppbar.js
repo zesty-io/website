@@ -35,7 +35,23 @@ export const DocsAppbar = React.memo(() => {
     workingInstance,
     language,
     setlanguage,
-  } = useZestyStore();
+    ZestyAPI,
+    contentModels,
+    setcontentModels,
+    contentModel,
+    setcontentModel,
+  } = useZestyStore((e) => ({
+    instances: e.instances,
+    setworkingInstance: e.setworkingInstance,
+    workingInstance: e.workingInstance,
+    language: e.language,
+    setlanguage: e.setlanguage,
+    ZestyAPI: e.ZestyAPI,
+    contentModels: e.contentModels,
+    setcontentModels: e.setcontentModels,
+    contentModel: e.contentModel,
+    setcontentModel: e.setcontentModel,
+  }));
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
   const [currentTab, setcurrentTab] = React.useState(initialTab);
@@ -60,9 +76,13 @@ export const DocsAppbar = React.memo(() => {
     });
     return res;
   };
-  const handleComboBox = (instanceZUID) => {
+  const selectInstance = async (instanceZUID) => {
     setCookie('ZESTY_WORKING_INSTANCE', instanceZUID);
     setworkingInstance(instanceZUID);
+  };
+
+  const selectContentModel = (id) => {
+    setcontentModel(id);
   };
   const handleTabs = (e) => {
     console.log(router?.query.slug);
@@ -72,6 +92,15 @@ export const DocsAppbar = React.memo(() => {
     setcurrentTab(e);
     router.push(url);
   };
+  React.useEffect(async () => {
+    const res = await ZestyAPI.getModels(instanceZUID);
+    if (res.status === 200) {
+      setcontentModels(res.data);
+    } else {
+      setcontentModels([]);
+    }
+  }, [workingInstance]);
+
   return (
     <Stack
       direction={'row'}
@@ -126,10 +155,21 @@ export const DocsAppbar = React.memo(() => {
           />
         </Stack>
 
+        {isLoggedIn && contentModels?.length !== 0 && (
+          <AccountsComboBox
+            instances={contentModels}
+            setCookies={selectContentModel}
+            instanceZUID={contentModel}
+            placeholder={
+              contentModels?.find((e) => e.ZUID === instanceZUID)?.name ||
+              'Select Content Model'
+            }
+          />
+        )}
         {isLoggedIn && (
           <AccountsComboBox
             instances={instances.data}
-            setCookies={handleComboBox}
+            setCookies={selectInstance}
             instanceZUID={instanceZUID}
             placeholder={
               instances?.data?.find((e) => e.ZUID === instanceZUID)?.name
