@@ -45,6 +45,11 @@ export const useZestyStore = create((set) => {
     setprefs: (data) => set(() => ({ prefs: data })),
     usage: {},
     setusage: (data) => set(() => ({ usage: data })),
+    contentModels: [],
+    setcontentModels: (data) => set(() => ({ contentModels: data })),
+
+    contentModel: [],
+    setcontentModel: (data) => set(() => ({ contentModel: data })),
 
     // new user data
     role: '',
