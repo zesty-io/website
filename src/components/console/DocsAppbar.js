@@ -59,6 +59,7 @@ export const DocsAppbar = React.memo(() => {
   const isDarkMode = theme.palette.mode === 'dark';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { mainData } = useZestyStore((state) => state);
+  const isXl = useMediaQuery(theme.breakpoints.up('xl'));
 
   const onChangeDropdown = (data) => {
     window.scrollTo(0, 0);
@@ -117,46 +118,51 @@ export const DocsAppbar = React.memo(() => {
     >
       <Stack pt={1} direction="row" spacing={2}>
         <DocsComboBox
-          width={'30rem'}
+          width={'24.5rem'}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN(mainData)}
         />
 
-        <Breadcrumbs
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '60%',
-          }}
-        >
-          <Link color="GrayText" underline="hover" href="/docs">
-            Docs
-          </Link>
-          <Typography color="GrayText">
-            {currentPath.charAt(0).toUpperCase() +
-              currentPath.slice(1) +
-              ' API'}
-          </Typography>
-        </Breadcrumbs>
+        {isXl && (
+          <Breadcrumbs
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '60%',
+            }}
+          >
+            <Link color="GrayText" underline="hover" href="/docs">
+              Docs
+            </Link>
+            <Typography color="GrayText">
+              {currentPath.charAt(0).toUpperCase() +
+                currentPath.slice(1) +
+                ' API'}
+            </Typography>
+          </Breadcrumbs>
+        )}
 
         <DocsTabs setvalue={handleTabs} value={currentTab} tabs={tabs} />
       </Stack>
 
       <Stack direction={'row'} spacing={2}>
-        <Stack direction={'row'} spacing={1} alignItems="center">
-          <Typography color={'black'}>Language:</Typography>{' '}
-          <DocsPopover
-            value={language}
-            setvalue={setlanguage}
-            items={[
-              { label: 'Javascript', value: 'Javascript' },
-              { label: 'Golang', value: 'Golang' },
-            ]}
-          />
-        </Stack>
+        {isXl && (
+          <Stack direction={'row'} spacing={1} alignItems="center">
+            <Typography color={'black'}>Language:</Typography>{' '}
+            <DocsPopover
+              value={language}
+              setvalue={setlanguage}
+              items={[
+                { label: 'Javascript', value: 'Javascript' },
+                { label: 'Golang', value: 'Golang' },
+              ]}
+            />
+          </Stack>
+        )}
 
         {isLoggedIn && contentModels?.length !== 0 && (
           <AccountsComboBox
+            width={200}
             instances={contentModels}
             setCookies={selectContentModel}
             instanceZUID={contentModel}
@@ -168,6 +174,7 @@ export const DocsAppbar = React.memo(() => {
         )}
         {isLoggedIn && (
           <AccountsComboBox
+            width={240}
             instances={instances.data}
             setCookies={selectInstance}
             instanceZUID={instanceZUID}
@@ -177,7 +184,7 @@ export const DocsAppbar = React.memo(() => {
           />
         )}
 
-        <SearchModal>
+        <SearchModal sx={{ width: 200 }}>
           <AlgoSearch />
         </SearchModal>
       </Stack>
