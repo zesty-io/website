@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Grid, Link, Stack, Typography, useTheme } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import MuiMarkdown from 'markdown-to-jsx';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -181,7 +182,21 @@ const Main = ({ data }) => {
                   </WarningMsg>
                 )}
                 {hasEndpoint && (
-                  <CodeBlocks header="URL Endpoint">{endpoint}</CodeBlocks>
+                  <CodeBlocks
+                    header="URL Endpoint"
+                    endProps={
+                      <Stack
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          navigator?.clipboard?.writeText(endpoint);
+                        }}
+                      >
+                        <ContentCopyIcon />
+                      </Stack>
+                    }
+                  >
+                    {endpoint}
+                  </CodeBlocks>
                 )}
                 {!isLoggedIn && (
                   <WarningMsg>
@@ -215,7 +230,21 @@ const Main = ({ data }) => {
                   } `}
                 </CodeBlocks>
                 {hasBody && (
-                  <CodeBlocks header="Request Body">
+                  <CodeBlocks
+                    header="Request Body"
+                    endProps={
+                      <Stack
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          navigator?.clipboard?.writeText(
+                            e?.request?.body?.raw,
+                          );
+                        }}
+                      >
+                        <ContentCopyIcon />
+                      </Stack>
+                    }
+                  >
                     {e?.request?.body?.raw}
                   </CodeBlocks>
                 )}
