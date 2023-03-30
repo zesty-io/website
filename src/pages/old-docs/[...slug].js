@@ -157,7 +157,7 @@ export default function Docs(props) {
             }}
           >
             <MuiMarkdown
-              inlineCodeColor="dodgerblue"
+              // inlineCodeColor="dodgerblue"
               overrides={muiContentOverrides}
             >
               {markdown}

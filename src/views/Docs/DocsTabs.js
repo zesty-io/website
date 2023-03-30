@@ -24,8 +24,10 @@ export const DocsTabs = React.memo(
             mb: -0.5,
           }}
         >
-          {tabs.map((e) => {
-            return <Tab color="secondary" label={e.label} value={e.value} />;
+          {tabs.map((e, i) => {
+            return (
+              <Tab key={i} color="secondary" label={e.label} value={e.value} />
+            );
           })}
         </Tabs>
       </Stack>

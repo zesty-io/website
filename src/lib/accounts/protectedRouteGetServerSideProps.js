@@ -9,6 +9,9 @@ const POSTMAN_JSON_DATA = [
   // 'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/media-api.json',
 ];
 
+const GitbookDataEndpoint =
+  'https://raw.githubusercontent.com/zesty-io/zesty-docs/main/Gitbook%20Data/gitbook.data.json';
+
 const getMainCollection = async () => {
   const mainCollection = [];
   const getPostmanData = async () => {
@@ -21,6 +24,10 @@ const getMainCollection = async () => {
 
   await getPostmanData();
   return mainCollection;
+};
+
+const getGitbookData = async () => {
+  return await axios.get(GitbookDataEndpoint).then((e) => e.data);
 };
 
 export default async function getServerSideProps({
@@ -38,6 +45,7 @@ export default async function getServerSideProps({
   }
 
   const mainCollections = await getMainCollection();
+  const gitBookData = await getGitbookData();
 
   if (!isAuthenticated && isProtectedRoute(resolvedUrl)) {
     return {
@@ -61,6 +69,7 @@ export default async function getServerSideProps({
       },
       docs: {
         data: mainCollections,
+        gitBookData,
       },
     },
   };
