@@ -104,7 +104,7 @@ const Main = ({ data }) => {
 
   const result =
     Array.isArray(data.item) &&
-    data.item.map((e) => {
+    data.item.map((e, i) => {
       // Get data from postman collection
       const name = e?.name?.replaceAll(' ', '-');
       const hasBody =
@@ -125,7 +125,7 @@ const Main = ({ data }) => {
 
       if (Array.isArray(e.item)) {
         return (
-          <Stack py={4}>
+          <Stack key={i} py={4}>
             <Typography
               sx={{ color: theme.palette.zesty.zestyZambezi }}
               variant="h5"
@@ -136,7 +136,7 @@ const Main = ({ data }) => {
             </Typography>
             <Box sx={{ color: theme.palette.zesty.zestyZambezi }}>
               <MuiMarkdown
-                inlineCodeColor="dodgerblue"
+                // inlineCodeColor="dodgerblue"
                 overrides={muiContentOverrides}
               >
                 {e?.description || ''}
@@ -147,7 +147,14 @@ const Main = ({ data }) => {
         );
       } else {
         return (
-          <Grid container direction="row" minHeight={'50vh'} spacing={4} py={4}>
+          <Grid
+            key={i}
+            container
+            direction="row"
+            minHeight={'50vh'}
+            spacing={4}
+            py={4}
+          >
             <Grid item xs={6} width={1}>
               <Stack
                 sx={{ color: theme.palette.zesty.zestyZambezi }}
