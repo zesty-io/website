@@ -281,7 +281,7 @@ const CodeBlocks = React.memo(
           {endProps && (
             <Stack
               position={'absolute'}
-              sx={{ top: '50%', right: 5, transform: 'translate(0,-50%)' }}
+              sx={{ top: '50%', right: 10, transform: 'translate(0,-50%)' }}
             >
               {endProps}
             </Stack>
