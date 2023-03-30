@@ -6,20 +6,20 @@ import { useTheme } from '@mui/material/styles';
 
 import React from 'react';
 
-const schema =
-  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/schema.png';
-
 const listItems = [
   'Tortor interdum condimentum nunc molestie quam',
   'Tortor interdum condimentum nunc molestie quam',
   'Tortor interdum condimentum nunc molestie quam',
 ];
 
-const TabSchema = ({
+const TabSection = ({
   header = 'Digital Asset Management made easy',
   lists = listItems,
   primaryBtn = 'Start Now',
+  primaryBtnLink = '/demo',
   secondaryBtn = 'Learn More',
+  secondaryBtnLink = '#',
+  image = 'https://storage.googleapis.com/assets.zesty.io/website/images/assets/schema.png',
 }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
@@ -47,7 +47,7 @@ const TabSchema = ({
         <Stack order={isLG ? 2 : 1}>
           <Box
             component="img"
-            src={schema}
+            src={image}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
@@ -106,15 +106,17 @@ const TabSchema = ({
               variant="contained"
               size={isTablet ? 'extraLarge' : 'medium'}
               color="primary"
+              href={primaryBtnLink}
             >
               {primaryBtn}
             </Button>
-            <Button
+            {/* <Button
               variant="outlined"
               size={isTablet ? 'extraLarge' : 'medium'}
+              href={secondaryBtnLink}
             >
               {secondaryBtn}
-            </Button>
+            </Button> */}
           </Stack>
         </Stack>
       </Stack>
@@ -122,4 +124,4 @@ const TabSchema = ({
   );
 };
 
-export default TabSchema;
+export default TabSection;

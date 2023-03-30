@@ -3,23 +3,25 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import React from 'react';
 
 const featureContent =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/featureBPT.jpg',
-  rocketLeague =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/rocketLeagueHero.svg';
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/gisele.jpg',
+  logo =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/experiom.png';
 
 const listItems = [
-  'Tortor interdum condimentum nunc molestie quam',
-  'Tortor interdum condimentum nunc molestie quam',
-  'Tortor interdum condimentum nunc molestie quam',
+  'Live chat support for business customers',
+  'Expert consultation on implementation and architecture',
+  'Data migration and development assistance',
 ];
 
 const FeatureBulletWithTestimonials = ({
-  overline = 'SETUP, EASY-PEASY!',
-  heading = 'Hassle-free setup with APIs that integrate with all frameworks',
-  supportingText = `With Zesty’s Media experience, you can enter file descriptions to be used as alt text as soon as you upload an image. Thus ensuring your images are more accessible.`,
+  overline = 'WHITE GLOVE SUPPORT',
+  heading = 'Expert guidance and migration support for any project',
+  supportingText = `Once you get started, our onboarding experience consists of a 360 degree review by Zesty experts. You can expect a dedicated partner to provide white glove support throughout the entire process. Plus, we offer training to help you get the most out of your investment.`,
   image = featureContent,
-  testimonial = `“Media insights show us what assets are being requested the most and help inform what content we need to focus on and invest in improving”`,
-  testimonialLogo = rocketLeague,
+  testimonial = `“We love Zesty’s top-tier support, easy-to-use interfaces for both business and technical users, and their ability to keep the platform as modern as possible with very little legacy baggage.”
+
+- Tony Cox, Managing Principal at Experiom`,
+  testimonialLogo = logo,
   lists = listItems,
 }) => {
   return (
@@ -87,7 +89,12 @@ const FeatureBulletWithTestimonials = ({
         <Divider sx={{ background: 'grey.100', mb: { xs: 3, lg: 4 } }} />
 
         <Stack spacing={2}>
-          <Typography fontSize="18px" lineHeight="28px" color="text.secondary">
+          <Typography
+            whiteSpace="pre-line"
+            fontSize="18px"
+            lineHeight="28px"
+            color="text.secondary"
+          >
             {testimonial}
           </Typography>
           <img src={testimonialLogo} width="110.44px" height="40px" />

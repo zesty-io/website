@@ -21,11 +21,11 @@ const media =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Ellipse.svg';
 
 const Hero = ({
-  header = 'Digital Asset Management made easy',
-  subtitle = 'Manage and distribute all your assets and understand how they’re performing all from one place.',
-  primaryBtn = 'Start Now for FREE',
-  primaryBtnLink = '#',
-  secondaryBtn = 'Schedule Demo',
+  header = 'Content Management for enterprise of any size',
+  subtitle = 'Create, manage, and deliver content at scale - with a suite of forward thinking features to meet your business needs.',
+  primaryBtn = 'Schedule Demo',
+  primaryBtnLink = '/demo?ab=light',
+  secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '#',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
 }) => {

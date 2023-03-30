@@ -18,11 +18,11 @@ const schemaPic =
 
 const BlackHero = ({
   title = 'Unify your team with',
-  header = 'The future proof CMS for enterprise of any size',
-  subtitle = 'Create, distribute, and optimize content at SCALE with fewer resources in less time with the Zesty Hybrid Headless CMS. ',
-  primaryBtn = 'Start Now',
-  primaryBtnLink = '#',
-  secondaryBtn = 'Contact Sales',
+  header = 'Content Management for enterprise of any size',
+  subtitle = 'Create, manage, and deliver content at scale - with a suite of forward thinking features to meet your business needs.',
+  primaryBtn = 'Schedule Demo',
+  primaryBtnLink = '/demo?ab=dark',
+  secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '#',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
 }) => {
