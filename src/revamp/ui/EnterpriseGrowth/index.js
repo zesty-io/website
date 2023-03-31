@@ -2,19 +2,6 @@ import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
 
 import Marquee from 'react-fast-marquee';
 
-// import alphaUniverse from 'revamp/assets/enterprise/alphaUniverse.jpg';
-// import sonyLogo from 'revamp/assets/enterprise/sonyLogo.svg';
-// import rocketLeague from 'revamp/assets/greyLogos/Rocket League Logo.svg';
-// import singlife from 'revamp/assets/greyLogos/Singlife Logo.svg';
-// import acorns from 'revamp/assets/greyLogos/Acorns Logo.svg';
-// import bjs from 'revamp/assets/greyLogos/BJs Logo.svg';
-// import suns from 'revamp/assets/greyLogos/Suns.svg';
-// import wattpad from 'revamp/assets/greyLogos/Wattpad-logo-vector 1.svg';
-// import cornershop from 'revamp/assets/greyLogos/Logo_de_Cornershop 1.svg';
-// import petdesk from 'revamp/assets/greyLogos/Petdesk.png';
-// import jackpocket from 'revamp/assets/greyLogos/Jackpocket.svg';
-// import sony from 'revamp/assets/greyLogos/Sony Logo.svg';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
@@ -22,7 +9,19 @@ import React from 'react';
 const alphaUniverse =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/alphaUniverse.jpg',
   sonyLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/sonyLogo.svg';
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/sonyLogo.svg',
+  rocketLeague =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/rocketLeaguePic.png',
+  rocketLeagueLogo =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Rocket League Logo.png',
+  singlife =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/singlifePic.png',
+  singlifeLogo =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Singlife Logo.png',
+  acorns =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/acornsPic.png',
+  acornsLogo =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Acorns Logo.png';
 
 const logos = [
   'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Rocket League Logo.svg',
@@ -43,33 +42,39 @@ const caseStudies = [
     logo: sonyLogo,
     description:
       'Sony was able to launch 2.25x faster to market than originally estimated',
+    link: 'https://www.zesty.io/mindshare/customer-stories/sony-uses-zesty-io-to-accelerate-launch-of-alpha-universe/',
   },
   {
-    mainImage: alphaUniverse,
-    logo: sonyLogo,
+    mainImage: rocketLeague,
+    logo: rocketLeagueLogo,
     description:
-      'Sony was able to launch 2.25x faster to market than originally estimated',
+      'Rocket League builds community E-Sports Site, engages millions of users',
+    link: 'https://www.zesty.io/mindshare/customer-stories/rocket-league-launches-e-sports-site-celebrating-players-and-tournaments/',
   },
   {
-    mainImage: alphaUniverse,
-    logo: sonyLogo,
+    mainImage: singlife,
+    logo: singlifeLogo,
     description:
-      'Sony was able to launch 2.25x faster to market than originally estimated',
+      'Insurer Singlife got 69% faster page load times and grew 185% in a year',
+    link: 'https://www.zesty.io/mindshare/customer-stories/digital-insurer-singlife-selects-zesty-io-as-dxp-to-support-global-expansion/',
   },
   {
-    mainImage: alphaUniverse,
-    logo: sonyLogo,
+    mainImage: acorns,
+    logo: acornsLogo,
     description:
-      'Sony was able to launch 2.25x faster to market than originally estimated',
+      'FinTech Acorns distributes content to 5+ channels globally, securely',
+    link: 'https://www.zesty.io/mindshare/customer-stories/fintech-startup-uses-zesty-io-for-h[…]architecture-to-achieve-omnichannel-content-marketing-success/',
   },
 ];
 
 const EnterpriseGrowth = ({
-  overline = 'Unify your team with',
+  overline = 'No more monday morning fires to put out',
   heading = 'Built for enterprise scale and security',
-  supportingText = 'With best-in class security and scaling architecture, our platform can serve millions of users at any second. And we have successfully done so for multiple customers listed below. ',
-  primaryBtn = 'Start Now',
-  secondaryBtn = 'Contact Sales',
+  supportingText = 'With best-in class security and automatically scaling architecture, our platform can serve up to millions of users at any second. Sleep soundly at night knowing Zesty serves an average 1B+ requests per month at 99.999%+ uptime.',
+  primaryBtn = 'Schedule Demo',
+  primaryBtnLink = '/demo',
+  secondaryBtn = 'View Demo Video',
+  secondaryBtnLink = '/demos/video/',
   caseStudiesList = caseStudies,
 }) => {
   const theme = useTheme();
@@ -106,6 +111,7 @@ const EnterpriseGrowth = ({
             fontWeight={600}
             letterSpacing="1px"
             mb="12px"
+            textTransform="uppercase"
           >
             {overline}
           </Typography>
@@ -129,10 +135,10 @@ const EnterpriseGrowth = ({
           </Typography>
         </Stack>
         <Stack direction="row" spacing="12px" mb={{ xs: 6, tablet: 8, lg: 10 }}>
-          <Button variant="contained" size="extraLarge">
+          <Button variant="contained" size="extraLarge" href={primaryBtnLink}>
             {primaryBtn}
           </Button>
-          <Button variant="outlined" size="extraLarge">
+          <Button variant="outlined" size="extraLarge" href={secondaryBtnLink}>
             {secondaryBtn}
           </Button>
         </Stack>
@@ -219,18 +225,23 @@ const EnterpriseGrowth = ({
             <Grid item xs={12} lg={6} key={index}>
               <Stack
                 sx={{ cursor: 'pointer' }}
-                onClick={() => (window.location.href = 'https://google.com')}
+                onClick={() => (window.location.href = c.link)}
               >
                 <Box
                   component="img"
                   width="100%"
                   height="auto"
                   src={c.mainImage}
-                  sx={{
-                    objectFit: 'contain',
-                    marginBottom: '24px',
-                    borderRadius: '6px',
-                  }}
+                  sx={(theme) => ({
+                    [theme.breakpoints.up('xs')]: {
+                      objectFit: 'contain',
+                      marginBottom: '24px',
+                      borderRadius: '6px',
+                    },
+                    [theme.breakpoints.up('lg')]: {
+                      height: '344px',
+                    },
+                  })}
                 />
 
                 <Box
@@ -265,7 +276,7 @@ const EnterpriseGrowth = ({
                   lineHeight="24px"
                   underline="none"
                   alignSelf="start"
-                  href="https://google.com"
+                  href={c.link}
                 >
                   Read Case Study
                 </Link>

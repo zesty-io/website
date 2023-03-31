@@ -1,20 +1,20 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import CloudRoundedIcon from '@mui/icons-material/CloudRounded';
 import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
-import ApiRoundedIcon from '@mui/icons-material/ApiRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import LockRoundedIcon from '@mui/icons-material/LockRounded';
+import HubRoundedIcon from '@mui/icons-material/HubRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 const contentStats =
-  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/contentStats.svg';
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/G2 Zesty Rating.svg';
 
 const statsArray = [
   {
-    title: '2.5X',
-    subtitle: 'Faster deployments with collaborative tools.',
-    icon: <CloudRoundedIcon color="primary" />,
+    title: '12 Billion+',
+    subtitle: 'Requests served per month helping you scale easily',
+    icon: <HubRoundedIcon color="primary" />,
   },
   {
     title: '99.99%',
@@ -22,14 +22,14 @@ const statsArray = [
     icon: <CodeRoundedIcon color="primary" />,
   },
   {
-    title: '7+',
-    subtitle: 'Endpoint formats and APIs to deliver content.',
-    icon: <ApiRoundedIcon color="primary" />,
+    title: '365 Million +',
+    subtitle: 'Malicious attacks deflected every year keeping your site secure',
+    icon: <LockRoundedIcon color="primary" />,
   },
   {
-    title: '15X',
+    title: '2.5X ',
     subtitle: 'Faster content production with our AI tool.',
-    icon: <EditRoundedIcon color="primary" />,
+    icon: <CloudRoundedIcon color="primary" />,
   },
 ];
 
@@ -168,7 +168,12 @@ const Stats = ({
             {statsArray.map((stat) => {
               return (
                 <Grid item xs={12} tablet={6}>
-                  <Stack alignItems="center" direction="row" columnGap={3}>
+                  <Stack
+                    alignItems="center"
+                    direction="row"
+                    height="100%"
+                    columnGap={3}
+                  >
                     <Stack
                       display="flex"
                       alignItems="center"
@@ -181,7 +186,7 @@ const Stats = ({
                     </Stack>
                     <Stack>
                       <Typography
-                        variant="h4"
+                        variant="h3"
                         fontWeight={600}
                         mb="4px"
                         sx={(theme) => ({

@@ -9,7 +9,7 @@ import {
 import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import React from 'react';
 
-const authorImage =
+const image =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/zosh.svg',
   articleFrame =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/articleFrame.jpg';
@@ -18,8 +18,9 @@ const BlogHero = ({
   overline = 'PRODUCT ANNOUNCMENT',
   heading = 'Announcing the New Zesty Media App Experience',
   author = 'Zoshua Colah',
-  image = authorImage,
+  authorImage = image,
   supportingText = 'October 20, 2021',
+  articleImage = articleFrame,
 }) => {
   return (
     <Stack>
@@ -72,7 +73,10 @@ const BlogHero = ({
           {heading}
         </Typography>
         <Stack direction="row" alignItems="center">
-          <Avatar src={image} sx={{ width: 48, height: 48, mr: '12px' }} />
+          <Avatar
+            src={authorImage}
+            sx={{ width: 48, height: 48, mr: '12px' }}
+          />
           <Stack>
             <Typography variant="body2" fontWeight={500} color="text.primary">
               {author}
@@ -93,7 +97,7 @@ const BlogHero = ({
       </Stack>
       <Box
         component="img"
-        src={articleFrame}
+        src={articleImage}
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
             objectFit: 'contain',
