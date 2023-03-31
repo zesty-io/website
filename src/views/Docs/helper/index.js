@@ -13,11 +13,6 @@ export const langTransformer = ({
     data?.request?.body?.mode === 'raw' && data?.request?.body?.raw
       ? true
       : false;
-  const hasBody =
-    data?.request?.body?.mode === 'raw' && data?.request?.body?.raw
-      ? true
-      : false;
-
   const headers = [
     {
       key: 'Content-Type',
