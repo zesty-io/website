@@ -1,10 +1,11 @@
-import { getCookie } from 'cookies-next';
 import { transFormEndpoint } from 'utils';
 
 export const langTransformer = ({
   data = {},
   lang = 'fetch',
   instanceZUID = '',
+  token = '',
+  isLoggedIn = false,
 }) => {
   const hasFormData = data?.request?.body?.mode === 'formdata' ? true : false;
   const hasToken = data?.request?.auth?.type === 'bearer' ? true : false;
@@ -12,7 +13,6 @@ export const langTransformer = ({
     data?.request?.body?.mode === 'raw' && data?.request?.body?.raw
       ? true
       : false;
-
   const headers = [
     {
       key: 'Content-Type',
@@ -20,10 +20,10 @@ export const langTransformer = ({
     },
   ];
 
-  hasToken &&
+  (hasToken || token) &&
     headers.push({
       key: 'Authorization',
-      value: `Bearer ${getCookie('APP_SID') || 'YOUR_API_KEY'}`,
+      value: `Bearer ${token || 'YOUR_API_KEY'}`,
     });
 
   const responseData = data.response ? `${data?.response[0]?.body}` : `{}`;
@@ -64,6 +64,7 @@ export const langTransformer = ({
   const { endpoint } = transFormEndpoint({
     url: rawEndpoint,
     instanceZUID,
+    isLoggedIn,
   });
 
   const fetchRequest = `
@@ -102,6 +103,9 @@ import (
 func main() {
 	client := &http.Client{}
   ${getGobody}
+	req, err := http.NewRequest('${data.request.method}', '${endpoint}' ${
+    hasBody ? ',data' : 'nil'
+  })
 	req, err := http.NewRequest('${data.request.method}', '${endpoint}' ${
     hasBody ? ',data' : 'nil'
   })

@@ -33,145 +33,164 @@
 /**
  * MUI Imports
  */
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+// import { useTheme } from '@mui/material/styles';
+// import useMediaQuery from '@mui/material/useMediaQuery';
 
 /**
  * Components Imports
  */
 // import Hero from 'components/marketing/Homepage/Hero';
-import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
-import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
-import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
-import Growth from 'blocks/zesty/Growth/Growth';
-import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
-import LogoSlider from 'blocks/zesty/Slider/LogoSlider';
-import Bottom from 'blocks/zesty/Bottom/Bottom';
+// import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
+// import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
+// import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
+// import Growth from 'blocks/zesty/Growth/Growth';
+// import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
+// import LogoSlider from 'blocks/zesty/Slider/LogoSlider';
+// import Bottom from 'blocks/zesty/Bottom/Bottom';
 import { AccountPageloading } from 'components/accounts/ui/loading';
 
 // Helpers Imports
-import FillerContent from 'components/globals/FillerContent';
-import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
-import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
+// import FillerContent from 'components/globals/FillerContent';
+// import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
+// import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
 import Dashboard from 'components/accounts/dashboard';
-import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
-import AOS from 'aos';
-import { useEffect } from 'react';
+// import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
+// import AOS from 'aos';
+// import { useEffect } from 'react';
 import { useZestyStore } from 'store';
+import revampTheme from 'theme/revampTheme';
+import { ThemeProvider } from '@mui/material';
+import Hero from 'revamp/ui/Hero';
+import TabsSection from 'revamp/ui/TabsSection';
+import GridFeature from 'revamp/ui/GridFeature';
+import SingleTestimonial from 'revamp/ui/SingleTestimonial';
+import Stats from 'revamp/ui/Stats';
+import EnterpriseGrowth from 'revamp/ui/EnterpriseGrowth';
+import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonials';
+import BlackHero from 'revamp/ui/BlackHero';
+import { useEffect, useState } from 'react';
+import SecurityFeature from 'revamp/ui/SecurityFeature';
 
 function Homepage({ content }) {
   const { loading } = useZestyStore();
-  const theme = useTheme();
-  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
-
-  const testimonialsData = {
-    title: content.testimonials_content,
-    data: content.testimonials?.data,
-  };
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
-    AOS.init({
-      disable: isMedium,
-    });
-  }, [isMedium]);
+    if (new Date().getTime() % 2 === 0) setIsDark(false);
+    else setIsDark(true);
+  }, []);
 
-  const getData = (dataArray) => {
-    return (
-      dataArray?.data?.reduce((acc, item) => {
-        acc.push({
-          icon_image: item.graphic?.data[0].url,
-          title: item.product_name,
-          content: item.product_description,
-          url: item.link?.data[0]?.meta?.web?.uri || FillerContent.href,
-        });
+  // const theme = useTheme();
+  // const isMedium = useMediaQuery(theme.breakpoints.down('md'));
 
-        return acc;
-      }, []) || []
-    );
-  };
+  // const testimonialsData = {
+  //   title: content.testimonials_content,
+  //   data: content.testimonials?.data,
+  // };
 
-  const heroProps = {
-    mainTitle: content.header_title_main,
-    title: content.header_title_and_description || FillerContent.header,
-    image:
-      (content.header_graphic?.data && content.header_graphic?.data[0]?.url) ||
-      FillerContent.image,
-    cta_left: content.hero_button_left || FillerContent.cta,
-    cta_right: content.hero_button_right || FillerContent.cta,
-    cta_left_url:
-      (content.hero_button_left_link?.data &&
-        content.hero_button_left_link?.data[0]?.meta?.web?.url) ||
-      FillerContent.href,
-    cta_right_url:
-      (content.hero_button_right_link.data &&
-        content.hero_button_right_link?.data[0]?.meta?.web?.url) ||
-      FillerContent.href,
-    dataTestId: 'homePageHero',
-  };
+  // useEffect(() => {
+  //   AOS.init({
+  //     disable: isMedium,
+  //   });
+  // }, [isMedium]);
 
-  const digitalExperienceProps = {
-    title: content.product_title_and_description,
-    data: getData(content.product_options),
-    itemTitleColor: theme.palette.zesty.zestyOrange,
-    imageWidth: 294,
-    imageHeight: 179,
-  };
+  // const getData = (dataArray) => {
+  //   return (
+  //     dataArray?.data?.reduce((acc, item) => {
+  //       acc.push({
+  //         icon_image: item.graphic?.data[0].url,
+  //         title: item.product_name,
+  //         content: item.product_description,
+  //         url: item.link?.data[0]?.meta?.web?.uri || FillerContent.href,
+  //       });
 
-  const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
-    (item) => {
-      return {
-        header: item.header,
-        content: item.benefit_content,
-        image: item.benefit_image?.data[0]?.url,
-      };
-    },
-  );
+  //       return acc;
+  //     }, []) || []
+  //   );
+  // };
 
-  const growthData = {
-    background: content?.growth_background?.data[0]?.url || '',
-    titleAndDescription:
-      content.growth_title_and_description || FillerContent.rich_text,
-    cards: content?.growth_cards?.data,
-  };
+  // const heroProps = {
+  //   mainTitle: content.header_title_main,
+  //   title: content.header_title_and_description || FillerContent.header,
+  //   image:
+  //     (content.header_graphic?.data && content.header_graphic?.data[0]?.url) ||
+  //     FillerContent.image,
+  //   cta_left: content.hero_button_left || FillerContent.cta,
+  //   cta_right: content.hero_button_right || FillerContent.cta,
+  //   cta_left_url:
+  //     (content.hero_button_left_link?.data &&
+  //       content.hero_button_left_link?.data[0]?.meta?.web?.url) ||
+  //     FillerContent.href,
+  //   cta_right_url:
+  //     (content.hero_button_right_link.data &&
+  //       content.hero_button_right_link?.data[0]?.meta?.web?.url) ||
+  //     FillerContent.href,
+  //   dataTestId: 'homePageHero',
+  // };
 
-  const statsData = [
-    {
-      stats: content.case_study_card_1 || FillerContent.description,
-    },
-    {
-      stats: content.case_study_card_2 || FillerContent.description,
-    },
-    {
-      stats: content.case_study_card_3 || FillerContent.description,
-    },
-  ];
+  // const digitalExperienceProps = {
+  //   title: content.product_title_and_description,
+  //   data: getData(content.product_options),
+  //   itemTitleColor: theme.palette.zesty.zestyOrange,
+  //   imageWidth: 294,
+  //   imageHeight: 179,
+  // };
 
-  const caseStudiesProps = {
-    header: content.case_studies_eyebrow,
-    description: content.case_studies_header,
-    statsData: statsData,
-    g2BadgesData: content.g2_badges?.data,
-    caseStudiesData: content.case_study_cards?.data,
-  };
+  // const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
+  //   (item) => {
+  //     return {
+  //       header: item.header,
+  //       content: item.benefit_content,
+  //       image: item.benefit_image?.data[0]?.url,
+  //     };
+  //   },
+  // );
 
-  const logoSliderData = {
-    titleAndDescription: content?.integration_title_and_description,
-    integrations_logos: content?.integrations_logos?.data,
-    integrations_logos_2: content?.integrations_logos_2?.data,
-    cta_text: content.marketplace_cta_text,
-    integrationsBackground: content.integrations_background?.data[0]?.url,
-  };
+  // const growthData = {
+  //   background: content?.growth_background?.data[0]?.url || '',
+  //   titleAndDescription:
+  //     content.growth_title_and_description || FillerContent.rich_text,
+  //   cards: content?.growth_cards?.data,
+  // };
 
-  const bottomData = {
-    graphic: content?.bottom_cta_graphic?.data[0]?.url || '',
-    titleAndDescription:
-      content.bottom_cta_title_and_description || FillerContent.rich_text,
-    cta_text: content.footer_button_text_1 || FillerContent.cta,
-    secondary_cta_text: content.footer_button_text_2 || FillerContent.cta,
-    secondary_cta_link:
-      content.footer_button_link_2?.data[0]?.meta?.web?.uri ||
-      FillerContent.href,
-  };
+  // const statsData = [
+  //   {
+  //     stats: content.case_study_card_1 || FillerContent.description,
+  //   },
+  //   {
+  //     stats: content.case_study_card_2 || FillerContent.description,
+  //   },
+  //   {
+  //     stats: content.case_study_card_3 || FillerContent.description,
+  //   },
+  // ];
+
+  // const caseStudiesProps = {
+  //   header: content.case_studies_eyebrow,
+  //   description: content.case_studies_header,
+  //   statsData: statsData,
+  //   g2BadgesData: content.g2_badges?.data,
+  //   caseStudiesData: content.case_study_cards?.data,
+  // };
+
+  // const logoSliderData = {
+  //   titleAndDescription: content?.integration_title_and_description,
+  //   integrations_logos: content?.integrations_logos?.data,
+  //   integrations_logos_2: content?.integrations_logos_2?.data,
+  //   cta_text: content.marketplace_cta_text,
+  //   integrationsBackground: content.integrations_background?.data[0]?.url,
+  // };
+
+  // const bottomData = {
+  //   graphic: content?.bottom_cta_graphic?.data[0]?.url || '',
+  //   titleAndDescription:
+  //     content.bottom_cta_title_and_description || FillerContent.rich_text,
+  //   cta_text: content.footer_button_text_1 || FillerContent.cta,
+  //   secondary_cta_text: content.footer_button_text_2 || FillerContent.cta,
+  //   secondary_cta_link:
+  //     content.footer_button_link_2?.data[0]?.meta?.web?.uri ||
+  //     FillerContent.href,
+  // };
 
   if (loading) {
     return <AccountPageloading title={'Zesty.io'} />;
@@ -183,7 +202,7 @@ function Homepage({ content }) {
 
   return (
     <>
-      <SimpleHeroWithImageAndCtaButtons {...heroProps} />
+      {/* <SimpleHeroWithImageAndCtaButtons {...heroProps} />
       <SimpleCardLogo
         variant="outlined"
         heading_text={content?.logo_heading}
@@ -209,7 +228,17 @@ function Homepage({ content }) {
       <CaseStudyCards {...caseStudiesProps} />
       <WithHighlightedCard {...testimonialsData} />
       <LogoSlider {...logoSliderData} />
-      <Bottom {...bottomData} />
+      <Bottom {...bottomData} /> */}
+      <ThemeProvider theme={() => revampTheme('light')}>
+        {!isDark ? <Hero /> : <BlackHero />}
+        <TabsSection />
+        <GridFeature />
+        <SingleTestimonial />
+        <Stats />
+        <SecurityFeature />
+        <EnterpriseGrowth />
+        <FeatureBulletWithTestimonials />
+      </ThemeProvider>
     </>
   );
 }

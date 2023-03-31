@@ -95,6 +95,7 @@ const Main = ({ data }) => {
   const isLoggedIn = useIsLoggedIn();
   const isDarkMode = theme.palette.mode === 'dark';
   const workingInstance = useZestyStore((e) => e.workingInstance);
+  const contentModel = useZestyStore((e) => e.contentModel);
   const [showToken, setshowToken] = React.useState(false);
   const { ref, inView } = useInView({
     threshold: 0,
@@ -115,6 +116,7 @@ const Main = ({ data }) => {
       const { endpoint } = transFormEndpoint({
         url: rawEndpoint,
         instanceZUID: workingInstance,
+        contentModelZUID: contentModel,
         isLoggedIn,
       });
       const desc = e?.request?.description;
@@ -169,6 +171,15 @@ const Main = ({ data }) => {
                 </ReactMarkdown>
               </Stack>
 
+              {!isLoggedIn && (
+                <WarningMsg>
+                  <Typography variant="button" color={'gray'}>
+                    Please <Link href="/login">sign in</Link> to view your
+                    instance’s unique identifier
+                  </Typography>
+                </WarningMsg>
+              )}
+
               <Stack py={2}>
                 {!isLoggedIn && (
                   <WarningMsg>
@@ -180,6 +191,14 @@ const Main = ({ data }) => {
                 )}
                 {hasEndpoint && (
                   <CodeBlocks header="URL Endpoint">{endpoint}</CodeBlocks>
+                )}
+                {!isLoggedIn && (
+                  <WarningMsg>
+                    <Typography variant="button" color={'gray'}>
+                      Please <Link href="/login">sign in</Link> to view your
+                      token
+                    </Typography>
+                  </WarningMsg>
                 )}
                 {!isLoggedIn && (
                   <WarningMsg>
@@ -271,6 +290,7 @@ const CodeBlocks = React.memo(
             customStyle={{
               fontSize: '13px',
               fontWeight: 400,
+              padding: '20px 10px 20px 10px',
               padding: '20px 10px 20px 10px',
             }}
           >
