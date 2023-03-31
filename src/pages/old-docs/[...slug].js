@@ -103,7 +103,6 @@ export default function Docs(props) {
   const imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/;
   const image = replaceImages(props.markdown)?.match(imageRegex);
   const ogimage = image ? image[0] : zestyImage;
-  const partials = /\{%|%\}/g;
 
   // replace image references to work without gitbook
   let markdown = replaceImages(props.markdown);

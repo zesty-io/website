@@ -25,6 +25,7 @@ import { useRouterCheck } from 'utils';
 import { DocsAppbar } from 'components/console/DocsAppbar';
 
 const Main = ({
+  docsLanding = false,
   children,
   customRouting,
   nav = [],
@@ -206,7 +207,7 @@ const Main = ({
           )}
         </Container>
 
-        {isDocsPage && <DocsAppbar />}
+        {isDocsPage && !docsLanding && <DocsAppbar />}
       </AppBar>
       <Sidebar
         onClose={handleSidebarClose}

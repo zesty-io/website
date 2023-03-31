@@ -1,4 +1,11 @@
-import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Breadcrumbs,
+  Link,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { AccountsComboBox } from 'components/accounts';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -21,13 +28,30 @@ const tabs = [
 export const DocsAppbar = React.memo(() => {
   const router = useRouter();
   const initialTab = router.asPath.split('/').filter((e) => e)[2];
+  const currentPath = router.asPath.split('/').filter((e) => e)[1];
   const {
     instances,
     setworkingInstance,
     workingInstance,
     language,
     setlanguage,
-  } = useZestyStore();
+    ZestyAPI,
+    contentModels,
+    setcontentModels,
+    contentModel,
+    setcontentModel,
+  } = useZestyStore((e) => ({
+    instances: e.instances,
+    setworkingInstance: e.setworkingInstance,
+    workingInstance: e.workingInstance,
+    language: e.language,
+    setlanguage: e.setlanguage,
+    ZestyAPI: e.ZestyAPI,
+    contentModels: e.contentModels,
+    setcontentModels: e.setcontentModels,
+    contentModel: e.contentModel,
+    setcontentModel: e.setcontentModel,
+  }));
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
   const [currentTab, setcurrentTab] = React.useState(initialTab);
@@ -35,6 +59,7 @@ export const DocsAppbar = React.memo(() => {
   const isDarkMode = theme.palette.mode === 'dark';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { mainData } = useZestyStore((state) => state);
+  const isXl = useMediaQuery(theme.breakpoints.up('xl'));
 
   const onChangeDropdown = (data) => {
     window.scrollTo(0, 0);
@@ -52,9 +77,14 @@ export const DocsAppbar = React.memo(() => {
     });
     return res;
   };
-  const handleComboBox = (instanceZUID) => {
+  const selectInstance = async (instanceZUID) => {
     setCookie('ZESTY_WORKING_INSTANCE', instanceZUID);
     setworkingInstance(instanceZUID);
+    window.location.reload();
+  };
+
+  const selectContentModel = (id) => {
+    setcontentModel(id);
   };
   const handleTabs = (e) => {
     console.log(router?.query.slug);
@@ -64,6 +94,15 @@ export const DocsAppbar = React.memo(() => {
     setcurrentTab(e);
     router.push(url);
   };
+  React.useEffect(async () => {
+    const res = await ZestyAPI.getModels(instanceZUID);
+    if (res.status === 200) {
+      setcontentModels(res.data);
+    } else {
+      setcontentModels([]);
+    }
+  }, [workingInstance]);
+
   return (
     <Stack
       direction={'row'}
@@ -80,18 +119,65 @@ export const DocsAppbar = React.memo(() => {
     >
       <Stack pt={1} direction="row" spacing={2}>
         <DocsComboBox
-          width={'20rem'}
+          width={'24.5rem'}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN(mainData)}
         />
+
+        {isXl && (
+          <Breadcrumbs
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '60%',
+            }}
+          >
+            <Link color="GrayText" underline="hover" href="/docs">
+              Docs
+            </Link>
+            <Typography color="GrayText">
+              {currentPath.charAt(0).toUpperCase() +
+                currentPath.slice(1) +
+                ' API'}
+            </Typography>
+          </Breadcrumbs>
+        )}
+
         <DocsTabs setvalue={handleTabs} value={currentTab} tabs={tabs} />
       </Stack>
 
       <Stack direction={'row'} spacing={2}>
+        {isXl && (
+          <Stack direction={'row'} spacing={1} alignItems="center">
+            <Typography color={'black'}>Language:</Typography>{' '}
+            <DocsPopover
+              value={language}
+              setvalue={setlanguage}
+              items={[
+                { label: 'Javascript', value: 'Javascript' },
+                { label: 'Golang', value: 'Golang' },
+              ]}
+            />
+          </Stack>
+        )}
+
+        {isLoggedIn && contentModels?.length !== 0 && (
+          <AccountsComboBox
+            width={200}
+            instances={contentModels}
+            setCookies={selectContentModel}
+            instanceZUID={contentModel}
+            placeholder={
+              contentModels?.find((e) => e.ZUID === instanceZUID)?.name ||
+              'Select Content Model'
+            }
+          />
+        )}
         {isLoggedIn && (
           <AccountsComboBox
+            width={240}
             instances={instances.data}
-            setCookies={handleComboBox}
+            setCookies={selectInstance}
             instanceZUID={instanceZUID}
             placeholder={
               instances?.data?.find((e) => e.ZUID === instanceZUID)?.name
@@ -99,19 +185,7 @@ export const DocsAppbar = React.memo(() => {
           />
         )}
 
-        <Stack direction={'row'} spacing={1} alignItems="center">
-          <Typography color={'black'}>Language:</Typography>{' '}
-          <DocsPopover
-            value={language}
-            setvalue={setlanguage}
-            items={[
-              { label: 'Javascript', value: 'Javascript' },
-              { label: 'Golang', value: 'Golang' },
-            ]}
-          />
-        </Stack>
-
-        <SearchModal>
+        <SearchModal sx={{ width: 200 }}>
           <AlgoSearch />
         </SearchModal>
       </Stack>

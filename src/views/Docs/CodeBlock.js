@@ -6,6 +6,8 @@ import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { langTransformer } from './helper';
 import { DocsTabs } from './DocsTabs';
 import { useZestyStore } from 'store';
+import { getCookie } from 'cookies-next';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 const tabs = [
   { label: 'Request', value: 'request' },
@@ -13,15 +15,20 @@ const tabs = [
 ];
 
 const Main = ({ title = 'no title', data = {} }) => {
-  const { language } = useZestyStore((e) => e);
+  const token = getCookie('APP_SID');
+  const { language, workingInstance } = useZestyStore((e) => e);
   const [codeBlockData, setcodeBlockData] = React.useState('');
   const [isCopied, setIsCopied] = React.useState(false);
   const [currentTab, setcurrentTab] = React.useState('request');
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
+  const isLoggedIn = useIsLoggedIn();
 
   const { request, response } = langTransformer({
     data,
     lang: language,
+    instanceZUID: workingInstance,
+    token,
+    isLoggedIn,
   });
 
   const copyToClipboard = (text) => {

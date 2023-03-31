@@ -46,11 +46,18 @@ const revampTheme = (mode, themeToggler) => {
               lineHeight: '20px',
               fontWeight: '400',
               borderRadius: '8px',
+              '& svg': {
+                color: theme.palette.action.active,
+              },
               '&:hover': {
                 backgroundColor: theme.palette.grey[100],
               },
               '&.Mui-selected': {
                 backgroundColor: theme.palette.deepOrange[50],
+                color: theme.palette.primary.main,
+                '& svg': {
+                  color: theme.palette.primary.main,
+                },
               },
             },
           },

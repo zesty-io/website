@@ -139,7 +139,7 @@ const cardLists = [
 const GridFeature = ({
   overline = 'SETUP, EASY-PEASY!',
   heading = 'Hassle-free setup with APIs that integrate with all frameworks',
-  supportingText = `With Zesty you’re not constrained to using one kind of API. You can use any of our APIs (GraphQL, REST, GET, and Instant JSON) with any framework of your choice. And they all come with web-hooks and site generators. Check them out in our `,
+  supportingText = ``,
   featureLists = cardLists,
 }) => {
   const theme = useTheme();
@@ -196,10 +196,20 @@ const GridFeature = ({
           {heading}
         </Typography>
         <Typography color="text.secondary" fontSize="18px" lineHeight="28px">
-          {supportingText}{' '}
-          <Link href="#" color="info.main" underline="none">
-            documentation
-          </Link>
+          {supportingText === '' ? (
+            [
+              `With Zesty you’re not constrained to using one kind of API. You can use any of our APIs (GraphQL, REST, GET, and Instant JSON) with any framework of your choice. And they all come with web-hooks and site generators. Check them out in our `,
+              <Link
+                href="https://zesty.org/apis/api-overview"
+                color="info.main"
+                underline="none"
+              >
+                documentation
+              </Link>,
+            ]
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: supportingText }} />
+          )}
         </Typography>
       </Stack>
       <Grid container columnSpacing={4} rowSpacing={isTablet ? 6 : 3} mb={6}>
@@ -218,14 +228,14 @@ const GridFeature = ({
               <Typography color="text.secondary">
                 {feature.description}
               </Typography>
-              <Button
+              {/* <Button
                 size="large"
                 color="primary"
                 variant="outlined"
                 sx={{ textTransform: 'none', alignSelf: 'start', mt: 'auto' }}
               >
                 Start Building
-              </Button>
+              </Button> */}
             </Stack>
           </Grid>
         ))}

@@ -97,7 +97,7 @@ export const AccountsAppbar = ({ colorInvert = false }) => {
     <Box
       width={1}
       sx={{
-        bgcolor: '#fff',
+        bgcolor: 'transparent',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: isMobile ? 'left' : 'center',
