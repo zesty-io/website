@@ -26,7 +26,7 @@ const Hero = ({
   primaryBtn = 'Schedule Demo',
   primaryBtnLink = '/demo?ab=light',
   secondaryBtn = 'Watch Demo Video',
-  secondaryBtnLink = '/demos/video/',
+  secondaryBtnLink = '/demos/video?ab=light',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
 }) => {
   const theme = useTheme();

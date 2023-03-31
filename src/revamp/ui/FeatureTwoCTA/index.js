@@ -63,7 +63,7 @@ const FeatureTwoCTA = ({
           mb={4}
         >
           {supportingText}{' '}
-          <Link href="#" color="info.main" underline="none">
+          <Link href="/docs" color="info.main" underline="none">
             documentation
           </Link>
         </Typography>
