@@ -6,6 +6,14 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import {
+  Breadcrumbs,
+  Link,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { AccountsComboBox } from 'components/accounts';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -28,6 +36,7 @@ const tabs = [
 export const DocsAppbar = React.memo(() => {
   const router = useRouter();
   const initialTab = router.asPath.split('/').filter((e) => e)[2];
+  const currentPath = router.asPath.split('/').filter((e) => e)[1];
   const currentPath = router.asPath.split('/').filter((e) => e)[1];
   const {
     instances,

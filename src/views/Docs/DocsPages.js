@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Grid, Link, Stack, Typography, useTheme } from '@mui/material';
 import MuiMarkdown from 'markdown-to-jsx';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import remarkGfm from 'remark-gfm';
@@ -12,6 +13,9 @@ import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import { getCookie } from 'cookies-next';
+import { transFormEndpoint } from 'utils';
+import { useZestyStore } from 'store';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { transFormEndpoint } from 'utils';
 import { useZestyStore } from 'store';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -93,6 +97,7 @@ const iconMethod = (method) => {
 const Main = ({ data }) => {
   const theme = useTheme();
   const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = useIsLoggedIn();
   const isDarkMode = theme.palette.mode === 'dark';
   const workingInstance = useZestyStore((e) => e.workingInstance);
   const contentModel = useZestyStore((e) => e.contentModel);
@@ -106,6 +111,10 @@ const Main = ({ data }) => {
     data.item.map((e) => {
       // Get data from postman collection
       const name = e?.name?.replaceAll(' ', '-');
+      const hasBody =
+        e?.request?.body?.mode === 'raw' && e?.request?.body?.raw
+          ? true
+          : false;
       const hasBody =
         e?.request?.body?.mode === 'raw' && e?.request?.body?.raw
           ? true
@@ -147,6 +156,7 @@ const Main = ({ data }) => {
       } else {
         return (
           <Grid container direction="row" minHeight={'50vh'} spacing={4} py={4}>
+          <Grid container direction="row" minHeight={'50vh'} spacing={4} py={4}>
             <Grid item xs={6} width={1}>
               <Stack
                 sx={{ color: theme.palette.zesty.zestyZambezi }}
@@ -180,8 +190,26 @@ const Main = ({ data }) => {
                     </Typography>
                   </WarningMsg>
                 )}
+
+              <Stack py={2}>
+                {!isLoggedIn && (
+                  <WarningMsg>
+                    <Typography variant="button" color={'gray'}>
+                      Please <Link href="/login">sign in</Link> to view your
+                      instance’s unique identifier
+                    </Typography>
+                  </WarningMsg>
+                )}
                 {hasEndpoint && (
                   <CodeBlocks header="URL Endpoint">{endpoint}</CodeBlocks>
+                )}
+                {!isLoggedIn && (
+                  <WarningMsg>
+                    <Typography variant="button" color={'gray'}>
+                      Please <Link href="/login">sign in</Link> to view your
+                      token
+                    </Typography>
+                  </WarningMsg>
                 )}
                 {!isLoggedIn && (
                   <WarningMsg>
@@ -207,6 +235,7 @@ const Main = ({ data }) => {
                   }
                 >
                   {`Bearer ${
+                    showToken && token && isLoggedIn
                     showToken && token && isLoggedIn
                       ? getCookie('APP_SID')
                       : !showToken && token
@@ -274,6 +303,7 @@ const CodeBlocks = React.memo(
               fontSize: '13px',
               fontWeight: 400,
               padding: '20px 10px 20px 10px',
+              padding: '20px 10px 20px 10px',
             }}
           >
             {children}
@@ -293,6 +323,21 @@ const CodeBlocks = React.memo(
 );
 
 // create a function that return largest sum
+
+const WarningMsg = ({
+  children = (
+    <Typography variant="button" color={'gray'}>
+      Please <Link href="/login">sign in</Link> to view your token
+    </Typography>
+  ),
+}) => {
+  return (
+    <Stack width={1} bgcolor="#FDF0D5" p={1} direction="row" spacing={1}>
+      <WarningAmberIcon color="warning" />
+      {children}
+    </Stack>
+  );
+};
 
 const WarningMsg = ({
   children = (

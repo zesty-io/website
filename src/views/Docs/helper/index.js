@@ -13,6 +13,10 @@ export const langTransformer = ({
     data?.request?.body?.mode === 'raw' && data?.request?.body?.raw
       ? true
       : false;
+  const hasBody =
+    data?.request?.body?.mode === 'raw' && data?.request?.body?.raw
+      ? true
+      : false;
 
   const headers = [
     {
@@ -104,6 +108,9 @@ import (
 func main() {
 	client := &http.Client{}
   ${getGobody}
+	req, err := http.NewRequest('${data.request.method}', '${endpoint}' ${
+    hasBody ? ',data' : 'nil'
+  })
 	req, err := http.NewRequest('${data.request.method}', '${endpoint}' ${
     hasBody ? ',data' : 'nil'
   })
