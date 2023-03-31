@@ -57,6 +57,7 @@ function Blogtest({ content }) {
           heading={content.heading}
           overline={content.overline}
           supportingText={content.supporting_text}
+          articleImage={content.article_image?.data?.[0]?.url}
         />
         <Stack
           sx={(theme) => ({
