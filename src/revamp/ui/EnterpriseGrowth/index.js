@@ -63,7 +63,7 @@ const caseStudies = [
     logo: acornsLogo,
     description:
       'FinTech Acorns distributes content to 5+ channels globally, securely',
-    link: 'https://www.zesty.io/mindshare/customer-stories/fintech-startup-uses-zesty-io-for-h[…]architecture-to-achieve-omnichannel-content-marketing-success/',
+    link: 'https://www.zesty.io/mindshare/customer-stories/fintech-startup-uses-zesty-io-for-headless-architecture-to-achieve-omnichannel-content-marketing-success/',
   },
 ];
 
