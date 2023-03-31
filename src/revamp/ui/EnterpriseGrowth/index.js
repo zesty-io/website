@@ -68,13 +68,13 @@ const caseStudies = [
 ];
 
 const EnterpriseGrowth = ({
-  overline = 'Unify your team with',
+  overline = 'No more monday morning fires to put out',
   heading = 'Built for enterprise scale and security',
   supportingText = 'With best-in class security and automatically scaling architecture, our platform can serve up to millions of users at any second. Sleep soundly at night knowing Zesty serves an average 1B+ requests per month at 99.999%+ uptime.',
   primaryBtn = 'Schedule Demo',
   primaryBtnLink = '/demo',
   secondaryBtn = 'View Demo Video',
-  secondaryBtnLink = '#',
+  secondaryBtnLink = '/demos/video/',
   caseStudiesList = caseStudies,
 }) => {
   const theme = useTheme();
@@ -111,6 +111,7 @@ const EnterpriseGrowth = ({
             fontWeight={600}
             letterSpacing="1px"
             mb="12px"
+            textTransform="uppercase"
           >
             {overline}
           </Typography>

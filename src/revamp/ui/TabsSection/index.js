@@ -179,7 +179,11 @@ const TabsSection = ({
               value={tab.name}
               iconPosition="start"
               icon={tab.icon}
-              sx={{ textTransform: 'none' }}
+              sx={{
+                textTransform: 'none',
+                color: 'text.secondary',
+                '& svg': {},
+              }}
             />
           ))}
         </TabList>

@@ -80,6 +80,7 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
             borderRadius="50%"
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
+                objectFit: 'contain',
                 width: '100%',
                 height: '100%',
                 mb: 4,

@@ -23,7 +23,7 @@ const BlackHero = ({
   primaryBtn = 'Schedule Demo',
   primaryBtnLink = '/demo?ab=dark',
   secondaryBtn = 'Watch Demo Video',
-  secondaryBtnLink = '#',
+  secondaryBtnLink = '/demos/video/',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
 }) => {
   return (
