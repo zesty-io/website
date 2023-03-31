@@ -182,7 +182,6 @@ const TabsSection = ({
               sx={{
                 textTransform: 'none',
                 color: 'text.secondary',
-                '& svg': {},
               }}
             />
           ))}

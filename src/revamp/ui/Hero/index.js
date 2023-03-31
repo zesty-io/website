@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 const media =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/media.png',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Home Page Hero Image Zesty.png',
   acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acornsHero.svg',
   bjs =
