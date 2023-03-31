@@ -12,6 +12,9 @@ const POSTMAN_JSON_DATA = [
 const GitbookDataEndpoint =
   'https://raw.githubusercontent.com/zesty-io/zesty-docs/main/Gitbook%20Data/gitbook.data.json';
 
+const parselyTourEndpoint =
+  'https://parsleydev-dev.webengine.zesty.io/-/instant/6-c9c624-14bzxf.json';
+
 const getMainCollection = async () => {
   const mainCollection = [];
   const getPostmanData = async () => {
@@ -30,6 +33,9 @@ const getGitbookData = async () => {
   return await axios.get(GitbookDataEndpoint).then((e) => e.data);
 };
 
+const getParsleyTourData = async () => {
+  return await axios.get(parselyTourEndpoint).then((e) => e.data);
+};
 export default async function getServerSideProps({
   res,
   resolvedUrl,
@@ -46,6 +52,7 @@ export default async function getServerSideProps({
 
   const mainCollections = await getMainCollection();
   const gitBookData = await getGitbookData();
+  const parsleyTourData = await getParsleyTourData();
 
   if (!isAuthenticated && isProtectedRoute(resolvedUrl)) {
     return {
@@ -70,6 +77,9 @@ export default async function getServerSideProps({
       docs: {
         data: mainCollections,
         gitBookData,
+      },
+      parsley: {
+        tour: parsleyTourData,
       },
     },
   };
