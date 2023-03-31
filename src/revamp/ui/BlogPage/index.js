@@ -20,7 +20,7 @@ const BlogPage = () => {
       <Stack
         sx={(theme) => ({
           [theme.breakpoints.up('lg')]: {
-            width: '800',
+            maxWidth: '800px',
             mx: 'auto',
           },
         })}
