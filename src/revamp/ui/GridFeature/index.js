@@ -199,11 +199,7 @@ const GridFeature = ({
           {supportingText === '' ? (
             [
               `With Zesty you’re not constrained to using one kind of API. You can use any of our APIs (GraphQL, REST, GET, and Instant JSON) with any framework of your choice. And they all come with web-hooks and site generators. Check them out in our `,
-              <Link
-                href="https://zesty.org/apis/api-overview"
-                color="info.main"
-                underline="none"
-              >
+              <Link href="/docs" color="info.main" underline="none">
                 documentation
               </Link>,
             ]
