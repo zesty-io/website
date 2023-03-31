@@ -109,7 +109,7 @@ const tabLists = [
 ];
 
 const TabsSection = ({
-  header = 'Enterprise grade features  available for everyone out-of-the-box.',
+  header = 'Enterprise grade features  available for everyone out-of-the-box',
 }) => {
   const [value, setValue] = useState('Content');
 
@@ -143,7 +143,7 @@ const TabsSection = ({
         fontWeight={800}
         mb={3}
         textAlign="center"
-        width={{ lg: '640px', margin: '0 auto 24px auto' }}
+        width={{ lg: '553px', margin: '0 auto 24px auto' }}
         letterSpacing="-0.02em"
         sx={(theme) => ({
           [theme.breakpoints.up('tablet')]: {
@@ -179,7 +179,10 @@ const TabsSection = ({
               value={tab.name}
               iconPosition="start"
               icon={tab.icon}
-              sx={{ textTransform: 'none' }}
+              sx={{
+                textTransform: 'none',
+                color: 'text.secondary',
+              }}
             />
           ))}
         </TabList>

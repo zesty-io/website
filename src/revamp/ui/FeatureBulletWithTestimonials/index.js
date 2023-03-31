@@ -3,7 +3,7 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import React from 'react';
 
 const featureContent =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/gisele.jpg',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/supportImage.jpg',
   logo =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/experiom.png';
 
@@ -100,7 +100,7 @@ const FeatureBulletWithTestimonials = ({
           <img src={testimonialLogo} width="110.44px" height="40px" />
         </Stack>
       </Stack>
-      <Stack>
+      <Stack justifyContent={{ lg: 'center' }}>
         <Box
           component="img"
           src={image}
@@ -124,7 +124,7 @@ const FeatureBulletWithTestimonials = ({
             },
             [theme.breakpoints.between(1201, 1439)]: {
               maxWidth: '100%',
-              height: '100%',
+              height: '520px',
             },
             [theme.breakpoints.up('desktopWide')]: {
               maxWidth: '576px',
