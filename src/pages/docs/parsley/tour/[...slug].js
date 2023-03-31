@@ -4,6 +4,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import MainWrapper from 'layouts/Main';
 import { Box, Container, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import { DocsComboBox } from 'views/Docs/DocsComboBox';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const Slug = (props) => {
@@ -14,7 +15,15 @@ const Slug = (props) => {
   );
 
   const { lesson_number, title, explanation, code_sample } = pageData.content;
-  console.log(currentUrl, pageData, 555);
+  const arrData = props.parsley.tour.data.map((e) => {
+    return { ...e, label: e.content.title, value: e.content.path_full };
+  });
+  const changeLocation = (e) => {
+    console.log(e, 5555);
+    const url = `/docs/parsley/tour/${e.value}`;
+    router.push(url);
+  };
+  console.log(arrData, 555);
   return (
     <MainWrapper>
       <Container>
@@ -43,19 +52,43 @@ const Slug = (props) => {
             />
           </Stack>
         </Stack>
+        <Stack direction="row" justifyContent={'space-between'} width={1}>
+          <Stack>
+            <SyntaxHighlighter
+              showLineNumbers={true}
+              language="javascript"
+              style={coldarkDark}
+              wrapLongLines={false}
+              customStyle={{
+                fontSize: '13px',
+                fontWeight: 400,
+              }}
+            >
+              {code_sample}
+            </SyntaxHighlighter>
+          </Stack>
+
+          <Stack>
+            <SyntaxHighlighter
+              showLineNumbers={true}
+              language="javascript"
+              style={coldarkDark}
+              wrapLongLines={false}
+              customStyle={{
+                fontSize: '13px',
+                fontWeight: 400,
+              }}
+            >
+              {code_sample}
+            </SyntaxHighlighter>
+          </Stack>
+        </Stack>
         <Stack>
-          <SyntaxHighlighter
-            showLineNumbers={true}
-            language="javascript"
-            style={coldarkDark}
-            wrapLongLines={false}
-            customStyle={{
-              fontSize: '13px',
-              fontWeight: 400,
-            }}
-          >
-            {code_sample}
-          </SyntaxHighlighter>
+          <DocsComboBox
+            width={'24.5rem'}
+            onChange={changeLocation}
+            options={arrData}
+          />
         </Stack>
       </Container>
     </MainWrapper>
