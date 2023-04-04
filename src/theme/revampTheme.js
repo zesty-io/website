@@ -1,10 +1,21 @@
 import { alpha, createTheme } from '@mui/material/styles';
 import { theme } from '@zesty-io/material';
 
-const revampTheme = (mode, themeToggler) => {
+const revampTheme = (mode) => {
   return createTheme({
     ...theme,
-    palette: mode === 'light' ? theme.palette : '',
+    palette:
+      mode === 'light'
+        ? theme.palette
+        : {
+            ...theme.palette,
+            mode: 'dark',
+            text: {
+              ...theme.palette.text,
+              primary: '#fff',
+              secondary: '#fff',
+            },
+          },
     breakpoints: {
       values: {
         ...theme.breakpoints.values,
@@ -47,10 +58,12 @@ const revampTheme = (mode, themeToggler) => {
               fontWeight: '400',
               borderRadius: '8px',
               '& svg': {
-                color: theme.palette.action.active,
+                color:
+                  mode === 'dark' ? 'primary' : theme.palette.action.active,
               },
               '&:hover': {
                 backgroundColor: theme.palette.grey[100],
+                color: mode === 'dark' ? 'black' : 'text.secondary',
               },
               '&.Mui-selected': {
                 backgroundColor: theme.palette.deepOrange[50],
@@ -65,7 +78,6 @@ const revampTheme = (mode, themeToggler) => {
       },
     },
     maxWidth: 1440,
-    themeToggler,
   });
 };
 
