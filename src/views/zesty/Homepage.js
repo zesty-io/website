@@ -59,7 +59,7 @@ import Dashboard from 'components/accounts/dashboard';
 // import { useEffect } from 'react';
 import { useZestyStore } from 'store';
 import revampTheme from 'theme/revampTheme';
-import { ThemeProvider } from '@mui/material';
+import { ThemeProvider, useTheme } from '@mui/material';
 import Hero from 'revamp/ui/Hero';
 import TabsSection from 'revamp/ui/TabsSection';
 import GridFeature from 'revamp/ui/GridFeature';
@@ -74,6 +74,7 @@ import SecurityFeature from 'revamp/ui/SecurityFeature';
 function Homepage({ content }) {
   const { loading } = useZestyStore();
   const [isDark, setIsDark] = useState(true);
+  const { palette } = useTheme();
 
   useEffect(() => {
     if (new Date().getTime() % 2 === 0) setIsDark(false);
@@ -229,7 +230,7 @@ function Homepage({ content }) {
       <WithHighlightedCard {...testimonialsData} />
       <LogoSlider {...logoSliderData} />
       <Bottom {...bottomData} /> */}
-      <ThemeProvider theme={() => revampTheme('light')}>
+      <ThemeProvider theme={() => revampTheme(palette.mode)}>
         {!isDark ? <Hero /> : <BlackHero />}
         <TabsSection />
         <GridFeature />
