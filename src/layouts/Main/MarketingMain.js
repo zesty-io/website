@@ -108,7 +108,11 @@ const MarketingMain = ({
             maxWidth: theme.breakpoints.values.lg,
           })}
         >
-          <TopNav hideNav={hideNav} nav={nav} colorInvert={headerColorInvert} />
+          <TopNav
+            hideNav={hideNav}
+            nav={nav}
+            // colorInvert={headerColorInvert}
+          />
         </Container>
       </Box>
       <AppBar
@@ -137,7 +141,7 @@ const MarketingMain = ({
               onSidebarOpen={handleSidebarOpen}
               flyoutNavigation={flyoutNavigation}
               customRouting={hasRouting ? customRouting : []}
-              colorInvert={headerColorInvert && !trigger}
+              // colorInvert={headerColorInvert && !trigger}
               trigger={trigger}
               isAuthenticated={isLoggedIn}
               userInfo={userInfo?.data}
