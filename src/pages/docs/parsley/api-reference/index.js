@@ -65,7 +65,7 @@ const parseMarkdownFile = (markdown, setmdData, setnavData) => {
 
       collection.push({
         value: id,
-        label: headingText.replaceAll(/\\/g, '/').replaceAll('/', ''),
+        label: headingText,
       });
     } else {
       // remove redundant h2
@@ -77,7 +77,11 @@ const parseMarkdownFile = (markdown, setmdData, setnavData) => {
   });
 
   setmdData(newMarkdown);
-  setnavData(collection);
+  setnavData(
+    collection.map((e) => {
+      return { ...e, label: e.label.replace(/\\/g, '/').replaceAll('/', '') };
+    }),
+  );
   return newMarkdown;
 };
 
