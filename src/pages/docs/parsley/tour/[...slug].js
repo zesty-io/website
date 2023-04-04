@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -9,11 +9,17 @@ import MainWrapper from 'layouts/Main';
 import { Box, Link, Stack, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { LoadingButton, TreeItem, TreeView } from '@mui/lab';
+import { TreeItem, TreeView } from '@mui/lab';
 import { ErrorMsg } from 'components/accounts';
+import { DocsTabs } from 'views/Docs/DocsTabs';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
+const tabs = [
+  { label: 'Request', value: 'request' },
+  { label: 'Rendered', value: 'response' },
+];
 
 const Slug = (props) => {
+  const [currentTab, setcurrentTab] = React.useState('request');
   const [search, setsearch] = useState('');
   const [loading, setloading] = useState(false);
   const [textContent, settextContent] = useState('');
@@ -44,6 +50,7 @@ const Slug = (props) => {
     const url = `/docs/parsley/tour/${e.url}`;
     setparsleyResult('');
     settextContent('');
+    setcurrentTab('request');
     router.push(url);
   };
   const getRenderText = async () => {
@@ -104,11 +111,8 @@ const Slug = (props) => {
               onChange={(e) => setsearch(e.currentTarget.value)}
             />
           </Stack>
-          <Stack width={1} sx={{ height: '80vh' }}>
+          <Stack width={'20vw'} sx={{ height: '80vh' }}>
             <TreeView
-              // defaultExpanded={[
-              //   'mui-7-23ec4824-7f6d-4ac8-b65d-06efdb80ca34' || '',
-              // ]}
               aria-label="file system navigator"
               defaultCollapseIcon={
                 <FolderIcon color="secondary" fontSize="large" />
@@ -117,8 +121,7 @@ const Slug = (props) => {
                 <FolderOpenIcon color="secondary" fontSize="large" />
               }
               sx={{
-                flexGrow: 1,
-                maxWidth: 350,
+                width: 450,
                 overflowY: 'auto',
               }}
             >
@@ -152,7 +155,16 @@ const Slug = (props) => {
             direction="row"
             alignItems={'center'}
           >
-            <Stack width={1}>
+            {/* <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
+                <img
+                  width={200}
+                  src={
+                    'https://9skdl6.media.zestyio.com/parsley-logo-brackets.png'
+                  }
+                  alt="parsley"
+                />
+            </Stack> */}
+            <Stack width={'40vw'}>
               <Typography variant="h6">Lesson {lesson_number}</Typography>
               <Typography variant="h4">{title}</Typography>
               <Box
@@ -163,15 +175,26 @@ const Slug = (props) => {
             </Stack>
 
             <Stack
-              width={1}
+              width={'40vw'}
               display="flex"
               justifyContent={'center'}
-              textAlign="center"
               height={1}
               alignItems="center"
               justifyItems="center"
             >
-              <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
+              <Stack position={'relative'} bgcolor={'#fff'}>
+                <CodeBlockComp
+                  currentTab={currentTab}
+                  setcurrentTab={setcurrentTab}
+                  code={code_sample}
+                  textContent={textContent}
+                  settextContent={settextContent}
+                  loading={loading}
+                  getRenderText={getRenderText}
+                  parsleyResult={parsleyResult}
+                />
+              </Stack>
+              {/* <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
                 <img
                   width={200}
                   src={
@@ -179,7 +202,7 @@ const Slug = (props) => {
                   }
                   alt="parsley"
                 />
-              </Stack>
+              </Stack> */}
             </Stack>
           </Stack>
           <Stack
@@ -189,41 +212,20 @@ const Slug = (props) => {
             gap={2}
             alignItems="center"
             height={'50vh'}
-            p={2}
-            // bgcolor="green"
+            p={4}
           >
-            <Stack position={'relative'} bgcolor={'#fff'}>
+            {/* <Stack position={'relative'} bgcolor={'#fff'}>
               <CodeBlockComp
+                currentTab={currentTab}
+                setcurrentTab={setcurrentTab}
                 code={code_sample}
                 textContent={textContent}
                 settextContent={settextContent}
-                contentEditable={true}
                 loading={loading}
                 getRenderText={getRenderText}
+                parsleyResult={parsleyResult}
               />
-            </Stack>
-            <Stack
-              sx={{
-                p: 2,
-                height: '100%',
-                width: '40vw',
-                bgcolor: '#f4f4f4',
-                overflow: 'auto',
-                borderRadius: '5px',
-              }}
-            >
-              {loading ? (
-                <Box sx={{ display: 'flex', m: 'auto' }}>
-                  <CircularProgress color="secondary" />
-                </Box>
-              ) : (
-                <Box
-                  dangerouslySetInnerHTML={{
-                    __html: parsleyResult,
-                  }}
-                ></Box>
-              )}
-            </Stack>
+            </Stack> */}
           </Stack>
         </Stack>
       </Stack>
@@ -236,11 +238,28 @@ export default Slug;
 const CodeBlockComp = ({
   code = '',
   settextContent = () => {},
-  contentEditable = false,
   title = 'Parsley Code Example (editable)',
   getRenderText,
   loading = false,
+  parsleyResult = '',
+  currentTab,
+  setcurrentTab,
 }) => {
+  const [isCopied, setIsCopied] = React.useState(false);
+  const [showCopyBtn, setshowCopyBtn] = React.useState(false);
+
+  const copyToClipboard = (text) => {
+    navigator?.clipboard?.writeText(text);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 300);
+  };
+
+  useEffect(() => {
+    getRenderText();
+  }, [currentTab]);
+
   return (
     <Stack
       bgcolor="#1B253F"
@@ -256,56 +275,92 @@ const CodeBlockComp = ({
       }}
     >
       <Stack
-        position={'absolute'}
-        sx={{
-          right: 16,
-          top: 12,
-          zIndex: 100,
-          bgcolor: '#fff',
-          borderRadius: '5px',
-        }}
+        color={'#fff'}
+        px={4}
+        pt={2}
+        width={1}
+        direction="row"
+        justifyContent={'space-between'}
+        alignItems="center"
       >
-        <LoadingButton
-          onClick={getRenderText}
-          loading={loading}
-          color="secondary"
-          target="_blank"
-          size="small"
-          fullWidth
-          variant="contained"
-          title={'Run code'}
-          startIcon={<PlayArrowIcon sx={{ fontSize: '20px' }} />}
-          sx={{
-            whiteSpace: {
-              md: 'nowrap',
-            },
-          }}
-        >
-          Run
-        </LoadingButton>
+        <Typography>{title}</Typography>
       </Stack>
-      <Typography variant="body1" color={'#fff'} p={2}>
-        {title}
-      </Typography>
+      <Stack direction={'row'} px={1}>
+        <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
+      </Stack>
+
       <Stack
-        contentEditable={contentEditable}
+        contentEditable={currentTab === 'request' ? true : false}
         onInput={(e) => {
           settextContent(e.currentTarget.textContent);
         }}
       >
-        <SyntaxHighlighter
-          showLineNumbers={false}
-          language="javascript"
-          style={coldarkDark}
-          wrapLongLines={false}
-          customStyle={{
-            fontSize: '13px',
-            fontWeight: 400,
-            height: '40vh',
-          }}
-        >
-          {code}
-        </SyntaxHighlighter>
+        {currentTab === 'request' ? (
+          <SyntaxHighlighter
+            showLineNumbers={false}
+            language="javascript"
+            style={coldarkDark}
+            wrapLongLines={false}
+            customStyle={{
+              fontSize: '13px',
+              fontWeight: 400,
+              height: '40vh',
+            }}
+          >
+            {code}
+          </SyntaxHighlighter>
+        ) : (
+          <Stack
+            sx={{
+              p: 2,
+              height: '40vh',
+              width: '40vw',
+              bgcolor: '#111b27',
+              overflow: 'auto',
+              borderRadius: '5px',
+              fontSize: '13px',
+              fontWeight: 400,
+              position: 'relative',
+            }}
+            onMouseOver={() => setshowCopyBtn(true)}
+            onMouseLeave={() => setshowCopyBtn(false)}
+          >
+            <Stack
+              sx={{
+                display: showCopyBtn ? 'flex' : 'none',
+                cursor: 'pointer',
+                color: '#fff',
+                position: 'absolute',
+                top: '15px',
+                right: '10px',
+              }}
+              onClick={() => {
+                copyToClipboard(parsleyResult);
+                setshowCopyBtn(false);
+              }}
+            >
+              {isCopied ? (
+                <Stack direction="row" alignItems={'center'} spacing={1}>
+                  <Typography variant="button">Copied to Clipboard!</Typography>
+                  <ContentCopyIcon color="inherit" fontSize="medium" />
+                </Stack>
+              ) : (
+                <ContentCopyIcon color="inherit" fontSize="medium" />
+              )}
+            </Stack>
+            {loading ? (
+              <Box sx={{ display: 'flex', m: 'auto' }}>
+                <CircularProgress color="secondary" />
+              </Box>
+            ) : (
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: parsleyResult,
+                }}
+              ></Box>
+            )}
+          </Stack>
+        )}
       </Stack>
     </Stack>
   );
