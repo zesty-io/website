@@ -4,6 +4,7 @@
 import React from 'react';
 import * as Zesty from '../views/zesty';
 import ErrorPage from '../pages/_error';
+import AutoLayoutComponent from '../views/zesty/AutoLayoutComponent';
 
 export function ZestyView(props) {
   if (props.content.error) {
@@ -14,7 +15,15 @@ export function ZestyView(props) {
    * @description check if layout is active and has content in the cms
    * @returns boolean
    */
-  const hasLayoutContent = () => {
+
+  const useAutoLayoutCheck = () => {
+    /**
+     * Note!!! This page LandingPage2023 is exception, regardles of state it will use the default
+     * component from > views > landingPage, this page can use both autolayout and manually defined component
+     */
+    if (props.content.meta.model_alternate_name === 'LandingPages2023')
+      return false;
+
     // Layout is not active
     if (!props.content.meta.layout) return false;
 
@@ -28,6 +37,7 @@ export function ZestyView(props) {
       ) === '{}'
     )
       return false;
+
     // return only true if the layout is active and has components
     return true;
   };
@@ -37,10 +47,10 @@ export function ZestyView(props) {
    * 2.) If layouts don't have content inside cms it renders the component from zesty > view
    * npm run sync must be run! otherwise it default back to auto layout component
    */
-  const Component = hasLayoutContent()
-    ? Zesty['AutoLayoutComponent']
-    : Zesty[props.content.meta.model_alternate_name] ||
-      Zesty['AutoLayoutComponent'];
+
+  const Component = useAutoLayoutCheck()
+    ? AutoLayoutComponent
+    : Zesty[props.content.meta.model_alternate_name];
 
   // outside the component near imports
   const initLiveEditor = async (data) => {

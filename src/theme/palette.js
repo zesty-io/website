@@ -101,6 +101,8 @@ export const light = {
     zestyPurple: '#293056',
     zestyBanner: '#1B253F',
     zestyBanner2: '#30B3B0',
+    zestyDarkText: '#101828',
+    zestyDarkTextSecondary: '#475467',
   },
 };
 
