@@ -4,6 +4,7 @@ import {
   MenuItem,
   Select,
   ThemeProvider,
+  useTheme,
 } from '@mui/material';
 import React, { useState } from 'react';
 import Hero from 'revamp/ui/Hero';
@@ -72,9 +73,9 @@ const revamp = () => {
 
     return 'Please select a component';
   };
-
+  const { palette } = useTheme();
   return (
-    <ThemeProvider theme={() => revampTheme('light')}>
+    <ThemeProvider theme={() => revampTheme(palette.mode)}>
       {renderComponent()}
 
       <FormControl fullWidth sx={{ mt: 4 }}>
