@@ -16,5 +16,64 @@ import LogoSlider from './Slider/LogoSlider'
 import Testimonials from './Testimonials/Testimonials'
 import WhyZesty from './WhyZesty/WhyZesty'
 
+//New Layouts Component
+import BlackHero from './revamp/ui/BlackHero'
+import BlogHero from './revamp/ui/BlogHero'
+import BlogPage from './revamp/ui/BlogPage'
+import CaseStudyHero from './revamp/ui/CaseStudyHero'
+import EnterpriseGrowth from './revamp/ui/EnterpriseGrowth'
+import FeatureBulletWithTestimonials from './revamp/ui/FeatureBulletWithTestimonials'
+import FeatureStatistics from './revamp/ui/FeatureStatistics'
+import FeatureTestimonial from './revamp/ui/FeatureTestimonial' 
+import FeatureTwoCTA from './revamp/ui/FeatureTwoCTA'
+import GridFeature from './revamp/ui/GridFeature'
+import Hero from './revamp/ui/Hero'
+import HomePage from './revamp/ui/HomePage'
+import HomePage2 from './revamp/ui/HomePage2'
+import LightHero from './revamp/ui/LightHero'
+import SecurityFeature from './revamp/ui/SecurityFeature'
+import SingleTestimonial from './revamp/ui/SingleTestimonial'
+import Stats from './revamp/ui/Stats'
+import TabsSection from './revamp/ui/TabsSection'
 
-export {Bottom, CardsInContainer,CaseStudyCards,DarkBlueCta,ImageWithContentsCta,SimpleCta,Growth,SimpleStats,SimpleHeroWithImageAndCtaButtons,TwoRowsHero,SimpleCardLogo,AlternateColumns,Features,Persona,LogoSlider,Testimonials,WhyZesty}
+
+
+export {
+    Bottom, 
+    CardsInContainer,
+    CaseStudyCards,
+    DarkBlueCta,
+    ImageWithContentsCta,
+    SimpleCta,
+    Growth,
+    SimpleStats,
+    SimpleHeroWithImageAndCtaButtons,
+    TwoRowsHero,
+    SimpleCardLogo,
+    AlternateColumns,
+    Features,
+    Persona,
+    LogoSlider,
+    Testimonials,
+    WhyZesty,
+    // New Components
+    BlackHero,
+    BlogHero,
+    BlogPage,
+    CaseStudyHero,
+    EnterpriseGrowth,
+    FeatureBulletWithTestimonials,
+    FeatureStatistics,
+    FeatureTestimonial,
+    FeatureTwoCTA,
+    GridFeature,
+    Hero,
+    HomePage,
+    HomePage2,
+    LightHero,
+    SecurityFeature,
+    SingleTestimonial,
+    Stats,
+    TabsSection
+
+}
