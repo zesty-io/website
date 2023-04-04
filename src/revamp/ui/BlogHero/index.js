@@ -20,6 +20,7 @@ const BlogHero = ({
   author = 'Zoshua Colah',
   authorImage = image,
   supportingText = 'October 20, 2021',
+  articleImage = articleFrame,
 }) => {
   return (
     <Stack>
@@ -96,7 +97,7 @@ const BlogHero = ({
       </Stack>
       <Box
         component="img"
-        src={articleFrame}
+        src={articleImage}
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
             objectFit: 'contain',
