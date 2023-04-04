@@ -15,7 +15,15 @@ export function ZestyView(props) {
    * @description check if layout is active and has content in the cms
    * @returns boolean
    */
+
   const useAutoLayoutCheck = () => {
+    /**
+     * Note!!! This page LandingPage2023 is exception, regardles of state it will use the default
+     * component from > views > landingPage, this page can use both autolayout and manually defined component
+     */
+    if (props.content.meta.model_alternate_name === 'LandingPages2023')
+      return false;
+
     // Layout is not active
     if (!props.content.meta.layout) return false;
 

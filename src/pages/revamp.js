@@ -25,6 +25,8 @@ import HomePage from 'revamp/ui/HomePage';
 import HomePage2 from 'revamp/ui/HomePage2';
 import BlogPage from 'revamp/ui/BlogPage';
 import SecurityFeature from 'revamp/ui/SecurityFeature';
+import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
+import DemoForm from 'components/cta/DemoForm';
 
 const components = [
   'Hero',
@@ -45,6 +47,9 @@ const components = [
   'Home Page 2',
   'Blog Page',
   'Security Feature',
+  'StandardFormWithSelect',
+  'StandardFormWithSelectNoSelect',
+  'DemoForm',
 ];
 const revamp = () => {
   const [component, setComponent] = useState('');
@@ -69,6 +74,11 @@ const revamp = () => {
     if (component === 'Home Page 2') return <HomePage2 />;
     if (component === 'Blog Page') return <BlogPage />;
     if (component === 'Security Feature') return <SecurityFeature />;
+    if (component === 'StandardFormWithSelect')
+      return <StandardFormWithSelect />;
+    if (component === 'StandardFormWithSelectNoSelect')
+      return <StandardFormWithSelect hideSelect={true} />;
+    if (component === 'DemoForm') return <DemoForm />;
 
     return 'Please select a component';
   };
