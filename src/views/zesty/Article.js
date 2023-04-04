@@ -69,14 +69,14 @@ function Article({ content }) {
   // Check if "Error hydrating" is being injected and clean out
   // Skip if wysiwyg is empty to avoid error
   const validateWysiwyg = () => {
-    if (content.article?.includes('Error hydrating')) {
+    if (newContent?.includes('Error hydrating')) {
       cleanOutErrorHydrating = content?.article.replaceAll(
         removeErrorHandlingString,
         '',
       );
       return cleanOutErrorHydrating;
     } else {
-      return content.article;
+      return newContent;
     }
   };
   const authorImage =
@@ -158,7 +158,6 @@ function Article({ content }) {
                           '&:has(img)': {
                             mt: '0',
                             px: 0,
-                            width: '100%',
                           },
                         },
                         [theme.breakpoints.up('tablet')]: {
@@ -323,9 +322,10 @@ function Article({ content }) {
                   },
                   img: {
                     props: {
-                      width: '100%',
                       style: {
                         marginTop: '48px',
+                        maxWidth: '100%',
+                        height: '100%',
                       },
                     },
                   },
