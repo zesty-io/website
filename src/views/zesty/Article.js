@@ -44,6 +44,7 @@ import MuiMarkdown from 'markdown-to-jsx';
 import { useEffect, useState } from 'react';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
+import dayjs from 'dayjs';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -82,7 +83,8 @@ function Article({ content }) {
   const authorImage =
     content.author?.data[0]?.headshot?.data[0]?.url || FillerContent.image;
   const authorName = content.author?.data[0]?.name || FillerContent.header;
-  const authorDate = content.date || FillerContent.date;
+  const authorDate =
+    dayjs(content.date).format('MMM DD, YYYY') || FillerContent.date;
 
   useEffect(() => {
     function decode(str) {
