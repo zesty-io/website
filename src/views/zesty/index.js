@@ -64,7 +64,6 @@ import Simplestat from './Simplestat';
 import Tworowshero from './Tworowshero';
 import Alternatecolumn from './Alternatecolumn';
 import Persona from './Persona';
-
 import Testimonial from './Testimonial';
 import LogoSlider from './LogoSlider';
 import AiExample from './AiExample';
@@ -148,6 +147,8 @@ import Chat from './Chat';
 import LayoutsTestPage from './LayoutsTestPage';
 import LayoutsTestPage2 from './LayoutsTestPage2';
 import Ai from './Ai';
+import Homepagerevamp from './Homepagerevamp';
+import Blogtest from './Blogtest';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -299,6 +300,8 @@ export {
   LayoutsTestPage,
   LayoutsTestPage2,
   Ai,
+  Homepagerevamp,
+  Blogtest,
   Footer,
   Header,
 };

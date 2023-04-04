@@ -1,15 +1,13 @@
-import { Box, Button, Link, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import React from 'react';
 
 const featureContent =
-  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/featureContent.jpg';
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/certified-security-compliance.svg';
 
-const FeatureTwoCTA = ({
-  overline = 'SETUP, EASY-PEASY!',
-  heading = 'Hassle-free setup with APIs that integrate with all frameworks',
-  supportingText = `With Zesty you’re not constrained to using one kind of API. You can use any of our APIs (GraphQL, REST, GET, and Instant JSON) with any framework of your choice. And they all come with web-hooks and site generators. Check them out in our `,
-  primaryBtn = 'Find a Partner',
-  secondaryBtn = 'Talk to Sales',
+const SecurityFeature = ({
+  overline = 'GET PEACE OF MIND',
+  heading = 'Breathe easy with enterprise grade security',
+  supportingText = `Zesty is certified with SOC II security compliance as well as GDPR, CCPA, and other privacy requirements. We deflect millions of malicious attacks per month to keep you and your customers' data safe.`,
   image = featureContent,
 }) => {
   return (
@@ -35,8 +33,10 @@ const FeatureTwoCTA = ({
       <Stack
         mb={{ xs: 3, tablet: 6, lg: 0 }}
         sx={{ width: { lg: '456px', desktopWide: '576px' } }}
-        mr={{ lg: 8 }}
+        ml={{ lg: 8 }}
         py={{ desktopWide: 6 }}
+        order={{ xs: 1, lg: 2 }}
+        justifyContent={{ lg: 'center' }}
       >
         <Typography variant="body2" fontWeight={600} color="primary" mb="12px">
           {overline}
@@ -56,27 +56,11 @@ const FeatureTwoCTA = ({
         >
           {heading}
         </Typography>
-        <Typography
-          color="text.secondary"
-          fontSize="18px"
-          lineHeight="28px"
-          mb={4}
-        >
-          {supportingText}{' '}
-          <Link href="/docs" color="info.main" underline="none">
-            documentation
-          </Link>
+        <Typography color="text.secondary" fontSize="18px" lineHeight="28px">
+          {supportingText}
         </Typography>
-        <Stack direction="row" columnGap={2}>
-          <Button variant="contained" size="extraLarge">
-            {primaryBtn}
-          </Button>
-          <Button variant="outlined" size="extraLarge">
-            {secondaryBtn}
-          </Button>
-        </Stack>
       </Stack>
-      <Stack>
+      <Stack order={{ xs: 2, lg: 1 }}>
         <Box
           component="img"
           src={image}
@@ -113,4 +97,4 @@ const FeatureTwoCTA = ({
   );
 };
 
-export default FeatureTwoCTA;
+export default SecurityFeature;
