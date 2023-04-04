@@ -31,7 +31,7 @@
  */
 
 import React from 'react';
-import { Box, Table } from '@mui/material';
+import { Box, Table, useTheme } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import {
   List,
@@ -47,6 +47,7 @@ import revampTheme from 'theme/revampTheme';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
+  const { palette } = useTheme();
   // const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
 
   // const { data: latestArticles, isPending: latestPending } = useFetch(
@@ -94,7 +95,7 @@ function Article({ content }) {
 
   return (
     <Box>
-      <ThemeProvider theme={() => revampTheme('light')}>
+      <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Stack>
           <BlogHero
             author={authorName}
@@ -120,6 +121,19 @@ function Article({ content }) {
             <MuiMarkdown
               options={{
                 overrides: {
+                  strong: {
+                    component: Typography,
+                    props: {
+                      component: 'strong',
+                      sx: (theme) => ({
+                        color:
+                          theme.palette.mode === 'dark'
+                            ? 'black'
+                            : 'text.primary',
+                        fontWeight: 700,
+                      }),
+                    },
+                  },
                   p: {
                     component: Typography,
                     props: {
@@ -132,6 +146,13 @@ function Article({ content }) {
                         '& iframe': {
                           width: '100%',
                           height: 'auto',
+                        },
+                        '& strong': {
+                          color:
+                            theme.palette.mode === 'dark'
+                              ? 'white'
+                              : 'text.primary',
+                          fontWeight: 700,
                         },
                         [theme.breakpoints.up('xs')]: {
                           '&:has(img)': {
@@ -364,7 +385,7 @@ function Article({ content }) {
                   table: {
                     component: Table,
                     props: {
-                      sx: {
+                      sx: (theme) => ({
                         overflowX: 'auto',
                         display: 'block',
                         height: 'auto !important',
@@ -375,7 +396,14 @@ function Article({ content }) {
                           p: 1,
                           width: 'auto',
                         },
-                      },
+
+                        '& td': {
+                          color:
+                            theme.palette.mode === 'dark'
+                              ? 'black'
+                              : 'text.primary',
+                        },
+                      }),
                     },
                   },
                 },
