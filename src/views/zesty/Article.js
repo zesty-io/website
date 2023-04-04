@@ -355,6 +355,29 @@ function Article({ content }) {
                       }),
                     },
                   },
+                  ol: {
+                    component: List,
+                    props: {
+                      sx: (theme) => ({
+                        [theme.breakpoints.up('xs')]: {
+                          color: 'text.secondary',
+                          fontSize: '18px',
+                          lineHeight: '28px',
+                          fontWeight: 500,
+                          pl: 2,
+                          '& .MuiListItem-root': {
+                            display: 'list-item',
+                          },
+                          mx: 2,
+                        },
+                        [theme.breakpoints.up('tablet')]: {
+                          width: '640px',
+                          mx: 'auto',
+                          px: 0,
+                        },
+                      }),
+                    },
+                  },
                   li: {
                     component: ListItem,
                     props: {
