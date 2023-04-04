@@ -5,7 +5,7 @@ import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import MainWrapper from 'layouts/Main';
-import { Box, Stack, TextField, Typography } from '@mui/material';
+import { Box, Link, Stack, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { LoadingButton, TreeItem, TreeView } from '@mui/lab';
@@ -38,7 +38,6 @@ const Slug = (props) => {
         Number(a.content.lesson_number) - Number(b.content.lesson_number),
     )
     .filter((e) => e.label.toLowerCase().includes(search.toLowerCase()));
-  console.log(navData, 555);
 
   const handleRedirect = (e) => {
     const url = `/docs/parsley/tour/${e.url}`;
@@ -123,8 +122,18 @@ const Slug = (props) => {
                 return (
                   <TreeItem
                     nodeId={e.value}
-                    label={e.label}
                     onClick={() => handleRedirect(e)}
+                    label={
+                      <Link
+                        variant="p"
+                        color={'inherit'}
+                        sx={{
+                          textDecoration: 'none',
+                        }}
+                      >
+                        <Typography py={1}>{e.label}</Typography>
+                      </Link>
+                    }
                   ></TreeItem>
                 );
               })}

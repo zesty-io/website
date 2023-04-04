@@ -7,7 +7,7 @@ import MuiMarkdown from 'markdown-to-jsx';
 import MainWrapper from 'layouts/Main';
 import axios from 'axios';
 import { useState } from 'react';
-import { Link, Stack, TextField } from '@mui/material';
+import { Link, Stack, TextField, Typography } from '@mui/material';
 import MarkdownIt from 'markdown-it';
 import { TreeItem, TreeView } from '@mui/lab';
 
@@ -48,20 +48,29 @@ const fetchMarkdownFile = async () => {
 
 const parseMarkdownFile = (markdown, setmdData, setnavData) => {
   const md = new MarkdownIt();
-  let newMarkdown = '';
-  let collection = [];
+  const newMarkdown = [];
+  const collection = [];
 
   const tokens = md.parse(markdown);
 
-  tokens.forEach((token, i) => {
-    const headingText = tokens[i + 1]?.content?.trim();
-    if (token.type === 'heading_open' && token.tag === 'h2') {
+  let headingText;
+  for (let i = 0; i < tokens.length; i++) {
+    if (tokens[i].type === 'heading_open' && tokens[i].tag === 'h2') {
+      headingText = tokens[i + 1]?.content?.trim();
+      if (
+        headingText ===
+        'description: This index collects all Parsley syntax and methods.'
+      ) {
+        continue;
+      }
       const id = headingText
         ?.replace(/[^\w\s]/gi, '')
         ?.replace(/\s+/g, '-')
         ?.toLowerCase();
 
-      newMarkdown += `<${token.tag} id="${id}" >${headingText} <a href="#${id}" className="heading-link">#</a></${token.tag}>`;
+      newMarkdown.push(
+        `<${tokens[i].tag} id="${id}" style="color:#3B454E" >${headingText} <a href="#${id}" className="heading-link">#</a></${tokens[i].tag}>`,
+      );
 
       collection.push({
         value: id,
@@ -69,20 +78,26 @@ const parseMarkdownFile = (markdown, setmdData, setnavData) => {
       });
     } else {
       // remove redundant h2
-      const res = collection.find((e) => e.label === token.content);
-      if (token.content !== headingText && !res) {
-        newMarkdown += md.renderer.render([token], md.options, {});
+      const res = collection.find((e) => e.label === tokens[i].content);
+      if (tokens[i].content === 'Parsley Index') {
+        newMarkdown.push(`<h1 style="color:#3B454E">${tokens[i].content}</h1>`);
+      } else if (tokens[i].content !== headingText && !res) {
+        const renderedToken = md.renderer.render([tokens[i]], md.options, {});
+        const res = renderedToken
+          .replaceAll('</h2>', '')
+          .replaceAll('<hr>', '');
+        newMarkdown.push(res);
       }
     }
-  });
+  }
 
-  setmdData(newMarkdown);
+  setmdData(newMarkdown.join(''));
   setnavData(
     collection.map((e) => {
       return { ...e, label: e.label.replace(/\\/g, '/').replaceAll('/', '') };
     }),
   );
-  return newMarkdown;
+  return newMarkdown.join('');
 };
 
 const index = () => {
@@ -141,21 +156,28 @@ const index = () => {
                 )
                 ?.map((e) => {
                   return (
-                    <Link href={'#' + e.value}>
-                      <TreeItem
-                        nodeId={e.value}
-                        label={e.label}
-
-                        // onClick={() => handleRedirect(e)}
-                      ></TreeItem>
-                    </Link>
+                    <TreeItem
+                      nodeId={e.value}
+                      label={
+                        <Link
+                          href={'#' + e.value}
+                          variant="p"
+                          color={'inherit'}
+                          sx={{
+                            textDecoration: 'none',
+                            color: '#3B454E',
+                          }}
+                        >
+                          <Typography py={1}>{e.label}</Typography>
+                        </Link>
+                      }
+                    ></TreeItem>
                   );
                 })}
             </TreeView>
           </Stack>
         </Stack>{' '}
         <Stack pl={10} sx={{ width: '50vw' }}>
-          {/* <ReactMarkdown remarkPlugins={[remarkGfm]}>{mdData}</ReactMarkdown> */}
           <MuiMarkdown overrides={muiContentOverrides}>{mdData}</MuiMarkdown>
         </Stack>
       </Stack>
