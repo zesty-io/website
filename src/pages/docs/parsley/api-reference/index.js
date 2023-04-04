@@ -121,7 +121,7 @@ const index = () => {
           sx={{
             position: 'sticky',
             top: '11rem',
-            height: '80vh',
+            height: '100%',
             overflow: 'auto',
           }}
         >
@@ -135,7 +135,7 @@ const index = () => {
               onChange={(e) => setsearch(e.currentTarget.value)}
             />
           </Stack>
-          <Stack width={1}>
+          <Stack width={1} sx={{ height: '80vh' }}>
             <TreeView
               aria-label="file system navigator"
               defaultCollapseIcon={

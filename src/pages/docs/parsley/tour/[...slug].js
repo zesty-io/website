@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
@@ -47,7 +48,7 @@ const Slug = (props) => {
   };
   const getRenderText = async () => {
     setloading(true);
-    const formData = new FormData();
+    const formData = new URLSearchParams();
     formData.append('zuid', '7-e8a990-8b9dvg');
     formData.append(
       'parsley',
@@ -57,8 +58,11 @@ const Slug = (props) => {
 
     const url = `https://parsley.zesty.io/ajax/parsley-tester/`;
 
+    const headers = {
+      'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    };
     try {
-      const res = await axios.post(url, body).catch((e) => {
+      const res = await axios.post(url, body, { headers }).catch((e) => {
         console.log(e);
         setloading(false);
         ErrorMsg({ title: e.error || e.message });
@@ -86,7 +90,7 @@ const Slug = (props) => {
           sx={{
             position: 'sticky',
             top: '11rem',
-            height: '80vh',
+            height: '100%',
             overflow: 'auto',
           }}
         >
@@ -100,7 +104,7 @@ const Slug = (props) => {
               onChange={(e) => setsearch(e.currentTarget.value)}
             />
           </Stack>
-          <Stack>
+          <Stack width={1} sx={{ height: '80vh' }}>
             <TreeView
               // defaultExpanded={[
               //   'mui-7-23ec4824-7f6d-4ac8-b65d-06efdb80ca34' || '',
@@ -148,7 +152,7 @@ const Slug = (props) => {
             direction="row"
             alignItems={'center'}
           >
-            <Stack>
+            <Stack width={1}>
               <Typography variant="h6">Lesson {lesson_number}</Typography>
               <Typography variant="h4">{title}</Typography>
               <Box
@@ -158,14 +162,24 @@ const Slug = (props) => {
               ></Box>
             </Stack>
 
-            <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
-              <img
-                width={200}
-                src={
-                  'https://9skdl6.media.zestyio.com/parsley-logo-brackets.png'
-                }
-                alt="parsley"
-              />
+            <Stack
+              width={1}
+              display="flex"
+              justifyContent={'center'}
+              textAlign="center"
+              height={1}
+              alignItems="center"
+              justifyItems="center"
+            >
+              <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
+                <img
+                  width={200}
+                  src={
+                    'https://9skdl6.media.zestyio.com/parsley-logo-brackets.png'
+                  }
+                  alt="parsley"
+                />
+              </Stack>
             </Stack>
           </Stack>
           <Stack
@@ -174,9 +188,11 @@ const Slug = (props) => {
             width={1}
             gap={2}
             alignItems="center"
+            height={'50vh'}
+            p={2}
             // bgcolor="green"
           >
-            <Stack position={'relative'} bgcolor={'yellow'}>
+            <Stack position={'relative'} bgcolor={'#fff'}>
               <CodeBlockComp
                 code={code_sample}
                 textContent={textContent}
@@ -189,17 +205,24 @@ const Slug = (props) => {
             <Stack
               sx={{
                 p: 2,
-                height: '40vh',
+                height: '100%',
                 width: '40vw',
                 bgcolor: '#f4f4f4',
                 overflow: 'auto',
+                borderRadius: '5px',
               }}
             >
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: parsleyResult,
-                }}
-              ></Box>
+              {loading ? (
+                <Box sx={{ display: 'flex', m: 'auto' }}>
+                  <CircularProgress color="secondary" />
+                </Box>
+              ) : (
+                <Box
+                  dangerouslySetInnerHTML={{
+                    __html: parsleyResult,
+                  }}
+                ></Box>
+              )}
             </Stack>
           </Stack>
         </Stack>
