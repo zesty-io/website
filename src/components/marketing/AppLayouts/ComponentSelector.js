@@ -1,6 +1,8 @@
 import * as zestyBlocks from 'blocks/layoutsBlocks';
 import { useContext } from 'react';
 import { GlobalContext } from 'pages/[...slug]';
+import { ThemeProvider } from '@mui/material';
+import revampTheme from 'theme/revampTheme';
 
 const ComponentSelector = (props) => {
   // Initialize Context
@@ -11,8 +13,6 @@ const ComponentSelector = (props) => {
 
   // Map component from react-auto-layout to nextjs component
   const Component = zestyBlocks[componentName];
-
-  // console.log(ctx[props.data.name.toLowerCase()]);
 
   // check if ther's an error hydrating data
 
@@ -25,7 +25,11 @@ const ComponentSelector = (props) => {
   }
 
   // return component without data by default
-  return <Component />;
+  return (
+    <ThemeProvider theme={() => revampTheme('light')}>
+      <Component />
+    </ThemeProvider>
+  );
 };
 
 export default ComponentSelector;

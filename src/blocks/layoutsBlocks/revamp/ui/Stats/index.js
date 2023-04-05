@@ -151,7 +151,7 @@ const Stats = ({
             {header}
           </Typography>
           <Typography
-            color="text.secondary"
+            color="#404040"
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 fontWeight: 400,

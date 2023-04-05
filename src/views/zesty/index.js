@@ -68,6 +68,19 @@ import Testimonial from './Testimonial';
 import LogoSlider from './LogoSlider';
 import AiExample from './AiExample';
 import SellingPoint from './SellingPoint';
+import Hero2 from './Hero2';
+import DarkHero from './DarkHero';
+import StatsComponent from './StatsComponent';
+import SingleTestimonial from './SingleTestimonial';
+import FeatureTwoCta from './FeatureTwoCta';
+import FeatureStatistic from './FeatureStatistic';
+import FeatureTestimonial from './FeatureTestimonial';
+import EnterpriseGrowth from './EnterpriseGrowth';
+import FeatureBulletPointsWithTestimonial from './FeatureBulletPointsWithTestimonial';
+import LightHero from './LightHero';
+import CaseStudyHero from './CaseStudyHero';
+import BlogHero from './BlogHero';
+import FeatureHighlightImageLeft from './FeatureHighlightImageLeft';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
@@ -83,6 +96,7 @@ import ThankYouPage from './ThankYouPage';
 import ForIndustryPage from './ForIndustryPage';
 import ForPersonasPage from './ForPersonasPage';
 import QuizLandingPage from './QuizLandingPage';
+import LandingPages2023 from './LandingPages2023';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -221,6 +235,19 @@ export {
   LogoSlider,
   AiExample,
   SellingPoint,
+  Hero2,
+  DarkHero,
+  StatsComponent,
+  SingleTestimonial,
+  FeatureTwoCta,
+  FeatureStatistic,
+  FeatureTestimonial,
+  EnterpriseGrowth,
+  FeatureBulletPointsWithTestimonial,
+  LightHero,
+  CaseStudyHero,
+  BlogHero,
+  FeatureHighlightImageLeft,
   Category,
   Article,
   Tag,
@@ -236,6 +263,7 @@ export {
   ForIndustryPage,
   ForPersonasPage,
   QuizLandingPage,
+  LandingPages2023,
   Homepage,
   SimplePage,
   Mindshare,
