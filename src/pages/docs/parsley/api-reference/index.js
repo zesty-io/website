@@ -39,6 +39,7 @@ const fetchMarkdownFile = async () => {
   const response = await axios.get(
     `https://raw.githubusercontent.com/zesty-io/zesty-org/master/services/web-engine/introduction-to-parsley/parsley-index.md`,
   );
+  console.log(response);
   return response.data;
 };
 
