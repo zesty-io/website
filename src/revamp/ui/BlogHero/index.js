@@ -52,7 +52,7 @@ const BlogHero = ({
           variant="body2"
           fontWeight={700}
           color="text.secondary"
-          mb={1}
+          mb={{ xs: 1, lg: '12px' }}
         >
           {overline}
         </Typography>
@@ -87,9 +87,11 @@ const BlogHero = ({
           </Stack>
           <IconButton sx={{ marginLeft: 'auto' }}>
             <ShareRoundedIcon
-              color="red"
               sx={(theme) => ({
-                fill: alpha(theme.palette.grey[900], 0.4),
+                fill:
+                  theme.palette.mode === 'light'
+                    ? alpha(theme.palette.grey[900], 0.4)
+                    : 'white',
               })}
             />
           </IconButton>
