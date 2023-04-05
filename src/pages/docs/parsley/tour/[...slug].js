@@ -1,51 +1,38 @@
 import React, { useEffect, useState } from 'react';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import CircularProgress from '@mui/material/CircularProgress';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import MainWrapper from 'layouts/Main';
-import { Box, Container, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { ErrorMsg } from 'components/accounts';
 import { DocsTabs } from 'views/Docs/DocsTabs';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
+import { LoadingButton } from '@mui/lab';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
-const tabs = [
-  { label: 'Request', value: 'request' },
-  { label: 'Rendered', value: 'response' },
-];
+const leftTabs = [{ label: 'Request', value: 'request' }];
 
+const rightTabs = [
+  { label: 'Response', value: 'response' },
+  { label: 'Rendered', value: 'rendered' },
+];
 const contentTabs = [
   { label: 'Example Page', value: 'example page' },
   { label: 'Glossary', value: 'glossary' },
 ];
 
-const CodeBlockComp = ({
+const CodeBlockCompLeft = ({
   code = '',
   settextContent = () => {},
   title = 'Parsley Code Example (editable)',
-  getRenderText,
-  loading = false,
-  parsleyResult = '',
   currentTab,
-  setcurrentTab,
+  tabs = [],
+  loading = false,
+  getRenderText,
 }) => {
-  const [isCopied, setIsCopied] = React.useState(false);
-  const [showCopyBtn, setshowCopyBtn] = React.useState(false);
-
-  const copyToClipboard = (text) => {
-    navigator?.clipboard?.writeText(text);
-    setIsCopied(true);
-    setTimeout(() => {
-      setIsCopied(false);
-    }, 300);
-  };
-
-  useEffect(() => {
-    getRenderText();
-  }, [currentTab]);
-
   return (
     <Stack
       bgcolor="#1B253F"
@@ -60,6 +47,136 @@ const CodeBlockComp = ({
         color: '#fff',
       }}
     >
+      <Stack
+        sx={{
+          position: 'absolute',
+          top: '1rem',
+          right: '1rem',
+          zIndex: 100,
+          bgcolor: '#fff',
+          borderRadius: '5px',
+        }}
+      >
+        <LoadingButton
+          loading={loading}
+          color="secondary"
+          size="small"
+          fullWidth
+          variant="contained"
+          title={'Open Manager'}
+          onClick={() => {
+            getRenderText();
+          }}
+          startIcon={<PlayCircleOutlineIcon sx={{ fontSize: '20px' }} />}
+          sx={{
+            whiteSpace: {
+              md: 'nowrap',
+            },
+          }}
+        >
+          Run
+        </LoadingButton>
+      </Stack>
+      <Stack
+        color={'#fff'}
+        px={4}
+        pt={2}
+        width={1}
+        direction="row"
+        justifyContent={'space-between'}
+        alignItems="center"
+      >
+        <Typography>{title}</Typography>
+      </Stack>
+      <Stack direction={'row'} px={1}>
+        <DocsTabs setvalue={() => {}} value={'request'} tabs={tabs} />
+      </Stack>
+
+      <Stack
+        contentEditable={currentTab === 'request' ? true : false}
+        onInput={(e) => {
+          settextContent(e.currentTarget.textContent);
+        }}
+      >
+        <SyntaxHighlighter
+          showLineNumbers={false}
+          language="javascript"
+          style={coldarkDark}
+          wrapLongLines={false}
+          customStyle={{
+            fontSize: '13px',
+            fontWeight: 400,
+            height: '40vh',
+          }}
+        >
+          {code}
+        </SyntaxHighlighter>
+      </Stack>
+    </Stack>
+  );
+};
+
+const CodeBlockCompRight = ({
+  code = '',
+  settextContent = () => {},
+  title = 'Parsley Code Example (editable)',
+  getRenderText,
+  loading = false,
+  parsleyResult = '',
+  currentTab,
+  setcurrentTab,
+  tabs = [],
+}) => {
+  const [isCopied, setIsCopied] = React.useState(false);
+  const [showCopyBtn, setshowCopyBtn] = React.useState(false);
+
+  const copyToClipboard = (text) => {
+    navigator?.clipboard?.writeText(text);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 300);
+  };
+
+  return (
+    <Stack
+      bgcolor="#1B253F"
+      sx={{
+        position: 'relative',
+        cursor: 'pointer',
+        overflow: 'auto',
+        borderRadius: '10px',
+        overflow: 'clip',
+        height: 'auto',
+        width: '40vw',
+        color: '#fff',
+      }}
+      onMouseOver={() => setshowCopyBtn(true)}
+      onMouseLeave={() => setshowCopyBtn(false)}
+    >
+      <Stack
+        sx={{
+          display: showCopyBtn ? 'flex' : 'none',
+          cursor: 'pointer',
+          color: '#fff',
+          position: 'absolute',
+          top: '6.5rem',
+          right: '15px',
+        }}
+        onClick={() => {
+          copyToClipboard(parsleyResult);
+          setshowCopyBtn(false);
+        }}
+      >
+        {isCopied ? (
+          <Stack direction="row" alignItems={'center'} spacing={1}>
+            <Typography variant="button">Copied to Clipboard!</Typography>
+            <ContentCopyIcon color="inherit" fontSize="medium" />
+          </Stack>
+        ) : (
+          <ContentCopyIcon color="inherit" fontSize="medium" />
+        )}
+      </Stack>
       <Stack
         color={'#fff'}
         px={4}
@@ -81,7 +198,7 @@ const CodeBlockComp = ({
           settextContent(e.currentTarget.textContent);
         }}
       >
-        {currentTab === 'request' ? (
+        {currentTab === 'response' ? (
           <SyntaxHighlighter
             showLineNumbers={false}
             language="javascript"
@@ -93,47 +210,23 @@ const CodeBlockComp = ({
               height: '40vh',
             }}
           >
-            {code}
+            {parsleyResult || 'Click Run to view the response'}
           </SyntaxHighlighter>
         ) : (
           <Stack
             sx={{
-              p: 2,
-              height: '40vh',
+              px: 2,
+              pt: 2,
+              mt: 1,
+              height: '40.5vh',
               width: '40vw',
               bgcolor: '#111b27',
               overflow: 'auto',
               borderRadius: '5px',
               fontSize: '13px',
               fontWeight: 400,
-              position: 'relative',
             }}
-            onMouseOver={() => setshowCopyBtn(true)}
-            onMouseLeave={() => setshowCopyBtn(false)}
           >
-            <Stack
-              sx={{
-                display: showCopyBtn ? 'flex' : 'none',
-                cursor: 'pointer',
-                color: '#fff',
-                position: 'absolute',
-                top: '15px',
-                right: '10px',
-              }}
-              onClick={() => {
-                copyToClipboard(parsleyResult);
-                setshowCopyBtn(false);
-              }}
-            >
-              {isCopied ? (
-                <Stack direction="row" alignItems={'center'} spacing={1}>
-                  <Typography variant="button">Copied to Clipboard!</Typography>
-                  <ContentCopyIcon color="inherit" fontSize="medium" />
-                </Stack>
-              ) : (
-                <ContentCopyIcon color="inherit" fontSize="medium" />
-              )}
-            </Stack>
             {loading ? (
               <Box sx={{ display: 'flex', m: 'auto' }}>
                 <CircularProgress color="secondary" />
@@ -141,7 +234,7 @@ const CodeBlockComp = ({
             ) : (
               <Box
                 dangerouslySetInnerHTML={{
-                  __html: parsleyResult,
+                  __html: parsleyResult || 'Click Run to view the response',
                 }}
               ></Box>
             )}
@@ -180,10 +273,9 @@ const ExamplaPageRender = ({ data }) => {
 };
 
 const Slug = (props) => {
-  const [contentData, setcontentData] = useState([]);
   const [glossaryData, setglossaryData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
-  const [currentTab, setcurrentTab] = React.useState('request');
+  const [currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
   const [loading, setloading] = useState(false);
   const [textContent, settextContent] = useState('');
@@ -277,6 +369,10 @@ const Slug = (props) => {
     getGlossary();
   }, [contentTab]);
 
+  useEffect(() => {
+    setcurrentTab('response');
+  }, [router.asPath]);
+
   return (
     <MainWrapper>
       <Stack direction="row">
@@ -287,15 +383,9 @@ const Slug = (props) => {
           onClick={handleRedirect}
         />
         {/* MAIN PAGE */}
-        <Stack p={4} sx={{ maxWidth: 1920 }}>
-          <Stack
-            width={1}
-            display="flex"
-            justifyContent={'space-between'}
-            direction="row"
-            alignItems={'center'}
-          >
-            <Stack width={'40vw'}>
+        <Stack pl={6} sx={{ width: 1 }}>
+          <Grid container alignItems={'center'} mt={4}>
+            <Grid item xs={6}>
               <Typography variant="h6">Lesson {lesson_number}</Typography>
               <Typography variant="h4">{title}</Typography>
               <Box
@@ -303,29 +393,16 @@ const Slug = (props) => {
                   __html: explanation,
                 }}
               ></Box>
-            </Stack>
+            </Grid>
 
-            <Stack
-              width={'40vw'}
-              display="flex"
+            <Grid
+              item
+              xs={6}
               justifyContent={'center'}
-              height={1}
-              alignItems="center"
-              justifyItems="center"
+              justifyItems={'center'}
+              display={'flex'}
             >
-              <Stack position={'relative'} bgcolor={'#fff'}>
-                <CodeBlockComp
-                  currentTab={currentTab}
-                  setcurrentTab={setcurrentTab}
-                  code={code_sample}
-                  textContent={textContent}
-                  settextContent={settextContent}
-                  loading={loading}
-                  getRenderText={getRenderText}
-                  parsleyResult={parsleyResult}
-                />
-              </Stack>
-              {/* <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
+              <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
                 <img
                   width={200}
                   src={
@@ -333,9 +410,40 @@ const Slug = (props) => {
                   }
                   alt="parsley"
                 />
-              </Stack> */}
-            </Stack>
-          </Stack>
+              </Stack>
+            </Grid>
+          </Grid>
+
+          <Grid container gap={1} wrap="nowrap" mt={8}>
+            <Grid item xs={6}>
+              <CodeBlockCompLeft
+                currentTab={currentTab}
+                setcurrentTab={setcurrentTab}
+                code={code_sample}
+                textContent={textContent}
+                settextContent={settextContent}
+                loading={loading}
+                getRenderText={getRenderText}
+                parsleyResult={parsleyResult}
+                tabs={leftTabs}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CodeBlockCompRight
+                currentTab={currentTab}
+                setcurrentTab={setcurrentTab}
+                code={code_sample}
+                textContent={textContent}
+                settextContent={settextContent}
+                loading={loading}
+                getRenderText={getRenderText}
+                parsleyResult={parsleyResult}
+                tabs={rightTabs}
+                title="Parsely Response"
+              />
+            </Grid>
+          </Grid>
+
           <Container>
             <Stack
               direction="column"
