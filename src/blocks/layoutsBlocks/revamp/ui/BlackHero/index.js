@@ -14,11 +14,13 @@ const schemaPic =
   singlife =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlife.svg',
   sony =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/sony.svg';
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/sony.svg',
+  acornsMain = 'https://kfg6bckb.media.zestyio.com/Acorns-Laptop.png'
+  
 
 const BlackHero = ({
-  title = 'Unify your team with',
-  header = 'Content Management for enterprise of any size',
+  title = 'UNIFY YOUR TEAM WITH',
+  header = 'Content Management All Teams will Love',
   subtitle = 'Create, manage, and deliver content at scale - with a suite of forward thinking features to meet your business needs.',
   primaryBtn = 'Schedule Demo',
   primaryBtnLink = '/demo?ab=dark',
@@ -149,7 +151,7 @@ const BlackHero = ({
       </Stack>
       <Stack>
         <img
-          src={schemaPic}
+          src={acornsMain}
           width="100%"
           height="100%"
           style={{ objectFit: 'contain', borderRadius: '8px' }}
