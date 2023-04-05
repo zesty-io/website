@@ -31,7 +31,7 @@
  */
 
 import React from 'react';
-import { Box, Table, useTheme } from '@mui/material';
+import { Box, Link, Table, useTheme } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 import {
   List,
@@ -84,7 +84,7 @@ function Article({ content }) {
     content.author?.data[0]?.headshot?.data[0]?.url || FillerContent.image;
   const authorName = content.author?.data[0]?.name || FillerContent.header;
   const authorDate =
-    dayjs(content.date).format('MMM DD, YYYY') || FillerContent.date;
+    dayjs(content.date).format('MMMM DD, YYYY') || FillerContent.date;
 
   useEffect(() => {
     function decode(str) {
@@ -114,6 +114,12 @@ function Article({ content }) {
           <Stack
             sx={(theme) => ({
               mb: 6,
+              '& > :first-child': {
+                marginTop: 6,
+                '& > *:first-child': {
+                  mt: 0,
+                },
+              },
               [theme.breakpoints.up('lg')]: {
                 width: '800px',
                 mx: 'auto',
@@ -128,10 +134,9 @@ function Article({ content }) {
                     props: {
                       component: 'strong',
                       sx: (theme) => ({
-                        color:
-                          theme.palette.mode === 'dark'
-                            ? 'black'
-                            : 'text.primary',
+                        color: 'text.primary',
+                        fontSize: '18px',
+                        lineHeight: '28px',
                         fontWeight: 700,
                       }),
                     },
@@ -145,21 +150,16 @@ function Article({ content }) {
                       mt: '20px',
                       px: 2,
                       sx: (theme) => ({
-                        '& iframe': {
-                          width: '100%',
-                          height: 'auto',
-                        },
-                        '& strong': {
-                          color:
-                            theme.palette.mode === 'dark'
-                              ? 'white'
-                              : 'text.primary',
-                          fontWeight: 700,
-                        },
                         [theme.breakpoints.up('xs')]: {
                           '&:has(img)': {
                             mt: '0',
                             px: 0,
+                            width: '100%',
+                          },
+                          '&:has(iframe)': {
+                            mt: '0',
+                            px: 0,
+                            width: '100%',
                           },
                         },
                         [theme.breakpoints.up('tablet')]: {
@@ -326,8 +326,15 @@ function Article({ content }) {
                     props: {
                       style: {
                         marginTop: '48px',
-                        maxWidth: '100%',
-                        height: '100%',
+                        width: '100%',
+                      },
+                    },
+                  },
+                  iframe: {
+                    props: {
+                      style: {
+                        marginTop: '48px',
+                        width: '100%',
                       },
                     },
                   },
@@ -342,10 +349,15 @@ function Article({ content }) {
                           lineHeight: '28px',
                           fontWeight: 500,
                           pl: 2,
+                          py: 0,
+                          mt: '20px',
                           '& .MuiListItem-root': {
                             display: 'list-item',
                           },
                           mx: 2,
+                          '& ul': {
+                            mt: '12px',
+                          },
                         },
                         [theme.breakpoints.up('tablet')]: {
                           width: '640px',
@@ -381,9 +393,15 @@ function Article({ content }) {
                   li: {
                     component: ListItem,
                     props: {
-                      p: 0,
                       sx: {
-                        mx: 2,
+                        mx: 3,
+                        px: 0,
+                        pt: 0,
+                        pb: '12px',
+                        '& p': {
+                          m: 0,
+                          p: 0,
+                        },
                       },
                     },
                   },
@@ -399,10 +417,8 @@ function Article({ content }) {
                           width: '640px',
                           mx: 'auto',
                         },
-                        '&:has(h4)': {
-                          '& > h4': {
-                            mt: 0,
-                          },
+                        '& p,h1,h2,h3,h4,h5,h6': {
+                          mt: 0,
                         },
                       }),
                     },
@@ -429,6 +445,12 @@ function Article({ content }) {
                               : 'text.primary',
                         },
                       }),
+                    },
+                  },
+                  a: {
+                    component: Link,
+                    props: {
+                      color: 'info.main',
                     },
                   },
                 },
