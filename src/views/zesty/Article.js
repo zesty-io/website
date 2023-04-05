@@ -357,12 +357,18 @@ function Article({ content }) {
                           mx: 2,
                           '& ul': {
                             mt: '12px',
+                            mx: 0,
+                            p: 0,
                           },
                         },
                         [theme.breakpoints.up('tablet')]: {
                           width: '640px',
                           mx: 'auto',
                           px: 0,
+                          '& ul': {
+                            mx: 2,
+                            pl: 2,
+                          },
                         },
                       }),
                     },
