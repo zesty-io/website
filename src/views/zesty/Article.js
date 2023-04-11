@@ -85,6 +85,9 @@ function Article({ content }) {
   const authorName = content.author?.data[0]?.name || FillerContent.header;
   const authorDate =
     dayjs(content.date).format('MMMM DD, YYYY') || FillerContent.date;
+  const categoryName = content?.category?.data[0]?.category;
+  const categoryLink = content?.category?.data[0]?.meta?.web?.uri;
+  const authorLink = content?.author?.data[0]?.meta?.web?.uri;
 
   useEffect(() => {
     function decode(str) {
@@ -102,8 +105,10 @@ function Article({ content }) {
           <BlogHero
             author={authorName}
             authorImage={authorImage}
+            categoryLink={categoryLink}
+            authorLink={authorLink}
             heading={content?.title || FillerContent.header}
-            overline={content.overline}
+            overline={categoryName}
             supportingText={authorDate}
             articleImage={
               content.hero_image?.data
@@ -335,6 +340,7 @@ function Article({ content }) {
                       style: {
                         marginTop: '48px',
                         width: '100%',
+                        height: '450px',
                       },
                     },
                   },
@@ -457,6 +463,22 @@ function Article({ content }) {
                     component: Link,
                     props: {
                       color: 'info.main',
+                    },
+                  },
+                  sub: {
+                    props: {
+                      style: {
+                        fontSize: '14px',
+                        lineHeight: '14px',
+                      },
+                    },
+                  },
+                  sup: {
+                    props: {
+                      style: {
+                        fontSize: '14px',
+                        lineHeight: '14px',
+                      },
                     },
                   },
                 },
