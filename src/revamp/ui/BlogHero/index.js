@@ -60,6 +60,7 @@ const BlogHero = ({
             xs: 1,
             lg: '12px',
             cursor: 'pointer',
+            textTransform: 'uppercase',
             '&:hover': {
               color: theme.palette.primary.main,
             },
