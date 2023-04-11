@@ -12,7 +12,7 @@ import { ErrorMsg } from 'components/accounts';
 import { DocsTabs } from 'views/Docs/DocsTabs';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { LoadingButton } from '@mui/lab';
-import { githubDarkInit, githubLightInit } from '@uiw/codemirror-theme-github';
+import { githubDarkInit } from '@uiw/codemirror-theme-github';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 const leftTabs = [{ label: 'Request', value: 'request' }];
 
@@ -193,7 +193,7 @@ const CodeBlockCompRight = ({
         <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
       </Stack>
 
-      <Stack height={'300px'}>
+      <Stack height={'300px'} p={currentTab === 'response' ? 0 : 0.5}>
         {currentTab === 'response' ? (
           <CodeMirror
             editable={false}
@@ -203,7 +203,7 @@ const CodeBlockCompRight = ({
             crosshairCursor={true}
             extensions={[javascript({ jsx: true })]}
             onChange={onChange}
-            theme={githubLightInit({
+            theme={githubDarkInit({
               settings: {
                 caret: '#ff5c0c',
                 fontFamily: 'monospace',
@@ -218,11 +218,12 @@ const CodeBlockCompRight = ({
               mt: 1,
               height: '40.5vh',
               width: '100%',
-              bgcolor: '#111b27',
+              bgcolor: '#fff',
               overflow: 'auto',
               borderRadius: '5px',
               fontSize: '13px',
               fontWeight: 400,
+              color: '#333333',
             }}
           >
             {loading ? (
