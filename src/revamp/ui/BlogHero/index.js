@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   IconButton,
+  Link,
   Stack,
   Typography,
 } from '@mui/material';
@@ -18,9 +19,11 @@ const BlogHero = ({
   overline = 'PRODUCT ANNOUNCMENT',
   heading = 'Announcing the New Zesty Media App Experience',
   author = 'Zoshua Colah',
+  authorLink,
   authorImage = image,
   supportingText = 'October 20, 2021',
   articleImage = articleFrame,
+  categoryLink,
 }) => {
   return (
     <Stack>
@@ -48,14 +51,22 @@ const BlogHero = ({
           },
         })}
       >
-        <Typography
-          variant="body2"
+        <Link
           fontWeight={700}
           color="text.secondary"
-          mb={{ xs: 1, lg: '12px' }}
+          underline="none"
+          href={categoryLink}
+          mb={(theme) => ({
+            xs: 1,
+            lg: '12px',
+            cursor: 'pointer',
+            '&:hover': {
+              color: theme.palette.primary.main,
+            },
+          })}
         >
           {overline}
-        </Typography>
+        </Link>
         <Typography
           variant="h2"
           color="text.primary"
@@ -73,10 +84,13 @@ const BlogHero = ({
           {heading}
         </Typography>
         <Stack direction="row" alignItems="center">
-          <Avatar
-            src={authorImage}
-            sx={{ width: 48, height: 48, mr: '12px' }}
-          />
+          <Link href={authorLink}>
+            <Avatar
+              src={authorImage}
+              sx={{ width: 48, height: 48, mr: '12px' }}
+            />
+          </Link>
+
           <Stack>
             <Typography variant="body2" fontWeight={500} color="text.primary">
               {author}
