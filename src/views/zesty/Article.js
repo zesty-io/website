@@ -45,8 +45,9 @@ import { useEffect, useState } from 'react';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
 import dayjs from 'dayjs';
-import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
+// import Zoom from 'react-medium-image-zoom';
+// import 'react-medium-image-zoom/dist/styles.css';
+import AuthorSection from 'revamp/ui/AuthorSection';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -80,6 +81,8 @@ function Article({ content }) {
   const categoryName = content?.category?.data[0]?.category;
   const categoryLink = content?.category?.data[0]?.meta?.web?.uri;
   const authorLink = content?.author?.data[0]?.meta?.web?.uri;
+  const authorDescription = content?.author?.data[0]?.description;
+  const tags = content?.tags?.data?.map((c) => c?.tag);
 
   useEffect(() => {
     const validateWysiwyg = () => {
@@ -102,11 +105,11 @@ function Article({ content }) {
     setNewContent(decode(validateWysiwyg()));
   }, []);
 
-  const MyZoomImg = ({ children, ...props }) => (
-    <Zoom>
-      <img {...props}>{children}</img>
-    </Zoom>
-  );
+  // const MyZoomImg = ({ children, ...props }) => (
+  //   <Zoom wrapElement="span">
+  //     <Box component="img" {...props} />
+  //   </Zoom>
+  // );
 
   return (
     <Box>
@@ -338,7 +341,7 @@ function Article({ content }) {
                     },
                   },
                   img: {
-                    component: MyZoomImg,
+                    // component: MyZoomImg,
                     props: {
                       style: {
                         marginTop: '48px',
@@ -498,6 +501,13 @@ function Article({ content }) {
               {newContent || FillerContent.rich_text}
             </MuiMarkdown>
           </Stack>
+          <AuthorSection
+            authorName={authorName}
+            authorDescription={authorDescription}
+            authorImage={authorImage}
+            tags={tags}
+            authorLink={authorLink}
+          />
         </Stack>
       </ThemeProvider>
     </Box>
