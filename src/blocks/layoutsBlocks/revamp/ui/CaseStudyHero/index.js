@@ -1,31 +1,31 @@
 import { Box, Chip, Divider, Stack, Typography } from '@mui/material';
 import React from 'react';
 
-const singlife =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeHero.svg',
-  singlifeCS =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeCS.jpg';
+const acorns =
+    'https://kfg6bckb.media.zestyio.com/Acorns-homepage150x50-fullcolor.1fc97b3c326478bf6afcb60e52679656.png',
+  acornsCS =
+    'https://kfg6bckb.media.zestyio.com/Acorns-Opengraph.png';
 
 const stats = [
   {
-    title: '3x',
-    description: 'GROWTH IN FIRST YEAR',
+    title: '5M+',
+    description: 'Users supported monthly',
   },
   {
-    title: '69%',
-    description: 'FASTER PAGE LOAD TIME',
+    title: '7',
+    description: 'Years on Zesty',
   },
   {
-    title: '37%',
-    description: 'REDUCTION IN QA',
+    title: '60 Day',
+    description: 'Initial migration',
   },
 ];
 
 const CaseStudyHero = ({
-  overline = 'CASE STUDIES / SINGLIFE',
-  logo = singlife,
-  heading = 'Why Digital Insurer Singlife’s team switched to Zesty for their global expansion',
-  description = 'Engineers fixing typos. Content updates taking weeks. Singlife knew their website process wasn’t sustainable — so they turned to Zesty for a flexible yet powerful solution.',
+  overline = 'CASE STUDIES / ACORNS',
+  logo = acorns,
+  heading = 'Why FinTech Acorns Chose Zesty for Omnichannel Marketing Success',
+  description = 'Managing websites in a custom CMS and blog in WordPress, the team knew their website process wasn’t sustainable — so they turned to Zesty for a flexible yet powerful solution. All content was consolidated to a single platform in 60 days, including website migrations, and now the company also syndicates content to their web, iOS, and Android apps all from Zesty.',
   statsLists = stats,
 }) => {
   return (
@@ -145,7 +145,7 @@ const CaseStudyHero = ({
         <Stack width={{ lg: '40%' }}>
           <Box
             component="img"
-            src={singlifeCS}
+            src={acornsCS}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
@@ -243,14 +243,10 @@ const CaseStudyHero = ({
             lineHeight="28px"
             fontWeight={700}
           >
-            ABOUT SINGLIFE
+         ABOUT ACORNS
           </Typography>
           <Typography color="text.primary" fontSize="18px" lineHeight="28px">
-            Singlife is a digital insurance company redefining the insurance
-            landscape through approachable, digestible plans. Across
-            newsletters, podcasts, social media, events, education, and
-            commerce, Singlife reaches an audience of over 18 million global
-            customers.
+Acorns is the first company to offer micro investing to the world. The proprietary financial engine allows customers to roundup spare change from everyday purchases and invest these sub-dollar amounts into a professionally managed portfolio of index funds. Users simply connect any credit or debit card and a checking account, then spend money like you normally do to watch your portfolio grow with the market. Acorns has used Zesty for over 7 years to support over 5M+ users and has grown from Series B to Series F since switching to Zesty.
           </Typography>
         </Stack>
       </Stack>
