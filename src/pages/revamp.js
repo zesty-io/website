@@ -26,6 +26,7 @@ import HomePage from 'revamp/ui/HomePage';
 import HomePage2 from 'revamp/ui/HomePage2';
 import BlogPage from 'revamp/ui/BlogPage';
 import SecurityFeature from 'revamp/ui/SecurityFeature';
+import AuthorSection from 'revamp/ui/AuthorSection';
 
 const components = [
   'Hero',
@@ -46,6 +47,7 @@ const components = [
   'Home Page 2',
   'Blog Page',
   'Security Feature',
+  'Author Section',
 ];
 const revamp = () => {
   const [component, setComponent] = useState('');
@@ -70,6 +72,7 @@ const revamp = () => {
     if (component === 'Home Page 2') return <HomePage2 />;
     if (component === 'Blog Page') return <BlogPage />;
     if (component === 'Security Feature') return <SecurityFeature />;
+    if (component === 'Author Section') return <AuthorSection />;
 
     return 'Please select a component';
   };

@@ -104,7 +104,7 @@ function Article({ content }) {
 
   const MyZoomImg = ({ children, ...props }) => (
     <Zoom>
-      <img {...props}>{children}</img>
+      <Box component="img" {...props} />
     </Zoom>
   );
 
