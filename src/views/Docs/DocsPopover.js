@@ -50,9 +50,9 @@ export const DocsPopover = ({
           horizontal: 'left',
         }}
       >
-        {items.map((e) => {
+        {items.map((e, i) => {
           return (
-            <Stack width={'10rem'} onClick={() => handleOnchange(e)}>
+            <Stack key={i} width={'10rem'} onClick={() => handleOnchange(e)}>
               <Button size="small" fullWidth color="secondary">
                 {e.label}
               </Button>

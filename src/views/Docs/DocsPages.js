@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Grid, Link, Stack, Typography, useTheme } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import MuiMarkdown from 'markdown-to-jsx';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -103,7 +104,7 @@ const Main = ({ data }) => {
 
   const result =
     Array.isArray(data.item) &&
-    data.item.map((e) => {
+    data.item.map((e, i) => {
       // Get data from postman collection
       const name = e?.name?.replaceAll(' ', '-');
       const hasBody =
@@ -124,7 +125,7 @@ const Main = ({ data }) => {
 
       if (Array.isArray(e.item)) {
         return (
-          <Stack py={4}>
+          <Stack key={i} py={4}>
             <Typography
               sx={{ color: theme.palette.zesty.zestyZambezi }}
               variant="h5"
@@ -135,7 +136,7 @@ const Main = ({ data }) => {
             </Typography>
             <Box sx={{ color: theme.palette.zesty.zestyZambezi }}>
               <MuiMarkdown
-                inlineCodeColor="dodgerblue"
+                // inlineCodeColor="dodgerblue"
                 overrides={muiContentOverrides}
               >
                 {e?.description || ''}
@@ -146,7 +147,14 @@ const Main = ({ data }) => {
         );
       } else {
         return (
-          <Grid container direction="row" minHeight={'50vh'} spacing={4} py={4}>
+          <Grid
+            key={i}
+            container
+            direction="row"
+            minHeight={'50vh'}
+            spacing={4}
+            py={4}
+          >
             <Grid item xs={6} width={1}>
               <Stack
                 sx={{ color: theme.palette.zesty.zestyZambezi }}
@@ -181,7 +189,21 @@ const Main = ({ data }) => {
                   </WarningMsg>
                 )}
                 {hasEndpoint && (
-                  <CodeBlocks header="URL Endpoint">{endpoint}</CodeBlocks>
+                  <CodeBlocks
+                    header="URL Endpoint"
+                    endProps={
+                      <Stack
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          navigator?.clipboard?.writeText(endpoint);
+                        }}
+                      >
+                        <ContentCopyIcon />
+                      </Stack>
+                    }
+                  >
+                    {endpoint}
+                  </CodeBlocks>
                 )}
                 {!isLoggedIn && (
                   <WarningMsg>
@@ -215,7 +237,21 @@ const Main = ({ data }) => {
                   } `}
                 </CodeBlocks>
                 {hasBody && (
-                  <CodeBlocks header="Request Body">
+                  <CodeBlocks
+                    header="Request Body"
+                    endProps={
+                      <Stack
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          navigator?.clipboard?.writeText(
+                            e?.request?.body?.raw,
+                          );
+                        }}
+                      >
+                        <ContentCopyIcon />
+                      </Stack>
+                    }
+                  >
                     {e?.request?.body?.raw}
                   </CodeBlocks>
                 )}
@@ -281,7 +317,7 @@ const CodeBlocks = React.memo(
           {endProps && (
             <Stack
               position={'absolute'}
-              sx={{ top: '50%', right: 5, transform: 'translate(0,-50%)' }}
+              sx={{ top: '50%', right: 10, transform: 'translate(0,-50%)' }}
             >
               {endProps}
             </Stack>
