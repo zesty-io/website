@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
 import CircularProgress from '@mui/material/CircularProgress';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import MainWrapper from 'layouts/Main';
 import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -12,6 +12,7 @@ import { ErrorMsg } from 'components/accounts';
 import { DocsTabs } from 'views/Docs/DocsTabs';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { LoadingButton } from '@mui/lab';
+import { githubDarkInit, githubLightInit } from '@uiw/codemirror-theme-github';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 const leftTabs = [{ label: 'Request', value: 'request' }];
 
@@ -28,11 +29,13 @@ const CodeBlockCompLeft = ({
   code = '',
   settextContent = () => {},
   title = 'Parsley Code Example (editable)',
-  currentTab,
   tabs = [],
   loading = false,
   getRenderText,
 }) => {
+  const onChange = React.useCallback((value, _) => {
+    settextContent(value);
+  }, []);
   return (
     <Stack
       bgcolor="#1B253F"
@@ -92,35 +95,30 @@ const CodeBlockCompLeft = ({
         <DocsTabs setvalue={() => {}} value={'request'} tabs={tabs} />
       </Stack>
 
-      <Stack
-        contentEditable={currentTab === 'request' ? true : false}
-        onInput={(e) => {
-          settextContent(e.currentTarget.textContent);
-        }}
-      >
-        <SyntaxHighlighter
-          showLineNumbers={false}
-          language="javascript"
-          style={coldarkDark}
-          wrapLongLines={false}
-          customStyle={{
-            fontSize: '13px',
-            fontWeight: 400,
-            height: '40vh',
-          }}
-        >
-          {code}
-        </SyntaxHighlighter>
+      <Stack>
+        <CodeMirror
+          editable={true}
+          basicSetup={{ lineNumbers: true, autocompletion: true }}
+          value={code}
+          height={'300px'}
+          crosshairCursor={true}
+          extensions={[javascript({ jsx: true })]}
+          onChange={onChange}
+          theme={githubDarkInit({
+            settings: {
+              caret: '#ff5c0c',
+              fontFamily: 'monospace',
+            },
+          })}
+        />
       </Stack>
     </Stack>
   );
 };
 
 const CodeBlockCompRight = ({
-  code = '',
   settextContent = () => {},
   title = 'Parsley Code Example (editable)',
-  getRenderText,
   loading = false,
   parsleyResult = '',
   currentTab,
@@ -138,6 +136,9 @@ const CodeBlockCompRight = ({
     }, 300);
   };
 
+  const onChange = React.useCallback((value, _) => {
+    settextContent(value);
+  }, []);
   return (
     <Stack
       bgcolor="#1B253F"
@@ -192,26 +193,23 @@ const CodeBlockCompRight = ({
         <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
       </Stack>
 
-      <Stack
-        contentEditable={currentTab === 'request' ? true : false}
-        onInput={(e) => {
-          settextContent(e.currentTarget.textContent);
-        }}
-      >
+      <Stack height={'300px'}>
         {currentTab === 'response' ? (
-          <SyntaxHighlighter
-            showLineNumbers={false}
-            language="javascript"
-            style={coldarkDark}
-            wrapLongLines={false}
-            customStyle={{
-              fontSize: '13px',
-              fontWeight: 400,
-              height: '40vh',
-            }}
-          >
-            {parsleyResult || 'Click Run to view the response'}
-          </SyntaxHighlighter>
+          <CodeMirror
+            editable={false}
+            value={parsleyResult}
+            placeholder={'Click Run to view the response'}
+            height={'300px'}
+            crosshairCursor={true}
+            extensions={[javascript({ jsx: true })]}
+            onChange={onChange}
+            theme={githubLightInit({
+              settings: {
+                caret: '#ff5c0c',
+                fontFamily: 'monospace',
+              },
+            })}
+          />
         ) : (
           <Stack
             sx={{
@@ -219,7 +217,7 @@ const CodeBlockCompRight = ({
               pt: 2,
               mt: 1,
               height: '40.5vh',
-              width: '40vw',
+              width: '100%',
               bgcolor: '#111b27',
               overflow: 'auto',
               borderRadius: '5px',
@@ -264,7 +262,7 @@ const GlossaryRender = ({ data }) => {
   );
 };
 
-const ExamplaPageRender = ({ data }) => {
+const ExamplaPageRender = () => {
   return (
     <Stack p={4}>
       <Typography></Typography>
@@ -418,7 +416,6 @@ const Slug = (props) => {
           <Grid container gap={1} wrap="nowrap" mt={8}>
             <Grid item xs={6}>
               <CodeBlockCompLeft
-                currentTab={currentTab}
                 setcurrentTab={setcurrentTab}
                 code={code_sample}
                 textContent={textContent}
@@ -433,11 +430,9 @@ const Slug = (props) => {
               <CodeBlockCompRight
                 currentTab={currentTab}
                 setcurrentTab={setcurrentTab}
-                code={code_sample}
                 textContent={textContent}
                 settextContent={settextContent}
                 loading={loading}
-                getRenderText={getRenderText}
                 parsleyResult={parsleyResult}
                 tabs={rightTabs}
                 title="Parsely Response"
