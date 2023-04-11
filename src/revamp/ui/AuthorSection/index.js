@@ -1,4 +1,4 @@
-import { Avatar, Chip, Stack, Typography } from '@mui/material';
+import { Avatar, Chip, Link, Stack, Typography } from '@mui/material';
 import React from 'react';
 
 const image =
@@ -9,6 +9,7 @@ const AuthorSection = ({
   authorName = 'Zoshua Colah',
   authorDescription = 'Zoshua is a Senior Product Designer at Zesty.io, elevating the experiences people have in making content-rich experiences. Having spent over 5 years making intuitive product experiences, he understands the need for a CMS that works with you - not against you. In his free time, you can find Zosh either teaching, mentoring, or sharing UX resources.',
   tags = ['Product', 'Feature Announcement', 'CMS'],
+  authorLink,
 }) => {
   return (
     <Stack
@@ -30,21 +31,24 @@ const AuthorSection = ({
       })}
     >
       <Stack mb={3}>
-        <Avatar
-          src={authorImage}
-          sx={(theme) => ({
-            [theme.breakpoints.up('xs')]: {
-              width: 64,
-              height: 64,
-              mb: 3,
-            },
-            [theme.breakpoints.up('lg')]: {
-              width: 80,
-              height: 80,
-              mb: 4,
-            },
-          })}
-        />
+        <Link href={authorLink}>
+          <Avatar
+            src={authorImage}
+            sx={(theme) => ({
+              [theme.breakpoints.up('xs')]: {
+                width: 64,
+                height: 64,
+                mb: 3,
+              },
+              [theme.breakpoints.up('lg')]: {
+                width: 80,
+                height: 80,
+                mb: 4,
+              },
+            })}
+          />
+        </Link>
+
         <Typography
           color="text.primary"
           fontWeight={800}
