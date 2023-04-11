@@ -45,8 +45,10 @@ import { useEffect, useState } from 'react';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
 import dayjs from 'dayjs';
-import Zoom from 'react-medium-image-zoom';
+//import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
+import Zoom from '@mui/material/Zoom';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -102,11 +104,92 @@ function Article({ content }) {
     setNewContent(decode(validateWysiwyg()));
   }, []);
 
-  const MyZoomImg = ({ children, ...props }) => (
-    <Zoom>
-      <img {...props}>{children}</img>
-    </Zoom>
-  );
+  const MyZoomImg = ({ children, ...props }) => {
+    const [isZoomed, setIsZoomed] = useState(false);
+
+    const toggleZoom = () => setIsZoomed(!isZoomed);
+
+    const handleWheel = () => {
+      setIsZoomed(false);
+    };
+
+    const cursorStyle = isZoomed
+      ? { cursor: 'zoom-out' }
+      : { cursor: 'zoom-in' };
+
+    return (
+      <>
+        <Box style={{ ...cursorStyle }}>
+          <img
+            onClick={toggleZoom}
+            style={{
+              maxWidth: '80vw',
+              maxHeight: '80vh',
+              cursor: 'zoom-in',
+            }}
+            {...props}
+          >
+            {children}
+          </img>
+        </Box>
+        {isZoomed && (
+          <Zoom easing={'linear'} timeout={300} in={isZoomed}>
+            <Box
+              onWheel={handleWheel}
+              className="image-zoom"
+              sx={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100vw',
+                height: '100vh',
+                backgroundColor: 'rgba(255, 255, 255, 1)',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 9999,
+                cursor: 'zoom-out',
+              }}
+              onClick={toggleZoom}
+            >
+              <Box
+                sx={{
+                  position: 'absolute',
+                  background: 'rgba(0,0,0,.7)',
+                  zIndex: 999999,
+                  top: 20,
+                  right: 40,
+                  width: 40,
+                  height: 40,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 100,
+                }}
+              >
+                <CloseFullscreenIcon sx={{ color: '#fff' }} />
+              </Box>
+
+              <img
+                style={{
+                  maxWidth: '70vw',
+                  maxHeight: '70vh',
+                  ...cursorStyle,
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+                {...props}
+              >
+                {children}
+              </img>
+            </Box>
+          </Zoom>
+        )}
+      </>
+    );
+  };
 
   return (
     <Box>
