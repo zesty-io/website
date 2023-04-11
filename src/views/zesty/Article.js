@@ -143,18 +143,6 @@ function Article({ content }) {
             <MuiMarkdown
               options={{
                 overrides: {
-                  strong: {
-                    component: Typography,
-                    props: {
-                      component: 'strong',
-                      sx: (theme) => ({
-                        color: 'text.primary',
-                        fontSize: '18px',
-                        lineHeight: '28px',
-                        fontWeight: 700,
-                      }),
-                    },
-                  },
                   p: {
                     component: Typography,
                     props: {
@@ -181,6 +169,18 @@ function Article({ content }) {
                           mx: 'auto',
                           px: 0,
                         },
+                      }),
+                    },
+                  },
+                  strong: {
+                    component: Typography,
+                    props: {
+                      component: 'strong',
+                      sx: (theme) => ({
+                        color: 'text.primary',
+                        fontSize: '18px',
+                        lineHeight: '28px',
+                        fontWeight: 700,
                       }),
                     },
                   },
