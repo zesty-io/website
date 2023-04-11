@@ -56,6 +56,8 @@ const BlogHero = ({
           color="text.secondary"
           underline="none"
           href={categoryLink}
+          fontSize="14px"
+          lineHeight="20px"
           mb={(theme) => ({
             xs: 1,
             lg: '12px',
