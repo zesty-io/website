@@ -50,7 +50,6 @@ import dayjs from 'dayjs';
 import AuthorSection from 'revamp/ui/AuthorSection';
 
 function Article({ content }) {
-  console.log({ content });
   const [newContent, setNewContent] = useState(content.article);
   const { palette } = useTheme();
   // const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
