@@ -381,6 +381,7 @@ const Slug = (props) => {
           setsearch={setsearch}
           data={navData}
           onClick={handleRedirect}
+          placeholder="Search Lessons..."
         />
         {/* MAIN PAGE */}
         <Stack pl={6} sx={{ width: 1 }}>
