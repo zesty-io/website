@@ -67,7 +67,9 @@ const MarketingMain = ({
     isPpcShortPage || isCapterraPage || isDxpTemplatePage || isDiscover;
   const isLoggedIn = useIsLoggedIn();
   const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
+  const blogMain = new RegExp(/\bmindshare\b/gi);
   const isBlogPage = model?.match(pageNavColorRegex) !== null ? true : false;
+  const isBlogHome = model?.match(blogMain) !== null ? true : false;
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;
 
@@ -111,11 +113,7 @@ const MarketingMain = ({
             maxWidth: theme.breakpoints.values.lg,
           })}
         >
-          <TopNav
-            hideNav={hideNav}
-            nav={nav}
-            // colorInvert={headerColorInvert}
-          />
+          <TopNav hideNav={hideNav} nav={nav} colorInvert={isBlogHome} />
         </Container>
       </Box>
       <AppBar
@@ -144,7 +142,7 @@ const MarketingMain = ({
               onSidebarOpen={handleSidebarOpen}
               flyoutNavigation={flyoutNavigation}
               customRouting={hasRouting ? customRouting : []}
-              // colorInvert={headerColorInvert && !trigger}
+              colorInvert={isBlogHome && !trigger}
               trigger={trigger}
               isAuthenticated={isLoggedIn}
               userInfo={userInfo?.data}
@@ -173,7 +171,6 @@ const MarketingMain = ({
           </ThemeProvider>
         </Box>
       )}
-
       <main>
         {children}
         <Divider />

@@ -71,17 +71,7 @@ function Article({ content }) {
 
   // Check if "Error hydrating" is being injected and clean out
   // Skip if wysiwyg is empty to avoid error
-  const validateWysiwyg = () => {
-    if (newContent?.includes('Error hydrating')) {
-      cleanOutErrorHydrating = content?.article.replaceAll(
-        removeErrorHandlingString,
-        '',
-      );
-      return cleanOutErrorHydrating;
-    } else {
-      return newContent;
-    }
-  };
+
   const authorImage =
     content.author?.data[0]?.headshot?.data[0]?.url || FillerContent.image;
   const authorName = content.author?.data[0]?.name || FillerContent.header;
@@ -92,15 +82,26 @@ function Article({ content }) {
   const authorLink = content?.author?.data[0]?.meta?.web?.uri;
 
   useEffect(() => {
+    const validateWysiwyg = () => {
+      if (newContent?.includes('Error hydrating')) {
+        cleanOutErrorHydrating = content?.article.replaceAll(
+          removeErrorHandlingString,
+          '',
+        );
+        return cleanOutErrorHydrating;
+      } else {
+        return newContent;
+      }
+    };
+
     function decode(str) {
       let txt = document.createElement('textarea');
       txt.innerHTML = str;
       return txt.value;
     }
-    setNewContent(decode(newContent));
+    setNewContent(decode(validateWysiwyg()));
   }, []);
 
-  // surprise, it's a div instead!
   const MyZoomImg = ({ children, ...props }) => (
     <Zoom>
       <img {...props}>{children}</img>
@@ -494,7 +495,7 @@ function Article({ content }) {
                 },
               }}
             >
-              {validateWysiwyg() || FillerContent.rich_text}
+              {newContent || FillerContent.rich_text}
             </MuiMarkdown>
           </Stack>
         </Stack>

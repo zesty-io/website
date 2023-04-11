@@ -14,7 +14,7 @@ import TopNav from 'components/globals/TopNav';
 import { Topbar, Sidebar, Footer, AppNavigation } from './components';
 import { setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container, Stack } from '@mui/material';
+import { Container, Stack, ThemeProvider } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { AccountsAppbar } from 'components/console/AccountsAppbar';
 import { grey } from '@mui/material/colors';
@@ -23,6 +23,8 @@ import AppFooter from './components/Footer/AppFooter';
 import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
 import { useRouterCheck } from 'utils';
 import { DocsAppbar } from 'components/console/DocsAppbar';
+import revampTheme from 'theme/revampTheme';
+import ProgressBar from 'react-scroll-progress-bar';
 
 const Main = ({
   docsLanding = false,
@@ -74,8 +76,11 @@ const Main = ({
     isPpcShortPage || isCapterraPage || isDxpTemplatePage || isDiscover;
   const isLoggedIn = useIsLoggedIn();
   const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
+  const isBlogPage = model?.match(pageNavColorRegex) !== null ? true : false;
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;
+  const blogMain = new RegExp(/\bmindshare\b/gi);
+  const isBlogHome = model?.match(blogMain) !== null ? true : false;
 
   const bgColorSwitch = () => {
     if (isExplorePage) {
@@ -146,11 +151,7 @@ const Main = ({
                 : theme.breakpoints.values.lg,
             })}
           >
-            <TopNav
-              hideNav={hideNav}
-              nav={nav}
-              colorInvert={headerColorInvert}
-            />
+            <TopNav hideNav={hideNav} nav={nav} colorInvert={isBlogHome} />
           </Container>
         </Box>
       )}
@@ -185,7 +186,7 @@ const Main = ({
                 onSidebarOpen={handleSidebarOpen}
                 flyoutNavigation={flyoutNavigation}
                 customRouting={hasRouting ? customRouting : []}
-                colorInvert={headerColorInvert && !trigger}
+                colorInvert={isBlogHome && !trigger}
                 trigger={trigger}
                 isAuthenticated={isLoggedIn}
                 userInfo={userInfo?.data}
@@ -197,12 +198,12 @@ const Main = ({
             <>
               <AppNavigation
                 onSidebarOpen={handleSidebarOpen}
-                colorInvert={headerColorInvert && !trigger}
+                colorInvert={isBlogHome && !trigger}
                 trigger={trigger}
                 userInfo={userInfo?.data}
                 loading={loading}
               />
-              <AccountsAppbar colorInvert={headerColorInvert && !trigger} />
+              <AccountsAppbar colorInvert={isBlogHome && !trigger} />
             </>
           )}
         </Container>
@@ -216,6 +217,19 @@ const Main = ({
         flyoutNavigation={flyoutNavigation}
         customRouting={hasRouting ? customRouting : []}
       />
+      {isBlogPage && (
+        <Box
+          sx={{
+            '& div': {
+              top: '144.25px !important',
+            },
+          }}
+        >
+          <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
+            <ProgressBar height="6px" bgcolor="#FF5D0A" duration="0.2" />
+          </ThemeProvider>
+        </Box>
+      )}
       <main>
         {children}
         <Divider
