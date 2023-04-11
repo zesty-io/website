@@ -50,6 +50,7 @@ import dayjs from 'dayjs';
 import AuthorSection from 'revamp/ui/AuthorSection';
 
 function Article({ content }) {
+  console.log({ content });
   const [newContent, setNewContent] = useState(content.article);
   const { palette } = useTheme();
   // const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
@@ -82,7 +83,10 @@ function Article({ content }) {
   const categoryLink = content?.category?.data[0]?.meta?.web?.uri;
   const authorLink = content?.author?.data[0]?.meta?.web?.uri;
   const authorDescription = content?.author?.data[0]?.description;
-  const tags = content?.tags?.data?.map((c) => c?.tag);
+  const tags = content?.tags?.data?.map((c) => ({
+    name: c?.tag,
+    link: c?.meta?.web?.uri,
+  }));
 
   useEffect(() => {
     const validateWysiwyg = () => {
