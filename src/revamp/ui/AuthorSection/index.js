@@ -65,35 +65,37 @@ const AuthorSection = ({
           {authorDescription}
         </Typography>
       </Stack>
-      <Stack>
-        <Typography
-          color="text.primary"
-          fontWeight={800}
-          fontSize="16px"
-          lineHeight="24px"
-          textTransform="uppercase"
-          letterSpacing="0.02em"
-          mb="12px"
-        >
-          Explore More
-        </Typography>
-        <Stack direction="row" spacing="12px">
-          {tags.map((tag) => (
-            <Link key={tag.name} href={tag.link} underline="none">
-              <Chip
-                variant="outlined"
-                label={tag.name}
-                sx={{
-                  borderRadius: '4px',
-                  borderColor: 'grey.300',
-                  color: 'text.primary',
-                  cursor: 'pointer',
-                }}
-              />
-            </Link>
-          ))}
+      {tags?.length && (
+        <Stack>
+          <Typography
+            color="text.primary"
+            fontWeight={800}
+            fontSize="16px"
+            lineHeight="24px"
+            textTransform="uppercase"
+            letterSpacing="0.02em"
+            mb="12px"
+          >
+            Explore More
+          </Typography>
+          <Stack direction="row" spacing="12px">
+            {tags?.map((tag) => (
+              <Link key={tag.name} href={tag.link} underline="none">
+                <Chip
+                  variant="outlined"
+                  label={tag.name}
+                  sx={{
+                    borderRadius: '4px',
+                    borderColor: 'grey.300',
+                    color: 'text.primary',
+                    cursor: 'pointer',
+                  }}
+                />
+              </Link>
+            ))}
+          </Stack>
         </Stack>
-      </Stack>
+      )}
     </Stack>
   );
 };
