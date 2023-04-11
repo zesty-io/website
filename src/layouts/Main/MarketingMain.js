@@ -15,9 +15,11 @@ import TopNav from 'components/globals/TopNav';
 import { Topbar, Sidebar, Footer } from './components';
 import { setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container, Stack } from '@mui/material';
+import { Container, Stack, ThemeProvider } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
+import ProgressBar from 'react-scroll-progress-bar';
+import revampTheme from 'theme/revampTheme';
 
 const MarketingMain = ({
   children,
@@ -65,6 +67,7 @@ const MarketingMain = ({
     isPpcShortPage || isCapterraPage || isDxpTemplatePage || isDiscover;
   const isLoggedIn = useIsLoggedIn();
   const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
+  const isBlogPage = model?.match(pageNavColorRegex) !== null ? true : false;
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;
 
@@ -157,6 +160,20 @@ const MarketingMain = ({
         flyoutNavigation={flyoutNavigation}
         customRouting={hasRouting ? customRouting : []}
       />
+      {isBlogPage && (
+        <Box
+          sx={{
+            '& div': {
+              top: '76.5px !important',
+            },
+          }}
+        >
+          <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
+            <ProgressBar height="6px" bgcolor="#FF5D0A" duration="0.2" />
+          </ThemeProvider>
+        </Box>
+      )}
+
       <main>
         {children}
         <Divider />
