@@ -8,13 +8,14 @@ const AuthorSection = ({
   authorImage = image,
   authorName = 'Zoshua Colah',
   authorDescription = 'Zoshua is a Senior Product Designer at Zesty.io, elevating the experiences people have in making content-rich experiences. Having spent over 5 years making intuitive product experiences, he understands the need for a CMS that works with you - not against you. In his free time, you can find Zosh either teaching, mentoring, or sharing UX resources.',
-  tags = ['Product', 'Feature Announcement', 'CMS'],
   authorLink,
+  tags,
 }) => {
   return (
     <Stack
       sx={(theme) => ({
         [theme.breakpoints.up('xs')]: {
+          borderTop: `1px solid ${theme.palette.grey[100]}`,
           px: 2,
           py: 4,
         },
@@ -78,16 +79,18 @@ const AuthorSection = ({
         </Typography>
         <Stack direction="row" spacing="12px">
           {tags.map((tag) => (
-            <Chip
-              key={tag}
-              variant="outlined"
-              label={tag}
-              sx={{
-                borderRadius: '4px',
-                borderColor: 'grey.300',
-                color: 'text.primary',
-              }}
-            />
+            <Link key={tag.name} href={tag.link} underline="none">
+              <Chip
+                variant="outlined"
+                label={tag.name}
+                sx={{
+                  borderRadius: '4px',
+                  borderColor: 'grey.300',
+                  color: 'text.primary',
+                  cursor: 'pointer',
+                }}
+              />
+            </Link>
           ))}
         </Stack>
       </Stack>
