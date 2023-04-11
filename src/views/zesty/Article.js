@@ -45,6 +45,8 @@ import { useEffect, useState } from 'react';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
 import dayjs from 'dayjs';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
@@ -97,6 +99,13 @@ function Article({ content }) {
     }
     setNewContent(decode(newContent));
   }, []);
+
+  // surprise, it's a div instead!
+  const MyZoomImg = ({ children, ...props }) => (
+    <Zoom>
+      <img {...props}>{children}</img>
+    </Zoom>
+  );
 
   return (
     <Box>
@@ -328,6 +337,7 @@ function Article({ content }) {
                     },
                   },
                   img: {
+                    component: MyZoomImg,
                     props: {
                       style: {
                         marginTop: '48px',

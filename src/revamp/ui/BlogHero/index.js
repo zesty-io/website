@@ -95,12 +95,25 @@ const BlogHero = ({
           </Link>
 
           <Stack>
-            <Typography variant="body2" fontWeight={500} color="text.primary">
+            <Link
+              variant="body2"
+              fontWeight={500}
+              color="text.primary"
+              underline="none"
+              href={authorLink}
+              sx={{ cursor: 'pointer' }}
+            >
               {author}
-            </Typography>
-            <Typography color="text.secondary" variant="body2">
+            </Link>
+            <Link
+              variant="body2"
+              color="text.secondary"
+              underline="none"
+              href={authorLink}
+              sx={{ cursor: 'pointer' }}
+            >
               {supportingText}
-            </Typography>
+            </Link>
           </Stack>
           <IconButton sx={{ marginLeft: 'auto' }}>
             <ShareRoundedIcon
