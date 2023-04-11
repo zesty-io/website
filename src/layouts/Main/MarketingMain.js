@@ -162,7 +162,7 @@ const MarketingMain = ({
         <Box
           sx={{
             '& div': {
-              top: '76.5px !important',
+              zIndex: '99999 !important',
             },
           }}
         >

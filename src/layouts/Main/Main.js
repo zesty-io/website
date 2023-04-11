@@ -221,7 +221,7 @@ const Main = ({
         <Box
           sx={{
             '& div': {
-              top: '144.25px !important',
+              zIndex: '99999 !important',
             },
           }}
         >
