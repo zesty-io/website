@@ -75,7 +75,7 @@ const Main = ({
   const hideNav =
     isPpcShortPage || isCapterraPage || isDxpTemplatePage || isDiscover;
   const isLoggedIn = useIsLoggedIn();
-  const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
+  const pageNavColorRegex = new RegExp(/\bmindshare\b|article\b|category/gi);
   const isBlogPage = model?.match(pageNavColorRegex) !== null ? true : false;
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;

@@ -45,8 +45,8 @@ import { useEffect, useState } from 'react';
 import BlogHero from 'revamp/ui/BlogHero';
 import revampTheme from 'theme/revampTheme';
 import dayjs from 'dayjs';
-// import Zoom from 'react-medium-image-zoom';
-// import 'react-medium-image-zoom/dist/styles.css';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 import AuthorSection from 'revamp/ui/AuthorSection';
 
 function Article({ content }) {
@@ -108,11 +108,11 @@ function Article({ content }) {
     setNewContent(decode(validateWysiwyg()));
   }, []);
 
-  // const MyZoomImg = ({ children, ...props }) => (
-  //   <Zoom wrapElement="span">
-  //     <Box component="img" {...props} />
-  //   </Zoom>
-  // );
+  const MyZoomImg = ({ children, ...props }) => (
+    <Zoom wrapElement="span">
+      <Box component="img" {...props} />
+    </Zoom>
+  );
 
   return (
     <Box>
@@ -344,7 +344,7 @@ function Article({ content }) {
                     },
                   },
                   img: {
-                    // component: MyZoomImg,
+                    component: MyZoomImg,
                     props: {
                       style: {
                         marginTop: '48px',
