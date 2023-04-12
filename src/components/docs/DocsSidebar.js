@@ -19,7 +19,7 @@ export const DocsSidebar = React.memo(
           height: '100%',
           overflowY: 'auto',
           overflowX: 'clip',
-          width: '15vw',
+          minWidth: 330,
         }}
       >
         <Stack p={2}>

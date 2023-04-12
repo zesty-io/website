@@ -71,7 +71,7 @@ export const DocsAppbar = React.memo(() => {
     }
   };
 
-  const DOCS_DATA_DROPDOWN = (data) => {
+  const DOCS_DATA_DROPDOWN = () => {
     const res = [
       { label: 'Instances API', value: { parent: '/instances/api-reference' } },
       {
@@ -79,7 +79,7 @@ export const DocsAppbar = React.memo(() => {
         value: { parent: '/authentication/api-reference' },
       },
       { label: 'Accounts API', value: { parent: '/accounts/api-reference' } },
-      { label: 'Parsley', value: { parent: '/parsley/tour/hello-world' } },
+      { label: 'Parsley Tour', value: { parent: '/parsley/tour/hello-world' } },
     ];
     // const res = data.map((e) => {
     //   return { label: e.info.name, value: e };
@@ -131,7 +131,7 @@ export const DocsAppbar = React.memo(() => {
         <DocsComboBox
           width={'24.5rem'}
           onChange={onChangeDropdown}
-          options={DOCS_DATA_DROPDOWN(mainData)}
+          options={DOCS_DATA_DROPDOWN()}
         />
 
         {isXl && (
