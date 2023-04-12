@@ -12,7 +12,7 @@ const POSTMAN_JSON_DATA = [
 const APPID = process.env.ALGOLIA_APPID;
 const APIKEY = process.env.ALGOLIA_APIKEY;
 const INDEX = process.env.ALGOLIA_INDEX;
-const addToAlgolia = async () => {
+const addToAlgolia = async ({ data = [] }) => {
   const client = algoliasearch(APPID, APIKEY);
   const index = client.initIndex(INDEX);
 
@@ -54,8 +54,9 @@ const addToAlgolia = async () => {
 
   const objects = await refactorCollection(mainData);
 
+  const finalObject = [...objects, ...data];
   await index
-    .replaceAllObjects(objects, {
+    .replaceAllObjects(finalObject, {
       autoGenerateObjectIDIfNotExist: true,
     })
     .then(({ objectIDs }) => {
@@ -65,10 +66,36 @@ const addToAlgolia = async () => {
       console.log(err);
     });
 };
+
+const parselyTourEndpoint =
+  'https://parsleydev-dev.webengine.zesty.io/-/instant/6-c9c624-14bzxf.json';
+const getParsleyTourData = async () => {
+  const res = await axios.get(parselyTourEndpoint).then((e) => {
+    const result = e.data.data
+      .map((e) => {
+        return {
+          label: `${e.content.lesson_number}. ${e.content.title}`,
+          value: e.content.path_full,
+          url: `/parsley/tour/${e.content.path_full}`,
+          name: e.content.title,
+          description: e.content.explanation,
+          lesson_number: e.content.lesson_number,
+        };
+      })
+      .sort((a, b) => {
+        return Number(a?.lesson_number) - Number(b?.lesson_number);
+      });
+
+    return result;
+  });
+
+  return res;
+};
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    await addToAlgolia();
-    return res.status(200).json({ name: req.method });
+    const parsleyData = await getParsleyTourData();
+    await addToAlgolia({ data: parsleyData });
+    return res.status(200).json({ ok: true });
   } else {
     return res.status(403).json({ name: req.method });
   }
