@@ -7,6 +7,8 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import MainWrapper from 'layouts/Main';
 import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
 import { ErrorMsg } from 'components/accounts';
 import { DocsTabs } from 'views/Docs/DocsTabs';
@@ -67,7 +69,7 @@ const CodeBlockCompLeft = ({
           size="small"
           fullWidth
           variant="contained"
-          title={'Open Manager'}
+          title={'Run'}
           onClick={() => {
             getRenderText();
           }}
@@ -460,33 +462,46 @@ const Slug = (props) => {
               justifyContent={'center'}
               justifyItems={'center'}
               display={'flex'}
+              position={'relative'}
             >
-              <Stack>
-                <Stack
-                  direction={'row'}
-                  width={1}
-                  justifyContent={'space-between'}
-                >
-                  {nextLesson && (
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      href={`/docs/parsley/tour${nextLesson.content.path_full}`}
-                    >
-                      Next Lesson
-                    </Button>
-                  )}
-                  {previousLesson && (
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      href={`/docs/parsley/tour${previousLesson.content.path_full}`}
-                    >
-                      Previous Lesson
-                    </Button>
-                  )}
-                </Stack>
+              <Stack
+                position={'absolute'}
+                direction={'row'}
+                top={-30}
+                left={10}
+              >
+                {previousLesson && (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    title="Previous Lesson"
+                    href={`/docs/parsley/tour${previousLesson.content.path_full}`}
+                    startIcon={<ArrowBackIosIcon sx={{ fontSize: '20px' }} />}
+                  >
+                    Previous Lesson
+                  </Button>
+                )}
+              </Stack>
+              <Stack
+                position={'absolute'}
+                direction={'row'}
+                top={-30}
+                right={10}
+              >
+                {nextLesson && (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    title="Next Lesson"
+                    href={`/docs/parsley/tour${nextLesson.content.path_full}`}
+                    endIcon={<NavigateNextIcon sx={{ fontSize: '20px' }} />}
+                  >
+                    Next Lesson
+                  </Button>
+                )}
+              </Stack>
 
+              <Stack>
                 <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
                   <img
                     width={200}
