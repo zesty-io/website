@@ -66,7 +66,7 @@ const MarketingMain = ({
   const hideNav =
     isPpcShortPage || isCapterraPage || isDxpTemplatePage || isDiscover;
   const isLoggedIn = useIsLoggedIn();
-  const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
+  const pageNavColorRegex = new RegExp(/\bmindshare\b|article\b|category/gi);
   const blogMain = new RegExp(/\bmindshare\b/gi);
   const isBlogPage = model?.match(pageNavColorRegex) !== null ? true : false;
   const isBlogHome = model?.match(blogMain) !== null ? true : false;
