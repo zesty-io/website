@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from 'react';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import CodeMirror from '@uiw/react-codemirror';
@@ -248,7 +249,7 @@ const CodeBlockCompRight = ({
   );
 };
 
-const GlossaryRender = ({ data }) => {
+const GlossaryRender = ({ data = [] }) => {
   return (
     <Stack p={4}>
       {data.map((e) => {
@@ -267,30 +268,146 @@ const GlossaryRender = ({ data }) => {
   );
 };
 
-const ExamplaPageRender = ({ data }) => {
-  console.log(data, 5555);
+const ExamplaPageRender = () => {
+  const accessParsley = [
+    `{{this.title}}`,
+    `{{this.description}}`,
+    `{{this.html}}`,
+    `{{this.image}}`,
+    `{{this.multiple_images}}`,
+    `{{this.date}}`,
+    `{{this.dropdown}}`,
+    `{{this.number}}`,
+  ];
+  const example_data = [
+    `{{example_data.first().title}}`,
+    `{{example_data.first().description}}`,
+    `{{example_data.first().html}}`,
+    `{{example_data.first().image}}`,
+    `{{example_data.first().multiple_images}}`,
+    `{{example_data.first().date}}`,
+    `{{example_data.first().dropdown}}`,
+    `{{example_data.first().number}}`,
+  ];
   return (
-    <Stack p={4}>
-      {data.map((e) => {
-        return (
-          <Stack>
-            <Typography variant="h6">{e.description}</Typography>
-            <Box
-              dangerouslySetInnerHTML={{
-                __html: e.html,
-              }}
-            ></Box>
-            <Box
-              dangerouslySetInnerHTML={{
-                __html: e.json_object,
-              }}
-            ></Box>
-            {e.multiple_images.map((x) => {
-              return <img src={x} alt="" width={200} />;
-            })}
-          </Stack>
-        );
-      })}
+    <Stack>
+      <div className="object-references">
+        <div className="example-data-container">
+          <div id="pageExampleData" className="example-data selected">
+            <Typography variant="p" className="explanation">
+              <strong>Example Page</strong> is a Content Collection in the
+              Zesty.io REPL that was created in the Schema section. It has a
+              template file (view) and routing behavior to represent a single
+              page. This content collections has 8 <strong>fields</strong> on
+              it, described below with their <strong>reference name</strong> and{' '}
+              <strong>field type</strong>. When you make your own content set,
+              you can add as many fields as you need. They can be accessed using
+              either{' '}
+              <span>
+                <code>{`{{page.reference_name}}`}</code>
+              </span>
+              (when working on its related template file), or from any other
+              template or JSON file by using{' '}
+              <code>{`{{example_data.first().reference_name}}`}</code>
+            </Typography>
+
+            <Grid container spacing={4} pt={6}>
+              <Grid item xs={6}>
+                <Typography variant="h5">Collection Schema</Typography>
+                <Stack pt={2}>
+                  <table>
+                    <tr>
+                      <th>Reference Name</th>
+                      <th>Type</th>
+                    </tr>
+                    <tr>
+                      <td>title</td>
+                      <td>text</td>
+                    </tr>
+                    <tr>
+                      <td>html</td>
+                      <td>wsywig</td>
+                    </tr>
+                    <tr>
+                      <td>image</td>
+                      <td>image</td>
+                    </tr>
+                    <tr>
+                      <td>multiple_images</td>
+                      <td>image</td>
+                    </tr>
+                    <tr>
+                      <td>date</td>
+                      <td>date</td>
+                    </tr>
+                    <tr>
+                      <td>dropdown</td>
+                      <td>dropdown</td>
+                    </tr>
+                    <tr>
+                      <td>number</td>
+                      <td>number</td>
+                    </tr>
+                  </table>
+                </Stack>
+                <Typography variant="h5" pt={2}>
+                  Example Page Details
+                </Typography>
+                <hr />
+                <div className="clear"></div>
+                <p>
+                  <strong>Friendly Name:</strong> Example Page
+                </p>
+                <p>
+                  <strong>Reference Name:</strong> example_page
+                </p>
+                <p>
+                  <strong>Has View:</strong> True
+                </p>
+                <p>
+                  <strong>Routing Behavior:</strong> Single Page
+                </p>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5">
+                  Ways to Access with Parsley
+                </Typography>
+                <Typography variant="p">
+                  There are many ways to access the content from a collection.
+                  The most common way is when you are working with it's
+                  associated template, when you are, content can be accessed
+                  like:
+                </Typography>
+                <Stack>
+                  <ul>
+                    {accessParsley.map((e) => {
+                      return (
+                        <li>
+                          <code>{e}</code>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Stack>
+                <Typography variant="h6">
+                  Another way is with global access calls, which look this:
+                </Typography>
+                <Stack>
+                  <ul>
+                    {example_data.map((e) => {
+                      return (
+                        <li>
+                          <code>{e}</code>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Stack>
+              </Grid>
+            </Grid>
+          </div>
+        </div>
+      </div>
     </Stack>
   );
 };
@@ -304,7 +421,7 @@ const Slug = (props) => {
     }),
   );
   const [glossaryData, setglossaryData] = useState([]);
-  const [exampleData, setexampleData] = useState([]);
+  // const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
   const [currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
@@ -362,7 +479,6 @@ const Slug = (props) => {
     };
     try {
       const res = await axios.post(url, body, { headers }).catch((e) => {
-        console.log(e);
         setloading(false);
         ErrorMsg({ title: e.error || e.message });
       });
@@ -400,28 +516,28 @@ const Slug = (props) => {
     }
   };
 
-  const getExampleData = async () => {
-    try {
-      await axios
-        .get('https://parsley.zesty.io/-/gql/example_data.json')
-        .then((e) => {
-          setexampleData(e.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getExampleData = async () => {
+  //   try {
+  //     await axios
+  //       .get('https://parsley.zesty.io/-/gql/example_data.json')
+  //       .then((e) => {
+  //         setexampleData(e.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   useEffect(async () => {
     if (glossaryData.length === 0) {
       await getGlossary();
     }
-    if (exampleData.length === 0) {
-      await getExampleData();
-    }
-  }, [contentTab, exampleData, glossaryData]);
+    // if (exampleData.length === 0) {
+    //   await getExampleData();
+    // }
+  }, [contentTab, glossaryData]);
 
   useEffect(() => {
     setcurrentTab('response');
@@ -573,9 +689,7 @@ const Slug = (props) => {
                     {contentTab === 'glossary' && (
                       <GlossaryRender data={glossaryData} />
                     )}
-                    {contentTab === 'example page' && (
-                      <ExamplaPageRender data={exampleData} />
-                    )}
+                    {contentTab === 'example page' && <ExamplaPageRender />}
                   </Stack>
                 </Stack>
               </Stack>
