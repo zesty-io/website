@@ -17,8 +17,8 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 const leftTabs = [{ label: 'Request', value: 'request' }];
 
 const rightTabs = [
-  { label: 'Response', value: 'response' },
-  { label: 'Rendered', value: 'rendered' },
+  { label: 'Code Response', value: 'response' },
+  { label: 'Rendered Response', value: 'rendered' },
 ];
 const contentTabs = [
   { label: 'Example Page', value: 'example page' },
@@ -263,16 +263,37 @@ const GlossaryRender = ({ data }) => {
   );
 };
 
-const ExamplaPageRender = () => {
+const ExamplaPageRender = ({ data }) => {
+  console.log(data, 5555);
   return (
     <Stack p={4}>
-      <Typography></Typography>
+      {data.map((e) => {
+        return (
+          <Stack>
+            <Typography variant="h6">{e.description}</Typography>
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: e.html,
+              }}
+            ></Box>
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: e.json_object,
+              }}
+            ></Box>
+            {e.multiple_images.map((x) => {
+              return <img src={x} alt="" width={200} />;
+            })}
+          </Stack>
+        );
+      })}
     </Stack>
   );
 };
 
 const Slug = (props) => {
   const [glossaryData, setglossaryData] = useState([]);
+  const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
   const [currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
@@ -358,7 +379,6 @@ const Slug = (props) => {
           'https://parsleydev-dev.webengine.zesty.io/-/instant/6-3998c8-rtfq3n.json',
         )
         .then((e) => {
-          console.log(e.data, 4444);
           setglossaryData(e.data.data);
         })
         .catch((error) => {
@@ -369,9 +389,28 @@ const Slug = (props) => {
     }
   };
 
-  useEffect(() => {
-    getGlossary();
-  }, [contentTab]);
+  const getExampleData = async () => {
+    try {
+      await axios
+        .get('https://parsley.zesty.io/-/gql/example_data.json')
+        .then((e) => {
+          setexampleData(e.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(async () => {
+    if (glossaryData.length === 0) {
+      await getGlossary();
+    }
+    if (exampleData.length === 0) {
+      await getExampleData();
+    }
+  }, [contentTab, exampleData, glossaryData]);
 
   useEffect(() => {
     setcurrentTab('response');
@@ -505,7 +544,7 @@ const Slug = (props) => {
                       <GlossaryRender data={glossaryData} />
                     )}
                     {contentTab === 'example page' && (
-                      <ExamplaPageRender data={[]} />
+                      <ExamplaPageRender data={exampleData} />
                     )}
                   </Stack>
                 </Stack>
