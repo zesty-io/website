@@ -50,7 +50,7 @@ const CodeBlockCompLeft = ({
         borderRadius: '10px',
         overflow: 'clip',
         height: 'auto',
-        width: '40vw',
+        width: '35vw',
         color: '#fff',
       }}
     >
@@ -154,7 +154,7 @@ const CodeBlockCompRight = ({
         borderRadius: '10px',
         overflow: 'clip',
         height: 'auto',
-        width: '40vw',
+        width: '35vw',
         color: '#fff',
       }}
       onMouseOver={() => setshowCopyBtn(true)}
@@ -602,7 +602,7 @@ const Slug = (props) => {
                 position={'absolute'}
                 direction={'row'}
                 top={-30}
-                right={10}
+                right={30}
               >
                 {nextLesson && (
                   <Button
