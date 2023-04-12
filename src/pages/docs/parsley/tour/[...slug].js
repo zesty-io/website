@@ -13,6 +13,7 @@ import { DocsTabs } from 'views/Docs/DocsTabs';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { LoadingButton } from '@mui/lab';
 import { githubDarkInit } from '@uiw/codemirror-theme-github';
+import { useZestyStore } from 'store';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 const leftTabs = [{ label: 'Request', value: 'request' }];
 
@@ -139,6 +140,7 @@ const CodeBlockCompRight = ({
   const onChange = React.useCallback((value, _) => {
     settextContent(value);
   }, []);
+
   return (
     <Stack
       bgcolor="#1B253F"
@@ -292,6 +294,13 @@ const ExamplaPageRender = ({ data }) => {
 };
 
 const Slug = (props) => {
+  const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
+    (e) => ({
+      setalgoliaApiKey: e.setalgoliaApiKey,
+      setalgoliaAppId: e.setalgoliaAppId,
+      setalgoliaIndex: e.setalgoliaIndex,
+    }),
+  );
   const [glossaryData, setglossaryData] = useState([]);
   const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
@@ -415,6 +424,12 @@ const Slug = (props) => {
   useEffect(() => {
     setcurrentTab('response');
   }, [router.asPath]);
+
+  useEffect(() => {
+    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaAppId(props.algolia.appId);
+    setalgoliaIndex(props.algolia.index);
+  }, []);
 
   return (
     <MainWrapper>

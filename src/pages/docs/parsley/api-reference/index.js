@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 import MuiMarkdown from 'markdown-to-jsx';
 import MainWrapper from 'layouts/Main';
 import axios from 'axios';
@@ -6,6 +7,7 @@ import { useState } from 'react';
 import { Stack } from '@mui/material';
 import MarkdownIt from 'markdown-it';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
+import { useZestyStore } from 'store';
 
 const muiContentOverrides = {
   h1: {
@@ -96,7 +98,14 @@ const parseMarkdownFile = (markdown, setmdData, setnavData) => {
   return newMarkdown.join('');
 };
 
-const index = () => {
+const index = (props) => {
+  const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
+    (e) => ({
+      setalgoliaApiKey: e.setalgoliaApiKey,
+      setalgoliaAppId: e.setalgoliaAppId,
+      setalgoliaIndex: e.setalgoliaIndex,
+    }),
+  );
   const [search, setsearch] = useState('');
   const [navData, setnavData] = useState([]);
   const [mdData, setmdData] = useState('');
@@ -113,6 +122,11 @@ const index = () => {
     getMd();
   }, []);
 
+  useEffect(() => {
+    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaAppId(props.algolia.appId);
+    setalgoliaIndex(props.algolia.index);
+  }, []);
   return (
     <MainWrapper>
       <Stack direction={'row'}>
