@@ -5,7 +5,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import CircularProgress from '@mui/material/CircularProgress';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import MainWrapper from 'layouts/Main';
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { ErrorMsg } from 'components/accounts';
@@ -281,11 +281,16 @@ const Slug = (props) => {
   const [parsleyResult, setparsleyResult] = useState('');
   const router = useRouter();
   const currentUrl = router.query.slug[0];
-  const pageData = props.parsley.tour.data.find(
-    (e) => e.content.path_part === currentUrl,
-  );
+  const tourData = props.parsley.tour.data;
+  const pageData = tourData.find((e) => e.content.path_part === currentUrl);
 
   const { lesson_number, title, explanation, code_sample } = pageData.content;
+  const nextLesson = tourData.find(
+    (e) => e.content.lesson_number === String(Number(lesson_number) + 1),
+  );
+  const previousLesson = tourData.find(
+    (e) => e.content.lesson_number === String(Number(lesson_number) - 1),
+  );
   const navData = props.parsley.tour.data
     .map((e) => {
       return {
@@ -402,14 +407,41 @@ const Slug = (props) => {
               justifyItems={'center'}
               display={'flex'}
             >
-              <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
-                <img
-                  width={200}
-                  src={
-                    'https://9skdl6.media.zestyio.com/parsley-logo-brackets.png'
-                  }
-                  alt="parsley"
-                />
+              <Stack>
+                <Stack
+                  direction={'row'}
+                  width={1}
+                  justifyContent={'space-between'}
+                >
+                  {nextLesson && (
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      href={`/docs/parsley/tour${nextLesson.content.path_full}`}
+                    >
+                      Next Lesson
+                    </Button>
+                  )}
+                  {previousLesson && (
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      href={`/docs/parsley/tour${previousLesson.content.path_full}`}
+                    >
+                      Previous Lesson
+                    </Button>
+                  )}
+                </Stack>
+
+                <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
+                  <img
+                    width={200}
+                    src={
+                      'https://9skdl6.media.zestyio.com/parsley-logo-brackets.png'
+                    }
+                    alt="parsley"
+                  />
+                </Stack>
               </Stack>
             </Grid>
           </Grid>
