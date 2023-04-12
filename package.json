@@ -55,6 +55,7 @@
     ]
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.1.5",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.9.0",
     "@emotion/server": "^11.4.0",
@@ -64,6 +65,8 @@
     "@mui/material": "^5.6.1",
     "@mui/x-data-grid": "^5.15.2",
     "@sweetalert2/theme-material-ui": "^5.0.11",
+    "@uiw/codemirror-theme-github": "^4.19.16",
+    "@uiw/react-codemirror": "^4.19.16",
     "@zesty-io/live-editor": "^2.0.22",
     "@zesty-io/material": "^0.6.5",
     "@zesty-io/react-autolayout": "^1.0.0-beta.6",

@@ -23,7 +23,7 @@ const Main = ({ options, onChange, width = 1 }) => {
         id="combo-box-demo"
         options={options}
         sx={{ width: '100%' }}
-        defaultValue={options[0]}
+        // defaultValue={options[0]}
         getOptionLabel={(option) => option.label}
         renderInput={(params) => (
           <TextField

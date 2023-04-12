@@ -5,7 +5,7 @@ import { Link, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 
 export const DocsSidebar = React.memo(
-  ({ setsearch, data, onClick = undefined }) => {
+  ({ setsearch, data, onClick = undefined, placeholder = 'Search...' }) => {
     const handleClick = (e) => {
       if (onClick) {
         onClick(e);
@@ -25,7 +25,7 @@ export const DocsSidebar = React.memo(
         <Stack p={2}>
           <TextField
             color="secondary"
-            placeholder="Search..."
+            placeholder={placeholder}
             variant="outlined"
             name={'search'}
             fullWidth

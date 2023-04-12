@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
 import CircularProgress from '@mui/material/CircularProgress';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import MainWrapper from 'layouts/Main';
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
 import { ErrorMsg } from 'components/accounts';
 import { DocsTabs } from 'views/Docs/DocsTabs';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { LoadingButton } from '@mui/lab';
+import { githubDarkInit } from '@uiw/codemirror-theme-github';
+import { useZestyStore } from 'store';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 const leftTabs = [{ label: 'Request', value: 'request' }];
 
 const rightTabs = [
-  { label: 'Response', value: 'response' },
-  { label: 'Rendered', value: 'rendered' },
+  { label: 'Code Response', value: 'response' },
+  { label: 'Rendered Response', value: 'rendered' },
 ];
 const contentTabs = [
   { label: 'Example Page', value: 'example page' },
@@ -28,11 +32,13 @@ const CodeBlockCompLeft = ({
   code = '',
   settextContent = () => {},
   title = 'Parsley Code Example (editable)',
-  currentTab,
   tabs = [],
   loading = false,
   getRenderText,
 }) => {
+  const onChange = React.useCallback((value, _) => {
+    settextContent(value);
+  }, []);
   return (
     <Stack
       bgcolor="#1B253F"
@@ -63,7 +69,7 @@ const CodeBlockCompLeft = ({
           size="small"
           fullWidth
           variant="contained"
-          title={'Open Manager'}
+          title={'Run'}
           onClick={() => {
             getRenderText();
           }}
@@ -92,35 +98,30 @@ const CodeBlockCompLeft = ({
         <DocsTabs setvalue={() => {}} value={'request'} tabs={tabs} />
       </Stack>
 
-      <Stack
-        contentEditable={currentTab === 'request' ? true : false}
-        onInput={(e) => {
-          settextContent(e.currentTarget.textContent);
-        }}
-      >
-        <SyntaxHighlighter
-          showLineNumbers={false}
-          language="javascript"
-          style={coldarkDark}
-          wrapLongLines={false}
-          customStyle={{
-            fontSize: '13px',
-            fontWeight: 400,
-            height: '40vh',
-          }}
-        >
-          {code}
-        </SyntaxHighlighter>
+      <Stack>
+        <CodeMirror
+          editable={true}
+          basicSetup={{ lineNumbers: true, autocompletion: true }}
+          value={code}
+          height={'300px'}
+          crosshairCursor={true}
+          extensions={[javascript({ jsx: true })]}
+          onChange={onChange}
+          theme={githubDarkInit({
+            settings: {
+              caret: '#ff5c0c',
+              fontFamily: 'monospace',
+            },
+          })}
+        />
       </Stack>
     </Stack>
   );
 };
 
 const CodeBlockCompRight = ({
-  code = '',
   settextContent = () => {},
   title = 'Parsley Code Example (editable)',
-  getRenderText,
   loading = false,
   parsleyResult = '',
   currentTab,
@@ -137,6 +138,10 @@ const CodeBlockCompRight = ({
       setIsCopied(false);
     }, 300);
   };
+
+  const onChange = React.useCallback((value, _) => {
+    settextContent(value);
+  }, []);
 
   return (
     <Stack
@@ -192,26 +197,23 @@ const CodeBlockCompRight = ({
         <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
       </Stack>
 
-      <Stack
-        contentEditable={currentTab === 'request' ? true : false}
-        onInput={(e) => {
-          settextContent(e.currentTarget.textContent);
-        }}
-      >
+      <Stack height={'300px'} p={currentTab === 'response' ? 0 : 0.5}>
         {currentTab === 'response' ? (
-          <SyntaxHighlighter
-            showLineNumbers={false}
-            language="javascript"
-            style={coldarkDark}
-            wrapLongLines={false}
-            customStyle={{
-              fontSize: '13px',
-              fontWeight: 400,
-              height: '40vh',
-            }}
-          >
-            {parsleyResult || 'Click Run to view the response'}
-          </SyntaxHighlighter>
+          <CodeMirror
+            editable={false}
+            value={parsleyResult}
+            placeholder={'Click Run to view the response'}
+            height={'300px'}
+            crosshairCursor={true}
+            extensions={[javascript({ jsx: true })]}
+            onChange={onChange}
+            theme={githubDarkInit({
+              settings: {
+                caret: '#ff5c0c',
+                fontFamily: 'monospace',
+              },
+            })}
+          />
         ) : (
           <Stack
             sx={{
@@ -219,12 +221,13 @@ const CodeBlockCompRight = ({
               pt: 2,
               mt: 1,
               height: '40.5vh',
-              width: '40vw',
-              bgcolor: '#111b27',
+              width: '100%',
+              bgcolor: '#fff',
               overflow: 'auto',
               borderRadius: '5px',
               fontSize: '13px',
               fontWeight: 400,
+              color: '#333333',
             }}
           >
             {loading ? (
@@ -265,15 +268,43 @@ const GlossaryRender = ({ data }) => {
 };
 
 const ExamplaPageRender = ({ data }) => {
+  console.log(data, 5555);
   return (
     <Stack p={4}>
-      <Typography></Typography>
+      {data.map((e) => {
+        return (
+          <Stack>
+            <Typography variant="h6">{e.description}</Typography>
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: e.html,
+              }}
+            ></Box>
+            <Box
+              dangerouslySetInnerHTML={{
+                __html: e.json_object,
+              }}
+            ></Box>
+            {e.multiple_images.map((x) => {
+              return <img src={x} alt="" width={200} />;
+            })}
+          </Stack>
+        );
+      })}
     </Stack>
   );
 };
 
 const Slug = (props) => {
+  const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
+    (e) => ({
+      setalgoliaApiKey: e.setalgoliaApiKey,
+      setalgoliaAppId: e.setalgoliaAppId,
+      setalgoliaIndex: e.setalgoliaIndex,
+    }),
+  );
   const [glossaryData, setglossaryData] = useState([]);
+  const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
   const [currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
@@ -282,11 +313,16 @@ const Slug = (props) => {
   const [parsleyResult, setparsleyResult] = useState('');
   const router = useRouter();
   const currentUrl = router.query.slug[0];
-  const pageData = props.parsley.tour.data.find(
-    (e) => e.content.path_part === currentUrl,
-  );
+  const tourData = props.parsley.tour.data;
+  const pageData = tourData.find((e) => e.content.path_part === currentUrl);
 
   const { lesson_number, title, explanation, code_sample } = pageData.content;
+  const nextLesson = tourData.find(
+    (e) => e.content.lesson_number === String(Number(lesson_number) + 1),
+  );
+  const previousLesson = tourData.find(
+    (e) => e.content.lesson_number === String(Number(lesson_number) - 1),
+  );
   const navData = props.parsley.tour.data
     .map((e) => {
       return {
@@ -354,7 +390,6 @@ const Slug = (props) => {
           'https://parsleydev-dev.webengine.zesty.io/-/instant/6-3998c8-rtfq3n.json',
         )
         .then((e) => {
-          console.log(e.data, 4444);
           setglossaryData(e.data.data);
         })
         .catch((error) => {
@@ -365,13 +400,38 @@ const Slug = (props) => {
     }
   };
 
-  useEffect(() => {
-    getGlossary();
-  }, [contentTab]);
+  const getExampleData = async () => {
+    try {
+      await axios
+        .get('https://parsley.zesty.io/-/gql/example_data.json')
+        .then((e) => {
+          setexampleData(e.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(async () => {
+    if (glossaryData.length === 0) {
+      await getGlossary();
+    }
+    if (exampleData.length === 0) {
+      await getExampleData();
+    }
+  }, [contentTab, exampleData, glossaryData]);
 
   useEffect(() => {
     setcurrentTab('response');
   }, [router.asPath]);
+
+  useEffect(() => {
+    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaAppId(props.algolia.appId);
+    setalgoliaIndex(props.algolia.index);
+  }, []);
 
   return (
     <MainWrapper>
@@ -381,6 +441,7 @@ const Slug = (props) => {
           setsearch={setsearch}
           data={navData}
           onClick={handleRedirect}
+          placeholder="Search Lessons..."
         />
         {/* MAIN PAGE */}
         <Stack pl={6} sx={{ width: 1 }}>
@@ -401,15 +462,55 @@ const Slug = (props) => {
               justifyContent={'center'}
               justifyItems={'center'}
               display={'flex'}
+              position={'relative'}
             >
-              <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
-                <img
-                  width={200}
-                  src={
-                    'https://9skdl6.media.zestyio.com/parsley-logo-brackets.png'
-                  }
-                  alt="parsley"
-                />
+              <Stack
+                position={'absolute'}
+                direction={'row'}
+                top={-30}
+                left={10}
+              >
+                {previousLesson && (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    title="Previous Lesson"
+                    href={`/docs/parsley/tour${previousLesson.content.path_full}`}
+                    startIcon={<ArrowBackIosIcon sx={{ fontSize: '20px' }} />}
+                  >
+                    Previous Lesson
+                  </Button>
+                )}
+              </Stack>
+              <Stack
+                position={'absolute'}
+                direction={'row'}
+                top={-30}
+                right={10}
+              >
+                {nextLesson && (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    title="Next Lesson"
+                    href={`/docs/parsley/tour${nextLesson.content.path_full}`}
+                    endIcon={<NavigateNextIcon sx={{ fontSize: '20px' }} />}
+                  >
+                    Next Lesson
+                  </Button>
+                )}
+              </Stack>
+
+              <Stack>
+                <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
+                  <img
+                    width={200}
+                    src={
+                      'https://9skdl6.media.zestyio.com/parsley-logo-brackets.png'
+                    }
+                    alt="parsley"
+                  />
+                </Stack>
               </Stack>
             </Grid>
           </Grid>
@@ -417,7 +518,6 @@ const Slug = (props) => {
           <Grid container gap={1} wrap="nowrap" mt={8}>
             <Grid item xs={6}>
               <CodeBlockCompLeft
-                currentTab={currentTab}
                 setcurrentTab={setcurrentTab}
                 code={code_sample}
                 textContent={textContent}
@@ -432,11 +532,9 @@ const Slug = (props) => {
               <CodeBlockCompRight
                 currentTab={currentTab}
                 setcurrentTab={setcurrentTab}
-                code={code_sample}
                 textContent={textContent}
                 settextContent={settextContent}
                 loading={loading}
-                getRenderText={getRenderText}
                 parsleyResult={parsleyResult}
                 tabs={rightTabs}
                 title="Parsely Response"
@@ -476,7 +574,7 @@ const Slug = (props) => {
                       <GlossaryRender data={glossaryData} />
                     )}
                     {contentTab === 'example page' && (
-                      <ExamplaPageRender data={[]} />
+                      <ExamplaPageRender data={exampleData} />
                     )}
                   </Stack>
                 </Stack>
