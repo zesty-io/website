@@ -11,6 +11,7 @@ const FeatureStatistics = ({
   image = featureContent,
   statsTitle = '5x',
   statsDescription = 'Faster More Secure\nUploads than most traditional DAMs',
+  isImageRight = true,
 }) => {
   return (
     <Stack
@@ -29,14 +30,15 @@ const FeatureStatistics = ({
         [theme.breakpoints.up('lg')]: {
           py: 10,
           px: 14,
+          gap: 8,
         },
       })}
     >
       <Stack
         mb={{ xs: 3, tablet: 6, lg: 0 }}
         sx={{ width: { lg: '456px', desktopWide: '576px' } }}
-        mr={{ lg: 8 }}
         py={{ lg: '61.5px', desktopWide: '95.5px' }}
+        order={{ lg: isImageRight ? 0 : 1 }}
       >
         <Typography fontWeight={600} variant="body2" color="primary" mb="12px">
           {overline}
@@ -88,7 +90,14 @@ const FeatureStatistics = ({
           </Typography>
         </Stack>
       </Stack>
-      <Stack>
+      <Stack
+        mb={{
+          xs: !isImageRight && 3,
+          tablet: !isImageRight && 6,
+          lg: !isImageRight && 0,
+        }}
+        order={{ lg: isImageRight ? 1 : 0 }}
+      >
         <Box
           component="img"
           src={image}

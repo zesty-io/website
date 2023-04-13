@@ -7,10 +7,13 @@ const featureContent =
 const FeatureTwoCTA = ({
   overline = 'SETUP, EASY-PEASY!',
   heading = 'Hassle-free setup with APIs that integrate with all frameworks',
-  supportingText = `With Zesty you’re not constrained to using one kind of API. You can use any of our APIs (GraphQL, REST, GET, and Instant JSON) with any framework of your choice. And they all come with web-hooks and site generators. Check them out in our `,
+  supportingText = ``,
   primaryBtn = 'Find a Partner',
+  primaryBtnLink = '#',
   secondaryBtn = 'Talk to Sales',
+  secondaryBtnLink = '#',
   image = featureContent,
+  isImageRight = true,
 }) => {
   return (
     <Stack
@@ -29,14 +32,15 @@ const FeatureTwoCTA = ({
         [theme.breakpoints.up('lg')]: {
           py: 10,
           px: 14,
+          gap: 8,
         },
       })}
     >
       <Stack
         mb={{ xs: 3, tablet: 6, lg: 0 }}
         sx={{ width: { lg: '456px', desktopWide: '576px' } }}
-        mr={{ lg: 8 }}
         py={{ desktopWide: 6 }}
+        order={{ lg: isImageRight ? 0 : 1 }}
       >
         <Typography variant="body2" fontWeight={600} color="primary" mb="12px">
           {overline}
@@ -62,21 +66,43 @@ const FeatureTwoCTA = ({
           lineHeight="28px"
           mb={4}
         >
-          {supportingText}{' '}
-          <Link href="/docs" color="info.main" underline="none">
-            documentation
-          </Link>
+          {supportingText === '' ? (
+            [
+              `With Zesty you’re not constrained to using one kind of API. You can use any of our APIs (GraphQL, REST, GET, and Instant JSON) with any framework of your choice. And they all come with web-hooks and site generators. Check them out in our `,
+              <Link href="/docs" color="info.main" underline="none">
+                documentation
+              </Link>,
+            ]
+          ) : (
+            <Box
+              component="div"
+              sx={(theme) => ({
+                '& a': {
+                  color: theme.palette.info.main,
+                  textDecoration: 'none',
+                },
+              })}
+              dangerouslySetInnerHTML={{ __html: supportingText }}
+            />
+          )}
         </Typography>
         <Stack direction="row" columnGap={2}>
-          <Button variant="contained" size="extraLarge">
+          <Button href={primaryBtnLink} variant="contained" size="extraLarge">
             {primaryBtn}
           </Button>
-          <Button variant="outlined" size="extraLarge">
+          <Button href={secondaryBtnLink} variant="outlined" size="extraLarge">
             {secondaryBtn}
           </Button>
         </Stack>
       </Stack>
-      <Stack>
+      <Stack
+        mb={{
+          xs: !isImageRight && 3,
+          tablet: !isImageRight && 6,
+          lg: !isImageRight && 0,
+        }}
+        order={{ lg: isImageRight ? 1 : 0 }}
+      >
         <Box
           component="img"
           src={image}
