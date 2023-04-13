@@ -9,7 +9,7 @@ const AuthorSection = ({
   authorName = 'Zoshua Colah',
   authorDescription = 'Zoshua is a Senior Product Designer at Zesty.io, elevating the experiences people have in making content-rich experiences. Having spent over 5 years making intuitive product experiences, he understands the need for a CMS that works with you - not against you. In his free time, you can find Zosh either teaching, mentoring, or sharing UX resources.',
   authorLink,
-  tags,
+  tags = [{ name: 'Product', link: '#' }],
 }) => {
   return (
     <Stack
@@ -26,7 +26,7 @@ const AuthorSection = ({
         [theme.breakpoints.up('lg')]: {
           width: '640px',
           mx: 'auto',
-          py: 4,
+          py: 6,
           px: 0,
         },
       })}
@@ -66,34 +66,21 @@ const AuthorSection = ({
         </Typography>
       </Stack>
       {tags?.length && (
-        <Stack>
-          <Typography
-            color="text.primary"
-            fontWeight={800}
-            fontSize="16px"
-            lineHeight="24px"
-            textTransform="uppercase"
-            letterSpacing="0.02em"
-            mb="12px"
-          >
-            Explore More
-          </Typography>
-          <Stack direction="row" spacing="12px">
-            {tags?.map((tag) => (
-              <Link key={tag.name} href={tag.link} underline="none">
-                <Chip
-                  variant="outlined"
-                  label={tag.name}
-                  sx={{
-                    borderRadius: '4px',
-                    borderColor: 'grey.300',
-                    color: 'text.primary',
-                    cursor: 'pointer',
-                  }}
-                />
-              </Link>
-            ))}
-          </Stack>
+        <Stack direction="row" spacing="12px">
+          {tags?.map((tag) => (
+            <Link key={tag.name} href={tag.link} underline="none">
+              <Chip
+                variant="outlined"
+                label={tag.name}
+                sx={{
+                  borderRadius: '4px',
+                  borderColor: 'grey.300',
+                  color: 'text.primary',
+                  cursor: 'pointer',
+                }}
+              />
+            </Link>
+          ))}
         </Stack>
       )}
     </Stack>

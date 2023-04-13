@@ -56,7 +56,7 @@ const components = [
 
   'Home Page',
   'Home Page 2',
-  'Blog Page',
+  'Content Section | Rich Text',
   'Security Feature',
   'Content Section | Author and Tags',
 ];
@@ -162,7 +162,7 @@ const revamp = () => {
 
     if (component === 'Home Page') return <HomePage />;
     if (component === 'Home Page 2') return <HomePage2 />;
-    if (component === 'Blog Page') return <BlogPage />;
+    if (component === 'Content Section | Rich Text') return <BlogPage />;
     if (component === 'Security Feature') return <SecurityFeature />;
     if (component === 'Content Section | Author and Tags')
       return <AuthorSection />;
