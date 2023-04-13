@@ -28,19 +28,14 @@ const menuItems = [
   {
     name: 'Facebook',
     icon: <FacebookRoundedIcon />,
-    // link: 'https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhygraph.com%2Fblog%2Fbuilding-learning-platform-schema',
   },
   {
     name: 'Twitter',
     icon: <TwitterIcon />,
-    link: 'https://twitter.com/intent/tweet?lang=en&url=https://www.espncricinfo.com/story/csk-vs-rr-ipl-2023-r-ashwin-crashes-chennai-super-kings-party-to-silence-chepauk-1368448&text=',
-    // link: 'https://twitter.com/intent/tweet?lang=en&url=https://www.espncricinfo.com/story/csk-vs-rr-ipl-2023-r-ashwin-crashes-chennai-super-kings-party-to-silence-chepauk-1368448&text=R%20Ashwin%20crashes%20Chennai%20Super%20Kings%27%20party%20to%20silence%20Chepauk',
   },
   {
     name: 'Linkedin',
     icon: <LinkedInIcon />,
-    link: 'https://www.linkedin.com/shareArticle?mini=true&url=',
-    // link: 'https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhygraph.com%2Fblog%2Fbuilding-learning-platform-schema&title=Building%20a%20learning%20platform%3A%20The%20schema&summary=Building%20a%20learning%20platform%3A%20The%20schema&source=https%3A%2F%2Fhygraph.com%2Fblog%2Fbuilding-learning-platform-schema',
   },
   {
     name: 'Copy Link',

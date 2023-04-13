@@ -48,24 +48,26 @@ import dayjs from 'dayjs';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import AuthorSection from 'revamp/ui/AuthorSection';
+import useFetch from 'components/hooks/useFetch';
+import BlogContent from 'revamp/ui/BlogContent';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
   const { palette } = useTheme();
-  // const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
+  const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
 
-  // const { data: latestArticles, isPending: latestPending } = useFetch(
-  //   '/-/all-articles-hydrated.json?limit=5',
-  //   content.zestyProductionMode,
-  // );
+  const { data: latestArticles, isPending: latestPending } = useFetch(
+    '/-/all-articles-hydrated.json?limit=5',
+    content.zestyProductionMode,
+  );
 
-  // const {
-  //   data: tagArticles,
-  //   //  isPending: tagsPending
-  // } = useFetch(
-  //   `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
-  //   content.zestyProductionMode,
-  // );
+  const {
+    data: tagArticles,
+    //  isPending: tagsPending
+  } = useFetch(
+    `/-/similar-articles.json?limit=4&tag=${simliarTags}`,
+    content.zestyProductionMode,
+  );
 
   const removeErrorHandlingString = /Error hydrating/gi;
   let cleanOutErrorHydrating;
@@ -511,6 +513,7 @@ function Article({ content }) {
             tags={tags}
             authorLink={authorLink}
           />
+          <BlogContent articles={latestArticles} />
         </Stack>
       </ThemeProvider>
     </Box>

@@ -27,6 +27,7 @@ import HomePage2 from 'revamp/ui/HomePage2';
 import BlogPage from 'revamp/ui/BlogPage';
 import SecurityFeature from 'revamp/ui/SecurityFeature';
 import AuthorSection from 'revamp/ui/AuthorSection';
+import BlogCard from 'revamp/ui/BlogCard';
 
 const components = [
   'Hero | Stacked | Light',
@@ -59,9 +60,8 @@ const components = [
   'Content Section | Rich Text',
   'Security Feature',
   'Content Section | Author and Tags',
-  'StandardFormWithSelect',
-  'StandardFormWithSelectNoSelect',
-  'DemoForm',
+  'Blog Card',
+  'Big Blog Card',
 ];
 
 // const components2 = [
@@ -169,6 +169,8 @@ const revamp = () => {
     if (component === 'Security Feature') return <SecurityFeature />;
     if (component === 'Content Section | Author and Tags')
       return <AuthorSection />;
+    if (component === 'Blog Card') return <BlogCard />;
+    if (component === 'Big Blog Card') return <BlogCard isBig />;
 
     return 'Please select a component';
   };
