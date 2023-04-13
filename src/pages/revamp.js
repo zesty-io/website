@@ -59,6 +59,9 @@ const components = [
   'Content Section | Rich Text',
   'Security Feature',
   'Content Section | Author and Tags',
+  'StandardFormWithSelect',
+  'StandardFormWithSelectNoSelect',
+  'DemoForm',
 ];
 
 // const components2 = [
