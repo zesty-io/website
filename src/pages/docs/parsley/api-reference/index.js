@@ -138,7 +138,9 @@ const index = (props) => {
         />
         {/* MAIN PAGE */}
         <Stack pl={4} sx={{ width: 1 }}>
-          <MuiMarkdown overrides={muiContentOverrides}>{mdData}</MuiMarkdown>
+          <Stack width={'70vw'}>
+            <MuiMarkdown overrides={muiContentOverrides}>{mdData}</MuiMarkdown>
+          </Stack>
         </Stack>
       </Stack>
     </MainWrapper>

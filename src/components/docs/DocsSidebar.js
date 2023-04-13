@@ -3,6 +3,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import { Link, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
+import { grey } from '@mui/material/colors';
 
 export const DocsSidebar = React.memo(
   ({ setsearch, data, onClick = undefined, placeholder = 'Search...' }) => {
@@ -19,7 +20,8 @@ export const DocsSidebar = React.memo(
           height: '100%',
           overflowY: 'auto',
           overflowX: 'clip',
-          minWidth: 330,
+          width: 400,
+          borderRight: `1px solid ${grey[200]}`,
         }}
       >
         <Stack p={2}>
