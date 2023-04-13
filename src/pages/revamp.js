@@ -27,8 +27,6 @@ import HomePage2 from 'revamp/ui/HomePage2';
 import BlogPage from 'revamp/ui/BlogPage';
 import SecurityFeature from 'revamp/ui/SecurityFeature';
 import AuthorSection from 'revamp/ui/AuthorSection';
-import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
-import DemoForm from 'components/cta/DemoForm';
 
 const components = [
   'Hero | Stacked | Light',
@@ -61,10 +59,6 @@ const components = [
   'Content Section | Rich Text',
   'Security Feature',
   'Content Section | Author and Tags',
-  'Author Section',
-  'StandardFormWithSelect',
-  'StandardFormWithSelectNoSelect',
-  'DemoForm',
 ];
 
 // const components2 = [
@@ -172,12 +166,6 @@ const revamp = () => {
     if (component === 'Security Feature') return <SecurityFeature />;
     if (component === 'Content Section | Author and Tags')
       return <AuthorSection />;
-    if (component === 'Author Section') return <AuthorSection />;
-    if (component === 'StandardFormWithSelect')
-      return <StandardFormWithSelect />;
-    if (component === 'StandardFormWithSelectNoSelect')
-      return <StandardFormWithSelect hideSelect={true} />;
-    if (component === 'DemoForm') return <DemoForm />;
 
     return 'Please select a component';
   };
