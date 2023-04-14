@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 export const DocsSidebar = React.memo(
   ({ setsearch, data, onClick = undefined, placeholder = 'Search...' }) => {
     const router = useRouter();
-    const url = `/${router?.query?.slug[0]}/`;
+    const url = `/${router?.query?.slug && router?.query?.slug[0]}/`;
     const handleClick = (e) => {
       if (onClick) {
         onClick(e);
