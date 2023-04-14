@@ -46,7 +46,6 @@ const CodeBlockCompLeft = ({
   const onChange = React.useCallback((value, _) => {
     settextContent(value);
   }, []);
-  console.log(availableData, 4444);
   return (
     <Stack
       bgcolor="#1B253F"
