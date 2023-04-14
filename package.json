@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.1.5",
+    "@codemirror/view": "^6.9.4",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.9.0",
     "@emotion/server": "^11.4.0",

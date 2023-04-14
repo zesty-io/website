@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import CodeMirror from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
 import { javascript } from '@codemirror/lang-javascript';
 import CircularProgress from '@mui/material/CircularProgress';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -70,7 +71,7 @@ const CodeBlockCompLeft = ({
       value={getValue()}
       height={'300px'}
       crosshairCursor={true}
-      extensions={[javascript({ jsx: true })]}
+      extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
       onChange={onChange}
       style={{ fontSize: '11px' }}
       theme={githubDarkInit({
@@ -88,10 +89,9 @@ const CodeBlockCompLeft = ({
         position: 'relative',
         cursor: 'pointer',
         overflow: 'auto',
-        borderRadius: '10px',
         overflow: 'clip',
         height: 'auto',
-        width: '35vw',
+        width: 1,
         color: '#fff',
       }}
     >
@@ -175,10 +175,9 @@ const CodeBlockCompRight = ({
         position: 'relative',
         cursor: 'pointer',
         overflow: 'auto',
-        borderRadius: '10px',
         overflow: 'clip',
         height: 'auto',
-        width: '35vw',
+        width: 1,
         color: '#fff',
       }}
       onMouseOver={() => setshowCopyBtn(true)}
@@ -234,6 +233,7 @@ const CodeBlockCompRight = ({
             crosshairCursor={true}
             extensions={[javascript({ jsx: true })]}
             onChange={onChange}
+            style={{ fontSize: '11px' }}
             theme={githubDarkInit({
               settings: {
                 caret: '#ff5c0c',
@@ -251,7 +251,6 @@ const CodeBlockCompRight = ({
               width: '100%',
               bgcolor: '#fff',
               overflow: 'auto',
-              borderRadius: '5px',
               fontSize: '13px',
               fontWeight: 400,
               color: '#333333',
@@ -663,7 +662,18 @@ const Slug = (props) => {
             </Grid>
           </Grid>
 
-          <Grid container gap={1} wrap="nowrap" mt={8} px={4}>
+          <Grid
+            container
+            wrap="nowrap"
+            mt={8}
+            spacing={2}
+            py={2}
+            sx={{
+              borderTop: `1px solid ${grey[200]}`,
+              borderBottom: `1px solid ${grey[200]}`,
+              bgcolor: '#1b2540',
+            }}
+          >
             <Grid item xs={6}>
               <CodeBlockCompLeft
                 availableData={availableData}

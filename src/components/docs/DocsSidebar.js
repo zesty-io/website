@@ -25,11 +25,12 @@ export const DocsSidebar = React.memo(
       <Stack
         sx={{
           position: 'sticky',
-          top: '10rem',
+          top: '9rem',
           height: '100%',
           overflowY: 'auto',
           overflowX: 'clip',
           width: 400,
+          bgcolor: '#fff',
           borderRight: `1px solid ${grey[200]}`,
         }}
       >
