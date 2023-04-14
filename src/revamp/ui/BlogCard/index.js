@@ -38,11 +38,11 @@ const BlogCard = ({
           <Box
             id="hi"
             component="img"
-            width={isBig ? '695px' : '100%'}
-            height={isBig ? '391px' : '100%'}
+            width={{ xs: '100%', lg: isBig ? '695px' : '100%' }}
+            height={{ xs: '100%', lg: isBig ? '391px' : '216px' }}
             src={article}
             sx={{
-              objectFit: 'contain',
+              objectFit: 'cover',
               transition: 'transform 0.25s',
               transform: 'scale(1)',
             }}

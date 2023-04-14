@@ -57,7 +57,7 @@ function Article({ content }) {
   const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
 
   const { data: latestArticles, isPending: latestPending } = useFetch(
-    '/-/all-articles-hydrated.json?limit=5',
+    '/-/all-articles-hydrated.json?limit=4',
     content.zestyProductionMode,
   );
 
@@ -355,12 +355,25 @@ function Article({ content }) {
                     },
                   },
                   iframe: {
+                    component: ({ children, ...props }) => (
+                      <Box component="iframe" {...props}>
+                        {children}
+                      </Box>
+                    ),
                     props: {
-                      style: {
-                        marginTop: '48px',
-                        width: '100%',
-                        height: '450px',
-                      },
+                      sx: (theme) => ({
+                        [theme.breakpoints.up('xs')]: {
+                          mt: 6,
+                          width: '100%',
+                          height: '210px',
+                        },
+                        [theme.breakpoints.up('tablet')]: {
+                          height: '432px',
+                        },
+                        [theme.breakpoints.up('lg')]: {
+                          height: '450px',
+                        },
+                      }),
                     },
                   },
                   ul: {
@@ -373,16 +386,16 @@ function Article({ content }) {
                           fontSize: '18px',
                           lineHeight: '28px',
                           fontWeight: 500,
-                          pl: 2,
                           py: 0,
                           mt: '20px',
                           '& .MuiListItem-root': {
                             display: 'list-item',
                           },
-                          mx: 2,
+                          mx: 3,
+                          // pl: 2,
                           '& ul': {
                             mt: '12px',
-                            mx: 0,
+                            mx: 2,
                             p: 0,
                           },
                         },
@@ -392,7 +405,7 @@ function Article({ content }) {
                           px: 0,
                           '& ul': {
                             mx: 2,
-                            pl: 2,
+                            // pl: 2,
                           },
                         },
                       }),
@@ -407,11 +420,11 @@ function Article({ content }) {
                           fontSize: '18px',
                           lineHeight: '28px',
                           fontWeight: 500,
-                          pl: 2,
                           '& .MuiListItem-root': {
                             display: 'list-item',
                           },
-                          mx: 2,
+                          // pl: 2,
+                          mx: 3,
                         },
                         [theme.breakpoints.up('tablet')]: {
                           width: '640px',
@@ -424,16 +437,20 @@ function Article({ content }) {
                   li: {
                     component: ListItem,
                     props: {
-                      sx: {
-                        mx: 3,
-                        px: 0,
-                        pt: 0,
-                        pb: '12px',
-                        '& p': {
-                          m: 0,
-                          p: 0,
+                      sx: (theme) => ({
+                        [theme.breakpoints.up('xs')]: {
+                          px: 0,
+                          pt: 0,
+                          pb: '12px',
+                          '& p': {
+                            m: 0,
+                            p: 0,
+                          },
                         },
-                      },
+                        [theme.breakpoints.up('tablet')]: {
+                          mx: 3,
+                        },
+                      }),
                     },
                   },
                   blockquote: {
