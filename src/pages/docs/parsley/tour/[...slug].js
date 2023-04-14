@@ -149,8 +149,6 @@ const CodeBlockCompRight = ({
   title = 'Parsley Code Example (editable)',
   loading = false,
   parsleyResult = '',
-  currentTab,
-  setcurrentTab,
   tabs = [],
 }) => {
   const [isCopied, setIsCopied] = React.useState(false);
@@ -191,8 +189,8 @@ const CodeBlockCompRight = ({
           cursor: 'pointer',
           color: '#fff',
           position: 'absolute',
-          top: '6.5rem',
-          right: '15px',
+          top: '8rem',
+          right: '20px',
         }}
         onClick={() => {
           copyToClipboard(parsleyResult);
@@ -201,11 +199,13 @@ const CodeBlockCompRight = ({
       >
         {isCopied ? (
           <Stack direction="row" alignItems={'center'} spacing={1}>
-            <Typography variant="button">Copied to Clipboard!</Typography>
-            <ContentCopyIcon color="inherit" fontSize="medium" />
+            <Typography variant="button" color={'secondary'}>
+              Copied to Clipboard!
+            </Typography>
+            <ContentCopyIcon color="secondary" fontSize="medium" />
           </Stack>
         ) : (
-          <ContentCopyIcon color="inherit" fontSize="medium" />
+          <ContentCopyIcon color="secondary" fontSize="medium" />
         )}
       </Stack>
       <Stack
@@ -223,8 +223,8 @@ const CodeBlockCompRight = ({
         <DocsTabs setvalue={setactiveTab} value={activeTab} tabs={tabs} />
       </Stack>
 
-      <Stack height={'300px'} p={currentTab === 'response' ? 0 : 0.5}>
-        {currentTab === 'response' ? (
+      <Stack height={'300px'} p={activeTab === 'response' ? 0 : 0.5}>
+        {activeTab === 'response' ? (
           <CodeMirror
             editable={false}
             value={parsleyResult}
@@ -658,8 +658,6 @@ const Slug = (props) => {
             </Grid>
             <Grid item xs={6}>
               <CodeBlockCompRight
-                currentTab={currentTab}
-                setcurrentTab={setcurrentTab}
                 textContent={textContent}
                 settextContent={settextContent}
                 loading={loading}

@@ -16,7 +16,7 @@ export const DocsSidebar = React.memo(
       <Stack
         sx={{
           position: 'sticky',
-          top: '11rem',
+          top: '10rem',
           height: '100%',
           overflowY: 'auto',
           overflowX: 'clip',
