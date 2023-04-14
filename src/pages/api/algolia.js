@@ -1,5 +1,6 @@
 import algoliasearch from 'algoliasearch';
 import axios from 'axios';
+import { fetchMarkdownFile, parseMarkdownFile } from 'utils/docs';
 import { transFormMainData } from 'views/Docs/helper';
 
 const POSTMAN_JSON_DATA = [
@@ -12,10 +13,8 @@ const POSTMAN_JSON_DATA = [
 const APPID = process.env.ALGOLIA_APPID;
 const APIKEY = process.env.ALGOLIA_APIKEY;
 const INDEX = process.env.ALGOLIA_INDEX;
-const addToAlgolia = async ({ data = [] }) => {
-  const client = algoliasearch(APPID, APIKEY);
-  const index = client.initIndex(INDEX);
 
+const getDocsData = async () => {
   const mainCollection = [];
   const getPostmanData = async () => {
     for (const url of POSTMAN_JSON_DATA) {
@@ -54,17 +53,7 @@ const addToAlgolia = async ({ data = [] }) => {
 
   const objects = await refactorCollection(mainData);
 
-  const finalObject = [...objects, ...data];
-  await index
-    .replaceAllObjects(finalObject, {
-      autoGenerateObjectIDIfNotExist: true,
-    })
-    .then(({ objectIDs }) => {
-      console.log(objectIDs);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  return objects;
 };
 
 const parselyTourEndpoint =
@@ -91,10 +80,42 @@ const getParsleyTourData = async () => {
 
   return res;
 };
+
+const algoliaFunc = async ({ data, index }) => {
+  const client = algoliasearch(APPID, APIKEY);
+  const newIndex = client.initIndex(index);
+
+  await newIndex
+    .replaceAllObjects(data, {
+      autoGenerateObjectIDIfNotExist: true,
+    })
+    .then(({ objectIDs }) => {
+      console.log(objectIDs);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const getParsleyGlossaryData = async () => {
+  const markdown = await fetchMarkdownFile();
+  const { navData } = parseMarkdownFile(
+    markdown,
+    () => {},
+    () => {},
+  );
+  return navData;
+};
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     const parsleyData = await getParsleyTourData();
-    await addToAlgolia({ data: parsleyData });
+    const docsData = await getDocsData();
+    const parsleyGlossaryData = await getParsleyGlossaryData();
+
+    await algoliaFunc({ data: parsleyData, index: 'parsley-tour' });
+    await algoliaFunc({ data: docsData, index: 'docs' });
+    await algoliaFunc({ data: parsleyGlossaryData, index: 'parsley-glossary' });
+
     return res.status(200).json({ ok: true });
   } else {
     return res.status(403).json({ name: req.method });

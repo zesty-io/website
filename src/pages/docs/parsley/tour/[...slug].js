@@ -17,8 +17,12 @@ import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { LoadingButton } from '@mui/lab';
 import { githubDarkInit } from '@uiw/codemirror-theme-github';
 import { useZestyStore } from 'store';
+import { grey } from '@mui/material/colors';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
-const leftTabs = [{ label: 'Request', value: 'request' }];
+const leftTabs = [
+  { label: 'Code Example', value: 'code example' },
+  { label: 'Available Data', value: 'available data' },
+];
 
 const rightTabs = [
   { label: 'Code Response', value: 'response' },
@@ -36,7 +40,9 @@ const CodeBlockCompLeft = ({
   tabs = [],
   loading = false,
   getRenderText,
+  availableData,
 }) => {
+  const [activeTab, setactiveTab] = useState('code example');
   const onChange = React.useCallback((value, _) => {
     settextContent(value);
   }, []);
@@ -95,26 +101,44 @@ const CodeBlockCompLeft = ({
       >
         <Typography>{title}</Typography>
       </Stack>
-      <Stack direction={'row'} px={1}>
-        <DocsTabs setvalue={() => {}} value={'request'} tabs={tabs} />
+      <Stack direction={'row'} px={1} py={1}>
+        <DocsTabs setvalue={setactiveTab} value={activeTab} tabs={tabs} />
       </Stack>
 
       <Stack>
-        <CodeMirror
-          editable={true}
-          basicSetup={{ lineNumbers: true, autocompletion: true }}
-          value={code}
-          height={'300px'}
-          crosshairCursor={true}
-          extensions={[javascript({ jsx: true })]}
-          onChange={onChange}
-          theme={githubDarkInit({
-            settings: {
-              caret: '#ff5c0c',
-              fontFamily: 'monospace',
-            },
-          })}
-        />
+        {activeTab === 'code example' ? (
+          <CodeMirror
+            editable={true}
+            basicSetup={{ lineNumbers: true, autocompletion: true }}
+            value={code}
+            height={'300px'}
+            crosshairCursor={true}
+            extensions={[javascript({ jsx: true })]}
+            onChange={onChange}
+            theme={githubDarkInit({
+              settings: {
+                caret: '#ff5c0c',
+                fontFamily: 'monospace',
+              },
+            })}
+          />
+        ) : (
+          <CodeMirror
+            editable={true}
+            basicSetup={{ lineNumbers: true, autocompletion: true }}
+            value={JSON.stringify(availableData?.fields, null, '\t')}
+            height={'300px'}
+            crosshairCursor={true}
+            extensions={[javascript({ jsx: true })]}
+            onChange={onChange}
+            theme={githubDarkInit({
+              settings: {
+                caret: '#ff5c0c',
+                fontFamily: 'monospace',
+              },
+            })}
+          />
+        )}
       </Stack>
     </Stack>
   );
@@ -131,6 +155,7 @@ const CodeBlockCompRight = ({
 }) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
+  const [activeTab, setactiveTab] = useState('response');
 
   const copyToClipboard = (text) => {
     navigator?.clipboard?.writeText(text);
@@ -194,8 +219,8 @@ const CodeBlockCompRight = ({
       >
         <Typography>{title}</Typography>
       </Stack>
-      <Stack direction={'row'} px={1}>
-        <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
+      <Stack direction={'row'} px={1} py={1}>
+        <DocsTabs setvalue={setactiveTab} value={activeTab} tabs={tabs} />
       </Stack>
 
       <Stack height={'300px'} p={currentTab === 'response' ? 0 : 0.5}>
@@ -268,7 +293,8 @@ const GlossaryRender = ({ data = [] }) => {
   );
 };
 
-const ExamplaPageRender = () => {
+const ExamplaPageRender = ({ data = [] }) => {
+  const tableObj = Object.entries(data.fields);
   const accessParsley = [
     `{{this.title}}`,
     `{{this.description}}`,
@@ -320,34 +346,14 @@ const ExamplaPageRender = () => {
                       <th>Reference Name</th>
                       <th>Type</th>
                     </tr>
-                    <tr>
-                      <td>title</td>
-                      <td>text</td>
-                    </tr>
-                    <tr>
-                      <td>html</td>
-                      <td>wsywig</td>
-                    </tr>
-                    <tr>
-                      <td>image</td>
-                      <td>image</td>
-                    </tr>
-                    <tr>
-                      <td>multiple_images</td>
-                      <td>image</td>
-                    </tr>
-                    <tr>
-                      <td>date</td>
-                      <td>date</td>
-                    </tr>
-                    <tr>
-                      <td>dropdown</td>
-                      <td>dropdown</td>
-                    </tr>
-                    <tr>
-                      <td>number</td>
-                      <td>number</td>
-                    </tr>
+                    {tableObj?.map((e) => {
+                      return (
+                        <tr>
+                          <td>{e[0]}</td>
+                          <td>{e[1]}</td>
+                        </tr>
+                      );
+                    })}
                   </table>
                 </Stack>
                 <Typography variant="h5" pt={2}>
@@ -421,7 +427,7 @@ const Slug = (props) => {
     }),
   );
   const [glossaryData, setglossaryData] = useState([]);
-  // const [exampleData, setexampleData] = useState([]);
+  const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
   const [currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
@@ -516,27 +522,28 @@ const Slug = (props) => {
     }
   };
 
-  // const getExampleData = async () => {
-  //   try {
-  //     await axios
-  //       .get('https://parsley.zesty.io/-/gql/example_data.json')
-  //       .then((e) => {
-  //         setexampleData(e.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const getExampleData = async () => {
+    try {
+      await axios
+        .get('https://parsley.zesty.io/-/gql/')
+        .then((e) => {
+          const res = e.data.models.find((e) => e.name === 'example_data');
+          setexampleData(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(async () => {
     if (glossaryData.length === 0) {
       await getGlossary();
     }
-    // if (exampleData.length === 0) {
-    //   await getExampleData();
-    // }
+    if (exampleData.length === 0) {
+      await getExampleData();
+    }
   }, [contentTab, glossaryData]);
 
   useEffect(() => {
@@ -560,8 +567,50 @@ const Slug = (props) => {
           placeholder="Search Lessons..."
         />
         {/* MAIN PAGE */}
-        <Stack pl={6} sx={{ width: 1 }}>
-          <Grid container alignItems={'center'} mt={4}>
+        <Stack sx={{ width: 1 }}>
+          <Box
+            width={1}
+            display={'flex'}
+            direction="row"
+            alignItems={'center'}
+            justifyContent={'space-between'}
+            py={1}
+            px={2}
+            sx={{ borderBottom: `1px solid ${grey[200]}` }}
+          >
+            <Stack color={'grey'} direction={'row'}>
+              {previousLesson && (
+                <Button
+                  variant="text"
+                  color="inherit"
+                  title="Previous Lesson"
+                  href={`/docs/parsley/tour${previousLesson.content.path_full}`}
+                  startIcon={<ArrowBackIosIcon sx={{ fontSize: '20px' }} />}
+                >
+                  Previous Lesson
+                </Button>
+              )}
+            </Stack>
+            <Stack direction={'row'}>
+              <Typography variant="h6" component={'h1'}>
+                Lesson {lesson_number}: {title}
+              </Typography>
+            </Stack>
+            <Stack direction={'row'} color={'grey'}>
+              {nextLesson && (
+                <Button
+                  variant="text"
+                  color="inherit"
+                  title="Next Lesson"
+                  href={`/docs/parsley/tour${nextLesson.content.path_full}`}
+                  endIcon={<NavigateNextIcon sx={{ fontSize: '20px' }} />}
+                >
+                  Next Lesson
+                </Button>
+              )}
+            </Stack>
+          </Box>
+          <Grid container alignItems={'center'} mt={4} px={4}>
             <Grid item xs={6}>
               <Typography variant="h6">Lesson {lesson_number}</Typography>
               <Typography variant="h4">{title}</Typography>
@@ -580,43 +629,6 @@ const Slug = (props) => {
               display={'flex'}
               position={'relative'}
             >
-              <Stack
-                position={'absolute'}
-                direction={'row'}
-                top={-30}
-                left={10}
-              >
-                {previousLesson && (
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    title="Previous Lesson"
-                    href={`/docs/parsley/tour${previousLesson.content.path_full}`}
-                    startIcon={<ArrowBackIosIcon sx={{ fontSize: '20px' }} />}
-                  >
-                    Previous Lesson
-                  </Button>
-                )}
-              </Stack>
-              <Stack
-                position={'absolute'}
-                direction={'row'}
-                top={-30}
-                right={30}
-              >
-                {nextLesson && (
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    title="Next Lesson"
-                    href={`/docs/parsley/tour${nextLesson.content.path_full}`}
-                    endIcon={<NavigateNextIcon sx={{ fontSize: '20px' }} />}
-                  >
-                    Next Lesson
-                  </Button>
-                )}
-              </Stack>
-
               <Stack>
                 <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
                   <img
@@ -631,10 +643,10 @@ const Slug = (props) => {
             </Grid>
           </Grid>
 
-          <Grid container gap={1} wrap="nowrap" mt={8}>
+          <Grid container gap={1} wrap="nowrap" mt={8} px={4}>
             <Grid item xs={6}>
               <CodeBlockCompLeft
-                setcurrentTab={setcurrentTab}
+                availableData={exampleData}
                 code={code_sample}
                 textContent={textContent}
                 settextContent={settextContent}
@@ -689,7 +701,9 @@ const Slug = (props) => {
                     {contentTab === 'glossary' && (
                       <GlossaryRender data={glossaryData} />
                     )}
-                    {contentTab === 'example page' && <ExamplaPageRender />}
+                    {contentTab === 'example page' && (
+                      <ExamplaPageRender data={exampleData} />
+                    )}
                   </Stack>
                 </Stack>
               </Stack>
