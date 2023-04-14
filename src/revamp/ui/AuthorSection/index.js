@@ -66,7 +66,7 @@ const AuthorSection = ({
         </Typography>
       </Stack>
       {tags?.length && (
-        <Stack direction="row" spacing="12px">
+        <Stack direction="row" gap="12px" flexWrap="wrap">
           {tags?.map((tag) => (
             <Link key={tag.name} href={tag.link} underline="none">
               <Chip
