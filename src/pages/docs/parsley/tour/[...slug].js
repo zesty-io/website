@@ -27,8 +27,8 @@ const leftTabs = [
 ];
 
 const rightTabs = [
-  { label: 'Code Response', value: 'response' },
   { label: 'Rendered Response', value: 'rendered' },
+  { label: 'Code Response', value: 'response' },
 ];
 const contentTabs = [
   { label: 'Example Page', value: 'example page' },
@@ -154,7 +154,7 @@ const CodeBlockCompRight = ({
 }) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
-  const [activeTab, setactiveTab] = useState('response');
+  const [activeTab, setactiveTab] = useState('rendered');
 
   const copyToClipboard = (text) => {
     navigator?.clipboard?.writeText(text);

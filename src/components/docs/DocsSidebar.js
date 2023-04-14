@@ -4,6 +4,7 @@ import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import { Link, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { grey } from '@mui/material/colors';
+import { useRouter } from 'next/router';
 
 // active stage in nav
 // search bar small
@@ -13,6 +14,8 @@ import { grey } from '@mui/material/colors';
 // box the ide
 export const DocsSidebar = React.memo(
   ({ setsearch, data, onClick = undefined, placeholder = 'Search...' }) => {
+    const router = useRouter();
+    const url = `/${router?.query?.slug[0]}/`;
     const handleClick = (e) => {
       if (onClick) {
         onClick(e);
@@ -53,7 +56,13 @@ export const DocsSidebar = React.memo(
             sx={{
               width: 1,
               overflowY: 'auto',
+              '& .MuiTreeItem-content.Mui-selected': {
+                bgcolor: grey[400],
+              },
             }}
+            multiSelect
+            selected={url}
+            defaultSelected={url}
           >
             {data.map((e) => {
               return (
