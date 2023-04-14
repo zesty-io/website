@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import CodeMirror from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
 import { javascript } from '@codemirror/lang-javascript';
 import CircularProgress from '@mui/material/CircularProgress';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -18,15 +19,17 @@ import { LoadingButton } from '@mui/lab';
 import { githubDarkInit } from '@uiw/codemirror-theme-github';
 import { useZestyStore } from 'store';
 import { grey } from '@mui/material/colors';
+import { PARSLEY_EXAMPLE_DATA } from 'utils/docs';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 const leftTabs = [
   { label: 'Code Example', value: 'code example' },
   { label: 'Available Data', value: 'available data' },
+  { label: 'Parsley Example', value: 'parsley example' },
 ];
 
 const rightTabs = [
-  { label: 'Code Response', value: 'response' },
   { label: 'Rendered Response', value: 'rendered' },
+  { label: 'Code Response', value: 'response' },
 ];
 const contentTabs = [
   { label: 'Example Page', value: 'example page' },
@@ -46,6 +49,39 @@ const CodeBlockCompLeft = ({
   const onChange = React.useCallback((value, _) => {
     settextContent(value);
   }, []);
+
+  const getValue = () => {
+    switch (activeTab) {
+      case 'code example':
+        return code;
+      case 'available data':
+        return JSON.stringify(availableData, null, '\t');
+      case 'parsley example':
+        return PARSLEY_EXAMPLE_DATA;
+
+      default:
+        return code;
+    }
+  };
+
+  const codeBlock = (
+    <CodeMirror
+      editable={activeTab === 'code example' ? true : false}
+      basicSetup={{ lineNumbers: true, autocompletion: true }}
+      value={getValue()}
+      height={'300px'}
+      crosshairCursor={true}
+      extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
+      onChange={onChange}
+      style={{ fontSize: '11px' }}
+      theme={githubDarkInit({
+        settings: {
+          caret: '#ff5c0c',
+          fontFamily: 'monospace',
+        },
+      })}
+    />
+  );
   return (
     <Stack
       bgcolor="#1B253F"
@@ -53,10 +89,9 @@ const CodeBlockCompLeft = ({
         position: 'relative',
         cursor: 'pointer',
         overflow: 'auto',
-        borderRadius: '10px',
         overflow: 'clip',
         height: 'auto',
-        width: '35vw',
+        width: 1,
         color: '#fff',
       }}
     >
@@ -105,41 +140,7 @@ const CodeBlockCompLeft = ({
         <DocsTabs setvalue={setactiveTab} value={activeTab} tabs={tabs} />
       </Stack>
 
-      <Stack>
-        {activeTab === 'code example' ? (
-          <CodeMirror
-            editable={true}
-            basicSetup={{ lineNumbers: true, autocompletion: true }}
-            value={code}
-            height={'300px'}
-            crosshairCursor={true}
-            extensions={[javascript({ jsx: true })]}
-            onChange={onChange}
-            theme={githubDarkInit({
-              settings: {
-                caret: '#ff5c0c',
-                fontFamily: 'monospace',
-              },
-            })}
-          />
-        ) : (
-          <CodeMirror
-            editable={true}
-            basicSetup={{ lineNumbers: true, autocompletion: true }}
-            value={JSON.stringify(availableData?.fields, null, '\t')}
-            height={'300px'}
-            crosshairCursor={true}
-            extensions={[javascript({ jsx: true })]}
-            onChange={onChange}
-            theme={githubDarkInit({
-              settings: {
-                caret: '#ff5c0c',
-                fontFamily: 'monospace',
-              },
-            })}
-          />
-        )}
-      </Stack>
+      <Stack>{codeBlock}</Stack>
     </Stack>
   );
 };
@@ -153,7 +154,7 @@ const CodeBlockCompRight = ({
 }) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
-  const [activeTab, setactiveTab] = useState('response');
+  const [activeTab, setactiveTab] = useState('rendered');
 
   const copyToClipboard = (text) => {
     navigator?.clipboard?.writeText(text);
@@ -174,10 +175,9 @@ const CodeBlockCompRight = ({
         position: 'relative',
         cursor: 'pointer',
         overflow: 'auto',
-        borderRadius: '10px',
         overflow: 'clip',
         height: 'auto',
-        width: '35vw',
+        width: 1,
         color: '#fff',
       }}
       onMouseOver={() => setshowCopyBtn(true)}
@@ -233,6 +233,7 @@ const CodeBlockCompRight = ({
             crosshairCursor={true}
             extensions={[javascript({ jsx: true })]}
             onChange={onChange}
+            style={{ fontSize: '11px' }}
             theme={githubDarkInit({
               settings: {
                 caret: '#ff5c0c',
@@ -250,7 +251,6 @@ const CodeBlockCompRight = ({
               width: '100%',
               bgcolor: '#fff',
               overflow: 'auto',
-              borderRadius: '5px',
               fontSize: '13px',
               fontWeight: 400,
               color: '#333333',
@@ -426,6 +426,7 @@ const Slug = (props) => {
       setalgoliaIndex: e.setalgoliaIndex,
     }),
   );
+  const [availableData, setavailableData] = useState([]);
   const [glossaryData, setglossaryData] = useState([]);
   const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
@@ -522,6 +523,20 @@ const Slug = (props) => {
     }
   };
 
+  const getAvailableData = async () => {
+    try {
+      await axios
+        .get('https://parsley.zesty.io/example-data.json')
+        .then((e) => {
+          setavailableData(e.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getExampleData = async () => {
     try {
       await axios
@@ -544,7 +559,11 @@ const Slug = (props) => {
     if (exampleData.length === 0) {
       await getExampleData();
     }
-  }, [contentTab, glossaryData]);
+
+    if (availableData.length === 0) {
+      await getAvailableData();
+    }
+  }, [availableData, contentTab, glossaryData]);
 
   useEffect(() => {
     setcurrentTab('response');
@@ -643,10 +662,21 @@ const Slug = (props) => {
             </Grid>
           </Grid>
 
-          <Grid container gap={1} wrap="nowrap" mt={8} px={4}>
+          <Grid
+            container
+            wrap="nowrap"
+            mt={8}
+            spacing={2}
+            py={2}
+            sx={{
+              borderTop: `1px solid ${grey[200]}`,
+              borderBottom: `1px solid ${grey[200]}`,
+              bgcolor: '#1b2540',
+            }}
+          >
             <Grid item xs={6}>
               <CodeBlockCompLeft
-                availableData={exampleData}
+                availableData={availableData}
                 code={code_sample}
                 textContent={textContent}
                 settextContent={settextContent}

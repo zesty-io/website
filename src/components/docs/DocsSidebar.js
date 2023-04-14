@@ -4,9 +4,18 @@ import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import { Link, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { grey } from '@mui/material/colors';
+import { useRouter } from 'next/router';
 
+// active stage in nav
+// search bar small
+// render response is default
+// https://parsley.zesty.io/example-data.json
+// 3rd tab parsley examples
+// box the ide
 export const DocsSidebar = React.memo(
   ({ setsearch, data, onClick = undefined, placeholder = 'Search...' }) => {
+    const router = useRouter();
+    const url = `/${router?.query?.slug[0]}/`;
     const handleClick = (e) => {
       if (onClick) {
         onClick(e);
@@ -16,16 +25,18 @@ export const DocsSidebar = React.memo(
       <Stack
         sx={{
           position: 'sticky',
-          top: '10rem',
+          top: '9rem',
           height: '100%',
           overflowY: 'auto',
           overflowX: 'clip',
           width: 400,
+          bgcolor: '#fff',
           borderRight: `1px solid ${grey[200]}`,
         }}
       >
         <Stack p={2}>
           <TextField
+            size="small"
             color="secondary"
             placeholder={placeholder}
             variant="outlined"
@@ -46,7 +57,13 @@ export const DocsSidebar = React.memo(
             sx={{
               width: 1,
               overflowY: 'auto',
+              '& .MuiTreeItem-content.Mui-selected': {
+                bgcolor: grey[400],
+              },
             }}
+            multiSelect
+            selected={url}
+            defaultSelected={url}
           >
             {data.map((e) => {
               return (
