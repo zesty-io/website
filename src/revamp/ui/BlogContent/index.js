@@ -37,6 +37,7 @@ const BlogContent = ({ title = 'Related Articles', articles }) => {
               authorImage={article.author.image}
               path={article.path}
               supportingText={article?.date}
+              category={article?.category}
               isBig={isLG && index === 0 ? true : false}
             />
           </Grid>
