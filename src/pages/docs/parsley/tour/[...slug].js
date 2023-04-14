@@ -40,11 +40,13 @@ const CodeBlockCompLeft = ({
   tabs = [],
   loading = false,
   getRenderText,
+  availableData,
 }) => {
   const [activeTab, setactiveTab] = useState('code example');
   const onChange = React.useCallback((value, _) => {
     settextContent(value);
   }, []);
+  console.log(availableData, 4444);
   return (
     <Stack
       bgcolor="#1B253F"
@@ -122,7 +124,21 @@ const CodeBlockCompLeft = ({
             })}
           />
         ) : (
-          <></>
+          <CodeMirror
+            editable={true}
+            basicSetup={{ lineNumbers: true, autocompletion: true }}
+            value={JSON.stringify(availableData?.fields, null, '\t')}
+            height={'300px'}
+            crosshairCursor={true}
+            extensions={[javascript({ jsx: true })]}
+            onChange={onChange}
+            theme={githubDarkInit({
+              settings: {
+                caret: '#ff5c0c',
+                fontFamily: 'monospace',
+              },
+            })}
+          />
         )}
       </Stack>
     </Stack>
@@ -278,7 +294,8 @@ const GlossaryRender = ({ data = [] }) => {
   );
 };
 
-const ExamplaPageRender = () => {
+const ExamplaPageRender = ({ data = [] }) => {
+  const tableObj = Object.entries(data.fields);
   const accessParsley = [
     `{{this.title}}`,
     `{{this.description}}`,
@@ -330,34 +347,14 @@ const ExamplaPageRender = () => {
                       <th>Reference Name</th>
                       <th>Type</th>
                     </tr>
-                    <tr>
-                      <td>title</td>
-                      <td>text</td>
-                    </tr>
-                    <tr>
-                      <td>html</td>
-                      <td>wsywig</td>
-                    </tr>
-                    <tr>
-                      <td>image</td>
-                      <td>image</td>
-                    </tr>
-                    <tr>
-                      <td>multiple_images</td>
-                      <td>image</td>
-                    </tr>
-                    <tr>
-                      <td>date</td>
-                      <td>date</td>
-                    </tr>
-                    <tr>
-                      <td>dropdown</td>
-                      <td>dropdown</td>
-                    </tr>
-                    <tr>
-                      <td>number</td>
-                      <td>number</td>
-                    </tr>
+                    {tableObj?.map((e) => {
+                      return (
+                        <tr>
+                          <td>{e[0]}</td>
+                          <td>{e[1]}</td>
+                        </tr>
+                      );
+                    })}
                   </table>
                 </Stack>
                 <Typography variant="h5" pt={2}>
@@ -431,7 +428,7 @@ const Slug = (props) => {
     }),
   );
   const [glossaryData, setglossaryData] = useState([]);
-  // const [exampleData, setexampleData] = useState([]);
+  const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
   const [currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
@@ -526,27 +523,28 @@ const Slug = (props) => {
     }
   };
 
-  // const getExampleData = async () => {
-  //   try {
-  //     await axios
-  //       .get('https://parsley.zesty.io/-/gql/example_data.json')
-  //       .then((e) => {
-  //         setexampleData(e.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const getExampleData = async () => {
+    try {
+      await axios
+        .get('https://parsley.zesty.io/-/gql/')
+        .then((e) => {
+          const res = e.data.models.find((e) => e.name === 'example_data');
+          setexampleData(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(async () => {
     if (glossaryData.length === 0) {
       await getGlossary();
     }
-    // if (exampleData.length === 0) {
-    //   await getExampleData();
-    // }
+    if (exampleData.length === 0) {
+      await getExampleData();
+    }
   }, [contentTab, glossaryData]);
 
   useEffect(() => {
@@ -599,11 +597,7 @@ const Slug = (props) => {
                 Lesson {lesson_number}: {title}
               </Typography>
             </Stack>
-            <Stack
-              // position={'absolute'}
-              direction={'row'}
-              color={'grey'}
-            >
+            <Stack direction={'row'} color={'grey'}>
               {nextLesson && (
                 <Button
                   variant="text"
@@ -653,7 +647,7 @@ const Slug = (props) => {
           <Grid container gap={1} wrap="nowrap" mt={8} px={4}>
             <Grid item xs={6}>
               <CodeBlockCompLeft
-                setcurrentTab={setcurrentTab}
+                availableData={exampleData}
                 code={code_sample}
                 textContent={textContent}
                 settextContent={settextContent}
@@ -708,7 +702,9 @@ const Slug = (props) => {
                     {contentTab === 'glossary' && (
                       <GlossaryRender data={glossaryData} />
                     )}
-                    {contentTab === 'example page' && <ExamplaPageRender />}
+                    {contentTab === 'example page' && (
+                      <ExamplaPageRender data={exampleData} />
+                    )}
                   </Stack>
                 </Stack>
               </Stack>
