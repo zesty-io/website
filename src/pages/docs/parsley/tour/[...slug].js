@@ -115,6 +115,7 @@ const CodeBlockCompLeft = ({
             crosshairCursor={true}
             extensions={[javascript({ jsx: true })]}
             onChange={onChange}
+            style={{ fontSize: '11px' }}
             theme={githubDarkInit({
               settings: {
                 caret: '#ff5c0c',
@@ -124,13 +125,14 @@ const CodeBlockCompLeft = ({
           />
         ) : (
           <CodeMirror
-            editable={true}
+            editable={false}
             basicSetup={{ lineNumbers: true, autocompletion: true }}
-            value={JSON.stringify(availableData?.fields, null, '\t')}
+            value={JSON.stringify(availableData, null, '\t')}
             height={'300px'}
             crosshairCursor={true}
             extensions={[javascript({ jsx: true })]}
             onChange={onChange}
+            style={{ fontSize: '11px' }}
             theme={githubDarkInit({
               settings: {
                 caret: '#ff5c0c',
@@ -426,6 +428,7 @@ const Slug = (props) => {
       setalgoliaIndex: e.setalgoliaIndex,
     }),
   );
+  const [availableData, setavailableData] = useState([]);
   const [glossaryData, setglossaryData] = useState([]);
   const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
@@ -522,6 +525,20 @@ const Slug = (props) => {
     }
   };
 
+  const getAvailableData = async () => {
+    try {
+      await axios
+        .get('https://parsley.zesty.io/example-data.json')
+        .then((e) => {
+          setavailableData(e.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getExampleData = async () => {
     try {
       await axios
@@ -544,7 +561,11 @@ const Slug = (props) => {
     if (exampleData.length === 0) {
       await getExampleData();
     }
-  }, [contentTab, glossaryData]);
+
+    if (availableData.length === 0) {
+      await getAvailableData();
+    }
+  }, [availableData, contentTab, glossaryData]);
 
   useEffect(() => {
     setcurrentTab('response');
@@ -646,7 +667,7 @@ const Slug = (props) => {
           <Grid container gap={1} wrap="nowrap" mt={8} px={4}>
             <Grid item xs={6}>
               <CodeBlockCompLeft
-                availableData={exampleData}
+                availableData={availableData}
                 code={code_sample}
                 textContent={textContent}
                 settextContent={settextContent}

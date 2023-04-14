@@ -5,6 +5,12 @@ import { Link, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { grey } from '@mui/material/colors';
 
+// active stage in nav
+// search bar small
+// render response is default
+// https://parsley.zesty.io/example-data.json
+// 3rd tab parsley examples
+// box the ide
 export const DocsSidebar = React.memo(
   ({ setsearch, data, onClick = undefined, placeholder = 'Search...' }) => {
     const handleClick = (e) => {
@@ -26,6 +32,7 @@ export const DocsSidebar = React.memo(
       >
         <Stack p={2}>
           <TextField
+            size="small"
             color="secondary"
             placeholder={placeholder}
             variant="outlined"
