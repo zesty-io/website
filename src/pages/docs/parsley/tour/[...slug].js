@@ -18,10 +18,12 @@ import { LoadingButton } from '@mui/lab';
 import { githubDarkInit } from '@uiw/codemirror-theme-github';
 import { useZestyStore } from 'store';
 import { grey } from '@mui/material/colors';
+import { PARSLEY_EXAMPLE_DATA } from 'utils/docs';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 const leftTabs = [
   { label: 'Code Example', value: 'code example' },
   { label: 'Available Data', value: 'available data' },
+  { label: 'Parsley Example', value: 'parsley example' },
 ];
 
 const rightTabs = [
@@ -46,6 +48,39 @@ const CodeBlockCompLeft = ({
   const onChange = React.useCallback((value, _) => {
     settextContent(value);
   }, []);
+
+  const getValue = () => {
+    switch (activeTab) {
+      case 'code example':
+        return code;
+      case 'available data':
+        return JSON.stringify(availableData, null, '\t');
+      case 'parsley example':
+        return PARSLEY_EXAMPLE_DATA;
+
+      default:
+        return code;
+    }
+  };
+
+  const codeBlock = (
+    <CodeMirror
+      editable={activeTab === 'code example' ? true : false}
+      basicSetup={{ lineNumbers: true, autocompletion: true }}
+      value={getValue()}
+      height={'300px'}
+      crosshairCursor={true}
+      extensions={[javascript({ jsx: true })]}
+      onChange={onChange}
+      style={{ fontSize: '11px' }}
+      theme={githubDarkInit({
+        settings: {
+          caret: '#ff5c0c',
+          fontFamily: 'monospace',
+        },
+      })}
+    />
+  );
   return (
     <Stack
       bgcolor="#1B253F"
@@ -105,43 +140,7 @@ const CodeBlockCompLeft = ({
         <DocsTabs setvalue={setactiveTab} value={activeTab} tabs={tabs} />
       </Stack>
 
-      <Stack>
-        {activeTab === 'code example' ? (
-          <CodeMirror
-            editable={true}
-            basicSetup={{ lineNumbers: true, autocompletion: true }}
-            value={code}
-            height={'300px'}
-            crosshairCursor={true}
-            extensions={[javascript({ jsx: true })]}
-            onChange={onChange}
-            style={{ fontSize: '11px' }}
-            theme={githubDarkInit({
-              settings: {
-                caret: '#ff5c0c',
-                fontFamily: 'monospace',
-              },
-            })}
-          />
-        ) : (
-          <CodeMirror
-            editable={false}
-            basicSetup={{ lineNumbers: true, autocompletion: true }}
-            value={JSON.stringify(availableData, null, '\t')}
-            height={'300px'}
-            crosshairCursor={true}
-            extensions={[javascript({ jsx: true })]}
-            onChange={onChange}
-            style={{ fontSize: '11px' }}
-            theme={githubDarkInit({
-              settings: {
-                caret: '#ff5c0c',
-                fontFamily: 'monospace',
-              },
-            })}
-          />
-        )}
-      </Stack>
+      <Stack>{codeBlock}</Stack>
     </Stack>
   );
 };
