@@ -6,12 +6,6 @@ import React from 'react';
 import { grey } from '@mui/material/colors';
 import { useRouter } from 'next/router';
 
-// active stage in nav
-// search bar small
-// render response is default
-// https://parsley.zesty.io/example-data.json
-// 3rd tab parsley examples
-// box the ide
 export const DocsSidebar = React.memo(
   ({ setsearch, data, onClick = undefined, placeholder = 'Search...' }) => {
     const router = useRouter();
@@ -34,7 +28,7 @@ export const DocsSidebar = React.memo(
           borderRight: `1px solid ${grey[200]}`,
         }}
       >
-        <Stack p={2}>
+        <Stack px={2} py={1}>
           <TextField
             size="small"
             color="secondary"
