@@ -40,7 +40,7 @@ npm run dev
 
 ```
 
-## 💡 Syncing Zesty.io Models to Next JS
+## 💡 Syncing Zesty.io Content Models to Next JS
 
 From the command line at the root of the project run:
 
