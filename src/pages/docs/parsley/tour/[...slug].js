@@ -1,23 +1,35 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from 'react';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import CodeMirror from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
+import { javascript } from '@codemirror/lang-javascript';
 import CircularProgress from '@mui/material/CircularProgress';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import MainWrapper from 'layouts/Main';
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
 import { ErrorMsg } from 'components/accounts';
 import { DocsTabs } from 'views/Docs/DocsTabs';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { LoadingButton } from '@mui/lab';
+import { githubDarkInit } from '@uiw/codemirror-theme-github';
+import { useZestyStore } from 'store';
+import { grey } from '@mui/material/colors';
+import { PARSLEY_EXAMPLE_DATA } from 'utils/docs';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
-const leftTabs = [{ label: 'Request', value: 'request' }];
+const leftTabs = [
+  { label: 'Code Example', value: 'code example' },
+  { label: 'Available Data', value: 'available data' },
+  { label: 'Parsley Example', value: 'parsley example' },
+];
 
 const rightTabs = [
-  { label: 'Response', value: 'response' },
-  { label: 'Rendered', value: 'rendered' },
+  { label: 'Rendered Response', value: 'rendered' },
+  { label: 'Code Response', value: 'response' },
 ];
 const contentTabs = [
   { label: 'Example Page', value: 'example page' },
@@ -28,11 +40,48 @@ const CodeBlockCompLeft = ({
   code = '',
   settextContent = () => {},
   title = 'Parsley Code Example (editable)',
-  currentTab,
   tabs = [],
   loading = false,
   getRenderText,
+  availableData,
 }) => {
+  const [activeTab, setactiveTab] = useState('code example');
+  const onChange = React.useCallback((value, _) => {
+    settextContent(value);
+  }, []);
+
+  const getValue = () => {
+    switch (activeTab) {
+      case 'code example':
+        return code;
+      case 'available data':
+        return JSON.stringify(availableData, null, '\t');
+      case 'parsley example':
+        return PARSLEY_EXAMPLE_DATA;
+
+      default:
+        return code;
+    }
+  };
+
+  const codeBlock = (
+    <CodeMirror
+      editable={activeTab === 'code example' ? true : false}
+      basicSetup={{ lineNumbers: true, autocompletion: true }}
+      value={getValue()}
+      height={'300px'}
+      crosshairCursor={true}
+      extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
+      onChange={onChange}
+      style={{ fontSize: '11px' }}
+      theme={githubDarkInit({
+        settings: {
+          caret: '#ff5c0c',
+          fontFamily: 'monospace',
+        },
+      })}
+    />
+  );
   return (
     <Stack
       bgcolor="#1B253F"
@@ -40,10 +89,9 @@ const CodeBlockCompLeft = ({
         position: 'relative',
         cursor: 'pointer',
         overflow: 'auto',
-        borderRadius: '10px',
         overflow: 'clip',
         height: 'auto',
-        width: '40vw',
+        width: 1,
         color: '#fff',
       }}
     >
@@ -63,7 +111,7 @@ const CodeBlockCompLeft = ({
           size="small"
           fullWidth
           variant="contained"
-          title={'Open Manager'}
+          title={'Run'}
           onClick={() => {
             getRenderText();
           }}
@@ -88,47 +136,25 @@ const CodeBlockCompLeft = ({
       >
         <Typography>{title}</Typography>
       </Stack>
-      <Stack direction={'row'} px={1}>
-        <DocsTabs setvalue={() => {}} value={'request'} tabs={tabs} />
+      <Stack direction={'row'} px={1} py={1}>
+        <DocsTabs setvalue={setactiveTab} value={activeTab} tabs={tabs} />
       </Stack>
 
-      <Stack
-        contentEditable={currentTab === 'request' ? true : false}
-        onInput={(e) => {
-          settextContent(e.currentTarget.textContent);
-        }}
-      >
-        <SyntaxHighlighter
-          showLineNumbers={false}
-          language="javascript"
-          style={coldarkDark}
-          wrapLongLines={false}
-          customStyle={{
-            fontSize: '13px',
-            fontWeight: 400,
-            height: '40vh',
-          }}
-        >
-          {code}
-        </SyntaxHighlighter>
-      </Stack>
+      <Stack>{codeBlock}</Stack>
     </Stack>
   );
 };
 
 const CodeBlockCompRight = ({
-  code = '',
   settextContent = () => {},
   title = 'Parsley Code Example (editable)',
-  getRenderText,
   loading = false,
   parsleyResult = '',
-  currentTab,
-  setcurrentTab,
   tabs = [],
 }) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
+  const [activeTab, setactiveTab] = useState('rendered');
 
   const copyToClipboard = (text) => {
     navigator?.clipboard?.writeText(text);
@@ -138,6 +164,10 @@ const CodeBlockCompRight = ({
     }, 300);
   };
 
+  const onChange = React.useCallback((value, _) => {
+    settextContent(value);
+  }, []);
+
   return (
     <Stack
       bgcolor="#1B253F"
@@ -145,10 +175,9 @@ const CodeBlockCompRight = ({
         position: 'relative',
         cursor: 'pointer',
         overflow: 'auto',
-        borderRadius: '10px',
         overflow: 'clip',
         height: 'auto',
-        width: '40vw',
+        width: 1,
         color: '#fff',
       }}
       onMouseOver={() => setshowCopyBtn(true)}
@@ -160,8 +189,8 @@ const CodeBlockCompRight = ({
           cursor: 'pointer',
           color: '#fff',
           position: 'absolute',
-          top: '6.5rem',
-          right: '15px',
+          top: '8rem',
+          right: '20px',
         }}
         onClick={() => {
           copyToClipboard(parsleyResult);
@@ -170,11 +199,13 @@ const CodeBlockCompRight = ({
       >
         {isCopied ? (
           <Stack direction="row" alignItems={'center'} spacing={1}>
-            <Typography variant="button">Copied to Clipboard!</Typography>
-            <ContentCopyIcon color="inherit" fontSize="medium" />
+            <Typography variant="button" color={'secondary'}>
+              Copied to Clipboard!
+            </Typography>
+            <ContentCopyIcon color="secondary" fontSize="medium" />
           </Stack>
         ) : (
-          <ContentCopyIcon color="inherit" fontSize="medium" />
+          <ContentCopyIcon color="secondary" fontSize="medium" />
         )}
       </Stack>
       <Stack
@@ -188,30 +219,28 @@ const CodeBlockCompRight = ({
       >
         <Typography>{title}</Typography>
       </Stack>
-      <Stack direction={'row'} px={1}>
-        <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
+      <Stack direction={'row'} px={1} py={1}>
+        <DocsTabs setvalue={setactiveTab} value={activeTab} tabs={tabs} />
       </Stack>
 
-      <Stack
-        contentEditable={currentTab === 'request' ? true : false}
-        onInput={(e) => {
-          settextContent(e.currentTarget.textContent);
-        }}
-      >
-        {currentTab === 'response' ? (
-          <SyntaxHighlighter
-            showLineNumbers={false}
-            language="javascript"
-            style={coldarkDark}
-            wrapLongLines={false}
-            customStyle={{
-              fontSize: '13px',
-              fontWeight: 400,
-              height: '40vh',
-            }}
-          >
-            {parsleyResult || 'Click Run to view the response'}
-          </SyntaxHighlighter>
+      <Stack height={'300px'} p={activeTab === 'response' ? 0 : 0.5}>
+        {activeTab === 'response' ? (
+          <CodeMirror
+            editable={false}
+            value={parsleyResult}
+            placeholder={'Click Run to view the response'}
+            height={'300px'}
+            crosshairCursor={true}
+            extensions={[javascript({ jsx: true })]}
+            onChange={onChange}
+            style={{ fontSize: '11px' }}
+            theme={githubDarkInit({
+              settings: {
+                caret: '#ff5c0c',
+                fontFamily: 'monospace',
+              },
+            })}
+          />
         ) : (
           <Stack
             sx={{
@@ -219,12 +248,12 @@ const CodeBlockCompRight = ({
               pt: 2,
               mt: 1,
               height: '40.5vh',
-              width: '40vw',
-              bgcolor: '#111b27',
+              width: '100%',
+              bgcolor: '#fff',
               overflow: 'auto',
-              borderRadius: '5px',
               fontSize: '13px',
               fontWeight: 400,
+              color: '#333333',
             }}
           >
             {loading ? (
@@ -245,7 +274,7 @@ const CodeBlockCompRight = ({
   );
 };
 
-const GlossaryRender = ({ data }) => {
+const GlossaryRender = ({ data = [] }) => {
   return (
     <Stack p={4}>
       {data.map((e) => {
@@ -264,16 +293,142 @@ const GlossaryRender = ({ data }) => {
   );
 };
 
-const ExamplaPageRender = ({ data }) => {
+const ExamplaPageRender = ({ data = [] }) => {
+  const tableObj = Object.entries(data.fields);
+  const accessParsley = [
+    `{{this.title}}`,
+    `{{this.description}}`,
+    `{{this.html}}`,
+    `{{this.image}}`,
+    `{{this.multiple_images}}`,
+    `{{this.date}}`,
+    `{{this.dropdown}}`,
+    `{{this.number}}`,
+  ];
+  const example_data = [
+    `{{example_data.first().title}}`,
+    `{{example_data.first().description}}`,
+    `{{example_data.first().html}}`,
+    `{{example_data.first().image}}`,
+    `{{example_data.first().multiple_images}}`,
+    `{{example_data.first().date}}`,
+    `{{example_data.first().dropdown}}`,
+    `{{example_data.first().number}}`,
+  ];
   return (
-    <Stack p={4}>
-      <Typography></Typography>
+    <Stack>
+      <div className="object-references">
+        <div className="example-data-container">
+          <div id="pageExampleData" className="example-data selected">
+            <Typography variant="p" className="explanation">
+              <strong>Example Page</strong> is a Content Collection in the
+              Zesty.io REPL that was created in the Schema section. It has a
+              template file (view) and routing behavior to represent a single
+              page. This content collections has 8 <strong>fields</strong> on
+              it, described below with their <strong>reference name</strong> and{' '}
+              <strong>field type</strong>. When you make your own content set,
+              you can add as many fields as you need. They can be accessed using
+              either{' '}
+              <span>
+                <code>{`{{page.reference_name}}`}</code>
+              </span>
+              (when working on its related template file), or from any other
+              template or JSON file by using{' '}
+              <code>{`{{example_data.first().reference_name}}`}</code>
+            </Typography>
+
+            <Grid container spacing={4} pt={6}>
+              <Grid item xs={6}>
+                <Typography variant="h5">Collection Schema</Typography>
+                <Stack pt={2}>
+                  <table>
+                    <tr>
+                      <th>Reference Name</th>
+                      <th>Type</th>
+                    </tr>
+                    {tableObj?.map((e) => {
+                      return (
+                        <tr>
+                          <td>{e[0]}</td>
+                          <td>{e[1]}</td>
+                        </tr>
+                      );
+                    })}
+                  </table>
+                </Stack>
+                <Typography variant="h5" pt={2}>
+                  Example Page Details
+                </Typography>
+                <hr />
+                <div className="clear"></div>
+                <p>
+                  <strong>Friendly Name:</strong> Example Page
+                </p>
+                <p>
+                  <strong>Reference Name:</strong> example_page
+                </p>
+                <p>
+                  <strong>Has View:</strong> True
+                </p>
+                <p>
+                  <strong>Routing Behavior:</strong> Single Page
+                </p>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5">
+                  Ways to Access with Parsley
+                </Typography>
+                <Typography variant="p">
+                  There are many ways to access the content from a collection.
+                  The most common way is when you are working with it's
+                  associated template, when you are, content can be accessed
+                  like:
+                </Typography>
+                <Stack>
+                  <ul>
+                    {accessParsley.map((e) => {
+                      return (
+                        <li>
+                          <code>{e}</code>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Stack>
+                <Typography variant="h6">
+                  Another way is with global access calls, which look this:
+                </Typography>
+                <Stack>
+                  <ul>
+                    {example_data.map((e) => {
+                      return (
+                        <li>
+                          <code>{e}</code>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Stack>
+              </Grid>
+            </Grid>
+          </div>
+        </div>
+      </div>
     </Stack>
   );
 };
 
 const Slug = (props) => {
+  const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
+    (e) => ({
+      setalgoliaApiKey: e.setalgoliaApiKey,
+      setalgoliaAppId: e.setalgoliaAppId,
+      setalgoliaIndex: e.setalgoliaIndex,
+    }),
+  );
+  const [availableData, setavailableData] = useState([]);
   const [glossaryData, setglossaryData] = useState([]);
+  const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
   const [currentTab, setcurrentTab] = React.useState('response');
   const [search, setsearch] = useState('');
@@ -282,11 +437,16 @@ const Slug = (props) => {
   const [parsleyResult, setparsleyResult] = useState('');
   const router = useRouter();
   const currentUrl = router.query.slug[0];
-  const pageData = props.parsley.tour.data.find(
-    (e) => e.content.path_part === currentUrl,
-  );
+  const tourData = props.parsley.tour.data;
+  const pageData = tourData.find((e) => e.content.path_part === currentUrl);
 
   const { lesson_number, title, explanation, code_sample } = pageData.content;
+  const nextLesson = tourData.find(
+    (e) => e.content.lesson_number === String(Number(lesson_number) + 1),
+  );
+  const previousLesson = tourData.find(
+    (e) => e.content.lesson_number === String(Number(lesson_number) - 1),
+  );
   const navData = props.parsley.tour.data
     .map((e) => {
       return {
@@ -326,7 +486,6 @@ const Slug = (props) => {
     };
     try {
       const res = await axios.post(url, body, { headers }).catch((e) => {
-        console.log(e);
         setloading(false);
         ErrorMsg({ title: e.error || e.message });
       });
@@ -354,7 +513,6 @@ const Slug = (props) => {
           'https://parsleydev-dev.webengine.zesty.io/-/instant/6-3998c8-rtfq3n.json',
         )
         .then((e) => {
-          console.log(e.data, 4444);
           setglossaryData(e.data.data);
         })
         .catch((error) => {
@@ -365,13 +523,57 @@ const Slug = (props) => {
     }
   };
 
-  useEffect(() => {
-    getGlossary();
-  }, [contentTab]);
+  const getAvailableData = async () => {
+    try {
+      await axios
+        .get('https://parsley.zesty.io/example-data.json')
+        .then((e) => {
+          setavailableData(e.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getExampleData = async () => {
+    try {
+      await axios
+        .get('https://parsley.zesty.io/-/gql/')
+        .then((e) => {
+          const res = e.data.models.find((e) => e.name === 'example_data');
+          setexampleData(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(async () => {
+    if (glossaryData.length === 0) {
+      await getGlossary();
+    }
+    if (exampleData.length === 0) {
+      await getExampleData();
+    }
+
+    if (availableData.length === 0) {
+      await getAvailableData();
+    }
+  }, [availableData, contentTab, glossaryData]);
 
   useEffect(() => {
     setcurrentTab('response');
   }, [router.asPath]);
+
+  useEffect(() => {
+    setalgoliaApiKey(props.algolia.apiKey);
+    setalgoliaAppId(props.algolia.appId);
+    setalgoliaIndex(props.algolia.index);
+  }, []);
 
   return (
     <MainWrapper>
@@ -381,10 +583,53 @@ const Slug = (props) => {
           setsearch={setsearch}
           data={navData}
           onClick={handleRedirect}
+          placeholder="Search Lessons..."
         />
         {/* MAIN PAGE */}
-        <Stack pl={6} sx={{ width: 1 }}>
-          <Grid container alignItems={'center'} mt={4}>
+        <Stack sx={{ width: 1 }}>
+          <Box
+            width={1}
+            display={'flex'}
+            direction="row"
+            alignItems={'center'}
+            justifyContent={'space-between'}
+            py={1}
+            px={2}
+            sx={{ borderBottom: `1px solid ${grey[200]}` }}
+          >
+            <Stack color={'grey'} direction={'row'}>
+              {previousLesson && (
+                <Button
+                  variant="text"
+                  color="inherit"
+                  title="Previous Lesson"
+                  href={`/docs/parsley/tour${previousLesson.content.path_full}`}
+                  startIcon={<ArrowBackIosIcon sx={{ fontSize: '20px' }} />}
+                >
+                  Previous Lesson
+                </Button>
+              )}
+            </Stack>
+            <Stack direction={'row'}>
+              <Typography variant="h6" component={'h1'}>
+                Lesson {lesson_number}: {title}
+              </Typography>
+            </Stack>
+            <Stack direction={'row'} color={'grey'}>
+              {nextLesson && (
+                <Button
+                  variant="text"
+                  color="inherit"
+                  title="Next Lesson"
+                  href={`/docs/parsley/tour${nextLesson.content.path_full}`}
+                  endIcon={<NavigateNextIcon sx={{ fontSize: '20px' }} />}
+                >
+                  Next Lesson
+                </Button>
+              )}
+            </Stack>
+          </Box>
+          <Grid container alignItems={'center'} mt={4} px={4}>
             <Grid item xs={6}>
               <Typography variant="h6">Lesson {lesson_number}</Typography>
               <Typography variant="h4">{title}</Typography>
@@ -401,24 +646,37 @@ const Slug = (props) => {
               justifyContent={'center'}
               justifyItems={'center'}
               display={'flex'}
+              position={'relative'}
             >
-              <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
-                <img
-                  width={200}
-                  src={
-                    'https://9skdl6.media.zestyio.com/parsley-logo-brackets.png'
-                  }
-                  alt="parsley"
-                />
+              <Stack>
+                <Stack bgcolor={'#111b27'} p={4} borderRadius="5px">
+                  <img
+                    width={200}
+                    src={
+                      'https://9skdl6.media.zestyio.com/parsley-logo-brackets.png'
+                    }
+                    alt="parsley"
+                  />
+                </Stack>
               </Stack>
             </Grid>
           </Grid>
 
-          <Grid container gap={1} wrap="nowrap" mt={8}>
+          <Grid
+            container
+            wrap="nowrap"
+            mt={8}
+            spacing={2}
+            py={2}
+            sx={{
+              borderTop: `1px solid ${grey[200]}`,
+              borderBottom: `1px solid ${grey[200]}`,
+              bgcolor: '#1b2540',
+            }}
+          >
             <Grid item xs={6}>
               <CodeBlockCompLeft
-                currentTab={currentTab}
-                setcurrentTab={setcurrentTab}
+                availableData={availableData}
                 code={code_sample}
                 textContent={textContent}
                 settextContent={settextContent}
@@ -430,13 +688,9 @@ const Slug = (props) => {
             </Grid>
             <Grid item xs={6}>
               <CodeBlockCompRight
-                currentTab={currentTab}
-                setcurrentTab={setcurrentTab}
-                code={code_sample}
                 textContent={textContent}
                 settextContent={settextContent}
                 loading={loading}
-                getRenderText={getRenderText}
                 parsleyResult={parsleyResult}
                 tabs={rightTabs}
                 title="Parsely Response"
@@ -476,7 +730,7 @@ const Slug = (props) => {
                       <GlossaryRender data={glossaryData} />
                     )}
                     {contentTab === 'example page' && (
-                      <ExamplaPageRender data={[]} />
+                      <ExamplaPageRender data={exampleData} />
                     )}
                   </Stack>
                 </Stack>

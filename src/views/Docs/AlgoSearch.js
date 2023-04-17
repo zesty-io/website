@@ -62,35 +62,51 @@ export const AlgoSearch = () => {
       <InstantSearch indexName={index} searchClient={searchClient}>
         <CustomSearchBox />
 
-        <Index indexName={index}>
-          <Box sx={{ px: 2, py: 2 }}>
-            <Typography
-              variant="body1"
-              sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
-              component="h2"
-            >
-              Docs
-            </Typography>
-          </Box>
+        <Stack maxHeight={'50vh'} overflow={'auto'}>
+          <Index indexName={index}>
+            <Box sx={{ px: 2, py: 2 }}>
+              <Typography
+                variant="body1"
+                sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
+                component="h2"
+              >
+                Docs
+              </Typography>
+            </Box>
 
-          <Configure hitsPerPage={8} />
-          <Hits hitComponent={Hit} />
-        </Index>
+            <Configure hitsPerPage={8} />
+            <Hits hitComponent={Hit} />
+          </Index>
 
-        {/* <Index indexName="zesty-org">
-          <Box sx={{ px: 2, py: 2 }}>
-            <Typography
-              variant="body1"
-              sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
-              component="h2"
-            >
-              Zesty Org
-            </Typography>
-          </Box>
+          <Index indexName="parsley-tour">
+            <Box sx={{ px: 2, py: 2 }}>
+              <Typography
+                variant="body1"
+                sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
+                component="h2"
+              >
+                Parsley Tour
+              </Typography>
+            </Box>
 
-          <Configure hitsPerPage={8} />
-          <Hits hitComponent={Hit} />
-        </Index> */}
+            <Configure hitsPerPage={8} />
+            <Hits hitComponent={Hit} />
+          </Index>
+          <Index indexName="parsley-glossary">
+            <Box sx={{ px: 2, py: 2 }}>
+              <Typography
+                variant="body1"
+                sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
+                component="h2"
+              >
+                Parsley Glossary
+              </Typography>
+            </Box>
+
+            <Configure hitsPerPage={8} />
+            <Hits hitComponent={Hit} />
+          </Index>
+        </Stack>
       </InstantSearch>
     </Stack>
   );
