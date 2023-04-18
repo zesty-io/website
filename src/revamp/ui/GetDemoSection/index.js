@@ -197,12 +197,18 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
 
                   <Stack spacing={2} direction="row" mb={3}>
                     <FormControl fullWidth>
+                      <Typography
+                        color="text.primary"
+                        variant="body2"
+                        fontWeight={600}
+                      >
+                        First Name
+                      </Typography>
                       <FieldTypeText
                         name="firstName"
                         value={initialValues.firstName}
                         error={touched.firstName && !!errors.firstName}
                         helperText={touched.firstName && errors.firstName}
-                        label="First Name"
                         {...getFieldProps('firstName')}
                       />
                     </FormControl>
