@@ -1,8 +1,10 @@
-import { FormControl, Stack, TextField, Typography } from '@mui/material';
+import { FormControl, Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import React from 'react';
 import { LoadingButton } from '@mui/lab';
+import { FieldTypeText } from '@zesty-io/material';
+import MuiPhoneNumber from 'material-ui-phone-number';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -16,6 +18,8 @@ const acorns =
   pic1 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_HighPerformer_HighPerformer.png`,
   pic2 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_EasiestToDoBusinessWith_EaseOfDoingBusinessWith.png`,
   pic3 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/WebContentManagement_MomentumLeader_Leader.png`;
+
+const phoneRegExp = '^([^0-9]*[0-9]){5}.*$';
 
 const validationSchema = yup.object({
   firstName: yup.string().label('First Name').trim().required(),
@@ -31,7 +35,12 @@ const validationSchema = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required(),
-  phone: yup.string().label('Phone').trim().required(),
+  phoneNumber: yup
+    .string()
+    .label('Phone')
+    .trim()
+    .matches(phoneRegExp, 'You must enter at least 5 digits.')
+    .required(),
   message: yup.string().label('Message').trim().required(),
 });
 
@@ -156,7 +165,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               lastName: '',
               company: '',
               email: '',
-              phone: '',
+              phoneNumber: '',
               message: '',
             }}
             validationSchema={isLong ? validationSchema : shortValidationSchema}
@@ -171,6 +180,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               touched,
               initialValues,
               isSubmitting,
+              setFieldValue,
               values,
             }) => (
               <Form onSubmit={handleSubmit}>
@@ -185,44 +195,18 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                     Contact us for a Custom Demo
                   </Typography>
 
-                  <Stack
-                    spacing={2}
-                    direction="row"
-                    mb={3}
-                    sx={{
-                      '& .MuiFormHelperText-root': {
-                        mx: 0,
-                      },
-                    }}
-                  >
-                    <FormControl
-                      fullWidth
-                      sx={{
-                        '& input': {
-                          padding: '6px 8px',
-                        },
-                      }}
-                    >
-                      <Typography
-                        color="text.primary"
-                        variant="body2"
-                        fontWeight={600}
-                      >
-                        First Name
-                      </Typography>
-
-                      <TextField
+                  <Stack spacing={2} direction="row" mb={3}>
+                    <FormControl fullWidth>
+                      <FieldTypeText
                         name="firstName"
                         value={initialValues.firstName}
                         error={touched.firstName && !!errors.firstName}
                         helperText={touched.firstName && errors.firstName}
+                        label="First Name"
                         {...getFieldProps('firstName')}
                       />
                     </FormControl>
-                    <FormControl
-                      fullWidth
-                      sx={{ '& input': { padding: '6px 8px' } }}
-                    >
+                    <FormControl fullWidth>
                       <Typography
                         color="text.primary"
                         variant="body2"
@@ -230,7 +214,8 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                       >
                         Last Name
                       </Typography>
-                      <TextField
+
+                      <FieldTypeText
                         name="lastName"
                         value={initialValues.lastName}
                         error={touched.lastName && !!errors.lastName}
@@ -240,21 +225,9 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                     </FormControl>
                   </Stack>
 
-                  <Stack
-                    spacing={3}
-                    sx={{
-                      '& .MuiFormHelperText-root': {
-                        mx: 0,
-                      },
-                    }}
-                  >
+                  <Stack spacing={3}>
                     {isLong && (
-                      <FormControl
-                        fullWidth
-                        sx={{
-                          '& input': { padding: '6px 8px' },
-                        }}
-                      >
+                      <FormControl fullWidth>
                         <Typography
                           color="text.primary"
                           variant="body2"
@@ -262,7 +235,8 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                         >
                           Company
                         </Typography>
-                        <TextField
+
+                        <FieldTypeText
                           name="company"
                           value={initialValues.company}
                           error={touched.company && !!errors.company}
@@ -271,10 +245,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                         />
                       </FormControl>
                     )}
-                    <FormControl
-                      fullWidth
-                      sx={{ '& input': { padding: '6px 8px' } }}
-                    >
+                    <FormControl fullWidth>
                       <Typography
                         color="text.primary"
                         variant="body2"
@@ -282,7 +253,8 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                       >
                         Email
                       </Typography>
-                      <TextField
+
+                      <FieldTypeText
                         name="email"
                         value={initialValues.email}
                         error={touched.email && !!errors.email}
@@ -294,7 +266,11 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                       <>
                         <FormControl
                           fullWidth
-                          sx={{ '& input': { padding: '6px 8px' } }}
+                          sx={{
+                            '& input': {
+                              padding: '6px 8px',
+                            },
+                          }}
                         >
                           <Typography
                             color="text.primary"
@@ -303,18 +279,20 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                           >
                             Phone
                           </Typography>
-                          <TextField
-                            name="phone"
-                            value={initialValues.phone}
-                            error={touched.phone && !!errors.phone}
-                            helperText={touched.phone && errors.phone}
-                            {...getFieldProps('phone')}
+
+                          <MuiPhoneNumber
+                            variant="outlined"
+                            defaultCountry="us"
+                            onChange={(e) => setFieldValue('phoneNumber', e)}
+                            name="phoneNumber"
+                            value={initialValues.phoneNumber}
+                            error={touched.phoneNumber && !!errors.phoneNumber}
+                            helperText={
+                              touched.phoneNumber && errors.phoneNumber
+                            }
                           />
                         </FormControl>
-                        <FormControl
-                          fullWidth
-                          sx={{ '& input': { padding: '6px 8px' } }}
-                        >
+                        <FormControl fullWidth>
                           <Typography
                             color="text.primary"
                             variant="body2"
@@ -322,7 +300,8 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                           >
                             Please tell us about your project
                           </Typography>
-                          <TextField
+
+                          <FieldTypeText
                             multiline
                             name="message"
                             rows={5}
