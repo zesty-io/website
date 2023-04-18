@@ -41,7 +41,6 @@ const validationSchema = yup.object({
     .trim()
     .matches(phoneRegExp, 'You must enter at least 5 digits.')
     .required(),
-  message: yup.string().label('Message').trim().required(),
 });
 
 const shortValidationSchema = yup.object({
@@ -428,8 +427,6 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                             name="message"
                             rows={5}
                             value={initialValues.message}
-                            error={touched.message && !!errors.message}
-                            helperText={touched.message && errors.message}
                             {...getFieldProps('message')}
                           />
                         </FormControl>
