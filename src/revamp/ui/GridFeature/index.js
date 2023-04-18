@@ -1,4 +1,4 @@
-import { Button, Grid, Link, Stack, Typography } from '@mui/material';
+import { Button, Grid, Link, Stack, Typography, Box } from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -204,7 +204,16 @@ const GridFeature = ({
               </Link>,
             ]
           ) : (
-            <div dangerouslySetInnerHTML={{ __html: supportingText }} />
+            <Box
+              component="div"
+              sx={(theme) => ({
+                '& a': {
+                  color: theme.palette.info.main,
+                  textDecoration: 'none',
+                },
+              })}
+              dangerouslySetInnerHTML={{ __html: supportingText }}
+            />
           )}
         </Typography>
       </Stack>
