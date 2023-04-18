@@ -24,6 +24,7 @@ const GetDemoSection = ({
   supportingText = `Want to see how Zesty can help you and your teams? Fill out the form to be contacted by our content management experts.
 
 Please look forward to us scheduling a 15 minute call so that we may customize your demo.`,
+  isLong = true,
 }) => {
   return (
     <Stack bgcolor="grey.900">
@@ -112,7 +113,15 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
           </Stack>
         </Stack>
 
-        <Stack p={4} bgcolor="white" borderRadius="8px">
+        <Stack
+          p={4}
+          bgcolor="white"
+          borderRadius="8px"
+          sx={{
+            height: '100%',
+            alignSelf: { lg: !isLong && 'center' },
+          }}
+        >
           <Stack>
             <Typography
               variant="h4"
@@ -148,16 +157,23 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
             </Stack>
 
             <Stack spacing={3}>
-              <FormControl fullWidth sx={{ '& input': { padding: '6px 8px' } }}>
-                <Typography
-                  color="text.primary"
-                  variant="body2"
-                  fontWeight={600}
+              {isLong && (
+                <FormControl
+                  fullWidth
+                  sx={{
+                    '& input': { padding: '6px 8px' },
+                  }}
                 >
-                  Company
-                </Typography>
-                <TextField name="company" />
-              </FormControl>
+                  <Typography
+                    color="text.primary"
+                    variant="body2"
+                    fontWeight={600}
+                  >
+                    Company
+                  </Typography>
+                  <TextField name="company" />
+                </FormControl>
+              )}
               <FormControl fullWidth sx={{ '& input': { padding: '6px 8px' } }}>
                 <Typography
                   color="text.primary"
@@ -168,26 +184,36 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                 </Typography>
                 <TextField name="email" />
               </FormControl>
-              <FormControl fullWidth sx={{ '& input': { padding: '6px 8px' } }}>
-                <Typography
-                  color="text.primary"
-                  variant="body2"
-                  fontWeight={600}
-                >
-                  Phone
-                </Typography>
-                <TextField name="phone" />
-              </FormControl>
-              <FormControl fullWidth sx={{ '& input': { padding: '6px 8px' } }}>
-                <Typography
-                  color="text.primary"
-                  variant="body2"
-                  fontWeight={600}
-                >
-                  Please tell us about your project
-                </Typography>
-                <TextField multiline name="tellUs" rows={5} />
-              </FormControl>
+              {isLong && (
+                <>
+                  <FormControl
+                    fullWidth
+                    sx={{ '& input': { padding: '6px 8px' } }}
+                  >
+                    <Typography
+                      color="text.primary"
+                      variant="body2"
+                      fontWeight={600}
+                    >
+                      Phone
+                    </Typography>
+                    <TextField name="phone" />
+                  </FormControl>
+                  <FormControl
+                    fullWidth
+                    sx={{ '& input': { padding: '6px 8px' } }}
+                  >
+                    <Typography
+                      color="text.primary"
+                      variant="body2"
+                      fontWeight={600}
+                    >
+                      Please tell us about your project
+                    </Typography>
+                    <TextField multiline name="tellUs" rows={5} />
+                  </FormControl>
+                </>
+              )}
 
               <Button variant="contained" size="extraLarge" fullWidth>
                 Schedule Demo

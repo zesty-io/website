@@ -130,6 +130,8 @@ const revamp = () => {
     if (component === 'Blog Card') return <BlogCard />;
     if (component === 'Big Blog Card') return <BlogCard isBig />;
     if (component === 'Get Demo Section | Long Form') return <GetDemoSection />;
+    if (component === 'Get Demo Section | Short Form')
+      return <GetDemoSection isLong={false} />;
 
     return 'Please select a component';
   };
