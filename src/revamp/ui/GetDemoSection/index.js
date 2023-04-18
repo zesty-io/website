@@ -1,11 +1,8 @@
-import {
-  Button,
-  FormControl,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { FormControl, Stack, TextField, Typography } from '@mui/material';
+import { Form, Formik } from 'formik';
+import * as yup from 'yup';
 import React from 'react';
+import { LoadingButton } from '@mui/lab';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -19,6 +16,36 @@ const acorns =
   pic1 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_HighPerformer_HighPerformer.png`,
   pic2 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_EasiestToDoBusinessWith_EaseOfDoingBusinessWith.png`,
   pic3 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/WebContentManagement_MomentumLeader_Leader.png`;
+
+const validationSchema = yup.object({
+  firstName: yup.string().label('First Name').trim().required(),
+  lastName: yup.string().label('Last Name').trim().required(),
+  company: yup
+    .string()
+    .label('Company')
+    .trim()
+    .required('Please specify your message'),
+  email: yup
+    .string()
+    .label('Email')
+    .trim()
+    .email('Please enter a valid email address')
+    .required(),
+  phone: yup.string().label('Phone').trim().required(),
+  message: yup.string().label('Message').trim().required(),
+});
+
+const shortValidationSchema = yup.object({
+  firstName: yup.string().label('First Name').trim().required(),
+  lastName: yup.string().label('Last Name').trim().required(),
+  email: yup
+    .string()
+    .label('Email')
+    .trim()
+    .email('Please enter a valid email address')
+    .required(),
+});
+
 const GetDemoSection = ({
   title = 'Get Demo',
   supportingText = `Want to see how Zesty can help you and your teams? Fill out the form to be contacted by our content management experts.
@@ -122,104 +149,206 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
             alignSelf: { lg: !isLong && 'center' },
           }}
         >
-          <Stack>
-            <Typography
-              variant="h4"
-              letterSpacing="-0.02em"
-              color="text.primary"
-              fontWeight={800}
-              mb={3}
-            >
-              Contact us for a Custom Demo
-            </Typography>
-
-            <Stack spacing={2} direction="row" mb={3}>
-              <FormControl fullWidth sx={{ '& input': { padding: '6px 8px' } }}>
-                <Typography
-                  color="text.primary"
-                  variant="body2"
-                  fontWeight={600}
-                >
-                  First Name
-                </Typography>
-                <TextField name="firstName" />
-              </FormControl>
-              <FormControl fullWidth sx={{ '& input': { padding: '6px 8px' } }}>
-                <Typography
-                  color="text.primary"
-                  variant="body2"
-                  fontWeight={600}
-                >
-                  Last Name
-                </Typography>
-                <TextField name="lastName" />
-              </FormControl>
-            </Stack>
-
-            <Stack spacing={3}>
-              {isLong && (
-                <FormControl
-                  fullWidth
-                  sx={{
-                    '& input': { padding: '6px 8px' },
-                  }}
-                >
+          <Formik
+            enableReinitialize
+            initialValues={{
+              firstName: '',
+              lastName: '',
+              company: '',
+              email: '',
+              phone: '',
+              message: '',
+            }}
+            validationSchema={isLong ? validationSchema : shortValidationSchema}
+            onSubmit={async (values) => {
+              console.log({ values });
+            }}
+          >
+            {({
+              handleSubmit,
+              getFieldProps,
+              errors,
+              touched,
+              initialValues,
+              isSubmitting,
+              values,
+            }) => (
+              <Form onSubmit={handleSubmit}>
+                <Stack>
                   <Typography
+                    variant="h4"
+                    letterSpacing="-0.02em"
                     color="text.primary"
-                    variant="body2"
-                    fontWeight={600}
+                    fontWeight={800}
+                    mb={3}
                   >
-                    Company
+                    Contact us for a Custom Demo
                   </Typography>
-                  <TextField name="company" />
-                </FormControl>
-              )}
-              <FormControl fullWidth sx={{ '& input': { padding: '6px 8px' } }}>
-                <Typography
-                  color="text.primary"
-                  variant="body2"
-                  fontWeight={600}
-                >
-                  Email
-                </Typography>
-                <TextField name="email" />
-              </FormControl>
-              {isLong && (
-                <>
-                  <FormControl
-                    fullWidth
-                    sx={{ '& input': { padding: '6px 8px' } }}
-                  >
-                    <Typography
-                      color="text.primary"
-                      variant="body2"
-                      fontWeight={600}
-                    >
-                      Phone
-                    </Typography>
-                    <TextField name="phone" />
-                  </FormControl>
-                  <FormControl
-                    fullWidth
-                    sx={{ '& input': { padding: '6px 8px' } }}
-                  >
-                    <Typography
-                      color="text.primary"
-                      variant="body2"
-                      fontWeight={600}
-                    >
-                      Please tell us about your project
-                    </Typography>
-                    <TextField multiline name="tellUs" rows={5} />
-                  </FormControl>
-                </>
-              )}
 
-              <Button variant="contained" size="extraLarge" fullWidth>
-                Schedule Demo
-              </Button>
-            </Stack>
-          </Stack>
+                  <Stack
+                    spacing={2}
+                    direction="row"
+                    mb={3}
+                    sx={{
+                      '& .MuiFormHelperText-root': {
+                        mx: 0,
+                      },
+                    }}
+                  >
+                    <FormControl
+                      fullWidth
+                      sx={{
+                        '& input': {
+                          padding: '6px 8px',
+                        },
+                      }}
+                    >
+                      <Typography
+                        color="text.primary"
+                        variant="body2"
+                        fontWeight={600}
+                      >
+                        First Name
+                      </Typography>
+
+                      <TextField
+                        name="firstName"
+                        value={initialValues.firstName}
+                        error={touched.firstName && !!errors.firstName}
+                        helperText={touched.firstName && errors.firstName}
+                        {...getFieldProps('firstName')}
+                      />
+                    </FormControl>
+                    <FormControl
+                      fullWidth
+                      sx={{ '& input': { padding: '6px 8px' } }}
+                    >
+                      <Typography
+                        color="text.primary"
+                        variant="body2"
+                        fontWeight={600}
+                      >
+                        Last Name
+                      </Typography>
+                      <TextField
+                        name="lastName"
+                        value={initialValues.lastName}
+                        error={touched.lastName && !!errors.lastName}
+                        helperText={touched.lastName && errors.lastName}
+                        {...getFieldProps('lastName')}
+                      />
+                    </FormControl>
+                  </Stack>
+
+                  <Stack
+                    spacing={3}
+                    sx={{
+                      '& .MuiFormHelperText-root': {
+                        mx: 0,
+                      },
+                    }}
+                  >
+                    {isLong && (
+                      <FormControl
+                        fullWidth
+                        sx={{
+                          '& input': { padding: '6px 8px' },
+                        }}
+                      >
+                        <Typography
+                          color="text.primary"
+                          variant="body2"
+                          fontWeight={600}
+                        >
+                          Company
+                        </Typography>
+                        <TextField
+                          name="company"
+                          value={initialValues.company}
+                          error={touched.company && !!errors.company}
+                          helperText={touched.company && errors.company}
+                          {...getFieldProps('company')}
+                        />
+                      </FormControl>
+                    )}
+                    <FormControl
+                      fullWidth
+                      sx={{ '& input': { padding: '6px 8px' } }}
+                    >
+                      <Typography
+                        color="text.primary"
+                        variant="body2"
+                        fontWeight={600}
+                      >
+                        Email
+                      </Typography>
+                      <TextField
+                        name="email"
+                        value={initialValues.email}
+                        error={touched.email && !!errors.email}
+                        helperText={touched.email && errors.email}
+                        {...getFieldProps('email')}
+                      />
+                    </FormControl>
+                    {isLong && (
+                      <>
+                        <FormControl
+                          fullWidth
+                          sx={{ '& input': { padding: '6px 8px' } }}
+                        >
+                          <Typography
+                            color="text.primary"
+                            variant="body2"
+                            fontWeight={600}
+                          >
+                            Phone
+                          </Typography>
+                          <TextField
+                            name="phone"
+                            value={initialValues.phone}
+                            error={touched.phone && !!errors.phone}
+                            helperText={touched.phone && errors.phone}
+                            {...getFieldProps('phone')}
+                          />
+                        </FormControl>
+                        <FormControl
+                          fullWidth
+                          sx={{ '& input': { padding: '6px 8px' } }}
+                        >
+                          <Typography
+                            color="text.primary"
+                            variant="body2"
+                            fontWeight={600}
+                          >
+                            Please tell us about your project
+                          </Typography>
+                          <TextField
+                            multiline
+                            name="message"
+                            rows={5}
+                            value={initialValues.message}
+                            error={touched.message && !!errors.message}
+                            helperText={touched.message && errors.message}
+                            {...getFieldProps('message')}
+                          />
+                        </FormControl>
+                      </>
+                    )}
+
+                    <LoadingButton
+                      type="submit"
+                      variant="contained"
+                      size="extraLarge"
+                      fullWidth
+                      loading={isSubmitting}
+                    >
+                      Schedule Demo
+                    </LoadingButton>
+                  </Stack>
+                </Stack>
+              </Form>
+            )}
+          </Formik>
         </Stack>
       </Stack>
     </Stack>
