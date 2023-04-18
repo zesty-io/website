@@ -486,11 +486,11 @@ function StandardFormWithSelect({
               {ctaButton}
             </Button>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Typography color="text.secondary">
               {displayMsgUnderButton}
             </Typography>
-          </Grid>
+          </Grid> */}
           <Grid display={hidePrivacySection ? 'none' : 'block'} item xs={12}>
             <Divider />
           </Grid>
