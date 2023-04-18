@@ -173,7 +173,7 @@ const pricingGrid = ({ data }) => {
                     <Typography
                       variant="body1"
                       sx={{
-                        color: theme.palette.zesty.zestyZambezi,
+                        color:  isCustom ? theme.palette.common.white : theme.palette.zesty.zestyZambezi,
                       }}
                     >
                       {item?.includes_header}
