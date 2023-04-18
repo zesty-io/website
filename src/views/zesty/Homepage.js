@@ -70,6 +70,7 @@ import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonia
 import BlackHero from 'revamp/ui/BlackHero';
 import { useEffect, useState } from 'react';
 import SecurityFeature from 'revamp/ui/SecurityFeature';
+import GetDemoSection from 'revamp/ui/GetDemoSection';
 
 function Homepage({ content }) {
   const { loading } = useZestyStore();
@@ -239,6 +240,7 @@ function Homepage({ content }) {
         <SecurityFeature />
         <EnterpriseGrowth />
         <FeatureBulletWithTestimonials />
+        <GetDemoSection />
       </ThemeProvider>
     </>
   );

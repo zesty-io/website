@@ -29,6 +29,7 @@ import SecurityFeature from 'revamp/ui/SecurityFeature';
 import AuthorSection from 'revamp/ui/AuthorSection';
 import BlogCard from 'revamp/ui/BlogCard';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
+import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 
 const components = [
   'Hero | Stacked | Light',
@@ -155,6 +156,7 @@ const revamp = () => {
           ))}
         </Select>
       </FormControl>
+      <StandardFormWithSelect />
     </ThemeProvider>
   );
 };
