@@ -14,6 +14,7 @@ const FeatureTestimonial = ({
   image = featureContent,
   testimonial = `“Media insights show us what assets are being requested the most and help inform what content we need to focus on and invest in improving”`,
   testimonialLogo = rocketLeague,
+  isImageRight = true,
 }) => {
   return (
     <Stack
@@ -32,14 +33,15 @@ const FeatureTestimonial = ({
         [theme.breakpoints.up('lg')]: {
           py: 10,
           px: 14,
+          gap: 8,
         },
       })}
     >
       <Stack
         mb={{ xs: 3, tablet: 6, lg: 0 }}
         sx={{ width: { lg: '456px', desktopWide: '576px' } }}
-        mr={{ lg: 8 }}
         py={{ desktopWide: '53.5px' }}
+        order={{ lg: isImageRight ? 0 : 1 }}
       >
         <Typography variant="body2" fontWeight={600} color="primary" mb="12px">
           {overline}
@@ -77,7 +79,14 @@ const FeatureTestimonial = ({
           <img src={testimonialLogo} width="110.44px" height="40px" />
         </Stack>
       </Stack>
-      <Stack>
+      <Stack
+        mb={{
+          xs: !isImageRight && 3,
+          tablet: !isImageRight && 6,
+          lg: !isImageRight && 0,
+        }}
+        order={{ lg: isImageRight ? 1 : 0 }}
+      >
         <Box
           component="img"
           src={image}

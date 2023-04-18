@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 const GetTree = ({ data = [], handleClick = () => {} }) => {
   const result = Array.isArray(data)
-    ? data.map((e) => {
+    ? data.map((e, i) => {
         const name = e.name.replaceAll(' ', '-');
         if (Array.isArray(e.item)) {
           const res = e.item.map((x) => {
@@ -15,7 +15,8 @@ const GetTree = ({ data = [], handleClick = () => {} }) => {
           });
           return (
             <TreeItem
-              expanded={true}
+              key={i}
+              // expanded={true}
               nodeId={name}
               label={<Typography py={1}>{e.name}</Typography>}
               onClick={() => handleClick(e)}
@@ -26,6 +27,7 @@ const GetTree = ({ data = [], handleClick = () => {} }) => {
         } else {
           return (
             <TreeItem
+              key={i}
               nodeId={name}
               label={
                 <Link

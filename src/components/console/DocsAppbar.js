@@ -71,10 +71,20 @@ export const DocsAppbar = React.memo(() => {
     }
   };
 
-  const DOCS_DATA_DROPDOWN = (data) => {
-    const res = data.map((e) => {
-      return { label: e.info.name, value: e };
-    });
+  const DOCS_DATA_DROPDOWN = () => {
+    const res = [
+      { label: 'Instances API', value: { parent: '/instances/api-reference' } },
+      {
+        label: 'Authentication API',
+        value: { parent: '/authentication/api-reference' },
+      },
+      { label: 'Accounts API', value: { parent: '/accounts/api-reference' } },
+      { label: 'Parsley Tour', value: { parent: '/parsley/tour/hello-world' } },
+    ];
+    // const res = data.map((e) => {
+    //   return { label: e.info.name, value: e };
+    // });
+    // console.log(res, 4444);
     return res;
   };
   const selectInstance = async (instanceZUID) => {
@@ -121,7 +131,7 @@ export const DocsAppbar = React.memo(() => {
         <DocsComboBox
           width={'24.5rem'}
           onChange={onChangeDropdown}
-          options={DOCS_DATA_DROPDOWN(mainData)}
+          options={DOCS_DATA_DROPDOWN()}
         />
 
         {isXl && (

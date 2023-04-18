@@ -15,9 +15,11 @@ import TopNav from 'components/globals/TopNav';
 import { Topbar, Sidebar, Footer } from './components';
 import { setCookie } from 'cookies-next';
 import { useZestyStore } from 'store';
-import { Container, Stack } from '@mui/material';
+import { Container, Stack, ThemeProvider } from '@mui/material';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import SiteBanner from 'components/marketing/SiteBanner/SiteBanner';
+import ProgressBar from 'react-scroll-progress-bar';
+import revampTheme from 'theme/revampTheme';
 
 const MarketingMain = ({
   children,
@@ -64,7 +66,10 @@ const MarketingMain = ({
   const hideNav =
     isPpcShortPage || isCapterraPage || isDxpTemplatePage || isDiscover;
   const isLoggedIn = useIsLoggedIn();
-  const pageNavColorRegex = new RegExp(/\bmindshare\b|article/gi);
+  const pageNavColorRegex = new RegExp(/\bmindshare\b|article\b|category/gi);
+  const blogMain = new RegExp(/\bmindshare\b/gi);
+  const isBlogPage = model?.match(pageNavColorRegex) !== null ? true : false;
+  const isBlogHome = model?.match(blogMain) !== null ? true : false;
   const headerColorInvert =
     model?.match(pageNavColorRegex) !== null ? true : false;
 
@@ -108,7 +113,7 @@ const MarketingMain = ({
             maxWidth: theme.breakpoints.values.lg,
           })}
         >
-          <TopNav hideNav={hideNav} nav={nav} colorInvert={headerColorInvert} />
+          <TopNav hideNav={hideNav} nav={nav} colorInvert={isBlogHome} />
         </Container>
       </Box>
       <AppBar
@@ -137,7 +142,7 @@ const MarketingMain = ({
               onSidebarOpen={handleSidebarOpen}
               flyoutNavigation={flyoutNavigation}
               customRouting={hasRouting ? customRouting : []}
-              colorInvert={headerColorInvert && !trigger}
+              colorInvert={isBlogHome && !trigger}
               trigger={trigger}
               isAuthenticated={isLoggedIn}
               userInfo={userInfo?.data}
@@ -153,6 +158,19 @@ const MarketingMain = ({
         flyoutNavigation={flyoutNavigation}
         customRouting={hasRouting ? customRouting : []}
       />
+      {isBlogPage && (
+        <Box
+          sx={{
+            '& div': {
+              zIndex: '99999 !important',
+            },
+          }}
+        >
+          <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
+            <ProgressBar height="6px" bgcolor="#FF5D0A" duration="0.2" />
+          </ThemeProvider>
+        </Box>
+      )}
       <main>
         {children}
         <Divider />

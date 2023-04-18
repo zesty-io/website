@@ -23,6 +23,7 @@ const FeatureBulletWithTestimonials = ({
 - Tony Cox, Managing Principal at Experiom`,
   testimonialLogo = logo,
   lists = listItems,
+  isImageRight = true,
 }) => {
   return (
     <Stack
@@ -41,14 +42,15 @@ const FeatureBulletWithTestimonials = ({
         [theme.breakpoints.up('lg')]: {
           py: 10,
           px: 14,
+          gap: 8,
         },
       })}
     >
       <Stack
         mb={{ xs: 3, tablet: 6, lg: 0 }}
         sx={{ width: { lg: '456px', desktopWide: '576px' } }}
-        mr={{ lg: 8 }}
         py={{ desktopWide: '53.5px' }}
+        order={{ lg: isImageRight ? 0 : 1 }}
       >
         <Typography variant="body2" fontWeight={600} color="primary" mb="12px">
           {overline}
@@ -100,7 +102,15 @@ const FeatureBulletWithTestimonials = ({
           <img src={testimonialLogo} width="110.44px" height="40px" />
         </Stack>
       </Stack>
-      <Stack justifyContent={{ lg: 'center' }}>
+      <Stack
+        justifyContent={{ lg: 'center' }}
+        mb={{
+          xs: !isImageRight && 3,
+          tablet: !isImageRight && 6,
+          lg: !isImageRight && 0,
+        }}
+        order={{ lg: isImageRight ? 1 : 0 }}
+      >
         <Box
           component="img"
           src={image}
