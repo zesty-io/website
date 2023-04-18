@@ -28,6 +28,7 @@ import BlogPage from 'revamp/ui/BlogPage';
 import SecurityFeature from 'revamp/ui/SecurityFeature';
 import AuthorSection from 'revamp/ui/AuthorSection';
 import BlogCard from 'revamp/ui/BlogCard';
+import GetDemoSection from 'revamp/ui/GetDemoSection';
 
 const components = [
   'Hero | Stacked | Light',
@@ -62,53 +63,10 @@ const components = [
   'Content Section | Author and Tags',
   'Blog Card',
   'Big Blog Card',
+  'Get Demo Section | Long Form',
+  'Get Demo Section | Short Form',
 ];
 
-// const components2 = [
-//   {
-//     groupName: 'Hero',
-//     lists: [
-//       'Hero | Stacked | Light',
-//       'Hero | Side by Side',
-//       'Hero | Stacked | Dark',
-//       'Hero | Case Study',
-//       'Hero | Blog',
-//     ],
-//   },
-//   {
-//     groupName: 'Feature',
-//     lists: [
-//       'Feature Section | Tabs',
-//       'Feature Section | 3 Column Grid',
-//       'Feature Section | Left Text Right Image | Two CTA',
-//       'Feature Section | Left Image Right Text | Two CTA',
-
-//       'Feature Section | Left Text Right Image | with Statistic',
-//       'Feature Section | Left Image Right Text | with Statistic',
-
-//       'Feature Section | Left Text Right Image | with Testimonial',
-//       'Feature Section | Left Image Right Text | with Testimonial',
-
-//       'Feature Section | Left Text Right Image | with Bullet Points and Testimonial',
-//       'Feature Section | Left Image Right Text | with Bullet Points and Testimonial',
-//     ],
-//   },
-//   {
-//     groupName: 'No Group',
-//     lists: [
-//       'Stats | Side by Side',
-//       'Single Testimonial',
-
-//       'Enterprise Growth Section',
-
-//       'Home Page',
-//       'Home Page 2',
-//       'Blog Page',
-//       'Security Feature',
-//       'Content Section | Author and Tags',
-//     ],
-//   },
-// ];
 const revamp = () => {
   const [component, setComponent] = useState('');
 
@@ -171,6 +129,7 @@ const revamp = () => {
       return <AuthorSection />;
     if (component === 'Blog Card') return <BlogCard />;
     if (component === 'Big Blog Card') return <BlogCard isBig />;
+    if (component === 'Get Demo Section | Long Form') return <GetDemoSection />;
 
     return 'Please select a component';
   };
