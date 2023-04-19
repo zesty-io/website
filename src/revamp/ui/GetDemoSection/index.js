@@ -29,11 +29,7 @@ const phoneRegExp = '^([^0-9]*[0-9]){5}.*$';
 const validationSchema = yup.object({
   firstName: yup.string().label('First Name').trim().required(),
   lastName: yup.string().label('Last Name').trim().required(),
-  company: yup
-    .string()
-    .label('Company')
-    .trim()
-    .required('Please specify your message'),
+  company: yup.string().label('Company').trim().required(),
   email: yup
     .string()
     .label('Email')
