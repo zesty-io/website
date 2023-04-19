@@ -15,7 +15,7 @@ td {
 
 
 code {
-  background-color: #F2F2F2;
+  background-color: #F5F7F9;
   padding: 2px 8px;
   border-radius:4px;
   font-size: 14px;
@@ -29,4 +29,18 @@ code {
 .ais-Hits-item {
   list-style-type: none;
 }
+.heading-link {
+  opacity: 0;
+}
 
+.heading-link:hover {
+  opacity: 100;
+  color:#eb621f
+}
+pre {
+  background-color: #F5F7F9;
+  color: black;
+  padding: 10px;
+  overflow: auto;
+  width: 100%;
+}

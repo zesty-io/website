@@ -358,8 +358,8 @@ export const transFormEndpoint = ({
   };
   const res = url
     .replaceAll('{{protocol}}', 'https')
-    .replaceAll('{{accounts_api_url}}', 'accounts-api.zesty.org')
-    .replaceAll('{{instances_api_url}}', 'instances-api.zesty.org')
+    .replaceAll('{{accounts_api_url}}', 'accounts.api.zesty.io')
+    .replaceAll('{{instances_api_url}}', 'instances.api.zesty.io')
     .replaceAll('{{accounts_api_version}}', 'v1')
     .replaceAll('{{instances_api_version}}', 'v1')
     .replaceAll('{{api_version}}', 'v1')
