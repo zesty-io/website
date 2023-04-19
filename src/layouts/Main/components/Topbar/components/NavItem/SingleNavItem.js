@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 const SingleNavItem = ({ title, url, colorInvert = false }) => {
   const { asPath } = useRouter();
   const hasActiveLink = url === '/' ? asPath === url : asPath.startsWith(url);
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  const linkColor = colorInvert ? 'common.white' : 'text.secondary';
 
   return (
     <Link
@@ -13,11 +13,13 @@ const SingleNavItem = ({ title, url, colorInvert = false }) => {
       color={linkColor}
       href={url}
       underline="none"
-      sx={{
+      sx={(theme) => ({
+        fontWeight: 600,
         ':hover': {
-          fontWeight: '700',
+          color: theme.palette.zesty.zestyOrange,
+          borderBottom: `4px solid ${theme.palette.zesty.zestyOrange}`,
         },
-      }}
+      })}
       title={title}
     >
       {title}

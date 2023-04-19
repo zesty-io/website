@@ -25,7 +25,7 @@ import RightGridLinks from './RightGridLinks';
 const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
   const theme = useTheme();
 
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  const linkColor = colorInvert ? 'common.white' : 'text.secondary';
 
   return (
     <Box>
@@ -33,12 +33,28 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
         display={'flex'}
         alignItems={'center'}
         aria-describedby={id}
-        sx={{ cursor: 'pointer' }}
+        sx={{
+          cursor: 'pointer',
+          '&:hover': {
+            '& .MuiTypography-root': {
+              color: theme.palette.zesty.zestyOrange,
+            },
+            '& svg': {
+              color: theme.palette.zesty.zestyOrange,
+            },
+
+            borderBottom: `4px solid ${theme.palette.zesty.zestyOrange}`,
+          },
+          borderBottom:
+            activeNav?.id === id
+              ? `4px solid ${theme.palette.zesty.zestyOrange}`
+              : ``,
+        }}
         onClick={(e) => navHandler(e, id)}
       >
         <Typography
           sx={{
-            fontWeight: activeNav?.id === id ? 700 : 400,
+            fontWeight: 600,
             color:
               activeNav?.id === id
                 ? theme.palette.zesty.zestyOrange
