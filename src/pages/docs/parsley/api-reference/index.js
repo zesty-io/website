@@ -71,6 +71,7 @@ const index = (props) => {
       <Stack direction={'row'}>
         {/* SIDEBAR */}
         <DocsSidebar
+          search={search}
           setsearch={setsearch}
           data={newNavData}
           onClick={undefined}
