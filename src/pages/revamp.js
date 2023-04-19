@@ -26,64 +26,117 @@ import HomePage from 'revamp/ui/HomePage';
 import HomePage2 from 'revamp/ui/HomePage2';
 import BlogPage from 'revamp/ui/BlogPage';
 import SecurityFeature from 'revamp/ui/SecurityFeature';
-import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
-import DemoForm from 'components/cta/DemoForm';
+import AuthorSection from 'revamp/ui/AuthorSection';
+import BlogCard from 'revamp/ui/BlogCard';
+import GetDemoSection from 'revamp/ui/GetDemoSection';
 
 const components = [
-  'Hero',
-  'Black Hero',
-  'Stats',
+  'Hero | Stacked | Light',
+  'Hero | Side by Side',
+  'Hero | Stacked | Dark',
+  'Hero | Case Study',
+  'Hero | Blog',
+
+  'Stats | Side by Side',
   'Single Testimonial',
-  'Tabs Section',
-  'Grid Feature',
-  'Feature Two CTA',
-  'Feature Statistics',
-  'Feature Testimonial',
-  'Enterprise Growth',
-  'Feature Bullet Points with Testimonial',
-  'Light Hero',
-  'Case Study Hero',
-  'Blog Hero',
+
+  'Feature Section | Tabs',
+  'Feature Section | 3 Column Grid',
+  'Feature Section | Left Text Right Image | Two CTA',
+  'Feature Section | Left Image Right Text | Two CTA',
+
+  'Feature Section | Left Text Right Image | with Statistic',
+  'Feature Section | Left Image Right Text | with Statistic',
+
+  'Feature Section | Left Text Right Image | with Testimonial',
+  'Feature Section | Left Image Right Text | with Testimonial',
+
+  'Feature Section | Left Text Right Image | with Bullet Points and Testimonial',
+  'Feature Section | Left Image Right Text | with Bullet Points and Testimonial',
+
+  'Enterprise Growth Section',
+
   'Home Page',
   'Home Page 2',
-  'Blog Page',
+  'Content Section | Rich Text',
   'Security Feature',
-  'StandardFormWithSelect',
-  'StandardFormWithSelectNoSelect',
-  'DemoForm',
+  'Content Section | Author and Tags',
+  'Blog Card',
+  'Big Blog Card',
+  'Get Demo Section | Long Form',
+  'Get Demo Section | Short Form',
 ];
+
 const revamp = () => {
   const [component, setComponent] = useState('');
 
   const renderComponent = () => {
-    if (component === 'Hero') return <Hero />;
-    if (component === 'Black Hero') return <BlackHero />;
-    if (component === 'Stats') return <Stats />;
+    // Hero
+    if (component === 'Hero | Stacked | Light') return <LightHero />;
+    if (component === 'Hero | Side by Side') return <Hero />;
+    if (component === 'Hero | Stacked | Dark') return <BlackHero />;
+    if (component === 'Hero | Case Study') return <CaseStudyHero />;
+    if (component === 'Hero | Blog') return <BlogHero />;
+
+    if (component === 'Stats | Side by Side') return <Stats />;
     if (component === 'Single Testimonial') return <SingleTestimonial />;
-    if (component === 'Tabs Section') return <TabsSection />;
-    if (component === 'Grid Feature') return <GridFeature />;
-    if (component === 'Feature Two CTA') return <FeatureTwoCTA />;
-    if (component === 'Feature Statistics') return <FeatureStatistics />;
-    if (component === 'Feature Testimonial') return <FeatureTestimonial />;
-    if (component === 'Enterprise Growth') return <EnterpriseGrowth />;
-    if (component === 'Feature Bullet Points with Testimonial')
+
+    // FEATURES
+    if (component === 'Feature Section | Tabs') return <TabsSection />;
+    if (component === 'Feature Section | 3 Column Grid') return <GridFeature />;
+
+    if (component === 'Feature Section | Left Text Right Image | Two CTA')
+      return <FeatureTwoCTA />;
+    if (component === 'Feature Section | Left Image Right Text | Two CTA')
+      return <FeatureTwoCTA isImageRight={false} />;
+
+    if (
+      component === 'Feature Section | Left Text Right Image | with Statistic'
+    )
+      return <FeatureStatistics />;
+    if (
+      component === 'Feature Section | Left Image Right Text | with Statistic'
+    )
+      return <FeatureStatistics isImageRight={false} />;
+
+    if (
+      component === 'Feature Section | Left Text Right Image | with Testimonial'
+    )
+      return <FeatureTestimonial />;
+    if (
+      component === 'Feature Section | Left Image Right Text | with Testimonial'
+    )
+      return <FeatureTestimonial isImageRight={false} />;
+
+    if (
+      component ===
+      'Feature Section | Left Text Right Image | with Bullet Points and Testimonial'
+    )
       return <FeatureBulletWithTestimonials />;
-    if (component === 'Light Hero') return <LightHero />;
-    if (component === 'Case Study Hero') return <CaseStudyHero />;
-    if (component === 'Blog Hero') return <BlogHero />;
+    if (
+      component ===
+      'Feature Section | Left Image Right Text | with Bullet Points and Testimonial'
+    )
+      return <FeatureBulletWithTestimonials isImageRight={false} />;
+
+    if (component === 'Enterprise Growth Section') return <EnterpriseGrowth />;
+
     if (component === 'Home Page') return <HomePage />;
     if (component === 'Home Page 2') return <HomePage2 />;
-    if (component === 'Blog Page') return <BlogPage />;
+    if (component === 'Content Section | Rich Text') return <BlogPage />;
     if (component === 'Security Feature') return <SecurityFeature />;
-    if (component === 'StandardFormWithSelect')
-      return <StandardFormWithSelect />;
-    if (component === 'StandardFormWithSelectNoSelect')
-      return <StandardFormWithSelect hideSelect={true} />;
-    if (component === 'DemoForm') return <DemoForm />;
+    if (component === 'Content Section | Author and Tags')
+      return <AuthorSection />;
+    if (component === 'Blog Card') return <BlogCard />;
+    if (component === 'Big Blog Card') return <BlogCard isBig />;
+    if (component === 'Get Demo Section | Long Form') return <GetDemoSection />;
+    if (component === 'Get Demo Section | Short Form')
+      return <GetDemoSection isLong={false} />;
 
     return 'Please select a component';
   };
   const { palette } = useTheme();
+
   return (
     <ThemeProvider theme={() => revampTheme(palette.mode)}>
       {renderComponent()}
@@ -96,7 +149,7 @@ const revamp = () => {
           onChange={(e) => setComponent(e.target.value)}
         >
           {components.map((c, index) => (
-            <MenuItem key={index} value={c}>
+            <MenuItem value={c} key={index}>
               {c}
             </MenuItem>
           ))}
