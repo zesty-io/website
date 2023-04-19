@@ -1,8 +1,13 @@
-import { Button, FormControl, Stack, Typography } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  Stack,
+  Typography,
+  TextField,
+} from '@mui/material';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import React from 'react';
-import { FieldTypeText } from '@zesty-io/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { getCookie } from 'cookies-next';
 
@@ -15,9 +20,9 @@ const acorns =
   singlife = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Singlife%20Logo.svg`,
   sony = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Sony%20Logo.svg`,
   wattpad = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Wattpad-logo-vector%201.svg`,
-  pic1 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_HighPerformer_HighPerformer.png`,
-  pic2 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_EasiestToDoBusinessWith_EaseOfDoingBusinessWith.png`,
-  pic3 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/WebContentManagement_MomentumLeader_Leader.png`;
+  pic1 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_HighPerformer_HighPerformer.svg`,
+  pic2 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_EasiestToDoBusinessWith_EaseOfDoingBusinessWith.svg`,
+  pic3 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/WebContentManagement_MomentumLeader_Leader.svg`;
 
 const phoneRegExp = '^([^0-9]*[0-9]){5}.*$';
 
@@ -53,6 +58,36 @@ const shortValidationSchema = yup.object({
     .email('Please enter a valid email address')
     .required(),
 });
+
+const CustomTextField = ({ label, ...props }) => {
+  return (
+    <FormControl
+      fullWidth
+      sx={{
+        '& .MuiInputBase-root': {
+          border: '1px solid #F2F4F7',
+          borderRadius: '8px',
+        },
+        '& input': {
+          padding: '6px 8px',
+        },
+        '& .MuiFormHelperText-root.Mui-error': {
+          mx: 0,
+        },
+      }}
+    >
+      <Typography
+        color="text.primary"
+        variant="body2"
+        fontWeight={600}
+        mb="4px"
+      >
+        {label}
+      </Typography>
+      <TextField {...props} />
+    </FormControl>
+  );
+};
 
 const GetDemoSection = ({
   title = 'Get Demo',
@@ -173,7 +208,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
     // cmsModel === 'Gated Content Page'
     //   ? setOpen(true)
     //   : (window.location = '/ppc/thank-you/');
-    window.location = '/ppc/thank-you/';
+    window.location = '/meet';
     return values;
   };
 
@@ -198,7 +233,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
             gap: 8,
           },
           [theme.breakpoints.up('desktopWide')]: {
-            gap: 14,
+            gap: 15,
           },
         })}
       >
@@ -236,9 +271,13 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
             >
               Trusted By
             </Typography>
-            <Stack flexWrap="wrap" direction="row" gap="20px">
+            <Stack
+              flexWrap="wrap"
+              direction="row"
+              gap={{ xs: '20px', desktopWide: '30px' }}
+            >
               <img src={sony} width="91px" height="32px" />
-              <img src={rocketLeague} width="53.94px" height="32px" />
+              <img src={rocketLeague} width="60px" height="32px" />
               <img src={singlife} width="102.12px" height="32px" />
               <img src={acorns} width="94px" height="32px" />
               <img src={phoenixSuns} width="107.54px" height="32px" />
@@ -271,6 +310,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
             alignSelf: { lg: !isLong && 'center' },
             p: 4,
             bgcolor: theme.palette.mode === 'light' ? 'white' : 'grey.800',
+            width: { xs: '100%', lg: '456px', desktopWide: '548px' },
           })}
         >
           <Formik
@@ -311,85 +351,59 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                   </Typography>
 
                   <Stack spacing={2} direction="row" mb={3}>
-                    <FormControl fullWidth>
-                      <Typography
-                        color="text.primary"
-                        variant="body2"
-                        fontWeight={600}
-                      >
-                        First Name
-                      </Typography>
-                      <FieldTypeText
-                        name="firstName"
-                        value={initialValues.firstName}
-                        error={touched.firstName && !!errors.firstName}
-                        helperText={touched.firstName && errors.firstName}
-                        {...getFieldProps('firstName')}
-                      />
-                    </FormControl>
-                    <FormControl fullWidth>
-                      <Typography
-                        color="text.primary"
-                        variant="body2"
-                        fontWeight={600}
-                      >
-                        Last Name
-                      </Typography>
+                    <CustomTextField
+                      label="First Name"
+                      name="firstName"
+                      value={initialValues.firstName}
+                      error={touched.firstName && !!errors.firstName}
+                      helperText={touched.firstName && errors.firstName}
+                      {...getFieldProps('firstName')}
+                    />
 
-                      <FieldTypeText
-                        name="lastName"
-                        value={initialValues.lastName}
-                        error={touched.lastName && !!errors.lastName}
-                        helperText={touched.lastName && errors.lastName}
-                        {...getFieldProps('lastName')}
-                      />
-                    </FormControl>
+                    <CustomTextField
+                      label="Last Name"
+                      name="lastName"
+                      value={initialValues.lastName}
+                      error={touched.lastName && !!errors.lastName}
+                      helperText={touched.lastName && errors.lastName}
+                      {...getFieldProps('lastName')}
+                    />
                   </Stack>
 
                   <Stack spacing={3}>
                     {isLong && (
-                      <FormControl fullWidth>
-                        <Typography
-                          color="text.primary"
-                          variant="body2"
-                          fontWeight={600}
-                        >
-                          Company
-                        </Typography>
-
-                        <FieldTypeText
-                          name="company"
-                          value={initialValues.company}
-                          error={touched.company && !!errors.company}
-                          helperText={touched.company && errors.company}
-                          {...getFieldProps('company')}
-                        />
-                      </FormControl>
-                    )}
-                    <FormControl fullWidth>
-                      <Typography
-                        color="text.primary"
-                        variant="body2"
-                        fontWeight={600}
-                      >
-                        Email
-                      </Typography>
-
-                      <FieldTypeText
-                        name="email"
-                        value={initialValues.email}
-                        error={touched.email && !!errors.email}
-                        helperText={touched.email && errors.email}
-                        {...getFieldProps('email')}
+                      <CustomTextField
+                        label="Company"
+                        name="company"
+                        value={initialValues.company}
+                        error={touched.company && !!errors.company}
+                        helperText={touched.company && errors.company}
+                        {...getFieldProps('company')}
                       />
-                    </FormControl>
+                    )}
+
+                    <CustomTextField
+                      label="Email"
+                      name="email"
+                      value={initialValues.email}
+                      error={touched.email && !!errors.email}
+                      helperText={touched.email && errors.email}
+                      {...getFieldProps('email')}
+                    />
                     {isLong && (
                       <>
                         <FormControl
                           fullWidth
                           sx={{
+                            '& .MuiInputBase-root': {
+                              border: '1px solid #F2F4F7',
+                              borderRadius: '8px',
+                            },
                             '& input': {
                               padding: '6px 8px',
+                            },
+                            '& .MuiFormHelperText-root.Mui-error': {
+                              mx: 0,
                             },
                           }}
                         >
@@ -397,6 +411,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                             color="text.primary"
                             variant="body2"
                             fontWeight={600}
+                            mb="4px"
                           >
                             Phone
                           </Typography>
@@ -413,23 +428,15 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                             }
                           />
                         </FormControl>
-                        <FormControl fullWidth>
-                          <Typography
-                            color="text.primary"
-                            variant="body2"
-                            fontWeight={600}
-                          >
-                            Please tell us about your project
-                          </Typography>
 
-                          <FieldTypeText
-                            multiline
-                            name="message"
-                            rows={5}
-                            value={initialValues.message}
-                            {...getFieldProps('message')}
-                          />
-                        </FormControl>
+                        <CustomTextField
+                          label="Please tell us about your project"
+                          multiline
+                          name="message"
+                          rows={4}
+                          value={initialValues.message}
+                          {...getFieldProps('message')}
+                        />
                       </>
                     )}
 
