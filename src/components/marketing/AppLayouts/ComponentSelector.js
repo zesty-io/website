@@ -8,6 +8,8 @@ const ComponentSelector = (props) => {
   // Initialize Context
   const ctx = useContext(GlobalContext);
 
+  console.log(ctx);
+
   // Grab component name from react-auto-layout
   const componentName = props.data.name;
 

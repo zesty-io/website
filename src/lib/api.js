@@ -62,8 +62,26 @@ export async function fetchPage(
     data.navigationCustom = await customNavigation(zestyURL);
     data.flyoutNavigation = await newNavigationWithFlyout(zestyURL);
   }
+
+  /**
+   * Get the item zuid and pass that as parameters
+   * item zuid will be used to fetch the correct layouts object from webEngine
+   * Example webgine link -> https://kfg6bckb-dev.webengine.zesty.io/z/pvl/7-8eafdbfcc7-2qqzz8.json
+   *
+   * This is just a work around to fix webengine not returning correct layouts object from multipage model
+   * This will override the layout.json object from meta and replace it with the correct object
+   *
+   */
+  data.meta.layout.json = await getLayoutsObject(data.meta.zuid, zestyURL);
+
   return data;
 }
+
+const getLayoutsObject = async (itemZuid, zestyURL) => {
+  const resp = await fetch(`${zestyURL}/z/pvl/${itemZuid}.json`);
+  const data = await resp.json();
+  return data;
+};
 
 async function recursiveChildFinder(parent, routingArray) {
   // return all the items that match the parent
