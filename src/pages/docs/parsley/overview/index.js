@@ -76,9 +76,6 @@ const ParsleyOverviewPage = (props) => {
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
-  useEffect(() => {
-    console.log(mdData, 444444444);
-  }, [navData]);
 
   return (
     <MainWrapper>
