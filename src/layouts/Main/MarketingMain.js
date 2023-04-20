@@ -110,7 +110,8 @@ const MarketingMain = ({
             paddingTop:
               hideNav || isExplorePage ? '0px !important' : '8px !important',
             paddingBottom: '0 !important',
-            maxWidth: theme.breakpoints.values.lg,
+            maxWidth: '1440px !important',
+            mx: 'auto',
           })}
         >
           <TopNav hideNav={hideNav} nav={nav} colorInvert={isBlogHome} />
@@ -132,9 +133,11 @@ const MarketingMain = ({
       >
         <Container
           sx={(theme) => ({
-            maxWidth: theme.breakpoints.values.lg,
+            maxWidth: '1440px !important',
+            mx: 'auto',
             paddingY: isExplorePage ? 2 : 1,
           })}
+          id="gian"
         >
           <Stack>
             <Topbar

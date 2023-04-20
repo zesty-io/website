@@ -43,12 +43,13 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
               color: theme.palette.zesty.zestyOrange,
             },
 
-            borderBottom: `4px solid ${theme.palette.zesty.zestyOrange}`,
+            boxShadow: `inset 0 -3px ${theme.palette.zesty.zestyOrange}`,
           },
-          borderBottom:
+          boxShadow:
             activeNav?.id === id
-              ? `4px solid ${theme.palette.zesty.zestyOrange}`
+              ? `inset 0 -3px ${theme.palette.zesty.zestyOrange}`
               : ``,
+          transition: 'color .2s,box-shadow .2s',
         }}
         onClick={(e) => navHandler(e, id)}
       >
@@ -66,9 +67,9 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
         </Typography>
         <ExpandMoreIcon
           sx={{
-            marginLeft: theme.spacing(1 / 4),
-            width: 16,
-            height: 16,
+            marginLeft: '4px',
+            width: 24,
+            height: 24,
             transform: activeNav?.id === id ? 'rotate(180deg)' : 'none',
             color:
               activeNav?.id === id
@@ -86,7 +87,7 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
           sx={{
             mt: 4,
             width: '100%',
-            maxWidth: 1076,
+            maxWidth: 1440,
             position: 'absolute',
             left: '50%',
             transform: 'translate(-50%, 0) !important',

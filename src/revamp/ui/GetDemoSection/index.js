@@ -61,11 +61,13 @@ const CustomTextField = ({ label, ...props }) => {
       fullWidth
       sx={{
         '& .MuiInputBase-root': {
-          border: '1px solid #F2F4F7',
           borderRadius: '8px',
         },
         '& input': {
           padding: '6px 8px',
+        },
+        '& fieldset': {
+          color: '#F2F4F7',
         },
         '& .MuiFormHelperText-root.Mui-error': {
           mx: 0,

@@ -103,7 +103,7 @@ const Topbar = ({
           component="a"
           href="/"
           title="Zesty.io Platform"
-          width={{ xs: 100, md: 150 }}
+          mr={2}
         >
           <img
             alt="zesty.io"
@@ -112,15 +112,14 @@ const Topbar = ({
                 ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
                 : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
             }
-            height={42}
-            width={150}
+            height={32}
+            width={114.59}
           />
         </Box>
 
         <Box
           sx={{
             gap: 2,
-            ml: 2,
             display: {
               xs: 'none',
               md: hideNav ? 'none' : 'flex',
@@ -185,7 +184,7 @@ const Topbar = ({
                     },
                   })}
                 >
-                  Login
+                  Log in
                 </Typography>
               </Box>
               <Box>
@@ -194,6 +193,7 @@ const Topbar = ({
                   variant="contained"
                   component="a"
                   size="large"
+                  width="200px"
                 />
               </Box>
             </Box>

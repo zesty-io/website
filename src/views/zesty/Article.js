@@ -483,6 +483,12 @@ function Article({ content }) {
                         '& img, span': {
                           mt: '0px !important',
                           // p: 1,
+                          // maxWidth: 'auto !important',
+                          objectFit: 'contain',
+                          height: '240px',
+                        },
+                        '& span': {
+                          mt: '0px !important',
                           maxWidth: 'auto !important',
                         },
                         '& p': {
