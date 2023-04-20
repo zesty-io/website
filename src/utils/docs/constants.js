@@ -2,7 +2,7 @@ export const PARSLEY = [
   {
     title: 'Parsley',
     githubURL:
-      'https://raw.githubusercontent.com/zesty-io/zesty-org/master/services/web-engine/introduction-to-parsley/README.md',
+      'https://raw.githubusercontent.com/zesty-io/zesty-docs/main/webengine/guides/web-engine/introduction-to-parsley/README.md',
     tags: ['h4', 'h3'],
     parentURL: '/parsley/overview/',
     removeData: [
@@ -12,7 +12,7 @@ export const PARSLEY = [
   {
     title: 'Parsley Index',
     githubURL:
-      'https://raw.githubusercontent.com/zesty-io/zesty-org/master/services/web-engine/introduction-to-parsley/parsley-index.md',
+      'https://raw.githubusercontent.com/zesty-io/zesty-docs/main/webengine/guides/web-engine/introduction-to-parsley/parsley-index.md',
     tags: ['h2'],
     parentURL: '/parsley/api-reference/',
     removeData: [

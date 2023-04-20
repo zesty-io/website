@@ -21,7 +21,7 @@ import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
   { label: 'API Reference', value: 'api-reference' },
-  // { label: 'Resources', value: 'resources' },
+  { label: 'Tour', value: 'tour' },
   // { label: 'Services', value: 'services' },
 ];
 
@@ -99,7 +99,12 @@ export const DocsAppbar = React.memo(() => {
   const handleTabs = (e) => {
     console.log(router?.query.slug);
     const firstChildUrl = router?.query.slug ? router?.query?.slug[0] : '';
-    const url = `/docs/${firstChildUrl}/${e}`;
+    let url = ``;
+    if (firstChildUrl) {
+      url = `/docs/${firstChildUrl}/${e}`;
+    } else {
+      url = `/docs/parsley/${e}`;
+    }
 
     setcurrentTab(e);
     router.push(url);
