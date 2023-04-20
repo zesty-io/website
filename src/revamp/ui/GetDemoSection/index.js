@@ -1,15 +1,17 @@
-import {
-  Button,
-  FormControl,
-  Stack,
-  Typography,
-  TextField,
-} from '@mui/material';
+import { Button, FormControl, Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
-import * as yup from 'yup';
 import React from 'react';
 import MuiPhoneNumber from 'material-ui-phone-number';
-import { getCookie } from 'cookies-next';
+import CustomTextField from 'revamp/components/CustomTextField';
+import {
+  getLeadObjectZOHO,
+  postToZOHO,
+  subscribeToZoho,
+} from 'revamp/utils/helper';
+import {
+  shortValidationSchema,
+  validationSchema,
+} from 'revamp/utils/validation';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -24,169 +26,17 @@ const acorns =
   pic2 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/HeadlessCMS_EasiestToDoBusinessWith_EaseOfDoingBusinessWith.svg`,
   pic3 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/WebContentManagement_MomentumLeader_Leader.svg`;
 
-const phoneRegExp = '^([^0-9]*[0-9]){5}.*$';
-
-const validationSchema = yup.object({
-  firstName: yup.string().label('First Name').trim().required(),
-  lastName: yup.string().label('Last Name').trim().required(),
-  company: yup.string().label('Company').trim().required(),
-  email: yup
-    .string()
-    .label('Email')
-    .trim()
-    .email('Please enter a valid email address')
-    .required(),
-  phoneNumber: yup
-    .string()
-    .label('Phone')
-    .trim()
-    .matches(phoneRegExp, 'You must enter at least 5 digits.')
-    .required(),
-});
-
-const shortValidationSchema = yup.object({
-  firstName: yup.string().label('First Name').trim().required(),
-  lastName: yup.string().label('Last Name').trim().required(),
-  email: yup
-    .string()
-    .label('Email')
-    .trim()
-    .email('Please enter a valid email address')
-    .required(),
-});
-
-const CustomTextField = ({ label, ...props }) => {
-  return (
-    <FormControl
-      fullWidth
-      sx={{
-        '& .MuiInputBase-root': {
-          borderRadius: '8px',
-        },
-        '& input': {
-          padding: '6px 8px',
-        },
-        '& fieldset': {
-          color: '#F2F4F7',
-        },
-        '& .MuiFormHelperText-root.Mui-error': {
-          mx: 0,
-        },
-      }}
-    >
-      <Typography
-        color="text.primary"
-        variant="body2"
-        fontWeight={600}
-        mb="4px"
-      >
-        {label}
-      </Typography>
-      <TextField {...props} />
-    </FormControl>
-  );
-};
-
 const GetDemoSection = ({
   title = 'Get Demo',
   supportingText = `Want to see how Zesty can help you and your teams? Fill out the form to be contacted by our content management experts.
 
 Please look forward to us scheduling a 15 minute call so that we may customize your demo.`,
   isLong = true,
-  cmsModel,
-  downloadLink = '',
-  capterraTracking = null,
 }) => {
-  const getLeadObjectZOHO = (
-    obj,
-    select = '',
-    leadDetail = '',
-    businessType = '',
-    leadSource = 'Website',
-  ) => {
-    // let acLeadtype = 'Marketing Website';
-    let acRole = 'Marketer';
-    // possible values
-    // "Phone": '+'+country.value + ' ' + document.querySelector('#ac-phone input').value,
-    // "Current_CMS": acCMS,
-    // "How_Using_Zesty_io": acHow,
-    // "Website": document.querySelector('#ac-url').value,
-    // 'Project_Timeline' : document.querySelector('#ac-timeline').value,
-    // zoho and google click id https://help.zoho.com/portal/en/kb/crm/integrations/google/google-ads/articles/configure-google-ads-crm-integration#Step_2_Add_hidden_element_in_your_web_forms
-    return {
-      First_Name: obj.firstName,
-      Last_Name: obj.lastName,
-      Email: obj.email,
-      Phone: obj.phoneNumber,
-      Inquiry_Reason: select,
-      Description: obj.message,
-      Zesty_User_Account: obj?.user && obj.user ? true : false,
-      newsletter_signup: obj.newsletter_signup,
-      Lead_Source: getCookie('utm_source')
-        ? getCookie('utm_source')
-        : leadSource,
-      Role: getCookie('persona') ? getCookie('persona') : acRole,
-      Captured_URL:
-        window.location.href.match(/localhost/gi) == null
-          ? window.location.href
-          : 'https://www.testcapurl.com',
-      UTM_Campaign: getCookie('utm_campaign')
-        ? getCookie('utm_campaign')
-        : 'unknown',
-      UTM_Source: getCookie('utm_source') ? getCookie('utm_source') : 'unknown',
-      UTM_Term: getCookie('utm_term') ? getCookie('utm_term') : 'unknown',
-      UTM_Medium: getCookie('utm_medium') ? getCookie('utm_medium') : 'unknown',
-      $gclid: getCookie('gclid') ? getCookie('gclid') : '',
-      Lead_Source_Detail: getCookie('utm_medium')
-        ? getCookie('utm_medium')
-        : leadDetail,
-      Lead_Source_Topic: getCookie('utm_campaign')
-        ? getCookie('utm_campaign')
-        : 'none',
-      Business_Type: businessType,
-      Lead_Status: 'Not Contacted',
-      Designation: obj.jobTitle,
-      Company: obj.company,
-    };
-  };
-
-  const subscribeToZoho = async (payload) => {
-    const { Email, First_Name, Last_Name } = payload;
-    await fetch(
-      `https://us-central1-zesty-dev.cloudfunctions.net/zohoEmailSubscribe?email=${Email}&name=${First_Name}_${Last_Name}`,
-      {
-        method: 'GET',
-      },
-    )
-      .then((res) => res.json())
-      .then(() => {
-        dataLayer.push({ event: 'emailSubscribeSubmitted', value: '1' });
-        // acSENT = true;
-      });
-  };
-
-  const postToZOHO = async (payloadJSON) => {
-    fetch('https://us-central1-zesty-prod.cloudfunctions.net/zoho', {
-      method: 'POST',
-      body: JSON.stringify(payloadJSON),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then(() => {
-        // google data
-        dataLayer.push({ event: 'formCaptureSuccess', value: '1' });
-      })
-      .catch((error) => {
-        throw new Error(`HTTP error: ${error}`);
-      });
-  };
-
   const onSubmit = async (values) => {
     // download link
-    downloadLink && window.open(downloadLink, '_blank');
-    capterraTracking && capterraTracking();
+    // downloadLink && window.open(downloadLink, '_blank');
+    // capterraTracking && capterraTracking();
 
     let payload = getLeadObjectZOHO(
       values,
