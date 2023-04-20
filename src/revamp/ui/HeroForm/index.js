@@ -45,29 +45,32 @@ const HeroForm = ({
     return values;
   };
   return (
-    <Stack
-      sx={(theme) => ({
-        [theme.breakpoints.up('xs')]: {
-          py: 4,
-          px: 2,
-          maxWidth: theme.maxWidth,
-          mx: 'auto',
-        },
-        [theme.breakpoints.up('tablet')]: {
-          py: 6,
-          px: 4,
-        },
-        [theme.breakpoints.up('lg')]: {
-          py: 10,
-          px: 14,
-        },
-      })}
-    >
+    <Stack>
       <Stack
         spacing={{ xs: 4, lg: 10 }}
         direction={{ xs: 'column', lg: 'row' }}
+        sx={(theme) => ({
+          [theme.breakpoints.up('xs')]: {
+            py: 4,
+            px: 2,
+            maxWidth: theme.maxWidth,
+            mx: 'auto',
+          },
+          [theme.breakpoints.up('tablet')]: {
+            py: 6,
+            px: 4,
+            gap: 10,
+          },
+          [theme.breakpoints.up('lg')]: {
+            py: 10,
+            px: 14,
+          },
+        })}
       >
-        <Stack spacing={4} width={{ lg: '448px', desktopWide: '568px' }}>
+        <Stack
+          spacing={4}
+          width={{ xs: '100%', lg: '448px', desktopWide: '568px' }}
+        >
           <Stack spacing="12px">
             <Typography
               variant="h1"
@@ -131,7 +134,7 @@ const HeroForm = ({
           })}
           p={4}
           borderRadius={2}
-          width={{ lg: '448px', desktopWide: '568px' }}
+          width={{ xs: '100%', lg: '448px', desktopWide: '568px' }}
           alignSelf={{ xs: 'stretch', lg: 'center' }}
         >
           <Formik
