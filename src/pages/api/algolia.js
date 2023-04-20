@@ -1,6 +1,7 @@
 import algoliasearch from 'algoliasearch';
 import axios from 'axios';
 import { fetchMarkdownFile, parseMarkdownFile } from 'utils/docs';
+import { PARSLEY } from 'utils/docs/constants';
 import { transFormMainData } from 'views/Docs/helper';
 
 const POSTMAN_JSON_DATA = [
@@ -97,24 +98,39 @@ const algoliaFunc = async ({ data, index }) => {
     });
 };
 
-const getParsleyGlossaryData = async () => {
-  const markdown = await fetchMarkdownFile();
-  const { navData } = parseMarkdownFile(
+const getParsleyIndexData = async () => {
+  const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[2].githubURL });
+  const { navData } = await parseMarkdownFile({
     markdown,
-    () => {},
-    () => {},
-  );
+    tag: PARSLEY[2].tag,
+    parentURL: PARSLEY[2].parentURL,
+  });
+
   return navData;
 };
+
+const getParsleyOverviewData = async () => {
+  const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[1].githubURL });
+  const { navData } = await parseMarkdownFile({
+    markdown,
+    tag: PARSLEY[1].tag,
+    parentURL: PARSLEY[1].parentURL,
+  });
+
+  return navData;
+};
+
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     const parsleyData = await getParsleyTourData();
     const docsData = await getDocsData();
-    const parsleyGlossaryData = await getParsleyGlossaryData();
+    const parsleyIndexData = await getParsleyIndexData();
+    const parsleyOverviewData = await getParsleyOverviewData();
 
     await algoliaFunc({ data: parsleyData, index: 'parsley-tour' });
     await algoliaFunc({ data: docsData, index: 'docs' });
-    await algoliaFunc({ data: parsleyGlossaryData, index: 'parsley-glossary' });
+    await algoliaFunc({ data: parsleyIndexData, index: 'parsley-glossary' });
+    await algoliaFunc({ data: parsleyOverviewData, index: 'parsley-overview' });
 
     return res.status(200).json({ ok: true });
   } else {

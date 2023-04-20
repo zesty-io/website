@@ -7,9 +7,7 @@ import { Stack } from '@mui/material';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { useZestyStore } from 'store';
 import { fetchMarkdownFile, parseMarkdownFile } from 'utils/docs';
-
-const PARSLEY_INDEX_URL =
-  'https://raw.githubusercontent.com/zesty-io/zesty-org/master/services/web-engine/introduction-to-parsley/parsley-index.md';
+import { PARSLEY } from 'utils/docs/constants';
 
 const muiContentOverrides = {
   h1: {
@@ -52,8 +50,17 @@ const ApiReferencePage = (props) => {
   const [mdData, setmdData] = useState('');
 
   const getMd = async () => {
-    const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY_INDEX_URL });
-    parseMarkdownFile(markdown, setmdData, setnavData);
+    const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[1].githubURL });
+    const { navData, pageData } = await parseMarkdownFile({
+      markdown,
+      tags: PARSLEY[1].tags,
+      parentURL: PARSLEY[1].parentURL,
+      title: PARSLEY[1].title,
+      removeData: PARSLEY[1].removeData,
+    });
+
+    setnavData(navData);
+    setmdData(pageData);
   };
 
   const newNavData = navData?.filter((e) =>
