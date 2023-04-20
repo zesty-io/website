@@ -88,9 +88,7 @@ export default function Page({ children }) {
     >
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      <Paper elevation={0} sx={{ overflow: 'hidden' }}>
-        {children}
-      </Paper>
+      <Paper elevation={0}>{children}</Paper>
     </ThemeProvider>
   );
 }
