@@ -25,7 +25,7 @@ import RightGridLinks from './RightGridLinks';
 const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
   const theme = useTheme();
 
-  const linkColor = colorInvert ? 'common.white' : 'text.secondary';
+  const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
   return (
     <Box>
@@ -56,7 +56,7 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
       >
         <Typography
           sx={{
-            fontWeight: 600,
+            fontWeight: activeNav?.id === id ? 700 : 400,
             color:
               activeNav?.id === id
                 ? theme.palette.zesty.zestyOrange

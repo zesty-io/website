@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 const SingleNavItem = ({ title, url, colorInvert = false }) => {
   const { asPath } = useRouter();
   const hasActiveLink = url === '/' ? asPath === url : asPath.startsWith(url);
-  const linkColor = colorInvert ? 'common.white' : 'text.secondary';
+  const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
   return (
     <Box
