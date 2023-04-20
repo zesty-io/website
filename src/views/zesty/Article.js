@@ -482,7 +482,10 @@ function Article({ content }) {
                         mt: '20px',
                         '& img, span': {
                           mt: '0px !important',
-                          p: 1,
+                          // p: 1,
+                          maxWidth: 'auto !important',
+                        },
+                        '& p': {
                           width: 'auto',
                         },
 
