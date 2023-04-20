@@ -91,7 +91,7 @@ const Topbar = ({
           position: 'relative',
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center',
+          // alignItems: 'center',
           width: 1,
         }}
       >
@@ -114,6 +114,7 @@ const Topbar = ({
             }
             height={32}
             width={114.59}
+            style={{ display: 'flex', height: '100%' }}
           />
         </Box>
 
@@ -136,10 +137,10 @@ const Topbar = ({
           }}
         >
           {flyoutNavigation.map((route) => (
-            <Box key={route.meta.zuid}>
+            <Box display="flex" height="100%" key={route.meta.zuid}>
               {/* If link in the cms is empty and column one is not equal to zero it must be a parent navigation with flyout navigation */}
               {route.link === null && route.column_1_items.length != 0 && (
-                <Box>
+                <Box display="flex" height="100%">
                   <NavItem
                     activeNav={
                       activeNav.filter((item) => item.isActive === true)[0]
@@ -153,7 +154,7 @@ const Topbar = ({
               )}
               {/* if link is set in the cms and column one items is empty its a single item navigation without flyout */}
               {route.link != null && !route.column_1_items && (
-                <Box>
+                <Box display="flex" height="100%">
                   <SingleNavItem
                     title={route.nav_title}
                     id={route.meta.zuid}

@@ -33,6 +33,7 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
         display={'flex'}
         alignItems={'center'}
         aria-describedby={id}
+        height="100%"
         sx={{
           cursor: 'pointer',
           '&:hover': {
