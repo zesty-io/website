@@ -6,6 +6,7 @@ import { Stack, Typography } from '@mui/material';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { useZestyStore } from 'store';
 import axios from 'axios';
+import { PARSLEY_GUIDES } from 'utils/docs/constants';
 
 const GuidePage = (props) => {
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
@@ -18,20 +19,20 @@ const GuidePage = (props) => {
   const [search, setsearch] = useState('');
   const [pageData, setpageData] = useState({});
 
-  const newNavData = props.parsley.tour.data
-    .map((e) => {
-      return {
-        ...e,
-        label: `${e.content.lesson_number}. ${e.content.title}`,
-        value: e.content.path_full,
-        url: e.content.path_full,
-      };
-    })
-    .sort(
-      (a, b) =>
-        Number(a.content.lesson_number) - Number(b.content.lesson_number),
-    )
-    .filter((e) => e.label.toLowerCase().includes(search.toLowerCase()));
+  const newNavData = PARSLEY_GUIDES.map((e) => {
+    const githubURL = `https://raw.githubusercontent.com/zesty-io/zesty-docs/main/webengine/guides/web-engine/introduction-to-parsley/${e}`;
+    const newName = e.replaceAll('.md', '');
+    return {
+      label: `${newName}`,
+      value: `${newName}`,
+      file: githubURL,
+      url: `/docs/parsley/guides/${newName}`,
+    };
+  }).filter((e) => e.label.toLowerCase().includes(search.toLowerCase()));
+
+  const handleNavClick = (e) => {
+    window.location.href = e.url;
+  };
 
   const getPageData = async () => {
     await axios
@@ -63,7 +64,7 @@ const GuidePage = (props) => {
           search={search}
           setsearch={setsearch}
           data={newNavData}
-          onClick={undefined}
+          onClick={handleNavClick}
         />
         {/* MAIN PAGE */}
         <Stack pl={4} sx={{ width: 1 }}>
