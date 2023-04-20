@@ -80,7 +80,7 @@ const ParsleyOverviewPage = (props) => {
   return (
     <MainWrapper>
       <Stack direction={'row'}>
-        {/* SIDEBAR */}
+        {/* SIDEBARR */}
         <DocsSidebar
           search={search}
           setsearch={setsearch}
