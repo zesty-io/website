@@ -1,10 +1,8 @@
 import axios from 'axios';
 import MarkdownIt from 'markdown-it';
 
-export const fetchMarkdownFile = async () => {
-  const response = await axios.get(
-    `https://raw.githubusercontent.com/zesty-io/zesty-org/master/services/web-engine/introduction-to-parsley/parsley-index.md`,
-  );
+export const fetchMarkdownFile = async ({ mdUrl }) => {
+  const response = await axios.get(mdUrl);
   return response.data;
 };
 
