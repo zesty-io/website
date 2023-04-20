@@ -51,12 +51,11 @@ export const parseMarkdownFile = ({
     } else {
       // remove redundant h2
       const res = collection.find((e) => e.label === tokens[i].content);
-      console.log(tokens[i].content, 6666);
       if (tokens[i].content === title) {
         newMarkdown.push(`<h1 style="color:#3B454E">${tokens[i].content}</h1>`);
       } else if (tokens[i].content !== headingText && !res) {
         let renderedToken = md.renderer.render([tokens[i]], md.options, {});
-        for (const i = 0; i < tags.length; i++) {
+        for (let i = 0; i < tags.length; i++) {
           renderedToken = renderedToken.replaceAll(`</${tags[i]}>`, '');
         }
         const res = renderedToken.replaceAll('<hr>', '');

@@ -98,23 +98,27 @@ const algoliaFunc = async ({ data, index }) => {
     });
 };
 
-const getParsleyIndexData = async () => {
-  const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[2].githubURL });
+const getParsleyOverviewData = async () => {
+  const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[0].githubURL });
   const { navData } = await parseMarkdownFile({
     markdown,
-    tag: PARSLEY[2].tag,
-    parentURL: PARSLEY[2].parentURL,
+    tags: PARSLEY[0].tags,
+    parentURL: PARSLEY[0].parentURL,
+    title: PARSLEY[0].title,
+    removeData: PARSLEY[0].removeData,
   });
 
   return navData;
 };
 
-const getParsleyOverviewData = async () => {
+const getParsleyIndexData = async () => {
   const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[1].githubURL });
   const { navData } = await parseMarkdownFile({
     markdown,
-    tag: PARSLEY[1].tag,
+    tags: PARSLEY[1].tags,
     parentURL: PARSLEY[1].parentURL,
+    title: PARSLEY[1].title,
+    removeData: PARSLEY[1].removeData,
   });
 
   return navData;
