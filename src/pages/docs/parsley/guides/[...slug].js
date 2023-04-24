@@ -72,6 +72,7 @@ const ApiReferencePage = (props) => {
     return {
       label: `${newName}`,
       value: `${newName}`,
+      title: `${newName}`,
       file: githubURL,
       url: `/docs/parsley/guides/${newName}`,
     };

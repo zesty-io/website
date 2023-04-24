@@ -1,7 +1,7 @@
 import algoliasearch from 'algoliasearch';
 import axios from 'axios';
 import { fetchMarkdownFile, parseMarkdownFile } from 'utils/docs';
-import { PARSLEY } from 'utils/docs/constants';
+import { PARSLEY, PARSLEY_GUIDES } from 'utils/docs/constants';
 import { transFormMainData } from 'views/Docs/helper';
 
 const POSTMAN_JSON_DATA = [
@@ -98,16 +98,18 @@ const algoliaFunc = async ({ data, index }) => {
     });
 };
 
-const getParsleyOverviewData = async () => {
-  const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[0].githubURL });
-  const { navData } = await parseMarkdownFile({
-    markdown,
-    tags: PARSLEY[0].tags,
-    parentURL: PARSLEY[0].parentURL,
-    title: PARSLEY[0].title,
+const getParsleyGuidesData = async () => {
+  return PARSLEY_GUIDES.map((e) => {
+    const githubURL = `https://raw.githubusercontent.com/zesty-io/zesty-docs/main/webengine/guides/web-engine/introduction-to-parsley/${e}`;
+    const newName = e.replaceAll('.md', '');
+    return {
+      label: `${newName}`,
+      value: `${newName}`,
+      name: `${newName}`,
+      file: githubURL,
+      url: `/parsley/guides/${newName}`,
+    };
   });
-
-  return navData;
 };
 
 const getParsleyIndexData = async () => {
@@ -127,12 +129,12 @@ export default async function handler(req, res) {
     const parsleyData = await getParsleyTourData();
     const docsData = await getDocsData();
     const parsleyIndexData = await getParsleyIndexData();
-    const parsleyOverviewData = await getParsleyOverviewData();
+    const parsleyGuides = await getParsleyGuidesData();
 
     await algoliaFunc({ data: parsleyData, index: 'parsley-tour' });
     await algoliaFunc({ data: docsData, index: 'docs' });
     await algoliaFunc({ data: parsleyIndexData, index: 'parsley-glossary' });
-    await algoliaFunc({ data: parsleyOverviewData, index: 'parsley-overview' });
+    await algoliaFunc({ data: parsleyGuides, index: 'parsley-guides' });
 
     return res.status(200).json({ ok: true });
   } else {
