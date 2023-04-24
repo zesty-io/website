@@ -6,8 +6,10 @@ import { Box, Stack, Typography } from '@mui/material';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { useZestyStore } from 'store';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const TourPage = (props) => {
+  const router = useRouter();
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
     (e) => ({
       setalgoliaApiKey: e.setalgoliaApiKey,
@@ -18,6 +20,10 @@ const TourPage = (props) => {
   const [search, setsearch] = useState('');
   const [pageData, setpageData] = useState({});
 
+  const handleRedirect = (e) => {
+    const url = `/docs/parsley/tour/${e.url}`;
+    router.push(url);
+  };
   const newNavData = props.parsley.tour.data
     .map((e) => {
       return {
@@ -63,7 +69,7 @@ const TourPage = (props) => {
           search={search}
           setsearch={setsearch}
           data={newNavData}
-          onClick={undefined}
+          onClick={handleRedirect}
         />
         {/* MAIN PAGE */}
         <Stack pl={4} sx={{ width: 1 }}>
