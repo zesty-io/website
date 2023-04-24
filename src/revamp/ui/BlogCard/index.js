@@ -53,7 +53,15 @@ const BlogCard = ({
       <Stack
         order={isBig ? 0 : 1}
         justifyContent={isBig && 'center'}
-        height="100%"
+        width={{
+          xs: '100%',
+          desktopWide: isBig ? '489px' : '100%',
+        }}
+        height={{
+          xs: '100%',
+          lg: isBig ? '482px' : '216px',
+          desktopWide: isBig ? '391px' : '100%',
+        }}
       >
         <Stack spacing={isBig ? 2 : 1} mb={3}>
           <Typography

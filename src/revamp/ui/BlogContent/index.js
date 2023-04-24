@@ -70,7 +70,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
         </Typography>
         <Grid container rowSpacing={8} columnSpacing={6}>
           {articlesList.map((article, index) => (
-            <Grid lg={index === 0 ? 12 : 4} item key={index}>
+            <Grid xs={12} lg={index === 0 ? 12 : 4} item key={index}>
               <BlogCard
                 article={article.image || FillerContent.image}
                 heading={article.title}
