@@ -105,7 +105,6 @@ const getParsleyOverviewData = async () => {
     tags: PARSLEY[0].tags,
     parentURL: PARSLEY[0].parentURL,
     title: PARSLEY[0].title,
-    removeData: PARSLEY[0].removeData,
   });
 
   return navData;
@@ -118,7 +117,6 @@ const getParsleyIndexData = async () => {
     tags: PARSLEY[1].tags,
     parentURL: PARSLEY[1].parentURL,
     title: PARSLEY[1].title,
-    removeData: PARSLEY[1].removeData,
   });
 
   return navData;

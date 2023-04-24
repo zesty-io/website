@@ -48,7 +48,6 @@ const ApiReferencePage = (props) => {
     }),
   );
   const [search, setsearch] = useState('');
-  const [navData, setnavData] = useState([]);
   const [mdData, setmdData] = useState('');
 
   const handleNavClick = (e) => {
@@ -59,14 +58,11 @@ const ApiReferencePage = (props) => {
     const markdown = await fetchMarkdownFile({ mdUrl: githubURL });
     const { pageData } = await parseMarkdownFile({
       markdown,
-      tags: PARSLEY[1].tags,
+      tags: ['h3', 'h4', 'h2'],
       parentURL: PARSLEY[1].parentURL,
       title: PARSLEY[1].title,
-      removeData: PARSLEY[1].removeData,
     });
 
-    console.log(pageData, 55555);
-    // setnavData(navData);
     setmdData(pageData);
   };
 

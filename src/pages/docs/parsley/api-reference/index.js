@@ -56,7 +56,6 @@ const ApiReferencePage = (props) => {
       tags: PARSLEY[1].tags,
       parentURL: PARSLEY[1].parentURL,
       title: PARSLEY[1].title,
-      removeData: PARSLEY[1].removeData,
     });
 
     setnavData(navData);

@@ -11,7 +11,6 @@ export const parseMarkdownFile = ({
   tags = ['h2'],
   parentURL,
   title,
-  removeData,
 }) => {
   const md = new MarkdownIt();
   const newMarkdown = [];
@@ -23,7 +22,7 @@ export const parseMarkdownFile = ({
   for (let i = 0; i < tokens.length; i++) {
     const checkTags = tags.find((e) => e === tokens[i].tag);
     // remove description
-    const findDesc = removeData.find((e) => e === tokens[i].content);
+    const findDesc = tokens[i].content.includes('description');
     if (findDesc) {
       continue;
     }
@@ -31,7 +30,7 @@ export const parseMarkdownFile = ({
     if (tokens[i].type === 'heading_open' && checkTags) {
       headingText = tokens[i + 1]?.content?.trim();
       // remove description
-      if (removeData.find((e) => e === headingText)) {
+      if (headingText.includes('description')) {
         continue;
       }
 
