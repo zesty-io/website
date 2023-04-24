@@ -36,17 +36,20 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { AutoLayout } from '@zesty-io/react-autolayout';
+// import { AutoLayout } from '@zesty-io/react-autolayout';
+import { AutoLayout } from '../../../../react-autolayout/dist/AutoLayout';
 import StandardFormWithSelect from 'components/cta/StandardFormWithSelect';
 import ComponentSelector from 'components/marketing/AppLayouts/ComponentSelector';
 import React from 'react';
 import MuiMarkdown from 'markdown-to-jsx';
 import ZestyImage from 'blocks/Image/ZestyImage';
 import FillerContent from 'components/globals/FillerContent';
+import ColumnSelector from 'components/marketing/AppLayouts/ColumnSelector';
 
 function LandingPages2023({ content }) {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <>
       <Container sx={{ py: 10 }}>
@@ -105,7 +108,7 @@ function LandingPages2023({ content }) {
         content={content}
         components={{
           component: ComponentSelector,
-          column: <p>Test</p>,
+          columns: ColumnSelector,
         }}
       />
     </>

@@ -35,6 +35,7 @@ import SecurityFeature from './revamp/ui/SecurityFeature'
 import SingleTestimonial from './revamp/ui/SingleTestimonial'
 import Stats from './revamp/ui/Stats'
 import TabsSection from './revamp/ui/TabsSection'
+import TwoColumn from './revamp/ui/TwoColumn'
 
 
 
@@ -74,6 +75,8 @@ export {
     SecurityFeature,
     SingleTestimonial,
     Stats,
-    TabsSection
+    TabsSection,
+    //Columns
+    TwoColumn 
 
 }
