@@ -56,7 +56,6 @@ const ParsleyOverviewPage = (props) => {
       tags: PARSLEY[0].tags,
       parentURL: PARSLEY[0].parentURL,
       title: PARSLEY[0].title,
-      removeData: PARSLEY[0].removeData,
     });
 
     setnavData(navData);

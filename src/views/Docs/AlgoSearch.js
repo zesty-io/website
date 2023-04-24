@@ -107,14 +107,14 @@ export const AlgoSearch = () => {
             <Configure hitsPerPage={8} />
             <Hits hitComponent={Hit} />
           </Index>
-          <Index indexName="parsley-overview">
+          <Index indexName="parsley-guides">
             <Box sx={{ px: 2, py: 2 }}>
               <Typography
                 variant="body1"
                 sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
                 component="h2"
               >
-                Parsley Overview
+                Parsley Guides
               </Typography>
             </Box>
 
