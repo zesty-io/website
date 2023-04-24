@@ -539,7 +539,7 @@ function Article({ content }) {
             tags={tags}
             authorLink={authorLink}
           />
-          <BlogContent articles={latestArticles} />
+          <BlogContent title="Related Articles" articles={latestArticles} />
         </Stack>
       </ThemeProvider>
     </Box>

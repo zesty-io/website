@@ -27,6 +27,7 @@ const BlogCard = ({
       gap={isBig ? 4 : 3}
       onMouseOver={() => setIsOver(true)}
       onMouseLeave={() => setIsOver(false)}
+      height="100%"
       sx={{
         '&:hover img': {
           transform: 'scale(1.03)',
@@ -49,7 +50,11 @@ const BlogCard = ({
           />
         </Stack>
       </Stack>
-      <Stack order={isBig ? 0 : 1} justifyContent={isBig && 'center'}>
+      <Stack
+        order={isBig ? 0 : 1}
+        justifyContent={isBig && 'center'}
+        height="100%"
+      >
         <Stack spacing={isBig ? 2 : 1} mb={3}>
           <Typography
             color="text.secondary"
@@ -73,7 +78,7 @@ const BlogCard = ({
           </Typography>
           <Typography color="text.secondary">{description}</Typography>
         </Stack>
-        <Stack direction="row" alignItems="center">
+        <Stack direction="row" alignItems="center" mt={isBig ? 0 : 'auto'}>
           <Avatar
             src={authorImage}
             sx={{ width: 48, height: 48, mr: '12px' }}
