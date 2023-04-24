@@ -105,6 +105,7 @@ function LandingPages2023({ content }) {
         content={content}
         components={{
           component: ComponentSelector,
+          column: <p>Test</p>,
         }}
       />
     </>

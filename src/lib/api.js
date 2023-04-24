@@ -72,7 +72,9 @@ export async function fetchPage(
    * This will override the layout.json object from meta and replace it with the correct object
    *
    */
-  data.meta.layout.json = await getLayoutsObject(data.meta.zuid, zestyURL);
+  if (data.meta.layout) {
+    data.meta.layout.json = await getLayoutsObject(data.meta.zuid, zestyURL);
+  }
 
   return data;
 }
