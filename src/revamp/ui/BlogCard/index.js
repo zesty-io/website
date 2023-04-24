@@ -57,11 +57,7 @@ const BlogCard = ({
           xs: '100%',
           desktopWide: isBig ? '489px' : '100%',
         }}
-        height={{
-          xs: '100%',
-          lg: isBig ? '482px' : '216px',
-          desktopWide: isBig ? '391px' : '100%',
-        }}
+        height="100%"
       >
         <Stack spacing={isBig ? 2 : 1} mb={3}>
           <Typography
