@@ -114,7 +114,11 @@ const MarketingMain = ({
             mx: 'auto',
           })}
         >
-          <TopNav hideNav={hideNav} nav={nav} colorInvert={isBlogHome} />
+          <TopNav
+            hideNav={hideNav}
+            nav={nav}
+            // colorInvert={isBlogHome}
+          />
         </Container>
       </Box>
       <AppBar
@@ -145,7 +149,7 @@ const MarketingMain = ({
               onSidebarOpen={handleSidebarOpen}
               flyoutNavigation={flyoutNavigation}
               customRouting={hasRouting ? customRouting : []}
-              colorInvert={isBlogHome && !trigger}
+              // colorInvert={isBlogHome && !trigger}
               trigger={trigger}
               isAuthenticated={isLoggedIn}
               userInfo={userInfo?.data}
@@ -179,7 +183,7 @@ const MarketingMain = ({
         <Divider />
       </main>
       <Footer
-        colorInvert={colorInvert}
+        // colorInvert={colorInvert}
         customRouting={hasRouting ? customRouting : []}
       />
     </>

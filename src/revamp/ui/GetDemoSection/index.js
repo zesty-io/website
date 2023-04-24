@@ -265,6 +265,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                           </Typography>
 
                           <MuiPhoneNumber
+                            disableAreaCodes
                             variant="outlined"
                             defaultCountry="us"
                             onChange={(e) => setFieldValue('phoneNumber', e)}

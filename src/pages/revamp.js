@@ -30,6 +30,7 @@ import AuthorSection from 'revamp/ui/AuthorSection';
 import BlogCard from 'revamp/ui/BlogCard';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import HeroForm from 'revamp/ui/HeroForm';
+import BlogPageHeader from 'revamp/ui/BlogPageHeader';
 
 const components = [
   'Hero | Stacked | Light',
@@ -67,6 +68,7 @@ const components = [
   'Big Blog Card',
   'Get Demo Section | Long Form',
   'Get Demo Section | Short Form',
+  'Blog Page Header',
 ];
 
 const revamp = () => {
@@ -135,6 +137,7 @@ const revamp = () => {
     if (component === 'Get Demo Section | Long Form') return <GetDemoSection />;
     if (component === 'Get Demo Section | Short Form')
       return <GetDemoSection isLong={false} />;
+    if (component === 'Blog Page Header') return <BlogPageHeader />;
 
     return 'Please select a component';
   };
