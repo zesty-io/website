@@ -88,7 +88,7 @@ const Topbar = ({
     <ClickAwayListener onClickAway={navHandler}>
       <Box
         sx={{
-          position: 'relative',
+          // position: 'relative', comment out to extend full width of menus
           display: 'flex',
           justifyContent: 'space-between',
           // alignItems: 'center',
@@ -177,7 +177,7 @@ const Topbar = ({
                   component="a"
                   href="/login/"
                   sx={(theme) => ({
-                    color: theme.palette.text.secondary,
+                    color: '#475467',
                     textDecoration: 'none',
                     fontWeight: 600,
                     '&:hover': {
