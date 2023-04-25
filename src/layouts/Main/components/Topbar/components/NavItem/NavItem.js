@@ -92,7 +92,7 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
             position: 'absolute',
             left: '50%',
             transform: 'translate(-50%, 0) !important',
-            borderTop: `3px solid ${theme.palette.zesty.zestyOrange}`,
+            borderTop: `1ppx solid #F2F4F7`,
             borderRadius: 1,
             minHeight: 495,
           }}
