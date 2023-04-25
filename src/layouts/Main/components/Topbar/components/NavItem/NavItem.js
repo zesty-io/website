@@ -25,7 +25,7 @@ import RightGridLinks from './RightGridLinks';
 const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
   const theme = useTheme();
 
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  const linkColor = colorInvert ? 'common.white' : '#475467';
 
   return (
     <Box>
@@ -86,8 +86,8 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
       >
         <Card
           sx={{
-            mt: 4,
-            width: '100%',
+            mt: '9px',
+            width: '100vw',
             maxWidth: 1440,
             position: 'absolute',
             left: '50%',

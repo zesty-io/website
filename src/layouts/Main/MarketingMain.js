@@ -130,7 +130,8 @@ const MarketingMain = ({
           boxShadow: hideNav ? '' : '',
           top: 0,
           backgroundColor: bgColorSwitch(),
-          py: 1,
+          pt: 1,
+          borderBottom: '1px solid #F2F4F7',
           display: router?.query?.slug?.[0] === 'login' && 'none',
         }}
         elevation={trigger ? 1 : 0}
@@ -141,7 +142,6 @@ const MarketingMain = ({
             mx: 'auto',
             paddingY: isExplorePage ? 2 : 1,
           })}
-          id="gian"
         >
           <Stack>
             <Topbar
