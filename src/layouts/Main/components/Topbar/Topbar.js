@@ -4,11 +4,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import LoginIcon from '@mui/icons-material/Login';
+// import LoginIcon from '@mui/icons-material/Login';
 import { NavItem } from './components';
 import TryFreeButton from 'components/cta/TryFreeButton';
 import { useRouter } from 'next/router';
-import { Skeleton } from '@mui/material';
+import { Skeleton, Typography } from '@mui/material';
 import { setCookie } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
@@ -88,10 +88,10 @@ const Topbar = ({
     <ClickAwayListener onClickAway={navHandler}>
       <Box
         sx={{
-          position: 'relative',
+          // position: 'relative', comment out to extend full width of menus
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center',
+          // alignItems: 'center',
           width: 1,
         }}
       >
@@ -103,7 +103,7 @@ const Topbar = ({
           component="a"
           href="/"
           title="Zesty.io Platform"
-          width={{ xs: 100, md: 150 }}
+          mr={2}
         >
           <img
             alt="zesty.io"
@@ -112,13 +112,15 @@ const Topbar = ({
                 ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
                 : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
             }
-            height={42}
-            width={150}
+            height={32}
+            width={114.59}
+            style={{ display: 'flex', height: '100%' }}
           />
         </Box>
 
         <Box
           sx={{
+            gap: 2,
             display: {
               xs: 'none',
               md: hideNav ? 'none' : 'flex',
@@ -135,10 +137,10 @@ const Topbar = ({
           }}
         >
           {flyoutNavigation.map((route) => (
-            <Box key={route.meta.zuid}>
+            <Box display="flex" height="100%" key={route.meta.zuid}>
               {/* If link in the cms is empty and column one is not equal to zero it must be a parent navigation with flyout navigation */}
               {route.link === null && route.column_1_items.length != 0 && (
-                <Box marginLeft={3}>
+                <Box display="flex" height="100%">
                   <NavItem
                     activeNav={
                       activeNav.filter((item) => item.isActive === true)[0]
@@ -152,7 +154,7 @@ const Topbar = ({
               )}
               {/* if link is set in the cms and column one items is empty its a single item navigation without flyout */}
               {route.link != null && !route.column_1_items && (
-                <Box marginLeft={3}>
+                <Box display="flex" height="100%">
                   <SingleNavItem
                     title={route.nav_title}
                     id={route.meta.zuid}
@@ -163,33 +165,41 @@ const Topbar = ({
               )}
             </Box>
           ))}
-          {loading && (
-            <Skeleton variant="rectangular" width={180} height={30} />
-          )}
-          {!loading && (
-            <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
-              <Box display={'flex'}>
-                <Box marginLeft={4}>
-                  <TryFreeButton variant="contained" component="a" />
-                </Box>
-                <Box marginLeft={2}>
-                  <Button
-                    size={'medium'}
-                    variant="text"
-                    color="primary"
-                    sx={{ fontWeight: 'bold' }}
-                    endIcon={<LoginIcon />}
-                    fullWidth
-                    component="a"
-                    href="/login/"
-                  >
-                    Login
-                  </Button>
-                </Box>
+        </Box>
+
+        {loading && <Skeleton variant="rectangular" width={180} height={30} />}
+        {!loading && (
+          <Box sx={{ display: { xs: 'none', lg: 'block' }, ml: 'auto' }}>
+            <Box display={'flex'} alignItems="center" gap={2}>
+              <Box>
+                <Typography
+                  variant="text"
+                  component="a"
+                  href="/login/"
+                  sx={(theme) => ({
+                    color: '#475467',
+                    textDecoration: 'none',
+                    fontWeight: 600,
+                    '&:hover': {
+                      color: '#FF5D0A',
+                    },
+                  })}
+                >
+                  Log in
+                </Typography>
+              </Box>
+              <Box>
+                <TryFreeButton
+                  text="Schedule Demo"
+                  variant="contained"
+                  component="a"
+                  size="large"
+                  width="200px"
+                />
               </Box>
             </Box>
-          )}
-        </Box>
+          </Box>
+        )}
 
         {!hideNav && (
           <Box
