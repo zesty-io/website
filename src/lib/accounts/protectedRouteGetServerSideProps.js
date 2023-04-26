@@ -46,6 +46,10 @@ export default async function getServerSideProps({
   query,
   req,
 }) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59',
+  );
   let mainCollections = {};
   let parsleyTourData = {};
   const isDocsPage = resolvedUrl.includes('/docs');
