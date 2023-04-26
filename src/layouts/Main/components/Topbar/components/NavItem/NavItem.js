@@ -25,7 +25,11 @@ import RightGridLinks from './RightGridLinks';
 const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
   const theme = useTheme();
 
-  const linkColor = colorInvert ? 'common.white' : '#475467';
+  const linkColor = colorInvert
+    ? 'common.white'
+    : theme.palette.mode === 'light'
+    ? '#475467'
+    : '#fff';
 
   return (
     <Box>
