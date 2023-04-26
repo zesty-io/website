@@ -482,7 +482,16 @@ function Article({ content }) {
                         mt: '20px',
                         '& img, span': {
                           mt: '0px !important',
-                          p: 1,
+                          // p: 1,
+                          // maxWidth: 'auto !important',
+                          objectFit: 'contain',
+                          height: '240px',
+                        },
+                        '& span': {
+                          mt: '0px !important',
+                          maxWidth: 'auto !important',
+                        },
+                        '& p': {
                           width: 'auto',
                         },
 
@@ -530,7 +539,7 @@ function Article({ content }) {
             tags={tags}
             authorLink={authorLink}
           />
-          <BlogContent articles={latestArticles} />
+          <BlogContent title="Related Articles" articles={latestArticles} />
         </Stack>
       </ThemeProvider>
     </Box>

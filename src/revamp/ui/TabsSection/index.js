@@ -23,7 +23,7 @@ const tabLists = [
           'Preview edits in real time with Duo Mode',
           'Easy organization and search for easy management',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets/Content App.png"
+        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets/Content App 2.png"
       />
     ),
   },
