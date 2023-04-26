@@ -57,7 +57,7 @@ const getDocsData = async () => {
 };
 
 const parselyTourEndpoint =
-  'https://parsleydev-dev.webengine.zesty.io/-/instant/6-c9c624-14bzxf.json';
+  'https://parsley.zesty.io/-/instant/6-c9c624-14bzxf.json';
 const getParsleyTourData = async () => {
   const res = await axios.get(parselyTourEndpoint).then((e) => {
     const result = e.data.data

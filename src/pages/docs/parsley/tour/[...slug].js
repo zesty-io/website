@@ -21,12 +21,20 @@ import { useZestyStore } from 'store';
 import { grey } from '@mui/material/colors';
 import { PARSLEY_EXAMPLE_DATA } from 'utils/docs';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
+
+const parselyTourEndpoint =
+  'https://parsley.zesty.io/-/instant/6-c9c624-14bzxf.json';
+const getParsleyTourData = async (callback) => {
+  return await axios
+    .get(parselyTourEndpoint)
+    .then((e) => callback(e.data.data));
+};
+
 const leftTabs = [
   { label: 'Code Example', value: 'code example' },
   { label: 'Available Data', value: 'available data' },
   { label: 'Parsley Example', value: 'parsley example' },
 ];
-
 const rightTabs = [
   { label: 'Rendered Response', value: 'rendered' },
   { label: 'Code Response', value: 'response' },
@@ -431,24 +439,26 @@ const Slug = (props) => {
   const [exampleData, setexampleData] = useState([]);
   const [contentTab, setcontentTab] = useState('glossary');
   const [currentTab, setcurrentTab] = React.useState('response');
+  const [tour1Data, settour1Data] = useState([]);
   const [search, setsearch] = useState('');
   const [loading, setloading] = useState(false);
   const [textContent, settextContent] = useState('');
   const [parsleyResult, setparsleyResult] = useState('');
   const router = useRouter();
   const currentUrl = router.query.slug[0];
-  const tourData = props.parsley.tour.data;
-  const pageData = tourData.find((e) => e.content.path_part === currentUrl);
+  const tourData = tour1Data || [];
+  const pageData = tourData?.find((e) => e.content.path_part === currentUrl);
 
-  const { lesson_number, title, explanation, code_sample } = pageData.content;
-  const nextLesson = tourData.find(
+  const { lesson_number, title, explanation, code_sample } =
+    pageData?.content || {};
+  const nextLesson = tourData?.find(
     (e) => e.content.lesson_number === String(Number(lesson_number) + 1),
   );
-  const previousLesson = tourData.find(
+  const previousLesson = tourData?.find(
     (e) => e.content.lesson_number === String(Number(lesson_number) - 1),
   );
-  const navData = props.parsley.tour.data
-    .map((e) => {
+  const navData = tourData
+    ?.map((e) => {
       return {
         ...e,
         label: `${e.content.lesson_number}. ${e.content.title}`,
@@ -574,6 +584,12 @@ const Slug = (props) => {
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
+
+  useEffect(async () => {
+    if (tour1Data.length === 0) {
+      await getParsleyTourData(settour1Data);
+    }
+  }, [tour1Data]);
 
   return (
     <MainWrapper>
