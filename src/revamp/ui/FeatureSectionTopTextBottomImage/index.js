@@ -7,6 +7,7 @@ const FeatureSectionTopTextBottomImage = ({
   overline = 'SETUP, EASY-PEASY!',
   heading = 'Hassle-free setup with APIs that integrate with all frameworks',
   supportingText = ``,
+  heroImage = image,
 }) => {
   return (
     <Stack
@@ -70,7 +71,7 @@ const FeatureSectionTopTextBottomImage = ({
       </Stack>
       <Box
         component="img"
-        src={image}
+        src={heroImage}
         width="100%"
         sx={(theme) => ({
           objectFit: 'contain',
