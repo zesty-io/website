@@ -110,10 +110,15 @@ const MarketingMain = ({
             paddingTop:
               hideNav || isExplorePage ? '0px !important' : '8px !important',
             paddingBottom: '0 !important',
-            maxWidth: theme.breakpoints.values.lg,
+            maxWidth: '1440px !important',
+            mx: 'auto',
           })}
         >
-          <TopNav hideNav={hideNav} nav={nav} colorInvert={isBlogHome} />
+          <TopNav
+            hideNav={hideNav}
+            nav={nav}
+            // colorInvert={isBlogHome}
+          />
         </Container>
       </Box>
       <AppBar
@@ -125,14 +130,16 @@ const MarketingMain = ({
           boxShadow: hideNav ? '' : '',
           top: 0,
           backgroundColor: bgColorSwitch(),
-          py: 1,
+          pt: 1,
+          borderBottom: '1px solid #F2F4F7',
           display: router?.query?.slug?.[0] === 'login' && 'none',
         }}
         elevation={trigger ? 1 : 0}
       >
         <Container
           sx={(theme) => ({
-            maxWidth: theme.breakpoints.values.lg,
+            maxWidth: '1440px !important',
+            mx: 'auto',
             paddingY: isExplorePage ? 2 : 1,
           })}
         >
@@ -142,7 +149,7 @@ const MarketingMain = ({
               onSidebarOpen={handleSidebarOpen}
               flyoutNavigation={flyoutNavigation}
               customRouting={hasRouting ? customRouting : []}
-              colorInvert={isBlogHome && !trigger}
+              // colorInvert={isBlogHome && !trigger}
               trigger={trigger}
               isAuthenticated={isLoggedIn}
               userInfo={userInfo?.data}
@@ -176,7 +183,7 @@ const MarketingMain = ({
         <Divider />
       </main>
       <Footer
-        colorInvert={colorInvert}
+        // colorInvert={colorInvert}
         customRouting={hasRouting ? customRouting : []}
       />
     </>

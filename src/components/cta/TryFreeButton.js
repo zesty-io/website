@@ -17,6 +17,7 @@ export default function TryFreeButton({
   color = 'secondary',
   size = 'medium',
   variant = 'secondary',
+  width,
   sx = {},
 }) {
   // const theme = useTheme();
@@ -55,7 +56,7 @@ export default function TryFreeButton({
         fullWidth={fullWidth}
         //href="https://accounts.zesty.io/signup"
         size={size}
-        sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}
+        sx={{ cursor: 'pointer', whiteSpace: 'nowrap', width }}
         onClick={(e) => handleClick(e)}
       >
         {text}
