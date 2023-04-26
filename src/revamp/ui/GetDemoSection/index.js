@@ -32,6 +32,7 @@ const GetDemoSection = ({
 
 Please look forward to us scheduling a 15 minute call so that we may customize your demo.`,
   isLong = true,
+  redirect = '/meet',
 }) => {
   const onSubmit = async (values) => {
     // download link
@@ -56,7 +57,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
     // cmsModel === 'Gated Content Page'
     //   ? setOpen(true)
     //   : (window.location = '/ppc/thank-you/');
-    window.location = '/meet';
+    window.location = redirect;
     return values;
   };
 

@@ -42,7 +42,7 @@ function Contact({ content }) {
   const theme = useTheme();
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
-      <GetDemoSection isLong={false} />
+      <GetDemoSection isLong={false} redirect="/ppc/thank-you/" />
     </ThemeProvider>
     //     <Box>
     //       <ContactFormWithSidebarMap
