@@ -16,7 +16,11 @@ const getMainCollection = async () => {
   const mainCollection = [];
   const getPostmanData = async () => {
     for (const url of POSTMAN_JSON_DATA) {
-      await axios.get(url).then((e) => {
+      await axios({
+        url,
+        timeout: 5000,
+        method: 'get',
+      }).then((e) => {
         mainCollection.push(e.data);
       });
     }
@@ -27,7 +31,11 @@ const getMainCollection = async () => {
 };
 
 const getParsleyTourData = async () => {
-  return await axios.get(parselyTourEndpoint).then((e) => e.data);
+  return await axios({
+    url: parselyTourEndpoint,
+    timeout: 5000,
+    method: 'get',
+  }).then((e) => e.data);
 };
 // only load routes data for specific pages
 // timeout on fetch 10 sec or 5
