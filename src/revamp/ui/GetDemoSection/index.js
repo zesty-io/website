@@ -182,7 +182,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               email: '',
               phoneNumber: '',
               message: '',
-              inquiryReason: 'General',
+              inquiryReason: isContact ? 'General' : '',
             }}
             validationSchema={
               isLong && !isContact
@@ -297,32 +297,16 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                           />
                         </FormControl>
 
-                        {/* <FormControl fullWidth>
-                          <InputLabel id="demo-simple-select-label">
-                            Inquiry Reason
-                          </InputLabel>
-                          <Select
-                            value={selectValue}
+                        {isContact && (
+                          <CustomTextField
                             label="Inquiry Reason"
-                            onChange={handleChange}
+                            isSelect={true}
                             name="inquiryReason"
-                          >
-                            {inquiryReasons.map((value, i) => (
-                              <MenuItem key={i} value={value}>
-                                {value}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl> */}
-
-                        <CustomTextField
-                          label="Inquiry Reason"
-                          isSelect={true}
-                          name="inquiryReason"
-                          menus={inquiryReasons}
-                          value={initialValues.inquiryReason}
-                          {...getFieldProps('inquiryReason')}
-                        />
+                            menus={inquiryReasons}
+                            value={initialValues.inquiryReason}
+                            {...getFieldProps('inquiryReason')}
+                          />
+                        )}
 
                         <CustomTextField
                           label="Please tell us about your project"
