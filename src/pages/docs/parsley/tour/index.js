@@ -73,11 +73,11 @@ const TourPage = (props) => {
         />
         {/* MAIN PAGE */}
         <Stack pl={4} sx={{ width: 1 }}>
-          <Stack width={'70vw'}>
-            <Typography variant="h2" component={'h1'}>
+          <Stack width={'70vw'} pt={4}>
+            <Typography variant="h2" component={'h1'} textAlign={'center'}>
               {pageData.title}
             </Typography>
-            <Typography textAlign={'center'} variant={'h4'} gutterBottom>
+            <Typography textAlign={'center'} variant={'p'} gutterBottom>
               <Box
                 dangerouslySetInnerHTML={{
                   __html: pageData.content,
