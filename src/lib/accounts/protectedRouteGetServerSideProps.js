@@ -9,9 +9,6 @@ const POSTMAN_JSON_DATA = [
   // 'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/media-api.json',
 ];
 
-const GitbookDataEndpoint =
-  'https://raw.githubusercontent.com/zesty-io/zesty-docs/main/Gitbook%20Data/gitbook.data.json';
-
 const parselyTourEndpoint =
   'https://parsleydev-dev.webengine.zesty.io/-/instant/6-c9c624-14bzxf.json';
 
@@ -19,7 +16,11 @@ const getMainCollection = async () => {
   const mainCollection = [];
   const getPostmanData = async () => {
     for (const url of POSTMAN_JSON_DATA) {
-      await axios.get(url).then((e) => {
+      await axios({
+        url,
+        timeout: 5000,
+        method: 'get',
+      }).then((e) => {
         mainCollection.push(e.data);
       });
     }
@@ -29,19 +30,29 @@ const getMainCollection = async () => {
   return mainCollection;
 };
 
-const getGitbookData = async () => {
-  return await axios.get(GitbookDataEndpoint).then((e) => e.data);
-};
-
 const getParsleyTourData = async () => {
-  return await axios.get(parselyTourEndpoint).then((e) => e.data);
+  return await axios({
+    url: parselyTourEndpoint,
+    timeout: 5000,
+    method: 'get',
+  }).then((e) => e.data);
 };
+// only load routes data for specific pages
+// timeout on fetch 10 sec or 5
+// identify areas to cache request or page caching
 export default async function getServerSideProps({
   res,
   resolvedUrl,
   query,
   req,
 }) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59',
+  );
+  let mainCollections = {};
+  let parsleyTourData = {};
+  const isDocsPage = resolvedUrl.includes('/docs');
   const isAuthenticated = getIsAuthenticated(res);
 
   let ticket = {};
@@ -50,9 +61,10 @@ export default async function getServerSideProps({
     ticket = await fetchTicketThread(query, req);
   }
 
-  const mainCollections = await getMainCollection();
-  const gitBookData = await getGitbookData();
-  const parsleyTourData = await getParsleyTourData();
+  if (isDocsPage) {
+    mainCollections = await getMainCollection();
+    parsleyTourData = await getParsleyTourData();
+  }
 
   if (!isAuthenticated && isProtectedRoute(resolvedUrl)) {
     return {
@@ -76,7 +88,6 @@ export default async function getServerSideProps({
       },
       docs: {
         data: mainCollections,
-        gitBookData,
       },
       parsley: {
         tour: parsleyTourData,
