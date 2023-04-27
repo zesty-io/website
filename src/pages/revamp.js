@@ -35,6 +35,7 @@ import ContentSectionOnlyText from 'revamp/ui/ContentSectionOnlyText';
 import FeatureSectionTopTextBottomImage from 'revamp/ui/FeatureSectionTopTextBottomImage';
 import HeroTextImageWithStatsBelow from 'revamp/ui/HeroTextImageWithStatsBelow';
 import Grid3Testimonials from 'revamp/ui/Grid3Testimonials';
+import GridFeatureList from 'revamp/ui/GridFeatureList';
 
 const components = [
   'Hero | Stacked | Light',
@@ -77,6 +78,11 @@ const components = [
   'Content Section | Only Text',
   'Feature Section | Top Text Bottom Image',
   'Grid | 3 Testimonials',
+  'Grid | Feature List without Image | Light',
+  'Grid | Feature List without Image | Dark',
+  'Grid | Feature List with Image | Light',
+  'Grid | Feature List with Image | Dark',
+  'Grid | Competitor Listing',
 ];
 
 const revamp = () => {
@@ -153,6 +159,18 @@ const revamp = () => {
     if (component === 'Feature Section | Top Text Bottom Image')
       return <FeatureSectionTopTextBottomImage />;
     if (component === 'Grid | 3 Testimonials') return <Grid3Testimonials />;
+
+    if (component === 'Grid | Feature List without Image | Light')
+      return <GridFeatureList />;
+    if (component === 'Grid | Feature List without Image | Dark')
+      return <GridFeatureList isDark />;
+
+    if (component === 'Grid | Feature List with Image | Light')
+      return <GridFeatureList hasImage />;
+    if (component === 'Grid | Feature List with Image | Dark')
+      return <GridFeatureList isDark hasImage />;
+    // if (component === 'Grid | Competitor Listing')
+    //   return <GridCompetitorListing />;
 
     return 'Please select a component';
   };
