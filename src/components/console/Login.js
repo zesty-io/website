@@ -260,14 +260,14 @@ const Login = ({ content, userEmail }) => {
           </Stack>
 
           <Stack mb={3} alignItems="center">
-            <Stack direction="row" justifyContent="center" alignItems="center">
+            {/* <Stack direction="row" justifyContent="center" alignItems="center">
               <Typography variant="subtitle2">
                 {`Don't have an account yet? `}
                 <Link href="/join/" color="secondary">
                   Try for free!
                 </Link>
               </Typography>
-            </Stack>
+            </Stack> */}
 
             <Typography variant="caption" color="text.secondary">
               © {dayjs().year()} Zesty.io, inc. All rights reserved.
