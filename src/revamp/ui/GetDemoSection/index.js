@@ -11,6 +11,7 @@ import {
 import {
   shortValidationSchema,
   validationSchema,
+  contactPageValidation,
 } from 'revamp/utils/validation';
 
 const acorns =
@@ -32,7 +33,18 @@ const GetDemoSection = ({
 
 Please look forward to us scheduling a 15 minute call so that we may customize your demo.`,
   isLong = true,
+  redirect = '/meet',
+  isContact = false,
 }) => {
+  let inquiryReasons = [
+    'General',
+    'Agency Sign Up',
+    'Request a Demo',
+    'Support',
+    'Billing',
+    'Press Relations',
+  ];
+
   const onSubmit = async (values) => {
     // download link
     // downloadLink && window.open(downloadLink, '_blank');
@@ -40,7 +52,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
 
     let payload = getLeadObjectZOHO(
       values,
-      // selectValue,
+      values?.inquiryReason,
       // leadDetail,
       // businessType,
       // leadSource,
@@ -56,7 +68,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
     // cmsModel === 'Gated Content Page'
     //   ? setOpen(true)
     //   : (window.location = '/ppc/thank-you/');
-    window.location = '/meet';
+    window.location = redirect;
     return values;
   };
 
@@ -170,8 +182,15 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               email: '',
               phoneNumber: '',
               message: '',
+              inquiryReason: isContact ? 'General' : '',
             }}
-            validationSchema={isLong ? validationSchema : shortValidationSchema}
+            validationSchema={
+              isLong && !isContact
+                ? validationSchema
+                : isContact
+                ? contactPageValidation
+                : shortValidationSchema
+            }
             onSubmit={async (values) => {
               await onSubmit(values);
             }}
@@ -219,7 +238,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                   </Stack>
 
                   <Stack spacing={3}>
-                    {isLong && (
+                    {isLong && !isContact && (
                       <CustomTextField
                         label="Company"
                         name="company"
@@ -277,6 +296,17 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                             }
                           />
                         </FormControl>
+
+                        {isContact && (
+                          <CustomTextField
+                            label="Inquiry Reason"
+                            isSelect={true}
+                            name="inquiryReason"
+                            menus={inquiryReasons}
+                            value={initialValues.inquiryReason}
+                            {...getFieldProps('inquiryReason')}
+                          />
+                        )}
 
                         <CustomTextField
                           label="Please tell us about your project"

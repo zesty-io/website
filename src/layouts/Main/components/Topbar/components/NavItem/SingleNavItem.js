@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
 import Link from '@mui/material/Link';
 import { useRouter } from 'next/router';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 
 const SingleNavItem = ({ title, url, colorInvert = false }) => {
   const { asPath } = useRouter();
+  const theme = useTheme();
   const hasActiveLink = url === '/' ? asPath === url : asPath.startsWith(url);
-  const linkColor = colorInvert ? 'common.white' : '#475467';
+  const linkColor = colorInvert
+    ? 'common.white'
+    : theme.palette.mode === 'light'
+    ? '#475467'
+    : '#fff';
 
   return (
     <Box
