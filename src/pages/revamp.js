@@ -34,6 +34,7 @@ import BlogPageHeader from 'revamp/ui/BlogPageHeader';
 import ContentSectionOnlyText from 'revamp/ui/ContentSectionOnlyText';
 import FeatureSectionTopTextBottomImage from 'revamp/ui/FeatureSectionTopTextBottomImage';
 import HeroTextImageWithStatsBelow from 'revamp/ui/HeroTextImageWithStatsBelow';
+import Grid3Testimonials from 'revamp/ui/Grid3Testimonials';
 
 const components = [
   'Hero | Stacked | Light',
@@ -75,6 +76,7 @@ const components = [
   'Blog Page Header',
   'Content Section | Only Text',
   'Feature Section | Top Text Bottom Image',
+  'Grid | 3 Testimonials',
 ];
 
 const revamp = () => {
@@ -150,6 +152,7 @@ const revamp = () => {
       return <ContentSectionOnlyText />;
     if (component === 'Feature Section | Top Text Bottom Image')
       return <FeatureSectionTopTextBottomImage />;
+    if (component === 'Grid | 3 Testimonials') return <Grid3Testimonials />;
 
     return 'Please select a component';
   };
