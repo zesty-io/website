@@ -33,6 +33,7 @@ import HeroForm from 'revamp/ui/HeroForm';
 import BlogPageHeader from 'revamp/ui/BlogPageHeader';
 import ContentSectionOnlyText from 'revamp/ui/ContentSectionOnlyText';
 import FeatureSectionTopTextBottomImage from 'revamp/ui/FeatureSectionTopTextBottomImage';
+import HeroTextImageWithStatsBelow from 'revamp/ui/HeroTextImageWithStatsBelow';
 
 const components = [
   'Hero | Stacked | Light',
@@ -41,6 +42,7 @@ const components = [
   'Hero | Case Study',
   'Hero | Blog',
   'Hero | With Form',
+  'Hero | Text Left Image Right with Stats Below',
 
   'Stats | Side by Side',
   'Single Testimonial',
@@ -86,6 +88,8 @@ const revamp = () => {
     if (component === 'Hero | Case Study') return <CaseStudyHero />;
     if (component === 'Hero | Blog') return <BlogHero />;
     if (component === 'Hero | With Form') return <HeroForm />;
+    if (component === 'Hero | Text Left Image Right with Stats Below')
+      return <HeroTextImageWithStatsBelow />;
 
     if (component === 'Stats | Side by Side') return <Stats />;
     if (component === 'Single Testimonial') return <SingleTestimonial />;
