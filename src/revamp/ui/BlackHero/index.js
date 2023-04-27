@@ -18,8 +18,8 @@ const schemaPic =
 
 const BlackHero = ({
   title = 'Unify your team with',
-  header = 'Content Management for enterprise of any size',
-  subtitle = 'Create, manage, and deliver content at scale - with a suite of forward thinking features to meet your business needs.',
+  header = 'Maximize Content Marketing Performance',
+  subtitle = 'Drive business growth with a visual CMS to create, deliver, measure, and optimize your content marketing at scale. ',
   primaryBtn = 'Schedule Demo',
   primaryBtnLink = '/demo?ab=dark',
   secondaryBtn = 'Watch Demo Video',
