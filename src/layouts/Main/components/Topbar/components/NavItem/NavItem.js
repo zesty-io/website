@@ -96,7 +96,7 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
             position: 'absolute',
             left: '50%',
             transform: 'translate(-50%, 0) !important',
-            borderTop: `1ppx solid #F2F4F7`,
+            borderTop: `1px solid #F2F4F7`,
             borderRadius: 1,
             minHeight: 495,
           }}
