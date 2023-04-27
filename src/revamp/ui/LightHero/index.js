@@ -1,6 +1,6 @@
 import { Button, Stack, Typography } from '@mui/material';
 const schemaPic =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/schema.png',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Content App 2.png',
   acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acornsHero.svg',
   bjs =
@@ -18,8 +18,8 @@ import React from 'react';
 
 const LightHero = ({
   title = 'Unify your team with',
-  header = 'The future proof CMS for enterprise of any size',
-  subtitle = 'Create, distribute, and optimize content at SCALE with fewer resources in less time with the Zesty Hybrid Headless CMS. ',
+  header = 'Maximize Content Marketing Performance',
+  subtitle = 'Drive business growth with a visual CMS to create, deliver, measure, and optimize your content marketing at scale.',
   primaryBtn = 'Start Now',
   primaryBtnLink = '#',
   secondaryBtn = 'Contact Sales',

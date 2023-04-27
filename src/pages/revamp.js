@@ -29,6 +29,10 @@ import SecurityFeature from 'revamp/ui/SecurityFeature';
 import AuthorSection from 'revamp/ui/AuthorSection';
 import BlogCard from 'revamp/ui/BlogCard';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
+import HeroForm from 'revamp/ui/HeroForm';
+import BlogPageHeader from 'revamp/ui/BlogPageHeader';
+import ContentSectionOnlyText from 'revamp/ui/ContentSectionOnlyText';
+import FeatureSectionTopTextBottomImage from 'revamp/ui/FeatureSectionTopTextBottomImage';
 
 const components = [
   'Hero | Stacked | Light',
@@ -36,6 +40,7 @@ const components = [
   'Hero | Stacked | Dark',
   'Hero | Case Study',
   'Hero | Blog',
+  'Hero | With Form',
 
   'Stats | Side by Side',
   'Single Testimonial',
@@ -65,6 +70,9 @@ const components = [
   'Big Blog Card',
   'Get Demo Section | Long Form',
   'Get Demo Section | Short Form',
+  'Blog Page Header',
+  'Content Section | Only Text',
+  'Feature Section | Top Text Bottom Image',
 ];
 
 const revamp = () => {
@@ -77,6 +85,7 @@ const revamp = () => {
     if (component === 'Hero | Stacked | Dark') return <BlackHero />;
     if (component === 'Hero | Case Study') return <CaseStudyHero />;
     if (component === 'Hero | Blog') return <BlogHero />;
+    if (component === 'Hero | With Form') return <HeroForm />;
 
     if (component === 'Stats | Side by Side') return <Stats />;
     if (component === 'Single Testimonial') return <SingleTestimonial />;
@@ -132,6 +141,11 @@ const revamp = () => {
     if (component === 'Get Demo Section | Long Form') return <GetDemoSection />;
     if (component === 'Get Demo Section | Short Form')
       return <GetDemoSection isLong={false} />;
+    if (component === 'Blog Page Header') return <BlogPageHeader />;
+    if (component === 'Content Section | Only Text')
+      return <ContentSectionOnlyText />;
+    if (component === 'Feature Section | Top Text Bottom Image')
+      return <FeatureSectionTopTextBottomImage />;
 
     return 'Please select a component';
   };

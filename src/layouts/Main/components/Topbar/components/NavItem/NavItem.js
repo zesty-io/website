@@ -25,7 +25,11 @@ import RightGridLinks from './RightGridLinks';
 const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
   const theme = useTheme();
 
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  const linkColor = colorInvert
+    ? 'common.white'
+    : theme.palette.mode === 'light'
+    ? '#475467'
+    : '#fff';
 
   return (
     <Box>
@@ -33,7 +37,25 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
         display={'flex'}
         alignItems={'center'}
         aria-describedby={id}
-        sx={{ cursor: 'pointer' }}
+        height="100%"
+        sx={{
+          cursor: 'pointer',
+          '&:hover': {
+            '& .MuiTypography-root': {
+              color: theme.palette.zesty.zestyOrange,
+            },
+            '& svg': {
+              color: theme.palette.zesty.zestyOrange,
+            },
+
+            boxShadow: `inset 0 -3px ${theme.palette.zesty.zestyOrange}`,
+          },
+          boxShadow:
+            activeNav?.id === id
+              ? `inset 0 -3px ${theme.palette.zesty.zestyOrange}`
+              : ``,
+          transition: 'color .2s,box-shadow .2s',
+        }}
         onClick={(e) => navHandler(e, id)}
       >
         <Typography
@@ -50,9 +72,9 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
         </Typography>
         <ExpandMoreIcon
           sx={{
-            marginLeft: theme.spacing(1 / 4),
-            width: 16,
-            height: 16,
+            marginLeft: '4px',
+            width: 24,
+            height: 24,
             transform: activeNav?.id === id ? 'rotate(180deg)' : 'none',
             color:
               activeNav?.id === id
@@ -68,13 +90,13 @@ const NavItem = ({ navHandler, activeNav, id, route, colorInvert = false }) => {
       >
         <Card
           sx={{
-            mt: 4,
+            mt: '9px',
             width: '100%',
-            maxWidth: 1076,
+            maxWidth: 1440,
             position: 'absolute',
             left: '50%',
             transform: 'translate(-50%, 0) !important',
-            borderTop: `3px solid ${theme.palette.zesty.zestyOrange}`,
+            borderTop: `1px solid #F2F4F7`,
             borderRadius: 1,
             minHeight: 495,
           }}

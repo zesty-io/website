@@ -15,6 +15,10 @@ const revampTheme = (mode) => {
               primary: '#fff',
               secondary: '#fff',
             },
+            background: {
+              smokeWhite: '#FDFDFD',
+              smokeWhiteLevel2: '#DFDFDF',
+            },
           },
     breakpoints: {
       values: {

@@ -25,61 +25,66 @@
  */
 
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import { ThemeProvider, useTheme } from '@mui/material/styles';
+// import Box from '@mui/material/Box';
 
 // component imports
-import Container from 'components/Container';
+// import Container from 'components/Container';
 
 // blocks
-import { ContactFormWithSidebarMap } from 'blocks/formLayouts';
-import { ContactDetails } from 'blocks/contentBlocks';
-import FillerContent from 'components/globals/FillerContent';
+// import { ContactFormWithSidebarMap } from 'blocks/formLayouts';
+// import { ContactDetails } from 'blocks/contentBlocks';
+// import FillerContent from 'components/globals/FillerContent';
+import revampTheme from 'theme/revampTheme';
+import GetDemoSection from 'revamp/ui/GetDemoSection';
 
 function Contact({ content }) {
   const theme = useTheme();
   return (
-    <Box>
-      <ContactFormWithSidebarMap
-        title={content.header_title || FillerContent.header}
-        description={content.description || FillerContent.description}
-        image={content.image?.data[0].url || FillerContent.image}
-      />
-      <Box position={'relative'} bgcolor={'alternate.main'}>
-        <Container>
-          <ContactDetails
-            title={content.details_title || FillerContent.header}
-            subtitle={content.details_subtitle || FillerContent.description}
-            phone={content.phone || FillerContent.missingDataArray[0]}
-            email={content.email || FillerContent.missingDataArray[1]}
-            address={content.address || FillerContent.missingDataArray[2]}
-          />
-        </Container>
-        <Box
-          component={'svg'}
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1920 100.1"
-          sx={{
-            width: '100%',
-            marginBottom: theme.spacing(-1),
-          }}
-        >
-          <path
-            fill={theme.palette.background.paper}
-            d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
-          ></path>
-        </Box>
-      </Box>
-      {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-      {/* <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
-    <h2>Accessible Zesty.io JSON Object</h2>
-    <pre>{JSON.stringify(content, null, 2)}</pre>
-    </div>
-{/* End of Zesty.io output example */}
-    </Box>
+    <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
+      <GetDemoSection isContact redirect="/ppc/thank-you/" />
+    </ThemeProvider>
+    //     <Box>
+    //       <ContactFormWithSidebarMap
+    //         title={content.header_title || FillerContent.header}
+    //         description={content.description || FillerContent.description}
+    //         image={content.image?.data[0].url || FillerContent.image}
+    //       />
+    //       <Box position={'relative'} bgcolor={'alternate.main'}>
+    //         <Container>
+    //           <ContactDetails
+    //             title={content.details_title || FillerContent.header}
+    //             subtitle={content.details_subtitle || FillerContent.description}
+    //             phone={content.phone || FillerContent.missingDataArray[0]}
+    //             email={content.email || FillerContent.missingDataArray[1]}
+    //             address={content.address || FillerContent.missingDataArray[2]}
+    //           />
+    //         </Container>
+    //         <Box
+    //           component={'svg'}
+    //           preserveAspectRatio="none"
+    //           xmlns="http://www.w3.org/2000/svg"
+    //           x="0px"
+    //           y="0px"
+    //           viewBox="0 0 1920 100.1"
+    //           sx={{
+    //             width: '100%',
+    //             marginBottom: theme.spacing(-1),
+    //           }}
+    //         >
+    //           <path
+    //             fill={theme.palette.background.paper}
+    //             d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+    //           ></path>
+    //         </Box>
+    //       </Box>
+    //       {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
+    //       {/* <div style={{background: '#eee', border: '1px #000 solid', margin: '10px', padding: '20px'}}>
+    //     <h2>Accessible Zesty.io JSON Object</h2>
+    //     <pre>{JSON.stringify(content, null, 2)}</pre>
+    //     </div>
+    // {/* End of Zesty.io output example */}
+    //     </Box>
   );
 }
 

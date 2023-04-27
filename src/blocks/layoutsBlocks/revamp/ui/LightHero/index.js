@@ -18,8 +18,8 @@ import React from 'react';
 
 const LightHero = ({
   title = 'Unify your team with',
-  header = 'The future proof CMS for enterprise of any size',
-  subtitle = 'Create, distribute, and optimize content at SCALE with fewer resources in less time with the Zesty Hybrid Headless CMS. ',
+  header = 'Maximize Content Marketing Performance',
+  subtitle = 'Drive business growth with a visual CMS to create, deliver, measure, and optimize your content marketing at scale. ',
   primaryBtn = 'Start Now',
   primaryBtnLink = '#',
   secondaryBtn = 'Contact Sales',
