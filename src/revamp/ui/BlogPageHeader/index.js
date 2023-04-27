@@ -5,11 +5,13 @@ import {
   Stack,
   TextField,
   Typography,
+  useTheme,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import React from 'react';
 
 const BlogPageHeader = ({ title = 'Blog', handleSearch, tags = [] }) => {
+  const theme = useTheme();
   return (
     <Stack
       id="searchArticle"
@@ -42,17 +44,23 @@ const BlogPageHeader = ({ title = 'Blog', handleSearch, tags = [] }) => {
         </Typography>
         <TextField
           placeholder="Search an article"
-          sx={{
+          sx={(theme) => ({
             mb: 2,
-            bgcolor: 'grey.50',
+            bgcolor: theme.palette.mode === 'light' ? 'grey.50' : 'transparent',
             borderRadius: '8px',
-            '& fieldset': { border: 'none' },
-          }}
+            '& fieldset': {
+              border: theme.palette.mode === 'light' ? 'none' : 'grey.50',
+            },
+          })}
           size="small"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon />
+                <SearchIcon
+                  style={{
+                    fill: theme.palette.mode === 'dark' && '#fff',
+                  }}
+                />
               </InputAdornment>
             ),
           }}
@@ -66,17 +74,20 @@ const BlogPageHeader = ({ title = 'Blog', handleSearch, tags = [] }) => {
                   <Chip
                     variant="outlined"
                     label={tag.name}
-                    sx={{
+                    sx={(theme) => ({
                       p: '4px',
                       borderRadius: '4px',
                       borderColor: 'grey.100',
                       color: 'text.secondary',
-                      bgcolor: 'grey.100',
+                      bgcolor:
+                        theme.palette.mode === 'light'
+                          ? 'grey.100'
+                          : 'transparent',
                       cursor: 'pointer',
                       '& span': {
                         p: '3px 6px',
                       },
-                    }}
+                    })}
                   >
                     {tag.name}
                   </Chip>
