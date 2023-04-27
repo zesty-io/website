@@ -1,8 +1,8 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import React from 'react';
 
-const schemaPic =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Content App 2.png',
+const hero =
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Hero Image 2.png',
   acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acornsHero.svg',
   bjs =
@@ -29,18 +29,31 @@ const HeroTextImageWithStatsBelow = ({
   return (
     <Stack
       sx={(theme) => ({
-        gap: 4,
         [theme.breakpoints.up('xs')]: {
+          mx: 'auto',
+          maxWidth: theme.maxWidth,
           py: 4,
           px: 2,
+          gap: 4,
         },
         [theme.breakpoints.up('tablet')]: {
           py: 6,
           px: 4,
+          gap: 6,
+        },
+        [theme.breakpoints.up('lg')]: {
+          flexDirection: 'row',
+          gap: 8,
+          py: 10,
+          px: 14,
         },
       })}
     >
-      <Stack spacing={4}>
+      <Stack
+        spacing={4}
+        justifyContent={{ lg: 'center' }}
+        width={{ lg: '456px', desktopWide: '576px' }}
+      >
         <Stack spacing="20px">
           <Typography
             fontSize="44px"
@@ -63,8 +76,8 @@ const HeroTextImageWithStatsBelow = ({
 
         <Stack>
           <Typography
-            fontSize="12px"
-            lineHeight="12px"
+            fontSize={{ xs: '12px', lg: '16px' }}
+            lineHeight={{ xs: '12px', lg: '24px' }}
             letterSpacing="1px"
             color="text.secondary"
             mb={3}
@@ -82,20 +95,26 @@ const HeroTextImageWithStatsBelow = ({
         </Stack>
       </Stack>
 
-      <Stack spacing={2}>
+      <Stack
+        justifyContent={{ lg: 'space-between' }}
+        width={{ lg: '456px', desktopWide: '576px' }}
+      >
         <Stack
+          order={{ xs: 0, lg: 1 }}
           justifyContent={{ tablet: 'space-between' }}
           divider={
             <Divider
               sx={(theme) => ({
-                border: `4px solid ${theme.palette.grey[100]}`,
+                borderRightWidth: 4,
+                display: { xs: 'none', tablet: 'block' },
               })}
               orientation="vertical"
               flexItem
             />
           }
           direction={{ xs: 'column', tablet: 'row' }}
-          spacing="12px"
+          spacing={{ xs: '12px', desktopWide: '24px' }}
+          mb={{ xs: 2, tablet: 4 }}
         >
           {stats.map((stat, index) => (
             <Stack direction="row" gap="12px" alignItems="center" key={index}>
@@ -113,9 +132,12 @@ const HeroTextImageWithStatsBelow = ({
             </Stack>
           ))}
         </Stack>
+
         <Box
+          mb={{ lg: 4 }}
+          order={{ xs: 1, lg: 0 }}
           component="img"
-          src={schemaPic}
+          src={hero}
           sx={{ width: '100%', height: 'auto', objectFit: 'contain' }}
         />
       </Stack>
