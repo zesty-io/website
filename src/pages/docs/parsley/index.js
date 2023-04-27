@@ -37,7 +37,7 @@ const muiContentOverrides = {
   },
 };
 
-const ApiReferencePage = (props) => {
+const ParsleyOverviewPage = (props) => {
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
     (e) => ({
       setalgoliaApiKey: e.setalgoliaApiKey,
@@ -50,12 +50,12 @@ const ApiReferencePage = (props) => {
   const [mdData, setmdData] = useState('');
 
   const getMd = async () => {
-    const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[1].githubURL });
+    const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[0].githubURL });
     const { navData, pageData } = await parseMarkdownFile({
       markdown,
-      tags: PARSLEY[1].tags,
-      parentURL: PARSLEY[1].parentURL,
-      title: PARSLEY[1].title,
+      tags: PARSLEY[0].tags,
+      parentURL: PARSLEY[0].parentURL,
+      title: PARSLEY[0].title,
     });
 
     setnavData(navData);
@@ -75,10 +75,11 @@ const ApiReferencePage = (props) => {
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
+
   return (
     <MainWrapper>
       <Stack direction={'row'}>
-        {/* SIDEBAR */}
+        {/* SIDEBARR */}
         <DocsSidebar
           search={search}
           setsearch={setsearch}
@@ -96,4 +97,4 @@ const ApiReferencePage = (props) => {
   );
 };
 
-export default ApiReferencePage;
+export default ParsleyOverviewPage;

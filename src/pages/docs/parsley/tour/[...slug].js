@@ -581,6 +581,7 @@ const Slug = (props) => {
         {/* SIDEBAR */}
         <DocsSidebar
           setsearch={setsearch}
+          search={search}
           data={navData}
           onClick={handleRedirect}
           placeholder="Search Lessons..."
