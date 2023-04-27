@@ -177,7 +177,7 @@ const Topbar = ({
                   component="a"
                   href="/login/"
                   sx={(theme) => ({
-                    color: '#475467',
+                    color: theme.palette.mode === 'light' ? '#475467' : '#fff',
                     textDecoration: 'none',
                     fontWeight: 600,
                     '&:hover': {

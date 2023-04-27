@@ -1,7 +1,13 @@
-import { FormControl, TextField, Typography } from '@mui/material';
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React from 'react';
 
-const CustomTextField = ({ label, ...props }) => {
+const CustomTextField = ({ label, isSelect, menus, ...props }) => {
   return (
     <FormControl
       fullWidth
@@ -9,7 +15,7 @@ const CustomTextField = ({ label, ...props }) => {
         '& .MuiInputBase-root': {
           borderRadius: '8px',
         },
-        '& input': {
+        '& input, .MuiSelect-select ': {
           padding: '6px 8px',
         },
         '& fieldset': {
@@ -28,7 +34,17 @@ const CustomTextField = ({ label, ...props }) => {
       >
         {label}
       </Typography>
-      <TextField {...props} />
+      {isSelect ? (
+        <Select {...props}>
+          {menus.map((value, i) => (
+            <MenuItem key={i} value={value}>
+              {value}
+            </MenuItem>
+          ))}
+        </Select>
+      ) : (
+        <TextField {...props} />
+      )}
     </FormControl>
   );
 };
