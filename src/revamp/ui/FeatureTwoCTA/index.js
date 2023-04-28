@@ -14,6 +14,7 @@ const FeatureTwoCTA = ({
   secondaryBtnLink = '#',
   image = featureContent,
   isImageRight = true,
+  hasCTA = true,
 }) => {
   return (
     <Stack
@@ -41,6 +42,7 @@ const FeatureTwoCTA = ({
         sx={{ width: { lg: '456px', desktopWide: '576px' } }}
         py={{ desktopWide: 6 }}
         order={{ lg: isImageRight ? 0 : 1 }}
+        justifyContent="center"
       >
         <Typography variant="body2" fontWeight={600} color="primary" mb="12px">
           {overline}
@@ -64,7 +66,7 @@ const FeatureTwoCTA = ({
           color="text.secondary"
           fontSize="18px"
           lineHeight="28px"
-          mb={4}
+          mb={hasCTA ? 4 : 0}
         >
           {supportingText === '' ? (
             [
@@ -86,14 +88,20 @@ const FeatureTwoCTA = ({
             />
           )}
         </Typography>
-        <Stack direction="row" columnGap={2}>
-          <Button href={primaryBtnLink} variant="contained" size="extraLarge">
-            {primaryBtn}
-          </Button>
-          <Button href={secondaryBtnLink} variant="outlined" size="extraLarge">
-            {secondaryBtn}
-          </Button>
-        </Stack>
+        {hasCTA && (
+          <Stack direction="row" columnGap={2}>
+            <Button href={primaryBtnLink} variant="contained" size="extraLarge">
+              {primaryBtn}
+            </Button>
+            <Button
+              href={secondaryBtnLink}
+              variant="outlined"
+              size="extraLarge"
+            >
+              {secondaryBtn}
+            </Button>
+          </Stack>
+        )}
       </Stack>
       <Stack
         mb={{

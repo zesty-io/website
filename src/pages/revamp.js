@@ -52,8 +52,12 @@ const components = [
 
   'Feature Section | Tabs',
   'Feature Section | 3 Column Grid',
+
   'Feature Section | Left Text Right Image | Two CTA',
   'Feature Section | Left Image Right Text | Two CTA',
+
+  'Feature Section | Left Text Right Image | No CTA',
+  'Feature Section | Left Image Right Text | No CTA',
 
   'Feature Section | Left Text Right Image | with Statistic',
   'Feature Section | Left Image Right Text | with Statistic',
@@ -111,6 +115,11 @@ const revamp = () => {
       return <FeatureTwoCTA />;
     if (component === 'Feature Section | Left Image Right Text | Two CTA')
       return <FeatureTwoCTA isImageRight={false} />;
+
+    if (component === 'Feature Section | Left Text Right Image | No CTA')
+      return <FeatureTwoCTA hasCTA={false} />;
+    if (component === 'Feature Section | Left Image Right Text | No CTA')
+      return <FeatureTwoCTA isImageRight={false} hasCTA={false} />;
 
     if (
       component === 'Feature Section | Left Text Right Image | with Statistic'
