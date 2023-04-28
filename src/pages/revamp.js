@@ -36,6 +36,7 @@ import FeatureSectionTopTextBottomImage from 'revamp/ui/FeatureSectionTopTextBot
 import HeroTextImageWithStatsBelow from 'revamp/ui/HeroTextImageWithStatsBelow';
 import Grid3Testimonials from 'revamp/ui/Grid3Testimonials';
 import GridFeatureList from 'revamp/ui/GridFeatureList';
+import GridCompetitorListing from 'revamp/ui/GridCompetitorListing';
 
 const components = [
   'Hero | Stacked | Light',
@@ -169,11 +170,12 @@ const revamp = () => {
       return <GridFeatureList hasImage />;
     if (component === 'Grid | Feature List with Image | Dark')
       return <GridFeatureList isDark hasImage />;
-    // if (component === 'Grid | Competitor Listing')
-    //   return <GridCompetitorListing />;
+    if (component === 'Grid | Competitor Listing')
+      return <GridCompetitorListing />;
 
     return 'Please select a component';
   };
+
   const { palette } = useTheme();
 
   return (
