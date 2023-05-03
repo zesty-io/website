@@ -96,6 +96,7 @@ const ApiReferencePage = (props) => {
           setsearch={setsearch}
           data={newNavData}
           onClick={handleNavClick}
+          url={`${router?.query?.slug && router?.query?.slug[0]}`}
         />
         {/* MAIN PAGE */}
         <Stack pl={4} sx={{ width: 1 }}>
