@@ -2,7 +2,6 @@ import { Box, Paper, Stack, Typography } from '@mui/material';
 import TextTransition from 'react-text-transition';
 import React, { useEffect, useState } from 'react';
 
-// test1
 const ImageTransition = ({
   image = 'https://storage.googleapis.com/assets.zesty.io/website/images/assets/cross%20roads.jpeg',
 }) => {
