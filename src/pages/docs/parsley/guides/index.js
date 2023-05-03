@@ -68,7 +68,7 @@ const GuidePage = (props) => {
         />
         {/* MAIN PAGE */}
         <Stack pl={4} sx={{ width: 1 }}>
-          <Stack width={'70vw'}>
+          <Stack width={'70vw'} p={6}>
             <Typography variant="h2" component={'h1'}>
               GUIDE PAGE
             </Typography>
