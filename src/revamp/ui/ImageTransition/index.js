@@ -126,9 +126,8 @@ const ImageTransition = ({
               delay={i * 2}
               inline
               style={{ fontWeight: 'bold' }}
-            >
-              {txt}
-            </TextTransition>
+              text={txt}
+            />
           ))}
         </Typography>
       </Stack>
