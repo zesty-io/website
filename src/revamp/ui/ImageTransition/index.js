@@ -18,12 +18,12 @@ const ImageTransition = ({
 
   const stylingText = [
     '',
-    '?w=600&h=448',
-    '?w=700&h=600',
-    '?w=350&h=350&borderRadius=50%',
-    '?w=350&h=350&filter=saturate(4)',
-    '?w=350&h=350&borderRadius=50%&filter=blur(4px)',
-    '?w=350&h=350&filter=sepia(1)',
+    '?width=600&height=448',
+    '?width=700&height=600',
+    '?width=350&height=350&borderRadius=50%',
+    '?width=350&height=350&saturate=1',
+    '?width=350&height=350&borderRadius=50%&blur=4',
+    '?width=350&height=350&sepia=1',
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -125,7 +125,7 @@ const ImageTransition = ({
               key={i}
               delay={i * 2}
               inline
-              style={{ fontWeight: 'bold' }}
+              style={{ fontWeight: 'bold', color: '#FF5D0A' }}
               text={txt}
             />
           ))}
