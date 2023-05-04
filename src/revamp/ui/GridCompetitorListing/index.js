@@ -175,6 +175,7 @@ const GridCompetitorListing = ({
                   borderBottom={`1px solid ${theme.palette.grey[100]}`}
                   p="20px"
                   spacing={1}
+                  alignItems="center"
                 >
                   <Box
                     component="img"

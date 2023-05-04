@@ -38,6 +38,7 @@ import Grid3Testimonials from 'revamp/ui/Grid3Testimonials';
 import GridFeatureList from 'revamp/ui/GridFeatureList';
 import GridCompetitorListing from 'revamp/ui/GridCompetitorListing';
 import ImageTransition from 'revamp/ui/ImageTransition';
+import MediaPage from 'revamp/ui/MediaPage';
 
 const components = [
   'Hero | Stacked | Light',
@@ -90,6 +91,7 @@ const components = [
   'Grid | Feature List with Image | Dark',
   'Grid | Competitor Listing',
   'Image Transition',
+  'Media Page',
 ];
 
 const revamp = () => {
@@ -184,6 +186,7 @@ const revamp = () => {
     if (component === 'Grid | Competitor Listing')
       return <GridCompetitorListing />;
     if (component === 'Image Transition') return <ImageTransition />;
+    if (component === 'Media Page') return <MediaPage />;
 
     return 'Please select a component';
   };
