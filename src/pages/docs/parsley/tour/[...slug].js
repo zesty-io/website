@@ -558,18 +558,18 @@ const Slug = (props) => {
       console.log(error);
     }
   };
-  useEffect(async () => {
-    if (glossaryData.length === 0) {
-      await getGlossary();
-    }
-    if (exampleData.length === 0) {
-      await getExampleData();
-    }
+  // useEffect(async () => {
+  //   if (glossaryData.length === 0) {
+  //     await getGlossary();
+  //   }
+  //   if (exampleData.length === 0) {
+  //     await getExampleData();
+  //   }
 
-    if (availableData.length === 0) {
-      await getAvailableData();
-    }
-  }, [availableData, contentTab, glossaryData]);
+  //   if (availableData.length === 0) {
+  //     await getAvailableData();
+  //   }
+  // }, [availableData, contentTab, glossaryData]);
 
   useEffect(() => {
     setcurrentTab('response');

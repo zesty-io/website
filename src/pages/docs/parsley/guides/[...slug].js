@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
-import MuiMarkdown from 'markdown-to-jsx';
 import MainWrapper from 'layouts/Main';
 import { useState } from 'react';
-import { Stack } from '@mui/material';
-import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { useZestyStore } from 'store';
 import { fetchMarkdownFile, parseMarkdownFile } from 'utils/docs';
 import { PARSLEY, PARSLEY_GUIDES } from 'utils/docs/constants';
@@ -79,7 +76,7 @@ const ApiReferencePage = (props) => {
   }).filter((e) => e.label.toLowerCase().includes(search.toLowerCase()));
 
   useEffect(() => {
-    getMd();
+    // getMd();
   }, []);
 
   useEffect(() => {
@@ -89,21 +86,19 @@ const ApiReferencePage = (props) => {
   }, []);
   return (
     <MainWrapper>
-      <Stack direction={'row'}>
-        {/* SIDEBAR */}
+      {/* <Stack direction={'row'}>
         <DocsSidebar
           search={search}
           setsearch={setsearch}
           data={newNavData}
           onClick={handleNavClick}
         />
-        {/* MAIN PAGE */}
         <Stack pl={4} sx={{ width: 1 }}>
           <Stack width={'70vw'}>
             <MuiMarkdown overrides={muiContentOverrides}>{mdData}</MuiMarkdown>
           </Stack>
         </Stack>
-      </Stack>
+      </Stack> */}
     </MainWrapper>
   );
 };
