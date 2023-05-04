@@ -8,19 +8,21 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import CircularProgress from '@mui/material/CircularProgress';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import MainWrapper from 'layouts/Main';
-import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+// import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+// import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
 import { ErrorMsg } from 'components/accounts';
 import { DocsTabs } from 'views/Docs/DocsTabs';
-import { DocsSidebar } from 'components/docs/DocsSidebar';
+// import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { LoadingButton } from '@mui/lab';
 import { useZestyStore } from 'store';
-import { grey } from '@mui/material/colors';
+// import { grey } from '@mui/material/colors';
 import { PARSLEY_EXAMPLE_DATA } from 'utils/docs';
+
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
+
 const leftTabs = [
   { label: 'Code Example', value: 'code example' },
   { label: 'Available Data', value: 'available data' },
@@ -581,8 +583,7 @@ const Slug = (props) => {
 
   return (
     <MainWrapper>
-      <Stack direction="row">
-        {/* SIDEBAR */}
+      {/* <Stack direction="row">
         <DocsSidebar
           setsearch={setsearch}
           search={search}
@@ -590,7 +591,6 @@ const Slug = (props) => {
           onClick={handleRedirect}
           placeholder="Search Lessons..."
         />
-        {/* MAIN PAGE */}
         <Stack sx={{ width: 1 }}>
           <Box
             width={1}
@@ -743,7 +743,7 @@ const Slug = (props) => {
             </Stack>
           </Container>
         </Stack>
-      </Stack>
+      </Stack> */}
     </MainWrapper>
   );
 };
