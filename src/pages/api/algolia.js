@@ -126,15 +126,15 @@ const getParsleyIndexData = async () => {
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const parsleyData = await getParsleyTourData();
-    const docsData = await getDocsData();
-    const parsleyIndexData = await getParsleyIndexData();
-    const parsleyGuides = await getParsleyGuidesData();
+    // const parsleyData = await getParsleyTourData();
+    // const docsData = await getDocsData();
+    // const parsleyIndexData = await getParsleyIndexData();
+    // const parsleyGuides = await getParsleyGuidesData();
 
-    await algoliaFunc({ data: parsleyData, index: 'parsley-tour' });
-    await algoliaFunc({ data: docsData, index: 'docs' });
-    await algoliaFunc({ data: parsleyIndexData, index: 'parsley-glossary' });
-    await algoliaFunc({ data: parsleyGuides, index: 'parsley-guides' });
+    // await algoliaFunc({ data: parsleyData, index: 'parsley-tour' });
+    // await algoliaFunc({ data: docsData, index: 'docs' });
+    // await algoliaFunc({ data: parsleyIndexData, index: 'parsley-glossary' });
+    // await algoliaFunc({ data: parsleyGuides, index: 'parsley-guides' });
 
     return res.status(200).json({ ok: true });
   } else {
