@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 import MainWrapper from 'layouts/Main';
 import { useState } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
-import { DocsSidebar } from 'components/docs/DocsSidebar';
+// import { Box, Stack, Typography } from '@mui/material';
+// import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { useZestyStore } from 'store';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -59,19 +59,18 @@ const TourPage = (props) => {
   }, []);
 
   useEffect(() => {
-    getPageData();
+    // getPageData();
   }, []);
+
   return (
     <MainWrapper>
-      <Stack direction={'row'}>
-        {/* SIDEBARR */}
+      {/* <Stack direction={'row'}>
         <DocsSidebar
           search={search}
           setsearch={setsearch}
           data={newNavData}
           onClick={handleRedirect}
         />
-        {/* MAIN PAGE */}
         <Stack pl={4} sx={{ width: 1 }}>
           <Stack width={'70vw'} pt={4}>
             <Typography variant="h2" component={'h1'} textAlign={'center'}>
@@ -86,7 +85,7 @@ const TourPage = (props) => {
             </Typography>
           </Stack>
         </Stack>
-      </Stack>
+      </Stack> */}
     </MainWrapper>
   );
 };
