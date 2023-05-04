@@ -1,9 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from 'react';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import CodeMirror from '@uiw/react-codemirror';
-import { EditorView } from '@codemirror/view';
-import { javascript } from '@codemirror/lang-javascript';
+// import CodeMirror from '@uiw/react-codemirror';
+// import { EditorView } from '@codemirror/view';
+// import { javascript } from '@codemirror/lang-javascript';
+// import { githubDarkInit } from '@uiw/codemirror-theme-github';
 import CircularProgress from '@mui/material/CircularProgress';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import MainWrapper from 'layouts/Main';
@@ -16,7 +17,6 @@ import { ErrorMsg } from 'components/accounts';
 import { DocsTabs } from 'views/Docs/DocsTabs';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { LoadingButton } from '@mui/lab';
-import { githubDarkInit } from '@uiw/codemirror-theme-github';
 import { useZestyStore } from 'store';
 import { grey } from '@mui/material/colors';
 import { PARSLEY_EXAMPLE_DATA } from 'utils/docs';
@@ -64,24 +64,27 @@ const CodeBlockCompLeft = ({
     }
   };
 
-  const codeBlock = (
-    <CodeMirror
-      editable={activeTab === 'code example' ? true : false}
-      basicSetup={{ lineNumbers: true, autocompletion: true }}
-      value={getValue()}
-      height={'300px'}
-      crosshairCursor={true}
-      extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-      onChange={onChange}
-      style={{ fontSize: '11px' }}
-      theme={githubDarkInit({
-        settings: {
-          caret: '#ff5c0c',
-          fontFamily: 'monospace',
-        },
-      })}
-    />
-  );
+  // const codeBlock = (
+  //   <CodeMirror
+  //     editable={activeTab === 'code example' ? true : false}
+  //     basicSetup={{ lineNumbers: true, autocompletion: true }}
+  //     value={getValue()}
+  //     height={'300px'}
+  //     crosshairCursor={true}
+  //     extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
+  //     onChange={onChange}
+  //     style={{ fontSize: '11px' }}
+  //     theme={githubDarkInit({
+  //       settings: {
+  //         caret: '#ff5c0c',
+  //         fontFamily: 'monospace',
+  //       },
+  //     })}
+  //   />
+  // );
+
+  const codeBlock = <></>;
+
   return (
     <Stack
       bgcolor="#1B253F"
@@ -225,23 +228,24 @@ const CodeBlockCompRight = ({
 
       <Stack height={'300px'} p={activeTab === 'response' ? 0 : 0.5}>
         {activeTab === 'response' ? (
-          <CodeMirror
-            editable={false}
-            value={parsleyResult}
-            placeholder={'Click Run to view the response'}
-            height={'300px'}
-            crosshairCursor={true}
-            extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-            onChange={onChange}
-            style={{ fontSize: '11px' }}
-            theme={githubDarkInit({
-              settings: {
-                caret: '#ff5c0c',
-                fontFamily: 'monospace',
-              },
-            })}
-          />
+          <></>
         ) : (
+          // <CodeMirror
+          //   editable={false}
+          //   value={parsleyResult}
+          //   placeholder={'Click Run to view the response'}
+          //   height={'300px'}
+          //   crosshairCursor={true}
+          //   extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
+          //   onChange={onChange}
+          //   style={{ fontSize: '11px' }}
+          //   theme={githubDarkInit({
+          //     settings: {
+          //       caret: '#ff5c0c',
+          //       fontFamily: 'monospace',
+          //     },
+          //   })}
+          // />
           <Stack
             sx={{
               px: 2,
