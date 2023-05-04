@@ -20,10 +20,10 @@ const ImageTransition = ({
     '',
     '?width=600&height=448',
     '?width=700&height=600',
-    '?width=350&height=350&borderRadius=50%',
-    '?width=350&height=350&saturate=1',
-    '?width=350&height=350&borderRadius=50%&blur=4',
-    '?width=350&height=350&sepia=1',
+    '?width=350&height=377&borderRadius=50%',
+    '?width=350&height=377&saturate=1',
+    '?width=350&height=377&borderRadius=50%&blur=4',
+    '?width=350&height=377&sepia=1',
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -47,19 +47,19 @@ const ImageTransition = ({
       position="relative"
       sx={(theme) => ({
         [theme.breakpoints.up('xs')]: {
-          py: 4,
-          px: 2,
+          //   py: 4,
+          //   px: 2,
           height: '500px',
         },
         [theme.breakpoints.up('tablet')]: {
-          py: 6,
-          px: 4,
+          //   py: 6,
+          //   px: 4,
           height: '700px',
         },
-        [theme.breakpoints.up('lg')]: {
-          py: 8,
-          px: 14,
-        },
+        // [theme.breakpoints.up('lg')]: {
+        //   py: 8,
+        //   px: 14,
+        // },
       })}
     >
       <Box
@@ -74,7 +74,7 @@ const ImageTransition = ({
 
           styling[currentIndex] === 'crop' && {
             width: '350px',
-            height: '350px',
+            height: '377px',
           },
           styling[currentIndex] === 'crop2' && {
             width: '700px',
@@ -83,23 +83,23 @@ const ImageTransition = ({
 
           styling[currentIndex] === 'circle' && {
             width: '350px',
-            height: '350px',
+            height: '377px',
             borderRadius: '50%',
           },
           styling[currentIndex] === 'saturation' && {
             width: '350px',
-            height: '350px',
+            height: '377px',
             filter: 'saturate(4)',
           },
           styling[currentIndex] === 'blur' && {
             width: '350px',
-            height: '350px',
+            height: '377px',
             filter: 'blur(4px)',
             borderRadius: '50%',
           },
           styling[currentIndex] === 'sepia' && {
             width: '350px',
-            height: '350px',
+            height: '377px',
             filter: 'sepia(1)',
           },
         ]}
