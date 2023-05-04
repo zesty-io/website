@@ -21,9 +21,7 @@ const person =
   mediaContent3 =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/MediaContent3.svg',
   mediaContent4 =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/MediaContent4.svg',
-  mediaContent5 =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/MediaContent5.svg';
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/MediaContent4.svg';
 
 const MediaPage = () => {
   return (
