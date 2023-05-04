@@ -2,7 +2,6 @@ import { Box, Paper, Stack, Typography } from '@mui/material';
 import TextTransition from 'react-text-transition';
 import React, { useEffect, useState } from 'react';
 
-//
 const ImageTransition = ({
   image = 'https://storage.googleapis.com/assets.zesty.io/website/images/assets/cross%20roads.jpeg',
 }) => {
@@ -54,7 +53,7 @@ const ImageTransition = ({
         [theme.breakpoints.up('tablet')]: {
           //   py: 6,
           //   px: 4,
-          height: '700px',
+          height: '600px',
         },
         // [theme.breakpoints.up('lg')]: {
         //   py: 8,
@@ -69,7 +68,7 @@ const ImageTransition = ({
           },
           styling[currentIndex] === 'original' && {
             width: '700px',
-            height: '700px',
+            height: '600px',
           },
 
           styling[currentIndex] === 'crop' && {
