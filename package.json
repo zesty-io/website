@@ -80,6 +80,7 @@
     "jarallax": "^1.12.8",
     "markdown-it": "^13.0.1",
     "markdown-to-jsx": "^7.1.7",
+    "material-ui-phone-number": "^3.0.0",
     "next": "^12.2.5",
     "node-fetch": "^2.6.7",
     "notistack": "^2.0.5",
