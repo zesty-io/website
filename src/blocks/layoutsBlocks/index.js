@@ -39,7 +39,8 @@ import TabsSection from './revamp/ui/TabsSection'
 // Layout Component
 import StevenHoskinsTestimonial from './revamp/layoutComponent/StevenHoskinsTestimonial'
 import G2ReviewswithTestimonial from './revamp/layoutComponent/G2ReviewswithTestimonial'
-import HeroTextImageWithStatsBelow from './revamp/layoutComponent/HeroTextImageWithStatsBelow'
+import SiteCoreHero from './revamp/layoutComponent/SiteCoreHero'
+import WordPressHero from './revamp/layoutComponent/WordPressHero'
 
 
 
@@ -84,6 +85,7 @@ export {
     // Layout Components
     StevenHoskinsTestimonial,
     G2ReviewswithTestimonial,
-    HeroTextImageWithStatsBelow
+    SiteCoreHero,
+    WordPressHero
 
 }

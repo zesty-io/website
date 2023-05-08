@@ -1,9 +1,7 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import React from 'react';
 
-const hero =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Hero Image 2.png',
-  acorns =
+const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acornsHero.svg',
   bjs =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bjsHero.svg',
@@ -27,6 +25,7 @@ const HeroTextImageWithStatsBelow = ({
   stats = sampleStats,
   ctaText = 'Schedule Demo',
   ctaLink = '/demo',
+  hero = 'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Hero Image 2.png',
 }) => {
   return (
     <Stack>
