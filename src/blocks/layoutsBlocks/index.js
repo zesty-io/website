@@ -39,6 +39,7 @@ import TabsSection from './revamp/ui/TabsSection'
 // Layout Component
 import StevenHoskinsTestimonial from './revamp/layoutComponent/StevenHoskinsTestimonial'
 import G2ReviewswithTestimonial from './revamp/layoutComponent/G2ReviewswithTestimonial'
+import HeroTextImageWithStatsBelow from './revamp/layoutComponent/HeroTextImageWithStatsBelow'
 
 
 
@@ -82,6 +83,7 @@ export {
 
     // Layout Components
     StevenHoskinsTestimonial,
-    G2ReviewswithTestimonial
+    G2ReviewswithTestimonial,
+    HeroTextImageWithStatsBelow
 
 }
