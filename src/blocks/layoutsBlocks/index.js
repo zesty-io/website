@@ -41,6 +41,10 @@ import StevenHoskinsTestimonial from './revamp/layoutComponent/StevenHoskinsTest
 import G2ReviewswithTestimonial from './revamp/layoutComponent/G2ReviewswithTestimonial'
 import SiteCoreHero from './revamp/layoutComponent/SiteCoreHero'
 import WordPressHero from './revamp/layoutComponent/WordPressHero'
+import AcquiaHero from './revamp/layoutComponent/AcquiaHero'
+import ContentfulHero from './revamp/layoutComponent/ContentfulHero'
+import ContentStackHero from './revamp/layoutComponent/ContentStackHero'
+import HygraphHero from './revamp/layoutComponent/HygraphHero'
 
 
 
@@ -86,6 +90,10 @@ export {
     StevenHoskinsTestimonial,
     G2ReviewswithTestimonial,
     SiteCoreHero,
-    WordPressHero
+    WordPressHero,
+    AcquiaHero,
+    ContentfulHero,
+    ContentStackHero,
+    HygraphHero
 
 }
