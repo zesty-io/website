@@ -143,7 +143,7 @@ const FeatureTwoCTA = ({
                 height: '420px',
               },
               [theme.breakpoints.up('lg')]: {
-                maxWidth: '456px',
+                width: '456px',
                 height: '100%',
               },
               [theme.breakpoints.between(1201, 1439)]: {
@@ -151,7 +151,7 @@ const FeatureTwoCTA = ({
                 height: '100%',
               },
               [theme.breakpoints.up('desktopWide')]: {
-                maxWidth: '576px',
+                width: '576px',
                 height: '420px',
               },
             })}

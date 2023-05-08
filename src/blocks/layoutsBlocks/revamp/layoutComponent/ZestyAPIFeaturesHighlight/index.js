@@ -15,7 +15,7 @@ const ZestyAPIFeaturesHighlight = () => {
     image: data?.data?.[0]?.content?.main_image?.data?.[0]?.url,
   };
 
-  return <FeatureTwoCTA {...props} />;
+  return <FeatureTwoCTA {...props} isImageRight={false}/>;
 };
 
 export default ZestyAPIFeaturesHighlight;
