@@ -36,6 +36,9 @@ import SingleTestimonial from './revamp/ui/SingleTestimonial'
 import Stats from './revamp/ui/Stats'
 import TabsSection from './revamp/ui/TabsSection'
 
+// Layout Component
+import StevenHoskinsTestimonial from './revamp/layoutComponent/StevenHoskinsTestimonial'
+
 
 
 export {
@@ -74,6 +77,9 @@ export {
     SecurityFeature,
     SingleTestimonial,
     Stats,
-    TabsSection
+    TabsSection,
+
+    // Layout Components
+    StevenHoskinsTestimonial
 
 }

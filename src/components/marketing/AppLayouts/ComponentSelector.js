@@ -1,10 +1,11 @@
 import * as zestyBlocks from 'blocks/layoutsBlocks';
 import { useContext } from 'react';
 import { GlobalContext } from 'pages/[...slug]';
-import { ThemeProvider } from '@mui/material';
+import { ThemeProvider, useTheme } from '@mui/material';
 import revampTheme from 'theme/revampTheme';
 
 const ComponentSelector = (props) => {
+  const theme = useTheme();
   // Initialize Context
   const ctx = useContext(GlobalContext);
 
@@ -26,7 +27,7 @@ const ComponentSelector = (props) => {
 
   // return component without data by default
   return (
-    <ThemeProvider theme={() => revampTheme('light')}>
+    <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <Component />
     </ThemeProvider>
   );

@@ -120,7 +120,11 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
               color="white"
               style={{ whiteSpace: 'pre-line' }}
             >
-              {quote}
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: quote,
+                }}
+              />
             </Typography>
           </Box>
         </Stack>
