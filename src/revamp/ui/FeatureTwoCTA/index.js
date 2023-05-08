@@ -24,8 +24,6 @@ const FeatureTwoCTA = ({
         justifyContent={{ desktopWide: 'center' }}
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
-            maxWidth: theme.maxWidth,
-            mx: 'auto',
             py: 4,
             px: 2,
           },
@@ -34,6 +32,8 @@ const FeatureTwoCTA = ({
             px: 4,
           },
           [theme.breakpoints.up('lg')]: {
+            maxWidth: theme.maxWidth,
+            mx: 'auto',
             py: 10,
             px: 14,
             gap: 8,
