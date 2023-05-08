@@ -25,6 +25,8 @@ const HeroTextImageWithStatsBelow = ({
   title = 'Why Developers are Switching from Sitecore to Zesty',
   description = 'Build faster using a content management system that supports virtually any framework out-of-the-box. Empower your marketing team with an intuitive UI to edit content. Win-win.',
   stats = sampleStats,
+  ctaText = 'Schedule Demo',
+  ctaLink = '/demo',
 }) => {
   return (
     <Stack>
@@ -75,12 +77,12 @@ const HeroTextImageWithStatsBelow = ({
           </Stack>
           <Stack direction={{ xs: 'column', tablet: 'row' }}>
             <Button
-              href="/demo"
+              href={ctaLink}
               size="large"
               color="primary"
               variant="contained"
             >
-              Schedule Demo
+              {ctaText}
             </Button>
           </Stack>
 

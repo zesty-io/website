@@ -44,7 +44,13 @@ const FeatureTwoCTA = ({
         order={{ lg: isImageRight ? 0 : 1 }}
         justifyContent="center"
       >
-        <Typography variant="body2" fontWeight={600} color="primary" mb="12px">
+        <Typography
+          textTransform="uppercase"
+          variant="body2"
+          fontWeight={600}
+          color="primary"
+          mb="12px"
+        >
           {overline}
         </Typography>
         <Typography
@@ -110,6 +116,7 @@ const FeatureTwoCTA = ({
           lg: !isImageRight && 0,
         }}
         order={{ lg: isImageRight ? 1 : 0 }}
+        justifyContent="center"
       >
         <Box
           component="img"

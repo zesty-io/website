@@ -38,6 +38,7 @@ import TabsSection from './revamp/ui/TabsSection'
 
 // Layout Component
 import StevenHoskinsTestimonial from './revamp/layoutComponent/StevenHoskinsTestimonial'
+import G2ReviewswithTestimonial from './revamp/layoutComponent/G2ReviewswithTestimonial'
 
 
 
@@ -80,6 +81,7 @@ export {
     TabsSection,
 
     // Layout Components
-    StevenHoskinsTestimonial
+    StevenHoskinsTestimonial,
+    G2ReviewswithTestimonial
 
 }
