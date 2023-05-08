@@ -8,6 +8,7 @@ import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { useZestyStore } from 'store';
 import { fetchMarkdownFile, parseMarkdownFile } from 'utils/docs';
 import { PARSLEY } from 'utils/docs/constants';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 const muiContentOverrides = {
   h1: {
@@ -77,6 +78,7 @@ const ApiReferencePage = (props) => {
   }, []);
   return (
     <MainWrapper>
+      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
       <Stack direction={'row'}>
         {/* SIDEBAR */}
         <DocsSidebar

@@ -7,6 +7,7 @@ import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { useZestyStore } from 'store';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 const TourPage = (props) => {
   const router = useRouter();
@@ -63,6 +64,8 @@ const TourPage = (props) => {
   }, []);
   return (
     <MainWrapper>
+      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+
       <Stack direction={'row'}>
         {/* SIDEBARR */}
         <DocsSidebar
