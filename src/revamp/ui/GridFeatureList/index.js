@@ -1,5 +1,6 @@
 import { Avatar, Box, Grid, Stack, Typography } from '@mui/material';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import dynamic from 'next/dynamic';
 
 const sampleImage =
   'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Frame%20710.svg';
@@ -26,6 +27,19 @@ const sampleFeatures = [
     text: 'Tortor interdum condimentum nunc molestie quam lectus euismod pulvinar risus. Cursus in odio aenean.',
   },
 ];
+
+const MUIIcon = ({ iconName }) => {
+  if (!iconName) {
+    return null; // or render a default icon
+  }
+
+  const DynamicMUIIcon = dynamic(
+    () => import('@mui/icons-material/' + iconName),
+    { ssr: false },
+  );
+
+  return <DynamicMUIIcon />;
+};
 
 const GridFeatureList = ({
   title = 'why designership',

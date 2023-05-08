@@ -45,6 +45,7 @@ import AcquiaHero from './revamp/layoutComponent/AcquiaHero'
 import ContentfulHero from './revamp/layoutComponent/ContentfulHero'
 import ContentStackHero from './revamp/layoutComponent/ContentStackHero'
 import HygraphHero from './revamp/layoutComponent/HygraphHero'
+import SiteCoreWhyZesty from './revamp/layoutComponent/SiteCoreWhyZesty'
 
 
 
@@ -94,6 +95,7 @@ export {
     AcquiaHero,
     ContentfulHero,
     ContentStackHero,
-    HygraphHero
+    HygraphHero,
+    SiteCoreWhyZesty
 
 }
