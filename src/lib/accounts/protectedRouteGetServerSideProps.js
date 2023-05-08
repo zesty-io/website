@@ -10,30 +10,25 @@ const POSTMAN_JSON_DATA = [
 ];
 
 const parselyTourEndpoint =
-  'https://parsleydev-dev.webengine.zesty.io/-/instant/6-c9c624-14bzxf.json';
+  'https://parsley.zesty.io/-/instant/6-c9c624-14bzxf.json';
 
 const getMainCollection = async () => {
-  const mainCollection = [];
   const getPostmanData = async () => {
-    for (const url of POSTMAN_JSON_DATA) {
-      await axios({
-        url,
-        timeout: 5000,
-        method: 'get',
-      }).then((e) => {
-        mainCollection.push(e.data);
-      });
-    }
+    const res = POSTMAN_JSON_DATA.map(async (e) => {
+      return await axios({ url: e, timeout: 3000, method: 'get' }).then(
+        (e) => e.data,
+      );
+    });
+    return res;
   };
 
-  await getPostmanData();
-  return mainCollection;
+  return await Promise.all(await getPostmanData());
 };
 
 const getParsleyTourData = async () => {
   return await axios({
     url: parselyTourEndpoint,
-    timeout: 5000,
+    timeout: 3000,
     method: 'get',
   }).then((e) => e.data);
 };
@@ -50,8 +45,7 @@ export default async function getServerSideProps({
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59',
   );
-  let mainCollections = {};
-  let parsleyTourData = {};
+  let docsPageData = [];
   const isDocsPage = resolvedUrl.includes('/docs');
   const isAuthenticated = getIsAuthenticated(res);
 
@@ -62,8 +56,10 @@ export default async function getServerSideProps({
   }
 
   if (isDocsPage) {
-    mainCollections = await getMainCollection();
-    parsleyTourData = await getParsleyTourData();
+    docsPageData = await Promise.all([
+      await getMainCollection(),
+      await getParsleyTourData(),
+    ]);
   }
 
   if (!isAuthenticated && isProtectedRoute(resolvedUrl)) {
@@ -87,10 +83,10 @@ export default async function getServerSideProps({
         index: process.env.ALGOLIA_INDEX,
       },
       docs: {
-        data: mainCollections,
+        data: docsPageData[0],
       },
       parsley: {
-        tour: parsleyTourData,
+        tour: docsPageData[1],
       },
     },
   };

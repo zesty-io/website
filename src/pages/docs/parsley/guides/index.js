@@ -7,6 +7,7 @@ import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { useZestyStore } from 'store';
 import axios from 'axios';
 import { PARSLEY_GUIDES } from 'utils/docs/constants';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 const GuidePage = (props) => {
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
@@ -58,6 +59,8 @@ const GuidePage = (props) => {
   }, []);
   return (
     <MainWrapper>
+      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+
       <Stack direction={'row'}>
         {/* SIDEBARR */}
         <DocsSidebar

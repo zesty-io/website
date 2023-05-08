@@ -3,6 +3,7 @@ import { Docs } from 'views/Docs';
 import { useRouter } from 'next/router';
 import { transFormMainData } from 'views/Docs/helper';
 import { useZestyStore } from 'store';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -111,5 +112,10 @@ export default function DocsPage(props) {
     }
   }, []);
 
-  return <Docs {...docsProps} />;
+  return (
+    <>
+      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+      <Docs {...docsProps} />;
+    </>
+  );
 }
