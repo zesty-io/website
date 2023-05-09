@@ -1,14 +1,17 @@
 import axios from 'axios';
 import MarkdownIt from 'markdown-it';
 
-export const fetchMarkdownFile = async () => {
-  const response = await axios.get(
-    `https://raw.githubusercontent.com/zesty-io/zesty-org/master/services/web-engine/introduction-to-parsley/parsley-index.md`,
-  );
+export const fetchMarkdownFile = async ({ mdUrl }) => {
+  const response = await axios.get(mdUrl);
   return response.data;
 };
 
-export const parseMarkdownFile = (markdown, setmdData, setnavData) => {
+export const parseMarkdownFile = ({
+  markdown,
+  tags = ['h2'],
+  parentURL,
+  title,
+}) => {
   const md = new MarkdownIt();
   const newMarkdown = [];
   const collection = [];
@@ -17,14 +20,20 @@ export const parseMarkdownFile = (markdown, setmdData, setnavData) => {
 
   let headingText;
   for (let i = 0; i < tokens.length; i++) {
-    if (tokens[i].type === 'heading_open' && tokens[i].tag === 'h2') {
+    const checkTags = tags.find((e) => e === tokens[i].tag);
+    // remove description
+    const findDesc = tokens[i].content.includes('description');
+    if (findDesc) {
+      continue;
+    }
+
+    if (tokens[i].type === 'heading_open' && checkTags) {
       headingText = tokens[i + 1]?.content?.trim();
-      if (
-        headingText ===
-        'description: This index collects all Parsley syntax and methods.'
-      ) {
+      // remove description
+      if (headingText.includes('description')) {
         continue;
       }
+
       const id = headingText
         ?.replace(/[^\w\s]/gi, '')
         ?.replace(/\s+/g, '-')
@@ -41,28 +50,27 @@ export const parseMarkdownFile = (markdown, setmdData, setnavData) => {
     } else {
       // remove redundant h2
       const res = collection.find((e) => e.label === tokens[i].content);
-      if (tokens[i].content === 'Parsley Index') {
+      if (tokens[i].content === title) {
         newMarkdown.push(`<h1 style="color:#3B454E">${tokens[i].content}</h1>`);
       } else if (tokens[i].content !== headingText && !res) {
-        const renderedToken = md.renderer.render([tokens[i]], md.options, {});
-        const res = renderedToken
-          .replaceAll('</h2>', '')
-          .replaceAll('<hr>', '');
+        let renderedToken = md.renderer.render([tokens[i]], md.options, {});
+        for (let i = 0; i < tags.length; i++) {
+          renderedToken = renderedToken.replaceAll(`</${tags[i]}>`, '');
+        }
+        const res = renderedToken.replaceAll('<hr>', '');
         newMarkdown.push(res);
       }
     }
   }
 
-  setmdData(newMarkdown.join(''));
   const newNavData = collection.map((e) => {
     return {
       ...e,
       label: e.label.replace(/\\/g, '/').replaceAll('/', ''),
       name: e.label.replace(/\\/g, '/').replaceAll('/', ''),
-      url: `/parsley/api-reference/#${e.value}`,
+      url: `${parentURL}#${e.value}`,
     };
   });
-  setnavData(newNavData);
   return { pageData: newMarkdown.join(''), navData: newNavData };
 };
 

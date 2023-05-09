@@ -1,13 +1,27 @@
 import { TreeItem, TreeView } from '@mui/lab';
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import { Link, Stack, TextField, Typography } from '@mui/material';
+import {
+  IconButton,
+  InputAdornment,
+  Link,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React from 'react';
 import { grey } from '@mui/material/colors';
 import { useRouter } from 'next/router';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const DocsSidebar = React.memo(
-  ({ setsearch, data, onClick = undefined, placeholder = 'Search...' }) => {
+  ({
+    search,
+    setsearch,
+    data,
+    onClick = undefined,
+    placeholder = 'Search...',
+  }) => {
     const router = useRouter();
     const url = `/${router?.query?.slug && router?.query?.slug[0]}/`;
     const handleClick = (e) => {
@@ -36,7 +50,23 @@ export const DocsSidebar = React.memo(
             variant="outlined"
             name={'search'}
             fullWidth
+            value={search}
             onChange={(e) => setsearch(e.currentTarget.value)}
+            InputProps={{
+              endAdornment: search?.length !== 0 && (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => {
+                      setsearch('');
+                    }}
+                    edge="end"
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Stack>
         <Stack width={1} sx={{ height: '80vh' }}>
@@ -59,7 +89,12 @@ export const DocsSidebar = React.memo(
             selected={url}
             defaultSelected={url}
           >
-            {data.map((e) => {
+            {(data?.length === 0 || !data) && (
+              <Typography variant="body1" px={4} fontWeight={'bold'}>
+                No results
+              </Typography>
+            )}
+            {data?.map((e) => {
               return (
                 <TreeItem
                   nodeId={e.value}
