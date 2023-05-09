@@ -3,10 +3,11 @@ import GridFeatureList from "revamp/ui/GridFeatureList";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 
-const SiteCoreWhyZesty = () => {
+
+const ContenfulWhyZesty = () => {
 
       const { data } = useFetch(
-    `/-/instant/7-f4b6f490f2-hx1nz8.json`,
+    `/-/instant/7-defde582ce-0ck7c4.json`,
     JSON.parse(process.env.NEXT_PUBLIC_PRODUCTION || true),
   );
 
@@ -33,6 +34,7 @@ const SiteCoreWhyZesty = () => {
   },
 ]
 
+
   const props = {
   title:  data?.data?.[0]?.content?.eyebrow,
   heading :data?.data?.[0]?.content?.headline,
@@ -46,8 +48,8 @@ const SiteCoreWhyZesty = () => {
 
 
     return <>
-        <GridFeatureList isDark {...props}  />
+        <GridFeatureList  {...props}   />
     </>
 } 
 
-export default SiteCoreWhyZesty;
+export default ContenfulWhyZesty;

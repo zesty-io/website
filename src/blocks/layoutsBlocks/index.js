@@ -48,6 +48,12 @@ import HygraphHero from './revamp/layoutComponent/HygraphHero';
 import ZestyAPIFeaturesHighlight from './revamp/layoutComponent/ZestyAPIFeaturesHighlight';
 import SiteCoreWhyZesty from './revamp/layoutComponent/SiteCoreWhyZesty';
 import ScheduleMeetingWidget from './revamp/layoutComponent/ScheduleMeetingWidget';
+import WordPressWhyZesty from './revamp/layoutComponent/WordPressWhyZesty';
+import AcquiaWhyZesty from './revamp/layoutComponent/AcquiaWhyZesty';
+import ContenfulWhyZesty from './revamp/layoutComponent/ContenfulWhyZesty';
+import ContentStackWhyZesty from './revamp/layoutComponent/ContentStackWhyZesty';
+import HygraphWhyZesty from './revamp/layoutComponent/HygraphWhyZesty';
+
 
 export {
   Bottom,
@@ -99,4 +105,10 @@ export {
   SiteCoreWhyZesty,
   ZestyAPIFeaturesHighlight,
   ScheduleMeetingWidget,
+  WordPressWhyZesty,
+  AcquiaWhyZesty,
+  ContenfulWhyZesty,
+  ContentStackWhyZesty,
+  HygraphWhyZesty
+  
 };
