@@ -37,16 +37,17 @@ import Stats from './revamp/ui/Stats';
 import TabsSection from './revamp/ui/TabsSection';
 
 // Layout Component
-import StevenHoskinsTestimonial from './revamp/layoutComponent/StevenHoskinsTestimonial'
-import G2ReviewswithTestimonial from './revamp/layoutComponent/G2ReviewswithTestimonial'
-import SiteCoreHero from './revamp/layoutComponent/SiteCoreHero'
-import WordPressHero from './revamp/layoutComponent/WordPressHero'
-import AcquiaHero from './revamp/layoutComponent/AcquiaHero'
-import ContentfulHero from './revamp/layoutComponent/ContentfulHero'
-import ContentStackHero from './revamp/layoutComponent/ContentStackHero'
-import HygraphHero from './revamp/layoutComponent/HygraphHero'
-import ZestyAPIFeaturesHighlight from './revamp/layoutComponent/ZestyAPIFeaturesHighlight'
-import SiteCoreWhyZesty from './revamp/layoutComponent/SiteCoreWhyZesty'
+import StevenHoskinsTestimonial from './revamp/layoutComponent/StevenHoskinsTestimonial';
+import G2ReviewswithTestimonial from './revamp/layoutComponent/G2ReviewswithTestimonial';
+import SiteCoreHero from './revamp/layoutComponent/SiteCoreHero';
+import WordPressHero from './revamp/layoutComponent/WordPressHero';
+import AcquiaHero from './revamp/layoutComponent/AcquiaHero';
+import ContentfulHero from './revamp/layoutComponent/ContentfulHero';
+import ContentStackHero from './revamp/layoutComponent/ContentStackHero';
+import HygraphHero from './revamp/layoutComponent/HygraphHero';
+import ZestyAPIFeaturesHighlight from './revamp/layoutComponent/ZestyAPIFeaturesHighlight';
+import SiteCoreWhyZesty from './revamp/layoutComponent/SiteCoreWhyZesty';
+import ScheduleMeetingWidget from './revamp/layoutComponent/ScheduleMeetingWidget';
 
 export {
   Bottom,
@@ -96,5 +97,6 @@ export {
   ContentStackHero,
   HygraphHero,
   SiteCoreWhyZesty,
-  ZestyAPIFeaturesHighlight
+  ZestyAPIFeaturesHighlight,
+  ScheduleMeetingWidget,
 };
