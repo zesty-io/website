@@ -1,12 +1,13 @@
 import algoliasearch from 'algoliasearch';
 import axios from 'axios';
 import { fetchMarkdownFile, parseMarkdownFile } from 'utils/docs';
+import { PARSLEY, PARSLEY_GUIDES } from 'utils/docs/constants';
 import { transFormMainData } from 'views/Docs/helper';
 
 const POSTMAN_JSON_DATA = [
-  'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/instances-api.json',
-  'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/auth-api.json',
-  'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/accounts-api.json',
+  'https://raw.githubusercontent.com/zesty-io/zesty-docs/main/Postman%20Collections/instances-api.json',
+  'https://raw.githubusercontent.com/zesty-io/zesty-docs/main/Postman%20Collections/auth-api.json',
+  'https://raw.githubusercontent.com/zesty-io/zesty-docs/main/Postman%20Collections/accounts-api.json',
   // 'https://raw.githubusercontent.com/zesty-io/zesty-org/master/Postman%20Collections/media-api.json',
 ];
 
@@ -97,24 +98,43 @@ const algoliaFunc = async ({ data, index }) => {
     });
 };
 
-const getParsleyGlossaryData = async () => {
-  const markdown = await fetchMarkdownFile();
-  const { navData } = parseMarkdownFile(
+const getParsleyGuidesData = async () => {
+  return PARSLEY_GUIDES.map((e) => {
+    const githubURL = `https://raw.githubusercontent.com/zesty-io/zesty-docs/main/webengine/guides/web-engine/introduction-to-parsley/${e}`;
+    const newName = e.replaceAll('.md', '');
+    return {
+      label: `${newName}`,
+      value: `${newName}`,
+      name: `${newName}`,
+      file: githubURL,
+      url: `/parsley/guides/${newName}`,
+    };
+  });
+};
+
+const getParsleyIndexData = async () => {
+  const markdown = await fetchMarkdownFile({ mdUrl: PARSLEY[1].githubURL });
+  const { navData } = await parseMarkdownFile({
     markdown,
-    () => {},
-    () => {},
-  );
+    tags: PARSLEY[1].tags,
+    parentURL: PARSLEY[1].parentURL,
+    title: PARSLEY[1].title,
+  });
+
   return navData;
 };
+
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     const parsleyData = await getParsleyTourData();
     const docsData = await getDocsData();
-    const parsleyGlossaryData = await getParsleyGlossaryData();
+    const parsleyIndexData = await getParsleyIndexData();
+    const parsleyGuides = await getParsleyGuidesData();
 
     await algoliaFunc({ data: parsleyData, index: 'parsley-tour' });
     await algoliaFunc({ data: docsData, index: 'docs' });
-    await algoliaFunc({ data: parsleyGlossaryData, index: 'parsley-glossary' });
+    await algoliaFunc({ data: parsleyIndexData, index: 'parsley-glossary' });
+    await algoliaFunc({ data: parsleyGuides, index: 'parsley-guides' });
 
     return res.status(200).json({ ok: true });
   } else {

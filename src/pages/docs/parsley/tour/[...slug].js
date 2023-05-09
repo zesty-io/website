@@ -20,6 +20,7 @@ import { githubDarkInit } from '@uiw/codemirror-theme-github';
 import { useZestyStore } from 'store';
 import { grey } from '@mui/material/colors';
 import { PARSLEY_EXAMPLE_DATA } from 'utils/docs';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 const leftTabs = [
   { label: 'Code Example', value: 'code example' },
@@ -577,10 +578,13 @@ const Slug = (props) => {
 
   return (
     <MainWrapper>
+      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+
       <Stack direction="row">
         {/* SIDEBAR */}
         <DocsSidebar
           setsearch={setsearch}
+          search={search}
           data={navData}
           onClick={handleRedirect}
           placeholder="Search Lessons..."
