@@ -39,6 +39,7 @@ import GridFeatureList from 'revamp/ui/GridFeatureList';
 import GridCompetitorListing from 'revamp/ui/GridCompetitorListing';
 import ImageTransition from 'revamp/ui/ImageTransition';
 import MediaPage from 'revamp/ui/MediaPage';
+import CustomIFrame from 'revamp/ui/CustomIFrame';
 
 const components = [
   'Hero | Stacked | Light',
@@ -92,6 +93,7 @@ const components = [
   'Grid | Competitor Listing',
   'Image Transition',
   'Media Page',
+  'Schedule a Meeting Booking Widget',
 ];
 
 const revamp = () => {
@@ -187,6 +189,8 @@ const revamp = () => {
       return <GridCompetitorListing />;
     if (component === 'Image Transition') return <ImageTransition />;
     if (component === 'Media Page') return <MediaPage />;
+    if (component === 'Schedule a Meeting Booking Widget')
+      return <CustomIFrame />;
 
     return 'Please select a component';
   };
