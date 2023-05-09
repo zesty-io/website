@@ -34,7 +34,7 @@ export const DocsAppbar = React.memo(() => {
       return tabs[0].value;
     } else if (router.asPath.includes(tabs[1].value)) {
       return tabs[1].value;
-    } else if (router.asPath.includes(tabs[1].value)) {
+    } else if (router.asPath.includes(tabs[2].value)) {
       return tabs[2].value;
     } else {
       return '';
