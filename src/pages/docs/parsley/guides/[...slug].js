@@ -79,6 +79,9 @@ const ApiReferencePage = (props) => {
     };
   }).filter((e) => e.label.toLowerCase().includes(search.toLowerCase()));
 
+  console.log();
+  const title = `Zesty.io - ${router?.query?.slug && router?.query?.slug[0]}`;
+
   useEffect(() => {
     getMd();
   }, []);
@@ -90,7 +93,7 @@ const ApiReferencePage = (props) => {
   }, []);
   return (
     <MainWrapper>
-      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+      <ZestyAccountsHead title={title} />
       <Stack direction={'row'}>
         {/* SIDEBAR */}
         <DocsSidebar

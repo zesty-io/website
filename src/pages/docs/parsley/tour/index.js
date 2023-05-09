@@ -53,6 +53,8 @@ const TourPage = (props) => {
         setpageData({});
       });
   };
+  const title = `Zesty.io - Parsley Tour`;
+
   useEffect(() => {
     setalgoliaApiKey(props.algolia.apiKey);
     setalgoliaAppId(props.algolia.appId);
@@ -64,7 +66,7 @@ const TourPage = (props) => {
   }, []);
   return (
     <MainWrapper>
-      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+      <ZestyAccountsHead title={title} />
 
       <Stack direction={'row'}>
         {/* SIDEBARR */}

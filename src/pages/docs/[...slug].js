@@ -112,9 +112,10 @@ export default function DocsPage(props) {
     }
   }, []);
 
+  const title = `Zesty.io - ${pageData?.name || 'Documentation'}`;
   return (
     <>
-      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+      <ZestyAccountsHead title={title} />
       <Docs {...docsProps} />;
     </>
   );
