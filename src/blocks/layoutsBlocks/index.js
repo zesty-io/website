@@ -53,7 +53,12 @@ import AcquiaWhyZesty from './revamp/layoutComponent/AcquiaWhyZesty';
 import ContenfulWhyZesty from './revamp/layoutComponent/ContenfulWhyZesty';
 import ContentStackWhyZesty from './revamp/layoutComponent/ContentStackWhyZesty';
 import HygraphWhyZesty from './revamp/layoutComponent/HygraphWhyZesty';
-
+import HeroStackedLight from './revamp/layoutComponent/HeroStackedLight';
+import HeroSideBySide from './revamp/layoutComponent/HeroSideBySide';
+import HeroStackedDark from './revamp/layoutComponent/HeroStackedDark';
+import HeroCaseStudy from './revamp/layoutComponent/HeroCaseStudy';
+import HeroBlog from './revamp/layoutComponent/HeroBlog';
+import HeroWithForm from './revamp/layoutComponent/HeroWithForm';
 
 export {
   Bottom,
@@ -109,6 +114,12 @@ export {
   AcquiaWhyZesty,
   ContenfulWhyZesty,
   ContentStackWhyZesty,
-  HygraphWhyZesty
+  HygraphWhyZesty,
+  HeroStackedLight,
+  HeroSideBySide,
+  HeroStackedDark,
+  HeroCaseStudy,
+  HeroBlog,
+  HeroWithForm
   
 };

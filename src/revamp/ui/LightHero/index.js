@@ -1,4 +1,5 @@
 import { Button, Stack, Typography } from '@mui/material';
+
 const schemaPic =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Content App 2.png',
   acorns =
@@ -14,16 +15,14 @@ const schemaPic =
   sony =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/sonyHero.svg';
 
-import React from 'react';
-
 const LightHero = ({
   title = 'Unify your team with',
   header = 'The future proof CMS for enterprise of any size',
   subtitle = 'Create, distribute, and optimize content at SCALE with fewer resources in less time with the Zesty Hybrid Headless CMS. ',
-  primaryBtn = 'Start Now',
-  primaryBtnLink = '#',
-  secondaryBtn = 'Contact Sales',
-  secondaryBtnLink = '#',
+  primaryBtn = 'Schedule Demo',
+  primaryBtnLink = '/demo?ab=light',
+  secondaryBtn = 'Watch Demo Video',
+  secondaryBtnLink = '/demos/video?ab=light',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
   media = schemaPic,
 }) => {
