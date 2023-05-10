@@ -1,5 +1,4 @@
-/**
- * Zesty.io Content Model Component
+/** * Zesty.io Content Model Component
  * When the ZestyLoader [..slug].js file is used, this component will autoload if it associated with the URL
  *
  * Label: Product
@@ -24,44 +23,146 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
+import {
+  Link,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+  useScrollTrigger,
+} from '@mui/material';
+import AppBar from 'components/console/AppBar';
 import React from 'react';
-import FillerContent from 'components/globals/FillerContent';
-import SimpleHeroWithImageAndCtaButtons from 'blocks/heroes/SimpleHeroWithImageAndCtaButtons';
-import FeaturesWithIllustration from 'blocks/features/FeaturesWithIllustration/FeaturesWithIllustration.js';
-import Container from 'components/Container';
-function Product({ content }) {
-  let overview_text =
-    undefined !== content.overview_of_process_text
-      ? content.overview_of_process_text
-      : FillerContent.rich_text;
-  let image_url =
-    undefined !== content.overview_of_process_image
-      ? content.overview_of_process_image.data[0].url
-      : FillerContent.image;
+import { parseMarkdownFile } from 'utils/docs';
+import MuiMarkdown from 'markdown-to-jsx';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+
+const muiContentOverrides = {
+  h1: {
+    component: 'h1',
+    props: {
+      style: { fontSize: '24px' },
+    },
+  },
+  h2: {
+    component: 'h2',
+    props: {
+      style: { fontSize: '1.5em' },
+    },
+  },
+  p: {
+    component: 'p',
+    props: {
+      style: { fontSize: '24px' },
+    },
+  },
+
+  img: {
+    component: 'img',
+    props: {
+      style: { width: '80%', margin: '10px 10%' },
+    },
+  },
+};
+
+const Product = ({ content }) => {
+  console.log(content);
+
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 5,
+  });
+  const isLoggedIn = useIsLoggedIn();
+  const { pageData, navData } = parseMarkdownFile({
+    markdown: content.body,
+    tags: ['h2', 'h3', 'h4', 'h1', 'h5'],
+    parentURL: '',
+    title: '',
+  });
+
   return (
-    <>
-      <Container>
-        {/* Zesty.io Output Example and accessible JSON object for this component. Delete or comment out when needed.  */}
-        <SimpleHeroWithImageAndCtaButtons></SimpleHeroWithImageAndCtaButtons>
-        <FeaturesWithIllustration
-          rich_text={overview_text}
-          image_url={image_url}
-        />
-      </Container>
-      <div
-        style={{
-          background: '#eee',
-          border: '1px #000 solid',
-          margin: '10px',
-          padding: '20px',
-        }}
+    <Container
+      maxWidth={isLoggedIn ? false : ''}
+      sx={() => ({
+        maxWidth: '78vw',
+      })}
+    >
+      {/* // headers */}
+      <Stack
+        py={2}
+        display={'flex'}
+        direction={'row'}
+        width={1}
+        justifyContent={'space-between'}
+        alignItems={'center'}
       >
-        <h2>Accessible Zesty.io JSON Object</h2>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
-      </div>
-      {/* End of Zesty.io output example */}
-    </>
+        <AppBar />
+        <TextField size="small" placeholder="Search..." color="secondary" />
+      </Stack>
+      {/* // body */}
+      <Stack>
+        <Grid container spacing={4} minHeight={'80vh'}>
+          <Grid item xs={2}>
+            {/* // navigation tree */}
+            <Stack height={1} bgcolor={'red'}></Stack>
+          </Grid>
+          <Grid item xs={8}>
+            {/* // main body */}
+            <Stack
+              height={1}
+              justifyItems={'center'}
+              alignItems={'center'}
+              alignContent={'center'}
+            >
+              <Stack width={1} textAlign={'center'}>
+                <Typography variant="h3" fontWeight={'bold'}>
+                  {content?.title}
+                </Typography>
+              </Stack>
+              <Stack width={1}>Tags Tags Tags</Stack>
+              <Stack width={1} height={1}>
+                <MuiMarkdown overrides={muiContentOverrides}>
+                  {pageData}
+                </MuiMarkdown>
+              </Stack>
+            </Stack>
+          </Grid>
+          <Grid item xs={2}>
+            {/* // table of contents */}
+            <Stack position={'sticky'} top={trigger ? '10%' : '25%'}>
+              <ToCComponent data={navData} />
+            </Stack>
+          </Grid>
+        </Grid>
+      </Stack>
+    </Container>
   );
-}
+};
 
 export default Product;
+
+const ToCComponent = ({ data }) => {
+  return (
+    <Stack height={1} width={'13rem'}>
+      <Typography variant="body1" color={'black'} fontWeight={500}>
+        On this Page
+      </Typography>
+      <Stack px={2}>
+        {data.map((e) => {
+          return (
+            <Link href={e.href} style={{ textDecoration: 'none' }}>
+              <Typography
+                variant="button"
+                color={'GrayText'}
+                whiteSpace={'normal'}
+              >
+                {e.name}
+              </Typography>
+            </Link>
+          );
+        })}
+      </Stack>
+    </Stack>
+  );
+};
