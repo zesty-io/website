@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { SearchModal } from 'views/Docs/SearchModal';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
+import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
@@ -32,6 +33,7 @@ const DocsPage = (props) => {
 
   return (
     <>
+      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
       <MainWrapper docsLanding customRouting={[]}>
         <Box
           sx={{
