@@ -32,11 +32,18 @@ import {
   Typography,
   useScrollTrigger,
 } from '@mui/material';
+import LinkNext from 'next/link';
 import AppBar from 'components/console/AppBar';
-import React from 'react';
+import React, { useState } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import MuiMarkdown from 'markdown-to-jsx';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import axios from 'axios';
+import { TreeItem, TreeView } from '@mui/lab';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { grey } from '@mui/material/colors';
+import { useRouter } from 'next/router';
 
 const muiContentOverrides = {
   h1: {
@@ -66,9 +73,39 @@ const muiContentOverrides = {
   },
 };
 
+const ToCComponent = ({ data }) => {
+  return (
+    <Stack height={1} width={'13rem'}>
+      <Typography variant="body1" color={'black'} fontWeight={500}>
+        On this Page
+      </Typography>
+      <Stack px={2}>
+        {data.map((e) => {
+          return (
+            <Link href={e.href} style={{ textDecoration: 'none' }}>
+              <Typography
+                variant="button"
+                color={'GrayText'}
+                whiteSpace={'normal'}
+              >
+                {e.name}
+              </Typography>
+            </Link>
+          );
+        })}
+      </Stack>
+    </Stack>
+  );
+};
 const Product = ({ content }) => {
   console.log(content);
+  const [navdata, setnavdata] = useState([]);
 
+  const getNav = async () => {
+    await axios.get('https://www.zesty.io/-/gql/product.json?').then((e) => {
+      setnavdata(e.data);
+    });
+  };
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 5,
@@ -80,6 +117,37 @@ const Product = ({ content }) => {
     parentURL: '',
     title: '',
   });
+
+  const result = [];
+  const groupByUri = (data = []) => {
+    data.forEach((element) => {
+      const parentMain = element.uri.split('/')[2];
+      const childMain = element.uri.split('/')[3];
+
+      data.forEach((item) => {
+        const parentChild = item.uri.split('/')[2];
+        const childChild = item.uri.split('/')[3];
+
+        if (
+          parentChild === parentMain &&
+          childChild &&
+          childChild !== childMain
+        ) {
+          const res = { ...element, children: [item] };
+          result.push(res);
+        }
+      });
+      const res1 = result.find((q) => q.children);
+      if (!res1 && !childMain) {
+        result.push(element);
+      }
+    });
+  };
+  groupByUri(navdata);
+
+  React.useEffect(() => {
+    getNav();
+  }, []);
 
   return (
     <Container
@@ -105,7 +173,9 @@ const Product = ({ content }) => {
         <Grid container spacing={4} minHeight={'80vh'}>
           <Grid item xs={2}>
             {/* // navigation tree */}
-            <Stack height={1} bgcolor={'red'}></Stack>
+            <Stack height={1}>
+              <TreeNav data={result} />
+            </Stack>
           </Grid>
           <Grid item xs={8}>
             {/* // main body */}
@@ -142,27 +212,72 @@ const Product = ({ content }) => {
 
 export default Product;
 
-const ToCComponent = ({ data }) => {
+const GetTree = ({ data = [] }) => {
+  return data.map((e) => {
+    if (e.children) {
+      return (
+        <TreeItem
+          nodeId={e.uri}
+          label={
+            <LinkNext
+              href={e.uri}
+              variant="p"
+              color={'inherit'}
+              sx={{
+                textDecoration: 'none',
+              }}
+            >
+              <Typography py={1}>{e.title}</Typography>
+            </LinkNext>
+          }
+        >
+          <GetTree data={e.children} />
+        </TreeItem>
+      );
+    } else {
+      return (
+        <TreeItem
+          nodeId={e.uri}
+          label={
+            <LinkNext
+              href={e.uri}
+              variant="p"
+              color={'inherit'}
+              sx={{
+                textDecoration: 'none',
+              }}
+            >
+              <Typography py={1}>{e.title}</Typography>
+            </LinkNext>
+          }
+        ></TreeItem>
+      );
+    }
+  });
+};
+const TreeNav = ({ data = [] }) => {
+  const router = useRouter();
+  const url = `${router?.asPath}`;
+  const parts = url.split('/');
+  parts.splice(3, 1);
+  const expanded = [parts.join('/')];
   return (
-    <Stack height={1} width={'13rem'}>
-      <Typography variant="body1" color={'black'} fontWeight={500}>
-        On this Page
-      </Typography>
-      <Stack px={2}>
-        {data.map((e) => {
-          return (
-            <Link href={e.href} style={{ textDecoration: 'none' }}>
-              <Typography
-                variant="button"
-                color={'GrayText'}
-                whiteSpace={'normal'}
-              >
-                {e.name}
-              </Typography>
-            </Link>
-          );
-        })}
-      </Stack>
-    </Stack>
+    <TreeView
+      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultExpandIcon={<ChevronRightIcon />}
+      sx={{
+        width: 1,
+        overflowY: 'auto',
+        '& .MuiTreeItem-content.Mui-selected': {
+          bgcolor: grey[400],
+        },
+      }}
+      multiSelect
+      selected={url}
+      defaultSelected={url}
+      defaultExpanded={expanded}
+    >
+      <GetTree data={data} />
+    </TreeView>
   );
 };
