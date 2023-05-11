@@ -33,6 +33,13 @@ import HeroForm from 'revamp/ui/HeroForm';
 import BlogPageHeader from 'revamp/ui/BlogPageHeader';
 import ContentSectionOnlyText from 'revamp/ui/ContentSectionOnlyText';
 import FeatureSectionTopTextBottomImage from 'revamp/ui/FeatureSectionTopTextBottomImage';
+import HeroTextImageWithStatsBelow from 'revamp/ui/HeroTextImageWithStatsBelow';
+import Grid3Testimonials from 'revamp/ui/Grid3Testimonials';
+import GridFeatureList from 'revamp/ui/GridFeatureList';
+import GridCompetitorListing from 'revamp/ui/GridCompetitorListing';
+import ImageTransition from 'revamp/ui/ImageTransition';
+import MediaPage from 'revamp/ui/MediaPage';
+import CustomIFrame from 'revamp/ui/CustomIFrame';
 
 const components = [
   'Hero | Stacked | Light',
@@ -41,14 +48,19 @@ const components = [
   'Hero | Case Study',
   'Hero | Blog',
   'Hero | With Form',
+  'Hero | Text Left Image Right with Stats Below',
 
   'Stats | Side by Side',
   'Single Testimonial',
 
   'Feature Section | Tabs',
   'Feature Section | 3 Column Grid',
+
   'Feature Section | Left Text Right Image | Two CTA',
   'Feature Section | Left Image Right Text | Two CTA',
+
+  'Feature Section | Left Text Right Image | No CTA',
+  'Feature Section | Left Image Right Text | No CTA',
 
   'Feature Section | Left Text Right Image | with Statistic',
   'Feature Section | Left Image Right Text | with Statistic',
@@ -73,6 +85,15 @@ const components = [
   'Blog Page Header',
   'Content Section | Only Text',
   'Feature Section | Top Text Bottom Image',
+  'Grid | 3 Testimonials',
+  'Grid | Feature List without Image | Light',
+  'Grid | Feature List without Image | Dark',
+  'Grid | Feature List with Image | Light',
+  'Grid | Feature List with Image | Dark',
+  'Grid | Competitor Listing',
+  'Image Transition',
+  'Media Page',
+  'Schedule a Meeting Booking Widget',
 ];
 
 const revamp = () => {
@@ -86,6 +107,8 @@ const revamp = () => {
     if (component === 'Hero | Case Study') return <CaseStudyHero />;
     if (component === 'Hero | Blog') return <BlogHero />;
     if (component === 'Hero | With Form') return <HeroForm />;
+    if (component === 'Hero | Text Left Image Right with Stats Below')
+      return <HeroTextImageWithStatsBelow />;
 
     if (component === 'Stats | Side by Side') return <Stats />;
     if (component === 'Single Testimonial') return <SingleTestimonial />;
@@ -98,6 +121,11 @@ const revamp = () => {
       return <FeatureTwoCTA />;
     if (component === 'Feature Section | Left Image Right Text | Two CTA')
       return <FeatureTwoCTA isImageRight={false} />;
+
+    if (component === 'Feature Section | Left Text Right Image | No CTA')
+      return <FeatureTwoCTA hasCTA={false} />;
+    if (component === 'Feature Section | Left Image Right Text | No CTA')
+      return <FeatureTwoCTA isImageRight={false} hasCTA={false} />;
 
     if (
       component === 'Feature Section | Left Text Right Image | with Statistic'
@@ -146,9 +174,27 @@ const revamp = () => {
       return <ContentSectionOnlyText />;
     if (component === 'Feature Section | Top Text Bottom Image')
       return <FeatureSectionTopTextBottomImage />;
+    if (component === 'Grid | 3 Testimonials') return <Grid3Testimonials />;
+
+    if (component === 'Grid | Feature List without Image | Light')
+      return <GridFeatureList />;
+    if (component === 'Grid | Feature List without Image | Dark')
+      return <GridFeatureList isDark />;
+
+    if (component === 'Grid | Feature List with Image | Light')
+      return <GridFeatureList hasImage />;
+    if (component === 'Grid | Feature List with Image | Dark')
+      return <GridFeatureList isDark hasImage />;
+    if (component === 'Grid | Competitor Listing')
+      return <GridCompetitorListing />;
+    if (component === 'Image Transition') return <ImageTransition />;
+    if (component === 'Media Page') return <MediaPage />;
+    if (component === 'Schedule a Meeting Booking Widget')
+      return <CustomIFrame />;
 
     return 'Please select a component';
   };
+
   const { palette } = useTheme();
 
   return (
