@@ -31,10 +31,11 @@ import {
   TextField,
   Typography,
   useScrollTrigger,
+  useTheme,
 } from '@mui/material';
 import LinkNext from 'next/link';
 import AppBar from 'components/console/AppBar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import MuiMarkdown from 'markdown-to-jsx';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -42,7 +43,6 @@ import axios from 'axios';
 import { TreeItem, TreeView } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { grey } from '@mui/material/colors';
 import { useRouter } from 'next/router';
 
 const muiContentOverrides = {
@@ -72,22 +72,153 @@ const muiContentOverrides = {
     },
   },
 };
+const GetTree = ({ data = [] }) => {
+  return data.map((e) => {
+    if (e.children) {
+      return (
+        <TreeItem
+          nodeId={e.uri}
+          sx={{
+            my: 0.5,
+            color: '#6B7280',
+          }}
+          label={
+            <LinkNext
+              href={e.uri}
+              variant="p"
+              color={'inherit'}
+              sx={{
+                textDecoration: 'none',
+              }}
+            >
+              <Typography variant="body1" py={0.5}>
+                {e.title}
+              </Typography>
+            </LinkNext>
+          }
+        >
+          <GetTree data={e.children} />
+        </TreeItem>
+      );
+    } else {
+      return (
+        <TreeItem
+          nodeId={e.uri}
+          sx={{
+            my: 0.5,
+            color: '#6B7280',
+          }}
+          label={
+            <LinkNext
+              href={e.uri}
+              variant="p"
+              color={'inherit'}
+              sx={{
+                textDecoration: 'none',
+                my: 0.1,
+              }}
+            >
+              <Typography variant="body1" py={0.5}>
+                {e.title}
+              </Typography>
+            </LinkNext>
+          }
+        ></TreeItem>
+      );
+    }
+  });
+};
+const TreeNav = ({ data = [] }) => {
+  const router = useRouter();
+  const url = `${router?.asPath}`;
+  const parts = url.split('/');
+  parts.splice(3, 1);
+  const expanded = [parts.join('/')];
+  const theme = useTheme();
+  return (
+    <TreeView
+      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultExpandIcon={<ChevronRightIcon />}
+      sx={{
+        width: 1,
+        overflowY: 'auto',
+
+        '& .MuiTreeItem-content.Mui-focused, & .MuiTreeItem-content.Mui-selected, & .MuiTreeItem-content.Mui-selected.Mui-focused':
+          {
+            bgcolor: '#FFD6C4',
+            color: theme.palette.zesty.zestyOrange,
+            fontWeight: 'bold !important',
+            borderRadius: '5px',
+          },
+        '& .MuiTreeItem-content:hover': {
+          bgcolor: '#F2F2F2',
+          color: '#333333',
+          fontWeight: '800 !important',
+          borderRadius: '5px',
+        },
+      }}
+      multiSelect
+      selected={url}
+      defaultSelected={url}
+      defaultExpanded={expanded}
+    >
+      <GetTree data={data} />
+    </TreeView>
+  );
+};
 
 const ToCComponent = ({ data }) => {
+  const overview = { label: 'Overview', name: 'Overview', href: '#overview' };
+  const newData = [overview, ...data];
+  const [currentHash, setcurrentHash] = useState('#overview');
+  const handleHashChange = () => {
+    setcurrentHash(window.location.hash);
+  };
+  const theme = useTheme();
+
+  useEffect(() => {
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
   return (
-    <Stack height={1} width={'13rem'}>
-      <Typography variant="body1" color={'black'} fontWeight={500}>
+    <Stack height={1} width={'15rem'}>
+      <Typography variant="button" color={'black'} fontWeight={700} pl={'20px'}>
         On this Page
       </Typography>
-      <Stack px={2}>
-        {data.map((e) => {
+      <Stack px={0}>
+        {newData.map((e) => {
+          const active = currentHash === e.href ? true : false;
           return (
-            <Link href={e.href} style={{ textDecoration: 'none' }}>
-              <Typography
-                variant="button"
-                color={'GrayText'}
-                whiteSpace={'normal'}
-              >
+            <Link
+              href={e.href}
+              sx={{
+                borderLeft: `3px solid ${
+                  active ? theme.palette.zesty.zestyOrange : '#ffd5c1'
+                }`,
+                fontWeight: active ? '600' : '400',
+                fontSize: '8px',
+                textDecoration: active ? 'none !important' : 'none',
+                backgroundColor: active ? '#ffd6c4' : 'white',
+                color: active
+                  ? `${theme.palette.zesty.zestyOrange} !important`
+                  : '#6b7280',
+                borderRadius: '0 5px 5px 0',
+                pl: '20px',
+                pr: '5px',
+                py: '5px',
+                '&:hover': {
+                  color: '#333333',
+                  textDecoration: 'underline #333333',
+                  borderLeft: `3px solid ${theme.palette.zesty.zestyOrange}`,
+                  // bgcolor: '#F2F2F2',
+                },
+              }}
+            >
+              <Typography variant="button" whiteSpace={'normal'}>
                 {e.name}
               </Typography>
             </Link>
@@ -98,7 +229,6 @@ const ToCComponent = ({ data }) => {
   );
 };
 const Product = ({ content }) => {
-  console.log(content);
   const [navdata, setnavdata] = useState([]);
 
   const getNav = async () => {
@@ -186,7 +316,7 @@ const Product = ({ content }) => {
               alignContent={'center'}
             >
               <Stack width={1} textAlign={'center'}>
-                <Typography variant="h3" fontWeight={'bold'}>
+                <Typography variant="h3" fontWeight={'bold'} id="overview">
                   {content?.title}
                 </Typography>
               </Stack>
@@ -211,73 +341,3 @@ const Product = ({ content }) => {
 };
 
 export default Product;
-
-const GetTree = ({ data = [] }) => {
-  return data.map((e) => {
-    if (e.children) {
-      return (
-        <TreeItem
-          nodeId={e.uri}
-          label={
-            <LinkNext
-              href={e.uri}
-              variant="p"
-              color={'inherit'}
-              sx={{
-                textDecoration: 'none',
-              }}
-            >
-              <Typography py={1}>{e.title}</Typography>
-            </LinkNext>
-          }
-        >
-          <GetTree data={e.children} />
-        </TreeItem>
-      );
-    } else {
-      return (
-        <TreeItem
-          nodeId={e.uri}
-          label={
-            <LinkNext
-              href={e.uri}
-              variant="p"
-              color={'inherit'}
-              sx={{
-                textDecoration: 'none',
-              }}
-            >
-              <Typography py={1}>{e.title}</Typography>
-            </LinkNext>
-          }
-        ></TreeItem>
-      );
-    }
-  });
-};
-const TreeNav = ({ data = [] }) => {
-  const router = useRouter();
-  const url = `${router?.asPath}`;
-  const parts = url.split('/');
-  parts.splice(3, 1);
-  const expanded = [parts.join('/')];
-  return (
-    <TreeView
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-      sx={{
-        width: 1,
-        overflowY: 'auto',
-        '& .MuiTreeItem-content.Mui-selected': {
-          bgcolor: grey[400],
-        },
-      }}
-      multiSelect
-      selected={url}
-      defaultSelected={url}
-      defaultExpanded={expanded}
-    >
-      <GetTree data={data} />
-    </TreeView>
-  );
-};
