@@ -24,6 +24,11 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       isAuthenticated,
       templateUrl: process.env.TEMPLATE_URL,
     },
+    algolia: {
+      apiKey: process.env.ALGOLIA_APIKEY,
+      appId: process.env.ALGOLIA_APPID,
+      index: process.env.ALGOLIA_INDEX,
+    },
   };
 
   // logic needed to prevent caching in homepage for zesty users

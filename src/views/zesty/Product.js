@@ -28,7 +28,6 @@ import {
   Container,
   Grid,
   Stack,
-  TextField,
   Typography,
   useScrollTrigger,
   useTheme,
@@ -44,6 +43,9 @@ import { TreeItem, TreeView } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useRouter } from 'next/router';
+import { SearchModal } from 'views/Docs/SearchModal';
+import { AlgoSearch } from 'views/Docs/AlgoSearch';
+import { useZestyStore } from 'store';
 
 const muiContentOverrides = {
   h1: {
@@ -228,8 +230,12 @@ const ToCComponent = ({ data }) => {
     </Stack>
   );
 };
-const Product = ({ content }) => {
+const Product = (props) => {
+  const content = props.content;
   const [navdata, setnavdata] = useState([]);
+  const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
+    (e) => e,
+  );
 
   const getNav = async () => {
     await axios.get('https://www.zesty.io/-/gql/product.json?').then((e) => {
@@ -279,6 +285,12 @@ const Product = ({ content }) => {
     getNav();
   }, []);
 
+  React.useEffect(() => {
+    setalgoliaApiKey(props.content.algolia.apiKey);
+    setalgoliaAppId(props.content.algolia.appId);
+    setalgoliaIndex(props.content.algolia.index);
+  }, []);
+
   return (
     <Container
       maxWidth={isLoggedIn ? false : ''}
@@ -296,7 +308,10 @@ const Product = ({ content }) => {
         alignItems={'center'}
       >
         <AppBar />
-        <TextField size="small" placeholder="Search..." color="secondary" />
+
+        <SearchModal sx={{ width: true ? 300 : 500 }}>
+          <AlgoSearch />
+        </SearchModal>
       </Stack>
       {/* // body */}
       <Stack>

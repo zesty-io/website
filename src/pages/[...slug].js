@@ -73,6 +73,11 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       sso,
       templateUrl: process.env.TEMPLATE_URL,
     },
+    algolia: {
+      apiKey: process.env.ALGOLIA_APIKEY,
+      appId: process.env.ALGOLIA_APPID,
+      index: process.env.ALGOLIA_INDEX,
+    },
   };
 
   // This section holds data settings for fetching Github Data
