@@ -59,6 +59,12 @@ import HeroStackedDark from './revamp/layoutComponent/HeroStackedDark';
 import HeroCaseStudy from './revamp/layoutComponent/HeroCaseStudy';
 import HeroBlog from './revamp/layoutComponent/HeroBlog';
 import HeroWithForm from './revamp/layoutComponent/HeroWithForm';
+import StatsSideBySide from './revamp/layoutComponent/StatsSideBySide';
+import FeatureSectionTabs from './revamp/layoutComponent/FeatureSectionTabs';
+import FeatureSection3ColumnGrid from './revamp/layoutComponent/FeatureSection3ColumnGrid';
+import FeatureSectionLTRITwoCTA from './revamp/layoutComponent/FeatureSectionLTRITwoCTA';
+import FeatureSectionLIRTTwoCTA from './revamp/layoutComponent/FeatureSectionLIRTTwoCTA';
+import FeatureSectionLTRIStats from './revamp/layoutComponent/FeatureSectionLTRIStats';
 
 export {
   Bottom,
@@ -120,6 +126,12 @@ export {
   HeroStackedDark,
   HeroCaseStudy,
   HeroBlog,
-  HeroWithForm
+  HeroWithForm,
+  StatsSideBySide,
+  FeatureSectionTabs,
+  FeatureSection3ColumnGrid,
+  FeatureSectionLTRITwoCTA,
+  FeatureSectionLIRTTwoCTA,
+  FeatureSectionLTRIStats
   
 };
