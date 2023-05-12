@@ -38,7 +38,6 @@ import React, { useEffect, useState } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import MuiMarkdown from 'markdown-to-jsx';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import axios from 'axios';
 import { TreeItem, TreeView } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -187,7 +186,7 @@ const ToCComponent = ({ data }) => {
   }, []);
 
   return (
-    <Stack height={1} width={{ md: '12rem', lg: '15rem' }}>
+    <Stack height={1} width={1}>
       <Typography variant="button" color={'black'} fontWeight={700} pl={'20px'}>
         On this Page
       </Typography>
@@ -232,16 +231,11 @@ const ToCComponent = ({ data }) => {
 };
 const Product = (props) => {
   const content = props.content;
-  const [navdata, setnavdata] = useState([]);
+  const productsData = content.zesty.products;
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
     (e) => e,
   );
 
-  const getNav = async () => {
-    await axios.get('https://www.zesty.io/-/gql/product.json?').then((e) => {
-      setnavdata(e.data);
-    });
-  };
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 5,
@@ -281,11 +275,11 @@ const Product = (props) => {
       }
     });
   };
-  groupByUri(navdata);
+  groupByUri(productsData);
 
-  React.useEffect(() => {
-    getNav();
-  }, []);
+  const navigationData = result.sort(
+    (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
+  );
 
   React.useEffect(() => {
     setalgoliaApiKey(props.content.algolia.apiKey);
@@ -319,16 +313,17 @@ const Product = (props) => {
       </Stack>
       {/* // body */}
       <Stack>
-        <Grid container spacing={4} minHeight={'80vh'}>
+        <Grid container spacing={2} minHeight={'80vh'}>
           <Grid item md={3} lg={2}>
             {/* // navigation tree */}
             <Stack
               height={1}
+              width={1}
               sx={{
                 display: { xs: 'none', md: 'block' },
               }}
             >
-              <TreeNav data={result} />
+              <TreeNav data={navigationData} />
             </Stack>
           </Grid>
           <Grid item md={6} lg={8}>
