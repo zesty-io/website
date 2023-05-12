@@ -123,18 +123,45 @@ const getParsleyIndexData = async () => {
 
   return navData;
 };
-
+const getProductPageData = async () => {
+  const res = await axios
+    .get('https://www.zesty.io/-/gql/product.json?')
+    .then((e) => {
+      const res = e.data.map((x) => {
+        return { ...x, name: x.title, url: x.uri };
+      });
+      return res;
+    });
+  return res;
+};
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const parsleyData = await getParsleyTourData();
-    const docsData = await getDocsData();
-    const parsleyIndexData = await getParsleyIndexData();
-    const parsleyGuides = await getParsleyGuidesData();
+    // const parsleyData = await getParsleyTourData();
+    // const docsData = await getDocsData();
+    // const parsleyIndexData = await getParsleyIndexData();
+    // const parsleyGuides = await getParsleyGuidesData();
+    // const productPages = await getProductPageData();
 
-    await algoliaFunc({ data: parsleyData, index: 'parsley-tour' });
+    const [
+      docsData,
+      productPageData,
+      parsleyGuides,
+      parsleyTour,
+      parsleyIndex,
+    ] = await Promise.all([
+      getDocsData(),
+      getProductPageData(),
+      getParsleyGuidesData(),
+      getParsleyTourData(),
+      getParsleyIndexData(),
+    ]);
+    const parsleyData = [...parsleyGuides, ...parsleyTour, ...parsleyIndex];
+    await algoliaFunc({ data: parsleyData, index: 'parsley' });
     await algoliaFunc({ data: docsData, index: 'docs' });
-    await algoliaFunc({ data: parsleyIndexData, index: 'parsley-glossary' });
-    await algoliaFunc({ data: parsleyGuides, index: 'parsley-guides' });
+    await algoliaFunc({ data: productPageData, index: 'products' });
+
+    // await algoliaFunc({ data: parsleyIndexData, index: 'parsley-glossary' });
+    // await algoliaFunc({ data: parsleyGuides, index: 'parsley-guides' });
 
     return res.status(200).json({ ok: true });
   } else {

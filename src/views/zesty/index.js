@@ -40,6 +40,7 @@ import IntegrationsLogo from './IntegrationsLogo';
 import EcommCorePillar from './EcommCorePillar';
 import DxSolutionsCard from './DxSolutionsCard';
 import ZestyProduct from './ZestyProduct';
+import Product from './Product';
 import PersonaPagesLink from './PersonaPagesLink';
 import SubNav2022 from './SubNav2022';
 import NavigationFlyout from './NavigationFlyout';
@@ -86,6 +87,7 @@ import Article from './Article';
 import Tag from './Tag';
 import Author from './Author';
 import LandingPage from './LandingPage';
+import ProductLandingPage from './ProductLandingPage';
 import ProductExplainer from './ProductExplainer';
 import Event from './Event';
 import LongFormPpc from './LongFormPpc';
@@ -163,10 +165,13 @@ import LayoutsTestPage2 from './LayoutsTestPage2';
 import Ai from './Ai';
 import Homepagerevamp from './Homepagerevamp';
 import Blogtest from './Blogtest';
+import Media from './Media';
 import Header from './Header';
 import Footer from './Footer';
 
 export {
+  ProductLandingPage,
+  Product,
   Clipping,
   Widget,
   MarketingAnnoucement,
@@ -330,6 +335,7 @@ export {
   Ai,
   Homepagerevamp,
   Blogtest,
+  Media,
   Footer,
   Header,
 };
