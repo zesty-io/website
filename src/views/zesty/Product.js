@@ -273,8 +273,10 @@ const Product = (props) => {
           result.push(res);
         }
       });
+      // filtering out redundant 1st tier item
+      // this will add only 1st tier that dont have children
       const res1 = result.find((q) => q.children);
-      if (!res1 && !childMain) {
+      if (res1.uri !== element.uri && !childMain) {
         result.push(element);
       }
     });
