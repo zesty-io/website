@@ -187,7 +187,7 @@ const ToCComponent = ({ data }) => {
   }, []);
 
   return (
-    <Stack height={1} width={'15rem'}>
+    <Stack height={1} width={{ md: '12rem', lg: '15rem' }}>
       <Typography variant="button" color={'black'} fontWeight={700} pl={'20px'}>
         On this Page
       </Typography>
@@ -297,17 +297,19 @@ const Product = (props) => {
     <Container
       maxWidth={isLoggedIn ? false : ''}
       sx={() => ({
-        maxWidth: '78vw',
+        maxWidth: { xs: 1, lg: '78vw' },
       })}
     >
       {/* // headers */}
       <Stack
         py={2}
-        display={'flex'}
         direction={'row'}
         width={1}
         justifyContent={'space-between'}
         alignItems={'center'}
+        sx={{
+          display: { xs: 'none', md: 'flex' },
+        }}
       >
         <AppBar />
 
@@ -318,13 +320,18 @@ const Product = (props) => {
       {/* // body */}
       <Stack>
         <Grid container spacing={4} minHeight={'80vh'}>
-          <Grid item xs={2}>
+          <Grid item md={3} lg={2}>
             {/* // navigation tree */}
-            <Stack height={1}>
+            <Stack
+              height={1}
+              sx={{
+                display: { xs: 'none', md: 'block' },
+              }}
+            >
               <TreeNav data={result} />
             </Stack>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item md={6} lg={8}>
             {/* // main body */}
             <Stack
               height={1}
@@ -345,9 +352,15 @@ const Product = (props) => {
               </Stack>
             </Stack>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item md={3} lg={2}>
             {/* // table of contents */}
-            <Stack position={'sticky'} top={trigger ? '10%' : '25%'}>
+            <Stack
+              position={'sticky'}
+              top={trigger ? '10%' : '25%'}
+              sx={{
+                display: { xs: 'none', md: 'block' },
+              }}
+            >
               <ToCComponent data={navData} />
             </Stack>
           </Grid>
