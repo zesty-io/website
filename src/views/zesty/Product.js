@@ -38,7 +38,6 @@ import React, { useEffect, useState } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import MuiMarkdown from 'markdown-to-jsx';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import axios from 'axios';
 import { TreeItem, TreeView } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -187,7 +186,7 @@ const ToCComponent = ({ data }) => {
   }, []);
 
   return (
-    <Stack height={1} width={'15rem'}>
+    <Stack height={1} width={1}>
       <Typography variant="button" color={'black'} fontWeight={700} pl={'20px'}>
         On this Page
       </Typography>
@@ -232,16 +231,11 @@ const ToCComponent = ({ data }) => {
 };
 const Product = (props) => {
   const content = props.content;
-  const [navdata, setnavdata] = useState([]);
+  const productsData = content.zesty.products;
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
     (e) => e,
   );
 
-  const getNav = async () => {
-    await axios.get('https://www.zesty.io/-/gql/product.json?').then((e) => {
-      setnavdata(e.data);
-    });
-  };
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 5,
@@ -273,17 +267,19 @@ const Product = (props) => {
           result.push(res);
         }
       });
+      // filtering out redundant 1st tier item
+      // this will add only 1st tier that dont have children
       const res1 = result.find((q) => q.children);
-      if (!res1 && !childMain) {
+      if (res1.uri !== element.uri && !childMain) {
         result.push(element);
       }
     });
   };
-  groupByUri(navdata);
+  groupByUri(productsData);
 
-  React.useEffect(() => {
-    getNav();
-  }, []);
+  const navigationData = result.sort(
+    (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
+  );
 
   React.useEffect(() => {
     setalgoliaApiKey(props.content.algolia.apiKey);
@@ -295,17 +291,19 @@ const Product = (props) => {
     <Container
       maxWidth={isLoggedIn ? false : ''}
       sx={() => ({
-        maxWidth: '78vw',
+        maxWidth: { xs: 1, lg: '78vw' },
       })}
     >
       {/* // headers */}
       <Stack
         py={2}
-        display={'flex'}
         direction={'row'}
         width={1}
         justifyContent={'space-between'}
         alignItems={'center'}
+        sx={{
+          display: { xs: 'none', md: 'flex' },
+        }}
       >
         <AppBar />
 
@@ -315,14 +313,20 @@ const Product = (props) => {
       </Stack>
       {/* // body */}
       <Stack>
-        <Grid container spacing={4} minHeight={'80vh'}>
-          <Grid item xs={2}>
+        <Grid container spacing={2} minHeight={'80vh'}>
+          <Grid item md={3} lg={2}>
             {/* // navigation tree */}
-            <Stack height={1}>
-              <TreeNav data={result} />
+            <Stack
+              height={1}
+              width={1}
+              sx={{
+                display: { xs: 'none', md: 'block' },
+              }}
+            >
+              <TreeNav data={navigationData} />
             </Stack>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item md={6} lg={8}>
             {/* // main body */}
             <Stack
               height={1}
@@ -343,9 +347,15 @@ const Product = (props) => {
               </Stack>
             </Stack>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item md={3} lg={2}>
             {/* // table of contents */}
-            <Stack position={'sticky'} top={trigger ? '10%' : '25%'}>
+            <Stack
+              position={'sticky'}
+              top={trigger ? '10%' : '25%'}
+              sx={{
+                display: { xs: 'none', md: 'block' },
+              }}
+            >
               <ToCComponent data={navData} />
             </Stack>
           </Grid>

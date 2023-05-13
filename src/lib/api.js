@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export async function fetchPage(
   url,
   getNavigation = true,
@@ -182,3 +184,11 @@ export async function newNavigationWithFlyout(zestyURL) {
     return [];
   }
 }
+
+export const productsData = async () => {
+  return await axios
+    .get('https://www.zesty.io/-/gql/product.json?')
+    .then((e) => {
+      return e.data;
+    });
+};

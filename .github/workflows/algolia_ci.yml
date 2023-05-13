@@ -1,0 +1,15 @@
+name: Update Algolia data
+
+on:
+  push:
+   branches: [stage,accounts]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Perform GET request to beta.zesty.io/api/algolia
+      run: |
+        curl http://beta.zesty.io/api/algolia
