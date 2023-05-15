@@ -69,6 +69,7 @@ export const parseMarkdownFile = ({
       label: e.label.replace(/\\/g, '/').replaceAll('/', ''),
       name: e.label.replace(/\\/g, '/').replaceAll('/', ''),
       url: `${parentURL}#${e.value}`,
+      href: `${parentURL}#${e.value}`,
     };
   });
   return { pageData: newMarkdown.join(''), navData: newNavData };

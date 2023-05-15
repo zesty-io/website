@@ -1,6 +1,6 @@
 import React from 'react';
 import Slug from './[...slug]';
-import { fetchPage } from '../lib/api';
+import { fetchPage, productsData } from '../lib/api';
 import { getIsAuthenticated } from 'utils';
 
 function IndexPage(content) {
@@ -18,11 +18,18 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // issue:  multiple call of getServersideprops
   let data = await fetchPage(resolvedUrl);
 
+  const products = await productsData();
   data = {
     ...data,
     zesty: {
       isAuthenticated,
       templateUrl: process.env.TEMPLATE_URL,
+      products,
+    },
+    algolia: {
+      apiKey: process.env.ALGOLIA_APIKEY,
+      appId: process.env.ALGOLIA_APPID,
+      index: process.env.ALGOLIA_INDEX,
     },
   };
 
