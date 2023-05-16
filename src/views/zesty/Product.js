@@ -22,7 +22,9 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
+import revampTheme from 'theme/revampTheme';
 
+import { Box, Button, ThemeProvider } from '@mui/material';
 import {
   Link,
   Container,
@@ -45,6 +47,7 @@ import { useRouter } from 'next/router';
 import { SearchModal } from 'views/Docs/SearchModal';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
+import GetDemoSection from 'revamp/ui/GetDemoSection';
 
 const muiContentOverrides = {
   h1: {
@@ -230,6 +233,7 @@ const ToCComponent = ({ data }) => {
   );
 };
 const Product = (props) => {
+  const theme = useTheme();
   const content = props.content;
   const productsData = content.zesty.products;
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
@@ -288,80 +292,120 @@ const Product = (props) => {
   }, []);
 
   return (
-    <Container
-      maxWidth={isLoggedIn ? false : ''}
-      sx={() => ({
-        maxWidth: { xs: 1, lg: '78vw' },
-      })}
-    >
-      {/* // headers */}
-      <Stack
-        py={2}
-        direction={'row'}
-        width={1}
-        justifyContent={'space-between'}
-        alignItems={'center'}
-        sx={{
-          display: { xs: 'none', md: 'flex' },
-        }}
+    <Stack>
+      <Container
+        maxWidth={isLoggedIn ? false : ''}
+        sx={() => ({
+          maxWidth: { xs: 1, lg: '78vw' },
+        })}
       >
-        <AppBar />
+        {/* // headers */}
+        <Stack
+          py={2}
+          direction={'row'}
+          width={1}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+          }}
+        >
+          <AppBar />
 
-        <SearchModal sx={{ width: true ? 300 : 500 }}>
-          <AlgoSearch />
-        </SearchModal>
-      </Stack>
-      {/* // body */}
-      <Stack>
-        <Grid container spacing={2} minHeight={'80vh'}>
-          <Grid item md={3} lg={2}>
-            {/* // navigation tree */}
-            <Stack
-              height={1}
-              width={1}
-              sx={{
-                display: { xs: 'none', md: 'block' },
-              }}
-            >
-              <TreeNav data={navigationData} />
-            </Stack>
-          </Grid>
-          <Grid item md={6} lg={8}>
-            {/* // main body */}
-            <Stack
-              height={1}
-              justifyItems={'center'}
-              alignItems={'center'}
-              alignContent={'center'}
-            >
-              <Stack width={1} textAlign={'center'}>
-                <Typography variant="h3" fontWeight={'bold'} id="overview">
-                  {content?.title}
-                </Typography>
+          <SearchModal sx={{ width: true ? 300 : 500 }}>
+            <AlgoSearch />
+          </SearchModal>
+        </Stack>
+        {/* // body */}
+        <Stack>
+          <Grid container spacing={2} minHeight={'80vh'}>
+            <Grid item md={3} lg={2}>
+              {/* // navigation tree */}
+              <Stack
+                height={1}
+                width={1}
+                sx={{
+                  display: { xs: 'none', md: 'block' },
+                }}
+              >
+                <TreeNav data={navigationData} />
               </Stack>
-              <Stack width={1}>Tags Tags Tags</Stack>
-              <Stack width={1} height={1}>
-                <MuiMarkdown overrides={muiContentOverrides}>
-                  {pageData}
-                </MuiMarkdown>
+            </Grid>
+            <Grid item md={6} lg={8}>
+              {/* // main body */}
+              <Stack
+                height={1}
+                justifyItems={'center'}
+                alignItems={'center'}
+                alignContent={'center'}
+              >
+                <Stack width={1} textAlign={'left'}>
+                  <Typography variant="h3" fontWeight={'bold'} id="overview">
+                    {content?.title}
+                  </Typography>
+                </Stack>
+                {/* <Stack width={1}>Tags Tags Tags</Stack> */}
+                <Stack width={1} height={1}>
+                  <MuiMarkdown overrides={muiContentOverrides}>
+                    {pageData}
+                  </MuiMarkdown>
+                </Stack>
               </Stack>
-            </Stack>
+            </Grid>
+            <Grid item md={3} lg={2}>
+              {/* // table of contents */}
+              <Stack
+                position={'sticky'}
+                top={trigger ? '10%' : '25%'}
+                sx={{
+                  display: { xs: 'none', md: 'block' },
+                }}
+              >
+                <ToCComponent data={navData} />
+                {!isLoggedIn && (
+                  <Stack
+                    sx={{
+                      py: 2,
+                      px: 3,
+                      bgcolor: theme.palette.zesty.zestyDarkBlue,
+                      borderRadius: '5px',
+                      mt: 2,
+                      pb: 3,
+                    }}
+                  >
+                    <Typography variant="h4" color="#fff" fontWeight={'bold'}>
+                      Start Here
+                    </Typography>
+                    <Typography variant="body1" color="#fff">
+                      We will listen to your needs and walk you through how
+                      Zesty can help your team.
+                    </Typography>
+                    <Box mt={2} width={1}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        color="secondary"
+                        href={`#cta`}
+                      >
+                        Contact Us
+                      </Button>
+                    </Box>
+                  </Stack>
+                )}
+              </Stack>
+            </Grid>
           </Grid>
-          <Grid item md={3} lg={2}>
-            {/* // table of contents */}
-            <Stack
-              position={'sticky'}
-              top={trigger ? '10%' : '25%'}
-              sx={{
-                display: { xs: 'none', md: 'block' },
-              }}
-            >
-              <ToCComponent data={navData} />
-            </Stack>
-          </Grid>
-        </Grid>
-      </Stack>
-    </Container>
+        </Stack>
+      </Container>
+
+      {!isLoggedIn && (
+        <Box pt={4} id={'cta'}>
+          <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
+            <GetDemoSection />
+          </ThemeProvider>
+        </Box>
+      )}
+    </Stack>
   );
 };
 
