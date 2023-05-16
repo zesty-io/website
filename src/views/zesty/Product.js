@@ -362,7 +362,7 @@ const Product = (props) => {
                 }}
               >
                 <ToCComponent data={navData} />
-                {isLoggedIn && (
+                {!isLoggedIn && (
                   <Stack
                     sx={{
                       py: 2,
@@ -398,7 +398,7 @@ const Product = (props) => {
         </Stack>
       </Container>
 
-      {isLoggedIn && (
+      {!isLoggedIn && (
         <Box pt={4} id={'cta'}>
           <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
             <GetDemoSection />
