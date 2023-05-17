@@ -8,6 +8,23 @@ function IndexPage(content) {
 }
 
 export default IndexPage;
+const cache = {};
+
+// Function to fetch the page data
+async function fetchPageData(url) {
+  // Check if the data is already cached
+  if (cache[url]) {
+    return cache[url];
+  }
+
+  // Fetch the page data
+  const data = await fetchPage(url);
+
+  // Cache the data
+  cache[url] = data;
+
+  return data;
+}
 
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
@@ -16,7 +33,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isAuthenticated = getIsAuthenticated(res);
 
   // issue:  multiple call of getServersideprops
-  let data = await fetchPage(resolvedUrl);
+  let data = await fetchPageData(resolvedUrl);
 
   const products = await productsData();
   data = {

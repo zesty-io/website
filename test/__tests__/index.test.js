@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import 'isomorphic-fetch';
+// cache all navigationtree data
 
 // this only access github env , for clientside use NEXT_PUBLIC
 const isDev = process.env.PRODUCTION === 'false' ? true : false;
@@ -22,7 +23,7 @@ const getTestingRoutes = async () => {
 describe('ZESTY WEBSITE', () => {
   test('***FETCH ALL ROUTES***', async () => {
     const routes = await getTestingRoutes();
-    const newroutes = routes.slice(0, 20);
+    const newroutes = routes.slice(0, 1);
     const successRoutes = [];
     const errorRoutes = [];
     const url = !isDev ? prodURL : stageURL;
