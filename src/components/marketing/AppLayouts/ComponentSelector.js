@@ -1,8 +1,9 @@
 import * as zestyBlocks from 'blocks/layoutsBlocks';
 import { useContext } from 'react';
 import { GlobalContext } from 'pages/[...slug]';
-import { ThemeProvider, useTheme } from '@mui/material';
+import { Box, ThemeProvider, useTheme } from '@mui/material';
 import revampTheme from 'theme/revampTheme';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const ComponentSelector = (props) => {
   const theme = useTheme();
@@ -28,7 +29,24 @@ const ComponentSelector = (props) => {
   // return component without data by default
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
-      <Component />
+      <ErrorBoundary
+        fallback={
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              p: 4,
+              backgroundColor: '#FF5D0A',
+              color: '#fff',
+            }}
+          >
+            Something went wrong, kindly check component!
+          </Box>
+        }
+      >
+        <Component />
+      </ErrorBoundary>
     </ThemeProvider>
   );
 };
