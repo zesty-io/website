@@ -172,7 +172,7 @@ async function buildJSONTreeFromNavigation(zestyURL) {
 }
 
 export async function newNavigationWithFlyout(zestyURL) {
-  const flyoutNavigationJSON = zestyURL + '//-/flyoutnavigation.json';
+  const flyoutNavigationJSON = zestyURL + '/-/flyoutnavigation.json';
 
   try {
     const resp = await fetch(flyoutNavigationJSON);

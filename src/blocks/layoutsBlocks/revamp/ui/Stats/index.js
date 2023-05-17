@@ -8,7 +8,7 @@ import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 const contentStats =
-  'https://storage.googleapis.com/assets.zesty.io/website/images/assets/G2 Zesty Rating.svg';
+  'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/G2%20Zesty%20Rating.svg';
 
 const statsArray = [
   {

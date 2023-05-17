@@ -23,7 +23,7 @@ const tabLists = [
           'Preview edits in real time with Duo Mode',
           'Easy organization and search for easy management',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets/Content App 2.png"
+        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Content%20App%202.webp"
       />
     ),
   },
@@ -52,7 +52,7 @@ const tabLists = [
           'Automated image optimization and alt tags',
           'Programmatically modify image color, size, crop, and more instantly',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets/media.png"
+        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/media.webp"
       />
     ),
   },
@@ -67,7 +67,7 @@ const tabLists = [
           'Regenerate and refine content as needed',
           'Preview AI created content instantly',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets/AI Generator.png"
+        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/AI%20Generator.webp"
       />
     ),
   },
@@ -82,7 +82,7 @@ const tabLists = [
           'Use API or manual translation services',
           'Manage SEO metadata in multiple languages',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets/Localization.png"
+        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Localization.webp"
       />
     ),
   },
@@ -102,7 +102,7 @@ const tabLists = [
           'A/B test content on webpages, apps, and more',
           'Integrate with your existing analytics provider',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets/AB Testing.png"
+        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/AB%20Testing.webp"
       />
     ),
   },

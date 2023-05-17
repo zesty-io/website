@@ -13,6 +13,19 @@ import { setCookie } from 'cookies-next';
 import SingleNavItem from './components/NavItem/SingleNavItem.js';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
 
+const hashString = (str = '') => {
+  let hash = 0,
+    i,
+    chr;
+  if (str?.length === 0) return hash;
+  for (i = 0; i < str?.length; i++) {
+    chr = str?.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
 const Topbar = ({
   hideNav,
   onSidebarOpen,
@@ -66,7 +79,7 @@ const Topbar = ({
     flyoutNavigation
       .filter((route) => route.link === null)
       .map((url) => {
-        return { id: url.meta.zuid, isActive: false };
+        return { id: hashString(url.nav_title), isActive: false };
       }),
   );
 
@@ -137,7 +150,7 @@ const Topbar = ({
           }}
         >
           {flyoutNavigation.map((route) => (
-            <Box display="flex" height="100%" key={route.meta.zuid}>
+            <Box display="flex" height="100%" key={hashString(router.link)}>
               {/* If link in the cms is empty and column one is not equal to zero it must be a parent navigation with flyout navigation */}
               {route.link === null && route.column_1_items.length != 0 && (
                 <Box display="flex" height="100%">
@@ -147,7 +160,7 @@ const Topbar = ({
                     }
                     navHandler={navHandler}
                     route={route}
-                    id={route.meta.zuid}
+                    id={hashString(route.nav_title)}
                     colorInvert={colorInvert}
                   />
                 </Box>
@@ -157,7 +170,6 @@ const Topbar = ({
                 <Box display="flex" height="100%">
                   <SingleNavItem
                     title={route.nav_title}
-                    id={route.meta.zuid}
                     url={route.link}
                     colorInvert={colorInvert}
                   />
