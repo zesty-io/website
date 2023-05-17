@@ -57,20 +57,51 @@ import Dashboard from 'components/accounts/dashboard';
 // import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
 // import AOS from 'aos';
 // import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useZestyStore } from 'store';
 import revampTheme from 'theme/revampTheme';
 import { ThemeProvider, useTheme } from '@mui/material';
 import Hero from 'revamp/ui/Hero';
-import TabsSection from 'revamp/ui/TabsSection';
-import GridFeature from 'revamp/ui/GridFeature';
-import SingleTestimonial from 'revamp/ui/SingleTestimonial';
-import Stats from 'revamp/ui/Stats';
-import EnterpriseGrowth from 'revamp/ui/EnterpriseGrowth';
-import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonials';
 import BlackHero from 'revamp/ui/BlackHero';
-import { useEffect, useState } from 'react';
-import SecurityFeature from 'revamp/ui/SecurityFeature';
-import GetDemoSection from 'revamp/ui/GetDemoSection';
+
+// import TabsSection from 'revamp/ui/TabsSection';
+// import GridFeature from 'revamp/ui/GridFeature';
+// import SingleTestimonial from 'revamp/ui/SingleTestimonial';
+// import Stats from 'revamp/ui/Stats';
+// import EnterpriseGrowth from 'revamp/ui/EnterpriseGrowth';
+// import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonials';
+// import SecurityFeature from 'revamp/ui/SecurityFeature';
+// import GetDemoSection from 'revamp/ui/GetDemoSection';
+
+import dynamic from 'next/dynamic';
+
+const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
+  loading: () => <p>Loading...</p>,
+});
+const GridFeature = dynamic(() => import('revamp/ui/GridFeature'), {
+  loading: () => <p>Loading...</p>,
+});
+const SingleTestimonial = dynamic(() => import('revamp/ui/SingleTestimonial'), {
+  loading: () => <p>Loading...</p>,
+});
+const Stats = dynamic(() => import('revamp/ui/Stats'), {
+  loading: () => <p>Loading...</p>,
+});
+const EnterpriseGrowth = dynamic(() => import('revamp/ui/EnterpriseGrowth'), {
+  loading: () => <p>Loading...</p>,
+});
+const FeatureBulletWithTestimonials = dynamic(
+  () => import('revamp/ui/FeatureBulletWithTestimonials'),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+const SecurityFeature = dynamic(() => import('revamp/ui/SecurityFeature'), {
+  loading: () => <p>Loading...</p>,
+});
+const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
+  loading: () => <p>Loading...</p>,
+});
 
 function Homepage({ content }) {
   const { loading } = useZestyStore();
@@ -82,118 +113,6 @@ function Homepage({ content }) {
     else setIsDark(true);
   }, []);
 
-  // const theme = useTheme();
-  // const isMedium = useMediaQuery(theme.breakpoints.down('md'));
-
-  // const testimonialsData = {
-  //   title: content.testimonials_content,
-  //   data: content.testimonials?.data,
-  // };
-
-  // useEffect(() => {
-  //   AOS.init({
-  //     disable: isMedium,
-  //   });
-  // }, [isMedium]);
-
-  // const getData = (dataArray) => {
-  //   return (
-  //     dataArray?.data?.reduce((acc, item) => {
-  //       acc.push({
-  //         icon_image: item.graphic?.data[0].url,
-  //         title: item.product_name,
-  //         content: item.product_description,
-  //         url: item.link?.data[0]?.meta?.web?.uri || FillerContent.href,
-  //       });
-
-  //       return acc;
-  //     }, []) || []
-  //   );
-  // };
-
-  // const heroProps = {
-  //   mainTitle: content.header_title_main,
-  //   title: content.header_title_and_description || FillerContent.header,
-  //   image:
-  //     (content.header_graphic?.data && content.header_graphic?.data[0]?.url) ||
-  //     FillerContent.image,
-  //   cta_left: content.hero_button_left || FillerContent.cta,
-  //   cta_right: content.hero_button_right || FillerContent.cta,
-  //   cta_left_url:
-  //     (content.hero_button_left_link?.data &&
-  //       content.hero_button_left_link?.data[0]?.meta?.web?.url) ||
-  //     FillerContent.href,
-  //   cta_right_url:
-  //     (content.hero_button_right_link.data &&
-  //       content.hero_button_right_link?.data[0]?.meta?.web?.url) ||
-  //     FillerContent.href,
-  //   dataTestId: 'homePageHero',
-  // };
-
-  // const digitalExperienceProps = {
-  //   title: content.product_title_and_description,
-  //   data: getData(content.product_options),
-  //   itemTitleColor: theme.palette.zesty.zestyOrange,
-  //   imageWidth: 294,
-  //   imageHeight: 179,
-  // };
-
-  // const alternateColumnsData = content.zesty_benefits_tiles?.data?.map(
-  //   (item) => {
-  //     return {
-  //       header: item.header,
-  //       content: item.benefit_content,
-  //       image: item.benefit_image?.data[0]?.url,
-  //     };
-  //   },
-  // );
-
-  // const growthData = {
-  //   background: content?.growth_background?.data[0]?.url || '',
-  //   titleAndDescription:
-  //     content.growth_title_and_description || FillerContent.rich_text,
-  //   cards: content?.growth_cards?.data,
-  // };
-
-  // const statsData = [
-  //   {
-  //     stats: content.case_study_card_1 || FillerContent.description,
-  //   },
-  //   {
-  //     stats: content.case_study_card_2 || FillerContent.description,
-  //   },
-  //   {
-  //     stats: content.case_study_card_3 || FillerContent.description,
-  //   },
-  // ];
-
-  // const caseStudiesProps = {
-  //   header: content.case_studies_eyebrow,
-  //   description: content.case_studies_header,
-  //   statsData: statsData,
-  //   g2BadgesData: content.g2_badges?.data,
-  //   caseStudiesData: content.case_study_cards?.data,
-  // };
-
-  // const logoSliderData = {
-  //   titleAndDescription: content?.integration_title_and_description,
-  //   integrations_logos: content?.integrations_logos?.data,
-  //   integrations_logos_2: content?.integrations_logos_2?.data,
-  //   cta_text: content.marketplace_cta_text,
-  //   integrationsBackground: content.integrations_background?.data[0]?.url,
-  // };
-
-  // const bottomData = {
-  //   graphic: content?.bottom_cta_graphic?.data[0]?.url || '',
-  //   titleAndDescription:
-  //     content.bottom_cta_title_and_description || FillerContent.rich_text,
-  //   cta_text: content.footer_button_text_1 || FillerContent.cta,
-  //   secondary_cta_text: content.footer_button_text_2 || FillerContent.cta,
-  //   secondary_cta_link:
-  //     content.footer_button_link_2?.data[0]?.meta?.web?.uri ||
-  //     FillerContent.href,
-  // };
-
   if (loading) {
     return <AccountPageloading title={'Zesty.io'} />;
   }
@@ -204,35 +123,10 @@ function Homepage({ content }) {
 
   return (
     <>
-      {/* <SimpleHeroWithImageAndCtaButtons {...heroProps} />
-      <SimpleCardLogo
-        variant="outlined"
-        heading_text={content?.logo_heading}
-        logoItems={content?.homepage_logos.data}
-      />
-      <CardsInContainer {...digitalExperienceProps} />
-      <AlternateColumns
-        column_data={alternateColumnsData}
-        header_content={content?.zesty_new_benefits}
-        cta_link={content?.middle_cta_button_link?.data[0].meta.web.uri}
-        cta_text={content?.middle_cta_button_text}
-      />
-      <DarkBlueCta
-        sx={{ mt: 15, py: 10 }}
-        cta_text={content?.middle_cta_text}
-        cta_secondary_link={
-          content?.middle_cta_secondary_cta_link?.data[0].meta.web.uri
-        }
-        cta_secondary_text={content?.middle_secondary_cta_text}
-        header_content={content?.middle_cta_header}
-      />
-      <Growth {...growthData} />
-      <CaseStudyCards {...caseStudiesProps} />
-      <WithHighlightedCard {...testimonialsData} />
-      <LogoSlider {...logoSliderData} />
-      <Bottom {...bottomData} /> */}
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         {!isDark ? <Hero /> : <BlackHero />}
+      </ThemeProvider>
+      <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection />
         <GridFeature />
         <SingleTestimonial />
