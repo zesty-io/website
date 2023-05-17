@@ -20,14 +20,25 @@ import { DocsTabs } from 'views/Docs/DocsTabs';
 import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
-  { label: 'API Reference', value: 'api-reference' },
-  // { label: 'Resources', value: 'resources' },
-  // { label: 'Services', value: 'services' },
+  { label: 'API Reference', value: '/docs/parsley/api-reference/' },
+  { label: 'Tour', value: '/docs/parsley/tour/' },
+  { label: 'Guides', value: '/docs/parsley/guides/' },
 ];
 
 export const DocsAppbar = React.memo(() => {
   const router = useRouter();
-  const initialTab = router.asPath.split('/').filter((e) => e)[2];
+
+  // setting of active tabs
+  const getInitialTab = () => {
+    if (router.asPath.includes(tabs[0].value)) {
+      return tabs[0].value;
+    } else if (router.asPath.includes(tabs[1].value)) {
+      return tabs[1].value;
+    } else {
+      return tabs[2].value;
+    }
+  };
+
   const currentPath = router.asPath.split('/').filter((e) => e)[1];
   const {
     instances,
@@ -54,11 +65,10 @@ export const DocsAppbar = React.memo(() => {
   }));
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
-  const [currentTab, setcurrentTab] = React.useState(initialTab);
+  const [currentTab, setcurrentTab] = React.useState(getInitialTab());
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { mainData } = useZestyStore((state) => state);
   const isXl = useMediaQuery(theme.breakpoints.up('xl'));
 
   const onChangeDropdown = (data) => {
@@ -97,12 +107,8 @@ export const DocsAppbar = React.memo(() => {
     setcontentModel(id);
   };
   const handleTabs = (e) => {
-    console.log(router?.query.slug);
-    const firstChildUrl = router?.query.slug ? router?.query?.slug[0] : '';
-    const url = `/docs/${firstChildUrl}/${e}`;
-
     setcurrentTab(e);
-    router.push(url);
+    router.push(e);
   };
   React.useEffect(async () => {
     const res = await ZestyAPI.getModels(instanceZUID);
@@ -133,7 +139,6 @@ export const DocsAppbar = React.memo(() => {
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
-
         {isXl && (
           <Breadcrumbs
             sx={{
@@ -152,7 +157,6 @@ export const DocsAppbar = React.memo(() => {
             </Typography>
           </Breadcrumbs>
         )}
-
         <DocsTabs setvalue={handleTabs} value={currentTab} tabs={tabs} />
       </Stack>
 

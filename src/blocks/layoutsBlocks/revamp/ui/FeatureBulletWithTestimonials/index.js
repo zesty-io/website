@@ -3,7 +3,7 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import React from 'react';
 
 const featureContent =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/supportImage.jpg',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/supportImage.webp',
   logo =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/experiom.png';
 

@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 const witnessImage =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Ben.png',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Ben.webp',
   witnessLogo =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bluePixelLogo.svg';
 

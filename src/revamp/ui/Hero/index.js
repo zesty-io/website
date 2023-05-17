@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 const media =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Hero Image 2.png',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Hero%20Image%202.webp',
   acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acornsHero.svg',
   bjs =
@@ -21,8 +21,8 @@ const media =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Ellipse.svg';
 
 const Hero = ({
-  header = 'Content Management for enterprise of any size',
-  subtitle = 'Create, manage, and deliver content at scale - with a suite of forward thinking features to meet your business needs.',
+  header = 'Maximize Content Marketing Performance',
+  subtitle = 'Drive business growth with a visual CMS to create, deliver, measure, and optimize your content marketing at scale. ',
   primaryBtn = 'Schedule Demo',
   primaryBtnLink = '/demo?ab=light',
   secondaryBtn = 'Watch Demo Video',

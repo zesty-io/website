@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export async function fetchPage(
   url,
   getNavigation = true,
@@ -170,7 +172,7 @@ async function buildJSONTreeFromNavigation(zestyURL) {
 }
 
 export async function newNavigationWithFlyout(zestyURL) {
-  const flyoutNavigationJSON = zestyURL + '//-/flyoutnavigation.json';
+  const flyoutNavigationJSON = zestyURL + '/-/flyoutnavigation.json';
 
   try {
     const resp = await fetch(flyoutNavigationJSON);
@@ -182,3 +184,11 @@ export async function newNavigationWithFlyout(zestyURL) {
     return [];
   }
 }
+
+export const productsData = async () => {
+  return await axios
+    .get('https://www.zesty.io/-/gql/product.json?')
+    .then((e) => {
+      return e.data;
+    });
+};
