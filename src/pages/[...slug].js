@@ -25,7 +25,7 @@ export default function Slug(props) {
         {isLoggedIn ? (
           <Main
             model={props?.meta?.model_alternate_name}
-            nav={props?.navigationTree}
+            nav={{}}
             customRouting={props?.navigationCustom}
             url={props?.meta?.web?.uri}
             bgcolor={bgcolor}
@@ -35,7 +35,7 @@ export default function Slug(props) {
         ) : (
           <MarketingMain
             model={props?.meta?.model_alternate_name}
-            nav={props?.navigationTree}
+            nav={{}}
             customRouting={props?.navigationCustom}
             flyoutNavigation={props?.flyoutNavigation}
             url={props?.meta?.web?.uri}
