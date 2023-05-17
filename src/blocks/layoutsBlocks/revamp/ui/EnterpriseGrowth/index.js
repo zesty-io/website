@@ -7,19 +7,19 @@ import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 const alphaUniverse =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/alphaUniverse.jpg',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/alphaUniverse.webp',
   sonyLogo =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/sonyLogo.svg',
   rocketLeague =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/rocketLeaguePic.png',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/rocketLeaguePic.webp',
   rocketLeagueLogo =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Rocket League Logo.png',
   singlife =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/singlifePic.png',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/singlifePic.webp',
   singlifeLogo =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Singlife Logo.png',
   acorns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/acornsPic.png',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/acornsPic.webp',
   acornsLogo =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Acorns Logo.png';
 
