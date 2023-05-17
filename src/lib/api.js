@@ -59,7 +59,7 @@ export async function fetchPage(
   // fetch the navigation and append the navigation to the data
   if (getNavigation == true) {
     // not using this tree
-    data.navigationTree = await buildJSONTreeFromNavigation(zestyURL);
+    // data.navigationTree = await buildJSONTreeFromNavigation(zestyURL);
     // custom nav tree building
     data.navigationCustom = await customNavigation(zestyURL);
     data.flyoutNavigation = await newNavigationWithFlyout(zestyURL);
@@ -172,7 +172,7 @@ async function buildJSONTreeFromNavigation(zestyURL) {
 }
 
 export async function newNavigationWithFlyout(zestyURL) {
-  const flyoutNavigationJSON = zestyURL + '//-/flyoutnavigation.json';
+  const flyoutNavigationJSON = zestyURL + '/-/flyoutnavigation.json';
 
   try {
     const resp = await fetch(flyoutNavigationJSON);
