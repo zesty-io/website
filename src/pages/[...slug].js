@@ -49,6 +49,23 @@ export default function Slug(props) {
   );
 }
 
+const cache = {};
+
+// Function to fetch the page data
+async function fetchPageData(url) {
+  // Check if the data is already cached
+  if (cache[url]) {
+    return cache[url];
+  }
+
+  // Fetch the page data
+  const data = await fetchPage(url);
+
+  // Cache the data
+  cache[url] = data;
+
+  return data;
+}
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isAuthenticated = getIsAuthenticated(res);
@@ -56,9 +73,10 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   res.setHeader('Cache-Control', 'public, maxage=60, must-revalidate');
   res.setHeader('Surrogate-Control', 'max-age=60');
 
+  // Fetch the page data using the cache function
+  let data = await fetchPageData(resolvedUrl);
   // attempt to get page data relative to zesty
 
-  let data = await fetchPage(resolvedUrl);
   const products = await productsData();
 
   const sso = {
