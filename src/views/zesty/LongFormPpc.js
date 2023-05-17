@@ -93,8 +93,8 @@ function LongFormPpc({ content }) {
     cta_right_text: content.cta_right_text || FillerContent.cta,
     cta_right_url:
       (content.cta_right_url &&
-        zestyLink(content.navigationTree, content.cta_right_url)) ||
-      zestyLink(content.navigationTree, FillerContent.contact_zuid),
+        zestyLink(content?.navigationTree, content.cta_right_url)) ||
+      zestyLink(content?.navigationTree, FillerContent.contact_zuid),
     cta_left_text: content.cta_left_text || '',
     cta_left_url:
       (content.cta_left_url === '0' && '/join/') ||
