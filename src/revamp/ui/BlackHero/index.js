@@ -2,7 +2,7 @@ import { Button, Stack, Typography } from '@mui/material';
 import React from 'react';
 
 const schemaPic =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Content App 2.png',
+    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Content%20App%202.webp',
   acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acorns.svg',
   bjs =
