@@ -57,8 +57,8 @@ export default async function getServerSideProps({
 
   if (isDocsPage) {
     docsPageData = await Promise.all([
-      await getMainCollection(),
-      await getParsleyTourData(),
+      getMainCollection(),
+      getParsleyTourData(),
     ]);
   }
 
@@ -83,10 +83,10 @@ export default async function getServerSideProps({
         index: process.env.ALGOLIA_INDEX,
       },
       docs: {
-        data: docsPageData[0],
+        data: docsPageData[0] || {},
       },
       parsley: {
-        tour: docsPageData[1],
+        tour: docsPageData[1] || {},
       },
     },
   };
