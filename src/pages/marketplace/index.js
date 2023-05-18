@@ -2,7 +2,7 @@
  * Helpers Imports
  */
 import { getMarketplaceData } from './[...slug]';
-import { fetchPage } from 'lib/api';
+import { fetchPage, fetcher } from 'lib/api';
 
 /**
  * React Imports
@@ -85,8 +85,14 @@ export async function getServerSideProps({ res, req }) {
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
-  const entities = await fetch(`${extensionsURL}/-/gql/extensions.json`);
-  const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
+  const entities = await fetcher({
+    url: `${extensionsURL}/-/gql/extensions.json`,
+    fallback: [],
+  });
+  const entityTypes = await fetcher({
+    url: `${extensionsURL}/-/gql/entity_types.json`,
+    fallback: [],
+  });
   const data = await getMarketplaceData(req.url);
   const navigationCustom = await fetchPage('/');
 
