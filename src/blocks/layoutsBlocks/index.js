@@ -176,4 +176,5 @@ export {
   GridFeatureListWithImageLight,
   GridFeatureListWithImageDark,
   CompetitorListing
+  
 };
