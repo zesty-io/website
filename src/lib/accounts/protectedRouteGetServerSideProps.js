@@ -63,20 +63,20 @@ export default async function getServerSideProps({
   query,
   req,
 }) {
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59',
-  );
+  // this getssrprops should run if login in accounts and docs
+  res.setHeader('Cache-Control', 'private');
   let docsPageData = [];
   const isDocsPage = resolvedUrl.includes('/docs');
   const isAuthenticated = getIsAuthenticated(res);
 
   let ticket = {};
 
+  // this needs to be done client side related to the view
   if (!!query && query.ticketNumber) {
     ticket = await fetchTicketThread(query, req);
   }
 
+  // this should rolled into the normal serversideprops
   if (isDocsPage) {
     docsPageData = await Promise.all([
       getMainCollection(),
