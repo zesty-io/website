@@ -12,7 +12,14 @@ const POSTMAN_JSON_DATA = [
 const parselyTourEndpoint =
   'https://parsley.zesty.io/-/instant/6-c9c624-14bzxf.json';
 
+const cache = {};
+
 const getMainCollection = async () => {
+  // Check if the result is already cached
+  if (cache.mainCollection) {
+    return cache.mainCollection;
+  }
+
   const getPostmanData = async () => {
     const res = POSTMAN_JSON_DATA.map(async (e) => {
       return await axios({ url: e, timeout: 3000, method: 'get' }).then(
@@ -22,15 +29,30 @@ const getMainCollection = async () => {
     return res;
   };
 
-  return await Promise.all(await getPostmanData());
+  const result = await Promise.all(await getPostmanData());
+
+  // Cache the result
+  cache.mainCollection = result;
+
+  return result;
 };
 
 const getParsleyTourData = async () => {
-  return await axios({
+  // Check if the result is already cached
+  if (cache.parsleyTourData) {
+    return cache.parsleyTourData;
+  }
+
+  const result = await axios({
     url: parselyTourEndpoint,
     timeout: 3000,
     method: 'get',
   }).then((e) => e.data);
+
+  // Cache the result
+  cache.parsleyTourData = result;
+
+  return result;
 };
 // only load routes data for specific pages
 // timeout on fetch 10 sec or 5
@@ -41,20 +63,20 @@ export default async function getServerSideProps({
   query,
   req,
 }) {
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59',
-  );
+  // this getssrprops should run if login in accounts and docs
+  res.setHeader('Cache-Control', 'private');
   let docsPageData = [];
   const isDocsPage = resolvedUrl.includes('/docs');
   const isAuthenticated = getIsAuthenticated(res);
 
   let ticket = {};
 
+  // this needs to be done client side related to the view
   if (!!query && query.ticketNumber) {
     ticket = await fetchTicketThread(query, req);
   }
 
+  // this should rolled into the normal serversideprops
   if (isDocsPage) {
     docsPageData = await Promise.all([
       getMainCollection(),
