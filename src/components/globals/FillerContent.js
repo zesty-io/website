@@ -1,4 +1,6 @@
 export default {
+  defaultCategoryName: 'Not Categorized',
+  defaultCategoryUrl: '#',
   header: 'Missing Content, Edit in CMS',
   rich_text_sub_heading: '<h2>Missing Content, Edit in CMS</h2>',
   rich_text:

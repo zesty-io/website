@@ -80,8 +80,11 @@ function Article({ content }) {
   const authorName = content.author?.data[0]?.name || FillerContent.header;
   const authorDate =
     dayjs(content.date).format('MMMM DD, YYYY') || FillerContent.date;
-  const categoryName = content?.category?.data[0]?.category;
-  const categoryLink = content?.category?.data[0]?.meta?.web?.uri;
+  const categoryName =
+    content?.category?.data[0]?.category || FillerContent.defaultCategoryName;
+  const categoryLink =
+    content?.category?.data[0]?.meta?.web?.uri ||
+    FillerContent.defaultCategoryUrl;
   const authorLink = content?.author?.data[0]?.meta?.web?.uri;
   const authorDescription = content?.author?.data[0]?.description;
   const tags = content?.tags?.data?.map((c) => ({
