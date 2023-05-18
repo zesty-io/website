@@ -193,8 +193,8 @@ export async function getServerSideProps({ req, res }) {
   return {
     props: {
       ...data,
-      marketEntityTypes: await entityTypes.json(),
-      marketTags: await tags.json(),
+      marketEntityTypes: entityTypes,
+      marketTags: tags,
       navigationCustom: navigationCustom,
       flyoutNavigation: flyoutNavigation,
       zesty: {
