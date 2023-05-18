@@ -66,6 +66,25 @@ async function fetchPageData(url) {
 
   return data;
 }
+
+const cacheProducts = {};
+// Function to fetch the products data
+async function fetchProductsData() {
+  const cacheKey = 'productsData';
+
+  // Check if the data is already cached
+  if (cacheProducts[cacheKey]) {
+    return cacheProducts[cacheKey];
+  }
+
+  // Fetch the products data
+  const data = await productsData();
+
+  // Cache the data
+  cacheProducts[cacheKey] = data;
+
+  return data;
+}
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isAuthenticated = getIsAuthenticated(res);
@@ -77,7 +96,10 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   let data = await fetchPageData(resolvedUrl);
   // attempt to get page data relative to zesty
 
-  const products = await productsData();
+  let products = [];
+  if (req.url.includes('/product')) {
+    products = await fetchProductsData();
+  }
 
   const sso = {
     githubUrl: process.env.GITHUB_SSO_URL,

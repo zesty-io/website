@@ -2,7 +2,7 @@
  * Helpers Imports
  */
 import { getMarketplaceData } from './[...slug]';
-import { fetchPage } from 'lib/api';
+import { fetchPage, fetcher } from 'lib/api';
 
 /**
  * React Imports
@@ -39,11 +39,11 @@ const MainWrapper = ({ nav, children }) => {
 };
 
 const Marketplace = ({ marketEntities, marketEntityTypes, nav, ...props }) => {
-  const seoTitle = props.meta.web.seo_meta_title,
-    seoDescription = props.meta.web.seo_meta_description;
+  const seoTitle = props?.meta?.web?.seo_meta_title,
+    seoDescription = props?.meta?.web?.seo_meta_description;
 
   useEffect(() => {
-    setCookie('PRODUCTION', props.zestyProductionMode);
+    setCookie('PRODUCTION', props?.zestyProductionMode);
   }, [props]);
 
   return (
@@ -85,15 +85,21 @@ export async function getServerSideProps({ res, req }) {
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
-  const entities = await fetch(`${extensionsURL}/-/gql/extensions.json`);
-  const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
+  const entities = await fetcher({
+    url: `${extensionsURL}/-/gql/extensions.json`,
+    fallback: [],
+  });
+  const entityTypes = await fetcher({
+    url: `${extensionsURL}/-/gql/entity_types.json`,
+    fallback: [],
+  });
   const data = await getMarketplaceData(req.url);
   const navigationCustom = await fetchPage('/');
 
   return {
     props: {
-      marketEntities: await entities.json(),
-      marketEntityTypes: await entityTypes.json(),
+      marketEntities: entities,
+      marketEntityTypes: entityTypes,
       ...data,
       nav: navigationCustom,
       zesty: {
