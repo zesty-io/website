@@ -130,14 +130,14 @@ async function customNavigation(zestyURL) {
       fallback: FillerContent.routingJSON,
     });
 
-    // res = await fetch(navInstantJSON);
-    // let instantData = await res.json();
-
     // this is the 20+ array of objects
-    let instantData = await fetcher({
-      url: navInstantJSON,
-      fallback: FillerContent.navInstantJSON,
-    });
+    let res = await fetch(navInstantJSON);
+    let instantData = await res.json();
+
+    // let instantData = await fetcher({
+    //   url: navInstantJSON,
+    //   fallback: FillerContent.navInstantJSON,
+    // });
 
     // looping through isntant api data to create an array of flattened objects
     instantData.data.forEach((item) => {
