@@ -64,7 +64,7 @@ export const AlgoSearch = () => {
         <CustomSearchBox />
 
         <Stack maxHeight={'50vh'} overflow={'auto'}>
-          <Index indexName={index}>
+          <Index indexName={'docs'}>
             <Box sx={{ px: 2, py: 2 }}>
               <Typography
                 variant="body1"
@@ -79,42 +79,29 @@ export const AlgoSearch = () => {
             <Hits hitComponent={Hit} />
           </Index>
 
-          <Index indexName="parsley-tour">
+          <Index indexName="parsley">
             <Box sx={{ px: 2, py: 2 }}>
               <Typography
                 variant="body1"
                 sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
                 component="h2"
               >
-                Parsley Tour
+                Parsley
               </Typography>
             </Box>
 
             <Configure hitsPerPage={8} />
             <Hits hitComponent={Hit} />
           </Index>
-          <Index indexName="parsley-glossary">
-            <Box sx={{ px: 2, py: 2 }}>
-              <Typography
-                variant="body1"
-                sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
-                component="h2"
-              >
-                Parsley Glossary
-              </Typography>
-            </Box>
 
-            <Configure hitsPerPage={8} />
-            <Hits hitComponent={Hit} />
-          </Index>
-          <Index indexName="parsley-guides">
+          <Index indexName="products">
             <Box sx={{ px: 2, py: 2 }}>
               <Typography
                 variant="body1"
                 sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
                 component="h2"
               >
-                Parsley Guides
+                Products
               </Typography>
             </Box>
 
@@ -144,7 +131,7 @@ const Hit = (props) => {
           },
         }}
         variant="outlined"
-        href={`/docs/${hit.url}`}
+        href={hit.uri || `/docs/${hit.url}`}
       >
         <Box
           sx={{

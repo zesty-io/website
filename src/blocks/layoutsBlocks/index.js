@@ -65,6 +65,28 @@ import FeatureSection3ColumnGrid from './revamp/layoutComponent/FeatureSection3C
 import FeatureSectionLTRITwoCTA from './revamp/layoutComponent/FeatureSectionLTRITwoCTA';
 import FeatureSectionLIRTTwoCTA from './revamp/layoutComponent/FeatureSectionLIRTTwoCTA';
 import FeatureSectionLTRIStats from './revamp/layoutComponent/FeatureSectionLTRIStats';
+import FeatureSectionLIRTStats from './revamp/layoutComponent/FeatureSectionLIRTStats';
+import FeatureSectionLTRITestimonial from './revamp/layoutComponent/FeatureSectionLTRITestimonial';
+import FeatureSectionLIRTTestimonial from './revamp/layoutComponent/FeatureSectionLIRTTestimonial';
+import FeatureSectionLTRIBulletsTestimonial from './revamp/layoutComponent/FeatureSectionLTRIBulletsTestimonial';
+import FeatureSectionLIRTBulletsTestimonial from './revamp/layoutComponent/FeatureSectionLIRTBulletsTestimonial';
+import EnterpriseGrowthSection from './revamp/layoutComponent/EnterpriseGrowthSection';
+import ContentSectionRichText from './revamp/layoutComponent/ContentSectionRichText';
+import ISecurityFeature from './revamp/layoutComponent/ISecurityFeature';
+import ContentSectionAuthorTags from './revamp/layoutComponent/ContentSectionAuthorTags';
+import IBlogCard from './revamp/layoutComponent/IBlogCard';
+import IBigBlogCard from './revamp/layoutComponent/IBigBlogCard';
+import GetDemoLongForm from './revamp/layoutComponent/GetDemoLongForm';
+import GetDemoShortForm from './revamp/layoutComponent/GetDemoShortForm';
+import ContentOnlyText from './revamp/layoutComponent/ContentOnlyText';
+import FeatureTopTextBottomImage from './revamp/layoutComponent/FeatureTopTextBottomImage';
+import GridTestimonials from './revamp/layoutComponent/GridTestimonials';
+import GridFeatureListWithoutImageLight from './revamp/layoutComponent/GridFeatureListWithoutImageLight';
+import GridFeatureListWithoutImageDark from './revamp/layoutComponent/GridFeatureListWithoutImageDark';
+import GridFeatureListWithImageLight from './revamp/layoutComponent/GridFeatureListWithImageLight';
+import GridFeatureListWithImageDark from './revamp/layoutComponent/GridFeatureListWithImageDark';
+import CompetitorListing from './revamp/layoutComponent/CompetitorListing';
+
 
 export {
   Bottom,
@@ -132,6 +154,27 @@ export {
   FeatureSection3ColumnGrid,
   FeatureSectionLTRITwoCTA,
   FeatureSectionLIRTTwoCTA,
-  FeatureSectionLTRIStats
+  FeatureSectionLTRIStats,
+  FeatureSectionLIRTStats,
+  FeatureSectionLTRITestimonial,
+  FeatureSectionLIRTTestimonial,
+  FeatureSectionLTRIBulletsTestimonial,
+  FeatureSectionLIRTBulletsTestimonial,
+  EnterpriseGrowthSection,
+  ContentSectionRichText,
+  ISecurityFeature,
+  ContentSectionAuthorTags,
+  IBlogCard,
+  IBigBlogCard,
+  GetDemoLongForm,
+  GetDemoShortForm,
+  ContentOnlyText,
+  FeatureTopTextBottomImage,
+  GridTestimonials,
+  GridFeatureListWithoutImageLight,
+  GridFeatureListWithoutImageDark,
+  GridFeatureListWithImageLight,
+  GridFeatureListWithImageDark,
+  CompetitorListing
   
 };
