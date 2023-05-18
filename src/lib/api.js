@@ -1,6 +1,28 @@
 import axios from 'axios';
 import FillerContent from 'components/globals/FillerContent';
 
+const API_REQ_TIMEOUT = 3000;
+
+const fetcher = async ({
+  url,
+  timeout = API_REQ_TIMEOUT,
+  fallback,
+  method = 'get',
+}) => {
+  try {
+    let res = await axios({ method, url, timeout });
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      console.log('error', res);
+      return fallback;
+    }
+  } catch (error) {
+    console.log(error);
+    return fallback;
+  }
+};
+
 export async function fetchPage(
   url,
   getNavigation = true,
@@ -89,20 +111,6 @@ function findURLbyZUID(routingArray, zuid) {
     if (routingArray[i].zuid == zuid) return routingArray[i].uri;
   }
 }
-const fetcher = async ({ url, timeout = 3000, fallback, method = 'get' }) => {
-  try {
-    let res = await axios({ method, url, timeout });
-    if (res.status === 200) {
-      return res.data;
-    } else {
-      console.log('error', res);
-      return fallback;
-    }
-  } catch (error) {
-    console.log(error);
-    return fallback;
-  }
-};
 // loops and builds tree
 async function customNavigation(zestyURL) {
   // hit the routes endpoint /-/headless/routing.json
