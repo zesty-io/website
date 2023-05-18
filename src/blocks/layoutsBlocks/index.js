@@ -76,6 +76,17 @@ import ISecurityFeature from './revamp/layoutComponent/ISecurityFeature';
 import ContentSectionAuthorTags from './revamp/layoutComponent/ContentSectionAuthorTags';
 import IBlogCard from './revamp/layoutComponent/IBlogCard';
 import IBigBlogCard from './revamp/layoutComponent/IBigBlogCard';
+import GetDemoLongForm from './revamp/layoutComponent/GetDemoLongForm';
+import GetDemoShortForm from './revamp/layoutComponent/GetDemoShortForm';
+import ContentOnlyText from './revamp/layoutComponent/ContentOnlyText';
+import FeatureTopTextBottomImage from './revamp/layoutComponent/FeatureTopTextBottomImage';
+import GridTestimonials from './revamp/layoutComponent/GridTestimonials';
+import GridFeatureListWithoutImageLight from './revamp/layoutComponent/GridFeatureListWithoutImageLight';
+import GridFeatureListWithoutImageDark from './revamp/layoutComponent/GridFeatureListWithoutImageDark';
+import GridFeatureListWithImageLight from './revamp/layoutComponent/GridFeatureListWithImageLight';
+import GridFeatureListWithImageDark from './revamp/layoutComponent/GridFeatureListWithImageDark';
+import CompetitorListing from './revamp/layoutComponent/CompetitorListing';
+
 
 export {
   Bottom,
@@ -155,4 +166,14 @@ export {
   ContentSectionAuthorTags,
   IBlogCard,
   IBigBlogCard,
+  GetDemoLongForm,
+  GetDemoShortForm,
+  ContentOnlyText,
+  FeatureTopTextBottomImage,
+  GridTestimonials,
+  GridFeatureListWithoutImageLight,
+  GridFeatureListWithoutImageDark,
+  GridFeatureListWithImageLight,
+  GridFeatureListWithImageDark,
+  CompetitorListing
 };
