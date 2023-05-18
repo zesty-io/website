@@ -39,11 +39,11 @@ const MainWrapper = ({ nav, children }) => {
 };
 
 const Marketplace = ({ marketEntities, marketEntityTypes, nav, ...props }) => {
-  const seoTitle = props.meta.web.seo_meta_title,
-    seoDescription = props.meta.web.seo_meta_description;
+  const seoTitle = props?.meta?.web?.seo_meta_title,
+    seoDescription = props?.meta?.web?.seo_meta_description;
 
   useEffect(() => {
-    setCookie('PRODUCTION', props.zestyProductionMode);
+    setCookie('PRODUCTION', props?.zestyProductionMode);
   }, [props]);
 
   return (
