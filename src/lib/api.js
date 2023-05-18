@@ -1,4 +1,5 @@
 import axios from 'axios';
+import FillerContent from 'components/globals/FillerContent';
 
 export async function fetchPage(
   url,
@@ -88,6 +89,20 @@ function findURLbyZUID(routingArray, zuid) {
     if (routingArray[i].zuid == zuid) return routingArray[i].uri;
   }
 }
+const fetcher = async ({ url, timeout = 3000, fallback, method = 'get' }) => {
+  try {
+    let res = await axios({ method, url, timeout });
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      console.log('error', res);
+      return fallback;
+    }
+  } catch (error) {
+    console.log(error);
+    return fallback;
+  }
+};
 // loops and builds tree
 async function customNavigation(zestyURL) {
   // hit the routes endpoint /-/headless/routing.json
@@ -98,10 +113,24 @@ async function customNavigation(zestyURL) {
   let flattenedHydratedURLs = [];
   try {
     // fetching data
-    let res = await fetch(routingJSON);
-    let routingData = await res.json();
-    res = await fetch(navInstantJSON);
-    let instantData = await res.json();
+    // let res = await fetch(routingJSON);
+    // let routingData = await res.json();
+
+    // this is the 600+ array of objects
+    let routingData = await fetcher({
+      url: routingJSON,
+      fallback: FillerContent.routingJSON,
+    });
+
+    // res = await fetch(navInstantJSON);
+    // let instantData = await res.json();
+
+    // this is the 20+ array of objects
+    let instantData = await fetcher({
+      url: navInstantJSON,
+      fallback: FillerContent.navInstantJSON,
+    });
+
     // looping through isntant api data to create an array of flattened objects
     instantData.data.forEach((item) => {
       let parent = item.content.parent?.data
@@ -153,8 +182,12 @@ async function buildJSONTreeFromNavigation(zestyURL) {
   // access the headless url map
   let navJSON = zestyURL + '/-/headless/routing.json';
   try {
-    const routes = await fetch(navJSON);
-    let routeData = await routes.json();
+    // const routes = await fetch(navJSON);
+    // let routeData = await routes.json();
+    let routeData = await fetcher({
+      url: navJSON,
+      fallback: FillerContent.routingJSON,
+    });
     let reducedData = [];
     routeData.forEach(async (route) => {
       let tempRoute = {
@@ -175,8 +208,12 @@ export async function newNavigationWithFlyout(zestyURL) {
   const flyoutNavigationJSON = zestyURL + '/-/flyoutnavigation.json';
 
   try {
-    const resp = await fetch(flyoutNavigationJSON);
-    const flyoutNavigationData = await resp.json();
+    // const resp = await fetch(flyoutNavigationJSON);
+    // const flyoutNavigationData = await resp.json();
+    const flyoutNavigationData = await fetcher({
+      url: flyoutNavigationJSON,
+      fallback: FillerContent.flyoutNavigationData,
+    });
 
     return flyoutNavigationData;
   } catch (error) {
