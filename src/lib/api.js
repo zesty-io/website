@@ -1,7 +1,7 @@
 import axios from 'axios';
 import FillerContent from 'components/globals/FillerContent';
 
-const API_REQ_TIMEOUT = 3000;
+const API_REQ_TIMEOUT = 30000;
 
 export const fetcher = async ({
   url,
