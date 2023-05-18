@@ -3,7 +3,7 @@ import FillerContent from 'components/globals/FillerContent';
 
 const API_REQ_TIMEOUT = 3000;
 
-const fetcher = async ({
+export const fetcher = async ({
   url,
   timeout = API_REQ_TIMEOUT,
   fallback,

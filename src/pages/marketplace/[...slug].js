@@ -1,7 +1,7 @@
 import MarketplaceSinglePageContainer from 'components/marketplace/MarketplaceSinglePageContainer';
 import MarketplaceProvider from 'components/marketplace/MarketplaceContext';
 import Main from 'layouts/Main/Main';
-import { fetchPage } from 'lib/api';
+import { fetchPage, fetcher } from 'lib/api';
 import Extension from 'views/marketplace/Extension';
 import CustomContainer from 'components/Container';
 import Head from 'next/head';
@@ -166,8 +166,17 @@ export async function getServerSideProps({ req, res }) {
     ? 'https://extensions.zesty.io'
     : 'https://39ntbr6g-dev.webengine.zesty.io';
 
-  const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
-  const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
+  // const entityTypes = await fetch(`${extensionsURL}/-/gql/entity_types.json`);
+  // const tags = await fetch(`${extensionsURL}/-/gql/tags.json`);
+
+  const entityTypes = await fetcher({
+    url: `${extensionsURL}/-/gql/entity_types.json`,
+    fallback: [],
+  });
+  const tags = await fetcher({
+    url: `${extensionsURL}/-/gql/tags.json`,
+    fallback: [],
+  });
   const navigationCustom = (await fetchPage('/')).navigationCustom;
   const flyoutNavigation = (await fetchPage('/')).flyoutNavigation;
 
