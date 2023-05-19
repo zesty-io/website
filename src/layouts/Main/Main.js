@@ -202,12 +202,14 @@ const Main = ({
             <>
               <AppNavigation
                 onSidebarOpen={handleSidebarOpen}
-                colorInvert={isBlogHome && !trigger}
+                // colorInvert={isBlogHome && !trigger}
                 trigger={trigger}
                 userInfo={userInfo?.data}
                 loading={loading}
               />
-              <AccountsAppbar colorInvert={isBlogHome && !trigger} />
+              <AccountsAppbar
+              // colorInvert={isBlogHome && !trigger}
+              />
             </>
           )}
         </Container>
