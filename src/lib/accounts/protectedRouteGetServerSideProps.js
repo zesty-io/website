@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { getIsAuthenticated } from 'utils';
-import fetchTicketThread from 'lib/supportPortal/fetchTicketThreads';
 
 const POSTMAN_JSON_DATA = [
   'https://raw.githubusercontent.com/zesty-io/zesty-docs/main/Postman%20Collections/instances-api.json',
@@ -57,24 +56,12 @@ const getParsleyTourData = async () => {
 // only load routes data for specific pages
 // timeout on fetch 10 sec or 5
 // identify areas to cache request or page caching
-export default async function getServerSideProps({
-  res,
-  resolvedUrl,
-  query,
-  req,
-}) {
+export default async function getServerSideProps({ res, resolvedUrl }) {
   // this getssrprops should run if login in accounts and docs
   res.setHeader('Cache-Control', 'private');
   let docsPageData = [];
   const isDocsPage = resolvedUrl.includes('/docs');
   const isAuthenticated = getIsAuthenticated(res);
-
-  let ticket = {};
-
-  // this needs to be done client side related to the view
-  if (!!query && query.ticketNumber) {
-    ticket = await fetchTicketThread(query, req);
-  }
 
   // this should rolled into the normal serversideprops
   if (isDocsPage) {
@@ -94,7 +81,6 @@ export default async function getServerSideProps({
 
   return {
     props: {
-      ticket,
       zesty: {
         isAuthenticated,
         templateUrl: process.env.TEMPLATE_URL,
