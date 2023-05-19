@@ -1,26 +1,11 @@
 // import { AccountPageloading } from 'components/accounts/ui/loading';
 import Dashboard from 'components/accounts/dashboard';
-import { useZestyStore } from 'store';
-import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { getIsAuthenticated } from 'utils';
 import { fetchPage } from 'lib/api';
 
 function DashboardPage(props) {
-  const isLoggedIn = useIsLoggedIn();
-  const store = useZestyStore();
-  console.log(store, 444);
-
-  //   if (loading) {
-  //     return <AccountPageloading title={'Zesty.io'} />;
-  //   }
-
-  // should redirect if not
-  //   if (content?.zesty?.isAuthenticated) {
-  //     return <Dashboard content={content} />;
-  //   }
-
   return (
     <InstanceContainer isDashboard>
       <ZestyAccountsHead title={'Zesty.io - Accounts'} />

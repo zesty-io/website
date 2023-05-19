@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 
 export const AccountsSingleNavItem = ({ title, url, colorInvert = false }) => {
   const { asPath } = useRouter();
-  const hasActiveLink = url === '/' ? asPath === url : asPath.startsWith(url);
+  const hasActiveLink =
+    url === '/dashboard/' ? asPath === url : asPath.startsWith(url);
 
   return (
     <Button

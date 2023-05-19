@@ -39,7 +39,6 @@
 /**
  * Components Imports
  */
-import { useEffect, useState } from 'react';
 import revampTheme from 'theme/revampTheme';
 import { ThemeProvider, useTheme } from '@mui/material';
 import Hero from 'revamp/ui/Hero';
@@ -74,19 +73,13 @@ const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
   loading: () => <p>Loading...</p>,
 });
 
-function Homepage() {
-  const [isDark, setIsDark] = useState(true);
+function Homepage({ content }) {
   const { palette } = useTheme();
-
-  useEffect(() => {
-    if (new Date().getTime() % 2 === 0) setIsDark(false);
-    else setIsDark(true);
-  }, []);
 
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
-        {!isDark ? <Hero /> : <BlackHero />}
+        {!content?.theme?.isDark ? <Hero /> : <BlackHero />}
       </ThemeProvider>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection />

@@ -9,6 +9,13 @@ function IndexPage(content) {
 
 export default IndexPage;
 const cache = {};
+const heroTheme = () => {
+  if (new Date().getTime() % 2 === 0) {
+    return false;
+  } else {
+    return true;
+  }
+};
 
 // Function to fetch the page data
 async function fetchPageData(url) {
@@ -69,6 +76,9 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       apiKey: process.env.ALGOLIA_APIKEY,
       appId: process.env.ALGOLIA_APPID,
       index: process.env.ALGOLIA_INDEX,
+    },
+    theme: {
+      isDark: heroTheme(),
     },
   };
 
