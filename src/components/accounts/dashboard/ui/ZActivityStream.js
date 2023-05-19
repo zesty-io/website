@@ -30,10 +30,11 @@ const ZActivityStream = ({ instancesFavorites, instances, initialRender }) => {
   };
 
   const setResponseToAuditState = async (zuid, limit = 20) => {
-    const response = await ZestyAPI.getInstanceAuditInitZUID(limit, zuid);
+    const url = `https://${zuid}.api.zesty.io/v1/env/audits?limit=20`;
+    const response = await ZestyAPI.getInstanceAuditInitZUID(limit, zuid, url);
 
-    if (!response?.error) {
-      const instanceAuditData = [...response?.data].map((audit) => {
+    if (!response?.error && response?.data && instances) {
+      const instanceAuditData = [...response?.data]?.map((audit) => {
         return {
           ...audit,
           entityName: instances?.find((i) => i.ZUID === audit.entityZUID)?.name,

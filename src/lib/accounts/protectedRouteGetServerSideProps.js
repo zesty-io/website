@@ -115,7 +115,13 @@ export default async function getServerSideProps({
 }
 
 export const isProtectedRoute = (pathname) => {
-  const protectedRoutes = ['/instances/', '/profile/', '/teams/', '/logout/'];
+  const protectedRoutes = [
+    '/instances/',
+    '/profile/',
+    '/teams/',
+    '/logout/',
+    '/dashboard/',
+  ];
 
   for (let route of protectedRoutes) {
     if (pathname.startsWith(route)) return true;
