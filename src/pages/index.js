@@ -8,7 +8,42 @@ function IndexPage(content) {
 }
 
 export default IndexPage;
+const cache = {};
 
+// Function to fetch the page data
+async function fetchPageData(url) {
+  // Check if the data is already cached
+  if (cache[url]) {
+    return cache[url];
+  }
+
+  // Fetch the page data
+  const data = await fetchPage(url);
+
+  // Cache the data
+  cache[url] = data;
+
+  return data;
+}
+
+const cacheProducts = {};
+// Function to fetch the products data
+async function fetchProductsData() {
+  const cacheKey = 'productsData';
+
+  // Check if the data is already cached
+  if (cacheProducts[cacheKey]) {
+    return cacheProducts[cacheKey];
+  }
+
+  // Fetch the products data
+  const data = await productsData();
+
+  // Cache the data
+  cacheProducts[cacheKey] = data;
+
+  return data;
+}
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
   // needs to add this here, because the [...slug].js in pages don't get triggered in homepage path /
@@ -16,9 +51,13 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isAuthenticated = getIsAuthenticated(res);
 
   // issue:  multiple call of getServersideprops
-  let data = await fetchPage(resolvedUrl);
+  let data = await fetchPageData(resolvedUrl);
 
-  const products = await productsData();
+  let products = [];
+  if (req.url.includes('/product')) {
+    products = await fetchProductsData();
+  }
+
   data = {
     ...data,
     zesty: {

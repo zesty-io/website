@@ -18,13 +18,14 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
 
   const freeCommunityPlanData = getPlanData('Free Community Plan');
   const pricingGridData = [
-    getPlanData('Community Plus'),
+    // getPlanData('Community Plus'),
     getPlanData('Start Up'),
     getPlanData('Business'),
     getPlanData('Business Plus'),
+    getPlanData('Enterprise')
   ];
 
-  const enterprise = getPlanData('Enterprise');
+  // const enterprise = getPlanData('Enterprise');
 
   return (
     <Container maxWidth={1400} sx={{ py: 10 }}>
@@ -59,9 +60,9 @@ const pricingHero = ({ title, subtitle, tiers = [] }) => {
           <PricingGrid data={pricingGridData} />
         </Box>
 
-        <Box sx={{ mt: 2 }}>
+        {/* <Box sx={{ mt: 2 }}>
           <Enterprise data={enterprise} />
-        </Box>
+        </Box> */}
       </Box>
     </Container>
   );

@@ -18,12 +18,17 @@ const pricingGrid = ({ data }) => {
 
   const pricingGridData = data.filter((item) => item != undefined);
 
+  
+
+
   return (
     <>
       <Box>
         <Grid container spacing={2}>
-          {pricingGridData.map((item, idx) => (
-            <Grid
+          {pricingGridData.map((item, idx) => {
+            const isCustom = item?.name.toLowerCase() === 'enterprise'
+            return (
+              <Grid
               key={idx}
               item
               xs={12}
@@ -32,6 +37,7 @@ const pricingGrid = ({ data }) => {
             >
               <Card
                 sx={{
+                  background: isCustom ? theme.palette.zesty.zestyPurple : '',
                   py: 4,
                   px: 2,
                   minHeight: isMedium ? 500 : isLarge ? 650 : 750,
@@ -71,7 +77,7 @@ const pricingGrid = ({ data }) => {
                   <Typography
                     variant="h5"
                     sx={{
-                      color: theme.palette.zesty.zestyDarkText,
+                      color: isCustom ? theme.palette.common.white :  theme.palette.zesty.zestyDarkText,
                       fontWeight: 'bold',
                       textAlign: 'center',
                     }}
@@ -82,7 +88,7 @@ const pricingGrid = ({ data }) => {
                     variant="body1"
                     sx={{
                       minHeight: isMedium ? 0 : isLarge ? 75 : 0,
-                      color: theme.palette.zesty.zestyZambezi,
+                      color:  isCustom ? theme.palette.common.white : theme.palette.zesty.zestyZambezi,
                       textAlign: 'center',
                     }}
                   >
@@ -96,7 +102,7 @@ const pricingGrid = ({ data }) => {
                     sx={{
                       mt: 2,
                       fontWeight: 'bold',
-                      color: theme.palette.zesty.zestyDarkText,
+                      color: isCustom ? theme.palette.common.white : theme.palette.zesty.zestyDarkText,
                       textAlign: 'center',
                     }}
                   >
@@ -105,7 +111,7 @@ const pricingGrid = ({ data }) => {
                   <Typography
                     variant="body1"
                     sx={{
-                      color: theme.palette.zesty.zestyZambezi,
+                      color:  isCustom ? theme.palette.common.white : theme.palette.zesty.zestyZambezi,
                       textAlign: 'center',
                     }}
                   >
@@ -114,7 +120,7 @@ const pricingGrid = ({ data }) => {
                   <Typography
                     variant="body1"
                     sx={{
-                      color: theme.palette.zesty.zestyZambezi,
+                      color:  isCustom ? theme.palette.common.white : theme.palette.zesty.zestyZambezi,
                       textAlign: 'center',
                     }}
                   >
@@ -130,7 +136,7 @@ const pricingGrid = ({ data }) => {
                   sx={{
                     mt: 2,
                     background:
-                      idx === 3
+                      idx === 2
                         ? theme.palette.zesty.zestyOrange
                         : theme.palette.zesty.zestyDarkText,
                   }}
@@ -151,14 +157,14 @@ const pricingGrid = ({ data }) => {
                     gap: 1,
                   }}
                 >
-                  <FeatureItem item={item?.features} />
-                  <FeatureItem item={item?.domain} />
-                  <FeatureItem item={item?.data_plan} />
+                  <FeatureItem white={isCustom} item={item?.features} />
+                  <FeatureItem white={isCustom} item={item?.domain} />
+                  <FeatureItem white={isCustom} item={item?.data_plan} />
                   <Box sx={{ my: 1 }}>
                     <Typography
                       variant="body1"
                       sx={{
-                        color: theme.palette.zesty.zestyZambezi,
+                        color:  isCustom ? theme.palette.common.white : theme.palette.zesty.zestyZambezi,
                         fontWeight: 'bold',
                       }}
                     >
@@ -167,7 +173,7 @@ const pricingGrid = ({ data }) => {
                     <Typography
                       variant="body1"
                       sx={{
-                        color: theme.palette.zesty.zestyZambezi,
+                        color:  isCustom ? theme.palette.common.white : theme.palette.zesty.zestyZambezi,
                       }}
                     >
                       {item?.includes_header}
@@ -175,12 +181,13 @@ const pricingGrid = ({ data }) => {
                   </Box>
 
                   {item?.features_included?.data.map((item, index) => (
-                    <FeatureItem key={index} item={item.title} />
+                    <FeatureItem white={isCustom} key={index} item={item.title} />
                   ))}
                 </Box>
               </Card>
             </Grid>
-          ))}
+            )
+          })}
         </Grid>
       </Box>
     </>
