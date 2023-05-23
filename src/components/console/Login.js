@@ -46,7 +46,7 @@ const Login = ({ content, userEmail }) => {
     MySwal.close();
     setCookie('isAuthenticated', true);
 
-    window.location.replace('/');
+    window.location.replace('/dashboard/');
   };
 
   const triggerAuto2FA = (sysID) => {
