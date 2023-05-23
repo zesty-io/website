@@ -10,7 +10,7 @@ import Main from 'layouts/Main';
 import { getIsAuthenticated } from 'utils';
 
 export const GlobalContext = createContext();
-export default function Slug(props) {
+export default function Zesty(props) {
   const isLoggedIn = useIsLoggedIn();
   // for homepage navigation
   // const isDarkMode = theme.palette.mode === 'dark';
@@ -89,7 +89,10 @@ async function fetchProductsData() {
 export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isAuthenticated = getIsAuthenticated(res);
   // does not display with npm run dev
-  res.setHeader('Cache-Control', 'public, maxage=60, must-revalidate');
+  res.setHeader(
+    'Cache-Control',
+    'public, maxage=360, stale-while-revalidate=3600 ',
+  );
   res.setHeader('Surrogate-Control', 'max-age=60');
 
   // Fetch the page data using the cache function
