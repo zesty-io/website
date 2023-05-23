@@ -93,7 +93,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
     'Cache-Control',
     'public, maxage=360, stale-while-revalidate=3600 ',
   );
-  res.setHeader('Surrogate-Control', 'max-age=60');
+  res.setHeader('Surrogate-Control', 'max-age=360');
 
   res.setHeader('Surrogate-Key', `${process.env.instance_zuid}, zesty.io`);
   // Fetch the page data using the cache function
