@@ -250,6 +250,8 @@ const Product = (props) => {
     tags: ['h2', 'h3', 'h4', 'h1', 'h5'],
     parentURL: '',
     title: '',
+    // for the product page not showing description
+    isDocsPage: false,
   });
 
   const result = [];
