@@ -95,6 +95,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   );
   res.setHeader('Surrogate-Control', 'max-age=60');
 
+  res.setHeader('Surrogate-Key', `${process.env.instance_zuid}, zesty.io`);
   // Fetch the page data using the cache function
   let data = await fetchPageData(resolvedUrl);
   // attempt to get page data relative to zesty
