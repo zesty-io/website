@@ -295,9 +295,9 @@ const Product = (props) => {
   return (
     <Stack>
       <Container
-        maxWidth={isLoggedIn ? false : ''}
         sx={() => ({
-          maxWidth: { xs: 1, lg: '78vw' },
+          maxWidth: '1440px !important',
+          paddingBottom: '0 !important',
         })}
       >
         {/* // headers */}
