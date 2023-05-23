@@ -1,24 +1,16 @@
 import { NextResponse } from 'next/server';
 
 export async function middleware(request) {
-  // https redirect
-
-  // if (
-  //   JSON.parse(process.env.PRODUCTION) &&
-  //   !request.nextUrl.origin.includes('localhost') &&
-  //   (request.headers.get('x-forwarded-proto') !== 'https' ||
-  //     request.headers.get('referer')?.split(':')[0] !== 'https')
-  // ) {
-  //   return NextResponse.redirect(
-  //     `https://${request.headers.get('host')}${request.nextUrl.pathname}`,
-  //     301,
-  //   );
-  // }
-
   // auth checking
   const response = NextResponse.next();
   const isAuthenticated = await isUserAuthenticated(request);
   response.cookies.set('isAuthenticated', isAuthenticated);
+
+  // if (request.nextUrl.pathname === '/' && isAuthenticated) {
+  //   const redirectUrl = resolve(request.nextUrl.origin, '/dashboard/');
+  //   return NextResponse.redirect(redirectUrl, 302);
+  // }
+
   return response;
 }
 
