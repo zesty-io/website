@@ -91,7 +91,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
-    'public, maxage=3600, stale-while-revalidate=3600 ',
+    'public, maxage=3600, stale-while-revalidate=7200 ',
   );
   res.setHeader('Surrogate-Control', 'max-age=3600');
 
