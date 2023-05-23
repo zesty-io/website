@@ -8,7 +8,7 @@ import { fetchPage } from 'lib/api';
 function DashboardPage(props) {
   return (
     <InstanceContainer isDashboard>
-      <ZestyAccountsHead title={'Zesty.io - Accounts'} />
+      <ZestyAccountsHead title={'Zesty.io - Accounts Dashboard'} />
       <Dashboard content={props} />;
     </InstanceContainer>
   );
