@@ -231,6 +231,7 @@ const ToCComponent = ({ data }) => {
     </Stack>
   );
 };
+
 const Product = (props) => {
   const theme = useTheme();
   const content = props.content;
