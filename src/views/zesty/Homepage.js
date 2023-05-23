@@ -39,41 +39,11 @@
 /**
  * Components Imports
  */
-// import Hero from 'components/marketing/Homepage/Hero';
-// import SimpleHeroWithImageAndCtaButtons from 'blocks/zesty/Hero/SimpleHeroWithImageAndCtaButtons';
-// import SimpleCardLogo from 'blocks/zesty/LogoGrid/SimpleCardLogo';
-// import CardsInContainer from 'blocks/zesty/Cards/CardsInContainer';
-// import Growth from 'blocks/zesty/Growth/Growth';
-// import CaseStudyCards from 'blocks/zesty/Cards/CaseStudyCards';
-// import LogoSlider from 'blocks/zesty/Slider/LogoSlider';
-// import Bottom from 'blocks/zesty/Bottom/Bottom';
-import { AccountPageloading } from 'components/accounts/ui/loading';
-
-// Helpers Imports
-// import FillerContent from 'components/globals/FillerContent';
-// import AlternateColumns from 'blocks/zesty/PageLayouts/AlternateColumns';
-// import WithHighlightedCard from 'blocks/zesty/Testimonials/WithHighlightedCard';
-import Dashboard from 'components/accounts/dashboard';
-// import DarkBlueCta from 'blocks/zesty/Cta/DarkBlueCta';
-// import AOS from 'aos';
-// import { useEffect } from 'react';
-import { useEffect, useState } from 'react';
-import { useZestyStore } from 'store';
 import revampTheme from 'theme/revampTheme';
 import { ThemeProvider, useTheme } from '@mui/material';
 import Hero from 'revamp/ui/Hero';
-import BlackHero from 'revamp/ui/BlackHero';
-
-// import TabsSection from 'revamp/ui/TabsSection';
-// import GridFeature from 'revamp/ui/GridFeature';
-// import SingleTestimonial from 'revamp/ui/SingleTestimonial';
-// import Stats from 'revamp/ui/Stats';
-// import EnterpriseGrowth from 'revamp/ui/EnterpriseGrowth';
-// import FeatureBulletWithTestimonials from 'revamp/ui/FeatureBulletWithTestimonials';
-// import SecurityFeature from 'revamp/ui/SecurityFeature';
-// import GetDemoSection from 'revamp/ui/GetDemoSection';
-
 import dynamic from 'next/dynamic';
+import { canUseDOM } from 'utils';
 
 const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
   loading: () => <p>Loading...</p>,
@@ -104,27 +74,18 @@ const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
 });
 
 function Homepage({ content }) {
-  const { loading } = useZestyStore();
-  const [isDark, setIsDark] = useState(true);
   const { palette } = useTheme();
 
-  useEffect(() => {
-    if (new Date().getTime() % 2 === 0) setIsDark(false);
-    else setIsDark(true);
-  }, []);
-
-  if (loading) {
-    return <AccountPageloading title={'Zesty.io'} />;
-  }
-
-  if (content?.zesty?.isAuthenticated) {
-    return <Dashboard content={content} />;
+  if (content.zesty.isAuthenticated) {
+    if (canUseDOM()) {
+      window.location.href = '/dashboard/';
+    }
   }
 
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
-        {!isDark ? <Hero /> : <BlackHero />}
+        <Hero />
       </ThemeProvider>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection />
