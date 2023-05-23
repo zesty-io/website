@@ -42,8 +42,8 @@
 import revampTheme from 'theme/revampTheme';
 import { ThemeProvider, useTheme } from '@mui/material';
 import Hero from 'revamp/ui/Hero';
-import BlackHero from 'revamp/ui/BlackHero';
 import dynamic from 'next/dynamic';
+import { canUseDOM } from 'utils';
 
 const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
   loading: () => <p>Loading...</p>,
@@ -76,10 +76,16 @@ const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
 function Homepage({ content }) {
   const { palette } = useTheme();
 
+  if (content.zesty.isAuthenticated) {
+    if (canUseDOM()) {
+      window.location.href = '/dashboard/';
+    }
+  }
+
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
-        {!content?.theme?.isDark ? <Hero /> : <BlackHero />}
+        <Hero />
       </ThemeProvider>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection />
