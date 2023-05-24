@@ -25,7 +25,7 @@ export default function Zesty(props) {
         {isLoggedIn ? (
           <Main
             model={props?.meta?.model_alternate_name}
-            nav={{}}
+            nav={props?.navigationTree}
             customRouting={props?.navigationCustom}
             url={props?.meta?.web?.uri}
             bgcolor={bgcolor}
@@ -35,7 +35,7 @@ export default function Zesty(props) {
         ) : (
           <MarketingMain
             model={props?.meta?.model_alternate_name}
-            nav={{}}
+            nav={props?.navigationTree}
             customRouting={props?.navigationCustom}
             flyoutNavigation={props?.flyoutNavigation}
             url={props?.meta?.web?.uri}
