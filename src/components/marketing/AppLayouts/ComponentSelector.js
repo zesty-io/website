@@ -1,6 +1,6 @@
 import * as zestyBlocks from 'blocks/layoutsBlocks';
 import { useContext } from 'react';
-import { GlobalContext } from 'pages/[...slug]';
+import { GlobalContext } from 'pages/[[...zesty]]';
 import { Box, ThemeProvider, useTheme } from '@mui/material';
 import revampTheme from 'theme/revampTheme';
 import { ErrorBoundary } from 'react-error-boundary';

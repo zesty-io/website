@@ -13,13 +13,33 @@ export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetSer
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InstanceContainer from 'components/accounts/instances/InstanceContainer';
 import ZestyImage from 'blocks/Image/ZestyImage';
+import fetchTicketThread from 'lib/supportPortal/fetchTicketThreads';
+import { getCookie } from 'cookies-next';
+import { useEffect, useState } from 'react';
 // import TextareaAutosize from '@mui/base/TextareaAutosize';
 // import AttachFileIcon from '@mui/icons-material/AttachFile';
 
-export default function ticketItem(props) {
-  const { ticket: ticketData, threadContent } = props.ticket;
+export default function ticketItem() {
   const theme = useTheme();
+  const [ticket, setticket] = useState({});
+  const { ticket: ticketData, threadContent } = ticket || {};
   const router = useRouter();
+
+  const req = {
+    cookies: {
+      APP_SID: getCookie('APP_SID'),
+    },
+  };
+  const getTicket = async () => {
+    const res = await fetchTicketThread(router.query, req);
+    setticket(res);
+  };
+
+  useEffect(() => {
+    if (!!router.query && router.query.ticketNumber) {
+      getTicket();
+    }
+  }, [router]);
 
   return (
     <>
@@ -58,14 +78,14 @@ export default function ticketItem(props) {
                   fontWeight={700}
                   align={'left'}
                 >
-                  {ticketData.subject}
+                  {ticketData?.subject}
                 </Typography>
 
                 <Typography
                   component="p"
                   variant={'p'}
                   dangerouslySetInnerHTML={{
-                    __html: ticketData.description,
+                    __html: ticketData?.description,
                   }}
                 ></Typography>
               </Box>
@@ -106,7 +126,6 @@ export default function ticketItem(props) {
                               `src="https://desk.zoho.com$1"`,
                             );
 
-                          console.log(content);
                           const options = {
                             year: 'numeric',
                             month: 'short',

@@ -34,7 +34,6 @@ import {
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
-import LinkNext from 'next/link';
 import AppBar from 'components/console/AppBar';
 import React, { useEffect, useState } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
@@ -87,7 +86,7 @@ const GetTree = ({ data = [] }) => {
             color: '#6B7280',
           }}
           label={
-            <LinkNext
+            <Link
               href={e.uri}
               variant="p"
               color={'inherit'}
@@ -98,7 +97,7 @@ const GetTree = ({ data = [] }) => {
               <Typography variant="body1" py={0.5}>
                 {e.title}
               </Typography>
-            </LinkNext>
+            </Link>
           }
         >
           <GetTree data={e.children} />
@@ -113,7 +112,7 @@ const GetTree = ({ data = [] }) => {
             color: '#6B7280',
           }}
           label={
-            <LinkNext
+            <Link
               href={e.uri}
               variant="p"
               color={'inherit'}
@@ -125,7 +124,7 @@ const GetTree = ({ data = [] }) => {
               <Typography variant="body1" py={0.5}>
                 {e.title}
               </Typography>
-            </LinkNext>
+            </Link>
           }
         ></TreeItem>
       );
@@ -232,6 +231,7 @@ const ToCComponent = ({ data }) => {
     </Stack>
   );
 };
+
 const Product = (props) => {
   const theme = useTheme();
   const content = props.content;
@@ -250,6 +250,8 @@ const Product = (props) => {
     tags: ['h2', 'h3', 'h4', 'h1', 'h5'],
     parentURL: '',
     title: '',
+    // for the product page not showing description
+    isDocsPage: false,
   });
 
   const result = [];
@@ -294,9 +296,9 @@ const Product = (props) => {
   return (
     <Stack>
       <Container
-        maxWidth={isLoggedIn ? false : ''}
         sx={() => ({
-          maxWidth: { xs: 1, lg: '78vw' },
+          maxWidth: '1440px !important',
+          paddingBottom: '0 !important',
         })}
       >
         {/* // headers */}
