@@ -9,6 +9,7 @@ import Main from 'layouts/Main';
 
 import { getIsAuthenticated } from 'utils';
 
+//
 export const GlobalContext = createContext();
 export default function Zesty(props) {
   const isLoggedIn = useIsLoggedIn();
