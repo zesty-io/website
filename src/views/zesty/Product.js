@@ -232,6 +232,7 @@ const ToCComponent = ({ data }) => {
   );
 };
 
+// main file
 const Product = (props) => {
   const theme = useTheme();
   const content = props.content;
