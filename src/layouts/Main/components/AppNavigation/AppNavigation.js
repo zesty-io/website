@@ -39,7 +39,7 @@ const navigationLinks = [
   {
     title: 'Dashboard',
     id: 'dashboard',
-    url: '/',
+    url: '/dashboard/',
   },
   {
     title: 'Instances',

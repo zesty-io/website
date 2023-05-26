@@ -23,6 +23,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import revampTheme from 'theme/revampTheme';
+import ModalImage from 'react-modal-image';
 
 import { Box, Button, ThemeProvider } from '@mui/material';
 import {
@@ -34,7 +35,7 @@ import {
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
-import LinkNext from 'next/link';
+import NextLink from 'next/link';
 import AppBar from 'components/console/AppBar';
 import React, { useEffect, useState } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
@@ -87,7 +88,7 @@ const GetTree = ({ data = [] }) => {
             color: '#6B7280',
           }}
           label={
-            <LinkNext
+            <NextLink
               href={e.uri}
               variant="p"
               color={'inherit'}
@@ -98,7 +99,7 @@ const GetTree = ({ data = [] }) => {
               <Typography variant="body1" py={0.5}>
                 {e.title}
               </Typography>
-            </LinkNext>
+            </NextLink>
           }
         >
           <GetTree data={e.children} />
@@ -113,7 +114,7 @@ const GetTree = ({ data = [] }) => {
             color: '#6B7280',
           }}
           label={
-            <LinkNext
+            <NextLink
               href={e.uri}
               variant="p"
               color={'inherit'}
@@ -125,13 +126,14 @@ const GetTree = ({ data = [] }) => {
               <Typography variant="body1" py={0.5}>
                 {e.title}
               </Typography>
-            </LinkNext>
+            </NextLink>
           }
         ></TreeItem>
       );
     }
   });
 };
+
 const TreeNav = ({ data = [] }) => {
   const router = useRouter();
   const url = `${router?.asPath}`;
@@ -232,6 +234,47 @@ const ToCComponent = ({ data }) => {
     </Stack>
   );
 };
+
+function splitStringByImageTag(inputString) {
+  var imgTagRegex = /<img\b[^>]*>/gi; // Regular expression to match img tags
+
+  // Use the regex to find all img tags in the input string
+  var imgTags = inputString.match(imgTagRegex);
+
+  // If no img tags are found, return the input string as is
+  if (!imgTags) {
+    return [inputString];
+  }
+
+  // Split the input string using the img tags and extract src, title, and alt attributes
+  const splitStrings = inputString.split(imgTagRegex);
+  const imgAttributes = imgTags.map(function (tag) {
+    const srcRegex = /src=['"]([^'"]+)['"]/i; // Regular expression to extract src attribute
+    const titleRegex = /title=['"]([^'"]+)['"]/i; // Regular expression to extract title attribute
+    const altRegex = /alt=['"]([^'"]+)['"]/i; // Regular expression to extract alt attribute
+    const matchSrc = tag.match(srcRegex);
+    const matchTitle = tag.match(titleRegex);
+    const matchAlt = tag.match(altRegex);
+
+    return {
+      src: matchSrc ? matchSrc[1] : '',
+      title: matchTitle ? matchTitle[1] : '',
+      alt: matchAlt ? matchAlt[1] : '',
+    };
+  });
+
+  // Merge the split strings with the corresponding img attributes
+  var result = [];
+  for (var i = 0; i < splitStrings.length; i++) {
+    result.push(splitStrings[i]);
+    if (i < imgAttributes.length) {
+      result.push(imgAttributes[i]);
+    }
+  }
+
+  return result;
+}
+// main file
 const Product = (props) => {
   const theme = useTheme();
   const content = props.content;
@@ -250,8 +293,12 @@ const Product = (props) => {
     tags: ['h2', 'h3', 'h4', 'h1', 'h5'],
     parentURL: '',
     title: '',
+    // for the product page not showing description
+    isDocsPage: false,
   });
 
+  const pageDataArr = splitStringByImageTag(pageData);
+  console.log(pageDataArr, 444);
   const result = [];
   const groupByUri = (data = []) => {
     data.forEach((element) => {
@@ -285,6 +332,7 @@ const Product = (props) => {
     (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
   );
 
+  console.log(pageData, 444);
   React.useEffect(() => {
     setalgoliaApiKey(props.content.algolia.apiKey);
     setalgoliaAppId(props.content.algolia.appId);
@@ -294,9 +342,9 @@ const Product = (props) => {
   return (
     <Stack>
       <Container
-        maxWidth={isLoggedIn ? false : ''}
         sx={() => ({
-          maxWidth: { xs: 1, lg: '78vw' },
+          maxWidth: '1440px !important',
+          paddingBottom: '0 !important',
         })}
       >
         {/* // headers */}
@@ -346,9 +394,18 @@ const Product = (props) => {
                 </Stack>
                 {/* <Stack width={1}>Tags Tags Tags</Stack> */}
                 <Stack width={1} height={1}>
-                  <MuiMarkdown overrides={muiContentOverrides}>
-                    {pageData}
-                  </MuiMarkdown>
+                  {pageDataArr?.map((e) => {
+                    if (e.src) {
+                      return (
+                        <ModalImage small={e.src} large={e.src} alt={e.title} />
+                      );
+                    }
+                    return (
+                      <MuiMarkdown overrides={muiContentOverrides}>
+                        {e}
+                      </MuiMarkdown>
+                    );
+                  })}
                 </Stack>
               </Stack>
             </Grid>

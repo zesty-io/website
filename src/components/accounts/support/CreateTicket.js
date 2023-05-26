@@ -11,7 +11,7 @@ import { useFormik } from 'formik';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import { getCookie } from 'cookies-next';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
+// export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const MySwal = withReactContent(Swal);
 

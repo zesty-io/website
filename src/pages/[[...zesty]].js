@@ -9,8 +9,9 @@ import Main from 'layouts/Main';
 
 import { getIsAuthenticated } from 'utils';
 
+//
 export const GlobalContext = createContext();
-export default function Slug(props) {
+export default function Zesty(props) {
   const isLoggedIn = useIsLoggedIn();
   // for homepage navigation
   // const isDarkMode = theme.palette.mode === 'dark';
@@ -25,7 +26,7 @@ export default function Slug(props) {
         {isLoggedIn ? (
           <Main
             model={props?.meta?.model_alternate_name}
-            nav={{}}
+            nav={props?.navigationTree}
             customRouting={props?.navigationCustom}
             url={props?.meta?.web?.uri}
             bgcolor={bgcolor}
@@ -35,7 +36,7 @@ export default function Slug(props) {
         ) : (
           <MarketingMain
             model={props?.meta?.model_alternate_name}
-            nav={{}}
+            nav={props?.navigationTree}
             customRouting={props?.navigationCustom}
             flyoutNavigation={props?.flyoutNavigation}
             url={props?.meta?.web?.uri}
@@ -89,9 +90,16 @@ async function fetchProductsData() {
 export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isAuthenticated = getIsAuthenticated(res);
   // does not display with npm run dev
-  res.setHeader('Cache-Control', 'public, maxage=60, must-revalidate');
-  res.setHeader('Surrogate-Control', 'max-age=60');
+  res.setHeader(
+    'Cache-Control',
+    'public, max-age=3600, stale-while-revalidate=7200 ',
+  );
+  res.setHeader('Surrogate-Control', 'max-age=3600');
 
+  res.setHeader(
+    'Surrogate-Key',
+    `${process.env.zesty.instance_zuid}, zesty.io`,
+  );
   // Fetch the page data using the cache function
   let data = await fetchPageData(resolvedUrl);
   // attempt to get page data relative to zesty
