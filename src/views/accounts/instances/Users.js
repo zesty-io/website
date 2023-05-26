@@ -322,7 +322,11 @@ const Index = ({
           color="primary"
           variant="contained"
           onClick={() =>
-            handleInviteUserModal(createInvite, baseroles, instanceZUID)
+            handleInviteUserModal(
+              createInvite,
+              baseroles.filter((c) => c.value !== 'owner'),
+              instanceZUID,
+            )
           }
           startIcon={<AddIcon />}
         >
