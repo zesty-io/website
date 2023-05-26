@@ -25,6 +25,9 @@
 import revampTheme from 'theme/revampTheme';
 import ModalImage from 'react-modal-image';
 
+import remarkGfm from 'remark-gfm';
+import ReactMarkdown from 'react-markdown';
+
 import { Box, Button, ThemeProvider } from '@mui/material';
 import {
   Link,
@@ -39,7 +42,6 @@ import NextLink from 'next/link';
 import AppBar from 'components/console/AppBar';
 import React, { useEffect, useState } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
-import MuiMarkdown from 'markdown-to-jsx';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { TreeItem, TreeView } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -50,33 +52,6 @@ import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 
-const muiContentOverrides = {
-  h1: {
-    component: 'h1',
-    props: {
-      style: { fontSize: '24px' },
-    },
-  },
-  h2: {
-    component: 'h2',
-    props: {
-      style: { fontSize: '1.5em' },
-    },
-  },
-  p: {
-    component: 'p',
-    props: {
-      style: { fontSize: '24px' },
-    },
-  },
-
-  img: {
-    component: 'img',
-    props: {
-      style: { width: '80%', margin: '10px 10%' },
-    },
-  },
-};
 const GetTree = ({ data = [] }) => {
   return data.map((e) => {
     if (e.children) {
@@ -288,7 +263,7 @@ const Product = (props) => {
     threshold: 5,
   });
   const isLoggedIn = useIsLoggedIn();
-  const { pageData, navData } = parseMarkdownFile({
+  const { navData } = parseMarkdownFile({
     markdown: content.body,
     tags: ['h2', 'h3', 'h4', 'h1', 'h5'],
     parentURL: '',
@@ -297,8 +272,6 @@ const Product = (props) => {
     isDocsPage: false,
   });
 
-  const pageDataArr = splitStringByImageTag(pageData);
-  console.log(pageDataArr, 444);
   const result = [];
   const groupByUri = (data = []) => {
     data.forEach((element) => {
@@ -332,7 +305,6 @@ const Product = (props) => {
     (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
   );
 
-  console.log(pageData, 444);
   React.useEffect(() => {
     setalgoliaApiKey(props.content.algolia.apiKey);
     setalgoliaAppId(props.content.algolia.appId);
@@ -394,18 +366,109 @@ const Product = (props) => {
                 </Stack>
                 {/* <Stack width={1}>Tags Tags Tags</Stack> */}
                 <Stack width={1} height={1}>
-                  {pageDataArr?.map((e) => {
-                    if (e.src) {
-                      return (
-                        <ModalImage small={e.src} large={e.src} alt={e.title} />
-                      );
-                    }
-                    return (
-                      <MuiMarkdown overrides={muiContentOverrides}>
-                        {e}
-                      </MuiMarkdown>
-                    );
-                  })}
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      img({ node }) {
+                        if (node.properties.title) {
+                          return (
+                            <Box px={5}>
+                              <ModalImage
+                                small={node.properties.src}
+                                large={node.properties.src}
+                                alt={node.properties.alt}
+                                title={node.properties.title}
+                              />
+                            </Box>
+                          );
+                        }
+                        return (
+                          <Box
+                            ml={3}
+                            mr={2}
+                            maxWidth={'200px'}
+                            sx={{
+                              float: 'right',
+                            }}
+                          >
+                            <ModalImage
+                              small={node.properties.src}
+                              large={node.properties.src}
+                              alt={node.properties.alt}
+                              title={node.properties.title}
+                            />
+                          </Box>
+                        );
+                      },
+                      blockquote({ node }) {
+                        return (
+                          <Box
+                            sx={{
+                              mx: 5,
+                              background: '#e7e7e7',
+                              p: 2,
+                              borderLeft: '2px #ccc solid',
+                              mb: 3,
+                            }}
+                          >
+                            <Typography>
+                              {node.children[1].children[0].value}
+                            </Typography>
+                          </Box>
+                        );
+                      },
+                      // h1({ node }) {
+                      //   return (
+                      //     <Box sx={{}}>
+                      //       <Typography
+                      //         variant="h4"
+                      //         component={'h1'}
+                      //         id={node.children[0].value
+                      //           ?.replace(/[^\w\s]/gi, '')
+                      //           ?.replace(/\s+/g, '-')
+                      //           ?.toLowerCase()}
+                      //       >
+                      //         {node.children[0].value}
+                      //       </Typography>
+                      //     </Box>
+                      //   );
+                      // },
+                      h2({ node }) {
+                        return (
+                          <Box sx={{}}>
+                            <Typography
+                              variant="h4"
+                              component={'h2'}
+                              id={node.children[0].value
+                                ?.replace(/[^\w\s]/gi, '')
+                                ?.replace(/\s+/g, '-')
+                                ?.toLowerCase()}
+                            >
+                              {node.children[0].value}
+                            </Typography>
+                          </Box>
+                        );
+                      },
+                      h3({ node }) {
+                        return (
+                          <Box sx={{}}>
+                            <Typography
+                              variant="h5"
+                              component={'h3'}
+                              id={node.children[0].value
+                                ?.replace(/[^\w\s]/gi, '')
+                                ?.replace(/\s+/g, '-')
+                                ?.toLowerCase()}
+                            >
+                              {node.children[0].value}
+                            </Typography>
+                          </Box>
+                        );
+                      },
+                    }}
+                  >
+                    {content.body}
+                  </ReactMarkdown>
                 </Stack>
               </Stack>
             </Grid>
