@@ -17,7 +17,7 @@ const schemaPic =
 
 const LightHero = ({
   title = 'Unify your team with',
-  header = 'The future proof CMS for enterprise of any size',
+  header = 'Maximize Content Marketing Performance',
   subtitle = 'Create, distribute, and optimize content at SCALE with fewer resources in less time with the Zesty Hybrid Headless CMS. ',
   primaryBtn = 'Schedule Demo',
   primaryBtnLink = '/demo?ab=light',
