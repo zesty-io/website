@@ -23,6 +23,10 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import revampTheme from 'theme/revampTheme';
+import ModalImage from 'react-modal-image';
+
+import remarkGfm from 'remark-gfm';
+import ReactMarkdown from 'react-markdown';
 
 import { Box, Button, ThemeProvider } from '@mui/material';
 import {
@@ -34,10 +38,10 @@ import {
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
+import NextLink from 'next/link';
 import AppBar from 'components/console/AppBar';
 import React, { useEffect, useState } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
-import MuiMarkdown from 'markdown-to-jsx';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { TreeItem, TreeView } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -48,33 +52,6 @@ import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 
-const muiContentOverrides = {
-  h1: {
-    component: 'h1',
-    props: {
-      style: { fontSize: '24px' },
-    },
-  },
-  h2: {
-    component: 'h2',
-    props: {
-      style: { fontSize: '1.5em' },
-    },
-  },
-  p: {
-    component: 'p',
-    props: {
-      style: { fontSize: '24px' },
-    },
-  },
-
-  img: {
-    component: 'img',
-    props: {
-      style: { width: '80%', margin: '10px 10%' },
-    },
-  },
-};
 const GetTree = ({ data = [] }) => {
   return data.map((e) => {
     if (e.children) {
@@ -86,7 +63,7 @@ const GetTree = ({ data = [] }) => {
             color: '#6B7280',
           }}
           label={
-            <Link
+            <NextLink
               href={e.uri}
               variant="p"
               color={'inherit'}
@@ -97,7 +74,7 @@ const GetTree = ({ data = [] }) => {
               <Typography variant="body1" py={0.5}>
                 {e.title}
               </Typography>
-            </Link>
+            </NextLink>
           }
         >
           <GetTree data={e.children} />
@@ -112,7 +89,7 @@ const GetTree = ({ data = [] }) => {
             color: '#6B7280',
           }}
           label={
-            <Link
+            <NextLink
               href={e.uri}
               variant="p"
               color={'inherit'}
@@ -124,13 +101,14 @@ const GetTree = ({ data = [] }) => {
               <Typography variant="body1" py={0.5}>
                 {e.title}
               </Typography>
-            </Link>
+            </NextLink>
           }
         ></TreeItem>
       );
     }
   });
 };
+
 const TreeNav = ({ data = [] }) => {
   const router = useRouter();
   const url = `${router?.asPath}`;
@@ -232,6 +210,46 @@ const ToCComponent = ({ data }) => {
   );
 };
 
+function splitStringByImageTag(inputString) {
+  var imgTagRegex = /<img\b[^>]*>/gi; // Regular expression to match img tags
+
+  // Use the regex to find all img tags in the input string
+  var imgTags = inputString.match(imgTagRegex);
+
+  // If no img tags are found, return the input string as is
+  if (!imgTags) {
+    return [inputString];
+  }
+
+  // Split the input string using the img tags and extract src, title, and alt attributes
+  const splitStrings = inputString.split(imgTagRegex);
+  const imgAttributes = imgTags.map(function (tag) {
+    const srcRegex = /src=['"]([^'"]+)['"]/i; // Regular expression to extract src attribute
+    const titleRegex = /title=['"]([^'"]+)['"]/i; // Regular expression to extract title attribute
+    const altRegex = /alt=['"]([^'"]+)['"]/i; // Regular expression to extract alt attribute
+    const matchSrc = tag.match(srcRegex);
+    const matchTitle = tag.match(titleRegex);
+    const matchAlt = tag.match(altRegex);
+
+    return {
+      src: matchSrc ? matchSrc[1] : '',
+      title: matchTitle ? matchTitle[1] : '',
+      alt: matchAlt ? matchAlt[1] : '',
+    };
+  });
+
+  // Merge the split strings with the corresponding img attributes
+  var result = [];
+  for (var i = 0; i < splitStrings.length; i++) {
+    result.push(splitStrings[i]);
+    if (i < imgAttributes.length) {
+      result.push(imgAttributes[i]);
+    }
+  }
+
+  return result;
+}
+// main file
 const Product = (props) => {
   const theme = useTheme();
   const content = props.content;
@@ -245,7 +263,7 @@ const Product = (props) => {
     threshold: 5,
   });
   const isLoggedIn = useIsLoggedIn();
-  const { pageData, navData } = parseMarkdownFile({
+  const { navData } = parseMarkdownFile({
     markdown: content.body,
     tags: ['h2', 'h3', 'h4', 'h1', 'h5'],
     parentURL: '',
@@ -348,9 +366,109 @@ const Product = (props) => {
                 </Stack>
                 {/* <Stack width={1}>Tags Tags Tags</Stack> */}
                 <Stack width={1} height={1}>
-                  <MuiMarkdown overrides={muiContentOverrides}>
-                    {pageData}
-                  </MuiMarkdown>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      img({ node }) {
+                        if (node.properties.title) {
+                          return (
+                            <Box px={5}>
+                              <ModalImage
+                                small={node.properties.src}
+                                large={node.properties.src}
+                                alt={node.properties.alt}
+                                title={node.properties.title}
+                              />
+                            </Box>
+                          );
+                        }
+                        return (
+                          <Box
+                            ml={3}
+                            mr={2}
+                            maxWidth={'200px'}
+                            sx={{
+                              float: 'right',
+                            }}
+                          >
+                            <ModalImage
+                              small={node.properties.src}
+                              large={node.properties.src}
+                              alt={node.properties.alt}
+                              title={node.properties.title}
+                            />
+                          </Box>
+                        );
+                      },
+                      blockquote({ node }) {
+                        return (
+                          <Box
+                            sx={{
+                              mx: 5,
+                              background: '#e7e7e7',
+                              p: 2,
+                              borderLeft: '2px #ccc solid',
+                              mb: 3,
+                            }}
+                          >
+                            <Typography>
+                              {node.children[1].children[0].value}
+                            </Typography>
+                          </Box>
+                        );
+                      },
+                      // h1({ node }) {
+                      //   return (
+                      //     <Box sx={{}}>
+                      //       <Typography
+                      //         variant="h4"
+                      //         component={'h1'}
+                      //         id={node.children[0].value
+                      //           ?.replace(/[^\w\s]/gi, '')
+                      //           ?.replace(/\s+/g, '-')
+                      //           ?.toLowerCase()}
+                      //       >
+                      //         {node.children[0].value}
+                      //       </Typography>
+                      //     </Box>
+                      //   );
+                      // },
+                      h2({ node }) {
+                        return (
+                          <Box sx={{}}>
+                            <Typography
+                              variant="h4"
+                              component={'h2'}
+                              id={node.children[0].value
+                                ?.replace(/[^\w\s]/gi, '')
+                                ?.replace(/\s+/g, '-')
+                                ?.toLowerCase()}
+                            >
+                              {node.children[0].value}
+                            </Typography>
+                          </Box>
+                        );
+                      },
+                      h3({ node }) {
+                        return (
+                          <Box sx={{}}>
+                            <Typography
+                              variant="h5"
+                              component={'h3'}
+                              id={node.children[0].value
+                                ?.replace(/[^\w\s]/gi, '')
+                                ?.replace(/\s+/g, '-')
+                                ?.toLowerCase()}
+                            >
+                              {node.children[0].value}
+                            </Typography>
+                          </Box>
+                        );
+                      },
+                    }}
+                  >
+                    {content.body}
+                  </ReactMarkdown>
                 </Stack>
               </Stack>
             </Grid>

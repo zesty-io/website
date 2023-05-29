@@ -79,7 +79,7 @@ export const parseMarkdownFile = ({
       }
 
       // Wrap blockquote content with <blockquote> tags
-      const wrappedBlockquote = `<blockquote>${blockquoteContent}</blockquote>`;
+      const wrappedBlockquote = `<blockquote style="background:#e7e7e7;padding:10px;borderLeft:2px #ccc solid">${blockquoteContent}</blockquote>`;
       newMarkdown.push(wrappedBlockquote);
     }
   }
