@@ -14,6 +14,8 @@ export function ZestyView(props) {
   /**
    * @description check if layout is active and has content in the cms
    * @returns boolean
+   * @true  - AutolayoutComponent will be used
+   * @false - Zesty -> view component will be used, sync must be run
    */
 
   const useAutoLayoutCheck = () => {
@@ -35,8 +37,9 @@ export function ZestyView(props) {
       JSON.stringify(
         props.content.meta.layout?.json['layout:root:column:0']?.children,
       ) === '{}'
-    )
-      return false;
+    ) {
+      return true;
+    }
 
     // return only true if the layout is active and has components
     return true;
