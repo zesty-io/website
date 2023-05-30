@@ -18,11 +18,11 @@ const schemaPic =
 const LightHero = ({
   title = 'Unify your team with',
   header = 'Maximize Content Marketing Performance',
-  subtitle = 'Create, distribute, and optimize content at SCALE with fewer resources in less time with the Zesty Hybrid Headless CMS. ',
-  primaryBtn = 'Schedule Demo',
-  primaryBtnLink = '/demo?ab=light',
-  secondaryBtn = 'Watch Demo Video',
-  secondaryBtnLink = '/demos/video?ab=light',
+  subtitle = 'Drive business growth with a visual CMS to create, deliver, measure, and optimize your content marketing at scale.',
+  primaryBtn = 'Start Now',
+  primaryBtnLink = '#',
+  secondaryBtn = 'Contact Sales',
+  secondaryBtnLink = '#',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
   media = schemaPic,
 }) => {
