@@ -1,5 +1,4 @@
 import { Button, Stack, Typography } from '@mui/material';
-
 const schemaPic =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Content%20App%202.webp',
   acorns =
@@ -14,6 +13,8 @@ const schemaPic =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeHero.svg',
   sony =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/sonyHero.svg';
+
+import React from 'react';
 
 const LightHero = ({
   title = 'Unify your team with',
