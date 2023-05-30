@@ -7,7 +7,7 @@ import { ZestyView } from 'lib/ZestyView';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import Main from 'layouts/Main';
 
-// import { getIsAuthenticated } from 'utils';
+import { getIsAuthenticated } from 'utils';
 
 //
 export const GlobalContext = createContext();
@@ -88,8 +88,7 @@ async function fetchProductsData() {
 }
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
-  // const isAuthenticated = getIsAuthenticated(res);
-  const isAuthenticated = await isUserAuthenticated(req);
+  const isAuthenticated = getIsAuthenticated(res);
   // does not display with npm run dev
   res.setHeader(
     'Cache-Control',
@@ -157,32 +156,3 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // Pass data to the page via props
   return { props: { ...data } };
 }
-
-const isUserAuthenticated = async (request) => {
-  let isProd = true;
-
-  const verifyUrl = !isProd
-    ? 'https://auth.api.dev.zesty.io/verify'
-    : 'https://auth.api.zesty.io/verify';
-
-  const cookieValue = request.headers.cookie;
-  console.log(cookieValue, 444);
-  // const appSid = request.cookies.get(isProd ? 'APP_SID' : 'DEV_APP_SID');
-
-  const cookieHeader = request.headers.cookie || '';
-
-  // Retrieve the value of the "APP_SID" cookie
-  const appSidCookie = cookieHeader
-    .split(';')
-    .find((cookie) => cookie.trim().startsWith('APP_SID='));
-
-  const appSid = appSidCookie ? appSidCookie.split('=')[1] : '';
-  const response = await fetch(verifyUrl, {
-    headers: {
-      Authorization: `Bearer ${appSid}`,
-    },
-  });
-  const data = await response.json();
-
-  return data?.code === 200 ? true : false;
-};
