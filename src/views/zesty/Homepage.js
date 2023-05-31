@@ -82,7 +82,7 @@ function Homepage({ content }) {
     if (content.zesty.isAuthenticated || isLoggedIn) {
       window.location.href = '/dashboard/';
     }
-  }, [content.zesty.isAuthenticated]);
+  }, [content.zesty.isAuthenticated, isLoggedIn]);
 
   return (
     <>
