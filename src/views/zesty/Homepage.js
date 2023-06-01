@@ -45,6 +45,7 @@ import Hero from 'revamp/ui/Hero';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { getCookie } from 'cookies-next';
 
 const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
   loading: () => <p>Loading...</p>,
@@ -78,6 +79,7 @@ function Homepage({ content }) {
   const { palette } = useTheme();
   const isLoggedIn = useIsLoggedIn();
 
+  const token = getCookie('APP_SID');
   useEffect(() => {
     if (content.zesty.isAuthenticated || isLoggedIn) {
       window.location.href = '/dashboard/';
@@ -87,6 +89,7 @@ function Homepage({ content }) {
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
+        {JSON.stringify(token)}
         <Hero />
       </ThemeProvider>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
