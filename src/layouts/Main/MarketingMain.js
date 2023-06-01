@@ -97,67 +97,71 @@ const MarketingMain = ({
   return (
     <>
       {isLoggedIn === false && !isLoginPage && <SiteBanner />}
-      <Box
-        data-testid="topBar"
-        id="topNavBox"
-        bgcolor={bgcolor}
-        position={'relative'}
-        zIndex={theme.zIndex.appBar}
-        display={router?.query?.slug?.[0] === 'login' && 'none'}
-      >
-        <Container
-          sx={(theme) => ({
-            paddingTop:
-              hideNav || isExplorePage ? '0px !important' : '8px !important',
-            paddingBottom: '0 !important',
-            maxWidth: '1440px !important',
-            mx: 'auto',
-          })}
+      {!isLoginPage && (
+        <Box
+          data-testid="topBar"
+          id="topNavBox"
+          bgcolor={bgcolor}
+          position={'relative'}
+          zIndex={theme.zIndex.appBar}
+          display={router?.query?.slug?.[0] === 'login' && 'none'}
         >
-          <TopNav
-            hideNav={hideNav}
-            nav={nav}
-            // colorInvert={isBlogHome}
-          />
-        </Container>
-      </Box>
-      <AppBar
-        data-testid="mainNav"
-        position={isDiscover ? 'sticky' : hideNav ? 'fixed' : 'sticky'}
-        sx={{
-          outline: 'none',
-          border: 'none',
-          boxShadow: hideNav ? '' : '',
-          top: 0,
-          backgroundColor: bgColorSwitch(),
-          pt: 1,
-          borderBottom: '1px solid #F2F4F7',
-          display: router?.query?.slug?.[0] === 'login' && 'none',
-        }}
-        elevation={trigger ? 1 : 0}
-      >
-        <Container
-          sx={(theme) => ({
-            maxWidth: '1440px !important',
-            mx: 'auto',
-            paddingY: isExplorePage ? 2 : 1,
-          })}
-        >
-          <Stack>
-            <Topbar
+          <Container
+            sx={(theme) => ({
+              paddingTop:
+                hideNav || isExplorePage ? '0px !important' : '8px !important',
+              paddingBottom: '0 !important',
+              maxWidth: '1440px !important',
+              mx: 'auto',
+            })}
+          >
+            <TopNav
               hideNav={hideNav}
-              onSidebarOpen={handleSidebarOpen}
-              flyoutNavigation={flyoutNavigation}
-              customRouting={hasRouting ? customRouting : []}
-              // colorInvert={isBlogHome && !trigger}
-              trigger={trigger}
-              isAuthenticated={isLoggedIn}
-              userInfo={userInfo?.data}
-              loading={loading}
+              nav={nav}
+              // colorInvert={isBlogHome}
             />
-          </Stack>
-        </Container>
-      </AppBar>
+          </Container>
+        </Box>
+      )}
+      {!isLoginPage && (
+        <AppBar
+          data-testid="mainNav"
+          position={isDiscover ? 'sticky' : hideNav ? 'fixed' : 'sticky'}
+          sx={{
+            outline: 'none',
+            border: 'none',
+            boxShadow: hideNav ? '' : '',
+            top: 0,
+            backgroundColor: bgColorSwitch(),
+            pt: 1,
+            borderBottom: '1px solid #F2F4F7',
+            display: router?.query?.slug?.[0] === 'login' && 'none',
+          }}
+          elevation={trigger ? 1 : 0}
+        >
+          <Container
+            sx={(theme) => ({
+              maxWidth: '1440px !important',
+              mx: 'auto',
+              paddingY: isExplorePage ? 2 : 1,
+            })}
+          >
+            <Stack>
+              <Topbar
+                hideNav={hideNav}
+                onSidebarOpen={handleSidebarOpen}
+                flyoutNavigation={flyoutNavigation}
+                customRouting={hasRouting ? customRouting : []}
+                // colorInvert={isBlogHome && !trigger}
+                trigger={trigger}
+                isAuthenticated={isLoggedIn}
+                userInfo={userInfo?.data}
+                loading={loading}
+              />
+            </Stack>
+          </Container>
+        </AppBar>
+      )}
       <Sidebar
         onClose={handleSidebarClose}
         open={open}
@@ -182,10 +186,12 @@ const MarketingMain = ({
         {children}
         <Divider />
       </main>
-      <Footer
-        // colorInvert={colorInvert}
-        customRouting={hasRouting ? customRouting : []}
-      />
+      {!isLoginPage && (
+        <Footer
+          // colorInvert={colorInvert}
+          customRouting={hasRouting ? customRouting : []}
+        />
+      )}
     </>
   );
 };
