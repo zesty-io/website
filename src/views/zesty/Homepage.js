@@ -105,7 +105,7 @@ function Homepage({ content }) {
     if (content.zesty.isAuthenticated || isLoggined) {
       window.location.href = '/dashboard/';
     }
-  }, [content.zesty.isAuthenticated]);
+  }, [content.zesty.isAuthenticated, isLoggined]);
 
   useEffect(() => {
     verifyUser(setisLoggined, token);
