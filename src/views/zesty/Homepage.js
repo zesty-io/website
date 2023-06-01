@@ -77,13 +77,6 @@ const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
 
 const verifyUser = async (callback, token) => {
   const verifyUrl = 'https://auth.api.zesty.io/verify';
-
-  const response = await fetch(verifyUrl, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await response.json();
   const handleLogout = () => {
     deleteCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', {
       domain: '.zesty.io',
@@ -92,6 +85,13 @@ const verifyUser = async (callback, token) => {
     deleteCookie('ZESTY_WORKING_INSTANCE', {});
     callback(false);
   };
+
+  const response = await fetch(verifyUrl, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
 
   return data?.code === 200 ? callback(true) : handleLogout();
 };
