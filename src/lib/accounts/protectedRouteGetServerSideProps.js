@@ -101,6 +101,10 @@ export default async function getServerSideProps({ res, resolvedUrl }) {
 }
 
 export const isProtectedRoute = (pathname) => {
+  if (pathname === '/') {
+    return false;
+  }
+
   const protectedRoutes = [
     '/instances/',
     '/profile/',
