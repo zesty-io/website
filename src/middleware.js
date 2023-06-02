@@ -11,6 +11,11 @@ export async function middleware(request) {
   //   const redirectUrl = resolve(request.nextUrl.origin, '/dashboard/');
   //   return NextResponse.redirect(redirectUrl, 302);
   // }
+  if (request.nextUrl.pathname === '/' && isAuthenticated) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/dashboard';
+    return NextResponse.redirect(url);
+  }
 
   return response;
 }
