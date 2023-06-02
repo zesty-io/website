@@ -77,8 +77,8 @@ const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
 
 const verifyUser = async (callback, token) => {
   const verifyUrl = helpers.isProd
-    ? 'https://auth.api.dev.zesty.io/verify'
-    : 'https://auth.api.zesty.io/verify';
+    ? 'https://auth.api.zesty.io/verify'
+    : 'https://auth.api.dev.zesty.io/verify';
   const handleLogout = () => {
     deleteCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', {
       domain: '.zesty.io',
