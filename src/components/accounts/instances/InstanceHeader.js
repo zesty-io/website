@@ -127,28 +127,25 @@ export default function InstanceHeader({ ZestyAPI }) {
               </Stack>
             </Stack>
           ) : (
-            <Typography
-              variant="h5"
-              color="text.primary"
-              sx={{
-                width: '100%',
-                display: 'block',
-                maxHeight: '4rem',
-                wordBreak: 'break-word',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
+            <Stack
               onMouseOver={() => setShowEdit(true)}
               onMouseLeave={() => setShowEdit(false)}
+              direction="row"
+              spacing={1}
             >
-              {instanceName}
+              <Typography variant="h5" color="text.primary">
+                {instanceName}
+              </Typography>
               <IconButton
-                sx={{ visibility: showEdit ? 'visible' : 'hidden' }}
+                sx={{
+                  visibility: showEdit ? 'visible' : 'hidden',
+                  alignSelf: 'center',
+                }}
                 onClick={() => setIsEditing(true)}
               >
                 <EditIcon />
               </IconButton>
-            </Typography>
+            </Stack>
           )
         ) : (
           <Skeleton variant="rectangular" height={55} />
