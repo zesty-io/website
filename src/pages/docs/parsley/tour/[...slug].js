@@ -566,6 +566,8 @@ const Slug = (props) => {
     }
   }, [availableData, contentTab, glossaryData]);
 
+  const pageTitle = `Zesty.io - ${title}`;
+
   useEffect(() => {
     setcurrentTab('response');
   }, [router.asPath]);
@@ -578,7 +580,7 @@ const Slug = (props) => {
 
   return (
     <MainWrapper>
-      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+      <ZestyAccountsHead title={pageTitle} />
 
       <Stack direction="row">
         {/* SIDEBAR */}
