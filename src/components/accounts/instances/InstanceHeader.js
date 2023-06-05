@@ -131,7 +131,7 @@ export default function InstanceHeader({ ZestyAPI }) {
               onMouseOver={() => setShowEdit(true)}
               onMouseLeave={() => setShowEdit(false)}
               direction="row"
-              spacing={1}
+              spacing="4px"
             >
               <Typography variant="h5" color="text.primary">
                 {instanceName}
@@ -141,6 +141,7 @@ export default function InstanceHeader({ ZestyAPI }) {
                   visibility: showEdit ? 'visible' : 'hidden',
                   alignSelf: 'center',
                 }}
+                size="small"
                 onClick={() => setIsEditing(true)}
               >
                 <EditIcon />
