@@ -514,3 +514,11 @@ sample cypress config
 ## Uploading Assets
 
 To upload assets for your projects put them on the CDN, do not put them in the repository. Assets can be uploaded at https://console.cloud.google.com/storage/browser/assets.zesty.io?project=zesty-prod , upload to the respective folder that match your project name, for example, the SVGs and PNG that are being commited to website should be moved into this storage bucket under the website folder, once they are uploaded they accessible from https://assets.zesty.io e.g. https://assets.zesty.io/website/assets/images/dxp_bottom_bg.svg
+
+## Adding Data to Algolia Search
+
+- open `algolia.js` file in `src/pages/api/algolia.js`
+- specify the `data` and `index`
+- pass it in `algoliaFunc`
+- run the app `npm run dev`
+- perform a `GET` request in this url `http://localhost:3000/api/algolia`
