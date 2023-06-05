@@ -25,6 +25,8 @@
 import revampTheme from 'theme/revampTheme';
 import ModalImage from 'react-modal-image';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
 
@@ -54,7 +56,7 @@ import GetDemoSection from 'revamp/ui/GetDemoSection';
 
 const GetTree = ({ data = [] }) => {
   return data.map((e) => {
-    if (e.children) {
+    if (e.children.length !== 0 && Array.isArray(e.children)) {
       return (
         <TreeItem
           nodeId={e.uri}
@@ -272,6 +274,41 @@ const Product = (props) => {
     isDocsPage: false,
   });
 
+  const prodNav = productsData.map((e) => {
+    return { ...e, name: e.uri.replace(/^\/product/, '') };
+  });
+  const makeTree = (data) => {
+    const base = { children: [] };
+
+    for (const node of data) {
+      const path = node.name.match(/\/[^\/]+/g);
+      let curr = base;
+
+      path.forEach((e, i) => {
+        const currPath = path.slice(0, i + 1).join('');
+        const child = curr.children.find((e) => e.name === currPath);
+
+        if (child) {
+          curr = child;
+        } else {
+          curr.children.push({
+            ...node,
+            id: uuidv4(),
+            name: currPath,
+            children: [],
+            url: currPath,
+          });
+          curr = curr.children[curr.children.length - 1];
+        }
+      });
+    }
+
+    return base.children;
+  };
+  const navigationData = makeTree(prodNav).sort(
+    (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
+  );
+
   const result = [];
   const groupByUri = (data = []) => {
     data.forEach((element) => {
@@ -300,10 +337,6 @@ const Product = (props) => {
     });
   };
   groupByUri(productsData);
-
-  const navigationData = result.sort(
-    (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
-  );
 
   React.useEffect(() => {
     setalgoliaApiKey(props.content.algolia.apiKey);
