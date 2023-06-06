@@ -37,9 +37,7 @@ const GuidePage = (props) => {
 
   const getPageData = async () => {
     await axios
-      .get(
-        'https://parsleydev-dev.webengine.zesty.io/-/instant/7-c005a8-zv6024.json',
-      )
+      .get('https://parsley.zesty.io/-/instant/7-c005a8-zv6024.json')
       .then((e) => {
         setpageData(e.data.data[0].content);
       })
@@ -48,6 +46,8 @@ const GuidePage = (props) => {
         setpageData({});
       });
   };
+  const title = `${pageData?.title}`;
+
   useEffect(() => {
     setalgoliaApiKey(props.algolia.apiKey);
     setalgoliaAppId(props.algolia.appId);
@@ -59,7 +59,7 @@ const GuidePage = (props) => {
   }, []);
   return (
     <MainWrapper>
-      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+      <ZestyAccountsHead title={title} />
 
       <Stack direction={'row'}>
         {/* SIDEBARR */}

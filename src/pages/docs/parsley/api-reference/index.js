@@ -66,6 +66,7 @@ const ApiReferencePage = (props) => {
   const newNavData = navData?.filter((e) =>
     e.label.toLowerCase().includes(search.toLowerCase()),
   );
+  const title = `Zesty-io - ${PARSLEY[1]?.title}`;
 
   useEffect(() => {
     getMd();
@@ -76,9 +77,10 @@ const ApiReferencePage = (props) => {
     setalgoliaAppId(props.algolia.appId);
     setalgoliaIndex(props.algolia.index);
   }, []);
+
   return (
     <MainWrapper>
-      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+      <ZestyAccountsHead title={title} />
       <Stack direction={'row'}>
         {/* SIDEBAR */}
         <DocsSidebar

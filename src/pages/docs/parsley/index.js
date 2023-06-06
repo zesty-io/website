@@ -79,7 +79,7 @@ const ParsleyOverviewPage = (props) => {
 
   return (
     <MainWrapper>
-      <ZestyAccountsHead title={'Zesty.io - Documentation'} />
+      <ZestyAccountsHead title={'Zesty.io - Parsley'} />
 
       <Stack direction={'row'}>
         {/* SIDEBARR */}

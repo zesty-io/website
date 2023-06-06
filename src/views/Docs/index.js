@@ -10,7 +10,6 @@ import {
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
-import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 import { grey } from '@mui/material/colors';
 //import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from 'next/router';
@@ -22,10 +21,6 @@ const FolderTreeView = dynamic(() =>
 const DocsPages = dynamic(() =>
   import('./DocsPages').then((mod) => mod.DocsPages),
 );
-
-const title = 'Docs page';
-const description = 'Docs page';
-const ogimage = 'Docs page';
 
 const LeftNav = React.memo(({ trigger, newTreeData }) => {
   const router = useRouter();
@@ -134,11 +129,6 @@ const Main = ({ pageData = [], treeData }) => {
 
   const newTreeData = isServices ? serviceTree : treeData?.item;
 
-  const pageHeaderProps = {
-    title,
-    description,
-    ogimage,
-  };
   const leftNavProps = {
     trigger,
     newTreeData,
@@ -146,8 +136,6 @@ const Main = ({ pageData = [], treeData }) => {
 
   return (
     <MainWrapper customRouting={[]}>
-      {/* page header  */}
-      <ZestyAccountsHead {...pageHeaderProps} />
       <Stack direction={'row'}>
         {/* left navigation tree */}
         <LeftNav {...leftNavProps} />

@@ -21,9 +21,12 @@ export const DocsSidebar = React.memo(
     data,
     onClick = undefined,
     placeholder = 'Search...',
+    url = '',
   }) => {
     const router = useRouter();
-    const url = `/${router?.query?.slug && router?.query?.slug[0]}/`;
+    if (!url) {
+      url = `/${router?.query?.slug && router?.query?.slug[0]}/`;
+    }
     const handleClick = (e) => {
       if (onClick) {
         onClick(e);
