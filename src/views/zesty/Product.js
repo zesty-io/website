@@ -73,7 +73,7 @@ const GetTree = ({ data = [] }) => {
                 textDecoration: 'none',
               }}
             >
-              <Typography variant="body1" py={0.5}>
+              <Typography variant="body1" py={0.5} title={e.title}>
                 {e.title}
               </Typography>
             </NextLink>
@@ -100,7 +100,7 @@ const GetTree = ({ data = [] }) => {
                 my: 0.1,
               }}
             >
-              <Typography variant="body1" py={0.5}>
+              <Typography variant="body1" py={0.5} title={e.title}>
                 {e.title}
               </Typography>
             </NextLink>

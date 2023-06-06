@@ -59,7 +59,7 @@ export default function AppBar() {
       setUrl(window.location.pathname);
       setLocationSearch(window.location.search);
     }
-  }, [router.isReady, url]);
+  }, [router.isReady, url, window.location.pathname]);
 
   useEffect(() => {
     setworkingInstance(instanceZUID);
