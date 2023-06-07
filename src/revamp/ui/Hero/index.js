@@ -96,6 +96,7 @@ const Hero = ({
                 variant="contained"
                 color="primary"
                 size={isLg ? 'extraLarge' : 'large'}
+                title={primaryBtn}
               >
                 {primaryBtn}
               </Button>
@@ -104,6 +105,7 @@ const Hero = ({
                 variant="outlined"
                 color="primary"
                 size={isLg ? 'extraLarge' : 'large'}
+                title={secondaryBtn}
               >
                 {secondaryBtn}
               </Button>
@@ -129,12 +131,48 @@ const Hero = ({
               rowGap="24px"
               columnGap="20px"
             >
-              <img src={sony} width="91px" height="32px" />
-              <img src={rocketLeague} width="88.35px" height="32px" />
-              <img src={singlife} width="102.12px" height="32px" />
-              <img src={acorns} width="94px" height="32px" />
-              <img src={bjs} width="36.48px" height="32px" />
-              <img src={phoenixSuns} width="31.59px" height="32px" />
+              <img
+                src={sony}
+                width="91px"
+                height="32px"
+                title="Sony"
+                alt="Sony"
+              />
+              <img
+                src={rocketLeague}
+                width="88.35px"
+                height="32px"
+                title="Rocket League"
+                alt="Rocket League"
+              />
+              <img
+                src={singlife}
+                width="102.12px"
+                height="32px"
+                title="Singlife"
+                alt="Singlife"
+              />
+              <img
+                src={acorns}
+                width="94px"
+                height="32px"
+                title="Acorns"
+                alt="Acorns"
+              />
+              <img
+                src={bjs}
+                width="36.48px"
+                height="32px"
+                title="Bjs"
+                alt="Bjs"
+              />
+              <img
+                src={phoenixSuns}
+                width="31.59px"
+                height="32px"
+                title="Phoenix Suns"
+                alt="Phoenix Suns"
+              />
             </Stack>
           </Stack>
         </Grid>
