@@ -344,7 +344,6 @@ const Product = (props) => {
     setalgoliaIndex(props.content.algolia.index);
   }, []);
 
-  console.log(navigationData);
   return (
     <Stack>
       <Container
