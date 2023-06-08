@@ -73,7 +73,7 @@ const GetTree = ({ data = [] }) => {
                 textDecoration: 'none',
               }}
             >
-              <Typography variant="body1" py={0.5}>
+              <Typography variant="body1" py={0.5} title={e.title}>
                 {e.title}
               </Typography>
             </NextLink>
@@ -100,7 +100,7 @@ const GetTree = ({ data = [] }) => {
                 my: 0.1,
               }}
             >
-              <Typography variant="body1" py={0.5}>
+              <Typography variant="body1" py={0.5} title={e.title}>
                 {e.title}
               </Typography>
             </NextLink>
@@ -360,15 +360,38 @@ const Product = (props) => {
           justifyContent={'space-between'}
           alignItems={'center'}
           sx={{
-            display: { xs: 'none', md: 'flex' },
+            display: { xs: '', md: 'flex' },
           }}
         >
           <AppBar />
 
-          <SearchModal sx={{ width: true ? 300 : 500 }}>
+          <SearchModal
+            sx={{
+              width: true ? 300 : 500,
+              display: { xs: 'none', md: 'block' },
+            }}
+          >
             <AlgoSearch />
           </SearchModal>
         </Stack>
+
+        {/* Navigation mobile */}
+        <Stack
+          direction={'row'}
+          width={1}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+          sx={{
+            display: { xs: '', md: 'none' },
+          }}
+        >
+          <Box>
+            <TreeNav
+              data={[{ title: 'Products', children: navigationData, uri: '#' }]}
+            />
+          </Box>
+        </Stack>
+
         {/* // body */}
         <Stack>
           <Grid container spacing={2} minHeight={'80vh'}>

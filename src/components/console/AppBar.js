@@ -56,10 +56,10 @@ export default function AppBar() {
   useEffect(() => {
     if (router.isReady) {
       getInstance();
-      setUrl(window.location.pathname);
+      setUrl(router.asPath);
       setLocationSearch(window.location.search);
     }
-  }, [router.isReady, url]);
+  }, [router.isReady, url, router.asPath]);
 
   useEffect(() => {
     setworkingInstance(instanceZUID);

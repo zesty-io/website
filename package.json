@@ -127,7 +127,6 @@
     "@typescript-eslint/parser": "^5.19.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-styled-components": "^2.0.7",
-    "colortape": "^0.1.2",
     "cross-env": "^7.0.2",
     "cypress": "^7.4.0",
     "cypress-plugin-snapshots": "^1.4.4",

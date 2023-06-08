@@ -70,7 +70,7 @@ async function fetchPageData(url) {
 
 const cacheProducts = {};
 // Function to fetch the products data
-async function fetchProductsData() {
+async function fetchProductsData({ isProd = false }) {
   const cacheKey = 'productsData';
 
   // Check if the data is already cached
@@ -82,14 +82,19 @@ async function fetchProductsData() {
   const data = await productsData();
 
   // Cache the data
-  cacheProducts[cacheKey] = data;
+  // run only if PRODUCTION = true
+  if (isProd) {
+    cacheProducts[cacheKey] = data;
+  }
 
   return data;
 }
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isAuthenticated = getIsAuthenticated(res);
+  const isProd = process.env.PRODUCTION === 'true' ? true : false;
   // does not display with npm run dev
+
   res.setHeader(
     'Cache-Control',
     'public, max-age=3600, stale-while-revalidate=7200 ',
@@ -106,7 +111,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
 
   let products = [];
   if (req.url.includes('/product')) {
-    products = await fetchProductsData();
+    products = await fetchProductsData({ isProd });
   }
 
   const sso = {
