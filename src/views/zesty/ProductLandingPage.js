@@ -264,7 +264,6 @@ const ProductLandingPage = (props) => {
     disableHysteresis: true,
     threshold: 5,
   });
-  console.log(content, 4444);
   const isLoggedIn = useIsLoggedIn();
   const { navData } = parseMarkdownFile({
     markdown: content?.body || '',
