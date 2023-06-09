@@ -145,7 +145,16 @@ export const Security = ({ getUser }) => {
         </Grid>
 
         <Grid item lg={6} xs={12}>
-          <Paper boxShadow={4} sx={{ p: 4, height: '100%' }}>
+          <Paper
+            boxShadow={4}
+            sx={{
+              p: 4,
+              height: '100%',
+              opacity: 0,
+              pointerEvents: 'none',
+              visibility: 'hidden',
+            }}
+          >
             <Stack spacing={2}>
               <Typography variant="h6">Two Factor Authentication</Typography>
               <Typography color="text.secondary">
