@@ -95,11 +95,12 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
   // does not display with npm run dev
 
-  res.setHeader(
-    'Cache-Control',
-    'public, max-age=3600, stale-while-revalidate=7200 ',
-  );
-  res.setHeader('Surrogate-Control', 'max-age=3600');
+  isProd &&
+    res.setHeader(
+      'Cache-Control',
+      'public, max-age=3600, stale-while-revalidate=7200 ',
+    );
+  isProd && res.setHeader('Surrogate-Control', 'max-age=3600');
 
   res.setHeader(
     'Surrogate-Key',
