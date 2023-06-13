@@ -425,6 +425,44 @@ const Product = (props) => {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
+                      p({ node, children }) {
+                        if (
+                          node.children.length === 1 &&
+                          node.children[0].tagName === 'a'
+                        ) {
+                          return (
+                            <Box
+                              p={3}
+                              m={1}
+                              sx={{
+                                border: `1px solid #ccc`,
+                                borderRadius: '4px',
+                              }}
+                            >
+                              <Link href={node.children[0].properties.href}>
+                                {node.children[0].children[0].value}
+                              </Link>
+                            </Box>
+                          );
+                        }
+
+                        return <p>{children}</p>;
+                      },
+                      // a({ node, children }) {
+                      //   // console.log(node, 'a', 444);
+                      //   return (
+                      //     <Box
+                      //       p={3}
+                      //       m={1}
+                      //       sx={{
+                      //         border: `1px solid #ccc`,
+                      //         borderRadius: '4px',
+                      //       }}
+                      //     >
+                      //       <Link href={node.properties.href}>{children}</Link>
+                      //     </Box>
+                      //   );
+                      // },
                       img({ node }) {
                         if (node.properties.title) {
                           return (
