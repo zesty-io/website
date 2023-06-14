@@ -338,6 +338,13 @@ const Product = (props) => {
   };
   groupByUri(productsData);
 
+  // group the
+  const productGlossary = content.zesty.productGlossary.map((e) => {
+    const res = e.keywords.split(',').map((item) => item.toLowerCase());
+    return { ...e, target_words: res };
+  });
+  const mainKeywords = productGlossary.flatMap((obj) => obj.target_words);
+
   React.useEffect(() => {
     setalgoliaApiKey(props.content.algolia.apiKey);
     setalgoliaAppId(props.content.algolia.appId);
@@ -426,6 +433,33 @@ const Product = (props) => {
                     remarkPlugins={[remarkGfm]}
                     components={{
                       p({ node, children }) {
+                        const keywords = mainKeywords;
+                        const keywordRegex = new RegExp(
+                          `\\b(${keywords.join('|')})\\b`,
+                          'gi',
+                        );
+
+                        const res = children.map((e) => {
+                          // inside the p tag this will
+                          // render the a tag in MD as it is
+                          if (e.type === 'a') {
+                            const linkHtml = `<a href="${e.props.href}" title="${e.props.children[0]}">${e.props.children[0]}</a>`;
+
+                            return linkHtml;
+                          }
+                          // inside the p tag
+                          // this will find and replace the keywords to a link tag
+                          if (typeof e === 'string') {
+                            return e.replace(keywordRegex, (match) => {
+                              const obj = productGlossary.find((x) =>
+                                x.target_words.includes(match.toLowerCase()),
+                              );
+                              return `<a href="${obj?.url}" class="zesty-tooltip" title="${obj?.description}" >${match}</a>`;
+                            });
+                          }
+                        });
+
+                        // render link tags thats outside of p tags
                         if (
                           node.children.length === 1 &&
                           node.children[0].tagName === 'a'
@@ -439,30 +473,24 @@ const Product = (props) => {
                                 borderRadius: '4px',
                               }}
                             >
-                              <Link href={node.children[0].properties.href}>
+                              <Link
+                                href={node.children[0].properties.href}
+                                title={node.children[0].children[0].value}
+                              >
                                 {node.children[0].children[0].value}
                               </Link>
                             </Box>
                           );
                         }
 
-                        return <p>{children}</p>;
+                        return (
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: res.join(''),
+                            }}
+                          />
+                        );
                       },
-                      // a({ node, children }) {
-                      //   // console.log(node, 'a', 444);
-                      //   return (
-                      //     <Box
-                      //       p={3}
-                      //       m={1}
-                      //       sx={{
-                      //         border: `1px solid #ccc`,
-                      //         borderRadius: '4px',
-                      //       }}
-                      //     >
-                      //       <Link href={node.properties.href}>{children}</Link>
-                      //     </Box>
-                      //   );
-                      // },
                       img({ node }) {
                         if (node.properties.title) {
                           return (
