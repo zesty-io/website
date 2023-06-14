@@ -438,22 +438,28 @@ const Product = (props) => {
                           `\\b(${keywords.join('|')})\\b`,
                           'gi',
                         );
+
                         const res = children.map((e) => {
-                          // to render the a tag in MD as it is
+                          // inside the p tag this will
+                          // render the a tag in MD as it is
                           if (e.type === 'a') {
                             const linkHtml = `<a href="${e.props.href}" title="${e.props.children[0]}">${e.props.children[0]}</a>`;
 
                             return linkHtml;
                           }
+                          // inside the p tag
+                          // this will find and replace the keywords to a link tag
                           if (typeof e === 'string') {
                             return e.replace(keywordRegex, (match) => {
                               const obj = productGlossary.find((x) =>
-                                x.target_words.includes(match),
+                                x.target_words.includes(match.toLowerCase()),
                               );
                               return `<a href="${obj?.url}" class="zesty-tooltip" title="${obj?.description}" >${match}</a>`;
                             });
                           }
                         });
+
+                        // render link tags thats outside of p tags
                         if (
                           node.children.length === 1 &&
                           node.children[0].tagName === 'a'
@@ -478,7 +484,6 @@ const Product = (props) => {
                         }
 
                         return (
-                          // <p>{children}</p>
                           <p
                             dangerouslySetInnerHTML={{
                               __html: res.join(''),
