@@ -8,6 +8,7 @@ import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import Main from 'layouts/Main';
 
 import { getIsAuthenticated } from 'utils';
+import axios from 'axios';
 
 //
 export const GlobalContext = createContext();
@@ -95,11 +96,12 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
   // does not display with npm run dev
 
-  res.setHeader(
-    'Cache-Control',
-    'public, max-age=3600, stale-while-revalidate=7200 ',
-  );
-  res.setHeader('Surrogate-Control', 'max-age=3600');
+  isProd &&
+    res.setHeader(
+      'Cache-Control',
+      'public, max-age=3600, stale-while-revalidate=7200 ',
+    );
+  isProd && res.setHeader('Surrogate-Control', 'max-age=3600');
 
   res.setHeader(
     'Surrogate-Key',
@@ -110,8 +112,10 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // attempt to get page data relative to zesty
 
   let products = [];
+  let productGlossary = [];
   if (req.url.includes('/product')) {
     products = await fetchProductsData({ isProd });
+    productGlossary = await getGlossary();
   }
 
   const sso = {
@@ -127,6 +131,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       sso,
       templateUrl: process.env.TEMPLATE_URL,
       products,
+      productGlossary,
     },
     algolia: {
       apiKey: process.env.ALGOLIA_APIKEY,
@@ -161,3 +166,15 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // Pass data to the page via props
   return { props: { ...data } };
 }
+
+const getGlossary = async () => {
+  const URL = `https://www.zesty.io/-/gql/product_glossary.json`;
+  try {
+    return await axios
+      .get(URL)
+      .then((e) => e.data)
+      .catch((err) => err);
+  } catch (error) {
+    return error;
+  }
+};
