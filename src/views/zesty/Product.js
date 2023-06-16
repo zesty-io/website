@@ -27,6 +27,8 @@ import ModalImage from 'react-modal-image';
 
 import { v4 as uuidv4 } from 'uuid';
 
+import FileOpenIcon from '@mui/icons-material/FileOpen';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
 
@@ -465,21 +467,44 @@ const Product = (props) => {
                           node.children[0].tagName === 'a'
                         ) {
                           return (
-                            <Box
-                              p={3}
-                              m={1}
-                              sx={{
-                                border: `1px solid #ccc`,
-                                borderRadius: '4px',
-                              }}
+                            <Link
+                              sx={{ textDecoration: 'none' }}
+                              href={node.children[0].properties.href}
+                              title={node.children[0].children[0].value}
                             >
-                              <Link
-                                href={node.children[0].properties.href}
-                                title={node.children[0].children[0].value}
+                              <Box
+                                p={3}
+                                my={1}
+                                mb={3}
+                                sx={{
+                                  border: `1px solid #ccc`,
+                                  borderRadius: '4px',
+                                  display: 'flex',
+                                  '&:hover': {
+                                    background: '#ccc',
+                                  },
+                                }}
                               >
-                                {node.children[0].children[0].value}
-                              </Link>
-                            </Box>
+                                <Stack
+                                  direction={'row'}
+                                  width={1}
+                                  alignItems={'stretch'}
+                                  justifyContent={'space-between'}
+                                >
+                                  <Stack direction={'row'} gap={2}>
+                                    <FileOpenIcon
+                                      sx={{
+                                        transform: 'scaleX(-1)',
+                                      }}
+                                    />
+                                    <Typography color="black">
+                                      {node.children[0].children[0].value}
+                                    </Typography>
+                                  </Stack>
+                                  <ArrowForwardIosIcon sx={{ color: 'grey' }} />
+                                </Stack>
+                              </Box>
+                            </Link>
                           );
                         }
 
@@ -539,27 +564,29 @@ const Product = (props) => {
                           </Box>
                         );
                       },
-                      // h1({ node }) {
-                      //   return (
-                      //     <Box sx={{}}>
-                      //       <Typography
-                      //         variant="h4"
-                      //         component={'h1'}
-                      //         id={node.children[0].value
-                      //           ?.replace(/[^\w\s]/gi, '')
-                      //           ?.replace(/\s+/g, '-')
-                      //           ?.toLowerCase()}
-                      //       >
-                      //         {node.children[0].value}
-                      //       </Typography>
-                      //     </Box>
-                      //   );
-                      // },
+                      h1({ node }) {
+                        return (
+                          <Box sx={{}}>
+                            <Typography
+                              mt={2}
+                              fontWeight={800}
+                              variant="h4"
+                              component={'h1'}
+                              id={node.children[0].value
+                                ?.replace(/[^\w\s]/gi, '')
+                                ?.replace(/\s+/g, '-')
+                                ?.toLowerCase()}
+                            >
+                              {node.children[0].value}
+                            </Typography>
+                          </Box>
+                        );
+                      },
                       h2({ node }) {
                         return (
                           <Box sx={{}}>
                             <Typography
-                              variant="h4"
+                              variant="h5"
                               component={'h2'}
                               id={node.children[0].value
                                 ?.replace(/[^\w\s]/gi, '')
@@ -575,7 +602,7 @@ const Product = (props) => {
                         return (
                           <Box sx={{}}>
                             <Typography
-                              variant="h5"
+                              variant="h6"
                               component={'h3'}
                               id={node.children[0].value
                                 ?.replace(/[^\w\s]/gi, '')
