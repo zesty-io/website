@@ -5,6 +5,7 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
+import { transformText } from 'utils/product';
 
 export const BoxLink = ({ markdown, mainKeywords, productGlossary }) => {
   return (
@@ -137,36 +138,58 @@ export const BoxLink = ({ markdown, mainKeywords, productGlossary }) => {
           );
         },
         h1({ node }) {
+          const id = transformText(node.children[0].value);
           return (
-            <Box sx={{}}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }} gap={0.5}>
               <Typography
+                id={id}
                 mt={2}
                 fontWeight={800}
                 variant="h4"
                 component={'h1'}
-                id={node.children[0].value
-                  ?.replace(/[^\w\s]/gi, '')
-                  ?.replace(/\s+/g, '-')
-                  ?.toLowerCase()}
               >
                 {node.children[0].value}
               </Typography>
+              <Link
+                sx={{
+                  pt: 2,
+                  fontSize: 24,
+                  opacity: 0,
+                  color: '#FF5D0A',
+
+                  '&:hover': {
+                    opacity: 1,
+                  },
+                }}
+                href={`#${id}`}
+              >
+                #
+              </Link>
             </Box>
           );
         },
         h2({ node }) {
+          const id = transformText(node.children[0].value);
+
           return (
-            <Box sx={{}}>
-              <Typography
-                variant="h5"
-                component={'h2'}
-                id={node.children[0].value
-                  ?.replace(/[^\w\s]/gi, '')
-                  ?.replace(/\s+/g, '-')
-                  ?.toLowerCase()}
-              >
+            <Box sx={{ display: 'flex', alignItems: 'center' }} gap={0.5}>
+              <Typography variant="h5" component={'h2'} id={id}>
                 {node.children[0].value}
               </Typography>
+              <Link
+                sx={{
+                  fontSize: 24,
+                  opacity: 0,
+                  color: '#FF5D0A',
+
+                  '&:hover': {
+                    opacity: 1,
+                  },
+                }}
+                href={`#${id}`}
+              >
+                #
+              </Link>
             </Box>
           );
         },
