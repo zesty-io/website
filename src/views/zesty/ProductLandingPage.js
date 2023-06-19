@@ -47,7 +47,7 @@ import { SearchModal } from 'views/Docs/SearchModal';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
-import { BoxLink } from 'components/markdown-styling/BoxLink';
+import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
 
 const GetTree = ({ data = [] }) => {
   return data.map((e) => {
@@ -424,7 +424,7 @@ const ProductLandingPage = (props) => {
                 </Stack>
                 <Stack width={1} height={1}>
                   {/* Component that render the markdown file */}
-                  <BoxLink
+                  <ZestyMarkdownParser
                     markdown={content.body}
                     mainKeywords={mainKeywords}
                     productGlossary={productGlossary}
