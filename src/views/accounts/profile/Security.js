@@ -150,9 +150,7 @@ export const Security = ({ getUser }) => {
             sx={{
               p: 4,
               height: '100%',
-              opacity: 0,
               pointerEvents: 'none',
-              visibility: 'hidden',
             }}
           >
             <Stack spacing={2}>
@@ -197,6 +195,7 @@ export const Security = ({ getUser }) => {
                     </Stack>
 
                     <LoadingButton
+                      disabled={true}
                       variant="contained"
                       loading={formik.isSubmitting}
                       fullWidth
@@ -213,6 +212,7 @@ export const Security = ({ getUser }) => {
                     </Typography>
 
                     <LoadingButton
+                      disabled={true}
                       variant="contained"
                       fullWidth
                       type="submit"
