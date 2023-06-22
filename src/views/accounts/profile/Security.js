@@ -150,7 +150,6 @@ export const Security = ({ getUser }) => {
             sx={{
               p: 4,
               height: '100%',
-              pointerEvents: 'none',
             }}
           >
             <Stack spacing={2}>
@@ -164,6 +163,8 @@ export const Security = ({ getUser }) => {
               </Typography>
 
               <Button
+                target="_blank"
+                rel="noopener noreferrer"
                 href="https://authy.com/what-is-2fa/"
                 endIcon={<ArrowRightAltIcon color="primary" />}
                 sx={{ alignSelf: 'end' }}
@@ -174,10 +175,12 @@ export const Security = ({ getUser }) => {
 
             <form noValidate onSubmit={formik.handleSubmit}>
               <Stack spacing={2}>
-                <Stack mt={2} direction="row" justifyContent="space-between">
-                  <Typography variant="h6">Phone number for 2FA</Typography>
-                  <img src={url} alt="zesty auth" height="40" width="40" />
-                </Stack>
+                {!isAuthyEnable && (
+                  <Stack mt={2} direction="row" justifyContent="space-between">
+                    <Typography variant="h6">Phone number for 2FA</Typography>
+                    <img src={url} alt="zesty auth" height="40" width="40" />
+                  </Stack>
+                )}
 
                 {!isAuthyEnable ? (
                   <>
