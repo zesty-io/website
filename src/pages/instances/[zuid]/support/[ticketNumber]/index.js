@@ -28,6 +28,7 @@ export default function ticketItem() {
   const req = {
     cookies: {
       APP_SID: getCookie('APP_SID'),
+      ZESTY_WORKING_INSTANCE: getCookie('ZESTY_WORKING_INSTANCE'),
     },
   };
   const getTicket = async () => {
