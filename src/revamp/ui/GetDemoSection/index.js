@@ -28,7 +28,7 @@ const acorns =
   pic3 = `https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/WebContentManagement_MomentumLeader_Leader.svg`;
 
 const GetDemoSection = ({
-  title = 'Get Demo',
+  title = 'Connect with Content Experts',
   supportingText = `Want to see how Zesty can help you and your teams? Fill out the form to be contacted by our content management experts.
 
 Please look forward to us scheduling a 15 minute call so that we may customize your demo.`,

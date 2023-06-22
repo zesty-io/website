@@ -4,3 +4,4 @@ export * from './MDH3';
 export * from './MDBlockquote';
 export * from './MDParagraph';
 export * from './MDImage';
+export * from './MDCodeBlock';

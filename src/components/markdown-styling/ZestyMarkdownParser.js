@@ -3,6 +3,7 @@ import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
 import {
   MDBlockquote,
+  MDCodeBlock,
   MDH1,
   MDH2,
   MDH3,
@@ -29,6 +30,7 @@ export const ZestyMarkdownParser = ({
     h1: MDH1,
     h2: MDH2,
     h3: MDH3,
+    pre: MDCodeBlock,
   };
   return (
     <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
