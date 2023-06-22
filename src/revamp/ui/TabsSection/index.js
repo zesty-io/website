@@ -4,7 +4,7 @@ import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 // import ApiRoundedIcon from '@mui/icons-material/ApiRounded';
 import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { TabContext, TabList } from '@mui/lab';
 // import { Database, Brain } from '@zesty-io/material/';
 import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
 import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
@@ -108,6 +108,20 @@ const tabLists = [
   },
 ];
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      {...other}
+    >
+      {children}
+    </Typography>
+  );
+}
+
 const TabsSection = ({
   header = 'Enterprise grade features  available for everyone out-of-the-box',
 }) => {
@@ -174,7 +188,7 @@ const TabsSection = ({
         >
           {tabLists.map((tab) => (
             <Tab
-              key={tab}
+              key={tab.name}
               label={tab.name}
               value={tab.name}
               iconPosition="start"
@@ -187,7 +201,12 @@ const TabsSection = ({
           ))}
         </TabList>
         {tabLists.map((tab) => (
-          <TabPanel key={tab.name} sx={{ p: 0, pt: 3 }} value={tab.name}>
+          <TabPanel
+            key={tab.name}
+            sx={{ p: 0, pt: 3 }}
+            value={value}
+            index={tab.name}
+          >
             {tab.component}
           </TabPanel>
         ))}
