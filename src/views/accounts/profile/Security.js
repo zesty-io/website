@@ -175,14 +175,12 @@ export const Security = ({ getUser }) => {
 
             <form noValidate onSubmit={formik.handleSubmit}>
               <Stack spacing={2}>
-                {!isAuthyEnable && (
-                  <Stack mt={2} direction="row" justifyContent="space-between">
-                    <Typography variant="h6">Phone number for 2FA</Typography>
-                    <img src={url} alt="zesty auth" height="40" width="40" />
-                  </Stack>
-                )}
+                <Stack mt={2} direction="row" justifyContent="space-between">
+                  <Typography variant="h6">Phone number for 2FA</Typography>
+                  <img src={url} alt="zesty auth" height="40" width="40" />
+                </Stack>
 
-                {!isAuthyEnable ? (
+                {isAuthyEnable ? (
                   <>
                     <Stack direction="row" spacing={1}>
                       <FormInput
@@ -215,7 +213,6 @@ export const Security = ({ getUser }) => {
                     </Typography>
 
                     <LoadingButton
-                      disabled={true}
                       variant="contained"
                       fullWidth
                       type="submit"
