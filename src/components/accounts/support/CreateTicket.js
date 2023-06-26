@@ -32,11 +32,8 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
       }
 
       await onSubmit(values);
-      // formik.resetForm();
     },
   });
-
-  console.log(file);
 
   return (
     <Box paddingY={4}>
@@ -96,7 +93,12 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
   const APP_SID = getCookie('APP_SID');
 
   const handleCreateInviteSuccess = () => {
-    SuccessMsg({ title: 'Ticket Successfully created' });
+    SuccessMsg({
+      title: 'Ticket Successfully created',
+      action: () => {
+        window.location.reload();
+      },
+    });
   };
   const handleCreateInviteErr = (res) => {
     ErrorMsg({ text: res.error });

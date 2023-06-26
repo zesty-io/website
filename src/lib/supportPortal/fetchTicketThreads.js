@@ -9,6 +9,7 @@
 const fetchTicketThread = async (query, req) => {
   let ticket;
 
+  console.log(req);
   /**
    * Fetches a single support ticket
    * @async
@@ -69,6 +70,11 @@ const fetchTicketThread = async (query, req) => {
       await Promise.all(attachmentPromises);
     }
   };
+
+  console.log(ticket);
+  if (ticket.error) {
+    return { error: ticket.error };
+  }
 
   await Promise.all(ticket.threadContent.map(addAttachmentPreviews));
 

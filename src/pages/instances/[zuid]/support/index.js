@@ -11,7 +11,7 @@ export default function Support() {
   const router = useRouter();
   const { zuid } = router.query;
   const APP_SID = getCookie('APP_SID');
-  const ZESTY_WORKING_INSTANCE = getCookie('ZESTY_WORKING_INSTANCE');
+
   const [search, setsearch] = useState('');
   const [instance, setinstance] = useState(null);
   const [isLoading, setloading] = useState(true);
@@ -21,6 +21,8 @@ export default function Support() {
     setinstance(zuid);
     fetchTickets();
   }, []);
+
+  console.log(zuid);
 
   const headerProps = {
     title: 'Support',
@@ -34,7 +36,7 @@ export default function Support() {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${APP_SID}`,
-        WorkingInstance: ZESTY_WORKING_INSTANCE,
+        WorkingInstance: zuid,
       },
     };
     await fetch(

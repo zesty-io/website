@@ -24,11 +24,12 @@ export default function ticketItem() {
   const [ticket, setticket] = useState({});
   const { ticket: ticketData, threadContent } = ticket || {};
   const router = useRouter();
+  const { zuid } = router.query;
 
   const req = {
     cookies: {
       APP_SID: getCookie('APP_SID'),
-      ZESTY_WORKING_INSTANCE: getCookie('ZESTY_WORKING_INSTANCE'),
+      ZESTY_WORKING_INSTANCE: zuid,
     },
   };
   const getTicket = async () => {
@@ -81,6 +82,15 @@ export default function ticketItem() {
                 >
                   {ticketData?.subject}
                 </Typography>
+                {ticket.error && (
+                  <Typography
+                    sx={{
+                      color: theme.palette.zesty.zestyOrange,
+                    }}
+                  >
+                    {ticket.error}
+                  </Typography>
+                )}
 
                 <Typography
                   component="p"
