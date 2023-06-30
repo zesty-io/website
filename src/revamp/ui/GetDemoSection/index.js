@@ -238,7 +238,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                   </Stack>
 
                   <Stack spacing={3}>
-                    {isLong && !isContact && (
+                    {/* {isLong && !isContact && (
                       <CustomTextField
                         label="Company"
                         name="company"
@@ -247,7 +247,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                         helperText={touched.company && errors.company}
                         {...getFieldProps('company')}
                       />
-                    )}
+                    )} */}
 
                     <CustomTextField
                       label="Email"

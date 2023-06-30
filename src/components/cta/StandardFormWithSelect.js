@@ -125,7 +125,7 @@ const validationSchema = yup.object({
     .email('Please enter a valid email address')
     .required('Email is required.'),
   phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-  message: yup.string().trim().required('Please specify your message'),
+  message: yup.string().trim(),
 });
 
 const validationSchemaForPpc = yup.object({
@@ -267,7 +267,7 @@ function StandardFormWithSelect({
 
     cmsModel === 'Gated Content Page'
       ? setOpen(true)
-      : (window.location = '/ppc/thank-you/');
+      : (window.location = '/meet/');
 
     return values;
   };
