@@ -1,5 +1,6 @@
 import axios from 'axios';
 import MarkdownIt from 'markdown-it';
+import { transformText } from 'utils/product';
 
 export const fetchMarkdownFile = async ({ mdUrl }) => {
   const response = await axios.get(mdUrl);
@@ -90,7 +91,7 @@ export const parseMarkdownFile = ({
       label: e.label.replace(/\\/g, '/').replaceAll('/', ''),
       name: e.label.replace(/\\/g, '/').replaceAll('/', ''),
       url: `${parentURL}#${e.value}`,
-      href: `${parentURL}#${e.value}`,
+      href: `#${transformText(e.label)}`,
     };
   });
   const newPageData = appendImageStyle(newMarkdown.join(''));
