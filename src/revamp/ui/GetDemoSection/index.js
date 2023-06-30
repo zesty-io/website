@@ -280,7 +280,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                             fontWeight={600}
                             mb="4px"
                           >
-                            Phone
+                            Phone (optional)
                           </Typography>
 
                           <MuiPhoneNumber
