@@ -16,8 +16,7 @@ export const validationSchema = yup.object({
     .string()
     .label('Phone')
     .trim()
-    .matches(phoneRegExp, 'You must enter at least 5 digits.')
-    .required(),
+    .matches(phoneRegExp, 'You must enter at least 5 digits.'),
 });
 
 export const contactPageValidation = yup.object({
