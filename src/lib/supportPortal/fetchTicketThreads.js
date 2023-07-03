@@ -23,6 +23,7 @@ const fetchTicketThread = async (query, req) => {
           method: 'GET',
           headers: {
             authorization: `Bearer ${req.cookies.APP_SID}`,
+            WorkingInstance: req.cookies.ZESTY_WORKING_INSTANCE,
           },
         },
       );
@@ -52,6 +53,7 @@ const fetchTicketThread = async (query, req) => {
               headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${req.cookies.APP_SID}`,
+                WorkingInstance: req.cookies.ZESTY_WORKING_INSTANCE,
               },
               body: JSON.stringify({
                 href: attachment.href,
@@ -67,6 +69,10 @@ const fetchTicketThread = async (query, req) => {
       await Promise.all(attachmentPromises);
     }
   };
+
+  if (ticket.error) {
+    return { error: ticket.error };
+  }
 
   await Promise.all(ticket.threadContent.map(addAttachmentPreviews));
 
