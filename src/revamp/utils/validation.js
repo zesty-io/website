@@ -5,7 +5,7 @@ const phoneRegExp = '^([^0-9]*[0-9]){5}.*$';
 export const validationSchema = yup.object({
   firstName: yup.string().label('First Name').trim().required(),
   lastName: yup.string().label('Last Name').trim().required(),
-  company: yup.string().label('Company').trim().required(),
+  company: yup.string().label('Company').trim(),
   email: yup
     .string()
     .label('Email')
@@ -16,8 +16,7 @@ export const validationSchema = yup.object({
     .string()
     .label('Phone')
     .trim()
-    .matches(phoneRegExp, 'You must enter at least 5 digits.')
-    .required(),
+    .matches(phoneRegExp, 'You must enter at least 5 digits.'),
 });
 
 export const contactPageValidation = yup.object({

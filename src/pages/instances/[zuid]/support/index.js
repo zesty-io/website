@@ -22,8 +22,6 @@ export default function Support() {
     fetchTickets();
   }, []);
 
-  console.log(zuid);
-
   const headerProps = {
     title: 'Support',
     description: `Manage your Tickets`,

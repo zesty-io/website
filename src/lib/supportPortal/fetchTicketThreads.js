@@ -9,7 +9,6 @@
 const fetchTicketThread = async (query, req) => {
   let ticket;
 
-  console.log(req);
   /**
    * Fetches a single support ticket
    * @async
@@ -71,7 +70,6 @@ const fetchTicketThread = async (query, req) => {
     }
   };
 
-  console.log(ticket);
   if (ticket.error) {
     return { error: ticket.error };
   }
