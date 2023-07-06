@@ -48,6 +48,7 @@ import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
+import FillerContent from 'components/globals/FillerContent';
 
 const GetTree = ({ data = [] }) => {
   return data.map((e) => {
@@ -261,7 +262,7 @@ const ProductLandingPage = (props) => {
   });
   const isLoggedIn = useIsLoggedIn();
   const { navData } = parseMarkdownFile({
-    markdown: content?.body || 'hello world',
+    markdown: content?.body || FillerContent.header,
     tags: ['h2', 'h3', 'h4', 'h1', 'h5'],
     parentURL: '',
     title: '',
