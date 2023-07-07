@@ -41,7 +41,7 @@ import {
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import revampTheme from 'theme/revampTheme';
 
-const Demo = ({ content }) => {
+const Demo = () => {
   const theme = useTheme();
   // const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   return (
