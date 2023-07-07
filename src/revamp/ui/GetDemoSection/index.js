@@ -53,7 +53,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
     let payload = getLeadObjectZOHO(
       values,
       values?.inquiryReason,
-      // leadDetail,
+      'Demo Sign Up',
       // businessType,
       // leadSource,
     );
@@ -238,7 +238,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                   </Stack>
 
                   <Stack spacing={3}>
-                    {isLong && !isContact && (
+                    {/* {isLong && !isContact && (
                       <CustomTextField
                         label="Company"
                         name="company"
@@ -247,7 +247,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                         helperText={touched.company && errors.company}
                         {...getFieldProps('company')}
                       />
-                    )}
+                    )} */}
 
                     <CustomTextField
                       label="Email"
@@ -280,7 +280,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                             fontWeight={600}
                             mb="4px"
                           >
-                            Phone
+                            Phone (optional)
                           </Typography>
 
                           <MuiPhoneNumber
@@ -309,10 +309,10 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                         )}
 
                         <CustomTextField
-                          label="Please tell us about your project"
+                          label="Please tell us about your project (optional)"
                           multiline
                           name="message"
-                          rows={4}
+                          rows={2}
                           value={initialValues.message}
                           {...getFieldProps('message')}
                         />

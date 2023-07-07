@@ -7,7 +7,6 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -20,7 +19,6 @@ import TransitionsModal from './TransitionModal';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
 import { getCookie } from 'cookies-next';
-import { Checkbox, FormControlLabel } from '@mui/material';
 
 /**
  * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
@@ -127,7 +125,7 @@ const validationSchema = yup.object({
     .email('Please enter a valid email address')
     .required('Email is required.'),
   phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-  message: yup.string().trim().required('Please specify your message'),
+  message: yup.string().trim(),
 });
 
 const validationSchemaForPpc = yup.object({
@@ -269,7 +267,7 @@ function StandardFormWithSelect({
 
     cmsModel === 'Gated Content Page'
       ? setOpen(true)
-      : (window.location = '/ppc/thank-you/');
+      : (window.location = '/meet/');
 
     return values;
   };
@@ -431,7 +429,7 @@ function StandardFormWithSelect({
               </Box>
             </Grid>
           )}
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             {messageLabel && (
               <StyledTextField
                 label={messageLabel}
@@ -472,7 +470,7 @@ function StandardFormWithSelect({
                 />
               </Box>
             )}
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <Button
               fullWidth={buttonFullWidth}
@@ -491,14 +489,20 @@ function StandardFormWithSelect({
               {displayMsgUnderButton}
             </Typography>
           </Grid> */}
-          <Grid display={hidePrivacySection ? 'none' : 'block'} item xs={12}>
+          {/* <Grid display={hidePrivacySection ? 'none' : 'block'} item xs={12}>
             <Divider />
-          </Grid>
+          </Grid> */}
           <Grid display={hidePrivacySection ? 'none' : 'block'} item xs={12}>
             <Box style={customButtonStyle}>
-              <Typography component="p" variant="body2" align="left">
+              <Typography
+                sx={{ color: '#999' }}
+                component="p"
+                variant="body2"
+                align="left"
+              >
                 By clicking on "submit" you agree to our{' '}
                 <Box
+                  sx={{ color: '#999' }}
                   component="a"
                   href="/legal/privacy-policy/"
                   color={theme.palette.text.primary}

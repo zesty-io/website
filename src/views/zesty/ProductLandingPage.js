@@ -48,6 +48,7 @@ import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
+import FillerContent from 'components/globals/FillerContent';
 
 const GetTree = ({ data = [] }) => {
   return data.map((e) => {
@@ -261,7 +262,7 @@ const ProductLandingPage = (props) => {
   });
   const isLoggedIn = useIsLoggedIn();
   const { navData } = parseMarkdownFile({
-    markdown: content.body,
+    markdown: content?.body || FillerContent.header,
     tags: ['h2', 'h3', 'h4', 'h1', 'h5'],
     parentURL: '',
     title: '',
@@ -424,11 +425,22 @@ const ProductLandingPage = (props) => {
                 </Stack>
                 <Stack width={1} height={1}>
                   {/* Component that render the markdown file */}
-                  <ZestyMarkdownParser
-                    markdown={content.body}
-                    mainKeywords={mainKeywords}
-                    productGlossary={productGlossary}
-                  />
+                  {props.isAuthSuccess ? (
+                    <Stack textAlign="center">
+                      <Typography variant="h5">
+                        You are now authenticated with the Zesty CLI
+                      </Typography>
+                      <Typography component="p">
+                        You may now close this window.
+                      </Typography>
+                    </Stack>
+                  ) : (
+                    <ZestyMarkdownParser
+                      markdown={content.body}
+                      mainKeywords={mainKeywords}
+                      productGlossary={productGlossary}
+                    />
+                  )}
                 </Stack>
               </Stack>
             </Grid>
@@ -477,7 +489,6 @@ const ProductLandingPage = (props) => {
           </Grid>
         </Stack>
       </Container>
-
       {!isLoggedIn && (
         <Box pt={4} id={'cta'}>
           <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
