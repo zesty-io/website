@@ -1,5 +1,6 @@
 import axios from 'axios';
 import FillerContent from 'components/globals/FillerContent';
+import zestyConfig from '../../zesty.config.json';
 
 const API_REQ_TIMEOUT = 30000;
 
@@ -230,10 +231,17 @@ export async function newNavigationWithFlyout(zestyURL) {
   }
 }
 
-export const productsData = async () => {
-  return await axios
-    .get('https://www.zesty.io/-/gql/product.json?')
-    .then((e) => {
-      return e.data;
-    });
+export const productsData = async (isProd) => {
+  const domain = isProd ? zestyConfig.production : zestyConfig.stage;
+  return await axios.get(`${domain}/-/gql/product.json?`).then((e) => {
+    return e.data;
+  });
+};
+
+export const docsData = async (isProd) => {
+  const domain = isProd ? zestyConfig.production : zestyConfig.stage;
+  const url = `${domain}/-/gql/zesty_docs.json?`;
+  return await axios.get(url).then((e) => {
+    return e.data;
+  });
 };

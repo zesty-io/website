@@ -1,6 +1,6 @@
 import { React, createContext } from 'react';
 
-import { fetchPage, productsData } from 'lib/api';
+import { docsData, fetchPage, productsData } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
 import MarketingMain from 'layouts/Main/MarketingMain';
 import { ZestyView } from 'lib/ZestyView';
@@ -90,6 +90,29 @@ async function fetchProductsData({ isProd = false }) {
 
   return data;
 }
+
+const cacheDocs = {};
+// Function to fetch the products data
+async function fetchDocsData({ isProd = false }) {
+  const cacheKey = 'docsData';
+
+  // Check if the data is already cached
+  if (cacheDocs[cacheKey]) {
+    return cacheDocs[cacheKey];
+  }
+
+  // Fetch the new docs data
+  const data = await docsData(isProd);
+
+  // Cache the data
+  // run only if PRODUCTION = true
+  if (isProd) {
+    cacheDocs[cacheKey] = data;
+  }
+
+  return data;
+}
+
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
   const isAuthenticated = getIsAuthenticated(res);
@@ -117,6 +140,10 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
     products = await fetchProductsData({ isProd });
     productGlossary = await getGlossary();
   }
+  let docs = [];
+  if (req.url.includes('/docs')) {
+    docs = await fetchDocsData({ isProd });
+  }
 
   const sso = {
     githubUrl: process.env.GITHUB_SSO_URL,
@@ -132,6 +159,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       templateUrl: process.env.TEMPLATE_URL,
       products,
       productGlossary,
+      docs,
     },
     algolia: {
       apiKey: process.env.ALGOLIA_APIKEY,
