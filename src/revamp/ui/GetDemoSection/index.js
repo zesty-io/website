@@ -3,16 +3,17 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import CustomTextField from 'revamp/components/CustomTextField';
-import {
-  getLeadObjectZOHO,
-  postToZOHO,
-  subscribeToZoho,
-} from 'revamp/utils/helper';
+
 import {
   shortValidationSchema,
   validationSchema,
   contactPageValidation,
 } from 'revamp/utils/validation';
+import {
+  getLeadObjectZOHO,
+  postToZOHO,
+  subscribeToZoho,
+} from 'revamp/utils/helper';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -182,6 +183,9 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               email: '',
               phoneNumber: '',
               message: '',
+              jobTitle: '',
+              businessEmail: '',
+              linkedIn: '',
               inquiryReason: isContact ? 'General' : '',
             }}
             validationSchema={
@@ -205,7 +209,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               setFieldValue,
               values,
             }) => (
-              <Form onSubmit={handleSubmit}>
+              <Form id="site-form" onSubmit={handleSubmit}>
                 <Stack>
                   <Typography
                     variant="h4"
@@ -238,17 +242,6 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                   </Stack>
 
                   <Stack spacing={3}>
-                    {/* {isLong && !isContact && (
-                      <CustomTextField
-                        label="Company"
-                        name="company"
-                        value={initialValues.company}
-                        error={touched.company && !!errors.company}
-                        helperText={touched.company && errors.company}
-                        {...getFieldProps('company')}
-                      />
-                    )} */}
-
                     <CustomTextField
                       label="Email"
                       name="email"
@@ -318,6 +311,44 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                         />
                       </>
                     )}
+
+                    {/* Hidden fields */}
+                    {isLong && !isContact && (
+                      <CustomTextField
+                        type={'hidden'}
+                        // label="Company"
+                        name="company"
+                        value={initialValues.company}
+                        error={touched.company && !!errors.company}
+                        helperText={touched.company && errors.company}
+                        {...getFieldProps('company')}
+                      />
+                    )}
+
+                    <CustomTextField
+                      type={'hidden'}
+                      name="jobTitle"
+                      value={initialValues.jobTitle}
+                      error={touched.jobTitle && !!errors.jobTitle}
+                      helperText={touched.jobTitle && errors.jobTitle}
+                      {...getFieldProps('jobTitle')}
+                    />
+                    <CustomTextField
+                      type={'hidden'}
+                      name="businessEmail"
+                      value={initialValues.businessEmail}
+                      error={touched.businessEmail && !!errors.businessEmail}
+                      helperText={touched.businessEmail && errors.businessEmail}
+                      {...getFieldProps('businessEmail')}
+                    />
+                    <CustomTextField
+                      type={'hidden'}
+                      name="linkedIn"
+                      value={initialValues.linkedIn}
+                      error={touched.linkedIn && !!errors.linkedIn}
+                      helperText={touched.linkedIn && errors.linkedIn}
+                      {...getFieldProps('linkedIn')}
+                    />
 
                     <Button
                       type="submit"

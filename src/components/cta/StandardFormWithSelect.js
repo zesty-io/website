@@ -19,6 +19,7 @@ import TransitionsModal from './TransitionModal';
 import { inputLabelClasses } from '@mui/material/InputLabel';
 import { styled } from '@mui/material/styles';
 import { getCookie } from 'cookies-next';
+import CustomTextField from 'revamp/components/CustomTextField';
 
 /**
  * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
@@ -126,6 +127,11 @@ const validationSchema = yup.object({
     .required('Email is required.'),
   phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
   message: yup.string().trim(),
+  // hidden fields
+  jobTitle: yup.string().optional(),
+  businessEmail: yup.string().optional(),
+  linkedIn: yup.string().optional(),
+  company: yup.string().optional(),
 });
 
 const validationSchemaForPpc = yup.object({
@@ -146,9 +152,13 @@ const validationSchemaForPpc = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required('Email is required.'),
-  company: yup.string().trim().required('Please specify your company'),
   jobTitle: yup.string().trim().required('Please specify your job title'),
   phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+  // hidden fields
+  jobTitle: yup.string().optional(),
+  businessEmail: yup.string().optional(),
+  linkedIn: yup.string().optional(),
+  company: yup.string().optional(),
 });
 
 const validationSchemaForDxp = yup.object({
@@ -170,9 +180,12 @@ const validationSchemaForDxp = yup.object({
     .email('Please enter a valid email address')
     .required('Email is required.'),
   newsletter_signup: yup.boolean(),
-  company: yup.string().trim().required('Please specify your company'),
-  jobTitle: yup.string().trim().required('Please specify your job title'),
   phoneNumber: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+  // hidden fields
+  jobTitle: yup.string().optional(),
+  businessEmail: yup.string().optional(),
+  linkedIn: yup.string().optional(),
+  company: yup.string().optional(),
 });
 
 const subscribeToZoho = async (payload) => {
@@ -241,6 +254,8 @@ function StandardFormWithSelect({
     message: '',
     company: '',
     jobTitle: '',
+    businessEmail: '',
+    linkedIn: '',
     phoneNumber: '',
     newsletter_signup: false,
   };
@@ -285,7 +300,7 @@ function StandardFormWithSelect({
 
   return (
     <Box>
-      <form noValidate onSubmit={formik.handleSubmit}>
+      <form id="site-form" noValidate onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -471,6 +486,25 @@ function StandardFormWithSelect({
               </Box>
             )}
           </Grid> */}
+
+          {/*  ZoomInfo Hidden fields */}
+
+          <CustomTextField
+            type={'hidden'}
+            name="jobTitle"
+            value={formik.values.jobTitle}
+          />
+          <CustomTextField
+            type={'hidden'}
+            name="businessEmail"
+            value={formik.values.businessEmail}
+          />
+          <CustomTextField
+            type={'hidden'}
+            name="linkedIn"
+            value={formik.values.linkedIn}
+          />
+
           <Grid item xs={12}>
             <Button
               fullWidth={buttonFullWidth}

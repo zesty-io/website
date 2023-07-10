@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-const CustomTextField = ({ label, isSelect, menus, ...props }) => {
+const CustomTextField = ({ label, isSelect, menus, type, ...props }) => {
   return (
     <FormControl
       fullWidth
@@ -24,27 +24,31 @@ const CustomTextField = ({ label, isSelect, menus, ...props }) => {
         '& .MuiFormHelperText-root.Mui-error': {
           mx: 0,
         },
+        visibility: type === 'hidden' ? 'hidden' : '',
+        position: type === 'hidden' ? 'absolute' : '',
       }}
     >
-      <Typography
-        color="text.primary"
-        variant="body2"
-        fontWeight={600}
-        mb="4px"
-      >
-        {label}
-      </Typography>
-      {isSelect ? (
-        <Select {...props}>
-          {menus.map((value, i) => (
-            <MenuItem key={i} value={value}>
-              {value}
-            </MenuItem>
-          ))}
-        </Select>
-      ) : (
-        <TextField {...props} />
-      )}
+      <>
+        <Typography
+          color="text.primary"
+          variant="body2"
+          fontWeight={600}
+          mb="4px"
+        >
+          {label}
+        </Typography>
+        {isSelect ? (
+          <Select {...props}>
+            {menus.map((value, i) => (
+              <MenuItem key={i} value={value}>
+                {value}
+              </MenuItem>
+            ))}
+          </Select>
+        ) : (
+          <TextField {...props} />
+        )}
+      </>
     </FormControl>
   );
 };
