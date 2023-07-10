@@ -229,16 +229,8 @@ export async function newNavigationWithFlyout(zestyURL) {
   }
 }
 
-const fetchGqlData = async (isProd, endpoint) => {
+export const fetchGqlData = async (isProd, endpoint) => {
   const domain = isProd ? zestyConfig.production : zestyConfig.stage;
-  const url = `${domain}/-/gql/${endpoint}`;
+  const url = `${domain}/-/gql/${endpoint}.json?`;
   return await axios.get(url).then((e) => e.data);
-};
-
-export const productsData = async (isProd) => {
-  return await fetchGqlData(isProd, 'product.json?');
-};
-
-export const docsData = async (isProd) => {
-  return await fetchGqlData(isProd, 'zesty_docs.json?');
 };
