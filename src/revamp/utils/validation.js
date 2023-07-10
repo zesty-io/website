@@ -5,7 +5,7 @@ const phoneRegExp = '^([^0-9]*[0-9]){5}.*$';
 export const validationSchema = yup.object({
   firstName: yup.string().label('First Name').trim().required(),
   lastName: yup.string().label('Last Name').trim().required(),
-  company: yup.string().label('Company').trim(),
+
   email: yup
     .string()
     .label('Email')
@@ -17,6 +17,11 @@ export const validationSchema = yup.object({
     .label('Phone')
     .trim()
     .matches(phoneRegExp, 'You must enter at least 5 digits.'),
+  // hidden fields
+  jobTitle: yup.string().optional(),
+  businessEmail: yup.string().optional(),
+  linkedIn: yup.string().optional(),
+  company: yup.string().optional(),
 });
 
 export const contactPageValidation = yup.object({
@@ -34,6 +39,11 @@ export const contactPageValidation = yup.object({
     .trim()
     .matches(phoneRegExp, 'You must enter at least 5 digits.')
     .required(),
+  // hidden fields
+  jobTitle: yup.string().optional(),
+  businessEmail: yup.string().optional(),
+  linkedIn: yup.string().optional(),
+  company: yup.string().optional(),
 });
 
 export const shortValidationSchema = yup.object({
@@ -45,4 +55,9 @@ export const shortValidationSchema = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required(),
+  // hidden fields
+  jobTitle: yup.string().optional(),
+  businessEmail: yup.string().optional(),
+  linkedIn: yup.string().optional(),
+  company: yup.string().optional(),
 });
