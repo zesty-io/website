@@ -217,8 +217,6 @@ export async function newNavigationWithFlyout(zestyURL) {
   const flyoutNavigationJSON = zestyURL + '/-/flyoutnavigation.json';
 
   try {
-    // const resp = await fetch(flyoutNavigationJSON);
-    // const flyoutNavigationData = await resp.json();
     const flyoutNavigationData = await fetcher({
       url: flyoutNavigationJSON,
       fallback: FillerContent.flyoutNavigationData,
@@ -231,17 +229,16 @@ export async function newNavigationWithFlyout(zestyURL) {
   }
 }
 
-export const productsData = async (isProd) => {
+const fetchGqlData = async (isProd, endpoint) => {
   const domain = isProd ? zestyConfig.production : zestyConfig.stage;
-  return await axios.get(`${domain}/-/gql/product.json?`).then((e) => {
-    return e.data;
-  });
+  const url = `${domain}/-/gql/${endpoint}`;
+  return await axios.get(url).then((e) => e.data);
+};
+
+export const productsData = async (isProd) => {
+  return await fetchGqlData(isProd, 'product.json?');
 };
 
 export const docsData = async (isProd) => {
-  const domain = isProd ? zestyConfig.production : zestyConfig.stage;
-  const url = `${domain}/-/gql/zesty_docs.json?`;
-  return await axios.get(url).then((e) => {
-    return e.data;
-  });
+  return await fetchGqlData(isProd, 'zesty_docs.json?');
 };
