@@ -11,6 +11,7 @@ import { useFormik } from 'formik';
 import { ErrorMsg, SuccessMsg } from 'components/accounts';
 import { getCookie } from 'cookies-next';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { useRouter } from 'next/router';
 // export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
 const MySwal = withReactContent(Swal);
@@ -90,6 +91,8 @@ const CustomForm = ({ onSubmit, instanceZUID }) => {
 };
 
 const CreateTicket = ({ getPageData, instanceZUID }) => {
+  const router = useRouter();
+  const { zuid } = router.query;
   const APP_SID = getCookie('APP_SID');
 
   const handleCreateInviteSuccess = () => {
@@ -126,6 +129,7 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${APP_SID}`,
+        ZESTY_WORKING_INSTANCE: zuid,
       },
     };
 
