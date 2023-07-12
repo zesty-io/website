@@ -108,10 +108,11 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
   };
 
   const createTicketRequest = async (requestOptions) => {
-    await fetch(
-      'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/',
-      requestOptions,
-    )
+    await fetch('http://localhost:8080/ticket/', requestOptions)
+      // await fetch(
+      //   'https://us-central1-zesty-dev.cloudfunctions.net/supportTickets/ticket/',
+      //   requestOptions,
+      // )
       .then((response) => response.json())
       .then(() => {
         handleCreateInviteSuccess();
@@ -129,7 +130,7 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${APP_SID}`,
-        ZESTY_WORKING_INSTANCE: zuid,
+        WorkingInstance: zuid,
       },
     };
 
