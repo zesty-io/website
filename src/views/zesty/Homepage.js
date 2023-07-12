@@ -102,10 +102,17 @@ function Homepage({ content }) {
   const { palette } = useTheme();
   const [isLoggined, setisLoggined] = useState(false);
   const token = getCookie('APP_SID');
+  // get  the previous url stored in session storage
+  const prevUrl = sessionStorage.getItem('prevUrl');
 
   useEffect(() => {
     if (content.zesty.isAuthenticated || isLoggined) {
-      window.location.href = '/dashboard/';
+      // redirect the user to previous url from SSO
+      if (prevUrl) {
+        window.location.href = prevUrl;
+      } else {
+        window.location.href = '/dashboard/';
+      }
     }
   }, [content.zesty.isAuthenticated, isLoggined]);
 
