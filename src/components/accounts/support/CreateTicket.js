@@ -129,7 +129,7 @@ const CreateTicket = ({ getPageData, instanceZUID }) => {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${APP_SID}`,
-        ZESTY_WORKING_INSTANCE: zuid,
+        WorkingInstance: zuid,
       },
     };
 
