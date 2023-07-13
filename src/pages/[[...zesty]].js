@@ -105,11 +105,12 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
 
   let products = [];
   let productGlossary = [];
+  let docs = [];
+
   productGlossary = await fetchData({ isProd, dataType: 'product_glossary' });
   if (req.url.includes('/product')) {
     products = await fetchData({ isProd, dataType: 'product' });
   }
-  let docs = [];
   if (req.url.includes('/docs')) {
     docs = await fetchData({ isProd, dataType: 'zesty_docs' });
   }

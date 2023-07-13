@@ -48,6 +48,7 @@ import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
+import { DocsHomePage } from 'components/docs/DocsHomePage';
 
 const GetTree = ({ data = [] }) => {
   return data.map((e) => {
@@ -209,6 +210,8 @@ const ToCComponent = ({ data }) => {
 
 // main file
 const ZestyDoc = (props) => {
+  const router = useRouter();
+  const isDocsHomePage = router.asPath === '/docs/';
   const theme = useTheme();
   const content = props.content;
   const productsData = content.zesty.docs;
@@ -301,12 +304,21 @@ const ZestyDoc = (props) => {
   });
   const mainKeywords = productGlossary.flatMap((obj) => obj.target_words);
 
+  const algolia = {
+    apiKey: props.content.algolia.apiKey,
+    appId: props.content.algolia.appId,
+    index: props.content.algolia.index,
+  };
   React.useEffect(() => {
-    setalgoliaApiKey(props.content.algolia.apiKey);
-    setalgoliaAppId(props.content.algolia.appId);
-    setalgoliaIndex(props.content.algolia.index);
+    setalgoliaApiKey(algolia.apiKey);
+    setalgoliaAppId(algolia.appId);
+    setalgoliaIndex(algolia.index);
   }, []);
 
+  // redirecto to docs landing page if url = /docs/
+  if (isDocsHomePage) {
+    return <DocsHomePage algolia={algolia} />;
+  }
   return (
     <Stack>
       <Container
