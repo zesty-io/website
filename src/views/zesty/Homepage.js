@@ -103,9 +103,9 @@ function Homepage({ content }) {
   const [isLoggined, setisLoggined] = useState(false);
   const token = getCookie('APP_SID');
   // get  the previous url stored in session storage
-  const prevUrl = sessionStorage.getItem('prevUrl');
 
   useEffect(() => {
+    const prevUrl = sessionStorage.getItem('prevUrl');
     if (content.zesty.isAuthenticated || isLoggined) {
       // redirect the user to previous url from SSO
       if (prevUrl) {

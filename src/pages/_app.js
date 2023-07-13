@@ -30,7 +30,9 @@ export default function App({ Component, pageProps }) {
   // store the previous url in session storage
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      sessionStorage.setItem('prevUrl', window.document.referrer);
+      const route = window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
+      if (route === '/login/') sessionStorage.setItem('prevUrl', '');
+      else if (route !== '/logout/') sessionStorage.setItem('prevUrl', route);
     }
   }, [router.asPath]);
 
