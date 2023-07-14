@@ -46,7 +46,13 @@ const Login = ({ content, userEmail }) => {
     MySwal.close();
     setCookie('isAuthenticated', true);
 
-    window.location.replace('/dashboard/');
+    // get  the previous url stored in session storage
+    const prevUrl = sessionStorage.getItem('prevUrl');
+    if (prevUrl) {
+      window.location.replace(prevUrl);
+    } else {
+      window.location.replace('/dashboard/');
+    }
   };
 
   const triggerAuto2FA = (sysID) => {

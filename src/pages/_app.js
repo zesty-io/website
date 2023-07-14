@@ -16,6 +16,7 @@ import AuthProvider from 'components/context/AuthProvider';
 
 import '/public/styles/app.css';
 import '/public/styles/docs.css';
+import { useRouter } from 'next/router';
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
@@ -24,6 +25,17 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+
+  // store the previous url in session storage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const route = window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
+      if (route === '/login/') sessionStorage.setItem('prevUrl', '');
+      else if (route !== '/logout/') sessionStorage.setItem('prevUrl', route);
+    }
+  }, [router.asPath]);
+
   useEffect(() => {
     const params = new Proxy(
       new URLSearchParams(window.location.search.toLowerCase()),

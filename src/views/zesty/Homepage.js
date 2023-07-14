@@ -102,12 +102,7 @@ function Homepage({ content }) {
   const { palette } = useTheme();
   const [isLoggined, setisLoggined] = useState(false);
   const token = getCookie('APP_SID');
-
-  useEffect(() => {
-    if (content.zesty.isAuthenticated || isLoggined) {
-      window.location.href = '/dashboard/';
-    }
-  }, [content.zesty.isAuthenticated, isLoggined]);
+  // get  the previous url stored in session storage
 
   useEffect(() => {
     verifyUser(setisLoggined, token);
