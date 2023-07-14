@@ -1,6 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { accounts } from 'components/accounts/constants';
+import { setCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
 
 const Index = ({
@@ -21,8 +22,9 @@ const Index = ({
     const redirectLogic = (message) => {
       if (message.origin === 'https://auth.api.zesty.io') {
         if (message.data.source === 'zesty' && message.data.status === '200') {
-          console.log({ message });
-          let referrer =
+          let referrer = window.document.referrer;
+
+          referrer =
             window.document.referrer === '' ||
             window.document.referrer.includes('/logout/') ||
             window.document.referrer.includes('/login/')
@@ -32,8 +34,10 @@ const Index = ({
 
           if (referrer.includes('/logout/') || referrer.includes('/login/')) {
             referrer = window.location.origin;
+            setCookie('isAuthenticated', true);
             window.location.href = `${referrer}`;
           } else {
+            setCookie('isAuthenticated', true);
             window.location.href = `${referrer}`;
           }
         }
@@ -42,6 +46,7 @@ const Index = ({
     window.addEventListener('message', redirectLogic);
     return () => window.removeEventListener('message', redirectLogic);
   }, []);
+
   return (
     <Stack
       onClick={handleClick}
