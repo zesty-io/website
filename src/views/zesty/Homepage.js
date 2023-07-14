@@ -102,7 +102,6 @@ function Homepage({ content }) {
   const { palette } = useTheme();
   const [isLoggined, setisLoggined] = useState(false);
   const token = getCookie('APP_SID');
-  // get  the previous url stored in session storage
 
   useEffect(() => {
     verifyUser(setisLoggined, token);

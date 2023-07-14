@@ -21,8 +21,9 @@ const Index = ({
     const redirectLogic = (message) => {
       if (message.origin === 'https://auth.api.zesty.io') {
         if (message.data.source === 'zesty' && message.data.status === '200') {
-          console.log({ message });
-          let referrer =
+          let referrer = window.document.referrer;
+
+          referrer =
             window.document.referrer === '' ||
             window.document.referrer.includes('/logout/') ||
             window.document.referrer.includes('/login/')
@@ -42,6 +43,7 @@ const Index = ({
     window.addEventListener('message', redirectLogic);
     return () => window.removeEventListener('message', redirectLogic);
   }, []);
+
   return (
     <Stack
       onClick={handleClick}
