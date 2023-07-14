@@ -105,18 +105,6 @@ function Homepage({ content }) {
   // get  the previous url stored in session storage
 
   useEffect(() => {
-    const prevUrl = sessionStorage.getItem('prevUrl');
-    if (content.zesty.isAuthenticated || isLoggined) {
-      // redirect the user to previous url from SSO
-      if (prevUrl) {
-        window.location.href = prevUrl;
-      } else {
-        window.location.href = '/dashboard/';
-      }
-    }
-  }, [content.zesty.isAuthenticated, isLoggined]);
-
-  useEffect(() => {
     verifyUser(setisLoggined, token);
   }, [token]);
 
