@@ -32,7 +32,7 @@ const useIsLoggedIn = () => {
     if (cookies?.isAuthenticated === false) {
       auth();
     }
-  }, []);
+  }, [isAuth]);
 
   return isAuth || cookies?.isAuthenticated;
 };
