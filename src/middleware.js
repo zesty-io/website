@@ -5,9 +5,7 @@ export async function middleware(request) {
   // auth checking
   const response = NextResponse.next();
   const isAuthenticated = await isUserAuthenticated(request);
-  response.cookies.set('isAuthenticated', isAuthenticated, {
-    path: '/',
-  });
+  response.cookies.set('isAuthenticated', isAuthenticated);
 
   // if (request.nextUrl.pathname === '/' && isAuthenticated) {
   //   const redirectUrl = resolve(request.nextUrl.origin, '/dashboard/');

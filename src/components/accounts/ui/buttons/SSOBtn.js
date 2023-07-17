@@ -32,13 +32,12 @@ const Index = ({
               : window.document.referrer;
           message.source.close();
 
-          setCookie('isAuthenticated', true, {
-            path: '/',
-          });
           if (referrer.includes('/logout/') || referrer.includes('/login/')) {
             referrer = window.location.origin;
+            setCookie('isAuthenticated', true);
             window.location.href = `${referrer}`;
           } else {
+            setCookie('isAuthenticated', true);
             window.location.href = `${referrer}`;
           }
         }
