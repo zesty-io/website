@@ -44,9 +44,7 @@ const Login = ({ content, userEmail }) => {
       domain: '.zesty.io',
     });
     MySwal.close();
-    setCookie('isAuthenticated', true, {
-      path: '/',
-    });
+    setCookie('isAuthenticated', true);
 
     // get  the previous url stored in session storage
     const prevUrl = sessionStorage.getItem('prevUrl');

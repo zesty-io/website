@@ -1,7 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { accounts } from 'components/accounts/constants';
-import { setCookie } from 'cookies-next';
 import React, { useEffect } from 'react';
 
 const Index = ({
@@ -32,9 +31,6 @@ const Index = ({
               : window.document.referrer;
           message.source.close();
 
-          setCookie('isAuthenticated', true, {
-            path: '/',
-          });
           if (referrer.includes('/logout/') || referrer.includes('/login/')) {
             referrer = window.location.origin;
             window.location.href = `${referrer}`;
