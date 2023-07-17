@@ -31,7 +31,7 @@ export const useFetchWrapper = (isLoggedIn) => {
     if (isLoggedIn) {
       verifyUser();
     }
-  }, [isLoggedIn]);
+  }, []);
 
   useEffect(() => {
     verifySuccess && getUserInfo();
