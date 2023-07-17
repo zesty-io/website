@@ -48,10 +48,10 @@ const Login = ({ content, userEmail }) => {
 
     // get  the previous url stored in session storage
     const prevUrl = sessionStorage.getItem('prevUrl');
-    if (prevUrl) {
-      window.location.replace(prevUrl);
+    if (!['', '/'].includes(prevUrl)) {
+      window.location.href = prevUrl;
     } else {
-      window.location.replace('/dashboard/');
+      window.location.href = '/dashboard/';
     }
   };
 
