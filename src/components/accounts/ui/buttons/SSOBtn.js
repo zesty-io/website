@@ -27,12 +27,12 @@ const Index = ({
             window.document.referrer === '' ||
             window.document.referrer.includes('/logout/') ||
             window.document.referrer.includes('/login/')
-              ? window.location.origin
+              ? window.location.origin + '/dashboard/'
               : window.document.referrer;
           message.source.close();
 
           if (referrer.includes('/logout/') || referrer.includes('/login/')) {
-            referrer = window.location.origin;
+            referrer = window.location.origin + '/dashboard/';
             window.location.href = `${referrer}`;
           } else {
             window.location.href = `${referrer}`;
