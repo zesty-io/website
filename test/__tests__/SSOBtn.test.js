@@ -1,4 +1,5 @@
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { SSOBtn } from '../../src/components/accounts/ui/buttons/SSOBtn.js';
 
@@ -39,5 +40,19 @@ describe('SSO btn tests', () => {
   test('applies correct border color', () => {
     const ssoBtnElement = screen.getByTestId('sso-btn');
     expect(ssoBtnElement).toHaveStyle(`border: 1px solid ${borderColor}`);
+  });
+  test('matches snapshot', () => {
+    const tree = renderer
+      .create(
+        <SSOBtn
+          borderColor="#CCCCCC"
+          bodyColor="#FFFFFF"
+          title="Sign in with Google"
+          href="https://example.com"
+          image="path/to/image.png"
+        />,
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

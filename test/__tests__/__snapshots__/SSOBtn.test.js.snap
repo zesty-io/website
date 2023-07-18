@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SSO btn tests matches snapshot 1`] = `
+<div
+  className="css-8736iw-MuiStack-root"
+  data-testid="sso-btn"
+  onClick={[Function]}
+>
+  <div
+    className="css-1exl4mu-MuiStack-root"
+  >
+    <img
+      alt="Sign in with Google"
+      height="24px"
+      src="path/to/image.png"
+      width="24px"
+    />
+  </div>
+  <div
+    className="css-1b4q6aw-MuiStack-root"
+  >
+    <p
+      className="MuiTypography-root MuiTypography-body1 css-1o8ifbq-MuiTypography-root"
+    >
+      Sign in with Google
+    </p>
+  </div>
+</div>
+`;
