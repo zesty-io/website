@@ -34,15 +34,5 @@ Cypress.Commands.add('loginTestUser', () => {
   cy.get("button[type='submit']").should('exist').click();
   cy.wait(2000);
 
-  cy.clearCookies();
-  cy.reload();
-
-  cy.visit('/login/');
-  cy.get("input[name='email']").should('exist').type(email);
-  cy.get("input[name='password']").should('exist').type(password);
-  cy.get("button[type='submit']").should('exist').click();
-
-  cy.get("[data-testid='instancesContainer']", { timeout: 30000 }).should(
-    'exist',
-  );
+  cy.visit('/dashboard/');
 });
