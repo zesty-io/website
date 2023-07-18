@@ -4,7 +4,7 @@ import { accounts } from 'components/accounts/constants';
 import React, { useEffect } from 'react';
 
 const Index = ({
-  image = accounts.logos.google,
+  image = accounts?.logos?.google,
   title = 'Sign in with Google',
   bodyColor = '#fff',
   logoColor = '#fff',
@@ -46,6 +46,7 @@ const Index = ({
 
   return (
     <Stack
+      data-testid="sso-btn"
       onClick={handleClick}
       direction={'row'}
       gap={1}
