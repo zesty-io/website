@@ -40,7 +40,6 @@ import IntegrationsLogo from './IntegrationsLogo';
 import EcommCorePillar from './EcommCorePillar';
 import DxSolutionsCard from './DxSolutionsCard';
 import ZestyProduct from './ZestyProduct';
-import Product from './Product';
 import PersonaPagesLink from './PersonaPagesLink';
 import SubNav2022 from './SubNav2022';
 import NavigationFlyout from './NavigationFlyout';
@@ -65,6 +64,7 @@ import Simplestat from './Simplestat';
 import Tworowshero from './Tworowshero';
 import Alternatecolumn from './Alternatecolumn';
 import Persona from './Persona';
+import Whyzesty from './Whyzesty';
 import Testimonial from './Testimonial';
 import LogoSlider from './LogoSlider';
 import AiExample from './AiExample';
@@ -82,12 +82,18 @@ import LightHero from './LightHero';
 import CaseStudyHero from './CaseStudyHero';
 import BlogHero from './BlogHero';
 import FeatureHighlightImageLeft from './FeatureHighlightImageLeft';
+import TextLeftImageRightWithStatsBelow from './TextLeftImageRightWithStatsBelow';
+import FeatureListWithImageDark from './FeatureListWithImageDark';
+import FeatureSectionLeftTextRightImageNoCta from './FeatureSectionLeftTextRightImageNoCta';
+import FeatureSectionLeftImageRightTextNoCta from './FeatureSectionLeftImageRightTextNoCta';
+import HeroWithForm from './HeroWithForm';
+import Herostackedlight from './Herostackedlight';
+import ProductGlossary from './ProductGlossary';
 import Category from './Category';
 import Article from './Article';
 import Tag from './Tag';
 import Author from './Author';
 import LandingPage from './LandingPage';
-import ProductLandingPage from './ProductLandingPage';
 import ProductExplainer from './ProductExplainer';
 import Event from './Event';
 import LongFormPpc from './LongFormPpc';
@@ -99,6 +105,9 @@ import ForIndustryPage from './ForIndustryPage';
 import ForPersonasPage from './ForPersonasPage';
 import QuizLandingPage from './QuizLandingPage';
 import LandingPages2023 from './LandingPages2023';
+import Alternative from './Alternative';
+import Product from './Product';
+import ZestyDoc from './ZestyDoc';
 import Homepage from './Homepage';
 import SimplePage from './SimplePage';
 import Mindshare from './Mindshare';
@@ -158,22 +167,21 @@ import UngatedDemoVideoForAd from './UngatedDemoVideoForAd';
 import AccountsDashboardMarketing from './AccountsDashboardMarketing';
 import ABLandingPage from './ABLandingPage';
 import JoinPageContent from './JoinPageContent';
-import ParsleyFeaturesPage from './ParsleyFeaturesPage';
 import Chat from './Chat';
 import LayoutsTestPage from './LayoutsTestPage';
 import LayoutsTestPage2 from './LayoutsTestPage2';
 import Ai from './Ai';
 import Homepagerevamp from './Homepagerevamp';
 import Blogtest from './Blogtest';
+import CmsComparison from './CmsComparison';
 import Media from './Media';
+import Componenttesting from './Componenttesting';
+import ProductLandingPage from './ProductLandingPage';
+import DocsOverview from './DocsOverview';
 import Header from './Header';
 import Footer from './Footer';
-import ZestyDoc from './ZestyDoc';
 
 export {
-  ZestyDoc,
-  ProductLandingPage,
-  Product,
   Clipping,
   Widget,
   MarketingAnnoucement,
@@ -238,6 +246,7 @@ export {
   Tworowshero,
   Alternatecolumn,
   Persona,
+  Whyzesty,
   Testimonial,
   LogoSlider,
   AiExample,
@@ -255,6 +264,13 @@ export {
   CaseStudyHero,
   BlogHero,
   FeatureHighlightImageLeft,
+  TextLeftImageRightWithStatsBelow,
+  FeatureListWithImageDark,
+  FeatureSectionLeftTextRightImageNoCta,
+  FeatureSectionLeftImageRightTextNoCta,
+  HeroWithForm,
+  Herostackedlight,
+  ProductGlossary,
   Category,
   Article,
   Tag,
@@ -271,6 +287,9 @@ export {
   ForPersonasPage,
   QuizLandingPage,
   LandingPages2023,
+  Alternative,
+  Product,
+  ZestyDoc,
   Homepage,
   SimplePage,
   Mindshare,
@@ -330,14 +349,17 @@ export {
   AccountsDashboardMarketing,
   ABLandingPage,
   JoinPageContent,
-  ParsleyFeaturesPage,
   Chat,
   LayoutsTestPage,
   LayoutsTestPage2,
   Ai,
   Homepagerevamp,
   Blogtest,
+  CmsComparison,
   Media,
+  Componenttesting,
+  ProductLandingPage,
+  DocsOverview,
   Footer,
   Header,
 };
