@@ -24,7 +24,7 @@ const CustomTextField = ({ label, isSelect, menus, type, ...props }) => {
         '& .MuiFormHelperText-root.Mui-error': {
           mx: 0,
         },
-        visibility: type === 'hidden' ? 'hidden' : '',
+        display: type === 'hidden' ? 'none' : '',
         position: type === 'hidden' ? 'absolute' : '',
       }}
     >
