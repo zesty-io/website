@@ -37,11 +37,14 @@ import CircleIcon from '@mui/icons-material/Circle';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Link from '@mui/material/Link';
+import { Card } from '@mui/material';
 
 function Roadmap({ content }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const iconColor = ['action', 'info', 'success'];
+
+  console.log(content.github_data);
 
   // Hold Discussions data
   const discussions =
@@ -89,41 +92,72 @@ function Roadmap({ content }) {
           />
         </Box>
 
-        {/* Kanban Cards */}
+        {/* Kanban Columns */}
 
         <Grid sx={{ mt: 6 }} container spacing={2}>
-          {projectData?.nodes.map((board, idx) => (
+          {projectData?.nodes.map((column, idx) => (
             <Grid key={idx} item xs={12} md={4}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <CircleIcon color={iconColor[idx]} />
                 <Typography variant="h6" component="h2">
-                  {board.name}
+                  {column.name}
                 </Typography>
               </Box>
-              <CardContent
+              <Box
                 sx={{
-                  borderRadius: 1,
+                  borderRadius: 2,
                   background: theme.palette.background.level2,
+                  height: 700,
+                  overflowY: 'scroll',
                   mt: 2,
+                  p: 2,
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 2,
+                  scrollbarWidth: 'thin', // For Firefox
+                  '&::-webkit-scrollbar': {
+                    width: '6px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'transparent', // Hide the scrollbar track
+                  },
+                  ' ::-webkit-scrollbar-thumb': {
+                    background: theme.palette.zesty.zestyLightText,
+                    borderRadius: '3px',
+                  },
                 }}
                 variant="outlined"
               >
-                {board.cards.nodes.map((item, idx) => (
-                  <Box key={idx}>
-                    <Link
-                      underline="hover"
-                      color="inherit"
-                      target="_blank"
-                      href={item.url}
-                    >
-                      {item.note}
-                    </Link>
-                  </Box>
-                ))}
-              </CardContent>
+                {column.cards.nodes.map((item) => {
+                  return (
+                    <>
+                      {/*
+                       * Hide all archived cards and redacted
+                       * Or if the card don't have content or title
+                       */}
+                      {!item.isArchived &&
+                        item.state !== 'REDACTED' &&
+                        (item.note || item.content?.title) && (
+                          <Card
+                            key={item.id}
+                            sx={{
+                              overflow: 'unset',
+                              cursor: 'pointer',
+
+                              display: 'flex',
+                              alignItems: 'center',
+                              p: 2,
+                            }}
+                          >
+                            <Typography>
+                              {item?.note || item?.content?.title}
+                            </Typography>
+                          </Card>
+                        )}
+                    </>
+                  );
+                })}
+              </Box>
             </Grid>
           ))}
         </Grid>
