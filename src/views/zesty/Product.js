@@ -207,45 +207,6 @@ const ToCComponent = ({ data }) => {
   );
 };
 
-function splitStringByImageTag(inputString) {
-  var imgTagRegex = /<img\b[^>]*>/gi; // Regular expression to match img tags
-
-  // Use the regex to find all img tags in the input string
-  var imgTags = inputString.match(imgTagRegex);
-
-  // If no img tags are found, return the input string as is
-  if (!imgTags) {
-    return [inputString];
-  }
-
-  // Split the input string using the img tags and extract src, title, and alt attributes
-  const splitStrings = inputString.split(imgTagRegex);
-  const imgAttributes = imgTags.map(function (tag) {
-    const srcRegex = /src=['"]([^'"]+)['"]/i; // Regular expression to extract src attribute
-    const titleRegex = /title=['"]([^'"]+)['"]/i; // Regular expression to extract title attribute
-    const altRegex = /alt=['"]([^'"]+)['"]/i; // Regular expression to extract alt attribute
-    const matchSrc = tag.match(srcRegex);
-    const matchTitle = tag.match(titleRegex);
-    const matchAlt = tag.match(altRegex);
-
-    return {
-      src: matchSrc ? matchSrc[1] : '',
-      title: matchTitle ? matchTitle[1] : '',
-      alt: matchAlt ? matchAlt[1] : '',
-    };
-  });
-
-  // Merge the split strings with the corresponding img attributes
-  var result = [];
-  for (var i = 0; i < splitStrings.length; i++) {
-    result.push(splitStrings[i]);
-    if (i < imgAttributes.length) {
-      result.push(imgAttributes[i]);
-    }
-  }
-
-  return result;
-}
 // main file
 const Product = (props) => {
   const theme = useTheme();
