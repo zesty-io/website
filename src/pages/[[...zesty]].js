@@ -1,25 +1,18 @@
 import { React, createContext } from 'react';
-
-import { fetchPage, productsData } from 'lib/api';
+import { fetchGqlData, fetchPage } from 'lib/api';
 import { githubFetch } from 'lib/githubFetch';
 import MarketingMain from 'layouts/Main/MarketingMain';
 import { ZestyView } from 'lib/ZestyView';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import Main from 'layouts/Main';
-
 import { getIsAuthenticated } from 'utils';
-import axios from 'axios';
+import { isUserAuthenticated } from 'middleware';
 
-//
 export const GlobalContext = createContext();
 export default function Zesty(props) {
   const isLoggedIn = useIsLoggedIn();
   // for homepage navigation
-  // const isDarkMode = theme.palette.mode === 'dark';
   let bgcolor = 'transparent';
-  // if (props?.meta?.web?.uri === '/') {
-  //   bgcolor = isDarkMode ? 'transparent' : theme.palette.common.white;
-  // }
 
   return (
     <>
@@ -69,30 +62,31 @@ async function fetchPageData(url) {
   return data;
 }
 
-const cacheProducts = {};
-// Function to fetch the products data
-async function fetchProductsData({ isProd = false }) {
-  const cacheKey = 'productsData';
+const cacheData = {};
+
+async function fetchData({ isProd = false, dataType }) {
+  const cacheKey = `${dataType}Data`;
 
   // Check if the data is already cached
-  if (cacheProducts[cacheKey]) {
-    return cacheProducts[cacheKey];
+  if (cacheData[cacheKey]) {
+    return cacheData[cacheKey];
   }
 
-  // Fetch the products data
-  const data = await productsData();
+  // Fetch the data
+  const data = await fetchGqlData(isProd, dataType);
 
-  // Cache the data
-  // run only if PRODUCTION = true
+  // Cache the data if PRODUCTION = true
   if (isProd) {
-    cacheProducts[cacheKey] = data;
+    cacheData[cacheKey] = data;
   }
 
   return data;
 }
+
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
-  const isAuthenticated = getIsAuthenticated(res);
+  let isAuthenticated =
+    (await isUserAuthenticated(req, true)) || getIsAuthenticated(res);
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
   // does not display with npm run dev
 
@@ -113,9 +107,14 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
 
   let products = [];
   let productGlossary = [];
+  let docs = [];
+
+  productGlossary = await fetchData({ isProd, dataType: 'product_glossary' });
   if (req.url.includes('/product')) {
-    products = await fetchProductsData({ isProd });
-    productGlossary = await getGlossary();
+    products = await fetchData({ isProd, dataType: 'product' });
+  }
+  if (req.url.includes('/docs')) {
+    docs = await fetchData({ isProd, dataType: 'zesty_docs' });
   }
 
   const sso = {
@@ -132,6 +131,7 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       templateUrl: process.env.TEMPLATE_URL,
       products,
       productGlossary,
+      docs,
     },
     algolia: {
       apiKey: process.env.ALGOLIA_APIKEY,
@@ -166,15 +166,3 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // Pass data to the page via props
   return { props: { ...data } };
 }
-
-const getGlossary = async () => {
-  const URL = `https://www.zesty.io/-/gql/product_glossary.json`;
-  try {
-    return await axios
-      .get(URL)
-      .then((e) => e.data)
-      .catch((err) => err);
-  } catch (error) {
-    return error;
-  }
-};

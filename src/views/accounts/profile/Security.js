@@ -201,6 +201,7 @@ export const Security = ({ getUser }) => {
                       loading={formik.isSubmitting}
                       fullWidth
                       type="submit"
+                      disabled={true}
                     >
                       Enable Two Factor Authentication
                     </LoadingButton>

@@ -46,9 +46,9 @@ const Login = ({ content, userEmail }) => {
     MySwal.close();
     setCookie('isAuthenticated', true);
 
-    // get  the previous url stored in session storage
-    const prevUrl = sessionStorage.getItem('prevUrl');
-    if (!['', '/'].includes(prevUrl)) {
+    const prevUrl = window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
+    // means first appearance of /docsOverview/
+    if (prevUrl.indexOf('/docsOverview/') === 0) {
       window.location.href = prevUrl;
     } else {
       window.location.href = '/dashboard/';

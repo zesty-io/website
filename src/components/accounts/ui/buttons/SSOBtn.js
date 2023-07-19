@@ -31,7 +31,11 @@ const Index = ({
               : window.document.referrer;
           message.source.close();
 
-          if (referrer.includes('/logout/') || referrer.includes('/login/')) {
+          if (
+            referrer.includes('/logout/') ||
+            referrer.includes('/login/') ||
+            !referrer.indexOf('/docsOverview/') === 0
+          ) {
             referrer = window.location.origin + '/dashboard/';
             window.location.href = `${referrer}`;
           } else {

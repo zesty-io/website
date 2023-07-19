@@ -168,8 +168,10 @@ import Blogtest from './Blogtest';
 import Media from './Media';
 import Header from './Header';
 import Footer from './Footer';
+import ZestyDoc from './ZestyDoc';
 
 export {
+  ZestyDoc,
   ProductLandingPage,
   Product,
   Clipping,
