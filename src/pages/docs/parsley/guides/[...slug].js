@@ -1,43 +1,15 @@
 import React, { useEffect } from 'react';
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
-import MuiMarkdown from 'markdown-to-jsx';
 import MainWrapper from 'layouts/Main';
 import { useState } from 'react';
 import { Stack } from '@mui/material';
 import { DocsSidebar } from 'components/docs/DocsSidebar';
 import { useZestyStore } from 'store';
-import { fetchMarkdownFile, parseMarkdownFile } from 'utils/docs';
-import { PARSLEY, PARSLEY_GUIDES } from 'utils/docs/constants';
+import { fetchMarkdownFile } from 'utils/docs';
+import { PARSLEY_GUIDES } from 'utils/docs/constants';
 import { useRouter } from 'next/router';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
-
-const muiContentOverrides = {
-  h1: {
-    component: 'h1',
-    props: {
-      style: { fontSize: '24px' },
-    },
-  },
-  h2: {
-    component: 'h2',
-    props: {
-      style: { fontSize: '1.5em' },
-    },
-  },
-  p: {
-    component: 'p',
-    props: {
-      style: { fontSize: '24px' },
-    },
-  },
-
-  img: {
-    component: 'img',
-    props: {
-      style: { width: '80%', margin: '10px 10%' },
-    },
-  },
-};
+import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
 
 const ApiReferencePage = (props) => {
   const router = useRouter();
@@ -55,16 +27,9 @@ const ApiReferencePage = (props) => {
     window.location.href = e.url;
   };
   const getMd = async () => {
-    const githubURL = `https://raw.githubusercontent.com/zesty-io/zesty-docs/main/webengine/guides/web-engine/introduction-to-parsley/${router?.query?.slug[0]}.md`;
+    const githubURL = `https://raw.githubusercontent.com/zesty-io/zesty-docs-md/main/webengine/guides/web-engine/introduction-to-parsley/${router?.query?.slug[0]}.parse.md`;
     const markdown = await fetchMarkdownFile({ mdUrl: githubURL });
-    const { pageData } = await parseMarkdownFile({
-      markdown,
-      tags: ['h3', 'h4', 'h2'],
-      parentURL: PARSLEY[1].parentURL,
-      title: PARSLEY[1].title,
-    });
-
-    setmdData(pageData);
+    setmdData(markdown);
   };
 
   const newNavData = PARSLEY_GUIDES.map((e) => {
@@ -107,7 +72,11 @@ const ApiReferencePage = (props) => {
         {/* MAIN PAGE */}
         <Stack pl={4} sx={{ width: 1 }}>
           <Stack width={'70vw'}>
-            <MuiMarkdown overrides={muiContentOverrides}>{mdData}</MuiMarkdown>
+            <ZestyMarkdownParser
+              markdown={mdData}
+              mainKeywords={[]}
+              productGlossary={[]}
+            />
           </Stack>
         </Stack>
       </Stack>
