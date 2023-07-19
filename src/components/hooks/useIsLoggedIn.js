@@ -22,6 +22,7 @@ const isUserAuthenticated = async () => {
 };
 
 const useIsLoggedIn = () => {
+  // update
   const cookies = useContext(AuthContext);
   const [isAuth, setIsAuth] = useState(false);
 

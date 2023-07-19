@@ -154,7 +154,16 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // generate a status 404 page
   if (data.error) return { notFound: true };
 
-  if (req.url === '/login/' && isAuthenticated) {
+  if (resolvedUrl === '/' && isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/dashboard/',
+        permanent: false,
+      },
+    };
+  }
+
+  if (resolvedUrl === '/login/' && isAuthenticated) {
     return {
       redirect: {
         destination: '/',
