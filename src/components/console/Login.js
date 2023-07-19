@@ -47,8 +47,11 @@ const Login = ({ content, userEmail }) => {
     setCookie('isAuthenticated', true);
 
     const prevUrl = window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
+    const sessionPrevUrl = sessionStorage.getItem('prevUrl');
+
+    sessionStorage.removeItem('prevUrl');
     // means first appearance of /docsOverview/
-    if (prevUrl.indexOf('/docsOverview/') === 0) {
+    if (prevUrl === sessionPrevUrl) {
       window.location.href = prevUrl;
     } else {
       window.location.href = '/dashboard/';
