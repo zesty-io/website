@@ -19,7 +19,6 @@ export const MDCodeBlock = ({ node }) => {
         value={codeTxt}
         placeholder={'Click Run to view the response'}
         // height={'300px'}
-        crosshairCursor={true}
         extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
         onChange={() => {}}
         style={{ fontSize: '18px', width: '100%' }}
