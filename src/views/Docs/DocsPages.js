@@ -182,8 +182,19 @@ const Main = ({ data }) => {
               {!isLoggedIn && (
                 <WarningMsg>
                   <Typography variant="button" color={'gray'}>
-                    Please <Link href="/login">sign in</Link> to view your
-                    instance’s unique identifier
+                    Please{' '}
+                    <Link
+                      onClick={() => {
+                        sessionStorage.setItem(
+                          'prevUrl',
+                          window.location.pathname,
+                        );
+                      }}
+                      href="/login"
+                    >
+                      sign in
+                    </Link>{' '}
+                    to view your instance’s unique identifier
                   </Typography>
                 </WarningMsg>
               )}
@@ -192,8 +203,19 @@ const Main = ({ data }) => {
                 {!isLoggedIn && (
                   <WarningMsg>
                     <Typography variant="button" color={'gray'}>
-                      Please <Link href="/login">sign in</Link> to view your
-                      instance’s unique identifier
+                      Please{' '}
+                      <Link
+                        onClick={() => {
+                          sessionStorage.setItem(
+                            'prevUrl',
+                            window.location.pathname,
+                          );
+                        }}
+                        href="/login"
+                      >
+                        sign in
+                      </Link>{' '}
+                      to view your instance’s unique identifier
                     </Typography>
                   </WarningMsg>
                 )}
@@ -217,16 +239,38 @@ const Main = ({ data }) => {
                 {!isLoggedIn && (
                   <WarningMsg>
                     <Typography variant="button" color={'gray'}>
-                      Please <Link href="/login">sign in</Link> to view your
-                      token
+                      Please{' '}
+                      <Link
+                        onClick={() => {
+                          sessionStorage.setItem(
+                            'prevUrl',
+                            window.location.pathname,
+                          );
+                        }}
+                        href="/login"
+                      >
+                        sign in
+                      </Link>{' '}
+                      to view your token
                     </Typography>
                   </WarningMsg>
                 )}
                 {!isLoggedIn && (
                   <WarningMsg>
                     <Typography variant="button" color={'gray'}>
-                      Please <Link href="/login">sign in</Link> to view your
-                      token
+                      Please{' '}
+                      <Link
+                        onClick={() => {
+                          sessionStorage.setItem(
+                            'prevUrl',
+                            window.location.pathname,
+                          );
+                        }}
+                        href="/login"
+                      >
+                        sign in
+                      </Link>{' '}
+                      to view your token
                     </Typography>
                   </WarningMsg>
                 )}
@@ -351,7 +395,16 @@ const CodeBlocks = React.memo(
 const WarningMsg = ({
   children = (
     <Typography variant="button" color={'gray'}>
-      Please <Link href="/login">sign in</Link> to view your token
+      Please{' '}
+      <Link
+        onClick={() => {
+          sessionStorage.setItem('prevUrl', window.location.pathname);
+        }}
+        href="/login"
+      >
+        sign in
+      </Link>{' '}
+      to view your token
     </Typography>
   ),
 }) => {

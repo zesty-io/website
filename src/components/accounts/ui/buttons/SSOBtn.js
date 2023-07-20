@@ -1,8 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { accounts } from 'components/accounts/constants';
-import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Index = ({
   image = accounts.logos.google,
@@ -11,13 +10,34 @@ const Index = ({
   logoColor = '#fff',
   textColor = '#333333',
   borderColor = grey[500],
-
   href,
 }) => {
-  const router = useRouter();
   const handleClick = () => {
-    router.push(href);
+    const popup = window.open(href, 'Pop up window');
+    popup.postMessage('message', window.location.origin);
   };
+
+  useEffect(() => {
+    const redirectLogic = (message) => {
+      if (message.origin === 'https://auth.api.zesty.io') {
+        if (message.data.source === 'zesty' && message.data.status === '200') {
+          message.source.close();
+          const sessionPrevUrl = sessionStorage.getItem('prevUrl');
+          const prevUrl = window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
+          sessionStorage.removeItem('prevUrl');
+
+          if (prevUrl === sessionPrevUrl) {
+            window.location.href = `${prevUrl}`;
+          } else {
+            window.location.href = '/dashboard/';
+          }
+        }
+      }
+    };
+    window.addEventListener('message', redirectLogic);
+    return () => window.removeEventListener('message', redirectLogic);
+  }, []);
+
   return (
     <Stack
       onClick={handleClick}

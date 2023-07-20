@@ -6,6 +6,7 @@ import { ZestyView } from 'lib/ZestyView';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import Main from 'layouts/Main';
 import { getIsAuthenticated } from 'utils';
+import { isUserAuthenticated } from 'middleware';
 
 export const GlobalContext = createContext();
 export default function Zesty(props) {
@@ -84,7 +85,8 @@ async function fetchData({ isProd = false, dataType }) {
 
 // This gets called on every request
 export async function getServerSideProps({ req, res, resolvedUrl }) {
-  const isAuthenticated = getIsAuthenticated(res);
+  let isAuthenticated =
+    (await isUserAuthenticated(req, true)) || getIsAuthenticated(res);
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
   // does not display with npm run dev
 
@@ -152,7 +154,16 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
   // generate a status 404 page
   if (data.error) return { notFound: true };
 
-  if (req.url === '/login/' && isAuthenticated) {
+  if (resolvedUrl === '/' && isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/dashboard/',
+        permanent: false,
+      },
+    };
+  }
+
+  if (resolvedUrl === '/login/' && isAuthenticated) {
     return {
       redirect: {
         destination: '/',
