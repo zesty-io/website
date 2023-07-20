@@ -20,14 +20,19 @@ export async function middleware(request) {
   return response;
 }
 
-const isUserAuthenticated = async (request) => {
-  let isProd = JSON.parse(request.cookies.get('PRODUCTION') || true);
+export const isUserAuthenticated = async (request, isGSSP = false) => {
+  let cookieProd = isGSSP
+    ? request.cookies['PRODUCTION']
+    : request.cookies?.get('PRODUCTION');
+  let isProd = JSON.parse(cookieProd || true);
 
   const verifyUrl = !isProd
     ? 'https://auth.api.dev.zesty.io/verify'
     : 'https://auth.api.zesty.io/verify';
 
-  const appSid = request.cookies.get(isProd ? 'APP_SID' : 'DEV_APP_SID');
+  const appSid = isGSSP
+    ? request.cookies[isProd ? 'APP_SID' : 'DEV_APP_SID']
+    : request.cookies?.get(isProd ? 'APP_SID' : 'DEV_APP_SID');
 
   const response = await fetch(verifyUrl, {
     headers: {
