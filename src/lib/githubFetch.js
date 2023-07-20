@@ -22,6 +22,7 @@ export async function githubFetch(settings) {
                 }
               }
               nodes {
+                id
                 category {
                   name
                   emojiHTML
@@ -44,12 +45,26 @@ export async function githubFetch(settings) {
             columns(last: ${settings.columns}) {
               nodes {
                 name,
-                cards(last: ${settings.cards} ) {
+                cards(first: ${settings.cards} ) {
                   totalCount
                   nodes {
                     id,
                     note,
                     url
+                    isArchived
+                    state
+                    content {
+								        ... on Issue {
+									  title
+									  bodyHTML
+									  labels(first: 10) {
+										nodes {
+											color
+											name
+									  	  }
+									    }
+							  	   }
+						    	  }
                   }
                 }
               }
