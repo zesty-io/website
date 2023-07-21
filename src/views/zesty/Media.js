@@ -49,7 +49,7 @@ const person =
   mediaContent4 =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/MediaContent4.svg';
 
-function Media({ content }) {
+function Media() {
   const theme = useTheme();
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
