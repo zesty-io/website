@@ -27,13 +27,14 @@ const Index = ({
             window.document.referrer.includes('/logout/') ||
             window.document.referrer.includes('/login/')
               ? window.location.origin + '/dashboard/'
-              : window.document.referrer;
+              : window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
           message.source.close();
           const sessionPrevUrl = sessionStorage.getItem('prevUrl');
           const prevUrl = window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
+
           sessionStorage.removeItem('prevUrl');
           if (prevUrl === sessionPrevUrl || referrer.indexOf('/docs/') === 0) {
-            window.location.href = `${prevUrl}`;
+            window.location.href = referrer;
           } else {
             window.location.href = '/dashboard/';
           }
