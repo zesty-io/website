@@ -9,5 +9,13 @@ describe('E2E docs page', () => {
   it('test if docs slug urls rendered ', () => {
     cy.visit('/docs/introduction');
     cy.get("[data-testid='docs-slug']", { timeout: 30000 }).should('exist');
+
+    cy.get("[data-testid='navigation-tree']", { timeout: 30000 }).should(
+      'exist',
+    );
+
+    cy.get("[data-testid='table-of-contents']", { timeout: 30000 }).should(
+      'exist',
+    );
   });
 });

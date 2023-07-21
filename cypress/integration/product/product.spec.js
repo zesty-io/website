@@ -7,9 +7,21 @@ describe('E2E product page', () => {
     cy.get("[data-testid='product-landing']", { timeout: 30000 }).should(
       'exist',
     );
+    cy.get("[data-testid='navigation-tree']", { timeout: 30000 }).should(
+      'exist',
+    );
+    cy.get("[data-testid='table-of-contents']", { timeout: 30000 }).should(
+      'exist',
+    );
   });
   it('test if product slug urls rendered ', () => {
     cy.visit('/product/content');
     cy.get("[data-testid='product-slug']", { timeout: 30000 }).should('exist');
+    cy.get("[data-testid='navigation-tree']", { timeout: 30000 }).should(
+      'exist',
+    );
+    cy.get("[data-testid='table-of-contents']", { timeout: 30000 }).should(
+      'exist',
+    );
   });
 });
