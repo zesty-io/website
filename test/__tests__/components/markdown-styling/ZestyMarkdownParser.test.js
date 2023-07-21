@@ -10,7 +10,7 @@ import {
   MDCodeBlock,
   MDImage,
   MDBlockquote,
-} from '../../src/components/markdown-styling/components';
+} from '../../../../src/components/markdown-styling/components';
 
 describe('MDH3', () => {
   it('should render the MDH3 component with correct props', () => {

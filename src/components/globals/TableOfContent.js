@@ -31,14 +31,14 @@ const Main = ({ data }) => {
               href={e.href}
               sx={{
                 borderLeft: `3px solid ${
-                  active ? theme.palette.zesty.zestyOrange : '#ffd5c1'
+                  active ? theme?.palette?.zesty?.zestyOrange : '#ffd5c1'
                 }`,
                 fontWeight: active ? '600' : '400',
                 fontSize: '8px',
                 textDecoration: active ? 'none !important' : 'none',
                 backgroundColor: active ? '#ffd6c4' : 'white',
                 color: active
-                  ? `${theme.palette.zesty.zestyOrange} !important`
+                  ? `${theme?.palette?.zesty?.zestyOrange} !important`
                   : '#6b7280',
                 borderRadius: '0 5px 5px 0',
                 pl: '20px',
@@ -47,12 +47,16 @@ const Main = ({ data }) => {
                 '&:hover': {
                   color: '#333333',
                   textDecoration: 'underline #333333',
-                  borderLeft: `3px solid ${theme.palette.zesty.zestyOrange}`,
+                  borderLeft: `3px solid ${theme?.palette?.zesty?.zestyOrange}`,
                   // bgcolor: '#F2F2F2',
                 },
               }}
             >
-              <Typography variant="button" whiteSpace={'normal'}>
+              <Typography
+                variant="button"
+                whiteSpace={'normal'}
+                data-testid="link-name"
+              >
                 {e.name}
               </Typography>
             </Link>

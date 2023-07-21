@@ -82,7 +82,7 @@ const Main = ({ data = [] }) => {
         '& .MuiTreeItem-content.Mui-focused, & .MuiTreeItem-content.Mui-selected, & .MuiTreeItem-content.Mui-selected.Mui-focused':
           {
             bgcolor: '#FFD6C4',
-            color: theme.palette.zesty.zestyOrange,
+            color: theme?.palette?.zesty?.zestyOrange,
             fontWeight: 'bold !important',
             borderRadius: '5px',
           },
