@@ -19,6 +19,7 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 
 - [ ] Manual Test
 - [ ] Unit Test
+- [ ] E2E Test
 
 # Screenshots / Screen recording
 Please add screenshots or recording if applicable
