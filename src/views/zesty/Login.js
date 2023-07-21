@@ -30,8 +30,18 @@
 import React from 'react';
 import CustomLogin from 'components/console/Login';
 import { getCookie } from 'cookies-next';
+import { useEffect } from 'react';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 function Login({ content }) {
   const APP_USER_EMAIL = getCookie('APP_USER_EMAIL');
+  const isLoggedIn = useIsLoggedIn();
+
+  useEffect(() => {
+    if (content.zesty.isAuthenticated || isLoggedIn) {
+      window.location.href = '/dashboard/';
+    }
+  }, [content.zesty.isAuthenticated, isLoggedIn]);
+
   return <CustomLogin content={content} userEmail={APP_USER_EMAIL} />;
 }
 
