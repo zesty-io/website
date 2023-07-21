@@ -41,8 +41,8 @@ import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
 import { DocsHomePage } from 'components/docs/DocsHomePage';
-import { TreeNavigation } from 'components/Global/TreeNavigation';
-import { TableOfContent } from 'components/Global/TableOfContent';
+import { TreeNavigation } from 'components/globals/TreeNavigation';
+import { TableOfContent } from 'components/globals/TableOfContent';
 
 // main file
 const ZestyDoc = (props) => {
