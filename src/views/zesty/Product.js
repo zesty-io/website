@@ -347,7 +347,7 @@ const Product = (props) => {
   }, []);
 
   return (
-    <Stack>
+    <Stack data-testid="product-slug">
       <Container
         sx={() => ({
           maxWidth: '1440px !important',

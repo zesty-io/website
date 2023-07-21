@@ -29,7 +29,7 @@ export const DocsHomePage = (props) => {
   }, []);
 
   return (
-    <>
+    <Box data-testid="docs-landing">
       <ZestyAccountsHead title={'Zesty.io - Documentation'} />
       <>
         <Box
@@ -150,7 +150,7 @@ export const DocsHomePage = (props) => {
           </Box>
         </Container>
       </>
-    </>
+    </Box>
   );
 };
 

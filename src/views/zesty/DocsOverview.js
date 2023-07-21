@@ -11,7 +11,10 @@
   * title (text)
 
  *
- * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays, * images are objects {content.image_name.data[0].url} * * This file is expected to be customized; because of that, it is not overwritten by the integration script.
+ * In the render function, text fields can be accessed like {content.field_name}, relationships are arrays,
+ * images are objects {content.image_name.data[0].url}
+ *
+ * This file is expected to be customized; because of that, it is not overwritten by the integration script.
  * Model and field changes in Zesty.io will not be reflected in this comment.
  *
  * View and Edit this model's current schema on Zesty.io at https://8-aaeffee09b-7w6v22.manager.zesty.io/schema/6-001018-0xvfj9
@@ -19,20 +22,15 @@
  * Data Output Example: https://zesty.org/services/web-engine/introduction-to-parsley/parsley-index#tojson
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
-import revampTheme from 'theme/revampTheme';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Button, ThemeProvider } from '@mui/material';
 import {
   Link,
-  Container,
-  Grid,
   Stack,
   Typography,
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
 import NextLink from 'next/link';
-import AppBar from 'components/console/AppBar';
 import React, { useEffect, useState } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
@@ -40,11 +38,8 @@ import { TreeItem, TreeView } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useRouter } from 'next/router';
-import { SearchModal } from 'views/Docs/SearchModal';
-import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
-import GetDemoSection from 'revamp/ui/GetDemoSection';
-import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
+import FillerContent from 'components/globals/FillerContent';
 import { DocsHomePage } from 'components/docs/DocsHomePage';
 
 const GetTree = ({ data = [] }) => {
@@ -205,13 +200,50 @@ const ToCComponent = ({ data }) => {
   );
 };
 
+function splitStringByImageTag(inputString) {
+  var imgTagRegex = /<img\b[^>]*>/gi; // Regular expression to match img tags
+
+  // Use the regex to find all img tags in the input string
+  var imgTags = inputString.match(imgTagRegex);
+
+  // If no img tags are found, return the input string as is
+  if (!imgTags) {
+    return [inputString];
+  }
+
+  // Split the input string using the img tags and extract src, title, and alt attributes
+  const splitStrings = inputString.split(imgTagRegex);
+  const imgAttributes = imgTags.map(function (tag) {
+    const srcRegex = /src=['"]([^'"]+)['"]/i; // Regular expression to extract src attribute
+    const titleRegex = /title=['"]([^'"]+)['"]/i; // Regular expression to extract title attribute
+    const altRegex = /alt=['"]([^'"]+)['"]/i; // Regular expression to extract alt attribute
+    const matchSrc = tag.match(srcRegex);
+    const matchTitle = tag.match(titleRegex);
+    const matchAlt = tag.match(altRegex);
+
+    return {
+      src: matchSrc ? matchSrc[1] : '',
+      title: matchTitle ? matchTitle[1] : '',
+      alt: matchAlt ? matchAlt[1] : '',
+    };
+  });
+
+  // Merge the split strings with the corresponding img attributes
+  var result = [];
+  for (var i = 0; i < splitStrings.length; i++) {
+    result.push(splitStrings[i]);
+    if (i < imgAttributes.length) {
+      result.push(imgAttributes[i]);
+    }
+  }
+
+  return result;
+}
 // main file
-const ZestyDoc = (props) => {
-  const router = useRouter();
-  const isDocsHomePage = router.asPath === '/docs/';
+const DocsOverViewLanding = (props) => {
   const theme = useTheme();
   const content = props.content;
-  const productsData = content.zesty.docs;
+  const productsData = content.zesty.products;
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
     (e) => e,
   );
@@ -222,7 +254,7 @@ const ZestyDoc = (props) => {
   });
   const isLoggedIn = useIsLoggedIn();
   const { navData } = parseMarkdownFile({
-    markdown: content.body,
+    markdown: content?.body || FillerContent.header,
     tags: ['h2', 'h3', 'h4', 'h1', 'h5'],
     parentURL: '',
     title: '',
@@ -261,9 +293,6 @@ const ZestyDoc = (props) => {
 
     return base.children;
   };
-  const navigationData = makeTree(prodNav).sort(
-    (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
-  );
 
   const result = [];
   const groupByUri = (data = []) => {
@@ -287,176 +316,26 @@ const ZestyDoc = (props) => {
       // filtering out redundant 1st tier item
       // this will add only 1st tier that dont have children
       const res1 = result.find((q) => q.children);
-      if (res1?.uri !== element?.uri && !childMain) {
+      if (res1.uri !== element.uri && !childMain) {
         result.push(element);
       }
     });
   };
   groupByUri(productsData);
 
-  // group the
-  const productGlossary = content.zesty.productGlossary.map((e) => {
-    const res = e.keywords.split(',').map((item) => item.toLowerCase());
-    return { ...e, target_words: res };
-  });
-  const mainKeywords = productGlossary.flatMap((obj) => obj.target_words);
+  React.useEffect(() => {
+    setalgoliaApiKey(props.content.algolia.apiKey);
+    setalgoliaAppId(props.content.algolia.appId);
+    setalgoliaIndex(props.content.algolia.index);
+  }, []);
 
   const algolia = {
     apiKey: props.content.algolia.apiKey,
     appId: props.content.algolia.appId,
     index: props.content.algolia.index,
   };
-  React.useEffect(() => {
-    setalgoliaApiKey(algolia.apiKey);
-    setalgoliaAppId(algolia.appId);
-    setalgoliaIndex(algolia.index);
-  }, []);
 
-  // redirecto to docs landing page if url = /docs/
-  if (isDocsHomePage) {
-    return <DocsHomePage algolia={algolia} />;
-  }
-  return (
-    <Stack data-testid="docs-slug">
-      <Container
-        sx={() => ({
-          maxWidth: '1440px !important',
-          paddingBottom: '0 !important',
-        })}
-      >
-        {/* // headers */}
-        <Stack
-          py={2}
-          direction={'row'}
-          width={1}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-          sx={{
-            display: { xs: '', md: 'flex' },
-          }}
-        >
-          <AppBar />
-
-          <SearchModal
-            sx={{
-              width: true ? 300 : 500,
-              display: { xs: 'none', md: 'block' },
-            }}
-          >
-            <AlgoSearch />
-          </SearchModal>
-        </Stack>
-
-        {/* Navigation mobile */}
-        <Stack
-          direction={'row'}
-          width={1}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-          sx={{
-            display: { xs: '', md: 'none' },
-          }}
-        >
-          <Box>
-            <TreeNav
-              data={[{ title: 'Products', children: navigationData, uri: '#' }]}
-            />
-          </Box>
-        </Stack>
-
-        {/* // body */}
-        <Stack>
-          <Grid container spacing={2} minHeight={'80vh'}>
-            <Grid item md={3} lg={2}>
-              {/* // navigation tree */}
-              <Stack
-                height={1}
-                width={1}
-                sx={{
-                  display: { xs: 'none', md: 'block' },
-                }}
-              >
-                <TreeNav data={navigationData} />
-              </Stack>
-            </Grid>
-            <Grid item md={6} lg={8}>
-              {/* // main body */}
-              <Stack
-                height={1}
-                justifyItems={'center'}
-                alignItems={'center'}
-                alignContent={'center'}
-              >
-                <Stack width={1} textAlign={'left'}>
-                  <Typography variant="h3" fontWeight={'bold'} id="overview">
-                    {content?.title}
-                  </Typography>
-                </Stack>
-                <Stack width={1} height={1}>
-                  {/* Component that render the markdown file */}
-                  <ZestyMarkdownParser
-                    markdown={content.body}
-                    mainKeywords={mainKeywords}
-                    productGlossary={productGlossary}
-                  />
-                </Stack>
-              </Stack>
-            </Grid>
-            <Grid item md={3} lg={2}>
-              {/* // table of contents */}
-              <Stack
-                position={'sticky'}
-                top={trigger ? '10%' : '25%'}
-                sx={{
-                  display: { xs: 'none', md: 'block' },
-                }}
-              >
-                <ToCComponent data={navData} />
-                {!isLoggedIn && (
-                  <Stack
-                    sx={{
-                      py: 2,
-                      px: 3,
-                      bgcolor: theme.palette.zesty.zestyDarkBlue,
-                      borderRadius: '5px',
-                      mt: 2,
-                      pb: 3,
-                    }}
-                  >
-                    <Typography variant="h4" color="#fff" fontWeight={'bold'}>
-                      Start Here
-                    </Typography>
-                    <Typography variant="body1" color="#fff">
-                      We will listen to your needs and walk you through how
-                      Zesty can help your team.
-                    </Typography>
-                    <Box mt={2} width={1}>
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        color="secondary"
-                        href={`#cta`}
-                      >
-                        Contact Us
-                      </Button>
-                    </Box>
-                  </Stack>
-                )}
-              </Stack>
-            </Grid>
-          </Grid>
-        </Stack>
-      </Container>
-
-      {!isLoggedIn && (
-        <Box pt={4} id={'cta'}>
-          <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
-            <GetDemoSection />
-          </ThemeProvider>
-        </Box>
-      )}
-    </Stack>
-  );
+  return <DocsHomePage algolia={algolia} />;
 };
 
-export default ZestyDoc;
+export default DocsOverViewLanding;

@@ -348,7 +348,7 @@ const ProductLandingPage = (props) => {
   }, []);
 
   return (
-    <Stack>
+    <Stack data-testid="product-landing">
       <Container
         sx={() => ({
           maxWidth: '1440px !important',
