@@ -21,13 +21,20 @@ const Index = ({
     const redirectLogic = (message) => {
       if (message.origin === 'https://auth.api.zesty.io') {
         if (message.data.source === 'zesty' && message.data.status === '200') {
+          let referrer = window.document.referrer;
+          referrer =
+            window.document.referrer === '' ||
+            window.document.referrer.includes('/logout/') ||
+            window.document.referrer.includes('/login/')
+              ? window.location.origin + '/dashboard/'
+              : window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
           message.source.close();
           const sessionPrevUrl = sessionStorage.getItem('prevUrl');
           const prevUrl = window.document.referrer.replace(/^.*\/\/[^\/]+/, '');
-          sessionStorage.removeItem('prevUrl');
 
-          if (prevUrl === sessionPrevUrl) {
-            window.location.href = `${prevUrl}`;
+          sessionStorage.removeItem('prevUrl');
+          if (prevUrl === sessionPrevUrl || referrer.indexOf('/docs/') === 0) {
+            window.location.href = referrer;
           } else {
             window.location.href = '/dashboard/';
           }
