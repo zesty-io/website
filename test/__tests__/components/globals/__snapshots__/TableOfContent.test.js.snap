@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableOfContent test toc test 1`] = `
+<div
+  class="css-1a8uuxu-MuiStack-root"
+  data-testid="table-of-contents"
+>
+  <span
+    class="MuiTypography-root MuiTypography-button css-1armj8x-MuiTypography-root"
+  >
+    On this Page
+  </span>
+  <div
+    class="css-p8ma2d-MuiStack-root"
+  >
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ftk0rp-MuiTypography-root-MuiLink-root"
+      href="#overview"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        Overview
+      </span>
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      href="#understanding-content-zestyio"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        Understanding Content Zesty.io
+      </span>
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      href="#content-editing"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        Content Editing
+      </span>
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      href="#visual-layout"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        Visual Layout
+      </span>
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      href="#versioning"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        Versioning
+      </span>
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      href="#environment"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        Environment
+      </span>
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      href="#publishing"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        Publishing
+      </span>
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      href="#workflow-requests"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        Workflow Requests
+      </span>
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      href="#multi-language-support"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        Multi-Language Support
+      </span>
+    </a>
+    <a
+      class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
+      href="#api-access"
+    >
+      <span
+        class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
+        data-testid="link-name"
+      >
+        API Access
+      </span>
+    </a>
+  </div>
+</div>
+`;

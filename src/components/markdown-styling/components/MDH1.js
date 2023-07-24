@@ -5,7 +5,11 @@ export const MDH1 = ({ node }) => {
   const id = transformText(node.children[0].value);
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }} gap={0.5}>
+    <Box
+      sx={{ display: 'flex', alignItems: 'center' }}
+      data-testid="box-container"
+      gap={0.5}
+    >
       <Typography id={id} mt={2} fontWeight={800} variant="h4" component={'h1'}>
         {node.children[0].value}
       </Typography>
