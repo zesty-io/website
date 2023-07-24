@@ -51,7 +51,7 @@ const Login = ({ content, userEmail }) => {
 
     sessionStorage.removeItem('prevUrl');
     // means first appearance of /docsOverview/
-    if (prevUrl === sessionPrevUrl) {
+    if (prevUrl === sessionPrevUrl || prevUrl.indexOf('/docs/') === 0) {
       window.location.href = prevUrl;
     } else {
       window.location.href = '/dashboard/';

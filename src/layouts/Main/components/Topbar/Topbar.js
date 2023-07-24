@@ -185,6 +185,7 @@ const Topbar = ({
             <Box display={'flex'} alignItems="center" gap={2}>
               <Box>
                 <Typography
+                  data-testid="login-btn"
                   variant="text"
                   component="a"
                   href="/login/"

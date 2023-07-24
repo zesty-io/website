@@ -9,15 +9,16 @@ export const MDCodeBlock = ({ node }) => {
 
   return (
     <Box
+      data-testid="code-block-box"
       sx={{ display: 'flex', alignItems: 'center', width: '100%' }}
       padding={2}
     >
       <CodeMirror
+        data-testid="code-mirror"
         editable={false}
         value={codeTxt}
         placeholder={'Click Run to view the response'}
         // height={'300px'}
-        crosshairCursor={true}
         extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
         onChange={() => {}}
         style={{ fontSize: '18px', width: '100%' }}

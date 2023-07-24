@@ -76,6 +76,7 @@ export const MDParagraph = ({
 
   return (
     <p
+      data-testid="box-container"
       dangerouslySetInnerHTML={{
         __html: res.join(''),
       }}

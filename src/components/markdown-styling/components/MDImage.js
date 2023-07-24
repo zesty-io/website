@@ -4,7 +4,7 @@ import ModalImage from 'react-modal-image';
 
 const MDLargeImage = ({ node }) => {
   return (
-    <Box px={5}>
+    <Box px={5} data-testid="md-large-image">
       <ModalImage
         small={node.properties.src}
         large={node.properties.src}
@@ -18,6 +18,7 @@ const MDLargeImage = ({ node }) => {
 const MDSmallImage = ({ node }) => {
   return (
     <Box
+      data-testid="md-small-image"
       ml={3}
       mr={2}
       maxWidth={'200px'}
