@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-const CustomTextField = ({ label, isSelect, menus, type, ...props }) => {
+const CustomTextField = ({ label, isSelect, menus, ...props }) => {
   return (
     <FormControl
       fullWidth
@@ -24,8 +24,6 @@ const CustomTextField = ({ label, isSelect, menus, type, ...props }) => {
         '& .MuiFormHelperText-root.Mui-error': {
           mx: 0,
         },
-        display: type === 'hidden' ? 'none' : '',
-        position: type === 'hidden' ? 'absolute' : '',
       }}
     >
       <>
