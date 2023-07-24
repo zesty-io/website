@@ -13,6 +13,7 @@ describe('E2E product page', () => {
     cy.get("[data-testid='table-of-contents']", { timeout: 30000 }).should(
       'exist',
     );
+    cy.algoliaNavigate();
   });
   it('test if product slug urls rendered ', () => {
     cy.visit('/product/content');
@@ -23,5 +24,6 @@ describe('E2E product page', () => {
     cy.get("[data-testid='table-of-contents']", { timeout: 30000 }).should(
       'exist',
     );
+    cy.algoliaNavigate();
   });
 });

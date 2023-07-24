@@ -28,6 +28,7 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 const SearchBoxMui = ({ currentRefinement, _isSearchStalled, refine }) => (
   <form noValidate action="" role="search">
     <TextField
+      data-testid="algolia-search"
       autoFocus
       placeholder="Search..."
       value={currentRefinement}
@@ -59,7 +60,7 @@ export const AlgoSearch = () => {
   const searchClient = algoliasearch(appId, apiKey);
 
   return (
-    <Stack>
+    <Stack data-testid="algolia-search-container">
       <InstantSearch indexName={index} searchClient={searchClient}>
         <CustomSearchBox />
 
@@ -67,6 +68,7 @@ export const AlgoSearch = () => {
           <Index indexName={'zesty_docs'}>
             <Box sx={{ px: 2, py: 2 }}>
               <Typography
+                data-testid="zesty-docs-index"
                 variant="body1"
                 sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
                 component="h2"
@@ -81,6 +83,7 @@ export const AlgoSearch = () => {
           <Index indexName="products">
             <Box sx={{ px: 2, py: 2 }}>
               <Typography
+                data-testid="products-index"
                 variant="body1"
                 sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
                 component="h2"
@@ -96,6 +99,7 @@ export const AlgoSearch = () => {
           <Index indexName="parsley">
             <Box sx={{ px: 2, py: 2 }}>
               <Typography
+                data-testid="parsley-index"
                 variant="body1"
                 sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
                 component="h2"
@@ -118,6 +122,7 @@ const Hit = (props) => {
   return (
     <Stack divider direction={'row'} spacingY={4}>
       <Link
+        data-testid={`${hit.name}-algolia-links`}
         component={'a'}
         elevation={0}
         sx={{

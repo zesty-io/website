@@ -39,6 +39,7 @@ export const SearchModal = ({ children, sx }) => {
   return (
     <div>
       <TextField
+        data-testid="algolia-search-trigger"
         placeholder="Search..."
         onClick={handleOpen}
         onChange={(e) => {

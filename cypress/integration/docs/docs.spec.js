@@ -5,6 +5,7 @@ describe('E2E docs page', () => {
   it('test if docs landing page rendered ', () => {
     cy.visit('/docs');
     cy.get("[data-testid='docs-landing']", { timeout: 30000 }).should('exist');
+    cy.algoliaNavigate();
   });
   it('test if docs slug urls rendered ', () => {
     cy.visit('/docs/introduction');
@@ -17,5 +18,6 @@ describe('E2E docs page', () => {
     cy.get("[data-testid='table-of-contents']", { timeout: 30000 }).should(
       'exist',
     );
+    cy.algoliaNavigate();
   });
 });
