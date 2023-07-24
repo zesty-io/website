@@ -64,7 +64,7 @@ export const AlgoSearch = () => {
         <CustomSearchBox />
 
         <Stack maxHeight={'50vh'} overflow={'auto'}>
-          <Index indexName={'docs'}>
+          <Index indexName={'zesty_docs'}>
             <Box sx={{ px: 2, py: 2 }}>
               <Typography
                 variant="body1"
@@ -72,6 +72,20 @@ export const AlgoSearch = () => {
                 component="h2"
               >
                 Docs
+              </Typography>
+            </Box>
+
+            <Configure hitsPerPage={8} />
+            <Hits hitComponent={Hit} />
+          </Index>
+          <Index indexName="products">
+            <Box sx={{ px: 2, py: 2 }}>
+              <Typography
+                variant="body1"
+                sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
+                component="h2"
+              >
+                Products
               </Typography>
             </Box>
 
@@ -87,21 +101,6 @@ export const AlgoSearch = () => {
                 component="h2"
               >
                 Parsley
-              </Typography>
-            </Box>
-
-            <Configure hitsPerPage={8} />
-            <Hits hitComponent={Hit} />
-          </Index>
-
-          <Index indexName="products">
-            <Box sx={{ px: 2, py: 2 }}>
-              <Typography
-                variant="body1"
-                sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
-                component="h2"
-              >
-                Products
               </Typography>
             </Box>
 
