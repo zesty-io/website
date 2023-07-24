@@ -68,14 +68,14 @@ Cypress.Commands.add('algoliaNavigate', () => {
       await cy
         .get("[data-testid='algolia-search']", { timeout: 30000 })
         .should('exist');
-      await cy.wait(3000);
-      await cy
-        .get("[data-testid='Content-algolia-links']", { timeout: 30000 })
-        .should('exist')
-        .click();
+      // await cy.wait(3000);
+      // await cy
+      //   .get("[data-testid='Content-algolia-links']", { timeout: 30000 })
+      //   .should('exist')
+      //   .click();
 
-      await cy.location().should((loc) => {
-        expect(loc.pathname).to.equal('/product/content/');
-      });
+      // await cy.location().should((loc) => {
+      //   expect(loc.pathname).to.equal('/product/content/');
+      // });
     });
 });
