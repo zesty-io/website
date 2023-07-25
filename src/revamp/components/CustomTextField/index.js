@@ -12,8 +12,10 @@ const CustomTextField = ({ label, isSelect, menus, ...props }) => {
     <FormControl
       fullWidth
       sx={{
+        mt: -0.5,
         '& .MuiInputBase-root': {
           borderRadius: '8px',
+          height: '50px', // Set the height to 50px
         },
         '& input, .MuiSelect-select ': {
           padding: '6px 8px',

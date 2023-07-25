@@ -15,6 +15,7 @@ import {
   subscribeToZoho,
 } from 'revamp/utils/helper';
 import { useRouter } from 'next/router';
+import { MultiFieldForm } from './MultiFieldForm';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -65,7 +66,6 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
       values?.inquiryReason,
       'Demo Sign Up',
       '',
-      router.asPath,
     );
 
     console.log(payload);
@@ -234,37 +234,39 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
 
                   {/* Save this component as backup */}
 
-                  {/* <MultiFieldForm
-                    {...{
-                      isLong,
-                      isContact,
-                      handleSubmit,
-                      getFieldProps,
-                      errors,
-                      touched,
-                      initialValues,
-                      isSubmitting,
-                      setFieldValue,
-                      values,
-                      inquiryReasons,
-                    }}
-                  /> */}
-
-                  <SingleFieldForm
-                    {...{
-                      isLong,
-                      isContact,
-                      handleSubmit,
-                      getFieldProps,
-                      errors,
-                      touched,
-                      initialValues,
-                      isSubmitting,
-                      setFieldValue,
-                      values,
-                      inquiryReasons,
-                    }}
-                  />
+                  {isContact ? (
+                    <MultiFieldForm
+                      {...{
+                        isLong,
+                        isContact,
+                        handleSubmit,
+                        getFieldProps,
+                        errors,
+                        touched,
+                        initialValues,
+                        isSubmitting,
+                        setFieldValue,
+                        values,
+                        inquiryReasons,
+                      }}
+                    />
+                  ) : (
+                    <SingleFieldForm
+                      {...{
+                        isLong,
+                        isContact,
+                        handleSubmit,
+                        getFieldProps,
+                        errors,
+                        touched,
+                        initialValues,
+                        isSubmitting,
+                        setFieldValue,
+                        values,
+                        inquiryReasons,
+                      }}
+                    />
+                  )}
                 </Stack>
               </Form>
             )}

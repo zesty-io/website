@@ -68,7 +68,7 @@ const getLeadObjectZOHO = (
     Lead_Status: 'Not Contacted',
     Designation: obj.jobTitle,
     Company: obj.company,
-    LinkedIn_url: obj.linkedIn,
+    LinkedIn_Profile: obj.linkedIn,
   };
 };
 

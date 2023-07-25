@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Stack } from '@mui/material';
+import { Button, CircularProgress, Stack, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CustomTextField from 'revamp/components/CustomTextField';
 
@@ -104,10 +104,9 @@ export const SingleFieldForm = ({
           {...getFieldProps('linkedIn')}
         />
       </Stack>
-
-      <Stack sx={{ mt: -4 }} spacing={3}>
+      <Stack flexDirection={'row'} gap={2} sx={{ mt: -4 }}>
         <CustomTextField
-          label="Business Email"
+          placeholder="Business Email"
           name="businessEmail"
           value={initialValues.businessEmail}
           error={touched.businessEmail && !!errors.businessEmail}
@@ -116,12 +115,12 @@ export const SingleFieldForm = ({
         />
 
         <Button
+          size={'large'}
           color={buttonColor}
           disabled={isLoading}
           type="submit"
           variant="contained"
-          size="extraLarge"
-          fullWidth
+          sx={{ width: 200, height: 50 }}
         >
           {isLoading ? (
             <CircularProgress color="primary" size={26} />
@@ -130,6 +129,23 @@ export const SingleFieldForm = ({
           )}
         </Button>
       </Stack>
+      <Typography mt={1} variant="caption" color="#BEBBBB">
+        By submitting your email you agree to our{' '}
+        <Typography
+          href="/legal/end-user-license-agreement/"
+          component="a"
+          variant="caption"
+          sx={{
+            color: '#bebbbb',
+            textDecoration: 'underlined',
+            ':visited': {
+              color: '#BEBBBB',
+            },
+          }}
+        >
+          terms and conditions
+        </Typography>
+      </Typography>
     </>
   );
 };
