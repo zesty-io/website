@@ -48,13 +48,12 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
     'Press Relations',
   ];
 
-  console.log(router.asPath);
-
   const onSubmit = async (values) => {
     // download link
     // downloadLink && window.open(downloadLink, '_blank');
     // capterraTracking && capterraTracking();
 
+    console.log(values);
     if (values.firstName === '') {
       values.firstName = 'Unknown';
     }

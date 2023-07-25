@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react';
 import CustomTextField from 'revamp/components/CustomTextField';
 
 export const SingleFieldForm = ({
+  buttonColor,
   getFieldProps,
   errors,
   touched,
   initialValues,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+
+  console.log('isLoading', isLoading);
   useEffect(() => {
     if (typeof window === 'object') {
       if (!window._zi_fc) {
@@ -113,6 +116,7 @@ export const SingleFieldForm = ({
         />
 
         <Button
+          color={buttonColor}
           disabled={isLoading}
           type="submit"
           variant="contained"

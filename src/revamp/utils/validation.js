@@ -15,11 +15,7 @@ export const validationSchema = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .optional(),
-  phoneNumber: yup
-    .string()
-    .label('Phone')
-    .trim()
-    .matches(phoneRegExp, 'You must enter at least 5 digits.'),
+  phoneNumber: yup.string().optional(),
   // hidden fields
   jobTitle: yup.string().optional(),
   businessEmail: yup
@@ -58,12 +54,7 @@ export const contactPageValidation = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .optional(),
-  phoneNumber: yup
-    .string()
-    .label('Phone')
-    .trim()
-    .matches(phoneRegExp, 'You must enter at least 5 digits.')
-    .optional(),
+  phoneNumber: yup.string().optional(),
   // hidden fields
   jobTitle: yup.string().optional(),
   businessEmail: yup
@@ -108,7 +99,6 @@ export const shortValidationSchema = yup.object({
   businessEmail: yup
     .string()
     .required()
-
     .test(
       'is-valid-and-not-blocked-email',
       'Please enter valid business email',
@@ -130,4 +120,5 @@ export const shortValidationSchema = yup.object({
     ),
   linkedIn: yup.string().optional(),
   company: yup.string().optional(),
+  phoneNumber: yup.string().optional(),
 });
