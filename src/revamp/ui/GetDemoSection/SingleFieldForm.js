@@ -11,7 +11,6 @@ export const SingleFieldForm = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log('isLoading', isLoading);
   useEffect(() => {
     if (typeof window === 'object') {
       if (!window._zi_fc) {
