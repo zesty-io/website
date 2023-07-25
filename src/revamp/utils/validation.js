@@ -1,3 +1,4 @@
+import { blockList } from 'lib/emailBlockList/blockList';
 import * as yup from 'yup';
 
 const phoneRegExp = '^([^0-9]*[0-9]){5}.*$';
@@ -38,7 +39,7 @@ export const validationSchema = yup.object({
         const domain = emailParts[emailParts.length - 1];
 
         // Checking if the domain is in the allowedDomains array
-        return !blockedDomains.includes(domain);
+        return !blockList.includes(domain);
       },
     ),
   linkedIn: yup.string().optional(),
@@ -92,7 +93,7 @@ export const shortValidationSchema = yup.object({
         const domain = emailParts[emailParts.length - 1];
 
         // Checking if the domain is in the allowedDomains array
-        return !blockedDomains.includes(domain);
+        return !blockList.includes(domain);
       },
     ),
   linkedIn: yup.string().optional(),
