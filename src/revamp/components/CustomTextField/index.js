@@ -26,25 +26,27 @@ const CustomTextField = ({ label, isSelect, menus, ...props }) => {
         },
       }}
     >
-      <Typography
-        color="text.primary"
-        variant="body2"
-        fontWeight={600}
-        mb="4px"
-      >
-        {label}
-      </Typography>
-      {isSelect ? (
-        <Select {...props}>
-          {menus.map((value, i) => (
-            <MenuItem key={i} value={value}>
-              {value}
-            </MenuItem>
-          ))}
-        </Select>
-      ) : (
-        <TextField {...props} />
-      )}
+      <>
+        <Typography
+          color="text.primary"
+          variant="body2"
+          fontWeight={600}
+          mb="4px"
+        >
+          {label}
+        </Typography>
+        {isSelect ? (
+          <Select {...props}>
+            {menus.map((value, i) => (
+              <MenuItem key={i} value={value}>
+                {value}
+              </MenuItem>
+            ))}
+          </Select>
+        ) : (
+          <TextField {...props} />
+        )}
+      </>
     </FormControl>
   );
 };

@@ -1,18 +1,20 @@
-import { Button, FormControl, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import React from 'react';
-import MuiPhoneNumber from 'material-ui-phone-number';
-import CustomTextField from 'revamp/components/CustomTextField';
-import {
-  getLeadObjectZOHO,
-  postToZOHO,
-  subscribeToZoho,
-} from 'revamp/utils/helper';
+
 import {
   shortValidationSchema,
   validationSchema,
   contactPageValidation,
 } from 'revamp/utils/validation';
+
+import { SingleFieldForm } from './SingleFieldForm';
+import {
+  getLeadObjectZOHO,
+  postToZOHO,
+  subscribeToZoho,
+} from 'revamp/utils/helper';
+import { useRouter } from 'next/router';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -36,6 +38,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
   redirect = '/meet',
   isContact = false,
 }) => {
+  const router = useRouter();
   let inquiryReasons = [
     'General',
     'Agency Sign Up',
@@ -50,13 +53,22 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
     // downloadLink && window.open(downloadLink, '_blank');
     // capterraTracking && capterraTracking();
 
+    console.log(values);
+    if (values.firstName === '') {
+      values.firstName = 'Unknown';
+    }
+    if (values.lastName === '') {
+      values.lastName = 'N/A in Zoominfo';
+    }
     let payload = getLeadObjectZOHO(
       values,
       values?.inquiryReason,
       'Demo Sign Up',
-      // businessType,
-      // leadSource,
+      '',
+      router.asPath,
     );
+
+    console.log(payload);
     // post to leads section
     await postToZOHO(payload);
 
@@ -182,6 +194,9 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               email: '',
               phoneNumber: '',
               message: '',
+              jobTitle: '',
+              businessEmail: '',
+              linkedIn: '',
               inquiryReason: isContact ? 'General' : '',
             }}
             validationSchema={
@@ -205,7 +220,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               setFieldValue,
               values,
             }) => (
-              <Form onSubmit={handleSubmit}>
+              <Form id="site-form" onSubmit={handleSubmit}>
                 <Stack>
                   <Typography
                     variant="h4"
@@ -217,117 +232,39 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                     Contact us for a Custom Demo
                   </Typography>
 
-                  <Stack spacing={2} direction="row" mb={3}>
-                    <CustomTextField
-                      label="First Name"
-                      name="firstName"
-                      value={initialValues.firstName}
-                      error={touched.firstName && !!errors.firstName}
-                      helperText={touched.firstName && errors.firstName}
-                      {...getFieldProps('firstName')}
-                    />
+                  {/* Save this component as backup */}
 
-                    <CustomTextField
-                      label="Last Name"
-                      name="lastName"
-                      value={initialValues.lastName}
-                      error={touched.lastName && !!errors.lastName}
-                      helperText={touched.lastName && errors.lastName}
-                      {...getFieldProps('lastName')}
-                    />
-                  </Stack>
+                  {/* <MultiFieldForm
+                    {...{
+                      isLong,
+                      isContact,
+                      handleSubmit,
+                      getFieldProps,
+                      errors,
+                      touched,
+                      initialValues,
+                      isSubmitting,
+                      setFieldValue,
+                      values,
+                      inquiryReasons,
+                    }}
+                  /> */}
 
-                  <Stack spacing={3}>
-                    {/* {isLong && !isContact && (
-                      <CustomTextField
-                        label="Company"
-                        name="company"
-                        value={initialValues.company}
-                        error={touched.company && !!errors.company}
-                        helperText={touched.company && errors.company}
-                        {...getFieldProps('company')}
-                      />
-                    )} */}
-
-                    <CustomTextField
-                      label="Email"
-                      name="email"
-                      value={initialValues.email}
-                      error={touched.email && !!errors.email}
-                      helperText={touched.email && errors.email}
-                      {...getFieldProps('email')}
-                    />
-                    {isLong && (
-                      <>
-                        <FormControl
-                          fullWidth
-                          sx={{
-                            '& .MuiInputBase-root': {
-                              border: '1px solid #F2F4F7',
-                              borderRadius: '8px',
-                            },
-                            '& input': {
-                              padding: '6px 8px',
-                            },
-                            '& .MuiFormHelperText-root.Mui-error': {
-                              mx: 0,
-                            },
-                          }}
-                        >
-                          <Typography
-                            color="text.primary"
-                            variant="body2"
-                            fontWeight={600}
-                            mb="4px"
-                          >
-                            Phone (optional)
-                          </Typography>
-
-                          <MuiPhoneNumber
-                            disableAreaCodes
-                            variant="outlined"
-                            defaultCountry="us"
-                            onChange={(e) => setFieldValue('phoneNumber', e)}
-                            name="phoneNumber"
-                            value={initialValues.phoneNumber}
-                            error={touched.phoneNumber && !!errors.phoneNumber}
-                            helperText={
-                              touched.phoneNumber && errors.phoneNumber
-                            }
-                          />
-                        </FormControl>
-
-                        {isContact && (
-                          <CustomTextField
-                            label="Inquiry Reason"
-                            isSelect={true}
-                            name="inquiryReason"
-                            menus={inquiryReasons}
-                            value={initialValues.inquiryReason}
-                            {...getFieldProps('inquiryReason')}
-                          />
-                        )}
-
-                        <CustomTextField
-                          label="Please tell us about your project (optional)"
-                          multiline
-                          name="message"
-                          rows={2}
-                          value={initialValues.message}
-                          {...getFieldProps('message')}
-                        />
-                      </>
-                    )}
-
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      size="extraLarge"
-                      fullWidth
-                    >
-                      Schedule Demo
-                    </Button>
-                  </Stack>
+                  <SingleFieldForm
+                    {...{
+                      isLong,
+                      isContact,
+                      handleSubmit,
+                      getFieldProps,
+                      errors,
+                      touched,
+                      initialValues,
+                      isSubmitting,
+                      setFieldValue,
+                      values,
+                      inquiryReasons,
+                    }}
+                  />
                 </Stack>
               </Form>
             )}
