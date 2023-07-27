@@ -38,7 +38,7 @@ import { ThemeProvider, useTheme } from '@mui/material/styles';
 import revampTheme from 'theme/revampTheme';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 
-function Contact({ content }) {
+function Contact() {
   const theme = useTheme();
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>

@@ -41,7 +41,8 @@ export const DocsAppbar = React.memo(() => {
     }
   };
 
-  const currentPath = router.asPath.split('/').filter((e) => e)[1];
+  const currentPath = router?.asPath?.split('/')?.filter((e) => e)[1] || '';
+
   const {
     instances,
     setworkingInstance,
@@ -153,9 +154,9 @@ export const DocsAppbar = React.memo(() => {
               Docs
             </Link>
             <Typography color="GrayText">
-              {currentPath.charAt(0).toUpperCase() +
-                currentPath.slice(1) +
-                ' API'}
+              {currentPath?.charAt(0).toUpperCase() +
+                currentPath?.slice(1) +
+                currentPath && ' API'}
             </Typography>
           </Breadcrumbs>
         )}

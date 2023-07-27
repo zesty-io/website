@@ -1,0 +1,328 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TreeNavigation test tree test 1`] = `
+<ul
+  aria-multiselectable="true"
+  class="MuiTreeView-root css-hgylwd-MuiTreeView-root"
+  data-testid="navigation-tree"
+  id="mui-1"
+  role="tree"
+  tabindex="0"
+>
+  <li
+    aria-expanded="false"
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/content/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ChevronRightIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+          />
+        </svg>
+      </div>
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Content"
+        >
+          Content
+        </p>
+      </div>
+    </div>
+  </li>
+  <li
+    aria-expanded="false"
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/schema/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ChevronRightIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+          />
+        </svg>
+      </div>
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Schema"
+        >
+          Schema
+        </p>
+      </div>
+    </div>
+  </li>
+  <li
+    aria-expanded="false"
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/templating/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ChevronRightIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+          />
+        </svg>
+      </div>
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Templating"
+        >
+          Templating
+        </p>
+      </div>
+    </div>
+  </li>
+  <li
+    aria-expanded="false"
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/media/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ChevronRightIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+          />
+        </svg>
+      </div>
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Media"
+        >
+          Media
+        </p>
+      </div>
+    </div>
+  </li>
+  <li
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/workflows/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      />
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Workflows"
+        >
+          Workflows
+        </p>
+      </div>
+    </div>
+  </li>
+  <li
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/search-engine-optimization/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      />
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Search Engine Optimization (SEO)"
+        >
+          Search Engine Optimization (SEO)
+        </p>
+      </div>
+    </div>
+  </li>
+  <li
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/security/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      />
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Security"
+        >
+          Security
+        </p>
+      </div>
+    </div>
+  </li>
+  <li
+    aria-expanded="false"
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/rendering/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ChevronRightIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+          />
+        </svg>
+      </div>
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Rendering"
+        >
+          Rendering
+        </p>
+      </div>
+    </div>
+  </li>
+  <li
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/hosting-and-delivery/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      />
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Hosting and Delivery"
+        >
+          Hosting and Delivery
+        </p>
+      </div>
+    </div>
+  </li>
+  <li
+    aria-selected="false"
+    class="MuiTreeItem-root css-rc02uv-MuiTreeItem-root"
+    id="mui-1-/product/administration/"
+    role="treeitem"
+    tabindex="-1"
+  >
+    <div
+      class="css-1g86id8-MuiTreeItem-content MuiTreeItem-content"
+    >
+      <div
+        class="MuiTreeItem-iconContainer"
+      />
+      <div
+        class="MuiTreeItem-label"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+          title="Governance"
+        >
+          Governance
+        </p>
+      </div>
+    </div>
+  </li>
+</ul>
+`;

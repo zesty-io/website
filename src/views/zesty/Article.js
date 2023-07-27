@@ -54,9 +54,8 @@ import BlogContent from 'revamp/ui/BlogContent';
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
   const { palette } = useTheme();
-  const simliarTags = content.tags && content.tags?.data[0]?.meta?.zuid;
 
-  const { data: latestArticles, isPending: latestPending } = useFetch(
+  const { data: latestArticles, isPending: _latestPending } = useFetch(
     '/-/all-articles-hydrated.json?limit=4',
     content.zestyProductionMode,
   );
@@ -113,7 +112,7 @@ function Article({ content }) {
     setNewContent(decode(validateWysiwyg()));
   }, []);
 
-  const MyZoomImg = ({ children, ...props }) => (
+  const MyZoomImg = ({ _children, ...props }) => (
     <Zoom wrapElement="span">
       <Box component="img" {...props} />
     </Zoom>
@@ -188,7 +187,7 @@ function Article({ content }) {
                     component: Typography,
                     props: {
                       component: 'strong',
-                      sx: (theme) => ({
+                      sx: () => ({
                         color: 'text.primary',
                         fontSize: '18px',
                         lineHeight: '28px',

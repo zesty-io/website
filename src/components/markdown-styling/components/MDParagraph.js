@@ -1,6 +1,7 @@
 import { Typography, Link, Box, Stack } from '@mui/material';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { MDImage } from './MDImage';
 
 const LinkComponent = ({ node }) => {
   return (
@@ -74,8 +75,12 @@ export const MDParagraph = ({
     return <LinkComponent node={node} />;
   }
 
+  if (node?.children && node?.children[0]?.tagName === 'img') {
+    return <MDImage node={node?.children[0]} />;
+  }
   return (
     <p
+      data-testid="box-container"
       dangerouslySetInnerHTML={{
         __html: res.join(''),
       }}

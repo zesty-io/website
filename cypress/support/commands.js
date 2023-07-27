@@ -46,3 +46,27 @@ Cypress.Commands.add('loginTestUser', () => {
     'exist',
   );
 });
+Cypress.Commands.add('algoliaNavigate', () => {
+  cy.get("[data-testid='algolia-search-trigger']", { timeout: 30000 })
+    .type('content')
+    .then(async () => {
+      await cy
+        .get("[data-testid='algolia-search-container']", {
+          timeout: 30000,
+        })
+        .should('exist');
+      await cy
+        .get("[data-testid='zesty-docs-index']", { timeout: 30000 })
+        .should('exist');
+
+      await cy
+        .get("[data-testid='products-index']", { timeout: 30000 })
+        .should('exist');
+      await cy
+        .get("[data-testid='parsley-index']", { timeout: 30000 })
+        .should('exist');
+      await cy
+        .get("[data-testid='algolia-search']", { timeout: 30000 })
+        .should('exist');
+    });
+});
