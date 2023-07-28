@@ -77,6 +77,28 @@ export const SingleFieldForm = ({
             position: 'absolute',
             top: 0,
           }}
+          name="mobile"
+          {...getFieldProps('mobile')}
+        />
+        <input
+          style={{
+            width: 0,
+            height: 0,
+            border: 'none',
+            position: 'absolute',
+            top: 0,
+          }}
+          name="hqPhone"
+          {...getFieldProps('hqPhone')}
+        />
+        <input
+          style={{
+            width: 0,
+            height: 0,
+            border: 'none',
+            position: 'absolute',
+            top: 0,
+          }}
           name="company"
           {...getFieldProps('company')}
         />
