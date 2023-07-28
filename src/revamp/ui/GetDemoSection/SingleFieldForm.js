@@ -18,9 +18,11 @@ export const SingleFieldForm = ({
       }
 
       window._zi_fc.onRequestSent = (data) => {
+        console.log(data);
         if (data) setIsLoading(true);
       };
       window._zi_fc.onMatch = (data) => {
+        console.log(data);
         /**
          * Abanddon form logic can be added here...
          * But also  this feature can be enabled in the zoominfo dashboard no setup required
