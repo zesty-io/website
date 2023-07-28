@@ -9,7 +9,11 @@ import {
 } from 'revamp/utils/validation';
 
 import { SingleFieldForm } from './SingleFieldForm';
-import { getLeadObjectZOHO } from 'revamp/utils/helper';
+import {
+  getLeadObjectZOHO,
+  postToZOHO,
+  subscribeToZoho,
+} from 'revamp/utils/helper';
 import { useRouter } from 'next/router';
 import { MultiFieldForm } from './MultiFieldForm';
 
@@ -63,21 +67,19 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
       '',
     );
 
-    console.log(payload);
+    // post to leads section
+    await postToZOHO(payload);
 
-    // // post to leads section
-    // await postToZOHO(payload);
+    //post to email marketing signup
+    if (payload.newsletter_signup) {
+      await subscribeToZoho(payload);
+    }
 
-    // //post to email marketing signup
-    // if (payload.newsletter_signup) {
-    //   await subscribeToZoho(payload);
-    // }
-
-    // // cmsModel === 'Gated Content Page'
-    // //   ? setOpen(true)
-    // //   : (window.location = '/ppc/thank-you/');
-    // window.location = redirect;
-    // return values;
+    // cmsModel === 'Gated Content Page'
+    //   ? setOpen(true)
+    //   : (window.location = '/ppc/thank-you/');
+    window.location = redirect;
+    return values;
   };
 
   return (
