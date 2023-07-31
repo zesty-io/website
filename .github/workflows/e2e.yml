@@ -1,7 +1,7 @@
 name: Zesty Website E2E Test
 on:
   pull_request:
-    branches: [production]
+    branches: [production,stage]
   workflow_dispatch:
 jobs:
   e2e-test:

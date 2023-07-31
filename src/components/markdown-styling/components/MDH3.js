@@ -2,7 +2,7 @@ import { Typography, Box } from '@mui/material';
 
 export const MDH3 = ({ node }) => {
   return (
-    <Box>
+    <Box data-testid="mdh3-container">
       <Typography
         variant="h6"
         component={'h3'}

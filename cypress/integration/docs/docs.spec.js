@@ -1,30 +1,23 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
 /// <reference types="cypress" />
 
-const testurl =
-  'http://test.zesty.io:3000/docs/accounts/api-reference/instances/domains/#Create-Domain';
-
-const testUrl1 =
-  'http://test.zesty.io:3000/docs/instances/api-reference/web/redirects/#Delete-Redirect';
-
-const testUrl2 =
-  'http://test.zesty.io:3000/docs/authentication/api-reference/#Verify';
-
-describe('DOCS url test', () => {
-  it('test docs/accounts route', () => {
-    cy.visit(testurl);
-
-    cy.get("h6[id='Create-Domain']", { timeout: 30000 }).should('exist');
+describe('E2E docs page', () => {
+  it('test if docs landing page rendered ', () => {
+    cy.visit('/docs');
+    cy.get("[data-testid='docs-landing']", { timeout: 30000 }).should('exist');
+    cy.algoliaNavigate();
   });
-  it('test docs/instances route', () => {
-    cy.visit(testUrl1);
+  it('test if docs slug urls rendered ', () => {
+    cy.visit('/docs/introduction');
+    cy.get("[data-testid='docs-slug']", { timeout: 30000 }).should('exist');
 
-    cy.get("h6[id='Delete-Redirect']", { timeout: 30000 }).should('exist');
-  });
+    cy.get("[data-testid='navigation-tree']", { timeout: 30000 }).should(
+      'exist',
+    );
 
-  it('test docs/authentication route', () => {
-    cy.visit(testUrl2);
-
-    cy.get("h6[id='Verify']", { timeout: 30000 }).should('exist');
+    cy.get("[data-testid='table-of-contents']", { timeout: 30000 }).should(
+      'exist',
+    );
+    cy.algoliaNavigate();
   });
 });

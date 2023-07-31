@@ -26,7 +26,6 @@ import revampTheme from 'theme/revampTheme';
 import { v4 as uuidv4 } from 'uuid';
 import { Box, Button, ThemeProvider } from '@mui/material';
 import {
-  Link,
   Container,
   Grid,
   Stack,
@@ -34,179 +33,18 @@ import {
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
-import NextLink from 'next/link';
 import AppBar from 'components/console/AppBar';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
-import { TreeItem, TreeView } from '@mui/lab';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useRouter } from 'next/router';
 import { SearchModal } from 'views/Docs/SearchModal';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
 import FillerContent from 'components/globals/FillerContent';
-
-const GetTree = ({ data = [] }) => {
-  return data.map((e) => {
-    if (e.children.length !== 0 && Array.isArray(e.children)) {
-      return (
-        <TreeItem
-          nodeId={e.uri}
-          sx={{
-            my: 0.5,
-            color: '#6B7280',
-          }}
-          label={
-            <NextLink
-              href={e.uri}
-              variant="p"
-              color={'inherit'}
-              sx={{
-                textDecoration: 'none',
-              }}
-            >
-              <Typography variant="body1" py={0.5} title={e.title}>
-                {e.title}
-              </Typography>
-            </NextLink>
-          }
-        >
-          <GetTree data={e.children} />
-        </TreeItem>
-      );
-    } else {
-      return (
-        <TreeItem
-          nodeId={e.uri}
-          sx={{
-            my: 0.5,
-            color: '#6B7280',
-          }}
-          label={
-            <NextLink
-              href={e.uri}
-              variant="p"
-              color={'inherit'}
-              sx={{
-                textDecoration: 'none',
-                my: 0.1,
-              }}
-            >
-              <Typography variant="body1" py={0.5} title={e.title}>
-                {e.title}
-              </Typography>
-            </NextLink>
-          }
-        ></TreeItem>
-      );
-    }
-  });
-};
-
-const TreeNav = ({ data = [] }) => {
-  const router = useRouter();
-  const url = `${router?.asPath}`;
-  const parts = url.split('/');
-  parts.splice(3, 1);
-  const expanded = [parts.join('/')];
-  const theme = useTheme();
-  return (
-    <TreeView
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-      sx={{
-        width: 1,
-        overflowY: 'auto',
-
-        '& .MuiTreeItem-content.Mui-focused, & .MuiTreeItem-content.Mui-selected, & .MuiTreeItem-content.Mui-selected.Mui-focused':
-          {
-            bgcolor: '#FFD6C4',
-            color: theme.palette.zesty.zestyOrange,
-            fontWeight: 'bold !important',
-            borderRadius: '5px',
-          },
-        '& .MuiTreeItem-content:hover': {
-          bgcolor: '#F2F2F2',
-          color: '#333333',
-          fontWeight: '800 !important',
-          borderRadius: '5px',
-        },
-      }}
-      multiSelect
-      selected={url}
-      defaultSelected={url}
-      defaultExpanded={expanded}
-    >
-      <GetTree data={data} />
-    </TreeView>
-  );
-};
-
-const ToCComponent = ({ data }) => {
-  const overview = { label: 'Overview', name: 'Overview', href: '#overview' };
-  const newData = [overview, ...data];
-  const [currentHash, setcurrentHash] = useState('#overview');
-  const handleHashChange = () => {
-    setcurrentHash(window.location.hash);
-  };
-  const theme = useTheme();
-
-  useEffect(() => {
-    window.addEventListener('hashchange', handleHashChange);
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-    };
-  }, []);
-
-  return (
-    <Stack height={1} width={1}>
-      <Typography variant="button" color={'black'} fontWeight={700} pl={'20px'}>
-        On this Page
-      </Typography>
-      <Stack px={0}>
-        {newData.map((e) => {
-          const active = currentHash === e.href ? true : false;
-          return (
-            <Link
-              href={e.href}
-              sx={{
-                borderLeft: `3px solid ${
-                  active ? theme.palette.zesty.zestyOrange : '#ffd5c1'
-                }`,
-                fontWeight: active ? '600' : '400',
-                fontSize: '8px',
-                textDecoration: active ? 'none !important' : 'none',
-                backgroundColor: active ? '#ffd6c4' : 'white',
-                color: active
-                  ? `${theme.palette.zesty.zestyOrange} !important`
-                  : '#6b7280',
-                borderRadius: '0 5px 5px 0',
-                pl: '20px',
-                pr: '5px',
-                py: '5px',
-                '&:hover': {
-                  color: '#333333',
-                  textDecoration: 'underline #333333',
-                  borderLeft: `3px solid ${theme.palette.zesty.zestyOrange}`,
-                  // bgcolor: '#F2F2F2',
-                },
-              }}
-            >
-              <Typography variant="button" whiteSpace={'normal'}>
-                {e.name}
-              </Typography>
-            </Link>
-          );
-        })}
-      </Stack>
-    </Stack>
-  );
-};
+import { TreeNavigation } from 'components/globals/TreeNavigation';
+import { TableOfContent } from 'components/globals/TableOfContent';
 
 // main file
 const ProductLandingPage = (props) => {
@@ -309,7 +147,7 @@ const ProductLandingPage = (props) => {
   }, []);
 
   return (
-    <Stack>
+    <Stack data-testid="product-landing">
       <Container
         sx={() => ({
           maxWidth: '1440px !important',
@@ -350,7 +188,7 @@ const ProductLandingPage = (props) => {
           }}
         >
           <Box>
-            <TreeNav
+            <TreeNavigation
               data={[{ title: 'Products', children: navigationData, uri: '#' }]}
             />
           </Box>
@@ -368,7 +206,7 @@ const ProductLandingPage = (props) => {
                   display: { xs: 'none', md: 'block' },
                 }}
               >
-                <TreeNav data={navigationData} />
+                <TreeNavigation data={navigationData} />
               </Stack>
             </Grid>
             <Grid item md={6} lg={8}>
@@ -414,7 +252,7 @@ const ProductLandingPage = (props) => {
                   display: { xs: 'none', md: 'block' },
                 }}
               >
-                <ToCComponent data={navData} />
+                <TableOfContent data={navData} />
                 {!isLoggedIn && (
                   <Stack
                     sx={{

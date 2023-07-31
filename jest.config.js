@@ -18,6 +18,8 @@ module.exports = {
     https://jestjs.io/docs/webpack#handling-static-assets */
     '^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$':
       '<rootDir>/test/__mocks__/fileMock.js',
+    'react-markdown':
+      '<rootDir>/node_modules/react-markdown/react-markdown.min.js',
   },
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
