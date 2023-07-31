@@ -188,6 +188,6 @@ const cardData = [
     title: 'Parsley',
     description:
       'Zesty’s in-house templating language, Parsley, provides powerful programming capabilities to manage your content.',
-    link: 'http://parsley.zesty.io/',
+    link: '/docs/parsley',
   },
 ];
