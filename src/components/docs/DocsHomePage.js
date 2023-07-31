@@ -131,6 +131,7 @@ export const DocsHomePage = (props) => {
                     </Typography>
                     <Button
                       component={'a'}
+                      data-testid={`${item.title}-btn`}
                       href={item.link}
                       variant="outlined"
                       color="secondary"
