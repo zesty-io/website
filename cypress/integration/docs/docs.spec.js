@@ -20,4 +20,14 @@ describe('E2E docs page', () => {
     );
     cy.algoliaNavigate();
   });
+  it('test redirection to /docs/parsley', () => {
+    cy.visit('/docs');
+    cy.get("[data-testid='Parsley-btn']", { timeout: 30000 })
+      .should('exist')
+      .click();
+
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.equal('/docs/parsley/');
+    });
+  });
 });
