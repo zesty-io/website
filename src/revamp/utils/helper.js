@@ -52,8 +52,10 @@ export const getLeadObjectZOHO = (
   return {
     First_Name: obj.firstName,
     Last_Name: obj.lastName,
-    Email: obj.email,
+    Email: obj.businessEmail || obj.email,
     Phone: obj.phoneNumber,
+    Mobile: obj.mobile,
+    Company_Phone: obj.hqPhone,
     Inquiry_Reason: select,
     Description: obj.message,
     Zesty_User_Account: obj?.user && obj.user ? true : false,
@@ -81,5 +83,6 @@ export const getLeadObjectZOHO = (
     Lead_Status: 'Not Contacted',
     Designation: obj.jobTitle,
     Company: obj.company,
+    LinkedIn_url: obj.linkedIn,
   };
 };
