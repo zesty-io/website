@@ -70,8 +70,6 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
       lastVisitedURL,
     );
 
-    console.log(payload);
-
     // post to leads section
     await postToZOHO(payload);
 
