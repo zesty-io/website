@@ -117,7 +117,7 @@ export const MultiFieldForm = ({
         )}
 
         <Button type="submit" variant="contained" size="extraLarge" fullWidth>
-          Schedule Demo
+          Contact Us
         </Button>
       </Stack>
     </>

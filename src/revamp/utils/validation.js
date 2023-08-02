@@ -4,8 +4,6 @@ import * as yup from 'yup';
 const phoneRegExp = '^([^0-9]*[0-9]){5}.*$';
 const validEmailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-const blockedDomains = ['yahoo.com', 'outlook.com', 'gmail.com'];
-
 export const validationSchema = yup.object({
   firstName: yup.string().label('First Name').trim().optional(),
   lastName: yup.string().label('Last Name').trim().optional(),
@@ -44,6 +42,8 @@ export const validationSchema = yup.object({
     ),
   linkedIn: yup.string().optional(),
   company: yup.string().optional(),
+  mobile: yup.string().optional(),
+  hqPhone: yup.string().optional(),
 });
 
 export const contactPageValidation = yup.object({
@@ -99,4 +99,6 @@ export const shortValidationSchema = yup.object({
   linkedIn: yup.string().optional(),
   company: yup.string().optional(),
   phoneNumber: yup.string().optional(),
+  mobile: yup.string().optional(),
+  hqPhone: yup.string().optional(),
 });

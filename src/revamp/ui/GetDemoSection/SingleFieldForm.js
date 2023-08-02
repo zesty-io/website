@@ -11,7 +11,6 @@ export const SingleFieldForm = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log('isLoading', isLoading);
   useEffect(() => {
     if (typeof window === 'object') {
       if (!window._zi_fc) {
@@ -78,6 +77,28 @@ export const SingleFieldForm = ({
             position: 'absolute',
             top: 0,
           }}
+          name="mobile"
+          {...getFieldProps('mobile')}
+        />
+        <input
+          style={{
+            width: 0,
+            height: 0,
+            border: 'none',
+            position: 'absolute',
+            top: 0,
+          }}
+          name="hqPhone"
+          {...getFieldProps('hqPhone')}
+        />
+        <input
+          style={{
+            width: 0,
+            height: 0,
+            border: 'none',
+            position: 'absolute',
+            top: 0,
+          }}
           name="company"
           {...getFieldProps('company')}
         />
@@ -125,7 +146,7 @@ export const SingleFieldForm = ({
           {isLoading ? (
             <CircularProgress color="primary" size={26} />
           ) : (
-            'Submit'
+            'Book Demo'
           )}
         </Button>
       </Stack>

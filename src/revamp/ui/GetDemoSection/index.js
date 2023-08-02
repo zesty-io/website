@@ -54,7 +54,6 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
     // downloadLink && window.open(downloadLink, '_blank');
     // capterraTracking && capterraTracking();
 
-    console.log(values);
     if (values.firstName === '') {
       values.firstName = 'Unknown';
     }
@@ -68,7 +67,6 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
       '',
     );
 
-    console.log(payload);
     // post to leads section
     await postToZOHO(payload);
 
