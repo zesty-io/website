@@ -22,7 +22,7 @@ import {
   Index,
 } from 'react-instantsearch-dom';
 import { useZestyStore } from 'store';
-
+import MuiMarkdown from 'markdown-to-jsx';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 const SearchBoxMui = ({ currentRefinement, _isSearchStalled, refine }) => (
@@ -119,6 +119,8 @@ export const AlgoSearch = () => {
 const Hit = (props) => {
   const { hit } = props;
 
+  console.log(props);
+
   return (
     <Stack divider direction={'row'} spacingY={4}>
       <Link
@@ -148,11 +150,50 @@ const Hit = (props) => {
             borderRadius: 2,
           }}
         >
-          <Typography
-            sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
-          >
-            {hit.name}
-          </Typography>
+          <Box>
+            <Typography
+              sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
+            >
+              {hit.name}
+            </Typography>
+            <Typography
+              variant="caption"
+              sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
+            ></Typography>
+
+            {hit.description && (
+              <MuiMarkdown
+                options={{
+                  overrides: {
+                    p: {
+                      component: Typography,
+                      props: {
+                        variant: 'caption',
+                      },
+                    },
+                    a: {
+                      component: Typography,
+                      props: {
+                        variant: 'caption',
+                      },
+                    },
+                    span: {
+                      component: Typography,
+                      props: {
+                        variant: 'caption',
+                      },
+                    },
+                  },
+                }}
+              >
+                {hit?.description}
+              </MuiMarkdown>
+            )}
+
+            <Typography>
+              Test {hit._highlightResult?.name?.matchedWords}
+            </Typography>
+          </Box>
 
           <ArrowOutwardIcon
             sx={{ color: (theme) => theme.palette.zesty.zestyOrange }}
