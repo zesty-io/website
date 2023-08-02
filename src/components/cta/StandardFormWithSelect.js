@@ -10,7 +10,7 @@ import { getCookie } from 'cookies-next';
 import { SingleFieldForm } from 'revamp/ui/GetDemoSection/SingleFieldForm';
 import { Stack } from '@mui/material';
 import { validationSchema } from 'revamp/utils/validation';
-import { useRouter } from 'next/router';
+import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
 
 /**
  * Possible field option in ZOHO https://crm.zoho.com/crm/org749642405/settings/api/modules/Leads?step=FieldsList
@@ -26,6 +26,8 @@ const getLeadObjectZOHO = (
   leadDetail,
   businessType,
   leadSource = 'Website',
+  lastVisitedPath,
+  lastVisitedURL,
 ) => {
   // let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
@@ -71,6 +73,8 @@ const getLeadObjectZOHO = (
     Designation: obj.jobTitle,
     Company: obj.company,
     LinkedIn_Profile: obj.linkedIn,
+    Last_Visited_Path: lastVisitedPath,
+    Last_Visited_URL: lastVisitedURL,
   };
 };
 
@@ -120,8 +124,8 @@ function StandardFormWithSelect({
   cmsModel,
 }) {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
+  const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
   let inquiryReasons = [
     'General',
     'Agency Sign Up',
@@ -157,7 +161,9 @@ function StandardFormWithSelect({
       '',
       'Get a free consultation',
       '',
-      router.asPath,
+      'website', // leadsource
+      lastVisitedPath,
+      lastVisitedURL,
     );
 
     // post to leads section

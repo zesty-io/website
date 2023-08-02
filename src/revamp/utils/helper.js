@@ -39,6 +39,8 @@ export const getLeadObjectZOHO = (
   leadDetail = '',
   businessType = '',
   leadSource = 'Website',
+  lastVisitedPath = '',
+  lastVisitedURL = '',
 ) => {
   // let acLeadtype = 'Marketing Website';
   let acRole = 'Marketer';
@@ -84,5 +86,7 @@ export const getLeadObjectZOHO = (
     Designation: obj.jobTitle,
     Company: obj.company,
     LinkedIn_url: obj.linkedIn,
+    Last_Visited_Path: lastVisitedPath,
+    Last_Visited_URL: lastVisitedURL,
   };
 };
