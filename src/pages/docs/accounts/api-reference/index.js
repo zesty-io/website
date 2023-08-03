@@ -16,7 +16,7 @@ const initialTreeData = (url, data) => {
   }
 };
 
-export default function DocsPage(props) {
+export default function Index(props) {
   const router = useRouter();
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex, setmainData } =
     useZestyStore((e) => e);
