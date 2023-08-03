@@ -75,6 +75,7 @@ const getLeadObjectZOHO = (
     LinkedIn_Profile: obj.linkedIn,
     Last_Visited_Path: lastVisitedPath,
     Last_Visited_URL: lastVisitedURL,
+    Entry_Path: getCookie('referrer') ? getCookie('referrer') : '',
   };
 };
 
