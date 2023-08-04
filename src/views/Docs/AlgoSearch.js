@@ -24,8 +24,6 @@ import {
 import { useZestyStore } from 'store';
 import MuiMarkdown from 'markdown-to-jsx';
 
-// Experimental
-
 import * as React from 'react';
 import { alpha, styled } from '@mui/material/styles';
 import TreeView from '@mui/lab/TreeView';
@@ -118,8 +116,6 @@ export const AlgoSearch = () => {
 const Hit = (props) => {
   const [hovered, setHovered] = React.useState(false);
   const { hit } = props;
-
-  console.log(props);
 
   return (
     <Stack divider direction={'row'} spacingY={4} paddingX={1}>
@@ -241,7 +237,6 @@ const CustomizedTreeView = ({ hit }) => {
       >
         {hit.description && (
           <Box sx={{ display: 'flex' }}>
-            {/* <SubdirectoryArrowRightIcon fontSize={'small'} sx={{ ml: 2 }} /> */}
             <Box sx={{ ml: -3 }}>
               <StyledTreeItem
                 nodeId="2"
@@ -273,16 +268,7 @@ const CustomizedTreeView = ({ hit }) => {
                     {hit?.description}
                   </MuiMarkdown>
                 }
-              ></StyledTreeItem>
-
-              {/* <StyledTreeItem
-                nodeId="3"
-                label={
-                  <Typography variant="caption">
-                    {hit.uri?.replace(/^\/|\/$/g, '').replace(/\//g, ' > ')}
-                  </Typography>
-                }
-              /> */}
+              />
             </Box>
           </Box>
         )}
