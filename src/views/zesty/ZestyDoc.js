@@ -30,19 +30,17 @@ import {
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
-import AppBar from 'components/console/AppBar';
 import React from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { useRouter } from 'next/router';
-import { SearchModal } from 'views/Docs/SearchModal';
-import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
 import { DocsHomePage } from 'components/docs/DocsHomePage';
 import { TreeNavigation } from 'components/globals/TreeNavigation';
 import { TableOfContent } from 'components/globals/TableOfContent';
+import { DocsAppbar } from 'components/console/DocsAppbar';
 
 // main file
 const ZestyDoc = (props) => {
@@ -157,6 +155,7 @@ const ZestyDoc = (props) => {
   }
   return (
     <Stack data-testid="docs-slug">
+      <DocsAppbar />
       <Container
         sx={() => ({
           maxWidth: '1440px !important',
@@ -164,7 +163,7 @@ const ZestyDoc = (props) => {
         })}
       >
         {/* // headers */}
-        <Stack
+        {/* <Stack
           py={2}
           direction={'row'}
           width={1}
@@ -184,7 +183,7 @@ const ZestyDoc = (props) => {
           >
             <AlgoSearch />
           </SearchModal>
-        </Stack>
+        </Stack> */}
 
         {/* Navigation mobile */}
         <Stack
