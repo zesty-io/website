@@ -20,7 +20,6 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 import revampTheme from 'theme/revampTheme';
-import { v4 as uuidv4 } from 'uuid';
 import { Box, Button, ThemeProvider } from '@mui/material';
 import {
   Container,
@@ -41,6 +40,7 @@ import { DocsHomePage } from 'components/docs/DocsHomePage';
 import { TreeNavigation } from 'components/globals/TreeNavigation';
 import { TableOfContent } from 'components/globals/TableOfContent';
 import { DocsAppbar } from 'components/console/DocsAppbar';
+import { setCookie } from 'cookies-next';
 
 // main file
 const ZestyDoc = (props) => {
@@ -49,9 +49,12 @@ const ZestyDoc = (props) => {
   const theme = useTheme();
   const content = props.content;
   const productsData = content.zesty.docs;
-  const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex } = useZestyStore(
-    (e) => e,
-  );
+  const {
+    setalgoliaApiKey,
+    setalgoliaAppId,
+    setalgoliaIndex,
+    selectedDocsCategory,
+  } = useZestyStore((e) => e);
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
@@ -70,37 +73,44 @@ const ZestyDoc = (props) => {
   const prodNav = productsData.map((e) => {
     return { ...e, name: e.uri.replace(/^\/product/, '') };
   });
-  const makeTree = (data) => {
-    const base = { children: [] };
 
-    for (const node of data) {
-      const path = node.name.match(/\/[^\/]+/g);
-      let curr = base;
+  const filteredArray = prodNav.filter((obj) => {
+    const res = obj.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
+    return res[1] === selectedDocsCategory?.toLowerCase();
+  });
 
-      path.forEach((e, i) => {
-        const currPath = path.slice(0, i + 1).join('');
-        const child = curr.children.find((e) => e.name === currPath);
+  // const makeTree = (data) => {
+  //   const base = { children: [] };
 
-        if (child) {
-          curr = child;
-        } else {
-          curr.children.push({
-            ...node,
-            id: uuidv4(),
-            name: currPath,
-            children: [],
-            url: currPath,
-          });
-          curr = curr.children[curr.children.length - 1];
-        }
-      });
-    }
+  //   for (const node of data) {
+  //     const path = node.name.match(/\/[^\/]+/g);
+  //     let curr = base;
 
-    return base.children;
-  };
-  const navigationData = makeTree(prodNav).sort(
-    (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
-  );
+  //     path.forEach((e, i) => {
+  //       const currPath = path.slice(0, i + 1).join('');
+  //       const child = curr.children.find((e) => e.name === currPath);
+
+  //       if (child) {
+  //         curr = child;
+  //       } else {
+  //         curr.children.push({
+  //           ...node,
+  //           id: uuidv4(),
+  //           name: currPath,
+  //           children: [],
+  //           url: currPath,
+  //         });
+  //         curr = curr.children[curr.children.length - 1];
+  //       }
+  //     });
+  //   }
+
+  //   return base.children;
+  // };
+
+  // const navigationData = makeTree(filteredArray).sort(
+  //   (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
+  // );
 
   const result = [];
   const groupByUri = (data = []) => {
@@ -149,19 +159,26 @@ const ZestyDoc = (props) => {
     setalgoliaIndex(algolia.index);
   }, []);
 
+  React.useEffect(() => {
+    const route = router.asPath.split('/').filter((e) => e);
+    if (route[0] === 'docs') {
+      setCookie('docsCategory', route[1]);
+    }
+  }, [router.asPath]);
+
   // redirecto to docs landing page if url = /docs/
   if (isDocsHomePage) {
     return <DocsHomePage algolia={algolia} />;
   }
   return (
     <Stack data-testid="docs-slug">
-      <DocsAppbar />
       <Container
         sx={() => ({
           maxWidth: '1440px !important',
           paddingBottom: '0 !important',
         })}
       >
+        {!isLoggedIn && <DocsAppbar />}
         {/* // headers */}
         {/* <Stack
           py={2}
@@ -197,7 +214,7 @@ const ZestyDoc = (props) => {
         >
           <Box>
             <TreeNavigation
-              data={[{ title: 'Products', children: navigationData, uri: '#' }]}
+              data={[{ title: 'Products', children: filteredArray, uri: '#' }]}
             />
           </Box>
         </Stack>
@@ -214,7 +231,7 @@ const ZestyDoc = (props) => {
                   display: { xs: 'none', md: 'block' },
                 }}
               >
-                <TreeNavigation data={navigationData} />
+                <TreeNavigation data={filteredArray} />
               </Stack>
             </Grid>
             <Grid item md={6} lg={8}>

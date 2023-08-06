@@ -5,7 +5,8 @@ import React from 'react';
 export const DocsTabs = React.memo(
   ({ setvalue = () => {}, value, tabs = [] }) => {
     const handleChange = (_, newValue) => {
-      setvalue(newValue);
+      console.log(newValue);
+      // setvalue(newValue);
     };
 
     const router = useRouter();
