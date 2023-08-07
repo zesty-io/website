@@ -8,7 +8,9 @@ import {
   MDH2,
   MDH3,
   MDImage,
+  MDItalic,
   MDParagraph,
+  MDStrong,
 } from './components';
 
 // Main //
@@ -31,6 +33,8 @@ export const ZestyMarkdownParser = ({
     h2: MDH2,
     h3: MDH3,
     pre: MDCodeBlock,
+    strong: MDStrong,
+    em: MDItalic,
   };
   return (
     <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
