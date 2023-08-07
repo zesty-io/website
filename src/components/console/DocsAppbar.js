@@ -156,11 +156,11 @@ export const DocsAppbar = React.memo(() => {
       <Stack pt={1} direction="row" spacing={2}>
         <DocsComboBox
           value={selectedDocsCategory}
-          width={220}
+          width={320}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
-        {isXl && !isDocs && (
+        {isXl && (
           <Breadcrumbs
             sx={{
               display: 'flex',
@@ -223,7 +223,7 @@ export const DocsAppbar = React.memo(() => {
         </Stack>
       </Stack>
       <Stack direction={'row'} spacing={2}>
-        {isXl && (
+        {isXl && isApiReference && (
           <Stack direction={'row'} spacing={1} alignItems="center">
             <Typography color={'black'}>Language:</Typography>{' '}
             <DocsPopover
