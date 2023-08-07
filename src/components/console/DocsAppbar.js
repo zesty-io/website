@@ -15,8 +15,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
+import { DocsComboBox } from 'views/Docs/DocsComboBox';
+import { DocsPopover } from 'views/Docs/DocsPopover';
 import { SearchModal } from 'views/Docs/SearchModal';
-import { DocsPopover } from './DocsPopover';
 
 const tabs = [
   { label: 'API Reference', value: '/docs/parsley/api-reference/' },
@@ -147,7 +148,9 @@ export const DocsAppbar = React.memo(() => {
       }}
     >
       <Stack pt={1} direction="row" spacing={2}>
-        <DocsPopover
+        <DocsComboBox
+          value={selectedDocsCategory}
+          width={200}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />

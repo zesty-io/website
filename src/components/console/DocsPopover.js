@@ -1,62 +1,57 @@
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
+import * as React from 'react';
 import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { Stack } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 
-export const DocsPopover = ({ onChange, options }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+export function DocsPopover({ name, options, onSelect }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handlePopoverOpen = (event) => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handlePopoverClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
-
-  const onChangeDropdown = (data) => {
-    onChange(data);
+  const handleSelect = (e) => {
+    console.log(e, 44444444444);
+    handleClose();
   };
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   return (
-    <>
+    <Stack minWidth={150}>
       <Button
-        aria-owns={open ? 'simple-popover' : undefined}
-        aria-haspopup="true"
-        onMouseEnter={handlePopoverOpen}
-        onMouseLeave={handlePopoverClose}
-        startIcon={<LanguageIcon />} // Add the LanguageIcon as the start icon
+        aria-describedby={id}
+        variant="outlined"
+        size="small"
+        onClick={handleClick}
+        startIcon={<LanguageIcon />}
       >
-        Open Popover
+        {name}
       </Button>
       <Popover
-        id="simple-popover"
+        id={id}
         open={open}
         anchorEl={anchorEl}
-        onClose={handlePopoverClose}
+        onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'left',
         }}
       >
-        <div style={{ width: '15rem' }}>
-          {options.map((option) => (
-            <Button
-              key={option.label}
-              onClick={() => onChangeDropdown(option.value)}
-              fullWidth
-            >
-              {option.label}
-            </Button>
-          ))}
-        </div>
+        {options.map((e) => {
+          return (
+            <Stack onClick={() => handleSelect(e)}>
+              <Typography sx={{ p: 2 }}>{e.label}</Typography>;
+            </Stack>
+          );
+        })}
       </Popover>
-    </>
+    </Stack>
   );
-};
+}
