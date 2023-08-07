@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Stack } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
+import { useRouter } from 'next/router';
 
 const capitalize = (str) => {
   if (typeof str !== 'string') {
@@ -12,6 +13,9 @@ const capitalize = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 const Main = ({ options, onChange, width = 1, value = '' }) => {
+  const router = useRouter();
+  const route = router.asPath.split('/').filter((e) => e);
+
   const [selectedValue, setSelectedValue] = useState();
   const handleChange = (_, newValue) => {
     onChange(newValue);
@@ -31,7 +35,7 @@ const Main = ({ options, onChange, width = 1, value = '' }) => {
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder={capitalize(value)}
+            placeholder={capitalize(value) || router[1]}
             color="secondary"
             size="small"
             InputProps={{
