@@ -5,3 +5,5 @@ export * from './MDBlockquote';
 export * from './MDParagraph';
 export * from './MDImage';
 export * from './MDCodeBlock';
+export * from './MDStrong';
+export * from './MDItalic';

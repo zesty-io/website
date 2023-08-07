@@ -26,4 +26,13 @@ describe('E2E product page', () => {
     );
     cy.algoliaNavigate();
   });
+
+  it('test if this image is rendered ', () => {
+    cy.visit('/product/search-engine-optimization/');
+    cy.get('[alt="SEO Features in Zesty.io"]')
+      .should('be.visible')
+      .and(($img) => {
+        expect($img[0].naturalWidth).to.be.greaterThan(0);
+      });
+  });
 });

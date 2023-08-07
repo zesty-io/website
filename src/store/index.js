@@ -83,5 +83,9 @@ export const useZestyStore = create((set) => {
 
     language: 'Javascript',
     setlanguage: (data) => set(() => ({ language: data })),
+
+    selectedDocsCategory: 'Instances',
+    setSelectedDocsCategory: (data) =>
+      set(() => ({ selectedDocsCategory: data })),
   };
 });

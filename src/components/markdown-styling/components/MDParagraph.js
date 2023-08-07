@@ -1,6 +1,9 @@
 import { Typography, Link, Box, Stack } from '@mui/material';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { MDImage } from './MDImage';
+import { MDStrong } from './MDStrong';
+import { MDItalic } from './MDItalic';
 
 const LinkComponent = ({ node }) => {
   return (
@@ -70,10 +73,19 @@ export const MDParagraph = ({
     }
   });
 
+  if (node.children.length === 1 && node.children[0].tagName === 'strong') {
+    return <MDStrong node={node} />;
+  }
+  if (node.children.length === 1 && node.children[0].tagName === 'em') {
+    return <MDItalic node={node} />;
+  }
   if (node.children.length === 1 && node.children[0].tagName === 'a') {
     return <LinkComponent node={node} />;
   }
 
+  if (node?.children && node?.children[0]?.tagName === 'img') {
+    return <MDImage node={node?.children[0]} />;
+  }
   return (
     <p
       data-testid="box-container"

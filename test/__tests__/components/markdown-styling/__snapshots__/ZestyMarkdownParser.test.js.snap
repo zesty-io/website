@@ -260,10 +260,36 @@ exports[`MDImage should render MDSmallImage if node does not have title 1`] = `
 </div>
 `;
 
+exports[`MDItalic renders the text with the correct fontStyle and fontWeight 1`] = `
+<div
+  class="css-nen11g-MuiStack-root"
+  data-testid="MDItalic-component"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-c83ayk-MuiTypography-root"
+  >
+    Hello, World!
+  </p>
+</div>
+`;
+
 exports[`MDParagraph should render the MDParagraph component with correct content and links 1`] = `
 <p
   data-testid="box-container"
 >
   By using URL parameters, businesses can craft dyna… possibilities for enhancing the user experience.
 </p>
+`;
+
+exports[`MDStrong renders the text with the correct fontWeight 1`] = `
+<div
+  class="css-nen11g-MuiStack-root"
+  data-testid="MDStrong-component"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-ndaqpv-MuiTypography-root"
+  >
+    Hello, World!
+  </p>
+</div>
 `;
