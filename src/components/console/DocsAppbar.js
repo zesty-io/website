@@ -132,8 +132,8 @@ export const DocsAppbar = React.memo(() => {
 
   const isDocs = router.asPath.includes('/docs');
   const isApiReference = router.asPath.includes('api-reference');
-  const isGuides = !isApiReference;
   const isTour = router.asPath.includes('/tour');
+  const isGuides = !isApiReference && !isTour;
 
   useEffect(() => {
     setSelectedDocsCategory(docsCategory);
