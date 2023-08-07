@@ -129,6 +129,11 @@ export const DocsAppbar = React.memo(() => {
     }
   }, [workingInstance]);
 
+  const isDocs = router.asPath.includes('/docs');
+  const isApiReference = router.asPath.includes('api-reference');
+  const isGuides = !isApiReference;
+  const isTour = router.asPath.includes('/tour');
+
   useEffect(() => {
     setSelectedDocsCategory(docsCategory);
   }, [docsCategory]);
@@ -150,11 +155,11 @@ export const DocsAppbar = React.memo(() => {
       <Stack pt={1} direction="row" spacing={2}>
         <DocsComboBox
           value={selectedDocsCategory}
-          width={200}
+          width={220}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
-        {isXl && (
+        {isXl && !isDocs && (
           <Breadcrumbs
             sx={{
               display: 'flex',
@@ -172,33 +177,49 @@ export const DocsAppbar = React.memo(() => {
             </Typography>
           </Breadcrumbs>
         )}
-        <Stack direction={'row'}>
+        <Stack direction={'row'} bgcolor={'#fff'}>
           <Button
+            fullWidth
             variant="text"
             color="secondary"
             href={`/docs/${selectedDocsCategory}/api-reference`}
+            style={{
+              color: isApiReference ? '#FF5D0A' : 'GrayText',
+              borderBottom: `2px solid ${
+                isApiReference ? '#FF5D0A' : 'transparent'
+              }`,
+              borderRadius: '0',
+            }}
           >
-            API Reference
+            <Typography whiteSpace={'nowrap'}>API Reference</Typography>
           </Button>
           {isTourTabVisible && (
             <Button
               variant="text"
               color="secondary"
               href="/docs/parsley/tour/"
-              j
+              style={{
+                color: isTour ? '#FF5D0A' : 'GrayText',
+                borderBottom: `2px solid ${isTour ? '#FF5D0A' : 'transparent'}`,
+                borderRadius: '0',
+              }}
             >
-              Tour
+              <Typography whiteSpace={'nowrap'}>Tour</Typography>
             </Button>
           )}
           <Button
             variant="text"
             color="secondary"
             href={`/docs/${selectedDocsCategory}`}
+            style={{
+              color: isGuides ? '#FF5D0A' : 'GrayText',
+              borderBottom: `2px solid ${isGuides ? '#FF5D0A' : 'transparent'}`,
+              borderRadius: '0',
+            }}
           >
-            Guides
+            <Typography whiteSpace={'nowrap'}>Guides</Typography>
           </Button>
         </Stack>
-        {/* <DocsTabs setvalue={handleTabs} value={currentTab} tabs={tabs} /> */}
       </Stack>
       <Stack direction={'row'} spacing={2}>
         {isXl && (

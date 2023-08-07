@@ -4,8 +4,15 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { Stack } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 
+const capitalize = (str) => {
+  if (typeof str !== 'string') {
+    throw new Error('Input should be a string.');
+  }
+
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 const Main = ({ options, onChange, width = 1, value = '' }) => {
-  const [selectedValue, setSelectedValue] = useState(value);
+  const [selectedValue, setSelectedValue] = useState();
   const handleChange = (_, newValue) => {
     onChange(newValue);
     setSelectedValue(newValue);
@@ -24,6 +31,7 @@ const Main = ({ options, onChange, width = 1, value = '' }) => {
         renderInput={(params) => (
           <TextField
             {...params}
+            placeholder={capitalize(value)}
             color="secondary"
             size="small"
             InputProps={{
