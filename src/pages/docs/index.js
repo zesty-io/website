@@ -32,7 +32,7 @@ const DocsPage = (props) => {
   }, []);
 
   return (
-    <>
+    <Box data-testid="docs-landing">
       <ZestyAccountsHead title={'Zesty.io - Documentation'} />
       <MainWrapper docsLanding customRouting={[]}>
         <Box
@@ -136,6 +136,7 @@ const DocsPage = (props) => {
                       {item.description}
                     </Typography>
                     <Button
+                      data-testid={`${item.title}-btn`}
                       component={'a'}
                       href={item.link}
                       variant="outlined"
@@ -156,7 +157,7 @@ const DocsPage = (props) => {
           </Box>
         </Container>
       </MainWrapper>
-    </>
+    </Box>
   );
 };
 
@@ -196,6 +197,6 @@ const cardData = [
     title: 'Parsley',
     description:
       'Zesty’s in-house templating language, Parsley, provides powerful programming capabilities to manage your content.',
-    link: 'http://parsley.zesty.io/',
+    link: '/docs/parsley',
   },
 ];
