@@ -97,6 +97,7 @@ export const DocsAppbar = React.memo(() => {
         value: { parent: '/docs/authentication/' },
       },
       { label: 'Accounts', value: { parent: '/docs/accounts/' } },
+      { label: 'Parsley', value: { parent: '/docs/parsley/' } },
     ];
     return res;
   };
