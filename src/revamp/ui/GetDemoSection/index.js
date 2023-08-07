@@ -14,8 +14,8 @@ import {
   postToZOHO,
   subscribeToZoho,
 } from 'revamp/utils/helper';
-import { useRouter } from 'next/router';
 import { MultiFieldForm } from './MultiFieldForm';
+import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -39,7 +39,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
   redirect = '/meet',
   isContact = false,
 }) => {
-  const router = useRouter();
+  const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
   let inquiryReasons = [
     'General',
     'Agency Sign Up',
@@ -65,6 +65,9 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
       values?.inquiryReason,
       'Demo Sign Up',
       '',
+      'Website', // leadsource
+      lastVisitedPath,
+      lastVisitedURL,
     );
 
     // post to leads section
@@ -78,6 +81,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
     // cmsModel === 'Gated Content Page'
     //   ? setOpen(true)
     //   : (window.location = '/ppc/thank-you/');
+
     window.location = redirect;
     return values;
   };
