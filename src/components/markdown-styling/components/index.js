@@ -7,3 +7,4 @@ export * from './MDImage';
 export * from './MDCodeBlock';
 export * from './MDStrong';
 export * from './MDItalic';
+export * from './MDVideo';
