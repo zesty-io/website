@@ -91,6 +91,8 @@ export const DocsAppbar = React.memo(() => {
   const docsCategory = getCookie('docsCategory');
   const DOCS_DATA_DROPDOWN = () => {
     const res = [
+      // { label: 'Getting Started', value: { parent: '/docs/introduction' } },
+      { label: 'Webengine', value: { parent: '/docs/webengine' } },
       { label: 'Instances', value: { parent: '/docs/instances' } },
       {
         label: 'Authentication',
@@ -98,6 +100,11 @@ export const DocsAppbar = React.memo(() => {
       },
       { label: 'Accounts', value: { parent: '/docs/accounts/' } },
       { label: 'Parsley', value: { parent: '/docs/parsley/' } },
+      { label: 'Media', value: { parent: '/docs/media/' } },
+      // {
+      //   label: 'Tools & Resources',
+      //   value: { parent: '/docs/tools-and-resources/' },
+      // },
     ];
     return res;
   };
@@ -160,7 +167,7 @@ export const DocsAppbar = React.memo(() => {
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
-        {isXl && (
+        {
           <Breadcrumbs
             sx={{
               display: 'flex',
@@ -172,12 +179,10 @@ export const DocsAppbar = React.memo(() => {
               Docs
             </Link>
             <Typography color="GrayText">
-              {currentPath?.charAt(0).toUpperCase() +
-                currentPath?.slice(1) +
-                currentPath && ' API'}
+              {currentPath?.charAt(0).toUpperCase() + currentPath?.slice(1)}
             </Typography>
           </Breadcrumbs>
-        )}
+        }
         <Stack direction={'row'} bgcolor={'#fff'}>
           <Button
             fullWidth
@@ -223,7 +228,7 @@ export const DocsAppbar = React.memo(() => {
         </Stack>
       </Stack>
       <Stack direction={'row'} spacing={2}>
-        {isXl && isApiReference && (
+        {isApiReference && (
           <Stack direction={'row'} spacing={1} alignItems="center">
             <Typography color={'black'}>Language:</Typography>{' '}
             <DocsPopover

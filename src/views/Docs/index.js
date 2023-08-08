@@ -3,6 +3,7 @@ import MainWrapper from 'layouts/Main';
 import dynamic from 'next/dynamic';
 import {
   Box,
+  Container,
   //InputAdornment,
   Stack,
   //TextField,
@@ -136,12 +137,19 @@ const Main = ({ pageData = [], treeData }) => {
 
   return (
     <MainWrapper customRouting={[]}>
-      <Stack direction={'row'}>
-        {/* left navigation tree */}
-        <LeftNav {...leftNavProps} />
-        {/* main docs view page  */}
-        <DocsView data={pageData} />
-      </Stack>
+      <Container
+        sx={() => ({
+          maxWidth: '1440px !important',
+          paddingBottom: '0 !important',
+        })}
+      >
+        <Stack direction={'row'}>
+          {/* left navigation tree */}
+          <LeftNav {...leftNavProps} />
+          {/* main docs view page  */}
+          <DocsView data={pageData} />
+        </Stack>
+      </Container>
     </MainWrapper>
   );
 };
