@@ -130,10 +130,7 @@ const Main = ({
 
   return (
     <>
-      {!isProductPage &&
-        isLoggedIn === false &&
-        !isLoginPage &&
-        !isDocsPage && <SiteBanner />}
+      {!isProductPage && isLoggedIn === false && !isLoginPage && <SiteBanner />}
 
       {isLoggedIn === false && (
         <Box
@@ -214,7 +211,16 @@ const Main = ({
           )}
         </Container>
 
-        {isDocsPage && !docsLanding && <DocsAppbar />}
+        {isDocsPage && !docsLanding && (
+          <Container
+            sx={() => ({
+              maxWidth: '1440px !important',
+              paddingBottom: '0 !important',
+            })}
+          >
+            <DocsAppbar />
+          </Container>
+        )}
       </AppBar>
       <Sidebar
         onClose={handleSidebarClose}
