@@ -8,7 +8,7 @@ import { Typography, useTheme } from '@mui/material';
 
 const GetTree = ({ data = [] }) => {
   return data.map((e) => {
-    if (e.children.length !== 0 && Array.isArray(e.children)) {
+    if (e?.children?.length !== 0 && Array.isArray(e?.children)) {
       return (
         <TreeItem
           nodeId={e.uri}
