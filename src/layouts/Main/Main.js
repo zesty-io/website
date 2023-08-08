@@ -130,9 +130,10 @@ const Main = ({
 
   return (
     <>
-      {!isProductPage && isLoggedIn === false && !isLoginPage && isDocsPage && (
-        <SiteBanner />
-      )}
+      {!isProductPage &&
+        isLoggedIn === false &&
+        !isLoginPage &&
+        !isDocsPage && <SiteBanner />}
 
       {isLoggedIn === false && (
         <Box
@@ -174,14 +175,11 @@ const Main = ({
         elevation={trigger ? 1 : 0}
       >
         <Container
-          // maxWidth={isLoggedIn ? false : ''}
+          maxWidth={isLoggedIn ? false : ''}
           sx={(theme) => ({
-            maxWidth:
-              isDocsPage && !isLoggedIn
-                ? '1440px !important'
-                : isLoggedIn
-                ? theme.breakpoints.values.xl2
-                : theme.breakpoints.values.lg,
+            maxWidth: isLoggedIn
+              ? theme.breakpoints.values.xl2
+              : theme.breakpoints.values.lg,
             paddingY: isExplorePage ? 2 : 1,
           })}
         >
@@ -216,14 +214,7 @@ const Main = ({
           )}
         </Container>
 
-        <Container
-          sx={() => ({
-            maxWidth: '1440px !important',
-            paddingBottom: '0 !important',
-          })}
-        >
-          {isDocsPage && !docsLanding && <DocsAppbar />}
-        </Container>
+        {isDocsPage && !docsLanding && <DocsAppbar />}
       </AppBar>
       <Sidebar
         onClose={handleSidebarClose}
