@@ -55,9 +55,9 @@ This will create new files where needed, but will not overwrite existing files.
 Any push or merge to the `dev`,`stage`, or `production` branch will kickoff an auto build script which will update the stage preview in Zesty.io manager and WebEngine preview.
 
 `dev` is intended for testing, use as you wish, overwrite at needed.
-`stage` should be ready to review and test before `production`
-`accounts` pre production branch same config of `production`
-`production` should only be merged from `stage`, after stage is verified good to deploy
+`stage` should be ready to review and test before `pre-prod (beta)`
+`accounts` pre production branch (beta) same config as `production`
+`production` should only be merged from `accounts`, after stage is verified good to deploy
 
 dev: https://zesty-dev-website-m3rbwjxm5q-uc.a.run.app/
 stage: https://kfg6bckb-dev.webengine.zesty.io OR https://zesty-website-m3rbwjxm5q-uc.a.run.app/
