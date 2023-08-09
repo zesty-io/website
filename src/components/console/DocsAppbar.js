@@ -186,6 +186,18 @@ export const DocsAppbar = React.memo(() => {
         }
         <Stack direction={'row'} bgcolor={'#fff'}>
           <Button
+            variant="text"
+            color="secondary"
+            href={`/docs/${selectedDocsCategory}`}
+            style={{
+              color: isGuides ? '#FF5D0A' : 'GrayText',
+              borderBottom: `2px solid ${isGuides ? '#FF5D0A' : 'transparent'}`,
+              borderRadius: '0',
+            }}
+          >
+            <Typography whiteSpace={'nowrap'}>Guides</Typography>
+          </Button>
+          <Button
             fullWidth
             variant="text"
             color="secondary"
@@ -214,18 +226,6 @@ export const DocsAppbar = React.memo(() => {
               <Typography whiteSpace={'nowrap'}>Tour</Typography>
             </Button>
           )}
-          <Button
-            variant="text"
-            color="secondary"
-            href={`/docs/${selectedDocsCategory}`}
-            style={{
-              color: isGuides ? '#FF5D0A' : 'GrayText',
-              borderBottom: `2px solid ${isGuides ? '#FF5D0A' : 'transparent'}`,
-              borderRadius: '0',
-            }}
-          >
-            <Typography whiteSpace={'nowrap'}>Guides</Typography>
-          </Button>
         </Stack>
       </Stack>
       <Stack direction={'row'} spacing={2}>
