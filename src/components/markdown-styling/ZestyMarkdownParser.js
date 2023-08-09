@@ -8,9 +8,7 @@ import {
   MDH2,
   MDH3,
   MDImage,
-  MDItalic,
   MDParagraph,
-  MDStrong,
 } from './components';
 
 // Main //
@@ -18,7 +16,17 @@ export const ZestyMarkdownParser = ({
   markdown,
   mainKeywords,
   productGlossary,
+  isDocs = false,
 }) => {
+  const docsComponents = {
+    img: MDImage,
+    blockquote: MDBlockquote,
+    h1: MDH1,
+    h2: MDH2,
+    h3: MDH3,
+    pre: MDCodeBlock,
+  };
+
   const components = {
     p: (props) => (
       <MDParagraph
@@ -33,11 +41,14 @@ export const ZestyMarkdownParser = ({
     h2: MDH2,
     h3: MDH3,
     pre: MDCodeBlock,
-    strong: MDStrong,
-    em: MDItalic,
+    // strong: MDStrong,
+    // em: MDItalic,
   };
   return (
-    <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={isDocs ? docsComponents : components}
+    >
       {markdown}
     </ReactMarkdown>
   );
