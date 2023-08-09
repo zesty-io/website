@@ -250,6 +250,7 @@ const ZestyDoc = (props) => {
                 <Stack width={1} height={1}>
                   {/* Component that render the markdown file */}
                   <ZestyMarkdownParser
+                    isDocs={true}
                     markdown={content.body}
                     mainKeywords={mainKeywords}
                     productGlossary={productGlossary}

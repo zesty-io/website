@@ -79,7 +79,8 @@ export const DocsAppbar = React.memo(() => {
   const isXl = useMediaQuery(theme.breakpoints.up('xl'));
 
   const onChangeDropdown = (data) => {
-    setCookie('docsCategory', data?.label);
+    let category = data.label;
+    setCookie('docsCategory', category);
     window.scrollTo(0, 0);
     if (data?.value) {
       window.location.pathname = data.value.parent;
@@ -91,7 +92,7 @@ export const DocsAppbar = React.memo(() => {
   const docsCategory = getCookie('docsCategory');
   const DOCS_DATA_DROPDOWN = () => {
     const res = [
-      // { label: 'Getting Started', value: { parent: '/docs/introduction' } },
+      { label: 'Getting Started', value: { parent: '/docs/getting-started' } },
       { label: 'Webengine', value: { parent: '/docs/webengine' } },
       { label: 'Instances', value: { parent: '/docs/instances' } },
       {
@@ -101,10 +102,10 @@ export const DocsAppbar = React.memo(() => {
       { label: 'Accounts', value: { parent: '/docs/accounts/' } },
       { label: 'Parsley', value: { parent: '/docs/parsley/' } },
       { label: 'Media', value: { parent: '/docs/media/' } },
-      // {
-      //   label: 'Tools & Resources',
-      //   value: { parent: '/docs/tools-and-resources/' },
-      // },
+      {
+        label: 'Tools & Resources',
+        value: { parent: '/docs/tools-and-resources/' },
+      },
     ];
     return res;
   };
@@ -185,6 +186,18 @@ export const DocsAppbar = React.memo(() => {
         }
         <Stack direction={'row'} bgcolor={'#fff'}>
           <Button
+            variant="text"
+            color="secondary"
+            href={`/docs/${selectedDocsCategory}`}
+            style={{
+              color: isGuides ? '#FF5D0A' : 'GrayText',
+              borderBottom: `2px solid ${isGuides ? '#FF5D0A' : 'transparent'}`,
+              borderRadius: '0',
+            }}
+          >
+            <Typography whiteSpace={'nowrap'}>Guides</Typography>
+          </Button>
+          <Button
             fullWidth
             variant="text"
             color="secondary"
@@ -213,18 +226,6 @@ export const DocsAppbar = React.memo(() => {
               <Typography whiteSpace={'nowrap'}>Tour</Typography>
             </Button>
           )}
-          <Button
-            variant="text"
-            color="secondary"
-            href={`/docs/${selectedDocsCategory}`}
-            style={{
-              color: isGuides ? '#FF5D0A' : 'GrayText',
-              borderBottom: `2px solid ${isGuides ? '#FF5D0A' : 'transparent'}`,
-              borderRadius: '0',
-            }}
-          >
-            <Typography whiteSpace={'nowrap'}>Guides</Typography>
-          </Button>
         </Stack>
       </Stack>
       <Stack direction={'row'} spacing={2}>
