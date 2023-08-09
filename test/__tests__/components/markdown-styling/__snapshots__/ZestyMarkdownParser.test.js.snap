@@ -247,7 +247,7 @@ exports[`MDH3 should render the MDH3 component with correct props 1`] = `
 
 exports[`MDImage should render MDSmallImage if node does not have title 1`] = `
 <div
-  class="MuiBox-root css-o3npue"
+  class="MuiBox-root css-tvqnrt"
   data-testid="md-small-image"
 >
   <div>
