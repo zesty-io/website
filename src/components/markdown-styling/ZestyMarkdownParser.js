@@ -7,6 +7,7 @@ import {
   MDH1,
   MDH2,
   MDH3,
+  MDH4,
   MDImage,
   MDParagraph,
 } from './components';
@@ -24,6 +25,7 @@ export const ZestyMarkdownParser = ({
     h1: MDH1,
     h2: MDH2,
     h3: MDH3,
+    h4: MDH4,
     pre: MDCodeBlock,
   };
 
