@@ -56,10 +56,12 @@ Any push or merge to the `dev`,`stage`, or `production` branch will kickoff an a
 
 `dev` is intended for testing, use as you wish, overwrite at needed.
 `stage` should be ready to review and test before `production`
+`accounts` pre production branch same config of `production`
 `production` should only be merged from `stage`, after stage is verified good to deploy
 
 dev: https://zesty-dev-website-m3rbwjxm5q-uc.a.run.app/
 stage: https://kfg6bckb-dev.webengine.zesty.io OR https://zesty-website-m3rbwjxm5q-uc.a.run.app/
+accounts: https://beta.zesty.io
 production: https://www.zesty.io OR https://zesty-website-production-m3rbwjxm5q-uc.a.run.app/
 
 ## 💡 Contribution
