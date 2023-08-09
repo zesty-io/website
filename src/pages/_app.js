@@ -35,6 +35,10 @@ export default function App({ Component, pageProps }) {
     let refCookie = getCookie('referrer');
     if (undefined == refCookie) setCookie('referrer', document.referrer);
 
+    // Entry Path
+    let entryPath = getCookie('entry_path');
+    if (undefined == entryPath) setCookie('entry_path', window.location.href);
+
     // utm query params
     if (params.utm_campaign) setCookie('utm_campaign', params.utm_campaign);
     if (params.utm_term) setCookie('utm_term', params.utm_term);
