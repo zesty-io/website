@@ -19,7 +19,7 @@ export const ZestyMarkdownParser = ({
   isDocs = false,
 }) => {
   const docsComponents = {
-    img: MDImage,
+    img: (props) => <MDImage {...props} floatRight={false} isDocs={true} />,
     blockquote: MDBlockquote,
     h1: MDH1,
     h2: MDH2,
