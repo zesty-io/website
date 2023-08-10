@@ -7,7 +7,7 @@ import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
-const VALID_URLS = ['/accounts', '/instances', '/authentication'];
+const VALID_URLS = ['/accounts', '/instances', '/authentication', '/media'];
 
 const initialTreeData = (url, data) => {
   const url1 = '/' + url.split('/').filter((e) => e)[0];
