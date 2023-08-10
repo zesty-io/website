@@ -29,7 +29,7 @@ import {
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { useRouter } from 'next/router';
@@ -70,14 +70,50 @@ const ZestyDoc = (props) => {
     isDocsPage: false,
   });
 
-  const prodNav = productsData.map((e) => {
-    return { ...e, name: e.uri.replace(/^\/product/, '') };
-  });
+  const prodNav = useMemo(() =>
+    productsData.map((e) => {
+      return { ...e, name: e.uri.replace(/^\/product/, '') };
+    }, []),
+  );
 
-  const filteredArray = prodNav.filter((obj) => {
-    const res = obj.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
-    return res[1] === selectedDocsCategory?.toLowerCase();
-  });
+  /**
+   * Modify and group objects based on their URI structure.
+   *
+   * @param {Array} prodNav - Array of objects to be processed.
+   * @param {string} selectedDocsCategory - The selected category for filtering.
+   * @returns {Array} An array of modified and grouped objects.
+   */
+  const filteredArray = prodNav.reduce((acc, item) => {
+    const res = item.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
+
+    if (res.length === 4) {
+      // Filter items with the same 3rd URL part
+      const result = prodNav.filter((item) =>
+        item.uri
+          .split('/')
+          .filter((url) => url)
+          .includes(res[2]),
+      );
+
+      // Find the parent object with 3rd URL part
+      const parent = result.filter(
+        (url) => url.uri.split('/').filter((e) => e).length === 3,
+      )[0];
+
+      // Find child objects (exclude the parent)
+      const child = result.filter((item) => item.uri !== parent.uri);
+
+      // Add children array to the parent object
+      acc.find((e) => e.uri === parent.uri)['children'] = [...child];
+    } else {
+      // If the URI structure doesn't match the child pattern
+      if (res[1] === selectedDocsCategory?.toLowerCase()) {
+        acc.push(item); // Add the item to the accumulator
+      }
+    }
+
+    return acc; // Return the modified accumulator
+  }, []);
 
   // const makeTree = (data) => {
   //   const base = { children: [] };
@@ -112,34 +148,38 @@ const ZestyDoc = (props) => {
   //   (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
   // );
 
-  const result = [];
-  const groupByUri = (data = []) => {
-    data.forEach((element) => {
-      const parentMain = element.uri.split('/')[2];
-      const childMain = element.uri.split('/')[3];
+  // const result = [];
+  // const groupByUri = useMemo(
+  //   () =>
+  //     (data = []) => {
+  //       data.forEach((element) => {
+  //         const parentMain = element.uri.split('/')[2];
+  //         const childMain = element.uri.split('/')[3];
 
-      data.forEach((item) => {
-        const parentChild = item.uri.split('/')[2];
-        const childChild = item.uri.split('/')[3];
+  //         data.forEach((item) => {
+  //           const parentChild = item.uri.split('/')[2];
+  //           const childChild = item.uri.split('/')[3];
 
-        if (
-          parentChild === parentMain &&
-          childChild &&
-          childChild !== childMain
-        ) {
-          const res = { ...element, children: [item] };
-          result.push(res);
-        }
-      });
-      // filtering out redundant 1st tier item
-      // this will add only 1st tier that dont have children
-      const res1 = result.find((q) => q.children);
-      if (res1?.uri !== element?.uri && !childMain) {
-        result.push(element);
-      }
-    });
-  };
-  groupByUri(productsData);
+  //           if (
+  //             parentChild === parentMain &&
+  //             childChild &&
+  //             childChild !== childMain
+  //           ) {
+  //             const res = { ...element, children: [item] };
+  //             result.push(res);
+  //           }
+  //         });
+  //         // filtering out redundant 1st tier item
+  //         // this will add only 1st tier that dont have children
+  //         const res1 = result.find((q) => q.children);
+  //         if (res1?.uri !== element?.uri && !childMain) {
+  //           result.push(element);
+  //         }
+  //       });
+  //     },
+  //   [],
+  // );
+  // groupByUri(productsData);
 
   // group the
   const productGlossary = content.zesty.productGlossary.map((e) => {
