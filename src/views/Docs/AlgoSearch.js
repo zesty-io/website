@@ -12,7 +12,6 @@ import {
   connectSearchBox,
   InstantSearch,
   Hits,
-
   // SearchBox,
   // Pagination,
   // Highlight,
@@ -20,6 +19,7 @@ import {
   // RefinementList,
   Configure,
   Index,
+  Snippet,
 } from 'react-instantsearch-dom';
 import { useZestyStore } from 'store';
 import MuiMarkdown from 'markdown-to-jsx';
@@ -151,6 +151,11 @@ const Hit = (props) => {
         >
           <Box>
             <CustomizedTreeView hit={hit} />
+            <Snippet
+              highlightedTagName="em"
+              hit={hit}
+              attribute="description"
+            />
           </Box>
 
           {hovered && (
@@ -262,16 +267,25 @@ const CustomizedTreeView = ({ hit }) => {
                             variant: 'caption',
                           },
                         },
+                        mark: {
+                          component: Typography,
+                          props: {
+                            sx: {
+                              color: 'red',
+                            },
+                          },
+                        },
                       },
                     }}
                   >
-                    {hit?.description}
+                    {hit.description}
                   </MuiMarkdown>
                 }
               />
             </Box>
           </Box>
         )}
+        <Box></Box>
       </StyledTreeItem>
     </TreeView>
   );
