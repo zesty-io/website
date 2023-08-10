@@ -104,7 +104,9 @@ const ZestyDoc = (props) => {
       const child = result.filter((item) => item.uri !== parent.uri);
 
       // Add children array to the parent object
-      acc.find((e) => e.uri === parent.uri)['children'] = [...child];
+      if (acc.find((e) => e.uri === parent.uri)) {
+        acc.find((e) => e.uri === parent.uri)['children'] = [...child];
+      }
     } else {
       // If the URI structure doesn't match the child pattern
       if (res[1] === selectedDocsCategory?.toLowerCase()) {
