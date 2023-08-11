@@ -25,7 +25,6 @@ export default function Index(props) {
   // const mainCollection = [INSTANCE_DATA, ACCOUNTS_DATA, AUTH_DATA];
   const mainCollection = props.docs.data;
   const mainData = transFormMainDataMedia(mainCollection);
-  console.log(mainData, 6666);
   const [treeData, settreeData] = React.useState(mainData[2]);
   // const parentUrl = url && '/' + url?.split('/').filter((e) => e)[0];
   const parentUrl =
