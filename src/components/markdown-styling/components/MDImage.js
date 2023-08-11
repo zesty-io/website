@@ -39,22 +39,15 @@ const MDSmallImage = ({ node, floatRight, maxWidth = `200px` }) => {
 };
 
 export const MDImage = ({ node, isDocs = false, floatRight = false }) => {
-  const isSmall = node?.properties?.alt?.includes('small');
-  const isLarge = node?.properties?.alt?.includes('large');
   const isVideo = node.properties.src.includes('youtube');
 
   if (isDocs) {
-    if (isSmall) {
-      return <MDSmallImage node={node} floatRight={true} />;
-    }
-    if (isLarge) {
-      return <MDSmallImage node={node} floatRight={false} maxWidth={`100%`} />;
-    }
-    if (isVideo) {
-      return <img src={node.properties.src}></img>;
-    }
+    return <MDSmallImage node={node} floatRight={false} />;
   }
 
+  if (isVideo) {
+    return <img src={node.properties.src}></img>;
+  }
   if (node.properties.title) {
     return <MDLargeImage node={node} />;
   } else {
