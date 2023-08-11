@@ -79,39 +79,6 @@ const ZestyDoc = (props) => {
     return res[1] === selectedDocsCategory?.toLowerCase();
   });
 
-  // const makeTree = (data) => {
-  //   const base = { children: [] };
-
-  //   for (const node of data) {
-  //     const path = node.name.match(/\/[^\/]+/g);
-  //     let curr = base;
-
-  //     path.forEach((e, i) => {
-  //       const currPath = path.slice(0, i + 1).join('');
-  //       const child = curr.children.find((e) => e.name === currPath);
-
-  //       if (child) {
-  //         curr = child;
-  //       } else {
-  //         curr.children.push({
-  //           ...node,
-  //           id: uuidv4(),
-  //           name: currPath,
-  //           children: [],
-  //           url: currPath,
-  //         });
-  //         curr = curr.children[curr.children.length - 1];
-  //       }
-  //     });
-  //   }
-
-  //   return base.children;
-  // };
-
-  // const navigationData = makeTree(filteredArray).sort(
-  //   (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
-  // );
-
   const result = [];
   const groupByUri = (data = []) => {
     data.forEach((element) => {
@@ -179,29 +146,6 @@ const ZestyDoc = (props) => {
         })}
       >
         {!isLoggedIn && <DocsAppbar />}
-        {/* // headers */}
-        {/* <Stack
-          py={2}
-          direction={'row'}
-          width={1}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-          sx={{
-            display: { xs: '', md: 'flex' },
-          }}
-        >
-          <AppBar />
-
-          <SearchModal
-            sx={{
-              width: true ? 300 : 500,
-              display: { xs: 'none', md: 'block' },
-            }}
-          >
-            <AlgoSearch />
-          </SearchModal>
-        </Stack> */}
-
         {/* Navigation mobile */}
         <Stack
           direction={'row'}
