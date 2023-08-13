@@ -36,19 +36,18 @@ import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
-import { DocsHomePage } from 'components/docs/DocsHomePage';
 import { TreeNavigation } from 'components/globals/TreeNavigation';
 import { TableOfContent } from 'components/globals/TableOfContent';
 import { DocsAppbar } from 'components/console/DocsAppbar';
 import { setCookie } from 'cookies-next';
+import { makeTree } from 'views/Docs/helper';
 
 // main file
 const ZestyDoc = (props) => {
   const router = useRouter();
-  const isDocsHomePage = router.asPath === '/docs/';
   const theme = useTheme();
   const content = props.content;
-  const productsData = content.zesty.docs;
+  const docsData = content.zesty.docs;
   const {
     setalgoliaApiKey,
     setalgoliaAppId,
@@ -70,14 +69,14 @@ const ZestyDoc = (props) => {
     isDocsPage: false,
   });
 
-  const prodNav = productsData.map((e) => {
-    return { ...e, name: e.uri.replace(/^\/product/, '') };
+  const prodNav = docsData.map((e) => {
+    return { ...e, name: e.uri.replace(/^\/docs/, '') };
   });
 
-  const filteredArray = prodNav.filter((obj) => {
+  const filteredArray = makeTree(prodNav).filter((obj) => {
     const res = obj.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
     return res[1] === selectedDocsCategory?.toLowerCase();
-  });
+  })[0]?.children;
 
   const result = [];
   const groupByUri = (data = []) => {
@@ -106,7 +105,7 @@ const ZestyDoc = (props) => {
       }
     });
   };
-  groupByUri(productsData);
+  groupByUri(docsData);
 
   // group the
   const productGlossary = content.zesty.productGlossary.map((e) => {
@@ -133,10 +132,6 @@ const ZestyDoc = (props) => {
     }
   }, [router.asPath]);
 
-  // redirecto to docs landing page if url = /docs/
-  if (isDocsHomePage) {
-    return <DocsHomePage algolia={algolia} />;
-  }
   return (
     <Stack data-testid="docs-slug">
       <Container
