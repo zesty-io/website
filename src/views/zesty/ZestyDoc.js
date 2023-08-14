@@ -76,112 +76,50 @@ const ZestyDoc = (props) => {
     }, []),
   );
 
-  /**
-   * Modify and group objects based on their URI structure.
-   *
-   * @param {Array} prodNav - Array of objects to be processed.
-   * @param {string} selectedDocsCategory - The selected category for filtering.
-   * @returns {Array} An array of modified and grouped objects.
-   */
   const filteredArray = prodNav.reduce((acc, item) => {
     const res = item.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
 
-    if (res.length === 4) {
-      // Filter items with the same 3rd URL part
-      const result = prodNav.filter((item) =>
-        item.uri
-          .split('/')
-          .filter((url) => url)
-          .includes(res[2]),
-      );
-
-      // Find the parent object with 3rd URL part
-      const parent = result.filter(
-        (url) => url.uri.split('/').filter((e) => e).length === 3,
-      )[0];
-
-      // Find child objects (exclude the parent)
-      const child = result.filter((item) => item.uri !== parent.uri);
-
-      // Add children array to the parent object
-      if (acc.find((e) => e.uri === parent.uri)) {
-        acc.find((e) => e.uri === parent.uri)['children'] = [...child];
-      }
-    } else {
-      // If the URI structure doesn't match the child pattern
-      if (res[1] === selectedDocsCategory?.toLowerCase()) {
-        acc.push(item); // Add the item to the accumulator
-      }
+    if (res[1] === selectedDocsCategory?.toLowerCase()) {
+      acc.push(item); // Add the item to the accumulator
     }
 
     return acc; // Return the modified accumulator
   }, []);
 
-  // const makeTree = (data) => {
-  //   const base = { children: [] };
+  const createTree = (data, depth = 3) => {
+    // find all items that has 3 part url
+    const parents = data.filter((e) => {
+      const res = e.uri.split('/').filter((e) => e);
+      return res.length === depth;
+    });
 
-  //   for (const node of data) {
-  //     const path = node.name.match(/\/[^\/]+/g);
-  //     let curr = base;
+    // find all items that has 4 or more part url and add them to the parent as children
+    const children = data.filter((e) => {
+      const res = e.uri.split('/').filter((e) => e);
+      return res.length > depth;
+    });
 
-  //     path.forEach((e, i) => {
-  //       const currPath = path.slice(0, i + 1).join('');
-  //       const child = curr.children.find((e) => e.name === currPath);
+    const parentWithChildren = parents.map((e) => {
+      const res = children.filter((item) => {
+        const parentUri = e.uri.split('/').filter((e) => e);
+        const childUri = item.uri.split('/').filter((e) => e);
+        return parentUri[depth - 1] === childUri[depth - 1];
+      });
+      return { ...e, children: res };
+    });
 
-  //       if (child) {
-  //         curr = child;
-  //       } else {
-  //         curr.children.push({
-  //           ...node,
-  //           id: uuidv4(),
-  //           name: currPath,
-  //           children: [],
-  //           url: currPath,
-  //         });
-  //         curr = curr.children[curr.children.length - 1];
-  //       }
-  //     });
-  //   }
+    // if (depth > 4) {
+    //   return parentWithChildren;
+    // } else {
+    //   return createTree(parentWithChildren, depth + 1);
+    // }
 
-  //   return base.children;
-  // };
+    return parentWithChildren;
+  };
 
-  // const navigationData = makeTree(filteredArray).sort(
-  //   (a, b) => Number(a?.sort_order) - Number(b?.sort_order),
-  // );
+  // console.log(createTree(filteredArray));
 
-  // const result = [];
-  // const groupByUri = useMemo(
-  //   () =>
-  //     (data = []) => {
-  //       data.forEach((element) => {
-  //         const parentMain = element.uri.split('/')[2];
-  //         const childMain = element.uri.split('/')[3];
-
-  //         data.forEach((item) => {
-  //           const parentChild = item.uri.split('/')[2];
-  //           const childChild = item.uri.split('/')[3];
-
-  //           if (
-  //             parentChild === parentMain &&
-  //             childChild &&
-  //             childChild !== childMain
-  //           ) {
-  //             const res = { ...element, children: [item] };
-  //             result.push(res);
-  //           }
-  //         });
-  //         // filtering out redundant 1st tier item
-  //         // this will add only 1st tier that dont have children
-  //         const res1 = result.find((q) => q.children);
-  //         if (res1?.uri !== element?.uri && !childMain) {
-  //           result.push(element);
-  //         }
-  //       });
-  //     },
-  //   [],
-  // );
-  // groupByUri(productsData);
+  console.log(createTree(filteredArray, 4));
 
   // group the
   const productGlossary = content.zesty.productGlossary.map((e) => {
@@ -256,7 +194,13 @@ const ZestyDoc = (props) => {
         >
           <Box>
             <TreeNavigation
-              data={[{ title: 'Products', children: filteredArray, uri: '#' }]}
+              data={[
+                {
+                  title: 'Products',
+                  children: createTree(filteredArray),
+                  uri: '#',
+                },
+              ]}
             />
           </Box>
         </Stack>
@@ -273,7 +217,7 @@ const ZestyDoc = (props) => {
                   display: { xs: 'none', md: 'block' },
                 }}
               >
-                <TreeNavigation data={filteredArray} />
+                <TreeNavigation data={createTree(filteredArray, 3)} />
               </Stack>
             </Grid>
             <Grid item md={6} lg={8}>
@@ -358,3 +302,100 @@ const ZestyDoc = (props) => {
 };
 
 export default ZestyDoc;
+
+const data = [
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/swift/ios-app-guide/',
+  },
+  {
+    uri: '/docs/tools-and-resources/node-sdk/accounts/',
+  },
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/react/',
+  },
+
+  {
+    uri: '/docs/tools-and-resources/integrations/nextjs/zestyview-component/',
+  },
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/jekyll-static-site/',
+  },
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/react-ruby-build-guide/',
+  },
+  {
+    uri: '/docs/tools-and-resources/integrations/',
+  },
+  {
+    uri: '/docs/tools-and-resources/extensions/atom-ide-package/',
+  },
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/react/guide-remote-react-app/',
+  },
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/swift/',
+  },
+
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/',
+  },
+  {
+    uri: '/docs/tools-and-resources/integrations/nextjs/ssr-server-side-rendering/',
+  },
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/react/guide-local-react-app/',
+  },
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/hugo-static-site/',
+  },
+];
+
+const output = [
+  {
+    uri: '/docs/tools-and-resources/node-sdk/accounts/',
+  },
+  {
+    uri: '/docs/tools-and-resources/extensions/atom-ide-package/',
+  },
+
+  {
+    uri: '/docs/tools-and-resources/integrations/',
+    children: [
+      {
+        uri: '/docs/tools-and-resources/integrations/nextjs/zestyview-component/',
+      },
+      {
+        uri: '/docs/tools-and-resources/integrations/nextjs/ssr-server-side-rendering/',
+      },
+    ],
+  },
+  {
+    uri: '/docs/tools-and-resources/headless-code-examples/',
+    chidlren: [
+      {
+        uri: '/docs/tools-and-resources/headless-code-examples/swift/ios-app-guide/',
+      },
+      {
+        uri: '/docs/tools-and-resources/headless-code-examples/react/',
+      },
+      {
+        uri: '/docs/tools-and-resources/headless-code-examples/jekyll-static-site/',
+      },
+      {
+        uri: '/docs/tools-and-resources/headless-code-examples/react-ruby-build-guide/',
+      },
+      {
+        uri: '/docs/tools-and-resources/headless-code-examples/react/guide-remote-react-app/',
+      },
+      {
+        uri: '/docs/tools-and-resources/headless-code-examples/swift/',
+      },
+      {
+        uri: '/docs/tools-and-resources/headless-code-examples/react/guide-local-react-app/',
+      },
+      {
+        uri: '/docs/tools-and-resources/headless-code-examples/hugo-static-site/',
+      },
+    ],
+  },
+];
