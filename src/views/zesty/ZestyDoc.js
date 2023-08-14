@@ -40,7 +40,6 @@ import { TreeNavigation } from 'components/globals/TreeNavigation';
 import { TableOfContent } from 'components/globals/TableOfContent';
 import { DocsAppbar } from 'components/console/DocsAppbar';
 import { setCookie } from 'cookies-next';
-import { makeTree } from 'views/Docs/helper';
 
 // main file
 const ZestyDoc = (props) => {
@@ -73,10 +72,16 @@ const ZestyDoc = (props) => {
     return { ...e, name: e.uri.replace(/^\/docs/, '') };
   });
 
-  const filteredArray = makeTree(prodNav).filter((obj) => {
+  // todo fix this
+  // const filteredArray = makeTree(prodNav).filter((obj) => {
+  //   const res = obj.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
+  //   return res[1] === selectedDocsCategory?.toLowerCase();
+  // })[0]?.children;
+
+  const filteredArray = prodNav.filter((obj) => {
     const res = obj.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
     return res[1] === selectedDocsCategory?.toLowerCase();
-  })[0]?.children;
+  });
 
   const result = [];
   const groupByUri = (data = []) => {
