@@ -77,51 +77,20 @@ const ZestyDoc = (props) => {
   );
 
   const filteredArray = prodNav.reduce((acc, item) => {
-    const res = item.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
+    const res = item.uri.split('/').filter((e) => e);
 
     if (res[1] === selectedDocsCategory?.toLowerCase()) {
-      acc.push(item); // Add the item to the accumulator
+      acc.push(item);
     }
 
-    return acc; // Return the modified accumulator
+    return acc;
   }, []);
 
-  const createTree = (data, depth = 3) => {
-    // find all items that has 3 part url
-    const parents = data.filter((e) => {
-      const res = e.uri.split('/').filter((e) => e);
-      return res.length === depth;
-    });
+  const tree = createTree(filteredArray, 3).map((e) => {
+    const res = createTree(e.children, 4);
+    return { ...e, children: res };
+  });
 
-    // find all items that has 4 or more part url and add them to the parent as children
-    const children = data.filter((e) => {
-      const res = e.uri.split('/').filter((e) => e);
-      return res.length > depth;
-    });
-
-    const parentWithChildren = parents.map((e) => {
-      const res = children.filter((item) => {
-        const parentUri = e.uri.split('/').filter((e) => e);
-        const childUri = item.uri.split('/').filter((e) => e);
-        return parentUri[depth - 1] === childUri[depth - 1];
-      });
-      return { ...e, children: res };
-    });
-
-    // if (depth > 4) {
-    //   return parentWithChildren;
-    // } else {
-    //   return createTree(parentWithChildren, depth + 1);
-    // }
-
-    return parentWithChildren;
-  };
-
-  // console.log(createTree(filteredArray));
-
-  console.log(createTree(filteredArray, 4));
-
-  // group the
   const productGlossary = content.zesty.productGlossary.map((e) => {
     const res = e.keywords.split(',').map((item) => item.toLowerCase());
     return { ...e, target_words: res };
@@ -197,7 +166,7 @@ const ZestyDoc = (props) => {
               data={[
                 {
                   title: 'Products',
-                  children: createTree(filteredArray),
+                  children: tree,
                   uri: '#',
                 },
               ]}
@@ -217,7 +186,7 @@ const ZestyDoc = (props) => {
                   display: { xs: 'none', md: 'block' },
                 }}
               >
-                <TreeNavigation data={createTree(filteredArray, 3)} />
+                <TreeNavigation data={tree} />
               </Stack>
             </Grid>
             <Grid item md={6} lg={8}>
@@ -303,99 +272,27 @@ const ZestyDoc = (props) => {
 
 export default ZestyDoc;
 
-const data = [
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/swift/ios-app-guide/',
-  },
-  {
-    uri: '/docs/tools-and-resources/node-sdk/accounts/',
-  },
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/react/',
-  },
+const createTree = (data, depth = 3) => {
+  // find all items that has depth part url
+  const parents = data.filter((e) => {
+    const res = e.uri.split('/').filter((e) => e);
+    return res.length === depth;
+  });
 
-  {
-    uri: '/docs/tools-and-resources/integrations/nextjs/zestyview-component/',
-  },
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/jekyll-static-site/',
-  },
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/react-ruby-build-guide/',
-  },
-  {
-    uri: '/docs/tools-and-resources/integrations/',
-  },
-  {
-    uri: '/docs/tools-and-resources/extensions/atom-ide-package/',
-  },
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/react/guide-remote-react-app/',
-  },
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/swift/',
-  },
+  // find all items that has depth or more part url and add them to the parent as children
+  const children = data.filter((e) => {
+    const res = e.uri.split('/').filter((e) => e);
+    return res.length > depth;
+  });
 
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/',
-  },
-  {
-    uri: '/docs/tools-and-resources/integrations/nextjs/ssr-server-side-rendering/',
-  },
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/react/guide-local-react-app/',
-  },
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/hugo-static-site/',
-  },
-];
+  const parentWithChildren = parents.map((e) => {
+    const res = children.filter((item) => {
+      const parentUri = e.uri.split('/').filter((e) => e);
+      const childUri = item.uri.split('/').filter((e) => e);
+      return parentUri[depth - 1] === childUri[depth - 1];
+    });
+    return { ...e, children: res };
+  });
 
-const output = [
-  {
-    uri: '/docs/tools-and-resources/node-sdk/accounts/',
-  },
-  {
-    uri: '/docs/tools-and-resources/extensions/atom-ide-package/',
-  },
-
-  {
-    uri: '/docs/tools-and-resources/integrations/',
-    children: [
-      {
-        uri: '/docs/tools-and-resources/integrations/nextjs/zestyview-component/',
-      },
-      {
-        uri: '/docs/tools-and-resources/integrations/nextjs/ssr-server-side-rendering/',
-      },
-    ],
-  },
-  {
-    uri: '/docs/tools-and-resources/headless-code-examples/',
-    chidlren: [
-      {
-        uri: '/docs/tools-and-resources/headless-code-examples/swift/ios-app-guide/',
-      },
-      {
-        uri: '/docs/tools-and-resources/headless-code-examples/react/',
-      },
-      {
-        uri: '/docs/tools-and-resources/headless-code-examples/jekyll-static-site/',
-      },
-      {
-        uri: '/docs/tools-and-resources/headless-code-examples/react-ruby-build-guide/',
-      },
-      {
-        uri: '/docs/tools-and-resources/headless-code-examples/react/guide-remote-react-app/',
-      },
-      {
-        uri: '/docs/tools-and-resources/headless-code-examples/swift/',
-      },
-      {
-        uri: '/docs/tools-and-resources/headless-code-examples/react/guide-local-react-app/',
-      },
-      {
-        uri: '/docs/tools-and-resources/headless-code-examples/hugo-static-site/',
-      },
-    ],
-  },
-];
+  return parentWithChildren;
+};

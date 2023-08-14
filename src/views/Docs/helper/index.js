@@ -211,3 +211,32 @@ export const transFormMainData = (mainCollection) => {
   });
   return result;
 };
+
+export const makeTree = (data) => {
+  const base = { children: [] };
+
+  for (const node of data) {
+    const path = node.name.match(/\/[^\/]+/g);
+    let curr = base;
+
+    path.forEach((e, i) => {
+      const currPath = path.slice(0, i + 1).join('');
+      const child = curr.children.find((e) => e.name === currPath);
+
+      if (child) {
+        curr = child;
+      } else {
+        curr.children.push({
+          ...node,
+          id: Math.random() * 9,
+          name: currPath,
+          children: [],
+          url: currPath,
+        });
+        curr = curr.children[curr.children.length - 1];
+      }
+    });
+  }
+
+  return base.children;
+};
