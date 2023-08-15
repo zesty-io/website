@@ -29,13 +29,14 @@ import {
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { parseMarkdownFile } from 'utils/docs';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { useRouter } from 'next/router';
 import { useZestyStore } from 'store';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
 import { ZestyMarkdownParser } from 'components/markdown-styling/ZestyMarkdownParser';
+import { DocsHomePage } from 'components/docs/DocsHomePage';
 import { TreeNavigation } from 'components/globals/TreeNavigation';
 import { TableOfContent } from 'components/globals/TableOfContent';
 import { DocsAppbar } from 'components/console/DocsAppbar';
@@ -44,9 +45,10 @@ import { setCookie } from 'cookies-next';
 // main file
 const ZestyDoc = (props) => {
   const router = useRouter();
+  const isDocsHomePage = router.asPath === '/docs/';
   const theme = useTheme();
   const content = props.content;
-  const docsData = content.zesty.docs;
+  const productsData = content.zesty.docs;
   const {
     setalgoliaApiKey,
     setalgoliaAppId,
@@ -68,51 +70,27 @@ const ZestyDoc = (props) => {
     isDocsPage: false,
   });
 
-  const prodNav = docsData.map((e) => {
-    return { ...e, name: e.uri.replace(/^\/docs/, '') };
+  const prodNav = useMemo(() =>
+    productsData.map((e) => {
+      return { ...e, name: e.uri.replace(/^\/product/, '') };
+    }, []),
+  );
+
+  const filteredArray = prodNav.reduce((acc, item) => {
+    const res = item.uri.split('/').filter((e) => e);
+
+    if (res[1] === selectedDocsCategory?.toLowerCase()) {
+      acc.push(item);
+    }
+
+    return acc;
+  }, []);
+
+  const tree = createTree(filteredArray, 3).map((e) => {
+    const res = createTree(e.children, 4);
+    return { ...e, children: res };
   });
 
-  // todo fix this
-  // const filteredArray = makeTree(prodNav).filter((obj) => {
-  //   const res = obj.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
-  //   return res[1] === selectedDocsCategory?.toLowerCase();
-  // })[0]?.children;
-
-  const filteredArray = prodNav.filter((obj) => {
-    const res = obj.uri.split('/').filter((e) => e); // Destructuring to get the second element after splitting
-    return res[1] === selectedDocsCategory?.toLowerCase();
-  });
-
-  const result = [];
-  const groupByUri = (data = []) => {
-    data.forEach((element) => {
-      const parentMain = element.uri.split('/')[2];
-      const childMain = element.uri.split('/')[3];
-
-      data.forEach((item) => {
-        const parentChild = item.uri.split('/')[2];
-        const childChild = item.uri.split('/')[3];
-
-        if (
-          parentChild === parentMain &&
-          childChild &&
-          childChild !== childMain
-        ) {
-          const res = { ...element, children: [item] };
-          result.push(res);
-        }
-      });
-      // filtering out redundant 1st tier item
-      // this will add only 1st tier that dont have children
-      const res1 = result.find((q) => q.children);
-      if (res1?.uri !== element?.uri && !childMain) {
-        result.push(element);
-      }
-    });
-  };
-  groupByUri(docsData);
-
-  // group the
   const productGlossary = content.zesty.productGlossary.map((e) => {
     const res = e.keywords.split(',').map((item) => item.toLowerCase());
     return { ...e, target_words: res };
@@ -137,6 +115,10 @@ const ZestyDoc = (props) => {
     }
   }, [router.asPath]);
 
+  // redirecto to docs landing page if url = /docs/
+  if (isDocsHomePage) {
+    return <DocsHomePage algolia={algolia} />;
+  }
   return (
     <Stack data-testid="docs-slug">
       <Container
@@ -146,6 +128,29 @@ const ZestyDoc = (props) => {
         })}
       >
         {!isLoggedIn && <DocsAppbar />}
+        {/* // headers */}
+        {/* <Stack
+          py={2}
+          direction={'row'}
+          width={1}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+          sx={{
+            display: { xs: '', md: 'flex' },
+          }}
+        >
+          <AppBar />
+
+          <SearchModal
+            sx={{
+              width: true ? 300 : 500,
+              display: { xs: 'none', md: 'block' },
+            }}
+          >
+            <AlgoSearch />
+          </SearchModal>
+        </Stack> */}
+
         {/* Navigation mobile */}
         <Stack
           direction={'row'}
@@ -158,7 +163,13 @@ const ZestyDoc = (props) => {
         >
           <Box>
             <TreeNavigation
-              data={[{ title: 'Products', children: filteredArray, uri: '#' }]}
+              data={[
+                {
+                  title: 'Products',
+                  children: tree,
+                  uri: '#',
+                },
+              ]}
             />
           </Box>
         </Stack>
@@ -175,7 +186,7 @@ const ZestyDoc = (props) => {
                   display: { xs: 'none', md: 'block' },
                 }}
               >
-                <TreeNavigation data={filteredArray} />
+                <TreeNavigation data={tree} />
               </Stack>
             </Grid>
             <Grid item md={6} lg={8}>
@@ -260,3 +271,28 @@ const ZestyDoc = (props) => {
 };
 
 export default ZestyDoc;
+
+const createTree = (data, depth = 3) => {
+  // find all items that has depth part url
+  const parents = data.filter((e) => {
+    const res = e.uri.split('/').filter((e) => e);
+    return res.length === depth;
+  });
+
+  // find all items that has depth or more part url and add them to the parent as children
+  const children = data.filter((e) => {
+    const res = e.uri.split('/').filter((e) => e);
+    return res.length > depth;
+  });
+
+  const parentWithChildren = parents.map((e) => {
+    const res = children.filter((item) => {
+      const parentUri = e.uri.split('/').filter((e) => e);
+      const childUri = item.uri.split('/').filter((e) => e);
+      return parentUri[depth - 1] === childUri[depth - 1];
+    });
+    return { ...e, children: res };
+  });
+
+  return parentWithChildren;
+};

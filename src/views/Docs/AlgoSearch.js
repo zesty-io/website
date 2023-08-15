@@ -272,6 +272,7 @@ const CustomizedTreeView = ({ hit }) => {
             </Box>
           </Box>
         )}
+        <Box></Box>
       </StyledTreeItem>
     </TreeView>
   );
