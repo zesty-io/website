@@ -15,15 +15,17 @@ const MDLargeImage = ({ node }) => {
   );
 };
 
-const MDSmallImage = ({ node, floatRight }) => {
+const MDSmallImage = ({ node, floatRight, maxWidth = `200px` }) => {
   return (
     <Box
       data-testid="md-small-image"
       ml={3}
       mr={2}
-      maxWidth={'200px'}
+      maxWidth={maxWidth}
       sx={{
         float: floatRight ? 'right' : 'center',
+        display: 'flex',
+        justifyItems: 'center',
       }}
     >
       <ModalImage
@@ -38,9 +40,15 @@ const MDSmallImage = ({ node, floatRight }) => {
 
 export const MDImage = ({ node, isDocs = false, floatRight = false }) => {
   const isVideo = node.properties.src.includes('youtube');
-  if (isVideo && isDocs) {
+
+  if (isDocs) {
+    return <MDSmallImage node={node} floatRight={false} />;
+  }
+
+  if (isVideo) {
     return <img src={node.properties.src}></img>;
-  } else if (node.properties.title) {
+  }
+  if (node.properties.title) {
     return <MDLargeImage node={node} />;
   } else {
     return <MDSmallImage node={node} floatRight={floatRight} />;

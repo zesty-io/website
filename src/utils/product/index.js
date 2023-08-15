@@ -4,7 +4,9 @@ export function transformText(inputText) {
   const trimmedText = inputText?.trim()?.toLowerCase()?.replace('.', '');
 
   // Replace spaces with dashes
-  const dashedText = trimmedText?.replace(/\s+/g, '-');
+  const dashedText = trimmedText
+    ?.replace(/[^a-zA-Z0-9 ]/g, '')
+    .replace(/ /g, '-');
 
   // Remove parentheses and their contents
   const transformedText = dashedText?.replace(/\([^()]*\)/g, '');

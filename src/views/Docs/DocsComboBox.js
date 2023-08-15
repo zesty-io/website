@@ -35,7 +35,7 @@ const Main = ({ options, onChange, width = 1, value = '' }) => {
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder={capitalize(value) || router[1]}
+            placeholder={capitalize(route[1]) || capitalize(value)}
             color="secondary"
             size="small"
             InputProps={{
