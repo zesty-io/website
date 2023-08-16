@@ -11,13 +11,12 @@ import { grey } from '@mui/material/colors';
 import { AccountsComboBox } from 'components/accounts';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { getCookie, setCookie } from 'cookies-next';
+import { DocSearch } from '@docsearch/react';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
-import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { DocsComboBox } from 'views/Docs/DocsComboBox';
 import { DocsPopover } from 'views/Docs/DocsPopover';
-import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
   { label: 'API Reference', value: '/docs/parsley/api-reference/' },
@@ -70,6 +69,13 @@ export const DocsAppbar = React.memo(() => {
     selectedDocsCategory: e.selectedDocsCategory,
     setSelectedDocsCategory: e.setSelectedDocsCategory,
   }));
+
+  const {
+    algoliaApiKey: apiKey,
+    algoliaAppId: appId,
+    algoliaIndex: index,
+  } = useZestyStore((e) => e);
+
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
   // const [currentTab, setcurrentTab] = React.useState(getInitialTab());
@@ -242,7 +248,6 @@ export const DocsAppbar = React.memo(() => {
             />
           </Stack>
         )}
-
         {isLoggedIn && contentModels?.length !== 0 && (
           <AccountsComboBox
             width={200}
@@ -266,10 +271,7 @@ export const DocsAppbar = React.memo(() => {
             }
           />
         )}
-
-        <SearchModal sx={{ width: 200 }}>
-          <AlgoSearch />
-        </SearchModal>
+        <DocSearch appId={appId} indexName={index} apiKey={apiKey} />
       </Stack>
     </Stack>
   );
