@@ -117,7 +117,7 @@ const ZestyDoc = (props) => {
 
   const inlineStyles = `
   
-  blockquote, pre {
+  blockquote {
   background-color: #e7e7e7;
   padding: 10px 20px;
   border-left: 2px solid #ccc;

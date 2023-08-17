@@ -25,6 +25,7 @@ export const ZestyMarkdownParser = ({
     h2: MDH2,
     h3: MDH3,
     h4: MDH4,
+    pre: MDCodeBlock,
   };
 
   const components = {
