@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import React from 'react';
 import ModalImage from 'react-modal-image';
 
@@ -21,19 +21,21 @@ const MDSmallImage = ({ node, floatRight, maxWidth = `200px` }) => {
       data-testid="md-small-image"
       ml={3}
       mr={2}
-      maxWidth={maxWidth}
       sx={{
         float: floatRight ? 'right' : 'center',
         display: 'flex',
         justifyItems: 'center',
       }}
     >
-      <ModalImage
-        small={node.properties.src}
-        large={node.properties.src}
-        alt={node.properties.alt}
-        title={node.properties.title}
-      />
+      <Stack maxWidth={maxWidth}>
+        <ModalImage
+          style={{ width: 10 }}
+          small={node.properties.src}
+          large={node.properties.src}
+          alt={node.properties.alt}
+          title={node.properties.title}
+        />
+      </Stack>
     </Box>
   );
 };
