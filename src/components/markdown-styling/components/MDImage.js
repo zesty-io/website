@@ -15,6 +15,46 @@ const MDLargeImage = ({ node }) => {
   );
 };
 
+const DocsImage = ({ node }) => {
+  const smallImage = node.properties.alt.includes('-sm');
+  // todo
+  // const mediumImage = node.properties.alt.includes('-md');
+  // const largeImage = node.properties.alt.includes('-lg');
+  return (
+    <Box
+      data-testid="md-small-image"
+      ml={3}
+      mr={2}
+      sx={{
+        display: 'flex',
+        justifyItems: smallImage ? 'left' : 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Stack
+        width={smallImage ? 200 : '100%'}
+        mx={smallImage ? 0 : 'auto'}
+        sx={{
+          display: 'flex',
+          justifyItems: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <ModalImage
+          style={{ width: 10 }}
+          small={node.properties.src}
+          large={node.properties.src}
+          alt={node.properties.alt}
+          title={node.properties.title}
+        />
+      </Stack>
+    </Box>
+  );
+};
+
 const MDSmallImage = ({ node, floatRight, maxWidth = `200px` }) => {
   return (
     <Box
@@ -44,7 +84,7 @@ export const MDImage = ({ node, isDocs = false, floatRight = false }) => {
   const isVideo = node.properties.src.includes('youtube');
 
   if (isDocs) {
-    return <MDSmallImage node={node} floatRight={false} />;
+    return <DocsImage node={node} />;
   }
 
   if (isVideo) {

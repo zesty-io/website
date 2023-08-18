@@ -13,13 +13,13 @@ exports[`MDBlockquote should render the MDBlockquote component with correct cont
 
 exports[`MDCodeBlock should render the MDCodeBlock component with correct value and styles 1`] = `
 <div
-  class="MuiBox-root css-7ijbd5"
+  class="MuiBox-root css-116trqi"
   data-testid="code-block-box"
 >
   <div
     class="cm-theme"
     data-testid="code-mirror"
-    style="font-size: 18px; width: 100%;"
+    style="font-size: 12px; width: 100%;"
   >
     <div
       class="cm-editor ͼ1 ͼ3 ͼ4 ͼ2j ͼ20"
@@ -247,15 +247,19 @@ exports[`MDH3 should render the MDH3 component with correct props 1`] = `
 
 exports[`MDImage should render MDSmallImage if node does not have title 1`] = `
 <div
-  class="MuiBox-root css-1qqw8bg"
+  class="MuiBox-root css-1ap5130"
   data-testid="md-small-image"
 >
-  <div>
-    <img
-      alt="Small Image"
-      src="image-small.jpg"
-      style="cursor: pointer; max-width: 100%; max-height: 100%;"
-    />
+  <div
+    class="css-o6cat4-MuiStack-root"
+  >
+    <div>
+      <img
+        alt="Small Image"
+        src="image-small.jpg"
+        style="cursor: pointer; max-width: 100%; max-height: 100%;"
+      />
+    </div>
   </div>
 </div>
 `;
