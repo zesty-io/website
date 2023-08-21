@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stack, Typography } from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -15,6 +15,7 @@ const tabs = [
 ];
 
 const Main = ({ title = 'no title', data = {} }) => {
+  const [dropdownResponse, setdropdownResponse] = useState({});
   const token = getCookie('APP_SID');
   const { language, workingInstance } = useZestyStore((e) => e);
   const [codeBlockData, setcodeBlockData] = React.useState('');
@@ -29,6 +30,7 @@ const Main = ({ title = 'no title', data = {} }) => {
     instanceZUID: workingInstance,
     token,
     isLoggedIn,
+    body: dropdownResponse['body'],
   });
 
   const copyToClipboard = (text) => {
@@ -66,9 +68,14 @@ const Main = ({ title = 'no title', data = {} }) => {
         <Typography>{title}</Typography>
       </Stack>
       <Stack direction={'row'} px={1}>
-        <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
+        <DocsTabs
+          data={data}
+          setvalue={setcurrentTab}
+          value={currentTab}
+          tabs={tabs}
+          setDropdownResponse={setdropdownResponse}
+        />
       </Stack>
-
       <div
         style={{
           maxHeight: '40vh',

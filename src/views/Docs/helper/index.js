@@ -6,6 +6,7 @@ export const langTransformer = ({
   instanceZUID = '',
   token = '',
   isLoggedIn = false,
+  body = {},
 }) => {
   const hasFormData = data?.request?.body?.mode === 'formdata' ? true : false;
   const hasToken = data?.request?.auth?.type === 'bearer' ? true : false;
