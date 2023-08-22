@@ -1,7 +1,7 @@
 import { Container, Stack } from '@mui/material';
 import axios from 'axios';
 import { setCookie } from 'cookies-next';
-import { fetchPage, productsData } from 'lib/api';
+import { fetchGqlData, fetchPage } from 'lib/api';
 import Head from 'next/head';
 import { MainWrapper } from 'pages/marketplace';
 import React from 'react';
@@ -60,28 +60,6 @@ async function fetchPageData(url) {
   return data;
 }
 
-const cacheProducts = {};
-// Function to fetch the products data
-async function fetchProductsData({ isProd = false }) {
-  const cacheKey = 'productsData';
-
-  // Check if the data is already cached
-  if (cacheProducts[cacheKey]) {
-    return cacheProducts[cacheKey];
-  }
-
-  // Fetch the products data
-  const data = await productsData();
-
-  // Cache the data
-  // run only if PRODUCTION = true
-  if (isProd) {
-    cacheProducts[cacheKey] = data;
-  }
-
-  return data;
-}
-
 export async function getServerSideProps({ res, req }) {
   const isAuthenticated = getIsAuthenticated(res);
   const isProd = process.env.PRODUCTION === 'true' ? true : false;
@@ -100,8 +78,12 @@ export async function getServerSideProps({ res, req }) {
 
   let products = [];
   let productGlossary = [];
+
   if (req.url.includes('/product')) {
-    products = await fetchProductsData({ isProd });
+    products = await fetchGqlData(isProd, 'product');
+  }
+
+  if (req.url.includes('/product')) {
     productGlossary = await getGlossary();
   }
 
