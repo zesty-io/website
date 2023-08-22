@@ -119,12 +119,6 @@ export const DocsAppbar = React.memo(() => {
     setcontentModel(id);
   };
 
-  // const handleTabs = (e) => {
-  //   alert(e);
-  //   setcurrentTab(e);
-  //   router.push(e);
-  // };
-
   const currentURL = router.asPath;
 
   const isTourTabVisible = currentURL.includes('/docs/parsley');
