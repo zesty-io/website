@@ -8,6 +8,8 @@ import { DocsTabs } from './DocsTabs';
 import { useZestyStore } from 'store';
 import { getCookie } from 'cookies-next';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { fetchTransformer } from './helper/fetchTransformer';
+import { transFormEndpoint } from 'utils';
 
 const tabs = [
   { label: 'Request', value: 'request' },
@@ -24,6 +26,14 @@ const Main = ({ title = 'no title', data = {} }) => {
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
   const isLoggedIn = useIsLoggedIn();
 
+  const { endpoint } = transFormEndpoint({
+    url: dropdownResponse?.url,
+    instanceZUID: workingInstance,
+    isLoggedIn,
+  });
+  const res = fetchTransformer(dropdownResponse, endpoint);
+
+  console.log(res, 555);
   const { request, response } = langTransformer({
     data,
     lang: language,
@@ -45,7 +55,7 @@ const Main = ({ title = 'no title', data = {} }) => {
     if (currentTab === 'response') {
       setcodeBlockData(response);
     } else {
-      setcodeBlockData(request);
+      setcodeBlockData(res);
     }
   }, [currentTab, language]);
 

@@ -383,5 +383,6 @@ export const transFormEndpoint = ({
         ? contentModelZUID
         : '6-xxxxxxxxx',
     );
+  console.log(res, '----', url, 7777777);
   return { endpoint: res };
 };
