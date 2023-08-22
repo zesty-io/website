@@ -5,8 +5,7 @@ import React from 'react';
 export const DocsTabs = React.memo(
   ({ setvalue = () => {}, value, tabs = [] }) => {
     const handleChange = (_, newValue) => {
-      console.log(newValue);
-      // setvalue(newValue);
+      setvalue(newValue);
     };
 
     const router = useRouter();
@@ -42,11 +41,6 @@ export const DocsTabs = React.memo(
                 />
               ),
           )}
-          {/* {tabs.map((e, i) => {
-            return (
-              <Tab key={i} color="secondary" label={e.label} value={e.value} />
-            );
-          })} */}
         </Tabs>
       </Stack>
     );

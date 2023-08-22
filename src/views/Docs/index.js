@@ -4,15 +4,12 @@ import dynamic from 'next/dynamic';
 import {
   Box,
   Container,
-  //InputAdornment,
   Stack,
-  //TextField,
   Typography,
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
-//import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from 'next/router';
 
 const FolderTreeView = dynamic(() =>
@@ -30,23 +27,9 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
   const [filteredData, setFilteredData] = useState();
   const title = router.asPath.split('/').filter((e) => e)[1];
 
-  // const filterData = (e) => {
-  //   const searchTerms = e.target.value;
-  //   const filtered = newTreeData.filter((item) => {
-  //     return (
-  //       item.name?.toLowerCase().includes(searchTerms.toLowerCase()) ||
-  //       item.description?.toLowerCase().includes(searchTerms.toLowerCase())
-  //     );
-  //   });
-
-  //   setFilteredData(filtered);
-  // };
-
   useEffect(() => {
     setFilteredData(newTreeData);
   }, [newTreeData]);
-
-  // console.log(newTreeData);
 
   return (
     <Stack
@@ -82,20 +65,6 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
           }{' '}
           API
         </Typography>
-        {/* <TextField
-          onChange={filterData}
-          size="small"
-          color="secondary"
-          placeholder="Search"
-          sx={{ my: 2 }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        /> */}
       </Box>
       <FolderTreeView data={filteredData || newTreeData} />
     </Stack>
