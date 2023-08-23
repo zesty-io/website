@@ -21,7 +21,6 @@ export const ZestyMarkdownParser = ({
 }) => {
   const docsComponents = {
     img: (props) => <MDImage {...props} floatRight={false} isDocs={true} />,
-    blockquote: MDBlockquote,
     h1: MDH1,
     h2: MDH2,
     h3: MDH3,
@@ -43,8 +42,6 @@ export const ZestyMarkdownParser = ({
     h2: MDH2,
     h3: MDH3,
     pre: MDCodeBlock,
-    // strong: MDStrong,
-    // em: MDItalic,
   };
   return (
     <ReactMarkdown
