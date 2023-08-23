@@ -232,30 +232,30 @@ exports[`MDH2 should render the MDH2 component with correct props and styling 1`
 `;
 
 exports[`MDH3 should render the MDH3 component with correct props 1`] = `
-<div
-  class="MuiBox-root css-0"
+<h3
+  class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
   data-testid="mdh3-container"
+  id="heading-3-text"
 >
-  <h3
-    class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
-    id="heading-3-text"
-  >
-    Heading 3 Text
-  </h3>
-</div>
+  Heading 3 Text
+</h3>
 `;
 
 exports[`MDImage should render MDSmallImage if node does not have title 1`] = `
 <div
-  class="MuiBox-root css-1qqw8bg"
+  class="MuiBox-root css-1ap5130"
   data-testid="md-small-image"
 >
-  <div>
-    <img
-      alt="Small Image"
-      src="image-small.jpg"
-      style="cursor: pointer; max-width: 100%; max-height: 100%;"
-    />
+  <div
+    class="css-o6cat4-MuiStack-root"
+  >
+    <div>
+      <img
+        alt="Small Image"
+        src="image-small.jpg"
+        style="cursor: pointer; max-width: 100%; max-height: 100%;"
+      />
+    </div>
   </div>
 </div>
 `;
