@@ -26,22 +26,24 @@ const Main = ({ title = 'no title', data = {} }) => {
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
   const isLoggedIn = useIsLoggedIn();
 
-  console.log(dropdownResponse, 8080);
   const { endpoint } = transFormEndpoint({
-    url: dropdownResponse?.originalRequest?.url || '',
+    url:
+      dropdownResponse?.originalRequest?.url?.raw ||
+      dropdownResponse?.originalRequest?.url ||
+      '',
     instanceZUID: workingInstance,
     isLoggedIn,
   });
 
-  const res = fetchTransformer(dropdownResponse, endpoint);
+  const request = fetchTransformer(dropdownResponse, endpoint);
 
-  const { request, response } = langTransformer({
+  const { _request, response } = langTransformer({
     data,
     lang: language,
     instanceZUID: workingInstance,
     token,
     isLoggedIn,
-    body: dropdownResponse['body'],
+    body: dropdownResponse,
   });
 
   const copyToClipboard = (text) => {
@@ -58,8 +60,8 @@ const Main = ({ title = 'no title', data = {} }) => {
 
   // initial value of dropdowns
   React.useEffect(() => {
-    if (Object.keys(dropdownResponse).length === 0) {
-      setdropdownResponse(options[0].data);
+    if (Object.keys(dropdownResponse || {}).length === 0) {
+      setdropdownResponse(options[0]?.data);
     }
   }, [dropdownResponse, options]);
 
@@ -67,9 +69,9 @@ const Main = ({ title = 'no title', data = {} }) => {
     if (currentTab === 'response') {
       setcodeBlockData(response);
     } else {
-      setcodeBlockData(res);
+      setcodeBlockData(request);
     }
-  }, [currentTab, language, res]);
+  }, [currentTab, language, request]);
 
   return (
     <Stack
@@ -137,7 +139,7 @@ const Main = ({ title = 'no title', data = {} }) => {
           style={coldarkDark}
           wrapLongLines={false}
           customStyle={{
-            fontSize: '13px',
+            fontSize: '8px',
             fontWeight: 400,
           }}
         >

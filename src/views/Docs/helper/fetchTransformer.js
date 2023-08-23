@@ -2,53 +2,75 @@ export const fetchTransformer = (data, endpoint) => {
   const body = data?.originalRequest?.body?.raw || '{}';
   const postRequest = `
 
- const fetchData =()=> {
+ const fetchData = async ()=> {
     const method = "POST";
     const url = ${endpoint}
     const body = ${body};
 
-    const headers = {
-        // Add any headers you need here
-    };
-
+    const headers: {
+          'Content-Type': 'application/json', 
+        },
     const requestOptions = {
         method,
         headers,
         body
     };
 
-    try {
-        const response = await fetch(url, requestOptions);
-        const data = await response.json();
-        console.log(data); // Handle the response data here
-    } catch (error) {
-        console.error(error); // Handle any errors here
-    }
+    const response = await fetch(url, requestOptions);
+    return  await response.json();
 }
-
 
 `;
 
   const getRequest = `
-
-const fetchData =()=> {
+  const fetchData = async () => {
     const url = ${endpoint}
-    
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {}
-        });
+    const method = 'GET';
 
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
-    }
-}
+    const response = await fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return await response.json();
+  };
 
 `;
+
+  const deleteRequest = `
+
+  const deleteLink = async () => {
+    const url = ${endpoint}
+    const method = 'DELETE';
+    await fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  };
+
+`;
+
+  const putRequest = `
+
+  const updateLink = async () => {
+    const url = ${endpoint}
+    const method = 'PUT';
+    const body = ${body}
+
+    await fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body,
+    });
+  };
+
+`;
+
   const method = data?.originalRequest?.method;
   switch (method) {
     case 'POST':
@@ -56,11 +78,11 @@ const fetchData =()=> {
     case 'GET':
       return getRequest;
     case 'PUT':
-      return getRequest;
+      return putRequest;
     case 'PATCH':
       return getRequest;
     case 'DELETE':
-      return getRequest;
+      return deleteRequest;
 
     default:
       return ``;

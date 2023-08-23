@@ -343,7 +343,7 @@ export const useRouterCheck = (route) => {
 };
 
 export const transFormEndpoint = ({
-  url,
+  url = '',
   instanceZUID = '',
   isLoggedIn = false,
   contentModelZUID = '',
@@ -357,27 +357,27 @@ export const transFormEndpoint = ({
     }
   };
   const res = url
-    .replaceAll('{{protocol}}', 'https')
-    .replaceAll('{{accounts_api_url}}', 'accounts.api.zesty.io')
-    .replaceAll('{{instances_api_url}}', 'instances.api.zesty.io')
-    .replaceAll('{{accounts_api_version}}', 'v1')
-    .replaceAll('{{instances_api_version}}', 'v1')
-    .replaceAll('{{api_version}}', 'v1')
-    .replaceAll(
+    ?.replaceAll('{{protocol}}', 'https')
+    ?.replaceAll('{{accounts_api_url}}', 'accounts.api.zesty.io')
+    ?.replaceAll('{{instances_api_url}}', 'instances.api.zesty.io')
+    ?.replaceAll('{{accounts_api_version}}', 'v1')
+    ?.replaceAll('{{instances_api_version}}', 'v1')
+    ?.replaceAll('{{api_version}}', 'v1')
+    ?.replaceAll(
       '{{instance_zuid}}',
       validateZuid(instanceZUID.startsWith('8-'))
         ? instanceZUID
         : '8-xxxxxxxxx',
     )
-    .replaceAll('{{user_zuid}}', appUserZuid)
-    .replaceAll('{{link_zuid}}', '7-xxxxxxxxxx')
-    .replaceAll(
+    ?.replaceAll('{{user_zuid}}', appUserZuid)
+    ?.replaceAll('{{link_zuid}}', '7-xxxxxxxxxx')
+    ?.replaceAll(
       '{{site_zuid}}',
       validateZuid(instanceZUID.startsWith('8-'))
         ? instanceZUID
         : '8-xxxxxxxxx',
     )
-    .replaceAll(
+    ?.replaceAll(
       '{{content_model_zuid}}',
       validateZuid(contentModelZUID.length !== 0 ? true : false)
         ? contentModelZUID

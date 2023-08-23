@@ -1,7 +1,6 @@
 import {
   Box,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
   Stack,
@@ -17,21 +16,27 @@ export default function BasicSelect({
   options = fallbackOptions,
   setValue = () => {},
 }) {
-  const [localValue, setlocalValue] = useState('');
+  const [localValue, setlocalValue] = useState(options[0]?.label);
   const handleChange = (event) => {
     setlocalValue(event.target.value);
   };
 
+  const selectStyles = {
+    background: 'transparent !important',
+    color: 'white',
+    width: '100%',
+  };
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ width: 240, alignItems: 'center' }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
         <Select
+          color="secondary"
+          size="small"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={localValue}
-          label="Age"
           onChange={handleChange}
+          style={selectStyles}
         >
           {options.map((e) => {
             return (
@@ -39,7 +44,6 @@ export default function BasicSelect({
                 value={e.value}
                 onClick={() => {
                   setValue(e.data);
-                  console.log(e, 5555555555);
                 }}
               >
                 {e.label}
@@ -70,6 +74,8 @@ export const DocsTabs = React.memo(
           marginBottom: 0,
           bgcolor: '',
           display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
         }}
       >
         <Stack>
@@ -100,10 +106,11 @@ export const DocsTabs = React.memo(
                   />
                 ),
             )}
-            <Stack bgcolor={'#fff'}>
-              <BasicSelect setValue={setDropdownResponse} options={options} />
-            </Stack>
           </Tabs>
+        </Stack>
+
+        <Stack>
+          <BasicSelect setValue={setDropdownResponse} options={options} />
         </Stack>
       </Stack>
     );

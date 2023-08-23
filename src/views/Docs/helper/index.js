@@ -63,7 +63,7 @@ export const langTransformer = ({
   };
   const rawEndpoint = data?.request?.url?.raw || data?.request?.url;
   const { endpoint } = transFormEndpoint({
-    url: rawEndpoint,
+    url: rawEndpoint || '{}',
     instanceZUID,
     isLoggedIn,
   });
