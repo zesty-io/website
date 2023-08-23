@@ -26,14 +26,15 @@ const Main = ({ title = 'no title', data = {} }) => {
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
   const isLoggedIn = useIsLoggedIn();
 
+  console.log(dropdownResponse, 8080);
   const { endpoint } = transFormEndpoint({
-    url: dropdownResponse?.url,
+    url: dropdownResponse?.originalRequest?.url || '',
     instanceZUID: workingInstance,
     isLoggedIn,
   });
+
   const res = fetchTransformer(dropdownResponse, endpoint);
 
-  console.log(res, 555);
   const { request, response } = langTransformer({
     data,
     lang: language,
@@ -51,13 +52,24 @@ const Main = ({ title = 'no title', data = {} }) => {
     }, 300);
   };
 
+  const options = data.response.map((e) => {
+    return { label: e.name, value: e.name, data: e };
+  });
+
+  // initial value of dropdowns
+  React.useEffect(() => {
+    if (Object.keys(dropdownResponse).length === 0) {
+      setdropdownResponse(options[0].data);
+    }
+  }, [dropdownResponse, options]);
+
   React.useEffect(() => {
     if (currentTab === 'response') {
       setcodeBlockData(response);
     } else {
       setcodeBlockData(res);
     }
-  }, [currentTab, language]);
+  }, [currentTab, language, res]);
 
   return (
     <Stack
@@ -79,11 +91,11 @@ const Main = ({ title = 'no title', data = {} }) => {
       </Stack>
       <Stack direction={'row'} px={1}>
         <DocsTabs
-          data={data}
           setvalue={setcurrentTab}
           value={currentTab}
           tabs={tabs}
           setDropdownResponse={setdropdownResponse}
+          options={options}
         />
       </Stack>
       <div

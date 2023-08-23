@@ -1,22 +1,11 @@
-const protocol = 'https';
-const instance_zuid = 'xxxxxxxxxxxxxxxxxxxxxxxxxx';
-const instances_api_url = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-const instances_api_version = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-
 export const fetchTransformer = (data, endpoint) => {
-  console.log(endpoint, 666);
+  const body = data?.originalRequest?.body?.raw || '{}';
   const postRequest = `
 
  const fetchData =()=> {
     const method = "POST";
     const url = ${endpoint}
-    const body = JSON.stringify({
-        type: "external",
-        parentZUID: "{{item_zuid}}",
-        label: "New External Link",
-        metaTitle: "New External Link",
-        target: "https://your.external.link"
-    });
+    const body = ${body};
 
     const headers = {
         // Add any headers you need here
@@ -40,11 +29,38 @@ export const fetchTransformer = (data, endpoint) => {
 
 `;
 
-  console.log(data, 44);
+  const getRequest = `
+
+const fetchData =()=> {
+    const url = ${endpoint}
+    
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {}
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+`;
   const method = data?.originalRequest?.method;
   switch (method) {
     case 'POST':
       return postRequest;
+    case 'GET':
+      return getRequest;
+    case 'PUT':
+      return getRequest;
+    case 'PATCH':
+      return getRequest;
+    case 'DELETE':
+      return getRequest;
 
     default:
       return ``;

@@ -53,13 +53,7 @@ export default function BasicSelect({
 }
 
 export const DocsTabs = React.memo(
-  ({
-    data = {},
-    setvalue = () => {},
-    value,
-    tabs = [],
-    setDropdownResponse,
-  }) => {
+  ({ setvalue = () => {}, value, tabs = [], setDropdownResponse, options }) => {
     const handleChange = (_, newValue) => {
       setvalue(newValue);
     };
@@ -68,9 +62,6 @@ export const DocsTabs = React.memo(
     const currentURL = router.asPath;
 
     const isTourTabVisible = currentURL.includes('/docs/parsley');
-    const options = data.response.map((e) => {
-      return { label: e.name, value: e.name, data: e };
-    });
     return (
       <Stack
         sx={{
