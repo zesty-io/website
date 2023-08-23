@@ -115,12 +115,24 @@ const ZestyDoc = (props) => {
     }
   }, [router.asPath]);
 
+  const inlineStyles = `
+  
+  blockquote {
+  background-color: #e7e7e7;
+  padding: 10px 20px;
+  border-left: 2px solid #ccc;
+  margin-bottom: 10px
+}
+  
+  
+  `;
   // redirecto to docs landing page if url = /docs/
   if (isDocsHomePage) {
     return <DocsHomePage algolia={algolia} />;
   }
   return (
     <Stack data-testid="docs-slug">
+      <style>{inlineStyles}</style>
       <Container
         sx={() => ({
           maxWidth: '1440px !important',
@@ -129,27 +141,6 @@ const ZestyDoc = (props) => {
       >
         {!isLoggedIn && <DocsAppbar />}
         {/* // headers */}
-        {/* <Stack
-          py={2}
-          direction={'row'}
-          width={1}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-          sx={{
-            display: { xs: '', md: 'flex' },
-          }}
-        >
-          <AppBar />
-
-          <SearchModal
-            sx={{
-              width: true ? 300 : 500,
-              display: { xs: 'none', md: 'block' },
-            }}
-          >
-            <AlgoSearch />
-          </SearchModal>
-        </Stack> */}
 
         {/* Navigation mobile */}
         <Stack
