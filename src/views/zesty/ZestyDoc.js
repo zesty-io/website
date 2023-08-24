@@ -120,10 +120,9 @@ const ZestyDoc = (props) => {
   blockquote {
   background-color: #e7e7e7;
   padding: 10px 20px;
-  border-left: 2px solid #ccc;
-  margin-bottom: 10px
+  border-left: 4px solid #ccc;
+  margin:0;
 }
-  
   
   `;
   // redirecto to docs landing page if url = /docs/
