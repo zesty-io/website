@@ -120,10 +120,9 @@ const ZestyDoc = (props) => {
   blockquote {
   background-color: #e7e7e7;
   padding: 10px 20px;
-  border-left: 2px solid #ccc;
-  margin-bottom: 10px
+  border-left: 4px solid #ccc;
+  margin:0;
 }
-  
   
   `;
   // redirecto to docs landing page if url = /docs/
@@ -188,9 +187,20 @@ const ZestyDoc = (props) => {
                 alignItems={'center'}
                 alignContent={'center'}
               >
-                <Stack width={1} textAlign={'left'}>
+                <Stack width={1} textAlign={'left'} pt={2}>
                   <Typography variant="h3" fontWeight={'bold'} id="overview">
                     {content?.title}
+                  </Typography>
+                </Stack>
+                <Stack width={1} textAlign={'left'} pb={4} pt={2}>
+                  <Typography
+                    variant="p"
+                    component={'p'}
+                    fontWeight={'400'}
+                    id="description"
+                    color={'gray'}
+                  >
+                    {content?.description}
                   </Typography>
                 </Stack>
                 <Stack width={1} height={1}>

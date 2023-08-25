@@ -9,6 +9,7 @@ export const MDH2 = ({ node }) => {
       data-testid="mdh2-container"
       sx={{ display: 'flex', alignItems: 'center' }}
       gap={0.5}
+      key={Math.random() * 10}
     >
       <Typography variant="h5" component={'h2'} id={id}>
         {node?.children[0]?.value}

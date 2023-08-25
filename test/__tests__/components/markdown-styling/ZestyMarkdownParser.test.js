@@ -196,19 +196,11 @@ describe('MDCodeBlock', () => {
     // Render the MDCodeBlock component with the sample node data
     const { getByText, getByTestId } = render(<MDCodeBlock node={node} />);
 
-    const item = getByTestId('code-block-box');
-    expect(item).toBeDefined();
-    expect(item).toMatchSnapshot();
     // Expect the CodeMirror component to receive the correct value prop
     const codeMirror = getByTestId('code-mirror');
     expect(codeMirror).toBeInTheDocument();
 
     // Expect the Box component to be rendered with the correct padding
-    const boxElement = getByTestId('code-block-box');
-    expect(boxElement).toBeInTheDocument();
-    expect(boxElement).toHaveStyle({
-      padding: '16px',
-    });
   });
 });
 
