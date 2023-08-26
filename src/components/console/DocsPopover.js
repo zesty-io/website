@@ -17,7 +17,6 @@ export function DocsPopover({ name, options, onSelect }) {
   };
 
   const handleSelect = (e) => {
-    console.log(e, 44444444444);
     handleClose();
   };
   const open = Boolean(anchorEl);

@@ -11,12 +11,13 @@ import { grey } from '@mui/material/colors';
 import { AccountsComboBox } from 'components/accounts';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { getCookie, setCookie } from 'cookies-next';
-import { DocSearch } from '@docsearch/react';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
 import { DocsComboBox } from 'views/Docs/DocsComboBox';
 import { DocsPopover } from 'views/Docs/DocsPopover';
+import { SearchModal } from 'views/Docs/SearchModal';
+import { AlgoSearch } from 'views/Docs/AlgoSearch';
 
 const tabs = [
   { label: 'API Reference', value: '/docs/parsley/api-reference/' },
@@ -124,12 +125,6 @@ export const DocsAppbar = React.memo(() => {
   const selectContentModel = (id) => {
     setcontentModel(id);
   };
-
-  // const handleTabs = (e) => {
-  //   alert(e);
-  //   setcurrentTab(e);
-  //   router.push(e);
-  // };
 
   const currentURL = router.asPath;
 
@@ -243,7 +238,7 @@ export const DocsAppbar = React.memo(() => {
               setvalue={setlanguage}
               items={[
                 { label: 'Javascript', value: 'Javascript' },
-                { label: 'Golang', value: 'Golang' },
+                // { label: 'Golang', value: 'Golang' },
               ]}
             />
           </Stack>
@@ -271,7 +266,9 @@ export const DocsAppbar = React.memo(() => {
             }
           />
         )}
-        <DocSearch appId={appId} indexName={index} apiKey={apiKey} />
+        <SearchModal sx={{ width: 200 }}>
+          <AlgoSearch />
+        </SearchModal>
       </Stack>
     </Stack>
   );
