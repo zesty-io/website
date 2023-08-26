@@ -4,12 +4,14 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { langTransformer } from './helper';
+import { v4 as uuidV4 } from 'uuid';
 import { DocsTabs } from './DocsTabs';
 import { useZestyStore } from 'store';
 import { getCookie } from 'cookies-next';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { fetchTransformer } from './helper/fetchTransformer';
 import { transFormEndpoint } from 'utils';
+import { useRouter } from 'next/router';
 
 const tabs = [
   { label: 'Request', value: 'request' },
@@ -19,6 +21,7 @@ const tabs = [
 const Main = ({ title = 'no title', data = {} }) => {
   const [dropdownResponse, setdropdownResponse] = useState({});
   const token = getCookie('APP_SID');
+  const router = useRouter();
   const { language, workingInstance } = useZestyStore((e) => e);
   const [codeBlockData, setcodeBlockData] = React.useState('');
   const [isCopied, setIsCopied] = React.useState(false);
@@ -63,7 +66,7 @@ const Main = ({ title = 'no title', data = {} }) => {
     if (Object.keys(dropdownResponse || {}).length === 0) {
       setdropdownResponse(options[0]?.data);
     }
-  }, [dropdownResponse, options]);
+  }, [dropdownResponse, options, router.asPath]);
 
   React.useEffect(() => {
     if (currentTab === 'response') {
@@ -134,6 +137,7 @@ const Main = ({ title = 'no title', data = {} }) => {
           )}
         </Stack>
         <SyntaxHighlighter
+          key={uuidV4()}
           showLineNumbers={true}
           language="javascript"
           style={coldarkDark}
