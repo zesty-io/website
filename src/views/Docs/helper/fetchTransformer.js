@@ -4,7 +4,7 @@ export const fetchTransformer = (data, endpoint) => {
 
  const fetchData = async ()=> {
     const method = "POST";
-    const url = ${endpoint}
+    const url = "${endpoint}"
     const body = ${body};
 
     const headers: {
@@ -24,7 +24,7 @@ export const fetchTransformer = (data, endpoint) => {
 
   const getRequest = `
   const fetchData = async () => {
-    const url = ${endpoint}
+    const url = "${endpoint}"
     const method = 'GET';
 
     const response = await fetch(url, {
@@ -41,7 +41,7 @@ export const fetchTransformer = (data, endpoint) => {
   const deleteRequest = `
 
   const deleteLink = async () => {
-    const url = ${endpoint}
+    const url = "${endpoint}"
     const method = 'DELETE';
     await fetch(url, {
       method,
@@ -56,7 +56,7 @@ export const fetchTransformer = (data, endpoint) => {
   const putRequest = `
 
   const updateLink = async () => {
-    const url = ${endpoint}
+    const url = "${endpoint}"
     const method = 'PUT';
     const body = ${body}
 

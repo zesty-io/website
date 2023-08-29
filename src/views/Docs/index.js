@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import {
   Box,
   Container,
+  Grid,
   Stack,
   Typography,
   useScrollTrigger,
@@ -112,12 +113,16 @@ const Main = ({ pageData = [], treeData }) => {
           paddingBottom: '0 !important',
         })}
       >
-        <Stack direction={'row'}>
+        <Grid container>
           {/* left navigation tree */}
-          <LeftNav {...leftNavProps} />
+          <Grid item xs={3}>
+            <LeftNav {...leftNavProps} />
+          </Grid>
           {/* main docs view page  */}
-          <DocsView data={pageData} />
-        </Stack>
+          <Grid item xs={9}>
+            <DocsView data={pageData} />
+          </Grid>
+        </Grid>
       </Container>
     </MainWrapper>
   );

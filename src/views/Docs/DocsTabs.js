@@ -27,7 +27,7 @@ export default function BasicSelect({
     width: '100%',
   };
   return (
-    <Box sx={{ width: 240, alignItems: 'center' }}>
+    <Box sx={{ width: 200, alignItems: 'center', mr: 2 }}>
       <FormControl fullWidth>
         <Select
           color="secondary"
@@ -37,6 +37,7 @@ export default function BasicSelect({
           value={localValue}
           onChange={handleChange}
           style={selectStyles}
+          variant="outlined"
         >
           {options.map((e) => {
             return (
