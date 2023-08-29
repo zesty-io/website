@@ -15,7 +15,7 @@ const style = {
   bgcolor: 'background.paper',
   boxShadow: 2,
   p: 2,
-  borderRadius: 4,
+  borderRadius: 2,
 };
 
 export const SearchModal = ({ children, sx }) => {

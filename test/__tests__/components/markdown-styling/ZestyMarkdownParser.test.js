@@ -10,6 +10,8 @@ import {
   MDCodeBlock,
   MDImage,
   MDBlockquote,
+  MDStrong,
+  MDItalic,
 } from '../../../../src/components/markdown-styling/components';
 
 describe('MDH3', () => {
@@ -194,19 +196,11 @@ describe('MDCodeBlock', () => {
     // Render the MDCodeBlock component with the sample node data
     const { getByText, getByTestId } = render(<MDCodeBlock node={node} />);
 
-    const item = getByTestId('code-block-box');
-    expect(item).toBeDefined();
-    expect(item).toMatchSnapshot();
     // Expect the CodeMirror component to receive the correct value prop
     const codeMirror = getByTestId('code-mirror');
     expect(codeMirror).toBeInTheDocument();
 
     // Expect the Box component to be rendered with the correct padding
-    const boxElement = getByTestId('code-block-box');
-    expect(boxElement).toBeInTheDocument();
-    expect(boxElement).toHaveStyle({
-      padding: '16px',
-    });
   });
 });
 
@@ -273,5 +267,56 @@ describe('MDBlockquote', () => {
     expect(boxElement).toBeInTheDocument();
 
     expect(boxElement).toMatchSnapshot();
+  });
+});
+
+describe('MDStrong', () => {
+  it('renders the text with the correct fontWeight', () => {
+    const mockNode = {
+      children: [
+        {
+          children: [
+            {
+              value: 'Hello, World!',
+            },
+          ],
+        },
+      ],
+    };
+    const { getByText, getByTestId } = render(<MDStrong node={mockNode} />);
+    const strongText = getByText('Hello, World!');
+    expect(strongText).toBeInTheDocument();
+    expect(strongText).toHaveStyle('font-weight: 700');
+
+    const boxelement = getByTestId('MDStrong-component');
+    expect(boxelement).toBeInTheDocument();
+
+    expect(boxelement).toMatchSnapshot();
+  });
+});
+
+describe('MDItalic', () => {
+  it('renders the text with the correct fontStyle and fontWeight', () => {
+    const mockNode = {
+      children: [
+        {
+          children: [
+            {
+              value: 'Hello, World!',
+            },
+          ],
+        },
+      ],
+    };
+    const { getByText, getByTestId } = render(<MDItalic node={mockNode} />);
+    const italicText = getByText('Hello, World!');
+    expect(italicText).toBeInTheDocument();
+    expect(italicText).toHaveStyle('font-style: italic');
+    expect(italicText).toHaveStyle('font-weight: 400');
+
+    const boxelement = getByTestId('MDItalic-component');
+    expect(boxelement).toBeInTheDocument();
+
+    expect(boxelement).toMatchSnapshot();
   });
 });

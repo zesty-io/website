@@ -2,7 +2,7 @@ import { transformText } from 'utils/product';
 import { Link, Typography, Box } from '@mui/material';
 
 export const MDH1 = ({ node }) => {
-  const id = transformText(node.children[0].value);
+  const id = transformText(node?.children[0]?.value);
 
   return (
     <Box
@@ -11,7 +11,7 @@ export const MDH1 = ({ node }) => {
       gap={0.5}
     >
       <Typography id={id} mt={2} fontWeight={800} variant="h4" component={'h1'}>
-        {node.children[0].value}
+        {node?.children[0]?.value}
       </Typography>
       <Link
         sx={{

@@ -129,6 +129,7 @@ const Main = ({ data }) => {
             <Typography
               sx={{ color: theme.palette.zesty.zestyZambezi }}
               variant="h5"
+              component={'h1'}
               fontWeight={'600'}
               id={name}
             >
@@ -162,7 +163,12 @@ const Main = ({ data }) => {
               >
                 <Stack direction={'row'} pb={2} alignItems="center">
                   {iconMethod(e.request.method)}
-                  <Typography sx={{ fontWeight: '600' }} variant="h6" id={name}>
+                  <Typography
+                    sx={{ fontWeight: '600' }}
+                    variant="h6"
+                    component={'h1'}
+                    id={name}
+                  >
                     {e?.name}
                   </Typography>
                   <Link href={`#${name}`}>
@@ -338,6 +344,7 @@ const Main = ({ data }) => {
           <Typography
             sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
             variant="h4"
+            component={'h1'}
             id={data.name}
           >
             {data.name}
