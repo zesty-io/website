@@ -141,26 +141,11 @@ export const transFormMainData = (mainCollection) => {
   mainCollection = mainCollection.map((e) => {
     return {
       ...e,
-      // parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
-      // url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
       parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
       url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
     };
   });
 
-  // const test2 = (data, parent = null, base = null) => { (data?.item || data)?.forEach((e) => {
-  //     if (e.request && e.name) {
-  //       return (e['testt'] = `${}${parent}/#${e.name}`);
-  //     } else if (e.item || e.name) {
-  //       e['testt'] = `${parent}${e.name}`;
-  //       return test2(e.item, e.name, data.name);
-  //     } else if (e.name) {
-  //     }
-  //   });
-  // };
-  // console.log(test2(mainCollection, null, null), 77777777);
-
-  // console.log(mainCollection, 7777);
   const newCollection = mainCollection?.map((e) => {
     const res = e.item.map((q) => {
       if (q.request) {
@@ -245,26 +230,11 @@ export const transFormMainDataMedia = (mainCollection) => {
   mainCollection = mainCollection.map((e) => {
     return {
       ...e,
-      // parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
-      // url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}`,
       parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
       url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
     };
   });
 
-  // const test2 = (data, parent = null, base = null) => { (data?.item || data)?.forEach((e) => {
-  //     if (e.request && e.name) {
-  //       return (e['testt'] = `${}${parent}/#${e.name}`);
-  //     } else if (e.item || e.name) {
-  //       e['testt'] = `${parent}${e.name}`;
-  //       return test2(e.item, e.name, data.name);
-  //     } else if (e.name) {
-  //     }
-  //   });
-  // };
-  // console.log(test2(mainCollection, null, null), 77777777);
-
-  // console.log(mainCollection, 7777);
   const newCollection = mainCollection?.map((e) => {
     const res = e.item.map((q) => {
       if (q.request) {
