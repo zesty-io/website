@@ -29,10 +29,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
           />
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
-          />
         </Head>
         <body>
           <Main />
