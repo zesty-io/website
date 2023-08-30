@@ -155,14 +155,19 @@ export const DocsAppbar = React.memo(() => {
         background: isDarkMode ? theme.palette.zesty.zestyDarkBlue : 'white',
       }}
     >
-      <Stack pt={1} direction="row" spacing={2}>
+      <Stack pt={1} direction={isMobile ? 'column' : 'row'} spacing={2}>
         <DocsComboBox
           value={selectedDocsCategory}
           width={320}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
-        {
+        <Stack
+          display={'flex'}
+          justifyContent={'center'}
+          justifyItems={'center'}
+          width={1}
+        >
           <Breadcrumbs
             sx={{
               display: 'flex',
@@ -177,8 +182,12 @@ export const DocsAppbar = React.memo(() => {
               {currentPath?.charAt(0).toUpperCase() + currentPath?.slice(1)}
             </Typography>
           </Breadcrumbs>
-        }
-        <Stack direction={'row'} bgcolor={'#fff'}>
+        </Stack>
+        <Stack
+          direction={'row'}
+          bgcolor={'#fff'}
+          display={isMobile ? 'none' : 'flex'}
+        >
           <Button
             variant="text"
             color="secondary"
@@ -261,9 +270,11 @@ export const DocsAppbar = React.memo(() => {
           />
         )}
 
-        <SearchModal sx={{ width: 200 }}>
-          <AlgoSearch />
-        </SearchModal>
+        {!isMobile && (
+          <SearchModal sx={{ width: 200 }}>
+            <AlgoSearch />
+          </SearchModal>
+        )}
       </Stack>
     </Stack>
   );
