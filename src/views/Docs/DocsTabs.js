@@ -110,9 +110,11 @@ export const DocsTabs = React.memo(
           </Tabs>
         </Stack>
 
-        <Stack>
-          <BasicSelect setValue={setDropdownResponse} options={options} />
-        </Stack>
+        {options?.length > 0 && (
+          <Stack>
+            <BasicSelect setValue={setDropdownResponse} options={options} />
+          </Stack>
+        )}
       </Stack>
     );
   },
