@@ -27,8 +27,10 @@ export default function BasicSelect({
     width: '100%',
   };
   useEffect(() => {
-    setlocalValue(options[0]?.label);
-  }, [options]);
+    if (!localValue) {
+      setlocalValue(options[0]?.label);
+    }
+  }, [options, localValue]);
 
   return (
     <Box sx={{ width: 200, alignItems: 'center', mr: 2 }}>
