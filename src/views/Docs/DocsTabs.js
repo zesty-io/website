@@ -8,7 +8,7 @@ import {
   Tabs,
 } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const fallbackOptions = [{ label: 'no data', value: 'no data' }];
 
@@ -26,6 +26,10 @@ export default function BasicSelect({
     color: 'white',
     width: '100%',
   };
+  useEffect(() => {
+    setlocalValue(options[0]?.label);
+  }, [options]);
+
   return (
     <Box sx={{ width: 200, alignItems: 'center', mr: 2 }}>
       <FormControl fullWidth>
