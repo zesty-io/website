@@ -29,6 +29,8 @@ const Main = ({ title = 'no title', data = {} }) => {
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
   const isLoggedIn = useIsLoggedIn();
 
+  const originalMethod = data.request.method;
+
   const { endpoint } = transFormEndpoint({
     url:
       dropdownResponse?.originalRequest?.url?.raw ||
@@ -38,7 +40,7 @@ const Main = ({ title = 'no title', data = {} }) => {
     isLoggedIn,
   });
 
-  let request = fetchTransformer(dropdownResponse, endpoint);
+  let request = fetchTransformer(dropdownResponse, endpoint, originalMethod);
 
   const { request: oldRequest, response } = langTransformer({
     data,
