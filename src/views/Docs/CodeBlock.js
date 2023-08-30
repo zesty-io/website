@@ -38,9 +38,9 @@ const Main = ({ title = 'no title', data = {} }) => {
     isLoggedIn,
   });
 
-  const request = fetchTransformer(dropdownResponse, endpoint);
+  let request = fetchTransformer(dropdownResponse, endpoint);
 
-  const { _request, response } = langTransformer({
+  const { request: oldRequest, response } = langTransformer({
     data,
     lang: language,
     instanceZUID: workingInstance,
@@ -49,6 +49,11 @@ const Main = ({ title = 'no title', data = {} }) => {
     body: dropdownResponse,
   });
 
+  // fallback request
+  // media api-reference has incomplete values
+  if (!request) {
+    request = oldRequest;
+  }
   const copyToClipboard = (text) => {
     navigator?.clipboard?.writeText(text);
     setIsCopied(true);

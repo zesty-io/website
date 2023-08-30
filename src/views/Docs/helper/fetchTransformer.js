@@ -80,7 +80,7 @@ export const fetchTransformer = (data, endpoint) => {
     case 'PUT':
       return putRequest;
     case 'PATCH':
-      return getRequest;
+      return putRequest;
     case 'DELETE':
       return deleteRequest;
 
