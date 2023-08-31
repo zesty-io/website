@@ -138,8 +138,9 @@ export const DocsAppbar = React.memo(() => {
   const isGuides = !isApiReference && !isTour;
 
   useEffect(() => {
-    setSelectedDocsCategory(docsCategory);
-  }, [docsCategory]);
+    const routeCategory = router.asPath.split('/').filter((e) => e)[1];
+    setSelectedDocsCategory(docsCategory || routeCategory);
+  }, [docsCategory, router.asPath]);
 
   return (
     <Stack
