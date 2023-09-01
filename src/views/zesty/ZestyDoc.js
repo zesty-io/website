@@ -102,6 +102,9 @@ const ZestyDoc = (props) => {
     appId: props.content.algolia.appId,
     index: props.content.algolia.index,
   };
+
+  const contentBody = content?.body?.replaceAll('Error hydrating', '');
+
   React.useEffect(() => {
     setalgoliaApiKey(algolia.apiKey);
     setalgoliaAppId(algolia.appId);
@@ -207,7 +210,7 @@ const ZestyDoc = (props) => {
                   {/* Component that render the markdown file */}
                   <ZestyMarkdownParser
                     isDocs={true}
-                    markdown={content.body}
+                    markdown={contentBody}
                     mainKeywords={mainKeywords}
                     productGlossary={productGlossary}
                   />
