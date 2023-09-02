@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+
+import { githubDarkInit } from '@uiw/codemirror-theme-github';
+import CodeMirror from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
+import { javascript } from '@codemirror/lang-javascript';
+
 import { Stack, Typography } from '@mui/material';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { langTransformer } from './helper';
 import { v4 as uuidV4 } from 'uuid';
 import { DocsTabs } from './DocsTabs';
@@ -13,6 +17,11 @@ import { fetchTransformer } from './helper/fetchTransformer';
 import { transFormEndpoint } from 'utils';
 import { useRouter } from 'next/router';
 
+const fontSize = EditorView.baseTheme({
+  '&': {
+    fontSize: '12px',
+  },
+});
 const tabs = [
   { label: 'Request', value: 'request' },
   { label: 'Response', value: 'response' },
@@ -40,9 +49,13 @@ const Main = ({ title = 'no title', data = {} }) => {
     isLoggedIn,
   });
 
-  let request = fetchTransformer(dropdownResponse, endpoint, originalMethod);
+  let { request, response } = fetchTransformer(
+    dropdownResponse,
+    endpoint,
+    originalMethod,
+  );
 
-  const { request: oldRequest, response } = langTransformer({
+  const { request: oldRequest, response: oldResponse } = langTransformer({
     data,
     lang: language,
     instanceZUID: workingInstance,
@@ -55,7 +68,9 @@ const Main = ({ title = 'no title', data = {} }) => {
   // media api-reference has incomplete values
   if (!request) {
     request = oldRequest;
+    response = oldResponse;
   }
+
   const copyToClipboard = (text) => {
     navigator?.clipboard?.writeText(text);
     setIsCopied(true);
@@ -110,8 +125,8 @@ const Main = ({ title = 'no title', data = {} }) => {
           options={options}
         />
       </Stack>
-      <div
-        style={{
+      <Stack
+        sx={{
           maxHeight: '40vh',
           position: 'relative',
           cursor: 'pointer',
@@ -126,8 +141,9 @@ const Main = ({ title = 'no title', data = {} }) => {
             cursor: 'pointer',
             color: '#fff',
             position: 'absolute',
-            top: '15px',
-            right: '10px',
+            top: 10,
+            right: 10,
+            zIndex: 999,
           }}
           onClick={() => {
             copyToClipboard(codeBlockData);
@@ -143,20 +159,28 @@ const Main = ({ title = 'no title', data = {} }) => {
             <ContentCopyIcon color="inherit" fontSize="medium" />
           )}
         </Stack>
-        <SyntaxHighlighter
-          key={uuidV4()}
-          showLineNumbers={true}
-          language="javascript"
-          style={coldarkDark}
-          wrapLongLines={false}
-          customStyle={{
-            fontSize: '8px',
-            fontWeight: 400,
-          }}
-        >
-          {codeBlockData}
-        </SyntaxHighlighter>
-      </div>
+
+        <CodeMirror
+          id={uuidV4()}
+          data-testid="code-mirror"
+          editable={false}
+          value={codeBlockData}
+          placeholder={'Click Run to view the response'}
+          extensions={[
+            fontSize,
+            javascript({ jsx: true }),
+            EditorView.lineWrapping,
+          ]}
+          onChange={() => {}}
+          style={{ width: '100%' }}
+          theme={githubDarkInit({
+            settings: {
+              caret: '#ff5c0c',
+              fontFamily: 'monospace',
+            },
+          })}
+        />
+      </Stack>
     </Stack>
   );
 };

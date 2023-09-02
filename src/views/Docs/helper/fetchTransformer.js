@@ -72,19 +72,26 @@ export const fetchTransformer = (data, endpoint, originalMethod) => {
 `;
 
   const method = data?.originalRequest?.method;
-  switch (method) {
-    case 'POST':
-      return postRequest;
-    case 'GET':
-      return getRequest;
-    case 'PUT':
-      return putRequest;
-    case 'PATCH':
-      return putRequest;
-    case 'DELETE':
-      return deleteRequest;
 
-    default:
-      return ``;
-  }
+  const generateRequest = (method) => {
+    switch (method) {
+      case 'POST':
+        return postRequest;
+      case 'GET':
+        return getRequest;
+      case 'PUT':
+        return putRequest;
+      case 'PATCH':
+        return putRequest;
+      case 'DELETE':
+        return deleteRequest;
+
+      default:
+        return ``;
+    }
+  };
+
+  const request = generateRequest(method);
+
+  return { request, response: data.body };
 };
