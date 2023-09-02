@@ -233,7 +233,7 @@ export const DocsAppbar = React.memo(() => {
         </Stack>
       </Stack>
       <Stack direction={'row'} spacing={2}>
-        {isApiReference && (
+        {isApiReference && !isMobile && (
           <Stack direction={'row'} spacing={1} alignItems="center">
             <Typography color={'black'}>Language:</Typography>{' '}
             <DocsPopover

@@ -143,6 +143,7 @@ export const transFormMainData = (mainCollection) => {
       ...e,
       parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
       url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
+      uri: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
     };
   });
 
@@ -153,12 +154,18 @@ export const transFormMainData = (mainCollection) => {
           ...q,
           parent: e.parent || e.name,
           url: e.parent + '/#' + q.name.replaceAll(' ', '-'),
+          uri: e.parent + '/#' + q.name.replaceAll(' ', '-'),
         };
       }
 
-      return { ...q, parent: e.parent || e.name, url: e.parent + q.name };
+      return {
+        ...q,
+        parent: e.parent || e.name,
+        url: e.parent + q.name,
+        uri: e.parent + q.name,
+      };
     });
-    return { ...e, item: res };
+    return { ...e, item: res, children: res };
   });
 
   const newColletion1 = newCollection.map((e) => {
@@ -169,13 +176,19 @@ export const transFormMainData = (mainCollection) => {
             ...w,
             parent: q.name,
             url: `${e.parent}${q.name}/#${w.name.replaceAll(' ', '-')}`,
+            uri: `${e.parent}${q.name}/#${w.name.replaceAll(' ', '-')}`,
           };
         }
-        return { ...w, parent: q.name, url: e.parent + w.name };
+        return {
+          ...w,
+          parent: q.name,
+          url: e.parent + w.name,
+          uri: e.parent + w.name,
+        };
       });
-      return { ...q, item: res2 };
+      return { ...q, item: res2, children: res2 };
     });
-    return { ...e, item: res };
+    return { ...e, item: res, children: res };
   });
 
   const result = newColletion1.map((e) => {
@@ -186,13 +199,14 @@ export const transFormMainData = (mainCollection) => {
             ...y,
             parent: w?.name,
             url: e.parent + `${w.name}/#${y.name.replaceAll(' ', '-')}`,
+            uri: e.parent + `${w.name}/#${y.name.replaceAll(' ', '-')}`,
           };
         });
-        return { ...w, item: res3 };
+        return { ...w, item: res3, children: res3 };
       });
-      return { ...q, item: res2 };
+      return { ...q, item: res2, children: res2 };
     });
-    return { ...e, item: res };
+    return { ...e, item: res, children: res };
   });
   return result;
 };
@@ -232,6 +246,7 @@ export const transFormMainDataMedia = (mainCollection) => {
       ...e,
       parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
       url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
+      uri: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
     };
   });
 
@@ -242,6 +257,7 @@ export const transFormMainDataMedia = (mainCollection) => {
           ...q,
           parent: e.parent || e.name,
           url: e.parent + '/#' + q.name.replaceAll(' ', '-')?.toLowerCase(),
+          uri: e.parent + '/#' + q.name.replaceAll(' ', '-')?.toLowerCase(),
         };
       }
 
@@ -249,9 +265,10 @@ export const transFormMainDataMedia = (mainCollection) => {
         ...q,
         parent: e.parent || e.name,
         url: e.parent + '/' + q?.name?.toLowerCase(),
+        uri: e.parent + '/' + q?.name?.toLowerCase(),
       };
     });
-    return { ...e, item: res };
+    return { ...e, item: res, children: res };
   });
 
   const newColletion1 = newCollection.map((e) => {
@@ -265,17 +282,22 @@ export const transFormMainDataMedia = (mainCollection) => {
               ' ',
               '-',
             )}`,
+            uri: `${e.parent}${q?.name?.toLowerCase()}/#${w.name.replaceAll(
+              ' ',
+              '-',
+            )}`,
           };
         }
         return {
           ...w,
           parent: q.name,
           url: e.parent + '/' + w?.name?.toLowerCase(),
+          uri: e.parent + '/' + w?.name?.toLowerCase(),
         };
       });
-      return { ...q, item: res2 };
+      return { ...q, item: res2, children: res2 };
     });
-    return { ...e, item: res };
+    return { ...e, item: res, children: res };
   });
 
   const result = newColletion1.map((e) => {
@@ -288,13 +310,16 @@ export const transFormMainDataMedia = (mainCollection) => {
             url:
               e.parent +
               `${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
+            uri:
+              e.parent +
+              `${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
           };
         });
-        return { ...w, item: res3 };
+        return { ...w, item: res3, children: res3 };
       });
-      return { ...q, item: res2 };
+      return { ...q, item: res2, children: res2 };
     });
-    return { ...e, item: res };
+    return { ...e, item: res, children: res };
   });
   return result;
 };

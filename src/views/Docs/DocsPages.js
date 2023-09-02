@@ -156,7 +156,7 @@ const Main = ({ data }) => {
             spacing={4}
             py={4}
           >
-            <Grid item xs={6} width={1}>
+            <Grid item xs={12} lg={6} width={1}>
               <Stack
                 sx={{ color: theme.palette.zesty.zestyZambezi }}
                 direction={'column'}
@@ -184,26 +184,6 @@ const Main = ({ data }) => {
                   {desc}
                 </ReactMarkdown>
               </Stack>
-
-              {!isLoggedIn && (
-                <WarningMsg>
-                  <Typography variant="button" color={'gray'}>
-                    Please{' '}
-                    <Link
-                      onClick={() => {
-                        sessionStorage.setItem(
-                          'prevUrl',
-                          window.location.pathname,
-                        );
-                      }}
-                      href="/login"
-                    >
-                      sign in
-                    </Link>{' '}
-                    to view your instance’s unique identifier
-                  </Typography>
-                </WarningMsg>
-              )}
 
               <Stack py={2}>
                 {!isLoggedIn && (
@@ -242,25 +222,7 @@ const Main = ({ data }) => {
                     {endpoint}
                   </CodeBlocks>
                 )}
-                {!isLoggedIn && (
-                  <WarningMsg>
-                    <Typography variant="button" color={'gray'}>
-                      Please{' '}
-                      <Link
-                        onClick={() => {
-                          sessionStorage.setItem(
-                            'prevUrl',
-                            window.location.pathname,
-                          );
-                        }}
-                        href="/login"
-                      >
-                        sign in
-                      </Link>{' '}
-                      to view your token
-                    </Typography>
-                  </WarningMsg>
-                )}
+
                 {!isLoggedIn && (
                   <WarningMsg>
                     <Typography variant="button" color={'gray'}>
@@ -324,7 +286,7 @@ const Main = ({ data }) => {
                 )}
               </Stack>
             </Grid>
-            <Grid item xs={6} width={1}>
+            <Grid item xs={0} lg={6} width={1}>
               {inView && <CodeBlock title={name} data={e} />}
             </Grid>
           </Grid>
