@@ -247,7 +247,7 @@ export const DocsAppbar = React.memo(() => {
           </Stack>
         )}
 
-        {isLoggedIn && contentModels?.length !== 0 && (
+        {isApiReference && isLoggedIn && contentModels?.length !== 0 && (
           <AccountsComboBox
             width={200}
             instances={contentModels}
@@ -259,7 +259,7 @@ export const DocsAppbar = React.memo(() => {
             }
           />
         )}
-        {isLoggedIn && (
+        {isApiReference && isLoggedIn && (
           <AccountsComboBox
             width={240}
             instances={instances.data}
