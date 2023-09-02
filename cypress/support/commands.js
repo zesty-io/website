@@ -55,9 +55,6 @@ Cypress.Commands.add('algoliaNavigate', () => {
           timeout: 30000,
         })
         .should('exist');
-      await cy
-        .get("[data-testid='zesty-docs-index']", { timeout: 30000 })
-        .should('exist');
 
       await cy
         .get("[data-testid='products-index']", { timeout: 30000 })

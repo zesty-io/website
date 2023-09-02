@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Stack } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useRouter } from 'next/router';
-function capitalize(s) {
-  return s && s[0]?.toUpperCase() + s.slice(1);
-}
 
-const Main = ({ options, onChange, width = 1 }) => {
+const capitalize = (str) => {
+  if (typeof str !== 'string') {
+    throw new Error('Input should be a string.');
+  }
+
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+const Main = ({ options, onChange, width = 1, value = '' }) => {
   const router = useRouter();
+  const route = router.asPath.split('/').filter((e) => e);
+
+  const [selectedValue, setSelectedValue] = useState();
   const handleChange = (_, newValue) => {
     onChange(newValue);
+    setSelectedValue(newValue);
   };
 
-  const res = router.asPath.split('/').filter((e) => e)[1];
   return (
     <Stack width={width}>
       <Autocomplete
@@ -23,14 +30,14 @@ const Main = ({ options, onChange, width = 1 }) => {
         id="combo-box-demo"
         options={options}
         sx={{ width: '100%' }}
-        // defaultValue={options[0]}
+        value={selectedValue}
         getOptionLabel={(option) => option.label}
         renderInput={(params) => (
           <TextField
             {...params}
+            placeholder={capitalize(route[1]) || capitalize(value)}
             color="secondary"
             size="small"
-            placeholder={capitalize(res) || 'Docs'}
             InputProps={{
               ...params.InputProps,
               startAdornment: <LanguageIcon color="disabled" sx={{ ml: 1 }} />,

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Docs } from 'views/Docs';
 import { useRouter } from 'next/router';
-import { transFormMainData } from 'views/Docs/helper';
+import { transFormMainDataMedia } from 'views/Docs/helper';
 import { useZestyStore } from 'store';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
-const VALID_URLS = ['/accounts', '/instances', '/authentication'];
+const VALID_URLS = ['/accounts', '/instances', '/authentication', '/media'];
 
 const initialTreeData = (url, data) => {
   const url1 = '/' + url.split('/').filter((e) => e)[0];
@@ -23,7 +23,7 @@ export default function Slug(props) {
   let url = router.asPath;
   url = url && url?.replace('/docs', '').replace(/\/$/, '');
   const mainCollection = props.docs.data;
-  const mainData = transFormMainData(mainCollection);
+  const mainData = transFormMainDataMedia(mainCollection);
   const [treeData, settreeData] = React.useState(mainData[2]);
   const parentUrl =
     '/' +

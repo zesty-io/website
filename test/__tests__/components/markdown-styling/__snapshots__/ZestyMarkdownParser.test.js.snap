@@ -11,166 +11,6 @@ exports[`MDBlockquote should render the MDBlockquote component with correct cont
 </div>
 `;
 
-exports[`MDCodeBlock should render the MDCodeBlock component with correct value and styles 1`] = `
-<div
-  class="MuiBox-root css-7ijbd5"
-  data-testid="code-block-box"
->
-  <div
-    class="cm-theme"
-    data-testid="code-mirror"
-    style="font-size: 18px; width: 100%;"
-  >
-    <div
-      class="cm-editor ͼ1 ͼ3 ͼ4 ͼ2j ͼ20"
-    >
-      <div
-        aria-live="polite"
-        style="position: fixed; top: -10000px;"
-      />
-      <div
-        class="cm-scroller"
-        tabindex="-1"
-      >
-        <div
-          aria-hidden="true"
-          class="cm-gutters"
-          style="min-height: 42px; position: sticky;"
-        >
-          <div
-            class="cm-gutter cm-lineNumbers"
-          >
-            <div
-              class="cm-gutterElement"
-              style="height: 0px; visibility: hidden; pointer-events: none;"
-            >
-              9
-            </div>
-            <div
-              class="cm-gutterElement cm-activeLineGutter"
-              style="height: 22.71698113207547px;"
-            >
-              1
-            </div>
-            <div
-              class="cm-gutterElement"
-              style="height: 19.81132075471698px;"
-            >
-              2
-            </div>
-          </div>
-          <div
-            class="cm-gutter cm-foldGutter"
-          >
-            <div
-              class="cm-gutterElement"
-              style="height: 0px; visibility: hidden; pointer-events: none;"
-            >
-              <span
-                title="Unfold line"
-              >
-                ›
-              </span>
-            </div>
-            <div
-              class="cm-gutterElement cm-activeLineGutter"
-              style="height: 22.71698113207547px;"
-            />
-          </div>
-        </div>
-        <div
-          aria-autocomplete="list"
-          aria-multiline="true"
-          autocapitalize="off"
-          autocorrect="off"
-          class="cm-content cm-lineWrapping"
-          contenteditable="false"
-          data-language="javascript"
-          role="textbox"
-          spellcheck="false"
-          style="tab-size: 4"
-          translate="no"
-        >
-          <div
-            class="cm-activeLine cm-line"
-          >
-            <span
-              class="ͼ25"
-            >
-              const
-            </span>
-             
-            <span
-              class="ͼ24"
-            >
-              greeting
-            </span>
-             
-            <span
-              class="ͼ24"
-            >
-              =
-            </span>
-             
-            <span
-              class="ͼ26"
-            >
-              'Hello, world!'
-            </span>
-            ;
-          </div>
-          <div
-            class="cm-line"
-          >
-            <span
-              class="ͼ24"
-            >
-              console
-            </span>
-            <span
-              class="ͼ24"
-            >
-              .
-            </span>
-            <span
-              class="ͼ23"
-            >
-              log
-            </span>
-            <span
-              class="ͼ22"
-            >
-              (
-            </span>
-            <span
-              class="ͼ24"
-            >
-              greeting
-            </span>
-            <span
-              class="ͼ22"
-            >
-              )
-            </span>
-            ;
-          </div>
-        </div>
-        <div
-          aria-hidden="true"
-          class="cm-layer cm-layer-above cm-cursorLayer"
-          style="z-index: 150; animation-duration: 1200ms;"
-        />
-        <div
-          aria-hidden="true"
-          class="cm-layer cm-selectionLayer"
-          style="z-index: -2;"
-        />
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`MDH1 should render the MDH1 component with correct props and styling 1`] = `
 <div
   class="MuiBox-root css-z6qf5z"
@@ -213,7 +53,7 @@ exports[`MDH1 should render the MDH1 component with correct props and styling 2`
 
 exports[`MDH2 should render the MDH2 component with correct props and styling 1`] = `
 <div
-  class="MuiBox-root css-z6qf5z"
+  class="MuiBox-root css-1ouodky"
   data-testid="mdh2-container"
 >
   <h2
@@ -232,31 +72,44 @@ exports[`MDH2 should render the MDH2 component with correct props and styling 1`
 `;
 
 exports[`MDH3 should render the MDH3 component with correct props 1`] = `
-<div
-  class="MuiBox-root css-0"
+<h3
+  class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
   data-testid="mdh3-container"
+  id="heading-3-text"
 >
-  <h3
-    class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
-    id="heading-3-text"
-  >
-    Heading 3 Text
-  </h3>
-</div>
+  Heading 3 Text
+</h3>
 `;
 
 exports[`MDImage should render MDSmallImage if node does not have title 1`] = `
 <div
-  class="MuiBox-root css-o3npue"
+  class="MuiBox-root css-1ap5130"
   data-testid="md-small-image"
 >
-  <div>
-    <img
-      alt="Small Image"
-      src="image-small.jpg"
-      style="cursor: pointer; max-width: 100%; max-height: 100%;"
-    />
+  <div
+    class="css-o6cat4-MuiStack-root"
+  >
+    <div>
+      <img
+        alt="Small Image"
+        src="image-small.jpg"
+        style="cursor: pointer; max-width: 100%; max-height: 100%;"
+      />
+    </div>
   </div>
+</div>
+`;
+
+exports[`MDItalic renders the text with the correct fontStyle and fontWeight 1`] = `
+<div
+  class="css-nen11g-MuiStack-root"
+  data-testid="MDItalic-component"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-c83ayk-MuiTypography-root"
+  >
+    Hello, World!
+  </p>
 </div>
 `;
 
@@ -266,4 +119,17 @@ exports[`MDParagraph should render the MDParagraph component with correct conten
 >
   By using URL parameters, businesses can craft dyna… possibilities for enhancing the user experience.
 </p>
+`;
+
+exports[`MDStrong renders the text with the correct fontWeight 1`] = `
+<div
+  class="css-nen11g-MuiStack-root"
+  data-testid="MDStrong-component"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-ndaqpv-MuiTypography-root"
+  >
+    Hello, World!
+  </p>
+</div>
 `;

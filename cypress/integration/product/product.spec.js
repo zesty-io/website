@@ -36,3 +36,20 @@ describe('E2E product page', () => {
       });
   });
 });
+
+describe('test for built in products pages in app', () => {
+  const urls = ['/product/auth-success'];
+
+  urls.forEach((url) => {
+    it(`should load URL: ${url} without encountering 404`, () => {
+      cy.request({
+        url: Cypress.config().baseUrl + url,
+        failOnStatusCode: false, // Prevent Cypress from failing the test on non-2xx status codes
+      }).then((response) => {
+        expect(response.status).to.not.equal(404); // Verify that the status code is not 404
+        expect(response.body).not.to.contain('404 Not Found'); // Verify that the page content does not contain the 404 message
+        cy.get('body').should('exist'); // Check if the body element exists, indicating the page loaded successfully
+      });
+    });
+  });
+});

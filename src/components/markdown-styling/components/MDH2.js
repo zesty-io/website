@@ -2,17 +2,40 @@ import { transformText } from 'utils/product';
 import { Link, Typography, Box } from '@mui/material';
 
 export const MDH2 = ({ node }) => {
-  const id = transformText(node.children[0].value);
+  const id = transformText(node?.children[0]?.value);
 
   return (
     <Box
       data-testid="mdh2-container"
-      sx={{ display: 'flex', alignItems: 'center' }}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        alignContent: 'center',
+      }}
       gap={0.5}
     >
-      <Typography variant="h5" component={'h2'} id={id}>
-        {node.children[0].value}
-      </Typography>
+      {node.children.map((e) => {
+        if (e.tagName === 'a') {
+          return (
+            <Link href={e.properties.href}>
+              <Typography
+                variant="h5"
+                component={'h2'}
+                id={id}
+                sx={{ color: 'blue' }}
+              >
+                {e.children[0].value}
+              </Typography>
+            </Link>
+          );
+        }
+        return (
+          <Typography variant="h5" component={'h2'} id={id}>
+            {e?.value}
+          </Typography>
+        );
+      })}
       <Link
         sx={{
           fontSize: 24,

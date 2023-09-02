@@ -1,5 +1,6 @@
 import {
   Breadcrumbs,
+  Button,
   Link,
   Stack,
   Typography,
@@ -11,12 +12,11 @@ import { AccountsComboBox } from 'components/accounts';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { DocsComboBox } from 'views/Docs/DocsComboBox';
 import { DocsPopover } from 'views/Docs/DocsPopover';
-import { DocsTabs } from 'views/Docs/DocsTabs';
 import { SearchModal } from 'views/Docs/SearchModal';
 
 const tabs = [
@@ -54,6 +54,8 @@ export const DocsAppbar = React.memo(() => {
     setcontentModels,
     contentModel,
     setcontentModel,
+    selectedDocsCategory,
+    setSelectedDocsCategory,
   } = useZestyStore((e) => ({
     instances: e.instances,
     setworkingInstance: e.setworkingInstance,
@@ -65,39 +67,46 @@ export const DocsAppbar = React.memo(() => {
     setcontentModels: e.setcontentModels,
     contentModel: e.contentModel,
     setcontentModel: e.setcontentModel,
+    selectedDocsCategory: e.selectedDocsCategory,
+    setSelectedDocsCategory: e.setSelectedDocsCategory,
   }));
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
-  const [currentTab, setcurrentTab] = React.useState(getInitialTab());
+  // const [currentTab, setcurrentTab] = React.useState(getInitialTab());
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isXl = useMediaQuery(theme.breakpoints.up('xl'));
 
   const onChangeDropdown = (data) => {
+    let category = data.label;
+    setCookie('docsCategory', category);
     window.scrollTo(0, 0);
     if (data?.value) {
-      router.push(`/docs` + data.value.parent);
+      window.location.pathname = data.value.parent;
     } else {
-      // fallback data when user click x
       router.push(`/docs` + '/instances/api-reference');
     }
   };
 
+  const docsCategory = getCookie('docsCategory');
   const DOCS_DATA_DROPDOWN = () => {
     const res = [
-      { label: 'Instances API', value: { parent: '/instances/api-reference' } },
+      { label: 'Getting Started', value: { parent: '/docs/getting-started' } },
+      { label: 'Webengine', value: { parent: '/docs/webengine' } },
+      { label: 'Instances', value: { parent: '/docs/instances' } },
       {
-        label: 'Authentication API',
-        value: { parent: '/authentication/api-reference' },
+        label: 'Authentication',
+        value: { parent: '/docs/authentication/' },
       },
-      { label: 'Accounts API', value: { parent: '/accounts/api-reference' } },
-      { label: 'Parsley Tour', value: { parent: '/parsley/tour/hello-world' } },
+      { label: 'Accounts', value: { parent: '/docs/accounts/' } },
+      { label: 'Parsley', value: { parent: '/docs/parsley/' } },
+      { label: 'Media', value: { parent: '/docs/media/' } },
+      {
+        label: 'Tools & Resources',
+        value: { parent: '/docs/tools-and-resources/' },
+      },
     ];
-    // const res = data.map((e) => {
-    //   return { label: e.info.name, value: e };
-    // });
-    // console.log(res, 4444);
     return res;
   };
   const selectInstance = async (instanceZUID) => {
@@ -109,10 +118,11 @@ export const DocsAppbar = React.memo(() => {
   const selectContentModel = (id) => {
     setcontentModel(id);
   };
-  const handleTabs = (e) => {
-    setcurrentTab(e);
-    router.push(e);
-  };
+
+  const currentURL = router.asPath;
+
+  const isTourTabVisible = currentURL.includes('/docs/parsley');
+
   React.useEffect(async () => {
     const res = await ZestyAPI.getModels(instanceZUID);
     if (res.status === 200) {
@@ -121,6 +131,16 @@ export const DocsAppbar = React.memo(() => {
       setcontentModels([]);
     }
   }, [workingInstance]);
+
+  const isDocs = router.asPath.includes('/docs');
+  const isApiReference = router.asPath.includes('api-reference');
+  const isTour = router.asPath.includes('/tour');
+  const isGuides = !isApiReference && !isTour;
+
+  useEffect(() => {
+    const routeCategory = router.asPath.split('/').filter((e) => e)[1];
+    setSelectedDocsCategory(docsCategory || routeCategory);
+  }, [docsCategory, router.asPath]);
 
   return (
     <Stack
@@ -136,13 +156,19 @@ export const DocsAppbar = React.memo(() => {
         background: isDarkMode ? theme.palette.zesty.zestyDarkBlue : 'white',
       }}
     >
-      <Stack pt={1} direction="row" spacing={2}>
+      <Stack pt={1} direction={isMobile ? 'column' : 'row'} spacing={2}>
         <DocsComboBox
-          width={'24.5rem'}
+          value={selectedDocsCategory}
+          width={320}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
-        {isXl && (
+        <Stack
+          display={'flex'}
+          justifyContent={'center'}
+          justifyItems={'center'}
+          width={1}
+        >
           <Breadcrumbs
             sx={{
               display: 'flex',
@@ -154,17 +180,60 @@ export const DocsAppbar = React.memo(() => {
               Docs
             </Link>
             <Typography color="GrayText">
-              {currentPath?.charAt(0).toUpperCase() +
-                currentPath?.slice(1) +
-                currentPath && ' API'}
+              {currentPath?.charAt(0).toUpperCase() + currentPath?.slice(1)}
             </Typography>
           </Breadcrumbs>
-        )}
-        <DocsTabs setvalue={handleTabs} value={currentTab} tabs={tabs} />
+        </Stack>
+        <Stack
+          direction={'row'}
+          bgcolor={'#fff'}
+          display={isMobile ? 'none' : 'flex'}
+        >
+          <Button
+            variant="text"
+            color="secondary"
+            href={`/docs/${selectedDocsCategory}`}
+            style={{
+              color: isGuides ? '#FF5D0A' : 'GrayText',
+              borderBottom: `2px solid ${isGuides ? '#FF5D0A' : 'transparent'}`,
+              borderRadius: '0',
+            }}
+          >
+            <Typography whiteSpace={'nowrap'}>Guides</Typography>
+          </Button>
+          <Button
+            fullWidth
+            variant="text"
+            color="secondary"
+            href={`/docs/${selectedDocsCategory}/api-reference`}
+            style={{
+              color: isApiReference ? '#FF5D0A' : 'GrayText',
+              borderBottom: `2px solid ${
+                isApiReference ? '#FF5D0A' : 'transparent'
+              }`,
+              borderRadius: '0',
+            }}
+          >
+            <Typography whiteSpace={'nowrap'}>API Reference</Typography>
+          </Button>
+          {isTourTabVisible && (
+            <Button
+              variant="text"
+              color="secondary"
+              href="/docs/parsley/tour/"
+              style={{
+                color: isTour ? '#FF5D0A' : 'GrayText',
+                borderBottom: `2px solid ${isTour ? '#FF5D0A' : 'transparent'}`,
+                borderRadius: '0',
+              }}
+            >
+              <Typography whiteSpace={'nowrap'}>Tour</Typography>
+            </Button>
+          )}
+        </Stack>
       </Stack>
-
       <Stack direction={'row'} spacing={2}>
-        {isXl && (
+        {isApiReference && (
           <Stack direction={'row'} spacing={1} alignItems="center">
             <Typography color={'black'}>Language:</Typography>{' '}
             <DocsPopover
@@ -202,9 +271,11 @@ export const DocsAppbar = React.memo(() => {
           />
         )}
 
-        <SearchModal sx={{ width: 200 }}>
-          <AlgoSearch />
-        </SearchModal>
+        {!isMobile && (
+          <SearchModal sx={{ width: 200 }}>
+            <AlgoSearch />
+          </SearchModal>
+        )}
       </Stack>
     </Stack>
   );

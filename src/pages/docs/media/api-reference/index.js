@@ -1,13 +1,13 @@
 import React from 'react';
 import { Docs } from 'views/Docs';
 import { useRouter } from 'next/router';
-import { transFormMainData } from 'views/Docs/helper';
+import { transFormMainDataMedia } from 'views/Docs/helper';
 import { useZestyStore } from 'store';
 import { ZestyAccountsHead } from 'components/globals/ZestyAccountsHead';
 
 export { default as getServerSideProps } from 'lib/accounts/protectedRouteGetServerSideProps';
 
-const VALID_URLS = ['/accounts', '/instances', '/authentication'];
+const VALID_URLS = ['/accounts', '/instances', '/authentication', '/media'];
 
 const initialTreeData = (url, data) => {
   const url1 = '/' + url.split('/').filter((e) => e)[0];
@@ -16,14 +16,14 @@ const initialTreeData = (url, data) => {
   }
 };
 
-export default function Slug(props) {
+export default function Index(props) {
   const router = useRouter();
   const { setalgoliaApiKey, setalgoliaAppId, setalgoliaIndex, setmainData } =
     useZestyStore((e) => e);
   let url = router.asPath;
   url = url && url?.replace('/docs', '').replace(/\/$/, '');
   const mainCollection = props.docs.data;
-  const mainData = transFormMainData(mainCollection);
+  const mainData = transFormMainDataMedia(mainCollection);
   const [treeData, settreeData] = React.useState(mainData[2]);
   const parentUrl =
     '/' +
@@ -90,11 +90,7 @@ export default function Slug(props) {
   };
 
   React.useEffect(() => {
-    if (!url) {
-      settreeData(mainData[0]);
-    } else {
-      settreeData(initialTreeData(parentUrl, mainData));
-    }
+    settreeData(mainData[3]);
   }, [url]);
 
   React.useEffect(() => {
