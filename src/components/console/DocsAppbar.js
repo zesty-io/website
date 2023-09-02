@@ -166,7 +166,7 @@ export const DocsAppbar = React.memo(() => {
       <Stack pt={1} direction={isMobile ? 'column' : 'row'} spacing={2}>
         <DocsComboBox
           value={selectedDocsCategory}
-          width={320}
+          width={400}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
@@ -178,8 +178,6 @@ export const DocsAppbar = React.memo(() => {
         >
           <Breadcrumbs
             sx={{
-              display: 'flex',
-              alignItems: 'center',
               width: '60%',
             }}
           >
@@ -187,7 +185,8 @@ export const DocsAppbar = React.memo(() => {
               Docs
             </Link>
             <Typography color="GrayText">
-              {currentPath?.charAt(0).toUpperCase() + currentPath?.slice(1)}
+              {currentPath?.charAt(0).toUpperCase() +
+                currentPath?.slice(1).replaceAll('-', ' ')}
             </Typography>
           </Breadcrumbs>
         </Stack>
