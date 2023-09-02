@@ -297,7 +297,7 @@ const Main = ({ data }) => {
       pt={2}
     >
       <Grid container pb={4}>
-        <Grid item xs={6}>
+        <Grid item xs={12} lg={6}>
           <Typography
             sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
             variant="h4"
