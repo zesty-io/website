@@ -92,6 +92,11 @@ export const fetchTransformer = (data, endpoint, originalMethod) => {
   };
 
   const request = generateRequest(method);
+  const response =
+    typeof data?.body !== 'string' ? JSON.stringify(data?.body) : data?.body;
 
-  return { request, response: JSON.stringify(data?.body) };
+  return {
+    request,
+    response,
+  };
 };
