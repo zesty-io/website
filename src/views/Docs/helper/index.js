@@ -6,6 +6,7 @@ export const langTransformer = ({
   instanceZUID = '',
   token = '',
   isLoggedIn = false,
+  body = {},
 }) => {
   const hasFormData = data?.request?.body?.mode === 'formdata' ? true : false;
   const hasToken = data?.request?.auth?.type === 'bearer' ? true : false;
@@ -62,7 +63,7 @@ export const langTransformer = ({
   };
   const rawEndpoint = data?.request?.url?.raw || data?.request?.url;
   const { endpoint } = transFormEndpoint({
-    url: rawEndpoint,
+    url: rawEndpoint || '{}',
     instanceZUID,
     isLoggedIn,
   });
@@ -225,7 +226,6 @@ export const makeTree = (data) => {
 
   return base.children;
 };
-
 export const transFormMainDataMedia = (mainCollection) => {
   mainCollection = mainCollection.map((e) => {
     return {

@@ -9,7 +9,6 @@ export const MDCodeBlock = ({ node }) => {
   return (
     <CodeMirror
       data-testid="code-mirror"
-      width="100%"
       editable={false}
       value={codeTxt}
       placeholder={'Click Run to view the response'}

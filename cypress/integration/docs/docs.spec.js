@@ -30,6 +30,8 @@ describe('test for built in docs pages in app', () => {
     '/docs/accounts/api-reference/',
     '/docs/instances/api-reference/',
     '/docs/authentication/api-reference/',
+    '/docs/media/api-reference/',
+    '/docs/accounts/api-reference/instances/domains/',
   ];
 
   urls.forEach((url) => {

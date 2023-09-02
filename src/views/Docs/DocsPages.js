@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Grid, Link, Stack, Typography, useTheme } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import MuiMarkdown from 'markdown-to-jsx';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -136,12 +135,9 @@ const Main = ({ data }) => {
               {e?.name}
             </Typography>
             <Box sx={{ color: theme.palette.zesty.zestyZambezi }}>
-              <MuiMarkdown
-                // inlineCodeColor="dodgerblue"
-                overrides={muiContentOverrides}
-              >
+              <ReactMarkdown overrides={muiContentOverrides}>
                 {e?.description || ''}
-              </MuiMarkdown>
+              </ReactMarkdown>
             </Box>
             <b>{<DocsPages data={e.item} />}</b>
           </Stack>
@@ -185,26 +181,6 @@ const Main = ({ data }) => {
                 </ReactMarkdown>
               </Stack>
 
-              {!isLoggedIn && (
-                <WarningMsg>
-                  <Typography variant="button" color={'gray'}>
-                    Please{' '}
-                    <Link
-                      onClick={() => {
-                        sessionStorage.setItem(
-                          'prevUrl',
-                          window.location.pathname,
-                        );
-                      }}
-                      href="/login"
-                    >
-                      sign in
-                    </Link>{' '}
-                    to view your instance’s unique identifier
-                  </Typography>
-                </WarningMsg>
-              )}
-
               <Stack py={2}>
                 {!isLoggedIn && (
                   <WarningMsg>
@@ -241,25 +217,6 @@ const Main = ({ data }) => {
                   >
                     {endpoint}
                   </CodeBlocks>
-                )}
-                {!isLoggedIn && (
-                  <WarningMsg>
-                    <Typography variant="button" color={'gray'}>
-                      Please{' '}
-                      <Link
-                        onClick={() => {
-                          sessionStorage.setItem(
-                            'prevUrl',
-                            window.location.pathname,
-                          );
-                        }}
-                        href="/login"
-                      >
-                        sign in
-                      </Link>{' '}
-                      to view your token
-                    </Typography>
-                  </WarningMsg>
                 )}
                 {!isLoggedIn && (
                   <WarningMsg>
