@@ -152,7 +152,7 @@ const Main = ({ data }) => {
             spacing={4}
             py={4}
           >
-            <Grid item xs={6} width={1}>
+            <Grid item xs={12} lg={6} width={1}>
               <Stack
                 sx={{ color: theme.palette.zesty.zestyZambezi }}
                 direction={'column'}
@@ -281,7 +281,7 @@ const Main = ({ data }) => {
                 )}
               </Stack>
             </Grid>
-            <Grid item xs={6} width={1}>
+            <Grid item xs={0} lg={6} width={1}>
               {inView && <CodeBlock title={name} data={e} />}
             </Grid>
           </Grid>

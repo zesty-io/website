@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { useRouter } from 'next/router';
+import { TreeNavigation } from 'components/globals/TreeNavigation';
 
 const FolderTreeView = dynamic(() =>
   import('./FolderTreeView').then((mod) => mod.FolderTreeView),
@@ -114,12 +115,12 @@ const Main = ({ pageData = [], treeData }) => {
         })}
       >
         <Grid container>
-          {/* left navigation tree */}
-          <Grid item xs={3}>
-            <LeftNav {...leftNavProps} />
+          <Grid item xs={0} lg={2.5}>
+            {/* left navigation tree */}
+            <TreeNavigation data={treeData?.item} />
           </Grid>
-          {/* main docs view page  */}
-          <Grid item xs={9}>
+          <Grid item xs={12} lg={9.5}>
+            {/* main docs view page  */}
             <DocsView data={pageData} />
           </Grid>
         </Grid>

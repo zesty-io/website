@@ -6,7 +6,22 @@ import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { Typography, useTheme } from '@mui/material';
 
+const slashedDocsChecker = (href, isDocs = false) => {
+  if (isDocs) {
+    if (href.includes('/docs')) {
+      return href;
+    } else {
+      return `/docs/${href}`;
+    }
+  }
+
+  return href;
+};
+
 const GetTree = ({ data = [] }) => {
+  const router = useRouter();
+  const isDocs = router.asPath.includes('/docs/');
+
   return data.map((e) => {
     if (e?.children?.length !== 0 && Array.isArray(e?.children)) {
       return (
@@ -18,7 +33,7 @@ const GetTree = ({ data = [] }) => {
           }}
           label={
             <NextLink
-              href={e.uri}
+              href={slashedDocsChecker(e.uri, isDocs)}
               variant="p"
               color={'inherit'}
               sx={{
@@ -26,7 +41,7 @@ const GetTree = ({ data = [] }) => {
               }}
             >
               <Typography variant="body1" py={0.5} title={e.title}>
-                {e.title}
+                {e.title || e.name}
               </Typography>
             </NextLink>
           }
@@ -44,7 +59,7 @@ const GetTree = ({ data = [] }) => {
           }}
           label={
             <NextLink
-              href={e.uri}
+              href={slashedDocsChecker(e.uri, isDocs)}
               variant="p"
               color={'inherit'}
               sx={{
@@ -53,7 +68,7 @@ const GetTree = ({ data = [] }) => {
               }}
             >
               <Typography variant="body1" py={0.5} title={e.title}>
-                {e.title}
+                {e.title || e.name}
               </Typography>
             </NextLink>
           }
