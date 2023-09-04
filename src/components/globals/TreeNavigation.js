@@ -20,7 +20,7 @@ const slashedDocsChecker = (href, isDocs = false) => {
 
 const GetTree = ({ data = [] }) => {
   const router = useRouter();
-  const isDocs = router.asPath.includes('/docs/');
+  const isDocs = router?.asPath?.includes('/docs/');
 
   return data.map((e) => {
     if (e?.children?.length !== 0 && Array.isArray(e?.children)) {
