@@ -276,9 +276,11 @@ export const DocsAppbar = React.memo(() => {
             }
           />
         )}
-        <SearchModal sx={{ width: 200 }}>
-          <AlgoSearch />
-        </SearchModal>
+        {!isMobile && (
+          <SearchModal sx={{ width: 200 }}>
+            <AlgoSearch />
+          </SearchModal>
+        )}
       </Stack>
     </Stack>
   );
