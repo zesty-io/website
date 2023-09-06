@@ -15,7 +15,7 @@ exports[`TableOfContent test toc test 1`] = `
   >
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ftk0rp-MuiTypography-root-MuiLink-root"
-      href="#overview"
+      href="#"
     >
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
