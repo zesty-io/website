@@ -1,10 +1,15 @@
 import { Link, Stack, Typography, useTheme } from '@mui/material';
 import React, { memo, useEffect, useState } from 'react';
 
-const Main = ({ data }) => {
-  const overview = { label: 'Overview', name: 'Overview', href: '#overview' };
+const Main = ({ data, title = '' }) => {
+  const overview = {
+    label: title,
+    name: title,
+    href: `#${title}`,
+    originalName: title,
+  };
   const newData = [overview, ...data];
-  const [currentHash, setcurrentHash] = useState('#overview');
+  const [currentHash, setcurrentHash] = useState(`#${title}`);
   const handleHashChange = () => {
     setcurrentHash(window.location.hash);
   };

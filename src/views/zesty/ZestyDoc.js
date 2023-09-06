@@ -137,8 +137,8 @@ const ZestyDoc = (props) => {
       <style>{inlineStyles}</style>
       <Container
         sx={() => ({
-          maxWidth: '1440px !important',
-          paddingBottom: '0 !important',
+          // maxWidth: '1440px !important',
+          // paddingBottom: '0 !important',
         })}
       >
         {!isLoggedIn && <DocsAppbar />}
@@ -194,7 +194,11 @@ const ZestyDoc = (props) => {
                 }}
               >
                 <Stack width={1} textAlign={'left'} pt={2}>
-                  <Typography variant="h3" fontWeight={'bold'} id="overview">
+                  <Typography
+                    variant="h3"
+                    fontWeight={'bold'}
+                    id={content?.title}
+                  >
                     {content?.title}
                   </Typography>
                 </Stack>
@@ -229,7 +233,7 @@ const ZestyDoc = (props) => {
                   display: { xs: 'none', md: 'block' },
                 }}
               >
-                <TableOfContent data={navData} />
+                <TableOfContent data={navData} title={content?.title} />
                 {!isLoggedIn && (
                   <Stack
                     sx={{
