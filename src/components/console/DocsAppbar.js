@@ -266,19 +266,22 @@ export const DocsAppbar = React.memo(() => {
           </Stack>
         )}
 
-        {isApiReference && isLoggedIn && contentModels?.length !== 0 && (
-          <AccountsComboBox
-            width={200}
-            instances={contentModels}
-            setCookies={selectContentModel}
-            instanceZUID={contentModel}
-            placeholder={
-              contentModels?.find((e) => e.ZUID === instanceZUID)?.name ||
-              'Select Content Model'
-            }
-          />
-        )}
-        {isApiReference && isLoggedIn && (
+        {!isMobile &&
+          isApiReference &&
+          isLoggedIn &&
+          contentModels?.length !== 0 && (
+            <AccountsComboBox
+              width={200}
+              instances={contentModels}
+              setCookies={selectContentModel}
+              instanceZUID={contentModel}
+              placeholder={
+                contentModels?.find((e) => e.ZUID === instanceZUID)?.name ||
+                'Select Content Model'
+              }
+            />
+          )}
+        {!isMobile && isApiReference && isLoggedIn && (
           <AccountsComboBox
             width={240}
             instances={instances.data}

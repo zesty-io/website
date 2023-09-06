@@ -189,6 +189,9 @@ const ZestyDoc = (props) => {
                 justifyItems={'center'}
                 alignItems={'center'}
                 alignContent={'center'}
+                sx={{
+                  px: { xs: 2, md: 0 },
+                }}
               >
                 <Stack width={1} textAlign={'left'} pt={2}>
                   <Typography variant="h3" fontWeight={'bold'} id="overview">
