@@ -19,6 +19,13 @@ import { DocsPopover } from 'views/Docs/DocsPopover';
 import { SearchModal } from 'views/Docs/SearchModal';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
 
+const allowedSections = [
+  'docs/media',
+  'docs/instances',
+  'docs/authentication',
+  'docs/accounts',
+];
+
 const tabs = [
   { label: 'API Reference', value: '/docs/parsley/api-reference/' },
   { label: 'Tour', value: '/docs/parsley/tour/' },
@@ -141,6 +148,10 @@ export const DocsAppbar = React.memo(() => {
 
   const isDocs = router.asPath.includes('/docs');
   const isApiReference = router.asPath.includes('api-reference');
+  const showApiReferenceBtn = allowedSections.some((path) =>
+    router.asPath.includes(path),
+  );
+
   const isTour = router.asPath.includes('/tour');
   const isGuides = !isApiReference && !isTour;
 
@@ -208,11 +219,13 @@ export const DocsAppbar = React.memo(() => {
             <Typography whiteSpace={'nowrap'}>Guides</Typography>
           </Button>
           <Button
+            data-testid="api-reference-link"
             fullWidth
             variant="text"
             color="secondary"
             href={`/docs/${selectedDocsCategory}/api-reference`}
             style={{
+              display: showApiReferenceBtn ? 'block' : 'none',
               color: isApiReference ? '#FF5D0A' : 'GrayText',
               borderBottom: `2px solid ${
                 isApiReference ? '#FF5D0A' : 'transparent'
