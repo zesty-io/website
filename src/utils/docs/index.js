@@ -92,6 +92,7 @@ export const parseMarkdownFile = ({
       name: e.label.replace(/\\/g, '/').replaceAll('/', ''),
       url: `${parentURL}#${e.value}`,
       href: `#${transformText(e.label)}`,
+      originalName: e.label,
     };
   });
   const newPageData = appendImageStyle(newMarkdown.join(''));
@@ -110,77 +111,6 @@ function appendImageStyle(string) {
   });
   return result;
 }
-
-// export const parseMarkdownFile = ({
-//   markdown,
-//   tags = ['h2'],
-//   parentURL,
-//   title,
-//   isDocsPage = true,
-// }) => {
-//   const md = new MarkdownIt();
-//   const newMarkdown = [];
-//   const collection = [];
-
-//   const tokens = md.parse(markdown);
-
-//   let headingText;
-//   for (let i = 0; i < tokens.length; i++) {
-//     const checkTags = tags.find((e) => e === tokens[i].tag);
-//     // remove description
-//     const findDesc =
-//       tokens[i].content.includes('description') && isDocsPage ? true : false;
-//     if (findDesc) {
-//       continue;
-//     }
-
-//     if (tokens[i].type === 'heading_open' && checkTags) {
-//       headingText = tokens[i + 1]?.content?.trim();
-//       // remove description
-//       if (headingText.includes('description') && isDocsPage) {
-//         continue;
-//       }
-
-//       const id = headingText
-//         ?.replace(/[^\w\s]/gi, '')
-//         ?.replace(/\s+/g, '-')
-//         ?.toLowerCase();
-
-//       newMarkdown.push(
-//         `<${tokens[i].tag} id="${id}" style="color:#3B454E" >${headingText} <a href="#${id}" className="heading-link">#</a></${tokens[i].tag}>`,
-//       );
-
-//       collection.push({
-//         value: id,
-//         label: headingText,
-//       });
-//     } else {
-//       // remove redundant h2
-//       const res = collection.find((e) => e.label === tokens[i].content);
-//       if (tokens[i].content === title) {
-//         newMarkdown.push(`<h1 style="color:#3B454E">${tokens[i].content}</h1>`);
-//       } else if (tokens[i].content !== headingText && !res) {
-//         let renderedToken = md.renderer.render([tokens[i]], md.options, {});
-//         for (let i = 0; i < tags.length; i++) {
-//           renderedToken = renderedToken.replaceAll(`</${tags[i]}>`, '');
-//         }
-//         const res = renderedToken.replaceAll('<hr>', '');
-//         newMarkdown.push(res);
-//       }
-//     }
-//   }
-
-//   const newNavData = collection.map((e) => {
-//     return {
-//       ...e,
-//       label: e.label.replace(/\\/g, '/').replaceAll('/', ''),
-//       name: e.label.replace(/\\/g, '/').replaceAll('/', ''),
-//       url: `${parentURL}#${e.value}`,
-//       href: `${parentURL}#${e.value}`,
-//     };
-//   });
-//   return { pageData: newMarkdown.join(''), navData: newNavData };
-// };
 
 export const PARSLEY_EXAMPLE_DATA = `<!-- access in the example_page template -->
 {{this.title}}

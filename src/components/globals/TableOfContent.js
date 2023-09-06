@@ -48,7 +48,6 @@ const Main = ({ data }) => {
                   color: '#333333',
                   textDecoration: 'underline #333333',
                   borderLeft: `3px solid ${theme?.palette?.zesty?.zestyOrange}`,
-                  // bgcolor: '#F2F2F2',
                 },
               }}
             >
@@ -57,7 +56,7 @@ const Main = ({ data }) => {
                 whiteSpace={'normal'}
                 data-testid="link-name"
               >
-                {e.name}
+                {e.originalName}
               </Typography>
             </Link>
           );
