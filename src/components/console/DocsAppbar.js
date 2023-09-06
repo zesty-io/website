@@ -177,7 +177,7 @@ export const DocsAppbar = React.memo(() => {
       <Stack pt={1} direction={isMobile ? 'column' : 'row'} spacing={2}>
         <DocsComboBox
           value={selectedDocsCategory}
-          width={400}
+          width={isMobile ? 330 : 400}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
