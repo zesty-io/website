@@ -148,7 +148,7 @@ export const transFormMainData = (mainCollection) => {
     };
   });
 
-  const newCollection = mainCollection?.map((e) => {
+  const tier1 = mainCollection?.map((e) => {
     const res = e.item.map((q) => {
       if (q.request) {
         return {
@@ -169,7 +169,7 @@ export const transFormMainData = (mainCollection) => {
     return { ...e, item: res, children: res };
   });
 
-  const newColletion1 = newCollection.map((e) => {
+  const tier2 = tier1.map((e) => {
     const res = e.item.map((q) => {
       const res2 = q?.item?.map((w) => {
         if (w.request) {
@@ -192,7 +192,7 @@ export const transFormMainData = (mainCollection) => {
     return { ...e, item: res, children: res };
   });
 
-  const result = newColletion1.map((e) => {
+  const finalData = tier2.map((e) => {
     const res = e.item.map((q) => {
       const res2 = q?.item?.map((w) => {
         const res3 = w?.item?.map((y) => {
@@ -209,7 +209,7 @@ export const transFormMainData = (mainCollection) => {
     });
     return { ...e, item: res, children: res };
   });
-  return result;
+  return finalData;
 };
 
 export const makeTree = (data) => {
@@ -250,7 +250,7 @@ export const transFormMainDataMedia = (mainCollection) => {
     };
   });
 
-  const newCollection = mainCollection?.map((e) => {
+  const tier1 = mainCollection?.map((e) => {
     const res = e.item.map((q) => {
       if (q.request) {
         return {
@@ -271,7 +271,7 @@ export const transFormMainDataMedia = (mainCollection) => {
     return { ...e, item: res, children: res };
   });
 
-  const newColletion1 = newCollection.map((e) => {
+  const tier2 = tier1.map((e) => {
     const res = e.item.map((q) => {
       const res2 = q?.item?.map((w) => {
         if (w.request) {
@@ -300,7 +300,7 @@ export const transFormMainDataMedia = (mainCollection) => {
     return { ...e, item: res, children: res };
   });
 
-  const result = newColletion1.map((e) => {
+  const finalData = tier2.map((e) => {
     const res = e.item.map((q) => {
       const res2 = q?.item?.map((w) => {
         const res3 = w?.item?.map((y) => {
@@ -321,5 +321,5 @@ export const transFormMainDataMedia = (mainCollection) => {
     });
     return { ...e, item: res, children: res };
   });
-  return result;
+  return finalData;
 };
