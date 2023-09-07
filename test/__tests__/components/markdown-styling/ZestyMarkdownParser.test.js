@@ -14,6 +14,7 @@ import {
   MDItalic,
 } from '../../../../src/components/markdown-styling/components';
 
+jest.mock('uuid', () => ({ v4: () => '123456789' }));
 describe('MDH3', () => {
   it('should render the MDH3 component with correct props', () => {
     // Sample node data for testing

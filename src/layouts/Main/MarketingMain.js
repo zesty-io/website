@@ -128,6 +128,7 @@ const MarketingMain = ({
           data-testid="mainNav"
           position={isDiscover ? 'sticky' : hideNav ? 'fixed' : 'sticky'}
           sx={{
+            zIndex: 10,
             outline: 'none',
             border: 'none',
             boxShadow: hideNav ? '' : '',

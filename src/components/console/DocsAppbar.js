@@ -14,10 +14,17 @@ import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useZestyStore } from 'store';
-import { AlgoSearch } from 'views/Docs/AlgoSearch';
 import { DocsComboBox } from 'views/Docs/DocsComboBox';
 import { DocsPopover } from 'views/Docs/DocsPopover';
 import { SearchModal } from 'views/Docs/SearchModal';
+import { AlgoSearch } from 'views/Docs/AlgoSearch';
+
+const allowedSections = [
+  'docs/media',
+  'docs/instances',
+  'docs/authentication',
+  'docs/accounts',
+];
 
 const tabs = [
   { label: 'API Reference', value: '/docs/parsley/api-reference/' },
@@ -70,6 +77,13 @@ export const DocsAppbar = React.memo(() => {
     selectedDocsCategory: e.selectedDocsCategory,
     setSelectedDocsCategory: e.setSelectedDocsCategory,
   }));
+
+  const {
+    algoliaApiKey: apiKey,
+    algoliaAppId: appId,
+    algoliaIndex: index,
+  } = useZestyStore((e) => e);
+
   const isLoggedIn = useIsLoggedIn();
   const instanceZUID = getCookie('ZESTY_WORKING_INSTANCE') || workingInstance;
   // const [currentTab, setcurrentTab] = React.useState(getInitialTab());
@@ -134,6 +148,10 @@ export const DocsAppbar = React.memo(() => {
 
   const isDocs = router.asPath.includes('/docs');
   const isApiReference = router.asPath.includes('api-reference');
+  const showApiReferenceBtn = allowedSections.some((path) =>
+    router.asPath.includes(path),
+  );
+
   const isTour = router.asPath.includes('/tour');
   const isGuides = !isApiReference && !isTour;
 
@@ -159,7 +177,7 @@ export const DocsAppbar = React.memo(() => {
       <Stack pt={1} direction={isMobile ? 'column' : 'row'} spacing={2}>
         <DocsComboBox
           value={selectedDocsCategory}
-          width={320}
+          width={isMobile ? 330 : 400}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
         />
@@ -171,8 +189,6 @@ export const DocsAppbar = React.memo(() => {
         >
           <Breadcrumbs
             sx={{
-              display: 'flex',
-              alignItems: 'center',
               width: '60%',
             }}
           >
@@ -180,7 +196,8 @@ export const DocsAppbar = React.memo(() => {
               Docs
             </Link>
             <Typography color="GrayText">
-              {currentPath?.charAt(0).toUpperCase() + currentPath?.slice(1)}
+              {currentPath?.charAt(0).toUpperCase() +
+                currentPath?.slice(1).replaceAll('-', ' ')}
             </Typography>
           </Breadcrumbs>
         </Stack>
@@ -202,11 +219,13 @@ export const DocsAppbar = React.memo(() => {
             <Typography whiteSpace={'nowrap'}>Guides</Typography>
           </Button>
           <Button
+            data-testid="api-reference-link"
             fullWidth
             variant="text"
             color="secondary"
             href={`/docs/${selectedDocsCategory}/api-reference`}
             style={{
+              display: showApiReferenceBtn ? 'block' : 'none',
               color: isApiReference ? '#FF5D0A' : 'GrayText',
               borderBottom: `2px solid ${
                 isApiReference ? '#FF5D0A' : 'transparent'
@@ -233,7 +252,7 @@ export const DocsAppbar = React.memo(() => {
         </Stack>
       </Stack>
       <Stack direction={'row'} spacing={2}>
-        {isApiReference && (
+        {isApiReference && !isMobile && (
           <Stack direction={'row'} spacing={1} alignItems="center">
             <Typography color={'black'}>Language:</Typography>{' '}
             <DocsPopover
@@ -241,25 +260,28 @@ export const DocsAppbar = React.memo(() => {
               setvalue={setlanguage}
               items={[
                 { label: 'Javascript', value: 'Javascript' },
-                { label: 'Golang', value: 'Golang' },
+                // { label: 'Golang', value: 'Golang' },
               ]}
             />
           </Stack>
         )}
 
-        {isLoggedIn && contentModels?.length !== 0 && (
-          <AccountsComboBox
-            width={200}
-            instances={contentModels}
-            setCookies={selectContentModel}
-            instanceZUID={contentModel}
-            placeholder={
-              contentModels?.find((e) => e.ZUID === instanceZUID)?.name ||
-              'Select Content Model'
-            }
-          />
-        )}
-        {isLoggedIn && (
+        {!isMobile &&
+          isApiReference &&
+          isLoggedIn &&
+          contentModels?.length !== 0 && (
+            <AccountsComboBox
+              width={200}
+              instances={contentModels}
+              setCookies={selectContentModel}
+              instanceZUID={contentModel}
+              placeholder={
+                contentModels?.find((e) => e.ZUID === instanceZUID)?.name ||
+                'Select Content Model'
+              }
+            />
+          )}
+        {!isMobile && isApiReference && isLoggedIn && (
           <AccountsComboBox
             width={240}
             instances={instances.data}
@@ -270,7 +292,6 @@ export const DocsAppbar = React.memo(() => {
             }
           />
         )}
-
         {!isMobile && (
           <SearchModal sx={{ width: 200 }}>
             <AlgoSearch />
