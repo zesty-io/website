@@ -15,14 +15,12 @@ exports[`TableOfContent test toc test 1`] = `
   >
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-ftk0rp-MuiTypography-root-MuiLink-root"
-      href="#overview"
+      href="#"
     >
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        Overview
-      </span>
+      />
     </a>
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
@@ -31,9 +29,7 @@ exports[`TableOfContent test toc test 1`] = `
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        Understanding Content Zesty.io
-      </span>
+      />
     </a>
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
@@ -42,9 +38,7 @@ exports[`TableOfContent test toc test 1`] = `
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        Content Editing
-      </span>
+      />
     </a>
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
@@ -53,9 +47,7 @@ exports[`TableOfContent test toc test 1`] = `
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        Visual Layout
-      </span>
+      />
     </a>
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
@@ -64,9 +56,7 @@ exports[`TableOfContent test toc test 1`] = `
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        Versioning
-      </span>
+      />
     </a>
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
@@ -75,9 +65,7 @@ exports[`TableOfContent test toc test 1`] = `
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        Environment
-      </span>
+      />
     </a>
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
@@ -86,9 +74,7 @@ exports[`TableOfContent test toc test 1`] = `
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        Publishing
-      </span>
+      />
     </a>
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
@@ -97,9 +83,7 @@ exports[`TableOfContent test toc test 1`] = `
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        Workflow Requests
-      </span>
+      />
     </a>
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
@@ -108,9 +92,7 @@ exports[`TableOfContent test toc test 1`] = `
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        Multi-Language Support
-      </span>
+      />
     </a>
     <a
       class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-136llug-MuiTypography-root-MuiLink-root"
@@ -119,9 +101,7 @@ exports[`TableOfContent test toc test 1`] = `
       <span
         class="MuiTypography-root MuiTypography-button css-r5ijk3-MuiTypography-root"
         data-testid="link-name"
-      >
-        API Access
-      </span>
+      />
     </a>
   </div>
 </div>

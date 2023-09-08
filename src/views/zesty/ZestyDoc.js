@@ -102,6 +102,9 @@ const ZestyDoc = (props) => {
     appId: props.content.algolia.appId,
     index: props.content.algolia.index,
   };
+
+  const contentBody = content?.body?.replaceAll('Error hydrating', '');
+
   React.useEffect(() => {
     setalgoliaApiKey(algolia.apiKey);
     setalgoliaAppId(algolia.appId);
@@ -115,41 +118,31 @@ const ZestyDoc = (props) => {
     }
   }, [router.asPath]);
 
+  const inlineStyles = `
+  
+  blockquote {
+  background-color: #e7e7e7;
+  padding: 10px 20px;
+  border-left: 4px solid #ccc;
+  margin:0;
+}
+  
+  `;
   // redirecto to docs landing page if url = /docs/
   if (isDocsHomePage) {
     return <DocsHomePage algolia={algolia} />;
   }
   return (
     <Stack data-testid="docs-slug">
+      <style>{inlineStyles}</style>
       <Container
         sx={() => ({
-          maxWidth: '1440px !important',
-          paddingBottom: '0 !important',
+          // maxWidth: '1440px !important',
+          // paddingBottom: '0 !important',
         })}
       >
         {!isLoggedIn && <DocsAppbar />}
         {/* // headers */}
-        {/* <Stack
-          py={2}
-          direction={'row'}
-          width={1}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-          sx={{
-            display: { xs: '', md: 'flex' },
-          }}
-        >
-          <AppBar />
-
-          <SearchModal
-            sx={{
-              width: true ? 300 : 500,
-              display: { xs: 'none', md: 'block' },
-            }}
-          >
-            <AlgoSearch />
-          </SearchModal>
-        </Stack> */}
 
         {/* Navigation mobile */}
         <Stack
@@ -196,17 +189,35 @@ const ZestyDoc = (props) => {
                 justifyItems={'center'}
                 alignItems={'center'}
                 alignContent={'center'}
+                sx={{
+                  px: { xs: 2, md: 0 },
+                }}
               >
-                <Stack width={1} textAlign={'left'}>
-                  <Typography variant="h3" fontWeight={'bold'} id="overview">
+                <Stack width={1} textAlign={'left'} pt={2}>
+                  <Typography
+                    variant="h3"
+                    fontWeight={'bold'}
+                    id={content?.title}
+                  >
                     {content?.title}
+                  </Typography>
+                </Stack>
+                <Stack width={1} textAlign={'left'} pb={4} pt={2}>
+                  <Typography
+                    variant="p"
+                    component={'p'}
+                    fontWeight={'400'}
+                    id="description"
+                    color={'gray'}
+                  >
+                    {content?.description}
                   </Typography>
                 </Stack>
                 <Stack width={1} height={1}>
                   {/* Component that render the markdown file */}
                   <ZestyMarkdownParser
                     isDocs={true}
-                    markdown={content.body}
+                    markdown={contentBody}
                     mainKeywords={mainKeywords}
                     productGlossary={productGlossary}
                   />
@@ -222,7 +233,7 @@ const ZestyDoc = (props) => {
                   display: { xs: 'none', md: 'block' },
                 }}
               >
-                <TableOfContent data={navData} />
+                <TableOfContent data={navData} title={content?.title} />
                 {!isLoggedIn && (
                   <Stack
                     sx={{

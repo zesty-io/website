@@ -64,6 +64,7 @@ import Simplestat from './Simplestat';
 import Tworowshero from './Tworowshero';
 import Alternatecolumn from './Alternatecolumn';
 import Persona from './Persona';
+import Whyzesty from './WhyZesty';
 import Testimonial from './Testimonial';
 import LogoSlider from './LogoSlider';
 import AiExample from './AiExample';
@@ -245,6 +246,7 @@ export {
   Tworowshero,
   Alternatecolumn,
   Persona,
+  Whyzesty,
   Testimonial,
   LogoSlider,
   AiExample,

@@ -22,11 +22,9 @@ export default function Slug(props) {
     useZestyStore((e) => e);
   let url = router.asPath;
   url = url && url?.replace('/docs', '').replace(/\/$/, '');
-  // const mainCollection = [INSTANCE_DATA, ACCOUNTS_DATA, AUTH_DATA];
   const mainCollection = props.docs.data;
   const mainData = transFormMainDataMedia(mainCollection);
   const [treeData, settreeData] = React.useState(mainData[2]);
-  // const parentUrl = url && '/' + url?.split('/').filter((e) => e)[0];
   const parentUrl =
     '/' +
     url

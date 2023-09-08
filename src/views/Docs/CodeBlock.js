@@ -1,21 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { githubDarkInit } from '@uiw/codemirror-theme-github';
+import CodeMirror from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
+import { javascript } from '@codemirror/lang-javascript';
+
 import { Stack, Typography } from '@mui/material';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { langTransformer } from './helper';
+import { v4 as uuidV4 } from 'uuid';
 import { DocsTabs } from './DocsTabs';
 import { useZestyStore } from 'store';
 import { getCookie } from 'cookies-next';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { fetchTransformer } from './helper/fetchTransformer';
+import { transFormEndpoint } from 'utils';
+import { useRouter } from 'next/router';
 
+const fontSize = EditorView.baseTheme({
+  '&': {
+    fontSize: '12px',
+  },
+});
 const tabs = [
   { label: 'Request', value: 'request' },
   { label: 'Response', value: 'response' },
 ];
 
 const Main = ({ title = 'no title', data = {} }) => {
+  const [dropdownResponse, setdropdownResponse] = useState({});
   const token = getCookie('APP_SID');
+  const router = useRouter();
   const { language, workingInstance } = useZestyStore((e) => e);
   const [codeBlockData, setcodeBlockData] = React.useState('');
   const [isCopied, setIsCopied] = React.useState(false);
@@ -23,13 +38,38 @@ const Main = ({ title = 'no title', data = {} }) => {
   const [showCopyBtn, setshowCopyBtn] = React.useState(false);
   const isLoggedIn = useIsLoggedIn();
 
-  const { request, response } = langTransformer({
+  const originalMethod = data.request.method;
+
+  const { endpoint } = transFormEndpoint({
+    url:
+      dropdownResponse?.originalRequest?.url?.raw ||
+      dropdownResponse?.originalRequest?.url ||
+      '',
+    instanceZUID: workingInstance,
+    isLoggedIn,
+  });
+
+  let { request, response } = fetchTransformer(
+    dropdownResponse,
+    endpoint,
+    originalMethod,
+  );
+
+  const { request: oldRequest, response: oldResponse } = langTransformer({
     data,
     lang: language,
     instanceZUID: workingInstance,
     token,
     isLoggedIn,
+    body: dropdownResponse,
   });
+
+  // fallback request
+  // media api-reference has incomplete values
+  if (!request) {
+    request = oldRequest;
+    response = oldResponse;
+  }
 
   const copyToClipboard = (text) => {
     navigator?.clipboard?.writeText(text);
@@ -39,13 +79,24 @@ const Main = ({ title = 'no title', data = {} }) => {
     }, 300);
   };
 
+  const options = data.response.map((e) => {
+    return { label: e.name, value: e.name, data: e };
+  });
+
+  // initial value of dropdowns
+  React.useEffect(() => {
+    if (Object.keys(dropdownResponse || {}).length === 0) {
+      setdropdownResponse(options[0]?.data);
+    }
+  }, [dropdownResponse, options, router.asPath]);
+
   React.useEffect(() => {
     if (currentTab === 'response') {
       setcodeBlockData(response);
     } else {
       setcodeBlockData(request);
     }
-  }, [currentTab, language]);
+  }, [currentTab, language, request]);
 
   return (
     <Stack
@@ -66,11 +117,16 @@ const Main = ({ title = 'no title', data = {} }) => {
         <Typography>{title}</Typography>
       </Stack>
       <Stack direction={'row'} px={1}>
-        <DocsTabs setvalue={setcurrentTab} value={currentTab} tabs={tabs} />
+        <DocsTabs
+          setvalue={setcurrentTab}
+          value={currentTab}
+          tabs={tabs}
+          setDropdownResponse={setdropdownResponse}
+          options={options}
+        />
       </Stack>
-
-      <div
-        style={{
+      <Stack
+        sx={{
           maxHeight: '40vh',
           position: 'relative',
           cursor: 'pointer',
@@ -85,8 +141,9 @@ const Main = ({ title = 'no title', data = {} }) => {
             cursor: 'pointer',
             color: '#fff',
             position: 'absolute',
-            top: '15px',
-            right: '10px',
+            top: 10,
+            right: 10,
+            zIndex: 999,
           }}
           onClick={() => {
             copyToClipboard(codeBlockData);
@@ -102,19 +159,28 @@ const Main = ({ title = 'no title', data = {} }) => {
             <ContentCopyIcon color="inherit" fontSize="medium" />
           )}
         </Stack>
-        <SyntaxHighlighter
-          showLineNumbers={true}
-          language="javascript"
-          style={coldarkDark}
-          wrapLongLines={false}
-          customStyle={{
-            fontSize: '13px',
-            fontWeight: 400,
-          }}
-        >
-          {codeBlockData}
-        </SyntaxHighlighter>
-      </div>
+
+        <CodeMirror
+          id={uuidV4()}
+          data-testid="code-mirror"
+          editable={false}
+          value={codeBlockData}
+          placeholder={'Click Run to view the response'}
+          extensions={[
+            fontSize,
+            javascript({ jsx: true }),
+            EditorView.lineWrapping,
+          ]}
+          onChange={() => {}}
+          style={{ width: '100%' }}
+          theme={githubDarkInit({
+            settings: {
+              caret: '#ff5c0c',
+              fontFamily: 'monospace',
+            },
+          })}
+        />
+      </Stack>
     </Stack>
   );
 };

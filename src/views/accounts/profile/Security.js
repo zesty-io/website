@@ -163,6 +163,8 @@ export const Security = ({ getUser }) => {
               </Typography>
 
               <Button
+                target="_blank"
+                rel="noopener noreferrer"
                 href="https://authy.com/what-is-2fa/"
                 endIcon={<ArrowRightAltIcon color="primary" />}
                 sx={{ alignSelf: 'end' }}
@@ -178,7 +180,7 @@ export const Security = ({ getUser }) => {
                   <img src={url} alt="zesty auth" height="40" width="40" />
                 </Stack>
 
-                {!isAuthyEnable ? (
+                {isAuthyEnable ? (
                   <>
                     <Stack direction="row" spacing={1}>
                       <FormInput
@@ -194,11 +196,11 @@ export const Security = ({ getUser }) => {
                     </Stack>
 
                     <LoadingButton
+                      disabled={true}
                       variant="contained"
                       loading={formik.isSubmitting}
                       fullWidth
                       type="submit"
-                      disabled={true}
                     >
                       Enable Two Factor Authentication
                     </LoadingButton>

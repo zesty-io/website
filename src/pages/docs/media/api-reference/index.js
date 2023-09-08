@@ -22,11 +22,9 @@ export default function Index(props) {
     useZestyStore((e) => e);
   let url = router.asPath;
   url = url && url?.replace('/docs', '').replace(/\/$/, '');
-  // const mainCollection = [INSTANCE_DATA, ACCOUNTS_DATA, AUTH_DATA];
   const mainCollection = props.docs.data;
   const mainData = transFormMainDataMedia(mainCollection);
   const [treeData, settreeData] = React.useState(mainData[2]);
-  // const parentUrl = url && '/' + url?.split('/').filter((e) => e)[0];
   const parentUrl =
     '/' +
     url
@@ -93,11 +91,6 @@ export default function Index(props) {
 
   React.useEffect(() => {
     settreeData(mainData[3]);
-    // if (!url) {
-    //   settreeData(mainData[0]);
-    // } else {
-    //   settreeData(initialTreeData(parentUrl, mainData));
-    // }
   }, [url]);
 
   React.useEffect(() => {
@@ -113,7 +106,6 @@ export default function Index(props) {
   }, []);
 
   const title = `Zesty.io - ${pageData?.name || 'Documentation'}`;
-  console.log(mainData, treeData, 555555555555555);
   return (
     <>
       <ZestyAccountsHead title={title} />

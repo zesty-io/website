@@ -4,16 +4,15 @@ import dynamic from 'next/dynamic';
 import {
   Box,
   Container,
-  //InputAdornment,
+  Grid,
   Stack,
-  //TextField,
   Typography,
   useScrollTrigger,
   useTheme,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
-//import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from 'next/router';
+import { TreeNavigation } from 'components/globals/TreeNavigation';
 
 const FolderTreeView = dynamic(() =>
   import('./FolderTreeView').then((mod) => mod.FolderTreeView),
@@ -30,23 +29,9 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
   const [filteredData, setFilteredData] = useState();
   const title = router.asPath.split('/').filter((e) => e)[1];
 
-  // const filterData = (e) => {
-  //   const searchTerms = e.target.value;
-  //   const filtered = newTreeData.filter((item) => {
-  //     return (
-  //       item.name?.toLowerCase().includes(searchTerms.toLowerCase()) ||
-  //       item.description?.toLowerCase().includes(searchTerms.toLowerCase())
-  //     );
-  //   });
-
-  //   setFilteredData(filtered);
-  // };
-
   useEffect(() => {
     setFilteredData(newTreeData);
   }, [newTreeData]);
-
-  // console.log(newTreeData);
 
   return (
     <Stack
@@ -82,20 +67,6 @@ const LeftNav = React.memo(({ trigger, newTreeData }) => {
           }{' '}
           API
         </Typography>
-        {/* <TextField
-          onChange={filterData}
-          size="small"
-          color="secondary"
-          placeholder="Search"
-          sx={{ my: 2 }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        /> */}
       </Box>
       <FolderTreeView data={filteredData || newTreeData} />
     </Stack>
@@ -143,12 +114,16 @@ const Main = ({ pageData = [], treeData }) => {
           paddingBottom: '0 !important',
         })}
       >
-        <Stack direction={'row'}>
-          {/* left navigation tree */}
-          <LeftNav {...leftNavProps} />
-          {/* main docs view page  */}
-          <DocsView data={pageData} />
-        </Stack>
+        <Grid container>
+          <Grid item xs={0} lg={2.5}>
+            {/* left navigation tree */}
+            <TreeNavigation data={treeData?.item} />
+          </Grid>
+          <Grid item xs={12} lg={9.5}>
+            {/* main docs view page  */}
+            <DocsView data={pageData} />
+          </Grid>
+        </Grid>
       </Container>
     </MainWrapper>
   );

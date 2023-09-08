@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Grid, Link, Stack, Typography, useTheme } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import MuiMarkdown from 'markdown-to-jsx';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -129,18 +128,16 @@ const Main = ({ data }) => {
             <Typography
               sx={{ color: theme.palette.zesty.zestyZambezi }}
               variant="h5"
+              component={'h1'}
               fontWeight={'600'}
               id={name}
             >
               {e?.name}
             </Typography>
             <Box sx={{ color: theme.palette.zesty.zestyZambezi }}>
-              <MuiMarkdown
-                // inlineCodeColor="dodgerblue"
-                overrides={muiContentOverrides}
-              >
+              <ReactMarkdown overrides={muiContentOverrides}>
                 {e?.description || ''}
-              </MuiMarkdown>
+              </ReactMarkdown>
             </Box>
             <b>{<DocsPages data={e.item} />}</b>
           </Stack>
@@ -155,14 +152,19 @@ const Main = ({ data }) => {
             spacing={4}
             py={4}
           >
-            <Grid item xs={6} width={1}>
+            <Grid item xs={12} lg={6} width={1}>
               <Stack
                 sx={{ color: theme.palette.zesty.zestyZambezi }}
                 direction={'column'}
               >
                 <Stack direction={'row'} pb={2} alignItems="center">
                   {iconMethod(e.request.method)}
-                  <Typography sx={{ fontWeight: '600' }} variant="h6" id={name}>
+                  <Typography
+                    sx={{ fontWeight: '600' }}
+                    variant="h6"
+                    component={'h1'}
+                    id={name}
+                  >
                     {e?.name}
                   </Typography>
                   <Link href={`#${name}`}>
@@ -178,26 +180,6 @@ const Main = ({ data }) => {
                   {desc}
                 </ReactMarkdown>
               </Stack>
-
-              {!isLoggedIn && (
-                <WarningMsg>
-                  <Typography variant="button" color={'gray'}>
-                    Please{' '}
-                    <Link
-                      onClick={() => {
-                        sessionStorage.setItem(
-                          'prevUrl',
-                          window.location.pathname,
-                        );
-                      }}
-                      href="/login"
-                    >
-                      sign in
-                    </Link>{' '}
-                    to view your instance’s unique identifier
-                  </Typography>
-                </WarningMsg>
-              )}
 
               <Stack py={2}>
                 {!isLoggedIn && (
@@ -235,25 +217,6 @@ const Main = ({ data }) => {
                   >
                     {endpoint}
                   </CodeBlocks>
-                )}
-                {!isLoggedIn && (
-                  <WarningMsg>
-                    <Typography variant="button" color={'gray'}>
-                      Please{' '}
-                      <Link
-                        onClick={() => {
-                          sessionStorage.setItem(
-                            'prevUrl',
-                            window.location.pathname,
-                          );
-                        }}
-                        href="/login"
-                      >
-                        sign in
-                      </Link>{' '}
-                      to view your token
-                    </Typography>
-                  </WarningMsg>
                 )}
                 {!isLoggedIn && (
                   <WarningMsg>
@@ -318,7 +281,7 @@ const Main = ({ data }) => {
                 )}
               </Stack>
             </Grid>
-            <Grid item xs={6} width={1}>
+            <Grid item xs={0} lg={6} width={1}>
               {inView && <CodeBlock title={name} data={e} />}
             </Grid>
           </Grid>
@@ -334,10 +297,11 @@ const Main = ({ data }) => {
       pt={2}
     >
       <Grid container pb={4}>
-        <Grid item xs={6}>
+        <Grid item xs={12} lg={6}>
           <Typography
             sx={{ color: (theme) => theme.palette.zesty.zestyZambezi }}
             variant="h4"
+            component={'h1'}
             id={data.name}
           >
             {data.name}
