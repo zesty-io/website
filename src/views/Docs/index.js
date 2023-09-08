@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import {
   Box,
   Container,
+  Grid,
   Stack,
   Typography,
   useScrollTrigger,
@@ -11,6 +12,7 @@ import {
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { useRouter } from 'next/router';
+import { TreeNavigation } from 'components/globals/TreeNavigation';
 
 const FolderTreeView = dynamic(() =>
   import('./FolderTreeView').then((mod) => mod.FolderTreeView),
@@ -112,12 +114,16 @@ const Main = ({ pageData = [], treeData }) => {
           paddingBottom: '0 !important',
         })}
       >
-        <Stack direction={'row'}>
-          {/* left navigation tree */}
-          <LeftNav {...leftNavProps} />
-          {/* main docs view page  */}
-          <DocsView data={pageData} />
-        </Stack>
+        <Grid container>
+          <Grid item xs={0} lg={2.5}>
+            {/* left navigation tree */}
+            <TreeNavigation data={treeData?.item} />
+          </Grid>
+          <Grid item xs={12} lg={9.5}>
+            {/* main docs view page  */}
+            <DocsView data={pageData} />
+          </Grid>
+        </Grid>
       </Container>
     </MainWrapper>
   );

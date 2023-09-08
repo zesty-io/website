@@ -43,9 +43,10 @@ import revampTheme from 'theme/revampTheme';
 import { ThemeProvider, useTheme } from '@mui/material';
 import Hero from 'revamp/ui/Hero';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
-import { deleteCookie, getCookie } from 'cookies-next';
+import { useEffect } from 'react';
+import { deleteCookie } from 'cookies-next';
 import * as helpers from 'utils';
+import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
   loading: () => <p>Loading...</p>,
@@ -100,18 +101,19 @@ const verifyUser = async (callback, token) => {
 
 function Homepage({ content }) {
   const { palette } = useTheme();
-  const [isLoggined, setisLoggined] = useState(false);
-  const token = getCookie('APP_SID');
+  const isLoggedIn = useIsLoggedIn();
 
   useEffect(() => {
-    if (content.zesty.isAuthenticated || isLoggined) {
-      window.location.href = '/dashboard/';
+    const prevUrl = sessionStorage.getItem('prevUrl');
+    if (content.zesty.isAuthenticated || isLoggedIn) {
+      // redirect the user to previous url from SSO
+      if (!['', '/'].includes(prevUrl)) {
+        window.location.href = prevUrl;
+      } else {
+        window.location.href = '/dashboard/';
+      }
     }
-  }, [content.zesty.isAuthenticated, isLoggined]);
-
-  useEffect(() => {
-    verifyUser(setisLoggined, token);
-  }, [token]);
+  }, [content.zesty.isAuthenticated, isLoggedIn]);
 
   return (
     <>

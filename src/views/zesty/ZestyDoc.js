@@ -102,6 +102,9 @@ const ZestyDoc = (props) => {
     appId: props.content.algolia.appId,
     index: props.content.algolia.index,
   };
+
+  const contentBody = content?.body?.replaceAll('Error hydrating', '');
+
   React.useEffect(() => {
     setalgoliaApiKey(algolia.apiKey);
     setalgoliaAppId(algolia.appId);
@@ -134,8 +137,8 @@ const ZestyDoc = (props) => {
       <style>{inlineStyles}</style>
       <Container
         sx={() => ({
-          maxWidth: '1440px !important',
-          paddingBottom: '0 !important',
+          // maxWidth: '1440px !important',
+          // paddingBottom: '0 !important',
         })}
       >
         {!isLoggedIn && <DocsAppbar />}
@@ -186,9 +189,17 @@ const ZestyDoc = (props) => {
                 justifyItems={'center'}
                 alignItems={'center'}
                 alignContent={'center'}
+                sx={{
+                  px: { xs: 2, md: 0 },
+                }}
               >
                 <Stack width={1} textAlign={'left'} pt={2}>
-                  <Typography variant="h3" fontWeight={'bold'} id="overview">
+
+                  <Typography
+                    variant="h3"
+                    fontWeight={'bold'}
+                    id={content?.title}
+                  >
                     {content?.title}
                   </Typography>
                 </Stack>
@@ -207,7 +218,9 @@ const ZestyDoc = (props) => {
                   {/* Component that render the markdown file */}
                   <ZestyMarkdownParser
                     isDocs={true}
-                    markdown={content.body}
+
+                    markdown={contentBody}
+
                     mainKeywords={mainKeywords}
                     productGlossary={productGlossary}
                   />
@@ -223,7 +236,7 @@ const ZestyDoc = (props) => {
                   display: { xs: 'none', md: 'block' },
                 }}
               >
-                <TableOfContent data={navData} />
+                <TableOfContent data={navData} title={content?.title} />
                 {!isLoggedIn && (
                   <Stack
                     sx={{

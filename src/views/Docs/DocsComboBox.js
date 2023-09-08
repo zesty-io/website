@@ -22,6 +22,10 @@ const Main = ({ options, onChange, width = 1, value = '' }) => {
     setSelectedValue(newValue);
   };
 
+  const placeholder = () => {
+    const str = capitalize(route[1]) || capitalize(value);
+    return str.replaceAll('-', ' ');
+  };
   return (
     <Stack width={width}>
       <Autocomplete
@@ -35,7 +39,9 @@ const Main = ({ options, onChange, width = 1, value = '' }) => {
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder={capitalize(route[1]) || capitalize(value)}
+
+            placeholder={placeholder()}
+
             color="secondary"
             size="small"
             InputProps={{

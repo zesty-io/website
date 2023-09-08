@@ -1,10 +1,15 @@
 import { Link, Stack, Typography, useTheme } from '@mui/material';
 import React, { memo, useEffect, useState } from 'react';
 
-const Main = ({ data }) => {
-  const overview = { label: 'Overview', name: 'Overview', href: '#overview' };
+const Main = ({ data, title = '' }) => {
+  const overview = {
+    label: title,
+    name: title,
+    href: `#${title}`,
+    originalName: title,
+  };
   const newData = [overview, ...data];
-  const [currentHash, setcurrentHash] = useState('#overview');
+  const [currentHash, setcurrentHash] = useState(`#${title}`);
   const handleHashChange = () => {
     setcurrentHash(window.location.hash);
   };
@@ -48,7 +53,6 @@ const Main = ({ data }) => {
                   color: '#333333',
                   textDecoration: 'underline #333333',
                   borderLeft: `3px solid ${theme?.palette?.zesty?.zestyOrange}`,
-                  // bgcolor: '#F2F2F2',
                 },
               }}
             >
@@ -57,7 +61,7 @@ const Main = ({ data }) => {
                 whiteSpace={'normal'}
                 data-testid="link-name"
               >
-                {e.name}
+                {e.originalName}
               </Typography>
             </Link>
           );

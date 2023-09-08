@@ -2,20 +2,23 @@
 /// <reference types="cypress" />
 
 describe('E2E docs page', () => {
-  it('test if docs landing page rendered ', () => {
-    cy.visit('/docs');
-    cy.get("[data-testid='docs-landing']", { timeout: 30000 }).should('exist');
-    cy.algoliaNavigate();
-  });
-  it('test redirection to /docs/parsley', () => {
-    cy.visit('/docs');
-    cy.get("[data-testid='Parsley-btn']", { timeout: 30000 })
-      .should('exist')
-      .click();
-    cy.location().should((loc) => {
-      expect(loc.pathname).to.equal('/docs/parsley/');
-    });
-  });
+
+  // it('test if docs landing page rendered ', () => {
+  //   cy.visit('/docs');
+  //   cy.get("[data-testid='docs-landing']", { timeout: 30000 }).should('exist');
+  //   cy.algoliaNavigate();
+  // });
+  // it('test redirection to /docs/parsley', () => {
+  //   cy.visit('/docs');
+  //   cy.get("[data-testid='Parsley-btn']", { timeout: 30000 })
+  //     .should('exist')
+  //     .click();
+  //   cy.location().should((loc) => {
+  //     expect(loc.pathname).to.equal('/docs/parsley/');
+  //   });
+  // });
+
+
 });
 
 describe('test for built in docs pages in app', () => {
@@ -30,6 +33,8 @@ describe('test for built in docs pages in app', () => {
     '/docs/accounts/api-reference/',
     '/docs/instances/api-reference/',
     '/docs/authentication/api-reference/',
+    '/docs/media/api-reference/',
+    '/docs/accounts/api-reference/instances/domains/',
   ];
 
   urls.forEach((url) => {

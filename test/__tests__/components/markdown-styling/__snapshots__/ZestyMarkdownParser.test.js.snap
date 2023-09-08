@@ -53,7 +53,7 @@ exports[`MDH1 should render the MDH1 component with correct props and styling 2`
 
 exports[`MDH2 should render the MDH2 component with correct props and styling 1`] = `
 <div
-  class="MuiBox-root css-z6qf5z"
+  class="MuiBox-root css-1ouodky"
   data-testid="mdh2-container"
 >
   <h2
