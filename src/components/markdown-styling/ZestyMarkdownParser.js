@@ -43,6 +43,7 @@ export const ZestyMarkdownParser = ({
     h2: MDH2,
     h3: MDH3,
     pre: MDCodeBlock,
+    text: MDParagraph,
     // strong: MDStrong,
     // em: MDItalic,
   };
