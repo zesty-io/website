@@ -2,7 +2,6 @@
 /// <reference types="cypress" />
 
 describe('E2E docs page', () => {
-
   // it('test if docs landing page rendered ', () => {
   //   cy.visit('/docs');
   //   cy.get("[data-testid='docs-landing']", { timeout: 30000 }).should('exist');
@@ -17,8 +16,6 @@ describe('E2E docs page', () => {
   //     expect(loc.pathname).to.equal('/docs/parsley/');
   //   });
   // });
-
-
 });
 
 describe('test for built in docs pages in app', () => {

@@ -39,9 +39,7 @@ const Main = ({ options, onChange, width = 1, value = '' }) => {
         renderInput={(params) => (
           <TextField
             {...params}
-
             placeholder={placeholder()}
-
             color="secondary"
             size="small"
             InputProps={{

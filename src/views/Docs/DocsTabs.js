@@ -121,7 +121,6 @@ export const DocsTabs = React.memo(
             <BasicSelect setValue={setDropdownResponse} options={options} />
           </Stack>
         )}
-
       </Stack>
     );
   },
