@@ -2,7 +2,9 @@ import { githubDarkInit } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
 import { EditorView } from '@codemirror/view';
 import { javascript } from '@codemirror/lang-javascript';
+
 import { v4 as uuidV4 } from 'uuid';
+
 
 const fontSize = EditorView.baseTheme({
   '&': {
@@ -14,13 +16,16 @@ export const MDCodeBlock = ({ node }) => {
 
   return (
     <CodeMirror
+
       id={uuidV4()}
       key={uuidV4()}
+
       data-testid="code-mirror"
       width="100%"
       editable={false}
       value={codeTxt}
       placeholder={'Click Run to view the response'}
+
       extensions={[
         fontSize,
         javascript({ jsx: true }),
@@ -28,6 +33,7 @@ export const MDCodeBlock = ({ node }) => {
       ]}
       onChange={() => {}}
       style={{ width: '100%' }}
+
       theme={githubDarkInit({
         settings: {
           caret: '#ff5c0c',

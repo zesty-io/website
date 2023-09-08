@@ -30,6 +30,7 @@ import TreeView from '@mui/lab/TreeView';
 import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
 import DescriptionIcon from '@mui/icons-material/Description';
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
+
 import { ArrowBack, ArrowUpward } from '@mui/icons-material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -462,6 +463,7 @@ export const AlgoSearch = () => {
             </Stack>
           </>
         )}
+
       </InstantSearch>
     </Stack>
   );

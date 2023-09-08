@@ -14,7 +14,9 @@ export const MDH2 = ({ node }) => {
         alignContent: 'center',
       }}
       gap={0.5}
+      key={Math.random() * 10}
     >
+
       {node.children.map((e) => {
         if (e.tagName === 'a') {
           return (
@@ -36,6 +38,7 @@ export const MDH2 = ({ node }) => {
           </Typography>
         );
       })}
+
       <Link
         sx={{
           fontSize: 24,
