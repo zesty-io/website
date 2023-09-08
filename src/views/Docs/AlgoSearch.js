@@ -18,12 +18,6 @@ import {
   connectSearchBox,
   InstantSearch,
   Hits,
-
-  // SearchBox,
-  // Pagination,
-  // Highlight,
-  // ClearRefinements,
-  // RefinementList,
   Configure,
   Index,
 } from 'react-instantsearch-dom';
@@ -77,7 +71,7 @@ export const AlgoSearch = () => {
   } = useZestyStore((e) => e);
 
   const email = getCookie('APP_USER_EMAIL').replace(/%40/g, '@');
-  console.log(email);
+
   const md5Hash = hashMD5(email.toLowerCase());
   const searchClient = algoliasearch(appId, apiKey);
 
@@ -105,13 +99,7 @@ export const AlgoSearch = () => {
   ]);
   const [query, setQuery] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-  const [source, setSource] = React.useState(null);
 
-  const processToken = (token) => {
-    return token.replace(/\\n/g, '\n').replace(/\"/g, '');
-  };
-
-  console.log(chatHistory);
   const askAiHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
