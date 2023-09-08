@@ -323,3 +323,105 @@ export const transFormMainDataMedia = (mainCollection) => {
   });
   return finalData;
 };
+
+export const makeTree = (data) => {
+  const base = { children: [] };
+
+  for (const node of data) {
+    const path = node.name.match(/\/[^\/]+/g);
+    let curr = base;
+
+    path.forEach((e, i) => {
+      const currPath = path.slice(0, i + 1).join('');
+      const child = curr.children.find((e) => e.name === currPath);
+
+      if (child) {
+        curr = child;
+      } else {
+        curr.children.push({
+          ...node,
+          id: Math.random() * 9,
+          name: currPath,
+          children: [],
+          url: currPath,
+        });
+        curr = curr.children[curr.children.length - 1];
+      }
+    });
+  }
+
+  return base.children;
+};
+
+export const transFormMainDataMedia = (mainCollection) => {
+  mainCollection = mainCollection.map((e) => {
+    return {
+      ...e,
+      parent: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
+      url: `/${e?.info?.name?.split(' ')[0]?.toLowerCase()}/api-reference`,
+    };
+  });
+
+  const newCollection = mainCollection?.map((e) => {
+    const res = e.item.map((q) => {
+      if (q.request) {
+        return {
+          ...q,
+          parent: e.parent || e.name,
+          url: e.parent + '/#' + q.name.replaceAll(' ', '-')?.toLowerCase(),
+        };
+      }
+
+      return {
+        ...q,
+        parent: e.parent || e.name,
+        url: e.parent + '/' + q?.name?.toLowerCase(),
+      };
+    });
+    return { ...e, item: res };
+  });
+
+  const newColletion1 = newCollection.map((e) => {
+    const res = e.item.map((q) => {
+      const res2 = q?.item?.map((w) => {
+        if (w.request) {
+          return {
+            ...w,
+            parent: q.name,
+            url: `${e.parent}${q?.name?.toLowerCase()}/#${w.name.replaceAll(
+              ' ',
+              '-',
+            )}`,
+          };
+        }
+        return {
+          ...w,
+          parent: q.name,
+          url: e.parent + '/' + w?.name?.toLowerCase(),
+        };
+      });
+      return { ...q, item: res2 };
+    });
+    return { ...e, item: res };
+  });
+
+  const result = newColletion1.map((e) => {
+    const res = e.item.map((q) => {
+      const res2 = q?.item?.map((w) => {
+        const res3 = w?.item?.map((y) => {
+          return {
+            ...y,
+            parent: '/' + w?.name,
+            url:
+              e.parent +
+              `${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
+          };
+        });
+        return { ...w, item: res3 };
+      });
+      return { ...q, item: res2 };
+    });
+    return { ...e, item: res };
+  });
+  return result;
+};

@@ -14,6 +14,7 @@ export const MDH2 = ({ node }) => {
         alignContent: 'center',
       }}
       gap={0.5}
+      key={Math.random() * 10}
     >
       {node.children.map((e) => {
         if (e.tagName === 'a') {
