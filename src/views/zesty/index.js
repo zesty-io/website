@@ -64,7 +64,6 @@ import Simplestat from './Simplestat';
 import Tworowshero from './Tworowshero';
 import Alternatecolumn from './Alternatecolumn';
 import Persona from './Persona';
-import Whyzesty from './WhyZesty';
 import Testimonial from './Testimonial';
 import LogoSlider from './LogoSlider';
 import AiExample from './AiExample';
@@ -178,6 +177,7 @@ import Media from './Media';
 import Componenttesting from './Componenttesting';
 import ProductLandingPage from './ProductLandingPage';
 import DocsOverview from './DocsOverview';
+import CmWorldDemo from './CmWorldDemo';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -246,7 +246,6 @@ export {
   Tworowshero,
   Alternatecolumn,
   Persona,
-  Whyzesty,
   Testimonial,
   LogoSlider,
   AiExample,
@@ -360,6 +359,7 @@ export {
   Componenttesting,
   ProductLandingPage,
   DocsOverview,
+  CmWorldDemo,
   Footer,
   Header,
 };
