@@ -18,7 +18,6 @@ describe('E2E docs page', () => {
   //   });
   // });
 
-
 });
 
 describe('test for built in docs pages in app', () => {

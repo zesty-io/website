@@ -16,7 +16,6 @@ export const MDCodeBlock = ({ node }) => {
 
   return (
     <CodeMirror
-
       id={uuidV4()}
       key={uuidV4()}
 

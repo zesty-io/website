@@ -227,8 +227,6 @@ export const DocsAppbar = React.memo(() => {
           </Button>
           <Button
 
-            data-testid="api-reference-link"
-
             fullWidth
             variant="text"
             color="secondary"

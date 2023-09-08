@@ -219,8 +219,6 @@ const ZestyDoc = (props) => {
                   <ZestyMarkdownParser
                     isDocs={true}
 
-                    markdown={contentBody}
-
                     mainKeywords={mainKeywords}
                     productGlossary={productGlossary}
                   />
