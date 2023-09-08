@@ -149,6 +149,7 @@ export const transFormMainData = (mainCollection) => {
   });
 
   const tier1 = mainCollection?.map((e) => {
+
     const res = e.item.map((q) => {
       if (q.request) {
         return {
@@ -210,6 +211,7 @@ export const transFormMainData = (mainCollection) => {
     return { ...e, item: res, children: res };
   });
   return finalData;
+
 };
 
 export const makeTree = (data) => {

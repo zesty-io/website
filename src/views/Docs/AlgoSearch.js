@@ -463,6 +463,7 @@ export const AlgoSearch = () => {
             </Stack>
           </>
         )}
+
       </InstantSearch>
     </Stack>
   );

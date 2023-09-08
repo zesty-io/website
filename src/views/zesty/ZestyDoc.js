@@ -194,6 +194,7 @@ const ZestyDoc = (props) => {
                 }}
               >
                 <Stack width={1} textAlign={'left'} pt={2}>
+
                   <Typography
                     variant="h3"
                     fontWeight={'bold'}
@@ -217,7 +218,7 @@ const ZestyDoc = (props) => {
                   {/* Component that render the markdown file */}
                   <ZestyMarkdownParser
                     isDocs={true}
-                    markdown={contentBody}
+
                     mainKeywords={mainKeywords}
                     productGlossary={productGlossary}
                   />
