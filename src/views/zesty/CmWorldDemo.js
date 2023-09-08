@@ -34,6 +34,7 @@ function CmWorldDemo({ content }) {
   return (
     <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
       <GetDemoSection
+        formCtaText={content?.button_cta_text ?? FillerContent.cta}
         title={content?.header ?? FillerContent.header}
         supportingText={content?.body ?? FillerContent.description}
         formTitle={content?.form_title ?? FillerContent.cta}

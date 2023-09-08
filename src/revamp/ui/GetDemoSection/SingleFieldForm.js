@@ -8,6 +8,7 @@ export const SingleFieldForm = ({
   errors,
   touched,
   initialValues,
+  formButtonText = 'Book Demo',
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -146,7 +147,7 @@ export const SingleFieldForm = ({
           {isLoading ? (
             <CircularProgress color="primary" size={26} />
           ) : (
-            'Book Demo'
+            formButtonText
           )}
         </Button>
       </Stack>

@@ -39,6 +39,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
   redirect = '/meet',
   isContact = false,
   formTitle = 'Contact us for a Custom Demo',
+  formCtaText = 'Book Demo',
 }) => {
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
   let inquiryReasons = [
@@ -268,6 +269,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                     />
                   ) : (
                     <SingleFieldForm
+                      formButtonText={formCtaText}
                       {...{
                         isLong,
                         isContact,
