@@ -23,7 +23,7 @@
  * Images API: https://zesty.org/services/media-storage-micro-dam/on-the-fly-media-optimization-and-dynamic-image-manipulation
  */
 
-import { Box, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import FillerContent from 'components/globals/FillerContent';
 import GetDemoSection from 'revamp/ui/GetDemoSection';
@@ -32,15 +32,14 @@ import revampTheme from 'theme/revampTheme';
 function CmWorldDemo({ content }) {
   const theme = useTheme();
   return (
-    <Box sx={{ mt: 9 }}>
-      <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
-        <GetDemoSection
-          title={content?.header ?? FillerContent.header}
-          supportingText={content?.body ?? FillerContent.description}
-          formTitle={content?.form_title ?? FillerContent.cta}
-        />
-      </ThemeProvider>
-    </Box>
+    <ThemeProvider theme={() => revampTheme(theme.palette.mode)}>
+      <GetDemoSection
+        formCtaText={content?.button_cta_text ?? FillerContent.cta}
+        title={content?.header ?? FillerContent.header}
+        supportingText={content?.body ?? FillerContent.description}
+        formTitle={content?.form_title ?? FillerContent.cta}
+      />
+    </ThemeProvider>
   );
 }
 
