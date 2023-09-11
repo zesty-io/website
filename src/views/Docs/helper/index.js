@@ -278,11 +278,11 @@ export const transFormMainDataMedia = (mainCollection) => {
           return {
             ...w,
             parent: q.name,
-            url: `${e.parent}${q?.name?.toLowerCase()}/#${w.name.replaceAll(
+            url: `${e.parent}/${q?.name?.toLowerCase()}/#${w.name.replaceAll(
               ' ',
               '-',
             )}`,
-            uri: `${e.parent}${q?.name?.toLowerCase()}/#${w.name.replaceAll(
+            uri: `${e.parent}/${q?.name?.toLowerCase()}/#${w.name.replaceAll(
               ' ',
               '-',
             )}`,
