@@ -2,7 +2,6 @@ import { githubDarkInit } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
 import { EditorView } from '@codemirror/view';
 import { javascript } from '@codemirror/lang-javascript';
-
 import { v4 as uuidV4 } from 'uuid';
 
 const fontSize = EditorView.baseTheme({
