@@ -109,6 +109,7 @@ export const DocsAppbar = React.memo(() => {
       { label: 'Getting Started', value: { parent: '/docs/getting-started' } },
       { label: 'Webengine', value: { parent: '/docs/webengine' } },
       { label: 'Instances', value: { parent: '/docs/instances' } },
+
       {
         label: 'Authentication',
         value: { parent: '/docs/authentication/' },

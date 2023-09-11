@@ -1,7 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import React from 'react';
-
+import MuiMarkdown from 'markdown-to-jsx';
 import {
   shortValidationSchema,
   validationSchema,
@@ -38,6 +38,8 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
   isLong = true,
   redirect = '/meet',
   isContact = false,
+  formTitle = 'Contact us for a Custom Demo',
+  formCtaText = 'Book Demo',
 }) => {
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
   let inquiryReasons = [
@@ -127,14 +129,27 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
             >
               {title}
             </Typography>
-            <Typography
-              whiteSpace="pre-line"
-              color="grey.300"
-              fontSize="18px"
-              lineHeight="28px"
+
+            <MuiMarkdown
+              options={{
+                overrides: {
+                  p: {
+                    component: Typography,
+                    props: {
+                      mt: 2,
+                      component: 'p',
+                      variant: 'h6',
+                      whiteSpace: 'pre-line',
+                      color: 'grey.300',
+                      fontSize: '18px',
+                      lineHeight: '28px',
+                    },
+                  },
+                },
+              }}
             >
               {supportingText}
-            </Typography>
+            </MuiMarkdown>
           </Stack>
           <Stack>
             <Typography
@@ -231,7 +246,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                     fontWeight={800}
                     mb={3}
                   >
-                    Contact us for a Custom Demo
+                    {formTitle}
                   </Typography>
 
                   {/* Save this component as backup */}
@@ -254,6 +269,7 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
                     />
                   ) : (
                     <SingleFieldForm
+                      formButtonText={formCtaText}
                       {...{
                         isLong,
                         isContact,

@@ -178,6 +178,7 @@ import Media from './Media';
 import Componenttesting from './Componenttesting';
 import ProductLandingPage from './ProductLandingPage';
 import DocsOverview from './DocsOverview';
+import CmWorldDemo from './CmWorldDemo';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -360,6 +361,7 @@ export {
   Componenttesting,
   ProductLandingPage,
   DocsOverview,
+  CmWorldDemo,
   Footer,
   Header,
 };

@@ -4,6 +4,8 @@ import { EditorView } from '@codemirror/view';
 import { javascript } from '@codemirror/lang-javascript';
 import { v4 as uuidV4 } from 'uuid';
 
+import { v4 as uuidV4 } from 'uuid';
+
 const fontSize = EditorView.baseTheme({
   '&': {
     fontSize: '14px',
