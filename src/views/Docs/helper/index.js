@@ -309,10 +309,10 @@ export const transFormMainDataMedia = (mainCollection) => {
             parent: '/' + w?.name,
             url:
               e.parent +
-              `${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
+              `/${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
             uri:
               e.parent +
-              `${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
+              `/${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
           };
         });
         return { ...w, item: res3, children: res3 };
