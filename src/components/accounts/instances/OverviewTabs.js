@@ -62,7 +62,6 @@ const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
         <TextField
           disabled
           sx={(theme) => ({
-            color: theme.palette.mode === 'light' ? '#333333' : '#fff',
             borderRadius: '8px',
             bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
             '& .MuiInputBase-input.Mui-disabled': {
@@ -186,7 +185,10 @@ export const OverviewTabs = ({
         width: '100%',
         height: '100%',
         [theme.breakpoints.up('lg')]: {
-          bgcolor: theme.palette.mode === 'light' ? theme.palette.grey[50] : '',
+          bgcolor:
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[50]
+              : 'transparent',
         },
       })}
     >
