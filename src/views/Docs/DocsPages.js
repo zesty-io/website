@@ -105,7 +105,7 @@ const Main = ({ data }) => {
     Array.isArray(data.item) &&
     data.item.map((e, i) => {
       // Get data from postman collection
-      const name = e?.name?.replaceAll(' ', '-');
+      const name = e?.name;
       const hasBody =
         e?.request?.body?.mode === 'raw' && e?.request?.body?.raw
           ? true
