@@ -22,7 +22,6 @@
 import revampTheme from 'theme/revampTheme';
 import { Box, Button, ThemeProvider } from '@mui/material';
 import {
-  Container,
   Grid,
   Stack,
   Typography,
@@ -135,12 +134,7 @@ const ZestyDoc = (props) => {
   return (
     <Stack data-testid="docs-slug">
       <style>{inlineStyles}</style>
-      <Container
-        sx={() => ({
-          // maxWidth: '1440px !important',
-          // paddingBottom: '0 !important',
-        })}
-      >
+      <Stack px={4}>
         {!isLoggedIn && <DocsAppbar />}
         {/* // headers */}
 
@@ -268,7 +262,7 @@ const ZestyDoc = (props) => {
             </Grid>
           </Grid>
         </Stack>
-      </Container>
+      </Stack>
 
       {!isLoggedIn && (
         <Box pt={4} id={'cta'}>
