@@ -62,6 +62,7 @@ const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
         <TextField
           disabled
           sx={(theme) => ({
+            color: theme.palette.mode === 'light' ? '#333333' : '#fff',
             borderRadius: '8px',
             bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
             '& .MuiInputBase-input.Mui-disabled': {
