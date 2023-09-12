@@ -25,6 +25,16 @@ export default function ZestyHead({ content }) {
       ? content[imageKey].data[0].url + '?width=1200'
       : ogimage;
   }
+  const isBlog = router.asPath.includes('mindshare') ? true : false;
+
+  const { asPath } = useRouter();
+  const origin =
+    typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : '';
+
+  const URL = `${origin}${asPath}`;
+
   return (
     <Head>
       {' '}
@@ -50,6 +60,12 @@ export default function ZestyHead({ content }) {
       <meta property="og:image" content={ogimage} />
       {isPPCPage && <meta name="robots" content="noindex"></meta>}
       <link rel="canonical" href={canonicalURL} />
+      {isBlog ? (
+        <meta property="og:type" content="article" />
+      ) : (
+        <meta property="og:type" content="website" />
+      )}
+      <meta property="og:url" content={URL} />
     </Head>
   );
 }
