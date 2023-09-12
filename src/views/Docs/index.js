@@ -3,7 +3,6 @@ import MainWrapper from 'layouts/Main';
 import dynamic from 'next/dynamic';
 import {
   Box,
-  Container,
   Grid,
   Stack,
   Typography,
@@ -108,12 +107,7 @@ const Main = ({ pageData = [], treeData }) => {
 
   return (
     <MainWrapper customRouting={[]}>
-      <Container
-        sx={() => ({
-          maxWidth: '1440px !important',
-          paddingBottom: '0 !important',
-        })}
-      >
+      <Stack px={4}>
         <Grid container>
           <Grid item xs={0} lg={2.5}>
             {/* left navigation tree */}
@@ -124,7 +118,7 @@ const Main = ({ pageData = [], treeData }) => {
             <DocsView data={pageData} />
           </Grid>
         </Grid>
-      </Container>
+      </Stack>
     </MainWrapper>
   );
 };
