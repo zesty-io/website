@@ -45,6 +45,7 @@ export const ZestyMarkdownParser = ({
   };
   return (
     <ReactMarkdown
+      className="markdown-body"
       remarkPlugins={[remarkGfm]}
       components={isDocs ? docsComponents : components}
     >

@@ -149,7 +149,6 @@ export const DocsAppbar = React.memo(() => {
 
   const isDocs = router.asPath.includes('/docs');
   const isApiReference = router.asPath.includes('api-reference');
-
   const showApiReferenceBtn = allowedSections.some((path) =>
     router.asPath.includes(path),
   );
@@ -161,7 +160,6 @@ export const DocsAppbar = React.memo(() => {
     const routeCategory = router.asPath.split('/').filter((e) => e)[1];
     setSelectedDocsCategory(docsCategory || routeCategory);
   }, [docsCategory, router.asPath]);
-
 
   return (
     <Stack
@@ -180,7 +178,6 @@ export const DocsAppbar = React.memo(() => {
       <Stack pt={1} direction={isMobile ? 'column' : 'row'} spacing={2}>
         <DocsComboBox
           value={selectedDocsCategory}
-
           width={isMobile ? 330 : 400}
           onChange={onChangeDropdown}
           options={DOCS_DATA_DROPDOWN()}
@@ -191,7 +188,6 @@ export const DocsAppbar = React.memo(() => {
           justifyItems={'center'}
           width={1}
         >
-
           <Breadcrumbs
             sx={{
               width: '60%',
@@ -201,7 +197,6 @@ export const DocsAppbar = React.memo(() => {
               Docs
             </Link>
             <Typography color="GrayText">
-
               {currentPath?.charAt(0).toUpperCase() +
                 currentPath?.slice(1).replaceAll('-', ' ')}
             </Typography>
@@ -212,7 +207,6 @@ export const DocsAppbar = React.memo(() => {
           bgcolor={'#fff'}
           display={isMobile ? 'none' : 'flex'}
         >
-
           <Button
             variant="text"
             color="secondary"
@@ -226,15 +220,13 @@ export const DocsAppbar = React.memo(() => {
             <Typography whiteSpace={'nowrap'}>Guides</Typography>
           </Button>
           <Button
-
+            data-testid="api-reference-link"
             fullWidth
             variant="text"
             color="secondary"
             href={`/docs/${selectedDocsCategory}/api-reference`}
             style={{
-
               display: showApiReferenceBtn ? 'block' : 'none',
-
               color: isApiReference ? '#FF5D0A' : 'GrayText',
               borderBottom: `2px solid ${
                 isApiReference ? '#FF5D0A' : 'transparent'
@@ -261,9 +253,7 @@ export const DocsAppbar = React.memo(() => {
         </Stack>
       </Stack>
       <Stack direction={'row'} spacing={2}>
-
         {isApiReference && !isMobile && (
-
           <Stack direction={'row'} spacing={1} alignItems="center">
             <Typography color={'black'}>Language:</Typography>{' '}
             <DocsPopover

@@ -149,7 +149,6 @@ export const transFormMainData = (mainCollection) => {
   });
 
   const tier1 = mainCollection?.map((e) => {
-
     const res = e.item.map((q) => {
       if (q.request) {
         return {
@@ -211,7 +210,6 @@ export const transFormMainData = (mainCollection) => {
     return { ...e, item: res, children: res };
   });
   return finalData;
-
 };
 
 export const makeTree = (data) => {
@@ -280,7 +278,11 @@ export const transFormMainDataMedia = (mainCollection) => {
           return {
             ...w,
             parent: q.name,
-            url: `${e.parent}${q?.name?.toLowerCase()}/#${w.name.replaceAll(
+            url: `${e.parent}/${q?.name?.toLowerCase()}/#${w.name.replaceAll(
+              ' ',
+              '-',
+            )}`,
+            uri: `${e.parent}/${q?.name?.toLowerCase()}/#${w.name.replaceAll(
               ' ',
               '-',
             )}`,
@@ -311,10 +313,10 @@ export const transFormMainDataMedia = (mainCollection) => {
             parent: '/' + w?.name,
             url:
               e.parent +
-              `${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
+              `/${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
             uri:
               e.parent +
-              `${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
+              `/${w.name.toLowerCase()}/#${y.name.replaceAll(' ', '-')}`,
           };
         });
         return { ...w, item: res3, children: res3 };

@@ -66,7 +66,7 @@ const FieldComponent = ({ label = '', value = '', copy = true, loading }) => {
             bgcolor: theme.palette.mode === 'light' ? 'white' : 'transparent',
             '& .MuiInputBase-input.Mui-disabled': {
               WebkitTextFillColor:
-                theme.palette.mode === 'light' ? 'black' : 'white',
+                theme.palette.mode === 'light' ? 'black' : '#333333',
             },
             '& fieldset': {
               border: `1px solid ${grey[200]}`,
@@ -185,7 +185,10 @@ export const OverviewTabs = ({
         width: '100%',
         height: '100%',
         [theme.breakpoints.up('lg')]: {
-          bgcolor: theme.palette.mode === 'light' ? theme.palette.grey[50] : '',
+          bgcolor:
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[50]
+              : 'transparent',
         },
       })}
     >

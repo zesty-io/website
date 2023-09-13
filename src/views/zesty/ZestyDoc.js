@@ -22,7 +22,6 @@
 import revampTheme from 'theme/revampTheme';
 import { Box, Button, ThemeProvider } from '@mui/material';
 import {
-  Container,
   Grid,
   Stack,
   Typography,
@@ -135,12 +134,7 @@ const ZestyDoc = (props) => {
   return (
     <Stack data-testid="docs-slug">
       <style>{inlineStyles}</style>
-      <Container
-        sx={() => ({
-          // maxWidth: '1440px !important',
-          // paddingBottom: '0 !important',
-        })}
-      >
+      <Stack px={4}>
         {!isLoggedIn && <DocsAppbar />}
         {/* // headers */}
 
@@ -194,9 +188,10 @@ const ZestyDoc = (props) => {
                 }}
               >
                 <Stack width={1} textAlign={'left'} pt={2}>
-
                   <Typography
                     variant="h3"
+                    component={'h1'}
+                    className="title"
                     fontWeight={'bold'}
                     id={content?.title}
                   >
@@ -209,6 +204,7 @@ const ZestyDoc = (props) => {
                     component={'p'}
                     fontWeight={'400'}
                     id="description"
+                    className="description"
                     color={'gray'}
                   >
                     {content?.description}
@@ -218,7 +214,7 @@ const ZestyDoc = (props) => {
                   {/* Component that render the markdown file */}
                   <ZestyMarkdownParser
                     isDocs={true}
-
+                    markdown={contentBody}
                     mainKeywords={mainKeywords}
                     productGlossary={productGlossary}
                   />
@@ -269,7 +265,7 @@ const ZestyDoc = (props) => {
             </Grid>
           </Grid>
         </Stack>
-      </Container>
+      </Stack>
 
       {!isLoggedIn && (
         <Box pt={4} id={'cta'}>
