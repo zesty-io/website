@@ -190,6 +190,8 @@ const ZestyDoc = (props) => {
                 <Stack width={1} textAlign={'left'} pt={2}>
                   <Typography
                     variant="h3"
+                    component={'h1'}
+                    className="title"
                     fontWeight={'bold'}
                     id={content?.title}
                   >
@@ -202,6 +204,7 @@ const ZestyDoc = (props) => {
                     component={'p'}
                     fontWeight={'400'}
                     id="description"
+                    className="description"
                     color={'gray'}
                   >
                     {content?.description}
