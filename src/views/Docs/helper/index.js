@@ -286,6 +286,10 @@ export const transFormMainDataMedia = (mainCollection) => {
               ' ',
               '-',
             )}`,
+            uri: `${e.parent}${q?.name?.toLowerCase()}/#${w.name.replaceAll(
+              ' ',
+              '-',
+            )}`,
           };
         }
         return {
