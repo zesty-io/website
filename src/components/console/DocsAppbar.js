@@ -18,6 +18,7 @@ import { DocsComboBox } from 'views/Docs/DocsComboBox';
 import { DocsPopover } from 'views/Docs/DocsPopover';
 import { SearchModal } from 'views/Docs/SearchModal';
 import { AlgoSearch } from 'views/Docs/AlgoSearch';
+import { AppSearch } from './AppSearch';
 
 const allowedSections = [
   'docs/media',
@@ -161,6 +162,12 @@ export const DocsAppbar = React.memo(() => {
     setSelectedDocsCategory(docsCategory || routeCategory);
   }, [docsCategory, router.asPath]);
 
+  const SearhProsp = {
+    apiKey,
+    appId,
+    index,
+  };
+
   return (
     <Stack
       direction={'row'}
@@ -293,6 +300,7 @@ export const DocsAppbar = React.memo(() => {
             }
           />
         )}
+        <AppSearch {...SearhProsp} />
         {!isMobile && (
           <SearchModal sx={{ width: 200 }}>
             <AlgoSearch />
