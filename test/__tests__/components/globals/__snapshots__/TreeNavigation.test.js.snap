@@ -38,12 +38,12 @@ exports[`TreeNavigation test tree test 1`] = `
       <div
         class="MuiTreeItem-label"
       >
-        <p
-          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+        <h3
+          class="MuiTypography-root MuiTypography-body1 algolia-lvl0 css-1bhp13w-MuiTypography-root"
           title="Content"
         >
           Content
-        </p>
+        </h3>
       </div>
     </div>
   </li>
@@ -76,12 +76,12 @@ exports[`TreeNavigation test tree test 1`] = `
       <div
         class="MuiTreeItem-label"
       >
-        <p
-          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+        <h3
+          class="MuiTypography-root MuiTypography-body1 algolia-lvl0 css-1bhp13w-MuiTypography-root"
           title="Schema"
         >
           Schema
-        </p>
+        </h3>
       </div>
     </div>
   </li>
@@ -114,12 +114,12 @@ exports[`TreeNavigation test tree test 1`] = `
       <div
         class="MuiTreeItem-label"
       >
-        <p
-          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+        <h3
+          class="MuiTypography-root MuiTypography-body1 algolia-lvl0 css-1bhp13w-MuiTypography-root"
           title="Templating"
         >
           Templating
-        </p>
+        </h3>
       </div>
     </div>
   </li>
@@ -152,12 +152,12 @@ exports[`TreeNavigation test tree test 1`] = `
       <div
         class="MuiTreeItem-label"
       >
-        <p
-          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+        <h3
+          class="MuiTypography-root MuiTypography-body1 algolia-lvl0 css-1bhp13w-MuiTypography-root"
           title="Media"
         >
           Media
-        </p>
+        </h3>
       </div>
     </div>
   </li>
@@ -265,12 +265,12 @@ exports[`TreeNavigation test tree test 1`] = `
       <div
         class="MuiTreeItem-label"
       >
-        <p
-          class="MuiTypography-root MuiTypography-body1 css-1bhp13w-MuiTypography-root"
+        <h3
+          class="MuiTypography-root MuiTypography-body1 algolia-lvl0 css-1bhp13w-MuiTypography-root"
           title="Rendering"
         >
           Rendering
-        </p>
+        </h3>
       </div>
     </div>
   </li>
