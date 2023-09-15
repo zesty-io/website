@@ -32,14 +32,12 @@ const acorns =
 
 const GetDemoSection = ({
   title = 'Connect with Content Experts',
-  supportingText = `Book a free 15-minute consultation with a content expert. Discuss your application, pain points and requirements. 
-  
-  Understand how Zesty's lower total cost of ownership, features, functionality can elevate your business by creating extraordinary digital experiences.`,
+  supportingText = `<p>Book a free 15-minute consultation with a content expert.  Discuss your application, pain points and requirements.  Understand how Zesty's lower total cost of ownership, features, functionality can elevate your business by creating extraordinary digital experiences.</p>`,
   isLong = true,
   redirect = '/meet',
   isContact = false,
-  formTitle = 'Contact us for a Custom Demo',
-  formCtaText = 'Book Demo',
+  formTitle = 'Start by Entering your Email',
+  formCtaText = 'Submit',
 }) => {
   const { lastVisitedPath, lastVisitedURL } = getLastVisitedPathAndUrl();
   let inquiryReasons = [
