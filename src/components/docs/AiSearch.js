@@ -244,7 +244,7 @@ export const AiSearch = () => {
                                 component: SyntaxHighlighter,
                                 props: {
                                   style: dracula,
-                                  language: 'html',
+                                  language: 'javascript',
                                   wrapLongLines: true,
                                 },
                               },
