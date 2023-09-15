@@ -32,9 +32,9 @@ const acorns =
 
 const GetDemoSection = ({
   title = 'Connect with Content Experts',
-  supportingText = `Want to see how Zesty can help you and your teams? Fill out the form to be contacted by our content management experts.
-
-Please look forward to us scheduling a 15 minute call so that we may customize your demo.`,
+  supportingText = `Book a free 15-minute consultation with a content expert. Discuss your application, pain points and requirements. 
+  
+  Understand how Zesty's lower total cost of ownership, features, functionality can elevate your business by creating extraordinary digital experiences.`,
   isLong = true,
   redirect = '/meet',
   isContact = false,
@@ -125,7 +125,6 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               fontWeight={800}
               letterSpacing="-0.02em"
               color="white"
-              mb="12px"
             >
               {title}
             </Typography>
@@ -175,7 +174,109 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               <img src={bjs} width="36.48px" height="32px" />
             </Stack>
           </Stack>
-          <Stack>
+        </Stack>
+
+        <Stack>
+          <Stack
+            borderRadius="8px"
+            sx={(theme) => ({
+              height: '100%',
+              alignSelf: { lg: !isLong && 'center' },
+              p: 4,
+              bgcolor: theme.palette.mode === 'light' ? 'white' : 'grey.800',
+              width: { xs: '100%', lg: '456px', desktopWide: '548px' },
+            })}
+          >
+            <Formik
+              enableReinitialize
+              initialValues={{
+                firstName: '',
+                lastName: '',
+                company: '',
+                email: '',
+                phoneNumber: '',
+                message: '',
+                jobTitle: '',
+                businessEmail: '',
+                linkedIn: '',
+                inquiryReason: isContact ? 'General' : '',
+              }}
+              validationSchema={
+                isLong && !isContact
+                  ? validationSchema
+                  : isContact
+                  ? contactPageValidation
+                  : shortValidationSchema
+              }
+              onSubmit={async (values) => {
+                await onSubmit(values);
+              }}
+            >
+              {({
+                handleSubmit,
+                getFieldProps,
+                errors,
+                touched,
+                initialValues,
+                isSubmitting,
+                setFieldValue,
+                values,
+              }) => (
+                <Form id="site-form" onSubmit={handleSubmit}>
+                  <Stack>
+                    <Typography
+                      variant="h4"
+                      letterSpacing="-0.02em"
+                      color="text.primary"
+                      fontWeight={800}
+                      mb={3}
+                    >
+                      {formTitle}
+                    </Typography>
+
+                    {/* Save this component as backup */}
+
+                    {isContact ? (
+                      <MultiFieldForm
+                        {...{
+                          isLong,
+                          isContact,
+                          handleSubmit,
+                          getFieldProps,
+                          errors,
+                          touched,
+                          initialValues,
+                          isSubmitting,
+                          setFieldValue,
+                          values,
+                          inquiryReasons,
+                        }}
+                      />
+                    ) : (
+                      <SingleFieldForm
+                        formButtonText={formCtaText}
+                        {...{
+                          isLong,
+                          isContact,
+                          handleSubmit,
+                          getFieldProps,
+                          errors,
+                          touched,
+                          initialValues,
+                          isSubmitting,
+                          setFieldValue,
+                          values,
+                          inquiryReasons,
+                        }}
+                      />
+                    )}
+                  </Stack>
+                </Form>
+              )}
+            </Formik>
+          </Stack>
+
+          <Stack sx={{ mt: 8 }}>
             <Typography
               color="primary"
               variant="body2"
@@ -190,105 +291,6 @@ Please look forward to us scheduling a 15 minute call so that we may customize y
               <img src={pic3} width="92.2px" height="120px" />
             </Stack>
           </Stack>
-        </Stack>
-
-        <Stack
-          borderRadius="8px"
-          sx={(theme) => ({
-            height: '100%',
-            alignSelf: { lg: !isLong && 'center' },
-            p: 4,
-            bgcolor: theme.palette.mode === 'light' ? 'white' : 'grey.800',
-            width: { xs: '100%', lg: '456px', desktopWide: '548px' },
-          })}
-        >
-          <Formik
-            enableReinitialize
-            initialValues={{
-              firstName: '',
-              lastName: '',
-              company: '',
-              email: '',
-              phoneNumber: '',
-              message: '',
-              jobTitle: '',
-              businessEmail: '',
-              linkedIn: '',
-              inquiryReason: isContact ? 'General' : '',
-            }}
-            validationSchema={
-              isLong && !isContact
-                ? validationSchema
-                : isContact
-                ? contactPageValidation
-                : shortValidationSchema
-            }
-            onSubmit={async (values) => {
-              await onSubmit(values);
-            }}
-          >
-            {({
-              handleSubmit,
-              getFieldProps,
-              errors,
-              touched,
-              initialValues,
-              isSubmitting,
-              setFieldValue,
-              values,
-            }) => (
-              <Form id="site-form" onSubmit={handleSubmit}>
-                <Stack>
-                  <Typography
-                    variant="h4"
-                    letterSpacing="-0.02em"
-                    color="text.primary"
-                    fontWeight={800}
-                    mb={3}
-                  >
-                    {formTitle}
-                  </Typography>
-
-                  {/* Save this component as backup */}
-
-                  {isContact ? (
-                    <MultiFieldForm
-                      {...{
-                        isLong,
-                        isContact,
-                        handleSubmit,
-                        getFieldProps,
-                        errors,
-                        touched,
-                        initialValues,
-                        isSubmitting,
-                        setFieldValue,
-                        values,
-                        inquiryReasons,
-                      }}
-                    />
-                  ) : (
-                    <SingleFieldForm
-                      formButtonText={formCtaText}
-                      {...{
-                        isLong,
-                        isContact,
-                        handleSubmit,
-                        getFieldProps,
-                        errors,
-                        touched,
-                        initialValues,
-                        isSubmitting,
-                        setFieldValue,
-                        values,
-                        inquiryReasons,
-                      }}
-                    />
-                  )}
-                </Stack>
-              </Form>
-            )}
-          </Formik>
         </Stack>
       </Stack>
     </Stack>
