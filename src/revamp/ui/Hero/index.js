@@ -23,7 +23,7 @@ const media =
 const Hero = ({
   header = 'Data Driven, Drag &amp; Drop, Composable, Content Management',
   subtitle = 'Drive business growth with a Hybrid Headless CMS to create, deliver, measure, and optimize your content marketing at scale. ',
-  primaryBtn = 'Schedule Demo',
+  primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo?ab=light',
   secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '/demos/video?ab=light',
