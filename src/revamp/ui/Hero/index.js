@@ -21,8 +21,8 @@ const media =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Ellipse.svg';
 
 const Hero = ({
-  header = 'Maximize Content Marketing Performance',
-  subtitle = 'Drive business growth with a visual CMS to create, deliver, measure, and optimize your content marketing at scale. ',
+  header = 'Data Driven, Drag &amp; Drop, Composable, Content Management',
+  subtitle = 'Drive business growth with a Hybrid Headless CMS to create, deliver, measure, and optimize your content marketing at scale. ',
   primaryBtn = 'Schedule Demo',
   primaryBtnLink = '/demo?ab=light',
   secondaryBtn = 'Watch Demo Video',

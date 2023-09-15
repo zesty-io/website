@@ -105,7 +105,7 @@ const Main = ({ data }) => {
     Array.isArray(data.item) &&
     data.item.map((e, i) => {
       // Get data from postman collection
-      const name = e?.name?.replaceAll(' ', '-');
+      const name = e?.name.replaceAll(' ', '-');
       const hasBody =
         e?.request?.body?.mode === 'raw' && e?.request?.body?.raw
           ? true
@@ -282,7 +282,7 @@ const Main = ({ data }) => {
               </Stack>
             </Grid>
             <Grid item xs={0} lg={6} width={1}>
-              {inView && <CodeBlock title={name} data={e} />}
+              {inView && <CodeBlock title={e?.name} data={e} />}
             </Grid>
           </Grid>
         );

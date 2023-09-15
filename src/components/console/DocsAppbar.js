@@ -149,7 +149,6 @@ export const DocsAppbar = React.memo(() => {
 
   const isDocs = router.asPath.includes('/docs');
   const isApiReference = router.asPath.includes('api-reference');
-
   const showApiReferenceBtn = allowedSections.some((path) =>
     router.asPath.includes(path),
   );
@@ -228,7 +227,6 @@ export const DocsAppbar = React.memo(() => {
             href={`/docs/${selectedDocsCategory}/api-reference`}
             style={{
               display: showApiReferenceBtn ? 'block' : 'none',
-
               color: isApiReference ? '#FF5D0A' : 'GrayText',
               borderBottom: `2px solid ${
                 isApiReference ? '#FF5D0A' : 'transparent'

@@ -212,14 +212,9 @@ const Main = ({
         </Container>
 
         {isDocsPage && !docsLanding && (
-          <Container
-            sx={() => ({
-              maxWidth: '1440px !important',
-              paddingBottom: '0 !important',
-            })}
-          >
+          <>
             <DocsAppbar />
-          </Container>
+          </>
         )}
       </AppBar>
       <Sidebar

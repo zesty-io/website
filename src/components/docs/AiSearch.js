@@ -48,7 +48,6 @@ export const AiSearch = () => {
       message: 'Hi, How can I help you?',
     },
   ]);
-
   const [query, setQuery] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
@@ -61,7 +60,6 @@ export const AiSearch = () => {
     // Keep scroll at the bottom
     scrollableRef.current.scrollTop = scrollableRef.current.scrollHeight;
     e.preventDefault();
-
     setLoading(true);
     setQuery('');
     setChatHistory([
