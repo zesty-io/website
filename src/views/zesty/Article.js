@@ -64,7 +64,6 @@ function Article({ content }) {
     ? (relatedArticles = content.related_articles.data)
     : (relatedArticles = null);
 
-  console.log(content);
   // const {
   //   data: tagArticles,
   //   //  isPending: tagsPending
