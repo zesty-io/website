@@ -36,15 +36,6 @@ const formatUrlSources = (url) => {
   }
 };
 
-const processToken = (token) => {
-  const data = JSON.parse(token);
-  const text = data.token.replace(/\\n/g, '\n').replace(/\"/g, '');
-  return {
-    text,
-    id: data.id,
-  };
-};
-
 export const AiSearch = () => {
   const theme = useTheme();
   const email = getCookie('APP_USER_EMAIL').replace(/%40/g, '@');
@@ -57,7 +48,7 @@ export const AiSearch = () => {
       message: 'Hi, How can I help you?',
     },
   ]);
-  const [botResponse, setBotResponse] = React.useState(null);
+
   const [query, setQuery] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
@@ -66,19 +57,17 @@ export const AiSearch = () => {
     setLanguage(e.target.value);
   };
 
-  const [source, setSource] = React.useState(null);
-
   const askAiHandler = async (e) => {
     // Keep scroll at the bottom
     scrollableRef.current.scrollTop = scrollableRef.current.scrollHeight;
     e.preventDefault();
-    setBotResponse(null);
+
     setLoading(true);
     setQuery('');
     setChatHistory([
       ...chatHistory,
       {
-        id: chatHistory.length + 1,
+        id: generateRandomId(10),
         type: 'user',
         message: query.replaceAll('\n', '<br/>'),
       },
@@ -86,31 +75,6 @@ export const AiSearch = () => {
 
     // Guard Clause to prevent empty queries
     if (query === '') return;
-
-    if (source) {
-      source.close();
-    }
-
-    const newSource = new EventSource(
-      'https://us-central1-zesty-dev.cloudfunctions.net/aiSearch/query/',
-    );
-    setSource(newSource);
-
-    newSource.addEventListener('newToken', async (event) => {
-      const { text, id } = processToken(event.data);
-
-      setBotResponse((prevBotResponse) => {
-        return {
-          text: `${prevBotResponse?.text || ''}${text}`,
-          id,
-        };
-      });
-    });
-
-    newSource.addEventListener('end', () => {
-      newSource.close();
-      setLoading(false);
-    });
 
     try {
       const resp = await fetch(
@@ -127,53 +91,25 @@ export const AiSearch = () => {
       );
 
       const data = await resp.json();
-      // update the source documents of the last time in the chat history if type is bot
-      setChatHistory((prevChatHistory) => {
-        //Shallow copy of the last index of chatHistory
-        const lastItem = { ...prevChatHistory[prevChatHistory.length - 1] };
 
-        // If the last item is a bot, update the source documents
-        if (lastItem.type === 'bot') {
-          lastItem.sourceDocuments = data.response.sourceDocuments;
-        }
-        return [
-          ...prevChatHistory.slice(0, prevChatHistory.length - 1),
-          lastItem,
-        ];
-      });
+      if (data) {
+        setLoading(false);
+        setChatHistory((prevChatHistory) => [
+          ...prevChatHistory,
+          {
+            id: generateRandomId(10),
+            type: 'bot',
+            message: data.response.text
+              .replace(/\\n/g, '\n')
+              .replace(/\"/g, ''),
+            sourceDocuments: data.response.sourceDocuments,
+          },
+        ]);
+      }
     } catch (error) {
       console.log(error);
     }
   };
-
-  React.useEffect(() => {
-    if (botResponse) {
-      setChatHistory((prevChatHistory) => {
-        const updatedChatHistory = prevChatHistory.map((item) => {
-          if (item.id === botResponse.id) {
-            // Update the message property for the matching ID
-            return {
-              ...item,
-              message: botResponse.text,
-            };
-          }
-          return item;
-        });
-
-        // If no item with the matching ID was found, add a new item
-        if (!updatedChatHistory.some((item) => item.id === botResponse.id)) {
-          updatedChatHistory.push({
-            id: botResponse.id,
-            type: 'bot',
-            message: botResponse.text,
-          });
-        }
-
-        return updatedChatHistory;
-      });
-      scrollableRef.current.scrollTop = scrollableRef.current.scrollHeight;
-    }
-  }, [botResponse, setChatHistory]);
 
   const placeholderText = [
     'Ask me anything about zesty!',
@@ -185,27 +121,33 @@ export const AiSearch = () => {
   const [displayedPlaceholder, setDisplayedPlaceholder] = React.useState('');
 
   React.useEffect(() => {
-    let currentText = '';
-    let currentIndex = 0;
-    const placeholderInterval = setInterval(() => {
-      const currentPlaceholder = placeholderText[state];
-      const nextChar = currentPlaceholder[currentIndex];
+    if (chatHistory.length < 2) {
+      let currentText = '';
+      let currentIndex = 0;
+      const placeholderInterval = setInterval(() => {
+        const currentPlaceholder = placeholderText[state];
+        const nextChar = currentPlaceholder[currentIndex];
 
-      if (nextChar) {
-        currentText += nextChar;
-        setDisplayedPlaceholder(currentText);
-        currentIndex++;
-      } else {
-        setState((prevState) => (prevState + 1) % placeholderText.length);
-        currentText = '';
-        currentIndex = 0;
-      }
-    }, 150);
+        if (nextChar) {
+          currentText += nextChar;
+          setDisplayedPlaceholder(currentText);
+          currentIndex++;
+        } else {
+          setState((prevState) => (prevState + 1) % placeholderText.length);
+          currentText = '';
+          currentIndex = 0;
+        }
+      }, 150);
 
-    return () => {
-      clearInterval(placeholderInterval); // Clean up the interval on component unmount
-    };
-  }, [state]);
+      return () => {
+        clearInterval(placeholderInterval); // Clean up the interval on component unmount
+      };
+    }
+  }, [state, chatHistory]);
+
+  React.useEffect(() => {
+    scrollableRef.current.scrollTop = scrollableRef.current?.scrollHeight;
+  }, [chatHistory]);
 
   return (
     <>
@@ -263,11 +205,15 @@ export const AiSearch = () => {
                               }}
                             >
                               {item?.sourceDocuments?.map((item, idx) => {
+                                const domainRegex = /https:\/\/[^/]+/;
                                 return (
                                   <Box key={idx}>
                                     <Box
                                       component="a"
-                                      href={item.metadata.source}
+                                      href={item.metadata.source.replace(
+                                        domainRegex,
+                                        `https://zesty.io`,
+                                      )}
                                       target="_blank"
                                       sx={{
                                         background: `${theme.palette.zesty.zestyOrange}`,
@@ -327,6 +273,7 @@ export const AiSearch = () => {
                         display: 'flex',
                         justifyContent: 'flex-end',
                         mt: 2,
+                        pr: 2,
                       }}
                     >
                       <Box
@@ -463,3 +410,17 @@ const Lang = [
     value: 'german',
   },
 ];
+
+// Create a function that generates random ID's
+function generateRandomId(length) {
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let randomId = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    randomId += characters.charAt(randomIndex);
+  }
+
+  return randomId;
+}
