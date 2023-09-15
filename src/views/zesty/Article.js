@@ -59,7 +59,12 @@ function Article({ content }) {
     '/-/all-articles-hydrated.json?limit=4',
     content.zestyProductionMode,
   );
+  let relatedArticles;
+  content?.related_articles != null
+    ? (relatedArticles = content.related_articles.data)
+    : (relatedArticles = null);
 
+  console.log(content);
   // const {
   //   data: tagArticles,
   //   //  isPending: tagsPending
@@ -541,7 +546,7 @@ function Article({ content }) {
             tags={tags}
             authorLink={authorLink}
           />
-          <BlogContent title="Related Articles" articles={latestArticles} />
+          <BlogContent title="Related Articles" articles={relatedArticles} />
         </Stack>
       </ThemeProvider>
     </Box>
