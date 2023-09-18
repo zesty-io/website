@@ -1,13 +1,10 @@
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import {
-  Box,
-  Grid,
-  Stack,
-  Typography,
   CloudRounded as CloudRoundedIcon,
   CodeRounded as CodeRoundedIcon,
   LockRounded as LockRoundedIcon,
   HubRounded as HubRoundedIcon,
-} from '@mui/material';
+} from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
