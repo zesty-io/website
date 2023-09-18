@@ -1,6 +1,5 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import React from 'react';
+import { CheckRounded as CheckRoundedIcon } from '@mui/icons-material';
 
 const featureContent =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/supportImage.webp',

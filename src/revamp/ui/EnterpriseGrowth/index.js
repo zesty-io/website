@@ -1,10 +1,7 @@
 import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
-
 import Marquee from 'react-fast-marquee';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 
 const alphaUniverse =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/alphaUniverse.webp',

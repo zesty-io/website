@@ -1,6 +1,5 @@
 import { Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
-import React from 'react';
 import MuiMarkdown from 'markdown-to-jsx';
 import {
   shortValidationSchema,

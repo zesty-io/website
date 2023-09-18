@@ -1,5 +1,4 @@
 import { Box, Stack, Typography } from '@mui/material';
-import React from 'react';
 
 const featureContent =
   'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/certified-security-compliance.webp';
