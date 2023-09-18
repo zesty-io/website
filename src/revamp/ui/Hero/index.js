@@ -184,7 +184,7 @@ const Hero = ({
         </Grid>
         <Grid item xs={12} lg={6} sx={{ position: 'relative', zIndex: 1 }}>
           <img
-            loading="lazy"
+            loading="eager"
             src={media}
             width="100%"
             height="100%"
