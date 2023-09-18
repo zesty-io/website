@@ -1,7 +1,6 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 
 const media =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Hero%20Image%202.webp',

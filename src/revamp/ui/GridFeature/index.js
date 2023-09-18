@@ -1,5 +1,5 @@
 import { Button, Grid, Link, Stack, Typography, Box } from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { ArrowDownward as ArrowDownwardIcon } from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';

@@ -1,7 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 
 const witnessImage =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Ben.webp',
