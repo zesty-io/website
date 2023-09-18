@@ -63,6 +63,7 @@ const SecurityFeature = ({
       <Stack order={{ xs: 2, lg: 1 }}>
         <Box
           component="img"
+          loading="lazy"
           src={image}
           sx={(theme) => ({
             [theme.breakpoints.up('xs')]: {

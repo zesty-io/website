@@ -222,6 +222,7 @@ const GridFeature = ({
           <Grid key={index} item tablet={6} lg={4} display="flex">
             <Stack spacing="20px">
               <img
+                loading="lazy"
                 src={feature.image}
                 width="100%"
                 height="auto"

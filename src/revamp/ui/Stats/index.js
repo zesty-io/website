@@ -92,6 +92,7 @@ const Stats = ({
         >
           <Box
             component="img"
+            loading="lazy"
             src={contentStats}
             style={{ objectFit: 'contain' }}
             sx={(theme) => ({

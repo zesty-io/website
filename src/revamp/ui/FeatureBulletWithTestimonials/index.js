@@ -99,7 +99,12 @@ const FeatureBulletWithTestimonials = ({
           >
             {testimonial}
           </Typography>
-          <img src={testimonialLogo} width="110.44px" height="40px" />
+          <img
+            loading="lazy"
+            src={testimonialLogo}
+            width="110.44px"
+            height="40px"
+          />
         </Stack>
       </Stack>
       <Stack
@@ -113,6 +118,7 @@ const FeatureBulletWithTestimonials = ({
       >
         <Box
           component="img"
+          loading="lazy"
           src={image}
           sx={(theme) => ({
             [theme.breakpoints.up('xs')]: {

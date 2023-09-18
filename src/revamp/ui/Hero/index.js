@@ -132,6 +132,7 @@ const Hero = ({
               columnGap="20px"
             >
               <img
+                loading="lazy"
                 src={sony}
                 width="91px"
                 height="32px"
@@ -139,6 +140,7 @@ const Hero = ({
                 alt="Sony"
               />
               <img
+                loading="lazy"
                 src={rocketLeague}
                 width="88.35px"
                 height="32px"
@@ -146,6 +148,7 @@ const Hero = ({
                 alt="Rocket League"
               />
               <img
+                loading="lazy"
                 src={singlife}
                 width="102.12px"
                 height="32px"
@@ -153,6 +156,7 @@ const Hero = ({
                 alt="Singlife"
               />
               <img
+                loading="lazy"
                 src={acorns}
                 width="94px"
                 height="32px"
@@ -160,6 +164,7 @@ const Hero = ({
                 alt="Acorns"
               />
               <img
+                loading="lazy"
                 src={bjs}
                 width="36.48px"
                 height="32px"
@@ -167,6 +172,7 @@ const Hero = ({
                 alt="Bjs"
               />
               <img
+                loading="lazy"
                 src={phoenixSuns}
                 width="31.59px"
                 height="32px"
@@ -178,6 +184,7 @@ const Hero = ({
         </Grid>
         <Grid item xs={12} lg={6} sx={{ position: 'relative', zIndex: 1 }}>
           <img
+            loading="lazy"
             src={media}
             width="100%"
             height="100%"
@@ -187,6 +194,7 @@ const Hero = ({
       </Grid>
       <Box
         component="img"
+        loading="lazy"
         src={circle}
         sx={(theme) => ({
           [theme.breakpoints.up('lg')]: {

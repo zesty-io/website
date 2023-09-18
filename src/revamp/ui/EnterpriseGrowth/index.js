@@ -166,6 +166,7 @@ const EnterpriseGrowth = ({
               <Box
                 key={index}
                 component="img"
+                loading="lazy"
                 height="40px"
                 src={logo}
                 sx={{
@@ -229,6 +230,7 @@ const EnterpriseGrowth = ({
               >
                 <Box
                   component="img"
+                  loading="lazy"
                   width="100%"
                   height="auto"
                   src={c.mainImage}
@@ -246,6 +248,7 @@ const EnterpriseGrowth = ({
 
                 <Box
                   component="img"
+                  loading="lazy"
                   height={{ xs: '32px', tablet: '64px' }}
                   src={c.logo}
                   sx={{
