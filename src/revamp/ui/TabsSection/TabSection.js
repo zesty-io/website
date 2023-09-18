@@ -15,7 +15,7 @@ const listItems = [
 const TabSection = ({
   header = 'Digital Asset Management made easy',
   lists = listItems,
-  primaryBtn = 'Schedule Demo',
+  primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo',
   image = 'https://storage.googleapis.com/assets.zesty.io/website/images/assets/schema.png',
 }) => {
@@ -45,6 +45,7 @@ const TabSection = ({
         <Stack order={isLG ? 2 : 1}>
           <Box
             component="img"
+            loading="lazy"
             src={image}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {

@@ -1,7 +1,6 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 
 const media =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Hero%20Image%202.webp',
@@ -21,9 +20,9 @@ const media =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Ellipse.svg';
 
 const Hero = ({
-  header = 'Maximize Content Marketing Performance',
-  subtitle = 'Drive business growth with a visual CMS to create, deliver, measure, and optimize your content marketing at scale. ',
-  primaryBtn = 'Schedule Demo',
+  header = 'Data Driven, Drag & Drop, Composable, Content Management',
+  subtitle = 'Drive business growth with a Hybrid Headless CMS to create, deliver, measure, and optimize your content marketing at scale. ',
+  primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo?ab=light',
   secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '/demos/video?ab=light',
@@ -132,6 +131,7 @@ const Hero = ({
               columnGap="20px"
             >
               <img
+                loading="lazy"
                 src={sony}
                 width="91px"
                 height="32px"
@@ -139,6 +139,7 @@ const Hero = ({
                 alt="Sony"
               />
               <img
+                loading="lazy"
                 src={rocketLeague}
                 width="88.35px"
                 height="32px"
@@ -146,6 +147,7 @@ const Hero = ({
                 alt="Rocket League"
               />
               <img
+                loading="lazy"
                 src={singlife}
                 width="102.12px"
                 height="32px"
@@ -153,6 +155,7 @@ const Hero = ({
                 alt="Singlife"
               />
               <img
+                loading="lazy"
                 src={acorns}
                 width="94px"
                 height="32px"
@@ -160,6 +163,7 @@ const Hero = ({
                 alt="Acorns"
               />
               <img
+                loading="lazy"
                 src={bjs}
                 width="36.48px"
                 height="32px"
@@ -167,6 +171,7 @@ const Hero = ({
                 alt="Bjs"
               />
               <img
+                loading="lazy"
                 src={phoenixSuns}
                 width="31.59px"
                 height="32px"
@@ -178,6 +183,7 @@ const Hero = ({
         </Grid>
         <Grid item xs={12} lg={6} sx={{ position: 'relative', zIndex: 1 }}>
           <img
+            loading="eager"
             src={media}
             width="100%"
             height="100%"
@@ -187,6 +193,7 @@ const Hero = ({
       </Grid>
       <Box
         component="img"
+        loading="lazy"
         src={circle}
         sx={(theme) => ({
           [theme.breakpoints.up('lg')]: {

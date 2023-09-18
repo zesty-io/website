@@ -40,7 +40,13 @@ const GetTree = ({ data = [] }) => {
                 textDecoration: 'none',
               }}
             >
-              <Typography variant="body1" py={0.5} title={e.title}>
+              <Typography
+                variant="body1"
+                py={0.5}
+                title={e.title}
+                className="algolia-lvl0"
+                component={'h3'}
+              >
                 {e.title || e.name}
               </Typography>
             </NextLink>

@@ -1,7 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 
 const witnessImage =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Ben.webp',
@@ -76,6 +75,7 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
         >
           <Box
             component="img"
+            loading="lazy"
             src={witness}
             borderRadius="50%"
             sx={(theme) => ({
@@ -101,7 +101,13 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
           <Typography color="white" fontWeight={700} mb="20px">
             {role}
           </Typography>
-          <Box component="img" width="132.53px" height="48px" src={logo} />
+          <Box
+            component="img"
+            loading="lazy"
+            width="132.53px"
+            height="48px"
+            src={logo}
+          />
         </Stack>
 
         <Stack justifyContent={isLG ? 'center' : 'block'}>

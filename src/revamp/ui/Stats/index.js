@@ -1,11 +1,12 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import CloudRoundedIcon from '@mui/icons-material/CloudRounded';
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
-import LockRoundedIcon from '@mui/icons-material/LockRounded';
-import HubRoundedIcon from '@mui/icons-material/HubRounded';
+import {
+  CloudRounded as CloudRoundedIcon,
+  CodeRounded as CodeRoundedIcon,
+  LockRounded as LockRoundedIcon,
+  HubRounded as HubRoundedIcon,
+} from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 
 const contentStats =
   'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/G2%20Zesty%20Rating.svg';
@@ -92,6 +93,7 @@ const Stats = ({
         >
           <Box
             component="img"
+            loading="lazy"
             src={contentStats}
             style={{ objectFit: 'contain' }}
             sx={(theme) => ({

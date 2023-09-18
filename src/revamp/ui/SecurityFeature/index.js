@@ -1,5 +1,4 @@
 import { Box, Stack, Typography } from '@mui/material';
-import React from 'react';
 
 const featureContent =
   'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/certified-security-compliance.webp';
@@ -63,6 +62,7 @@ const SecurityFeature = ({
       <Stack order={{ xs: 2, lg: 1 }}>
         <Box
           component="img"
+          loading="lazy"
           src={image}
           sx={(theme) => ({
             [theme.breakpoints.up('xs')]: {

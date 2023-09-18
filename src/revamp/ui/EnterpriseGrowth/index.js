@@ -1,10 +1,7 @@
 import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
-
 import Marquee from 'react-fast-marquee';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 
 const alphaUniverse =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/alphaUniverse.webp',
@@ -71,7 +68,7 @@ const EnterpriseGrowth = ({
   overline = 'No more monday morning fires to put out',
   heading = 'Built for enterprise scale and security',
   supportingText = 'With best-in class security and automatically scaling architecture, our platform can serve up to millions of users at any second. Sleep soundly at night knowing Zesty serves an average 1B+ requests per month at 99.999%+ uptime.',
-  primaryBtn = 'Schedule Demo',
+  primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo',
   secondaryBtn = 'View Demo Video',
   secondaryBtnLink = '/demos/video/',
@@ -166,6 +163,7 @@ const EnterpriseGrowth = ({
               <Box
                 key={index}
                 component="img"
+                loading="lazy"
                 height="40px"
                 src={logo}
                 sx={{
@@ -229,6 +227,7 @@ const EnterpriseGrowth = ({
               >
                 <Box
                   component="img"
+                  loading="lazy"
                   width="100%"
                   height="auto"
                   src={c.mainImage}
@@ -246,6 +245,7 @@ const EnterpriseGrowth = ({
 
                 <Box
                   component="img"
+                  loading="lazy"
                   height={{ xs: '32px', tablet: '64px' }}
                   src={c.logo}
                   sx={{
