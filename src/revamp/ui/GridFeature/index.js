@@ -4,38 +4,22 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 
-const android =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Android.svg',
-  angular =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Angular.svg',
-  flutter =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Flutter.svg',
-  gatsby =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Gatsby.svg',
-  hugo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Hugo.svg',
-  java =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Java.svg',
-  javascript =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Javascript.svg',
-  koitlin =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Koitlin.svg',
-  next =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Next.svg',
-  node =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Node.svg',
-  php =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/PHP.svg',
-  react =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/React.svg',
-  ruby =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Ruby.svg',
-  swift =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Swift.svg',
-  nuxt =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Nuxt.svg',
-  vue =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/code/Vue.svg';
+const android = 'https://kfg6bckb.media.zestyio.com/Android.svg',
+  angular = 'https://kfg6bckb.media.zestyio.com/Angular.svg',
+  flutter = 'https://kfg6bckb.media.zestyio.com/Flutter.svg',
+  gatsby = 'https://kfg6bckb.media.zestyio.com/Gatsby.svg',
+  hugo = 'https://kfg6bckb.media.zestyio.com/Hugo.svg',
+  java = 'https://kfg6bckb.media.zestyio.com/Java.svg',
+  javascript = 'https://kfg6bckb.media.zestyio.com/Javascript.svg',
+  koitlin = 'https://kfg6bckb.media.zestyio.com/Koitlin.svg',
+  next = 'https://kfg6bckb.media.zestyio.com/Next.svg',
+  node = 'https://kfg6bckb.media.zestyio.com/Node.svg',
+  php = 'https://kfg6bckb.media.zestyio.com/PHP.svg',
+  react = 'https://kfg6bckb.media.zestyio.com/React.svg',
+  ruby = 'https://kfg6bckb.media.zestyio.com/Ruby.svg',
+  swift = 'https://kfg6bckb.media.zestyio.com/Swift.svg',
+  nuxt = 'https://kfg6bckb.media.zestyio.com/Nuxt.svg',
+  vue = 'https://kfg6bckb.media.zestyio.com/Vue.svg';
 
 const cardLists = [
   {
@@ -225,7 +209,7 @@ const GridFeature = ({
                 loading="lazy"
                 src={feature.image}
                 width="100%"
-                height="auto"
+                height={240}
                 style={{ objectFit: 'contain' }}
               />
               <Typography fontWeight={600} letterSpacing="-0.02em" variant="h5">

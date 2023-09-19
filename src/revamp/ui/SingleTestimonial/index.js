@@ -2,10 +2,9 @@ import { Box, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-const witnessImage =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Ben.webp',
+const witnessImage = 'https://kfg6bckb.media.zestyio.com/Ben.webp',
   witnessLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bluePixelLogo.svg';
+    'https://kfg6bckb.media.zestyio.com/bluePixelLogo.H1OTqyvkp.svg';
 
 const SingleTestimonial = ({
   witness = witnessImage,

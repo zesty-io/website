@@ -164,6 +164,7 @@ const EnterpriseGrowth = ({
                 key={index}
                 component="img"
                 loading="lazy"
+                width={'120px'}
                 height="40px"
                 src={logo}
                 sx={{
