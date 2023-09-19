@@ -2,22 +2,14 @@ import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-const media =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Hero%20Image%202.webp',
-  acorns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acornsHero.svg',
-  bjs =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bjsHero.svg',
-  phoenixSuns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/phoenixSunsHero.svg',
-  rocketLeague =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/rocketLeagueHero.svg',
-  singlife =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeHero.svg',
-  sony =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/sonyHero.svg',
-  circle =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Ellipse.svg';
+const media = 'https://kfg6bckb.media.zestyio.com/media.webp',
+  acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
+  bjs = 'https://kfg6bckb.media.zestyio.com/bjsHero.svg',
+  phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
+  rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeagueHero.svg',
+  singlife = 'https://kfg6bckb.media.zestyio.com/singlifeHero.svg',
+  sony = 'https://kfg6bckb.media.zestyio.com/sonyHero.svg',
+  circle = 'https://kfg6bckb.media.zestyio.com/Ellipse.svg';
 
 const Hero = ({
   header = 'Data Driven, Drag & Drop, Composable, Content Management',

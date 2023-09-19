@@ -23,7 +23,7 @@ const tabLists = [
           'Preview edits in real time with Duo Mode',
           'Easy organization and search for easy management',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Content%20App%202.webp"
+        image="https://kfg6bckb.media.zestyio.com/Content-App-2.webp"
       />
     ),
   },
@@ -52,7 +52,7 @@ const tabLists = [
           'Automated image optimization and alt tags',
           'Programmatically modify image color, size, crop, and more instantly',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/media.webp"
+        image="https://kfg6bckb.media.zestyio.com/media.webp"
       />
     ),
   },
@@ -67,7 +67,7 @@ const tabLists = [
           'Regenerate and refine content as needed',
           'Preview AI created content instantly',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/AI%20Generator.webp"
+        image="https://kfg6bckb.media.zestyio.com/AI-Generator.webp"
       />
     ),
   },
@@ -82,7 +82,7 @@ const tabLists = [
           'Use API or manual translation services',
           'Manage SEO metadata in multiple languages',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Localization.webp"
+        image="https://kfg6bckb.media.zestyio.com/Localization.webp"
       />
     ),
   },
@@ -102,7 +102,7 @@ const tabLists = [
           'A/B test content on webpages, apps, and more',
           'Integrate with your existing analytics provider',
         ]}
-        image="https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/AB%20Testing.webp"
+        image="https://kfg6bckb.media.zestyio.com/AB-Testing.webp"
       />
     ),
   },
