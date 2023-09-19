@@ -122,12 +122,14 @@ function Homepage({ content }) {
       </ThemeProvider>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection />
-        <GridFeature />
-        <SingleTestimonial />
         <Stats />
-        <SecurityFeature />
         <EnterpriseGrowth />
         <FeatureBulletWithTestimonials />
+        <GridFeature />
+        <SingleTestimonial />
+
+        <SecurityFeature />
+
         <GetDemoSection />
       </ThemeProvider>
     </>
