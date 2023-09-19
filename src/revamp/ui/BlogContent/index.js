@@ -5,6 +5,7 @@ import { useTheme, useMediaQuery } from '@mui/material';
 import FillerContent from 'components/globals/FillerContent';
 
 const BlogContent = ({ title = '', articles, withPagination = false }) => {
+  // checks for related articles data else return nothing
   if (articles != null) {
     const theme = useTheme();
     const isLG = useMediaQuery(theme.breakpoints.up('lg'));
@@ -72,9 +73,16 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
           <Grid container rowSpacing={8} columnSpacing={6}>
             {articlesList.map((article, index) => (
               <Grid xs={12} lg={index === 0 ? 12 : 4} item key={index}>
+                {/* 
+                  articleList can be fetched either from all articles end point or related articles from content object.
+
+                  If data to any article item, filler data will be prioritized
+                 */}
                 <BlogCard
                   article={
-                    article?.hero_image?.data[0]?.url || FillerContent.image
+                    article?.hero_image?.data[0]?.url ||
+                    article.image ||
+                    FillerContent.image
                   }
                   heading={article.title}
                   description={article.description}

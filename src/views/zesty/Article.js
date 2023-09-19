@@ -48,17 +48,13 @@ import dayjs from 'dayjs';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 import AuthorSection from 'revamp/ui/AuthorSection';
-import useFetch from 'components/hooks/useFetch';
 import BlogContent from 'revamp/ui/BlogContent';
 
 function Article({ content }) {
   const [newContent, setNewContent] = useState(content.article);
   const { palette } = useTheme();
 
-  const { data: latestArticles, isPending: _latestPending } = useFetch(
-    '/-/all-articles-hydrated.json?limit=4',
-    content.zestyProductionMode,
-  );
+  // Check if Related Articles from content object; pass null if no data
   let relatedArticles;
   content?.related_articles != null
     ? (relatedArticles = content.related_articles.data)
