@@ -9,9 +9,24 @@ import { TabContext, TabList } from '@mui/lab';
 import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
 import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
 import TabSection from './TabSection';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const tabLists = [
+  {
+    name: 'A/B Testing',
+    icon: <ScienceRoundedIcon sx={{ fontSize: '20px' }} />,
+    component: (
+      <TabSection
+        header="Increase conversions with A/B Testing"
+        lists={[
+          'Create multivariate testing out-of-the-box',
+          'A/B test content on webpages, apps, and more',
+          'Integrate with your existing analytics provider',
+        ]}
+        image="https://kfg6bckb.media.zestyio.com/AB-Testing.webp"
+      />
+    ),
+  },
   {
     name: 'Content',
     icon: <EditRoundedIcon sx={{ fontSize: '20px' }} />,
@@ -91,21 +106,6 @@ const tabLists = [
   //   icon: <ApiRoundedIcon sx={{ fontSize: '20px' }} />,
   //   component: <TabSection header="APIs" />,
   // },
-  {
-    name: 'A/B Testing',
-    icon: <ScienceRoundedIcon sx={{ fontSize: '20px' }} />,
-    component: (
-      <TabSection
-        header="Increase conversions with A/B Testing"
-        lists={[
-          'Create multivariate testing out-of-the-box',
-          'A/B test content on webpages, apps, and more',
-          'Integrate with your existing analytics provider',
-        ]}
-        image="https://kfg6bckb.media.zestyio.com/AB-Testing.webp"
-      />
-    ),
-  },
 ];
 
 function TabPanel(props) {
@@ -130,6 +130,20 @@ const TabsSection = ({
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setValue((prevValue) => {
+        const currentIndex = tabLists.findIndex(
+          (tab) => tab.name === prevValue,
+        );
+        const nextIndex = (currentIndex + 1) % tabLists.length;
+        return tabLists[nextIndex].name;
+      });
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [tabLists]);
 
   return (
     <Stack

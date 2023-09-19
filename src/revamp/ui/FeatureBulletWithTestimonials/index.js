@@ -13,7 +13,7 @@ const listItems = [
 
 const FeatureBulletWithTestimonials = ({
   overline = 'WHITE GLOVE SUPPORT',
-  heading = 'Expert guidance and migration support for any project',
+  heading = 'Migration Included in Businesses Licenses',
   supportingText = `Once you get started, our onboarding experience consists of a 360 degree review by Zesty experts. You can expect a dedicated partner to provide white glove support throughout the entire process. Plus, we offer training to help you get the most out of your investment.`,
   image = featureContent,
   testimonial = `“We love Zesty’s top-tier support, easy-to-use interfaces for both business and technical users, and their ability to keep the platform as modern as possible with very little legacy baggage.”
