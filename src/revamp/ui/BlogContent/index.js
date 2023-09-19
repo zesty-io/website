@@ -76,7 +76,7 @@ const BlogContent = ({ title = '', articles, withPagination = false }) => {
                 {/* 
                   articleList can be fetched either from all articles end point or related articles from content object.
 
-                  If data to any article item, filler data will be prioritized
+                  If no data to a single article item, filler data will be prioritized
                  */}
                 <BlogCard
                   article={
