@@ -44,8 +44,6 @@ import { ThemeProvider, useTheme } from '@mui/material';
 import Hero from 'revamp/ui/Hero';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
-import { deleteCookie } from 'cookies-next';
-import * as helpers from 'utils';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
 
 const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
@@ -76,29 +74,6 @@ const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
   loading: () => <p>Loading...</p>,
 });
 
-const verifyUser = async (callback, token) => {
-  const verifyUrl = helpers.isProd
-    ? 'https://auth.api.zesty.io/verify'
-    : 'https://auth.api.dev.zesty.io/verify';
-  const handleLogout = () => {
-    deleteCookie(helpers.isProd ? 'APP_SID' : 'DEV_APP_SID', {
-      domain: '.zesty.io',
-    });
-    deleteCookie('isAuthenticated');
-    deleteCookie('ZESTY_WORKING_INSTANCE', {});
-    callback(false);
-  };
-
-  const response = await fetch(verifyUrl, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await response.json();
-
-  return data?.code === 200 ? callback(true) : handleLogout();
-};
-
 function Homepage({ content }) {
   const { palette } = useTheme();
   const isLoggedIn = useIsLoggedIn();
@@ -119,8 +94,6 @@ function Homepage({ content }) {
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Hero />
-      </ThemeProvider>
-      <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection />
         <GridFeature />
         <SingleTestimonial />

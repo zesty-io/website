@@ -1,6 +1,5 @@
 import { Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
-import React from 'react';
 import MuiMarkdown from 'markdown-to-jsx';
 import {
   shortValidationSchema,
@@ -16,6 +15,7 @@ import {
 } from 'revamp/utils/helper';
 import { MultiFieldForm } from './MultiFieldForm';
 import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
+import { generateAlt } from 'utils';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -162,14 +162,62 @@ const GetDemoSection = ({
               direction="row"
               gap={{ xs: '20px', desktopWide: '30px' }}
             >
-              <img src={sony} width="91px" height="32px" />
-              <img src={rocketLeague} width="60px" height="32px" />
-              <img src={singlife} width="102.12px" height="32px" />
-              <img src={acorns} width="94px" height="32px" />
-              <img src={phoenixSuns} width="107.54px" height="32px" />
-              <img src={wattpad} width="115.91px" height="32px" />
-              <img src={cornershop} width="96.69px" height="32px" />
-              <img src={bjs} width="36.48px" height="32px" />
+              <img
+                loading="lazy"
+                src={sony}
+                width="91px"
+                height="32px"
+                alt={generateAlt('Sony')}
+              />
+              <img
+                loading="lazy"
+                src={rocketLeague}
+                width="60px"
+                height="32px"
+                alt={generateAlt('Rocket League')}
+              />
+              <img
+                loading="lazy"
+                src={singlife}
+                width="102.12px"
+                height="32px"
+                alt={generateAlt('Singlife')}
+              />
+              <img
+                loading="lazy"
+                src={acorns}
+                width="94px"
+                height="32px"
+                alt={generateAlt('Acorns')}
+              />
+              <img
+                loading="lazy"
+                src={phoenixSuns}
+                width="107.54px"
+                height="32px"
+                alt={generateAlt('Phoenix Suns')}
+              />
+              <img
+                loading="lazy"
+                src={wattpad}
+                width="115.91px"
+                height="32px"
+                alt={generateAlt('Wattpad')}
+              />
+              <img
+                loading="lazy"
+                src={cornershop}
+                width="96.69px"
+                height="32px"
+                alt={generateAlt('Corner Shop')}
+              />
+              <img
+                loading="lazy"
+                src={bjs}
+                width="36.48px"
+                height="32px"
+                alt={generateAlt('Bjs')}
+              />
             </Stack>
           </Stack>
         </Stack>
@@ -284,9 +332,27 @@ const GetDemoSection = ({
               G2 MOMENTUM LEADER
             </Typography>
             <Stack flexWrap="wrap" direction="row" gap="20px">
-              <img src={pic1} width="92.2px" height="120px" />
-              <img src={pic2} width="92.2px" height="120px" />
-              <img src={pic3} width="92.2px" height="120px" />
+              <img
+                alt={generateAlt('')}
+                loading="lazy"
+                src={pic1}
+                width="92.2px"
+                height="120px"
+              />
+              <img
+                alt={generateAlt('')}
+                loading="lazy"
+                src={pic2}
+                width="92.2px"
+                height="120px"
+              />
+              <img
+                alt={generateAlt('')}
+                loading="lazy"
+                src={pic3}
+                width="92.2px"
+                height="120px"
+              />
             </Stack>
           </Stack>
         </Stack>
