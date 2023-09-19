@@ -161,39 +161,62 @@ const GetDemoSection = ({
               direction="row"
               gap={{ xs: '20px', desktopWide: '30px' }}
             >
-              <img loading="lazy" src={sony} width="91px" height="32px" />
               <img
+                loading="lazy"
+                src={sony}
+                width="91px"
+                height="32px"
+                alt="zesty-image"
+              />
+              <img
+                alt="zesty-image"
                 loading="lazy"
                 src={rocketLeague}
                 width="60px"
                 height="32px"
               />
               <img
+                alt="zesty-image"
                 loading="lazy"
                 src={singlife}
                 width="102.12px"
                 height="32px"
               />
-              <img loading="lazy" src={acorns} width="94px" height="32px" />
               <img
+                alt="zesty-image"
+                loading="lazy"
+                src={acorns}
+                width="94px"
+                height="32px"
+              />
+              <img
+                alt="zesty-image"
                 loading="lazy"
                 src={phoenixSuns}
                 width="107.54px"
                 height="32px"
               />
               <img
+                alt="zesty-image"
                 loading="lazy"
                 src={wattpad}
                 width="115.91px"
                 height="32px"
               />
               <img
+                alt="zesty-image"
                 loading="lazy"
                 src={cornershop}
                 width="96.69px"
                 height="32px"
               />
-              <img loading="lazy" src={bjs} width="36.48px" height="32px" />
+              <img
+                alt="zesty-image"
+                loading="lazy"
+                src={bjs}
+                width="36.48px"
+                height="32px"
+              />
             </Stack>
           </Stack>
         </Stack>
@@ -308,9 +331,27 @@ const GetDemoSection = ({
               G2 MOMENTUM LEADER
             </Typography>
             <Stack flexWrap="wrap" direction="row" gap="20px">
-              <img loading="lazy" src={pic1} width="92.2px" height="120px" />
-              <img loading="lazy" src={pic2} width="92.2px" height="120px" />
-              <img loading="lazy" src={pic3} width="92.2px" height="120px" />
+              <img
+                alt="zesty-image"
+                loading="lazy"
+                src={pic1}
+                width="92.2px"
+                height="120px"
+              />
+              <img
+                alt="zesty-image"
+                loading="lazy"
+                src={pic2}
+                width="92.2px"
+                height="120px"
+              />
+              <img
+                alt="zesty-image"
+                loading="lazy"
+                src={pic3}
+                width="92.2px"
+                height="120px"
+              />
             </Stack>
           </Stack>
         </Stack>

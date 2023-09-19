@@ -163,6 +163,7 @@ const EnterpriseGrowth = ({
               <Box
                 key={index}
                 component="img"
+                alt="zesty-image"
                 loading="lazy"
                 width={'120px'}
                 height="40px"

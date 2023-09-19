@@ -207,6 +207,7 @@ const GridFeature = ({
             <Stack spacing="20px">
               <img
                 loading="lazy"
+                alt="zesty-image"
                 src={feature.image}
                 width="100%"
                 height={240}

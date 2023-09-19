@@ -46,6 +46,7 @@ const TabSection = ({
           <Box
             component="img"
             loading="lazy"
+            alt="zesty-image"
             src={image}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {

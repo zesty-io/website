@@ -94,6 +94,7 @@ const Stats = ({
           <Box
             component="img"
             loading="lazy"
+            alt="zesty-image"
             src={contentStats}
             style={{ objectFit: 'contain' }}
             sx={(theme) => ({

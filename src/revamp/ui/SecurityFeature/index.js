@@ -62,6 +62,7 @@ const SecurityFeature = ({
       <Stack order={{ xs: 2, lg: 1 }}>
         <Box
           component="img"
+          alt="zesty-image"
           loading="lazy"
           src={image}
           sx={(theme) => ({

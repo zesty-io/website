@@ -76,6 +76,7 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
             component="img"
             loading="lazy"
             src={witness}
+            alt="zesty-image"
             borderRadius="50%"
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
@@ -102,6 +103,7 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
           </Typography>
           <Box
             component="img"
+            alt="zesty-image"
             loading="lazy"
             width="132.53px"
             height="48px"

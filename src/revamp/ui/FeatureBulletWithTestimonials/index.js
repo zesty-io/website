@@ -99,6 +99,7 @@ const FeatureBulletWithTestimonials = ({
             {testimonial}
           </Typography>
           <img
+            alt="zesty-image"
             loading="lazy"
             src={testimonialLogo}
             width="110.44px"
@@ -117,6 +118,7 @@ const FeatureBulletWithTestimonials = ({
       >
         <Box
           component="img"
+          alt="zesty-image"
           loading="lazy"
           src={image}
           sx={(theme) => ({
