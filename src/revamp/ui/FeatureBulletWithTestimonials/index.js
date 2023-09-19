@@ -1,5 +1,6 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import { CheckRounded as CheckRoundedIcon } from '@mui/icons-material';
+import { generateAlt } from 'utils';
 
 const featureContent = 'https://kfg6bckb.media.zestyio.com/supportImage.webp',
   logo = 'https://kfg6bckb.media.zestyio.com/experiom.png';
@@ -97,7 +98,7 @@ const FeatureBulletWithTestimonials = ({
             {testimonial}
           </Typography>
           <img
-            alt="zesty-image"
+            alt={generateAlt('')}
             loading="lazy"
             src={testimonialLogo}
             width="110.44px"
@@ -116,7 +117,7 @@ const FeatureBulletWithTestimonials = ({
       >
         <Box
           component="img"
-          alt="zesty-image"
+          alt={generateAlt('')}
           loading="lazy"
           src={image}
           sx={(theme) => ({

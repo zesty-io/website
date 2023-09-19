@@ -122,7 +122,7 @@ const Topbar = ({
             alt="zesty.io"
             src={
               changeLogoColor()
-                ? 'https://kfg6bckb.media.zestyio.com/zesty-io-logo-horizontal--1-.svg'
+                ? 'https://brand.zesty.io/zesty-io-logo-horizontal.svg'
                 : 'https://brand.zesty.io/zesty-io-logo-horizontal-light-color.svg'
             }
             height={32}

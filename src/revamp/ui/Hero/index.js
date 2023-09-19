@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { generateAlt } from 'utils';
 
 const media = 'https://kfg6bckb.media.zestyio.com/Hero-Image-2.webp',
   acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
@@ -128,7 +129,7 @@ const Hero = ({
                 width="91px"
                 height="32px"
                 title="Sony"
-                alt="Sony"
+                alt={generateAlt('Sony')}
               />
               <img
                 loading="lazy"
@@ -136,7 +137,7 @@ const Hero = ({
                 width="88.35px"
                 height="32px"
                 title="Rocket League"
-                alt="Rocket League"
+                alt={generateAlt('Rocket League')}
               />
               <img
                 loading="lazy"
@@ -144,7 +145,7 @@ const Hero = ({
                 width="102.12px"
                 height="32px"
                 title="Singlife"
-                alt="Singlife"
+                alt={generateAlt('Singlife')}
               />
               <img
                 loading="lazy"
@@ -152,7 +153,7 @@ const Hero = ({
                 width="94px"
                 height="32px"
                 title="Acorns"
-                alt="Acorns"
+                alt={generateAlt('Acorns')}
               />
               <img
                 loading="lazy"
@@ -160,7 +161,7 @@ const Hero = ({
                 width="36.48px"
                 height="32px"
                 title="Bjs"
-                alt="Bjs"
+                alt={generateAlt('Bjs')}
               />
               <img
                 loading="lazy"
@@ -168,7 +169,7 @@ const Hero = ({
                 width="31.59px"
                 height="32px"
                 title="Phoenix Suns"
-                alt="Phoenix Suns"
+                alt={generateAlt('Phoenix Suns')}
               />
             </Stack>
           </Stack>
@@ -179,6 +180,7 @@ const Hero = ({
             src={media}
             width="100%"
             height="100%"
+            alt="Zesty Image"
             style={{ objectFit: 'contain ' }}
           />
         </Grid>
@@ -187,6 +189,7 @@ const Hero = ({
         component="img"
         loading="lazy"
         src={circle}
+        alt="Zesty Image"
         sx={(theme) => ({
           [theme.breakpoints.up('lg')]: {
             position: 'absolute',

@@ -2,6 +2,7 @@ import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
 import Marquee from 'react-fast-marquee';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { generateAlt } from 'utils';
 
 const alphaUniverse = 'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp',
   sonyLogo = 'https://kfg6bckb.media.zestyio.com/sonyLogo.svg',
@@ -156,7 +157,7 @@ const EnterpriseGrowth = ({
               <Box
                 key={index}
                 component="img"
-                alt="zesty-image"
+                alt={generateAlt('')}
                 loading="lazy"
                 width={'120px'}
                 height="40px"
@@ -221,6 +222,7 @@ const EnterpriseGrowth = ({
                 onClick={() => (window.location.href = c.link)}
               >
                 <Box
+                  alt={generateAlt('')}
                   component="img"
                   loading="lazy"
                   width="100%"
@@ -241,6 +243,7 @@ const EnterpriseGrowth = ({
                 <Box
                   component="img"
                   loading="lazy"
+                  alt={generateAlt('')}
                   height={{ xs: '32px', tablet: '64px' }}
                   src={c.logo}
                   sx={{

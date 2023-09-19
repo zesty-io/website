@@ -19,7 +19,7 @@ export default DashboardPage;
 const cache = {};
 export async function getServerSideProps({ res, resolvedUrl, req }) {
   // this getssrprops should run if login in accounts and docs
-  res.setHeader('Cache-Control', 'private, max-age=6');
+  res.setHeader('Cache-Control', 'private');
 
   const isAuthenticated = getIsAuthenticated(res);
   // issue:  multiple call of getServersideprops

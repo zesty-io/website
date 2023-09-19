@@ -15,6 +15,7 @@ import {
 } from 'revamp/utils/helper';
 import { MultiFieldForm } from './MultiFieldForm';
 import getLastVisitedPathAndUrl from 'revamp/utils/getLastVisitedPathAndUrl';
+import { generateAlt } from 'utils';
 
 const acorns =
     'https://storage.googleapis.com/assets.zesty.io/website/images/assets/demo/Acorns%20Logo.svg',
@@ -166,56 +167,56 @@ const GetDemoSection = ({
                 src={sony}
                 width="91px"
                 height="32px"
-                alt="zesty-image"
+                alt={generateAlt('Sony')}
               />
               <img
-                alt="zesty-image"
                 loading="lazy"
                 src={rocketLeague}
                 width="60px"
                 height="32px"
+                alt={generateAlt('Rocket League')}
               />
               <img
-                alt="zesty-image"
                 loading="lazy"
                 src={singlife}
                 width="102.12px"
                 height="32px"
+                alt={generateAlt('Singlife')}
               />
               <img
-                alt="zesty-image"
                 loading="lazy"
                 src={acorns}
                 width="94px"
                 height="32px"
+                alt={generateAlt('Acorns')}
               />
               <img
-                alt="zesty-image"
                 loading="lazy"
                 src={phoenixSuns}
                 width="107.54px"
                 height="32px"
+                alt={generateAlt('Phoenix Suns')}
               />
               <img
-                alt="zesty-image"
                 loading="lazy"
                 src={wattpad}
                 width="115.91px"
                 height="32px"
+                alt={generateAlt('Wattpad')}
               />
               <img
-                alt="zesty-image"
                 loading="lazy"
                 src={cornershop}
                 width="96.69px"
                 height="32px"
+                alt={generateAlt('Corner Shop')}
               />
               <img
-                alt="zesty-image"
                 loading="lazy"
                 src={bjs}
                 width="36.48px"
                 height="32px"
+                alt={generateAlt('Bjs')}
               />
             </Stack>
           </Stack>
@@ -332,21 +333,21 @@ const GetDemoSection = ({
             </Typography>
             <Stack flexWrap="wrap" direction="row" gap="20px">
               <img
-                alt="zesty-image"
+                alt={generateAlt('')}
                 loading="lazy"
                 src={pic1}
                 width="92.2px"
                 height="120px"
               />
               <img
-                alt="zesty-image"
+                alt={generateAlt('')}
                 loading="lazy"
                 src={pic2}
                 width="92.2px"
                 height="120px"
               />
               <img
-                alt="zesty-image"
+                alt={generateAlt('')}
                 loading="lazy"
                 src={pic3}
                 width="92.2px"
