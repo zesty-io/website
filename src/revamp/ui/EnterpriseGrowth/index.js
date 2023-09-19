@@ -3,22 +3,15 @@ import Marquee from 'react-fast-marquee';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-const alphaUniverse =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/alphaUniverse.webp',
-  sonyLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/sonyLogo.svg',
-  rocketLeague =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/rocketLeaguePic.webp',
+const alphaUniverse = 'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp',
+  sonyLogo = 'https://kfg6bckb.media.zestyio.com/sonyLogo.svg',
+  rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeaguePic.webp',
   rocketLeagueLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Rocket League Logo.png',
-  singlife =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/singlifePic.webp',
-  singlifeLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Singlife Logo.png',
-  acorns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/acornsPic.webp',
-  acornsLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Acorns Logo.png';
+    'https://kfg6bckb.media.zestyio.com/Rocket-League-Logo.png',
+  singlife = 'https://kfg6bckb.media.zestyio.com/singlifePic.webp',
+  singlifeLogo = 'https://kfg6bckb.media.zestyio.com/Singlife-Logo.png',
+  acorns = 'https://kfg6bckb.media.zestyio.com/acornsPic.webp',
+  acornsLogo = 'https://kfg6bckb.media.zestyio.com/Acorns-Logo.png';
 
 const logos = [
   'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Rocket League Logo.svg',

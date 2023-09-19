@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 
 const featureContent =
-  'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/certified-security-compliance.webp';
+  'https://kfg6bckb.media.zestyio.com/certified-security-compliance.webp';
 
 const SecurityFeature = ({
   overline = 'GET PEACE OF MIND',
