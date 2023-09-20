@@ -1,24 +1,16 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
+import { generateAlt } from 'utils';
 
-const media =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/Hero%20Image%202.webp',
-  acorns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/acornsHero.svg',
-  bjs =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/bjsHero.svg',
-  phoenixSuns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/phoenixSunsHero.svg',
-  rocketLeague =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/rocketLeagueHero.svg',
-  singlife =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/singlifeHero.svg',
-  sony =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/sonyHero.svg',
-  circle =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/Ellipse.svg';
+const media = 'https://kfg6bckb.media.zestyio.com/Hero-Image-2.webp',
+  acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
+  bjs = 'https://kfg6bckb.media.zestyio.com/bjsHero.svg',
+  phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
+  rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeagueHero.svg',
+  singlife = 'https://kfg6bckb.media.zestyio.com/singlifeHero.svg',
+  sony = 'https://kfg6bckb.media.zestyio.com/sonyHero.svg',
+  circle = 'https://kfg6bckb.media.zestyio.com/Ellipse.svg';
 
 const Hero = ({
   header = 'Data Driven, Drag & Drop, Composable, Content Management',
@@ -132,62 +124,72 @@ const Hero = ({
               columnGap="20px"
             >
               <img
+                loading="lazy"
                 src={sony}
                 width="91px"
                 height="32px"
                 title="Sony"
-                alt="Sony"
+                alt={generateAlt('Sony')}
               />
               <img
+                loading="lazy"
                 src={rocketLeague}
                 width="88.35px"
                 height="32px"
                 title="Rocket League"
-                alt="Rocket League"
+                alt={generateAlt('Rocket League')}
               />
               <img
+                loading="lazy"
                 src={singlife}
                 width="102.12px"
                 height="32px"
                 title="Singlife"
-                alt="Singlife"
+                alt={generateAlt('Singlife')}
               />
               <img
+                loading="lazy"
                 src={acorns}
                 width="94px"
                 height="32px"
                 title="Acorns"
-                alt="Acorns"
+                alt={generateAlt('Acorns')}
               />
               <img
+                loading="lazy"
                 src={bjs}
                 width="36.48px"
                 height="32px"
                 title="Bjs"
-                alt="Bjs"
+                alt={generateAlt('Bjs')}
               />
               <img
+                loading="lazy"
                 src={phoenixSuns}
                 width="31.59px"
                 height="32px"
                 title="Phoenix Suns"
-                alt="Phoenix Suns"
+                alt={generateAlt('Phoenix Suns')}
               />
             </Stack>
           </Stack>
         </Grid>
         <Grid item xs={12} lg={6} sx={{ position: 'relative', zIndex: 1 }}>
           <img
+            loading="eager"
             src={media}
             width="100%"
             height="100%"
+            alt="Zesty Image"
             style={{ objectFit: 'contain ' }}
           />
         </Grid>
       </Grid>
       <Box
         component="img"
+        loading="lazy"
         src={circle}
+        alt="Zesty Image"
         sx={(theme) => ({
           [theme.breakpoints.up('lg')]: {
             position: 'absolute',

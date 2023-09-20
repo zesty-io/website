@@ -17,7 +17,7 @@ const TabSection = ({
   lists = listItems,
   primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo',
-  image = 'https://storage.googleapis.com/assets.zesty.io/website/images/assets/schema.png',
+  image = 'https://kfg6bckb.media.zestyio.com/schema.png',
 }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
@@ -45,6 +45,8 @@ const TabSection = ({
         <Stack order={isLG ? 2 : 1}>
           <Box
             component="img"
+            loading="lazy"
+            alt="zesty-image"
             src={image}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {

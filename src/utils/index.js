@@ -386,3 +386,6 @@ export const transFormEndpoint = ({
 
   return { endpoint: res };
 };
+export const generateAlt = (name) => {
+  return `zesty customer logo ${name}`;
+};

@@ -1,27 +1,18 @@
 import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
-
 import Marquee from 'react-fast-marquee';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
+import { generateAlt } from 'utils';
 
-const alphaUniverse =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/alphaUniverse.webp',
-  sonyLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/sonyLogo.svg',
-  rocketLeague =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/rocketLeaguePic.webp',
+const alphaUniverse = 'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp',
+  sonyLogo = 'https://kfg6bckb.media.zestyio.com/sonyLogo.svg',
+  rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeaguePic.webp',
   rocketLeagueLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Rocket League Logo.png',
-  singlife =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/singlifePic.webp',
-  singlifeLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Singlife Logo.png',
-  acorns =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/enterprise/acornsPic.webp',
-  acornsLogo =
-    'https://storage.googleapis.com/assets.zesty.io/website/images/assets/enterprise/Acorns Logo.png';
+    'https://kfg6bckb.media.zestyio.com/Rocket-League-Logo.png',
+  singlife = 'https://kfg6bckb.media.zestyio.com/singlifePic.webp',
+  singlifeLogo = 'https://kfg6bckb.media.zestyio.com/Singlife-Logo.png',
+  acorns = 'https://kfg6bckb.media.zestyio.com/acornsPic.webp',
+  acornsLogo = 'https://kfg6bckb.media.zestyio.com/Acorns-Logo.png';
 
 const logos = [
   'https://storage.googleapis.com/assets.zesty.io/website/images/assets/greyLogos/Rocket League Logo.svg',
@@ -166,6 +157,9 @@ const EnterpriseGrowth = ({
               <Box
                 key={index}
                 component="img"
+                alt={generateAlt('')}
+                loading="lazy"
+                width={'120px'}
                 height="40px"
                 src={logo}
                 sx={{
@@ -228,7 +222,9 @@ const EnterpriseGrowth = ({
                 onClick={() => (window.location.href = c.link)}
               >
                 <Box
+                  alt={generateAlt('')}
                   component="img"
+                  loading="lazy"
                   width="100%"
                   height="auto"
                   src={c.mainImage}
@@ -246,6 +242,8 @@ const EnterpriseGrowth = ({
 
                 <Box
                   component="img"
+                  loading="lazy"
+                  alt={generateAlt('')}
                   height={{ xs: '32px', tablet: '64px' }}
                   src={c.logo}
                   sx={{

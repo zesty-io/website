@@ -41,7 +41,7 @@
  */
 import revampTheme from 'theme/revampTheme';
 import { ThemeProvider, useTheme } from '@mui/material';
-import Hero from 'revamp/ui/Hero';
+import Hero from 'revamp/ui/HeroV2';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { deleteCookie } from 'cookies-next';
@@ -122,12 +122,14 @@ function Homepage({ content }) {
       </ThemeProvider>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection />
-        <GridFeature />
-        <SingleTestimonial />
         <Stats />
-        <SecurityFeature />
         <EnterpriseGrowth />
         <FeatureBulletWithTestimonials />
+        <GridFeature />
+        <SingleTestimonial />
+
+        <SecurityFeature />
+
         <GetDemoSection />
       </ThemeProvider>
     </>
