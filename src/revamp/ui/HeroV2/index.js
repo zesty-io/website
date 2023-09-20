@@ -205,7 +205,6 @@ const Hero = ({
       </Grid>
       <Box
         component="img"
-        loading="lazy"
         src={media}
         alt="Zesty Image"
         width="auto"
