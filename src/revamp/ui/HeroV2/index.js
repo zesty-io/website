@@ -247,17 +247,6 @@ const Hero = ({
             left: '40%',
             width: '1500px',
           },
-          // [theme.breakpoints.down('lg')]: {
-          //   position: 'absolute',
-          //   top: '-20%',
-          //   left: '40%',
-          // },
-          // [theme.breakpoints.down('md')]: {
-          //   position: 'absolute',
-          //   top: '-10%',
-          //   left: '40%',
-          //   width: '110%',
-          // },
 
           [theme.breakpoints.up('xs')]: {
             position: 'absolute',
