@@ -8,8 +8,7 @@ import {
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-const contentStats =
-  'https://storage.googleapis.com/assets.zesty.io/website/images/assets-optimization/G2%20Zesty%20Rating.svg';
+const contentStats = 'https://kfg6bckb.media.zestyio.com/fall.svg';
 
 const statsArray = [
   {
@@ -36,7 +35,7 @@ const statsArray = [
 
 const Stats = ({
   title = 'Why choose Zesty.io? ',
-  header = 'Zesty is named a High Performer for Winter 2023 by G2',
+  header = 'Zesty is named a High Performer for Fall 2023 by G2',
   subHeading = 'At Zesty, we are committed to creating best-in-class technology and our dedication to excellence has been recognized by G2, who have consistently named us a high performer.',
 }) => {
   const theme = useTheme();
