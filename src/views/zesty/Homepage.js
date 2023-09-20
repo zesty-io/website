@@ -100,8 +100,8 @@ function Homepage({ content }) {
         <Stats />
         <EnterpriseGrowth />
         <FeatureBulletWithTestimonials />
-        <GridFeature />
         <SingleTestimonial />
+        <GridFeature />
 
         <SecurityFeature />
 
