@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
@@ -86,19 +86,29 @@ const Hero = ({
   }, []);
 
   return (
-    <Box sx={{ position: 'relative', overflow: 'hidden' }}>
-      <Grid
-        container
-        sx={(theme) => ({
-          [theme.breakpoints.up('xl')]: {
-            px: 30,
-          },
-        })}
-        px={{ xs: 2, tablet: 4, lg: 8 }}
-        py={{ xs: 4, tablet: 6, lg: 8 }}
-        spacing={{ lg: 8 }}
-        position="relative"
-      >
+    <Container
+      sx={(theme) => ({
+        position: 'relative',
+        overflow: 'hidden',
+        [theme.breakpoints.up('xs')]: {
+          px: 2,
+          py: 4,
+        },
+        [theme.breakpoints.up('tablet')]: {
+          px: 4,
+          py: 6,
+        },
+        [theme.breakpoints.up('lg')]: {
+          px: 3,
+          py: 8,
+        },
+        [theme.breakpoints.up('xl')]: {
+          mx: 'auto',
+          maxWidth: theme.maxWidth,
+        },
+      })}
+    >
+      <Grid container position="relative">
         <Grid
           item
           xs={12}
@@ -121,8 +131,8 @@ const Hero = ({
                 variant="h1"
                 color={index === currentTextIndex ? '' : '#ccc'}
                 fontWeight={index === currentTextIndex ? 800 : 400}
-                fontSize={{ xs: 36, tablet: '62px' }}
-                lineHeight={{ xs: '44px', tablet: '56px' }}
+                fontSize={{ xs: 24, tablet: '62px' }}
+                lineHeight={{ xs: '18px', tablet: '56px' }}
                 mb={{ xs: 2, tablet: '20px', lg: '4px', desktopWide: '12px' }}
                 style={{
                   opacity: index === currentTextIndex ? 1 : 0.5, // Set opacity based on the current index
@@ -137,11 +147,11 @@ const Hero = ({
               py={0}
               variant="h1"
               fontWeight={800}
-              fontSize={{ xs: 36, tablet: '62px' }}
-              lineHeight={{ xs: '44px', tablet: '56px' }}
+              fontSize={{ xs: 24, tablet: '62px' }}
+              lineHeight={{ xs: '18px', tablet: '56px' }}
               mb={{ xs: 2, tablet: '20px', lg: '4px', desktopWide: '12px' }}
             >
-              CMS
+              Headless CMS
             </Typography>
           </Stack>
 
@@ -181,13 +191,27 @@ const Hero = ({
                 fontSize: '12px',
                 lineHeight: '12px',
               },
+              [theme.breakpoints.down('sm')]: {
+                textAlign: 'center',
+              },
             })}
             color="text.secondary"
           >
             {subtitle2}
           </Typography>
 
-          <Stack direction="row" flexWrap="wrap" rowGap="24px" columnGap="20px">
+          <Stack
+            direction="row"
+            flexWrap="wrap"
+            sx={(theme) => ({
+              [theme.breakpoints.down('sm')]: {
+                justifyContent: 'center',
+                alignItems: 'center',
+              },
+            })}
+            rowGap="24px"
+            columnGap="20px"
+          >
             {logos.map((image, index) => (
               <img
                 key={index}
@@ -205,7 +229,7 @@ const Hero = ({
       </Grid>
       <Box
         component="img"
-        loading="lazy"
+        // loading="lazy"
         src={media}
         alt="Zesty Image"
         width="auto"
@@ -240,13 +264,13 @@ const Hero = ({
           },
           [theme.breakpoints.down('sm')]: {
             position: 'absolute',
-            top: '10%',
+            top: '-7%',
             left: '40%',
             width: '100%',
           },
         })}
       />
-    </Box>
+    </Container>
   );
 };
 

@@ -17,7 +17,7 @@ const tabLists = [
     icon: <ScienceRoundedIcon sx={{ fontSize: '20px' }} />,
     component: (
       <TabSection
-        header="Increase conversions with A/B Testing"
+        header="Personalization, A/B, Integrated Analytics, Any Business Configuration"
         lists={[
           'Create multivariate testing out-of-the-box',
           'A/B test content on webpages, apps, and more',
