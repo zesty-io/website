@@ -122,7 +122,7 @@ const cardLists = [
 
 const GridFeature = ({
   overline = 'SETUP, EASY-PEASY!',
-  heading = 'Hassle-free setup with APIs that integrate with all frameworks',
+  heading = 'Headless Interface/Code',
   supportingText = ``,
   featureLists = cardLists,
 }) => {
