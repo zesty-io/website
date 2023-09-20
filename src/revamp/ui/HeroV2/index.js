@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
@@ -87,124 +87,150 @@ const Hero = ({
 
   return (
     <Box sx={{ position: 'relative', overflow: 'hidden' }}>
-      <Grid
-        container
+      <Container
         sx={(theme) => ({
+          [theme.breakpoints.up('xs')]: {
+            px: 2,
+            py: 4,
+          },
+          [theme.breakpoints.up('tablet')]: {
+            px: 4,
+            py: 6,
+          },
+          [theme.breakpoints.up('lg')]: {
+            px: 3,
+            py: 8,
+          },
           [theme.breakpoints.up('xl')]: {
-            px: 30,
+            mx: 'auto',
+            maxWidth: theme.maxWidth,
           },
         })}
-        px={{ xs: 2, tablet: 4, lg: 8 }}
-        py={{ xs: 4, tablet: 6, lg: 8 }}
-        spacing={{ lg: 8 }}
-        position="relative"
       >
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          lg={6}
-          mb={4}
-          sx={(theme) => ({
-            [theme.breakpoints.up('2xl')]: {
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-          })}
-        >
-          <Stack mb={4}>
-            {HeroText.map((text, index) => (
-              <Typography
-                key={index}
-                py={0}
-                variant="h1"
-                color={index === currentTextIndex ? '' : '#ccc'}
-                fontWeight={index === currentTextIndex ? 800 : 400}
-                fontSize={{ xs: 36, tablet: '62px' }}
-                lineHeight={{ xs: '44px', tablet: '56px' }}
-                mb={{ xs: 2, tablet: '20px', lg: '4px', desktopWide: '12px' }}
-                style={{
-                  opacity: index === currentTextIndex ? 1 : 0.5, // Set opacity based on the current index
-                  transition: 'opacity 0.5s ease-in-out', // Add a smooth transition
-                }}
-              >
-                {text}
-              </Typography>
-            ))}
-
-            <Typography
-              py={0}
-              variant="h1"
-              fontWeight={800}
-              fontSize={{ xs: 36, tablet: '62px' }}
-              lineHeight={{ xs: '44px', tablet: '56px' }}
-              mb={{ xs: 2, tablet: '20px', lg: '4px', desktopWide: '12px' }}
-            >
-              CMS
-            </Typography>
-          </Stack>
-
-          <Stack
-            spacing="12px"
+        <Grid container position="relative">
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            lg={6}
             mb={4}
-            direction={{
-              xs: 'column',
-              tablet: 'row',
-            }}
-          >
-            <Button
-              href={primaryBtnLink}
-              variant="contained"
-              color="primary"
-              size={isLg ? 'extraLarge' : 'large'}
-              title={primaryBtn}
-            >
-              {primaryBtn}
-            </Button>
-            <Button
-              href={secondaryBtnLink}
-              variant="outlined"
-              color="primary"
-              size={isLg ? 'extraLarge' : 'large'}
-              title={secondaryBtn}
-            >
-              {secondaryBtn}
-            </Button>
-          </Stack>
-
-          <Typography
-            mb={3}
             sx={(theme) => ({
-              [theme.breakpoints.down('lg')]: {
-                letterSpacing: '1px',
-                fontSize: '12px',
-                lineHeight: '12px',
+              [theme.breakpoints.up('2xl')]: {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               },
             })}
-            color="text.secondary"
           >
-            {subtitle2}
-          </Typography>
+            <Stack mb={4}>
+              {HeroText.map((text, index) => (
+                <Typography
+                  key={index}
+                  py={0}
+                  variant="h1"
+                  color={index === currentTextIndex ? '' : '#ccc'}
+                  fontWeight={index === currentTextIndex ? 800 : 400}
+                  fontSize={{ xs: 24, sm: 32, tablet: '62px' }}
+                  lineHeight={{ xs: '18px', sm: '32px', tablet: '56px' }}
+                  mb={{ xs: 2, tablet: '20px', lg: '4px', desktopWide: '12px' }}
+                  style={{
+                    opacity: index === currentTextIndex ? 1 : 0.5, // Set opacity based on the current index
+                    transition: 'opacity 0.5s ease-in-out', // Add a smooth transition
+                  }}
+                >
+                  {text}
+                </Typography>
+              ))}
 
-          <Stack direction="row" flexWrap="wrap" rowGap="24px" columnGap="20px">
-            {logos.map((image, index) => (
-              <img
-                key={index}
-                loading="lazy"
-                src={image.src}
-                width={image.width}
-                height={image.height}
-                title={image.title}
-                alt={image.alt}
-                style={{ filter: 'grayscale(100%)' }}
-              />
-            ))}
-          </Stack>
+              <Typography
+                py={0}
+                variant="h1"
+                fontWeight={800}
+                fontSize={{ xs: 24, tablet: '62px' }}
+                lineHeight={{ xs: '18px', tablet: '56px' }}
+                mb={{ xs: 2, tablet: '20px', lg: '4px', desktopWide: '12px' }}
+              >
+                Headless CMS
+              </Typography>
+            </Stack>
+
+            <Stack
+              spacing="12px"
+              mb={4}
+              direction={{
+                xs: 'column',
+                tablet: 'row',
+              }}
+            >
+              <Button
+                href={primaryBtnLink}
+                variant="contained"
+                color="primary"
+                size={isLg ? 'extraLarge' : 'large'}
+                title={primaryBtn}
+              >
+                {primaryBtn}
+              </Button>
+              <Button
+                href={secondaryBtnLink}
+                variant="outlined"
+                color="primary"
+                size={isLg ? 'extraLarge' : 'large'}
+                title={secondaryBtn}
+              >
+                {secondaryBtn}
+              </Button>
+            </Stack>
+
+            <Typography
+              mb={3}
+              sx={(theme) => ({
+                [theme.breakpoints.down('lg')]: {
+                  letterSpacing: '1px',
+                  fontSize: '12px',
+                  lineHeight: '12px',
+                },
+                [theme.breakpoints.down('sm')]: {
+                  textAlign: 'center',
+                },
+              })}
+              color="text.secondary"
+            >
+              {subtitle2}
+            </Typography>
+
+            <Stack
+              direction="row"
+              flexWrap="wrap"
+              sx={(theme) => ({
+                [theme.breakpoints.down('sm')]: {
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                },
+              })}
+              rowGap="24px"
+              columnGap="20px"
+            >
+              {logos.map((image, index) => (
+                <img
+                  key={index}
+                  loading="lazy"
+                  src={image.src}
+                  width={image.width}
+                  height={image.height}
+                  title={image.title}
+                  alt={image.alt}
+                  style={{ filter: 'grayscale(100%)' }}
+                />
+              ))}
+            </Stack>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
+
       <Box
         component="img"
+        // loading="lazy"
         src={media}
         alt="Zesty Image"
         width="auto"
@@ -215,31 +241,28 @@ const Hero = ({
             top: '-30%',
             left: '40%',
           },
-          [theme.breakpoints.up('desktopWide')]: {
-            position: 'absolute',
-            top: '-35%',
-            left: '35%',
-          },
           [theme.breakpoints.up('xl')]: {
             position: 'absolute',
             top: '-25%',
             left: '40%',
             width: '1500px',
           },
-          [theme.breakpoints.down('lg')]: {
+
+          [theme.breakpoints.up('xs')]: {
+            position: 'absolute',
+            top: '-7%',
+            left: '40%',
+            width: '100%',
+          },
+          [theme.breakpoints.between(500, 600)]: {
+            position: 'absolute',
+            top: '-15%',
+            left: '40%',
+            width: '90%',
+          },
+          [theme.breakpoints.up(600)]: {
             position: 'absolute',
             top: '-20%',
-            left: '40%',
-          },
-          [theme.breakpoints.down('md')]: {
-            position: 'absolute',
-            top: '-10%',
-            left: '40%',
-            width: '110%',
-          },
-          [theme.breakpoints.down('sm')]: {
-            position: 'absolute',
-            top: '10%',
             left: '40%',
             width: '100%',
           },

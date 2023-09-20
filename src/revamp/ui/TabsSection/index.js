@@ -123,7 +123,7 @@ function TabPanel(props) {
 }
 
 const TabsSection = ({
-  header = 'Enterprise grade features  available for everyone out-of-the-box',
+  header = 'Personalization, A/B, Integrated Analytics, Any Business Configuration',
 }) => {
   const [value, setValue] = useState('Content');
 
@@ -171,7 +171,7 @@ const TabsSection = ({
         fontWeight={800}
         mb={3}
         textAlign="center"
-        width={{ lg: '553px', margin: '0 auto 24px auto' }}
+        width={{ lg: '800px', margin: '0 auto 24px auto' }}
         letterSpacing="-0.02em"
         sx={(theme) => ({
           [theme.breakpoints.up('tablet')]: {
