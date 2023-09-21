@@ -82,7 +82,7 @@ function Homepage({ content }) {
     const prevUrl = sessionStorage.getItem('prevUrl');
     if (content.zesty.isAuthenticated || isLoggedIn) {
       // redirect the user to previous url from SSO
-      if (!['', '/'].includes(prevUrl)) {
+      if (prevUrl && !['', '/'].includes(prevUrl)) {
         window.location.href = prevUrl;
       } else {
         window.location.href = '/dashboard/';

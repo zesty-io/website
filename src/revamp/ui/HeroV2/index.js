@@ -5,7 +5,7 @@ import { generateAlt } from 'utils';
 import { useEffect, useState } from 'react';
 
 const media =
-    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-Graphic.png',
+    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-Graphic.png?width=1200',
   acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
   bjs = 'https://kfg6bckb.media.zestyio.com/bjsHero.svg',
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
