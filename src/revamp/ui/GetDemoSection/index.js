@@ -271,6 +271,7 @@ const GetDemoSection = ({
                 <Form id="site-form" onSubmit={handleSubmit}>
                   <Stack>
                     <Typography
+                      component={'p'}
                       variant="h4"
                       letterSpacing="-0.02em"
                       color="text.primary"
