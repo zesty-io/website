@@ -7,8 +7,9 @@ import {
 } from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import Image from 'next/image';
 
-const contentStats = 'https://kfg6bckb.media.zestyio.com/fall.svg';
+const contentStats = 'https://kfg6bckb.media.zestyio.com/g2fall.png';
 
 const statsArray = [
   {
@@ -90,28 +91,12 @@ const Stats = ({
           }}
           margin="0 auto"
         >
-          <Box
-            component="img"
-            loading="lazy"
-            alt="zesty-image"
+          <Image
             src={contentStats}
-            style={{ objectFit: 'contain' }}
-            sx={(theme) => ({
-              [theme.breakpoints.up('xs')]: {
-                margin: '0 auto',
-                width: '100%',
-                height: '100%',
-              },
-              [theme.breakpoints.up('tablet')]: {
-                width: '410.71px',
-                height: '317px',
-              },
-
-              [theme.breakpoints.up('md')]: {
-                width: '100%',
-                height: '100%',
-              },
-            })}
+            loading="lazy"
+            alt="Zesty Image"
+            width={505}
+            height={317}
           />
         </Box>
       </Stack>

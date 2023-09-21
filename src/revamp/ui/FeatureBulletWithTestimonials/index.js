@@ -1,6 +1,7 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import { CheckRounded as CheckRoundedIcon } from '@mui/icons-material';
 import { generateAlt } from 'utils';
+import Image from 'next/image';
 
 const featureContent = 'https://kfg6bckb.media.zestyio.com/supportImage.webp',
   logo = 'https://kfg6bckb.media.zestyio.com/experiom.png';
@@ -116,10 +117,6 @@ const FeatureBulletWithTestimonials = ({
         order={{ lg: isImageRight ? 1 : 0 }}
       >
         <Box
-          component="img"
-          alt={generateAlt('')}
-          loading="lazy"
-          src={image}
           sx={(theme) => ({
             [theme.breakpoints.up('xs')]: {
               objectFit: 'contain',
@@ -147,7 +144,15 @@ const FeatureBulletWithTestimonials = ({
               height: '100%',
             },
           })}
-        />
+        >
+          <Image
+            src={image}
+            loading="lazy"
+            alt={generateAlt('')}
+            width={788}
+            height={420}
+          />
+        </Box>
       </Stack>
     </Stack>
   );
