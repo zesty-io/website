@@ -4,8 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
 import { useEffect, useState } from 'react';
 
-const media =
-    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-Graphic.png',
+const media = 'https://kfg6bckb.media.zestyio.com/hero1.png',
   acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
   bjs = 'https://kfg6bckb.media.zestyio.com/bjsHero.svg',
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
