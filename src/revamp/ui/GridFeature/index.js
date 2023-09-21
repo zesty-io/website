@@ -213,7 +213,12 @@ const GridFeature = ({
                 height={240}
                 style={{ objectFit: 'contain' }}
               />
-              <Typography fontWeight={600} letterSpacing="-0.02em" variant="h5">
+              <Typography
+                fontWeight={600}
+                letterSpacing="-0.02em"
+                variant="h5"
+                component={'p'}
+              >
                 {feature.title}
               </Typography>
               <Typography color="text.secondary">
