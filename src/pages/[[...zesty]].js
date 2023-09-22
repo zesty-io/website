@@ -87,7 +87,8 @@ async function fetchData({ isProd = false, dataType }) {
 export async function getServerSideProps({ req, res, resolvedUrl }) {
   let isAuthenticated =
     (await isUserAuthenticated(req, true)) || getIsAuthenticated(res);
-  const isProd = process.env.PRODUCTION === 'true' ? true : false;
+  // const isProd = process.env.PRODUCTION === 'true' ? true : false;
+  const isProd = true;
   // does not display with npm run dev
 
   isProd &&
