@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import Image from 'next/image';
 
 const witnessImage = 'https://kfg6bckb.media.zestyio.com/Ben.webp',
   witnessLogo =
@@ -73,11 +74,6 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
           }}
         >
           <Box
-            component="img"
-            loading="lazy"
-            src={witness}
-            alt="zesty-image"
-            borderRadius="50%"
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
@@ -94,8 +90,17 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
                 height: '363px',
               },
             })}
-          />
-          <Typography variant="h5" color="white" fontWeight={600}>
+          >
+            <Image
+              style={{ borderRadius: '50%' }}
+              src={witness}
+              loading="lazy"
+              alt="zesty-image"
+              width={303}
+              height={280}
+            />
+          </Box>
+          <Typography variant="h5" component="p" color="white" fontWeight={600}>
             {name}
           </Typography>
           <Typography color="white" fontWeight={700} mb="20px">

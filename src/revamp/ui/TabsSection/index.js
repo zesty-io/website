@@ -123,7 +123,7 @@ function TabPanel(props) {
 }
 
 const TabsSection = ({
-  header = 'Personalization, A/B, Integrated Analytics, Any Business Configuration',
+  header = 'Personalization, A/B Testing, Integrated Analytics, Any Business Configuration',
 }) => {
   const [value, setValue] = useState('Content');
 
@@ -202,6 +202,9 @@ const TabsSection = ({
         >
           {tabLists.map((tab) => (
             <Tab
+              aria-selected={value === tab.name}
+              role="tab"
+              aria-controls={tab.name}
               key={tab.name}
               label={tab.name}
               value={tab.name}

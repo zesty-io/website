@@ -3,6 +3,7 @@ import Marquee from 'react-fast-marquee';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
+import Image from 'next/image';
 
 const alphaUniverse = 'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp',
   sonyLogo = 'https://kfg6bckb.media.zestyio.com/sonyLogo.svg',
@@ -108,7 +109,7 @@ const EnterpriseGrowth = ({
           </Typography>
           <Typography
             color="white"
-            variant="h1"
+            variant="h2"
             fontWeight={800}
             letterSpacing="-0.02em"
             mb={3}
@@ -221,40 +222,31 @@ const EnterpriseGrowth = ({
                 sx={{ cursor: 'pointer' }}
                 onClick={() => (window.location.href = c.link)}
               >
-                <Box
-                  alt={generateAlt('')}
-                  component="img"
-                  loading="lazy"
-                  width="100%"
-                  height="auto"
+                <Image
                   src={c.mainImage}
-                  sx={(theme) => ({
-                    [theme.breakpoints.up('xs')]: {
-                      objectFit: 'contain',
-                      marginBottom: '24px',
-                      borderRadius: '6px',
-                    },
-                    [theme.breakpoints.up('lg')]: {
-                      height: '344px',
-                    },
-                  })}
+                  loading="lazy"
+                  alt={generateAlt('')}
+                  width={707}
+                  height={400}
                 />
 
                 <Box
                   component="img"
                   loading="lazy"
                   alt={generateAlt('')}
+                  width={120}
                   height={{ xs: '32px', tablet: '64px' }}
                   src={c.logo}
                   sx={{
                     objectFit: 'contain',
                     alignSelf: 'start',
                     marginBottom: '12px',
+                    marginTop: 2,
                   }}
                 />
 
                 <Typography
-                  variant="h4"
+                  variant="h3"
                   letterSpacing="-0.02em"
                   color="white"
                   fontWeight={800}

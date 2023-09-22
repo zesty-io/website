@@ -3,8 +3,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
-const media = 'https://kfg6bckb.media.zestyio.com/hero1.png',
+const media =
+    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-Graphic.png?width=1200',
   acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
   bjs = 'https://kfg6bckb.media.zestyio.com/bjsHero.svg',
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
@@ -127,7 +129,7 @@ const Hero = ({
                   key={index}
                   py={0}
                   variant="h1"
-                  color={index === currentTextIndex ? '' : '#ccc'}
+                  color={index === currentTextIndex ? '' : '#474747'}
                   fontWeight={index === currentTextIndex ? 800 : 400}
                   fontSize={{ xs: 24, sm: 32, tablet: '62px' }}
                   lineHeight={{ xs: '18px', sm: '32px', tablet: '56px' }}
@@ -211,7 +213,7 @@ const Hero = ({
               columnGap="20px"
             >
               {logos.map((image, index) => (
-                <img
+                <Image
                   key={index}
                   loading="lazy"
                   src={image.src}
@@ -228,12 +230,6 @@ const Hero = ({
       </Container>
 
       <Box
-        component="img"
-        // loading="lazy"
-        src={media}
-        alt="Zesty Image"
-        width="auto"
-        height="auto"
         sx={(theme) => ({
           [theme.breakpoints.up('lg')]: {
             position: 'absolute',
@@ -266,7 +262,17 @@ const Hero = ({
             width: '100%',
           },
         })}
-      />
+      >
+        <Image
+          blurDataURL={`${media}?blur=50&optimize=high`}
+          placeholder="blur"
+          priority
+          alt="Zesty Image"
+          width={1500}
+          height={950}
+          src={`${media}?width=1500&height=950`}
+        />
+      </Box>
     </Box>
   );
 };
