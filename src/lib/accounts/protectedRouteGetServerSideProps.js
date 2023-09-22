@@ -58,7 +58,7 @@ const getParsleyTourData = async () => {
 // identify areas to cache request or page caching
 export default async function getServerSideProps({ res, resolvedUrl }) {
   // this getssrprops should run if login in accounts and docs
-  // res.setHeader('Cache-Control', 'private');
+  res.setHeader('Cache-Control', 'private');
   let docsPageData = [];
   const isDocsPage = resolvedUrl.includes('/docs');
   const isAuthenticated = getIsAuthenticated(res);
