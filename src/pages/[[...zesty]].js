@@ -95,6 +95,10 @@ export async function getServerSideProps({ req, res, resolvedUrl }) {
       'Cache-Control',
       'public, max-age=3600, stale-while-revalidate=7200 ',
     );
+  res.setHeader(
+    'cache-control',
+    'public, no-cache, no-store, max-age=0, must-revalidate',
+  );
   isProd && res.setHeader('Surrogate-Control', 'max-age=3600');
 
   res.setHeader(
