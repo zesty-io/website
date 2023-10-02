@@ -11779,3 +11779,5 @@ export const navigationCustom = [
     children: [],
   },
 ];
+
+export const FONT_FAMILY = `Mulish, Arial, sans-serif`;

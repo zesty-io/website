@@ -3,7 +3,6 @@ import Marquee from 'react-fast-marquee';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
-import Image from 'next/image';
 
 const alphaUniverse = 'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp',
   sonyLogo = 'https://kfg6bckb.media.zestyio.com/sonyLogo.svg',
@@ -222,7 +221,7 @@ const EnterpriseGrowth = ({
                 sx={{ cursor: 'pointer' }}
                 onClick={() => (window.location.href = c.link)}
               >
-                <Image
+                <img
                   src={c.mainImage}
                   loading="lazy"
                   alt={generateAlt('')}
