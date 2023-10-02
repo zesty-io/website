@@ -90,8 +90,6 @@ function Homepage({ content }) {
     }
   }, [content.zesty.isAuthenticated, isLoggedIn]);
 
-  console.log(content);
-
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
