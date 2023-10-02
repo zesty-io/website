@@ -1,5 +1,4 @@
 import { Box, Stack, Typography } from '@mui/material';
-import Image from 'next/image';
 
 const featureContent =
   'https://kfg6bckb.media.zestyio.com/certified-security-compliance.webp';
@@ -90,7 +89,7 @@ const SecurityFeature = ({
             },
           })}
         >
-          <Image
+          <img
             src={image}
             loading="lazy"
             alt="zesty-image"

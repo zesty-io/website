@@ -14,7 +14,7 @@ const getTheme = (mode, themeToggler) =>
       palette: mode === 'light' ? light : dark,
       shadows: shadows(mode),
       typography: {
-        fontFamily: '"Mulish", sans-serif',
+        fontFamily: '"Mulish", Arial',
         button: {
           textTransform: 'none',
           fontWeight: 'medium',
@@ -83,7 +83,7 @@ export const getThemeAccounts = (mode, themeToggler) =>
       palette: mode === 'light' ? lightAccounts : darkAccounts,
       shadows: shadows(mode),
       typography: {
-        fontFamily: '"Mulish", sans-serif',
+        fontFamily: '"Mulish", Arial',
         button: {
           textTransform: 'none',
           fontWeight: 'medium',

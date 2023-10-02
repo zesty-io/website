@@ -102,9 +102,7 @@ function Homepage({ content }) {
         <FeatureBulletWithTestimonials />
         <SingleTestimonial />
         <GridFeature />
-
         <SecurityFeature />
-
         <GetDemoSection />
       </ThemeProvider>
     </>

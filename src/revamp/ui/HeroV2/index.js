@@ -3,10 +3,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import { FONT_FAMILY } from 'components/globals/constants';
 
 const media =
-    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-Graphic.png?width=1200',
+    'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-hero.webp',
   acorns = 'https://kfg6bckb.media.zestyio.com/acornsHero.svg',
   bjs = 'https://kfg6bckb.media.zestyio.com/bjsHero.svg',
   phoenixSuns = 'https://kfg6bckb.media.zestyio.com/phoenixSunsHero.svg',
@@ -137,6 +137,7 @@ const Hero = ({
                   style={{
                     opacity: index === currentTextIndex ? 1 : 0.5, // Set opacity based on the current index
                     transition: 'opacity 0.5s ease-in-out', // Add a smooth transition
+                    fontFamily: FONT_FAMILY,
                   }}
                 >
                   {text}
@@ -149,6 +150,9 @@ const Hero = ({
                 fontWeight={800}
                 fontSize={{ xs: 24, tablet: '62px' }}
                 lineHeight={{ xs: '18px', tablet: '56px' }}
+                style={{
+                  fontFamily: FONT_FAMILY,
+                }}
                 mb={{ xs: 2, tablet: '20px', lg: '4px', desktopWide: '12px' }}
               >
                 Headless CMS
@@ -169,6 +173,7 @@ const Hero = ({
                 color="primary"
                 size={isLg ? 'extraLarge' : 'large'}
                 title={primaryBtn}
+                style={{ fontFamily: FONT_FAMILY }}
               >
                 {primaryBtn}
               </Button>
@@ -178,6 +183,7 @@ const Hero = ({
                 color="primary"
                 size={isLg ? 'extraLarge' : 'large'}
                 title={secondaryBtn}
+                style={{ fontFamily: FONT_FAMILY }}
               >
                 {secondaryBtn}
               </Button>
@@ -186,6 +192,7 @@ const Hero = ({
             <Typography
               mb={3}
               sx={(theme) => ({
+                fontFamily: FONT_FAMILY,
                 [theme.breakpoints.down('lg')]: {
                   letterSpacing: '1px',
                   fontSize: '12px',
@@ -213,16 +220,7 @@ const Hero = ({
               columnGap="20px"
             >
               {logos.map((image, index) => (
-                <Image
-                  key={index}
-                  loading="lazy"
-                  src={image.src}
-                  width={image.width}
-                  height={image.height}
-                  title={image.title}
-                  alt={image.alt}
-                  style={{ filter: 'grayscale(100%)' }}
-                />
+                <img src={image.src} alt={generateAlt()} loading="lazy" />
               ))}
             </Stack>
           </Grid>
@@ -263,15 +261,7 @@ const Hero = ({
           },
         })}
       >
-        <Image
-          blurDataURL={`${media}?blur=50&optimize=high`}
-          placeholder="blur"
-          priority
-          alt="Zesty Image"
-          width={1500}
-          height={950}
-          src={`${media}?width=1500&height=950`}
-        />
+        <img src={media} alt={generateAlt('Zesty image')} loading="eager" />
       </Box>
     </Box>
   );
