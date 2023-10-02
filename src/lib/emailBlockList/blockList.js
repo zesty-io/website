@@ -3534,7 +3534,7 @@ export const blockList = [
   'zzi.us',
   'zzrgg.com',
   'zzz.com',
-  'yahoo.com',
-  'outlook.com',
-  'gmail.com',
+  // 'yahoo.com',
+  // 'outlook.com',
+  // 'gmail.com',
 ];
