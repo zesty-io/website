@@ -9,18 +9,18 @@ jobs:
     env:
       PRODUCTION: 'false'
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
         with:
           node-version: '16.x'
       - name: Setup custom host for mylocal
         run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
 
       - name: Install dependencies 
-        run: npm ci
+        run: bun install
 
       - name: Check format and linters
-        run: npm run test-all
+        run: bun run test-all
 
       - name: Build Project 
-        run: npm run build
+        run: bun run build
