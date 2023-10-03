@@ -30,7 +30,7 @@ const useIsLoggedIn = () => {
     const auth = async () => {
       setIsAuth(await isUserAuthenticated());
     };
-    if (cookies?.isAuthenticated === true) {
+    if (cookies?.isAuthenticated === false) {
       auth();
     }
   }, [isAuth]);
