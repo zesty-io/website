@@ -61,20 +61,18 @@ const logos = [
 ];
 
 const Hero = ({
-  header = 'Data Driven, Drag & Drop, Composable, Content Management',
-  subtitle = 'Drive business growth with a Hybrid Headless CMS to create, deliver, measure, and optimize your content marketing at scale. ',
+  HeroText = ['Composable', 'Data Driven', 'Drag & Drop', 'AI Assisted'],
   primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo?ab=light',
   secondaryBtn = 'Watch Demo Video',
   secondaryBtnLink = '/demos/video?ab=light',
   subtitle2 = 'TRUSTED BY INDUSTRY LEADING COMPANIES',
+  heroImage = media,
 }) => {
   const theme = useTheme();
   const isLg = useMediaQuery(theme.breakpoints.up('lg'), {
     defaultMatches: true,
   });
-
-  const HeroText = ['Composable', 'Data Driven', 'Drag & Drop', 'AI Assisted'];
 
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
@@ -261,7 +259,7 @@ const Hero = ({
           },
         })}
       >
-        <img src={media} alt={generateAlt('Zesty image')} loading="eager" />
+        <img src={heroImage} alt={generateAlt('Zesty image')} loading="eager" />
       </Box>
     </Box>
   );

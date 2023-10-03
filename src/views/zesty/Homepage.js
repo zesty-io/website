@@ -90,10 +90,25 @@ function Homepage({ content }) {
     }
   }, [content.zesty.isAuthenticated, isLoggedIn]);
 
+  console.log(content);
+
+  const heroProps = {
+    HeroText: content?.header_title_and_description
+      .replace(/<[^>]*>/g, '')
+      .replace('&amp;', '&')
+      .split(','),
+    primaryBtn: content?.primarybtn,
+    primaryBtnLink: content?.primarybtnlink?.data?.[0].meta?.web?.uri,
+    secondaryBtn: content?.secondarybtn,
+    secondaryBtnLink: content?.secondarybtnlink?.data?.[0].meta?.web?.uri,
+    subtitle2: content?.subtitle,
+    heroImage: content?.header_graphic?.data?.[0]?.url,
+  };
+
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
-        <Hero />
+        <Hero {...heroProps} />
       </ThemeProvider>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection />
