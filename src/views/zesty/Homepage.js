@@ -81,12 +81,13 @@ function Homepage({ content }) {
   useEffect(() => {
     const prevUrl = sessionStorage.getItem('prevUrl');
     if (content.zesty.isAuthenticated || isLoggedIn) {
-      // redirect the user to previous url from SSO
-      if (prevUrl && !['', '/'].includes(prevUrl)) {
-        window.location.href = prevUrl;
-      } else {
-        window.location.href = '/dashboard/';
-      }
+      window.location.href = '/dashboard/';
+      // // redirect the user to previous url from SSO
+      // if (prevUrl && !['', '/'].includes(prevUrl)) {
+      //   window.location.href = prevUrl;
+      // } else {
+      //   window.location.href = '/dashboard/';
+      // }
     }
   }, [content.zesty.isAuthenticated, isLoggedIn]);
 
