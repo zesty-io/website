@@ -138,6 +138,27 @@ function Homepage({ content }) {
     }),
   };
 
+  const regex = /<li>(.*?)<\/li>/g;
+  const featureTestimonialsList = [];
+
+  // Use a loop to iterate through matches and extract the text content
+  let match;
+  while (
+    (match = regex.exec(content?.feature_testimonial_list_items)) !== null
+  ) {
+    featureTestimonialsList.push(match[1]);
+  }
+
+  const featureTestimonialsProps = {
+    overline: content?.feature_testimonial_overline,
+    heading: content?.feature_testimonial_heading,
+    supportingText: content?.feature_testimonial_supporting__text,
+    image: content.feature_testimonial_image?.data?.[0]?.url,
+    testimonial: content?.feature_testimonial_,
+    testimonialLogo: content.feature_testimonial_logo?.data?.[0]?.url,
+    lists: featureTestimonialsList,
+  };
+
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
@@ -147,7 +168,7 @@ function Homepage({ content }) {
         <TabsSection {...tabSectionProps} />
         <Stats {...statsProps} />
         <EnterpriseGrowth {...enterpriseProps} />
-        <FeatureBulletWithTestimonials />
+        <FeatureBulletWithTestimonials {...featureTestimonialsProps} />
         <SingleTestimonial />
         <GridFeature />
         <SecurityFeature />
