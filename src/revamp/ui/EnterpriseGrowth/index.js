@@ -225,7 +225,8 @@ const EnterpriseGrowth = ({
                   src={c.mainImage}
                   loading="lazy"
                   alt={generateAlt('')}
-                  width={707}
+                  style={{ width: '100%', height: 'auto' }}
+                  width={600}
                   height={400}
                 />
 

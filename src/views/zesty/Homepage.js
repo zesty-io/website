@@ -160,7 +160,7 @@ function Homepage({ content }) {
   };
 
   const singleTestimonialProps = {
-    witness: content?.singletestimonial_witness.data?.[0]?.url,
+    witness: content?.singletestimonial_witness?.data?.[0]?.url,
     name: content?.singletestimonial_name,
     role: content?.singletestimonial_role,
     logo: content?.singletestimonial_logo?.data?.[0]?.url,
