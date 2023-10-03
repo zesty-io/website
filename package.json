@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start",
     "build-start": "npm run build && npm start ",
+    "build-start:bun": "bun run build && bun start ",
     "prettier:fix": "prettier './src/**/*.js' --write",
     "clear-all": "rimraf ./node_modules ./.next",
     "sync": "node src/lib/sync.js",
@@ -32,7 +33,8 @@
     "cy:open": "cypress open --browser chrome",
     "cy:test": "start-cy:run 3000",
     "test:e2e:ci": "start-server-and-test dev http://test.zesty.io:3000/ cy:run",
-    "test:e2e:ci:prod": "start-server-and-test build-start http://test.zesty.io:3000/ cy:run"
+    "test:e2e:ci:prod": "start-server-and-test build-start http://test.zesty.io:3000/ cy:run",
+    "test:e2e:ci:prod:bun": "start-server-and-test build-start:bun http://test.zesty.io:3000/ cy:run"
   },
   "eslintConfig": {
     "extends": [
