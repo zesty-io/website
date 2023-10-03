@@ -215,7 +215,7 @@ const EnterpriseGrowth = ({
         </Typography>
 
         <Grid container spacing={{ xs: 3, tablet: 4, lg: 8 }}>
-          {caseStudiesList.map((c, index) => (
+          {caseStudiesList?.map((c, index) => (
             <Grid item xs={12} lg={6} key={index}>
               <Stack
                 sx={{ cursor: 'pointer' }}

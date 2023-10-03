@@ -114,6 +114,30 @@ function Homepage({ content }) {
     tabs: content?.features_options,
   };
 
+  const statsProps = {
+    title: content?.stats_title,
+    header: content?.stats_header,
+    subHeading: content?.stats_subheading,
+  };
+
+  const enterpriseProps = {
+    overline: content?.enterprise_overline,
+    heading: content?.enterprise_heading,
+    supportingText: content?.enterprise_supporting_text,
+    primaryBtn: content?.enterprise_primary_btn_text,
+    primaryBtnLink: content?.enterprise_primary_btn_link,
+    secondaryBtn: content?.enterprise_secondary_btn_text,
+    secondaryBtnLink: content?.enterprise_secondary_btn_link,
+    caseStudiesList: content?.enterpise_case_study?.data?.map((item) => {
+      return {
+        mainImage: item?.main_image?.data?.[0]?.url,
+        logo: item?.logo?.data?.[0]?.url,
+        description: item?.description,
+        link: item?.link?.data[0]?.meta?.web?.uri,
+      };
+    }),
+  };
+
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
@@ -121,8 +145,8 @@ function Homepage({ content }) {
       </ThemeProvider>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection {...tabSectionProps} />
-        <Stats />
-        <EnterpriseGrowth />
+        <Stats {...statsProps} />
+        <EnterpriseGrowth {...enterpriseProps} />
         <FeatureBulletWithTestimonials />
         <SingleTestimonial />
         <GridFeature />
