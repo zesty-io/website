@@ -130,13 +130,10 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
               variant={isTablet ? 'body1' : 'body2'}
               color="white"
               style={{ whiteSpace: 'pre-line' }}
-            >
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: quote,
-                }}
-              />
-            </Typography>
+              dangerouslySetInnerHTML={{
+                __html: quote,
+              }}
+            ></Typography>
           </Box>
         </Stack>
       </Stack>
