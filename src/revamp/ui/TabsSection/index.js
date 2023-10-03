@@ -11,6 +11,33 @@ import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
 import TabSection from './TabSection';
 import React, { useEffect, useState } from 'react';
 
+const icons = [
+  {
+    name: 'ScienceRoundedIcon',
+    icon: <ScienceRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'EditRoundedIcon',
+    icon: <EditRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'SchemaRoundedIcon',
+    icon: <SchemaRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'ImageRoundedIcon',
+    icon: <ImageRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'PsychologyRoundedIcon',
+    icon: <PsychologyRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'TranslateRoundedIcon',
+    icon: <TranslateRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+];
+
 const tabLists = [
   {
     name: 'A/B Testing',
@@ -124,8 +151,40 @@ function TabPanel(props) {
 
 const TabsSection = ({
   header = 'Personalization, A/B Testing, Integrated Analytics, Any Business Configuration',
+  tabs,
 }) => {
   const [value, setValue] = useState('Content');
+  const [list, setList] = useState(tabLists);
+
+  useEffect(() => {
+    if (tabs) {
+      setList(
+        tabs?.data?.map((tab) => {
+          const regex = /<li>(.*?)<\/li>/g;
+          const liTextArray = [];
+
+          // Use a loop to iterate through matches and extract the text content
+          let match;
+          while ((match = regex.exec(tab.lists)) !== null) {
+            liTextArray.push(match[1]);
+          }
+
+          const tabSectionProps = {
+            header: tab?.header,
+            lists: liTextArray,
+            image: tab?.image?.data[0]?.url,
+            primaryBtn: tab?.cta_text,
+            primaryBtnLink: tab?.cta_link,
+          };
+          return {
+            name: tab.name,
+            icon: icons?.find((icon) => icon.name === tab.feature_icon)?.icon,
+            component: <TabSection {...tabSectionProps} />,
+          };
+        }),
+      );
+    }
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -134,16 +193,14 @@ const TabsSection = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setValue((prevValue) => {
-        const currentIndex = tabLists.findIndex(
-          (tab) => tab.name === prevValue,
-        );
-        const nextIndex = (currentIndex + 1) % tabLists.length;
-        return tabLists[nextIndex].name;
+        const currentIndex = list?.findIndex((tab) => tab.name === prevValue);
+        const nextIndex = (currentIndex + 1) % list?.length;
+        return list[nextIndex]?.name;
       });
     }, 2500);
 
     return () => clearInterval(interval);
-  }, [tabLists]);
+  }, [list]);
 
   return (
     <Stack
@@ -200,7 +257,7 @@ const TabsSection = ({
           }}
           onChange={handleChange}
         >
-          {tabLists.map((tab) => (
+          {list?.map((tab) => (
             <Tab
               aria-selected={value === tab.name}
               role="tab"
@@ -217,7 +274,7 @@ const TabsSection = ({
             />
           ))}
         </TabList>
-        {tabLists.map((tab) => (
+        {list?.map((tab) => (
           <TabPanel
             key={tab.name}
             sx={{ p: 0, pt: 3 }}

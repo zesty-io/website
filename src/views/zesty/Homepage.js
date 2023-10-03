@@ -74,6 +74,11 @@ const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
   loading: () => <p>Loading...</p>,
 });
 
+export const removeHTMLtags = (str) => {
+  if (str == '' || str == null || str == undefined) return undefined;
+  return str.replace(/<[^>]*>/g, '');
+};
+
 function Homepage({ content }) {
   const { palette } = useTheme();
   const isLoggedIn = useIsLoggedIn();
@@ -93,8 +98,7 @@ function Homepage({ content }) {
   console.log(content);
 
   const heroProps = {
-    HeroText: content?.header_title_and_description
-      .replace(/<[^>]*>/g, '')
+    HeroText: removeHTMLtags(content?.header_title_and_description)
       .replace('&amp;', '&')
       .split(','),
     primaryBtn: content?.primarybtn,
@@ -105,13 +109,18 @@ function Homepage({ content }) {
     heroImage: content?.header_graphic?.data?.[0]?.url,
   };
 
+  const tabSectionProps = {
+    header: removeHTMLtags(content?.features_title),
+    tabs: content?.features_options,
+  };
+
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Hero {...heroProps} />
       </ThemeProvider>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
-        <TabsSection />
+        <TabsSection {...tabSectionProps} />
         <Stats />
         <EnterpriseGrowth />
         <FeatureBulletWithTestimonials />
