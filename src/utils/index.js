@@ -265,7 +265,7 @@ export const parseCookie = (str) =>
     }, {});
 
 export const getIsAuthenticated = (res) => {
-  const getHeaderCookie = res.getHeader('set-cookie')?.[0];
+  const getHeaderCookie = res.getHeader('set-cookie')[0];
   let isAuthenticated = JSON.parse(
     parseCookie(getHeaderCookie)?.isAuthenticated || false,
   );
