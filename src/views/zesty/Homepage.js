@@ -159,6 +159,17 @@ function Homepage({ content }) {
     lists: featureTestimonialsList,
   };
 
+  const singleTestimonialProps = {
+    witness: content?.singletestimonial_witness.data?.[0]?.url,
+    name: content?.singletestimonial_name,
+    role: content?.singletestimonial_role,
+    logo: content?.singletestimonial_logo?.data?.[0]?.url,
+    header: content?.singletestimonial_header,
+    quote: content?.singletestimonial_quote,
+  };
+
+  console.log(singleTestimonialProps);
+
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
@@ -169,7 +180,7 @@ function Homepage({ content }) {
         <Stats {...statsProps} />
         <EnterpriseGrowth {...enterpriseProps} />
         <FeatureBulletWithTestimonials {...featureTestimonialsProps} />
-        <SingleTestimonial />
+        <SingleTestimonial {...singleTestimonialProps} />
         <GridFeature />
         <SecurityFeature />
         <GetDemoSection />
