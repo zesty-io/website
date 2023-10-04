@@ -82,7 +82,6 @@
     "eslint-plugin-unused-imports": "^3.0.0",
     "file-saver": "^2.0.5",
     "formik": "^2.4.5",
-    "fuse.js": "^6.6.2",
     "himalaya": "^1.1.0",
     "jarallax": "^2.1.4",
     "markdown-it": "^13.0.2",
