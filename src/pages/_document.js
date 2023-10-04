@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <Script strategy="beforeInteractive" src={fetchUrl} />
+          <Script strategy="beforeInteractive" defer src={fetchUrl} />
         </body>
       </Html>
     );
