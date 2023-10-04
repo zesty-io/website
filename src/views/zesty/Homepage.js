@@ -168,7 +168,25 @@ function Homepage({ content }) {
     quote: content?.singletestimonial_quote,
   };
 
-  console.log(singleTestimonialProps);
+  const gridFeatureProps = {
+    overline: content?.grid_feature_overline,
+    heading: content?.grid_feature_heading,
+    supportingText: content?.grid_feature_supporting_text,
+    featureLists: content?.grid_feature_list?.data?.map((item) => {
+      return {
+        image: item?.feature_image?.data?.[0]?.url,
+        title: item?.feature_title,
+        description: item?.feature_description,
+      };
+    }),
+  };
+
+  const securityFeatureProps = {
+    overline: content?.security_feature_overline,
+    heading: content?.security_feature_heding,
+    supportingText: content?.security_feature_supporting_text,
+    image: content?.security_feature_image?.data?.[0]?.url,
+  };
 
   return (
     <>
@@ -181,8 +199,8 @@ function Homepage({ content }) {
         <EnterpriseGrowth {...enterpriseProps} />
         <FeatureBulletWithTestimonials {...featureTestimonialsProps} />
         <SingleTestimonial {...singleTestimonialProps} />
-        <GridFeature />
-        <SecurityFeature />
+        <GridFeature {...gridFeatureProps} />
+        <SecurityFeature {...securityFeatureProps} />
         <GetDemoSection />
       </ThemeProvider>
     </>
