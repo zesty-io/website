@@ -95,8 +95,6 @@ function Homepage({ content }) {
     }
   }, [content.zesty.isAuthenticated, isLoggedIn]);
 
-  console.log(content);
-
   const heroProps = {
     HeroText: removeHTMLtags(content?.header_title_and_description)
       .replace('&amp;', '&')
