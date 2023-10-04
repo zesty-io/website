@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { TreeItem, TreeView } from '@mui/lab';
+import { TreeItem, TreeView } from '@mui/x-tree-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useRouter } from 'next/router';
@@ -36,8 +36,9 @@ const GetTree = ({ data = [] }) => {
               href={slashedDocsChecker(e.uri, isDocs)}
               variant="p"
               color={'inherit'}
-              sx={{
+              style={{
                 textDecoration: 'none',
+                color: '#6B7280',
               }}
             >
               <Typography
@@ -68,9 +69,9 @@ const GetTree = ({ data = [] }) => {
               href={slashedDocsChecker(e.uri, isDocs)}
               variant="p"
               color={'inherit'}
-              sx={{
+              style={{
                 textDecoration: 'none',
-                my: 0.1,
+                color: '#6B7280',
               }}
             >
               <Typography variant="body1" py={0.5} title={e.title}>

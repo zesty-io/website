@@ -89,7 +89,7 @@ export const SlideMessage = ({
       domain: '.zesty.io',
     });
     SuccessMsg({ title: 'Success' });
-    window.location.replace('/');
+    window.location.replace('/dashboard');
   };
   const handleLoginError = async (res) => {
     ErrorMsg({ title: 'Login Failed', text: res?.message });
