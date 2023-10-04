@@ -202,7 +202,7 @@ const TabsSection = ({
         >
           {tabLists.map((tab) => (
             <Tab
-              aria-selected={tab.name || 'Zesty image'}
+              aria-selected={value === tab.name}
               role="tab"
               aria-controls={tab.name || 'Zesty image'}
               key={tab.name}

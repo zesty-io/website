@@ -73,7 +73,7 @@ const EnterpriseGrowth = ({
   const isTablet = useMediaQuery(theme.breakpoints.up('tablet'));
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
   return (
-    <Stack bgcolor="grey.900">
+    <Stack bgcolor="grey.900" overflow={'hidden'}>
       <Stack
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
