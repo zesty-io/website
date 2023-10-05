@@ -10,9 +10,14 @@ jobs:
       PRODUCTION: 'true'
     steps:
       - uses: actions/checkout@v2
+      - uses: oven-sh/setup-bun@v1
+
       - uses: pnpm/action-setup@v2
+        name: Install pnpm
         with:
           version: 8
+          run_install: false
+
       - name: Setup custom host for mylocal
         run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
 
