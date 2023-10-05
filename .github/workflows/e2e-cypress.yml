@@ -19,9 +19,6 @@ jobs:
       - name: Install dependencies 
         run: pnpm install 
 
-      - name: Build Project 
-        run: pnpm run build
-
       - name: Write the cypress.env.json file 📝
         run: |
           echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
