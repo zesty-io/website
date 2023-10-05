@@ -2,10 +2,8 @@ import { Stack, Tab, Typography } from '@mui/material';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
-// import ApiRoundedIcon from '@mui/icons-material/ApiRounded';
 import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
 import { TabContext, TabList } from '@mui/lab';
-// import { Database, Brain } from '@zesty-io/material/';
 import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
 import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
 import TabSection from './TabSection';
@@ -23,7 +21,7 @@ const tabLists = [
           'A/B test content on webpages, apps, and more',
           'Integrate with your existing analytics provider',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/AB-Testing.webp"
+        image="https://kfg6bckb.media.zestyio.com/AB-Testing.webp?width=1050&height=782"
       />
     ),
   },
@@ -38,7 +36,7 @@ const tabLists = [
           'Preview edits in real time with Duo Mode',
           'Easy organization and search for easy management',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/Content-App-2.webp"
+        image="https://kfg6bckb.media.zestyio.com/Content-App-2.webp?width=1280&height=720"
       />
     ),
   },
@@ -67,7 +65,7 @@ const tabLists = [
           'Automated image optimization and alt tags',
           'Programmatically modify image color, size, crop, and more instantly',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/media.webp"
+        image="https://kfg6bckb.media.zestyio.com/media.webp?width=800&height=600"
       />
     ),
   },
@@ -82,7 +80,7 @@ const tabLists = [
           'Regenerate and refine content as needed',
           'Preview AI created content instantly',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/AI-Generator.webp"
+        image="https://kfg6bckb.media.zestyio.com/AI-Generator.webp?width=900&height=600"
       />
     ),
   },
@@ -97,7 +95,7 @@ const tabLists = [
           'Use API or manual translation services',
           'Manage SEO metadata in multiple languages',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/Localization.webp"
+        image="https://kfg6bckb.media.zestyio.com/Localization.webp?width=1280&height=720"
       />
     ),
   },

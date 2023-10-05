@@ -4,14 +4,18 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
 
-const alphaUniverse = 'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp',
+const alphaUniverse =
+    'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp?width=640&height=480',
   sonyLogo = 'https://kfg6bckb.media.zestyio.com/sonyLogo.svg',
-  rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeaguePic.webp',
+  rocketLeague =
+    'https://kfg6bckb.media.zestyio.com/rocketLeaguePic.webp?width=640&height=480',
   rocketLeagueLogo =
     'https://kfg6bckb.media.zestyio.com/Rocket-League-Logo.png',
-  singlife = 'https://kfg6bckb.media.zestyio.com/singlifePic.webp',
+  singlife =
+    'https://kfg6bckb.media.zestyio.com/singlifePic.webp?width=640&height=480',
   singlifeLogo = 'https://kfg6bckb.media.zestyio.com/Singlife-Logo.png',
-  acorns = 'https://kfg6bckb.media.zestyio.com/acornsPic.webp',
+  acorns =
+    'https://kfg6bckb.media.zestyio.com/acornsPic.webp?width=640&height=480',
   acornsLogo = 'https://kfg6bckb.media.zestyio.com/Acorns-Logo.png';
 
 const logos = [
@@ -225,7 +229,7 @@ const EnterpriseGrowth = ({
                   src={c.mainImage}
                   loading="lazy"
                   alt={generateAlt('')}
-                  width={707}
+                  width={600}
                   height={400}
                 />
 

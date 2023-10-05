@@ -17,7 +17,7 @@ const TabSection = ({
   lists = listItems,
   primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo',
-  image = 'https://kfg6bckb.media.zestyio.com/schema.png',
+  image = 'https://kfg6bckb.media.zestyio.com/schema.png?width=1200&height=720',
 }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
