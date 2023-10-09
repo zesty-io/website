@@ -4,6 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
 import { useEffect, useState } from 'react';
 import { FONT_FAMILY } from 'components/globals/constants';
+import Image from 'next/image';
 
 const media =
     'https://kfg6bckb.media.zestyio.com/Zesty-io-2023-Homepage-hero.webp',
@@ -220,7 +221,7 @@ const Hero = ({
               columnGap="20px"
             >
               {logos.map((image, index) => (
-                <img
+                <Image
                   src={image.src}
                   alt={generateAlt()}
                   loading="lazy"
@@ -267,12 +268,14 @@ const Hero = ({
           },
         })}
       >
-        <img
-          src={media}
-          alt={generateAlt('Zesty image')}
-          loading="eager"
-          width={'100%'}
-          height={'100%'}
+        <Image
+          blurDataURL={`${media}?blur=50&optimize=high`}
+          placeholder="blur"
+          priority
+          alt="Zesty Image"
+          width={1280}
+          height={720}
+          src={`${media}?width=1280&height=720`}
         />
       </Box>
     </Box>

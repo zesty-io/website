@@ -112,6 +112,7 @@
     "react-virtualized": "^9.22.5",
     "react-window": "^1.8.9",
     "remark-gfm": "^3.0.1",
+    "sharp": "^0.32.6",
     "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.7.31",
     "sweetalert2-react-content": "^5.0.7",
