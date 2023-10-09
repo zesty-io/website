@@ -1,0 +1,86 @@
+# GitHub Actions
+# https://docs.github.com/en/actions/using-workflows
+name: Cypress single tests
+
+on:
+  pull_request:
+    branches: [stage,accounts,production,dev]
+  workflow_dispatch:
+
+jobs:
+  test1:
+    name: Cypress test
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup custom host for mylocal
+      run: echo "127.0.0.1 test.zesty.io" | sudo tee -a /etc/hosts
+
+    - name: Use bun
+      run: |
+       npm install -g bun
+
+    - name: Write the cypress.env.json file 📝
+      run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.json
+
+    # just so we learn about available environment variables GitHub provides
+    - name: Print env variables
+      run: |
+        npm i -g @bahmutov/print-env
+        print-env GITHUB
+
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
+
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: ~/.bun
+        key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
+
+    - name: Cache Cypress binary
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/Cypress
+        key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/bun.lockb') }}
+
+    - name: install dependencies and verify Cypress
+      env:
+        # make sure every Cypress install prints minimal information
+        CI: 1
+      # print Cypress and OS info
+      run: |
+        npm ci
+        bun cypress verify
+        bun cypress info
+        bun cypress version
+        bun cypress version --component package
+        bun cypress version --component binary
+        bun cypress version --component electron
+        bun cypress version --component node
+        bun cypress install
+
+    # Starts local server, then runs Cypress tests and records results on Cypress Cloud
+    - name: Cypress tests
+      run: npm run test:e2e:ci:prod
+
+    # Save videos and screenshots as test artifacts
+    # https://github.com/actions/upload-artifact
+    - uses: actions/upload-artifact@v3
+        # there might be no screenshots created when:
+        # - there are no test failures
+        # so only upload screenshots if previous step has failed
+      if: failure()
+      with:
+        name: screenshots
+        path: cypress/screenshots
+    # video should always be generated
+    - uses: actions/upload-artifact@v3
+      with:
+        name: videos
+        path: cypress/videos
