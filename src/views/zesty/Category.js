@@ -53,7 +53,7 @@ function Category({ content }) {
   const [notFound, setNotFound] = useState(false);
   const [hideLoad, setHideLoad] = useState(false);
   // current page for pagination
-  const [page, setPage] = useState(0);
+  let [page, setPage] = useState(0);
   const [breadcrumb] = useState([
     {
       href: `/mindshare/`,

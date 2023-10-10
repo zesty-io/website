@@ -551,7 +551,8 @@ const Slug = (props) => {
       console.log(error);
     }
   };
-  useEffect(async () => {
+
+  const asyncFn = async () => {
     if (glossaryData.length === 0) {
       await getGlossary();
     }
@@ -562,6 +563,10 @@ const Slug = (props) => {
     if (availableData.length === 0) {
       await getAvailableData();
     }
+  };
+
+  useEffect(() => {
+    asyncFn();
   }, [availableData, contentTab, glossaryData]);
 
   const pageTitle = `Zesty.io - ${title}`;
