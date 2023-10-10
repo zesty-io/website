@@ -38,7 +38,12 @@ describe('E2E product page', () => {
 });
 
 describe('test for built in products pages in app', () => {
-  const urls = ['/product/auth-success'];
+  const urls = [
+    '/product/auth-success',
+    '/product/',
+    'product/schema/content-models/',
+    'product/schema/',
+  ];
 
   urls.forEach((url) => {
     it(`should load URL: ${url} without encountering 404`, () => {

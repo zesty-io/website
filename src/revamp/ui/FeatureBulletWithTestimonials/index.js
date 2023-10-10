@@ -2,7 +2,8 @@ import { Box, Divider, Stack, Typography } from '@mui/material';
 import { CheckRounded as CheckRoundedIcon } from '@mui/icons-material';
 import { generateAlt } from 'utils';
 
-const featureContent = 'https://kfg6bckb.media.zestyio.com/supportImage.webp',
+const featureContent =
+    'https://kfg6bckb.media.zestyio.com/supportImage.webp?width=1280&height=720',
   logo = 'https://kfg6bckb.media.zestyio.com/experiom.png';
 
 const listItems = [
