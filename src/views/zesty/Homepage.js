@@ -94,17 +94,13 @@ function Homepage({ content }) {
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Hero />
-      </ThemeProvider>
-      <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection />
         <Stats />
         <EnterpriseGrowth />
         <FeatureBulletWithTestimonials />
         <SingleTestimonial />
         <GridFeature />
-
         <SecurityFeature />
-
         <GetDemoSection />
       </ThemeProvider>
     </>

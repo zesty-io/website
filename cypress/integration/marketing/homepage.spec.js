@@ -1,11 +1,19 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
 /// <reference types="cypress" />
 
-// describe('E2E Marketing: / ', () => {
-//   it('test if homepage is loading', () => {
-//     cy.visit('/');
-//     cy.get("[data-testid='homePageHero']", { timeout: 30000 }).should('exist');
-//     cy.get("[data-testid='topBar']", { timeout: 30000 }).should('exist');
-//     cy.get("[data-testid='mainNav']", { timeout: 30000 }).should('exist');
-//   });
-// });
+describe('test for built in marketing pages in app', () => {
+  const urls = ['/', '/mindshare', '/ai', '/why-zesty/'];
+
+  urls.forEach((url) => {
+    it(`should load URL: ${url} without encountering 404`, () => {
+      cy.request({
+        url: Cypress.config().baseUrl + url,
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.not.equal(404);
+        expect(response.body).not.to.contain('404 Not Found');
+        cy.get('body').should('exist');
+      });
+    });
+  });
+});

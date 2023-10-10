@@ -23,7 +23,7 @@ exports[`MDH1 should render the MDH1 component with correct props and styling 1`
     Heading 1 Text
   </h1>
   <a
-    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-p143be-MuiTypography-root-MuiLink-root"
+    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ka6tax-MuiTypography-root-MuiLink-root"
     href="#heading-1-text"
   >
     #
@@ -43,7 +43,7 @@ exports[`MDH1 should render the MDH1 component with correct props and styling 2`
     Heading 1 Text
   </h1>
   <a
-    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-p143be-MuiTypography-root-MuiLink-root"
+    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ka6tax-MuiTypography-root-MuiLink-root"
     href="#heading-1-text"
   >
     #
@@ -63,7 +63,7 @@ exports[`MDH2 should render the MDH2 component with correct props and styling 1`
     Heading 2 Text
   </h2>
   <a
-    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-lxdyeq-MuiTypography-root-MuiLink-root"
+    class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-om9vyh-MuiTypography-root-MuiLink-root"
     href="#heading-2-text"
   >
     #
@@ -87,7 +87,7 @@ exports[`MDImage should render MDSmallImage if node does not have title 1`] = `
   data-testid="md-small-image"
 >
   <div
-    class="css-o6cat4-MuiStack-root"
+    class="MuiStack-root css-o6cat4-MuiStack-root"
   >
     <div>
       <img
@@ -102,7 +102,7 @@ exports[`MDImage should render MDSmallImage if node does not have title 1`] = `
 
 exports[`MDItalic renders the text with the correct fontStyle and fontWeight 1`] = `
 <div
-  class="css-nen11g-MuiStack-root"
+  class="MuiStack-root css-nen11g-MuiStack-root"
   data-testid="MDItalic-component"
 >
   <p
@@ -123,7 +123,7 @@ exports[`MDParagraph should render the MDParagraph component with correct conten
 
 exports[`MDStrong renders the text with the correct fontWeight 1`] = `
 <div
-  class="css-nen11g-MuiStack-root"
+  class="MuiStack-root css-nen11g-MuiStack-root"
   data-testid="MDStrong-component"
 >
   <p

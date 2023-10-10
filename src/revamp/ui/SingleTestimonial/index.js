@@ -1,7 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import Image from 'next/image';
 
 const witnessImage = 'https://kfg6bckb.media.zestyio.com/Ben.webp',
   witnessLogo =
@@ -91,7 +90,7 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
               },
             })}
           >
-            <Image
+            <img
               style={{ borderRadius: '50%' }}
               src={witness}
               loading="lazy"
@@ -131,13 +130,10 @@ When working with clients like Sony, we need to be using secure, enterprise-grad
               variant={isTablet ? 'body1' : 'body2'}
               color="white"
               style={{ whiteSpace: 'pre-line' }}
-            >
-              <Box
-                dangerouslySetInnerHTML={{
-                  __html: quote,
-                }}
-              />
-            </Typography>
+              dangerouslySetInnerHTML={{
+                __html: quote,
+              }}
+            ></Typography>
           </Box>
         </Stack>
       </Stack>
