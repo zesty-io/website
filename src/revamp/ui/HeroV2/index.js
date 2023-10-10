@@ -18,43 +18,43 @@ const media =
 const logos = [
   {
     src: sony,
-    width: '91px',
-    height: '32px',
+    width: 91,
+    height: 32,
     title: 'Sony',
     alt: generateAlt('Sony'),
   },
   {
     src: rocketLeague,
-    width: '88.35px',
-    height: '32px',
+    width: 88.35,
+    height: 32,
     title: 'Rocket League',
     alt: generateAlt('Rocket League'),
   },
   {
     src: singlife,
-    width: '102.12px',
-    height: '32px',
+    width: 102.12,
+    height: 32,
     title: 'Singlife',
     alt: generateAlt('Singlife'),
   },
   {
     src: acorns,
-    width: '94px',
-    height: '32px',
+    width: 94,
+    height: 32,
     title: 'Acorns',
     alt: generateAlt('Acorns'),
   },
   {
     src: bjs,
-    width: '36.48px',
-    height: '32px',
+    width: 36.48,
+    height: 32,
     title: 'Bjs',
     alt: generateAlt('Bjs'),
   },
   {
     src: phoenixSuns,
-    width: '31.59px',
-    height: '32px',
+    width: 31.59,
+    height: 32,
     title: 'Phoenix Suns',
     alt: generateAlt('Phoenix Suns'),
   },
@@ -218,7 +218,13 @@ const Hero = ({
               columnGap="20px"
             >
               {logos.map((image, index) => (
-                <img src={image.src} alt={generateAlt()} loading="lazy" />
+                <img
+                  src={image.src}
+                  alt={generateAlt()}
+                  loading="lazy"
+                  width={image.width}
+                  height={image.height}
+                />
               ))}
             </Stack>
           </Grid>
