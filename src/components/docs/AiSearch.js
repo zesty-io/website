@@ -151,17 +151,20 @@ export const AiSearch = () => {
   const [typedText, setTypedText] = React.useState('');
 
   React.useEffect(() => {
-    let currentIndex = -10;
+    let currentIndex = 0;
     const lastBotResponse =
-      chatHistory[chatHistory.length - 1].type === 'bot' &&
-      chatHistory[chatHistory.length - 1];
+      chatHistory[chatHistory.length - 1].type === 'bot'
+        ? chatHistory[chatHistory.length - 1]
+        : null;
+
+    let text = '';
+
     const typeNextCharacter = () => {
       scrollableRef.current.scrollTop = scrollableRef.current?.scrollHeight;
+
       if (currentIndex < lastBotResponse?.message.length) {
-        setTypedText(
-          (prevText) =>
-            prevText + lastBotResponse?.message.charAt(currentIndex),
-        );
+        text += lastBotResponse?.message.charAt(currentIndex);
+        setTypedText(text);
         currentIndex++;
         setTimeout(typeNextCharacter, 1); // Adjust the delay to control typing speed
       }
