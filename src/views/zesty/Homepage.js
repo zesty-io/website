@@ -74,6 +74,11 @@ const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
   loading: () => <p>Loading...</p>,
 });
 
+export const removeHTMLtags = (str) => {
+  if (str == '' || str == null || str == undefined) return undefined;
+  return str.replace(/<[^>]*>/g, '');
+};
+
 function Homepage({ content }) {
   const { palette } = useTheme();
   const isLoggedIn = useIsLoggedIn();
@@ -90,17 +95,110 @@ function Homepage({ content }) {
     }
   }, [content.zesty.isAuthenticated, isLoggedIn]);
 
+  const heroProps = {
+    HeroText: removeHTMLtags(content?.header_title_and_description)
+      .replace('&amp;', '&')
+      .split(','),
+    primaryBtn: content?.primarybtn,
+    primaryBtnLink: content?.primarybtnlink?.data?.[0].meta?.web?.uri,
+    secondaryBtn: content?.secondarybtn,
+    secondaryBtnLink: content?.secondarybtnlink?.data?.[0].meta?.web?.uri,
+    subtitle2: content?.subtitle,
+    heroImage: content?.header_graphic?.data?.[0]?.url,
+  };
+
+  const tabSectionProps = {
+    header: removeHTMLtags(content?.features_title),
+    tabs: content?.features_options,
+  };
+
+  const statsProps = {
+    title: content?.stats_title,
+    header: content?.stats_header,
+    subHeading: content?.stats_subheading,
+  };
+
+  const enterpriseProps = {
+    overline: content?.enterprise_overline,
+    heading: content?.enterprise_heading,
+    supportingText: content?.enterprise_supporting_text,
+    primaryBtn: content?.enterprise_primary_btn_text,
+    primaryBtnLink: content?.enterprise_primary_btn_link,
+    secondaryBtn: content?.enterprise_secondary_btn_text,
+    secondaryBtnLink: content?.enterprise_secondary_btn_link,
+    caseStudiesList: content?.enterpise_case_study?.data?.map((item) => {
+      return {
+        mainImage: item?.main_image?.data?.[0]?.url,
+        logo: item?.logo?.data?.[0]?.url,
+        description: item?.description,
+        link: item?.link?.data[0]?.meta?.web?.uri,
+      };
+    }),
+  };
+
+  const regex = /<li>(.*?)<\/li>/g;
+  const featureTestimonialsList = [];
+
+  // Use a loop to iterate through matches and extract the text content
+  let match;
+  while (
+    (match = regex.exec(content?.feature_testimonial_list_items)) !== null
+  ) {
+    featureTestimonialsList.push(match[1]);
+  }
+
+  const featureTestimonialsProps = {
+    overline: content?.feature_testimonial_overline,
+    heading: content?.feature_testimonial_heading,
+    supportingText: content?.feature_testimonial_supporting__text,
+    image: content.feature_testimonial_image?.data?.[0]?.url,
+    testimonial: content?.feature_testimonial_,
+    testimonialLogo: content.feature_testimonial_logo?.data?.[0]?.url,
+    lists: featureTestimonialsList,
+  };
+
+  const singleTestimonialProps = {
+    witness: content?.singletestimonial_witness?.data?.[0]?.url,
+    name: content?.singletestimonial_name,
+    role: content?.singletestimonial_role,
+    logo: content?.singletestimonial_logo?.data?.[0]?.url,
+    header: content?.singletestimonial_header,
+    quote: content?.singletestimonial_quote,
+  };
+
+  const gridFeatureProps = {
+    overline: content?.grid_feature_overline,
+    heading: content?.grid_feature_heading,
+    supportingText: content?.grid_feature_supporting_text,
+    featureLists: content?.grid_feature_list?.data?.map((item) => {
+      return {
+        image: item?.feature_image?.data?.[0]?.url,
+        title: item?.feature_title,
+        description: item?.feature_description,
+      };
+    }),
+  };
+
+  const securityFeatureProps = {
+    overline: content?.security_feature_overline,
+    heading: content?.security_feature_heding,
+    supportingText: content?.security_feature_supporting_text,
+    image: content?.security_feature_image?.data?.[0]?.url,
+  };
+
   return (
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
-        <Hero />
-        <TabsSection />
-        <Stats />
-        <EnterpriseGrowth />
-        <FeatureBulletWithTestimonials />
-        <SingleTestimonial />
-        <GridFeature />
-        <SecurityFeature />
+        <Hero {...heroProps} />
+      </ThemeProvider>
+      <ThemeProvider theme={() => revampTheme(palette.mode)}>
+        <TabsSection {...tabSectionProps} />
+        <Stats {...statsProps} />
+        <EnterpriseGrowth {...enterpriseProps} />
+        <FeatureBulletWithTestimonials {...featureTestimonialsProps} />
+        <SingleTestimonial {...singleTestimonialProps} />
+        <GridFeature {...gridFeatureProps} />
+        <SecurityFeature {...securityFeatureProps} />
         <GetDemoSection />
       </ThemeProvider>
     </>
