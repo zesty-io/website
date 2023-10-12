@@ -249,7 +249,7 @@ const Extension = (props) => {
                         color: 'inherit',
                         textDecoration: 'none',
                       }}
-                      href={`/marketplace/${props?.meta?.model_name?.toLowerCase()}`}
+                      href={`/marketplace/${props?.meta?.model_name?.toLowerCase()}/`}
                     >
                       {props?.meta?.model_name}
                     </Link>

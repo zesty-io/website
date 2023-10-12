@@ -4,8 +4,8 @@
 describe('test for built in marketing pages in app', () => {
   const urls = [
     '/',
-    '/mindshare',
-    '/ai',
+    '/mindshare/',
+    '/ai/',
     '/why-zesty/',
     '/marketplace/installed/',
     '/marketplace/register/',
