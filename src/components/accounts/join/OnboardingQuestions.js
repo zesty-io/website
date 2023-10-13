@@ -546,11 +546,11 @@ const Index = ({
   };
 
   const visitor = {
-    id: userInfo.ZUID,
-    email: userInfo.email,
-    firstName: userInfo.firstName,
-    lastName: userInfo.lastName,
-    full_name: `${userInfo.firstName} ${userInfo.lastName}`,
+    id: userInfo?.ZUID,
+    email: userInfo?.email,
+    firstName: userInfo?.firstName,
+    lastName: userInfo?.lastName,
+    full_name: `${userInfo?.firstName} ${userInfo?.lastName}`,
     personaJoin: role,
     projecttype: projectType,
     staff: 0,
