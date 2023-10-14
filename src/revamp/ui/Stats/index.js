@@ -7,7 +7,6 @@ import {
 } from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import Image from 'next/image';
 
 const contentStats = 'https://kfg6bckb.media.zestyio.com/g2fall.png';
 
@@ -91,7 +90,7 @@ const Stats = ({
           }}
           margin="0 auto"
         >
-          <Image
+          <img
             src={contentStats}
             loading="lazy"
             alt="Zesty Image"

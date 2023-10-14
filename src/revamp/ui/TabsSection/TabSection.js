@@ -5,7 +5,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 import React from 'react';
-import Image from 'next/image';
 
 const listItems = [
   'Tortor interdum condimentum nunc molestie quam',
@@ -18,7 +17,7 @@ const TabSection = ({
   lists = listItems,
   primaryBtn = 'Free Consultation',
   primaryBtnLink = '/demo',
-  image = 'https://kfg6bckb.media.zestyio.com/schema.png',
+  image = 'https://kfg6bckb.media.zestyio.com/schema.png?width=1200&height=720',
 }) => {
   const theme = useTheme();
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
@@ -45,6 +44,10 @@ const TabSection = ({
       >
         <Stack order={isLG ? 2 : 1}>
           <Box
+            component="img"
+            loading="lazy"
+            alt="zesty-image"
+            src={image}
             sx={(theme) => ({
               [theme.breakpoints.up('xs')]: {
                 objectFit: 'contain',
@@ -71,17 +74,7 @@ const TabSection = ({
                 height: '420px',
               },
             })}
-          >
-            <Image
-              placeholder="blur"
-              blurDataURL={`${image}?blur=50&optimize=high`}
-              loading="lazy"
-              alt="Zesty Image"
-              width={700}
-              height={420}
-              src={`${image}?width=700&height=420}`}
-            />
-          </Box>
+          />
         </Stack>
 
         <Stack order={isLG ? 1 : 2} justifyContent="center" mr={isLG ? 8 : 0}>

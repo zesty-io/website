@@ -62,6 +62,7 @@ export const AiSearch = () => {
     e.preventDefault();
     setLoading(true);
     setQuery('');
+    setTypedText('');
     setChatHistory([
       ...chatHistory,
       {
@@ -147,6 +148,33 @@ export const AiSearch = () => {
     scrollableRef.current.scrollTop = scrollableRef.current?.scrollHeight;
   }, [chatHistory]);
 
+  const [typedText, setTypedText] = React.useState('');
+
+  React.useEffect(() => {
+    let currentIndex = 0;
+    const lastBotResponse =
+      chatHistory[chatHistory.length - 1].type === 'bot'
+        ? chatHistory[chatHistory.length - 1]
+        : null;
+
+    let text = '';
+
+    const typeNextCharacter = () => {
+      scrollableRef.current.scrollTop = scrollableRef.current?.scrollHeight;
+
+      if (currentIndex < lastBotResponse?.message.length) {
+        text += lastBotResponse?.message.charAt(currentIndex);
+        setTypedText(text);
+        currentIndex++;
+        setTimeout(typeNextCharacter, 1); // Adjust the delay to control typing speed
+      }
+    };
+
+    if (lastBotResponse) {
+      typeNextCharacter();
+    }
+  }, [chatHistory]);
+
   return (
     <>
       <Stack
@@ -154,7 +182,7 @@ export const AiSearch = () => {
         sx={{ mt: 4, maxHeight: 500, overflow: 'auto', pb: 2 }}
       >
         <Box>
-          {chatHistory.map((item) => {
+          {chatHistory.map((item, idx) => {
             const message = item.type === 'bot' ? item.message : '';
 
             return (
@@ -251,7 +279,10 @@ export const AiSearch = () => {
                             },
                           }}
                         >
-                          {message}
+                          {item.message ===
+                          chatHistory[chatHistory.length - 1].message
+                            ? typedText
+                            : message}
                         </MuiMarkdown>
                       </Box>
                     </Box>

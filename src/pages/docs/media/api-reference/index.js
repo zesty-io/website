@@ -100,10 +100,10 @@ export default function Index(props) {
   }, []);
 
   React.useEffect(() => {
-    if (mainData.length !== 0) {
+    if (mainData?.length === 0) {
       setmainData(mainData);
     }
-  }, []);
+  }, [mainData]);
 
   const title = `Zesty.io - ${pageData?.name || 'Documentation'}`;
   return (

@@ -43,7 +43,7 @@ function Tag({ content }) {
   const [notFound, setNotFound] = useState(false);
   const [hideLoad, setHideLoad] = useState(false);
   // current page for pagination
-  const [page, setPage] = useState(0);
+  let [page, setPage] = useState(0);
 
   const uri = `${zestyURL}/-/tag.json?tag=${content.meta.zuid}&page=${page}&limit=6`;
   // Get card data based on author zuid  on page load

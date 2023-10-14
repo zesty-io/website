@@ -2,14 +2,39 @@ import { Stack, Tab, Typography } from '@mui/material';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
-// import ApiRoundedIcon from '@mui/icons-material/ApiRounded';
 import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
 import { TabContext, TabList } from '@mui/lab';
-// import { Database, Brain } from '@zesty-io/material/';
 import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
 import SchemaRoundedIcon from '@mui/icons-material/SchemaRounded';
 import TabSection from './TabSection';
 import React, { useEffect, useState } from 'react';
+
+const icons = [
+  {
+    name: 'ScienceRoundedIcon',
+    icon: <ScienceRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'EditRoundedIcon',
+    icon: <EditRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'SchemaRoundedIcon',
+    icon: <SchemaRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'ImageRoundedIcon',
+    icon: <ImageRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'PsychologyRoundedIcon',
+    icon: <PsychologyRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+  {
+    name: 'TranslateRoundedIcon',
+    icon: <TranslateRoundedIcon sx={{ fontSize: '20px' }} />,
+  },
+];
 
 const tabLists = [
   {
@@ -23,7 +48,7 @@ const tabLists = [
           'A/B test content on webpages, apps, and more',
           'Integrate with your existing analytics provider',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/AB-Testing.webp"
+        image="https://kfg6bckb.media.zestyio.com/AB-Testing.webp?width=1050&height=782"
       />
     ),
   },
@@ -38,7 +63,7 @@ const tabLists = [
           'Preview edits in real time with Duo Mode',
           'Easy organization and search for easy management',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/Content-App-2.webp"
+        image="https://kfg6bckb.media.zestyio.com/Content-App-2.webp?width=1280&height=720"
       />
     ),
   },
@@ -67,7 +92,7 @@ const tabLists = [
           'Automated image optimization and alt tags',
           'Programmatically modify image color, size, crop, and more instantly',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/media.webp"
+        image="https://kfg6bckb.media.zestyio.com/media.webp?width=800&height=600"
       />
     ),
   },
@@ -82,7 +107,7 @@ const tabLists = [
           'Regenerate and refine content as needed',
           'Preview AI created content instantly',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/AI-Generator.webp"
+        image="https://kfg6bckb.media.zestyio.com/AI-Generator.webp?width=900&height=600"
       />
     ),
   },
@@ -97,7 +122,7 @@ const tabLists = [
           'Use API or manual translation services',
           'Manage SEO metadata in multiple languages',
         ]}
-        image="https://kfg6bckb.media.zestyio.com/Localization.webp"
+        image="https://kfg6bckb.media.zestyio.com/Localization.webp?width=1280&height=720"
       />
     ),
   },
@@ -124,8 +149,40 @@ function TabPanel(props) {
 
 const TabsSection = ({
   header = 'Personalization, A/B Testing, Integrated Analytics, Any Business Configuration',
+  tabs,
 }) => {
   const [value, setValue] = useState('Content');
+  const [list, setList] = useState(tabLists);
+
+  useEffect(() => {
+    if (tabs) {
+      setList(
+        tabs?.data?.map((tab) => {
+          const regex = /<li>(.*?)<\/li>/g;
+          const liTextArray = [];
+
+          // Use a loop to iterate through matches and extract the text content
+          let match;
+          while ((match = regex.exec(tab.lists)) !== null) {
+            liTextArray.push(match[1]);
+          }
+
+          const tabSectionProps = {
+            header: tab?.header,
+            lists: liTextArray,
+            image: tab?.image?.data[0]?.url,
+            primaryBtn: tab?.cta_text,
+            primaryBtnLink: tab?.cta_link,
+          };
+          return {
+            name: tab.name,
+            icon: icons?.find((icon) => icon.name === tab.feature_icon)?.icon,
+            component: <TabSection {...tabSectionProps} />,
+          };
+        }),
+      );
+    }
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -134,16 +191,14 @@ const TabsSection = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setValue((prevValue) => {
-        const currentIndex = tabLists.findIndex(
-          (tab) => tab.name === prevValue,
-        );
-        const nextIndex = (currentIndex + 1) % tabLists.length;
-        return tabLists[nextIndex].name;
+        const currentIndex = list?.findIndex((tab) => tab.name === prevValue);
+        const nextIndex = (currentIndex + 1) % list?.length;
+        return list[nextIndex]?.name;
       });
     }, 2500);
 
     return () => clearInterval(interval);
-  }, [tabLists]);
+  }, [list]);
 
   return (
     <Stack
@@ -200,11 +255,11 @@ const TabsSection = ({
           }}
           onChange={handleChange}
         >
-          {tabLists.map((tab) => (
+          {list?.map((tab) => (
             <Tab
               aria-selected={value === tab.name}
               role="tab"
-              aria-controls={tab.name}
+              aria-controls={tab.name || 'Zesty image'}
               key={tab.name}
               label={tab.name}
               value={tab.name}
@@ -217,7 +272,7 @@ const TabsSection = ({
             />
           ))}
         </TabList>
-        {tabLists.map((tab) => (
+        {list?.map((tab) => (
           <TabPanel
             key={tab.name}
             sx={{ p: 0, pt: 3 }}

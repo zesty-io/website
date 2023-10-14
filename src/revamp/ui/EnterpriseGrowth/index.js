@@ -3,16 +3,19 @@ import Marquee from 'react-fast-marquee';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { generateAlt } from 'utils';
-import Image from 'next/image';
 
-const alphaUniverse = 'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp',
+const alphaUniverse =
+    'https://kfg6bckb.media.zestyio.com/alphaUniverse.webp?width=640&height=480',
   sonyLogo = 'https://kfg6bckb.media.zestyio.com/sonyLogo.svg',
-  rocketLeague = 'https://kfg6bckb.media.zestyio.com/rocketLeaguePic.webp',
+  rocketLeague =
+    'https://kfg6bckb.media.zestyio.com/rocketLeaguePic.webp?width=640&height=480',
   rocketLeagueLogo =
     'https://kfg6bckb.media.zestyio.com/Rocket-League-Logo.png',
-  singlife = 'https://kfg6bckb.media.zestyio.com/singlifePic.webp',
+  singlife =
+    'https://kfg6bckb.media.zestyio.com/singlifePic.webp?width=640&height=480',
   singlifeLogo = 'https://kfg6bckb.media.zestyio.com/Singlife-Logo.png',
-  acorns = 'https://kfg6bckb.media.zestyio.com/acornsPic.webp',
+  acorns =
+    'https://kfg6bckb.media.zestyio.com/acornsPic.webp?width=640&height=480',
   acornsLogo = 'https://kfg6bckb.media.zestyio.com/Acorns-Logo.png';
 
 const logos = [
@@ -74,7 +77,7 @@ const EnterpriseGrowth = ({
   const isTablet = useMediaQuery(theme.breakpoints.up('tablet'));
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
   return (
-    <Stack bgcolor="grey.900">
+    <Stack bgcolor="grey.900" overflow={'hidden'}>
       <Stack
         sx={(theme) => ({
           [theme.breakpoints.up('xs')]: {
@@ -216,17 +219,18 @@ const EnterpriseGrowth = ({
         </Typography>
 
         <Grid container spacing={{ xs: 3, tablet: 4, lg: 8 }}>
-          {caseStudiesList.map((c, index) => (
+          {caseStudiesList?.map((c, index) => (
             <Grid item xs={12} lg={6} key={index}>
               <Stack
                 sx={{ cursor: 'pointer' }}
                 onClick={() => (window.location.href = c.link)}
               >
-                <Image
+                <img
                   src={c.mainImage}
                   loading="lazy"
                   alt={generateAlt('')}
-                  width={707}
+                  style={{ width: '100%', height: 'auto' }}
+                  width={600}
                   height={400}
                 />
 

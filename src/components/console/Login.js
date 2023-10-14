@@ -184,7 +184,6 @@ const Login = ({ content, userEmail }) => {
     },
     onSubmit: async (values) => {
       await handleLogin(values);
-      formik.resetForm();
     },
   });
 

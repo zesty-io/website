@@ -24,7 +24,7 @@ export const isUserAuthenticated = async (request, isGSSP = false) => {
   let cookieProd = isGSSP
     ? request.cookies['PRODUCTION']
     : request.cookies?.get('PRODUCTION');
-  let isProd = JSON.parse(cookieProd || true);
+  let isProd = JSON.parse(cookieProd?.value || cookieProd || true);
 
   const verifyUrl = !isProd
     ? 'https://auth.api.dev.zesty.io/verify'
@@ -36,7 +36,7 @@ export const isUserAuthenticated = async (request, isGSSP = false) => {
 
   const response = await fetch(verifyUrl, {
     headers: {
-      Authorization: `Bearer ${appSid}`,
+      Authorization: `Bearer ${appSid?.value || appSid}`,
     },
   });
   const data = await response.json();

@@ -392,6 +392,7 @@ const Index = ({
   goalsList = [],
   inviteUserList = [],
 }) => {
+  const [zohoData, setzohoData] = React.useState({});
   const baseUrl = content?.zesty?.templateUrl;
   const [zohoLeadLink, setzohoLeadLink] = React.useState('');
   const [loading, setloading] = React.useState(false);
@@ -433,12 +434,18 @@ const Index = ({
   const sliderRef = React.useRef(null);
 
   const handleZoho = async (obj, callback = () => {}) => {
-    const zohoData = await postToZOHO(obj);
-    setzohoLeadLink(
-      `${zoholeadUrl}${zohoData?.data && zohoData?.data[0]?.details?.id}`,
-    );
+    const res = await postToZOHO(obj);
+    if (res?.data) {
+      setzohoData();
+    }
     await callback();
   };
+
+  React.useEffect(() => {
+    if (zohoData?.data) {
+      setzohoLeadLink(`${zoholeadUrl}${zohoData?.data?.[0]?.details?.id}`);
+    }
+  }, [zohoData]);
 
   const handleSuccessCreate = async (res, name) => {
     setinstance_zuid(res.data.ZUID);
@@ -539,11 +546,11 @@ const Index = ({
   };
 
   const visitor = {
-    id: userInfo.ZUID,
-    email: userInfo.email,
-    firstName: userInfo.firstName,
-    lastName: userInfo.lastName,
-    full_name: `${userInfo.firstName} ${userInfo.lastName}`,
+    id: userInfo?.ZUID,
+    email: userInfo?.email,
+    firstName: userInfo?.firstName,
+    lastName: userInfo?.lastName,
+    full_name: `${userInfo?.firstName} ${userInfo?.lastName}`,
     personaJoin: role,
     projecttype: projectType,
     staff: 0,

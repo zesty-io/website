@@ -3,7 +3,6 @@ import { Container, Stack, Box, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea } from '@mui/material';
-// import Image from 'next/image';
 
 function random_boolean(seed) {
   return seed < 0.5;
