@@ -17,11 +17,11 @@ import AuthProvider from 'components/context/AuthProvider';
 import '/public/styles/app.css';
 import '/public/styles/docs.css';
 
-if (process.env.NODE_ENV === 'production') {
-  console.log = () => {};
-  console.error = () => {};
-  console.debug = () => {};
-}
+// if (process.env.NODE_ENV === 'production') {
+//   console.log = () => {};
+//   console.error = () => {};
+//   console.debug = () => {};
+// }
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {

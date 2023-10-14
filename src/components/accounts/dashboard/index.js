@@ -164,16 +164,49 @@ const Dashboard = ({ content = {} }) => {
   // const newUserHasInvite =
   //   invites?.length > 0 && ssoLaunchVsUserCreated > 0 ? true : false;
 
+  const handleApiError = (error) => {
+    console.error('API Error:', error);
+    // Handle the error gracefully, e.g., display an error message to the user.
+  };
   const getAllInvitedInstances = async () => {
     setIsInstanceLoading(true);
-    const res = await ZestyAPI.getAllInvitedInstances();
-    if (Array.isArray(res?.data) && res?.status === 200) {
-      setinvites(res?.data);
-    } else {
+    try {
+      const res = await ZestyAPI.getAllInvitedInstances();
+      if (Array.isArray(res?.data) && res?.status === 200) {
+        setinvites(res?.data);
+      } else {
+        setinvites([]);
+      }
+    } catch (error) {
+      handleApiError(error);
       setinvites([]);
+    } finally {
+      setIsInstanceLoading(false);
     }
-    setIsInstanceLoading(false);
   };
+  const getMarketingCards = async () => {
+    try {
+      const response = await fetch(
+        helpers.isProd
+          ? 'https://www.zesty.io/-/accountsdashcards.json'
+          : 'https://kfg6bckb-dev.webengine.zesty.io/-/accountsdashcards.json',
+      );
+      const data = await response.json();
+      setMarketingCards(Object.entries(data[0]));
+    } catch (error) {
+      handleApiError(error);
+      setMarketingCards([]);
+    }
+  };
+
+  useEffect(() => {
+    getAllInvitedInstances();
+    getAllTeams();
+  }, []);
+
+  useEffect(() => {
+    getMarketingCards();
+  }, []);
 
   const onBoardingQuestionProps = {
     content,
@@ -239,14 +272,6 @@ const Dashboard = ({ content = {} }) => {
     hasProjectType,
     inviteUserList,
   };
-
-  useEffect(() => {
-    getAllInvitedInstances();
-  }, []);
-
-  useEffect(() => {
-    getAllTeams();
-  }, []);
 
   useEffect(() => {
     if (userInfo && Object.keys(userInfo).length !== 0) {
@@ -327,14 +352,13 @@ const Dashboard = ({ content = {} }) => {
       ?.length !== 0
       ? true
       : false;
-  //* if newuser dont have invites and dont have instances show onboarding
+
   if (
     initialInstances?.length === 0 &&
     invites?.length === 0 &&
     !isDecisionMaker
   ) {
     return <OnboardingQuestions {...onBoardingQuestionProps} />;
-    //* if old user and has missing preference
   } else if (hasMissingPrefs) {
     return <PersonalizationSurvey {...personalizationProps} />;
   }
