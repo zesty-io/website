@@ -75,6 +75,11 @@ const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
   loading: () => <p>Loading...</p>,
 });
 
+export const removeHTMLtags = (str) => {
+  if (str == '' || str == null || str == undefined) return undefined;
+  return str.replace(/<[^>]*>/g, '');
+};
+
 function Homepage({ content }) {
   const { palette } = useTheme();
   const isLoggedIn = useIsLoggedIn();
