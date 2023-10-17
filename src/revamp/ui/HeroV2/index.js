@@ -265,7 +265,14 @@ const Hero = ({
           },
         })}
       >
-        <img src={heroImage} alt={generateAlt('Zesty image')} loading="eager" />
+        <img
+          height={560}
+          width={894}
+          src={heroImage}
+          style={{ width: '100%', height: 'auto' }}
+          alt={generateAlt('Zesty image')}
+          loading="eager"
+        />
       </Box>
     </Box>
   );

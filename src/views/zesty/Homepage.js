@@ -45,6 +45,7 @@ import Hero from 'revamp/ui/HeroV2';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import useIsLoggedIn from 'components/hooks/useIsLoggedIn';
+import { removeHTMLtags } from 'utils/removeHTMLtags';
 
 const TabsSection = dynamic(() => import('revamp/ui/TabsSection'), {
   loading: () => <p>Loading...</p>,
@@ -73,11 +74,6 @@ const SecurityFeature = dynamic(() => import('revamp/ui/SecurityFeature'), {
 const GetDemoSection = dynamic(() => import('revamp/ui/GetDemoSection'), {
   loading: () => <p>Loading...</p>,
 });
-
-export const removeHTMLtags = (str) => {
-  if (str == '' || str == null || str == undefined) return undefined;
-  return str.replace(/<[^>]*>/g, '');
-};
 
 function Homepage({ content }) {
   const { palette } = useTheme();
@@ -190,8 +186,6 @@ function Homepage({ content }) {
     <>
       <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <Hero {...heroProps} />
-      </ThemeProvider>
-      <ThemeProvider theme={() => revampTheme(palette.mode)}>
         <TabsSection {...tabSectionProps} />
         <Stats {...statsProps} />
         <EnterpriseGrowth {...enterpriseProps} />
