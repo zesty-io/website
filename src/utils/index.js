@@ -134,10 +134,7 @@ export const strColorChanger = (str, word, color) => {
   return res;
 };
 
-export const isProd =
-  getCookie('PRODUCTION') === false || getCookie('PRODUCTION') === 'false'
-    ? false
-    : true;
+export const isProd = getCookie('PRODUCTION') === 'true' ? true : false;
 
 export const fetchWrapperOptions = () => {
   const dev = {
