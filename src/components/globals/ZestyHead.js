@@ -58,6 +58,7 @@ export default function ZestyHead({ content }) {
         content={content.meta?.web.seo_meta_description}
       />
       <meta property="og:image" content={ogimage} />
+      <meta property="og:image:secure_url" content={ogimage} />
       {isPPCPage && <meta name="robots" content="noindex"></meta>}
       <link rel="canonical" href={canonicalURL} />
       {isBlog ? (
