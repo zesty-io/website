@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+const HOST = 'https://www.zesty.io';
 export default function ZestyHead({ content }) {
   const router = useRouter();
 
@@ -14,7 +15,7 @@ export default function ZestyHead({ content }) {
 
   // default OG image
   let ogimage =
-    'https://kfg6bckb.media.zestyio.com/zesty-share-image-generic.png?width=1200';
+    'https://storage.googleapis.com/assets.zesty.io/website/images/zesty-homepage-screen.png';
   // determine if there is a custom og image
   if (content?.og_image) {
     ogimage = content.og_image.data[0].url + '?width=1200';
@@ -26,47 +27,37 @@ export default function ZestyHead({ content }) {
       : ogimage;
   }
   const isBlog = router.asPath.includes('mindshare') ? true : false;
-
-  const { asPath } = useRouter();
-  const origin =
-    typeof window !== 'undefined' && window.location.origin
-      ? window.location.origin
-      : '';
-
-  const URL = `${origin}${asPath}`;
+  const title = content.meta?.web?.seo_meta_title;
+  const description = content.meta?.web.seo_meta_description;
+  const preview = ogimage;
+  const type = isBlog ? 'article' : 'website';
 
   return (
     <Head>
-      {' '}
-      <title>{content.meta?.web?.seo_meta_title}</title>
-      <link
-        rel="icon"
-        href="https://brand.zesty.io/favicon.png"
-        type="image/png"
-      />
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      {/* Twitter */}
+      <meta name="twitter:card" content={'summary_large_image'} />
+      {/* https://twitter.com/MUI_hq */}
+      <meta name="twitter:site" content="@zestyio" />
+      {/* #major-version-switch */}
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={preview} />
+      {/* Facebook */}
+      <meta property="og:type" content={type} />
+      <meta property="og:title" content={title} />
+      {/* #major-version-switch */}
+      <meta property="og:url" content={`${HOST}${router.asPath}`} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={preview} />
+      <meta property="og:ttl" content="604800" />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
-      <meta property="og:title" content={content.meta?.web?.seo_meta_title} />
-      <meta
-        name="description"
-        content={content.meta?.web.seo_meta_description}
-      />
-      <meta
-        property="og:description"
-        content={content.meta?.web.seo_meta_description}
-      />
-      <meta property="og:image" content={ogimage} />
-      <meta property="og:image:secure_url" content={ogimage} />
       {isPPCPage && <meta name="robots" content="noindex"></meta>}
       <link rel="canonical" href={canonicalURL} />
-      {isBlog ? (
-        <meta property="og:type" content="article" />
-      ) : (
-        <meta property="og:type" content="website" />
-      )}
-      <meta property="og:url" content={URL} />
     </Head>
   );
 }
