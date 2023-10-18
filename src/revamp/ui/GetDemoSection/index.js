@@ -7,7 +7,6 @@ import {
   contactPageValidation,
 } from 'revamp/utils/validation';
 
-import { SingleFieldForm } from './SingleFieldForm';
 import {
   getLeadObjectZOHO,
   postToZOHO,
@@ -86,6 +85,14 @@ const GetDemoSection = ({
     return values;
   };
 
+  console.log(
+    isLong && !isContact
+      ? 'validationSchema'
+      : isContact
+      ? 'contactPageValidation'
+      : 'shortValidationSchema',
+  );
+
   return (
     <Stack bgcolor="grey.900">
       <Stack
@@ -115,7 +122,6 @@ const GetDemoSection = ({
           spacing={8}
           mb={{ xs: 8, lg: 0 }}
           width={{ lg: '456px', desktopWide: '548px' }}
-          justifyContent={{ lg: 'center' }}
         >
           <Stack>
             <Typography
@@ -219,6 +225,40 @@ const GetDemoSection = ({
                 alt={generateAlt('Bjs')}
               />
             </Stack>
+
+            <Stack sx={{ mt: 8 }}>
+              <Typography
+                color="primary"
+                variant="body2"
+                mb="12px"
+                textTransform="uppercase"
+              >
+                G2 MOMENTUM LEADER
+              </Typography>
+              <Stack flexWrap="wrap" direction="row" gap="20px">
+                <img
+                  alt={generateAlt('')}
+                  loading="lazy"
+                  src={pic1}
+                  width="92.2px"
+                  height="120px"
+                />
+                <img
+                  alt={generateAlt('')}
+                  loading="lazy"
+                  src={pic2}
+                  width="92.2px"
+                  height="120px"
+                />
+                <img
+                  alt={generateAlt('')}
+                  loading="lazy"
+                  src={pic3}
+                  width="92.2px"
+                  height="120px"
+                />
+              </Stack>
+            </Stack>
           </Stack>
         </Stack>
 
@@ -284,77 +324,64 @@ const GetDemoSection = ({
                     {/* Save this component as backup */}
 
                     {isContact ? (
-                      <MultiFieldForm
-                        {...{
-                          isLong,
-                          isContact,
-                          handleSubmit,
-                          getFieldProps,
-                          errors,
-                          touched,
-                          initialValues,
-                          isSubmitting,
-                          setFieldValue,
-                          values,
-                          inquiryReasons,
-                        }}
-                      />
+                      <>
+                        <MultiFieldForm
+                          {...{
+                            isLong,
+                            isContact,
+                            handleSubmit,
+                            getFieldProps,
+                            errors,
+                            touched,
+                            initialValues,
+                            isSubmitting,
+                            setFieldValue,
+                            values,
+                            inquiryReasons,
+                          }}
+                        />
+                      </>
                     ) : (
-                      <SingleFieldForm
-                        formButtonText={formCtaText}
-                        {...{
-                          isLong,
-                          isContact,
-                          handleSubmit,
-                          getFieldProps,
-                          errors,
-                          touched,
-                          initialValues,
-                          isSubmitting,
-                          setFieldValue,
-                          values,
-                          inquiryReasons,
-                        }}
-                      />
+                      <>
+                        {/* Singleform field component */}
+                        {/* <SingleFieldForm
+                          formButtonText={formCtaText}
+                          {...{
+                            isLong,
+                            isContact,
+                            handleSubmit,
+                            getFieldProps,
+                            errors,
+                            touched,
+                            initialValues,
+                            isSubmitting,
+                            setFieldValue,
+                            values,
+                            inquiryReasons,
+                          }}
+                        /> */}
+
+                        <MultiFieldForm
+                          {...{
+                            isLong,
+                            isContact,
+                            handleSubmit,
+                            getFieldProps,
+                            errors,
+                            touched,
+                            initialValues,
+                            isSubmitting,
+                            setFieldValue,
+                            values,
+                            inquiryReasons,
+                          }}
+                        />
+                      </>
                     )}
                   </Stack>
                 </Form>
               )}
             </Formik>
-          </Stack>
-
-          <Stack sx={{ mt: 8 }}>
-            <Typography
-              color="primary"
-              variant="body2"
-              mb="12px"
-              textTransform="uppercase"
-            >
-              G2 MOMENTUM LEADER
-            </Typography>
-            <Stack flexWrap="wrap" direction="row" gap="20px">
-              <img
-                alt={generateAlt('')}
-                loading="lazy"
-                src={pic1}
-                width="92.2px"
-                height="120px"
-              />
-              <img
-                alt={generateAlt('')}
-                loading="lazy"
-                src={pic2}
-                width="92.2px"
-                height="120px"
-              />
-              <img
-                alt={generateAlt('')}
-                loading="lazy"
-                src={pic3}
-                width="92.2px"
-                height="120px"
-              />
-            </Stack>
           </Stack>
         </Stack>
       </Stack>
